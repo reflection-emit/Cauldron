@@ -1,0 +1,30 @@
+﻿[
+  {
+    "key": "testText",
+    "lang": {
+      "de": "Erster text",
+      "en": "First text"
+    }
+  },
+  {
+    "key": "send",
+    "lang": {
+      "en": "Send",
+      "de": "Senden"
+    }
+  },
+  {
+    "key": "aboutus",
+    "lang": {
+      "en": "About us",
+      "de": "Über uns"
+    }
+  },
+  {
+    "key": "mandatory",
+    "lang": {
+      "en": "This is mandatory",
+      "de": "Dies ist ein Mußfeld"
+    }
+  }
+]

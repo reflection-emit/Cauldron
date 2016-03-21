@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Define a Full DependencyProperty</Title>
+      <Shortcut>propdpfull</Shortcut>
+      <Description>Code snippet for a property using DependencyProperty as the backing store</Description>
+      <Author>Microsoft Corporation</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>type</ID>
+          <ToolTip>Property Type</ToolTip>
+          <Default>int</Default>
+        </Literal>
+        <Literal>
+          <ID>property</ID>
+          <ToolTip>Property Name</ToolTip>
+          <Default>MyProperty</Default>
+        </Literal>
+        <Literal>
+          <ID>ownerclass</ID>
+          <ToolTip>The owning class of this Property.  Typically the class that it is declared in.</ToolTip>
+          <Default>ownerclass</Default>
+        </Literal>
+        <Literal>
+          <ID>defaultvalue</ID>
+          <ToolTip>The default value for this property.</ToolTip>
+          <Default>0</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp">
+        <![CDATA[
+#region Dependency Property $property$
+
+/// <summary>
+/// Gets or sets the <see cref="$property$" /> Property
+/// </summary>
+public $type$ $property$
+{
+    get { return ($type$)this.GetValue($property$Property); }
+    set { this.SetValue($property$Property, value); }
+}
+
+/// <summary>
+/// Identifies the <see cref="$property$" /> dependency property
+/// </summary>
+public static readonly DependencyProperty $property$Property = DependencyProperty.Register(nameof($property$), typeof($type$), typeof($ownerclass$), new PropertyMetadata($defaultvalue$, $ownerclass$.On$property$Changed));
+
+private static void On$property$Changed(DependencyObject d, DependencyPropertyChangedEventArgs args)
+{
+	var castedDependencyObject = d as $ownerclass$;
+
+	if (castedDependencyObject == null)
+		return;
+}
+#endregion
+$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
