@@ -6,7 +6,7 @@ using System.Windows;
 namespace Couldron.Behaviours
 {
     /// <summary>
-    /// Defines a container that enables to attach behaviours to a <see cref="DataTemplate"/>
+    /// Defines a container that enables to attach behaviours to a <see cref="Style"/>
     /// </summary>
     /// <example>
     /// <![CDATA[
@@ -28,17 +28,17 @@ namespace Couldron.Behaviours
             DependencyProperty.RegisterAttached("Template", typeof(InteractivityTemplate),
                 typeof(Interactivity), new PropertyMetadata(default(InteractivityTemplate), OnTemplateChanged));
 
-        private List<BehaviourBase> _behaviors;
+        private List<IBehaviour> _behaviors;
 
         /// <summary>
         /// Gets a collection of behaviours
         /// </summary>
-        public List<BehaviourBase> Behaviours
+        public List<IBehaviour> Behaviours
         {
             get
             {
                 if (_behaviors == null)
-                    _behaviors = new List<BehaviourBase>();
+                    _behaviors = new List<IBehaviour>();
 
                 return _behaviors;
             }
@@ -81,7 +81,7 @@ namespace Couldron.Behaviours
             bc.RemoveAllTemplateAssignedBehaviours();
 
             // Then let us create a shallow copy of all behaviours
-            foreach (BehaviourBase behavior in dt)
+            foreach (IBehaviour behavior in dt)
                 bc.Add(behavior.Copy());
         }
     }

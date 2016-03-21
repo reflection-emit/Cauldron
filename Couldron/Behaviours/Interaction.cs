@@ -21,7 +21,7 @@ namespace Couldron.Behaviours
         /// </summary>
         /// <param name="dependencyObject">The <see cref="DependencyObject"/> to which to add to</param>
         /// <param name="behaviour">The behaviour to add</param>
-        public static void AddBehaviour(DependencyObject dependencyObject, BehaviourBase behaviour)
+        public static void AddBehaviour(DependencyObject dependencyObject, IBehaviour behaviour)
         {
             GetBehaviours(dependencyObject).Add(behaviour);
         }
@@ -32,7 +32,7 @@ namespace Couldron.Behaviours
         /// <typeparam name="T">The type of the behaviour</typeparam>
         /// <param name="dependencyObject">The <see cref="DependencyObject"/> from which to retrieve the <see cref="BehaviourCollection"/>.</param>
         /// <returns>An array of behaviours</returns>
-        public static T[] GetBehaviour<T>(DependencyObject dependencyObject) where T : BehaviourBase
+        public static T[] GetBehaviour<T>(DependencyObject dependencyObject) where T : IBehaviour
         {
             var behaviourCollection = Interaction.GetBehaviours(dependencyObject);
 

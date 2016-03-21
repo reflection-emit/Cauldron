@@ -9,9 +9,9 @@ using System.Windows;
 namespace Couldron.Collections
 {
     /// <summary>
-    /// Represents a collection of <see cref="BehaviourBase"/>
+    /// Represents a collection of <see cref="IBehaviour"/>
     /// </summary>
-    public sealed class BehaviourCollection : Collection<BehaviourBase>, IDisposable
+    public sealed class BehaviourCollection : Collection<IBehaviour>, IDisposable
     {
         internal DependencyObject owner;
         private bool disposed = false;
@@ -58,9 +58,7 @@ namespace Couldron.Collections
             var items = this.Where(x => x.IsAssignedFromTemplate);
 
             foreach (var item in items)
-            {
                 this.Remove(item);
-            }
         }
 
         /// <summary>
@@ -68,7 +66,7 @@ namespace Couldron.Collections
         /// </summary>
         /// <param name="index">The zero-based index at which item should be inserted.</param>
         /// <param name="item">The object to insert.The value can be null for reference types.</param>
-        protected override void InsertItem(int index, BehaviourBase item)
+        protected override void InsertItem(int index, IBehaviour item)
         {
             var attr = item.GetType().GetTypeInfo().GetCustomAttribute<BehaviourUsageAttribute>();
 

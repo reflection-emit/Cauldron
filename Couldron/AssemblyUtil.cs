@@ -268,7 +268,8 @@ namespace Couldron
                     .Where(x => !(
                         string.IsNullOrEmpty(x.Namespace) || x.FullName.StartsWith("Microsoft.") ||
                         x.FullName.StartsWith("System.") || x.FullName.StartsWith("Windows.") || x.FullName.StartsWith("MS.Internal.") ||
-                        x.FullName.StartsWith("<CrtImplementationDetails>") || x.FullName.StartsWith("<CppImplementationDetails>")))
+                        x.FullName.StartsWith("<CrtImplementationDetails>") || x.FullName.StartsWith("<CppImplementationDetails>") ||
+                        x.FullName.StartsWith("MS.") || x.FullName.StartsWith("Standard.")))
                     .Select(x => new TypesWithImplementedInterfaces
                     {
                         typeInfo = x,

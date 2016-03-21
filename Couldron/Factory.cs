@@ -1,4 +1,5 @@
 ﻿using Couldron.Collections;
+using Couldron.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -68,6 +69,7 @@ namespace Couldron
         /// <exception cref="KeyNotFoundException">The contract described by <typeparamref name="T"/> was not found</exception>
         /// <exception cref="Exception">Unknown <see cref="FactoryCreationPolicy"/></exception>
         /// <exception cref="AmbiguousMatchException">There is more than one implementation with contractname <typeparamref name="T"/> found.</exception>
+        /// <exception cref="NotSupportedException">An <see cref="object"/> with <see cref="FactoryCreationPolicy.Singleton"/> with an implemented <see cref="IDisposable"/> must also implement the <see cref="IDisposableObject"/> interface.</exception>
         public static T Create<T>(params object[] parameters)
         {
             return (T)GetInstance(typeof(T).FullName, parameters);
@@ -88,6 +90,7 @@ namespace Couldron
         /// <exception cref="KeyNotFoundException">The contract described by <paramref name="contractName"/> was not found</exception>
         /// <exception cref="Exception">Unknown <see cref="FactoryCreationPolicy"/></exception>
         /// <exception cref="AmbiguousMatchException">There is more than one implementation with contractname <paramref name="contractName"/> found.</exception>
+        /// <exception cref="NotSupportedException">An <see cref="object"/> with <see cref="FactoryCreationPolicy.Singleton"/> with an implemented <see cref="IDisposable"/> must also implement the <see cref="IDisposableObject"/> interface.</exception>
         public static object Create(string contractName, params object[] parameters)
         {
             if (contractName == null)
@@ -113,6 +116,7 @@ namespace Couldron
         /// <exception cref="KeyNotFoundException">The contract described by <paramref name="contractType"/> was not found</exception>
         /// <exception cref="Exception">Unknown <see cref="FactoryCreationPolicy"/></exception>
         /// <exception cref="AmbiguousMatchException">There is more than one implementation with contractname <paramref name="contractType"/> found.</exception>
+        /// <exception cref="NotSupportedException">An <see cref="object"/> with <see cref="FactoryCreationPolicy.Singleton"/> with an implemented <see cref="IDisposable"/> must also implement the <see cref="IDisposableObject"/> interface.</exception>
         public static object Create(Type contractType, params object[] parameters)
         {
             if (contractType == null)
@@ -135,6 +139,7 @@ namespace Couldron
         /// <exception cref="ArgumentException">The parameter <paramref name="contractName"/> is an empty string</exception>
         /// <exception cref="KeyNotFoundException">The contract described by <paramref name="contractName"/> was not found</exception>
         /// <exception cref="Exception">Unknown <see cref="FactoryCreationPolicy"/></exception>
+        /// <exception cref="NotSupportedException">An <see cref="object"/> with <see cref="FactoryCreationPolicy.Singleton"/> with an implemented <see cref="IDisposable"/> must also implement the <see cref="IDisposableObject"/> interface.</exception>
         public static IEnumerable<object> CreateMany(string contractName, params object[] parameters)
         {
             if (contractName == null)
@@ -159,6 +164,7 @@ namespace Couldron
         /// <exception cref="ArgumentNullException">The parameter <paramref name="contractType"/> is null</exception>
         /// <exception cref="KeyNotFoundException">The contract described by <paramref name="contractType"/> was not found</exception>
         /// <exception cref="Exception">Unknown <see cref="FactoryCreationPolicy"/></exception>
+        /// <exception cref="NotSupportedException">An <see cref="object"/> with <see cref="FactoryCreationPolicy.Singleton"/> with an implemented <see cref="IDisposable"/> must also implement the <see cref="IDisposableObject"/> interface.</exception>
         public static IEnumerable<object> CreateMany(Type contractType, params object[] parameters)
         {
             if (contractType == null)
@@ -179,6 +185,7 @@ namespace Couldron
         /// <returns>A collection of the newly created objects.</returns>
         /// <exception cref="KeyNotFoundException">The contract described by <typeparamref name="T"/> was not found</exception>
         /// <exception cref="Exception">Unknown <see cref="FactoryCreationPolicy"/></exception>
+        /// <exception cref="NotSupportedException">An <see cref="object"/> with <see cref="FactoryCreationPolicy.Singleton"/> with an implemented <see cref="IDisposable"/> must also implement the <see cref="IDisposableObject"/> interface.</exception>
         public static IEnumerable<T> CreateMany<T>(params object[] parameters)
         {
             return GetInstances(typeof(T).FullName, parameters).Cast<T>();
@@ -297,6 +304,19 @@ namespace Couldron
                 {
                     // Create the instance and return the object
                     var instance = CreateObject(factoryTypeInfo, parameters);
+
+                    // every singleton that implements the idisposable interface has also to implement the IdisposableObject interface
+                    // this is because we want to know if an instance was disposed (somehow)
+                    var disposable = instance as IDisposable;
+                    if (disposable != null)
+                    {
+                        var disposableObject = instance as IDisposableObject;
+                        if (disposableObject == null)
+                            throw new NotSupportedException("An object with creation policy 'Singleton' with an implemented 'IDisposable' must also implement the 'IDisposableObject' interface.");
+
+                        disposableObject.Disposed += (s, e) => instances.Remove(x => x.Item == instance);
+                    }
+
                     instances.Add(new ObjectKey { FactoryTypeInfo = factoryTypeInfo, Item = instance });
 
                     return instance;

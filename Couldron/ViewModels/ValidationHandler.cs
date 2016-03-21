@@ -168,7 +168,7 @@ namespace Couldron.ViewModels
         {
             lock (syncValidationRoot)
             {
-                foreach (var property in this.GetType().GetProperties())
+                foreach (var property in this.context.GetType().GetProperties())
                 {
                     foreach (ValidationBaseAttribute attrib in property.GetCustomAttributes(false).Where(x => (x as ValidationBaseAttribute) != null))
                     {

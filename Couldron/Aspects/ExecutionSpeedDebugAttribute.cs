@@ -4,9 +4,12 @@ using System.Diagnostics;
 
 namespace Couldron.Aspects
 {
+    /// <summary>
+    /// Used for internal performance debugging only
+    /// </summary>
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
     [Serializable]
-    public sealed class ExecutionSpeedDebugAttribute : MethodInterceptionAspect
+    internal sealed class ExecutionSpeedDebugAttribute : MethodInterceptionAspect
     {
         public override void OnInvoke(MethodInterceptionArgs args)
         {

@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Couldron", "Couldron\Couldr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Couldron.Test", "Couldron.Test\Couldron.Test.csproj", "{7A58E9E0-CFA9-4D67-83DE-F5889A901802}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{257ECE9A-C03B-49C0-8375-27559250DBDD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NavigationSample", "Samples\NavigationSample\NavigationSample.csproj", "{A5C8FD84-88F2-4142-A6E7-F4137F756C91}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,8 +25,15 @@ Global
 		{7A58E9E0-CFA9-4D67-83DE-F5889A901802}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A58E9E0-CFA9-4D67-83DE-F5889A901802}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A58E9E0-CFA9-4D67-83DE-F5889A901802}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5C8FD84-88F2-4142-A6E7-F4137F756C91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5C8FD84-88F2-4142-A6E7-F4137F756C91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5C8FD84-88F2-4142-A6E7-F4137F756C91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5C8FD84-88F2-4142-A6E7-F4137F756C91}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A5C8FD84-88F2-4142-A6E7-F4137F756C91} = {257ECE9A-C03B-49C0-8375-27559250DBDD}
 	EndGlobalSection
 EndGlobal

@@ -52,7 +52,6 @@ namespace Couldron.Core
                 {
                     // Dispose managed resources.
                     this.OnDispose(true);
-                    DisposableUtils.DisposeObjects(this);
                 }
 
                 this.OnDispose(false);

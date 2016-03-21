@@ -8,10 +8,15 @@ namespace Couldron.Core
     /// </summary>
     public static class Randomizer
     {
-        private static RNGCryptoServiceProvider _cryptoGlobal = new RNGCryptoServiceProvider();
+        private static RNGCryptoServiceProvider cryptoGlobal = new RNGCryptoServiceProvider();
 
         [ThreadStatic]
-        private static Random _local;
+        private static Random local;
+
+        static Randomizer()
+        {
+            local = new Random(GetCryptographicSeed());
+        }
 
         /// <summary>
         /// Returns a nonnegative random number.
@@ -20,10 +25,7 @@ namespace Couldron.Core
         /// <returns>A random integer value</returns>
         public static int Next()
         {
-            if (_local == null)
-                _local = new Random(GetCryptographicSeed());
-
-            return _local.Next();
+            return local.Next();
         }
 
         /// <summary>
@@ -35,10 +37,7 @@ namespace Couldron.Core
         /// <returns>A random integer value</returns>
         public static int Next(int minValue, int maxValue)
         {
-            if (_local == null)
-                _local = new Random(GetCryptographicSeed());
-
-            return _local.Next(minValue, maxValue);
+            return local.Next(minValue, maxValue);
         }
 
         /// <summary>
@@ -50,10 +49,17 @@ namespace Couldron.Core
         /// <returns>A random item from the array</returns>
         public static T Next<T>(T[] array)
         {
-            if (_local == null)
-                _local = new Random(GetCryptographicSeed());
+            return array[local.Next(0, array.Length)];
+        }
 
-            return array[_local.Next(0, array.Length)];
+        /// <summary>
+        /// Returns a random boolean.
+        /// Cryptographic secure.
+        /// </summary>
+        /// <returns>A random boolean</returns>
+        public static bool NextBoolean()
+        {
+            return Next(0, 1000) > 500;
         }
 
         /// <summary>
@@ -72,12 +78,7 @@ namespace Couldron.Core
         /// <returns>A random value</returns>
         public static double NextDouble()
         {
-            if (_local == null)
-            {
-                _local = new Random(GetCryptographicSeed());
-            }
-
-            return _local.NextDouble();
+            return local.NextDouble();
         }
 
         /// <summary>
@@ -89,19 +90,15 @@ namespace Couldron.Core
         /// <returns>A random value</returns>
         public static double NextDouble(double minValue, double maxValue)
         {
-            if (_local == null)
-                _local = new Random(GetCryptographicSeed());
-
-            double randomValue = _local.NextDouble();
+            double randomValue = local.NextDouble();
             return minValue + randomValue * (maxValue - minValue);
         }
 
         private static int GetCryptographicSeed()
         {
             byte[] buffer = new byte[4];
-
-            _cryptoGlobal.GetBytes(buffer);
-
+            // Fills an array of bytes with a cryptographically strong sequence of random values
+            cryptoGlobal.GetBytes(buffer);
             return BitConverter.ToInt32(buffer, 0);
         }
     }

@@ -3,6 +3,8 @@ using Couldron.Core;
 using System;
 using System.Collections;
 using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Threading.Tasks;
@@ -73,6 +75,23 @@ namespace Couldron
                 // Dispose the datacontext
                 x.DataContext.DisposeAll();
             });
+        }
+
+        /// <summary>
+        /// Checks if the type has implemented the defined interface
+        /// </summary>
+        /// <typeparam name="T">The type of interface to look for</typeparam>
+        /// <param name="type">The type that may implements the interface <typeparamref name="T"/></param>
+        /// <exception cref="ArgumentException">The type <typeparamref name="T"/> is not an interface</exception>
+        /// <returns>True if the <paramref name="type"/> has implemented the interface <typeparamref name="T"/></returns>
+        public static bool ImplementsInterface<T>(this Type type)
+        {
+            var typeOfInterface = typeof(T);
+
+            if (!typeOfInterface.IsInterface)
+                throw new ArgumentException("T is not an interface", nameof(T));
+
+            return type.GetTypeInfo().ImplementedInterfaces.Any(x => x == typeOfInterface);
         }
 
         /// <summary>

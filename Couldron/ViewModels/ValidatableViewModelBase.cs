@@ -86,7 +86,16 @@ namespace Couldron.ViewModels
         /// <param name="propertyName">The name of the property that requires validation</param>
         public void Validate(PropertyInfo sender, string propertyName)
         {
-            this.Validate(sender, propertyName);
+            this.validationHandler.Validate(sender, propertyName);
+        }
+
+        /// <summary>
+        /// Occures after the event <see cref="ViewModelBase.PropertyChanged"/> has been invoked
+        /// </summary>
+        /// <param name="propertyName">The name of the property where the value change has occured</param>
+        protected override void OnAfterRaiseNotifyPropertyChanged(string propertyName)
+        {
+            this.validationHandler.Validate(propertyName);
         }
 
         /// <summary>

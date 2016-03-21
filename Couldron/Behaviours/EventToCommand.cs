@@ -1,4 +1,5 @@
 ﻿using Couldron.Core;
+using System;
 using System.Windows;
 using System.Windows.Input;
 
@@ -40,6 +41,13 @@ namespace Couldron.Behaviours
         }
 
         /// <summary>
+        /// Occures when the behavior is attached to the object
+        /// </summary>
+        protected override void OnAttach()
+        {
+        }
+
+        /// <summary>
         /// Occures if the <see cref="FrameworkElement.DataContext"/> of <see cref="Behaviour{T}.AssociatedObject"/> has changed
         /// </summary>
         protected override void OnDataContextChanged()
@@ -64,7 +72,6 @@ namespace Couldron.Behaviours
         protected override void OnDetach()
         {
             this.eventHandler.DisposeAll();
-            base.OnDetach();
         }
     }
 }
