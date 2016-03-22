@@ -12,7 +12,7 @@ namespace Couldron
             this.ShutdownMode = ShutdownMode.OnMainWindowClose;
 
             // Add the custom template selector to the resources
-            this.Resources.Add(typeof(CouldronTemplateSelector), new CouldronTemplateSelector());
+            this.Resources.Add(typeof(CouldronTemplateSelector).Name, new CouldronTemplateSelector());
 
             // Add all Value converters to the dictionary
             foreach (var valueConverter in AssemblyUtil.DefinedTypes.Where(x => x.ImplementsInterface<IValueConverter>()))

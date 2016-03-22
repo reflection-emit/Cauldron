@@ -9,11 +9,9 @@
     <Import_RootNamespace>Couldron</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Attached\" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)AssemblyAndResourceNameInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AssemblyUtil.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attached\Image.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviours\Behaviour.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviours\BehaviourUsageAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviours\EventToCommand.cs" />
@@ -25,6 +23,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Collections\BehaviourCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Collections\ConcurrentList.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Collections\InteractivityTemplate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\ApplicationData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\CouldronDispatcher.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\CouldronDispatcherPriority.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\DisposableBase.cs" />
@@ -35,6 +34,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Core\SecureStringHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CouldronApplication.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CouldronTemplateSelector.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExtensionConvertions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExtensionsFrameworkElement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Factory.cs" />

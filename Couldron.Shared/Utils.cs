@@ -1,5 +1,6 @@
 ﻿using Couldron.Core;
 using System;
+using System.Reflection;
 using System.Security;
 using System.Text.RegularExpressions;
 
@@ -10,6 +11,27 @@ namespace Couldron
     /// </summary>
     public static class Utils
     {
+        /// <summary>
+        /// Gets the application name
+        /// </summary>
+        public static string ApplicationName { get { return Assembly.GetCallingAssembly().GetName().Name; } }
+
+        /// <summary>
+        /// Gets teh application publisher name
+        /// </summary>
+        public static string ApplicationPublisher
+        {
+            get
+            {
+                var company = Assembly.GetCallingAssembly().GetCustomAttribute<AssemblyCompanyAttribute>().Company;
+
+                if (string.IsNullOrEmpty(company))
+                    return Assembly.GetAssembly(typeof(Utils)).GetCustomAttribute<AssemblyCompanyAttribute>().Company;
+
+                return company;
+            }
+        }
+
         /// <summary>
         /// Checks the password's strength
         /// </summary>

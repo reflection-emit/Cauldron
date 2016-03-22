@@ -220,7 +220,7 @@ namespace Couldron
             else // The viewmodel does not have a defined view... Maybe we have a data template instead
             {
                 // we always prefer our selector, because it rocks
-                var templateSelector = Application.Current.Resources[typeof(CouldronTemplateSelector)] as DataTemplateSelector;
+                var templateSelector = Application.Current.Resources[typeof(CouldronTemplateSelector).Name] as DataTemplateSelector;
                 var dataTemplate = templateSelector.SelectTemplate(viewModel, null);
 
                 // On such case we just use the default window

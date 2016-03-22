@@ -9,6 +9,7 @@ using System.Runtime.InteropServices;
 using System.Security;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media.Imaging;
 
 namespace Couldron
 {
@@ -17,6 +18,19 @@ namespace Couldron
     /// </summary>
     public static class Extensions
     {
+        /// <summary>
+        /// Performs certain types of conversions between compatible reference types or nullable types
+        /// <para/>
+        /// Returns null if convertion was not successfull
+        /// </summary>
+        /// <typeparam name="T">The type to convert the <paramref name="target"/> to</typeparam>
+        /// <param name="target">The object to convert</param>
+        /// <returns>The converted object</returns>
+        public static T CastTo<T>(this object target) where T : class
+        {
+            return target as T;
+        }
+
         /// <summary>
         /// Determines whether an element is in the array
         /// </summary>
@@ -92,6 +106,23 @@ namespace Couldron
                 throw new ArgumentException("T is not an interface", nameof(T));
 
             return type.GetTypeInfo().ImplementedInterfaces.Any(x => x == typeOfInterface);
+        }
+
+        /// <summary>
+        /// Searches for the specified object and returns the zero-based index of the first
+        /// occurrence within the entire <see cref="Array"/>
+        /// </summary>
+        /// <typeparam name="T">The type of the <see cref="Array"/></typeparam>
+        /// <param name="target">The <see cref="Array"/> that could contain <paramref name="value"/></param>
+        /// <param name="value">The object to locate in the <see cref="Array"/>. The value can be null for reference types.</param>
+        /// <returns>The zero-based index of the first occurrence of item within the entire <see cref="Array"/>, if found; otherwise, –1.</returns>
+        public static int IndexOf<T>(this T[] target, T value)
+        {
+            for (int i = 0; i < target.Length; i++)
+                if (target[i].Equals(value))
+                    return i;
+
+            return -1;
         }
 
         /// <summary>
@@ -183,6 +214,26 @@ namespace Couldron
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="BitmapImage"/> and assigns the <see cref="Stream"/> to its <see cref="BitmapImage.StreamSource"/> property
+        /// <para/>
+        /// Returns null if <paramref name="stream"/> is null.
+        /// </summary>
+        /// <param name="stream">The stream that contains an image</param>
+        /// <returns>A new instance of <see cref="BitmapImage"/></returns>
+        public static BitmapImage ToBitmapImage(this Stream stream)
+        {
+            if (stream == null)
+                return null;
+
+            BitmapImage image = new BitmapImage();
+            image.BeginInit();
+            image.StreamSource = stream;
+            image.EndInit();
+
+            return image;
         }
 
         /// <summary>
