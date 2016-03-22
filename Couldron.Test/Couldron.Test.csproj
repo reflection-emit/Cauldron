@@ -77,14 +77,14 @@
     <Compile Include="ViewModelTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Couldron\Couldron.csproj">
-      <Project>{2aca0073-bebf-46ce-830a-3ac8bb4a3dca}</Project>
-      <Name>Couldron</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Assets\strings.json" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Couldron.Aspect\Couldron.Aspect.csproj">
+      <Project>{b916bb18-d120-4ce9-88c8-5ffab2a6825d}</Project>
+      <Name>Couldron.Aspect</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

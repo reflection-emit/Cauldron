@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Couldron")]
-[assembly: AssemblyDescription("WPF Framework")]
+[assembly: AssemblyDescription("WPF Framework with PostSharp")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Capgemini")]
 [assembly: AssemblyProduct("Couldron")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("2aca0073-bebf-46ce-830a-3ac8bb4a3dca")]
+[assembly: Guid("b916bb18-d120-4ce9-88c8-5ffab2a6825d")]
 
 // Version information for an assembly consists of the following four values:
 //

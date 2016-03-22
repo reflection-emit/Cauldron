@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>4764c929-12c2-4a09-ad65-b550542199bd</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Couldron</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Attached\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)AssemblyAndResourceNameInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AssemblyUtil.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Behaviours\Behaviour.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Behaviours\BehaviourUsageAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Behaviours\EventToCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Behaviours\IBehaviour.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Behaviours\Interaction.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Behaviours\Interactivity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Behaviours\SetFocusBehaviour.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Behaviours\WindowConfigurationBehaviour.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collections\BehaviourCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collections\ConcurrentList.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collections\InteractivityTemplate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\CouldronDispatcher.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\CouldronDispatcherPriority.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\DisposableBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\DynamicEventHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\IDisposableObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\PasswordScore.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Randomizer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\SecureStringHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CouldronApplication.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CouldronTemplateSelector.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExtensionsFrameworkElement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Factory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FactoryAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FactoryCreationPolicy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FactoryTypeInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IFactoryExtension.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ILocalizationSource.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)InjectionConstructorAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IRelayCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Localization.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Navigator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RelayCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Validation\EqualityAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Validation\IsMandatoryAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Validation\PasswordStrengthAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Validation\StringLengthAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Validation\SuppressIsChangedAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Validation\ValidationBaseAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Validation\ValidatorCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Validation\ValidatorGroup.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ChangeAwareViewModelBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ContainerViewModelBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\DisposableViewModelBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\IChangeAwareViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\IContainerViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\IDialogViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\IValidatableViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\IViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\IWindowViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\NavigatingAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ValidatableChangeAwareViewModelBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ValidatableContainerChangeAwareViewModelBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ValidatableViewModelBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ValidationEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ValidationHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ViewModelBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ViewModelContainerHandler.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)Snippets\argumentNullException.snippet" />
+    <None Include="$(MSBuildThisFileDirectory)Snippets\exceptionOnEmptyAndNullString.snippet" />
+    <None Include="$(MSBuildThisFileDirectory)Snippets\GenerateDependencyProperty.snippet" />
+    <None Include="$(MSBuildThisFileDirectory)Snippets\GenerateDependencyPropertyFull.snippet" />
+  </ItemGroup>
+</Project>
