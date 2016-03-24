@@ -9,7 +9,7 @@
     <DataTemplate x:Key="View_OtherViewModel">
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="10">
             <behaviour:Interaction.Behaviours>
-                <behaviour:WindowConfigurationBehaviour IsDialog="True" Title="A wild Window has appeared" Width="450" Height="200" ShowInTaskbar="True" />
+                <behaviour:WindowConfigurationBehaviour IsDialog="True" ResizeMode="NoResize" Title="A wild Window has appeared" Width="450" Height="200" ShowInTaskbar="True" />
             </behaviour:Interaction.Behaviours>
 
             <TextBox Text="{Binding Result, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch">

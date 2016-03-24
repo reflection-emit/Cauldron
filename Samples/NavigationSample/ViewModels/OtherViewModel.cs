@@ -47,7 +47,7 @@ namespace NavigationSample.ViewModels
 
         private void BackAction()
         {
-            Navigator.Close();
+            Navigator.CloseFocusedWindow();
         }
     }
 }

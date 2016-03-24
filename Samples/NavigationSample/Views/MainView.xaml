@@ -9,10 +9,10 @@
              d:DesignHeight="300" d:DesignWidth="300">
 
     <behaviour:Interaction.Behaviours>
-        <behaviour:WindowConfigurationBehaviour WindowState="Maximized" Title="{Binding Title}" />
+        <behaviour:WindowConfigurationBehaviour WindowState="Maximized" Title="{Binding Title}" Icon="pack://application:,,,/1458690745_video512x512.png" />
     </behaviour:Interaction.Behaviours>
 
     <Grid>
-        <Button Command="{Binding OpenPopupWindowCommand}" Content="Open Popup window" Width="400" Height="120" />
+        <Button Command="{Binding OpenPopupWindowCommand}" Content="Open Popup window" Width="400" Height="120" VerticalAlignment="Center" HorizontalAlignment="Center" />
     </Grid>
 </UserControl>

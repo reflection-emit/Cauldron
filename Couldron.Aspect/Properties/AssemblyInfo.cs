@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Couldron")]
-[assembly: AssemblyDescription("WPF Framework with PostSharp")]
+[assembly: AssemblyDescription("WPF Framework Aspects with PostSharp")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Capgemini")]
 [assembly: AssemblyProduct("Couldron")]

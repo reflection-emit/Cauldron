@@ -17,11 +17,14 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Couldron.Shared", "Couldron
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Couldron.Aspect", "Couldron.Aspect\Couldron.Aspect.csproj", "{B916BB18-D120-4CE9-88C8-5FFAB2A6825D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Themes", "Themes", "{0D4CD904-1206-4253-BB7D-8939BC723677}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Couldron.Themes.VisualStudioLight", "Themes\Couldron.Themes.VisualStudioLight\Couldron.Themes.VisualStudioLight.csproj", "{242DE6C1-325D-471B-8154-59D41AEFE16D}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Couldron.Shared\Couldron.Shared.projitems*{2aca0073-bebf-46ce-830a-3ac8bb4a3dca}*SharedItemsImports = 4
 		Couldron.Shared\Couldron.Shared.projitems*{4764c929-12c2-4a09-ad65-b550542199bd}*SharedItemsImports = 13
-		Couldron.Shared\Couldron.Shared.projitems*{b916bb18-d120-4ce9-88c8-5ffab2a6825d}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +51,10 @@ Global
 		{B916BB18-D120-4CE9-88C8-5FFAB2A6825D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B916BB18-D120-4CE9-88C8-5FFAB2A6825D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B916BB18-D120-4CE9-88C8-5FFAB2A6825D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{242DE6C1-325D-471B-8154-59D41AEFE16D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{242DE6C1-325D-471B-8154-59D41AEFE16D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{242DE6C1-325D-471B-8154-59D41AEFE16D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{242DE6C1-325D-471B-8154-59D41AEFE16D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,5 +62,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{A5C8FD84-88F2-4142-A6E7-F4137F756C91} = {257ECE9A-C03B-49C0-8375-27559250DBDD}
 		{333FC2EE-1EC9-444E-A620-A3F1A279EF1E} = {257ECE9A-C03B-49C0-8375-27559250DBDD}
+		{242DE6C1-325D-471B-8154-59D41AEFE16D} = {0D4CD904-1206-4253-BB7D-8939BC723677}
 	EndGlobalSection
 EndGlobal

@@ -48,6 +48,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Localization.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Navigator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RelayCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnsafeNative.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Validation\EqualityAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Validation\IsMandatoryAttribute.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ValidationHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ViewModelBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ViewModelContainerHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WindowsMessages.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)Snippets\argumentNullException.snippet" />

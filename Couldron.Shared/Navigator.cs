@@ -16,13 +16,15 @@ namespace Couldron
     /// </summary>
     public static class Navigator
     {
+        private static bool isCustomWindow = false;
+
         // The navigator always knows every window that it has created
         private static ConcurrentList<Window> windows = new ConcurrentList<Window>();
 
         /// <summary>
         /// Closes the current focused <see cref="Window"/>.
         /// </summary>
-        public static void Close()
+        public static void CloseFocusedWindow()
         {
             var window = windows.FirstOrDefault(x => x.IsActive);
 
@@ -127,26 +129,43 @@ namespace Couldron
             return window;
         }
 
+        private static Window CreateWindow()
+        {
+            var window = AssemblyUtil.DefinedTypes.FirstOrDefault(x => x.IsSubclassOf(typeof(Window)));
+            if (window == null)
+                return new Window();
+
+            isCustomWindow = true;
+
+            return Activator.CreateInstance(window.AsType()) as Window;
+        }
+
         private static Window CreateWindow<TResult>(Action<TResult> callback, WindowConfigurationBehaviour windowConfig, FrameworkElement view, object viewModel)
         {
-            var window = new Window();
+            var window = CreateWindow();
             window.BeginInit();
             // Add this new window to the dictionary
             windows.Add(window);
 
             // set the configs
+            if (isCustomWindow)
+                window.ResizeMode = windowConfig.ResizeMode;
+            else
+            {
+                window.ResizeMode = windowConfig.ResizeMode;
+                window.WindowStyle = windowConfig.WindowStyle;
+            }
+
             window.Width = windowConfig.Width;
             window.Height = windowConfig.Height;
             window.MaxHeight = windowConfig.MaxHeight;
             window.MinHeight = windowConfig.MinHeight;
             window.MaxWidth = windowConfig.MaxWidth;
             window.MinWidth = windowConfig.MinWidth;
-            window.ResizeMode = windowConfig.ResizeMode;
             window.ShowInTaskbar = windowConfig.ShowInTaskbar;
             window.Topmost = windowConfig.Topmost;
             window.WindowStartupLocation = windowConfig.WindowStartupLocation;
             window.WindowState = windowConfig.WindowState;
-            window.WindowStyle = windowConfig.WindowStyle;
             window.Icon = windowConfig.Icon;
             window.Title = windowConfig.Title;
 
@@ -172,6 +191,7 @@ namespace Couldron
                 windows.Remove(s);
                 window.Content.DisposeAll();
                 window.Content = null;
+                window.DisposeAll(); // some custom windows have implemented the IDisposable interface
             };
 
             if (callback != null)

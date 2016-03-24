@@ -1,5 +1,7 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Data;
+using System.Windows.Media;
 
 namespace Couldron
 {
@@ -8,6 +10,34 @@ namespace Couldron
     /// </summary>
     public static class ExtensionsFrameworkElement
     {
+        public static FrameworkElement FindElementWithName(this DependencyObject element, string name)
+        {
+            if (element == null)
+                return null;
+
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(element); i++)
+            {
+                var child = VisualTreeHelper.GetChild(element, i) as FrameworkElement;
+
+                if (child != null && child.Name == name)
+                    return child;
+            }
+
+            var parent = VisualTreeHelper.GetParent(element);
+
+            if (parent == null)
+                return null;
+
+            return FindElementWithName(parent, name);
+        }
+
+        public static IEnumerable<FrameworkElement> FindVisualChildren<T>(this DependencyObject element)
+        {
+            List<FrameworkElement> elements = new List<FrameworkElement>();
+            GetVisualChildren<T>((FrameworkElement)element, elements);
+            return elements;
+        }
+
         /// <summary>
         /// Attaches a binding to this element, based on the provided source property name as a path qualification to the data source.
         /// </summary>
@@ -64,6 +94,23 @@ namespace Couldron
             binding.Converter = Application.Current.Resources[valueConverterName] as IValueConverter;
 
             frameworkElement.SetBinding(dp, binding);
+        }
+
+        private static void GetVisualChildren<T>(FrameworkElement element, List<FrameworkElement> list)
+        {
+            if (element != null)
+            {
+                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(element); i++)
+                {
+                    var child = VisualTreeHelper.GetChild(element, i) as FrameworkElement;
+
+                    if (child != null && child is T)
+                        list.Add(child);
+
+                    if (child != null)
+                        GetVisualChildren<T>(child, list);
+                }
+            }
         }
     }
 }

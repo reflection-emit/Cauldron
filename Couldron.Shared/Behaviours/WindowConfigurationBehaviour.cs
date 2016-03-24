@@ -303,5 +303,14 @@ namespace Couldron.Behaviours
         #endregion IDisposable
 
         #endregion Behaviour implementation
+
+        /// <summary>
+        /// Initializes a new instance of <see cref="WindowConfigurationBehaviour"/>
+        /// </summary>
+        public WindowConfigurationBehaviour()
+        {
+            this.MinHeight = 120;
+            this.MinWidth = 300;
+        }
     }
 }

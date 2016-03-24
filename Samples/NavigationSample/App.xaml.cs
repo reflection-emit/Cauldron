@@ -6,6 +6,11 @@ namespace NavigationSample
 {
     public partial class App : CouldronApplication
     {
+        protected override void OnConstruction()
+        {
+            AssemblyUtil.LoadAssembly("Couldron.Themes.VisualStudioLight.dll");
+        }
+
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);

@@ -10,6 +10,7 @@ namespace Couldron
         public CouldronApplication()
         {
             this.ShutdownMode = ShutdownMode.OnMainWindowClose;
+            this.OnConstruction();
 
             // Add the custom template selector to the resources
             this.Resources.Add(typeof(CouldronTemplateSelector).Name, new CouldronTemplateSelector());
@@ -21,6 +22,10 @@ namespace Couldron
             // find all resourcedictionaries and add them to the existing resources
             foreach (var resourceDictionary in AssemblyUtil.DefinedTypes.Where(x => x.IsSubclassOf(typeof(ResourceDictionary))))
                 this.Resources.MergedDictionaries.Add(Activator.CreateInstance(resourceDictionary) as ResourceDictionary);
+        }
+
+        protected virtual void OnConstruction()
+        {
         }
 
         protected override void OnStartup(StartupEventArgs e)

@@ -35,35 +35,17 @@ namespace Couldron
         /// <summary>
         /// Gets a collection of classes loaded to the <see cref="AssemblyUtil"/>
         /// </summary>
-        public static IEnumerable<TypeInfo> Classes
-        {
-            get
-            {
-                return DefinedTypes.Where(x => x.IsClass);
-            }
-        }
+        public static IEnumerable<TypeInfo> Classes { get { return DefinedTypes.Where(x => x.IsClass); } }
 
         /// <summary>
         /// Gets a colleciton of Types found in the loaded <see cref="Assembly"/>
         /// </summary>
-        public static IEnumerable<TypeInfo> DefinedTypes
-        {
-            get
-            {
-                return typesWithImplementedInterfaces.Select(x => x.typeInfo);
-            }
-        }
+        public static IEnumerable<TypeInfo> DefinedTypes { get { return typesWithImplementedInterfaces.Select(x => x.typeInfo); } }
 
         /// <summary>
         /// Gets a colleciton of Interfaces found in the loaded <see cref="Assembly"/>
         /// </summary>
-        public static IEnumerable<TypeInfo> Interfaces
-        {
-            get
-            {
-                return DefinedTypes.Where(x => x.IsInterface);
-            }
-        }
+        public static IEnumerable<TypeInfo> Interfaces { get { return DefinedTypes.Where(x => x.IsInterface); } }
 
         /// <summary>
         /// Returns the first found <see cref="Assembly"/> that contains an embedded resource with the given resource name
@@ -81,10 +63,8 @@ namespace Couldron
                 throw new ArgumentException("The parameter is an empty string", nameof(resourceInfoName));
 
             foreach (var assembly in AssemblyAndResourceNamesInfo)
-            {
                 if (assembly.Filename.EndsWith(resourceInfoName, StringComparison.OrdinalIgnoreCase))
                     return assembly.Assembly;
-            }
 
             return null;
         }
@@ -189,9 +169,7 @@ namespace Couldron
                 result = DefinedTypes.FirstOrDefault(x => x.Assembly.FullName.StartsWith(splitted[1]) && x.Name.EndsWith(splitted[0]));
             }
             else
-            {
                 result = DefinedTypes.FirstOrDefault(x => x.Name.EndsWith(typeName));
-            }
 
             if (result != null)
                 return result.AsType();
@@ -217,6 +195,27 @@ namespace Couldron
                 return null;
 
             return result.Select(x => x.typeInfo);
+        }
+
+        public static void LoadAssembly(string path, bool relativPath = true)
+        {
+            var assemblyPath = string.Empty;
+
+            if (relativPath)
+                assemblyPath = Path.Combine(Utils.ApplicationPath, path);
+            else
+                assemblyPath = path;
+
+            var assembly = Assembly.LoadFile(assemblyPath);
+
+            typesWithImplementedInterfaces.AddRange(
+                assembly.DefinedTypes.Select(x => new TypesWithImplementedInterfaces
+                {
+                    interfaces = x.ImplementedInterfaces.ToArray(),
+                    typeInfo = x
+                }));
+
+            AssemblyAndResourceNamesInfo.AddRange(assembly.GetManifestResourceNames().Select(x => new AssemblyAndResourceNameInfo(assembly, x)));
         }
 
         #region Private Methods

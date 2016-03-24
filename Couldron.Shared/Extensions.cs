@@ -84,11 +84,24 @@ namespace Couldron
             (context as FrameworkElement).IsNotNull(x =>
             {
                 // Dispose the attach behaviours
+                foreach (var child in x.FindVisualChildren<FrameworkElement>())
+                    child.DisposeAll();
+
                 Interaction.GetBehaviours(x).IsNotNull(o => o.Dispose());
 
                 // Dispose the datacontext
                 x.DataContext.DisposeAll();
             });
+        }
+
+        /// <summary>
+        /// Gets the window handle for a Windows Presentation Foundation (WPF) window
+        /// </summary>
+        /// <param name="window">A WPF window object.</param>
+        /// <returns>The Windows Presentation Foundation (WPF) window handle (HWND).</returns>
+        public static IntPtr GetWindowHandle(this Window window)
+        {
+            return new System.Windows.Interop.WindowInteropHelper(window).Handle;
         }
 
         /// <summary>
