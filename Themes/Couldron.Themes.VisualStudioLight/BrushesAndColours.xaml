@@ -1,0 +1,23 @@
+﻿<ResourceDictionary x:Class="Couldron.Themes.VisualStudioLight.BrushesAndColours"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Couldron.Themes.VisualStudioLight"
+             mc:Ignorable="d">
+
+    <Color x:Key="ThemeBackgroundColor" R="238" G="238" B="242" A="255" />
+    <SolidColorBrush x:Key="ThemeBackgroundBrush" Color="{StaticResource ThemeBackgroundColor}" />
+
+    <Color x:Key="ThemeAccentColor">SteelBlue</Color>
+    <SolidColorBrush x:Key="ThemeAccentBrush" Color="{StaticResource ThemeAccentColor}" />
+
+    <Color x:Key="ThemeDisabledTextColor">#B29496</Color>
+    <SolidColorBrush x:Key="ThemeDisabledTextBrush" Color="{StaticResource ThemeDisabledTextColor}" />
+
+    <Color x:Key="ThemeTextColor">Black</Color>
+    <SolidColorBrush x:Key="ThemeTextBrush" Color="{StaticResource ThemeTextColor}" />
+
+    <Color x:Key="ThemeHoverLightColor">#FCFCFD</Color>
+    <SolidColorBrush x:Key="ThemeHoverLightBrush" Color="{StaticResource ThemeHoverLightColor}" />
+</ResourceDictionary>
