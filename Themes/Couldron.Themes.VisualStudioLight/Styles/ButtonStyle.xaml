@@ -1,0 +1,64 @@
+﻿<ResourceDictionary x:Class="Couldron.Themes.VisualStudioLight.Styles.ButtonStyle"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Couldron.Themes.VisualStudioLight"
+             xmlns:localbehaviour="clr-namespace:Couldron.Themes.VisualStudioLight.Behaviours"
+             xmlns:behaviour="clr-namespace:Couldron.Behaviours;assembly=Couldron"
+             xmlns:collections="clr-namespace:Couldron.Collections;assembly=Couldron"
+             mc:Ignorable="d">
+
+    <Style TargetType="Button">
+        <Setter Property="SnapsToDevicePixels" Value="true" />
+        <Setter Property="OverridesDefaultStyle" Value="true" />
+        <Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}" />
+        <Setter Property="MinHeight" Value="22" />
+        <Setter Property="MinWidth" Value="57" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+
+                    <Border x:Name="Border" BorderThickness="1" Background="{StaticResource ThemeButtonbackBrush}" BorderBrush="{StaticResource ThemeButtonbackBrush}">
+                        <ContentPresenter Margin="3" HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True" />
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsKeyboardFocused" Value="true">
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource ThemeAccentBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsDefaulted" Value="true">
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource ThemeLightAccentBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource ThemeLightAccentBrush}" />
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource ThemeAccentBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource ThemeAccentBrush}" />
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource ThemeAccentBrush}" />
+                            <Setter Property="Foreground" Value="{StaticResource ThemeHoveredTextBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource ThemeDisabledBackgroundBrush}" />
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource ThemeDisabledBackgroundBrush}" />
+                            <Setter Property="Foreground" Value="{StaticResource ThemeDisabledTextBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ButtonFocusVisual">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border>
+                        <Rectangle Margin="2" StrokeThickness="1" Stroke="#60000000" StrokeDashArray="1 2" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

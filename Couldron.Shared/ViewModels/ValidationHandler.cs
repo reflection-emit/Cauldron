@@ -92,10 +92,7 @@ namespace Couldron.ViewModels
             lock (syncValidationRoot)
             {
                 if (this.errors.ContainsKey(propertyName))
-                {
                     this.errors[propertyName].Clear();
-                    this.RaiseErrorsChanged(propertyName);
-                }
 
                 this.validators
                     .FirstOrDefault(x => x.PropertyName == propertyName)
@@ -106,6 +103,8 @@ namespace Couldron.ViewModels
                         if (!string.IsNullOrEmpty(error))
                             this.AddError(propertyName, error);
                     }));
+
+                this.RaiseErrorsChanged(propertyName);
             }
 
             if (this.Validation != null)

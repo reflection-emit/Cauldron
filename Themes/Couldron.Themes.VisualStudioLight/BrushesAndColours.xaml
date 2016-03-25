@@ -41,4 +41,7 @@
 
     <Color x:Key="ThemeDarkOverlayColor">#90000000</Color>
     <SolidColorBrush x:Key="ThemeDarkOverlayBrush" Color="{StaticResource ThemeLightOverlayColor}" />
+
+    <Color x:Key="ThemeButtonbackColor">#C2C3C9</Color>
+    <SolidColorBrush x:Key="ThemeButtonbackBrush" Color="{StaticResource ThemeButtonbackColor}" />
 </ResourceDictionary>

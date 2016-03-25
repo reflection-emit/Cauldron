@@ -4,7 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:NavigationSample.Views"
-      xmlns:behaviour="clr-namespace:Couldron.Behaviours;assembly=Couldron">
+      xmlns:behaviour="clr-namespace:Couldron.Behaviours;assembly=Couldron"
+      xmlns:attached="clr-namespace:Couldron.Attached;assembly=Couldron">
 
     <DataTemplate x:Key="View_OtherViewModel">
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="10">
@@ -12,7 +13,7 @@
                 <behaviour:WindowConfigurationBehaviour IsDialog="True" ResizeMode="NoResize" Title="A wild Window has appeared" Width="450" Height="200" ShowInTaskbar="True" />
             </behaviour:Interaction.Behaviours>
 
-            <TextBox Text="{Binding Result, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch">
+            <TextBox Text="{Binding Result, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" attached:TextBox.AlternativeTextKey="mustbe">
                 <behaviour:Interaction.Behaviours>
                     <behaviour:SetFocusBehaviour />
                 </behaviour:Interaction.Behaviours>

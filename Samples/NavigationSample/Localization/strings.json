@@ -1,0 +1,16 @@
+﻿[
+  {
+    "key": "mustbe",
+    "lang": {
+      "de": "Alternative Text",
+      "en": "Alternative text"
+    }
+  },
+  {
+    "key": "mandatory",
+    "lang": {
+      "de": "Dies ist ein Mußfeld",
+      "en": "This is mandatory"
+    }
+  }
+]

@@ -1,12 +1,13 @@
 ﻿using Couldron;
 using Couldron.Aspects;
+using Couldron.Validation;
 using Couldron.ViewModels;
 using System.Windows.Input;
 
 namespace NavigationSample.ViewModels
 {
     [Navigating(nameof(Navigate))]
-    public class OtherViewModel : DisposableViewModelBase, IDialogViewModel<string>, IWindowViewModel
+    public class OtherViewModel : ValidatableViewModelBase, IDialogViewModel<string>, IWindowViewModel
     {
         public OtherViewModel()
         {
@@ -16,11 +17,12 @@ namespace NavigationSample.ViewModels
         public ICommand BackCommand { get; private set; }
 
         [NotifyPropertyChanged]
+        [IsMandatory("mandatory")]
         public string Result { get; set; }
 
         public bool CanClose()
         {
-            return !string.IsNullOrEmpty(this.Result);
+            return !this.HasErrors;
         }
 
         public void GotFocus()

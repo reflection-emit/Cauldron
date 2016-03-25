@@ -95,7 +95,8 @@ namespace Couldron.ViewModels
         /// <param name="propertyName">The name of the property where the value change has occured</param>
         protected override void OnAfterRaiseNotifyPropertyChanged(string propertyName)
         {
-            this.validationHandler.Validate(propertyName);
+            if (propertyName != nameof(Errors) && propertyName != nameof(HasErrors))
+                this.validationHandler.Validate(propertyName);
         }
 
         /// <summary>
