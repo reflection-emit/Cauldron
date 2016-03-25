@@ -7,6 +7,7 @@
              xmlns:localbehaviour="clr-namespace:Couldron.Themes.VisualStudioLight.Behaviours"
              xmlns:behaviour="clr-namespace:Couldron.Behaviours;assembly=Couldron"
              xmlns:collections="clr-namespace:Couldron.Collections;assembly=Couldron"
+             xmlns:attached="clr-namespace:Couldron.Attached;assembly=Couldron"
              mc:Ignorable="d">
 
     <Style TargetType="Button">
@@ -19,9 +20,18 @@
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
 
-                    <Border x:Name="Border" BorderThickness="1" Background="{StaticResource ThemeButtonbackBrush}" BorderBrush="{StaticResource ThemeButtonbackBrush}">
-                        <ContentPresenter Margin="3" HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True" />
-                    </Border>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <Border x:Name="Border" Grid.Column="1" BorderThickness="1" Background="{StaticResource ThemeButtonbackBrush}" BorderBrush="{StaticResource ThemeButtonbackBrush}">
+                            <ContentPresenter Margin="6,3" HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True" />
+                        </Border>
+
+                        <Image Source="{Binding (attached:Button.Image)}" Margin="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Stretch="UniformToFill" />
+                    </Grid>
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsKeyboardFocused" Value="true">

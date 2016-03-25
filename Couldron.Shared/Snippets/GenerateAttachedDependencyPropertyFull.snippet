@@ -3,7 +3,7 @@
   <CodeSnippet Format="1.0.0">
     <Header>
       <Title>Define a Full DependencyProperty</Title>
-      <Shortcut>propdpfull</Shortcut>
+      <Shortcut>propattachedfull</Shortcut>
       <Description>Code snippet for a property using DependencyProperty as the backing store</Description>
       <Author>Alexander Schunk</Author>
       <SnippetTypes>
@@ -35,29 +35,37 @@
       </Declarations>
       <Code Language="csharp">
         <![CDATA[
-#region Dependency Property $property$
+#region Dependency Attached Property $property$
 
 /// <summary>
-/// Gets or sets the <see cref="$property$" /> Property
+/// Gets the value of <see cref="$property$" />
 /// </summary>
-public $type$ $property$
+/// <param name="obj"><see cref="DependencyObject" /> with the attached property</param>
+/// <returns>The value of the attached property</returns>
+public static $type$ Get$property$(DependencyObject obj)
 {
-    get { return ($type$)this.GetValue($property$Property); }
-    set { this.SetValue($property$Property, value); }
+    return ($type$)obj.GetValue($property$Property);
+}
+
+/// <summary>
+/// Sets the value of the <see cref="$property$" /> attached property
+/// </summary>
+/// <param name="obj"><see cref="DependencyObject" /> with the attached property</param>
+/// <param name="value">The new value to set</param>
+public static void Set$property$(DependencyObject obj, $type$ value)
+{
+    obj.SetValue($property$Property, value);
 }
 
 /// <summary>
 /// Identifies the <see cref="$property$" /> dependency property
 /// </summary>
-public static readonly DependencyProperty $property$Property = DependencyProperty.Register(nameof($property$), typeof($type$), typeof($ownerclass$), new PropertyMetadata($defaultvalue$, $ownerclass$.On$property$Changed));
+public static readonly DependencyProperty $property$Property = DependencyProperty.RegisterAttached("$property$", typeof($type$), typeof($ownerclass$), new PropertyMetadata($defaultvalue$, On$property$Changed));
 
-private static void On$property$Changed(DependencyObject d, DependencyPropertyChangedEventArgs args)
+private static void On$property$Changed(DependencyObject dependencyProperty, DependencyPropertyChangedEventArgs args)
 {
-	var castedDependencyObject = d as $ownerclass$;
-
-	if (castedDependencyObject == null)
-		return;
 }
+
 #endregion
 $end$]]>
       </Code>

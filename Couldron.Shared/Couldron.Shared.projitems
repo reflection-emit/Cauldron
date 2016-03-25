@@ -11,6 +11,7 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)AssemblyAndResourceNameInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AssemblyUtil.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attached\Button.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Attached\EmbeddedResourceImage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Attached\TextBox.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviours\Behaviour.cs" />
@@ -88,6 +89,8 @@
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)Snippets\argumentNullException.snippet" />
     <None Include="$(MSBuildThisFileDirectory)Snippets\exceptionOnEmptyAndNullString.snippet" />
+    <None Include="$(MSBuildThisFileDirectory)Snippets\GenerateAttachedDependencyProperty.snippet" />
+    <None Include="$(MSBuildThisFileDirectory)Snippets\GenerateAttachedDependencyPropertyFull.snippet" />
     <None Include="$(MSBuildThisFileDirectory)Snippets\GenerateDependencyProperty.snippet" />
     <None Include="$(MSBuildThisFileDirectory)Snippets\GenerateDependencyPropertyFull.snippet" />
   </ItemGroup>

@@ -74,8 +74,8 @@
                             <TextBlock Grid.Column="1" Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Validation.Errors), Converter={StaticResource ErrorCollectionCountToVisibilityConverter}}"
                                        Text="!" IsHitTestVisible="False" FontFamily="Segoe UI" FontWeight="ExtraBold" Foreground="{StaticResource ThemeHoveredTextBrush}" VerticalAlignment="Center" HorizontalAlignment="Center" />
 
-                            <TextBlock Background="{StaticResource ThemeAccentBrush}" Foreground="{StaticResource ThemeHoveredTextBrush}" Width="8"
-                                       VerticalAlignment="Stretch" HorizontalAlignment="Left" Text="*" TextAlignment="Center" />
+                            <Rectangle Fill="{StaticResource ThemeAccentBrush}" Height="2" Margin="-1,0,-1,-3" Grid.ColumnSpan="3"
+                                       VerticalAlignment="Bottom" HorizontalAlignment="Stretch" />
                         </Grid>
                     </Border>
                 </ControlTemplate>
