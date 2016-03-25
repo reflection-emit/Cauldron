@@ -13,6 +13,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)AssemblyUtil.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Attached\EmbeddedResourceImage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Attached\TextBoxProperties.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attached\WindowToolbar.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviours\Behaviour.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviours\BehaviourUsageAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviours\EventToCommand.cs" />

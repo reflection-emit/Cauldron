@@ -1,4 +1,5 @@
-﻿using Couldron.Behaviours;
+﻿using Couldron.Attached;
+using Couldron.Behaviours;
 using Couldron.Collections;
 using Couldron.Core;
 using Couldron.ViewModels;
@@ -8,6 +9,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace Couldron
 {
@@ -173,6 +175,9 @@ namespace Couldron
             // set the window owner
             window.Owner = windows.FirstOrDefault(x => x.IsActive);
 
+            // Set the toolbar template
+            WindowToolbar.SetTemplate(window, windowConfig.ToolbarTemplate);
+
             windowConfig.IconChanged += (s, e) => window.Icon = windowConfig.Icon;
             windowConfig.TitleChanged += (s, e) => window.Title = windowConfig.Title;
 
@@ -201,6 +206,13 @@ namespace Couldron
                     if (!e.Cancel)
                         callback(x.Result);
                 });
+
+            // make sure the datacontext of the behaviour is correct
+            view.DataContextChanged += (s, e) =>
+            {
+                windowConfig.DataContext = view.DataContext;
+                window.DataContext = view.DataContext;
+            };
 
             window.Content = view;
             view.DataContext = viewModel;

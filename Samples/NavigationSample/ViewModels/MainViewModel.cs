@@ -12,14 +12,21 @@ namespace NavigationSample.ViewModels
         public MainViewModel()
         {
             this.OpenPopupWindowCommand = new RelayCommand(this.OpenPopupAction);
+            this.NewInstanceCommand = new RelayCommand(this.NewInstanceAction);
 
             this.Title = "Main View Model";
         }
 
+        public ICommand NewInstanceCommand { get; private set; }
         public ICommand OpenPopupWindowCommand { get; private set; }
 
         [NotifyPropertyChanged]
         public string Title { get; set; }
+
+        private void NewInstanceAction()
+        {
+            Navigator.Navigate<MainViewModel>();
+        }
 
         private void OpenPopupAction()
         {

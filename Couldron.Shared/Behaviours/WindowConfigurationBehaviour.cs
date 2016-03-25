@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace Couldron.Behaviours
@@ -11,6 +12,24 @@ namespace Couldron.Behaviours
     [BehaviourUsage(false)]
     public sealed class WindowConfigurationBehaviour : FrameworkElement, IBehaviour<FrameworkElement>
     {
+        #region Dependency Property ToolbarTemplate
+
+        /// <summary>
+        /// Identifies the <see cref="ToolbarTemplate" /> dependency property
+        /// </summary>
+        public static readonly DependencyProperty ToolbarTemplateProperty = DependencyProperty.Register(nameof(ToolbarTemplate), typeof(ControlTemplate), typeof(WindowConfigurationBehaviour), new PropertyMetadata(null));
+
+        /// <summary>
+        /// Gets or sets the <see cref="ToolbarTemplate" /> Property
+        /// </summary>
+        public ControlTemplate ToolbarTemplate
+        {
+            get { return (ControlTemplate)this.GetValue(ToolbarTemplateProperty); }
+            set { this.SetValue(ToolbarTemplateProperty, value); }
+        }
+
+        #endregion Dependency Property ToolbarTemplate
+
         #region Dependency Property IsDialog
 
         /// <summary>

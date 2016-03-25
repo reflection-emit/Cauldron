@@ -5,11 +5,18 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:NavigationSample.View"
              xmlns:behaviour="clr-namespace:Couldron.Behaviours;assembly=Couldron"
+             xmlns:attached="clr-namespace:Couldron.Attached;assembly=Couldron"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
 
     <behaviour:Interaction.Behaviours>
-        <behaviour:WindowConfigurationBehaviour WindowState="Maximized" Title="{Binding Title}" Icon="pack://application:,,,/test.png" />
+        <behaviour:WindowConfigurationBehaviour WindowState="Maximized" Title="{Binding Title}" Icon="pack://application:,,,/test.png">
+            <behaviour:WindowConfigurationBehaviour.ToolbarTemplate>
+                <ControlTemplate>
+                    <Button Height="24" Content="New Instance" Command="{Binding NewInstanceCommand}" />
+                </ControlTemplate>
+            </behaviour:WindowConfigurationBehaviour.ToolbarTemplate>
+        </behaviour:WindowConfigurationBehaviour>
     </behaviour:Interaction.Behaviours>
 
     <Grid>

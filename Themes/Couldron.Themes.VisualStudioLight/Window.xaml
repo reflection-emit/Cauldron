@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Couldron.Themes.VisualStudioLight"
+             xmlns:attached="clr-namespace:Couldron.Attached;assembly=Couldron"
              mc:Ignorable="d"
              Background="Transparent"
              SnapsToDevicePixels="True"
@@ -119,6 +120,8 @@
                             <Button Focusable="False" x:Name="MaximizeButton" Content="&#x0031;" Style="{StaticResource TitleBarButtonStyle}" Click="MaximizeButton_Click" />
                             <Button Focusable="False" x:Name="CloseButton" Content="&#x0072;" Style="{StaticResource TitleBarButtonStyle}" Click="CloseButton_Click" />
                         </StackPanel>
+
+                        <ContentControl Grid.Column="1" Template="{Binding Path=(attached:WindowToolbar.Template), RelativeSource={RelativeSource TemplatedParent}}" />
 
                         <ContentPresenter Grid.Row="2" Grid.ColumnSpan="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
                     </Grid>
