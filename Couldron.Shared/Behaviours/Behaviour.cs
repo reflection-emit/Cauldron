@@ -150,7 +150,7 @@ namespace Couldron.Behaviours
             if (this._associatedObject.DataContext != null)
                 this.OnDataContextChanged();
 
-            this.OnDetach();
+            this.OnAttach();
         }
 
         /// <summary>
@@ -163,6 +163,7 @@ namespace Couldron.Behaviours
             this._associatedObject.Unloaded -= TargetUnloaded;
 
             this.OnDetach();
+            BindingOperations.ClearAllBindings(this.AssociatedObject);
         }
 
         private void TargetLoaded(object sender, RoutedEventArgs e)

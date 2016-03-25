@@ -80,6 +80,7 @@ namespace Couldron
         /// <param name="args">Parameters of the <see cref="NavigatingAttribute"/></param>
         /// <returns>An awaitable <see cref="Task"/></returns>
         /// <exception cref="ArgumentException">Methodname specified in <see cref="NavigatingAttribute"/> does not exist</exception>
+        /// <exception cref="ResourceReferenceKeyNotFoundException">View of a viewmodel not found</exception>
         public static async void Navigate<T, TResult>(Action<TResult> callback, params object[] args) where T : IViewModel
         {
             await NavigateInternal<T, TResult>(callback, args);
@@ -243,9 +244,9 @@ namespace Couldron
                 var templateSelector = Application.Current.Resources[typeof(CouldronTemplateSelector).Name] as DataTemplateSelector;
                 var dataTemplate = templateSelector.SelectTemplate(viewModel, null);
 
-                // On such case we just use the default window
+                // On such case we throw an exception
                 if (dataTemplate == null)
-                    window = CreateDefaultWindow(callback, null, viewModel);
+                    throw new ResourceReferenceKeyNotFoundException("Unable to find the view for a viewmodel", "View_" + viewModelType.Name);
                 else
                     // try to get a WindowConfigurationBehaviour attach in the datatemplate
                     window = CreateWindow(callback, dataTemplate.LoadContent() as FrameworkElement, viewModel, out isDialog);

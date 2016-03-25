@@ -7,13 +7,13 @@ namespace Couldron.Attached
     /// <para />
     /// The attached property is also able to assign images to <see cref="System.Windows.Controls.ContentControl"/>'s <see cref="System.Windows.Controls.ContentControl.Content"/> property
     /// </summary>
-    public static class Image
+    public static class EmbeddedResourceImage
     {
         /// <summary>
         /// Gets or sets the <see cref="ImageKeyProperty"/> associated with a specified object.
         /// </summary>
         public static readonly DependencyProperty ImageKeyProperty =
-            DependencyProperty.RegisterAttached("ImageKey", typeof(string), typeof(Image), new PropertyMetadata("", OnImageKeyChanged));
+            DependencyProperty.RegisterAttached("ImageKey", typeof(string), typeof(EmbeddedResourceImage), new PropertyMetadata("", OnImageKeyChanged));
 
         /// <summary>
         /// Gets the image key of an embedded resource

@@ -6,18 +6,39 @@
              xmlns:local="clr-namespace:Couldron.Themes.VisualStudioLight"
              mc:Ignorable="d">
 
+    <SolidColorBrush x:Key="Transparent" Color="Transparent" />
+
     <Color x:Key="ThemeBackgroundColor" R="238" G="238" B="242" A="255" />
     <SolidColorBrush x:Key="ThemeBackgroundBrush" Color="{StaticResource ThemeBackgroundColor}" />
 
+    <Color x:Key="ThemeLightBackgroundColor">White</Color>
+    <SolidColorBrush x:Key="ThemeLightBackgroundBrush" Color="{StaticResource ThemeLightBackgroundColor}" />
+
     <Color x:Key="ThemeAccentColor">SteelBlue</Color>
     <SolidColorBrush x:Key="ThemeAccentBrush" Color="{StaticResource ThemeAccentColor}" />
+    <SolidColorBrush x:Key="ThemeLightAccentBrush" Color="{StaticResource ThemeAccentColor}" Opacity="0.6" />
 
     <Color x:Key="ThemeDisabledTextColor">#B29496</Color>
     <SolidColorBrush x:Key="ThemeDisabledTextBrush" Color="{StaticResource ThemeDisabledTextColor}" />
 
+    <Color x:Key="ThemeDisabledBackgroundColor">#CCCEDB</Color>
+    <SolidColorBrush x:Key="ThemeDisabledBackgroundBrush" Color="{StaticResource ThemeDisabledBackgroundColor}" />
+
     <Color x:Key="ThemeTextColor">Black</Color>
     <SolidColorBrush x:Key="ThemeTextBrush" Color="{StaticResource ThemeTextColor}" />
 
+    <Color x:Key="ThemeHoveredTextColor">White</Color>
+    <SolidColorBrush x:Key="ThemeHoveredTextBrush" Color="{StaticResource ThemeHoveredTextColor}" />
+
     <Color x:Key="ThemeHoverLightColor">#FCFCFD</Color>
     <SolidColorBrush x:Key="ThemeHoverLightBrush" Color="{StaticResource ThemeHoverLightColor}" />
+
+    <Color x:Key="ThemeLightBorderColor">#CCCEDB</Color>
+    <SolidColorBrush x:Key="ThemeLightBorderBrush" Color="{StaticResource ThemeLightBorderColor}" />
+
+    <Color x:Key="ThemeLightOverlayColor">#90FFFFFF</Color>
+    <SolidColorBrush x:Key="ThemeLightOverlayBrush" Color="{StaticResource ThemeLightOverlayColor}" />
+
+    <Color x:Key="ThemeDarkOverlayColor">#90000000</Color>
+    <SolidColorBrush x:Key="ThemeDarkOverlayBrush" Color="{StaticResource ThemeLightOverlayColor}" />
 </ResourceDictionary>

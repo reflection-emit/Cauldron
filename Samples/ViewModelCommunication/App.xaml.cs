@@ -1,22 +1,23 @@
 ﻿using Couldron;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
+using ViewModelCommunication.ViewModels;
 
 namespace ViewModelCommunication
 {
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application
+    public partial class App : CouldronApplication
     {
+        protected override void OnConstruction()
+        {
+            AssemblyUtil.LoadAssembly("Couldron.Themes.VisualStudioLight.dll");
+        }
+
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+            Navigator.Navigate<MainViewModel>();
         }
     }
 }

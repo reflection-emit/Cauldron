@@ -9,6 +9,7 @@ using System.Runtime.InteropServices;
 using System.Security;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace Couldron
@@ -29,6 +30,17 @@ namespace Couldron
         public static T CastTo<T>(this object target) where T : class
         {
             return target as T;
+        }
+
+        /// <summary>
+        /// Copy and modifies the alpha channel of the <see cref="SolidColorBrush"/>'s <see cref="Color"/>
+        /// </summary>
+        /// <param name="brush">The Solidcolorbrush to copy the color from</param>
+        /// <param name="alpha">The new alpha channel of the <see cref="SolidColorBrush"/></param>
+        /// <returns>A new instance of the <see cref="SolidColorBrush"/></returns>
+        public static SolidColorBrush ChangeAlpha(this SolidColorBrush brush, byte alpha)
+        {
+            return new SolidColorBrush(new Color { A = alpha, R = brush.Color.R, G = brush.Color.G, B = brush.Color.B });
         }
 
         /// <summary>

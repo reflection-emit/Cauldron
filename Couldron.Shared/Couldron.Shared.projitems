@@ -11,7 +11,7 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)AssemblyAndResourceNameInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AssemblyUtil.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Attached\Image.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attached\EmbeddedResourceImage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviours\Behaviour.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviours\BehaviourUsageAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviours\EventToCommand.cs" />
@@ -23,6 +23,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Collections\BehaviourCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Collections\ConcurrentList.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Collections\InteractivityTemplate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CommonConverters.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\ApplicationData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\CouldronDispatcher.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\CouldronDispatcherPriority.cs" />
@@ -46,6 +47,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)InjectionConstructorAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IRelayCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Localization.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Messaging\MessageManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Messaging\MessageObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Messaging\MessagingArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Navigator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RelayCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UnsafeNative.cs" />
@@ -62,7 +66,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ChangeAwareViewModelBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ContainerViewModelBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\DisposableViewModelBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ICanClose.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\IChangeAwareViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\IClose.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\IContainerViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\IDialogViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\IValidatableViewModel.cs" />

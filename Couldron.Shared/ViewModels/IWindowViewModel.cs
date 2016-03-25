@@ -1,19 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Couldron.ViewModels
+﻿namespace Couldron.ViewModels
 {
-    public interface IWindowViewModel : IViewModel
+    public interface IWindowViewModel : ICanClose
     {
-        bool CanClose();
-
-        void GotFocus();
-
-        void LostFocus();
-
         void SizeChanged(double width, double height);
     }
 }

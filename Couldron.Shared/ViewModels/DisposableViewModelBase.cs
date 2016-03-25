@@ -71,6 +71,7 @@ namespace Couldron.ViewModels
                 {
                     // Dispose managed resources.
                     this.OnDispose(true);
+                    Messaging.MessageManager.Unsubscribe(this);
                 }
 
                 this.OnDispose(false);

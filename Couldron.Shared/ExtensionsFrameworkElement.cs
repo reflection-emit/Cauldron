@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
 
@@ -10,6 +12,15 @@ namespace Couldron
     /// </summary>
     public static class ExtensionsFrameworkElement
     {
+        public static void Content<T, TContent>(this T element, Action<TContent> action)
+            where T : ContentPresenter
+            where TContent : FrameworkElement
+        {
+            var content = element.Content as TContent;
+            if (content != null)
+                action(content);
+        }
+
         public static FrameworkElement FindElementWithName(this DependencyObject element, string name)
         {
             if (element == null)
@@ -29,6 +40,20 @@ namespace Couldron
                 return null;
 
             return FindElementWithName(parent, name);
+        }
+
+        public static T FindParent<T>(this DependencyObject element) where T : DependencyObject
+        {
+            if (element == null)
+                return null;
+
+            var parent = VisualTreeHelper.GetParent(element);
+            var p = parent as T;
+
+            if (parent != null && p != null)
+                return p;
+            else
+                return FindParent<T>(parent);
         }
 
         public static IEnumerable<FrameworkElement> FindVisualChildren<T>(this DependencyObject element)
