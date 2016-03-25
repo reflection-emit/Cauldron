@@ -13,12 +13,12 @@
                 <behaviour:WindowConfigurationBehaviour IsDialog="True" ResizeMode="NoResize" Title="A wild Window has appeared" Width="450" Height="200" ShowInTaskbar="True" />
             </behaviour:Interaction.Behaviours>
 
-            <TextBox Text="{Binding Result, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" attached:TextBox.AlternativeTextKey="mustbe">
+            <TextBox Text="{Binding Result, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" attached:TextBoxProperties.AlternativeTextKey="mustbe">
                 <behaviour:Interaction.Behaviours>
                     <behaviour:SetFocusBehaviour />
                 </behaviour:Interaction.Behaviours>
             </TextBox>
-            <Button  Content="OK" Width="120" Height="40" Command="{Binding BackCommand}" />
+            <Button Content="OK" Width="120" Height="40" Margin="10" Command="{Binding BackCommand}" />
         </StackPanel>
     </DataTemplate>
 </ResourceDictionary>

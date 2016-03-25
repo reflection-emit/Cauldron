@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Behaviours\TabItemBehaviour.cs" />
+    <Compile Include="Behaviours\Validations.cs" />
     <Compile Include="BrushesAndColours.xaml.cs">
       <DependentUpon>BrushesAndColours.xaml</DependentUpon>
     </Compile>

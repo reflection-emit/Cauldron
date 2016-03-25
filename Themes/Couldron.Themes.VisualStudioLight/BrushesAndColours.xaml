@@ -44,4 +44,7 @@
 
     <Color x:Key="ThemeButtonbackColor">#C2C3C9</Color>
     <SolidColorBrush x:Key="ThemeButtonbackBrush" Color="{StaticResource ThemeButtonbackColor}" />
+
+    <Color x:Key="ThemeMandatoryColor">Gold</Color>
+    <SolidColorBrush x:Key="ThemeMandatoryBrush" Color="{StaticResource ThemeMandatoryColor}" />
 </ResourceDictionary>

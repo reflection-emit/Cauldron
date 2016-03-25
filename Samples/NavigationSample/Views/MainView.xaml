@@ -9,7 +9,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
 
     <behaviour:Interaction.Behaviours>
-        <behaviour:WindowConfigurationBehaviour WindowState="Maximized" Title="{Binding Title}" Icon="pack://application:,,,/1458690745_video512x512.png" />
+        <behaviour:WindowConfigurationBehaviour WindowState="Maximized" Title="{Binding Title}" Icon="pack://application:,,,/test.png" />
     </behaviour:Interaction.Behaviours>
 
     <Grid>

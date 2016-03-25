@@ -16,22 +16,14 @@
         <Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}" />
         <Setter Property="MinHeight" Value="22" />
         <Setter Property="MinWidth" Value="57" />
+        <Setter Property="Padding" Value="6,3" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
 
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-
-                        <Border x:Name="Border" Grid.Column="1" BorderThickness="1" Background="{StaticResource ThemeButtonbackBrush}" BorderBrush="{StaticResource ThemeButtonbackBrush}">
-                            <ContentPresenter Margin="6,3" HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True" />
-                        </Border>
-
-                        <Image Source="{Binding (attached:Button.Image)}" Margin="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Stretch="UniformToFill" />
-                    </Grid>
+                    <Border x:Name="Border" Grid.Column="1" BorderThickness="1" Background="{StaticResource ThemeLightBorderBrush}" BorderBrush="{StaticResource ThemeButtonbackBrush}">
+                        <ContentPresenter Margin="{TemplateBinding Padding}" HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True" />
+                    </Border>
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsKeyboardFocused" Value="true">
