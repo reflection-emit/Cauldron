@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Couldron.ViewModels.ChangeAwareViewModelBase" Collapsed="true">
+    <Position X="10" Y="9.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAKAAAEAFAAAQAAAAAAEAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>C:\Users\aschunk\Source\Repos\shinsen_industries\Couldron\Couldron.Shared\ViewModels\ChangeAwareViewModelBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Couldron.ViewModels.ContainerViewModelBase">
+    <Position X="11" Y="11.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAACAAAAAAAAAAAAAAAAABAAAAABAAAAAAEAA=</HashCode>
+      <FileName>C:\Users\aschunk\Source\Repos\shinsen_industries\Couldron\Couldron.Shared\ViewModels\ContainerViewModelBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Couldron.ViewModels.DisposableViewModelBase" Collapsed="true">
+    <Position X="13.25" Y="9.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAACAAAAAAAAAAABAAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>C:\Users\aschunk\Source\Repos\shinsen_industries\Couldron\Couldron.Shared\ViewModels\DisposableViewModelBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Couldron.ViewModels.NavigatingAttribute" Collapsed="true">
+    <Position X="21.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>C:\Users\aschunk\Source\Repos\shinsen_industries\Couldron\Couldron.Shared\ViewModels\NavigatingAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Couldron.ViewModels.ValidatableChangeAwareViewModelBase">
+    <Position X="18" Y="11.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAKAAAEAFAAAQAAAAAAEAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>C:\Users\aschunk\Source\Repos\shinsen_industries\Couldron\Couldron.Shared\ViewModels\ValidatableChangeAwareViewModelBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Couldron.ViewModels.ValidatableContainerChangeAwareViewModelBase">
+    <Position X="21.5" Y="11.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAACAAAAAAAAAAAAAgAAABAAAAABAAAAAAEAA=</HashCode>
+      <FileName>C:\Users\aschunk\Source\Repos\shinsen_industries\Couldron\Couldron.Shared\ViewModels\ValidatableContainerChangeAwareViewModelBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Couldron.ViewModels.ValidatableViewModelBase">
+    <Position X="14.5" Y="11.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEICGCAAQABEAAAAAAAAAAAAAAIAAAAAAABAAA=</HashCode>
+      <FileName>C:\Users\aschunk\Source\Repos\shinsen_industries\Couldron\Couldron.Shared\ViewModels\ValidatableViewModelBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Couldron.ViewModels.ValidationEventArgs" Collapsed="true">
+    <Position X="23.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>C:\Users\aschunk\Source\Repos\shinsen_industries\Couldron\Couldron.Shared\ViewModels\ValidationEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Couldron.ViewModels.ValidationHandler" Collapsed="true">
+    <Position X="21.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAECAAAAACCAAQABQCEAAAAAAAAAAACIAAAAAAAhCAA=</HashCode>
+      <FileName>C:\Users\aschunk\Source\Repos\shinsen_industries\Couldron\Couldron.Shared\ViewModels\ValidationHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Couldron.ViewModels.ViewModelBase" Collapsed="true">
+    <Position X="12.25" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACgAAAAAAAAAAAEAAAAAAAgACAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>C:\Users\aschunk\Source\Repos\shinsen_industries\Couldron\Couldron.Shared\ViewModels\ViewModelBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Couldron.ViewModels.ViewModelContainerHandler" Collapsed="true">
+    <Position X="23.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAACCAAAAABAQAQAAAAAABAAAIABAAAAAAEAA=</HashCode>
+      <FileName>C:\Users\aschunk\Source\Repos\shinsen_industries\Couldron\Couldron.Shared\ViewModels\ViewModelContainerHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Couldron.ViewModels.ICanClose" Collapsed="true">
+    <Position X="14.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAACAAAAAAAgAAAAAAAAIAAAA=</HashCode>
+      <FileName>C:\Users\aschunk\Source\Repos\shinsen_industries\Couldron\Couldron.Shared\ViewModels\ICanClose.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Couldron.ViewModels.IChangeAwareViewModel" Collapsed="true">
+    <Position X="19" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAABAAAQAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>C:\Users\aschunk\Source\Repos\shinsen_industries\Couldron\Couldron.Shared\ViewModels\IChangeAwareViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Couldron.ViewModels.IClose" Collapsed="true">
+    <Position X="21.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>C:\Users\aschunk\Source\Repos\shinsen_industries\Couldron\Couldron.Shared\ViewModels\IClose.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Couldron.ViewModels.IContainerViewModel" Collapsed="true">
+    <Position X="10" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAABAAAAAAEAA=</HashCode>
+      <FileName>C:\Users\aschunk\Source\Repos\shinsen_industries\Couldron\Couldron.Shared\ViewModels\IContainerViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Couldron.ViewModels.IDialogViewModel&lt;TResult&gt;" Collapsed="true">
+    <Position X="12.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\aschunk\Source\Repos\shinsen_industries\Couldron\Couldron.Shared\ViewModels\IDialogViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Couldron.ViewModels.IValidatableViewModel" Collapsed="true">
+    <Position X="16.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\aschunk\Source\Repos\shinsen_industries\Couldron\Couldron.Shared\ViewModels\IValidatableViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Couldron.ViewModels.IViewModel" Collapsed="true">
+    <Position X="14.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACgAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\aschunk\Source\Repos\shinsen_industries\Couldron\Couldron.Shared\ViewModels\IViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Couldron.ViewModels.IWindowViewModel" Collapsed="true">
+    <Position X="14.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\aschunk\Source\Repos\shinsen_industries\Couldron\Couldron.Shared\ViewModels\IWindowViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
