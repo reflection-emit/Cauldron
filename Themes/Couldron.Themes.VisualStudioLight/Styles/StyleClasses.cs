@@ -11,6 +11,28 @@
         }
     }
 
+    public partial class GroupBoxStyle
+    {
+        /// <summary>
+        /// Initializes a new instance of <see cref="GroupBoxStyle"/>
+        /// </summary>
+        public GroupBoxStyle()
+        {
+            this.InitializeComponent();
+        }
+    }
+
+    public partial class MiscStyle
+    {
+        /// <summary>
+        /// Initializes a new instance of <see cref="MiscStyle"/>
+        /// </summary>
+        public MiscStyle()
+        {
+            this.InitializeComponent();
+        }
+    }
+
     public partial class TabControlStyle
     {
         /// <summary>

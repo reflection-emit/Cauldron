@@ -24,11 +24,11 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\..\bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\Couldron.Themes.VisualStudioDark.XML</DocumentationFile>
+    <DocumentationFile>..\..\bin\Release\Couldron.Themes.VisualStudioDark.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
@@ -73,6 +73,16 @@
   <ItemGroup>
     <Page Include="..\Couldron.Themes.VisualStudioLight\Styles\ButtonStyle.xaml">
       <Link>Styles\ButtonStyle.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\Couldron.Themes.VisualStudioLight\Styles\GroupBoxStyle.xaml">
+      <Link>Styles\GroupBoxStyle.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\Couldron.Themes.VisualStudioLight\Styles\MiscStyle.xaml">
+      <Link>Styles\MiscStyle.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

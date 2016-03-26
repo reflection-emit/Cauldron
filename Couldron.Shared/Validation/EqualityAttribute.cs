@@ -44,7 +44,7 @@ namespace Couldron.Validation
             if (sender == null)
                 context.Validate(propertyInfo, secondProperty.Name);
 
-            return !Utils.Equals(propertyInfo.PropertyType, value, secondValue);
+            return !Utils.Equals(value, secondValue);
         }
     }
 }

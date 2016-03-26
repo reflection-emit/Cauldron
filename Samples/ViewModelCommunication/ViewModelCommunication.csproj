@@ -36,6 +36,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Couldron.Themes.VisualStudioDark">
+      <HintPath>..\..\bin\Release\Couldron.Themes.VisualStudioDark.dll</HintPath>
+    </Reference>
     <Reference Include="PostSharp, Version=4.2.22.0, Culture=neutral, PublicKeyToken=b13fd38b8f9c99d7, processorArchitecture=MSIL">
       <HintPath>..\..\packages\PostSharp.4.2.22\lib\net35-client\PostSharp.dll</HintPath>
       <Private>True</Private>
@@ -57,14 +60,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="App.cs" />
     <Compile Include="CloseTabMessage.cs" />
     <Compile Include="ViewModels\AnimalViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />

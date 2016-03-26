@@ -85,12 +85,27 @@ namespace Couldron
             return value;
         }
 
-        public static bool Equals(Type aType, object a, object b)
+        /// <summary>
+        /// Determines whether the specified object is equal to the current object.
+        /// <para/>
+        /// Checks reference equality first with <see cref="object.ReferenceEquals(object, object)"/>.
+        /// Then it checks all primitiv types with the == operator and as last resort uses <see cref="object.Equals(object, object)"/> to determin equality
+        /// </summary>
+        /// <param name="a">The first object to compare</param>
+        /// <param name="b">The second object to compare</param>
+        /// <returns>true if the specified object is equal to the current object; otherwise, false.</returns>
+        public new static bool Equals(object a, object b)
         {
             if (a == null && b == null)
                 return true;
 
-            if (a == null) return true;
+            if (a == null) return false;
+
+            if (object.ReferenceEquals(a, b))
+                return true;
+
+            var aType = a.GetType();
+
             if (aType == typeof(string)) return a as string == b as string;
             if (aType == typeof(int)) return (int)a == (int)b;
             if (aType == typeof(uint)) return (uint)a == (uint)b;

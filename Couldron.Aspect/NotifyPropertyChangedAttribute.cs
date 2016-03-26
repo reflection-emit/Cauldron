@@ -40,7 +40,7 @@ namespace Couldron.Aspects
             var type = args.Location.PropertyInfo.PropertyType;
             var oldValue = args.Location.GetValue(args.Instance);
 
-            if (Utils.Equals(args.Location.PropertyInfo.PropertyType, args.Value, oldValue))
+            if (Utils.Equals(args.Value, oldValue))
                 return;
 
             base.OnSetValue(args);

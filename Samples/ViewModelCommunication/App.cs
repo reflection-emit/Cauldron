@@ -1,14 +1,19 @@
 ﻿using Couldron;
+using System;
 using System.Windows;
 using ViewModelCommunication.ViewModels;
 
 namespace ViewModelCommunication
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
-    public partial class App : CouldronApplication
+    public class App : CouldronApplication
     {
+        [STAThread]
+        public static void Main(string[] args)
+        {
+            var app = new App();
+            app.Run();
+        }
+
         protected override void OnConstruction()
         {
             AssemblyUtil.LoadAssembly("Couldron.Themes.VisualStudioLight.dll");

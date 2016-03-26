@@ -17,6 +17,7 @@
         <Setter Property="SelectedIndex" Value="0" />
         <Setter Property="Padding" Value="0" />
         <Setter Property="Margin" Value="0" />
+        <Setter Property="FlowDirection" Value="LeftToRight" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="VerticalContentAlignment" Value="Stretch" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
@@ -29,11 +30,13 @@
                             <RowDefinition />
                         </Grid.RowDefinitions>
 
-                        <TabPanel x:Name="HeaderPanel" Grid.Row="0" Panel.ZIndex="1" Margin="0" IsItemsHost="True" KeyboardNavigation.TabIndex="1" Background="Transparent" />
+                        <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled">
+                            <TabPanel x:Name="HeaderPanel" Grid.Row="0" Panel.ZIndex="1" Margin="0" IsItemsHost="True" KeyboardNavigation.TabIndex="1" Background="Transparent" />
+                        </ScrollViewer>
                         <Rectangle x:Name="decorationBorder" Fill="{TemplateBinding Background}" Height="2" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
                         <Border x:Name="Border" Grid.Row="1" BorderThickness="1" BorderBrush="{StaticResource ThemeLightBorderBrush}" Background="{StaticResource ThemeLightBackgroundBrush}"
                                 KeyboardNavigation.TabNavigation="Local" KeyboardNavigation.DirectionalNavigation="Contained" KeyboardNavigation.TabIndex="2">
-                            <ContentPresenter x:Name="PART_SelectedContentHost" ContentSource="SelectedContent" />
+                            <ContentPresenter x:Name="PART_SelectedContentHost" ContentSource="SelectedContent" ContentTemplateSelector="{StaticResource CouldronTemplateSelector}" />
                         </Border>
                     </Grid>
                 </ControlTemplate>

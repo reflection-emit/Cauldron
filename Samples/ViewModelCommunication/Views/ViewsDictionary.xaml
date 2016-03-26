@@ -13,4 +13,29 @@
             </behaviour:Interaction.Behaviours>
         </TabControl>
     </DataTemplate>
+
+    <DataTemplate x:Key="View_AnimalViewModel">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <GroupBox Header="{Binding Name}">
+                <Button VerticalAlignment="Top" HorizontalAlignment="Left" Content="Test Button" />
+            </GroupBox>
+            <GroupBox Header="{Binding Name}" Grid.Column="1" Grid.Row="1">
+                <Button VerticalAlignment="Top" HorizontalAlignment="Left" Content="Test Button" />
+            </GroupBox>
+            <GroupBox Header="{Binding Name}" Grid.Column="1">
+                <Button VerticalAlignment="Top" HorizontalAlignment="Left" Content="Test Button" />
+            </GroupBox>
+            <GroupBox Header="{Binding Name}" Grid.Row="1">
+                <Button VerticalAlignment="Top" HorizontalAlignment="Left" Content="Test Button" />
+            </GroupBox>
+        </Grid>
+    </DataTemplate>
 </ResourceDictionary>
