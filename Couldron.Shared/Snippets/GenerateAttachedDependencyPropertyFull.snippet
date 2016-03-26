@@ -38,7 +38,7 @@
 #region Dependency Attached Property $property$
 
 /// <summary>
-/// Gets the value of <see cref="$property$" />
+/// Gets the value of $property$
 /// </summary>
 /// <param name="obj"><see cref="DependencyObject" /> with the attached property</param>
 /// <returns>The value of the attached property</returns>
@@ -48,7 +48,7 @@ public static $type$ Get$property$(DependencyObject obj)
 }
 
 /// <summary>
-/// Sets the value of the <see cref="$property$" /> attached property
+/// Sets the value of the $property$ attached property
 /// </summary>
 /// <param name="obj"><see cref="DependencyObject" /> with the attached property</param>
 /// <param name="value">The new value to set</param>
@@ -58,11 +58,11 @@ public static void Set$property$(DependencyObject obj, $type$ value)
 }
 
 /// <summary>
-/// Identifies the <see cref="$property$" /> dependency property
+/// Identifies the $property$ dependency property
 /// </summary>
 public static readonly DependencyProperty $property$Property = DependencyProperty.RegisterAttached("$property$", typeof($type$), typeof($ownerclass$), new PropertyMetadata($defaultvalue$, On$property$Changed));
 
-private static void On$property$Changed(DependencyObject dependencyProperty, DependencyPropertyChangedEventArgs args)
+private static void On$property$Changed(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
 {
 }
 

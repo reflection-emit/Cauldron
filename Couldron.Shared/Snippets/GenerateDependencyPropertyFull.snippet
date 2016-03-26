@@ -51,11 +51,11 @@ public $type$ $property$
 /// </summary>
 public static readonly DependencyProperty $property$Property = DependencyProperty.Register(nameof($property$), typeof($type$), typeof($ownerclass$), new PropertyMetadata($defaultvalue$, $ownerclass$.On$property$Changed));
 
-private static void On$property$Changed(DependencyObject d, DependencyPropertyChangedEventArgs args)
+private static void On$property$Changed(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
 {
-	var castedDependencyObject = d as $ownerclass$;
+	var d = dependencyObject as $ownerclass$;
 
-	if (castedDependencyObject == null)
+	if (d == null)
 		return;
 }
 #endregion

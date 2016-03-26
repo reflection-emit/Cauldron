@@ -12,6 +12,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)AssemblyAndResourceNameInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AssemblyUtil.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Attached\EmbeddedResourceImage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attached\Localized.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Attached\TextBoxProperties.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Attached\WindowToolbar.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviours\Behaviour.cs" />
@@ -27,11 +28,16 @@
     <Compile Include="$(MSBuildThisFileDirectory)Collections\InteractivityTemplate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CommonConverters.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\ApplicationData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Compression.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\CouldronDispatcher.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\CouldronDispatcherPriority.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Cryptography\AES.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Cryptography\CryptoUtils.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Cryptography\KeyMaterial.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\DisposableBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\DynamicEventHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\IDisposableObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\MonitorInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\PasswordScore.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Randomizer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\SecureStringHandler.cs" />

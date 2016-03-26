@@ -153,21 +153,6 @@ namespace Couldron.Collections
         }
 
         /// <summary>
-        /// Adds an object to the end of the <see cref="ConcurrentList{T}"/>
-        /// </summary>
-        /// <param name="value">
-        /// The object to be added to the end of the <see cref="ConcurrentList{T}"/>
-        /// The value can be null for reference types.
-        /// </param>
-        public int Add(object value)
-        {
-            lock (this.objectLock)
-            {
-                return (this.internalList as IList).Add((T)value);
-            }
-        }
-
-        /// <summary>
         /// dds the elements of the specified collection to the end of the <see cref="ConcurrentList{T}"/>
         /// </summary>
         /// <param name="collection">
@@ -299,6 +284,33 @@ namespace Couldron.Collections
         }
 
         /// <summary>
+        /// Adds an object to the end of the <see cref="ConcurrentList{T}"/>
+        /// </summary>
+        /// <param name="value">
+        /// The object to be added to the end of the <see cref="ConcurrentList{T}"/>
+        /// The value can be null for reference types.
+        /// </param>
+        int IList.Add(object value)
+        {
+            lock (this.objectLock)
+            {
+                return (this.internalList as IList).Add((T)value);
+            }
+        }
+
+        /// <summary>
+        /// Removes the first occurrence of a specific object from the <see cref="ConcurrentList{T}"/>
+        /// </summary>
+        /// <param name="value">The object to remove from the <see cref="ConcurrentList{T}"/>. The value can be null for reference types.</param>
+        void IList.Remove(object value)
+        {
+            lock (this.objectLock)
+            {
+                this.internalList.Remove((T)value);
+            }
+        }
+
+        /// <summary>
         /// Searches for the specified object and returns the zero-based index of the first
         /// occurrence within the entire <see cref="ConcurrentList{T}"/>
         /// </summary>
@@ -384,18 +396,6 @@ namespace Couldron.Collections
                 }
 
                 return result;
-            }
-        }
-
-        /// <summary>
-        /// Removes the first occurrence of a specific object from the <see cref="ConcurrentList{T}"/>
-        /// </summary>
-        /// <param name="value">The object to remove from the <see cref="ConcurrentList{T}"/>. The value can be null for reference types.</param>
-        public void Remove(object value)
-        {
-            lock (this.objectLock)
-            {
-                this.internalList.Remove((T)value);
             }
         }
 

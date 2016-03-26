@@ -16,7 +16,18 @@ namespace Couldron
         /// <summary>
         /// Gets the application name
         /// </summary>
-        public static string ApplicationName { get { return Assembly.GetCallingAssembly().GetName().Name; } }
+        public static string ApplicationName
+        {
+            get
+            {
+                var entryAssembly = Assembly.GetEntryAssembly();
+
+                if (entryAssembly == null)
+                    return Assembly.GetCallingAssembly().GetName().Name;
+
+                return entryAssembly.GetName().Name;
+            }
+        }
 
         /// <summary>
         /// Gets the full path of the application
@@ -29,7 +40,8 @@ namespace Couldron
                 var entryAssembly = Assembly.GetEntryAssembly();
                 if (entryAssembly == null)
                     return Path.GetDirectoryName(Assembly.GetCallingAssembly().Location);
-                return Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+
+                return Path.GetDirectoryName(entryAssembly.Location);
             }
         }
 

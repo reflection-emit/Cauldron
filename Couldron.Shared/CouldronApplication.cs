@@ -2,13 +2,18 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Media;
 
 namespace Couldron
 {
     public abstract class CouldronApplication : Application
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CouldronApplication"/>
+        /// </summary>
         public CouldronApplication()
         {
+            this.Resources.Add(nameof(ThemeAccentColor), Colors.SteelBlue);
             this.ShutdownMode = ShutdownMode.OnMainWindowClose;
             this.OnConstruction();
 
@@ -24,13 +29,28 @@ namespace Couldron
                 this.Resources.MergedDictionaries.Add(Activator.CreateInstance(resourceDictionary) as ResourceDictionary);
         }
 
-        protected virtual void OnConstruction()
+        /// <summary>
+        /// Gets or sets the Couldron theme accent color
+        /// <para/>
+        /// There is no garantee that the used theme supports the accent color
+        /// </summary>
+        public Color ThemeAccentColor
         {
+            get
+            {
+                return (Color)this.Resources[nameof(ThemeAccentColor)];
+            }
+            set
+            {
+                this.Resources[nameof(ThemeAccentColor)] = value;
+            }
         }
 
-        protected override void OnStartup(StartupEventArgs e)
+        /// <summary>
+        /// Occures on initialization of <see cref="CouldronApplication"/>
+        /// </summary>
+        protected virtual void OnConstruction()
         {
-            base.OnStartup(e);
         }
     }
 }

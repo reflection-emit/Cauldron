@@ -188,6 +188,24 @@ namespace Couldron.Behaviours
 
         #endregion Dependency Property WindowStartupLocation
 
+        #region Dependency Property IsWindowPersistent
+
+        /// <summary>
+        /// Identifies the <see cref="IsWindowPersistent" /> dependency property
+        /// </summary>
+        public static readonly DependencyProperty IsWindowPersistentProperty = DependencyProperty.Register(nameof(IsWindowPersistent), typeof(bool), typeof(WindowConfigurationBehaviour), new PropertyMetadata(false));
+
+        /// <summary>
+        /// Gets or sets the <see cref="IsWindowPersistent" /> Property
+        /// </summary>
+        public bool IsWindowPersistent
+        {
+            get { return (bool)this.GetValue(IsWindowPersistentProperty); }
+            set { this.SetValue(IsWindowPersistentProperty, value); }
+        }
+
+        #endregion Dependency Property IsWindowPersistent
+
         #region Dependency Property WindowState
 
         /// <summary>

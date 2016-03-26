@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Capgemini")]
 [assembly: AssemblyProduct("Couldron")]
-[assembly: AssemblyCopyright("Copyright Capgemini©  2016")]
+[assembly: AssemblyCopyright("Copyright Alexander Schunk©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

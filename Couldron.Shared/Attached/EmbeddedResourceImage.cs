@@ -45,7 +45,7 @@ namespace Couldron.Attached
             {
                 var image = new System.Windows.Controls.Image();
                 image.Source = bitmapImage;
-                image.Stretch = System.Windows.Media.Stretch.UniformToFill;
+                image.Stretch = System.Windows.Media.Stretch.Uniform;
                 image.VerticalAlignment = VerticalAlignment.Stretch;
                 image.HorizontalAlignment = HorizontalAlignment.Stretch;
 

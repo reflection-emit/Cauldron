@@ -68,4 +68,37 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style TargetType="Button" x:Key="TitleBarButtonStyle">
+        <Setter Property="MinWidth" Value="34" />
+        <Setter Property="Height" Value="26" />
+        <Setter Property="Padding" Value="3,0" />
+        <Setter Property="Foreground" Value="{StaticResource ThemeTextBrush}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Rectangle x:Name="background" Fill="{TemplateBinding Background}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                        <ContentPresenter Margin="{TemplateBinding Padding}" HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True" />
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="background" Property="Fill" Value="{StaticResource ThemeHoverLightBrush}" />
+                            <Setter Property="Foreground" Value="{StaticResource ThemeAccentBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter TargetName="background" Property="Fill" Value="{StaticResource ThemeAccentBrush}" />
+                            <Setter Property="Foreground" Value="{StaticResource ThemeHoverLightBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Foreground" Value="{StaticResource ThemeDisabledTextBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

@@ -220,6 +220,26 @@ namespace Couldron
         }
 
         /// <summary>
+        /// Determines whether a contract exist
+        /// </summary>
+        /// <param name="contractName">The name that identifies the type</param>
+        /// <returns>True if the contract exists, otherwise false</returns>
+        public static bool HasContract(string contractName)
+        {
+            return types.Contains(x => x.contractName == contractName);
+        }
+
+        /// <summary>
+        /// Determines whether a contract exist
+        /// </summary>
+        /// <param name="contractType">The Type that contract name derives from</param>
+        /// <returns>True if the contract exists, otherwise false</returns>
+        public static bool HasContract(Type contractType)
+        {
+            return HasContract(contractType.FullName);
+        }
+
+        /// <summary>
         /// Returns a value that indicates if the contract is a singleton or not
         /// </summary>
         /// <typeparam name="T">The type that the contract name derives from</typeparam>

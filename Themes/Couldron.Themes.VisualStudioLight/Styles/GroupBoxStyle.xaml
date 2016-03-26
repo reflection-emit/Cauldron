@@ -22,11 +22,10 @@
                             <RowDefinition Height="21" />
                             <RowDefinition />
                         </Grid.RowDefinitions>
-                        <Border Background="{StaticResource ThemeLightBorderBrush}" HorizontalAlignment="Left" VerticalAlignment="Stretch">
-                            <ContentPresenter Margin="3,0,6,0" ContentSource="Header" RecognizesAccessKey="True" VerticalAlignment="Center" />
-                        </Border>
-                        <Border Grid.Row="1" BorderBrush="{StaticResource ThemeLightBorderBrush}" BorderThickness="1">
-                            <ContentPresenter Margin="2" />
+                        <ContentPresenter Margin="3,0,6,0" ContentSource="Header" RecognizesAccessKey="True" VerticalAlignment="Center" />
+                        <Rectangle VerticalAlignment="Bottom" Height="2" Fill="{StaticResource ThemeAccentBrush}" />
+                        <Border Grid.Row="1"  BorderBrush="{StaticResource ThemeLightBorderBrush}" BorderThickness="1">
+                            <ContentPresenter Margin="4" />
                         </Border>
                     </Grid>
                 </ControlTemplate>

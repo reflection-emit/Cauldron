@@ -19,7 +19,9 @@ namespace Couldron.Validation
         public ValidationBaseAttribute(string errorMessageKey)
         {
             this.ErrorMessageKey = errorMessageKey;
-            this.localization = Factory.Create<Localization>();
+
+            if (Factory.HasContract(typeof(ILocalizationSource)))
+                this.localization = Factory.Create<Localization>();
         }
 
         /// <summary>
@@ -38,7 +40,7 @@ namespace Couldron.Validation
             object value = this.propertyInfo.GetValue(context);
 
             if (this.OnValidate(sender, context, propertyInfo, value))
-                return this.localization[this.ErrorMessageKey];
+                return this.localization == null ? this.ErrorMessageKey : this.localization[this.ErrorMessageKey];
 
             return string.Empty;
         }

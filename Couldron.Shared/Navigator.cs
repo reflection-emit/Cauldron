@@ -3,13 +3,15 @@ using Couldron.Behaviours;
 using Couldron.Collections;
 using Couldron.Core;
 using Couldron.ViewModels;
+using Newtonsoft.Json;
 using System;
+using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 
 namespace Couldron
 {
@@ -21,20 +23,42 @@ namespace Couldron
         private static bool isCustomWindow = false;
 
         // The navigator always knows every window that it has created
-        private static ConcurrentList<Window> windows = new ConcurrentList<Window>();
+        private static ConcurrentList<WindowViewModelObject> windows = new ConcurrentList<WindowViewModelObject>();
 
         /// <summary>
         /// Closes the current focused <see cref="Window"/>.
         /// </summary>
         public static void CloseFocusedWindow()
         {
-            var window = windows.FirstOrDefault(x => x.IsActive);
+            var windowObject = windows.FirstOrDefault(x => x.window.IsActive);
 
-            if (window == null)
+            if (windowObject == null)
                 return;
 
-            if (Close(window))
-                window.Close();
+            if (Close(windowObject.window))
+                windowObject.window.Close();
+        }
+
+        /// <summary>
+        /// Closes the window to where the given viewmodel was directly assigned to.
+        /// </summary>
+        /// <param name="viewModel">The viewmodel to that was assigned to the window's data context</param>
+        /// <returns>Returns true if <see cref="Window.Close"/> was triggered, otherwise false</returns>
+        /// <exception cref="ArgumentNullException">Parameter <paramref name="viewModel"/> is null</exception>
+        public static bool CloseWindowOf(IViewModel viewModel)
+        {
+            if (viewModel == null)
+                throw new ArgumentNullException(nameof(viewModel));
+
+            var window = windows.FirstOrDefault(x => x.viewModelId == viewModel.Id);
+
+            if (window == null)
+                return false;
+
+            // Close the window
+            window.window.Close();
+
+            return true;
         }
 
         /// <summary>
@@ -92,10 +116,10 @@ namespace Couldron
         {
             if (window == Application.Current.MainWindow)
             {
-                foreach (var w in windows)
+                foreach (var windowObject in windows)
                 {
-                    if (w != Application.Current.MainWindow)
-                        w.Close();
+                    if (windowObject.window != Application.Current.MainWindow)
+                        windowObject.window.Close();
                 }
 
                 if (windows.Count == 1)
@@ -107,12 +131,12 @@ namespace Couldron
             return false;
         }
 
-        private static Window CreateDefaultWindow<TResult>(Action<TResult> callback, FrameworkElement view, object viewModel)
+        private static Window CreateDefaultWindow<TResult>(Action<TResult> callback, FrameworkElement view, IViewModel viewModel)
         {
             return CreateWindow(callback, new WindowConfigurationBehaviour(), view, viewModel);
         }
 
-        private static Window CreateWindow<TResult>(Action<TResult> callback, FrameworkElement view, object viewModel, out bool isDialog)
+        private static Window CreateWindow<TResult>(Action<TResult> callback, FrameworkElement view, IViewModel viewModel, out bool isDialog)
         {
             Window window = null;
 
@@ -143,12 +167,12 @@ namespace Couldron
             return Activator.CreateInstance(window.AsType()) as Window;
         }
 
-        private static Window CreateWindow<TResult>(Action<TResult> callback, WindowConfigurationBehaviour windowConfig, FrameworkElement view, object viewModel)
+        private static Window CreateWindow<TResult>(Action<TResult> callback, WindowConfigurationBehaviour windowConfig, FrameworkElement view, IViewModel viewModel)
         {
             var window = CreateWindow();
             window.BeginInit();
             // Add this new window to the dictionary
-            windows.Add(window);
+            windows.Add(new WindowViewModelObject { window = window, viewModelId = viewModel.Id });
 
             // set the configs
             if (isCustomWindow)
@@ -172,8 +196,11 @@ namespace Couldron
             window.Icon = windowConfig.Icon;
             window.Title = windowConfig.Title;
 
+            if (windowConfig.IsWindowPersistent)
+                PersistentWindowInformation.Load(window, viewModel.GetType());
+
             // set the window owner
-            window.Owner = windows.FirstOrDefault(x => x.IsActive);
+            windows.FirstOrDefault(x => x.window.IsActive).IsNotNull(x => window.Owner = x.window);
 
             // Set the toolbar template
             WindowToolbar.SetTemplate(window, windowConfig.ToolbarTemplate);
@@ -184,9 +211,9 @@ namespace Couldron
             (viewModel as IWindowViewModel).IsNotNull(x =>
             {
                 window.Closing += (s, e) => e.Cancel |= !x.CanClose();
-                window.GotFocus += (s, e) => x.GotFocus();
+                window.Activated += (s, e) => x.Activated();
                 window.SizeChanged += (s, e) => x.SizeChanged(e.NewSize.Width, e.NewSize.Height);
-                window.LostFocus += (s, e) => x.LostFocus();
+                window.Deactivated += (s, e) => x.Deactivated();
             });
             window.Closing += (s, e) =>
             {
@@ -194,7 +221,10 @@ namespace Couldron
             };
             window.Closed += (s, e) =>
             {
-                windows.Remove(s);
+                if (windowConfig.IsWindowPersistent)
+                    PersistentWindowInformation.Save(window, viewModel.GetType());
+
+                windows.Remove(x => x.window == s);
                 window.Content.DisposeAll();
                 window.Content = null;
                 window.DisposeAll(); // some custom windows have implemented the IDisposable interface
@@ -270,6 +300,43 @@ namespace Couldron
             if (!isDialog)
                 window.Show();
 
+            // This only applies to windows that are not maximized
+            if (window.WindowState != WindowState.Maximized)
+            {
+                // Check if the window is visible for the user
+                // If the user has for example undocked his laptop (which means he lost a monitor) and the application
+                // was running on the secondary monitor, we can't just start the window with that configuration
+                IntPtr monitor = UnsafeNative.MonitorFromWindow(window.GetWindowHandle(), UnsafeNative.MonitorOptions.MONITOR_DEFAULTTONULL);
+
+                // If MonitorFromWindow has return zero, we are sure that the window is not in any of our monitors
+                if (monitor == IntPtr.Zero)
+                {
+                    var primaryBounds = MonitorInfo.PrimaryMonitorBounds;
+                    window.Height = Math.Min(window.Height, primaryBounds.Height);
+                    window.Width = Math.Min(window.Width, primaryBounds.Width);
+                    window.Left = Math.Max(0, (primaryBounds.Width / 2) - (window.Width / 2));
+                    window.Top = Math.Max(0, (primaryBounds.Height / 2) - (window.Height / 2));
+                }
+                else
+                {
+                    // we have to make sure, that the title bar of the window is visible for the user
+                    var monitorBounds = MonitorInfo.GetMonitorBounds(window);
+
+                    if (monitorBounds.HasValue)
+                    {
+                        window.Height = Math.Min(window.Height, monitorBounds.Value.Height);
+                        window.Width = Math.Min(window.Width, monitorBounds.Value.Width);
+                        window.Left = Math.Max(window.Left, monitorBounds.Value.Left);
+                        window.Top = Math.Max(window.Top, monitorBounds.Value.Top);
+                    }
+                    else // set the left and top to 0
+                    {
+                        window.Left = 0;
+                        window.Top = 0;
+                    }
+                }
+            }
+
             // get the navigation methods
             await NavigatingTo(viewModelType, viewModel, args);
 
@@ -303,6 +370,72 @@ namespace Couldron
                     }
                 }
             }
+        }
+
+        private class PersistentWindowInformation
+        {
+            [JsonProperty("height")]
+            public double Height { get; set; }
+
+            [JsonProperty("left")]
+            public double Left { get; set; }
+
+            [JsonProperty("state")]
+            public WindowState State { get; set; }
+
+            [JsonProperty("top")]
+            public double Top { get; set; }
+
+            [JsonProperty("width")]
+            public double Width { get; set; }
+
+            public static void Load(Window window, Type viewModelType)
+            {
+                var path = Path.Combine(ApplicationData.Current.RoamingFolder, "Navigator");
+
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
+
+                var name = viewModelType.FullName.GetMD5HashString() + ".json";
+                var filename = Path.Combine(path, name);
+
+                if (!File.Exists(filename))
+                    return;
+
+                var obj = JsonConvert.DeserializeObject<PersistentWindowInformation>(File.ReadAllText(filename));
+
+                window.WindowStartupLocation = WindowStartupLocation.Manual;
+                window.Left = obj.Left;
+                window.Top = obj.Top;
+                window.Height = obj.Height;
+                window.Width = obj.Width;
+                window.WindowState = obj.State;
+            }
+
+            public static void Save(Window window, Type viewModelType)
+            {
+                var path = Path.Combine(ApplicationData.Current.RoamingFolder, "Navigator");
+
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
+
+                var obj = new PersistentWindowInformation();
+                obj.Width = window.Width;
+                obj.Height = window.Height;
+                obj.Top = window.Top;
+                obj.Left = window.Left;
+                obj.State = window.WindowState;
+
+                var filename = Path.Combine(path, viewModelType.FullName.GetMD5HashString() + ".json");
+                var content = JsonConvert.SerializeObject(obj);
+                File.WriteAllText(filename, content);
+            }
+        }
+
+        private class WindowViewModelObject
+        {
+            public Guid viewModelId;
+            public Window window;
         }
     }
 }

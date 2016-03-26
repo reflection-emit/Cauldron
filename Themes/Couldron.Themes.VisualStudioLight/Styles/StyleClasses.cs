@@ -11,6 +11,17 @@
         }
     }
 
+    public partial class ComboBoxStyle
+    {
+        /// <summary>
+        /// Initializes a new instance of <see cref="ComboBoxStyle"/>
+        /// </summary>
+        public ComboBoxStyle()
+        {
+            this.InitializeComponent();
+        }
+    }
+
     public partial class GroupBoxStyle
     {
         /// <summary>

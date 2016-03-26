@@ -76,6 +76,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="..\Couldron.Themes.VisualStudioLight\Styles\ComboBox.xaml">
+      <Link>Styles\ComboBox.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="..\Couldron.Themes.VisualStudioLight\Styles\GroupBoxStyle.xaml">
       <Link>Styles\GroupBoxStyle.xaml</Link>
       <Generator>MSBuild:Compile</Generator>

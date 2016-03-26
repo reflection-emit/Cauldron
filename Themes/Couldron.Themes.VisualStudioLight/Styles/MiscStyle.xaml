@@ -10,6 +10,20 @@
              xmlns:attached="clr-namespace:Couldron.Attached;assembly=Couldron"
              mc:Ignorable="d">
 
+    <Style TargetType="ToolTip">
+        <Setter Property="Foreground" Value="{StaticResource ThemeTextBrush}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToolTip">
+                    <Border Background="{StaticResource ThemeLightBorderBrush}" BorderBrush="{StaticResource ThemeButtonbackBrush}"
+                            BorderThickness="1" CornerRadius="4">
+                        <ContentPresenter Margin="8" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style TargetType="ContentControl">
         <Setter Property="ContentTemplateSelector" Value="{StaticResource CouldronTemplateSelector}" />
     </Style>

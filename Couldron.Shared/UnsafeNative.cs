@@ -9,6 +9,18 @@ namespace Couldron
     /// </summary>
     internal static class UnsafeNative
     {
+        public delegate bool MonitorEnumProc(IntPtr hDesktop, IntPtr hdc, ref Rect pRect, int dwData);
+
+        public enum MonitorOptions : uint
+        {
+            MONITOR_DEFAULTTONULL = 0x00000000,
+            MONITOR_DEFAULTTOPRIMARY = 0x00000001,
+            MONITOR_DEFAULTTONEAREST = 0x00000002
+        }
+
+        [DllImport("user32")]
+        public static extern bool EnumDisplayMonitors(IntPtr hdc, IntPtr lpRect, MonitorEnumProc callback, int dwData);
+
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool GetCursorPos(ref Win32Point pt);
@@ -16,8 +28,11 @@ namespace Couldron
         [DllImport("user32")]
         public static extern bool GetMonitorInfo(IntPtr hMonitor, MONITORINFO lpmi);
 
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern IntPtr MonitorFromPoint(POINT pt, MonitorOptions dwFlags);
+
         [DllImport("User32")]
-        public static extern IntPtr MonitorFromWindow(IntPtr handle, int flags);
+        public static extern IntPtr MonitorFromWindow(IntPtr handle, MonitorOptions dwFlags);
 
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         public static extern IntPtr SendMessage(IntPtr hWnd, int Msg, IntPtr wParam, IntPtr lParam);
@@ -27,8 +42,7 @@ namespace Couldron
             MINMAXINFO mmi = (MINMAXINFO)Marshal.PtrToStructure(lParam, typeof(MINMAXINFO));
 
             // Adjust the maximized size and position to fit the work area of the correct monitor
-            int MONITOR_DEFAULTTONEAREST = 0x00000002;
-            System.IntPtr monitor = MonitorFromWindow(hwnd, MONITOR_DEFAULTTONEAREST);
+            System.IntPtr monitor = MonitorFromWindow(hwnd, MonitorOptions.MONITOR_DEFAULTTONEAREST);
 
             if (monitor != System.IntPtr.Zero)
             {

@@ -25,11 +25,11 @@ namespace NavigationSample.ViewModels
             return !this.HasErrors;
         }
 
-        public void GotFocus()
+        public void Activated()
         {
         }
 
-        public void LostFocus()
+        public void Deactivated()
         {
         }
 

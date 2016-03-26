@@ -10,10 +10,10 @@
              d:DesignHeight="300" d:DesignWidth="300">
 
     <behaviour:Interaction.Behaviours>
-        <behaviour:WindowConfigurationBehaviour WindowState="Maximized" Title="{Binding Title}" Icon="pack://application:,,,/test.png">
+        <behaviour:WindowConfigurationBehaviour WindowState="Maximized" Title="{Binding Title}" Icon="pack://application:,,,/test.png" IsWindowPersistent="True">
             <behaviour:WindowConfigurationBehaviour.ToolbarTemplate>
                 <ControlTemplate>
-                    <Button Height="24" Content="New Instance" Command="{Binding NewInstanceCommand}" />
+                    <Button Height="24" Content="New Instance" Command="{Binding NewInstanceCommand}" Style="{StaticResource TitleBarButtonStyle}" />
                 </ControlTemplate>
             </behaviour:WindowConfigurationBehaviour.ToolbarTemplate>
         </behaviour:WindowConfigurationBehaviour>

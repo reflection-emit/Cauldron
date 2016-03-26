@@ -7,6 +7,8 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
@@ -104,6 +106,67 @@ namespace Couldron
                 // Dispose the datacontext
                 x.DataContext.DisposeAll();
             });
+        }
+
+        /// <summary>
+        /// Gets a specified length of bytes.
+        /// <para />
+        /// If the specified length <paramref name="length"/> is longer than the source array the source array will be returned instead.
+        /// </summary>
+        /// <param name="target">The source array</param>
+        /// <param name="length">The amount of bytes to get</param>
+        /// <returns>Returns an array of bytes</returns>
+        public static byte[] GetBytes(this byte[] target, int length)
+        {
+            if (length >= target.Length)
+                return target;
+
+            byte[] value = new byte[length];
+
+            Array.Copy(target, value, length);
+            return value;
+        }
+
+        /// <summary>
+        /// Hashes a string with MD5
+        /// </summary>
+        /// <param name="target">The string to hash</param>
+        /// <returns>An array of bytes that represents the hash</returns>
+        public static byte[] GetMD5HashBytes(this string target)
+        {
+            using (MD5 md5 = System.Security.Cryptography.MD5.Create())
+                return md5.ComputeHash(UTF8Encoding.UTF8.GetBytes(target));
+        }
+
+        /// <summary>
+        /// Hashes a string with MD5
+        /// </summary>
+        /// <param name="target">The string to hash</param>
+        /// <returns>A string representing the hash of the original stirng</returns>
+        public static string GetMD5HashString(this string target)
+        {
+            return BitConverter.ToString(target.GetMD5HashBytes()).Replace("-", string.Empty);
+        }
+
+        /// <summary>
+        /// Hashes a string with Sha256
+        /// </summary>
+        /// <param name="target">The string to hash</param>
+        /// <returns>An array of bytes that represents the hash</returns>
+        public static byte[] GetSha256HashBytes(this string target)
+        {
+            using (SHA256 sha = SHA256.Create())
+                return sha.ComputeHash(UTF8Encoding.UTF8.GetBytes(target));
+        }
+
+        /// <summary>
+        /// Hashes a string with Sha256
+        /// </summary>
+        /// <param name="target">The string to hash</param>
+        /// <returns>An string that represents the hash of the original string</returns>
+        public static string GetSha256HashString(this string target)
+        {
+            return BitConverter.ToString(target.GetSha256HashBytes()).Replace("-", string.Empty);
         }
 
         /// <summary>

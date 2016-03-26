@@ -4,7 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:ViewModelCommunication.Views"
-      xmlns:behaviour="clr-namespace:Couldron.Behaviours;assembly=Couldron">
+      xmlns:behaviour="clr-namespace:Couldron.Behaviours;assembly=Couldron"
+      xmlns:attached="clr-namespace:Couldron.Attached;assembly=Couldron">
 
     <DataTemplate x:Key="View_MainViewModel">
         <TabControl Margin="5" ItemsSource="{Binding Animals}" DisplayMemberPath="Name">
@@ -28,7 +29,13 @@
                 <Button VerticalAlignment="Top" HorizontalAlignment="Left" Content="Test Button" />
             </GroupBox>
             <GroupBox Header="{Binding Name}" Grid.Column="1" Grid.Row="1">
-                <Button VerticalAlignment="Top" HorizontalAlignment="Left" Content="Test Button" />
+                <TextBox Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" attached:TextBoxProperties.Header="Animal name" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                    <attached:TextBoxProperties.ButtonsTemplate>
+                        <ControlTemplate>
+                            <Button Content="Clear" Command="{Binding ClearCommand}" />
+                        </ControlTemplate>
+                    </attached:TextBoxProperties.ButtonsTemplate>
+                </TextBox>
             </GroupBox>
             <GroupBox Header="{Binding Name}" Grid.Column="1">
                 <Button VerticalAlignment="Top" HorizontalAlignment="Left" Content="Test Button" />

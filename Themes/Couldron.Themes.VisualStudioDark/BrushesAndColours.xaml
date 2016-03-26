@@ -14,7 +14,6 @@
     <Color x:Key="ThemeLightBackgroundColor">#333337</Color>
     <SolidColorBrush x:Key="ThemeLightBackgroundBrush" Color="{StaticResource ThemeLightBackgroundColor}" />
 
-    <Color x:Key="ThemeAccentColor">SteelBlue</Color>
     <SolidColorBrush x:Key="ThemeAccentBrush" Color="{StaticResource ThemeAccentColor}" />
     <SolidColorBrush x:Key="ThemeLightAccentBrush" Color="{StaticResource ThemeAccentColor}" Opacity="0.6" />
 
