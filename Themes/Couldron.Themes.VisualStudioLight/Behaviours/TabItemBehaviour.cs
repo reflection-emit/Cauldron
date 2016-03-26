@@ -6,7 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace Couldron.Themes.VisualStudioLight.Behaviours
+namespace Couldron.Themes.VisualStudio.Behaviours
 {
     internal sealed class TabItemBehaviour : Behaviour<TabItem>
     {

@@ -42,9 +42,26 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Couldron.Themes.VisualStudioLight\Behaviours\TabItemBehaviour.cs">
+      <Link>Behaviours\TabItemBehaviour.cs</Link>
+    </Compile>
+    <Compile Include="..\Couldron.Themes.VisualStudioLight\Behaviours\Validations.cs">
+      <Link>Behaviours\Validations.cs</Link>
+    </Compile>
+    <Compile Include="..\Couldron.Themes.VisualStudioLight\Styles\StyleClasses.cs">
+      <Link>Styles\StyleClasses.cs</Link>
+    </Compile>
+    <Compile Include="..\Couldron.Themes.VisualStudioLight\TabItemHeader.cs">
+      <Link>TabItemHeader.cs</Link>
+    </Compile>
+    <Compile Include="..\Couldron.Themes.VisualStudioLight\Window.xaml.cs">
+      <Link>Window.xaml.cs</Link>
+      <DependentUpon>Window.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BrushesAndColours.xaml.cs">
       <DependentUpon>BrushesAndColours.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GrayscaleEffect.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -54,10 +71,35 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="..\Couldron.Themes.VisualStudioLight\Styles\ButtonStyle.xaml">
+      <Link>Styles\ButtonStyle.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\Couldron.Themes.VisualStudioLight\Styles\TabControlStyle.xaml">
+      <Link>Styles\TabControlStyle.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\Couldron.Themes.VisualStudioLight\Styles\TextBoxStyle.xaml">
+      <Link>Styles\TextBoxStyle.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\Couldron.Themes.VisualStudioLight\Window.xaml">
+      <Link>Window.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="BrushesAndColours.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="..\Couldron.Themes.VisualStudioLight\Resources\GrayscaleEffect.ps">
+      <Link>Resources\GrayscaleEffect.ps</Link>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

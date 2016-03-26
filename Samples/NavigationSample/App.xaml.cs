@@ -8,7 +8,7 @@ namespace NavigationSample
     {
         protected override void OnConstruction()
         {
-            AssemblyUtil.LoadAssembly("Couldron.Themes.VisualStudioLight.dll");
+            AssemblyUtil.LoadAssembly("Couldron.Themes.VisualStudioDark.dll");
         }
 
         protected override void OnStartup(StartupEventArgs e)

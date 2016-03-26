@@ -1,4 +1,4 @@
-﻿namespace Couldron.Themes.VisualStudioLight.Styles
+﻿namespace Couldron.Themes.VisualStudio.Styles
 {
     public partial class ButtonStyle
     {

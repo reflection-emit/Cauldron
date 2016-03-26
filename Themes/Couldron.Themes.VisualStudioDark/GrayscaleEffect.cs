@@ -11,7 +11,7 @@ namespace Couldron.Themes.VisualStudio
 
         public GrayscaleEffect()
         {
-            PixelShader = new PixelShader() { UriSource = new Uri(@"pack://application:,,,/Couldron.Themes.VisualStudioLight;component/Resources/GrayscaleEffect.ps") };
+            PixelShader = new PixelShader() { UriSource = new Uri(@"pack://application:,,,/Couldron.Themes.VisualStudioDark;component/Resources/GrayscaleEffect.ps") };
 
             UpdateShaderValue(InputProperty);
             UpdateShaderValue(DesaturationFactorProperty);

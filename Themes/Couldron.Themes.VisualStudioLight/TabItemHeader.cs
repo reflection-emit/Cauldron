@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Couldron.Themes.VisualStudioLight
+namespace Couldron.Themes.VisualStudio
 {
     internal static class TabItemHeader
     {

@@ -127,9 +127,9 @@
       <Project>{2aca0073-bebf-46ce-830a-3ac8bb4a3dca}</Project>
       <Name>Couldron</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Themes\Couldron.Themes.VisualStudioLight\Couldron.Themes.VisualStudioLight.csproj">
-      <Project>{242de6c1-325d-471b-8154-59d41aefe16d}</Project>
-      <Name>Couldron.Themes.VisualStudioLight</Name>
+    <ProjectReference Include="..\..\Themes\Couldron.Themes.VisualStudioDark\Couldron.Themes.VisualStudioDark.csproj">
+      <Project>{8a4211b8-f38f-4a2b-ab81-c971da0fe8c2}</Project>
+      <Name>Couldron.Themes.VisualStudioDark</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

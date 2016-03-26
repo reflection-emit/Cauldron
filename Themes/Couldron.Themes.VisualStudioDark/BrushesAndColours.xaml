@@ -8,32 +8,32 @@
 
     <SolidColorBrush x:Key="Transparent" Color="Transparent" />
 
-    <Color x:Key="ThemeBackgroundColor" R="238" G="238" B="242" A="255" />
+    <Color x:Key="ThemeBackgroundColor">#2D2D30</Color>
     <SolidColorBrush x:Key="ThemeBackgroundBrush" Color="{StaticResource ThemeBackgroundColor}" />
 
-    <Color x:Key="ThemeLightBackgroundColor">White</Color>
+    <Color x:Key="ThemeLightBackgroundColor">#333337</Color>
     <SolidColorBrush x:Key="ThemeLightBackgroundBrush" Color="{StaticResource ThemeLightBackgroundColor}" />
 
     <Color x:Key="ThemeAccentColor">SteelBlue</Color>
     <SolidColorBrush x:Key="ThemeAccentBrush" Color="{StaticResource ThemeAccentColor}" />
     <SolidColorBrush x:Key="ThemeLightAccentBrush" Color="{StaticResource ThemeAccentColor}" Opacity="0.6" />
 
-    <Color x:Key="ThemeDisabledTextColor">#B29496</Color>
+    <Color x:Key="ThemeDisabledTextColor">#546D60</Color>
     <SolidColorBrush x:Key="ThemeDisabledTextBrush" Color="{StaticResource ThemeDisabledTextColor}" />
 
-    <Color x:Key="ThemeDisabledBackgroundColor">#CCCEDB</Color>
+    <Color x:Key="ThemeDisabledBackgroundColor">#252526</Color>
     <SolidColorBrush x:Key="ThemeDisabledBackgroundBrush" Color="{StaticResource ThemeDisabledBackgroundColor}" />
 
-    <Color x:Key="ThemeTextColor">Black</Color>
+    <Color x:Key="ThemeTextColor">White</Color>
     <SolidColorBrush x:Key="ThemeTextBrush" Color="{StaticResource ThemeTextColor}" />
 
     <Color x:Key="ThemeHoveredTextColor">White</Color>
     <SolidColorBrush x:Key="ThemeHoveredTextBrush" Color="{StaticResource ThemeHoveredTextColor}" />
 
-    <Color x:Key="ThemeHoverLightColor">#FCFCFD</Color>
+    <Color x:Key="ThemeHoverLightColor">#3F3F46</Color>
     <SolidColorBrush x:Key="ThemeHoverLightBrush" Color="{StaticResource ThemeHoverLightColor}" />
 
-    <Color x:Key="ThemeLightBorderColor">#CCCEDB</Color>
+    <Color x:Key="ThemeLightBorderColor">#434346</Color>
     <SolidColorBrush x:Key="ThemeLightBorderBrush" Color="{StaticResource ThemeLightBorderColor}" />
 
     <Color x:Key="ThemeLightOverlayColor">#90FFFFFF</Color>
@@ -42,7 +42,7 @@
     <Color x:Key="ThemeDarkOverlayColor">#90000000</Color>
     <SolidColorBrush x:Key="ThemeDarkOverlayBrush" Color="{StaticResource ThemeLightOverlayColor}" />
 
-    <Color x:Key="ThemeButtonbackColor">#C2C3C9</Color>
+    <Color x:Key="ThemeButtonbackColor">#3E3E42</Color>
     <SolidColorBrush x:Key="ThemeButtonbackBrush" Color="{StaticResource ThemeButtonbackColor}" />
 
     <Color x:Key="ThemeMandatoryColor">Gold</Color>

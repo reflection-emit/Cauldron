@@ -5,7 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
-namespace Couldron.Themes.VisualStudioLight.Behaviours
+namespace Couldron.Themes.VisualStudio.Behaviours
 {
     internal static class ValidationProperties
     {

@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Couldron.Themes.VisualStudioLight
+namespace Couldron.Themes.VisualStudio
 {
     public partial class BrushesAndColours : ResourceDictionary
     {
