@@ -38,6 +38,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Core\Cryptography\KeyMaterial.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\DisposableBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\DynamicEventHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\EmbeddedImageManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\IDisposableObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Mathc.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\MonitorInfo.cs" />

@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Couldron.Core;
+using System.Windows;
 
 namespace Couldron.Attached
 {
@@ -37,7 +38,7 @@ namespace Couldron.Attached
 
         private static void OnImageKeyChanged(DependencyObject d, DependencyPropertyChangedEventArgs args)
         {
-            var bitmapImage = string.IsNullOrEmpty(args.NewValue as string) ? null : AssemblyUtil.GetManifestResourceStream(args.NewValue as string).ToBitmapImage();
+            var bitmapImage = EmbeddedImageManager.GetImage(args.NewValue as string);
 
             if (d is System.Windows.Controls.Image)
                 d.CastTo<System.Windows.Controls.Image>().Source = bitmapImage;

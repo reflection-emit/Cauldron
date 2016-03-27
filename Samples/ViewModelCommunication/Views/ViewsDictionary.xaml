@@ -8,7 +8,7 @@
       xmlns:attached="clr-namespace:Couldron.Attached;assembly=Couldron">
 
     <DataTemplate x:Key="View_MainViewModel">
-        <TabControl Margin="5" ItemsSource="{Binding Animals}" DisplayMemberPath="Name">
+        <TabControl Margin="5" ItemsSource="{Binding Animals}" SelectedItem="{Binding SelectedAnimal}" DisplayMemberPath="Name">
             <behaviour:Interaction.Behaviours>
                 <behaviour:WindowConfigurationBehaviour Title="Test Title">
                     <behaviour:WindowConfigurationBehaviour.ToolbarTemplate>
