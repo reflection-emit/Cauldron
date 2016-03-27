@@ -65,11 +65,10 @@
 
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
-                            <RowDefinition />
+                            <RowDefinition MinHeight="22" />
                         </Grid.RowDefinitions>
 
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition />
                             <ColumnDefinition Width="Auto" />
@@ -83,23 +82,23 @@
                                  Visibility="{Binding Path=(attached:TextBoxProperties.Header), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NullOrEmptyTovisibilityConverter}, ConverterParameter=True}"
                                  Margin="1,2,0,2" Grid.ColumnSpan="3" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
 
-                        <TextBlock Grid.Row="1" Grid.Column="2"
+                        <TextBlock Grid.Row="1" Grid.Column="1" IsHitTestVisible="False"
                                        Text="{Binding Path=(attached:TextBoxProperties.AlternativeText), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource KeyToLocalizedStringConverter}}"
                                        Foreground="{StaticResource ThemeTextBrush}" Opacity="0.7" Margin="3"
                                        Visibility="{Binding Path=Text, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NullOrEmptyTovisibilityConverter}, ConverterParameter=False}" />
 
-                        <ScrollViewer Grid.Row="1" Grid.Column="2" Margin="3" x:Name="PART_ContentHost" />
+                        <ScrollViewer Grid.Row="1" Grid.Column="1" Margin="3" x:Name="PART_ContentHost" />
 
-                        <Ellipse Grid.Row="1" Grid.Column="1" Fill="Tomato" Width="14" Height="14" Margin="4,0" VerticalAlignment="Center" HorizontalAlignment="Center"
+                        <Ellipse Grid.Row="1" Fill="Tomato" Width="14" Height="14" Margin="4,0" VerticalAlignment="Center" HorizontalAlignment="Center"
                                      ToolTip="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Validation.Errors), Converter={StaticResource ErrorCollectionConverter}}"
                                      Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Validation.HasError), Converter={StaticResource BooleanTovisibilityConverter}}" />
-                        <TextBlock Grid.Row="1" Grid.Column="1" Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Validation.HasError), Converter={StaticResource BooleanTovisibilityConverter}}"
+                        <TextBlock Grid.Row="1" Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Validation.HasError), Converter={StaticResource BooleanTovisibilityConverter}}"
                                        Text="!" IsHitTestVisible="False" FontFamily="Segoe UI" FontWeight="ExtraBold" Foreground="{StaticResource ThemeHoveredTextBrush}" VerticalAlignment="Center" HorizontalAlignment="Center" />
 
-                        <ContentControl Margin="1,0,0,0" Grid.Column="3" Grid.Row="1" Template="{Binding Path=(attached:TextBoxProperties.ButtonsTemplate), RelativeSource={RelativeSource TemplatedParent}}"
+                        <ContentControl Margin="1" Grid.Column="2" Grid.Row="1" Template="{Binding Path=(attached:TextBoxProperties.ButtonsTemplate), RelativeSource={RelativeSource TemplatedParent}}"
                                         Visibility="{Binding Path=(attached:TextBoxProperties.ButtonsTemplate), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ObjectToVisibilityConverter}}" />
 
-                        <Rectangle Grid.Row="1" Fill="{StaticResource ThemeMandatoryBrush}" Height="2" Margin="0,0,0,-2" Grid.ColumnSpan="4"
+                        <Rectangle Grid.Row="1" Fill="{StaticResource ThemeMandatoryBrush}" Height="2" Margin="0,0,0,-2" Grid.ColumnSpan="3"
                                        Visibility="{Binding Path=(localbehaviour:ValidationProperties.IsMandatory), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanTovisibilityConverter}}"
                                        VerticalAlignment="Bottom" HorizontalAlignment="Stretch" />
                     </Grid>

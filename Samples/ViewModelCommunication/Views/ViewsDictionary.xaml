@@ -10,7 +10,13 @@
     <DataTemplate x:Key="View_MainViewModel">
         <TabControl Margin="5" ItemsSource="{Binding Animals}" DisplayMemberPath="Name">
             <behaviour:Interaction.Behaviours>
-                <behaviour:WindowConfigurationBehaviour Title="Test Title" />
+                <behaviour:WindowConfigurationBehaviour Title="Test Title">
+                    <behaviour:WindowConfigurationBehaviour.ToolbarTemplate>
+                        <ControlTemplate>
+                            <ComboBox ItemsSource="{Binding Animals}" Width="120" DisplayMemberPath="Name" Margin="1" IsEditable="False" SelectedIndex="0" SelectedItem="{Binding SelectedAnimal, Mode=TwoWay}" />
+                        </ControlTemplate>
+                    </behaviour:WindowConfigurationBehaviour.ToolbarTemplate>
+                </behaviour:WindowConfigurationBehaviour>
             </behaviour:Interaction.Behaviours>
         </TabControl>
     </DataTemplate>
@@ -32,13 +38,14 @@
                 <TextBox Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" attached:TextBoxProperties.Header="Animal name" VerticalAlignment="Top" HorizontalAlignment="Stretch">
                     <attached:TextBoxProperties.ButtonsTemplate>
                         <ControlTemplate>
-                            <Button Content="Clear" Command="{Binding ClearCommand}" />
+                            <Button Content="Clear" Command="{Binding ClearCommand}" BorderThickness="0" />
                         </ControlTemplate>
                     </attached:TextBoxProperties.ButtonsTemplate>
                 </TextBox>
             </GroupBox>
             <GroupBox Header="{Binding Name}" Grid.Column="1">
-                <Button VerticalAlignment="Top" HorizontalAlignment="Left" Content="Test Button" />
+                <ComboBox Width="200" DisplayMemberPath="Name" Margin="1" attached:ComboBoxProperties.Header="Select an animal"
+                          IsEditable="False" VerticalAlignment="Top" attached:ComboBoxProperties.AlternativeText="Click here to select" />
             </GroupBox>
             <GroupBox Header="{Binding Name}" Grid.Row="1">
                 <Button VerticalAlignment="Top" HorizontalAlignment="Left" Content="Test Button" />

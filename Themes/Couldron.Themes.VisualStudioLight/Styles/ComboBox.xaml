@@ -9,4 +9,241 @@
              xmlns:collections="clr-namespace:Couldron.Collections;assembly=Couldron"
              xmlns:attached="clr-namespace:Couldron.Attached;assembly=Couldron"
              mc:Ignorable="d">
+
+    <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="ToggleButton">
+        <Border x:Name="Border" BorderThickness="1" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}">
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal" />
+                    <VisualState x:Name="MouseOver" />
+                    <VisualState x:Name="Pressed" />
+                    <VisualState x:Name="Disabled">
+                        <Storyboard>
+                        </Storyboard>
+                    </VisualState>
+                </VisualStateGroup>
+                <VisualStateGroup x:Name="CheckStates">
+                    <VisualState x:Name="Checked">
+                        <Storyboard>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
+                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ThemeAccentBrush}" />
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="Arrow">
+                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ThemeHoveredTextBrush}" />
+                            </ObjectAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </VisualState>
+                    <VisualState x:Name="Unchecked" />
+                    <VisualState x:Name="Indeterminate" />
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+            <Path x:Name="Arrow" HorizontalAlignment="Center" VerticalAlignment="Center" Data="M 0 0 L 3 3 L 6 0 Z" Fill="{TemplateBinding Foreground}" />
+        </Border>
+    </ControlTemplate>
+
+    <Style TargetType="ComboBoxItem" x:Key="{x:Type ComboBoxItem}">
+        <Setter Property="SnapsToDevicePixels" Value="true" />
+        <Setter Property="OverridesDefaultStyle" Value="true" />
+        <Setter Property="MinHeight" Value="17" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ComboBoxItem">
+                    <Border x:Name="Border" Margin="2,0" SnapsToDevicePixels="true" Background="Transparent" MinHeight="17">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="SelectionStates">
+                                <VisualState x:Name="Unselected" />
+                                <VisualState x:Name="Selected">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ThemeLightAccentBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="SelectedUnfocused">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ThemeLightBackgroundBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <ContentPresenter Margin="4,0" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource ThemeLightAccentBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="{x:Type ComboBox}" TargetType="ComboBox">
+        <Setter Property="SnapsToDevicePixels" Value="true" />
+        <Setter Property="OverridesDefaultStyle" Value="true" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
+        <Setter Property="ItemTemplateSelector" Value="{StaticResource CouldronTemplateSelector}" />
+        <Setter Property="Foreground" Value="{StaticResource ThemeTextBrush}" />
+        <Setter Property="MinWidth" Value="120" />
+        <Setter Property="MinHeight" Value="22" />
+        <Setter Property="behaviour:Interactivity.Template">
+            <Setter.Value>
+                <collections:InteractivityTemplate>
+                    <localbehaviour:ComboBoxBehaviour />
+                </collections:InteractivityTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ComboBox">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="border">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ThemeAccentBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="ToggleButton">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ThemeAccentBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="ToggleButton">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ThemeLightAccentBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="border">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ThemeDisabledBackgroundBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ToggleButton">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ThemeDisabledTextBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="ToggleButton">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ThemeBackgroundBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="border">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ThemeBackgroundBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="PART_EditableTextBox">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ThemeBackgroundBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="PART_EditableTextBox">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ThemeDisabledTextBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="EditStates">
+                                <VisualState x:Name="Editable">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="PART_EditableTextBox">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="ContentSite">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Hidden}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Uneditable" />
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="14" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition MinHeight="22" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="{Binding Path=(attached:ComboBoxProperties.Header), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource KeyToLocalizedStringConverter}}"
+                                 Visibility="{Binding Path=(attached:ComboBoxProperties.Header), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NullOrEmptyTovisibilityConverter}, ConverterParameter=True}"
+                                 Margin="1,2,0,2" Grid.ColumnSpan="3" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
+
+                        <ToggleButton x:Name="border" Grid.ColumnSpan="3" Grid.Row="1" Background="{StaticResource ThemeLightBackgroundBrush}"
+                                        VerticalAlignment="Stretch" HorizontalAlignment="Stretch" ClickMode="Press" Focusable="False" Foreground="{StaticResource ThemeComboBoxArrowBrush}"
+                                        IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                        BorderBrush="{StaticResource ThemeLightBorderBrush}" BorderThickness="1">
+                            <ToggleButton.Template>
+                                <ControlTemplate>
+                                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
+                                            Background="{TemplateBinding Background}" />
+                                </ControlTemplate>
+                            </ToggleButton.Template>
+                        </ToggleButton>
+
+                        <ToggleButton x:Name="ToggleButton" Grid.Row="1" Grid.Column="2" Focusable="false" ClickMode="Press" Foreground="{StaticResource ThemeComboBoxArrowBrush}"
+                                        Background="{StaticResource ThemeLightBackgroundBrush}" BorderBrush="Transparent" Template="{StaticResource ComboBoxToggleButton}"
+                                        IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" />
+
+                        <ContentPresenter x:Name="ContentSite"
+                            Grid.Row="1" Grid.Column="1"
+                            IsHitTestVisible="False"
+                            Content="{TemplateBinding SelectionBoxItem}"
+                            ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                            ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                            Margin="4,0"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left">
+                        </ContentPresenter>
+
+                        <TextBox Grid.Row="1" Grid.Column="1" x:Name="PART_EditableTextBox" SelectionBrush="{StaticResource ThemeLightAccentBrush}" CaretBrush="{StaticResource ThemeAccentBrush}"
+                                 Foreground="{StaticResource ThemeTextBrush}"
+                                 Style="{x:Null}" BorderBrush="Transparent" BorderThickness="0" Background="Transparent" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                 Margin="4,0" Focusable="True" Visibility="Hidden" IsReadOnly="{TemplateBinding IsReadOnly}"
+                                 AcceptsReturn="False" AcceptsTab="False" AllowDrop="False" SnapsToDevicePixels="True" TextWrapping="NoWrap" />
+
+                        <TextBlock Grid.Row="1" Grid.Column="1" IsHitTestVisible="False"
+                                       Text="{Binding Path=(attached:ComboBoxProperties.AlternativeText), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource KeyToLocalizedStringConverter}}"
+                                       Foreground="{StaticResource ThemeTextBrush}" Opacity="0.7" Margin="3"
+                                       Visibility="{Binding Path=Text, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NullOrEmptyTovisibilityConverter}, ConverterParameter=False}" />
+
+                        <Popup x:Name="Popup" Grid.ColumnSpan="3" Grid.Row="1" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True"
+                               Focusable="False" PopupAnimation="Slide">
+                            <Border x:Name="DropDown" SnapsToDevicePixels="True" Margin="0,0,5,5" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                                        BorderThickness="1" BorderBrush="{StaticResource ThemeLightBorderBrush}" Background="{StaticResource ThemeDropdownBackgroundBrush}">
+                                <ScrollViewer Margin="0" SnapsToDevicePixels="True">
+                                    <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" Margin="0" />
+                                </ScrollViewer>
+                                <Border.Effect>
+                                    <DropShadowEffect ShadowDepth="3" BlurRadius="5" RenderingBias="Performance" Color="Black" Opacity="0.6" />
+                                </Border.Effect>
+                            </Border>
+                        </Popup>
+
+                        <Ellipse Grid.Row="1" Fill="Tomato" Width="14" Height="14" Margin="4,0" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                     ToolTip="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Validation.Errors), Converter={StaticResource ErrorCollectionConverter}}"
+                                     Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Validation.HasError), Converter={StaticResource BooleanTovisibilityConverter}}" />
+                        <TextBlock Grid.Row="1" Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Validation.HasError), Converter={StaticResource BooleanTovisibilityConverter}}"
+                                       Text="!" IsHitTestVisible="False" FontFamily="Segoe UI" FontWeight="ExtraBold" Foreground="{StaticResource ThemeHoveredTextBrush}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+
+                        <Rectangle Grid.Row="1" Fill="{StaticResource ThemeMandatoryBrush}" Height="2" Margin="0,0,0,-2" Grid.ColumnSpan="3"
+                                       Visibility="{Binding Path=(localbehaviour:ValidationProperties.IsMandatory), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanTovisibilityConverter}}"
+                                       VerticalAlignment="Bottom" HorizontalAlignment="Stretch" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Foreground" Value="{StaticResource ThemeDisabledTextBrush}" />
+                        </Trigger>
+                        <Trigger Property="HasItems" Value="false">
+                            <Setter TargetName="DropDown" Property="MinHeight" Value="95" />
+                        </Trigger>
+                        <Trigger Property="IsGrouping" Value="true">
+                            <Setter Property="ScrollViewer.CanContentScroll" Value="false" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

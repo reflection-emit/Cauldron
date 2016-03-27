@@ -46,4 +46,10 @@
 
     <Color x:Key="ThemeMandatoryColor">Gold</Color>
     <SolidColorBrush x:Key="ThemeMandatoryBrush" Color="{StaticResource ThemeMandatoryColor}" />
+
+    <Color x:Key="ThemeComboBoxArrowColor">#F1F1F1</Color>
+    <SolidColorBrush x:Key="ThemeComboBoxArrowBrush" Color="{StaticResource ThemeComboBoxArrowColor}" />
+
+    <Color x:Key="ThemeDropdownBackgroundColor">#1B1B1C</Color>
+    <SolidColorBrush x:Key="ThemeDropdownBackgroundBrush" Color="{StaticResource ThemeDropdownBackgroundColor}" />
 </ResourceDictionary>

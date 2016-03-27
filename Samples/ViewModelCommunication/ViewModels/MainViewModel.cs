@@ -1,11 +1,13 @@
 ﻿using Couldron;
+using Couldron.Aspects;
 using Couldron.Messaging;
+using Couldron.Validation;
 using Couldron.ViewModels;
 using System.Collections.ObjectModel;
 
 namespace ViewModelCommunication.ViewModels
 {
-    public class MainViewModel : ViewModelBase
+    public class MainViewModel : ValidatableViewModelBase
     {
         public MainViewModel()
         {
@@ -20,6 +22,10 @@ namespace ViewModelCommunication.ViewModels
         }
 
         public ObservableCollection<AnimalViewModel> Animals { get; private set; }
+
+        [NotifyPropertyChanged]
+        [IsMandatory("mandatory")]
+        public AnimalViewModel SelectedAnimal { get; set; }
 
         public void OnCloseTab(CloseTabMessage message)
         {

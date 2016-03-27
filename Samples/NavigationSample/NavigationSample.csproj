@@ -46,15 +46,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
@@ -130,6 +125,10 @@
     <ProjectReference Include="..\..\Themes\Couldron.Themes.VisualStudioDark\Couldron.Themes.VisualStudioDark.csproj">
       <Project>{8a4211b8-f38f-4a2b-ab81-c971da0fe8c2}</Project>
       <Name>Couldron.Themes.VisualStudioDark</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Themes\Couldron.Themes.VisualStudioLight\Couldron.Themes.VisualStudioLight.csproj">
+      <Project>{242de6c1-325d-471b-8154-59d41aefe16d}</Project>
+      <Name>Couldron.Themes.VisualStudioLight</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

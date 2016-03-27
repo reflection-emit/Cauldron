@@ -15,9 +15,9 @@
     <SolidColorBrush x:Key="ThemeLightBackgroundBrush" Color="{StaticResource ThemeLightBackgroundColor}" />
 
     <SolidColorBrush x:Key="ThemeAccentBrush" Color="{StaticResource ThemeAccentColor}" />
-    <SolidColorBrush x:Key="ThemeLightAccentBrush" Color="{StaticResource ThemeAccentColor}" Opacity="0.6" />
+    <SolidColorBrush x:Key="ThemeLightAccentBrush" Color="{StaticResource ThemeAccentColor}" Opacity="0.4" />
 
-    <Color x:Key="ThemeDisabledTextColor">#B29496</Color>
+    <Color x:Key="ThemeDisabledTextColor">#BBA4B2</Color>
     <SolidColorBrush x:Key="ThemeDisabledTextBrush" Color="{StaticResource ThemeDisabledTextColor}" />
 
     <Color x:Key="ThemeDisabledBackgroundColor">#CCCEDB</Color>
@@ -46,4 +46,10 @@
 
     <Color x:Key="ThemeMandatoryColor">Gold</Color>
     <SolidColorBrush x:Key="ThemeMandatoryBrush" Color="{StaticResource ThemeMandatoryColor}" />
+
+    <Color x:Key="ThemeComboBoxArrowColor">#717171</Color>
+    <SolidColorBrush x:Key="ThemeComboBoxArrowBrush" Color="{StaticResource ThemeComboBoxArrowColor}" />
+
+    <Color x:Key="ThemeDropdownBackgroundColor">#F6F6F6</Color>
+    <SolidColorBrush x:Key="ThemeDropdownBackgroundBrush" Color="{StaticResource ThemeDropdownBackgroundColor}" />
 </ResourceDictionary>

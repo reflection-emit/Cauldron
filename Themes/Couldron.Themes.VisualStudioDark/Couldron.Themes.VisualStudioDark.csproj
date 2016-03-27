@@ -17,7 +17,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;DarkTheme</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -25,7 +25,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\..\bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;DarkTheme</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>..\..\bin\Release\Couldron.Themes.VisualStudioDark.XML</DocumentationFile>
@@ -42,11 +42,20 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Couldron.Themes.VisualStudioLight\Behaviours\ComboBoxBehaviour.cs">
+      <Link>Behaviours\ComboBoxBehaviour.cs</Link>
+    </Compile>
     <Compile Include="..\Couldron.Themes.VisualStudioLight\Behaviours\TabItemBehaviour.cs">
       <Link>Behaviours\TabItemBehaviour.cs</Link>
     </Compile>
-    <Compile Include="..\Couldron.Themes.VisualStudioLight\Behaviours\Validations.cs">
-      <Link>Behaviours\Validations.cs</Link>
+    <Compile Include="..\Couldron.Themes.VisualStudioLight\Behaviours\ValidationProperties.cs">
+      <Link>Behaviours\ValidationProperties.cs</Link>
+    </Compile>
+    <Compile Include="..\Couldron.Themes.VisualStudioLight\Behaviours\ValidationTextBoxBehaviour.cs">
+      <Link>Behaviours\ValidationTextBoxBehaviour.cs</Link>
+    </Compile>
+    <Compile Include="..\Couldron.Themes.VisualStudioLight\GrayscaleEffect.cs">
+      <Link>GrayscaleEffect.cs</Link>
     </Compile>
     <Compile Include="..\Couldron.Themes.VisualStudioLight\Styles\StyleClasses.cs">
       <Link>Styles\StyleClasses.cs</Link>
@@ -61,7 +70,6 @@
     <Compile Include="BrushesAndColours.xaml.cs">
       <DependentUpon>BrushesAndColours.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GrayscaleEffect.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

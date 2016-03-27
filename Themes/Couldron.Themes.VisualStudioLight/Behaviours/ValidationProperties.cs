@@ -1,9 +1,4 @@
-﻿using Couldron.Behaviours;
-using Couldron.Validation;
-using System.Reflection;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
+﻿using System.Windows;
 
 namespace Couldron.Themes.VisualStudio.Behaviours
 {
@@ -37,28 +32,5 @@ namespace Couldron.Themes.VisualStudio.Behaviours
         }
 
         #endregion Dependency Attached Property IsMandatory
-    }
-
-    internal class ValidationTextBoxBehaviour : Behaviour<FrameworkElement>
-    {
-        protected override void OnAttach()
-        {
-        }
-
-        protected override void OnDataContextChanged()
-        {
-            var binding = BindingOperations.GetBinding(this.AssociatedObject, TextBox.TextProperty);
-            var path = binding.Path.Path;
-
-            // get the property info
-            var propertyInfo = this.AssociatedObject.DataContext.GetType().GetProperty(path);
-            var attrib = propertyInfo.GetCustomAttribute<IsMandatoryAttribute>();
-
-            ValidationProperties.SetIsMandatory(this.AssociatedObject, attrib != null);
-        }
-
-        protected override void OnDetach()
-        {
-        }
     }
 }
