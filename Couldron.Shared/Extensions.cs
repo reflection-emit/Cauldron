@@ -113,8 +113,8 @@ namespace Couldron
         /// <para />
         /// If the specified length <paramref name="length"/> is longer than the source array the source array will be returned instead.
         /// </summary>
-        /// <param name="target">The source array</param>
-        /// <param name="length">The amount of bytes to get</param>
+        /// <param name="target">The Array that contains the data to copy.</param>
+        /// <param name="length">A 32-bit integer that represents the number of elements to copy.</param>
         /// <returns>Returns an array of bytes</returns>
         public static byte[] GetBytes(this byte[] target, int length)
         {
@@ -124,6 +124,25 @@ namespace Couldron
             byte[] value = new byte[length];
 
             Array.Copy(target, value, length);
+            return value;
+        }
+
+        /// <summary>
+        /// Gets a specified length of bytes
+        /// </summary>
+        /// <param name="target">The Array that contains the data to copy.</param>
+        /// <param name="startingPosition">A 32-bit integer that represents the index in the sourceArray at which copying begins.</param>
+        /// <param name="length">A 32-bit integer that represents the number of elements to copy.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentOutOfRangeException">Parameter <paramref name="startingPosition"/> and <paramref name="length"/> are out of range</exception>
+        public static byte[] GetBytes(this byte[] target, int startingPosition, int length)
+        {
+            if (length + startingPosition > target.Length)
+                throw new ArgumentOutOfRangeException("length", "Parameter startingPosition and length are out of range");
+
+            byte[] value = new byte[length];
+
+            Array.Copy(target, startingPosition, value, 0, length);
             return value;
         }
 
@@ -194,6 +213,64 @@ namespace Couldron
                 throw new ArgumentException("T is not an interface", nameof(T));
 
             return type.GetTypeInfo().ImplementedInterfaces.Any(x => x == typeOfInterface);
+        }
+
+        /// <summary>
+        /// Searches for the specified byte array and returns the zero-based index of the first
+        /// occurrence within the entire <see cref="Array"/>
+        /// </summary>
+        /// <param name="data">The <see cref="Array"/> that could contain <paramref name="value"/></param>
+        /// <param name="value">The object to locate in the <see cref="Array"/>. The value can be null for reference types.</param>
+        /// <returns>The zero-based index of the first occurrence of item within the entire <see cref="Array"/>, if found; otherwise, –1.</returns>
+        public static long IndexOf(this byte[] data, byte[] value)
+        {
+            if (value.Length > data.Length)
+                return -1;
+
+            unsafe
+            {
+                var dataLength = data.Length;
+                var findLength = value.Length;
+                var unequal = false;
+
+                fixed (byte* pData = data, pFind = value)
+                {
+                    byte* dataPointer = pData;
+                    byte* findPointer = pFind;
+
+                    do
+                    {
+                        byte* currentDataPointer = dataPointer;
+
+                        do
+                        {
+                            if (*currentDataPointer != *findPointer)
+                            {
+                                unequal = true;
+                                break;
+                            }
+
+                            findPointer++;
+                            currentDataPointer++;
+                        }
+                        while (--findLength > 0);
+
+                        if (!unequal)
+                            return dataPointer - pData;
+
+                        unequal = false;
+                        // reset the length
+                        findLength = value.Length;
+                        // move the pointer back to the next byte
+                        dataPointer++;
+                        // reset the find pointer
+                        findPointer = pFind;
+                    }
+                    while (--dataLength > findLength);
+                }
+            }
+
+            return -1;
         }
 
         /// <summary>
@@ -346,6 +423,16 @@ namespace Couldron
                 await stream.CopyToAsync(memoryStream);
                 return memoryStream.ToArray();
             }
+        }
+
+        /// <summary>
+        /// Returns a 32-bit signed integer converted from four bytes at a specified position in a byte array.
+        /// </summary>
+        /// <param name="target">An array of bytes.</param>
+        /// <returns>A 32-bit signed integer formed by four bytes</returns>
+        public static int ToInteger(this byte[] target)
+        {
+            return BitConverter.ToInt32(target, 0);
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Couldron.Core;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls;
@@ -107,15 +108,15 @@ namespace Couldron.Themes.VisualStudio
             sender.CastTo<Thumb>().IsNotNull(x =>
             {
                 if (x.VerticalAlignment == VerticalAlignment.Bottom)
-                    this.Height = Utils.Clamp(this.Height + e.VerticalChange, this.MinHeight, this.MaxHeight);
+                    this.Height = Mathc.Clamp(this.Height + e.VerticalChange, this.MinHeight, this.MaxHeight);
 
                 if (x.HorizontalAlignment == HorizontalAlignment.Right)
-                    this.Width = Utils.Clamp(this.Width + e.HorizontalChange, this.MinWidth, this.MaxWidth);
+                    this.Width = Mathc.Clamp(this.Width + e.HorizontalChange, this.MinWidth, this.MaxWidth);
 
                 if (x.VerticalAlignment == VerticalAlignment.Top)
                 {
                     var height = this.Height;
-                    this.Height = Utils.Clamp(this.Height - e.VerticalChange, this.MinHeight, this.MaxHeight);
+                    this.Height = Mathc.Clamp(this.Height - e.VerticalChange, this.MinHeight, this.MaxHeight);
 
                     if (this.Height != height)
                         this.Top += e.VerticalChange;
@@ -124,7 +125,7 @@ namespace Couldron.Themes.VisualStudio
                 if (x.HorizontalAlignment == HorizontalAlignment.Left)
                 {
                     var width = this.Width;
-                    this.Width = Utils.Clamp(this.Width - e.HorizontalChange, this.MinWidth, this.MaxWidth);
+                    this.Width = Mathc.Clamp(this.Width - e.HorizontalChange, this.MinWidth, this.MaxWidth);
 
                     if (this.Width != width)
                         this.Left += e.HorizontalChange;

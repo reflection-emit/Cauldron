@@ -57,12 +57,19 @@ namespace Couldron.Core
         /// <summary>
         /// Gets the account picture for the user.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The image of the user</returns>
         public static BitmapImage GetAccountPicture()
         {
-            var sb = new StringBuilder(1000);
-            UnsafeNative.GetUserTilePath(UserName, 0x80000000, sb, sb.Capacity);
-            return new BitmapImage(new Uri(sb.ToString()));
+            var result = GetAccountPictureFromDatFile();
+
+            if (result == null)
+            {
+                var stringBuilder = new StringBuilder(1000);
+                UnsafeNative.GetUserTilePath(UserName, 0x80000000, stringBuilder, stringBuilder.Capacity);
+                return new BitmapImage(new Uri(stringBuilder.ToString()));
+            }
+
+            return result;
         }
 
         /// <summary>
@@ -123,6 +130,26 @@ namespace Couldron.Core
         {
             await GetInformation();
             return _isLockedOut;
+        }
+
+        private static BitmapImage GetAccountPictureFromDatFile()
+        {
+            var programData = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), @"Microsoft\User Account Pictures");
+            var filename = Path.Combine(programData, string.Format("{0}+{1}.dat", DomainName, UserName));
+
+            if (!File.Exists(filename))
+                return null;
+
+            var data = File.ReadAllBytes(filename);
+            var position = (int)data.IndexOf(new byte[] { 0x62, 0, 0x6d, 0, 0x70, 0 });
+
+            if (position == -1)
+                return null;
+
+            var lengthOfData = data.GetBytes(position + 12, 4).ToInteger() - 2;
+            var path = Encoding.Unicode.GetString(data.GetBytes(position + 16, lengthOfData));
+
+            return new BitmapImage(new Uri(path));
         }
 
         private static async Task GetInformation()

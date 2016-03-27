@@ -24,6 +24,13 @@
         </Setter>
     </Style>
 
+    <Style TargetType="Image">
+        <Setter Property="RenderOptions.EdgeMode" Value="Aliased" />
+        <Setter Property="RenderOptions.CachingHint" Value="Cache" />
+        <Setter Property="RenderOptions.ClearTypeHint" Value="Auto" />
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
+    </Style>
+
     <Style TargetType="TextBlock">
         <Setter Property="Foreground" Value="{StaticResource ThemeTextBrush}" />
     </Style>
