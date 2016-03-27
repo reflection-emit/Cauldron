@@ -1,9 +1,11 @@
 ﻿using Couldron;
 using Couldron.Aspects;
+using Couldron.Core;
 using Couldron.Messaging;
 using Couldron.Validation;
 using Couldron.ViewModels;
 using System.Collections.ObjectModel;
+using System.Windows.Media.Imaging;
 
 namespace ViewModelCommunication.ViewModels
 {
@@ -19,6 +21,8 @@ namespace ViewModelCommunication.ViewModels
             this.Animals.Add(Factory.Create<AnimalViewModel>("Thomson's gazelle"));
 
             MessageManager.Subscribe<CloseTabMessage>(this, OnCloseTab);
+
+            this.LoadData();
         }
 
         public ObservableCollection<AnimalViewModel> Animals { get; private set; }
@@ -27,9 +31,21 @@ namespace ViewModelCommunication.ViewModels
         [IsMandatory("mandatory")]
         public AnimalViewModel SelectedAnimal { get; set; }
 
+        [NotifyPropertyChanged]
+        public BitmapImage UserImage { get; set; }
+
+        [NotifyPropertyChanged]
+        public string Username { get; set; }
+
         public void OnCloseTab(CloseTabMessage message)
         {
             this.Animals.Remove(message.Sender as AnimalViewModel);
+        }
+
+        private async void LoadData()
+        {
+            this.Username = await UserInformation.GetDisplayNameAsync();
+            this.UserImage = UserInformation.GetAccountPicture();
         }
     }
 }

@@ -13,7 +13,11 @@
                 <behaviour:WindowConfigurationBehaviour Title="Test Title">
                     <behaviour:WindowConfigurationBehaviour.ToolbarTemplate>
                         <ControlTemplate>
-                            <ComboBox ItemsSource="{Binding Animals}" Width="120" DisplayMemberPath="Name" Margin="1" IsEditable="False" SelectedIndex="0" SelectedItem="{Binding SelectedAnimal, Mode=TwoWay}" />
+                            <StackPanel Margin="0" Orientation="Horizontal">
+                                <ComboBox ItemsSource="{Binding Animals}" Width="120" DisplayMemberPath="Name" Margin="1" IsEditable="False" SelectedIndex="0" SelectedItem="{Binding SelectedAnimal, Mode=TwoWay}" />
+                                <TextBlock Text="{Binding Username}" VerticalAlignment="Center" Margin="4,0" IsHitTestVisible="False" />
+                                <Image Source="{Binding UserImage}" Stretch="Uniform" Margin="4" />
+                            </StackPanel>
                         </ControlTemplate>
                     </behaviour:WindowConfigurationBehaviour.ToolbarTemplate>
                 </behaviour:WindowConfigurationBehaviour>

@@ -1,7 +1,9 @@
 ﻿using Couldron.Core;
 using System;
 using System.IO;
+using System.Net.NetworkInformation;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Security;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -14,50 +16,44 @@ namespace Couldron
     public static class Utils
     {
         /// <summary>
-        /// Gets the application name
+        /// Get a value that indicates whether any network connection is available.
+        /// <para/>
+        /// Returns true if a network connection is available, othwise false
         /// </summary>
-        public static string ApplicationName
+        public static bool IsNetworkAvailable
         {
             get
             {
-                var entryAssembly = Assembly.GetEntryAssembly();
+                // Origin: http://stackoverflow.com/questions/520347/how-do-i-check-for-a-network-connection by Simon Mourier
 
-                if (entryAssembly == null)
-                    return Assembly.GetCallingAssembly().GetName().Name;
+                if (!NetworkInterface.GetIsNetworkAvailable())
+                    return false;
 
-                return entryAssembly.GetName().Name;
-            }
-        }
+                foreach (NetworkInterface ni in NetworkInterface.GetAllNetworkInterfaces())
+                {
+                    // discard because of standard reasons
+                    if ((ni.OperationalStatus != OperationalStatus.Up) ||
+                        (ni.NetworkInterfaceType == NetworkInterfaceType.Loopback) ||
+                        (ni.NetworkInterfaceType == NetworkInterfaceType.Tunnel))
+                        continue;
 
-        /// <summary>
-        /// Gets the full path of the application
-        /// </summary>
-        public static string ApplicationPath
-        {
-            get
-            {
-                // this will return null in some cases
-                var entryAssembly = Assembly.GetEntryAssembly();
-                if (entryAssembly == null)
-                    return Path.GetDirectoryName(Assembly.GetCallingAssembly().Location);
+                    // this allow to filter modems, serial, etc.
+                    if (ni.Speed < 10000000)
+                        continue;
 
-                return Path.GetDirectoryName(entryAssembly.Location);
-            }
-        }
+                    // discard virtual cards (virtual box, virtual pc, etc.)
+                    if ((ni.Description.IndexOf("virtual", StringComparison.OrdinalIgnoreCase) >= 0) ||
+                        (ni.Name.IndexOf("virtual", StringComparison.OrdinalIgnoreCase) >= 0))
+                        continue;
 
-        /// <summary>
-        /// Gets teh application publisher name
-        /// </summary>
-        public static string ApplicationPublisher
-        {
-            get
-            {
-                var company = Assembly.GetCallingAssembly().GetCustomAttribute<AssemblyCompanyAttribute>().Company;
+                    // discard "Microsoft Loopback Adapter", it will not show as NetworkInterfaceType.Loopback but as Ethernet Card.
+                    if (ni.Description.Equals("Microsoft Loopback Adapter", StringComparison.OrdinalIgnoreCase))
+                        continue;
 
-                if (string.IsNullOrEmpty(company))
-                    return Assembly.GetAssembly(typeof(Utils)).GetCustomAttribute<AssemblyCompanyAttribute>().Company;
+                    return true;
+                }
 
-                return company;
+                return false;
             }
         }
 
@@ -212,7 +208,24 @@ namespace Couldron
         /// <param name="lParam">Additional message-specific information</param>
         public static void WmGetMinMaxInfo(Window window, IntPtr lParam)
         {
-            UnsafeNative.WmGetMinMaxInfo(window, window.GetWindowHandle(), lParam);
+            UnsafeNative.MINMAXINFO mmi = (UnsafeNative.MINMAXINFO)Marshal.PtrToStructure(lParam, typeof(UnsafeNative.MINMAXINFO));
+
+            // Adjust the maximized size and position to fit the work area of the correct monitor
+            System.IntPtr monitor = UnsafeNative.MonitorFromWindow(window.GetWindowHandle(), UnsafeNative.MonitorOptions.MONITOR_DEFAULTTONEAREST);
+
+            if (monitor != System.IntPtr.Zero)
+            {
+                UnsafeNative.MONITORINFO monitorInfo = new UnsafeNative.MONITORINFO();
+                UnsafeNative.GetMonitorInfo(monitor, monitorInfo);
+                UnsafeNative.RECT rcWorkArea = monitorInfo.rcWork;
+                UnsafeNative.RECT rcMonitorArea = monitorInfo.rcMonitor;
+                mmi.ptMaxPosition.x = Math.Abs(rcWorkArea.left - rcMonitorArea.left);
+                mmi.ptMaxPosition.y = Math.Abs(rcWorkArea.top - rcMonitorArea.top);
+                mmi.ptMaxSize.x = Math.Abs(rcWorkArea.right - rcWorkArea.left);
+                mmi.ptMaxSize.y = Math.Abs(rcWorkArea.bottom - rcWorkArea.top);
+            }
+
+            Marshal.StructureToPtr(mmi, lParam, true);
         }
     }
 }

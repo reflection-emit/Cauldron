@@ -3,8 +3,10 @@
 namespace Couldron
 {
     /// <summary>
-    /// Windows Messages
+    /// Windows Messages.
+    /// <para />
     /// Defined in winuser.h from Windows SDK v6.1
+    /// <para />
     /// Documentation pulled from MSDN.
     /// </summary>
     public enum WindowsMessages : uint

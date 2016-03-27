@@ -29,6 +29,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Collections\InteractivityTemplate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CommonConverters.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\ApplicationData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\ApplicationInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Compression.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\CouldronDispatcher.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\CouldronDispatcherPriority.cs" />
@@ -42,6 +43,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Core\PasswordScore.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Randomizer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\SecureStringHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\UserInformation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CouldronApplication.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CouldronTemplateSelector.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExtensionConvertions.cs" />

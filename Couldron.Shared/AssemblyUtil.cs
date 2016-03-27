@@ -1,4 +1,5 @@
 ﻿using Couldron.Collections;
+using Couldron.Core;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -202,7 +203,7 @@ namespace Couldron
             var assemblyPath = string.Empty;
 
             if (relativPath)
-                assemblyPath = Path.Combine(Utils.ApplicationPath, path);
+                assemblyPath = Path.Combine(ApplicationInfo.ApplicationPath, path);
             else
                 assemblyPath = path;
 

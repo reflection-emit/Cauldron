@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Windows;
 
 namespace Couldron
@@ -28,6 +29,9 @@ namespace Couldron
         [DllImport("user32")]
         public static extern bool GetMonitorInfo(IntPtr hMonitor, MONITORINFO lpmi);
 
+        [DllImport("shell32.dll", EntryPoint = "#261", CharSet = CharSet.Unicode, PreserveSig = false)]
+        public static extern void GetUserTilePath(string username, UInt32 whatever, StringBuilder picpath, int maxLength);
+
         [DllImport("user32.dll", SetLastError = true)]
         public static extern IntPtr MonitorFromPoint(POINT pt, MonitorOptions dwFlags);
 
@@ -36,28 +40,6 @@ namespace Couldron
 
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         public static extern IntPtr SendMessage(IntPtr hWnd, int Msg, IntPtr wParam, IntPtr lParam);
-
-        public static void WmGetMinMaxInfo(Window window, System.IntPtr hwnd, System.IntPtr lParam)
-        {
-            MINMAXINFO mmi = (MINMAXINFO)Marshal.PtrToStructure(lParam, typeof(MINMAXINFO));
-
-            // Adjust the maximized size and position to fit the work area of the correct monitor
-            System.IntPtr monitor = MonitorFromWindow(hwnd, MonitorOptions.MONITOR_DEFAULTTONEAREST);
-
-            if (monitor != System.IntPtr.Zero)
-            {
-                MONITORINFO monitorInfo = new MONITORINFO();
-                GetMonitorInfo(monitor, monitorInfo);
-                RECT rcWorkArea = monitorInfo.rcWork;
-                RECT rcMonitorArea = monitorInfo.rcMonitor;
-                mmi.ptMaxPosition.x = Math.Abs(rcWorkArea.left - rcMonitorArea.left);
-                mmi.ptMaxPosition.y = Math.Abs(rcWorkArea.top - rcMonitorArea.top);
-                mmi.ptMaxSize.x = Math.Abs(rcWorkArea.right - rcWorkArea.left);
-                mmi.ptMaxSize.y = Math.Abs(rcWorkArea.bottom - rcWorkArea.top);
-            }
-
-            Marshal.StructureToPtr(mmi, lParam, true);
-        }
 
         [StructLayout(LayoutKind.Sequential)]
         public struct MINMAXINFO

@@ -24,6 +24,10 @@
         </Setter>
     </Style>
 
+    <Style TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource ThemeTextBrush}" />
+    </Style>
+
     <Style TargetType="ContentControl">
         <Setter Property="ContentTemplateSelector" Value="{StaticResource CouldronTemplateSelector}" />
     </Style>

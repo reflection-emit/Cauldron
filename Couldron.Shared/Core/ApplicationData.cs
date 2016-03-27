@@ -55,7 +55,7 @@ namespace Couldron.Core
 
         private string GetOrCreate(string folder)
         {
-            var path = Path.Combine(folder, Utils.ApplicationPublisher, Utils.ApplicationName);
+            var path = Path.Combine(folder, ApplicationInfo.ApplicationPublisher, ApplicationInfo.ApplicationName);
 
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
