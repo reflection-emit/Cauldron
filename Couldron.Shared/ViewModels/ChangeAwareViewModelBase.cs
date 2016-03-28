@@ -1,4 +1,5 @@
 ﻿using Couldron.Validation;
+using Newtonsoft.Json;
 using System;
 using System.ComponentModel;
 using System.Reflection;
@@ -37,7 +38,7 @@ namespace Couldron.ViewModels
         /// <summary>
         /// Gets or sets a value that indicates if any property value has been changed
         /// </summary>
-        [SuppressIsChanged]
+        [SuppressIsChanged, JsonIgnore]
         public bool IsChanged
         {
             get { return this._isChanged; }
@@ -58,7 +59,7 @@ namespace Couldron.ViewModels
         /// <summary>
         /// Gets or sets a value that indicates if the viewmodel is loading
         /// </summary>
-        [SuppressIsChanged]
+        [SuppressIsChanged, JsonIgnore]
         public bool IsLoading
         {
             get { return this._isLoading; }
@@ -77,6 +78,7 @@ namespace Couldron.ViewModels
         /// <summary>
         /// Gets or sets the parent viewmodel
         /// </summary>
+        [JsonIgnore]
         public IViewModel Parent { get; set; }
 
         /// <summary>

@@ -1,5 +1,6 @@
 ﻿using Couldron.Core;
 using Couldron.Validation;
+using Newtonsoft.Json;
 using System;
 using System.Diagnostics.CodeAnalysis;
 
@@ -44,7 +45,7 @@ namespace Couldron.ViewModels
         /// <summary>
         /// Gets a value indicating if the object has been disposed or not
         /// </summary>
-        [SuppressIsChanged]
+        [SuppressIsChanged, JsonIgnore]
         public bool IsDisposed { get { return this.disposed; } }
 
         /// <summary>

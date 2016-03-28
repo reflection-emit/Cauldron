@@ -1,5 +1,6 @@
 ﻿using Couldron.Core;
 using Couldron.Validation;
+using Newtonsoft.Json;
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -39,13 +40,13 @@ namespace Couldron.ViewModels
         /// <summary>
         /// Gets the <see cref="Dispatcher"/> this <see cref="DispatcherObject"/> is associated with.
         /// </summary>
-        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [EditorBrowsable(EditorBrowsableState.Advanced), JsonIgnore]
         public CouldronDispatcher Dispatcher { get; private set; }
 
         /// <summary>
         /// Gets the unique Id of the view model
         /// </summary>
-        [SuppressIsChanged]
+        [SuppressIsChanged, JsonIgnore]
         public Guid Id { get; private set; }
 
         /// <summary>

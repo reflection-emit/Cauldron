@@ -1,4 +1,5 @@
 ﻿using Couldron.Validation;
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.ComponentModel;
@@ -43,13 +44,13 @@ namespace Couldron.ViewModels
         /// <summary>
         /// Gets or sets the error info strings
         /// </summary>
-        [SuppressIsChanged]
+        [SuppressIsChanged, JsonIgnore]
         public string Errors { get { return this.validationHandler.Errors; } }
 
         /// <summary>
         /// Gets a value that indicates if the ViewModel has errors after validation
         /// </summary>
-        [SuppressIsChanged]
+        [SuppressIsChanged, JsonIgnore]
         public bool HasErrors { get { return this.validationHandler.HasErrors; } }
 
         /// <summary>

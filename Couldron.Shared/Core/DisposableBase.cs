@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Couldron.Core
@@ -26,6 +27,7 @@ namespace Couldron.Core
         /// <summary>
         /// Gets a value indicating if the object has been disposed or not
         /// </summary>
+        [JsonIgnore]
         public bool IsDisposed { get { return this.disposed; } }
 
         /// <summary>
