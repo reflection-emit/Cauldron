@@ -28,6 +28,7 @@
         <Setter Property="RenderOptions.EdgeMode" Value="Aliased" />
         <Setter Property="RenderOptions.CachingHint" Value="Cache" />
         <Setter Property="RenderOptions.ClearTypeHint" Value="Auto" />
+        <Setter Property="UseLayoutRounding" Value="True" />
         <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
     </Style>
 

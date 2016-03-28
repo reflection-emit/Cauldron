@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="App.cs" />
     <Compile Include="CloseTabMessage.cs" />
+    <Compile Include="ViewModels\AnimalProperty.cs" />
     <Compile Include="ViewModels\AnimalViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Views\ViewsDictionary.xaml.cs">

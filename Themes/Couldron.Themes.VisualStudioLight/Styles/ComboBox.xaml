@@ -91,6 +91,13 @@
         <Setter Property="Foreground" Value="{StaticResource ThemeTextBrush}" />
         <Setter Property="MinWidth" Value="120" />
         <Setter Property="MinHeight" Value="22" />
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel />
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
         <Setter Property="behaviour:Interactivity.Template">
             <Setter.Value>
                 <collections:InteractivityTemplate>

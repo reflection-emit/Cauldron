@@ -36,7 +36,16 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
             <GroupBox Header="{Binding Name}">
-                <Button VerticalAlignment="Top" HorizontalAlignment="Left" Content="Test Button" />
+                <ListView ItemsSource="{Binding Properties}">
+                    <ListView.View>
+                        <GridView>
+                            <GridView.Columns>
+                                <GridViewColumn Header="Property" DisplayMemberBinding="{Binding Name}" />
+                                <GridViewColumn Header="value" DisplayMemberBinding="{Binding Value}" />
+                            </GridView.Columns>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
             </GroupBox>
             <GroupBox Header="{Binding Name}" Grid.Column="1" Grid.Row="1">
                 <TextBox Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" attached:TextBoxProperties.Header="Animal name" VerticalAlignment="Top" HorizontalAlignment="Stretch">

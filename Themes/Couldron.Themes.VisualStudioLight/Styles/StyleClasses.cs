@@ -33,6 +33,17 @@
         }
     }
 
+    public partial class ListViewStyle
+    {
+        /// <summary>
+        /// Initializes a new instance of <see cref="ListViewStyle"/>
+        /// </summary>
+        public ListViewStyle()
+        {
+            this.InitializeComponent();
+        }
+    }
+
     public partial class MiscStyle
     {
         /// <summary>

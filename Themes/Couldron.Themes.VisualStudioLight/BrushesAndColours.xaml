@@ -8,6 +8,9 @@
 
     <SolidColorBrush x:Key="Transparent" Color="Transparent" />
 
+    <Color x:Key="ThemeDarkBackgroundColor">White</Color>
+    <SolidColorBrush x:Key="ThemeDarkBackgroundBrush" Color="{StaticResource ThemeDarkBackgroundColor}" />
+
     <Color x:Key="ThemeBackgroundColor" R="238" G="238" B="242" A="255" />
     <SolidColorBrush x:Key="ThemeBackgroundBrush" Color="{StaticResource ThemeBackgroundColor}" />
 

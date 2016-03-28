@@ -16,7 +16,7 @@ namespace ViewModelCommunication
 
         protected override void OnConstruction()
         {
-            AssemblyUtil.LoadAssembly("Couldron.Themes.VisualStudioDark.dll");
+            AssemblyUtil.LoadAssembly("Couldron.Themes.VisualStudioLight.dll");
         }
 
         protected override void OnStartup(StartupEventArgs e)
