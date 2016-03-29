@@ -40,6 +40,34 @@ namespace Couldron
         }
 
         /// <summary>
+        /// Tries to convert a <see cref="string"/> to an <see cref="double"/>
+        /// </summary>
+        /// <param name="target">The string to convert</param>
+        /// <returns>Returns a double that represents the converted string</returns>
+        public static double ToDouble(this string target)
+        {
+            double result;
+
+            if (double.TryParse(target, out result))
+                return result;
+
+            return -1;
+        }
+
+        /// <summary>
+        /// Tries to convert a <see cref="object"/> to an <see cref="double"/>
+        /// </summary>
+        /// <param name="target">The object to convert</param>
+        /// <returns>Returns a double that represents the converted object</returns>
+        public static double ToDouble(this object target)
+        {
+            if (target == null)
+                return -1;
+
+            return target.ToString().ToDouble();
+        }
+
+        /// <summary>
         /// Tries to convert a <see cref="object"/> to an <see cref="int"/>
         /// </summary>
         /// <param name="target">The object to convert</param>

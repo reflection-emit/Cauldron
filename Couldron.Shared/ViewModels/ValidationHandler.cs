@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace Couldron.ViewModels
 {
@@ -68,7 +67,7 @@ namespace Couldron.ViewModels
         public IEnumerable GetErrors(string propertyName)
         {
             if (String.IsNullOrEmpty(propertyName) || !errors.ContainsKey(propertyName))
-                return this.Errors;
+                return string.Empty;
 
             return this.errors[propertyName];
         }
@@ -182,15 +181,7 @@ namespace Couldron.ViewModels
 
         private void RaiseErrorsChanged(string propertyName)
         {
-            var sb = new StringBuilder();
-
-            foreach (List<string> item in this.errors.Values)
-            {
-                for (int i = 0; i < item.Count; i++)
-                    sb.AppendLine(item[i]);
-            }
-
-            this.Errors = sb.ToString();
+            this.Errors = string.Join("\r\n", this.errors.Values.SelectMany(x => x));
 
             if (ErrorsChanged != null)
                 ErrorsChanged(this, new DataErrorsChangedEventArgs(propertyName));

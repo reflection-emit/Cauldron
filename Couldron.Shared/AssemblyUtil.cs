@@ -36,17 +36,17 @@ namespace Couldron
         /// <summary>
         /// Gets a collection of classes loaded to the <see cref="AssemblyUtil"/>
         /// </summary>
-        public static IEnumerable<TypeInfo> Classes { get { return DefinedTypes.Where(x => x.IsClass); } }
+        public static IEnumerable<TypeInfo> Classes { get { return ExportedTypes.Where(x => x.IsClass); } }
 
         /// <summary>
-        /// Gets a colleciton of Types found in the loaded <see cref="Assembly"/>
+        /// Gets a collection of exported types found in the loaded <see cref="Assembly"/>
         /// </summary>
-        public static IEnumerable<TypeInfo> DefinedTypes { get { return typesWithImplementedInterfaces.Select(x => x.typeInfo); } }
+        public static IEnumerable<TypeInfo> ExportedTypes { get { return typesWithImplementedInterfaces.Select(x => x.typeInfo); } }
 
         /// <summary>
         /// Gets a colleciton of Interfaces found in the loaded <see cref="Assembly"/>
         /// </summary>
-        public static IEnumerable<TypeInfo> Interfaces { get { return DefinedTypes.Where(x => x.IsInterface); } }
+        public static IEnumerable<TypeInfo> Interfaces { get { return ExportedTypes.Where(x => x.IsInterface); } }
 
         /// <summary>
         /// Returns the first found <see cref="Assembly"/> that contains an embedded resource with the given resource name
@@ -167,10 +167,10 @@ namespace Couldron
             if (typeName.IndexOf('@') >= 0)
             {
                 var splitted = typeName.Split('@');
-                result = DefinedTypes.FirstOrDefault(x => x.Assembly.FullName.StartsWith(splitted[1]) && x.Name.EndsWith(splitted[0]));
+                result = ExportedTypes.FirstOrDefault(x => x.Assembly.FullName.StartsWith(splitted[1]) && x.Name.EndsWith(splitted[0]));
             }
             else
-                result = DefinedTypes.FirstOrDefault(x => x.Name.EndsWith(typeName));
+                result = ExportedTypes.FirstOrDefault(x => x.Name.EndsWith(typeName));
 
             if (result != null)
                 return result.AsType();
@@ -254,7 +254,7 @@ namespace Couldron
             {
                 try
                 {
-                    types.AddRange(assembly.DefinedTypes);
+                    types.AddRange(assembly.ExportedTypes.Select(x => x.GetTypeInfo()));
                 }
                 catch (Exception e)
                 {

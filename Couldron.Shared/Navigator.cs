@@ -158,7 +158,7 @@ namespace Couldron
 
         private static Window CreateWindow()
         {
-            var window = AssemblyUtil.DefinedTypes.FirstOrDefault(x => x.IsSubclassOf(typeof(Window)));
+            var window = AssemblyUtil.ExportedTypes.FirstOrDefault(x => x.IsSubclassOf(typeof(Window)));
             if (window == null)
                 return new Window();
 

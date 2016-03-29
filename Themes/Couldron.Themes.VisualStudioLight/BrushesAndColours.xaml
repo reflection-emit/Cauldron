@@ -38,17 +38,14 @@
     <Color x:Key="ThemeLightBorderColor">#CCCEDB</Color>
     <SolidColorBrush x:Key="ThemeLightBorderBrush" Color="{StaticResource ThemeLightBorderColor}" />
 
-    <Color x:Key="ThemeLightOverlayColor">#90FFFFFF</Color>
+    <Color x:Key="ThemeLightOverlayColor">#80FFFFFF</Color>
     <SolidColorBrush x:Key="ThemeLightOverlayBrush" Color="{StaticResource ThemeLightOverlayColor}" />
 
-    <Color x:Key="ThemeDarkOverlayColor">#90000000</Color>
-    <SolidColorBrush x:Key="ThemeDarkOverlayBrush" Color="{StaticResource ThemeLightOverlayColor}" />
+    <Color x:Key="ThemeDarkOverlayColor">#10000000</Color>
+    <SolidColorBrush x:Key="ThemeDarkOverlayBrush" Color="{StaticResource ThemeDarkOverlayColor}" />
 
     <Color x:Key="ThemeButtonbackColor">#C2C3C9</Color>
     <SolidColorBrush x:Key="ThemeButtonbackBrush" Color="{StaticResource ThemeButtonbackColor}" />
-
-    <Color x:Key="ThemeMandatoryColor">Gold</Color>
-    <SolidColorBrush x:Key="ThemeMandatoryBrush" Color="{StaticResource ThemeMandatoryColor}" />
 
     <Color x:Key="ThemeComboBoxArrowColor">#717171</Color>
     <SolidColorBrush x:Key="ThemeComboBoxArrowBrush" Color="{StaticResource ThemeComboBoxArrowColor}" />

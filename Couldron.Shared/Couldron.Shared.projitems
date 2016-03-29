@@ -11,6 +11,7 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)AssemblyAndResourceNameInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AssemblyUtil.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attached\ButtonProperties.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Attached\ComboBoxProperties.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Attached\EmbeddedResourceImage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Attached\Localized.cs" />
@@ -111,5 +112,6 @@
     <None Include="$(MSBuildThisFileDirectory)Snippets\GenerateAttachedDependencyPropertyFull.snippet" />
     <None Include="$(MSBuildThisFileDirectory)Snippets\GenerateDependencyProperty.snippet" />
     <None Include="$(MSBuildThisFileDirectory)Snippets\GenerateDependencyPropertyFull.snippet" />
+    <None Include="$(MSBuildThisFileDirectory)Snippets\ICommand.snippet" />
   </ItemGroup>
 </Project>

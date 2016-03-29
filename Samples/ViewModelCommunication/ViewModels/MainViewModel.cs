@@ -5,6 +5,7 @@ using Couldron.Messaging;
 using Couldron.Validation;
 using Couldron.ViewModels;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
 namespace ViewModelCommunication.ViewModels

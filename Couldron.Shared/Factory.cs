@@ -23,7 +23,7 @@ namespace Couldron
                 .Select(x => Activator.CreateInstance(x.AsType()) as IFactoryExtension));
 
             var attributeType = typeof(FactoryAttribute);
-            var definedTypes = AssemblyUtil.DefinedTypes
+            var definedTypes = AssemblyUtil.ExportedTypes
                 .Where(x => !x.IsInterface)
                 .Select(x => new
                 {

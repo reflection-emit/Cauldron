@@ -2,13 +2,14 @@
 using Couldron.Aspects;
 using Couldron.Core;
 using Couldron.Messaging;
+using Couldron.Validation;
 using Couldron.ViewModels;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace ViewModelCommunication.ViewModels
 {
-    public class AnimalViewModel : ViewModelBase, IClose
+    public class AnimalViewModel : ValidatableViewModelBase, IClose
     {
         public AnimalViewModel(string animalName)
         {
@@ -29,13 +30,17 @@ namespace ViewModelCommunication.ViewModels
         public ICommand ClearCommand { get; private set; }
 
         [NotifyPropertyChanged]
+        [IsMandatory("This is mandatory")]
         public string Name { get; set; }
 
         public ObservableCollection<AnimalProperty> Properties { get; private set; }
 
         public void Close()
         {
-            MessageManager.Message(new CloseTabMessage(this));
+            this.Validate();
+
+            if (!this.HasErrors)
+                MessageManager.Message(new CloseTabMessage(this));
         }
 
         private void ClearAction()

@@ -35,6 +35,7 @@
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
+
             <GroupBox Header="{Binding Name}">
                 <ListView ItemsSource="{Binding Properties}">
                     <ListView.View>

@@ -165,6 +165,7 @@
 
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
                             <ColumnDefinition />
                             <ColumnDefinition Width="14" />
                         </Grid.ColumnDefinitions>
@@ -175,9 +176,9 @@
 
                         <TextBlock Text="{Binding Path=(attached:ComboBoxProperties.Header), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource KeyToLocalizedStringConverter}}"
                                  Visibility="{Binding Path=(attached:ComboBoxProperties.Header), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NullOrEmptyTovisibilityConverter}, ConverterParameter=True}"
-                                 Margin="1,6,0,2" Grid.ColumnSpan="3" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
+                                 Margin="1,6,0,2" Grid.ColumnSpan="4" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
 
-                        <ToggleButton x:Name="border" Grid.ColumnSpan="3" Grid.Row="1" Background="{StaticResource ThemeLightBackgroundBrush}"
+                        <ToggleButton x:Name="border" Grid.ColumnSpan="4" Grid.Row="1" Background="{StaticResource ThemeLightBackgroundBrush}"
                                         VerticalAlignment="Stretch" HorizontalAlignment="Stretch" ClickMode="Press" Focusable="False" Foreground="{StaticResource ThemeComboBoxArrowBrush}"
                                         IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                         BorderBrush="{StaticResource ThemeLightBorderBrush}" BorderThickness="1">
@@ -189,12 +190,12 @@
                             </ToggleButton.Template>
                         </ToggleButton>
 
-                        <ToggleButton x:Name="ToggleButton" Grid.Row="1" Grid.Column="2" Focusable="false" ClickMode="Press" Foreground="{StaticResource ThemeComboBoxArrowBrush}"
+                        <ToggleButton x:Name="ToggleButton" Grid.Row="1" Grid.Column="3" Focusable="false" ClickMode="Press" Foreground="{StaticResource ThemeComboBoxArrowBrush}"
                                         Background="{StaticResource ThemeLightBackgroundBrush}" BorderBrush="Transparent" Template="{StaticResource ComboBoxToggleButton}"
                                         IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" />
 
                         <ContentPresenter x:Name="ContentSite"
-                            Grid.Row="1" Grid.Column="1"
+                            Grid.Row="1" Grid.Column="2"
                             IsHitTestVisible="False"
                             Content="{TemplateBinding SelectionBoxItem}"
                             ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
@@ -204,18 +205,18 @@
                             HorizontalAlignment="Left">
                         </ContentPresenter>
 
-                        <TextBox Grid.Row="1" Grid.Column="1" x:Name="PART_EditableTextBox" SelectionBrush="{StaticResource ThemeLightAccentBrush}" CaretBrush="{StaticResource ThemeAccentBrush}"
+                        <TextBox Grid.Row="1" Grid.Column="2" x:Name="PART_EditableTextBox" SelectionBrush="{StaticResource ThemeLightAccentBrush}" CaretBrush="{StaticResource ThemeAccentBrush}"
                                  Foreground="{StaticResource ThemeTextBrush}"
                                  Style="{x:Null}" BorderBrush="Transparent" BorderThickness="0" Background="Transparent" HorizontalAlignment="Left" VerticalAlignment="Center"
                                  Margin="4,0" Focusable="True" Visibility="Hidden" IsReadOnly="{TemplateBinding IsReadOnly}"
                                  AcceptsReturn="False" AcceptsTab="False" AllowDrop="False" SnapsToDevicePixels="True" TextWrapping="NoWrap" />
 
-                        <TextBlock Grid.Row="1" Grid.Column="1" IsHitTestVisible="False"
+                        <TextBlock Grid.Row="1" Grid.Column="2" IsHitTestVisible="False"
                                        Text="{Binding Path=(attached:ComboBoxProperties.AlternativeText), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource KeyToLocalizedStringConverter}}"
                                        Foreground="{StaticResource ThemeTextBrush}" Opacity="0.7" Margin="3"
                                        Visibility="{Binding Path=Text, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NullOrEmptyTovisibilityConverter}, ConverterParameter=False}" />
 
-                        <Popup x:Name="Popup" Grid.ColumnSpan="3" Grid.Row="1" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True"
+                        <Popup x:Name="Popup" Grid.ColumnSpan="4" Grid.Row="1" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True"
                                Focusable="False" PopupAnimation="Slide">
                             <Border x:Name="DropDown" SnapsToDevicePixels="True" Margin="0,0,5,5" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                         BorderThickness="1" BorderBrush="{StaticResource ThemeLightBorderBrush}" Background="{StaticResource ThemeDropdownBackgroundBrush}">
@@ -228,15 +229,15 @@
                             </Border>
                         </Popup>
 
-                        <Ellipse Grid.Row="1" Fill="Tomato" Width="14" Height="14" Margin="4,0" VerticalAlignment="Center" HorizontalAlignment="Center"
+                        <Ellipse Grid.Row="1" Grid.Column="1" Fill="Tomato" Width="14" Height="14" Margin="4,0" VerticalAlignment="Center" HorizontalAlignment="Center"
                                      ToolTip="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Validation.Errors), Converter={StaticResource ErrorCollectionConverter}}"
                                      Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Validation.HasError), Converter={StaticResource BooleanTovisibilityConverter}}" />
-                        <TextBlock Grid.Row="1" Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Validation.HasError), Converter={StaticResource BooleanTovisibilityConverter}}"
+                        <TextBlock Grid.Row="1" Grid.Column="1" Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Validation.HasError), Converter={StaticResource BooleanTovisibilityConverter}}"
                                        Text="!" IsHitTestVisible="False" FontFamily="Segoe UI" FontWeight="ExtraBold" Foreground="{StaticResource ThemeHoveredTextBrush}" VerticalAlignment="Center" HorizontalAlignment="Center" />
 
-                        <Rectangle Grid.Row="1" Fill="{StaticResource ThemeMandatoryBrush}" Height="2" Margin="0,0,0,-2" Grid.ColumnSpan="3"
+                        <Rectangle Grid.Row="1" Fill="{StaticResource ThemeAccentBrush}" Margin="1"
                                        Visibility="{Binding Path=(localbehaviour:ValidationProperties.IsMandatory), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanTovisibilityConverter}}"
-                                       VerticalAlignment="Bottom" HorizontalAlignment="Stretch" />
+                                       VerticalAlignment="Stretch" HorizontalAlignment="Left" Width="4" />
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsEnabled" Value="false">

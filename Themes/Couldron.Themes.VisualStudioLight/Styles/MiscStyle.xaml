@@ -12,12 +12,20 @@
 
     <Style TargetType="ToolTip">
         <Setter Property="Foreground" Value="{StaticResource ThemeTextBrush}" />
+        <Setter Property="MaxWidth" Value="240" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ToolTip">
-                    <Border Background="{StaticResource ThemeLightBorderBrush}" BorderBrush="{StaticResource ThemeButtonbackBrush}"
+                    <Border Background="{StaticResource ThemeLightBackgroundBrush}" BorderBrush="{StaticResource ThemeButtonbackBrush}"
                             BorderThickness="1" CornerRadius="4">
-                        <ContentPresenter Margin="8" />
+                        <ContentPresenter Margin="8">
+                            <ContentPresenter.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="TextAlignment" Value="Justify" />
+                                    <Setter Property="TextWrapping" Value="Wrap" />
+                                </Style>
+                            </ContentPresenter.Resources>
+                        </ContentPresenter>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
@@ -29,6 +37,7 @@
         <Setter Property="RenderOptions.CachingHint" Value="Cache" />
         <Setter Property="RenderOptions.ClearTypeHint" Value="Auto" />
         <Setter Property="UseLayoutRounding" Value="True" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
     </Style>
 

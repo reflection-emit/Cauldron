@@ -21,11 +21,13 @@ namespace Couldron
             this.Resources.Add(typeof(CouldronTemplateSelector).Name, new CouldronTemplateSelector());
 
             // Add all Value converters to the dictionary
-            foreach (var valueConverter in AssemblyUtil.DefinedTypes.Where(x => x.ImplementsInterface<IValueConverter>()))
+            foreach (var valueConverter in AssemblyUtil.ExportedTypes.Where(x => x.ImplementsInterface<IValueConverter>()))
                 this.Resources.Add(valueConverter.Name, Activator.CreateInstance(valueConverter));
 
             // find all resourcedictionaries and add them to the existing resources
-            foreach (var resourceDictionary in AssemblyUtil.DefinedTypes.Where(x => x.IsSubclassOf(typeof(ResourceDictionary))))
+            foreach (var resourceDictionary in AssemblyUtil.ExportedTypes
+                    .Where(x => x.IsSubclassOf(typeof(ResourceDictionary)))
+                    .OrderByDescending(x => x.Assembly.FullName.StartsWith("Couldron.")))
                 this.Resources.MergedDictionaries.Add(Activator.CreateInstance(resourceDictionary) as ResourceDictionary);
         }
 
