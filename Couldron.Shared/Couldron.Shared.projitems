@@ -27,15 +27,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)Behaviours\IBehaviour.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviours\Interaction.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviours\Interactivity.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Behaviours\OpenFileDialogAction.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviours\SetFocusBehaviour.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Behaviours\TextBoxInputFilterBehaviour.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Behaviours\WindowConfigurationBehaviour.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Collections\ActionCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Collections\BehaviourCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Collections\ConcurrentList.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Collections\InteractivityTemplate.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)CommonConverters.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\ApplicationData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\ApplicationInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Compression.cs" />
@@ -54,8 +50,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Core\Randomizer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\SecureStringHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\UserInformation.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)CouldronApplication.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)CouldronTemplateSelector.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExtensionConvertions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExtensionsFrameworkElement.cs" />
@@ -67,13 +61,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)ILocalizationSource.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)InjectionConstructorAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IRelayCommand.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Localization.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Messaging\MessageManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Messaging\MessageObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Messaging\MessagingArgs.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Navigator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RelayCommand.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)UnsafeNative.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Validation\EqualityAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Validation\IsMandatoryAttribute.cs" />
@@ -103,7 +94,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ValidationHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ViewModelBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ViewModelContainerHandler.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)WindowsMessages.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)Snippets\argumentNullException.snippet" />
@@ -113,5 +103,6 @@
     <None Include="$(MSBuildThisFileDirectory)Snippets\GenerateDependencyProperty.snippet" />
     <None Include="$(MSBuildThisFileDirectory)Snippets\GenerateDependencyPropertyFull.snippet" />
     <None Include="$(MSBuildThisFileDirectory)Snippets\ICommand.snippet" />
+    <None Include="$(MSBuildThisFileDirectory)ViewModels\ViewModels.cd" />
   </ItemGroup>
 </Project>

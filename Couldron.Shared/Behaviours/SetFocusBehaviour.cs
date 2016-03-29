@@ -1,7 +1,14 @@
 ﻿using Couldron.Core;
-using System.Threading.Tasks;
-using System.Windows;
+
+#if NETFX_CORE
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml;
+#else
+
 using System.Windows.Controls;
+using System.Windows;
+
+#endif
 
 namespace Couldron.Behaviours
 {
@@ -39,7 +46,12 @@ namespace Couldron.Behaviours
         /// </summary>
         protected override void OnLoaded()
         {
+#if NETFX_CORE
+            this.AssociatedObject.Focus(FocusState.Programmatic);
+#else
+
             this.AssociatedObject.Focus();
+#endif
         }
     }
 }

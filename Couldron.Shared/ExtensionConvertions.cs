@@ -27,7 +27,7 @@ namespace Couldron
         /// <returns>Returns a bool that represents the converted string</returns>
         public static bool ToBool(this string target)
         {
-            if (target.IndexOf(bool.TrueString, StringComparison.InvariantCultureIgnoreCase) >= 0 ||
+            if (target.IndexOf(bool.TrueString, StringComparison.OrdinalIgnoreCase) >= 0 ||
                 target == "1")
                 return true;
 

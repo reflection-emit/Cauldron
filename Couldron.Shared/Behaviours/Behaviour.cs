@@ -1,8 +1,17 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+
+#if NETFX_CORE
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Data;
+
+#else
+
 using System.Windows;
 using System.Windows.Data;
+
+#endif
 
 namespace Couldron.Behaviours
 {
@@ -10,7 +19,7 @@ namespace Couldron.Behaviours
     /// A base class for behaviours
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public abstract class Behaviour<T> : DependencyObject, IBehaviour<T> where T : FrameworkElement
+    public abstract partial class Behaviour<T> : DependencyObject, IBehaviour<T> where T : FrameworkElement
     {
         private T _associatedObject;
 
@@ -118,9 +127,9 @@ namespace Couldron.Behaviours
         /// </summary>
         /// <param name="dp">DependencyProperty that represents the property</param>
         /// <param name="binding">The binding to attach</param>
-        public BindingExpressionBase SetBinding(DependencyProperty dp, BindingBase binding)
+        public void SetBinding(DependencyProperty dp, BindingBase binding)
         {
-            return BindingOperations.SetBinding(this, dp, binding);
+            BindingOperations.SetBinding(this, dp, binding);
         }
 
         /// <summary>
@@ -153,43 +162,6 @@ namespace Couldron.Behaviours
         /// </summary>
         protected virtual void OnLoaded()
         {
-        }
-
-        private void AssociatedObjectDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            this.OnDataContextChanged();
-
-            if (this.DataContextChanged != null)
-                this.DataContextChanged(sender, e);
-        }
-
-        /// <summary>
-        /// Occures when the behavior is attached to the object
-        /// </summary>
-        private void Attach()
-        {
-            this._associatedObject.DataContextChanged += AssociatedObjectDataContextChanged;
-            this._associatedObject.Loaded += TargetLoaded;
-            this._associatedObject.Unloaded += TargetUnloaded;
-
-            // Initial invoke... If the DataContext is already set before anything
-            if (this._associatedObject.DataContext != null)
-                this.OnDataContextChanged();
-
-            this.OnAttach();
-        }
-
-        /// <summary>
-        /// Occures when the behaviour is detached from the object
-        /// </summary>
-        private void Detach()
-        {
-            this._associatedObject.DataContextChanged -= AssociatedObjectDataContextChanged;
-            this._associatedObject.Loaded -= TargetLoaded;
-            this._associatedObject.Unloaded -= TargetUnloaded;
-
-            this.OnDetach();
-            BindingOperations.ClearAllBindings(this.AssociatedObject);
         }
 
         private void TargetLoaded(object sender, RoutedEventArgs e)

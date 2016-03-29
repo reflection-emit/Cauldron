@@ -1,16 +1,16 @@
-﻿using System.Windows;
+﻿#if NETFX_CORE
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+#else
+
+using System.Windows;
 using System.Windows.Controls;
+
+#endif
 
 namespace Couldron.Attached
 {
-    /// <summary>
-    /// Provides Attached Properties to enable localization in controls.
-    /// <para/>
-    /// Existing text are overridden.
-    /// <para />
-    /// Supported controls: <see cref="FrameworkElement.ToolTip"/> <see cref="TextBlock.Text"/>, <see cref="ContentControl.Content"/>
-    /// </summary>
-    public static class Localized
+    public static partial class Localized
     {
         #region Dependency Attached Property Text
 
@@ -76,14 +76,6 @@ namespace Couldron.Attached
         public static void SetTooltip(DependencyObject obj, string value)
         {
             obj.SetValue(TooltipProperty, value);
-        }
-
-        private static void OnTooltipChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
-        {
-            var text = AssignText(dependencyObject, args.NewValue as string);
-
-            if (dependencyObject is FrameworkElement)
-                (dependencyObject as FrameworkElement).ToolTip = text;
         }
 
         #endregion Dependency Attached Property Tooltip
