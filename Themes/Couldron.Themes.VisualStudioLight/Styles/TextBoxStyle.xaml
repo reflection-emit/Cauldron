@@ -20,6 +20,9 @@
         <Setter Property="SelectionBrush" Value="{StaticResource ThemeLightAccentBrush}" />
         <Setter Property="Foreground" Value="{StaticResource ThemeTextBrush}" />
         <Setter Property="CaretBrush" Value="{StaticResource ThemeAccentBrush}" />
+        <Setter Property="BorderBrush" Value="{StaticResource ThemeLightBorderBrush}" />
+        <Setter Property="Background" Value="{StaticResource ThemeLightBackgroundBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
         <Setter Property="AllowDrop" Value="true" />
         <Setter Property="AutoWordSelection" Value="True" />
         <Setter Property="behaviour:Interactivity.Template">
@@ -75,12 +78,12 @@
                         </Grid.ColumnDefinitions>
 
                         <Border Margin="0" Padding="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
-                                Grid.ColumnSpan="3" Grid.Row="1" Name="Border" BorderThickness="1" BorderBrush="{StaticResource ThemeLightBorderBrush}"
-                                Background="{StaticResource ThemeLightBackgroundBrush}" />
+                                Grid.ColumnSpan="3" Grid.Row="1" Name="Border" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}"
+                                Background="{TemplateBinding Background}" />
 
                         <TextBlock Text="{Binding Path=(attached:TextBoxProperties.Header), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource KeyToLocalizedStringConverter}}"
                                  Visibility="{Binding Path=(attached:TextBoxProperties.Header), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NullOrEmptyTovisibilityConverter}, ConverterParameter=True}"
-                                 Margin="1,2,0,2" Grid.ColumnSpan="3" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
+                                 Margin="1,6,0,2" Grid.ColumnSpan="3" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
 
                         <TextBlock Grid.Row="1" Grid.Column="1" IsHitTestVisible="False"
                                        Text="{Binding Path=(attached:TextBoxProperties.AlternativeText), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource KeyToLocalizedStringConverter}}"

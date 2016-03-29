@@ -5,7 +5,7 @@ namespace Couldron.ViewModels
     /// <summary>
     /// Specifies the methods that can be invoked on navigation
     /// </summary>
-    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
     public sealed class NavigatingAttribute : Attribute
     {
         /// <summary>

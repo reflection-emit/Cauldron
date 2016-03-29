@@ -4,6 +4,10 @@ using System.Windows.Data;
 
 namespace Couldron.Behaviours
 {
+    /// <summary>
+    /// Represents a behaviour
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public interface IBehaviour<T> : IBehaviour
     {
         /// <summary>
@@ -12,12 +16,25 @@ namespace Couldron.Behaviours
         T AssociatedObject { get; set; }
     }
 
+    /// <summary>
+    /// Represents a behaviour
+    /// </summary>
     public interface IBehaviour : IDisposable
     {
+        /// <summary>
+        /// Occurs when the data context for this element changes.
+        /// </summary>
+        event DependencyPropertyChangedEventHandler DataContextChanged;
+
         /// <summary>
         /// Gets a value that indicates the behaviour was assigned from a template
         /// </summary>
         bool IsAssignedFromTemplate { get; }
+
+        /// <summary>
+        /// Gets or sets a name of the behaviour
+        /// </summary>
+        string Name { get; set; }
 
         /// <summary>
         /// Creates a shallow copy of the instance

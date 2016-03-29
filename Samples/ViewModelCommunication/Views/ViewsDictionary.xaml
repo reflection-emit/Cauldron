@@ -51,7 +51,7 @@
                 <TextBox Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" attached:TextBoxProperties.Header="Animal name" VerticalAlignment="Top" HorizontalAlignment="Stretch">
                     <attached:TextBoxProperties.ButtonsTemplate>
                         <ControlTemplate>
-                            <Button Content="Clear" Command="{Binding ClearCommand}" BorderThickness="0" />
+                            <Button attached:EmbeddedResourceImage.ImageKey="TimePicker_24x.png" Height="22" Command="{Binding ClearCommand}" BorderThickness="0" />
                         </ControlTemplate>
                     </attached:TextBoxProperties.ButtonsTemplate>
                 </TextBox>
@@ -61,7 +61,7 @@
                           IsEditable="False" VerticalAlignment="Top" attached:ComboBoxProperties.AlternativeText="Click here to select" />
             </GroupBox>
             <GroupBox Header="{Binding Name}" Grid.Row="1">
-                <Button VerticalAlignment="Top" HorizontalAlignment="Left" Content="Test Button" />
+                <Button VerticalAlignment="Top" HorizontalAlignment="Left" attached:EmbeddedResourceImage.ImageKey="Time_24x.png" />
             </GroupBox>
         </Grid>
     </DataTemplate>

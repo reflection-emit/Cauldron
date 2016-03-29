@@ -1,5 +1,4 @@
 ﻿using Couldron.Core;
-using System;
 using System.Windows;
 using System.Windows.Input;
 

@@ -14,6 +14,29 @@ namespace Couldron.Behaviours
     {
         private T _associatedObject;
 
+        #region Dependency Property Name
+
+        /// <summary>
+        /// Identifies the <see cref="Name" /> dependency property
+        /// </summary>
+        public static readonly DependencyProperty NameProperty = DependencyProperty.Register(nameof(Name), typeof(string), typeof(Behaviour<T>), new PropertyMetadata(""));
+
+        /// <summary>
+        /// Gets or sets the <see cref="Name" /> Property
+        /// </summary>
+        public string Name
+        {
+            get { return (string)this.GetValue(NameProperty); }
+            set { this.SetValue(NameProperty, value); }
+        }
+
+        #endregion Dependency Property Name
+
+        /// <summary>
+        /// Occurs when the data context for this element changes.
+        /// </summary>
+        public event DependencyPropertyChangedEventHandler DataContextChanged;
+
         /// <summary>
         /// Gets the <see cref="DependencyObject"/> to which the behavior is attached.
         /// </summary>
@@ -135,6 +158,9 @@ namespace Couldron.Behaviours
         private void AssociatedObjectDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             this.OnDataContextChanged();
+
+            if (this.DataContextChanged != null)
+                this.DataContextChanged(sender, e);
         }
 
         /// <summary>

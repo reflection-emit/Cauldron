@@ -175,7 +175,7 @@
 
                         <TextBlock Text="{Binding Path=(attached:ComboBoxProperties.Header), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource KeyToLocalizedStringConverter}}"
                                  Visibility="{Binding Path=(attached:ComboBoxProperties.Header), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NullOrEmptyTovisibilityConverter}, ConverterParameter=True}"
-                                 Margin="1,2,0,2" Grid.ColumnSpan="3" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
+                                 Margin="1,6,0,2" Grid.ColumnSpan="3" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
 
                         <ToggleButton x:Name="border" Grid.ColumnSpan="3" Grid.Row="1" Background="{StaticResource ThemeLightBackgroundBrush}"
                                         VerticalAlignment="Stretch" HorizontalAlignment="Stretch" ClickMode="Press" Focusable="False" Foreground="{StaticResource ThemeComboBoxArrowBrush}"

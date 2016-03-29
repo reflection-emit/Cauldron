@@ -98,7 +98,7 @@ namespace Couldron
             (context as FrameworkElement).IsNotNull(x =>
             {
                 // Dispose the attach behaviours
-                foreach (var child in x.FindVisualChildren<FrameworkElement>())
+                foreach (var child in x.GetVisualChildren())
                     child.DisposeAll();
 
                 Interaction.GetBehaviours(x).IsNotNull(o => o.Dispose());
@@ -393,12 +393,22 @@ namespace Couldron
             if (stream == null)
                 return null;
 
-            BitmapImage image = new BitmapImage();
-            image.BeginInit();
-            image.StreamSource = stream;
-            image.EndInit();
-
-            return image;
+            try
+            {
+                BitmapImage image = new BitmapImage();
+                image.BeginInit();
+                image.StreamSource = stream;
+                image.EndInit();
+                return image;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            finally
+            {
+                stream.Dispose();
+            }
         }
 
         /// <summary>

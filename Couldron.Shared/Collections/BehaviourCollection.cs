@@ -11,13 +11,22 @@ namespace Couldron.Collections
     /// <summary>
     /// Represents a collection of <see cref="IBehaviour"/>
     /// </summary>
-    public sealed class BehaviourCollection : Collection<IBehaviour>, IDisposable
+    public sealed class BehaviourCollection : BehaviourCollection<IBehaviour>
+    {
+    }
+
+    /// <summary>
+    /// Represents a collection of <see cref="IBehaviour"/>
+    /// </summary>
+    /// <typeparam name="T">The type of <see cref="IBehaviour"/> implementations in the collection</typeparam>
+    public class BehaviourCollection<T> : Collection<T>, IDisposable
+        where T : IBehaviour
     {
         internal DependencyObject owner;
         private bool disposed = false;
 
         /// <summary>
-        /// Initializes a new instance of <see cref="BehaviourCollection"/>
+        /// Initializes a new instance of <see cref="BehaviourCollection{T}"/>
         /// </summary>
         public BehaviourCollection() : base()
         {
@@ -62,11 +71,11 @@ namespace Couldron.Collections
         }
 
         /// <summary>
-        /// Inserts an element into the <see cref="BehaviourCollection"/> at the specified index.
+        /// Inserts an element into the <see cref="BehaviourCollection{T}"/> at the specified index.
         /// </summary>
         /// <param name="index">The zero-based index at which item should be inserted.</param>
         /// <param name="item">The object to insert.The value can be null for reference types.</param>
-        protected override void InsertItem(int index, IBehaviour item)
+        protected override void InsertItem(int index, T item)
         {
             var attr = item.GetType().GetTypeInfo().GetCustomAttribute<BehaviourUsageAttribute>();
 
@@ -89,7 +98,7 @@ namespace Couldron.Collections
         }
 
         /// <summary>
-        /// Removes the element at the specified index of the <see cref="BehaviourCollection"/>
+        /// Removes the element at the specified index of the <see cref="BehaviourCollection{T}"/>
         /// </summary>
         /// <param name="index">The zero-based index of the element to remove.</param>
         protected override void RemoveItem(int index)
