@@ -33,6 +33,11 @@ namespace Couldron.ViewModels
         }
 
         /// <summary>
+        /// Occures if a behaviour should be invoked
+        /// </summary>
+        public event EventHandler<BehaviourInvokationArgs> BehaviourInvoke;
+
+        /// <summary>
         /// Occurs when a property value changes.
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
@@ -80,6 +85,16 @@ namespace Couldron.ViewModels
         protected virtual bool OnBeforeRaiseNotifyPropertyChanged(string propertyName)
         {
             return false;
+        }
+
+        /// <summary>
+        /// Invokes the <see cref="BehaviourInvoke"/> event
+        /// </summary>
+        /// <param name="behaviourName">The name of the behaviour to invoke</param>
+        protected async void RaiseNotifyBehaviourInvoke(string behaviourName)
+        {
+            if (this.BehaviourInvoke != null)
+                await this.Dispatcher.RunAsync(() => this.BehaviourInvoke(this, new BehaviourInvokationArgs(behaviourName)));
         }
     }
 }

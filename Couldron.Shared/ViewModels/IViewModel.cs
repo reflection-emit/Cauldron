@@ -9,7 +9,7 @@ namespace Couldron.ViewModels
     /// <summary>
     /// Defines a ViewModel
     /// </summary>
-    public interface IViewModel : INotifyPropertyChanged
+    public interface IViewModel : INotifyPropertyChanged, INotifyBehaviourInvokation
     {
         /// <summary>
         /// Gets the <see cref="Dispatcher"/> this <see cref="DispatcherObject"/> is associated with.

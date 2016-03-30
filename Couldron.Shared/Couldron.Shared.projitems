@@ -19,6 +19,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Attached\WindowToolbar.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviours\ActionBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviours\Behaviour.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Behaviours\BehaviourInvokeAwareBehaviourBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviours\BehaviourUsageAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviours\ControlTemplateBindingBehaviour.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviours\ControlTemplateCommandFromControlNameBindingBehaviour.cs" />
@@ -30,6 +31,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Behaviours\OpenFileDialogAction.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviours\SetFocusBehaviour.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviours\TextBoxInputFilterBehaviour.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Behaviours\TreeViewExpandCollapseToggleBehaviour.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviours\WindowConfigurationBehaviour.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Collections\ActionCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Collections\BehaviourCollection.cs" />
@@ -66,6 +68,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)IFactoryExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ILocalizationSource.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)InjectionConstructorAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)INotifyBehaviourInvokation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IRelayCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Localization.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Messaging\MessageManager.cs" />
@@ -75,6 +78,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)RelayCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UnsafeNative.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Validation\GreaterThanAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Validation\EqualityAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Validation\IsMandatoryAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Validation\PasswordStrengthAttribute.cs" />
