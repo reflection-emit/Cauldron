@@ -1,17 +1,17 @@
 ﻿using Couldron.Collections;
 using Couldron.Core;
+
+#if NETFX_CORE
+using Windows.UI.Xaml;
+#else
+
 using System.Windows;
-using System.Windows.Markup;
+
+#endif
 
 namespace Couldron.Behaviours
 {
-    /// <summary>
-    /// Provides a Behaviour that can invoke <see cref="ActionBase"/> behaviours.
-    /// <para/>
-    /// The <see cref="EventTrigger"/> is triggered by an event of the associated <see cref="FrameworkElement"/>
-    /// </summary>
-    [ContentProperty("Events")]
-    public sealed class EventTrigger : Behaviour<FrameworkElement>
+    public sealed partial class EventTrigger : Behaviour<FrameworkElement>
     {
         #region Dependency Property EventName
 

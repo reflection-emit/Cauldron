@@ -104,6 +104,23 @@ namespace Couldron
         /// <param name="type">The type that may implements the interface <typeparamref name="T"/></param>
         /// <exception cref="ArgumentException">The type <typeparamref name="T"/> is not an interface</exception>
         /// <returns>True if the <paramref name="type"/> has implemented the interface <typeparamref name="T"/></returns>
+        public static bool ImplementsInterface<T>(this TypeInfo type)
+        {
+            var typeOfInterface = typeof(T);
+
+            if (!typeOfInterface.GetTypeInfo().IsInterface)
+                throw new ArgumentException("T is not an interface", nameof(T));
+
+            return type.ImplementedInterfaces.Any(x => x == typeOfInterface);
+        }
+
+        /// <summary>
+        /// Checks if the type has implemented the defined interface
+        /// </summary>
+        /// <typeparam name="T">The type of interface to look for</typeparam>
+        /// <param name="type">The type that may implements the interface <typeparamref name="T"/></param>
+        /// <exception cref="ArgumentException">The type <typeparamref name="T"/> is not an interface</exception>
+        /// <returns>True if the <paramref name="type"/> has implemented the interface <typeparamref name="T"/></returns>
         public static bool ImplementsInterface<T>(this Type type)
         {
             var typeOfInterface = typeof(T);
@@ -122,6 +139,17 @@ namespace Couldron
         public static bool IsNullable(this Type target)
         {
             return target.GetTypeInfo().IsGenericType && Nullable.GetUnderlyingType(target) != null;
+        }
+
+        /// <summary>
+        /// Determines whether the current Type derives from the specified Type.
+        /// </summary>
+        /// <param name="type">The type to determine</param>
+        /// <param name="c">The type to compare with the current type. </param>
+        /// <returns>true if the current Type derives from <paramref name="c"/>; otherwise, false.This method also returns false if <paramref name="c"/> and the current Type are equal.</returns>
+        public static bool IsSubclassOf(this Type type, Type c)
+        {
+            return type.GetTypeInfo().IsSubclassOf(c);
         }
 
         /// <summary>

@@ -4,7 +4,6 @@ using Newtonsoft.Json;
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows.Threading;
 
 namespace Couldron.ViewModels
 {
@@ -33,12 +32,17 @@ namespace Couldron.ViewModels
         }
 
         /// <summary>
+        /// Occures if a behaviour should be invoked
+        /// </summary>
+        public event EventHandler<BehaviourInvokationArgs> BehaviourInvoke;
+
+        /// <summary>
         /// Occurs when a property value changes.
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
-        /// Gets the <see cref="Dispatcher"/> this <see cref="DispatcherObject"/> is associated with.
+        /// Gets the <see cref="Dispatcher"/> this <see cref="CouldronDispatcher "/> is associated with.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Advanced), JsonIgnore]
         public CouldronDispatcher Dispatcher { get; private set; }
@@ -80,6 +84,16 @@ namespace Couldron.ViewModels
         protected virtual bool OnBeforeRaiseNotifyPropertyChanged(string propertyName)
         {
             return false;
+        }
+
+        /// <summary>
+        /// Invokes the <see cref="BehaviourInvoke"/> event
+        /// </summary>
+        /// <param name="behaviourName">The name of the behaviour to invoke</param>
+        protected async void RaiseNotifyBehaviourInvoke(string behaviourName)
+        {
+            if (this.BehaviourInvoke != null)
+                await this.Dispatcher.RunAsync(() => this.BehaviourInvoke(this, new BehaviourInvokationArgs(behaviourName)));
         }
     }
 }

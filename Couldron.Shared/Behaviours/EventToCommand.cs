@@ -1,6 +1,13 @@
 ﻿using Couldron.Core;
-using System.Windows;
 using System.Windows.Input;
+
+#if NETFX_CORE
+using Windows.UI.Xaml;
+#else
+
+using System.Windows;
+
+#endif
 
 namespace Couldron.Behaviours
 {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Reflection;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
@@ -21,7 +22,7 @@ namespace Couldron
 
             // Add all Value converters to the dictionary
             foreach (var valueConverter in AssemblyUtil.ExportedTypes.Where(x => x.ImplementsInterface<IValueConverter>()))
-                this.Resources.Add(valueConverter.Name, Activator.CreateInstance(valueConverter));
+                this.Resources.Add(valueConverter.Name, Activator.CreateInstance(valueConverter.AsType()));
 
             // find all resourcedictionaries and add them to the existing resources
             foreach (var resourceDictionary in AssemblyUtil.ExportedTypes

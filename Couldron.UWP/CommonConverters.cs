@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Globalization;
-using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Data;
 
 namespace Couldron
 {
@@ -13,7 +9,7 @@ namespace Couldron
     /// Converts a <see cref="bool"/> to <see cref="Visibility"/>. If the value is true, the <see cref="IValueConverter"/> will
     /// return either <see cref="Visibility.Collapsed"/> or <see cref="Visibility.Visible"/> depending on the parameter
     /// </summary>
-    public class BooleanToVisibilityConverter : IValueConverter
+    public class BooleanTovisibilityConverter : IValueConverter
     {
         /// <summary>
         /// Converts a value.
@@ -21,9 +17,9 @@ namespace Couldron
         /// <param name="value">The value produced by the binding source.</param>
         /// <param name="targetType">The type of the binding target property.</param>
         /// <param name="parameter">The converter parameter to use.</param>
-        /// <param name="culture">The culture to use in the converter.</param>
+        /// <param name="language">The language to use in the converter</param>
         /// <returns>A converted value.If the method returns null, the valid null value is used.</returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, string language)
         {
             if (parameter.ToBool())
                 return value.ToBool() ? Visibility.Collapsed : Visibility.Visible;
@@ -37,10 +33,10 @@ namespace Couldron
         /// <param name="value">The value that is produced by the binding target.</param>
         /// <param name="targetType">The type to convert to.</param>
         /// <param name="parameter">The converter parameter to use.</param>
-        /// <param name="culture">The culture to use in the converter.</param>
+        /// <param name="language">The language to use in the converter</param>
         /// <returns>A converted value.If the method returns null, the valid null value is used.</returns>
         /// <exception cref="NotImplementedException">Always throws <see cref="NotImplementedException"/>. This method is not implemented.</exception>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             throw new NotImplementedException();
         }
@@ -57,11 +53,12 @@ namespace Couldron
         /// <param name="value">The value produced by the binding source.</param>
         /// <param name="targetType">The type of the binding target property.</param>
         /// <param name="parameter">The converter parameter to use.</param>
-        /// <param name="culture">The culture to use in the converter.</param>
+        /// <param name="language">The language to use in the converter</param>
         /// <returns>A converted value.If the method returns null, the valid null value is used.</returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, string language)
         {
-            return string.Join("\r\n", (value as ReadOnlyObservableCollection<ValidationError>).Select(x => x.ErrorContent.ToString()));
+            // TODO
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -70,10 +67,10 @@ namespace Couldron
         /// <param name="value">The value that is produced by the binding target.</param>
         /// <param name="targetType">The type to convert to.</param>
         /// <param name="parameter">The converter parameter to use.</param>
-        /// <param name="culture">The culture to use in the converter.</param>
+        /// <param name="language">The language to use in the converter</param>
         /// <returns>A converted value.If the method returns null, the valid null value is used.</returns>
         /// <exception cref="NotImplementedException">Always throws <see cref="NotImplementedException"/>. This method is not implemented.</exception>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             throw new NotImplementedException();
         }
@@ -90,11 +87,12 @@ namespace Couldron
         /// <param name="value">The value produced by the binding source.</param>
         /// <param name="targetType">The type of the binding target property.</param>
         /// <param name="parameter">The converter parameter to use.</param>
-        /// <param name="culture">The culture to use in the converter.</param>
+        /// <param name="language">The language to use in the converter</param>
         /// <returns>A converted value.If the method returns null, the valid null value is used.</returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, string language)
         {
-            return (value as ReadOnlyObservableCollection<ValidationError>).Count > 0 ? Visibility.Visible : Visibility.Collapsed;
+            // TODO
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -103,10 +101,10 @@ namespace Couldron
         /// <param name="value">The value that is produced by the binding target.</param>
         /// <param name="targetType">The type to convert to.</param>
         /// <param name="parameter">The converter parameter to use.</param>
-        /// <param name="culture">The culture to use in the converter.</param>
+        /// <param name="language">The language to use in the converter</param>
         /// <returns>A converted value.If the method returns null, the valid null value is used.</returns>
         /// <exception cref="NotImplementedException">Always throws <see cref="NotImplementedException"/>. This method is not implemented.</exception>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             throw new NotImplementedException();
         }
@@ -123,9 +121,9 @@ namespace Couldron
         /// <param name="value">The value produced by the binding source.</param>
         /// <param name="targetType">The type of the binding target property.</param>
         /// <param name="parameter">The converter parameter to use.</param>
-        /// <param name="culture">The culture to use in the converter.</param>
+        /// <param name="language">The language to use in the converter</param>
         /// <returns>A converted value.If the method returns null, the valid null value is used.</returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, string language)
         {
             if (Factory.HasContract(typeof(ILocalizationSource)))
             {
@@ -142,10 +140,10 @@ namespace Couldron
         /// <param name="value">The value that is produced by the binding target.</param>
         /// <param name="targetType">The type to convert to.</param>
         /// <param name="parameter">The converter parameter to use.</param>
-        /// <param name="culture">The culture to use in the converter.</param>
+        /// <param name="language">The language to use in the converter</param>
         /// <returns>A converted value.If the method returns null, the valid null value is used.</returns>
         /// <exception cref="NotImplementedException">Always throws <see cref="NotImplementedException"/>. This method is not implemented.</exception>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             throw new NotImplementedException();
         }
@@ -162,9 +160,9 @@ namespace Couldron
         /// <param name="value">The value produced by the binding source.</param>
         /// <param name="targetType">The type of the binding target property.</param>
         /// <param name="parameter">The converter parameter to use.</param>
-        /// <param name="culture">The culture to use in the converter.</param>
+        /// <param name="language">The language to use in the converter</param>
         /// <returns>A converted value.If the method returns null, the valid null value is used.</returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, string language)
         {
             return value.ToString().ToDouble() + parameter.ToDouble();
         }
@@ -175,9 +173,10 @@ namespace Couldron
         /// <param name="value">The value that is produced by the binding target.</param>
         /// <param name="targetType">The type to convert to.</param>
         /// <param name="parameter">The converter parameter to use.</param>
-        /// <param name="culture">The culture to use in the converter.</param>
+        /// <param name="language">The language to use in the converter</param>
         /// <returns>A converted value.If the method returns null, the valid null value is used.</returns>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        /// <exception cref="NotImplementedException">Always throws <see cref="NotImplementedException"/>. This method is not implemented.</exception>
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             return value.ToString().ToDouble() - parameter.ToDouble();
         }
@@ -195,9 +194,9 @@ namespace Couldron
         /// <param name="value">The value produced by the binding source.</param>
         /// <param name="targetType">The type of the binding target property.</param>
         /// <param name="parameter">The converter parameter to use.</param>
-        /// <param name="culture">The culture to use in the converter.</param>
+        /// <param name="language">The language to use in the converter</param>
         /// <returns>A converted value.If the method returns null, the valid null value is used.</returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, string language)
         {
             if (parameter.ToBool())
                 return string.IsNullOrEmpty(value.ToString()) ? Visibility.Collapsed : Visibility.Visible;
@@ -211,10 +210,10 @@ namespace Couldron
         /// <param name="value">The value that is produced by the binding target.</param>
         /// <param name="targetType">The type to convert to.</param>
         /// <param name="parameter">The converter parameter to use.</param>
-        /// <param name="culture">The culture to use in the converter.</param>
+        /// <param name="language">The language to use in the converter</param>
         /// <returns>A converted value.If the method returns null, the valid null value is used.</returns>
         /// <exception cref="NotImplementedException">Always throws <see cref="NotImplementedException"/>. This method is not implemented.</exception>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             throw new NotImplementedException();
         }
@@ -231,9 +230,9 @@ namespace Couldron
         /// <param name="value">The value produced by the binding source.</param>
         /// <param name="targetType">The type of the binding target property.</param>
         /// <param name="parameter">The converter parameter to use.</param>
-        /// <param name="culture">The culture to use in the converter.</param>
+        /// <param name="language">The language to use in the converter</param>
         /// <returns>A converted value.If the method returns null, the valid null value is used.</returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, string language)
         {
             return value == null ? Visibility.Collapsed : Visibility.Visible;
         }
@@ -244,19 +243,19 @@ namespace Couldron
         /// <param name="value">The value that is produced by the binding target.</param>
         /// <param name="targetType">The type to convert to.</param>
         /// <param name="parameter">The converter parameter to use.</param>
-        /// <param name="culture">The culture to use in the converter.</param>
+        /// <param name="language">The language to use in the converter</param>
         /// <returns>A converted value.If the method returns null, the valid null value is used.</returns>
         /// <exception cref="NotImplementedException">Always throws <see cref="NotImplementedException"/>. This method is not implemented.</exception>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             throw new NotImplementedException();
         }
     }
 
     /// <summary>
-    /// Converts the value of objects to strings based on the formats specified and inserts them into another string.
+    /// Converts any object to a readable string using <see cref="object.ToString"/>
     /// </summary>
-    public class StringFormatConverter : IValueConverter
+    public class ToStringConverter : IValueConverter
     {
         /// <summary>
         /// Converts a value.
@@ -264,17 +263,11 @@ namespace Couldron
         /// <param name="value">The value produced by the binding source.</param>
         /// <param name="targetType">The type of the binding target property.</param>
         /// <param name="parameter">The converter parameter to use.</param>
-        /// <param name="culture">The culture to use in the converter.</param>
+        /// <param name="language">The language to use in the converter</param>
         /// <returns>A converted value.If the method returns null, the valid null value is used.</returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, string language)
         {
-            if (parameter == null)
-                return value;
-
-            if (culture == null)
-                return string.Format(parameter.ToString(), value);
-            else
-                return string.Format(culture.NumberFormat, parameter.ToString(), value);
+            return value.ToString();
         }
 
         /// <summary>
@@ -283,10 +276,10 @@ namespace Couldron
         /// <param name="value">The value that is produced by the binding target.</param>
         /// <param name="targetType">The type to convert to.</param>
         /// <param name="parameter">The converter parameter to use.</param>
-        /// <param name="culture">The culture to use in the converter.</param>
+        /// <param name="language">The language to use in the converter</param>
         /// <returns>A converted value.If the method returns null, the valid null value is used.</returns>
         /// <exception cref="NotImplementedException">Always throws <see cref="NotImplementedException"/>. This method is not implemented.</exception>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             throw new NotImplementedException();
         }

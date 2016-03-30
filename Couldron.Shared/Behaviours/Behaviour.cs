@@ -18,7 +18,7 @@ namespace Couldron.Behaviours
     /// <summary>
     /// A base class for behaviours
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">The control type the behaviour can be attached to</typeparam>
     public abstract partial class Behaviour<T> : DependencyObject, IBehaviour<T> where T : FrameworkElement
     {
         private T _associatedObject;

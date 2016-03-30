@@ -2,17 +2,16 @@
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows.Threading;
 
 namespace Couldron.ViewModels
 {
     /// <summary>
     /// Defines a ViewModel
     /// </summary>
-    public interface IViewModel : INotifyPropertyChanged
+    public interface IViewModel : INotifyPropertyChanged, INotifyBehaviourInvokation
     {
         /// <summary>
-        /// Gets the <see cref="Dispatcher"/> this <see cref="DispatcherObject"/> is associated with.
+        /// Gets the <see cref="Dispatcher"/> this <see cref="CouldronDispatcher"/> is associated with.
         /// </summary>
         CouldronDispatcher Dispatcher { get; }
 

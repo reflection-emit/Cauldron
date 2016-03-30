@@ -3,12 +3,21 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+
+#if NETFX_CORE
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Data;
+
+#else
+
 using System.Windows;
 using System.Windows.Data;
 
+#endif
+
 namespace Couldron.Behaviours
 {
-    public sealed class ControlTemplateBindingBehaviour : Behaviour<FrameworkElement>
+    public sealed partial class ControlTemplateBindingBehaviour : Behaviour<FrameworkElement>
     {
         #region Dependency Property SourceType
 
@@ -45,24 +54,6 @@ namespace Couldron.Behaviours
         }
 
         #endregion Dependency Property TargetProperty
-
-        #region Dependency Property SourceProperty
-
-        /// <summary>
-        /// Identifies the <see cref="SourceProperty" /> dependency property
-        /// </summary>
-        public static readonly DependencyProperty SourcePropertyProperty = DependencyProperty.Register(nameof(SourceProperty), typeof(DependencyProperty), typeof(ControlTemplateBindingBehaviour), new PropertyMetadata(null));
-
-        /// <summary>
-        /// Gets or sets the <see cref="SourceProperty" /> Property
-        /// </summary>
-        public DependencyProperty SourceProperty
-        {
-            get { return (DependencyProperty)this.GetValue(SourcePropertyProperty); }
-            set { this.SetValue(SourcePropertyProperty, value); }
-        }
-
-        #endregion Dependency Property SourceProperty
 
         #region Dependency Property TargetBehaviourName
 
@@ -123,7 +114,7 @@ namespace Couldron.Behaviours
         /// <summary>
         /// Identifies the <see cref="Mode" /> dependency property
         /// </summary>
-        public static readonly DependencyProperty ModeProperty = DependencyProperty.Register(nameof(Mode), typeof(BindingMode), typeof(ControlTemplateBindingBehaviour), new PropertyMetadata(BindingMode.Default));
+        public static readonly DependencyProperty ModeProperty = DependencyProperty.Register(nameof(Mode), typeof(BindingMode), typeof(ControlTemplateBindingBehaviour), new PropertyMetadata(BindingMode.OneWay));
 
         /// <summary>
         /// Gets or sets the <see cref="Mode" /> Property
@@ -155,7 +146,11 @@ namespace Couldron.Behaviours
                 BindingOperations.SetBinding(this.AssociatedObject, this.TargetProperty, new Binding
                 {
                     Source = source,
+#if NETFX_CORE
+                    Path = new PropertyPath(this.SourceProperty),
+#else
                     Path = new PropertyPath(this.SourceProperty.Name),
+#endif
                     Converter = this.Converter,
                     ConverterParameter = this.ConverterParameter,
                     Mode = this.Mode,
@@ -171,7 +166,11 @@ namespace Couldron.Behaviours
                 BindingOperations.SetBinding(behaviour as DependencyObject, this.TargetProperty, new Binding
                 {
                     Source = source,
+#if NETFX_CORE
+                    Path = new PropertyPath(this.SourceProperty),
+#else
                     Path = new PropertyPath(this.SourceProperty.Name),
+#endif
                     Converter = this.Converter,
                     ConverterParameter = this.ConverterParameter,
                     Mode = this.Mode,
