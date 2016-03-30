@@ -117,6 +117,8 @@
     <Compile Include="Behaviours\ControlTemplateBindingBehaviour.cs" />
     <Compile Include="Behaviours\EventTrigger.cs" />
     <Compile Include="CommonConverters.cs" />
+    <Compile Include="Controls\NavigationFrame.cs" />
+    <Compile Include="Controls\NavigationFrameBackRequestedEventArgs.cs" />
     <Compile Include="Core\ApplicationInfo.cs" />
     <Compile Include="Core\CouldronDispatcher.cs" />
     <Compile Include="Core\Randomizer.cs" />

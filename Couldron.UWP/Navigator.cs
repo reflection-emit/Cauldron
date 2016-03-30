@@ -62,6 +62,16 @@ namespace Couldron
             await NavigateInternal<T, TResult>(callback, args);
         }
 
+        public static async void NavigateByType(Type type)
+        {
+            // TODO
+        }
+
+        public static async void NavigateByType(Type type, params object[] args)
+        {
+            // TODO
+        }
+
         private static bool IsParameterMatch(object[] args, ParameterInfo[] types)
         {
             if (args.Length != types.Length)
@@ -78,6 +88,7 @@ namespace Couldron
 
         private static async Task NavigateInternal<T, TResult>(Action<TResult> callback, params object[] args) where T : IViewModel
         {
+            // TODO
         }
     }
 }
