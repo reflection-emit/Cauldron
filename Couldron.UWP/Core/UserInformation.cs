@@ -14,14 +14,7 @@ namespace Couldron.Core
         private static object lockCurrentObject = new object();
         private static volatile UserInformation userInformation;
 
-        private string _displayName;
-        private string _emailAddress;
-        private string _firstName;
-        private bool _isLockedOut;
-        private string _lastName;
-        private string _telephoneNumber;
         private volatile bool loaded = false;
-        private object lockObject = new object();
 
         private User user;
 
@@ -109,16 +102,6 @@ namespace Couldron.Core
         {
             await this.GetInformation();
             return (await user.GetPropertyAsync(KnownUserProperties.AccountName)).ToString();
-        }
-
-        /// <summary>
-        /// Gets a value that indicates if the user is locked out or not
-        /// </summary>
-        /// <returns>Returns true if the user is locked out, otherwise false</returns>
-        public async Task<bool> IsLockedOutAsync()
-        {
-            await this.GetInformation();
-            return this._isLockedOut;
         }
 
         private async Task GetInformation()
