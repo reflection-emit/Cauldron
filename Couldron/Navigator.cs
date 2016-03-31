@@ -196,6 +196,11 @@ namespace Couldron
             window.Icon = windowConfig.Icon;
             window.Title = windowConfig.Title;
 
+            // Add the inputbindings to the window
+            window.InputBindings.AddRange(windowConfig.InputBindings);
+            // remove them from the windowConfig
+            windowConfig.InputBindings.Clear();
+
             if (windowConfig.IsWindowPersistent)
                 PersistentWindowInformation.Load(window, viewModel.GetType());
 

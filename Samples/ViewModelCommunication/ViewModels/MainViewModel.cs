@@ -45,8 +45,8 @@ namespace ViewModelCommunication.ViewModels
 
         private async void LoadData()
         {
-            this.Username = await UserInformation.GetDisplayNameAsync();
-            this.UserImage = UserInformation.GetAccountPicture();
+            this.Username = await UserInformation.Current.GetDisplayNameAsync();
+            this.UserImage = UserInformation.Current.GetAccountPicture();
         }
     }
 }

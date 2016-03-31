@@ -4,7 +4,15 @@ using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
+
+#if NETFX_CORE
+using Windows.UI.Xaml;
+
+#else
+
 using System.Windows;
+
+#endif
 
 namespace Couldron.Collections
 {

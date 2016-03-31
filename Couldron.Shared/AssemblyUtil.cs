@@ -1,5 +1,4 @@
 ﻿using Couldron.Collections;
-using Couldron.Core;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -178,58 +177,7 @@ namespace Couldron
             throw new FileNotFoundException("The paramater typeName was not found.", typeName);
         }
 
-        /// <summary>
-        /// Returns all Types that implements the interface <typeparamref name="T"/>
-        /// </summary>
-        /// <typeparam name="T">The interface <see cref="Type"/></typeparam>
-        /// <returns>A colletion of <see cref="Type"/> that implements the interface <typeparamref name="T"/> otherwise null</returns>
-        /// <exception cref="ArgumentException"><typeparamref name="T"/> is not an interface</exception>
-        public static IEnumerable<TypeInfo> GetTypesImplementsInterface<T>()
-        {
-            if (!typeof(T).IsInterface)
-                throw new ArgumentException(string.Format("The Type '{0}' is not an interface.", typeof(T).FullName));
-
-            var interfaceType = typeof(T);
-            var result = typesWithImplementedInterfaces.Where(x => x.interfaces.Length > 0 && x.interfaces.Contains(interfaceType));
-
-            if (result == null)
-                return null;
-
-            return result.Select(x => x.typeInfo);
-        }
-
-        public static void LoadAssembly(string path, bool relativPath = true)
-        {
-            var assemblyPath = string.Empty;
-
-            if (relativPath)
-                assemblyPath = Path.Combine(ApplicationInfo.ApplicationPath, path);
-            else
-                assemblyPath = path;
-
-            var assembly = Assembly.LoadFile(assemblyPath);
-
-            typesWithImplementedInterfaces.AddRange(
-                assembly.DefinedTypes.Select(x => new TypesWithImplementedInterfaces
-                {
-                    interfaces = x.ImplementedInterfaces.ToArray(),
-                    typeInfo = x
-                }));
-
-            AssemblyAndResourceNamesInfo.AddRange(assembly.GetManifestResourceNames().Select(x => new AssemblyAndResourceNameInfo(assembly, x)));
-        }
-
         #region Private Methods
-
-        private static void GetAllAssemblies()
-        {
-            // Get all assemblies in AppDomain and add them to our list
-            // TODO - This will not work in UWP and Core if compiled to native code
-            var assemblies = new List<Assembly>();
-            assemblies.AddRange(AppDomain.CurrentDomain.GetAssemblies());
-            assemblies.Add(typeof(AssemblyUtil).Assembly);
-            Assemblies = new ConcurrentList<Assembly>(assemblies.Distinct());
-        }
 
         private static void GetAllAssemblyAndResourceNameInfo()
         {

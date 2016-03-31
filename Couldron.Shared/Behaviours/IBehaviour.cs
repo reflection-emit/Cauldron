@@ -1,6 +1,15 @@
 ﻿using System;
+
+#if NETFX_CORE
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Data;
+
+#else
+
 using System.Windows;
 using System.Windows.Data;
+
+#endif
 
 namespace Couldron.Behaviours
 {
@@ -53,6 +62,6 @@ namespace Couldron.Behaviours
         /// </summary>
         /// <param name="dp">DependencyProperty that represents the property</param>
         /// <param name="binding">The binding to attach</param>
-        BindingExpressionBase SetBinding(DependencyProperty dp, BindingBase binding);
+        void SetBinding(DependencyProperty dp, BindingBase binding);
     }
 }

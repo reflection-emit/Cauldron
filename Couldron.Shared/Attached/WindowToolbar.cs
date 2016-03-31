@@ -1,5 +1,13 @@
-﻿using System.Windows;
+﻿#if NETFX_CORE
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+
+#else
+
+using System.Windows;
 using System.Windows.Controls;
+
+#endif
 
 namespace Couldron.Attached
 {

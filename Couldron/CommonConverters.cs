@@ -13,7 +13,7 @@ namespace Couldron
     /// Converts a <see cref="bool"/> to <see cref="Visibility"/>. If the value is true, the <see cref="IValueConverter"/> will
     /// return either <see cref="Visibility.Collapsed"/> or <see cref="Visibility.Visible"/> depending on the parameter
     /// </summary>
-    public class BooleanTovisibilityConverter : IValueConverter
+    public class BooleanToVisibilityConverter : IValueConverter
     {
         /// <summary>
         /// Converts a value.
@@ -254,9 +254,9 @@ namespace Couldron
     }
 
     /// <summary>
-    /// Converts any object to a readable string using <see cref="object.ToString"/>
+    /// Converts the value of objects to strings based on the formats specified and inserts them into another string.
     /// </summary>
-    public class ToStringConverter : IValueConverter
+    public class StringFormatConverter : IValueConverter
     {
         /// <summary>
         /// Converts a value.
@@ -268,7 +268,13 @@ namespace Couldron
         /// <returns>A converted value.If the method returns null, the valid null value is used.</returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value.ToString();
+            if (parameter == null)
+                return value;
+
+            if (culture == null)
+                return string.Format(parameter.ToString(), value);
+            else
+                return string.Format(culture.NumberFormat, parameter.ToString(), value);
         }
 
         /// <summary>

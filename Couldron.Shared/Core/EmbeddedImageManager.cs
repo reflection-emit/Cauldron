@@ -1,7 +1,15 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Linq;
+
+#if NETFX_CORE
+using Windows.UI.Xaml.Media.Imaging;
+
+#else
+
 using System.Windows.Media.Imaging;
+
+#endif
 
 namespace Couldron.Core
 {

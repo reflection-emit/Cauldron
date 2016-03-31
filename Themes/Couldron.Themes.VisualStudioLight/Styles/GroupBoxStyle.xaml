@@ -11,7 +11,7 @@
              mc:Ignorable="d">
 
     <Style TargetType="GroupBox">
-        <Setter Property="Margin" Value="2" />
+        <Setter Property="Margin" Value="2,0,2,2" />
         <Setter Property="Padding" Value="2" />
         <Setter Property="Foreground" Value="{StaticResource ThemeTextBrush}" />
         <Setter Property="Template">
@@ -19,10 +19,10 @@
                 <ControlTemplate TargetType="GroupBox">
                     <Grid Margin="{TemplateBinding Padding}">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="21" />
+                            <RowDefinition Height="27" />
                             <RowDefinition />
                         </Grid.RowDefinitions>
-                        <ContentPresenter Margin="3,0,6,0" ContentSource="Header" RecognizesAccessKey="True" VerticalAlignment="Center" />
+                        <ContentPresenter Margin="1,6,6,0" ContentSource="Header" RecognizesAccessKey="True" VerticalAlignment="Center" />
                         <Rectangle VerticalAlignment="Bottom" Height="2" Fill="{StaticResource ThemeAccentBrush}" />
                         <Border Grid.Row="1"  BorderBrush="{StaticResource ThemeLightBorderBrush}" BorderThickness="1">
                             <ContentPresenter Margin="4" />

@@ -1,8 +1,17 @@
 ﻿using Couldron.Core;
-using System.Windows;
+
+#if NETFX_CORE
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
+#else
+
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows;
+
+#endif
 
 namespace Couldron.Attached
 {
