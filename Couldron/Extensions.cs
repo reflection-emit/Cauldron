@@ -69,7 +69,7 @@ namespace Couldron
             {
                 byte[] textToHash = Encoding.Default.GetBytes(target);
                 byte[] result = md5.ComputeHash(textToHash);
-                return System.BitConverter.ToString(result);
+                return System.BitConverter.ToString(result).Replace("-", "");
             }
         }
 

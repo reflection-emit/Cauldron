@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 
 namespace Couldron.ViewModels
 {
@@ -57,7 +58,7 @@ namespace Couldron.ViewModels
         /// Invokes the <see cref="PropertyChanged"/> event
         /// </summary>
         /// <param name="propertyName">The name of the property where the value change has occured</param>
-        public async void RaiseNotifyPropertyChanged([CallerMemberName]string propertyName = "")
+        public async void OnPropertyChanged([CallerMemberName]string propertyName = "")
         {
             if (this.OnBeforeRaiseNotifyPropertyChanged(propertyName))
                 return;
@@ -80,7 +81,7 @@ namespace Couldron.ViewModels
         /// Occured before the <see cref="PropertyChanged"/> event is invoked.
         /// </summary>
         /// <param name="propertyName">The name of the property where the value change has occured</param>
-        /// <returns>Returns true if <see cref="RaiseNotifyPropertyChanged(string)"/> should be cancelled. Otherwise false</returns>
+        /// <returns>Returns true if <see cref="OnPropertyChanged(string)"/> should be cancelled. Otherwise false</returns>
         protected virtual bool OnBeforeRaiseNotifyPropertyChanged(string propertyName)
         {
             return false;

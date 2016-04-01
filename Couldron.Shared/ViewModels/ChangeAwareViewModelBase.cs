@@ -49,7 +49,7 @@ namespace Couldron.ViewModels
 
                 this._isChanged = value;
                 this.OnIsChangedChanged();
-                this.RaiseNotifyPropertyChanged();
+                this.OnPropertyChanged();
 
                 if (this.Changed != null)
                     this.Changed(this, EventArgs.Empty);
@@ -69,7 +69,7 @@ namespace Couldron.ViewModels
                     return;
 
                 this._isLoading = value;
-                this.RaiseNotifyPropertyChanged();
+                this.OnPropertyChanged();
 
                 this.OnIsLoadingChanged();
             }

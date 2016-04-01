@@ -1,10 +1,12 @@
-﻿using System.Windows;
+﻿using System.Collections;
 
 #if NETFX_CORE
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 #else
 
+using System.Windows;
 using System.Windows.Controls;
 
 #endif
@@ -73,5 +75,34 @@ namespace Couldron.Attached
         }
 
         #endregion Dependency Attached Property AlternativeText
+
+        #region Dependency Attached Property SelectedItems
+
+        /// <summary>
+        /// Gets the value of SelectedItems
+        /// </summary>
+        /// <param name="obj"><see cref="DependencyObject" /> with the attached property</param>
+        /// <returns>The value of the attached property</returns>
+        public static IEnumerable GetSelectedItems(DependencyObject obj)
+        {
+            return (IEnumerable)obj.GetValue(SelectedItemsProperty);
+        }
+
+        /// <summary>
+        /// Sets the value of the SelectedItems attached property
+        /// </summary>
+        /// <param name="obj"><see cref="DependencyObject" /> with the attached property</param>
+        /// <param name="value">The new value to set</param>
+        public static void SetSelectedItems(DependencyObject obj, IEnumerable value)
+        {
+            obj.SetValue(SelectedItemsProperty, value);
+        }
+
+        /// <summary>
+        /// Identifies the SelectedItems dependency property
+        /// </summary>
+        public static readonly DependencyProperty SelectedItemsProperty = DependencyProperty.RegisterAttached("SelectedItems", typeof(IEnumerable), typeof(ComboBoxProperties), new PropertyMetadata(null));
+
+        #endregion Dependency Attached Property SelectedItems
     }
 }

@@ -19,6 +19,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Attached\WindowToolbar.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviours\ActionBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviours\Behaviour.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Behaviours\BehaviourInvokeAwareBehaviourBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviours\BehaviourUsageAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviours\ControlTemplateBindingBehaviour.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviours\ControlTemplateCommandFromControlNameBindingBehaviour.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)RelayCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Validation\EqualityAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Validation\GreaterThanAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Validation\IsMandatoryAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Validation\PasswordStrengthAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Validation\StringLengthAttribute.cs" />

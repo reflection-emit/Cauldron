@@ -1,5 +1,4 @@
 ﻿using Couldron;
-using Couldron.Aspects;
 using Couldron.Validation;
 using Couldron.ViewModels;
 using System.Windows.Input;
@@ -16,17 +15,16 @@ namespace NavigationSample.ViewModels
 
         public ICommand BackCommand { get; private set; }
 
-        [NotifyPropertyChanged]
         [IsMandatory("mandatory")]
         public string Result { get; set; }
+
+        public void Activated()
+        {
+        }
 
         public bool CanClose()
         {
             return !this.HasErrors;
-        }
-
-        public void Activated()
-        {
         }
 
         public void Deactivated()

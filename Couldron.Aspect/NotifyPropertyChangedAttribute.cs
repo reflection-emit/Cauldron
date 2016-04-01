@@ -50,12 +50,12 @@ namespace Couldron.Aspects
             if (vm == null)
                 throw new NotSupportedException("Adding the 'NotifyPropertyChangeAttribute' in a Type that does not implement 'IViewModel' is not supported");
 
-            vm.RaiseNotifyPropertyChanged(args.LocationName);
+            vm.OnPropertyChanged(args.LocationName);
 
             if (this.alsoNotifyChangeProperties != null && this.alsoNotifyChangeProperties.Length > 0)
             {
                 for (int i = 0; i < this.alsoNotifyChangeProperties.Length; i++)
-                    vm.RaiseNotifyPropertyChanged(this.alsoNotifyChangeProperties[i]);
+                    vm.OnPropertyChanged(this.alsoNotifyChangeProperties[i]);
             }
         }
     }

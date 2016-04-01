@@ -1,6 +1,7 @@
 ﻿using Couldron;
 using System;
 using System.Windows;
+using System.Windows.Media;
 using ViewModelCommunication.ViewModels;
 
 namespace ViewModelCommunication

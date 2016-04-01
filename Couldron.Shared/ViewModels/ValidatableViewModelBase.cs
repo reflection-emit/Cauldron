@@ -124,8 +124,8 @@ namespace Couldron.ViewModels
 
         private void ValidationHandler_ErrorsChanged(object sender, DataErrorsChangedEventArgs e)
         {
-            this.RaiseNotifyPropertyChanged(nameof(Errors));
-            this.RaiseNotifyPropertyChanged(nameof(HasErrors));
+            this.OnPropertyChanged(nameof(Errors));
+            this.OnPropertyChanged(nameof(HasErrors));
 
             if (this.ErrorsChanged != null)
                 this.ErrorsChanged(this, e);

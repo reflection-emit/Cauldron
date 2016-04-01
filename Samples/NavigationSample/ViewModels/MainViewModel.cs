@@ -1,5 +1,4 @@
 ﻿using Couldron;
-using Couldron.Aspects;
 using Couldron.ViewModels;
 using NavigationSample.View;
 using System.Windows.Input;
@@ -20,7 +19,6 @@ namespace NavigationSample.ViewModels
         public ICommand NewInstanceCommand { get; private set; }
         public ICommand OpenPopupWindowCommand { get; private set; }
 
-        [NotifyPropertyChanged]
         public string Title { get; set; }
 
         private void NewInstanceAction()

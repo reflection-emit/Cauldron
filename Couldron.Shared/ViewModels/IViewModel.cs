@@ -24,6 +24,6 @@ namespace Couldron.ViewModels
         /// Invokes the <see cref="INotifyPropertyChanged.PropertyChanged"/> event
         /// </summary>
         /// <param name="propertyName">The name of the property where the value change has occured</param>
-        void RaiseNotifyPropertyChanged([CallerMemberName]string propertyName = "");
+        void OnPropertyChanged([CallerMemberName]string propertyName = "");
     }
 }
