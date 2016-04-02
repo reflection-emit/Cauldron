@@ -1,6 +1,7 @@
 ﻿using Couldron.Collections;
 using Couldron.Core;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -48,8 +49,7 @@ namespace Couldron
                     contractName = contractName,
                     creationPolicy = policy,
                     type = type,
-                    typeInfo = d.TypeInfo,
-                    constructor = d.TypeInfo.DeclaredConstructors.FirstOrDefault(x => x.GetCustomAttribute<InjectionConstructorAttribute>() != null),
+                    typeInfo = d.TypeInfo
                 });
             }
 
@@ -140,7 +140,7 @@ namespace Couldron
         /// <exception cref="KeyNotFoundException">The contract described by <paramref name="contractName"/> was not found</exception>
         /// <exception cref="Exception">Unknown <see cref="FactoryCreationPolicy"/></exception>
         /// <exception cref="NotSupportedException">An <see cref="object"/> with <see cref="FactoryCreationPolicy.Singleton"/> with an implemented <see cref="IDisposable"/> must also implement the <see cref="IDisposableObject"/> interface.</exception>
-        public static IEnumerable<object> CreateMany(string contractName, params object[] parameters)
+        public static IEnumerable CreateMany(string contractName, params object[] parameters)
         {
             if (contractName == null)
                 throw new ArgumentNullException(nameof(contractName));
@@ -165,7 +165,7 @@ namespace Couldron
         /// <exception cref="KeyNotFoundException">The contract described by <paramref name="contractType"/> was not found</exception>
         /// <exception cref="Exception">Unknown <see cref="FactoryCreationPolicy"/></exception>
         /// <exception cref="NotSupportedException">An <see cref="object"/> with <see cref="FactoryCreationPolicy.Singleton"/> with an implemented <see cref="IDisposable"/> must also implement the <see cref="IDisposableObject"/> interface.</exception>
-        public static IEnumerable<object> CreateMany(Type contractType, params object[] parameters)
+        public static IEnumerable CreateMany(Type contractType, params object[] parameters)
         {
             if (contractType == null)
                 throw new ArgumentNullException(nameof(contractType));
@@ -284,30 +284,24 @@ namespace Couldron
             return null;
         }
 
-        private static object CreateObject(FactoryTypeInfo factoryTypeInfo, object[] parameterOverride)
+        private static object CreateObject(Type type, TypeInfo typeInfo, object[] parameterOverride)
         {
             object result = null;
 
+            // Check if any extension can create the object
+            var creatorExtension = factoryExtensions.FirstOrDefault(x => x.CanConstruct(type, typeInfo));
+
             // check if type has importing constructor
-            if (factoryTypeInfo.constructor != null && parameterOverride.Length == 0)
-            {
-                /* This is a very special case ... We should consider of moving this to the extensions*/
-                var parameterInfos = factoryTypeInfo.constructor.GetParameters();
-                var parameters = new object[parameterInfos.Length];
-
-                for (int i = 0; i < parameterInfos.Length; i++)
-                    parameters[i] = Factory.Create(parameterInfos[i].ParameterType);
-
-                result = Activator.CreateInstance(factoryTypeInfo.type, parameters);
-            }
+            if (creatorExtension != null)
+                result = creatorExtension.Construct(type, typeInfo);
             else if (parameterOverride.Length > 0)
-                result = Activator.CreateInstance(factoryTypeInfo.type, parameterOverride);
+                result = Activator.CreateInstance(type, parameterOverride);
             else
-                result = Activator.CreateInstance(factoryTypeInfo.type);
+                result = Activator.CreateInstance(type);
 
             // Activate all Extensions
             for (int i = 0; i < factoryExtensions.Count; i++)
-                factoryExtensions[i].OnCreateObject(result, factoryTypeInfo.type, factoryTypeInfo.typeInfo);
+                factoryExtensions[i].OnCreateObject(result, type, typeInfo);
 
             return result;
         }
@@ -315,7 +309,7 @@ namespace Couldron
         private static object GetInstance(FactoryTypeInfo factoryTypeInfo, object[] parameters)
         {
             if (factoryTypeInfo.creationPolicy == FactoryCreationPolicy.Instanced)
-                return CreateObject(factoryTypeInfo, parameters);
+                return CreateObject(factoryTypeInfo.type, factoryTypeInfo.typeInfo, parameters);
             else if (factoryTypeInfo.creationPolicy == FactoryCreationPolicy.Singleton)
             {
                 if (instances.Contains(x => x.FactoryTypeInfo.contractName == factoryTypeInfo.contractName))
@@ -323,7 +317,7 @@ namespace Couldron
                 else
                 {
                     // Create the instance and return the object
-                    var instance = CreateObject(factoryTypeInfo, parameters);
+                    var instance = CreateObject(factoryTypeInfo.type, factoryTypeInfo.typeInfo, parameters);
 
                     // every singleton that implements the idisposable interface has also to implement the IdisposableObject interface
                     // this is because we want to know if an instance was disposed (somehow)
@@ -349,7 +343,15 @@ namespace Couldron
         private static object GetInstance(string contractName, object[] parameters)
         {
             if (!types.Contains(x => x.contractName == contractName) && !instances.Contains(x => x.FactoryTypeInfo.contractName == contractName))
-                throw new KeyNotFoundException("The contractName '" + contractName + "' was not found.");
+            {
+                // Try to find out the type
+                var realType = AssemblyUtil.GetTypeFromName(contractName);
+
+                if (realType == null)
+                    throw new KeyNotFoundException("The contractName '" + contractName + "' was not found.");
+
+                return CreateObject(realType, realType.GetTypeInfo(), parameters);
+            }
 
             var factoryTypeInfos = types.Where(x => x.contractName == contractName);
 
@@ -359,7 +361,7 @@ namespace Couldron
             return GetInstance(factoryTypeInfos.First(), parameters);
         }
 
-        private static IEnumerable<object> GetInstances(string contractName, object[] parameters)
+        private static IEnumerable GetInstances(string contractName, object[] parameters)
         {
             if (!types.Contains(x => x.contractName == contractName) && !instances.Contains(x => x.FactoryTypeInfo.contractName == contractName))
                 throw new KeyNotFoundException("The contractName '" + contractName + "' was not found.");

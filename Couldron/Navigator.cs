@@ -144,7 +144,7 @@ namespace Couldron
 
             if (windowConfig != null && windowConfig.Length > 0)
             {
-                isDialog = windowConfig[0].IsDialog;
+                isDialog = windowConfig[0].IsModal;
                 window = CreateWindow(callback, windowConfig[0], view, viewModel);
             }
             else

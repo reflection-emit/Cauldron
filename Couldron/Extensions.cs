@@ -122,6 +122,23 @@ namespace Couldron
         }
 
         /// <summary>
+        /// Checks if the type has implemented the defined interface
+        /// </summary>
+        /// <typeparam name="T">The type of interface to look for</typeparam>
+        /// <param name="typeInfo">The type that may implements the interface <typeparamref name="T"/></param>
+        /// <exception cref="ArgumentException">The type <typeparamref name="T"/> is not an interface</exception>
+        /// <returns>True if the <paramref name="typeInfo"/> has implemented the interface <typeparamref name="T"/></returns>
+        public static bool ImplementsInterface<T>(this TypeInfo typeInfo)
+        {
+            var typeOfInterface = typeof(T);
+
+            if (!typeOfInterface.IsInterface)
+                throw new ArgumentException("T is not an interface", nameof(T));
+
+            return typeInfo.ImplementedInterfaces.Any(x => x == typeOfInterface);
+        }
+
+        /// <summary>
         /// Gets a value indicating whether the current type is a <see cref="Nullable{T}"/>
         /// </summary>
         /// <param name="target">The type to test</param>

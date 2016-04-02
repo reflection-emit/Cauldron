@@ -22,7 +22,7 @@ namespace Couldron.ViewModels
         /// <summary>
         /// Initializes a new instance of <see cref="ValidatableContainerChangeAwareViewModelBase"/>
         /// </summary>
-        [InjectionConstructor]
+        [Inject]
         public ValidatableContainerChangeAwareViewModelBase() : base()
         {
             this.handler = new ViewModelContainerHandler(this);

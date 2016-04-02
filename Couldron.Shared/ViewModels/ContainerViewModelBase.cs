@@ -21,7 +21,7 @@ namespace Couldron.ViewModels
         /// <summary>
         /// Initializes a new instance of <see cref="ContainerViewModelBase"/>
         /// </summary>
-        [InjectionConstructor]
+        [Inject]
         public ContainerViewModelBase() : base()
         {
             this.handler = new ViewModelContainerHandler(this);

@@ -149,7 +149,7 @@
                         <Border x:Name="HeaderBorder" Background="{StaticResource ThemeLightBackgroundBrush}" BorderBrush="{StaticResource ThemeLightBorderBrush}" BorderThickness="0,0,0,1" />
 
                         <ContentPresenter x:Name="HeaderContent"
-                              Margin="0,0,0,1"
+                              Margin="3,0,3,1"
                               RecognizesAccessKey="True"
                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -189,6 +189,8 @@
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="MinHeight" Value="20" />
         <Setter Property="Template">
             <Setter.Value>

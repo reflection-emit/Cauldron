@@ -89,6 +89,7 @@
         <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
         <Setter Property="ItemTemplateSelector" Value="{StaticResource CouldronTemplateSelector}" />
         <Setter Property="Foreground" Value="{StaticResource ThemeTextBrush}" />
+        <Setter Property="BorderBrush" Value="{StaticResource ThemeLightBorderBrush}" />
         <Setter Property="MinWidth" Value="120" />
         <Setter Property="MinHeight" Value="22" />
         <Setter Property="ItemsPanel">
@@ -108,7 +109,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ComboBox">
-                    <Grid>
+                    <Grid HorizontalAlignment="Stretch" MinWidth="{TemplateBinding MinWidth}">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
                                 <VisualState x:Name="Normal" />
@@ -181,7 +182,7 @@
                         <ToggleButton x:Name="border" Grid.ColumnSpan="4" Grid.Row="1" Background="{StaticResource ThemeLightBackgroundBrush}"
                                         VerticalAlignment="Stretch" HorizontalAlignment="Stretch" ClickMode="Press" Focusable="False" Foreground="{StaticResource ThemeComboBoxArrowBrush}"
                                         IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                        BorderBrush="{StaticResource ThemeLightBorderBrush}" BorderThickness="1">
+                                        BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1">
                             <ToggleButton.Template>
                                 <ControlTemplate>
                                     <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
@@ -190,7 +191,8 @@
                             </ToggleButton.Template>
                         </ToggleButton>
 
-                        <ToggleButton x:Name="ToggleButton" Grid.Row="1" Grid.Column="3" Focusable="false" ClickMode="Press" Foreground="{StaticResource ThemeComboBoxArrowBrush}"
+                        <ToggleButton x:Name="ToggleButton" Grid.Row="1" Grid.Column="3" Width="14" Focusable="false" ClickMode="Press"
+                                        Foreground="{StaticResource ThemeComboBoxArrowBrush}" HorizontalAlignment="Right"
                                         Background="{StaticResource ThemeLightBackgroundBrush}" BorderBrush="Transparent" Template="{StaticResource ComboBoxToggleButton}"
                                         IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" />
 
@@ -202,7 +204,7 @@
                             ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
                             Margin="4,0"
                             VerticalAlignment="Center"
-                            HorizontalAlignment="Left">
+                            HorizontalAlignment="Stretch">
                         </ContentPresenter>
 
                         <TextBox Grid.Row="1" Grid.Column="2" x:Name="PART_EditableTextBox" SelectionBrush="{StaticResource ThemeLightAccentBrush}" CaretBrush="{StaticResource ThemeAccentBrush}"

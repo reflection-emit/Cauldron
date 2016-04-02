@@ -16,7 +16,7 @@ namespace Couldron.ViewModels
         /// <summary>
         /// Initializes a new instance of <see cref="ViewModelBase"/>
         /// </summary>
-        [InjectionConstructor]
+        [Inject]
         public ViewModelBase()
         {
             this.Id = Guid.NewGuid();

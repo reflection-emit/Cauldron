@@ -25,7 +25,7 @@ namespace Couldron.ViewModels
         /// <summary>
         /// Initializes a new instance of <see cref="ChangeAwareViewModelBase"/>
         /// </summary>
-        [InjectionConstructor]
+        [Inject]
         public ChangeAwareViewModelBase() : base()
         {
         }

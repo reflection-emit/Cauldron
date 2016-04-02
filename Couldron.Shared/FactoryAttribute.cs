@@ -3,7 +3,7 @@
 namespace Couldron
 {
     /// <summary>
-    /// Specifies that <see cref="Type"/> provied a particular export
+    /// Specifies that <see cref="Type"/> provide a particular export
     /// </summary>
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
     public sealed class FactoryAttribute : Attribute

@@ -15,7 +15,7 @@ namespace Couldron
         /// Initiates a new instance of the <see cref="Localization"/> class
         /// </summary>
         /// <param name="localizationSource"></param>
-        [InjectionConstructor]
+        [Inject]
         public Localization(ILocalizationSource localizationSource)
         {
             this.source = localizationSource;

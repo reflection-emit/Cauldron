@@ -31,23 +31,23 @@ namespace Couldron.Behaviours
 
         #endregion Dependency Property ToolbarTemplate
 
-        #region Dependency Property IsDialog
+        #region Dependency Property IsModal
 
         /// <summary>
-        /// Identifies the <see cref="IsDialog" /> dependency property
+        /// Identifies the <see cref="IsModal" /> dependency property
         /// </summary>
-        public static readonly DependencyProperty IsDialogProperty = DependencyProperty.Register(nameof(IsDialog), typeof(bool), typeof(WindowConfigurationBehaviour), new PropertyMetadata(false));
+        public static readonly DependencyProperty IsModalProperty = DependencyProperty.Register(nameof(IsModal), typeof(bool), typeof(WindowConfigurationBehaviour), new PropertyMetadata(false));
 
         /// <summary>
-        /// Gets or sets the <see cref="IsDialog" /> Property
+        /// Gets or sets the <see cref="IsModal" /> Property
         /// </summary>
-        public bool IsDialog
+        public bool IsModal
         {
-            get { return (bool)this.GetValue(IsDialogProperty); }
-            set { this.SetValue(IsDialogProperty, value); }
+            get { return (bool)this.GetValue(IsModalProperty); }
+            set { this.SetValue(IsModalProperty, value); }
         }
 
-        #endregion Dependency Property IsDialog
+        #endregion Dependency Property IsModal
 
         #region Dependency Property Icon
 

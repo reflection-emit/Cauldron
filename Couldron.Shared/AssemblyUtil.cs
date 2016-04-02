@@ -174,6 +174,15 @@ namespace Couldron
             if (result != null)
                 return result.AsType();
 
+            // Else let us loop through all known assemblies and look for the type
+            foreach (var assembly in AssemblyUtil.Assemblies)
+            {
+                var type = assembly.GetType(typeName);
+
+                if (type != null)
+                    return type;
+            }
+
             throw new FileNotFoundException("The paramater typeName was not found.", typeName);
         }
 

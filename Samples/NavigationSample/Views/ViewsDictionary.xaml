@@ -10,7 +10,7 @@
     <DataTemplate x:Key="View_OtherViewModel">
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="10">
             <behaviour:Interaction.Behaviours>
-                <behaviour:WindowConfigurationBehaviour IsDialog="True" ResizeMode="NoResize" Title="A wild Window has appeared" Width="450" Height="200" ShowInTaskbar="True" IsWindowPersistent="True" />
+                <behaviour:WindowConfigurationBehaviour IsModal="True" ResizeMode="NoResize" Title="A wild Window has appeared" Width="450" Height="200" ShowInTaskbar="True" IsWindowPersistent="True" />
             </behaviour:Interaction.Behaviours>
 
             <TextBox attached:TextBoxProperties.Header="This is the header" Text="{Binding Result, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" attached:TextBoxProperties.AlternativeText="mustbe">

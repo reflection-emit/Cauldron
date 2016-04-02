@@ -16,7 +16,7 @@ namespace Couldron.ViewModels
         /// <summary>
         /// Initializes a new instance of <see cref="DisposableViewModelBase"/>
         /// </summary>
-        [InjectionConstructor]
+        [Inject]
         public DisposableViewModelBase() : base()
         {
         }

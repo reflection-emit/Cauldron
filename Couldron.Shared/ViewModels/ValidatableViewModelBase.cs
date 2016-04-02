@@ -17,7 +17,7 @@ namespace Couldron.ViewModels
         /// <summary>
         /// Initializes a new instance of <see cref="ValidatableViewModelBase"/>
         /// </summary>
-        [InjectionConstructor]
+        [Inject]
         public ValidatableViewModelBase() : base()
         {
             this.validationHandler = new ValidationHandler(this);

@@ -5,7 +5,6 @@ namespace Couldron
 {
     internal struct FactoryTypeInfo
     {
-        public ConstructorInfo constructor;
         public string contractName;
         public FactoryCreationPolicy creationPolicy;
         public Type type;

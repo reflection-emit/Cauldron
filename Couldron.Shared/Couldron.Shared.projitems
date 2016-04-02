@@ -52,7 +52,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)FactoryTypeInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IFactoryExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ILocalizationSource.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)InjectionConstructorAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)InjectAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)InjectionFactoryExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)INotifyBehaviourInvokation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IRelayCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Messaging\MessageManager.cs" />
