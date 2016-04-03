@@ -14,7 +14,7 @@ namespace Couldron
         /// Determines whether the specified object is equal to the current object.
         /// <para/>
         /// Checks reference equality first with <see cref="object.ReferenceEquals(object, object)"/>.
-        /// Then it checks all primitiv types with the == operator and as last resort uses <see cref="object.Equals(object, object)"/> to determin equality
+        /// Then it checks all primitiv types with the == operator and as last resort uses <see cref="object.Equals(object, object)"/> to determine equality
         /// </summary>
         /// <param name="a">The first object to compare</param>
         /// <param name="b">The second object to compare</param>

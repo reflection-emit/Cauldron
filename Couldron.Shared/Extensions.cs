@@ -1,6 +1,7 @@
 ﻿using Couldron.Core;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -314,6 +315,28 @@ namespace Couldron
                 stream.Dispose();
                 return content;
             }
+        }
+
+        /// <summary>
+        /// Removes the first occurrence of a specific object from the <see cref="IEnumerable"/>
+        /// </summary>
+        /// <param name="items">The <see cref="IEnumerable"/> that may contain the object to remove</param>
+        /// <param name="itemToRemove">The object to remove from the <see cref="IEnumerable"/>. The value can be null for reference types.</param>
+        /// <returns>A new instance of the <see cref="IEnumerable"/> without the item specified by <paramref name="itemToRemove"/></returns>
+        public static IEnumerable Remove(this IEnumerable items, object itemToRemove)
+        {
+            if (items == null)
+                return null;
+
+            var result = new List<object>();
+
+            foreach (var item in items)
+            {
+                if (Utils.Equals(item, itemToRemove))
+                    result.Add(item);
+            }
+
+            return result;
         }
 
         /// <summary>

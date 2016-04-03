@@ -56,7 +56,7 @@ namespace Couldron
         /// <summary>
         /// Returns the parent object of the specified object by processing the visual tree.
         /// </summary>
-        /// <param name="element">The object to find the parent object for. This is expected to be either a <see cref="FrameworkElement"/> or a <see cref="FrameworkContentElement"/>.</param>
+        /// <param name="element">The object to find the parent object for. This is expected to be either a <see cref="FrameworkElement"/>.</param>
         /// <param name="dependencyObjectType">The type of the parent to find</param>
         /// <returns>The requested parent object.</returns>
         public static DependencyObject FindVisualParent(this DependencyObject element, Type dependencyObjectType)
@@ -77,7 +77,7 @@ namespace Couldron
         /// <summary>
         /// Returns the parent object of the specified object by processing the visual tree.
         /// </summary>
-        /// <param name="element">The object to find the parent object for. This is expected to be either a <see cref="FrameworkElement"/> or a <see cref="FrameworkContentElement"/>.</param>
+        /// <param name="element">The object to find the parent object for. This is expected to be either a <see cref="FrameworkElement"/>.</param>
         /// <returns>The requested parent object.</returns>
         public static DependencyObject GetVisualParent(this DependencyObject element)
         {
@@ -88,7 +88,7 @@ namespace Couldron
         /// Returns the parent object of the specified object by processing the visual tree.
         /// </summary>
         /// <typeparam name="T">The type of the parent to find</typeparam>
-        /// <param name="element">The object to find the parent object for. This is expected to be either a <see cref="FrameworkElement"/> or a <see cref="FrameworkContentElement"/>.</param>
+        /// <param name="element">The object to find the parent object for. This is expected to be either a <see cref="FrameworkElement"/>.</param>
         /// <returns>The requested parent object.</returns>
         public static T FindVisualParent<T>(this DependencyObject element) where T : DependencyObject
         {
