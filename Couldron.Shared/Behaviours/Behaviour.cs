@@ -23,24 +23,6 @@ namespace Couldron.Behaviours
     {
         private T _associatedObject;
 
-        #region Dependency Property Name
-
-        /// <summary>
-        /// Identifies the <see cref="Name" /> dependency property
-        /// </summary>
-        public static readonly DependencyProperty NameProperty = DependencyProperty.Register(nameof(Name), typeof(string), typeof(Behaviour<T>), new PropertyMetadata(""));
-
-        /// <summary>
-        /// Gets or sets the <see cref="Name" /> Property
-        /// </summary>
-        public string Name
-        {
-            get { return (string)this.GetValue(NameProperty); }
-            set { this.SetValue(NameProperty, value); }
-        }
-
-        #endregion Dependency Property Name
-
         /// <summary>
         /// Gets the <see cref="DependencyObject"/> to which the behavior is attached.
         /// </summary>

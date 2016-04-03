@@ -95,7 +95,7 @@ namespace Couldron.Behaviours
             openFileDialog.InitialDirectory = string.IsNullOrEmpty(this.Filename) ?
                 Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) : Path.GetDirectoryName(this.Filename);
 
-            var result = openFileDialog.ShowDialog(this.AssociatedObject.FindParent<Window>());
+            var result = openFileDialog.ShowDialog(this.AssociatedObject.FindVisualParent<Window>());
 
             if (result.HasValue && result.Value)
                 this.Filename = openFileDialog.FileName;

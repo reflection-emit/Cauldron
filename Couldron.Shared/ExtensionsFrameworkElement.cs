@@ -21,7 +21,7 @@ namespace Couldron
     /// <summary>
     /// Provides usefull extension methods extending <see cref="FrameworkElement"/>
     /// </summary>
-    public static class ExtensionsFrameworkElement
+    public static partial class ExtensionsFrameworkElement
     {
         public static void Content<T, TContent>(this T element, Action<TContent> action)
             where T : ContentPresenter
@@ -32,7 +32,7 @@ namespace Couldron
                 action(content);
         }
 
-        public static FrameworkElement FindElementWithName(this DependencyObject element, string name)
+        public static FrameworkElement FindVisualElementWithName(this DependencyObject element, string name)
         {
             if (element == null)
                 return null;
@@ -50,10 +50,16 @@ namespace Couldron
             if (parent == null)
                 return null;
 
-            return FindElementWithName(parent, name);
+            return FindVisualElementWithName(parent, name);
         }
 
-        public static DependencyObject FindParent(this DependencyObject element, Type dependencyObjectType)
+        /// <summary>
+        /// Returns the parent object of the specified object by processing the visual tree.
+        /// </summary>
+        /// <param name="element">The object to find the parent object for. This is expected to be either a <see cref="FrameworkElement"/> or a <see cref="FrameworkContentElement"/>.</param>
+        /// <param name="dependencyObjectType">The type of the parent to find</param>
+        /// <returns>The requested parent object.</returns>
+        public static DependencyObject FindVisualParent(this DependencyObject element, Type dependencyObjectType)
         {
             if (element == null)
                 return null;
@@ -65,21 +71,28 @@ namespace Couldron
             if (parent.GetType() == dependencyObjectType)
                 return parent;
             else
-                return FindParent(parent, dependencyObjectType);
+                return FindVisualParent(parent, dependencyObjectType);
         }
 
-        public static T FindParent<T>(this DependencyObject element) where T : DependencyObject
+        /// <summary>
+        /// Returns the parent object of the specified object by processing the visual tree.
+        /// </summary>
+        /// <param name="element">The object to find the parent object for. This is expected to be either a <see cref="FrameworkElement"/> or a <see cref="FrameworkContentElement"/>.</param>
+        /// <returns>The requested parent object.</returns>
+        public static DependencyObject GetVisualParent(this DependencyObject element)
         {
-            if (element == null)
-                return null;
+            return VisualTreeHelper.GetParent(element);
+        }
 
-            var parent = VisualTreeHelper.GetParent(element);
-            var p = parent as T;
-
-            if (parent != null && p != null)
-                return p;
-            else
-                return FindParent<T>(parent);
+        /// <summary>
+        /// Returns the parent object of the specified object by processing the visual tree.
+        /// </summary>
+        /// <typeparam name="T">The type of the parent to find</typeparam>
+        /// <param name="element">The object to find the parent object for. This is expected to be either a <see cref="FrameworkElement"/> or a <see cref="FrameworkContentElement"/>.</param>
+        /// <returns>The requested parent object.</returns>
+        public static T FindVisualParent<T>(this DependencyObject element) where T : DependencyObject
+        {
+            return element.FindVisualParent(typeof(T)) as T;
         }
 
         /// <summary>

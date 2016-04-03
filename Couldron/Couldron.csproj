@@ -80,6 +80,7 @@
     <Compile Include="CouldronApplication.cs" />
     <Compile Include="CouldronTemplateSelector.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="ExtensionsFrameworkElement.cs" />
     <Compile Include="Localization.cs" />
     <Compile Include="Navigator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

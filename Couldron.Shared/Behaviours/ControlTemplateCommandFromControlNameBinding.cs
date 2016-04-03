@@ -64,7 +64,7 @@ namespace Couldron.Behaviours
             if (ParentType == null)
                 return;
 
-            var parent = this.AssociatedObject.FindParent(this.ParentType) as FrameworkElement;
+            var parent = this.AssociatedObject.FindVisualParent(this.ParentType) as FrameworkElement;
 
             if (parent == null)
                 return;

@@ -196,7 +196,7 @@ namespace Couldron.Behaviours
             if (this.SourceProperty == null || this.TargetProperty == null || this.SourceType == null)
                 return;
 
-            var source = this.AssociatedObject.FindParent(this.SourceType);
+            var source = this.AssociatedObject.FindVisualParent(this.SourceType);
 
             if (source == null)
                 return;

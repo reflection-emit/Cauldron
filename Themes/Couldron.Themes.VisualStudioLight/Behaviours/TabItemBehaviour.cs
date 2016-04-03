@@ -63,7 +63,7 @@ namespace Couldron.Themes.VisualStudio.Behaviours
             });
 
             // Set the Header binding
-            var parent = this.AssociatedObject.FindParent<TabControl>();
+            var parent = this.AssociatedObject.FindVisualParent<TabControl>();
 
             if (parent != null)
                 this.AssociatedObject.SetBinding(TabItemHeader.HeaderProperty, this.AssociatedObject.DataContext, parent.DisplayMemberPath);
