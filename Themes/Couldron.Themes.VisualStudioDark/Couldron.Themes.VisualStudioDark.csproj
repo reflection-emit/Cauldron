@@ -45,6 +45,9 @@
     <Compile Include="..\Couldron.Themes.VisualStudioLight\Behaviours\ComboBoxBehaviour.cs">
       <Link>Behaviours\ComboBoxBehaviour.cs</Link>
     </Compile>
+    <Compile Include="..\Couldron.Themes.VisualStudioLight\Behaviours\ComboBoxTreeViewBehaviours.cs">
+      <Link>Behaviours\ComboBoxTreeViewBehaviours.cs</Link>
+    </Compile>
     <Compile Include="..\Couldron.Themes.VisualStudioLight\Behaviours\TabItemBehaviour.cs">
       <Link>Behaviours\TabItemBehaviour.cs</Link>
     </Compile>

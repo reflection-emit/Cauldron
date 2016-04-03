@@ -256,4 +256,165 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style TargetType="ComboBox" x:Key="TreeViewComboxStyle">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ComboBox">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="border">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ThemeAccentBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="ToggleButton">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ThemeAccentBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="ToggleButton">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ThemeLightAccentBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="border">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ThemeDisabledBackgroundBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ToggleButton">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ThemeDisabledTextBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="ToggleButton">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ThemeBackgroundBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="border">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ThemeBackgroundBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="PART_EditableTextBox">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ThemeBackgroundBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="PART_EditableTextBox">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ThemeDisabledTextBrush}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="EditStates">
+                                <VisualState x:Name="Editable" />
+                                <VisualState x:Name="Uneditable" />
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="14" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition MinHeight="22" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="{Binding Path=(attached:ComboBoxProperties.Header), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource KeyToLocalizedStringConverter}}"
+                                 Visibility="{Binding Path=(attached:ComboBoxProperties.Header), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NullOrEmptyTovisibilityConverter}, ConverterParameter=True}"
+                                 Margin="1,6,0,2" Grid.ColumnSpan="4" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
+
+                        <ToggleButton x:Name="border" Grid.ColumnSpan="4" Grid.Row="1" Background="{StaticResource ThemeLightBackgroundBrush}"
+                                        VerticalAlignment="Stretch" HorizontalAlignment="Stretch" ClickMode="Press" Focusable="False" Foreground="{StaticResource ThemeComboBoxArrowBrush}"
+                                        IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                        BorderBrush="{StaticResource ThemeLightBorderBrush}" BorderThickness="1">
+                            <ToggleButton.Template>
+                                <ControlTemplate>
+                                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
+                                            Background="{TemplateBinding Background}" />
+                                </ControlTemplate>
+                            </ToggleButton.Template>
+                        </ToggleButton>
+
+                        <ToggleButton x:Name="ToggleButton" Grid.Row="1" Grid.Column="3" Focusable="false" ClickMode="Press" Foreground="{StaticResource ThemeComboBoxArrowBrush}"
+                                        Background="{StaticResource ThemeLightBackgroundBrush}" BorderBrush="Transparent" Template="{StaticResource ComboBoxToggleButton}"
+                                        IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" />
+
+                        <ItemsControl VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                              Grid.Row="1" Grid.Column="2" Margin="1" IsEnabled="{Binding Path=IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanInvertConverter}}"
+                              ItemsSource="{Binding Path=(attached:ComboBoxProperties.SelectedItems), RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Button Content="{Binding}" Command="{Binding ShowDetailsCommand}" Padding="2,0" Margin="1,0" MinWidth="0" MinHeight="0" Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Center">
+                                        <behaviour:Interaction.Behaviours>
+                                            <localbehaviour:ComboBoxTreeViewSelectedElementContextMenu />
+                                        </behaviour:Interaction.Behaviours>
+                                    </Button>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+                        <TextBlock Grid.Row="1" Grid.Column="2" IsHitTestVisible="False"
+                                       Text="{Binding Path=(attached:ComboBoxProperties.AlternativeText), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource KeyToLocalizedStringConverter}}"
+                                       Foreground="{StaticResource ThemeTextBrush}" Opacity="0.7" Margin="3"
+                                       Visibility="{Binding Path=Text, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NullOrEmptyTovisibilityConverter}, ConverterParameter=False}" />
+
+                        <Popup x:Name="Popup" Grid.ColumnSpan="4" Grid.Row="1" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}"
+                               AllowsTransparency="True" Focusable="False" PopupAnimation="Slide">
+                            <Border x:Name="DropDown" SnapsToDevicePixels="True" Margin="0,0,5,5" Height="400" BorderThickness="1"
+                                    BorderBrush="{StaticResource ThemeLightBorderBrush}" Background="{StaticResource ThemeDropdownBackgroundBrush}">
+
+                                <TreeView x:Name="huhuji" ItemsSource="{TemplateBinding ItemsSource}" SelectedValuePath="{TemplateBinding SelectedValuePath}" MinWidth="300" BorderThickness="0">
+                                    <behaviour:Interaction.Behaviours>
+                                        <localbehaviour:ComboBoxTreeView />
+                                    </behaviour:Interaction.Behaviours>
+                                    <TreeView.ItemTemplate>
+                                        <HierarchicalDataTemplate ItemsSource="{Binding Items}">
+                                            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="32" />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+
+                                                <CheckBox IsChecked="{Binding IsActive }" />
+                                                <TextBlock Grid.Column="1" Text="{Binding Name}" />
+                                            </Grid>
+                                        </HierarchicalDataTemplate>
+                                    </TreeView.ItemTemplate>
+                                </TreeView>
+
+                                <Border.Effect>
+                                    <DropShadowEffect ShadowDepth="3" BlurRadius="5" RenderingBias="Performance" Color="Black" Opacity="0.6" />
+                                </Border.Effect>
+                            </Border>
+                        </Popup>
+
+                        <Ellipse Grid.Row="1" Grid.Column="1" Fill="Tomato" Width="14" Height="14" Margin="4,0" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                     ToolTip="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Validation.Errors), Converter={StaticResource ErrorCollectionConverter}}"
+                                     Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Validation.HasError), Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        <TextBlock Grid.Row="1" Grid.Column="1" Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Validation.HasError), Converter={StaticResource BooleanToVisibilityConverter}}"
+                                       Text="!" IsHitTestVisible="False" FontFamily="Segoe UI" FontWeight="ExtraBold" Foreground="{StaticResource ThemeHoveredTextBrush}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+
+                        <Rectangle Grid.Row="1" Fill="{StaticResource ThemeAccentBrush}" Margin="1"
+                                       Visibility="{Binding Path=(localbehaviour:ValidationProperties.IsMandatory), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                       VerticalAlignment="Stretch" HorizontalAlignment="Left" Width="4" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Foreground" Value="{StaticResource ThemeDisabledTextBrush}" />
+                        </Trigger>
+                        <Trigger Property="HasItems" Value="false">
+                            <Setter TargetName="DropDown" Property="MinHeight" Value="95" />
+                        </Trigger>
+                        <Trigger Property="IsGrouping" Value="true">
+                            <Setter Property="ScrollViewer.CanContentScroll" Value="false" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

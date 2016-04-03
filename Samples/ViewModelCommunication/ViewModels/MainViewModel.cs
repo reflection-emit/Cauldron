@@ -1,5 +1,4 @@
 ﻿using Couldron;
-using Couldron.Aspects;
 using Couldron.Core;
 using Couldron.Messaging;
 using Couldron.Validation;
@@ -28,14 +27,11 @@ namespace ViewModelCommunication.ViewModels
 
         public ObservableCollection<AnimalViewModel> Animals { get; private set; }
 
-        [NotifyPropertyChanged]
         [IsMandatory("mandatory")]
         public AnimalViewModel SelectedAnimal { get; set; }
 
-        [NotifyPropertyChanged]
         public BitmapImage UserImage { get; set; }
 
-        [NotifyPropertyChanged]
         public string Username { get; set; }
 
         public void OnCloseTab(CloseTabMessage message)

@@ -1,5 +1,4 @@
 ﻿using Couldron;
-using Couldron.Aspects;
 using Couldron.Core;
 using Couldron.Messaging;
 using Couldron.Validation;
@@ -29,7 +28,6 @@ namespace ViewModelCommunication.ViewModels
 
         public ICommand ClearCommand { get; private set; }
 
-        [NotifyPropertyChanged]
         [IsMandatory("This is mandatory")]
         public string Name { get; set; }
 

@@ -75,6 +75,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ChangeAwareViewModelBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ContainerViewModelBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\DisposableViewModelBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\HierarchicalActivableTreeViewViewModelBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ICanClose.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\IChangeAwareViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\IClose.cs" />
