@@ -332,7 +332,7 @@ namespace Couldron
 
             foreach (var item in items)
             {
-                if (Utils.Equals(item, itemToRemove))
+                if (!Utils.Equals(item, itemToRemove))
                     result.Add(item);
             }
 
