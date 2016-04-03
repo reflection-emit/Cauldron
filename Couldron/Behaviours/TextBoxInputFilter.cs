@@ -4,14 +4,14 @@ using System.Windows.Controls;
 
 namespace Couldron.Behaviours
 {
-    public sealed class TextBoxInputFilterBehaviour : Behaviour<TextBox>
+    public sealed class TextBoxInputFilter : Behaviour<TextBox>
     {
         #region Dependency Property RegexFilter
 
         /// <summary>
         /// Identifies the <see cref="RegexFilter" /> dependency property
         /// </summary>
-        public static readonly DependencyProperty RegexFilterProperty = DependencyProperty.Register(nameof(RegexFilter), typeof(string), typeof(TextBoxInputFilterBehaviour), new PropertyMetadata(""));
+        public static readonly DependencyProperty RegexFilterProperty = DependencyProperty.Register(nameof(RegexFilter), typeof(string), typeof(TextBoxInputFilter), new PropertyMetadata(""));
 
         /// <summary>
         /// Gets or sets the <see cref="RegexFilter" /> Property

@@ -133,14 +133,14 @@ namespace Couldron
 
         private static Window CreateDefaultWindow<TResult>(Action<TResult> callback, FrameworkElement view, IViewModel viewModel)
         {
-            return CreateWindow(callback, new WindowConfigurationBehaviour(), view, viewModel);
+            return CreateWindow(callback, new WindowConfiguration(), view, viewModel);
         }
 
         private static Window CreateWindow<TResult>(Action<TResult> callback, FrameworkElement view, IViewModel viewModel, out bool isDialog)
         {
             Window window = null;
 
-            var windowConfig = Interaction.GetBehaviour<WindowConfigurationBehaviour>(view);
+            var windowConfig = Interaction.GetBehaviour<WindowConfiguration>(view);
 
             if (windowConfig != null && windowConfig.Length > 0)
             {
@@ -167,7 +167,7 @@ namespace Couldron
             return Activator.CreateInstance(window.AsType()) as Window;
         }
 
-        private static Window CreateWindow<TResult>(Action<TResult> callback, WindowConfigurationBehaviour windowConfig, FrameworkElement view, IViewModel viewModel)
+        private static Window CreateWindow<TResult>(Action<TResult> callback, WindowConfiguration windowConfig, FrameworkElement view, IViewModel viewModel)
         {
             var window = CreateWindow();
             window.BeginInit();
@@ -275,7 +275,7 @@ namespace Couldron
             // create the new viewmodel
             var viewModel = Factory.Create<T>();
             var viewModelType = viewModel.GetType();
-            var isDialog = false;
+            var isModal = false;
             Window window = null;
 
             (viewModel as IChangeAwareViewModel).IsNotNull(x => x.IsLoading = true);
@@ -284,25 +284,34 @@ namespace Couldron
             var viewAttrib = viewModelType.GetCustomAttribute<ViewAttribute>(false);
             if (viewAttrib != null)
                 // Create the view - use the activator, since we dont expect any code in the view
-                window = CreateWindow(callback, Activator.CreateInstance(viewAttrib.ViewType) as FrameworkElement, viewModel, out isDialog);
+                window = CreateWindow(callback, Activator.CreateInstance(viewAttrib.ViewType) as FrameworkElement, viewModel, out isModal);
             else // The viewmodel does not have a defined view... Maybe we have a data template instead
             {
                 // we always prefer our selector, because it rocks
                 var templateSelector = Application.Current.Resources[typeof(CouldronTemplateSelector).Name] as DataTemplateSelector;
                 var dataTemplate = templateSelector.SelectTemplate(viewModel, null);
 
-                // On such case we throw an exception
+                // If we dont have a dataTemplate... we try to find a matching FrameworkElement
                 if (dataTemplate == null)
-                    throw new ResourceReferenceKeyNotFoundException("Unable to find the view for a viewmodel", "View_" + viewModelType.Name);
+                {
+                    var possibleViewName = viewModelType.Name.Left(viewModelType.Name.Length - "Model".Length);
+                    var possibleViewType = AssemblyUtil.GetTypeFromName(possibleViewName);
+
+                    // On such case we throw an exception
+                    if (possibleViewType == null)
+                        throw new ResourceReferenceKeyNotFoundException("Unable to find the view for a viewmodel", "View_" + viewModelType.Name);
+
+                    window = CreateWindow(callback, Factory.Create(possibleViewType) as FrameworkElement, viewModel, out isModal);
+                }
                 else
-                    // try to get a WindowConfigurationBehaviour attach in the datatemplate
-                    window = CreateWindow(callback, dataTemplate.LoadContent() as FrameworkElement, viewModel, out isDialog);
+                    // try to get a WindowConfiguration attach in the datatemplate
+                    window = CreateWindow(callback, dataTemplate.LoadContent() as FrameworkElement, viewModel, out isModal);
             }
 
             (viewModel as IDisposableObject).IsNotNull(x => x.Disposed += (s, e) => window.Close());
 
             // if this is not a dialog... we show the window first and then invoke the navigation method
-            if (!isDialog)
+            if (!isModal)
                 window.Show();
 
             // This only applies to windows that are not maximized
@@ -347,7 +356,7 @@ namespace Couldron
 
             (viewModel as IChangeAwareViewModel).IsNotNull(x => x.IsLoading = false);
 
-            if (isDialog)
+            if (isModal)
                 window.ShowDialog();
         }
 

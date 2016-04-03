@@ -1,6 +1,7 @@
 ﻿using Couldron.Core;
 using System;
 using System.Collections;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
@@ -12,6 +13,42 @@ namespace Couldron
     /// </summary>
     public static partial class Extensions
     {
+        /// <summary>
+        /// Determines whether any element of a sequence satisfies a condition.
+        /// </summary>
+        /// <param name="source">An <see cref="IEnumerable"/> whose elements to apply the predicate to</param>
+        /// <param name="predicate">A function to test each element for a condition.</param>
+        /// <returns>True if any elements in the source sequence pass the test in the specified predicate, otherwise false</returns>
+        public static bool Any(this IEnumerable source, Func<object, bool> predicate)
+        {
+            if (source == null)
+                return false;
+
+            foreach (var item in source)
+            {
+                if (predicate(item))
+                    return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Determines whether a sequence contains any elements.
+        /// </summary>
+        /// <param name="source">The <see cref="IEnumerable"/> to check for emptiness.</param>
+        /// <returns>True if the source sequence contains any elements, otherwise false.</returns>
+        public static bool Any(this IEnumerable source)
+        {
+            if (source == null)
+                return false;
+
+            foreach (var item in source)
+                return true;
+
+            return false;
+        }
+
         /// <summary>
         /// Performs certain types of conversions between compatible reference types or nullable types
         /// <para/>
@@ -184,6 +221,56 @@ namespace Couldron
         }
 
         /// <summary>
+        /// Returns a string containing a specified number of characters from the left side of a string.
+        /// </summary>
+        /// <param name="source"><see cref="string"/> expression from which the leftmost characters are returned.</param>
+        /// <param name="length">
+        /// Numeric expression indicating how many characters to return. If 0, a zero-length string (<see cref="string.Empty"/>) is returned.
+        /// If greater than or equal to the number of characters in str, the entire string is returned.
+        /// </param>
+        /// <returns>Returns a string containing a specified number of characters from the left side of a string.</returns>
+        public static string Left(this string source, int length)
+        {
+            if (string.IsNullOrEmpty(source))
+                return source;
+
+            if (length == 0)
+                return string.Empty;
+
+            if (source.Length < length || source.Length == length)
+                return source;
+
+            return source.Substring(0, length);
+        }
+
+        /// <summary>
+        /// Moves the specified item to a new location in the collection
+        /// </summary>
+        /// <typeparam name="T">The Type of item contained in the collection</typeparam>
+        /// <param name="source">The source collection that contains the item</param>
+        /// <param name="entry">The item to move</param>
+        /// <param name="relativeIndex">The new position of the item relativ to its current position.</param>
+        public static void Move<T>(this ObservableCollection<T> source, T entry, int relativeIndex)
+        {
+            if (source == null)
+                throw new ArgumentNullException(nameof(source));
+
+            var entryIndex = source.IndexOf(entry);
+            var newIndex = entryIndex + relativeIndex;
+
+            if (newIndex < 0)
+                newIndex = 0;
+
+            if (newIndex > source.Count - 1)
+                newIndex = source.Count - 1;
+
+            if (entryIndex == newIndex)
+                return;
+
+            source.Move(entryIndex, newIndex);
+        }
+
+        /// <summary>
         /// Replaces the values of data in memory with random values. The GC handle will be freed.
         /// </summary>
         /// <remarks>Will only work on <see cref="GCHandleType.Pinned"/></remarks>
@@ -227,6 +314,29 @@ namespace Couldron
                 stream.Dispose();
                 return content;
             }
+        }
+
+        /// <summary>
+        /// Returns a string containing a specified number of characters from the right side of a string.
+        /// </summary>
+        /// <param name="source"><see cref="string"/> expression from which the rightmost characters are returned.</param>
+        /// <param name="length">
+        /// Numeric expression indicating how many characters to return. If 0, a zero-length string (<see cref="string.Empty"/>) is returned.
+        /// If greater than or equal to the number of characters in str, the entire string is returned.
+        /// </param>
+        /// <returns>Returns a string containing a specified number of characters from the right side of a string.</returns>
+        public static string Right(this string source, int length)
+        {
+            if (string.IsNullOrEmpty(source))
+                return source;
+
+            if (length == 0)
+                return string.Empty;
+
+            if (source.Length < length || source.Length == length)
+                return source;
+
+            return source.Substring(source.Length - length, length);
         }
 
         /// <summary>

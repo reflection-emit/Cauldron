@@ -2,14 +2,14 @@
 
 namespace Couldron.Behaviours
 {
-    public sealed partial class ControlTemplateBindingBehaviour : Behaviour<FrameworkElement>
+    public sealed partial class ControlTemplateBinding : Behaviour<FrameworkElement>
     {
         #region Dependency Property SourceProperty
 
         /// <summary>
         /// Identifies the <see cref="SourceProperty" /> dependency property
         /// </summary>
-        public static readonly DependencyProperty SourcePropertyProperty = DependencyProperty.Register(nameof(SourceProperty), typeof(DependencyProperty), typeof(ControlTemplateBindingBehaviour), new PropertyMetadata(null));
+        public static readonly DependencyProperty SourcePropertyProperty = DependencyProperty.Register(nameof(SourceProperty), typeof(DependencyProperty), typeof(ControlTemplateBinding), new PropertyMetadata(null));
 
         /// <summary>
         /// Gets or sets the <see cref="SourceProperty" /> Property

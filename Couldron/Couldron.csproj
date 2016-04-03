@@ -61,11 +61,12 @@
     <Compile Include="AssemblyUtil.cs" />
     <Compile Include="Attached\Localized.cs" />
     <Compile Include="Behaviours\Behaviour.cs" />
-    <Compile Include="Behaviours\ControlTemplateBindingBehaviour.cs" />
+    <Compile Include="Behaviours\ControlTemplateBinding.cs" />
+    <Compile Include="Behaviours\EnterKeyToCommand.cs" />
     <Compile Include="Behaviours\EventTrigger.cs" />
     <Compile Include="Behaviours\OpenFileDialogAction.cs" />
-    <Compile Include="Behaviours\TextBoxInputFilterBehaviour.cs" />
-    <Compile Include="Behaviours\WindowConfigurationBehaviour.cs" />
+    <Compile Include="Behaviours\TextBoxInputFilter.cs" />
+    <Compile Include="Behaviours\WindowConfiguration.cs" />
     <Compile Include="CommonConverters.cs" />
     <Compile Include="Core\ApplicationData.cs" />
     <Compile Include="Core\ApplicationInfo.cs" />

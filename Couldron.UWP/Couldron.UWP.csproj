@@ -114,7 +114,8 @@
     <Compile Include="AssemblyUtil.cs" />
     <Compile Include="Attached\Localized.cs" />
     <Compile Include="Behaviours\Behaviour.cs" />
-    <Compile Include="Behaviours\ControlTemplateBindingBehaviour.cs" />
+    <Compile Include="Behaviours\ControlTemplateBinding.cs" />
+    <Compile Include="Behaviours\EnterKeyToCommand.cs" />
     <Compile Include="Behaviours\EventTrigger.cs" />
     <Compile Include="CommonConverters.cs" />
     <Compile Include="Controls\NavigationFrame.cs" />

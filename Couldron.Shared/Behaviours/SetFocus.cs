@@ -15,14 +15,14 @@ namespace Couldron.Behaviours
     /// <summary>
     /// Provides a behaviour that can set the focus of a control after <see cref="FrameworkElement.Loaded"/>
     /// </summary>
-    public sealed class SetFocusBehaviour : Behaviour<Control>
+    public sealed class SetFocus : Behaviour<Control>
     {
         private CouldronDispatcher dispatcher;
 
         /// <summary>
-        /// Initializes a new instance of <see cref="SetFocusBehaviour"/>
+        /// Initializes a new instance of <see cref="SetFocus"/>
         /// </summary>
-        public SetFocusBehaviour()
+        public SetFocus()
         {
             this.dispatcher = new CouldronDispatcher();
         }

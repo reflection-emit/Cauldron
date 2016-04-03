@@ -17,14 +17,14 @@ using System.Windows.Data;
 
 namespace Couldron.Behaviours
 {
-    public sealed partial class ControlTemplateBindingBehaviour : Behaviour<FrameworkElement>
+    public sealed partial class ControlTemplateBinding : Behaviour<FrameworkElement>
     {
         #region Dependency Property SourceType
 
         /// <summary>
         /// Identifies the <see cref="SourceType" /> dependency property
         /// </summary>
-        public static readonly DependencyProperty SourceTypeProperty = DependencyProperty.Register(nameof(SourceType), typeof(Type), typeof(ControlTemplateBindingBehaviour), new PropertyMetadata(null));
+        public static readonly DependencyProperty SourceTypeProperty = DependencyProperty.Register(nameof(SourceType), typeof(Type), typeof(ControlTemplateBinding), new PropertyMetadata(null));
 
         /// <summary>
         /// Gets or sets the <see cref="SourceType" /> Property
@@ -42,7 +42,7 @@ namespace Couldron.Behaviours
         /// <summary>
         /// Identifies the <see cref="TargetProperty" /> dependency property
         /// </summary>
-        public static readonly DependencyProperty TargetPropertyProperty = DependencyProperty.Register(nameof(TargetProperty), typeof(DependencyProperty), typeof(ControlTemplateBindingBehaviour), new PropertyMetadata(null));
+        public static readonly DependencyProperty TargetPropertyProperty = DependencyProperty.Register(nameof(TargetProperty), typeof(DependencyProperty), typeof(ControlTemplateBinding), new PropertyMetadata(null));
 
         /// <summary>
         /// Gets or sets the <see cref="TargetProperty" /> Property
@@ -60,7 +60,7 @@ namespace Couldron.Behaviours
         /// <summary>
         /// Identifies the <see cref="TargetBehaviourName" /> dependency property
         /// </summary>
-        public static readonly DependencyProperty TargetBehaviourNameProperty = DependencyProperty.Register(nameof(TargetBehaviourName), typeof(string), typeof(ControlTemplateBindingBehaviour), new PropertyMetadata(""));
+        public static readonly DependencyProperty TargetBehaviourNameProperty = DependencyProperty.Register(nameof(TargetBehaviourName), typeof(string), typeof(ControlTemplateBinding), new PropertyMetadata(""));
 
         /// <summary>
         /// Gets or sets the <see cref="TargetBehaviourName" /> Property
@@ -78,7 +78,7 @@ namespace Couldron.Behaviours
         /// <summary>
         /// Identifies the <see cref="Converter" /> dependency property
         /// </summary>
-        public static readonly DependencyProperty ConverterProperty = DependencyProperty.Register(nameof(Converter), typeof(IValueConverter), typeof(ControlTemplateBindingBehaviour), new PropertyMetadata(null));
+        public static readonly DependencyProperty ConverterProperty = DependencyProperty.Register(nameof(Converter), typeof(IValueConverter), typeof(ControlTemplateBinding), new PropertyMetadata(null));
 
         /// <summary>
         /// Gets or sets the <see cref="Converter" /> Property
@@ -96,7 +96,7 @@ namespace Couldron.Behaviours
         /// <summary>
         /// Identifies the <see cref="ConverterParameter" /> dependency property
         /// </summary>
-        public static readonly DependencyProperty ConverterParameterProperty = DependencyProperty.Register(nameof(ConverterParameter), typeof(object), typeof(ControlTemplateBindingBehaviour), new PropertyMetadata(null));
+        public static readonly DependencyProperty ConverterParameterProperty = DependencyProperty.Register(nameof(ConverterParameter), typeof(object), typeof(ControlTemplateBinding), new PropertyMetadata(null));
 
         /// <summary>
         /// Gets or sets the <see cref="ConverterParameter" /> Property
@@ -114,7 +114,7 @@ namespace Couldron.Behaviours
         /// <summary>
         /// Identifies the <see cref="Mode" /> dependency property
         /// </summary>
-        public static readonly DependencyProperty ModeProperty = DependencyProperty.Register(nameof(Mode), typeof(BindingMode), typeof(ControlTemplateBindingBehaviour), new PropertyMetadata(BindingMode.OneWay));
+        public static readonly DependencyProperty ModeProperty = DependencyProperty.Register(nameof(Mode), typeof(BindingMode), typeof(ControlTemplateBinding), new PropertyMetadata(BindingMode.OneWay));
 
         /// <summary>
         /// Gets or sets the <see cref="Mode" /> Property

@@ -94,5 +94,19 @@ namespace Couldron
 
             return -1;
         }
+
+        /// <summary>
+        /// Returns a string that represents the current object.
+        /// <para/>
+        /// If the object is null a <see cref="string.Empty"/> will be returned
+        /// </summary>
+        /// <param name="target">The object to convert</param>
+        /// <returns>The string that represents the current object</returns>
+        public static string ToString2(this object target)
+        {
+            if (target == null)
+                return string.Empty;
+            return target.ToString();
+        }
     }
 }

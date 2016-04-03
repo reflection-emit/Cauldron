@@ -11,14 +11,14 @@ namespace Couldron.Behaviours
     /// Provides a behaviour to configure the window that will contain the view
     /// </summary>
     [BehaviourUsage(false)]
-    public sealed class WindowConfigurationBehaviour : FrameworkElement, IBehaviour<FrameworkElement>
+    public sealed class WindowConfiguration : FrameworkElement, IBehaviour<FrameworkElement>
     {
         #region Dependency Property ToolbarTemplate
 
         /// <summary>
         /// Identifies the <see cref="ToolbarTemplate" /> dependency property
         /// </summary>
-        public static readonly DependencyProperty ToolbarTemplateProperty = DependencyProperty.Register(nameof(ToolbarTemplate), typeof(ControlTemplate), typeof(WindowConfigurationBehaviour), new PropertyMetadata(null));
+        public static readonly DependencyProperty ToolbarTemplateProperty = DependencyProperty.Register(nameof(ToolbarTemplate), typeof(ControlTemplate), typeof(WindowConfiguration), new PropertyMetadata(null));
 
         /// <summary>
         /// Gets or sets the <see cref="ToolbarTemplate" /> Property
@@ -36,7 +36,7 @@ namespace Couldron.Behaviours
         /// <summary>
         /// Identifies the <see cref="IsModal" /> dependency property
         /// </summary>
-        public static readonly DependencyProperty IsModalProperty = DependencyProperty.Register(nameof(IsModal), typeof(bool), typeof(WindowConfigurationBehaviour), new PropertyMetadata(false));
+        public static readonly DependencyProperty IsModalProperty = DependencyProperty.Register(nameof(IsModal), typeof(bool), typeof(WindowConfiguration), new PropertyMetadata(false));
 
         /// <summary>
         /// Gets or sets the <see cref="IsModal" /> Property
@@ -54,7 +54,7 @@ namespace Couldron.Behaviours
         /// <summary>
         /// Identifies the <see cref="Icon" /> dependency property
         /// </summary>
-        public static readonly DependencyProperty IconProperty = DependencyProperty.Register(nameof(Icon), typeof(ImageSource), typeof(WindowConfigurationBehaviour), new PropertyMetadata(null, WindowConfigurationBehaviour.OnIconChanged));
+        public static readonly DependencyProperty IconProperty = DependencyProperty.Register(nameof(Icon), typeof(ImageSource), typeof(WindowConfiguration), new PropertyMetadata(null, WindowConfiguration.OnIconChanged));
 
         /// <summary>
         /// Occures if the <see cref="Icon"/> property has changed
@@ -72,7 +72,7 @@ namespace Couldron.Behaviours
 
         private static void OnIconChanged(DependencyObject d, DependencyPropertyChangedEventArgs args)
         {
-            var dependencyObject = d as WindowConfigurationBehaviour;
+            var dependencyObject = d as WindowConfiguration;
 
             if (dependencyObject == null)
                 return;
@@ -88,7 +88,7 @@ namespace Couldron.Behaviours
         /// <summary>
         /// Identifies the <see cref="ResizeMode" /> dependency property
         /// </summary>
-        public static readonly DependencyProperty ResizeModeProperty = DependencyProperty.Register(nameof(ResizeMode), typeof(ResizeMode), typeof(WindowConfigurationBehaviour), new PropertyMetadata(ResizeMode.CanResizeWithGrip));
+        public static readonly DependencyProperty ResizeModeProperty = DependencyProperty.Register(nameof(ResizeMode), typeof(ResizeMode), typeof(WindowConfiguration), new PropertyMetadata(ResizeMode.CanResizeWithGrip));
 
         /// <summary>
         /// Gets or sets the <see cref="ResizeMode" /> Property
@@ -106,7 +106,7 @@ namespace Couldron.Behaviours
         /// <summary>
         /// Identifies the <see cref="ShowInTaskbar" /> dependency property
         /// </summary>
-        public static readonly DependencyProperty ShowInTaskbarProperty = DependencyProperty.Register(nameof(ShowInTaskbar), typeof(bool), typeof(WindowConfigurationBehaviour), new PropertyMetadata(true));
+        public static readonly DependencyProperty ShowInTaskbarProperty = DependencyProperty.Register(nameof(ShowInTaskbar), typeof(bool), typeof(WindowConfiguration), new PropertyMetadata(true));
 
         /// <summary>
         /// Gets or sets the <see cref="ShowInTaskbar" /> Property
@@ -124,7 +124,7 @@ namespace Couldron.Behaviours
         /// <summary>
         /// Identifies the <see cref="Title" /> dependency property
         /// </summary>
-        public static readonly DependencyProperty TitleProperty = DependencyProperty.Register(nameof(Title), typeof(string), typeof(WindowConfigurationBehaviour), new PropertyMetadata("", WindowConfigurationBehaviour.OnTitleChanged));
+        public static readonly DependencyProperty TitleProperty = DependencyProperty.Register(nameof(Title), typeof(string), typeof(WindowConfiguration), new PropertyMetadata("", WindowConfiguration.OnTitleChanged));
 
         /// <summary>
         /// Occures if the <see cref="Title"/> property has changed
@@ -142,7 +142,7 @@ namespace Couldron.Behaviours
 
         private static void OnTitleChanged(DependencyObject d, DependencyPropertyChangedEventArgs args)
         {
-            var dependencyObject = d as WindowConfigurationBehaviour;
+            var dependencyObject = d as WindowConfiguration;
 
             if (dependencyObject == null || args.NewValue == null)
                 return;
@@ -158,7 +158,7 @@ namespace Couldron.Behaviours
         /// <summary>
         /// Identifies the <see cref="Topmost" /> dependency property
         /// </summary>
-        public static readonly DependencyProperty TopmostProperty = DependencyProperty.Register(nameof(Topmost), typeof(bool), typeof(WindowConfigurationBehaviour), new PropertyMetadata(false));
+        public static readonly DependencyProperty TopmostProperty = DependencyProperty.Register(nameof(Topmost), typeof(bool), typeof(WindowConfiguration), new PropertyMetadata(false));
 
         /// <summary>
         /// Gets or sets the <see cref="Topmost" /> Property
@@ -176,7 +176,7 @@ namespace Couldron.Behaviours
         /// <summary>
         /// Identifies the <see cref="WindowStartupLocation" /> dependency property
         /// </summary>
-        public static readonly DependencyProperty WindowStartupLocationProperty = DependencyProperty.Register(nameof(WindowStartupLocation), typeof(WindowStartupLocation), typeof(WindowConfigurationBehaviour), new PropertyMetadata(WindowStartupLocation.CenterOwner));
+        public static readonly DependencyProperty WindowStartupLocationProperty = DependencyProperty.Register(nameof(WindowStartupLocation), typeof(WindowStartupLocation), typeof(WindowConfiguration), new PropertyMetadata(WindowStartupLocation.CenterOwner));
 
         /// <summary>
         /// Gets or sets the <see cref="WindowStartupLocation" /> Property
@@ -194,7 +194,7 @@ namespace Couldron.Behaviours
         /// <summary>
         /// Identifies the <see cref="IsWindowPersistent" /> dependency property
         /// </summary>
-        public static readonly DependencyProperty IsWindowPersistentProperty = DependencyProperty.Register(nameof(IsWindowPersistent), typeof(bool), typeof(WindowConfigurationBehaviour), new PropertyMetadata(false));
+        public static readonly DependencyProperty IsWindowPersistentProperty = DependencyProperty.Register(nameof(IsWindowPersistent), typeof(bool), typeof(WindowConfiguration), new PropertyMetadata(false));
 
         /// <summary>
         /// Gets or sets the <see cref="IsWindowPersistent" /> Property
@@ -212,7 +212,7 @@ namespace Couldron.Behaviours
         /// <summary>
         /// Identifies the <see cref="WindowState" /> dependency property
         /// </summary>
-        public static readonly DependencyProperty WindowStateProperty = DependencyProperty.Register(nameof(WindowState), typeof(WindowState), typeof(WindowConfigurationBehaviour), new PropertyMetadata(WindowState.Normal));
+        public static readonly DependencyProperty WindowStateProperty = DependencyProperty.Register(nameof(WindowState), typeof(WindowState), typeof(WindowConfiguration), new PropertyMetadata(WindowState.Normal));
 
         /// <summary>
         /// Gets or sets the <see cref="WindowState" /> Property
@@ -230,7 +230,7 @@ namespace Couldron.Behaviours
         /// <summary>
         /// Identifies the <see cref="WindowStyle" /> dependency property
         /// </summary>
-        public static readonly DependencyProperty WindowStyleProperty = DependencyProperty.Register(nameof(WindowStyle), typeof(WindowStyle), typeof(WindowConfigurationBehaviour), new PropertyMetadata(WindowStyle.SingleBorderWindow));
+        public static readonly DependencyProperty WindowStyleProperty = DependencyProperty.Register(nameof(WindowStyle), typeof(WindowStyle), typeof(WindowConfiguration), new PropertyMetadata(WindowStyle.SingleBorderWindow));
 
         /// <summary>
         /// Gets or sets the <see cref="WindowStyle" /> Property
@@ -279,7 +279,7 @@ namespace Couldron.Behaviours
         IBehaviour IBehaviour.Copy()
         {
             var type = this.GetType();
-            var behaviour = Activator.CreateInstance(type) as WindowConfigurationBehaviour;
+            var behaviour = Activator.CreateInstance(type) as WindowConfiguration;
 
             var props = type.GetProperties().ToArray<PropertyInfo>();
 
@@ -353,9 +353,9 @@ namespace Couldron.Behaviours
         #endregion Behaviour implementation
 
         /// <summary>
-        /// Initializes a new instance of <see cref="WindowConfigurationBehaviour"/>
+        /// Initializes a new instance of <see cref="WindowConfiguration"/>
         /// </summary>
-        public WindowConfigurationBehaviour()
+        public WindowConfiguration()
         {
             this.MinHeight = 120;
             this.MinWidth = 300;

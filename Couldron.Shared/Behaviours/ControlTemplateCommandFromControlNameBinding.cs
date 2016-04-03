@@ -14,14 +14,14 @@ using System.Windows.Controls;
 
 namespace Couldron.Behaviours
 {
-    public sealed class ControlTemplateCommandFromControlNameBindingBehaviour : Behaviour<Button>
+    public sealed class ControlTemplateCommandFromControlNameBinding : Behaviour<Button>
     {
         #region Dependency Property ParentType
 
         /// <summary>
         /// Identifies the <see cref="ParentType" /> dependency property
         /// </summary>
-        public static readonly DependencyProperty ParentTypeProperty = DependencyProperty.Register(nameof(ParentType), typeof(Type), typeof(ControlTemplateCommandFromControlNameBindingBehaviour), new PropertyMetadata(null));
+        public static readonly DependencyProperty ParentTypeProperty = DependencyProperty.Register(nameof(ParentType), typeof(Type), typeof(ControlTemplateCommandFromControlNameBinding), new PropertyMetadata(null));
 
         /// <summary>
         /// Gets or sets the <see cref="ParentType" /> Property

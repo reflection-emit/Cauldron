@@ -48,4 +48,53 @@
     <Style TargetType="ContentControl">
         <Setter Property="ContentTemplateSelector" Value="{StaticResource CouldronTemplateSelector}" />
     </Style>
+
+    <LinearGradientBrush x:Key="ProgressBarIndicatorAnimatedFill" StartPoint="0,0" EndPoint="1,0">
+        <LinearGradientBrush.GradientStops>
+            <GradientStopCollection>
+                <GradientStop Color="#000000FF" Offset="0" />
+                <GradientStop Color="#600000FF" Offset="0.4" />
+                <GradientStop Color="#600000FF" Offset="0.6" />
+                <GradientStop Color="#000000FF" Offset="1" />
+            </GradientStopCollection>
+        </LinearGradientBrush.GradientStops>
+    </LinearGradientBrush>
+
+    <Style TargetType="ProgressBar">
+        <Setter Property="Background" Value="{StaticResource ThemeLightBackgroundBrush}" />
+        <Setter Property="BorderBrush" Value="{StaticResource ThemeLightBorderBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource ThemeAccentBrush}" />
+        <Setter Property="MinHeight" Value="8" />
+        <Setter Property="MinWidth" Value="200" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ProgressBar">
+                    <Grid MinHeight="{TemplateBinding MinHeight}" MinWidth="{TemplateBinding MinWidth}" Background="{TemplateBinding Background}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Determinate" />
+                                <VisualState x:Name="Indeterminate">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Duration="00:00:00" Storyboard.TargetName="PART_Indicator" Storyboard.TargetProperty="Background">
+                                            <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <SolidColorBrush>Transparent</SolidColorBrush>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Border x:Name="PART_Track" BorderThickness="1" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" />
+                        <Border x:Name="PART_Indicator" BorderThickness="1" HorizontalAlignment="Left" BorderBrush="Transparent" Background="{TemplateBinding Foreground}">
+                            <Grid ClipToBounds="True" x:Name="Animation">
+                                <Rectangle x:Name="PART_GlowRect" Width="100" HorizontalAlignment="Left" Fill="{StaticResource ProgressBarIndicatorAnimatedFill}" Margin="-100,0,0,0" />
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

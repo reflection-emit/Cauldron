@@ -140,15 +140,7 @@ namespace Couldron
         /// <summary>
         /// Tries to find/identify a <see cref="Type"/> by its name
         /// </summary>
-        /// <param name="typeName">The name of the <see cref="Type"/>.
-        /// An <see cref="Assembly.FullName"/> can also be given delimeter by an @.
-        /// <para/>
-        /// Example:
-        /// <para/>
-        /// <code>
-        /// TypeName@AssemblyName
-        /// </code>
-        /// </param>
+        /// <param name="typeName">The name of the <see cref="Type"/></param>
         /// <returns>The <see cref="Type"/> that is defined by the parameter <paramref name="typeName"/></returns>
         /// <exception cref="ArgumentNullException">The <paramref name="typeName"/> parameter is null</exception>
         /// <exception cref="ArgumentException">The <paramref name="typeName"/> parameter is an empty string</exception>
@@ -161,15 +153,7 @@ namespace Couldron
             if (typeName.Length == 0)
                 throw new ArgumentException("The parameter is an empty string", nameof(typeName));
 
-            TypeInfo result;
-
-            if (typeName.IndexOf('@') >= 0)
-            {
-                var splitted = typeName.Split('@');
-                result = ExportedTypes.FirstOrDefault(x => x.Assembly.FullName.StartsWith(splitted[1]) && x.Name.EndsWith(splitted[0]));
-            }
-            else
-                result = ExportedTypes.FirstOrDefault(x => x.Name.EndsWith(typeName));
+            var result = ExportedTypes.FirstOrDefault(x => x.Name.EndsWith(typeName));
 
             if (result != null)
                 return result.AsType();
