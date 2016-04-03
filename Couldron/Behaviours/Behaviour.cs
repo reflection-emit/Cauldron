@@ -8,9 +8,6 @@ namespace Couldron.Behaviours
         private void AssociatedObjectDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             this.OnDataContextChanged();
-
-            if (this.DataContextChanged != null)
-                this.DataContextChanged(sender, e);
         }
 
         /// <summary>
@@ -18,6 +15,8 @@ namespace Couldron.Behaviours
         /// </summary>
         private void Attach()
         {
+            this.SetBinding(Behaviour<T>.DataContextProperty, this.AssociatedObject, nameof(FrameworkElement.DataContext), BindingMode.OneWay);
+
             this._associatedObject.DataContextChanged += AssociatedObjectDataContextChanged;
             this._associatedObject.Loaded += TargetLoaded;
             this._associatedObject.Unloaded += TargetUnloaded;
@@ -34,13 +33,13 @@ namespace Couldron.Behaviours
         /// </summary>
         private void Detach()
         {
+            BindingOperations.ClearAllBindings(this);
+
             this._associatedObject.DataContextChanged -= AssociatedObjectDataContextChanged;
             this._associatedObject.Loaded -= TargetLoaded;
             this._associatedObject.Unloaded -= TargetUnloaded;
 
             this.OnDetach();
-
-            BindingOperations.ClearAllBindings(this.AssociatedObject);
         }
     }
 }

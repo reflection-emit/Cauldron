@@ -16,6 +16,7 @@
             <TextBox attached:TextBoxProperties.Header="This is the header" Text="{Binding Result, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" attached:TextBoxProperties.AlternativeText="mustbe">
                 <behaviour:Interaction.Behaviours>
                     <behaviour:SetFocus />
+                    <behaviour:EnterKeyToCommand Command="{Binding BackCommand}" />
                 </behaviour:Interaction.Behaviours>
             </TextBox>
             <Button Content="OK" Width="120" Height="40" Margin="10" Command="{Binding BackCommand}" />

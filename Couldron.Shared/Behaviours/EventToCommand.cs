@@ -16,35 +16,53 @@ namespace Couldron.Behaviours
     /// </summary>
     public class EventToCommand : Behaviour<FrameworkElement>
     {
-        /// <summary>
-        /// Gets or sets the <see cref="Command"/> associated with a specified object.
-        /// </summary>
-        public static readonly DependencyProperty CommandProperty = DependencyProperty.Register(nameof(Command), typeof(ICommand), typeof(EventToCommand), new PropertyMetadata(null));
+        #region Dependency Property Command
 
         /// <summary>
-        /// Gets or sets the <see cref="Event"/> associated with a specified object.
-        /// </summary>
-        public static readonly DependencyProperty EventProperty = DependencyProperty.Register(nameof(Event), typeof(string), typeof(EventToCommand), new PropertyMetadata(""));
-
-        private DynamicEventHandler eventHandler;
-
-        /// <summary>
-        /// Gets or sets the command to invoke
+        /// Gets or sets the <see cref="Command" /> Property
         /// </summary>
         public ICommand Command
         {
-            get { return (ICommand)this.GetValue(EventToCommand.CommandProperty); }
-            set { this.SetValue(EventToCommand.CommandProperty, value); }
+            get { return (ICommand)this.GetValue(CommandProperty); }
+            set { this.SetValue(CommandProperty, value); }
         }
 
         /// <summary>
-        /// Gets or sets the event name to handle
+        /// Identifies the <see cref="Command" /> dependency property
         /// </summary>
-        public string Event
+        public static readonly DependencyProperty CommandProperty = DependencyProperty.Register(nameof(Command), typeof(ICommand), typeof(EventToCommand), new PropertyMetadata(null));
+
+        #endregion Dependency Property Command
+
+        #region Dependency Property EventName
+
+        /// <summary>
+        /// Gets or sets the <see cref="EventName" /> Property
+        /// </summary>
+        public string EventName
         {
-            get { return (string)this.GetValue(EventToCommand.EventProperty); }
-            set { this.SetValue(EventToCommand.EventProperty, value); }
+            get { return (string)this.GetValue(EventNameProperty); }
+            set { this.SetValue(EventNameProperty, value); }
         }
+
+        /// <summary>
+        /// Identifies the <see cref="EventName" /> dependency property
+        /// </summary>
+        public static readonly DependencyProperty EventNameProperty = DependencyProperty.Register(nameof(EventName), typeof(string), typeof(EventToCommand), new PropertyMetadata("", EventToCommand.OnEventNameChanged));
+
+        private static void OnEventNameChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
+        {
+            var d = dependencyObject as EventToCommand;
+
+            if (d == null)
+                return;
+
+            d.SetBinding();
+        }
+
+        #endregion Dependency Property EventName
+
+        private DynamicEventHandler eventHandler;
 
         /// <summary>
         /// Occures when the behavior is attached to the object
@@ -53,22 +71,16 @@ namespace Couldron.Behaviours
         {
         }
 
-        /// <summary>
-        /// Occures if the <see cref="FrameworkElement.DataContext"/> of <see cref="Behaviour{T}.AssociatedObject"/> has changed
-        /// </summary>
-        protected override void OnDataContextChanged()
+        private void SetBinding()
         {
-            base.OnDataContextChanged();
-
-            if (string.IsNullOrEmpty(this.Event) || this.AssociatedObject == null || this.Command == null)
+            if (string.IsNullOrEmpty(this.EventName) || this.AssociatedObject == null)
                 return;
 
-            this.eventHandler = new DynamicEventHandler(this.AssociatedObject, this.Event, (sender, args) =>
+            this.eventHandler?.Dispose();
+            this.eventHandler = new DynamicEventHandler(this.AssociatedObject, this.EventName, (sender, args) =>
             {
-                if (this.Command.CanExecute(args))
-                {
+                if (this.Command != null && this.Command.CanExecute(args))
                     this.Command.Execute(args);
-                }
             });
         }
 

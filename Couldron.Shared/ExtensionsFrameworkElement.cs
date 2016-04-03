@@ -113,11 +113,11 @@ namespace Couldron
         /// <summary>
         /// Attaches a binding to this element, based on the provided source property name as a path qualification to the data source.
         /// </summary>
-        /// <param name="frameworkElement">The <see cref="FrameworkElement"/> that is extended</param>
+        /// <param name="dependencyObject">The <see cref="DependencyObject"/> that is extended</param>
         /// <param name="dp">Identifies the destination property where the binding should be established</param>
         /// <param name="source">The object to use as the binding source.</param>
         /// <param name="propertyPath">The path to the binding source property.</param>
-        public static void SetBinding(this FrameworkElement frameworkElement, DependencyProperty dp, object source, string propertyPath)
+        public static void SetBinding(this DependencyObject dependencyObject, DependencyProperty dp, object source, string propertyPath)
         {
             Binding binding = new Binding();
             binding.Mode = BindingMode.OneWay;
@@ -125,18 +125,18 @@ namespace Couldron
             binding.Source = source;
             binding.Path = new PropertyPath(propertyPath);
 
-            frameworkElement.SetBinding(dp, binding);
+            BindingOperations.SetBinding(dependencyObject, dp, binding);
         }
 
         /// <summary>
         /// Attaches a binding to this element, based on the provided source property name as a path qualification to the data source.
         /// </summary>
-        /// <param name="frameworkElement">The <see cref="FrameworkElement"/> that is extended</param>
+        /// <param name="dependencyObject">The <see cref="DependencyObject"/> that is extended</param>
         /// <param name="dp">Identifies the destination property where the binding should be established</param>
         /// <param name="source">The object to use as the binding source.</param>
         /// <param name="propertyPath">The path to the binding source property.</param>
         /// <param name="bindingMode">A value that indicates the direction of the data flow in the binding.</param>
-        public static void SetBinding(this FrameworkElement frameworkElement, DependencyProperty dp, object source, string propertyPath, BindingMode bindingMode)
+        public static void SetBinding(this DependencyObject dependencyObject, DependencyProperty dp, object source, string propertyPath, BindingMode bindingMode)
         {
             Binding binding = new Binding();
             binding.Mode = bindingMode;
@@ -144,19 +144,19 @@ namespace Couldron
             binding.Source = source;
             binding.Path = new PropertyPath(propertyPath);
 
-            frameworkElement.SetBinding(dp, binding);
+            BindingOperations.SetBinding(dependencyObject, dp, binding);
         }
 
         /// <summary>
         /// Attaches a binding to this element, based on the provided source property name as a path qualification to the data source.
         /// </summary>
-        /// <param name="frameworkElement">The <see cref="FrameworkElement"/> that is extended</param>
+        /// <param name="dependencyObject">The <see cref="DependencyObject"/> that is extended</param>
         /// <param name="dp">Identifies the destination property where the binding should be established</param>
         /// <param name="source">The object to use as the binding source.</param>
         /// <param name="propertyPath">The path to the binding source property.</param>
         /// <param name="bindingMode">A value that indicates the direction of the data flow in the binding.</param>
         /// <param name="valueConverterName">The converter name to use</param>
-        public static void SetBinding(this FrameworkElement frameworkElement, DependencyProperty dp, object source, string propertyPath, BindingMode bindingMode, string valueConverterName)
+        public static void SetBinding(this DependencyObject dependencyObject, DependencyProperty dp, object source, string propertyPath, BindingMode bindingMode, string valueConverterName)
         {
             Binding binding = new Binding();
             binding.Mode = bindingMode;
@@ -165,20 +165,20 @@ namespace Couldron
             binding.Path = new PropertyPath(propertyPath);
             binding.Converter = Application.Current.Resources[valueConverterName] as IValueConverter;
 
-            frameworkElement.SetBinding(dp, binding);
+            BindingOperations.SetBinding(dependencyObject, dp, binding);
         }
 
         /// <summary>
         /// Attaches a binding to this element, based on the provided source property name as a path qualification to the data source.
         /// </summary>
-        /// <param name="frameworkElement">The <see cref="FrameworkElement"/> that is extended</param>
+        /// <param name="dependencyObject">The <see cref="DependencyObject"/> that is extended</param>
         /// <param name="dp">Identifies the destination property where the binding should be established</param>
         /// <param name="source">The object to use as the binding source.</param>
         /// <param name="propertyPath">The path to the binding source property.</param>
         /// <param name="bindingMode">A value that indicates the direction of the data flow in the binding.</param>
         /// <param name="valueConverter">The converter to use</param>
         /// <param name="converterParameter">the parameter to pass to the Converter.</param>
-        public static void SetBinding(this FrameworkElement frameworkElement, DependencyProperty dp, object source, string propertyPath, BindingMode bindingMode, IValueConverter valueConverter, object converterParameter)
+        public static void SetBinding(this DependencyObject dependencyObject, DependencyProperty dp, object source, string propertyPath, BindingMode bindingMode, IValueConverter valueConverter, object converterParameter)
         {
             Binding binding = new Binding();
             binding.Mode = bindingMode;
@@ -188,7 +188,7 @@ namespace Couldron
             binding.Converter = valueConverter;
             binding.ConverterParameter = converterParameter;
 
-            frameworkElement.SetBinding(dp, binding);
+            BindingOperations.SetBinding(dependencyObject, dp, binding);
         }
 
         private static void GetVisualChildren<T>(FrameworkElement element, List<FrameworkElement> list)

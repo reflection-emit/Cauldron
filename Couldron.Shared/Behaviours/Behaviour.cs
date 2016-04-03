@@ -19,7 +19,7 @@ namespace Couldron.Behaviours
     /// A base class for behaviours
     /// </summary>
     /// <typeparam name="T">The control type the behaviour can be attached to</typeparam>
-    public abstract partial class Behaviour<T> : DependencyObject, IBehaviour<T> where T : FrameworkElement
+    public abstract partial class Behaviour<T> : FrameworkElement, IBehaviour<T> where T : FrameworkElement
     {
         private T _associatedObject;
 
@@ -40,11 +40,6 @@ namespace Couldron.Behaviours
         }
 
         #endregion Dependency Property Name
-
-        /// <summary>
-        /// Occurs when the data context for this element changes.
-        /// </summary>
-        public event DependencyPropertyChangedEventHandler DataContextChanged;
 
         /// <summary>
         /// Gets the <see cref="DependencyObject"/> to which the behavior is attached.
@@ -120,16 +115,6 @@ namespace Couldron.Behaviours
 
             if (this._associatedObject == null)
                 throw new Exception(string.Format("The Type of AssociatedObject \"{0}\" does not match with T \"{1}\"", obj.GetType(), typeof(T)));
-        }
-
-        /// <summary>
-        /// Attach a data Binding to the property
-        /// </summary>
-        /// <param name="dp">DependencyProperty that represents the property</param>
-        /// <param name="binding">The binding to attach</param>
-        public void SetBinding(DependencyProperty dp, BindingBase binding)
-        {
-            BindingOperations.SetBinding(this, dp, binding);
         }
 
         /// <summary>

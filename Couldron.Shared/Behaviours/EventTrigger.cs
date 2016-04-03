@@ -16,17 +16,27 @@ namespace Couldron.Behaviours
         #region Dependency Property EventName
 
         /// <summary>
-        /// Identifies the <see cref="EventName" /> dependency property
-        /// </summary>
-        public static readonly DependencyProperty EventNameProperty = DependencyProperty.Register(nameof(EventName), typeof(string), typeof(EventTrigger), new PropertyMetadata(""));
-
-        /// <summary>
         /// Gets or sets the <see cref="EventName" /> Property
         /// </summary>
         public string EventName
         {
             get { return (string)this.GetValue(EventNameProperty); }
             set { this.SetValue(EventNameProperty, value); }
+        }
+
+        /// <summary>
+        /// Identifies the <see cref="EventName" /> dependency property
+        /// </summary>
+        public static readonly DependencyProperty EventNameProperty = DependencyProperty.Register(nameof(EventName), typeof(string), typeof(EventTrigger), new PropertyMetadata("", EventTrigger.OnEventNameChanged));
+
+        private static void OnEventNameChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
+        {
+            var d = dependencyObject as EventTrigger;
+
+            if (d == null)
+                return;
+
+            d.SetEventHandler();
         }
 
         #endregion Dependency Property EventName
@@ -51,10 +61,7 @@ namespace Couldron.Behaviours
             }
         }
 
-        /// <summary>
-        /// Occures when the behavior is attached to the object
-        /// </summary>
-        protected override void OnAttach()
+        private void SetEventHandler()
         {
             if (this.Events != null)
                 this.Events.owner = this.AssociatedObject;
@@ -62,11 +69,19 @@ namespace Couldron.Behaviours
             if (string.IsNullOrEmpty(this.EventName) || this.AssociatedObject == null)
                 return;
 
+            this.eventHandler?.Dispose();
             this.eventHandler = new DynamicEventHandler(this.AssociatedObject, this.EventName, (sender, args) =>
             {
                 foreach (var item in this.Events)
                     item.Invoke(args);
             });
+        }
+
+        /// <summary>
+        /// Occures when the behavior is attached to the object
+        /// </summary>
+        protected override void OnAttach()
+        {
         }
 
         /// <summary>
@@ -86,7 +101,7 @@ namespace Couldron.Behaviours
         /// </summary>
         protected override void OnDetach()
         {
-            this.eventHandler.DisposeAll();
+            this.eventHandler?.Dispose();
         }
     }
 }

@@ -31,11 +31,6 @@ namespace Couldron.Behaviours
     public interface IBehaviour : IDisposable
     {
         /// <summary>
-        /// Occurs when the data context for this element changes.
-        /// </summary>
-        event DependencyPropertyChangedEventHandler DataContextChanged;
-
-        /// <summary>
         /// Gets a value that indicates the behaviour was assigned from a template
         /// </summary>
         bool IsAssignedFromTemplate { get; }
@@ -56,12 +51,5 @@ namespace Couldron.Behaviours
         /// </summary>
         /// <param name="obj">The associated object</param>
         void SetAssociatedObject(object obj);
-
-        /// <summary>
-        /// Attach a data Binding to the property
-        /// </summary>
-        /// <param name="dp">DependencyProperty that represents the property</param>
-        /// <param name="binding">The binding to attach</param>
-        void SetBinding(DependencyProperty dp, BindingBase binding);
     }
 }

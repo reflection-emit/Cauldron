@@ -318,16 +318,6 @@ namespace Couldron.Behaviours
                 throw new Exception(string.Format("The Type of AssociatedObject \"{0}\" does not match with T \"{1}\"", obj.GetType(), typeof(FrameworkElement)));
         }
 
-        /// <summary>
-        /// Attach a data Binding to the property
-        /// </summary>
-        /// <param name="dp">DependencyProperty that represents the property</param>
-        /// <param name="binding">The binding to attach</param>
-        void IBehaviour.SetBinding(DependencyProperty dp, BindingBase binding)
-        {
-            SetBinding(dp, binding);
-        }
-
         #region IDisposable
 
         /// <summary>

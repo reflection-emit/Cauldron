@@ -5,44 +5,19 @@ namespace Couldron.Behaviours
 {
     public abstract partial class Behaviour<T>
     {
-        #region Dependency Property DataContext
-
-        /// <summary>
-        /// Identifies the DataContext dependency property
-        /// </summary>
-        public static readonly DependencyProperty DataContextProperty = DependencyProperty.Register("DataContext", typeof(object), typeof(Behaviour<T>), new PropertyMetadata(null, Behaviour<T>.OnDataContextChanged));
-
-        /// <summary>
-        /// Gets or sets the DataContext Property
-        /// </summary>
-        public object DataContext
+        private void AssociatedObjectDataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
         {
-            get { return (object)this.GetValue(DataContextProperty); }
-            set { this.SetValue(DataContextProperty, value); }
+            this.OnDataContextChanged();
         }
-
-        private static void OnDataContextChanged(DependencyObject d, DependencyPropertyChangedEventArgs args)
-        {
-            var dependencyObject = d as Behaviour<T>;
-
-            if (dependencyObject == null)
-                return;
-
-            dependencyObject.OnDataContextChanged();
-
-            if (dependencyObject.DataContextChanged != null)
-                dependencyObject.DataContextChanged(dependencyObject, args);
-        }
-
-        #endregion Dependency Property DataContext
 
         /// <summary>
         /// Occures when the behavior is attached to the object
         /// </summary>
         private void Attach()
         {
-            this.AssociatedObject.SetBinding(FrameworkElement.DataContextProperty, this, nameof(DataContext), BindingMode.TwoWay);
+            this.SetBinding(Behaviour<T>.DataContextProperty, this.AssociatedObject, nameof(FrameworkElement.DataContext), BindingMode.OneWay);
 
+            this._associatedObject.DataContextChanged += AssociatedObjectDataContextChanged;
             this._associatedObject.Loaded += TargetLoaded;
             this._associatedObject.Unloaded += TargetUnloaded;
 
@@ -58,6 +33,7 @@ namespace Couldron.Behaviours
         /// </summary>
         private void Detach()
         {
+            this._associatedObject.DataContextChanged -= AssociatedObjectDataContextChanged;
             this._associatedObject.Loaded -= TargetLoaded;
             this._associatedObject.Unloaded -= TargetUnloaded;
 
