@@ -1,0 +1,1445 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HelpTOC>
+
+  <HelpTOCNode Title="Welcome to the [TODO: Add project name]" Url="html/f7463515-1ae7-4e9d-8b26-cf45dc1a5104.htm" />
+  <HelpTOCNode Id="575bf2a0-d4e3-4728-aeed-2b11d6e3e30c" Title="Version History" Url="html/506770f4-5e04-4d9d-ac7d-d85e82673419.htm">
+    <HelpTOCNode Title="Version 1.0.0.0" Url="html/463b19ee-1cae-47cd-ba47-23f291f641d4.htm" />
+  </HelpTOCNode>
+  <HelpTOCNode Id="1a59547c-a501-4f26-ac09-dba947ba35d3" Title="Couldron" Url="html/N_Couldron.htm">
+    <HelpTOCNode Id="196e546b-98bc-42a6-a26a-541fd85d1a1d" Title="AssemblyAndResourceNameInfo Class" Url="html/T_Couldron_AssemblyAndResourceNameInfo.htm">
+      <HelpTOCNode Id="078038dc-bcbc-4a71-8543-a7845147932a" Title="AssemblyAndResourceNameInfo Properties" Url="html/Properties_T_Couldron_AssemblyAndResourceNameInfo.htm">
+        <HelpTOCNode Title="Assembly Property " Url="html/P_Couldron_AssemblyAndResourceNameInfo_Assembly.htm" />
+        <HelpTOCNode Title="Filename Property " Url="html/P_Couldron_AssemblyAndResourceNameInfo_Filename.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="AssemblyAndResourceNameInfo Methods" Url="html/Methods_T_Couldron_AssemblyAndResourceNameInfo.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="d5a12084-7409-4da6-913f-f41d2a478d4f" Title="AssemblyUtil Class" Url="html/T_Couldron_AssemblyUtil.htm">
+      <HelpTOCNode Id="832d6785-c3dd-41b4-8d71-7692a98464b9" Title="AssemblyUtil Properties" Url="html/Properties_T_Couldron_AssemblyUtil.htm">
+        <HelpTOCNode Title="Assemblies Property " Url="html/P_Couldron_AssemblyUtil_Assemblies.htm" />
+        <HelpTOCNode Title="AssemblyAndResourceNamesInfo Property " Url="html/P_Couldron_AssemblyUtil_AssemblyAndResourceNamesInfo.htm" />
+        <HelpTOCNode Title="Classes Property " Url="html/P_Couldron_AssemblyUtil_Classes.htm" />
+        <HelpTOCNode Title="ExportedTypes Property " Url="html/P_Couldron_AssemblyUtil_ExportedTypes.htm" />
+        <HelpTOCNode Title="Interfaces Property " Url="html/P_Couldron_AssemblyUtil_Interfaces.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="c5a73062-ed2a-443e-a967-528b7ca2780b" Title="AssemblyUtil Methods" Url="html/Methods_T_Couldron_AssemblyUtil.htm">
+        <HelpTOCNode Title="GetFirstAssemblyWithResourceName Method " Url="html/M_Couldron_AssemblyUtil_GetFirstAssemblyWithResourceName.htm" />
+        <HelpTOCNode Title="GetManifestResourceInfo Method " Url="html/M_Couldron_AssemblyUtil_GetManifestResourceInfo.htm" />
+        <HelpTOCNode Title="GetManifestResources Method " Url="html/M_Couldron_AssemblyUtil_GetManifestResources.htm" />
+        <HelpTOCNode Title="GetManifestResourceStream Method " Url="html/M_Couldron_AssemblyUtil_GetManifestResourceStream.htm" />
+        <HelpTOCNode Title="GetTypeFromName Method " Url="html/M_Couldron_AssemblyUtil_GetTypeFromName.htm" />
+        <HelpTOCNode Title="GetTypesImplementsInterface(T) Method " Url="html/M_Couldron_AssemblyUtil_GetTypesImplementsInterface__1.htm" />
+        <HelpTOCNode Title="LoadAssembly Method " Url="html/M_Couldron_AssemblyUtil_LoadAssembly.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="57442524-a59a-421f-8211-e76485cef6ac" Title="BehaviourInvokationArgs Class" Url="html/T_Couldron_BehaviourInvokationArgs.htm">
+      <HelpTOCNode Title="BehaviourInvokationArgs Constructor " Url="html/M_Couldron_BehaviourInvokationArgs__ctor.htm" />
+      <HelpTOCNode Id="b60b539e-1e1e-44b3-9ceb-8c569c391d20" Title="BehaviourInvokationArgs Properties" Url="html/Properties_T_Couldron_BehaviourInvokationArgs.htm">
+        <HelpTOCNode Title="BehaviourName Property " Url="html/P_Couldron_BehaviourInvokationArgs_BehaviourName.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="BehaviourInvokationArgs Methods" Url="html/Methods_T_Couldron_BehaviourInvokationArgs.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="0d355637-1bbb-4b34-8752-9c6af3241acc" Title="BooleanInvertConverter Class" Url="html/T_Couldron_BooleanInvertConverter.htm">
+      <HelpTOCNode Title="BooleanInvertConverter Constructor " Url="html/M_Couldron_BooleanInvertConverter__ctor.htm" />
+      <HelpTOCNode Id="60ac113b-08af-494d-9467-f27dc3fd9955" Title="BooleanInvertConverter Methods" Url="html/Methods_T_Couldron_BooleanInvertConverter.htm">
+        <HelpTOCNode Title="Convert Method " Url="html/M_Couldron_BooleanInvertConverter_Convert.htm" />
+        <HelpTOCNode Title="ConvertBack Method " Url="html/M_Couldron_BooleanInvertConverter_ConvertBack.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="a22e6eec-892f-44fc-85d9-d43f5faf7f7f" Title="BooleanToVisibilityConverter Class" Url="html/T_Couldron_BooleanToVisibilityConverter.htm">
+      <HelpTOCNode Title="BooleanToVisibilityConverter Constructor " Url="html/M_Couldron_BooleanToVisibilityConverter__ctor.htm" />
+      <HelpTOCNode Id="fb0513f9-6525-467f-a610-ba9dd1ae8221" Title="BooleanToVisibilityConverter Methods" Url="html/Methods_T_Couldron_BooleanToVisibilityConverter.htm">
+        <HelpTOCNode Title="Convert Method " Url="html/M_Couldron_BooleanToVisibilityConverter_Convert.htm" />
+        <HelpTOCNode Title="ConvertBack Method " Url="html/M_Couldron_BooleanToVisibilityConverter_ConvertBack.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="11c99cbe-6ee4-4fa9-a993-7aa173c354c2" Title="CollectionHasElementsToBoolConverter Class" Url="html/T_Couldron_CollectionHasElementsToBoolConverter.htm">
+      <HelpTOCNode Title="CollectionHasElementsToBoolConverter Constructor " Url="html/M_Couldron_CollectionHasElementsToBoolConverter__ctor.htm" />
+      <HelpTOCNode Id="bff4d8ad-a13c-4cdf-a2e8-ede89808357d" Title="CollectionHasElementsToBoolConverter Methods" Url="html/Methods_T_Couldron_CollectionHasElementsToBoolConverter.htm">
+        <HelpTOCNode Title="Convert Method " Url="html/M_Couldron_CollectionHasElementsToBoolConverter_Convert.htm" />
+        <HelpTOCNode Title="ConvertBack Method " Url="html/M_Couldron_CollectionHasElementsToBoolConverter_ConvertBack.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="5ed9f777-d348-46f6-b609-1828dfd5d87d" Title="CouldronApplication Class" Url="html/T_Couldron_CouldronApplication.htm">
+      <HelpTOCNode Title="CouldronApplication Constructor " Url="html/M_Couldron_CouldronApplication__ctor.htm" />
+      <HelpTOCNode Id="3aa2d219-32b9-4287-96f6-5f3284a6ebe5" Title="CouldronApplication Properties" Url="html/Properties_T_Couldron_CouldronApplication.htm">
+        <HelpTOCNode Title="ThemeAccentColor Property " Url="html/P_Couldron_CouldronApplication_ThemeAccentColor.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="493a1146-ccc6-4011-8c99-3c807ca7f101" Title="CouldronApplication Methods" Url="html/Methods_T_Couldron_CouldronApplication.htm">
+        <HelpTOCNode Title="OnConstruction Method " Url="html/M_Couldron_CouldronApplication_OnConstruction.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="CouldronApplication Events" Url="html/Events_T_Couldron_CouldronApplication.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="b039567c-2ba6-4f5b-9f24-e8a3a5edf3fa" Title="CouldronTemplateSelector Class" Url="html/T_Couldron_CouldronTemplateSelector.htm">
+      <HelpTOCNode Title="CouldronTemplateSelector Constructor " Url="html/M_Couldron_CouldronTemplateSelector__ctor.htm" />
+      <HelpTOCNode Id="b1cffa4c-0a7b-49b3-9c50-f6123a5df513" Title="CouldronTemplateSelector Methods" Url="html/Methods_T_Couldron_CouldronTemplateSelector.htm">
+        <HelpTOCNode Title="SelectTemplate Method " Url="html/M_Couldron_CouldronTemplateSelector_SelectTemplate.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="e826242e-80a0-4e20-90cf-a2fe19da8e1f" Title="ErrorCollectionConverter Class" Url="html/T_Couldron_ErrorCollectionConverter.htm">
+      <HelpTOCNode Title="ErrorCollectionConverter Constructor " Url="html/M_Couldron_ErrorCollectionConverter__ctor.htm" />
+      <HelpTOCNode Id="f053df84-ea62-42ae-81bc-40cdbf6fad0f" Title="ErrorCollectionConverter Methods" Url="html/Methods_T_Couldron_ErrorCollectionConverter.htm">
+        <HelpTOCNode Title="Convert Method " Url="html/M_Couldron_ErrorCollectionConverter_Convert.htm" />
+        <HelpTOCNode Title="ConvertBack Method " Url="html/M_Couldron_ErrorCollectionConverter_ConvertBack.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="994c480b-089b-40b9-8544-c2e3ae8bbe19" Title="ErrorCollectionCountToVisibilityConverter Class" Url="html/T_Couldron_ErrorCollectionCountToVisibilityConverter.htm">
+      <HelpTOCNode Title="ErrorCollectionCountToVisibilityConverter Constructor " Url="html/M_Couldron_ErrorCollectionCountToVisibilityConverter__ctor.htm" />
+      <HelpTOCNode Id="332a9d5a-3cdf-4564-b9e4-62072193d875" Title="ErrorCollectionCountToVisibilityConverter Methods" Url="html/Methods_T_Couldron_ErrorCollectionCountToVisibilityConverter.htm">
+        <HelpTOCNode Title="Convert Method " Url="html/M_Couldron_ErrorCollectionCountToVisibilityConverter_Convert.htm" />
+        <HelpTOCNode Title="ConvertBack Method " Url="html/M_Couldron_ErrorCollectionCountToVisibilityConverter_ConvertBack.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="696b20f6-77fe-455c-9e62-7d0e89bd03a0" Title="ExtensionConvertions Class" Url="html/T_Couldron_ExtensionConvertions.htm">
+      <HelpTOCNode Id="8455858f-2dd5-46d6-b24b-76836a78ad41" Title="ExtensionConvertions Methods" Url="html/Methods_T_Couldron_ExtensionConvertions.htm">
+        <HelpTOCNode Id="f54f7400-e2ea-4616-b3bc-dae90fe152ed" Title="ToBool Method " Url="html/Overload_Couldron_ExtensionConvertions_ToBool.htm">
+          <HelpTOCNode Title="ToBool Method (Object)" Url="html/M_Couldron_ExtensionConvertions_ToBool.htm" />
+          <HelpTOCNode Title="ToBool Method (String)" Url="html/M_Couldron_ExtensionConvertions_ToBool_1.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="6a88c765-b628-423b-8547-e52dc4525e25" Title="ToDouble Method " Url="html/Overload_Couldron_ExtensionConvertions_ToDouble.htm">
+          <HelpTOCNode Title="ToDouble Method (Object)" Url="html/M_Couldron_ExtensionConvertions_ToDouble.htm" />
+          <HelpTOCNode Title="ToDouble Method (String)" Url="html/M_Couldron_ExtensionConvertions_ToDouble_1.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="4d00e8ff-16b2-42bc-8801-9a791ae6b2fe" Title="ToInteger Method " Url="html/Overload_Couldron_ExtensionConvertions_ToInteger.htm">
+          <HelpTOCNode Title="ToInteger Method (Object)" Url="html/M_Couldron_ExtensionConvertions_ToInteger.htm" />
+          <HelpTOCNode Title="ToInteger Method (String)" Url="html/M_Couldron_ExtensionConvertions_ToInteger_1.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="ToString2 Method " Url="html/M_Couldron_ExtensionConvertions_ToString2.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="6a07c9a6-e6d5-4216-aecf-d824b77c7df1" Title="Extensions Class" Url="html/T_Couldron_Extensions.htm">
+      <HelpTOCNode Id="106d7ffa-dafb-48ef-a0ff-1c25d0194b73" Title="Extensions Methods" Url="html/Methods_T_Couldron_Extensions.htm">
+        <HelpTOCNode Id="2bed6787-50a9-4ad7-8a65-3676fa7d17d5" Title="Any Method " Url="html/Overload_Couldron_Extensions_Any.htm">
+          <HelpTOCNode Title="Any Method (IEnumerable)" Url="html/M_Couldron_Extensions_Any.htm" />
+          <HelpTOCNode Title="Any Method (IEnumerable, Func(Object, Boolean))" Url="html/M_Couldron_Extensions_Any_1.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="CastTo(T) Method " Url="html/M_Couldron_Extensions_CastTo__1.htm" />
+        <HelpTOCNode Title="ChangeAlpha Method " Url="html/M_Couldron_Extensions_ChangeAlpha.htm" />
+        <HelpTOCNode Title="Contains(T) Method " Url="html/M_Couldron_Extensions_Contains__1.htm" />
+        <HelpTOCNode Title="Count Method " Url="html/M_Couldron_Extensions_Count.htm" />
+        <HelpTOCNode Title="DisposeAll Method " Url="html/M_Couldron_Extensions_DisposeAll.htm" />
+        <HelpTOCNode Title="FirstElement Method " Url="html/M_Couldron_Extensions_FirstElement.htm" />
+        <HelpTOCNode Id="e9eb868c-a0cd-4ba8-a561-afe3bea715f2" Title="GetBytes Method " Url="html/Overload_Couldron_Extensions_GetBytes.htm">
+          <HelpTOCNode Title="GetBytes Method (Byte[], Int32)" Url="html/M_Couldron_Extensions_GetBytes.htm" />
+          <HelpTOCNode Title="GetBytes Method (Byte[], Int32, Int32)" Url="html/M_Couldron_Extensions_GetBytes_1.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="GetMD5HashString Method " Url="html/M_Couldron_Extensions_GetMD5HashString.htm" />
+        <HelpTOCNode Title="GetSha256HashBytes Method " Url="html/M_Couldron_Extensions_GetSha256HashBytes.htm" />
+        <HelpTOCNode Title="GetSha256HashString Method " Url="html/M_Couldron_Extensions_GetSha256HashString.htm" />
+        <HelpTOCNode Title="GetWindowHandle Method " Url="html/M_Couldron_Extensions_GetWindowHandle.htm" />
+        <HelpTOCNode Id="fce8cdab-63c5-494e-b773-99c82498784c" Title="ImplementsInterface Method " Url="html/Overload_Couldron_Extensions_ImplementsInterface.htm">
+          <HelpTOCNode Title="ImplementsInterface(T) Method (TypeInfo)" Url="html/M_Couldron_Extensions_ImplementsInterface__1.htm" />
+          <HelpTOCNode Title="ImplementsInterface(T) Method (Type)" Url="html/M_Couldron_Extensions_ImplementsInterface__1_1.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="c5f4a065-dbda-41dc-937d-53c05b75d512" Title="IndexOf Method " Url="html/Overload_Couldron_Extensions_IndexOf.htm">
+          <HelpTOCNode Title="IndexOf Method (Byte[], Byte[])" Url="html/M_Couldron_Extensions_IndexOf.htm" />
+          <HelpTOCNode Title="IndexOf(T) Method (T[], T)" Url="html/M_Couldron_Extensions_IndexOf__1.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="IsNotNull(T) Method " Url="html/M_Couldron_Extensions_IsNotNull__1.htm" />
+        <HelpTOCNode Title="IsNullable Method " Url="html/M_Couldron_Extensions_IsNullable.htm" />
+        <HelpTOCNode Title="Left Method " Url="html/M_Couldron_Extensions_Left.htm" />
+        <HelpTOCNode Title="Move(T) Method " Url="html/M_Couldron_Extensions_Move__1.htm" />
+        <HelpTOCNode Title="RandomizeValues Method " Url="html/M_Couldron_Extensions_RandomizeValues.htm" />
+        <HelpTOCNode Title="ReadToEnd Method " Url="html/M_Couldron_Extensions_ReadToEnd.htm" />
+        <HelpTOCNode Title="Remove Method " Url="html/M_Couldron_Extensions_Remove.htm" />
+        <HelpTOCNode Title="Right Method " Url="html/M_Couldron_Extensions_Right.htm" />
+        <HelpTOCNode Title="ToArray(T) Method " Url="html/M_Couldron_Extensions_ToArray__1.htm" />
+        <HelpTOCNode Title="ToBase64String Method " Url="html/M_Couldron_Extensions_ToBase64String.htm" />
+        <HelpTOCNode Title="ToBitmapImage Method " Url="html/M_Couldron_Extensions_ToBitmapImage.htm" />
+        <HelpTOCNode Title="ToBytesAsync Method " Url="html/M_Couldron_Extensions_ToBytesAsync.htm" />
+        <HelpTOCNode Title="ToInteger Method " Url="html/M_Couldron_Extensions_ToInteger.htm" />
+        <HelpTOCNode Title="ToSecureString Method " Url="html/M_Couldron_Extensions_ToSecureString.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="2adf4d47-31be-49c8-899e-d4ce560abd9a" Title="ExtensionsFrameworkElement Class" Url="html/T_Couldron_ExtensionsFrameworkElement.htm">
+      <HelpTOCNode Id="0c9305be-19ae-4144-87ef-c9fe2ff1b3d2" Title="ExtensionsFrameworkElement Methods" Url="html/Methods_T_Couldron_ExtensionsFrameworkElement.htm">
+        <HelpTOCNode Title="Content(T, TContent) Method " Url="html/M_Couldron_ExtensionsFrameworkElement_Content__2.htm" />
+        <HelpTOCNode Id="1fdad264-2510-47a0-9f4f-5e01e71f9bf9" Title="FindLogicalParent Method " Url="html/Overload_Couldron_ExtensionsFrameworkElement_FindLogicalParent.htm">
+          <HelpTOCNode Title="FindLogicalParent(T) Method (DependencyObject)" Url="html/M_Couldron_ExtensionsFrameworkElement_FindLogicalParent__1.htm" />
+          <HelpTOCNode Title="FindLogicalParent Method (DependencyObject, Type)" Url="html/M_Couldron_ExtensionsFrameworkElement_FindLogicalParent.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="FindVisualChildren(T) Method " Url="html/M_Couldron_ExtensionsFrameworkElement_FindVisualChildren__1.htm" />
+        <HelpTOCNode Title="FindVisualElementWithName Method " Url="html/M_Couldron_ExtensionsFrameworkElement_FindVisualElementWithName.htm" />
+        <HelpTOCNode Id="425d368f-abd0-4cd1-a9e2-7182b693e77c" Title="FindVisualParent Method " Url="html/Overload_Couldron_ExtensionsFrameworkElement_FindVisualParent.htm">
+          <HelpTOCNode Title="FindVisualParent(T) Method (DependencyObject)" Url="html/M_Couldron_ExtensionsFrameworkElement_FindVisualParent__1.htm" />
+          <HelpTOCNode Title="FindVisualParent Method (DependencyObject, Type)" Url="html/M_Couldron_ExtensionsFrameworkElement_FindVisualParent.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="GetLogicalParent Method " Url="html/M_Couldron_ExtensionsFrameworkElement_GetLogicalParent.htm" />
+        <HelpTOCNode Title="GetVisualChildren Method " Url="html/M_Couldron_ExtensionsFrameworkElement_GetVisualChildren.htm" />
+        <HelpTOCNode Title="GetVisualParent Method " Url="html/M_Couldron_ExtensionsFrameworkElement_GetVisualParent.htm" />
+        <HelpTOCNode Id="ab94d229-9467-48e0-b862-203b23ee9185" Title="SetBinding Method " Url="html/Overload_Couldron_ExtensionsFrameworkElement_SetBinding.htm">
+          <HelpTOCNode Title="SetBinding Method (DependencyObject, DependencyProperty, Object, String)" Url="html/M_Couldron_ExtensionsFrameworkElement_SetBinding.htm" />
+          <HelpTOCNode Title="SetBinding Method (DependencyObject, DependencyProperty, Object, String, BindingMode)" Url="html/M_Couldron_ExtensionsFrameworkElement_SetBinding_1.htm" />
+          <HelpTOCNode Title="SetBinding Method (DependencyObject, DependencyProperty, Object, String, BindingMode, String)" Url="html/M_Couldron_ExtensionsFrameworkElement_SetBinding_2.htm" />
+          <HelpTOCNode Title="SetBinding Method (DependencyObject, DependencyProperty, Object, String, BindingMode, IValueConverter, Object)" Url="html/M_Couldron_ExtensionsFrameworkElement_SetBinding_3.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="34ce434f-6805-4312-83ca-bce8460096cb" Title="Factory Class" Url="html/T_Couldron_Factory.htm">
+      <HelpTOCNode Id="c5b36599-ca56-42e7-91d7-1524a78c4e1b" Title="Factory Methods" Url="html/Methods_T_Couldron_Factory.htm">
+        <HelpTOCNode Id="3f4e9513-5808-4a5d-ad53-520900d59def" Title="Create Method " Url="html/Overload_Couldron_Factory_Create.htm">
+          <HelpTOCNode Title="Create(T) Method (Object[])" Url="html/M_Couldron_Factory_Create__1.htm" />
+          <HelpTOCNode Title="Create Method (String, Object[])" Url="html/M_Couldron_Factory_Create.htm" />
+          <HelpTOCNode Title="Create Method (Type, Object[])" Url="html/M_Couldron_Factory_Create_1.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="a4fe4b7a-36ba-4771-8303-945a99d7f8fe" Title="CreateMany Method " Url="html/Overload_Couldron_Factory_CreateMany.htm">
+          <HelpTOCNode Title="CreateMany(T) Method (Object[])" Url="html/M_Couldron_Factory_CreateMany__1.htm" />
+          <HelpTOCNode Title="CreateMany Method (String, Object[])" Url="html/M_Couldron_Factory_CreateMany.htm" />
+          <HelpTOCNode Title="CreateMany Method (Type, Object[])" Url="html/M_Couldron_Factory_CreateMany_1.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="ed7a6487-839a-41c6-b8a6-528dcd3942e0" Title="Destroy Method " Url="html/Overload_Couldron_Factory_Destroy.htm">
+          <HelpTOCNode Title="Destroy(T) Method " Url="html/M_Couldron_Factory_Destroy__1.htm" />
+          <HelpTOCNode Title="Destroy Method (String)" Url="html/M_Couldron_Factory_Destroy.htm" />
+          <HelpTOCNode Title="Destroy Method (Type)" Url="html/M_Couldron_Factory_Destroy_1.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="dd797abb-fe44-4bac-979d-9b21be004118" Title="HasContract Method " Url="html/Overload_Couldron_Factory_HasContract.htm">
+          <HelpTOCNode Title="HasContract Method (String)" Url="html/M_Couldron_Factory_HasContract.htm" />
+          <HelpTOCNode Title="HasContract Method (Type)" Url="html/M_Couldron_Factory_HasContract_1.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="ac055187-99dd-43aa-99e1-2c075c1048e6" Title="IsSingleton Method " Url="html/Overload_Couldron_Factory_IsSingleton.htm">
+          <HelpTOCNode Title="IsSingleton(T) Method " Url="html/M_Couldron_Factory_IsSingleton__1.htm" />
+          <HelpTOCNode Title="IsSingleton Method (String)" Url="html/M_Couldron_Factory_IsSingleton.htm" />
+          <HelpTOCNode Title="IsSingleton Method (Type)" Url="html/M_Couldron_Factory_IsSingleton_1.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="a03ea610-3e73-4a4a-984a-5367630b22c6" Title="FactoryAttribute Class" Url="html/T_Couldron_FactoryAttribute.htm">
+      <HelpTOCNode Id="87bfb79a-4cf4-4b11-81a7-e9451f85d0bb" Title="FactoryAttribute Constructor " Url="html/Overload_Couldron_FactoryAttribute__ctor.htm">
+        <HelpTOCNode Title="FactoryAttribute Constructor (String)" Url="html/M_Couldron_FactoryAttribute__ctor.htm" />
+        <HelpTOCNode Title="FactoryAttribute Constructor (Type)" Url="html/M_Couldron_FactoryAttribute__ctor_2.htm" />
+        <HelpTOCNode Title="FactoryAttribute Constructor (String, FactoryCreationPolicy)" Url="html/M_Couldron_FactoryAttribute__ctor_1.htm" />
+        <HelpTOCNode Title="FactoryAttribute Constructor (Type, FactoryCreationPolicy)" Url="html/M_Couldron_FactoryAttribute__ctor_3.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="b20fc00f-a2e5-42c4-9aaf-3871d6ffc272" Title="FactoryAttribute Properties" Url="html/Properties_T_Couldron_FactoryAttribute.htm">
+        <HelpTOCNode Title="ContractName Property " Url="html/P_Couldron_FactoryAttribute_ContractName.htm" />
+        <HelpTOCNode Title="Policy Property " Url="html/P_Couldron_FactoryAttribute_Policy.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="FactoryAttribute Methods" Url="html/Methods_T_Couldron_FactoryAttribute.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Title="FactoryCreationPolicy Enumeration" Url="html/T_Couldron_FactoryCreationPolicy.htm" />
+    <HelpTOCNode Id="50baecf9-32ae-469d-83b6-e035d8b9bc02" Title="IFactoryExtension Interface" Url="html/T_Couldron_IFactoryExtension.htm">
+      <HelpTOCNode Id="558b05cd-100e-4797-af60-e33cae4d8b37" Title="IFactoryExtension Methods" Url="html/Methods_T_Couldron_IFactoryExtension.htm">
+        <HelpTOCNode Title="CanConstruct Method " Url="html/M_Couldron_IFactoryExtension_CanConstruct.htm" />
+        <HelpTOCNode Title="Construct Method " Url="html/M_Couldron_IFactoryExtension_Construct.htm" />
+        <HelpTOCNode Title="OnCreateObject Method " Url="html/M_Couldron_IFactoryExtension_OnCreateObject.htm" />
+        <HelpTOCNode Title="OnInitialize Method " Url="html/M_Couldron_IFactoryExtension_OnInitialize.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="f6d39a5e-4c45-41fe-b7a9-f9395ae90a15" Title="ILocalizationSource Interface" Url="html/T_Couldron_ILocalizationSource.htm">
+      <HelpTOCNode Id="230a9415-2b4e-46d1-a026-339dabfd422b" Title="ILocalizationSource Methods" Url="html/Methods_T_Couldron_ILocalizationSource.htm">
+        <HelpTOCNode Title="Contains Method " Url="html/M_Couldron_ILocalizationSource_Contains.htm" />
+        <HelpTOCNode Title="GetValue Method " Url="html/M_Couldron_ILocalizationSource_GetValue.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="57cc6f2e-d043-45c7-966f-3625c0c9461c" Title="InjectAttribute Class" Url="html/T_Couldron_InjectAttribute.htm">
+      <HelpTOCNode Title="InjectAttribute Constructor " Url="html/M_Couldron_InjectAttribute__ctor.htm" />
+      <HelpTOCNode Title="InjectAttribute Properties" Url="html/Properties_T_Couldron_InjectAttribute.htm" />
+      <HelpTOCNode Title="InjectAttribute Methods" Url="html/Methods_T_Couldron_InjectAttribute.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="5b7df2e4-346a-4c7b-abe8-498ecf1041b3" Title="InjectionFactoryExtension Class" Url="html/T_Couldron_InjectionFactoryExtension.htm">
+      <HelpTOCNode Title="InjectionFactoryExtension Constructor " Url="html/M_Couldron_InjectionFactoryExtension__ctor.htm" />
+      <HelpTOCNode Id="a84f1ed4-6f9e-4c93-a65e-f5133e75d813" Title="InjectionFactoryExtension Methods" Url="html/Methods_T_Couldron_InjectionFactoryExtension.htm">
+        <HelpTOCNode Title="CanConstruct Method " Url="html/M_Couldron_InjectionFactoryExtension_CanConstruct.htm" />
+        <HelpTOCNode Title="Construct Method " Url="html/M_Couldron_InjectionFactoryExtension_Construct.htm" />
+        <HelpTOCNode Title="OnCreateObject Method " Url="html/M_Couldron_InjectionFactoryExtension_OnCreateObject.htm" />
+        <HelpTOCNode Title="OnInitialize Method " Url="html/M_Couldron_InjectionFactoryExtension_OnInitialize.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="7f641f30-b2d7-4551-89cd-d116f2324873" Title="INotifyBehaviourInvokation Interface" Url="html/T_Couldron_INotifyBehaviourInvokation.htm">
+      <HelpTOCNode Id="8a48ee12-fe98-42cc-885a-95dce747c5ed" Title="INotifyBehaviourInvokation Events" Url="html/Events_T_Couldron_INotifyBehaviourInvokation.htm">
+        <HelpTOCNode Title="BehaviourInvoke Event" Url="html/E_Couldron_INotifyBehaviourInvokation_BehaviourInvoke.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="d5fde96f-94c3-4cbf-8317-f8ce15005374" Title="IRelayCommand Interface" Url="html/T_Couldron_IRelayCommand.htm">
+      <HelpTOCNode Id="b0db6c77-0981-47d2-bdb5-6f3d73bf62d2" Title="IRelayCommand Methods" Url="html/Methods_T_Couldron_IRelayCommand.htm">
+        <HelpTOCNode Title="RefreshCanExecute Method " Url="html/M_Couldron_IRelayCommand_RefreshCanExecute.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="IRelayCommand Events" Url="html/Events_T_Couldron_IRelayCommand.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="489b796f-7981-405e-9e89-3b777baecf7d" Title="KeyToLocalizedStringConverter Class" Url="html/T_Couldron_KeyToLocalizedStringConverter.htm">
+      <HelpTOCNode Title="KeyToLocalizedStringConverter Constructor " Url="html/M_Couldron_KeyToLocalizedStringConverter__ctor.htm" />
+      <HelpTOCNode Id="e67377df-30bb-421d-99df-38dc35bad637" Title="KeyToLocalizedStringConverter Methods" Url="html/Methods_T_Couldron_KeyToLocalizedStringConverter.htm">
+        <HelpTOCNode Title="Convert Method " Url="html/M_Couldron_KeyToLocalizedStringConverter_Convert.htm" />
+        <HelpTOCNode Title="ConvertBack Method " Url="html/M_Couldron_KeyToLocalizedStringConverter_ConvertBack.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="d90cd92b-3961-47e6-9876-09c623f7b517" Title="Localization Class" Url="html/T_Couldron_Localization.htm">
+      <HelpTOCNode Title="Localization Constructor " Url="html/M_Couldron_Localization__ctor.htm" />
+      <HelpTOCNode Id="99b0f9fe-28a0-4236-b1da-6e599fdb9cd4" Title="Localization Properties" Url="html/Properties_T_Couldron_Localization.htm">
+        <HelpTOCNode Title="CultureInfo Property " Url="html/P_Couldron_Localization_CultureInfo.htm" />
+        <HelpTOCNode Title="Item Property " Url="html/P_Couldron_Localization_Item.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="Localization Methods" Url="html/Methods_T_Couldron_Localization.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="41da4db1-4bf7-4805-aed1-8321d760054a" Title="MathematicalOperationConverter Class" Url="html/T_Couldron_MathematicalOperationConverter.htm">
+      <HelpTOCNode Title="MathematicalOperationConverter Constructor " Url="html/M_Couldron_MathematicalOperationConverter__ctor.htm" />
+      <HelpTOCNode Id="d918b8c7-6f75-44c8-bdef-12475a9e04af" Title="MathematicalOperationConverter Methods" Url="html/Methods_T_Couldron_MathematicalOperationConverter.htm">
+        <HelpTOCNode Title="Convert Method " Url="html/M_Couldron_MathematicalOperationConverter_Convert.htm" />
+        <HelpTOCNode Title="ConvertBack Method " Url="html/M_Couldron_MathematicalOperationConverter_ConvertBack.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="9173d12d-1ee4-4f3e-a69c-4065a7740661" Title="Navigator Class" Url="html/T_Couldron_Navigator.htm">
+      <HelpTOCNode Id="8f747a67-f3dc-4671-b77f-d48687e3ae93" Title="Navigator Methods" Url="html/Methods_T_Couldron_Navigator.htm">
+        <HelpTOCNode Title="CloseFocusedWindow Method " Url="html/M_Couldron_Navigator_CloseFocusedWindow.htm" />
+        <HelpTOCNode Title="CloseWindowOf Method " Url="html/M_Couldron_Navigator_CloseWindowOf.htm" />
+        <HelpTOCNode Id="3fdffda9-6f4a-420b-9315-7f5f28953376" Title="Navigate Method " Url="html/Overload_Couldron_Navigator_Navigate.htm">
+          <HelpTOCNode Title="Navigate(T) Method " Url="html/M_Couldron_Navigator_Navigate__1.htm" />
+          <HelpTOCNode Title="Navigate(T, TResult) Method (Action(TResult))" Url="html/M_Couldron_Navigator_Navigate__2.htm" />
+          <HelpTOCNode Title="Navigate(T) Method (Object[])" Url="html/M_Couldron_Navigator_Navigate__1_1.htm" />
+          <HelpTOCNode Title="Navigate(T, TResult) Method (Action(TResult), Object[])" Url="html/M_Couldron_Navigator_Navigate__2_1.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="72511c24-71f9-4345-ba11-e3370dc79d61" Title="NullOrEmptyTovisibilityConverter Class" Url="html/T_Couldron_NullOrEmptyTovisibilityConverter.htm">
+      <HelpTOCNode Title="NullOrEmptyTovisibilityConverter Constructor " Url="html/M_Couldron_NullOrEmptyTovisibilityConverter__ctor.htm" />
+      <HelpTOCNode Id="aaa9845b-d2d6-43a9-aedd-9370a1cbc1e7" Title="NullOrEmptyTovisibilityConverter Methods" Url="html/Methods_T_Couldron_NullOrEmptyTovisibilityConverter.htm">
+        <HelpTOCNode Title="Convert Method " Url="html/M_Couldron_NullOrEmptyTovisibilityConverter_Convert.htm" />
+        <HelpTOCNode Title="ConvertBack Method " Url="html/M_Couldron_NullOrEmptyTovisibilityConverter_ConvertBack.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="6d128bcc-90d3-4068-ab4a-612119c30eb8" Title="ObjectToBooleanConverter Class" Url="html/T_Couldron_ObjectToBooleanConverter.htm">
+      <HelpTOCNode Title="ObjectToBooleanConverter Constructor " Url="html/M_Couldron_ObjectToBooleanConverter__ctor.htm" />
+      <HelpTOCNode Id="64415d86-f2fc-4f9e-9b66-ba6701c4398f" Title="ObjectToBooleanConverter Methods" Url="html/Methods_T_Couldron_ObjectToBooleanConverter.htm">
+        <HelpTOCNode Title="Convert Method " Url="html/M_Couldron_ObjectToBooleanConverter_Convert.htm" />
+        <HelpTOCNode Title="ConvertBack Method " Url="html/M_Couldron_ObjectToBooleanConverter_ConvertBack.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="874aa703-62f7-4c78-98c3-2a5ff2558ecd" Title="ObjectToVisibilityConverter Class" Url="html/T_Couldron_ObjectToVisibilityConverter.htm">
+      <HelpTOCNode Title="ObjectToVisibilityConverter Constructor " Url="html/M_Couldron_ObjectToVisibilityConverter__ctor.htm" />
+      <HelpTOCNode Id="55d6e14e-f971-44f8-8a62-f621b7b7dbaa" Title="ObjectToVisibilityConverter Methods" Url="html/Methods_T_Couldron_ObjectToVisibilityConverter.htm">
+        <HelpTOCNode Title="Convert Method " Url="html/M_Couldron_ObjectToVisibilityConverter_Convert.htm" />
+        <HelpTOCNode Title="ConvertBack Method " Url="html/M_Couldron_ObjectToVisibilityConverter_ConvertBack.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="08889e42-fd2e-4418-b58e-9afcf709f4a8" Title="RelayCommand Class" Url="html/T_Couldron_RelayCommand.htm">
+      <HelpTOCNode Id="83b87d78-7e7b-45b1-9635-90417d157caa" Title="RelayCommand Constructor " Url="html/Overload_Couldron_RelayCommand__ctor.htm">
+        <HelpTOCNode Title="RelayCommand Constructor (Action)" Url="html/M_Couldron_RelayCommand__ctor.htm" />
+        <HelpTOCNode Title="RelayCommand Constructor (Action, Func(Boolean))" Url="html/M_Couldron_RelayCommand__ctor_1.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="deefeb20-207d-466b-9a17-06dc693b0ed2" Title="RelayCommand Properties" Url="html/Properties_T_Couldron_RelayCommand.htm">
+        <HelpTOCNode Title="IsEnabled Property " Url="html/P_Couldron_RelayCommand_IsEnabled.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="c33cb7c4-6c3c-4881-be17-1ee5fb94a53c" Title="RelayCommand Methods" Url="html/Methods_T_Couldron_RelayCommand.htm">
+        <HelpTOCNode Title="CanExecute Method " Url="html/M_Couldron_RelayCommand_CanExecute.htm" />
+        <HelpTOCNode Title="Execute Method " Url="html/M_Couldron_RelayCommand_Execute.htm" />
+        <HelpTOCNode Title="OnCanExecuteChanged Method " Url="html/M_Couldron_RelayCommand_OnCanExecuteChanged.htm" />
+        <HelpTOCNode Title="RefreshCanExecute Method " Url="html/M_Couldron_RelayCommand_RefreshCanExecute.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="aaed291b-dfa8-43d7-a5f8-e1406867f7d8" Title="RelayCommand Events" Url="html/Events_T_Couldron_RelayCommand.htm">
+        <HelpTOCNode Title="CanExecuteChanged Event" Url="html/E_Couldron_RelayCommand_CanExecuteChanged.htm" />
+        <HelpTOCNode Title="PropertyChanged Event" Url="html/E_Couldron_RelayCommand_PropertyChanged.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="7fb81365-0728-4c1f-803d-570719ca3b08" Title="RelayCommand(T) Class" Url="html/T_Couldron_RelayCommand_1.htm">
+      <HelpTOCNode Id="a17d7c26-294a-4409-afde-b74b6cac62ed" Title="RelayCommand(T) Constructor " Url="html/Overload_Couldron_RelayCommand_1__ctor.htm">
+        <HelpTOCNode Title="RelayCommand(T) Constructor (Action(T))" Url="html/M_Couldron_RelayCommand_1__ctor.htm" />
+        <HelpTOCNode Title="RelayCommand(T) Constructor (Action(T), Predicate(T))" Url="html/M_Couldron_RelayCommand_1__ctor_1.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="df896213-6975-4ecf-bdab-591f49524ff8" Title="RelayCommand(T) Properties" Url="html/Properties_T_Couldron_RelayCommand_1.htm">
+        <HelpTOCNode Title="IsEnabled Property " Url="html/P_Couldron_RelayCommand_1_IsEnabled.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="66f5ff77-9dc5-4add-956d-145d941df4b4" Title="RelayCommand(T) Methods" Url="html/Methods_T_Couldron_RelayCommand_1.htm">
+        <HelpTOCNode Title="CanExecute Method " Url="html/M_Couldron_RelayCommand_1_CanExecute.htm" />
+        <HelpTOCNode Title="Execute Method " Url="html/M_Couldron_RelayCommand_1_Execute.htm" />
+        <HelpTOCNode Title="OnCanExecuteChanged Method " Url="html/M_Couldron_RelayCommand_1_OnCanExecuteChanged.htm" />
+        <HelpTOCNode Title="RefreshCanExecute Method " Url="html/M_Couldron_RelayCommand_1_RefreshCanExecute.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="7d75eafc-33a5-466e-8e19-7ce6efb3e7f7" Title="RelayCommand(T) Events" Url="html/Events_T_Couldron_RelayCommand_1.htm">
+        <HelpTOCNode Title="CanExecuteChanged Event" Url="html/E_Couldron_RelayCommand_1_CanExecuteChanged.htm" />
+        <HelpTOCNode Title="PropertyChanged Event" Url="html/E_Couldron_RelayCommand_1_PropertyChanged.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="a68c7528-c41c-4eaa-bea7-b4ebefb714c7" Title="StringFormatConverter Class" Url="html/T_Couldron_StringFormatConverter.htm">
+      <HelpTOCNode Title="StringFormatConverter Constructor " Url="html/M_Couldron_StringFormatConverter__ctor.htm" />
+      <HelpTOCNode Id="d6f46067-dce2-4b62-9879-e4fd843ea491" Title="StringFormatConverter Methods" Url="html/Methods_T_Couldron_StringFormatConverter.htm">
+        <HelpTOCNode Title="Convert Method " Url="html/M_Couldron_StringFormatConverter_Convert.htm" />
+        <HelpTOCNode Title="ConvertBack Method " Url="html/M_Couldron_StringFormatConverter_ConvertBack.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="61a0345c-36f5-43e4-96ef-1fc81c517c14" Title="Utils Class" Url="html/T_Couldron_Utils.htm">
+      <HelpTOCNode Id="2216b2ae-6826-4de5-8a3f-1ce7b4bb664d" Title="Utils Properties" Url="html/Properties_T_Couldron_Utils.htm">
+        <HelpTOCNode Title="IsNetworkAvailable Property " Url="html/P_Couldron_Utils_IsNetworkAvailable.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="04f6e3b6-7eeb-45e8-99b1-b3015464a457" Title="Utils Methods" Url="html/Methods_T_Couldron_Utils.htm">
+        <HelpTOCNode Title="Equals Method " Url="html/M_Couldron_Utils_Equals.htm" />
+        <HelpTOCNode Title="GetMousePosition Method " Url="html/M_Couldron_Utils_GetMousePosition.htm" />
+        <HelpTOCNode Title="GetPasswordScore Method " Url="html/M_Couldron_Utils_GetPasswordScore.htm" />
+        <HelpTOCNode Title="SendMessage Method " Url="html/M_Couldron_Utils_SendMessage.htm" />
+        <HelpTOCNode Title="WmGetMinMaxInfo Method " Url="html/M_Couldron_Utils_WmGetMinMaxInfo.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="7ec7f099-6869-4e2d-a3b7-e73fbf402ead" Title="ViewAttribute Class" Url="html/T_Couldron_ViewAttribute.htm">
+      <HelpTOCNode Title="ViewAttribute Constructor " Url="html/M_Couldron_ViewAttribute__ctor.htm" />
+      <HelpTOCNode Id="f463af59-9dae-4ee2-9fc3-d11521d4bc8e" Title="ViewAttribute Properties" Url="html/Properties_T_Couldron_ViewAttribute.htm">
+        <HelpTOCNode Title="ViewType Property " Url="html/P_Couldron_ViewAttribute_ViewType.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="ViewAttribute Methods" Url="html/Methods_T_Couldron_ViewAttribute.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Title="WindowsMessages Enumeration" Url="html/T_Couldron_WindowsMessages.htm" />
+  </HelpTOCNode>
+  <HelpTOCNode Id="1be64854-976e-427e-b46a-d69ea71bc1d0" Title="Couldron.Attached" Url="html/N_Couldron_Attached.htm">
+    <HelpTOCNode Id="78b99eb4-9827-42c2-8a5b-80a1fee2aba7" Title="ButtonProperties Class" Url="html/T_Couldron_Attached_ButtonProperties.htm">
+      <HelpTOCNode Id="632b28f5-e8ba-4f69-8e58-4b78bb77ba5f" Title="ButtonProperties Methods" Url="html/Methods_T_Couldron_Attached_ButtonProperties.htm">
+        <HelpTOCNode Title="GetCategoryColor Method " Url="html/M_Couldron_Attached_ButtonProperties_GetCategoryColor.htm" />
+        <HelpTOCNode Title="GetEmbeddedImageKey Method " Url="html/M_Couldron_Attached_ButtonProperties_GetEmbeddedImageKey.htm" />
+        <HelpTOCNode Title="GetImage Method " Url="html/M_Couldron_Attached_ButtonProperties_GetImage.htm" />
+        <HelpTOCNode Title="SetCategoryColor Method " Url="html/M_Couldron_Attached_ButtonProperties_SetCategoryColor.htm" />
+        <HelpTOCNode Title="SetEmbeddedImageKey Method " Url="html/M_Couldron_Attached_ButtonProperties_SetEmbeddedImageKey.htm" />
+        <HelpTOCNode Title="SetImage Method " Url="html/M_Couldron_Attached_ButtonProperties_SetImage.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="d5cbeb05-f240-474e-a05c-e752209ef826" Title="ButtonProperties Fields" Url="html/Fields_T_Couldron_Attached_ButtonProperties.htm">
+        <HelpTOCNode Title="CategoryColorProperty Field" Url="html/F_Couldron_Attached_ButtonProperties_CategoryColorProperty.htm" />
+        <HelpTOCNode Title="EmbeddedImageKeyProperty Field" Url="html/F_Couldron_Attached_ButtonProperties_EmbeddedImageKeyProperty.htm" />
+        <HelpTOCNode Title="ImageProperty Field" Url="html/F_Couldron_Attached_ButtonProperties_ImageProperty.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="523a8862-4e19-4fac-b5b7-8cea29e6c490" Title="ButtonProperties Attached Properties" Url="html/AttachedProperties_T_Couldron_Attached_ButtonProperties.htm">
+        <HelpTOCNode Title="CategoryColor Attached Property" Url="html/P_Couldron_Attached_ButtonProperties_CategoryColor.htm" />
+        <HelpTOCNode Title="EmbeddedImageKey Attached Property" Url="html/P_Couldron_Attached_ButtonProperties_EmbeddedImageKey.htm" />
+        <HelpTOCNode Title="Image Attached Property" Url="html/P_Couldron_Attached_ButtonProperties_Image.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="978a7771-1c8c-439e-992c-aa4fe30c422f" Title="ComboBoxProperties Class" Url="html/T_Couldron_Attached_ComboBoxProperties.htm">
+      <HelpTOCNode Id="45a21dc6-52ba-4c87-8275-745bac3abb42" Title="ComboBoxProperties Methods" Url="html/Methods_T_Couldron_Attached_ComboBoxProperties.htm">
+        <HelpTOCNode Title="GetAlternativeText Method " Url="html/M_Couldron_Attached_ComboBoxProperties_GetAlternativeText.htm" />
+        <HelpTOCNode Title="GetHeader Method " Url="html/M_Couldron_Attached_ComboBoxProperties_GetHeader.htm" />
+        <HelpTOCNode Title="GetSelectedItems Method " Url="html/M_Couldron_Attached_ComboBoxProperties_GetSelectedItems.htm" />
+        <HelpTOCNode Title="SetAlternativeText Method " Url="html/M_Couldron_Attached_ComboBoxProperties_SetAlternativeText.htm" />
+        <HelpTOCNode Title="SetHeader Method " Url="html/M_Couldron_Attached_ComboBoxProperties_SetHeader.htm" />
+        <HelpTOCNode Title="SetSelectedItems Method " Url="html/M_Couldron_Attached_ComboBoxProperties_SetSelectedItems.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="76e22676-a7d6-47c9-82c1-dc9f04a903ba" Title="ComboBoxProperties Fields" Url="html/Fields_T_Couldron_Attached_ComboBoxProperties.htm">
+        <HelpTOCNode Title="AlternativeTextProperty Field" Url="html/F_Couldron_Attached_ComboBoxProperties_AlternativeTextProperty.htm" />
+        <HelpTOCNode Title="HeaderProperty Field" Url="html/F_Couldron_Attached_ComboBoxProperties_HeaderProperty.htm" />
+        <HelpTOCNode Title="SelectedItemsProperty Field" Url="html/F_Couldron_Attached_ComboBoxProperties_SelectedItemsProperty.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="89b0f49f-4ceb-482c-9344-be6951a7b94e" Title="ComboBoxProperties Attached Properties" Url="html/AttachedProperties_T_Couldron_Attached_ComboBoxProperties.htm">
+        <HelpTOCNode Title="AlternativeText Attached Property" Url="html/P_Couldron_Attached_ComboBoxProperties_AlternativeText.htm" />
+        <HelpTOCNode Title="Header Attached Property" Url="html/P_Couldron_Attached_ComboBoxProperties_Header.htm" />
+        <HelpTOCNode Title="SelectedItems Attached Property" Url="html/P_Couldron_Attached_ComboBoxProperties_SelectedItems.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="24fb9baa-12aa-4c31-990e-cd03db9f7586" Title="EmbeddedResourceImage Class" Url="html/T_Couldron_Attached_EmbeddedResourceImage.htm">
+      <HelpTOCNode Id="8fe8a7bc-b008-4dc9-be0d-b5bfd6b358d6" Title="EmbeddedResourceImage Methods" Url="html/Methods_T_Couldron_Attached_EmbeddedResourceImage.htm">
+        <HelpTOCNode Title="GetImageKey Method " Url="html/M_Couldron_Attached_EmbeddedResourceImage_GetImageKey.htm" />
+        <HelpTOCNode Title="SetImageKey Method " Url="html/M_Couldron_Attached_EmbeddedResourceImage_SetImageKey.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="ca653f94-49fa-4929-b8a7-4de12ff44630" Title="EmbeddedResourceImage Fields" Url="html/Fields_T_Couldron_Attached_EmbeddedResourceImage.htm">
+        <HelpTOCNode Title="ImageKeyProperty Field" Url="html/F_Couldron_Attached_EmbeddedResourceImage_ImageKeyProperty.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="83463583-da2a-4a04-9c68-941276a73f52" Title="EmbeddedResourceImage Attached Properties" Url="html/AttachedProperties_T_Couldron_Attached_EmbeddedResourceImage.htm">
+        <HelpTOCNode Title="ImageKey Attached Property" Url="html/P_Couldron_Attached_EmbeddedResourceImage_ImageKey.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="29b76043-bdc8-49db-8052-0ccd1159160d" Title="Localized Class" Url="html/T_Couldron_Attached_Localized.htm">
+      <HelpTOCNode Id="380a9bda-7ec0-4d8a-9f92-d39566fc35b3" Title="Localized Methods" Url="html/Methods_T_Couldron_Attached_Localized.htm">
+        <HelpTOCNode Title="GetText Method " Url="html/M_Couldron_Attached_Localized_GetText.htm" />
+        <HelpTOCNode Title="GetTooltip Method " Url="html/M_Couldron_Attached_Localized_GetTooltip.htm" />
+        <HelpTOCNode Title="SetText Method " Url="html/M_Couldron_Attached_Localized_SetText.htm" />
+        <HelpTOCNode Title="SetTooltip Method " Url="html/M_Couldron_Attached_Localized_SetTooltip.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="14b387b2-ca7a-47ad-a439-82952904bfe2" Title="Localized Fields" Url="html/Fields_T_Couldron_Attached_Localized.htm">
+        <HelpTOCNode Title="TextProperty Field" Url="html/F_Couldron_Attached_Localized_TextProperty.htm" />
+        <HelpTOCNode Title="TooltipProperty Field" Url="html/F_Couldron_Attached_Localized_TooltipProperty.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="bae08dc1-fb69-4abc-9954-f663a3b33438" Title="Localized Attached Properties" Url="html/AttachedProperties_T_Couldron_Attached_Localized.htm">
+        <HelpTOCNode Title="Text Attached Property" Url="html/P_Couldron_Attached_Localized_Text.htm" />
+        <HelpTOCNode Title="Tooltip Attached Property" Url="html/P_Couldron_Attached_Localized_Tooltip.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="54974e76-9d3e-4d25-8cc9-6525e020f940" Title="TextBoxProperties Class" Url="html/T_Couldron_Attached_TextBoxProperties.htm">
+      <HelpTOCNode Id="fa40827b-0edf-4b8e-82a9-23700fe73be5" Title="TextBoxProperties Methods" Url="html/Methods_T_Couldron_Attached_TextBoxProperties.htm">
+        <HelpTOCNode Title="GetAlternativeText Method " Url="html/M_Couldron_Attached_TextBoxProperties_GetAlternativeText.htm" />
+        <HelpTOCNode Title="GetButtonsTemplate Method " Url="html/M_Couldron_Attached_TextBoxProperties_GetButtonsTemplate.htm" />
+        <HelpTOCNode Title="GetHeader Method " Url="html/M_Couldron_Attached_TextBoxProperties_GetHeader.htm" />
+        <HelpTOCNode Title="SetAlternativeText Method " Url="html/M_Couldron_Attached_TextBoxProperties_SetAlternativeText.htm" />
+        <HelpTOCNode Title="SetButtonsTemplate Method " Url="html/M_Couldron_Attached_TextBoxProperties_SetButtonsTemplate.htm" />
+        <HelpTOCNode Title="SetHeader Method " Url="html/M_Couldron_Attached_TextBoxProperties_SetHeader.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="e1beaf9b-c266-4282-b0c7-e5755872059b" Title="TextBoxProperties Fields" Url="html/Fields_T_Couldron_Attached_TextBoxProperties.htm">
+        <HelpTOCNode Title="AlternativeTextProperty Field" Url="html/F_Couldron_Attached_TextBoxProperties_AlternativeTextProperty.htm" />
+        <HelpTOCNode Title="ButtonsTemplateProperty Field" Url="html/F_Couldron_Attached_TextBoxProperties_ButtonsTemplateProperty.htm" />
+        <HelpTOCNode Title="HeaderProperty Field" Url="html/F_Couldron_Attached_TextBoxProperties_HeaderProperty.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="c46888a4-7869-4623-a16b-dd1c50b733c7" Title="TextBoxProperties Attached Properties" Url="html/AttachedProperties_T_Couldron_Attached_TextBoxProperties.htm">
+        <HelpTOCNode Title="AlternativeText Attached Property" Url="html/P_Couldron_Attached_TextBoxProperties_AlternativeText.htm" />
+        <HelpTOCNode Title="ButtonsTemplate Attached Property" Url="html/P_Couldron_Attached_TextBoxProperties_ButtonsTemplate.htm" />
+        <HelpTOCNode Title="Header Attached Property" Url="html/P_Couldron_Attached_TextBoxProperties_Header.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="c6d51a88-dc30-490a-9cb3-3a8c1cbe820d" Title="WindowToolbar Class" Url="html/T_Couldron_Attached_WindowToolbar.htm">
+      <HelpTOCNode Id="d1fcecc6-0ae4-426e-8342-d1360321f96e" Title="WindowToolbar Methods" Url="html/Methods_T_Couldron_Attached_WindowToolbar.htm">
+        <HelpTOCNode Title="GetTemplate Method " Url="html/M_Couldron_Attached_WindowToolbar_GetTemplate.htm" />
+        <HelpTOCNode Title="SetTemplate Method " Url="html/M_Couldron_Attached_WindowToolbar_SetTemplate.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="3189fbd1-d7ea-4552-8e58-ef5620b7357f" Title="WindowToolbar Fields" Url="html/Fields_T_Couldron_Attached_WindowToolbar.htm">
+        <HelpTOCNode Title="TemplateProperty Field" Url="html/F_Couldron_Attached_WindowToolbar_TemplateProperty.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="49c0dff0-3846-4ab1-aac3-8cc17f605e1c" Title="WindowToolbar Attached Properties" Url="html/AttachedProperties_T_Couldron_Attached_WindowToolbar.htm">
+        <HelpTOCNode Title="Template Attached Property" Url="html/P_Couldron_Attached_WindowToolbar_Template.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+  </HelpTOCNode>
+  <HelpTOCNode Id="f8d2a982-ba6f-4191-ad0c-ae33421d42ca" Title="Couldron.Behaviours" Url="html/N_Couldron_Behaviours.htm">
+    <HelpTOCNode Id="823e83e9-ca5d-415d-80c4-934c6f417bf2" Title="ActionBase Class" Url="html/T_Couldron_Behaviours_ActionBase.htm">
+      <HelpTOCNode Title="ActionBase Constructor " Url="html/M_Couldron_Behaviours_ActionBase__ctor.htm" />
+      <HelpTOCNode Title="ActionBase Properties" Url="html/Properties_T_Couldron_Behaviours_ActionBase.htm" />
+      <HelpTOCNode Id="3e535c57-46d0-447e-8975-189cc33e7553" Title="ActionBase Methods" Url="html/Methods_T_Couldron_Behaviours_ActionBase.htm">
+        <HelpTOCNode Title="Invoke Method " Url="html/M_Couldron_Behaviours_ActionBase_Invoke.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="ActionBase Events" Url="html/Events_T_Couldron_Behaviours_ActionBase.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="1c40c36b-33f0-4d52-a8cb-61e4f0e59218" Title="Behaviour(T) Class" Url="html/T_Couldron_Behaviours_Behaviour_1.htm">
+      <HelpTOCNode Title="Behaviour(T) Constructor " Url="html/M_Couldron_Behaviours_Behaviour_1__ctor.htm" />
+      <HelpTOCNode Id="83d2bb1b-a208-4246-9489-d87e8e04cb95" Title="Behaviour(T) Properties" Url="html/Properties_T_Couldron_Behaviours_Behaviour_1.htm">
+        <HelpTOCNode Title="AssociatedObject Property " Url="html/P_Couldron_Behaviours_Behaviour_1_AssociatedObject.htm" />
+        <HelpTOCNode Title="IsAssignedFromTemplate Property " Url="html/P_Couldron_Behaviours_Behaviour_1_IsAssignedFromTemplate.htm" />
+        <HelpTOCNode Title="IsDisposed Property " Url="html/P_Couldron_Behaviours_Behaviour_1_IsDisposed.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="4223defd-4135-4429-b8fc-b73311ef91da" Title="Behaviour(T) Methods" Url="html/Methods_T_Couldron_Behaviours_Behaviour_1.htm">
+        <HelpTOCNode Id="753d413d-d71d-408d-8b68-3f0086faa9c1" Title="Dispose Method " Url="html/Overload_Couldron_Behaviours_Behaviour_1_Dispose.htm">
+          <HelpTOCNode Title="Dispose Method " Url="html/M_Couldron_Behaviours_Behaviour_1_Dispose.htm" />
+          <HelpTOCNode Title="Dispose Method (Boolean)" Url="html/M_Couldron_Behaviours_Behaviour_1_Dispose_1.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="Finalize Method " Url="html/M_Couldron_Behaviours_Behaviour_1_Finalize.htm" />
+        <HelpTOCNode Title="IBehaviour.Copy Method " Url="html/M_Couldron_Behaviours_Behaviour_1_Couldron_Behaviours_IBehaviour_Copy.htm" />
+        <HelpTOCNode Title="IBehaviour.SetAssociatedObject Method " Url="html/M_Couldron_Behaviours_Behaviour_1_Couldron_Behaviours_IBehaviour_SetAssociatedObject.htm" />
+        <HelpTOCNode Title="OnAttach Method " Url="html/M_Couldron_Behaviours_Behaviour_1_OnAttach.htm" />
+        <HelpTOCNode Title="OnCopy Method " Url="html/M_Couldron_Behaviours_Behaviour_1_OnCopy.htm" />
+        <HelpTOCNode Title="OnDataContextChanged Method " Url="html/M_Couldron_Behaviours_Behaviour_1_OnDataContextChanged.htm" />
+        <HelpTOCNode Title="OnDetach Method " Url="html/M_Couldron_Behaviours_Behaviour_1_OnDetach.htm" />
+        <HelpTOCNode Title="OnDispose Method " Url="html/M_Couldron_Behaviours_Behaviour_1_OnDispose.htm" />
+        <HelpTOCNode Title="OnLoaded Method " Url="html/M_Couldron_Behaviours_Behaviour_1_OnLoaded.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="cd8cfa64-8faa-4193-b0c6-7a1790aed42d" Title="Behaviour(T) Events" Url="html/Events_T_Couldron_Behaviours_Behaviour_1.htm">
+        <HelpTOCNode Title="Disposed Event" Url="html/E_Couldron_Behaviours_Behaviour_1_Disposed.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="0d3dc1bf-596e-48ab-9e3a-eb5f535c64e6" Title="BehaviourInvokeAwareBehaviourBase(T) Class" Url="html/T_Couldron_Behaviours_BehaviourInvokeAwareBehaviourBase_1.htm">
+      <HelpTOCNode Title="BehaviourInvokeAwareBehaviourBase(T) Constructor " Url="html/M_Couldron_Behaviours_BehaviourInvokeAwareBehaviourBase_1__ctor.htm" />
+      <HelpTOCNode Title="BehaviourInvokeAwareBehaviourBase(T) Properties" Url="html/Properties_T_Couldron_Behaviours_BehaviourInvokeAwareBehaviourBase_1.htm" />
+      <HelpTOCNode Id="66f97f3a-1955-4817-b9e4-62e3f4c82e23" Title="BehaviourInvokeAwareBehaviourBase(T) Methods" Url="html/Methods_T_Couldron_Behaviours_BehaviourInvokeAwareBehaviourBase_1.htm">
+        <HelpTOCNode Title="Invoke Method " Url="html/M_Couldron_Behaviours_BehaviourInvokeAwareBehaviourBase_1_Invoke.htm" />
+        <HelpTOCNode Title="OnDataContextChanged Method " Url="html/M_Couldron_Behaviours_BehaviourInvokeAwareBehaviourBase_1_OnDataContextChanged.htm" />
+        <HelpTOCNode Title="OnDispose Method " Url="html/M_Couldron_Behaviours_BehaviourInvokeAwareBehaviourBase_1_OnDispose.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="BehaviourInvokeAwareBehaviourBase(T) Events" Url="html/Events_T_Couldron_Behaviours_BehaviourInvokeAwareBehaviourBase_1.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="8008485c-aa02-4c73-bef1-72f0a434c942" Title="BehaviourUsageAttribute Class" Url="html/T_Couldron_Behaviours_BehaviourUsageAttribute.htm">
+      <HelpTOCNode Id="d97a77a0-1fce-4a67-9beb-06774879d2da" Title="BehaviourUsageAttribute Constructor " Url="html/Overload_Couldron_Behaviours_BehaviourUsageAttribute__ctor.htm">
+        <HelpTOCNode Title="BehaviourUsageAttribute Constructor " Url="html/M_Couldron_Behaviours_BehaviourUsageAttribute__ctor.htm" />
+        <HelpTOCNode Title="BehaviourUsageAttribute Constructor (Boolean)" Url="html/M_Couldron_Behaviours_BehaviourUsageAttribute__ctor_1.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="60216eab-5b0b-440e-9c06-54d14005d203" Title="BehaviourUsageAttribute Properties" Url="html/Properties_T_Couldron_Behaviours_BehaviourUsageAttribute.htm">
+        <HelpTOCNode Title="AllowMultiple Property " Url="html/P_Couldron_Behaviours_BehaviourUsageAttribute_AllowMultiple.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="BehaviourUsageAttribute Methods" Url="html/Methods_T_Couldron_Behaviours_BehaviourUsageAttribute.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="1c6bfadf-5e9e-4c1e-8f67-e76aa0715d6c" Title="ControlTemplateBinding Class" Url="html/T_Couldron_Behaviours_ControlTemplateBinding.htm">
+      <HelpTOCNode Title="ControlTemplateBinding Constructor " Url="html/M_Couldron_Behaviours_ControlTemplateBinding__ctor.htm" />
+      <HelpTOCNode Id="26672366-b7d0-4a80-bd00-67808b519854" Title="ControlTemplateBinding Properties" Url="html/Properties_T_Couldron_Behaviours_ControlTemplateBinding.htm">
+        <HelpTOCNode Title="Converter Property " Url="html/P_Couldron_Behaviours_ControlTemplateBinding_Converter.htm" />
+        <HelpTOCNode Title="ConverterParameter Property " Url="html/P_Couldron_Behaviours_ControlTemplateBinding_ConverterParameter.htm" />
+        <HelpTOCNode Title="Mode Property " Url="html/P_Couldron_Behaviours_ControlTemplateBinding_Mode.htm" />
+        <HelpTOCNode Title="SourceProperty Property " Url="html/P_Couldron_Behaviours_ControlTemplateBinding_SourceProperty.htm" />
+        <HelpTOCNode Title="SourceType Property " Url="html/P_Couldron_Behaviours_ControlTemplateBinding_SourceType.htm" />
+        <HelpTOCNode Title="TargetBehaviourName Property " Url="html/P_Couldron_Behaviours_ControlTemplateBinding_TargetBehaviourName.htm" />
+        <HelpTOCNode Title="TargetProperty Property " Url="html/P_Couldron_Behaviours_ControlTemplateBinding_TargetProperty.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="766263d1-5513-4671-90b2-57ad8d0d301e" Title="ControlTemplateBinding Methods" Url="html/Methods_T_Couldron_Behaviours_ControlTemplateBinding.htm">
+        <HelpTOCNode Title="OnAttach Method " Url="html/M_Couldron_Behaviours_ControlTemplateBinding_OnAttach.htm" />
+        <HelpTOCNode Title="OnDetach Method " Url="html/M_Couldron_Behaviours_ControlTemplateBinding_OnDetach.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="ControlTemplateBinding Events" Url="html/Events_T_Couldron_Behaviours_ControlTemplateBinding.htm" />
+      <HelpTOCNode Id="0a154437-8a1e-4a0d-aef4-f0bb2018c173" Title="ControlTemplateBinding Fields" Url="html/Fields_T_Couldron_Behaviours_ControlTemplateBinding.htm">
+        <HelpTOCNode Title="ConverterParameterProperty Field" Url="html/F_Couldron_Behaviours_ControlTemplateBinding_ConverterParameterProperty.htm" />
+        <HelpTOCNode Title="ConverterProperty Field" Url="html/F_Couldron_Behaviours_ControlTemplateBinding_ConverterProperty.htm" />
+        <HelpTOCNode Title="ModeProperty Field" Url="html/F_Couldron_Behaviours_ControlTemplateBinding_ModeProperty.htm" />
+        <HelpTOCNode Title="SourcePropertyProperty Field" Url="html/F_Couldron_Behaviours_ControlTemplateBinding_SourcePropertyProperty.htm" />
+        <HelpTOCNode Title="SourceTypeProperty Field" Url="html/F_Couldron_Behaviours_ControlTemplateBinding_SourceTypeProperty.htm" />
+        <HelpTOCNode Title="TargetBehaviourNameProperty Field" Url="html/F_Couldron_Behaviours_ControlTemplateBinding_TargetBehaviourNameProperty.htm" />
+        <HelpTOCNode Title="TargetPropertyProperty Field" Url="html/F_Couldron_Behaviours_ControlTemplateBinding_TargetPropertyProperty.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="3e448b7c-042b-4c85-ab0d-5bb753f97e27" Title="ControlTemplateCommandFromControlNameBinding Class" Url="html/T_Couldron_Behaviours_ControlTemplateCommandFromControlNameBinding.htm">
+      <HelpTOCNode Title="ControlTemplateCommandFromControlNameBinding Constructor " Url="html/M_Couldron_Behaviours_ControlTemplateCommandFromControlNameBinding__ctor.htm" />
+      <HelpTOCNode Id="96015f73-5d21-4959-a955-6629c782e624" Title="ControlTemplateCommandFromControlNameBinding Properties" Url="html/Properties_T_Couldron_Behaviours_ControlTemplateCommandFromControlNameBinding.htm">
+        <HelpTOCNode Title="ParentType Property " Url="html/P_Couldron_Behaviours_ControlTemplateCommandFromControlNameBinding_ParentType.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="50146684-539d-4e53-9446-ad2367dac860" Title="ControlTemplateCommandFromControlNameBinding Methods" Url="html/Methods_T_Couldron_Behaviours_ControlTemplateCommandFromControlNameBinding.htm">
+        <HelpTOCNode Title="OnAttach Method " Url="html/M_Couldron_Behaviours_ControlTemplateCommandFromControlNameBinding_OnAttach.htm" />
+        <HelpTOCNode Title="OnDetach Method " Url="html/M_Couldron_Behaviours_ControlTemplateCommandFromControlNameBinding_OnDetach.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="ControlTemplateCommandFromControlNameBinding Events" Url="html/Events_T_Couldron_Behaviours_ControlTemplateCommandFromControlNameBinding.htm" />
+      <HelpTOCNode Id="35028e5e-f89f-4bb3-8349-4dfceff67ca0" Title="ControlTemplateCommandFromControlNameBinding Fields" Url="html/Fields_T_Couldron_Behaviours_ControlTemplateCommandFromControlNameBinding.htm">
+        <HelpTOCNode Title="ParentTypeProperty Field" Url="html/F_Couldron_Behaviours_ControlTemplateCommandFromControlNameBinding_ParentTypeProperty.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="d83cec6e-9d93-4052-9b96-c13d40b35c00" Title="EnterKeyToCommand Class" Url="html/T_Couldron_Behaviours_EnterKeyToCommand.htm">
+      <HelpTOCNode Title="EnterKeyToCommand Constructor " Url="html/M_Couldron_Behaviours_EnterKeyToCommand__ctor.htm" />
+      <HelpTOCNode Id="a7d35458-7df9-424e-8c00-77921386de72" Title="EnterKeyToCommand Properties" Url="html/Properties_T_Couldron_Behaviours_EnterKeyToCommand.htm">
+        <HelpTOCNode Title="Command Property " Url="html/P_Couldron_Behaviours_EnterKeyToCommand_Command.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="e0846082-33bb-4492-8260-90822886caf2" Title="EnterKeyToCommand Methods" Url="html/Methods_T_Couldron_Behaviours_EnterKeyToCommand.htm">
+        <HelpTOCNode Title="OnAttach Method " Url="html/M_Couldron_Behaviours_EnterKeyToCommand_OnAttach.htm" />
+        <HelpTOCNode Title="OnDetach Method " Url="html/M_Couldron_Behaviours_EnterKeyToCommand_OnDetach.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="EnterKeyToCommand Events" Url="html/Events_T_Couldron_Behaviours_EnterKeyToCommand.htm" />
+      <HelpTOCNode Id="4b10ab1d-036c-4286-9d19-77e49bae1ee3" Title="EnterKeyToCommand Fields" Url="html/Fields_T_Couldron_Behaviours_EnterKeyToCommand.htm">
+        <HelpTOCNode Title="MyPropertyProperty Field" Url="html/F_Couldron_Behaviours_EnterKeyToCommand_MyPropertyProperty.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="fae11494-72c6-425a-9154-a7a526593586" Title="EventToCommand Class" Url="html/T_Couldron_Behaviours_EventToCommand.htm">
+      <HelpTOCNode Title="EventToCommand Constructor " Url="html/M_Couldron_Behaviours_EventToCommand__ctor.htm" />
+      <HelpTOCNode Id="dead3b9c-c17c-467d-b519-6fa07475a5a7" Title="EventToCommand Properties" Url="html/Properties_T_Couldron_Behaviours_EventToCommand.htm">
+        <HelpTOCNode Title="Command Property " Url="html/P_Couldron_Behaviours_EventToCommand_Command.htm" />
+        <HelpTOCNode Title="EventName Property " Url="html/P_Couldron_Behaviours_EventToCommand_EventName.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="314e0531-0cfb-455b-a1b3-cf406ef7e705" Title="EventToCommand Methods" Url="html/Methods_T_Couldron_Behaviours_EventToCommand.htm">
+        <HelpTOCNode Title="OnAttach Method " Url="html/M_Couldron_Behaviours_EventToCommand_OnAttach.htm" />
+        <HelpTOCNode Title="OnDetach Method " Url="html/M_Couldron_Behaviours_EventToCommand_OnDetach.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="EventToCommand Events" Url="html/Events_T_Couldron_Behaviours_EventToCommand.htm" />
+      <HelpTOCNode Id="09d1a136-356d-4108-a13e-e4b5854c5ad4" Title="EventToCommand Fields" Url="html/Fields_T_Couldron_Behaviours_EventToCommand.htm">
+        <HelpTOCNode Title="CommandProperty Field" Url="html/F_Couldron_Behaviours_EventToCommand_CommandProperty.htm" />
+        <HelpTOCNode Title="EventNameProperty Field" Url="html/F_Couldron_Behaviours_EventToCommand_EventNameProperty.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="b26fb23e-74dc-4748-a75e-76aaf44f5cc6" Title="EventTrigger Class" Url="html/T_Couldron_Behaviours_EventTrigger.htm">
+      <HelpTOCNode Title="EventTrigger Constructor " Url="html/M_Couldron_Behaviours_EventTrigger__ctor.htm" />
+      <HelpTOCNode Id="9bef8b36-8498-4dfb-a77b-31bd9f064e3e" Title="EventTrigger Properties" Url="html/Properties_T_Couldron_Behaviours_EventTrigger.htm">
+        <HelpTOCNode Title="EventName Property " Url="html/P_Couldron_Behaviours_EventTrigger_EventName.htm" />
+        <HelpTOCNode Title="Events Property " Url="html/P_Couldron_Behaviours_EventTrigger_Events.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="ec5d229e-3556-41ee-a3c9-e7a8851602b6" Title="EventTrigger Methods" Url="html/Methods_T_Couldron_Behaviours_EventTrigger.htm">
+        <HelpTOCNode Title="OnAttach Method " Url="html/M_Couldron_Behaviours_EventTrigger_OnAttach.htm" />
+        <HelpTOCNode Title="OnCopy Method " Url="html/M_Couldron_Behaviours_EventTrigger_OnCopy.htm" />
+        <HelpTOCNode Title="OnDetach Method " Url="html/M_Couldron_Behaviours_EventTrigger_OnDetach.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="EventTrigger Events" Url="html/Events_T_Couldron_Behaviours_EventTrigger.htm" />
+      <HelpTOCNode Id="cba4f20f-01c8-4499-893b-0ffc98196fec" Title="EventTrigger Fields" Url="html/Fields_T_Couldron_Behaviours_EventTrigger.htm">
+        <HelpTOCNode Title="EventNameProperty Field" Url="html/F_Couldron_Behaviours_EventTrigger_EventNameProperty.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="dedc9670-51be-4db3-af7d-b9c0e6da63fd" Title="IBehaviour Interface" Url="html/T_Couldron_Behaviours_IBehaviour.htm">
+      <HelpTOCNode Id="49bc1017-3675-4c47-b762-bc4ca863196d" Title="IBehaviour Properties" Url="html/Properties_T_Couldron_Behaviours_IBehaviour.htm">
+        <HelpTOCNode Title="IsAssignedFromTemplate Property " Url="html/P_Couldron_Behaviours_IBehaviour_IsAssignedFromTemplate.htm" />
+        <HelpTOCNode Title="Name Property " Url="html/P_Couldron_Behaviours_IBehaviour_Name.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="62f4ee63-06bf-4a70-9f7e-f1353ec05f3a" Title="IBehaviour Methods" Url="html/Methods_T_Couldron_Behaviours_IBehaviour.htm">
+        <HelpTOCNode Title="Copy Method " Url="html/M_Couldron_Behaviours_IBehaviour_Copy.htm" />
+        <HelpTOCNode Title="SetAssociatedObject Method " Url="html/M_Couldron_Behaviours_IBehaviour_SetAssociatedObject.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="8b8315d0-4599-445b-90af-b9685a666500" Title="IBehaviour(T) Interface" Url="html/T_Couldron_Behaviours_IBehaviour_1.htm">
+      <HelpTOCNode Id="f01002a9-72cd-42f6-ac7c-0f573337043d" Title="IBehaviour(T) Properties" Url="html/Properties_T_Couldron_Behaviours_IBehaviour_1.htm">
+        <HelpTOCNode Title="AssociatedObject Property " Url="html/P_Couldron_Behaviours_IBehaviour_1_AssociatedObject.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="IBehaviour(T) Methods" Url="html/Methods_T_Couldron_Behaviours_IBehaviour_1.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="03ea4a80-ada6-48ec-a1b6-2f74fa83589e" Title="Interaction Class" Url="html/T_Couldron_Behaviours_Interaction.htm">
+      <HelpTOCNode Id="7ef7ad66-09e5-453d-834b-3021f903f03b" Title="Interaction Methods" Url="html/Methods_T_Couldron_Behaviours_Interaction.htm">
+        <HelpTOCNode Title="AddBehaviour Method " Url="html/M_Couldron_Behaviours_Interaction_AddBehaviour.htm" />
+        <HelpTOCNode Title="GetBehaviour(T) Method " Url="html/M_Couldron_Behaviours_Interaction_GetBehaviour__1.htm" />
+        <HelpTOCNode Title="GetBehaviours Method " Url="html/M_Couldron_Behaviours_Interaction_GetBehaviours.htm" />
+        <HelpTOCNode Title="SetBehaviours Method " Url="html/M_Couldron_Behaviours_Interaction_SetBehaviours.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="30c65aa0-e007-48e0-a1c8-c2eee73f3409" Title="Interaction Fields" Url="html/Fields_T_Couldron_Behaviours_Interaction.htm">
+        <HelpTOCNode Title="BehavioursProperty Field" Url="html/F_Couldron_Behaviours_Interaction_BehavioursProperty.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="b7b18498-cb03-48d0-8c79-65a881f684c8" Title="Interaction Attached Properties" Url="html/AttachedProperties_T_Couldron_Behaviours_Interaction.htm">
+        <HelpTOCNode Title="Behaviours Attached Property" Url="html/P_Couldron_Behaviours_Interaction_Behaviours.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="a12ec480-1048-4b99-ad03-3c52a7e6084e" Title="Interactivity Class" Url="html/T_Couldron_Behaviours_Interactivity.htm">
+      <HelpTOCNode Title="Interactivity Constructor " Url="html/M_Couldron_Behaviours_Interactivity__ctor.htm" />
+      <HelpTOCNode Id="337bc8fc-d6f9-48c7-9ab0-df75fffa4e49" Title="Interactivity Properties" Url="html/Properties_T_Couldron_Behaviours_Interactivity.htm">
+        <HelpTOCNode Title="Behaviours Property " Url="html/P_Couldron_Behaviours_Interactivity_Behaviours.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="71ee0434-4da5-4779-a53b-a38f6089f710" Title="Interactivity Methods" Url="html/Methods_T_Couldron_Behaviours_Interactivity.htm">
+        <HelpTOCNode Title="GetTemplate Method " Url="html/M_Couldron_Behaviours_Interactivity_GetTemplate.htm" />
+        <HelpTOCNode Title="SetTemplate Method " Url="html/M_Couldron_Behaviours_Interactivity_SetTemplate.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="Interactivity Events" Url="html/Events_T_Couldron_Behaviours_Interactivity.htm" />
+      <HelpTOCNode Id="ea68083c-560b-46bc-b1b7-6f16b6c347cd" Title="Interactivity Fields" Url="html/Fields_T_Couldron_Behaviours_Interactivity.htm">
+        <HelpTOCNode Title="TemplateProperty Field" Url="html/F_Couldron_Behaviours_Interactivity_TemplateProperty.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="dce3935c-a4b3-4cdc-b497-9db5e03b0643" Title="Interactivity Attached Properties" Url="html/AttachedProperties_T_Couldron_Behaviours_Interactivity.htm">
+        <HelpTOCNode Title="Template Attached Property" Url="html/P_Couldron_Behaviours_Interactivity_Template.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="2ef4a9cb-cc97-4194-81ad-be84ea21e82e" Title="InvokeMethodAction Class" Url="html/T_Couldron_Behaviours_InvokeMethodAction.htm">
+      <HelpTOCNode Title="InvokeMethodAction Constructor " Url="html/M_Couldron_Behaviours_InvokeMethodAction__ctor.htm" />
+      <HelpTOCNode Id="9aca5c11-7511-43c4-98e4-e16902477401" Title="InvokeMethodAction Properties" Url="html/Properties_T_Couldron_Behaviours_InvokeMethodAction.htm">
+        <HelpTOCNode Title="MethodName Property " Url="html/P_Couldron_Behaviours_InvokeMethodAction_MethodName.htm" />
+        <HelpTOCNode Title="MethodOwnerType Property " Url="html/P_Couldron_Behaviours_InvokeMethodAction_MethodOwnerType.htm" />
+        <HelpTOCNode Title="MethodParameters Property " Url="html/P_Couldron_Behaviours_InvokeMethodAction_MethodParameters.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="46795c1b-4e17-48f6-812b-cd997b879768" Title="InvokeMethodAction Methods" Url="html/Methods_T_Couldron_Behaviours_InvokeMethodAction.htm">
+        <HelpTOCNode Title="Invoke Method " Url="html/M_Couldron_Behaviours_InvokeMethodAction_Invoke.htm" />
+        <HelpTOCNode Title="OnAttach Method " Url="html/M_Couldron_Behaviours_InvokeMethodAction_OnAttach.htm" />
+        <HelpTOCNode Title="OnDetach Method " Url="html/M_Couldron_Behaviours_InvokeMethodAction_OnDetach.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="InvokeMethodAction Events" Url="html/Events_T_Couldron_Behaviours_InvokeMethodAction.htm" />
+      <HelpTOCNode Id="5c066d0b-adae-4d02-b5c3-bf8d604d25b3" Title="InvokeMethodAction Fields" Url="html/Fields_T_Couldron_Behaviours_InvokeMethodAction.htm">
+        <HelpTOCNode Title="MethodNameProperty Field" Url="html/F_Couldron_Behaviours_InvokeMethodAction_MethodNameProperty.htm" />
+        <HelpTOCNode Title="MethodOwnerTypeProperty Field" Url="html/F_Couldron_Behaviours_InvokeMethodAction_MethodOwnerTypeProperty.htm" />
+        <HelpTOCNode Title="MethodParametersProperty Field" Url="html/F_Couldron_Behaviours_InvokeMethodAction_MethodParametersProperty.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="99831910-3fd9-4a37-bac8-4bebc28fa08d" Title="OpenFileDialogAction Class" Url="html/T_Couldron_Behaviours_OpenFileDialogAction.htm">
+      <HelpTOCNode Title="OpenFileDialogAction Constructor " Url="html/M_Couldron_Behaviours_OpenFileDialogAction__ctor.htm" />
+      <HelpTOCNode Id="d7590eba-e0e5-4f47-95c9-3d95845ab840" Title="OpenFileDialogAction Properties" Url="html/Properties_T_Couldron_Behaviours_OpenFileDialogAction.htm">
+        <HelpTOCNode Title="CheckFileExists Property " Url="html/P_Couldron_Behaviours_OpenFileDialogAction_CheckFileExists.htm" />
+        <HelpTOCNode Title="Filename Property " Url="html/P_Couldron_Behaviours_OpenFileDialogAction_Filename.htm" />
+        <HelpTOCNode Title="Filter Property " Url="html/P_Couldron_Behaviours_OpenFileDialogAction_Filter.htm" />
+        <HelpTOCNode Title="Multiselect Property " Url="html/P_Couldron_Behaviours_OpenFileDialogAction_Multiselect.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="db0361ae-f13c-4998-bd3d-1dd5e929a8c3" Title="OpenFileDialogAction Methods" Url="html/Methods_T_Couldron_Behaviours_OpenFileDialogAction.htm">
+        <HelpTOCNode Title="Invoke Method " Url="html/M_Couldron_Behaviours_OpenFileDialogAction_Invoke.htm" />
+        <HelpTOCNode Title="OnAttach Method " Url="html/M_Couldron_Behaviours_OpenFileDialogAction_OnAttach.htm" />
+        <HelpTOCNode Title="OnDetach Method " Url="html/M_Couldron_Behaviours_OpenFileDialogAction_OnDetach.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="OpenFileDialogAction Events" Url="html/Events_T_Couldron_Behaviours_OpenFileDialogAction.htm" />
+      <HelpTOCNode Id="1a4171d4-ed0c-4b26-924b-ae912415b637" Title="OpenFileDialogAction Fields" Url="html/Fields_T_Couldron_Behaviours_OpenFileDialogAction.htm">
+        <HelpTOCNode Title="CheckFileExistsProperty Field" Url="html/F_Couldron_Behaviours_OpenFileDialogAction_CheckFileExistsProperty.htm" />
+        <HelpTOCNode Title="FilenameProperty Field" Url="html/F_Couldron_Behaviours_OpenFileDialogAction_FilenameProperty.htm" />
+        <HelpTOCNode Title="FilterProperty Field" Url="html/F_Couldron_Behaviours_OpenFileDialogAction_FilterProperty.htm" />
+        <HelpTOCNode Title="MultiselectProperty Field" Url="html/F_Couldron_Behaviours_OpenFileDialogAction_MultiselectProperty.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="83b77b2a-77ea-470d-958a-b70f578a66b4" Title="SetFocus Class" Url="html/T_Couldron_Behaviours_SetFocus.htm">
+      <HelpTOCNode Title="SetFocus Constructor " Url="html/M_Couldron_Behaviours_SetFocus__ctor.htm" />
+      <HelpTOCNode Title="SetFocus Properties" Url="html/Properties_T_Couldron_Behaviours_SetFocus.htm" />
+      <HelpTOCNode Id="5533752a-7444-4be2-a54c-b995e7211142" Title="SetFocus Methods" Url="html/Methods_T_Couldron_Behaviours_SetFocus.htm">
+        <HelpTOCNode Title="OnAttach Method " Url="html/M_Couldron_Behaviours_SetFocus_OnAttach.htm" />
+        <HelpTOCNode Title="OnDetach Method " Url="html/M_Couldron_Behaviours_SetFocus_OnDetach.htm" />
+        <HelpTOCNode Title="OnLoaded Method " Url="html/M_Couldron_Behaviours_SetFocus_OnLoaded.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="SetFocus Events" Url="html/Events_T_Couldron_Behaviours_SetFocus.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="29bb2512-1cfd-4c0e-a5fc-99987adcd131" Title="TextBoxInputFilter Class" Url="html/T_Couldron_Behaviours_TextBoxInputFilter.htm">
+      <HelpTOCNode Title="TextBoxInputFilter Constructor " Url="html/M_Couldron_Behaviours_TextBoxInputFilter__ctor.htm" />
+      <HelpTOCNode Id="e2d6c901-9509-4fdb-be40-7c74e485d9d9" Title="TextBoxInputFilter Properties" Url="html/Properties_T_Couldron_Behaviours_TextBoxInputFilter.htm">
+        <HelpTOCNode Title="RegexFilter Property " Url="html/P_Couldron_Behaviours_TextBoxInputFilter_RegexFilter.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="2184a9b1-b4ee-4ec8-96f4-ab13fd2c6ab1" Title="TextBoxInputFilter Methods" Url="html/Methods_T_Couldron_Behaviours_TextBoxInputFilter.htm">
+        <HelpTOCNode Title="OnAttach Method " Url="html/M_Couldron_Behaviours_TextBoxInputFilter_OnAttach.htm" />
+        <HelpTOCNode Title="OnDetach Method " Url="html/M_Couldron_Behaviours_TextBoxInputFilter_OnDetach.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="TextBoxInputFilter Events" Url="html/Events_T_Couldron_Behaviours_TextBoxInputFilter.htm" />
+      <HelpTOCNode Id="a64e9943-cb1c-4294-91c4-e9d85d5a3002" Title="TextBoxInputFilter Fields" Url="html/Fields_T_Couldron_Behaviours_TextBoxInputFilter.htm">
+        <HelpTOCNode Title="RegexFilterProperty Field" Url="html/F_Couldron_Behaviours_TextBoxInputFilter_RegexFilterProperty.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="9a03d641-d8b8-4750-bd3b-aee66487bcdc" Title="WindowConfiguration Class" Url="html/T_Couldron_Behaviours_WindowConfiguration.htm">
+      <HelpTOCNode Title="WindowConfiguration Constructor " Url="html/M_Couldron_Behaviours_WindowConfiguration__ctor.htm" />
+      <HelpTOCNode Id="82953c4d-eeac-4338-ad0a-9648bccd42b2" Title="WindowConfiguration Properties" Url="html/Properties_T_Couldron_Behaviours_WindowConfiguration.htm">
+        <HelpTOCNode Title="AssociatedObject Property " Url="html/P_Couldron_Behaviours_WindowConfiguration_AssociatedObject.htm" />
+        <HelpTOCNode Title="Icon Property " Url="html/P_Couldron_Behaviours_WindowConfiguration_Icon.htm" />
+        <HelpTOCNode Title="IsAssignedFromTemplate Property " Url="html/P_Couldron_Behaviours_WindowConfiguration_IsAssignedFromTemplate.htm" />
+        <HelpTOCNode Title="IsDisposed Property " Url="html/P_Couldron_Behaviours_WindowConfiguration_IsDisposed.htm" />
+        <HelpTOCNode Title="IsModal Property " Url="html/P_Couldron_Behaviours_WindowConfiguration_IsModal.htm" />
+        <HelpTOCNode Title="IsWindowPersistent Property " Url="html/P_Couldron_Behaviours_WindowConfiguration_IsWindowPersistent.htm" />
+        <HelpTOCNode Title="ResizeMode Property " Url="html/P_Couldron_Behaviours_WindowConfiguration_ResizeMode.htm" />
+        <HelpTOCNode Title="ShowInTaskbar Property " Url="html/P_Couldron_Behaviours_WindowConfiguration_ShowInTaskbar.htm" />
+        <HelpTOCNode Title="Title Property " Url="html/P_Couldron_Behaviours_WindowConfiguration_Title.htm" />
+        <HelpTOCNode Title="ToolbarTemplate Property " Url="html/P_Couldron_Behaviours_WindowConfiguration_ToolbarTemplate.htm" />
+        <HelpTOCNode Title="Topmost Property " Url="html/P_Couldron_Behaviours_WindowConfiguration_Topmost.htm" />
+        <HelpTOCNode Title="WindowStartupLocation Property " Url="html/P_Couldron_Behaviours_WindowConfiguration_WindowStartupLocation.htm" />
+        <HelpTOCNode Title="WindowState Property " Url="html/P_Couldron_Behaviours_WindowConfiguration_WindowState.htm" />
+        <HelpTOCNode Title="WindowStyle Property " Url="html/P_Couldron_Behaviours_WindowConfiguration_WindowStyle.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="8f737c03-11d2-4a8e-ba5b-f8f115f1f6fa" Title="WindowConfiguration Methods" Url="html/Methods_T_Couldron_Behaviours_WindowConfiguration.htm">
+        <HelpTOCNode Title="Dispose Method " Url="html/M_Couldron_Behaviours_WindowConfiguration_Dispose.htm" />
+        <HelpTOCNode Title="IBehaviour.Copy Method " Url="html/M_Couldron_Behaviours_WindowConfiguration_Couldron_Behaviours_IBehaviour_Copy.htm" />
+        <HelpTOCNode Title="IBehaviour.SetAssociatedObject Method " Url="html/M_Couldron_Behaviours_WindowConfiguration_Couldron_Behaviours_IBehaviour_SetAssociatedObject.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="ee0c6b60-6460-420f-9f13-5c123d998e8a" Title="WindowConfiguration Events" Url="html/Events_T_Couldron_Behaviours_WindowConfiguration.htm">
+        <HelpTOCNode Title="Disposed Event" Url="html/E_Couldron_Behaviours_WindowConfiguration_Disposed.htm" />
+        <HelpTOCNode Title="IconChanged Event" Url="html/E_Couldron_Behaviours_WindowConfiguration_IconChanged.htm" />
+        <HelpTOCNode Title="TitleChanged Event" Url="html/E_Couldron_Behaviours_WindowConfiguration_TitleChanged.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="9fc68f55-fbaf-451a-95d2-45ddb4912ad8" Title="WindowConfiguration Fields" Url="html/Fields_T_Couldron_Behaviours_WindowConfiguration.htm">
+        <HelpTOCNode Title="IconProperty Field" Url="html/F_Couldron_Behaviours_WindowConfiguration_IconProperty.htm" />
+        <HelpTOCNode Title="IsModalProperty Field" Url="html/F_Couldron_Behaviours_WindowConfiguration_IsModalProperty.htm" />
+        <HelpTOCNode Title="IsWindowPersistentProperty Field" Url="html/F_Couldron_Behaviours_WindowConfiguration_IsWindowPersistentProperty.htm" />
+        <HelpTOCNode Title="ResizeModeProperty Field" Url="html/F_Couldron_Behaviours_WindowConfiguration_ResizeModeProperty.htm" />
+        <HelpTOCNode Title="ShowInTaskbarProperty Field" Url="html/F_Couldron_Behaviours_WindowConfiguration_ShowInTaskbarProperty.htm" />
+        <HelpTOCNode Title="TitleProperty Field" Url="html/F_Couldron_Behaviours_WindowConfiguration_TitleProperty.htm" />
+        <HelpTOCNode Title="ToolbarTemplateProperty Field" Url="html/F_Couldron_Behaviours_WindowConfiguration_ToolbarTemplateProperty.htm" />
+        <HelpTOCNode Title="TopmostProperty Field" Url="html/F_Couldron_Behaviours_WindowConfiguration_TopmostProperty.htm" />
+        <HelpTOCNode Title="WindowStartupLocationProperty Field" Url="html/F_Couldron_Behaviours_WindowConfiguration_WindowStartupLocationProperty.htm" />
+        <HelpTOCNode Title="WindowStateProperty Field" Url="html/F_Couldron_Behaviours_WindowConfiguration_WindowStateProperty.htm" />
+        <HelpTOCNode Title="WindowStyleProperty Field" Url="html/F_Couldron_Behaviours_WindowConfiguration_WindowStyleProperty.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+  </HelpTOCNode>
+  <HelpTOCNode Id="887bd98f-2e8e-46a7-86ac-3e95d73cc152" Title="Couldron.Collections" Url="html/N_Couldron_Collections.htm">
+    <HelpTOCNode Id="c99ef1f1-8cde-4b80-bc04-eb0735fc4afc" Title="ActionCollection Class" Url="html/T_Couldron_Collections_ActionCollection.htm">
+      <HelpTOCNode Title="ActionCollection Constructor " Url="html/M_Couldron_Collections_ActionCollection__ctor.htm" />
+      <HelpTOCNode Title="ActionCollection Properties" Url="html/Properties_T_Couldron_Collections_ActionCollection.htm" />
+      <HelpTOCNode Title="ActionCollection Methods" Url="html/Methods_T_Couldron_Collections_ActionCollection.htm" />
+      <HelpTOCNode Title="ActionCollection Events" Url="html/Events_T_Couldron_Collections_ActionCollection.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="5621cb84-1ce3-41d9-bf31-a0fe2fa05eed" Title="BehaviourCollection Class" Url="html/T_Couldron_Collections_BehaviourCollection.htm">
+      <HelpTOCNode Title="BehaviourCollection Constructor " Url="html/M_Couldron_Collections_BehaviourCollection__ctor.htm" />
+      <HelpTOCNode Title="BehaviourCollection Properties" Url="html/Properties_T_Couldron_Collections_BehaviourCollection.htm" />
+      <HelpTOCNode Title="BehaviourCollection Methods" Url="html/Methods_T_Couldron_Collections_BehaviourCollection.htm" />
+      <HelpTOCNode Title="BehaviourCollection Events" Url="html/Events_T_Couldron_Collections_BehaviourCollection.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="6715a42b-a4f6-430f-b77a-169cf51407f6" Title="BehaviourCollection(T) Class" Url="html/T_Couldron_Collections_BehaviourCollection_1.htm">
+      <HelpTOCNode Title="BehaviourCollection(T) Constructor " Url="html/M_Couldron_Collections_BehaviourCollection_1__ctor.htm" />
+      <HelpTOCNode Id="7bae83a4-e4fc-4781-82cb-0422333500a3" Title="BehaviourCollection(T) Properties" Url="html/Properties_T_Couldron_Collections_BehaviourCollection_1.htm">
+        <HelpTOCNode Title="IsDisposed Property " Url="html/P_Couldron_Collections_BehaviourCollection_1_IsDisposed.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="b4fd4dc7-d2f5-444b-acc4-01b9c8905512" Title="BehaviourCollection(T) Methods" Url="html/Methods_T_Couldron_Collections_BehaviourCollection_1.htm">
+        <HelpTOCNode Title="Dispose Method " Url="html/M_Couldron_Collections_BehaviourCollection_1_Dispose.htm" />
+        <HelpTOCNode Title="Finalize Method " Url="html/M_Couldron_Collections_BehaviourCollection_1_Finalize.htm" />
+        <HelpTOCNode Title="InsertItem Method " Url="html/M_Couldron_Collections_BehaviourCollection_1_InsertItem.htm" />
+        <HelpTOCNode Title="RemoveAllTemplateAssignedBehaviours Method " Url="html/M_Couldron_Collections_BehaviourCollection_1_RemoveAllTemplateAssignedBehaviours.htm" />
+        <HelpTOCNode Title="RemoveItem Method " Url="html/M_Couldron_Collections_BehaviourCollection_1_RemoveItem.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="c2c95bf0-6c52-40b2-908e-95dfeed0f544" Title="BehaviourCollection(T) Events" Url="html/Events_T_Couldron_Collections_BehaviourCollection_1.htm">
+        <HelpTOCNode Title="Disposed Event" Url="html/E_Couldron_Collections_BehaviourCollection_1_Disposed.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="f7a86a9b-8080-49b2-b8b9-07ffb745c865" Title="ConcurrentList(T) Class" Url="html/T_Couldron_Collections_ConcurrentList_1.htm">
+      <HelpTOCNode Id="779f756a-8962-4091-b4e7-0edaaabbe34d" Title="ConcurrentList(T) Constructor " Url="html/Overload_Couldron_Collections_ConcurrentList_1__ctor.htm">
+        <HelpTOCNode Title="ConcurrentList(T) Constructor " Url="html/M_Couldron_Collections_ConcurrentList_1__ctor.htm" />
+        <HelpTOCNode Title="ConcurrentList(T) Constructor (IEnumerable(T))" Url="html/M_Couldron_Collections_ConcurrentList_1__ctor_1.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="f85ef115-d215-4fc4-92a7-826926b9cea8" Title="ConcurrentList(T) Properties" Url="html/Properties_T_Couldron_Collections_ConcurrentList_1.htm">
+        <HelpTOCNode Title="IList(T).Item Property " Url="html/P_Couldron_Collections_ConcurrentList_1_System_Collections_Generic_IList{T}_Item.htm" />
+        <HelpTOCNode Title="IList.Item Property " Url="html/P_Couldron_Collections_ConcurrentList_1_System_Collections_IList_Item.htm" />
+        <HelpTOCNode Title="Count Property " Url="html/P_Couldron_Collections_ConcurrentList_1_Count.htm" />
+        <HelpTOCNode Title="IsFixedSize Property " Url="html/P_Couldron_Collections_ConcurrentList_1_IsFixedSize.htm" />
+        <HelpTOCNode Title="IsReadOnly Property " Url="html/P_Couldron_Collections_ConcurrentList_1_IsReadOnly.htm" />
+        <HelpTOCNode Title="IsSynchronized Property " Url="html/P_Couldron_Collections_ConcurrentList_1_IsSynchronized.htm" />
+        <HelpTOCNode Title="Item Property " Url="html/P_Couldron_Collections_ConcurrentList_1_Item.htm" />
+        <HelpTOCNode Title="SyncRoot Property " Url="html/P_Couldron_Collections_ConcurrentList_1_SyncRoot.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="76aae613-34ba-4ea5-9218-2dcdea4c0d78" Title="ConcurrentList(T) Methods" Url="html/Methods_T_Couldron_Collections_ConcurrentList_1.htm">
+        <HelpTOCNode Title="IList.Add Method " Url="html/M_Couldron_Collections_ConcurrentList_1_System_Collections_IList_Add.htm" />
+        <HelpTOCNode Title="IEnumerable.GetEnumerator Method " Url="html/M_Couldron_Collections_ConcurrentList_1_System_Collections_IEnumerable_GetEnumerator.htm" />
+        <HelpTOCNode Title="ICollection(T).Remove Method " Url="html/M_Couldron_Collections_ConcurrentList_1_System_Collections_Generic_ICollection{T}_Remove.htm" />
+        <HelpTOCNode Title="IList.Remove Method " Url="html/M_Couldron_Collections_ConcurrentList_1_System_Collections_IList_Remove.htm" />
+        <HelpTOCNode Title="Add Method " Url="html/M_Couldron_Collections_ConcurrentList_1_Add.htm" />
+        <HelpTOCNode Title="AddRange Method " Url="html/M_Couldron_Collections_ConcurrentList_1_AddRange.htm" />
+        <HelpTOCNode Title="Clear Method " Url="html/M_Couldron_Collections_ConcurrentList_1_Clear.htm" />
+        <HelpTOCNode Id="d1958198-6be3-4da8-96b4-f001a576ede7" Title="Contains Method " Url="html/Overload_Couldron_Collections_ConcurrentList_1_Contains.htm">
+          <HelpTOCNode Title="Contains Method (Func(T, Boolean))" Url="html/M_Couldron_Collections_ConcurrentList_1_Contains.htm" />
+          <HelpTOCNode Title="Contains Method (Object)" Url="html/M_Couldron_Collections_ConcurrentList_1_Contains_1.htm" />
+          <HelpTOCNode Title="Contains Method (T)" Url="html/M_Couldron_Collections_ConcurrentList_1_Contains_2.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="2b3fbea9-40f1-4603-ae1a-9c24751702aa" Title="CopyTo Method " Url="html/Overload_Couldron_Collections_ConcurrentList_1_CopyTo.htm">
+          <HelpTOCNode Title="CopyTo Method (Array, Int32)" Url="html/M_Couldron_Collections_ConcurrentList_1_CopyTo.htm" />
+          <HelpTOCNode Title="CopyTo Method (T[], Int32)" Url="html/M_Couldron_Collections_ConcurrentList_1_CopyTo_1.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="GetEnumerator Method " Url="html/M_Couldron_Collections_ConcurrentList_1_GetEnumerator.htm" />
+        <HelpTOCNode Id="b7675981-1873-4424-8e91-5633070c8be5" Title="IndexOf Method " Url="html/Overload_Couldron_Collections_ConcurrentList_1_IndexOf.htm">
+          <HelpTOCNode Title="IndexOf Method (Object)" Url="html/M_Couldron_Collections_ConcurrentList_1_IndexOf.htm" />
+          <HelpTOCNode Title="IndexOf Method (T)" Url="html/M_Couldron_Collections_ConcurrentList_1_IndexOf_1.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="cf4b2904-9003-4b7e-99b9-603685cd0e5e" Title="Insert Method " Url="html/Overload_Couldron_Collections_ConcurrentList_1_Insert.htm">
+          <HelpTOCNode Title="Insert Method (Int32, Object)" Url="html/M_Couldron_Collections_ConcurrentList_1_Insert.htm" />
+          <HelpTOCNode Title="Insert Method (Int32, T)" Url="html/M_Couldron_Collections_ConcurrentList_1_Insert_1.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="f82a3ed5-5480-4b0e-8eb0-44f9ae3ba537" Title="Remove Method " Url="html/Overload_Couldron_Collections_ConcurrentList_1_Remove.htm">
+          <HelpTOCNode Title="Remove Method (Func(T, Boolean))" Url="html/M_Couldron_Collections_ConcurrentList_1_Remove.htm" />
+          <HelpTOCNode Title="Remove Method (T)" Url="html/M_Couldron_Collections_ConcurrentList_1_Remove_1.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="RemoveAll Method " Url="html/M_Couldron_Collections_ConcurrentList_1_RemoveAll.htm" />
+        <HelpTOCNode Title="RemoveAt Method " Url="html/M_Couldron_Collections_ConcurrentList_1_RemoveAt.htm" />
+        <HelpTOCNode Title="ToArray Method " Url="html/M_Couldron_Collections_ConcurrentList_1_ToArray.htm" />
+        <HelpTOCNode Title="ToList Method " Url="html/M_Couldron_Collections_ConcurrentList_1_ToList.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="596196b6-d6ed-4134-ab3f-a2298e032b67" Title="InteractivityTemplate Class" Url="html/T_Couldron_Collections_InteractivityTemplate.htm">
+      <HelpTOCNode Title="InteractivityTemplate Constructor " Url="html/M_Couldron_Collections_InteractivityTemplate__ctor.htm" />
+      <HelpTOCNode Title="InteractivityTemplate Properties" Url="html/Properties_T_Couldron_Collections_InteractivityTemplate.htm" />
+      <HelpTOCNode Title="InteractivityTemplate Methods" Url="html/Methods_T_Couldron_Collections_InteractivityTemplate.htm" />
+    </HelpTOCNode>
+  </HelpTOCNode>
+  <HelpTOCNode Id="7f6d5fb6-1ae6-4384-91dd-755721362724" Title="Couldron.Controls" Url="html/N_Couldron_Controls.htm">
+    <HelpTOCNode Id="ce650e32-c5a9-4934-864f-be56f9b95afa" Title="DefaultTreeViewComboBoxSelectionLogic Class" Url="html/T_Couldron_Controls_DefaultTreeViewComboBoxSelectionLogic.htm">
+      <HelpTOCNode Title="DefaultTreeViewComboBoxSelectionLogic Constructor " Url="html/M_Couldron_Controls_DefaultTreeViewComboBoxSelectionLogic__ctor.htm" />
+      <HelpTOCNode Id="18e66579-f4df-41c6-a16e-421d64cdcaf3" Title="DefaultTreeViewComboBoxSelectionLogic Methods" Url="html/Methods_T_Couldron_Controls_DefaultTreeViewComboBoxSelectionLogic.htm">
+        <HelpTOCNode Title="ChangeSelectionValue Method " Url="html/M_Couldron_Controls_DefaultTreeViewComboBoxSelectionLogic_ChangeSelectionValue.htm" />
+        <HelpTOCNode Title="IsSelected Method " Url="html/M_Couldron_Controls_DefaultTreeViewComboBoxSelectionLogic_IsSelected.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="c0f72750-8b1f-42d3-9a37-a9ef3397bb44" Title="ITreeViewComboBoxSelectionLogic Interface" Url="html/T_Couldron_Controls_ITreeViewComboBoxSelectionLogic.htm">
+      <HelpTOCNode Id="de45cb87-4d7c-45f0-a649-1b6842567499" Title="ITreeViewComboBoxSelectionLogic Methods" Url="html/Methods_T_Couldron_Controls_ITreeViewComboBoxSelectionLogic.htm">
+        <HelpTOCNode Title="ChangeSelectionValue Method " Url="html/M_Couldron_Controls_ITreeViewComboBoxSelectionLogic_ChangeSelectionValue.htm" />
+        <HelpTOCNode Title="IsSelected Method " Url="html/M_Couldron_Controls_ITreeViewComboBoxSelectionLogic_IsSelected.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="9068c86f-147c-46c8-be7b-9a977246f1d6" Title="TreeViewComboBox Class" Url="html/T_Couldron_Controls_TreeViewComboBox.htm">
+      <HelpTOCNode Title="TreeViewComboBox Constructor " Url="html/M_Couldron_Controls_TreeViewComboBox__ctor.htm" />
+      <HelpTOCNode Id="44855400-5854-46e5-abc3-cbb9ba395acb" Title="TreeViewComboBox Properties" Url="html/Properties_T_Couldron_Controls_TreeViewComboBox.htm">
+        <HelpTOCNode Title="AlternativeText Property " Url="html/P_Couldron_Controls_TreeViewComboBox_AlternativeText.htm" />
+        <HelpTOCNode Title="Header Property " Url="html/P_Couldron_Controls_TreeViewComboBox_Header.htm" />
+        <HelpTOCNode Title="SelectedItemDisplayMemberPath Property " Url="html/P_Couldron_Controls_TreeViewComboBox_SelectedItemDisplayMemberPath.htm" />
+        <HelpTOCNode Title="SelectedItems Property " Url="html/P_Couldron_Controls_TreeViewComboBox_SelectedItems.htm" />
+        <HelpTOCNode Title="SelectedItemTemplate Property " Url="html/P_Couldron_Controls_TreeViewComboBox_SelectedItemTemplate.htm" />
+        <HelpTOCNode Title="SelectionLogic Property " Url="html/P_Couldron_Controls_TreeViewComboBox_SelectionLogic.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="0833178c-8d57-44bb-b01f-64f021f56f92" Title="TreeViewComboBox Methods" Url="html/Methods_T_Couldron_Controls_TreeViewComboBox.htm">
+        <HelpTOCNode Title="RemoveSelectedItem Method " Url="html/M_Couldron_Controls_TreeViewComboBox_RemoveSelectedItem.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="TreeViewComboBox Events" Url="html/Events_T_Couldron_Controls_TreeViewComboBox.htm" />
+      <HelpTOCNode Id="6a6ad4a4-f058-4124-bacd-abcd90b4b543" Title="TreeViewComboBox Fields" Url="html/Fields_T_Couldron_Controls_TreeViewComboBox.htm">
+        <HelpTOCNode Title="AlternativeTextProperty Field" Url="html/F_Couldron_Controls_TreeViewComboBox_AlternativeTextProperty.htm" />
+        <HelpTOCNode Title="HeaderProperty Field" Url="html/F_Couldron_Controls_TreeViewComboBox_HeaderProperty.htm" />
+        <HelpTOCNode Title="SelectedItemDisplayMemberPathProperty Field" Url="html/F_Couldron_Controls_TreeViewComboBox_SelectedItemDisplayMemberPathProperty.htm" />
+        <HelpTOCNode Title="SelectedItemsProperty Field" Url="html/F_Couldron_Controls_TreeViewComboBox_SelectedItemsProperty.htm" />
+        <HelpTOCNode Title="SelectedItemTemplateProperty Field" Url="html/F_Couldron_Controls_TreeViewComboBox_SelectedItemTemplateProperty.htm" />
+        <HelpTOCNode Title="SelectionLogicProperty Field" Url="html/F_Couldron_Controls_TreeViewComboBox_SelectionLogicProperty.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+  </HelpTOCNode>
+  <HelpTOCNode Id="647f0b67-7791-499a-b5a3-609da3df7d24" Title="Couldron.Core" Url="html/N_Couldron_Core.htm">
+    <HelpTOCNode Id="0641d243-4ce9-4964-b739-1bd5ed321779" Title="ApplicationData Class" Url="html/T_Couldron_Core_ApplicationData.htm">
+      <HelpTOCNode Id="5b363649-15bc-4502-8cca-68fa83c14c4e" Title="ApplicationData Properties" Url="html/Properties_T_Couldron_Core_ApplicationData.htm">
+        <HelpTOCNode Title="Current Property " Url="html/P_Couldron_Core_ApplicationData_Current.htm" />
+        <HelpTOCNode Title="LocalFolder Property " Url="html/P_Couldron_Core_ApplicationData_LocalFolder.htm" />
+        <HelpTOCNode Title="RoamingFolder Property " Url="html/P_Couldron_Core_ApplicationData_RoamingFolder.htm" />
+        <HelpTOCNode Title="TemporaryFolder Property " Url="html/P_Couldron_Core_ApplicationData_TemporaryFolder.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="ApplicationData Methods" Url="html/Methods_T_Couldron_Core_ApplicationData.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="7182e0db-2e21-4419-8d2d-14e3db0e5898" Title="ApplicationInfo Class" Url="html/T_Couldron_Core_ApplicationInfo.htm">
+      <HelpTOCNode Id="8d9d48f5-79d2-4951-ac82-31e9b082d321" Title="ApplicationInfo Properties" Url="html/Properties_T_Couldron_Core_ApplicationInfo.htm">
+        <HelpTOCNode Title="ApplicationName Property " Url="html/P_Couldron_Core_ApplicationInfo_ApplicationName.htm" />
+        <HelpTOCNode Title="ApplicationPath Property " Url="html/P_Couldron_Core_ApplicationInfo_ApplicationPath.htm" />
+        <HelpTOCNode Title="ApplicationPublisher Property " Url="html/P_Couldron_Core_ApplicationInfo_ApplicationPublisher.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="e0d093e4-70a2-43af-b3a3-5c36aabea886" Title="Compression Class" Url="html/T_Couldron_Core_Compression.htm">
+      <HelpTOCNode Id="cbe6d993-bab5-4735-bccb-cb1431845611" Title="Compression Methods" Url="html/Methods_T_Couldron_Core_Compression.htm">
+        <HelpTOCNode Title="Compress Method " Url="html/M_Couldron_Core_Compression_Compress.htm" />
+        <HelpTOCNode Title="CompressFromString Method " Url="html/M_Couldron_Core_Compression_CompressFromString.htm" />
+        <HelpTOCNode Id="a2de87f3-0d50-4255-8d09-001efc3ea058" Title="CompressToBase64String Method " Url="html/Overload_Couldron_Core_Compression_CompressToBase64String.htm">
+          <HelpTOCNode Title="CompressToBase64String Method (Byte[])" Url="html/M_Couldron_Core_Compression_CompressToBase64String.htm" />
+          <HelpTOCNode Title="CompressToBase64String Method (String)" Url="html/M_Couldron_Core_Compression_CompressToBase64String_1.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="Decompress Method " Url="html/M_Couldron_Core_Compression_Decompress.htm" />
+        <HelpTOCNode Title="DecompressFromBase64String Method " Url="html/M_Couldron_Core_Compression_DecompressFromBase64String.htm" />
+        <HelpTOCNode Title="DecompressFromBase64StringToString Method " Url="html/M_Couldron_Core_Compression_DecompressFromBase64StringToString.htm" />
+        <HelpTOCNode Title="DecompressToString Method " Url="html/M_Couldron_Core_Compression_DecompressToString.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="7b954b27-d317-42dd-8b71-7c9aa6fd4174" Title="CouldronDispatcher Class" Url="html/T_Couldron_Core_CouldronDispatcher.htm">
+      <HelpTOCNode Title="CouldronDispatcher Constructor " Url="html/M_Couldron_Core_CouldronDispatcher__ctor.htm" />
+      <HelpTOCNode Id="ee06696e-9b80-414c-bdba-4948cab58cb9" Title="CouldronDispatcher Properties" Url="html/Properties_T_Couldron_Core_CouldronDispatcher.htm">
+        <HelpTOCNode Title="HasThreadAccess Property " Url="html/P_Couldron_Core_CouldronDispatcher_HasThreadAccess.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="3df20f75-bc33-4459-893e-680927d1b008" Title="CouldronDispatcher Methods" Url="html/Methods_T_Couldron_Core_CouldronDispatcher.htm">
+        <HelpTOCNode Id="3c3cffc1-3533-496e-96c4-c283ad895688" Title="RunAsync Method " Url="html/Overload_Couldron_Core_CouldronDispatcher_RunAsync.htm">
+          <HelpTOCNode Title="RunAsync Method (Action)" Url="html/M_Couldron_Core_CouldronDispatcher_RunAsync_1.htm" />
+          <HelpTOCNode Title="RunAsync Method (CouldronDispatcherPriority, Action)" Url="html/M_Couldron_Core_CouldronDispatcher_RunAsync.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Title="CouldronDispatcherPriority Enumeration" Url="html/T_Couldron_Core_CouldronDispatcherPriority.htm" />
+    <HelpTOCNode Id="59ba659f-17d0-4ef1-bd62-6ff9af16ee5d" Title="DisposableBase Class" Url="html/T_Couldron_Core_DisposableBase.htm">
+      <HelpTOCNode Title="DisposableBase Constructor " Url="html/M_Couldron_Core_DisposableBase__ctor.htm" />
+      <HelpTOCNode Id="03d751bf-eb28-49d4-b1fa-ea8486343471" Title="DisposableBase Properties" Url="html/Properties_T_Couldron_Core_DisposableBase.htm">
+        <HelpTOCNode Title="IsDisposed Property " Url="html/P_Couldron_Core_DisposableBase_IsDisposed.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="d283ed19-563e-4973-917a-8b50ebc3f2ba" Title="DisposableBase Methods" Url="html/Methods_T_Couldron_Core_DisposableBase.htm">
+        <HelpTOCNode Id="0cdf2b50-b384-4d80-ade9-c3ad8e262d0e" Title="Dispose Method " Url="html/Overload_Couldron_Core_DisposableBase_Dispose.htm">
+          <HelpTOCNode Title="Dispose Method " Url="html/M_Couldron_Core_DisposableBase_Dispose.htm" />
+          <HelpTOCNode Title="Dispose Method (Boolean)" Url="html/M_Couldron_Core_DisposableBase_Dispose_1.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="Finalize Method " Url="html/M_Couldron_Core_DisposableBase_Finalize.htm" />
+        <HelpTOCNode Title="OnDispose Method " Url="html/M_Couldron_Core_DisposableBase_OnDispose.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="e3b2ab5d-0ea7-4830-aba2-3bafed9b9c8d" Title="DisposableBase Events" Url="html/Events_T_Couldron_Core_DisposableBase.htm">
+        <HelpTOCNode Title="Disposed Event" Url="html/E_Couldron_Core_DisposableBase_Disposed.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="785ed2e9-6efc-4dea-8490-1a8ce11917df" Title="DynamicEventHandler Class" Url="html/T_Couldron_Core_DynamicEventHandler.htm">
+      <HelpTOCNode Title="DynamicEventHandler Constructor " Url="html/M_Couldron_Core_DynamicEventHandler__ctor.htm" />
+      <HelpTOCNode Id="34e84ab8-c9d3-40b0-ba31-74438dbc2404" Title="DynamicEventHandler Properties" Url="html/Properties_T_Couldron_Core_DynamicEventHandler.htm">
+        <HelpTOCNode Title="AssociatedObject Property " Url="html/P_Couldron_Core_DynamicEventHandler_AssociatedObject.htm" />
+        <HelpTOCNode Title="EventHandler Property " Url="html/P_Couldron_Core_DynamicEventHandler_EventHandler.htm" />
+        <HelpTOCNode Title="EventName Property " Url="html/P_Couldron_Core_DynamicEventHandler_EventName.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="7ccd2e5b-f4e2-40e3-98c5-63709d320063" Title="DynamicEventHandler Methods" Url="html/Methods_T_Couldron_Core_DynamicEventHandler.htm">
+        <HelpTOCNode Title="OnDispose Method " Url="html/M_Couldron_Core_DynamicEventHandler_OnDispose.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="DynamicEventHandler Events" Url="html/Events_T_Couldron_Core_DynamicEventHandler.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="7bd0f23b-3a20-4c02-bacd-7afd6684d051" Title="EmbeddedImageManager Class" Url="html/T_Couldron_Core_EmbeddedImageManager.htm">
+      <HelpTOCNode Id="0e1e5979-3e88-43f1-881f-cfa8a9ff5e68" Title="EmbeddedImageManager Methods" Url="html/Methods_T_Couldron_Core_EmbeddedImageManager.htm">
+        <HelpTOCNode Title="GetImage Method " Url="html/M_Couldron_Core_EmbeddedImageManager_GetImage.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="339dbd35-76f7-4014-9851-2bb5d96e184d" Title="IDisposableObject Interface" Url="html/T_Couldron_Core_IDisposableObject.htm">
+      <HelpTOCNode Id="ed504180-3b13-473b-a8fe-5dd3ff4973f2" Title="IDisposableObject Properties" Url="html/Properties_T_Couldron_Core_IDisposableObject.htm">
+        <HelpTOCNode Title="IsDisposed Property " Url="html/P_Couldron_Core_IDisposableObject_IsDisposed.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="IDisposableObject Methods" Url="html/Methods_T_Couldron_Core_IDisposableObject.htm" />
+      <HelpTOCNode Id="8005999c-856e-4aff-a1f7-50799f09ae11" Title="IDisposableObject Events" Url="html/Events_T_Couldron_Core_IDisposableObject.htm">
+        <HelpTOCNode Title="Disposed Event" Url="html/E_Couldron_Core_IDisposableObject_Disposed.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="663b3451-f0ea-405d-9d0a-5108a9033af3" Title="Mathc Class" Url="html/T_Couldron_Core_Mathc.htm">
+      <HelpTOCNode Id="074abff2-dcf0-4755-95a7-4b61171b8185" Title="Mathc Methods" Url="html/Methods_T_Couldron_Core_Mathc.htm">
+        <HelpTOCNode Id="7d343c93-2860-40e3-95cb-dfbd63349043" Title="Clamp Method " Url="html/Overload_Couldron_Core_Mathc_Clamp.htm">
+          <HelpTOCNode Title="Clamp Method (Double, Double, Double)" Url="html/M_Couldron_Core_Mathc_Clamp.htm" />
+          <HelpTOCNode Title="Clamp Method (Int32, Int32, Int32)" Url="html/M_Couldron_Core_Mathc_Clamp_1.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="2dc150ce-beb0-4609-a3aa-663a4b238f2d" Title="MonitorInfo Class" Url="html/T_Couldron_Core_MonitorInfo.htm">
+      <HelpTOCNode Id="6ccad545-8245-4fa6-b99a-c2b40612f111" Title="MonitorInfo Properties" Url="html/Properties_T_Couldron_Core_MonitorInfo.htm">
+        <HelpTOCNode Title="MonitorCount Property " Url="html/P_Couldron_Core_MonitorInfo_MonitorCount.htm" />
+        <HelpTOCNode Title="PrimaryMonitorBounds Property " Url="html/P_Couldron_Core_MonitorInfo_PrimaryMonitorBounds.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="f0af2f15-f431-470f-a974-266c0c17a67a" Title="MonitorInfo Methods" Url="html/Methods_T_Couldron_Core_MonitorInfo.htm">
+        <HelpTOCNode Title="GetMonitorBounds Method " Url="html/M_Couldron_Core_MonitorInfo_GetMonitorBounds.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Title="PasswordScore Enumeration" Url="html/T_Couldron_Core_PasswordScore.htm" />
+    <HelpTOCNode Id="7a47a335-ab72-4b1f-a3f2-67923de3b10f" Title="Randomizer Class" Url="html/T_Couldron_Core_Randomizer.htm">
+      <HelpTOCNode Id="159fadab-011c-4c0d-9500-9a335e099365" Title="Randomizer Methods" Url="html/Methods_T_Couldron_Core_Randomizer.htm">
+        <HelpTOCNode Id="99d368be-1ee8-4d74-8942-917081881247" Title="Next Method " Url="html/Overload_Couldron_Core_Randomizer_Next.htm">
+          <HelpTOCNode Title="Next Method " Url="html/M_Couldron_Core_Randomizer_Next.htm" />
+          <HelpTOCNode Title="Next(T) Method (T[])" Url="html/M_Couldron_Core_Randomizer_Next__1.htm" />
+          <HelpTOCNode Title="Next Method (Int32, Int32)" Url="html/M_Couldron_Core_Randomizer_Next_1.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="NextBoolean Method " Url="html/M_Couldron_Core_Randomizer_NextBoolean.htm" />
+        <HelpTOCNode Title="NextByte Method " Url="html/M_Couldron_Core_Randomizer_NextByte.htm" />
+        <HelpTOCNode Id="e83edba9-ad9f-48f3-ad2c-c368be99a03c" Title="NextDouble Method " Url="html/Overload_Couldron_Core_Randomizer_NextDouble.htm">
+          <HelpTOCNode Title="NextDouble Method " Url="html/M_Couldron_Core_Randomizer_NextDouble.htm" />
+          <HelpTOCNode Title="NextDouble Method (Double, Double)" Url="html/M_Couldron_Core_Randomizer_NextDouble_1.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="50aac80d-6c37-49e9-b063-f4359c7c9e60" Title="SecureStringHandler Class" Url="html/T_Couldron_Core_SecureStringHandler.htm">
+      <HelpTOCNode Title="SecureStringHandler Constructor " Url="html/M_Couldron_Core_SecureStringHandler__ctor.htm" />
+      <HelpTOCNode Title="SecureStringHandler Properties" Url="html/Properties_T_Couldron_Core_SecureStringHandler.htm" />
+      <HelpTOCNode Id="ad83e939-5b14-4c84-8aad-ea2be6203ae5" Title="SecureStringHandler Methods" Url="html/Methods_T_Couldron_Core_SecureStringHandler.htm">
+        <HelpTOCNode Title="OnDispose Method " Url="html/M_Couldron_Core_SecureStringHandler_OnDispose.htm" />
+        <HelpTOCNode Title="ToBytes Method " Url="html/M_Couldron_Core_SecureStringHandler_ToBytes.htm" />
+        <HelpTOCNode Title="ToString Method " Url="html/M_Couldron_Core_SecureStringHandler_ToString.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="SecureStringHandler Events" Url="html/Events_T_Couldron_Core_SecureStringHandler.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="d0d42aa4-04bf-40df-91da-640cdbb22d1b" Title="UserInformation Class" Url="html/T_Couldron_Core_UserInformation.htm">
+      <HelpTOCNode Title="UserInformation Constructor " Url="html/M_Couldron_Core_UserInformation__ctor.htm" />
+      <HelpTOCNode Id="ffbf9b30-60c2-4477-afa4-15753bada964" Title="UserInformation Properties" Url="html/Properties_T_Couldron_Core_UserInformation.htm">
+        <HelpTOCNode Title="Current Property " Url="html/P_Couldron_Core_UserInformation_Current.htm" />
+        <HelpTOCNode Title="DomainName Property " Url="html/P_Couldron_Core_UserInformation_DomainName.htm" />
+        <HelpTOCNode Title="IsLocalAccount Property " Url="html/P_Couldron_Core_UserInformation_IsLocalAccount.htm" />
+        <HelpTOCNode Title="UserName Property " Url="html/P_Couldron_Core_UserInformation_UserName.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="0595256d-1d88-4f28-859f-cba0fb571bec" Title="UserInformation Methods" Url="html/Methods_T_Couldron_Core_UserInformation.htm">
+        <HelpTOCNode Title="GetAccountPicture Method " Url="html/M_Couldron_Core_UserInformation_GetAccountPicture.htm" />
+        <HelpTOCNode Title="GetDisplayNameAsync Method " Url="html/M_Couldron_Core_UserInformation_GetDisplayNameAsync.htm" />
+        <HelpTOCNode Title="GetEmailAddressAsync Method " Url="html/M_Couldron_Core_UserInformation_GetEmailAddressAsync.htm" />
+        <HelpTOCNode Title="GetFirstNameAsync Method " Url="html/M_Couldron_Core_UserInformation_GetFirstNameAsync.htm" />
+        <HelpTOCNode Title="GetLastNameAsync Method " Url="html/M_Couldron_Core_UserInformation_GetLastNameAsync.htm" />
+        <HelpTOCNode Title="GetTelephoneNumberAsync Method " Url="html/M_Couldron_Core_UserInformation_GetTelephoneNumberAsync.htm" />
+        <HelpTOCNode Title="IsLockedOutAsync Method " Url="html/M_Couldron_Core_UserInformation_IsLockedOutAsync.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+  </HelpTOCNode>
+  <HelpTOCNode Id="93c747db-f6e9-4944-882a-63494d9cb330" Title="Couldron.Core.Cryptography" Url="html/N_Couldron_Core_Cryptography.htm">
+    <HelpTOCNode Id="a0246952-3d51-4986-8a72-3aebc97f3fe4" Title="AES Class" Url="html/T_Couldron_Core_Cryptography_AES.htm">
+      <HelpTOCNode Id="430e357d-17a9-4b7e-b62f-bf03143cdc82" Title="AES Methods" Url="html/Methods_T_Couldron_Core_Cryptography_AES.htm">
+        <HelpTOCNode Title="Decrypt Method " Url="html/M_Couldron_Core_Cryptography_AES_Decrypt.htm" />
+        <HelpTOCNode Title="DecryptToSecureString Method " Url="html/M_Couldron_Core_Cryptography_AES_DecryptToSecureString.htm" />
+        <HelpTOCNode Id="e74d5218-7c6b-4371-9d4f-7d614507202f" Title="Encrypt Method " Url="html/Overload_Couldron_Core_Cryptography_AES_Encrypt.htm">
+          <HelpTOCNode Title="Encrypt Method (SecureString, Byte[])" Url="html/M_Couldron_Core_Cryptography_AES_Encrypt.htm" />
+          <HelpTOCNode Title="Encrypt Method (SecureString, SecureString)" Url="html/M_Couldron_Core_Cryptography_AES_Encrypt_1.htm" />
+          <HelpTOCNode Title="Encrypt Method (SecureString, String)" Url="html/M_Couldron_Core_Cryptography_AES_Encrypt_2.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="66bb28f2-118f-459c-9e94-505cc964c3d9" Title="CryptoUtils Class" Url="html/T_Couldron_Core_Cryptography_CryptoUtils.htm">
+      <HelpTOCNode Id="a9ac6c0f-e048-42e4-b794-46ccd0fb87c3" Title="CryptoUtils Methods" Url="html/Methods_T_Couldron_Core_Cryptography_CryptoUtils.htm">
+        <HelpTOCNode Title="GeneratePassword Method " Url="html/M_Couldron_Core_Cryptography_CryptoUtils_GeneratePassword.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="ef9280f8-9e8b-4f86-b563-4eca1782963a" Title="KeyMaterial Class" Url="html/T_Couldron_Core_Cryptography_KeyMaterial.htm">
+      <HelpTOCNode Id="223eb3bb-faba-4a64-bee0-a5bb6d7e4191" Title="KeyMaterial Properties" Url="html/Properties_T_Couldron_Core_Cryptography_KeyMaterial.htm">
+        <HelpTOCNode Title="InitialisationVector Property " Url="html/P_Couldron_Core_Cryptography_KeyMaterial_InitialisationVector.htm" />
+        <HelpTOCNode Title="Key Property " Url="html/P_Couldron_Core_Cryptography_KeyMaterial_Key.htm" />
+        <HelpTOCNode Title="Salt Property " Url="html/P_Couldron_Core_Cryptography_KeyMaterial_Salt.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="fd16e845-b799-42b6-9fb5-c410675a7d4b" Title="KeyMaterial Methods" Url="html/Methods_T_Couldron_Core_Cryptography_KeyMaterial.htm">
+        <HelpTOCNode Id="2e175b19-bda2-43e4-83a6-a42500e0f178" Title="CreateKeyMaterial Method " Url="html/Overload_Couldron_Core_Cryptography_KeyMaterial_CreateKeyMaterial.htm">
+          <HelpTOCNode Title="CreateKeyMaterial Method (SecureString, Int32)" Url="html/M_Couldron_Core_Cryptography_KeyMaterial_CreateKeyMaterial_1.htm" />
+          <HelpTOCNode Title="CreateKeyMaterial Method (SecureString, Byte[], Int32)" Url="html/M_Couldron_Core_Cryptography_KeyMaterial_CreateKeyMaterial.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+    </HelpTOCNode>
+  </HelpTOCNode>
+  <HelpTOCNode Id="c1e865fa-8936-46e8-9c6b-d5fafd3fbd2d" Title="Couldron.Messaging" Url="html/N_Couldron_Messaging.htm">
+    <HelpTOCNode Id="3399fbe4-7b0a-4569-bba2-bde86991a794" Title="MessageManager Class" Url="html/T_Couldron_Messaging_MessageManager.htm">
+      <HelpTOCNode Id="ca5efe2c-75eb-40b1-bdbb-aea8b456ee9a" Title="MessageManager Methods" Url="html/Methods_T_Couldron_Messaging_MessageManager.htm">
+        <HelpTOCNode Title="Message Method " Url="html/M_Couldron_Messaging_MessageManager_Message.htm" />
+        <HelpTOCNode Title="Subscribe(T) Method " Url="html/M_Couldron_Messaging_MessageManager_Subscribe__1.htm" />
+        <HelpTOCNode Id="3c347dc4-53f2-453e-881b-0a5765afafa9" Title="Unsubscribe Method " Url="html/Overload_Couldron_Messaging_MessageManager_Unsubscribe.htm">
+          <HelpTOCNode Title="Unsubscribe Method " Url="html/M_Couldron_Messaging_MessageManager_Unsubscribe.htm" />
+          <HelpTOCNode Title="Unsubscribe Method (Object)" Url="html/M_Couldron_Messaging_MessageManager_Unsubscribe_1.htm" />
+          <HelpTOCNode Title="Unsubscribe(T) Method (Object)" Url="html/M_Couldron_Messaging_MessageManager_Unsubscribe__1.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="33ab6d8f-2a2e-4ab5-9bce-f43af2c3d61b" Title="MessagingArgs Class" Url="html/T_Couldron_Messaging_MessagingArgs.htm">
+      <HelpTOCNode Title="MessagingArgs Constructor " Url="html/M_Couldron_Messaging_MessagingArgs__ctor.htm" />
+      <HelpTOCNode Id="225e42ea-9a92-4578-b7aa-e865eab5c15c" Title="MessagingArgs Properties" Url="html/Properties_T_Couldron_Messaging_MessagingArgs.htm">
+        <HelpTOCNode Title="Sender Property " Url="html/P_Couldron_Messaging_MessagingArgs_Sender.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="MessagingArgs Methods" Url="html/Methods_T_Couldron_Messaging_MessagingArgs.htm" />
+    </HelpTOCNode>
+  </HelpTOCNode>
+  <HelpTOCNode Id="561e5990-12a0-4989-80dc-96bd44aae885" Title="Couldron.Validation" Url="html/N_Couldron_Validation.htm">
+    <HelpTOCNode Id="b9c23436-2d31-40cb-b7fe-22039810752e" Title="EqualityAttribute Class" Url="html/T_Couldron_Validation_EqualityAttribute.htm">
+      <HelpTOCNode Title="EqualityAttribute Constructor " Url="html/M_Couldron_Validation_EqualityAttribute__ctor.htm" />
+      <HelpTOCNode Title="EqualityAttribute Properties" Url="html/Properties_T_Couldron_Validation_EqualityAttribute.htm" />
+      <HelpTOCNode Id="bbd0d02a-ebe2-4f1e-99ff-2aeea909bb3a" Title="EqualityAttribute Methods" Url="html/Methods_T_Couldron_Validation_EqualityAttribute.htm">
+        <HelpTOCNode Title="OnValidate Method " Url="html/M_Couldron_Validation_EqualityAttribute_OnValidate.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="07ef4e91-469f-4697-829c-97b250b605b7" Title="GreaterThanAttribute Class" Url="html/T_Couldron_Validation_GreaterThanAttribute.htm">
+      <HelpTOCNode Id="8bebf2b7-12ba-462c-ada0-156120c253ea" Title="GreaterThanAttribute Constructor " Url="html/Overload_Couldron_Validation_GreaterThanAttribute__ctor.htm">
+        <HelpTOCNode Title="GreaterThanAttribute Constructor (Double, String)" Url="html/M_Couldron_Validation_GreaterThanAttribute__ctor.htm" />
+        <HelpTOCNode Title="GreaterThanAttribute Constructor (String, String)" Url="html/M_Couldron_Validation_GreaterThanAttribute__ctor_1.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="GreaterThanAttribute Properties" Url="html/Properties_T_Couldron_Validation_GreaterThanAttribute.htm" />
+      <HelpTOCNode Id="04158140-82bd-42e5-a3c3-eff9dca96b15" Title="GreaterThanAttribute Methods" Url="html/Methods_T_Couldron_Validation_GreaterThanAttribute.htm">
+        <HelpTOCNode Title="OnValidate Method " Url="html/M_Couldron_Validation_GreaterThanAttribute_OnValidate.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="5fe2d574-3f0d-4251-b5be-382da5755cb3" Title="IsMandatoryAttribute Class" Url="html/T_Couldron_Validation_IsMandatoryAttribute.htm">
+      <HelpTOCNode Title="IsMandatoryAttribute Constructor " Url="html/M_Couldron_Validation_IsMandatoryAttribute__ctor.htm" />
+      <HelpTOCNode Title="IsMandatoryAttribute Properties" Url="html/Properties_T_Couldron_Validation_IsMandatoryAttribute.htm" />
+      <HelpTOCNode Id="6754ff22-adc1-416f-960a-10128027caf2" Title="IsMandatoryAttribute Methods" Url="html/Methods_T_Couldron_Validation_IsMandatoryAttribute.htm">
+        <HelpTOCNode Title="OnValidate Method " Url="html/M_Couldron_Validation_IsMandatoryAttribute_OnValidate.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="8eba4e0b-b744-4ff7-90b5-02dccc5a09c5" Title="PasswordStrengthAttribute Class" Url="html/T_Couldron_Validation_PasswordStrengthAttribute.htm">
+      <HelpTOCNode Title="PasswordStrengthAttribute Constructor " Url="html/M_Couldron_Validation_PasswordStrengthAttribute__ctor.htm" />
+      <HelpTOCNode Title="PasswordStrengthAttribute Properties" Url="html/Properties_T_Couldron_Validation_PasswordStrengthAttribute.htm" />
+      <HelpTOCNode Id="96d779f0-da7f-4a23-b591-5d96b9d1c99a" Title="PasswordStrengthAttribute Methods" Url="html/Methods_T_Couldron_Validation_PasswordStrengthAttribute.htm">
+        <HelpTOCNode Title="OnValidate Method " Url="html/M_Couldron_Validation_PasswordStrengthAttribute_OnValidate.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="813c2617-939e-4bdf-ad86-a82e2b50d929" Title="StringLengthAttribute Class" Url="html/T_Couldron_Validation_StringLengthAttribute.htm">
+      <HelpTOCNode Id="5aa88df7-f525-4051-9478-a42dfab66a0f" Title="StringLengthAttribute Constructor " Url="html/Overload_Couldron_Validation_StringLengthAttribute__ctor.htm">
+        <HelpTOCNode Title="StringLengthAttribute Constructor (Int32, String)" Url="html/M_Couldron_Validation_StringLengthAttribute__ctor_1.htm" />
+        <HelpTOCNode Title="StringLengthAttribute Constructor (Int32, Int32, String)" Url="html/M_Couldron_Validation_StringLengthAttribute__ctor.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="StringLengthAttribute Properties" Url="html/Properties_T_Couldron_Validation_StringLengthAttribute.htm" />
+      <HelpTOCNode Id="28fb1647-aee2-4145-8021-ae35f83cd4bf" Title="StringLengthAttribute Methods" Url="html/Methods_T_Couldron_Validation_StringLengthAttribute.htm">
+        <HelpTOCNode Title="OnValidate Method " Url="html/M_Couldron_Validation_StringLengthAttribute_OnValidate.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="dd2c79d3-42fb-4278-b46f-200fd3f00826" Title="SuppressIsChangedAttribute Class" Url="html/T_Couldron_Validation_SuppressIsChangedAttribute.htm">
+      <HelpTOCNode Title="SuppressIsChangedAttribute Constructor " Url="html/M_Couldron_Validation_SuppressIsChangedAttribute__ctor.htm" />
+      <HelpTOCNode Title="SuppressIsChangedAttribute Properties" Url="html/Properties_T_Couldron_Validation_SuppressIsChangedAttribute.htm" />
+      <HelpTOCNode Title="SuppressIsChangedAttribute Methods" Url="html/Methods_T_Couldron_Validation_SuppressIsChangedAttribute.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="d9168d04-3423-4b95-8ce5-30195f652c12" Title="ValidationBaseAttribute Class" Url="html/T_Couldron_Validation_ValidationBaseAttribute.htm">
+      <HelpTOCNode Title="ValidationBaseAttribute Constructor " Url="html/M_Couldron_Validation_ValidationBaseAttribute__ctor.htm" />
+      <HelpTOCNode Id="51da3cc8-a823-4fb2-81ab-135e49907d1e" Title="ValidationBaseAttribute Properties" Url="html/Properties_T_Couldron_Validation_ValidationBaseAttribute.htm">
+        <HelpTOCNode Title="ErrorMessageKey Property " Url="html/P_Couldron_Validation_ValidationBaseAttribute_ErrorMessageKey.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="5027cc5f-751a-449a-acc6-b1e94e0d6a14" Title="ValidationBaseAttribute Methods" Url="html/Methods_T_Couldron_Validation_ValidationBaseAttribute.htm">
+        <HelpTOCNode Title="OnValidate Method " Url="html/M_Couldron_Validation_ValidationBaseAttribute_OnValidate.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+  </HelpTOCNode>
+  <HelpTOCNode Id="960de0d2-5352-4877-9f0a-161adaa31fe7" Title="Couldron.ViewModels" Url="html/N_Couldron_ViewModels.htm">
+    <HelpTOCNode Id="e34200be-d392-4174-a97c-b8c3d96452dc" Title="ChangeAwareViewModelBase Class" Url="html/T_Couldron_ViewModels_ChangeAwareViewModelBase.htm">
+      <HelpTOCNode Id="172f36d0-f279-4da8-a8f4-605f8413ddbb" Title="ChangeAwareViewModelBase Constructor " Url="html/Overload_Couldron_ViewModels_ChangeAwareViewModelBase__ctor.htm">
+        <HelpTOCNode Title="ChangeAwareViewModelBase Constructor " Url="html/M_Couldron_ViewModels_ChangeAwareViewModelBase__ctor.htm" />
+        <HelpTOCNode Title="ChangeAwareViewModelBase Constructor (Guid)" Url="html/M_Couldron_ViewModels_ChangeAwareViewModelBase__ctor_1.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="ddbcaeb3-c4b5-4235-93e0-6dac6e447616" Title="ChangeAwareViewModelBase Properties" Url="html/Properties_T_Couldron_ViewModels_ChangeAwareViewModelBase.htm">
+        <HelpTOCNode Title="IsChanged Property " Url="html/P_Couldron_ViewModels_ChangeAwareViewModelBase_IsChanged.htm" />
+        <HelpTOCNode Title="IsLoading Property " Url="html/P_Couldron_ViewModels_ChangeAwareViewModelBase_IsLoading.htm" />
+        <HelpTOCNode Title="Parent Property " Url="html/P_Couldron_ViewModels_ChangeAwareViewModelBase_Parent.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="7bafd841-f869-4909-9899-60fa3353c8c4" Title="ChangeAwareViewModelBase Methods" Url="html/Methods_T_Couldron_ViewModels_ChangeAwareViewModelBase.htm">
+        <HelpTOCNode Title="OnAfterRaiseNotifyPropertyChanged Method " Url="html/M_Couldron_ViewModels_ChangeAwareViewModelBase_OnAfterRaiseNotifyPropertyChanged.htm" />
+        <HelpTOCNode Title="OnIsChangedChanged Method " Url="html/M_Couldron_ViewModels_ChangeAwareViewModelBase_OnIsChangedChanged.htm" />
+        <HelpTOCNode Title="OnIsLoadingChanged Method " Url="html/M_Couldron_ViewModels_ChangeAwareViewModelBase_OnIsLoadingChanged.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="214ba06a-0ef1-4ec8-95c4-065a78643aca" Title="ChangeAwareViewModelBase Events" Url="html/Events_T_Couldron_ViewModels_ChangeAwareViewModelBase.htm">
+        <HelpTOCNode Title="Changed Event" Url="html/E_Couldron_ViewModels_ChangeAwareViewModelBase_Changed.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="1987876a-7a8b-46fb-9bad-cc76b5e7a134" Title="ContainerViewModelBase Class" Url="html/T_Couldron_ViewModels_ContainerViewModelBase.htm">
+      <HelpTOCNode Id="da52ab44-3c0f-4be8-a24e-d6d2deb3414d" Title="ContainerViewModelBase Constructor " Url="html/Overload_Couldron_ViewModels_ContainerViewModelBase__ctor.htm">
+        <HelpTOCNode Title="ContainerViewModelBase Constructor " Url="html/M_Couldron_ViewModels_ContainerViewModelBase__ctor.htm" />
+        <HelpTOCNode Title="ContainerViewModelBase Constructor (Guid)" Url="html/M_Couldron_ViewModels_ContainerViewModelBase__ctor_1.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="ContainerViewModelBase Properties" Url="html/Properties_T_Couldron_ViewModels_ContainerViewModelBase.htm" />
+      <HelpTOCNode Id="35af0c57-ba74-4144-a9ed-93cd60efd498" Title="ContainerViewModelBase Methods" Url="html/Methods_T_Couldron_ViewModels_ContainerViewModelBase.htm">
+        <HelpTOCNode Id="4c95aeea-d403-4572-a50e-35473f40ae8b" Title="GetRegistered Method " Url="html/Overload_Couldron_ViewModels_ContainerViewModelBase_GetRegistered.htm">
+          <HelpTOCNode Title="GetRegistered(T) Method " Url="html/M_Couldron_ViewModels_ContainerViewModelBase_GetRegistered__1.htm" />
+          <HelpTOCNode Title="GetRegistered Method (Guid)" Url="html/M_Couldron_ViewModels_ContainerViewModelBase_GetRegistered.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="OnDispose Method " Url="html/M_Couldron_ViewModels_ContainerViewModelBase_OnDispose.htm" />
+        <HelpTOCNode Title="Register Method " Url="html/M_Couldron_ViewModels_ContainerViewModelBase_Register.htm" />
+        <HelpTOCNode Id="13c25de1-56b6-4851-9c42-7dfd44bf9ada" Title="UnRegister Method " Url="html/Overload_Couldron_ViewModels_ContainerViewModelBase_UnRegister.htm">
+          <HelpTOCNode Title="UnRegister Method (Guid)" Url="html/M_Couldron_ViewModels_ContainerViewModelBase_UnRegister_1.htm" />
+          <HelpTOCNode Title="UnRegister Method (IViewModel)" Url="html/M_Couldron_ViewModels_ContainerViewModelBase_UnRegister.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+      <HelpTOCNode Title="ContainerViewModelBase Events" Url="html/Events_T_Couldron_ViewModels_ContainerViewModelBase.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="6f543a7f-e3c0-4da5-97ff-4f8d08ada9f2" Title="DisposableViewModelBase Class" Url="html/T_Couldron_ViewModels_DisposableViewModelBase.htm">
+      <HelpTOCNode Id="8924efff-f561-487d-a7b2-6015c54b7c28" Title="DisposableViewModelBase Constructor " Url="html/Overload_Couldron_ViewModels_DisposableViewModelBase__ctor.htm">
+        <HelpTOCNode Title="DisposableViewModelBase Constructor " Url="html/M_Couldron_ViewModels_DisposableViewModelBase__ctor.htm" />
+        <HelpTOCNode Title="DisposableViewModelBase Constructor (Guid)" Url="html/M_Couldron_ViewModels_DisposableViewModelBase__ctor_1.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="45d23529-6b6c-4dd6-a9f2-94fe906f86ec" Title="DisposableViewModelBase Properties" Url="html/Properties_T_Couldron_ViewModels_DisposableViewModelBase.htm">
+        <HelpTOCNode Title="IsDisposed Property " Url="html/P_Couldron_ViewModels_DisposableViewModelBase_IsDisposed.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="afa9cda1-ec02-4b13-984d-027076ca6a20" Title="DisposableViewModelBase Methods" Url="html/Methods_T_Couldron_ViewModels_DisposableViewModelBase.htm">
+        <HelpTOCNode Id="e9a00fe9-502e-4354-a94b-75b4e8d553eb" Title="Dispose Method " Url="html/Overload_Couldron_ViewModels_DisposableViewModelBase_Dispose.htm">
+          <HelpTOCNode Title="Dispose Method " Url="html/M_Couldron_ViewModels_DisposableViewModelBase_Dispose.htm" />
+          <HelpTOCNode Title="Dispose Method (Boolean)" Url="html/M_Couldron_ViewModels_DisposableViewModelBase_Dispose_1.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="Finalize Method " Url="html/M_Couldron_ViewModels_DisposableViewModelBase_Finalize.htm" />
+        <HelpTOCNode Title="OnDispose Method " Url="html/M_Couldron_ViewModels_DisposableViewModelBase_OnDispose.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="b4f4eefa-3cb8-4305-a4d5-7d18ba45b217" Title="DisposableViewModelBase Events" Url="html/Events_T_Couldron_ViewModels_DisposableViewModelBase.htm">
+        <HelpTOCNode Title="Disposed Event" Url="html/E_Couldron_ViewModels_DisposableViewModelBase_Disposed.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="eac40e06-b996-4a20-85b0-ca4ac23f0bb1" Title="HierarchicalActivableTreeViewViewModelBase(T) Class" Url="html/T_Couldron_ViewModels_HierarchicalActivableTreeViewViewModelBase_1.htm">
+      <HelpTOCNode Title="HierarchicalActivableTreeViewViewModelBase(T) Constructor " Url="html/M_Couldron_ViewModels_HierarchicalActivableTreeViewViewModelBase_1__ctor.htm" />
+      <HelpTOCNode Id="debfb184-a2e7-4953-a87c-cef9f22cbc6c" Title="HierarchicalActivableTreeViewViewModelBase(T) Properties" Url="html/Properties_T_Couldron_ViewModels_HierarchicalActivableTreeViewViewModelBase_1.htm">
+        <HelpTOCNode Title="IsActive Property " Url="html/P_Couldron_ViewModels_HierarchicalActivableTreeViewViewModelBase_1_IsActive.htm" />
+        <HelpTOCNode Title="Items Property " Url="html/P_Couldron_ViewModels_HierarchicalActivableTreeViewViewModelBase_1_Items.htm" />
+        <HelpTOCNode Title="Parent Property " Url="html/P_Couldron_ViewModels_HierarchicalActivableTreeViewViewModelBase_1_Parent.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="HierarchicalActivableTreeViewViewModelBase(T) Methods" Url="html/Methods_T_Couldron_ViewModels_HierarchicalActivableTreeViewViewModelBase_1.htm" />
+      <HelpTOCNode Title="HierarchicalActivableTreeViewViewModelBase(T) Events" Url="html/Events_T_Couldron_ViewModels_HierarchicalActivableTreeViewViewModelBase_1.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="ba05d188-15a6-461a-87aa-2573cef76bc9" Title="ICanClose Interface" Url="html/T_Couldron_ViewModels_ICanClose.htm">
+      <HelpTOCNode Title="ICanClose Properties" Url="html/Properties_T_Couldron_ViewModels_ICanClose.htm" />
+      <HelpTOCNode Id="5d9214b6-6589-4a02-bc5c-1146557d57b5" Title="ICanClose Methods" Url="html/Methods_T_Couldron_ViewModels_ICanClose.htm">
+        <HelpTOCNode Title="Activated Method " Url="html/M_Couldron_ViewModels_ICanClose_Activated.htm" />
+        <HelpTOCNode Title="CanClose Method " Url="html/M_Couldron_ViewModels_ICanClose_CanClose.htm" />
+        <HelpTOCNode Title="Deactivated Method " Url="html/M_Couldron_ViewModels_ICanClose_Deactivated.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="ICanClose Events" Url="html/Events_T_Couldron_ViewModels_ICanClose.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="d248f3fe-a77e-442d-85b0-d17f7e31d301" Title="IChangeAwareViewModel Interface" Url="html/T_Couldron_ViewModels_IChangeAwareViewModel.htm">
+      <HelpTOCNode Id="15f28157-462b-42c5-a49a-5a817679cf93" Title="IChangeAwareViewModel Properties" Url="html/Properties_T_Couldron_ViewModels_IChangeAwareViewModel.htm">
+        <HelpTOCNode Title="IsChanged Property " Url="html/P_Couldron_ViewModels_IChangeAwareViewModel_IsChanged.htm" />
+        <HelpTOCNode Title="IsLoading Property " Url="html/P_Couldron_ViewModels_IChangeAwareViewModel_IsLoading.htm" />
+        <HelpTOCNode Title="Parent Property " Url="html/P_Couldron_ViewModels_IChangeAwareViewModel_Parent.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="IChangeAwareViewModel Methods" Url="html/Methods_T_Couldron_ViewModels_IChangeAwareViewModel.htm" />
+      <HelpTOCNode Id="88e16475-577d-4d62-a8f1-04fc0005ca8b" Title="IChangeAwareViewModel Events" Url="html/Events_T_Couldron_ViewModels_IChangeAwareViewModel.htm">
+        <HelpTOCNode Title="Changed Event" Url="html/E_Couldron_ViewModels_IChangeAwareViewModel_Changed.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="dfb57ad9-e691-4c73-84ef-4ff9f77c1748" Title="IClose Interface" Url="html/T_Couldron_ViewModels_IClose.htm">
+      <HelpTOCNode Id="dce4f03f-43df-45a1-afa6-d531ae1045f8" Title="IClose Methods" Url="html/Methods_T_Couldron_ViewModels_IClose.htm">
+        <HelpTOCNode Title="Close Method " Url="html/M_Couldron_ViewModels_IClose_Close.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="e3218c90-ba38-4b0d-925b-0c144f807d50" Title="IContainerViewModel Interface" Url="html/T_Couldron_ViewModels_IContainerViewModel.htm">
+      <HelpTOCNode Title="IContainerViewModel Properties" Url="html/Properties_T_Couldron_ViewModels_IContainerViewModel.htm" />
+      <HelpTOCNode Id="cb417ab6-badf-4d14-9d19-a43987e0ce4f" Title="IContainerViewModel Methods" Url="html/Methods_T_Couldron_ViewModels_IContainerViewModel.htm">
+        <HelpTOCNode Id="ef2b93ac-3f06-48cf-b551-5ca964134ccc" Title="GetRegistered Method " Url="html/Overload_Couldron_ViewModels_IContainerViewModel_GetRegistered.htm">
+          <HelpTOCNode Title="GetRegistered(T) Method " Url="html/M_Couldron_ViewModels_IContainerViewModel_GetRegistered__1.htm" />
+          <HelpTOCNode Title="GetRegistered Method (Guid)" Url="html/M_Couldron_ViewModels_IContainerViewModel_GetRegistered.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="Register Method " Url="html/M_Couldron_ViewModels_IContainerViewModel_Register.htm" />
+        <HelpTOCNode Id="669bc8ae-8d85-46dd-9115-d9645e6ef7f4" Title="UnRegister Method " Url="html/Overload_Couldron_ViewModels_IContainerViewModel_UnRegister.htm">
+          <HelpTOCNode Title="UnRegister Method (Guid)" Url="html/M_Couldron_ViewModels_IContainerViewModel_UnRegister_1.htm" />
+          <HelpTOCNode Title="UnRegister Method (IViewModel)" Url="html/M_Couldron_ViewModels_IContainerViewModel_UnRegister.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+      <HelpTOCNode Title="IContainerViewModel Events" Url="html/Events_T_Couldron_ViewModels_IContainerViewModel.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="f3d16f9d-7d95-4785-893e-ba28955585cc" Title="IDialogViewModel(TResult) Interface" Url="html/T_Couldron_ViewModels_IDialogViewModel_1.htm">
+      <HelpTOCNode Id="d5a97c62-ad7e-4eff-9da8-7978726cd7a6" Title="IDialogViewModel(TResult) Properties" Url="html/Properties_T_Couldron_ViewModels_IDialogViewModel_1.htm">
+        <HelpTOCNode Title="Result Property " Url="html/P_Couldron_ViewModels_IDialogViewModel_1_Result.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="IDialogViewModel(TResult) Methods" Url="html/Methods_T_Couldron_ViewModels_IDialogViewModel_1.htm" />
+      <HelpTOCNode Title="IDialogViewModel(TResult) Events" Url="html/Events_T_Couldron_ViewModels_IDialogViewModel_1.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="cfc7fdf1-5bba-4ec7-9f47-7df07c1f4e44" Title="IValidatableViewModel Interface" Url="html/T_Couldron_ViewModels_IValidatableViewModel.htm">
+      <HelpTOCNode Title="IValidatableViewModel Properties" Url="html/Properties_T_Couldron_ViewModels_IValidatableViewModel.htm" />
+      <HelpTOCNode Id="cf4ac3a1-910a-4b96-a124-fe12e7e34c09" Title="IValidatableViewModel Methods" Url="html/Methods_T_Couldron_ViewModels_IValidatableViewModel.htm">
+        <HelpTOCNode Id="f243b7fc-ce7f-47ee-8ceb-70ced21f3c1f" Title="Validate Method " Url="html/Overload_Couldron_ViewModels_IValidatableViewModel_Validate.htm">
+          <HelpTOCNode Title="Validate Method " Url="html/M_Couldron_ViewModels_IValidatableViewModel_Validate.htm" />
+          <HelpTOCNode Title="Validate Method (String)" Url="html/M_Couldron_ViewModels_IValidatableViewModel_Validate_2.htm" />
+          <HelpTOCNode Title="Validate Method (PropertyInfo, String)" Url="html/M_Couldron_ViewModels_IValidatableViewModel_Validate_1.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+      <HelpTOCNode Title="IValidatableViewModel Events" Url="html/Events_T_Couldron_ViewModels_IValidatableViewModel.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="f531b6a8-41e0-4131-9667-3218d558897a" Title="IViewModel Interface" Url="html/T_Couldron_ViewModels_IViewModel.htm">
+      <HelpTOCNode Id="f0515046-a7c8-4733-bca0-731fec3efef7" Title="IViewModel Properties" Url="html/Properties_T_Couldron_ViewModels_IViewModel.htm">
+        <HelpTOCNode Title="Dispatcher Property " Url="html/P_Couldron_ViewModels_IViewModel_Dispatcher.htm" />
+        <HelpTOCNode Title="Id Property " Url="html/P_Couldron_ViewModels_IViewModel_Id.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="4ba35e31-efb2-4aea-b3c0-eef742bdc7a7" Title="IViewModel Methods" Url="html/Methods_T_Couldron_ViewModels_IViewModel.htm">
+        <HelpTOCNode Title="OnPropertyChanged Method " Url="html/M_Couldron_ViewModels_IViewModel_OnPropertyChanged.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="IViewModel Events" Url="html/Events_T_Couldron_ViewModels_IViewModel.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="b2de7be2-0d7b-469d-a944-acb3fa97287d" Title="IWindowViewModel Interface" Url="html/T_Couldron_ViewModels_IWindowViewModel.htm">
+      <HelpTOCNode Title="IWindowViewModel Properties" Url="html/Properties_T_Couldron_ViewModels_IWindowViewModel.htm" />
+      <HelpTOCNode Id="13a20030-4eb6-4067-ab8c-838b16ef69de" Title="IWindowViewModel Methods" Url="html/Methods_T_Couldron_ViewModels_IWindowViewModel.htm">
+        <HelpTOCNode Title="SizeChanged Method " Url="html/M_Couldron_ViewModels_IWindowViewModel_SizeChanged.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="IWindowViewModel Events" Url="html/Events_T_Couldron_ViewModels_IWindowViewModel.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="103a33d9-06f5-4e70-8de0-c0e3f44ae16d" Title="NavigatingAttribute Class" Url="html/T_Couldron_ViewModels_NavigatingAttribute.htm">
+      <HelpTOCNode Title="NavigatingAttribute Constructor " Url="html/M_Couldron_ViewModels_NavigatingAttribute__ctor.htm" />
+      <HelpTOCNode Id="41d37c56-ed4d-489f-b496-636493c717d8" Title="NavigatingAttribute Properties" Url="html/Properties_T_Couldron_ViewModels_NavigatingAttribute.htm">
+        <HelpTOCNode Title="MethodNames Property " Url="html/P_Couldron_ViewModels_NavigatingAttribute_MethodNames.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="NavigatingAttribute Methods" Url="html/Methods_T_Couldron_ViewModels_NavigatingAttribute.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="3671d529-8de2-49d6-adc8-34e0a48f9f12" Title="ValidatableChangeAwareViewModelBase Class" Url="html/T_Couldron_ViewModels_ValidatableChangeAwareViewModelBase.htm">
+      <HelpTOCNode Id="997101ff-2f0e-42c9-92f5-2ecaf6e4e3f1" Title="ValidatableChangeAwareViewModelBase Constructor " Url="html/Overload_Couldron_ViewModels_ValidatableChangeAwareViewModelBase__ctor.htm">
+        <HelpTOCNode Title="ValidatableChangeAwareViewModelBase Constructor " Url="html/M_Couldron_ViewModels_ValidatableChangeAwareViewModelBase__ctor.htm" />
+        <HelpTOCNode Title="ValidatableChangeAwareViewModelBase Constructor (Guid)" Url="html/M_Couldron_ViewModels_ValidatableChangeAwareViewModelBase__ctor_1.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="64df88c5-147b-41be-bd4c-27bd96b9eb9d" Title="ValidatableChangeAwareViewModelBase Properties" Url="html/Properties_T_Couldron_ViewModels_ValidatableChangeAwareViewModelBase.htm">
+        <HelpTOCNode Title="IsChanged Property " Url="html/P_Couldron_ViewModels_ValidatableChangeAwareViewModelBase_IsChanged.htm" />
+        <HelpTOCNode Title="IsLoading Property " Url="html/P_Couldron_ViewModels_ValidatableChangeAwareViewModelBase_IsLoading.htm" />
+        <HelpTOCNode Title="Parent Property " Url="html/P_Couldron_ViewModels_ValidatableChangeAwareViewModelBase_Parent.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="f8d01af5-13f2-4ad6-a598-afcad1f05f92" Title="ValidatableChangeAwareViewModelBase Methods" Url="html/Methods_T_Couldron_ViewModels_ValidatableChangeAwareViewModelBase.htm">
+        <HelpTOCNode Title="OnAfterRaiseNotifyPropertyChanged Method " Url="html/M_Couldron_ViewModels_ValidatableChangeAwareViewModelBase_OnAfterRaiseNotifyPropertyChanged.htm" />
+        <HelpTOCNode Title="OnIsChangedChanged Method " Url="html/M_Couldron_ViewModels_ValidatableChangeAwareViewModelBase_OnIsChangedChanged.htm" />
+        <HelpTOCNode Title="OnIsLoadingChanged Method " Url="html/M_Couldron_ViewModels_ValidatableChangeAwareViewModelBase_OnIsLoadingChanged.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="e1839b7d-18d5-495a-87e9-29ef16b37403" Title="ValidatableChangeAwareViewModelBase Events" Url="html/Events_T_Couldron_ViewModels_ValidatableChangeAwareViewModelBase.htm">
+        <HelpTOCNode Title="Changed Event" Url="html/E_Couldron_ViewModels_ValidatableChangeAwareViewModelBase_Changed.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="73ff8597-3697-4b24-9b89-998d08058521" Title="ValidatableContainerChangeAwareViewModelBase Class" Url="html/T_Couldron_ViewModels_ValidatableContainerChangeAwareViewModelBase.htm">
+      <HelpTOCNode Id="2102019f-8f11-4820-bab7-8c81d8fe8ff7" Title="ValidatableContainerChangeAwareViewModelBase Constructor " Url="html/Overload_Couldron_ViewModels_ValidatableContainerChangeAwareViewModelBase__ctor.htm">
+        <HelpTOCNode Title="ValidatableContainerChangeAwareViewModelBase Constructor " Url="html/M_Couldron_ViewModels_ValidatableContainerChangeAwareViewModelBase__ctor.htm" />
+        <HelpTOCNode Title="ValidatableContainerChangeAwareViewModelBase Constructor (Guid)" Url="html/M_Couldron_ViewModels_ValidatableContainerChangeAwareViewModelBase__ctor_1.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="ValidatableContainerChangeAwareViewModelBase Properties" Url="html/Properties_T_Couldron_ViewModels_ValidatableContainerChangeAwareViewModelBase.htm" />
+      <HelpTOCNode Id="d1b12b77-0621-40c2-8219-e1de8d9a7eeb" Title="ValidatableContainerChangeAwareViewModelBase Methods" Url="html/Methods_T_Couldron_ViewModels_ValidatableContainerChangeAwareViewModelBase.htm">
+        <HelpTOCNode Id="afffe178-b9e4-4672-a716-f96bd60f9947" Title="GetRegistered Method " Url="html/Overload_Couldron_ViewModels_ValidatableContainerChangeAwareViewModelBase_GetRegistered.htm">
+          <HelpTOCNode Title="GetRegistered(T) Method " Url="html/M_Couldron_ViewModels_ValidatableContainerChangeAwareViewModelBase_GetRegistered__1.htm" />
+          <HelpTOCNode Title="GetRegistered Method (Guid)" Url="html/M_Couldron_ViewModels_ValidatableContainerChangeAwareViewModelBase_GetRegistered.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="OnDispose Method " Url="html/M_Couldron_ViewModels_ValidatableContainerChangeAwareViewModelBase_OnDispose.htm" />
+        <HelpTOCNode Title="Register Method " Url="html/M_Couldron_ViewModels_ValidatableContainerChangeAwareViewModelBase_Register.htm" />
+        <HelpTOCNode Id="3c58eee9-7ce1-407a-8e76-894b3c9515d5" Title="UnRegister Method " Url="html/Overload_Couldron_ViewModels_ValidatableContainerChangeAwareViewModelBase_UnRegister.htm">
+          <HelpTOCNode Title="UnRegister Method (Guid)" Url="html/M_Couldron_ViewModels_ValidatableContainerChangeAwareViewModelBase_UnRegister_1.htm" />
+          <HelpTOCNode Title="UnRegister Method (IViewModel)" Url="html/M_Couldron_ViewModels_ValidatableContainerChangeAwareViewModelBase_UnRegister.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+      <HelpTOCNode Title="ValidatableContainerChangeAwareViewModelBase Events" Url="html/Events_T_Couldron_ViewModels_ValidatableContainerChangeAwareViewModelBase.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="a44371de-1e8c-4ff2-a4b5-8d6250084874" Title="ValidatableViewModelBase Class" Url="html/T_Couldron_ViewModels_ValidatableViewModelBase.htm">
+      <HelpTOCNode Id="79b975e9-45d0-4720-a924-ff90442c9cf2" Title="ValidatableViewModelBase Constructor " Url="html/Overload_Couldron_ViewModels_ValidatableViewModelBase__ctor.htm">
+        <HelpTOCNode Title="ValidatableViewModelBase Constructor " Url="html/M_Couldron_ViewModels_ValidatableViewModelBase__ctor.htm" />
+        <HelpTOCNode Title="ValidatableViewModelBase Constructor (Guid)" Url="html/M_Couldron_ViewModels_ValidatableViewModelBase__ctor_1.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="2275f2e1-d9ce-4a97-9ec8-380eaad009c5" Title="ValidatableViewModelBase Properties" Url="html/Properties_T_Couldron_ViewModels_ValidatableViewModelBase.htm">
+        <HelpTOCNode Title="Errors Property " Url="html/P_Couldron_ViewModels_ValidatableViewModelBase_Errors.htm" />
+        <HelpTOCNode Title="HasErrors Property " Url="html/P_Couldron_ViewModels_ValidatableViewModelBase_HasErrors.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="2d9ad436-829f-43ba-b882-26a1dfdbea91" Title="ValidatableViewModelBase Methods" Url="html/Methods_T_Couldron_ViewModels_ValidatableViewModelBase.htm">
+        <HelpTOCNode Title="GetErrors Method " Url="html/M_Couldron_ViewModels_ValidatableViewModelBase_GetErrors.htm" />
+        <HelpTOCNode Title="OnAfterRaiseNotifyPropertyChanged Method " Url="html/M_Couldron_ViewModels_ValidatableViewModelBase_OnAfterRaiseNotifyPropertyChanged.htm" />
+        <HelpTOCNode Title="OnDispose Method " Url="html/M_Couldron_ViewModels_ValidatableViewModelBase_OnDispose.htm" />
+        <HelpTOCNode Title="OnValidation Method " Url="html/M_Couldron_ViewModels_ValidatableViewModelBase_OnValidation.htm" />
+        <HelpTOCNode Id="b3e06b31-912a-4566-9d48-6ad3d217a779" Title="Validate Method " Url="html/Overload_Couldron_ViewModels_ValidatableViewModelBase_Validate.htm">
+          <HelpTOCNode Title="Validate Method " Url="html/M_Couldron_ViewModels_ValidatableViewModelBase_Validate.htm" />
+          <HelpTOCNode Title="Validate Method (String)" Url="html/M_Couldron_ViewModels_ValidatableViewModelBase_Validate_2.htm" />
+          <HelpTOCNode Title="Validate Method (PropertyInfo, String)" Url="html/M_Couldron_ViewModels_ValidatableViewModelBase_Validate_1.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+      <HelpTOCNode Id="b5158883-7666-4d93-bff3-c0180becdeed" Title="ValidatableViewModelBase Events" Url="html/Events_T_Couldron_ViewModels_ValidatableViewModelBase.htm">
+        <HelpTOCNode Title="ErrorsChanged Event" Url="html/E_Couldron_ViewModels_ValidatableViewModelBase_ErrorsChanged.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="c40396f5-ba8d-42fb-8ba4-4aa6e9e3ab6a" Title="ValidationEventArgs Class" Url="html/T_Couldron_ViewModels_ValidationEventArgs.htm">
+      <HelpTOCNode Id="ffb63274-24d1-43de-ae6f-5dfd5d2aeb3c" Title="ValidationEventArgs Constructor " Url="html/Overload_Couldron_ViewModels_ValidationEventArgs__ctor.htm">
+        <HelpTOCNode Title="ValidationEventArgs Constructor " Url="html/M_Couldron_ViewModels_ValidationEventArgs__ctor.htm" />
+        <HelpTOCNode Title="ValidationEventArgs Constructor (String)" Url="html/M_Couldron_ViewModels_ValidationEventArgs__ctor_1.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="bf1a3375-1618-4a87-a26e-9d659fcff443" Title="ValidationEventArgs Properties" Url="html/Properties_T_Couldron_ViewModels_ValidationEventArgs.htm">
+        <HelpTOCNode Title="PropertyName Property " Url="html/P_Couldron_ViewModels_ValidationEventArgs_PropertyName.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Title="ValidationEventArgs Methods" Url="html/Methods_T_Couldron_ViewModels_ValidationEventArgs.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="25fe3767-c643-40e1-bc90-ebf8c88b7e00" Title="ValidationHandler Class" Url="html/T_Couldron_ViewModels_ValidationHandler.htm">
+      <HelpTOCNode Title="ValidationHandler Constructor " Url="html/M_Couldron_ViewModels_ValidationHandler__ctor.htm" />
+      <HelpTOCNode Id="ea1da47c-cbb5-48eb-a211-279f029ddcba" Title="ValidationHandler Properties" Url="html/Properties_T_Couldron_ViewModels_ValidationHandler.htm">
+        <HelpTOCNode Title="Errors Property " Url="html/P_Couldron_ViewModels_ValidationHandler_Errors.htm" />
+        <HelpTOCNode Title="HasErrors Property " Url="html/P_Couldron_ViewModels_ValidationHandler_HasErrors.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="6f745004-b155-4e18-ab08-aaff89247720" Title="ValidationHandler Methods" Url="html/Methods_T_Couldron_ViewModels_ValidationHandler.htm">
+        <HelpTOCNode Title="GetErrors Method " Url="html/M_Couldron_ViewModels_ValidationHandler_GetErrors.htm" />
+        <HelpTOCNode Title="OnDispose Method " Url="html/M_Couldron_ViewModels_ValidationHandler_OnDispose.htm" />
+        <HelpTOCNode Id="f5281cbe-1ef1-45c6-bb70-3496343b3750" Title="Validate Method " Url="html/Overload_Couldron_ViewModels_ValidationHandler_Validate.htm">
+          <HelpTOCNode Title="Validate Method " Url="html/M_Couldron_ViewModels_ValidationHandler_Validate.htm" />
+          <HelpTOCNode Title="Validate Method (String)" Url="html/M_Couldron_ViewModels_ValidationHandler_Validate_2.htm" />
+          <HelpTOCNode Title="Validate Method (PropertyInfo, String)" Url="html/M_Couldron_ViewModels_ValidationHandler_Validate_1.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+      <HelpTOCNode Id="3049df04-f080-4c00-9e13-71c973e412f8" Title="ValidationHandler Events" Url="html/Events_T_Couldron_ViewModels_ValidationHandler.htm">
+        <HelpTOCNode Title="ErrorsChanged Event" Url="html/E_Couldron_ViewModels_ValidationHandler_ErrorsChanged.htm" />
+        <HelpTOCNode Title="Validation Event" Url="html/E_Couldron_ViewModels_ValidationHandler_Validation.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="b125babc-9470-4425-a7ff-47c0cb80b4c1" Title="ViewModelBase Class" Url="html/T_Couldron_ViewModels_ViewModelBase.htm">
+      <HelpTOCNode Id="7ae6621a-911f-4a7b-a44f-65cf92670ca7" Title="ViewModelBase Constructor " Url="html/Overload_Couldron_ViewModels_ViewModelBase__ctor.htm">
+        <HelpTOCNode Title="ViewModelBase Constructor " Url="html/M_Couldron_ViewModels_ViewModelBase__ctor.htm" />
+        <HelpTOCNode Title="ViewModelBase Constructor (Guid)" Url="html/M_Couldron_ViewModels_ViewModelBase__ctor_1.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="22b0d186-58d6-4ae3-8f6d-7640eb26d583" Title="ViewModelBase Properties" Url="html/Properties_T_Couldron_ViewModels_ViewModelBase.htm">
+        <HelpTOCNode Title="Dispatcher Property " Url="html/P_Couldron_ViewModels_ViewModelBase_Dispatcher.htm" />
+        <HelpTOCNode Title="Id Property " Url="html/P_Couldron_ViewModels_ViewModelBase_Id.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="4be79270-2a27-4ee7-9e1a-4b322cf00c55" Title="ViewModelBase Methods" Url="html/Methods_T_Couldron_ViewModels_ViewModelBase.htm">
+        <HelpTOCNode Title="OnAfterRaiseNotifyPropertyChanged Method " Url="html/M_Couldron_ViewModels_ViewModelBase_OnAfterRaiseNotifyPropertyChanged.htm" />
+        <HelpTOCNode Title="OnBeforeRaiseNotifyPropertyChanged Method " Url="html/M_Couldron_ViewModels_ViewModelBase_OnBeforeRaiseNotifyPropertyChanged.htm" />
+        <HelpTOCNode Title="OnPropertyChanged Method " Url="html/M_Couldron_ViewModels_ViewModelBase_OnPropertyChanged.htm" />
+        <HelpTOCNode Title="RaiseNotifyBehaviourInvoke Method " Url="html/M_Couldron_ViewModels_ViewModelBase_RaiseNotifyBehaviourInvoke.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="3598c1dd-9553-4718-bb83-bc4f69ba3964" Title="ViewModelBase Events" Url="html/Events_T_Couldron_ViewModels_ViewModelBase.htm">
+        <HelpTOCNode Title="BehaviourInvoke Event" Url="html/E_Couldron_ViewModels_ViewModelBase_BehaviourInvoke.htm" />
+        <HelpTOCNode Title="PropertyChanged Event" Url="html/E_Couldron_ViewModels_ViewModelBase_PropertyChanged.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="d0db8d3a-1383-4e7c-9b3a-582483f6bdca" Title="ViewModelContainerHandler Class" Url="html/T_Couldron_ViewModels_ViewModelContainerHandler.htm">
+      <HelpTOCNode Title="ViewModelContainerHandler Constructor " Url="html/M_Couldron_ViewModels_ViewModelContainerHandler__ctor.htm" />
+      <HelpTOCNode Id="5b6c13fd-b933-45f0-9552-a5104f15f178" Title="ViewModelContainerHandler Properties" Url="html/Properties_T_Couldron_ViewModels_ViewModelContainerHandler.htm">
+        <HelpTOCNode Title="Parent Property " Url="html/P_Couldron_ViewModels_ViewModelContainerHandler_Parent.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="ba5ad03a-3512-4c71-92c0-f73925b65abc" Title="ViewModelContainerHandler Methods" Url="html/Methods_T_Couldron_ViewModels_ViewModelContainerHandler.htm">
+        <HelpTOCNode Id="585cc686-e264-4230-969d-3b2233ee3461" Title="GetRegistered Method " Url="html/Overload_Couldron_ViewModels_ViewModelContainerHandler_GetRegistered.htm">
+          <HelpTOCNode Title="GetRegistered(T) Method " Url="html/M_Couldron_ViewModels_ViewModelContainerHandler_GetRegistered__1.htm" />
+          <HelpTOCNode Title="GetRegistered Method (Guid)" Url="html/M_Couldron_ViewModels_ViewModelContainerHandler_GetRegistered.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="OnDispose Method " Url="html/M_Couldron_ViewModels_ViewModelContainerHandler_OnDispose.htm" />
+        <HelpTOCNode Title="Register Method " Url="html/M_Couldron_ViewModels_ViewModelContainerHandler_Register.htm" />
+        <HelpTOCNode Id="ee2a6d3a-6d26-4884-b708-79ba81f187db" Title="UnRegister Method " Url="html/Overload_Couldron_ViewModels_ViewModelContainerHandler_UnRegister.htm">
+          <HelpTOCNode Title="UnRegister Method (Guid)" Url="html/M_Couldron_ViewModels_ViewModelContainerHandler_UnRegister_1.htm" />
+          <HelpTOCNode Title="UnRegister Method (IViewModel)" Url="html/M_Couldron_ViewModels_ViewModelContainerHandler_UnRegister.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="Validate Method " Url="html/M_Couldron_ViewModels_ViewModelContainerHandler_Validate.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="2e9af405-6423-4a73-b651-ed30d5758b79" Title="ViewModelContainerHandler Events" Url="html/Events_T_Couldron_ViewModels_ViewModelContainerHandler.htm">
+        <HelpTOCNode Title="Changed Event" Url="html/E_Couldron_ViewModels_ViewModelContainerHandler_Changed.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+  </HelpTOCNode>
+</HelpTOC>
