@@ -246,23 +246,23 @@
   <HelpKINode Title="BehaviourUsageAttribute.BehaviourUsageAttribute constructor" Url="html/Overload_Couldron_Behaviours_BehaviourUsageAttribute__ctor.htm" />
   <HelpKINode Title="Blank enumeration member" Url="html/T_Couldron_Core_PasswordScore.htm" />
   <HelpKINode Title="BooleanInvertConverter class">
-    <HelpKINode Title="BooleanInvertConverter Class" Url="html/T_Couldron_BooleanInvertConverter.htm" />
-    <HelpKINode Title="about BooleanInvertConverter class" Url="html/T_Couldron_BooleanInvertConverter.htm" />
-    <HelpKINode Title="constructor" Url="html/M_Couldron_BooleanInvertConverter__ctor.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Couldron_BooleanInvertConverter.htm" />
+    <HelpKINode Title="BooleanInvertConverter Class" Url="html/T_Couldron_ValueConverters_BooleanInvertConverter.htm" />
+    <HelpKINode Title="about BooleanInvertConverter class" Url="html/T_Couldron_ValueConverters_BooleanInvertConverter.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Couldron_ValueConverters_BooleanInvertConverter__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Couldron_ValueConverters_BooleanInvertConverter.htm" />
   </HelpKINode>
-  <HelpKINode Title="BooleanInvertConverter.BooleanInvertConverter constructor" Url="html/M_Couldron_BooleanInvertConverter__ctor.htm" />
-  <HelpKINode Title="BooleanInvertConverter.Convert method" Url="html/M_Couldron_BooleanInvertConverter_Convert.htm" />
-  <HelpKINode Title="BooleanInvertConverter.ConvertBack method" Url="html/M_Couldron_BooleanInvertConverter_ConvertBack.htm" />
+  <HelpKINode Title="BooleanInvertConverter.BooleanInvertConverter constructor" Url="html/M_Couldron_ValueConverters_BooleanInvertConverter__ctor.htm" />
+  <HelpKINode Title="BooleanInvertConverter.Convert method" Url="html/M_Couldron_ValueConverters_BooleanInvertConverter_Convert.htm" />
+  <HelpKINode Title="BooleanInvertConverter.ConvertBack method" Url="html/M_Couldron_ValueConverters_BooleanInvertConverter_ConvertBack.htm" />
   <HelpKINode Title="BooleanToVisibilityConverter class">
-    <HelpKINode Title="BooleanToVisibilityConverter Class" Url="html/T_Couldron_BooleanToVisibilityConverter.htm" />
-    <HelpKINode Title="about BooleanToVisibilityConverter class" Url="html/T_Couldron_BooleanToVisibilityConverter.htm" />
-    <HelpKINode Title="constructor" Url="html/M_Couldron_BooleanToVisibilityConverter__ctor.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Couldron_BooleanToVisibilityConverter.htm" />
+    <HelpKINode Title="BooleanToVisibilityConverter Class" Url="html/T_Couldron_ValueConverters_BooleanToVisibilityConverter.htm" />
+    <HelpKINode Title="about BooleanToVisibilityConverter class" Url="html/T_Couldron_ValueConverters_BooleanToVisibilityConverter.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Couldron_ValueConverters_BooleanToVisibilityConverter__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Couldron_ValueConverters_BooleanToVisibilityConverter.htm" />
   </HelpKINode>
-  <HelpKINode Title="BooleanToVisibilityConverter.BooleanToVisibilityConverter constructor" Url="html/M_Couldron_BooleanToVisibilityConverter__ctor.htm" />
-  <HelpKINode Title="BooleanToVisibilityConverter.Convert method" Url="html/M_Couldron_BooleanToVisibilityConverter_Convert.htm" />
-  <HelpKINode Title="BooleanToVisibilityConverter.ConvertBack method" Url="html/M_Couldron_BooleanToVisibilityConverter_ConvertBack.htm" />
+  <HelpKINode Title="BooleanToVisibilityConverter.BooleanToVisibilityConverter constructor" Url="html/M_Couldron_ValueConverters_BooleanToVisibilityConverter__ctor.htm" />
+  <HelpKINode Title="BooleanToVisibilityConverter.Convert method" Url="html/M_Couldron_ValueConverters_BooleanToVisibilityConverter_Convert.htm" />
+  <HelpKINode Title="BooleanToVisibilityConverter.ConvertBack method" Url="html/M_Couldron_ValueConverters_BooleanToVisibilityConverter_ConvertBack.htm" />
   <HelpKINode Title="ButtonProperties class">
     <HelpKINode Title="ButtonProperties Class" Url="html/T_Couldron_Attached_ButtonProperties.htm" />
     <HelpKINode Title="about ButtonProperties class" Url="html/T_Couldron_Attached_ButtonProperties.htm" />
@@ -348,14 +348,14 @@
   <HelpKINode Title="CloseFocusedWindow method" Url="html/M_Couldron_Navigator_CloseFocusedWindow.htm" />
   <HelpKINode Title="CloseWindowOf method" Url="html/M_Couldron_Navigator_CloseWindowOf.htm" />
   <HelpKINode Title="CollectionHasElementsToBoolConverter class">
-    <HelpKINode Title="CollectionHasElementsToBoolConverter Class" Url="html/T_Couldron_CollectionHasElementsToBoolConverter.htm" />
-    <HelpKINode Title="about CollectionHasElementsToBoolConverter class" Url="html/T_Couldron_CollectionHasElementsToBoolConverter.htm" />
-    <HelpKINode Title="constructor" Url="html/M_Couldron_CollectionHasElementsToBoolConverter__ctor.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Couldron_CollectionHasElementsToBoolConverter.htm" />
+    <HelpKINode Title="CollectionHasElementsToBoolConverter Class" Url="html/T_Couldron_ValueConverters_CollectionHasElementsToBoolConverter.htm" />
+    <HelpKINode Title="about CollectionHasElementsToBoolConverter class" Url="html/T_Couldron_ValueConverters_CollectionHasElementsToBoolConverter.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Couldron_ValueConverters_CollectionHasElementsToBoolConverter__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Couldron_ValueConverters_CollectionHasElementsToBoolConverter.htm" />
   </HelpKINode>
-  <HelpKINode Title="CollectionHasElementsToBoolConverter.CollectionHasElementsToBoolConverter constructor" Url="html/M_Couldron_CollectionHasElementsToBoolConverter__ctor.htm" />
-  <HelpKINode Title="CollectionHasElementsToBoolConverter.Convert method" Url="html/M_Couldron_CollectionHasElementsToBoolConverter_Convert.htm" />
-  <HelpKINode Title="CollectionHasElementsToBoolConverter.ConvertBack method" Url="html/M_Couldron_CollectionHasElementsToBoolConverter_ConvertBack.htm" />
+  <HelpKINode Title="CollectionHasElementsToBoolConverter.CollectionHasElementsToBoolConverter constructor" Url="html/M_Couldron_ValueConverters_CollectionHasElementsToBoolConverter__ctor.htm" />
+  <HelpKINode Title="CollectionHasElementsToBoolConverter.Convert method" Url="html/M_Couldron_ValueConverters_CollectionHasElementsToBoolConverter_Convert.htm" />
+  <HelpKINode Title="CollectionHasElementsToBoolConverter.ConvertBack method" Url="html/M_Couldron_ValueConverters_CollectionHasElementsToBoolConverter_ConvertBack.htm" />
   <HelpKINode Title="ComboBoxProperties class">
     <HelpKINode Title="ComboBoxProperties Class" Url="html/T_Couldron_Attached_ComboBoxProperties.htm" />
     <HelpKINode Title="about ComboBoxProperties class" Url="html/T_Couldron_Attached_ComboBoxProperties.htm" />
@@ -533,30 +533,30 @@
   <HelpKINode Title="ControlTemplateCommandFromControlNameBinding.ParentType property" Url="html/P_Couldron_Behaviours_ControlTemplateCommandFromControlNameBinding_ParentType.htm" />
   <HelpKINode Title="ControlTemplateCommandFromControlNameBinding.ParentTypeProperty field" Url="html/F_Couldron_Behaviours_ControlTemplateCommandFromControlNameBinding_ParentTypeProperty.htm" />
   <HelpKINode Title="Convert method">
-    <HelpKINode Title="BooleanInvertConverter.Convert Method " Url="html/M_Couldron_BooleanInvertConverter_Convert.htm" />
-    <HelpKINode Title="BooleanToVisibilityConverter.Convert Method " Url="html/M_Couldron_BooleanToVisibilityConverter_Convert.htm" />
-    <HelpKINode Title="CollectionHasElementsToBoolConverter.Convert Method " Url="html/M_Couldron_CollectionHasElementsToBoolConverter_Convert.htm" />
-    <HelpKINode Title="ErrorCollectionConverter.Convert Method " Url="html/M_Couldron_ErrorCollectionConverter_Convert.htm" />
-    <HelpKINode Title="ErrorCollectionCountToVisibilityConverter.Convert Method " Url="html/M_Couldron_ErrorCollectionCountToVisibilityConverter_Convert.htm" />
-    <HelpKINode Title="KeyToLocalizedStringConverter.Convert Method " Url="html/M_Couldron_KeyToLocalizedStringConverter_Convert.htm" />
-    <HelpKINode Title="MathematicalOperationConverter.Convert Method " Url="html/M_Couldron_MathematicalOperationConverter_Convert.htm" />
-    <HelpKINode Title="NullOrEmptyTovisibilityConverter.Convert Method " Url="html/M_Couldron_NullOrEmptyTovisibilityConverter_Convert.htm" />
-    <HelpKINode Title="ObjectToBooleanConverter.Convert Method " Url="html/M_Couldron_ObjectToBooleanConverter_Convert.htm" />
-    <HelpKINode Title="ObjectToVisibilityConverter.Convert Method " Url="html/M_Couldron_ObjectToVisibilityConverter_Convert.htm" />
-    <HelpKINode Title="StringFormatConverter.Convert Method " Url="html/M_Couldron_StringFormatConverter_Convert.htm" />
+    <HelpKINode Title="BooleanInvertConverter.Convert Method " Url="html/M_Couldron_ValueConverters_BooleanInvertConverter_Convert.htm" />
+    <HelpKINode Title="BooleanToVisibilityConverter.Convert Method " Url="html/M_Couldron_ValueConverters_BooleanToVisibilityConverter_Convert.htm" />
+    <HelpKINode Title="CollectionHasElementsToBoolConverter.Convert Method " Url="html/M_Couldron_ValueConverters_CollectionHasElementsToBoolConverter_Convert.htm" />
+    <HelpKINode Title="ErrorCollectionConverter.Convert Method " Url="html/M_Couldron_ValueConverters_ErrorCollectionConverter_Convert.htm" />
+    <HelpKINode Title="ErrorCollectionCountToVisibilityConverter.Convert Method " Url="html/M_Couldron_ValueConverters_ErrorCollectionCountToVisibilityConverter_Convert.htm" />
+    <HelpKINode Title="KeyToLocalizedStringConverter.Convert Method " Url="html/M_Couldron_ValueConverters_KeyToLocalizedStringConverter_Convert.htm" />
+    <HelpKINode Title="MathematicalOperationConverter.Convert Method " Url="html/M_Couldron_ValueConverters_MathematicalOperationConverter_Convert.htm" />
+    <HelpKINode Title="NullOrEmptyTovisibilityConverter.Convert Method " Url="html/M_Couldron_ValueConverters_NullOrEmptyTovisibilityConverter_Convert.htm" />
+    <HelpKINode Title="ObjectToBooleanConverter.Convert Method " Url="html/M_Couldron_ValueConverters_ObjectToBooleanConverter_Convert.htm" />
+    <HelpKINode Title="ObjectToVisibilityConverter.Convert Method " Url="html/M_Couldron_ValueConverters_ObjectToVisibilityConverter_Convert.htm" />
+    <HelpKINode Title="StringFormatConverter.Convert Method " Url="html/M_Couldron_ValueConverters_StringFormatConverter_Convert.htm" />
   </HelpKINode>
   <HelpKINode Title="ConvertBack method">
-    <HelpKINode Title="BooleanInvertConverter.ConvertBack Method " Url="html/M_Couldron_BooleanInvertConverter_ConvertBack.htm" />
-    <HelpKINode Title="BooleanToVisibilityConverter.ConvertBack Method " Url="html/M_Couldron_BooleanToVisibilityConverter_ConvertBack.htm" />
-    <HelpKINode Title="CollectionHasElementsToBoolConverter.ConvertBack Method " Url="html/M_Couldron_CollectionHasElementsToBoolConverter_ConvertBack.htm" />
-    <HelpKINode Title="ErrorCollectionConverter.ConvertBack Method " Url="html/M_Couldron_ErrorCollectionConverter_ConvertBack.htm" />
-    <HelpKINode Title="ErrorCollectionCountToVisibilityConverter.ConvertBack Method " Url="html/M_Couldron_ErrorCollectionCountToVisibilityConverter_ConvertBack.htm" />
-    <HelpKINode Title="KeyToLocalizedStringConverter.ConvertBack Method " Url="html/M_Couldron_KeyToLocalizedStringConverter_ConvertBack.htm" />
-    <HelpKINode Title="MathematicalOperationConverter.ConvertBack Method " Url="html/M_Couldron_MathematicalOperationConverter_ConvertBack.htm" />
-    <HelpKINode Title="NullOrEmptyTovisibilityConverter.ConvertBack Method " Url="html/M_Couldron_NullOrEmptyTovisibilityConverter_ConvertBack.htm" />
-    <HelpKINode Title="ObjectToBooleanConverter.ConvertBack Method " Url="html/M_Couldron_ObjectToBooleanConverter_ConvertBack.htm" />
-    <HelpKINode Title="ObjectToVisibilityConverter.ConvertBack Method " Url="html/M_Couldron_ObjectToVisibilityConverter_ConvertBack.htm" />
-    <HelpKINode Title="StringFormatConverter.ConvertBack Method " Url="html/M_Couldron_StringFormatConverter_ConvertBack.htm" />
+    <HelpKINode Title="BooleanInvertConverter.ConvertBack Method " Url="html/M_Couldron_ValueConverters_BooleanInvertConverter_ConvertBack.htm" />
+    <HelpKINode Title="BooleanToVisibilityConverter.ConvertBack Method " Url="html/M_Couldron_ValueConverters_BooleanToVisibilityConverter_ConvertBack.htm" />
+    <HelpKINode Title="CollectionHasElementsToBoolConverter.ConvertBack Method " Url="html/M_Couldron_ValueConverters_CollectionHasElementsToBoolConverter_ConvertBack.htm" />
+    <HelpKINode Title="ErrorCollectionConverter.ConvertBack Method " Url="html/M_Couldron_ValueConverters_ErrorCollectionConverter_ConvertBack.htm" />
+    <HelpKINode Title="ErrorCollectionCountToVisibilityConverter.ConvertBack Method " Url="html/M_Couldron_ValueConverters_ErrorCollectionCountToVisibilityConverter_ConvertBack.htm" />
+    <HelpKINode Title="KeyToLocalizedStringConverter.ConvertBack Method " Url="html/M_Couldron_ValueConverters_KeyToLocalizedStringConverter_ConvertBack.htm" />
+    <HelpKINode Title="MathematicalOperationConverter.ConvertBack Method " Url="html/M_Couldron_ValueConverters_MathematicalOperationConverter_ConvertBack.htm" />
+    <HelpKINode Title="NullOrEmptyTovisibilityConverter.ConvertBack Method " Url="html/M_Couldron_ValueConverters_NullOrEmptyTovisibilityConverter_ConvertBack.htm" />
+    <HelpKINode Title="ObjectToBooleanConverter.ConvertBack Method " Url="html/M_Couldron_ValueConverters_ObjectToBooleanConverter_ConvertBack.htm" />
+    <HelpKINode Title="ObjectToVisibilityConverter.ConvertBack Method " Url="html/M_Couldron_ValueConverters_ObjectToVisibilityConverter_ConvertBack.htm" />
+    <HelpKINode Title="StringFormatConverter.ConvertBack Method " Url="html/M_Couldron_ValueConverters_StringFormatConverter_ConvertBack.htm" />
   </HelpKINode>
   <HelpKINode Title="Converter property" Url="html/P_Couldron_Behaviours_ControlTemplateBinding_Converter.htm" />
   <HelpKINode Title="ConverterParameter property" Url="html/P_Couldron_Behaviours_ControlTemplateBinding_ConverterParameter.htm" />
@@ -599,9 +599,6 @@
   <HelpKINode Title="Couldron.Behaviours.SetFocus class" Url="html/T_Couldron_Behaviours_SetFocus.htm" />
   <HelpKINode Title="Couldron.Behaviours.TextBoxInputFilter class" Url="html/T_Couldron_Behaviours_TextBoxInputFilter.htm" />
   <HelpKINode Title="Couldron.Behaviours.WindowConfiguration class" Url="html/T_Couldron_Behaviours_WindowConfiguration.htm" />
-  <HelpKINode Title="Couldron.BooleanInvertConverter class" Url="html/T_Couldron_BooleanInvertConverter.htm" />
-  <HelpKINode Title="Couldron.BooleanToVisibilityConverter class" Url="html/T_Couldron_BooleanToVisibilityConverter.htm" />
-  <HelpKINode Title="Couldron.CollectionHasElementsToBoolConverter class" Url="html/T_Couldron_CollectionHasElementsToBoolConverter.htm" />
   <HelpKINode Title="Couldron.Collections namespace" Url="html/N_Couldron_Collections.htm" />
   <HelpKINode Title="Couldron.Collections.ActionCollection class" Url="html/T_Couldron_Collections_ActionCollection.htm" />
   <HelpKINode Title="Couldron.Collections.BehaviourCollection class" Url="html/T_Couldron_Collections_BehaviourCollection.htm" />
@@ -636,8 +633,6 @@
   <HelpKINode Title="Couldron.Core.UserInformation class" Url="html/T_Couldron_Core_UserInformation.htm" />
   <HelpKINode Title="Couldron.CouldronApplication class" Url="html/T_Couldron_CouldronApplication.htm" />
   <HelpKINode Title="Couldron.CouldronTemplateSelector class" Url="html/T_Couldron_CouldronTemplateSelector.htm" />
-  <HelpKINode Title="Couldron.ErrorCollectionConverter class" Url="html/T_Couldron_ErrorCollectionConverter.htm" />
-  <HelpKINode Title="Couldron.ErrorCollectionCountToVisibilityConverter class" Url="html/T_Couldron_ErrorCollectionCountToVisibilityConverter.htm" />
   <HelpKINode Title="Couldron.ExtensionConvertions class" Url="html/T_Couldron_ExtensionConvertions.htm" />
   <HelpKINode Title="Couldron.Extensions class" Url="html/T_Couldron_Extensions.htm" />
   <HelpKINode Title="Couldron.ExtensionsFrameworkElement class" Url="html/T_Couldron_ExtensionsFrameworkElement.htm" />
@@ -650,20 +645,14 @@
   <HelpKINode Title="Couldron.InjectionFactoryExtension class" Url="html/T_Couldron_InjectionFactoryExtension.htm" />
   <HelpKINode Title="Couldron.INotifyBehaviourInvokation interface" Url="html/T_Couldron_INotifyBehaviourInvokation.htm" />
   <HelpKINode Title="Couldron.IRelayCommand interface" Url="html/T_Couldron_IRelayCommand.htm" />
-  <HelpKINode Title="Couldron.KeyToLocalizedStringConverter class" Url="html/T_Couldron_KeyToLocalizedStringConverter.htm" />
   <HelpKINode Title="Couldron.Localization class" Url="html/T_Couldron_Localization.htm" />
-  <HelpKINode Title="Couldron.MathematicalOperationConverter class" Url="html/T_Couldron_MathematicalOperationConverter.htm" />
   <HelpKINode Title="Couldron.Messaging namespace" Url="html/N_Couldron_Messaging.htm" />
   <HelpKINode Title="Couldron.Messaging.MessageManager class" Url="html/T_Couldron_Messaging_MessageManager.htm" />
   <HelpKINode Title="Couldron.Messaging.MessagingArgs class" Url="html/T_Couldron_Messaging_MessagingArgs.htm" />
   <HelpKINode Title="Couldron.Navigator class" Url="html/T_Couldron_Navigator.htm" />
-  <HelpKINode Title="Couldron.NullOrEmptyTovisibilityConverter class" Url="html/T_Couldron_NullOrEmptyTovisibilityConverter.htm" />
-  <HelpKINode Title="Couldron.ObjectToBooleanConverter class" Url="html/T_Couldron_ObjectToBooleanConverter.htm" />
-  <HelpKINode Title="Couldron.ObjectToVisibilityConverter class" Url="html/T_Couldron_ObjectToVisibilityConverter.htm" />
   <HelpKINode Title="Couldron.RelayCommand class" Url="html/T_Couldron_RelayCommand.htm" />
   <HelpKINode Title="Couldron.RelayCommand(Of T) class" Url="html/T_Couldron_RelayCommand_1.htm" />
   <HelpKINode Title="Couldron.RelayCommand&lt;T&gt; class" Url="html/T_Couldron_RelayCommand_1.htm" />
-  <HelpKINode Title="Couldron.StringFormatConverter class" Url="html/T_Couldron_StringFormatConverter.htm" />
   <HelpKINode Title="Couldron.Utils class" Url="html/T_Couldron_Utils.htm" />
   <HelpKINode Title="Couldron.Validation namespace" Url="html/N_Couldron_Validation.htm" />
   <HelpKINode Title="Couldron.Validation.EqualityAttribute class" Url="html/T_Couldron_Validation_EqualityAttribute.htm" />
@@ -673,6 +662,18 @@
   <HelpKINode Title="Couldron.Validation.StringLengthAttribute class" Url="html/T_Couldron_Validation_StringLengthAttribute.htm" />
   <HelpKINode Title="Couldron.Validation.SuppressIsChangedAttribute class" Url="html/T_Couldron_Validation_SuppressIsChangedAttribute.htm" />
   <HelpKINode Title="Couldron.Validation.ValidationBaseAttribute class" Url="html/T_Couldron_Validation_ValidationBaseAttribute.htm" />
+  <HelpKINode Title="Couldron.ValueConverters namespace" Url="html/N_Couldron_ValueConverters.htm" />
+  <HelpKINode Title="Couldron.ValueConverters.BooleanInvertConverter class" Url="html/T_Couldron_ValueConverters_BooleanInvertConverter.htm" />
+  <HelpKINode Title="Couldron.ValueConverters.BooleanToVisibilityConverter class" Url="html/T_Couldron_ValueConverters_BooleanToVisibilityConverter.htm" />
+  <HelpKINode Title="Couldron.ValueConverters.CollectionHasElementsToBoolConverter class" Url="html/T_Couldron_ValueConverters_CollectionHasElementsToBoolConverter.htm" />
+  <HelpKINode Title="Couldron.ValueConverters.ErrorCollectionConverter class" Url="html/T_Couldron_ValueConverters_ErrorCollectionConverter.htm" />
+  <HelpKINode Title="Couldron.ValueConverters.ErrorCollectionCountToVisibilityConverter class" Url="html/T_Couldron_ValueConverters_ErrorCollectionCountToVisibilityConverter.htm" />
+  <HelpKINode Title="Couldron.ValueConverters.KeyToLocalizedStringConverter class" Url="html/T_Couldron_ValueConverters_KeyToLocalizedStringConverter.htm" />
+  <HelpKINode Title="Couldron.ValueConverters.MathematicalOperationConverter class" Url="html/T_Couldron_ValueConverters_MathematicalOperationConverter.htm" />
+  <HelpKINode Title="Couldron.ValueConverters.NullOrEmptyTovisibilityConverter class" Url="html/T_Couldron_ValueConverters_NullOrEmptyTovisibilityConverter.htm" />
+  <HelpKINode Title="Couldron.ValueConverters.ObjectToBooleanConverter class" Url="html/T_Couldron_ValueConverters_ObjectToBooleanConverter.htm" />
+  <HelpKINode Title="Couldron.ValueConverters.ObjectToVisibilityConverter class" Url="html/T_Couldron_ValueConverters_ObjectToVisibilityConverter.htm" />
+  <HelpKINode Title="Couldron.ValueConverters.StringFormatConverter class" Url="html/T_Couldron_ValueConverters_StringFormatConverter.htm" />
   <HelpKINode Title="Couldron.ViewAttribute class" Url="html/T_Couldron_ViewAttribute.htm" />
   <HelpKINode Title="Couldron.ViewModels namespace" Url="html/N_Couldron_ViewModels.htm" />
   <HelpKINode Title="Couldron.ViewModels.ChangeAwareViewModelBase class" Url="html/T_Couldron_ViewModels_ChangeAwareViewModelBase.htm" />
@@ -899,23 +900,23 @@
   <HelpKINode Title="Equals method" Url="html/M_Couldron_Utils_Equals.htm" />
   <HelpKINode Title="ERASEBKGND enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="ErrorCollectionConverter class">
-    <HelpKINode Title="ErrorCollectionConverter Class" Url="html/T_Couldron_ErrorCollectionConverter.htm" />
-    <HelpKINode Title="about ErrorCollectionConverter class" Url="html/T_Couldron_ErrorCollectionConverter.htm" />
-    <HelpKINode Title="constructor" Url="html/M_Couldron_ErrorCollectionConverter__ctor.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Couldron_ErrorCollectionConverter.htm" />
+    <HelpKINode Title="ErrorCollectionConverter Class" Url="html/T_Couldron_ValueConverters_ErrorCollectionConverter.htm" />
+    <HelpKINode Title="about ErrorCollectionConverter class" Url="html/T_Couldron_ValueConverters_ErrorCollectionConverter.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Couldron_ValueConverters_ErrorCollectionConverter__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Couldron_ValueConverters_ErrorCollectionConverter.htm" />
   </HelpKINode>
-  <HelpKINode Title="ErrorCollectionConverter.Convert method" Url="html/M_Couldron_ErrorCollectionConverter_Convert.htm" />
-  <HelpKINode Title="ErrorCollectionConverter.ConvertBack method" Url="html/M_Couldron_ErrorCollectionConverter_ConvertBack.htm" />
-  <HelpKINode Title="ErrorCollectionConverter.ErrorCollectionConverter constructor" Url="html/M_Couldron_ErrorCollectionConverter__ctor.htm" />
+  <HelpKINode Title="ErrorCollectionConverter.Convert method" Url="html/M_Couldron_ValueConverters_ErrorCollectionConverter_Convert.htm" />
+  <HelpKINode Title="ErrorCollectionConverter.ConvertBack method" Url="html/M_Couldron_ValueConverters_ErrorCollectionConverter_ConvertBack.htm" />
+  <HelpKINode Title="ErrorCollectionConverter.ErrorCollectionConverter constructor" Url="html/M_Couldron_ValueConverters_ErrorCollectionConverter__ctor.htm" />
   <HelpKINode Title="ErrorCollectionCountToVisibilityConverter class">
-    <HelpKINode Title="ErrorCollectionCountToVisibilityConverter Class" Url="html/T_Couldron_ErrorCollectionCountToVisibilityConverter.htm" />
-    <HelpKINode Title="about ErrorCollectionCountToVisibilityConverter class" Url="html/T_Couldron_ErrorCollectionCountToVisibilityConverter.htm" />
-    <HelpKINode Title="constructor" Url="html/M_Couldron_ErrorCollectionCountToVisibilityConverter__ctor.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Couldron_ErrorCollectionCountToVisibilityConverter.htm" />
+    <HelpKINode Title="ErrorCollectionCountToVisibilityConverter Class" Url="html/T_Couldron_ValueConverters_ErrorCollectionCountToVisibilityConverter.htm" />
+    <HelpKINode Title="about ErrorCollectionCountToVisibilityConverter class" Url="html/T_Couldron_ValueConverters_ErrorCollectionCountToVisibilityConverter.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Couldron_ValueConverters_ErrorCollectionCountToVisibilityConverter__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Couldron_ValueConverters_ErrorCollectionCountToVisibilityConverter.htm" />
   </HelpKINode>
-  <HelpKINode Title="ErrorCollectionCountToVisibilityConverter.Convert method" Url="html/M_Couldron_ErrorCollectionCountToVisibilityConverter_Convert.htm" />
-  <HelpKINode Title="ErrorCollectionCountToVisibilityConverter.ConvertBack method" Url="html/M_Couldron_ErrorCollectionCountToVisibilityConverter_ConvertBack.htm" />
-  <HelpKINode Title="ErrorCollectionCountToVisibilityConverter.ErrorCollectionCountToVisibilityConverter constructor" Url="html/M_Couldron_ErrorCollectionCountToVisibilityConverter__ctor.htm" />
+  <HelpKINode Title="ErrorCollectionCountToVisibilityConverter.Convert method" Url="html/M_Couldron_ValueConverters_ErrorCollectionCountToVisibilityConverter_Convert.htm" />
+  <HelpKINode Title="ErrorCollectionCountToVisibilityConverter.ConvertBack method" Url="html/M_Couldron_ValueConverters_ErrorCollectionCountToVisibilityConverter_ConvertBack.htm" />
+  <HelpKINode Title="ErrorCollectionCountToVisibilityConverter.ErrorCollectionCountToVisibilityConverter constructor" Url="html/M_Couldron_ValueConverters_ErrorCollectionCountToVisibilityConverter__ctor.htm" />
   <HelpKINode Title="ErrorMessageKey property" Url="html/P_Couldron_Validation_ValidationBaseAttribute_ErrorMessageKey.htm" />
   <HelpKINode Title="Errors property">
     <HelpKINode Title="ValidatableViewModelBase.Errors Property " Url="html/P_Couldron_ViewModels_ValidatableViewModelBase_Errors.htm" />
@@ -1581,14 +1582,14 @@
   <HelpKINode Title="KeyMaterial.Key property" Url="html/P_Couldron_Core_Cryptography_KeyMaterial_Key.htm" />
   <HelpKINode Title="KeyMaterial.Salt property" Url="html/P_Couldron_Core_Cryptography_KeyMaterial_Salt.htm" />
   <HelpKINode Title="KeyToLocalizedStringConverter class">
-    <HelpKINode Title="KeyToLocalizedStringConverter Class" Url="html/T_Couldron_KeyToLocalizedStringConverter.htm" />
-    <HelpKINode Title="about KeyToLocalizedStringConverter class" Url="html/T_Couldron_KeyToLocalizedStringConverter.htm" />
-    <HelpKINode Title="constructor" Url="html/M_Couldron_KeyToLocalizedStringConverter__ctor.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Couldron_KeyToLocalizedStringConverter.htm" />
+    <HelpKINode Title="KeyToLocalizedStringConverter Class" Url="html/T_Couldron_ValueConverters_KeyToLocalizedStringConverter.htm" />
+    <HelpKINode Title="about KeyToLocalizedStringConverter class" Url="html/T_Couldron_ValueConverters_KeyToLocalizedStringConverter.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Couldron_ValueConverters_KeyToLocalizedStringConverter__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Couldron_ValueConverters_KeyToLocalizedStringConverter.htm" />
   </HelpKINode>
-  <HelpKINode Title="KeyToLocalizedStringConverter.Convert method" Url="html/M_Couldron_KeyToLocalizedStringConverter_Convert.htm" />
-  <HelpKINode Title="KeyToLocalizedStringConverter.ConvertBack method" Url="html/M_Couldron_KeyToLocalizedStringConverter_ConvertBack.htm" />
-  <HelpKINode Title="KeyToLocalizedStringConverter.KeyToLocalizedStringConverter constructor" Url="html/M_Couldron_KeyToLocalizedStringConverter__ctor.htm" />
+  <HelpKINode Title="KeyToLocalizedStringConverter.Convert method" Url="html/M_Couldron_ValueConverters_KeyToLocalizedStringConverter_Convert.htm" />
+  <HelpKINode Title="KeyToLocalizedStringConverter.ConvertBack method" Url="html/M_Couldron_ValueConverters_KeyToLocalizedStringConverter_ConvertBack.htm" />
+  <HelpKINode Title="KeyToLocalizedStringConverter.KeyToLocalizedStringConverter constructor" Url="html/M_Couldron_ValueConverters_KeyToLocalizedStringConverter__ctor.htm" />
   <HelpKINode Title="KEYUP enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="KILLFOCUS enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="LBUTTONDBLCLK enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
@@ -1630,14 +1631,14 @@
   </HelpKINode>
   <HelpKINode Title="Mathc.Clamp method" Url="html/Overload_Couldron_Core_Mathc_Clamp.htm" />
   <HelpKINode Title="MathematicalOperationConverter class">
-    <HelpKINode Title="MathematicalOperationConverter Class" Url="html/T_Couldron_MathematicalOperationConverter.htm" />
-    <HelpKINode Title="about MathematicalOperationConverter class" Url="html/T_Couldron_MathematicalOperationConverter.htm" />
-    <HelpKINode Title="constructor" Url="html/M_Couldron_MathematicalOperationConverter__ctor.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Couldron_MathematicalOperationConverter.htm" />
+    <HelpKINode Title="MathematicalOperationConverter Class" Url="html/T_Couldron_ValueConverters_MathematicalOperationConverter.htm" />
+    <HelpKINode Title="about MathematicalOperationConverter class" Url="html/T_Couldron_ValueConverters_MathematicalOperationConverter.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Couldron_ValueConverters_MathematicalOperationConverter__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Couldron_ValueConverters_MathematicalOperationConverter.htm" />
   </HelpKINode>
-  <HelpKINode Title="MathematicalOperationConverter.Convert method" Url="html/M_Couldron_MathematicalOperationConverter_Convert.htm" />
-  <HelpKINode Title="MathematicalOperationConverter.ConvertBack method" Url="html/M_Couldron_MathematicalOperationConverter_ConvertBack.htm" />
-  <HelpKINode Title="MathematicalOperationConverter.MathematicalOperationConverter constructor" Url="html/M_Couldron_MathematicalOperationConverter__ctor.htm" />
+  <HelpKINode Title="MathematicalOperationConverter.Convert method" Url="html/M_Couldron_ValueConverters_MathematicalOperationConverter_Convert.htm" />
+  <HelpKINode Title="MathematicalOperationConverter.ConvertBack method" Url="html/M_Couldron_ValueConverters_MathematicalOperationConverter_ConvertBack.htm" />
+  <HelpKINode Title="MathematicalOperationConverter.MathematicalOperationConverter constructor" Url="html/M_Couldron_ValueConverters_MathematicalOperationConverter__ctor.htm" />
   <HelpKINode Title="MBUTTONDBLCLK enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="MBUTTONDOWN enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="MBUTTONUP enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
@@ -1765,32 +1766,32 @@
   <HelpKINode Title="NOTIFYFORMAT enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="NULL enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="NullOrEmptyTovisibilityConverter class">
-    <HelpKINode Title="NullOrEmptyTovisibilityConverter Class" Url="html/T_Couldron_NullOrEmptyTovisibilityConverter.htm" />
-    <HelpKINode Title="about NullOrEmptyTovisibilityConverter class" Url="html/T_Couldron_NullOrEmptyTovisibilityConverter.htm" />
-    <HelpKINode Title="constructor" Url="html/M_Couldron_NullOrEmptyTovisibilityConverter__ctor.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Couldron_NullOrEmptyTovisibilityConverter.htm" />
+    <HelpKINode Title="NullOrEmptyTovisibilityConverter Class" Url="html/T_Couldron_ValueConverters_NullOrEmptyTovisibilityConverter.htm" />
+    <HelpKINode Title="about NullOrEmptyTovisibilityConverter class" Url="html/T_Couldron_ValueConverters_NullOrEmptyTovisibilityConverter.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Couldron_ValueConverters_NullOrEmptyTovisibilityConverter__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Couldron_ValueConverters_NullOrEmptyTovisibilityConverter.htm" />
   </HelpKINode>
-  <HelpKINode Title="NullOrEmptyTovisibilityConverter.Convert method" Url="html/M_Couldron_NullOrEmptyTovisibilityConverter_Convert.htm" />
-  <HelpKINode Title="NullOrEmptyTovisibilityConverter.ConvertBack method" Url="html/M_Couldron_NullOrEmptyTovisibilityConverter_ConvertBack.htm" />
-  <HelpKINode Title="NullOrEmptyTovisibilityConverter.NullOrEmptyTovisibilityConverter constructor" Url="html/M_Couldron_NullOrEmptyTovisibilityConverter__ctor.htm" />
+  <HelpKINode Title="NullOrEmptyTovisibilityConverter.Convert method" Url="html/M_Couldron_ValueConverters_NullOrEmptyTovisibilityConverter_Convert.htm" />
+  <HelpKINode Title="NullOrEmptyTovisibilityConverter.ConvertBack method" Url="html/M_Couldron_ValueConverters_NullOrEmptyTovisibilityConverter_ConvertBack.htm" />
+  <HelpKINode Title="NullOrEmptyTovisibilityConverter.NullOrEmptyTovisibilityConverter constructor" Url="html/M_Couldron_ValueConverters_NullOrEmptyTovisibilityConverter__ctor.htm" />
   <HelpKINode Title="ObjectToBooleanConverter class">
-    <HelpKINode Title="ObjectToBooleanConverter Class" Url="html/T_Couldron_ObjectToBooleanConverter.htm" />
-    <HelpKINode Title="about ObjectToBooleanConverter class" Url="html/T_Couldron_ObjectToBooleanConverter.htm" />
-    <HelpKINode Title="constructor" Url="html/M_Couldron_ObjectToBooleanConverter__ctor.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Couldron_ObjectToBooleanConverter.htm" />
+    <HelpKINode Title="ObjectToBooleanConverter Class" Url="html/T_Couldron_ValueConverters_ObjectToBooleanConverter.htm" />
+    <HelpKINode Title="about ObjectToBooleanConverter class" Url="html/T_Couldron_ValueConverters_ObjectToBooleanConverter.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Couldron_ValueConverters_ObjectToBooleanConverter__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Couldron_ValueConverters_ObjectToBooleanConverter.htm" />
   </HelpKINode>
-  <HelpKINode Title="ObjectToBooleanConverter.Convert method" Url="html/M_Couldron_ObjectToBooleanConverter_Convert.htm" />
-  <HelpKINode Title="ObjectToBooleanConverter.ConvertBack method" Url="html/M_Couldron_ObjectToBooleanConverter_ConvertBack.htm" />
-  <HelpKINode Title="ObjectToBooleanConverter.ObjectToBooleanConverter constructor" Url="html/M_Couldron_ObjectToBooleanConverter__ctor.htm" />
+  <HelpKINode Title="ObjectToBooleanConverter.Convert method" Url="html/M_Couldron_ValueConverters_ObjectToBooleanConverter_Convert.htm" />
+  <HelpKINode Title="ObjectToBooleanConverter.ConvertBack method" Url="html/M_Couldron_ValueConverters_ObjectToBooleanConverter_ConvertBack.htm" />
+  <HelpKINode Title="ObjectToBooleanConverter.ObjectToBooleanConverter constructor" Url="html/M_Couldron_ValueConverters_ObjectToBooleanConverter__ctor.htm" />
   <HelpKINode Title="ObjectToVisibilityConverter class">
-    <HelpKINode Title="ObjectToVisibilityConverter Class" Url="html/T_Couldron_ObjectToVisibilityConverter.htm" />
-    <HelpKINode Title="about ObjectToVisibilityConverter class" Url="html/T_Couldron_ObjectToVisibilityConverter.htm" />
-    <HelpKINode Title="constructor" Url="html/M_Couldron_ObjectToVisibilityConverter__ctor.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Couldron_ObjectToVisibilityConverter.htm" />
+    <HelpKINode Title="ObjectToVisibilityConverter Class" Url="html/T_Couldron_ValueConverters_ObjectToVisibilityConverter.htm" />
+    <HelpKINode Title="about ObjectToVisibilityConverter class" Url="html/T_Couldron_ValueConverters_ObjectToVisibilityConverter.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Couldron_ValueConverters_ObjectToVisibilityConverter__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Couldron_ValueConverters_ObjectToVisibilityConverter.htm" />
   </HelpKINode>
-  <HelpKINode Title="ObjectToVisibilityConverter.Convert method" Url="html/M_Couldron_ObjectToVisibilityConverter_Convert.htm" />
-  <HelpKINode Title="ObjectToVisibilityConverter.ConvertBack method" Url="html/M_Couldron_ObjectToVisibilityConverter_ConvertBack.htm" />
-  <HelpKINode Title="ObjectToVisibilityConverter.ObjectToVisibilityConverter constructor" Url="html/M_Couldron_ObjectToVisibilityConverter__ctor.htm" />
+  <HelpKINode Title="ObjectToVisibilityConverter.Convert method" Url="html/M_Couldron_ValueConverters_ObjectToVisibilityConverter_Convert.htm" />
+  <HelpKINode Title="ObjectToVisibilityConverter.ConvertBack method" Url="html/M_Couldron_ValueConverters_ObjectToVisibilityConverter_ConvertBack.htm" />
+  <HelpKINode Title="ObjectToVisibilityConverter.ObjectToVisibilityConverter constructor" Url="html/M_Couldron_ValueConverters_ObjectToVisibilityConverter__ctor.htm" />
   <HelpKINode Title="OnAfterRaiseNotifyPropertyChanged method">
     <HelpKINode Title="ChangeAwareViewModelBase.OnAfterRaiseNotifyPropertyChanged Method " Url="html/M_Couldron_ViewModels_ChangeAwareViewModelBase_OnAfterRaiseNotifyPropertyChanged.htm" />
     <HelpKINode Title="ValidatableChangeAwareViewModelBase.OnAfterRaiseNotifyPropertyChanged Method " Url="html/M_Couldron_ViewModels_ValidatableChangeAwareViewModelBase_OnAfterRaiseNotifyPropertyChanged.htm" />
@@ -2127,14 +2128,14 @@
   <HelpKINode Title="SourceTypeProperty field" Url="html/F_Couldron_Behaviours_ControlTemplateBinding_SourceTypeProperty.htm" />
   <HelpKINode Title="SPOOLERSTATUS enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="StringFormatConverter class">
-    <HelpKINode Title="StringFormatConverter Class" Url="html/T_Couldron_StringFormatConverter.htm" />
-    <HelpKINode Title="about StringFormatConverter class" Url="html/T_Couldron_StringFormatConverter.htm" />
-    <HelpKINode Title="constructor" Url="html/M_Couldron_StringFormatConverter__ctor.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Couldron_StringFormatConverter.htm" />
+    <HelpKINode Title="StringFormatConverter Class" Url="html/T_Couldron_ValueConverters_StringFormatConverter.htm" />
+    <HelpKINode Title="about StringFormatConverter class" Url="html/T_Couldron_ValueConverters_StringFormatConverter.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Couldron_ValueConverters_StringFormatConverter__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Couldron_ValueConverters_StringFormatConverter.htm" />
   </HelpKINode>
-  <HelpKINode Title="StringFormatConverter.Convert method" Url="html/M_Couldron_StringFormatConverter_Convert.htm" />
-  <HelpKINode Title="StringFormatConverter.ConvertBack method" Url="html/M_Couldron_StringFormatConverter_ConvertBack.htm" />
-  <HelpKINode Title="StringFormatConverter.StringFormatConverter constructor" Url="html/M_Couldron_StringFormatConverter__ctor.htm" />
+  <HelpKINode Title="StringFormatConverter.Convert method" Url="html/M_Couldron_ValueConverters_StringFormatConverter_Convert.htm" />
+  <HelpKINode Title="StringFormatConverter.ConvertBack method" Url="html/M_Couldron_ValueConverters_StringFormatConverter_ConvertBack.htm" />
+  <HelpKINode Title="StringFormatConverter.StringFormatConverter constructor" Url="html/M_Couldron_ValueConverters_StringFormatConverter__ctor.htm" />
   <HelpKINode Title="StringLengthAttribute class">
     <HelpKINode Title="StringLengthAttribute Class" Url="html/T_Couldron_Validation_StringLengthAttribute.htm" />
     <HelpKINode Title="about StringLengthAttribute class" Url="html/T_Couldron_Validation_StringLengthAttribute.htm" />
