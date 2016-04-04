@@ -97,6 +97,19 @@ namespace Couldron
         }
 
         /// <summary>
+        /// Returns the first element of a sequence.
+        /// </summary>
+        /// <param name="source">The <see cref="IEnumerable"/> to return the first element of.</param>
+        /// <returns>The first element in the specified sequence.</returns>
+        public static object FirstElement(this IEnumerable source)
+        {
+            var enumerator = source.GetEnumerator();
+            enumerator.Reset();
+            enumerator.MoveNext();
+            return enumerator.Current;
+        }
+
+        /// <summary>
         /// Gets a specified length of bytes.
         /// <para />
         /// If the specified length <paramref name="length"/> is longer than the source array the source array will be returned instead.

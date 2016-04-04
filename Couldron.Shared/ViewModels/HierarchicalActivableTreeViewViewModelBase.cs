@@ -17,7 +17,6 @@ namespace Couldron.ViewModels
         /// </summary>
         public HierarchicalActivableTreeViewViewModelBase()
         {
-            this.ShowDetailsCommand = new RelayCommand(this.OnShowDetails);
             this.Items = new ObservableCollection<T>();
             this.Items.CollectionChanged += Children_CollectionChanged;
         }
@@ -56,16 +55,6 @@ namespace Couldron.ViewModels
         /// Gets the parent of the current element
         /// </summary>
         public T Parent { get; internal set; }
-
-        /// <summary>
-        /// Gets the ShowDetails command
-        /// </summary>
-        public ICommand ShowDetailsCommand { get; private set; }
-
-        /// <summary>
-        /// Occures when the <see cref="ICommand"/> <see cref="ShowDetailsCommand"/> was invoked
-        /// </summary>
-        protected abstract void OnShowDetails();
 
         private void Children_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {

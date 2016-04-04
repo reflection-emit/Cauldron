@@ -8,6 +8,7 @@
              xmlns:behaviour="clr-namespace:Couldron.Behaviours;assembly=Couldron"
              xmlns:collections="clr-namespace:Couldron.Collections;assembly=Couldron"
              xmlns:attached="clr-namespace:Couldron.Attached;assembly=Couldron"
+             xmlns:controls="clr-namespace:Couldron.Controls;assembly=Couldron"
              mc:Ignorable="d">
 
     <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="ToggleButton">
@@ -177,7 +178,7 @@
 
                         <TextBlock Text="{Binding Path=(attached:ComboBoxProperties.Header), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource KeyToLocalizedStringConverter}}"
                                  Visibility="{Binding Path=(attached:ComboBoxProperties.Header), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NullOrEmptyTovisibilityConverter}, ConverterParameter=True}"
-                                 Margin="1,6,0,2" Grid.ColumnSpan="4" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
+                                 Margin="1,6,0,2" Grid.ColumnSpan="4" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" IsHitTestVisible="False" />
 
                         <ToggleButton x:Name="border" Grid.ColumnSpan="4" Grid.Row="1" Background="{StaticResource ThemeLightBackgroundBrush}"
                                         VerticalAlignment="Stretch" HorizontalAlignment="Stretch" ClickMode="Press" Focusable="False" Foreground="{StaticResource ThemeComboBoxArrowBrush}"
@@ -257,10 +258,43 @@
         </Setter>
     </Style>
 
-    <Style TargetType="ComboBox" x:Key="TreeViewComboxStyle">
+    <Style TargetType="controls:TreeViewComboBox">
+        <Setter Property="ItemTemplate">
+            <Setter.Value>
+                <HierarchicalDataTemplate ItemsSource="{Binding Items}">
+                    <ContentPresenter Content="{Binding}" />
+                </HierarchicalDataTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="SelectedItemTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <Button Content="{Binding}" Padding="2,0" Margin="1,0" MinWidth="0" MinHeight="0" Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Center">
+                        <Button.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Delete">
+                                    <behaviour:Interaction.Behaviours>
+                                        <behaviour:EventTrigger EventName="Click">
+                                            <behaviour:InvokeMethodAction MethodName="RemoveSelectedItem" MethodParameters="Content" MethodOwnerType="controls:TreeViewComboBox" />
+                                        </behaviour:EventTrigger>
+                                    </behaviour:Interaction.Behaviours>
+                                </MenuItem>
+                            </ContextMenu>
+                        </Button.ContextMenu>
+                    </Button>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="behaviour:Interactivity.Template">
+            <Setter.Value>
+                <collections:InteractivityTemplate>
+                    <localbehaviour:ComboBoxBehaviour />
+                </collections:InteractivityTemplate>
+            </Setter.Value>
+        </Setter>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="ComboBox">
+                <ControlTemplate TargetType="controls:TreeViewComboBox">
                     <Grid>
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
@@ -318,9 +352,9 @@
                             <RowDefinition MinHeight="22" />
                         </Grid.RowDefinitions>
 
-                        <TextBlock Text="{Binding Path=(attached:ComboBoxProperties.Header), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource KeyToLocalizedStringConverter}}"
-                                 Visibility="{Binding Path=(attached:ComboBoxProperties.Header), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NullOrEmptyTovisibilityConverter}, ConverterParameter=True}"
-                                 Margin="1,6,0,2" Grid.ColumnSpan="4" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
+                        <TextBlock Text="{Binding Path=Header, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource KeyToLocalizedStringConverter}}"
+                                 Visibility="{Binding Path=Header, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NullOrEmptyTovisibilityConverter}, ConverterParameter=True}"
+                                 Margin="1,6,0,2" Grid.ColumnSpan="4" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" IsHitTestVisible="False" />
 
                         <ToggleButton x:Name="border" Grid.ColumnSpan="4" Grid.Row="1" Background="{StaticResource ThemeLightBackgroundBrush}"
                                         VerticalAlignment="Stretch" HorizontalAlignment="Stretch" ClickMode="Press" Focusable="False" Foreground="{StaticResource ThemeComboBoxArrowBrush}"
@@ -338,52 +372,29 @@
                                         Background="{StaticResource ThemeLightBackgroundBrush}" BorderBrush="Transparent" Template="{StaticResource ComboBoxToggleButton}"
                                         IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" />
 
-                        <ItemsControl VerticalAlignment="Center" HorizontalAlignment="Stretch"
-                              Grid.Row="1" Grid.Column="2" Margin="1" IsEnabled="{Binding Path=IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanInvertConverter}}"
-                              ItemsSource="{Binding Path=(attached:ComboBoxProperties.SelectedItems), RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}">
+                        <ItemsControl VerticalAlignment="Center" HorizontalAlignment="Stretch" DisplayMemberPath="{TemplateBinding SelectedItemDisplayMemberPath}"
+                                      Grid.Row="1" Grid.Column="2" Margin="1"
+                                      IsEnabled="{Binding Path=IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanInvertConverter}}"
+                                      ItemsSource="{Binding Path=SelectedItems, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                                      ItemTemplate="{TemplateBinding SelectedItemTemplate}" ItemTemplateSelector="{x:Null}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <WrapPanel />
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Button Content="{Binding}" Command="{Binding ShowDetailsCommand}" Padding="2,0" Margin="1,0" MinWidth="0" MinHeight="0" Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Center">
-                                        <behaviour:Interaction.Behaviours>
-                                            <localbehaviour:ComboBoxTreeViewSelectedElementContextMenu />
-                                        </behaviour:Interaction.Behaviours>
-                                    </Button>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
                         </ItemsControl>
 
                         <TextBlock Grid.Row="1" Grid.Column="2" IsHitTestVisible="False"
-                                       Text="{Binding Path=(attached:ComboBoxProperties.AlternativeText), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource KeyToLocalizedStringConverter}}"
+                                       Text="{Binding Path=AlternativeText, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource KeyToLocalizedStringConverter}}"
                                        Foreground="{StaticResource ThemeTextBrush}" Opacity="0.7" Margin="3"
                                        Visibility="{Binding Path=Text, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NullOrEmptyTovisibilityConverter}, ConverterParameter=False}" />
 
-                        <Popup x:Name="Popup" Grid.ColumnSpan="4" Grid.Row="1" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}"
-                               AllowsTransparency="True" Focusable="False" PopupAnimation="Slide">
-                            <Border x:Name="DropDown" SnapsToDevicePixels="True" Margin="0,0,5,5" Height="400" BorderThickness="1"
-                                    BorderBrush="{StaticResource ThemeLightBorderBrush}" Background="{StaticResource ThemeDropdownBackgroundBrush}">
-
-                                <TreeView x:Name="huhuji" ItemsSource="{TemplateBinding ItemsSource}" SelectedValuePath="{TemplateBinding SelectedValuePath}" MinWidth="300" BorderThickness="0">
+                        <Popup x:Name="Popup" Grid.ColumnSpan="4" Grid.Row="1" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" Focusable="False" PopupAnimation="Slide">
+                            <Border x:Name="DropDown" SnapsToDevicePixels="True" Margin="0,0,5,5" Height="400" BorderThickness="1" BorderBrush="{StaticResource ThemeLightBorderBrush}" Background="{StaticResource ThemeDropdownBackgroundBrush}">
+                                <TreeView ItemsSource="{TemplateBinding ItemsSource}" SelectedValuePath="{TemplateBinding SelectedValuePath}" MinWidth="300" BorderThickness="0" ItemTemplate="{TemplateBinding ItemTemplate}">
                                     <behaviour:Interaction.Behaviours>
-                                        <localbehaviour:ComboBoxTreeView />
+                                        <localbehaviour:ComboBoxTreeViewBehaviours />
                                     </behaviour:Interaction.Behaviours>
-                                    <TreeView.ItemTemplate>
-                                        <HierarchicalDataTemplate ItemsSource="{Binding Items}">
-                                            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="32" />
-                                                    <ColumnDefinition />
-                                                </Grid.ColumnDefinitions>
-
-                                                <CheckBox IsChecked="{Binding IsActive }" />
-                                                <TextBlock Grid.Column="1" Text="{Binding Name}" />
-                                            </Grid>
-                                        </HierarchicalDataTemplate>
-                                    </TreeView.ItemTemplate>
                                 </TreeView>
 
                                 <Border.Effect>

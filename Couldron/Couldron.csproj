@@ -68,6 +68,7 @@
     <Compile Include="Behaviours\TextBoxInputFilter.cs" />
     <Compile Include="Behaviours\WindowConfiguration.cs" />
     <Compile Include="CommonConverters.cs" />
+    <Compile Include="Controls\TreeViewComboBox.cs" />
     <Compile Include="Core\ApplicationData.cs" />
     <Compile Include="Core\ApplicationInfo.cs" />
     <Compile Include="Core\CouldronDispatcher.cs" />

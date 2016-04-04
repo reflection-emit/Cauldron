@@ -1,21 +1,42 @@
-﻿using Couldron.Attached;
-using Couldron.Behaviours;
+﻿using Couldron.Behaviours;
+using Couldron.Controls;
 using System.Collections;
 using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 
 namespace Couldron.Themes.VisualStudio.Behaviours
 {
-    internal sealed class ComboBoxTreeView : Behaviour<TreeView>
+    internal sealed class ComboBoxTreeViewBehaviours : Behaviour<TreeView>
     {
-        private ComboBox comboBox;
+        private TreeViewComboBox comboBox;
         private Popup popup;
+
+        #region Dependency Property SelectionLogic
+
+        /// <summary>
+        /// Identifies the <see cref="SelectionLogic" /> dependency property
+        /// </summary>
+        public static readonly DependencyProperty SelectionLogicProperty = DependencyProperty.Register(nameof(SelectionLogic), typeof(ITreeViewComboBoxSelectionLogic), typeof(ComboBoxTreeViewBehaviours), new PropertyMetadata(null));
+
+        /// <summary>
+        /// Gets or sets the <see cref="SelectionLogic" /> Property
+        /// </summary>
+        public ITreeViewComboBoxSelectionLogic SelectionLogic
+        {
+            get { return (ITreeViewComboBoxSelectionLogic)this.GetValue(SelectionLogicProperty); }
+            set { this.SetValue(SelectionLogicProperty, value); }
+        }
+
+        #endregion Dependency Property SelectionLogic
 
         protected override void OnAttach()
         {
             var logicalParent = this.AssociatedObject.FindLogicalParent<Grid>();
-            this.comboBox = logicalParent?.FindVisualParent<ComboBox>();
+            this.comboBox = logicalParent?.FindVisualParent<TreeViewComboBox>();
+
+            this.SelectionLogic = this.comboBox.SelectionLogic;
 
             this.popup = this.AssociatedObject.FindLogicalParent<Popup>();
 
@@ -26,7 +47,7 @@ namespace Couldron.Themes.VisualStudio.Behaviours
                     if (this.AssociatedObject.ItemsSource == null)
                         return;
 
-                    this.SetSelectedItems(ComboBoxProperties.GetSelectedItems(this.comboBox), this.AssociatedObject.ItemsSource);
+                    this.SetSelectedItems(this.comboBox.SelectedItems, this.AssociatedObject.ItemsSource);
                 };
 
                 this.popup.Closed += (s, e) =>
@@ -36,7 +57,7 @@ namespace Couldron.Themes.VisualStudio.Behaviours
 
                     var selectedItems = new List<object>();
                     this.GetSelectedItems(selectedItems, this.AssociatedObject.ItemsSource);
-                    ComboBoxProperties.SetSelectedItems(this.comboBox, selectedItems);
+                    this.comboBox.SelectedItems = selectedItems;
                 };
             }
         }
@@ -47,7 +68,7 @@ namespace Couldron.Themes.VisualStudio.Behaviours
 
         private void GetSelectedItems(IList listOfSelected, IEnumerable items)
         {
-            if (items == null)
+            if (items == null || this.SelectionLogic == null)
                 return;
 
             foreach (var item in items)
@@ -61,17 +82,14 @@ namespace Couldron.Themes.VisualStudio.Behaviours
                     continue;
                 }
 
-                itemType.GetProperty(this.AssociatedObject.SelectedValuePath).IsNotNull(x =>
-                {
-                    if (x.GetValue(item).ToBool())
-                        listOfSelected.Add(item);
-                });
+                if (this.SelectionLogic.IsSelected(item))
+                    listOfSelected.Add(item);
             }
         }
 
         private void SetSelectedItems(IEnumerable selectedItems, IEnumerable items)
         {
-            if (items == null)
+            if (items == null || this.SelectionLogic == null)
                 return;
 
             foreach (var item in items)
@@ -85,53 +103,8 @@ namespace Couldron.Themes.VisualStudio.Behaviours
                     continue;
                 }
 
-                itemType.GetProperty(this.AssociatedObject.SelectedValuePath).IsNotNull(x =>
-                {
-                    x.SetValue(item, selectedItems.Any(o => o == item));
-                });
+                this.SelectionLogic.ChangeSelectionValue(item, selectedItems.Any(o => o == item));
             }
-        }
-    }
-
-    internal sealed class ComboBoxTreeViewSelectedElementContextMenu : Behaviour<Button>
-    {
-        private ComboBox comboBox;
-        private MenuItem deleteMenuItem;
-
-        public ComboBoxTreeViewSelectedElementContextMenu()
-        {
-            var delete = "Delete";
-
-            if (Factory.HasContract(typeof(ILocalizationSource)))
-            {
-                var localization = Factory.Create<Localization>();
-                delete = localization[delete];
-            }
-
-            this.deleteMenuItem = new MenuItem { Header = delete };
-        }
-
-        protected override void OnAttach()
-        {
-            this.comboBox = this.AssociatedObject.FindVisualParent<ComboBox>();
-
-            this.AssociatedObject.ContextMenu = new ContextMenu();
-            this.AssociatedObject.ContextMenu.Items.Add(deleteMenuItem);
-            this.deleteMenuItem.Click += DeleteMenuItem_Click;
-        }
-
-        protected override void OnDetach()
-        {
-            this.deleteMenuItem.Click -= DeleteMenuItem_Click;
-        }
-
-        private void DeleteMenuItem_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-            if (this.comboBox == null)
-                return;
-
-            var selectedItems = ComboBoxProperties.GetSelectedItems(this.comboBox);
-            ComboBoxProperties.SetSelectedItems(this.comboBox, selectedItems.Remove(this.AssociatedObject.Content));
         }
     }
 }

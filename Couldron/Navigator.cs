@@ -368,7 +368,7 @@ namespace Couldron
             {
                 foreach (var methodName in navigatingAttrib.MethodNames)
                 {
-                    var methodInfo = viewModelType.GetMethod(methodName);
+                    var methodInfo = viewModelType.GetMethod(methodName, BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Static);
                     if (methodInfo == null)
                         throw new ArgumentException("The method '" + methodName + "' does not exist in " + viewModelType.FullName);
 

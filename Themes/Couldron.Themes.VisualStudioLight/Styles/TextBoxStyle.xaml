@@ -84,7 +84,7 @@
 
                         <TextBlock Text="{Binding Path=(attached:TextBoxProperties.Header), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource KeyToLocalizedStringConverter}}"
                                  Visibility="{Binding Path=(attached:TextBoxProperties.Header), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NullOrEmptyTovisibilityConverter}, ConverterParameter=True}"
-                                 Margin="1,6,0,2" Grid.ColumnSpan="4" TextWrapping="NoWrap" TextAlignment="Left" TextTrimming="CharacterEllipsis" />
+                                 Margin="1,6,0,2" Grid.ColumnSpan="4" TextWrapping="NoWrap" TextAlignment="Left" TextTrimming="CharacterEllipsis" IsHitTestVisible="False" />
 
                         <TextBlock Grid.Row="1" Grid.Column="2" IsHitTestVisible="False"
                                        Text="{Binding Path=(attached:TextBoxProperties.AlternativeText), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource KeyToLocalizedStringConverter}}"

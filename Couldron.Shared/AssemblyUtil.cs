@@ -167,7 +167,7 @@ namespace Couldron
                     return type;
             }
 
-            throw new FileNotFoundException("The paramater typeName was not found.", typeName);
+            throw new FileNotFoundException("The type defined by the parameter 'typeName' was not found", typeName);
         }
 
         #region Private Methods
