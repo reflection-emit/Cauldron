@@ -16,6 +16,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Attached\EmbeddedResourceImage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Attached\Localized.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Attached\TextBoxProperties.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attached\ValidationProperties.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Attached\WindowToolbar.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviours\ActionBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviours\Behaviour.cs" />
@@ -106,5 +107,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Controls\" />
+    <Folder Include="$(MSBuildThisFileDirectory)ValueConverters\" />
   </ItemGroup>
 </Project>

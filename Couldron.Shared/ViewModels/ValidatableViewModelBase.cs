@@ -91,13 +91,16 @@ namespace Couldron.ViewModels
         }
 
         /// <summary>
-        /// Occures after the event <see cref="ViewModelBase.PropertyChanged"/> has been invoked
+        /// Occured before the <see cref="ViewModelBase.PropertyChanged"/> event is invoked.
         /// </summary>
         /// <param name="propertyName">The name of the property where the value change has occured</param>
-        protected override void OnAfterRaiseNotifyPropertyChanged(string propertyName)
+        /// <returns>Returns true if <see cref="ViewModelBase.OnPropertyChanged(string)"/> should be cancelled. Otherwise false</returns>
+        protected override bool OnBeforeRaiseNotifyPropertyChanged(string propertyName)
         {
             if (propertyName != nameof(Errors) && propertyName != nameof(HasErrors))
                 this.validationHandler.Validate(propertyName);
+
+            return base.OnBeforeRaiseNotifyPropertyChanged(propertyName);
         }
 
         /// <summary>

@@ -15,9 +15,13 @@ namespace Couldron.Core
         /// <summary>
         /// Initializes a new instance of the <see cref="SecureStringHandler"/> class
         /// </summary>
-        /// <param name="secureString"></param>
+        /// <param name="secureString">The securestring to handle</param>
+        /// <exception cref="ArgumentNullException"><paramref name="secureString"/> is null</exception>
         public SecureStringHandler(SecureString secureString)
         {
+            if (secureString == null)
+                throw new ArgumentNullException(nameof(secureString));
+
             this.secureString = Marshal.SecureStringToGlobalAllocAnsi(secureString);
         }
 

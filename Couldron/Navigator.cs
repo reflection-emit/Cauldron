@@ -258,7 +258,10 @@ namespace Couldron
 
         private static bool IsParameterMatch(object[] args, ParameterInfo[] types)
         {
-            if (args.Length != types.Length)
+            if ((args == null && types == null) || (args == null && types != null && types.Length == 0))
+                return true;
+
+            if (args == null || args.Length != types.Length)
                 return false;
 
             for (int i = 0; i < args.Length; i++)
@@ -351,7 +354,7 @@ namespace Couldron
                 }
             }
 
-            // get the navigation methods
+            // get the navigation methods and execute them if neccessary
             await NavigatingTo(viewModelType, viewModel, args);
 
             (viewModel as IChangeAwareViewModel).IsNotNull(x => x.IsLoading = false);

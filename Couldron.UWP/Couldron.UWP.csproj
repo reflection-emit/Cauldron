@@ -113,6 +113,7 @@
   <ItemGroup>
     <Compile Include="AssemblyUtil.cs" />
     <Compile Include="Attached\Localized.cs" />
+    <Compile Include="Attached\ValidationProperties.cs" />
     <Compile Include="Behaviours\Behaviour.cs" />
     <Compile Include="Behaviours\ControlTemplateBinding.cs" />
     <Compile Include="Behaviours\EnterKeyToCommand.cs" />
@@ -132,6 +133,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="Validation\PasswordStrengthAttribute.cs" />
+    <Compile Include="ValueConverters\ValueConverterBase.cs" />
     <EmbeddedResource Include="Properties\Couldron.UWP.rd.xml" />
   </ItemGroup>
   <ItemGroup>

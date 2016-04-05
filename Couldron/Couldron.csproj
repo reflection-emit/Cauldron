@@ -61,11 +61,14 @@
   <ItemGroup>
     <Compile Include="AssemblyUtil.cs" />
     <Compile Include="Attached\Localized.cs" />
+    <Compile Include="Attached\ValidationProperties.cs" />
     <Compile Include="Behaviours\Behaviour.cs" />
     <Compile Include="Behaviours\ControlTemplateBinding.cs" />
+    <Compile Include="Behaviours\ForcePropertyUpdate.cs" />
     <Compile Include="Behaviours\EnterKeyToCommand.cs" />
     <Compile Include="Behaviours\EventTrigger.cs" />
     <Compile Include="Behaviours\OpenFileDialogAction.cs" />
+    <Compile Include="Behaviours\PasswordBoxBinding.cs" />
     <Compile Include="Behaviours\TextBoxInputFilter.cs" />
     <Compile Include="Behaviours\WindowConfiguration.cs" />
     <Compile Include="ValueConverters\CommonConverters.cs" />
@@ -89,6 +92,7 @@
     <Compile Include="UnsafeNative.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="Validation\PasswordStrengthAttribute.cs" />
+    <Compile Include="ValueConverters\ValueConverterBase.cs" />
     <Compile Include="WindowsMessages.cs" />
   </ItemGroup>
   <ItemGroup>

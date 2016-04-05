@@ -46,7 +46,6 @@
     <Compile Include="Behaviours\ComboBoxBehaviour.cs" />
     <Compile Include="Behaviours\ComboBoxTreeViewBehaviours.cs" />
     <Compile Include="Behaviours\TabItemBehaviour.cs" />
-    <Compile Include="Behaviours\ValidationProperties.cs" />
     <Compile Include="Behaviours\ValidationTextBoxBehaviour.cs" />
     <Compile Include="BrushesAndColours.xaml.cs">
       <DependentUpon>BrushesAndColours.xaml</DependentUpon>

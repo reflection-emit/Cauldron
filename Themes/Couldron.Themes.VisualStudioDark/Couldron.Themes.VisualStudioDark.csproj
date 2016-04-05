@@ -51,9 +51,6 @@
     <Compile Include="..\Couldron.Themes.VisualStudioLight\Behaviours\TabItemBehaviour.cs">
       <Link>Behaviours\TabItemBehaviour.cs</Link>
     </Compile>
-    <Compile Include="..\Couldron.Themes.VisualStudioLight\Behaviours\ValidationProperties.cs">
-      <Link>Behaviours\ValidationProperties.cs</Link>
-    </Compile>
     <Compile Include="..\Couldron.Themes.VisualStudioLight\Behaviours\ValidationTextBoxBehaviour.cs">
       <Link>Behaviours\ValidationTextBoxBehaviour.cs</Link>
     </Compile>

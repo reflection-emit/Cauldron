@@ -13,33 +13,30 @@ namespace Couldron.ValueConverters
     /// <summary>
     /// Inverts a bool value
     /// </summary>
-    public class BooleanInvertConverter : IValueConverter
+    public class BooleanInvertConverter : ValueConverterBase<bool, bool>
     {
         /// <summary>
-        /// Converts a value.
+        /// Converts a value
         /// </summary>
         /// <param name="value">The value produced by the binding source.</param>
-        /// <param name="targetType">The type of the binding target property.</param>
         /// <param name="parameter">The converter parameter to use.</param>
         /// <param name="culture">The culture to use in the converter.</param>
-        /// <returns>A converted value.If the method returns null, the valid null value is used.</returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        /// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
+        protected override bool OnConvert(bool value, object parameter, CultureInfo culture)
         {
-            return !value.ToBool();
+            return !value;
         }
 
         /// <summary>
-        /// Converts a value.
+        /// Converts a value
         /// </summary>
         /// <param name="value">The value that is produced by the binding target.</param>
-        /// <param name="targetType">The type to convert to.</param>
         /// <param name="parameter">The converter parameter to use.</param>
         /// <param name="culture">The culture to use in the converter.</param>
-        /// <returns>A converted value.If the method returns null, the valid null value is used.</returns>
-        /// <exception cref="NotImplementedException">Always throws <see cref="NotImplementedException"/>. This method is not implemented.</exception>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        /// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
+        protected override bool OnConvertBack(bool value, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            return !value;
         }
     }
 
@@ -47,36 +44,36 @@ namespace Couldron.ValueConverters
     /// Converts a <see cref="bool"/> to <see cref="Visibility"/>. If the value is true, the <see cref="IValueConverter"/> will
     /// return either <see cref="Visibility.Collapsed"/> or <see cref="Visibility.Visible"/> depending on the parameter
     /// </summary>
-    public class BooleanToVisibilityConverter : IValueConverter
+    public class BooleanToVisibilityConverter : ValueConverterBase<bool, Visibility>
     {
         /// <summary>
-        /// Converts a value.
+        /// Converts a value
         /// </summary>
         /// <param name="value">The value produced by the binding source.</param>
-        /// <param name="targetType">The type of the binding target property.</param>
         /// <param name="parameter">The converter parameter to use.</param>
         /// <param name="culture">The culture to use in the converter.</param>
-        /// <returns>A converted value.If the method returns null, the valid null value is used.</returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        /// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
+        protected override Visibility OnConvert(bool value, object parameter, CultureInfo culture)
         {
             if (parameter.ToBool())
-                return value.ToBool() ? Visibility.Collapsed : Visibility.Visible;
+                return value ? Visibility.Collapsed : Visibility.Visible;
             else
-                return value.ToBool() ? Visibility.Visible : Visibility.Collapsed;
+                return value ? Visibility.Visible : Visibility.Collapsed;
         }
 
         /// <summary>
-        /// Converts a value.
+        /// Converts a value
         /// </summary>
         /// <param name="value">The value that is produced by the binding target.</param>
-        /// <param name="targetType">The type to convert to.</param>
         /// <param name="parameter">The converter parameter to use.</param>
         /// <param name="culture">The culture to use in the converter.</param>
-        /// <returns>A converted value.If the method returns null, the valid null value is used.</returns>
-        /// <exception cref="NotImplementedException">Always throws <see cref="NotImplementedException"/>. This method is not implemented.</exception>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        /// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
+        protected override bool OnConvertBack(Visibility value, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            if (parameter.ToBool())
+                return value == Visibility.Collapsed;
+            else
+                return value == Visibility.Visible;
         }
     }
 
@@ -85,34 +82,32 @@ namespace Couldron.ValueConverters
     /// <para/>
     /// Default is return false if the collection has no elements
     /// </summary>
-    public class CollectionHasElementsToBoolConverter : IValueConverter
+    public class CollectionHasElementsToBoolConverter : ValueConverterBase<IEnumerable, bool>
     {
         /// <summary>
-        /// Converts a value.
+        /// Converts a value
         /// </summary>
         /// <param name="value">The value produced by the binding source.</param>
-        /// <param name="targetType">The type of the binding target property.</param>
         /// <param name="parameter">The converter parameter to use.</param>
         /// <param name="culture">The culture to use in the converter.</param>
-        /// <returns>A converted value.If the method returns null, the valid null value is used.</returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        /// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
+        protected override bool OnConvert(IEnumerable value, object parameter, CultureInfo culture)
         {
             if (parameter.ToBool())
-                return (value as IEnumerable).Any() ? false : true;
+                return value.Any() ? false : true;
             else
-                return (value as IEnumerable).Any() ? true : false;
+                return value.Any() ? true : false;
         }
 
         /// <summary>
-        /// Converts a value.
+        /// Converts a value
         /// </summary>
         /// <param name="value">The value that is produced by the binding target.</param>
-        /// <param name="targetType">The type to convert to.</param>
         /// <param name="parameter">The converter parameter to use.</param>
         /// <param name="culture">The culture to use in the converter.</param>
-        /// <returns>A converted value.If the method returns null, the valid null value is used.</returns>
+        /// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
         /// <exception cref="NotImplementedException">Always throws <see cref="NotImplementedException"/>. This method is not implemented.</exception>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        protected override IEnumerable OnConvertBack(bool value, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }
@@ -121,31 +116,29 @@ namespace Couldron.ValueConverters
     /// <summary>
     /// Converts a collection of Errors from <see cref="INotifyDataErrorInfo"/> to a readable string
     /// </summary>
-    public class ErrorCollectionConverter : IValueConverter
+    public class ErrorCollectionConverter : ValueConverterBase<ReadOnlyObservableCollection<ValidationError>, string>
     {
         /// <summary>
-        /// Converts a value.
+        /// Converts a value
         /// </summary>
         /// <param name="value">The value produced by the binding source.</param>
-        /// <param name="targetType">The type of the binding target property.</param>
         /// <param name="parameter">The converter parameter to use.</param>
         /// <param name="culture">The culture to use in the converter.</param>
-        /// <returns>A converted value.If the method returns null, the valid null value is used.</returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        /// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
+        protected override string OnConvert(ReadOnlyObservableCollection<ValidationError> value, object parameter, CultureInfo culture)
         {
-            return string.Join("\r\n", (value as ReadOnlyObservableCollection<ValidationError>).Select(x => x.ErrorContent.ToString()));
+            return string.Join("\r\n", value.Select(x => x.ErrorContent.ToString()));
         }
 
         /// <summary>
-        /// Converts a value.
+        /// Converts a value
         /// </summary>
         /// <param name="value">The value that is produced by the binding target.</param>
-        /// <param name="targetType">The type to convert to.</param>
         /// <param name="parameter">The converter parameter to use.</param>
         /// <param name="culture">The culture to use in the converter.</param>
-        /// <returns>A converted value.If the method returns null, the valid null value is used.</returns>
+        /// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
         /// <exception cref="NotImplementedException">Always throws <see cref="NotImplementedException"/>. This method is not implemented.</exception>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        protected override ReadOnlyObservableCollection<ValidationError> OnConvertBack(string value, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }

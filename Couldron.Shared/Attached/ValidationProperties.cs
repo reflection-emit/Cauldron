@@ -1,8 +1,17 @@
-﻿using System.Windows;
+﻿#if NETFX_CORE
+using Windows.UI.Xaml;
+#else
 
-namespace Couldron.Themes.VisualStudio.Behaviours
+using System.Windows;
+
+#endif
+
+namespace Couldron.Attached
 {
-    internal static class ValidationProperties
+    /// <summary>
+    /// Provides an attached property required for the validation
+    /// </summary>
+    public static partial class ValidationProperties
     {
         #region Dependency Attached Property IsMandatory
 

@@ -57,7 +57,7 @@ namespace Couldron
         }
 
         /// <summary>
-        /// Creates an instance of the specified type depending on the <see cref="FactoryAttribute"/> and <see cref="InjectionConstructorAttribute"/>.
+        /// Creates an instance of the specified type depending on the <see cref="FactoryAttribute"/>
         /// </summary>
         /// <typeparam name="T">The Type that contract name derives from</typeparam>
         /// <param name="parameters">
@@ -76,7 +76,7 @@ namespace Couldron
         }
 
         /// <summary>
-        /// Creates an instance of the specified type depending on the <see cref="FactoryAttribute"/> and <see cref="InjectionConstructorAttribute"/>.
+        /// Creates an instance of the specified type depending on the <see cref="FactoryAttribute"/>
         /// </summary>
         /// <param name="contractName">The name that identifies the type</param>
         /// <param name="parameters">
@@ -103,7 +103,7 @@ namespace Couldron
         }
 
         /// <summary>
-        /// Creates an instance of the specified type depending on the <see cref="FactoryAttribute"/> and <see cref="InjectionConstructorAttribute"/>.
+        /// Creates an instance of the specified type depending on the <see cref="FactoryAttribute"/>
         /// </summary>
         /// <param name="contractType">The Type that contract name derives from</param>
         /// <param name="parameters">
@@ -126,7 +126,7 @@ namespace Couldron
         }
 
         /// <summary>
-        /// Creates instances of the specified type depending on the <see cref="FactoryAttribute"/> and <see cref="InjectionConstructorAttribute"/>.
+        /// Creates instances of the specified type depending on the <see cref="FactoryAttribute"/>
         /// </summary>
         /// <param name="contractName">The name that identifies the type</param>
         /// <param name="parameters">
@@ -152,7 +152,7 @@ namespace Couldron
         }
 
         /// <summary>
-        /// Creates instances of the specified type depending on the <see cref="FactoryAttribute"/> and <see cref="InjectionConstructorAttribute"/>.
+        /// Creates instances of the specified type depending on the <see cref="FactoryAttribute"/>
         /// </summary>
         /// <param name="contractType">The Type that contract name derives from</param>
         /// <param name="parameters">
@@ -174,7 +174,7 @@ namespace Couldron
         }
 
         /// <summary>
-        /// Creates instances of the specified type depending on the <see cref="FactoryAttribute"/> and <see cref="InjectionConstructorAttribute"/>.
+        /// Creates instances of the specified type depending on the <see cref="FactoryAttribute"/>
         /// </summary>
         /// <typeparam name="T">The Type that contract name derives from</typeparam>
         /// <param name="parameters">

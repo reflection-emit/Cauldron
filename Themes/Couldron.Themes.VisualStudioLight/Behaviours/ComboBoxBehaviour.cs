@@ -1,4 +1,5 @@
-﻿using Couldron.Behaviours;
+﻿using Couldron.Attached;
+using Couldron.Behaviours;
 using Couldron.Controls;
 using Couldron.Validation;
 using System.Reflection;

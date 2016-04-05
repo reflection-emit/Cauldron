@@ -6,6 +6,9 @@ using System.Windows.Media;
 
 namespace Couldron
 {
+    /// <summary>
+    /// Provides a base class for a Couldron toolkit application
+    /// </summary>
     public abstract class CouldronApplication : Application
     {
         /// <summary>
@@ -21,7 +24,7 @@ namespace Couldron
             this.Resources.Add(typeof(CouldronTemplateSelector).Name, new CouldronTemplateSelector());
 
             // Add all Value converters to the dictionary
-            foreach (var valueConverter in AssemblyUtil.ExportedTypes.Where(x => x.ImplementsInterface<IValueConverter>()))
+            foreach (var valueConverter in AssemblyUtil.ExportedTypes.Where(x => !x.ContainsGenericParameters && x.ImplementsInterface<IValueConverter>()))
                 this.Resources.Add(valueConverter.Name, Activator.CreateInstance(valueConverter));
 
             // find all resourcedictionaries and add them to the existing resources

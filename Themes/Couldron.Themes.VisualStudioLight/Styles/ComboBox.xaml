@@ -192,6 +192,8 @@
                             </ToggleButton.Template>
                         </ToggleButton>
 
+                        <Rectangle x:Name="keyboardFocused" Grid.ColumnSpan="4" Grid.Row="1" IsHitTestVisible="False" StrokeThickness="1" Stroke="Transparent" />
+
                         <ToggleButton x:Name="ToggleButton" Grid.Row="1" Grid.Column="3" Width="14" Focusable="false" ClickMode="Press"
                                         Foreground="{StaticResource ThemeComboBoxArrowBrush}" HorizontalAlignment="Right"
                                         Background="{StaticResource ThemeLightBackgroundBrush}" BorderBrush="Transparent" Template="{StaticResource ComboBoxToggleButton}"
@@ -219,8 +221,7 @@
                                        Foreground="{StaticResource ThemeTextBrush}" Opacity="0.7" Margin="3"
                                        Visibility="{Binding Path=Text, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NullOrEmptyTovisibilityConverter}, ConverterParameter=False}" />
 
-                        <Popup x:Name="Popup" Grid.ColumnSpan="4" Grid.Row="1" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True"
-                               Focusable="False" PopupAnimation="Slide">
+                        <Popup x:Name="Popup" Grid.ColumnSpan="4" Grid.Row="1" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}">
                             <Border x:Name="DropDown" SnapsToDevicePixels="True" Margin="0,0,5,5" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                         BorderThickness="1" BorderBrush="{StaticResource ThemeLightBorderBrush}" Background="{StaticResource ThemeDropdownBackgroundBrush}">
                                 <ScrollViewer Margin="0" SnapsToDevicePixels="True">
@@ -239,10 +240,13 @@
                                        Text="!" IsHitTestVisible="False" FontFamily="Segoe UI" FontWeight="ExtraBold" Foreground="{StaticResource ThemeHoveredTextBrush}" VerticalAlignment="Center" HorizontalAlignment="Center" />
 
                         <Rectangle Grid.Row="1" Fill="{StaticResource ThemeAccentBrush}" Margin="1"
-                                       Visibility="{Binding Path=(localbehaviour:ValidationProperties.IsMandatory), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                       Visibility="{Binding Path=(attached:ValidationProperties.IsMandatory), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanToVisibilityConverter}}"
                                        VerticalAlignment="Stretch" HorizontalAlignment="Left" Width="4" />
                     </Grid>
                     <ControlTemplate.Triggers>
+                        <Trigger Property="IsKeyboardFocused" Value="true">
+                            <Setter TargetName="keyboardFocused" Property="Stroke" Value="{StaticResource ThemeAccentBrush}" />
+                        </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Foreground" Value="{StaticResource ThemeDisabledTextBrush}" />
                         </Trigger>
@@ -368,12 +372,14 @@
                             </ToggleButton.Template>
                         </ToggleButton>
 
+                        <Rectangle x:Name="keyboardFocused" Grid.ColumnSpan="4" Grid.Row="1" IsHitTestVisible="False" StrokeThickness="1" Stroke="Transparent" />
+
                         <ToggleButton x:Name="ToggleButton" Grid.Row="1" Grid.Column="3" Focusable="false" ClickMode="Press" Foreground="{StaticResource ThemeComboBoxArrowBrush}"
                                         Background="{StaticResource ThemeLightBackgroundBrush}" BorderBrush="Transparent" Template="{StaticResource ComboBoxToggleButton}"
                                         IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" />
 
                         <ItemsControl VerticalAlignment="Center" HorizontalAlignment="Stretch" DisplayMemberPath="{TemplateBinding SelectedItemDisplayMemberPath}"
-                                      Grid.Row="1" Grid.Column="2" Margin="1"
+                                      Grid.Row="1" Grid.Column="2" Margin="1" Focusable="False"
                                       IsEnabled="{Binding Path=IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanInvertConverter}}"
                                       ItemsSource="{Binding Path=SelectedItems, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
                                       ItemTemplate="{TemplateBinding SelectedItemTemplate}" ItemTemplateSelector="{x:Null}">
@@ -410,10 +416,13 @@
                                        Text="!" IsHitTestVisible="False" FontFamily="Segoe UI" FontWeight="ExtraBold" Foreground="{StaticResource ThemeHoveredTextBrush}" VerticalAlignment="Center" HorizontalAlignment="Center" />
 
                         <Rectangle Grid.Row="1" Fill="{StaticResource ThemeAccentBrush}" Margin="1"
-                                       Visibility="{Binding Path=(localbehaviour:ValidationProperties.IsMandatory), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                       Visibility="{Binding Path=(attached:ValidationProperties.IsMandatory), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanToVisibilityConverter}}"
                                        VerticalAlignment="Stretch" HorizontalAlignment="Left" Width="4" />
                     </Grid>
                     <ControlTemplate.Triggers>
+                        <Trigger Property="IsKeyboardFocused" Value="true">
+                            <Setter TargetName="keyboardFocused" Property="Stroke" Value="{StaticResource ThemeAccentBrush}" />
+                        </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Foreground" Value="{StaticResource ThemeDisabledTextBrush}" />
                         </Trigger>

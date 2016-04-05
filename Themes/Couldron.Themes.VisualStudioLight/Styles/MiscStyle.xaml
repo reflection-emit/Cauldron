@@ -60,6 +60,14 @@
         </LinearGradientBrush.GradientStops>
     </LinearGradientBrush>
 
+    <Style TargetType="Popup">
+        <Setter Property="Placement" Value="Bottom" />
+        <Setter Property="AllowsTransparency" Value="True" />
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="PopupAnimation" Value="Slide" />
+        <Setter Property="StaysOpen" Value="False" />
+    </Style>
+
     <Style TargetType="ProgressBar">
         <Setter Property="Background" Value="{StaticResource ThemeLightBackgroundBrush}" />
         <Setter Property="BorderBrush" Value="{StaticResource ThemeLightBorderBrush}" />

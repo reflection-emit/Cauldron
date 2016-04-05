@@ -55,6 +55,9 @@
                             <Button attached:EmbeddedResourceImage.ImageKey="TimePicker_24x.png" Height="22" Command="{Binding ClearCommand}" BorderThickness="0" />
                         </ControlTemplate>
                     </attached:TextBoxProperties.ButtonsTemplate>
+                    <behaviour:Interaction.Behaviours>
+                        <behaviour:ForcePropertyUpdate />
+                    </behaviour:Interaction.Behaviours>
                 </TextBox>
             </GroupBox>
             <GroupBox Header="{Binding Name}" Grid.Column="1">

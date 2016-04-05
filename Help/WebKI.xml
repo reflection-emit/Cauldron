@@ -252,8 +252,8 @@
     <HelpKINode Title="methods" Url="html/Methods_T_Couldron_ValueConverters_BooleanInvertConverter.htm" />
   </HelpKINode>
   <HelpKINode Title="BooleanInvertConverter.BooleanInvertConverter constructor" Url="html/M_Couldron_ValueConverters_BooleanInvertConverter__ctor.htm" />
-  <HelpKINode Title="BooleanInvertConverter.Convert method" Url="html/M_Couldron_ValueConverters_BooleanInvertConverter_Convert.htm" />
-  <HelpKINode Title="BooleanInvertConverter.ConvertBack method" Url="html/M_Couldron_ValueConverters_BooleanInvertConverter_ConvertBack.htm" />
+  <HelpKINode Title="BooleanInvertConverter.OnConvert method" Url="html/M_Couldron_ValueConverters_BooleanInvertConverter_OnConvert.htm" />
+  <HelpKINode Title="BooleanInvertConverter.OnConvertBack method" Url="html/M_Couldron_ValueConverters_BooleanInvertConverter_OnConvertBack.htm" />
   <HelpKINode Title="BooleanToVisibilityConverter class">
     <HelpKINode Title="BooleanToVisibilityConverter Class" Url="html/T_Couldron_ValueConverters_BooleanToVisibilityConverter.htm" />
     <HelpKINode Title="about BooleanToVisibilityConverter class" Url="html/T_Couldron_ValueConverters_BooleanToVisibilityConverter.htm" />
@@ -261,8 +261,8 @@
     <HelpKINode Title="methods" Url="html/Methods_T_Couldron_ValueConverters_BooleanToVisibilityConverter.htm" />
   </HelpKINode>
   <HelpKINode Title="BooleanToVisibilityConverter.BooleanToVisibilityConverter constructor" Url="html/M_Couldron_ValueConverters_BooleanToVisibilityConverter__ctor.htm" />
-  <HelpKINode Title="BooleanToVisibilityConverter.Convert method" Url="html/M_Couldron_ValueConverters_BooleanToVisibilityConverter_Convert.htm" />
-  <HelpKINode Title="BooleanToVisibilityConverter.ConvertBack method" Url="html/M_Couldron_ValueConverters_BooleanToVisibilityConverter_ConvertBack.htm" />
+  <HelpKINode Title="BooleanToVisibilityConverter.OnConvert method" Url="html/M_Couldron_ValueConverters_BooleanToVisibilityConverter_OnConvert.htm" />
+  <HelpKINode Title="BooleanToVisibilityConverter.OnConvertBack method" Url="html/M_Couldron_ValueConverters_BooleanToVisibilityConverter_OnConvertBack.htm" />
   <HelpKINode Title="ButtonProperties class">
     <HelpKINode Title="ButtonProperties Class" Url="html/T_Couldron_Attached_ButtonProperties.htm" />
     <HelpKINode Title="about ButtonProperties class" Url="html/T_Couldron_Attached_ButtonProperties.htm" />
@@ -354,8 +354,8 @@
     <HelpKINode Title="methods" Url="html/Methods_T_Couldron_ValueConverters_CollectionHasElementsToBoolConverter.htm" />
   </HelpKINode>
   <HelpKINode Title="CollectionHasElementsToBoolConverter.CollectionHasElementsToBoolConverter constructor" Url="html/M_Couldron_ValueConverters_CollectionHasElementsToBoolConverter__ctor.htm" />
-  <HelpKINode Title="CollectionHasElementsToBoolConverter.Convert method" Url="html/M_Couldron_ValueConverters_CollectionHasElementsToBoolConverter_Convert.htm" />
-  <HelpKINode Title="CollectionHasElementsToBoolConverter.ConvertBack method" Url="html/M_Couldron_ValueConverters_CollectionHasElementsToBoolConverter_ConvertBack.htm" />
+  <HelpKINode Title="CollectionHasElementsToBoolConverter.OnConvert method" Url="html/M_Couldron_ValueConverters_CollectionHasElementsToBoolConverter_OnConvert.htm" />
+  <HelpKINode Title="CollectionHasElementsToBoolConverter.OnConvertBack method" Url="html/M_Couldron_ValueConverters_CollectionHasElementsToBoolConverter_OnConvertBack.htm" />
   <HelpKINode Title="ComboBoxProperties class">
     <HelpKINode Title="ComboBoxProperties Class" Url="html/T_Couldron_Attached_ComboBoxProperties.htm" />
     <HelpKINode Title="about ComboBoxProperties class" Url="html/T_Couldron_Attached_ComboBoxProperties.htm" />
@@ -533,10 +533,6 @@
   <HelpKINode Title="ControlTemplateCommandFromControlNameBinding.ParentType property" Url="html/P_Couldron_Behaviours_ControlTemplateCommandFromControlNameBinding_ParentType.htm" />
   <HelpKINode Title="ControlTemplateCommandFromControlNameBinding.ParentTypeProperty field" Url="html/F_Couldron_Behaviours_ControlTemplateCommandFromControlNameBinding_ParentTypeProperty.htm" />
   <HelpKINode Title="Convert method">
-    <HelpKINode Title="BooleanInvertConverter.Convert Method " Url="html/M_Couldron_ValueConverters_BooleanInvertConverter_Convert.htm" />
-    <HelpKINode Title="BooleanToVisibilityConverter.Convert Method " Url="html/M_Couldron_ValueConverters_BooleanToVisibilityConverter_Convert.htm" />
-    <HelpKINode Title="CollectionHasElementsToBoolConverter.Convert Method " Url="html/M_Couldron_ValueConverters_CollectionHasElementsToBoolConverter_Convert.htm" />
-    <HelpKINode Title="ErrorCollectionConverter.Convert Method " Url="html/M_Couldron_ValueConverters_ErrorCollectionConverter_Convert.htm" />
     <HelpKINode Title="ErrorCollectionCountToVisibilityConverter.Convert Method " Url="html/M_Couldron_ValueConverters_ErrorCollectionCountToVisibilityConverter_Convert.htm" />
     <HelpKINode Title="KeyToLocalizedStringConverter.Convert Method " Url="html/M_Couldron_ValueConverters_KeyToLocalizedStringConverter_Convert.htm" />
     <HelpKINode Title="MathematicalOperationConverter.Convert Method " Url="html/M_Couldron_ValueConverters_MathematicalOperationConverter_Convert.htm" />
@@ -544,12 +540,9 @@
     <HelpKINode Title="ObjectToBooleanConverter.Convert Method " Url="html/M_Couldron_ValueConverters_ObjectToBooleanConverter_Convert.htm" />
     <HelpKINode Title="ObjectToVisibilityConverter.Convert Method " Url="html/M_Couldron_ValueConverters_ObjectToVisibilityConverter_Convert.htm" />
     <HelpKINode Title="StringFormatConverter.Convert Method " Url="html/M_Couldron_ValueConverters_StringFormatConverter_Convert.htm" />
+    <HelpKINode Title="ValueConverterBase(TInput, TOutput).Convert Method " Url="html/M_Couldron_ValueConverters_ValueConverterBase_2_Convert.htm" />
   </HelpKINode>
   <HelpKINode Title="ConvertBack method">
-    <HelpKINode Title="BooleanInvertConverter.ConvertBack Method " Url="html/M_Couldron_ValueConverters_BooleanInvertConverter_ConvertBack.htm" />
-    <HelpKINode Title="BooleanToVisibilityConverter.ConvertBack Method " Url="html/M_Couldron_ValueConverters_BooleanToVisibilityConverter_ConvertBack.htm" />
-    <HelpKINode Title="CollectionHasElementsToBoolConverter.ConvertBack Method " Url="html/M_Couldron_ValueConverters_CollectionHasElementsToBoolConverter_ConvertBack.htm" />
-    <HelpKINode Title="ErrorCollectionConverter.ConvertBack Method " Url="html/M_Couldron_ValueConverters_ErrorCollectionConverter_ConvertBack.htm" />
     <HelpKINode Title="ErrorCollectionCountToVisibilityConverter.ConvertBack Method " Url="html/M_Couldron_ValueConverters_ErrorCollectionCountToVisibilityConverter_ConvertBack.htm" />
     <HelpKINode Title="KeyToLocalizedStringConverter.ConvertBack Method " Url="html/M_Couldron_ValueConverters_KeyToLocalizedStringConverter_ConvertBack.htm" />
     <HelpKINode Title="MathematicalOperationConverter.ConvertBack Method " Url="html/M_Couldron_ValueConverters_MathematicalOperationConverter_ConvertBack.htm" />
@@ -557,6 +550,7 @@
     <HelpKINode Title="ObjectToBooleanConverter.ConvertBack Method " Url="html/M_Couldron_ValueConverters_ObjectToBooleanConverter_ConvertBack.htm" />
     <HelpKINode Title="ObjectToVisibilityConverter.ConvertBack Method " Url="html/M_Couldron_ValueConverters_ObjectToVisibilityConverter_ConvertBack.htm" />
     <HelpKINode Title="StringFormatConverter.ConvertBack Method " Url="html/M_Couldron_ValueConverters_StringFormatConverter_ConvertBack.htm" />
+    <HelpKINode Title="ValueConverterBase(TInput, TOutput).ConvertBack Method " Url="html/M_Couldron_ValueConverters_ValueConverterBase_2_ConvertBack.htm" />
   </HelpKINode>
   <HelpKINode Title="Converter property" Url="html/P_Couldron_Behaviours_ControlTemplateBinding_Converter.htm" />
   <HelpKINode Title="ConverterParameter property" Url="html/P_Couldron_Behaviours_ControlTemplateBinding_ConverterParameter.htm" />
@@ -575,6 +569,7 @@
   <HelpKINode Title="Couldron.Attached.EmbeddedResourceImage class" Url="html/T_Couldron_Attached_EmbeddedResourceImage.htm" />
   <HelpKINode Title="Couldron.Attached.Localized class" Url="html/T_Couldron_Attached_Localized.htm" />
   <HelpKINode Title="Couldron.Attached.TextBoxProperties class" Url="html/T_Couldron_Attached_TextBoxProperties.htm" />
+  <HelpKINode Title="Couldron.Attached.ValidationProperties class" Url="html/T_Couldron_Attached_ValidationProperties.htm" />
   <HelpKINode Title="Couldron.Attached.WindowToolbar class" Url="html/T_Couldron_Attached_WindowToolbar.htm" />
   <HelpKINode Title="Couldron.BehaviourInvokationArgs class" Url="html/T_Couldron_BehaviourInvokationArgs.htm" />
   <HelpKINode Title="Couldron.Behaviours namespace" Url="html/N_Couldron_Behaviours.htm" />
@@ -589,6 +584,7 @@
   <HelpKINode Title="Couldron.Behaviours.EnterKeyToCommand class" Url="html/T_Couldron_Behaviours_EnterKeyToCommand.htm" />
   <HelpKINode Title="Couldron.Behaviours.EventToCommand class" Url="html/T_Couldron_Behaviours_EventToCommand.htm" />
   <HelpKINode Title="Couldron.Behaviours.EventTrigger class" Url="html/T_Couldron_Behaviours_EventTrigger.htm" />
+  <HelpKINode Title="Couldron.Behaviours.ForcePropertyUpdate class" Url="html/T_Couldron_Behaviours_ForcePropertyUpdate.htm" />
   <HelpKINode Title="Couldron.Behaviours.IBehaviour interface" Url="html/T_Couldron_Behaviours_IBehaviour.htm" />
   <HelpKINode Title="Couldron.Behaviours.IBehaviour(Of T) interface" Url="html/T_Couldron_Behaviours_IBehaviour_1.htm" />
   <HelpKINode Title="Couldron.Behaviours.IBehaviour&lt;T&gt; interface" Url="html/T_Couldron_Behaviours_IBehaviour_1.htm" />
@@ -596,6 +592,7 @@
   <HelpKINode Title="Couldron.Behaviours.Interactivity class" Url="html/T_Couldron_Behaviours_Interactivity.htm" />
   <HelpKINode Title="Couldron.Behaviours.InvokeMethodAction class" Url="html/T_Couldron_Behaviours_InvokeMethodAction.htm" />
   <HelpKINode Title="Couldron.Behaviours.OpenFileDialogAction class" Url="html/T_Couldron_Behaviours_OpenFileDialogAction.htm" />
+  <HelpKINode Title="Couldron.Behaviours.PasswordBoxBinding class" Url="html/T_Couldron_Behaviours_PasswordBoxBinding.htm" />
   <HelpKINode Title="Couldron.Behaviours.SetFocus class" Url="html/T_Couldron_Behaviours_SetFocus.htm" />
   <HelpKINode Title="Couldron.Behaviours.TextBoxInputFilter class" Url="html/T_Couldron_Behaviours_TextBoxInputFilter.htm" />
   <HelpKINode Title="Couldron.Behaviours.WindowConfiguration class" Url="html/T_Couldron_Behaviours_WindowConfiguration.htm" />
@@ -674,6 +671,8 @@
   <HelpKINode Title="Couldron.ValueConverters.ObjectToBooleanConverter class" Url="html/T_Couldron_ValueConverters_ObjectToBooleanConverter.htm" />
   <HelpKINode Title="Couldron.ValueConverters.ObjectToVisibilityConverter class" Url="html/T_Couldron_ValueConverters_ObjectToVisibilityConverter.htm" />
   <HelpKINode Title="Couldron.ValueConverters.StringFormatConverter class" Url="html/T_Couldron_ValueConverters_StringFormatConverter.htm" />
+  <HelpKINode Title="Couldron.ValueConverters.ValueConverterBase(Of TInput, TOutput) class" Url="html/T_Couldron_ValueConverters_ValueConverterBase_2.htm" />
+  <HelpKINode Title="Couldron.ValueConverters.ValueConverterBase&lt;TInput, TOutput&gt; class" Url="html/T_Couldron_ValueConverters_ValueConverterBase_2.htm" />
   <HelpKINode Title="Couldron.ViewAttribute class" Url="html/T_Couldron_ViewAttribute.htm" />
   <HelpKINode Title="Couldron.ViewModels namespace" Url="html/N_Couldron_ViewModels.htm" />
   <HelpKINode Title="Couldron.ViewModels.ChangeAwareViewModelBase class" Url="html/T_Couldron_ViewModels_ChangeAwareViewModelBase.htm" />
@@ -905,9 +904,9 @@
     <HelpKINode Title="constructor" Url="html/M_Couldron_ValueConverters_ErrorCollectionConverter__ctor.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Couldron_ValueConverters_ErrorCollectionConverter.htm" />
   </HelpKINode>
-  <HelpKINode Title="ErrorCollectionConverter.Convert method" Url="html/M_Couldron_ValueConverters_ErrorCollectionConverter_Convert.htm" />
-  <HelpKINode Title="ErrorCollectionConverter.ConvertBack method" Url="html/M_Couldron_ValueConverters_ErrorCollectionConverter_ConvertBack.htm" />
   <HelpKINode Title="ErrorCollectionConverter.ErrorCollectionConverter constructor" Url="html/M_Couldron_ValueConverters_ErrorCollectionConverter__ctor.htm" />
+  <HelpKINode Title="ErrorCollectionConverter.OnConvert method" Url="html/M_Couldron_ValueConverters_ErrorCollectionConverter_OnConvert.htm" />
+  <HelpKINode Title="ErrorCollectionConverter.OnConvertBack method" Url="html/M_Couldron_ValueConverters_ErrorCollectionConverter_OnConvertBack.htm" />
   <HelpKINode Title="ErrorCollectionCountToVisibilityConverter class">
     <HelpKINode Title="ErrorCollectionCountToVisibilityConverter Class" Url="html/T_Couldron_ValueConverters_ErrorCollectionCountToVisibilityConverter.htm" />
     <HelpKINode Title="about ErrorCollectionCountToVisibilityConverter class" Url="html/T_Couldron_ValueConverters_ErrorCollectionCountToVisibilityConverter.htm" />
@@ -1080,6 +1079,17 @@
   <HelpKINode Title="FindVisualParent method" Url="html/Overload_Couldron_ExtensionsFrameworkElement_FindVisualParent.htm" />
   <HelpKINode Title="FirstElement method" Url="html/M_Couldron_Extensions_FirstElement.htm" />
   <HelpKINode Title="FONTCHANGE enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
+  <HelpKINode Title="ForcePropertyUpdate class">
+    <HelpKINode Title="ForcePropertyUpdate Class" Url="html/T_Couldron_Behaviours_ForcePropertyUpdate.htm" />
+    <HelpKINode Title="about ForcePropertyUpdate class" Url="html/T_Couldron_Behaviours_ForcePropertyUpdate.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Couldron_Behaviours_ForcePropertyUpdate__ctor.htm" />
+    <HelpKINode Title="events" Url="html/Events_T_Couldron_Behaviours_ForcePropertyUpdate.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Couldron_Behaviours_ForcePropertyUpdate.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Couldron_Behaviours_ForcePropertyUpdate.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ForcePropertyUpdate.ForcePropertyUpdate constructor" Url="html/M_Couldron_Behaviours_ForcePropertyUpdate__ctor.htm" />
+  <HelpKINode Title="ForcePropertyUpdate.OnAttach method" Url="html/M_Couldron_Behaviours_ForcePropertyUpdate_OnAttach.htm" />
+  <HelpKINode Title="ForcePropertyUpdate.OnDetach method" Url="html/M_Couldron_Behaviours_ForcePropertyUpdate_OnDetach.htm" />
   <HelpKINode Title="GeneratePassword method" Url="html/M_Couldron_Core_Cryptography_CryptoUtils_GeneratePassword.htm" />
   <HelpKINode Title="GetAccountPicture method" Url="html/M_Couldron_Core_UserInformation_GetAccountPicture.htm" />
   <HelpKINode Title="GetAlternativeText method">
@@ -1115,6 +1125,8 @@
     <HelpKINode Title="EmbeddedImageManager.GetImage Method " Url="html/M_Couldron_Core_EmbeddedImageManager_GetImage.htm" />
   </HelpKINode>
   <HelpKINode Title="GetImageKey method" Url="html/M_Couldron_Attached_EmbeddedResourceImage_GetImageKey.htm" />
+  <HelpKINode Title="GetIsDisabledByErrorInPropertyName method" Url="html/M_Couldron_Attached_ValidationProperties_GetIsDisabledByErrorInPropertyName.htm" />
+  <HelpKINode Title="GetIsMandatory method" Url="html/M_Couldron_Attached_ValidationProperties_GetIsMandatory.htm" />
   <HelpKINode Title="GetLastNameAsync method" Url="html/M_Couldron_Core_UserInformation_GetLastNameAsync.htm" />
   <HelpKINode Title="GetLogicalParent method" Url="html/M_Couldron_ExtensionsFrameworkElement_GetLogicalParent.htm" />
   <HelpKINode Title="GetManifestResourceInfo method" Url="html/M_Couldron_AssemblyUtil_GetManifestResourceInfo.htm" />
@@ -1485,6 +1497,8 @@
     <HelpKINode Title="IChangeAwareViewModel.IsChanged Property " Url="html/P_Couldron_ViewModels_IChangeAwareViewModel_IsChanged.htm" />
     <HelpKINode Title="ValidatableChangeAwareViewModelBase.IsChanged Property " Url="html/P_Couldron_ViewModels_ValidatableChangeAwareViewModelBase_IsChanged.htm" />
   </HelpKINode>
+  <HelpKINode Title="IsDisabledByErrorInPropertyName attached property" Url="html/P_Couldron_Attached_ValidationProperties_IsDisabledByErrorInPropertyName.htm" />
+  <HelpKINode Title="IsDisabledByErrorInPropertyNameProperty field" Url="html/F_Couldron_Attached_ValidationProperties_IsDisabledByErrorInPropertyNameProperty.htm" />
   <HelpKINode Title="IsDisposed property">
     <HelpKINode Title="Behaviour(T).IsDisposed Property " Url="html/P_Couldron_Behaviours_Behaviour_1_IsDisposed.htm" />
     <HelpKINode Title="BehaviourCollection(T).IsDisposed Property " Url="html/P_Couldron_Collections_BehaviourCollection_1_IsDisposed.htm" />
@@ -1505,6 +1519,7 @@
   </HelpKINode>
   <HelpKINode Title="IsLocalAccount property" Url="html/P_Couldron_Core_UserInformation_IsLocalAccount.htm" />
   <HelpKINode Title="IsLockedOutAsync method" Url="html/M_Couldron_Core_UserInformation_IsLockedOutAsync.htm" />
+  <HelpKINode Title="IsMandatory attached property" Url="html/P_Couldron_Attached_ValidationProperties_IsMandatory.htm" />
   <HelpKINode Title="IsMandatoryAttribute class">
     <HelpKINode Title="IsMandatoryAttribute Class" Url="html/T_Couldron_Validation_IsMandatoryAttribute.htm" />
     <HelpKINode Title="about IsMandatoryAttribute class" Url="html/T_Couldron_Validation_IsMandatoryAttribute.htm" />
@@ -1514,6 +1529,7 @@
   </HelpKINode>
   <HelpKINode Title="IsMandatoryAttribute.IsMandatoryAttribute constructor" Url="html/M_Couldron_Validation_IsMandatoryAttribute__ctor.htm" />
   <HelpKINode Title="IsMandatoryAttribute.OnValidate method" Url="html/M_Couldron_Validation_IsMandatoryAttribute_OnValidate.htm" />
+  <HelpKINode Title="IsMandatoryProperty field" Url="html/F_Couldron_Attached_ValidationProperties_IsMandatoryProperty.htm" />
   <HelpKINode Title="IsModal property" Url="html/P_Couldron_Behaviours_WindowConfiguration_IsModal.htm" />
   <HelpKINode Title="IsModalProperty field" Url="html/F_Couldron_Behaviours_WindowConfiguration_IsModalProperty.htm" />
   <HelpKINode Title="IsNetworkAvailable property" Url="html/P_Couldron_Utils_IsNetworkAvailable.htm" />
@@ -1795,7 +1811,6 @@
   <HelpKINode Title="OnAfterRaiseNotifyPropertyChanged method">
     <HelpKINode Title="ChangeAwareViewModelBase.OnAfterRaiseNotifyPropertyChanged Method " Url="html/M_Couldron_ViewModels_ChangeAwareViewModelBase_OnAfterRaiseNotifyPropertyChanged.htm" />
     <HelpKINode Title="ValidatableChangeAwareViewModelBase.OnAfterRaiseNotifyPropertyChanged Method " Url="html/M_Couldron_ViewModels_ValidatableChangeAwareViewModelBase_OnAfterRaiseNotifyPropertyChanged.htm" />
-    <HelpKINode Title="ValidatableViewModelBase.OnAfterRaiseNotifyPropertyChanged Method " Url="html/M_Couldron_ViewModels_ValidatableViewModelBase_OnAfterRaiseNotifyPropertyChanged.htm" />
     <HelpKINode Title="ViewModelBase.OnAfterRaiseNotifyPropertyChanged Method " Url="html/M_Couldron_ViewModels_ViewModelBase_OnAfterRaiseNotifyPropertyChanged.htm" />
   </HelpKINode>
   <HelpKINode Title="OnAttach method">
@@ -1805,17 +1820,36 @@
     <HelpKINode Title="EnterKeyToCommand.OnAttach Method " Url="html/M_Couldron_Behaviours_EnterKeyToCommand_OnAttach.htm" />
     <HelpKINode Title="EventToCommand.OnAttach Method " Url="html/M_Couldron_Behaviours_EventToCommand_OnAttach.htm" />
     <HelpKINode Title="EventTrigger.OnAttach Method " Url="html/M_Couldron_Behaviours_EventTrigger_OnAttach.htm" />
+    <HelpKINode Title="ForcePropertyUpdate.OnAttach Method " Url="html/M_Couldron_Behaviours_ForcePropertyUpdate_OnAttach.htm" />
     <HelpKINode Title="InvokeMethodAction.OnAttach Method " Url="html/M_Couldron_Behaviours_InvokeMethodAction_OnAttach.htm" />
     <HelpKINode Title="OpenFileDialogAction.OnAttach Method " Url="html/M_Couldron_Behaviours_OpenFileDialogAction_OnAttach.htm" />
+    <HelpKINode Title="PasswordBoxBinding.OnAttach Method " Url="html/M_Couldron_Behaviours_PasswordBoxBinding_OnAttach.htm" />
     <HelpKINode Title="SetFocus.OnAttach Method " Url="html/M_Couldron_Behaviours_SetFocus_OnAttach.htm" />
     <HelpKINode Title="TextBoxInputFilter.OnAttach Method " Url="html/M_Couldron_Behaviours_TextBoxInputFilter_OnAttach.htm" />
   </HelpKINode>
-  <HelpKINode Title="OnBeforeRaiseNotifyPropertyChanged method" Url="html/M_Couldron_ViewModels_ViewModelBase_OnBeforeRaiseNotifyPropertyChanged.htm" />
+  <HelpKINode Title="OnBeforeRaiseNotifyPropertyChanged method">
+    <HelpKINode Title="ValidatableViewModelBase.OnBeforeRaiseNotifyPropertyChanged Method " Url="html/M_Couldron_ViewModels_ValidatableViewModelBase_OnBeforeRaiseNotifyPropertyChanged.htm" />
+    <HelpKINode Title="ViewModelBase.OnBeforeRaiseNotifyPropertyChanged Method " Url="html/M_Couldron_ViewModels_ViewModelBase_OnBeforeRaiseNotifyPropertyChanged.htm" />
+  </HelpKINode>
   <HelpKINode Title="OnCanExecuteChanged method">
     <HelpKINode Title="RelayCommand(T).OnCanExecuteChanged Method " Url="html/M_Couldron_RelayCommand_1_OnCanExecuteChanged.htm" />
     <HelpKINode Title="RelayCommand.OnCanExecuteChanged Method " Url="html/M_Couldron_RelayCommand_OnCanExecuteChanged.htm" />
   </HelpKINode>
   <HelpKINode Title="OnConstruction method" Url="html/M_Couldron_CouldronApplication_OnConstruction.htm" />
+  <HelpKINode Title="OnConvert method">
+    <HelpKINode Title="BooleanInvertConverter.OnConvert Method " Url="html/M_Couldron_ValueConverters_BooleanInvertConverter_OnConvert.htm" />
+    <HelpKINode Title="BooleanToVisibilityConverter.OnConvert Method " Url="html/M_Couldron_ValueConverters_BooleanToVisibilityConverter_OnConvert.htm" />
+    <HelpKINode Title="CollectionHasElementsToBoolConverter.OnConvert Method " Url="html/M_Couldron_ValueConverters_CollectionHasElementsToBoolConverter_OnConvert.htm" />
+    <HelpKINode Title="ErrorCollectionConverter.OnConvert Method " Url="html/M_Couldron_ValueConverters_ErrorCollectionConverter_OnConvert.htm" />
+    <HelpKINode Title="ValueConverterBase(TInput, TOutput).OnConvert Method " Url="html/M_Couldron_ValueConverters_ValueConverterBase_2_OnConvert.htm" />
+  </HelpKINode>
+  <HelpKINode Title="OnConvertBack method">
+    <HelpKINode Title="BooleanInvertConverter.OnConvertBack Method " Url="html/M_Couldron_ValueConverters_BooleanInvertConverter_OnConvertBack.htm" />
+    <HelpKINode Title="BooleanToVisibilityConverter.OnConvertBack Method " Url="html/M_Couldron_ValueConverters_BooleanToVisibilityConverter_OnConvertBack.htm" />
+    <HelpKINode Title="CollectionHasElementsToBoolConverter.OnConvertBack Method " Url="html/M_Couldron_ValueConverters_CollectionHasElementsToBoolConverter_OnConvertBack.htm" />
+    <HelpKINode Title="ErrorCollectionConverter.OnConvertBack Method " Url="html/M_Couldron_ValueConverters_ErrorCollectionConverter_OnConvertBack.htm" />
+    <HelpKINode Title="ValueConverterBase(TInput, TOutput).OnConvertBack Method " Url="html/M_Couldron_ValueConverters_ValueConverterBase_2_OnConvertBack.htm" />
+  </HelpKINode>
   <HelpKINode Title="OnCopy method">
     <HelpKINode Title="Behaviour(T).OnCopy Method " Url="html/M_Couldron_Behaviours_Behaviour_1_OnCopy.htm" />
     <HelpKINode Title="EventTrigger.OnCopy Method " Url="html/M_Couldron_Behaviours_EventTrigger_OnCopy.htm" />
@@ -1835,8 +1869,10 @@
     <HelpKINode Title="EnterKeyToCommand.OnDetach Method " Url="html/M_Couldron_Behaviours_EnterKeyToCommand_OnDetach.htm" />
     <HelpKINode Title="EventToCommand.OnDetach Method " Url="html/M_Couldron_Behaviours_EventToCommand_OnDetach.htm" />
     <HelpKINode Title="EventTrigger.OnDetach Method " Url="html/M_Couldron_Behaviours_EventTrigger_OnDetach.htm" />
+    <HelpKINode Title="ForcePropertyUpdate.OnDetach Method " Url="html/M_Couldron_Behaviours_ForcePropertyUpdate_OnDetach.htm" />
     <HelpKINode Title="InvokeMethodAction.OnDetach Method " Url="html/M_Couldron_Behaviours_InvokeMethodAction_OnDetach.htm" />
     <HelpKINode Title="OpenFileDialogAction.OnDetach Method " Url="html/M_Couldron_Behaviours_OpenFileDialogAction_OnDetach.htm" />
+    <HelpKINode Title="PasswordBoxBinding.OnDetach Method " Url="html/M_Couldron_Behaviours_PasswordBoxBinding_OnDetach.htm" />
     <HelpKINode Title="SetFocus.OnDetach Method " Url="html/M_Couldron_Behaviours_SetFocus_OnDetach.htm" />
     <HelpKINode Title="TextBoxInputFilter.OnDetach Method " Url="html/M_Couldron_Behaviours_TextBoxInputFilter_OnDetach.htm" />
   </HelpKINode>
@@ -1918,6 +1954,22 @@
   <HelpKINode Title="PARENTNOTIFY enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="ParentType property" Url="html/P_Couldron_Behaviours_ControlTemplateCommandFromControlNameBinding_ParentType.htm" />
   <HelpKINode Title="ParentTypeProperty field" Url="html/F_Couldron_Behaviours_ControlTemplateCommandFromControlNameBinding_ParentTypeProperty.htm" />
+  <HelpKINode Title="Password property" Url="html/P_Couldron_Behaviours_PasswordBoxBinding_Password.htm" />
+  <HelpKINode Title="PasswordBoxBinding class">
+    <HelpKINode Title="PasswordBoxBinding Class" Url="html/T_Couldron_Behaviours_PasswordBoxBinding.htm" />
+    <HelpKINode Title="about PasswordBoxBinding class" Url="html/T_Couldron_Behaviours_PasswordBoxBinding.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Couldron_Behaviours_PasswordBoxBinding__ctor.htm" />
+    <HelpKINode Title="events" Url="html/Events_T_Couldron_Behaviours_PasswordBoxBinding.htm" />
+    <HelpKINode Title="fields" Url="html/Fields_T_Couldron_Behaviours_PasswordBoxBinding.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Couldron_Behaviours_PasswordBoxBinding.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Couldron_Behaviours_PasswordBoxBinding.htm" />
+  </HelpKINode>
+  <HelpKINode Title="PasswordBoxBinding.OnAttach method" Url="html/M_Couldron_Behaviours_PasswordBoxBinding_OnAttach.htm" />
+  <HelpKINode Title="PasswordBoxBinding.OnDetach method" Url="html/M_Couldron_Behaviours_PasswordBoxBinding_OnDetach.htm" />
+  <HelpKINode Title="PasswordBoxBinding.Password property" Url="html/P_Couldron_Behaviours_PasswordBoxBinding_Password.htm" />
+  <HelpKINode Title="PasswordBoxBinding.PasswordBoxBinding constructor" Url="html/M_Couldron_Behaviours_PasswordBoxBinding__ctor.htm" />
+  <HelpKINode Title="PasswordBoxBinding.PasswordProperty field" Url="html/F_Couldron_Behaviours_PasswordBoxBinding_PasswordProperty.htm" />
+  <HelpKINode Title="PasswordProperty field" Url="html/F_Couldron_Behaviours_PasswordBoxBinding_PasswordProperty.htm" />
   <HelpKINode Title="PasswordScore enumeration" Url="html/T_Couldron_Core_PasswordScore.htm" />
   <HelpKINode Title="PasswordStrengthAttribute class">
     <HelpKINode Title="PasswordStrengthAttribute Class" Url="html/T_Couldron_Validation_PasswordStrengthAttribute.htm" />
@@ -2104,6 +2156,8 @@
   <HelpKINode Title="SETICON enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="SetImage method" Url="html/M_Couldron_Attached_ButtonProperties_SetImage.htm" />
   <HelpKINode Title="SetImageKey method" Url="html/M_Couldron_Attached_EmbeddedResourceImage_SetImageKey.htm" />
+  <HelpKINode Title="SetIsDisabledByErrorInPropertyName method" Url="html/M_Couldron_Attached_ValidationProperties_SetIsDisabledByErrorInPropertyName.htm" />
+  <HelpKINode Title="SetIsMandatory method" Url="html/M_Couldron_Attached_ValidationProperties_SetIsMandatory.htm" />
   <HelpKINode Title="SETREDRAW enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="SetSelectedItems method" Url="html/M_Couldron_Attached_ComboBoxProperties_SetSelectedItems.htm" />
   <HelpKINode Title="SetTemplate method">
@@ -2357,7 +2411,7 @@
   <HelpKINode Title="ValidatableViewModelBase.ErrorsChanged event" Url="html/E_Couldron_ViewModels_ValidatableViewModelBase_ErrorsChanged.htm" />
   <HelpKINode Title="ValidatableViewModelBase.GetErrors method" Url="html/M_Couldron_ViewModels_ValidatableViewModelBase_GetErrors.htm" />
   <HelpKINode Title="ValidatableViewModelBase.HasErrors property" Url="html/P_Couldron_ViewModels_ValidatableViewModelBase_HasErrors.htm" />
-  <HelpKINode Title="ValidatableViewModelBase.OnAfterRaiseNotifyPropertyChanged method" Url="html/M_Couldron_ViewModels_ValidatableViewModelBase_OnAfterRaiseNotifyPropertyChanged.htm" />
+  <HelpKINode Title="ValidatableViewModelBase.OnBeforeRaiseNotifyPropertyChanged method" Url="html/M_Couldron_ViewModels_ValidatableViewModelBase_OnBeforeRaiseNotifyPropertyChanged.htm" />
   <HelpKINode Title="ValidatableViewModelBase.OnDispose method" Url="html/M_Couldron_ViewModels_ValidatableViewModelBase_OnDispose.htm" />
   <HelpKINode Title="ValidatableViewModelBase.OnValidation method" Url="html/M_Couldron_ViewModels_ValidatableViewModelBase_OnValidation.htm" />
   <HelpKINode Title="ValidatableViewModelBase.ValidatableViewModelBase constructor" Url="html/Overload_Couldron_ViewModels_ValidatableViewModelBase__ctor.htm" />
@@ -2404,6 +2458,43 @@
   <HelpKINode Title="ValidationHandler.Validate method" Url="html/Overload_Couldron_ViewModels_ValidationHandler_Validate.htm" />
   <HelpKINode Title="ValidationHandler.Validation event" Url="html/E_Couldron_ViewModels_ValidationHandler_Validation.htm" />
   <HelpKINode Title="ValidationHandler.ValidationHandler constructor" Url="html/M_Couldron_ViewModels_ValidationHandler__ctor.htm" />
+  <HelpKINode Title="ValidationProperties class">
+    <HelpKINode Title="ValidationProperties Class" Url="html/T_Couldron_Attached_ValidationProperties.htm" />
+    <HelpKINode Title="about ValidationProperties class" Url="html/T_Couldron_Attached_ValidationProperties.htm" />
+    <HelpKINode Title="attached properties" Url="html/AttachedProperties_T_Couldron_Attached_ValidationProperties.htm" />
+    <HelpKINode Title="fields" Url="html/Fields_T_Couldron_Attached_ValidationProperties.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Couldron_Attached_ValidationProperties.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ValidationProperties.GetIsDisabledByErrorInPropertyName method" Url="html/M_Couldron_Attached_ValidationProperties_GetIsDisabledByErrorInPropertyName.htm" />
+  <HelpKINode Title="ValidationProperties.GetIsMandatory method" Url="html/M_Couldron_Attached_ValidationProperties_GetIsMandatory.htm" />
+  <HelpKINode Title="ValidationProperties.IsDisabledByErrorInPropertyName attached property" Url="html/P_Couldron_Attached_ValidationProperties_IsDisabledByErrorInPropertyName.htm" />
+  <HelpKINode Title="ValidationProperties.IsDisabledByErrorInPropertyNameProperty field" Url="html/F_Couldron_Attached_ValidationProperties_IsDisabledByErrorInPropertyNameProperty.htm" />
+  <HelpKINode Title="ValidationProperties.IsMandatory attached property" Url="html/P_Couldron_Attached_ValidationProperties_IsMandatory.htm" />
+  <HelpKINode Title="ValidationProperties.IsMandatoryProperty field" Url="html/F_Couldron_Attached_ValidationProperties_IsMandatoryProperty.htm" />
+  <HelpKINode Title="ValidationProperties.SetIsDisabledByErrorInPropertyName method" Url="html/M_Couldron_Attached_ValidationProperties_SetIsDisabledByErrorInPropertyName.htm" />
+  <HelpKINode Title="ValidationProperties.SetIsMandatory method" Url="html/M_Couldron_Attached_ValidationProperties_SetIsMandatory.htm" />
+  <HelpKINode Title="ValueConverterBase(Of TInput, TOutput) class">
+    <HelpKINode Title="ValueConverterBase(TInput, TOutput) Class" Url="html/T_Couldron_ValueConverters_ValueConverterBase_2.htm" />
+    <HelpKINode Title="about ValueConverterBase(Of TInput, TOutput) class" Url="html/T_Couldron_ValueConverters_ValueConverterBase_2.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Couldron_ValueConverters_ValueConverterBase_2__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Couldron_ValueConverters_ValueConverterBase_2.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ValueConverterBase(Of TInput, TOutput).Convert method" Url="html/M_Couldron_ValueConverters_ValueConverterBase_2_Convert.htm" />
+  <HelpKINode Title="ValueConverterBase(Of TInput, TOutput).ConvertBack method" Url="html/M_Couldron_ValueConverters_ValueConverterBase_2_ConvertBack.htm" />
+  <HelpKINode Title="ValueConverterBase(Of TInput, TOutput).OnConvert method" Url="html/M_Couldron_ValueConverters_ValueConverterBase_2_OnConvert.htm" />
+  <HelpKINode Title="ValueConverterBase(Of TInput, TOutput).OnConvertBack method" Url="html/M_Couldron_ValueConverters_ValueConverterBase_2_OnConvertBack.htm" />
+  <HelpKINode Title="ValueConverterBase(Of TInput, TOutput).ValueConverterBase constructor" Url="html/M_Couldron_ValueConverters_ValueConverterBase_2__ctor.htm" />
+  <HelpKINode Title="ValueConverterBase&lt;TInput, TOutput&gt; class">
+    <HelpKINode Title="ValueConverterBase(TInput, TOutput) Class" Url="html/T_Couldron_ValueConverters_ValueConverterBase_2.htm" />
+    <HelpKINode Title="about ValueConverterBase&lt;TInput, TOutput&gt; class" Url="html/T_Couldron_ValueConverters_ValueConverterBase_2.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Couldron_ValueConverters_ValueConverterBase_2__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Couldron_ValueConverters_ValueConverterBase_2.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ValueConverterBase&lt;TInput, TOutput&gt;.Convert method" Url="html/M_Couldron_ValueConverters_ValueConverterBase_2_Convert.htm" />
+  <HelpKINode Title="ValueConverterBase&lt;TInput, TOutput&gt;.ConvertBack method" Url="html/M_Couldron_ValueConverters_ValueConverterBase_2_ConvertBack.htm" />
+  <HelpKINode Title="ValueConverterBase&lt;TInput, TOutput&gt;.OnConvert method" Url="html/M_Couldron_ValueConverters_ValueConverterBase_2_OnConvert.htm" />
+  <HelpKINode Title="ValueConverterBase&lt;TInput, TOutput&gt;.OnConvertBack method" Url="html/M_Couldron_ValueConverters_ValueConverterBase_2_OnConvertBack.htm" />
+  <HelpKINode Title="ValueConverterBase&lt;TInput, TOutput&gt;.ValueConverterBase constructor" Url="html/M_Couldron_ValueConverters_ValueConverterBase_2__ctor.htm" />
   <HelpKINode Title="version">
     <HelpKINode Title="1.0.0.0" Url="html/463b19ee-1cae-47cd-ba47-23f291f641d4.htm" />
     <HelpKINode Title="history" Url="html/506770f4-5e04-4d9d-ac7d-d85e82673419.htm" />
