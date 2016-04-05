@@ -40,7 +40,7 @@ namespace Couldron.Validation
             object value = this.propertyInfo.GetValue(context);
 
             if (this.OnValidate(sender, context, propertyInfo, value))
-                return this.localization == null ? this.ErrorMessageKey : this.localization[this.ErrorMessageKey];
+                return this.ValidationMessage(this.localization == null ? this.ErrorMessageKey : this.localization[this.ErrorMessageKey], context);
 
             return string.Empty;
         }
@@ -54,5 +54,18 @@ namespace Couldron.Validation
         /// <param name="value">The value of the property</param>
         /// <returns>Has to return true on validation error otherwise false</returns>
         protected abstract bool OnValidate(PropertyInfo sender, IValidatableViewModel context, PropertyInfo propertyInfo, object value);
+
+        /// <summary>
+        /// Occures on validation
+        /// <para/>
+        /// Can be used to modify the validation error message.
+        /// </summary>
+        /// <param name="errorMessage">The validtion error message</param>
+        /// <param name="context">The Viewmodel context that has to be validated</param>
+        /// <returns>A modified validation error message</returns>
+        protected virtual string ValidationMessage(string errorMessage, IValidatableViewModel context)
+        {
+            return errorMessage;
+        }
     }
 }

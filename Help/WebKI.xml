@@ -1173,6 +1173,7 @@
   </HelpKINode>
   <HelpKINode Title="GreaterThanAttribute.GreaterThanAttribute constructor" Url="html/Overload_Couldron_Validation_GreaterThanAttribute__ctor.htm" />
   <HelpKINode Title="GreaterThanAttribute.OnValidate method" Url="html/M_Couldron_Validation_GreaterThanAttribute_OnValidate.htm" />
+  <HelpKINode Title="GreaterThanAttribute.ValidationMessage method" Url="html/M_Couldron_Validation_GreaterThanAttribute_ValidationMessage.htm" />
   <HelpKINode Title="HANDHELDFIRST enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="HANDHELDLAST enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="HasContract method" Url="html/Overload_Couldron_Factory_HasContract.htm" />
@@ -2433,6 +2434,7 @@
   <HelpKINode Title="ValidationBaseAttribute.ErrorMessageKey property" Url="html/P_Couldron_Validation_ValidationBaseAttribute_ErrorMessageKey.htm" />
   <HelpKINode Title="ValidationBaseAttribute.OnValidate method" Url="html/M_Couldron_Validation_ValidationBaseAttribute_OnValidate.htm" />
   <HelpKINode Title="ValidationBaseAttribute.ValidationBaseAttribute constructor" Url="html/M_Couldron_Validation_ValidationBaseAttribute__ctor.htm" />
+  <HelpKINode Title="ValidationBaseAttribute.ValidationMessage method" Url="html/M_Couldron_Validation_ValidationBaseAttribute_ValidationMessage.htm" />
   <HelpKINode Title="ValidationEventArgs class">
     <HelpKINode Title="ValidationEventArgs Class" Url="html/T_Couldron_ViewModels_ValidationEventArgs.htm" />
     <HelpKINode Title="about ValidationEventArgs class" Url="html/T_Couldron_ViewModels_ValidationEventArgs.htm" />
@@ -2458,6 +2460,10 @@
   <HelpKINode Title="ValidationHandler.Validate method" Url="html/Overload_Couldron_ViewModels_ValidationHandler_Validate.htm" />
   <HelpKINode Title="ValidationHandler.Validation event" Url="html/E_Couldron_ViewModels_ValidationHandler_Validation.htm" />
   <HelpKINode Title="ValidationHandler.ValidationHandler constructor" Url="html/M_Couldron_ViewModels_ValidationHandler__ctor.htm" />
+  <HelpKINode Title="ValidationMessage method">
+    <HelpKINode Title="GreaterThanAttribute.ValidationMessage Method " Url="html/M_Couldron_Validation_GreaterThanAttribute_ValidationMessage.htm" />
+    <HelpKINode Title="ValidationBaseAttribute.ValidationMessage Method " Url="html/M_Couldron_Validation_ValidationBaseAttribute_ValidationMessage.htm" />
+  </HelpKINode>
   <HelpKINode Title="ValidationProperties class">
     <HelpKINode Title="ValidationProperties Class" Url="html/T_Couldron_Attached_ValidationProperties.htm" />
     <HelpKINode Title="about ValidationProperties class" Url="html/T_Couldron_Attached_ValidationProperties.htm" />

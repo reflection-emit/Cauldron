@@ -58,5 +58,26 @@ namespace Couldron.Validation
 
             return !(value.ToDouble() > otherProperty.GetValue(context).ToDouble());
         }
+
+        /// <summary>
+        /// Occures on validation
+        /// <para/>
+        /// Can be used to modify the validation error message.
+        /// </summary>
+        /// <param name="errorMessage">The validtion error message</param>
+        /// <param name="context">The Viewmodel context that has to be validated</param>
+        /// <returns>A modified validation error message</returns>
+        protected override string ValidationMessage(string errorMessage, IValidatableViewModel context)
+        {
+            if (this.value.HasValue)
+                return string.Format(errorMessage, this.value.Value);
+
+            var otherProperty = context.GetType().GetProperty(this.propertyName);
+
+            if (otherProperty == null)
+                return errorMessage;
+
+            return string.Format(errorMessage, otherProperty.GetValue(context));
+        }
     }
 }
