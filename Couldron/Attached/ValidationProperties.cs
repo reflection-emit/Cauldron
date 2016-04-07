@@ -50,10 +50,12 @@ namespace Couldron.Attached
             if (frameworkElement == null)
                 return;
 
+            frameworkElement.IsEnabled = false;
+
             Func<bool> getErrors = () =>
             {
                 var dataContext = frameworkElement.DataContext as INotifyDataErrorInfo;
-                if (dataContext == null)
+                if (dataContext == null || !frameworkElement.IsLoaded)
                     return false;
 
                 return !dataContext.GetErrors(propertyName).Any();

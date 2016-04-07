@@ -169,7 +169,10 @@ namespace Couldron.Core
                 return null;
 
             var lengthOfData = data.GetBytes(position + 12, 4).ToInteger() - 2;
-            var path = Encoding.Unicode.GetString(data.GetBytes(position + 16, lengthOfData));
+            var path = Encoding.Unicode.GetString(data.GetBytes(position + 16, lengthOfData)).Trim(new char[] { ' ', '\0', '\r', '\n' });
+
+            if (!File.Exists(path))
+                return null;
 
             return new BitmapImage(new Uri(path));
         }
