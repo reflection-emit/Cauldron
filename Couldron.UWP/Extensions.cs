@@ -3,6 +3,9 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+
+using System.Reflection;
+
 using System.Threading.Tasks;
 using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.Core;
@@ -71,6 +74,22 @@ namespace Couldron
             IBuffer buff = CryptographicBuffer.ConvertStringToBinary(target, BinaryStringEncoding.Utf8);
             var hashed = md5.HashData(buff);
             return CryptographicBuffer.EncodeToHexString(hashed);
+        }
+
+        /// <summary>
+        /// Retrieves an object that represents a specified property.
+        /// </summary>
+        /// <param name="type">The type that contains the property.</param>
+        /// <param name="propertyName">The name of the property.</param>
+        /// <returns>An object that represents the specified property, or null if the property is not found.</returns>
+        public static PropertyInfo GetProperty(this Type type, string propertyName)
+        {
+            var property = type.GetTypeInfo().GetDeclaredProperty(propertyName);
+
+            if (property == null)
+                type.GetRuntimeProperty(propertyName);
+
+            return property;
         }
 
         /// <summary>

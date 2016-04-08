@@ -16,6 +16,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Attached\EmbeddedResourceImage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Attached\Localized.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Attached\TextBoxProperties.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attached\UIElementProperties.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Attached\ValidationProperties.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Attached\WindowToolbar.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviours\ActionBase.cs" />
@@ -31,7 +32,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Behaviours\Interaction.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviours\Interactivity.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviours\InvokeMethodAction.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Behaviours\ParentPropertySetterAction.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviours\SetFocus.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Behaviours\StoryboardBeginAnimationAction.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Collections\ActionCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Collections\BehaviourCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Collections\ConcurrentList.cs" />

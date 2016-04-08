@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Windows;
 
 namespace Couldron
@@ -8,6 +10,32 @@ namespace Couldron
     /// </summary>
     public static partial class ExtensionsFrameworkElement
     {
+        /// <summary>
+        /// Returns all logical childs and sub child (recursively) of the element that matches the given type
+        /// </summary>
+        /// <typeparam name="T">The typ of child to search for</typeparam>
+        /// <param name="element">The parent element</param>
+        /// <returns>A collection of <see cref="FrameworkElement"/></returns>
+        public static IEnumerable<FrameworkElement> FindLogicalChildren<T>(this DependencyObject element)
+        {
+            List<FrameworkElement> elements = new List<FrameworkElement>();
+            FindLogicalChildren(typeof(T), element as FrameworkElement, elements);
+            return elements;
+        }
+
+        /// <summary>
+        /// Returns all logical childs and sub child (recursively) of the element that matches the given type
+        /// </summary>
+        /// <param name="element">The parent element</param>
+        /// <param name="dependencyObjectType">The typ of child to search for</param>
+        /// <returns>A collection of <see cref="FrameworkElement"/></returns>
+        public static IEnumerable FindLogicalChildren(this DependencyObject element, Type dependencyObjectType)
+        {
+            List<FrameworkElement> elements = new List<FrameworkElement>();
+            FindLogicalChildren(dependencyObjectType, element as FrameworkElement, elements);
+            return elements;
+        }
+
         /// <summary>
         /// Returns the parent object with the specified type of the specified object by processing the logical tree.
         /// </summary>
@@ -48,6 +76,26 @@ namespace Couldron
         public static DependencyObject GetLogicalParent(this DependencyObject element)
         {
             return LogicalTreeHelper.GetParent(element);
+        }
+
+        private static void FindLogicalChildren(Type childType, FrameworkElement element, List<FrameworkElement> list)
+        {
+            if (element != null)
+            {
+                foreach (var item in LogicalTreeHelper.GetChildren(element))
+                {
+                    var child = item as FrameworkElement;
+
+                    if (child == null)
+                        continue;
+
+                    if (child != null && child.GetType() == childType)
+                        list.Add(child);
+
+                    if (child != null)
+                        FindVisualChildren(childType, child, list);
+                }
+            }
         }
     }
 }

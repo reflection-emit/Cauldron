@@ -12,5 +12,11 @@
       "de": "Dies ist ein Mußfeld",
       "en": "This is mandatory"
     }
+  },
+  {
+    "key": "header",
+    "lang": {
+      "en": "This is a header *"
+    }
   }
 ]

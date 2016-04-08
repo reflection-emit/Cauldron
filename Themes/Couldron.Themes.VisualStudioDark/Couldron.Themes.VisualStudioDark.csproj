@@ -48,6 +48,9 @@
     <Compile Include="..\Couldron.Themes.VisualStudioLight\Behaviours\ComboBoxTreeViewBehaviours.cs">
       <Link>Behaviours\ComboBoxTreeViewBehaviours.cs</Link>
     </Compile>
+    <Compile Include="..\Couldron.Themes.VisualStudioLight\Behaviours\DatePickerBehaviour.cs">
+      <Link>Behaviours\DatePickerBehaviour.cs</Link>
+    </Compile>
     <Compile Include="..\Couldron.Themes.VisualStudioLight\Behaviours\TabItemBehaviour.cs">
       <Link>Behaviours\TabItemBehaviour.cs</Link>
     </Compile>
@@ -84,8 +87,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="..\Couldron.Themes.VisualStudioLight\Styles\ComboBox.xaml">
-      <Link>Styles\ComboBox.xaml</Link>
+    <Page Include="..\Couldron.Themes.VisualStudioLight\Styles\ComboBoxStyles.xaml">
+      <Link>Styles\ComboBoxStyles.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="..\Couldron.Themes.VisualStudioLight\Styles\DatePicker.xaml">
+      <Link>Styles\DatePicker.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

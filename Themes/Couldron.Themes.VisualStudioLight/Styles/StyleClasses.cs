@@ -11,12 +11,23 @@
         }
     }
 
-    public partial class ComboBoxStyle
+    public partial class ComboBoxStyles
     {
         /// <summary>
-        /// Initializes a new instance of <see cref="ComboBoxStyle"/>
+        /// Initializes a new instance of <see cref="ComboBoxStyles"/>
         /// </summary>
-        public ComboBoxStyle()
+        public ComboBoxStyles()
+        {
+            this.InitializeComponent();
+        }
+    }
+
+    public partial class DatePickerStyle
+    {
+        /// <summary>
+        /// Initializes a new instance of <see cref="DatePickerStyle"/>
+        /// </summary>
+        public DatePickerStyle()
         {
             this.InitializeComponent();
         }

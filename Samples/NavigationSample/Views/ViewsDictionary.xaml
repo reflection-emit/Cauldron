@@ -7,18 +7,26 @@
       xmlns:behaviour="clr-namespace:Couldron.Behaviours;assembly=Couldron"
       xmlns:attached="clr-namespace:Couldron.Attached;assembly=Couldron">
 
+    <SolidColorBrush x:Key="blanalkjs" Color="{StaticResource ThemeAccentColor}" Opacity="0.1" />
+
     <DataTemplate x:Key="View_OtherViewModel">
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="10">
             <behaviour:Interaction.Behaviours>
-                <behaviour:WindowConfiguration IsModal="True" ResizeMode="NoResize" Title="A wild Window has appeared" Width="450" Height="200" ShowInTaskbar="True" IsWindowPersistent="True" />
+                <behaviour:WindowConfiguration IsModal="True" ResizeMode="NoResize" Title="A wild Window has appeared" Width="450" Height="600" ShowInTaskbar="True" />
             </behaviour:Interaction.Behaviours>
 
-            <TextBox attached:TextBoxProperties.Header="This is the header" Text="{Binding Result, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" attached:TextBoxProperties.AlternativeText="mustbe">
+            <TextBox attached:TextBoxProperties.Header="header" Width="200" Text="{Binding Result, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" attached:TextBoxProperties.AlternativeText="mustbe">
                 <behaviour:Interaction.Behaviours>
                     <behaviour:SetFocus />
                     <behaviour:EnterKeyToCommand Command="{Binding BackCommand}" />
                 </behaviour:Interaction.Behaviours>
             </TextBox>
+
+            <TextBox attached:TextBoxProperties.Header="header" Background="#FFF5ED" Width="200" />
+
+            <DatePicker Margin="0,10" attached:ComboBoxProperties.Header="Header" SelectedDate="{Binding TestTime}" Width="120" />
+            <Calendar />
+            <ComboBox Margin="0,10" attached:ComboBoxProperties.Header="Header" />
             <Button Content="OK" Width="120" attached:ValidationProperties.IsDisabledByErrorInPropertyName="Result" Height="40" Margin="10" Command="{Binding BackCommand}" />
         </StackPanel>
     </DataTemplate>

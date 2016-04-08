@@ -1,6 +1,7 @@
 ﻿using Couldron;
 using Couldron.Validation;
 using Couldron.ViewModels;
+using System;
 using System.Windows.Input;
 
 namespace NavigationSample.ViewModels
@@ -17,6 +18,9 @@ namespace NavigationSample.ViewModels
 
         [IsMandatory("mandatory")]
         public string Result { get; set; }
+
+        [IsMandatory("mandatory")]
+        public DateTime TestTime { get; set; }
 
         public void Activated()
         {

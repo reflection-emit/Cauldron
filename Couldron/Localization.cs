@@ -39,10 +39,13 @@ namespace Couldron
         {
             get
             {
+                if (string.IsNullOrEmpty(key))
+                    return string.Empty;
+
                 if (this.source.Contains(key, this.CultureInfo.TwoLetterISOLanguageName))
                     return this.source.GetValue(key, this.CultureInfo.TwoLetterISOLanguageName);
 
-                return key + "*"; // * indicates that the localization was not provided. Someone has to do his homework
+                return key + "●"; // ● indicates that the localization was not provided. Someone has to do his homework
             }
         }
     }

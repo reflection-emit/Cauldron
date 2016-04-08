@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 
 #if NETFX_CORE
 using Windows.UI.Xaml;
@@ -104,7 +105,20 @@ namespace Couldron
         public static IEnumerable<FrameworkElement> FindVisualChildren<T>(this DependencyObject element)
         {
             List<FrameworkElement> elements = new List<FrameworkElement>();
-            GetVisualChildren<T>(element as FrameworkElement, elements);
+            FindVisualChildren(typeof(T), element as FrameworkElement, elements);
+            return elements;
+        }
+
+        /// <summary>
+        /// Returns all visual childs and sub child (recursively) of the element that matches the given type
+        /// </summary>
+        /// <param name="element">The parent element</param>
+        /// <param name="dependencyObjectType">The typ of child to search for</param>
+        /// <returns>A collection of <see cref="FrameworkElement"/></returns>
+        public static IEnumerable FindVisualChildren(this DependencyObject element, Type dependencyObjectType)
+        {
+            List<FrameworkElement> elements = new List<FrameworkElement>();
+            FindVisualChildren(dependencyObjectType, element as FrameworkElement, elements);
             return elements;
         }
 
@@ -204,7 +218,7 @@ namespace Couldron
             BindingOperations.SetBinding(dependencyObject, dp, binding);
         }
 
-        private static void GetVisualChildren<T>(FrameworkElement element, List<FrameworkElement> list)
+        private static void FindVisualChildren(Type childType, FrameworkElement element, List<FrameworkElement> list)
         {
             if (element != null)
             {
@@ -212,11 +226,11 @@ namespace Couldron
                 {
                     var child = VisualTreeHelper.GetChild(element, i) as FrameworkElement;
 
-                    if (child != null && child is T)
+                    if (child != null && child.GetType() == childType)
                         list.Add(child);
 
                     if (child != null)
-                        GetVisualChildren<T>(child, list);
+                        FindVisualChildren(childType, child, list);
                 }
             }
         }
