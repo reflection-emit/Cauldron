@@ -4,6 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
@@ -145,6 +147,29 @@ namespace Couldron
 
             Array.Copy(target, startingPosition, value, 0, length);
             return value;
+        }
+
+        /// <summary>
+        /// Gets the methods of the current <see cref="Type"/>
+        /// </summary>
+        /// <param name="type">The <see cref="Type"/> that contains the method</param>
+        /// <param name="methodName">The name of the method to get</param>
+        /// <param name="parameterTypes">The type of parameters the method should have</param>
+        /// <param name="bindingFlags">A bitmask comprised of one or more BindingFlags that specify how the search is conducted.</param>
+        /// <returns>A <see cref="MethodInfo"/> object representing the method defined for the current Type that match the specified binding constraint.</returns>
+        public static MethodInfo GetMethod(this Type type, string methodName, Type[] parameterTypes, BindingFlags bindingFlags)
+        {
+            return type.GetMethods(bindingFlags)
+                .FirstOrDefault(x =>
+                {
+                    if (parameterTypes != null && parameterTypes.Length > 0)
+                    {
+                        var parameters = x.GetParameters().Select(o => o.ParameterType);
+                        return x.Name == methodName && parameterTypes.SequenceEqual(parameters);
+                    }
+
+                    return x.Name == methodName;
+                });
         }
 
         /// <summary>

@@ -34,6 +34,11 @@ namespace Couldron.Validation
         /// <returns>Has to return true on validation error otherwise false</returns>
         protected override bool OnValidate(PropertyInfo sender, IValidatableViewModel context, PropertyInfo propertyInfo, object value)
         {
+            // if the value is null, then we should return a validation successfull, so that it is possible
+            // to have non mandatory inputs
+            if (value == null)
+                return false;
+
             var secondProperty = context.GetType().GetProperty(this.otherProperty);
 
             if (secondProperty == null)
@@ -45,6 +50,24 @@ namespace Couldron.Validation
                 context.Validate(propertyInfo, secondProperty.Name);
 
             return !Utils.Equals(value, secondValue);
+        }
+
+        /// <summary>
+        /// Occures on validation
+        /// <para/>
+        /// Can be used to modify the validation error message.
+        /// </summary>
+        /// <param name="errorMessage">The validtion error message</param>
+        /// <param name="context">The Viewmodel context that has to be validated</param>
+        /// <returns>A modified validation error message</returns>
+        protected override string ValidationMessage(string errorMessage, IValidatableViewModel context)
+        {
+            var otherProperty = context.GetType().GetProperty(this.otherProperty);
+
+            if (otherProperty == null)
+                return errorMessage;
+
+            return string.Format(errorMessage, otherProperty.GetValue(context));
         }
     }
 }

@@ -49,7 +49,7 @@
         <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
         <Setter Property="Foreground" Value="{StaticResource ThemeTextBrush}" />
         <Setter Property="BorderBrush" Value="{StaticResource ThemeLightBorderBrush}" />
-        <Setter Property="MinWidth" Value="120" />
+        <Setter Property="MinWidth" Value="60" />
         <Setter Property="MinHeight" Value="22" />
         <Setter Property="IsTodayHighlighted" Value="True" />
         <Setter Property="SelectedDateFormat" Value="Short" />
@@ -85,8 +85,8 @@
                             <RowDefinition MinHeight="22" />
                         </Grid.RowDefinitions>
 
-                        <TextBlock Text="{Binding Path=(attached:ComboBoxProperties.Header), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource KeyToLocalizedStringConverter}}"
-                                 Visibility="{Binding Path=(attached:ComboBoxProperties.Header), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NullOrEmptyTovisibilityConverter}, ConverterParameter=True}"
+                        <TextBlock Text="{Binding Path=(attached:UIElementProperties.Header), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource KeyToLocalizedStringConverter}}"
+                                 Visibility="{Binding Path=(attached:UIElementProperties.Header), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NullOrEmptyTovisibilityConverter}, ConverterParameter=True}"
                                  Margin="1,6,0,2" Grid.ColumnSpan="4" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" IsHitTestVisible="False" />
 
                         <Border x:Name="border" Grid.ColumnSpan="4" Grid.Row="1" BorderThickness="1" Background="{StaticResource ThemeLightBackgroundBrush}"
@@ -131,7 +131,7 @@
                                HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Grid.Row="1" Grid.Column="2" />
 
                         <TextBlock Grid.Row="1" Grid.Column="2" IsHitTestVisible="False"
-                                       Text="{Binding Path=(attached:ComboBoxProperties.AlternativeText), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource KeyToLocalizedStringConverter}}"
+                                       Text="{Binding Path=(attached:UIElementProperties.AlternativeText), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource KeyToLocalizedStringConverter}}"
                                        Foreground="{StaticResource ThemeTextBrush}" Opacity="0.7" Margin="3"
                                        Visibility="{Binding Path=Text, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NullOrEmptyTovisibilityConverter}, ConverterParameter=False}" />
 

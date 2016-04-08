@@ -1,12 +1,18 @@
 ﻿#if NETFX_CORE
+
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
+
 #else
 
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Controls;
 
 #endif
+
+using System.Collections;
 
 namespace Couldron.Attached
 {
@@ -15,62 +21,144 @@ namespace Couldron.Attached
     /// </summary>
     public static class UIElementProperties
     {
-        #region Dependency Attached Property ColorBrush
+        #region Dependency Attached Property AlternativeText
 
         /// <summary>
-        /// Gets the value of ColorBrush
+        /// Identifies the AlternativeText dependency property
+        /// <para/>
+        /// Supported by <see cref="TextBox"/>, <see cref="ComboBox"/>
+        /// </summary>
+        public static readonly DependencyProperty AlternativeTextProperty = DependencyProperty.RegisterAttached("AlternativeText", typeof(string), typeof(UIElementProperties), new PropertyMetadata(""));
+
+        /// <summary>
+        /// Gets the value of AlternativeText
+        /// <para/>
+        /// Supported by <see cref="TextBox"/>, <see cref="ComboBox"/>
         /// </summary>
         /// <param name="obj"><see cref="DependencyObject" /> with the attached property</param>
         /// <returns>The value of the attached property</returns>
-        public static Brush GetColorBrush(DependencyObject obj)
+        public static string GetAlternativeText(DependencyObject obj)
         {
-            return (Brush)obj.GetValue(ColorBrushProperty);
+            return (string)obj.GetValue(AlternativeTextProperty);
         }
 
         /// <summary>
-        /// Sets the value of the ColorBrush attached property
+        /// Sets the value of the AlternativeText attached property
+        /// <para/>
+        /// Supported by <see cref="TextBox"/>, <see cref="ComboBox"/>
         /// </summary>
         /// <param name="obj"><see cref="DependencyObject" /> with the attached property</param>
         /// <param name="value">The new value to set</param>
-        public static void SetColorBrush(DependencyObject obj, Brush value)
+        public static void SetAlternativeText(DependencyObject obj, string value)
         {
-            obj.SetValue(ColorBrushProperty, value);
+            obj.SetValue(AlternativeTextProperty, value);
         }
 
+        #endregion Dependency Attached Property AlternativeText
+
+        #region Dependency Attached Property Header
+
         /// <summary>
-        /// Identifies the MyProperty dependency property
+        /// Identifies the Header dependency property
+        /// <para/>
+        /// Supported by <see cref="TextBox"/>, <see cref="ComboBox"/>
         /// </summary>
-        public static readonly DependencyProperty ColorBrushProperty = DependencyProperty.RegisterAttached("ColorBrush", typeof(Brush), typeof(UIElementProperties), new PropertyMetadata(null));
-
-        #endregion Dependency Attached Property ColorBrush
-
-        #region Dependency Attached Property Boolean
+        public static readonly DependencyProperty HeaderProperty = DependencyProperty.RegisterAttached("Header", typeof(string), typeof(UIElementProperties), new PropertyMetadata(""));
 
         /// <summary>
-        /// Gets the value of Boolean
+        /// Gets the value of Header
+        /// <para/>
+        /// Supported by <see cref="TextBox"/>, <see cref="ComboBox"/>
         /// </summary>
         /// <param name="obj"><see cref="DependencyObject" /> with the attached property</param>
         /// <returns>The value of the attached property</returns>
-        public static bool GetBoolean(DependencyObject obj)
+        public static string GetHeader(DependencyObject obj)
         {
-            return (bool)obj.GetValue(BooleanProperty);
+            return (string)obj.GetValue(HeaderProperty);
         }
 
         /// <summary>
-        /// Sets the value of the Boolean attached property
+        /// Sets the value of the Header attached property
+        /// <para/>
+        /// Supported by <see cref="TextBox"/>, <see cref="ComboBox"/>
         /// </summary>
         /// <param name="obj"><see cref="DependencyObject" /> with the attached property</param>
         /// <param name="value">The new value to set</param>
-        public static void SetBoolean(DependencyObject obj, bool value)
+        public static void SetHeader(DependencyObject obj, string value)
         {
-            obj.SetValue(BooleanProperty, value);
+            obj.SetValue(HeaderProperty, value);
+        }
+
+        #endregion Dependency Attached Property Header
+
+        #region Dependency Attached Property ButtonsTemplate
+
+        /// <summary>
+        /// Identifies the ButtonsTemplate dependency property
+        /// <para/>
+        /// Supported by <see cref="TextBox"/>
+        /// </summary>
+        public static readonly DependencyProperty ButtonsTemplateProperty = DependencyProperty.RegisterAttached("ButtonsTemplate", typeof(ControlTemplate), typeof(UIElementProperties), new PropertyMetadata(null));
+
+        /// <summary>
+        /// Gets the value of ButtonsTemplate
+        /// <para/>
+        /// Supported by <see cref="TextBox"/>
+        /// </summary>
+        /// <param name="obj"><see cref="DependencyObject" /> with the attached property</param>
+        /// <returns>The value of the attached property</returns>
+        public static ControlTemplate GetButtonsTemplate(DependencyObject obj)
+        {
+            return (ControlTemplate)obj.GetValue(ButtonsTemplateProperty);
         }
 
         /// <summary>
-        /// Identifies the Boolean dependency property
+        /// Sets the value of the ButtonsTemplate attached property
+        /// <para/>
+        /// Supported by <see cref="TextBox"/>
         /// </summary>
-        public static readonly DependencyProperty BooleanProperty = DependencyProperty.RegisterAttached("Boolean", typeof(bool), typeof(UIElementProperties), new PropertyMetadata(false));
+        /// <param name="obj"><see cref="DependencyObject" /> with the attached property</param>
+        /// <param name="value">The new value to set</param>
+        public static void SetButtonsTemplate(DependencyObject obj, ControlTemplate value)
+        {
+            obj.SetValue(ButtonsTemplateProperty, value);
+        }
 
-        #endregion Dependency Attached Property Boolean
+        #endregion Dependency Attached Property ButtonsTemplate
+
+        #region Dependency Attached Property SelectedItems
+
+        /// <summary>
+        /// Gets the value of SelectedItems
+        /// <para/>
+        /// Supported by <see cref="ComboBox"/>
+        /// </summary>
+        /// <param name="obj"><see cref="DependencyObject" /> with the attached property</param>
+        /// <returns>The value of the attached property</returns>
+        public static IEnumerable GetSelectedItems(DependencyObject obj)
+        {
+            return (IEnumerable)obj.GetValue(SelectedItemsProperty);
+        }
+
+        /// <summary>
+        /// Sets the value of the SelectedItems attached property
+        /// <para/>
+        /// Supported by <see cref="ComboBox"/>
+        /// </summary>
+        /// <param name="obj"><see cref="DependencyObject" /> with the attached property</param>
+        /// <param name="value">The new value to set</param>
+        public static void SetSelectedItems(DependencyObject obj, IEnumerable value)
+        {
+            obj.SetValue(SelectedItemsProperty, value);
+        }
+
+        /// <summary>
+        /// Identifies the SelectedItems dependency property
+        /// <para/>
+        /// Supported by <see cref="ComboBox"/>
+        /// </summary>
+        public static readonly DependencyProperty SelectedItemsProperty = DependencyProperty.RegisterAttached("SelectedItems", typeof(IEnumerable), typeof(UIElementProperties), new PropertyMetadata(null));
+
+        #endregion Dependency Attached Property SelectedItems
     }
 }

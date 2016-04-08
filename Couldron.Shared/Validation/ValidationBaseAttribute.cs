@@ -60,7 +60,7 @@ namespace Couldron.Validation
         /// <para/>
         /// Can be used to modify the validation error message.
         /// </summary>
-        /// <param name="errorMessage">The validtion error message</param>
+        /// <param name="errorMessage">The validation error message</param>
         /// <param name="context">The Viewmodel context that has to be validated</param>
         /// <returns>A modified validation error message</returns>
         protected virtual string ValidationMessage(string errorMessage, IValidatableViewModel context)

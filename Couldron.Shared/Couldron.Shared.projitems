@@ -12,10 +12,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)AssemblyAndResourceNameInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AssemblyUtil.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Attached\ButtonProperties.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Attached\ComboBoxProperties.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Attached\EmbeddedResourceImage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Attached\Localized.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Attached\TextBoxProperties.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Attached\UIElementProperties.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Attached\ValidationProperties.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Attached\WindowToolbar.cs" />
@@ -67,9 +65,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)Messaging\MessagingArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RelayCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Validation\InEqualityAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Validation\EqualityAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Validation\GreaterThanOrEqualAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Validation\GreaterThanAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Validation\IsMandatoryAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Validation\LessThanOrEqual.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Validation\LessThan.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Validation\PasswordStrengthAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Validation\StringLengthAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Validation\SuppressIsChangedAttribute.cs" />

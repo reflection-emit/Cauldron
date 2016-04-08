@@ -12,14 +12,14 @@ namespace Couldron.Validation
     public sealed class GreaterThanAttribute : ValidationBaseAttribute
     {
         private string propertyName;
-        private double? value;
+        private object value;
 
         /// <summary>
         /// Initializes a new instance of <see cref="GreaterThanAttribute"/>
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="errorMessageKey"></param>
-        public GreaterThanAttribute(double value, string errorMessageKey) : base(errorMessageKey)
+        /// <param name="value">The value to compare to</param>
+        /// <param name="errorMessageKey">The key of the localized error message string</param>
+        public GreaterThanAttribute(object value, string errorMessageKey) : base(errorMessageKey)
         {
             this.value = value;
         }
@@ -48,15 +48,20 @@ namespace Couldron.Validation
         /// <returns>Has to return true on validation error otherwise false</returns>
         protected override bool OnValidate(PropertyInfo sender, IValidatableViewModel context, PropertyInfo propertyInfo, object value)
         {
-            if (this.value.HasValue)
-                return !(value.ToDouble() > this.value.Value);
+            // if the value is null, then we should return a validation successfull, so that it is possible
+            // to have non mandatory inputs
+            if (value == null)
+                return false;
+
+            if (this.value != null)
+                return !Utils.GreaterThan(this.value, value);
 
             var otherProperty = context.GetType().GetProperty(this.propertyName);
 
             if (otherProperty == null)
                 throw new ArgumentException(string.Format("The property '{0}' was not found on '{1}'.", this.propertyName, context.GetType().FullName));
 
-            return !(value.ToDouble() > otherProperty.GetValue(context).ToDouble());
+            return !Utils.GreaterThan(value, otherProperty.GetValue(context));
         }
 
         /// <summary>
@@ -64,13 +69,13 @@ namespace Couldron.Validation
         /// <para/>
         /// Can be used to modify the validation error message.
         /// </summary>
-        /// <param name="errorMessage">The validtion error message</param>
+        /// <param name="errorMessage">The validation error message</param>
         /// <param name="context">The Viewmodel context that has to be validated</param>
         /// <returns>A modified validation error message</returns>
         protected override string ValidationMessage(string errorMessage, IValidatableViewModel context)
         {
-            if (this.value.HasValue)
-                return string.Format(errorMessage, this.value.Value);
+            if (this.value != null)
+                return string.Format(errorMessage, this.value);
 
             var otherProperty = context.GetType().GetProperty(this.propertyName);
 

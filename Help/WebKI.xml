@@ -22,7 +22,10 @@
   <HelpKINode Title="ACTIVATE enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="ACTIVATEAPP enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="Activated method" Url="html/M_Couldron_ViewModels_ICanClose_Activated.htm" />
-  <HelpKINode Title="Add method" Url="html/M_Couldron_Collections_ConcurrentList_1_Add.htm" />
+  <HelpKINode Title="Add method">
+    <HelpKINode Title="ConcurrentList(T).Add Method " Url="html/M_Couldron_Collections_ConcurrentList_1_Add.htm" />
+    <HelpKINode Title="Mathc.Add Method " Url="html/M_Couldron_Core_Mathc_Add.htm" />
+  </HelpKINode>
   <HelpKINode Title="AddBehaviour method" Url="html/M_Couldron_Behaviours_Interaction_AddBehaviour.htm" />
   <HelpKINode Title="AddRange method" Url="html/M_Couldron_Collections_ConcurrentList_1_AddRange.htm" />
   <HelpKINode Title="AES class">
@@ -36,15 +39,11 @@
   <HelpKINode Title="AFXFIRST enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="AFXLAST enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="AllowMultiple property" Url="html/P_Couldron_Behaviours_BehaviourUsageAttribute_AllowMultiple.htm" />
-  <HelpKINode Title="AlternativeText attached property">
-    <HelpKINode Title="ComboBoxProperties.AlternativeText Attached Property" Url="html/P_Couldron_Attached_ComboBoxProperties_AlternativeText.htm" />
-    <HelpKINode Title="TextBoxProperties.AlternativeText Attached Property" Url="html/P_Couldron_Attached_TextBoxProperties_AlternativeText.htm" />
-  </HelpKINode>
+  <HelpKINode Title="AlternativeText attached property" Url="html/P_Couldron_Attached_UIElementProperties_AlternativeText.htm" />
   <HelpKINode Title="AlternativeText property" Url="html/P_Couldron_Controls_TreeViewComboBox_AlternativeText.htm" />
   <HelpKINode Title="AlternativeTextProperty field">
-    <HelpKINode Title="ComboBoxProperties.AlternativeTextProperty Field" Url="html/F_Couldron_Attached_ComboBoxProperties_AlternativeTextProperty.htm" />
-    <HelpKINode Title="TextBoxProperties.AlternativeTextProperty Field" Url="html/F_Couldron_Attached_TextBoxProperties_AlternativeTextProperty.htm" />
     <HelpKINode Title="TreeViewComboBox.AlternativeTextProperty Field" Url="html/F_Couldron_Controls_TreeViewComboBox_AlternativeTextProperty.htm" />
+    <HelpKINode Title="UIElementProperties.AlternativeTextProperty Field" Url="html/F_Couldron_Attached_UIElementProperties_AlternativeTextProperty.htm" />
   </HelpKINode>
   <HelpKINode Title="Any method" Url="html/Overload_Couldron_Extensions_Any.htm" />
   <HelpKINode Title="APP enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
@@ -245,7 +244,6 @@
   <HelpKINode Title="BehaviourUsageAttribute.AllowMultiple property" Url="html/P_Couldron_Behaviours_BehaviourUsageAttribute_AllowMultiple.htm" />
   <HelpKINode Title="BehaviourUsageAttribute.BehaviourUsageAttribute constructor" Url="html/Overload_Couldron_Behaviours_BehaviourUsageAttribute__ctor.htm" />
   <HelpKINode Title="Blank enumeration member" Url="html/T_Couldron_Core_PasswordScore.htm" />
-  <HelpKINode Title="Boolean attached property" Url="html/P_Couldron_Attached_UIElementProperties_Boolean.htm" />
   <HelpKINode Title="BooleanInvertConverter class">
     <HelpKINode Title="BooleanInvertConverter Class" Url="html/T_Couldron_ValueConverters_BooleanInvertConverter.htm" />
     <HelpKINode Title="about BooleanInvertConverter class" Url="html/T_Couldron_ValueConverters_BooleanInvertConverter.htm" />
@@ -255,7 +253,6 @@
   <HelpKINode Title="BooleanInvertConverter.BooleanInvertConverter constructor" Url="html/M_Couldron_ValueConverters_BooleanInvertConverter__ctor.htm" />
   <HelpKINode Title="BooleanInvertConverter.OnConvert method" Url="html/M_Couldron_ValueConverters_BooleanInvertConverter_OnConvert.htm" />
   <HelpKINode Title="BooleanInvertConverter.OnConvertBack method" Url="html/M_Couldron_ValueConverters_BooleanInvertConverter_OnConvertBack.htm" />
-  <HelpKINode Title="BooleanProperty field" Url="html/F_Couldron_Attached_UIElementProperties_BooleanProperty.htm" />
   <HelpKINode Title="BooleanToVisibilityConverter class">
     <HelpKINode Title="BooleanToVisibilityConverter Class" Url="html/T_Couldron_ValueConverters_BooleanToVisibilityConverter.htm" />
     <HelpKINode Title="about BooleanToVisibilityConverter class" Url="html/T_Couldron_ValueConverters_BooleanToVisibilityConverter.htm" />
@@ -284,8 +281,8 @@
   <HelpKINode Title="ButtonProperties.SetCategoryColor method" Url="html/M_Couldron_Attached_ButtonProperties_SetCategoryColor.htm" />
   <HelpKINode Title="ButtonProperties.SetEmbeddedImageKey method" Url="html/M_Couldron_Attached_ButtonProperties_SetEmbeddedImageKey.htm" />
   <HelpKINode Title="ButtonProperties.SetImage method" Url="html/M_Couldron_Attached_ButtonProperties_SetImage.htm" />
-  <HelpKINode Title="ButtonsTemplate attached property" Url="html/P_Couldron_Attached_TextBoxProperties_ButtonsTemplate.htm" />
-  <HelpKINode Title="ButtonsTemplateProperty field" Url="html/F_Couldron_Attached_TextBoxProperties_ButtonsTemplateProperty.htm" />
+  <HelpKINode Title="ButtonsTemplate attached property" Url="html/P_Couldron_Attached_UIElementProperties_ButtonsTemplate.htm" />
+  <HelpKINode Title="ButtonsTemplateProperty field" Url="html/F_Couldron_Attached_UIElementProperties_ButtonsTemplateProperty.htm" />
   <HelpKINode Title="CANCELJOURNAL enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="CANCELMODE enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="CanClose method" Url="html/M_Couldron_ViewModels_ICanClose_CanClose.htm" />
@@ -358,27 +355,6 @@
   <HelpKINode Title="CollectionHasElementsToBoolConverter.CollectionHasElementsToBoolConverter constructor" Url="html/M_Couldron_ValueConverters_CollectionHasElementsToBoolConverter__ctor.htm" />
   <HelpKINode Title="CollectionHasElementsToBoolConverter.OnConvert method" Url="html/M_Couldron_ValueConverters_CollectionHasElementsToBoolConverter_OnConvert.htm" />
   <HelpKINode Title="CollectionHasElementsToBoolConverter.OnConvertBack method" Url="html/M_Couldron_ValueConverters_CollectionHasElementsToBoolConverter_OnConvertBack.htm" />
-  <HelpKINode Title="ColorBrush attached property" Url="html/P_Couldron_Attached_UIElementProperties_ColorBrush.htm" />
-  <HelpKINode Title="ColorBrushProperty field" Url="html/F_Couldron_Attached_UIElementProperties_ColorBrushProperty.htm" />
-  <HelpKINode Title="ComboBoxProperties class">
-    <HelpKINode Title="ComboBoxProperties Class" Url="html/T_Couldron_Attached_ComboBoxProperties.htm" />
-    <HelpKINode Title="about ComboBoxProperties class" Url="html/T_Couldron_Attached_ComboBoxProperties.htm" />
-    <HelpKINode Title="attached properties" Url="html/AttachedProperties_T_Couldron_Attached_ComboBoxProperties.htm" />
-    <HelpKINode Title="fields" Url="html/Fields_T_Couldron_Attached_ComboBoxProperties.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Couldron_Attached_ComboBoxProperties.htm" />
-  </HelpKINode>
-  <HelpKINode Title="ComboBoxProperties.AlternativeText attached property" Url="html/P_Couldron_Attached_ComboBoxProperties_AlternativeText.htm" />
-  <HelpKINode Title="ComboBoxProperties.AlternativeTextProperty field" Url="html/F_Couldron_Attached_ComboBoxProperties_AlternativeTextProperty.htm" />
-  <HelpKINode Title="ComboBoxProperties.GetAlternativeText method" Url="html/M_Couldron_Attached_ComboBoxProperties_GetAlternativeText.htm" />
-  <HelpKINode Title="ComboBoxProperties.GetHeader method" Url="html/M_Couldron_Attached_ComboBoxProperties_GetHeader.htm" />
-  <HelpKINode Title="ComboBoxProperties.GetSelectedItems method" Url="html/M_Couldron_Attached_ComboBoxProperties_GetSelectedItems.htm" />
-  <HelpKINode Title="ComboBoxProperties.Header attached property" Url="html/P_Couldron_Attached_ComboBoxProperties_Header.htm" />
-  <HelpKINode Title="ComboBoxProperties.HeaderProperty field" Url="html/F_Couldron_Attached_ComboBoxProperties_HeaderProperty.htm" />
-  <HelpKINode Title="ComboBoxProperties.SelectedItems attached property" Url="html/P_Couldron_Attached_ComboBoxProperties_SelectedItems.htm" />
-  <HelpKINode Title="ComboBoxProperties.SelectedItemsProperty field" Url="html/F_Couldron_Attached_ComboBoxProperties_SelectedItemsProperty.htm" />
-  <HelpKINode Title="ComboBoxProperties.SetAlternativeText method" Url="html/M_Couldron_Attached_ComboBoxProperties_SetAlternativeText.htm" />
-  <HelpKINode Title="ComboBoxProperties.SetHeader method" Url="html/M_Couldron_Attached_ComboBoxProperties_SetHeader.htm" />
-  <HelpKINode Title="ComboBoxProperties.SetSelectedItems method" Url="html/M_Couldron_Attached_ComboBoxProperties_SetSelectedItems.htm" />
   <HelpKINode Title="COMMAND enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="Command property">
     <HelpKINode Title="EnterKeyToCommand.Command Property " Url="html/P_Couldron_Behaviours_EnterKeyToCommand_Command.htm" />
@@ -569,10 +545,8 @@
   <HelpKINode Title="Couldron.AssemblyUtil class" Url="html/T_Couldron_AssemblyUtil.htm" />
   <HelpKINode Title="Couldron.Attached namespace" Url="html/N_Couldron_Attached.htm" />
   <HelpKINode Title="Couldron.Attached.ButtonProperties class" Url="html/T_Couldron_Attached_ButtonProperties.htm" />
-  <HelpKINode Title="Couldron.Attached.ComboBoxProperties class" Url="html/T_Couldron_Attached_ComboBoxProperties.htm" />
   <HelpKINode Title="Couldron.Attached.EmbeddedResourceImage class" Url="html/T_Couldron_Attached_EmbeddedResourceImage.htm" />
   <HelpKINode Title="Couldron.Attached.Localized class" Url="html/T_Couldron_Attached_Localized.htm" />
-  <HelpKINode Title="Couldron.Attached.TextBoxProperties class" Url="html/T_Couldron_Attached_TextBoxProperties.htm" />
   <HelpKINode Title="Couldron.Attached.UIElementProperties class" Url="html/T_Couldron_Attached_UIElementProperties.htm" />
   <HelpKINode Title="Couldron.Attached.ValidationProperties class" Url="html/T_Couldron_Attached_ValidationProperties.htm" />
   <HelpKINode Title="Couldron.Attached.WindowToolbar class" Url="html/T_Couldron_Attached_WindowToolbar.htm" />
@@ -661,7 +635,11 @@
   <HelpKINode Title="Couldron.Validation namespace" Url="html/N_Couldron_Validation.htm" />
   <HelpKINode Title="Couldron.Validation.EqualityAttribute class" Url="html/T_Couldron_Validation_EqualityAttribute.htm" />
   <HelpKINode Title="Couldron.Validation.GreaterThanAttribute class" Url="html/T_Couldron_Validation_GreaterThanAttribute.htm" />
+  <HelpKINode Title="Couldron.Validation.GreaterThanOrEqualAttribute class" Url="html/T_Couldron_Validation_GreaterThanOrEqualAttribute.htm" />
+  <HelpKINode Title="Couldron.Validation.InEqualityAttribute class" Url="html/T_Couldron_Validation_InEqualityAttribute.htm" />
   <HelpKINode Title="Couldron.Validation.IsMandatoryAttribute class" Url="html/T_Couldron_Validation_IsMandatoryAttribute.htm" />
+  <HelpKINode Title="Couldron.Validation.LessThanAttribute class" Url="html/T_Couldron_Validation_LessThanAttribute.htm" />
+  <HelpKINode Title="Couldron.Validation.LessThanOrEqualAttribute class" Url="html/T_Couldron_Validation_LessThanOrEqualAttribute.htm" />
   <HelpKINode Title="Couldron.Validation.PasswordStrengthAttribute class" Url="html/T_Couldron_Validation_PasswordStrengthAttribute.htm" />
   <HelpKINode Title="Couldron.Validation.StringLengthAttribute class" Url="html/T_Couldron_Validation_StringLengthAttribute.htm" />
   <HelpKINode Title="Couldron.Validation.SuppressIsChangedAttribute class" Url="html/T_Couldron_Validation_SuppressIsChangedAttribute.htm" />
@@ -834,6 +812,7 @@
     <HelpKINode Title="IDisposableObject.Disposed Event" Url="html/E_Couldron_Core_IDisposableObject_Disposed.htm" />
     <HelpKINode Title="WindowConfiguration.Disposed Event" Url="html/E_Couldron_Behaviours_WindowConfiguration_Disposed.htm" />
   </HelpKINode>
+  <HelpKINode Title="Divide method" Url="html/M_Couldron_Core_Mathc_Divide.htm" />
   <HelpKINode Title="DomainName property" Url="html/P_Couldron_Core_UserInformation_DomainName.htm" />
   <HelpKINode Title="DRAWCLIPBOARD enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="DRAWITEM enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
@@ -903,6 +882,7 @@
   </HelpKINode>
   <HelpKINode Title="EqualityAttribute.EqualityAttribute constructor" Url="html/M_Couldron_Validation_EqualityAttribute__ctor.htm" />
   <HelpKINode Title="EqualityAttribute.OnValidate method" Url="html/M_Couldron_Validation_EqualityAttribute_OnValidate.htm" />
+  <HelpKINode Title="EqualityAttribute.ValidationMessage method" Url="html/M_Couldron_Validation_EqualityAttribute_ValidationMessage.htm" />
   <HelpKINode Title="Equals method" Url="html/M_Couldron_Utils_Equals.htm" />
   <HelpKINode Title="ERASEBKGND enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="ErrorCollectionConverter class">
@@ -1007,6 +987,7 @@
   <HelpKINode Title="Extensions.FirstElement method" Url="html/M_Couldron_Extensions_FirstElement.htm" />
   <HelpKINode Title="Extensions.GetBytes method" Url="html/Overload_Couldron_Extensions_GetBytes.htm" />
   <HelpKINode Title="Extensions.GetMD5HashString method" Url="html/M_Couldron_Extensions_GetMD5HashString.htm" />
+  <HelpKINode Title="Extensions.GetMethod method" Url="html/M_Couldron_Extensions_GetMethod.htm" />
   <HelpKINode Title="Extensions.GetSha256HashBytes method" Url="html/M_Couldron_Extensions_GetSha256HashBytes.htm" />
   <HelpKINode Title="Extensions.GetSha256HashString method" Url="html/M_Couldron_Extensions_GetSha256HashString.htm" />
   <HelpKINode Title="Extensions.GetWindowHandle method" Url="html/M_Couldron_Extensions_GetWindowHandle.htm" />
@@ -1099,18 +1080,13 @@
   <HelpKINode Title="ForcePropertyUpdate.OnDetach method" Url="html/M_Couldron_Behaviours_ForcePropertyUpdate_OnDetach.htm" />
   <HelpKINode Title="GeneratePassword method" Url="html/M_Couldron_Core_Cryptography_CryptoUtils_GeneratePassword.htm" />
   <HelpKINode Title="GetAccountPicture method" Url="html/M_Couldron_Core_UserInformation_GetAccountPicture.htm" />
-  <HelpKINode Title="GetAlternativeText method">
-    <HelpKINode Title="ComboBoxProperties.GetAlternativeText Method " Url="html/M_Couldron_Attached_ComboBoxProperties_GetAlternativeText.htm" />
-    <HelpKINode Title="TextBoxProperties.GetAlternativeText Method " Url="html/M_Couldron_Attached_TextBoxProperties_GetAlternativeText.htm" />
-  </HelpKINode>
+  <HelpKINode Title="GetAlternativeText method" Url="html/M_Couldron_Attached_UIElementProperties_GetAlternativeText.htm" />
   <HelpKINode Title="GetBehaviour(Of T) method" Url="html/M_Couldron_Behaviours_Interaction_GetBehaviour__1.htm" />
   <HelpKINode Title="GetBehaviour&lt;T&gt; method" Url="html/M_Couldron_Behaviours_Interaction_GetBehaviour__1.htm" />
   <HelpKINode Title="GetBehaviours method" Url="html/M_Couldron_Behaviours_Interaction_GetBehaviours.htm" />
-  <HelpKINode Title="GetBoolean method" Url="html/M_Couldron_Attached_UIElementProperties_GetBoolean.htm" />
-  <HelpKINode Title="GetButtonsTemplate method" Url="html/M_Couldron_Attached_TextBoxProperties_GetButtonsTemplate.htm" />
+  <HelpKINode Title="GetButtonsTemplate method" Url="html/M_Couldron_Attached_UIElementProperties_GetButtonsTemplate.htm" />
   <HelpKINode Title="GetBytes method" Url="html/Overload_Couldron_Extensions_GetBytes.htm" />
   <HelpKINode Title="GetCategoryColor method" Url="html/M_Couldron_Attached_ButtonProperties_GetCategoryColor.htm" />
-  <HelpKINode Title="GetColorBrush method" Url="html/M_Couldron_Attached_UIElementProperties_GetColorBrush.htm" />
   <HelpKINode Title="GetDisplayNameAsync method" Url="html/M_Couldron_Core_UserInformation_GetDisplayNameAsync.htm" />
   <HelpKINode Title="GETDLGCODE enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="GetEmailAddressAsync method" Url="html/M_Couldron_Core_UserInformation_GetEmailAddressAsync.htm" />
@@ -1123,10 +1099,7 @@
   <HelpKINode Title="GetFirstAssemblyWithResourceName method" Url="html/M_Couldron_AssemblyUtil_GetFirstAssemblyWithResourceName.htm" />
   <HelpKINode Title="GetFirstNameAsync method" Url="html/M_Couldron_Core_UserInformation_GetFirstNameAsync.htm" />
   <HelpKINode Title="GETFONT enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
-  <HelpKINode Title="GetHeader method">
-    <HelpKINode Title="ComboBoxProperties.GetHeader Method " Url="html/M_Couldron_Attached_ComboBoxProperties_GetHeader.htm" />
-    <HelpKINode Title="TextBoxProperties.GetHeader Method " Url="html/M_Couldron_Attached_TextBoxProperties_GetHeader.htm" />
-  </HelpKINode>
+  <HelpKINode Title="GetHeader method" Url="html/M_Couldron_Attached_UIElementProperties_GetHeader.htm" />
   <HelpKINode Title="GETHOTKEY enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="GETICON enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="GetImage method">
@@ -1142,6 +1115,7 @@
   <HelpKINode Title="GetManifestResources method" Url="html/M_Couldron_AssemblyUtil_GetManifestResources.htm" />
   <HelpKINode Title="GetManifestResourceStream method" Url="html/M_Couldron_AssemblyUtil_GetManifestResourceStream.htm" />
   <HelpKINode Title="GetMD5HashString method" Url="html/M_Couldron_Extensions_GetMD5HashString.htm" />
+  <HelpKINode Title="GetMethod method" Url="html/M_Couldron_Extensions_GetMethod.htm" />
   <HelpKINode Title="GETMINMAXINFO enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="GetMonitorBounds method" Url="html/M_Couldron_Core_MonitorInfo_GetMonitorBounds.htm" />
   <HelpKINode Title="GetMousePosition method" Url="html/M_Couldron_Utils_GetMousePosition.htm" />
@@ -1153,7 +1127,7 @@
     <HelpKINode Title="ValidatableContainerChangeAwareViewModelBase.GetRegistered Method " Url="html/Overload_Couldron_ViewModels_ValidatableContainerChangeAwareViewModelBase_GetRegistered.htm" />
     <HelpKINode Title="ViewModelContainerHandler.GetRegistered Method " Url="html/Overload_Couldron_ViewModels_ViewModelContainerHandler_GetRegistered.htm" />
   </HelpKINode>
-  <HelpKINode Title="GetSelectedItems method" Url="html/M_Couldron_Attached_ComboBoxProperties_GetSelectedItems.htm" />
+  <HelpKINode Title="GetSelectedItems method" Url="html/M_Couldron_Attached_UIElementProperties_GetSelectedItems.htm" />
   <HelpKINode Title="GetSha256HashBytes method" Url="html/M_Couldron_Extensions_GetSha256HashBytes.htm" />
   <HelpKINode Title="GetSha256HashString method" Url="html/M_Couldron_Extensions_GetSha256HashString.htm" />
   <HelpKINode Title="GetTelephoneNumberAsync method" Url="html/M_Couldron_Core_UserInformation_GetTelephoneNumberAsync.htm" />
@@ -1173,6 +1147,7 @@
   <HelpKINode Title="GetVisualChildren method" Url="html/M_Couldron_ExtensionsFrameworkElement_GetVisualChildren.htm" />
   <HelpKINode Title="GetVisualParent method" Url="html/M_Couldron_ExtensionsFrameworkElement_GetVisualParent.htm" />
   <HelpKINode Title="GetWindowHandle method" Url="html/M_Couldron_Extensions_GetWindowHandle.htm" />
+  <HelpKINode Title="GreaterThan method" Url="html/M_Couldron_Utils_GreaterThan.htm" />
   <HelpKINode Title="GreaterThanAttribute class">
     <HelpKINode Title="GreaterThanAttribute Class" Url="html/T_Couldron_Validation_GreaterThanAttribute.htm" />
     <HelpKINode Title="about GreaterThanAttribute class" Url="html/T_Couldron_Validation_GreaterThanAttribute.htm" />
@@ -1183,6 +1158,17 @@
   <HelpKINode Title="GreaterThanAttribute.GreaterThanAttribute constructor" Url="html/Overload_Couldron_Validation_GreaterThanAttribute__ctor.htm" />
   <HelpKINode Title="GreaterThanAttribute.OnValidate method" Url="html/M_Couldron_Validation_GreaterThanAttribute_OnValidate.htm" />
   <HelpKINode Title="GreaterThanAttribute.ValidationMessage method" Url="html/M_Couldron_Validation_GreaterThanAttribute_ValidationMessage.htm" />
+  <HelpKINode Title="GreaterThanOrEqual method" Url="html/M_Couldron_Utils_GreaterThanOrEqual.htm" />
+  <HelpKINode Title="GreaterThanOrEqualAttribute class">
+    <HelpKINode Title="GreaterThanOrEqualAttribute Class" Url="html/T_Couldron_Validation_GreaterThanOrEqualAttribute.htm" />
+    <HelpKINode Title="about GreaterThanOrEqualAttribute class" Url="html/T_Couldron_Validation_GreaterThanOrEqualAttribute.htm" />
+    <HelpKINode Title="constructor" Url="html/Overload_Couldron_Validation_GreaterThanOrEqualAttribute__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Couldron_Validation_GreaterThanOrEqualAttribute.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Couldron_Validation_GreaterThanOrEqualAttribute.htm" />
+  </HelpKINode>
+  <HelpKINode Title="GreaterThanOrEqualAttribute.GreaterThanOrEqualAttribute constructor" Url="html/Overload_Couldron_Validation_GreaterThanOrEqualAttribute__ctor.htm" />
+  <HelpKINode Title="GreaterThanOrEqualAttribute.OnValidate method" Url="html/M_Couldron_Validation_GreaterThanOrEqualAttribute_OnValidate.htm" />
+  <HelpKINode Title="GreaterThanOrEqualAttribute.ValidationMessage method" Url="html/M_Couldron_Validation_GreaterThanOrEqualAttribute_ValidationMessage.htm" />
   <HelpKINode Title="HANDHELDFIRST enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="HANDHELDLAST enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="HasContract method" Url="html/Overload_Couldron_Factory_HasContract.htm" />
@@ -1191,15 +1177,11 @@
     <HelpKINode Title="ValidationHandler.HasErrors Property " Url="html/P_Couldron_ViewModels_ValidationHandler_HasErrors.htm" />
   </HelpKINode>
   <HelpKINode Title="HasThreadAccess property" Url="html/P_Couldron_Core_CouldronDispatcher_HasThreadAccess.htm" />
-  <HelpKINode Title="Header attached property">
-    <HelpKINode Title="ComboBoxProperties.Header Attached Property" Url="html/P_Couldron_Attached_ComboBoxProperties_Header.htm" />
-    <HelpKINode Title="TextBoxProperties.Header Attached Property" Url="html/P_Couldron_Attached_TextBoxProperties_Header.htm" />
-  </HelpKINode>
+  <HelpKINode Title="Header attached property" Url="html/P_Couldron_Attached_UIElementProperties_Header.htm" />
   <HelpKINode Title="Header property" Url="html/P_Couldron_Controls_TreeViewComboBox_Header.htm" />
   <HelpKINode Title="HeaderProperty field">
-    <HelpKINode Title="ComboBoxProperties.HeaderProperty Field" Url="html/F_Couldron_Attached_ComboBoxProperties_HeaderProperty.htm" />
-    <HelpKINode Title="TextBoxProperties.HeaderProperty Field" Url="html/F_Couldron_Attached_TextBoxProperties_HeaderProperty.htm" />
     <HelpKINode Title="TreeViewComboBox.HeaderProperty Field" Url="html/F_Couldron_Controls_TreeViewComboBox_HeaderProperty.htm" />
+    <HelpKINode Title="UIElementProperties.HeaderProperty Field" Url="html/F_Couldron_Attached_UIElementProperties_HeaderProperty.htm" />
   </HelpKINode>
   <HelpKINode Title="HELP enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="HierarchicalActivableTreeViewViewModelBase(Of T) class">
@@ -1389,6 +1371,16 @@
     <HelpKINode Title="ConcurrentList(T).IndexOf Method " Url="html/Overload_Couldron_Collections_ConcurrentList_1_IndexOf.htm" />
     <HelpKINode Title="Extensions.IndexOf Method " Url="html/Overload_Couldron_Extensions_IndexOf.htm" />
   </HelpKINode>
+  <HelpKINode Title="InEqualityAttribute class">
+    <HelpKINode Title="InEqualityAttribute Class" Url="html/T_Couldron_Validation_InEqualityAttribute.htm" />
+    <HelpKINode Title="about InEqualityAttribute class" Url="html/T_Couldron_Validation_InEqualityAttribute.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Couldron_Validation_InEqualityAttribute__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Couldron_Validation_InEqualityAttribute.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Couldron_Validation_InEqualityAttribute.htm" />
+  </HelpKINode>
+  <HelpKINode Title="InEqualityAttribute.InEqualityAttribute constructor" Url="html/M_Couldron_Validation_InEqualityAttribute__ctor.htm" />
+  <HelpKINode Title="InEqualityAttribute.OnValidate method" Url="html/M_Couldron_Validation_InEqualityAttribute_OnValidate.htm" />
+  <HelpKINode Title="InEqualityAttribute.ValidationMessage method" Url="html/M_Couldron_Validation_InEqualityAttribute_ValidationMessage.htm" />
   <HelpKINode Title="INITDIALOG enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="InitialisationVector property" Url="html/P_Couldron_Core_Cryptography_KeyMaterial_InitialisationVector.htm" />
   <HelpKINode Title="INITMENU enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
@@ -1624,6 +1616,28 @@
   <HelpKINode Title="LBUTTONDOWN enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="LBUTTONUP enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="Left method" Url="html/M_Couldron_Extensions_Left.htm" />
+  <HelpKINode Title="LessThan method" Url="html/M_Couldron_Utils_LessThan.htm" />
+  <HelpKINode Title="LessThanAttribute class">
+    <HelpKINode Title="LessThanAttribute Class" Url="html/T_Couldron_Validation_LessThanAttribute.htm" />
+    <HelpKINode Title="about LessThanAttribute class" Url="html/T_Couldron_Validation_LessThanAttribute.htm" />
+    <HelpKINode Title="constructor" Url="html/Overload_Couldron_Validation_LessThanAttribute__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Couldron_Validation_LessThanAttribute.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Couldron_Validation_LessThanAttribute.htm" />
+  </HelpKINode>
+  <HelpKINode Title="LessThanAttribute.LessThanAttribute constructor" Url="html/Overload_Couldron_Validation_LessThanAttribute__ctor.htm" />
+  <HelpKINode Title="LessThanAttribute.OnValidate method" Url="html/M_Couldron_Validation_LessThanAttribute_OnValidate.htm" />
+  <HelpKINode Title="LessThanAttribute.ValidationMessage method" Url="html/M_Couldron_Validation_LessThanAttribute_ValidationMessage.htm" />
+  <HelpKINode Title="LessThanOrEqual method" Url="html/M_Couldron_Utils_LessThanOrEqual.htm" />
+  <HelpKINode Title="LessThanOrEqualAttribute class">
+    <HelpKINode Title="LessThanOrEqualAttribute Class" Url="html/T_Couldron_Validation_LessThanOrEqualAttribute.htm" />
+    <HelpKINode Title="about LessThanOrEqualAttribute class" Url="html/T_Couldron_Validation_LessThanOrEqualAttribute.htm" />
+    <HelpKINode Title="constructor" Url="html/Overload_Couldron_Validation_LessThanOrEqualAttribute__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Couldron_Validation_LessThanOrEqualAttribute.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Couldron_Validation_LessThanOrEqualAttribute.htm" />
+  </HelpKINode>
+  <HelpKINode Title="LessThanOrEqualAttribute.LessThanOrEqualAttribute constructor" Url="html/Overload_Couldron_Validation_LessThanOrEqualAttribute__ctor.htm" />
+  <HelpKINode Title="LessThanOrEqualAttribute.OnValidate method" Url="html/M_Couldron_Validation_LessThanOrEqualAttribute_OnValidate.htm" />
+  <HelpKINode Title="LessThanOrEqualAttribute.ValidationMessage method" Url="html/M_Couldron_Validation_LessThanOrEqualAttribute_ValidationMessage.htm" />
   <HelpKINode Title="LoadAssembly method" Url="html/M_Couldron_AssemblyUtil_LoadAssembly.htm" />
   <HelpKINode Title="LocalFolder property" Url="html/P_Couldron_Core_ApplicationData_LocalFolder.htm" />
   <HelpKINode Title="Localization class">
@@ -1657,7 +1671,11 @@
     <HelpKINode Title="about Mathc class" Url="html/T_Couldron_Core_Mathc.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Couldron_Core_Mathc.htm" />
   </HelpKINode>
+  <HelpKINode Title="Mathc.Add method" Url="html/M_Couldron_Core_Mathc_Add.htm" />
   <HelpKINode Title="Mathc.Clamp method" Url="html/Overload_Couldron_Core_Mathc_Clamp.htm" />
+  <HelpKINode Title="Mathc.Divide method" Url="html/M_Couldron_Core_Mathc_Divide.htm" />
+  <HelpKINode Title="Mathc.Multiply method" Url="html/M_Couldron_Core_Mathc_Multiply.htm" />
+  <HelpKINode Title="Mathc.Substract method" Url="html/M_Couldron_Core_Mathc_Substract.htm" />
   <HelpKINode Title="MathematicalOperationConverter class">
     <HelpKINode Title="MathematicalOperationConverter Class" Url="html/T_Couldron_ValueConverters_MathematicalOperationConverter.htm" />
     <HelpKINode Title="about MathematicalOperationConverter class" Url="html/T_Couldron_ValueConverters_MathematicalOperationConverter.htm" />
@@ -1740,6 +1758,7 @@
   <HelpKINode Title="Move(Of T) method" Url="html/M_Couldron_Extensions_Move__1.htm" />
   <HelpKINode Title="Move&lt;T&gt; method" Url="html/M_Couldron_Extensions_Move__1.htm" />
   <HelpKINode Title="MOVING enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
+  <HelpKINode Title="Multiply method" Url="html/M_Couldron_Core_Mathc_Multiply.htm" />
   <HelpKINode Title="Multiselect property" Url="html/P_Couldron_Behaviours_OpenFileDialogAction_Multiselect.htm" />
   <HelpKINode Title="MultiselectProperty field" Url="html/F_Couldron_Behaviours_OpenFileDialogAction_MultiselectProperty.htm" />
   <HelpKINode Title="MyPropertyProperty field" Url="html/F_Couldron_Behaviours_EnterKeyToCommand_MyPropertyProperty.htm" />
@@ -1928,7 +1947,11 @@
   <HelpKINode Title="OnValidate method">
     <HelpKINode Title="EqualityAttribute.OnValidate Method " Url="html/M_Couldron_Validation_EqualityAttribute_OnValidate.htm" />
     <HelpKINode Title="GreaterThanAttribute.OnValidate Method " Url="html/M_Couldron_Validation_GreaterThanAttribute_OnValidate.htm" />
+    <HelpKINode Title="GreaterThanOrEqualAttribute.OnValidate Method " Url="html/M_Couldron_Validation_GreaterThanOrEqualAttribute_OnValidate.htm" />
+    <HelpKINode Title="InEqualityAttribute.OnValidate Method " Url="html/M_Couldron_Validation_InEqualityAttribute_OnValidate.htm" />
     <HelpKINode Title="IsMandatoryAttribute.OnValidate Method " Url="html/M_Couldron_Validation_IsMandatoryAttribute_OnValidate.htm" />
+    <HelpKINode Title="LessThanAttribute.OnValidate Method " Url="html/M_Couldron_Validation_LessThanAttribute_OnValidate.htm" />
+    <HelpKINode Title="LessThanOrEqualAttribute.OnValidate Method " Url="html/M_Couldron_Validation_LessThanOrEqualAttribute_OnValidate.htm" />
     <HelpKINode Title="PasswordStrengthAttribute.OnValidate Method " Url="html/M_Couldron_Validation_PasswordStrengthAttribute_OnValidate.htm" />
     <HelpKINode Title="StringLengthAttribute.OnValidate Method " Url="html/M_Couldron_Validation_StringLengthAttribute_OnValidate.htm" />
     <HelpKINode Title="ValidationBaseAttribute.OnValidate Method " Url="html/M_Couldron_Validation_ValidationBaseAttribute_OnValidate.htm" />
@@ -2151,11 +2174,11 @@
   <HelpKINode Title="SecureStringHandler.ToString method" Url="html/M_Couldron_Core_SecureStringHandler_ToString.htm" />
   <HelpKINode Title="SelectedItemDisplayMemberPath property" Url="html/P_Couldron_Controls_TreeViewComboBox_SelectedItemDisplayMemberPath.htm" />
   <HelpKINode Title="SelectedItemDisplayMemberPathProperty field" Url="html/F_Couldron_Controls_TreeViewComboBox_SelectedItemDisplayMemberPathProperty.htm" />
-  <HelpKINode Title="SelectedItems attached property" Url="html/P_Couldron_Attached_ComboBoxProperties_SelectedItems.htm" />
+  <HelpKINode Title="SelectedItems attached property" Url="html/P_Couldron_Attached_UIElementProperties_SelectedItems.htm" />
   <HelpKINode Title="SelectedItems property" Url="html/P_Couldron_Controls_TreeViewComboBox_SelectedItems.htm" />
   <HelpKINode Title="SelectedItemsProperty field">
-    <HelpKINode Title="ComboBoxProperties.SelectedItemsProperty Field" Url="html/F_Couldron_Attached_ComboBoxProperties_SelectedItemsProperty.htm" />
     <HelpKINode Title="TreeViewComboBox.SelectedItemsProperty Field" Url="html/F_Couldron_Controls_TreeViewComboBox_SelectedItemsProperty.htm" />
+    <HelpKINode Title="UIElementProperties.SelectedItemsProperty Field" Url="html/F_Couldron_Attached_UIElementProperties_SelectedItemsProperty.htm" />
   </HelpKINode>
   <HelpKINode Title="SelectedItemTemplate property" Url="html/P_Couldron_Controls_TreeViewComboBox_SelectedItemTemplate.htm" />
   <HelpKINode Title="SelectedItemTemplateProperty field" Url="html/F_Couldron_Controls_TreeViewComboBox_SelectedItemTemplateProperty.htm" />
@@ -2164,17 +2187,12 @@
   <HelpKINode Title="SelectTemplate method" Url="html/M_Couldron_CouldronTemplateSelector_SelectTemplate.htm" />
   <HelpKINode Title="Sender property" Url="html/P_Couldron_Messaging_MessagingArgs_Sender.htm" />
   <HelpKINode Title="SendMessage method" Url="html/M_Couldron_Utils_SendMessage.htm" />
-  <HelpKINode Title="SetAlternativeText method">
-    <HelpKINode Title="ComboBoxProperties.SetAlternativeText Method " Url="html/M_Couldron_Attached_ComboBoxProperties_SetAlternativeText.htm" />
-    <HelpKINode Title="TextBoxProperties.SetAlternativeText Method " Url="html/M_Couldron_Attached_TextBoxProperties_SetAlternativeText.htm" />
-  </HelpKINode>
+  <HelpKINode Title="SetAlternativeText method" Url="html/M_Couldron_Attached_UIElementProperties_SetAlternativeText.htm" />
   <HelpKINode Title="SetAssociatedObject method" Url="html/M_Couldron_Behaviours_IBehaviour_SetAssociatedObject.htm" />
   <HelpKINode Title="SetBehaviours method" Url="html/M_Couldron_Behaviours_Interaction_SetBehaviours.htm" />
   <HelpKINode Title="SetBinding method" Url="html/Overload_Couldron_ExtensionsFrameworkElement_SetBinding.htm" />
-  <HelpKINode Title="SetBoolean method" Url="html/M_Couldron_Attached_UIElementProperties_SetBoolean.htm" />
-  <HelpKINode Title="SetButtonsTemplate method" Url="html/M_Couldron_Attached_TextBoxProperties_SetButtonsTemplate.htm" />
+  <HelpKINode Title="SetButtonsTemplate method" Url="html/M_Couldron_Attached_UIElementProperties_SetButtonsTemplate.htm" />
   <HelpKINode Title="SetCategoryColor method" Url="html/M_Couldron_Attached_ButtonProperties_SetCategoryColor.htm" />
-  <HelpKINode Title="SetColorBrush method" Url="html/M_Couldron_Attached_UIElementProperties_SetColorBrush.htm" />
   <HelpKINode Title="SETCURSOR enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="SetEmbeddedImageKey method" Url="html/M_Couldron_Attached_ButtonProperties_SetEmbeddedImageKey.htm" />
   <HelpKINode Title="SetFocus class">
@@ -2191,10 +2209,7 @@
   <HelpKINode Title="SetFocus.OnLoaded method" Url="html/M_Couldron_Behaviours_SetFocus_OnLoaded.htm" />
   <HelpKINode Title="SetFocus.SetFocus constructor" Url="html/M_Couldron_Behaviours_SetFocus__ctor.htm" />
   <HelpKINode Title="SETFONT enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
-  <HelpKINode Title="SetHeader method">
-    <HelpKINode Title="ComboBoxProperties.SetHeader Method " Url="html/M_Couldron_Attached_ComboBoxProperties_SetHeader.htm" />
-    <HelpKINode Title="TextBoxProperties.SetHeader Method " Url="html/M_Couldron_Attached_TextBoxProperties_SetHeader.htm" />
-  </HelpKINode>
+  <HelpKINode Title="SetHeader method" Url="html/M_Couldron_Attached_UIElementProperties_SetHeader.htm" />
   <HelpKINode Title="SETHOTKEY enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="SETICON enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="SetImage method" Url="html/M_Couldron_Attached_ButtonProperties_SetImage.htm" />
@@ -2202,7 +2217,7 @@
   <HelpKINode Title="SetIsDisabledByErrorInPropertyName method" Url="html/M_Couldron_Attached_ValidationProperties_SetIsDisabledByErrorInPropertyName.htm" />
   <HelpKINode Title="SetIsMandatory method" Url="html/M_Couldron_Attached_ValidationProperties_SetIsMandatory.htm" />
   <HelpKINode Title="SETREDRAW enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
-  <HelpKINode Title="SetSelectedItems method" Url="html/M_Couldron_Attached_ComboBoxProperties_SetSelectedItems.htm" />
+  <HelpKINode Title="SetSelectedItems method" Url="html/M_Couldron_Attached_UIElementProperties_SetSelectedItems.htm" />
   <HelpKINode Title="SetTemplate method">
     <HelpKINode Title="Interactivity.SetTemplate Method " Url="html/M_Couldron_Behaviours_Interactivity_SetTemplate.htm" />
     <HelpKINode Title="WindowToolbar.SetTemplate Method " Url="html/M_Couldron_Attached_WindowToolbar_SetTemplate.htm" />
@@ -2264,6 +2279,7 @@
   <HelpKINode Title="STYLECHANGING enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="Subscribe(Of T) method" Url="html/M_Couldron_Messaging_MessageManager_Subscribe__1.htm" />
   <HelpKINode Title="Subscribe&lt;T&gt; method" Url="html/M_Couldron_Messaging_MessageManager_Subscribe__1.htm" />
+  <HelpKINode Title="Substract method" Url="html/M_Couldron_Core_Mathc_Substract.htm" />
   <HelpKINode Title="SuppressIsChangedAttribute class">
     <HelpKINode Title="SuppressIsChangedAttribute Class" Url="html/T_Couldron_Validation_SuppressIsChangedAttribute.htm" />
     <HelpKINode Title="about SuppressIsChangedAttribute class" Url="html/T_Couldron_Validation_SuppressIsChangedAttribute.htm" />
@@ -2314,25 +2330,6 @@
   <HelpKINode Title="TextBoxInputFilter.RegexFilter property" Url="html/P_Couldron_Behaviours_TextBoxInputFilter_RegexFilter.htm" />
   <HelpKINode Title="TextBoxInputFilter.RegexFilterProperty field" Url="html/F_Couldron_Behaviours_TextBoxInputFilter_RegexFilterProperty.htm" />
   <HelpKINode Title="TextBoxInputFilter.TextBoxInputFilter constructor" Url="html/M_Couldron_Behaviours_TextBoxInputFilter__ctor.htm" />
-  <HelpKINode Title="TextBoxProperties class">
-    <HelpKINode Title="TextBoxProperties Class" Url="html/T_Couldron_Attached_TextBoxProperties.htm" />
-    <HelpKINode Title="about TextBoxProperties class" Url="html/T_Couldron_Attached_TextBoxProperties.htm" />
-    <HelpKINode Title="attached properties" Url="html/AttachedProperties_T_Couldron_Attached_TextBoxProperties.htm" />
-    <HelpKINode Title="fields" Url="html/Fields_T_Couldron_Attached_TextBoxProperties.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Couldron_Attached_TextBoxProperties.htm" />
-  </HelpKINode>
-  <HelpKINode Title="TextBoxProperties.AlternativeText attached property" Url="html/P_Couldron_Attached_TextBoxProperties_AlternativeText.htm" />
-  <HelpKINode Title="TextBoxProperties.AlternativeTextProperty field" Url="html/F_Couldron_Attached_TextBoxProperties_AlternativeTextProperty.htm" />
-  <HelpKINode Title="TextBoxProperties.ButtonsTemplate attached property" Url="html/P_Couldron_Attached_TextBoxProperties_ButtonsTemplate.htm" />
-  <HelpKINode Title="TextBoxProperties.ButtonsTemplateProperty field" Url="html/F_Couldron_Attached_TextBoxProperties_ButtonsTemplateProperty.htm" />
-  <HelpKINode Title="TextBoxProperties.GetAlternativeText method" Url="html/M_Couldron_Attached_TextBoxProperties_GetAlternativeText.htm" />
-  <HelpKINode Title="TextBoxProperties.GetButtonsTemplate method" Url="html/M_Couldron_Attached_TextBoxProperties_GetButtonsTemplate.htm" />
-  <HelpKINode Title="TextBoxProperties.GetHeader method" Url="html/M_Couldron_Attached_TextBoxProperties_GetHeader.htm" />
-  <HelpKINode Title="TextBoxProperties.Header attached property" Url="html/P_Couldron_Attached_TextBoxProperties_Header.htm" />
-  <HelpKINode Title="TextBoxProperties.HeaderProperty field" Url="html/F_Couldron_Attached_TextBoxProperties_HeaderProperty.htm" />
-  <HelpKINode Title="TextBoxProperties.SetAlternativeText method" Url="html/M_Couldron_Attached_TextBoxProperties_SetAlternativeText.htm" />
-  <HelpKINode Title="TextBoxProperties.SetButtonsTemplate method" Url="html/M_Couldron_Attached_TextBoxProperties_SetButtonsTemplate.htm" />
-  <HelpKINode Title="TextBoxProperties.SetHeader method" Url="html/M_Couldron_Attached_TextBoxProperties_SetHeader.htm" />
   <HelpKINode Title="TextProperty field" Url="html/F_Couldron_Attached_Localized_TextProperty.htm" />
   <HelpKINode Title="ThemeAccentColor property" Url="html/P_Couldron_CouldronApplication_ThemeAccentColor.htm" />
   <HelpKINode Title="THEMECHANGED enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
@@ -2394,15 +2391,24 @@
     <HelpKINode Title="fields" Url="html/Fields_T_Couldron_Attached_UIElementProperties.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Couldron_Attached_UIElementProperties.htm" />
   </HelpKINode>
-  <HelpKINode Title="UIElementProperties.Boolean attached property" Url="html/P_Couldron_Attached_UIElementProperties_Boolean.htm" />
-  <HelpKINode Title="UIElementProperties.BooleanProperty field" Url="html/F_Couldron_Attached_UIElementProperties_BooleanProperty.htm" />
-  <HelpKINode Title="UIElementProperties.ColorBrush attached property" Url="html/P_Couldron_Attached_UIElementProperties_ColorBrush.htm" />
-  <HelpKINode Title="UIElementProperties.ColorBrushProperty field" Url="html/F_Couldron_Attached_UIElementProperties_ColorBrushProperty.htm" />
-  <HelpKINode Title="UIElementProperties.GetBoolean method" Url="html/M_Couldron_Attached_UIElementProperties_GetBoolean.htm" />
-  <HelpKINode Title="UIElementProperties.GetColorBrush method" Url="html/M_Couldron_Attached_UIElementProperties_GetColorBrush.htm" />
-  <HelpKINode Title="UIElementProperties.SetBoolean method" Url="html/M_Couldron_Attached_UIElementProperties_SetBoolean.htm" />
-  <HelpKINode Title="UIElementProperties.SetColorBrush method" Url="html/M_Couldron_Attached_UIElementProperties_SetColorBrush.htm" />
+  <HelpKINode Title="UIElementProperties.AlternativeText attached property" Url="html/P_Couldron_Attached_UIElementProperties_AlternativeText.htm" />
+  <HelpKINode Title="UIElementProperties.AlternativeTextProperty field" Url="html/F_Couldron_Attached_UIElementProperties_AlternativeTextProperty.htm" />
+  <HelpKINode Title="UIElementProperties.ButtonsTemplate attached property" Url="html/P_Couldron_Attached_UIElementProperties_ButtonsTemplate.htm" />
+  <HelpKINode Title="UIElementProperties.ButtonsTemplateProperty field" Url="html/F_Couldron_Attached_UIElementProperties_ButtonsTemplateProperty.htm" />
+  <HelpKINode Title="UIElementProperties.GetAlternativeText method" Url="html/M_Couldron_Attached_UIElementProperties_GetAlternativeText.htm" />
+  <HelpKINode Title="UIElementProperties.GetButtonsTemplate method" Url="html/M_Couldron_Attached_UIElementProperties_GetButtonsTemplate.htm" />
+  <HelpKINode Title="UIElementProperties.GetHeader method" Url="html/M_Couldron_Attached_UIElementProperties_GetHeader.htm" />
+  <HelpKINode Title="UIElementProperties.GetSelectedItems method" Url="html/M_Couldron_Attached_UIElementProperties_GetSelectedItems.htm" />
+  <HelpKINode Title="UIElementProperties.Header attached property" Url="html/P_Couldron_Attached_UIElementProperties_Header.htm" />
+  <HelpKINode Title="UIElementProperties.HeaderProperty field" Url="html/F_Couldron_Attached_UIElementProperties_HeaderProperty.htm" />
+  <HelpKINode Title="UIElementProperties.SelectedItems attached property" Url="html/P_Couldron_Attached_UIElementProperties_SelectedItems.htm" />
+  <HelpKINode Title="UIElementProperties.SelectedItemsProperty field" Url="html/F_Couldron_Attached_UIElementProperties_SelectedItemsProperty.htm" />
+  <HelpKINode Title="UIElementProperties.SetAlternativeText method" Url="html/M_Couldron_Attached_UIElementProperties_SetAlternativeText.htm" />
+  <HelpKINode Title="UIElementProperties.SetButtonsTemplate method" Url="html/M_Couldron_Attached_UIElementProperties_SetButtonsTemplate.htm" />
+  <HelpKINode Title="UIElementProperties.SetHeader method" Url="html/M_Couldron_Attached_UIElementProperties_SetHeader.htm" />
+  <HelpKINode Title="UIElementProperties.SetSelectedItems method" Url="html/M_Couldron_Attached_UIElementProperties_SetSelectedItems.htm" />
   <HelpKINode Title="UNDO enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
+  <HelpKINode Title="UnEquals method" Url="html/M_Couldron_Utils_UnEquals.htm" />
   <HelpKINode Title="UNICHAR enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="UNINITMENUPOPUP enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="UnRegister method">
@@ -2444,8 +2450,13 @@
   <HelpKINode Title="Utils.Equals method" Url="html/M_Couldron_Utils_Equals.htm" />
   <HelpKINode Title="Utils.GetMousePosition method" Url="html/M_Couldron_Utils_GetMousePosition.htm" />
   <HelpKINode Title="Utils.GetPasswordScore method" Url="html/M_Couldron_Utils_GetPasswordScore.htm" />
+  <HelpKINode Title="Utils.GreaterThan method" Url="html/M_Couldron_Utils_GreaterThan.htm" />
+  <HelpKINode Title="Utils.GreaterThanOrEqual method" Url="html/M_Couldron_Utils_GreaterThanOrEqual.htm" />
   <HelpKINode Title="Utils.IsNetworkAvailable property" Url="html/P_Couldron_Utils_IsNetworkAvailable.htm" />
+  <HelpKINode Title="Utils.LessThan method" Url="html/M_Couldron_Utils_LessThan.htm" />
+  <HelpKINode Title="Utils.LessThanOrEqual method" Url="html/M_Couldron_Utils_LessThanOrEqual.htm" />
   <HelpKINode Title="Utils.SendMessage method" Url="html/M_Couldron_Utils_SendMessage.htm" />
+  <HelpKINode Title="Utils.UnEquals method" Url="html/M_Couldron_Utils_UnEquals.htm" />
   <HelpKINode Title="Utils.WmGetMinMaxInfo method" Url="html/M_Couldron_Utils_WmGetMinMaxInfo.htm" />
   <HelpKINode Title="ValidatableChangeAwareViewModelBase class">
     <HelpKINode Title="ValidatableChangeAwareViewModelBase Class" Url="html/T_Couldron_ViewModels_ValidatableChangeAwareViewModelBase.htm" />
@@ -2537,7 +2548,12 @@
   <HelpKINode Title="ValidationHandler.Validation event" Url="html/E_Couldron_ViewModels_ValidationHandler_Validation.htm" />
   <HelpKINode Title="ValidationHandler.ValidationHandler constructor" Url="html/M_Couldron_ViewModels_ValidationHandler__ctor.htm" />
   <HelpKINode Title="ValidationMessage method">
+    <HelpKINode Title="EqualityAttribute.ValidationMessage Method " Url="html/M_Couldron_Validation_EqualityAttribute_ValidationMessage.htm" />
     <HelpKINode Title="GreaterThanAttribute.ValidationMessage Method " Url="html/M_Couldron_Validation_GreaterThanAttribute_ValidationMessage.htm" />
+    <HelpKINode Title="GreaterThanOrEqualAttribute.ValidationMessage Method " Url="html/M_Couldron_Validation_GreaterThanOrEqualAttribute_ValidationMessage.htm" />
+    <HelpKINode Title="InEqualityAttribute.ValidationMessage Method " Url="html/M_Couldron_Validation_InEqualityAttribute_ValidationMessage.htm" />
+    <HelpKINode Title="LessThanAttribute.ValidationMessage Method " Url="html/M_Couldron_Validation_LessThanAttribute_ValidationMessage.htm" />
+    <HelpKINode Title="LessThanOrEqualAttribute.ValidationMessage Method " Url="html/M_Couldron_Validation_LessThanOrEqualAttribute_ValidationMessage.htm" />
     <HelpKINode Title="ValidationBaseAttribute.ValidationMessage Method " Url="html/M_Couldron_Validation_ValidationBaseAttribute_ValidationMessage.htm" />
   </HelpKINode>
   <HelpKINode Title="ValidationProperties class">
