@@ -112,6 +112,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="..\Couldron.Themes.VisualStudioLight\Styles\ScrollBarStyle.xaml">
+      <Link>Styles\ScrollBarStyle.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="..\Couldron.Themes.VisualStudioLight\Styles\TabControlStyle.xaml">
       <Link>Styles\TabControlStyle.xaml</Link>
       <Generator>MSBuild:Compile</Generator>

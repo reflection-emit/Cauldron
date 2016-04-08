@@ -46,6 +46,8 @@ namespace Couldron.Themes.VisualStudio.Behaviours
         {
             if (e.Key == System.Windows.Input.Key.Delete)
                 this.AssociatedObject.SelectedItem = null;
+            else if (e.Key == System.Windows.Input.Key.Space)
+                this.AssociatedObject.IsDropDownOpen = true;
         }
     }
 
@@ -79,6 +81,8 @@ namespace Couldron.Themes.VisualStudio.Behaviours
         {
             if (e.Key == System.Windows.Input.Key.Delete)
                 this.AssociatedObject.SelectedItem = null;
+            else if (e.Key == System.Windows.Input.Key.Space)
+                this.AssociatedObject.IsDropDownOpen = true;
         }
     }
 }

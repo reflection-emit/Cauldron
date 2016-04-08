@@ -68,7 +68,12 @@
                             The colouring will be done in the behaviour
                         -->
                         <Border x:Name="border" Margin="0" Padding="0" BorderThickness="0" Background="Transparent">
-                            <TextBlock x:Name="header" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding Path=(local:TabItemHeader.Header), RelativeSource={RelativeSource TemplatedParent}}" Margin="4,0,24,0" Padding="0" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
+                            <TextBlock x:Name="header" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding Path=(local:TabItemHeader.Header), RelativeSource={RelativeSource TemplatedParent}}"
+                                       Margin="4,0,24,0" Padding="0" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis">
+                                <Validation.ErrorTemplate>
+                                    <ControlTemplate />
+                                </Validation.ErrorTemplate>
+                            </TextBlock>
                         </Border>
 
                         <Button x:Name="closeButton" Visibility="Collapsed" Content="&#x0072;" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="3,3,3,1">

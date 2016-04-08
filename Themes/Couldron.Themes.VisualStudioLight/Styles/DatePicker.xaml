@@ -49,6 +49,7 @@
         <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
         <Setter Property="Foreground" Value="{StaticResource ThemeTextBrush}" />
         <Setter Property="BorderBrush" Value="{StaticResource ThemeLightBorderBrush}" />
+        <Setter Property="Background" Value="{StaticResource ThemeLightBackgroundBrush}" />
         <Setter Property="MinWidth" Value="60" />
         <Setter Property="MinHeight" Value="22" />
         <Setter Property="IsTodayHighlighted" Value="True" />
@@ -89,7 +90,7 @@
                                  Visibility="{Binding Path=(attached:UIElementProperties.Header), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NullOrEmptyTovisibilityConverter}, ConverterParameter=True}"
                                  Margin="1,6,0,2" Grid.ColumnSpan="4" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" IsHitTestVisible="False" />
 
-                        <Border x:Name="border" Grid.ColumnSpan="4" Grid.Row="1" BorderThickness="1" Background="{StaticResource ThemeLightBackgroundBrush}"
+                        <Border x:Name="border" Grid.ColumnSpan="4" Grid.Row="1" BorderThickness="1" Background="{TemplateBinding Background}"
                                         VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
                                         BorderBrush="{TemplateBinding BorderBrush}" />
 

@@ -66,6 +66,17 @@
         }
     }
 
+    public partial class ScrollBarStyle
+    {
+        /// <summary>
+        /// Initializes a new instance of <see cref="ScrollBarStyle"/>
+        /// </summary>
+        public ScrollBarStyle()
+        {
+            this.InitializeComponent();
+        }
+    }
+
     public partial class TabControlStyle
     {
         /// <summary>
