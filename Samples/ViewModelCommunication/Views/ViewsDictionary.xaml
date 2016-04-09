@@ -48,9 +48,14 @@
                     </ListView.View>
                 </ListView>
             </GroupBox>
-            <GroupBox Header="{Binding Name}" Grid.Column="1" Grid.Row="1">
-                <TextBox attached:UIElementProperties.Header="Animal name" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" AcceptsReturn="True" />
-            </GroupBox>
+            <StackPanel Grid.Column="1" Grid.Row="1">
+                <GroupBox Header="{Binding Name}" Style="{StaticResource ExpanderGroupBox}">
+                    <TextBox attached:UIElementProperties.Header="Animal name" Text="{Binding Properties[0].Name}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" AcceptsReturn="True" />
+                </GroupBox>
+                <GroupBox Header="{Binding Name}" Style="{StaticResource ExpanderGroupBox}">
+                    <TextBox attached:UIElementProperties.Header="Animal name" Text="{Binding Name}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" AcceptsReturn="True" />
+                </GroupBox>
+            </StackPanel>
             <GroupBox Header="{Binding Name}" Grid.Column="1">
                 <ComboBox Width="200" DisplayMemberPath="Name" Margin="1" attached:UIElementProperties.Header="Select an animal"
                           IsEditable="False" VerticalAlignment="Top" attached:UIElementProperties.AlternativeText="Click here to select" />

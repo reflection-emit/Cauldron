@@ -54,7 +54,7 @@ namespace Couldron.Validation
                 return false;
 
             if (this.value != null)
-                return !Utils.LessThan(this.value, value);
+                return !Utils.LessThan(value, this.value);
 
             var otherProperty = context.GetType().GetProperty(this.propertyName);
 

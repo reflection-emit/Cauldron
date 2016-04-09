@@ -44,7 +44,7 @@ namespace Couldron.ValueConverters
     /// Converts a <see cref="bool"/> to <see cref="Visibility"/>. If the value is true, the <see cref="IValueConverter"/> will
     /// return either <see cref="Visibility.Collapsed"/> or <see cref="Visibility.Visible"/> depending on the parameter
     /// </summary>
-    public class BooleanTovisibilityConverter : IValueConverter
+    public class BooleanToVisibilityConverter : IValueConverter
     {
         /// <summary>
         /// Converts a value.

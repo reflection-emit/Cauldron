@@ -67,7 +67,7 @@ namespace Couldron.ViewModels
         public IEnumerable GetErrors(string propertyName)
         {
             if (String.IsNullOrEmpty(propertyName) || !errors.ContainsKey(propertyName))
-                return string.Empty;
+                return null;
 
             return this.errors[propertyName];
         }
@@ -91,7 +91,7 @@ namespace Couldron.ViewModels
             lock (syncValidationRoot)
             {
                 if (this.errors.ContainsKey(propertyName))
-                    this.errors[propertyName].Clear();
+                    this.errors.Remove(propertyName);
 
                 this.validators
                     .FirstOrDefault(x => x.PropertyName == propertyName)

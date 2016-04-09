@@ -54,7 +54,7 @@ namespace Couldron.Validation
                 return false;
 
             if (this.value != null)
-                return !Utils.GreaterThanOrEqual(this.value, value);
+                return !Utils.GreaterThanOrEqual(value, this.value);
 
             var otherProperty = context.GetType().GetProperty(this.propertyName);
 

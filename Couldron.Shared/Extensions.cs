@@ -99,6 +99,49 @@ namespace Couldron
         }
 
         /// <summary>
+        /// Returns the element at the defined index
+        /// </summary>
+        /// <param name="ienumerable">The enumerable that contains the element</param>
+        /// <param name="index">The index of the element</param>
+        /// <returns>The element with the specified index</returns>
+        public static object ElementAt(this IEnumerable ienumerable, int index)
+        {
+            var counter = 0;
+            foreach (var item in ienumerable)
+            {
+                if (counter++ == index)
+                    return item;
+            }
+
+            throw new ArgumentException("The IEnumerable does not have an index '" + index + "'");
+        }
+
+        /// <summary>
+        /// Returns the string enclosed between two defined chars
+        /// </summary>
+        /// <param name="target">The string where to find the enclosed string</param>
+        /// <param name="start">The starting enclosing character</param>
+        /// <param name="end">The ending enclosing character</param>
+        /// <returns>The enclosed string</returns>
+        public static string EnclosedIn(this string target, char start = '(', char end = ')')
+        {
+            if (string.IsNullOrEmpty(target))
+                return target;
+
+            int startPos = target.IndexOf(start);
+
+            if (startPos < 0)
+                return target;
+
+            int endPos = target.IndexOf(end, startPos);
+
+            if (endPos <= startPos)
+                endPos = target.Length - 1;
+
+            return target.Substring(startPos + 1, endPos - startPos - 1);
+        }
+
+        /// <summary>
         /// Returns the first element of a sequence.
         /// </summary>
         /// <param name="source">The <see cref="IEnumerable"/> to return the first element of.</param>
@@ -170,6 +213,23 @@ namespace Couldron
 
                     return x.Name == methodName;
                 });
+        }
+
+        /// <summary>
+        /// Retrieves the target object referenced by the current <see cref="WeakReference{T}"/> object
+        /// <para/>
+        /// Returns null if the target is not available
+        /// </summary>
+        /// <typeparam name="T">The type of the object referenced.</typeparam>
+        /// <param name="weakReference">The current <see cref="WeakReference{T}"/> object</param>
+        /// <returns>Contains the target object, if it is available; otherwise null</returns>
+        public static T GetTarget<T>(this WeakReference<T> weakReference) where T : class
+        {
+            T value;
+            if (weakReference.TryGetTarget(out value))
+                return value;
+
+            return null;
         }
 
         /// <summary>

@@ -160,5 +160,44 @@ namespace Couldron.Attached
         public static readonly DependencyProperty SelectedItemsProperty = DependencyProperty.RegisterAttached("SelectedItems", typeof(IEnumerable), typeof(UIElementProperties), new PropertyMetadata(null));
 
         #endregion Dependency Attached Property SelectedItems
+
+#if !NETFX_CORE
+
+        #region Dependency Attached Property MyProperty
+
+        /// <summary>
+        /// Gets the value of IsCollapsed
+        /// <para/>
+        /// Supported by <see cref="GroupBox"/>
+        /// </summary>
+        /// <param name="obj"><see cref="DependencyObject" /> with the attached property</param>
+        /// <returns>The value of the attached property</returns>
+        public static bool GetIsCollapsed(DependencyObject obj)
+        {
+            return (bool)obj.GetValue(IsCollapsedProperty);
+        }
+
+        /// <summary>
+        /// Sets the value of the IsCollapsed attached property
+        /// <para/>
+        /// Supported by <see cref="GroupBox"/>
+        /// </summary>
+        /// <param name="obj"><see cref="DependencyObject" /> with the attached property</param>
+        /// <param name="value">The new value to set</param>
+        public static void SetIsCollapsed(DependencyObject obj, bool value)
+        {
+            obj.SetValue(IsCollapsedProperty, value);
+        }
+
+        /// <summary>
+        /// Identifies the IsCollapsed dependency property
+        /// <para/>
+        /// Supported by <see cref="GroupBox"/>
+        /// </summary>
+        public static readonly DependencyProperty IsCollapsedProperty = DependencyProperty.RegisterAttached("IsCollapsed", typeof(bool), typeof(UIElementProperties), new PropertyMetadata(false));
+
+        #endregion Dependency Attached Property MyProperty
+
+#endif
     }
 }

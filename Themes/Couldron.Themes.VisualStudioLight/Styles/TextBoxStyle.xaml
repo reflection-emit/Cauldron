@@ -28,7 +28,7 @@
         <Setter Property="behaviour:Interactivity.Template">
             <Setter.Value>
                 <collections:InteractivityTemplate>
-                    <localbehaviour:ValidationTextBoxBehaviour />
+                    <behaviour:Validation />
                 </collections:InteractivityTemplate>
             </Setter.Value>
         </Setter>
@@ -94,9 +94,9 @@
                         <ScrollViewer Grid.Row="1" Grid.Column="2" Margin="3" x:Name="PART_ContentHost" />
 
                         <Ellipse Grid.Row="1" Grid.Column="1" Fill="Tomato" Width="14" Height="14" Margin="4,0" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                     ToolTip="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Validation.Errors), Converter={StaticResource ErrorCollectionConverter}}"
-                                     Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Validation.HasError), Converter={StaticResource BooleanToVisibilityConverter}}" />
-                        <TextBlock Grid.Row="1" Grid.Column="1" Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Validation.HasError), Converter={StaticResource BooleanToVisibilityConverter}}"
+                                     ToolTip="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(attached:ValidationProperties.Errors)}"
+                                     Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(attached:ValidationProperties.HasErrors), Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        <TextBlock Grid.Row="1" Grid.Column="1" Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(attached:ValidationProperties.HasErrors), Converter={StaticResource BooleanToVisibilityConverter}}"
                                        Text="!" IsHitTestVisible="False" FontFamily="Segoe UI" FontWeight="ExtraBold" Foreground="{StaticResource ThemeHoveredTextBrush}" VerticalAlignment="Center" HorizontalAlignment="Center" />
 
                         <ContentControl Margin="1" Grid.Column="3" Grid.Row="1" Template="{Binding Path=(attached:UIElementProperties.ButtonsTemplate), RelativeSource={RelativeSource TemplatedParent}}"
@@ -192,9 +192,9 @@
                         <ScrollViewer Grid.Row="1" Grid.Column="2" Margin="3" x:Name="PART_ContentHost" />
 
                         <Ellipse Grid.Row="1" Grid.Column="1" Fill="Tomato" Width="14" Height="14" Margin="4,0" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                     ToolTip="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Validation.Errors), Converter={StaticResource ErrorCollectionConverter}}"
-                                     Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Validation.HasError), Converter={StaticResource BooleanToVisibilityConverter}}" />
-                        <TextBlock Grid.Row="1" Grid.Column="1" Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Validation.HasError), Converter={StaticResource BooleanToVisibilityConverter}}"
+                                     ToolTip="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(attached:ValidationProperties.Errors)}"
+                                     Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(attached:ValidationProperties.HasErrors), Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        <TextBlock Grid.Row="1" Grid.Column="1" Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(attached:ValidationProperties.HasErrors), Converter={StaticResource BooleanToVisibilityConverter}}"
                                        Text="!" IsHitTestVisible="False" FontFamily="Segoe UI" FontWeight="ExtraBold" Foreground="{StaticResource ThemeHoveredTextBrush}" VerticalAlignment="Center" HorizontalAlignment="Center" />
 
                         <Rectangle Grid.Row="1" Fill="{StaticResource ThemeAccentBrush}" Margin="1"

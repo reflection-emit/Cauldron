@@ -32,4 +32,71 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style x:Key="ExpanderGroupBox" TargetType="GroupBox">
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Foreground" Value="{StaticResource ThemeTextBrush}" />
+        <Setter Property="attached:UIElementProperties.IsCollapsed" Value="False" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="GroupBox">
+                    <Border x:Name="border" BorderBrush="{StaticResource ThemeLightBorderBrush}" BorderThickness="0,1,0,0">
+                        <Grid Margin="{TemplateBinding Padding}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="18" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="16" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <ToggleButton x:Name="toggle" Grid.ColumnSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" ClickMode="Press" Focusable="True"
+                                        Foreground="Transparent"
+                                        IsChecked="{Binding (attached:UIElementProperties.IsCollapsed), Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
+                                <ToggleButton.Template>
+                                    <ControlTemplate>
+                                        <Rectangle Stroke="{TemplateBinding Foreground}" StrokeThickness="1" StrokeDashArray="1 2" Fill="Transparent" />
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+
+                            <Path Visibility="{Binding (attached:UIElementProperties.IsCollapsed), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=True}"
+                                  Stroke="{TemplateBinding Foreground}" Fill="{TemplateBinding Foreground}"
+                                  Width="7" Height="7" x:Name="ArrowExpanded"
+                                  SnapsToDevicePixels="False" StrokeThickness="1" Data="M 0 7 L 7 7 L 7 0 z" IsHitTestVisible="False" />
+
+                            <Path Visibility="{Binding (attached:UIElementProperties.IsCollapsed), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                  Stroke="{TemplateBinding Foreground}"
+                                  Width="6" Height="11" x:Name="ArrowCollapsed" Margin="4,0,0,0"
+                                  SnapsToDevicePixels="False" StrokeThickness="1" Data="M 0 1 L 0 10 M 0 1 L 5 6 M 0 10 L 5 5" IsHitTestVisible="False" />
+
+                            <ContentPresenter Grid.Column="1" Margin="0,0,0,1" ContentSource="Header" RecognizesAccessKey="True" VerticalAlignment="Center" IsHitTestVisible="False">
+                                <ContentPresenter.Resources>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="FontWeight" Value="SemiBold" />
+                                    </Style>
+                                </ContentPresenter.Resources>
+                            </ContentPresenter>
+                            <ContentPresenter Visibility="{Binding (attached:UIElementProperties.IsCollapsed), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=True}"
+                                              VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                                              Grid.Row="1" Grid.Column="1" Margin="0,4,4,16" />
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource ThemeAccentBrush}" />
+                            <Setter TargetName="ArrowExpanded" Property="Fill" Value="{StaticResource ThemeAccentBrush}" />
+                            <Setter TargetName="ArrowExpanded" Property="Stroke" Value="{StaticResource ThemeAccentBrush}" />
+                            <Setter TargetName="ArrowCollapsed" Property="Stroke" Value="{StaticResource ThemeAccentBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocused" Value="true">
+                            <Setter TargetName="toggle" Property="Foreground" Value="{StaticResource ThemeLightOverlayBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

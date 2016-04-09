@@ -114,37 +114,6 @@ namespace Couldron.ValueConverters
     }
 
     /// <summary>
-    /// Converts a collection of Errors from <see cref="INotifyDataErrorInfo"/> to a readable string
-    /// </summary>
-    public class ErrorCollectionConverter : ValueConverterBase<ReadOnlyObservableCollection<ValidationError>, string>
-    {
-        /// <summary>
-        /// Converts a value
-        /// </summary>
-        /// <param name="value">The value produced by the binding source.</param>
-        /// <param name="parameter">The converter parameter to use.</param>
-        /// <param name="culture">The culture to use in the converter.</param>
-        /// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
-        protected override string OnConvert(ReadOnlyObservableCollection<ValidationError> value, object parameter, CultureInfo culture)
-        {
-            return string.Join("\r\n", value.Select(x => x.ErrorContent.ToString()));
-        }
-
-        /// <summary>
-        /// Converts a value
-        /// </summary>
-        /// <param name="value">The value that is produced by the binding target.</param>
-        /// <param name="parameter">The converter parameter to use.</param>
-        /// <param name="culture">The culture to use in the converter.</param>
-        /// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
-        /// <exception cref="NotImplementedException">Always throws <see cref="NotImplementedException"/>. This method is not implemented.</exception>
-        protected override ReadOnlyObservableCollection<ValidationError> OnConvertBack(string value, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
-    /// <summary>
     /// Converts a collection of Errors from <see cref="INotifyDataErrorInfo"/> count to <see cref="Visibility"/>
     /// </summary>
     public class ErrorCollectionCountToVisibilityConverter : IValueConverter

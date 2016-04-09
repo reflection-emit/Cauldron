@@ -1,11 +1,5 @@
-﻿using Couldron.Attached;
-using Couldron.Behaviours;
-using Couldron.Controls;
-using Couldron.Validation;
-using System.Reflection;
-using System.Windows;
+﻿using Couldron.Behaviours;
 using System.Windows.Controls;
-using System.Windows.Data;
 
 namespace Couldron.Themes.VisualStudio.Behaviours
 {
@@ -14,27 +8,6 @@ namespace Couldron.Themes.VisualStudio.Behaviours
         protected override void OnAttach()
         {
             this.AssociatedObject.KeyUp += AssociatedObject_KeyUp;
-        }
-
-        protected override void OnDataContextChanged()
-        {
-            DependencyProperty dependencyProperty = null;
-
-            if (this.AssociatedObject.IsEditable)
-                dependencyProperty = ComboBox.TextProperty;
-            else
-                dependencyProperty = ComboBox.SelectedItemProperty;
-
-            var binding = BindingOperations.GetBinding(this.AssociatedObject, dependencyProperty);
-
-            if (binding == null)
-                return;
-
-            var path = binding.Path.Path;
-
-            // get the property info
-            this.AssociatedObject.DataContext.GetType().GetProperty(path)
-                .IsNotNull(x => ValidationProperties.SetIsMandatory(this.AssociatedObject, x.GetCustomAttribute<IsMandatoryAttribute>() != null));
         }
 
         protected override void OnDetach()
@@ -56,20 +29,6 @@ namespace Couldron.Themes.VisualStudio.Behaviours
         protected override void OnAttach()
         {
             this.AssociatedObject.KeyUp += AssociatedObject_KeyUp;
-        }
-
-        protected override void OnDataContextChanged()
-        {
-            var binding = BindingOperations.GetBinding(this.AssociatedObject, TreeViewComboBox.SelectedItemsProperty);
-
-            if (binding == null)
-                return;
-
-            var path = binding.Path.Path;
-
-            // get the property info
-            this.AssociatedObject.DataContext.GetType().GetProperty(path)
-                .IsNotNull(x => ValidationProperties.SetIsMandatory(this.AssociatedObject, x.GetCustomAttribute<IsMandatoryAttribute>() != null));
         }
 
         protected override void OnDetach()

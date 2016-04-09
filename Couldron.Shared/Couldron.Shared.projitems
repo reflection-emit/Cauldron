@@ -33,6 +33,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Behaviours\ParentPropertySetterAction.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviours\SetFocus.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviours\StoryboardBeginAnimationAction.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Behaviours\Validation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Collections\ActionCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Collections\BehaviourCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Collections\ConcurrentList.cs" />
