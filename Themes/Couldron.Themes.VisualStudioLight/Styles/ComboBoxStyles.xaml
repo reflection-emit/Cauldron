@@ -294,7 +294,7 @@
             <Setter.Value>
                 <collections:InteractivityTemplate>
                     <behaviour:Validation />
-                    <localbehaviour:TreeViewComboBoxBehaviour />
+                    <localbehaviour:ComboBoxBehaviour />
                 </collections:InteractivityTemplate>
             </Setter.Value>
         </Setter>
