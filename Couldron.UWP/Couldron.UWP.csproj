@@ -118,7 +118,6 @@
     <Compile Include="Behaviours\ControlTemplateBinding.cs" />
     <Compile Include="Behaviours\EnterKeyToCommand.cs" />
     <Compile Include="Behaviours\EventTrigger.cs" />
-    <Compile Include="ValueConverters\CommonConverters.cs" />
     <Compile Include="Controls\NavigationFrame.cs" />
     <Compile Include="Controls\NavigationFrameBackRequestedEventArgs.cs" />
     <Compile Include="Core\ApplicationInfo.cs" />

@@ -79,6 +79,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Validation\ValidationBaseAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Validation\ValidatorCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Validation\ValidatorGroup.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\CommonConverters.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ChangeAwareViewModelBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ContainerViewModelBase.cs" />
@@ -113,6 +114,5 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Controls\" />
-    <Folder Include="$(MSBuildThisFileDirectory)ValueConverters\" />
   </ItemGroup>
 </Project>

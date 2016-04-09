@@ -71,7 +71,6 @@
     <Compile Include="Behaviours\PasswordBoxBinding.cs" />
     <Compile Include="Behaviours\TextBoxInputFilter.cs" />
     <Compile Include="Behaviours\WindowConfiguration.cs" />
-    <Compile Include="ValueConverters\CommonConverters.cs" />
     <Compile Include="Controls\TreeViewComboBox.cs" />
     <Compile Include="Core\ApplicationData.cs" />
     <Compile Include="Core\ApplicationInfo.cs" />
