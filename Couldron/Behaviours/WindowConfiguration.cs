@@ -21,7 +21,7 @@ namespace Couldron.Behaviours
         public static readonly DependencyProperty ToolbarTemplateProperty = DependencyProperty.Register(nameof(ToolbarTemplate), typeof(ControlTemplate), typeof(WindowConfiguration), new PropertyMetadata(null));
 
         /// <summary>
-        /// Gets or sets the <see cref="ToolbarTemplate" /> Property
+        /// Gets or sets a value containing the template for the title bar
         /// </summary>
         public ControlTemplate ToolbarTemplate
         {
@@ -31,6 +31,24 @@ namespace Couldron.Behaviours
 
         #endregion Dependency Property ToolbarTemplate
 
+        #region Dependency Property SizeToContent
+
+        /// <summary>
+        /// Identifies the <see cref="SizeToContent" /> dependency property
+        /// </summary>
+        public static readonly DependencyProperty SizeToContentProperty = DependencyProperty.Register(nameof(SizeToContent), typeof(SizeToContent), typeof(WindowConfiguration), new PropertyMetadata(SizeToContent.Manual));
+
+        /// <summary>
+        /// Gets or sets a value that indicates whether a window will automatically size itself to fit the size of its content.
+        /// </summary>
+        public SizeToContent SizeToContent
+        {
+            get { return (SizeToContent)this.GetValue(SizeToContentProperty); }
+            set { this.SetValue(SizeToContentProperty, value); }
+        }
+
+        #endregion Dependency Property SizeToContent
+
         #region Dependency Property IsModal
 
         /// <summary>
@@ -39,7 +57,7 @@ namespace Couldron.Behaviours
         public static readonly DependencyProperty IsModalProperty = DependencyProperty.Register(nameof(IsModal), typeof(bool), typeof(WindowConfiguration), new PropertyMetadata(false));
 
         /// <summary>
-        /// Gets or sets the <see cref="IsModal" /> Property
+        /// Gets or sets a value that indicates that the window is modal
         /// </summary>
         public bool IsModal
         {
@@ -62,7 +80,7 @@ namespace Couldron.Behaviours
         public event EventHandler IconChanged;
 
         /// <summary>
-        /// Gets or sets the <see cref="Icon" /> Property
+        /// Gets or sets a window's icon.
         /// </summary>
         public ImageSource Icon
         {
@@ -91,7 +109,7 @@ namespace Couldron.Behaviours
         public static readonly DependencyProperty ResizeModeProperty = DependencyProperty.Register(nameof(ResizeMode), typeof(ResizeMode), typeof(WindowConfiguration), new PropertyMetadata(ResizeMode.CanResizeWithGrip));
 
         /// <summary>
-        /// Gets or sets the <see cref="ResizeMode" /> Property
+        /// Gets or sets the resize mode.
         /// </summary>
         public ResizeMode ResizeMode
         {
@@ -109,7 +127,7 @@ namespace Couldron.Behaviours
         public static readonly DependencyProperty ShowInTaskbarProperty = DependencyProperty.Register(nameof(ShowInTaskbar), typeof(bool), typeof(WindowConfiguration), new PropertyMetadata(true));
 
         /// <summary>
-        /// Gets or sets the <see cref="ShowInTaskbar" /> Property
+        /// Gets or sets a value that indicates whether the window has a task bar button.
         /// </summary>
         public bool ShowInTaskbar
         {
@@ -132,7 +150,7 @@ namespace Couldron.Behaviours
         public event EventHandler TitleChanged;
 
         /// <summary>
-        /// Gets or sets the <see cref="Title" /> Property
+        /// Gets or sets a window's title.
         /// </summary>
         public string Title
         {
@@ -161,7 +179,7 @@ namespace Couldron.Behaviours
         public static readonly DependencyProperty TopmostProperty = DependencyProperty.Register(nameof(Topmost), typeof(bool), typeof(WindowConfiguration), new PropertyMetadata(false));
 
         /// <summary>
-        /// Gets or sets the <see cref="Topmost" /> Property
+        /// Gets or sets a value that indicates whether a window appears in the topmost z-order.
         /// </summary>
         public bool Topmost
         {
@@ -179,7 +197,7 @@ namespace Couldron.Behaviours
         public static readonly DependencyProperty WindowStartupLocationProperty = DependencyProperty.Register(nameof(WindowStartupLocation), typeof(WindowStartupLocation), typeof(WindowConfiguration), new PropertyMetadata(WindowStartupLocation.CenterOwner));
 
         /// <summary>
-        /// Gets or sets the <see cref="WindowStartupLocation" /> Property
+        /// Gets or sets the position of the window when first shown.
         /// </summary>
         public WindowStartupLocation WindowStartupLocation
         {
@@ -197,7 +215,7 @@ namespace Couldron.Behaviours
         public static readonly DependencyProperty IsWindowPersistentProperty = DependencyProperty.Register(nameof(IsWindowPersistent), typeof(bool), typeof(WindowConfiguration), new PropertyMetadata(false));
 
         /// <summary>
-        /// Gets or sets the <see cref="IsWindowPersistent" /> Property
+        /// Gets or sets a value that indicates that the window size and position are persistent
         /// </summary>
         public bool IsWindowPersistent
         {
@@ -215,7 +233,7 @@ namespace Couldron.Behaviours
         public static readonly DependencyProperty WindowStateProperty = DependencyProperty.Register(nameof(WindowState), typeof(WindowState), typeof(WindowConfiguration), new PropertyMetadata(WindowState.Normal));
 
         /// <summary>
-        /// Gets or sets the <see cref="WindowState" /> Property
+        /// Gets or sets a value that indicates whether a window is restored, minimized, or maximized.
         /// </summary>
         public WindowState WindowState
         {
@@ -233,7 +251,7 @@ namespace Couldron.Behaviours
         public static readonly DependencyProperty WindowStyleProperty = DependencyProperty.Register(nameof(WindowStyle), typeof(WindowStyle), typeof(WindowConfiguration), new PropertyMetadata(WindowStyle.SingleBorderWindow));
 
         /// <summary>
-        /// Gets or sets the <see cref="WindowStyle" /> Property
+        /// Gets or sets a window's border style.
         /// </summary>
         public WindowStyle WindowStyle
         {

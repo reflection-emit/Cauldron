@@ -29,6 +29,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UWP", "UWP", "{7661E001-F8E
 EndProject
 Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "Couldron.Documentation", "Couldron.Documentation\Couldron.Documentation.shfbproj", "{7678FB68-149A-4E72-8FDC-ABD281534394}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlsPlayground", "Samples\ControlsPlayground\ControlsPlayground.csproj", "{868A794E-3528-4AB6-ADEB-059949940767}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Couldron.Shared\Couldron.Shared.projitems*{2aca0073-bebf-46ce-830a-3ac8bb4a3dca}*SharedItemsImports = 4
@@ -174,6 +176,22 @@ Global
 		{7678FB68-149A-4E72-8FDC-ABD281534394}.Release|x64.Build.0 = Release|Any CPU
 		{7678FB68-149A-4E72-8FDC-ABD281534394}.Release|x86.ActiveCfg = Release|Any CPU
 		{7678FB68-149A-4E72-8FDC-ABD281534394}.Release|x86.Build.0 = Release|Any CPU
+		{868A794E-3528-4AB6-ADEB-059949940767}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{868A794E-3528-4AB6-ADEB-059949940767}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{868A794E-3528-4AB6-ADEB-059949940767}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{868A794E-3528-4AB6-ADEB-059949940767}.Debug|ARM.Build.0 = Debug|Any CPU
+		{868A794E-3528-4AB6-ADEB-059949940767}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{868A794E-3528-4AB6-ADEB-059949940767}.Debug|x64.Build.0 = Debug|Any CPU
+		{868A794E-3528-4AB6-ADEB-059949940767}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{868A794E-3528-4AB6-ADEB-059949940767}.Debug|x86.Build.0 = Debug|Any CPU
+		{868A794E-3528-4AB6-ADEB-059949940767}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{868A794E-3528-4AB6-ADEB-059949940767}.Release|Any CPU.Build.0 = Release|Any CPU
+		{868A794E-3528-4AB6-ADEB-059949940767}.Release|ARM.ActiveCfg = Release|Any CPU
+		{868A794E-3528-4AB6-ADEB-059949940767}.Release|ARM.Build.0 = Release|Any CPU
+		{868A794E-3528-4AB6-ADEB-059949940767}.Release|x64.ActiveCfg = Release|Any CPU
+		{868A794E-3528-4AB6-ADEB-059949940767}.Release|x64.Build.0 = Release|Any CPU
+		{868A794E-3528-4AB6-ADEB-059949940767}.Release|x86.ActiveCfg = Release|Any CPU
+		{868A794E-3528-4AB6-ADEB-059949940767}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -187,5 +205,6 @@ Global
 		{242DE6C1-325D-471B-8154-59D41AEFE16D} = {0D4CD904-1206-4253-BB7D-8939BC723677}
 		{8A4211B8-F38F-4A2B-AB81-C971DA0FE8C2} = {0D4CD904-1206-4253-BB7D-8939BC723677}
 		{0E86A7D2-37BA-4B07-8B74-6287ABD2C5DA} = {7661E001-F8E5-4F79-9771-3EFBE40B3C1A}
+		{868A794E-3528-4AB6-ADEB-059949940767} = {257ECE9A-C03B-49C0-8375-27559250DBDD}
 	EndGlobalSection
 EndGlobal

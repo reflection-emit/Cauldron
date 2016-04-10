@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Windows;
 
 namespace Couldron
@@ -61,6 +62,83 @@ namespace Couldron
             UnsafeNative.Win32Point w32Mouse = new UnsafeNative.Win32Point();
             UnsafeNative.GetCursorPos(ref w32Mouse);
             return new Point(w32Mouse.X, w32Mouse.Y);
+        }
+
+        /// <summary>
+        /// Gets a string from the dll defined by <paramref name="moduleName"/> text resources.
+        /// </summary>
+        /// <param name="moduleName">The dll to retrieve the string resources from. e.g. user32.dll, shell32.dll</param>
+        /// <param name="index">The id of the text resource.</param>
+        /// <returns>The text resource string from user32.dll defined by <paramref name="index"/>. Returns null if not found</returns>
+        /// <exception cref="ArgumentException">Parameter <paramref name="moduleName"/> is empty</exception>
+        /// <exception cref="ArgumentNullException">Parameter <paramref name="moduleName"/> is null</exception>
+        public static string GetStringFromModule(string moduleName, uint index)
+        {
+            if (moduleName == null)
+                throw new ArgumentNullException(nameof(moduleName));
+
+            if (string.IsNullOrEmpty(moduleName))
+                throw new ArgumentException("Parameter cannot be empty", nameof(moduleName));
+
+            IntPtr libraryHandle = UnsafeNative.GetModuleHandle(moduleName);
+            if (libraryHandle != IntPtr.Zero)
+            {
+                StringBuilder sb = new StringBuilder(1024);
+                if (UnsafeNative.LoadString(libraryHandle, index, sb, 1024) > 0)
+                    return sb.ToString();
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Gets a (assorted) string from dll text resources.
+        /// </summary>
+        /// <param name="key">The key of the string</param>
+        /// <returns>The text resource string from user32.dll defined by <paramref name="key"/>. Returns null if not found</returns>
+        public static string GetStringFromModule(string key)
+        {
+            switch (key)
+            {
+                case "OK": return Utils.GetStringFromModule(800);
+                case "Yes": return Utils.GetStringFromModule(805);
+                case "No": return Utils.GetStringFromModule(806);
+                case "Cancel": return Utils.GetStringFromModule(801);
+                case "Minimize": return Utils.GetStringFromModule(900);
+                case "Maximize": return Utils.GetStringFromModule(901);
+                case "Restore Up": return Utils.GetStringFromModule(902);
+                case "Restore Down": return Utils.GetStringFromModule(903);
+                case "Help": return Utils.GetStringFromModule(904);
+                case "Close": return Utils.GetStringFromModule(905);
+                case "Abort": return Utils.GetStringFromModule(802);
+                case "Retry": return Utils.GetStringFromModule(803);
+                case "Continue": return Utils.GetStringFromModule(810);
+                case "Ignore": return Utils.GetStringFromModule(804);
+                case "Error": return Utils.GetStringFromModule(2);
+
+                case "Copy": return Utils.GetStringFromModule("shell32.dll", 4146);
+                case "Move": return Utils.GetStringFromModule("shell32.dll", 4145);
+                case "Delete": return Utils.GetStringFromModule("shell32.dll", 4147);
+                case "Rename": return Utils.GetStringFromModule("shell32.dll", 4148);
+                case "New": return Utils.GetStringFromModule("shell32.dll", 4151);
+                case "Name": return Utils.GetStringFromModule("shell32.dll", 8976);
+                case "Size": return Utils.GetStringFromModule("shell32.dll", 8978);
+                case "Type": return Utils.GetStringFromModule("shell32.dll", 8979);
+                case "Comments": return Utils.GetStringFromModule("shell32.dll", 8995);
+                case "Open": return Utils.GetStringFromModule("shell32.dll", 12850);
+                case "Execute": return Utils.GetStringFromModule("shell32.dll", 12852);
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Gets a string from user32.dll text resources.
+        /// </summary>
+        /// <param name="index">The id of the text resource.</param>
+        /// <returns>The text resource string from user32.dll defined by <paramref name="index"/>. Returns null if not found</returns>
+        public static string GetStringFromModule(uint index)
+        {
+            return GetStringFromModule("user32.dll", index);
         }
 
         /// <summary>

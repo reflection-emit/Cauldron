@@ -27,6 +27,7 @@
     <HelpKINode Title="Mathc.Add Method " Url="html/M_Couldron_Core_Mathc_Add.htm" />
   </HelpKINode>
   <HelpKINode Title="AddBehaviour method" Url="html/M_Couldron_Behaviours_Interaction_AddBehaviour.htm" />
+  <HelpKINode Title="AddEventHandler method" Url="html/M_XamlGeneratedNamespace_GeneratedInternalTypeHelper_AddEventHandler.htm" />
   <HelpKINode Title="AddRange method" Url="html/M_Couldron_Collections_ConcurrentList_1_AddRange.htm" />
   <HelpKINode Title="AES class">
     <HelpKINode Title="AES Class" Url="html/T_Couldron_Core_Cryptography_AES.htm" />
@@ -587,6 +588,9 @@
   <HelpKINode Title="Couldron.Core.EmbeddedImageManager class" Url="html/T_Couldron_Core_EmbeddedImageManager.htm" />
   <HelpKINode Title="Couldron.Core.IDisposableObject interface" Url="html/T_Couldron_Core_IDisposableObject.htm" />
   <HelpKINode Title="Couldron.Core.Mathc class" Url="html/T_Couldron_Core_Mathc.htm" />
+  <HelpKINode Title="Couldron.Core.MessageBoxImage enumeration" Url="html/T_Couldron_Core_MessageBoxImage.htm" />
+  <HelpKINode Title="Couldron.Core.MessageDialogCommand class" Url="html/T_Couldron_Core_MessageDialogCommand.htm" />
+  <HelpKINode Title="Couldron.Core.MessageDialogCommandList class" Url="html/T_Couldron_Core_MessageDialogCommandList.htm" />
   <HelpKINode Title="Couldron.Core.MonitorInfo class" Url="html/T_Couldron_Core_MonitorInfo.htm" />
   <HelpKINode Title="Couldron.Core.PasswordScore enumeration" Url="html/T_Couldron_Core_PasswordScore.htm" />
   <HelpKINode Title="Couldron.Core.Randomizer class" Url="html/T_Couldron_Core_Randomizer.htm" />
@@ -607,6 +611,7 @@
   <HelpKINode Title="Couldron.INotifyBehaviourInvokation interface" Url="html/T_Couldron_INotifyBehaviourInvokation.htm" />
   <HelpKINode Title="Couldron.IRelayCommand interface" Url="html/T_Couldron_IRelayCommand.htm" />
   <HelpKINode Title="Couldron.Localization class" Url="html/T_Couldron_Localization.htm" />
+  <HelpKINode Title="Couldron.MessageDialog class" Url="html/T_Couldron_MessageDialog.htm" />
   <HelpKINode Title="Couldron.Messaging namespace" Url="html/N_Couldron_Messaging.htm" />
   <HelpKINode Title="Couldron.Messaging.MessageManager class" Url="html/T_Couldron_Messaging_MessageManager.htm" />
   <HelpKINode Title="Couldron.Messaging.MessagingArgs class" Url="html/T_Couldron_Messaging_MessagingArgs.htm" />
@@ -699,6 +704,8 @@
   <HelpKINode Title="CPL_LAUNCHED enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="CREATE enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="Create method" Url="html/Overload_Couldron_Factory_Create.htm" />
+  <HelpKINode Title="CreateDelegate method" Url="html/M_XamlGeneratedNamespace_GeneratedInternalTypeHelper_CreateDelegate.htm" />
+  <HelpKINode Title="CreateInstance method" Url="html/M_XamlGeneratedNamespace_GeneratedInternalTypeHelper_CreateInstance.htm" />
   <HelpKINode Title="CreateKeyMaterial method" Url="html/Overload_Couldron_Core_Cryptography_KeyMaterial_CreateKeyMaterial.htm" />
   <HelpKINode Title="CreateMany method" Url="html/Overload_Couldron_Factory_CreateMany.htm" />
   <HelpKINode Title="CryptoUtils class">
@@ -867,6 +874,7 @@
   <HelpKINode Title="EqualityAttribute.ValidationMessage method" Url="html/M_Couldron_Validation_EqualityAttribute_ValidationMessage.htm" />
   <HelpKINode Title="Equals method" Url="html/M_Couldron_Utils_Equals.htm" />
   <HelpKINode Title="ERASEBKGND enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
+  <HelpKINode Title="Error enumeration member" Url="html/T_Couldron_Core_MessageBoxImage.htm" />
   <HelpKINode Title="ErrorMessageKey property" Url="html/P_Couldron_Validation_ValidationBaseAttribute_ErrorMessageKey.htm" />
   <HelpKINode Title="Errors attached property" Url="html/P_Couldron_Attached_ValidationProperties_Errors.htm" />
   <HelpKINode Title="Errors property">
@@ -921,6 +929,7 @@
   <HelpKINode Title="EventTrigger.OnAttach method" Url="html/M_Couldron_Behaviours_EventTrigger_OnAttach.htm" />
   <HelpKINode Title="EventTrigger.OnCopy method" Url="html/M_Couldron_Behaviours_EventTrigger_OnCopy.htm" />
   <HelpKINode Title="EventTrigger.OnDetach method" Url="html/M_Couldron_Behaviours_EventTrigger_OnDetach.htm" />
+  <HelpKINode Title="Exclamation enumeration member" Url="html/T_Couldron_Core_MessageBoxImage.htm" />
   <HelpKINode Title="Execute method">
     <HelpKINode Title="RelayCommand(T).Execute Method " Url="html/M_Couldron_RelayCommand_1_Execute.htm" />
     <HelpKINode Title="RelayCommand.Execute Method " Url="html/M_Couldron_RelayCommand_Execute.htm" />
@@ -1048,6 +1057,18 @@
   <HelpKINode Title="ForcePropertyUpdate.ForcePropertyUpdate constructor" Url="html/M_Couldron_Behaviours_ForcePropertyUpdate__ctor.htm" />
   <HelpKINode Title="ForcePropertyUpdate.OnAttach method" Url="html/M_Couldron_Behaviours_ForcePropertyUpdate_OnAttach.htm" />
   <HelpKINode Title="ForcePropertyUpdate.OnDetach method" Url="html/M_Couldron_Behaviours_ForcePropertyUpdate_OnDetach.htm" />
+  <HelpKINode Title="GeneratedInternalTypeHelper class">
+    <HelpKINode Title="GeneratedInternalTypeHelper Class" Url="html/T_XamlGeneratedNamespace_GeneratedInternalTypeHelper.htm" />
+    <HelpKINode Title="about GeneratedInternalTypeHelper class" Url="html/T_XamlGeneratedNamespace_GeneratedInternalTypeHelper.htm" />
+    <HelpKINode Title="constructor" Url="html/M_XamlGeneratedNamespace_GeneratedInternalTypeHelper__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_XamlGeneratedNamespace_GeneratedInternalTypeHelper.htm" />
+  </HelpKINode>
+  <HelpKINode Title="GeneratedInternalTypeHelper.AddEventHandler method" Url="html/M_XamlGeneratedNamespace_GeneratedInternalTypeHelper_AddEventHandler.htm" />
+  <HelpKINode Title="GeneratedInternalTypeHelper.CreateDelegate method" Url="html/M_XamlGeneratedNamespace_GeneratedInternalTypeHelper_CreateDelegate.htm" />
+  <HelpKINode Title="GeneratedInternalTypeHelper.CreateInstance method" Url="html/M_XamlGeneratedNamespace_GeneratedInternalTypeHelper_CreateInstance.htm" />
+  <HelpKINode Title="GeneratedInternalTypeHelper.GeneratedInternalTypeHelper constructor" Url="html/M_XamlGeneratedNamespace_GeneratedInternalTypeHelper__ctor.htm" />
+  <HelpKINode Title="GeneratedInternalTypeHelper.GetPropertyValue method" Url="html/M_XamlGeneratedNamespace_GeneratedInternalTypeHelper_GetPropertyValue.htm" />
+  <HelpKINode Title="GeneratedInternalTypeHelper.SetPropertyValue method" Url="html/M_XamlGeneratedNamespace_GeneratedInternalTypeHelper_SetPropertyValue.htm" />
   <HelpKINode Title="GeneratePassword method" Url="html/M_Couldron_Core_Cryptography_CryptoUtils_GeneratePassword.htm" />
   <HelpKINode Title="GetAccountPicture method" Url="html/M_Couldron_Core_UserInformation_GetAccountPicture.htm" />
   <HelpKINode Title="GetAlternativeText method" Url="html/M_Couldron_Attached_UIElementProperties_GetAlternativeText.htm" />
@@ -1094,6 +1115,7 @@
   <HelpKINode Title="GetMousePosition method" Url="html/M_Couldron_Utils_GetMousePosition.htm" />
   <HelpKINode Title="GETOBJECT enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="GetPasswordScore method" Url="html/M_Couldron_Utils_GetPasswordScore.htm" />
+  <HelpKINode Title="GetPropertyValue method" Url="html/M_XamlGeneratedNamespace_GeneratedInternalTypeHelper_GetPropertyValue.htm" />
   <HelpKINode Title="GetRegistered method">
     <HelpKINode Title="ContainerViewModelBase.GetRegistered Method " Url="html/Overload_Couldron_ViewModels_ContainerViewModelBase_GetRegistered.htm" />
     <HelpKINode Title="IContainerViewModel.GetRegistered Method " Url="html/Overload_Couldron_ViewModels_IContainerViewModel_GetRegistered.htm" />
@@ -1103,6 +1125,7 @@
   <HelpKINode Title="GetSelectedItems method" Url="html/M_Couldron_Attached_UIElementProperties_GetSelectedItems.htm" />
   <HelpKINode Title="GetSha256HashBytes method" Url="html/M_Couldron_Extensions_GetSha256HashBytes.htm" />
   <HelpKINode Title="GetSha256HashString method" Url="html/M_Couldron_Extensions_GetSha256HashString.htm" />
+  <HelpKINode Title="GetStringFromModule method" Url="html/Overload_Couldron_Utils_GetStringFromModule.htm" />
   <HelpKINode Title="GetTarget(Of T) method" Url="html/M_Couldron_Extensions_GetTarget__1.htm" />
   <HelpKINode Title="GetTarget&lt;T&gt; method" Url="html/M_Couldron_Extensions_GetTarget__1.htm" />
   <HelpKINode Title="GetTelephoneNumberAsync method" Url="html/M_Couldron_Core_UserInformation_GetTelephoneNumberAsync.htm" />
@@ -1358,6 +1381,7 @@
   <HelpKINode Title="InEqualityAttribute.InEqualityAttribute constructor" Url="html/M_Couldron_Validation_InEqualityAttribute__ctor.htm" />
   <HelpKINode Title="InEqualityAttribute.OnValidate method" Url="html/M_Couldron_Validation_InEqualityAttribute_OnValidate.htm" />
   <HelpKINode Title="InEqualityAttribute.ValidationMessage method" Url="html/M_Couldron_Validation_InEqualityAttribute_ValidationMessage.htm" />
+  <HelpKINode Title="Information enumeration member" Url="html/T_Couldron_Core_MessageBoxImage.htm" />
   <HelpKINode Title="INITDIALOG enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="InitialisationVector property" Url="html/P_Couldron_Core_Cryptography_KeyMaterial_InitialisationVector.htm" />
   <HelpKINode Title="INITMENU enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
@@ -1437,6 +1461,7 @@
     <HelpKINode Title="ActionBase.Invoke Method " Url="html/M_Couldron_Behaviours_ActionBase_Invoke.htm" />
     <HelpKINode Title="BehaviourInvokeAwareBehaviourBase(T).Invoke Method " Url="html/M_Couldron_Behaviours_BehaviourInvokeAwareBehaviourBase_1_Invoke.htm" />
     <HelpKINode Title="InvokeMethodAction.Invoke Method " Url="html/M_Couldron_Behaviours_InvokeMethodAction_Invoke.htm" />
+    <HelpKINode Title="MessageDialogCommand.Invoke Method " Url="html/M_Couldron_Core_MessageDialogCommand_Invoke.htm" />
     <HelpKINode Title="OpenFileDialogAction.Invoke Method " Url="html/M_Couldron_Behaviours_OpenFileDialogAction_Invoke.htm" />
     <HelpKINode Title="ParentPropertySetterAction.Invoke Method " Url="html/M_Couldron_Behaviours_ParentPropertySetterAction_Invoke.htm" />
     <HelpKINode Title="StoryboardBeginAnimationAction.Invoke Method " Url="html/M_Couldron_Behaviours_StoryboardBeginAnimationAction_Invoke.htm" />
@@ -1591,6 +1616,7 @@
   <HelpKINode Title="KeyToLocalizedStringConverter.OnConvertBack method" Url="html/M_Couldron_ValueConverters_KeyToLocalizedStringConverter_OnConvertBack.htm" />
   <HelpKINode Title="KEYUP enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="KILLFOCUS enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
+  <HelpKINode Title="Label property" Url="html/P_Couldron_Core_MessageDialogCommand_Label.htm" />
   <HelpKINode Title="LBUTTONDBLCLK enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="LBUTTONDOWN enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="LBUTTONUP enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
@@ -1679,6 +1705,35 @@
   <HelpKINode Title="MENURBUTTONUP enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="MENUSELECT enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="Message method" Url="html/M_Couldron_Messaging_MessageManager_Message.htm" />
+  <HelpKINode Title="MessageBoxImage enumeration" Url="html/T_Couldron_Core_MessageBoxImage.htm" />
+  <HelpKINode Title="MessageDialog class">
+    <HelpKINode Title="MessageDialog Class" Url="html/T_Couldron_MessageDialog.htm" />
+    <HelpKINode Title="about MessageDialog class" Url="html/T_Couldron_MessageDialog.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Couldron_MessageDialog.htm" />
+  </HelpKINode>
+  <HelpKINode Title="MessageDialog.ShowAsync method" Url="html/Overload_Couldron_MessageDialog_ShowAsync.htm" />
+  <HelpKINode Title="MessageDialog.ShowOKAsync method" Url="html/Overload_Couldron_MessageDialog_ShowOKAsync.htm" />
+  <HelpKINode Title="MessageDialog.ShowOKCancelAsync method" Url="html/Overload_Couldron_MessageDialog_ShowOKCancelAsync.htm" />
+  <HelpKINode Title="MessageDialog.ShowYesNoAsync method" Url="html/Overload_Couldron_MessageDialog_ShowYesNoAsync.htm" />
+  <HelpKINode Title="MessageDialog.ShowYesNoCancelAsync method" Url="html/Overload_Couldron_MessageDialog_ShowYesNoCancelAsync.htm" />
+  <HelpKINode Title="MessageDialogCommand class">
+    <HelpKINode Title="MessageDialogCommand Class" Url="html/T_Couldron_Core_MessageDialogCommand.htm" />
+    <HelpKINode Title="about MessageDialogCommand class" Url="html/T_Couldron_Core_MessageDialogCommand.htm" />
+    <HelpKINode Title="constructor" Url="html/Overload_Couldron_Core_MessageDialogCommand__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Couldron_Core_MessageDialogCommand.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Couldron_Core_MessageDialogCommand.htm" />
+  </HelpKINode>
+  <HelpKINode Title="MessageDialogCommand.Invoke method" Url="html/M_Couldron_Core_MessageDialogCommand_Invoke.htm" />
+  <HelpKINode Title="MessageDialogCommand.Label property" Url="html/P_Couldron_Core_MessageDialogCommand_Label.htm" />
+  <HelpKINode Title="MessageDialogCommand.MessageDialogCommand constructor" Url="html/Overload_Couldron_Core_MessageDialogCommand__ctor.htm" />
+  <HelpKINode Title="MessageDialogCommandList class">
+    <HelpKINode Title="MessageDialogCommandList Class" Url="html/T_Couldron_Core_MessageDialogCommandList.htm" />
+    <HelpKINode Title="about MessageDialogCommandList class" Url="html/T_Couldron_Core_MessageDialogCommandList.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Couldron_Core_MessageDialogCommandList__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Couldron_Core_MessageDialogCommandList.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Couldron_Core_MessageDialogCommandList.htm" />
+  </HelpKINode>
+  <HelpKINode Title="MessageDialogCommandList.MessageDialogCommandList constructor" Url="html/M_Couldron_Core_MessageDialogCommandList__ctor.htm" />
   <HelpKINode Title="MessageManager class">
     <HelpKINode Title="MessageManager Class" Url="html/T_Couldron_Messaging_MessageManager.htm" />
     <HelpKINode Title="about MessageManager class" Url="html/T_Couldron_Messaging_MessageManager.htm" />
@@ -1778,6 +1833,7 @@
   <HelpKINode Title="NEXTDLGCTL enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="NextDouble method" Url="html/Overload_Couldron_Core_Randomizer_NextDouble.htm" />
   <HelpKINode Title="NEXTMENU enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
+  <HelpKINode Title="None enumeration member" Url="html/T_Couldron_Core_MessageBoxImage.htm" />
   <HelpKINode Title="Normal enumeration member" Url="html/T_Couldron_Core_CouldronDispatcherPriority.htm" />
   <HelpKINode Title="NOTIFY enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="NOTIFYFORMAT enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
@@ -2045,6 +2101,7 @@
   <HelpKINode Title="QUERYNEWPALETTE enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="QUERYOPEN enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="QUERYUISTATE enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
+  <HelpKINode Title="Question enumeration member" Url="html/T_Couldron_Core_MessageBoxImage.htm" />
   <HelpKINode Title="QUEUESYNC enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="QUIT enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="RaiseNotifyBehaviourInvoke method" Url="html/M_Couldron_ViewModels_ViewModelBase_RaiseNotifyBehaviourInvoke.htm" />
@@ -2200,6 +2257,7 @@
   <HelpKINode Title="SetIsCollapsed method" Url="html/M_Couldron_Attached_UIElementProperties_SetIsCollapsed.htm" />
   <HelpKINode Title="SetIsDisabledByErrorInPropertyName method" Url="html/M_Couldron_Attached_ValidationProperties_SetIsDisabledByErrorInPropertyName.htm" />
   <HelpKINode Title="SetIsMandatory method" Url="html/M_Couldron_Attached_ValidationProperties_SetIsMandatory.htm" />
+  <HelpKINode Title="SetPropertyValue method" Url="html/M_XamlGeneratedNamespace_GeneratedInternalTypeHelper_SetPropertyValue.htm" />
   <HelpKINode Title="SETREDRAW enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="SetSelectedItems method" Url="html/M_Couldron_Attached_UIElementProperties_SetSelectedItems.htm" />
   <HelpKINode Title="SetTemplate method">
@@ -2210,13 +2268,20 @@
   <HelpKINode Title="SetText method" Url="html/M_Couldron_Attached_Localized_SetText.htm" />
   <HelpKINode Title="SETTINGCHANGE enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="SetTooltip method" Url="html/M_Couldron_Attached_Localized_SetTooltip.htm" />
+  <HelpKINode Title="ShowAsync method" Url="html/Overload_Couldron_MessageDialog_ShowAsync.htm" />
   <HelpKINode Title="ShowInTaskbar property" Url="html/P_Couldron_Behaviours_WindowConfiguration_ShowInTaskbar.htm" />
   <HelpKINode Title="ShowInTaskbarProperty field" Url="html/F_Couldron_Behaviours_WindowConfiguration_ShowInTaskbarProperty.htm" />
+  <HelpKINode Title="ShowOKAsync method" Url="html/Overload_Couldron_MessageDialog_ShowOKAsync.htm" />
+  <HelpKINode Title="ShowOKCancelAsync method" Url="html/Overload_Couldron_MessageDialog_ShowOKCancelAsync.htm" />
   <HelpKINode Title="SHOWWINDOW enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
+  <HelpKINode Title="ShowYesNoAsync method" Url="html/Overload_Couldron_MessageDialog_ShowYesNoAsync.htm" />
+  <HelpKINode Title="ShowYesNoCancelAsync method" Url="html/Overload_Couldron_MessageDialog_ShowYesNoCancelAsync.htm" />
   <HelpKINode Title="Singleton enumeration member" Url="html/T_Couldron_FactoryCreationPolicy.htm" />
   <HelpKINode Title="SIZE enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="SizeChanged method" Url="html/M_Couldron_ViewModels_IWindowViewModel_SizeChanged.htm" />
   <HelpKINode Title="SIZECLIPBOARD enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
+  <HelpKINode Title="SizeToContent property" Url="html/P_Couldron_Behaviours_WindowConfiguration_SizeToContent.htm" />
+  <HelpKINode Title="SizeToContentProperty field" Url="html/F_Couldron_Behaviours_WindowConfiguration_SizeToContentProperty.htm" />
   <HelpKINode Title="SIZING enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="SourceProperty property" Url="html/P_Couldron_Behaviours_ControlTemplateBinding_SourceProperty.htm" />
   <HelpKINode Title="SourcePropertyProperty field" Url="html/F_Couldron_Behaviours_ControlTemplateBinding_SourcePropertyProperty.htm" />
@@ -2438,6 +2503,7 @@
   <HelpKINode Title="Utils.Equals method" Url="html/M_Couldron_Utils_Equals.htm" />
   <HelpKINode Title="Utils.GetMousePosition method" Url="html/M_Couldron_Utils_GetMousePosition.htm" />
   <HelpKINode Title="Utils.GetPasswordScore method" Url="html/M_Couldron_Utils_GetPasswordScore.htm" />
+  <HelpKINode Title="Utils.GetStringFromModule method" Url="html/Overload_Couldron_Utils_GetStringFromModule.htm" />
   <HelpKINode Title="Utils.GreaterThan method" Url="html/M_Couldron_Utils_GreaterThan.htm" />
   <HelpKINode Title="Utils.GreaterThanOrEqual method" Url="html/M_Couldron_Utils_GreaterThanOrEqual.htm" />
   <HelpKINode Title="Utils.IsNetworkAvailable property" Url="html/P_Couldron_Utils_IsNetworkAvailable.htm" />
@@ -2682,6 +2748,8 @@
   <HelpKINode Title="WindowConfiguration.ResizeModeProperty field" Url="html/F_Couldron_Behaviours_WindowConfiguration_ResizeModeProperty.htm" />
   <HelpKINode Title="WindowConfiguration.ShowInTaskbar property" Url="html/P_Couldron_Behaviours_WindowConfiguration_ShowInTaskbar.htm" />
   <HelpKINode Title="WindowConfiguration.ShowInTaskbarProperty field" Url="html/F_Couldron_Behaviours_WindowConfiguration_ShowInTaskbarProperty.htm" />
+  <HelpKINode Title="WindowConfiguration.SizeToContent property" Url="html/P_Couldron_Behaviours_WindowConfiguration_SizeToContent.htm" />
+  <HelpKINode Title="WindowConfiguration.SizeToContentProperty field" Url="html/F_Couldron_Behaviours_WindowConfiguration_SizeToContentProperty.htm" />
   <HelpKINode Title="WindowConfiguration.Title property" Url="html/P_Couldron_Behaviours_WindowConfiguration_Title.htm" />
   <HelpKINode Title="WindowConfiguration.TitleChanged event" Url="html/E_Couldron_Behaviours_WindowConfiguration_TitleChanged.htm" />
   <HelpKINode Title="WindowConfiguration.TitleProperty field" Url="html/F_Couldron_Behaviours_WindowConfiguration_TitleProperty.htm" />
@@ -2719,6 +2787,8 @@
   <HelpKINode Title="WININICHANGE enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="WmGetMinMaxInfo method" Url="html/M_Couldron_Utils_WmGetMinMaxInfo.htm" />
   <HelpKINode Title="WTSSESSION_CHANGE enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
+  <HelpKINode Title="XamlGeneratedNamespace namespace" Url="html/N_XamlGeneratedNamespace.htm" />
+  <HelpKINode Title="XamlGeneratedNamespace.GeneratedInternalTypeHelper class" Url="html/T_XamlGeneratedNamespace_GeneratedInternalTypeHelper.htm" />
   <HelpKINode Title="XBUTTONDBLCLK enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="XBUTTONDOWN enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="XBUTTONUP enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />

@@ -59,6 +59,7 @@ namespace Couldron.Core
             throw new ArgumentException("The + operator cannot be applied to: " + aType.FullName);
         }
 
+        /// <summary>
         /// Clamps a value between a minimum and maximum value.
         /// </summary>
         /// <param name="value">The value to clamp</param>

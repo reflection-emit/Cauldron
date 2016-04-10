@@ -118,7 +118,7 @@ namespace Couldron
             if (!typeOfInterface.IsInterface)
                 throw new ArgumentException("T is not an interface", nameof(T));
 
-            return type.GetTypeInfo().ImplementedInterfaces.Any(x => x == typeOfInterface);
+            return type.GetTypeInfo().ImplementedInterfaces.Any(x => (x as Type) == typeOfInterface);
         }
 
         /// <summary>
@@ -135,7 +135,7 @@ namespace Couldron
             if (!typeOfInterface.IsInterface)
                 throw new ArgumentException("T is not an interface", nameof(T));
 
-            return typeInfo.ImplementedInterfaces.Any(x => x == typeOfInterface);
+            return typeInfo.ImplementedInterfaces.Any(x => (x as Type) == typeOfInterface);
         }
 
         /// <summary>

@@ -195,6 +195,7 @@ namespace Couldron
             window.WindowState = windowConfig.WindowState;
             window.Icon = windowConfig.Icon;
             window.Title = windowConfig.Title;
+            window.SizeToContent = windowConfig.SizeToContent;
 
             // Add the inputbindings to the window
             window.InputBindings.AddRange(windowConfig.InputBindings);

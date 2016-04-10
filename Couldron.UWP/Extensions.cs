@@ -1,11 +1,7 @@
 ﻿using Couldron.Behaviours;
 using System;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-
-using System.Reflection;
-
 using System.Threading.Tasks;
 using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.Core;
@@ -23,7 +19,7 @@ namespace Couldron
     public static partial class Extensions
     {
         /// <summary>
-        /// Copy and modifies the alpha channel of the <see cref="SolidColorBrush"/>'s <see cref="Color"/>
+        /// Copy and modifies the alpha channel of the <see cref="SolidColorBrush"/>'s <see cref="Windows.UI.Color"/>
         /// </summary>
         /// <param name="brush">The Solidcolorbrush to copy the color from</param>
         /// <param name="alpha">The new alpha channel of the <see cref="SolidColorBrush"/></param>

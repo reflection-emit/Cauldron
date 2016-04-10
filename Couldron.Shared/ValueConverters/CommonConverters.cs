@@ -196,7 +196,7 @@ namespace Couldron.ValueConverters
 
     /// <summary>
     /// Checks if an object is null. If the object is null, the <see cref="IValueConverter"/> will return
-    /// return either true or false depending on the parameter
+    /// either true or false depending on the parameter
     /// <para/>
     /// If the parameter is True then the converter will return true if the object is null, otherwise false
     /// </summary>

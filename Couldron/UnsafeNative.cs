@@ -26,11 +26,17 @@ namespace Couldron
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool GetCursorPos(ref Win32Point pt);
 
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
+        public static extern IntPtr GetModuleHandle(string lpModuleName);
+
         [DllImport("user32")]
         public static extern bool GetMonitorInfo(IntPtr hMonitor, MONITORINFO lpmi);
 
         [DllImport("shell32.dll", EntryPoint = "#261", CharSet = CharSet.Unicode, PreserveSig = false)]
         public static extern void GetUserTilePath(string username, UInt32 whatever, StringBuilder picpath, int maxLength);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        public static extern int LoadString(IntPtr hInstance, uint uID, StringBuilder lpBuffer, int nBufferMax);
 
         [DllImport("user32.dll", SetLastError = true)]
         public static extern IntPtr MonitorFromPoint(POINT pt, MonitorOptions dwFlags);

@@ -61,7 +61,7 @@
                           IsEditable="False" VerticalAlignment="Top" attached:UIElementProperties.AlternativeText="Click here to select" />
             </GroupBox>
             <GroupBox Header="{Binding Name}" Grid.Row="1">
-                <Button VerticalAlignment="Top" HorizontalAlignment="Left" attached:EmbeddedResourceImage.ImageKey="Time_24x.png" />
+                <Button VerticalAlignment="Top" HorizontalAlignment="Left" attached:EmbeddedResourceImage.ImageKey="Time_24x.png" Command="{Binding ClearCommand}" />
             </GroupBox>
         </Grid>
     </DataTemplate>

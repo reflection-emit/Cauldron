@@ -86,19 +86,29 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="ExtensionsFrameworkElement.cs" />
     <Compile Include="Localization.cs" />
+    <Compile Include="MessageDialog.cs" />
     <Compile Include="Navigator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\MessageDialogView.xaml.cs">
+      <DependentUpon>MessageDialogView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UnsafeNative.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="Validation\PasswordStrengthAttribute.cs" />
     <Compile Include="ValueConverters\ValueConverterBase.cs" />
+    <Compile Include="ViewModels\MessageDialogCommandViewModel.cs" />
+    <Compile Include="ViewModels\MessageDialogViewModel.cs" />
     <Compile Include="WindowsMessages.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="ViewModels\" />
+    <Page Include="Resources\MessageDialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="..\Couldron.Shared\Couldron.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

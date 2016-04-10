@@ -46,6 +46,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Core\EmbeddedImageManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\IDisposableObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Mathc.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\MessageBoxImage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\MessageDialogCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\MessageDialogCommandList.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\PasswordScore.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Randomizer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExtensionConvertions.cs" />
@@ -61,6 +64,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)InjectionFactoryExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)INotifyBehaviourInvokation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IRelayCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MessageDialog.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Messaging\MessageManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Messaging\MessageObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Messaging\MessagingArgs.cs" />
@@ -114,5 +118,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Controls\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)Resources\Readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\error_red_32x32.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\Information(Help)_7833.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\Information_6227_32x.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\Warning_yellow_7231_31x32.png" />
   </ItemGroup>
 </Project>

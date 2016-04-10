@@ -4,6 +4,7 @@ using Couldron.Messaging;
 using Couldron.Validation;
 using Couldron.ViewModels;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Windows.Input;
 
 namespace ViewModelCommunication.ViewModels
@@ -43,7 +44,6 @@ namespace ViewModelCommunication.ViewModels
 
         private void ClearAction()
         {
-            this.Name = string.Empty;
         }
     }
 }

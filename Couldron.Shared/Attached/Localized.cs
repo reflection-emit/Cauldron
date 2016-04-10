@@ -87,6 +87,14 @@ namespace Couldron.Attached
                 var localized = Factory.Create<Localization>();
                 return localized[text];
             }
+#if !NETFX_CORE
+            else
+            {
+                var defaultWindows = Utils.GetStringFromModule(text);
+                if (defaultWindows != null)
+                    return defaultWindows;
+            }
+#endif
 
             return text;
         }
