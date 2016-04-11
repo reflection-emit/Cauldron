@@ -172,6 +172,42 @@ namespace Couldron.ValueConverters
     }
 
     /// <summary>
+    /// Checks a collection if it has child elements and return <see cref="Visibility.Visibility"/> or <see cref="Visibility.Collapsed"/> depending on the converter parameters
+    /// <para/>
+    /// Default is return <see cref="Visibility.Collapsed"/> if the collection has no elements
+    /// </summary>
+    public class CollectionHasElementsToVisibilityConverter : ValueConverterBase<IEnumerable, Visibility>
+    {
+        /// <summary>
+        /// Converts a value
+        /// </summary>
+        /// <param name="value">The value produced by the binding source.</param>
+        /// <param name="parameter">The converter parameter to use.</param>
+        /// <param name="culture">The culture to use in the converter.</param>
+        /// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
+        protected override Visibility OnConvert(IEnumerable value, object parameter, CultureInfo culture)
+        {
+            if (parameter.ToBool())
+                return value.Any() ? Visibility.Collapsed : Visibility.Visible;
+            else
+                return value.Any() ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        /// <summary>
+        /// Converts a value
+        /// </summary>
+        /// <param name="value">The value that is produced by the binding target.</param>
+        /// <param name="parameter">The converter parameter to use.</param>
+        /// <param name="culture">The culture to use in the converter.</param>
+        /// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
+        /// <exception cref="NotImplementedException">Always throws <see cref="NotImplementedException"/>. This method is not implemented.</exception>
+        protected override IEnumerable OnConvertBack(Visibility value, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    /// <summary>
     /// Checks if a string is null or empty. If the string is null or empty, the <see cref="IValueConverter"/> will
     /// return either <see cref="Visibility.Collapsed"/> or <see cref="Visibility.Visible"/> depending on the parameter
     /// </summary>

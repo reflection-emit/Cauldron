@@ -96,6 +96,34 @@ namespace Couldron
         }
 
         /// <summary>
+        /// Tries to convert a <see cref="object"/> to an <see cref="long"/>
+        /// </summary>
+        /// <param name="target">The object to convert</param>
+        /// <returns>Returns a long that represents the converted object</returns>
+        public static long ToLong(this object target)
+        {
+            if (target == null)
+                return -1;
+
+            return target.ToString().ToInteger();
+        }
+
+        /// <summary>
+        /// Tries to convert a <see cref="string"/> to an <see cref="long"/>
+        /// </summary>
+        /// <param name="target">The string to convert</param>
+        /// <returns>Returns a long that represents the converted string</returns>
+        public static long ToLong(this string target)
+        {
+            long result;
+
+            if (long.TryParse(target, out result))
+                return result;
+
+            return -1;
+        }
+
+        /// <summary>
         /// Returns a string that represents the current object.
         /// <para/>
         /// If the object is null a <see cref="string.Empty"/> will be returned

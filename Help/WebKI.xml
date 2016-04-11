@@ -27,6 +27,7 @@
     <HelpKINode Title="Mathc.Add Method " Url="html/M_Couldron_Core_Mathc_Add.htm" />
   </HelpKINode>
   <HelpKINode Title="AddBehaviour method" Url="html/M_Couldron_Behaviours_Interaction_AddBehaviour.htm" />
+  <HelpKINode Title="AddEventHandler method" Url="html/M_XamlGeneratedNamespace_GeneratedInternalTypeHelper_AddEventHandler.htm" />
   <HelpKINode Title="AddRange method" Url="html/M_Couldron_Collections_ConcurrentList_1_AddRange.htm" />
   <HelpKINode Title="AES class">
     <HelpKINode Title="AES Class" Url="html/T_Couldron_Core_Cryptography_AES.htm" />
@@ -99,7 +100,7 @@
   <HelpKINode Title="AssemblyUtil.GetTypesImplementsInterface(Of T) method" Url="html/M_Couldron_AssemblyUtil_GetTypesImplementsInterface__1.htm" />
   <HelpKINode Title="AssemblyUtil.GetTypesImplementsInterface&lt;T&gt; method" Url="html/M_Couldron_AssemblyUtil_GetTypesImplementsInterface__1.htm" />
   <HelpKINode Title="AssemblyUtil.Interfaces property" Url="html/P_Couldron_AssemblyUtil_Interfaces.htm" />
-  <HelpKINode Title="AssemblyUtil.LoadAssembly method" Url="html/M_Couldron_AssemblyUtil_LoadAssembly.htm" />
+  <HelpKINode Title="AssemblyUtil.LoadAssembly method" Url="html/Overload_Couldron_AssemblyUtil_LoadAssembly.htm" />
   <HelpKINode Title="AssociatedObject property">
     <HelpKINode Title="Behaviour(T).AssociatedObject Property " Url="html/P_Couldron_Behaviours_Behaviour_1_AssociatedObject.htm" />
     <HelpKINode Title="DynamicEventHandler.AssociatedObject Property " Url="html/P_Couldron_Core_DynamicEventHandler_AssociatedObject.htm" />
@@ -703,6 +704,8 @@
   <HelpKINode Title="CPL_LAUNCHED enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="CREATE enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="Create method" Url="html/Overload_Couldron_Factory_Create.htm" />
+  <HelpKINode Title="CreateDelegate method" Url="html/M_XamlGeneratedNamespace_GeneratedInternalTypeHelper_CreateDelegate.htm" />
+  <HelpKINode Title="CreateInstance method" Url="html/M_XamlGeneratedNamespace_GeneratedInternalTypeHelper_CreateInstance.htm" />
   <HelpKINode Title="CreateKeyMaterial method" Url="html/Overload_Couldron_Core_Cryptography_KeyMaterial_CreateKeyMaterial.htm" />
   <HelpKINode Title="CreateMany method" Url="html/Overload_Couldron_Factory_CreateMany.htm" />
   <HelpKINode Title="CryptoUtils class">
@@ -1054,6 +1057,18 @@
   <HelpKINode Title="ForcePropertyUpdate.ForcePropertyUpdate constructor" Url="html/M_Couldron_Behaviours_ForcePropertyUpdate__ctor.htm" />
   <HelpKINode Title="ForcePropertyUpdate.OnAttach method" Url="html/M_Couldron_Behaviours_ForcePropertyUpdate_OnAttach.htm" />
   <HelpKINode Title="ForcePropertyUpdate.OnDetach method" Url="html/M_Couldron_Behaviours_ForcePropertyUpdate_OnDetach.htm" />
+  <HelpKINode Title="GeneratedInternalTypeHelper class">
+    <HelpKINode Title="GeneratedInternalTypeHelper Class" Url="html/T_XamlGeneratedNamespace_GeneratedInternalTypeHelper.htm" />
+    <HelpKINode Title="about GeneratedInternalTypeHelper class" Url="html/T_XamlGeneratedNamespace_GeneratedInternalTypeHelper.htm" />
+    <HelpKINode Title="constructor" Url="html/M_XamlGeneratedNamespace_GeneratedInternalTypeHelper__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_XamlGeneratedNamespace_GeneratedInternalTypeHelper.htm" />
+  </HelpKINode>
+  <HelpKINode Title="GeneratedInternalTypeHelper.AddEventHandler method" Url="html/M_XamlGeneratedNamespace_GeneratedInternalTypeHelper_AddEventHandler.htm" />
+  <HelpKINode Title="GeneratedInternalTypeHelper.CreateDelegate method" Url="html/M_XamlGeneratedNamespace_GeneratedInternalTypeHelper_CreateDelegate.htm" />
+  <HelpKINode Title="GeneratedInternalTypeHelper.CreateInstance method" Url="html/M_XamlGeneratedNamespace_GeneratedInternalTypeHelper_CreateInstance.htm" />
+  <HelpKINode Title="GeneratedInternalTypeHelper.GeneratedInternalTypeHelper constructor" Url="html/M_XamlGeneratedNamespace_GeneratedInternalTypeHelper__ctor.htm" />
+  <HelpKINode Title="GeneratedInternalTypeHelper.GetPropertyValue method" Url="html/M_XamlGeneratedNamespace_GeneratedInternalTypeHelper_GetPropertyValue.htm" />
+  <HelpKINode Title="GeneratedInternalTypeHelper.SetPropertyValue method" Url="html/M_XamlGeneratedNamespace_GeneratedInternalTypeHelper_SetPropertyValue.htm" />
   <HelpKINode Title="GeneratePassword method" Url="html/M_Couldron_Core_Cryptography_CryptoUtils_GeneratePassword.htm" />
   <HelpKINode Title="GetAccountPicture method" Url="html/M_Couldron_Core_UserInformation_GetAccountPicture.htm" />
   <HelpKINode Title="GetAlternativeText method" Url="html/M_Couldron_Attached_UIElementProperties_GetAlternativeText.htm" />
@@ -1100,6 +1115,7 @@
   <HelpKINode Title="GetMousePosition method" Url="html/M_Couldron_Utils_GetMousePosition.htm" />
   <HelpKINode Title="GETOBJECT enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="GetPasswordScore method" Url="html/M_Couldron_Utils_GetPasswordScore.htm" />
+  <HelpKINode Title="GetPropertyValue method" Url="html/M_XamlGeneratedNamespace_GeneratedInternalTypeHelper_GetPropertyValue.htm" />
   <HelpKINode Title="GetRegistered method">
     <HelpKINode Title="ContainerViewModelBase.GetRegistered Method " Url="html/Overload_Couldron_ViewModels_ContainerViewModelBase_GetRegistered.htm" />
     <HelpKINode Title="IContainerViewModel.GetRegistered Method " Url="html/Overload_Couldron_ViewModels_IContainerViewModel_GetRegistered.htm" />
@@ -1534,6 +1550,8 @@
     <HelpKINode Title="ITreeViewComboBoxSelectionLogic.IsSelected Method " Url="html/M_Couldron_Controls_ITreeViewComboBoxSelectionLogic_IsSelected.htm" />
   </HelpKINode>
   <HelpKINode Title="IsSingleton method" Url="html/Overload_Couldron_Factory_IsSingleton.htm" />
+  <HelpKINode Title="IsSplashScreen property" Url="html/P_Couldron_Behaviours_WindowConfiguration_IsSplashScreen.htm" />
+  <HelpKINode Title="IsSplashScreenProperty field" Url="html/F_Couldron_Behaviours_WindowConfiguration_IsSplashScreenProperty.htm" />
   <HelpKINode Title="IsSynchronized property" Url="html/P_Couldron_Collections_ConcurrentList_1_IsSynchronized.htm" />
   <HelpKINode Title="IsWindowPersistent property" Url="html/P_Couldron_Behaviours_WindowConfiguration_IsWindowPersistent.htm" />
   <HelpKINode Title="IsWindowPersistentProperty field" Url="html/F_Couldron_Behaviours_WindowConfiguration_IsWindowPersistentProperty.htm" />
@@ -1627,7 +1645,7 @@
   <HelpKINode Title="LessThanOrEqualAttribute.LessThanOrEqualAttribute constructor" Url="html/Overload_Couldron_Validation_LessThanOrEqualAttribute__ctor.htm" />
   <HelpKINode Title="LessThanOrEqualAttribute.OnValidate method" Url="html/M_Couldron_Validation_LessThanOrEqualAttribute_OnValidate.htm" />
   <HelpKINode Title="LessThanOrEqualAttribute.ValidationMessage method" Url="html/M_Couldron_Validation_LessThanOrEqualAttribute_ValidationMessage.htm" />
-  <HelpKINode Title="LoadAssembly method" Url="html/M_Couldron_AssemblyUtil_LoadAssembly.htm" />
+  <HelpKINode Title="LoadAssembly method" Url="html/Overload_Couldron_AssemblyUtil_LoadAssembly.htm" />
   <HelpKINode Title="LocalFolder property" Url="html/P_Couldron_Core_ApplicationData_LocalFolder.htm" />
   <HelpKINode Title="Localization class">
     <HelpKINode Title="Localization Class" Url="html/T_Couldron_Localization.htm" />
@@ -2241,6 +2259,7 @@
   <HelpKINode Title="SetIsCollapsed method" Url="html/M_Couldron_Attached_UIElementProperties_SetIsCollapsed.htm" />
   <HelpKINode Title="SetIsDisabledByErrorInPropertyName method" Url="html/M_Couldron_Attached_ValidationProperties_SetIsDisabledByErrorInPropertyName.htm" />
   <HelpKINode Title="SetIsMandatory method" Url="html/M_Couldron_Attached_ValidationProperties_SetIsMandatory.htm" />
+  <HelpKINode Title="SetPropertyValue method" Url="html/M_XamlGeneratedNamespace_GeneratedInternalTypeHelper_SetPropertyValue.htm" />
   <HelpKINode Title="SETREDRAW enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="SetSelectedItems method" Url="html/M_Couldron_Attached_UIElementProperties_SetSelectedItems.htm" />
   <HelpKINode Title="SetTemplate method">
@@ -2725,6 +2744,8 @@
   <HelpKINode Title="WindowConfiguration.IsDisposed property" Url="html/P_Couldron_Behaviours_WindowConfiguration_IsDisposed.htm" />
   <HelpKINode Title="WindowConfiguration.IsModal property" Url="html/P_Couldron_Behaviours_WindowConfiguration_IsModal.htm" />
   <HelpKINode Title="WindowConfiguration.IsModalProperty field" Url="html/F_Couldron_Behaviours_WindowConfiguration_IsModalProperty.htm" />
+  <HelpKINode Title="WindowConfiguration.IsSplashScreen property" Url="html/P_Couldron_Behaviours_WindowConfiguration_IsSplashScreen.htm" />
+  <HelpKINode Title="WindowConfiguration.IsSplashScreenProperty field" Url="html/F_Couldron_Behaviours_WindowConfiguration_IsSplashScreenProperty.htm" />
   <HelpKINode Title="WindowConfiguration.IsWindowPersistent property" Url="html/P_Couldron_Behaviours_WindowConfiguration_IsWindowPersistent.htm" />
   <HelpKINode Title="WindowConfiguration.IsWindowPersistentProperty field" Url="html/F_Couldron_Behaviours_WindowConfiguration_IsWindowPersistentProperty.htm" />
   <HelpKINode Title="WindowConfiguration.ResizeMode property" Url="html/P_Couldron_Behaviours_WindowConfiguration_ResizeMode.htm" />
@@ -2770,6 +2791,8 @@
   <HelpKINode Title="WININICHANGE enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="WmGetMinMaxInfo method" Url="html/M_Couldron_Utils_WmGetMinMaxInfo.htm" />
   <HelpKINode Title="WTSSESSION_CHANGE enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
+  <HelpKINode Title="XamlGeneratedNamespace namespace" Url="html/N_XamlGeneratedNamespace.htm" />
+  <HelpKINode Title="XamlGeneratedNamespace.GeneratedInternalTypeHelper class" Url="html/T_XamlGeneratedNamespace_GeneratedInternalTypeHelper.htm" />
   <HelpKINode Title="XBUTTONDBLCLK enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="XBUTTONDOWN enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
   <HelpKINode Title="XBUTTONUP enumeration member" Url="html/T_Couldron_WindowsMessages.htm" />
