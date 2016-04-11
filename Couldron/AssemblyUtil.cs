@@ -34,6 +34,20 @@ namespace Couldron
         }
 
         /// <summary>
+        /// Loads the contents of all assemblies that matches the specified filter
+        /// </summary>
+        /// <param name="filter">
+        /// The search string to match against the names of files in <see cref="ApplicationInfo.ApplicationPath"/>. This parameter can contain a combination of
+        /// valid literal path and wildcard (* and ?) characters (see Remarks), but doesn't support regular expressions.
+        /// </param>
+        /// <exception cref="FileLoadException">A file that was found could not be loaded</exception>
+        public static void LoadAssembly(string filter = "*.dll")
+        {
+            foreach (var files in Directory.GetFiles(ApplicationInfo.ApplicationPath, filter, SearchOption.AllDirectories))
+                LoadAssembly(files, false);
+        }
+
+        /// <summary>
         /// Loads the contents of an assembly file on the specified path.
         /// </summary>
         /// <param name="path">The fully qualified path of the file to load. </param>
@@ -53,6 +67,9 @@ namespace Couldron
                 assemblyPath = path;
 
             var assembly = Assembly.LoadFile(assemblyPath);
+
+            if (Assemblies.Contains(x => x.FullName == assembly.FullName))
+                return; // this is already loaded... No need to load again
 
             typesWithImplementedInterfaces.AddRange(
                 assembly.DefinedTypes.Select(x => new TypesWithImplementedInterfaces

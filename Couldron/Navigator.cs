@@ -20,6 +20,7 @@ namespace Couldron
     /// </summary>
     public static class Navigator
     {
+        private static readonly object SplashScreenTag = new object();
         private static bool isCustomWindow = false;
 
         // The navigator always knows every window that it has created
@@ -197,6 +198,13 @@ namespace Couldron
             window.Title = windowConfig.Title;
             window.SizeToContent = windowConfig.SizeToContent;
 
+            // Special stuff for splashscreens
+            if (windowConfig.IsSplashScreen)
+                window.Tag = SplashScreenTag;
+
+            if (Application.Current.MainWindow != null && Application.Current.MainWindow.Tag == SplashScreenTag)
+                Application.Current.MainWindow = window;
+
             // Add the inputbindings to the window
             window.InputBindings.AddRange(windowConfig.InputBindings);
             // remove them from the windowConfig
@@ -206,7 +214,7 @@ namespace Couldron
                 PersistentWindowInformation.Load(window, viewModel.GetType());
 
             // set the window owner
-            windows.FirstOrDefault(x => x.window.IsActive).IsNotNull(x => window.Owner = x.window);
+            windows.FirstOrDefault(x => x.window.IsActive && x.window.Tag != SplashScreenTag).IsNotNull(x => window.Owner = x.window);
 
             // Set the toolbar template
             WindowToolbar.SetTemplate(window, windowConfig.ToolbarTemplate);

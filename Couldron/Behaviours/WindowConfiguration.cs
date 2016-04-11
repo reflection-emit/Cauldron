@@ -261,6 +261,24 @@ namespace Couldron.Behaviours
 
         #endregion Dependency Property WindowStyle
 
+        #region Dependency Property IsSplashScreen
+
+        /// <summary>
+        /// Identifies the <see cref="IsSplashScreen" /> dependency property
+        /// </summary>
+        public static readonly DependencyProperty IsSplashScreenProperty = DependencyProperty.Register(nameof(IsSplashScreen), typeof(bool), typeof(WindowConfiguration), new PropertyMetadata(false));
+
+        /// <summary>
+        /// Gets or sets a value that indicates that the current window is a splash screen
+        /// </summary>
+        public bool IsSplashScreen
+        {
+            get { return (bool)this.GetValue(IsSplashScreenProperty); }
+            set { this.SetValue(IsSplashScreenProperty, value); }
+        }
+
+        #endregion Dependency Property IsSplashScreen
+
         #region Behaviour implementation
 
         private FrameworkElement _associatedObject;

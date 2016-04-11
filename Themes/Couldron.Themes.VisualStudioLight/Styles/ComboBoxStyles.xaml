@@ -332,12 +332,6 @@
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="border">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ThemeBackgroundBrush}" />
                                         </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="PART_EditableTextBox">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ThemeBackgroundBrush}" />
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="PART_EditableTextBox">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ThemeDisabledTextBrush}" />
-                                        </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
