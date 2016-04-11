@@ -70,7 +70,7 @@ namespace Couldron
         /// <exception cref="ArgumentException">Methodname specified in <see cref="NavigatingAttribute"/> does not exist</exception>
         public static async void Navigate<T>() where T : IViewModel
         {
-            await NavigateInternal<T, bool>(null, null);
+            await NavigateInternal<bool>(typeof(T), null, null);
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace Couldron
         /// <exception cref="ArgumentException">Methodname specified in <see cref="NavigatingAttribute"/> does not exist</exception>
         public static async void Navigate<T, TResult>(Action<TResult> callback) where T : IViewModel
         {
-            await NavigateInternal<T, TResult>(callback);
+            await NavigateInternal<TResult>(typeof(T), callback);
         }
 
         /// <summary>
@@ -95,7 +95,7 @@ namespace Couldron
         /// <exception cref="ArgumentException">Methodname specified in <see cref="NavigatingAttribute"/> does not exist</exception>
         public static async void Navigate<T>(params object[] args) where T : IViewModel
         {
-            await NavigateInternal<T, bool>(null, args);
+            await NavigateInternal<bool>(typeof(T), null, args);
         }
 
         /// <summary>
@@ -110,7 +110,18 @@ namespace Couldron
         /// <exception cref="ResourceReferenceKeyNotFoundException">View of a viewmodel not found</exception>
         public static async void Navigate<T, TResult>(Action<TResult> callback, params object[] args) where T : IViewModel
         {
-            await NavigateInternal<T, TResult>(callback, args);
+            await NavigateInternal<TResult>(typeof(T), callback, args);
+        }
+
+        /// <summary>
+        /// Handles creation of a new <see cref="Window"/> and association of the viewmodel
+        /// </summary>
+        /// <param name="viewModelType">The viewModel type to create</param>
+        /// <returns>An awaitable <see cref="Task"/></returns>
+        /// <exception cref="ArgumentException">Methodname specified in <see cref="NavigatingAttribute"/> does not exist</exception>
+        public static async void Navigate(Type viewModelType)
+        {
+            await NavigateInternal<bool>(viewModelType, null, null);
         }
 
         private static bool Close(Window window)
@@ -282,10 +293,10 @@ namespace Couldron
             return true;
         }
 
-        private static async Task NavigateInternal<T, TResult>(Action<TResult> callback, params object[] args) where T : IViewModel
+        private static async Task NavigateInternal<TResult>(Type type, Action<TResult> callback, params object[] args)
         {
             // create the new viewmodel
-            var viewModel = Factory.Create<T>();
+            var viewModel = Factory.Create(type) as IViewModel;
             var viewModelType = viewModel.GetType();
             var isModal = false;
             Window window = null;

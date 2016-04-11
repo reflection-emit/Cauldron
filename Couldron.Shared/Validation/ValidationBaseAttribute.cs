@@ -40,7 +40,10 @@ namespace Couldron.Validation
             object value = this.propertyInfo.GetValue(context);
 
             if (this.OnValidate(sender, context, propertyInfo, value))
-                return this.ValidationMessage(this.localization == null ? this.ErrorMessageKey : this.localization[this.ErrorMessageKey], context);
+            {
+                var localizedErrorMessage = this.localization[this.ErrorMessageKey];
+                return this.ValidationMessage(this.localization == null ? this.ErrorMessageKey : (localizedErrorMessage == null ? this.ErrorMessageKey + " *missing*" : localizedErrorMessage), context);
+            }
 
             return string.Empty;
         }

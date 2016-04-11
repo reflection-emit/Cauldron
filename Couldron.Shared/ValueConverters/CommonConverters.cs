@@ -139,7 +139,19 @@ namespace Couldron.ValueConverters
             if (Factory.HasContract(typeof(ILocalizationSource)))
             {
                 var localized = Factory.Create<Localization>();
-                return localized[value];
+                var result = localized[value];
+
+                if (result == null)
+                {
+#if !NETFX_CORE
+                    var defaultWindows = Utils.GetStringFromModule(value);
+                    if (defaultWindows != null)
+                        return defaultWindows;
+#endif
+                    return value + " *missing*";
+                }
+
+                return result;
             }
 
             return value;

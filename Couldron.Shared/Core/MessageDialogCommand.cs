@@ -6,18 +6,41 @@ using Windows.UI.Popups;
 
 namespace Couldron.Core
 {
+    /// <summary>
+    /// Represents a command in the <see cref="MessageDialog"/>
+    /// </summary>
     public sealed class MessageDialogCommand
     {
+        /// <summary>
+        /// Gets or sets the label of the command button
+        /// </summary>
         public string Label { get; set; }
 
         private Action command;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MessageDialogCommand"/> class
+        /// </summary>
+        /// <param name="label">The label of the command button</param>
         public MessageDialogCommand(string label)
         {
             if (Factory.HasContract(typeof(ILocalizationSource)))
             {
                 var localization = Factory.Create<Localization>();
-                this.Label = localization[label];
+                var result = localization[label];
+
+                if (result == null)
+                {
+#if !NETFX_CORE
+                    var defaultWindows = Utils.GetStringFromModule(label);
+                    if (defaultWindows != null)
+                        this.Label = defaultWindows;
+                    else
+#endif
+                        this.Label = label + " *missing*";
+                }
+                else
+                    this.Label = result;
             }
             else
             {
@@ -28,13 +51,17 @@ namespace Couldron.Core
                     this.Label = defaultWindowsString;
                 else
 #endif
-                this.Label = label;
+                    this.Label = label;
             }
         }
 
-        public MessageDialogCommand(string label, Action command)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MessageDialogCommand"/> class
+        /// </summary>
+        /// <param name="label">The label of the command button</param>
+        /// <param name="command">The action that will be invoke if the command is executed</param>
+        public MessageDialogCommand(string label, Action command) : this(label)
         {
-            this.Label = label;
             this.command = command;
         }
 
@@ -50,6 +77,9 @@ namespace Couldron.Core
 
 #else
 
+        /// <summary>
+        /// Executes the command
+        /// </summary>
         public void Invoke()
         {
             if (this.command != null)
