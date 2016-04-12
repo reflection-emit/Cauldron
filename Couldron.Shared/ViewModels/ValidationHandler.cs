@@ -95,13 +95,19 @@ namespace Couldron.ViewModels
 
                 this.validators
                     .FirstOrDefault(x => x.PropertyName == propertyName)
-                    .IsNotNull(x => x.ForEach(item =>
+                    .IsNotNull(x =>
                     {
-                        string error = item.Validate(sender, this.context);
+                        foreach (var item in x)
+                        {
+                            string error = item.Validate(sender, this.context);
 
-                        if (!string.IsNullOrEmpty(error))
-                            this.AddError(propertyName, error);
-                    }));
+                            if (!string.IsNullOrEmpty(error))
+                            {
+                                this.AddError(propertyName, error);
+                                break;
+                            }
+                        }
+                    });
 
                 this.RaiseErrorsChanged(propertyName);
             }

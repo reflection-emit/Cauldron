@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using Newtonsoft.Json;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 
@@ -54,6 +55,7 @@ namespace Couldron.ViewModels
         /// <summary>
         /// Gets the parent of the current element
         /// </summary>
+        [JsonIgnore]
         public T Parent { get; internal set; }
 
         private void Children_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
