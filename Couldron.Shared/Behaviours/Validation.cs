@@ -38,7 +38,7 @@ namespace Couldron.Behaviours
             this.validableProperties.Clear();
 
             // Get all known Dependency Property with bindings
-            foreach (var item in this.AssociatedObject.GetType().GetFields(BindingFlags.Public | BindingFlags.Static).Where(x => x.FieldType == typeof(DependencyProperty)))
+            foreach (var item in this.AssociatedObject.GetType().GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy).Where(x => x.FieldType == typeof(DependencyProperty)))
             {
                 var bindingExpression = this.AssociatedObject.GetBindingExpression(item.GetValue(null) as DependencyProperty);
 
