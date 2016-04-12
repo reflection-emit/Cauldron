@@ -45,6 +45,11 @@ namespace Couldron.Attached
 
             if (dependencyObject is TextBlock)
                 (dependencyObject as TextBlock).Text = text;
+
+#if !NETFX_CORE
+            else if (dependencyObject is HeaderedContentControl)
+                (dependencyObject as HeaderedContentControl).Header = text;
+#endif
             else if (dependencyObject is ContentControl)
                 (dependencyObject as ContentControl).Content = text;
         }
