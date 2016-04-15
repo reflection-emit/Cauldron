@@ -84,7 +84,7 @@
                         <Rectangle x:Name="background" Fill="{TemplateBinding Background}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
                         <ContentPresenter Margin="{TemplateBinding Padding}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="Center" RecognizesAccessKey="True">
                             <ContentPresenter.Resources>
-                                <Style TargetType="TextBlock">
+                                <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
                                     <Setter Property="Foreground" Value="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" />
                                 </Style>
                             </ContentPresenter.Resources>
@@ -134,7 +134,7 @@
                         <Image Grid.Column="1" Source="{Binding (attached:ButtonProperties.Image), RelativeSource={RelativeSource TemplatedParent}}" Width="20" Height="20" Stretch="Uniform" Margin="0" />
                         <ContentPresenter Grid.Column="2" Margin="{TemplateBinding Padding}" HorizontalAlignment="Left" VerticalAlignment="Center" RecognizesAccessKey="True">
                             <ContentPresenter.Resources>
-                                <Style TargetType="TextBlock">
+                                <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
                                     <Setter Property="Foreground" Value="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" />
                                 </Style>
                             </ContentPresenter.Resources>

@@ -20,7 +20,7 @@
                             BorderThickness="1" CornerRadius="4">
                         <ContentPresenter Margin="8">
                             <ContentPresenter.Resources>
-                                <Style TargetType="TextBlock">
+                                <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
                                     <Setter Property="TextAlignment" Value="Justify" />
                                     <Setter Property="TextWrapping" Value="Wrap" />
                                 </Style>
