@@ -1,10 +1,10 @@
-﻿using Couldron.Core;
-using Couldron.ViewModels;
+﻿using Cauldron.Core;
+using Cauldron.ViewModels;
 using System;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 
-namespace Couldron
+namespace Cauldron
 {
     /// <summary>
     /// Represents a dialog.

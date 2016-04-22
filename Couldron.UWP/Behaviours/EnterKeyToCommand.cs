@@ -1,7 +1,7 @@
 ﻿using Windows.System;
 using Windows.UI.Xaml;
 
-namespace Couldron.Behaviours
+namespace Cauldron.Behaviours
 {
     public sealed partial class EnterKeyToCommand : Behaviour<FrameworkElement>
     {

@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Reflection;
 
-namespace Couldron.Core
+namespace Cauldron.Core
 {
     /// <summary>
     /// Provides methods to retrieve information about the application

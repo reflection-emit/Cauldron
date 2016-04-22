@@ -1,8 +1,8 @@
-﻿using Couldron.Core;
+﻿using Cauldron.Core;
 using System;
 using System.Threading.Tasks;
 
-namespace Couldron
+namespace Cauldron
 {
     public static partial class MessageDialog
     {

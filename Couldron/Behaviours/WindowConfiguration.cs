@@ -5,7 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace Couldron.Behaviours
+namespace Cauldron.Behaviours
 {
     /// <summary>
     /// Provides a behaviour to configure the window that will contain the view

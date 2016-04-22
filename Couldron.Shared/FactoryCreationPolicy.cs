@@ -1,4 +1,4 @@
-﻿namespace Couldron
+﻿namespace Cauldron
 {
     /// <summary>
     /// Describes the creation policy of an object through the <see cref="Factory"/>

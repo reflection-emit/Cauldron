@@ -1,9 +1,9 @@
-﻿using Couldron.ViewModels;
+﻿using Cauldron.ViewModels;
 using System;
 using System.Collections;
 using System.Reflection;
 
-namespace Couldron.Validation
+namespace Cauldron.Validation
 {
     /// <summary>
     /// Validates a property for mandatory value.

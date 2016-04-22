@@ -17,7 +17,7 @@ using System.Windows;
 
 #endif
 
-namespace Couldron
+namespace Cauldron
 {
     /// <summary>
     /// Provides usefull extension methods extending <see cref="FrameworkElement"/>

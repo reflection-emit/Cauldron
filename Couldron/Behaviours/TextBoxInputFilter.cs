@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Couldron.Behaviours
+namespace Cauldron.Behaviours
 {
     public sealed class TextBoxInputFilter : Behaviour<TextBox>
     {

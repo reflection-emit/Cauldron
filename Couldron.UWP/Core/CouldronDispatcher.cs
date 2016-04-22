@@ -3,19 +3,19 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 
-namespace Couldron.Core
+namespace Cauldron.Core
 {
     /// <summary>
     /// Wrapper class for the Application dispatcher object
     /// </summary>
-    public sealed class CouldronDispatcher
+    public sealed class CauldronDispatcher
     {
         private CoreDispatcher dispatcher;
 
         /// <summary>
         /// Initial
         /// </summary>
-        public CouldronDispatcher()
+        public CauldronDispatcher()
         {
             this.dispatcher = CoreApplication.MainView.CoreWindow.Dispatcher;
         }
@@ -51,15 +51,15 @@ namespace Couldron.Core
         /// <param name="priority">The priority, relative to the other pending operations in the <see cref="Dispatcher"/> event queue, the specified method is invoked.</param>
         /// <param name="action">The delegate to a method, which is pushed onto the <see cref="Dispatcher"/> event queue.</param>
         /// <returns>Returns a awaitable task</returns>
-        public async Task RunAsync(CouldronDispatcherPriority priority, Action action)
+        public async Task RunAsync(CauldronDispatcherPriority priority, Action action)
         {
             switch (priority)
             {
-                case CouldronDispatcherPriority.Low:
+                case CauldronDispatcherPriority.Low:
                     await this.dispatcher.RunAsync(CoreDispatcherPriority.Low, () => action());
                     break;
 
-                case CouldronDispatcherPriority.High:
+                case CauldronDispatcherPriority.High:
                     await this.dispatcher.RunAsync(CoreDispatcherPriority.High, () => action());
                     break;
 

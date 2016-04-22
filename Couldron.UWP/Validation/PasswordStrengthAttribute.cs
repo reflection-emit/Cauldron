@@ -1,8 +1,8 @@
-﻿using Couldron.Core;
-using Couldron.ViewModels;
+﻿using Cauldron.Core;
+using Cauldron.ViewModels;
 using System.Reflection;
 
-namespace Couldron.Validation
+namespace Cauldron.Validation
 {
     /// <summary>
     /// Validates the password strength the property.

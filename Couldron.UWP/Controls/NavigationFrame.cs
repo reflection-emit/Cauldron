@@ -1,4 +1,4 @@
-﻿using Couldron.ViewModels;
+﻿using Cauldron.ViewModels;
 using System;
 using System.Collections.Generic;
 using Windows.UI.ViewManagement;
@@ -6,7 +6,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 
-namespace Couldron.Controls
+namespace Cauldron.Controls
 {
     /// <summary>
     /// Displays Page instances, supports navigation to new pages, and maintains a navigation history to support forward and backward navigation.

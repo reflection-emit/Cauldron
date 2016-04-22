@@ -1,10 +1,10 @@
-﻿using Couldron.Core;
-using Couldron.Validation;
+﻿using Cauldron.Core;
+using Cauldron.Validation;
 using Newtonsoft.Json;
 using System;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Couldron.ViewModels
+namespace Cauldron.ViewModels
 {
     /// <summary>
     /// Represents the Base class of a ViewModel that implements the <see cref="IDisposable"/>

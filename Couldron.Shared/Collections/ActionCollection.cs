@@ -1,6 +1,6 @@
-﻿using Couldron.Behaviours;
+﻿using Cauldron.Behaviours;
 
-namespace Couldron.Collections
+namespace Cauldron.Collections
 {
     /// <summary>
     /// Represents a collection of <see cref="ActionBase"/>

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.Storage;
 
-namespace Couldron.Core
+namespace Cauldron.Core
 {
     /// <summary>
     /// Provides methods to retrieve information about the application

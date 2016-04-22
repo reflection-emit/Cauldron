@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Couldron.Validation
+namespace Cauldron.Validation
 {
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = false)]
     public sealed partial class PasswordStrengthAttribute : ValidationBaseAttribute

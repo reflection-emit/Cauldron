@@ -11,7 +11,7 @@ using System.Windows.Media.Imaging;
 
 #endif
 
-namespace Couldron.Core
+namespace Cauldron.Core
 {
     /// <summary>
     /// Provides retrieving and caching of embedded images

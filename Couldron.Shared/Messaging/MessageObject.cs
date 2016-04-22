@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Couldron.Messaging
+namespace Cauldron.Messaging
 {
     internal sealed class MessageObject
     {

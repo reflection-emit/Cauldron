@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Couldron
+namespace Cauldron
 {
     /// <summary>
     /// Specifies that the property, field or constructor contains a type or parameter that can be supplied by the <see cref="Factory"/>

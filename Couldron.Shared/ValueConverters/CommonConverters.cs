@@ -17,7 +17,7 @@ using System.Windows.Data;
 
 #endif
 
-namespace Couldron.ValueConverters
+namespace Cauldron.ValueConverters
 {
     /// <summary>
     /// Inverts a bool value

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace Couldron
+namespace Cauldron
 {
     /// <summary>
     /// Provides methods regarding localization

@@ -1,4 +1,4 @@
-﻿namespace Couldron
+﻿namespace Cauldron
 {
     /// <summary>
     /// Represents a source for a localization source

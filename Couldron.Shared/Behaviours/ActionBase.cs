@@ -7,7 +7,7 @@ using System.Windows;
 
 #endif
 
-namespace Couldron.Behaviours
+namespace Cauldron.Behaviours
 {
     /// <summary>
     /// Represents a base class for action behaviours

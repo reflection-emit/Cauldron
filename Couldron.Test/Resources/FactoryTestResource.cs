@@ -1,4 +1,4 @@
-﻿namespace Couldron.Test.Resources
+﻿namespace Cauldron.Test.Resources
 {
     public interface IAnimal
     {

@@ -3,7 +3,7 @@ using System;
 using System.IO;
 using System.Windows;
 
-namespace Couldron.Behaviours
+namespace Cauldron.Behaviours
 {
     /// <summary>
     /// Represents an action that opens a <see cref="Microsoft.Win32.OpenFileDialog"/>

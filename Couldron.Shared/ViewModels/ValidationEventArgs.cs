@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Couldron.ViewModels
+namespace Cauldron.ViewModels
 {
     /// <summary>
     /// Provides data for the <see cref="ValidationHandler.Validation"/> event.

@@ -1,5 +1,5 @@
-﻿using Couldron.Collections;
-using Couldron.Core;
+﻿using Cauldron.Collections;
+using Cauldron.Core;
 
 #if NETFX_CORE
 using Windows.UI.Xaml;
@@ -9,7 +9,7 @@ using System.Windows;
 
 #endif
 
-namespace Couldron.Behaviours
+namespace Cauldron.Behaviours
 {
     public sealed partial class EventTrigger : Behaviour<FrameworkElement>
     {

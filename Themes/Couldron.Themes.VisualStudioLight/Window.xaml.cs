@@ -1,4 +1,4 @@
-﻿using Couldron.Core;
+﻿using Cauldron.Core;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
@@ -8,7 +8,7 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
 
-namespace Couldron.Themes.VisualStudio
+namespace Cauldron.Themes.VisualStudio
 {
     /// <summary>
     /// Provides the ability to create, configure, show, and manage the lifetime of windows and dialog boxes.

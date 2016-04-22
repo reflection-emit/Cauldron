@@ -1,4 +1,4 @@
-﻿namespace Couldron.ViewModels
+﻿namespace Cauldron.ViewModels
 {
     public interface ICanClose : IViewModel
     {

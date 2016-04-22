@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Couldron.Behaviours
+namespace Cauldron.Behaviours
 {
     /// <summary>
     /// Provides a behaviour that enables binding to the <see cref="PasswordBox"/> password property

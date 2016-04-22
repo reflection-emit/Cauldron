@@ -1,8 +1,8 @@
-﻿using Couldron.Attached;
-using Couldron.Behaviours;
-using Couldron.Collections;
-using Couldron.Core;
-using Couldron.ViewModels;
+﻿using Cauldron.Attached;
+using Cauldron.Behaviours;
+using Cauldron.Collections;
+using Cauldron.Core;
+using Cauldron.ViewModels;
 using Newtonsoft.Json;
 using System;
 using System.IO;
@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Couldron
+namespace Cauldron
 {
     /// <summary>
     /// Handles creation of a new <see cref="Window"/> and association of the viewmodel
@@ -311,7 +311,7 @@ namespace Couldron
             else // The viewmodel does not have a defined view... Maybe we have a data template instead
             {
                 // we always prefer our selector, because it rocks
-                var templateSelector = Application.Current.Resources[typeof(CouldronTemplateSelector).Name] as DataTemplateSelector;
+                var templateSelector = Application.Current.Resources[typeof(CauldronTemplateSelector).Name] as DataTemplateSelector;
                 var dataTemplate = templateSelector.SelectTemplate(viewModel, null);
 
                 // If we dont have a dataTemplate... we try to find a matching FrameworkElement

@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace Couldron.ViewModels
+namespace Cauldron.ViewModels
 {
     internal sealed class MessageDialogCommandViewModel : ViewModelBase
     {

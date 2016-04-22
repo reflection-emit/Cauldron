@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Couldron.ViewModels
+namespace Cauldron.ViewModels
 {
     /// <summary>
     /// Specifies the methods that can be invoked on navigation

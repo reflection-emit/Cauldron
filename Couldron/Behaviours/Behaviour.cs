@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Data;
 
-namespace Couldron.Behaviours
+namespace Cauldron.Behaviours
 {
     public abstract partial class Behaviour<T>
     {

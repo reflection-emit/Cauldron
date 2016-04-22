@@ -1,4 +1,4 @@
-﻿using Couldron.Behaviours;
+﻿using Cauldron.Behaviours;
 using System;
 using System.IO;
 using System.Linq;
@@ -10,7 +10,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace Couldron
+namespace Cauldron
 {
     /// <summary>
     /// Provides usefull extension methods

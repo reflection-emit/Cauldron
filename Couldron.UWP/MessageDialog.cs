@@ -1,8 +1,8 @@
-﻿using Couldron.Core;
+﻿using Cauldron.Core;
 using System;
 using System.Threading.Tasks;
 
-namespace Couldron
+namespace Cauldron
 {
     /// <summary>
     /// Represents a dialog. The dialog has a command bar that can support up to three commands.

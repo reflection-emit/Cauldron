@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Couldron.Behaviours
+namespace Cauldron.Behaviours
 {
     /// <summary>
     /// Specifies that a behaviour can only be applied once

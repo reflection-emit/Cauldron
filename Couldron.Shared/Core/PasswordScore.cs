@@ -1,4 +1,4 @@
-﻿namespace Couldron.Core
+﻿namespace Cauldron.Core
 {
     /// <summary>
     /// Describes the password strength as a scoring system

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Couldron
+namespace Cauldron
 {
     /// <summary>
     /// Windows Messages.

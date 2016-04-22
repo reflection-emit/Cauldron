@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Couldron
+namespace Cauldron
 {
     /// <summary>
     /// Notifies the client that a behaviour should be invoked

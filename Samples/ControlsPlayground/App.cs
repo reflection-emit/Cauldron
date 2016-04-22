@@ -1,10 +1,10 @@
-﻿using Couldron;
+﻿using Cauldron;
 using System;
 using System.Windows;
 
 namespace ControlsPlayground
 {
-    public class App : CouldronApplication
+    public class App : CauldronApplication
     {
         [STAThread]
         public static void Main(string[] args)
@@ -22,7 +22,7 @@ namespace ControlsPlayground
 
         protected override void OnConstruction()
         {
-            AssemblyUtil.LoadAssembly("Couldron.Themes.VisualStudioLight.dll");
+            AssemblyUtil.LoadAssembly("Cauldron.Themes.VisualStudioLight.dll");
         }
 
         protected override void OnStartup(StartupEventArgs e)

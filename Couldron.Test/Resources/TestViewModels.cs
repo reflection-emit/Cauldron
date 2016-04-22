@@ -1,8 +1,8 @@
-﻿using Couldron.Validation;
-using Couldron.ViewModels;
+﻿using Cauldron.Validation;
+using Cauldron.ViewModels;
 using PropertyChanged;
 
-namespace Couldron.Test.Resources
+namespace Cauldron.Test.Resources
 {
     public class BirdViewModel : ViewModelBase
     {

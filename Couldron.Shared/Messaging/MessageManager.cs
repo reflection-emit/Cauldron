@@ -1,9 +1,9 @@
-﻿using Couldron.Collections;
+﻿using Cauldron.Collections;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Couldron.Messaging
+namespace Cauldron.Messaging
 {
     public static class MessageManager
     {

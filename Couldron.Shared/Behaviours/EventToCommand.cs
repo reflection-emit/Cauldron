@@ -1,4 +1,4 @@
-﻿using Couldron.Core;
+﻿using Cauldron.Core;
 using System.Windows.Input;
 
 #if NETFX_CORE
@@ -9,7 +9,7 @@ using System.Windows;
 
 #endif
 
-namespace Couldron.Behaviours
+namespace Cauldron.Behaviours
 {
     /// <summary>
     /// Provides a behaviour that can handle events and invokes a binded command

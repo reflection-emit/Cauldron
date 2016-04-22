@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace Couldron.Resources
+namespace Cauldron.Resources
 {
     /// <summary>
     /// Interaction logic for MessageDialogView.xaml

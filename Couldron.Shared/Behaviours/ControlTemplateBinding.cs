@@ -1,4 +1,4 @@
-﻿using Couldron.Collections;
+﻿using Cauldron.Collections;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +15,7 @@ using System.Windows.Data;
 
 #endif
 
-namespace Couldron.Behaviours
+namespace Cauldron.Behaviours
 {
     public sealed partial class ControlTemplateBinding : Behaviour<FrameworkElement>
     {

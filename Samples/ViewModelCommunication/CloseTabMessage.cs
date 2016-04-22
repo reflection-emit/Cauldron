@@ -1,4 +1,4 @@
-﻿using Couldron.Messaging;
+﻿using Cauldron.Messaging;
 
 namespace ViewModelCommunication
 {

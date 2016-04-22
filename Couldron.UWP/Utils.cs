@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Windows.Networking.Connectivity;
 
-namespace Couldron
+namespace Cauldron
 {
     /// <summary>
     /// Provides a collection of utility methods

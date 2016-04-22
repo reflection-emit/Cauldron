@@ -1,4 +1,4 @@
-﻿using Couldron.Behaviours;
+﻿using Cauldron.Behaviours;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
@@ -14,7 +14,7 @@ using System.Windows;
 
 #endif
 
-namespace Couldron.Collections
+namespace Cauldron.Collections
 {
     /// <summary>
     /// Represents a collection of <see cref="IBehaviour"/>

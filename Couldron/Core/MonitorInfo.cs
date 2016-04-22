@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 
-namespace Couldron.Core
+namespace Cauldron.Core
 {
     /// <summary>
     /// Provides properties and methods for getting information about the monitor

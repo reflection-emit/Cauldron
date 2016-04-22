@@ -1,12 +1,12 @@
-﻿using Couldron.Collections;
-using Couldron.Core;
+﻿using Cauldron.Collections;
+using Cauldron.Core;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace Couldron
+namespace Cauldron
 {
     /// <summary>
     /// Contains utilities that helps to manage and gather <see cref="Assembly"/> information

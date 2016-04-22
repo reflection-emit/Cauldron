@@ -1,7 +1,7 @@
-﻿using Couldron.Collections;
+﻿using Cauldron.Collections;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Couldron.Test
+namespace Cauldron.Test
 {
     [TestClass]
     public class ConcurrentListTest

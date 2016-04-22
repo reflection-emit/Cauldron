@@ -11,7 +11,7 @@ using System.Windows.Data;
 
 #endif
 
-namespace Couldron.Behaviours
+namespace Cauldron.Behaviours
 {
     /// <summary>
     /// Represents a behaviour

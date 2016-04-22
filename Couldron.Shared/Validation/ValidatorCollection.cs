@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 
-namespace Couldron.Validation
+namespace Cauldron.Validation
 {
     internal sealed class ValidatorCollection : KeyedCollection<string, ValidatorGroup>
     {

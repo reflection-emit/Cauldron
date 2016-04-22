@@ -1,4 +1,4 @@
-﻿namespace Couldron.Core
+﻿namespace Cauldron.Core
 {
     /// <summary>
     /// Specifies the icon that is displayed by a message box.

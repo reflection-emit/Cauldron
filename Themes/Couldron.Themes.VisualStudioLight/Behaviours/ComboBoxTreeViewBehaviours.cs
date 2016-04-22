@@ -1,12 +1,12 @@
-﻿using Couldron.Behaviours;
-using Couldron.Controls;
+﻿using Cauldron.Behaviours;
+using Cauldron.Controls;
 using System.Collections;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 
-namespace Couldron.Themes.VisualStudio.Behaviours
+namespace Cauldron.Themes.VisualStudio.Behaviours
 {
     internal sealed class ComboBoxTreeViewBehaviours : Behaviour<TreeView>
     {

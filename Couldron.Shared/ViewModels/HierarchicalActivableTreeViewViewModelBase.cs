@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 
-namespace Couldron.ViewModels
+namespace Cauldron.ViewModels
 {
     /// <summary>
     /// Represents a hierarchical viewmodel base that implements a <see cref="IsActive"/> property.

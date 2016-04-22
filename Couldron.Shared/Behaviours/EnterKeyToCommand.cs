@@ -8,7 +8,7 @@ using System.Windows;
 
 #endif
 
-namespace Couldron.Behaviours
+namespace Cauldron.Behaviours
 {
     /// <summary>
     /// Provides a behaviour that can invoke a command when the Enter key is pressed

@@ -1,12 +1,12 @@
-﻿using Couldron;
-using Couldron.Behaviours;
-using Couldron.ViewModels;
+﻿using Cauldron;
+using Cauldron.Behaviours;
+using Cauldron.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace Couldron.Themes.VisualStudio.Behaviours
+namespace Cauldron.Themes.VisualStudio.Behaviours
 {
     internal sealed class TabItemBehaviour : Behaviour<TabItem>
     {

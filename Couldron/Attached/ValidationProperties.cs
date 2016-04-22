@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace Couldron.Attached
+namespace Cauldron.Attached
 {
     /// <summary>
     /// Provides an attached property required for the validation

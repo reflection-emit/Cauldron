@@ -1,8 +1,8 @@
-﻿using Couldron.ViewModels;
+﻿using Cauldron.ViewModels;
 using System;
 using System.Reflection;
 
-namespace Couldron.Validation
+namespace Cauldron.Validation
 {
     /// <summary>
     /// Validates a property for the string length.

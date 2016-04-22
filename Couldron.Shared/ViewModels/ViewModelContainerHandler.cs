@@ -1,9 +1,9 @@
-﻿using Couldron.Core;
+﻿using Cauldron.Core;
 using System;
 using System.Collections.Concurrent;
 using System.Linq;
 
-namespace Couldron.ViewModels
+namespace Cauldron.ViewModels
 {
     /// <summary>
     /// Handles the children of viewmodels

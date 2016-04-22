@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace Couldron
+namespace Cauldron
 {
     /// <summary>
     /// Represents a resource info of an embedded resource with its corresponding <see cref="Assembly"/>

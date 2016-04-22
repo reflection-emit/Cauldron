@@ -9,7 +9,7 @@ using System.Windows.Controls;
 
 #endif
 
-namespace Couldron.Attached
+namespace Cauldron.Attached
 {
     /// <summary>
     /// Provides addional properties that can be added to a custom window

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Windows;
 
-namespace Couldron
+namespace Cauldron
 {
     /// <summary>
     /// Provides usefull extension methods extending <see cref="FrameworkElement"/>

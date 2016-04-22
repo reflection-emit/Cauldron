@@ -1,9 +1,9 @@
-﻿using Couldron.Test.Resources;
+﻿using Cauldron.Test.Resources;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 using System.Reflection;
 
-namespace Couldron.Test
+namespace Cauldron.Test
 {
     [TestClass]
     public class FactoryTest

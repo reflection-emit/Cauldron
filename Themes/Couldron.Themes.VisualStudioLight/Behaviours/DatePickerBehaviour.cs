@@ -1,7 +1,7 @@
-﻿using Couldron.Behaviours;
+﻿using Cauldron.Behaviours;
 using System.Windows.Controls;
 
-namespace Couldron.Themes.VisualStudio.Behaviours
+namespace Cauldron.Themes.VisualStudio.Behaviours
 {
     internal sealed class DatePickerBehaviour : Behaviour<DatePicker>
     {

@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 
-namespace Couldron.Behaviours
+namespace Cauldron.Behaviours
 {
     public sealed class ForcePropertyUpdate : Behaviour<FrameworkElement>
     {

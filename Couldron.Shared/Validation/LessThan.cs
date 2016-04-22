@@ -1,8 +1,8 @@
-﻿using Couldron.ViewModels;
+﻿using Cauldron.ViewModels;
 using System;
 using System.Reflection;
 
-namespace Couldron.Validation
+namespace Cauldron.Validation
 {
     /// <summary>
     /// Validates the property if value is less than the given value or the given property

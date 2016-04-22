@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Couldron.ViewModels
+namespace Cauldron.ViewModels
 {
     /// <summary>
     /// Represents a viewmodel that can contain child view models

@@ -8,7 +8,7 @@ using System.Windows.Controls;
 
 #endif
 
-namespace Couldron.Attached
+namespace Cauldron.Attached
 {
     public static partial class Localized
     {

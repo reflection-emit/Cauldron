@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Windows.Input;
 
-namespace Couldron
+namespace Cauldron
 {
     /// <summary>
     /// Implements the <see cref="IRelayCommand"/> interface

@@ -12,7 +12,7 @@ using System.Windows.Media.Animation;
 
 using System;
 
-namespace Couldron.Behaviours
+namespace Cauldron.Behaviours
 {
 #if NETFX_CORE
     /// <summary>

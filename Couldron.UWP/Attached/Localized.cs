@@ -1,7 +1,7 @@
 ﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Couldron.Attached
+namespace Cauldron.Attached
 {
     /// <summary>
     /// Provides Attached Properties to enable localization in controls.

@@ -1,9 +1,9 @@
-﻿namespace Couldron.Core
+﻿namespace Cauldron.Core
 {
     /// <summary>
     /// Describes the priorities at which operations can be invoked
     /// </summary>
-    public enum CouldronDispatcherPriority
+    public enum CauldronDispatcherPriority
     {
         /// <summary>
         /// Low priority. Delegates are processed when the window's main thread is idle and there is

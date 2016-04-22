@@ -1,10 +1,10 @@
-﻿using Couldron.Validation;
+﻿using Cauldron.Validation;
 using Newtonsoft.Json;
 using System;
 using System.ComponentModel;
 using System.Reflection;
 
-namespace Couldron.ViewModels
+namespace Cauldron.ViewModels
 {
     /// <summary>
     /// Represents a change aware base class with an implemented validation

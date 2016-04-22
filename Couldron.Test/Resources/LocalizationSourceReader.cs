@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Couldron.Test.Resources
+namespace Cauldron.Test.Resources
 {
     [Factory(typeof(ILocalizationSource), FactoryCreationPolicy.Singleton)]
     public class LocalizationSourceReader : ILocalizationSource

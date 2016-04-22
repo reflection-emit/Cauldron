@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Couldron for UWP")]
+[assembly: AssemblyTitle("Cauldron for UWP")]
 [assembly: AssemblyDescription("WPF Framework")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Couldron for UWP")]
+[assembly: AssemblyProduct("Cauldron for UWP")]
 [assembly: AssemblyCopyright("Copyright Alexander Schunk©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

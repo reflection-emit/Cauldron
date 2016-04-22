@@ -1,4 +1,4 @@
-﻿namespace Couldron.Messaging
+﻿namespace Cauldron.Messaging
 {
     public class MessagingArgs
     {

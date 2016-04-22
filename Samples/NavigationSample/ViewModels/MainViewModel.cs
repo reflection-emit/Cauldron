@@ -1,5 +1,5 @@
-﻿using Couldron;
-using Couldron.ViewModels;
+﻿using Cauldron;
+using Cauldron.ViewModels;
 using NavigationSample.View;
 using System.Windows.Input;
 

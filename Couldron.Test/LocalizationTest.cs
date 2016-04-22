@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Globalization;
 
-namespace Couldron.Test
+namespace Cauldron.Test
 {
     [TestClass]
     public class LocalizationTest

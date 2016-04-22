@@ -1,12 +1,12 @@
-﻿using Couldron.Collections;
-using Couldron.Core;
+﻿using Cauldron.Collections;
+using Cauldron.Core;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Couldron
+namespace Cauldron
 {
     /// <summary>
     /// Provides methods for creating and destroying object instances

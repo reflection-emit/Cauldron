@@ -1,4 +1,4 @@
-﻿using Couldron.Collections;
+﻿using Cauldron.Collections;
 using System;
 using System.Linq;
 
@@ -11,7 +11,7 @@ using System.Windows;
 
 #endif
 
-namespace Couldron.Behaviours
+namespace Cauldron.Behaviours
 {
     /// <summary>
     /// Defines a <see cref="BehaviourCollection"/> attached property

@@ -1,11 +1,11 @@
-﻿using Couldron.Core;
-using Couldron.Resources;
+﻿using Cauldron.Core;
+using Cauldron.Resources;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
-namespace Couldron.ViewModels
+namespace Cauldron.ViewModels
 {
     [View(typeof(MessageDialogView))]
     [Navigating(nameof(OnNavigate), nameof(OnNavigateWithoutIcon))]

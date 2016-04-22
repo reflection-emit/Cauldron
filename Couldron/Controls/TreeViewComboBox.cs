@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Couldron.Controls
+namespace Cauldron.Controls
 {
     public interface ITreeViewComboBoxSelectionLogic
     {
@@ -168,7 +168,7 @@ namespace Couldron.Controls
 
         public void RemoveSelectedItem(object selectedItem)
         {
-            this.SelectedItems = this.SelectedItems.Remove(selectedItem);
+            this.SelectedItems = this.SelectedItems.RemoveElement(selectedItem);
         }
     }
 }

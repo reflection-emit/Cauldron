@@ -11,7 +11,7 @@ using System.Windows.Controls;
 
 #endif
 
-namespace Couldron.Behaviours
+namespace Cauldron.Behaviours
 {
     /// <summary>
     /// Provides a behaviour that allows Buttons in <see cref="ControlTemplate"/> to bind to a Command that differs on every control.

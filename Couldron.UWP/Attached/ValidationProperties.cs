@@ -2,7 +2,7 @@
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Couldron.Attached
+namespace Cauldron.Attached
 {
     /// <summary>
     /// Provides an attached property required for the validation

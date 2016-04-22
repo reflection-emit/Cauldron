@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace Couldron.Core
+namespace Cauldron.Core
 {
     /// <summary>
     /// Provides static methods for common mathematical functions.

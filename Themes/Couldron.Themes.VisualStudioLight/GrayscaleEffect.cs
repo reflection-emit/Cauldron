@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
 
-namespace Couldron.Themes.VisualStudio
+namespace Cauldron.Themes.VisualStudio
 {
     internal class GrayscaleEffect : ShaderEffect
     {
@@ -12,9 +12,9 @@ namespace Couldron.Themes.VisualStudio
         public GrayscaleEffect()
         {
 #if DarkTheme
-            PixelShader = new PixelShader() { UriSource = new Uri(@"pack://application:,,,/Couldron.Themes.VisualStudioDark;component/Resources/GrayscaleEffect.ps") };
+            PixelShader = new PixelShader() { UriSource = new Uri(@"pack://application:,,,/Cauldron.Themes.VisualStudioDark;component/Resources/GrayscaleEffect.ps") };
 #else
-            PixelShader = new PixelShader() { UriSource = new Uri(@"pack://application:,,,/Couldron.Themes.VisualStudioLight;component/Resources/GrayscaleEffect.ps") };
+            PixelShader = new PixelShader() { UriSource = new Uri(@"pack://application:,,,/Cauldron.Themes.VisualStudioLight;component/Resources/GrayscaleEffect.ps") };
 #endif
             UpdateShaderValue(InputProperty);
             UpdateShaderValue(DesaturationFactorProperty);

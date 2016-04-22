@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Couldron.ViewModels
+namespace Cauldron.ViewModels
 {
     /// <summary>
     /// Represents an interface that can be used by <see cref="UIElement"/> to trigger viewmodels to close

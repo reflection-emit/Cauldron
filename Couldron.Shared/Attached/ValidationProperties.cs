@@ -8,7 +8,7 @@ using System.Windows.Data;
 
 #endif
 
-namespace Couldron.Attached
+namespace Cauldron.Attached
 {
     /// <summary>
     /// Provides an attached property required for the validation

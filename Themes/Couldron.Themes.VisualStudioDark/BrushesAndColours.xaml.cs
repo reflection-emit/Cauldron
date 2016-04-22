@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Couldron.Themes
+namespace Cauldron.Themes
 {
     public partial class BrushesAndColours : ResourceDictionary
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Couldron.Core
+namespace Cauldron.Core
 {
     /// <summary>
     /// Provides access to the application data store

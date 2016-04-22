@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Couldron.ViewModels
+namespace Cauldron.ViewModels
 {
     /// <summary>
     /// Represents the Base class of a ViewModel that can have registered child viewmodels

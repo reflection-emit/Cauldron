@@ -3,8 +3,8 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Reflection;
 using System.ComponentModel;
-using Couldron.Validation;
-using Couldron.Attached;
+using Cauldron.Validation;
+using Cauldron.Attached;
 using System.Collections;
 
 #if NETFX_CORE
@@ -18,7 +18,7 @@ using System.Windows;
 
 #endif
 
-namespace Couldron.Behaviours
+namespace Cauldron.Behaviours
 {
     /// <summary>
     /// Provides supporting functionalities for the validation

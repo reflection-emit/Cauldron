@@ -1,4 +1,4 @@
-﻿using Couldron.Core;
+﻿using Cauldron.Core;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
-namespace Couldron
+namespace Cauldron
 {
     /// <summary>
     /// Provides usefull extension methods
@@ -421,7 +421,7 @@ namespace Couldron
         /// <param name="items">The <see cref="IEnumerable"/> that may contain the object to remove</param>
         /// <param name="itemToRemove">The object to remove from the <see cref="IEnumerable"/>. The value can be null for reference types.</param>
         /// <returns>A new instance of the <see cref="IEnumerable"/> without the item specified by <paramref name="itemToRemove"/></returns>
-        public static IEnumerable Remove(this IEnumerable items, object itemToRemove)
+        public static IEnumerable RemoveElement(this IEnumerable items, object itemToRemove)
         {
             if (items == null)
                 return null;

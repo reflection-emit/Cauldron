@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Windows.Input;
 
-namespace Couldron
+namespace Cauldron
 {
     /// <summary>
     /// Defines a command

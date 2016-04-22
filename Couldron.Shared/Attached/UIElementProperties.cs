@@ -14,7 +14,7 @@ using System.Windows.Controls;
 
 using System.Collections;
 
-namespace Couldron.Attached
+namespace Cauldron.Attached
 {
     /// <summary>
     /// Provides attached properties for the <see cref="UIElement"/>s, that can be used to extend the functionalities of the control

@@ -1,7 +1,7 @@
-﻿using Couldron.Behaviours;
+﻿using Cauldron.Behaviours;
 using System.Collections.ObjectModel;
 
-namespace Couldron.Collections
+namespace Cauldron.Collections
 {
     /// <summary>
     /// Represents a collection of <see cref="IBehaviour"/>

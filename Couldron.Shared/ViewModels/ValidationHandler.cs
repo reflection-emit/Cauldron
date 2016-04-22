@@ -1,5 +1,5 @@
-﻿using Couldron.Core;
-using Couldron.Validation;
+﻿using Cauldron.Core;
+using Cauldron.Validation;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 
-namespace Couldron.ViewModels
+namespace Cauldron.ViewModels
 {
     /// <summary>
     /// Handles validation of a viewmodel

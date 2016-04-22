@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace Couldron
+namespace Cauldron
 {
     internal struct FactoryTypeInfo
     {

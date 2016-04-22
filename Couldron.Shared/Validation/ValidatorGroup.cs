@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Couldron.Validation
+namespace Cauldron.Validation
 {
     internal sealed class ValidatorGroup : List<ValidationBaseAttribute>
     {

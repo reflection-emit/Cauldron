@@ -11,7 +11,7 @@ using System.Windows.Controls;
 
 #endif
 
-namespace Couldron.Behaviours
+namespace Cauldron.Behaviours
 {
     /// <summary>
     /// Represents an action, that can invoke a method (also with parameters) residing on the the <see cref="Behaviour{T}.AssociatedObject"/> or in the control defined by <see cref="MethodOwnerType"/>.

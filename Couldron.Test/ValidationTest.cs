@@ -1,7 +1,7 @@
-﻿using Couldron.Test.Resources;
+﻿using Cauldron.Test.Resources;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Couldron.Test
+namespace Cauldron.Test
 {
     [TestClass]
     public sealed class ValidationTest

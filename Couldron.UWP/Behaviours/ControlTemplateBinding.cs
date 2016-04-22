@@ -1,6 +1,6 @@
 ﻿using Windows.UI.Xaml;
 
-namespace Couldron.Behaviours
+namespace Cauldron.Behaviours
 {
     public sealed partial class ControlTemplateBinding : Behaviour<FrameworkElement>
     {

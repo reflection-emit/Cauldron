@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Couldron.Core
+namespace Cauldron.Core
 {
     /// <summary>
     /// Provides a mechanism for releasing unmanaged resources.

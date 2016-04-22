@@ -1,5 +1,5 @@
-﻿using Couldron.Validation;
-using Couldron.ViewModels;
+﻿using Cauldron.Validation;
+using Cauldron.ViewModels;
 
 namespace ViewModelCommunication.ViewModels
 {

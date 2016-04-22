@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Couldron.Validation
+namespace Cauldron.Validation
 {
     /// <summary>
     /// Specifies that the property change will not affect the model's change flag

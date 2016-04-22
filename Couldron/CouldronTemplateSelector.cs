@@ -2,12 +2,12 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Couldron
+namespace Cauldron
 {
     /// <summary>
     /// Provides a way to choose a <see cref="DataTemplate"/> based on the data object and the data-bound element.
     /// </summary>
-    public class CouldronTemplateSelector : DataTemplateSelector
+    public class CauldronTemplateSelector : DataTemplateSelector
     {
         /// <summary>
         /// When overridden in a derived class, returns a <see cref="DataTemplate"/> based on custom logic.

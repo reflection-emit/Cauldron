@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace Couldron
+namespace Cauldron
 {
     /// <summary>
     /// Represents an interface for the <see cref="Factory"/> extension

@@ -1,4 +1,4 @@
-﻿using Couldron.Core;
+﻿using Cauldron.Core;
 using System;
 using System.Diagnostics;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Security;
 using System.Text.RegularExpressions;
 
-namespace Couldron
+namespace Cauldron
 {
     /// <summary>
     /// Provides a collection of utility methods

@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
 
-namespace Couldron
+namespace Cauldron
 {
     /// <summary>
     /// Provides a collection of utility methods

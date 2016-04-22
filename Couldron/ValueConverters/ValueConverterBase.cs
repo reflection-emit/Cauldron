@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace Couldron.ValueConverters
+namespace Cauldron.ValueConverters
 {
     /// <summary>
     /// Provides a base class for <see cref="Binding"/> value converters.

@@ -5,20 +5,20 @@ using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 
-namespace Couldron
+namespace Cauldron
 {
-    public abstract class CouldronApplication : Application
+    public abstract class CauldronApplication : Application
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="CouldronApplication"/>
+        /// Initializes a new instance of the <see cref="CauldronApplication"/>
         /// </summary>
-        public CouldronApplication()
+        public CauldronApplication()
         {
             this.Resources.Add(nameof(ThemeAccentColor), Colors.SteelBlue);
             this.OnConstruction();
 
             // Add the custom template selector to the resources
-            this.Resources.Add(typeof(CouldronTemplateSelector).Name, new CouldronTemplateSelector());
+            this.Resources.Add(typeof(CauldronTemplateSelector).Name, new CauldronTemplateSelector());
 
             // Add all Value converters to the dictionary
             foreach (var valueConverter in AssemblyUtil.ExportedTypes.Where(x => x.ImplementsInterface<IValueConverter>()))
@@ -27,12 +27,12 @@ namespace Couldron
             // find all resourcedictionaries and add them to the existing resources
             foreach (var resourceDictionary in AssemblyUtil.ExportedTypes
                     .Where(x => x.IsSubclassOf(typeof(ResourceDictionary)))
-                    .OrderByDescending(x => x.Assembly.FullName.StartsWith("Couldron.")))
+                    .OrderByDescending(x => x.Assembly.FullName.StartsWith("Cauldron.")))
                 this.Resources.MergedDictionaries.Add(Activator.CreateInstance(resourceDictionary.AsType()) as ResourceDictionary);
         }
 
         /// <summary>
-        /// Gets or sets the Couldron theme accent color
+        /// Gets or sets the Cauldron theme accent color
         /// <para/>
         /// There is no garantee that the used theme supports the accent color
         /// </summary>
@@ -49,7 +49,7 @@ namespace Couldron
         }
 
         /// <summary>
-        /// Occures on initialization of <see cref="CouldronApplication"/>
+        /// Occures on initialization of <see cref="CauldronApplication"/>
         /// </summary>
         protected virtual void OnConstruction()
         {

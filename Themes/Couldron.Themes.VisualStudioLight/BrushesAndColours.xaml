@@ -1,9 +1,9 @@
-﻿<ResourceDictionary x:Class="Couldron.Themes.VisualStudio.BrushesAndColours"
+﻿<ResourceDictionary x:Class="Cauldron.Themes.VisualStudio.BrushesAndColours"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:Couldron.Themes.VisualStudio"
+             xmlns:local="clr-namespace:Cauldron.Themes.VisualStudio"
              mc:Ignorable="d">
 
     <SolidColorBrush x:Key="Transparent" Color="Transparent" />

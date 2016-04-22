@@ -1,7 +1,7 @@
 ﻿using System;
 using Windows.Security.Cryptography;
 
-namespace Couldron.Core
+namespace Cauldron.Core
 {
     /// <summary>
     /// Provides a randomizer that is cryptographicly secure

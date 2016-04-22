@@ -2,7 +2,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Couldron.Core
+namespace Cauldron.Core
 {
     /// <summary>
     /// Represents a base class of a disposable object

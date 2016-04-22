@@ -1,4 +1,4 @@
-﻿using Couldron.Core;
+﻿using Cauldron.Core;
 
 #if NETFX_CORE
 using Windows.UI.Xaml.Controls;
@@ -10,21 +10,21 @@ using System.Windows;
 
 #endif
 
-namespace Couldron.Behaviours
+namespace Cauldron.Behaviours
 {
     /// <summary>
     /// Provides a behaviour that can set the focus of a control after <see cref="FrameworkElement.Loaded"/>
     /// </summary>
     public sealed class SetFocus : Behaviour<Control>
     {
-        private CouldronDispatcher dispatcher;
+        private CauldronDispatcher dispatcher;
 
         /// <summary>
         /// Initializes a new instance of <see cref="SetFocus"/>
         /// </summary>
         public SetFocus()
         {
-            this.dispatcher = new CouldronDispatcher();
+            this.dispatcher = new CauldronDispatcher();
         }
 
         /// <summary>

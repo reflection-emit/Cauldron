@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 using System.Security;
 using System.Text;
 
-namespace Couldron.Core
+namespace Cauldron.Core
 {
     /// <summary>
     /// Takes care of pinning a <see cref="SecureString"/> in the memory and data convertion

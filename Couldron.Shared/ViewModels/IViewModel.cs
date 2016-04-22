@@ -1,9 +1,9 @@
-﻿using Couldron.Core;
+﻿using Cauldron.Core;
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace Couldron.ViewModels
+namespace Cauldron.ViewModels
 {
     /// <summary>
     /// Defines a ViewModel
@@ -11,9 +11,9 @@ namespace Couldron.ViewModels
     public interface IViewModel : INotifyPropertyChanged, INotifyBehaviourInvokation
     {
         /// <summary>
-        /// Gets the <see cref="Dispatcher"/> this <see cref="CouldronDispatcher"/> is associated with.
+        /// Gets the <see cref="Dispatcher"/> this <see cref="CauldronDispatcher"/> is associated with.
         /// </summary>
-        CouldronDispatcher Dispatcher { get; }
+        CauldronDispatcher Dispatcher { get; }
 
         /// <summary>
         /// Gets the unique Id of the view model

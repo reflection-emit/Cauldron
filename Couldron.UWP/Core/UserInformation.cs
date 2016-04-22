@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Windows.System;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace Couldron.Core
+namespace Cauldron.Core
 {
     /// <summary>
     /// Represents information about the user, such as name and account picture.

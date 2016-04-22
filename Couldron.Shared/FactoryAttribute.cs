@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Couldron
+namespace Cauldron
 {
     /// <summary>
     /// Specifies that <see cref="Type"/> provide a particular export

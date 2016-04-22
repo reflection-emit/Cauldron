@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
-namespace Couldron.Collections
+namespace Cauldron.Collections
 {
     /// <summary>
     /// Represents a thread-safe list of items that can be accessed by multiple threads concurrently.

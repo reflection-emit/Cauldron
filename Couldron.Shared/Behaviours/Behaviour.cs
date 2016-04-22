@@ -13,7 +13,7 @@ using System.Windows.Data;
 
 #endif
 
-namespace Couldron.Behaviours
+namespace Cauldron.Behaviours
 {
     /// <summary>
     /// A base class for behaviours

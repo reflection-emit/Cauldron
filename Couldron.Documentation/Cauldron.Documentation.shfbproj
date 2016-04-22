@@ -11,7 +11,7 @@
     <!-- AssemblyName, Name, and RootNamespace are not used by SHFB but Visual Studio adds them anyway -->
     <AssemblyName>Couldron.Documentation</AssemblyName>
     <RootNamespace>Couldron.Documentation</RootNamespace>
-    <Name>Couldron.Documentation</Name>
+    <Name>Cauldron.Documentation</Name>
     <!-- SHFB properties -->
     <FrameworkVersion>.NET Framework 4.5.2</FrameworkVersion>
     <OutputPath>..\Help\</OutputPath>

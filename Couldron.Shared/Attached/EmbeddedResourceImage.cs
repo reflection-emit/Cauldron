@@ -1,4 +1,4 @@
-﻿using Couldron.Core;
+﻿using Cauldron.Core;
 
 #if NETFX_CORE
 using Windows.UI.Xaml;
@@ -13,7 +13,7 @@ using System.Windows.Media;
 
 #endif
 
-namespace Couldron.Attached
+namespace Cauldron.Attached
 {
     /// <summary>
     /// An attached property that can assign an image source of the <see cref="Image"/>.

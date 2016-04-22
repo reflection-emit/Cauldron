@@ -4,7 +4,7 @@
 using Windows.UI.Popups;
 #endif
 
-namespace Couldron.Core
+namespace Cauldron.Core
 {
     /// <summary>
     /// Represents a command in the <see cref="MessageDialog"/>

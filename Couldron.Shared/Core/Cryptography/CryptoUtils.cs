@@ -1,4 +1,4 @@
-﻿namespace Couldron.Core.Cryptography
+﻿namespace Cauldron.Core.Cryptography
 {
     /// <summary>
     /// Provides methods for cryptography

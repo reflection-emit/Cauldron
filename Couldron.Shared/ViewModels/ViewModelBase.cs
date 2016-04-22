@@ -1,12 +1,12 @@
-﻿using Couldron.Core;
-using Couldron.Validation;
+﻿using Cauldron.Core;
+using Cauldron.Validation;
 using Newtonsoft.Json;
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
-namespace Couldron.ViewModels
+namespace Cauldron.ViewModels
 {
     /// <summary>
     /// Represents the Base class of a ViewModel
@@ -20,7 +20,7 @@ namespace Couldron.ViewModels
         public ViewModelBase()
         {
             this.Id = Guid.NewGuid();
-            this.Dispatcher = new CouldronDispatcher();
+            this.Dispatcher = new CauldronDispatcher();
         }
 
         /// <summary>
@@ -43,10 +43,10 @@ namespace Couldron.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
-        /// Gets the <see cref="Dispatcher"/> this <see cref="CouldronDispatcher "/> is associated with.
+        /// Gets the <see cref="Dispatcher"/> this <see cref="CauldronDispatcher "/> is associated with.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Advanced), JsonIgnore]
-        public CouldronDispatcher Dispatcher { get; private set; }
+        public CauldronDispatcher Dispatcher { get; private set; }
 
         /// <summary>
         /// Gets the unique Id of the view model

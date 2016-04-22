@@ -1,10 +1,10 @@
-﻿using Couldron.ViewModels;
+﻿using Cauldron.ViewModels;
 using System;
 using System.Reflection;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 
-namespace Couldron
+namespace Cauldron
 {
     /// <summary>
     /// Handles creation of a new <see cref="Page"/> and association of the viewmodel

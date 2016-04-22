@@ -1,8 +1,8 @@
-﻿using Couldron.Core;
+﻿using Cauldron.Core;
 using System.ComponentModel;
 using System.Reflection;
 
-namespace Couldron.ViewModels
+namespace Cauldron.ViewModels
 {
     /// <summary>
     /// Represents a viewmodel that is able to validate property values

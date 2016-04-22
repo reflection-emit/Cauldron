@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Couldron
+namespace Cauldron
 {
     /// <summary>
     /// Specifies a view for a the viewmodel

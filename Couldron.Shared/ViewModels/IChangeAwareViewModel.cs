@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Couldron.ViewModels
+namespace Cauldron.ViewModels
 {
     /// <summary>
     /// Represents a viewmodel that is aware of changes

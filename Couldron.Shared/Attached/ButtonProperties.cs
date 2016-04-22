@@ -1,4 +1,4 @@
-﻿using Couldron.Core;
+﻿using Cauldron.Core;
 
 #if NETFX_CORE
 using Windows.UI.Xaml;
@@ -14,7 +14,7 @@ using System.Windows;
 
 #endif
 
-namespace Couldron.Attached
+namespace Cauldron.Attached
 {
     /// <summary>
     /// Provides attached properties for the <see cref="Button"/> control

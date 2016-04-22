@@ -1,7 +1,7 @@
 ﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 
-namespace Couldron.Behaviours
+namespace Cauldron.Behaviours
 {
     public abstract partial class Behaviour<T>
     {

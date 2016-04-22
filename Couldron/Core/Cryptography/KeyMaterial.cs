@@ -1,7 +1,7 @@
 ﻿using System.Security;
 using System.Security.Cryptography;
 
-namespace Couldron.Core.Cryptography
+namespace Cauldron.Core.Cryptography
 {
     /// <summary>
     /// Provides methods to create a key material

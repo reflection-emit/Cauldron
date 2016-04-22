@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 
-namespace Couldron.Core
+namespace Cauldron.Core
 {
     /// <summary>
     /// Handles dynamic event registrations

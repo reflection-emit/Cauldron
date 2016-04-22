@@ -1,7 +1,7 @@
 ﻿using System.Security.Permissions;
 using System.Windows.Threading;
 
-namespace Couldron.Test
+namespace Cauldron.Test
 {
     /*
         http://stackoverflow.com/questions/1106881/using-the-wpf-dispatcher-in-unit-tests
