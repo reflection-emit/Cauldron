@@ -121,11 +121,11 @@
     <Compile Include="Controls\NavigationFrame.cs" />
     <Compile Include="Controls\NavigationFrameBackRequestedEventArgs.cs" />
     <Compile Include="Core\ApplicationInfo.cs" />
-    <Compile Include="Core\CouldronDispatcher.cs" />
+    <Compile Include="Core\CauldronDispatcher.cs" />
     <Compile Include="Core\Randomizer.cs" />
     <Compile Include="Core\UserInformation.cs" />
-    <Compile Include="CouldronApplication.cs" />
-    <Compile Include="CouldronTemplateSelector.cs" />
+    <Compile Include="CauldronApplication.cs" />
+    <Compile Include="CauldronTemplateSelector.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Localization.cs" />
     <Compile Include="MessageDialog.cs" />
@@ -134,12 +134,12 @@
     <Compile Include="Utils.cs" />
     <Compile Include="Validation\PasswordStrengthAttribute.cs" />
     <Compile Include="ValueConverters\ValueConverterBase.cs" />
-    <EmbeddedResource Include="Properties\Couldron.UWP.rd.xml" />
+    <EmbeddedResource Include="Properties\Cauldron.UWP.rd.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModels\" />
   </ItemGroup>
-  <Import Project="..\Couldron.Shared\Couldron.Shared.projitems" Label="Shared" />
+  <Import Project="..\Cauldron.Shared\Cauldron.Shared.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

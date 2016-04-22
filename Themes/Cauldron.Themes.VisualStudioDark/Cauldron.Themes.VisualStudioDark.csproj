@@ -7,8 +7,8 @@
     <ProjectGuid>{8A4211B8-F38F-4A2B-AB81-C971DA0FE8C2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Couldron.Themes.VisualStudio</RootNamespace>
-    <AssemblyName>Couldron.Themes.VisualStudioDark</AssemblyName>
+    <RootNamespace>Cauldron.Themes.VisualStudio</RootNamespace>
+    <AssemblyName>Cauldron.Themes.VisualStudioDark</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -28,7 +28,7 @@
     <DefineConstants>TRACE;DarkTheme</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\bin\Release\Couldron.Themes.VisualStudioDark.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\Cauldron.Themes.VisualStudioDark.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
@@ -42,28 +42,28 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Couldron.Themes.VisualStudioLight\Behaviours\ComboBoxBehaviour.cs">
+    <Compile Include="..\Cauldron.Themes.VisualStudioLight\Behaviours\ComboBoxBehaviour.cs">
       <Link>Behaviours\ComboBoxBehaviour.cs</Link>
     </Compile>
-    <Compile Include="..\Couldron.Themes.VisualStudioLight\Behaviours\ComboBoxTreeViewBehaviours.cs">
+    <Compile Include="..\Cauldron.Themes.VisualStudioLight\Behaviours\ComboBoxTreeViewBehaviours.cs">
       <Link>Behaviours\ComboBoxTreeViewBehaviours.cs</Link>
     </Compile>
-    <Compile Include="..\Couldron.Themes.VisualStudioLight\Behaviours\DatePickerBehaviour.cs">
+    <Compile Include="..\Cauldron.Themes.VisualStudioLight\Behaviours\DatePickerBehaviour.cs">
       <Link>Behaviours\DatePickerBehaviour.cs</Link>
     </Compile>
-    <Compile Include="..\Couldron.Themes.VisualStudioLight\Behaviours\TabItemBehaviour.cs">
+    <Compile Include="..\Cauldron.Themes.VisualStudioLight\Behaviours\TabItemBehaviour.cs">
       <Link>Behaviours\TabItemBehaviour.cs</Link>
     </Compile>
-    <Compile Include="..\Couldron.Themes.VisualStudioLight\GrayscaleEffect.cs">
+    <Compile Include="..\Cauldron.Themes.VisualStudioLight\GrayscaleEffect.cs">
       <Link>GrayscaleEffect.cs</Link>
     </Compile>
-    <Compile Include="..\Couldron.Themes.VisualStudioLight\Styles\StyleClasses.cs">
+    <Compile Include="..\Cauldron.Themes.VisualStudioLight\Styles\StyleClasses.cs">
       <Link>Styles\StyleClasses.cs</Link>
     </Compile>
-    <Compile Include="..\Couldron.Themes.VisualStudioLight\TabItemHeader.cs">
+    <Compile Include="..\Cauldron.Themes.VisualStudioLight\TabItemHeader.cs">
       <Link>TabItemHeader.cs</Link>
     </Compile>
-    <Compile Include="..\Couldron.Themes.VisualStudioLight\Window.xaml.cs">
+    <Compile Include="..\Cauldron.Themes.VisualStudioLight\Window.xaml.cs">
       <Link>Window.xaml.cs</Link>
       <DependentUpon>Window.xaml</DependentUpon>
     </Compile>
@@ -73,58 +73,58 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Couldron\Cauldron.csproj">
+    <ProjectReference Include="..\..\Cauldron\Cauldron.csproj">
       <Project>{2aca0073-bebf-46ce-830a-3ac8bb4a3dca}</Project>
       <Name>Cauldron</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="..\Couldron.Themes.VisualStudioLight\Styles\ButtonStyle.xaml">
+    <Page Include="..\Cauldron.Themes.VisualStudioLight\Styles\ButtonStyle.xaml">
       <Link>Styles\ButtonStyle.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="..\Couldron.Themes.VisualStudioLight\Styles\ComboBoxStyles.xaml">
+    <Page Include="..\Cauldron.Themes.VisualStudioLight\Styles\ComboBoxStyles.xaml">
       <Link>Styles\ComboBoxStyles.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="..\Couldron.Themes.VisualStudioLight\Styles\DatePicker.xaml">
+    <Page Include="..\Cauldron.Themes.VisualStudioLight\Styles\DatePicker.xaml">
       <Link>Styles\DatePicker.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="..\Couldron.Themes.VisualStudioLight\Styles\GroupBoxStyle.xaml">
+    <Page Include="..\Cauldron.Themes.VisualStudioLight\Styles\GroupBoxStyle.xaml">
       <Link>Styles\GroupBoxStyle.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="..\Couldron.Themes.VisualStudioLight\Styles\ListView.xaml">
+    <Page Include="..\Cauldron.Themes.VisualStudioLight\Styles\ListView.xaml">
       <Link>Styles\ListView.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="..\Couldron.Themes.VisualStudioLight\Styles\MiscStyle.xaml">
+    <Page Include="..\Cauldron.Themes.VisualStudioLight\Styles\MiscStyle.xaml">
       <Link>Styles\MiscStyle.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="..\Couldron.Themes.VisualStudioLight\Styles\ScrollBarStyle.xaml">
+    <Page Include="..\Cauldron.Themes.VisualStudioLight\Styles\ScrollBarStyle.xaml">
       <Link>Styles\ScrollBarStyle.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="..\Couldron.Themes.VisualStudioLight\Styles\TabControlStyle.xaml">
+    <Page Include="..\Cauldron.Themes.VisualStudioLight\Styles\TabControlStyle.xaml">
       <Link>Styles\TabControlStyle.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="..\Couldron.Themes.VisualStudioLight\Styles\TextBoxStyle.xaml">
+    <Page Include="..\Cauldron.Themes.VisualStudioLight\Styles\TextBoxStyle.xaml">
       <Link>Styles\TextBoxStyle.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="..\Couldron.Themes.VisualStudioLight\Window.xaml">
+    <Page Include="..\Cauldron.Themes.VisualStudioLight\Window.xaml">
       <Link>Window.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -135,12 +135,12 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="..\Couldron.Themes.VisualStudioLight\Resources\GrayscaleEffect.ps">
+    <Resource Include="..\Cauldron.Themes.VisualStudioLight\Resources\GrayscaleEffect.ps">
       <Link>Resources\GrayscaleEffect.ps</Link>
     </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>

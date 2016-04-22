@@ -15,7 +15,7 @@
     <!-- SHFB properties -->
     <FrameworkVersion>.NET Framework 4.5.2</FrameworkVersion>
     <OutputPath>..\Help\</OutputPath>
-    <HtmlHelpName>Couldron.Documentation</HtmlHelpName>
+    <HtmlHelpName>Cauldron.Documentation</HtmlHelpName>
     <Language>en-US</Language>
     <TransformComponentArguments>
       <Argument Key="logoFile" Value="Help.png" xmlns="" />
@@ -27,7 +27,7 @@
       <Argument Key="maxVersionParts" Value="" xmlns="" />
     </TransformComponentArguments>
     <DocumentationSources>
-      <DocumentationSource sourceFile="..\Couldron\Cauldron.csproj" />
+      <DocumentationSource sourceFile="..\Cauldron\Cauldron.csproj" />
     </DocumentationSources>
     <BuildAssemblerVerbosity>OnlyErrors</BuildAssemblerVerbosity>
     <HelpFileFormat>Website</HelpFileFormat>
@@ -44,7 +44,7 @@
     <PresentationStyle>VS2013</PresentationStyle>
     <Preliminary>True</Preliminary>
     <NamingMethod>MemberName</NamingMethod>
-    <HelpTitle>Couldron Documentation</HelpTitle>
+    <HelpTitle>Cauldron Documentation</HelpTitle>
     <ContentPlacement>AboveNamespaces</ContentPlacement>
     <VisibleItems>Attributes, ExplicitInterfaceImplementations, InheritedMembers, InheritedFrameworkMembers, Protected, SealedProtected, ProtectedInternalAsProtected, PublicCompilerGenerated</VisibleItems>
     <MissingTags>None</MissingTags>

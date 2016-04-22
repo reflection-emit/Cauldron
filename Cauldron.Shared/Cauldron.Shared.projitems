@@ -6,7 +6,7 @@
     <SharedGUID>4764c929-12c2-4a09-ad65-b550542199bd</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>Couldron</Import_RootNamespace>
+    <Import_RootNamespace>Cauldron</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)AssemblyAndResourceNameInfo.cs" />
@@ -39,7 +39,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Collections\ConcurrentList.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Collections\InteractivityTemplate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Compression.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Core\CouldronDispatcherPriority.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\CauldronDispatcherPriority.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Cryptography\CryptoUtils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\DisposableBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\DynamicEventHandler.cs" />

@@ -91,7 +91,7 @@
     <Resource Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Couldron\Cauldron.csproj">
+    <ProjectReference Include="..\..\Cauldron\Cauldron.csproj">
       <Project>{2aca0073-bebf-46ce-830a-3ac8bb4a3dca}</Project>
       <Name>Cauldron</Name>
     </ProjectReference>

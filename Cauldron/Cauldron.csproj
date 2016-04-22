@@ -33,7 +33,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -74,15 +74,15 @@
     <Compile Include="Controls\TreeViewComboBox.cs" />
     <Compile Include="Core\ApplicationData.cs" />
     <Compile Include="Core\ApplicationInfo.cs" />
-    <Compile Include="Core\CouldronDispatcher.cs" />
+    <Compile Include="Core\CauldronDispatcher.cs" />
     <Compile Include="Core\Cryptography\AES.cs" />
     <Compile Include="Core\Cryptography\KeyMaterial.cs" />
     <Compile Include="Core\MonitorInfo.cs" />
     <Compile Include="Core\Randomizer.cs" />
     <Compile Include="Core\SecureStringHandler.cs" />
     <Compile Include="Core\UserInformation.cs" />
-    <Compile Include="CouldronApplication.cs" />
-    <Compile Include="CouldronTemplateSelector.cs" />
+    <Compile Include="CauldronApplication.cs" />
+    <Compile Include="CauldronTemplateSelector.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="ExtensionsFrameworkElement.cs" />
     <Compile Include="Localization.cs" />
@@ -110,7 +110,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <Import Project="..\Couldron.Shared\Couldron.Shared.projitems" Label="Shared" />
+  <Import Project="..\Cauldron.Shared\Cauldron.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>

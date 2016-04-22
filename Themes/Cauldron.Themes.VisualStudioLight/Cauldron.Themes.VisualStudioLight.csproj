@@ -7,8 +7,8 @@
     <ProjectGuid>{242DE6C1-325D-471B-8154-59D41AEFE16D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Couldron.Themes.VisualStudio</RootNamespace>
-    <AssemblyName>Couldron.Themes.VisualStudioLight</AssemblyName>
+    <RootNamespace>Cauldron.Themes.VisualStudio</RootNamespace>
+    <AssemblyName>Cauldron.Themes.VisualStudioLight</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -20,7 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\bin\Debug\Couldron.Themes.VisualStudioLight.XML</DocumentationFile>
+    <DocumentationFile>..\bin\Debug\Cauldron.Themes.VisualStudioLight.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,7 +29,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\bin\Release\Couldron.Themes.VisualStudioLight.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\Cauldron.Themes.VisualStudioLight.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
@@ -105,7 +105,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Couldron\Cauldron.csproj">
+    <ProjectReference Include="..\..\Cauldron\Cauldron.csproj">
       <Project>{2aca0073-bebf-46ce-830a-3ac8bb4a3dca}</Project>
       <Name>Cauldron</Name>
     </ProjectReference>
