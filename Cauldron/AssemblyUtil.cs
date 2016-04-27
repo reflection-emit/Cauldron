@@ -48,7 +48,7 @@ namespace Cauldron
         }
 
         /// <summary>
-        /// Loads the contents of an assembly file on the specified path.
+        /// Loads the contents of an assembly file in the specified path.
         /// </summary>
         /// <param name="path">The fully qualified path of the file to load. </param>
         /// <param name="relativPath">A value that indicates if the parameter <paramref name="path"/> is a relative path or not.</param>

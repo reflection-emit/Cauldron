@@ -30,12 +30,12 @@ namespace Cauldron.Behaviours
         protected override void OnDataContextChanged()
         {
             if (this.AssociatedObject.DataContext != oldDataContext && oldDataContext != null)
-                oldDataContext.CastTo<INotifyBehaviourInvokation>().IsNotNull(x => x.BehaviourInvoke -= BehaviourInvoke);
+                oldDataContext.CastTo<INotifyBehaviourInvocation>().IsNotNull(x => x.BehaviourInvoke -= BehaviourInvoke);
 
             if (this.AssociatedObject.DataContext != oldDataContext)
             {
                 oldDataContext = this.AssociatedObject.DataContext;
-                this.AssociatedObject.DataContext.CastTo<INotifyBehaviourInvokation>().IsNotNull(x => x.BehaviourInvoke += BehaviourInvoke);
+                this.AssociatedObject.DataContext.CastTo<INotifyBehaviourInvocation>().IsNotNull(x => x.BehaviourInvoke += BehaviourInvoke);
             }
         }
 
@@ -47,12 +47,12 @@ namespace Cauldron.Behaviours
         {
             if (disposeManaged)
             {
-                this.AssociatedObject.DataContext.CastTo<INotifyBehaviourInvokation>().IsNotNull(x => x.BehaviourInvoke -= BehaviourInvoke);
+                this.AssociatedObject.DataContext.CastTo<INotifyBehaviourInvocation>().IsNotNull(x => x.BehaviourInvoke -= BehaviourInvoke);
                 this.oldDataContext = null;
             }
         }
 
-        private void BehaviourInvoke(object sender, BehaviourInvokationArgs e)
+        private void BehaviourInvoke(object sender, BehaviourInvocationArgs e)
         {
             if (string.Equals(this.Name, e.BehaviourName, StringComparison.OrdinalIgnoreCase))
                 this.Invoke();
