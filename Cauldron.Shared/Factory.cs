@@ -57,6 +57,14 @@ namespace Cauldron
         }
 
         /// <summary>
+        /// Gets or sets the assembly priorities by its name. If null the default loading sequence is used.
+        /// <para/>
+        /// On ambiguous cases the <see cref="Type"/> that is an <see cref="Assembly"/> with the higher priority will be used.
+        /// If neither of the <see cref="Type"/>s are in the listed assemblies, then a <see cref="AmbiguousMatchException"/> will be raised.
+        /// </summary>
+        public static List<Assembly> AssemblyPriority { get; set; }
+
+        /// <summary>
         /// Creates an instance of the specified type depending on the <see cref="FactoryAttribute"/>
         /// </summary>
         /// <typeparam name="T">The Type that contract name derives from</typeparam>
@@ -356,7 +364,22 @@ namespace Cauldron
             var factoryTypeInfos = types.Where(x => x.contractName == contractName);
 
             if (factoryTypeInfos.Count() > 1)
+            {
+                // Lets find out if we have a assembly prioritizing sequence... if not... just throw an AmbiguousMatchException
+                if (AssemblyPriority != null)
+                {
+                    var prio = factoryTypeInfos.Where(x => AssemblyPriority.Contains(y => y == x.type.Assembly)).Select(x => new
+                    {
+                        TypeInfos = x,
+                        Index = AssemblyPriority.IndexOf(x.type.Assembly)
+                    }).OrderBy(x => x.Index).FirstOrDefault();
+
+                    if (prio != null)
+                        return CreateObject(prio.TypeInfos.type, prio.TypeInfos.typeInfo, parameters);
+                }
+
                 throw new AmbiguousMatchException("There is more than one implementation with contractname '" + contractName + "' found.");
+            }
 
             return GetInstance(factoryTypeInfos.First(), parameters);
         }
