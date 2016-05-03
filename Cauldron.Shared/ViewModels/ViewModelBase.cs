@@ -35,7 +35,7 @@ namespace Cauldron.ViewModels
         /// <summary>
         /// Occures if a behaviour should be invoked
         /// </summary>
-        public event EventHandler<BehaviourInvokationArgs> BehaviourInvoke;
+        public event EventHandler<BehaviourInvocationArgs> BehaviourInvoke;
 
         /// <summary>
         /// Occurs when a property value changes.
@@ -94,7 +94,7 @@ namespace Cauldron.ViewModels
         protected async void RaiseNotifyBehaviourInvoke(string behaviourName)
         {
             if (this.BehaviourInvoke != null)
-                await this.Dispatcher.RunAsync(() => this.BehaviourInvoke(this, new BehaviourInvokationArgs(behaviourName)));
+                await this.Dispatcher.RunAsync(() => this.BehaviourInvoke(this, new BehaviourInvocationArgs(behaviourName)));
         }
     }
 }

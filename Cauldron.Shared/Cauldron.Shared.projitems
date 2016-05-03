@@ -62,7 +62,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ILocalizationSource.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)InjectAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)InjectionFactoryExtension.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)INotifyBehaviourInvokation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)INotifyBehaviourInvocation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IRelayCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MessageDialog.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Messaging\MessageManager.cs" />

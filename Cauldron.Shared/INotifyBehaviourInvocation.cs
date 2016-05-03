@@ -5,24 +5,24 @@ namespace Cauldron
     /// <summary>
     /// Notifies the client that a behaviour should be invoked
     /// </summary>
-    public interface INotifyBehaviourInvokation
+    public interface INotifyBehaviourInvocation
     {
         /// <summary>
         /// Occures if a behaviour should be invoked
         /// </summary>
-        event EventHandler<BehaviourInvokationArgs> BehaviourInvoke;
+        event EventHandler<BehaviourInvocationArgs> BehaviourInvoke;
     }
 
     /// <summary>
-    /// Provides data for the <see cref="INotifyBehaviourInvokation.BehaviourInvoke"/> event.
+    /// Provides data for the <see cref="INotifyBehaviourInvocation.BehaviourInvoke"/> event.
     /// </summary>
-    public sealed class BehaviourInvokationArgs : EventArgs
+    public sealed class BehaviourInvocationArgs : EventArgs
     {
         /// <summary>
-        /// Initializes a new instance of <see cref="BehaviourInvokationArgs"/>
+        /// Initializes a new instance of <see cref="BehaviourInvocationArgs"/>
         /// </summary>
         /// <param name="behaviourName"></param>
-        public BehaviourInvokationArgs(string behaviourName)
+        public BehaviourInvocationArgs(string behaviourName)
         {
             this.BehaviourName = behaviourName;
         }
