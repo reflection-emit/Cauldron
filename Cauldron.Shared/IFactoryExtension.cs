@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace Cauldron
@@ -8,6 +9,11 @@ namespace Cauldron
     /// </summary>
     public interface IFactoryExtension
     {
+        /// <summary>
+        /// Gets a value that indicates that this extension is able to resolve <see cref="AmbiguousMatchException"/>
+        /// </summary>
+        bool CanHandleAmbiguousMatch { get; }
+
         /// <summary>
         /// Returns true if a <see cref="Type"/> can be constructed with this <see cref="IFactoryExtension"/> implementation
         /// </summary>
@@ -38,5 +44,15 @@ namespace Cauldron
         /// <param name="typeInfo">The <see cref="TypeInfo"/> of the object instance</param>
         /// <param name="type">The <see cref="Type"/> of the object created</param>
         void OnInitialize(TypeInfo typeInfo, Type type);
+
+        /// <summary>
+        /// Occures if multiple Types with the same <paramref name="contractName"/> was found.
+        /// <para/>
+        /// Should return null if <paramref name="ambiguousTypes"/> collection does not contain the required <see cref="Type"/>
+        /// </summary>
+        /// <param name="ambiguousTypes">A collection of Types that with the same <paramref name="contractName"/></param>
+        /// <param name="contractName">The contract name of the implementations</param>
+        /// <returns>The selected <see cref="Type"/></returns>
+        Type SelectAmbiguousMatch(IEnumerable<Type> ambiguousTypes, string contractName);
     }
 }
