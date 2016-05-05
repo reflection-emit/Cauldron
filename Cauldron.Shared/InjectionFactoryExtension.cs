@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -12,6 +13,11 @@ namespace Cauldron
     public sealed class InjectionFactoryExtension : IFactoryExtension
     {
         private ConcurrentDictionary<TypeInfo, ImportInstanceInfo> types = new ConcurrentDictionary<TypeInfo, ImportInstanceInfo>();
+
+        /// <summary>
+        /// Gets a value that indicates that this extension is able to resolve <see cref="AmbiguousMatchException"/>
+        /// </summary>
+        public bool CanHandleAmbiguousMatch { get; }
 
         /// <summary>
         /// Returns true if a <see cref="Type"/> can be constructed with this <see cref="IFactoryExtension"/> implementation
@@ -96,6 +102,19 @@ namespace Cauldron
                 constructor = type.GetConstructors().FirstOrDefault(x => x.GetCustomAttribute<InjectAttribute>() != null),
                 typeInfo = typeInfo
             });
+        }
+
+        /// <summary>
+        /// Occures if multiple Types with the same <paramref name="contractName"/> was found.
+        /// <para/>
+        /// Should return null if <paramref name="ambiguousTypes"/> collection does not contain the required <see cref="Type"/>
+        /// </summary>
+        /// <param name="ambiguousTypes">A collection of Types that with the same <paramref name="contractName"/></param>
+        /// <param name="contractName">The contract name of the implementations</param>
+        /// <returns>The selected <see cref="Type"/></returns>
+        public Type SelectAmbiguousMatch(IEnumerable<Type> ambiguousTypes, string contractName)
+        {
+            throw new NotImplementedException();
         }
 
         private struct ImportInstanceInfo
