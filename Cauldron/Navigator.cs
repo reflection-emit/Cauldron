@@ -224,7 +224,8 @@ namespace Cauldron
                 PersistentWindowInformation.Load(window, viewModel.GetType());
 
             // set the window owner
-            windows.FirstOrDefault(x => x.window.IsActive).IsNotNull(x => window.Owner = x.window);
+            if (window.Tag != MainWindowTag)
+                windows.FirstOrDefault(x => x.window.IsActive).IsNotNull(x => window.Owner = x.window);
 
             // Set the toolbar template
             WindowToolbar.SetTemplate(window, windowConfig.ToolbarTemplate);
