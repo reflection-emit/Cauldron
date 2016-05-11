@@ -30,6 +30,7 @@ namespace Cauldron.ViewModels
         public ViewModelBase(Guid id)
         {
             this.Id = id;
+            this.Dispatcher = new CauldronDispatcher();
         }
 
         /// <summary>
