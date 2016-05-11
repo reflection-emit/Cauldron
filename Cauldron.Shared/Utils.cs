@@ -35,26 +35,29 @@ namespace Cauldron
 
             var aType = a.GetType();
 
-            if (aType == typeof(string)) return a as string == b as string;
-            if (aType == typeof(int)) return (int)a == (int)b;
-            if (aType == typeof(uint)) return (uint)a == (uint)b;
-            if (aType == typeof(long)) return (long)a == (long)b;
-            if (aType == typeof(ulong)) return (ulong)a == (ulong)b;
-            if (aType == typeof(byte)) return (byte)a == (byte)b;
-            if (aType == typeof(sbyte)) return (sbyte)a == (sbyte)b;
-            if (aType == typeof(float)) return (float)a == (float)b;
-            if (aType == typeof(double)) return (double)a == (double)b;
-            if (aType == typeof(decimal)) return (decimal)a == (decimal)b;
-            if (aType == typeof(bool)) return (bool)a == (bool)b;
-            if (aType == typeof(char)) return (char)a == (char)b;
-            if (aType == typeof(short)) return (short)a == (short)b;
-            if (aType == typeof(ushort)) return (ushort)a == (ushort)b;
-            if (aType == typeof(IntPtr)) return (IntPtr)a == (IntPtr)b;
-            if (aType == typeof(UIntPtr)) return (UIntPtr)a == (UIntPtr)b;
-            if (aType == typeof(DateTime)) return (DateTime)a == (DateTime)b;
-            if (aType == typeof(DateTimeOffset)) return (DateTimeOffset)a == (DateTimeOffset)b;
-            if (aType == typeof(TimeSpan)) return (TimeSpan)a == (TimeSpan)b;
-            if (aType == typeof(Guid)) return (Guid)a == (Guid)b;
+            if (aType == b.GetType())
+            {
+                if (aType == typeof(string)) return a as string == b as string;
+                if (aType == typeof(int)) return (int)a == (int)b;
+                if (aType == typeof(uint)) return (uint)a == (uint)b;
+                if (aType == typeof(long)) return (long)a == (long)b;
+                if (aType == typeof(ulong)) return (ulong)a == (ulong)b;
+                if (aType == typeof(byte)) return (byte)a == (byte)b;
+                if (aType == typeof(sbyte)) return (sbyte)a == (sbyte)b;
+                if (aType == typeof(float)) return (float)a == (float)b;
+                if (aType == typeof(double)) return (double)a == (double)b;
+                if (aType == typeof(decimal)) return (decimal)a == (decimal)b;
+                if (aType == typeof(bool)) return (bool)a == (bool)b;
+                if (aType == typeof(char)) return (char)a == (char)b;
+                if (aType == typeof(short)) return (short)a == (short)b;
+                if (aType == typeof(ushort)) return (ushort)a == (ushort)b;
+                if (aType == typeof(IntPtr)) return (IntPtr)a == (IntPtr)b;
+                if (aType == typeof(UIntPtr)) return (UIntPtr)a == (UIntPtr)b;
+                if (aType == typeof(DateTime)) return (DateTime)a == (DateTime)b;
+                if (aType == typeof(DateTimeOffset)) return (DateTimeOffset)a == (DateTimeOffset)b;
+                if (aType == typeof(TimeSpan)) return (TimeSpan)a == (TimeSpan)b;
+                if (aType == typeof(Guid)) return (Guid)a == (Guid)b;
+            }
 
             var op = aType.GetMethod("op_Equality", new Type[] { aType, b.GetType() }, BindingFlags.Static | BindingFlags.Public);
 
@@ -134,21 +137,25 @@ namespace Cauldron
                 return false;
 
             var aType = a.GetType();
-            if (aType == typeof(int)) return (int)a > (int)b;
-            if (aType == typeof(uint)) return (uint)a > (uint)b;
-            if (aType == typeof(long)) return (long)a > (long)b;
-            if (aType == typeof(ulong)) return (ulong)a > (ulong)b;
-            if (aType == typeof(byte)) return (byte)a > (byte)b;
-            if (aType == typeof(sbyte)) return (sbyte)a > (sbyte)b;
-            if (aType == typeof(float)) return (float)a > (float)b;
-            if (aType == typeof(double)) return (double)a > (double)b;
-            if (aType == typeof(decimal)) return (decimal)a > (decimal)b;
-            if (aType == typeof(char)) return (char)a > (char)b;
-            if (aType == typeof(short)) return (short)a > (short)b;
-            if (aType == typeof(ushort)) return (ushort)a > (ushort)b;
-            if (aType == typeof(DateTime)) return (DateTime)a > (DateTime)b;
-            if (aType == typeof(DateTimeOffset)) return (DateTimeOffset)a > (DateTimeOffset)b;
-            if (aType == typeof(TimeSpan)) return (TimeSpan)a > (TimeSpan)b;
+
+            if (aType == b.GetType())
+            {
+                if (aType == typeof(int)) return (int)a > (int)b;
+                if (aType == typeof(uint)) return (uint)a > (uint)b;
+                if (aType == typeof(long)) return (long)a > (long)b;
+                if (aType == typeof(ulong)) return (ulong)a > (ulong)b;
+                if (aType == typeof(byte)) return (byte)a > (byte)b;
+                if (aType == typeof(sbyte)) return (sbyte)a > (sbyte)b;
+                if (aType == typeof(float)) return (float)a > (float)b;
+                if (aType == typeof(double)) return (double)a > (double)b;
+                if (aType == typeof(decimal)) return (decimal)a > (decimal)b;
+                if (aType == typeof(char)) return (char)a > (char)b;
+                if (aType == typeof(short)) return (short)a > (short)b;
+                if (aType == typeof(ushort)) return (ushort)a > (ushort)b;
+                if (aType == typeof(DateTime)) return (DateTime)a > (DateTime)b;
+                if (aType == typeof(DateTimeOffset)) return (DateTimeOffset)a > (DateTimeOffset)b;
+                if (aType == typeof(TimeSpan)) return (TimeSpan)a > (TimeSpan)b;
+            }
 
             var op = aType.GetMethod("op_GreaterThan", new Type[] { aType, b.GetType() }, BindingFlags.Static | BindingFlags.Public);
 
@@ -181,21 +188,24 @@ namespace Cauldron
 
             var aType = a.GetType();
 
-            if (aType == typeof(int)) return (int)a >= (int)b;
-            if (aType == typeof(uint)) return (uint)a >= (uint)b;
-            if (aType == typeof(long)) return (long)a >= (long)b;
-            if (aType == typeof(ulong)) return (ulong)a >= (ulong)b;
-            if (aType == typeof(byte)) return (byte)a >= (byte)b;
-            if (aType == typeof(sbyte)) return (sbyte)a >= (sbyte)b;
-            if (aType == typeof(float)) return (float)a >= (float)b;
-            if (aType == typeof(double)) return (double)a >= (double)b;
-            if (aType == typeof(decimal)) return (decimal)a >= (decimal)b;
-            if (aType == typeof(char)) return (char)a >= (char)b;
-            if (aType == typeof(short)) return (short)a >= (short)b;
-            if (aType == typeof(ushort)) return (ushort)a >= (ushort)b;
-            if (aType == typeof(DateTime)) return (DateTime)a >= (DateTime)b;
-            if (aType == typeof(DateTimeOffset)) return (DateTimeOffset)a >= (DateTimeOffset)b;
-            if (aType == typeof(TimeSpan)) return (TimeSpan)a >= (TimeSpan)b;
+            if (aType == b.GetType())
+            {
+                if (aType == typeof(int)) return (int)a >= (int)b;
+                if (aType == typeof(uint)) return (uint)a >= (uint)b;
+                if (aType == typeof(long)) return (long)a >= (long)b;
+                if (aType == typeof(ulong)) return (ulong)a >= (ulong)b;
+                if (aType == typeof(byte)) return (byte)a >= (byte)b;
+                if (aType == typeof(sbyte)) return (sbyte)a >= (sbyte)b;
+                if (aType == typeof(float)) return (float)a >= (float)b;
+                if (aType == typeof(double)) return (double)a >= (double)b;
+                if (aType == typeof(decimal)) return (decimal)a >= (decimal)b;
+                if (aType == typeof(char)) return (char)a >= (char)b;
+                if (aType == typeof(short)) return (short)a >= (short)b;
+                if (aType == typeof(ushort)) return (ushort)a >= (ushort)b;
+                if (aType == typeof(DateTime)) return (DateTime)a >= (DateTime)b;
+                if (aType == typeof(DateTimeOffset)) return (DateTimeOffset)a >= (DateTimeOffset)b;
+                if (aType == typeof(TimeSpan)) return (TimeSpan)a >= (TimeSpan)b;
+            }
 
             var op = aType.GetMethod("op_GreaterThanOrEqual", new Type[] { aType, b.GetType() }, BindingFlags.Static | BindingFlags.Public);
 
@@ -228,21 +238,24 @@ namespace Cauldron
 
             var aType = a.GetType();
 
-            if (aType == typeof(int)) return (int)a < (int)b;
-            if (aType == typeof(uint)) return (uint)a < (uint)b;
-            if (aType == typeof(long)) return (long)a < (long)b;
-            if (aType == typeof(ulong)) return (ulong)a < (ulong)b;
-            if (aType == typeof(byte)) return (byte)a < (byte)b;
-            if (aType == typeof(sbyte)) return (sbyte)a < (sbyte)b;
-            if (aType == typeof(float)) return (float)a < (float)b;
-            if (aType == typeof(double)) return (double)a < (double)b;
-            if (aType == typeof(decimal)) return (decimal)a < (decimal)b;
-            if (aType == typeof(char)) return (char)a < (char)b;
-            if (aType == typeof(short)) return (short)a < (short)b;
-            if (aType == typeof(ushort)) return (ushort)a < (ushort)b;
-            if (aType == typeof(DateTime)) return (DateTime)a < (DateTime)b;
-            if (aType == typeof(DateTimeOffset)) return (DateTimeOffset)a < (DateTimeOffset)b;
-            if (aType == typeof(TimeSpan)) return (TimeSpan)a < (TimeSpan)b;
+            if (aType == b.GetType())
+            {
+                if (aType == typeof(int)) return (int)a < (int)b;
+                if (aType == typeof(uint)) return (uint)a < (uint)b;
+                if (aType == typeof(long)) return (long)a < (long)b;
+                if (aType == typeof(ulong)) return (ulong)a < (ulong)b;
+                if (aType == typeof(byte)) return (byte)a < (byte)b;
+                if (aType == typeof(sbyte)) return (sbyte)a < (sbyte)b;
+                if (aType == typeof(float)) return (float)a < (float)b;
+                if (aType == typeof(double)) return (double)a < (double)b;
+                if (aType == typeof(decimal)) return (decimal)a < (decimal)b;
+                if (aType == typeof(char)) return (char)a < (char)b;
+                if (aType == typeof(short)) return (short)a < (short)b;
+                if (aType == typeof(ushort)) return (ushort)a < (ushort)b;
+                if (aType == typeof(DateTime)) return (DateTime)a < (DateTime)b;
+                if (aType == typeof(DateTimeOffset)) return (DateTimeOffset)a < (DateTimeOffset)b;
+                if (aType == typeof(TimeSpan)) return (TimeSpan)a < (TimeSpan)b;
+            }
 
             var op = aType.GetMethod("op_LessThan", new Type[] { aType, b.GetType() }, BindingFlags.Static | BindingFlags.Public);
 
@@ -275,21 +288,24 @@ namespace Cauldron
 
             var aType = a.GetType();
 
-            if (aType == typeof(int)) return (int)a <= (int)b;
-            if (aType == typeof(uint)) return (uint)a <= (uint)b;
-            if (aType == typeof(long)) return (long)a <= (long)b;
-            if (aType == typeof(ulong)) return (ulong)a <= (ulong)b;
-            if (aType == typeof(byte)) return (byte)a <= (byte)b;
-            if (aType == typeof(sbyte)) return (sbyte)a <= (sbyte)b;
-            if (aType == typeof(float)) return (float)a <= (float)b;
-            if (aType == typeof(double)) return (double)a <= (double)b;
-            if (aType == typeof(decimal)) return (decimal)a <= (decimal)b;
-            if (aType == typeof(char)) return (char)a <= (char)b;
-            if (aType == typeof(short)) return (short)a <= (short)b;
-            if (aType == typeof(ushort)) return (ushort)a <= (ushort)b;
-            if (aType == typeof(DateTime)) return (DateTime)a <= (DateTime)b;
-            if (aType == typeof(DateTimeOffset)) return (DateTimeOffset)a <= (DateTimeOffset)b;
-            if (aType == typeof(TimeSpan)) return (TimeSpan)a <= (TimeSpan)b;
+            if (aType == b.GetType())
+            {
+                if (aType == typeof(int)) return (int)a <= (int)b;
+                if (aType == typeof(uint)) return (uint)a <= (uint)b;
+                if (aType == typeof(long)) return (long)a <= (long)b;
+                if (aType == typeof(ulong)) return (ulong)a <= (ulong)b;
+                if (aType == typeof(byte)) return (byte)a <= (byte)b;
+                if (aType == typeof(sbyte)) return (sbyte)a <= (sbyte)b;
+                if (aType == typeof(float)) return (float)a <= (float)b;
+                if (aType == typeof(double)) return (double)a <= (double)b;
+                if (aType == typeof(decimal)) return (decimal)a <= (decimal)b;
+                if (aType == typeof(char)) return (char)a <= (char)b;
+                if (aType == typeof(short)) return (short)a <= (short)b;
+                if (aType == typeof(ushort)) return (ushort)a <= (ushort)b;
+                if (aType == typeof(DateTime)) return (DateTime)a <= (DateTime)b;
+                if (aType == typeof(DateTimeOffset)) return (DateTimeOffset)a <= (DateTimeOffset)b;
+                if (aType == typeof(TimeSpan)) return (TimeSpan)a <= (TimeSpan)b;
+            }
 
             var op = aType.GetMethod("op_LessThanOrEqual", new Type[] { aType, b.GetType() }, BindingFlags.Static | BindingFlags.Public);
 
@@ -321,26 +337,29 @@ namespace Cauldron
 
             var aType = a.GetType();
 
-            if (aType == typeof(string)) return a as string != b as string;
-            if (aType == typeof(int)) return (int)a != (int)b;
-            if (aType == typeof(uint)) return (uint)a != (uint)b;
-            if (aType == typeof(long)) return (long)a != (long)b;
-            if (aType == typeof(ulong)) return (ulong)a != (ulong)b;
-            if (aType == typeof(byte)) return (byte)a != (byte)b;
-            if (aType == typeof(sbyte)) return (sbyte)a != (sbyte)b;
-            if (aType == typeof(float)) return (float)a != (float)b;
-            if (aType == typeof(double)) return (double)a != (double)b;
-            if (aType == typeof(decimal)) return (decimal)a != (decimal)b;
-            if (aType == typeof(bool)) return (bool)a != (bool)b;
-            if (aType == typeof(char)) return (char)a != (char)b;
-            if (aType == typeof(short)) return (short)a != (short)b;
-            if (aType == typeof(ushort)) return (ushort)a != (ushort)b;
-            if (aType == typeof(IntPtr)) return (IntPtr)a != (IntPtr)b;
-            if (aType == typeof(UIntPtr)) return (UIntPtr)a != (UIntPtr)b;
-            if (aType == typeof(DateTime)) return (DateTime)a != (DateTime)b;
-            if (aType == typeof(DateTimeOffset)) return (DateTimeOffset)a != (DateTimeOffset)b;
-            if (aType == typeof(TimeSpan)) return (TimeSpan)a != (TimeSpan)b;
-            if (aType == typeof(Guid)) return (Guid)a != (Guid)b;
+            if (aType == b.GetType())
+            {
+                if (aType == typeof(string)) return a as string != b as string;
+                if (aType == typeof(int)) return (int)a != (int)b;
+                if (aType == typeof(uint)) return (uint)a != (uint)b;
+                if (aType == typeof(long)) return (long)a != (long)b;
+                if (aType == typeof(ulong)) return (ulong)a != (ulong)b;
+                if (aType == typeof(byte)) return (byte)a != (byte)b;
+                if (aType == typeof(sbyte)) return (sbyte)a != (sbyte)b;
+                if (aType == typeof(float)) return (float)a != (float)b;
+                if (aType == typeof(double)) return (double)a != (double)b;
+                if (aType == typeof(decimal)) return (decimal)a != (decimal)b;
+                if (aType == typeof(bool)) return (bool)a != (bool)b;
+                if (aType == typeof(char)) return (char)a != (char)b;
+                if (aType == typeof(short)) return (short)a != (short)b;
+                if (aType == typeof(ushort)) return (ushort)a != (ushort)b;
+                if (aType == typeof(IntPtr)) return (IntPtr)a != (IntPtr)b;
+                if (aType == typeof(UIntPtr)) return (UIntPtr)a != (UIntPtr)b;
+                if (aType == typeof(DateTime)) return (DateTime)a != (DateTime)b;
+                if (aType == typeof(DateTimeOffset)) return (DateTimeOffset)a != (DateTimeOffset)b;
+                if (aType == typeof(TimeSpan)) return (TimeSpan)a != (TimeSpan)b;
+                if (aType == typeof(Guid)) return (Guid)a != (Guid)b;
+            }
 
             var op = aType.GetMethod("op_Inequality", new Type[] { aType, b.GetType() }, BindingFlags.Static | BindingFlags.Public);
 
