@@ -29,6 +29,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Behaviours\IBehaviour.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviours\Interaction.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviours\Interactivity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Behaviours\InvocationTrigger.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviours\InvokeMethodAction.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviours\ParentPropertySetterAction.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviours\SetFocus.cs" />
