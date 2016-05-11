@@ -69,7 +69,7 @@ namespace Cauldron
         /// Determines whether an element is in the array
         /// </summary>
         /// <typeparam name="T">The type of elements in the array</typeparam>
-        /// <param name="array">The array that could contain the item</param>
+        /// <param name="array">The array that could contains the item</param>
         /// <param name="predicate">A function to test each element for a condition.</param>
         /// <returns>true if item is found in the array; otherwise, false.</returns>
         public static bool Contains<T>(this T[] array, Func<T, bool> predicate)
@@ -77,6 +77,42 @@ namespace Cauldron
             for (int i = 0; i < array.Length; i++)
             {
                 if (predicate(array[i]))
+                    return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Determines whether an element is in the array
+        /// </summary>
+        /// <typeparam name="T">The type of elements in the array</typeparam>
+        /// <param name="list">The <see cref="List{T}"/> that could contains the item</param>
+        /// <param name="predicate">A function to test each element for a condition.</param>
+        /// <returns>true if item is found in the array; otherwise, false.</returns>
+        public static bool Contains<T>(this List<T> list, Func<T, bool> predicate)
+        {
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (predicate(list[i]))
+                    return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Determines whether an element is in the array
+        /// </summary>
+        /// <typeparam name="T">The type of elements in the array</typeparam>
+        /// <param name="collection">The <see cref="IEnumerable"/> that could contains the item</param>
+        /// <param name="predicate">A function to test each element for a condition.</param>
+        /// <returns>true if item is found in the array; otherwise, false.</returns>
+        public static bool Contains<T>(this IEnumerable<T> collection, Func<T, bool> predicate)
+        {
+            foreach (var item in collection)
+            {
+                if (predicate(item))
                     return true;
             }
 

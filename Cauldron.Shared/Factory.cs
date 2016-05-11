@@ -356,7 +356,20 @@ namespace Cauldron
             var factoryTypeInfos = types.Where(x => x.contractName == contractName);
 
             if (factoryTypeInfos.Count() > 1)
+            {
+                for (int i = 0; i < factoryExtensions.Count; i++)
+                {
+                    if (factoryExtensions[i].CanHandleAmbiguousMatch)
+                    {
+                        var selectedType = factoryExtensions[i].SelectAmbiguousMatch(factoryTypeInfos.Select(x => x.type), contractName);
+
+                        if (selectedType != null)
+                            return CreateObject(selectedType, selectedType.GetTypeInfo(), parameters);
+                    }
+                }
+
                 throw new AmbiguousMatchException("There is more than one implementation with contractname '" + contractName + "' found.");
+            }
 
             return GetInstance(factoryTypeInfos.First(), parameters);
         }

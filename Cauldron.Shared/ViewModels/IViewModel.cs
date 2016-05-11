@@ -8,7 +8,7 @@ namespace Cauldron.ViewModels
     /// <summary>
     /// Defines a ViewModel
     /// </summary>
-    public interface IViewModel : INotifyPropertyChanged, INotifyBehaviourInvokation
+    public interface IViewModel : INotifyPropertyChanged, INotifyBehaviourInvocation
     {
         /// <summary>
         /// Gets the <see cref="Dispatcher"/> this <see cref="CauldronDispatcher"/> is associated with.
