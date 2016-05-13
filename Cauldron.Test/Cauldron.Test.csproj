@@ -70,6 +70,7 @@
     <Compile Include="FactoryTest.cs" />
     <Compile Include="LocalizationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RandomizerTests.cs" />
     <Compile Include="Resources\FactoryTestResource.cs" />
     <Compile Include="Resources\LocalizationSourceReader.cs" />
     <Compile Include="Resources\TestViewModels.cs" />

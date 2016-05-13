@@ -6,7 +6,7 @@ namespace Cauldron.Core
     /// <summary>
     /// Provides a randomizer that is cryptographicly secure
     /// </summary>
-    public sealed partial class Randomizer
+    public partial class Randomizer
     {
         private static int GetCryptographicSeed()
         {

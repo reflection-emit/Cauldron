@@ -1,4 +1,6 @@
-﻿namespace Cauldron.Core
+﻿using System;
+
+namespace Cauldron.Core
 {
     /// <summary>
     /// Represents a randomizer that is cryptographicly secure
@@ -10,8 +12,9 @@
         /// Cryptographic secure.
         /// </summary>
         /// <param name="minValue">The inclusive lower bound of the random number returned.</param>
-        /// <param name="maxValue">The exclusive upper bound of the random number to be generated.maxValue must be greater than or equal to 0.</param>
+        /// <param name="maxValue">The exclusive upper bound of the random number to be generated. <paramref name="maxValue"/> must be greater than or equal to 0.</param>
         /// <returns>A random integer value</returns>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="minValue"/> is greater than <paramref name="maxValue"/></exception>
         int Next(int minValue, int maxValue);
 
         /// <summary>
@@ -55,8 +58,9 @@
         /// Cryptographic secure.
         /// </summary>
         /// <param name="minValue">The inclusive lower bound of the random number returned.</param>
-        /// <param name="maxValue">The exclusive upper bound of the random number to be generated.maxValue must be greater than or equal to 0.</param>
+        /// <param name="maxValue">The exclusive upper bound of the random number to be generated. <paramref name="maxValue"/> must be greater than or equal to 0.</param>
         /// <returns>A random value</returns>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="minValue"/> is greater than <paramref name="maxValue"/></exception>
         double NextDouble(double minValue, double maxValue);
     }
 }
