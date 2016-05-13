@@ -57,6 +57,11 @@ namespace Cauldron
                 if (aType == typeof(DateTimeOffset)) return (DateTimeOffset)a == (DateTimeOffset)b;
                 if (aType == typeof(TimeSpan)) return (TimeSpan)a == (TimeSpan)b;
                 if (aType == typeof(Guid)) return (Guid)a == (Guid)b;
+
+                // If object a implements the IEquatable<> interface... Lets handle it in here
+                var method = aType.GetMethod("Equals", new Type[] { aType });
+                if (method != null)
+                    return (bool)method.Invoke(a, new object[] { b });
             }
 
             var op = aType.GetMethod("op_Equality", new Type[] { aType, b.GetType() }, BindingFlags.Static | BindingFlags.Public);
@@ -359,6 +364,11 @@ namespace Cauldron
                 if (aType == typeof(DateTimeOffset)) return (DateTimeOffset)a != (DateTimeOffset)b;
                 if (aType == typeof(TimeSpan)) return (TimeSpan)a != (TimeSpan)b;
                 if (aType == typeof(Guid)) return (Guid)a != (Guid)b;
+
+                // If object a implements the IEquatable<> interface... Lets handle it in here
+                var method = aType.GetMethod("Equals", new Type[] { aType });
+                if (method != null)
+                    return !(bool)method.Invoke(a, new object[] { b });
             }
 
             var op = aType.GetMethod("op_Inequality", new Type[] { aType, b.GetType() }, BindingFlags.Static | BindingFlags.Public);
