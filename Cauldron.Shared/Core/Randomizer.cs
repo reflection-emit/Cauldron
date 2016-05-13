@@ -7,13 +7,7 @@ namespace Cauldron.Core
     /// </summary>
     public static partial class Randomizer
     {
-        [ThreadStatic]
-        private static Random local;
-
-        static Randomizer()
-        {
-            local = new Random(GetCryptographicSeed());
-        }
+        private readonly static Random local = new Random(GetCryptographicSeed());
 
         /// <summary>
         /// Returns a nonnegative random number.
