@@ -225,7 +225,8 @@ namespace Cauldron
                 PersistentWindowInformation.Load(window, viewModel.GetType());
 
             // set the window owner
-            windows.FirstOrDefault(x => x.window.IsActive && x.window.Tag != SplashScreenTag).IsNotNull(x => window.Owner = x.window);
+            if (window.Tag != MainWindowTag)
+                windows.FirstOrDefault(x => x.window.IsActive).IsNotNull(x => window.Owner = x.window);
 
             // Set the toolbar template
             WindowToolbar.SetTemplate(window, windowConfig.ToolbarTemplate);
@@ -274,23 +275,6 @@ namespace Cauldron
             window.EndInit();
 
             return window;
-        }
-
-        private bool IsParameterMatch(object[] args, ParameterInfo[] types)
-        {
-            if ((args == null && types == null) || (args == null && types != null && types.Length == 0))
-                return true;
-
-            if (args == null || args.Length != types.Length)
-                return false;
-
-            for (int i = 0; i < args.Length; i++)
-            {
-                if (args[i].GetType() != types[i].ParameterType)
-                    return false;
-            }
-
-            return true;
         }
 
         private async Task NavigateInternal<TResult>(Type type, Action<TResult> callback, params object[] args)
@@ -389,21 +373,17 @@ namespace Cauldron
 
             if (navigatingAttrib != null)
             {
+                var parameterTypes = args.GetTypes();
+
                 foreach (var methodName in navigatingAttrib.MethodNames)
                 {
-                    var methodInfo = viewModelType.GetMethod(methodName, BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Static);
-                    if (methodInfo == null)
-                        throw new ArgumentException("The method '" + methodName + "' does not exist in " + viewModelType.FullName);
-
-                    // Check if the args matches with the method info param types
-                    if (IsParameterMatch(args, methodInfo.GetParameters()))
+                    var methodInfo = viewModelType.GetMethod(methodName, parameterTypes, BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Static);
+                    if (methodInfo != null)
                     {
                         if (methodInfo.ReturnParameter.ParameterType.IsSubclassOf(typeof(Task)))
                             await (methodInfo.Invoke(viewModel, args) as Task);
                         else
                             methodInfo.Invoke(viewModel, args);
-
-                        break;
                     }
                 }
             }

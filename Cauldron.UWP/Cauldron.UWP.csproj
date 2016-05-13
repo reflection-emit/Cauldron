@@ -128,6 +128,7 @@
     <Compile Include="CauldronTemplateSelector.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="IMessageDialog.cs" />
+    <Compile Include="INavigator.cs" />
     <Compile Include="Localization.cs" />
     <Compile Include="MessageDialog.cs" />
     <Compile Include="Navigator.cs" />
