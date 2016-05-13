@@ -2,6 +2,8 @@
 {
     /// <summary>
     /// Contains default Windows OS localized strings
+    /// <para/>
+    /// Attention: The localized strings are not available in UWP
     /// </summary>
     public static class WindowsStrings
     {

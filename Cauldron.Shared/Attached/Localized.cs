@@ -95,7 +95,7 @@ namespace Cauldron.Attached
 #if !NETFX_CORE
             else
             {
-                var defaultWindows = Utils.GetStringFromModule(text);
+                var defaultWindows = Utils.Current.GetStringFromModule(text);
                 if (defaultWindows != null)
                     return defaultWindows;
             }

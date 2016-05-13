@@ -19,12 +19,12 @@ namespace ViewModelCommunication.ViewModels
 
             this.ClearCommand = new RelayCommand(this.ClearAction);
 
-            this.Properties.Add(new AnimalProperty { Name = "Speed", Value = Randomizer.Next(2, 100) });
-            this.Properties.Add(new AnimalProperty { Name = "Weight", Value = Randomizer.Next(30, 460) });
-            this.Properties.Add(new AnimalProperty { Name = "Leg count", Value = Randomizer.Next(2, 8) });
-            this.Properties.Add(new AnimalProperty { Name = "Population count", Value = Randomizer.Next(100, 100000000) });
-            this.Properties.Add(new AnimalProperty { Name = "Deadliness", Value = Randomizer.Next(2, 100) });
-            this.Properties.Add(new AnimalProperty { Name = "Health", Value = Randomizer.Next(2, 250) });
+            this.Properties.Add(new AnimalProperty { Name = "Speed", Value = Randomizer.Current.Next(2, 100) });
+            this.Properties.Add(new AnimalProperty { Name = "Weight", Value = Randomizer.Current.Next(30, 460) });
+            this.Properties.Add(new AnimalProperty { Name = "Leg count", Value = Randomizer.Current.Next(2, 8) });
+            this.Properties.Add(new AnimalProperty { Name = "Population count", Value = Randomizer.Current.Next(100, 100000000) });
+            this.Properties.Add(new AnimalProperty { Name = "Deadliness", Value = Randomizer.Current.Next(2, 100) });
+            this.Properties.Add(new AnimalProperty { Name = "Health", Value = Randomizer.Current.Next(2, 250) });
         }
 
         public ICommand ClearCommand { get; private set; }

@@ -1,7 +1,5 @@
 ﻿using Cauldron.Core;
 using System;
-using System.Diagnostics;
-using System.Linq;
 using System.Reflection;
 using System.Security;
 using System.Text.RegularExpressions;
@@ -11,7 +9,8 @@ namespace Cauldron
     /// <summary>
     /// Provides a collection of utility methods
     /// </summary>
-    public static partial class Utils
+    [Factory(typeof(IUtils))]
+    public sealed partial class Utils : Singleton<Utils>, IUtils
     {
         /// <summary>
         /// Determines whether <paramref name="a"/> is equal to <paramref name="b"/>
@@ -22,7 +21,7 @@ namespace Cauldron
         /// <param name="a">The first object to compare</param>
         /// <param name="b">The second object to compare</param>
         /// <returns>true if <paramref name="a"/> is equal to <paramref name="b"/>; otherwise, false.</returns>
-        public new static bool Equals(object a, object b)
+        public new bool Equals(object a, object b)
         {
             if (a == null && b == null)
                 return true;
@@ -85,7 +84,7 @@ namespace Cauldron
         /// <param name="password">The password to check</param>
         /// <returns>Returns <see cref="PasswordScore"/> rating</returns>
         [SecurityCritical]
-        public static PasswordScore GetPasswordScore(string password)
+        public PasswordScore GetPasswordScore(string password)
         {
             // Origin: http://social.msdn.microsoft.com/Forums/vstudio/en-US/5e3f27d2-49af-410a-85a2-3c47e3f77fb1/how-to-check-for-password-strength
             if (string.IsNullOrEmpty(password))
@@ -130,7 +129,7 @@ namespace Cauldron
         /// <param name="b">The second object to compare</param>
         /// <returns>true if <paramref name="a"/> is greater than <paramref name="b"/>; otherwise, false.</returns>
         /// <exception cref="ArgumentException">Greater than operator cannot be applied</exception>
-        public static bool GreaterThan(object a, object b)
+        public bool GreaterThan(object a, object b)
         {
             if (a == null && b == null) // if they are both null then they are eventually equal
                 return false;
@@ -180,7 +179,7 @@ namespace Cauldron
         /// <param name="b">The second object to compare</param>
         /// <returns>true if <paramref name="a"/> is greater than or equal to <paramref name="b"/>; otherwise, false.</returns>
         /// <exception cref="ArgumentException">Operator cannot be applied</exception>
-        public static bool GreaterThanOrEqual(object a, object b)
+        public bool GreaterThanOrEqual(object a, object b)
         {
             if (a == null && b == null) // if they are both null then they are eventually equal
                 return true;
@@ -230,7 +229,7 @@ namespace Cauldron
         /// <param name="b">The second object to compare</param>
         /// <returns>true if <paramref name="a"/> is less than <paramref name="b"/>; otherwise, false.</returns>
         /// <exception cref="ArgumentException">Lesser than operator cannot be applied</exception>
-        public static bool LessThan(object a, object b)
+        public bool LessThan(object a, object b)
         {
             if (a == null && b == null) // if they are both null then they are eventually equal
                 return false;
@@ -280,7 +279,7 @@ namespace Cauldron
         /// <param name="b">The second object to compare</param>
         /// <returns>true if <paramref name="a"/> is less than or equal to <paramref name="b"/>; otherwise, false.</returns>
         /// <exception cref="ArgumentException">Operator cannot be applied</exception>
-        public static bool LessThanOrEqual(object a, object b)
+        public bool LessThanOrEqual(object a, object b)
         {
             if (a == null && b == null) // if they are both null then they are eventually equal
                 return true;
@@ -329,7 +328,7 @@ namespace Cauldron
         /// <param name="a">The first object to compare</param>
         /// <param name="b">The second object to compare</param>
         /// <returns>true if <paramref name="a"/> is unequal to <paramref name="b"/>; otherwise, false.</returns>
-        public static bool UnEquals(object a, object b)
+        public bool UnEquals(object a, object b)
         {
             if (a == null && b == null)
                 return false;

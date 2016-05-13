@@ -88,6 +88,7 @@
     <Compile Include="ExtensionsFrameworkElement.cs" />
     <Compile Include="IMessageDialog.cs" />
     <Compile Include="INavigator.cs" />
+    <Compile Include="IUtils.cs" />
     <Compile Include="Localization.cs" />
     <Compile Include="MessageDialog.cs" />
     <Compile Include="Navigator.cs" />

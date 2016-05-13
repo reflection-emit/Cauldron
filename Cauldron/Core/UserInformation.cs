@@ -210,7 +210,7 @@ namespace Cauldron.Core
                                 if (this.IsLocalAccount)
                                     // The user is not a domain user
                                     this.GetInformation(ContextType.Machine);
-                                else if (Utils.IsNetworkAvailable)
+                                else if (Utils.Current.IsNetworkAvailable)
                                     // Try to gather information only if we have any network connection
                                     this.GetInformation(ContextType.Domain);
                                 else

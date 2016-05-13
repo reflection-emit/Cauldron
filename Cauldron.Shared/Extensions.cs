@@ -436,7 +436,7 @@ namespace Cauldron
                 byte* insecureData = (byte*)target.AddrOfPinnedObject();
 
                 for (int i = 0; i < targetLength; i++)
-                    insecureData[i] = Randomizer.NextByte();
+                    insecureData[i] = Randomizer.Current.NextByte();
 
                 target.Free();
             }
@@ -484,7 +484,7 @@ namespace Cauldron
 
             foreach (var item in items)
             {
-                if (!Utils.Equals(item, itemToRemove))
+                if (!Utils.Current.Equals(item, itemToRemove))
                     result.Add(item);
             }
 

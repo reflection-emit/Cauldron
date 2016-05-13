@@ -29,11 +29,11 @@ namespace Cauldron.Validation
             var password = string.Empty;
 
             if (propertyInfo.PropertyType == typeof(string))
-                strength = Utils.GetPasswordScore(password);
+                strength = Utils.Current.GetPasswordScore(password);
             else if (propertyInfo.PropertyType == typeof(SecureString))
                 using (var secureString = new SecureStringHandler(value as SecureString))
                 {
-                    strength = Utils.GetPasswordScore(secureString.ToString());
+                    strength = Utils.Current.GetPasswordScore(secureString.ToString());
                 }
 
             return strength == PasswordScore.Blank || strength == PasswordScore.VeryWeak || strength == PasswordScore.Weak;

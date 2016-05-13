@@ -6,10 +6,8 @@ namespace Cauldron.Core
     /// <summary>
     /// Provides a randomizer that is cryptographicly secure
     /// </summary>
-    public static partial class Randomizer
+    public sealed partial class Randomizer
     {
-        private static RNGCryptoServiceProvider cryptoGlobal = new RNGCryptoServiceProvider();
-
         private static int GetCryptographicSeed()
         {
             var cryptoGlobal = new RNGCryptoServiceProvider();

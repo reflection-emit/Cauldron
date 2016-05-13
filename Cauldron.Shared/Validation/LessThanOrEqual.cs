@@ -54,14 +54,14 @@ namespace Cauldron.Validation
                 return false;
 
             if (this.value != null)
-                return !Utils.LessThanOrEqual(value, this.value);
+                return !Utils.Current.LessThanOrEqual(value, this.value);
 
             var otherProperty = context.GetType().GetProperty(this.propertyName);
 
             if (otherProperty == null)
                 throw new ArgumentException(string.Format("The property '{0}' was not found on '{1}'.", this.propertyName, context.GetType().FullName));
 
-            return !Utils.LessThanOrEqual(value, otherProperty.GetValue(context));
+            return !Utils.Current.LessThanOrEqual(value, otherProperty.GetValue(context));
         }
 
         /// <summary>

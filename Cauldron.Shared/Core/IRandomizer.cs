@@ -1,25 +1,10 @@
-﻿using System;
-
-namespace Cauldron.Core
+﻿namespace Cauldron.Core
 {
     /// <summary>
-    /// Provides a randomizer that is cryptographicly secure
+    /// Represents a randomizer that is cryptographicly secure
     /// </summary>
-    [Factory(typeof(IRandomizer))]
-    public sealed partial class Randomizer : Singleton<Randomizer>, IRandomizer
+    public interface IRandomizer
     {
-        private readonly Random local = new Random(GetCryptographicSeed());
-
-        /// <summary>
-        /// Returns a nonnegative random number.
-        /// Cryptographic secure.
-        /// </summary>
-        /// <returns>A random integer value</returns>
-        public int Next()
-        {
-            return local.Next();
-        }
-
         /// <summary>
         /// Returns a random number within a specified range.
         /// Cryptographic secure.
@@ -27,10 +12,14 @@ namespace Cauldron.Core
         /// <param name="minValue">The inclusive lower bound of the random number returned.</param>
         /// <param name="maxValue">The exclusive upper bound of the random number to be generated.maxValue must be greater than or equal to 0.</param>
         /// <returns>A random integer value</returns>
-        public int Next(int minValue, int maxValue)
-        {
-            return local.Next(minValue, maxValue);
-        }
+        int Next(int minValue, int maxValue);
+
+        /// <summary>
+        /// Returns a nonnegative random number.
+        /// Cryptographic secure.
+        /// </summary>
+        /// <returns>A random integer value</returns>
+        int Next();
 
         /// <summary>
         /// Returns a random number item from the array.
@@ -39,39 +28,27 @@ namespace Cauldron.Core
         /// <typeparam name="T">The array item type</typeparam>
         /// <param name="array">The array</param>
         /// <returns>A random item from the array</returns>
-        public T Next<T>(T[] array)
-        {
-            return array[local.Next(0, array.Length)];
-        }
+        T Next<T>(T[] array);
 
         /// <summary>
         /// Returns a random boolean.
         /// Cryptographic secure.
         /// </summary>
         /// <returns>A random boolean</returns>
-        public bool NextBoolean()
-        {
-            return Next(0, 1000) > 500;
-        }
+        bool NextBoolean();
 
         /// <summary>
         /// Returns a random byte value
         /// </summary>
         /// <returns>A random byte value (0 to 255)</returns>
-        public byte NextByte()
-        {
-            return (byte)Next(0, 255);
-        }
+        byte NextByte();
 
         /// <summary>
         /// Returns a random number between 0.0 and 1.0.
         /// Cryptographic secure.
         /// </summary>
         /// <returns>A random value</returns>
-        public double NextDouble()
-        {
-            return local.NextDouble();
-        }
+        double NextDouble();
 
         /// <summary>
         /// Returns a random number within a specified range.
@@ -80,10 +57,6 @@ namespace Cauldron.Core
         /// <param name="minValue">The inclusive lower bound of the random number returned.</param>
         /// <param name="maxValue">The exclusive upper bound of the random number to be generated.maxValue must be greater than or equal to 0.</param>
         /// <returns>A random value</returns>
-        public double NextDouble(double minValue, double maxValue)
-        {
-            double randomValue = local.NextDouble();
-            return minValue + randomValue * (maxValue - minValue);
-        }
+        double NextDouble(double minValue, double maxValue);
     }
 }
