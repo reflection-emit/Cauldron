@@ -45,6 +45,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Core\DynamicEventHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\EmbeddedImageManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\IDisposableObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\IUserInformation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Mathc.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\MessageBoxImage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\MessageDialogCommand.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)FactoryTypeInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IFactoryExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ILocalizationSource.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IMessageDialog.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)InjectAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)InjectionFactoryExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)INotifyBehaviourInvocation.cs" />
@@ -105,6 +107,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ValidationHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ViewModelBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ViewModelContainerHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WindowsStrings.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)Snippets\argumentNullException.snippet" />

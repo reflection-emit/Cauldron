@@ -7,8 +7,7 @@ namespace Cauldron
     /// <summary>
     /// Represents a dialog.
     /// </summary>
-    [Factory(typeof(IMessageDialog), FactoryCreationPolicy.Instanced)]
-    public partial class MessageDialog : IMessageDialog
+    public partial interface IMessageDialog
     {
         /// <summary>
         /// Begins an asynchronous operation showing a dialog.
@@ -18,27 +17,7 @@ namespace Cauldron
         /// <param name="command1">A command that appear in the command bar of the message dialog. This command makes the dialog actionable.</param>
         /// <param name="command2">A command that appear in the command bar of the message dialog. This command makes the dialog actionable.</param>
         /// <returns>An object that represents the asynchronous operation.</returns>
-        public async Task ShowAsync(string title, string content, MessageDialogCommand command1, MessageDialogCommand command2)
-        {
-            await ShowAsync(title, content, 0, 1, new MessageDialogCommandList()
-                    {
-                        command1,
-                        command2
-                    });
-        }
-
-        /// <summary>
-        /// Begins an asynchronous operation showing a dialog with an OK button.
-        /// </summary>
-        /// <param name="content">The message to be displayed to the user.</param>
-        /// <returns>An object that represents the asynchronous operation.</returns>
-        public async Task ShowOKAsync(string content)
-        {
-            await ShowAsync(string.Empty, content, 0, 0, new MessageDialogCommandList()
-                    {
-                        new MessageDialogCommand(WindowsStrings.OK)
-                    });
-        }
+        Task ShowAsync(string title, string content, MessageDialogCommand command1, MessageDialogCommand command2);
 
         /// <summary>
         /// Begins an asynchronous operation showing a dialog with an OK button.
@@ -46,13 +25,7 @@ namespace Cauldron
         /// <param name="title">The title to display on the dialog, if any.</param>
         /// <param name="content">The message to be displayed to the user.</param>
         /// <returns>An object that represents the asynchronous operation.</returns>
-        public async Task ShowOKAsync(string title, string content)
-        {
-            await ShowAsync(title, content, 0, 0, new MessageDialogCommandList()
-                    {
-                        new MessageDialogCommand(WindowsStrings.OK)
-                    });
-        }
+        Task ShowOKAsync(string title, string content);
 
         /// <summary>
         /// Begins an asynchronous operation showing a dialog with an OK button.
@@ -61,13 +34,22 @@ namespace Cauldron
         /// <param name="content">The message to be displayed to the user.</param>
         /// <param name="command">The action associated with the OK Command</param>
         /// <returns>An object that represents the asynchronous operation.</returns>
-        public async Task ShowOKAsync(string title, string content, Action command)
-        {
-            await ShowAsync(title, content, 0, 0, new MessageDialogCommandList()
-                    {
-                        new MessageDialogCommand(WindowsStrings.OK, command)
-                    });
-        }
+        Task ShowOKAsync(string title, string content, Action command);
+
+        /// <summary>
+        /// Begins an asynchronous operation showing a dialog with an OK button.
+        /// </summary>
+        /// <param name="title">The title to display on the dialog, if any.</param>
+        /// <param name="e">The exception to show on the dialog</param>
+        /// <returns>An object that represents the asynchronous operation.</returns>
+        Task ShowOKAsync(string title, Exception e);
+
+        /// <summary>
+        /// Begins an asynchronous operation showing a dialog with an OK button.
+        /// </summary>
+        /// <param name="content">The message to be displayed to the user.</param>
+        /// <returns>An object that represents the asynchronous operation.</returns>
+        Task ShowOKAsync(string content);
 
         /// <summary>
         /// Begins an asynchronous operation showing a dialog with an OK and cancel button.
@@ -76,14 +58,7 @@ namespace Cauldron
         /// <param name="content">The message to be displayed to the user.</param>
         /// <param name="commandOK">The action associated with the OK Command</param>
         /// <returns>An object that represents the asynchronous operation.</returns>
-        public async Task ShowOKCancelAsync(string title, string content, Action commandOK)
-        {
-            await ShowAsync(title, content, 0, 1, new MessageDialogCommandList()
-                    {
-                        new MessageDialogCommand(WindowsStrings.OK, commandOK),
-                        new MessageDialogCommand(WindowsStrings.Cancel)
-                    });
-        }
+        Task ShowOKCancelAsync(string title, string content, Action commandOK);
 
         /// <summary>
         /// Begins an asynchronous operation showing a dialog with an OK and cancel button.
@@ -93,14 +68,7 @@ namespace Cauldron
         /// <param name="commandOK">The action associated with the OK Command</param>
         /// <param name="commandCancel">The action associated with the cancel Command</param>
         /// <returns>An object that represents the asynchronous operation.</returns>
-        public async Task ShowOKCancelAsync(string title, string content, Action commandOK, Action commandCancel)
-        {
-            await ShowAsync(title, content, 0, 1, new MessageDialogCommandList()
-                    {
-                        new MessageDialogCommand(WindowsStrings.OK, commandOK),
-                        new MessageDialogCommand(WindowsStrings.Cancel, commandCancel)
-                    });
-        }
+        Task ShowOKCancelAsync(string title, string content, Action commandOK, Action commandCancel);
 
         /// <summary>
         /// Begins an asynchronous operation showing a dialog with a Yes and No button.
@@ -108,18 +76,7 @@ namespace Cauldron
         /// <param name="title">The title to display on the dialog, if any.</param>
         /// <param name="content">The message to be displayed to the user.</param>
         /// <returns>Returns true if the user has selected Yes, otherwise false</returns>
-        public async Task<bool> ShowYesNoAsync(string title, string content)
-        {
-            bool result = false;
-
-            await ShowAsync(title, content, 0, 1, new MessageDialogCommandList()
-                    {
-                        new MessageDialogCommand(WindowsStrings.Yes, ()=> result = true),
-                        new MessageDialogCommand(WindowsStrings.No, ()=> result = false)
-                    });
-
-            return result;
-        }
+        Task<bool> ShowYesNoAsync(string title, string content);
 
         /// <summary>
         /// Begins an asynchronous operation showing a dialog with a Yes and No button.
@@ -128,14 +85,7 @@ namespace Cauldron
         /// <param name="content">The message to be displayed to the user.</param>
         /// <param name="commandYes">The action associated with the Yes Command</param>
         /// <returns>An object that represents the asynchronous operation.</returns>
-        public async Task ShowYesNoAsync(string title, string content, Action commandYes)
-        {
-            await ShowAsync(title, content, 0, 1, new MessageDialogCommandList()
-                    {
-                        new MessageDialogCommand(WindowsStrings.Yes, commandYes),
-                        new MessageDialogCommand(WindowsStrings.No)
-                    });
-        }
+        Task ShowYesNoAsync(string title, string content, Action commandYes);
 
         /// <summary>
         /// Begins an asynchronous operation showing a dialog with a Yes and No button.
@@ -145,14 +95,7 @@ namespace Cauldron
         /// <param name="commandYes">The action associated with the Yes Command</param>
         /// <param name="commandNo">The action associated with the No Command</param>
         /// <returns>An object that represents the asynchronous operation.</returns>
-        public async Task ShowYesNoAsync(string title, string content, Action commandYes, Action commandNo)
-        {
-            await ShowAsync(title, content, 0, 1, new MessageDialogCommandList()
-                    {
-                        new MessageDialogCommand(WindowsStrings.Yes, commandYes),
-                        new MessageDialogCommand(WindowsStrings.No, commandNo)
-                    });
-        }
+        Task ShowYesNoAsync(string title, string content, Action commandYes, Action commandNo);
 
         /// <summary>
         /// Begins an asynchronous operation showing a dialog with a Yes, No and Cancel button.
@@ -163,15 +106,7 @@ namespace Cauldron
         /// <param name="commandNo">The action associated with the No Command</param>
         /// <param name="commandCancel">The action associated with the Cancel Command</param>
         /// <returns>An object that represents the asynchronous operation.</returns>
-        public async Task ShowYesNoCancelAsync(string title, string content, Action commandYes, Action commandNo, Action commandCancel)
-        {
-            await ShowAsync(title, content, 0, 2, new MessageDialogCommandList()
-                    {
-                        new MessageDialogCommand(WindowsStrings.Yes, commandYes),
-                        new MessageDialogCommand(WindowsStrings.No, commandNo),
-                        new MessageDialogCommand(WindowsStrings.Cancel, commandCancel)
-                    });
-        }
+        Task ShowYesNoCancelAsync(string title, string content, Action commandYes, Action commandNo, Action commandCancel);
 
         /// <summary>
         /// Begins an asynchronous operation showing a dialog with a Yes, No and Cancel button.
@@ -181,14 +116,6 @@ namespace Cauldron
         /// <param name="commandYes">The action associated with the Yes Command</param>
         /// <param name="commandNo">The action associated with the No Command</param>
         /// <returns>An object that represents the asynchronous operation.</returns>
-        public async Task ShowYesNoCancelAsync(string title, string content, Action commandYes, Action commandNo)
-        {
-            await ShowAsync(title, content, 0, 2, new MessageDialogCommandList()
-                    {
-                        new MessageDialogCommand(WindowsStrings.Yes, commandYes),
-                        new MessageDialogCommand(WindowsStrings.No, commandNo),
-                        new MessageDialogCommand(WindowsStrings.Cancel)
-                    });
-        }
+        Task ShowYesNoCancelAsync(string title, string content, Action commandYes, Action commandNo);
     }
 }

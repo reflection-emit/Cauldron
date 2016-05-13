@@ -4,7 +4,6 @@ using Newtonsoft.Json;
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows.Input;
 
 namespace Cauldron.ViewModels
 {
@@ -21,6 +20,7 @@ namespace Cauldron.ViewModels
         {
             this.Id = Guid.NewGuid();
             this.Dispatcher = new CauldronDispatcher();
+            this.Navigator = Factory.Create<INavigator>();
         }
 
         /// <summary>
@@ -30,6 +30,8 @@ namespace Cauldron.ViewModels
         public ViewModelBase(Guid id)
         {
             this.Id = id;
+            this.Dispatcher = new CauldronDispatcher();
+            this.Navigator = Factory.Create<INavigator>();
         }
 
         /// <summary>
@@ -53,6 +55,11 @@ namespace Cauldron.ViewModels
         /// </summary>
         [SuppressIsChanged, JsonIgnore]
         public Guid Id { get; private set; }
+
+        /// <summary>
+        /// Gets the window navigator
+        /// </summary>
+        protected INavigator Navigator { get; private set; }
 
         /// <summary>
         /// Invokes the <see cref="PropertyChanged"/> event

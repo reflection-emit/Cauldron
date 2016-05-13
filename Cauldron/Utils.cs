@@ -99,33 +99,33 @@ namespace Cauldron
         {
             switch (key)
             {
-                case "OK": return Utils.GetStringFromModule(800);
-                case "Yes": return Utils.GetStringFromModule(805);
-                case "No": return Utils.GetStringFromModule(806);
-                case "Cancel": return Utils.GetStringFromModule(801);
-                case "Minimize": return Utils.GetStringFromModule(900);
-                case "Maximize": return Utils.GetStringFromModule(901);
-                case "Restore Up": return Utils.GetStringFromModule(902);
-                case "Restore Down": return Utils.GetStringFromModule(903);
-                case "Help": return Utils.GetStringFromModule(904);
-                case "Close": return Utils.GetStringFromModule(905);
-                case "Abort": return Utils.GetStringFromModule(802);
-                case "Retry": return Utils.GetStringFromModule(803);
-                case "Continue": return Utils.GetStringFromModule(810);
-                case "Ignore": return Utils.GetStringFromModule(804);
-                case "Error": return Utils.GetStringFromModule(2);
+                case WindowsStrings.OK: return Utils.GetStringFromModule(800);
+                case WindowsStrings.Yes: return Utils.GetStringFromModule(805);
+                case WindowsStrings.No: return Utils.GetStringFromModule(806);
+                case WindowsStrings.Cancel: return Utils.GetStringFromModule(801);
+                case WindowsStrings.Minimize: return Utils.GetStringFromModule(900);
+                case WindowsStrings.Maximize: return Utils.GetStringFromModule(901);
+                case WindowsStrings.RestoreUp: return Utils.GetStringFromModule(902);
+                case WindowsStrings.RestoreDown: return Utils.GetStringFromModule(903);
+                case WindowsStrings.Help: return Utils.GetStringFromModule(904);
+                case WindowsStrings.Close: return Utils.GetStringFromModule(905);
+                case WindowsStrings.Abort: return Utils.GetStringFromModule(802);
+                case WindowsStrings.Retry: return Utils.GetStringFromModule(803);
+                case WindowsStrings.Continue: return Utils.GetStringFromModule(810);
+                case WindowsStrings.Ignore: return Utils.GetStringFromModule(804);
+                case WindowsStrings.Error: return Utils.GetStringFromModule(2);
 
-                case "Copy": return Utils.GetStringFromModule("shell32.dll", 4146);
-                case "Move": return Utils.GetStringFromModule("shell32.dll", 4145);
-                case "Delete": return Utils.GetStringFromModule("shell32.dll", 4147);
-                case "Rename": return Utils.GetStringFromModule("shell32.dll", 4148);
-                case "New": return Utils.GetStringFromModule("shell32.dll", 4151);
-                case "Name": return Utils.GetStringFromModule("shell32.dll", 8976);
-                case "Size": return Utils.GetStringFromModule("shell32.dll", 8978);
-                case "Type": return Utils.GetStringFromModule("shell32.dll", 8979);
-                case "Comments": return Utils.GetStringFromModule("shell32.dll", 8995);
-                case "Open": return Utils.GetStringFromModule("shell32.dll", 12850);
-                case "Execute": return Utils.GetStringFromModule("shell32.dll", 12852);
+                case WindowsStrings.Copy: return Utils.GetStringFromModule("shell32.dll", 4146);
+                case WindowsStrings.Move: return Utils.GetStringFromModule("shell32.dll", 4145);
+                case WindowsStrings.Delete: return Utils.GetStringFromModule("shell32.dll", 4147);
+                case WindowsStrings.Rename: return Utils.GetStringFromModule("shell32.dll", 4148);
+                case WindowsStrings.New: return Utils.GetStringFromModule("shell32.dll", 4151);
+                case WindowsStrings.Name: return Utils.GetStringFromModule("shell32.dll", 8976);
+                case WindowsStrings.Size: return Utils.GetStringFromModule("shell32.dll", 8978);
+                case WindowsStrings.Type: return Utils.GetStringFromModule("shell32.dll", 8979);
+                case WindowsStrings.Comments: return Utils.GetStringFromModule("shell32.dll", 8995);
+                case WindowsStrings.Open: return Utils.GetStringFromModule("shell32.dll", 12850);
+                case WindowsStrings.Execute: return Utils.GetStringFromModule("shell32.dll", 12852);
             }
 
             return null;
