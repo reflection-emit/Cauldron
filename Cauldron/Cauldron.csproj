@@ -67,6 +67,7 @@
     <Compile Include="Behaviours\ForcePropertyUpdate.cs" />
     <Compile Include="Behaviours\EnterKeyToCommand.cs" />
     <Compile Include="Behaviours\EventTrigger.cs" />
+    <Compile Include="Behaviours\InvocationTrigger.cs" />
     <Compile Include="Behaviours\OpenFileDialogAction.cs" />
     <Compile Include="Behaviours\PasswordBoxBinding.cs" />
     <Compile Include="Behaviours\TextBoxInputFilter.cs" />

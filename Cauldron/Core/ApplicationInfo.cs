@@ -49,8 +49,11 @@ namespace Cauldron.Core
             {
                 var company = Assembly.GetCallingAssembly().GetCustomAttribute<AssemblyCompanyAttribute>().Company;
 
+                if (string.IsNullOrEmpty(company) && Assembly.GetEntryAssembly() != null)
+                    company = Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyCompanyAttribute>().Company;
+
                 if (string.IsNullOrEmpty(company))
-                    return Assembly.GetAssembly(typeof(Utils)).GetCustomAttribute<AssemblyCompanyAttribute>().Company;
+                    company = Assembly.GetAssembly(typeof(Utils)).GetCustomAttribute<AssemblyCompanyAttribute>().Company;
 
                 return company;
             }

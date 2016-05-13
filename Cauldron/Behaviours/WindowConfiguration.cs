@@ -261,23 +261,23 @@ namespace Cauldron.Behaviours
 
         #endregion Dependency Property WindowStyle
 
-        #region Dependency Property IsSplashScreen
+        #region Dependency Property IsMainWindow
 
         /// <summary>
-        /// Identifies the <see cref="IsSplashScreen" /> dependency property
+        /// Identifies the <see cref="IsMainWindow" /> dependency property
         /// </summary>
-        public static readonly DependencyProperty IsSplashScreenProperty = DependencyProperty.Register(nameof(IsSplashScreen), typeof(bool), typeof(WindowConfiguration), new PropertyMetadata(false));
+        public static readonly DependencyProperty IsMainWindowProperty = DependencyProperty.Register(nameof(IsMainWindow), typeof(bool), typeof(WindowConfiguration), new PropertyMetadata(false));
 
         /// <summary>
-        /// Gets or sets a value that indicates that the current window is a splash screen
+        /// Gets or sets the <see cref="IsMainWindow" /> Property
         /// </summary>
-        public bool IsSplashScreen
+        public bool IsMainWindow
         {
-            get { return (bool)this.GetValue(IsSplashScreenProperty); }
-            set { this.SetValue(IsSplashScreenProperty, value); }
+            get { return (bool)this.GetValue(IsMainWindowProperty); }
+            set { this.SetValue(IsMainWindowProperty, value); }
         }
 
-        #endregion Dependency Property IsSplashScreen
+        #endregion Dependency Property IsMainWindow
 
         #region Behaviour implementation
 

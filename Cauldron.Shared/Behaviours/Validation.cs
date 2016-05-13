@@ -15,6 +15,7 @@ using Windows.UI.Xaml;
 
 using System.Windows.Controls;
 using System.Windows;
+using System.Windows.Data;
 
 #endif
 
@@ -26,6 +27,13 @@ namespace Cauldron.Behaviours
     public sealed class Validation : Behaviour<FrameworkElement>
     {
         private Dictionary<string, WeakReference<INotifyDataErrorInfo>> validableProperties = new Dictionary<string, WeakReference<INotifyDataErrorInfo>>();
+
+        /// <summary>
+        /// Occures when the behavior is attached to the object
+        /// </summary>
+        protected override void OnAttach()
+        {
+        }
 
         /// <summary>
         /// Occures if the <see cref="FrameworkElement.DataContext"/> of <see cref="Behaviour{T}.AssociatedObject"/> has changed
@@ -41,49 +49,31 @@ namespace Cauldron.Behaviours
             foreach (var item in this.AssociatedObject.GetType().GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy).Where(x => x.FieldType == typeof(DependencyProperty)))
             {
                 var bindingExpression = this.AssociatedObject.GetBindingExpression(item.GetValue(null) as DependencyProperty);
+                this.SetValidationInfo(bindingExpression);
+            }
 
-                if (bindingExpression == null)
-                    continue;
+            // if the associated element is a password box we have to do some other stuff since the password box binds the password property with a behaviour
+            if (this.AssociatedObject is PasswordBox)
+            {
+                var passwordBinding = Interaction.GetBehaviour<PasswordBoxBinding>(this.AssociatedObject).FirstOrDefault();
 
-                // get the binding sources in order to do some voodoo on them
-                var source = bindingExpression.ParentBinding.Source as INotifyDataErrorInfo;
-                if (source == null)
-                    source = this.AssociatedObject.DataContext as INotifyDataErrorInfo;
-
-                // we don't support too complicated binding paths
-                var propertyName = bindingExpression.ParentBinding.Path.Path;
-
-                // check if the property name end with a ']' ... We dont support that
-                if (propertyName.Right(1) == "]")
-                    continue;
-
-                if (propertyName.Contains('.'))
+                if (passwordBinding != null)
                 {
-                    source = this.GetSource(source, propertyName) as INotifyDataErrorInfo;
-                    propertyName = propertyName.Right(propertyName.Length - propertyName.LastIndexOf('.') - 1);
-                }
-
-                // if our source is still null then either the source does not implements the INotifyDataErrorInfo interface or we dont have a valid source at all
-                // In both cases we just give up
-                if (source == null)
-                    continue;
-
-                // then let us check if the binding source have validation attributes on them
-                var property = source.GetType().GetProperty(propertyName);
-
-                if (property == null)
-                    continue;
-
-                if (!this.validableProperties.ContainsKey(propertyName) && property.GetCustomAttributes().Any(x => x is ValidationBaseAttribute))
-                {
-                    this.validableProperties.Add(propertyName, new WeakReference<INotifyDataErrorInfo>(source));
-                    source.ErrorsChanged += this.Source_ErrorsChanged;
-
-                    // Also... If we have a mandatory attribute... Add it
-                    if (property.GetCustomAttribute<IsMandatoryAttribute>() != null)
-                        ValidationProperties.SetIsMandatory(this.AssociatedObject, true);
+                    var bindingExpression = passwordBinding.GetBindingExpression(PasswordBoxBinding.PasswordProperty);
+                    this.SetValidationInfo(bindingExpression);
                 }
             }
+        }
+
+        /// <summary>
+        /// Occures when the behaviour is detached from the object
+        /// </summary>
+        protected override void OnDetach()
+        {
+            foreach (var item in this.validableProperties.Values)
+                item.GetTarget().IsNotNull(x => x.ErrorsChanged -= this.Source_ErrorsChanged);
+
+            this.validableProperties.Clear();
         }
 
         private object GetSource(object source, string path)
@@ -134,6 +124,51 @@ namespace Cauldron.Behaviours
             return source;
         }
 
+        private void SetValidationInfo(BindingExpression bindingExpression)
+        {
+            if (bindingExpression == null)
+                return;
+
+            // get the binding sources in order to do some voodoo on them
+            var source = bindingExpression.ParentBinding.Source as INotifyDataErrorInfo;
+            if (source == null)
+                source = this.AssociatedObject.DataContext as INotifyDataErrorInfo;
+
+            // we don't support too complicated binding paths
+            var propertyName = bindingExpression.ParentBinding.Path.Path;
+
+            // check if the property name end with a ']' ... We dont support that
+            if (propertyName.Right(1) == "]")
+                return;
+
+            if (propertyName.Contains('.'))
+            {
+                source = this.GetSource(source, propertyName) as INotifyDataErrorInfo;
+                propertyName = propertyName.Right(propertyName.Length - propertyName.LastIndexOf('.') - 1);
+            }
+
+            // if our source is still null then either the source does not implements the INotifyDataErrorInfo interface or we dont have a valid source at all
+            // In both cases we just give up
+            if (source == null)
+                return;
+
+            // then let us check if the binding source have validation attributes on them
+            var property = source.GetType().GetProperty(propertyName);
+
+            if (property == null)
+                return;
+
+            if (!this.validableProperties.ContainsKey(propertyName) && property.GetCustomAttributes().Any(x => x is ValidationBaseAttribute))
+            {
+                this.validableProperties.Add(propertyName, new WeakReference<INotifyDataErrorInfo>(source));
+                source.ErrorsChanged += this.Source_ErrorsChanged;
+
+                // Also... If we have a mandatory attribute... Add it
+                if (property.GetCustomAttribute<IsMandatoryAttribute>() != null)
+                    ValidationProperties.SetIsMandatory(this.AssociatedObject, true);
+            }
+        }
+
         private void Source_ErrorsChanged(object sender, DataErrorsChangedEventArgs e)
         {
             if (this.validableProperties.ContainsKey(e.PropertyName))
@@ -152,24 +187,6 @@ namespace Cauldron.Behaviours
                 ValidationProperties.SetHasErrors(this.AssociatedObject, errors != null);
                 ValidationProperties.SetErrors(this.AssociatedObject, errors == null ? string.Empty : string.Join("\r\n", errors));
             }
-        }
-
-        /// <summary>
-        /// Occures when the behavior is attached to the object
-        /// </summary>
-        protected override void OnAttach()
-        {
-        }
-
-        /// <summary>
-        /// Occures when the behaviour is detached from the object
-        /// </summary>
-        protected override void OnDetach()
-        {
-            foreach (var item in this.validableProperties.Values)
-                item.GetTarget().IsNotNull(x => x.ErrorsChanged -= this.Source_ErrorsChanged);
-
-            this.validableProperties.Clear();
         }
     }
 }

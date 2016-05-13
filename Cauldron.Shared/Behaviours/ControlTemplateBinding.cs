@@ -250,7 +250,7 @@ namespace Cauldron.Behaviours
                     return behaviour;
                 else if (behaviour.GetType() == typeof(EventTrigger))
                 {
-                    foreach (var action in behaviour.CastTo<EventTrigger>().Events)
+                    foreach (var action in behaviour.CastTo<EventTrigger>().Actions)
                         if (action.Name == this.TargetBehaviourName)
                             return action;
                 }

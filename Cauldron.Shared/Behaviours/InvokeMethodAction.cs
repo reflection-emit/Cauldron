@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cauldron.Core;
+using System;
 using System.Linq;
 using System.Reflection;
 
@@ -58,6 +59,11 @@ namespace Cauldron.Behaviours
         #region Dependency Property MyProperty
 
         /// <summary>
+        /// Identifies the <see cref="MethodOwnerType" /> dependency property
+        /// </summary>
+        public static readonly DependencyProperty MethodOwnerTypeProperty = DependencyProperty.Register(nameof(MethodOwnerType), typeof(Type), typeof(InvokeMethodAction), new PropertyMetadata(null));
+
+        /// <summary>
         /// Gets or sets the <see cref="MethodOwnerType" /> Property
         /// </summary>
         public Type MethodOwnerType
@@ -66,12 +72,25 @@ namespace Cauldron.Behaviours
             set { this.SetValue(MethodOwnerTypeProperty, value); }
         }
 
-        /// <summary>
-        /// Identifies the <see cref="MethodOwnerType" /> dependency property
-        /// </summary>
-        public static readonly DependencyProperty MethodOwnerTypeProperty = DependencyProperty.Register(nameof(MethodOwnerType), typeof(Type), typeof(InvokeMethodAction), new PropertyMetadata(null));
-
         #endregion Dependency Property MyProperty
+
+        #region Dependency Property PriorityLow
+
+        /// <summary>
+        /// Identifies the <see cref="PriorityLow" /> dependency property
+        /// </summary>
+        public static readonly DependencyProperty PriorityLowProperty = DependencyProperty.Register(nameof(PriorityLow), typeof(bool), typeof(InvokeMethodAction), new PropertyMetadata(false));
+
+        /// <summary>
+        /// Gets or sets the <see cref="PriorityLow" /> Property
+        /// </summary>
+        public bool PriorityLow
+        {
+            get { return (bool)this.GetValue(PriorityLowProperty); }
+            set { this.SetValue(PriorityLowProperty, value); }
+        }
+
+        #endregion Dependency Property PriorityLow
 
         /// <summary>
         /// Occures when the action is invoked by an event
@@ -108,7 +127,7 @@ namespace Cauldron.Behaviours
                 if (method == null)
                     throw new ArgumentException("Unable to find a method with name '" + this.MethodName + "' in Type '" + element.GetType().FullName + "' that requires " + parameters.Length + " parameters");
 
-                method.Invoke(element, this.GetParameters(parameters));
+                this.Invoke(method, element, this.GetParameters(parameters));
             }
             else
             {
@@ -117,7 +136,7 @@ namespace Cauldron.Behaviours
                 if (method == null)
                     throw new ArgumentException("Unable to find a method with name '" + this.MethodName + "' in Type '" + element.GetType().FullName + "'");
 
-                method.Invoke(element, new object[] { });
+                this.Invoke(method, element, new object[] { });
             }
         }
 
@@ -161,6 +180,17 @@ namespace Cauldron.Behaviours
             }
 
             return property.GetValue(context);
+        }
+
+        private async void Invoke(MethodInfo method, object obj, object[] parameters)
+        {
+            if (this.PriorityLow)
+            {
+                var dispatcher = new CauldronDispatcher();
+                await dispatcher.RunAsync(CauldronDispatcherPriority.Low, () => method.Invoke(obj, parameters));
+            }
+            else
+                method.Invoke(obj, parameters);
         }
     }
 }

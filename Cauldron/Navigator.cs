@@ -20,7 +20,7 @@ namespace Cauldron
     [Factory(typeof(INavigator), FactoryCreationPolicy.Singleton)]
     public sealed class Navigator : INavigator
     {
-        private static readonly object SplashScreenTag = new object();
+        private static readonly object MainWindowTag = new object();
         private static bool isCustomWindow = false;
 
         // The navigator always knows every window that it has created
@@ -209,11 +209,10 @@ namespace Cauldron
             window.Title = windowConfig.Title;
             window.SizeToContent = windowConfig.SizeToContent;
 
-            // Special stuff for splashscreens
-            if (windowConfig.IsSplashScreen)
-                window.Tag = SplashScreenTag;
+            if (windowConfig.IsMainWindow)
+                window.Tag = MainWindowTag;
 
-            if (Application.Current.MainWindow != null && Application.Current.MainWindow.Tag == SplashScreenTag)
+            if (Application.Current.MainWindow != null && window.Tag == MainWindowTag)
                 Application.Current.MainWindow = window;
 
             // Add the inputbindings to the window
@@ -251,17 +250,14 @@ namespace Cauldron
                     PersistentWindowInformation.Save(window, viewModel.GetType());
 
                 windows.Remove(x => x.window == s);
+
+                if (callback != null)
+                    (viewModel as IDialogViewModel<TResult>).IsNotNull(x => callback(x.Result));
+
                 window.Content.DisposeAll();
                 window.Content = null;
                 window.DisposeAll(); // some custom windows have implemented the IDisposable interface
             };
-
-            if (callback != null)
-                (viewModel as IDialogViewModel<TResult>).IsNotNull(x => window.Closing += (s, e) =>
-                {
-                    if (!e.Cancel)
-                        callback(x.Result);
-                });
 
             // make sure the datacontext of the behaviour is correct
             view.DataContextChanged += (s, e) =>

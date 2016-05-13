@@ -16,6 +16,11 @@ namespace Cauldron.Behaviours
         #region Dependency Property EventName
 
         /// <summary>
+        /// Identifies the <see cref="EventName" /> dependency property
+        /// </summary>
+        public static readonly DependencyProperty EventNameProperty = DependencyProperty.Register(nameof(EventName), typeof(string), typeof(EventTrigger), new PropertyMetadata("", EventTrigger.OnEventNameChanged));
+
+        /// <summary>
         /// Gets or sets the <see cref="EventName" /> Property
         /// </summary>
         public string EventName
@@ -23,11 +28,6 @@ namespace Cauldron.Behaviours
             get { return (string)this.GetValue(EventNameProperty); }
             set { this.SetValue(EventNameProperty, value); }
         }
-
-        /// <summary>
-        /// Identifies the <see cref="EventName" /> dependency property
-        /// </summary>
-        public static readonly DependencyProperty EventNameProperty = DependencyProperty.Register(nameof(EventName), typeof(string), typeof(EventTrigger), new PropertyMetadata("", EventTrigger.OnEventNameChanged));
 
         private static void OnEventNameChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
         {
@@ -47,7 +47,7 @@ namespace Cauldron.Behaviours
         /// <summary>
         /// Gets a collection of actions that can be invoked by this behaviour
         /// </summary>
-        public ActionCollection Events
+        public ActionCollection Actions
         {
             get
             {
@@ -59,22 +59,6 @@ namespace Cauldron.Behaviours
 
                 return this._events;
             }
-        }
-
-        private void SetEventHandler()
-        {
-            if (this.Events != null)
-                this.Events.owner = this.AssociatedObject;
-
-            if (string.IsNullOrEmpty(this.EventName) || this.AssociatedObject == null)
-                return;
-
-            this.eventHandler?.Dispose();
-            this.eventHandler = new DynamicEventHandler(this.AssociatedObject, this.EventName, (sender, args) =>
-            {
-                foreach (var item in this.Events)
-                    item.Invoke(args);
-            });
         }
 
         /// <summary>
@@ -92,8 +76,8 @@ namespace Cauldron.Behaviours
         {
             var eventTrigger = behaviour as EventTrigger;
 
-            foreach (var item in this.Events)
-                eventTrigger.Events.Add((item as IBehaviour).Copy() as ActionBase);
+            foreach (var item in this.Actions)
+                eventTrigger.Actions.Add((item as IBehaviour).Copy() as ActionBase);
         }
 
         /// <summary>
@@ -102,6 +86,22 @@ namespace Cauldron.Behaviours
         protected override void OnDetach()
         {
             this.eventHandler?.Dispose();
+        }
+
+        private void SetEventHandler()
+        {
+            if (this.Actions != null)
+                this.Actions.owner = this.AssociatedObject;
+
+            if (string.IsNullOrEmpty(this.EventName) || this.AssociatedObject == null)
+                return;
+
+            this.eventHandler?.Dispose();
+            this.eventHandler = new DynamicEventHandler(this.AssociatedObject, this.EventName, (sender, args) =>
+            {
+                foreach (var item in this.Actions)
+                    item.Invoke(args);
+            });
         }
     }
 }

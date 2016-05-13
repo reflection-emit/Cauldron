@@ -8,7 +8,7 @@ namespace Cauldron.Behaviours
     /// <para/>
     /// The <see cref="EventTrigger"/> is triggered by an event of the associated <see cref="FrameworkElement"/>
     /// </summary>
-    [ContentProperty("Events")]
+    [ContentProperty(nameof(Actions))]
     public sealed partial class EventTrigger : Behaviour<FrameworkElement>
     {
     }
