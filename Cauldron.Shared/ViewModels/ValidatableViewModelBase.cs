@@ -94,8 +94,8 @@ namespace Cauldron.ViewModels
         /// Occured before the <see cref="ViewModelBase.PropertyChanged"/> event is invoked.
         /// </summary>
         /// <param name="propertyName">The name of the property where the value change has occured</param>
-        /// <returns>Returns true if <see cref="ViewModelBase.OnPropertyChanged(string)"/> should be cancelled. Otherwise false</returns>
-        protected override bool OnBeforeRaiseNotifyPropertyChanged(string propertyName)
+        /// <returns>Returns true if <see cref="ViewModelBase.RaisePropertyChanged(string)"/> should be cancelled. Otherwise false</returns>
+        protected override bool BeforeRaiseNotifyPropertyChanged(string propertyName)
         {
             // If the application is using weavers like Fody these Properties could be
             // Notified multiple times. We want to trigger the event raises somewhere else
@@ -104,7 +104,7 @@ namespace Cauldron.ViewModels
 
             this.validationHandler.Validate(propertyName);
 
-            return base.OnBeforeRaiseNotifyPropertyChanged(propertyName);
+            return base.BeforeRaiseNotifyPropertyChanged(propertyName);
         }
 
         /// <summary>
@@ -131,8 +131,8 @@ namespace Cauldron.ViewModels
 
         private void ValidationHandler_ErrorsChanged(object sender, DataErrorsChangedEventArgs e)
         {
-            this.OnPropertyChanged(nameof(Errors));
-            this.OnPropertyChanged(nameof(HasErrors));
+            this.RaisePropertyChanged(nameof(Errors));
+            this.RaisePropertyChanged(nameof(HasErrors));
 
             if (this.ErrorsChanged != null)
                 this.ErrorsChanged(this, e);

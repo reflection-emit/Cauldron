@@ -24,6 +24,6 @@ namespace Cauldron.ViewModels
         /// Invokes the <see cref="INotifyPropertyChanged.PropertyChanged"/> event
         /// </summary>
         /// <param name="propertyName">The name of the property where the value change has occured</param>
-        void OnPropertyChanged([CallerMemberName]string propertyName = "");
+        void RaisePropertyChanged([CallerMemberName]string propertyName = "");
     }
 }

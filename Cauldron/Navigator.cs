@@ -18,7 +18,7 @@ namespace Cauldron
     /// Handles creation of a new <see cref="Window"/> and association of the viewmodel
     /// </summary>
     [Factory(typeof(INavigator), FactoryCreationPolicy.Singleton)]
-    public sealed class Navigator : INavigator
+    public sealed class Navigator : Singleton<Navigator>, INavigator
     {
         private static readonly object MainWindowTag = new object();
         private static bool isCustomWindow = false;

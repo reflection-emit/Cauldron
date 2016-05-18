@@ -65,22 +65,25 @@ namespace Cauldron.ViewModels
         /// Invokes the <see cref="PropertyChanged"/> event
         /// </summary>
         /// <param name="propertyName">The name of the property where the value change has occured</param>
-        public async void OnPropertyChanged([CallerMemberName]string propertyName = "")
+        public async void RaisePropertyChanged([CallerMemberName]string propertyName = "")
         {
-            if (this.OnBeforeRaiseNotifyPropertyChanged(propertyName))
+            if (propertyName.EndsWith("Command"))
+                return;
+
+            if (this.BeforeRaiseNotifyPropertyChanged(propertyName))
                 return;
 
             if (this.PropertyChanged != null)
                 await this.Dispatcher.RunAsync(() => this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName)));
 
-            this.OnAfterRaiseNotifyPropertyChanged(propertyName);
+            this.AfterRaiseNotifyPropertyChanged(propertyName);
         }
 
         /// <summary>
         /// Occures after the event <see cref="PropertyChanged"/> has been invoked
         /// </summary>
         /// <param name="propertyName">The name of the property where the value change has occured</param>
-        protected virtual void OnAfterRaiseNotifyPropertyChanged(string propertyName)
+        protected virtual void AfterRaiseNotifyPropertyChanged(string propertyName)
         {
         }
 
@@ -88,8 +91,8 @@ namespace Cauldron.ViewModels
         /// Occured before the <see cref="PropertyChanged"/> event is invoked.
         /// </summary>
         /// <param name="propertyName">The name of the property where the value change has occured</param>
-        /// <returns>Returns true if <see cref="OnPropertyChanged(string)"/> should be cancelled. Otherwise false</returns>
-        protected virtual bool OnBeforeRaiseNotifyPropertyChanged(string propertyName)
+        /// <returns>Returns true if <see cref="RaisePropertyChanged(string)"/> should be cancelled. Otherwise false</returns>
+        protected virtual bool BeforeRaiseNotifyPropertyChanged(string propertyName)
         {
             return false;
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace Cauldron.ViewModels
 {
@@ -26,5 +27,13 @@ namespace Cauldron.ViewModels
         /// Gets or sets the parent viewmodel
         /// </summary>
         IViewModel Parent { get; set; }
+
+        /// <summary>
+        /// Invokes the <see cref="INotifyPropertyChanged.PropertyChanged"/> event
+        /// </summary>
+        /// <param name="propertyName">The name of the property where the value change has occured</param>
+        /// <param name="before">The value before the property value has changed</param>
+        /// <param name="after">The value after the property value has changed</param>
+        void RaisePropertyChanged(string propertyName, object before, object after);
     }
 }

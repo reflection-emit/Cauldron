@@ -41,7 +41,7 @@ namespace Cauldron.ViewModels
                         item.IsActive = value;
                 }
 
-                this.OnPropertyChanged();
+                this.RaisePropertyChanged();
 
                 this.Parent.IsNotNull(x => x.SetParentIsActive(this.IsActive));
             }
@@ -73,7 +73,7 @@ namespace Cauldron.ViewModels
             else
                 this.isActive = value;
 
-            this.OnPropertyChanged(nameof(IsActive));
+            this.RaisePropertyChanged(nameof(IsActive));
             this.Parent.IsNotNull(x => x.SetParentIsActive(this.IsActive));
         }
     }

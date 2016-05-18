@@ -17,7 +17,7 @@ namespace NavigationSample
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            Navigator.Navigate<MainViewModel>();
+            Navigator.Current.Navigate<MainViewModel>();
         }
     }
 }

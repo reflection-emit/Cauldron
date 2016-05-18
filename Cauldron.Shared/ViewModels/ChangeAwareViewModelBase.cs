@@ -49,7 +49,7 @@ namespace Cauldron.ViewModels
 
                 this._isChanged = value;
                 this.OnIsChangedChanged();
-                this.OnPropertyChanged();
+                this.RaisePropertyChanged();
 
                 if (this.Changed != null)
                     this.Changed(this, EventArgs.Empty);
@@ -69,7 +69,7 @@ namespace Cauldron.ViewModels
                     return;
 
                 this._isLoading = value;
-                this.OnPropertyChanged();
+                this.RaisePropertyChanged();
 
                 this.OnIsLoadingChanged();
             }
@@ -82,10 +82,25 @@ namespace Cauldron.ViewModels
         public IViewModel Parent { get; set; }
 
         /// <summary>
+        /// Invokes the <see cref="INotifyPropertyChanged.PropertyChanged"/> event
+        /// </summary>
+        /// <param name="propertyName">The name of the property where the value change has occured</param>
+        /// <param name="before">The value before the property value has changed</param>
+        /// <param name="after">The value after the property value has changed</param>
+        public void RaisePropertyChanged(string propertyName, object before, object after)
+        {
+            if (propertyName.EndsWith("Command"))
+                return;
+
+            if (this.PropertyHasChanged(propertyName, before, after))
+                this.RaisePropertyChanged(propertyName);
+        }
+
+        /// <summary>
         /// Occures after the event <see cref="INotifyPropertyChanged.PropertyChanged"/> has been invoked
         /// </summary>
         /// <param name="propertyName">The name of the property where the value change has occured</param>
-        protected override void OnAfterRaiseNotifyPropertyChanged(string propertyName)
+        protected override void AfterRaiseNotifyPropertyChanged(string propertyName)
         {
             var property = this.GetType().GetProperty(propertyName);
             if (property == null || property.GetCustomAttribute<SuppressIsChangedAttribute>() == null)
@@ -105,5 +120,14 @@ namespace Cauldron.ViewModels
         protected virtual void OnIsLoadingChanged()
         {
         }
+
+        /// <summary>
+        /// Occures if property has changed.
+        /// </summary>
+        /// <param name="propertyName">The name of the property where the value change has occured</param>
+        /// <param name="before">The value before the property value has changed</param>
+        /// <param name="after">The value after the property value has changed</param>
+        /// <returns>Should return true if the property change is valid, otherwise false</returns>
+        protected virtual bool PropertyHasChanged(string propertyName, object before, object after) => true;
     }
 }
