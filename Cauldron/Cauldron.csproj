@@ -90,6 +90,7 @@
     <Compile Include="INavigator.cs" />
     <Compile Include="IUtils.cs" />
     <Compile Include="Localization.cs" />
+    <Compile Include="LogonType.cs" />
     <Compile Include="MessageDialog.cs" />
     <Compile Include="Navigator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

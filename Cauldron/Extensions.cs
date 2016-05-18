@@ -1,14 +1,19 @@
 ﻿using Cauldron.Behaviours;
 using System;
+using System.DirectoryServices.AccountManagement;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Security;
 using System.Security.Cryptography;
+using System.Security.Permissions;
+using System.Security.Principal;
 using System.Text;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using static Cauldron.UnsafeNative;
 
 namespace Cauldron
 {
@@ -102,6 +107,44 @@ namespace Cauldron
         public static IntPtr GetWindowHandle(this Window window)
         {
             return new System.Windows.Interop.WindowInteropHelper(window).Handle;
+        }
+
+        /// <summary>
+        /// Impersonates the given user
+        /// </summary>
+        /// <param name="principalContext">The principal context of the user</param>
+        /// <param name="username">The user name of the user to impersonate</param>
+        /// <param name="password">The password of the user to impersonate</param>
+        /// <param name="logonType">The type of logon operation to perform.</param>
+        /// <returns>A <see cref="WindowsImpersonationContext"/> of the impersonation</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="username"/> is null</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="password"/> is null</exception>
+        /// <exception cref="ArgumentException"><paramref name="username"/> is empty</exception>
+        /// <exception cref="ArgumentException"><paramref name="password"/> is empty</exception>
+        [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
+        public static WindowsImpersonationContext Impersonate(this PrincipalContext principalContext, string username, string password, LogonType logonType)
+        {
+            if (username == null)
+                throw new ArgumentNullException(nameof(username));
+
+            if (password == null)
+                throw new ArgumentNullException(nameof(password));
+
+            if (string.IsNullOrEmpty(username))
+                throw new ArgumentException("The parameter cannot be empty", nameof(username));
+
+            if (string.IsNullOrEmpty(password))
+                throw new ArgumentException("The parameter cannot be empty", nameof(password));
+
+            SafeTokenHandle handle;
+
+            if (!UnsafeNative.LogonUser(username, principalContext.Name, password, (int)logonType, 3 /* LOGON32_PROVIDER_WINNT50 */, out handle))
+                throw new PrincipalOperationException("Could not impersonate the elevated user.", Marshal.GetLastWin32Error());
+
+            var identity = WindowsIdentity.Impersonate(handle.DangerousGetHandle());
+            handle.Dispose();
+
+            return identity;
         }
 
         /// <summary>
