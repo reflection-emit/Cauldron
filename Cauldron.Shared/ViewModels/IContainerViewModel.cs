@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Cauldron.ViewModels
 {
@@ -22,12 +23,26 @@ namespace Cauldron.ViewModels
         IViewModel GetRegistered(Guid id);
 
         /// <summary>
+        /// Registers a collection of child models to the current view model
+        /// </summary>
+        /// <typeparam name="T">The type of the viewmodels</typeparam>
+        /// <param name="childViewModels">The collection of the view models that required registration</param>
+        void Register<T>(IEnumerable<T> childViewModels) where T : IViewModel;
+
+        /// <summary>
         /// Registers a child model to the current ViewModel
         /// </summary>
         /// <param name="childViewModel">The view model that requires registration</param>
         /// <returns>The id of the viewmodel</returns>
         /// <exception cref="ArgumentNullException">The parameter <paramref name="childViewModel"/> is null</exception>
         Guid Register(IViewModel childViewModel);
+
+        /// <summary>
+        /// Unregisters a collection of registered viewModels. This will also dispose the view models
+        /// </summary>
+        /// <typeparam name="T">The type of the viewmodels</typeparam>
+        /// <param name="childViewModels">The collection of the view models that required unregistration</param>
+        void UnRegister<T>(IEnumerable<T> childViewModels) where T : IViewModel;
 
         /// <summary>
         /// Unregisters a registered viewmodel. This will also dispose the viewmodel.

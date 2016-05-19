@@ -7,7 +7,7 @@ namespace Cauldron.Core
     /// Represents a singleton implementation of <typeparamref name="T"/>
     /// </summary>
     /// <typeparam name="T">The type that is contained in the singleton</typeparam>
-    public abstract class Singleton<T> : IDisposable where T : Singleton<T>
+    public abstract class Singleton<T> where T : Singleton<T>
     {
         private static string contractName = null;
         private static volatile T current;
@@ -31,12 +31,12 @@ namespace Cauldron.Core
 
                             if (attr == null)
                             {
-                                contractName = null;
+                                contractName = typeof(T).FullName;
                                 current = Factory.Create<T>();
                             }
                             else
                             {
-                                contractName = typeof(T).FullName;
+                                contractName = attr.ContractName;
                                 current = Factory.Create(contractName) as T;
                             }
                         }
@@ -52,7 +52,7 @@ namespace Cauldron.Core
         /// <para/>
         /// This does not dispose the singleton object itself, only the content of <see cref="Current"/>.
         /// </summary>
-        public void Dispose()
+        public void Free()
         {
             if (current != null)
             {

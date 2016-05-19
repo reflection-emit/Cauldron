@@ -311,7 +311,7 @@ namespace Cauldron
                     window = CreateWindow(callback, dataTemplate.LoadContent() as FrameworkElement, viewModel, out isModal);
             }
 
-            (viewModel as IDisposableObject).IsNotNull(x => x.Disposed += (s, e) => window.Close());
+            (viewModel as IDisposableObject).IsNotNull(x => x.Disposed += async (s, e) => await viewModel.Dispatcher.RunAsync(() => window.Close()));
 
             // if this is not a dialog... we show the window first and then invoke the navigation method
             if (!isModal)
