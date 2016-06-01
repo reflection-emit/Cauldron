@@ -80,16 +80,22 @@ namespace Cauldron.Core
         /// Gets the account picture for the user.
         /// </summary>
         /// <returns>The image of the user</returns>
-        public BitmapImage GetAccountPicture()
+        public async Task<BitmapImage> GetAccountPictureAsync()
         {
-            var result = GetAccountPictureFromDatFile();
+            BitmapImage result = null;
 
-            if (result == null)
+            await Task.Run(() =>
             {
-                var stringBuilder = new StringBuilder(1000);
-                UnsafeNative.GetUserTilePath(this.UserName, 0x80000000, stringBuilder, stringBuilder.Capacity);
-                return new BitmapImage(new Uri(stringBuilder.ToString()));
-            }
+                result = GetAccountPictureFromDatFile();
+
+                if (result == null)
+                {
+                    var stringBuilder = new StringBuilder(1000);
+                    UnsafeNative.GetUserTilePath(this.UserName, 0x80000000, stringBuilder, stringBuilder.Capacity);
+                    result = new BitmapImage(new Uri(stringBuilder.ToString()));
+                    result.Freeze();
+                }
+            });
 
             return result;
         }
