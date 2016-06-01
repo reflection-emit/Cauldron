@@ -9,10 +9,11 @@ namespace Cauldron.Core
     /// <summary>
     /// Represents information about the user, such as name and account picture.
     /// </summary>
-    public sealed class UserInformation
+    [Factory(typeof(IUserInformation))]
+    public sealed class UserInformation : IUserInformation
     {
         private static object lockCurrentObject = new object();
-        private static volatile UserInformation userInformation;
+        private static volatile IUserInformation userInformation;
 
         private volatile bool loaded = false;
 
@@ -23,9 +24,9 @@ namespace Cauldron.Core
         }
 
         /// <summary>
-        /// Gets the <see cref="UserInformation"/> of the current user that runs the application
+        /// Gets the <see cref="IUserInformation"/> of the current user that runs the application
         /// </summary>
-        public static UserInformation Current
+        public static IUserInformation Current
         {
             get
             {
@@ -35,7 +36,7 @@ namespace Cauldron.Core
                     {
                         if (userInformation == null)
                         {
-                            userInformation = new UserInformation();
+                            userInformation = Factory.Create<IUserInformation>();
                         }
                     }
                 }
@@ -102,6 +103,17 @@ namespace Cauldron.Core
         {
             await this.GetInformation();
             return (await user.GetPropertyAsync(KnownUserProperties.AccountName)).ToString();
+        }
+
+        /// <summary>
+        /// Gets a value that indicates if the user account is local or domain.
+        /// <para/>
+        /// Returns true if the account is a local account, otherwise false
+        /// </summary>
+        public async Task<bool> IsLocalAccountAsync()
+        {
+            await this.GetInformation();
+            return user.AuthenticationStatus == UserAuthenticationStatus.LocallyAuthenticated;
         }
 
         private async Task GetInformation()

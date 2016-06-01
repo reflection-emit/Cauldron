@@ -1,6 +1,7 @@
 ﻿using Cauldron.Core;
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Cauldron.ViewModels
@@ -66,6 +67,21 @@ namespace Cauldron.ViewModels
         }
 
         /// <summary>
+        /// Registers a collection of child models to the current view model
+        /// </summary>
+        /// <typeparam name="T">The type of the viewmodels</typeparam>
+        /// <param name="childViewModels">The collection of the view models that required registration</param>
+        /// <exception cref="ArgumentNullException">The parameter <paramref name="childViewModels"/> is null</exception>
+        public void Register<T>(IEnumerable<T> childViewModels) where T : IViewModel
+        {
+            if (childViewModels == null)
+                throw new ArgumentNullException(nameof(childViewModels));
+
+            foreach (var child in childViewModels)
+                this.Register(child);
+        }
+
+        /// <summary>
         /// Registers a child model to the current ViewModel
         /// </summary>
         /// <param name="childViewModel">The view model that requires registration</param>
@@ -85,6 +101,21 @@ namespace Cauldron.ViewModels
             this.childViewModels.TryAdd(childViewModel.Id, childViewModel);
 
             return childViewModel.Id;
+        }
+
+        /// <summary>
+        /// Unregisters a collection of registered viewModels. This will also dispose the view models
+        /// </summary>
+        /// <typeparam name="T">The type of the viewmodels</typeparam>
+        /// <param name="childViewModels">The collection of the view models that required unregistration</param>
+        /// <exception cref="ArgumentNullException">The parameter <paramref name="childViewModels"/> is null</exception>
+        public void UnRegister<T>(IEnumerable<T> childViewModels) where T : IViewModel
+        {
+            if (childViewModels == null)
+                throw new ArgumentNullException(nameof(childViewModels));
+
+            foreach (var child in childViewModels)
+                this.UnRegister(child.Id);
         }
 
         /// <summary>

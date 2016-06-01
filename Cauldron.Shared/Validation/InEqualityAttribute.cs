@@ -49,7 +49,7 @@ namespace Cauldron.Validation
             if (sender == null)
                 context.Validate(propertyInfo, secondProperty.Name);
 
-            return !Utils.Equals(value, secondValue);
+            return !Utils.Current.Equals(value, secondValue);
         }
 
         /// <summary>

@@ -144,7 +144,7 @@ namespace Cauldron.ValueConverters
                 if (result == null)
                 {
 #if !NETFX_CORE
-                    var defaultWindows = Utils.GetStringFromModule(value);
+                    var defaultWindows = Utils.Current.GetStringFromModule(value);
                     if (defaultWindows != null)
                         return defaultWindows;
 #endif

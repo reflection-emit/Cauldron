@@ -201,7 +201,7 @@ namespace Cauldron.Themes.VisualStudio
                 return;
 
             var mouse = Mouse.GetPosition(this);
-            var mouseOnScreen = Utils.GetMousePosition();
+            var mouseOnScreen = Utils.Current.GetMousePosition();
             var oldWidth = this.ActualWidth;
 
             var currentLeft = mouse.X + 5;
@@ -219,8 +219,8 @@ namespace Cauldron.Themes.VisualStudio
 
             var lParam = (int)(uint)mouse.X | ((int)mouse.Y << 16);
 
-            Utils.SendMessage(this, WindowsMessages.LBUTTONUP, (IntPtr)0x2 /* HT_CAPTION */, (IntPtr)lParam);
-            Utils.SendMessage(this, WindowsMessages.SYSCOMMAND, (IntPtr)0xf012 /* SC_MOUSEMOVE */, IntPtr.Zero);
+            Utils.Current.SendMessage(this, WindowsMessages.LBUTTONUP, (IntPtr)0x2 /* HT_CAPTION */, (IntPtr)lParam);
+            Utils.Current.SendMessage(this, WindowsMessages.SYSCOMMAND, (IntPtr)0xf012 /* SC_MOUSEMOVE */, IntPtr.Zero);
         }
 
         private void TitleThumb_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -233,7 +233,7 @@ namespace Cauldron.Themes.VisualStudio
         {
             if (msg == 0x0024)
             {
-                Utils.WmGetMinMaxInfo(this, lParam);
+                Utils.Current.WmGetMinMaxInfo(this, lParam);
                 isHandled = true;
             }
 

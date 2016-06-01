@@ -269,6 +269,24 @@ namespace Cauldron
         }
 
         /// <summary>
+        /// Retrieves the types of the object array
+        /// </summary>
+        /// <param name="objs">The object array to get the type from</param>
+        /// <returns>An array of types that represents the object array</returns>
+        public static Type[] GetTypes(this object[] objs)
+        {
+            if (objs == null || objs.Length == 0)
+                return new Type[0];
+
+            var types = new Type[objs.Length];
+
+            for (int i = 0; i < objs.Length; i++)
+                types[i] = objs[i] == null ? typeof(object) : objs[i].GetType();
+
+            return types;
+        }
+
+        /// <summary>
         /// Searches for the specified byte array and returns the zero-based index of the first
         /// occurrence within the entire <see cref="Array"/>
         /// </summary>
@@ -418,7 +436,7 @@ namespace Cauldron
                 byte* insecureData = (byte*)target.AddrOfPinnedObject();
 
                 for (int i = 0; i < targetLength; i++)
-                    insecureData[i] = Randomizer.NextByte();
+                    insecureData[i] = Randomizer.Current.NextByte();
 
                 target.Free();
             }
@@ -466,7 +484,7 @@ namespace Cauldron
 
             foreach (var item in items)
             {
-                if (!Utils.Equals(item, itemToRemove))
+                if (!Utils.Current.Equals(item, itemToRemove))
                     result.Add(item);
             }
 

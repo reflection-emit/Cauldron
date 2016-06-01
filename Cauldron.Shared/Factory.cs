@@ -362,9 +362,13 @@ namespace Cauldron
                     if (factoryExtensions[i].CanHandleAmbiguousMatch)
                     {
                         var selectedType = factoryExtensions[i].SelectAmbiguousMatch(factoryTypeInfos.Select(x => x.type), contractName);
-
-                        if (selectedType != null)
-                            return CreateObject(selectedType, selectedType.GetTypeInfo(), parameters);
+#if NETFX_CORE
+                        var selectedFactoryInfo = factoryTypeInfos.FirstOrDefault(x => x.type.FullName == selectedType.FullName && x.typeInfo.Assembly.FullName == selectedType.GetTypeInfo().Assembly.FullName);
+#else
+                        var selectedFactoryInfo = factoryTypeInfos.FirstOrDefault(x => x.type.FullName == selectedType.FullName && x.type.Assembly.FullName == selectedType.Assembly.FullName);
+#endif
+                        if (selectedFactoryInfo.type != null)
+                            return GetInstance(selectedFactoryInfo, parameters);
                     }
                 }
 

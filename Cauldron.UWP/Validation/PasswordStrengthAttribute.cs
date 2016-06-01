@@ -25,7 +25,7 @@ namespace Cauldron.Validation
             var password = string.Empty;
 
             if (propertyInfo.PropertyType == typeof(string))
-                strength = Utils.GetPasswordScore(password);
+                strength = Utils.Current.GetPasswordScore(password);
 
             return strength == PasswordScore.Blank || strength == PasswordScore.VeryWeak || strength == PasswordScore.Weak;
         }

@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <HelpKI>
+  <HelpKINode Title="Abort field" Url="html/F_Cauldron_WindowsStrings_Abort.htm" />
   <HelpKINode Title="ActionBase class">
     <HelpKINode Title="ActionBase Class" Url="html/T_Cauldron_Behaviours_ActionBase.htm" />
     <HelpKINode Title="about ActionBase class" Url="html/T_Cauldron_Behaviours_ActionBase.htm" />
@@ -19,6 +20,10 @@
     <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_Collections_ActionCollection.htm" />
   </HelpKINode>
   <HelpKINode Title="ActionCollection.ActionCollection constructor" Url="html/M_Cauldron_Collections_ActionCollection__ctor.htm" />
+  <HelpKINode Title="Actions property">
+    <HelpKINode Title="EventTrigger.Actions Property " Url="html/P_Cauldron_Behaviours_EventTrigger_Actions.htm" />
+    <HelpKINode Title="InvocationTrigger.Actions Property " Url="html/P_Cauldron_Behaviours_InvocationTrigger_Actions.htm" />
+  </HelpKINode>
   <HelpKINode Title="ACTIVATE enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
   <HelpKINode Title="ACTIVATEAPP enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
   <HelpKINode Title="Activated method" Url="html/M_Cauldron_ViewModels_ICanClose_Activated.htm" />
@@ -284,6 +289,7 @@
   <HelpKINode Title="ButtonProperties.SetImage method" Url="html/M_Cauldron_Attached_ButtonProperties_SetImage.htm" />
   <HelpKINode Title="ButtonsTemplate attached property" Url="html/P_Cauldron_Attached_UIElementProperties_ButtonsTemplate.htm" />
   <HelpKINode Title="ButtonsTemplateProperty field" Url="html/F_Cauldron_Attached_UIElementProperties_ButtonsTemplateProperty.htm" />
+  <HelpKINode Title="Cancel field" Url="html/F_Cauldron_WindowsStrings_Cancel.htm" />
   <HelpKINode Title="CANCELJOURNAL enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
   <HelpKINode Title="CANCELMODE enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
   <HelpKINode Title="CanClose method" Url="html/M_Cauldron_ViewModels_ICanClose_CanClose.htm" />
@@ -337,6 +343,7 @@
   <HelpKINode Title="Cauldron.Behaviours.IBehaviour&lt;T&gt; interface" Url="html/T_Cauldron_Behaviours_IBehaviour_1.htm" />
   <HelpKINode Title="Cauldron.Behaviours.Interaction class" Url="html/T_Cauldron_Behaviours_Interaction.htm" />
   <HelpKINode Title="Cauldron.Behaviours.Interactivity class" Url="html/T_Cauldron_Behaviours_Interactivity.htm" />
+  <HelpKINode Title="Cauldron.Behaviours.InvocationTrigger class" Url="html/T_Cauldron_Behaviours_InvocationTrigger.htm" />
   <HelpKINode Title="Cauldron.Behaviours.InvokeMethodAction class" Url="html/T_Cauldron_Behaviours_InvokeMethodAction.htm" />
   <HelpKINode Title="Cauldron.Behaviours.OpenFileDialogAction class" Url="html/T_Cauldron_Behaviours_OpenFileDialogAction.htm" />
   <HelpKINode Title="Cauldron.Behaviours.ParentPropertySetterAction class" Url="html/T_Cauldron_Behaviours_ParentPropertySetterAction.htm" />
@@ -374,6 +381,7 @@
   <HelpKINode Title="Cauldron.Core.DynamicEventHandler class" Url="html/T_Cauldron_Core_DynamicEventHandler.htm" />
   <HelpKINode Title="Cauldron.Core.EmbeddedImageManager class" Url="html/T_Cauldron_Core_EmbeddedImageManager.htm" />
   <HelpKINode Title="Cauldron.Core.IDisposableObject interface" Url="html/T_Cauldron_Core_IDisposableObject.htm" />
+  <HelpKINode Title="Cauldron.Core.IUserInformation interface" Url="html/T_Cauldron_Core_IUserInformation.htm" />
   <HelpKINode Title="Cauldron.Core.Mathc class" Url="html/T_Cauldron_Core_Mathc.htm" />
   <HelpKINode Title="Cauldron.Core.MessageBoxImage enumeration" Url="html/T_Cauldron_Core_MessageBoxImage.htm" />
   <HelpKINode Title="Cauldron.Core.MessageDialogCommand class" Url="html/T_Cauldron_Core_MessageDialogCommand.htm" />
@@ -391,6 +399,8 @@
   <HelpKINode Title="Cauldron.FactoryCreationPolicy enumeration" Url="html/T_Cauldron_FactoryCreationPolicy.htm" />
   <HelpKINode Title="Cauldron.IFactoryExtension interface" Url="html/T_Cauldron_IFactoryExtension.htm" />
   <HelpKINode Title="Cauldron.ILocalizationSource interface" Url="html/T_Cauldron_ILocalizationSource.htm" />
+  <HelpKINode Title="Cauldron.IMessageDialog interface" Url="html/T_Cauldron_IMessageDialog.htm" />
+  <HelpKINode Title="Cauldron.INavigator interface" Url="html/T_Cauldron_INavigator.htm" />
   <HelpKINode Title="Cauldron.InjectAttribute class" Url="html/T_Cauldron_InjectAttribute.htm" />
   <HelpKINode Title="Cauldron.InjectionFactoryExtension class" Url="html/T_Cauldron_InjectionFactoryExtension.htm" />
   <HelpKINode Title="Cauldron.INotifyBehaviourInvocation interface" Url="html/T_Cauldron_INotifyBehaviourInvocation.htm" />
@@ -454,6 +464,7 @@
   <HelpKINode Title="Cauldron.ViewModels.ViewModelBase class" Url="html/T_Cauldron_ViewModels_ViewModelBase.htm" />
   <HelpKINode Title="Cauldron.ViewModels.ViewModelContainerHandler class" Url="html/T_Cauldron_ViewModels_ViewModelContainerHandler.htm" />
   <HelpKINode Title="Cauldron.WindowsMessages enumeration" Url="html/T_Cauldron_WindowsMessages.htm" />
+  <HelpKINode Title="Cauldron.WindowsStrings class" Url="html/T_Cauldron_WindowsStrings.htm" />
   <HelpKINode Title="CauldronApplication class">
     <HelpKINode Title="CauldronApplication Class" Url="html/T_Cauldron_CauldronApplication.htm" />
     <HelpKINode Title="about CauldronApplication class" Url="html/T_Cauldron_CauldronApplication.htm" />
@@ -524,9 +535,16 @@
   <HelpKINode Title="Clear method" Url="html/M_Cauldron_Collections_ConcurrentList_1_Clear.htm" />
   <HelpKINode Title="CLIPBOARDUPDATE enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
   <HelpKINode Title="CLOSE enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
+  <HelpKINode Title="Close field" Url="html/F_Cauldron_WindowsStrings_Close.htm" />
   <HelpKINode Title="Close method" Url="html/M_Cauldron_ViewModels_IClose_Close.htm" />
-  <HelpKINode Title="CloseFocusedWindow method" Url="html/M_Cauldron_Navigator_CloseFocusedWindow.htm" />
-  <HelpKINode Title="CloseWindowOf method" Url="html/M_Cauldron_Navigator_CloseWindowOf.htm" />
+  <HelpKINode Title="CloseFocusedWindow method">
+    <HelpKINode Title="INavigator.CloseFocusedWindow Method " Url="html/M_Cauldron_INavigator_CloseFocusedWindow.htm" />
+    <HelpKINode Title="Navigator.CloseFocusedWindow Method " Url="html/M_Cauldron_Navigator_CloseFocusedWindow.htm" />
+  </HelpKINode>
+  <HelpKINode Title="CloseWindowOf method">
+    <HelpKINode Title="INavigator.CloseWindowOf Method " Url="html/M_Cauldron_INavigator_CloseWindowOf.htm" />
+    <HelpKINode Title="Navigator.CloseWindowOf Method " Url="html/M_Cauldron_Navigator_CloseWindowOf.htm" />
+  </HelpKINode>
   <HelpKINode Title="CollectionHasElementsToBoolConverter class">
     <HelpKINode Title="CollectionHasElementsToBoolConverter Class" Url="html/T_Cauldron_ValueConverters_CollectionHasElementsToBoolConverter.htm" />
     <HelpKINode Title="about CollectionHasElementsToBoolConverter class" Url="html/T_Cauldron_ValueConverters_CollectionHasElementsToBoolConverter.htm" />
@@ -551,6 +569,7 @@
     <HelpKINode Title="EventToCommand.Command Property " Url="html/P_Cauldron_Behaviours_EventToCommand_Command.htm" />
   </HelpKINode>
   <HelpKINode Title="CommandProperty field" Url="html/F_Cauldron_Behaviours_EventToCommand_CommandProperty.htm" />
+  <HelpKINode Title="Comments field" Url="html/F_Cauldron_WindowsStrings_Comments.htm" />
   <HelpKINode Title="COMMNOTIFY enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
   <HelpKINode Title="COMPACTING enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
   <HelpKINode Title="COMPAREITEM enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
@@ -660,6 +679,7 @@
   <HelpKINode Title="Content(Of T, TContent) method" Url="html/M_Cauldron_ExtensionsFrameworkElement_Content__2.htm" />
   <HelpKINode Title="Content&lt;T, TContent&gt; method" Url="html/M_Cauldron_ExtensionsFrameworkElement_Content__2.htm" />
   <HelpKINode Title="CONTEXTMENU enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
+  <HelpKINode Title="Continue field" Url="html/F_Cauldron_WindowsStrings_Continue.htm" />
   <HelpKINode Title="ContractName property" Url="html/P_Cauldron_FactoryAttribute_ContractName.htm" />
   <HelpKINode Title="ControlTemplateBinding class">
     <HelpKINode Title="ControlTemplateBinding Class" Url="html/T_Cauldron_Behaviours_ControlTemplateBinding.htm" />
@@ -708,6 +728,7 @@
   <HelpKINode Title="ConverterParameterProperty field" Url="html/F_Cauldron_Behaviours_ControlTemplateBinding_ConverterParameterProperty.htm" />
   <HelpKINode Title="ConverterProperty field" Url="html/F_Cauldron_Behaviours_ControlTemplateBinding_ConverterProperty.htm" />
   <HelpKINode Title="COPY enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
+  <HelpKINode Title="Copy field" Url="html/F_Cauldron_WindowsStrings_Copy.htm" />
   <HelpKINode Title="Copy method" Url="html/M_Cauldron_Behaviours_IBehaviour_Copy.htm" />
   <HelpKINode Title="COPYDATA enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
   <HelpKINode Title="CopyTo method" Url="html/Overload_Cauldron_Collections_ConcurrentList_1_CopyTo.htm" />
@@ -757,6 +778,7 @@
   <HelpKINode Title="DefaultTreeViewComboBoxSelectionLogic.ChangeSelectionValue method" Url="html/M_Cauldron_Controls_DefaultTreeViewComboBoxSelectionLogic_ChangeSelectionValue.htm" />
   <HelpKINode Title="DefaultTreeViewComboBoxSelectionLogic.DefaultTreeViewComboBoxSelectionLogic constructor" Url="html/M_Cauldron_Controls_DefaultTreeViewComboBoxSelectionLogic__ctor.htm" />
   <HelpKINode Title="DefaultTreeViewComboBoxSelectionLogic.IsSelected method" Url="html/M_Cauldron_Controls_DefaultTreeViewComboBoxSelectionLogic_IsSelected.htm" />
+  <HelpKINode Title="Delete field" Url="html/F_Cauldron_WindowsStrings_Delete.htm" />
   <HelpKINode Title="DELETEITEM enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
   <HelpKINode Title="DESTROY enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
   <HelpKINode Title="Destroy method" Url="html/Overload_Cauldron_Factory_Destroy.htm" />
@@ -888,6 +910,7 @@
   <HelpKINode Title="Equals method" Url="html/M_Cauldron_Utils_Equals.htm" />
   <HelpKINode Title="ERASEBKGND enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
   <HelpKINode Title="Error enumeration member" Url="html/T_Cauldron_Core_MessageBoxImage.htm" />
+  <HelpKINode Title="Error field" Url="html/F_Cauldron_WindowsStrings_Error.htm" />
   <HelpKINode Title="ErrorMessageKey property" Url="html/P_Cauldron_Validation_ValidationBaseAttribute_ErrorMessageKey.htm" />
   <HelpKINode Title="Errors attached property" Url="html/P_Cauldron_Attached_ValidationProperties_Errors.htm" />
   <HelpKINode Title="Errors property">
@@ -909,7 +932,6 @@
     <HelpKINode Title="EventToCommand.EventNameProperty Field" Url="html/F_Cauldron_Behaviours_EventToCommand_EventNameProperty.htm" />
     <HelpKINode Title="EventTrigger.EventNameProperty Field" Url="html/F_Cauldron_Behaviours_EventTrigger_EventNameProperty.htm" />
   </HelpKINode>
-  <HelpKINode Title="Events property" Url="html/P_Cauldron_Behaviours_EventTrigger_Events.htm" />
   <HelpKINode Title="EventToCommand class">
     <HelpKINode Title="EventToCommand Class" Url="html/T_Cauldron_Behaviours_EventToCommand.htm" />
     <HelpKINode Title="about EventToCommand class" Url="html/T_Cauldron_Behaviours_EventToCommand.htm" />
@@ -935,14 +957,15 @@
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Behaviours_EventTrigger.htm" />
     <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_Behaviours_EventTrigger.htm" />
   </HelpKINode>
+  <HelpKINode Title="EventTrigger.Actions property" Url="html/P_Cauldron_Behaviours_EventTrigger_Actions.htm" />
   <HelpKINode Title="EventTrigger.EventName property" Url="html/P_Cauldron_Behaviours_EventTrigger_EventName.htm" />
   <HelpKINode Title="EventTrigger.EventNameProperty field" Url="html/F_Cauldron_Behaviours_EventTrigger_EventNameProperty.htm" />
-  <HelpKINode Title="EventTrigger.Events property" Url="html/P_Cauldron_Behaviours_EventTrigger_Events.htm" />
   <HelpKINode Title="EventTrigger.EventTrigger constructor" Url="html/M_Cauldron_Behaviours_EventTrigger__ctor.htm" />
   <HelpKINode Title="EventTrigger.OnAttach method" Url="html/M_Cauldron_Behaviours_EventTrigger_OnAttach.htm" />
   <HelpKINode Title="EventTrigger.OnCopy method" Url="html/M_Cauldron_Behaviours_EventTrigger_OnCopy.htm" />
   <HelpKINode Title="EventTrigger.OnDetach method" Url="html/M_Cauldron_Behaviours_EventTrigger_OnDetach.htm" />
   <HelpKINode Title="Exclamation enumeration member" Url="html/T_Cauldron_Core_MessageBoxImage.htm" />
+  <HelpKINode Title="Execute field" Url="html/F_Cauldron_WindowsStrings_Execute.htm" />
   <HelpKINode Title="Execute method">
     <HelpKINode Title="RelayCommand(T).Execute Method " Url="html/M_Cauldron_RelayCommand_1_Execute.htm" />
     <HelpKINode Title="RelayCommand.Execute Method " Url="html/M_Cauldron_RelayCommand_Execute.htm" />
@@ -982,6 +1005,7 @@
   <HelpKINode Title="Extensions.GetSha256HashString method" Url="html/M_Cauldron_Extensions_GetSha256HashString.htm" />
   <HelpKINode Title="Extensions.GetTarget(Of T) method" Url="html/M_Cauldron_Extensions_GetTarget__1.htm" />
   <HelpKINode Title="Extensions.GetTarget&lt;T&gt; method" Url="html/M_Cauldron_Extensions_GetTarget__1.htm" />
+  <HelpKINode Title="Extensions.GetTypes method" Url="html/M_Cauldron_Extensions_GetTypes.htm" />
   <HelpKINode Title="Extensions.GetWindowHandle method" Url="html/M_Cauldron_Extensions_GetWindowHandle.htm" />
   <HelpKINode Title="Extensions.ImplementsInterface method" Url="html/Overload_Cauldron_Extensions_ImplementsInterface.htm" />
   <HelpKINode Title="Extensions.IndexOf method" Url="html/Overload_Cauldron_Extensions_IndexOf.htm" />
@@ -1083,7 +1107,10 @@
   <HelpKINode Title="GeneratedInternalTypeHelper.GetPropertyValue method" Url="html/M_XamlGeneratedNamespace_GeneratedInternalTypeHelper_GetPropertyValue.htm" />
   <HelpKINode Title="GeneratedInternalTypeHelper.SetPropertyValue method" Url="html/M_XamlGeneratedNamespace_GeneratedInternalTypeHelper_SetPropertyValue.htm" />
   <HelpKINode Title="GeneratePassword method" Url="html/M_Cauldron_Core_Cryptography_CryptoUtils_GeneratePassword.htm" />
-  <HelpKINode Title="GetAccountPicture method" Url="html/M_Cauldron_Core_UserInformation_GetAccountPicture.htm" />
+  <HelpKINode Title="GetAccountPictureAsync method">
+    <HelpKINode Title="IUserInformation.GetAccountPictureAsync Method " Url="html/M_Cauldron_Core_IUserInformation_GetAccountPictureAsync.htm" />
+    <HelpKINode Title="UserInformation.GetAccountPictureAsync Method " Url="html/M_Cauldron_Core_UserInformation_GetAccountPictureAsync.htm" />
+  </HelpKINode>
   <HelpKINode Title="GetAlternativeText method" Url="html/M_Cauldron_Attached_UIElementProperties_GetAlternativeText.htm" />
   <HelpKINode Title="GetBehaviour(Of T) method" Url="html/M_Cauldron_Behaviours_Interaction_GetBehaviour__1.htm" />
   <HelpKINode Title="GetBehaviour&lt;T&gt; method" Url="html/M_Cauldron_Behaviours_Interaction_GetBehaviour__1.htm" />
@@ -1091,8 +1118,15 @@
   <HelpKINode Title="GetButtonsTemplate method" Url="html/M_Cauldron_Attached_UIElementProperties_GetButtonsTemplate.htm" />
   <HelpKINode Title="GetBytes method" Url="html/Overload_Cauldron_Extensions_GetBytes.htm" />
   <HelpKINode Title="GetCategoryColor method" Url="html/M_Cauldron_Attached_ButtonProperties_GetCategoryColor.htm" />
-  <HelpKINode Title="GetDisplayNameAsync method" Url="html/M_Cauldron_Core_UserInformation_GetDisplayNameAsync.htm" />
+  <HelpKINode Title="GetDisplayNameAsync method">
+    <HelpKINode Title="IUserInformation.GetDisplayNameAsync Method " Url="html/M_Cauldron_Core_IUserInformation_GetDisplayNameAsync.htm" />
+    <HelpKINode Title="UserInformation.GetDisplayNameAsync Method " Url="html/M_Cauldron_Core_UserInformation_GetDisplayNameAsync.htm" />
+  </HelpKINode>
   <HelpKINode Title="GETDLGCODE enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
+  <HelpKINode Title="GetDomainNameAsync method">
+    <HelpKINode Title="IUserInformation.GetDomainNameAsync Method " Url="html/M_Cauldron_Core_IUserInformation_GetDomainNameAsync.htm" />
+    <HelpKINode Title="UserInformation.GetDomainNameAsync Method " Url="html/M_Cauldron_Core_UserInformation_GetDomainNameAsync.htm" />
+  </HelpKINode>
   <HelpKINode Title="GetEmailAddressAsync method" Url="html/M_Cauldron_Core_UserInformation_GetEmailAddressAsync.htm" />
   <HelpKINode Title="GetEmbeddedImageKey method" Url="html/M_Cauldron_Attached_ButtonProperties_GetEmbeddedImageKey.htm" />
   <HelpKINode Title="GetEnumerator method" Url="html/M_Cauldron_Collections_ConcurrentList_1_GetEnumerator.htm" />
@@ -1102,7 +1136,10 @@
     <HelpKINode Title="ValidationProperties.GetErrors Method " Url="html/M_Cauldron_Attached_ValidationProperties_GetErrors.htm" />
   </HelpKINode>
   <HelpKINode Title="GetFirstAssemblyWithResourceName method" Url="html/M_Cauldron_AssemblyUtil_GetFirstAssemblyWithResourceName.htm" />
-  <HelpKINode Title="GetFirstNameAsync method" Url="html/M_Cauldron_Core_UserInformation_GetFirstNameAsync.htm" />
+  <HelpKINode Title="GetFirstNameAsync method">
+    <HelpKINode Title="IUserInformation.GetFirstNameAsync Method " Url="html/M_Cauldron_Core_IUserInformation_GetFirstNameAsync.htm" />
+    <HelpKINode Title="UserInformation.GetFirstNameAsync Method " Url="html/M_Cauldron_Core_UserInformation_GetFirstNameAsync.htm" />
+  </HelpKINode>
   <HelpKINode Title="GETFONT enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
   <HelpKINode Title="GetHasErrors method" Url="html/M_Cauldron_Attached_ValidationProperties_GetHasErrors.htm" />
   <HelpKINode Title="GetHeader method" Url="html/M_Cauldron_Attached_UIElementProperties_GetHeader.htm" />
@@ -1116,7 +1153,10 @@
   <HelpKINode Title="GetIsCollapsed method" Url="html/M_Cauldron_Attached_UIElementProperties_GetIsCollapsed.htm" />
   <HelpKINode Title="GetIsDisabledByErrorInPropertyName method" Url="html/M_Cauldron_Attached_ValidationProperties_GetIsDisabledByErrorInPropertyName.htm" />
   <HelpKINode Title="GetIsMandatory method" Url="html/M_Cauldron_Attached_ValidationProperties_GetIsMandatory.htm" />
-  <HelpKINode Title="GetLastNameAsync method" Url="html/M_Cauldron_Core_UserInformation_GetLastNameAsync.htm" />
+  <HelpKINode Title="GetLastNameAsync method">
+    <HelpKINode Title="IUserInformation.GetLastNameAsync Method " Url="html/M_Cauldron_Core_IUserInformation_GetLastNameAsync.htm" />
+    <HelpKINode Title="UserInformation.GetLastNameAsync Method " Url="html/M_Cauldron_Core_UserInformation_GetLastNameAsync.htm" />
+  </HelpKINode>
   <HelpKINode Title="GetLogicalParent method" Url="html/M_Cauldron_ExtensionsFrameworkElement_GetLogicalParent.htm" />
   <HelpKINode Title="GetManifestResourceInfo method" Url="html/M_Cauldron_AssemblyUtil_GetManifestResourceInfo.htm" />
   <HelpKINode Title="GetManifestResources method" Url="html/M_Cauldron_AssemblyUtil_GetManifestResources.htm" />
@@ -1152,8 +1192,13 @@
   <HelpKINode Title="GETTITLEBARINFOEX enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
   <HelpKINode Title="GetTooltip method" Url="html/M_Cauldron_Attached_Localized_GetTooltip.htm" />
   <HelpKINode Title="GetTypeFromName method" Url="html/M_Cauldron_AssemblyUtil_GetTypeFromName.htm" />
+  <HelpKINode Title="GetTypes method" Url="html/M_Cauldron_Extensions_GetTypes.htm" />
   <HelpKINode Title="GetTypesImplementsInterface(Of T) method" Url="html/M_Cauldron_AssemblyUtil_GetTypesImplementsInterface__1.htm" />
   <HelpKINode Title="GetTypesImplementsInterface&lt;T&gt; method" Url="html/M_Cauldron_AssemblyUtil_GetTypesImplementsInterface__1.htm" />
+  <HelpKINode Title="GetUserNameAsync method">
+    <HelpKINode Title="IUserInformation.GetUserNameAsync Method " Url="html/M_Cauldron_Core_IUserInformation_GetUserNameAsync.htm" />
+    <HelpKINode Title="UserInformation.GetUserNameAsync Method " Url="html/M_Cauldron_Core_UserInformation_GetUserNameAsync.htm" />
+  </HelpKINode>
   <HelpKINode Title="GetValue method" Url="html/M_Cauldron_ILocalizationSource_GetValue.htm" />
   <HelpKINode Title="GetVisualChildren method" Url="html/M_Cauldron_ExtensionsFrameworkElement_GetVisualChildren.htm" />
   <HelpKINode Title="GetVisualParent method" Url="html/M_Cauldron_ExtensionsFrameworkElement_GetVisualParent.htm" />
@@ -1197,6 +1242,7 @@
     <HelpKINode Title="UIElementProperties.HeaderProperty Field" Url="html/F_Cauldron_Attached_UIElementProperties_HeaderProperty.htm" />
   </HelpKINode>
   <HelpKINode Title="HELP enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
+  <HelpKINode Title="Help field" Url="html/F_Cauldron_WindowsStrings_Help.htm" />
   <HelpKINode Title="HierarchicalActivableTreeViewViewModelBase(Of T) class">
     <HelpKINode Title="HierarchicalActivableTreeViewViewModelBase(T) Class" Url="html/T_Cauldron_ViewModels_HierarchicalActivableTreeViewViewModelBase_1.htm" />
     <HelpKINode Title="about HierarchicalActivableTreeViewViewModelBase(Of T) class" Url="html/T_Cauldron_ViewModels_HierarchicalActivableTreeViewViewModelBase_1.htm" />
@@ -1353,6 +1399,7 @@
   <HelpKINode Title="IFactoryExtension.OnCreateObject method" Url="html/M_Cauldron_IFactoryExtension_OnCreateObject.htm" />
   <HelpKINode Title="IFactoryExtension.OnInitialize method" Url="html/M_Cauldron_IFactoryExtension_OnInitialize.htm" />
   <HelpKINode Title="IFactoryExtension.SelectAmbiguousMatch method" Url="html/M_Cauldron_IFactoryExtension_SelectAmbiguousMatch.htm" />
+  <HelpKINode Title="Ignore field" Url="html/F_Cauldron_WindowsStrings_Ignore.htm" />
   <HelpKINode Title="IList(Of T).Item explicitly implemented property" Url="html/P_Cauldron_Collections_ConcurrentList_1_System_Collections_Generic_IList{T}_Item.htm" />
   <HelpKINode Title="IList.Add explicitly implemented method" Url="html/M_Cauldron_Collections_ConcurrentList_1_System_Collections_IList_Add.htm" />
   <HelpKINode Title="IList.Item explicitly implemented property" Url="html/P_Cauldron_Collections_ConcurrentList_1_System_Collections_IList_Item.htm" />
@@ -1369,6 +1416,16 @@
   <HelpKINode Title="ImageKey attached property" Url="html/P_Cauldron_Attached_EmbeddedResourceImage_ImageKey.htm" />
   <HelpKINode Title="ImageKeyProperty field" Url="html/F_Cauldron_Attached_EmbeddedResourceImage_ImageKeyProperty.htm" />
   <HelpKINode Title="ImageProperty field" Url="html/F_Cauldron_Attached_ButtonProperties_ImageProperty.htm" />
+  <HelpKINode Title="IMessageDialog interface">
+    <HelpKINode Title="IMessageDialog Interface" Url="html/T_Cauldron_IMessageDialog.htm" />
+    <HelpKINode Title="about IMessageDialog interface" Url="html/T_Cauldron_IMessageDialog.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_IMessageDialog.htm" />
+  </HelpKINode>
+  <HelpKINode Title="IMessageDialog.ShowAsync method" Url="html/Overload_Cauldron_IMessageDialog_ShowAsync.htm" />
+  <HelpKINode Title="IMessageDialog.ShowOKAsync method" Url="html/Overload_Cauldron_IMessageDialog_ShowOKAsync.htm" />
+  <HelpKINode Title="IMessageDialog.ShowOKCancelAsync method" Url="html/Overload_Cauldron_IMessageDialog_ShowOKCancelAsync.htm" />
+  <HelpKINode Title="IMessageDialog.ShowYesNoAsync method" Url="html/Overload_Cauldron_IMessageDialog_ShowYesNoAsync.htm" />
+  <HelpKINode Title="IMessageDialog.ShowYesNoCancelAsync method" Url="html/Overload_Cauldron_IMessageDialog_ShowYesNoCancelAsync.htm" />
   <HelpKINode Title="IME_CHAR enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
   <HelpKINode Title="IME_COMPOSITION enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
   <HelpKINode Title="IME_COMPOSITIONFULL enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
@@ -1383,6 +1440,14 @@
   <HelpKINode Title="IME_SETCONTEXT enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
   <HelpKINode Title="IME_STARTCOMPOSITION enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
   <HelpKINode Title="ImplementsInterface method" Url="html/Overload_Cauldron_Extensions_ImplementsInterface.htm" />
+  <HelpKINode Title="INavigator interface">
+    <HelpKINode Title="INavigator Interface" Url="html/T_Cauldron_INavigator.htm" />
+    <HelpKINode Title="about INavigator interface" Url="html/T_Cauldron_INavigator.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_INavigator.htm" />
+  </HelpKINode>
+  <HelpKINode Title="INavigator.CloseFocusedWindow method" Url="html/M_Cauldron_INavigator_CloseFocusedWindow.htm" />
+  <HelpKINode Title="INavigator.CloseWindowOf method" Url="html/M_Cauldron_INavigator_CloseWindowOf.htm" />
+  <HelpKINode Title="INavigator.Navigate method" Url="html/Overload_Cauldron_INavigator_Navigate.htm" />
   <HelpKINode Title="IndexOf method">
     <HelpKINode Title="ConcurrentList(T).IndexOf Method " Url="html/Overload_Cauldron_Collections_ConcurrentList_1_IndexOf.htm" />
     <HelpKINode Title="Extensions.IndexOf Method " Url="html/Overload_Cauldron_Extensions_IndexOf.htm" />
@@ -1476,9 +1541,25 @@
   </HelpKINode>
   <HelpKINode Title="InteractivityTemplate.InteractivityTemplate constructor" Url="html/M_Cauldron_Collections_InteractivityTemplate__ctor.htm" />
   <HelpKINode Title="Interfaces property" Url="html/P_Cauldron_AssemblyUtil_Interfaces.htm" />
+  <HelpKINode Title="InvocationTrigger class">
+    <HelpKINode Title="InvocationTrigger Class" Url="html/T_Cauldron_Behaviours_InvocationTrigger.htm" />
+    <HelpKINode Title="about InvocationTrigger class" Url="html/T_Cauldron_Behaviours_InvocationTrigger.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Cauldron_Behaviours_InvocationTrigger__ctor.htm" />
+    <HelpKINode Title="events" Url="html/Events_T_Cauldron_Behaviours_InvocationTrigger.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Behaviours_InvocationTrigger.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_Behaviours_InvocationTrigger.htm" />
+  </HelpKINode>
+  <HelpKINode Title="InvocationTrigger.Actions property" Url="html/P_Cauldron_Behaviours_InvocationTrigger_Actions.htm" />
+  <HelpKINode Title="InvocationTrigger.InvocationTrigger constructor" Url="html/M_Cauldron_Behaviours_InvocationTrigger__ctor.htm" />
+  <HelpKINode Title="InvocationTrigger.Invoke method" Url="html/M_Cauldron_Behaviours_InvocationTrigger_Invoke.htm" />
+  <HelpKINode Title="InvocationTrigger.OnAttach method" Url="html/M_Cauldron_Behaviours_InvocationTrigger_OnAttach.htm" />
+  <HelpKINode Title="InvocationTrigger.OnCopy method" Url="html/M_Cauldron_Behaviours_InvocationTrigger_OnCopy.htm" />
+  <HelpKINode Title="InvocationTrigger.OnDetach method" Url="html/M_Cauldron_Behaviours_InvocationTrigger_OnDetach.htm" />
+  <HelpKINode Title="InvocationTrigger.OnDispose method" Url="html/M_Cauldron_Behaviours_InvocationTrigger_OnDispose.htm" />
   <HelpKINode Title="Invoke method">
     <HelpKINode Title="ActionBase.Invoke Method " Url="html/M_Cauldron_Behaviours_ActionBase_Invoke.htm" />
     <HelpKINode Title="BehaviourInvokeAwareBehaviourBase(T).Invoke Method " Url="html/M_Cauldron_Behaviours_BehaviourInvokeAwareBehaviourBase_1_Invoke.htm" />
+    <HelpKINode Title="InvocationTrigger.Invoke Method " Url="html/M_Cauldron_Behaviours_InvocationTrigger_Invoke.htm" />
     <HelpKINode Title="InvokeMethodAction.Invoke Method " Url="html/M_Cauldron_Behaviours_InvokeMethodAction_Invoke.htm" />
     <HelpKINode Title="MessageDialogCommand.Invoke Method " Url="html/M_Cauldron_Core_MessageDialogCommand_Invoke.htm" />
     <HelpKINode Title="OpenFileDialogAction.Invoke Method " Url="html/M_Cauldron_Behaviours_OpenFileDialogAction_Invoke.htm" />
@@ -1504,6 +1585,8 @@
   <HelpKINode Title="InvokeMethodAction.MethodParametersProperty field" Url="html/F_Cauldron_Behaviours_InvokeMethodAction_MethodParametersProperty.htm" />
   <HelpKINode Title="InvokeMethodAction.OnAttach method" Url="html/M_Cauldron_Behaviours_InvokeMethodAction_OnAttach.htm" />
   <HelpKINode Title="InvokeMethodAction.OnDetach method" Url="html/M_Cauldron_Behaviours_InvokeMethodAction_OnDetach.htm" />
+  <HelpKINode Title="InvokeMethodAction.PriorityLow property" Url="html/P_Cauldron_Behaviours_InvokeMethodAction_PriorityLow.htm" />
+  <HelpKINode Title="InvokeMethodAction.PriorityLowProperty field" Url="html/F_Cauldron_Behaviours_InvokeMethodAction_PriorityLowProperty.htm" />
   <HelpKINode Title="IRelayCommand interface">
     <HelpKINode Title="IRelayCommand Interface" Url="html/T_Cauldron_IRelayCommand.htm" />
     <HelpKINode Title="about IRelayCommand interface" Url="html/T_Cauldron_IRelayCommand.htm" />
@@ -1545,7 +1628,13 @@
     <HelpKINode Title="ValidatableChangeAwareViewModelBase.IsLoading Property " Url="html/P_Cauldron_ViewModels_ValidatableChangeAwareViewModelBase_IsLoading.htm" />
   </HelpKINode>
   <HelpKINode Title="IsLocalAccount property" Url="html/P_Cauldron_Core_UserInformation_IsLocalAccount.htm" />
+  <HelpKINode Title="IsLocalAccountAsync method">
+    <HelpKINode Title="IUserInformation.IsLocalAccountAsync Method " Url="html/M_Cauldron_Core_IUserInformation_IsLocalAccountAsync.htm" />
+    <HelpKINode Title="UserInformation.IsLocalAccountAsync Method " Url="html/M_Cauldron_Core_UserInformation_IsLocalAccountAsync.htm" />
+  </HelpKINode>
   <HelpKINode Title="IsLockedOutAsync method" Url="html/M_Cauldron_Core_UserInformation_IsLockedOutAsync.htm" />
+  <HelpKINode Title="IsMainWindow property" Url="html/P_Cauldron_Behaviours_WindowConfiguration_IsMainWindow.htm" />
+  <HelpKINode Title="IsMainWindowProperty field" Url="html/F_Cauldron_Behaviours_WindowConfiguration_IsMainWindowProperty.htm" />
   <HelpKINode Title="IsMandatory attached property" Url="html/P_Cauldron_Attached_ValidationProperties_IsMandatory.htm" />
   <HelpKINode Title="IsMandatoryAttribute class">
     <HelpKINode Title="IsMandatoryAttribute Class" Url="html/T_Cauldron_Validation_IsMandatoryAttribute.htm" />
@@ -1569,8 +1658,6 @@
     <HelpKINode Title="ITreeViewComboBoxSelectionLogic.IsSelected Method " Url="html/M_Cauldron_Controls_ITreeViewComboBoxSelectionLogic_IsSelected.htm" />
   </HelpKINode>
   <HelpKINode Title="IsSingleton method" Url="html/Overload_Cauldron_Factory_IsSingleton.htm" />
-  <HelpKINode Title="IsSplashScreen property" Url="html/P_Cauldron_Behaviours_WindowConfiguration_IsSplashScreen.htm" />
-  <HelpKINode Title="IsSplashScreenProperty field" Url="html/F_Cauldron_Behaviours_WindowConfiguration_IsSplashScreenProperty.htm" />
   <HelpKINode Title="IsSynchronized property" Url="html/P_Cauldron_Collections_ConcurrentList_1_IsSynchronized.htm" />
   <HelpKINode Title="IsWindowPersistent property" Url="html/P_Cauldron_Behaviours_WindowConfiguration_IsWindowPersistent.htm" />
   <HelpKINode Title="IsWindowPersistentProperty field" Url="html/F_Cauldron_Behaviours_WindowConfiguration_IsWindowPersistentProperty.htm" />
@@ -1586,6 +1673,18 @@
   </HelpKINode>
   <HelpKINode Title="ITreeViewComboBoxSelectionLogic.ChangeSelectionValue method" Url="html/M_Cauldron_Controls_ITreeViewComboBoxSelectionLogic_ChangeSelectionValue.htm" />
   <HelpKINode Title="ITreeViewComboBoxSelectionLogic.IsSelected method" Url="html/M_Cauldron_Controls_ITreeViewComboBoxSelectionLogic_IsSelected.htm" />
+  <HelpKINode Title="IUserInformation interface">
+    <HelpKINode Title="IUserInformation Interface" Url="html/T_Cauldron_Core_IUserInformation.htm" />
+    <HelpKINode Title="about IUserInformation interface" Url="html/T_Cauldron_Core_IUserInformation.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_IUserInformation.htm" />
+  </HelpKINode>
+  <HelpKINode Title="IUserInformation.GetAccountPictureAsync method" Url="html/M_Cauldron_Core_IUserInformation_GetAccountPictureAsync.htm" />
+  <HelpKINode Title="IUserInformation.GetDisplayNameAsync method" Url="html/M_Cauldron_Core_IUserInformation_GetDisplayNameAsync.htm" />
+  <HelpKINode Title="IUserInformation.GetDomainNameAsync method" Url="html/M_Cauldron_Core_IUserInformation_GetDomainNameAsync.htm" />
+  <HelpKINode Title="IUserInformation.GetFirstNameAsync method" Url="html/M_Cauldron_Core_IUserInformation_GetFirstNameAsync.htm" />
+  <HelpKINode Title="IUserInformation.GetLastNameAsync method" Url="html/M_Cauldron_Core_IUserInformation_GetLastNameAsync.htm" />
+  <HelpKINode Title="IUserInformation.GetUserNameAsync method" Url="html/M_Cauldron_Core_IUserInformation_GetUserNameAsync.htm" />
+  <HelpKINode Title="IUserInformation.IsLocalAccountAsync method" Url="html/M_Cauldron_Core_IUserInformation_IsLocalAccountAsync.htm" />
   <HelpKINode Title="IValidatableViewModel interface">
     <HelpKINode Title="IValidatableViewModel Interface" Url="html/T_Cauldron_ViewModels_IValidatableViewModel.htm" />
     <HelpKINode Title="about IValidatableViewModel interface" Url="html/T_Cauldron_ViewModels_IValidatableViewModel.htm" />
@@ -1702,6 +1801,7 @@
   <HelpKINode Title="Mathc.Divide method" Url="html/M_Cauldron_Core_Mathc_Divide.htm" />
   <HelpKINode Title="Mathc.Multiply method" Url="html/M_Cauldron_Core_Mathc_Multiply.htm" />
   <HelpKINode Title="Mathc.Substract method" Url="html/M_Cauldron_Core_Mathc_Substract.htm" />
+  <HelpKINode Title="Maximize field" Url="html/F_Cauldron_WindowsStrings_Maximize.htm" />
   <HelpKINode Title="MBUTTONDBLCLK enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
   <HelpKINode Title="MBUTTONDOWN enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
   <HelpKINode Title="MBUTTONUP enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
@@ -1730,8 +1830,10 @@
   <HelpKINode Title="MessageDialog class">
     <HelpKINode Title="MessageDialog Class" Url="html/T_Cauldron_MessageDialog.htm" />
     <HelpKINode Title="about MessageDialog class" Url="html/T_Cauldron_MessageDialog.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Cauldron_MessageDialog__ctor.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_MessageDialog.htm" />
   </HelpKINode>
+  <HelpKINode Title="MessageDialog.MessageDialog constructor" Url="html/M_Cauldron_MessageDialog__ctor.htm" />
   <HelpKINode Title="MessageDialog.ShowAsync method" Url="html/Overload_Cauldron_MessageDialog_ShowAsync.htm" />
   <HelpKINode Title="MessageDialog.ShowOKAsync method" Url="html/Overload_Cauldron_MessageDialog_ShowOKAsync.htm" />
   <HelpKINode Title="MessageDialog.ShowOKCancelAsync method" Url="html/Overload_Cauldron_MessageDialog_ShowOKCancelAsync.htm" />
@@ -1780,6 +1882,7 @@
   <HelpKINode Title="MethodOwnerTypeProperty field" Url="html/F_Cauldron_Behaviours_InvokeMethodAction_MethodOwnerTypeProperty.htm" />
   <HelpKINode Title="MethodParameters property" Url="html/P_Cauldron_Behaviours_InvokeMethodAction_MethodParameters.htm" />
   <HelpKINode Title="MethodParametersProperty field" Url="html/F_Cauldron_Behaviours_InvokeMethodAction_MethodParametersProperty.htm" />
+  <HelpKINode Title="Minimize field" Url="html/F_Cauldron_WindowsStrings_Minimize.htm" />
   <HelpKINode Title="Mode property" Url="html/P_Cauldron_Behaviours_ControlTemplateBinding_Mode.htm" />
   <HelpKINode Title="ModeProperty field" Url="html/F_Cauldron_Behaviours_ControlTemplateBinding_ModeProperty.htm" />
   <HelpKINode Title="MonitorCount property" Url="html/P_Cauldron_Core_MonitorInfo_MonitorCount.htm" />
@@ -1801,6 +1904,7 @@
   <HelpKINode Title="MOUSEMOVE enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
   <HelpKINode Title="MOUSEWHEEL enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
   <HelpKINode Title="MOVE enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
+  <HelpKINode Title="Move field" Url="html/F_Cauldron_WindowsStrings_Move.htm" />
   <HelpKINode Title="Move(Of T) method" Url="html/M_Cauldron_Extensions_Move__1.htm" />
   <HelpKINode Title="Move&lt;T&gt; method" Url="html/M_Cauldron_Extensions_Move__1.htm" />
   <HelpKINode Title="MOVING enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
@@ -1808,8 +1912,12 @@
   <HelpKINode Title="Multiselect property" Url="html/P_Cauldron_Behaviours_OpenFileDialogAction_Multiselect.htm" />
   <HelpKINode Title="MultiselectProperty field" Url="html/F_Cauldron_Behaviours_OpenFileDialogAction_MultiselectProperty.htm" />
   <HelpKINode Title="MyPropertyProperty field" Url="html/F_Cauldron_Behaviours_EnterKeyToCommand_MyPropertyProperty.htm" />
+  <HelpKINode Title="Name field" Url="html/F_Cauldron_WindowsStrings_Name.htm" />
   <HelpKINode Title="Name property" Url="html/P_Cauldron_Behaviours_IBehaviour_Name.htm" />
-  <HelpKINode Title="Navigate method" Url="html/Overload_Cauldron_Navigator_Navigate.htm" />
+  <HelpKINode Title="Navigate method">
+    <HelpKINode Title="INavigator.Navigate Method " Url="html/Overload_Cauldron_INavigator_Navigate.htm" />
+    <HelpKINode Title="Navigator.Navigate Method " Url="html/Overload_Cauldron_Navigator_Navigate.htm" />
+  </HelpKINode>
   <HelpKINode Title="NavigatingAttribute class">
     <HelpKINode Title="NavigatingAttribute Class" Url="html/T_Cauldron_ViewModels_NavigatingAttribute.htm" />
     <HelpKINode Title="about NavigatingAttribute class" Url="html/T_Cauldron_ViewModels_NavigatingAttribute.htm" />
@@ -1822,11 +1930,14 @@
   <HelpKINode Title="Navigator class">
     <HelpKINode Title="Navigator Class" Url="html/T_Cauldron_Navigator.htm" />
     <HelpKINode Title="about Navigator class" Url="html/T_Cauldron_Navigator.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Cauldron_Navigator__ctor.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Navigator.htm" />
   </HelpKINode>
+  <HelpKINode Title="Navigator property" Url="html/P_Cauldron_ViewModels_ViewModelBase_Navigator.htm" />
   <HelpKINode Title="Navigator.CloseFocusedWindow method" Url="html/M_Cauldron_Navigator_CloseFocusedWindow.htm" />
   <HelpKINode Title="Navigator.CloseWindowOf method" Url="html/M_Cauldron_Navigator_CloseWindowOf.htm" />
   <HelpKINode Title="Navigator.Navigate method" Url="html/Overload_Cauldron_Navigator_Navigate.htm" />
+  <HelpKINode Title="Navigator.Navigator constructor" Url="html/M_Cauldron_Navigator__ctor.htm" />
   <HelpKINode Title="NCACTIVATE enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
   <HelpKINode Title="NCCALCSIZE enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
   <HelpKINode Title="NCCREATE enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
@@ -1848,12 +1959,14 @@
   <HelpKINode Title="NCXBUTTONDBLCLK enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
   <HelpKINode Title="NCXBUTTONDOWN enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
   <HelpKINode Title="NCXBUTTONUP enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
+  <HelpKINode Title="New field" Url="html/F_Cauldron_WindowsStrings_New.htm" />
   <HelpKINode Title="Next method" Url="html/Overload_Cauldron_Core_Randomizer_Next.htm" />
   <HelpKINode Title="NextBoolean method" Url="html/M_Cauldron_Core_Randomizer_NextBoolean.htm" />
   <HelpKINode Title="NextByte method" Url="html/M_Cauldron_Core_Randomizer_NextByte.htm" />
   <HelpKINode Title="NEXTDLGCTL enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
   <HelpKINode Title="NextDouble method" Url="html/Overload_Cauldron_Core_Randomizer_NextDouble.htm" />
   <HelpKINode Title="NEXTMENU enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
+  <HelpKINode Title="No field" Url="html/F_Cauldron_WindowsStrings_No.htm" />
   <HelpKINode Title="None enumeration member" Url="html/T_Cauldron_Core_MessageBoxImage.htm" />
   <HelpKINode Title="Normal enumeration member" Url="html/T_Cauldron_Core_CauldronDispatcherPriority.htm" />
   <HelpKINode Title="NOTIFY enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
@@ -1886,6 +1999,7 @@
   <HelpKINode Title="ObjectToVisibilityConverter.ObjectToVisibilityConverter constructor" Url="html/M_Cauldron_ValueConverters_ObjectToVisibilityConverter__ctor.htm" />
   <HelpKINode Title="ObjectToVisibilityConverter.OnConvert method" Url="html/M_Cauldron_ValueConverters_ObjectToVisibilityConverter_OnConvert.htm" />
   <HelpKINode Title="ObjectToVisibilityConverter.OnConvertBack method" Url="html/M_Cauldron_ValueConverters_ObjectToVisibilityConverter_OnConvertBack.htm" />
+  <HelpKINode Title="OK field" Url="html/F_Cauldron_WindowsStrings_OK.htm" />
   <HelpKINode Title="OnAfterRaiseNotifyPropertyChanged method">
     <HelpKINode Title="ChangeAwareViewModelBase.OnAfterRaiseNotifyPropertyChanged Method " Url="html/M_Cauldron_ViewModels_ChangeAwareViewModelBase_OnAfterRaiseNotifyPropertyChanged.htm" />
     <HelpKINode Title="ValidatableChangeAwareViewModelBase.OnAfterRaiseNotifyPropertyChanged Method " Url="html/M_Cauldron_ViewModels_ValidatableChangeAwareViewModelBase_OnAfterRaiseNotifyPropertyChanged.htm" />
@@ -1899,6 +2013,7 @@
     <HelpKINode Title="EventToCommand.OnAttach Method " Url="html/M_Cauldron_Behaviours_EventToCommand_OnAttach.htm" />
     <HelpKINode Title="EventTrigger.OnAttach Method " Url="html/M_Cauldron_Behaviours_EventTrigger_OnAttach.htm" />
     <HelpKINode Title="ForcePropertyUpdate.OnAttach Method " Url="html/M_Cauldron_Behaviours_ForcePropertyUpdate_OnAttach.htm" />
+    <HelpKINode Title="InvocationTrigger.OnAttach Method " Url="html/M_Cauldron_Behaviours_InvocationTrigger_OnAttach.htm" />
     <HelpKINode Title="InvokeMethodAction.OnAttach Method " Url="html/M_Cauldron_Behaviours_InvokeMethodAction_OnAttach.htm" />
     <HelpKINode Title="OpenFileDialogAction.OnAttach Method " Url="html/M_Cauldron_Behaviours_OpenFileDialogAction_OnAttach.htm" />
     <HelpKINode Title="ParentPropertySetterAction.OnAttach Method " Url="html/M_Cauldron_Behaviours_ParentPropertySetterAction_OnAttach.htm" />
@@ -1944,6 +2059,7 @@
   <HelpKINode Title="OnCopy method">
     <HelpKINode Title="Behaviour(T).OnCopy Method " Url="html/M_Cauldron_Behaviours_Behaviour_1_OnCopy.htm" />
     <HelpKINode Title="EventTrigger.OnCopy Method " Url="html/M_Cauldron_Behaviours_EventTrigger_OnCopy.htm" />
+    <HelpKINode Title="InvocationTrigger.OnCopy Method " Url="html/M_Cauldron_Behaviours_InvocationTrigger_OnCopy.htm" />
   </HelpKINode>
   <HelpKINode Title="OnCreateObject method">
     <HelpKINode Title="IFactoryExtension.OnCreateObject Method " Url="html/M_Cauldron_IFactoryExtension_OnCreateObject.htm" />
@@ -1962,6 +2078,7 @@
     <HelpKINode Title="EventToCommand.OnDetach Method " Url="html/M_Cauldron_Behaviours_EventToCommand_OnDetach.htm" />
     <HelpKINode Title="EventTrigger.OnDetach Method " Url="html/M_Cauldron_Behaviours_EventTrigger_OnDetach.htm" />
     <HelpKINode Title="ForcePropertyUpdate.OnDetach Method " Url="html/M_Cauldron_Behaviours_ForcePropertyUpdate_OnDetach.htm" />
+    <HelpKINode Title="InvocationTrigger.OnDetach Method " Url="html/M_Cauldron_Behaviours_InvocationTrigger_OnDetach.htm" />
     <HelpKINode Title="InvokeMethodAction.OnDetach Method " Url="html/M_Cauldron_Behaviours_InvokeMethodAction_OnDetach.htm" />
     <HelpKINode Title="OpenFileDialogAction.OnDetach Method " Url="html/M_Cauldron_Behaviours_OpenFileDialogAction_OnDetach.htm" />
     <HelpKINode Title="ParentPropertySetterAction.OnDetach Method " Url="html/M_Cauldron_Behaviours_ParentPropertySetterAction_OnDetach.htm" />
@@ -1978,6 +2095,7 @@
     <HelpKINode Title="DisposableBase.OnDispose Method " Url="html/M_Cauldron_Core_DisposableBase_OnDispose.htm" />
     <HelpKINode Title="DisposableViewModelBase.OnDispose Method " Url="html/M_Cauldron_ViewModels_DisposableViewModelBase_OnDispose.htm" />
     <HelpKINode Title="DynamicEventHandler.OnDispose Method " Url="html/M_Cauldron_Core_DynamicEventHandler_OnDispose.htm" />
+    <HelpKINode Title="InvocationTrigger.OnDispose Method " Url="html/M_Cauldron_Behaviours_InvocationTrigger_OnDispose.htm" />
     <HelpKINode Title="SecureStringHandler.OnDispose Method " Url="html/M_Cauldron_Core_SecureStringHandler_OnDispose.htm" />
     <HelpKINode Title="ValidatableContainerChangeAwareViewModelBase.OnDispose Method " Url="html/M_Cauldron_ViewModels_ValidatableContainerChangeAwareViewModelBase_OnDispose.htm" />
     <HelpKINode Title="ValidatableViewModelBase.OnDispose Method " Url="html/M_Cauldron_ViewModels_ValidatableViewModelBase_OnDispose.htm" />
@@ -2017,6 +2135,7 @@
     <HelpKINode Title="ValidationBaseAttribute.OnValidate Method " Url="html/M_Cauldron_Validation_ValidationBaseAttribute_OnValidate.htm" />
   </HelpKINode>
   <HelpKINode Title="OnValidation method" Url="html/M_Cauldron_ViewModels_ValidatableViewModelBase_OnValidation.htm" />
+  <HelpKINode Title="Open field" Url="html/F_Cauldron_WindowsStrings_Open.htm" />
   <HelpKINode Title="OpenFileDialogAction class">
     <HelpKINode Title="OpenFileDialogAction Class" Url="html/T_Cauldron_Behaviours_OpenFileDialogAction.htm" />
     <HelpKINode Title="about OpenFileDialogAction class" Url="html/T_Cauldron_Behaviours_OpenFileDialogAction.htm" />
@@ -2107,6 +2226,8 @@
   <HelpKINode Title="PrimaryMonitorBounds property" Url="html/P_Cauldron_Core_MonitorInfo_PrimaryMonitorBounds.htm" />
   <HelpKINode Title="PRINT enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
   <HelpKINode Title="PRINTCLIENT enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
+  <HelpKINode Title="PriorityLow property" Url="html/P_Cauldron_Behaviours_InvokeMethodAction_PriorityLow.htm" />
+  <HelpKINode Title="PriorityLowProperty field" Url="html/F_Cauldron_Behaviours_InvokeMethodAction_PriorityLowProperty.htm" />
   <HelpKINode Title="PropertyChanged event">
     <HelpKINode Title="RelayCommand(T).PropertyChanged Event" Url="html/E_Cauldron_RelayCommand_1_PropertyChanged.htm" />
     <HelpKINode Title="RelayCommand.PropertyChanged Event" Url="html/E_Cauldron_RelayCommand_PropertyChanged.htm" />
@@ -2210,11 +2331,15 @@
   <HelpKINode Title="RemoveElement method" Url="html/M_Cauldron_Extensions_RemoveElement.htm" />
   <HelpKINode Title="RemoveItem method" Url="html/M_Cauldron_Collections_BehaviourCollection_1_RemoveItem.htm" />
   <HelpKINode Title="RemoveSelectedItem method" Url="html/M_Cauldron_Controls_TreeViewComboBox_RemoveSelectedItem.htm" />
+  <HelpKINode Title="Rename field" Url="html/F_Cauldron_WindowsStrings_Rename.htm" />
   <HelpKINode Title="RENDERALLFORMATS enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
   <HelpKINode Title="RENDERFORMAT enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
   <HelpKINode Title="ResizeMode property" Url="html/P_Cauldron_Behaviours_WindowConfiguration_ResizeMode.htm" />
   <HelpKINode Title="ResizeModeProperty field" Url="html/F_Cauldron_Behaviours_WindowConfiguration_ResizeModeProperty.htm" />
+  <HelpKINode Title="RestoreDown field" Url="html/F_Cauldron_WindowsStrings_RestoreDown.htm" />
+  <HelpKINode Title="RestoreUp field" Url="html/F_Cauldron_WindowsStrings_RestoreUp.htm" />
   <HelpKINode Title="Result property" Url="html/P_Cauldron_ViewModels_IDialogViewModel_1_Result.htm" />
+  <HelpKINode Title="Retry field" Url="html/F_Cauldron_WindowsStrings_Retry.htm" />
   <HelpKINode Title="Right method" Url="html/M_Cauldron_Extensions_Right.htm" />
   <HelpKINode Title="RoamingFolder property" Url="html/P_Cauldron_Core_ApplicationData_RoamingFolder.htm" />
   <HelpKINode Title="RunAsync method" Url="html/Overload_Cauldron_Core_CauldronDispatcher_RunAsync.htm" />
@@ -2293,16 +2418,32 @@
   <HelpKINode Title="SetText method" Url="html/M_Cauldron_Attached_Localized_SetText.htm" />
   <HelpKINode Title="SETTINGCHANGE enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
   <HelpKINode Title="SetTooltip method" Url="html/M_Cauldron_Attached_Localized_SetTooltip.htm" />
-  <HelpKINode Title="ShowAsync method" Url="html/Overload_Cauldron_MessageDialog_ShowAsync.htm" />
+  <HelpKINode Title="ShowAsync method">
+    <HelpKINode Title="IMessageDialog.ShowAsync Method " Url="html/Overload_Cauldron_IMessageDialog_ShowAsync.htm" />
+    <HelpKINode Title="MessageDialog.ShowAsync Method " Url="html/Overload_Cauldron_MessageDialog_ShowAsync.htm" />
+  </HelpKINode>
   <HelpKINode Title="ShowInTaskbar property" Url="html/P_Cauldron_Behaviours_WindowConfiguration_ShowInTaskbar.htm" />
   <HelpKINode Title="ShowInTaskbarProperty field" Url="html/F_Cauldron_Behaviours_WindowConfiguration_ShowInTaskbarProperty.htm" />
-  <HelpKINode Title="ShowOKAsync method" Url="html/Overload_Cauldron_MessageDialog_ShowOKAsync.htm" />
-  <HelpKINode Title="ShowOKCancelAsync method" Url="html/Overload_Cauldron_MessageDialog_ShowOKCancelAsync.htm" />
+  <HelpKINode Title="ShowOKAsync method">
+    <HelpKINode Title="IMessageDialog.ShowOKAsync Method " Url="html/Overload_Cauldron_IMessageDialog_ShowOKAsync.htm" />
+    <HelpKINode Title="MessageDialog.ShowOKAsync Method " Url="html/Overload_Cauldron_MessageDialog_ShowOKAsync.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ShowOKCancelAsync method">
+    <HelpKINode Title="IMessageDialog.ShowOKCancelAsync Method " Url="html/Overload_Cauldron_IMessageDialog_ShowOKCancelAsync.htm" />
+    <HelpKINode Title="MessageDialog.ShowOKCancelAsync Method " Url="html/Overload_Cauldron_MessageDialog_ShowOKCancelAsync.htm" />
+  </HelpKINode>
   <HelpKINode Title="SHOWWINDOW enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
-  <HelpKINode Title="ShowYesNoAsync method" Url="html/Overload_Cauldron_MessageDialog_ShowYesNoAsync.htm" />
-  <HelpKINode Title="ShowYesNoCancelAsync method" Url="html/Overload_Cauldron_MessageDialog_ShowYesNoCancelAsync.htm" />
+  <HelpKINode Title="ShowYesNoAsync method">
+    <HelpKINode Title="IMessageDialog.ShowYesNoAsync Method " Url="html/Overload_Cauldron_IMessageDialog_ShowYesNoAsync.htm" />
+    <HelpKINode Title="MessageDialog.ShowYesNoAsync Method " Url="html/Overload_Cauldron_MessageDialog_ShowYesNoAsync.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ShowYesNoCancelAsync method">
+    <HelpKINode Title="IMessageDialog.ShowYesNoCancelAsync Method " Url="html/Overload_Cauldron_IMessageDialog_ShowYesNoCancelAsync.htm" />
+    <HelpKINode Title="MessageDialog.ShowYesNoCancelAsync Method " Url="html/Overload_Cauldron_MessageDialog_ShowYesNoCancelAsync.htm" />
+  </HelpKINode>
   <HelpKINode Title="Singleton enumeration member" Url="html/T_Cauldron_FactoryCreationPolicy.htm" />
   <HelpKINode Title="SIZE enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
+  <HelpKINode Title="Size field" Url="html/F_Cauldron_WindowsStrings_Size.htm" />
   <HelpKINode Title="SizeChanged method" Url="html/M_Cauldron_ViewModels_IWindowViewModel_SizeChanged.htm" />
   <HelpKINode Title="SIZECLIPBOARD enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
   <HelpKINode Title="SizeToContent property" Url="html/P_Cauldron_Behaviours_WindowConfiguration_SizeToContent.htm" />
@@ -2459,6 +2600,7 @@
   <HelpKINode Title="TreeViewComboBox.SelectionLogic property" Url="html/P_Cauldron_Controls_TreeViewComboBox_SelectionLogic.htm" />
   <HelpKINode Title="TreeViewComboBox.SelectionLogicProperty field" Url="html/F_Cauldron_Controls_TreeViewComboBox_SelectionLogicProperty.htm" />
   <HelpKINode Title="TreeViewComboBox.TreeViewComboBox constructor" Url="html/M_Cauldron_Controls_TreeViewComboBox__ctor.htm" />
+  <HelpKINode Title="Type field" Url="html/F_Cauldron_WindowsStrings_Type.htm" />
   <HelpKINode Title="UIElementProperties class">
     <HelpKINode Title="UIElementProperties Class" Url="html/T_Cauldron_Attached_UIElementProperties.htm" />
     <HelpKINode Title="about UIElementProperties class" Url="html/T_Cauldron_Attached_UIElementProperties.htm" />
@@ -2509,13 +2651,16 @@
   </HelpKINode>
   <HelpKINode Title="UserInformation.Current property" Url="html/P_Cauldron_Core_UserInformation_Current.htm" />
   <HelpKINode Title="UserInformation.DomainName property" Url="html/P_Cauldron_Core_UserInformation_DomainName.htm" />
-  <HelpKINode Title="UserInformation.GetAccountPicture method" Url="html/M_Cauldron_Core_UserInformation_GetAccountPicture.htm" />
+  <HelpKINode Title="UserInformation.GetAccountPictureAsync method" Url="html/M_Cauldron_Core_UserInformation_GetAccountPictureAsync.htm" />
   <HelpKINode Title="UserInformation.GetDisplayNameAsync method" Url="html/M_Cauldron_Core_UserInformation_GetDisplayNameAsync.htm" />
+  <HelpKINode Title="UserInformation.GetDomainNameAsync method" Url="html/M_Cauldron_Core_UserInformation_GetDomainNameAsync.htm" />
   <HelpKINode Title="UserInformation.GetEmailAddressAsync method" Url="html/M_Cauldron_Core_UserInformation_GetEmailAddressAsync.htm" />
   <HelpKINode Title="UserInformation.GetFirstNameAsync method" Url="html/M_Cauldron_Core_UserInformation_GetFirstNameAsync.htm" />
   <HelpKINode Title="UserInformation.GetLastNameAsync method" Url="html/M_Cauldron_Core_UserInformation_GetLastNameAsync.htm" />
   <HelpKINode Title="UserInformation.GetTelephoneNumberAsync method" Url="html/M_Cauldron_Core_UserInformation_GetTelephoneNumberAsync.htm" />
+  <HelpKINode Title="UserInformation.GetUserNameAsync method" Url="html/M_Cauldron_Core_UserInformation_GetUserNameAsync.htm" />
   <HelpKINode Title="UserInformation.IsLocalAccount property" Url="html/P_Cauldron_Core_UserInformation_IsLocalAccount.htm" />
+  <HelpKINode Title="UserInformation.IsLocalAccountAsync method" Url="html/M_Cauldron_Core_UserInformation_IsLocalAccountAsync.htm" />
   <HelpKINode Title="UserInformation.IsLockedOutAsync method" Url="html/M_Cauldron_Core_UserInformation_IsLockedOutAsync.htm" />
   <HelpKINode Title="UserInformation.UserInformation constructor" Url="html/M_Cauldron_Core_UserInformation__ctor.htm" />
   <HelpKINode Title="UserInformation.UserName property" Url="html/P_Cauldron_Core_UserInformation_UserName.htm" />
@@ -2719,6 +2864,7 @@
   <HelpKINode Title="ViewModelBase.BehaviourInvoke event" Url="html/E_Cauldron_ViewModels_ViewModelBase_BehaviourInvoke.htm" />
   <HelpKINode Title="ViewModelBase.Dispatcher property" Url="html/P_Cauldron_ViewModels_ViewModelBase_Dispatcher.htm" />
   <HelpKINode Title="ViewModelBase.Id property" Url="html/P_Cauldron_ViewModels_ViewModelBase_Id.htm" />
+  <HelpKINode Title="ViewModelBase.Navigator property" Url="html/P_Cauldron_ViewModels_ViewModelBase_Navigator.htm" />
   <HelpKINode Title="ViewModelBase.OnAfterRaiseNotifyPropertyChanged method" Url="html/M_Cauldron_ViewModels_ViewModelBase_OnAfterRaiseNotifyPropertyChanged.htm" />
   <HelpKINode Title="ViewModelBase.OnBeforeRaiseNotifyPropertyChanged method" Url="html/M_Cauldron_ViewModels_ViewModelBase_OnBeforeRaiseNotifyPropertyChanged.htm" />
   <HelpKINode Title="ViewModelBase.OnPropertyChanged method" Url="html/M_Cauldron_ViewModels_ViewModelBase_OnPropertyChanged.htm" />
@@ -2766,10 +2912,10 @@
   <HelpKINode Title="WindowConfiguration.IconProperty field" Url="html/F_Cauldron_Behaviours_WindowConfiguration_IconProperty.htm" />
   <HelpKINode Title="WindowConfiguration.IsAssignedFromTemplate property" Url="html/P_Cauldron_Behaviours_WindowConfiguration_IsAssignedFromTemplate.htm" />
   <HelpKINode Title="WindowConfiguration.IsDisposed property" Url="html/P_Cauldron_Behaviours_WindowConfiguration_IsDisposed.htm" />
+  <HelpKINode Title="WindowConfiguration.IsMainWindow property" Url="html/P_Cauldron_Behaviours_WindowConfiguration_IsMainWindow.htm" />
+  <HelpKINode Title="WindowConfiguration.IsMainWindowProperty field" Url="html/F_Cauldron_Behaviours_WindowConfiguration_IsMainWindowProperty.htm" />
   <HelpKINode Title="WindowConfiguration.IsModal property" Url="html/P_Cauldron_Behaviours_WindowConfiguration_IsModal.htm" />
   <HelpKINode Title="WindowConfiguration.IsModalProperty field" Url="html/F_Cauldron_Behaviours_WindowConfiguration_IsModalProperty.htm" />
-  <HelpKINode Title="WindowConfiguration.IsSplashScreen property" Url="html/P_Cauldron_Behaviours_WindowConfiguration_IsSplashScreen.htm" />
-  <HelpKINode Title="WindowConfiguration.IsSplashScreenProperty field" Url="html/F_Cauldron_Behaviours_WindowConfiguration_IsSplashScreenProperty.htm" />
   <HelpKINode Title="WindowConfiguration.IsWindowPersistent property" Url="html/P_Cauldron_Behaviours_WindowConfiguration_IsWindowPersistent.htm" />
   <HelpKINode Title="WindowConfiguration.IsWindowPersistentProperty field" Url="html/F_Cauldron_Behaviours_WindowConfiguration_IsWindowPersistentProperty.htm" />
   <HelpKINode Title="WindowConfiguration.ResizeMode property" Url="html/P_Cauldron_Behaviours_WindowConfiguration_ResizeMode.htm" />
@@ -2795,6 +2941,37 @@
   <HelpKINode Title="WINDOWPOSCHANGED enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
   <HelpKINode Title="WINDOWPOSCHANGING enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
   <HelpKINode Title="WindowsMessages enumeration" Url="html/T_Cauldron_WindowsMessages.htm" />
+  <HelpKINode Title="WindowsStrings class">
+    <HelpKINode Title="WindowsStrings Class" Url="html/T_Cauldron_WindowsStrings.htm" />
+    <HelpKINode Title="about WindowsStrings class" Url="html/T_Cauldron_WindowsStrings.htm" />
+    <HelpKINode Title="fields" Url="html/Fields_T_Cauldron_WindowsStrings.htm" />
+  </HelpKINode>
+  <HelpKINode Title="WindowsStrings.Abort field" Url="html/F_Cauldron_WindowsStrings_Abort.htm" />
+  <HelpKINode Title="WindowsStrings.Cancel field" Url="html/F_Cauldron_WindowsStrings_Cancel.htm" />
+  <HelpKINode Title="WindowsStrings.Close field" Url="html/F_Cauldron_WindowsStrings_Close.htm" />
+  <HelpKINode Title="WindowsStrings.Comments field" Url="html/F_Cauldron_WindowsStrings_Comments.htm" />
+  <HelpKINode Title="WindowsStrings.Continue field" Url="html/F_Cauldron_WindowsStrings_Continue.htm" />
+  <HelpKINode Title="WindowsStrings.Copy field" Url="html/F_Cauldron_WindowsStrings_Copy.htm" />
+  <HelpKINode Title="WindowsStrings.Delete field" Url="html/F_Cauldron_WindowsStrings_Delete.htm" />
+  <HelpKINode Title="WindowsStrings.Error field" Url="html/F_Cauldron_WindowsStrings_Error.htm" />
+  <HelpKINode Title="WindowsStrings.Execute field" Url="html/F_Cauldron_WindowsStrings_Execute.htm" />
+  <HelpKINode Title="WindowsStrings.Help field" Url="html/F_Cauldron_WindowsStrings_Help.htm" />
+  <HelpKINode Title="WindowsStrings.Ignore field" Url="html/F_Cauldron_WindowsStrings_Ignore.htm" />
+  <HelpKINode Title="WindowsStrings.Maximize field" Url="html/F_Cauldron_WindowsStrings_Maximize.htm" />
+  <HelpKINode Title="WindowsStrings.Minimize field" Url="html/F_Cauldron_WindowsStrings_Minimize.htm" />
+  <HelpKINode Title="WindowsStrings.Move field" Url="html/F_Cauldron_WindowsStrings_Move.htm" />
+  <HelpKINode Title="WindowsStrings.Name field" Url="html/F_Cauldron_WindowsStrings_Name.htm" />
+  <HelpKINode Title="WindowsStrings.New field" Url="html/F_Cauldron_WindowsStrings_New.htm" />
+  <HelpKINode Title="WindowsStrings.No field" Url="html/F_Cauldron_WindowsStrings_No.htm" />
+  <HelpKINode Title="WindowsStrings.OK field" Url="html/F_Cauldron_WindowsStrings_OK.htm" />
+  <HelpKINode Title="WindowsStrings.Open field" Url="html/F_Cauldron_WindowsStrings_Open.htm" />
+  <HelpKINode Title="WindowsStrings.Rename field" Url="html/F_Cauldron_WindowsStrings_Rename.htm" />
+  <HelpKINode Title="WindowsStrings.RestoreDown field" Url="html/F_Cauldron_WindowsStrings_RestoreDown.htm" />
+  <HelpKINode Title="WindowsStrings.RestoreUp field" Url="html/F_Cauldron_WindowsStrings_RestoreUp.htm" />
+  <HelpKINode Title="WindowsStrings.Retry field" Url="html/F_Cauldron_WindowsStrings_Retry.htm" />
+  <HelpKINode Title="WindowsStrings.Size field" Url="html/F_Cauldron_WindowsStrings_Size.htm" />
+  <HelpKINode Title="WindowsStrings.Type field" Url="html/F_Cauldron_WindowsStrings_Type.htm" />
+  <HelpKINode Title="WindowsStrings.Yes field" Url="html/F_Cauldron_WindowsStrings_Yes.htm" />
   <HelpKINode Title="WindowStartupLocation property" Url="html/P_Cauldron_Behaviours_WindowConfiguration_WindowStartupLocation.htm" />
   <HelpKINode Title="WindowStartupLocationProperty field" Url="html/F_Cauldron_Behaviours_WindowConfiguration_WindowStartupLocationProperty.htm" />
   <HelpKINode Title="WindowState property" Url="html/P_Cauldron_Behaviours_WindowConfiguration_WindowState.htm" />
@@ -2820,4 +2997,5 @@
   <HelpKINode Title="XBUTTONDBLCLK enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
   <HelpKINode Title="XBUTTONDOWN enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
   <HelpKINode Title="XBUTTONUP enumeration member" Url="html/T_Cauldron_WindowsMessages.htm" />
+  <HelpKINode Title="Yes field" Url="html/F_Cauldron_WindowsStrings_Yes.htm" />
 </HelpKI>

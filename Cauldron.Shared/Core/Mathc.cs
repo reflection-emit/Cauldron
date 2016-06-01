@@ -32,19 +32,22 @@ namespace Cauldron.Core
 
             var aType = a.GetType();
 
-            if (aType == typeof(int)) return (int)a + (int)b;
-            if (aType == typeof(uint)) return (uint)a + (uint)b;
-            if (aType == typeof(long)) return (long)a + (long)b;
-            if (aType == typeof(ulong)) return (ulong)a + (ulong)b;
-            if (aType == typeof(byte)) return (byte)a + (byte)b;
-            if (aType == typeof(sbyte)) return (sbyte)a + (sbyte)b;
-            if (aType == typeof(float)) return (float)a + (float)b;
-            if (aType == typeof(double)) return (double)a + (double)b;
-            if (aType == typeof(decimal)) return (decimal)a + (decimal)b;
-            if (aType == typeof(char)) return (char)a + (char)b;
-            if (aType == typeof(short)) return (short)a + (short)b;
-            if (aType == typeof(ushort)) return (ushort)a + (ushort)b;
-            if (aType == typeof(TimeSpan)) return (TimeSpan)a + (TimeSpan)b;
+            if (aType == b.GetType())
+            {
+                if (aType == typeof(int)) return (int)a + (int)b;
+                if (aType == typeof(uint)) return (uint)a + (uint)b;
+                if (aType == typeof(long)) return (long)a + (long)b;
+                if (aType == typeof(ulong)) return (ulong)a + (ulong)b;
+                if (aType == typeof(byte)) return (byte)a + (byte)b;
+                if (aType == typeof(sbyte)) return (sbyte)a + (sbyte)b;
+                if (aType == typeof(float)) return (float)a + (float)b;
+                if (aType == typeof(double)) return (double)a + (double)b;
+                if (aType == typeof(decimal)) return (decimal)a + (decimal)b;
+                if (aType == typeof(char)) return (char)a + (char)b;
+                if (aType == typeof(short)) return (short)a + (short)b;
+                if (aType == typeof(ushort)) return (ushort)a + (ushort)b;
+                if (aType == typeof(TimeSpan)) return (TimeSpan)a + (TimeSpan)b;
+            }
 
             var op = aType.GetMethod("op_Addition", new Type[] { aType, b.GetType() }, BindingFlags.Static | BindingFlags.Public);
 
@@ -126,18 +129,21 @@ namespace Cauldron.Core
 
             var aType = a.GetType();
 
-            if (aType == typeof(int)) return (int)a / (int)b;
-            if (aType == typeof(uint)) return (uint)a / (uint)b;
-            if (aType == typeof(long)) return (long)a / (long)b;
-            if (aType == typeof(ulong)) return (ulong)a / (ulong)b;
-            if (aType == typeof(byte)) return (byte)a / (byte)b;
-            if (aType == typeof(sbyte)) return (sbyte)a / (sbyte)b;
-            if (aType == typeof(float)) return (float)a / (float)b;
-            if (aType == typeof(double)) return (double)a / (double)b;
-            if (aType == typeof(decimal)) return (decimal)a / (decimal)b;
-            if (aType == typeof(char)) return (char)a / (char)b;
-            if (aType == typeof(short)) return (short)a / (short)b;
-            if (aType == typeof(ushort)) return (ushort)a / (ushort)b;
+            if (aType == b.GetType())
+            {
+                if (aType == typeof(int)) return (int)a / (int)b;
+                if (aType == typeof(uint)) return (uint)a / (uint)b;
+                if (aType == typeof(long)) return (long)a / (long)b;
+                if (aType == typeof(ulong)) return (ulong)a / (ulong)b;
+                if (aType == typeof(byte)) return (byte)a / (byte)b;
+                if (aType == typeof(sbyte)) return (sbyte)a / (sbyte)b;
+                if (aType == typeof(float)) return (float)a / (float)b;
+                if (aType == typeof(double)) return (double)a / (double)b;
+                if (aType == typeof(decimal)) return (decimal)a / (decimal)b;
+                if (aType == typeof(char)) return (char)a / (char)b;
+                if (aType == typeof(short)) return (short)a / (short)b;
+                if (aType == typeof(ushort)) return (ushort)a / (ushort)b;
+            }
 
             var op = aType.GetMethod("op_Division", new Type[] { aType, b.GetType() }, BindingFlags.Static | BindingFlags.Public);
 
@@ -171,18 +177,21 @@ namespace Cauldron.Core
 
             var aType = a.GetType();
 
-            if (aType == typeof(int)) return (int)a * (int)b;
-            if (aType == typeof(uint)) return (uint)a * (uint)b;
-            if (aType == typeof(long)) return (long)a * (long)b;
-            if (aType == typeof(ulong)) return (ulong)a * (ulong)b;
-            if (aType == typeof(byte)) return (byte)a * (byte)b;
-            if (aType == typeof(sbyte)) return (sbyte)a * (sbyte)b;
-            if (aType == typeof(float)) return (float)a * (float)b;
-            if (aType == typeof(double)) return (double)a * (double)b;
-            if (aType == typeof(decimal)) return (decimal)a * (decimal)b;
-            if (aType == typeof(char)) return (char)a * (char)b;
-            if (aType == typeof(short)) return (short)a * (short)b;
-            if (aType == typeof(ushort)) return (ushort)a * (ushort)b;
+            if (aType == b.GetType())
+            {
+                if (aType == typeof(int)) return (int)a * (int)b;
+                if (aType == typeof(uint)) return (uint)a * (uint)b;
+                if (aType == typeof(long)) return (long)a * (long)b;
+                if (aType == typeof(ulong)) return (ulong)a * (ulong)b;
+                if (aType == typeof(byte)) return (byte)a * (byte)b;
+                if (aType == typeof(sbyte)) return (sbyte)a * (sbyte)b;
+                if (aType == typeof(float)) return (float)a * (float)b;
+                if (aType == typeof(double)) return (double)a * (double)b;
+                if (aType == typeof(decimal)) return (decimal)a * (decimal)b;
+                if (aType == typeof(char)) return (char)a * (char)b;
+                if (aType == typeof(short)) return (short)a * (short)b;
+                if (aType == typeof(ushort)) return (ushort)a * (ushort)b;
+            }
 
             var op = aType.GetMethod("op_Multiply", new Type[] { aType, b.GetType() }, BindingFlags.Static | BindingFlags.Public);
 
@@ -228,19 +237,22 @@ namespace Cauldron.Core
 
             var aType = a.GetType();
 
-            if (aType == typeof(int)) return (int)a - (int)b;
-            if (aType == typeof(uint)) return (uint)a - (uint)b;
-            if (aType == typeof(long)) return (long)a - (long)b;
-            if (aType == typeof(ulong)) return (ulong)a - (ulong)b;
-            if (aType == typeof(byte)) return (byte)a - (byte)b;
-            if (aType == typeof(sbyte)) return (sbyte)a - (sbyte)b;
-            if (aType == typeof(float)) return (float)a - (float)b;
-            if (aType == typeof(double)) return (double)a - (double)b;
-            if (aType == typeof(decimal)) return (decimal)a - (decimal)b;
-            if (aType == typeof(char)) return (char)a - (char)b;
-            if (aType == typeof(short)) return (short)a - (short)b;
-            if (aType == typeof(ushort)) return (ushort)a - (ushort)b;
-            if (aType == typeof(TimeSpan)) return (TimeSpan)a - (TimeSpan)b;
+            if (aType == b.GetType())
+            {
+                if (aType == typeof(int)) return (int)a - (int)b;
+                if (aType == typeof(uint)) return (uint)a - (uint)b;
+                if (aType == typeof(long)) return (long)a - (long)b;
+                if (aType == typeof(ulong)) return (ulong)a - (ulong)b;
+                if (aType == typeof(byte)) return (byte)a - (byte)b;
+                if (aType == typeof(sbyte)) return (sbyte)a - (sbyte)b;
+                if (aType == typeof(float)) return (float)a - (float)b;
+                if (aType == typeof(double)) return (double)a - (double)b;
+                if (aType == typeof(decimal)) return (decimal)a - (decimal)b;
+                if (aType == typeof(char)) return (char)a - (char)b;
+                if (aType == typeof(short)) return (short)a - (short)b;
+                if (aType == typeof(ushort)) return (ushort)a - (ushort)b;
+                if (aType == typeof(TimeSpan)) return (TimeSpan)a - (TimeSpan)b;
+            }
 
             var op = aType.GetMethod("op_Subtraction", new Type[] { aType, b.GetType() }, BindingFlags.Static | BindingFlags.Public);
 

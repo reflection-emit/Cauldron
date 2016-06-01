@@ -86,7 +86,11 @@
     <Compile Include="CauldronTemplateSelector.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="ExtensionsFrameworkElement.cs" />
+    <Compile Include="IMessageDialog.cs" />
+    <Compile Include="INavigator.cs" />
+    <Compile Include="IUtils.cs" />
     <Compile Include="Localization.cs" />
+    <Compile Include="LogonType.cs" />
     <Compile Include="MessageDialog.cs" />
     <Compile Include="Navigator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

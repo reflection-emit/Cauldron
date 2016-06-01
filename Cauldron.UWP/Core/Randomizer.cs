@@ -6,13 +6,12 @@ namespace Cauldron.Core
     /// <summary>
     /// Provides a randomizer that is cryptographicly secure
     /// </summary>
-    public static partial class Randomizer
+    public partial class Randomizer
     {
-        private static Random _global = new Random(GetCryptographicSeed());
-
         private static int GetCryptographicSeed()
         {
-            return (int)CryptographicBuffer.GenerateRandomNumber();
+            var random = new Random((int)CryptographicBuffer.GenerateRandomNumber());
+            return random.Next();
         }
     }
 }

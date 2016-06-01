@@ -9,14 +9,21 @@ namespace Cauldron
     /// <summary>
     /// Provides a collection of utility methods
     /// </summary>
-    public static partial class Utils
+    public partial class Utils
     {
+        /// <summary>
+        /// Gets the NetBIOS name of this local computer.
+        /// <para/>
+        /// Same as <see cref="Environment.MachineName"/>
+        /// </summary>
+        public string ComputerName { get { return Environment.MachineName; /* Just to be compatibile with UWP */ } }
+
         /// <summary>
         /// Get a value that indicates whether any network connection is available.
         /// <para/>
         /// Returns true if a network connection is available, othwise false
         /// </summary>
-        public static bool IsNetworkAvailable
+        public bool IsNetworkAvailable
         {
             get
             {
@@ -57,7 +64,7 @@ namespace Cauldron
         /// Returns the mouse position on screen
         /// </summary>
         /// <returns>The mouse position coordinates on screen</returns>
-        public static Point GetMousePosition()
+        public Point GetMousePosition()
         {
             UnsafeNative.Win32Point w32Mouse = new UnsafeNative.Win32Point();
             UnsafeNative.GetCursorPos(ref w32Mouse);
@@ -72,7 +79,7 @@ namespace Cauldron
         /// <returns>The text resource string from user32.dll defined by <paramref name="index"/>. Returns null if not found</returns>
         /// <exception cref="ArgumentException">Parameter <paramref name="moduleName"/> is empty</exception>
         /// <exception cref="ArgumentNullException">Parameter <paramref name="moduleName"/> is null</exception>
-        public static string GetStringFromModule(string moduleName, uint index)
+        public string GetStringFromModule(string moduleName, uint index)
         {
             if (moduleName == null)
                 throw new ArgumentNullException(nameof(moduleName));
@@ -95,37 +102,37 @@ namespace Cauldron
         /// </summary>
         /// <param name="key">The key of the string</param>
         /// <returns>The text resource string from user32.dll defined by <paramref name="key"/>. Returns null if not found</returns>
-        public static string GetStringFromModule(string key)
+        public string GetStringFromModule(string key)
         {
             switch (key)
             {
-                case "OK": return Utils.GetStringFromModule(800);
-                case "Yes": return Utils.GetStringFromModule(805);
-                case "No": return Utils.GetStringFromModule(806);
-                case "Cancel": return Utils.GetStringFromModule(801);
-                case "Minimize": return Utils.GetStringFromModule(900);
-                case "Maximize": return Utils.GetStringFromModule(901);
-                case "Restore Up": return Utils.GetStringFromModule(902);
-                case "Restore Down": return Utils.GetStringFromModule(903);
-                case "Help": return Utils.GetStringFromModule(904);
-                case "Close": return Utils.GetStringFromModule(905);
-                case "Abort": return Utils.GetStringFromModule(802);
-                case "Retry": return Utils.GetStringFromModule(803);
-                case "Continue": return Utils.GetStringFromModule(810);
-                case "Ignore": return Utils.GetStringFromModule(804);
-                case "Error": return Utils.GetStringFromModule(2);
+                case WindowsStrings.OK: return this.GetStringFromModule(800);
+                case WindowsStrings.Yes: return this.GetStringFromModule(805);
+                case WindowsStrings.No: return this.GetStringFromModule(806);
+                case WindowsStrings.Cancel: return this.GetStringFromModule(801);
+                case WindowsStrings.Minimize: return this.GetStringFromModule(900);
+                case WindowsStrings.Maximize: return this.GetStringFromModule(901);
+                case WindowsStrings.RestoreUp: return this.GetStringFromModule(902);
+                case WindowsStrings.RestoreDown: return this.GetStringFromModule(903);
+                case WindowsStrings.Help: return this.GetStringFromModule(904);
+                case WindowsStrings.Close: return this.GetStringFromModule(905);
+                case WindowsStrings.Abort: return this.GetStringFromModule(802);
+                case WindowsStrings.Retry: return this.GetStringFromModule(803);
+                case WindowsStrings.Continue: return this.GetStringFromModule(810);
+                case WindowsStrings.Ignore: return this.GetStringFromModule(804);
+                case WindowsStrings.Error: return this.GetStringFromModule(2);
 
-                case "Copy": return Utils.GetStringFromModule("shell32.dll", 4146);
-                case "Move": return Utils.GetStringFromModule("shell32.dll", 4145);
-                case "Delete": return Utils.GetStringFromModule("shell32.dll", 4147);
-                case "Rename": return Utils.GetStringFromModule("shell32.dll", 4148);
-                case "New": return Utils.GetStringFromModule("shell32.dll", 4151);
-                case "Name": return Utils.GetStringFromModule("shell32.dll", 8976);
-                case "Size": return Utils.GetStringFromModule("shell32.dll", 8978);
-                case "Type": return Utils.GetStringFromModule("shell32.dll", 8979);
-                case "Comments": return Utils.GetStringFromModule("shell32.dll", 8995);
-                case "Open": return Utils.GetStringFromModule("shell32.dll", 12850);
-                case "Execute": return Utils.GetStringFromModule("shell32.dll", 12852);
+                case WindowsStrings.Copy: return this.GetStringFromModule("shell32.dll", 4146);
+                case WindowsStrings.Move: return this.GetStringFromModule("shell32.dll", 4145);
+                case WindowsStrings.Delete: return this.GetStringFromModule("shell32.dll", 4147);
+                case WindowsStrings.Rename: return this.GetStringFromModule("shell32.dll", 4148);
+                case WindowsStrings.New: return this.GetStringFromModule("shell32.dll", 4151);
+                case WindowsStrings.Name: return this.GetStringFromModule("shell32.dll", 8976);
+                case WindowsStrings.Size: return this.GetStringFromModule("shell32.dll", 8978);
+                case WindowsStrings.Type: return this.GetStringFromModule("shell32.dll", 8979);
+                case WindowsStrings.Comments: return this.GetStringFromModule("shell32.dll", 8995);
+                case WindowsStrings.Open: return this.GetStringFromModule("shell32.dll", 12850);
+                case WindowsStrings.Execute: return this.GetStringFromModule("shell32.dll", 12852);
             }
 
             return null;
@@ -136,7 +143,7 @@ namespace Cauldron
         /// </summary>
         /// <param name="index">The id of the text resource.</param>
         /// <returns>The text resource string from user32.dll defined by <paramref name="index"/>. Returns null if not found</returns>
-        public static string GetStringFromModule(uint index)
+        public string GetStringFromModule(uint index)
         {
             return GetStringFromModule("user32.dll", index);
         }
@@ -148,7 +155,7 @@ namespace Cauldron
         /// <param name="windowMessage">The message to be sent.</param>
         /// <param name="wParam">Additional message-specific information.</param>
         /// <param name="lParam">Additional message-specific information.</param>
-        public static void SendMessage(Window window, WindowsMessages windowMessage, IntPtr wParam, IntPtr lParam)
+        public void SendMessage(Window window, WindowsMessages windowMessage, IntPtr wParam, IntPtr lParam)
         {
             UnsafeNative.SendMessage(window.GetWindowHandle(), (int)windowMessage, wParam, lParam);
         }
@@ -158,7 +165,7 @@ namespace Cauldron
         /// </summary>
         /// <param name="window">The window to get the monitor info from</param>
         /// <param name="lParam">Additional message-specific information</param>
-        public static void WmGetMinMaxInfo(Window window, IntPtr lParam)
+        public void WmGetMinMaxInfo(Window window, IntPtr lParam)
         {
             UnsafeNative.MINMAXINFO mmi = (UnsafeNative.MINMAXINFO)Marshal.PtrToStructure(lParam, typeof(UnsafeNative.MINMAXINFO));
 

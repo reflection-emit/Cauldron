@@ -8,7 +8,6 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,18 +17,19 @@ namespace Cauldron
     /// <summary>
     /// Handles creation of a new <see cref="Window"/> and association of the viewmodel
     /// </summary>
-    public static class Navigator
+    [Factory(typeof(INavigator), FactoryCreationPolicy.Singleton)]
+    public sealed class Navigator : Singleton<Navigator>, INavigator
     {
         private static readonly object MainWindowTag = new object();
         private static bool isCustomWindow = false;
 
         // The navigator always knows every window that it has created
-        private static ConcurrentList<WindowViewModelObject> windows = new ConcurrentList<WindowViewModelObject>();
+        private ConcurrentList<WindowViewModelObject> windows = new ConcurrentList<WindowViewModelObject>();
 
         /// <summary>
         /// Closes the current focused <see cref="Window"/>.
         /// </summary>
-        public static void CloseFocusedWindow()
+        public void CloseFocusedWindow()
         {
             var windowObject = windows.FirstOrDefault(x => x.window.IsActive);
 
@@ -46,7 +46,7 @@ namespace Cauldron
         /// <param name="viewModel">The viewmodel to that was assigned to the window's data context</param>
         /// <returns>Returns true if <see cref="Window.Close"/> was triggered, otherwise false</returns>
         /// <exception cref="ArgumentNullException">Parameter <paramref name="viewModel"/> is null</exception>
-        public static bool CloseWindowOf(IViewModel viewModel)
+        public bool CloseWindowOf(IViewModel viewModel)
         {
             if (viewModel == null)
                 throw new ArgumentNullException(nameof(viewModel));
@@ -68,7 +68,7 @@ namespace Cauldron
         /// <typeparam name="T">The viewModel type to create</typeparam>
         /// <returns>An awaitable <see cref="Task"/></returns>
         /// <exception cref="ArgumentException">Methodname specified in <see cref="NavigatingAttribute"/> does not exist</exception>
-        public static async void Navigate<T>() where T : IViewModel
+        public async void Navigate<T>() where T : IViewModel
         {
             await NavigateInternal<bool>(typeof(T), null, null);
         }
@@ -81,7 +81,7 @@ namespace Cauldron
         /// <param name="callback">A delegate that is called after the <see cref="Window"/> has been closed</param>
         /// <returns>An awaitable <see cref="Task"/></returns>
         /// <exception cref="ArgumentException">Methodname specified in <see cref="NavigatingAttribute"/> does not exist</exception>
-        public static async void Navigate<T, TResult>(Action<TResult> callback) where T : IViewModel
+        public async void Navigate<T, TResult>(Action<TResult> callback) where T : IViewModel
         {
             await NavigateInternal<TResult>(typeof(T), callback);
         }
@@ -93,7 +93,7 @@ namespace Cauldron
         /// <param name="args">Parameters of the <see cref="NavigatingAttribute"/></param>
         /// <returns>An awaitable <see cref="Task"/></returns>
         /// <exception cref="ArgumentException">Methodname specified in <see cref="NavigatingAttribute"/> does not exist</exception>
-        public static async void Navigate<T>(params object[] args) where T : IViewModel
+        public async void Navigate<T>(params object[] args) where T : IViewModel
         {
             await NavigateInternal<bool>(typeof(T), null, args);
         }
@@ -108,7 +108,7 @@ namespace Cauldron
         /// <returns>An awaitable <see cref="Task"/></returns>
         /// <exception cref="ArgumentException">Methodname specified in <see cref="NavigatingAttribute"/> does not exist</exception>
         /// <exception cref="ResourceReferenceKeyNotFoundException">View of a viewmodel not found</exception>
-        public static async void Navigate<T, TResult>(Action<TResult> callback, params object[] args) where T : IViewModel
+        public async void Navigate<T, TResult>(Action<TResult> callback, params object[] args) where T : IViewModel
         {
             await NavigateInternal<TResult>(typeof(T), callback, args);
         }
@@ -119,12 +119,12 @@ namespace Cauldron
         /// <param name="viewModelType">The viewModel type to create</param>
         /// <returns>An awaitable <see cref="Task"/></returns>
         /// <exception cref="ArgumentException">Methodname specified in <see cref="NavigatingAttribute"/> does not exist</exception>
-        public static async void Navigate(Type viewModelType)
+        public async void Navigate(Type viewModelType)
         {
             await NavigateInternal<bool>(viewModelType, null, null);
         }
 
-        private static bool Close(Window window)
+        private bool Close(Window window)
         {
             if (window == Application.Current.MainWindow)
             {
@@ -143,12 +143,12 @@ namespace Cauldron
             return false;
         }
 
-        private static Window CreateDefaultWindow<TResult>(Action<TResult> callback, FrameworkElement view, IViewModel viewModel)
+        private Window CreateDefaultWindow<TResult>(Action<TResult> callback, FrameworkElement view, IViewModel viewModel)
         {
             return CreateWindow(callback, new WindowConfiguration(), view, viewModel);
         }
 
-        private static Window CreateWindow<TResult>(Action<TResult> callback, FrameworkElement view, IViewModel viewModel, out bool isDialog)
+        private Window CreateWindow<TResult>(Action<TResult> callback, FrameworkElement view, IViewModel viewModel, out bool isDialog)
         {
             Window window = null;
 
@@ -168,7 +168,7 @@ namespace Cauldron
             return window;
         }
 
-        private static Window CreateWindow()
+        private Window CreateWindow()
         {
             var window = AssemblyUtil.ExportedTypes.FirstOrDefault(x => x.IsSubclassOf(typeof(Window)));
             if (window == null)
@@ -179,7 +179,7 @@ namespace Cauldron
             return Activator.CreateInstance(window.AsType()) as Window;
         }
 
-        private static Window CreateWindow<TResult>(Action<TResult> callback, WindowConfiguration windowConfig, FrameworkElement view, IViewModel viewModel)
+        private Window CreateWindow<TResult>(Action<TResult> callback, WindowConfiguration windowConfig, FrameworkElement view, IViewModel viewModel)
         {
             var window = CreateWindow();
             window.BeginInit();
@@ -273,24 +273,7 @@ namespace Cauldron
             return window;
         }
 
-        private static bool IsParameterMatch(object[] args, ParameterInfo[] types)
-        {
-            if ((args == null && types == null) || (args == null && types != null && types.Length == 0))
-                return true;
-
-            if (args == null || args.Length != types.Length)
-                return false;
-
-            for (int i = 0; i < args.Length; i++)
-            {
-                if (args[i].GetType() != types[i].ParameterType)
-                    return false;
-            }
-
-            return true;
-        }
-
-        private static async Task NavigateInternal<TResult>(Type type, Action<TResult> callback, params object[] args)
+        private async Task NavigateInternal<TResult>(Type type, Action<TResult> callback, params object[] args)
         {
             // create the new viewmodel
             var viewModel = Factory.Create(type) as IViewModel;
@@ -328,7 +311,7 @@ namespace Cauldron
                     window = CreateWindow(callback, dataTemplate.LoadContent() as FrameworkElement, viewModel, out isModal);
             }
 
-            (viewModel as IDisposableObject).IsNotNull(x => x.Disposed += (s, e) => window.Close());
+            (viewModel as IDisposableObject).IsNotNull(x => x.Disposed += async (s, e) => await viewModel.Dispatcher.RunAsync(() => window.Close()));
 
             // if this is not a dialog... we show the window first and then invoke the navigation method
             if (!isModal)
@@ -380,27 +363,23 @@ namespace Cauldron
                 window.ShowDialog();
         }
 
-        private static async Task NavigatingTo(Type viewModelType, object viewModel, object[] args)
+        private async Task NavigatingTo(Type viewModelType, object viewModel, object[] args)
         {
             var navigatingAttrib = viewModelType.GetCustomAttribute<NavigatingAttribute>();
 
             if (navigatingAttrib != null)
             {
+                var parameterTypes = args.GetTypes();
+
                 foreach (var methodName in navigatingAttrib.MethodNames)
                 {
-                    var methodInfo = viewModelType.GetMethod(methodName, BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Static);
-                    if (methodInfo == null)
-                        throw new ArgumentException("The method '" + methodName + "' does not exist in " + viewModelType.FullName);
-
-                    // Check if the args matches with the method info param types
-                    if (IsParameterMatch(args, methodInfo.GetParameters()))
+                    var methodInfo = viewModelType.GetMethod(methodName, parameterTypes, BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Static);
+                    if (methodInfo != null)
                     {
                         if (methodInfo.ReturnParameter.ParameterType.IsSubclassOf(typeof(Task)))
                             await (methodInfo.Invoke(viewModel, args) as Task);
                         else
                             methodInfo.Invoke(viewModel, args);
-
-                        break;
                     }
                 }
             }

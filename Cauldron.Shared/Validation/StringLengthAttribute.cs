@@ -61,5 +61,15 @@ namespace Cauldron.Validation
 
             return length < this.minLength || length > this.maxLength;
         }
+
+        /// <summary>
+        /// Occures on validation
+        /// <para/>
+        /// Can be used to modify the validation error message.
+        /// </summary>
+        /// <param name="errorMessage">The validation error message</param>
+        /// <param name="context">The Viewmodel context that has to be validated</param>
+        /// <returns>A modified validation error message</returns>
+        protected override string ValidationMessage(string errorMessage, IValidatableViewModel context) => errorMessage.ToFormat(minLength, maxLength);
     }
 }

@@ -20,7 +20,7 @@ namespace Cauldron.ViewModels
                     return;
 
                 this._text = value;
-                this.OnPropertyChanged();
+                this.RaisePropertyChanged();
             }
         }
     }

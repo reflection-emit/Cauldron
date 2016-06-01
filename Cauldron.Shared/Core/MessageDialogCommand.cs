@@ -32,7 +32,7 @@ namespace Cauldron.Core
                 if (result == null)
                 {
 #if !NETFX_CORE
-                    var defaultWindows = Utils.GetStringFromModule(label);
+                    var defaultWindows = Utils.Current.GetStringFromModule(label);
                     if (defaultWindows != null)
                         this.Label = defaultWindows;
                     else
@@ -46,7 +46,7 @@ namespace Cauldron.Core
             {
 #if !NETFX_CORE
                 // Try to use default windows strings from user32.dll
-                string defaultWindowsString = Utils.GetStringFromModule(label);
+                string defaultWindowsString = Utils.Current.GetStringFromModule(label);
                 if (defaultWindowsString != null)
                     this.Label = defaultWindowsString;
                 else

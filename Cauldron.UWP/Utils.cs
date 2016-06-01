@@ -6,12 +6,12 @@ namespace Cauldron
     /// <summary>
     /// Provides a collection of utility methods
     /// </summary>
-    public static partial class Utils
+    public partial class Utils
     {
         /// <summary>
         /// Gets the NetBIOS name of this local computer.
         /// </summary>
-        public static string ComputerName
+        public string ComputerName
         {
             get
             {
@@ -26,7 +26,7 @@ namespace Cauldron
         /// <para/>
         /// Returns true if a network connection is available, othwise false
         /// </summary>
-        public static bool IsNetworkAvailable
+        public bool IsNetworkAvailable
         {
             get
             {

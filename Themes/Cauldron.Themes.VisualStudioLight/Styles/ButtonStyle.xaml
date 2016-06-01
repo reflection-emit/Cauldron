@@ -15,6 +15,7 @@
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}" />
         <Setter Property="MinHeight" Value="22" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="MinWidth" Value="80" />
         <Setter Property="Padding" Value="6,3" />
         <Setter Property="BorderThickness" Value="1" />
@@ -27,7 +28,13 @@
 
                     <Border x:Name="Border" Grid.Column="1" BorderThickness="{TemplateBinding BorderThickness}"
                             Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}">
-                        <ContentPresenter Margin="{TemplateBinding Padding}" HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True" />
+                        <ContentPresenter Margin="{TemplateBinding Padding}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="Center" RecognizesAccessKey="True">
+                            <ContentPresenter.Resources>
+                                <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                                    <Setter Property="Foreground" Value="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" />
+                                </Style>
+                            </ContentPresenter.Resources>
+                        </ContentPresenter>
                     </Border>
 
                     <ControlTemplate.Triggers>

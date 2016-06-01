@@ -5,14 +5,17 @@ namespace Cauldron.Core
     /// <summary>
     /// Provides a randomizer that is cryptographicly secure
     /// </summary>
-    public static partial class Randomizer
+    [Factory(typeof(IRandomizer))]
+    public partial class Randomizer : Singleton<Randomizer>, IRandomizer
     {
-        [ThreadStatic]
-        private static Random local;
+        private readonly Random local;
 
-        static Randomizer()
+        /// <summary>
+        /// Initializes a new instance of <see cref="Randomizer"/>
+        /// </summary>
+        public Randomizer()
         {
-            local = new Random(GetCryptographicSeed());
+            this.local = this.CreateRandomInstance();
         }
 
         /// <summary>
@@ -20,22 +23,17 @@ namespace Cauldron.Core
         /// Cryptographic secure.
         /// </summary>
         /// <returns>A random integer value</returns>
-        public static int Next()
-        {
-            return local.Next();
-        }
+        public int Next() => local.Next();
 
         /// <summary>
         /// Returns a random number within a specified range.
         /// Cryptographic secure.
         /// </summary>
         /// <param name="minValue">The inclusive lower bound of the random number returned.</param>
-        /// <param name="maxValue">The exclusive upper bound of the random number to be generated.maxValue must be greater than or equal to 0.</param>
+        /// <param name="maxValue">The exclusive upper bound of the random number to be generated. <paramref name="maxValue"/> must be greater than or equal to 0.</param>
         /// <returns>A random integer value</returns>
-        public static int Next(int minValue, int maxValue)
-        {
-            return local.Next(minValue, maxValue);
-        }
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="minValue"/> is greater than <paramref name="maxValue"/></exception>
+        public int Next(int minValue, int maxValue) => local.Next(minValue, maxValue);
 
         /// <summary>
         /// Returns a random number item from the array.
@@ -44,51 +42,49 @@ namespace Cauldron.Core
         /// <typeparam name="T">The array item type</typeparam>
         /// <param name="array">The array</param>
         /// <returns>A random item from the array</returns>
-        public static T Next<T>(T[] array)
-        {
-            return array[local.Next(0, array.Length)];
-        }
+        public T Next<T>(T[] array) => array[local.Next(0, array.Length)];
 
         /// <summary>
         /// Returns a random boolean.
         /// Cryptographic secure.
         /// </summary>
         /// <returns>A random boolean</returns>
-        public static bool NextBoolean()
-        {
-            return Next(0, 1000) > 500;
-        }
+        public bool NextBoolean() => local.Next(0, 1000) >= 500;
 
         /// <summary>
         /// Returns a random byte value
         /// </summary>
         /// <returns>A random byte value (0 to 255)</returns>
-        public static byte NextByte()
-        {
-            return (byte)Next(0, 255);
-        }
+        public byte NextByte() => (byte)local.Next(0, 256);
 
         /// <summary>
         /// Returns a random number between 0.0 and 1.0.
         /// Cryptographic secure.
         /// </summary>
         /// <returns>A random value</returns>
-        public static double NextDouble()
-        {
-            return local.NextDouble();
-        }
+        public double NextDouble() => local.NextDouble();
 
         /// <summary>
         /// Returns a random number within a specified range.
         /// Cryptographic secure.
         /// </summary>
         /// <param name="minValue">The inclusive lower bound of the random number returned.</param>
-        /// <param name="maxValue">The exclusive upper bound of the random number to be generated.maxValue must be greater than or equal to 0.</param>
+        /// <param name="maxValue">The exclusive upper bound of the random number to be generated. <paramref name="maxValue"/> must be greater than or equal to 0.</param>
         /// <returns>A random value</returns>
-        public static double NextDouble(double minValue, double maxValue)
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="minValue"/> is greater than <paramref name="maxValue"/></exception>
+        public double NextDouble(double minValue, double maxValue)
         {
+            if (minValue > maxValue)
+                throw new ArgumentOutOfRangeException("minValue", minValue, "minValue is greater than maxValue.");
+
             double randomValue = local.NextDouble();
-            return minValue + randomValue * (maxValue - minValue);
+            return minValue + randomValue * (maxValue - 1 - minValue);
         }
+
+        /// <summary>
+        /// Occures on class initialization.
+        /// </summary>
+        /// <returns>A new instance of the <see cref="Random"/> class</returns>
+        protected virtual Random CreateRandomInstance() => new Random(GetCryptographicSeed());
     }
 }

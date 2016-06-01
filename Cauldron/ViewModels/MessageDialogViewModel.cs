@@ -48,7 +48,7 @@ namespace Cauldron.ViewModels
                     return;
 
                 this._horizontalAlignment = value;
-                this.OnPropertyChanged();
+                this.RaisePropertyChanged();
             }
         }
 
@@ -61,7 +61,7 @@ namespace Cauldron.ViewModels
                     return;
 
                 this._icon = value;
-                this.OnPropertyChanged();
+                this.RaisePropertyChanged();
             }
         }
 
@@ -74,7 +74,7 @@ namespace Cauldron.ViewModels
                     return;
 
                 this._message = value;
-                this.OnPropertyChanged();
+                this.RaisePropertyChanged();
             }
         }
 
@@ -87,7 +87,7 @@ namespace Cauldron.ViewModels
                     return;
 
                 this._title = value;
-                this.OnPropertyChanged();
+                this.RaisePropertyChanged();
             }
         }
 
@@ -101,7 +101,7 @@ namespace Cauldron.ViewModels
                     ButtonCommand = new RelayCommand(() =>
                     {
                         item.Invoke();
-                        Navigator.CloseWindowOf(this);
+                        this.Navigator.CloseWindowOf(this);
                     })
                 });
             }

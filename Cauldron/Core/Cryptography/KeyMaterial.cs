@@ -48,7 +48,7 @@ namespace Cauldron.Core.Cryptography
 
         public static KeyMaterial CreateKeyMaterial(SecureString password, int iterations = 60000)
         {
-            return new KeyMaterial(password, CryptoUtils.GeneratePassword(42).GetSha256HashBytes().GetBytes(16), iterations);
+            return new KeyMaterial(password, CryptoUtils.Current.GeneratePassword(42).GetSha256HashBytes().GetBytes(16), iterations);
         }
     }
 }

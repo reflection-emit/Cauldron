@@ -11,10 +11,11 @@ namespace Cauldron.Core
     /// <summary>
     /// Represents information about the user, such as name and account picture.
     /// </summary>
-    public sealed class UserInformation
+    [Factory(typeof(IUserInformation))]
+    public sealed class UserInformation : IUserInformation
     {
         private static object lockCurrentObject = new object();
-        private static volatile UserInformation userInformation;
+        private static volatile IUserInformation userInformation;
 
         private string _displayName;
         private string _emailAddress;
@@ -36,9 +37,9 @@ namespace Cauldron.Core
         }
 
         /// <summary>
-        /// Gets the <see cref="UserInformation"/> of the current user that runs the application
+        /// Gets the <see cref="IUserInformation"/> of the current user that runs the application
         /// </summary>
-        public static UserInformation Current
+        public static IUserInformation Current
         {
             get
             {
@@ -48,7 +49,7 @@ namespace Cauldron.Core
                     {
                         if (userInformation == null)
                         {
-                            userInformation = new UserInformation(WindowsIdentity.GetCurrent().Name);
+                            userInformation = Factory.Create<IUserInformation>(WindowsIdentity.GetCurrent().Name);
                         }
                     }
                 }
@@ -88,16 +89,16 @@ namespace Cauldron.Core
             {
                 result = GetAccountPictureFromDatFile();
 
-                if (result == null)
-                {
-                    var stringBuilder = new StringBuilder(1000);
-                    UnsafeNative.GetUserTilePath(this.UserName, 0x80000000, stringBuilder, stringBuilder.Capacity);
+            if (result == null)
+            {
+                var stringBuilder = new StringBuilder(1000);
+                UnsafeNative.GetUserTilePath(this.UserName, 0x80000000, stringBuilder, stringBuilder.Capacity);
                     result = new BitmapImage(new Uri(stringBuilder.ToString()));
                     result.Freeze();
-                }
+            }
             });
 
-            return result;
+            return Task.FromResult(result);
         }
 
         /// <summary>
@@ -109,6 +110,11 @@ namespace Cauldron.Core
             await this.GetInformation();
             return this._displayName;
         }
+
+        /// <summary>
+        /// Gets the domain of the user
+        /// </summary>
+        public Task<string> GetDomainNameAsync() => Task.FromResult(this.DomainName);
 
         /// <summary>
         /// Gets the user's email address.
@@ -149,6 +155,18 @@ namespace Cauldron.Core
             await this.GetInformation();
             return this._telephoneNumber;
         }
+
+        /// <summary>
+        /// Gets the username the application is running on
+        /// </summary>
+        public Task<string> GetUserNameAsync() => Task.FromResult(this.UserName);
+
+        /// <summary>
+        /// Gets a value that indicates if the user account is local or domain.
+        /// <para/>
+        /// Returns true if the account is a local account, otherwise false
+        /// </summary>
+        public Task<bool> IsLocalAccountAsync() => Task.FromResult(string.Equals(Environment.MachineName, this.DomainName, StringComparison.InvariantCultureIgnoreCase));
 
         /// <summary>
         /// Gets a value that indicates if the user is locked out or not
@@ -198,7 +216,7 @@ namespace Cauldron.Core
                                 if (this.IsLocalAccount)
                                     // The user is not a domain user
                                     this.GetInformation(ContextType.Machine);
-                                else if (Utils.IsNetworkAvailable)
+                                else if (Utils.Current.IsNetworkAvailable)
                                     // Try to gather information only if we have any network connection
                                     this.GetInformation(ContextType.Domain);
                                 else
