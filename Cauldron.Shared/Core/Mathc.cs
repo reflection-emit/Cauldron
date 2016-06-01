@@ -96,6 +96,13 @@ namespace Cauldron.Core
         }
 
         /// <summary>
+        /// Converts degrees to radians
+        /// </summary>
+        /// <param name="degrees"></param>
+        /// <returns></returns>
+        public static double DegreesToRadians(double degrees) => degrees * (Math.PI / 180);
+
+        /// <summary>
         /// Divides <paramref name="a"/> with <paramref name="b"/>
         /// <para/>
         /// If <paramref name="a"/> and <paramref name="b"/> are null then null is returned.
@@ -189,6 +196,13 @@ namespace Cauldron.Core
 
             throw new ArgumentException("The + operator cannot be applied to: " + aType.FullName);
         }
+
+        /// <summary>
+        /// Converts radians to degrees
+        /// </summary>
+        /// <param name="radians"></param>
+        /// <returns></returns>
+        public static double RadiansToDegrees(double radians) => radians * (180 / Math.PI);
 
         /// <summary>
         /// Substracts <paramref name="b"/> from <paramref name="a"/>
