@@ -1,0 +1,71 @@
+﻿<UserControl
+    x:Class="EveMarket.Views.ItemInfoView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:EveMarket.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:i="using:Cauldron.XAML.Interactivity"
+    xmlns:a="using:Cauldron.XAML.Interactivity.Attached"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Image Source="{Binding Icon.Value}" Width="96" Height="96" />
+            <StackPanel Grid.Column="1" Margin="5,0,0,0">
+                <TextBlock Text="{Binding Name}" FontSize="16" FontWeight="Bold" />
+                <TextBlock Text="{Binding GroupName}" />
+                <TextBlock Text="{Binding MarketGroupName}" />
+                <TextBlock Text="{Binding Price, Converter={StaticResource KeyToLocalizedStringConverter}, ConverterParameter='iskValue', ConverterLanguage='is-is'}" />
+            </StackPanel>
+        </Grid>
+
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Margin="0,5,0,10" Grid.Row="1">
+            <StackPanel>
+                <TextBlock a:Localized.Text="description" TextWrapping="WrapWholeWords" Margin="0,8,0,0" FontWeight="Bold" />
+                <TextBlock a:Localized.Text="{Binding Description}" TextWrapping="WrapWholeWords" />
+                <TextBlock a:Localized.Text="sellOrders" TextWrapping="WrapWholeWords" Margin="0,8,0,0" FontWeight="Bold" />
+                <ItemsControl ItemsSource="{Binding SellOrders}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid HorizontalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{Binding StationName}" />
+                                <TextBlock Text="{Binding Price, Converter={StaticResource KeyToLocalizedStringConverter}, ConverterParameter='iskValue', ConverterLanguage='is-is'}" Grid.Column="1" HorizontalAlignment="Right" />
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <TextBlock a:Localized.Text="buyOrders" TextWrapping="WrapWholeWords" Margin="0,8,0,0" FontWeight="Bold" />
+                <ItemsControl ItemsSource="{Binding BuyOrders}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid HorizontalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{Binding StationName}" />
+                                <TextBlock Text="{Binding Price, Converter={StaticResource KeyToLocalizedStringConverter}, ConverterParameter='iskValue', ConverterLanguage='is-is'}" Grid.Column="1" HorizontalAlignment="Right" />
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

@@ -1,0 +1,250 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A6A45AF3-6C56-4906-8C5C-8AD557AA89C7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Cauldron.XAML</RootNamespace>
+    <AssemblyName>Cauldron.XAML</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Binaries\Desktop\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>C:\Users\baltar\Source\Repos\Cauldron\Binaries\Desktop\Cauldron.XAML.XML</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\UWP\Cauldron.Core\Output.cs">
+      <Link>Output.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML\BehaviourInvocationArgs.cs">
+      <Link>BehaviourInvocationArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML\BitmapImageEx.cs">
+      <Link>BitmapImageEx.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML\CauldronUICommand.cs">
+      <Link>CauldronUICommand.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML\CauldronUICommandCollection.cs">
+      <Link>CauldronUICommandCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML\DynamicEventHandler.cs">
+      <Link>DynamicEventHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML\Extensions.cs">
+      <Link>Extensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML\IImageManager.cs">
+      <Link>IImageManager.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML\ImageManager.cs">
+      <Link>ImageManager.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML\IMessageDialog.cs">
+      <Link>IMessageDialog.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML\INotifyBehaviourInvocation.cs">
+      <Link>INotifyBehaviourInvocation.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML\IRelayCommand.cs">
+      <Link>IRelayCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML\MessageBoxImage.cs">
+      <Link>MessageBoxImage.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML\MessageDialogEx.cs">
+      <Link>MessageDialogEx.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML\Navigation\CauldronBackRequestedEventArgs.cs">
+      <Link>Navigation\CauldronBackRequestedEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML\Navigation\INavigator.cs">
+      <Link>Navigation\INavigator.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML\Navigation\NavigatingInfo.cs">
+      <Link>Navigation\NavigatingInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML\Navigation\NavigationInfo.cs">
+      <Link>Navigation\NavigationInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML\Navigation\NavigationType.cs">
+      <Link>Navigation\NavigationType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML\Navigation\PageStackEntry.cs">
+      <Link>Navigation\PageStackEntry.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML\RelayCommand.cs">
+      <Link>RelayCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML\Resources\LocalizationSource.cs">
+      <Link>Resources\LocalizationSource.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML\TextBlockInline.cs">
+      <Link>TextBlockInline.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML\ValueConverterBase.cs">
+      <Link>ValueConverterBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML\ValueConverters\BooleanInvertConverter.cs">
+      <Link>ValueConverters\BooleanInvertConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML\ValueConverters\BooleanToVisibilityConverter.cs">
+      <Link>ValueConverters\BooleanToVisibilityConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML\ValueConverters\KeyToLocalizedStringConverter.cs">
+      <Link>ValueConverters\KeyToLocalizedStringConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML\ValueConverters\ObjectToVisibilityConverter.cs">
+      <Link>ValueConverters\ObjectToVisibilityConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML\ValueConverters\VisibilityToBooleanConverter.cs">
+      <Link>ValueConverters\VisibilityToBooleanConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML\ViewAttribute.cs">
+      <Link>ViewAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML\ViewModels\IDialogViewModel.cs">
+      <Link>ViewModels\IDialogViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML\ViewModels\IFrameAware.cs">
+      <Link>ViewModels\IFrameAware.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML\ViewModels\INavigable.cs">
+      <Link>ViewModels\INavigable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML\ViewModels\ISizeAware.cs">
+      <Link>ViewModels\ISizeAware.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML\ViewModels\IViewModel.cs">
+      <Link>ViewModels\IViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML\ViewModels\MessageDialogCommandViewModel.cs">
+      <Link>ViewModels\MessageDialogCommandViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML\ViewModels\MessageDialogViewModel.cs">
+      <Link>ViewModels\MessageDialogViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML\ViewModels\ViewModelBase.cs">
+      <Link>ViewModels\ViewModelBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML\XAMLHelper.cs">
+      <Link>XAMLHelper.cs</Link>
+    </Compile>
+    <Compile Include="ApplicationBase.cs" />
+    <Compile Include="CauldronTemplateSelector.cs" />
+    <Compile Include="Common.cs" />
+    <Compile Include="Controls\NavigationFrame.cs" />
+    <Compile Include="Navigation\NavigatorSinglePage.cs" />
+    <Compile Include="LaunchActivatedEventArgs.cs" />
+    <Compile Include="Navigation\INavigator.Desktop.cs" />
+    <Compile Include="Navigation\Navigator.cs" />
+    <Compile Include="NavigatorSelectorFactoryExtension.cs" />
+    <Compile Include="PersistentWindowInformation.cs" />
+    <Compile Include="PersistentWindowProperties.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\MessageDialogView.xaml.cs">
+      <DependentUpon>MessageDialogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\StylesAndTemplates.xaml.cs">
+      <DependentUpon>StylesAndTemplates.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WindowConfiguration.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cauldron.Core\Cauldron.Desktop.Core.csproj">
+      <Project>{0b23e7be-0e65-4a53-988f-67a0e9eeea2e}</Project>
+      <Name>Cauldron.Desktop.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cauldron.Desktop.Activator\Cauldron.Desktop.Activator.csproj">
+      <Project>{6e8a953e-2732-4a58-bc7b-f86b1a5ca5dd}</Project>
+      <Name>Cauldron.Desktop.Activator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cauldron.Desktop.IEnumerableExtensions\Cauldron.Desktop.IEnumerableExtensions.csproj">
+      <Project>{6aa1bcea-a613-4c58-8d1f-71f606665f2a}</Project>
+      <Name>Cauldron.Desktop.IEnumerableExtensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cauldron.Desktop.Localization\Cauldron.Desktop.Localization.csproj">
+      <Project>{0c1146b3-ada7-4b8b-921c-cb73f665b4ff}</Project>
+      <Name>Cauldron.Desktop.Localization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cauldron.Desktop.Potions\Cauldron.Desktop.Potions.csproj">
+      <Project>{776CD80A-6EDD-4F41-BFD8-CFF99546B6E3}</Project>
+      <Name>Cauldron.Desktop.Potions</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Extensions.Desktop.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\UWP\Cauldron.UWP.XAML\Resources\Images\error_red_32x32.png">
+      <Link>Resources\Images\error_red_32x32.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\UWP\Cauldron.UWP.XAML\Resources\Images\Information%28Help%29_7833.png">
+      <Link>Resources\Images\Information%28Help%29_7833.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\UWP\Cauldron.UWP.XAML\Resources\Images\Information_6227_32x.png">
+      <Link>Resources\Images\Information_6227_32x.png</Link>
+    </EmbeddedResource>
+    <None Include="..\..\UWP\Cauldron.UWP.XAML\Resources\Images\Readme.txt">
+      <Link>Resources\Images\Readme.txt</Link>
+    </None>
+    <EmbeddedResource Include="..\..\UWP\Cauldron.UWP.XAML\Resources\Images\Warning_yellow_7231_31x32.png">
+      <Link>Resources\Images\Warning_yellow_7231_31x32.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\UWP\Cauldron.UWP.XAML\Resources\Text\7B5BE4E7E11D87C4E23B68589848BB2A.yaml">
+      <Link>Resources\Text\7B5BE4E7E11D87C4E23B68589848BB2A.yaml</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Resources\MessageDialogView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\StylesAndTemplates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,8 @@
+﻿<cxaml:ApplicationBase x:Class="SingleInstanceApplicationWithParameterPassing.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:SingleInstanceApplicationWithParameterPassing"
+             xmlns:cxaml="clr-namespace:Cauldron.XAML;assembly=Cauldron.XAML">
+    <cxaml:ApplicationBase.Resources>
+    </cxaml:ApplicationBase.Resources>
+</cxaml:ApplicationBase>

@@ -1,0 +1,6 @@
+﻿mandatory: This is mandatory
+lengthMustBe8: "The name has to have {0} characters"
+greaterThan: "Must be greater than {0}"
+lessThan: "Must be less than {0}"
+number: Number
+perfect: Perfect!

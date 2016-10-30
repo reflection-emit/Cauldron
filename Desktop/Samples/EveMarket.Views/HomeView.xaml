@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="EveMarket.Views.HomeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:EveMarket.Views"
+             xmlns:i="clr-namespace:Cauldron.XAML.Interactivity;assembly=Cauldron.XAML.Interactivity"
+             xmlns:a="clr-namespace:Cauldron.XAML.Interactivity.Attached;assembly=Cauldron.XAML.Interactivity"
+             xmlns:b="clr-namespace:Cauldron.XAML.Interactivity;assembly=Cauldron.XAML.Interactivity"
+             xmlns:g="clr-namespace:EveMarket.Views"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <ListView ItemsSource="{Binding TypeItemCollection}" AlternationCount="2" Focusable="False" BorderThickness="0" Margin="0,5,0,0" Grid.Row="1" SelectionMode="Single"
+              a:ListViewProperties.Command="{Binding OpenInfoCommand}">
+
+        <ListView.View>
+            <GridView>
+                <i:Interaction.Behaviours>
+                    <i:GridViewColumnHeaderBehaviours />
+                </i:Interaction.Behaviours>
+                <GridViewColumn Width="64">
+                    <GridViewColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Image Width="32" Height="32" Source="{Binding Icon.Value}" />
+                                <ProgressBar IsIndeterminate="{Binding IsLoading}" Margin="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Opacity="0.4"
+                                             Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}, RelativeSource={RelativeSource TemplatedParent}}" />
+                            </Grid>
+                        </DataTemplate>
+                    </GridViewColumn.CellTemplate>
+                </GridViewColumn>
+                <GridViewColumn a:Localized.Text="typeName" Width="363" DisplayMemberBinding="{Binding Name}" />
+                <GridViewColumn a:Localized.Text="groupName" Width="363" DisplayMemberBinding="{Binding GroupName}" />
+                <GridViewColumn a:Localized.Text="averagePrice" Width="102" a:GridViewColumnProperties.Formatting="TextRight"
+                    DisplayMemberBinding="{Binding AveragePrice, Converter={StaticResource KeyToLocalizedStringConverter}, ConverterParameter='iskValue', ConverterCulture={x:Static g:CultureInfoIceland.Iceland}}" />
+            </GridView>
+        </ListView.View>
+    </ListView>
+</UserControl>

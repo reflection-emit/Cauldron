@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E2A547B5-AAD8-46B2-9748-6C7318E19A30}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EveMarket</RootNamespace>
+    <AssemblyName>EveMarket</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>hey.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PropertyChanged, Version=1.52.1.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\PropertyChanged.Fody.1.52.1\lib\netstandard10\PropertyChanged.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\UWP\Samples\EveMarket\Resources\LocalizationKeyValue.cs">
+      <Link>Resources\LocalizationKeyValue.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\UWP\Samples\EveMarket\Resources\LocalizationLanguage.cs">
+      <Link>Resources\LocalizationLanguage.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\UWP\Samples\EveMarket\Resources\LocalizationSource.cs">
+      <Link>Resources\LocalizationSource.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\UWP\Samples\EveMarket\ViewModels\HomeViewModel.cs">
+      <Link>ViewModels\HomeViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\UWP\Samples\EveMarket\ViewModels\ItemInfoViewModel.cs">
+      <Link>ViewModels\ItemInfoViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\UWP\Samples\EveMarket\ViewModels\MarketInfoDetailsViewModel.cs">
+      <Link>ViewModels\MarketInfoDetailsViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\UWP\Samples\EveMarket\ViewModels\TypeNameItemViewModel.cs">
+      <Link>ViewModels\TypeNameItemViewModel.cs</Link>
+    </Compile>
+    <Compile Include="App.cs" />
+    <Compile Include="Program.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\..\UWP\Samples\EveMarket\Resources\Strings.json">
+      <Link>Resources\Strings.json</Link>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Cauldron.Core\Cauldron.Desktop.Core.csproj">
+      <Project>{0B23E7BE-0E65-4A53-988F-67A0E9EEEA2E}</Project>
+      <Name>Cauldron.Desktop.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cauldron.Desktop.Activator\Cauldron.Desktop.Activator.csproj">
+      <Project>{6E8A953E-2732-4A58-BC7B-F86B1A5CA5DD}</Project>
+      <Name>Cauldron.Desktop.Activator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cauldron.Desktop.Cryptography\Cauldron.Desktop.Cryptography.csproj">
+      <Project>{D20BC350-336C-4E82-9848-773DE5ABAC39}</Project>
+      <Name>Cauldron.Desktop.Cryptography</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cauldron.Desktop.Injection\Cauldron.Desktop.Injection.csproj">
+      <Project>{D8302F3F-4451-4128-9C0D-6492A37B2625}</Project>
+      <Name>Cauldron.Desktop.Injection</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cauldron.Desktop.Localization\Cauldron.Desktop.Localization.csproj">
+      <Project>{0C1146B3-ADA7-4B8B-921C-CB73F665B4FF}</Project>
+      <Name>Cauldron.Desktop.Localization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cauldron.Desktop.Potions\Cauldron.Desktop.Potions.csproj">
+      <Project>{776CD80A-6EDD-4F41-BFD8-CFF99546B6E3}</Project>
+      <Name>Cauldron.Desktop.Potions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cauldron.Desktop.XAML.Interactivity\Cauldron.Desktop.XAML.Interactivity.csproj">
+      <Project>{d09d5044-4799-4ccf-997d-31f10b6fce24}</Project>
+      <Name>Cauldron.Desktop.XAML.Interactivity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cauldron.Desktop.XAML\Cauldron.Desktop.XAML.csproj">
+      <Project>{A6A45AF3-6C56-4906-8C5C-8AD557AA89C7}</Project>
+      <Name>Cauldron.Desktop.XAML</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EveMarket.Views\EveMarket.Views.csproj">
+      <Project>{9eb0e8d6-2859-4162-8041-363955569452}</Project>
+      <Name>EveMarket.Views</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EveOnlineApi.Desktop\EveOnlineApi.Desktop.csproj">
+      <Project>{040a2df8-beca-48ee-bd78-0a9350fcb997}</Project>
+      <Name>EveOnlineApi.Desktop</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="FodyWeavers.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="hey.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\..\..\packages\Fody.1.29.4\build\dotnet\Fody.targets" Condition="Exists('..\..\..\packages\Fody.1.29.4\build\dotnet\Fody.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\..\packages\Fody.1.29.4\build\dotnet\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Fody.1.29.4\build\dotnet\Fody.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

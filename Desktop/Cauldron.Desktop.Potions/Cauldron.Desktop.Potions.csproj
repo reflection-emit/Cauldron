@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{776CD80A-6EDD-4F41-BFD8-CFF99546B6E3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Cauldron.Potions</RootNamespace>
+    <AssemblyName>Cauldron.Potions</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\Cauldron.Potions.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Binaries\Desktop\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>C:\Users\baltar\Source\Repos\Cauldron\Binaries\Desktop\Cauldron.Desktop.Potions.XML</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\UWP\Cauldron.Core\Output.cs">
+      <Link>Output.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.Potions\ConnectionGenerationTypes.cs">
+      <Link>ConnectionGenerationTypes.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.Potions\FactoryObject.cs">
+      <Link>FactoryObject.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.Potions\INetwork.cs">
+      <Link>INetwork.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.Potions\ISerializer.cs">
+      <Link>ISerializer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.Potions\IUserInformation.cs">
+      <Link>IUserInformation.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.Potions\IWeb.cs">
+      <Link>IWeb.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.Potions\Network.cs">
+      <Link>Network.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.Potions\PingResults.cs">
+      <Link>PingResults.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.Potions\Serializer.cs">
+      <Link>Serializer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.Potions\UserInformation.cs">
+      <Link>UserInformation.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.Potions\Web.cs">
+      <Link>Web.cs</Link>
+    </Compile>
+    <Compile Include="Network.Desktop.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserInformation.Desktop.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cauldron.Core\Cauldron.Desktop.Core.csproj">
+      <Project>{0b23e7be-0e65-4a53-988f-67a0e9eeea2e}</Project>
+      <Name>Cauldron.Desktop.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cauldron.Desktop.Activator\Cauldron.Desktop.Activator.csproj">
+      <Project>{6E8A953E-2732-4A58-BC7B-F86B1A5CA5DD}</Project>
+      <Name>Cauldron.Desktop.Activator</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="IUserInformation.Desktop.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="INetwork.Desktop.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

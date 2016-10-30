@@ -1,0 +1,25 @@
+﻿<UserControl
+    x:Class="StandardApplication.Views.ThePopupView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:StandardApplication.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:a="using:Cauldron.XAML.Interactivity.Attached"
+    xmlns:i="using:Cauldron.XAML.Interactivity"
+    mc:Ignorable="d"
+    Width="300" Height="150">
+
+    <Grid Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <TextBox a:Localized.Text="Enter anything" Text="{Binding AText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+            <i:Interaction.Behaviours>
+                <i:SetFocusOnLoad />
+            </i:Interaction.Behaviours>
+        </TextBox>
+        <Button Grid.Row="1" Content="Close" VerticalAlignment="Bottom" HorizontalAlignment="Center" Command="{Binding CloseCommand}" />
+    </Grid>
+</UserControl>

@@ -1,0 +1,364 @@
+﻿OK: 
+    de: OK
+    en: OK
+    zh: 好
+    el:
+    ja:
+    ko: 오케이
+    lt: Gerai
+    pt:
+    ru: окей
+    es:
+    sv: Okej
+    th:
+    fr: D'accord
+Cancel: 
+    de: Abbrechen
+    en: Cancel
+    zh: 取消
+    el: Άκυρο
+    ja: キャンセル
+    ko: 취소
+    lt: Atšaukti
+    pt: Cancelar
+    ru: Отмена
+    es: Cancelar
+    sv: Avbryt
+    th: ยกเลิก
+    fr: Annuler
+Yes: 
+    de: Ja
+    en: Yes
+    zh: 和
+    el: Ναι
+    ja: はい
+    ko: 예
+    lt: Taip
+    pt: Sim
+    ru: Да
+    es: Sí
+    sv: Ja
+    th: ใช่
+    fr: Oui
+No: 
+    de: Nein
+    en: No
+    zh: 没有
+    el: Όχι
+    ja: 違います
+    ko: 없음
+    lt: Ne
+    pt: Não
+    ru: Нет
+    es: No
+    sv: Nej
+    th: ไม่ใช่
+    fr: Non
+Error: 
+    de: Fehler
+    en: Error
+    zh: 错误 
+    el: Σφάλμα
+    ja: エラー
+    ko: 오류
+    lt: Klaida 
+    pt: Erro
+    ru: Ошибка
+    es: Error
+    sv: Fel
+    th: ข้อผิดพลาด
+    fr: Erreur
+Copy: 
+    de: Kopieren
+    en: Copy
+    zh: 複製
+    el: Αντίγραφο
+    ja: コピー
+    ko: 부
+    lt: Kopija
+    pt: Cópia
+    ru: копия
+    es: Dupdo
+    sv: Kopiera
+    th: สำเนา
+    fr: Copie
+Close: 
+    de: Schließen
+    en: Close
+    zh: 关
+    el: Κοντά
+    ja: 閉じる
+    ko: 닫기
+    lt: Uždaryti
+    pt: Fechar
+    ru: Закрыть
+    es: Cerrar
+    sv: Stänga
+    th: ปิด
+    fr: Fermer
+Abort: 
+    de: Abbrechen
+    en: Abort
+    zh: 取消
+    el: Άκυρο
+    ja: キャンセル
+    ko: 취소
+    lt: Atšaukti
+    pt: Cancelar
+    ru: Отмена
+    es: Cancelar
+    sv: Avbryt
+    th: ยกเลิก
+    fr: Annuler
+Comments: 
+    de: Kommentare
+    en: Comments
+    zh: 评论
+    el: Παρατηρήσεις
+    ja: コメント
+    ko: 코멘트
+    lt: Komentarai
+    pt: Comentários
+    ru: Комментарии
+    es: Comentarios
+    sv: Kommentarer
+    th: ความคิดเห็น
+    fr: Commentaires
+Continue: 
+    de: Fortsetzen
+    en: Continue
+    zh: 继续
+    el: Συνεχίστε
+    ja: 続行
+    ko: 계속
+    lt: Toliau
+    pt: Continue
+    ru: Продолжить
+    es: Continuar
+    sv: Fortsätt
+    th: ดำเนินการต่อไป
+    fr: Continuer
+Delete: 
+    de: Löschen
+    en: Delete
+    zh: 删除
+    el: Διαγραφή του
+    ja: 削除
+    ko: 삭제
+    lt: Naikinti
+    pt: Excluir
+    ru: Удалить
+    es: Eliminar
+    sv: Ta bort
+    th: ลบ
+    fr: Supprimer
+Execute: 
+    de: Ausführen
+    en: Execute
+    zh: 运行
+    el: Εκτέλεση
+    ja: 実行
+    ko: 실행
+    lt: Paleisti
+    pt: Executar
+    ru: Запуск
+    es: Ejecutar
+    sv: Kör
+    th: เรียกใช้
+    fr: Courir
+Help: 
+    de: Hilfe
+    en: Help
+    zh: 帮助
+    el: Βοήθεια
+    ja: ヘルプ
+    ko: 도움말
+    lt: Pagalba
+    pt: Ajuda
+    ru: Справка
+    es: Ayuda
+    sv: Hjälp
+    th: วิธีใช้
+    fr: Aide
+Ignore: 
+    de: Ignorieren
+    en: Ignore
+    zh: 忽略
+    el: Παράβλεψη
+    ja: 無視します。
+    ko: 무시
+    lt: Ignoruoti
+    pt: Ignorar
+    ru: Игнорировать
+    es: Ignorar
+    sv: Ignorera
+    th: ละเว้น
+    fr: Ignorer
+Maximize: 
+    de: Maximieren
+    en: Maximize
+    zh: 最大限度地
+    el: Μεγιστοποίηση
+    ja: 最大化します。
+    ko: 최대화
+    lt: Maksimaliai padidinti
+    pt: Maximizar
+    ru: Увеличить
+    es: Maximizar
+    sv: Maximera
+    th: ให้มากที่สุด
+    fr: Maximiser
+Minimize: 
+    de: Minimieren
+    en: Minimize
+    zh: 最小化
+    el: Ελαχιστοποίηση
+    ja: 最小限に抑える
+    ko: 최소화
+    lt: Sumažinti
+    pt: Minimizar
+    ru: Свернуть
+    es: Minimizar
+    sv: Minimera
+    th: ลด
+    fr: Réduire au minimum
+Move: 
+    de: Verschieben
+    en: Move
+    zh: 移动
+    el: Κίνηση
+    ja: 移動
+    ko: 이동
+    lt: Perkelti
+    pt: Mover-se
+    ru: Перемещение
+    es: Movimiento
+    sv: Flytta
+    th: ย้าย
+    fr: Déplacer
+Name: 
+    de: Name
+    en: Name
+    zh: 名称
+    el: Όνομα
+    ja: 名
+    ko: 이름
+    lt: Vardas
+    pt: Nome
+    ru: Имя
+    es: Nombre
+    sv: Namn
+    th: ชื่อ
+    fr: Nom
+New: 
+    de: Neu
+    en: New
+    zh: 新增功能
+    el: Νέα
+    ja: 新
+    ko: 새로운
+    lt: Naujas
+    pt: Novo
+    ru: Новые
+    es: Nuevo
+    sv: Nya
+    th: ใหม่
+    fr: Nouveau
+Open: 
+    de: Öffnen
+    en: Open
+    zh: 开放
+    el: Ανοιχτό
+    ja: オープン
+    ko: 오픈
+    lt: Atvira
+    pt: Aberto
+    ru: Открыть
+    es: Abierto
+    sv: Öppna
+    th: เปิด
+    fr: Ouvert
+Rename: 
+    de: Umbenennen
+    en: Rename
+    zh: 重命名
+    el: Μετονομασία
+    ja: 名前の変更
+    ko: 이름 바꾸기
+    lt: Pervardyti
+    pt: Renomear
+    ru: Переименование
+    es: Cambiar el nombre
+    sv: Byt namn
+    th: เปลี่ยนชื่อ
+    fr: Changement de nom
+RestoreDown: 
+    de: Wiederherstellen
+    en: Restore Down
+    zh: 还原
+    el: Επαναφορά
+    ja: 復元
+    ko: 복원
+    lt: Atkurti
+    pt: Restauração
+    ru: Восстановление
+    es: Restaurar
+    sv: Återställa
+    th: การคืนค่า
+    fr: Restauration
+RestoreUp: 
+    de: Wiederherstellen
+    en: Restore Up
+    zh: 还原
+    el: Επαναφορά
+    ja: 復元
+    ko: 복원
+    lt: Atkurti
+    pt: Restauração
+    ru: Восстановление
+    es: Restaurar
+    sv: Återställa
+    th: การคืนค่า
+    fr: Restauration
+Retry: 
+    de: Erneut versuchen
+    en: Retry
+    zh: 重试
+    el: Επανάληψη
+    ja: 再試行
+    ko: 다시 시도
+    lt: Bandykite dar kartą
+    pt: Tente novamente
+    ru: Повтор
+    es: Vuelva a intentarlo
+    sv: Försök igen
+    th: ลองอีกครั้ง
+    fr: Réessayez
+Size: 
+    de: Größe
+    en: Size
+    zh: 大小
+    el: Μέγεθος
+    ja: サイズ
+    ko: 크기
+    lt: Dydis
+    pt: Tamanho
+    ru: Размер
+    es: Tamaño
+    sv: Storlek
+    th: ขนาด
+    fr: Taille
+Type: 
+    de: Typ
+    en: Type
+    zh: 类型
+    el: Τύπος
+    ja: タイプ
+    ko: 유형
+    lt: Tipas
+    pt: Tipo
+    ru: Тип
+    es: Tipo
+    sv: Typ
+    th: ชนิด
+    fr: Type

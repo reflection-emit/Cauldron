@@ -1,0 +1,8 @@
+﻿<cauldronXAML:ApplicationBase
+    x:Class="InputValidation.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:InputValidation"
+    xmlns:cauldronXAML="using:Cauldron.XAML"
+    RequestedTheme="Light">
+</cauldronXAML:ApplicationBase>

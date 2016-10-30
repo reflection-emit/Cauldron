@@ -1,0 +1,251 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DB22A9B3-7688-483A-8458-0BEAE6FB31E8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EveOnlineApi</RootNamespace>
+    <AssemblyName>EveOnlineApi</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.10586.0</TargetPlatformMinVersion>
+    <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <PlatformTarget>ARM</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <PlatformTarget>ARM</PlatformTarget>
+    <OutputPath>bin\ARM\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <None Include="project.json" />
+    <EmbeddedResource Include="Resources\GroupId.bin" />
+    <EmbeddedResource Include="Resources\InventoryFlag.bin" />
+    <EmbeddedResource Include="Resources\MarketGroup.bin" />
+    <EmbeddedResource Include="Resources\NPCCorporation.bin" />
+    <EmbeddedResource Include="Resources\NPCStation.bin" />
+    <EmbeddedResource Include="Resources\TypeId.bin" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Api.cs" />
+    <Compile Include="ApiKey.cs" />
+    <Compile Include="CrestAccessScopes.cs" />
+    <Compile Include="EveCache.cs" />
+    <Compile Include="EveServers.cs" />
+    <Compile Include="EveServerStatus.cs" />
+    <Compile Include="EveStaticData.cs" />
+    <Compile Include="EveUtils.cs" />
+    <Compile Include="Exceptions\EveServersOfflineException.cs" />
+    <Compile Include="Exceptions\WebServiceConsumerException.cs" />
+    <Compile Include="IEveApi.cs" />
+    <Compile Include="IEveStaticData.cs" />
+    <Compile Include="ImageType.cs" />
+    <Compile Include="Models\AssertItemCollection.cs" />
+    <Compile Include="Models\AssetItem.cs" />
+    <Compile Include="Models\Character.cs" />
+    <Compile Include="Models\CharacterCollection.cs" />
+    <Compile Include="Models\CharacterLocationInfo.cs" />
+    <Compile Include="Models\CharacterName.cs" />
+    <Compile Include="Models\CharacterNameCollection.cs" />
+    <Compile Include="Models\CharacterSheet.cs" />
+    <Compile Include="Models\ConquerableStation.cs" />
+    <Compile Include="Models\ConquerableStationCollection.cs" />
+    <Compile Include="Models\Corporation.cs" />
+    <Compile Include="Models\CorporationTitle.cs" />
+    <Compile Include="Models\CorporationTitles.cs" />
+    <Compile Include="Models\CrestCharacterInfo.cs" />
+    <Compile Include="Models\CrestTokenInfo.cs" />
+    <Compile Include="Models\DefaultNode.cs" />
+    <Compile Include="Models\EveTime.cs" />
+    <Compile Include="Models\Faction.cs" />
+    <Compile Include="Models\IKeyedModel.cs" />
+    <Compile Include="Models\Implant.cs" />
+    <Compile Include="Models\ImplantAttributes.cs" />
+    <Compile Include="Models\Incursion.cs" />
+    <Compile Include="Models\ItemAttributes.cs" />
+    <Compile Include="Models\ItemPrice.cs" />
+    <Compile Include="Models\ItemPriceCollection.cs" />
+    <Compile Include="Models\ItemProperties.cs" />
+    <Compile Include="Models\JumpClone.cs" />
+    <Compile Include="Models\JumpCloneImplant.cs" />
+    <Compile Include="Models\Location.cs" />
+    <Compile Include="Models\MailBody.cs" />
+    <Compile Include="Models\MailBodyCollection.cs" />
+    <Compile Include="Models\MailMessageCollection.cs" />
+    <Compile Include="Models\MailMessageItem.cs" />
+    <Compile Include="Models\ModelCollection.cs" />
+    <Compile Include="Models\Motd.cs" />
+    <Compile Include="Models\Next.cs" />
+    <Compile Include="Models\Notification.cs" />
+    <Compile Include="Models\NotificationCollection.cs" />
+    <Compile Include="Models\OpenMarketBody.cs" />
+    <Compile Include="Models\PriceHistory.cs" />
+    <Compile Include="Models\PriceHistoryCollection.cs" />
+    <Compile Include="Models\QuicklookCollection.cs" />
+    <Compile Include="Models\QuicklookOrder.cs" />
+    <Compile Include="Models\ServerStatus.cs" />
+    <Compile Include="Models\ServerVersion.cs" />
+    <Compile Include="Models\ShipFitting.cs" />
+    <Compile Include="Models\Skill.cs" />
+    <Compile Include="Models\SkillInTraining.cs" />
+    <Compile Include="Models\SkillQueue.cs" />
+    <Compile Include="Models\SkillQueueCollection.cs" />
+    <Compile Include="Models\SolarSystemInfo.cs" />
+    <Compile Include="Models\StaticData\InventoryFlag.cs" />
+    <Compile Include="Models\StaticData\ItemGroup.cs" />
+    <Compile Include="Models\StaticData\ItemType.cs" />
+    <Compile Include="Models\StaticData\MarketGroup.cs" />
+    <Compile Include="Models\StaticData\NpcCorporation.cs" />
+    <Compile Include="Models\StaticData\NpcStation.cs" />
+    <Compile Include="Models\StaticData\RefTypeItem.cs" />
+    <Compile Include="Models\StaticData\RefTypeItemCollection.cs" />
+    <Compile Include="Models\StaticData\Region.cs" />
+    <Compile Include="Models\StaticData\RegionCollection.cs" />
+    <Compile Include="Models\StaticData\SolarSystem.cs" />
+    <Compile Include="Models\StaticData\SolarSystemCollection.cs" />
+    <Compile Include="Models\TokenKey.cs" />
+    <Compile Include="Models\WalletJournal.cs" />
+    <Compile Include="Models\WalletJournalItem.cs" />
+    <Compile Include="Models\XmlModelCollection.cs" />
+    <Compile Include="NotificationTypes.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReferenceTypes.cs" />
+    <Compile Include="WebService\AzureMobileServicesClient.cs" />
+    <Compile Include="WebService\DefaultDiskCacheAgent.cs" />
+    <Compile Include="WebService\DefaultRestClient.cs" />
+    <Compile Include="WebService\EveXmlSpecializedCacheAgent.cs" />
+    <Compile Include="WebService\EveXmlSpecializedCollectionCacheAgent.cs" />
+    <Compile Include="WebService\FiveMinutesDiskCacheAgent.cs" />
+    <Compile Include="WebService\JsonDeserializer.cs" />
+    <Compile Include="WebService\MotdCachingAgent.cs" />
+    <Compile Include="WebService\OneDayLifetimeDiskCacheAgent.cs" />
+    <Compile Include="WebService\WebServiceConsumer.cs" />
+    <Compile Include="WebService\XmlDeserializer.cs" />
+    <Compile Include="XmlDeserializer.cs" />
+    <EmbeddedResource Include="Properties\EveOnlineApi.UWP.rd.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Cauldron.Core\Cauldron.UWP.Core.csproj">
+      <Project>{E977DAE7-C754-4DA7-B7DC-BCA8B1C0CE09}</Project>
+      <Name>Cauldron.UWP.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cauldron.UWP.Activator\Cauldron.UWP.Activator.csproj">
+      <Project>{A80A73E9-825B-4032-AE6B-A6C4340DC0FC}</Project>
+      <Name>Cauldron.UWP.Activator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cauldron.UWP.Cryptography\Cauldron.UWP.Cryptography.csproj">
+      <Project>{1890c23c-8e1a-4216-9f8c-69ddb81bb61c}</Project>
+      <Name>Cauldron.UWP.Cryptography</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cauldron.UWP.IEnumerableExtensions\Cauldron.UWP.IEnumerableExtensions.csproj">
+      <Project>{726CA3AC-9BAE-4074-ACA0-A5872A5B1D84}</Project>
+      <Name>Cauldron.UWP.IEnumerableExtensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cauldron.UWP.Injection\Cauldron.UWP.Injection.csproj">
+      <Project>{9789F677-3774-4C31-A34B-F13501D48A8E}</Project>
+      <Name>Cauldron.UWP.Injection</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cauldron.UWP.Potions\Cauldron.UWP.Potions.csproj">
+      <Project>{8A8CB406-4B9C-4AE8-8F04-68B501AA4218}</Project>
+      <Name>Cauldron.UWP.Potions</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
+    <VisualStudioVersion>14.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

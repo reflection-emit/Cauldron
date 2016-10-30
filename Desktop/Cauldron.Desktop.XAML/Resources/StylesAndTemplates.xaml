@@ -1,0 +1,53 @@
+﻿<ResourceDictionary
+    x:Class="Cauldron.XAML.Resources.StylesAndTemplates"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="clr-namespace:Cauldron.XAML.Controls"
+    mc:Ignorable="d">
+
+    <Style TargetType="controls:NavigationFrame">
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:NavigationFrame">
+                    <Grid Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+                        <ContentPresenter Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Margin="{TemplateBinding Padding}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+
+                        <Border x:Name="loadingOverlay" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#33000000">
+                            <Border.Visibility>
+                                <Binding Path="Content.DataContext.IsLoading" RelativeSource="{RelativeSource TemplatedParent}" Converter="{StaticResource BooleanToVisibilityConverter}" />
+                            </Border.Visibility>
+                            <ProgressBar x:Name="progress" Height="64" MaxWidth="200" HorizontalAlignment="Stretch">
+                                <ProgressBar.IsIndeterminate>
+                                    <Binding Path="Content.DataContext.IsLoading" RelativeSource="{RelativeSource TemplatedParent}" />
+                                </ProgressBar.IsIndeterminate>
+                            </ProgressBar>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="ListViewItem">
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="MinHeight" Value="20" />
+        <Setter Property="Background" Value="Transparent" />
+        <Style.Triggers>
+            <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                <Setter Property="Background" Value="#11000000" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>

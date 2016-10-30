@@ -1,0 +1,8 @@
+﻿<cauldronXAML:ApplicationBase
+    x:Class="StandardApplication.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:cauldronXAML="using:Cauldron.XAML"
+    xmlns:local="using:StandardApplication"
+    RequestedTheme="Light">
+</cauldronXAML:ApplicationBase>

@@ -1,8 +1,0 @@
-﻿<Cauldron:CauldronApplication x:Class="NavigationSample.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:NavigationSample"
-             xmlns:Cauldron="clr-namespace:Cauldron;assembly=Cauldron">
-    <Application.Resources>
-    </Application.Resources>
-</Cauldron:CauldronApplication>

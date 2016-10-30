@@ -1,0 +1,48 @@
+﻿<ResourceDictionary
+    x:Class="InputValidation.StylesAndTemplates"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:InputValidation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:i="using:Cauldron.XAML.Interactivity"
+    xmlns:validator="using:Cauldron.XAML.Validation"
+    mc:Ignorable="d">
+
+    <DataTemplate x:Key="GeneralHeaderTemplate">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="8" />
+                <RowDefinition Height="32" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Margin="0,-4,0,-4" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1" Grid.Column="1" Text="*" FontSize="34" FontWeight="Bold" Foreground="OrangeRed"
+                       Visibility="{Binding Object.(validator:ValidationProperties.IsMandatory), Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+            <TextBlock Text="{Binding Content}" Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom" />
+            <TextBlock Text="{Binding Object.(validator:ValidationProperties.Errors)}" Grid.ColumnSpan="4" Grid.Row="2" Foreground="Tomato" FontSize="10"
+                       Visibility="{Binding Object.(validator:ValidationProperties.HasErrors), Converter={StaticResource BooleanToVisibilityConverter}}" />
+        </Grid>
+    </DataTemplate>
+
+    <Style TargetType="TextBox">
+        <Setter Property="validator:ValidationProperties.Errors" Value="" />
+        <Setter Property="validator:ValidationProperties.HasErrors" Value="False" />
+        <Setter Property="validator:ValidationProperties.IsMandatory" Value="False" />
+        <Setter Property="HeaderTemplate" Value="{StaticResource GeneralHeaderTemplate}" />
+
+        <Setter Property="i:StyleInteraction.Template">
+            <Setter.Value>
+                <i:InteractionTemplate>
+                    <validator:ValidationBehaviour />
+                </i:InteractionTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

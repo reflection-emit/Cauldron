@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D09D5044-4799-4CCF-997D-31F10B6FCE24}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Cauldron.XAML.Interactivity</RootNamespace>
+    <AssemblyName>Cauldron.XAML.Interactivity</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\Cauldron.XAML.Interactivity.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Binaries\Desktop\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>C:\Users\baltar\Source\Repos\Cauldron\Binaries\Desktop\Cauldron.Desktop.Interactivity.XML</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\UWP\Cauldron.Core\Output.cs">
+      <Link>Output.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Interactivity\Actions\ActionBase.cs">
+      <Link>Actions\ActionBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Interactivity\Actions\ActionCollection.cs">
+      <Link>Actions\ActionCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Interactivity\Actions\InvokeMethodAction.cs">
+      <Link>Actions\InvokeMethodAction.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Interactivity\Attached\ButtonProperties.cs">
+      <Link>Attached\ButtonProperties.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Interactivity\Attached\ImageProperties.cs">
+      <Link>Attached\ImageProperties.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Interactivity\Attached\Localized.cs">
+      <Link>Attached\Localized.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Interactivity\Attached\TextBlockProperties.cs">
+      <Link>Attached\TextBlockProperties.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Interactivity\Attributes\BehaviourUsageAttribute.cs">
+      <Link>Attributes\BehaviourUsageAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Interactivity\Behaviour.cs">
+      <Link>Behaviour.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Interactivity\BehaviourCollection.cs">
+      <Link>BehaviourCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Interactivity\BehaviourInvocation\BehaviourInvokeAwareBehaviourBase.cs">
+      <Link>BehaviourInvocation\BehaviourInvokeAwareBehaviourBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Interactivity\BehaviourInvocation\InvocationTrigger.cs">
+      <Link>BehaviourInvocation\InvocationTrigger.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Interactivity\EnterKeyToCommand.cs">
+      <Link>EnterKeyToCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Interactivity\EventToCommand.cs">
+      <Link>EventToCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Interactivity\EventTrigger.cs">
+      <Link>EventTrigger.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Interactivity\IBehaviour.cs">
+      <Link>IBehaviour.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Interactivity\Interaction.cs">
+      <Link>Interaction.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Interactivity\InteractionTemplate.cs">
+      <Link>InteractionTemplate.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Interactivity\PasswordBoxBinding.cs">
+      <Link>PasswordBoxBinding.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Interactivity\PropertyChangedTrigger.cs">
+      <Link>PropertyChangedTrigger.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Interactivity\SetFocusOnLoad.cs">
+      <Link>SetFocusOnLoad.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Interactivity\StyleInteraction.cs">
+      <Link>StyleInteraction.cs</Link>
+    </Compile>
+    <Compile Include="Attached\CustomCursor.cs" />
+    <Compile Include="Attached\ListViewProperties.cs" />
+    <Compile Include="Attached\HyperlinkProperties.cs" />
+    <Compile Include="GridViewColumnFormatting.cs" />
+    <Compile Include="Attached\GridViewColumnProperties.cs" />
+    <Compile Include="GridViewColumnHeaderBehaviours.cs" />
+    <Compile Include="ListViewBehaviour.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\StylesAndTemplates.xaml.cs">
+      <DependentUpon>StylesAndTemplates.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SortAdorner.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cauldron.Core\Cauldron.Desktop.Core.csproj">
+      <Project>{0B23E7BE-0E65-4A53-988F-67A0E9EEEA2E}</Project>
+      <Name>Cauldron.Desktop.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cauldron.Desktop.Activator\Cauldron.Desktop.Activator.csproj">
+      <Project>{6e8a953e-2732-4a58-bc7b-f86b1a5ca5dd}</Project>
+      <Name>Cauldron.Desktop.Activator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cauldron.Desktop.Cryptography\Cauldron.Desktop.Cryptography.csproj">
+      <Project>{d20bc350-336c-4e82-9848-773de5abac39}</Project>
+      <Name>Cauldron.Desktop.Cryptography</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cauldron.Desktop.IEnumerableExtensions\Cauldron.Desktop.IEnumerableExtensions.csproj">
+      <Project>{6aa1bcea-a613-4c58-8d1f-71f606665f2a}</Project>
+      <Name>Cauldron.Desktop.IEnumerableExtensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cauldron.Desktop.Localization\Cauldron.Desktop.Localization.csproj">
+      <Project>{0c1146b3-ada7-4b8b-921c-cb73f665b4ff}</Project>
+      <Name>Cauldron.Desktop.Localization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cauldron.Desktop.Potions\Cauldron.Desktop.Potions.csproj">
+      <Project>{776CD80A-6EDD-4F41-BFD8-CFF99546B6E3}</Project>
+      <Name>Cauldron.Desktop.Potions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cauldron.Desktop.XAML\Cauldron.Desktop.XAML.csproj">
+      <Project>{a6a45af3-6c56-4906-8c5c-8ad557aa89c7}</Project>
+      <Name>Cauldron.Desktop.XAML</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Resources\StylesAndTemplates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

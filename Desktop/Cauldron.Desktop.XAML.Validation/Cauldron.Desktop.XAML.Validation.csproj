@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{362950DC-8FAD-4675-8A74-E80A0DDF2BBD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Cauldron.XAML.Validation</RootNamespace>
+    <AssemblyName>Cauldron.XAML.Validation</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Binaries\Desktop\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>C:\Users\baltar\Source\Repos\Cauldron\Binaries\Desktop\Cauldron.XAML.Validation.XML</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Validation\EqualityAttribute.cs">
+      <Link>EqualityAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Validation\GreaterThanAttribute.cs">
+      <Link>GreaterThanAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Validation\GreaterThanOrEqualAttribute.cs">
+      <Link>GreaterThanOrEqualAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Validation\InEqualityAttribute.cs">
+      <Link>InEqualityAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Validation\IsMandatoryAttribute.cs">
+      <Link>IsMandatoryAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Validation\LessThan.cs">
+      <Link>LessThan.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Validation\LessThanOrEqual.cs">
+      <Link>LessThanOrEqual.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Validation\PasswordStrengthAttribute.cs">
+      <Link>PasswordStrengthAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Validation\StringLengthAttribute.cs">
+      <Link>StringLengthAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Validation\ValidationBaseAttribute.cs">
+      <Link>ValidationBaseAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Validation\ValidationBehaviour.cs">
+      <Link>ValidationBehaviour.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Validation\ValidationEventArgs.cs">
+      <Link>ValidationEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Validation\ValidationHandler.cs">
+      <Link>ValidationHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Validation\ValidationProperties.cs">
+      <Link>ValidationProperties.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Validation\ValidatorCollection.cs">
+      <Link>ValidatorCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Validation\ValidatorGroup.cs">
+      <Link>ValidatorGroup.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Validation\ViewModels\IValidatableViewModel.cs">
+      <Link>ViewModels\IValidatableViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Validation\ViewModels\ValidatableViewModelBase.cs">
+      <Link>ViewModels\ValidatableViewModelBase.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cauldron.Core\Cauldron.Desktop.Core.csproj">
+      <Project>{0b23e7be-0e65-4a53-988f-67a0e9eeea2e}</Project>
+      <Name>Cauldron.Desktop.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cauldron.Desktop.Activator\Cauldron.Desktop.Activator.csproj">
+      <Project>{6e8a953e-2732-4a58-bc7b-f86b1a5ca5dd}</Project>
+      <Name>Cauldron.Desktop.Activator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cauldron.Desktop.Cryptography\Cauldron.Desktop.Cryptography.csproj">
+      <Project>{D20BC350-336C-4E82-9848-773DE5ABAC39}</Project>
+      <Name>Cauldron.Desktop.Cryptography</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cauldron.Desktop.IEnumerableExtensions\Cauldron.Desktop.IEnumerableExtensions.csproj">
+      <Project>{6aa1bcea-a613-4c58-8d1f-71f606665f2a}</Project>
+      <Name>Cauldron.Desktop.IEnumerableExtensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cauldron.Desktop.Localization\Cauldron.Desktop.Localization.csproj">
+      <Project>{0c1146b3-ada7-4b8b-921c-cb73f665b4ff}</Project>
+      <Name>Cauldron.Desktop.Localization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cauldron.Desktop.XAML.Interactivity\Cauldron.Desktop.XAML.Interactivity.csproj">
+      <Project>{d09d5044-4799-4ccf-997d-31f10b6fce24}</Project>
+      <Name>Cauldron.Desktop.XAML.Interactivity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cauldron.Desktop.XAML\Cauldron.Desktop.XAML.csproj">
+      <Project>{a6a45af3-6c56-4906-8c5c-8ad557aa89c7}</Project>
+      <Name>Cauldron.Desktop.XAML</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
