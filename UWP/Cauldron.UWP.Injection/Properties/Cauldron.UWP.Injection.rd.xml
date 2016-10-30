@@ -36,6 +36,9 @@
     </Type>
     <Type Name="Cauldron.Activator.ComponentConstructorAttribute">
       <AttributeImplies Activate="Required All" />
+    </Type>>
+    <Type Name="System.Collections.Generic.IList{T}">
+      <Subtypes Dynamic="Required Public" />
     </Type>
   </Library>
 </Directives>

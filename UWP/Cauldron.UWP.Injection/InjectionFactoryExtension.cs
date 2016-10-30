@@ -1,6 +1,7 @@
 ﻿using Cauldron.Activator;
 using Cauldron.Core.Extensions;
 using System;
+using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -132,8 +133,10 @@ namespace Cauldron.Injection
             var context = Factory.CreateInstance(type);
 
             // Let us check if the type has a suitable AddRange method
-            // But... this will take longer than just getting the first best addrange and passing
-            // the collection to it
+            // But... this will take longer than just getting the first best addrange and passing the collection to it
+
+            // This will fail in UWP in most cases because the addition of the certain type to rd.xml will be missing.
+            // AddRange is also not defined by any of the interfaces... That is why it is very hard to handle this.
             var addRange = type.GetMethod("AddRange", new Type[] { typeof(IEnumerable<>).MakeGenericType(childType) }, BindingFlags.Instance | BindingFlags.Public);
 
             if (addRange != null)
@@ -149,12 +152,13 @@ namespace Cauldron.Injection
                 }
             }
 
-            var addMethod = type.GetMethod("Add", new Type[] { childType }, BindingFlags.Instance | BindingFlags.Public);
+            // Lets makes this one UWP native friendly... It is also muchg faster than reflection
+            var list = context as IList;
 
-            if (addMethod != null)
+            if (list != null)
             {
                 foreach (var item in objects)
-                    addMethod.Invoke(context, new object[] { item });
+                    list.Add(item);
 
                 return context;
             }
