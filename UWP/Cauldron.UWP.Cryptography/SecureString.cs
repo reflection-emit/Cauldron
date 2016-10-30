@@ -1,4 +1,4 @@
-﻿using Cauldron.Core;
+ ﻿using Cauldron.Core;
 using Cauldron.Core.Extensions;
 using Cauldron.Cryptography;
 using System.Runtime.InteropServices;
@@ -18,7 +18,7 @@ namespace System.Security /* So that precompiler definitions are not required if
     {
         /*
          *
-         * In UWP if we want to pass the certification, we have to be very in using pinvoke.
+         * In UWP if we want to pass the certification, we have to be very careful in using pinvoke.
          * In our case the win32 apis that are used to implement the desktop secure string class
          * will fail on certification.
          * We will be trying to implement something that protect our passwords
