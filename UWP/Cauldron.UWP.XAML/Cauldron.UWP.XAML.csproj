@@ -36,7 +36,7 @@
     <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>C:\Users\baltar\Source\Repos\Cauldron\Binaries\UWP\Cauldron.UWP.XAML.XML</DocumentationFile>
+    <DocumentationFile>..\..\Binaries\UWP\Cauldron.UWP.XAML.XML</DocumentationFile>
     <GenerateLibraryLayout>true</GenerateLibraryLayout>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">

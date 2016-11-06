@@ -28,7 +28,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>C:\Users\baltar\Source\Repos\Cauldron\Binaries\Desktop\Cauldron.IEnumerableExtensions.XML</DocumentationFile>
+    <DocumentationFile>..\..\Binaries\Desktop\Cauldron.IEnumerableExtensions.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
