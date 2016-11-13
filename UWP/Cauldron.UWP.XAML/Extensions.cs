@@ -448,6 +448,27 @@ namespace Cauldron.XAML
         }
 
         /// <summary>
+        /// Attaches a binding to a FrameworkElement, using the provided binding object.
+        /// </summary>
+        /// <param name="element">The <see cref="FrameworkElement"/> that is binded to</param>
+        /// <param name="dp">The dependency property identifier of the property that is data bound.</param>
+        /// <param name="source">The data source for the binding.</param>
+        /// <param name="path">The path to the binding source property.</param>
+        /// <param name="mode">Indicates the direction of the data flow in the binding.</param>
+        /// <returns>The binding that is used for the property.</returns>
+        public static Binding SetBinding(this FrameworkElement element, DependencyProperty dp, object source, PropertyPath path, BindingMode mode)
+        {
+            var binding = new Binding
+            {
+                Path = path,
+                Source = source,
+                Mode = mode
+            };
+            element.SetBinding(dp, binding);
+            return binding;
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="BitmapImage"/> and assigns the <see cref="byte"/> array to its <see cref="BitmapImage.StreamSource"/> property
         /// </summary>
         /// <param name="bytes">The array of bytes that represents the image</param>

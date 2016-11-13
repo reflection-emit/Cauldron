@@ -66,6 +66,9 @@
     <Compile Include="..\..\UWP\Cauldron.Core\Collections\ConcurrentKeyedCollection.cs">
       <Link>Collections\ConcurrentKeyedCollection.cs</Link>
     </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\Collections\ConcurrentKeyedCollectionEx.cs">
+      <Link>Collections\ConcurrentKeyedCollectionEx.cs</Link>
+    </Compile>
     <Compile Include="..\..\UWP\Cauldron.Core\Collections\ConcurrentList.cs">
       <Link>Collections\ConcurrentList.cs</Link>
     </Compile>

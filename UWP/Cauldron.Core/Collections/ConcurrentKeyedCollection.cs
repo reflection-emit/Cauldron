@@ -6,11 +6,47 @@ namespace Cauldron.Core.Collections
     /// <summary>
     /// Provides the abstract thread-safe base class for a collection whose keys are embedded in the values.
     /// </summary>
-    /// <typeparam name="TKey"></typeparam>
-    /// <typeparam name="TItem"></typeparam>
+    /// <typeparam name="TKey">The type of keys in the collection.</typeparam>
+    /// <typeparam name="TItem">The type of items in the collection.</typeparam>
     public abstract class ConcurrentKeyedCollection<TKey, TItem> : KeyedCollection<TKey, TItem>
     {
         private object lockObject = new object();
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConcurrentKeyedCollectionEx{TKey, TItem}"/> class that uses the specified equality comparer.
+        /// </summary>
+        /// <param name="comparer">
+        /// The implementation of the <see cref="IEqualityComparer{T}"/> generic
+        /// interface to use when comparing keys, or null to use the default equality comparer
+        /// for the type of the key, obtained from <see cref="EqualityComparer{T}.Default"/>.
+        /// </param>
+        protected ConcurrentKeyedCollection(IEqualityComparer<TKey> comparer) : base(comparer)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConcurrentKeyedCollectionEx{TKey, TItem}"/> class that uses the specified equality comparer.
+        /// </summary>
+        /// <param name="comparer">
+        /// The implementation of the <see cref="IEqualityComparer{T}"/> generic
+        /// interface to use when comparing keys, or null to use the default equality comparer
+        /// for the type of the key, obtained from <see cref="EqualityComparer{T}.Default"/>.
+        /// </param>
+        /// <param name="dictionaryCreationThreshold">
+        /// The number of elements the collection can hold without creating a lookup dictionary
+        /// (0 creates the lookup dictionary when the first item is added), or –1 to specify
+        /// that a lookup dictionary is never created.
+        /// </param>
+        protected ConcurrentKeyedCollection(IEqualityComparer<TKey> comparer, int dictionaryCreationThreshold) : base(comparer, dictionaryCreationThreshold)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConcurrentKeyedCollectionEx{TKey, TItem}"/> class that uses the specified equality comparer.
+        /// </summary>
+        protected ConcurrentKeyedCollection() : base()
+        {
+        }
 
         /// <summary>
         /// Adds the elements of the specified collection to the end of the <see cref="ConcurrentKeyedCollection{TKey, TItem}"/>

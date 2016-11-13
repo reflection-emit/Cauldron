@@ -118,6 +118,7 @@
     <Compile Include="Assemblies.cs" />
     <Compile Include="AsyncHelper.cs" />
     <Compile Include="Collections\ConcurrentKeyedCollection.cs" />
+    <Compile Include="Collections\ConcurrentKeyedCollectionEx.cs" />
     <Compile Include="Collections\ConcurrentList.cs" />
     <Compile Include="Collections\KeyedCollectionEx.cs" />
     <Compile Include="ComparerUtils.cs" />
