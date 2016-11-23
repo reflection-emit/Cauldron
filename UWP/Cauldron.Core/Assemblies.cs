@@ -359,22 +359,31 @@ namespace Cauldron.Core
             // Get all assemblies in AppDomain and add them to our list
             // TODO - This will not work in UWP and Core if compiled to native code
             var assemblies = new List<Assembly>();
-            assemblies.AddRange(AppDomain.CurrentDomain.GetAssemblies());
+            var domainAssemblies = AppDomain.CurrentDomain.GetAssemblies();
+            assemblies.AddRange(domainAssemblies);
+            assemblies.AddRange(domainAssemblies.SelectMany(x => x.GetReferencedAssemblies().Select(y => Assembly.Load(y))));
 
             if (callingAssembly != null)
             {
+                var asm = callingAssembly.GetReferencedAssemblies().Select(x => Assembly.Load(x));
+
                 assemblies.Add(callingAssembly);
-                assemblies.AddRange(GetAssembliesFromAssemblyNames(callingAssembly.GetReferencedAssemblies(), assemblies.Select(x => x.GetName())));
+                assemblies.AddRange(asm);
             }
 
             if (entryAssembly != null)
             {
+                var asm = entryAssembly.GetReferencedAssemblies().Select(x => Assembly.Load(x));
                 assemblies.Add(entryAssembly);
-                assemblies.AddRange(GetAssembliesFromAssemblyNames(entryAssembly.GetReferencedAssemblies(), assemblies.Select(x => x.GetName())));
+                assemblies.AddRange(asm);
             }
             assemblies.Add(typeof(Assemblies).Assembly);
 #endif
-            _assemblies = new ConcurrentList<Assembly>(assemblies.Where(x => !x.IsDynamic).Distinct());
+            _assemblies = new ConcurrentList<Assembly>(
+                assemblies
+                    .Where(x => !x.IsDynamic)
+                    .Distinct(
+                        new DynamicEqualityComparer<Assembly>((a, b) => a.FullName.Equals(b.FullName, StringComparison.InvariantCulture))));
 
             LoadedAssemblyChanged?.Invoke(null, EventArgs.Empty);
         }
@@ -434,12 +443,6 @@ namespace Cauldron.Core
                         typeInfo = x,
                         interfaces = x.ImplementedInterfaces.ToArray()
                     }));
-        }
-
-        private static IEnumerable<Assembly> GetAssembliesFromAssemblyNames(AssemblyName[] assemblyNames, IEnumerable<AssemblyName> loadedAssemblies)
-        {
-            foreach (var assemblyName in assemblyNames.Except(loadedAssemblies, new DynamicEqualityComparer<AssemblyName>((x, y) => x.FullName == y.FullName)))
-                yield return Assembly.Load(assemblyName);
         }
 
         #endregion Private Methods
