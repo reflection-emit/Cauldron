@@ -291,7 +291,14 @@ namespace Cauldron.Core.Extensions
 #else
             if (!type.IsInterface)
 #endif
-                return type.GetMethods(bindingFlags);
+            {
+                var methods = type.GetMethods(bindingFlags | BindingFlags.DeclaredOnly);
+
+                if (type.BaseType == null)
+                    return methods;
+
+                return methods.Union(type.BaseType.GetMethodsEx(bindingFlags));
+            }
 
             return type.GetInterfaces().Concat(new Type[] { type }).SelectMany(x => x.GetMethods(bindingFlags | BindingFlags.FlattenHierarchy | BindingFlags.DeclaredOnly));
         }
@@ -309,7 +316,14 @@ namespace Cauldron.Core.Extensions
 #else
             if (!type.IsInterface)
 #endif
-                return type.GetProperties(bindingFlags);
+            {
+                var properties = type.GetProperties(bindingFlags | BindingFlags.DeclaredOnly);
+
+                if (type.BaseType == null)
+                    return properties;
+
+                return properties.Union(type.BaseType.GetPropertiesEx(bindingFlags));
+            }
 
             return type.GetInterfaces().Concat(new Type[] { type }).SelectMany(x => x.GetProperties(bindingFlags | BindingFlags.FlattenHierarchy | BindingFlags.DeclaredOnly));
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cauldron.Activator;
+using System;
 
 namespace Cauldron.Injection
 {

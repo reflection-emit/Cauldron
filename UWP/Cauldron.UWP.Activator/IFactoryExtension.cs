@@ -15,9 +15,9 @@ namespace Cauldron.Activator
         bool CanHandleAmbiguousMatch { get; }
 
         /// <summary>
-        /// Returns true if a <see cref="Type"/> can be modify arguments passed to <see cref="IFactoryExtension.ModifyArgument(ParameterInfo[], object[])"/> with this <see cref="IFactoryExtension"/> implementation
+        /// Returns true if a <see cref="Type"/> can modify arguments passed to <see cref="IFactoryExtension.ModifyArgument(ParameterInfo[], object[])"/> with this <see cref="IFactoryExtension"/> implementation
         /// </summary>
-        /// <param name="method"></param>
+        /// <param name="method">The defined constructor defined by <see cref="ComponentConstructorAttribute"/></param>
         /// <param name="objectType">The <see cref="Type"/> of the object created</param>
         /// <returns>True if can be manipulated</returns>
         bool CanModifyArguments(MethodBase method, Type objectType);

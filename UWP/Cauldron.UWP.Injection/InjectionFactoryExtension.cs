@@ -1,4 +1,5 @@
 ﻿using Cauldron.Activator;
+using Cauldron.Core;
 using Cauldron.Core.Extensions;
 using System;
 using System.Collections;
@@ -24,6 +25,7 @@ namespace Cauldron.Injection
         /// <summary>
         /// Returns true if a <see cref="Type"/> can be modify arguments passed to <see cref="IFactoryExtension.ModifyArgument(ParameterInfo[], object[])"/> with this <see cref="IFactoryExtension"/> implementation
         /// </summary>
+        /// <param name="method">The defined constructor defined by <see cref="ComponentConstructorAttribute"/></param>
         /// <param name="objectType">The <see cref="Type"/> of the object created</param>
         /// <returns>True if can be manipulated</returns>
         public bool CanModifyArguments(MethodBase method, Type objectType)
@@ -80,7 +82,7 @@ namespace Cauldron.Injection
             {
                 for (int i = 0; i < info.fields.Length; i++)
                 {
-                    if (info.fields[i].FieldType.ImplementsInterface(typeof(IEnumerable<>)))
+                    if (info.fields[i].FieldType.ImplementsInterface(typeof(IEnumerable<>)) && !Factory.HasContract(info.fields[i].FieldType))
                         info.fields[i].SetValue(context, this.CreateManyObject(info.fields[i].FieldType));
                     else
                         info.fields[i].SetValue(context, Factory.Create(info.fields[i].FieldType));
@@ -91,7 +93,7 @@ namespace Cauldron.Injection
             {
                 for (int i = 0; i < info.properties.Length; i++)
                 {
-                    if (info.properties[i].PropertyType.ImplementsInterface(typeof(IEnumerable<>)))
+                    if (info.properties[i].PropertyType.ImplementsInterface(typeof(IEnumerable<>)) && !Factory.HasContract(info.properties[i].PropertyType))
                         info.properties[i].SetValue(context, this.CreateManyObject(info.properties[i].PropertyType));
                     else
                         info.properties[i].SetValue(context, Factory.Create(info.properties[i].PropertyType));
@@ -108,7 +110,7 @@ namespace Cauldron.Injection
             this.types.TryAdd(type, new ImportInstanceInfo
             {
                 fields = type.GetFieldsEx(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static).Where(x => x.GetCustomAttribute<InjectAttribute>() != null).ToArray(),
-                properties = type.GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static).Where(x => x.CanWrite && x.GetCustomAttribute<InjectAttribute>() != null).ToArray(),
+                properties = type.GetPropertiesEx(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static).Where(x => x.GetCustomAttribute<InjectAttribute>() != null).ToArray(),
             });
         }
 
@@ -116,7 +118,6 @@ namespace Cauldron.Injection
         /// Occures if multiple Types with the same <paramref name="contractName"/> was found.
         /// Should return null if <paramref name="ambiguousTypes"/> collection does not contain the required <see cref="Type"/>
         /// </summary>
-        /// <param name="callingAssembly">The Assembly of the method that invoked the <see cref="Factory"/>.</param>
         /// <param name="ambiguousTypes">A collection of Types that with the same <paramref name="contractName"/></param>
         /// <param name="contractName">The contract name of the implementations</param>
         /// <returns>The selected <see cref="Type"/></returns>
