@@ -33,6 +33,27 @@ namespace Cauldron.Core.Extensions
         private static readonly Regex _regex = new Regex(@"[?|&]([\w\.]+)=([^?|^&]+)", RegexOptions.Compiled);
 
         /// <summary>
+        /// Checkes if the string is encoded in Base64.
+        /// </summary>
+        /// <param name="str">The string to check</param>
+        /// <returns>True if the string is base 64 encoded; otherwise false</returns>
+        public static bool IsBase64String(this string str)
+        {
+            if (str.Replace(" ", "").Length % 4 != 0)
+                return false;
+
+            try
+            {
+                Convert.FromBase64String(str);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
         /// Compresses a utf8 encoded string using gzip
         /// </summary>
         /// <param name="data">The data to be compressed</param>
