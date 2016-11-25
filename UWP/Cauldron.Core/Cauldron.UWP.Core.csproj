@@ -143,6 +143,7 @@
     <Compile Include="MessageManager.cs" />
     <Compile Include="MessageObject.cs" />
     <Compile Include="MessagingArgs.cs" />
+    <Compile Include="ByteSizeFormatter.cs" />
     <Compile Include="MiscUtils.cs" />
     <Compile Include="Output.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

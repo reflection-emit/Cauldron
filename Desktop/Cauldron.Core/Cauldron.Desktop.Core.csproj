@@ -63,6 +63,9 @@
     <Compile Include="..\..\UWP\Cauldron.Core\AsyncHelper.cs">
       <Link>AsyncHelper.cs</Link>
     </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\ByteSizeFormatter.cs">
+      <Link>ByteSizeFormatter.cs</Link>
+    </Compile>
     <Compile Include="..\..\UWP\Cauldron.Core\Collections\ConcurrentKeyedCollection.cs">
       <Link>Collections\ConcurrentKeyedCollection.cs</Link>
     </Compile>
