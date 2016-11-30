@@ -84,7 +84,7 @@ namespace Cauldron.Core
         [SecurityPermission(SecurityAction.Demand, Flags = SecurityPermissionFlag.UnmanagedCode)]
         public void ProcessEvents()
         {
-            http://stackoverflow.com/questions/1106881/using-the-wpf-dispatcher-in-unit-tests
+            // http://stackoverflow.com/questions/1106881/using-the-wpf-dispatcher-in-unit-tests
 
             var frame = new DispatcherFrame();
             this.dispatcher.Invoke(DispatcherPriority.SystemIdle, new DispatcherOperationCallback(ExitFrame), frame);

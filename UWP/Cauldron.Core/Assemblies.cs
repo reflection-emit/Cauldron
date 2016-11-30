@@ -383,7 +383,7 @@ namespace Cauldron.Core
                 assemblies
                     .Where(x => !x.IsDynamic)
                     .Distinct(
-                        new DynamicEqualityComparer<Assembly>((a, b) => a.FullName.Equals(b.FullName, StringComparison.InvariantCulture))));
+                        new DynamicEqualityComparer<Assembly>((a, b) => a.FullName.Equals(b.FullName, StringComparison.OrdinalIgnoreCase))));
 
             LoadedAssemblyChanged?.Invoke(null, EventArgs.Empty);
         }

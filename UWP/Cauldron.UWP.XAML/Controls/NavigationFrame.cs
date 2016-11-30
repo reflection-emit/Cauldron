@@ -299,6 +299,26 @@ namespace Cauldron.XAML.Controls
         }
 
         /// <summary>
+        /// Tries to close all <see cref="ContentDialog"/>s and <see cref="Flyout"/>s
+        /// </summary>
+        /// <returns>Returns true if there are open dialogs, otherwise false</returns>
+        public bool TryClose()
+        {
+            if (this.dialogs.Count > 0)
+            {
+                foreach (var dialog in this.dialogs.ToArray() /* So that we can change the collection while we are looping through */)
+                {
+                    dialog.As<ContentDialog>()?.Hide();
+                    dialog.As<FlyoutBase>()?.Hide();
+                }
+            }
+            else
+                return false;
+
+            return true;
+        }
+
+        /// <summary>
         /// Tries to close a view model associated <see cref="ContentDialog"/> or <see cref="Flyout"/>
         /// </summary>
         /// <param name="viewModel">The viewmodel to that was assigned to the window's data context</param>

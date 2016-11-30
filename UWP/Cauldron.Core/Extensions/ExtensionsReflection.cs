@@ -287,17 +287,23 @@ namespace Cauldron.Core.Extensions
         public static IEnumerable<MethodInfo> GetMethodsEx(this Type type, BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static)
         {
 #if WINDOWS_UWP
+
             if (!type.GetTypeInfo().IsInterface)
 #else
             if (!type.IsInterface)
 #endif
             {
                 var methods = type.GetMethods(bindingFlags | BindingFlags.DeclaredOnly);
+#if WINDOWS_UWP
+                var baseType = type.GetTypeInfo().BaseType;
+#else
+                var baseType = type.BaseType;
+#endif
 
-                if (type.BaseType == null)
+                if (baseType == null)
                     return methods;
 
-                return methods.Union(type.BaseType.GetMethodsEx(bindingFlags));
+                return methods.Union(baseType.GetMethodsEx(bindingFlags));
             }
 
             return type.GetInterfaces().Concat(new Type[] { type }).SelectMany(x => x.GetMethods(bindingFlags | BindingFlags.FlattenHierarchy | BindingFlags.DeclaredOnly));
@@ -319,10 +325,16 @@ namespace Cauldron.Core.Extensions
             {
                 var properties = type.GetProperties(bindingFlags | BindingFlags.DeclaredOnly);
 
-                if (type.BaseType == null)
+#if WINDOWS_UWP
+                var baseType = type.GetTypeInfo().BaseType;
+#else
+                var baseType = type.BaseType;
+#endif
+
+                if (baseType == null)
                     return properties;
 
-                return properties.Union(type.BaseType.GetPropertiesEx(bindingFlags));
+                return properties.Union(baseType.GetPropertiesEx(bindingFlags));
             }
 
             return type.GetInterfaces().Concat(new Type[] { type }).SelectMany(x => x.GetProperties(bindingFlags | BindingFlags.FlattenHierarchy | BindingFlags.DeclaredOnly));
