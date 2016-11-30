@@ -147,8 +147,7 @@ namespace Cauldron.Core.Extensions
 
             if (op != null)
                 return op.Invoke(null, new object[] { value });
-
-            // if this is null try to exchange the position of the parameters... Maybe its the other way around
+            
             if (op == null)
                 op = targetType.GetMethod("op_Explicit", new Type[] { typeof(string) }, BindingFlags.Static | BindingFlags.Public);
 

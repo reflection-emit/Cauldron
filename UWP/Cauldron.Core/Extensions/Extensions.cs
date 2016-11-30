@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
-using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -30,7 +28,8 @@ namespace Cauldron.Core.Extensions
     /// </summary>
     public static class Extensions
     {
-        private static readonly Regex _regex = new Regex(@"[?|&]([\w\.]+)=([^?|^&]+)", RegexOptions.Compiled);
+        private static readonly Regex _parseQueryRegex = new Regex(@"[?|&]([\w\.]+)=([^?|^&]+)", RegexOptions.Compiled);
+        private static readonly Regex _getLinesRegex = new Regex("\r\n|\r|\n", RegexOptions.Compiled);
 
         /// <summary>
         /// Checkes if the string is encoded in Base64.
@@ -564,7 +563,7 @@ namespace Cauldron.Core.Extensions
             if (uri == null)
                 throw new ArgumentNullException(nameof(uri));
 
-            var match = _regex.Match(uri.PathAndQuery);
+            var match = _parseQueryRegex.Match(uri.PathAndQuery);
             var parameters = new Dictionary<string, string>();
             while (match.Success)
             {
@@ -573,6 +572,13 @@ namespace Cauldron.Core.Extensions
             }
             return parameters.AsReadOnly();
         }
+
+        /// <summary>
+        /// Splits a string into lines
+        /// </summary>
+        /// <param name="value">The string to be slitted</param>
+        /// <returns>The lines of the string</returns>
+        public static string[] GetLines(this string value) => _getLinesRegex.Split(value);
 
         /// <summary>
         /// Picks a random element from the given array
