@@ -147,7 +147,7 @@ namespace Cauldron.Core.Extensions
 
             if (op != null)
                 return op.Invoke(null, new object[] { value });
-            
+
             if (op == null)
                 op = targetType.GetMethod("op_Explicit", new Type[] { typeof(string) }, BindingFlags.Static | BindingFlags.Public);
 
@@ -236,6 +236,11 @@ namespace Cauldron.Core.Extensions
             if (target.Equals("true", StringComparison.CurrentCultureIgnoreCase))
                 return true;
             else if (target.Equals("false", StringComparison.CurrentCultureIgnoreCase))
+                return false;
+
+            if (target.Equals("Y", StringComparison.CurrentCultureIgnoreCase))
+                return true;
+            else if (target.Equals("N", StringComparison.CurrentCultureIgnoreCase))
                 return false;
 
             bool val;
