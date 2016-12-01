@@ -9,6 +9,9 @@ using System.Windows;
 
 namespace Cauldron.XAML
 {
+    /// <summary>
+    /// Automatically selects the correct Navigator
+    /// </summary>
     public sealed class NavigatorSelectorFactoryExtension : IFactoryExtension
     {
         /// <summary>
@@ -22,6 +25,7 @@ namespace Cauldron.XAML
         /// <summary>
         /// Returns true if a <see cref="Type"/> can be modify arguments passed to <see cref="IFactoryExtension.ModifyArgument(ParameterInfo[], object[])"/> with this <see cref="IFactoryExtension"/> implementation
         /// </summary>
+        /// <param name="method">The defined constructor defined by <see cref="ComponentConstructorAttribute"/></param>
         /// <param name="objectType">The <see cref="Type"/> of the object created</param>
         /// <returns>True if can be manipulated</returns>
         public bool CanModifyArguments(MethodBase method, Type objectType) => false;
