@@ -200,24 +200,32 @@ namespace Cauldron.Activator
             }
             else
             {
-                var types = args == null || args.Length == 0 ? Type.EmptyTypes : args.Select(x => x == null ? typeof(object) : x.GetType()).ToArray();
-                var ctor = type.GetConstructor(types);
+                // Check if the type has a predefined object constructor
+                var ctor = type.GetConstructors(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)
+                    .FirstOrDefault(x => x.GetCustomAttribute<ComponentConstructorAttribute>() != null);
 
-                if (ctor == null)
-                    ctor = type.GetConstructors(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)
-                        .FirstOrDefault(x => x.MatchesArgumentTypes(types));
-
-                if (ctor == null)
-                    ctor = type.GetConstructors(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)
-                        .FirstOrDefault(x => x.GetParameters().Length == types.Length);
-
-                if (ctor == null)
-                    throw new MissingMethodException($"A constructor with the given arguments was not found in type '{type.FullName}'");
-
-                var creatorExtension = factoryExtensions.FirstOrDefault(x => x.CanModifyArguments(ctor, type));
-                return ctor.CreateInstance(creatorExtension == null ?
+                if (ctor != null)
+                {
+                    var creatorExtension = factoryExtensions.FirstOrDefault(x => x.CanModifyArguments(ctor, type));
+                    return ctor.CreateInstance(creatorExtension == null ?
                         args :
                         creatorExtension.ModifyArgument(ctor.GetParameters(), args));
+                }
+                else if (ctor == null) // or a method acting as constructor
+                {
+                    var methodInfo = type.GetMethodsEx(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static)
+                        .FirstOrDefault(x => x.GetCustomAttribute<ComponentConstructorAttribute>() != null);
+
+                    if (methodInfo != null)
+                    {
+                        var creatorExtension = factoryExtensions.FirstOrDefault(x => x.CanModifyArguments(methodInfo, type));
+                        return methodInfo.Invoke(null, creatorExtension == null ?
+                            args :
+                            creatorExtension.ModifyArgument(ctor.GetParameters(), args));
+                    }
+                }
+
+                return type.CreateInstance(args);
             }
         }
 
