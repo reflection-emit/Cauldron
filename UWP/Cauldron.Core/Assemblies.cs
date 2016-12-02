@@ -353,37 +353,14 @@ namespace Cauldron.Core
             assemblies.Add(typeof(Assemblies).GetTypeInfo().Assembly);
 
 #else
-            var callingAssembly = Assembly.GetCallingAssembly();
-            var entryAssembly = Assembly.GetEntryAssembly();
-
             // Get all assemblies in AppDomain and add them to our list
             // TODO - This will not work in UWP and Core if compiled to native code
             var assemblies = new List<Assembly>();
             var domainAssemblies = AppDomain.CurrentDomain.GetAssemblies();
             assemblies.AddRange(domainAssemblies);
             assemblies.AddRange(domainAssemblies.SelectMany(x => x.GetReferencedAssemblies().Select(y => Assembly.Load(y))));
-
-            if (callingAssembly != null)
-            {
-                var asm = callingAssembly.GetReferencedAssemblies().Select(x => Assembly.Load(x));
-
-                assemblies.Add(callingAssembly);
-                assemblies.AddRange(asm);
-            }
-
-            if (entryAssembly != null)
-            {
-                var asm = entryAssembly.GetReferencedAssemblies().Select(x => Assembly.Load(x));
-                assemblies.Add(entryAssembly);
-                assemblies.AddRange(asm);
-            }
-            assemblies.Add(typeof(Assemblies).Assembly);
 #endif
-            _assemblies = new ConcurrentList<Assembly>(
-                assemblies
-                    .Where(x => !x.IsDynamic)
-                    .Distinct(
-                        new DynamicEqualityComparer<Assembly>((a, b) => a.FullName.Equals(b.FullName, StringComparison.OrdinalIgnoreCase))));
+            _assemblies = new ConcurrentList<Assembly>(assemblies.Where(x => !x.IsDynamic));
 
             LoadedAssemblyChanged?.Invoke(null, EventArgs.Empty);
         }
