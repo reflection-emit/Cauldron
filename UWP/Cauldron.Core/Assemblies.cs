@@ -360,7 +360,7 @@ namespace Cauldron.Core
             assemblies.AddRange(domainAssemblies);
             assemblies.AddRange(domainAssemblies.SelectMany(x => x.GetReferencedAssemblies().Select(y => Assembly.Load(y))));
 #endif
-            _assemblies = new ConcurrentList<Assembly>(assemblies.Where(x => !x.IsDynamic));
+            _assemblies = new ConcurrentList<Assembly>(assemblies.Where(x => !x.IsDynamic).Distinct());
 
             LoadedAssemblyChanged?.Invoke(null, EventArgs.Empty);
         }
