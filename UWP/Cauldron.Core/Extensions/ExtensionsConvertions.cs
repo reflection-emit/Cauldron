@@ -490,6 +490,43 @@ namespace Cauldron.Core.Extensions
         }
 
         /// <summary>
+        /// Tries to convert a <see cref="string"/> to an <see cref="ushort"/> using the en-US number format
+        /// </summary>
+        /// <param name="target">The string to convert</param>
+        /// <returns>Returns an int that represents the converted string</returns>
+        public static ushort ToUshortUS(this string target) => target.ToUshort(numberFormatInfoEnUs);
+
+        /// <summary>
+        /// Returns a 16-bit signed integer converted from four bytes at a specified position in a byte array.
+        /// </summary>
+        /// <param name="target">An array of bytes.</param>
+        /// <returns>A 16-bit signed integer formed by four bytes</returns>
+        public static ushort ToUshort(this byte[] target) => BitConverter.ToUInt16(target, 0);
+
+        /// <summary>
+        /// Tries to convert a <see cref="string"/> to an <see cref="ushort"/>
+        /// </summary>
+        /// <param name="target">The string to convert</param>
+        /// <returns>Returns an int that represents the converted string</returns>
+        public static ushort ToUshort(this string target) => target.ToUshort(cultureInfo.NumberFormat);
+
+        /// <summary>
+        /// Tries to convert a <see cref="string"/> to an <see cref="ushort"/>
+        /// </summary>
+        /// <param name="target">The string to convert</param>
+        /// <returns>Returns an int that represents the converted string</returns>
+        /// <param name="numberformat">An object that supplies culture-specific formatting information about <paramref name="target"/>.</param>
+        public static ushort ToUshort(this string target, NumberFormatInfo numberformat)
+        {
+            ushort result;
+
+            if (ushort.TryParse(target, NumberStyles.Any, numberformat, out result))
+                return result;
+
+            return ushort.MinValue;
+        }
+
+        /// <summary>
         /// Tries to convert a <see cref="string"/> to an <see cref="int"/> using the en-US number format
         /// </summary>
         /// <param name="target">The string to convert</param>
