@@ -1,8 +1,18 @@
 ﻿namespace Cauldron.Potions
 {
+    /// <summary>
+    /// Representing a list of connection types
+    /// </summary>
     public enum ConnectionGenerationTypes
     {
+        /// <summary>
+        /// Not Connected
+        /// </summary>
         NotConnected = 0,
+
+        /// <summary>
+        /// Unknown connection
+        /// </summary>
         Unknown = 1,
 
         /// <summary>

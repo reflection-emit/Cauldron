@@ -27,6 +27,35 @@ namespace Cauldron.XAML.Interactivity.Attached
     /// </summary>
     public static class ButtonProperties
     {
+        #region Dependency Attached Property Text
+
+        /// <summary>
+        /// Identifies the Text dependency property
+        /// </summary>
+        public static readonly DependencyProperty TextProperty = DependencyProperty.RegisterAttached("Text", typeof(string), typeof(ButtonProperties), new PropertyMetadata(null));
+
+        /// <summary>
+        /// Gets the value of Text
+        /// </summary>
+        /// <param name="obj"><see cref="DependencyObject" /> with the attached property</param>
+        /// <returns>The value of the attached property</returns>
+        public static string GetText(DependencyObject obj)
+        {
+            return (string)obj.GetValue(TextProperty);
+        }
+
+        /// <summary>
+        /// Sets the value of the Text attached property
+        /// </summary>
+        /// <param name="obj"><see cref="DependencyObject" /> with the attached property</param>
+        /// <param name="value">The new value to set</param>
+        public static void SetText(DependencyObject obj, string value)
+        {
+            obj.SetValue(TextProperty, value);
+        }
+
+        #endregion Dependency Attached Property Text
+
         #region Dependency Attached Property ImageKey
 
         /// <summary>

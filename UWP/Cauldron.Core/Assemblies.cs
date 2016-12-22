@@ -284,63 +284,54 @@ namespace Cauldron.Core
         /// <summary>
         /// Loads the contents of all assemblies that matches the specified filter
         /// </summary>
+        /// <param name="directory">The directory where the assemblies are located</param>
         /// <param name="filter">
         /// The search string to match against the names of files in <see cref="ApplicationInfo.ApplicationPath"/>. This parameter can contain a combination of
         /// valid literal path and wildcard (* and ?) characters (see Remarks), but doesn't support regular expressions.
         /// </param>
         /// <exception cref="FileLoadException">A file that was found could not be loaded</exception>
-        public static void LoadAssembly(string filter = "*.dll")
+        public static void LoadAssembly(DirectoryInfo directory, string filter = "*.dll")
         {
-            foreach (var files in Directory.GetFiles(ApplicationInfo.ApplicationPath, filter, SearchOption.AllDirectories))
-                LoadAssembly(files, false);
+            foreach (var files in directory.GetFiles(filter))
+                LoadAssembly(files);
         }
 
         /// <summary>
         /// Loads the contents of an assembly file on the specified path.
         /// </summary>
-        /// <param name="path">The fully qualified path of the file to load.</param>
-        /// <param name="relativPath">A value that indicates if the parameter <paramref name="path"/> is a relative path or not.</param>
-        /// <exception cref="ArgumentException">The <paramref name="path"/> argument is not an absolute path.</exception>
-        /// <exception cref="ArgumentNullException">The <paramref name="path"/> parameter is null.</exception>
+        /// <param name="fileInfo">The path of filename of the assembly</param>
+        /// <exception cref="NotSupportedException">The <paramref name="fileInfo"/> is a dynamic assembly.</exception>
+        /// <exception cref="ArgumentNullException">The <paramref name="fileInfo"/> parameter is null.</exception>
         /// <exception cref="FileLoadException">A file that was found could not be loaded</exception>
-        /// <exception cref="FileNotFoundException">The <paramref name="path"/> parameter is an empty string ("") or does not exist</exception>
-        /// <exception cref="BadImageFormatException"><paramref name="path"/> is not a valid assembly.</exception>
-        /// <returns>Returns true if the Assembly was loaded succesfully, otherwise false</returns>
-        public static bool LoadAssembly(string path, bool relativPath = true)
+        /// <exception cref="FileNotFoundException">The <paramref name="fileInfo"/> does not exist</exception>
+        /// <exception cref="BadImageFormatException"><paramref name="fileInfo"/> is not a valid assembly.</exception>
+        public static void LoadAssembly(FileInfo fileInfo)
         {
-            try
+            if (fileInfo == null)
+                throw new ArgumentNullException(nameof(fileInfo));
+
+            if (!fileInfo.Exists)
+                throw new FileNotFoundException($"The file '{fileInfo.FullName}' does not exist");
+
+            var assembly = Assembly.LoadFile(fileInfo.FullName);
+
+            if (assembly.IsDynamic)
+                throw new NotSupportedException($"Dynamic assemblies are not supported.");
+
+            if (Assemblies.Known.Any(x => x.ManifestModule.Name == assembly.ManifestModule.Name))
+                return; // this is already loaded... No need to load again
+
+            Assemblies.Known.Add(assembly);
+
+            var definedTypes = FilterTypes(assembly.DefinedTypes).Select(x => new TypesWithImplementedInterfaces
             {
-                var assemblyPath = string.Empty;
+                interfaces = x.ImplementedInterfaces.ToArray(),
+                typeInfo = x
+            });
 
-                if (relativPath)
-                    assemblyPath = Path.Combine(ApplicationInfo.ApplicationPath, path);
-                else
-                    assemblyPath = path;
-
-                var assembly = Assembly.LoadFile(assemblyPath);
-
-                if (assembly.IsDynamic || Assemblies.Known.Any(x => x.ManifestModule.Name == assembly.ManifestModule.Name))
-                    return true; // this is already loaded... No need to load again
-
-                Assemblies.Known.Add(assembly);
-                var definedTypes = FilterTypes(assembly.DefinedTypes).Select(x => new TypesWithImplementedInterfaces
-                {
-                    interfaces = x.ImplementedInterfaces.ToArray(),
-                    typeInfo = x
-                });
-                typesWithImplementedInterfaces.AddRange(definedTypes);
-
-                AssemblyAndResourceNamesInfo.AddRange(assembly.GetManifestResourceNames().Select(x => new AssemblyAndResourceNameInfo(assembly, x)));
-
-                LoadedAssemblyChanged?.Invoke(null, EventArgs.Empty);
-
-                return true;
-            }
-            catch (Exception e)
-            {
-                Output.WriteLineError("An error has occured while loading the assembly '{0}'\r\n{1}", path, e.Message);
-                return false;
-            }
+            typesWithImplementedInterfaces.AddRange(definedTypes);
+            AssemblyAndResourceNamesInfo.AddRange(assembly.GetManifestResourceNames().Select(x => new AssemblyAndResourceNameInfo(assembly, x)));
+            LoadedAssemblyChanged?.Invoke(null, EventArgs.Empty);
         }
 
 #endif
@@ -353,12 +344,28 @@ namespace Cauldron.Core
             assemblies.Add(typeof(Assemblies).GetTypeInfo().Assembly);
 
 #else
+
             // Get all assemblies in AppDomain and add them to our list
             // TODO - This will not work in UWP and Core if compiled to native code
-            var assemblies = new List<Assembly>();
-            var domainAssemblies = AppDomain.CurrentDomain.GetAssemblies();
-            assemblies.AddRange(domainAssemblies);
-            assemblies.AddRange(domainAssemblies.SelectMany(x => x.GetReferencedAssemblies().Select(y => Assembly.Load(y))));
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies().ToList();
+            var loadedPaths = assemblies.Select(x => x.Location);
+
+            var referencedPaths = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll");
+            var assembliesToLoad = referencedPaths.Where(x => !loadedPaths.Contains(x, StringComparer.InvariantCultureIgnoreCase));
+
+            foreach (var path in assembliesToLoad)
+            {
+                try
+                {
+                    assemblies.Add(AppDomain.CurrentDomain.Load(AssemblyName.GetAssemblyName(path)));
+                }
+                catch (Exception e)
+                {
+                    Output.WriteLineError("Error while loading an assembly" + e.Message);
+                }
+            }
+
+            assemblies.AddRange(assemblies.SelectMany(x => x.GetReferencedAssemblies().Select(y => Assembly.Load(y))));
 #endif
             _assemblies = new ConcurrentList<Assembly>(assemblies.Where(x => !x.IsDynamic).Distinct());
 
