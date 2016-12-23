@@ -334,27 +334,6 @@ namespace Cauldron.Core
             LoadedAssemblyChanged?.Invoke(null, EventArgs.Empty);
         }
 
-        private static Assembly ResolveAssembly(Object sender, ResolveEventArgs e)
-        {
-            var message = $"Assembly '{e.RequestingAssembly.FullName}' requesting for '{e.Name}'";
-            Console.WriteLine(message);
-            Output.WriteLineInfo(message);
-
-            var assembly = _assemblies.FirstOrDefault(x => x.FullName == e.Name);
-
-            // Try to load it from application directory
-            if (assembly == null)
-            {
-                var file = Path.Combine(ApplicationInfo.ApplicationPath, $"{new AssemblyName(e.Name).Name}.dll");
-                if (!File.Exists(file))
-                    return null;
-
-                return Assembly.LoadFrom(file);
-            }
-
-            return assembly;
-        }
-
 #endif
 
         private static void GetAllAssemblies()
@@ -408,6 +387,31 @@ namespace Cauldron.Core
             // TODO - will this be ever invoked at all?
             LoadedAssemblyChanged?.Invoke(null, EventArgs.Empty);
         }
+
+#if !WINDOWS_UWP
+
+        private static Assembly ResolveAssembly(Object sender, ResolveEventArgs e)
+        {
+            var message = $"Assembly '{e.RequestingAssembly.FullName}' requesting for '{e.Name}'";
+            Console.WriteLine(message);
+            Output.WriteLineInfo(message);
+
+            var assembly = _assemblies.FirstOrDefault(x => x.FullName == e.Name || e.Name.StartsWith(x.GetName().Name));
+
+            // Try to load it from application directory
+            if (assembly == null)
+            {
+                var file = Path.Combine(ApplicationInfo.ApplicationPath, $"{new AssemblyName(e.Name).Name}.dll");
+                if (!File.Exists(file))
+                    return null;
+
+                return Assembly.LoadFile(file);
+            }
+
+            return assembly;
+        }
+
+#endif
 
         #region Private Methods
 
