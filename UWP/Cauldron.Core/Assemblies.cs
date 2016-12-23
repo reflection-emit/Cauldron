@@ -477,10 +477,7 @@ namespace Cauldron.Core
             public Type[] interfaces;
             public TypeInfo typeInfo;
 
-            public override string ToString()
-            {
-                return typeInfo.ToString() + " (" + interfaces.Count() + ")";
-            }
+            public override string ToString() => typeInfo.ToString() + " (" + interfaces.Count() + ")";
         }
     }
 }
