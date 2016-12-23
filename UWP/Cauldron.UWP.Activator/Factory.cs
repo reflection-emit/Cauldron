@@ -165,6 +165,7 @@ namespace Cauldron.Activator
         /// </param>
         /// <returns>A reference to the newly created object.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="type"/> is null</exception>
+        /// <exception cref="NotImplementedException">Implementation of <paramref name="type"/> not found</exception>
         public static object CreateInstance(Type type, params object[] args)
         {
             if (type == null)
@@ -173,59 +174,71 @@ namespace Cauldron.Activator
             // First check if we can use predefined constructors
             var factoryType = Factory.types.FirstOrDefault(x => x.type == type && (x.objectConstructorMethodInfo != null || x.objectConstructorInfo != null));
 
-            if (factoryType != null)
+            try
             {
-                if (factoryType.objectConstructorInfo != null)
+                if (factoryType != null)
                 {
-                    var ctor = factoryType.objectConstructorInfo;
-                    var creatorExtension = factoryExtensions.FirstOrDefault(x => x.CanModifyArguments(ctor, type));
+                    if (factoryType.objectConstructorInfo != null)
+                    {
+                        var ctor = factoryType.objectConstructorInfo;
+                        var creatorExtension = factoryExtensions.FirstOrDefault(x => x.CanModifyArguments(ctor, type));
 
-                    return ctor.CreateInstance(
-                        creatorExtension == null ?
-                        args :
-                        creatorExtension.ModifyArgument(
-                            factoryType.objectConstructorInfo.GetParameters(),
-                            args));
-                }
-                else
-                {
-                    var creatorExtension = factoryExtensions.FirstOrDefault(x => x.CanModifyArguments(factoryType.objectConstructorMethodInfo, type));
-                    return factoryType.objectConstructorMethodInfo.Invoke(null,
+                        return ctor.CreateInstance(
                             creatorExtension == null ?
                             args :
                             creatorExtension.ModifyArgument(
-                                factoryType.objectConstructorMethodInfo.GetParameters(),
+                                factoryType.objectConstructorInfo.GetParameters(),
                                 args));
+                    }
+                    else
+                    {
+                        var creatorExtension = factoryExtensions.FirstOrDefault(x => x.CanModifyArguments(factoryType.objectConstructorMethodInfo, type));
+                        return factoryType.objectConstructorMethodInfo.Invoke(null,
+                                creatorExtension == null ?
+                                args :
+                                creatorExtension.ModifyArgument(
+                                    factoryType.objectConstructorMethodInfo.GetParameters(),
+                                    args));
+                    }
                 }
-            }
-            else
-            {
-                // Check if the type has a predefined object constructor
-                var ctor = type.GetConstructors(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)
-                    .FirstOrDefault(x => x.GetCustomAttribute<ComponentConstructorAttribute>() != null);
-
-                if (ctor != null)
+                else
                 {
-                    var creatorExtension = factoryExtensions.FirstOrDefault(x => x.CanModifyArguments(ctor, type));
-                    return ctor.CreateInstance(creatorExtension == null ?
-                        args :
-                        creatorExtension.ModifyArgument(ctor.GetParameters(), args));
-                }
-                else if (ctor == null) // or a method acting as constructor
-                {
-                    var methodInfo = type.GetMethodsEx(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static)
+                    // Check if the type has a predefined object constructor
+                    var ctor = type.GetConstructors(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)
                         .FirstOrDefault(x => x.GetCustomAttribute<ComponentConstructorAttribute>() != null);
 
-                    if (methodInfo != null)
+                    if (ctor != null)
                     {
-                        var creatorExtension = factoryExtensions.FirstOrDefault(x => x.CanModifyArguments(methodInfo, type));
-                        return methodInfo.Invoke(null, creatorExtension == null ?
+                        var creatorExtension = factoryExtensions.FirstOrDefault(x => x.CanModifyArguments(ctor, type));
+                        return ctor.CreateInstance(creatorExtension == null ?
                             args :
                             creatorExtension.ModifyArgument(ctor.GetParameters(), args));
                     }
-                }
+                    else if (ctor == null) // or a method acting as constructor
+                    {
+                        var methodInfo = type.GetMethodsEx(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static)
+                            .FirstOrDefault(x => x.GetCustomAttribute<ComponentConstructorAttribute>() != null);
 
-                return type.CreateInstance(args);
+                        if (methodInfo != null)
+                        {
+                            var creatorExtension = factoryExtensions.FirstOrDefault(x => x.CanModifyArguments(methodInfo, type));
+                            return methodInfo.Invoke(null, creatorExtension == null ?
+                                args :
+                                creatorExtension.ModifyArgument(ctor.GetParameters(), args));
+                        }
+                    }
+
+                    return type.CreateInstance(args);
+                }
+            }
+            catch (CreateInstanceIsAnInterfaceException e)
+            {
+                Console.WriteLine($"Implementation of '{type.FullName}' not found.");
+                throw new NotImplementedException($"Unable to find the implementation of '{type.FullName}'. Make sure that the Assembly with implementation was loaded in the AppDomain.", e);
+            }
+            catch
+            {
+                throw;
             }
         }
 

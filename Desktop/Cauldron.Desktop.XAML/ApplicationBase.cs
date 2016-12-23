@@ -46,7 +46,7 @@ namespace Cauldron.XAML
             this.OnConstruction();
             this.ShutdownMode = ShutdownMode.OnMainWindowClose;
 
-            Assemblies.LoadAssembly();
+            //Assemblies.LoadAssembly();
 
             // Add the custom template selector to the resources
             this.Resources.Add(typeof(CauldronTemplateSelector).Name, new CauldronTemplateSelector());

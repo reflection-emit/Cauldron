@@ -334,6 +334,27 @@ namespace Cauldron.Core
             LoadedAssemblyChanged?.Invoke(null, EventArgs.Empty);
         }
 
+        private static Assembly ResolveAssembly(Object sender, ResolveEventArgs e)
+        {
+            var message = $"Assembly '{e.RequestingAssembly.FullName}' requesting for '{e.Name}'";
+            Console.WriteLine(message);
+            Output.WriteLineInfo(message);
+
+            var assembly = _assemblies.FirstOrDefault(x => x.FullName == e.Name);
+
+            // Try to load it from application directory
+            if (assembly == null)
+            {
+                var file = Path.Combine(ApplicationInfo.ApplicationPath, $"{new AssemblyName(e.Name).Name}.dll");
+                if (!File.Exists(file))
+                    return null;
+
+                return Assembly.LoadFrom(file);
+            }
+
+            return assembly;
+        }
+
 #endif
 
         private static void GetAllAssemblies()
@@ -344,31 +365,47 @@ namespace Cauldron.Core
             assemblies.Add(typeof(Assemblies).GetTypeInfo().Assembly);
 
 #else
+            AppDomain.CurrentDomain.AssemblyResolve += ResolveAssembly;
+            AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += ResolveAssembly;
 
             // Get all assemblies in AppDomain and add them to our list
             // TODO - This will not work in UWP and Core if compiled to native code
-            var assemblies = AppDomain.CurrentDomain.GetAssemblies().ToList();
-            var loadedPaths = assemblies.Select(x => x.Location);
+            var assemblies = new List<Assembly>();
 
-            var referencedPaths = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll");
-            var assembliesToLoad = referencedPaths.Where(x => !loadedPaths.Contains(x, StringComparer.InvariantCultureIgnoreCase));
-
-            foreach (var path in assembliesToLoad)
+            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
                 try
                 {
-                    assemblies.Add(AppDomain.CurrentDomain.Load(AssemblyName.GetAssemblyName(path)));
+                    assemblies.Add(assembly);
+
+                    // Get all referenced Assembly
+                    foreach (var referencedAssembly in assembly.GetReferencedAssemblies())
+                    {
+                        // We have to do this one by one instead of linq in order to be able to react to loading errors
+                        try
+                        {
+                            assemblies.Add(Assembly.Load(referencedAssembly));
+                        }
+                        catch (Exception e)
+                        {
+                            var message = "Error while loading an assembly" + e.Message;
+                            Console.WriteLine(message);
+                            Output.WriteLineError(message);
+                        }
+                    }
                 }
                 catch (Exception e)
                 {
-                    Output.WriteLineError("Error while loading an assembly" + e.Message);
+                    var message = "Error while loading an assembly" + e.Message;
+                    Console.WriteLine(message);
+                    Output.WriteLineError(message);
                 }
             }
 
-            assemblies.AddRange(assemblies.SelectMany(x => x.GetReferencedAssemblies().Select(y => Assembly.Load(y))));
 #endif
             _assemblies = new ConcurrentList<Assembly>(assemblies.Where(x => !x.IsDynamic).Distinct());
 
+            // TODO - will this be ever invoked at all?
             LoadedAssemblyChanged?.Invoke(null, EventArgs.Empty);
         }
 

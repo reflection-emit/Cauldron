@@ -49,10 +49,14 @@ namespace Cauldron.Core.Extensions
         /// </param>
         /// <returns>A reference to the newly created object.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="type"/> is null</exception>
+        /// <exception cref="CreateInstanceIsAnInterfaceException"><paramref name="type"/> is an interface</exception>
         public static object CreateInstance(this Type type, params object[] args)
         {
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
+
+            if (type.IsInterface)
+                throw new CreateInstanceIsAnInterfaceException("Unable to create an instance from an interface: " + type.FullName);
 
             var types = args == null || args.Length == 0 ? Type.EmptyTypes : args.Select(x => x == null ? typeof(object) : x.GetType()).ToArray();
             var ctor = type.GetConstructor(types);

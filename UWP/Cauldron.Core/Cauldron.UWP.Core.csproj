@@ -126,6 +126,7 @@
     <Compile Include="DateTimeUtils.cs" />
     <Compile Include="DeviceFamilies.cs" />
     <Compile Include="DispatcherEx.cs" />
+    <Compile Include="CreateInstanceIsAnInterfaceException.cs" />
     <Compile Include="DisposableBase.cs" />
     <Compile Include="DynamicEqualityComparer.cs" />
     <Compile Include="ExecutionTimer.cs" />
