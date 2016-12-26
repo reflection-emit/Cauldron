@@ -408,6 +408,16 @@ namespace Cauldron.Core
                 return Assembly.LoadFile(file);
             }
 
+            // Try to load it from current domain's base directory
+            if (assembly == null)
+            {
+                var file = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"{new AssemblyName(e.Name).Name}.dll");
+                if (!File.Exists(file))
+                    return null;
+
+                return Assembly.LoadFile(file);
+            }
+
             return assembly;
         }
 
