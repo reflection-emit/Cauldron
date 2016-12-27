@@ -163,10 +163,32 @@ namespace Cauldron.Core
             if (resourceInfoName.Length == 0)
                 throw new ArgumentException("The parameter is an empty string", nameof(resourceInfoName));
 
-            var result = AssemblyAndResourceNamesInfo.FirstOrDefault(x => x.Filename.EndsWith(resourceInfoName, StringComparison.OrdinalIgnoreCase));
+            var result = GetManifestResource(x => x.Filename.EndsWith(resourceInfoName, StringComparison.OrdinalIgnoreCase));
 
             if (result == null)
                 throw new FileNotFoundException("resourceInfoName was not found.");
+
+            return result;
+        }
+
+        /// <summary>
+        /// Loads the specified manifest resource from this assembly.
+        /// </summary>
+        /// <param name="selector"></param>
+        /// <returns>The manifest resource; or null if no resources were specified during compilation or if the resource is not visible to the caller.</returns>
+        /// <exception cref="ArgumentNullException">The <paramref name="selector"/> parameter is null</exception>
+        /// <exception cref="ArgumentException">The <paramref name="selector"/> parameter is an empty string</exception>
+        /// <exception cref="FileLoadException">A file that was found could not be loaded.</exception>
+        /// <exception cref="NotImplementedException">Resource length is greater than <see cref="Int64.MaxValue"/></exception>
+        public static byte[] GetManifestResource(Func<AssemblyAndResourceNameInfo, bool> selector)
+        {
+            if (selector == null)
+                throw new ArgumentNullException(nameof(selector));
+
+            var result = AssemblyAndResourceNamesInfo.FirstOrDefault(x => selector(x));
+
+            if (result == null)
+                return null;
 
             using (var stream = result.Assembly.GetManifestResourceStream(result.Filename))
             {
