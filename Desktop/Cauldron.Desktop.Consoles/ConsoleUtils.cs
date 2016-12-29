@@ -5,8 +5,61 @@ using System.Linq;
 
 namespace Cauldron.Consoles
 {
+    /// <summary>
+    /// A collection of console utilities
+    /// </summary>
     public static class ConsoleUtils
     {
+        /// <summary>
+        /// Retrieves the window handle used by the console associated with the calling process.
+        /// </summary>
+        /// <returns>The return value is a handle to the window used by the console associated with the calling process or NULL if there is no such associated console.</returns>
+        public static IntPtr GetConsoleWindowHandle() => UnsafeNative.GetConsoleWindow();
+
+        /// <summary>
+        /// Hides the application's console
+        /// </summary>
+        public static bool HideConsole()
+        {
+            try
+            {
+                var handle = UnsafeNative.GetConsoleWindow();
+
+                if (handle == null || handle == IntPtr.Zero)
+                    return false;
+
+                return UnsafeNative.ShowWindow(handle, UnsafeNative.SW_HIDE);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Shows the application's console
+        /// </summary>
+        public static bool ShowConsole()
+        {
+            try
+            {
+                var handle = UnsafeNative.GetConsoleWindow();
+
+                if (handle == null || handle == IntPtr.Zero)
+                    return false;
+
+                return UnsafeNative.ShowWindow(handle, UnsafeNative.SW_SHOW);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Writes the specified table to the standard output stream
+        /// </summary>
+        /// <param name="columns">The table to write</param>
         public static void WriteTable(params ConsoleTableColumn[] columns)
         {
             if (columns.Length == 0)
@@ -108,7 +161,7 @@ namespace Cauldron.Consoles
             {
                 if (totalLineLength + word.Length > maximumLength)
                 {
-                    result.Add(string.Join(" ", currentLine));
+                    result.Add(currentLine.Join(" "));
                     currentLine.Clear();
                     totalLineLength = 0;
                 }
@@ -117,7 +170,7 @@ namespace Cauldron.Consoles
                 totalLineLength += word.Length;
             }
 
-            result.Add(string.Join(" ", currentLine));
+            result.Add(currentLine.Join(" "));
             return result.ToArray();
         }
 

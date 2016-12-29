@@ -1,4 +1,5 @@
 ﻿using Cauldron.Activator;
+using Cauldron.Core.Extensions;
 using Cauldron.IEnumerableExtensions;
 using Cauldron.XAML.Validation;
 using Cauldron.XAML.Validation.ViewModels;
@@ -115,7 +116,7 @@ namespace Cauldron.Test
             var vm = Factory.Create<SparrowViewModel>();
             vm.Name = "";
             vm.Validate();
-            var errorMessage = string.Join("\n", vm.GetErrors(nameof(SparrowViewModel.Name)).ToArray_<string>());
+            var errorMessage = vm.GetErrors(nameof(SparrowViewModel.Name)).ToArray_<string>().Join("\n");
 
             Assert.IsFalse(string.IsNullOrEmpty(errorMessage));
         }

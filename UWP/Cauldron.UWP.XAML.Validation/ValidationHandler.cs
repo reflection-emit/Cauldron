@@ -196,7 +196,7 @@ namespace Cauldron.XAML.Validation
 
         private void RaiseErrorsChanged(string propertyName)
         {
-            this.Errors = string.Join("\r\n", this.errors.Values.SelectMany(x => x));
+            this.Errors = this.errors.Values.SelectMany(x => x).Join("\r\n");
 
             if (ErrorsChanged != null)
                 ErrorsChanged(this, new DataErrorsChangedEventArgs(propertyName));

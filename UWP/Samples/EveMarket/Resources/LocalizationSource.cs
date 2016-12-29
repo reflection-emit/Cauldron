@@ -26,8 +26,10 @@ namespace EveMarket.Resources
         {
             var lang = this.localizations[key];
 
-            if (twoLetterISOLanguageName == "de" && lang.German != null) return string.Join("\r\n", lang.German);
-            else return string.Join("\r\n", lang.English); // English is the default language
+            if (twoLetterISOLanguageName == "de" && lang.German != null)
+                return lang.German.Join("\r\n");
+            else
+                return lang.English.Join("\r\n"); // English is the default language
         }
     }
 }

@@ -109,7 +109,7 @@ namespace Cauldron.XAML
                 throw new ArgumentNullException(nameof(xamlText));
 
 #if WINDOWS_UWP
-            var xmlns = string.Join(" ", new string[] /* Will not work in UWP Release */
+            var xmlns = new string[] /* Will not work in UWP Release */
               {
                         "xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"",
                         "xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\"",
@@ -118,16 +118,16 @@ namespace Cauldron.XAML
                         "xmlns:i=\"using:Cauldron.XAML.Interactivity\"",
                         "xmlns:b=\"using:Cauldron.XAML.Interactivity.BehaviourInvocation\"",
                         "xmlns:controls=\"using:Cauldron.XAML.Controls\"",
-              });
+              }.Join(" ");
 #else
-            var xmlns = string.Join(" ", new string[]
+            var xmlns = new string[]
               {
                         "xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"",
                         "xmlns:a=\"clr-namespace:Cauldron.XAML.Interactivity.Attached;assembly=Cauldron.XAML.Interactivity\"",
                         "xmlns:act=\"clr-namespace:Cauldron.XAML.Interactivity.Actions;assembly=Cauldron.XAML.Interactivity\"",
                         "xmlns:i=\"clr-namespace:Cauldron.XAML.Interactivity;assembly=Cauldron.XAML.Interactivity\"",
                         "xmlns:b=\"clr-namespace:Cauldron.XAML.Interactivity.BehaviourInvocation;assembly=Cauldron.XAML.Interactivity\"",
-              });
+              }.Join(" ");
 #endif
 
             var xaml = xamlText.Replace("<Inline>\r\n", $"<Span {xmlns}>")

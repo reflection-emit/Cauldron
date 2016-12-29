@@ -10,13 +10,13 @@ namespace SampleConsoleApplication
         {
             try
             {
-                var parser = new ParameterParser();
-                parser.Parse(args, new MainExecutionGroup());
+                var parser = new ParameterParser(new MainExecutionGroup());
+                parser.Parse(args);
                 parser.Execute();
             }
             catch (RequiredParametersMissingException requiredE)
             {
-                Console.WriteLine("Required parameters were not set: " + string.Join(", ", requiredE.MissingRequiredParameters));
+                Console.WriteLine("Required parameters were not set: " + requiredE.MissingRequiredParameters.Join(", "));
                 Environment.Exit(3);
             }
             catch (UnknownParameterException unknownE)

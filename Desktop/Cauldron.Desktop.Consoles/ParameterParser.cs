@@ -10,6 +10,9 @@ using System.Reflection;
 
 namespace Cauldron.Consoles
 {
+    /// <summary>
+    /// Parses the parameters passed to the application
+    /// </summary>
     public sealed class ParameterParser
     {
         internal const char ParameterKey = '-';
@@ -18,10 +21,21 @@ namespace Cauldron.Consoles
 
         private Locale locale;
 
-        public ParameterParser()
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ParameterParser"/> class
+        /// </summary>
+        /// <param name="executionGroups">The execution groups to parse to</param>
+        public ParameterParser(params IExecutionGroup[] executionGroups)
         {
             if (Factory.HasContract(typeof(ILocalizationSource)))
                 this.locale = Factory.Create<Locale>();
+
+            this.executionGroups = executionGroups
+                .Select(x => new ExecutionGroupProperties
+                {
+                    Attribute = x.GetType().GetCustomAttribute<ExecutionGroupAttribute>(),
+                    ExecutionGroup = x
+                }).ToList();
         }
 
         /// <summary>
@@ -44,30 +58,29 @@ namespace Cauldron.Consoles
         /// </summary>
         public ConsoleColor UsageExampleColor { get; set; } = ConsoleColor.DarkGray;
 
+        /// <summary>
+        /// Starts the execution of the execution groups
+        /// </summary>
         public void Execute()
         {
             if (!this.isInitialized)
                 throw new Exception("Execute Parse(object, string[]) first before invoking Execute()");
 
-            var activatedGroups = this.executionGroups.Where(x => x.ExecutionGroup.CanExecute).OrderBy(x => x.Attribute.GroupIndex);
-
-            foreach (var groups in activatedGroups)
+            foreach (var groups in this.executionGroups
+                .Where(x => x.ExecutionGroup.CanExecute)
+                .OrderBy(x => x.Attribute.GroupIndex))
             {
                 groups.ExecutionGroup.Execute(this);
                 Console.ResetColor();
             }
         }
 
-        public void Parse(string[] args, params IExecutionGroup[] executionGroups)
+        /// <summary>
+        /// Starts the parsing of the arguments
+        /// </summary>
+        /// <param name="args">A list of arguments that was passed to the application</param>
+        public void Parse(string[] args)
         {
-            var executionGroupProperties = executionGroups
-                .Select(x => new ExecutionGroupProperties
-                {
-                    Attribute = x.GetType().GetCustomAttribute<ExecutionGroupAttribute>(),
-                    ExecutionGroup = x
-                });
-
-            this.executionGroups = executionGroupProperties.ToList();
             ParseGroups(this.executionGroups);
             var flatList = this.executionGroups.SelectMany(x => x.Parameters);
 
@@ -79,7 +92,7 @@ namespace Cauldron.Consoles
                 .Where(x => x.Skip(1).Any())
                 .Select(x => x.Key);
             if (doubles.Any())
-                throw new Exception("ParameterParser has found duplicate parameters in your parameter list. Please make sure that there are no doubles. " + string.Join(", ", doubles));
+                throw new Exception("ParameterParser has found duplicate parameters in your parameter list. Please make sure that there are no doublets. " + doubles.Join(", "));
 
             this.isInitialized = true;
 
@@ -91,15 +104,18 @@ namespace Cauldron.Consoles
                 var requiredParameters = activatedGroups.SelectMany(x => x.Parameters.Where(y => y.Attribute.IsRequired && y.PropertyInfo.GetValue(x.ExecutionGroup) == null));
 
                 if (requiredParameters.Any())
-                    throw new RequiredParametersMissingException("Unable to continue. Required parameters are not set.", requiredParameters.Select(x => x.Parameters[0]).ToArray());
+                    throw new RequiredParametersMissingException("Unable to continue. Required parameters are not set.", requiredParameters.Select(x => x.Parameters.RandomPick()).ToArray());
             }
             catch
             {
-                ShowHelp();
+                this.ShowHelp();
                 throw;
             }
         }
 
+        /// <summary>
+        /// Shows the help page of the application
+        /// </summary>
         public void ShowHelp()
         {
             if (!this.isInitialized)
@@ -109,6 +125,7 @@ namespace Cauldron.Consoles
 
             Console.Write("\n\n");
 
+            // Write the application info
             ConsoleUtils.WriteTable(new ConsoleTableColumn[]
             {
                 new ConsoleTableColumn(
@@ -137,25 +154,29 @@ namespace Cauldron.Consoles
 
             foreach (var group in this.executionGroups.OrderBy(x => x.Attribute.GroupIndex))
             {
+                // Write the group name and divider
                 Console.ForegroundColor = this.GroupColor;
-                Console.WriteLine((hasSource ? this.locale[group.Attribute.GroupName] : group.Attribute.GroupName).PadRight(Console.WindowWidth - 1, '…'));
+                Console.WriteLine((hasSource ? this.locale[group.Attribute.GroupName] : group.Attribute.GroupName).PadRight(Console.WindowWidth - 1, '.'));
 
-                Console.ForegroundColor = this.UsageExampleColor;
-                if (hasSource)
-                    Console.WriteLine(this.locale["usage-example"] + ": " + Path.GetFileName(assembly.Location) + " " + group.Attribute.UsageExample);
-                else
-                    Console.WriteLine("Usage example: " + Path.GetFileName(assembly.Location) + " " + group.Attribute.UsageExample);
+                // Write the usage example if there is one
+                if (!string.IsNullOrEmpty(group.Attribute.UsageExample))
+                {
+                    Console.ForegroundColor = this.UsageExampleColor;
+                    Console.WriteLine((hasSource ? $"{this.locale["usage-example"]}: " : "Usage example: ") + Path.GetFileName(assembly.Location) + " " + group.Attribute.UsageExample);
+                }
 
+                // Write the parameter - description table
                 ConsoleUtils.WriteTable(new ConsoleTableColumn[]
                 {
-                    new ConsoleTableColumn(group.Parameters.Select(x=> string.Join(", ", x.Parameters.Where(y=>!string.IsNullOrEmpty(y))))) { Foreground = this.KeyColor },
-                    new ConsoleTableColumn(group.Parameters.Select(x=> {
-                        var description = hasSource? this.locale[x.Attribute.Description] :  x.Attribute.Description;
+                    new ConsoleTableColumn(group.Parameters.Select(x=> x.Parameters.Where(y => !string.IsNullOrEmpty(y)).Join(", "))) { Foreground = this.KeyColor },
+                    new ConsoleTableColumn(group.Parameters.Select(x=>
+                    {
+                        var description = hasSource? this.locale[x.Attribute.Description] : x.Attribute.Description;
                         if(x.Attribute.IsRequired)
                             return description + " *";
 
                         return description;
-                        })) { Foreground = this.DescriptionColor, AlternativeForeground = this.UsageExampleColor, Width = 2 }
+                    })) { Foreground = this.DescriptionColor, AlternativeForeground = this.UsageExampleColor, Width = 2 }
                 });
 
                 Console.Write("\n");
@@ -170,7 +191,7 @@ namespace Cauldron.Consoles
             {
                 var type = group.ExecutionGroup.GetType();
                 var parameters = type.GetPropertiesEx(BindingFlags.Public | BindingFlags.Instance)
-                    .Select(x => new { Property = x, Attrib = x.GetCustomAttribute<OptionAttribute>() })
+                    .Select(x => new { Property = x, Attrib = x.GetCustomAttribute<ParameterAttribute>() })
                     .Where(x => x.Attrib != null)
                     .Select(x => new ExecutionGroupParameter(group.ExecutionGroup, x.Property, x.Attrib));
 
@@ -230,6 +251,8 @@ namespace Cauldron.Consoles
             {
                 pair.Key.ExecutionGroup.CanExecute = true;
 
+                // TODO - Add Custom converters
+                // TODO - Add List, Collection and IEnumerable converters
                 if (pair.Key.PropertyInfo.PropertyType.IsArray)
                 {
                     var childType = pair.Key.PropertyInfo.PropertyType.GetChildrenType();
@@ -239,7 +262,7 @@ namespace Cauldron.Consoles
                    (pair.Key.PropertyInfo.PropertyType.IsNullable() && Nullable.GetUnderlyingType(pair.Key.PropertyInfo.PropertyType) == typeof(bool)))
                     pair.Key.PropertyInfo.SetValue(pair.Key.ExecutionGroup, true);
                 else
-                    pair.Key.PropertyInfo.SetValue(pair.Key.ExecutionGroup, string.Join(" ", pair.Value).Convert(pair.Key.PropertyInfo.PropertyType));
+                    pair.Key.PropertyInfo.SetValue(pair.Key.ExecutionGroup, pair.Value.Join(" ").Convert(pair.Key.PropertyInfo.PropertyType));
             }
         }
     }

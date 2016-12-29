@@ -72,7 +72,7 @@ namespace EveOnlineApi
             if (accessScopes.Length == 0)
                 throw new ArgumentException("At least one access scope must be defined");
 
-            var url = $"{this.Server.Login}oauth/authorize/?response_type=code&redirect_uri={WebUtility.HtmlEncode(crest.CallbackUrl)}&client_id={crest.ClientId}&scope={WebUtility.HtmlEncode(string.Join(" ", accessScopes))}&state={crest.KeyId}";
+            var url = $"{this.Server.Login}oauth/authorize/?response_type=code&redirect_uri={WebUtility.HtmlEncode(crest.CallbackUrl)}&client_id={crest.ClientId}&scope={WebUtility.HtmlEncode(accessScopes.Join(" "))}&state={crest.KeyId}";
             var result = await WebAuthenticationBrokerWrapper.AuthenticateAsync(new Uri(url), new Uri(crest.CallbackUrl));
             var parameters = new Uri(result).ParseQueryString();
 
@@ -418,7 +418,7 @@ namespace EveOnlineApi
                 return _characterNames.Where(x => characterIds.Contains(x.CharacterId));
 
             var result = await WebServiceConsumer.Consume<DefaultRestClient, XmlDeserializer, CharacterNameCollection>(
-                 $"{this.Server.XMLApi}eve/CharacterName.xml.aspx?ids={string.Join(",", _characterNames.Count == 0 ? characterIds : notFound)}");
+                 $"{this.Server.XMLApi}eve/CharacterName.xml.aspx?ids={(_characterNames.Count == 0 ? characterIds : notFound).Join(",")}");
 
             _characterNames.AddRange(result.Items);
 

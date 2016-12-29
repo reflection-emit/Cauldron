@@ -8,16 +8,16 @@ namespace SampleConsoleApplication
     {
         public bool CanExecute { get; set; }
 
-        [Option("help-help", "help", "h", "")]
+        [Parameter("help-help", "help", "h", "")]
         public bool Help { get; private set; }
 
-        [Option("name-help", "name", "n")]
+        [Parameter("name-help", "name", "n")]
         public string Name { get; private set; }
 
-        [Option("number-help", "number", "N")]
+        [Parameter("number-help", "number", "N")]
         public int? Number { get; private set; }
 
-        [Option("path-help", "p")]
+        [Parameter("path-help", "p")]
         public string Path { get; private set; }
 
         public void Execute(ParameterParser parser)

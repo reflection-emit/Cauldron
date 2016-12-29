@@ -28,29 +28,8 @@ namespace Cauldron.Core.Extensions
     /// </summary>
     public static class Extensions
     {
-        private static readonly Regex _parseQueryRegex = new Regex(@"[?|&]([\w\.]+)=([^?|^&]+)", RegexOptions.Compiled);
         private static readonly Regex _getLinesRegex = new Regex("\r\n|\r|\n", RegexOptions.Compiled);
-
-        /// <summary>
-        /// Checkes if the string is encoded in Base64.
-        /// </summary>
-        /// <param name="str">The string to check</param>
-        /// <returns>True if the string is base 64 encoded; otherwise false</returns>
-        public static bool IsBase64String(this string str)
-        {
-            if (str.Replace(" ", "").Length % 4 != 0)
-                return false;
-
-            try
-            {
-                Convert.FromBase64String(str);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
+        private static readonly Regex _parseQueryRegex = new Regex(@"[?|&]([\w\.]+)=([^?|^&]+)", RegexOptions.Compiled);
 
         /// <summary>
         /// Compresses a utf8 encoded string using gzip
@@ -299,6 +278,13 @@ namespace Cauldron.Core.Extensions
         }
 
         /// <summary>
+        /// Splits a string into lines
+        /// </summary>
+        /// <param name="value">The string to be slitted</param>
+        /// <returns>The lines of the string</returns>
+        public static string[] GetLines(this string value) => _getLinesRegex.Split(value);
+
+        /// <summary>
         /// Gets the stacktrace of the exception and the inner exceptions recursively
         /// </summary>
         /// <param name="e">The exception with the stack trace</param>
@@ -435,6 +421,27 @@ namespace Cauldron.Core.Extensions
         }
 
         /// <summary>
+        /// Checkes if the string is encoded in Base64.
+        /// </summary>
+        /// <param name="str">The string to check</param>
+        /// <returns>True if the string is base 64 encoded; otherwise false</returns>
+        public static bool IsBase64String(this string str)
+        {
+            if (str.Replace(" ", "").Length % 4 != 0)
+                return false;
+
+            try
+            {
+                Convert.FromBase64String(str);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
         /// Checks if an object is not compatible (does not derive) with a given type.
         /// </summary>
         /// <typeparam name="T">The type </typeparam>
@@ -475,6 +482,67 @@ namespace Cauldron.Core.Extensions
 
             return default(TResult);
         }
+
+        /// <summary>
+        /// Concatenates the members of a constructed <see cref="IEnumerable{T}"/>
+        /// collection of type <see cref="string"/>, using the specified <paramref name="separator"/> between each member.
+        /// </summary>
+        /// <param name="source">A collection that contains the strings to concatenate.</param>
+        /// <param name="separator">
+        /// The string to use as a <paramref name="separator"/>. <paramref name="separator"/> is included in the returned string
+        /// only if values has more than one element.
+        /// </param>
+        /// <returns>
+        /// A string that consists of the members of values delimited by the <paramref name="separator"/> string.
+        /// If values has no members, the method returns <see cref="string.Empty"/>.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="source"/> is null.</exception>
+        public static string Join(this IEnumerable<string> source, string separator) => string.Join(separator, source);
+
+        /// <summary>
+        /// Concatenates the elements of an object array, using the specified <paramref name="separator"/> between each element.
+        /// </summary>
+        /// <param name="source">An array that contains the elements to concatenate.</param>
+        /// <param name="separator">
+        /// The string to use as a <paramref name="separator"/>. <paramref name="separator"/> is included in the returned string
+        /// only if values has more than one element.
+        /// </param>
+        /// <returns>
+        /// A string that consists of the elements of values delimited by the <paramref name="separator"/> string.
+        /// If values is an empty array, the method returns <see cref="string.Empty"/>.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="source"/> is null.</exception>
+        public static string Join(this object[] source, string separator) => string.Join(separator, source);
+
+        /// <summary>
+        /// Concatenates the members of a collection, using the specified <paramref name="separator"/> between each member.
+        /// </summary>
+        /// <param name="source">A collection that contains the objects to concatenate.</param>
+        /// <param name="separator">
+        /// The string to use as a <paramref name="separator"/>. <paramref name="separator"/> is included in the returned string
+        /// only if values has more than one element.
+        /// </param>
+        /// <returns>
+        /// A string that consists of the members of values delimited by the <paramref name="separator"/> string.
+        /// If values has no members, the method returns <see cref="string.Empty"/>.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="source"/> is null.</exception>
+        public static string Join<T>(this IEnumerable<T> source, string separator) => string.Join(separator, source);
+
+        /// <summary>
+        /// Concatenates all the elements of a string array, using the specified <paramref name="separator"/> between each element.
+        /// </summary>
+        /// <param name="source">An array that contains the elements to concatenate.</param>
+        /// <param name="separator">
+        /// The string to use as a <paramref name="separator"/>. <paramref name="separator"/> is included in the returned string
+        /// only if values has more than one element.
+        /// </param>
+        /// <returns>
+        /// A string that consists of the elements in value delimited by the <paramref name="separator"/> string.
+        /// If value is an empty array, the method returns <see cref="string.Empty"/>.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="source"/> is null.</exception>
+        public static string Join(this string[] source, string separator) => string.Join(separator, source);
 
         /// <summary>
         /// Returns a string containing a specified number of characters from the left side of a string.
@@ -572,13 +640,6 @@ namespace Cauldron.Core.Extensions
             }
             return parameters.AsReadOnly();
         }
-
-        /// <summary>
-        /// Splits a string into lines
-        /// </summary>
-        /// <param name="value">The string to be slitted</param>
-        /// <returns>The lines of the string</returns>
-        public static string[] GetLines(this string value) => _getLinesRegex.Split(value);
 
         /// <summary>
         /// Picks a random element from the given array

@@ -10,9 +10,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 #if WINDOWS_UWP
+
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
+
 #else
 
 using System.Windows;
@@ -159,10 +161,10 @@ namespace Cauldron.XAML.Validation
                 this.allErrors.Remove(e.PropertyName);
 
                 if (errors != null)
-                    this.allErrors.Add(e.PropertyName, string.Join("\r\n", errors));
+                    this.allErrors.Add(e.PropertyName, errors.Join("\r\n"));
 
                 ValidationProperties.SetHasErrors(this.AssociatedObject, this.allErrors.Count > 0);
-                ValidationProperties.SetErrors(this.AssociatedObject, this.allErrors.Count == 0 ? string.Empty : string.Join("\r\n\r\n", this.allErrors.Values));
+                ValidationProperties.SetErrors(this.AssociatedObject, this.allErrors.Count == 0 ? string.Empty : this.allErrors.Values.Join("\r\n\r\n"));
             }
         }
     }

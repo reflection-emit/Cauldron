@@ -317,7 +317,7 @@ namespace Cauldron.XAML
                 this.IsUrlProtocol(e.Args))
             {
                 foreach (var process in processes.Where(x => x.Id != proc.Id))
-                    Win32Api.SendMessage(process.MainWindowHandle, $"{string.Join("\n", e.Args)}");
+                    Win32Api.SendMessage(process.MainWindowHandle, $"{e.Args.Join("\n")}");
 
                 this.ShutdownMode = ShutdownMode.OnExplicitShutdown;
                 this.Shutdown();
@@ -325,7 +325,7 @@ namespace Cauldron.XAML
 
             if (this.IsSingleInstance && processes.Length > 0)
             {
-                Win32Api.SendMessage(processes[0].MainWindowHandle, $"{string.Join("\n", e.Args)}");
+                Win32Api.SendMessage(processes[0].MainWindowHandle, $"{e.Args.Join("\n")}");
                 this.ShutdownMode = ShutdownMode.OnExplicitShutdown;
                 this.Shutdown();
             }
