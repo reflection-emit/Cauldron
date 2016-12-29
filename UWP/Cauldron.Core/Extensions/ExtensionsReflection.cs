@@ -55,7 +55,11 @@ namespace Cauldron.Core.Extensions
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
 
+#if WINDOWS_UWP
+            if (type.GetTypeInfo().IsInterface)
+#else
             if (type.IsInterface)
+#endif
                 throw new CreateInstanceIsAnInterfaceException("Unable to create an instance from an interface: " + type.FullName);
 
             var types = args == null || args.Length == 0 ? Type.EmptyTypes : args.Select(x => x == null ? typeof(object) : x.GetType()).ToArray();

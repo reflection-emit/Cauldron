@@ -233,7 +233,6 @@ namespace Cauldron.Activator
             }
             catch (CreateInstanceIsAnInterfaceException e)
             {
-                Console.WriteLine($"Implementation of '{type.FullName}' not found.");
                 throw new NotImplementedException($"Unable to find the implementation of '{type.FullName}'. Make sure that the Assembly with implementation was loaded in the AppDomain.", e);
             }
             catch
