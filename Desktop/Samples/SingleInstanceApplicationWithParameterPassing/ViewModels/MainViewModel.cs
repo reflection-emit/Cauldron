@@ -39,7 +39,7 @@ namespace SingleInstanceApplicationWithParameterPassing.ViewModels
         private void OpenConsoleAction()
         {
             var processInfo = new ProcessStartInfo("cmd");
-            processInfo.WorkingDirectory = ApplicationInfo.ApplicationPath;
+            processInfo.WorkingDirectory = ApplicationInfo.ApplicationPath.FullName;
 
             Process.Start(processInfo);
         }

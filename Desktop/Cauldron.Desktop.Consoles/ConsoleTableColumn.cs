@@ -1,11 +1,9 @@
-﻿using Cauldron.Core.Extensions;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Cauldron.Consoles
 {
-    public enum ConsoleTableColumnAlignment
+    public enum ColumnAlignment
     {
         Left,
         Center,
@@ -14,8 +12,13 @@ namespace Cauldron.Consoles
 
     public sealed class ConsoleTableColumn
     {
-        internal string[][] text;
-        internal int width;
+        internal string[][] _text;
+        internal int _width;
+
+        public ConsoleTableColumn(IEnumerable<string> values) : this()
+        {
+            this.Values.AddRange(values);
+        }
 
         public ConsoleTableColumn(params string[] values) : this()
         {
@@ -26,17 +29,24 @@ namespace Cauldron.Consoles
         {
             this.Background = Console.BackgroundColor;
             this.Foreground = Console.ForegroundColor;
+            this.AlternativeForeground = ConsoleColor.White;
         }
 
-        public ConsoleTableColumnAlignment Alignment { get; set; }
+        public ColumnAlignment Alignment { get; set; }
+
+        public ConsoleColor AlternativeForeground { get; set; }
 
         public ConsoleColor Background { get; set; }
 
         public char Filler { get; set; } = ' ';
 
         public ConsoleColor Foreground { get; set; }
-
         public List<string> Values { get; private set; } = new List<string>();
+
+        /// <summary>
+        /// Gets or sets a ratio of the column width depending to the <see cref="Console.WindowWidth"/> and total amount of columns
+        /// </summary>
+        public float Width { get; set; } = 1;
 
         public bool WrapWords { get; set; } = true;
     }

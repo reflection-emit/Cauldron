@@ -4,7 +4,7 @@ namespace Cauldron.Consoles
 {
     public sealed class UnknownParameterException : Exception
     {
-        internal UnknownParameterException(string message, string parameter) : base(message)
+        public UnknownParameterException(string message, string parameter) : base(message)
         {
             this.Parameter = parameter;
         }

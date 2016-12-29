@@ -3,8 +3,6 @@ using Cauldron.Core.Extensions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 
 namespace Cauldron.IEnumerableExtensions
 {
@@ -54,21 +52,27 @@ namespace Cauldron.IEnumerableExtensions
         /// <summary>
         /// Gets the number of elements contained in the <see cref="IEnumerable"/>
         /// </summary>
-        /// <param name="target">The <see cref="IEnumerable"/></param>
+        /// <param name="source">The <see cref="IEnumerable"/></param>
         /// <returns>The total count of items in the <see cref="IEnumerable"/></returns>
-        /// <exception cref="ArgumentNullException"><paramref name="target"/> is null</exception>
-        public static int Count_(this IEnumerable target)
+        /// <exception cref="ArgumentNullException"><paramref name="source"/> is null</exception>
+        public static int Count_(this IEnumerable source)
         {
-            if (target == null)
-                throw new ArgumentNullException(nameof(target));
+            if (source == null)
+                throw new ArgumentNullException(nameof(source));
 
             int count = 0;
 
-            if (target.GetType().IsArray)
-                return (target as Array).Length;
+            if (source.GetType().IsArray)
+                return (source as Array).Length;
 
-            foreach (var item in target)
+            var collection = source as ICollection;
+            if (collection != null)
+                return collection.Count;
+
+            var enumerator = source.GetEnumerator();
+            while (enumerator.MoveNext())
                 count++;
+            enumerator.TryDispose();
 
             return count;
         }

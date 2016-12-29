@@ -6,14 +6,12 @@ namespace SampleConsoleApplication
 {
     public class Program
     {
-        public MainExecutionGroup MainGroup { get; private set; }
-
         private static void Main(string[] args)
         {
             try
             {
                 var parser = new ParameterParser();
-                parser.Parse(new Program(), args);
+                parser.Parse(args, new MainExecutionGroup());
                 parser.Execute();
             }
             catch (RequiredParametersMissingException requiredE)

@@ -24,6 +24,26 @@ namespace Cauldron.Consoles
                 this.locale = Factory.Create<Locale>();
         }
 
+        /// <summary>
+        /// Gets or sets the <see cref="Console.ForegroundColor"/> of the description in the help text
+        /// </summary>
+        public ConsoleColor DescriptionColor { get; set; } = ConsoleColor.White;
+
+        /// <summary>
+        /// Gets or sets the <see cref="Console.ForegroundColor"/> of the group name in the help text
+        /// </summary>
+        public ConsoleColor GroupColor { get; set; } = ConsoleColor.White;
+
+        /// <summary>
+        /// Gets or sets the <see cref="Console.ForegroundColor"/> of the key in the help text
+        /// </summary>
+        public ConsoleColor KeyColor { get; set; } = ConsoleColor.Gray;
+
+        /// <summary>
+        /// Gets or sets the <see cref="Console.ForegroundColor"/> of the usage example text in the help text
+        /// </summary>
+        public ConsoleColor UsageExampleColor { get; set; } = ConsoleColor.DarkGray;
+
         public void Execute()
         {
             if (!this.isInitialized)
@@ -32,22 +52,22 @@ namespace Cauldron.Consoles
             var activatedGroups = this.executionGroups.Where(x => x.ExecutionGroup.CanExecute).OrderBy(x => x.Attribute.GroupIndex);
 
             foreach (var groups in activatedGroups)
+            {
                 groups.ExecutionGroup.Execute(this);
+                Console.ResetColor();
+            }
         }
 
-        public void Parse(object obj, string[] args)
+        public void Parse(string[] args, params IExecutionGroup[] executionGroups)
         {
-            var type = obj.GetType();
-            var executionGroups = type.GetPropertiesEx(BindingFlags.Public | BindingFlags.Instance)
-                .Where(x => x.PropertyType.ImplementsInterface<IExecutionGroup>())
+            var executionGroupProperties = executionGroups
                 .Select(x => new ExecutionGroupProperties
                 {
-                    Attribute = x.PropertyType.GetCustomAttribute<ExecutionGroupAttribute>(),
-                    ExecutionGroup = System.Activator.CreateInstance(x.PropertyType) as IExecutionGroup
-                })
-                .Where(x => x.Attribute != null);
+                    Attribute = x.GetType().GetCustomAttribute<ExecutionGroupAttribute>(),
+                    ExecutionGroup = x
+                });
 
-            this.executionGroups = executionGroups.ToList();
+            this.executionGroups = executionGroupProperties.ToList();
             ParseGroups(this.executionGroups);
             var flatList = this.executionGroups.SelectMany(x => x.Parameters);
 
@@ -87,23 +107,25 @@ namespace Cauldron.Consoles
 
             var hasSource = Factory.HasContract(typeof(ILocalizationSource));
 
+            Console.Write("\n\n");
+
             ConsoleUtils.WriteTable(new ConsoleTableColumn[]
             {
                 new ConsoleTableColumn(
-                    hasSource?  this.locale["application-name"] : "Application name:",
-                    hasSource?  this.locale["version"] : "Version:",
-                    hasSource?  this.locale["description"] : "Description:",
-                    hasSource?  this.locale["product-name"] : "Product name:",
-                    hasSource?  this.locale["publisher"] : "Publisher:") { Foreground = ConsoleColor.Gray },
+                    hasSource?  this.locale["application-name"] : "APPLICATION NAME:",
+                    hasSource?  this.locale["version"] : "VERSION:",
+                    hasSource?  this.locale["description"] : "DESCRIPTION:",
+                    hasSource?  this.locale["product-name"] : "PRODUCT NAME:",
+                    hasSource?  this.locale["publisher"] : "PUBLISHER:") { Foreground = this.KeyColor },
                 new ConsoleTableColumn(
                     ApplicationInfo.ApplicationName,
                     ApplicationInfo.ApplicationVersion.ToString(),
                     ApplicationInfo.Description,
                     ApplicationInfo.ProductName,
-                    ApplicationInfo.ApplicationPublisher) { Foreground = ConsoleColor.White }
+                    ApplicationInfo.ApplicationPublisher) { Foreground = this.DescriptionColor, Width = 2 }
             });
 
-            Console.Write("\n");
+            Console.Write("\n\n");
 
             var assembly = Assembly.GetEntryAssembly();
 
@@ -115,10 +137,10 @@ namespace Cauldron.Consoles
 
             foreach (var group in this.executionGroups.OrderBy(x => x.Attribute.GroupIndex))
             {
-                Console.ForegroundColor = ConsoleColor.White;
+                Console.ForegroundColor = this.GroupColor;
                 Console.WriteLine((hasSource ? this.locale[group.Attribute.GroupName] : group.Attribute.GroupName).PadRight(Console.WindowWidth - 1, '…'));
-                Console.ForegroundColor = ConsoleColor.DarkGray;
 
+                Console.ForegroundColor = this.UsageExampleColor;
                 if (hasSource)
                     Console.WriteLine(this.locale["usage-example"] + ": " + Path.GetFileName(assembly.Location) + " " + group.Attribute.UsageExample);
                 else
@@ -126,12 +148,20 @@ namespace Cauldron.Consoles
 
                 ConsoleUtils.WriteTable(new ConsoleTableColumn[]
                 {
-                    new ConsoleTableColumn(group.Parameters.Select(x=> string.Join(", ", x.Parameters)).ToArray()) { Foreground = ConsoleColor.Gray },
-                    new ConsoleTableColumn(group.Parameters.Select(x=> hasSource? this.locale[x.Attribute.Description] :  x.Attribute.Description).ToArray()) { Foreground = ConsoleColor.White }
+                    new ConsoleTableColumn(group.Parameters.Select(x=> string.Join(", ", x.Parameters.Where(y=>!string.IsNullOrEmpty(y))))) { Foreground = this.KeyColor },
+                    new ConsoleTableColumn(group.Parameters.Select(x=> {
+                        var description = hasSource? this.locale[x.Attribute.Description] :  x.Attribute.Description;
+                        if(x.Attribute.IsRequired)
+                            return description + " *";
+
+                        return description;
+                        })) { Foreground = this.DescriptionColor, AlternativeForeground = this.UsageExampleColor, Width = 2 }
                 });
 
                 Console.Write("\n");
             }
+
+            Console.ResetColor();
         }
 
         private static void ParseGroups(IEnumerable<ExecutionGroupProperties> executionGroups)
@@ -175,6 +205,12 @@ namespace Cauldron.Consoles
                     if (match == null)
                         throw new UnknownParameterException("Unknown parameter", argument);
 
+                    if (pairs.ContainsKey(match))
+                    {
+                        currentList = pairs[match];
+                        continue;
+                    }
+
                     currentList = new List<string>();
                     pairs.Add(match, currentList);
 
@@ -185,6 +221,10 @@ namespace Cauldron.Consoles
                     currentList.Add(argument);
             }
 
+            // Remove the default parameter execution of we have other stuff in the queue
+            if (pairs.Count > 1 && defaultParameter != null)
+                pairs.Remove(defaultParameter);
+
             // assign the values
             foreach (var pair in pairs)
             {
@@ -193,7 +233,7 @@ namespace Cauldron.Consoles
                 if (pair.Key.PropertyInfo.PropertyType.IsArray)
                 {
                     var childType = pair.Key.PropertyInfo.PropertyType.GetChildrenType();
-                    pair.Key.PropertyInfo.SetValue(pair.Key.ExecutionGroup, pair.Value.Select(x => x.Convert(childType)).ToArray());
+                    pair.Key.PropertyInfo.SetValue(pair.Key.ExecutionGroup, pair.Value.Select(x => x.Convert(childType)).ToArray(childType));
                 }
                 else if (pair.Key.PropertyInfo.PropertyType == typeof(bool) ||
                    (pair.Key.PropertyInfo.PropertyType.IsNullable() && Nullable.GetUnderlyingType(pair.Key.PropertyInfo.PropertyType) == typeof(bool)))

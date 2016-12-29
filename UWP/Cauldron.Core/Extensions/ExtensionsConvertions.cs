@@ -1,5 +1,6 @@
 ﻿using Cauldron.Core.Collections;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
@@ -204,6 +205,43 @@ namespace Cauldron.Core.Extensions
         }
 
         /// <summary>
+        /// Converts a <see cref="IEnumerable"/> to an array
+        /// </summary>
+        /// <param name="source">The <see cref="IEnumerable"/> to convert</param>
+        /// <param name="elementType">The element type contained in the <see cref="IEnumerable"/></param>
+        /// <returns>An array of <paramref name="elementType"/></returns>
+        /// <exception cref="ArgumentNullException">source is null</exception>
+        public static object ToArray(this IEnumerable source, Type elementType)
+        {
+            if (source == null)
+                throw new ArgumentNullException(nameof(source));
+
+            #region Count the elements in the source
+
+            int sourceCount = 0;
+            var collection = source as ICollection;
+            if (collection != null)
+                sourceCount = collection.Count;
+            else
+            {
+                var enumerator = source.GetEnumerator();
+                while (enumerator.MoveNext())
+                    sourceCount++;
+                enumerator.TryDispose();
+            }
+
+            #endregion Count the elements in the source
+
+            var result = Array.CreateInstance(elementType, sourceCount);
+            var index = 0;
+
+            foreach (var item in source)
+                result.SetValue(item, index++);
+
+            return result;
+        }
+
+        /// <summary>
         /// Converts a string to its equivalent string representation that is encoded with base-64 digits.
         /// </summary>
         /// <param name="source">The string to convert</param>
@@ -268,6 +306,22 @@ namespace Cauldron.Core.Extensions
                 return value;
 
             return 0;
+        }
+
+        /// <summary>
+        /// Converts the value to a char
+        /// If convertion fails the value will always be '\0'
+        /// </summary>
+        /// <param name="target">The value to convert</param>
+        /// <returns>The char value of the string</returns>
+        public static char ToChar(this string target)
+        {
+            char value;
+
+            if (char.TryParse(target, out value))
+                return value;
+
+            return '\0';
         }
 
         /// <summary>

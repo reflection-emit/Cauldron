@@ -8,7 +8,7 @@ namespace Cauldron.Core
     /// </summary>
     public abstract class DisposableBase : IDisposableObject
     {
-        private bool disposed = false;
+        private volatile bool disposed = false;
 
         /// <summary>
         /// Destructors are used to destruct instances of classes.
