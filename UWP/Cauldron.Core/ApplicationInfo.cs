@@ -6,6 +6,7 @@ using System.Reflection;
 using Windows.ApplicationModel;
 using Windows.Storage;
 using System.Threading.Tasks;
+
 #else
 
 using System.Runtime.Versioning;
@@ -44,12 +45,16 @@ namespace Cauldron.Core
 
                 return result;
 #else
-                var entryAssembly = Assembly.GetEntryAssembly();
 
-                if (entryAssembly == null)
-                    return Assembly.GetCallingAssembly().GetName().Name;
+                var assembly = Assembly.GetEntryAssembly();
 
-                return entryAssembly.GetName().Name;
+                if (assembly == null)
+                    assembly = Assembly.GetCallingAssembly();
+
+                if (assembly == null)
+                    assembly = Assembly.GetExecutingAssembly();
+
+                return assembly.GetName().Name;
 #endif
             }
         }
@@ -57,22 +62,32 @@ namespace Cauldron.Core
         /// <summary>
         /// Gets the full path of the application
         /// </summary>
-        public static string ApplicationPath
+#if WINDOWS_UWP
+
+        public static StorageFolder ApplicationPath
+        {
+            get { return Package.Current.InstalledLocation; }
+        }
+
+#else
+
+        public static DirectoryInfo ApplicationPath
         {
             get
             {
-#if WINDOWS_UWP
-                return Package.Current.InstalledLocation.Path;
-#else
-                // this will return null in some cases
-                var entryAssembly = Assembly.GetEntryAssembly();
-                if (entryAssembly == null)
-                    return Path.GetDirectoryName(Assembly.GetCallingAssembly().Location);
+                var assembly = Assembly.GetEntryAssembly();
 
-                return Path.GetDirectoryName(entryAssembly.Location);
-#endif
+                if (assembly == null)
+                    assembly = Assembly.GetCallingAssembly();
+
+                if (assembly == null)
+                    assembly = Assembly.GetExecutingAssembly();
+
+                return new DirectoryInfo(Path.GetDirectoryName(assembly.Location));
             }
         }
+
+#endif
 
         /// <summary>
         /// Gets the application publisher name
@@ -84,15 +99,16 @@ namespace Cauldron.Core
 #if WINDOWS_UWP
                 return Package.Current.PublisherDisplayName;
 #else
-                var company = Assembly.GetCallingAssembly().GetCustomAttribute<AssemblyCompanyAttribute>().Company;
 
-                if (string.IsNullOrEmpty(company) && Assembly.GetEntryAssembly() != null)
-                    company = Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyCompanyAttribute>().Company;
+                var assembly = Assembly.GetEntryAssembly();
 
-                if (string.IsNullOrEmpty(company))
-                    company = Assembly.GetAssembly(typeof(ApplicationInfo)).GetCustomAttribute<AssemblyCompanyAttribute>().Company;
+                if (assembly == null)
+                    assembly = Assembly.GetCallingAssembly();
 
-                return company;
+                if (assembly == null)
+                    assembly = Assembly.GetExecutingAssembly();
+
+                return assembly.GetCustomAttribute<AssemblyCompanyAttribute>()?.Company;
 #endif
             }
         }
@@ -107,15 +123,42 @@ namespace Cauldron.Core
 #if WINDOWS_UWP
                 return new Version(Package.Current.Id.Version.Major, Package.Current.Id.Version.Minor, Package.Current.Id.Version.Build, Package.Current.Id.Version.Revision);
 #else
-                var entryAssembly = Assembly.GetEntryAssembly();
 
-                if (entryAssembly == null)
-                    return Assembly.GetCallingAssembly().GetName().Version;
+                var assembly = Assembly.GetEntryAssembly();
 
-                return entryAssembly.GetName().Version;
+                if (assembly == null)
+                    assembly = Assembly.GetCallingAssembly();
+
+                if (assembly == null)
+                    assembly = Assembly.GetExecutingAssembly();
+
+                return assembly.GetName().Version;
 #endif
             }
         }
+
+#if !WINDOWS_UWP
+
+        /// <summary>
+        /// Gets the application description
+        /// </summary>
+        public static string Description
+        {
+            get
+            {
+                var assembly = Assembly.GetEntryAssembly();
+
+                if (assembly == null)
+                    assembly = Assembly.GetCallingAssembly();
+
+                if (assembly == null)
+                    assembly = Assembly.GetExecutingAssembly();
+
+                return assembly.GetCustomAttribute<AssemblyDescriptionAttribute>()?.Description;
+            }
+        }
+
+#endif
 
         /// <summary>
         /// Gets the applications product name
@@ -127,15 +170,15 @@ namespace Cauldron.Core
 #if WINDOWS_UWP
                 return Package.Current.Id.Name;
 #else
-                var company = Assembly.GetCallingAssembly().GetCustomAttribute<AssemblyProductAttribute>().Product;
+                var assembly = Assembly.GetEntryAssembly();
 
-                if (string.IsNullOrEmpty(company) && Assembly.GetEntryAssembly() != null)
-                    company = Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyProductAttribute>().Product;
+                if (assembly == null)
+                    assembly = Assembly.GetCallingAssembly();
 
-                if (string.IsNullOrEmpty(company))
-                    company = Assembly.GetAssembly(typeof(ApplicationInfo)).GetCustomAttribute<AssemblyProductAttribute>().Product;
+                if (assembly == null)
+                    assembly = Assembly.GetExecutingAssembly();
 
-                return company;
+                return assembly.GetCustomAttribute<AssemblyProductAttribute>()?.Product;
 #endif
             }
         }
@@ -150,17 +193,15 @@ namespace Cauldron.Core
 #if WINDOWS_UWP
                 return "Universal Windows Platform";
 #else
-                var entryAssembly = Assembly.GetEntryAssembly();
+                var assembly = Assembly.GetEntryAssembly();
 
-                if (entryAssembly == null)
-                    entryAssembly = Assembly.GetCallingAssembly();
+                if (assembly == null)
+                    assembly = Assembly.GetCallingAssembly();
 
-                var attrib = entryAssembly.GetCustomAttribute<TargetFrameworkAttribute>();
+                if (assembly == null)
+                    assembly = Assembly.GetExecutingAssembly();
 
-                if (attrib == null)
-                    return string.Empty;
-
-                return attrib.FrameworkDisplayName;
+                return assembly.GetCustomAttribute<TargetFrameworkAttribute>()?.FrameworkDisplayName;
 #endif
             }
         }

@@ -423,7 +423,7 @@ namespace Cauldron.Core
             // Try to load it from application directory
             if (assembly == null)
             {
-                var file = Path.Combine(ApplicationInfo.ApplicationPath, $"{new AssemblyName(e.Name).Name}.dll");
+                var file = Path.Combine(ApplicationInfo.ApplicationPath.FullName, $"{new AssemblyName(e.Name).Name}.dll");
                 if (!File.Exists(file))
                     return null;
 
