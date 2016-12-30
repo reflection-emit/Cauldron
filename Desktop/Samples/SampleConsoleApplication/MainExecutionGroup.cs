@@ -6,8 +6,6 @@ namespace SampleConsoleApplication
     [ExecutionGroup("mainGroup", "-n My Name -N 73")]
     public sealed class MainExecutionGroup : IExecutionGroup
     {
-        public bool CanExecute { get; set; }
-
         [Parameter("help-help", "help", "h", "")]
         public bool Help { get; private set; }
 

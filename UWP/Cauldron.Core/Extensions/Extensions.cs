@@ -296,6 +296,8 @@ namespace Cauldron.Core.Extensions
 
             do
             {
+                sb.AppendLine("Exception Type: " + ex.GetType().Name);
+                sb.AppendLine("Source: " + ex.Source);
                 sb.AppendLine(ex.Message);
                 sb.AppendLine("------------------------");
                 sb.AppendLine(ex.StackTrace);

@@ -1,6 +1,7 @@
 ﻿using Cauldron.Core.Extensions;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Cauldron.Consoles
@@ -55,6 +56,39 @@ namespace Cauldron.Consoles
                 return false;
             }
         }
+
+        /// <summary>
+        /// Search for processes with the same <see cref="Process.ProcessName"/> as the process defined by <paramref name="process"/>
+        /// and blocks current thread until all current running instances has exited
+        /// </summary>
+        /// <param name="process">The process to wait for</param>
+        public static void WaitForExit(Process process)
+        {
+            // We will only check the instances once
+            // This way we create some sort of a queue
+
+            var getCurrentWithTheSameName = new Func<IEnumerable<Process>>(() =>
+                    Process.GetProcessesByName(process.ProcessName)
+                        .Where(x => x.Id != process.Id));
+
+            var instancesOfItself = getCurrentWithTheSameName();
+
+            if (instancesOfItself.Any())
+                foreach (var otherProcess in instancesOfItself)
+                    if (!otherProcess.HasExited)
+                        try
+                        {
+                            otherProcess.WaitForExit();
+                        }
+                        catch
+                        {
+                            // Might happen between because of the small time gap between HasExited and WaitForExit
+                            // An Exception might occure, but can be ignored because an it can only mean that
+                            // the process has exited
+                        }
+        }
+
+        #region WriteTable stuff
 
         /// <summary>
         /// Writes the specified table to the standard output stream
@@ -206,5 +240,7 @@ namespace Cauldron.Consoles
 
             Console.Write(valueToWrite);
         }
+
+        #endregion WriteTable stuff
     }
 }

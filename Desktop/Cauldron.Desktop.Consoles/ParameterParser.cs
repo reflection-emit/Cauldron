@@ -67,7 +67,7 @@ namespace Cauldron.Consoles
                 throw new Exception("Execute Parse(object, string[]) first before invoking Execute()");
 
             foreach (var groups in this.executionGroups
-                .Where(x => x.ExecutionGroup.CanExecute)
+                .Where(x => x.Parameters.Any(y => y.Attribute.activated))
                 .OrderBy(x => x.Attribute.GroupIndex))
             {
                 groups.ExecutionGroup.Execute(this);
@@ -99,12 +99,18 @@ namespace Cauldron.Consoles
             try
             {
                 TryParseParameters(flatList, args);
-                // Try to find out which groups were activated and check if the isrequired parameters are set
-                var activatedGroups = this.executionGroups.Where(x => x.ExecutionGroup.CanExecute);
-                var requiredParameters = activatedGroups.SelectMany(x => x.Parameters.Where(y => y.Attribute.IsRequired && y.PropertyInfo.GetValue(x.ExecutionGroup) == null));
+                // Try to find out which groups were activated
+                var activatedGroups = this.executionGroups.Where(x => x.Parameters.Any(y => y.Attribute.activated));
 
+                // check if the isrequired parameters are set
+                var requiredParameters = activatedGroups.SelectMany(x => x.Parameters.Where(y => y.Attribute.IsRequired && y.PropertyInfo.GetValue(x.ExecutionGroup) == null));
                 if (requiredParameters.Any())
                     throw new RequiredParametersMissingException("Unable to continue. Required parameters are not set.", requiredParameters.Select(x => x.Parameters.RandomPick()).ToArray());
+
+                // check if parameters with non optional values are set
+                var nonOptionalValues = activatedGroups.SelectMany(x => x.Parameters.Where(y => y.Attribute.activated && !y.Attribute.ValueOptional && y.PropertyInfo.GetValue(y.ExecutionGroup) == null));
+                if (nonOptionalValues.Any())
+                    throw new RequiredValuesMissingException("Unable to continue. Parameters with non optional values have no values.", requiredParameters.Select(x => x.Parameters.RandomPick()).ToArray());
             }
             catch
             {
@@ -173,7 +179,7 @@ namespace Cauldron.Consoles
                     {
                         var description = hasSource? this.locale[x.Attribute.Description] : x.Attribute.Description;
                         if(x.Attribute.IsRequired)
-                            return description + " *";
+                            return description + "\n!!" + (hasSource? this.locale["mandatory"] : "Mandatory");
 
                         return description;
                     })) { Foreground = this.DescriptionColor, AlternativeForeground = this.UsageExampleColor, Width = 2 }
@@ -190,7 +196,7 @@ namespace Cauldron.Consoles
             foreach (var group in executionGroups)
             {
                 var type = group.ExecutionGroup.GetType();
-                var parameters = type.GetPropertiesEx(BindingFlags.Public | BindingFlags.Instance)
+                var parameters = type.GetPropertiesEx(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance)
                     .Select(x => new { Property = x, Attrib = x.GetCustomAttribute<ParameterAttribute>() })
                     .Where(x => x.Attrib != null)
                     .Select(x => new ExecutionGroupParameter(group.ExecutionGroup, x.Property, x.Attrib));
@@ -249,7 +255,7 @@ namespace Cauldron.Consoles
             // assign the values
             foreach (var pair in pairs)
             {
-                pair.Key.ExecutionGroup.CanExecute = true;
+                pair.Key.Attribute.activated = true;
 
                 // TODO - Add Custom converters
                 // TODO - Add List, Collection and IEnumerable converters
@@ -258,8 +264,7 @@ namespace Cauldron.Consoles
                     var childType = pair.Key.PropertyInfo.PropertyType.GetChildrenType();
                     pair.Key.PropertyInfo.SetValue(pair.Key.ExecutionGroup, pair.Value.Select(x => x.Convert(childType)).ToArray(childType));
                 }
-                else if (pair.Key.PropertyInfo.PropertyType == typeof(bool) ||
-                   (pair.Key.PropertyInfo.PropertyType.IsNullable() && Nullable.GetUnderlyingType(pair.Key.PropertyInfo.PropertyType) == typeof(bool)))
+                else if (pair.Key.PropertyInfo.PropertyType == typeof(bool))
                     pair.Key.PropertyInfo.SetValue(pair.Key.ExecutionGroup, true);
                 else
                     pair.Key.PropertyInfo.SetValue(pair.Key.ExecutionGroup, pair.Value.Join(" ").Convert(pair.Key.PropertyInfo.PropertyType));
