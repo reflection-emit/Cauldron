@@ -16,6 +16,7 @@ namespace Cauldron.Consoles
     public sealed class ParameterParser
     {
         internal const char ParameterKey = '-';
+        private Dictionary<IExecutionGroup, List<PropertyInfo>> activatedParameters = new Dictionary<IExecutionGroup, List<PropertyInfo>>();
         private List<ExecutionGroupProperties> executionGroups;
         private bool isInitialized = false;
 
@@ -35,7 +36,10 @@ namespace Cauldron.Consoles
                 {
                     Attribute = x.GetType().GetCustomAttribute<ExecutionGroupAttribute>(),
                     ExecutionGroup = x
-                }).ToList();
+                })
+                .Where(x => x.Attribute != null)
+                .OrderBy(x => x.Attribute.GroupIndex)
+                .ToList();
         }
 
         /// <summary>
@@ -67,21 +71,32 @@ namespace Cauldron.Consoles
             if (!this.isInitialized)
                 throw new Exception("Execute Parse(object, string[]) first before invoking Execute()");
 
-            var executableGroups = this.executionGroups
-                .Where(x => x.Parameters.Any(y => y.Attribute.activated))
-                .OrderBy(x => x.Attribute.GroupIndex);
-
-            if (!executableGroups.Any())
+            if (this.activatedParameters.Count == 0)
                 return false;
+
+            var executableGroups = this.activatedParameters.Keys
+                .Select(x => new
+                {
+                    Attrib = this.executionGroups.FirstOrDefault(y => y.ExecutionGroup == x).Attribute,
+                    Group = x
+                })
+                .OrderBy(x => x.Attrib.GroupIndex);
 
             foreach (var groups in executableGroups)
             {
-                groups.ExecutionGroup.Execute(this);
+                groups.Group.Execute(this);
                 Console.ResetColor();
             }
 
-            return false;
+            return true;
         }
+
+        /// <summary>
+        /// Returns the property names of all active parameters
+        /// </summary>
+        /// <param name="executionGroup">The execution group</param>
+        /// <returns>A list of property names of all active parameters</returns>
+        public IList<string> GetActiveParameters(IExecutionGroup executionGroup) => this.activatedParameters[executionGroup].Select(x => x.Name).ToList();
 
         /// <summary>
         /// Starts the parsing of the arguments
@@ -89,6 +104,9 @@ namespace Cauldron.Consoles
         /// <param name="args">A list of arguments that was passed to the application</param>
         public void Parse(string[] args)
         {
+            if (this.isInitialized)
+                throw new Exception("You cannot use the same instance of ParameterParser to parse another group of parameters. Please create a new instance.");
+
             ParseGroups(this.executionGroups);
             var flatList = this.executionGroups.SelectMany(x => x.Parameters);
 
@@ -106,9 +124,9 @@ namespace Cauldron.Consoles
 
             try
             {
-                TryParseParameters(flatList, args);
+                this.TryParseParameters(flatList, args);
                 // Try to find out which groups were activated
-                var activatedGroups = this.executionGroups.Where(x => x.Parameters.Any(y => y.Attribute.activated));
+                var activatedGroups = this.executionGroups.Where(x => this.activatedParameters.ContainsKey(x.ExecutionGroup));
 
                 // check if the isrequired parameters are set
                 var requiredParameters = activatedGroups.SelectMany(x => x.Parameters.Where(y => y.Attribute.IsRequired && y.PropertyInfo.GetValue(x.ExecutionGroup) == null));
@@ -116,7 +134,7 @@ namespace Cauldron.Consoles
                     throw new RequiredParametersMissingException("Unable to continue. Required parameters are not set.", requiredParameters.Select(x => x.Parameters.RandomPick()).ToArray());
 
                 // check if parameters with non optional values are set
-                var nonOptionalValues = activatedGroups.SelectMany(x => x.Parameters.Where(y => y.Attribute.activated && !y.Attribute.ValueOptional && y.PropertyInfo.GetValue(y.ExecutionGroup) == null));
+                var nonOptionalValues = activatedGroups.SelectMany(x => x.Parameters.Where(y => this.activatedParameters[x.ExecutionGroup].Contains(y.PropertyInfo) && !y.Attribute.ValueOptional && y.PropertyInfo.GetValue(y.ExecutionGroup) == null));
                 if (nonOptionalValues.Any())
                     throw new RequiredValuesMissingException("Unable to continue. Parameters with non optional values have no values.", requiredParameters.Select(x => x.Parameters.RandomPick()).ToArray());
             }
@@ -166,7 +184,7 @@ namespace Cauldron.Consoles
             if (assembly == null)
                 assembly = Assembly.GetExecutingAssembly();
 
-            foreach (var group in this.executionGroups.OrderBy(x => x.Attribute.GroupIndex))
+            foreach (var group in this.executionGroups)
             {
                 // Write the group name and divider
                 Console.ForegroundColor = this.GroupColor;
@@ -213,7 +231,7 @@ namespace Cauldron.Consoles
             }
         }
 
-        private static void TryParseParameters(IEnumerable<ExecutionGroupParameter> executionGroupParameters, string[] args)
+        private void TryParseParameters(IEnumerable<ExecutionGroupParameter> executionGroupParameters, string[] args)
         {
             var pairs = new Dictionary<ExecutionGroupParameter, List<string>>();
             var currentList = new List<string>();
@@ -263,7 +281,11 @@ namespace Cauldron.Consoles
             // assign the values
             foreach (var pair in pairs)
             {
-                pair.Key.Attribute.activated = true;
+                var executionGroupName = pair.Key.ExecutionGroup;
+                if (this.activatedParameters.ContainsKey(executionGroupName))
+                    this.activatedParameters[executionGroupName].Add(pair.Key.PropertyInfo);
+                else
+                    this.activatedParameters.Add(executionGroupName, new List<PropertyInfo> { pair.Key.PropertyInfo });
 
                 // TODO - Add Custom converters
                 // TODO - Add List, Collection and IEnumerable converters

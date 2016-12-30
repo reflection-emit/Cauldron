@@ -99,74 +99,85 @@ namespace Cauldron.Consoles
             if (columns.Length == 0)
                 return;
 
-            // The maximum width each column can have
-            var maxWidth = (Console.WindowWidth - 1) / columns.Sum(x => x.Width);
-
-            foreach (var column in columns)
-                column._width = (int)(maxWidth * column.Width);
-
-            var totalLine = columns.Max(x => x.Values.Count);
-
-            foreach (var col in columns)
-                col._text = new string[totalLine][];
-
-            // set multiline and text wrap stuff
-            for (int line = 0; line < totalLine; line++)
+            try
             {
-                for (int i = 0; i < columns.Length; i++)
-                {
-                    if (columns[i].Values.Count <= line)
-                    {
-                        columns[i]._text[line] = new string[] { "" };
-                        continue;
-                    }
+                // The maximum width each column can have
+                var maxWidth = (Console.WindowWidth - 1) / columns.Sum(x => x.Width);
 
-                    var text = columns[i].Values[line].GetLines();
+                foreach (var column in columns)
+                    column._width = (int)(maxWidth * column.Width);
 
-                    if (!columns[i].WrapWords)
-                        columns[i]._text[line] = new string[] { text.Length == 0 ? "" : text[0] };
-                    else
-                    {
-                        var additionalLines = new List<string>();
-
-                        foreach (var p in text)
-                        {
-                            if (p.Length <= columns[i]._width)
-                                additionalLines.Add(p);
-                            else
-                                additionalLines.AddRange(p.WrapWords(columns[i]._width - 10));
-                        }
-
-                        columns[i]._text[line] = additionalLines.ToArray();
-                    }
-                }
-            }
-
-            foreach (var col in columns)
-                col.Values.Clear();
-
-            for (int line = 0; line < totalLine; line++)
-            {
-                // we have the maximum sub lines of all columns in the current line
-                var maxlines = columns.Max(x => x._text[line].Length);
+                var totalLine = columns.Max(x => x.Values.Count);
 
                 foreach (var col in columns)
-                    col.Values.AddRange(col._text[line].Pad(maxlines));
-            }
+                    col._text = new string[totalLine][];
 
-            totalLine = columns.Max(x => x.Values.Count);
-
-            for (int line = 0; line < totalLine; line++)
-            {
-                for (int i = 0; i < columns.Length; i++)
+                // set multiline and text wrap stuff
+                for (int line = 0; line < totalLine; line++)
                 {
-                    var output = columns[i].Values[line];
-                    var alternativeColor = output.StartsWith("!!");
-                    Console.ForegroundColor = alternativeColor ? columns[i].AlternativeForeground : columns[i].Foreground;
-                    Console.BackgroundColor = columns[i].Background;
-                    WriteAligned(alternativeColor ? output.Substring(2) : output, columns[i].Alignment, columns[i]._width, columns[i].Filler);
+                    for (int i = 0; i < columns.Length; i++)
+                    {
+                        if (columns[i].Values.Count <= line)
+                        {
+                            columns[i]._text[line] = new string[] { "" };
+                            continue;
+                        }
+
+                        var text = columns[i].Values[line].GetLines();
+
+                        if (!columns[i].WrapWords)
+                            columns[i]._text[line] = new string[] { text.Length == 0 ? "" : text[0] };
+                        else
+                        {
+                            var additionalLines = new List<string>();
+
+                            foreach (var p in text)
+                            {
+                                if (p.Length <= columns[i]._width)
+                                    additionalLines.Add(p);
+                                else
+                                    additionalLines.AddRange(p.WrapWords(columns[i]._width - 10));
+                            }
+
+                            columns[i]._text[line] = additionalLines.ToArray();
+                        }
+                    }
                 }
-                Console.Write("\n");
+
+                foreach (var col in columns)
+                    col.Values.Clear();
+
+                for (int line = 0; line < totalLine; line++)
+                {
+                    // we have the maximum sub lines of all columns in the current line
+                    var maxlines = columns.Max(x => x._text[line].Length);
+
+                    foreach (var col in columns)
+                        col.Values.AddRange(col._text[line].Pad(maxlines));
+                }
+
+                totalLine = columns.Max(x => x.Values.Count);
+
+                for (int line = 0; line < totalLine; line++)
+                {
+                    for (int i = 0; i < columns.Length; i++)
+                    {
+                        var output = columns[i].Values[line];
+                        var alternativeColor = output.StartsWith("!!");
+                        Console.ForegroundColor = alternativeColor ? columns[i].AlternativeForeground : columns[i].Foreground;
+                        Console.BackgroundColor = columns[i].Background;
+                        WriteAligned(alternativeColor ? output.Substring(2) : output, columns[i].Alignment, columns[i]._width, columns[i].Filler);
+                    }
+                    Console.Write("\n");
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                Console.ResetColor();
             }
         }
 

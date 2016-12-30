@@ -9,8 +9,6 @@ namespace Cauldron.Consoles
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = false)]
     public sealed class ParameterAttribute : Attribute
     {
-        internal bool activated = false;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ParameterAttribute"/>
         /// </summary>

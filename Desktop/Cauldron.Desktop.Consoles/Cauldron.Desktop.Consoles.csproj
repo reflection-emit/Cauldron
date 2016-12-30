@@ -46,7 +46,6 @@
     <Compile Include="ConsoleUtils.cs" />
     <Compile Include="ExecutionGroupAttribute.cs" />
     <Compile Include="ExecutionGroupProperties.cs" />
-    <Compile Include="Extensions.cs" />
     <Compile Include="IExecutionGroup.cs" />
     <Compile Include="ExecutionGroupParameter.cs" />
     <Compile Include="ParameterAttribute.cs" />
