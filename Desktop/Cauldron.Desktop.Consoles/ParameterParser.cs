@@ -61,18 +61,26 @@ namespace Cauldron.Consoles
         /// <summary>
         /// Starts the execution of the execution groups
         /// </summary>
-        public void Execute()
+        /// <returns>true if any of the execution group was executed; otherwise false</returns>
+        public bool Execute()
         {
             if (!this.isInitialized)
                 throw new Exception("Execute Parse(object, string[]) first before invoking Execute()");
 
-            foreach (var groups in this.executionGroups
+            var executableGroups = this.executionGroups
                 .Where(x => x.Parameters.Any(y => y.Attribute.activated))
-                .OrderBy(x => x.Attribute.GroupIndex))
+                .OrderBy(x => x.Attribute.GroupIndex);
+
+            if (!executableGroups.Any())
+                return false;
+
+            foreach (var groups in executableGroups)
             {
                 groups.ExecutionGroup.Execute(this);
                 Console.ResetColor();
             }
+
+            return false;
         }
 
         /// <summary>
