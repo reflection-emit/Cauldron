@@ -4,8 +4,8 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Security.Principal;
 using System.Text;
-using System.Windows;
 
 namespace Cauldron.Core
 {
@@ -14,6 +14,25 @@ namespace Cauldron.Core
     /// </summary>
     public static class Win32Api
     {
+        /// <summary>
+        /// Tests whether the current user is an elevated administrator.
+        /// </summary>
+        public static bool IsCurrentUserAnAdministrator
+        {
+            get
+            {
+                try
+                {
+                    using (var user = WindowsIdentity.GetCurrent())
+                        return new WindowsPrincipal(user).IsInRole(WindowsBuiltInRole.Administrator);
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+        }
+
         /// <summary>
         /// Brings the thread that created the specified window into the foreground and activates the window.
         /// Keyboard input is directed to the window, and various visual cues are changed for the user.
