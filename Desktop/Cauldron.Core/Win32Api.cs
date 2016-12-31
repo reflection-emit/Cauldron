@@ -1,8 +1,11 @@
-﻿using System;
+﻿using Cauldron.Core.Extensions;
+using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security.Principal;
 using System.Text;
@@ -239,6 +242,29 @@ namespace Cauldron.Core
 
             if (UnsafeNative.SendMessage(hwnd, UnsafeNative.WM_COPYDATA, IntPtr.Zero, ref data) != 0)
                 throw new Win32Exception(Marshal.GetLastWin32Error());
+        }
+
+        /// <summary>
+        /// Starts the EntryAssembly elevated.
+        /// </summary>
+        /// <param name="args">The arguments to be passed to the application</param>
+        /// <returns>Returns true if successful; otherwise false</returns>
+        public static bool StartElevated(params string[] args)
+        {
+            if (!IsCurrentUserAnAdministrator)
+            {
+                var startInfo = new ProcessStartInfo();
+                startInfo.UseShellExecute = true;
+                startInfo.WorkingDirectory = Environment.CurrentDirectory;
+                startInfo.FileName = Assembly.GetEntryAssembly().Location;
+                startInfo.Arguments = args != null && args.Length > 0 ? args.Join(" ") : string.Empty;
+                startInfo.Verb = "runas";
+
+                Process.Start(startInfo);
+                return true;
+            }
+            else
+                return false;
         }
     }
 }

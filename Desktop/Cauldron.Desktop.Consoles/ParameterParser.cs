@@ -58,6 +58,11 @@ namespace Cauldron.Consoles
         public ConsoleColor KeyColor { get; set; } = ConsoleColor.Gray;
 
         /// <summary>
+        /// Gets the parameters passed to the application
+        /// </summary>
+        public string[] Parameters { get; private set; }
+
+        /// <summary>
         /// Gets or sets the <see cref="Console.ForegroundColor"/> of the usage example text in the help text
         /// </summary>
         public ConsoleColor UsageExampleColor { get; set; } = ConsoleColor.DarkGray;
@@ -106,6 +111,8 @@ namespace Cauldron.Consoles
         {
             if (this.isInitialized)
                 throw new Exception("You cannot use the same instance of ParameterParser to parse another group of parameters. Please create a new instance.");
+
+            this.Parameters = args;
 
             ParseGroups(this.executionGroups);
             var flatList = this.executionGroups.SelectMany(x => x.Parameters);
