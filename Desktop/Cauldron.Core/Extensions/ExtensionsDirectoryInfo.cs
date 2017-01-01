@@ -10,6 +10,81 @@ namespace Cauldron.Core.Extensions
     public static class ExtensionsDirectoryInfo
     {
         /// <summary>
+        /// Creates a copy of the file in the specified folder and renames the copy.
+        /// </summary>
+        /// <param name="source">The file to be copied</param>
+        /// <param name="destinationFolder">The destination folder where the copy of the file is created.</param>
+        /// <param name="desiredNewName">The new name for the copy of the file created in the <paramref name="destinationFolder"/>
+        /// <returns>
+        /// When this method completes, it returns a <see cref="FileInfo"/> that represents the copy
+        /// of the file created in the <paramref name="destinationFolder"/>.
+        /// </returns>
+        public static async Task<FileInfo> CopyAsync(this FileInfo source, DirectoryInfo destinationFolder, string desiredNewName) =>
+          await source.CopyAsync(destinationFolder, desiredNewName, NameCollisionOption.GenerateUniqueName);
+
+        /// <summary>
+        /// Creates a copy of the file in the specified folder.
+        /// </summary>
+        /// <param name="source">The file to be copied</param>
+        /// <param name="destinationFolder">The destination folder where the copy of the file is created.</param>
+        /// <returns>
+        /// When this method completes, it returns a <see cref="FileInfo"/> that represents the copy
+        /// of the file created in the <paramref name="destinationFolder"/>.
+        /// </returns>
+        public static async Task<FileInfo> CopyAsync(this FileInfo source, DirectoryInfo destinationFolder) =>
+          await source.CopyAsync(destinationFolder, source.Name, NameCollisionOption.GenerateUniqueName);
+
+        /// <summary>
+        /// Creates a copy of the file in the specified folder and renames the copy. This
+        /// method also specifies what to do if a file with the same name already exists
+        /// in the destination folder.
+        /// </summary>
+        /// <param name="source">The file to be copied</param>
+        /// <param name="destinationFolder">The destination folder where the copy of the file is created.</param>
+        /// <param name="desiredNewName">The new name for the copy of the file created in the <paramref name="destinationFolder"/>.</param>
+        /// <param name="option">
+        /// One of the enumeration values that determines how to handle the collision if
+        /// a file with the specified <paramref name="desiredNewName"/> already exists in the destination folder.
+        /// </param>
+        /// <returns>
+        /// When this method completes, it returns a <see cref="FileInfo"/> that represents the copy
+        /// of the file created in the <paramref name="destinationFolder"/>.
+        /// </returns>
+        public static async Task<FileInfo> CopyAsync(this FileInfo source, DirectoryInfo destinationFolder, string desiredNewName, NameCollisionOption option)
+        {
+            if (desiredNewName == null)
+                throw new ArgumentNullException(nameof(desiredNewName));
+
+            if (desiredNewName.Length == 0)
+                throw new ArgumentException($"The argument desiredNewName cannot be empty");
+
+            string filename = Path.Combine(destinationFolder.FullName, desiredNewName);
+
+            var task = Task.Run(() =>
+            {
+                switch (option)
+                {
+                    case NameCollisionOption.ReplaceExisting:
+                        File.Copy(source.FullName, filename, true);
+                        break;
+
+                    case NameCollisionOption.FailIfExists:
+                        if (File.Exists(filename))
+                            throw new IOException($"The file '{desiredNewName}' already exist in the directory '{destinationFolder.FullName}'");
+                        File.Copy(source.FullName, filename, true);
+                        break;
+
+                    case NameCollisionOption.GenerateUniqueName:
+                        File.Copy(source.FullName, GetUniqueFilename(filename), true);
+                        break;
+                }
+            });
+            await task.ConfigureAwait(false);
+
+            return new FileInfo(filename);
+        }
+
+        /// <summary>
         /// Creates a new file in the current folder. This method also specifies what to do if a file with the same name already exists in the current folder.
         /// </summary>
         /// <param name="directoryInfo">The <see cref="DirectoryInfo"/> representing the current folder</param>

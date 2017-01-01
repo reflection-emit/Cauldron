@@ -162,6 +162,7 @@
     <Compile Include="ApplicationData.cs" />
     <Compile Include="CoreDispatcherPriority.cs" />
     <Compile Include="Extensions\ExtensionsXmlDocument.cs" />
+    <Compile Include="NameCollisionOption.cs" />
     <Compile Include="UrlProtocol.cs" />
     <Compile Include="CreationCollisionOption.cs" />
     <Compile Include="DispatcherEx.Desktop.cs" />
