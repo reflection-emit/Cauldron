@@ -19,6 +19,8 @@ namespace Cauldron.Core.Extensions
         /// When this method completes, it returns a <see cref="FileInfo"/> that represents the copy
         /// of the file created in the <paramref name="destinationFolder"/>.
         /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="desiredNewName"/> is null</exception>
+        /// <exception cref="ArgumentException"><paramref name="desiredNewName"/> is empty</exception>
         public static async Task<FileInfo> CopyAsync(this FileInfo source, DirectoryInfo destinationFolder, string desiredNewName) =>
           await source.CopyAsync(destinationFolder, desiredNewName, NameCollisionOption.GenerateUniqueName);
 
@@ -31,6 +33,7 @@ namespace Cauldron.Core.Extensions
         /// When this method completes, it returns a <see cref="FileInfo"/> that represents the copy
         /// of the file created in the <paramref name="destinationFolder"/>.
         /// </returns>
+        /// <exception cref="IOException">If file already exists. Only on <see cref="NameCollisionOption.FailIfExists"/></exception>
         public static async Task<FileInfo> CopyAsync(this FileInfo source, DirectoryInfo destinationFolder) =>
           await source.CopyAsync(destinationFolder, source.Name, NameCollisionOption.GenerateUniqueName);
 
@@ -50,6 +53,9 @@ namespace Cauldron.Core.Extensions
         /// When this method completes, it returns a <see cref="FileInfo"/> that represents the copy
         /// of the file created in the <paramref name="destinationFolder"/>.
         /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="desiredNewName"/> is null</exception>
+        /// <exception cref="ArgumentException"><paramref name="desiredNewName"/> is empty</exception>
+        /// <exception cref="IOException">If file already exists. Only on <see cref="NameCollisionOption.FailIfExists"/></exception>
         public static async Task<FileInfo> CopyAsync(this FileInfo source, DirectoryInfo destinationFolder, string desiredNewName, NameCollisionOption option)
         {
             if (desiredNewName == null)
@@ -58,7 +64,7 @@ namespace Cauldron.Core.Extensions
             if (desiredNewName.Length == 0)
                 throw new ArgumentException($"The argument desiredNewName cannot be empty");
 
-            string filename = Path.Combine(destinationFolder.FullName, desiredNewName);
+            var filename = Path.Combine(destinationFolder.FullName, desiredNewName);
 
             var task = Task.Run(() =>
             {
@@ -102,7 +108,7 @@ namespace Cauldron.Core.Extensions
             if (desiredName.Length == 0)
                 throw new ArgumentException($"The argument desiredName cannot be empty");
 
-            string filename = Path.Combine(directoryInfo.FullName, desiredName);
+            var filename = Path.Combine(directoryInfo.FullName, desiredName);
 
             var task = Task.Run(() =>
              {
@@ -175,7 +181,7 @@ namespace Cauldron.Core.Extensions
             if (desiredName.Length == 0)
                 throw new ArgumentException($"The argument desiredName cannot be empty");
 
-            string folderFullPath = Path.Combine(directoryInfo.FullName, desiredName);
+            var folderFullPath = Path.Combine(directoryInfo.FullName, desiredName);
 
             var task = Task.Run(() =>
             {
@@ -226,6 +232,23 @@ namespace Cauldron.Core.Extensions
         /// <returns>A unique and valied path and filename</returns>
         private static string GetUniqueDirectoryName(string path)
         {
+            var directoryInfo = new DirectoryInfo(path);
+            var directoryName = directoryInfo.FullName;
+            var indexer = 1;
+
+            while (Directory.Exists(directoryName))
+                directoryName = Path.Combine(directoryInfo.Parent.FullName, $"{directoryInfo.Name} ({indexer++})");
+
+            return directoryName;
+        }
+
+        /// <summary>
+        /// Checks if the filename of <paramref name="path"/> exist. If the file already exists, an indexer will be added to the filename to make it unique.
+        /// </summary>
+        /// <param name="path">The path and filename of a file</param>
+        /// <returns>A unique and valied path and filename</returns>
+        private static string GetUniqueFilename(string path)
+        {
             var extension = Path.GetExtension(path);
             var filenameWithoutExtension = Path.GetFileNameWithoutExtension(path);
             var filePath = Path.GetDirectoryName(path);
@@ -241,23 +264,6 @@ namespace Cauldron.Core.Extensions
                 filename = Path.Combine(filePath, $"{filenameWithoutExtension} ({indexer++}){extension}");
 
             return filename;
-        }
-
-        /// <summary>
-        /// Checks if the filename of <paramref name="path"/> exist. If the file already exists, an indexer will be added to the filename to make it unique.
-        /// </summary>
-        /// <param name="path">The path and filename of a file</param>
-        /// <returns>A unique and valied path and filename</returns>
-        private static string GetUniqueFilename(string path)
-        {
-            var directoryInfo = new DirectoryInfo(path);
-            var directoryName = directoryInfo.FullName;
-            var indexer = 1;
-
-            while (Directory.Exists(directoryName))
-                directoryName = Path.Combine(directoryInfo.Parent.FullName, $"{directoryInfo.Name} ({indexer++})");
-
-            return directoryName;
         }
     }
 }
