@@ -30,7 +30,7 @@ namespace Cauldron.Activator
                 .Where(x => !x.IsInterface)
                 .Select(x => new Component
                 {
-                    Attrib = x.GetCustomAttribute(attributeType, false) as ComponentAttribute,
+                    Attrib = x.GetCustomAttribute<ComponentAttribute>(false),
                     TypeInfo = x
                 });
 
@@ -39,23 +39,26 @@ namespace Cauldron.Activator
             Assemblies.LoadedAssemblyChanged += (s, e) =>
             {
                 // Get all factory extensions
-                var factoryExtensionTypes = Assemblies.GetTypesImplementsInterface<IFactoryExtension>();
+                var factoryExtensionTypes = e.Types.Where(x => x.ImplementsInterface<IFactoryExtension>())
+                    .Select(x => System.Activator.CreateInstance(x) as IFactoryExtension);
 
-                foreach (var item in factoryExtensionTypes)
-                    if (!factoryExtensions.Any(x => x.GetType().FullName == item.FullName))
+                if (factoryExtensionTypes.Any())
+                    factoryExtensions.AddRange(factoryExtensionTypes);
+
+                AddTypes(e.Types.Select(x => x.GetTypeInfo())
+                    .Where(x => !x.IsInterface)
+                    .Select(x => new Component
                     {
-                        factoryExtensions.Add(System.Activator.CreateInstance(item.AsType()) as IFactoryExtension);
-
-                        AddTypes(Assemblies.ExportedTypes
-                            .Where(x => !x.IsInterface && !Factory.types.Any(y => y.typeInfo == x))
-                            .Select(x => new Component
-                            {
-                                Attrib = x.GetCustomAttribute<ComponentAttribute>(false),
-                                TypeInfo = x
-                            }));
-                    }
+                        Attrib = x.GetCustomAttribute<ComponentAttribute>(false),
+                        TypeInfo = x
+                    }));
             };
         }
+
+        /// <summary>
+        /// Gets a collection types that is known to the <see cref="Factory"/>
+        /// </summary>
+        public static IEnumerable<FactoryTypeInfo> RegisteredTypes { get { return types; } }
 
         /// <summary>
         /// Adds a new <see cref="Type"/> to list of known types.

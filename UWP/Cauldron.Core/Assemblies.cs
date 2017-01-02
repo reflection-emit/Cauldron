@@ -3,7 +3,6 @@ using System;
 using System.IO;
 using Cauldron.Core.Collections;
 using Cauldron.Core.Extensions;
-using Cauldron.Core;
 
 #if NETFX_CORE
 
@@ -14,11 +13,9 @@ using Windows.UI.Xaml;
 
 #else
 
-using System.Windows;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
-using System.Threading.Tasks;
 
 #endif
 
@@ -42,7 +39,7 @@ namespace Cauldron.Core
         /// <summary>
         /// Occures if the <see cref="_assemblies"/> has changed
         /// </summary>
-        public static event EventHandler LoadedAssemblyChanged;
+        public static event EventHandler<AssemblyAddedEventArgs> LoadedAssemblyChanged;
 
         /// <summary>
         /// Gets a collection of <see cref="AssemblyAndResourceNameInfo"/> that contains all fully qualified filename of embedded resources and thier corresponding <see cref="Assembly"/>
@@ -107,17 +104,17 @@ namespace Cauldron.Core
                 return;
 
             _assemblies.Add(assembly);
+            var types = FilterTypes(assembly.DefinedTypes).ToArray();
 
-            var definedTypes = FilterTypes(assembly.DefinedTypes).Select(x => new TypesWithImplementedInterfaces
+            var definedTypes = types.Select(x => new TypesWithImplementedInterfaces
             {
                 interfaces = x.ImplementedInterfaces.ToArray(),
                 typeInfo = x
             });
             typesWithImplementedInterfaces.AddRange(definedTypes);
-
             AssemblyAndResourceNamesInfo.AddRange(assembly.GetManifestResourceNames().Select(x => new AssemblyAndResourceNameInfo(assembly, x)));
 
-            LoadedAssemblyChanged?.Invoke(null, EventArgs.Empty);
+            LoadedAssemblyChanged?.Invoke(null, new AssemblyAddedEventArgs(assembly, types));
         }
 
 #endif
@@ -344,8 +341,9 @@ namespace Cauldron.Core
                 return; // this is already loaded... No need to load again
 
             Assemblies.Known.Add(assembly);
+            var types = FilterTypes(assembly.DefinedTypes).ToArray();
 
-            var definedTypes = FilterTypes(assembly.DefinedTypes).Select(x => new TypesWithImplementedInterfaces
+            var definedTypes = types.Select(x => new TypesWithImplementedInterfaces
             {
                 interfaces = x.ImplementedInterfaces.ToArray(),
                 typeInfo = x
@@ -353,7 +351,7 @@ namespace Cauldron.Core
 
             typesWithImplementedInterfaces.AddRange(definedTypes);
             AssemblyAndResourceNamesInfo.AddRange(assembly.GetManifestResourceNames().Select(x => new AssemblyAndResourceNameInfo(assembly, x)));
-            LoadedAssemblyChanged?.Invoke(null, EventArgs.Empty);
+            LoadedAssemblyChanged?.Invoke(null, new AssemblyAddedEventArgs(assembly, types));
         }
 
 #endif
@@ -405,9 +403,6 @@ namespace Cauldron.Core
 
 #endif
             _assemblies = new ConcurrentList<Assembly>(assemblies.Where(x => !x.IsDynamic).Distinct());
-
-            // TODO - will this be ever invoked at all?
-            LoadedAssemblyChanged?.Invoke(null, EventArgs.Empty);
         }
 
 #if !WINDOWS_UWP
@@ -459,6 +454,8 @@ namespace Cauldron.Core
                     !x.FullName.StartsWith("MS.") &&
                     !x.FullName.StartsWith("XamlGeneratedNamespace.") &&
                     !x.FullName.StartsWith("Castle.") &&
+                    !x.FullName.StartsWith("PostSharp.") &&
+                    !x.FullName.StartsWith("Newtonsoft.Json.") &&
                     !x.FullName.StartsWith("Standard."));
 
         private static void GetAllAssemblyAndResourceNameInfo()
@@ -510,6 +507,28 @@ namespace Cauldron.Core
             public TypeInfo typeInfo;
 
             public override string ToString() => typeInfo.ToString() + " (" + interfaces.Count() + ")";
+        }
+
+        /// <summary>
+        /// Contains data of the <see cref="LoadedAssemblyChanged"/> event.
+        /// </summary>
+        public sealed class AssemblyAddedEventArgs : EventArgs
+        {
+            internal AssemblyAddedEventArgs(Assembly assembly, Type[] types)
+            {
+                this.Types = types;
+                this.Assembly = assembly;
+            }
+
+            /// <summary>
+            /// Gets a collection of types that is defined in the assembly
+            /// </summary>
+            public IEnumerable<Type> Types { get; private set; }
+
+            /// <summary>
+            /// Gets the assembly that has been added to the known assembly collection
+            /// </summary>
+            public Assembly Assembly { get; private set; }
         }
     }
 }
