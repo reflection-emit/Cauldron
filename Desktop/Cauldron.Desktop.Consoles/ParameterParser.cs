@@ -89,8 +89,18 @@ namespace Cauldron.Consoles
 
             foreach (var groups in executableGroups)
             {
-                groups.Group.Execute(this);
-                Console.ResetColor();
+                try
+                {
+                    groups.Group.Execute(this);
+                }
+                catch
+                {
+                    throw;
+                }
+                finally
+                {
+                    Console.ResetColor();
+                }
             }
 
             return true;
