@@ -61,6 +61,15 @@ namespace Cauldron.Core
         /// </summary>
         public static IEnumerable<TypeInfo> Interfaces { get { return ExportedTypes.Where(x => x.IsInterface); } }
 
+#if WINDOWS_UWP
+
+        /// <summary>
+        /// Gets a value that determines if the Debugger is attached to the process
+        /// </summary>
+        public static bool IsDebugging { get { return Debugger.IsAttached; } }
+
+#else
+
         /// <summary>
         /// Gets a value that determines if the <see cref="Assembly.GetEntryAssembly"/> or <see cref="Assembly.GetCallingAssembly"/> is in debug mode
         /// </summary>
@@ -68,10 +77,6 @@ namespace Cauldron.Core
         {
             get
             {
-#if WINDOWS_UWP
-                return Debugger.IsAttached;
-#else
-
                 var assembly = Assembly.GetEntryAssembly();
 
                 if (assembly == null)
@@ -79,9 +84,10 @@ namespace Cauldron.Core
 
                 var attrib = assembly.GetCustomAttribute<DebuggableAttribute>();
                 return attrib == null ? false : attrib.IsJITTrackingEnabled;
-#endif
             }
         }
+
+#endif
 
         /// <summary>
         /// Gets a collection of <see cref="Assembly"/> that is loaded to the <see cref="Core.Assemblies"/>
@@ -104,7 +110,7 @@ namespace Cauldron.Core
                 return;
 
             _assemblies.Add(assembly);
-            var types = FilterTypes(assembly.DefinedTypes).ToArray();
+            var types = FilterTypes(assembly.DefinedTypes);
 
             var definedTypes = types.Select(x => new TypesWithImplementedInterfaces
             {
@@ -114,7 +120,7 @@ namespace Cauldron.Core
             typesWithImplementedInterfaces.AddRange(definedTypes);
             AssemblyAndResourceNamesInfo.AddRange(assembly.GetManifestResourceNames().Select(x => new AssemblyAndResourceNameInfo(assembly, x)));
 
-            LoadedAssemblyChanged?.Invoke(null, new AssemblyAddedEventArgs(assembly, types));
+            LoadedAssemblyChanged?.Invoke(null, new AssemblyAddedEventArgs(assembly, types.Select(x => x.AsType()).ToArray()));
         }
 
 #endif
@@ -501,14 +507,6 @@ namespace Cauldron.Core
 
         #endregion Private Methods
 
-        private class TypesWithImplementedInterfaces
-        {
-            public Type[] interfaces;
-            public TypeInfo typeInfo;
-
-            public override string ToString() => typeInfo.ToString() + " (" + interfaces.Count() + ")";
-        }
-
         /// <summary>
         /// Contains data of the <see cref="LoadedAssemblyChanged"/> event.
         /// </summary>
@@ -521,14 +519,22 @@ namespace Cauldron.Core
             }
 
             /// <summary>
-            /// Gets a collection of types that is defined in the assembly
-            /// </summary>
-            public IEnumerable<Type> Types { get; private set; }
-
-            /// <summary>
             /// Gets the assembly that has been added to the known assembly collection
             /// </summary>
             public Assembly Assembly { get; private set; }
+
+            /// <summary>
+            /// Gets a collection of types that is defined in the assembly
+            /// </summary>
+            public IEnumerable<Type> Types { get; private set; }
+        }
+
+        private class TypesWithImplementedInterfaces
+        {
+            public Type[] interfaces;
+            public TypeInfo typeInfo;
+
+            public override string ToString() => typeInfo.ToString() + " (" + interfaces.Count() + ")";
         }
     }
 }
