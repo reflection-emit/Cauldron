@@ -193,25 +193,19 @@ namespace Cauldron.Consoles
 
             Console.Write("\n\n");
 
-            var assembly = Assembly.GetEntryAssembly();
-
-            if (assembly == null)
-                assembly = Assembly.GetCallingAssembly();
-
-            if (assembly == null)
-                assembly = Assembly.GetExecutingAssembly();
-
             foreach (var group in this.executionGroups)
             {
                 // Write the group name and divider
                 Console.ForegroundColor = this.GroupColor;
                 Console.WriteLine((hasSource ? this.locale[group.Attribute.GroupName] : group.Attribute.GroupName).PadRight(Console.WindowWidth - 1, '.'));
 
+                var usageExampleText = hasSource ? $"{this.locale["usage-example"]}: " : "Usage example: ";
+
                 // Write the usage example if there is one
                 if (!string.IsNullOrEmpty(group.Attribute.UsageExample))
                 {
                     Console.ForegroundColor = this.UsageExampleColor;
-                    Console.WriteLine((hasSource ? $"{this.locale["usage-example"]}: " : "Usage example: ") + Path.GetFileName(assembly.Location) + " " + group.Attribute.UsageExample);
+                    Console.WriteLine(usageExampleText + Path.GetFileNameWithoutExtension(GetStartingAssembly().Location) + " " + group.Attribute.UsageExample);
                 }
 
                 // Write the parameter - description table
@@ -222,9 +216,9 @@ namespace Cauldron.Consoles
                     {
                         var description = hasSource? this.locale[x.Attribute.Description] : x.Attribute.Description;
                         if(x.Attribute.IsRequired)
-                            return description + "\n!!" + (hasSource? this.locale["mandatory"] : "Mandatory");
+                            return ReplaceKeywords( description + "\n!!" + (hasSource? this.locale["mandatory"] : "Mandatory"), x.Parameters.Last(), usageExampleText);
 
-                        return description;
+                        return ReplaceKeywords(description, x.Parameters.Last(), usageExampleText);
                     })) { Foreground = this.DescriptionColor, AlternativeForeground = this.UsageExampleColor, Width = 2 }
                 });
 
@@ -232,6 +226,19 @@ namespace Cauldron.Consoles
             }
 
             Console.ResetColor();
+        }
+
+        private static Assembly GetStartingAssembly()
+        {
+            var assembly = Assembly.GetEntryAssembly();
+
+            if (assembly == null)
+                assembly = Assembly.GetCallingAssembly();
+
+            if (assembly == null)
+                assembly = Assembly.GetExecutingAssembly();
+
+            return assembly;
         }
 
         private static void ParseGroups(IEnumerable<ExecutionGroupProperties> executionGroups)
@@ -247,6 +254,12 @@ namespace Cauldron.Consoles
                 group.Parameters = parameters.ToList();
             }
         }
+
+        private static string ReplaceKeywords(string value, string parameter, string usageExampleText) => value
+            .Replace("$ux$", $"\n!!{usageExampleText} {Path.GetFileNameWithoutExtension(GetStartingAssembly().Location)} {parameter}")
+            .Replace("$mm$", $"\n!!{Path.GetFileNameWithoutExtension(GetStartingAssembly().Location)} {parameter}")
+            .Replace("$me$", Path.GetFileNameWithoutExtension(GetStartingAssembly().Location))
+            .Replace("$pm$", parameter);
 
         private void TryParseParameters(IEnumerable<ExecutionGroupParameter> executionGroupParameters, string[] args)
         {

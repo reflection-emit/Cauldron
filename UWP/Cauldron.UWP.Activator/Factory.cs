@@ -15,9 +15,9 @@ namespace Cauldron.Activator
     /// </summary>
     public sealed class Factory
     {
-        private static List<IFactoryExtension> factoryExtensions = new List<IFactoryExtension>();
+        private static ConcurrentList<IFactoryExtension> factoryExtensions = new ConcurrentList<IFactoryExtension>();
         private static ConcurrentList<ObjectKey> instances = new ConcurrentList<ObjectKey>();
-        private static List<FactoryTypeInfo> types = new List<FactoryTypeInfo>();
+        private static ConcurrentList<FactoryTypeInfo> types = new ConcurrentList<FactoryTypeInfo>();
 
         static Factory()
         {
@@ -54,6 +54,11 @@ namespace Cauldron.Activator
                     }));
             };
         }
+
+        /// <summary>
+        /// Gets or sets a value that indicates if the <see cref="Factory"/> is allowed to raise an exception or not.
+        /// </summary>
+        public static bool CanRaiseExceptions { get; set; } = false;
 
         /// <summary>
         /// Gets a collection types that is known to the <see cref="Factory"/>
@@ -493,7 +498,11 @@ namespace Cauldron.Activator
 
                     if (realType == null)
                     {
-                        Output.WriteLineError("The contractName '" + contractName + "' was not found.");
+                        if (CanRaiseExceptions)
+                            throw new NotImplementedException("The contractName '" + contractName + "' was not found.");
+                        else
+                            Output.WriteLineError("The contractName '" + contractName + "' was not found.");
+
                         return null;
                     }
 
@@ -508,7 +517,11 @@ namespace Cauldron.Activator
                 }
                 catch (Exception e)
                 {
-                    Output.WriteLineError(e.Message);
+                    if (CanRaiseExceptions)
+                        throw;
+                    else
+                        Output.WriteLineError(e.Message);
+
                     return null;
                 }
             }

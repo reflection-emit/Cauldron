@@ -15,6 +15,14 @@ namespace Cauldron.Consoles
         /// <param name="description">
         /// A short description of the parameter. A description paragraph can be highlightened by adding !! at the beginning of the line.
         /// <para/>
+        /// The following keyword can also be used:
+        /// <list type="bullet">
+        /// <item><description>$ux$ - Replaced by \n!!USAGE EXAMPLE: executableName -parameter</description></item>
+        /// <item><description>$mm$ - Replaced by \n!!executableName -parameter</description></item>
+        /// <item><description>$me$ - Replaced by executableName</description></item>
+        /// <item><description>$pm$ - Replaced by parameter</description></item>
+        /// </list>
+        /// <para/>
         /// If an implementation of <see cref="ILocalizationSource"/> exist, the parser will use <paramref name="description"/> as a key for <see cref="Locale"/>
         /// </param>
         /// <param name="valueOptional">Indicates that the parameter's value is mandatory. Default is false.</param>
@@ -37,6 +45,14 @@ namespace Cauldron.Consoles
         /// <param name="description">
         /// A short description of the parameter. A description paragraph can be highlightened by adding !! at the beginning of the line.
         /// <para/>
+        /// The following keyword can also be used:
+        /// <list type="bullet">
+        /// <item><description>$ux$ - Replaced by \n!!USAGE EXAMPLE: executableName -parameter</description></item>
+        /// <item><description>$mm$ - Replaced by \n!!executableName -parameter</description></item>
+        /// <item><description>$me$ - Replaced by executableName</description></item>
+        /// <item><description>$pm$ - Replaced by parameter</description></item>
+        /// </list>
+        /// <para/>
         /// If an implementation of <see cref="ILocalizationSource"/> exist, the parser will use <paramref name="description"/> as a key for <see cref="Locale"/>
         /// </param>
         /// <param name="parameters">A list of parameters and aliases</param>
@@ -49,6 +65,14 @@ namespace Cauldron.Consoles
         /// </summary>
         /// <param name="description">
         /// A short description of the parameter. A description paragraph can be highlightened by adding !! at the beginning of the line.
+        /// <para/>
+        /// The following keyword can also be used:
+        /// <list type="bullet">
+        /// <item><description>$ux$ - Replaced by \n!!USAGE EXAMPLE: executableName -parameter</description></item>
+        /// <item><description>$mm$ - Replaced by \n!!executableName -parameter</description></item>
+        /// <item><description>$me$ - Replaced by executableName</description></item>
+        /// <item><description>$pm$ - Replaced by parameter</description></item>
+        /// </list>
         /// <para/>
         /// If an implementation of <see cref="ILocalizationSource"/> exist, the parser will use <paramref name="description"/> as a key for <see cref="Locale"/>
         /// </param>
