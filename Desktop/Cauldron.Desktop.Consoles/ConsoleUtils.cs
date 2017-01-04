@@ -88,6 +88,39 @@ namespace Cauldron.Consoles
                         }
         }
 
+        /// <summary>
+        /// Search for all processes with the same name as <paramref name="processName"/>
+        /// and blocks current thread until all current running instances has exited
+        /// </summary>
+        /// <param name="processName">The process name of the process to search for</param>
+        public static void WaitForExitAll(string processName)
+        {
+            var currentProcess = Process.GetCurrentProcess();
+
+            var getProcess = new Func<Process>(() =>
+                    Process.GetProcessesByName(processName)
+                        .FirstOrDefault(x => x.Id != currentProcess.Id));
+
+            var process = getProcess();
+
+            while (process != null)
+            {
+                try
+                {
+                    if (!process.HasExited)
+                        process.WaitForExit();
+                }
+                catch
+                {
+                    // Might happen between because of the small time gap between HasExited and WaitForExit
+                    // An Exception might occure, but can be ignored because an it can only mean that
+                    // the process has exited
+                }
+
+                process = getProcess();
+            };
+        }
+
         #region WriteTable stuff
 
         /// <summary>

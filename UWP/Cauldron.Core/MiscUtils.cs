@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -75,6 +76,27 @@ namespace Cauldron.Core
                 result[i] = creator();
 
             return result.Join("\r\n").TrimEnd();
+        }
+
+        /// <summary>
+        /// Returns the <see cref="DisplayNameAttribute.DisplayName"/> of an enum type.
+        /// </summary>
+        /// <typeparam name="TEnum">The enum type</typeparam>
+        /// <returns>A dictionary of display names with the enum value member as key</returns>
+        public static IReadOnlyDictionary<TEnum, string> GetDisplayNames<TEnum>() where TEnum : struct, IConvertible
+        {
+            var enumType = typeof(TEnum);
+
+            if (!enumType.IsEnum)
+                throw new ArgumentException($"{enumType.FullName} is not an enum type");
+
+            return enumType
+                .GetMembers()
+                .Where(x => x.MemberType == MemberTypes.Field)
+                .Select(x => new { Attribute = x.GetCustomAttribute<DisplayNameAttribute>(), Name = x.Name })
+                .Where(x => x.Attribute != null)
+                .ToDictionary(x => (TEnum)Enum.Parse(enumType, x.Name), x => x.Attribute.DisplayName)
+                .AsReadOnly();
         }
     }
 }

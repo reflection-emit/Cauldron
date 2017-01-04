@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.Runtime.InteropServices;
 using System.Linq;
+using System.Reflection;
 
 #if WINDOWS_UWP
 
@@ -47,6 +48,25 @@ namespace Cauldron.Core.Extensions
                 throw new ArgumentException("data cannot be empty");
 
             return Compression.Compress(Encoding.UTF8.GetBytes(data));
+        }
+
+        /// <summary>
+        /// Concatenates a jagged array to a one-dimensional array
+        /// </summary>
+        /// <param name="arrays">The jagged array</param>
+        /// <returns>An one dimensional array</returns>
+        public static T[] Concat<T>(this T[][] arrays)
+        {
+            var result = Array.CreateInstance(typeof(T), arrays.Sum(x => x.Length));
+            int offset = 0;
+
+            for (int i = 0; i <= arrays.Length - 1; i++)
+            {
+                Buffer.BlockCopy(arrays[i], 0, result, offset, arrays[i].Length);
+                offset += arrays[i].Length;
+            }
+
+            return (T[])result;
         }
 
         /// <summary>

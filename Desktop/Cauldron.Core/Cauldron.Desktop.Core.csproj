@@ -93,6 +93,9 @@
     <Compile Include="..\..\UWP\Cauldron.Core\DisposableBase.cs">
       <Link>DisposableBase.cs</Link>
     </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\DisplayNameAttribute.cs">
+      <Link>DisplayNameAttribute.cs</Link>
+    </Compile>
     <Compile Include="..\..\UWP\Cauldron.Core\DynamicEqualityComparer.cs">
       <Link>DynamicEqualityComparer.cs</Link>
     </Compile>

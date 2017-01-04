@@ -14,7 +14,7 @@ namespace Cauldron.Core.Extensions
         /// </summary>
         /// <param name="source">The file to be copied</param>
         /// <param name="destinationFolder">The destination folder where the copy of the file is created.</param>
-        /// <param name="desiredNewName">The new name for the copy of the file created in the <paramref name="destinationFolder"/>
+        /// <param name="desiredNewName">The new name for the copy of the file created in the <paramref name="destinationFolder"/></param>
         /// <returns>
         /// When this method completes, it returns a <see cref="FileInfo"/> that represents the copy
         /// of the file created in the <paramref name="destinationFolder"/>.

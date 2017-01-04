@@ -130,6 +130,7 @@
     <Compile Include="DisposableBase.cs" />
     <Compile Include="DynamicEqualityComparer.cs" />
     <Compile Include="ExecutionTimer.cs" />
+    <Compile Include="DisplayNameAttribute.cs" />
     <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="Extensions\ExtensionsConvertions.cs" />
     <Compile Include="Extensions\ExtensionsConvertions.UWP.cs" />

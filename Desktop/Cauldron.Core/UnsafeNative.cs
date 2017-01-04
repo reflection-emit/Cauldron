@@ -47,8 +47,8 @@ namespace Cauldron.Core
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool GetCursorPos(ref Win32Point pt);
 
-        [DllImport("user32.dll")]
-        public static extern bool GetIconInfo(IntPtr hIcon, out ICONINFO piconinfo);
+        //[DllImport("user32.dll")]
+        //public static extern bool GetIconInfo(IntPtr hIcon, out ICONINFO piconinfo);
 
         [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
         public static extern IntPtr GetModuleHandle(string lpModuleName);
@@ -56,8 +56,8 @@ namespace Cauldron.Core
         [DllImport("user32")]
         public static extern bool GetMonitorInfo(IntPtr hMonitor, MONITORINFO lpmi);
 
-        [DllImport("gdi32.dll", SetLastError = true, CharSet = System.Runtime.InteropServices.CharSet.Auto)]
-        public static extern int GetObject(HandleRef hObject, int nSize, [In, Out] BITMAP bm);
+        //[DllImport("gdi32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+        //public static extern int GetObject(HandleRef hObject, int nSize, [In, Out] BITMAP bm);
 
         [DllImport("shell32.dll", EntryPoint = "#261", CharSet = CharSet.Unicode, PreserveSig = false)]
         public static extern void GetUserTilePath(string username, UInt32 whatever, StringBuilder picpath, int maxLength);
@@ -110,34 +110,34 @@ namespace Cauldron.Core
             public string lpData; /* 4 */
         }
 
-        public struct ICONINFO
-        {
-            /// <summary>
-            /// Specifies whether this structure defines an icon or a cursor.
-            /// A value of TRUE specifies an icon; FALSE specifies a cursor
-            /// </summary>
-            public bool fIcon;
+        //public struct ICONINFO
+        //{
+        //    /// <summary>
+        //    /// Specifies whether this structure defines an icon or a cursor.
+        //    /// A value of TRUE specifies an icon; FALSE specifies a cursor
+        //    /// </summary>
+        //    public bool fIcon;
 
-            /// <summary>
-            /// A handle to the icon color bitmap.
-            /// </summary>
-            public IntPtr hbmColor;
+        //    /// <summary>
+        //    /// A handle to the icon color bitmap.
+        //    /// </summary>
+        //    public IntPtr hbmColor;
 
-            /// <summary>
-            /// The icon bitmask bitmap
-            /// </summary>
-            public IntPtr hbmMask;
+        //    /// <summary>
+        //    /// The icon bitmask bitmap
+        //    /// </summary>
+        //    public IntPtr hbmMask;
 
-            /// <summary>
-            /// The x-coordinate of a cursor's hot spot
-            /// </summary>
-            public Int32 xHotspot;
+        //    /// <summary>
+        //    /// The x-coordinate of a cursor's hot spot
+        //    /// </summary>
+        //    public int xHotspot;
 
-            /// <summary>
-            /// The y-coordinate of a cursor's hot spot
-            /// </summary>
-            public Int32 yHotspot;
-        }
+        //    /// <summary>
+        //    /// The y-coordinate of a cursor's hot spot
+        //    /// </summary>
+        //    public int yHotspot;
+        //}
 
         [StructLayout(LayoutKind.Sequential)]
         public struct MINMAXINFO
@@ -172,16 +172,16 @@ namespace Cauldron.Core
             public int Y; /* 2 */
         };
 
-        public class BITMAP
-        {
-            public IntPtr bmBits = IntPtr.Zero;
-            public short bmBitsPixel;
-            public int bmHeight;
-            public short bmPlanes;
-            public int bmType;
-            public int bmWidth;
-            public int bmWidthBytes;
-        }
+        //public class BITMAP
+        //{
+        //    public IntPtr bmBits = IntPtr.Zero;
+        //    public short bmBitsPixel = 0;
+        //    public int bmHeight = 0;
+        //    public short bmPlanes = 0;
+        //    public int bmType = 0;
+        //    public int bmWidth = 0;
+        //    public int bmWidthBytes = 0;
+        //}
 
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
         public class MONITORINFO

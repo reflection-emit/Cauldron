@@ -829,5 +829,117 @@ namespace Cauldron.Core.Extensions
         /// <returns>Returns a ushort that represents the converted string</returns>
         public static ushort ToUShortUS(this string target) =>
             target.ToUShort(numberFormatInfoEnUs);
+
+        /// <summary>
+        /// Converts a string from a encoding to another encoding
+        /// </summary>
+        /// <param name="source">The string to convert</param>
+        /// <param name="from">The source strings encoding</param>
+        /// <param name="to">The target encoding</param>
+        /// <returns>The converted string</returns>
+        public static string Convert(this string source, Encodings from, Encodings to)
+        {
+            var toEncoding = ToEncoding(to);
+            return toEncoding.GetString(source.ConvertToBytes(from, to));
+        }
+
+        /// <summary>
+        /// Converts a string from a encoding to another encoding
+        /// </summary>
+        /// <param name="source">The string to convert</param>
+        /// <param name="from">The source strings encoding</param>
+        /// <param name="to">The target encoding</param>
+        /// <returns>The converted string</returns>
+        public static byte[] ConvertToBytes(this string source, Encodings from, Encodings to)
+        {
+            if (source == null)
+                throw new ArgumentNullException(nameof(source));
+
+            var fromEncoding = ToEncoding(from);
+            var toEncoding = ToEncoding(to);
+
+            return Encoding.Convert(fromEncoding, toEncoding, fromEncoding.GetBytes(source));
+        }
+
+        /// <summary>
+        /// Converts a string represented by a byte array from a encoding to another encoding
+        /// </summary>
+        /// <param name="source">The string to convert</param>
+        /// <param name="from">The source strings encoding</param>
+        /// <param name="to">The target encoding</param>
+        /// <returns>The converted string</returns>
+        public static string Convert(this byte[] source, Encodings from, Encodings to)
+        {
+            if (source == null)
+                throw new ArgumentNullException(nameof(source));
+
+            var fromEncoding = ToEncoding(from);
+            var toEncoding = ToEncoding(to);
+
+            return toEncoding.GetString(Encoding.Convert(fromEncoding, toEncoding, source));
+        }
+
+        private static Encoding ToEncoding(Encodings encoding)
+        {
+            switch (encoding)
+            {
+                case Encodings.ASCII: return Encoding.ASCII;
+                case Encodings.BigEndianUnicode: return Encoding.BigEndianUnicode;
+                case Encodings.Default: return Encoding.Default;
+                case Encodings.Unicode: return Encoding.Unicode;
+                case Encodings.UTF32: return Encoding.UTF32;
+                case Encodings.UTF7: return Encoding.UTF7;
+                case Encodings.UTF8: return Encoding.UTF8;
+                case Encodings.EBCDIC: return Encoding.GetEncoding("IBM037");
+            }
+
+            throw new NotImplementedException("Unknown encoding");
+        }
+    }
+
+    /// <summary>
+    /// All known encodings
+    /// </summary>
+    public enum Encodings
+    {
+        /// <summary>
+        ///  Encoding for the ASCII (7-bit) character set.
+        /// </summary>
+        ASCII,
+
+        /// <summary>
+        /// Encoding for the UTF-16 format that uses the big endian byte order.
+        /// </summary>
+        BigEndianUnicode,
+
+        /// <summary>
+        /// Encoding for the operating system's current ANSI code page.
+        /// </summary>
+        Default,
+
+        /// <summary>
+        /// Encoding for the UTF-16 format using the little endian byte order.
+        /// </summary>
+        Unicode,
+
+        /// <summary>
+        /// Encoding for the UTF-32 format using the little endian byte order.
+        /// </summary>
+        UTF32,
+
+        /// <summary>
+        /// Encoding for the UTF-7 format.
+        /// </summary>
+        UTF7,
+
+        /// <summary>
+        /// Encoding for the UTF-8 format.
+        /// </summary>
+        UTF8,
+
+        /// <summary>
+        /// Encoding for the IBM EBCDIC format.
+        /// </summary>
+        EBCDIC
     }
 }
