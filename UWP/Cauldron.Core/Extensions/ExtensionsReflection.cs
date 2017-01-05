@@ -39,66 +39,6 @@ namespace Cauldron.Core.Extensions
         }
 
         /// <summary>
-        /// Gets the attribute of an enum member
-        /// </summary>
-        /// <typeparam name="TAttib">The attribute to retrieve</typeparam>
-        /// <typeparam name="TEnum">The enum type</typeparam>
-        /// <param name="enumValue">The enum member value</param>
-        /// <returns>The custom attribute of the enum member.</returns>
-        /// <exception cref="ArgumentException"><paramref name="enumValue"/> is not an enum</exception>
-        public static TAttib GetCustomAttribute<TAttib, TEnum>(this TEnum enumValue)
-                    where TAttib : Attribute
-                    where TEnum : struct, IConvertible
-        {
-            var type = typeof(TEnum);
-
-            if (!type.IsEnum)
-                throw new ArgumentException($"{type.FullName} is not an enum type");
-
-            var memInfo = type.GetMember(enumValue.ToString());
-            return memInfo[0].GetCustomAttribute<TAttib>();
-        }
-
-        /// <summary>
-        /// Gets the attribute of an enum member
-        /// </summary>
-        /// <typeparam name="TAttib">The attribute to retrieve</typeparam>
-        /// <param name="enumValue">The enum member value</param>
-        /// <returns>The custom attribute of the enum member.</returns>
-        /// <exception cref="ArgumentException"><paramref name="enumValue"/> is not an enum</exception>
-        /// <exception cref="ArgumentNullException"><paramref name="enumValue"/> is null</exception>
-        public static TAttib GetCustomAttribute<TAttib>(this object enumValue)
-                    where TAttib : Attribute
-        {
-            if (enumValue == null)
-                throw new ArgumentNullException("enumValue cannot be null");
-
-            var type = enumValue.GetType();
-
-            if (!type.IsEnum)
-                throw new ArgumentException($"{type.FullName} is not an enum type");
-
-            var memInfo = type.GetMember(enumValue.ToString());
-            return memInfo[0].GetCustomAttribute<TAttib>();
-        }
-
-        /// <summary>
-        /// Returns the name value of the <see cref="DisplayNameAttribute"/> of the enum member
-        /// </summary>
-        /// <typeparam name="TEnum">The enum type</typeparam>
-        /// <param name="enumValue">The enum member value</param>
-        /// <returns>The value of <see cref="DisplayNameAttribute.DisplayName"/>. Returns null if the enum member has no <see cref="DisplayNameAttribute"/></returns>
-        public static string GetDisplayName<TEnum>(this TEnum enumValue) where TEnum : struct, IConvertible
-        {
-            var attrib = enumValue.GetCustomAttribute<DisplayNameAttribute, TEnum>();
-
-            if (attrib == null)
-                return null;
-
-            return attrib.DisplayName;
-        }
-
-        /// <summary>
         /// Creates an instance of the specified type using the constructor that best matches the specified parameters.
         /// </summary>
         /// <param name="type">The type of object to create.</param>
@@ -188,6 +128,50 @@ namespace Cauldron.Core.Extensions
         }
 
         /// <summary>
+        /// Gets the attribute of an enum member
+        /// </summary>
+        /// <typeparam name="TAttib">The attribute to retrieve</typeparam>
+        /// <typeparam name="TEnum">The enum type</typeparam>
+        /// <param name="enumValue">The enum member value</param>
+        /// <returns>The custom attribute of the enum member.</returns>
+        /// <exception cref="ArgumentException"><paramref name="enumValue"/> is not an enum</exception>
+        public static TAttib GetCustomAttribute<TAttib, TEnum>(this TEnum enumValue)
+                    where TAttib : Attribute
+                    where TEnum : struct, IConvertible
+        {
+            var type = typeof(TEnum);
+
+            if (!type.GetTypeInfo().IsEnum)
+                throw new ArgumentException($"{type.FullName} is not an enum type");
+
+            var memInfo = type.GetMember(enumValue.ToString());
+            return memInfo[0].GetCustomAttribute<TAttib>();
+        }
+
+        /// <summary>
+        /// Gets the attribute of an enum member
+        /// </summary>
+        /// <typeparam name="TAttib">The attribute to retrieve</typeparam>
+        /// <param name="enumValue">The enum member value</param>
+        /// <returns>The custom attribute of the enum member.</returns>
+        /// <exception cref="ArgumentException"><paramref name="enumValue"/> is not an enum</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="enumValue"/> is null</exception>
+        public static TAttib GetCustomAttribute<TAttib>(this object enumValue)
+                    where TAttib : Attribute
+        {
+            if (enumValue == null)
+                throw new ArgumentNullException("enumValue cannot be null");
+
+            var type = enumValue.GetType();
+
+            if (!type.GetTypeInfo().IsEnum)
+                throw new ArgumentException($"{type.FullName} is not an enum type");
+
+            var memInfo = type.GetMember(enumValue.ToString());
+            return memInfo[0].GetCustomAttribute<TAttib>();
+        }
+
+        /// <summary>
         /// Retrieves the default value for a given Type.
         /// <para/>
         /// http://stackoverflow.com/questions/2490244/default-value-of-a-type-at-runtime
@@ -271,6 +255,22 @@ namespace Cauldron.Core.Extensions
                 return null;
 
             return interfaceType.GetGenericArguments();
+        }
+
+        /// <summary>
+        /// Returns the name value of the <see cref="DisplayNameAttribute"/> of the enum member
+        /// </summary>
+        /// <typeparam name="TEnum">The enum type</typeparam>
+        /// <param name="enumValue">The enum member value</param>
+        /// <returns>The value of <see cref="DisplayNameAttribute.DisplayName"/>. Returns null if the enum member has no <see cref="DisplayNameAttribute"/></returns>
+        public static string GetDisplayName<TEnum>(this TEnum enumValue) where TEnum : struct, IConvertible
+        {
+            var attrib = enumValue.GetCustomAttribute<DisplayNameAttribute, TEnum>();
+
+            if (attrib == null)
+                return null;
+
+            return attrib.DisplayName;
         }
 
         /// <summary>

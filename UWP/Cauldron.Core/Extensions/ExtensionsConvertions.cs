@@ -159,6 +159,37 @@ namespace Cauldron.Core.Extensions
         }
 
         /// <summary>
+        /// Converts a string from a encoding to another encoding
+        /// </summary>
+        /// <param name="source">The string to convert</param>
+        /// <param name="from">The source strings encoding</param>
+        /// <param name="to">The target encoding</param>
+        /// <returns>The converted string</returns>
+        public static string Convert(this string source, Encodings from, Encodings to)
+        {
+            var toEncoding = ToEncoding(to);
+            return toEncoding.GetString(source.ConvertToBytes(from, to));
+        }
+
+        /// <summary>
+        /// Converts a string represented by a byte array from a encoding to another encoding
+        /// </summary>
+        /// <param name="source">The string to convert</param>
+        /// <param name="from">The source strings encoding</param>
+        /// <param name="to">The target encoding</param>
+        /// <returns>The converted string</returns>
+        public static string Convert(this byte[] source, Encodings from, Encodings to)
+        {
+            if (source == null)
+                throw new ArgumentNullException(nameof(source));
+
+            var fromEncoding = ToEncoding(from);
+            var toEncoding = ToEncoding(to);
+
+            return toEncoding.GetString(Encoding.Convert(fromEncoding, toEncoding, source));
+        }
+
+        /// <summary>
         /// Converts the readable escaped chars in a string to its equivalent char. This includes simple-escape-sequences such as \' \" \\ \0 \a \b \f \n \r \t \v
         /// </summary>
         /// <param name="source">The source string to convert</param>
@@ -202,6 +233,24 @@ namespace Cauldron.Core.Extensions
             }
 
             return new string(result, 0, indexer);
+        }
+
+        /// <summary>
+        /// Converts a string from a encoding to another encoding
+        /// </summary>
+        /// <param name="source">The string to convert</param>
+        /// <param name="from">The source strings encoding</param>
+        /// <param name="to">The target encoding</param>
+        /// <returns>The converted string</returns>
+        public static byte[] ConvertToBytes(this string source, Encodings from, Encodings to)
+        {
+            if (source == null)
+                throw new ArgumentNullException(nameof(source));
+
+            var fromEncoding = ToEncoding(from);
+            var toEncoding = ToEncoding(to);
+
+            return Encoding.Convert(fromEncoding, toEncoding, fromEncoding.GetBytes(source));
         }
 
         /// <summary>
@@ -309,22 +358,6 @@ namespace Cauldron.Core.Extensions
         }
 
         /// <summary>
-        /// Converts the value to a char
-        /// If convertion fails the value will always be '\0'
-        /// </summary>
-        /// <param name="target">The value to convert</param>
-        /// <returns>The char value of the string</returns>
-        public static char ToChar(this string target)
-        {
-            char value;
-
-            if (char.TryParse(target, out value))
-                return value;
-
-            return '\0';
-        }
-
-        /// <summary>
         /// Converts the value to a byte array
         /// </summary>
         /// <param name="target">The value to convert</param>
@@ -391,6 +424,22 @@ namespace Cauldron.Core.Extensions
                 await stream.CopyToAsync(memoryStream);
                 return memoryStream.ToArray();
             }
+        }
+
+        /// <summary>
+        /// Converts the value to a char
+        /// If convertion fails the value will always be '\0'
+        /// </summary>
+        /// <param name="target">The value to convert</param>
+        /// <returns>The char value of the string</returns>
+        public static char ToChar(this string target)
+        {
+            char value;
+
+            if (char.TryParse(target, out value))
+                return value;
+
+            return '\0';
         }
 
         /// <summary>
@@ -541,43 +590,6 @@ namespace Cauldron.Core.Extensions
                 return result;
 
             return int.MinValue;
-        }
-
-        /// <summary>
-        /// Tries to convert a <see cref="string"/> to an <see cref="ushort"/> using the en-US number format
-        /// </summary>
-        /// <param name="target">The string to convert</param>
-        /// <returns>Returns an int that represents the converted string</returns>
-        public static ushort ToUshortUS(this string target) => target.ToUshort(numberFormatInfoEnUs);
-
-        /// <summary>
-        /// Returns a 16-bit signed integer converted from four bytes at a specified position in a byte array.
-        /// </summary>
-        /// <param name="target">An array of bytes.</param>
-        /// <returns>A 16-bit signed integer formed by four bytes</returns>
-        public static ushort ToUshort(this byte[] target) => BitConverter.ToUInt16(target, 0);
-
-        /// <summary>
-        /// Tries to convert a <see cref="string"/> to an <see cref="ushort"/>
-        /// </summary>
-        /// <param name="target">The string to convert</param>
-        /// <returns>Returns an int that represents the converted string</returns>
-        public static ushort ToUshort(this string target) => target.ToUshort(cultureInfo.NumberFormat);
-
-        /// <summary>
-        /// Tries to convert a <see cref="string"/> to an <see cref="ushort"/>
-        /// </summary>
-        /// <param name="target">The string to convert</param>
-        /// <returns>Returns an int that represents the converted string</returns>
-        /// <param name="numberformat">An object that supplies culture-specific formatting information about <paramref name="target"/>.</param>
-        public static ushort ToUshort(this string target, NumberFormatInfo numberformat)
-        {
-            ushort result;
-
-            if (ushort.TryParse(target, NumberStyles.Any, numberformat, out result))
-                return result;
-
-            return ushort.MinValue;
         }
 
         /// <summary>
@@ -799,6 +811,36 @@ namespace Cauldron.Core.Extensions
             target.ToULong(numberFormatInfoEnUs);
 
         /// <summary>
+        /// Returns a 16-bit signed integer converted from four bytes at a specified position in a byte array.
+        /// </summary>
+        /// <param name="target">An array of bytes.</param>
+        /// <returns>A 16-bit signed integer formed by four bytes</returns>
+        public static ushort ToUshort(this byte[] target) => BitConverter.ToUInt16(target, 0);
+
+        /// <summary>
+        /// Tries to convert a <see cref="string"/> to an <see cref="ushort"/>
+        /// </summary>
+        /// <param name="target">The string to convert</param>
+        /// <returns>Returns an int that represents the converted string</returns>
+        public static ushort ToUshort(this string target) => target.ToUshort(cultureInfo.NumberFormat);
+
+        /// <summary>
+        /// Tries to convert a <see cref="string"/> to an <see cref="ushort"/>
+        /// </summary>
+        /// <param name="target">The string to convert</param>
+        /// <returns>Returns an int that represents the converted string</returns>
+        /// <param name="numberformat">An object that supplies culture-specific formatting information about <paramref name="target"/>.</param>
+        public static ushort ToUshort(this string target, NumberFormatInfo numberformat)
+        {
+            ushort result;
+
+            if (ushort.TryParse(target, NumberStyles.Any, numberformat, out result))
+                return result;
+
+            return ushort.MinValue;
+        }
+
+        /// <summary>
         /// Tries to convert a <see cref="string"/> to an <see cref="ushort"/>
         /// </summary>
         /// <param name="target">The string to convert</param>
@@ -823,6 +865,13 @@ namespace Cauldron.Core.Extensions
         }
 
         /// <summary>
+        /// Tries to convert a <see cref="string"/> to an <see cref="ushort"/> using the en-US number format
+        /// </summary>
+        /// <param name="target">The string to convert</param>
+        /// <returns>Returns an int that represents the converted string</returns>
+        public static ushort ToUshortUS(this string target) => target.ToUshort(numberFormatInfoEnUs);
+
+        /// <summary>
         /// Tries to convert a <see cref="string"/> to an <see cref="ushort"/>  using the en-US number format
         /// </summary>
         /// <param name="target">The string to convert</param>
@@ -830,62 +879,12 @@ namespace Cauldron.Core.Extensions
         public static ushort ToUShortUS(this string target) =>
             target.ToUShort(numberFormatInfoEnUs);
 
-        /// <summary>
-        /// Converts a string from a encoding to another encoding
-        /// </summary>
-        /// <param name="source">The string to convert</param>
-        /// <param name="from">The source strings encoding</param>
-        /// <param name="to">The target encoding</param>
-        /// <returns>The converted string</returns>
-        public static string Convert(this string source, Encodings from, Encodings to)
-        {
-            var toEncoding = ToEncoding(to);
-            return toEncoding.GetString(source.ConvertToBytes(from, to));
-        }
-
-        /// <summary>
-        /// Converts a string from a encoding to another encoding
-        /// </summary>
-        /// <param name="source">The string to convert</param>
-        /// <param name="from">The source strings encoding</param>
-        /// <param name="to">The target encoding</param>
-        /// <returns>The converted string</returns>
-        public static byte[] ConvertToBytes(this string source, Encodings from, Encodings to)
-        {
-            if (source == null)
-                throw new ArgumentNullException(nameof(source));
-
-            var fromEncoding = ToEncoding(from);
-            var toEncoding = ToEncoding(to);
-
-            return Encoding.Convert(fromEncoding, toEncoding, fromEncoding.GetBytes(source));
-        }
-
-        /// <summary>
-        /// Converts a string represented by a byte array from a encoding to another encoding
-        /// </summary>
-        /// <param name="source">The string to convert</param>
-        /// <param name="from">The source strings encoding</param>
-        /// <param name="to">The target encoding</param>
-        /// <returns>The converted string</returns>
-        public static string Convert(this byte[] source, Encodings from, Encodings to)
-        {
-            if (source == null)
-                throw new ArgumentNullException(nameof(source));
-
-            var fromEncoding = ToEncoding(from);
-            var toEncoding = ToEncoding(to);
-
-            return toEncoding.GetString(Encoding.Convert(fromEncoding, toEncoding, source));
-        }
-
         private static Encoding ToEncoding(Encodings encoding)
         {
             switch (encoding)
             {
                 case Encodings.ASCII: return Encoding.ASCII;
                 case Encodings.BigEndianUnicode: return Encoding.BigEndianUnicode;
-                case Encodings.Default: return Encoding.Default;
                 case Encodings.Unicode: return Encoding.Unicode;
                 case Encodings.UTF32: return Encoding.UTF32;
                 case Encodings.UTF7: return Encoding.UTF7;
@@ -895,51 +894,5 @@ namespace Cauldron.Core.Extensions
 
             throw new NotImplementedException("Unknown encoding");
         }
-    }
-
-    /// <summary>
-    /// All known encodings
-    /// </summary>
-    public enum Encodings
-    {
-        /// <summary>
-        ///  Encoding for the ASCII (7-bit) character set.
-        /// </summary>
-        ASCII,
-
-        /// <summary>
-        /// Encoding for the UTF-16 format that uses the big endian byte order.
-        /// </summary>
-        BigEndianUnicode,
-
-        /// <summary>
-        /// Encoding for the operating system's current ANSI code page.
-        /// </summary>
-        Default,
-
-        /// <summary>
-        /// Encoding for the UTF-16 format using the little endian byte order.
-        /// </summary>
-        Unicode,
-
-        /// <summary>
-        /// Encoding for the UTF-32 format using the little endian byte order.
-        /// </summary>
-        UTF32,
-
-        /// <summary>
-        /// Encoding for the UTF-7 format.
-        /// </summary>
-        UTF7,
-
-        /// <summary>
-        /// Encoding for the UTF-8 format.
-        /// </summary>
-        UTF8,
-
-        /// <summary>
-        /// Encoding for the IBM EBCDIC format.
-        /// </summary>
-        EBCDIC
     }
 }
