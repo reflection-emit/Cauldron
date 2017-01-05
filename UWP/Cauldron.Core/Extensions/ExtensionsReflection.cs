@@ -149,29 +149,6 @@ namespace Cauldron.Core.Extensions
         }
 
         /// <summary>
-        /// Gets the attribute of an enum member
-        /// </summary>
-        /// <typeparam name="TAttib">The attribute to retrieve</typeparam>
-        /// <param name="enumValue">The enum member value</param>
-        /// <returns>The custom attribute of the enum member.</returns>
-        /// <exception cref="ArgumentException"><paramref name="enumValue"/> is not an enum</exception>
-        /// <exception cref="ArgumentNullException"><paramref name="enumValue"/> is null</exception>
-        public static TAttib GetCustomAttribute<TAttib>(this object enumValue)
-                    where TAttib : Attribute
-        {
-            if (enumValue == null)
-                throw new ArgumentNullException("enumValue cannot be null");
-
-            var type = enumValue.GetType();
-
-            if (!type.GetTypeInfo().IsEnum)
-                throw new ArgumentException($"{type.FullName} is not an enum type");
-
-            var memInfo = type.GetMember(enumValue.ToString());
-            return memInfo[0].GetCustomAttribute<TAttib>();
-        }
-
-        /// <summary>
         /// Retrieves the default value for a given Type.
         /// <para/>
         /// http://stackoverflow.com/questions/2490244/default-value-of-a-type-at-runtime

@@ -99,6 +99,7 @@
   <ItemGroup>
     <Compile Include="ConcurrentListTest.cs" />
     <Compile Include="EncryptionDecryptionTest.cs" />
+    <Compile Include="ExtensionTests.cs" />
     <Compile Include="FactoryTests.cs" />
     <Compile Include="KeyMaterial_Test.cs" />
     <Compile Include="MappingTest.cs" />
