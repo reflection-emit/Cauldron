@@ -885,12 +885,12 @@ namespace Cauldron.Core.Extensions
             {
                 case Encodings.ASCII: return Encoding.ASCII;
                 case Encodings.BigEndianUnicode: return Encoding.BigEndianUnicode;
-                case Encodings.Default: return Encoding.Default;
                 case Encodings.Unicode: return Encoding.Unicode;
                 case Encodings.UTF32: return Encoding.UTF32;
                 case Encodings.UTF7: return Encoding.UTF7;
                 case Encodings.UTF8: return Encoding.UTF8;
                 case Encodings.EBCDIC: return Encoding.GetEncoding("IBM037");
+                case Encodings.Windows1252: return Encoding.GetEncoding("ISO-8859-1");
             }
 
             throw new NotImplementedException("Unknown encoding");
@@ -921,6 +921,11 @@ namespace Cauldron.Core.Extensions
         /// Encoding for the UTF-16 format using the little endian byte order.
         /// </summary>
         Unicode,
+
+        /// <summary>
+        /// Encoding for the ISO-8859-1 format. Used by default in the legacy components of Microsoft Windows.
+        /// </summary>
+        Windows1252,
 
         /// <summary>
         /// Encoding for the UTF-32 format using the little endian byte order.

@@ -421,24 +421,30 @@ namespace Cauldron.Core
 
             var assembly = _assemblies.FirstOrDefault(x => x.FullName == e.Name || e.Name.StartsWith(x.GetName().Name));
 
+            // The following resolve tries can only be successfull if the dll's name is the same as the simple Assembly name
+
             // Try to load it from application directory
             if (assembly == null)
             {
                 var file = Path.Combine(ApplicationInfo.ApplicationPath.FullName, $"{new AssemblyName(e.Name).Name}.dll");
-                if (!File.Exists(file))
-                    return null;
-
-                return Assembly.LoadFile(file);
+                if (File.Exists(file))
+                    return Assembly.LoadFile(file);
             }
 
             // Try to load it from current domain's base directory
             if (assembly == null)
             {
                 var file = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"{new AssemblyName(e.Name).Name}.dll");
-                if (!File.Exists(file))
-                    return null;
+                if (File.Exists(file))
+                    return Assembly.LoadFile(file);
+            }
 
-                return Assembly.LoadFile(file);
+            // As last resort try to load it from the Cauldron.Core.dlls directory
+            if (assembly == null)
+            {
+                var file = Path.Combine(Path.GetDirectoryName(typeof(Assemblies).Assembly.Location), $"{new AssemblyName(e.Name).Name}.dll");
+                if (File.Exists(file))
+                    return Assembly.LoadFile(file);
             }
 
             return assembly;
