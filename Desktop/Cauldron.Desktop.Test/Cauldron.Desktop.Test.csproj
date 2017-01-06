@@ -63,6 +63,9 @@
     <Compile Include="..\..\UWP\Cauldron.UWP.Test\EncryptionDecryptionTest.cs">
       <Link>EncryptionDecryptionTest.cs</Link>
     </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.Test\ExtensionTests.cs">
+      <Link>ExtensionTests.cs</Link>
+    </Compile>
     <Compile Include="..\..\UWP\Cauldron.UWP.Test\FactoryTests.cs">
       <Link>FactoryTests.cs</Link>
     </Compile>

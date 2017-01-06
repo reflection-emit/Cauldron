@@ -129,6 +129,7 @@
     <Compile Include="CreateInstanceIsAnInterfaceException.cs" />
     <Compile Include="DisposableBase.cs" />
     <Compile Include="DynamicEqualityComparer.cs" />
+    <Compile Include="Encodings.cs" />
     <Compile Include="ExecutionTimer.cs" />
     <Compile Include="DisplayNameAttribute.cs" />
     <Compile Include="Extensions\Extensions.cs" />

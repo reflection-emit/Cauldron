@@ -99,6 +99,9 @@
     <Compile Include="..\..\UWP\Cauldron.Core\DynamicEqualityComparer.cs">
       <Link>DynamicEqualityComparer.cs</Link>
     </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\Encodings.cs">
+      <Link>Encodings.cs</Link>
+    </Compile>
     <Compile Include="..\..\UWP\Cauldron.Core\ExecutionTimer.cs">
       <Link>ExecutionTimer.cs</Link>
     </Compile>

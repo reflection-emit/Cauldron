@@ -87,12 +87,14 @@ namespace Cauldron.Core
         {
             var enumType = typeof(TEnum);
 
-            if (!enumType.IsEnum)
+            if (!enumType.GetTypeInfo().IsEnum)
                 throw new ArgumentException($"{enumType.FullName} is not an enum type");
 
             return enumType
                 .GetMembers()
+#if !WINDOWS_UWP
                 .Where(x => x.MemberType == MemberTypes.Field)
+#endif
                 .Select(x => new { Attribute = x.GetCustomAttribute<DisplayNameAttribute>(), Name = x.Name })
                 .Where(x => x.Attribute != null)
                 .ToDictionary(x => (TEnum)Enum.Parse(enumType, x.Name), x => x.Attribute.DisplayName)
