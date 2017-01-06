@@ -26,6 +26,11 @@
         UTF32,
 
         /// <summary>
+        /// Encoding for the ISO-8859-1 format. Used by default in the legacy components of Microsoft Windows.
+        /// </summary>
+        ANSI,
+
+        /// <summary>
         /// Encoding for the UTF-7 format.
         /// </summary>
         UTF7,

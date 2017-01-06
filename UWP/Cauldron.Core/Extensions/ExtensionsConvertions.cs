@@ -890,7 +890,7 @@ namespace Cauldron.Core.Extensions
                 case Encodings.UTF7: return Encoding.UTF7;
                 case Encodings.UTF8: return Encoding.UTF8;
                 case Encodings.EBCDIC: return Encoding.GetEncoding("IBM037");
-                case Encodings.Windows1252: return Encoding.GetEncoding("ISO-8859-1");
+                case Encodings.ANSI: return Encoding.GetEncoding("ISO-8859-1");
             }
 
             throw new NotImplementedException("Unknown encoding");
