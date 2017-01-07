@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|AnyCPU">
+      <Configuration>Debug</Configuration>
+      <Platform>AnyCPU</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|AnyCPU">
+      <Configuration>Release</Configuration>
+      <Platform>AnyCPU</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>738abd54-ab6e-4115-9179-d6772987bc39</ProjectGuid>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NuProjPath Condition=" '$(NuProjPath)' == '' ">$(MSBuildExtensionsPath)\NuProj\</NuProjPath>
+  </PropertyGroup>
+  <Import Project="$(NuProjPath)\NuProj.props" Condition="Exists('$(NuProjPath)\NuProj.props')" />
+  <PropertyGroup Label="Configuration">
+    <Id>Cauldron.Localization.nupkg</Id>
+    <Version>1.0.0</Version>
+    <Title>Cauldron.Localization.nupkg</Title>
+    <Authors>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</Authors>
+    <Owners>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</Owners>
+    <Summary>A simple localization implementation that can work with different source (Open Source)</Summary>
+    <Description>A simple localization implementation that can work with different source.</Description>
+    <ReleaseNotes>
+    </ReleaseNotes>
+    <ProjectUrl>https://github.com/Virusface/Cauldron</ProjectUrl>
+    <LicenseUrl>https://raw.githubusercontent.com/Virusface/Cauldron/master/LICENSE</LicenseUrl>
+    <Copyright>Copyright (c) 2016 Alexander Schunk, Capgemini Deutschland GmbH and Contributors</Copyright>
+    <Tags>Toolkit Capgemini Cauldron Multisource Localization Language</Tags>
+    <OutputPath>$(SolutionDir)NuGet\Packages</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Desktop\Cauldron.Desktop.Localization\Cauldron.Desktop.Localization.csproj" />
+    <ProjectReference Include="..\..\UWP\Cauldron.UWP.Localization\Cauldron.UWP.Localization.csproj" />
+    <ProjectReference Include="..\Cauldron.Activator.nupkg\Cauldron.Activator.nupkg.nuproj" />
+    <ProjectReference Include="..\Cauldron.Core.nupkg\Cauldron.Core.nupkg.nuproj" />
+  </ItemGroup>
+  <Import Project="$(NuProjPath)\NuProj.targets" />
+</Project>

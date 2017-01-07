@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|AnyCPU">
+      <Configuration>Debug</Configuration>
+      <Platform>AnyCPU</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|AnyCPU">
+      <Configuration>Release</Configuration>
+      <Platform>AnyCPU</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Desktop\Cauldron.Desktop.Activator\Cauldron.Desktop.Activator.csproj" />
+    <ProjectReference Include="..\..\UWP\Cauldron.UWP.Activator\Cauldron.UWP.Activator.csproj" />
+    <ProjectReference Include="..\Cauldron.IEnumerableExtensions.nupkg\Cauldron.IEnumerableExtensions.nupkg.nuproj" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>833f4a1a-b512-4ccf-9427-9db1667a9322</ProjectGuid>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NuProjPath Condition=" '$(NuProjPath)' == '' ">$(MSBuildExtensionsPath)\NuProj\</NuProjPath>
+  </PropertyGroup>
+  <Import Project="$(NuProjPath)\NuProj.props" Condition="Exists('$(NuProjPath)\NuProj.props')" />
+  <PropertyGroup Label="Configuration">
+    <Id>Cauldron.Activator</Id>
+    <Version>1.0.0</Version>
+    <Title>Cauldron.Activator</Title>
+    <Authors>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</Authors>
+    <Owners>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</Owners>
+    <Summary>Simple Extensible Dependency Injection Framework (Open Source)</Summary>
+    <Description>The activator is a simple and extensible dependency injection framework. It is based on attributes and does not require any configuration files for configuration. It also supports using static methods as component constructor.</Description>
+    <ReleaseNotes>
+    </ReleaseNotes>
+    <ProjectUrl>https://github.com/Virusface/Cauldron</ProjectUrl>
+    <LicenseUrl>https://raw.githubusercontent.com/Virusface/Cauldron/master/LICENSE</LicenseUrl>
+    <Copyright>Copyright (c) 2016 Alexander Schunk, Capgemini Deutschland GmbH and Contributors</Copyright>
+    <Tags>Toolkit Capgemini Activator Dependency Injection Factory Cauldron</Tags>
+    <OutputPath>$(SolutionDir)NuGet\Packages</OutputPath>
+  </PropertyGroup>
+  <Import Project="$(NuProjPath)\NuProj.targets" />
+</Project>

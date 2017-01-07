@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|AnyCPU">
+      <Configuration>Debug</Configuration>
+      <Platform>AnyCPU</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|AnyCPU">
+      <Configuration>Release</Configuration>
+      <Platform>AnyCPU</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>64c06866-953d-4e9b-bae4-b5db6fdd1e47</ProjectGuid>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NuProjPath Condition=" '$(NuProjPath)' == '' ">$(MSBuildExtensionsPath)\NuProj\</NuProjPath>
+  </PropertyGroup>
+  <Import Project="$(NuProjPath)\NuProj.props" Condition="Exists('$(NuProjPath)\NuProj.props')" />
+  <PropertyGroup Label="Configuration">
+    <Id>Cauldron.Core</Id>
+    <Version>1.0.0</Version>
+    <Title>Cauldron.Core</Title>
+    <Authors>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</Authors>
+    <Owners>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</Owners>
+    <Summary>Cauldron Core is the core toolkit assembly that the Cauldron Toolkit builds upon  (Open Source)</Summary>
+    <Description>Cauldron Core is the core toolkit assembly that the Cauldron Toolkit builds upon</Description>
+    <ReleaseNotes>
+    </ReleaseNotes>
+    <ProjectUrl>https://github.com/Virusface/Cauldron</ProjectUrl>
+    <LicenseUrl>https://raw.githubusercontent.com/Virusface/Cauldron/master/LICENSE</LicenseUrl>
+    <Copyright>Copyright (c) 2016 Alexander Schunk, Capgemini Deutschland GmbH and Contributors</Copyright>
+    <Tags>Toolkit Capgemini Cauldron Core</Tags>
+    <OutputPath>$(SolutionDir)NuGet\Packages</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Desktop\Cauldron.Core\Cauldron.Desktop.Core.csproj" />
+    <ProjectReference Include="..\..\UWP\Cauldron.Core\Cauldron.UWP.Core.csproj" />
+  </ItemGroup>
+  <Import Project="$(NuProjPath)\NuProj.targets" />
+</Project>
