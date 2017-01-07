@@ -37,6 +37,7 @@
     <Copyright>Copyright (c) 2016 Alexander Schunk, Capgemini Deutschland GmbH and Contributors</Copyright>
     <Tags>Toolkit Capgemini Activator Dependency Injection Factory Cauldron</Tags>
     <OutputPath>$(SolutionDir)NuGet\Packages</OutputPath>
+    <IconUrl>https://github.com/Virusface/Cauldron/blob/master/cauldron.png</IconUrl>
   </PropertyGroup>
   <Import Project="$(NuProjPath)\NuProj.targets" />
 </Project>
