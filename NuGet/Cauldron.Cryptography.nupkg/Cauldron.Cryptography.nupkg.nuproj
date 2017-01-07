@@ -25,7 +25,7 @@
   <PropertyGroup Label="Configuration">
     <Id>Capgemini.Cauldron.Cryptography</Id>
     <Version>1.0.0</Version>
-    <Title>Cauldron.Cryptography</Title>
+    <Title>Capgemini Cauldron Cryptography</Title>
     <Authors>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</Authors>
     <Owners>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</Owners>
     <Summary>Implementation for AES, RSA and AES-RSA encryptions  (Open Source)</Summary>

@@ -20,7 +20,7 @@
   <PropertyGroup Label="Configuration">
     <Id>Capgemini.Cauldron.Localization</Id>
     <Version>1.0.0</Version>
-    <Title>Cauldron.Localization.nupkg</Title>
+    <Title>Capgemini Cauldron Localization</Title>
     <Authors>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</Authors>
     <Owners>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</Owners>
     <Summary>A simple localization implementation that can work with different source (Open Source)</Summary>

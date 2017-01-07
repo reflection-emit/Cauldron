@@ -20,7 +20,7 @@
   <PropertyGroup Label="Configuration">
     <Id>Capgemini.Cauldron.Core</Id>
     <Version>1.0.0</Version>
-    <Title>Cauldron.Core</Title>
+    <Title>Capgemini Cauldron Core</Title>
     <Authors>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</Authors>
     <Owners>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</Owners>
     <Summary>Cauldron Core is the core toolkit assembly that the Cauldron Toolkit builds upon  (Open Source)</Summary>
