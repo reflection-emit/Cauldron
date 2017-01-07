@@ -18,7 +18,7 @@
   </PropertyGroup>
   <Import Project="$(NuProjPath)\NuProj.props" Condition="Exists('$(NuProjPath)\NuProj.props')" />
   <PropertyGroup Label="Configuration">
-    <Id>Cauldron.IEnumerableExtensions</Id>
+    <Id>Capgemini.Cauldron.IEnumerableExtensions</Id>
     <Version>1.0.0</Version>
     <Title>Cauldron.IEnumerableExtensions</Title>
     <Authors>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</Authors>
@@ -32,7 +32,7 @@
     <Copyright>Copyright (c) 2016 Alexander Schunk, Capgemini Deutschland GmbH and Contributors</Copyright>
     <Tags>Toolkit Capgemini IEnumerable Extension Methods</Tags>
     <OutputPath>$(SolutionDir)NuGet\Packages</OutputPath>
-    <IconUrl>https://github.com/Virusface/Cauldron/blob/master/cauldron.png</IconUrl>
+    <IconUrl>https://raw.githubusercontent.com/Virusface/Cauldron/master/cauldron.png</IconUrl>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Cauldron.Core.nupkg\Cauldron.Core.nupkg.nuproj" />
