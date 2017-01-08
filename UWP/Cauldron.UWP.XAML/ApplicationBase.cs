@@ -302,9 +302,8 @@ namespace Cauldron.XAML
             if (rootFrame == null)
                 return;
 
-            var serializer = Serializer.CreateInstance();
-            var backStack = await serializer.DeserializeAsync(rootFrame.BackStack.GetType(), "State1") as IEnumerable<Navigation.PageStackEntry>;
-            var forwardStack = await serializer.DeserializeAsync(rootFrame.ForwardStack.GetType(), "State2") as IEnumerable<Navigation.PageStackEntry>;
+            var backStack = await Serializer.DeserializeAsync(rootFrame.BackStack.GetType(), "State1") as IEnumerable<Navigation.PageStackEntry>;
+            var forwardStack = await Serializer.DeserializeAsync(rootFrame.ForwardStack.GetType(), "State2") as IEnumerable<Navigation.PageStackEntry>;
 
             rootFrame.BackStack.AddRange(backStack);
             rootFrame.ForwardStack.AddRange(forwardStack);
@@ -335,9 +334,8 @@ namespace Cauldron.XAML
 
             try
             {
-                var serializer = Serializer.CreateInstance();
-                await serializer.SerializeAsync(rootFrame.BackStack, "State1");
-                await serializer.SerializeAsync(rootFrame.ForwardStack, "State2");
+                await Serializer.SerializeAsync(rootFrame.BackStack, "State1");
+                await Serializer.SerializeAsync(rootFrame.ForwardStack, "State2");
             }
             catch (Exception ex)
             {

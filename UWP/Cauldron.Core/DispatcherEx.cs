@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using System.Threading.Tasks;
 using Windows.UI.Core;
 
@@ -80,6 +79,7 @@ namespace Cauldron.Core
         /// </summary>
         public void ProcessEvents()
         {
+            // TODO - Bugged! Does not work well
             this.dispatcher.RunAsync(CoreDispatcherPriority.High, () =>
              this.dispatcher.ProcessEvents(CoreProcessEventsOption.ProcessAllIfPresent));
         }

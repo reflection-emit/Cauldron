@@ -123,6 +123,7 @@
     <Compile Include="Collections\KeyedCollectionEx.cs" />
     <Compile Include="ComparerUtils.cs" />
     <Compile Include="Compression.cs" />
+    <Compile Include="ConnectionGenerationTypes.cs" />
     <Compile Include="DateTimeUtils.cs" />
     <Compile Include="DeviceFamilies.cs" />
     <Compile Include="DispatcherEx.cs" />
@@ -148,10 +149,15 @@
     <Compile Include="MessagingArgs.cs" />
     <Compile Include="ByteSizeFormatter.cs" />
     <Compile Include="MiscUtils.cs" />
+    <Compile Include="Network.cs" />
     <Compile Include="Output.cs" />
+    <Compile Include="PingResults.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Randomizer.cs" />
+    <Compile Include="Serializer.cs" />
     <Compile Include="SystemInfo.cs" />
+    <Compile Include="UserInformation.cs" />
+    <Compile Include="Web.cs" />
     <Compile Include="WebAuthenticationBrokerWrapper.cs" />
     <Compile Include="Yaml\Yaml.cs" />
     <Compile Include="Yaml\YamlCollection.cs" />

@@ -34,9 +34,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.DirectoryServices" />
-    <Reference Include="System.DirectoryServices.AccountManagement" />
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -45,14 +42,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\UWP\Cauldron.Core\Output.cs">
-      <Link>Output.cs</Link>
+    <Compile Include="..\..\UWP\Cauldron.UWP.Potions\Implementation\Network.cs">
+      <Link>Implementations\Network.cs</Link>
     </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.Potions\ConnectionGenerationTypes.cs">
-      <Link>ConnectionGenerationTypes.cs</Link>
+    <Compile Include="..\..\UWP\Cauldron.UWP.Potions\Implementation\UserInformation.cs">
+      <Link>Implementations\UserInformation.cs</Link>
     </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.Potions\FactoryObject.cs">
-      <Link>FactoryObject.cs</Link>
+    <Compile Include="..\..\UWP\Cauldron.UWP.Potions\Implementation\Web.cs">
+      <Link>Implementations\Web.cs</Link>
     </Compile>
     <Compile Include="..\..\UWP\Cauldron.UWP.Potions\INetwork.cs">
       <Link>INetwork.cs</Link>
@@ -66,24 +63,10 @@
     <Compile Include="..\..\UWP\Cauldron.UWP.Potions\IWeb.cs">
       <Link>IWeb.cs</Link>
     </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.Potions\Network.cs">
-      <Link>Network.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.Potions\PingResults.cs">
-      <Link>PingResults.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.Potions\Serializer.cs">
-      <Link>Serializer.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.Potions\UserInformation.cs">
-      <Link>UserInformation.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.Potions\Web.cs">
-      <Link>Web.cs</Link>
-    </Compile>
-    <Compile Include="Network.Desktop.cs" />
+    <Compile Include="Implementations\Network.Desktop.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserInformation.Desktop.cs" />
+    <Compile Include="Implementations\Serializer.cs" />
+    <Compile Include="Implementations\UserInformation.Desktop.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Cauldron.Core\Cauldron.Desktop.Core.csproj">

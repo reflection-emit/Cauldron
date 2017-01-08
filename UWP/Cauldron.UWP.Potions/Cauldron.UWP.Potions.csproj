@@ -109,21 +109,15 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Cauldron.Core\Output.cs">
-      <Link>Output.cs</Link>
-    </Compile>
-    <Compile Include="FactoryObject.cs" />
-    <Compile Include="ConnectionGenerationTypes.cs" />
     <Compile Include="INetwork.cs" />
     <Compile Include="ISerializer.cs" />
     <Compile Include="IUserInformation.cs" />
     <Compile Include="IWeb.cs" />
-    <Compile Include="Network.cs" />
-    <Compile Include="PingResults.cs" />
+    <Compile Include="Implementation\Network.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Serializer.cs" />
-    <Compile Include="UserInformation.cs" />
-    <Compile Include="Web.cs" />
+    <Compile Include="Implementation\Serializer.cs" />
+    <Compile Include="Implementation\UserInformation.cs" />
+    <Compile Include="Implementation\Web.cs" />
     <EmbeddedResource Include="Properties\Cauldron.UWP.Potions.rd.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -136,6 +130,7 @@
       <Name>Cauldron.UWP.Activator</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

@@ -30,7 +30,7 @@ namespace Cauldron.XAML
             PersistentWindowProperties.SetHeight(window, Mathc.Clamp(window.ActualHeight, window.MinHeight, window.MaxHeight));
             PersistentWindowProperties.SetWidth(window, Mathc.Clamp(window.ActualWidth, window.MinWidth, window.MaxWidth));
 
-            var obj = await Serializer.CreateInstance().DeserializeAsync<PersistentWindowInformation>("Navigator");
+            var obj = await Serializer.DeserializeAsync<PersistentWindowInformation>("Navigator");
 
             if (obj == null)
                 return;
@@ -52,7 +52,7 @@ namespace Cauldron.XAML
             obj.Left = window.Left;
             obj.State = (int)window.WindowState;
 
-            await Serializer.CreateInstance().SerializeAsync(obj, "Navigator");
+            await Serializer.SerializeAsync(obj, "Navigator");
         }
     }
 }

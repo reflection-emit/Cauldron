@@ -1,4 +1,4 @@
-﻿namespace Cauldron.Potions
+﻿namespace Cauldron.Core
 {
     /// <summary>
     /// Representing a list of connection types

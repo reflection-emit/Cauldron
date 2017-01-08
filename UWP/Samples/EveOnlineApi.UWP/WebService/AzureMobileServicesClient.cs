@@ -41,9 +41,9 @@ namespace EveOnlineApi.WebService
                         throw new Exception(response.ReasonPhrase);
                 }
             }
-            catch (HttpRequestException e)
+            catch
             {
-                throw e;
+                throw;
             }
         }
     }

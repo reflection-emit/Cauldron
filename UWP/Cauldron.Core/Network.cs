@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Cauldron.Core.Extensions;
-using Cauldron.Activator;
 
 #if WINDOWS_UWP
 
 using Windows.Networking.Connectivity;
 using Windows.Networking.Sockets;
-using Windows.Storage;
 using Windows.Networking;
 
 #else
@@ -21,19 +19,13 @@ using System.Linq;
 
 #endif
 
-namespace Cauldron.Potions
+namespace Cauldron.Core
 {
     /// <summary>
     /// Provides properties and methods useful for gathering information about the network
     /// </summary>
-    [Component(typeof(INetwork), FactoryCreationPolicy.Instanced)]
-    public sealed partial class Network : FactoryObject<INetwork>, INetwork
+    public static partial class Network
     {
-        [ComponentConstructor]
-        private Network()
-        {
-        }
-
         /// <summary>
         /// Detect the current connection type
         /// </summary>
@@ -41,7 +33,7 @@ namespace Cauldron.Potions
         /// 2 for 2G, 3 for 3G, 4 for 4G
         /// 100 for WiFi
         /// 0 for unknown or not connected</returns>
-        public ConnectionGenerationTypes ConnectionType
+        public static ConnectionGenerationTypes ConnectionType
         {
             get
             {
@@ -114,7 +106,7 @@ namespace Cauldron.Potions
         /// <summary>
         /// Gets a value that indicates if internet connection is available
         /// </summary>
-        public bool HasInternetConnection
+        public static bool HasInternetConnection
         {
             get
             {
@@ -146,7 +138,7 @@ namespace Cauldron.Potions
         /// <param name="hostname">The hostname of the remote computer</param>
         /// <param name="port">The port to ping</param>
         /// <returns>An object that represents the ping results</returns>
-        public async Task<PingResults> Ping(string hostname, uint port)
+        public static async Task<PingResults> Ping(string hostname, uint port)
         {
             try
             {
@@ -200,9 +192,9 @@ namespace Cauldron.Potions
                 }
 #endif
             }
-            catch (Exception e)
+            catch
             {
-                throw e;
+                throw;
             }
         }
     }

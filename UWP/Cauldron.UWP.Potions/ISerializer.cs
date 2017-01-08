@@ -61,12 +61,9 @@ namespace Cauldron.Potions
         /// <summary>
         /// Deserializes an object.
         /// </summary>
-        /// <param name="type">The object type to deserialize</param>
         /// <param name="folder">The directory where the file resides</param>
         /// <param name="name">The name of the file</param>
         /// <returns>An instance of the deserialized object</returns>
-        /// <exception cref="ArgumentNullException"><paramref name="type"/> is null</exception>
-        /// <exception cref="NotSupportedException"><paramref name="type"/> is a value type</exception>
         Task<T> DeserializeAsync<T>(StorageFolder folder, string name) where T : class;
 
 #else

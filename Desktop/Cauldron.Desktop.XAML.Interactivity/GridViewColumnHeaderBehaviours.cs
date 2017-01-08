@@ -132,7 +132,7 @@ namespace Cauldron.XAML.Interactivity
                     this.columnProperties.SortedHeaderUid = this.sortedHeader.Uid;
                 }
 
-                Serializer.CreateInstance()?.Serialize(this.columnProperties, ApplicationData.Current.LocalFolder, this.GetSerializedUniqueName());
+                Serializer.Serialize(this.columnProperties, ApplicationData.Current.LocalFolder, this.GetSerializedUniqueName());
             }
             catch
             {
@@ -269,7 +269,7 @@ namespace Cauldron.XAML.Interactivity
             {
                 try
                 {
-                    this.columnProperties = await Serializer.CreateInstance().DeserializeAsync<ColumnHeaderPropertiesCollection>(this.GetSerializedUniqueName());
+                    this.columnProperties = await Serializer.DeserializeAsync<ColumnHeaderPropertiesCollection>(this.GetSerializedUniqueName());
 
                     this.CreateHeaders();
 

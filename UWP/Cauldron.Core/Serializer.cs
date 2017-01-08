@@ -1,6 +1,4 @@
-﻿using Cauldron.Activator;
-using Cauldron.Core;
-using Cauldron.Core.Extensions;
+﻿using Cauldron.Core.Extensions;
 using System;
 using System.IO;
 using System.Reflection;
@@ -8,19 +6,13 @@ using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using Windows.Storage;
 
-namespace Cauldron.Potions
+namespace Cauldron.Core
 {
     /// <summary>
     /// Provides method that helps with serializing and deserializing an object
     /// </summary>
-    [Component(typeof(ISerializer), FactoryCreationPolicy.Instanced)]
-    public sealed class Serializer : FactoryObject<ISerializer>, ISerializer
+    public static class Serializer
     {
-        [ComponentConstructor]
-        private Serializer()
-        {
-        }
-
 #if WINDOWS_UWP
 
         /// <summary>
@@ -30,7 +22,7 @@ namespace Cauldron.Potions
         /// <param name="name">The name of the file</param>
         /// <returns>An instance of the deserialized object</returns>
         /// <exception cref="NotSupportedException"><typeparamref name="T"/> is a value type</exception>
-        public async Task<T> DeserializeAsync<T>(string name) where T : class => await DeserializeAsync(typeof(T), name) as T;
+        public static async Task<T> DeserializeAsync<T>(string name) where T : class => await DeserializeAsync(typeof(T), name) as T;
 
         /// <summary>
         /// Deserializes an object.
@@ -40,7 +32,7 @@ namespace Cauldron.Potions
         /// <param name="name">The name of the file</param>
         /// <returns>An instance of the deserialized object</returns>
         /// <exception cref="NotSupportedException"><typeparamref name="T"/> is a value type</exception>
-        public async Task<T> DeserializeAsync<T>(StorageFolder folder, string name) where T : class =>
+        public static async Task<T> DeserializeAsync<T>(StorageFolder folder, string name) where T : class =>
             await DeserializeAsync(typeof(T), ApplicationData.Current.LocalFolder, name) as T;
 
 #else
@@ -52,7 +44,7 @@ namespace Cauldron.Potions
         /// <param name="name">The name of the file</param>
         /// <returns>An instance of the deserialized object</returns>
         /// <exception cref="NotSupportedException"><typeparamref name="T"/> is a value type</exception>
-        public async Task<T> DeserializeAsync<T>(string name) where T : class => await DeserializeAsync(typeof(T), name) as T;
+        public static async Task<T> DeserializeAsync<T>(string name) where T : class => await DeserializeAsync(typeof(T), name) as T;
 
         /// <summary>
         /// Deserializes an object.
@@ -62,7 +54,7 @@ namespace Cauldron.Potions
         /// <param name="name">The name of the file</param>
         /// <returns>An instance of the deserialized object</returns>
         /// <exception cref="NotSupportedException"><typeparamref name="T"/> is a value type</exception>
-        public async Task<T> DeserializeAsync<T>(DirectoryInfo folder, string name) where T : class =>
+        public static async Task<T> DeserializeAsync<T>(DirectoryInfo folder, string name) where T : class =>
             await DeserializeAsync(typeof(T), ApplicationData.Current.LocalFolder, name) as T;
 
 #endif
@@ -75,8 +67,8 @@ namespace Cauldron.Potions
         /// <returns>An instance of the deserialized object</returns>
         /// <exception cref="ArgumentNullException"><paramref name="type"/> is null</exception>
         /// <exception cref="NotSupportedException"><paramref name="type"/> is a value type</exception>
-        public async Task<object> DeserializeAsync(Type type, string name) =>
-          await this.DeserializeAsync(type, ApplicationData.Current.LocalFolder, name);
+        public static async Task<object> DeserializeAsync(Type type, string name) =>
+          await DeserializeAsync(type, ApplicationData.Current.LocalFolder, name);
 
 #if WINDOWS_UWP
 
@@ -89,7 +81,7 @@ namespace Cauldron.Potions
         /// <returns>An instance of the deserialized object</returns>
         /// <exception cref="ArgumentNullException"><paramref name="type"/> is null</exception>
         /// <exception cref="NotSupportedException"><paramref name="type"/> is a value type</exception>
-        public async Task<object> DeserializeAsync(Type type, StorageFolder folder, string name)
+        public static async Task<object> DeserializeAsync(Type type, StorageFolder folder, string name)
 #else
 
         /// <summary>
@@ -101,7 +93,7 @@ namespace Cauldron.Potions
         /// <returns>An instance of the deserialized object</returns>
         /// <exception cref="ArgumentNullException"><paramref name="type"/> is null</exception>
         /// <exception cref="NotSupportedException"><paramref name="type"/> is a value type</exception>
-        public async Task<object> DeserializeAsync(Type type, DirectoryInfo folder, string name)
+        public static async Task<object> DeserializeAsync(Type type, DirectoryInfo folder, string name)
 
 #endif
         {
@@ -149,7 +141,7 @@ namespace Cauldron.Potions
         /// <param name="folder">The directory where the file resides</param>
         /// <exception cref="ArgumentNullException"><paramref name="context"/> is null</exception>
         /// <exception cref="NotSupportedException"><paramref name="context"/> is a value type</exception>
-        public void Serialize(object context, StorageFolder folder, string name)
+        public static void Serialize(object context, StorageFolder folder, string name)
 #else
 
         /// <summary>
@@ -160,7 +152,7 @@ namespace Cauldron.Potions
         /// <param name="folder">The directory where the file resides</param>
         /// <exception cref="ArgumentNullException"><paramref name="context"/> is null</exception>
         /// <exception cref="NotSupportedException"><paramref name="context"/> is a value type</exception>
-        public void Serialize(object context, DirectoryInfo folder, string name)
+        public static void Serialize(object context, DirectoryInfo folder, string name)
 #endif
         {
             if (context == null)
@@ -210,8 +202,8 @@ namespace Cauldron.Potions
         /// <param name="name">The name of the file</param>
         /// <exception cref="ArgumentNullException"><paramref name="context"/> is null</exception>
         /// <exception cref="NotSupportedException"><paramref name="context"/> is a value type</exception>
-        public async Task SerializeAsync(object context, string name) =>
-            await this.SerializeAsync(context, ApplicationData.Current.LocalFolder, name);
+        public static async Task SerializeAsync(object context, string name) =>
+            await SerializeAsync(context, ApplicationData.Current.LocalFolder, name);
 
 #if WINDOWS_UWP
 
@@ -223,7 +215,7 @@ namespace Cauldron.Potions
         /// <param name="folder">The directory where the file resides</param>
         /// <exception cref="ArgumentNullException"><paramref name="context"/> is null</exception>
         /// <exception cref="NotSupportedException"><paramref name="context"/> is a value type</exception>
-        public async Task SerializeAsync(object context, StorageFolder folder, string name)
+        public static async Task SerializeAsync(object context, StorageFolder folder, string name)
 #else
 
         /// <summary>
@@ -234,7 +226,7 @@ namespace Cauldron.Potions
         /// <param name="folder">The directory where the file resides</param>
         /// <exception cref="ArgumentNullException"><paramref name="context"/> is null</exception>
         /// <exception cref="NotSupportedException"><paramref name="context"/> is a value type</exception>
-        public async Task SerializeAsync(object context, DirectoryInfo folder, string name)
+        public static async Task SerializeAsync(object context, DirectoryInfo folder, string name)
 #endif
         {
             if (context == null)

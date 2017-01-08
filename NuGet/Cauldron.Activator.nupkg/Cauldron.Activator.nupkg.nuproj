@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Desktop\Cauldron.Desktop.Activator\Cauldron.Desktop.Activator.csproj" />
     <ProjectReference Include="..\..\UWP\Cauldron.UWP.Activator\Cauldron.UWP.Activator.csproj" />
+    <ProjectReference Include="..\Cauldron.Core.nupkg\Cauldron.Core.nupkg.nuproj" />
     <ProjectReference Include="..\Cauldron.IEnumerableExtensions.nupkg\Cauldron.IEnumerableExtensions.nupkg.nuproj" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -24,7 +25,7 @@
   <Import Project="$(NuProjPath)\NuProj.props" Condition="Exists('$(NuProjPath)\NuProj.props')" />
   <PropertyGroup Label="Configuration">
     <Id>Capgemini.Cauldron.Activator</Id>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <Title>Capgemini Cauldron Activator</Title>
     <Authors>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</Authors>
     <Owners>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</Owners>

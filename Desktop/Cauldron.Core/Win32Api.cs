@@ -177,9 +177,9 @@ namespace Cauldron.Core
                 UnsafeNative.GetUserTilePath(username, 0x80000000, stringBuilder, stringBuilder.Capacity);
                 return stringBuilder.ToString();
             }
-            catch (Exception e)
+            catch
             {
-                throw e;
+                throw;
             }
         }
 

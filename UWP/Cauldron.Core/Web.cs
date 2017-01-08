@@ -1,11 +1,9 @@
-﻿using Cauldron.Activator;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 
 #if WINDOWS_UWP
 
 using Windows.Networking.BackgroundTransfer;
-
 using Windows.Storage;
 
 #else
@@ -15,13 +13,12 @@ using System.IO;
 
 #endif
 
-namespace Cauldron.Potions
+namespace Cauldron.Core
 {
     /// <summary>
     /// Provides functions for web operations
     /// </summary>
-    [Component(typeof(IWeb), FactoryCreationPolicy.Instanced)]
-    public sealed class Web : FactoryObject<IWeb>, IWeb
+    public static class Web
     {
         /// <summary>
         /// Starts an asyncronous download operation
@@ -29,10 +26,11 @@ namespace Cauldron.Potions
         /// <param name="uri">The uri of the file</param>
         /// <param name="resultFile">The file that the response will be written to.</param>
 #if WINDOWS_UWP
-        public async Task DownloadFile(Uri uri, StorageFile resultFile)
+
+        public static async Task DownloadFile(Uri uri, StorageFile resultFile)
 #else
 
-        public async Task DownloadFile(Uri uri, FileInfo resultFile)
+        public static async Task DownloadFile(Uri uri, FileInfo resultFile)
 #endif
         {
             try
@@ -47,9 +45,9 @@ namespace Cauldron.Potions
                 await client.DownloadFileTaskAsync(uri, resultFile.FullName);
 #endif
             }
-            catch (Exception e)
+            catch
             {
-                throw e;
+                throw;
             }
         }
     }

@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Net.NetworkInformation;
 
-namespace Cauldron.Potions
+namespace Cauldron.Core
 {
     /// <summary>
     /// Provides properties and methods useful for gathering information about the network
     /// </summary>
-    public sealed partial class Network
+    public static partial class Network
     {
         /// <summary>
         /// Get a value that indicates whether any network connection is available.
         /// <para/>
         /// Returns true if a network connection is available, othwise false
         /// </summary>
-        public bool IsNetworkAvailable
+        public static bool IsNetworkAvailable
         {
             get
             {

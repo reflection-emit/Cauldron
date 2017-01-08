@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using Cauldron.Core;
+using System.Threading.Tasks;
 
 namespace Cauldron.Potions
 {
