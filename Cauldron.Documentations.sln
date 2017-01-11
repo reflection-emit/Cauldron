@@ -5,6 +5,10 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "Cauldron.Documentations.Desktop", "Documentation\Cauldron.Documentation.Desktop\Cauldron.Documentations.Desktop.shfbproj", "{B18BA258-1E7D-42ED-950D-B63AB13E44B7}"
 EndProject
+Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "Cauldron.Documentation.UWP", "Documentation\Cauldron.Documentation.UWP\Cauldron.Documentation.UWP.shfbproj", "{BB4ED7E7-13BA-4F75-96D1-F473BE7866C7}"
+EndProject
+Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "EveOnlineApi.Documentation", "Documentation\EveOnlineApi.Documentation\EveOnlineApi.Documentation.shfbproj", "{948C511C-C4B0-4ABB-9019-D719F9D68CFF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{B18BA258-1E7D-42ED-950D-B63AB13E44B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B18BA258-1E7D-42ED-950D-B63AB13E44B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B18BA258-1E7D-42ED-950D-B63AB13E44B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB4ED7E7-13BA-4F75-96D1-F473BE7866C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB4ED7E7-13BA-4F75-96D1-F473BE7866C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB4ED7E7-13BA-4F75-96D1-F473BE7866C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB4ED7E7-13BA-4F75-96D1-F473BE7866C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{948C511C-C4B0-4ABB-9019-D719F9D68CFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{948C511C-C4B0-4ABB-9019-D719F9D68CFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{948C511C-C4B0-4ABB-9019-D719F9D68CFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{948C511C-C4B0-4ABB-9019-D719F9D68CFF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
