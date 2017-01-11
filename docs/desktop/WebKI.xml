@@ -1337,17 +1337,17 @@
   <HelpKINode Title="ExportedTypes property" Url="html/P_Cauldron_Core_Assemblies_ExportedTypes.htm" />
   <HelpKINode Title="Extensions class">
     <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_IEnumerableExtensions_Extensions.htm" />
-    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Core_Extensions_Extensions.htm" />
     <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Cryptography_Extensions.htm" />
+    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Core_Extensions_Extensions.htm" />
     <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_XAML_Extensions.htm" />
-    <HelpKINode Title="about Extensions class" Url="html/T_Cauldron_Core_Extensions_Extensions.htm" />
-    <HelpKINode Title="about Extensions class" Url="html/T_Cauldron_XAML_Extensions.htm" />
     <HelpKINode Title="about Extensions class" Url="html/T_Cauldron_IEnumerableExtensions_Extensions.htm" />
+    <HelpKINode Title="about Extensions class" Url="html/T_Cauldron_XAML_Extensions.htm" />
+    <HelpKINode Title="about Extensions class" Url="html/T_Cauldron_Core_Extensions_Extensions.htm" />
     <HelpKINode Title="about Extensions class" Url="html/T_Cauldron_Cryptography_Extensions.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_IEnumerableExtensions_Extensions.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_XAML_Extensions.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Cryptography_Extensions.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Extensions_Extensions.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Cryptography_Extensions.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_XAML_Extensions.htm" />
   </HelpKINode>
   <HelpKINode Title="Extensions.Any_ method" Url="html/Overload_Cauldron_IEnumerableExtensions_Extensions_Any_.htm" />
   <HelpKINode Title="Extensions.AsBitmapImage method" Url="html/M_Cauldron_XAML_Extensions_AsBitmapImage.htm" />
@@ -1642,8 +1642,8 @@
   <HelpKINode Title="GetBehaviour&lt;T&gt; method" Url="html/M_Cauldron_XAML_Interactivity_Interaction_GetBehaviour__1.htm" />
   <HelpKINode Title="GetBehaviours method" Url="html/M_Cauldron_XAML_Interactivity_Interaction_GetBehaviours.htm" />
   <HelpKINode Title="GetBytes method">
-    <HelpKINode Title="Extensions.GetBytes Method " Url="html/Overload_Cauldron_Core_Extensions_Extensions_GetBytes.htm" />
     <HelpKINode Title="Extensions.GetBytes Method " Url="html/M_Cauldron_Cryptography_Extensions_GetBytes.htm" />
+    <HelpKINode Title="Extensions.GetBytes Method " Url="html/Overload_Cauldron_Core_Extensions_Extensions_GetBytes.htm" />
   </HelpKINode>
   <HelpKINode Title="GetChildrenType method" Url="html/M_Cauldron_Core_Extensions_ExtensionsReflection_GetChildrenType.htm" />
   <HelpKINode Title="GetCommand method" Url="html/M_Cauldron_XAML_Interactivity_Attached_ListViewProperties_GetCommand.htm" />
@@ -1942,8 +1942,8 @@
   <HelpKINode Title="ICollection(Of T).Remove explicitly implemented method" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_System_Collections_Generic_ICollection{T}_Remove.htm" />
   <HelpKINode Title="ICollection&lt;T&gt;.Remove explicitly implemented method" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_System_Collections_Generic_ICollection{T}_Remove.htm" />
   <HelpKINode Title="IComponentConnector.Connect explicitly implemented method">
-    <HelpKINode Title="StylesAndTemplates.IComponentConnector.Connect Method " Url="html/M_Cauldron_XAML_Resources_StylesAndTemplates_System_Windows_Markup_IComponentConnector_Connect.htm" />
     <HelpKINode Title="StylesAndTemplates.IComponentConnector.Connect Method " Url="html/M_Cauldron_XAML_Interactivity_Resources_StylesAndTemplates_System_Windows_Markup_IComponentConnector_Connect.htm" />
+    <HelpKINode Title="StylesAndTemplates.IComponentConnector.Connect Method " Url="html/M_Cauldron_XAML_Resources_StylesAndTemplates_System_Windows_Markup_IComponentConnector_Connect.htm" />
   </HelpKINode>
   <HelpKINode Title="Icon attached property" Url="html/P_Cauldron_XAML_WindowConfiguration_Icon.htm" />
   <HelpKINode Title="ICONERASEBKGND enumeration member" Url="html/T_Cauldron_Core_WindowsMessages.htm" />
@@ -3503,28 +3503,28 @@
   <HelpKINode Title="StyleInteraction.Template attached property" Url="html/P_Cauldron_XAML_Interactivity_StyleInteraction_Template.htm" />
   <HelpKINode Title="StyleInteraction.TemplateProperty field" Url="html/F_Cauldron_XAML_Interactivity_StyleInteraction_TemplateProperty.htm" />
   <HelpKINode Title="StylesAndTemplates class">
-    <HelpKINode Title="StylesAndTemplates Class" Url="html/T_Cauldron_XAML_Interactivity_Resources_StylesAndTemplates.htm" />
     <HelpKINode Title="StylesAndTemplates Class" Url="html/T_Cauldron_XAML_Resources_StylesAndTemplates.htm" />
-    <HelpKINode Title="about StylesAndTemplates class" Url="html/T_Cauldron_XAML_Resources_StylesAndTemplates.htm" />
+    <HelpKINode Title="StylesAndTemplates Class" Url="html/T_Cauldron_XAML_Interactivity_Resources_StylesAndTemplates.htm" />
     <HelpKINode Title="about StylesAndTemplates class" Url="html/T_Cauldron_XAML_Interactivity_Resources_StylesAndTemplates.htm" />
+    <HelpKINode Title="about StylesAndTemplates class" Url="html/T_Cauldron_XAML_Resources_StylesAndTemplates.htm" />
     <HelpKINode Title="constructor" Url="html/M_Cauldron_XAML_Interactivity_Resources_StylesAndTemplates__ctor.htm" />
     <HelpKINode Title="constructor" Url="html/M_Cauldron_XAML_Resources_StylesAndTemplates__ctor.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_XAML_Interactivity_Resources_StylesAndTemplates.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_XAML_Resources_StylesAndTemplates.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_XAML_Interactivity_Resources_StylesAndTemplates.htm" />
     <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_XAML_Resources_StylesAndTemplates.htm" />
     <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_XAML_Interactivity_Resources_StylesAndTemplates.htm" />
   </HelpKINode>
   <HelpKINode Title="StylesAndTemplates.IComponentConnector.Connect explicitly implemented method">
-    <HelpKINode Title="StylesAndTemplates.IComponentConnector.Connect Method " Url="html/M_Cauldron_XAML_Resources_StylesAndTemplates_System_Windows_Markup_IComponentConnector_Connect.htm" />
     <HelpKINode Title="StylesAndTemplates.IComponentConnector.Connect Method " Url="html/M_Cauldron_XAML_Interactivity_Resources_StylesAndTemplates_System_Windows_Markup_IComponentConnector_Connect.htm" />
+    <HelpKINode Title="StylesAndTemplates.IComponentConnector.Connect Method " Url="html/M_Cauldron_XAML_Resources_StylesAndTemplates_System_Windows_Markup_IComponentConnector_Connect.htm" />
   </HelpKINode>
   <HelpKINode Title="StylesAndTemplates.InitializeComponent method">
     <HelpKINode Title="StylesAndTemplates.InitializeComponent Method " Url="html/M_Cauldron_XAML_Resources_StylesAndTemplates_InitializeComponent.htm" />
     <HelpKINode Title="StylesAndTemplates.InitializeComponent Method " Url="html/M_Cauldron_XAML_Interactivity_Resources_StylesAndTemplates_InitializeComponent.htm" />
   </HelpKINode>
   <HelpKINode Title="StylesAndTemplates.StylesAndTemplates constructor">
-    <HelpKINode Title="StylesAndTemplates Constructor " Url="html/M_Cauldron_XAML_Resources_StylesAndTemplates__ctor.htm" />
     <HelpKINode Title="StylesAndTemplates Constructor " Url="html/M_Cauldron_XAML_Interactivity_Resources_StylesAndTemplates__ctor.htm" />
+    <HelpKINode Title="StylesAndTemplates Constructor " Url="html/M_Cauldron_XAML_Resources_StylesAndTemplates__ctor.htm" />
   </HelpKINode>
   <HelpKINode Title="Subscribe(Of T) method" Url="html/M_Cauldron_Core_MessageManager_Subscribe__1.htm" />
   <HelpKINode Title="Subscribe&lt;T&gt; method" Url="html/M_Cauldron_Core_MessageManager_Subscribe__1.htm" />
@@ -3676,8 +3676,8 @@
   <HelpKINode Title="UrlProtocolNames property" Url="html/P_Cauldron_XAML_ApplicationBase_UrlProtocolNames.htm" />
   <HelpKINode Title="UsageExample property" Url="html/P_Cauldron_Consoles_ExecutionGroupAttribute_UsageExample.htm" />
   <HelpKINode Title="UsageExampleColor property" Url="html/P_Cauldron_Consoles_ParameterParser_UsageExampleColor.htm" />
-  <HelpKINode Title="USER enumeration member" Url="html/T_Cauldron_Core_WindowsMessages.htm" />
   <HelpKINode Title="User enumeration member" Url="html/T_Cauldron_XAML_Navigation_NavigationType.htm" />
+  <HelpKINode Title="USER enumeration member" Url="html/T_Cauldron_Core_WindowsMessages.htm" />
   <HelpKINode Title="User property" Url="html/P_Cauldron_XAML_LaunchActivatedEventArgs_User.htm" />
   <HelpKINode Title="USERCHANGED enumeration member" Url="html/T_Cauldron_Core_WindowsMessages.htm" />
   <HelpKINode Title="UserInformation class">

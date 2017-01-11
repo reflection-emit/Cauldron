@@ -5,8 +5,8 @@
 // System  : Sandcastle Help File Builder
 // File    : SearchHelp.aspx
 // Author  : Eric Woodruff  (Eric@EWoodruff.us)
-// Updated : 04/09/2014
-// Note    : Copyright 2007-2014, Eric Woodruff, All rights reserved
+// Updated : 05/15/2014
+// Note    : Copyright 2007-2015, Eric Woodruff, All rights reserved
 // Compiler: Microsoft C#
 //
 // This file contains the code used to search for keywords within the help topics using the full-text index
@@ -22,6 +22,7 @@
 // 06/24/2007  EFW  Created the code
 // 02/17/2012  EFW  Switched to JSON serialization to support websites that use something other than ASP.NET
 //                  such as PHP.
+// 05/15/2014  EFW  Updated for use with the lightweight website presentation styles
 //===============================================================================================================
 
 /// <summary>
@@ -58,7 +59,7 @@ protected override void Render(HtmlTextWriter writer)
 
     if(String.IsNullOrEmpty(searchText))
     {
-        writer.Write("<b class=\"PaddedText\">Nothing found</b>");
+        writer.Write("<strong>Nothing found</strong>");
         return;
     }
 
@@ -69,8 +70,7 @@ protected override void Render(HtmlTextWriter writer)
     List<string> keywords = this.ParseKeywords(searchText);
     List<char> letters = new List<char>();
     List<string> fileList;
-    Dictionary<string, List<long>> ftiWords, wordDictionary =
-        new Dictionary<string,List<long>>();
+    Dictionary<string, List<long>> ftiWords, wordDictionary = new Dictionary<string,List<long>>();
 
     // Load the file index
     using(StreamReader sr = new StreamReader(Server.MapPath("fti/FTI_Files.json")))
@@ -86,8 +86,7 @@ protected override void Render(HtmlTextWriter writer)
         if(!letters.Contains(letter))
         {
             letters.Add(letter);
-            ftiFile = Server.MapPath(String.Format(CultureInfo.InvariantCulture,
-                "fti/FTI_{0}.json", (int)letter));
+            ftiFile = Server.MapPath(String.Format(CultureInfo.InvariantCulture, "fti/FTI_{0}.json", (int)letter));
 
             if(File.Exists(ftiFile))
             {
@@ -121,8 +120,7 @@ private List<string> ParseKeywords(string keywords)
     {
         checkWord = word.ToLower(CultureInfo.InvariantCulture);
         
-        if(checkWord.Length > 2 && !Char.IsDigit(checkWord[0]) &&
-          !keywordList.Contains(checkWord))
+        if(checkWord.Length > 2 && !Char.IsDigit(checkWord[0]) && !keywordList.Contains(checkWord))
             keywordList.Add(checkWord);
     }
 
@@ -130,23 +128,20 @@ private List<string> ParseKeywords(string keywords)
 }
 
 /// <summary>
-/// Search for the specified keywords and return the results as a block of
-/// HTML.
+/// Search for the specified keywords and return the results as a block of HTML
 /// </summary>
 /// <param name="keywords">The keywords for which to search</param>
 /// <param name="fileInfo">The file list</param>
 /// <param name="wordDictionary">The dictionary used to find the words</param>
-/// <param name="sortByTitle">True to sort by title, false to sort by
-/// ranking</param>
-/// <returns>A block of HTML representing the search results.</returns>
+/// <param name="sortByTitle">True to sort by title, false to sort by ranking</param>
+/// <returns>A block of HTML representing the search results</returns>
 private string Search(List<string> keywords, List<string> fileInfo,
-    Dictionary<string, List<long>> wordDictionary, bool sortByTitle)
+  Dictionary<string, List<long>> wordDictionary, bool sortByTitle)
 {
     StringBuilder sb = new StringBuilder(10240);
     Dictionary<string, List<long>> matches = new Dictionary<string, List<long>>();
     List<long> occurrences;
-    List<int> matchingFileIndices = new List<int>(),
-        occurrenceIndices = new List<int>();
+    List<int> matchingFileIndices = new List<int>(), occurrenceIndices = new List<int>();
     List<Ranking> rankings = new List<Ranking>();
 
     string filename, title;
@@ -157,7 +152,7 @@ private string Search(List<string> keywords, List<string> fileInfo,
     foreach(string word in keywords)
     {
         if(!wordDictionary.TryGetValue(word, out occurrences))
-            return "<b class=\"PaddedText\">Nothing found</b>";
+            return "<strong>Nothing found</strong>";
 
         matches.Add(word, occurrences);
         occurrenceIndices.Clear();
@@ -185,7 +180,7 @@ private string Search(List<string> keywords, List<string> fileInfo,
     }
 
     if(matchingFileIndices.Count == 0)
-        return "<b class=\"PaddedText\">Nothing found</b>";
+        return "<strong>Nothing found</strong>";
 
     // Rank the files based on the number of times the words occurs
     foreach(int index in matchingFileIndices)
@@ -208,6 +203,9 @@ private string Search(List<string> keywords, List<string> fileInfo,
         }
 
         rankings.Add(new Ranking(filename, title, matchCount * 1000 / wordCount));
+		
+        if(rankings.Count > 99)
+            break;				
     }
 
     // Sort by rank in descending order or by page title in ascending order
@@ -220,17 +218,16 @@ private string Search(List<string> keywords, List<string> fileInfo,
     });
 
     // Format the file list and return the results
-    foreach(Ranking r in rankings)
-        sb.AppendFormat("<div class=\"TreeItem\">\r\n<img src=\"Item.gif\"/>" +
-            "<a class=\"UnselectedNode\" target=\"TopicContent\" " +
-            "href=\"{0}\" onclick=\"javascript: SelectSearchNode(this);\">" +
-            "{1}</a>\r\n</div>\r\n", r.Filename, r.PageTitle);
+		sb.Append("<ol>");
 
-    // Return the keywords used as well in a hidden span
-    sb.AppendFormat("<span id=\"SearchKeywords\" style=\"display: none\">{0}</span>",
-        String.Join(" ", keywords.ToArray()));
+    foreach(Ranking r in rankings)
+        sb.AppendFormat("<li><a href=\"{0}\" target=\"_blank\">{1}</a></li>", r.Filename, r.PageTitle);
+
+		sb.Append("</ol>");
+
+    if(rankings.Count < matchingFileIndices.Count)
+        sb.AppendFormat("<p>Omitted {0} more results</p>", matchingFileIndices.Count - rankings.Count);
 
     return sb.ToString();
 }
-
 </script>

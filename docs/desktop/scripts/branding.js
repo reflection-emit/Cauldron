@@ -1,4 +1,25 @@
-﻿// The IDs of all code snippet sets on the same page are stored so that we can keep them in synch when a tab is
+﻿//===============================================================================================================
+// System  : Sandcastle Help File Builder
+// File    : branding.js
+// Author  : Eric Woodruff  (Eric@EWoodruff.us)
+// Updated : 10/08/2015
+// Note    : Copyright 2014-2015, Eric Woodruff, All rights reserved
+//           Portions Copyright 2010-2014 Microsoft, All rights reserved
+//
+// This file contains the methods necessary to implement the language filtering, collapsible section, and
+// copy to clipboard options.
+//
+// This code is published under the Microsoft Public License (Ms-PL).  A copy of the license should be
+// distributed with the code and can be found at the project website: https://GitHub.com/EWSoftware/SHFB.  This
+// notice, the author's name, and all copyright notices must remain intact in all applications, documentation,
+// and source files.
+//
+//    Date     Who  Comments
+// ==============================================================================================================
+// 05/04/2014  EFW  Created the code based on the MS Help Viewer script
+//===============================================================================================================
+
+// The IDs of all code snippet sets on the same page are stored so that we can keep them in synch when a tab is
 // selected.
 var allTabSetIds = new Array();
 
@@ -32,102 +53,16 @@ function OnLoad(defaultLanguage)
 {
     var defLang;
 
-    if(typeof(defaultLanguage) == "undefined" || defaultLanguage == null || defaultLanguage == "")
+    if(typeof (defaultLanguage) == "undefined" || defaultLanguage == null || defaultLanguage == "")
         defLang = "vb";
     else
         defLang = defaultLanguage;
-
-    // This is a hack to fix the URLs for the background images on certain styles.  Help Viewer 1.0 doesn't
-    // mind if you put the relative URL in the styles for fix up later in script.  However, Help Viewer 2.0 will
-    // abort all processing and won't run any startup script if it sees an invalid URL in the style.  As such, we
-    // put a dummy attribute in the style to specify the image filename and use this code to get the URL from the
-    // Favorites icon and then substitute the background image icons in the URL and set it in each affected style.
-    // This works in either version of the help viewer.
-    var iconPath = undefined;
-
-    try
-    {
-        var linkEnum = document.getElementsByTagName("link");
-
-        for(var idx = 0; idx < linkEnum.length; idx++)
-        {
-            var link = linkEnum[idx];
-
-            if(link.rel.toLowerCase() == "shortcut icon")
-                iconPath = link.href.toString();
-        }
-    }
-    catch(e) { }
-    finally { }
-
-    if(iconPath)
-    {
-        try
-        {
-            var styleSheetEnum = document.styleSheets;
-
-            for(var idx = 0; idx < styleSheetEnum.length; idx++)
-            {
-                var styleSheet = styleSheetEnum[idx];
-
-                // Ignore sheets at ms-help URLs
-                if(styleSheet.href != null && styleSheet.href.substr(0, 8) == "ms-help:")
-                    continue;
-
-                // Ignore errors (Help Viewer 2).  styleSheet.rules is inaccessible due to security restrictions
-                // for all style sheets not defined within the page.
-                try
-                {
-                    // Get sheet rules
-                    var rules = styleSheet.rules;
-
-                    if(rules == null)
-                        rules = styleSheet.cssRules;
-
-                    if(rules != null)
-                        if(rules.length != 0)
-                            for(var ruleNdx = 0; ruleNdx != rules.length; ruleNdx++)
-                            {
-                                var rule = rules.item(ruleNdx);
-
-                                var selectorText = rule.selectorText.toLowerCase();
-
-                                // The selector text may show up grouped or individually for these
-                                if(selectorText == ".oh_codesnippetcontainertableftactive, .oh_codesnippetcontainertableft, .oh_codesnippetcontainertableftdisabled" ||
-                                  selectorText == ".oh_codesnippetcontainertableftactive" ||
-                                  selectorText == ".oh_codesnippetcontainertableft" ||
-                                  selectorText == ".oh_codesnippetcontainertableftdisabled")
-                                {
-                                    rule.style.backgroundImage = "url(" + iconPath.replace("favicon.ico", "tabLeftBG.gif") + ")";
-                                }
-
-                                if(selectorText == ".oh_codesnippetcontainertabrightactive, .oh_codesnippetcontainertabright, .oh_codesnippetcontainertabrightdisabled" ||
-                                  selectorText == ".oh_codesnippetcontainertabrightactive" ||
-                                  selectorText == ".oh_codesnippetcontainertabright" ||
-                                  selectorText == ".oh_codesnippetcontainertabrightdisabled")
-                                {
-                                    rule.style.backgroundImage = "url(" + iconPath.replace("favicon.ico", "tabRightBG.gif") + ")";
-                                }
-
-                                if(selectorText == ".oh_footer")
-                                {
-                                    rule.style.backgroundImage = "url(" + iconPath.replace("favicon.ico", "footer_slice.gif") + ")";
-                                }
-                            }
-                }
-                catch(e) { }
-                finally { }
-            }
-        }
-        catch(e) { }
-        finally { }
-    }
 
     // In MS Help Viewer, the transform the topic is ran through can move the footer.  Move it back where it
     // belongs if necessary.
     try
     {
-        var footer = document.getElementById("OH_footer")
+        var footer = document.getElementById("pageFooter")
 
         if(footer)
         {
@@ -140,10 +75,11 @@ function OnLoad(defaultLanguage)
             }
         }
     }
-    catch(e) { }
-    finally { }
+    catch(e)
+    {
+    }
 
-    var language = GetLanguageCookie("CodeSnippetContainerLanguage", defLang);
+    var language = GetCookie("CodeSnippetContainerLanguage", defLang);
 
     // If LST exists on the page, set the LST to show the user selected programming language
     UpdateLST(language);
@@ -170,6 +106,13 @@ function OnLoad(defaultLanguage)
             i++;
         }
     }
+
+    InitializeToc();
+}
+
+// This is just a place holder.  The website script implements this function to initialize it's in-page TOC pane
+function InitializeToc()
+{
 }
 
 // This function executes in the OnLoad event and ChangeTab action on code snippets.  The function parameter
@@ -202,9 +145,11 @@ function UpdateLST(language)
 
                     // Help 1 and MS Help Viewer workaround.  Add a space if the following text element starts
                     // with a space to prevent things running together.
-                    if (devLangSpan.parentNode != null && devLangSpan.parentNode.nextSibling != null) {
+                    if(devLangSpan.parentNode != null && devLangSpan.parentNode.nextSibling != null)
+                    {
                         if (devLangSpan.parentNode.nextSibling.nodeValue != null &&
-                          !devLangSpan.parentNode.nextSibling.nodeValue.substring(0, 1).match(/[.,);:!/?]/)) {
+                          !devLangSpan.parentNode.nextSibling.nodeValue.substring(0, 1).match(/[.,);:!/?]/))
+                        {
                             devLangSpan.innerHTML = keyValue[1] + " ";
                         }
                     }
@@ -232,9 +177,11 @@ function UpdateLST(language)
 
                             // Help 1 and MS Help Viewer workaround.  Add a space if the following text element
                             // starts with a space to prevent things running together.
-                            if (devLangSpan.parentNode != null && devLangSpan.parentNode.nextSibling != null) {
-                                if (devLangSpan.parentNode.nextSibling.nodeValue != null &&
-                                  !devLangSpan.parentNode.nextSibling.nodeValue.substring(0, 1).match(/[.,);:!/?]/)) {
+                            if(devLangSpan.parentNode != null && devLangSpan.parentNode.nextSibling != null)
+                            {
+                                if(devLangSpan.parentNode.nextSibling.nodeValue != null &&
+                                  !devLangSpan.parentNode.nextSibling.nodeValue.substring(0, 1).match(/[.,);:!/?]/))
+                                {
                                     devLangSpan.innerHTML = keyValue[1] + " ";
                                 }
                             }
@@ -252,8 +199,8 @@ function UpdateLST(language)
     }
 }
 
-// Get the selected language cookie
-function GetLanguageCookie(cookieName, defaultValue)
+// Get the specified cookie.  If not found, return the specified default value.
+function GetCookie(cookieName, defaultValue)
 {
     if(isHelp1)
     {
@@ -287,8 +234,8 @@ function GetLanguageCookie(cookieName, defaultValue)
     return defaultValue;
 }
 
-// Set the selected language cookie
-function SetLanguageCookie(name, value)
+// Set the specified cookie to the specified value
+function SetCookie(name, value)
 {
     if(isHelp1)
     {
@@ -333,7 +280,7 @@ function AddLanguageTabSet(tabSetId)
     // Create the clipboard handler on first use
     if(clipboardHandler == null && typeof (Clipboard) == "function")
     {
-        clipboardHandler = new Clipboard('.OH_copyCodeSnippet',
+        clipboardHandler = new Clipboard('.copyCodeSnippet',
         {
             text: function (trigger)
             {
@@ -370,7 +317,7 @@ function AddLanguageTabSet(tabSetId)
 // Switch the active tab for all of other code snippets
 function ChangeTab(tabSetId, language, snippetIdx, snippetCount)
 {
-    SetLanguageCookie("CodeSnippetContainerLanguage", language);
+    SetCookie("CodeSnippetContainerLanguage", language);
 
     SetActiveTab(tabSetId, snippetIdx, snippetCount);
 
@@ -421,7 +368,7 @@ function SetCurrentLanguage(tabSetId, language, tabCount)
         // Select the first non-disabled tab
         tabIndex = 1;
 
-        if(document.getElementById(tabSetId + "_tab1").className.indexOf("OH_CodeSnippetContainerTabDisabled") != -1)
+        if(document.getElementById(tabSetId + "_tab1").className == "codeSnippetContainerTabPhantom")
         {
             tabIndex++;
 
@@ -429,26 +376,19 @@ function SetCurrentLanguage(tabSetId, language, tabCount)
             {
                 var tab = document.getElementById(tabSetId + "_tab" + tabIndex);
 
-                if(tab.className.indexOf("OH_CodeSnippetContainerTabDisabled") == -1)
+                if(tab.className != "codeSnippetContainerTabPhantom")
                 {
-                    tab.className = "OH_CodeSnippetContainerTabActiveNotFirst";
+                    tab.className = "codeSnippetContainerTabActive";
                     document.getElementById(tabSetId + "_code_Div" + j).style.display = "block";
                     break;
                 }
 
                 tabIndex++;
             }
-
-            // Disable left most image if first tab is disabled
-            document.getElementById(tabSetId + "_tabimgleft").className = "OH_CodeSnippetContainerTabLeftDisabled";
         }
     }
 
     SetActiveTab(tabSetId, tabIndex, tabCount);
-
-    // Disable right most image if last tab is disabled
-    if(document.getElementById(tabSetId + "_tab" + tabCount).className.indexOf("OH_CodeSnippetContainerTabDisabled") != -1)
-        document.getElementById(tabSetId + "_tabimgright").className = "OH_CodeSnippetContainerTabRightDisabled";
 }
 
 // Set the active tab within a tab set
@@ -460,53 +400,30 @@ function SetActiveTab(tabSetId, tabIndex, tabCount)
     {
         var tabTemp = document.getElementById(tabSetId + "_tab" + i);
 
-        if(tabTemp.className == "OH_CodeSnippetContainerTabActive")
-            tabTemp.className = "OH_CodeSnippetContainerTabFirst";
-        else
-            if(tabTemp.className == "OH_CodeSnippetContainerTabActiveNotFirst")
-                tabTemp.className = "OH_CodeSnippetContainerTab";
+        if (tabTemp != null)
+        {
+            if(tabTemp.className == "codeSnippetContainerTabActive")
+                tabTemp.className = "codeSnippetContainerTab";
             else
-                if(tabTemp.className.indexOf("OH_CodeSnippetContainerTabDisabled") != -1)
-                {
-                    tabTemp.firstChild.style.color = "#a8a8a8";
-                    tabTemp.firstChild.style.fontWeight = "normal";
-                }
+                if(tabTemp.className == "codeSnippetContainerTabPhantom")
+                    tabTemp.style.display = "none";
 
-        var codeTemp = document.getElementById(tabSetId + "_code_Div" + i);
+            var codeTemp = document.getElementById(tabSetId + "_code_Div" + i);
 
-        if(codeTemp.style.display != "none")
-            codeTemp.style.display = "none";
+            if(codeTemp.style.display != "none")
+                codeTemp.style.display = "none";
+        }
 
         i++;
     }
 
-    if(document.getElementById(tabSetId + "_tab" + tabIndex).className.indexOf("OH_CodeSnippetContainerTabDisabled") == -1)
-    {
-        if(tabIndex == 1)
-            document.getElementById(tabSetId + "_tab" + tabIndex).className = "OH_CodeSnippetContainerTabActive";
-        else
-            document.getElementById(tabSetId + "_tab" + tabIndex).className = "OH_CodeSnippetContainerTabActiveNotFirst";
-    }
+    // Phantom tabs are shown or hidden as needed
+    if(document.getElementById(tabSetId + "_tab" + tabIndex).className != "codeSnippetContainerTabPhantom")
+        document.getElementById(tabSetId + "_tab" + tabIndex).className = "codeSnippetContainerTabActive";
     else
-    {
-        document.getElementById(tabSetId + "_tab" + tabIndex).firstChild.style.color = "black";
-        document.getElementById(tabSetId + "_tab" + tabIndex).firstChild.style.fontWeight = "bold";
-    }
+        document.getElementById(tabSetId + "_tab" + tabIndex).style.display = "block";
 
     document.getElementById(tabSetId + "_code_Div" + tabIndex).style.display = "block";
-
-    // Change the CSS of the first/last image div according the currently selected tab
-    if(tabIndex == 1 && document.getElementById(tabSetId + "_tab" + tabIndex).className.indexOf("OH_CodeSnippetContainerTabDisabled") == -1)
-        document.getElementById(tabSetId + "_tabimgleft").className = "OH_CodeSnippetContainerTabLeftActive";
-    else
-        if(document.getElementById(tabSetId + "_tabimgleft").className != "OH_CodeSnippetContainerTabLeftDisabled")
-            document.getElementById(tabSetId + "_tabimgleft").className = "OH_CodeSnippetContainerTabLeft";
-
-    if(tabIndex == tabCount && document.getElementById(tabSetId + "_tab" + tabIndex).className.indexOf("OH_CodeSnippetContainerTabDisabled") == -1)
-        document.getElementById(tabSetId + "_tabimgright").className = "OH_CodeSnippetContainerTabRightActive";
-    else
-        if(document.getElementById(tabSetId + "_tabimgright").className != "OH_CodeSnippetContainerTabRightDisabled")
-            document.getElementById(tabSetId + "_tabimgright").className = "OH_CodeSnippetContainerTabRight";
 }
 
 // Copy the code from the active tab of the given tab set to the clipboard
@@ -583,6 +500,32 @@ function CopyToClipboard(tabSetId)
             alert("Permission denied. Enter \"about:config\" in the address bar and double-click the \"signed.applets.codebase_principal_support\" setting to enable copying to the clipboard.");
         }
     }
+}
+
+// Expand or collapse a section
+function SectionExpandCollapse(togglePrefix)
+{
+    var image = document.getElementById(togglePrefix + "Toggle");
+    var section = document.getElementById(togglePrefix + "Section");
+
+    if(image != null && section != null)
+        if(section.style.display == "")
+        {
+            image.src = image.src.replace("SectionExpanded.png", "SectionCollapsed.png");
+            section.style.display = "none";
+        }
+        else
+        {
+            image.src = image.src.replace("SectionCollapsed.png", "SectionExpanded.png");
+            section.style.display = "";
+        }
+}
+
+// Expand or collapse a section when it has the focus and Enter is hit
+function SectionExpandCollapse_CheckKey(togglePrefix, eventArgs)
+{
+    if(eventArgs.keyCode == 13)
+        SectionExpandCollapse(togglePrefix);
 }
 
 // Help 1 persistence object.  This requires a hidden input element on the page with a class of "userDataStyle"

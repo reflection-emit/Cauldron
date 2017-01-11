@@ -3,12 +3,38 @@
 	behavior: url(#default#userdata);
 }
 
-/* Style adjustments for Help 1*/
-.OH_outerContent {
-	/* _width is some sort of hack for IE6 and earlier.  It does prevent a problem with the tabs shifting
-	   oddly in some cases in Help 1 files.  (i.e. the syntax section grows because it contains more lines) */
-	_width: 99.9%;
+/* Style adjustments for Help 1 */
+.pageBody {
+	padding-top: 0px 20px 0px 0px;
 }
-.OH_CodeSnippetToolBarText {
-	top: -14px;
+
+table {
+	width: 95%;
+	padding-right: 20px;
+}
+
+table.members {
+	width: 95%;
+	padding-right: 20px;
+}
+
+th p {
+	padding-bottom: 0px;
+}
+
+td p {
+	padding-bottom: 5px;
+}
+
+.codeSnippetContainerTabs {
+	top: 1px;
+}
+
+.codeSnippetToolBarText {
+	top: -13px;
+}
+
+.codeSnippetContainerTabSingle {
+	padding: 2px 15px 0px 15px;
+	height: 22px;
 }
