@@ -33,12 +33,12 @@
     <Description>The activator is a simple and extensible dependency injection framework. It is based on attributes and does not require any configuration files for configuration. It also supports using static methods as component constructor.</Description>
     <ReleaseNotes>
     </ReleaseNotes>
-    <ProjectUrl>https://github.com/Virusface/Cauldron</ProjectUrl>
-    <LicenseUrl>https://raw.githubusercontent.com/Virusface/Cauldron/master/LICENSE</LicenseUrl>
+    <ProjectUrl>https://github.com/reflection-emit/Cauldron</ProjectUrl>
+    <LicenseUrl>https://raw.githubusercontent.com/reflection-emit/Cauldron/master/LICENSE</LicenseUrl>
     <Copyright>Copyright (c) 2016 Alexander Schunk, Capgemini Deutschland GmbH and Contributors</Copyright>
     <Tags>Toolkit Capgemini Activator Dependency Injection Factory Cauldron</Tags>
     <OutputPath>$(SolutionDir)NuGet\Packages</OutputPath>
-    <IconUrl>https://raw.githubusercontent.com/Virusface/Cauldron/master/cauldron.png</IconUrl>
+    <IconUrl>https://raw.githubusercontent.com/reflection-emit/Cauldron/master/cauldron.png</IconUrl>
   </PropertyGroup>
   <Import Project="$(NuProjPath)\NuProj.targets" />
 </Project>

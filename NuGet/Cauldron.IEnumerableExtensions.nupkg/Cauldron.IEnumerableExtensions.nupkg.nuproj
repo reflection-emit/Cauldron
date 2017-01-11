@@ -27,12 +27,12 @@
     <Description>Contains extension methods like Count, Any, Except, FirstElement... for types that implements the IEnumerable interface. Useful in cases where the contained type of the collection is unknown or random.</Description>
     <ReleaseNotes>
     </ReleaseNotes>
-    <ProjectUrl>https://github.com/Virusface/Cauldron</ProjectUrl>
-    <LicenseUrl>https://raw.githubusercontent.com/Virusface/Cauldron/master/LICENSE</LicenseUrl>
+    <ProjectUrl>https://github.com/reflection-emit/Cauldron</ProjectUrl>
+    <LicenseUrl>https://raw.githubusercontent.com/reflection-emit/Cauldron/master/LICENSE</LicenseUrl>
     <Copyright>Copyright (c) 2016 Alexander Schunk, Capgemini Deutschland GmbH and Contributors</Copyright>
     <Tags>Toolkit Capgemini IEnumerable Extension Methods</Tags>
     <OutputPath>$(SolutionDir)NuGet\Packages</OutputPath>
-    <IconUrl>https://raw.githubusercontent.com/Virusface/Cauldron/master/cauldron.png</IconUrl>
+    <IconUrl>https://raw.githubusercontent.com/reflection-emit/Cauldron/master/cauldron.png</IconUrl>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Cauldron.Core.nupkg\Cauldron.Core.nupkg.nuproj" />

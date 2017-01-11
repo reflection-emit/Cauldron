@@ -27,12 +27,12 @@
     <Description>Cauldron Core is the core toolkit assembly that the Cauldron Toolkit builds upon</Description>
     <ReleaseNotes>
     </ReleaseNotes>
-    <ProjectUrl>https://github.com/Virusface/Cauldron</ProjectUrl>
-    <LicenseUrl>https://raw.githubusercontent.com/Virusface/Cauldron/master/LICENSE</LicenseUrl>
+    <ProjectUrl>https://github.com/reflection-emit/Cauldron</ProjectUrl>
+    <LicenseUrl>https://raw.githubusercontent.com/reflection-emit/Cauldron/master/LICENSE</LicenseUrl>
     <Copyright>Copyright (c) 2016 Alexander Schunk, Capgemini Deutschland GmbH and Contributors</Copyright>
     <Tags>Toolkit Capgemini Cauldron Core</Tags>
     <OutputPath>$(SolutionDir)NuGet\Packages</OutputPath>
-    <IconUrl>https://raw.githubusercontent.com/Virusface/Cauldron/master/cauldron.png</IconUrl>
+    <IconUrl>https://raw.githubusercontent.com/reflection-emit/Cauldron/master/cauldron.png</IconUrl>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Desktop\Cauldron.Core\Cauldron.Desktop.Core.csproj" />
