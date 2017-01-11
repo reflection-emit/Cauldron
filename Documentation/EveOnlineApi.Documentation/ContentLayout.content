@@ -1,18 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Topics>
-  <Topic id="9b86521c-de2b-4f41-843b-d0ecf78fd82f" visible="True" isDefault="true" isSelected="true" title="Welcome to the Eve Online API for .NET esktop and UWP">
+  <Topic id="9b86521c-de2b-4f41-843b-d0ecf78fd82f" visible="True" isDefault="true" isSelected="true" title="Welcome to the Eve Online API for .NET desktop and UWP" linkText="https://github.com/Virusface/Cauldron">
     <HelpKeywords>
       <HelpKeyword index="K" term="Welcome" />
     </HelpKeywords>
-  </Topic>
-  <Topic id="90cb3be9-15c0-4d47-a6fc-680bbc278ea0" visible="True" isExpanded="true" title="Version History">
-    <HelpKeywords>
-      <HelpKeyword index="K" term="version, history" />
-    </HelpKeywords>
-    <Topic id="cc8cb20a-cf23-44e9-8b39-cb13eb13a88f" visible="True" title="Version 1.0.0.0">
-      <HelpKeywords>
-        <HelpKeyword index="K" term="version, 1.0.0.0" />
-      </HelpKeywords>
-    </Topic>
   </Topic>
 </Topics>

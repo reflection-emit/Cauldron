@@ -11,7 +11,7 @@ include("SearchHelp.inc.php");
     if(empty($searchText))
     {
     ?>
-        <strong>Nothing found</strong>
+        <b class=\"PaddedText\">Nothing found</b>
     <?
         return;
     }

@@ -1,18 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Topics>
-  <Topic id="fc8eed50-2abd-4978-8cec-51dd994670bf" visible="True" isDefault="true" title="Welcome to the Cauldron Toolkit">
+  <Topic id="fc8eed50-2abd-4978-8cec-51dd994670bf" visible="True" isDefault="true" isSelected="true" title="Welcome to the Cauldron Toolkit" linkText="https://github.com/Virusface/Cauldron">
     <HelpKeywords>
       <HelpKeyword index="K" term="Welcome" />
     </HelpKeywords>
-  </Topic>
-  <Topic id="0fdaf944-e692-4a93-be01-2ffbe9592622" visible="True" isExpanded="true" title="Version History">
-    <HelpKeywords>
-      <HelpKeyword index="K" term="version, history" />
-    </HelpKeywords>
-    <Topic id="5b1634d2-790f-4cab-9b17-e303530e57de" visible="True" isSelected="true" title="Version 1.0.0.1">
-      <HelpKeywords>
-        <HelpKeyword index="K" term="version, 1.0.0.0" />
-      </HelpKeywords>
-    </Topic>
   </Topic>
 </Topics>

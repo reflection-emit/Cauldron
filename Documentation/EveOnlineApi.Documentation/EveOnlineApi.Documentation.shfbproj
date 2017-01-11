@@ -42,8 +42,8 @@
     <SyntaxFilters>C#, XAML Usage</SyntaxFilters>
     <SdkLinkTarget>Blank</SdkLinkTarget>
     <RootNamespaceContainer>False</RootNamespaceContainer>
-    <PresentationStyle>VS2013</PresentationStyle>
-    <Preliminary>False</Preliminary>
+    <PresentationStyle>VS2010</PresentationStyle>
+    <Preliminary>True</Preliminary>
     <NamingMethod>MemberName</NamingMethod>
     <HelpTitle>Eve Online API for .NET 4.5.2 and UWP</HelpTitle>
     <ContentPlacement>AboveNamespaces</ContentPlacement>
