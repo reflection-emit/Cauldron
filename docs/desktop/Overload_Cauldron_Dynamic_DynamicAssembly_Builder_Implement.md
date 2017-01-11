@@ -1,0 +1,13 @@
+# Builder.Implement Method 
+ _**\[This is preliminary documentation and is subject to change.\]**_
+
+
+## Overload List
+&nbsp;<table><tr><th></th><th>Name</th><th>Description</th></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="M_Cauldron_Dynamic_DynamicAssembly_Builder_Implement">Implement(MethodInfo)</a></td><td /></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="M_Cauldron_Dynamic_DynamicAssembly_Builder_Implement_2">Implement(PropertyInfo)</a></td><td /></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="M_Cauldron_Dynamic_DynamicAssembly_Builder_Implement__1">Implement(TReturn)(MethodInfo, Expression(Func(Object, TReturn)))</a></td><td /></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="M_Cauldron_Dynamic_DynamicAssembly_Builder_Implement__1_1">Implement(TReturn)(String, Expression(Func(Object, TReturn)))</a></td><td /></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="M_Cauldron_Dynamic_DynamicAssembly_Builder_Implement__2">Implement(T1, TReturn)(String, Expression(Func(Object, T1, TReturn)))</a></td><td /></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="M_Cauldron_Dynamic_DynamicAssembly_Builder_Implement__3">Implement(T1, T2, TReturn)(String, Expression(Func(Object, T1, T2, TReturn)))</a></td><td /></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="M_Cauldron_Dynamic_DynamicAssembly_Builder_Implement_1">Implement(MethodInfo, Action(ILGenerator), Type, Type[])</a></td><td /></tr><tr><td>![Public method](media/pubmethod.gif "Public method")</td><td><a href="M_Cauldron_Dynamic_DynamicAssembly_Builder_Implement_3">Implement(String, Action(ILGenerator), Type, Type[])</a></td><td /></tr></table>&nbsp;
+<a href="#builder.implement-method">Back to Top</a>
+
+## See Also
+
+
+#### Reference
+<a href="T_Cauldron_Dynamic_DynamicAssembly_Builder">DynamicAssembly.Builder Class</a><br /><a href="N_Cauldron_Dynamic">Cauldron.Dynamic Namespace</a><br />
