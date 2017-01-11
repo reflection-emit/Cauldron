@@ -1,4 +1,4 @@
-﻿using Cauldron.Potions;
+﻿using Cauldron.Core;
 using EveOnlineApi.Models;
 using System;
 using System.Threading.Tasks;
@@ -17,9 +17,9 @@ namespace EveOnlineApi.WebService
             var name = typeof(T).Name;
 
             if (EveCache.Cache.Contains(name))
-                return !Network.CreateInstance().HasInternetConnection || await EveUtils.GetServerStatusAsync() != EveServerStatus.Online || EveCache.Cache[name].CachedUntil.ToLocalTime() > DateTime.Now;
+                return !Network.HasInternetConnection || await EveUtils.GetServerStatusAsync() != EveServerStatus.Online || EveCache.Cache[name].CachedUntil.ToLocalTime() > DateTime.Now;
 
-            return !Network.CreateInstance().HasInternetConnection || await EveUtils.GetServerStatusAsync() != EveServerStatus.Online;
+            return !Network.HasInternetConnection || await EveUtils.GetServerStatusAsync() != EveServerStatus.Online;
         }
 
         public async Task SetCache<TResult>(string key, string content, TResult result)

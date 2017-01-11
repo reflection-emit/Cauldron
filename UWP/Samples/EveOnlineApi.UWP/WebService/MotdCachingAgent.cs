@@ -1,6 +1,6 @@
 ﻿using Cauldron.Activator;
+using Cauldron.Core;
 using Cauldron.Core.Extensions;
-using Cauldron.Potions;
 using EveOnlineApi.Models;
 using Newtonsoft.Json;
 using System;
@@ -13,7 +13,7 @@ namespace EveOnlineApi.WebService
     {
         public override async Task<bool> IsValid(string key)
         {
-            if (!Network.CreateInstance().HasInternetConnection)
+            if (!Network.HasInternetConnection)
                 return true;
 
             var filename = key + ".cache";

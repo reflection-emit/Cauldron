@@ -1,14 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <HelpTOC>
 
-  <HelpTOCNode Title="Welcome to the Eve Online API for .NET desktop and UWP" Url="html/9b86521c-de2b-4f41-843b-d0ecf78fd82f.htm" />
-  <HelpTOCNode Id="e1b910b2-34b9-46ee-bcc7-f10122b87f45" Title="EveOnlineApi" Url="html/N_EveOnlineApi.htm">
-    <HelpTOCNode Id="2be7c906-31f4-4d7e-aaf5-ca4afe298f3d" Title="Api Class" Url="html/T_EveOnlineApi_Api.htm">
-      <HelpTOCNode Id="e5f3754d-cbdc-4e12-8bc5-71a3758fc7a6" Title="Api Properties" Url="html/Properties_T_EveOnlineApi_Api.htm">
+  <HelpTOCNode Id="43bdf43c-95e0-4170-b3cb-5ac446d129b8" Title="EveOnlineApi" Url="html/N_EveOnlineApi.htm">
+    <HelpTOCNode Id="79241cad-54bd-4360-b09e-4558410a9acd" Title="Api Class" Url="html/T_EveOnlineApi_Api.htm">
+      <HelpTOCNode Id="2e3d8699-6c9e-41ff-90dd-5dbeb423b227" Title="Api Properties" Url="html/Properties_T_EveOnlineApi_Api.htm">
         <HelpTOCNode Title="Server Property " Url="html/P_EveOnlineApi_Api_Server.htm" />
         <HelpTOCNode Title="StaticData Property " Url="html/P_EveOnlineApi_Api_StaticData.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="65c1e4e9-ae5c-4f09-8b2f-7c89c1abdb82" Title="Api Methods" Url="html/Methods_T_EveOnlineApi_Api.htm">
+      <HelpTOCNode Id="2673e851-a1d9-4dbd-9094-a98fe196cb7e" Title="Api Methods" Url="html/Methods_T_EveOnlineApi_Api.htm">
         <HelpTOCNode Title="AuthorizeApplicationForCrestAsync Method " Url="html/M_EveOnlineApi_Api_AuthorizeApplicationForCrestAsync.htm" />
         <HelpTOCNode Title="CachePriceAsync Method " Url="html/M_EveOnlineApi_Api_CachePriceAsync.htm" />
         <HelpTOCNode Title="GetAssetsAsync Method " Url="html/M_EveOnlineApi_Api_GetAssetsAsync.htm" />
@@ -16,7 +15,7 @@
         <HelpTOCNode Title="GetCharacterNamesAsync Method " Url="html/M_EveOnlineApi_Api_GetCharacterNamesAsync.htm" />
         <HelpTOCNode Title="GetCharactersAsync Method " Url="html/M_EveOnlineApi_Api_GetCharactersAsync.htm" />
         <HelpTOCNode Title="GetCharacterSheetAsync(T) Method " Url="html/M_EveOnlineApi_Api_GetCharacterSheetAsync__1.htm" />
-        <HelpTOCNode Id="9cae1de0-336c-4548-bab8-e6c2cdcab2e8" Title="GetConquerableStationAsync Method " Url="html/Overload_EveOnlineApi_Api_GetConquerableStationAsync.htm">
+        <HelpTOCNode Id="fc3a9c8e-4480-4c37-ad01-aef120185422" Title="GetConquerableStationAsync Method " Url="html/Overload_EveOnlineApi_Api_GetConquerableStationAsync.htm">
           <HelpTOCNode Title="GetConquerableStationAsync Method " Url="html/M_EveOnlineApi_Api_GetConquerableStationAsync.htm" />
           <HelpTOCNode Title="GetConquerableStationAsync Method (Int64)" Url="html/M_EveOnlineApi_Api_GetConquerableStationAsync_1.htm" />
         </HelpTOCNode>
@@ -47,23 +46,23 @@
         <HelpTOCNode Title="SaveAccessTokens Method " Url="html/M_EveOnlineApi_Api_SaveAccessTokens.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="665e455e-c4b4-41ed-8128-1b2c4235c6c0" Title="ApiKey Class" Url="html/T_EveOnlineApi_ApiKey.htm">
+    <HelpTOCNode Id="0a92df43-b2fe-41d0-971d-ad8434392072" Title="ApiKey Class" Url="html/T_EveOnlineApi_ApiKey.htm">
       <HelpTOCNode Title="ApiKey Constructor " Url="html/M_EveOnlineApi_ApiKey__ctor.htm" />
-      <HelpTOCNode Id="85794a81-cc37-42ef-91a5-f41ae9d1463e" Title="ApiKey Properties" Url="html/Properties_T_EveOnlineApi_ApiKey.htm">
+      <HelpTOCNode Id="b89ff3d7-c069-4293-a3cf-1e4da5c1b18f" Title="ApiKey Properties" Url="html/Properties_T_EveOnlineApi_ApiKey.htm">
         <HelpTOCNode Title="KeyId Property " Url="html/P_EveOnlineApi_ApiKey_KeyId.htm" />
         <HelpTOCNode Title="VerificationCode Property " Url="html/P_EveOnlineApi_ApiKey_VerificationCode.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="ApiKey Methods" Url="html/Methods_T_EveOnlineApi_ApiKey.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="43655c20-afd7-436a-927a-0c15b1e5e945" Title="CharacterSpecificApiKey Class" Url="html/T_EveOnlineApi_CharacterSpecificApiKey.htm">
+    <HelpTOCNode Id="f81491b7-78d7-4354-a345-43559866195a" Title="CharacterSpecificApiKey Class" Url="html/T_EveOnlineApi_CharacterSpecificApiKey.htm">
       <HelpTOCNode Title="CharacterSpecificApiKey Constructor " Url="html/M_EveOnlineApi_CharacterSpecificApiKey__ctor.htm" />
-      <HelpTOCNode Id="f8e278b8-2fc7-4fc8-967c-025fe9253918" Title="CharacterSpecificApiKey Properties" Url="html/Properties_T_EveOnlineApi_CharacterSpecificApiKey.htm">
+      <HelpTOCNode Id="491c306f-e527-476c-a732-28a74c858a96" Title="CharacterSpecificApiKey Properties" Url="html/Properties_T_EveOnlineApi_CharacterSpecificApiKey.htm">
         <HelpTOCNode Title="CharacterId Property " Url="html/P_EveOnlineApi_CharacterSpecificApiKey_CharacterId.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="CharacterSpecificApiKey Methods" Url="html/Methods_T_EveOnlineApi_CharacterSpecificApiKey.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="b22df4d6-7c0f-442a-85c7-37b287656a79" Title="CrestAccessScopes Class" Url="html/T_EveOnlineApi_CrestAccessScopes.htm">
-      <HelpTOCNode Id="4f5f631f-c6ce-4cb6-9376-9eb79a83f10a" Title="CrestAccessScopes Fields" Url="html/Fields_T_EveOnlineApi_CrestAccessScopes.htm">
+    <HelpTOCNode Id="eb80c889-17f2-49ce-9689-d7b19647a6b5" Title="CrestAccessScopes Class" Url="html/T_EveOnlineApi_CrestAccessScopes.htm">
+      <HelpTOCNode Id="1cf30252-ca0b-4941-aef5-7c898ae4188d" Title="CrestAccessScopes Fields" Url="html/Fields_T_EveOnlineApi_CrestAccessScopes.htm">
         <HelpTOCNode Title="CharacterFittingsRead Field" Url="html/F_EveOnlineApi_CrestAccessScopes_CharacterFittingsRead.htm" />
         <HelpTOCNode Title="CharacterFittingsWrite Field" Url="html/F_EveOnlineApi_CrestAccessScopes_CharacterFittingsWrite.htm" />
         <HelpTOCNode Title="CharacterLocationRead Field" Url="html/F_EveOnlineApi_CrestAccessScopes_CharacterLocationRead.htm" />
@@ -71,17 +70,17 @@
         <HelpTOCNode Title="RemoteClientUI Field" Url="html/F_EveOnlineApi_CrestAccessScopes_RemoteClientUI.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="3698f04f-bb77-4aa0-865d-605205170931" Title="CrestApiKey Class" Url="html/T_EveOnlineApi_CrestApiKey.htm">
+    <HelpTOCNode Id="d404b373-1713-40f1-a711-425aaddda1e6" Title="CrestApiKey Class" Url="html/T_EveOnlineApi_CrestApiKey.htm">
       <HelpTOCNode Title="CrestApiKey Constructor " Url="html/M_EveOnlineApi_CrestApiKey__ctor.htm" />
-      <HelpTOCNode Id="dad14bea-1746-466d-b070-15cc97876177" Title="CrestApiKey Properties" Url="html/Properties_T_EveOnlineApi_CrestApiKey.htm">
+      <HelpTOCNode Id="a803e789-90fe-4b57-bcad-965989b0d3ea" Title="CrestApiKey Properties" Url="html/Properties_T_EveOnlineApi_CrestApiKey.htm">
         <HelpTOCNode Title="CallbackUrl Property " Url="html/P_EveOnlineApi_CrestApiKey_CallbackUrl.htm" />
         <HelpTOCNode Title="ClientId Property " Url="html/P_EveOnlineApi_CrestApiKey_ClientId.htm" />
         <HelpTOCNode Title="SecretKey Property " Url="html/P_EveOnlineApi_CrestApiKey_SecretKey.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="CrestApiKey Methods" Url="html/Methods_T_EveOnlineApi_CrestApiKey.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="21ee97c2-4f58-4a56-b3a2-1f85366c8a0e" Title="EveServers Class" Url="html/T_EveOnlineApi_EveServers.htm">
-      <HelpTOCNode Id="eeb82b55-e8ae-4240-9242-0e72dd720887" Title="EveServers Properties" Url="html/Properties_T_EveOnlineApi_EveServers.htm">
+    <HelpTOCNode Id="54dffb95-9516-445f-ad73-7f702306b9e4" Title="EveServers Class" Url="html/T_EveOnlineApi_EveServers.htm">
+      <HelpTOCNode Id="085c5102-fc5a-44f8-94be-4a0de854471a" Title="EveServers Properties" Url="html/Properties_T_EveOnlineApi_EveServers.htm">
         <HelpTOCNode Title="ApplicationManagement Property " Url="html/P_EveOnlineApi_EveServers_ApplicationManagement.htm" />
         <HelpTOCNode Title="Crest Property " Url="html/P_EveOnlineApi_EveServers_Crest.htm" />
         <HelpTOCNode Title="Image Property " Url="html/P_EveOnlineApi_EveServers_Image.htm" />
@@ -94,8 +93,8 @@
       <HelpTOCNode Title="EveServers Methods" Url="html/Methods_T_EveOnlineApi_EveServers.htm" />
     </HelpTOCNode>
     <HelpTOCNode Title="EveServerStatus Enumeration" Url="html/T_EveOnlineApi_EveServerStatus.htm" />
-    <HelpTOCNode Id="8b245555-7982-449b-a73c-4328b76cc68e" Title="EveStaticData Class" Url="html/T_EveOnlineApi_EveStaticData.htm">
-      <HelpTOCNode Id="a79e8907-e0ee-48c7-bc67-33c00bc700dd" Title="EveStaticData Properties" Url="html/Properties_T_EveOnlineApi_EveStaticData.htm">
+    <HelpTOCNode Id="cfcf577c-bbfc-45dd-a9bb-3173900ad0a1" Title="EveStaticData Class" Url="html/T_EveOnlineApi_EveStaticData.htm">
+      <HelpTOCNode Id="199d0d03-9faf-4b23-a34f-e5ac67dec59b" Title="EveStaticData Properties" Url="html/Properties_T_EveOnlineApi_EveStaticData.htm">
         <HelpTOCNode Title="CacheRebuildRequired Property " Url="html/P_EveOnlineApi_EveStaticData_CacheRebuildRequired.htm" />
         <HelpTOCNode Title="InventoryFlags Property " Url="html/P_EveOnlineApi_EveStaticData_InventoryFlags.htm" />
         <HelpTOCNode Title="ItemGroups Property " Url="html/P_EveOnlineApi_EveStaticData_ItemGroups.htm" />
@@ -107,7 +106,7 @@
         <HelpTOCNode Title="Regions Property " Url="html/P_EveOnlineApi_EveStaticData_Regions.htm" />
         <HelpTOCNode Title="SolarSystems Property " Url="html/P_EveOnlineApi_EveStaticData_SolarSystems.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="4ca531c0-84e0-458b-b592-18d3dec2c062" Title="EveStaticData Methods" Url="html/Methods_T_EveOnlineApi_EveStaticData.htm">
+      <HelpTOCNode Id="6824c4c6-9e0d-4698-894f-de9c095f9469" Title="EveStaticData Methods" Url="html/Methods_T_EveOnlineApi_EveStaticData.htm">
         <HelpTOCNode Title="GetFlagDescription Method " Url="html/M_EveOnlineApi_EveStaticData_GetFlagDescription.htm" />
         <HelpTOCNode Title="GetGroup Method " Url="html/M_EveOnlineApi_EveStaticData_GetGroup.htm" />
         <HelpTOCNode Title="GetGroupName Method " Url="html/M_EveOnlineApi_EveStaticData_GetGroupName.htm" />
@@ -124,8 +123,8 @@
         <HelpTOCNode Title="UpdateStaticDataAsync Method " Url="html/M_EveOnlineApi_EveStaticData_UpdateStaticDataAsync.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="e3e9471a-5a74-457e-8167-dde7123f696c" Title="EveUtils Class" Url="html/T_EveOnlineApi_EveUtils.htm">
-      <HelpTOCNode Id="1a05e09e-b183-452e-823d-beb0221ae8a2" Title="EveUtils Methods" Url="html/Methods_T_EveOnlineApi_EveUtils.htm">
+    <HelpTOCNode Id="5458ee51-cd3a-4c2e-952a-961dcb75179f" Title="EveUtils Class" Url="html/T_EveOnlineApi_EveUtils.htm">
+      <HelpTOCNode Id="09f414ef-1b16-4750-ab80-c6fc3338ffe3" Title="EveUtils Methods" Url="html/Methods_T_EveOnlineApi_EveUtils.htm">
         <HelpTOCNode Title="GetEveTimeAsync Method " Url="html/M_EveOnlineApi_EveUtils_GetEveTimeAsync.htm" />
         <HelpTOCNode Title="GetOnlinePlayersAsync Method " Url="html/M_EveOnlineApi_EveUtils_GetOnlinePlayersAsync.htm" />
         <HelpTOCNode Title="GetServerStatusAsync Method " Url="html/M_EveOnlineApi_EveUtils_GetServerStatusAsync.htm" />
@@ -134,12 +133,12 @@
         <HelpTOCNode Title="XAMLify Method " Url="html/M_EveOnlineApi_EveUtils_XAMLify.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="04e265c6-1eef-4df6-aa34-55d64d9ce569" Title="IEveApi Interface" Url="html/T_EveOnlineApi_IEveApi.htm">
-      <HelpTOCNode Id="e8abc884-69db-4aa3-afc3-053697834fb8" Title="IEveApi Properties" Url="html/Properties_T_EveOnlineApi_IEveApi.htm">
+    <HelpTOCNode Id="fcb68b81-e4e4-4de9-9d6d-04ff83f064c6" Title="IEveApi Interface" Url="html/T_EveOnlineApi_IEveApi.htm">
+      <HelpTOCNode Id="bf1b2166-3d13-4f89-bb76-a35d45d88bf2" Title="IEveApi Properties" Url="html/Properties_T_EveOnlineApi_IEveApi.htm">
         <HelpTOCNode Title="Server Property " Url="html/P_EveOnlineApi_IEveApi_Server.htm" />
         <HelpTOCNode Title="StaticData Property " Url="html/P_EveOnlineApi_IEveApi_StaticData.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="9e2e5540-785b-4fa2-bde8-1d2521ac8018" Title="IEveApi Methods" Url="html/Methods_T_EveOnlineApi_IEveApi.htm">
+      <HelpTOCNode Id="e20fe324-75e8-4da4-8540-7c3e085b8f55" Title="IEveApi Methods" Url="html/Methods_T_EveOnlineApi_IEveApi.htm">
         <HelpTOCNode Title="AuthorizeApplicationForCrestAsync Method " Url="html/M_EveOnlineApi_IEveApi_AuthorizeApplicationForCrestAsync.htm" />
         <HelpTOCNode Title="CachePriceAsync Method " Url="html/M_EveOnlineApi_IEveApi_CachePriceAsync.htm" />
         <HelpTOCNode Title="GetAssetsAsync Method " Url="html/M_EveOnlineApi_IEveApi_GetAssetsAsync.htm" />
@@ -147,7 +146,7 @@
         <HelpTOCNode Title="GetCharacterNamesAsync Method " Url="html/M_EveOnlineApi_IEveApi_GetCharacterNamesAsync.htm" />
         <HelpTOCNode Title="GetCharactersAsync Method " Url="html/M_EveOnlineApi_IEveApi_GetCharactersAsync.htm" />
         <HelpTOCNode Title="GetCharacterSheetAsync(T) Method " Url="html/M_EveOnlineApi_IEveApi_GetCharacterSheetAsync__1.htm" />
-        <HelpTOCNode Id="911e3e9e-060e-4ba2-8224-18d56a6cb2a5" Title="GetConquerableStationAsync Method " Url="html/Overload_EveOnlineApi_IEveApi_GetConquerableStationAsync.htm">
+        <HelpTOCNode Id="d48aa8b7-918d-40cf-a8bf-353908b22b82" Title="GetConquerableStationAsync Method " Url="html/Overload_EveOnlineApi_IEveApi_GetConquerableStationAsync.htm">
           <HelpTOCNode Title="GetConquerableStationAsync Method " Url="html/M_EveOnlineApi_IEveApi_GetConquerableStationAsync.htm" />
           <HelpTOCNode Title="GetConquerableStationAsync Method (Int64)" Url="html/M_EveOnlineApi_IEveApi_GetConquerableStationAsync_1.htm" />
         </HelpTOCNode>
@@ -177,8 +176,8 @@
         <HelpTOCNode Title="SaveAccessTokens Method " Url="html/M_EveOnlineApi_IEveApi_SaveAccessTokens.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="84ff1a5e-264a-4141-b726-b90835f3cd6f" Title="IEveStaticData Interface" Url="html/T_EveOnlineApi_IEveStaticData.htm">
-      <HelpTOCNode Id="be452729-691f-4c35-8f1e-63fe300c934c" Title="IEveStaticData Properties" Url="html/Properties_T_EveOnlineApi_IEveStaticData.htm">
+    <HelpTOCNode Id="973056f1-12a5-4c0f-a5c7-ead85e75e3aa" Title="IEveStaticData Interface" Url="html/T_EveOnlineApi_IEveStaticData.htm">
+      <HelpTOCNode Id="376f3141-14d0-4530-80c3-d2a0ee46ef71" Title="IEveStaticData Properties" Url="html/Properties_T_EveOnlineApi_IEveStaticData.htm">
         <HelpTOCNode Title="CacheRebuildRequired Property " Url="html/P_EveOnlineApi_IEveStaticData_CacheRebuildRequired.htm" />
         <HelpTOCNode Title="InventoryFlags Property " Url="html/P_EveOnlineApi_IEveStaticData_InventoryFlags.htm" />
         <HelpTOCNode Title="ItemGroups Property " Url="html/P_EveOnlineApi_IEveStaticData_ItemGroups.htm" />
@@ -190,7 +189,7 @@
         <HelpTOCNode Title="Regions Property " Url="html/P_EveOnlineApi_IEveStaticData_Regions.htm" />
         <HelpTOCNode Title="SolarSystems Property " Url="html/P_EveOnlineApi_IEveStaticData_SolarSystems.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="e087cf75-df91-48a1-8b6f-e6b9dfa629f4" Title="IEveStaticData Methods" Url="html/Methods_T_EveOnlineApi_IEveStaticData.htm">
+      <HelpTOCNode Id="51f9fa50-7612-495d-b3b6-12393e324af4" Title="IEveStaticData Methods" Url="html/Methods_T_EveOnlineApi_IEveStaticData.htm">
         <HelpTOCNode Title="GetFlagDescription Method " Url="html/M_EveOnlineApi_IEveStaticData_GetFlagDescription.htm" />
         <HelpTOCNode Title="GetGroup Method " Url="html/M_EveOnlineApi_IEveStaticData_GetGroup.htm" />
         <HelpTOCNode Title="GetGroupName Method " Url="html/M_EveOnlineApi_IEveStaticData_GetGroupName.htm" />
@@ -208,26 +207,26 @@
       </HelpTOCNode>
     </HelpTOCNode>
     <HelpTOCNode Title="ImageType Enumeration" Url="html/T_EveOnlineApi_ImageType.htm" />
-    <HelpTOCNode Id="28482874-85a1-42cf-9a05-4805614d7eed" Title="NotificationTypes Class" Url="html/T_EveOnlineApi_NotificationTypes.htm">
-      <HelpTOCNode Id="f52dfec6-0196-43cd-8605-994934b1d2de" Title="NotificationTypes Methods" Url="html/Methods_T_EveOnlineApi_NotificationTypes.htm">
+    <HelpTOCNode Id="ad288004-e71c-4049-94d6-31968e9fe278" Title="NotificationTypes Class" Url="html/T_EveOnlineApi_NotificationTypes.htm">
+      <HelpTOCNode Id="d363e398-7a86-4f40-828d-d8c11bad37c6" Title="NotificationTypes Methods" Url="html/Methods_T_EveOnlineApi_NotificationTypes.htm">
         <HelpTOCNode Title="GetString Method " Url="html/M_EveOnlineApi_NotificationTypes_GetString.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
     <HelpTOCNode Title="ReferenceTypes Enumeration" Url="html/T_EveOnlineApi_ReferenceTypes.htm" />
   </HelpTOCNode>
-  <HelpTOCNode Id="a5ab5a3c-9061-4894-8f31-70f85d887855" Title="EveOnlineApi.Exceptions" Url="html/N_EveOnlineApi_Exceptions.htm">
-    <HelpTOCNode Id="495511cb-80d8-4396-9d1e-df6fda3f2723" Title="EveServersOfflineException Class" Url="html/T_EveOnlineApi_Exceptions_EveServersOfflineException.htm">
+  <HelpTOCNode Id="15ef4bd1-9645-49f4-b1b4-702767670532" Title="EveOnlineApi.Exceptions" Url="html/N_EveOnlineApi_Exceptions.htm">
+    <HelpTOCNode Id="e00927dc-d22b-4ddf-a569-0b47d58887ff" Title="EveServersOfflineException Class" Url="html/T_EveOnlineApi_Exceptions_EveServersOfflineException.htm">
       <HelpTOCNode Title="EveServersOfflineException Constructor " Url="html/M_EveOnlineApi_Exceptions_EveServersOfflineException__ctor.htm" />
       <HelpTOCNode Title="EveServersOfflineException Properties" Url="html/Properties_T_EveOnlineApi_Exceptions_EveServersOfflineException.htm" />
       <HelpTOCNode Title="EveServersOfflineException Methods" Url="html/Methods_T_EveOnlineApi_Exceptions_EveServersOfflineException.htm" />
       <HelpTOCNode Title="EveServersOfflineException Events" Url="html/Events_T_EveOnlineApi_Exceptions_EveServersOfflineException.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="94b2f276-d44e-47bf-ad57-7d218b46a895" Title="WebServiceConsumerException Class" Url="html/T_EveOnlineApi_Exceptions_WebServiceConsumerException.htm">
-      <HelpTOCNode Id="e4fa36c0-7c18-45af-8e9a-f16de05c48ca" Title="WebServiceConsumerException Constructor " Url="html/Overload_EveOnlineApi_Exceptions_WebServiceConsumerException__ctor.htm">
+    <HelpTOCNode Id="a9f78e60-13c8-4f9d-a85a-8d924c4c2252" Title="WebServiceConsumerException Class" Url="html/T_EveOnlineApi_Exceptions_WebServiceConsumerException.htm">
+      <HelpTOCNode Id="7326a574-cdb5-48d8-b37c-1a7e8a651da0" Title="WebServiceConsumerException Constructor " Url="html/Overload_EveOnlineApi_Exceptions_WebServiceConsumerException__ctor.htm">
         <HelpTOCNode Title="WebServiceConsumerException Constructor (String)" Url="html/M_EveOnlineApi_Exceptions_WebServiceConsumerException__ctor.htm" />
         <HelpTOCNode Title="WebServiceConsumerException Constructor (String, Exception)" Url="html/M_EveOnlineApi_Exceptions_WebServiceConsumerException__ctor_1.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="fe51466d-f300-4e51-9de3-2ef23236f664" Title="WebServiceConsumerException Properties" Url="html/Properties_T_EveOnlineApi_Exceptions_WebServiceConsumerException.htm">
+      <HelpTOCNode Id="3cc9169d-1e2a-487e-b5ab-060a61f245b2" Title="WebServiceConsumerException Properties" Url="html/Properties_T_EveOnlineApi_Exceptions_WebServiceConsumerException.htm">
         <HelpTOCNode Title="Response Property " Url="html/P_EveOnlineApi_Exceptions_WebServiceConsumerException_Response.htm" />
         <HelpTOCNode Title="Url Property " Url="html/P_EveOnlineApi_Exceptions_WebServiceConsumerException_Url.htm" />
       </HelpTOCNode>
@@ -235,10 +234,10 @@
       <HelpTOCNode Title="WebServiceConsumerException Events" Url="html/Events_T_EveOnlineApi_Exceptions_WebServiceConsumerException.htm" />
     </HelpTOCNode>
   </HelpTOCNode>
-  <HelpTOCNode Id="91fda360-8ef5-4940-aa5b-79d60d2b796a" Title="EveOnlineApi.Models" Url="html/N_EveOnlineApi_Models.htm">
-    <HelpTOCNode Id="507d9168-fef2-4a80-88e8-75b5bcd146ec" Title="AssetItem Class" Url="html/T_EveOnlineApi_Models_AssetItem.htm">
+  <HelpTOCNode Id="3c1cec1c-93d2-4de9-bf69-8a4b0f07e208" Title="EveOnlineApi.Models" Url="html/N_EveOnlineApi_Models.htm">
+    <HelpTOCNode Id="dfa1962f-c00e-45e8-9e39-0baf9747c988" Title="AssetItem Class" Url="html/T_EveOnlineApi_Models_AssetItem.htm">
       <HelpTOCNode Title="AssetItem Constructor " Url="html/M_EveOnlineApi_Models_AssetItem__ctor.htm" />
-      <HelpTOCNode Id="56e2b702-dd12-4129-8ecc-b3fa39498c61" Title="AssetItem Properties" Url="html/Properties_T_EveOnlineApi_Models_AssetItem.htm">
+      <HelpTOCNode Id="4e4e2b82-5a76-4a53-aaf5-b5d17125e849" Title="AssetItem Properties" Url="html/Properties_T_EveOnlineApi_Models_AssetItem.htm">
         <HelpTOCNode Title="ContainerName Property " Url="html/P_EveOnlineApi_Models_AssetItem_ContainerName.htm" />
         <HelpTOCNode Title="Flag Property " Url="html/P_EveOnlineApi_Models_AssetItem_Flag.htm" />
         <HelpTOCNode Title="IsBlueprint Property " Url="html/P_EveOnlineApi_Models_AssetItem_IsBlueprint.htm" />
@@ -262,35 +261,35 @@
         <HelpTOCNode Title="TypeId Property " Url="html/P_EveOnlineApi_Models_AssetItem_TypeId.htm" />
         <HelpTOCNode Title="TypeName Property " Url="html/P_EveOnlineApi_Models_AssetItem_TypeName.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="5716bc48-3363-4dab-9dba-743443f992e6" Title="AssetItem Methods" Url="html/Methods_T_EveOnlineApi_Models_AssetItem.htm">
+      <HelpTOCNode Id="f016856c-f472-4ed5-b00b-0ee9cdd79f07" Title="AssetItem Methods" Url="html/Methods_T_EveOnlineApi_Models_AssetItem.htm">
         <HelpTOCNode Title="GetLocationNameAsync Method " Url="html/M_EveOnlineApi_Models_AssetItem_GetLocationNameAsync.htm" />
         <HelpTOCNode Title="ToString Method " Url="html/M_EveOnlineApi_Models_AssetItem_ToString.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="c58b18b7-58e4-4d78-a144-f10d55862998" Title="AssetItemCollection Class" Url="html/T_EveOnlineApi_Models_AssetItemCollection.htm">
+    <HelpTOCNode Id="3515d471-1442-44fb-a835-2cdf959d46f8" Title="AssetItemCollection Class" Url="html/T_EveOnlineApi_Models_AssetItemCollection.htm">
       <HelpTOCNode Title="AssetItemCollection Constructor " Url="html/M_EveOnlineApi_Models_AssetItemCollection__ctor.htm" />
       <HelpTOCNode Title="AssetItemCollection Properties" Url="html/Properties_T_EveOnlineApi_Models_AssetItemCollection.htm" />
       <HelpTOCNode Title="AssetItemCollection Methods" Url="html/Methods_T_EveOnlineApi_Models_AssetItemCollection.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="f2813151-6def-4e8c-b1b7-dbe8e610803d" Title="AttributeAttribute Class" Url="html/T_EveOnlineApi_Models_AttributeAttribute.htm">
+    <HelpTOCNode Id="2714b43d-4a8f-4bdd-8667-90f7101e14ed" Title="AttributeAttribute Class" Url="html/T_EveOnlineApi_Models_AttributeAttribute.htm">
       <HelpTOCNode Title="AttributeAttribute Constructor " Url="html/M_EveOnlineApi_Models_AttributeAttribute__ctor.htm" />
-      <HelpTOCNode Id="018f714a-0bc6-4c42-a5e1-a3348476008e" Title="AttributeAttribute Properties" Url="html/Properties_T_EveOnlineApi_Models_AttributeAttribute.htm">
+      <HelpTOCNode Id="4558158d-5595-40f4-9350-8ab42aef7ecd" Title="AttributeAttribute Properties" Url="html/Properties_T_EveOnlineApi_Models_AttributeAttribute.htm">
         <HelpTOCNode Title="Attribute Property " Url="html/P_EveOnlineApi_Models_AttributeAttribute_Attribute.htm" />
         <HelpTOCNode Title="Value Property " Url="html/P_EveOnlineApi_Models_AttributeAttribute_Value.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="AttributeAttribute Methods" Url="html/Methods_T_EveOnlineApi_Models_AttributeAttribute.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="9a5fe610-d346-4093-b675-eca44b70dc2c" Title="AttributeDetails Class" Url="html/T_EveOnlineApi_Models_AttributeDetails.htm">
+    <HelpTOCNode Id="aae0ba4e-22a4-4473-8c04-6041caea05a6" Title="AttributeDetails Class" Url="html/T_EveOnlineApi_Models_AttributeDetails.htm">
       <HelpTOCNode Title="AttributeDetails Constructor " Url="html/M_EveOnlineApi_Models_AttributeDetails__ctor.htm" />
-      <HelpTOCNode Id="0faa8099-4a76-4c7e-be5e-36cf0b0fdddb" Title="AttributeDetails Properties" Url="html/Properties_T_EveOnlineApi_Models_AttributeDetails.htm">
+      <HelpTOCNode Id="d3a04c2e-fa50-4a98-97c2-44a5d99ca4cf" Title="AttributeDetails Properties" Url="html/Properties_T_EveOnlineApi_Models_AttributeDetails.htm">
         <HelpTOCNode Title="Id Property " Url="html/P_EveOnlineApi_Models_AttributeDetails_Id.htm" />
         <HelpTOCNode Title="Name Property " Url="html/P_EveOnlineApi_Models_AttributeDetails_Name.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="AttributeDetails Methods" Url="html/Methods_T_EveOnlineApi_Models_AttributeDetails.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="d0290c40-384c-490b-97b2-1b518a339b51" Title="Character Class" Url="html/T_EveOnlineApi_Models_Character.htm">
+    <HelpTOCNode Id="2d43b098-1fc0-478a-847c-05427f56bdbf" Title="Character Class" Url="html/T_EveOnlineApi_Models_Character.htm">
       <HelpTOCNode Title="Character Constructor " Url="html/M_EveOnlineApi_Models_Character__ctor.htm" />
-      <HelpTOCNode Id="b834135e-e5c9-48f6-bd00-19d9211a0c08" Title="Character Properties" Url="html/Properties_T_EveOnlineApi_Models_Character.htm">
+      <HelpTOCNode Id="a0343a61-0c28-48e2-a75b-345240e8611d" Title="Character Properties" Url="html/Properties_T_EveOnlineApi_Models_Character.htm">
         <HelpTOCNode Title="AllianceId Property " Url="html/P_EveOnlineApi_Models_Character_AllianceId.htm" />
         <HelpTOCNode Title="AllianceName Property " Url="html/P_EveOnlineApi_Models_Character_AllianceName.htm" />
         <HelpTOCNode Title="CharacterId Property " Url="html/P_EveOnlineApi_Models_Character_CharacterId.htm" />
@@ -302,39 +301,39 @@
       </HelpTOCNode>
       <HelpTOCNode Title="Character Methods" Url="html/Methods_T_EveOnlineApi_Models_Character.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="3eeca2ae-7053-43a7-985c-1ca2d22d1c12" Title="CharacterCollection Class" Url="html/T_EveOnlineApi_Models_CharacterCollection.htm">
+    <HelpTOCNode Id="8a93e828-28ed-46d5-a47c-8175b194b458" Title="CharacterCollection Class" Url="html/T_EveOnlineApi_Models_CharacterCollection.htm">
       <HelpTOCNode Title="CharacterCollection Constructor " Url="html/M_EveOnlineApi_Models_CharacterCollection__ctor.htm" />
       <HelpTOCNode Title="CharacterCollection Properties" Url="html/Properties_T_EveOnlineApi_Models_CharacterCollection.htm" />
       <HelpTOCNode Title="CharacterCollection Methods" Url="html/Methods_T_EveOnlineApi_Models_CharacterCollection.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="c8317b8e-f43f-427e-9773-9f1cbb1e593c" Title="CharacterLocationInfo Class" Url="html/T_EveOnlineApi_Models_CharacterLocationInfo.htm">
+    <HelpTOCNode Id="5a829a12-a2d1-4058-9dce-4b160106b6e8" Title="CharacterLocationInfo Class" Url="html/T_EveOnlineApi_Models_CharacterLocationInfo.htm">
       <HelpTOCNode Title="CharacterLocationInfo Constructor " Url="html/M_EveOnlineApi_Models_CharacterLocationInfo__ctor.htm" />
-      <HelpTOCNode Id="e461bcc7-0da7-42ae-9822-4c0be098c6c6" Title="CharacterLocationInfo Properties" Url="html/Properties_T_EveOnlineApi_Models_CharacterLocationInfo.htm">
+      <HelpTOCNode Id="9e6846b0-c803-4710-834c-5ac805cf97df" Title="CharacterLocationInfo Properties" Url="html/Properties_T_EveOnlineApi_Models_CharacterLocationInfo.htm">
         <HelpTOCNode Title="Station Property " Url="html/P_EveOnlineApi_Models_CharacterLocationInfo_Station.htm" />
         <HelpTOCNode Title="System Property " Url="html/P_EveOnlineApi_Models_CharacterLocationInfo_System.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="29d17535-604f-4f46-b906-e0a77c7e7973" Title="CharacterLocationInfo Methods" Url="html/Methods_T_EveOnlineApi_Models_CharacterLocationInfo.htm">
-        <HelpTOCNode Id="03f2f021-89cc-4ace-9e2a-9cee4fccb0a1" Title="Equals Method " Url="html/Overload_EveOnlineApi_Models_CharacterLocationInfo_Equals.htm">
+      <HelpTOCNode Id="f1967242-0ef6-4d5b-b9ee-ada800e5bfa6" Title="CharacterLocationInfo Methods" Url="html/Methods_T_EveOnlineApi_Models_CharacterLocationInfo.htm">
+        <HelpTOCNode Id="5242426d-773b-44ef-b9c8-d3fbd472598b" Title="Equals Method " Url="html/Overload_EveOnlineApi_Models_CharacterLocationInfo_Equals.htm">
           <HelpTOCNode Title="Equals Method (CharacterLocationInfo)" Url="html/M_EveOnlineApi_Models_CharacterLocationInfo_Equals.htm" />
         </HelpTOCNode>
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="97e56283-e66d-42d0-a536-c83636982ad7" Title="CharacterName Class" Url="html/T_EveOnlineApi_Models_CharacterName.htm">
+    <HelpTOCNode Id="a8f3c7d8-2649-49fd-a25f-650ea15c6ce4" Title="CharacterName Class" Url="html/T_EveOnlineApi_Models_CharacterName.htm">
       <HelpTOCNode Title="CharacterName Constructor " Url="html/M_EveOnlineApi_Models_CharacterName__ctor.htm" />
-      <HelpTOCNode Id="24a49cb0-188e-4883-bc99-e7a72f979c78" Title="CharacterName Properties" Url="html/Properties_T_EveOnlineApi_Models_CharacterName.htm">
+      <HelpTOCNode Id="b71d10f2-c101-4ad3-89e3-82b0c709f1be" Title="CharacterName Properties" Url="html/Properties_T_EveOnlineApi_Models_CharacterName.htm">
         <HelpTOCNode Title="CharacterId Property " Url="html/P_EveOnlineApi_Models_CharacterName_CharacterId.htm" />
         <HelpTOCNode Title="Name Property " Url="html/P_EveOnlineApi_Models_CharacterName_Name.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="CharacterName Methods" Url="html/Methods_T_EveOnlineApi_Models_CharacterName.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="683e0609-bf2c-426c-9314-fcf80d9120d3" Title="CharacterNameCollection Class" Url="html/T_EveOnlineApi_Models_CharacterNameCollection.htm">
+    <HelpTOCNode Id="914922ab-6e00-4043-a078-352dee87edc4" Title="CharacterNameCollection Class" Url="html/T_EveOnlineApi_Models_CharacterNameCollection.htm">
       <HelpTOCNode Title="CharacterNameCollection Constructor " Url="html/M_EveOnlineApi_Models_CharacterNameCollection__ctor.htm" />
       <HelpTOCNode Title="CharacterNameCollection Properties" Url="html/Properties_T_EveOnlineApi_Models_CharacterNameCollection.htm" />
       <HelpTOCNode Title="CharacterNameCollection Methods" Url="html/Methods_T_EveOnlineApi_Models_CharacterNameCollection.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="899cdde2-925c-46c0-923a-1a83717d4254" Title="CharacterSheet Class" Url="html/T_EveOnlineApi_Models_CharacterSheet.htm">
+    <HelpTOCNode Id="e69e969c-f944-4e75-b2f3-269a1106d65a" Title="CharacterSheet Class" Url="html/T_EveOnlineApi_Models_CharacterSheet.htm">
       <HelpTOCNode Title="CharacterSheet Constructor " Url="html/M_EveOnlineApi_Models_CharacterSheet__ctor.htm" />
-      <HelpTOCNode Id="74ec5a16-dd0a-461e-94da-61aeb68cee5f" Title="CharacterSheet Properties" Url="html/Properties_T_EveOnlineApi_Models_CharacterSheet.htm">
+      <HelpTOCNode Id="1f0d3585-f1a2-4565-88a2-937dd3a16170" Title="CharacterSheet Properties" Url="html/Properties_T_EveOnlineApi_Models_CharacterSheet.htm">
         <HelpTOCNode Title="AllianceId Property " Url="html/P_EveOnlineApi_Models_CharacterSheet_AllianceId.htm" />
         <HelpTOCNode Title="AllianceName Property " Url="html/P_EveOnlineApi_Models_CharacterSheet_AllianceName.htm" />
         <HelpTOCNode Title="Ancestry Property " Url="html/P_EveOnlineApi_Models_CharacterSheet_Ancestry.htm" />
@@ -367,9 +366,9 @@
       </HelpTOCNode>
       <HelpTOCNode Title="CharacterSheet Methods" Url="html/Methods_T_EveOnlineApi_Models_CharacterSheet.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="6d5f5737-6c42-4b2b-aa3e-2aa434ea4a87" Title="CharacterSheetCompact Class" Url="html/T_EveOnlineApi_Models_CharacterSheetCompact.htm">
+    <HelpTOCNode Id="053c79df-1b13-4772-997f-d160a3a11041" Title="CharacterSheetCompact Class" Url="html/T_EveOnlineApi_Models_CharacterSheetCompact.htm">
       <HelpTOCNode Title="CharacterSheetCompact Constructor " Url="html/M_EveOnlineApi_Models_CharacterSheetCompact__ctor.htm" />
-      <HelpTOCNode Id="a6d4c6be-3c28-43f1-bccc-d1c5ccccae55" Title="CharacterSheetCompact Properties" Url="html/Properties_T_EveOnlineApi_Models_CharacterSheetCompact.htm">
+      <HelpTOCNode Id="15030f0c-e03a-4391-9ba4-cdfd207b238f" Title="CharacterSheetCompact Properties" Url="html/Properties_T_EveOnlineApi_Models_CharacterSheetCompact.htm">
         <HelpTOCNode Title="CachedUntil Property " Url="html/P_EveOnlineApi_Models_CharacterSheetCompact_CachedUntil.htm" />
         <HelpTOCNode Title="CharacterName Property " Url="html/P_EveOnlineApi_Models_CharacterSheetCompact_CharacterName.htm" />
         <HelpTOCNode Title="CorporationId Property " Url="html/P_EveOnlineApi_Models_CharacterSheetCompact_CorporationId.htm" />
@@ -378,16 +377,16 @@
       </HelpTOCNode>
       <HelpTOCNode Title="CharacterSheetCompact Methods" Url="html/Methods_T_EveOnlineApi_Models_CharacterSheetCompact.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="82f43b77-367f-40ad-aea1-27062cef9aa6" Title="CharacterSheetCompactWithSkills Class" Url="html/T_EveOnlineApi_Models_CharacterSheetCompactWithSkills.htm">
+    <HelpTOCNode Id="c6f2c438-dceb-45e5-9f39-f1c35b29d1dc" Title="CharacterSheetCompactWithSkills Class" Url="html/T_EveOnlineApi_Models_CharacterSheetCompactWithSkills.htm">
       <HelpTOCNode Title="CharacterSheetCompactWithSkills Constructor " Url="html/M_EveOnlineApi_Models_CharacterSheetCompactWithSkills__ctor.htm" />
-      <HelpTOCNode Id="643a1d07-bd55-4146-901a-ffb853e9b29c" Title="CharacterSheetCompactWithSkills Properties" Url="html/Properties_T_EveOnlineApi_Models_CharacterSheetCompactWithSkills.htm">
+      <HelpTOCNode Id="a6c99ce2-3527-4061-8551-3e2039182709" Title="CharacterSheetCompactWithSkills Properties" Url="html/Properties_T_EveOnlineApi_Models_CharacterSheetCompactWithSkills.htm">
         <HelpTOCNode Title="Skills Property " Url="html/P_EveOnlineApi_Models_CharacterSheetCompactWithSkills_Skills.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="CharacterSheetCompactWithSkills Methods" Url="html/Methods_T_EveOnlineApi_Models_CharacterSheetCompactWithSkills.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="ced09e48-b8a1-4640-82c9-3d3d279cff5c" Title="ConquerableStation Class" Url="html/T_EveOnlineApi_Models_ConquerableStation.htm">
+    <HelpTOCNode Id="17b3f089-16cb-4090-a0ce-1a31bc4e2b95" Title="ConquerableStation Class" Url="html/T_EveOnlineApi_Models_ConquerableStation.htm">
       <HelpTOCNode Title="ConquerableStation Constructor " Url="html/M_EveOnlineApi_Models_ConquerableStation__ctor.htm" />
-      <HelpTOCNode Id="ca3105c3-aa58-4864-abba-b8c922e10390" Title="ConquerableStation Properties" Url="html/Properties_T_EveOnlineApi_Models_ConquerableStation.htm">
+      <HelpTOCNode Id="5945edb3-d5c1-472a-83e3-a47ad2616b7e" Title="ConquerableStation Properties" Url="html/Properties_T_EveOnlineApi_Models_ConquerableStation.htm">
         <HelpTOCNode Title="CorporationID Property " Url="html/P_EveOnlineApi_Models_ConquerableStation_CorporationID.htm" />
         <HelpTOCNode Title="CorporationName Property " Url="html/P_EveOnlineApi_Models_ConquerableStation_CorporationName.htm" />
         <HelpTOCNode Title="Id Property " Url="html/P_EveOnlineApi_Models_ConquerableStation_Id.htm" />
@@ -397,51 +396,51 @@
       </HelpTOCNode>
       <HelpTOCNode Title="ConquerableStation Methods" Url="html/Methods_T_EveOnlineApi_Models_ConquerableStation.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="05a29d9e-52bd-4b43-a732-c10013233c76" Title="ConquerableStationCollection Class" Url="html/T_EveOnlineApi_Models_ConquerableStationCollection.htm">
+    <HelpTOCNode Id="7a521a87-083c-4ef6-a39b-b6bf2b88a797" Title="ConquerableStationCollection Class" Url="html/T_EveOnlineApi_Models_ConquerableStationCollection.htm">
       <HelpTOCNode Title="ConquerableStationCollection Constructor " Url="html/M_EveOnlineApi_Models_ConquerableStationCollection__ctor.htm" />
       <HelpTOCNode Title="ConquerableStationCollection Properties" Url="html/Properties_T_EveOnlineApi_Models_ConquerableStationCollection.htm" />
       <HelpTOCNode Title="ConquerableStationCollection Methods" Url="html/Methods_T_EveOnlineApi_Models_ConquerableStationCollection.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="b8cb08ea-92fc-42b0-8b5e-6df823caea6e" Title="Corporation Class" Url="html/T_EveOnlineApi_Models_Corporation.htm">
+    <HelpTOCNode Id="1ba2695a-6785-42f1-b174-5cece799d43c" Title="Corporation Class" Url="html/T_EveOnlineApi_Models_Corporation.htm">
       <HelpTOCNode Title="Corporation Constructor " Url="html/M_EveOnlineApi_Models_Corporation__ctor.htm" />
       <HelpTOCNode Title="Corporation Properties" Url="html/Properties_T_EveOnlineApi_Models_Corporation.htm" />
       <HelpTOCNode Title="Corporation Methods" Url="html/Methods_T_EveOnlineApi_Models_Corporation.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="ea1a139c-840a-4d34-9624-c3f8635da5f8" Title="CorporationTitle Class" Url="html/T_EveOnlineApi_Models_CorporationTitle.htm">
+    <HelpTOCNode Id="c4da17ac-b806-44a5-8528-0a963d53ae67" Title="CorporationTitle Class" Url="html/T_EveOnlineApi_Models_CorporationTitle.htm">
       <HelpTOCNode Title="CorporationTitle Constructor " Url="html/M_EveOnlineApi_Models_CorporationTitle__ctor.htm" />
-      <HelpTOCNode Id="8c9ec086-ac7d-4467-abf9-a29ec9d30020" Title="CorporationTitle Properties" Url="html/Properties_T_EveOnlineApi_Models_CorporationTitle.htm">
+      <HelpTOCNode Id="a7a07893-b884-4e72-994b-309b37cd3059" Title="CorporationTitle Properties" Url="html/Properties_T_EveOnlineApi_Models_CorporationTitle.htm">
         <HelpTOCNode Title="Id Property " Url="html/P_EveOnlineApi_Models_CorporationTitle_Id.htm" />
         <HelpTOCNode Title="Key Property " Url="html/P_EveOnlineApi_Models_CorporationTitle_Key.htm" />
         <HelpTOCNode Title="TitleId Property " Url="html/P_EveOnlineApi_Models_CorporationTitle_TitleId.htm" />
         <HelpTOCNode Title="TitleName Property " Url="html/P_EveOnlineApi_Models_CorporationTitle_TitleName.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="da87bafa-8998-4182-bcf4-6eb40f021cc5" Title="CorporationTitle Methods" Url="html/Methods_T_EveOnlineApi_Models_CorporationTitle.htm">
+      <HelpTOCNode Id="8f0a7a02-11e9-4dd8-9e5a-874c928eb52c" Title="CorporationTitle Methods" Url="html/Methods_T_EveOnlineApi_Models_CorporationTitle.htm">
         <HelpTOCNode Title="ToString Method " Url="html/M_EveOnlineApi_Models_CorporationTitle_ToString.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="6764c263-2bf3-42da-bf4b-d90411444326" Title="CorporationTitles Class" Url="html/T_EveOnlineApi_Models_CorporationTitles.htm">
+    <HelpTOCNode Id="b5874d5b-acc8-48cb-a51a-18beced1418e" Title="CorporationTitles Class" Url="html/T_EveOnlineApi_Models_CorporationTitles.htm">
       <HelpTOCNode Title="CorporationTitles Constructor " Url="html/M_EveOnlineApi_Models_CorporationTitles__ctor.htm" />
       <HelpTOCNode Title="CorporationTitles Properties" Url="html/Properties_T_EveOnlineApi_Models_CorporationTitles.htm" />
-      <HelpTOCNode Id="80f4218f-a927-4d79-a436-9778aeadd44b" Title="CorporationTitles Methods" Url="html/Methods_T_EveOnlineApi_Models_CorporationTitles.htm">
+      <HelpTOCNode Id="dcf1a689-6695-48e0-b903-5a19ebc8f036" Title="CorporationTitles Methods" Url="html/Methods_T_EveOnlineApi_Models_CorporationTitles.htm">
         <HelpTOCNode Title="ToString Method " Url="html/M_EveOnlineApi_Models_CorporationTitles_ToString.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="2058642c-7768-4ea2-b8bd-11ee188617f3" Title="CrestCharacterInfo Class" Url="html/T_EveOnlineApi_Models_CrestCharacterInfo.htm">
+    <HelpTOCNode Id="155f9314-ec54-4fd6-82b5-656ee7bd643c" Title="CrestCharacterInfo Class" Url="html/T_EveOnlineApi_Models_CrestCharacterInfo.htm">
       <HelpTOCNode Title="CrestCharacterInfo Constructor " Url="html/M_EveOnlineApi_Models_CrestCharacterInfo__ctor.htm" />
-      <HelpTOCNode Id="17b1144a-100d-4ba1-8911-af52fccb6bae" Title="CrestCharacterInfo Properties" Url="html/Properties_T_EveOnlineApi_Models_CrestCharacterInfo.htm">
+      <HelpTOCNode Id="66c8701a-4e3d-4063-8aad-2e4661f8b3b6" Title="CrestCharacterInfo Properties" Url="html/Properties_T_EveOnlineApi_Models_CrestCharacterInfo.htm">
         <HelpTOCNode Title="CharacterId Property " Url="html/P_EveOnlineApi_Models_CrestCharacterInfo_CharacterId.htm" />
         <HelpTOCNode Title="CharacterName Property " Url="html/P_EveOnlineApi_Models_CrestCharacterInfo_CharacterName.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="a625dc50-1423-46cb-8697-b9528ccb034d" Title="CrestCharacterInfo Methods" Url="html/Methods_T_EveOnlineApi_Models_CrestCharacterInfo.htm">
-        <HelpTOCNode Id="a6323f49-b58e-4a69-aaac-81b85edaa783" Title="Equals Method " Url="html/Overload_EveOnlineApi_Models_CrestCharacterInfo_Equals.htm">
+      <HelpTOCNode Id="705fb388-f3ce-4928-8ebf-d17fe509b956" Title="CrestCharacterInfo Methods" Url="html/Methods_T_EveOnlineApi_Models_CrestCharacterInfo.htm">
+        <HelpTOCNode Id="d1365dfb-f658-49a5-bf51-34d78fe0ca7c" Title="Equals Method " Url="html/Overload_EveOnlineApi_Models_CrestCharacterInfo_Equals.htm">
           <HelpTOCNode Title="Equals Method (Int64)" Url="html/M_EveOnlineApi_Models_CrestCharacterInfo_Equals_1.htm" />
           <HelpTOCNode Title="Equals Method (CrestCharacterInfo)" Url="html/M_EveOnlineApi_Models_CrestCharacterInfo_Equals.htm" />
         </HelpTOCNode>
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="410a5666-7249-4f27-b065-326c9f8b0ab5" Title="CrestTokenInfo Class" Url="html/T_EveOnlineApi_Models_CrestTokenInfo.htm">
+    <HelpTOCNode Id="d10a0f1c-014c-4b54-92ea-7b01be3d4a88" Title="CrestTokenInfo Class" Url="html/T_EveOnlineApi_Models_CrestTokenInfo.htm">
       <HelpTOCNode Title="CrestTokenInfo Constructor " Url="html/M_EveOnlineApi_Models_CrestTokenInfo__ctor.htm" />
-      <HelpTOCNode Id="7b2dab54-9119-420f-b21c-59f545bbf1a5" Title="CrestTokenInfo Properties" Url="html/Properties_T_EveOnlineApi_Models_CrestTokenInfo.htm">
+      <HelpTOCNode Id="f3fa697c-aea1-48be-a6ba-52d55888a7ce" Title="CrestTokenInfo Properties" Url="html/Properties_T_EveOnlineApi_Models_CrestTokenInfo.htm">
         <HelpTOCNode Title="AccessToken Property " Url="html/P_EveOnlineApi_Models_CrestTokenInfo_AccessToken.htm" />
         <HelpTOCNode Title="Authentification Property " Url="html/P_EveOnlineApi_Models_CrestTokenInfo_Authentification.htm" />
         <HelpTOCNode Title="CreationDate Property " Url="html/P_EveOnlineApi_Models_CrestTokenInfo_CreationDate.htm" />
@@ -452,36 +451,36 @@
       </HelpTOCNode>
       <HelpTOCNode Title="CrestTokenInfo Methods" Url="html/Methods_T_EveOnlineApi_Models_CrestTokenInfo.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="472cfa17-097d-4aad-893f-03a2cb93bbe4" Title="DefaultNode Class" Url="html/T_EveOnlineApi_Models_DefaultNode.htm">
+    <HelpTOCNode Id="73b44673-e408-4f99-8d1b-c1ccca1b25f4" Title="DefaultNode Class" Url="html/T_EveOnlineApi_Models_DefaultNode.htm">
       <HelpTOCNode Title="DefaultNode Constructor " Url="html/M_EveOnlineApi_Models_DefaultNode__ctor.htm" />
-      <HelpTOCNode Id="3bffea2b-02f8-4ee0-bc8a-729e409a1447" Title="DefaultNode Properties" Url="html/Properties_T_EveOnlineApi_Models_DefaultNode.htm">
+      <HelpTOCNode Id="03313c64-b703-4b49-9432-7155eafe9fa3" Title="DefaultNode Properties" Url="html/Properties_T_EveOnlineApi_Models_DefaultNode.htm">
         <HelpTOCNode Title="Id Property " Url="html/P_EveOnlineApi_Models_DefaultNode_Id.htm" />
         <HelpTOCNode Title="Name Property " Url="html/P_EveOnlineApi_Models_DefaultNode_Name.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="DefaultNode Methods" Url="html/Methods_T_EveOnlineApi_Models_DefaultNode.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="1d683742-4ef8-4904-8715-c275c0f5ddea" Title="Dogma Class" Url="html/T_EveOnlineApi_Models_Dogma.htm">
+    <HelpTOCNode Id="f442b484-417f-4394-b801-93d7a8473f5f" Title="Dogma Class" Url="html/T_EveOnlineApi_Models_Dogma.htm">
       <HelpTOCNode Title="Dogma Constructor " Url="html/M_EveOnlineApi_Models_Dogma__ctor.htm" />
-      <HelpTOCNode Id="2d1e12d4-732b-447a-9eb0-4da19e548f15" Title="Dogma Properties" Url="html/Properties_T_EveOnlineApi_Models_Dogma.htm">
+      <HelpTOCNode Id="d73c826c-b64c-47f0-b0b4-85acda7a265b" Title="Dogma Properties" Url="html/Properties_T_EveOnlineApi_Models_Dogma.htm">
         <HelpTOCNode Title="Attributes Property " Url="html/P_EveOnlineApi_Models_Dogma_Attributes.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="Dogma Methods" Url="html/Methods_T_EveOnlineApi_Models_Dogma.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="ce25d7c3-d28d-4711-a66a-cbcf95ad5c05" Title="EveTime Class" Url="html/T_EveOnlineApi_Models_EveTime.htm">
+    <HelpTOCNode Id="7edb2479-a3b3-4557-95bf-aefe7121cf0e" Title="EveTime Class" Url="html/T_EveOnlineApi_Models_EveTime.htm">
       <HelpTOCNode Title="EveTime Constructor " Url="html/M_EveOnlineApi_Models_EveTime__ctor.htm" />
-      <HelpTOCNode Id="fe764cba-083b-4fae-9e20-094b91297033" Title="EveTime Properties" Url="html/Properties_T_EveOnlineApi_Models_EveTime.htm">
+      <HelpTOCNode Id="3591469d-c531-428f-8f3f-a40ebf679155" Title="EveTime Properties" Url="html/Properties_T_EveOnlineApi_Models_EveTime.htm">
         <HelpTOCNode Title="Time Property " Url="html/P_EveOnlineApi_Models_EveTime_Time.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="EveTime Methods" Url="html/Methods_T_EveOnlineApi_Models_EveTime.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="2acb35cf-02ba-4b03-8ca3-17d5bb956fcc" Title="Faction Class" Url="html/T_EveOnlineApi_Models_Faction.htm">
+    <HelpTOCNode Id="ba67ff7a-f87a-49c5-8ec1-94f181a0af6a" Title="Faction Class" Url="html/T_EveOnlineApi_Models_Faction.htm">
       <HelpTOCNode Title="Faction Constructor " Url="html/M_EveOnlineApi_Models_Faction__ctor.htm" />
       <HelpTOCNode Title="Faction Properties" Url="html/Properties_T_EveOnlineApi_Models_Faction.htm" />
       <HelpTOCNode Title="Faction Methods" Url="html/Methods_T_EveOnlineApi_Models_Faction.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="32f971d4-6d03-43e5-9cc8-89dc3c7b9c03" Title="FittedItem Class" Url="html/T_EveOnlineApi_Models_FittedItem.htm">
+    <HelpTOCNode Id="4cc31f13-7514-42c8-bcea-da8a3c697604" Title="FittedItem Class" Url="html/T_EveOnlineApi_Models_FittedItem.htm">
       <HelpTOCNode Title="FittedItem Constructor " Url="html/M_EveOnlineApi_Models_FittedItem__ctor.htm" />
-      <HelpTOCNode Id="5a6611f1-98c6-4e61-836d-fe417e6293b9" Title="FittedItem Properties" Url="html/Properties_T_EveOnlineApi_Models_FittedItem.htm">
+      <HelpTOCNode Id="a2d81447-336a-4ab7-a102-3a8ca3c0f9b9" Title="FittedItem Properties" Url="html/Properties_T_EveOnlineApi_Models_FittedItem.htm">
         <HelpTOCNode Title="Flag Property " Url="html/P_EveOnlineApi_Models_FittedItem_Flag.htm" />
         <HelpTOCNode Title="FlagDescription Property " Url="html/P_EveOnlineApi_Models_FittedItem_FlagDescription.htm" />
         <HelpTOCNode Title="Quantity Property " Url="html/P_EveOnlineApi_Models_FittedItem_Quantity.htm" />
@@ -489,35 +488,35 @@
       </HelpTOCNode>
       <HelpTOCNode Title="FittedItem Methods" Url="html/Methods_T_EveOnlineApi_Models_FittedItem.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="1c3b8378-5b32-4dbd-8d2d-d4c58b8110ae" Title="IKeyedModel Interface" Url="html/T_EveOnlineApi_Models_IKeyedModel.htm">
-      <HelpTOCNode Id="89845e6c-e3ba-4263-9e2c-1ebfc02d6bf5" Title="IKeyedModel Properties" Url="html/Properties_T_EveOnlineApi_Models_IKeyedModel.htm">
+    <HelpTOCNode Id="6885ed06-4af3-4baa-9fa4-51c706033a4b" Title="IKeyedModel Interface" Url="html/T_EveOnlineApi_Models_IKeyedModel.htm">
+      <HelpTOCNode Id="01d91fde-3dc2-4a96-9041-a7ae332621b6" Title="IKeyedModel Properties" Url="html/Properties_T_EveOnlineApi_Models_IKeyedModel.htm">
         <HelpTOCNode Title="CachedUntil Property " Url="html/P_EveOnlineApi_Models_IKeyedModel_CachedUntil.htm" />
         <HelpTOCNode Title="Key Property " Url="html/P_EveOnlineApi_Models_IKeyedModel_Key.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="60ab0abb-f0cb-4353-8f2e-c8f4467174b0" Title="Implant Class" Url="html/T_EveOnlineApi_Models_Implant.htm">
+    <HelpTOCNode Id="d097c0f7-d08f-4704-8a91-412f9b2934da" Title="Implant Class" Url="html/T_EveOnlineApi_Models_Implant.htm">
       <HelpTOCNode Title="Implant Constructor " Url="html/M_EveOnlineApi_Models_Implant__ctor.htm" />
-      <HelpTOCNode Id="05317785-d4fc-41a5-9fd2-904c7f3e436e" Title="Implant Properties" Url="html/Properties_T_EveOnlineApi_Models_Implant.htm">
+      <HelpTOCNode Id="a5c06c0e-205f-4b37-9137-f74a98599053" Title="Implant Properties" Url="html/Properties_T_EveOnlineApi_Models_Implant.htm">
         <HelpTOCNode Title="Id Property " Url="html/P_EveOnlineApi_Models_Implant_Id.htm" />
         <HelpTOCNode Title="Key Property " Url="html/P_EveOnlineApi_Models_Implant_Key.htm" />
         <HelpTOCNode Title="Name Property " Url="html/P_EveOnlineApi_Models_Implant_Name.htm" />
         <HelpTOCNode Title="TypeId Property " Url="html/P_EveOnlineApi_Models_Implant_TypeId.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="b7f1bd6a-5719-4778-92f1-757ebaddaaf3" Title="Implant Methods" Url="html/Methods_T_EveOnlineApi_Models_Implant.htm">
+      <HelpTOCNode Id="744c716c-1514-4521-9b58-37e0b6fc2444" Title="Implant Methods" Url="html/Methods_T_EveOnlineApi_Models_Implant.htm">
         <HelpTOCNode Title="GetAttributesAsync Method " Url="html/M_EveOnlineApi_Models_Implant_GetAttributesAsync.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="192412c9-1070-42a2-b96d-0befd94c2ace" Title="ImplantAttributes Class" Url="html/T_EveOnlineApi_Models_ImplantAttributes.htm">
+    <HelpTOCNode Id="60fc6cd4-01df-4e53-92db-5969769e0a05" Title="ImplantAttributes Class" Url="html/T_EveOnlineApi_Models_ImplantAttributes.htm">
       <HelpTOCNode Title="ImplantAttributes Constructor " Url="html/M_EveOnlineApi_Models_ImplantAttributes__ctor.htm" />
-      <HelpTOCNode Id="f563778b-8eac-43f6-be8b-d04e8ba00d54" Title="ImplantAttributes Properties" Url="html/Properties_T_EveOnlineApi_Models_ImplantAttributes.htm">
+      <HelpTOCNode Id="bf0c7691-f73b-440f-b036-bf2a1b655b21" Title="ImplantAttributes Properties" Url="html/Properties_T_EveOnlineApi_Models_ImplantAttributes.htm">
         <HelpTOCNode Title="Dogma Property " Url="html/P_EveOnlineApi_Models_ImplantAttributes_Dogma.htm" />
         <HelpTOCNode Title="SlotNumber Property " Url="html/P_EveOnlineApi_Models_ImplantAttributes_SlotNumber.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="ImplantAttributes Methods" Url="html/Methods_T_EveOnlineApi_Models_ImplantAttributes.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="cf0f5fdf-12fe-4566-aa87-2e5044a5dbe2" Title="Incursion Class" Url="html/T_EveOnlineApi_Models_Incursion.htm">
+    <HelpTOCNode Id="33c3706b-e570-4f81-a436-2ec88cbbd5fb" Title="Incursion Class" Url="html/T_EveOnlineApi_Models_Incursion.htm">
       <HelpTOCNode Title="Incursion Constructor " Url="html/M_EveOnlineApi_Models_Incursion__ctor.htm" />
-      <HelpTOCNode Id="cbae49f0-e5b1-4cbb-a4d3-3a96ef9fb1b6" Title="Incursion Properties" Url="html/Properties_T_EveOnlineApi_Models_Incursion.htm">
+      <HelpTOCNode Id="c805cde9-0b3a-46af-9622-6dc969b273ed" Title="Incursion Properties" Url="html/Properties_T_EveOnlineApi_Models_Incursion.htm">
         <HelpTOCNode Title="AggressorFaction Property " Url="html/P_EveOnlineApi_Models_Incursion_AggressorFaction.htm" />
         <HelpTOCNode Title="HasBoss Property " Url="html/P_EveOnlineApi_Models_Incursion_HasBoss.htm" />
         <HelpTOCNode Title="IncursionType Property " Url="html/P_EveOnlineApi_Models_Incursion_IncursionType.htm" />
@@ -528,14 +527,14 @@
       </HelpTOCNode>
       <HelpTOCNode Title="Incursion Methods" Url="html/Methods_T_EveOnlineApi_Models_Incursion.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="12da296a-07cb-443c-8124-94bd8935ea62" Title="IncursionCollection Class" Url="html/T_EveOnlineApi_Models_IncursionCollection.htm">
+    <HelpTOCNode Id="8a84566f-6a60-4e09-9340-5619e5deb772" Title="IncursionCollection Class" Url="html/T_EveOnlineApi_Models_IncursionCollection.htm">
       <HelpTOCNode Title="IncursionCollection Constructor " Url="html/M_EveOnlineApi_Models_IncursionCollection__ctor.htm" />
       <HelpTOCNode Title="IncursionCollection Properties" Url="html/Properties_T_EveOnlineApi_Models_IncursionCollection.htm" />
       <HelpTOCNode Title="IncursionCollection Methods" Url="html/Methods_T_EveOnlineApi_Models_IncursionCollection.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="aa1fee72-1f9a-4f6b-88b0-184a5c275bc6" Title="ItemAttributes Class" Url="html/T_EveOnlineApi_Models_ItemAttributes.htm">
+    <HelpTOCNode Id="310b71fe-1220-483a-a5a9-83a7295833db" Title="ItemAttributes Class" Url="html/T_EveOnlineApi_Models_ItemAttributes.htm">
       <HelpTOCNode Title="ItemAttributes Constructor " Url="html/M_EveOnlineApi_Models_ItemAttributes__ctor.htm" />
-      <HelpTOCNode Id="a5b22fc6-be05-4877-b592-7eb1a93910c5" Title="ItemAttributes Properties" Url="html/Properties_T_EveOnlineApi_Models_ItemAttributes.htm">
+      <HelpTOCNode Id="5f490c87-31e7-4828-9ac1-1bd1abb442e6" Title="ItemAttributes Properties" Url="html/Properties_T_EveOnlineApi_Models_ItemAttributes.htm">
         <HelpTOCNode Title="CachedUntil Property " Url="html/P_EveOnlineApi_Models_ItemAttributes_CachedUntil.htm" />
         <HelpTOCNode Title="Capacity Property " Url="html/P_EveOnlineApi_Models_ItemAttributes_Capacity.htm" />
         <HelpTOCNode Title="Description Property " Url="html/P_EveOnlineApi_Models_ItemAttributes_Description.htm" />
@@ -551,16 +550,16 @@
       </HelpTOCNode>
       <HelpTOCNode Title="ItemAttributes Methods" Url="html/Methods_T_EveOnlineApi_Models_ItemAttributes.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="9752d1e2-46c5-4fe4-9d5b-291eca8e908f" Title="ItemId Class" Url="html/T_EveOnlineApi_Models_ItemId.htm">
+    <HelpTOCNode Id="72b45cf7-3a5a-4563-9cc1-9ffff770b651" Title="ItemId Class" Url="html/T_EveOnlineApi_Models_ItemId.htm">
       <HelpTOCNode Title="ItemId Constructor " Url="html/M_EveOnlineApi_Models_ItemId__ctor.htm" />
-      <HelpTOCNode Id="44e5e230-0d8d-4341-9938-42db80210fea" Title="ItemId Properties" Url="html/Properties_T_EveOnlineApi_Models_ItemId.htm">
+      <HelpTOCNode Id="56d3d363-7963-4ad5-a8fa-8ed31d16d960" Title="ItemId Properties" Url="html/Properties_T_EveOnlineApi_Models_ItemId.htm">
         <HelpTOCNode Title="Id Property " Url="html/P_EveOnlineApi_Models_ItemId_Id.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="ItemId Methods" Url="html/Methods_T_EveOnlineApi_Models_ItemId.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="c5af43a3-7db5-41a7-a2ad-62a43d4e1c1d" Title="ItemPrice Class" Url="html/T_EveOnlineApi_Models_ItemPrice.htm">
+    <HelpTOCNode Id="218ba910-fbb1-4950-a305-fa98fd946f4d" Title="ItemPrice Class" Url="html/T_EveOnlineApi_Models_ItemPrice.htm">
       <HelpTOCNode Title="ItemPrice Constructor " Url="html/M_EveOnlineApi_Models_ItemPrice__ctor.htm" />
-      <HelpTOCNode Id="9de3efdc-2059-48c4-949b-5fd30a2aef43" Title="ItemPrice Properties" Url="html/Properties_T_EveOnlineApi_Models_ItemPrice.htm">
+      <HelpTOCNode Id="e07c1a81-83b4-448e-a8b9-60d21e379549" Title="ItemPrice Properties" Url="html/Properties_T_EveOnlineApi_Models_ItemPrice.htm">
         <HelpTOCNode Title="AdjustedPrice Property " Url="html/P_EveOnlineApi_Models_ItemPrice_AdjustedPrice.htm" />
         <HelpTOCNode Title="AveragePrice Property " Url="html/P_EveOnlineApi_Models_ItemPrice_AveragePrice.htm" />
         <HelpTOCNode Title="ItemId Property " Url="html/P_EveOnlineApi_Models_ItemPrice_ItemId.htm" />
@@ -568,18 +567,18 @@
       </HelpTOCNode>
       <HelpTOCNode Title="ItemPrice Methods" Url="html/Methods_T_EveOnlineApi_Models_ItemPrice.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="14278652-3d1a-40cb-a32a-050b31eeafbe" Title="ItemPriceCollection Class" Url="html/T_EveOnlineApi_Models_ItemPriceCollection.htm">
+    <HelpTOCNode Id="244ae764-6804-4109-b416-2b4ac1daf58c" Title="ItemPriceCollection Class" Url="html/T_EveOnlineApi_Models_ItemPriceCollection.htm">
       <HelpTOCNode Title="ItemPriceCollection Constructor " Url="html/M_EveOnlineApi_Models_ItemPriceCollection__ctor.htm" />
-      <HelpTOCNode Id="6302190e-c2e0-4222-b8f5-737b7fc47ed6" Title="ItemPriceCollection Properties" Url="html/Properties_T_EveOnlineApi_Models_ItemPriceCollection.htm">
+      <HelpTOCNode Id="f07c09e2-9b0f-4bb8-9231-8da620937523" Title="ItemPriceCollection Properties" Url="html/Properties_T_EveOnlineApi_Models_ItemPriceCollection.htm">
         <HelpTOCNode Title="CachedUntil Property " Url="html/P_EveOnlineApi_Models_ItemPriceCollection_CachedUntil.htm" />
         <HelpTOCNode Title="IXmlModelCollection.Items Property " Url="html/P_EveOnlineApi_Models_ItemPriceCollection_EveOnlineApi_Models_IXmlModelCollection_Items.htm" />
         <HelpTOCNode Title="Key Property " Url="html/P_EveOnlineApi_Models_ItemPriceCollection_Key.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="ItemPriceCollection Methods" Url="html/Methods_T_EveOnlineApi_Models_ItemPriceCollection.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="357b5b41-89d1-4c92-8684-0f1739e52306" Title="ItemProperties Class" Url="html/T_EveOnlineApi_Models_ItemProperties.htm">
+    <HelpTOCNode Id="fb45c252-7b2d-42bf-9237-c68c5fdb04b1" Title="ItemProperties Class" Url="html/T_EveOnlineApi_Models_ItemProperties.htm">
       <HelpTOCNode Title="ItemProperties Constructor " Url="html/M_EveOnlineApi_Models_ItemProperties__ctor.htm" />
-      <HelpTOCNode Id="50a6c674-298c-4fac-a60c-faca2160bbee" Title="ItemProperties Properties" Url="html/Properties_T_EveOnlineApi_Models_ItemProperties.htm">
+      <HelpTOCNode Id="126cbc5d-5ee2-4554-8bff-2dd28558b52e" Title="ItemProperties Properties" Url="html/Properties_T_EveOnlineApi_Models_ItemProperties.htm">
         <HelpTOCNode Title="Description Property " Url="html/P_EveOnlineApi_Models_ItemProperties_Description.htm" />
         <HelpTOCNode Title="IconId Property " Url="html/P_EveOnlineApi_Models_ItemProperties_IconId.htm" />
         <HelpTOCNode Title="Mass Property " Url="html/P_EveOnlineApi_Models_ItemProperties_Mass.htm" />
@@ -588,16 +587,16 @@
       </HelpTOCNode>
       <HelpTOCNode Title="ItemProperties Methods" Url="html/Methods_T_EveOnlineApi_Models_ItemProperties.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="2485766b-0233-4a6c-9b1d-39be19ab54be" Title="IXmlModelCollection Interface" Url="html/T_EveOnlineApi_Models_IXmlModelCollection.htm">
-      <HelpTOCNode Id="0d823600-b954-4192-a856-d2edfcf1ab67" Title="IXmlModelCollection Properties" Url="html/Properties_T_EveOnlineApi_Models_IXmlModelCollection.htm">
+    <HelpTOCNode Id="d6b140d8-a74f-4a70-bb70-e536998caf24" Title="IXmlModelCollection Interface" Url="html/T_EveOnlineApi_Models_IXmlModelCollection.htm">
+      <HelpTOCNode Id="607b243a-c646-4b21-bf82-96de0b719c55" Title="IXmlModelCollection Properties" Url="html/Properties_T_EveOnlineApi_Models_IXmlModelCollection.htm">
         <HelpTOCNode Title="CachedUntil Property " Url="html/P_EveOnlineApi_Models_IXmlModelCollection_CachedUntil.htm" />
         <HelpTOCNode Title="Items Property " Url="html/P_EveOnlineApi_Models_IXmlModelCollection_Items.htm" />
         <HelpTOCNode Title="Key Property " Url="html/P_EveOnlineApi_Models_IXmlModelCollection_Key.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="1a401314-3214-4ab5-87d0-8f1be189df02" Title="JumpClone Class" Url="html/T_EveOnlineApi_Models_JumpClone.htm">
+    <HelpTOCNode Id="bbad88f2-603f-4fef-a7eb-da7a908fef9c" Title="JumpClone Class" Url="html/T_EveOnlineApi_Models_JumpClone.htm">
       <HelpTOCNode Title="JumpClone Constructor " Url="html/M_EveOnlineApi_Models_JumpClone__ctor.htm" />
-      <HelpTOCNode Id="a1bb6a69-50ee-4e78-8aa4-4eb3842dd767" Title="JumpClone Properties" Url="html/Properties_T_EveOnlineApi_Models_JumpClone.htm">
+      <HelpTOCNode Id="4ba70a24-104d-4b91-b797-43956e979fc8" Title="JumpClone Properties" Url="html/Properties_T_EveOnlineApi_Models_JumpClone.htm">
         <HelpTOCNode Title="Id Property " Url="html/P_EveOnlineApi_Models_JumpClone_Id.htm" />
         <HelpTOCNode Title="JumpCloneId Property " Url="html/P_EveOnlineApi_Models_JumpClone_JumpCloneId.htm" />
         <HelpTOCNode Title="Key Property " Url="html/P_EveOnlineApi_Models_JumpClone_Key.htm" />
@@ -608,9 +607,9 @@
       </HelpTOCNode>
       <HelpTOCNode Title="JumpClone Methods" Url="html/Methods_T_EveOnlineApi_Models_JumpClone.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="9c554536-fdee-425d-93de-124c6cf6331a" Title="JumpCloneImplant Class" Url="html/T_EveOnlineApi_Models_JumpCloneImplant.htm">
+    <HelpTOCNode Id="253cbcfb-ea71-4640-8193-737510179d8b" Title="JumpCloneImplant Class" Url="html/T_EveOnlineApi_Models_JumpCloneImplant.htm">
       <HelpTOCNode Title="JumpCloneImplant Constructor " Url="html/M_EveOnlineApi_Models_JumpCloneImplant__ctor.htm" />
-      <HelpTOCNode Id="279fc227-1e4d-4afe-9011-ee7d79399c53" Title="JumpCloneImplant Properties" Url="html/Properties_T_EveOnlineApi_Models_JumpCloneImplant.htm">
+      <HelpTOCNode Id="acf23e0b-037a-4552-b7a4-196cfad3f2dd" Title="JumpCloneImplant Properties" Url="html/Properties_T_EveOnlineApi_Models_JumpCloneImplant.htm">
         <HelpTOCNode Title="Id Property " Url="html/P_EveOnlineApi_Models_JumpCloneImplant_Id.htm" />
         <HelpTOCNode Title="JumpCloneId Property " Url="html/P_EveOnlineApi_Models_JumpCloneImplant_JumpCloneId.htm" />
         <HelpTOCNode Title="Key Property " Url="html/P_EveOnlineApi_Models_JumpCloneImplant_Key.htm" />
@@ -619,41 +618,41 @@
       </HelpTOCNode>
       <HelpTOCNode Title="JumpCloneImplant Methods" Url="html/Methods_T_EveOnlineApi_Models_JumpCloneImplant.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="a85e4f5c-4f94-42ef-ac25-13c53da94f73" Title="Location Class" Url="html/T_EveOnlineApi_Models_Location.htm">
+    <HelpTOCNode Id="5fefb7ac-f772-449f-bd17-e1780d1d8c9c" Title="Location Class" Url="html/T_EveOnlineApi_Models_Location.htm">
       <HelpTOCNode Title="Location Constructor " Url="html/M_EveOnlineApi_Models_Location__ctor.htm" />
-      <HelpTOCNode Id="913b56a4-89db-4730-ab40-43e66b252177" Title="Location Properties" Url="html/Properties_T_EveOnlineApi_Models_Location.htm">
+      <HelpTOCNode Id="c0533a02-59ae-4d8b-8113-79cf371474c2" Title="Location Properties" Url="html/Properties_T_EveOnlineApi_Models_Location.htm">
         <HelpTOCNode Title="Id Property " Url="html/P_EveOnlineApi_Models_Location_Id.htm" />
         <HelpTOCNode Title="IsConquerableOutpost Property " Url="html/P_EveOnlineApi_Models_Location_IsConquerableOutpost.htm" />
         <HelpTOCNode Title="IsNpcStation Property " Url="html/P_EveOnlineApi_Models_Location_IsNpcStation.htm" />
         <HelpTOCNode Title="IsSolarSystem Property " Url="html/P_EveOnlineApi_Models_Location_IsSolarSystem.htm" />
         <HelpTOCNode Title="StationId Property " Url="html/P_EveOnlineApi_Models_Location_StationId.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="66a1a8b7-0ecd-487b-b125-81be426740d9" Title="Location Methods" Url="html/Methods_T_EveOnlineApi_Models_Location.htm">
+      <HelpTOCNode Id="9fe5fdc9-cfa9-4482-8ae1-27d4ecf787b8" Title="Location Methods" Url="html/Methods_T_EveOnlineApi_Models_Location.htm">
         <HelpTOCNode Title="GetLocationNameAsync Method " Url="html/M_EveOnlineApi_Models_Location_GetLocationNameAsync.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="cbaa4f9f-f457-4b2b-a404-50ada4143fed" Title="MailBody Class" Url="html/T_EveOnlineApi_Models_MailBody.htm">
+    <HelpTOCNode Id="50618f9a-d946-451a-8490-e9be0f1aebcd" Title="MailBody Class" Url="html/T_EveOnlineApi_Models_MailBody.htm">
       <HelpTOCNode Title="MailBody Constructor " Url="html/M_EveOnlineApi_Models_MailBody__ctor.htm" />
-      <HelpTOCNode Id="6e4efc88-5f78-407a-ae04-549ff598e686" Title="MailBody Properties" Url="html/Properties_T_EveOnlineApi_Models_MailBody.htm">
+      <HelpTOCNode Id="cfc17e91-d9fb-446d-87cc-ff36653ae70f" Title="MailBody Properties" Url="html/Properties_T_EveOnlineApi_Models_MailBody.htm">
         <HelpTOCNode Title="Content Property " Url="html/P_EveOnlineApi_Models_MailBody_Content.htm" />
         <HelpTOCNode Title="MessageID Property " Url="html/P_EveOnlineApi_Models_MailBody_MessageID.htm" />
         <HelpTOCNode Title="PrettyfiedContent Property " Url="html/P_EveOnlineApi_Models_MailBody_PrettyfiedContent.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="MailBody Methods" Url="html/Methods_T_EveOnlineApi_Models_MailBody.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="b1a9a86b-9ca8-4e8d-8185-11734865d1d9" Title="MailBodyCollection Class" Url="html/T_EveOnlineApi_Models_MailBodyCollection.htm">
+    <HelpTOCNode Id="39e6796d-6b48-4c0b-ab71-a10ce44b2d82" Title="MailBodyCollection Class" Url="html/T_EveOnlineApi_Models_MailBodyCollection.htm">
       <HelpTOCNode Title="MailBodyCollection Constructor " Url="html/M_EveOnlineApi_Models_MailBodyCollection__ctor.htm" />
       <HelpTOCNode Title="MailBodyCollection Properties" Url="html/Properties_T_EveOnlineApi_Models_MailBodyCollection.htm" />
       <HelpTOCNode Title="MailBodyCollection Methods" Url="html/Methods_T_EveOnlineApi_Models_MailBodyCollection.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="3b696833-25d0-4d6a-9420-e0b1d1e9d787" Title="MailMessageCollection Class" Url="html/T_EveOnlineApi_Models_MailMessageCollection.htm">
+    <HelpTOCNode Id="ce40e47d-479c-4f3f-a3db-60591bde3c98" Title="MailMessageCollection Class" Url="html/T_EveOnlineApi_Models_MailMessageCollection.htm">
       <HelpTOCNode Title="MailMessageCollection Constructor " Url="html/M_EveOnlineApi_Models_MailMessageCollection__ctor.htm" />
       <HelpTOCNode Title="MailMessageCollection Properties" Url="html/Properties_T_EveOnlineApi_Models_MailMessageCollection.htm" />
       <HelpTOCNode Title="MailMessageCollection Methods" Url="html/Methods_T_EveOnlineApi_Models_MailMessageCollection.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="e5be5865-0aec-4919-bd51-0f63165cf85b" Title="MailMessageItem Class" Url="html/T_EveOnlineApi_Models_MailMessageItem.htm">
+    <HelpTOCNode Id="ef4916ef-467b-4eae-b04b-b63a5f828227" Title="MailMessageItem Class" Url="html/T_EveOnlineApi_Models_MailMessageItem.htm">
       <HelpTOCNode Title="MailMessageItem Constructor " Url="html/M_EveOnlineApi_Models_MailMessageItem__ctor.htm" />
-      <HelpTOCNode Id="ac001b34-ac6a-45ca-b653-fb9f665af737" Title="MailMessageItem Properties" Url="html/Properties_T_EveOnlineApi_Models_MailMessageItem.htm">
+      <HelpTOCNode Id="db64824a-1a68-4263-a95b-85052d18fae1" Title="MailMessageItem Properties" Url="html/Properties_T_EveOnlineApi_Models_MailMessageItem.htm">
         <HelpTOCNode Title="MessageId Property " Url="html/P_EveOnlineApi_Models_MailMessageItem_MessageId.htm" />
         <HelpTOCNode Title="SendDate Property " Url="html/P_EveOnlineApi_Models_MailMessageItem_SendDate.htm" />
         <HelpTOCNode Title="SenderId Property " Url="html/P_EveOnlineApi_Models_MailMessageItem_SenderId.htm" />
@@ -665,9 +664,9 @@
       </HelpTOCNode>
       <HelpTOCNode Title="MailMessageItem Methods" Url="html/Methods_T_EveOnlineApi_Models_MailMessageItem.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="167ab464-9914-40ae-ac6d-f52c84aeeeaf" Title="ModelCollection(T) Class" Url="html/T_EveOnlineApi_Models_ModelCollection_1.htm">
+    <HelpTOCNode Id="57361b88-1984-4915-81e2-88d2c817e975" Title="ModelCollection(T) Class" Url="html/T_EveOnlineApi_Models_ModelCollection_1.htm">
       <HelpTOCNode Title="ModelCollection(T) Constructor " Url="html/M_EveOnlineApi_Models_ModelCollection_1__ctor.htm" />
-      <HelpTOCNode Id="a2809262-9899-427f-8dd8-f1ac53650644" Title="ModelCollection(T) Properties" Url="html/Properties_T_EveOnlineApi_Models_ModelCollection_1.htm">
+      <HelpTOCNode Id="5b7eaa53-c543-4493-9be3-5ee0dbc4d85d" Title="ModelCollection(T) Properties" Url="html/Properties_T_EveOnlineApi_Models_ModelCollection_1.htm">
         <HelpTOCNode Title="Items Property " Url="html/P_EveOnlineApi_Models_ModelCollection_1_Items.htm" />
         <HelpTOCNode Title="Next Property " Url="html/P_EveOnlineApi_Models_ModelCollection_1_Next.htm" />
         <HelpTOCNode Title="PageCount Property " Url="html/P_EveOnlineApi_Models_ModelCollection_1_PageCount.htm" />
@@ -675,9 +674,9 @@
       </HelpTOCNode>
       <HelpTOCNode Title="ModelCollection(T) Methods" Url="html/Methods_T_EveOnlineApi_Models_ModelCollection_1.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="97f87ccf-5bfa-468e-986d-54f8d4047cb4" Title="Motd Class" Url="html/T_EveOnlineApi_Models_Motd.htm">
+    <HelpTOCNode Id="2ff97d02-304d-4726-9939-83ca6b43f74f" Title="Motd Class" Url="html/T_EveOnlineApi_Models_Motd.htm">
       <HelpTOCNode Title="Motd Constructor " Url="html/M_EveOnlineApi_Models_Motd__ctor.htm" />
-      <HelpTOCNode Id="989db8f6-d4a8-4c82-b1be-182936df5561" Title="Motd Properties" Url="html/Properties_T_EveOnlineApi_Models_Motd.htm">
+      <HelpTOCNode Id="15403bd3-c7da-4ab2-b30a-ce32077f618f" Title="Motd Properties" Url="html/Properties_T_EveOnlineApi_Models_Motd.htm">
         <HelpTOCNode Title="Incursions Property " Url="html/P_EveOnlineApi_Models_Motd_Incursions.htm" />
         <HelpTOCNode Title="InventoryTypes Property " Url="html/P_EveOnlineApi_Models_Motd_InventoryTypes.htm" />
         <HelpTOCNode Title="MarketPrices Property " Url="html/P_EveOnlineApi_Models_Motd_MarketPrices.htm" />
@@ -691,16 +690,16 @@
       </HelpTOCNode>
       <HelpTOCNode Title="Motd Methods" Url="html/Methods_T_EveOnlineApi_Models_Motd.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="35ad956f-7b75-4f6b-9617-2de2acd5cdb5" Title="Next Class" Url="html/T_EveOnlineApi_Models_Next.htm">
+    <HelpTOCNode Id="a6281185-9f50-4518-ac1d-d1ba05aebf09" Title="Next Class" Url="html/T_EveOnlineApi_Models_Next.htm">
       <HelpTOCNode Title="Next Constructor " Url="html/M_EveOnlineApi_Models_Next__ctor.htm" />
-      <HelpTOCNode Id="5571e968-c6fd-4b3f-ba60-17ee681cf525" Title="Next Properties" Url="html/Properties_T_EveOnlineApi_Models_Next.htm">
+      <HelpTOCNode Id="f7119a74-ed3b-44ce-92d4-3bd2ab8944c8" Title="Next Properties" Url="html/Properties_T_EveOnlineApi_Models_Next.htm">
         <HelpTOCNode Title="HRef Property " Url="html/P_EveOnlineApi_Models_Next_HRef.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="Next Methods" Url="html/Methods_T_EveOnlineApi_Models_Next.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="a7254c03-fd7f-405f-9298-773d1cbe40a4" Title="Notification Class" Url="html/T_EveOnlineApi_Models_Notification.htm">
+    <HelpTOCNode Id="f0b774ac-01af-42e1-adbe-34b8129d5a25" Title="Notification Class" Url="html/T_EveOnlineApi_Models_Notification.htm">
       <HelpTOCNode Title="Notification Constructor " Url="html/M_EveOnlineApi_Models_Notification__ctor.htm" />
-      <HelpTOCNode Id="3eee5630-a624-40c4-9f8e-b1a97b1bd9df" Title="Notification Properties" Url="html/Properties_T_EveOnlineApi_Models_Notification.htm">
+      <HelpTOCNode Id="f49f13f5-d183-4d58-8990-477401e9caa7" Title="Notification Properties" Url="html/Properties_T_EveOnlineApi_Models_Notification.htm">
         <HelpTOCNode Title="IsRead Property " Url="html/P_EveOnlineApi_Models_Notification_IsRead.htm" />
         <HelpTOCNode Title="NotificationId Property " Url="html/P_EveOnlineApi_Models_Notification_NotificationId.htm" />
         <HelpTOCNode Title="NotificationTitle Property " Url="html/P_EveOnlineApi_Models_Notification_NotificationTitle.htm" />
@@ -711,28 +710,28 @@
       </HelpTOCNode>
       <HelpTOCNode Title="Notification Methods" Url="html/Methods_T_EveOnlineApi_Models_Notification.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="b0963a0a-8a7e-4e19-94d5-f716d8e082ac" Title="NotificationCollection Class" Url="html/T_EveOnlineApi_Models_NotificationCollection.htm">
+    <HelpTOCNode Id="8a57f407-f417-40ef-a2a6-ddd391b0f053" Title="NotificationCollection Class" Url="html/T_EveOnlineApi_Models_NotificationCollection.htm">
       <HelpTOCNode Title="NotificationCollection Constructor " Url="html/M_EveOnlineApi_Models_NotificationCollection__ctor.htm" />
       <HelpTOCNode Title="NotificationCollection Properties" Url="html/Properties_T_EveOnlineApi_Models_NotificationCollection.htm" />
       <HelpTOCNode Title="NotificationCollection Methods" Url="html/Methods_T_EveOnlineApi_Models_NotificationCollection.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="5f55ec81-d459-403e-9a75-a1a8ff696d0f" Title="OpenMarketBody Class" Url="html/T_EveOnlineApi_Models_OpenMarketBody.htm">
+    <HelpTOCNode Id="1902afa8-c12d-4293-a341-90b77eae3e21" Title="OpenMarketBody Class" Url="html/T_EveOnlineApi_Models_OpenMarketBody.htm">
       <HelpTOCNode Title="OpenMarketBody Constructor " Url="html/M_EveOnlineApi_Models_OpenMarketBody__ctor.htm" />
-      <HelpTOCNode Id="b85750a3-6e06-4830-a90e-0df9a2790b8e" Title="OpenMarketBody Properties" Url="html/Properties_T_EveOnlineApi_Models_OpenMarketBody.htm">
+      <HelpTOCNode Id="b865834b-ce99-4a25-a643-345fbe288c2b" Title="OpenMarketBody Properties" Url="html/Properties_T_EveOnlineApi_Models_OpenMarketBody.htm">
         <HelpTOCNode Title="Type Property " Url="html/P_EveOnlineApi_Models_OpenMarketBody_Type.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="OpenMarketBody Methods" Url="html/Methods_T_EveOnlineApi_Models_OpenMarketBody.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="2dbcdf86-ffc0-41f0-8efe-93e0ac8e2e75" Title="OpenMarketBodyType Class" Url="html/T_EveOnlineApi_Models_OpenMarketBodyType.htm">
+    <HelpTOCNode Id="6759fa70-a543-4f45-901e-691620697a0d" Title="OpenMarketBodyType Class" Url="html/T_EveOnlineApi_Models_OpenMarketBodyType.htm">
       <HelpTOCNode Title="OpenMarketBodyType Constructor " Url="html/M_EveOnlineApi_Models_OpenMarketBodyType__ctor.htm" />
-      <HelpTOCNode Id="078c582a-f154-49b0-8e56-4d6b0f5947ba" Title="OpenMarketBodyType Properties" Url="html/Properties_T_EveOnlineApi_Models_OpenMarketBodyType.htm">
+      <HelpTOCNode Id="f649c127-5996-443a-bfb0-d79d5714fc14" Title="OpenMarketBodyType Properties" Url="html/Properties_T_EveOnlineApi_Models_OpenMarketBodyType.htm">
         <HelpTOCNode Title="Id Property " Url="html/P_EveOnlineApi_Models_OpenMarketBodyType_Id.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="OpenMarketBodyType Methods" Url="html/Methods_T_EveOnlineApi_Models_OpenMarketBodyType.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="9b989675-ba7d-459d-8bd1-6dd383d9c44b" Title="PriceHistory Class" Url="html/T_EveOnlineApi_Models_PriceHistory.htm">
+    <HelpTOCNode Id="c4f7ab4d-126d-4f92-88e8-1ae43a86365d" Title="PriceHistory Class" Url="html/T_EveOnlineApi_Models_PriceHistory.htm">
       <HelpTOCNode Title="PriceHistory Constructor " Url="html/M_EveOnlineApi_Models_PriceHistory__ctor.htm" />
-      <HelpTOCNode Id="993cdae9-f910-49dc-89b1-154b2de15934" Title="PriceHistory Properties" Url="html/Properties_T_EveOnlineApi_Models_PriceHistory.htm">
+      <HelpTOCNode Id="1cea97e6-0a21-4d13-b491-90f947f63b40" Title="PriceHistory Properties" Url="html/Properties_T_EveOnlineApi_Models_PriceHistory.htm">
         <HelpTOCNode Title="AveragePrice Property " Url="html/P_EveOnlineApi_Models_PriceHistory_AveragePrice.htm" />
         <HelpTOCNode Title="Date Property " Url="html/P_EveOnlineApi_Models_PriceHistory_Date.htm" />
         <HelpTOCNode Title="HighPrice Property " Url="html/P_EveOnlineApi_Models_PriceHistory_HighPrice.htm" />
@@ -742,27 +741,27 @@
       </HelpTOCNode>
       <HelpTOCNode Title="PriceHistory Methods" Url="html/Methods_T_EveOnlineApi_Models_PriceHistory.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="d1e87b9b-c40b-4546-aa9f-a7dc2a8068fb" Title="PriceHistoryCollection Class" Url="html/T_EveOnlineApi_Models_PriceHistoryCollection.htm">
+    <HelpTOCNode Id="faecc932-4339-41bf-b640-7dd683063cdd" Title="PriceHistoryCollection Class" Url="html/T_EveOnlineApi_Models_PriceHistoryCollection.htm">
       <HelpTOCNode Title="PriceHistoryCollection Constructor " Url="html/M_EveOnlineApi_Models_PriceHistoryCollection__ctor.htm" />
       <HelpTOCNode Title="PriceHistoryCollection Properties" Url="html/Properties_T_EveOnlineApi_Models_PriceHistoryCollection.htm" />
       <HelpTOCNode Title="PriceHistoryCollection Methods" Url="html/Methods_T_EveOnlineApi_Models_PriceHistoryCollection.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="d5dc7276-d791-4e40-807a-c09668015f77" Title="QuicklookBuyOrder Class" Url="html/T_EveOnlineApi_Models_QuicklookBuyOrder.htm">
+    <HelpTOCNode Id="05a13c74-1d45-4957-9adb-0340fede679f" Title="QuicklookBuyOrder Class" Url="html/T_EveOnlineApi_Models_QuicklookBuyOrder.htm">
       <HelpTOCNode Title="QuicklookBuyOrder Constructor " Url="html/M_EveOnlineApi_Models_QuicklookBuyOrder__ctor.htm" />
       <HelpTOCNode Title="QuicklookBuyOrder Properties" Url="html/Properties_T_EveOnlineApi_Models_QuicklookBuyOrder.htm" />
       <HelpTOCNode Title="QuicklookBuyOrder Methods" Url="html/Methods_T_EveOnlineApi_Models_QuicklookBuyOrder.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="c6aa7fea-a9ce-43da-bf94-58fa397b9c9d" Title="QuicklookCollection Class" Url="html/T_EveOnlineApi_Models_QuicklookCollection.htm">
+    <HelpTOCNode Id="278494c1-0b47-434a-94c1-e8c1cd579f25" Title="QuicklookCollection Class" Url="html/T_EveOnlineApi_Models_QuicklookCollection.htm">
       <HelpTOCNode Title="QuicklookCollection Constructor " Url="html/M_EveOnlineApi_Models_QuicklookCollection__ctor.htm" />
-      <HelpTOCNode Id="db5c2421-89e1-4ae0-a0c4-cc645b8ae116" Title="QuicklookCollection Properties" Url="html/Properties_T_EveOnlineApi_Models_QuicklookCollection.htm">
+      <HelpTOCNode Id="9355cc36-a11d-4a0b-95d4-818eb95d0989" Title="QuicklookCollection Properties" Url="html/Properties_T_EveOnlineApi_Models_QuicklookCollection.htm">
         <HelpTOCNode Title="BuyOrders Property " Url="html/P_EveOnlineApi_Models_QuicklookCollection_BuyOrders.htm" />
         <HelpTOCNode Title="SellOrders Property " Url="html/P_EveOnlineApi_Models_QuicklookCollection_SellOrders.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="QuicklookCollection Methods" Url="html/Methods_T_EveOnlineApi_Models_QuicklookCollection.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="4b82dd28-a85d-424d-96d6-39a442ee2193" Title="QuicklookOrder Class" Url="html/T_EveOnlineApi_Models_QuicklookOrder.htm">
+    <HelpTOCNode Id="2abe5cde-2bf3-462f-a017-73a60be0661a" Title="QuicklookOrder Class" Url="html/T_EveOnlineApi_Models_QuicklookOrder.htm">
       <HelpTOCNode Title="QuicklookOrder Constructor " Url="html/M_EveOnlineApi_Models_QuicklookOrder__ctor.htm" />
-      <HelpTOCNode Id="c9f889ee-db24-4dab-8ecb-386f9da0e3c0" Title="QuicklookOrder Properties" Url="html/Properties_T_EveOnlineApi_Models_QuicklookOrder.htm">
+      <HelpTOCNode Id="68c0a7b8-5753-4f77-b0f2-b5d3a5cb965a" Title="QuicklookOrder Properties" Url="html/Properties_T_EveOnlineApi_Models_QuicklookOrder.htm">
         <HelpTOCNode Title="Expires Property " Url="html/P_EveOnlineApi_Models_QuicklookOrder_Expires.htm" />
         <HelpTOCNode Title="IsSellOrder Property " Url="html/P_EveOnlineApi_Models_QuicklookOrder_IsSellOrder.htm" />
         <HelpTOCNode Title="MinimumVolume Property " Url="html/P_EveOnlineApi_Models_QuicklookOrder_MinimumVolume.htm" />
@@ -775,29 +774,29 @@
       </HelpTOCNode>
       <HelpTOCNode Title="QuicklookOrder Methods" Url="html/Methods_T_EveOnlineApi_Models_QuicklookOrder.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="5979dee7-2670-47e7-9b7f-e370d4391789" Title="QuicklookSellOrder Class" Url="html/T_EveOnlineApi_Models_QuicklookSellOrder.htm">
+    <HelpTOCNode Id="6de4f283-4cd0-42f2-8976-932a724dcd95" Title="QuicklookSellOrder Class" Url="html/T_EveOnlineApi_Models_QuicklookSellOrder.htm">
       <HelpTOCNode Title="QuicklookSellOrder Constructor " Url="html/M_EveOnlineApi_Models_QuicklookSellOrder__ctor.htm" />
       <HelpTOCNode Title="QuicklookSellOrder Properties" Url="html/Properties_T_EveOnlineApi_Models_QuicklookSellOrder.htm" />
       <HelpTOCNode Title="QuicklookSellOrder Methods" Url="html/Methods_T_EveOnlineApi_Models_QuicklookSellOrder.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="043bb226-949c-4df8-a3b5-68b829096f90" Title="ServerStatus Class" Url="html/T_EveOnlineApi_Models_ServerStatus.htm">
+    <HelpTOCNode Id="6823d7e2-2df6-4e15-b10c-c30b0a054b18" Title="ServerStatus Class" Url="html/T_EveOnlineApi_Models_ServerStatus.htm">
       <HelpTOCNode Title="ServerStatus Constructor " Url="html/M_EveOnlineApi_Models_ServerStatus__ctor.htm" />
-      <HelpTOCNode Id="544c4eed-e10e-4730-ab93-af078e30d2ab" Title="ServerStatus Properties" Url="html/Properties_T_EveOnlineApi_Models_ServerStatus.htm">
+      <HelpTOCNode Id="41736b9d-3429-4b0f-b61e-01de0b22937e" Title="ServerStatus Properties" Url="html/Properties_T_EveOnlineApi_Models_ServerStatus.htm">
         <HelpTOCNode Title="OnlinePlayers Property " Url="html/P_EveOnlineApi_Models_ServerStatus_OnlinePlayers.htm" />
         <HelpTOCNode Title="ServerOpen Property " Url="html/P_EveOnlineApi_Models_ServerStatus_ServerOpen.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="ServerStatus Methods" Url="html/Methods_T_EveOnlineApi_Models_ServerStatus.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="15f8b2aa-c71a-415e-a56c-4f860154e1bf" Title="ServerVersion Class" Url="html/T_EveOnlineApi_Models_ServerVersion.htm">
+    <HelpTOCNode Id="52f0233d-fe94-46c5-ad57-5a9a3a1ad769" Title="ServerVersion Class" Url="html/T_EveOnlineApi_Models_ServerVersion.htm">
       <HelpTOCNode Title="ServerVersion Constructor " Url="html/M_EveOnlineApi_Models_ServerVersion__ctor.htm" />
-      <HelpTOCNode Id="ccffa9a4-8d6f-497e-850c-bc3ca60162a3" Title="ServerVersion Properties" Url="html/Properties_T_EveOnlineApi_Models_ServerVersion.htm">
+      <HelpTOCNode Id="f07533fc-730b-445b-a83b-2540a29128ed" Title="ServerVersion Properties" Url="html/Properties_T_EveOnlineApi_Models_ServerVersion.htm">
         <HelpTOCNode Title="Version Property " Url="html/P_EveOnlineApi_Models_ServerVersion_Version.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="ServerVersion Methods" Url="html/Methods_T_EveOnlineApi_Models_ServerVersion.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="469da6c6-58cd-4a56-918b-2f97734bf686" Title="ShipFitting Class" Url="html/T_EveOnlineApi_Models_ShipFitting.htm">
+    <HelpTOCNode Id="c0840ad4-22ff-4ac5-933f-51cc3a4c2b6c" Title="ShipFitting Class" Url="html/T_EveOnlineApi_Models_ShipFitting.htm">
       <HelpTOCNode Title="ShipFitting Constructor " Url="html/M_EveOnlineApi_Models_ShipFitting__ctor.htm" />
-      <HelpTOCNode Id="1925b468-ad55-49b0-b22a-cb7801a386de" Title="ShipFitting Properties" Url="html/Properties_T_EveOnlineApi_Models_ShipFitting.htm">
+      <HelpTOCNode Id="438ea21c-0887-489c-bcc1-a6f1b0558492" Title="ShipFitting Properties" Url="html/Properties_T_EveOnlineApi_Models_ShipFitting.htm">
         <HelpTOCNode Title="Description Property " Url="html/P_EveOnlineApi_Models_ShipFitting_Description.htm" />
         <HelpTOCNode Title="Id Property " Url="html/P_EveOnlineApi_Models_ShipFitting_Id.htm" />
         <HelpTOCNode Title="Items Property " Url="html/P_EveOnlineApi_Models_ShipFitting_Items.htm" />
@@ -806,14 +805,14 @@
       </HelpTOCNode>
       <HelpTOCNode Title="ShipFitting Methods" Url="html/Methods_T_EveOnlineApi_Models_ShipFitting.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="e35fe8ea-be33-444a-b4bb-cf0a82c9e71d" Title="ShipFittingCollection Class" Url="html/T_EveOnlineApi_Models_ShipFittingCollection.htm">
+    <HelpTOCNode Id="a0d50809-5787-4d54-b0ea-4c269dad4789" Title="ShipFittingCollection Class" Url="html/T_EveOnlineApi_Models_ShipFittingCollection.htm">
       <HelpTOCNode Title="ShipFittingCollection Constructor " Url="html/M_EveOnlineApi_Models_ShipFittingCollection__ctor.htm" />
       <HelpTOCNode Title="ShipFittingCollection Properties" Url="html/Properties_T_EveOnlineApi_Models_ShipFittingCollection.htm" />
       <HelpTOCNode Title="ShipFittingCollection Methods" Url="html/Methods_T_EveOnlineApi_Models_ShipFittingCollection.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="b9680c57-ef71-440f-b028-13d613521952" Title="Skill Class" Url="html/T_EveOnlineApi_Models_Skill.htm">
+    <HelpTOCNode Id="6cc2c87d-cba4-4143-bb2a-ce7d2fc3d942" Title="Skill Class" Url="html/T_EveOnlineApi_Models_Skill.htm">
       <HelpTOCNode Title="Skill Constructor " Url="html/M_EveOnlineApi_Models_Skill__ctor.htm" />
-      <HelpTOCNode Id="07da2860-e976-41f4-908a-040295801b63" Title="Skill Properties" Url="html/Properties_T_EveOnlineApi_Models_Skill.htm">
+      <HelpTOCNode Id="0915e717-11b5-44c6-852e-e07d7553ee11" Title="Skill Properties" Url="html/Properties_T_EveOnlineApi_Models_Skill.htm">
         <HelpTOCNode Title="Id Property " Url="html/P_EveOnlineApi_Models_Skill_Id.htm" />
         <HelpTOCNode Title="Key Property " Url="html/P_EveOnlineApi_Models_Skill_Key.htm" />
         <HelpTOCNode Title="SkillLevel Property " Url="html/P_EveOnlineApi_Models_Skill_SkillLevel.htm" />
@@ -822,9 +821,9 @@
       </HelpTOCNode>
       <HelpTOCNode Title="Skill Methods" Url="html/Methods_T_EveOnlineApi_Models_Skill.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="5e973481-7895-440d-8216-5ab1d1dbd2a7" Title="SkillInTraining Class" Url="html/T_EveOnlineApi_Models_SkillInTraining.htm">
+    <HelpTOCNode Id="0279cedf-c582-4a71-b638-0dd6d2107e5e" Title="SkillInTraining Class" Url="html/T_EveOnlineApi_Models_SkillInTraining.htm">
       <HelpTOCNode Title="SkillInTraining Constructor " Url="html/M_EveOnlineApi_Models_SkillInTraining__ctor.htm" />
-      <HelpTOCNode Id="b59cfe87-0ead-4f18-b72d-487887265f8f" Title="SkillInTraining Properties" Url="html/Properties_T_EveOnlineApi_Models_SkillInTraining.htm">
+      <HelpTOCNode Id="80f4ca55-4653-4fc8-af8d-b012cd9cc8f4" Title="SkillInTraining Properties" Url="html/Properties_T_EveOnlineApi_Models_SkillInTraining.htm">
         <HelpTOCNode Title="CachedUntil Property " Url="html/P_EveOnlineApi_Models_SkillInTraining_CachedUntil.htm" />
         <HelpTOCNode Title="IsInTraining Property " Url="html/P_EveOnlineApi_Models_SkillInTraining_IsInTraining.htm" />
         <HelpTOCNode Title="Key Property " Url="html/P_EveOnlineApi_Models_SkillInTraining_Key.htm" />
@@ -834,9 +833,9 @@
       </HelpTOCNode>
       <HelpTOCNode Title="SkillInTraining Methods" Url="html/Methods_T_EveOnlineApi_Models_SkillInTraining.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="1c4926d1-eb4d-4d1f-9ba6-535a791a3153" Title="SkillQueue Class" Url="html/T_EveOnlineApi_Models_SkillQueue.htm">
+    <HelpTOCNode Id="43cdbd88-72a8-4a0a-8ccc-48a24251b56a" Title="SkillQueue Class" Url="html/T_EveOnlineApi_Models_SkillQueue.htm">
       <HelpTOCNode Title="SkillQueue Constructor " Url="html/M_EveOnlineApi_Models_SkillQueue__ctor.htm" />
-      <HelpTOCNode Id="f07d0f31-7d3c-4a37-b7f9-d99d79079124" Title="SkillQueue Properties" Url="html/Properties_T_EveOnlineApi_Models_SkillQueue.htm">
+      <HelpTOCNode Id="5af33a3c-4184-4ae6-b070-aa1225d3b2ac" Title="SkillQueue Properties" Url="html/Properties_T_EveOnlineApi_Models_SkillQueue.htm">
         <HelpTOCNode Title="EndTime Property " Url="html/P_EveOnlineApi_Models_SkillQueue_EndTime.htm" />
         <HelpTOCNode Title="Level Property " Url="html/P_EveOnlineApi_Models_SkillQueue_Level.htm" />
         <HelpTOCNode Title="QueuePosition Property " Url="html/P_EveOnlineApi_Models_SkillQueue_QueuePosition.htm" />
@@ -845,14 +844,14 @@
       </HelpTOCNode>
       <HelpTOCNode Title="SkillQueue Methods" Url="html/Methods_T_EveOnlineApi_Models_SkillQueue.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="25a7aee1-e993-4018-91c1-24c8ea7e2d1f" Title="SkillQueueCollection Class" Url="html/T_EveOnlineApi_Models_SkillQueueCollection.htm">
+    <HelpTOCNode Id="00147fa8-8db8-4ec6-95bb-f345d8b3b09e" Title="SkillQueueCollection Class" Url="html/T_EveOnlineApi_Models_SkillQueueCollection.htm">
       <HelpTOCNode Title="SkillQueueCollection Constructor " Url="html/M_EveOnlineApi_Models_SkillQueueCollection__ctor.htm" />
       <HelpTOCNode Title="SkillQueueCollection Properties" Url="html/Properties_T_EveOnlineApi_Models_SkillQueueCollection.htm" />
       <HelpTOCNode Title="SkillQueueCollection Methods" Url="html/Methods_T_EveOnlineApi_Models_SkillQueueCollection.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="6b8148ca-c6ce-41be-81ba-d69ead560b97" Title="SolarSystemInfo Class" Url="html/T_EveOnlineApi_Models_SolarSystemInfo.htm">
+    <HelpTOCNode Id="f1d5d844-0b3f-4df7-be11-bc46b8981766" Title="SolarSystemInfo Class" Url="html/T_EveOnlineApi_Models_SolarSystemInfo.htm">
       <HelpTOCNode Title="SolarSystemInfo Constructor " Url="html/M_EveOnlineApi_Models_SolarSystemInfo__ctor.htm" />
-      <HelpTOCNode Id="be6db362-e21a-483d-8f81-0caf2fdf708c" Title="SolarSystemInfo Properties" Url="html/Properties_T_EveOnlineApi_Models_SolarSystemInfo.htm">
+      <HelpTOCNode Id="9467202b-69f4-426b-b20c-697e6be59196" Title="SolarSystemInfo Properties" Url="html/Properties_T_EveOnlineApi_Models_SolarSystemInfo.htm">
         <HelpTOCNode Title="SecurityClass Property " Url="html/P_EveOnlineApi_Models_SolarSystemInfo_SecurityClass.htm" />
         <HelpTOCNode Title="SecurityStatus Property " Url="html/P_EveOnlineApi_Models_SolarSystemInfo_SecurityStatus.htm" />
         <HelpTOCNode Title="Sovereignty Property " Url="html/P_EveOnlineApi_Models_SolarSystemInfo_Sovereignty.htm" />
@@ -860,28 +859,28 @@
       </HelpTOCNode>
       <HelpTOCNode Title="SolarSystemInfo Methods" Url="html/Methods_T_EveOnlineApi_Models_SolarSystemInfo.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="cdc2645d-403d-4566-b0f7-ba27d871ccf7" Title="TokenKey Class" Url="html/T_EveOnlineApi_Models_TokenKey.htm">
+    <HelpTOCNode Id="497fc545-1d39-4992-a41e-50634604609c" Title="TokenKey Class" Url="html/T_EveOnlineApi_Models_TokenKey.htm">
       <HelpTOCNode Title="TokenKey Constructor " Url="html/M_EveOnlineApi_Models_TokenKey__ctor.htm" />
-      <HelpTOCNode Id="641d5a27-1d5b-4900-b930-a7262e8e8c28" Title="TokenKey Properties" Url="html/Properties_T_EveOnlineApi_Models_TokenKey.htm">
+      <HelpTOCNode Id="6f54fd91-4ac9-4f12-9b8c-07247d3d36c0" Title="TokenKey Properties" Url="html/Properties_T_EveOnlineApi_Models_TokenKey.htm">
         <HelpTOCNode Title="AccessScope Property " Url="html/P_EveOnlineApi_Models_TokenKey_AccessScope.htm" />
         <HelpTOCNode Title="CharacterId Property " Url="html/P_EveOnlineApi_Models_TokenKey_CharacterId.htm" />
         <HelpTOCNode Title="ServerName Property " Url="html/P_EveOnlineApi_Models_TokenKey_ServerName.htm" />
         <HelpTOCNode Title="TokenInfo Property " Url="html/P_EveOnlineApi_Models_TokenKey_TokenInfo.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="190db2e1-8d80-442c-8487-1dd4cd85e465" Title="TokenKey Methods" Url="html/Methods_T_EveOnlineApi_Models_TokenKey.htm">
-        <HelpTOCNode Id="923f1263-3043-4faf-b2d0-5013074139b2" Title="Equals Method " Url="html/Overload_EveOnlineApi_Models_TokenKey_Equals.htm">
+      <HelpTOCNode Id="ddebd724-f15e-4e89-b778-65dd222a2853" Title="TokenKey Methods" Url="html/Methods_T_EveOnlineApi_Models_TokenKey.htm">
+        <HelpTOCNode Id="3bccb4ed-cee2-4e26-a3e7-c242671640a7" Title="Equals Method " Url="html/Overload_EveOnlineApi_Models_TokenKey_Equals.htm">
           <HelpTOCNode Title="Equals Method (TokenKey)" Url="html/M_EveOnlineApi_Models_TokenKey_Equals.htm" />
         </HelpTOCNode>
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="59923a05-3fb3-4d63-9d95-043293b22b07" Title="WalletJournal Class" Url="html/T_EveOnlineApi_Models_WalletJournal.htm">
+    <HelpTOCNode Id="ba25458c-ed99-477f-86af-a60d14c52d87" Title="WalletJournal Class" Url="html/T_EveOnlineApi_Models_WalletJournal.htm">
       <HelpTOCNode Title="WalletJournal Constructor " Url="html/M_EveOnlineApi_Models_WalletJournal__ctor.htm" />
       <HelpTOCNode Title="WalletJournal Properties" Url="html/Properties_T_EveOnlineApi_Models_WalletJournal.htm" />
       <HelpTOCNode Title="WalletJournal Methods" Url="html/Methods_T_EveOnlineApi_Models_WalletJournal.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="cd346aea-ed7e-495a-a452-5b83e4a6b522" Title="WalletJournalItem Class" Url="html/T_EveOnlineApi_Models_WalletJournalItem.htm">
+    <HelpTOCNode Id="ab8785e4-c259-400b-8632-953b1068649a" Title="WalletJournalItem Class" Url="html/T_EveOnlineApi_Models_WalletJournalItem.htm">
       <HelpTOCNode Title="WalletJournalItem Constructor " Url="html/M_EveOnlineApi_Models_WalletJournalItem__ctor.htm" />
-      <HelpTOCNode Id="db2f7854-e995-4b5d-a51c-9667aa54d9fc" Title="WalletJournalItem Properties" Url="html/Properties_T_EveOnlineApi_Models_WalletJournalItem.htm">
+      <HelpTOCNode Id="6de5e4b8-4ab4-4c60-b862-1f4569ae47b0" Title="WalletJournalItem Properties" Url="html/Properties_T_EveOnlineApi_Models_WalletJournalItem.htm">
         <HelpTOCNode Title="Amount Property " Url="html/P_EveOnlineApi_Models_WalletJournalItem_Amount.htm" />
         <HelpTOCNode Title="ArgumentId1 Property " Url="html/P_EveOnlineApi_Models_WalletJournalItem_ArgumentId1.htm" />
         <HelpTOCNode Title="ArgumentName1 Property " Url="html/P_EveOnlineApi_Models_WalletJournalItem_ArgumentName1.htm" />
@@ -900,9 +899,9 @@
       </HelpTOCNode>
       <HelpTOCNode Title="WalletJournalItem Methods" Url="html/Methods_T_EveOnlineApi_Models_WalletJournalItem.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="f10f1dc4-31de-4979-88e8-fd68c9b4f9a5" Title="XmlModelCollection(T) Class" Url="html/T_EveOnlineApi_Models_XmlModelCollection_1.htm">
+    <HelpTOCNode Id="887e26c5-aa0c-4668-afa6-7472f5869f0e" Title="XmlModelCollection(T) Class" Url="html/T_EveOnlineApi_Models_XmlModelCollection_1.htm">
       <HelpTOCNode Title="XmlModelCollection(T) Constructor " Url="html/M_EveOnlineApi_Models_XmlModelCollection_1__ctor.htm" />
-      <HelpTOCNode Id="d0a01e5e-5f78-4a57-8b84-7b166e5cf8ce" Title="XmlModelCollection(T) Properties" Url="html/Properties_T_EveOnlineApi_Models_XmlModelCollection_1.htm">
+      <HelpTOCNode Id="6d529e25-7125-42bd-a7d3-376b00b4bbd9" Title="XmlModelCollection(T) Properties" Url="html/Properties_T_EveOnlineApi_Models_XmlModelCollection_1.htm">
         <HelpTOCNode Title="CachedUntil Property " Url="html/P_EveOnlineApi_Models_XmlModelCollection_1_CachedUntil.htm" />
         <HelpTOCNode Title="Items Property " Url="html/P_EveOnlineApi_Models_XmlModelCollection_1_Items.htm" />
         <HelpTOCNode Title="IXmlModelCollection.Items Property " Url="html/P_EveOnlineApi_Models_XmlModelCollection_1_EveOnlineApi_Models_IXmlModelCollection_Items.htm" />
@@ -911,10 +910,10 @@
       <HelpTOCNode Title="XmlModelCollection(T) Methods" Url="html/Methods_T_EveOnlineApi_Models_XmlModelCollection_1.htm" />
     </HelpTOCNode>
   </HelpTOCNode>
-  <HelpTOCNode Id="56abdf10-6829-42dd-8f06-565668937f73" Title="EveOnlineApi.Models.StaticData" Url="html/N_EveOnlineApi_Models_StaticData.htm">
-    <HelpTOCNode Id="dcbb5fd6-ea9b-470d-a1b1-9415b1c0bffa" Title="InventoryFlag Class" Url="html/T_EveOnlineApi_Models_StaticData_InventoryFlag.htm">
+  <HelpTOCNode Id="f0ef2999-52ec-4ec3-a077-bec0c2dd138b" Title="EveOnlineApi.Models.StaticData" Url="html/N_EveOnlineApi_Models_StaticData.htm">
+    <HelpTOCNode Id="88dbc8bd-01b4-4acc-94c2-3e50759f3a41" Title="InventoryFlag Class" Url="html/T_EveOnlineApi_Models_StaticData_InventoryFlag.htm">
       <HelpTOCNode Title="InventoryFlag Constructor " Url="html/M_EveOnlineApi_Models_StaticData_InventoryFlag__ctor.htm" />
-      <HelpTOCNode Id="35ebadfe-a5f9-415a-a971-4703d29cac00" Title="InventoryFlag Properties" Url="html/Properties_T_EveOnlineApi_Models_StaticData_InventoryFlag.htm">
+      <HelpTOCNode Id="b08b0e95-507a-4d38-afde-4ecd02bb65bb" Title="InventoryFlag Properties" Url="html/Properties_T_EveOnlineApi_Models_StaticData_InventoryFlag.htm">
         <HelpTOCNode Title="Description Property " Url="html/P_EveOnlineApi_Models_StaticData_InventoryFlag_Description.htm" />
         <HelpTOCNode Title="Id Property " Url="html/P_EveOnlineApi_Models_StaticData_InventoryFlag_Id.htm" />
         <HelpTOCNode Title="Name Property " Url="html/P_EveOnlineApi_Models_StaticData_InventoryFlag_Name.htm" />
@@ -922,9 +921,9 @@
       </HelpTOCNode>
       <HelpTOCNode Title="InventoryFlag Methods" Url="html/Methods_T_EveOnlineApi_Models_StaticData_InventoryFlag.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="0c70cde0-31b9-4831-91c8-77e95b9949c8" Title="ItemGroup Class" Url="html/T_EveOnlineApi_Models_StaticData_ItemGroup.htm">
+    <HelpTOCNode Id="d814d644-f74e-4b5b-b2b4-6de151e4234f" Title="ItemGroup Class" Url="html/T_EveOnlineApi_Models_StaticData_ItemGroup.htm">
       <HelpTOCNode Title="ItemGroup Constructor " Url="html/M_EveOnlineApi_Models_StaticData_ItemGroup__ctor.htm" />
-      <HelpTOCNode Id="2c5a5a01-a103-4eec-9a5c-ba54911caecd" Title="ItemGroup Properties" Url="html/Properties_T_EveOnlineApi_Models_StaticData_ItemGroup.htm">
+      <HelpTOCNode Id="3df82e1b-8b92-4694-bdf7-0212af983b64" Title="ItemGroup Properties" Url="html/Properties_T_EveOnlineApi_Models_StaticData_ItemGroup.htm">
         <HelpTOCNode Title="CategoryID Property " Url="html/P_EveOnlineApi_Models_StaticData_ItemGroup_CategoryID.htm" />
         <HelpTOCNode Title="Id Property " Url="html/P_EveOnlineApi_Models_StaticData_ItemGroup_Id.htm" />
         <HelpTOCNode Title="Name Property " Url="html/P_EveOnlineApi_Models_StaticData_ItemGroup_Name.htm" />
@@ -932,9 +931,9 @@
       </HelpTOCNode>
       <HelpTOCNode Title="ItemGroup Methods" Url="html/Methods_T_EveOnlineApi_Models_StaticData_ItemGroup.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="a992c296-9ce4-41fe-a8c9-3f459d22d47e" Title="ItemType Class" Url="html/T_EveOnlineApi_Models_StaticData_ItemType.htm">
+    <HelpTOCNode Id="8805ae21-8819-4615-8dbf-51bb7ccac2da" Title="ItemType Class" Url="html/T_EveOnlineApi_Models_StaticData_ItemType.htm">
       <HelpTOCNode Title="ItemType Constructor " Url="html/M_EveOnlineApi_Models_StaticData_ItemType__ctor.htm" />
-      <HelpTOCNode Id="13e36394-908e-4037-894f-2ab0e600ebeb" Title="ItemType Properties" Url="html/Properties_T_EveOnlineApi_Models_StaticData_ItemType.htm">
+      <HelpTOCNode Id="852b41e5-4732-48d0-b13b-94b3f02d7aa6" Title="ItemType Properties" Url="html/Properties_T_EveOnlineApi_Models_StaticData_ItemType.htm">
         <HelpTOCNode Title="Capacity Property " Url="html/P_EveOnlineApi_Models_StaticData_ItemType_Capacity.htm" />
         <HelpTOCNode Title="Description Property " Url="html/P_EveOnlineApi_Models_StaticData_ItemType_Description.htm" />
         <HelpTOCNode Title="Group Property " Url="html/P_EveOnlineApi_Models_StaticData_ItemType_Group.htm" />
@@ -951,9 +950,9 @@
       </HelpTOCNode>
       <HelpTOCNode Title="ItemType Methods" Url="html/Methods_T_EveOnlineApi_Models_StaticData_ItemType.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="3319ad8e-478c-4f9a-83af-1f2eaa369c4d" Title="MarketGroup Class" Url="html/T_EveOnlineApi_Models_StaticData_MarketGroup.htm">
+    <HelpTOCNode Id="e22900bf-c3f4-4fba-b25c-a841f18ffdc5" Title="MarketGroup Class" Url="html/T_EveOnlineApi_Models_StaticData_MarketGroup.htm">
       <HelpTOCNode Title="MarketGroup Constructor " Url="html/M_EveOnlineApi_Models_StaticData_MarketGroup__ctor.htm" />
-      <HelpTOCNode Id="f1839944-7ff5-4ad8-bc29-aca4525e33e7" Title="MarketGroup Properties" Url="html/Properties_T_EveOnlineApi_Models_StaticData_MarketGroup.htm">
+      <HelpTOCNode Id="b7382e68-2c21-4e6a-822f-20e985f9371a" Title="MarketGroup Properties" Url="html/Properties_T_EveOnlineApi_Models_StaticData_MarketGroup.htm">
         <HelpTOCNode Title="Description Property " Url="html/P_EveOnlineApi_Models_StaticData_MarketGroup_Description.htm" />
         <HelpTOCNode Title="HasTypes Property " Url="html/P_EveOnlineApi_Models_StaticData_MarketGroup_HasTypes.htm" />
         <HelpTOCNode Title="Id Property " Url="html/P_EveOnlineApi_Models_StaticData_MarketGroup_Id.htm" />
@@ -964,9 +963,9 @@
       </HelpTOCNode>
       <HelpTOCNode Title="MarketGroup Methods" Url="html/Methods_T_EveOnlineApi_Models_StaticData_MarketGroup.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="39fd2536-4979-45c7-8a80-aaad0e81aafa" Title="NpcCorporation Class" Url="html/T_EveOnlineApi_Models_StaticData_NpcCorporation.htm">
+    <HelpTOCNode Id="2a3e91e4-2203-46ff-8fd0-05c7ae9e5584" Title="NpcCorporation Class" Url="html/T_EveOnlineApi_Models_StaticData_NpcCorporation.htm">
       <HelpTOCNode Title="NpcCorporation Constructor " Url="html/M_EveOnlineApi_Models_StaticData_NpcCorporation__ctor.htm" />
-      <HelpTOCNode Id="67af0cbb-4567-41cc-a9d8-d8356d1c7a2d" Title="NpcCorporation Properties" Url="html/Properties_T_EveOnlineApi_Models_StaticData_NpcCorporation.htm">
+      <HelpTOCNode Id="3092c541-6571-4a3e-96f2-3217b1a752b6" Title="NpcCorporation Properties" Url="html/Properties_T_EveOnlineApi_Models_StaticData_NpcCorporation.htm">
         <HelpTOCNode Title="Description Property " Url="html/P_EveOnlineApi_Models_StaticData_NpcCorporation_Description.htm" />
         <HelpTOCNode Title="FactionId Property " Url="html/P_EveOnlineApi_Models_StaticData_NpcCorporation_FactionId.htm" />
         <HelpTOCNode Title="IconId Property " Url="html/P_EveOnlineApi_Models_StaticData_NpcCorporation_IconId.htm" />
@@ -978,9 +977,9 @@
       </HelpTOCNode>
       <HelpTOCNode Title="NpcCorporation Methods" Url="html/Methods_T_EveOnlineApi_Models_StaticData_NpcCorporation.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="b1b54c54-5c92-4fc4-adc5-e6077b3047dc" Title="NpcStation Class" Url="html/T_EveOnlineApi_Models_StaticData_NpcStation.htm">
+    <HelpTOCNode Id="a53e25aa-3d15-404e-827d-0839c15df061" Title="NpcStation Class" Url="html/T_EveOnlineApi_Models_StaticData_NpcStation.htm">
       <HelpTOCNode Title="NpcStation Constructor " Url="html/M_EveOnlineApi_Models_StaticData_NpcStation__ctor.htm" />
-      <HelpTOCNode Id="4ab2e9ff-1c90-4ae1-ac02-5d69ebec54da" Title="NpcStation Properties" Url="html/Properties_T_EveOnlineApi_Models_StaticData_NpcStation.htm">
+      <HelpTOCNode Id="bcc4db4b-8b88-459b-9333-6838310c89cc" Title="NpcStation Properties" Url="html/Properties_T_EveOnlineApi_Models_StaticData_NpcStation.htm">
         <HelpTOCNode Title="CorporationId Property " Url="html/P_EveOnlineApi_Models_StaticData_NpcStation_CorporationId.htm" />
         <HelpTOCNode Title="Id Property " Url="html/P_EveOnlineApi_Models_StaticData_NpcStation_Id.htm" />
         <HelpTOCNode Title="Name Property " Url="html/P_EveOnlineApi_Models_StaticData_NpcStation_Name.htm" />
@@ -991,90 +990,90 @@
       </HelpTOCNode>
       <HelpTOCNode Title="NpcStation Methods" Url="html/Methods_T_EveOnlineApi_Models_StaticData_NpcStation.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="d7b4bfde-94c8-45bc-b64c-95a9cde1ecdd" Title="RefTypeItem Class" Url="html/T_EveOnlineApi_Models_StaticData_RefTypeItem.htm">
+    <HelpTOCNode Id="9a146706-1fde-46cd-90e9-2105c7f20034" Title="RefTypeItem Class" Url="html/T_EveOnlineApi_Models_StaticData_RefTypeItem.htm">
       <HelpTOCNode Title="RefTypeItem Constructor " Url="html/M_EveOnlineApi_Models_StaticData_RefTypeItem__ctor.htm" />
-      <HelpTOCNode Id="382e96e1-904c-4cf7-9af9-a18c5b4001e3" Title="RefTypeItem Properties" Url="html/Properties_T_EveOnlineApi_Models_StaticData_RefTypeItem.htm">
+      <HelpTOCNode Id="250e6373-f212-4015-b7bc-693095e6d690" Title="RefTypeItem Properties" Url="html/Properties_T_EveOnlineApi_Models_StaticData_RefTypeItem.htm">
         <HelpTOCNode Title="TypeId Property " Url="html/P_EveOnlineApi_Models_StaticData_RefTypeItem_TypeId.htm" />
         <HelpTOCNode Title="TypeName Property " Url="html/P_EveOnlineApi_Models_StaticData_RefTypeItem_TypeName.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="RefTypeItem Methods" Url="html/Methods_T_EveOnlineApi_Models_StaticData_RefTypeItem.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="36623013-5d14-41c2-955d-7cf2f2e8231b" Title="RefTypeItemCollection Class" Url="html/T_EveOnlineApi_Models_StaticData_RefTypeItemCollection.htm">
+    <HelpTOCNode Id="a80935ff-b8d2-4fb5-8033-e2a789f46aad" Title="RefTypeItemCollection Class" Url="html/T_EveOnlineApi_Models_StaticData_RefTypeItemCollection.htm">
       <HelpTOCNode Title="RefTypeItemCollection Constructor " Url="html/M_EveOnlineApi_Models_StaticData_RefTypeItemCollection__ctor.htm" />
       <HelpTOCNode Title="RefTypeItemCollection Properties" Url="html/Properties_T_EveOnlineApi_Models_StaticData_RefTypeItemCollection.htm" />
       <HelpTOCNode Title="RefTypeItemCollection Methods" Url="html/Methods_T_EveOnlineApi_Models_StaticData_RefTypeItemCollection.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="eb62bbbf-5ab0-4807-994d-c2cc599071f8" Title="Region Class" Url="html/T_EveOnlineApi_Models_StaticData_Region.htm">
+    <HelpTOCNode Id="86bf6213-732d-4da5-b21f-207e6939cb85" Title="Region Class" Url="html/T_EveOnlineApi_Models_StaticData_Region.htm">
       <HelpTOCNode Title="Region Constructor " Url="html/M_EveOnlineApi_Models_StaticData_Region__ctor.htm" />
       <HelpTOCNode Title="Region Properties" Url="html/Properties_T_EveOnlineApi_Models_StaticData_Region.htm" />
       <HelpTOCNode Title="Region Methods" Url="html/Methods_T_EveOnlineApi_Models_StaticData_Region.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="21b10e55-2554-4bd6-9a23-0c1b4630b5b3" Title="RegionCollection Class" Url="html/T_EveOnlineApi_Models_StaticData_RegionCollection.htm">
+    <HelpTOCNode Id="4616a978-4b87-4e33-9658-b413e7108281" Title="RegionCollection Class" Url="html/T_EveOnlineApi_Models_StaticData_RegionCollection.htm">
       <HelpTOCNode Title="RegionCollection Constructor " Url="html/M_EveOnlineApi_Models_StaticData_RegionCollection__ctor.htm" />
       <HelpTOCNode Title="RegionCollection Properties" Url="html/Properties_T_EveOnlineApi_Models_StaticData_RegionCollection.htm" />
       <HelpTOCNode Title="RegionCollection Methods" Url="html/Methods_T_EveOnlineApi_Models_StaticData_RegionCollection.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="2310e3d4-b8ed-49af-859f-d2bc6c23b82f" Title="SolarSystem Class" Url="html/T_EveOnlineApi_Models_StaticData_SolarSystem.htm">
+    <HelpTOCNode Id="a1bffdff-28fc-4878-87f8-7c184db852f8" Title="SolarSystem Class" Url="html/T_EveOnlineApi_Models_StaticData_SolarSystem.htm">
       <HelpTOCNode Title="SolarSystem Constructor " Url="html/M_EveOnlineApi_Models_StaticData_SolarSystem__ctor.htm" />
       <HelpTOCNode Title="SolarSystem Properties" Url="html/Properties_T_EveOnlineApi_Models_StaticData_SolarSystem.htm" />
-      <HelpTOCNode Id="9220e659-dc71-40f5-bb9f-6fce2be1c433" Title="SolarSystem Methods" Url="html/Methods_T_EveOnlineApi_Models_StaticData_SolarSystem.htm">
-        <HelpTOCNode Id="35e6e186-6b2a-4485-96f1-1887f9acfc73" Title="Equals Method " Url="html/Overload_EveOnlineApi_Models_StaticData_SolarSystem_Equals.htm">
+      <HelpTOCNode Id="6f4f1b6e-80f9-4f6a-929c-2b1c79c6449c" Title="SolarSystem Methods" Url="html/Methods_T_EveOnlineApi_Models_StaticData_SolarSystem.htm">
+        <HelpTOCNode Id="8e8e20d9-7c50-4d71-93aa-39a53ae66e42" Title="Equals Method " Url="html/Overload_EveOnlineApi_Models_StaticData_SolarSystem_Equals.htm">
           <HelpTOCNode Title="Equals Method (SolarSystem)" Url="html/M_EveOnlineApi_Models_StaticData_SolarSystem_Equals.htm" />
         </HelpTOCNode>
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="5d86a793-0f7a-4e0a-955c-30c7d32c8e56" Title="SolarSystemCollection Class" Url="html/T_EveOnlineApi_Models_StaticData_SolarSystemCollection.htm">
+    <HelpTOCNode Id="18de32c1-5550-4888-b54c-5ad91fa689aa" Title="SolarSystemCollection Class" Url="html/T_EveOnlineApi_Models_StaticData_SolarSystemCollection.htm">
       <HelpTOCNode Title="SolarSystemCollection Constructor " Url="html/M_EveOnlineApi_Models_StaticData_SolarSystemCollection__ctor.htm" />
       <HelpTOCNode Title="SolarSystemCollection Properties" Url="html/Properties_T_EveOnlineApi_Models_StaticData_SolarSystemCollection.htm" />
       <HelpTOCNode Title="SolarSystemCollection Methods" Url="html/Methods_T_EveOnlineApi_Models_StaticData_SolarSystemCollection.htm" />
     </HelpTOCNode>
   </HelpTOCNode>
-  <HelpTOCNode Id="fd63fdde-aa66-4fb8-ae59-b83ce889f2ed" Title="EveOnlineApi.WebService" Url="html/N_EveOnlineApi_WebService.htm">
-    <HelpTOCNode Id="03a0922e-5b00-4ace-82ea-5063546cd879" Title="AzureMobileServicesClient Class" Url="html/T_EveOnlineApi_WebService_AzureMobileServicesClient.htm">
+  <HelpTOCNode Id="259a6898-794f-4f78-87e6-b75f7aa227a2" Title="EveOnlineApi.WebService" Url="html/N_EveOnlineApi_WebService.htm">
+    <HelpTOCNode Id="7c5365b1-a413-4777-b844-76a2d9e14b71" Title="AzureMobileServicesClient Class" Url="html/T_EveOnlineApi_WebService_AzureMobileServicesClient.htm">
       <HelpTOCNode Title="AzureMobileServicesClient Constructor " Url="html/M_EveOnlineApi_WebService_AzureMobileServicesClient__ctor.htm" />
-      <HelpTOCNode Id="708ce25f-4661-4f4b-8842-af76135bda80" Title="AzureMobileServicesClient Methods" Url="html/Methods_T_EveOnlineApi_WebService_AzureMobileServicesClient.htm">
+      <HelpTOCNode Id="64dccda9-97c7-40b5-aec4-d89b81a6c4d1" Title="AzureMobileServicesClient Methods" Url="html/Methods_T_EveOnlineApi_WebService_AzureMobileServicesClient.htm">
         <HelpTOCNode Title="GetStringAsync Method " Url="html/M_EveOnlineApi_WebService_AzureMobileServicesClient_GetStringAsync.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="ea1e5844-79dc-486c-822f-fd467c4eec5a" Title="DefaultDiskCacheAgent Class" Url="html/T_EveOnlineApi_WebService_DefaultDiskCacheAgent.htm">
+    <HelpTOCNode Id="64210227-8a30-4836-a9ab-5a79e1f6e881" Title="DefaultDiskCacheAgent Class" Url="html/T_EveOnlineApi_WebService_DefaultDiskCacheAgent.htm">
       <HelpTOCNode Title="DefaultDiskCacheAgent Constructor " Url="html/M_EveOnlineApi_WebService_DefaultDiskCacheAgent__ctor.htm" />
-      <HelpTOCNode Id="01288a4a-7f00-4ee4-8a87-e61d5a3a3662" Title="DefaultDiskCacheAgent Methods" Url="html/Methods_T_EveOnlineApi_WebService_DefaultDiskCacheAgent.htm">
+      <HelpTOCNode Id="ce544c53-e050-4dec-b6de-079bfb1dc917" Title="DefaultDiskCacheAgent Methods" Url="html/Methods_T_EveOnlineApi_WebService_DefaultDiskCacheAgent.htm">
         <HelpTOCNode Title="GetCache(TResult) Method " Url="html/M_EveOnlineApi_WebService_DefaultDiskCacheAgent_GetCache__1.htm" />
         <HelpTOCNode Title="IsValid Method " Url="html/M_EveOnlineApi_WebService_DefaultDiskCacheAgent_IsValid.htm" />
         <HelpTOCNode Title="SetCache(TResult) Method " Url="html/M_EveOnlineApi_WebService_DefaultDiskCacheAgent_SetCache__1.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="9d8947ca-8f3b-472f-8e1f-8a2c36660480" Title="EveXmlSpecializedCacheAgent(T) Class" Url="html/T_EveOnlineApi_WebService_EveXmlSpecializedCacheAgent_1.htm">
+    <HelpTOCNode Id="7d4a84b3-a96b-4258-8c02-15f9a98d9a63" Title="EveXmlSpecializedCacheAgent(T) Class" Url="html/T_EveOnlineApi_WebService_EveXmlSpecializedCacheAgent_1.htm">
       <HelpTOCNode Title="EveXmlSpecializedCacheAgent(T) Constructor " Url="html/M_EveOnlineApi_WebService_EveXmlSpecializedCacheAgent_1__ctor.htm" />
-      <HelpTOCNode Id="e1c88352-10da-41ed-9ea2-ffb33c829cbe" Title="EveXmlSpecializedCacheAgent(T) Methods" Url="html/Methods_T_EveOnlineApi_WebService_EveXmlSpecializedCacheAgent_1.htm">
+      <HelpTOCNode Id="36c619c6-78a3-45c3-896a-667a76b2055e" Title="EveXmlSpecializedCacheAgent(T) Methods" Url="html/Methods_T_EveOnlineApi_WebService_EveXmlSpecializedCacheAgent_1.htm">
         <HelpTOCNode Title="GetCache(TResult) Method " Url="html/M_EveOnlineApi_WebService_EveXmlSpecializedCacheAgent_1_GetCache__1.htm" />
         <HelpTOCNode Title="IsValid Method " Url="html/M_EveOnlineApi_WebService_EveXmlSpecializedCacheAgent_1_IsValid.htm" />
         <HelpTOCNode Title="SetCache(TResult) Method " Url="html/M_EveOnlineApi_WebService_EveXmlSpecializedCacheAgent_1_SetCache__1.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="8bc01fff-9ae9-41d0-8425-42ff65fd4ee4" Title="EveXmlSpecializedCollectionCacheAgent(T) Class" Url="html/T_EveOnlineApi_WebService_EveXmlSpecializedCollectionCacheAgent_1.htm">
+    <HelpTOCNode Id="b44e6a05-12d9-4d4f-9e78-16fe4d9c19aa" Title="EveXmlSpecializedCollectionCacheAgent(T) Class" Url="html/T_EveOnlineApi_WebService_EveXmlSpecializedCollectionCacheAgent_1.htm">
       <HelpTOCNode Title="EveXmlSpecializedCollectionCacheAgent(T) Constructor " Url="html/M_EveOnlineApi_WebService_EveXmlSpecializedCollectionCacheAgent_1__ctor.htm" />
-      <HelpTOCNode Id="31f3ef3a-2a2f-490a-a9be-a93f1cd2acf5" Title="EveXmlSpecializedCollectionCacheAgent(T) Methods" Url="html/Methods_T_EveOnlineApi_WebService_EveXmlSpecializedCollectionCacheAgent_1.htm">
+      <HelpTOCNode Id="26a9ec5a-b2f0-445e-a48e-192ab41576c3" Title="EveXmlSpecializedCollectionCacheAgent(T) Methods" Url="html/Methods_T_EveOnlineApi_WebService_EveXmlSpecializedCollectionCacheAgent_1.htm">
         <HelpTOCNode Title="GetCache(TResult) Method " Url="html/M_EveOnlineApi_WebService_EveXmlSpecializedCollectionCacheAgent_1_GetCache__1.htm" />
         <HelpTOCNode Title="IsValid Method " Url="html/M_EveOnlineApi_WebService_EveXmlSpecializedCollectionCacheAgent_1_IsValid.htm" />
         <HelpTOCNode Title="SetCache(TResult) Method " Url="html/M_EveOnlineApi_WebService_EveXmlSpecializedCollectionCacheAgent_1_SetCache__1.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="5ac0898e-2093-412f-80c6-30243dfc323e" Title="FiveMinutesDiskCacheAgent Class" Url="html/T_EveOnlineApi_WebService_FiveMinutesDiskCacheAgent.htm">
+    <HelpTOCNode Id="b2a37c84-74af-4883-b125-f2cc0a247674" Title="FiveMinutesDiskCacheAgent Class" Url="html/T_EveOnlineApi_WebService_FiveMinutesDiskCacheAgent.htm">
       <HelpTOCNode Title="FiveMinutesDiskCacheAgent Constructor " Url="html/M_EveOnlineApi_WebService_FiveMinutesDiskCacheAgent__ctor.htm" />
-      <HelpTOCNode Id="8cbfd2e1-7333-48bc-93cc-fb444b4525f1" Title="FiveMinutesDiskCacheAgent Methods" Url="html/Methods_T_EveOnlineApi_WebService_FiveMinutesDiskCacheAgent.htm">
+      <HelpTOCNode Id="94043ad0-4d67-472f-827d-1187710f5a78" Title="FiveMinutesDiskCacheAgent Methods" Url="html/Methods_T_EveOnlineApi_WebService_FiveMinutesDiskCacheAgent.htm">
         <HelpTOCNode Title="IsValid Method " Url="html/M_EveOnlineApi_WebService_FiveMinutesDiskCacheAgent_IsValid.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="5d70d3a3-8c52-49cd-9415-244aaab5b874" Title="MotdCachingAgent Class" Url="html/T_EveOnlineApi_WebService_MotdCachingAgent.htm">
+    <HelpTOCNode Id="a45b98ad-8ea0-4a33-a4dd-34c87c8e65b9" Title="MotdCachingAgent Class" Url="html/T_EveOnlineApi_WebService_MotdCachingAgent.htm">
       <HelpTOCNode Title="MotdCachingAgent Constructor " Url="html/M_EveOnlineApi_WebService_MotdCachingAgent__ctor.htm" />
-      <HelpTOCNode Id="9c177f13-8a03-498e-b042-7241ba2d5a37" Title="MotdCachingAgent Methods" Url="html/Methods_T_EveOnlineApi_WebService_MotdCachingAgent.htm">
+      <HelpTOCNode Id="9ef0f43c-fe21-4455-ab43-2ce2599bca1c" Title="MotdCachingAgent Methods" Url="html/Methods_T_EveOnlineApi_WebService_MotdCachingAgent.htm">
         <HelpTOCNode Title="IsValid Method " Url="html/M_EveOnlineApi_WebService_MotdCachingAgent_IsValid.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="c63282ba-d811-4df6-9461-562a79f594bc" Title="OneDayLifetimeDiskCacheAgent Class" Url="html/T_EveOnlineApi_WebService_OneDayLifetimeDiskCacheAgent.htm">
+    <HelpTOCNode Id="9c0a7ce9-c48a-4878-9705-6cc4d7b25d79" Title="OneDayLifetimeDiskCacheAgent Class" Url="html/T_EveOnlineApi_WebService_OneDayLifetimeDiskCacheAgent.htm">
       <HelpTOCNode Title="OneDayLifetimeDiskCacheAgent Constructor " Url="html/M_EveOnlineApi_WebService_OneDayLifetimeDiskCacheAgent__ctor.htm" />
-      <HelpTOCNode Id="794efebb-38f5-42ca-ad42-0825e03c5bb1" Title="OneDayLifetimeDiskCacheAgent Methods" Url="html/Methods_T_EveOnlineApi_WebService_OneDayLifetimeDiskCacheAgent.htm">
+      <HelpTOCNode Id="01f141c5-5510-4c30-ae51-3e86fc05832b" Title="OneDayLifetimeDiskCacheAgent Methods" Url="html/Methods_T_EveOnlineApi_WebService_OneDayLifetimeDiskCacheAgent.htm">
         <HelpTOCNode Title="IsValid Method " Url="html/M_EveOnlineApi_WebService_OneDayLifetimeDiskCacheAgent_IsValid.htm" />
       </HelpTOCNode>
     </HelpTOCNode>

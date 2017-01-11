@@ -3,11 +3,7 @@ using Cauldron.Core;
 using Cauldron.Core.Collections;
 using Cauldron.Core.Extensions;
 using Cauldron.Cryptography;
-using Cauldron.Injection;
-using Cauldron.Potions;
-using EveOnlineApi;
 using EveOnlineApi.Models;
-using EveOnlineApi.Models.StaticData;
 using EveOnlineApi.WebService;
 using Newtonsoft.Json;
 using System;
@@ -20,7 +16,6 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using Windows.Storage;
 
@@ -29,9 +24,6 @@ namespace EveOnlineApi
     [Component(typeof(IEveApi), FactoryCreationPolicy.Singleton)]
     public sealed class Api : Singleton<IEveApi>, IEveApi
     {
-        [Inject]
-        private INetwork network = null;
-
         private List<TokenKey> tokenInfos = new List<TokenKey>();
 
         [ComponentConstructor]
@@ -208,7 +200,7 @@ namespace EveOnlineApi
             if (await folder.ExistsAsync(filename))
             {
                 var file = await folder.GetFileAsync(filename);
-                if ((await file.GetDateModifiedAsync()).AddDays(daysToCache) < DateTime.Now && this.network.HasInternetConnection && serverStatus == EveServerStatus.Online)
+                if ((await file.GetDateModifiedAsync()).AddDays(daysToCache) < DateTime.Now && Network.HasInternetConnection && serverStatus == EveServerStatus.Online)
                     await file.DeleteAsync();
                 else
                     data = await (await folder.GetFileAsync(filename)).ReadBytesAsync();
@@ -216,7 +208,7 @@ namespace EveOnlineApi
 
             if (data == null)
             {
-                if (!await folder.ExistsAsync(filename) && this.network.HasInternetConnection && serverStatus == EveServerStatus.Online)
+                if (!await folder.ExistsAsync(filename) && Network.HasInternetConnection && serverStatus == EveServerStatus.Online)
                 {
                     string url = string.Empty;
 
@@ -257,7 +249,7 @@ namespace EveOnlineApi
             try
             {
                 var file = await ApplicationData.Current.TemporaryFolder.CreateFileAsync(filename, CreationCollisionOption.ReplaceExisting);
-                await Web.CreateInstance().DownloadFile(new Uri(url), file);
+                await Web.DownloadFile(new Uri(url), file);
             }
             catch (Exception e)
             {

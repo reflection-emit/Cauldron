@@ -1,5 +1,5 @@
-﻿using Cauldron.Core.Extensions;
-using Cauldron.Potions;
+﻿using Cauldron.Core;
+using Cauldron.Core.Extensions;
 using System;
 using System.Threading.Tasks;
 using Windows.Storage;
@@ -15,7 +15,7 @@ namespace EveOnlineApi.WebService
             if (await ApplicationData.Current.LocalFolder.ExistsAsync(filename))
             {
                 var file = await ApplicationData.Current.LocalFolder.GetFileAsync(filename);
-                return !Network.CreateInstance().HasInternetConnection ||
+                return !Network.HasInternetConnection ||
                     await EveUtils.GetServerStatusAsync() != EveServerStatus.Online ||
                     (await file.GetDateModifiedAsync()).ToLocalTime().AddMinutes(5.0) > DateTime.Now;
             }

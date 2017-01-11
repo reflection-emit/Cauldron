@@ -1,8 +1,2 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Topics>
-  <Topic id="9b86521c-de2b-4f41-843b-d0ecf78fd82f" visible="True" isDefault="true" isSelected="true" title="Welcome to the Eve Online API for .NET desktop and UWP" linkText="https://github.com/Virusface/Cauldron">
-    <HelpKeywords>
-      <HelpKeyword index="K" term="Welcome" />
-    </HelpKeywords>
-  </Topic>
-</Topics>
+<Topics />

@@ -1,8 +1,6 @@
 ﻿using Cauldron.Activator;
 using Cauldron.Core;
 using Cauldron.Core.Extensions;
-using Cauldron.Injection;
-using Cauldron.Potions;
 using EveOnlineApi.Exceptions;
 using EveOnlineApi.Models;
 using EveOnlineApi.Models.StaticData;
@@ -33,11 +31,8 @@ namespace EveOnlineApi
 
         #endregion static data from resource
 
-        private INetwork network = null;
-
         internal EveStaticData()
         {
-            this.network = Factory.Create<INetwork>();
         }
 
         public bool CacheRebuildRequired { get; private set; }
@@ -56,13 +51,13 @@ namespace EveOnlineApi
 
             await this.LoadCache();
 
-            var myVersion = (await Serializer.CreateInstance().DeserializeAsync<ServerVersion>("ServerVersion"))?.Version;
+            var myVersion = (await Serializer.DeserializeAsync<ServerVersion>("ServerVersion"))?.Version;
             var serverVersion = await EveUtils.GetServerVersionAsync();
 
             if (myVersion != serverVersion || this.CacheRebuildRequired)
             {
                 await this.RebuildStaticDataAsync();
-                await Serializer.CreateInstance().SerializeAsync(new ServerVersion { Version = serverVersion }, "ServerVersion");
+                await Serializer.SerializeAsync(new ServerVersion { Version = serverVersion }, "ServerVersion");
             }
         }
 
@@ -168,7 +163,7 @@ namespace EveOnlineApi
         {
             using (var progress = new ExecutionTimer())
             {
-                if (!this.network.HasInternetConnection || await EveUtils.GetServerStatusAsync() != EveServerStatus.Online)
+                if (!Network.HasInternetConnection || await EveUtils.GetServerStatusAsync() != EveServerStatus.Online)
                     throw new EveServersOfflineException("Not connected to the internet or Eve servers are offline.");
 
                 await this.RebuildRegionsAndSolarSystems();

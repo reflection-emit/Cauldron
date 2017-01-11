@@ -1,8 +1,2 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Topics>
-  <Topic id="fc8eed50-2abd-4978-8cec-51dd994670bf" visible="True" isDefault="true" isSelected="true" title="Welcome to the Cauldron Toolkit" linkText="https://github.com/Virusface/Cauldron">
-    <HelpKeywords>
-      <HelpKeyword index="K" term="Welcome" />
-    </HelpKeywords>
-  </Topic>
-</Topics>
+<Topics />

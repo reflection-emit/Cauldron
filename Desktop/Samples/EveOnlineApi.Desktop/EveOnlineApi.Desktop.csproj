@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\EveOnlineApi.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -28,8 +29,25 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\EveOnlineApi.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Cauldron.Activator, Version=1.0.0.8, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Capgemini.Cauldron.Activator.1.0.1\lib\net452\Cauldron.Activator.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Cauldron.Core, Version=1.0.0.8, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Capgemini.Cauldron.Core.1.0.1\lib\net452\Cauldron.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Cauldron.Cryptography, Version=1.0.0.8, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Capgemini.Cauldron.Cryptography.1.0.1\lib\net452\Cauldron.Cryptography.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Cauldron.IEnumerableExtensions, Version=1.0.0.8, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Capgemini.Cauldron.IEnumerableExtensions.1.0.1\lib\net452\Cauldron.IEnumerableExtensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -328,32 +346,6 @@
       <Link>XmlDeserializer.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Cauldron.Core\Cauldron.Desktop.Core.csproj">
-      <Project>{0B23E7BE-0E65-4A53-988F-67A0E9EEEA2E}</Project>
-      <Name>Cauldron.Desktop.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Cauldron.Desktop.Activator\Cauldron.Desktop.Activator.csproj">
-      <Project>{6E8A953E-2732-4A58-BC7B-F86B1A5CA5DD}</Project>
-      <Name>Cauldron.Desktop.Activator</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Cauldron.Desktop.Cryptography\Cauldron.Desktop.Cryptography.csproj">
-      <Project>{d20bc350-336c-4e82-9848-773de5abac39}</Project>
-      <Name>Cauldron.Desktop.Cryptography</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Cauldron.Desktop.IEnumerableExtensions\Cauldron.Desktop.IEnumerableExtensions.csproj">
-      <Project>{6aa1bcea-a613-4c58-8d1f-71f606665f2a}</Project>
-      <Name>Cauldron.Desktop.IEnumerableExtensions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Cauldron.Desktop.Injection\Cauldron.Desktop.Injection.csproj">
-      <Project>{D8302F3F-4451-4128-9C0D-6492A37B2625}</Project>
-      <Name>Cauldron.Desktop.Injection</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Cauldron.Desktop.Potions\Cauldron.Desktop.Potions.csproj">
-      <Project>{776CD80A-6EDD-4F41-BFD8-CFF99546B6E3}</Project>
-      <Name>Cauldron.Desktop.Potions</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Resources\GroupId.bin">

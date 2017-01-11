@@ -1,6 +1,5 @@
 ﻿using Cauldron.Core;
 using Cauldron.Core.Extensions;
-using Cauldron.Potions;
 using System;
 using System.Threading.Tasks;
 using Windows.Storage;
@@ -23,7 +22,7 @@ namespace EveOnlineApi.WebService
         }
 
         public virtual Task<bool> IsValid(string key) =>
-            Task.FromResult(!Network.CreateInstance().HasInternetConnection);
+            Task.FromResult(!Network.HasInternetConnection);
 
         public virtual async Task SetCache<TResult>(string key, string content, TResult result)
         {
