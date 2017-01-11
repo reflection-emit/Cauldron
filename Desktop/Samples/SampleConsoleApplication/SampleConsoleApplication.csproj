@@ -33,6 +33,26 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Cauldron.Activator, Version=1.0.0.8, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Capgemini.Cauldron.Activator.1.0.1\lib\net452\Cauldron.Activator.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Cauldron.Consoles, Version=1.0.0.8, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Capgemini.Cauldron.Consoles.1.0.1\lib\net452\Cauldron.Consoles.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Cauldron.Core, Version=1.0.0.8, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Capgemini.Cauldron.Core.1.0.1\lib\net452\Cauldron.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Cauldron.IEnumerableExtensions, Version=1.0.0.8, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Capgemini.Cauldron.IEnumerableExtensions.1.0.1\lib\net452\Cauldron.IEnumerableExtensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Cauldron.Localization, Version=1.0.0.8, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Capgemini.Cauldron.Localization.1.0.1\lib\net452\Cauldron.Localization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -49,16 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Cauldron.Core\Cauldron.Desktop.Core.csproj">
-      <Project>{0B23E7BE-0E65-4A53-988F-67A0E9EEEA2E}</Project>
-      <Name>Cauldron.Desktop.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Cauldron.Desktop.Consoles\Cauldron.Desktop.Consoles.csproj">
-      <Project>{00c29751-1557-46a8-9547-f74065b36592}</Project>
-      <Name>Cauldron.Desktop.Consoles</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

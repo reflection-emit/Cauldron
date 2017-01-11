@@ -38,6 +38,22 @@
     <ApplicationIcon>..\EveMarket\hey.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Cauldron.Activator, Version=1.0.0.8, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Capgemini.Cauldron.Activator.1.0.1\lib\net452\Cauldron.Activator.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Cauldron.Core, Version=1.0.0.8, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Capgemini.Cauldron.Core.1.0.1\lib\net452\Cauldron.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Cauldron.IEnumerableExtensions, Version=1.0.0.8, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Capgemini.Cauldron.IEnumerableExtensions.1.0.1\lib\net452\Cauldron.IEnumerableExtensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Cauldron.Localization, Version=1.0.0.8, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Capgemini.Cauldron.Localization.1.0.1\lib\net452\Cauldron.Localization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -96,6 +112,7 @@
     <EmbeddedResource Include="..\..\..\UWP\Samples\InputValidation\validation_text.yaml">
       <Link>validation_text.yaml</Link>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -116,18 +133,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Cauldron.Core\Cauldron.Desktop.Core.csproj">
-      <Project>{0b23e7be-0e65-4a53-988f-67a0e9eeea2e}</Project>
-      <Name>Cauldron.Desktop.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Cauldron.Desktop.Activator\Cauldron.Desktop.Activator.csproj">
-      <Project>{6e8a953e-2732-4a58-bc7b-f86b1a5ca5dd}</Project>
-      <Name>Cauldron.Desktop.Activator</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Cauldron.Desktop.Localization\Cauldron.Desktop.Localization.csproj">
-      <Project>{0c1146b3-ada7-4b8b-921c-cb73f665b4ff}</Project>
-      <Name>Cauldron.Desktop.Localization</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Cauldron.Desktop.XAML.Interactivity\Cauldron.Desktop.XAML.Interactivity.csproj">
       <Project>{d09d5044-4799-4ccf-997d-31f10b6fce24}</Project>
       <Name>Cauldron.Desktop.XAML.Interactivity</Name>
