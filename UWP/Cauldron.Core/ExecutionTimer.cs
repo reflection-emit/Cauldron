@@ -6,12 +6,14 @@ namespace Cauldron.Core
 {
     /// <summary>
     /// Provides a simple performace measurement of a code block
+    /// </summary>
+    /// <example>
     /// <code>
     /// using(var perf = new ExecutionTimer())
     /// {
     /// }
     /// </code>
-    /// </summary>
+    /// </example>
     public sealed class ExecutionTimer : DisposableBase
     {
         private string memberName;

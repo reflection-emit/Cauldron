@@ -83,6 +83,38 @@ namespace Cauldron.Core
         /// </summary>
         /// <typeparam name="TEnum">The enum type</typeparam>
         /// <returns>A dictionary of display names with the enum value member as key</returns>
+        /// <example>
+        /// <code>
+        /// using System;
+        /// using Cauldon.Core;
+        ///
+        /// public enum TestEnum
+        /// {
+        ///     [DisplayName("FIRST")]
+        ///     One,
+        ///     [DisplayName("SECOND")]
+        ///     Two,
+        ///     [DisplayName("THIRD")]
+        ///     Three
+        /// }
+        ///
+        /// public class Program
+        /// {
+        ///     private static TestEnum GetValue(string value) =&gt;
+        ///         MiscUtils
+        ///             .GetDisplayNames&lt;TestEnum&gt;()
+        ///             .FirstOrDefault(x =&gt; x.Value == value)
+        ///             .Key;
+        ///
+        ///     public static Main(string[] args)
+        ///     {
+        ///         var value = GetValue("SECOND");
+        ///         // Output: Two
+        ///         Console.WriteLine(value);
+        ///     }
+        /// }
+        /// </code>
+        /// </example>
         public static IReadOnlyDictionary<TEnum, string> GetDisplayNames<TEnum>() where TEnum : struct, IConvertible
         {
             var enumType = typeof(TEnum);

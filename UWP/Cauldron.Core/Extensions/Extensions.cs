@@ -785,6 +785,11 @@ namespace Cauldron.Core.Extensions
         /// </summary>
         /// <param name="data">The byte array that contains the string to be encoded</param>
         /// <returns>The encoded string</returns>
+        /// <example>
+        /// <code>
+        /// var text = Assemblies.GetManifestResource("embedded-text.txt").TryEncode();
+        /// </code>
+        /// </example>
         public static string TryEncode(this byte[] data)
         {
             // Original: http://stackoverflow.com/questions/1025332/determine-a-strings-encoding-in-c-sharp

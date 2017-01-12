@@ -37,7 +37,7 @@ namespace Cauldron.Core
         }
 
         /// <summary>
-        /// Occures if the <see cref="_assemblies"/> has changed
+        /// Occures if the assembly dictionary has changed
         /// </summary>
         public static event EventHandler<AssemblyAddedEventArgs> LoadedAssemblyChanged;
 
@@ -311,8 +311,8 @@ namespace Cauldron.Core
         /// </summary>
         /// <param name="directory">The directory where the assemblies are located</param>
         /// <param name="filter">
-        /// The search string to match against the names of files in <see cref="ApplicationInfo.ApplicationPath"/>. This parameter can contain a combination of
-        /// valid literal path and wildcard (* and ?) characters (see Remarks), but doesn't support regular expressions.
+        /// The search string to match against the names of files in <paramref name="directory"/>. This parameter can contain a combination of
+        /// valid literal path and wildcard (* and ?) characters, but doesn't support regular expressions.
         /// </param>
         /// <exception cref="FileLoadException">A file that was found could not be loaded</exception>
         public static void LoadAssembly(DirectoryInfo directory, string filter = "*.dll")
