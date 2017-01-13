@@ -10,9 +10,11 @@ namespace SampleConsoleApplication
         {
             try
             {
-                var parser = new ParameterParser(new MainExecutionGroup());
+                var parser = new ParameterParser(new MainExecutionGroup(), new EveMarketExecutionGroup());
                 parser.Parse(args);
-                parser.Execute();
+
+                if (!parser.Execute())
+                    parser.ShowHelp();
             }
             catch (RequiredParametersMissingException requiredE)
             {
@@ -29,8 +31,6 @@ namespace SampleConsoleApplication
                 Console.WriteLine(e.GetStackTrace());
                 Environment.Exit(-10);
             }
-
-            Console.ReadKey();
         }
     }
 }

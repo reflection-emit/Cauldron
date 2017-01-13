@@ -1,29 +1,36 @@
 ﻿using Cauldron.Consoles;
+using Cauldron.Localization;
 using System;
+using System.Globalization;
 
 namespace SampleConsoleApplication
 {
-    [ExecutionGroup("mainGroup", "-n My Name -N 73")]
+    [ExecutionGroup("mainGroup")]
     public sealed class MainExecutionGroup : IExecutionGroup
     {
-        [Parameter("help-help", "help", "h", "")]
+        [Parameter("help", "help", "h")]
         public bool Help { get; private set; }
 
-        [Parameter("name-help", "name", "n")]
-        public string Name { get; private set; }
-
-        [Parameter("number-help", "number", "N")]
-        public int? Number { get; private set; }
-
-        [Parameter("path-help", "p")]
-        public string Path { get; private set; }
+        [Parameter("language", true, "lang", "L")]
+        public string Language { get; private set; }
 
         public void Execute(ParameterParser parser)
         {
-            if (Help)
+            var parameters = parser.GetActiveParameters(this);
+
+            if (parameters.Contains(nameof(Language)))
+            {
+                if (string.IsNullOrEmpty(this.Language))
+                    Console.WriteLine(Locale.Current.CultureInfo.DisplayName);
+                else
+                {
+                    Locale.Current.CultureInfo = new CultureInfo(this.Language);
+                    Console.WriteLine(Locale.Current.CultureInfo.DisplayName);
+                }
+            }
+
+            if (this.Help)
                 parser.ShowHelp();
-            else
-                Console.WriteLine(this.Path);
         }
     }
 }

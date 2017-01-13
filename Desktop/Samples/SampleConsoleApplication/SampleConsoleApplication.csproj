@@ -45,12 +45,24 @@
       <HintPath>..\..\..\packages\Capgemini.Cauldron.Core.1.0.1\lib\net452\Cauldron.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Cauldron.Cryptography, Version=1.0.0.8, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Capgemini.Cauldron.Cryptography.1.0.1\lib\net452\Cauldron.Cryptography.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Cauldron.IEnumerableExtensions, Version=1.0.0.8, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Capgemini.Cauldron.IEnumerableExtensions.1.0.1\lib\net452\Cauldron.IEnumerableExtensions.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Cauldron.Localization, Version=1.0.0.8, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Capgemini.Cauldron.Localization.1.0.1\lib\net452\Cauldron.Localization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EveOnlineApi, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\EveOnlineApi.NET.1.0.0\lib\net452\EveOnlineApi.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -63,6 +75,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EveMarketExecutionGroup.cs" />
+    <Compile Include="LocaleSource.cs" />
     <Compile Include="MainExecutionGroup.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -70,6 +84,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <EmbeddedResource Include="string.yaml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
