@@ -26,7 +26,7 @@ namespace Cauldron.Localization
             if (!Factory.HasContract(typeof(ILocalizationSource)))
                 throw new Exception("There is no valid implementation of 'ILocalizationSource' found");
 
-            this.source = Factory.CreateMany<ILocalizationSource>()?.ToArray();
+            this.Rebuild();
 
 #if WINDOWS_UWP
             this.CultureInfo = new CultureInfo(Windows.System.UserProfile.GlobalizationPreferences.Languages[0]);
@@ -148,6 +148,14 @@ namespace Cauldron.Localization
 #else
             return CultureInfo.CurrentCulture;
 #endif
+        }
+
+        /// <summary>
+        /// Rebuilds the localization source.
+        /// </summary>
+        public void Rebuild()
+        {
+            this.source = Factory.CreateMany<ILocalizationSource>()?.ToArray();
         }
     }
 }
