@@ -41,6 +41,10 @@ namespace Cauldron.Core.Formatters
             if (format.StartsWith(metricKey))
             {
                 var value = arg.ToString().ToDouble();
+
+                if (double.IsNaN(value))
+                    return "NaN";
+
                 var formatter = "#0.00";
 
                 if (format.IndexOf(' ') > 0)

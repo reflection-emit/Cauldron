@@ -52,7 +52,7 @@ namespace SampleConsoleApplication
                     {
                         new ConsoleTableColumn(items.Select(x=>x.Value.Id.ToString())),
                         new ConsoleTableColumn(items.Select(x=>x.Value.Name)) { Width = 4 },
-                        new ConsoleTableColumn(items.Select(x=>Locale.Current[ Api.Current.GetItemAveragePrice(x.Value.Id)] + " ISK")) { Width = 2, Alignment= ColumnAlignment.Right }
+                        new ConsoleTableColumn(items.Select(x=> Locale.Current[Api.Current.GetItemAveragePrice(x.Value.Id)] + " ISK")) { Width = 2, Alignment= ColumnAlignment.Right }
                 });
                 }
                 else
