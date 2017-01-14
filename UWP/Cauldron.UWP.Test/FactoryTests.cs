@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using System.Reflection;
+using Cauldron.Core.Extensions;
 
 #if WINDOWS_UWP
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;

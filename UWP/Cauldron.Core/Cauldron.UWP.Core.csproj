@@ -140,6 +140,9 @@
     <Compile Include="Extensions\ExtensionsReflection.cs" />
     <Compile Include="Extensions\ExtensionsStorageItem.cs" />
     <Compile Include="Extensions\ExtensionsXmlDocument.cs" />
+    <Compile Include="Formatters\Formatter.cs" />
+    <Compile Include="Formatters\FormatterBase.cs" />
+    <Compile Include="Formatters\MetricUnitFormatter.cs" />
     <Compile Include="HashAlgorithms.cs" />
     <Compile Include="ICloneable.cs" />
     <Compile Include="IDisposableObject.cs" />
@@ -147,7 +150,7 @@
     <Compile Include="MessageManager.cs" />
     <Compile Include="MessageObject.cs" />
     <Compile Include="MessagingArgs.cs" />
-    <Compile Include="ByteSizeFormatter.cs" />
+    <Compile Include="Formatters\ByteSizeFormatter.cs" />
     <Compile Include="MiscUtils.cs" />
     <Compile Include="Network.cs" />
     <Compile Include="Output.cs" />

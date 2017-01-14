@@ -64,9 +64,6 @@
     <Compile Include="..\..\UWP\Cauldron.Core\AsyncHelper.cs">
       <Link>AsyncHelper.cs</Link>
     </Compile>
-    <Compile Include="..\..\UWP\Cauldron.Core\ByteSizeFormatter.cs">
-      <Link>ByteSizeFormatter.cs</Link>
-    </Compile>
     <Compile Include="..\..\UWP\Cauldron.Core\Collections\ConcurrentKeyedCollection.cs">
       <Link>Collections\ConcurrentKeyedCollection.cs</Link>
     </Compile>
@@ -120,6 +117,18 @@
     </Compile>
     <Compile Include="..\..\UWP\Cauldron.Core\Extensions\ExtensionsReflection.cs">
       <Link>Extensions\ExtensionsReflection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\Formatters\ByteSizeFormatter.cs">
+      <Link>Formatters\ByteSizeFormatter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\Formatters\Formatter.cs">
+      <Link>Formatters\Formatter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\Formatters\FormatterBase.cs">
+      <Link>Formatters\FormatterBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\Formatters\MetricUnitFormatter.cs">
+      <Link>Formatters\MetricUnitFormatter.cs</Link>
     </Compile>
     <Compile Include="..\..\UWP\Cauldron.Core\HashAlgorithms.cs">
       <Link>HashAlgorithms.cs</Link>
