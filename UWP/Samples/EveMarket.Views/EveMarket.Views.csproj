@@ -147,48 +147,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Cauldron.Core\Cauldron.UWP.Core.csproj">
-      <Project>{e977dae7-c754-4da7-b7dc-bca8b1c0ce09}</Project>
-      <Name>Cauldron.UWP.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Cauldron.UWP.Activator\Cauldron.UWP.Activator.csproj">
-      <Project>{a80a73e9-825b-4032-ae6b-a6c4340dc0fc}</Project>
-      <Name>Cauldron.UWP.Activator</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Cauldron.UWP.Cryptography\Cauldron.UWP.Cryptography.csproj">
-      <Project>{1890c23c-8e1a-4216-9f8c-69ddb81bb61c}</Project>
-      <Name>Cauldron.UWP.Cryptography</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Cauldron.UWP.IEnumerableExtensions\Cauldron.UWP.IEnumerableExtensions.csproj">
-      <Project>{726ca3ac-9bae-4074-aca0-a5872a5b1d84}</Project>
-      <Name>Cauldron.UWP.IEnumerableExtensions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Cauldron.UWP.Injection\Cauldron.UWP.Injection.csproj">
-      <Project>{9789f677-3774-4c31-a34b-f13501d48a8e}</Project>
-      <Name>Cauldron.UWP.Injection</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Cauldron.UWP.Localization\Cauldron.UWP.Localization.csproj">
-      <Project>{3758d2e9-3a20-4b19-9c38-0c393f25d784}</Project>
-      <Name>Cauldron.UWP.Localization</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Cauldron.UWP.Potions\Cauldron.UWP.Potions.csproj">
-      <Project>{8a8cb406-4b9c-4ae8-8f04-68b501aa4218}</Project>
-      <Name>Cauldron.UWP.Potions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Cauldron.UWP.XAML.Interactivity\Cauldron.UWP.XAML.Interactivity.csproj">
-      <Project>{3973e03e-8401-4129-ac62-97b000b51ed8}</Project>
-      <Name>Cauldron.UWP.XAML.Interactivity</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Cauldron.UWP.XAML.Validation\Cauldron.UWP.XAML.Validation.csproj">
-      <Project>{4d6c8285-6e45-40e9-ade3-cf0ceb665c8e}</Project>
-      <Name>Cauldron.UWP.XAML.Validation</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Cauldron.UWP.XAML\Cauldron.UWP.XAML.csproj">
-      <Project>{766a1588-8618-4d3f-a9e4-631216b8a5d2}</Project>
-      <Name>Cauldron.UWP.XAML</Name>
-    </ProjectReference>
-  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

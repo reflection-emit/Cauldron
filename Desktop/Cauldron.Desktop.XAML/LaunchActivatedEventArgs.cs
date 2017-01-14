@@ -1,5 +1,5 @@
 ﻿using Cauldron.Activator;
-using Cauldron.Potions;
+using Cauldron.Core;
 
 namespace Cauldron.XAML
 {
@@ -21,6 +21,6 @@ namespace Cauldron.XAML
         /// <summary>
         /// Gets the user that the app was activated for.
         /// </summary>
-        public IUserInformation User { get { return Factory.Create<IUserInformation>(); } }
+        public User User { get { return UserInformation.CurrentUser; } }
     }
 }

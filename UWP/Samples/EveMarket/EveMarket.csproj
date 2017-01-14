@@ -129,38 +129,6 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Cauldron.Core\Cauldron.UWP.Core.csproj">
-      <Project>{E977DAE7-C754-4DA7-B7DC-BCA8B1C0CE09}</Project>
-      <Name>Cauldron.UWP.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Cauldron.UWP.Activator\Cauldron.UWP.Activator.csproj">
-      <Project>{a80a73e9-825b-4032-ae6b-a6c4340dc0fc}</Project>
-      <Name>Cauldron.UWP.Activator</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Cauldron.UWP.Cryptography\Cauldron.UWP.Cryptography.csproj">
-      <Project>{1890c23c-8e1a-4216-9f8c-69ddb81bb61c}</Project>
-      <Name>Cauldron.UWP.Cryptography</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Cauldron.UWP.Injection\Cauldron.UWP.Injection.csproj">
-      <Project>{9789F677-3774-4C31-A34B-F13501D48A8E}</Project>
-      <Name>Cauldron.UWP.Injection</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Cauldron.UWP.Localization\Cauldron.UWP.Localization.csproj">
-      <Project>{3758D2E9-3A20-4B19-9C38-0C393F25D784}</Project>
-      <Name>Cauldron.UWP.Localization</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Cauldron.UWP.Potions\Cauldron.UWP.Potions.csproj">
-      <Project>{8A8CB406-4B9C-4AE8-8F04-68B501AA4218}</Project>
-      <Name>Cauldron.UWP.Potions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Cauldron.UWP.XAML.Interactivity\Cauldron.UWP.XAML.Interactivity.csproj">
-      <Project>{3973e03e-8401-4129-ac62-97b000b51ed8}</Project>
-      <Name>Cauldron.UWP.XAML.Interactivity</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Cauldron.UWP.XAML\Cauldron.UWP.XAML.csproj">
-      <Project>{766A1588-8618-4D3F-A9E4-631216B8A5D2}</Project>
-      <Name>Cauldron.UWP.XAML</Name>
-    </ProjectReference>
     <ProjectReference Include="..\EveMarket.Views\EveMarket.Views.csproj">
       <Project>{1e471083-c224-41a1-aa47-266ce945146c}</Project>
       <Name>EveMarket.Views</Name>

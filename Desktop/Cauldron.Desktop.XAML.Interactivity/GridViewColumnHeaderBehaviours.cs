@@ -1,6 +1,5 @@
 ﻿using Cauldron.Core;
 using Cauldron.Core.Extensions;
-using Cauldron.Potions;
 using Cauldron.XAML.Interactivity.Attached;
 using System;
 using System.Collections.Generic;

@@ -22,6 +22,11 @@ namespace Cauldron.Core
         }
 
         /// <summary>
+        /// Gets the current user
+        /// </summary>
+        public static User CurrentUser { get { return currentUser; } }
+
+        /// <summary>
         /// Gets a value that indicates if the user account is local or domain.
         /// <para/>
         /// Returns true if the account is a local account, otherwise false

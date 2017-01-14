@@ -1,5 +1,9 @@
 ﻿{
   "dependencies": {
+    "Capgemini.Cauldron.Activator": "1.0.1",
+    "Capgemini.Cauldron.Core": "1.0.1",
+    "Capgemini.Cauldron.Cryptography": "1.0.1",
+    "Capgemini.Cauldron.IEnumerableExtensions": "1.0.1",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
     "Newtonsoft.Json": "9.0.1"
   },

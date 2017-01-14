@@ -11,7 +11,7 @@ https://reflection-emit.github.io/Cauldron/eveonline/
 - [Sandcastle Help File Builder](https://github.com/EWSoftware/SHFB/releases)
 - [CodeMaid](http://www.codemaid.net/)
 ## Release Notes
-### Version 1.0.0.9
+### Assembly Version 1.0.0.9 - NuGet 1.0.2
 - ByteSizeFormatter namespace is now Cauldron.Core.Formatters
 - MetricUnitFormatter added
 - ToStringEx extension method added

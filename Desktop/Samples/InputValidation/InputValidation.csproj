@@ -39,19 +39,35 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Cauldron.Activator, Version=1.0.0.8, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Capgemini.Cauldron.Activator.1.0.1\lib\net452\Cauldron.Activator.dll</HintPath>
+      <HintPath>..\..\..\packages\Capgemini.Cauldron.Activator.1.0.2\lib\net452\Cauldron.Activator.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Cauldron.Core, Version=1.0.0.8, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Capgemini.Cauldron.Core.1.0.1\lib\net452\Cauldron.Core.dll</HintPath>
+    <Reference Include="Cauldron.Core, Version=1.0.0.9, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Capgemini.Cauldron.Core.1.0.2\lib\net452\Cauldron.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Cauldron.Cryptography, Version=1.0.0.8, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Capgemini.Cauldron.Cryptography.1.0.2\lib\net452\Cauldron.Cryptography.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Cauldron.IEnumerableExtensions, Version=1.0.0.8, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Capgemini.Cauldron.IEnumerableExtensions.1.0.1\lib\net452\Cauldron.IEnumerableExtensions.dll</HintPath>
+      <HintPath>..\..\..\packages\Capgemini.Cauldron.IEnumerableExtensions.1.0.2\lib\net452\Cauldron.IEnumerableExtensions.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Cauldron.Localization, Version=1.0.0.8, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Capgemini.Cauldron.Localization.1.0.1\lib\net452\Cauldron.Localization.dll</HintPath>
+      <HintPath>..\..\..\packages\Capgemini.Cauldron.Localization.1.0.2\lib\net452\Cauldron.Localization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Cauldron.XAML, Version=1.0.0.8, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Capgemini.Cauldron.XAML.1.0.2\lib\net452\Cauldron.XAML.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Cauldron.XAML.Interactivity, Version=1.0.0.8, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Capgemini.Cauldron.XAML.Interactivity.1.0.2\lib\net452\Cauldron.XAML.Interactivity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Cauldron.XAML.Validation, Version=1.0.0.8, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Capgemini.Cauldron.XAML.Validation.1.0.2\lib\net452\Cauldron.XAML.Validation.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -131,20 +147,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Cauldron.Desktop.XAML.Interactivity\Cauldron.Desktop.XAML.Interactivity.csproj">
-      <Project>{d09d5044-4799-4ccf-997d-31f10b6fce24}</Project>
-      <Name>Cauldron.Desktop.XAML.Interactivity</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Cauldron.Desktop.XAML.Validation\Cauldron.Desktop.XAML.Validation.csproj">
-      <Project>{362950dc-8fad-4675-8a74-e80a0ddf2bbd}</Project>
-      <Name>Cauldron.Desktop.XAML.Validation</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Cauldron.Desktop.XAML\Cauldron.Desktop.XAML.csproj">
-      <Project>{a6a45af3-6c56-4906-8c5c-8ad557aa89c7}</Project>
-      <Name>Cauldron.Desktop.XAML</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="..\EveMarket\hey.ico">

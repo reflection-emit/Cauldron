@@ -1462,8 +1462,8 @@
     <HelpKINode Title="ItemType.Mass Property " Url="html/P_EveOnlineApi_Models_StaticData_ItemType_Mass.htm" />
   </HelpKINode>
   <HelpKINode Title="Memory property" Url="html/P_EveOnlineApi_Models_CharacterSheet_Memory.htm" />
-  <HelpKINode Title="MessageId property" Url="html/P_EveOnlineApi_Models_MailMessageItem_MessageId.htm" />
   <HelpKINode Title="MessageID property" Url="html/P_EveOnlineApi_Models_MailBody_MessageID.htm" />
+  <HelpKINode Title="MessageId property" Url="html/P_EveOnlineApi_Models_MailMessageItem_MessageId.htm" />
   <HelpKINode Title="MinimumVolume property" Url="html/P_EveOnlineApi_Models_QuicklookOrder_MinimumVolume.htm" />
   <HelpKINode Title="ModelCollection(Of T) class">
     <HelpKINode Title="ModelCollection(T) Class" Url="html/T_EveOnlineApi_Models_ModelCollection_1.htm" />
@@ -1959,8 +1959,8 @@
   </HelpKINode>
   <HelpKINode Title="SolarSystemCollection.SolarSystemCollection constructor" Url="html/M_EveOnlineApi_Models_StaticData_SolarSystemCollection__ctor.htm" />
   <HelpKINode Title="SolarSystemId property">
-    <HelpKINode Title="NpcStation.SolarSystemId Property " Url="html/P_EveOnlineApi_Models_StaticData_NpcStation_SolarSystemId.htm" />
     <HelpKINode Title="NpcCorporation.SolarSystemId Property " Url="html/P_EveOnlineApi_Models_StaticData_NpcCorporation_SolarSystemId.htm" />
+    <HelpKINode Title="NpcStation.SolarSystemId Property " Url="html/P_EveOnlineApi_Models_StaticData_NpcStation_SolarSystemId.htm" />
   </HelpKINode>
   <HelpKINode Title="SolarSystemID property" Url="html/P_EveOnlineApi_Models_ConquerableStation_SolarSystemID.htm" />
   <HelpKINode Title="SolarSystemInfo class">
@@ -2043,12 +2043,12 @@
   </HelpKINode>
   <HelpKINode Title="TypeId property">
     <HelpKINode Title="AssetItem.TypeId Property " Url="html/P_EveOnlineApi_Models_AssetItem_TypeId.htm" />
-    <HelpKINode Title="RefTypeItem.TypeId Property " Url="html/P_EveOnlineApi_Models_StaticData_RefTypeItem_TypeId.htm" />
     <HelpKINode Title="Implant.TypeId Property " Url="html/P_EveOnlineApi_Models_Implant_TypeId.htm" />
     <HelpKINode Title="JumpClone.TypeId Property " Url="html/P_EveOnlineApi_Models_JumpClone_TypeId.htm" />
     <HelpKINode Title="JumpCloneImplant.TypeId Property " Url="html/P_EveOnlineApi_Models_JumpCloneImplant_TypeId.htm" />
-    <HelpKINode Title="Notification.TypeId Property " Url="html/P_EveOnlineApi_Models_Notification_TypeId.htm" />
+    <HelpKINode Title="RefTypeItem.TypeId Property " Url="html/P_EveOnlineApi_Models_StaticData_RefTypeItem_TypeId.htm" />
     <HelpKINode Title="Skill.TypeId Property " Url="html/P_EveOnlineApi_Models_Skill_TypeId.htm" />
+    <HelpKINode Title="Notification.TypeId Property " Url="html/P_EveOnlineApi_Models_Notification_TypeId.htm" />
   </HelpKINode>
   <HelpKINode Title="TypeID property" Url="html/P_EveOnlineApi_Models_SkillQueue_TypeID.htm" />
   <HelpKINode Title="TypeName property">

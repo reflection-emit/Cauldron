@@ -123,32 +123,6 @@
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Cauldron.Core\Cauldron.UWP.Core.csproj">
-      <Project>{e977dae7-c754-4da7-b7dc-bca8b1c0ce09}</Project>
-      <Name>Cauldron.UWP.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Cauldron.UWP.Activator\Cauldron.UWP.Activator.csproj">
-      <Project>{a80a73e9-825b-4032-ae6b-a6c4340dc0fc}</Project>
-      <Name>Cauldron.UWP.Activator</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Cauldron.UWP.Injection\Cauldron.UWP.Injection.csproj">
-      <Project>{9789F677-3774-4C31-A34B-F13501D48A8E}</Project>
-      <Name>Cauldron.UWP.Injection</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Cauldron.UWP.Localization\Cauldron.UWP.Localization.csproj">
-      <Project>{3758D2E9-3A20-4B19-9C38-0C393F25D784}</Project>
-      <Name>Cauldron.UWP.Localization</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Cauldron.UWP.XAML.Interactivity\Cauldron.UWP.XAML.Interactivity.csproj">
-      <Project>{3973e03e-8401-4129-ac62-97b000b51ed8}</Project>
-      <Name>Cauldron.UWP.XAML.Interactivity</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Cauldron.UWP.XAML\Cauldron.UWP.XAML.csproj">
-      <Project>{766A1588-8618-4D3F-A9E4-631216B8A5D2}</Project>
-      <Name>Cauldron.UWP.XAML</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <SubType>Designer</SubType>
     </ApplicationDefinition>

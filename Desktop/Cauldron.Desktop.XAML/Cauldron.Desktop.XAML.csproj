@@ -202,10 +202,6 @@
       <Project>{0c1146b3-ada7-4b8b-921c-cb73f665b4ff}</Project>
       <Name>Cauldron.Desktop.Localization</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Cauldron.Desktop.Potions\Cauldron.Desktop.Potions.csproj">
-      <Project>{776CD80A-6EDD-4F41-BFD8-CFF99546B6E3}</Project>
-      <Name>Cauldron.Desktop.Potions</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions.Desktop.cs" />

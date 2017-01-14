@@ -26,6 +26,7 @@
     <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\EveOnlineApi.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -35,6 +36,7 @@
     <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\EveOnlineApi.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <PlatformTarget>x86</PlatformTarget>
@@ -209,32 +211,6 @@
     <Compile Include="WebService\XmlDeserializer.cs" />
     <Compile Include="XmlDeserializer.cs" />
     <EmbeddedResource Include="Properties\EveOnlineApi.UWP.rd.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Cauldron.Core\Cauldron.UWP.Core.csproj">
-      <Project>{E977DAE7-C754-4DA7-B7DC-BCA8B1C0CE09}</Project>
-      <Name>Cauldron.UWP.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Cauldron.UWP.Activator\Cauldron.UWP.Activator.csproj">
-      <Project>{A80A73E9-825B-4032-AE6B-A6C4340DC0FC}</Project>
-      <Name>Cauldron.UWP.Activator</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Cauldron.UWP.Cryptography\Cauldron.UWP.Cryptography.csproj">
-      <Project>{1890c23c-8e1a-4216-9f8c-69ddb81bb61c}</Project>
-      <Name>Cauldron.UWP.Cryptography</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Cauldron.UWP.IEnumerableExtensions\Cauldron.UWP.IEnumerableExtensions.csproj">
-      <Project>{726CA3AC-9BAE-4074-ACA0-A5872A5B1D84}</Project>
-      <Name>Cauldron.UWP.IEnumerableExtensions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Cauldron.UWP.Injection\Cauldron.UWP.Injection.csproj">
-      <Project>{9789F677-3774-4C31-A34B-F13501D48A8E}</Project>
-      <Name>Cauldron.UWP.Injection</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Cauldron.UWP.Potions\Cauldron.UWP.Potions.csproj">
-      <Project>{8A8CB406-4B9C-4AE8-8F04-68B501AA4218}</Project>
-      <Name>Cauldron.UWP.Potions</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

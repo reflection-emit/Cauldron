@@ -400,14 +400,13 @@
   <HelpKINode Title="ButtonProperties.Text attached property" Url="html/P_Cauldron_XAML_Interactivity_Attached_ButtonProperties_Text.htm" />
   <HelpKINode Title="ButtonProperties.TextProperty field" Url="html/F_Cauldron_XAML_Interactivity_Attached_ButtonProperties_TextProperty.htm" />
   <HelpKINode Title="ByteSizeFormatter class">
-    <HelpKINode Title="ByteSizeFormatter Class" Url="html/T_Cauldron_Core_ByteSizeFormatter.htm" />
-    <HelpKINode Title="about ByteSizeFormatter class" Url="html/T_Cauldron_Core_ByteSizeFormatter.htm" />
-    <HelpKINode Title="constructor" Url="html/M_Cauldron_Core_ByteSizeFormatter__ctor.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_ByteSizeFormatter.htm" />
+    <HelpKINode Title="ByteSizeFormatter Class" Url="html/T_Cauldron_Core_Formatters_ByteSizeFormatter.htm" />
+    <HelpKINode Title="about ByteSizeFormatter class" Url="html/T_Cauldron_Core_Formatters_ByteSizeFormatter.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Cauldron_Core_Formatters_ByteSizeFormatter__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Formatters_ByteSizeFormatter.htm" />
   </HelpKINode>
-  <HelpKINode Title="ByteSizeFormatter.ByteSizeFormatter constructor" Url="html/M_Cauldron_Core_ByteSizeFormatter__ctor.htm" />
-  <HelpKINode Title="ByteSizeFormatter.Format method" Url="html/M_Cauldron_Core_ByteSizeFormatter_Format.htm" />
-  <HelpKINode Title="ByteSizeFormatter.GetFormat method" Url="html/M_Cauldron_Core_ByteSizeFormatter_GetFormat.htm" />
+  <HelpKINode Title="ByteSizeFormatter.ByteSizeFormatter constructor" Url="html/M_Cauldron_Core_Formatters_ByteSizeFormatter__ctor.htm" />
+  <HelpKINode Title="ByteSizeFormatter.OnFormat method" Url="html/M_Cauldron_Core_Formatters_ByteSizeFormatter_OnFormat.htm" />
   <HelpKINode Title="CallBack method" Url="html/M_Cauldron_Core_WebAuthenticationBrokerWrapper_CallBack.htm" />
   <HelpKINode Title="Cancel property" Url="html/P_Cauldron_XAML_Navigation_NavigatingInfo_Cancel.htm" />
   <HelpKINode Title="CANCELJOURNAL enumeration member" Url="html/T_Cauldron_Core_WindowsMessages.htm" />
@@ -476,7 +475,6 @@
   <HelpKINode Title="Cauldron.Core.Assemblies.AssemblyAddedEventArgs class" Url="html/T_Cauldron_Core_Assemblies_AssemblyAddedEventArgs.htm" />
   <HelpKINode Title="Cauldron.Core.AssemblyAndResourceNameInfo class" Url="html/T_Cauldron_Core_AssemblyAndResourceNameInfo.htm" />
   <HelpKINode Title="Cauldron.Core.AsyncHelper class" Url="html/T_Cauldron_Core_AsyncHelper.htm" />
-  <HelpKINode Title="Cauldron.Core.ByteSizeFormatter class" Url="html/T_Cauldron_Core_ByteSizeFormatter.htm" />
   <HelpKINode Title="Cauldron.Core.Collections namespace" Url="html/N_Cauldron_Core_Collections.htm" />
   <HelpKINode Title="Cauldron.Core.Collections.ConcurrentKeyedCollection(Of TKey, TItem) class" Url="html/T_Cauldron_Core_Collections_ConcurrentKeyedCollection_2.htm" />
   <HelpKINode Title="Cauldron.Core.Collections.ConcurrentKeyedCollection&lt;TKey, TItem&gt; class" Url="html/T_Cauldron_Core_Collections_ConcurrentKeyedCollection_2.htm" />
@@ -507,6 +505,10 @@
   <HelpKINode Title="Cauldron.Core.Extensions.ExtensionsFileIO class" Url="html/T_Cauldron_Core_Extensions_ExtensionsFileIO.htm" />
   <HelpKINode Title="Cauldron.Core.Extensions.ExtensionsReflection class" Url="html/T_Cauldron_Core_Extensions_ExtensionsReflection.htm" />
   <HelpKINode Title="Cauldron.Core.Extensions.ExtensionsXmlDocument class" Url="html/T_Cauldron_Core_Extensions_ExtensionsXmlDocument.htm" />
+  <HelpKINode Title="Cauldron.Core.Formatters namespace" Url="html/N_Cauldron_Core_Formatters.htm" />
+  <HelpKINode Title="Cauldron.Core.Formatters.ByteSizeFormatter class" Url="html/T_Cauldron_Core_Formatters_ByteSizeFormatter.htm" />
+  <HelpKINode Title="Cauldron.Core.Formatters.FormatterBase class" Url="html/T_Cauldron_Core_Formatters_FormatterBase.htm" />
+  <HelpKINode Title="Cauldron.Core.Formatters.MetricUnitFormatter class" Url="html/T_Cauldron_Core_Formatters_MetricUnitFormatter.htm" />
   <HelpKINode Title="Cauldron.Core.HashAlgorithms enumeration" Url="html/T_Cauldron_Core_HashAlgorithms.htm" />
   <HelpKINode Title="Cauldron.Core.IDisposableObject interface" Url="html/T_Cauldron_Core_IDisposableObject.htm" />
   <HelpKINode Title="Cauldron.Core.LogonType enumeration" Url="html/T_Cauldron_Core_LogonType.htm" />
@@ -896,8 +898,8 @@
   <HelpKINode Title="ConnectionGenerationTypes enumeration" Url="html/T_Cauldron_Core_ConnectionGenerationTypes.htm" />
   <HelpKINode Title="ConnectionType property">
     <HelpKINode Title="INetwork.ConnectionType Property " Url="html/P_Cauldron_Potions_INetwork_ConnectionType.htm" />
-    <HelpKINode Title="Network.ConnectionType Property " Url="html/P_Cauldron_Potions_Implementation_Network_ConnectionType.htm" />
     <HelpKINode Title="Network.ConnectionType Property " Url="html/P_Cauldron_Core_Network_ConnectionType.htm" />
+    <HelpKINode Title="Network.ConnectionType Property " Url="html/P_Cauldron_Potions_Implementation_Network_ConnectionType.htm" />
   </HelpKINode>
   <HelpKINode Title="ConsoleTableColumn class">
     <HelpKINode Title="ConsoleTableColumn Class" Url="html/T_Cauldron_Consoles_ConsoleTableColumn.htm" />
@@ -1009,6 +1011,7 @@
     <HelpKINode Title="DispatcherEx.Current Property " Url="html/P_Cauldron_Core_DispatcherEx_Current.htm" />
     <HelpKINode Title="Singleton(T).Current Property " Url="html/P_Cauldron_Activator_Singleton_1_Current.htm" />
   </HelpKINode>
+  <HelpKINode Title="CurrentUser property" Url="html/P_Cauldron_Core_UserInformation_CurrentUser.htm" />
   <HelpKINode Title="CustomCursor class">
     <HelpKINode Title="CustomCursor Class" Url="html/T_Cauldron_XAML_Interactivity_Attached_CustomCursor.htm" />
     <HelpKINode Title="about CustomCursor class" Url="html/T_Cauldron_XAML_Interactivity_Attached_CustomCursor.htm" />
@@ -1341,18 +1344,18 @@
   <HelpKINode Title="EXITSIZEMOVE enumeration member" Url="html/T_Cauldron_Core_WindowsMessages.htm" />
   <HelpKINode Title="ExportedTypes property" Url="html/P_Cauldron_Core_Assemblies_ExportedTypes.htm" />
   <HelpKINode Title="Extensions class">
-    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Core_Extensions_Extensions.htm" />
     <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Cryptography_Extensions.htm" />
-    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_IEnumerableExtensions_Extensions.htm" />
+    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Core_Extensions_Extensions.htm" />
     <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_XAML_Extensions.htm" />
-    <HelpKINode Title="about Extensions class" Url="html/T_Cauldron_Core_Extensions_Extensions.htm" />
+    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_IEnumerableExtensions_Extensions.htm" />
     <HelpKINode Title="about Extensions class" Url="html/T_Cauldron_Cryptography_Extensions.htm" />
     <HelpKINode Title="about Extensions class" Url="html/T_Cauldron_XAML_Extensions.htm" />
     <HelpKINode Title="about Extensions class" Url="html/T_Cauldron_IEnumerableExtensions_Extensions.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_IEnumerableExtensions_Extensions.htm" />
+    <HelpKINode Title="about Extensions class" Url="html/T_Cauldron_Core_Extensions_Extensions.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Cryptography_Extensions.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Extensions_Extensions.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_IEnumerableExtensions_Extensions.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_XAML_Extensions.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Extensions_Extensions.htm" />
   </HelpKINode>
   <HelpKINode Title="Extensions.Any_ method" Url="html/Overload_Cauldron_IEnumerableExtensions_Extensions_Any_.htm" />
   <HelpKINode Title="Extensions.AsBitmapImage method" Url="html/M_Cauldron_XAML_Extensions_AsBitmapImage.htm" />
@@ -1378,8 +1381,8 @@
   <HelpKINode Title="Extensions.Foreach(Of T) method" Url="html/M_Cauldron_Core_Extensions_Extensions_Foreach__1.htm" />
   <HelpKINode Title="Extensions.Foreach&lt;T&gt; method" Url="html/M_Cauldron_Core_Extensions_Extensions_Foreach__1.htm" />
   <HelpKINode Title="Extensions.GetBytes method">
-    <HelpKINode Title="Extensions.GetBytes Method " Url="html/Overload_Cauldron_Core_Extensions_Extensions_GetBytes.htm" />
     <HelpKINode Title="Extensions.GetBytes Method " Url="html/M_Cauldron_Cryptography_Extensions_GetBytes.htm" />
+    <HelpKINode Title="Extensions.GetBytes Method " Url="html/Overload_Cauldron_Core_Extensions_Extensions_GetBytes.htm" />
   </HelpKINode>
   <HelpKINode Title="Extensions.GetDependencyProperties method" Url="html/M_Cauldron_XAML_Extensions_GetDependencyProperties.htm" />
   <HelpKINode Title="Extensions.GetHash method" Url="html/Overload_Cauldron_Core_Extensions_Extensions_GetHash.htm" />
@@ -1475,6 +1478,7 @@
   <HelpKINode Title="ExtensionsConvertions.ToShort method" Url="html/Overload_Cauldron_Core_Extensions_ExtensionsConvertions_ToShort.htm" />
   <HelpKINode Title="ExtensionsConvertions.ToShortUS method" Url="html/M_Cauldron_Core_Extensions_ExtensionsConvertions_ToShortUS.htm" />
   <HelpKINode Title="ExtensionsConvertions.ToString method" Url="html/Overload_Cauldron_Core_Extensions_ExtensionsConvertions_ToString.htm" />
+  <HelpKINode Title="ExtensionsConvertions.ToStringEx method" Url="html/Overload_Cauldron_Core_Extensions_ExtensionsConvertions_ToStringEx.htm" />
   <HelpKINode Title="ExtensionsConvertions.ToUInteger method" Url="html/Overload_Cauldron_Core_Extensions_ExtensionsConvertions_ToUInteger.htm" />
   <HelpKINode Title="ExtensionsConvertions.ToUIntegerUS method" Url="html/M_Cauldron_Core_Extensions_ExtensionsConvertions_ToUIntegerUS.htm" />
   <HelpKINode Title="ExtensionsConvertions.ToULong method" Url="html/Overload_Cauldron_Core_Extensions_ExtensionsConvertions_ToULong.htm" />
@@ -1603,7 +1607,17 @@
   <HelpKINode Title="Foreach(Of T) method" Url="html/M_Cauldron_Core_Extensions_Extensions_Foreach__1.htm" />
   <HelpKINode Title="Foreach&lt;T&gt; method" Url="html/M_Cauldron_Core_Extensions_Extensions_Foreach__1.htm" />
   <HelpKINode Title="Foreground property" Url="html/P_Cauldron_Consoles_ConsoleTableColumn_Foreground.htm" />
-  <HelpKINode Title="Format method" Url="html/M_Cauldron_Core_ByteSizeFormatter_Format.htm" />
+  <HelpKINode Title="Format method" Url="html/M_Cauldron_Core_Formatters_FormatterBase_Format.htm" />
+  <HelpKINode Title="FormatterBase class">
+    <HelpKINode Title="FormatterBase Class" Url="html/T_Cauldron_Core_Formatters_FormatterBase.htm" />
+    <HelpKINode Title="about FormatterBase class" Url="html/T_Cauldron_Core_Formatters_FormatterBase.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Cauldron_Core_Formatters_FormatterBase__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Formatters_FormatterBase.htm" />
+  </HelpKINode>
+  <HelpKINode Title="FormatterBase.Format method" Url="html/M_Cauldron_Core_Formatters_FormatterBase_Format.htm" />
+  <HelpKINode Title="FormatterBase.FormatterBase constructor" Url="html/M_Cauldron_Core_Formatters_FormatterBase__ctor.htm" />
+  <HelpKINode Title="FormatterBase.GetFormat method" Url="html/M_Cauldron_Core_Formatters_FormatterBase_GetFormat.htm" />
+  <HelpKINode Title="FormatterBase.OnFormat method" Url="html/M_Cauldron_Core_Formatters_FormatterBase_OnFormat.htm" />
   <HelpKINode Title="Formatting attached property" Url="html/P_Cauldron_XAML_Interactivity_Attached_GridViewColumnProperties_Formatting.htm" />
   <HelpKINode Title="FormattingProperty field" Url="html/F_Cauldron_XAML_Interactivity_Attached_GridViewColumnProperties_FormattingProperty.htm" />
   <HelpKINode Title="ForwardStack property" Url="html/P_Cauldron_XAML_Controls_NavigationFrame_ForwardStack.htm" />
@@ -1650,8 +1664,8 @@
   <HelpKINode Title="GetDisplayNameAsync method">
     <HelpKINode Title="IUserInformation.GetDisplayNameAsync Method " Url="html/M_Cauldron_Potions_IUserInformation_GetDisplayNameAsync.htm" />
     <HelpKINode Title="User.GetDisplayNameAsync Method " Url="html/M_Cauldron_Core_User_GetDisplayNameAsync.htm" />
-    <HelpKINode Title="UserInformation.GetDisplayNameAsync Method " Url="html/M_Cauldron_Potions_Implementation_UserInformation_GetDisplayNameAsync.htm" />
     <HelpKINode Title="UserInformation.GetDisplayNameAsync Method " Url="html/M_Cauldron_Core_UserInformation_GetDisplayNameAsync.htm" />
+    <HelpKINode Title="UserInformation.GetDisplayNameAsync Method " Url="html/M_Cauldron_Potions_Implementation_UserInformation_GetDisplayNameAsync.htm" />
   </HelpKINode>
   <HelpKINode Title="GetDisplayNames(Of TEnum) method" Url="html/M_Cauldron_Core_MiscUtils_GetDisplayNames__1.htm" />
   <HelpKINode Title="GetDisplayNames&lt;TEnum&gt; method" Url="html/M_Cauldron_Core_MiscUtils_GetDisplayNames__1.htm" />
@@ -1659,8 +1673,8 @@
   <HelpKINode Title="GetDomainNameAsync method">
     <HelpKINode Title="IUserInformation.GetDomainNameAsync Method " Url="html/M_Cauldron_Potions_IUserInformation_GetDomainNameAsync.htm" />
     <HelpKINode Title="User.GetDomainNameAsync Method " Url="html/M_Cauldron_Core_User_GetDomainNameAsync.htm" />
-    <HelpKINode Title="UserInformation.GetDomainNameAsync Method " Url="html/M_Cauldron_Potions_Implementation_UserInformation_GetDomainNameAsync.htm" />
     <HelpKINode Title="UserInformation.GetDomainNameAsync Method " Url="html/M_Cauldron_Core_UserInformation_GetDomainNameAsync.htm" />
+    <HelpKINode Title="UserInformation.GetDomainNameAsync Method " Url="html/M_Cauldron_Potions_Implementation_UserInformation_GetDomainNameAsync.htm" />
   </HelpKINode>
   <HelpKINode Title="GetEmailAddressAsync method">
     <HelpKINode Title="IUserInformation.GetEmailAddressAsync Method " Url="html/M_Cauldron_Potions_IUserInformation_GetEmailAddressAsync.htm" />
@@ -1680,11 +1694,11 @@
   <HelpKINode Title="GetFirstNameAsync method">
     <HelpKINode Title="IUserInformation.GetFirstNameAsync Method " Url="html/M_Cauldron_Potions_IUserInformation_GetFirstNameAsync.htm" />
     <HelpKINode Title="User.GetFirstNameAsync Method " Url="html/M_Cauldron_Core_User_GetFirstNameAsync.htm" />
-    <HelpKINode Title="UserInformation.GetFirstNameAsync Method " Url="html/M_Cauldron_Core_UserInformation_GetFirstNameAsync.htm" />
     <HelpKINode Title="UserInformation.GetFirstNameAsync Method " Url="html/M_Cauldron_Potions_Implementation_UserInformation_GetFirstNameAsync.htm" />
+    <HelpKINode Title="UserInformation.GetFirstNameAsync Method " Url="html/M_Cauldron_Core_UserInformation_GetFirstNameAsync.htm" />
   </HelpKINode>
   <HelpKINode Title="GETFONT enumeration member" Url="html/T_Cauldron_Core_WindowsMessages.htm" />
-  <HelpKINode Title="GetFormat method" Url="html/M_Cauldron_Core_ByteSizeFormatter_GetFormat.htm" />
+  <HelpKINode Title="GetFormat method" Url="html/M_Cauldron_Core_Formatters_FormatterBase_GetFormat.htm" />
   <HelpKINode Title="GetFormatting method" Url="html/M_Cauldron_XAML_Interactivity_Attached_GridViewColumnProperties_GetFormatting.htm" />
   <HelpKINode Title="GetHasErrors method" Url="html/M_Cauldron_XAML_Validation_ValidationProperties_GetHasErrors.htm" />
   <HelpKINode Title="GetHash method" Url="html/Overload_Cauldron_Core_Extensions_Extensions_GetHash.htm" />
@@ -1724,8 +1738,8 @@
   <HelpKINode Title="GetLastNameAsync method">
     <HelpKINode Title="IUserInformation.GetLastNameAsync Method " Url="html/M_Cauldron_Potions_IUserInformation_GetLastNameAsync.htm" />
     <HelpKINode Title="User.GetLastNameAsync Method " Url="html/M_Cauldron_Core_User_GetLastNameAsync.htm" />
-    <HelpKINode Title="UserInformation.GetLastNameAsync Method " Url="html/M_Cauldron_Potions_Implementation_UserInformation_GetLastNameAsync.htm" />
     <HelpKINode Title="UserInformation.GetLastNameAsync Method " Url="html/M_Cauldron_Core_UserInformation_GetLastNameAsync.htm" />
+    <HelpKINode Title="UserInformation.GetLastNameAsync Method " Url="html/M_Cauldron_Potions_Implementation_UserInformation_GetLastNameAsync.htm" />
   </HelpKINode>
   <HelpKINode Title="GetLines method" Url="html/M_Cauldron_Core_Extensions_Extensions_GetLines.htm" />
   <HelpKINode Title="GetManifestResource method" Url="html/Overload_Cauldron_Core_Assemblies_GetManifestResource.htm" />
@@ -1750,8 +1764,8 @@
   <HelpKINode Title="GetPrincipalNameAsync method">
     <HelpKINode Title="IUserInformation.GetPrincipalNameAsync Method " Url="html/M_Cauldron_Potions_IUserInformation_GetPrincipalNameAsync.htm" />
     <HelpKINode Title="User.GetPrincipalNameAsync Method " Url="html/M_Cauldron_Core_User_GetPrincipalNameAsync.htm" />
-    <HelpKINode Title="UserInformation.GetPrincipalNameAsync Method " Url="html/M_Cauldron_Core_UserInformation_GetPrincipalNameAsync.htm" />
     <HelpKINode Title="UserInformation.GetPrincipalNameAsync Method " Url="html/M_Cauldron_Potions_Implementation_UserInformation_GetPrincipalNameAsync.htm" />
+    <HelpKINode Title="UserInformation.GetPrincipalNameAsync Method " Url="html/M_Cauldron_Core_UserInformation_GetPrincipalNameAsync.htm" />
   </HelpKINode>
   <HelpKINode Title="GetPropertiesEx method" Url="html/M_Cauldron_Core_Extensions_ExtensionsReflection_GetPropertiesEx.htm" />
   <HelpKINode Title="GetPropertyEx method" Url="html/M_Cauldron_Core_Extensions_ExtensionsReflection_GetPropertyEx.htm" />
@@ -1776,8 +1790,8 @@
   <HelpKINode Title="GetTelephoneNumberAsync method">
     <HelpKINode Title="IUserInformation.GetTelephoneNumberAsync Method " Url="html/M_Cauldron_Potions_IUserInformation_GetTelephoneNumberAsync.htm" />
     <HelpKINode Title="User.GetTelephoneNumberAsync Method " Url="html/M_Cauldron_Core_User_GetTelephoneNumberAsync.htm" />
-    <HelpKINode Title="UserInformation.GetTelephoneNumberAsync Method " Url="html/M_Cauldron_Core_UserInformation_GetTelephoneNumberAsync.htm" />
     <HelpKINode Title="UserInformation.GetTelephoneNumberAsync Method " Url="html/M_Cauldron_Potions_Implementation_UserInformation_GetTelephoneNumberAsync.htm" />
+    <HelpKINode Title="UserInformation.GetTelephoneNumberAsync Method " Url="html/M_Cauldron_Core_UserInformation_GetTelephoneNumberAsync.htm" />
   </HelpKINode>
   <HelpKINode Title="GetTemplate method" Url="html/M_Cauldron_XAML_Interactivity_StyleInteraction_GetTemplate.htm" />
   <HelpKINode Title="GETTEXT enumeration member" Url="html/T_Cauldron_Core_WindowsMessages.htm" />
@@ -1798,8 +1812,8 @@
   <HelpKINode Title="GetUserNameAsync method">
     <HelpKINode Title="IUserInformation.GetUserNameAsync Method " Url="html/M_Cauldron_Potions_IUserInformation_GetUserNameAsync.htm" />
     <HelpKINode Title="User.GetUserNameAsync Method " Url="html/M_Cauldron_Core_User_GetUserNameAsync.htm" />
-    <HelpKINode Title="UserInformation.GetUserNameAsync Method " Url="html/M_Cauldron_Core_UserInformation_GetUserNameAsync.htm" />
     <HelpKINode Title="UserInformation.GetUserNameAsync Method " Url="html/M_Cauldron_Potions_Implementation_UserInformation_GetUserNameAsync.htm" />
+    <HelpKINode Title="UserInformation.GetUserNameAsync Method " Url="html/M_Cauldron_Core_UserInformation_GetUserNameAsync.htm" />
   </HelpKINode>
   <HelpKINode Title="GetUserTilePath method" Url="html/M_Cauldron_Core_Win32Api_GetUserTilePath.htm" />
   <HelpKINode Title="GetValue method">
@@ -2340,8 +2354,8 @@
   <HelpKINode Title="IsLockedOutAsync method">
     <HelpKINode Title="IUserInformation.IsLockedOutAsync Method " Url="html/M_Cauldron_Potions_IUserInformation_IsLockedOutAsync.htm" />
     <HelpKINode Title="User.IsLockedOutAsync Method " Url="html/M_Cauldron_Core_User_IsLockedOutAsync.htm" />
-    <HelpKINode Title="UserInformation.IsLockedOutAsync Method " Url="html/M_Cauldron_Core_UserInformation_IsLockedOutAsync.htm" />
     <HelpKINode Title="UserInformation.IsLockedOutAsync Method " Url="html/M_Cauldron_Potions_Implementation_UserInformation_IsLockedOutAsync.htm" />
+    <HelpKINode Title="UserInformation.IsLockedOutAsync Method " Url="html/M_Cauldron_Core_UserInformation_IsLockedOutAsync.htm" />
   </HelpKINode>
   <HelpKINode Title="IsMainWindow attached property" Url="html/P_Cauldron_XAML_WindowConfiguration_IsMainWindow.htm" />
   <HelpKINode Title="IsMainWindowProperty field" Url="html/F_Cauldron_XAML_WindowConfiguration_IsMainWindowProperty.htm" />
@@ -2561,6 +2575,7 @@
   <HelpKINode Title="Locale.CultureInfo property" Url="html/P_Cauldron_Localization_Locale_CultureInfo.htm" />
   <HelpKINode Title="Locale.GetCurrentCultureInfo method" Url="html/M_Cauldron_Localization_Locale_GetCurrentCultureInfo.htm" />
   <HelpKINode Title="Locale.Item property" Url="html/Overload_Cauldron_Localization_Locale_Item.htm" />
+  <HelpKINode Title="Locale.Rebuild method" Url="html/M_Cauldron_Localization_Locale_Rebuild.htm" />
   <HelpKINode Title="LocalFolder property" Url="html/P_Windows_Storage_ApplicationData_LocalFolder.htm" />
   <HelpKINode Title="localIpAddress field" Url="html/F_Cauldron_Core_PingResults_localIpAddress.htm" />
   <HelpKINode Title="LocalizationSource class">
@@ -2678,6 +2693,14 @@
   <HelpKINode Title="MethodOwnerTypeProperty field" Url="html/F_Cauldron_XAML_Interactivity_Actions_InvokeMethodAction_MethodOwnerTypeProperty.htm" />
   <HelpKINode Title="MethodParameters property" Url="html/P_Cauldron_XAML_Interactivity_Actions_InvokeMethodAction_MethodParameters.htm" />
   <HelpKINode Title="MethodParametersProperty field" Url="html/F_Cauldron_XAML_Interactivity_Actions_InvokeMethodAction_MethodParametersProperty.htm" />
+  <HelpKINode Title="MetricUnitFormatter class">
+    <HelpKINode Title="MetricUnitFormatter Class" Url="html/T_Cauldron_Core_Formatters_MetricUnitFormatter.htm" />
+    <HelpKINode Title="about MetricUnitFormatter class" Url="html/T_Cauldron_Core_Formatters_MetricUnitFormatter.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Cauldron_Core_Formatters_MetricUnitFormatter__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Formatters_MetricUnitFormatter.htm" />
+  </HelpKINode>
+  <HelpKINode Title="MetricUnitFormatter.MetricUnitFormatter constructor" Url="html/M_Cauldron_Core_Formatters_MetricUnitFormatter__ctor.htm" />
+  <HelpKINode Title="MetricUnitFormatter.OnFormat method" Url="html/M_Cauldron_Core_Formatters_MetricUnitFormatter_OnFormat.htm" />
   <HelpKINode Title="MinHeight attached property" Url="html/P_Cauldron_XAML_WindowConfiguration_MinHeight.htm" />
   <HelpKINode Title="MinHeightProperty field" Url="html/F_Cauldron_XAML_WindowConfiguration_MinHeightProperty.htm" />
   <HelpKINode Title="MinWidth attached property" Url="html/P_Cauldron_XAML_WindowConfiguration_MinWidth.htm" />
@@ -2871,13 +2894,13 @@
     <HelpKINode Title="about Network class" Url="html/T_Cauldron_Core_Network.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Network.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Potions_Implementation_Network.htm" />
-    <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_Potions_Implementation_Network.htm" />
     <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_Core_Network.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_Potions_Implementation_Network.htm" />
   </HelpKINode>
   <HelpKINode Title="Network enumeration member" Url="html/T_Cauldron_Core_LogonType.htm" />
   <HelpKINode Title="Network.ConnectionType property">
-    <HelpKINode Title="Network.ConnectionType Property " Url="html/P_Cauldron_Core_Network_ConnectionType.htm" />
     <HelpKINode Title="Network.ConnectionType Property " Url="html/P_Cauldron_Potions_Implementation_Network_ConnectionType.htm" />
+    <HelpKINode Title="Network.ConnectionType Property " Url="html/P_Cauldron_Core_Network_ConnectionType.htm" />
   </HelpKINode>
   <HelpKINode Title="Network.HasInternetConnection property">
     <HelpKINode Title="Network.HasInternetConnection Property " Url="html/P_Cauldron_Potions_Implementation_Network_HasInternetConnection.htm" />
@@ -3006,6 +3029,11 @@
     <HelpKINode Title="IViewModel.OnException Method " Url="html/M_Cauldron_XAML_ViewModels_IViewModel_OnException.htm" />
     <HelpKINode Title="ViewModelBase.OnException Method " Url="html/M_Cauldron_XAML_ViewModels_ViewModelBase_OnException.htm" />
   </HelpKINode>
+  <HelpKINode Title="OnFormat method">
+    <HelpKINode Title="ByteSizeFormatter.OnFormat Method " Url="html/M_Cauldron_Core_Formatters_ByteSizeFormatter_OnFormat.htm" />
+    <HelpKINode Title="FormatterBase.OnFormat Method " Url="html/M_Cauldron_Core_Formatters_FormatterBase_OnFormat.htm" />
+    <HelpKINode Title="MetricUnitFormatter.OnFormat Method " Url="html/M_Cauldron_Core_Formatters_MetricUnitFormatter_OnFormat.htm" />
+  </HelpKINode>
   <HelpKINode Title="OnInitialize method">
     <HelpKINode Title="IFactoryExtension.OnInitialize Method " Url="html/M_Cauldron_Activator_IFactoryExtension_OnInitialize.htm" />
     <HelpKINode Title="InjectionFactoryExtension.OnInitialize Method " Url="html/M_Cauldron_Injection_InjectionFactoryExtension_OnInitialize.htm" />
@@ -3121,8 +3149,8 @@
   <HelpKINode Title="PictureLibrary property" Url="html/P_Windows_Storage_KnownFolders_PictureLibrary.htm" />
   <HelpKINode Title="Ping method">
     <HelpKINode Title="INetwork.Ping Method " Url="html/M_Cauldron_Potions_INetwork_Ping.htm" />
-    <HelpKINode Title="Network.Ping Method " Url="html/M_Cauldron_Core_Network_Ping.htm" />
     <HelpKINode Title="Network.Ping Method " Url="html/M_Cauldron_Potions_Implementation_Network_Ping.htm" />
+    <HelpKINode Title="Network.Ping Method " Url="html/M_Cauldron_Core_Network_Ping.htm" />
   </HelpKINode>
   <HelpKINode Title="PingResults structure">
     <HelpKINode Title="PingResults Structure" Url="html/T_Cauldron_Core_PingResults.htm" />
@@ -3213,6 +3241,7 @@
   <HelpKINode Title="ReadBytesAsync method" Url="html/M_Cauldron_Core_Extensions_ExtensionsFileIO_ReadBytesAsync.htm" />
   <HelpKINode Title="ReadTextAsync method" Url="html/Overload_Cauldron_Core_Extensions_ExtensionsFileIO_ReadTextAsync.htm" />
   <HelpKINode Title="ReadToEnd method" Url="html/M_Cauldron_Core_Extensions_Extensions_ReadToEnd.htm" />
+  <HelpKINode Title="Rebuild method" Url="html/M_Cauldron_Localization_Locale_Rebuild.htm" />
   <HelpKINode Title="RefreshCanExecute method">
     <HelpKINode Title="IRelayCommand.RefreshCanExecute Method " Url="html/M_Cauldron_XAML_IRelayCommand_RefreshCanExecute.htm" />
     <HelpKINode Title="RelayCommand(T).RefreshCanExecute Method " Url="html/M_Cauldron_XAML_RelayCommand_1_RefreshCanExecute.htm" />
@@ -3356,8 +3385,8 @@
   <HelpKINode Title="SequenceEqual_ method" Url="html/M_Cauldron_IEnumerableExtensions_Extensions_SequenceEqual_.htm" />
   <HelpKINode Title="Serialize method">
     <HelpKINode Title="ISerializer.Serialize Method " Url="html/M_Cauldron_Potions_ISerializer_Serialize.htm" />
-    <HelpKINode Title="Serializer.Serialize Method " Url="html/M_Cauldron_Potions_Implementation_Serializer_Serialize.htm" />
     <HelpKINode Title="Serializer.Serialize Method " Url="html/M_Cauldron_Core_Serializer_Serialize.htm" />
+    <HelpKINode Title="Serializer.Serialize Method " Url="html/M_Cauldron_Potions_Implementation_Serializer_Serialize.htm" />
   </HelpKINode>
   <HelpKINode Title="SerializeAsync method">
     <HelpKINode Title="ISerializer.SerializeAsync Method " Url="html/Overload_Cauldron_Potions_ISerializer_SerializeAsync.htm" />
@@ -3369,20 +3398,20 @@
     <HelpKINode Title="Serializer Class" Url="html/T_Cauldron_Potions_Implementation_Serializer.htm" />
     <HelpKINode Title="about Serializer class" Url="html/T_Cauldron_Core_Serializer.htm" />
     <HelpKINode Title="about Serializer class" Url="html/T_Cauldron_Potions_Implementation_Serializer.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Serializer.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Potions_Implementation_Serializer.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Serializer.htm" />
   </HelpKINode>
   <HelpKINode Title="Serializer.DeserializeAsync method">
     <HelpKINode Title="Serializer.DeserializeAsync Method " Url="html/Overload_Cauldron_Potions_Implementation_Serializer_DeserializeAsync.htm" />
     <HelpKINode Title="Serializer.DeserializeAsync Method " Url="html/Overload_Cauldron_Core_Serializer_DeserializeAsync.htm" />
   </HelpKINode>
   <HelpKINode Title="Serializer.Serialize method">
-    <HelpKINode Title="Serializer.Serialize Method " Url="html/M_Cauldron_Potions_Implementation_Serializer_Serialize.htm" />
     <HelpKINode Title="Serializer.Serialize Method " Url="html/M_Cauldron_Core_Serializer_Serialize.htm" />
+    <HelpKINode Title="Serializer.Serialize Method " Url="html/M_Cauldron_Potions_Implementation_Serializer_Serialize.htm" />
   </HelpKINode>
   <HelpKINode Title="Serializer.SerializeAsync method">
-    <HelpKINode Title="Serializer.SerializeAsync Method " Url="html/Overload_Cauldron_Potions_Implementation_Serializer_SerializeAsync.htm" />
     <HelpKINode Title="Serializer.SerializeAsync Method " Url="html/Overload_Cauldron_Core_Serializer_SerializeAsync.htm" />
+    <HelpKINode Title="Serializer.SerializeAsync Method " Url="html/Overload_Cauldron_Potions_Implementation_Serializer_SerializeAsync.htm" />
   </HelpKINode>
   <HelpKINode Title="Service enumeration member" Url="html/T_Cauldron_Core_LogonType.htm" />
   <HelpKINode Title="SetAnimateOpacity method" Url="html/M_Cauldron_XAML_Interactivity_Attached_ImageProperties_SetAnimateOpacity.htm" />
@@ -3548,28 +3577,28 @@
   <HelpKINode Title="StyleInteraction.Template attached property" Url="html/P_Cauldron_XAML_Interactivity_StyleInteraction_Template.htm" />
   <HelpKINode Title="StyleInteraction.TemplateProperty field" Url="html/F_Cauldron_XAML_Interactivity_StyleInteraction_TemplateProperty.htm" />
   <HelpKINode Title="StylesAndTemplates class">
-    <HelpKINode Title="StylesAndTemplates Class" Url="html/T_Cauldron_XAML_Interactivity_Resources_StylesAndTemplates.htm" />
     <HelpKINode Title="StylesAndTemplates Class" Url="html/T_Cauldron_XAML_Resources_StylesAndTemplates.htm" />
-    <HelpKINode Title="about StylesAndTemplates class" Url="html/T_Cauldron_XAML_Resources_StylesAndTemplates.htm" />
+    <HelpKINode Title="StylesAndTemplates Class" Url="html/T_Cauldron_XAML_Interactivity_Resources_StylesAndTemplates.htm" />
     <HelpKINode Title="about StylesAndTemplates class" Url="html/T_Cauldron_XAML_Interactivity_Resources_StylesAndTemplates.htm" />
-    <HelpKINode Title="constructor" Url="html/M_Cauldron_XAML_Interactivity_Resources_StylesAndTemplates__ctor.htm" />
+    <HelpKINode Title="about StylesAndTemplates class" Url="html/T_Cauldron_XAML_Resources_StylesAndTemplates.htm" />
     <HelpKINode Title="constructor" Url="html/M_Cauldron_XAML_Resources_StylesAndTemplates__ctor.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Cauldron_XAML_Interactivity_Resources_StylesAndTemplates__ctor.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_XAML_Resources_StylesAndTemplates.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_XAML_Interactivity_Resources_StylesAndTemplates.htm" />
-    <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_XAML_Interactivity_Resources_StylesAndTemplates.htm" />
     <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_XAML_Resources_StylesAndTemplates.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_XAML_Interactivity_Resources_StylesAndTemplates.htm" />
   </HelpKINode>
   <HelpKINode Title="StylesAndTemplates.IComponentConnector.Connect explicitly implemented method">
-    <HelpKINode Title="StylesAndTemplates.IComponentConnector.Connect Method " Url="html/M_Cauldron_XAML_Resources_StylesAndTemplates_System_Windows_Markup_IComponentConnector_Connect.htm" />
     <HelpKINode Title="StylesAndTemplates.IComponentConnector.Connect Method " Url="html/M_Cauldron_XAML_Interactivity_Resources_StylesAndTemplates_System_Windows_Markup_IComponentConnector_Connect.htm" />
+    <HelpKINode Title="StylesAndTemplates.IComponentConnector.Connect Method " Url="html/M_Cauldron_XAML_Resources_StylesAndTemplates_System_Windows_Markup_IComponentConnector_Connect.htm" />
   </HelpKINode>
   <HelpKINode Title="StylesAndTemplates.InitializeComponent method">
     <HelpKINode Title="StylesAndTemplates.InitializeComponent Method " Url="html/M_Cauldron_XAML_Interactivity_Resources_StylesAndTemplates_InitializeComponent.htm" />
     <HelpKINode Title="StylesAndTemplates.InitializeComponent Method " Url="html/M_Cauldron_XAML_Resources_StylesAndTemplates_InitializeComponent.htm" />
   </HelpKINode>
   <HelpKINode Title="StylesAndTemplates.StylesAndTemplates constructor">
-    <HelpKINode Title="StylesAndTemplates Constructor " Url="html/M_Cauldron_XAML_Interactivity_Resources_StylesAndTemplates__ctor.htm" />
     <HelpKINode Title="StylesAndTemplates Constructor " Url="html/M_Cauldron_XAML_Resources_StylesAndTemplates__ctor.htm" />
+    <HelpKINode Title="StylesAndTemplates Constructor " Url="html/M_Cauldron_XAML_Interactivity_Resources_StylesAndTemplates__ctor.htm" />
   </HelpKINode>
   <HelpKINode Title="Subscribe(Of T) method" Url="html/M_Cauldron_Core_MessageManager_Subscribe__1.htm" />
   <HelpKINode Title="Subscribe&lt;T&gt; method" Url="html/M_Cauldron_Core_MessageManager_Subscribe__1.htm" />
@@ -3668,6 +3697,7 @@
     <HelpKINode Title="ExtensionsConvertions.ToString Method " Url="html/Overload_Cauldron_Core_Extensions_ExtensionsConvertions_ToString.htm" />
     <HelpKINode Title="PageStackEntry.ToString Method " Url="html/M_Cauldron_XAML_Navigation_PageStackEntry_ToString.htm" />
   </HelpKINode>
+  <HelpKINode Title="ToStringEx method" Url="html/Overload_Cauldron_Core_Extensions_ExtensionsConvertions_ToStringEx.htm" />
   <HelpKINode Title="ToUInteger method" Url="html/Overload_Cauldron_Core_Extensions_ExtensionsConvertions_ToUInteger.htm" />
   <HelpKINode Title="ToUIntegerUS method" Url="html/M_Cauldron_Core_Extensions_ExtensionsConvertions_ToUIntegerUS.htm" />
   <HelpKINode Title="ToULong method" Url="html/Overload_Cauldron_Core_Extensions_ExtensionsConvertions_ToULong.htm" />
@@ -3751,9 +3781,10 @@
     <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_Core_UserInformation.htm" />
     <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_Potions_Implementation_UserInformation.htm" />
   </HelpKINode>
+  <HelpKINode Title="UserInformation.CurrentUser property" Url="html/P_Cauldron_Core_UserInformation_CurrentUser.htm" />
   <HelpKINode Title="UserInformation.GetDisplayNameAsync method">
-    <HelpKINode Title="UserInformation.GetDisplayNameAsync Method " Url="html/M_Cauldron_Potions_Implementation_UserInformation_GetDisplayNameAsync.htm" />
     <HelpKINode Title="UserInformation.GetDisplayNameAsync Method " Url="html/M_Cauldron_Core_UserInformation_GetDisplayNameAsync.htm" />
+    <HelpKINode Title="UserInformation.GetDisplayNameAsync Method " Url="html/M_Cauldron_Potions_Implementation_UserInformation_GetDisplayNameAsync.htm" />
   </HelpKINode>
   <HelpKINode Title="UserInformation.GetDomainNameAsync method">
     <HelpKINode Title="UserInformation.GetDomainNameAsync Method " Url="html/M_Cauldron_Potions_Implementation_UserInformation_GetDomainNameAsync.htm" />
@@ -3772,12 +3803,12 @@
     <HelpKINode Title="UserInformation.GetHomeDirectory Method " Url="html/M_Cauldron_Potions_Implementation_UserInformation_GetHomeDirectory.htm" />
   </HelpKINode>
   <HelpKINode Title="UserInformation.GetLastNameAsync method">
-    <HelpKINode Title="UserInformation.GetLastNameAsync Method " Url="html/M_Cauldron_Core_UserInformation_GetLastNameAsync.htm" />
     <HelpKINode Title="UserInformation.GetLastNameAsync Method " Url="html/M_Cauldron_Potions_Implementation_UserInformation_GetLastNameAsync.htm" />
+    <HelpKINode Title="UserInformation.GetLastNameAsync Method " Url="html/M_Cauldron_Core_UserInformation_GetLastNameAsync.htm" />
   </HelpKINode>
   <HelpKINode Title="UserInformation.GetPrincipalNameAsync method">
-    <HelpKINode Title="UserInformation.GetPrincipalNameAsync Method " Url="html/M_Cauldron_Potions_Implementation_UserInformation_GetPrincipalNameAsync.htm" />
     <HelpKINode Title="UserInformation.GetPrincipalNameAsync Method " Url="html/M_Cauldron_Core_UserInformation_GetPrincipalNameAsync.htm" />
+    <HelpKINode Title="UserInformation.GetPrincipalNameAsync Method " Url="html/M_Cauldron_Potions_Implementation_UserInformation_GetPrincipalNameAsync.htm" />
   </HelpKINode>
   <HelpKINode Title="UserInformation.GetTelephoneNumberAsync method">
     <HelpKINode Title="UserInformation.GetTelephoneNumberAsync Method " Url="html/M_Cauldron_Core_UserInformation_GetTelephoneNumberAsync.htm" />
@@ -3975,12 +4006,12 @@
   <HelpKINode Title="WaitForExitAll method" Url="html/M_Cauldron_Consoles_ConsoleUtils_WaitForExitAll.htm" />
   <HelpKINode Title="Weak enumeration member" Url="html/T_Cauldron_Cryptography_PasswordScore.htm" />
   <HelpKINode Title="Web class">
-    <HelpKINode Title="Web Class" Url="html/T_Cauldron_Potions_Implementation_Web.htm" />
     <HelpKINode Title="Web Class" Url="html/T_Cauldron_Core_Web.htm" />
+    <HelpKINode Title="Web Class" Url="html/T_Cauldron_Potions_Implementation_Web.htm" />
     <HelpKINode Title="about Web class" Url="html/T_Cauldron_Potions_Implementation_Web.htm" />
     <HelpKINode Title="about Web class" Url="html/T_Cauldron_Core_Web.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Potions_Implementation_Web.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Web.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Potions_Implementation_Web.htm" />
   </HelpKINode>
   <HelpKINode Title="Web.DownloadFile method">
     <HelpKINode Title="Web.DownloadFile Method " Url="html/M_Cauldron_Potions_Implementation_Web_DownloadFile.htm" />

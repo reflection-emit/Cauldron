@@ -150,10 +150,6 @@
       <Project>{0c1146b3-ada7-4b8b-921c-cb73f665b4ff}</Project>
       <Name>Cauldron.Desktop.Localization</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Cauldron.Desktop.Potions\Cauldron.Desktop.Potions.csproj">
-      <Project>{776CD80A-6EDD-4F41-BFD8-CFF99546B6E3}</Project>
-      <Name>Cauldron.Desktop.Potions</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Cauldron.Desktop.XAML\Cauldron.Desktop.XAML.csproj">
       <Project>{a6a45af3-6c56-4906-8c5c-8ad557aa89c7}</Project>
       <Name>Cauldron.Desktop.XAML</Name>

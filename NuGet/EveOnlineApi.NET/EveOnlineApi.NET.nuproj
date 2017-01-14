@@ -19,7 +19,7 @@
   <Import Project="$(NuProjPath)\NuProj.props" Condition="Exists('$(NuProjPath)\NuProj.props')" />
   <PropertyGroup Label="Configuration">
     <Id>EveOnlineApi.NET</Id>
-    <Version>1.0.0</Version>
+    <Version>1.0.2</Version>
     <Title>EveOnlineApi.NET</Title>
     <Authors>Alexander Schunk and Contributors</Authors>
     <Owners>Alexander Schunk and Contributors</Owners>

@@ -1,5 +1,11 @@
 ﻿{
   "dependencies": {
+    "Capgemini.Cauldron.Activator": "1.0.2",
+    "Capgemini.Cauldron.Core": "1.0.2",
+    "Capgemini.Cauldron.Cryptography": "1.0.2",
+    "Capgemini.Cauldron.Injection": "1.0.2",
+    "Capgemini.Cauldron.XAML": "1.0.2",
+    "Capgemini.Cauldron.XAML.Interactivity": "1.0.2",
     "Fody": "1.29.4",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
     "Newtonsoft.Json": "9.0.1",

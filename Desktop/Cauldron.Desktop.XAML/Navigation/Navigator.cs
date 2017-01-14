@@ -2,7 +2,6 @@
 using Cauldron.Core;
 using Cauldron.Core.Collections;
 using Cauldron.Core.Extensions;
-using Cauldron.Potions;
 using Cauldron.XAML.ViewModels;
 using System;
 using System.Linq;
