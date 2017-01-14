@@ -9,8 +9,10 @@ namespace Cauldron.Core.Formatters
     /// For example: The reformatted value of the number 2400 is 2.4k
     /// </summary>
     /// <example>
+    /// <code>
     /// var result = string.Format(new MetricUnitFormatter(), "The size is {0:metric}", value);
     /// var result = string.Format(new MetricUnitFormatter(), "The size is {0:metric #0.00}", value);
+    /// </code>
     /// </example>
     public sealed class MetricUnitFormatter : FormatterBase
     {

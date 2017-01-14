@@ -9,8 +9,10 @@ namespace Cauldron.Core.Formatters
     /// For example: The reformatted value of the number 2048 is 2KB
     /// </summary>
     /// <example>
+    /// <code>
     /// var result = string.Format(new ByteSizeFormatter(), "The size is {0:byte}", value);
     /// var result = string.Format(new ByteSizeFormatter(), "The size is {0:byte 0.###}", value);
+    /// </code>
     /// </example>
     public sealed class ByteSizeFormatter : FormatterBase
     {
