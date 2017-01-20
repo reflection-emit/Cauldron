@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|AnyCPU">
+      <Configuration>Debug</Configuration>
+      <Platform>AnyCPU</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|AnyCPU">
+      <Configuration>Release</Configuration>
+      <Platform>AnyCPU</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>ca0d1383-7db8-426b-af1d-9f2831e00ef5</ProjectGuid>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NuProjPath Condition=" '$(NuProjPath)' == '' ">$(MSBuildExtensionsPath)\NuProj\</NuProjPath>
+  </PropertyGroup>
+  <Import Project="$(NuProjPath)\NuProj.props" Condition="Exists('$(NuProjPath)\NuProj.props')" />
+  <PropertyGroup Label="Configuration">
+    <Id>Capgemini.Cauldron.XAML</Id>
+    <Version>1.0.2</Version>
+    <Title>Capgemini.Cauldron.XAML</Title>
+    <Authors>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</Authors>
+    <Owners>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</Owners>
+    <Summary>A Simple MVVM framework based on Cauldron.Core (Open Source)</Summary>
+    <Description>A Simple MVVM framework based on Cauldron.Core</Description>
+    <ReleaseNotes>
+    </ReleaseNotes>
+    <ProjectUrl>https://github.com/reflection-emit/Cauldron</ProjectUrl>
+    <LicenseUrl>https://raw.githubusercontent.com/reflection-emit/Cauldron/master/LICENSE</LicenseUrl>
+    <Copyright>Copyright (c) 2016 Alexander Schunk, Capgemini Deutschland GmbH and Contributors</Copyright>
+    <Tags>Toolkit Capgemini Cauldron XAML WPF MVVM Framework ViewModels</Tags>
+    <IconUrl>https://raw.githubusercontent.com/reflection-emit/Cauldron/master/cauldron.png</IconUrl>
+    <OutputPath>$(SolutionDir)NuGet\Packages</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Desktop\Cauldron.Desktop.XAML\Cauldron.Desktop.XAML.csproj" />
+    <ProjectReference Include="..\..\UWP\Cauldron.UWP.XAML\Cauldron.UWP.XAML.csproj" />
+    <ProjectReference Include="..\Cauldron.Activator.nupkg\Cauldron.Activator.nupkg.nuproj" />
+    <ProjectReference Include="..\Cauldron.Core.nupkg\Cauldron.Core.nupkg.nuproj" />
+    <ProjectReference Include="..\Cauldron.IEnumerableExtensions.nupkg\Cauldron.IEnumerableExtensions.nupkg.nuproj" />
+    <ProjectReference Include="..\Cauldron.Localization.nupkg\Cauldron.Localization.nupkg.nuproj" />
+  </ItemGroup>
+  <Import Project="$(NuProjPath)\NuProj.targets" />
+</Project>

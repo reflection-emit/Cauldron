@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|AnyCPU">
+      <Configuration>Debug</Configuration>
+      <Platform>AnyCPU</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|AnyCPU">
+      <Configuration>Release</Configuration>
+      <Platform>AnyCPU</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>a97742f3-1dd2-4f7a-bd21-8bbcc89e06ea</ProjectGuid>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NuProjPath Condition=" '$(NuProjPath)' == '' ">$(MSBuildExtensionsPath)\NuProj\</NuProjPath>
+  </PropertyGroup>
+  <Import Project="$(NuProjPath)\NuProj.props" Condition="Exists('$(NuProjPath)\NuProj.props')" />
+  <PropertyGroup Label="Configuration">
+    <Id>Capgemini.Cauldron.XAML.Validation</Id>
+    <Version>1.0.2</Version>
+    <Title>Capgemini.Cauldron.XAML.Validation</Title>
+    <Authors>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</Authors>
+    <Owners>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</Owners>
+    <Summary>Validation Framework for Cauldron.XAML (Open Source)</Summary>
+    <Description>Validation Framework for Cauldron.XAML</Description>
+    <ReleaseNotes>
+    </ReleaseNotes>
+    <ProjectUrl>https://github.com/reflection-emit/Cauldron</ProjectUrl>
+    <LicenseUrl>https://raw.githubusercontent.com/reflection-emit/Cauldron/master/LICENSE</LicenseUrl>
+    <Copyright>Copyright (c) 2016 Alexander Schunk, Capgemini Deutschland GmbH and Contributors</Copyright>
+    <Tags>Toolkit Capgemini Cauldron XAML WPF Validation MVVM</Tags>
+    <IconUrl>https://raw.githubusercontent.com/reflection-emit/Cauldron/master/cauldron.png</IconUrl>
+    <OutputPath>$(SolutionDir)NuGet\Packages</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Desktop\Cauldron.Desktop.XAML.Validation\Cauldron.Desktop.XAML.Validation.csproj" />
+    <ProjectReference Include="..\..\UWP\Cauldron.UWP.XAML.Validation\Cauldron.UWP.XAML.Validation.csproj" />
+    <ProjectReference Include="..\Cauldron.Activator.nupkg\Cauldron.Activator.nupkg.nuproj" />
+    <ProjectReference Include="..\Cauldron.Core.nupkg\Cauldron.Core.nupkg.nuproj" />
+    <ProjectReference Include="..\Cauldron.Cryptography.nupkg\Cauldron.Cryptography.nupkg.nuproj" />
+    <ProjectReference Include="..\Cauldron.IEnumerableExtensions.nupkg\Cauldron.IEnumerableExtensions.nupkg.nuproj" />
+    <ProjectReference Include="..\Cauldron.Localization.nupkg\Cauldron.Localization.nupkg.nuproj" />
+    <ProjectReference Include="..\Cauldron.XAML.Interactivity.nupkg\Cauldron.XAML.Interactivity.nupkg.nuproj" />
+    <ProjectReference Include="..\Cauldron.XAML.nupkg\Cauldron.XAML.nupkg.nuproj" />
+  </ItemGroup>
+  <Import Project="$(NuProjPath)\NuProj.targets" />
+</Project>
