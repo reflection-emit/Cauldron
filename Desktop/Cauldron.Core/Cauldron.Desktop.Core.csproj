@@ -136,6 +136,9 @@
     <Compile Include="..\..\UWP\Cauldron.Core\IDisposableObject.cs">
       <Link>IDisposableObject.cs</Link>
     </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\Java\JavaProperties.cs">
+      <Link>Java\JavaProperties.cs</Link>
+    </Compile>
     <Compile Include="..\..\UWP\Cauldron.Core\MathEx.cs">
       <Link>MathEx.cs</Link>
     </Compile>

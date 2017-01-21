@@ -69,6 +69,9 @@
     <Compile Include="..\..\UWP\Cauldron.UWP.Test\FactoryTests.cs">
       <Link>FactoryTests.cs</Link>
     </Compile>
+    <Compile Include="..\..\UWP\Cauldron.UWP.Test\JavaPropertyFileTest.cs">
+      <Link>JavaPropertyFileTest.cs</Link>
+    </Compile>
     <Compile Include="..\..\UWP\Cauldron.UWP.Test\KeyMaterial_Test.cs">
       <Link>KeyMaterial_Test.cs</Link>
     </Compile>

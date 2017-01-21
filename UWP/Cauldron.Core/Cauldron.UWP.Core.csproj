@@ -146,6 +146,7 @@
     <Compile Include="HashAlgorithms.cs" />
     <Compile Include="ICloneable.cs" />
     <Compile Include="IDisposableObject.cs" />
+    <Compile Include="Java\JavaProperties.cs" />
     <Compile Include="MathEx.cs" />
     <Compile Include="MessageManager.cs" />
     <Compile Include="MessageObject.cs" />

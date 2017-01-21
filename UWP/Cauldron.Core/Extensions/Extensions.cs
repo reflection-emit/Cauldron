@@ -675,6 +675,20 @@ namespace Cauldron.Core.Extensions
         /// Reads all characters from the current position to the end of the stream.
         /// </summary>
         /// <param name="stream">The stream to read</param>
+        /// <param name="encoding">The character encoding to use.</param>
+        /// <returns>The rest of the stream as a string, from the current position to the end. If the current position is at the end of the stream, returns an empty string ("").</returns>
+        /// <exception cref="OutOfMemoryException">There is insufficient memory to allocate a buffer for the returned string.</exception>
+        /// <exception cref="IOException">An I/O error occurs.</exception>
+        public static string ReadToEnd(this Stream stream, Encoding encoding)
+        {
+            using (StreamReader reader = new StreamReader(stream, encoding))
+                return reader.ReadToEnd();
+        }
+
+        /// <summary>
+        /// Reads all characters from the current position to the end of the stream.
+        /// </summary>
+        /// <param name="stream">The stream to read</param>
         /// <returns>The rest of the stream as a string, from the current position to the end. If the current position is at the end of the stream, returns an empty string ("").</returns>
         /// <exception cref="OutOfMemoryException">There is insufficient memory to allocate a buffer for the returned string.</exception>
         /// <exception cref="IOException">An I/O error occurs.</exception>

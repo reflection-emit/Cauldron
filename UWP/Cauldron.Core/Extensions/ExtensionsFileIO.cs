@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Text;
 
 #if WINDOWS_UWP
 
@@ -136,10 +137,28 @@ namespace Cauldron.Core.Extensions
         /// <summary>
         /// Reads the contents of the specified file and returns text.
         /// </summary>
+        /// <param name="file">The file to read.</param>
+        /// <param name="encoding">The encoding applied to the contents of the file.</param>
+        /// <returns>When this method completes successfully, it returns the contents of the file as a text string.</returns>
+        public static Task<string> ReadTextAsync(this FileInfo file, Encoding encoding) => Task.FromResult(File.ReadAllText(file.FullName, encoding));
+
+        /// <summary>
+        /// Reads the contents of the specified file and returns text.
+        /// </summary>
         /// <param name="folder">The folder where the file resides</param>
         /// <param name="filename">The name of the file to read.</param>
         /// <returns>When this method completes successfully, it returns the contents of the file as a text string.</returns>
-        public static Task<string> ReadTextAsync(this DirectoryInfo folder, string filename)
+        public static Task<string> ReadTextAsync(this DirectoryInfo folder, string filename) =>
+            folder.ReadTextAsync(filename, Encoding.Default);
+
+        /// <summary>
+        /// Reads the contents of the specified file and returns text.
+        /// </summary>
+        /// <param name="folder">The folder where the file resides</param>
+        /// <param name="filename">The name of the file to read.</param>
+        /// <param name="encoding">The encoding applied to the contents of the file.</param>
+        /// <returns>When this method completes successfully, it returns the contents of the file as a text string.</returns>
+        public static Task<string> ReadTextAsync(this DirectoryInfo folder, string filename, Encoding encoding)
         {
             try
             {
@@ -148,7 +167,7 @@ namespace Cauldron.Core.Extensions
                 if (!File.Exists(file))
                     return null;
 
-                return Task.FromResult(File.ReadAllText(file));
+                return Task.FromResult(File.ReadAllText(file, encoding));
             }
             catch
             {
@@ -181,9 +200,19 @@ namespace Cauldron.Core.Extensions
         /// <param name="file">The file to write to.</param>
         /// <param name="content">The string to write to the file.</param>
         /// <returns>No object or value is returned when this method completes.</returns>
-        public static async Task WriteTextAsync(this FileInfo file, string content)
+        public static async Task WriteTextAsync(this FileInfo file, string content) =>
+            await file.WriteTextAsync(content, Encoding.Default);
+
+        /// <summary>
+        /// Creates a new file, writes the specified string to the file, and then closes the file. If the target file already exists, it is overwritten.
+        /// </summary>
+        /// <param name="file">The file to write to.</param>
+        /// <param name="content">The string to write to the file.</param>
+        /// <param name="encoding">The encoding applied to the contents of the file.</param>
+        /// <returns>No object or value is returned when this method completes.</returns>
+        public static async Task WriteTextAsync(this FileInfo file, string content, Encoding encoding)
         {
-            var task = Task.Run(() => File.WriteAllText(file.FullName, content));
+            var task = Task.Run(() => File.WriteAllText(file.FullName, content, encoding));
             await task.ConfigureAwait(false);
         }
 
