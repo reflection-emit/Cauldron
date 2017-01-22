@@ -320,6 +320,13 @@ namespace Cauldron.XAML
         protected virtual Task OnPreload() => Task.FromResult(0);
 
         /// <summary>
+        /// Occures before loading XAML resources
+        /// </summary>
+        protected virtual void OnResourceLoad()
+        {
+        }
+
+        /// <summary>
         /// Invoked when application execution is being suspended.  Application state is saved
         /// without knowing whether the application will be terminated or resumed with the contents
         /// of memory still intact.
@@ -365,6 +372,7 @@ namespace Cauldron.XAML
                     return;
 
                 this.resourceLoaded = true;
+                this.OnResourceLoad();
 
                 // Add the custom template selector to the resources
                 this.Resources.Add(typeof(CauldronTemplateSelector).Name, new CauldronTemplateSelector());

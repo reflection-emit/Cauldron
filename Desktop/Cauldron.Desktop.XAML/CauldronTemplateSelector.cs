@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Cauldron.Core;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Cauldron.XAML
@@ -19,10 +20,27 @@ namespace Cauldron.XAML
             if (item == null)
                 return base.SelectTemplate(item, container);
 
-            var itemName = "View_" + item.GetType().Name;
+            var defaultDataTemplateKey = "View_" + item.GetType().Name;
+            var specializedDataTemplateKey = defaultDataTemplateKey;
 
-            if (Application.Current.Resources.Contains(itemName))
-                return Application.Current.Resources[itemName] as DataTemplate;
+            if (Application.Current.Resources.Contains(specializedDataTemplateKey))
+                return Application.Current.Resources[specializedDataTemplateKey] as DataTemplate;
+
+            specializedDataTemplateKey = defaultDataTemplateKey;
+            var orientation = Application.Current.MainWindow.Width > Application.Current.MainWindow.Height ? ViewOrientation.Landscape : ViewOrientation.Portrait;
+
+            if (orientation == ViewOrientation.Landscape)
+                specializedDataTemplateKey += "_Landscape";
+            else if (orientation == ViewOrientation.Portrait)
+                specializedDataTemplateKey += "_Portrait";
+
+            // Example: x:Key="View_MainViewModel_Landscape"
+
+            if (Application.Current.Resources.Contains(specializedDataTemplateKey))
+                return Application.Current.Resources[specializedDataTemplateKey] as DataTemplate;
+
+            if (Application.Current.Resources.Contains(defaultDataTemplateKey))
+                return Application.Current.Resources[defaultDataTemplateKey] as DataTemplate;
 
             return base.SelectTemplate(item, container);
         }

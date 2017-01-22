@@ -23,7 +23,7 @@
     <Title>Capgemini.Cauldron.XAML</Title>
     <Authors>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</Authors>
     <Owners>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</Owners>
-    <Summary>A Simple MVVM framework based on Cauldron.Core (Open Source)</Summary>
+    <Summary>(beta) A Simple MVVM framework based on Cauldron.Core (Open Source)</Summary>
     <Description>A Simple MVVM framework based on Cauldron.Core</Description>
     <ReleaseNotes>
     </ReleaseNotes>

@@ -460,6 +460,72 @@ namespace Cauldron.XAML.Controls
             return true;
         }
 
+        private static FrameworkElement GetViewInstance(string viewTypeName, Type viewType = null)
+        {
+            var newViewTypeName = viewTypeName;
+
+            if (Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily == DeviceFamilies.DeviceFamily_WindowsMobile)
+                newViewTypeName += "Mobile";
+            else if (Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily == DeviceFamilies.DeviceFamily_WindowsDesktop)
+                newViewTypeName += "Desktop";
+            else if (Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily == DeviceFamilies.DeviceFamily_WindowsXbox)
+                newViewTypeName += "Xbox";
+            else if (Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily == DeviceFamilies.DeviceFamily_WindowsIoT)
+                newViewTypeName += "IoT";
+
+            // Example: public class MainViewMobile
+
+            var newViewType = Assemblies.GetTypeFromName(newViewTypeName);
+
+            if (newViewType == null)
+            {
+                var currentView = ApplicationView.GetForCurrentView();
+
+                if (currentView.Orientation == ApplicationViewOrientation.Landscape)
+                    newViewTypeName += "Landscape";
+                else if (currentView.Orientation == ApplicationViewOrientation.Portrait)
+                    newViewTypeName += "Portrait";
+
+                // Example: public class MainViewMobileLandscape
+
+                newViewType = Assemblies.GetTypeFromName(newViewTypeName);
+            }
+
+            if (newViewType == null)
+            {
+                newViewTypeName = viewTypeName;
+                var currentView = ApplicationView.GetForCurrentView();
+
+                if (currentView.Orientation == ApplicationViewOrientation.Landscape)
+                    newViewTypeName += "Landscape";
+                else if (currentView.Orientation == ApplicationViewOrientation.Portrait)
+                    newViewTypeName += "Portrait";
+
+                // Example: public class MainViewLandscape
+
+                newViewType = Assemblies.GetTypeFromName(newViewTypeName);
+            }
+
+            if (newViewType == null && viewType == null)
+            {
+                var textBlock = new TextBlock();
+                textBlock.Text = viewTypeName;
+                textBlock.Foreground = new SolidColorBrush(Colors.Tomato);
+                textBlock.TextWrapping = TextWrapping.NoWrap;
+                textBlock.TextTrimming = TextTrimming.CharacterEllipsis;
+                textBlock.FontSize = 18;
+                return textBlock;
+            }
+
+            if (newViewType == null)
+                // Use createinstance because we dont need anything other than creating an object
+                // The Factory uses a compile expression to create objects which is faster than Activator.CreateInstance.
+                // First create is always slow
+                return Factory.CreateInstance(viewType).As<FrameworkElement>();
+            else
+                return Factory.CreateInstance(newViewType).As<FrameworkElement>();
+        }
+
         private async Task<bool> CanChangePage(Type requestingViewModel, XamlNav.NavigationMode navigationMode, NavigationType navigationType)
         {
             // We will do this for the UWP only interface INavigable
@@ -614,59 +680,7 @@ namespace Cauldron.XAML.Controls
             var attrib = viewModelType.GetTypeInfo().GetCustomAttribute<ViewAttribute>();
 
             if (attrib != null)
-            {
-                string viewTypeName = attrib.ViewType.Name;
-
-                if (Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily == DeviceFamilies.DeviceFamily_WindowsMobile)
-                    viewTypeName += "Mobile";
-                else if (Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily == DeviceFamilies.DeviceFamily_WindowsDesktop)
-                    viewTypeName += "Desktop";
-                else if (Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily == DeviceFamilies.DeviceFamily_WindowsXbox)
-                    viewTypeName += "Xbox";
-                else if (Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily == DeviceFamilies.DeviceFamily_WindowsIoT)
-                    viewTypeName += "IoT";
-
-                // Example: public class MainViewMobile
-
-                var viewType = Assemblies.GetTypeFromName(viewTypeName);
-
-                if (viewType == null)
-                {
-                    var currentView = ApplicationView.GetForCurrentView();
-
-                    if (currentView.Orientation == ApplicationViewOrientation.Landscape)
-                        viewTypeName += "Landscape";
-                    else if (currentView.Orientation == ApplicationViewOrientation.Portrait)
-                        viewTypeName += "Portrait";
-
-                    // Example: public class MainViewMobileLandscape
-
-                    viewType = Assemblies.GetTypeFromName(viewTypeName);
-                }
-
-                if (viewType == null)
-                {
-                    viewTypeName = attrib.ViewType.Name;
-                    var currentView = ApplicationView.GetForCurrentView();
-
-                    if (currentView.Orientation == ApplicationViewOrientation.Landscape)
-                        viewTypeName += "Landscape";
-                    else if (currentView.Orientation == ApplicationViewOrientation.Portrait)
-                        viewTypeName += "Portrait";
-
-                    // Example: public class MainViewLandscape
-
-                    viewType = Assemblies.GetTypeFromName(viewTypeName);
-                }
-
-                if (viewType == null)
-                    // Use createinstance because we dont need anything other than creating an object
-                    // The Factory uses a compile expression to create objects which is faster than Activator.CreateInstance.
-                    // First create is always slow
-                    return Factory.CreateInstance(attrib.ViewType).As<FrameworkElement>();
-                else
-                    return Factory.CreateInstance(viewType).As<FrameworkElement>();
-            }
+                return GetViewInstance(attrib.ViewType.Name, attrib.ViewType);
             else
             {
                 // The datatemplate has a higher priority than a control
@@ -674,13 +688,8 @@ namespace Cauldron.XAML.Controls
 
                 // if we have no datatemplate for the viewmodel then we try getting the view based on the name of the viewmodel
                 if (dt == null && viewModelType.Name.EndsWith("Model"))
-                {
-                    var viewType = Assemblies.GetTypeFromName(viewModelType.Name.Left(viewModelType.Name.Length - "Model".Length));
-                    if (viewType != null)
-                        return viewType.CreateInstance() as FrameworkElement;
-                }
+                    return GetViewInstance(viewModelType.Name.Left(viewModelType.Name.Length - "Model".Length));
 
-                //
                 if (dt == null)
                 {
                     var textBlock = new TextBlock();

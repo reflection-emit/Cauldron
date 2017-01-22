@@ -767,10 +767,10 @@ namespace Cauldron.Core.Extensions
         /// </summary>
         /// <param name="obj">The object to convert to string</param>
         /// <param name="format">A standard or custom format string</param>
-        /// <param name="provider">An object that supplies culture-specific formatting information</param>
+        /// <param name="cultureInfo">An object that supplies culture-specific formatting information</param>
         /// <returns>The string representation of the value of this instance as specified by format.</returns>
-        public static string ToStringEx(this object obj, string format, IFormatProvider provider) =>
-            string.Format(new Formatter(provider), "{0:" + format.Replace("{", "").Replace("}", "") + "}", obj);
+        public static string ToStringEx(this object obj, string format, CultureInfo cultureInfo) =>
+            string.Format(new Formatter(cultureInfo), "{0:" + format.Replace("{", "").Replace("}", "") + "}", obj);
 
         /// <summary>
         /// Tries to convert a <see cref="string"/> to an <see cref="uint"/>

@@ -47,6 +47,7 @@ namespace Cauldron.XAML
             this.ShutdownMode = ShutdownMode.OnMainWindowClose;
 
             //Assemblies.LoadAssembly();
+            this.OnResourceLoad();
 
             // Add the custom template selector to the resources
             this.Resources.Add(typeof(CauldronTemplateSelector).Name, new CauldronTemplateSelector());
@@ -267,6 +268,13 @@ namespace Cauldron.XAML
         /// Will only occures if <see cref="IsSingleInstance"/> is true
         /// </summary>
         protected virtual Task OnPreload() => Task.FromResult(0);
+
+        /// <summary>
+        /// Occures before loading XAML resources
+        /// </summary>
+        protected virtual void OnResourceLoad()
+        {
+        }
 
         /// <summary>
         /// Occures if the application is launched

@@ -23,7 +23,7 @@
     <Title>Capgemini.Cauldron.XAML.Validation</Title>
     <Authors>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</Authors>
     <Owners>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</Owners>
-    <Summary>Validation Framework for Cauldron.XAML (Open Source)</Summary>
+    <Summary>(beta)  Validation Framework for Cauldron.XAML (Open Source)</Summary>
     <Description>Validation Framework for Cauldron.XAML</Description>
     <ReleaseNotes>
     </ReleaseNotes>

@@ -1,5 +1,6 @@
 ﻿using Cauldron.Core.Extensions;
 using System;
+using System.Globalization;
 
 namespace Cauldron.Core.Formatters
 {
@@ -25,7 +26,11 @@ namespace Cauldron.Core.Formatters
         {
         }
 
-        internal MetricUnitFormatter(IFormatProvider provider) : base(provider)
+        /// <summary>
+        /// Initializes a new instance of <see cref="MetricUnitFormatter"/>
+        /// </summary>
+        /// <param name="cultureInfo">An object that supplies culture-specific formatting information</param>
+        public MetricUnitFormatter(CultureInfo cultureInfo) : base(cultureInfo)
         {
         }
 

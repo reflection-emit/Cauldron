@@ -400,6 +400,46 @@ namespace Cauldron.XAML.Controls
             return true;
         }
 
+        private static FrameworkElement GetViewInstance(string viewTypeName, Type viewType = null)
+        {
+            var newViewTypeName = viewTypeName;
+
+            Type newViewType = null;
+
+            if (newViewType == null)
+            {
+                var orientation = Application.Current.MainWindow.Width > Application.Current.MainWindow.Height ? ViewOrientation.Landscape : ViewOrientation.Portrait;
+
+                if (orientation == ViewOrientation.Landscape)
+                    viewTypeName += "Landscape";
+                else if (orientation == ViewOrientation.Portrait)
+                    viewTypeName += "Portrait";
+
+                // Example: public class MainViewMobileLandscape
+
+                newViewType = Assemblies.GetTypeFromName(viewTypeName);
+            }
+
+            if (newViewType == null && viewType == null)
+            {
+                var textBlock = new TextBlock();
+                textBlock.Text = viewTypeName;
+                textBlock.Foreground = new SolidColorBrush(Colors.Tomato);
+                textBlock.TextWrapping = TextWrapping.NoWrap;
+                textBlock.TextTrimming = TextTrimming.CharacterEllipsis;
+                textBlock.FontSize = 18;
+                return textBlock;
+            }
+
+            if (newViewType == null)
+                // Use createinstance because we dont need anything other than creating an object
+                // The Factory uses a compile expression to create objects which is faster than Activator.CreateInstance.
+                // First create is always slow
+                return Factory.CreateInstance(viewType).As<FrameworkElement>();
+            else
+                return Factory.CreateInstance(newViewType).As<FrameworkElement>();
+        }
+
         private async Task<bool> CanChangePage(Type requestingViewModel, NavigationMode navigationMode, NavigationType navigationType)
         {
             // We will do this for the UWP only interface INavigable
@@ -536,35 +576,15 @@ namespace Cauldron.XAML.Controls
             var attrib = viewModelType.GetTypeInfo().GetCustomAttribute<ViewAttribute>();
 
             if (attrib != null)
-            {
-                string viewTypeName = attrib.ViewType.Name;
-                Type viewType = null;
-
-                if (viewType == null)
-                {
-                    var orientation = Application.Current.MainWindow.Width > Application.Current.MainWindow.Height ? ViewOrientation.Landscape : ViewOrientation.Portrait;
-
-                    if (orientation == ViewOrientation.Landscape)
-                        viewTypeName += "Landscape";
-                    else if (orientation == ViewOrientation.Portrait)
-                        viewTypeName += "Portrait";
-
-                    // Example: public class MainViewMobileLandscape
-
-                    viewType = Assemblies.GetTypeFromName(viewTypeName);
-                }
-
-                if (viewType == null)
-                    // Use createinstance because we dont need anything other than creating an object
-                    // The Factory uses a compile expression to create objects which is faster than Activator.CreateInstance.
-                    // First create is always slow
-                    return Factory.CreateInstance(attrib.ViewType).As<FrameworkElement>();
-                else
-                    return Factory.CreateInstance(viewType).As<FrameworkElement>();
-            }
+                return GetViewInstance(attrib.ViewType.Name, attrib.ViewType);
             else
             {
+                // The datatemplate has a higher priority than a control
                 var dt = this.selector.SelectTemplate(viewModelType, this);
+
+                // if we have no datatemplate for the viewmodel then we try getting the view based on the name of the viewmodel
+                if (dt == null && viewModelType.Name.EndsWith("Model"))
+                    return GetViewInstance(viewModelType.Name.Left(viewModelType.Name.Length - "Model".Length));
 
                 if (dt == null)
                 {
