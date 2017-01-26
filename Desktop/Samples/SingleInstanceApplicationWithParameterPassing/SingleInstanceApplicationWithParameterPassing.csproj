@@ -39,24 +39,24 @@
     </StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Cauldron.Activator, Version=1.0.0.8, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Capgemini.Cauldron.Activator.1.0.2\lib\net452\Cauldron.Activator.dll</HintPath>
+    <Reference Include="Cauldron.Activator, Version=1.0.0.9, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Capgemini.Cauldron.Activator.1.0.3\lib\net452\Cauldron.Activator.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Cauldron.Core, Version=1.0.0.9, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Capgemini.Cauldron.Core.1.0.2\lib\net452\Cauldron.Core.dll</HintPath>
+      <HintPath>..\..\..\packages\Capgemini.Cauldron.Core.1.0.3\lib\net452\Cauldron.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Cauldron.IEnumerableExtensions, Version=1.0.0.8, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Capgemini.Cauldron.IEnumerableExtensions.1.0.2\lib\net452\Cauldron.IEnumerableExtensions.dll</HintPath>
+    <Reference Include="Cauldron.IEnumerableExtensions, Version=1.0.0.9, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Capgemini.Cauldron.IEnumerableExtensions.1.0.3\lib\net452\Cauldron.IEnumerableExtensions.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Cauldron.Localization, Version=1.0.0.8, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Capgemini.Cauldron.Localization.1.0.2\lib\net452\Cauldron.Localization.dll</HintPath>
+    <Reference Include="Cauldron.Localization, Version=1.0.0.9, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Capgemini.Cauldron.Localization.1.0.3\lib\net452\Cauldron.Localization.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Cauldron.XAML, Version=1.0.0.8, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Capgemini.Cauldron.XAML.1.0.2\lib\net452\Cauldron.XAML.dll</HintPath>
+    <Reference Include="Cauldron.XAML, Version=1.0.0.9, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Capgemini.Cauldron.XAML.1.0.3\lib\net452\Cauldron.XAML.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />

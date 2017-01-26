@@ -1996,8 +1996,8 @@
     <HelpKINode Title="QuicklookOrder.StationId Property " Url="html/P_EveOnlineApi_Models_QuicklookOrder_StationId.htm" />
   </HelpKINode>
   <HelpKINode Title="StationName property" Url="html/P_EveOnlineApi_Models_QuicklookOrder_StationName.htm" />
-  <HelpKINode Title="StationTypeID property" Url="html/P_EveOnlineApi_Models_ConquerableStation_StationTypeID.htm" />
   <HelpKINode Title="StationTypeId property" Url="html/P_EveOnlineApi_Models_StaticData_NpcStation_StationTypeId.htm" />
+  <HelpKINode Title="StationTypeID property" Url="html/P_EveOnlineApi_Models_ConquerableStation_StationTypeID.htm" />
   <HelpKINode Title="System property" Url="html/P_EveOnlineApi_Models_CharacterLocationInfo_System.htm" />
   <HelpKINode Title="TaxAmount property" Url="html/P_EveOnlineApi_Models_WalletJournalItem_TaxAmount.htm" />
   <HelpKINode Title="TaxRecieverId property" Url="html/P_EveOnlineApi_Models_WalletJournalItem_TaxRecieverId.htm" />

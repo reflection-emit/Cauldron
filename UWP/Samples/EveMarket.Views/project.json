@@ -1,13 +1,13 @@
 ﻿{
   "dependencies": {
-    "Capgemini.Cauldron.Activator": "1.0.2",
-    "Capgemini.Cauldron.Core": "1.0.2",
-    "Capgemini.Cauldron.Cryptography": "1.0.2",
-    "Capgemini.Cauldron.Injection": "1.0.2",
-    "Capgemini.Cauldron.Localization": "1.0.2",
-    "Capgemini.Cauldron.XAML": "1.0.2",
-    "Capgemini.Cauldron.XAML.Interactivity": "1.0.2",
-    "Capgemini.Cauldron.XAML.Validation": "1.0.2",
+    "Capgemini.Cauldron.Activator": "1.0.3",
+    "Capgemini.Cauldron.Core": "1.0.3",
+    "Capgemini.Cauldron.Cryptography": "1.0.3",
+    "Capgemini.Cauldron.Injection": "1.0.3",
+    "Capgemini.Cauldron.Localization": "1.0.3",
+    "Capgemini.Cauldron.XAML": "1.0.3",
+    "Capgemini.Cauldron.XAML.Interactivity": "1.0.3",
+    "Capgemini.Cauldron.XAML.Validation": "1.0.3",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2"
   },
   "frameworks": {

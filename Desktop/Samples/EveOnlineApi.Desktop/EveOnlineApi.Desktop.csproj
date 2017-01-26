@@ -32,20 +32,20 @@
     <DocumentationFile>bin\Release\EveOnlineApi.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Cauldron.Activator, Version=1.0.0.8, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Capgemini.Cauldron.Activator.1.0.2\lib\net452\Cauldron.Activator.dll</HintPath>
+    <Reference Include="Cauldron.Activator, Version=1.0.0.9, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Capgemini.Cauldron.Activator.1.0.3\lib\net452\Cauldron.Activator.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Cauldron.Core, Version=1.0.0.9, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Capgemini.Cauldron.Core.1.0.2\lib\net452\Cauldron.Core.dll</HintPath>
+      <HintPath>..\..\..\packages\Capgemini.Cauldron.Core.1.0.3\lib\net452\Cauldron.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Cauldron.Cryptography, Version=1.0.0.8, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Capgemini.Cauldron.Cryptography.1.0.2\lib\net452\Cauldron.Cryptography.dll</HintPath>
+    <Reference Include="Cauldron.Cryptography, Version=1.0.0.9, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Capgemini.Cauldron.Cryptography.1.0.3\lib\net452\Cauldron.Cryptography.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Cauldron.IEnumerableExtensions, Version=1.0.0.8, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Capgemini.Cauldron.IEnumerableExtensions.1.0.2\lib\net452\Cauldron.IEnumerableExtensions.dll</HintPath>
+    <Reference Include="Cauldron.IEnumerableExtensions, Version=1.0.0.9, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Capgemini.Cauldron.IEnumerableExtensions.1.0.3\lib\net452\Cauldron.IEnumerableExtensions.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
