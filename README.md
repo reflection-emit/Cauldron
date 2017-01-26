@@ -1,4 +1,4 @@
-# Cauldron C# Toolkit
+ Impersonate# Cauldron C# Toolkit
 
 ## Documentation
 ### .NET Desktop
@@ -13,7 +13,19 @@ https://reflection-emit.github.io/Cauldron/eveonline/
 - [CodeMaid](http://www.codemaid.net/)
 
 ## Release Notes
-### Assembly Version 1.0.0.9 - NuGet 1.0.2
+### 1.0.3
+- Behaviour of As<> Extension changed. It will not use implicit and explicit operators if casting did not work.
+- string Replace(string,char[],char) extension method added.
+- Examples added to the following methods
+  - ExtensionsDirectoryServices.Impersonate
+  - ConsoleUtils.WriteTable
+  - AsyncHelper.NullGuard
+- Extensions.IsDerivedFrom<T> removed
+- Extension.LowerFirstCharacter optimized
+- Cauldron.XAML.Interactivity.TextBoxHeader removed
+- Reference to Cauldron.UWP.XAML.Potions in Cauldron.UWP.XAML removed
+- Several minor bug fixes
+### 1.0.2
 - ByteSizeFormatter moved to Cauldron.Core.Formatters
 - MetricUnitFormatter added -> key is metric -> .ToStringEx("metric") or "{0:metric}"
 - ByteSizeFormatter key changed from B to byte -> .ToStringEx("byte") or "{0:byte}"
