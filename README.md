@@ -14,7 +14,7 @@ https://reflection-emit.github.io/Cauldron/eveonline/
 
 ## Release Notes
 ### 1.0.3
-- Behaviour of As<> Extension changed. It will not use implicit and explicit operators if casting did not work.
+- Behaviour of As<> Extension changed. It will use implicit and explicit operators if casting did not work.
 - string Replace(string,char[],char) extension method added.
 - Examples added to the following methods
   - ExtensionsDirectoryServices.Impersonate
