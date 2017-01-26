@@ -521,9 +521,9 @@ namespace Cauldron.XAML.Controls
                 // Use createinstance because we dont need anything other than creating an object
                 // The Factory uses a compile expression to create objects which is faster than Activator.CreateInstance.
                 // First create is always slow
-                return Factory.CreateInstance(viewType).As<FrameworkElement>();
+                return viewType.CreateInstance().As<FrameworkElement>();
             else
-                return Factory.CreateInstance(newViewType).As<FrameworkElement>();
+                return newViewType.CreateInstance().As<FrameworkElement>();
         }
 
         private async Task<bool> CanChangePage(Type requestingViewModel, XamlNav.NavigationMode navigationMode, NavigationType navigationType)

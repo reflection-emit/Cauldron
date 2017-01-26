@@ -19,7 +19,7 @@
   <Import Project="$(NuProjPath)\NuProj.props" Condition="Exists('$(NuProjPath)\NuProj.props')" />
   <PropertyGroup Label="Configuration">
     <Id>Capgemini.Cauldron.XAML.Validation</Id>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <Title>Capgemini.Cauldron.XAML.Validation</Title>
     <Authors>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</Authors>
     <Owners>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</Owners>
@@ -44,6 +44,14 @@
     <ProjectReference Include="..\Cauldron.Localization.nupkg\Cauldron.Localization.nupkg.nuproj" />
     <ProjectReference Include="..\Cauldron.XAML.Interactivity.nupkg\Cauldron.XAML.Interactivity.nupkg.nuproj" />
     <ProjectReference Include="..\Cauldron.XAML.nupkg\Cauldron.XAML.nupkg.nuproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="lib\.NETCore50\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\Binaries\UWP\Cauldron.XAML.Validation.pri">
+      <Link>lib\.NETCore50\Cauldron.XAML.Validation.pri</Link>
+    </Content>
   </ItemGroup>
   <Import Project="$(NuProjPath)\NuProj.targets" />
 </Project>

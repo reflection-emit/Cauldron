@@ -464,14 +464,6 @@ namespace Cauldron.Core.Extensions
         }
 
         /// <summary>
-        /// Checks if an object is not compatible (does not derive) with a given type.
-        /// </summary>
-        /// <typeparam name="T">The type </typeparam>
-        /// <param name="target">The object to be tested</param>
-        /// <returns>Returns true if the object cannot be casted to <typeparamref name="T"/>, otherwise false.</returns>
-        public static bool IsDerivedFrom<T>(this object target) => !(target is T);
-
-        /// <summary>
         /// Checks if the value is null. If not, it will invoke <paramref name="action"/>
         /// </summary>
         /// <typeparam name="T">The type of the value</typeparam>
@@ -594,15 +586,23 @@ namespace Cauldron.Core.Extensions
         /// </summary>
         /// <param name="target">The string to replace</param>
         /// <returns>Returns a new string with a lower cased first character</returns>
-        public static string LowerFirstCharacter(this string target)
+        public unsafe static string LowerFirstCharacter(this string target)
         {
-            if (string.IsNullOrEmpty(target))
-                return target;
+            if (target == null)
+                return null;
+
+            if (target == "")
+                return "";
 
             if (target.Length == 1)
                 return target.ToLower();
 
-            return target[0].ToString().ToLower() + target.Substring(1, target.Length - 1);
+            var result = target.Copy();
+
+            fixed (char* chr = result)
+                *chr = char.ToLower(*chr);
+
+            return result;
         }
 
         /// <summary>
@@ -696,6 +696,35 @@ namespace Cauldron.Core.Extensions
         {
             using (StreamReader reader = new StreamReader(stream))
                 return reader.ReadToEnd();
+        }
+
+        /// <summary>
+        /// Replaces a series of chars <paramref name="oldChars"/> with a single char <paramref name="newChar"/>
+        /// </summary>
+        /// <param name="value">The string with the chars to replace</param>
+        /// <param name="oldChars">The old chars to be replaced by <paramref name="newChar"/></param>
+        /// <param name="newChar">The new char that replaces the old chars</param>
+        /// <returns>A copy of the original string with the chars defined by <paramref name="oldChars"/> replaced by <paramref name="newChar"/>.</returns>
+        public unsafe static string Replace(this string value, char[] oldChars, char newChar)
+        {
+            if (value == null)
+                throw new ArgumentNullException(nameof(value));
+
+            if (value.Length == 0)
+                return "";
+
+            var result = value.Copy();
+
+            fixed (char* chr = result)
+                for (int i = 0; i < value.Length; i++)
+                {
+                    var valueChar = *(chr + i);
+                    for (int x = 0; x < oldChars.Length; x++)
+                        if (valueChar == oldChars[i])
+                            *(chr + i) = newChar;
+                }
+
+            return result;
         }
 
         /// <summary>

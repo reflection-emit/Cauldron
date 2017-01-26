@@ -5,6 +5,10 @@ using System;
 using Windows.Storage.Streams;
 using Windows.System.Profile;
 
+#elif ANDROID
+
+using Android.OS;
+
 #else
 
 using Cauldron.Core.Extensions;
@@ -35,6 +39,8 @@ namespace Cauldron.Core
                     reader.ReadBytes(bytes);
 
                 return Convert.ToBase64String(bytes);
+#elif ANDROID
+                return Build.Serial;
 #else
                 string result = string.Empty;
 

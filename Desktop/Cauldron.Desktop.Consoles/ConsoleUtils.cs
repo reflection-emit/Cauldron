@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 
 namespace Cauldron.Consoles
 {
@@ -127,6 +128,16 @@ namespace Cauldron.Consoles
         /// Writes the specified table to the standard output stream
         /// </summary>
         /// <param name="columns">The table to write</param>
+        /// <example>
+        /// <code>
+        /// var type = instance.GetType();
+        /// var properties = type.GetPropertiesEx(BindingFlags.Public | BindingFlags.Instance);
+        ///
+        /// ConsoleUtils.WriteTable(
+        ///     new ConsoleTableColumn(properties.Select(x => x.Name)),
+        ///     new ConsoleTableColumn(properties.Select(x => x.GetValue(instance)?.ToString())));
+        /// </code>
+        /// </example>
         public static void WriteTable(params ConsoleTableColumn[] columns)
         {
             if (columns.Length == 0)

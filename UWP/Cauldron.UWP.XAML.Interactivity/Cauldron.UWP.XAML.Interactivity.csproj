@@ -127,7 +127,6 @@
     <Compile Include="EnterKeyToCommand.cs" />
     <Compile Include="EventToCommand.cs" />
     <Compile Include="EventTrigger.cs" />
-    <Compile Include="HeaderBehaviourHelper.cs" />
     <Compile Include="IBehaviour.cs" />
     <Compile Include="Interaction.cs" />
     <Compile Include="InteractionTemplate.cs" />
@@ -139,7 +138,6 @@
     </Compile>
     <Compile Include="SetFocusOnLoad.cs" />
     <Compile Include="StyleInteraction.cs" />
-    <Compile Include="TextBoxHeader.cs" />
     <Compile Include="TextBoxOnTextChanged.cs" />
     <EmbeddedResource Include="Properties\Cauldron.UWP.XAML.Interactivity.rd.xml" />
   </ItemGroup>

@@ -24,6 +24,17 @@ namespace Cauldron.Core.Extensions
         /// <exception cref="ArgumentNullException"><paramref name="password"/> is null</exception>
         /// <exception cref="ArgumentException"><paramref name="username"/> is empty</exception>
         /// <exception cref="ArgumentException"><paramref name="password"/> is empty</exception>
+        /// <example>
+        /// <code>
+        /// using (var context = new PrincipalContext(ContextType.Domain))
+        /// {
+        ///     context.Impersonate("billgates", "superSafePassword!!!!1111", LogonType.Network);
+        ///
+        ///     // Do anything in the context of the user 'billgates'
+        ///     this.database.DeleteAll();
+        /// }
+        /// </code>
+        /// </example>
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
         public static WindowsImpersonationContext Impersonate(this PrincipalContext principalContext, string username, string password, LogonType logonType)
         {

@@ -19,7 +19,7 @@
   <Import Project="$(NuProjPath)\NuProj.props" Condition="Exists('$(NuProjPath)\NuProj.props')" />
   <PropertyGroup Label="Configuration">
     <Id>Capgemini.Cauldron.IEnumerableExtensions</Id>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <Title>Capgemini Cauldron IEnumerableExtensions</Title>
     <Authors>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</Authors>
     <Owners>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</Owners>
@@ -38,6 +38,14 @@
     <ProjectReference Include="..\Cauldron.Core.nupkg\Cauldron.Core.nupkg.nuproj" />
     <ProjectReference Include="..\..\UWP\Cauldron.UWP.IEnumerableExtensions\Cauldron.UWP.IEnumerableExtensions.csproj" />
     <ProjectReference Include="..\..\Desktop\Cauldron.Desktop.IEnumerableExtensions\Cauldron.Desktop.IEnumerableExtensions.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="lib\.NETCore50\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\Binaries\UWP\Cauldron.IEnumerableExtensions.pri">
+      <Link>lib\.NETCore50\Cauldron.IEnumerableExtensions.pri</Link>
+    </Content>
   </ItemGroup>
   <Import Project="$(NuProjPath)\NuProj.targets" />
 </Project>

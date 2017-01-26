@@ -19,7 +19,7 @@
   <Import Project="$(NuProjPath)\NuProj.props" Condition="Exists('$(NuProjPath)\NuProj.props')" />
   <PropertyGroup Label="Configuration">
     <Id>Capgemini.Cauldron.Core</Id>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <Title>Capgemini Cauldron Core</Title>
     <Authors>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</Authors>
     <Owners>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</Owners>
@@ -37,6 +37,14 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Desktop\Cauldron.Core\Cauldron.Desktop.Core.csproj" />
     <ProjectReference Include="..\..\UWP\Cauldron.Core\Cauldron.UWP.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="lib\.NETCore50\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\Binaries\UWP\Cauldron.Core.pri">
+      <Link>lib\.NETCore50\Cauldron.Core.pri</Link>
+    </Content>
   </ItemGroup>
   <Import Project="$(NuProjPath)\NuProj.targets" />
 </Project>

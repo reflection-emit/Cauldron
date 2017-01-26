@@ -22,7 +22,7 @@ namespace Cauldron.Core
                 if (!NetworkInterface.GetIsNetworkAvailable())
                     return false;
 
-                foreach (NetworkInterface ni in NetworkInterface.GetAllNetworkInterfaces())
+                foreach (var ni in NetworkInterface.GetAllNetworkInterfaces())
                 {
                     // discard because of standard reasons
                     if ((ni.OperationalStatus != OperationalStatus.Up) ||

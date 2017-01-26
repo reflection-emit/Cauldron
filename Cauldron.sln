@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Desktop", "Desktop", "{4564
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UWP", "UWP", "{18FF0088-AC5D-4491-91DF-37B55422635B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Xamarin", "Xamarin", "{F5A4C395-1A4A-4BE5-86D1-2CD28C751FB4}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Xamarin.Android", "Xamarin.Android", "{F5A4C395-1A4A-4BE5-86D1-2CD28C751FB4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.Desktop.Core", "Desktop\Cauldron.Core\Cauldron.Desktop.Core.csproj", "{0B23E7BE-0E65-4A53-988F-67A0E9EEEA2E}"
 EndProject
@@ -117,6 +117,8 @@ EndProject
 Project("{FF286327-C783-4F7A-AB73-9BCBAD0D4460}") = "Cauldron.XAML.Validation.nupkg", "NuGet\Cauldron.XAML.Validation.nupkg\Cauldron.XAML.Validation.nupkg.nuproj", "{A97742F3-1DD2-4F7A-BD21-8BBCC89E06EA}"
 EndProject
 Project("{FF286327-C783-4F7A-AB73-9BCBAD0D4460}") = "Cauldron.Injection.nupkg", "NuGet\Cauldron.Injection.nupkg\Cauldron.Injection.nupkg.nuproj", "{F8DBF51C-C922-4997-8AFE-C8AE77502D34}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.Xamarin.Android.Core", "Xamarin.Android\Cauldron.Xamarin.Android.Core\Cauldron.Xamarin.Android.Core.csproj", "{A6273C28-AADA-4FB6-87EA-ADFD6B6D6BDA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -678,6 +680,22 @@ Global
 		{F8DBF51C-C922-4997-8AFE-C8AE77502D34}.Release|x64.Build.0 = Release|Any CPU
 		{F8DBF51C-C922-4997-8AFE-C8AE77502D34}.Release|x86.ActiveCfg = Release|Any CPU
 		{F8DBF51C-C922-4997-8AFE-C8AE77502D34}.Release|x86.Build.0 = Release|Any CPU
+		{A6273C28-AADA-4FB6-87EA-ADFD6B6D6BDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6273C28-AADA-4FB6-87EA-ADFD6B6D6BDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6273C28-AADA-4FB6-87EA-ADFD6B6D6BDA}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{A6273C28-AADA-4FB6-87EA-ADFD6B6D6BDA}.Debug|ARM.Build.0 = Debug|Any CPU
+		{A6273C28-AADA-4FB6-87EA-ADFD6B6D6BDA}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A6273C28-AADA-4FB6-87EA-ADFD6B6D6BDA}.Debug|x64.Build.0 = Debug|Any CPU
+		{A6273C28-AADA-4FB6-87EA-ADFD6B6D6BDA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A6273C28-AADA-4FB6-87EA-ADFD6B6D6BDA}.Debug|x86.Build.0 = Debug|Any CPU
+		{A6273C28-AADA-4FB6-87EA-ADFD6B6D6BDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6273C28-AADA-4FB6-87EA-ADFD6B6D6BDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6273C28-AADA-4FB6-87EA-ADFD6B6D6BDA}.Release|ARM.ActiveCfg = Release|Any CPU
+		{A6273C28-AADA-4FB6-87EA-ADFD6B6D6BDA}.Release|ARM.Build.0 = Release|Any CPU
+		{A6273C28-AADA-4FB6-87EA-ADFD6B6D6BDA}.Release|x64.ActiveCfg = Release|Any CPU
+		{A6273C28-AADA-4FB6-87EA-ADFD6B6D6BDA}.Release|x64.Build.0 = Release|Any CPU
+		{A6273C28-AADA-4FB6-87EA-ADFD6B6D6BDA}.Release|x86.ActiveCfg = Release|Any CPU
+		{A6273C28-AADA-4FB6-87EA-ADFD6B6D6BDA}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -718,5 +736,6 @@ Global
 		{61530228-67C5-406B-8D01-045714FEE462} = {B22AD21D-6FEC-4B21-A89B-43C7EEB0CD92}
 		{A97742F3-1DD2-4F7A-BD21-8BBCC89E06EA} = {B22AD21D-6FEC-4B21-A89B-43C7EEB0CD92}
 		{F8DBF51C-C922-4997-8AFE-C8AE77502D34} = {B22AD21D-6FEC-4B21-A89B-43C7EEB0CD92}
+		{A6273C28-AADA-4FB6-87EA-ADFD6B6D6BDA} = {F5A4C395-1A4A-4BE5-86D1-2CD28C751FB4}
 	EndGlobalSection
 EndGlobal

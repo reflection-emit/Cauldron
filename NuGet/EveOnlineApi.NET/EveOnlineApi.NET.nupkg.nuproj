@@ -19,7 +19,7 @@
   <Import Project="$(NuProjPath)\NuProj.props" Condition="Exists('$(NuProjPath)\NuProj.props')" />
   <PropertyGroup Label="Configuration">
     <Id>EveOnlineApi.NET</Id>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <Title>EveOnlineApi.NET</Title>
     <Authors>Alexander Schunk and Contributors</Authors>
     <Owners>Alexander Schunk and Contributors</Owners>
@@ -37,6 +37,14 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Desktop\Samples\EveOnlineApi.Desktop\EveOnlineApi.Desktop.csproj" />
     <ProjectReference Include="..\..\UWP\Samples\EveOnlineApi.UWP\EveOnlineApi.UWP.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="lib\.NETCore50\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\UWP\Samples\EveOnlineApi.UWP\bin\Release\EveOnlineApi.pri">
+      <Link>lib\.NETCore50\EveOnlineApi.pri</Link>
+    </Content>
   </ItemGroup>
   <Import Project="$(NuProjPath)\NuProj.targets" />
 </Project>

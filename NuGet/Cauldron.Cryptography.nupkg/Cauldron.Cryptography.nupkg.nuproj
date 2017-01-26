@@ -15,6 +15,14 @@
     <ProjectReference Include="..\..\UWP\Cauldron.UWP.Cryptography\Cauldron.UWP.Cryptography.csproj" />
     <ProjectReference Include="..\Cauldron.Core.nupkg\Cauldron.Core.nupkg.nuproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="lib\.NETCore50\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\Binaries\UWP\Cauldron.Cryptography.pri">
+      <Link>lib\.NETCore50\Cauldron.Cryptography.pri</Link>
+    </Content>
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>807f59f5-51fb-445c-b215-06d27e8a11b9</ProjectGuid>
   </PropertyGroup>
@@ -24,7 +32,7 @@
   <Import Project="$(NuProjPath)\NuProj.props" Condition="Exists('$(NuProjPath)\NuProj.props')" />
   <PropertyGroup Label="Configuration">
     <Id>Capgemini.Cauldron.Cryptography</Id>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <Title>Capgemini Cauldron Cryptography</Title>
     <Authors>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</Authors>
     <Owners>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</Owners>

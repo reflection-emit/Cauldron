@@ -16,6 +16,14 @@
     <ProjectReference Include="..\Cauldron.Core.nupkg\Cauldron.Core.nupkg.nuproj" />
     <ProjectReference Include="..\Cauldron.IEnumerableExtensions.nupkg\Cauldron.IEnumerableExtensions.nupkg.nuproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="lib\.NETCore50\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\Binaries\UWP\Cauldron.Activator.pri">
+      <Link>lib\.NETCore50\Cauldron.Activator.pri</Link>
+    </Content>
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>833f4a1a-b512-4ccf-9427-9db1667a9322</ProjectGuid>
   </PropertyGroup>
@@ -25,7 +33,7 @@
   <Import Project="$(NuProjPath)\NuProj.props" Condition="Exists('$(NuProjPath)\NuProj.props')" />
   <PropertyGroup Label="Configuration">
     <Id>Capgemini.Cauldron.Activator</Id>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <Title>Capgemini Cauldron Activator</Title>
     <Authors>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</Authors>
     <Owners>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</Owners>

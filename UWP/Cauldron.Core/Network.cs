@@ -114,8 +114,9 @@ namespace Cauldron.Core
                 {
 #if WINDOWS_UWP
 
-                    ConnectionProfile connectionProfile = NetworkInformation.GetInternetConnectionProfile();
+                    var connectionProfile = NetworkInformation.GetInternetConnectionProfile();
                     return (connectionProfile != null && connectionProfile.GetNetworkConnectivityLevel() == NetworkConnectivityLevel.InternetAccess);
+
 #else
                     if (!IsNetworkAvailable)
                         return false;

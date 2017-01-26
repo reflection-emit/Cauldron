@@ -1,7 +1,7 @@
 ﻿namespace Cauldron.Core
 {
     /// <summary>
-    /// All known encodings
+    /// Provides predefined encodings
     /// </summary>
     public enum Encodings
     {

@@ -19,7 +19,7 @@
   <Import Project="$(NuProjPath)\NuProj.props" Condition="Exists('$(NuProjPath)\NuProj.props')" />
   <PropertyGroup Label="Configuration">
     <Id>Capgemini.Cauldron.XAML.Interactivity</Id>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <Title>Capgemini.Cauldron.XAML.Interactivity</Title>
     <Authors>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</Authors>
     <Owners>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</Owners>
@@ -43,6 +43,20 @@
     <ProjectReference Include="..\Cauldron.IEnumerableExtensions.nupkg\Cauldron.IEnumerableExtensions.nupkg.nuproj" />
     <ProjectReference Include="..\Cauldron.Localization.nupkg\Cauldron.Localization.nupkg.nuproj" />
     <ProjectReference Include="..\Cauldron.XAML.nupkg\Cauldron.XAML.nupkg.nuproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="lib\.NETCore50\Cauldron.XAML.Interactivity\Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\Binaries\UWP\Cauldron.XAML.Interactivity.pri">
+      <Link>lib\.NETCore50\Cauldron.XAML.Interactivity.pri</Link>
+    </Content>
+    <Content Include="..\..\Binaries\UWP\Cauldron.XAML.Interactivity\Cauldron.XAML.Interactivity.xr.xml">
+      <Link>lib\.NETCore50\Cauldron.XAML.Interactivity\Cauldron.XAML.Interactivity.xr.xml</Link>
+    </Content>
+    <Content Include="..\..\Binaries\UWP\Cauldron.XAML.Interactivity\Resources\DummyResources.xaml">
+      <Link>lib\.NETCore50\Cauldron.XAML.Interactivity\Resources\DummyResources.xaml</Link>
+    </Content>
   </ItemGroup>
   <Import Project="$(NuProjPath)\NuProj.targets" />
 </Project>

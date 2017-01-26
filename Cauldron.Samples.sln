@@ -31,7 +31,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InputValidation", "UWP\Samp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StandardApplication", "UWP\Samples\StandardApplication\StandardApplication.csproj", "{49EFA630-EA83-481A-9C25-757D9B56C55C}"
 EndProject
-Project("{FF286327-C783-4F7A-AB73-9BCBAD0D4460}") = "EveOnlineApi.NET", "NuGet\EveOnlineApi.NET\EveOnlineApi.NET.nuproj", "{855C5222-505B-4E0D-8062-48B6CB61FD04}"
+Project("{FF286327-C783-4F7A-AB73-9BCBAD0D4460}") = "EveOnlineApi.NET.nupkg", "NuGet\EveOnlineApi.NET\EveOnlineApi.NET.nupkg.nuproj", "{855C5222-505B-4E0D-8062-48B6CB61FD04}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

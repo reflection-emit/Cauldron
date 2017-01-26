@@ -2,7 +2,6 @@
 using Cauldron.Core;
 using Cauldron.Core.Extensions;
 using Cauldron.Localization;
-using Cauldron.Potions;
 using Cauldron.XAML.Controls;
 using Cauldron.XAML.Navigation;
 using Cauldron.XAML.ViewModels;

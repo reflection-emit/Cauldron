@@ -89,26 +89,12 @@ namespace Cauldron.XAML.Interactivity.Attached
             else if (dependencyObject is TextBox)
             {
                 var element = dependencyObject as TextBox;
-                var header = element.Header as HeaderBehaviourHelper;
-
-                if (header == null)
-                    header = new HeaderBehaviourHelper();
-
-                header.Object = element;
-                header.Content = text;
-                element.Header = header;
+                element.Header = text;
             }
             else if (dependencyObject is ComboBox)
             {
                 var element = dependencyObject as ComboBox;
-                var header = element.Header as HeaderBehaviourHelper;
-
-                if (header == null)
-                    header = new HeaderBehaviourHelper();
-
-                header.Object = element;
-                header.Content = text;
-                element.Header = header;
+                element.Header = text;
             }
             else if (dependencyObject is ButtonBase)
                 (dependencyObject as ButtonBase).Content = text;

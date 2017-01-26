@@ -30,6 +30,7 @@
     <!-- add directives for your library here -->
     <Namespace Name="Windows.UI.Xaml" MarshalObject="Required All" Dynamic="Required All" />
     <Namespace Name="Windows.UI.Xaml.Controls" Dynamic="Required All" Activate="Required All" />
+    <Namespace Name="Cauldron.XAML" Dynamic="Required All" Activate="Required All" />
 
     <Type Name="Windows.UI.Xaml.Visibility" Dynamic="Required All" DataContractJsonSerializer="Required All" />
 

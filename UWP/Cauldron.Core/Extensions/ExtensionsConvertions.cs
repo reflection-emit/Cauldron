@@ -35,12 +35,81 @@ namespace Cauldron.Core.Extensions
 
         /// <summary>
         /// Performs a cast between compatible reference types. If a convertion is not possible then null is returned.
+        /// <para/>
+        /// Tries to use the implicit and explicit operators if exists when convertion with 'as' returns null.
         /// </summary>
         /// <typeparam name="T">The <see cref="Type"/> to convert to</typeparam>
-        /// <param name="target">The object to convert</param>
+        /// <param name="source">The object to convert</param>
         /// <returns>The object casted to <typeparamref name="T"/></returns>
-        public static T As<T>(this object target) where T : class =>
-            target as T;
+        /// <example>
+        /// In the following code example, the 'As' extension is used to convert a returned object via the implicit operator.
+        /// <code>
+        /// public interface IFoo
+        /// {
+        ///     string Name {get;}
+        ///     string Description {get;}
+        /// }
+        ///
+        /// public class Foo : IFoo
+        /// {
+        ///     public string Name {get; set;}
+        ///     public string Description {get; set;}
+        /// }
+        ///
+        /// public class Bar : BarBase
+        /// {
+        ///     private IFoo internalFoo;
+        ///
+        ///     private Bar(IFoo foo)
+        ///     {
+        ///         this.internalFoo = foo;
+        ///     }
+        ///
+        ///     public void DoSomeStuff()
+        ///     {
+        ///     }
+        ///
+        ///     public void DoSomeOtherStuff()
+        ///     {
+        ///     }
+        ///
+        ///     public static implicit operator Bar(Foo value) => new Boo(value);
+        ///     public static implicit operator Foo(Bar value) => value.internalFoo;
+        /// }
+        ///
+        /// public class SomeOtherClass
+        /// {
+        ///     public IFoo GetFooFromSomewhere(string fooId) => new Foo { Name = "A Foo", Description = "This is the foo you are looking for." };
+        /// }
+        /// </code>
+        /// The code can be called like following:
+        /// <code>
+        /// var bar = someOtherClassInstance.GetFooFromSomewhere("fooThatINeed").As&lt;Bar&gt;();
+        /// </code>
+        /// </example>
+        public static T As<T>(this object source) where T : class
+        {
+            if (source == null)
+                return null;
+
+            var result = source as T;
+
+            if (result == null)
+            {
+                var targetType = typeof(T);
+                var sourceType = source.GetType();
+
+                var op = targetType.GetMethod("op_Implicit", new Type[] { sourceType }, BindingFlags.Static | BindingFlags.Public);
+                if (op != null)
+                    return op.Invoke(null, new object[] { source }) as T;
+
+                op = targetType.GetMethod("op_Explicit", new Type[] { sourceType }, BindingFlags.Static | BindingFlags.Public);
+                if (op != null)
+                    return op.Invoke(null, new object[] { source }) as T;
+            }
+
+            return result;
+        }
 
         /// <summary>
         /// Converts a <see cref="IDictionary{TKey, TValue}"/> to a <see cref="ReadOnlyDictionary{TKey, TValue}"/>.

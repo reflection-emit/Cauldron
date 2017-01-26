@@ -371,7 +371,10 @@ namespace Cauldron.Core
 
 #else
             AppDomain.CurrentDomain.AssemblyResolve += ResolveAssembly;
+
+#if !ANDROID
             AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += ResolveAssembly;
+#endif
 
             // Get all assemblies in AppDomain and add them to our list
             // TODO - This will not work in UWP and Core if compiled to native code

@@ -6,6 +6,12 @@ using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using Windows.Storage;
 
+#if ANDROID
+
+using AndroidXml = System.Xml.Serialization;
+
+#endif
+
 namespace Cauldron.Core
 {
     /// <summary>
@@ -119,8 +125,13 @@ namespace Cauldron.Core
 #else
                 using (var stream = file.OpenRead())
                 {
+#if ANDROID
+                    var serializer = new AndroidXml.XmlSerializer(type);
+                    return serializer.Deserialize(stream);
+#else
                     var serializer = new DataContractSerializer(type);
                     return serializer.ReadObject(stream);
+#endif
                 }
 #endif
             }
@@ -164,8 +175,14 @@ namespace Cauldron.Core
                 throw new NotSupportedException($"Value Types are not supported");
 
             var ms = new MemoryStream();
+
+#if ANDROID
+            var serializer = new AndroidXml.XmlSerializer(type);
+            serializer.Serialize(ms, context);
+#else
             var serializer = new DataContractSerializer(type);
             serializer.WriteObject(ms, context);
+#endif
 
 #if WINDOWS_UWP
             var func = new Func<Task>(async () =>
@@ -238,8 +255,14 @@ namespace Cauldron.Core
                 throw new NotSupportedException($"Value Types are not supported");
 
             var ms = new MemoryStream();
+
+#if ANDROID
+            var serializer = new AndroidXml.XmlSerializer(type);
+            serializer.Serialize(ms, context);
+#else
             var serializer = new DataContractSerializer(type);
             serializer.WriteObject(ms, context);
+#endif
 
             var file = await folder.CreateFileAsync($"{type.FullName.GetHash()}_{name}.xml", CreationCollisionOption.ReplaceExisting);
 #if WINDOWS_UWP

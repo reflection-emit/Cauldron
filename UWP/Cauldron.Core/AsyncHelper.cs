@@ -22,6 +22,11 @@ namespace Cauldron.Core
         /// </summary>
         /// <param name="task">The awaitable task</param>
         /// <returns>An awaitable task</returns>
+        /// <example>
+        /// <code>
+        /// await AsyncHelper.NullGuard(instance.GetStuff()?.RemoveAllAsync());
+        /// </code>
+        /// </example>
         public static Task NullGuard(Task task)
         {
             if (task == null)
@@ -37,6 +42,11 @@ namespace Cauldron.Core
         /// <param name="task">The awaitable task</param>
         /// <returns>An awaitable task</returns>
         /// <exception cref="NotSupportedException"><typeparamref name="TResult"/> is a value type</exception>
+        /// <example>
+        /// <code>
+        /// var value = await AsyncHelper.NullGuard(instance.GetStuff()?.GetAllValuesAsync());
+        /// </code>
+        /// </example>
         public static Task<TResult> NullGuard<TResult>(Task<TResult> task)
         {
             if (task == null)

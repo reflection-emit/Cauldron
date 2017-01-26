@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 namespace Cauldron.Core
 {
     /// <summary>
-    /// Provides a simple performace measurement of a code block
+    /// Provides a simple performance measurement of a code block
     /// </summary>
     /// <example>
     /// <code>
