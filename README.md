@@ -25,6 +25,7 @@ https://reflection-emit.github.io/Cauldron/eveonline/
 - Cauldron.XAML.Interactivity.TextBoxHeader removed
 - Reference to Cauldron.UWP.XAML.Potions in Cauldron.UWP.XAML removed
 - Several minor bug fixes
+
 ### 1.0.2
 - ByteSizeFormatter moved to Cauldron.Core.Formatters
 - MetricUnitFormatter added -> key is metric -> .ToStringEx("metric") or "{0:metric}"
