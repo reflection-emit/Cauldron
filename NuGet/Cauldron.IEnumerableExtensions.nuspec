@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Capgemini.Cauldron.IEnumerableExtensions</id>
+    <version>1.0.3</version>
+    <title>Capgemini Cauldron IEnumerableExtensions</title>
+    <authors>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</authors>
+    <owners>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</owners>
+    <licenseUrl>https://raw.githubusercontent.com/reflection-emit/Cauldron/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/reflection-emit/Cauldron</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/reflection-emit/Cauldron/master/cauldron.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Contains extension methods like Count, Any, Except, FirstElement... for types that implements the IEnumerable interface. Useful in cases where the contained type of the collection is unknown or random.</description>
+    <summary>A collection of extension methods for types that implements IEnumerable  (Open Source)</summary>
+    <copyright>Copyright (c) 2016 Alexander Schunk, Capgemini Deutschland GmbH and Contributors</copyright>
+    <tags>Toolkit Capgemini IEnumerable Extension Methods</tags>
+    <dependencies>
+      <group targetFramework="uap10.0">
+        <dependency id="Capgemini.Cauldron.Core" version="1.0.4" />
+      </group>
+      <group targetFramework="net452">
+        <dependency id="Capgemini.Cauldron.Core" version="1.0.4" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <!-- Desktop -->
+    <file src="..\Binaries\Desktop\Cauldron.IEnumerableExtensions.dll" target="lib\net452" />
+    <file src="..\Binaries\Desktop\Cauldron.IEnumerableExtensions.xml" target="lib\net452" />
+    <file src="..\Binaries\Desktop\Cauldron.IEnumerableExtensions.pdb" target="lib\net452" />
+
+    <!-- UWP -->
+    <file src="..\UWP\Cauldron.UWP.IEnumerableExtensions\bin\x86\Release\Cauldron.IEnumerableExtensions.XML" target="lib\uap10.0" />
+    <!-- UWP x86 -->
+    <file src="..\UWP\Cauldron.UWP.IEnumerableExtensions\bin\x86\Release\Cauldron.IEnumerableExtensions.dll" target="runtimes\win10-x86\native" />
+    <file src="..\UWP\Cauldron.UWP.IEnumerableExtensions\bin\x86\Release\Cauldron.IEnumerableExtensions.pri" target="runtimes\win10-x86\native" />
+    <file src="..\UWP\Cauldron.UWP.IEnumerableExtensions\bin\x86\Release\Cauldron.IEnumerableExtensions.pdb" target="runtimes\win10-x86\native" />
+    <!-- UWP x64 -->
+    <file src="..\UWP\Cauldron.UWP.IEnumerableExtensions\bin\x64\Release\Cauldron.IEnumerableExtensions.dll" target="runtimes\win10-x64\native" />
+    <file src="..\UWP\Cauldron.UWP.IEnumerableExtensions\bin\x64\Release\Cauldron.IEnumerableExtensions.pri" target="runtimes\win10-x64\native" />
+    <file src="..\UWP\Cauldron.UWP.IEnumerableExtensions\bin\x64\Release\Cauldron.IEnumerableExtensions.pdb" target="runtimes\win10-x64\native" />
+    <!-- UWP ARM -->
+    <file src="..\UWP\Cauldron.UWP.IEnumerableExtensions\bin\ARM\Release\Cauldron.IEnumerableExtensions.dll" target="runtimes\win10-arm\native" />
+    <file src="..\UWP\Cauldron.UWP.IEnumerableExtensions\bin\ARM\Release\Cauldron.IEnumerableExtensions.pri" target="runtimes\win10-arm\native" />
+    <file src="..\UWP\Cauldron.UWP.IEnumerableExtensions\bin\ARM\Release\Cauldron.IEnumerableExtensions.pdb" target="runtimes\win10-arm\native" />
+  </files>
+</package>

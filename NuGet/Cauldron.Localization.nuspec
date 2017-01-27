@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Capgemini.Cauldron.Localization</id>
+    <version>1.0.3</version>
+    <title>Capgemini Cauldron Localization</title>
+    <authors>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</authors>
+    <owners>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</owners>
+    <licenseUrl>https://raw.githubusercontent.com/reflection-emit/Cauldron/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/reflection-emit/Cauldron</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/reflection-emit/Cauldron/master/cauldron.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A simple localization implementation that can work with different sources.</description>
+    <summary>A simple localization implementation that can work with different sources (Open Source)</summary>
+    <copyright>Copyright (c) 2016 Alexander Schunk, Capgemini Deutschland GmbH and Contributors</copyright>
+    <tags>Toolkit Capgemini Cauldron Multisource Localization Language</tags>
+    <dependencies>
+      <group targetFramework="uap10.0">
+        <dependency id="Capgemini.Cauldron.Core" version="1.0.4" />
+        <dependency id="Capgemini.Cauldron.Activator" version="1.0.4" />
+      </group>
+      <group targetFramework="net452">
+        <dependency id="Capgemini.Cauldron.Core" version="1.0.4" />
+        <dependency id="Capgemini.Cauldron.Activator" version="1.0.4" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <!-- Desktop -->
+    <file src="..\Binaries\Desktop\Cauldron.Localization.dll" target="lib\net452" />
+    <file src="..\Binaries\Desktop\Cauldron.Localization.xml" target="lib\net452" />
+    <file src="..\Binaries\Desktop\Cauldron.Localization.pdb" target="lib\net452" />
+
+    <!-- UWP -->
+    <file src="..\UWP\Cauldron.UWP.Localization\bin\x86\Release\Cauldron.Localization.XML" target="lib\uap10.0" />
+    <!-- UWP x86 -->
+    <file src="..\UWP\Cauldron.UWP.Localization\bin\x86\Release\Cauldron.Localization.dll" target="runtimes\win10-x86\native" />
+    <file src="..\UWP\Cauldron.UWP.Localization\bin\x86\Release\Cauldron.Localization.pri" target="runtimes\win10-x86\native" />
+    <file src="..\UWP\Cauldron.UWP.Localization\bin\x86\Release\Cauldron.Localization.pdb" target="runtimes\win10-x86\native" />
+    <!-- UWP x64 -->
+    <file src="..\UWP\Cauldron.UWP.Localization\bin\x64\Release\Cauldron.Localization.dll" target="runtimes\win10-x64\native" />
+    <file src="..\UWP\Cauldron.UWP.Localization\bin\x64\Release\Cauldron.Localization.pri" target="runtimes\win10-x64\native" />
+    <file src="..\UWP\Cauldron.UWP.Localization\bin\x64\Release\Cauldron.Localization.pdb" target="runtimes\win10-x64\native" />
+    <!-- UWP ARM -->
+    <file src="..\UWP\Cauldron.UWP.Localization\bin\ARM\Release\Cauldron.Localization.dll" target="runtimes\win10-arm\native" />
+    <file src="..\UWP\Cauldron.UWP.Localization\bin\ARM\Release\Cauldron.Localization.pri" target="runtimes\win10-arm\native" />
+    <file src="..\UWP\Cauldron.UWP.Localization\bin\ARM\Release\Cauldron.Localization.pdb" target="runtimes\win10-arm\native" />
+  </files>
+</package>

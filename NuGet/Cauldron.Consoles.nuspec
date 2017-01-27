@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Capgemini.Cauldron.Consoles</id>
+    <version>1.0.3</version>
+    <title>Capgemini Cauldron Consoles</title>
+    <authors>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</authors>
+    <owners>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</owners>
+    <licenseUrl>https://raw.githubusercontent.com/reflection-emit/Cauldron/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/reflection-emit/Cauldron</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/reflection-emit/Cauldron/master/cauldron.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Cauldron.Consoles is a Cauldron.Core based parameter parser which supports grouping of parameters in execution groups. It is also supports localization and has a nice parameter table :)</description>
+    <summary>A simple parameter parser for console applications. (Open Source)</summary>
+    <copyright>Copyright (c) 2016 Alexander Schunk, Capgemini Deutschland GmbH and Contributors</copyright>
+    <tags>Toolkit Capgemini Console Parameter Parsing Argument Arguments Parameters Cauldron Command CommandLine Args</tags>
+    <dependencies>
+      <group targetFramework="net452">
+        <dependency id="Capgemini.Cauldron.Core" version="1.0.4" />
+        <dependency id="Capgemini.Cauldron.Activator" version="1.0.4" />
+        <dependency id="Capgemini.Cauldron.Localization" version="1.0.4" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <!-- Desktop -->
+    <file src="..\Binaries\Desktop\Cauldron.Consoles.dll" target="lib\net452" />
+    <file src="..\Binaries\Desktop\Cauldron.Consoles.xml" target="lib\net452" />
+    <file src="..\Binaries\Desktop\Cauldron.Consoles.pdb" target="lib\net452" />
+  </files>
+</package>

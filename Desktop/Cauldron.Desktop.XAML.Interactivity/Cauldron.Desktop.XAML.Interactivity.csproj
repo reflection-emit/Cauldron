@@ -29,7 +29,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\Binaries\Desktop\Cauldron.Desktop.Interactivity.XML</DocumentationFile>
+    <DocumentationFile>..\..\Binaries\Desktop\Cauldron.XAML.Interactivity.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />

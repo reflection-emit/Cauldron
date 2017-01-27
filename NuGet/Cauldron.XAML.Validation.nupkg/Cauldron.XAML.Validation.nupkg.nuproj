@@ -37,11 +37,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Desktop\Cauldron.Desktop.XAML.Validation\Cauldron.Desktop.XAML.Validation.csproj" />
     <ProjectReference Include="..\..\UWP\Cauldron.UWP.XAML.Validation\Cauldron.UWP.XAML.Validation.csproj" />
-    <ProjectReference Include="..\Cauldron.Activator.nupkg\Cauldron.Activator.nupkg.nuproj" />
-    <ProjectReference Include="..\Cauldron.Core.nupkg\Cauldron.Core.nupkg.nuproj" />
-    <ProjectReference Include="..\Cauldron.Cryptography.nupkg\Cauldron.Cryptography.nupkg.nuproj" />
-    <ProjectReference Include="..\Cauldron.IEnumerableExtensions.nupkg\Cauldron.IEnumerableExtensions.nupkg.nuproj" />
-    <ProjectReference Include="..\Cauldron.Localization.nupkg\Cauldron.Localization.nupkg.nuproj" />
     <ProjectReference Include="..\Cauldron.XAML.Interactivity.nupkg\Cauldron.XAML.Interactivity.nupkg.nuproj" />
     <ProjectReference Include="..\Cauldron.XAML.nupkg\Cauldron.XAML.nupkg.nuproj" />
   </ItemGroup>

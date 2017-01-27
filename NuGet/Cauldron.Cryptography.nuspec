@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Capgemini.Cauldron.Cryptography</id>
+    <version>1.0.3</version>
+    <title>Capgemini Cauldron Cryptography</title>
+    <authors>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</authors>
+    <owners>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</owners>
+    <licenseUrl>https://raw.githubusercontent.com/reflection-emit/Cauldron/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/reflection-emit/Cauldron</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/reflection-emit/Cauldron/master/cauldron.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Contains typical implementations for AES, RSA and RSA-AES encryptions. It also contains extensions that helps working with SecureString.</description>
+    <summary>Implementation for AES, RSA and AES-RSA encryptions  (Open Source)</summary>
+    <copyright>Copyright (c) 2016 Alexander Schunk, Capgemini Deutschland GmbH and Contributors</copyright>
+    <tags>Toolkit Capgemini Crypto Encryption Cryptography AES RSA</tags>
+    <dependencies>
+      <group targetFramework="uap10.0">
+        <dependency id="Capgemini.Cauldron.Core" version="1.0.4" />
+      </group>
+      <group targetFramework="net452">
+        <dependency id="Capgemini.Cauldron.Core" version="1.0.4" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <!-- Desktop -->
+    <file src="..\Binaries\Desktop\Cauldron.Cryptography.dll" target="lib\net452" />
+    <file src="..\Binaries\Desktop\Cauldron.Cryptography.xml" target="lib\net452" />
+    <file src="..\Binaries\Desktop\Cauldron.Cryptography.pdb" target="lib\net452" />
+
+    <!-- UWP -->
+    <file src="..\UWP\Cauldron.UWP.Cryptography\bin\x86\Release\Cauldron.Cryptography.XML" target="lib\uap10.0" />
+    <!-- UWP x86 -->
+    <file src="..\UWP\Cauldron.UWP.Cryptography\bin\x86\Release\Cauldron.Cryptography.dll" target="runtimes\win10-x86\native" />
+    <file src="..\UWP\Cauldron.UWP.Cryptography\bin\x86\Release\Cauldron.Cryptography.pri" target="runtimes\win10-x86\native" />
+    <file src="..\UWP\Cauldron.UWP.Cryptography\bin\x86\Release\Cauldron.Cryptography.pdb" target="runtimes\win10-x86\native" />
+    <!-- UWP x64 -->
+    <file src="..\UWP\Cauldron.UWP.Cryptography\bin\x64\Release\Cauldron.Cryptography.dll" target="runtimes\win10-x64\native" />
+    <file src="..\UWP\Cauldron.UWP.Cryptography\bin\x64\Release\Cauldron.Cryptography.pri" target="runtimes\win10-x64\native" />
+    <file src="..\UWP\Cauldron.UWP.Cryptography\bin\x64\Release\Cauldron.Cryptography.pdb" target="runtimes\win10-x64\native" />
+    <!-- UWP ARM -->
+    <file src="..\UWP\Cauldron.UWP.Cryptography\bin\ARM\Release\Cauldron.Cryptography.dll" target="runtimes\win10-arm\native" />
+    <file src="..\UWP\Cauldron.UWP.Cryptography\bin\ARM\Release\Cauldron.Cryptography.pri" target="runtimes\win10-arm\native" />
+    <file src="..\UWP\Cauldron.UWP.Cryptography\bin\ARM\Release\Cauldron.Cryptography.pdb" target="runtimes\win10-arm\native" />
+  </files>
+</package>

@@ -37,27 +37,23 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Desktop\Cauldron.Desktop.XAML\Cauldron.Desktop.XAML.csproj" />
     <ProjectReference Include="..\..\UWP\Cauldron.UWP.XAML\Cauldron.UWP.XAML.csproj" />
-    <ProjectReference Include="..\Cauldron.Activator.nupkg\Cauldron.Activator.nupkg.nuproj" />
-    <ProjectReference Include="..\Cauldron.Core.nupkg\Cauldron.Core.nupkg.nuproj" />
-    <ProjectReference Include="..\Cauldron.IEnumerableExtensions.nupkg\Cauldron.IEnumerableExtensions.nupkg.nuproj" />
-    <ProjectReference Include="..\Cauldron.Localization.nupkg\Cauldron.Localization.nupkg.nuproj" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\..\Binaries\UWP\Cauldron.XAML.pri">
       <Link>lib\.NETCore50\Cauldron.XAML.pri</Link>
     </Content>
     <Content Include="..\..\Binaries\UWP\Cauldron.XAML\Cauldron.XAML.xr.xml">
-      <Link>lib\.NETCore50\Cauldron.XAML\Cauldron.XAML.xr.xml</Link>
+      <Link>lib\uap10.0\Cauldron.XAML\Cauldron.XAML.xr.xml</Link>
     </Content>
     <Content Include="..\..\Binaries\UWP\Cauldron.XAML\Resources\MessageDialogView.xaml">
-      <Link>lib\.NETCore50\Cauldron.XAML\Resources\MessageDialogView.xaml</Link>
+      <Link>lib\uap10.0\Resources\MessageDialogView.xaml</Link>
     </Content>
     <Content Include="..\..\Binaries\UWP\Cauldron.XAML\Resources\StylesAndTemplates.xaml">
-      <Link>lib\.NETCore50\Cauldron.XAML\Resources\StylesAndTemplates.xaml</Link>
+      <Link>lib\uap10.0\Resources\StylesAndTemplates.xaml</Link>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="lib\.NETCore50\Cauldron.XAML\Resources\" />
+    <Folder Include="lib\uap10.0\Resources\" />
   </ItemGroup>
   <Import Project="$(NuProjPath)\NuProj.targets" />
 </Project>

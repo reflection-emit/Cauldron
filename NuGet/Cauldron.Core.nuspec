@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Capgemini.Cauldron.Core</id>
+    <version>1.0.3</version>
+    <title>Capgemini Cauldron Core</title>
+    <authors>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</authors>
+    <owners>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</owners>
+    <licenseUrl>https://raw.githubusercontent.com/reflection-emit/Cauldron/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/reflection-emit/Cauldron</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/reflection-emit/Cauldron/master/cauldron.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Cauldron Core is the core toolkit assembly that the Cauldron Toolkit builds upon</description>
+    <summary>Cauldron Core is the core toolkit assembly that the Cauldron Toolkit builds upon  (Open Source)</summary>
+    <copyright>Copyright (c) 2016 Alexander Schunk, Capgemini Deutschland GmbH and Contributors</copyright>
+    <tags>Toolkit Capgemini Cauldron Core</tags>
+    <dependencies>
+      <group targetFramework="uap10.0">
+        <dependency id="Microsoft.NETCore.UniversalWindowsPlatform" version="5.2.2" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <!-- Desktop -->
+    <file src="..\Binaries\Desktop\Cauldron.Core.dll" target="lib\net452" />
+    <file src="..\Binaries\Desktop\Cauldron.Core.xml" target="lib\net452" />
+    <file src="..\Binaries\Desktop\Cauldron.Core.pdb" target="lib\net452" />
+
+    <!-- UWP -->
+    <file src="..\UWP\Cauldron.Core\bin\x86\Release\Cauldron.Core.XML" target="lib\uap10.0" />
+    <!-- UWP x86 -->
+    <file src="..\UWP\Cauldron.Core\bin\x86\Release\Cauldron.Core.dll" target="runtimes\win10-x86\native" />
+    <file src="..\UWP\Cauldron.Core\bin\x86\Release\Cauldron.Core.pri" target="runtimes\win10-x86\native" />
+    <file src="..\UWP\Cauldron.Core\bin\x86\Release\Cauldron.Core.pdb" target="runtimes\win10-x86\native" />
+    <!-- UWP x64 -->
+    <file src="..\UWP\Cauldron.Core\bin\x64\Release\Cauldron.Core.dll" target="runtimes\win10-x64\native" />
+    <file src="..\UWP\Cauldron.Core\bin\x64\Release\Cauldron.Core.pri" target="runtimes\win10-x64\native" />
+    <file src="..\UWP\Cauldron.Core\bin\x64\Release\Cauldron.Core.pdb" target="runtimes\win10-x64\native" />
+    <!-- UWP ARM -->
+    <file src="..\UWP\Cauldron.Core\bin\ARM\Release\Cauldron.Core.dll" target="runtimes\win10-arm\native" />
+    <file src="..\UWP\Cauldron.Core\bin\ARM\Release\Cauldron.Core.pri" target="runtimes\win10-arm\native" />
+    <file src="..\UWP\Cauldron.Core\bin\ARM\Release\Cauldron.Core.pdb" target="runtimes\win10-arm\native" />
+  </files>
+</package>
