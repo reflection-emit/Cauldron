@@ -103,7 +103,7 @@ namespace Cauldron.Core.Extensions
             if (value == null)
                 return null;
 
-#if WINDOWS_UWP
+#if WINDOWS_UWP || NETCORE
             if (value == "")
                 return "";
 
@@ -274,6 +274,19 @@ namespace Cauldron.Core.Extensions
                 CryptographicBuffer.CopyToByteArray(hashed, out bytes);
                 return Convert.ToBase64String(bytes);
             }
+            else
+                throw new NotSupportedException("Unsupported hash algorithm");
+#elif NETCORE
+
+            if (algorithm == HashAlgorithms.Md5)
+                using (var md5 = MD5.Create())
+                    return BitConverter.ToString(md5.ComputeHash(UTF8Encoding.UTF8.GetBytes(target))).Replace("-", "");
+            else if (algorithm == HashAlgorithms.Sha256)
+                using (var sha = SHA256.Create())
+                    return Convert.ToBase64String(sha.ComputeHash(UTF8Encoding.UTF8.GetBytes(target)));
+            else if (algorithm == HashAlgorithms.Sha512)
+                using (var sha = SHA512.Create())
+                    return Convert.ToBase64String(sha.ComputeHash(UTF8Encoding.UTF8.GetBytes(target)));
             else
                 throw new NotSupportedException("Unsupported hash algorithm");
 #else

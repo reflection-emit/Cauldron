@@ -4,18 +4,18 @@ using System.IO;
 using Cauldron.Core.Collections;
 using Cauldron.Core.Extensions;
 
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Reflection;
+
 #if NETFX_CORE
 
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Reflection;
 using Windows.UI.Xaml;
 
-#else
+#elif NETCORE
 
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Reflection;
+using System.Runtime.Loader;
+using Microsoft.Extensions.DependencyModel;
 
 #endif
 
@@ -24,7 +24,7 @@ namespace Cauldron.Core
     /// <summary>
     /// Contains methods and properties that helps to manage and gather <see cref="Assembly"/> information
     /// </summary>
-    public static class Assemblies
+    public static partial class Assemblies
     {
         private static ConcurrentList<Assembly> _assemblies;
         private static ConcurrentList<TypesWithImplementedInterfaces> typesWithImplementedInterfaces;
@@ -61,69 +61,10 @@ namespace Cauldron.Core
         /// </summary>
         public static IEnumerable<TypeInfo> Interfaces { get { return ExportedTypes.Where(x => x.IsInterface); } }
 
-#if WINDOWS_UWP
-
-        /// <summary>
-        /// Gets a value that determines if the Debugger is attached to the process
-        /// </summary>
-        public static bool IsDebugging { get { return Debugger.IsAttached; } }
-
-#else
-
-        /// <summary>
-        /// Gets a value that determines if the <see cref="Assembly.GetEntryAssembly"/> or <see cref="Assembly.GetCallingAssembly"/> is in debug mode
-        /// </summary>
-        public static bool IsDebugging
-        {
-            get
-            {
-                var assembly = Assembly.GetEntryAssembly();
-
-                if (assembly == null)
-                    assembly = Assembly.GetCallingAssembly();
-
-                var attrib = assembly.GetCustomAttribute<DebuggableAttribute>();
-                return attrib == null ? false : attrib.IsJITTrackingEnabled;
-            }
-        }
-
-#endif
-
         /// <summary>
         /// Gets a collection of <see cref="Assembly"/> that is loaded to the <see cref="Core.Assemblies"/>
         /// </summary>
         public static ConcurrentList<Assembly> Known { get { return _assemblies; } }
-
-#if WINDOWS_UWP
-
-        /// <summary>
-        /// Adds a new Assembly to the assembly collection
-        /// </summary>
-        /// <param name="assembly">The assembly to be added</param>
-        /// <exception cref="NotSupportedException"><paramref name="assembly"/> is a dynamic assembly</exception>
-        public static void AddAssembly(Assembly assembly)
-        {
-            if (assembly.IsDynamic)
-                throw new NotSupportedException("Dynamic assemblies are not supported");
-
-            if (_assemblies.Any(x => x.ManifestModule.Name == assembly.ManifestModule.Name))
-                return;
-
-            _assemblies.Add(assembly);
-            var types = FilterTypes(assembly.DefinedTypes);
-
-            var definedTypes = types.Select(x => new TypesWithImplementedInterfaces
-            {
-                interfaces = x.ImplementedInterfaces.ToArray(),
-                typeInfo = x
-            });
-            typesWithImplementedInterfaces.AddRange(definedTypes);
-            AssemblyAndResourceNamesInfo.AddRange(assembly.GetManifestResourceNames().Select(x => new AssemblyAndResourceNameInfo(assembly, x)));
-
-            LoadedAssemblyChanged?.Invoke(null, new AssemblyAddedEventArgs(assembly, types.Select(x => x.AsType()).ToArray()));
-        }
-
-#endif
 
         /// <summary>
         /// Returns the first found <see cref="Assembly"/> that contains an embedded resource with the given resource name
@@ -287,7 +228,7 @@ namespace Cauldron.Core
         /// <exception cref="ArgumentException"><typeparamref name="T"/> is not an interface</exception>
         public static IEnumerable<TypeInfo> GetTypesImplementsInterface<T>()
         {
-#if WINDOWS_UWP
+#if WINDOWS_UWP || NETCORE
             if (!typeof(T).GetTypeInfo().IsInterface)
 #else
             if (!typeof(T).IsInterface)
@@ -303,84 +244,39 @@ namespace Cauldron.Core
             return result.Select(x => x.typeInfo);
         }
 
-#if WINDOWS_UWP
-#else
-
-        /// <summary>
-        /// Loads the contents of all assemblies that matches the specified filter
-        /// </summary>
-        /// <param name="directory">The directory where the assemblies are located</param>
-        /// <param name="filter">
-        /// The search string to match against the names of files in <paramref name="directory"/>. This parameter can contain a combination of
-        /// valid literal path and wildcard (* and ?) characters, but doesn't support regular expressions.
-        /// </param>
-        /// <exception cref="FileLoadException">A file that was found could not be loaded</exception>
-        public static void LoadAssembly(DirectoryInfo directory, string filter = "*.dll")
-        {
-            foreach (var files in directory.GetFiles(filter))
-                LoadAssembly(files);
-        }
-
-        /// <summary>
-        /// Loads the contents of an assembly file on the specified path.
-        /// </summary>
-        /// <param name="fileInfo">The path of filename of the assembly</param>
-        /// <exception cref="NotSupportedException">The <paramref name="fileInfo"/> is a dynamic assembly.</exception>
-        /// <exception cref="ArgumentNullException">The <paramref name="fileInfo"/> parameter is null.</exception>
-        /// <exception cref="FileLoadException">A file that was found could not be loaded</exception>
-        /// <exception cref="FileNotFoundException">The <paramref name="fileInfo"/> does not exist</exception>
-        /// <exception cref="BadImageFormatException"><paramref name="fileInfo"/> is not a valid assembly.</exception>
-        public static void LoadAssembly(FileInfo fileInfo)
-        {
-            if (fileInfo == null)
-                throw new ArgumentNullException(nameof(fileInfo));
-
-            if (!fileInfo.Exists)
-                throw new FileNotFoundException($"The file '{fileInfo.FullName}' does not exist");
-
-            var assembly = Assembly.LoadFile(fileInfo.FullName);
-
-            if (assembly.IsDynamic)
-                throw new NotSupportedException($"Dynamic assemblies are not supported.");
-
-            if (Assemblies.Known.Any(x => x.ManifestModule.Name == assembly.ManifestModule.Name))
-                return; // this is already loaded... No need to load again
-
-            Assemblies.Known.Add(assembly);
-            var types = FilterTypes(assembly.DefinedTypes).ToArray();
-
-            var definedTypes = types.Select(x => new TypesWithImplementedInterfaces
-            {
-                interfaces = x.ImplementedInterfaces.ToArray(),
-                typeInfo = x
-            });
-
-            typesWithImplementedInterfaces.AddRange(definedTypes);
-            AssemblyAndResourceNamesInfo.AddRange(assembly.GetManifestResourceNames().Select(x => new AssemblyAndResourceNameInfo(assembly, x)));
-            LoadedAssemblyChanged?.Invoke(null, new AssemblyAddedEventArgs(assembly, types));
-        }
-
-#endif
-
         private static void GetAllAssemblies()
         {
 #if WINDOWS_UWP
             var assemblies = new List<Assembly>();
             assemblies.Add(Application.Current.GetType().GetTypeInfo().Assembly);
             assemblies.Add(typeof(Assemblies).GetTypeInfo().Assembly);
+#elif NETCORE
 
+            var assemblies = new List<Assembly>();
+            assemblies.Add(Assembly.GetEntryAssembly());
+            assemblies.Add(typeof(Assemblies).GetTypeInfo().Assembly);
 #else
-            AppDomain.CurrentDomain.AssemblyResolve += ResolveAssembly;
-
-#if !ANDROID
-            AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += ResolveAssembly;
-#endif
 
             // Get all assemblies in AppDomain and add them to our list
             // TODO - This will not work in UWP and Core if compiled to native code
             var assemblies = new List<Assembly>();
+#endif
 
+#if NETCORE
+            AssemblyLoadContext.Default.Resolving += ResolveAssembly;
+#elif ANDROID
+            AppDomain.CurrentDomain.AssemblyResolve += ResolveAssembly;
+#elif DESKTOP
+            AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += ResolveAssembly;
+            AppDomain.CurrentDomain.AssemblyResolve += ResolveAssembly;
+#endif
+
+#if DESKTOP || ANDROID || NETCORE
+#if NETCORE
+            foreach (var assembly in GetAssemblies())
+#else
             foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+#endif
             {
                 try
                 {
@@ -413,47 +309,6 @@ namespace Cauldron.Core
 #endif
             _assemblies = new ConcurrentList<Assembly>(assemblies.Where(x => !x.IsDynamic).Distinct());
         }
-
-#if !WINDOWS_UWP
-
-        private static Assembly ResolveAssembly(Object sender, ResolveEventArgs e)
-        {
-            var message = $"Assembly '{e.RequestingAssembly.FullName}' requesting for '{e.Name}'";
-            Console.WriteLine(message);
-            Output.WriteLineInfo(message);
-
-            var assembly = _assemblies.FirstOrDefault(x => x.FullName == e.Name || e.Name.StartsWith(x.GetName().Name));
-
-            // The following resolve tries can only be successfull if the dll's name is the same as the simple Assembly name
-
-            // Try to load it from application directory
-            if (assembly == null)
-            {
-                var file = Path.Combine(ApplicationInfo.ApplicationPath.FullName, $"{new AssemblyName(e.Name).Name}.dll");
-                if (File.Exists(file))
-                    return Assembly.LoadFile(file);
-            }
-
-            // Try to load it from current domain's base directory
-            if (assembly == null)
-            {
-                var file = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"{new AssemblyName(e.Name).Name}.dll");
-                if (File.Exists(file))
-                    return Assembly.LoadFile(file);
-            }
-
-            // As last resort try to load it from the Cauldron.Core.dlls directory
-            if (assembly == null)
-            {
-                var file = Path.Combine(Path.GetDirectoryName(typeof(Assemblies).Assembly.Location), $"{new AssemblyName(e.Name).Name}.dll");
-                if (File.Exists(file))
-                    return Assembly.LoadFile(file);
-            }
-
-            return assembly;
-        }
-
-#endif
 
         #region Private Methods
 
@@ -546,4 +401,257 @@ namespace Cauldron.Core
             public override string ToString() => typeInfo.ToString() + " (" + interfaces.Count() + ")";
         }
     }
+
+    #region Shared methods
+
+    /// <summary>
+    /// Contains methods and properties that helps to manage and gather <see cref="Assembly"/> information
+    /// </summary>
+    public static partial class Assemblies
+    {
+#if NETCORE || WINDOWS_UWP || ANDROID
+
+        /// <summary>
+        /// Gets a value that determines if the Debugger is attached to the process
+        /// </summary>
+        public static bool IsDebugging { get { return Debugger.IsAttached; } }
+
+#else
+
+        /// <summary>
+        /// Gets a value that determines if the <see cref="Assembly.GetEntryAssembly"/> or <see cref="Assembly.GetCallingAssembly"/> is in debug mode
+        /// </summary>
+        public static bool IsDebugging
+        {
+            get
+            {
+                var assembly = Assembly.GetEntryAssembly();
+
+                if (assembly == null)
+                    assembly = Assembly.GetCallingAssembly();
+
+                var attrib = assembly.GetCustomAttribute<DebuggableAttribute>();
+                return attrib == null ? false : attrib.IsJITTrackingEnabled;
+            }
+        }
+
+#endif
+    }
+
+    /// <summary>
+    /// Contains methods and properties that helps to manage and gather <see cref="Assembly"/> information
+    /// </summary>
+    public static partial class Assemblies
+    {
+#if WINDOWS_UWP || NETCORE
+
+        /// <summary>
+        /// Adds a new Assembly to the assembly collection
+        /// </summary>
+        /// <param name="assembly">The assembly to be added</param>
+        /// <exception cref="NotSupportedException"><paramref name="assembly"/> is a dynamic assembly</exception>
+        public static void AddAssembly(Assembly assembly)
+        {
+            if (assembly.IsDynamic)
+                throw new NotSupportedException("Dynamic assemblies are not supported");
+
+            if (_assemblies.Any(x => x.ManifestModule.Name == assembly.ManifestModule.Name))
+                return;
+
+            _assemblies.Add(assembly);
+            var types = FilterTypes(assembly.DefinedTypes);
+
+            var definedTypes = types.Select(x => new TypesWithImplementedInterfaces
+            {
+                interfaces = x.ImplementedInterfaces.ToArray(),
+                typeInfo = x
+            });
+            typesWithImplementedInterfaces.AddRange(definedTypes);
+            AssemblyAndResourceNamesInfo.AddRange(assembly.GetManifestResourceNames().Select(x => new AssemblyAndResourceNameInfo(assembly, x)));
+
+            LoadedAssemblyChanged?.Invoke(null, new AssemblyAddedEventArgs(assembly, types.Select(x => x.AsType()).ToArray()));
+        }
+
+#endif
+    }
+
+    /// <summary>
+    /// Contains methods and properties that helps to manage and gather <see cref="Assembly"/> information
+    /// </summary>
+    public static partial class Assemblies
+    {
+#if NETCORE
+
+        private static Assembly ResolveAssembly(AssemblyLoadContext context, AssemblyName assemblyName)
+        {
+            Output.WriteLineInfo($"Requesting Resolving of Assembly '{assemblyName.FullName}'");
+
+            var assembly = _assemblies.FirstOrDefault(x =>
+                x.FullName.Equals(assemblyName.FullName, StringComparison.CurrentCultureIgnoreCase) || assemblyName.Name.StartsWith(x.GetName().Name, StringComparison.CurrentCultureIgnoreCase));
+
+            if (assembly == null)
+            {
+                var runtime = DependencyContext.Default.RuntimeLibraries.FirstOrDefault(x => x.Name.Equals(assemblyName.Name, StringComparison.CurrentCultureIgnoreCase));
+                if (runtime != null)
+                    return context.LoadFromAssemblyPath(runtime.Path);
+            }
+
+            if (assembly == null)
+            {
+                assembly = context.LoadFromAssemblyName(assemblyName);
+                if (assembly != null)
+                    return assembly;
+            }
+
+            // The following resolve tries can only be successfull if the dll's name is the same as the simple Assembly name
+            // Try to load it from application directory
+            var file = Path.Combine(ApplicationInfo.ApplicationPath.FullName, $"{assemblyName.Name}.dll");
+            if (File.Exists(file))
+                return context.LoadFromAssemblyPath(file);
+
+            // Try to load it from current domain's base directory
+            file = Path.Combine(AppContext.BaseDirectory, $"{assemblyName.Name}.dll");
+            if (File.Exists(file))
+                return context.LoadFromAssemblyPath(file);
+
+            return assembly;
+        }
+
+#elif !WINDOWS_UWP
+
+        private static Assembly ResolveAssembly(object sender, ResolveEventArgs e)
+        {
+            Output.WriteLineInfo($"Assembly '{e.RequestingAssembly.FullName}' requesting for '{e.Name}'");
+
+            var assembly = _assemblies.FirstOrDefault(x => x.FullName == e.Name || e.Name.StartsWith(x.GetName().Name));
+
+            // The following resolve tries can only be successfull if the dll's name is the same as the simple Assembly name
+
+            // Try to load it from application directory
+            if (assembly == null)
+            {
+                var file = Path.Combine(ApplicationInfo.ApplicationPath.FullName, $"{new AssemblyName(e.Name).Name}.dll");
+                if (File.Exists(file))
+                    return Assembly.LoadFile(file);
+            }
+
+            // Try to load it from current domain's base directory
+            var assemblyFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"{new AssemblyName(e.Name).Name}.dll");
+            if (File.Exists(assemblyFile))
+                return Assembly.LoadFile(assemblyFile);
+
+            // As last resort try to load it from the Cauldron.Core.dlls directory
+            assemblyFile = Path.Combine(Path.GetDirectoryName(typeof(Assemblies).Assembly.Location), $"{new AssemblyName(e.Name).Name}.dll");
+            if (File.Exists(assemblyFile))
+                return Assembly.LoadFile(assemblyFile);
+
+            return assembly;
+        }
+
+#endif
+    }
+
+    /// <summary>
+    /// Contains methods and properties that helps to manage and gather <see cref="Assembly"/> information
+    /// </summary>
+    public static partial class Assemblies
+    {
+#if NETCORE
+        // http://www.michael-whelan.net/replacing-appdomain-in-dotnet-core/
+
+        private static IEnumerable<Assembly> GetAssemblies()
+        {
+            var entryAssemblyName = Assembly.GetEntryAssembly().GetName();
+            var assemblies = new List<Assembly>();
+            var dependencies = DependencyContext.Default.RuntimeLibraries;
+
+            foreach (var library in dependencies)
+                if (IsCandidateLibrary(library, entryAssemblyName.Name))
+                {
+                    var assembly = Assembly.Load(new AssemblyName(library.Name));
+                    assemblies.Add(assembly);
+                }
+
+            return assemblies;
+        }
+
+        private static bool IsCandidateLibrary(RuntimeLibrary library, string assemblyName) => library.Name == assemblyName || library.Dependencies.Any(x => x.Name.StartsWith(assemblyName));
+
+#endif
+    }
+
+    /// <summary>
+    /// Contains methods and properties that helps to manage and gather <see cref="Assembly"/> information
+    /// </summary>
+    public static partial class Assemblies
+    {
+#if ANDROID || NETCORE || !WINDOWS_UWP
+
+        /// <summary>
+        /// Loads the contents of all assemblies that matches the specified filter
+        /// </summary>
+        /// <param name="directory">The directory where the assemblies are located</param>
+        /// <param name="filter">
+        /// The search string to match against the names of files in <paramref name="directory"/>. This parameter can contain a combination of
+        /// valid literal path and wildcard (* and ?) characters, but doesn't support regular expressions.
+        /// </param>
+        /// <exception cref="FileLoadException">A file that was found could not be loaded</exception>
+        public static void LoadAssembly(DirectoryInfo directory, string filter = "*.dll")
+        {
+            foreach (var files in directory.GetFiles(filter))
+                LoadAssembly(files);
+        }
+
+        /// <summary>
+        /// Loads the contents of an assembly file on the specified path.
+        /// </summary>
+        /// <param name="fileInfo">The path of filename of the assembly</param>
+        /// <exception cref="NotSupportedException">The <paramref name="fileInfo"/> is a dynamic assembly.</exception>
+        /// <exception cref="ArgumentNullException">The <paramref name="fileInfo"/> parameter is null.</exception>
+        /// <exception cref="FileLoadException">A file that was found could not be loaded</exception>
+        /// <exception cref="FileNotFoundException">The <paramref name="fileInfo"/> does not exist</exception>
+        /// <exception cref="BadImageFormatException"><paramref name="fileInfo"/> is not a valid assembly.</exception>
+        public static void LoadAssembly(FileInfo fileInfo)
+        {
+            if (fileInfo == null)
+                throw new ArgumentNullException(nameof(fileInfo));
+
+            if (!fileInfo.Exists)
+                throw new FileNotFoundException($"The file '{fileInfo.FullName}' does not exist");
+
+#if NETCORE
+            var assembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(fileInfo.FullName);
+#else
+            var assembly = Assembly.LoadFile(fileInfo.FullName);
+#endif
+
+            if (assembly.IsDynamic)
+                throw new NotSupportedException($"Dynamic assemblies are not supported.");
+
+            if (Assemblies.Known.Any(x => x.ManifestModule.Name == assembly.ManifestModule.Name))
+                return; // this is already loaded... No need to load again
+
+            Assemblies.Known.Add(assembly);
+            var types = FilterTypes(assembly.DefinedTypes).ToArray();
+
+            var definedTypes = types.Select(x => new TypesWithImplementedInterfaces
+            {
+                interfaces = x.ImplementedInterfaces.ToArray(),
+                typeInfo = x
+            });
+
+            typesWithImplementedInterfaces.AddRange(definedTypes);
+            AssemblyAndResourceNamesInfo.AddRange(assembly.GetManifestResourceNames().Select(x => new AssemblyAndResourceNameInfo(assembly, x)));
+
+#if NETCORE
+            LoadedAssemblyChanged?.Invoke(null, new AssemblyAddedEventArgs(assembly, types.Select(x => x.AsType()).ToArray()));
+#else
+            LoadedAssemblyChanged?.Invoke(null, new AssemblyAddedEventArgs(assembly, types));
+#endif
+        }
+
+#endif
+    }
+
+    #endregion Shared methods
 }

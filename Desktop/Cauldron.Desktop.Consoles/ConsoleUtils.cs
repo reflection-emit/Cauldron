@@ -12,6 +12,8 @@ namespace Cauldron.Consoles
     /// </summary>
     public static class ConsoleUtils
     {
+#if !NETCORE
+
         /// <summary>
         /// Retrieves the window handle used by the console associated with the calling process.
         /// </summary>
@@ -57,6 +59,8 @@ namespace Cauldron.Consoles
                 return false;
             }
         }
+
+#endif
 
         /// <summary>
         /// Search for processes with the same <see cref="Process.ProcessName"/> as the process defined by <paramref name="process"/>

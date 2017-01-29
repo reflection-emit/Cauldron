@@ -20,12 +20,23 @@
         <dependency id="Capgemini.Cauldron.Activator" version="1.0.4" />
         <dependency id="Capgemini.Cauldron.Localization" version="1.0.4" />
       </group>
+      <group targetFramework="netstandard1.6">
+        <dependency id="NETStandard.Library" version="1.6.1" />
+        <dependency id="Capgemini.Cauldron.Core" version="1.0.4" />
+        <dependency id="Capgemini.Cauldron.Localization" version="1.0.4" />
+        <dependency id="Capgemini.Cauldron.Activator" version="1.0.4" />
+      </group>
     </dependencies>
   </metadata>
   <files>
+
     <!-- Desktop -->
-    <file src="..\Binaries\Desktop\Cauldron.Consoles.dll" target="lib\net452" />
-    <file src="..\Binaries\Desktop\Cauldron.Consoles.xml" target="lib\net452" />
-    <file src="..\Binaries\Desktop\Cauldron.Consoles.pdb" target="lib\net452" />
+    <file src="..\Desktop\Cauldron.Desktop.Consoles\bin\Release\Cauldron.Consoles**" target="lib\net452" />
+
+    <!-- UWP -->
+    <!--<file src="..\UWP\Cauldron.UWP.Consoles\bin\Release\Cauldron.Consoles**" target="lib\uap10.0" />-->
+
+    <!-- Net Standard 1.6 -->
+    <file src="..\NetCore\Cauldron.NetCore.Consoles\bin\Release\netstandard1.6\Cauldron.Consoles**" target="lib\netstandard1.6" />
   </files>
 </package>

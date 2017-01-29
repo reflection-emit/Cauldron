@@ -1,0 +1,38 @@
+{
+  "version": "1.0.0.10",
+  "dependencies": {
+    "Cauldron.NetCore.Activator": "1.0.0.10",
+    "Cauldron.NetCore.Core": "1.0.0.10",
+    "Cauldron.NetCore.Localization": "1.0.0.10",
+    "NETStandard.Library": "1.6.1"
+  },
+  "frameworks": {
+    "netstandard1.6": {
+      "imports": "dnxcore50"
+    }
+  },
+
+  "buildOptions": {
+    "outputName": "Cauldron.Consoles",
+    "optimize": true,
+    "allowUnsafe": false,
+    "xmlDoc": true,
+    "compile": {
+      "includeFiles": [
+        "..\\..\\Desktop\\Cauldron.Desktop.Consoles\\ColumnAlignment.cs",
+        "..\\..\\Desktop\\Cauldron.Desktop.Consoles\\ConsoleTableColumn.cs",
+        "..\\..\\Desktop\\Cauldron.Desktop.Consoles\\ConsoleUtils.cs",
+        "..\\..\\Desktop\\Cauldron.Desktop.Consoles\\ExecutionGroupAttribute.cs",
+        "..\\..\\Desktop\\Cauldron.Desktop.Consoles\\ExecutionGroupParameter.cs",
+        "..\\..\\Desktop\\Cauldron.Desktop.Consoles\\ExecutionGroupProperties.cs",
+        "..\\..\\Desktop\\Cauldron.Desktop.Consoles\\IExecutionGroup.cs",
+        "..\\..\\Desktop\\Cauldron.Desktop.Consoles\\ParameterAttribute.cs",
+        "..\\..\\Desktop\\Cauldron.Desktop.Consoles\\ParameterParser.cs",
+        "..\\..\\Desktop\\Cauldron.Desktop.Consoles\\RequiredParametersMissingException.cs",
+        "..\\..\\Desktop\\Cauldron.Desktop.Consoles\\RequiredValuesMissingException.cs",
+        "..\\..\\Desktop\\Cauldron.Desktop.Consoles\\UnknownParameterException.cs"
+      ]
+    },
+    "define": [ "NETCORE" ]
+  }
+}

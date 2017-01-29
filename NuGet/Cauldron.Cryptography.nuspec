@@ -17,31 +17,27 @@
     <dependencies>
       <group targetFramework="uap10.0">
         <dependency id="Capgemini.Cauldron.Core" version="1.0.4" />
+        <dependency id="Microsoft.NETCore.UniversalWindowsPlatform" version="5.2.2" />
       </group>
       <group targetFramework="net452">
         <dependency id="Capgemini.Cauldron.Core" version="1.0.4" />
+      </group>
+      <group targetFramework="netstandard1.6">
+        <dependency id="NETStandard.Library" version="1.6.1" />
+        <dependency id="Capgemini.Cauldron.Core" version="1.0.4" />
+        <dependency id="System.Security.Cryptography.Csp" version="4.0.0" />
+        <dependency id="System.Security.SecureString" version="4.3.0" />
       </group>
     </dependencies>
   </metadata>
   <files>
     <!-- Desktop -->
-    <file src="..\Binaries\Desktop\Cauldron.Cryptography.dll" target="lib\net452" />
-    <file src="..\Binaries\Desktop\Cauldron.Cryptography.xml" target="lib\net452" />
-    <file src="..\Binaries\Desktop\Cauldron.Cryptography.pdb" target="lib\net452" />
+    <file src="..\Desktop\Cauldron.Desktop.Cryptography\bin\Release\Cauldron.Cryptography**" target="lib\net452" />
 
     <!-- UWP -->
-    <file src="..\UWP\Cauldron.UWP.Cryptography\bin\x86\Release\Cauldron.Cryptography.XML" target="lib\uap10.0" />
-    <!-- UWP x86 -->
-    <file src="..\UWP\Cauldron.UWP.Cryptography\bin\x86\Release\Cauldron.Cryptography.dll" target="runtimes\win10-x86\native" />
-    <file src="..\UWP\Cauldron.UWP.Cryptography\bin\x86\Release\Cauldron.Cryptography.pri" target="runtimes\win10-x86\native" />
-    <file src="..\UWP\Cauldron.UWP.Cryptography\bin\x86\Release\Cauldron.Cryptography.pdb" target="runtimes\win10-x86\native" />
-    <!-- UWP x64 -->
-    <file src="..\UWP\Cauldron.UWP.Cryptography\bin\x64\Release\Cauldron.Cryptography.dll" target="runtimes\win10-x64\native" />
-    <file src="..\UWP\Cauldron.UWP.Cryptography\bin\x64\Release\Cauldron.Cryptography.pri" target="runtimes\win10-x64\native" />
-    <file src="..\UWP\Cauldron.UWP.Cryptography\bin\x64\Release\Cauldron.Cryptography.pdb" target="runtimes\win10-x64\native" />
-    <!-- UWP ARM -->
-    <file src="..\UWP\Cauldron.UWP.Cryptography\bin\ARM\Release\Cauldron.Cryptography.dll" target="runtimes\win10-arm\native" />
-    <file src="..\UWP\Cauldron.UWP.Cryptography\bin\ARM\Release\Cauldron.Cryptography.pri" target="runtimes\win10-arm\native" />
-    <file src="..\UWP\Cauldron.UWP.Cryptography\bin\ARM\Release\Cauldron.Cryptography.pdb" target="runtimes\win10-arm\native" />
+    <file src="..\UWP\Cauldron.UWP.Cryptography\bin\Release\Cauldron.Cryptography**" target="lib\uap10.0" />
+
+    <!-- Net Standard 1.6 -->
+    <file src="..\NetCore\Cauldron.NetCore.Cryptography\bin\Release\netstandard1.6\Cauldron.Cryptography**" target="lib\netstandard1.6" />
   </files>
 </package>

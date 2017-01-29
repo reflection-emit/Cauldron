@@ -68,7 +68,7 @@ namespace Cauldron.Activator
                 var value = property.GetValue(source);
 
                 // if the value is null, just assign it directly if its nullable or it is an object
-#if WINDOWS_UWP
+#if WINDOWS_UWP || NETCORE
                 if (value == null && !property.PropertyType.GetTypeInfo().IsPrimitive)
 #else
                 if (value == null && !property.PropertyType.IsPrimitive)
@@ -103,7 +103,7 @@ namespace Cauldron.Activator
                 var value = field.GetValue(source);
 
                 // if the value is null, just assign it directly if its nullable or it is an object
-#if WINDOWS_UWP
+#if WINDOWS_UWP || NETCORE
                 if (value == null && !field.FieldType.GetTypeInfo().IsPrimitive)
 #else
                 if (value == null && !field.FieldType.IsPrimitive)
@@ -149,7 +149,7 @@ namespace Cauldron.Activator
             object result = null;
 
             // Primitive type and value type and nullables are just simply copied
-#if WINDOWS_UWP
+#if WINDOWS_UWP || NETCORE
             var typeInfo = valueType.GetTypeInfo();
             if (typeInfo.IsPrimitive || typeInfo.IsValueType || valueType.IsNullable() || (typeInfo.IsAbstract && typeInfo.IsSealed) /* These are static values*/)
 #else
@@ -163,11 +163,13 @@ namespace Cauldron.Activator
 
             if (!valueType.IsArray) // Dont do this with array... Array Clone returns the same reference types
             {
+#if !NETCORE
                 // let us check first if the clonable interface is implemented... Casting is faster than reflection so let us prefer this
                 var clonableInterface = value as ICloneable;
 
                 if (clonableInterface != null)
                     return clonableInterface.Clone();
+#endif
 
                 // We should check if the value has a Clone method... If this is the.. Use it
                 var cloneMethodInfo = valueType.GetMethod("Clone", new Type[] { }, BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static);
@@ -231,7 +233,7 @@ namespace Cauldron.Activator
                 return result;
             }
 
-#if WINDOWS_UWP
+#if WINDOWS_UWP || NETCORE
             // If this is a struct or a class with parameterless constructor we just create a value directly
             else if (typeInfo.IsValueType && !typeInfo.IsEnum || valueType.GetConstructor(Type.EmptyTypes) != null)
 #else
@@ -243,7 +245,7 @@ namespace Cauldron.Activator
                 if (result == null)
                     result = valueType.CreateInstance();
             }
-#if WINDOWS_UWP
+#if WINDOWS_UWP || NETCORE
             else if (typeInfo.IsSealed /* Values that does not have a public constructor and also sealed can only be created by specialized static methods. In such cases we dont try to clone the value... */ )
 #else
             else if (valueType.IsSealed /* Values that does not have a public constructor and also sealed can only be created by specialized static methods. In such cases we dont try to clone the value... */ )

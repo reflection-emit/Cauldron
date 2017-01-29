@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">14.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(VSToolsPath)\DotNet\Microsoft.DotNet.Props" Condition="'$(VSToolsPath)' != ''" />
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>35e07ffd-203f-4fbb-8da4-3e06136029b4</ProjectGuid>
+    <RootNamespace>Cauldron.Core</RootNamespace>
+    <BaseIntermediateOutputPath Condition="'$(BaseIntermediateOutputPath)'=='' ">.\obj</BaseIntermediateOutputPath>
+    <OutputPath Condition="'$(OutputPath)'=='' ">.\bin\</OutputPath>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SchemaVersion>2.0</SchemaVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\..\Desktop\Cauldron.Core\ApplicationData.cs">
+      <Link>ApplicationData.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Desktop\Cauldron.Core\CreationCollisionOption.cs">
+      <Link>CreationCollisionOption.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Desktop\Cauldron.Core\Extensions\ExtensionsDirectoryInfo.cs">
+      <Link>Extensions\ExtensionsDirectoryInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Desktop\Cauldron.Core\Extensions\ExtensionsFileInfo.cs">
+      <Link>Extensions\ExtensionsFileInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Desktop\Cauldron.Core\Extensions\ExtensionsXmlDocument.cs">
+      <Link>Extensions\ExtensionsXmlDocument.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Desktop\Cauldron.Core\KnownFolders.cs">
+      <Link>KnownFolders.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Desktop\Cauldron.Core\LogonType.cs">
+      <Link>LogonType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Desktop\Cauldron.Core\NameCollisionOption.cs">
+      <Link>NameCollisionOption.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Desktop\Cauldron.Core\Network.Desktop.cs">
+      <Link>Network.Desktop.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Desktop\Cauldron.Core\ViewOrientation.cs">
+      <Link>ViewOrientation.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Desktop\Cauldron.Core\WebAuthenticationBrokerCallbackEventArgs.cs">
+      <Link>WebAuthenticationBrokerCallbackEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Desktop\Cauldron.Core\WebAuthenticationBrokerWrapper.Desktop.cs">
+      <Link>WebAuthenticationBrokerWrapper.Desktop.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Desktop\Cauldron.Core\WindowsMessages.cs">
+      <Link>WindowsMessages.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\ApplicationInfo.cs">
+      <Link>ApplicationInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\Assemblies.cs">
+      <Link>Assemblies.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\AssemblyAndResourceNameInfo.cs">
+      <Link>AssemblyAndResourceNameInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\AsyncHelper.cs">
+      <Link>AsyncHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\Collections\ConcurrentKeyedCollection.cs">
+      <Link>Collections\ConcurrentKeyedCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\Collections\ConcurrentKeyedCollectionEx.cs">
+      <Link>Collections\ConcurrentKeyedCollectionEx.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\Collections\ConcurrentList.cs">
+      <Link>Collections\ConcurrentList.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\Collections\KeyedCollectionEx.cs">
+      <Link>Collections\KeyedCollectionEx.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\ComparerUtils.cs">
+      <Link>ComparerUtils.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\Compression.cs">
+      <Link>Compression.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\ConnectionGenerationTypes.cs">
+      <Link>ConnectionGenerationTypes.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\CreateInstanceIsAnInterfaceException.cs">
+      <Link>CreateInstanceIsAnInterfaceException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\DateTimeUtils.cs">
+      <Link>DateTimeUtils.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\DisplayNameAttribute.cs">
+      <Link>DisplayNameAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\DisposableBase.cs">
+      <Link>DisposableBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\DynamicEqualityComparer.cs">
+      <Link>DynamicEqualityComparer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\Encodings.cs">
+      <Link>Encodings.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\ExecutionTimer.cs">
+      <Link>ExecutionTimer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\Extensions\Extensions.cs">
+      <Link>Extensions\Extensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\Extensions\ExtensionsConvertions.cs">
+      <Link>Extensions\ExtensionsConvertions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\Extensions\ExtensionsFileIO.cs">
+      <Link>Extensions\ExtensionsFileIO.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\Extensions\ExtensionsReflection.cs">
+      <Link>Extensions\ExtensionsReflection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\Formatters\ByteSizeFormatter.cs">
+      <Link>Formatters\ByteSizeFormatter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\Formatters\Formatter.cs">
+      <Link>Formatters\Formatter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\Formatters\FormatterBase.cs">
+      <Link>Formatters\FormatterBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\Formatters\MetricUnitFormatter.cs">
+      <Link>Formatters\MetricUnitFormatter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\HashAlgorithms.cs">
+      <Link>HashAlgorithms.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\IDisposableObject.cs">
+      <Link>IDisposableObject.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\Java\JavaProperties.cs">
+      <Link>Java\JavaProperties.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\MathEx.cs">
+      <Link>MathEx.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\MessageManager.cs">
+      <Link>MessageManager.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\MessageObject.cs">
+      <Link>MessageObject.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\MessagingArgs.cs">
+      <Link>MessagingArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\MiscUtils.cs">
+      <Link>MiscUtils.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\Network.cs">
+      <Link>Network.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\Output.cs">
+      <Link>Output.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\PingResults.cs">
+      <Link>PingResults.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\Randomizer.cs">
+      <Link>Randomizer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\Serializer.cs">
+      <Link>Serializer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\SystemInfo.cs">
+      <Link>SystemInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\Web.cs">
+      <Link>Web.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\WebAuthenticationBrokerWrapper.cs">
+      <Link>WebAuthenticationBrokerWrapper.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\Yaml\Yaml.cs">
+      <Link>Yaml\Yaml.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\Yaml\YamlCollection.cs">
+      <Link>Yaml\YamlCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\Yaml\YamlConvert.cs">
+      <Link>Yaml\YamlConvert.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\Yaml\YamlDeserializer.cs">
+      <Link>Yaml\YamlDeserializer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron.Core\Yaml\YamlPropertyAttribute.cs">
+      <Link>Yaml\YamlPropertyAttribute.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <Import Project="$(VSToolsPath)\DotNet\Microsoft.DotNet.targets" Condition="'$(VSToolsPath)' != ''" />
+</Project>

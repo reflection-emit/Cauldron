@@ -53,7 +53,7 @@ namespace Cauldron.Core
             {
                 var type = typeof(TResult);
 
-#if WINDOWS_UWP
+#if WINDOWS_UWP || NETCORE
                 if (type.GetTypeInfo().IsValueType && !type.IsNullable())
 #else
                 if (type.IsValueType && !type.IsNullable())

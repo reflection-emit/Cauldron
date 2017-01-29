@@ -2,6 +2,12 @@
 using System.Linq;
 using System.Xml;
 
+#if NETCORE
+
+using System.Xml.XPath;
+
+#endif
+
 namespace Cauldron.Core.Extensions
 {
     /// <summary>

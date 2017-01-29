@@ -153,6 +153,21 @@ namespace Cauldron.Core.Collections
         }
 
         /// <summary>
+        /// Adds an object to the end of the <see cref="ConcurrentList{T}"/>
+        /// </summary>
+        /// <param name="value">
+        /// The object to be added to the end of the <see cref="ConcurrentList{T}"/>
+        /// The value can be null for reference types.
+        /// </param>
+        int IList.Add(object value)
+        {
+            lock (this.objectLock)
+            {
+                return (this.internalList as IList).Add((T)value);
+            }
+        }
+
+        /// <summary>
         /// Adds the elements of the specified collection to the end of the <see cref="ConcurrentList{T}"/>
         /// </summary>
         /// <param name="collection">
@@ -190,10 +205,7 @@ namespace Cauldron.Core.Collections
         /// </summary>
         /// <param name="item">The object to locate in the <see cref="ConcurrentList{T}"/>. The value can be null for reference types.</param>
         /// <returns>true if item is found in the <see cref="ConcurrentList{T}"/>; otherwise, false.</returns>
-        public bool Contains(T item)
-        {
-            return this.Clone().Contains(item);
-        }
+        public bool Contains(T item) => this.Clone().Contains(item);
 
         /// <summary>
         /// Determines whether an element is in the <see cref="ConcurrentList{T}"/>
@@ -218,10 +230,7 @@ namespace Cauldron.Core.Collections
         /// </summary>
         /// <param name="value">The object to locate in the <see cref="ConcurrentList{T}"/>. The value can be null for reference types.</param>
         /// <returns>true if item is found in the <see cref="ConcurrentList{T}"/>; otherwise, false.</returns>
-        public bool Contains(object value)
-        {
-            return this.Clone().Contains((T)value);
-        }
+        public bool Contains(object value) => this.Clone().Contains((T)value);
 
         /// <summary>
         /// Copies a range of elements from the <see cref="ConcurrentList{T}"/> to a compatible one-dimensional array, starting at the specified index of the target array.
@@ -237,10 +246,7 @@ namespace Cauldron.Core.Collections
         /// The number of elements in the source <see cref="ConcurrentList{T}"/> is greater
         /// than the available space from arrayIndex to the end of the destination array.
         /// </exception>
-        public void CopyTo(T[] array, int arrayIndex)
-        {
-            this.Clone().CopyTo(array, arrayIndex);
-        }
+        public void CopyTo(T[] array, int arrayIndex) => this.Clone().CopyTo(array, arrayIndex);
 
         /// <summary>
         /// Copies a range of elements from the <see cref="ConcurrentList{T}"/> to a compatible one-dimensional array, starting at the specified index of the target array.
@@ -256,57 +262,19 @@ namespace Cauldron.Core.Collections
         /// The number of elements in the source <see cref="ConcurrentList{T}"/> is greater
         /// than the available space from arrayIndex to the end of the destination array.
         /// </exception>
-        public void CopyTo(Array array, int index)
-        {
-            (this.Clone() as IList).CopyTo(array, index);
-        }
+        public void CopyTo(Array array, int index) => (this.Clone() as IList).CopyTo(array, index);
 
         /// <summary>
         /// Returns an enumerator that iterates through the <see cref="ConcurrentList{T}"/>
         /// </summary>
         /// <returns>A <see cref="List{T}.Enumerator"/> for the <see cref="ConcurrentList{T}"/>.</returns>
-        public IEnumerator<T> GetEnumerator() =>
-            this.Clone().GetEnumerator();
+        public IEnumerator<T> GetEnumerator() => this.Clone().GetEnumerator();
 
         /// <summary>
-        /// Removes the first occurrence of a specific object from the <see cref="ConcurrentList{T}"/>
+        /// Returns an enumerator that iterates through the <see cref="ConcurrentList{T}"/>
         /// </summary>
-        /// <param name="item">The object to remove from the <see cref="ConcurrentList{T}"/>. The value can be null for reference types.</param>
-        /// <returns>true if item is successfully removed; otherwise, false. This method also returns false if item was not found in the <see cref="ConcurrentList{T}"/></returns>
-        bool ICollection<T>.Remove(T item)
-        {
-            lock (this.objectLock)
-            {
-                return this.internalList.Remove(item);
-            }
-        }
-
-        /// <summary>
-        /// Adds an object to the end of the <see cref="ConcurrentList{T}"/>
-        /// </summary>
-        /// <param name="value">
-        /// The object to be added to the end of the <see cref="ConcurrentList{T}"/>
-        /// The value can be null for reference types.
-        /// </param>
-        int IList.Add(object value)
-        {
-            lock (this.objectLock)
-            {
-                return (this.internalList as IList).Add((T)value);
-            }
-        }
-
-        /// <summary>
-        /// Removes the first occurrence of a specific object from the <see cref="ConcurrentList{T}"/>
-        /// </summary>
-        /// <param name="value">The object to remove from the <see cref="ConcurrentList{T}"/>. The value can be null for reference types.</param>
-        void IList.Remove(object value)
-        {
-            lock (this.objectLock)
-            {
-                this.internalList.Remove((T)value);
-            }
-        }
+        /// <returns>A <see cref="List{T}.Enumerator"/> for the <see cref="ConcurrentList{T}"/>.</returns>
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => this.Clone().GetEnumerator();
 
         /// <summary>
         /// Searches for the specified object and returns the zero-based index of the first
@@ -314,10 +282,7 @@ namespace Cauldron.Core.Collections
         /// </summary>
         /// <param name="item">The object to locate in the <see cref="ConcurrentList{T}"/>. The value can be null for reference types.</param>
         /// <returns>The zero-based index of the first occurrence of item within the entire <see cref="ConcurrentList{T}"/>, if found; otherwise, –1.</returns>
-        public int IndexOf(T item)
-        {
-            return this.Clone().IndexOf(item);
-        }
+        public int IndexOf(T item) => this.Clone().IndexOf(item);
 
         /// <summary>
         /// Searches for the specified object and returns the zero-based index of the first
@@ -325,10 +290,7 @@ namespace Cauldron.Core.Collections
         /// </summary>
         /// <param name="value">The object to locate in the <see cref="ConcurrentList{T}"/>. The value can be null for reference types.</param>
         /// <returns>The zero-based index of the first occurrence of item within the entire <see cref="ConcurrentList{T}"/>, if found; otherwise, –1.</returns>
-        public int IndexOf(object value)
-        {
-            return this.Clone().IndexOf((T)value);
-        }
+        public int IndexOf(object value) => this.Clone().IndexOf((T)value);
 
         /// <summary>
         /// Inserts an element into the <see cref="ConcurrentList{T}"/> at the specified index
@@ -355,6 +317,31 @@ namespace Cauldron.Core.Collections
             lock (this.objectLock)
             {
                 this.internalList.Insert(index, (T)value);
+            }
+        }
+
+        /// <summary>
+        /// Removes the first occurrence of a specific object from the <see cref="ConcurrentList{T}"/>
+        /// </summary>
+        /// <param name="item">The object to remove from the <see cref="ConcurrentList{T}"/>. The value can be null for reference types.</param>
+        /// <returns>true if item is successfully removed; otherwise, false. This method also returns false if item was not found in the <see cref="ConcurrentList{T}"/></returns>
+        bool ICollection<T>.Remove(T item)
+        {
+            lock (this.objectLock)
+            {
+                return this.internalList.Remove(item);
+            }
+        }
+
+        /// <summary>
+        /// Removes the first occurrence of a specific object from the <see cref="ConcurrentList{T}"/>
+        /// </summary>
+        /// <param name="value">The object to remove from the <see cref="ConcurrentList{T}"/>. The value can be null for reference types.</param>
+        void IList.Remove(object value)
+        {
+            lock (this.objectLock)
+            {
+                this.internalList.Remove((T)value);
             }
         }
 
@@ -426,15 +413,6 @@ namespace Cauldron.Core.Collections
         }
 
         /// <summary>
-        /// Returns an enumerator that iterates through the <see cref="ConcurrentList{T}"/>
-        /// </summary>
-        /// <returns>A <see cref="List{T}.Enumerator"/> for the <see cref="ConcurrentList{T}"/>.</returns>
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            return this.Clone().GetEnumerator();
-        }
-
-        /// <summary>
         /// Copies the elements of the <see cref="ConcurrentList{T}"/> to a new array.
         /// </summary>
         /// <returns>An array containing copies of the elements of the <see cref="ConcurrentList{T}"/></returns>
@@ -450,10 +428,7 @@ namespace Cauldron.Core.Collections
         /// Creates a <see cref="List{T}"/> from an <see cref="ConcurrentList{T}"/>.
         /// </summary>
         /// <returns>A <see cref="List{T}"/> that contains elements from the input sequence.</returns>
-        public List<T> ToList()
-        {
-            return this.Clone();
-        }
+        public List<T> ToList() => this.Clone();
 
         private List<T> Clone()
         {

@@ -10,8 +10,14 @@ using Windows.Security.Cryptography.Core;
 using Windows.Security.Cryptography;
 using System.Runtime.InteropServices.WindowsRuntime;
 
-#else
+#elif NETCORE
+
 using System.Security.Cryptography;
+
+#else
+
+using System.Security.Cryptography;
+
 #endif
 
 namespace Cauldron.Cryptography
@@ -95,12 +101,15 @@ namespace Cauldron.Cryptography
                 aes.IV = keyMaterial.InitializationVector;
                 aes.Key = keyMaterial.Key;
 
-                using (MemoryStream ms = new MemoryStream())
+                using (var ms = new MemoryStream())
                 {
-                    using (CryptoStream cs = new CryptoStream(ms, aes.CreateEncryptor(), CryptoStreamMode.Write))
+                    using (var cs = new CryptoStream(ms, aes.CreateEncryptor(), CryptoStreamMode.Write))
                     {
                         cs.Write(data, 0, data.Length);
+
+#if DESKTOP
                         cs.Close();
+#endif
                     }
 
                     result = ms.ToArray();
@@ -178,12 +187,15 @@ namespace Cauldron.Cryptography
                     aes.IV = keyMaterial.InitializationVector;
                     aes.Key = keyMaterial.Key;
 
-                    using (MemoryStream ms = new MemoryStream())
+                    using (var ms = new MemoryStream())
                     {
-                        using (CryptoStream cs = new CryptoStream(ms, aes.CreateDecryptor(), CryptoStreamMode.Write))
+                        using (var cs = new CryptoStream(ms, aes.CreateDecryptor(), CryptoStreamMode.Write))
                         {
                             cs.Write(encrypted, 0, encrypted.Length);
+
+#if DESKTOP
                             cs.Close();
+#endif
                         }
 
                         return ms.ToArray();

@@ -95,6 +95,13 @@ namespace Cauldron.Core
         {
 #if WINDOWS_UWP
             return (int)CryptographicBuffer.GenerateRandomNumber();
+#elif NETCORE
+            using (var randomNumberGenerator = RandomNumberGenerator.Create())
+            {
+                byte[] buffer = new byte[4];
+                randomNumberGenerator.GetBytes(buffer);
+                return BitConverter.ToInt32(buffer, 0);
+            }
 #else
             var cryptoGlobal = new RNGCryptoServiceProvider();
             byte[] buffer = new byte[4];

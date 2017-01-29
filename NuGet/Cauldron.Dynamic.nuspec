@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Capgemini.Cauldron.Dynamic</id>
+    <version>1.0.3</version>
+    <title>Capgemini Cauldron Dynamic</title>
+    <authors>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</authors>
+    <owners>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</owners>
+    <licenseUrl>https://raw.githubusercontent.com/reflection-emit/Cauldron/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/reflection-emit/Cauldron</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/reflection-emit/Cauldron/master/cauldron.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Cauldron Dynamic provides functions that make creating dynamic assemblies easier. It also provides an extension to create an object from an anonymous type.</description>
+    <summary>(beta) Cauldron Dynamic provides functions that make creating dynamic assemblies easier (Open Source)</summary>
+    <copyright>Copyright (c) 2016 Alexander Schunk, Capgemini Deutschland GmbH and Contributors</copyright>
+    <tags>Toolkit Capgemini Cauldron Dynamic Assembly Anonymous Type Interface</tags>
+    <dependencies>
+      <group targetFramework="net452">
+        <dependency id="Capgemini.Cauldron.Core" version="1.0.4" />
+        <dependency id="Capgemini.Cauldron.Cryptography" version="1.0.4" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+
+    <!-- Desktop -->
+    <file src="..\Desktop\Cauldron.Desktop.Dynamic\bin\Release\Cauldron.Dynamic**" target="lib\net452" />
+
+    <!-- UWP -->
+    <!-- <file src="..\UWP\Cauldron.UWP.Dynamic\bin\Release\Cauldron.Dynamic**" target="lib\uap10.0" /> -->
+
+    <!-- Net Standard 1.6 -->
+    <!-- <file src="..\NetCore\Cauldron.NetCore.Dynamic\bin\Release\netstandard1.6\Cauldron.Dynamic**" target="lib\netstandard1.6" /> -->
+  </files>
+</package>

@@ -47,13 +47,13 @@ namespace Cauldron.Core
 #else
 
                 var assembly = Assembly.GetEntryAssembly();
-
+#if !NETCORE
                 if (assembly == null)
                     assembly = Assembly.GetCallingAssembly();
 
                 if (assembly == null)
                     assembly = Assembly.GetExecutingAssembly();
-
+#endif
                 return assembly.GetName().Name;
 #endif
             }
@@ -76,12 +76,13 @@ namespace Cauldron.Core
             get
             {
                 var assembly = Assembly.GetEntryAssembly();
-
+#if !NETCORE
                 if (assembly == null)
                     assembly = Assembly.GetCallingAssembly();
 
                 if (assembly == null)
                     assembly = Assembly.GetExecutingAssembly();
+#endif
 
                 return new DirectoryInfo(Path.GetDirectoryName(assembly.Location));
             }
@@ -101,12 +102,13 @@ namespace Cauldron.Core
 #else
 
                 var assembly = Assembly.GetEntryAssembly();
-
+#if !NETCORE
                 if (assembly == null)
                     assembly = Assembly.GetCallingAssembly();
 
                 if (assembly == null)
                     assembly = Assembly.GetExecutingAssembly();
+#endif
 
                 return assembly.GetCustomAttribute<AssemblyCompanyAttribute>()?.Company;
 #endif
@@ -125,12 +127,13 @@ namespace Cauldron.Core
 #else
 
                 var assembly = Assembly.GetEntryAssembly();
-
+#if !NETCORE
                 if (assembly == null)
                     assembly = Assembly.GetCallingAssembly();
 
                 if (assembly == null)
                     assembly = Assembly.GetExecutingAssembly();
+#endif
 
                 return assembly.GetName().Version;
 #endif
@@ -147,12 +150,13 @@ namespace Cauldron.Core
             get
             {
                 var assembly = Assembly.GetEntryAssembly();
-
+#if !NETCORE
                 if (assembly == null)
                     assembly = Assembly.GetCallingAssembly();
 
                 if (assembly == null)
                     assembly = Assembly.GetExecutingAssembly();
+#endif
 
                 return assembly.GetCustomAttribute<AssemblyDescriptionAttribute>()?.Description;
             }
@@ -171,12 +175,13 @@ namespace Cauldron.Core
                 return Package.Current.Id.Name;
 #else
                 var assembly = Assembly.GetEntryAssembly();
-
+#if !NETCORE
                 if (assembly == null)
                     assembly = Assembly.GetCallingAssembly();
 
                 if (assembly == null)
                     assembly = Assembly.GetExecutingAssembly();
+#endif
 
                 return assembly.GetCustomAttribute<AssemblyProductAttribute>()?.Product;
 #endif
@@ -194,12 +199,13 @@ namespace Cauldron.Core
                 return "Universal Windows Platform";
 #else
                 var assembly = Assembly.GetEntryAssembly();
-
+#if !NETCORE
                 if (assembly == null)
                     assembly = Assembly.GetCallingAssembly();
 
                 if (assembly == null)
                     assembly = Assembly.GetExecutingAssembly();
+#endif
 
                 return assembly.GetCustomAttribute<TargetFrameworkAttribute>()?.FrameworkDisplayName;
 #endif

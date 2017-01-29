@@ -1,7 +1,6 @@
 ﻿#if WINDOWS_UWP
 
 using System;
-
 using Windows.Storage.Streams;
 using Windows.System.Profile;
 
@@ -9,12 +8,18 @@ using Windows.System.Profile;
 
 using Android.OS;
 
+#elif NETCORE
+
+using System.Net.NetworkInformation;
+using System.Text;
+
 #else
 
-using Cauldron.Core.Extensions;
 using System.Management;
 
 #endif
+
+using Cauldron.Core.Extensions;
 
 namespace Cauldron.Core
 {
@@ -38,9 +43,18 @@ namespace Cauldron.Core
                 using (var reader = DataReader.FromBuffer(id))
                     reader.ReadBytes(bytes);
 
-                return Convert.ToBase64String(bytes);
+                return Convert.ToBase64String(bytes).GetHash(HashAlgorithms.Sha256);
 #elif ANDROID
-                return Build.Serial;
+                return Build.Serial.GetHash(HashAlgorithms.Sha256);
+#elif NETCORE
+                // TODO - This is not enough to uniquely identify a hardware...
+                // We have to find out later on how we could do this better in the future
+                var sb = new StringBuilder();
+
+                foreach (var adapter in NetworkInterface.GetAllNetworkInterfaces())
+                    sb.Append(adapter.GetPhysicalAddress().ToString());
+
+                return sb.ToString().GetHash(HashAlgorithms.Sha256);
 #else
                 string result = string.Empty;
 

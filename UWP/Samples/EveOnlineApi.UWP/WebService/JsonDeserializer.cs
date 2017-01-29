@@ -4,9 +4,6 @@ namespace EveOnlineApi.WebService
 {
     internal sealed class JsonDeserializer : IDeserializer
     {
-        public TResult DeserializeObject<TResult>(string content)
-        {
-            return JsonConvert.DeserializeObject<TResult>(content);
-        }
+        public TResult DeserializeObject<TResult>(string content) => JsonConvert.DeserializeObject<TResult>(content);
     }
 }

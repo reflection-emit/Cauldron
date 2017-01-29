@@ -33,32 +33,24 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Cauldron.Activator, Version=1.0.0.9, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Capgemini.Cauldron.Activator.1.0.3\lib\net452\Cauldron.Activator.dll</HintPath>
+    <Reference Include="Cauldron.Activator, Version=1.0.0.10, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Capgemini.Cauldron.Activator.1.0.4\lib\net452\Cauldron.Activator.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Cauldron.Consoles, Version=1.0.0.9, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Capgemini.Cauldron.Consoles.1.0.3\lib\net452\Cauldron.Consoles.dll</HintPath>
+    <Reference Include="Cauldron.Consoles, Version=1.0.0.10, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Capgemini.Cauldron.Consoles.1.0.4\lib\net452\Cauldron.Consoles.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Cauldron.Core, Version=1.0.0.9, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Capgemini.Cauldron.Core.1.0.3\lib\net452\Cauldron.Core.dll</HintPath>
+    <Reference Include="Cauldron.Core, Version=1.0.0.10, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Capgemini.Cauldron.Core.1.0.4\lib\net452\Cauldron.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Cauldron.Cryptography, Version=1.0.0.9, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Capgemini.Cauldron.Cryptography.1.0.3\lib\net452\Cauldron.Cryptography.dll</HintPath>
+    <Reference Include="Cauldron.IEnumerableExtensions, Version=1.0.0.10, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Capgemini.Cauldron.IEnumerableExtensions.1.0.4\lib\net452\Cauldron.IEnumerableExtensions.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Cauldron.IEnumerableExtensions, Version=1.0.0.9, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Capgemini.Cauldron.IEnumerableExtensions.1.0.3\lib\net452\Cauldron.IEnumerableExtensions.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Cauldron.Localization, Version=1.0.0.9, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Capgemini.Cauldron.Localization.1.0.3\lib\net452\Cauldron.Localization.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="EveOnlineApi, Version=1.0.0.9, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\EveOnlineApi.NET.1.0.3\lib\net452\EveOnlineApi.dll</HintPath>
+    <Reference Include="Cauldron.Localization, Version=1.0.0.10, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Capgemini.Cauldron.Localization.1.0.4\lib\net452\Cauldron.Localization.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -85,6 +77,12 @@
     <None Include="App.config" />
     <None Include="packages.config" />
     <EmbeddedResource Include="string.yaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EveOnlineApi.Desktop\EveOnlineApi.Desktop.csproj">
+      <Project>{040a2df8-beca-48ee-bd78-0a9350fcb997}</Project>
+      <Name>EveOnlineApi.Desktop</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

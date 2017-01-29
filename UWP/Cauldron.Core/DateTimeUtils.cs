@@ -23,8 +23,8 @@ namespace Cauldron.Core
             int daysOffset = DayOfWeek.Thursday - jan1.DayOfWeek;
 
             var firstThursday = jan1.AddDays(daysOffset);
-            var cal = CultureInfo.CurrentCulture.Calendar;
-            int firstWeek = cal.GetWeekOfYear(firstThursday, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
+            var calendar = CultureInfo.CurrentCulture.Calendar;
+            int firstWeek = calendar.GetWeekOfYear(firstThursday, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
 
             if (weekOfYear > GetWeeksInYear(year))
                 throw new ArgumentOutOfRangeException("Argument weekOfYear is more than the given year has weeks");
@@ -51,9 +51,9 @@ namespace Cauldron.Core
         {
             var dateTimeInfo = DateTimeFormatInfo.CurrentInfo;
             var date1 = new DateTime(year, 12, 31);
-            var cal = dateTimeInfo.Calendar;
+            var calendar = dateTimeInfo.Calendar;
 
-            return cal.GetWeekOfYear(date1, dateTimeInfo.CalendarWeekRule, dateTimeInfo.FirstDayOfWeek);
+            return calendar.GetWeekOfYear(date1, dateTimeInfo.CalendarWeekRule, dateTimeInfo.FirstDayOfWeek);
         }
     }
 }

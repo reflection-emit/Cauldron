@@ -6,6 +6,10 @@ using System.Text;
 
 using Windows.Storage;
 using Windows.Storage.Streams;
+#elif NETCORE
+
+using System.Runtime.InteropServices;
+using System.IO;
 
 #else
 
@@ -148,8 +152,20 @@ namespace Cauldron.Core.Extensions
         /// <param name="folder">The folder where the file resides</param>
         /// <param name="filename">The name of the file to read.</param>
         /// <returns>When this method completes successfully, it returns the contents of the file as a text string.</returns>
-        public static Task<string> ReadTextAsync(this DirectoryInfo folder, string filename) =>
-            folder.ReadTextAsync(filename, Encoding.Default);
+        public static Task<string> ReadTextAsync(this DirectoryInfo folder, string filename)
+        {
+#if NETCORE
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                return folder.ReadTextAsync(filename, Encoding.GetEncoding("ISO-8859-1"));
+            else
+                return folder.ReadTextAsync(filename, Encoding.UTF8);
+
+#else
+
+            return folder.ReadTextAsync(filename, Encoding.Default);
+#endif
+        }
 
         /// <summary>
         /// Reads the contents of the specified file and returns text.
@@ -200,8 +216,20 @@ namespace Cauldron.Core.Extensions
         /// <param name="file">The file to write to.</param>
         /// <param name="content">The string to write to the file.</param>
         /// <returns>No object or value is returned when this method completes.</returns>
-        public static async Task WriteTextAsync(this FileInfo file, string content) =>
+        public static async Task WriteTextAsync(this FileInfo file, string content)
+        {
+#if NETCORE
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                await file.WriteTextAsync(content, Encoding.GetEncoding("ISO-8859-1"));
+            else
+                await file.WriteTextAsync(content, Encoding.UTF8);
+
+#else
+
             await file.WriteTextAsync(content, Encoding.Default);
+#endif
+        }
 
         /// <summary>
         /// Creates a new file, writes the specified string to the file, and then closes the file. If the target file already exists, it is overwritten.

@@ -2,7 +2,6 @@
 using Cauldron.Core.Extensions;
 using System;
 using System.Runtime.InteropServices;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Security;
 using System.Text;
 
@@ -10,6 +9,7 @@ using System.Text;
 
 using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.Core;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 #else
 

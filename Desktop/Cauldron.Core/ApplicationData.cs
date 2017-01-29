@@ -2,6 +2,12 @@
 using System;
 using System.IO;
 
+#if NETCORE
+
+using System.Runtime.InteropServices;
+
+#endif
+
 namespace Windows.Storage /* So that precompiler definitions are not required if classes are shared between UWP and Desktop */
 {
     /// <summary>
@@ -32,6 +38,57 @@ namespace Windows.Storage /* So that precompiler definitions are not required if
             }
         }
 
+#if NETCORE
+
+        /// <summary>
+        /// Gets the root folder in the local app data store.
+        /// </summary>
+        public DirectoryInfo LocalFolder
+        {
+            get { return this.GetOrCreate(this.LocalApplicationData); }
+        }
+
+        // TODO - Roaming folder for Mac and Linux?
+        /*
+        /// <summary>
+        /// Gets the root folder in the roaming app data store.
+        /// </summary>
+        public DirectoryInfo RoamingFolder
+        {
+            get { return this.GetOrCreate(this.LocalApplicationData); }
+        }
+        */
+
+        /// <summary>
+        /// Gets the root folder in the temporary app data store.
+        /// </summary>
+        public DirectoryInfo TemporaryFolder
+        {
+            get { return this.GetOrCreate(Path.Combine(this.LocalApplicationData, "Temp")); }
+        }
+
+        private string LocalApplicationData
+        {
+            get
+            {
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                    return Environment.GetEnvironmentVariable("LocalAppData");
+
+                return Environment.GetEnvironmentVariable("Home");
+            }
+        }
+
+        private DirectoryInfo GetOrCreate(string folder)
+        {
+            var path = Path.Combine(folder, ApplicationInfo.ApplicationPublisher, ApplicationInfo.ApplicationName);
+
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+
+            return new DirectoryInfo(path);
+        }
+
+#else
         /// <summary>
         /// Gets the root folder in the local app data store.
         /// </summary>
@@ -65,5 +122,6 @@ namespace Windows.Storage /* So that precompiler definitions are not required if
 
             return new DirectoryInfo(path);
         }
+#endif
     }
 }

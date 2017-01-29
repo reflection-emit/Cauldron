@@ -25,7 +25,7 @@ namespace Cauldron.Core.Extensions
         /// <returns>true if the specified type can be assigned to this type; otherwise, false.</returns>
         public static bool AreReferenceAssignable(this Type type, Type toBeAssigned)
         {
-#if WINDOWS_UWP
+#if WINDOWS_UWP || NETCORE
             var typeInfo = type.GetTypeInfo();
             var toBeAssignedTypeInfo = toBeAssigned.GetTypeInfo();
             if (type == toBeAssigned || (!typeInfo.IsValueType && !toBeAssignedTypeInfo.IsValueType && typeInfo.IsAssignableFrom(toBeAssignedTypeInfo)) || (typeInfo.IsInterface && toBeAssigned == typeof(object)))
@@ -55,7 +55,7 @@ namespace Cauldron.Core.Extensions
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
 
-#if WINDOWS_UWP
+#if WINDOWS_UWP || NETCORE
             if (type.GetTypeInfo().IsInterface)
 #else
             if (type.IsInterface)
@@ -116,7 +116,7 @@ namespace Cauldron.Core.Extensions
             if (type.IsArray)
                 return type.GetElementType();
 
-#if WINDOWS_UWP
+#if WINDOWS_UWP || NETCORE
             var interfaceType = type.GetTypeInfo().ImplementedInterfaces.FirstOrDefault(x => x.GetTypeInfo().IsGenericType && x.GetGenericTypeDefinition() == typeof(IEnumerable<>));
 #else
             var interfaceType = type.GetTypeInfo().ImplementedInterfaces.FirstOrDefault(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(IEnumerable<>));
@@ -163,7 +163,7 @@ namespace Cauldron.Core.Extensions
         /// </remarks>
         public static object GetDefaultInstance(this Type type)
         {
-#if WINDOWS_UWP
+#if WINDOWS_UWP || NETCORE
             var typeInfo = type.GetTypeInfo();
 
             // If no Type was supplied, if the Type was a reference type, or if the Type was a System.Void, return null
@@ -223,7 +223,7 @@ namespace Cauldron.Core.Extensions
         /// <returns>The type of TKey and TValue in an <see cref="IDictionary{TKey, TValue}"/> implementation</returns>
         public static Type[] GetDictionaryKeyValueTypes(this Type type)
         {
-#if WINDOWS_UWP
+#if WINDOWS_UWP || NETCORE
             var interfaceType = type.GetTypeInfo().ImplementedInterfaces.FirstOrDefault(x => x.GetTypeInfo().IsGenericType && x.GetGenericTypeDefinition() == typeof(IDictionary<,>));
 #else
             var interfaceType = type.GetTypeInfo().ImplementedInterfaces.FirstOrDefault(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(IDictionary<,>));
@@ -260,7 +260,7 @@ namespace Cauldron.Core.Extensions
         {
             var fields = type.GetFields(bindingFlags | BindingFlags.DeclaredOnly);
 
-#if WINDOWS_UWP
+#if WINDOWS_UWP || NETCORE
             var t = type.GetTypeInfo();
 #else
             var t = type;
@@ -282,7 +282,7 @@ namespace Cauldron.Core.Extensions
         /// <returns>A <see cref="MethodInfo"/> object representing the method defined for the current Type that match the specified binding constraint.</returns>
         public static MethodInfo GetMethod(this Type type, string methodName, Type[] parameterTypes, BindingFlags bindingFlags)
         {
-#if WINDOWS_UWP
+#if WINDOWS_UWP || NETCORE
 
             return type.GetMethods(bindingFlags).FirstOrDefault(x => x.Name == methodName && x.MatchesArgumentTypes(parameterTypes));
 #else
@@ -309,7 +309,7 @@ namespace Cauldron.Core.Extensions
             if (methodName == null)
                 throw new ArgumentNullException(nameof(methodName));
 
-#if WINDOWS_UWP
+#if WINDOWS_UWP || NETCORE
             if (!type.GetTypeInfo().IsInterface)
 #else
             if (!type.IsInterface)
@@ -331,7 +331,7 @@ namespace Cauldron.Core.Extensions
         /// <returns>A collection of <see cref="MethodInfo"/> objects representing all the methods defined for the current Type.</returns>
         public static IEnumerable<MethodInfo> GetMethodsEx(this Type type, BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static)
         {
-#if WINDOWS_UWP
+#if WINDOWS_UWP || NETCORE
 
             if (!type.GetTypeInfo().IsInterface)
 #else
@@ -339,7 +339,7 @@ namespace Cauldron.Core.Extensions
 #endif
             {
                 var methods = type.GetMethods(bindingFlags | BindingFlags.DeclaredOnly);
-#if WINDOWS_UWP
+#if WINDOWS_UWP || NETCORE
                 var baseType = type.GetTypeInfo().BaseType;
 #else
                 var baseType = type.BaseType;
@@ -362,7 +362,7 @@ namespace Cauldron.Core.Extensions
         /// <returns>A collection of <see cref="PropertyInfo"/> objects representing all the properties defined for the current Type.</returns>
         public static IEnumerable<PropertyInfo> GetPropertiesEx(this Type type, BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static)
         {
-#if WINDOWS_UWP
+#if WINDOWS_UWP || NETCORE
             if (!type.GetTypeInfo().IsInterface)
 #else
             if (!type.IsInterface)
@@ -370,7 +370,7 @@ namespace Cauldron.Core.Extensions
             {
                 var properties = type.GetProperties(bindingFlags | BindingFlags.DeclaredOnly);
 
-#if WINDOWS_UWP
+#if WINDOWS_UWP || NETCORE
                 var baseType = type.GetTypeInfo().BaseType;
 #else
                 var baseType = type.BaseType;
@@ -403,7 +403,7 @@ namespace Cauldron.Core.Extensions
 
             if (propertyName == null)
                 throw new ArgumentNullException(nameof(propertyName));
-#if WINDOWS_UWP
+#if WINDOWS_UWP || NETCORE
             if (!type.GetTypeInfo().IsInterface)
 #else
 
@@ -577,7 +577,7 @@ namespace Cauldron.Core.Extensions
         /// <returns>True if the <paramref name="typeInfo"/> has implemented the interface <paramref name="typeOfInterface"/></returns>
         public static bool ImplementsInterface(this TypeInfo typeInfo, Type typeOfInterface)
         {
-#if WINDOWS_UWP
+#if WINDOWS_UWP || NETCORE
             var typeOfInterfaceInfo = typeOfInterface.GetTypeInfo();
 
             if (!typeOfInterfaceInfo.IsInterface)
@@ -623,7 +623,7 @@ namespace Cauldron.Core.Extensions
         /// <returns>Returns true if the type is <see cref="Nullable{T}"/></returns>
         public static bool IsNullable(this Type target)
         {
-#if WINDOWS_UWP
+#if WINDOWS_UWP || NETCORE
             return target.GetTypeInfo().IsGenericType && Nullable.GetUnderlyingType(target) != null;
 #else
             return target.IsGenericType && Nullable.GetUnderlyingType(target) != null;

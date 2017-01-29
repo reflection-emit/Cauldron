@@ -21,7 +21,13 @@ namespace Cauldron.Cryptography
         {
             unsafe
             {
+#if NETCORE
+
+                var secureStringPointer = SecureStringMarshal.SecureStringToCoTaskMemUnicode(secureString);
+#else
                 var secureStringPointer = Marshal.SecureStringToGlobalAllocAnsi(secureString);
+
+#endif
 
                 byte* data = (byte*)secureStringPointer.ToPointer();
                 byte* endOfString = data;
@@ -53,7 +59,13 @@ namespace Cauldron.Cryptography
         {
             unsafe
             {
+#if NETCORE
+
+                var secureStringPointer = SecureStringMarshal.SecureStringToCoTaskMemUnicode(secureString);
+#else
                 var secureStringPointer = Marshal.SecureStringToGlobalAllocAnsi(secureString);
+
+#endif
 
                 byte* data = (byte*)secureStringPointer.ToPointer();
                 byte* endOfString = data;

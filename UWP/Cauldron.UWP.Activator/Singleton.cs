@@ -31,7 +31,7 @@ namespace Cauldron.Activator
                         if (current == null || (disposable != null && disposable.IsDisposed))
                         {
                             var type = typeof(T);
-#if WINDOWS_UWP
+#if WINDOWS_UWP || NETCORE
                             var attr = type.GetTypeInfo().GetCustomAttribute<ComponentAttribute>();
 #else
                             var attr = type.GetCustomAttribute<ComponentAttribute>();

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "SampleConsoleApplication": {
+      "commandName": "Project",
+      "commandLineArgs": "-I typhoon --p"
+    }
+  }
+}

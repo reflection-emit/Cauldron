@@ -1,7 +1,6 @@
 ﻿{
   "dependencies": {
-    "Capgemini.Cauldron.XAML": "1.0.3",
-    "Capgemini.Cauldron.XAML.Interactivity": "1.0.3",
+    "Capgemini.Cauldron.XAML.Interactivity": "1.0.4",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2"
   },
   "frameworks": {

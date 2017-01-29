@@ -9,7 +9,9 @@ using Windows.Security.Cryptography;
 using System.Runtime.InteropServices.WindowsRuntime;
 
 #else
+
 using System.Security.Cryptography;
+
 #endif
 
 namespace Cauldron.Cryptography
@@ -45,8 +47,8 @@ namespace Cauldron.Cryptography
             string publicKey = Convert.ToBase64String(publicKeyBytes);
 
 #else
-            CspParameters cspParams = new CspParameters { ProviderType = 1 /* PROV_RSA_FULL */ };
-            RSACryptoServiceProvider rsaProvider = new RSACryptoServiceProvider((int)keySize, cspParams);
+            var cspParams = new CspParameters { ProviderType = 1 /* PROV_RSA_FULL */ };
+            var rsaProvider = new RSACryptoServiceProvider((int)keySize, cspParams);
 
             string publicKey = Convert.ToBase64String(rsaProvider.ExportCspBlob(false));
             string privateKey = Convert.ToBase64String(rsaProvider.ExportCspBlob(true));
@@ -85,8 +87,8 @@ namespace Cauldron.Cryptography
             return plainBytes;
 #else
 
-            CspParameters cspParams = new CspParameters { ProviderType = 1 /* PROV_RSA_FULL */ };
-            RSACryptoServiceProvider rsaProvider = new RSACryptoServiceProvider(cspParams);
+            var cspParams = new CspParameters { ProviderType = 1 /* PROV_RSA_FULL */ };
+            var rsaProvider = new RSACryptoServiceProvider(cspParams);
             rsaProvider.ImportCspBlob(Convert.FromBase64String(privateKey.GetString()));
             return rsaProvider.Decrypt(data, false);
 #endif
@@ -122,8 +124,8 @@ namespace Cauldron.Cryptography
             return encryptedBytes;
 #else
 
-            CspParameters cspParams = new CspParameters { ProviderType = 1 /* PROV_RSA_FULL */ };
-            RSACryptoServiceProvider rsaProvider = new RSACryptoServiceProvider(cspParams);
+            var cspParams = new CspParameters { ProviderType = 1 /* PROV_RSA_FULL */ };
+            var rsaProvider = new RSACryptoServiceProvider(cspParams);
 
             rsaProvider.ImportCspBlob(Convert.FromBase64String(publicKey));
 

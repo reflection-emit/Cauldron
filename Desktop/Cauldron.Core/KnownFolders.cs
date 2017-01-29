@@ -8,6 +8,7 @@ namespace Windows.Storage/* So that precompiler definitions are not required if 
     /// </summary>
     public static class KnownFolders
     {
+#if DESKTOP || ANDROID
         /// <summary>
         /// Gets the Documents library. The Documents library is not intended for general use.
         /// </summary>
@@ -27,5 +28,8 @@ namespace Windows.Storage/* So that precompiler definitions are not required if 
         /// Gets the Videos library.
         /// </summary>
         public static DirectoryInfo VideosLibrary { get { return new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.MyVideos)); } }
+#elif NETCORE
+        // TODO - check Linux and Mac for environment variables
+#endif
     }
 }

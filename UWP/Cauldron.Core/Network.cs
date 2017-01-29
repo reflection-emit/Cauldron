@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Cauldron.Core.Extensions;
+using System.Diagnostics;
 
 #if WINDOWS_UWP
 
@@ -8,13 +9,29 @@ using Windows.Networking.Connectivity;
 using Windows.Networking.Sockets;
 using Windows.Networking;
 
+#elif NETCORE
+
+using System.Net.Http;
+using System.Net.NetworkInformation;
+using System.Collections.Generic;
+using System.Net;
+using System.Linq;
+using System.Net.Sockets;
+
+#elif ANDROID
+
+using System.Net.NetworkInformation;
+using System.Collections.Generic;
+using System.Net;
+using System.Linq;
+using System.Net.Sockets;
+
 #else
 
 using System.Net;
-using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.Net.NetworkInformation;
 using System.Linq;
 
 #endif
@@ -76,7 +93,7 @@ namespace Cauldron.Core
 #else
                 var result = ConnectionGenerationTypes.Unknown;
 
-                foreach (NetworkInterface adapter in NetworkInterface.GetAllNetworkInterfaces())
+                foreach (var adapter in NetworkInterface.GetAllNetworkInterfaces())
                 {
                     if (adapter.OperationalStatus == OperationalStatus.Up)
                     {
@@ -116,7 +133,16 @@ namespace Cauldron.Core
 
                     var connectionProfile = NetworkInformation.GetInternetConnectionProfile();
                     return (connectionProfile != null && connectionProfile.GetNetworkConnectivityLevel() == NetworkConnectivityLevel.InternetAccess);
+#elif NETCORE
 
+                    if (!IsNetworkAvailable)
+                        return false;
+
+                    using (var client = new HttpClient())
+                    {
+                        var result = client.GetAsync("http://www.microsoft.com").RunSync();
+                        return result.IsSuccessStatusCode;
+                    }
 #else
                     if (!IsNetworkAvailable)
                         return false;

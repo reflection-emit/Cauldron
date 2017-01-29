@@ -150,7 +150,7 @@ namespace Cauldron.Core.Yaml
 
                 var value = child.Convert(p.PropertyInfo.PropertyType);
 
-#if WINDOWS_UWP
+#if WINDOWS_UWP || NETCORE
                 if (value == null && !p.PropertyInfo.PropertyType.GetTypeInfo().IsValueType && p.PropertyInfo.PropertyType != typeof(string))
 #else
                 if (value == null && !p.PropertyInfo.PropertyType.IsValueType && p.PropertyInfo.PropertyType != typeof(string))

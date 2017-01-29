@@ -34,7 +34,12 @@ namespace Cauldron.Consoles
             this.executionGroups = executionGroups
                 .Select(x => new ExecutionGroupProperties
                 {
+#if NETCORE
+                    Attribute = x.GetType().GetTypeInfo().GetCustomAttribute<ExecutionGroupAttribute>(),
+#else
                     Attribute = x.GetType().GetCustomAttribute<ExecutionGroupAttribute>(),
+
+#endif
                     ExecutionGroup = x
                 })
                 .Where(x => x.Attribute != null)
@@ -184,11 +189,11 @@ namespace Cauldron.Consoles
                     hasSource?  this.locale["product-name"] : "PRODUCT NAME:",
                     hasSource?  this.locale["publisher"] : "PUBLISHER:") { Foreground = this.KeyColor },
                 new ConsoleTableColumn(
-                    ApplicationInfo.ApplicationName,
-                    ApplicationInfo.ApplicationVersion.ToString(),
-                    ApplicationInfo.Description,
-                    ApplicationInfo.ProductName,
-                    ApplicationInfo.ApplicationPublisher) { Foreground = this.DescriptionColor, Width = 2 }
+                    ApplicationInfo.ApplicationName ?? "",
+                    ApplicationInfo.ApplicationVersion?.ToString() ?? "",
+                    ApplicationInfo.Description ?? "",
+                    ApplicationInfo.ProductName ?? "",
+                    ApplicationInfo.ApplicationPublisher ?? "") { Foreground = this.DescriptionColor, Width = 2 }
             });
 
             Console.Write("\n\n");
@@ -232,11 +237,13 @@ namespace Cauldron.Consoles
         {
             var assembly = Assembly.GetEntryAssembly();
 
+#if !NETCORE
             if (assembly == null)
                 assembly = Assembly.GetCallingAssembly();
 
             if (assembly == null)
                 assembly = Assembly.GetExecutingAssembly();
+#endif
 
             return assembly;
         }

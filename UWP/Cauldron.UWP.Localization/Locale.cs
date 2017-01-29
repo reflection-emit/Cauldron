@@ -44,7 +44,7 @@ namespace Cauldron.Localization
             set
             {
                 this.cultureInfo = value;
-#if !WINDOWS_UWP
+#if !WINDOWS_UWP && !NETCORE
                 this.cultureInfo.ClearCachedData();
 #endif
             }
@@ -97,7 +97,7 @@ namespace Cauldron.Localization
 
                 var type = key.GetType();
 
-#if WINDOWS_UWP
+#if WINDOWS_UWP || NETCORE
                 if (type.GetTypeInfo().IsEnum)
 #else
                 if (type.IsEnum)

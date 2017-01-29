@@ -2,10 +2,12 @@
 using Cauldron.XAML;
 using Cauldron.XAML.Validation;
 using Cauldron.XAML.Validation.ViewModels;
+using InputValidation.Views;
 using System.Windows.Input;
 
 namespace InputValidation.ViewModels
 {
+    [View(typeof(MainView))]
     public class MainViewModel : ValidatableViewModelBase
     {
         public MainViewModel()

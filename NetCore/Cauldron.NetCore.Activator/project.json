@@ -1,0 +1,41 @@
+{
+  "version": "1.0.0.10",
+
+  "dependencies": {
+    "Cauldron.NetCore.Core": "1.0.0.10",
+    "Cauldron.NetCore.IEnumerableExtensions": "1.0.0.10",
+    "NETStandard.Library": "1.6.1",
+    "System.Threading.Tasks": "4.3.0",
+    "System.Threading.Thread": "4.3.0"
+  },
+
+  "frameworks": {
+    "netstandard1.6": {
+      "imports": "dnxcore50"
+    }
+  },
+
+  "buildOptions": {
+    "outputName": "Cauldron.Activator",
+    "optimize": true,
+    "allowUnsafe": false,
+    "xmlDoc": true,
+    "compile": {
+      "includeFiles": [
+        "..\\..\\UWP\\Cauldron.UWP.Activator\\CloneIgnoreAttribute.cs",
+        "..\\..\\UWP\\Cauldron.UWP.Activator\\ComponentAttribute.cs",
+        "..\\..\\UWP\\Cauldron.UWP.Activator\\ComponentConstructorAttribute.cs",
+        "..\\..\\UWP\\Cauldron.UWP.Activator\\ExtensionsCloning.cs",
+        "..\\..\\UWP\\Cauldron.UWP.Activator\\Factory.cs",
+        "..\\..\\UWP\\Cauldron.UWP.Activator\\FactoryCreationPolicy.cs",
+        "..\\..\\UWP\\Cauldron.UWP.Activator\\FactoryTypeInfo.cs",
+        "..\\..\\UWP\\Cauldron.UWP.Activator\\IFactoryExtension.cs",
+        "..\\..\\UWP\\Cauldron.UWP.Activator\\IFactoryInitializeComponent.cs",
+        "..\\..\\UWP\\Cauldron.UWP.Activator\\IFactoryInitializeComponent.cs",
+        "..\\..\\UWP\\Cauldron.UWP.Activator\\Singleton.cs",
+        "..\\..\\UWP\\Cauldron.Core\\Output.cs"
+      ]
+    },
+    "define": [ "NETCORE" ]
+  }
+}

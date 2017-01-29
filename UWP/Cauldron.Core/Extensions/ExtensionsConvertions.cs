@@ -168,7 +168,7 @@ namespace Cauldron.Core.Extensions
              TypeConverter does not exist in UWP that is why we built our own
              */
 
-#if WINDOWS_UWP
+#if WINDOWS_UWP || NETCORE
             if ((targetType.IsNullable() || !targetType.GetTypeInfo().IsValueType) && string.IsNullOrEmpty(value))
 #else
             if ((targetType.IsNullable() || !targetType.IsValueType) && string.IsNullOrEmpty(value))
@@ -181,7 +181,7 @@ namespace Cauldron.Core.Extensions
             if (targetType.IsNullable())
                 targetType = Nullable.GetUnderlyingType(targetType);
 
-#if WINDOWS_UWP
+#if WINDOWS_UWP || NETCORE
             if (targetType.GetTypeInfo().IsEnum)
 #else
             if (targetType.IsEnum)

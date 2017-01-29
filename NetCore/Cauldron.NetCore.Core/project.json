@@ -1,0 +1,96 @@
+{
+  "version": "1.0.0.10",
+  "dependencies": {
+    "Microsoft.Extensions.DependencyModel": "1.1.0",
+    "NETStandard.Library": "1.6.1",
+    "System.Diagnostics.Process": "4.3.0",
+    "System.Linq.Parallel": "4.3.0",
+    "System.Net.NetworkInformation": "4.3.0",
+    "System.Private.DataContractSerialization": "4.3.0",
+    "System.Runtime": "4.3.0",
+    "System.Runtime.Loader": "4.3.0",
+    "System.Runtime.Serialization.Xml": "4.3.0",
+    "System.Xml.XPath": "4.3.0",
+    "System.Xml.XPath.XmlDocument": "4.3.0"
+  },
+  "frameworks": {
+    "netstandard1.6": {
+      "imports": "dnxcore50"
+    }
+  },
+  "buildOptions": {
+    "outputName": "Cauldron.Core",
+    "optimize": true,
+    "allowUnsafe": true,
+    "xmlDoc": true,
+    "compile": {
+      "includeFiles": [
+        "..\\..\\UWP\\Cauldron.Core\\Collections\\ConcurrentKeyedCollection.cs",
+        "..\\..\\UWP\\Cauldron.Core\\Collections\\ConcurrentKeyedCollectionEx.cs",
+        "..\\..\\UWP\\Cauldron.Core\\Collections\\ConcurrentList.cs",
+        "..\\..\\UWP\\Cauldron.Core\\Collections\\KeyedCollectionEx.cs",
+
+        "..\\..\\UWP\\Cauldron.Core\\Extensions\\Extensions.cs",
+        "..\\..\\UWP\\Cauldron.Core\\Extensions\\ExtensionsConvertions.cs",
+        "..\\..\\Desktop\\Cauldron.Core\\Extensions\\ExtensionsDirectoryInfo.cs",
+        "..\\..\\Desktop\\Cauldron.Core\\Extensions\\ExtensionsFileInfo.cs",
+        "..\\..\\UWP\\Cauldron.Core\\Extensions\\ExtensionsFileIO.cs",
+        "..\\..\\UWP\\Cauldron.Core\\Extensions\\ExtensionsReflection.cs",
+        "..\\..\\Desktop\\Cauldron.Core\\Extensions\\ExtensionsXmlDocument.cs",
+
+        "..\\..\\UWP\\Cauldron.Core\\Formatters\\ByteSizeFormatter.cs",
+        "..\\..\\UWP\\Cauldron.Core\\Formatters\\Formatter.cs",
+        "..\\..\\UWP\\Cauldron.Core\\Formatters\\FormatterBase.cs",
+        "..\\..\\UWP\\Cauldron.Core\\Formatters\\MetricUnitFormatter.cs",
+
+        "..\\..\\UWP\\Cauldron.Core\\Java\\JavaProperties.cs",
+
+        "..\\..\\UWP\\Cauldron.Core\\Yaml\\Yaml.cs",
+        "..\\..\\UWP\\Cauldron.Core\\Yaml\\YamlCollection.cs",
+        "..\\..\\UWP\\Cauldron.Core\\Yaml\\YamlConvert.cs",
+        "..\\..\\UWP\\Cauldron.Core\\Yaml\\YamlDeserializer.cs",
+        "..\\..\\UWP\\Cauldron.Core\\Yaml\\YamlPropertyAttribute.cs",
+
+        "..\\..\\Desktop\\Cauldron.Core\\ApplicationData.cs",
+        "..\\..\\UWP\\Cauldron.Core\\ApplicationInfo.cs",
+        "..\\..\\UWP\\Cauldron.Core\\Assemblies.cs",
+        "..\\..\\UWP\\Cauldron.Core\\AssemblyAndResourceNameInfo.cs",
+        "..\\..\\UWP\\Cauldron.Core\\AsyncHelper.cs",
+        "..\\..\\UWP\\Cauldron.Core\\ComparerUtils.cs",
+        "..\\..\\UWP\\Cauldron.Core\\Compression.cs",
+        "..\\..\\UWP\\Cauldron.Core\\ConnectionGenerationTypes.cs",
+        "..\\..\\UWP\\Cauldron.Core\\CreateInstanceIsAnInterfaceException.cs",
+        "..\\..\\Desktop\\Cauldron.Core\\CreationCollisionOption.cs",
+        "..\\..\\UWP\\Cauldron.Core\\DateTimeUtils.cs",
+        "..\\..\\UWP\\Cauldron.Core\\DisplayNameAttribute.cs",
+        "..\\..\\UWP\\Cauldron.Core\\DisposableBase.cs",
+        "..\\..\\UWP\\Cauldron.Core\\DynamicEqualityComparer.cs",
+        "..\\..\\UWP\\Cauldron.Core\\Encodings.cs",
+        "..\\..\\UWP\\Cauldron.Core\\ExecutionTimer.cs",
+        "..\\..\\UWP\\Cauldron.Core\\HashAlgorithms.cs",
+        "..\\..\\UWP\\Cauldron.Core\\IDisposableObject.cs",
+        "..\\..\\Desktop\\Cauldron.Core\\KnownFolders.cs",
+        "..\\..\\Desktop\\Cauldron.Core\\LogonType.cs",
+        "..\\..\\UWP\\Cauldron.Core\\MathEx.cs",
+        "..\\..\\UWP\\Cauldron.Core\\MessageManager.cs",
+        "..\\..\\UWP\\Cauldron.Core\\MessageObject.cs",
+        "..\\..\\UWP\\Cauldron.Core\\MessagingArgs.cs",
+        "..\\..\\UWP\\Cauldron.Core\\MiscUtils.cs",
+        "..\\..\\Desktop\\Cauldron.Core\\NameCollisionOption.cs",
+        "..\\..\\UWP\\Cauldron.Core\\Network.cs",
+        "..\\..\\Desktop\\Cauldron.Core\\Network.Desktop.cs",
+        "..\\..\\UWP\\Cauldron.Core\\Output.cs",
+        "..\\..\\UWP\\Cauldron.Core\\PingResults.cs",
+        "..\\..\\UWP\\Cauldron.Core\\Randomizer.cs",
+        "..\\..\\UWP\\Cauldron.Core\\Serializer.cs",
+        "..\\..\\UWP\\Cauldron.Core\\SystemInfo.cs",
+        "..\\..\\Desktop\\Cauldron.Core\\ViewOrientation.cs",
+        "..\\..\\UWP\\Cauldron.Core\\Web.cs",
+        "..\\..\\Desktop\\Cauldron.Core\\WebAuthenticationBrokerCallbackEventArgs.cs",
+        "..\\..\\UWP\\Cauldron.Core\\WebAuthenticationBrokerWrapper.cs",
+        "..\\..\\Desktop\\Cauldron.Core\\WebAuthenticationBrokerWrapper.Desktop.cs"
+      ]
+    },
+    "define": [ "NETCORE" ]
+  }
+}

@@ -6,7 +6,17 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
+
+#if NETFX_CORE || DESKTOP
+
 using Windows.UI.Core;
+
+#elif NETCORE
+
+using System.Threading;
+
+#endif
 
 namespace Cauldron.Activator
 {
@@ -441,13 +451,17 @@ namespace Cauldron.Activator
             // Invoke the IFactoryInitializeComponent.OnInitializeComponent method if implemented
             if (result is IFactoryInitializeComponent)
             {
+#if NETCORE
+                Task.Run(async () => await (result as IFactoryInitializeComponent)?.OnInitializeComponentAsync());
+
+#else
                 var dispatcher = DispatcherEx.Current;
 
 #pragma warning disable 4014
 
-                dispatcher.RunAsync(CoreDispatcherPriority.Low, () =>
-                    (result as IFactoryInitializeComponent)?.OnInitializeComponentAsync());
+                dispatcher.RunAsync(CoreDispatcherPriority.Low, async () => await (result as IFactoryInitializeComponent)?.OnInitializeComponentAsync());
 #pragma warning restore 4014
+#endif
             }
 
             return result;
@@ -538,7 +552,7 @@ namespace Cauldron.Activator
 
                         if (selectedType == null)
                             continue;
-#if WINDOWS_UWP
+#if WINDOWS_UWP || NETCORE
                         var selectedFactoryInfo = factoryTypeInfos.FirstOrDefault(x => x.type.FullName == selectedType.FullName && x.type.GetTypeInfo().Assembly.FullName == selectedType.GetTypeInfo().Assembly.FullName);
 #else
                         var selectedFactoryInfo = factoryTypeInfos.FirstOrDefault(x => x.type.FullName == selectedType.FullName && x.type.Assembly.FullName == selectedType.Assembly.FullName);

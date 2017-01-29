@@ -1,0 +1,26 @@
+{
+  "version": "1.0.0.10",
+
+  "dependencies": {
+    "Cauldron.NetCore.Core": "1.0.0.10",
+    "NETStandard.Library": "1.6.1"
+  },
+
+  "frameworks": {
+    "netstandard1.6": {
+      "imports": "dnxcore50"
+    }
+  },
+
+  "buildOptions": {
+    "outputName": "Cauldron.IEnumerableExtensions",
+    "optimize": true,
+    "allowUnsafe": false,
+    "xmlDoc": true,
+    "compile": {
+      "includeFiles": [
+        "..\\..\\UWP\\Cauldron.UWP.IEnumerableExtensions\\Extensions.cs"
+      ]
+    }
+  }
+}
