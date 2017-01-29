@@ -1,3 +1,4 @@
+
 # Cauldron C# Toolkit
 
 ## Documentation
@@ -13,6 +14,10 @@ https://reflection-emit.github.io/Cauldron/eveonline/
 - [CodeMaid](http://www.codemaid.net/)
 
 ## Release Notes
+### 1.0.4
+- .NET Standard 1.6 added to NuGet package
+- Missing resources in UWP packages added
+
 ### 1.0.3
 - Behaviour of As<> Extension changed. It will use implicit and explicit operators if casting did not work.
 - string Replace(string,char[],char) extension method added.
