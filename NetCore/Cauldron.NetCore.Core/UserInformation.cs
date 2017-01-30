@@ -10,6 +10,8 @@ namespace Cauldron.Core
     /// </summary>
     public static class UserInformation
     {
+        // TODO: Dariusz Nosaka :-)
+        
         //        private static string _domainName;
         //        private static string _username;
         //        private static bool isInitialized = false;
