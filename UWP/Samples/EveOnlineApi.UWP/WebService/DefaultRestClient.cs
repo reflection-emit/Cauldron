@@ -25,33 +25,34 @@ namespace EveOnlineApi.WebService
         {
             try
             {
-                HttpClient client = new HttpClient();
-
-                if (!string.IsNullOrEmpty(this.authToken))
-                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", this.authToken);
-
-                if (!string.IsNullOrEmpty(this.host))
-                    client.DefaultRequestHeaders.Host = this.host;
-
-                var response = await client.GetAsync(requestUri);
-
-                switch (response.StatusCode)
+                using (var client = new HttpClient())
                 {
-                    case HttpStatusCode.OK:
-                    case HttpStatusCode.Accepted:
-                        return await response.Content.ReadAsStringAsync();
+                    if (!string.IsNullOrEmpty(this.authToken))
+                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", this.authToken);
 
-                    case HttpStatusCode.NotImplemented:
-                        throw new NotImplementedException(response.ReasonPhrase);
+                    if (!string.IsNullOrEmpty(this.host))
+                        client.DefaultRequestHeaders.Host = this.host;
 
-                    case HttpStatusCode.RequestTimeout:
-                        throw new TimeoutException(response.ReasonPhrase);
+                    var response = await client.GetAsync(requestUri);
 
-                    case HttpStatusCode.Unauthorized:
-                        throw new UnauthorizedAccessException(response.ReasonPhrase);
+                    switch (response.StatusCode)
+                    {
+                        case HttpStatusCode.OK:
+                        case HttpStatusCode.Accepted:
+                            return await response.Content.ReadAsStringAsync();
 
-                    default:
-                        throw new Exception(response.ReasonPhrase);
+                        case HttpStatusCode.NotImplemented:
+                            throw new NotImplementedException(response.ReasonPhrase);
+
+                        case HttpStatusCode.RequestTimeout:
+                            throw new TimeoutException(response.ReasonPhrase);
+
+                        case HttpStatusCode.Unauthorized:
+                            throw new UnauthorizedAccessException(response.ReasonPhrase);
+
+                        default:
+                            throw new Exception(response.ReasonPhrase);
+                    }
                 }
             }
             catch
