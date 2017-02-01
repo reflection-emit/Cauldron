@@ -9,5 +9,27 @@
     <Import_RootNamespace>Cauldron.XAML.Interactivity</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Actions\ActionBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Actions\ActionCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Actions\InvokeMethodAction.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attached\ButtonProperties.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attached\ImageProperties.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attached\Localized.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attached\TextBlockProperties.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\BehaviourUsageAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Behaviour.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BehaviourCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BehaviourInvocation\BehaviourInvokeAwareBehaviourBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BehaviourInvocation\InvocationTrigger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EnterKeyToCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EventToCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EventTrigger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IBehaviour.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interaction.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)InteractionTemplate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PasswordBoxBinding.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PropertyChangedTrigger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SetFocusOnLoad.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StyleInteraction.cs" />
   </ItemGroup>
 </Project>

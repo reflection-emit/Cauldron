@@ -47,72 +47,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Interactivity\Actions\ActionBase.cs">
-      <Link>Actions\ActionBase.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Interactivity\Actions\ActionCollection.cs">
-      <Link>Actions\ActionCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Interactivity\Actions\InvokeMethodAction.cs">
-      <Link>Actions\InvokeMethodAction.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Interactivity\Attached\ButtonProperties.cs">
-      <Link>Attached\ButtonProperties.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Interactivity\Attached\ImageProperties.cs">
-      <Link>Attached\ImageProperties.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Interactivity\Attached\Localized.cs">
-      <Link>Attached\Localized.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Interactivity\Attached\TextBlockProperties.cs">
-      <Link>Attached\TextBlockProperties.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Interactivity\Attributes\BehaviourUsageAttribute.cs">
-      <Link>Attributes\BehaviourUsageAttribute.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Interactivity\Behaviour.cs">
-      <Link>Behaviour.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Interactivity\BehaviourCollection.cs">
-      <Link>BehaviourCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Interactivity\BehaviourInvocation\BehaviourInvokeAwareBehaviourBase.cs">
-      <Link>BehaviourInvocation\BehaviourInvokeAwareBehaviourBase.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Interactivity\BehaviourInvocation\InvocationTrigger.cs">
-      <Link>BehaviourInvocation\InvocationTrigger.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Interactivity\EnterKeyToCommand.cs">
-      <Link>EnterKeyToCommand.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Interactivity\EventToCommand.cs">
-      <Link>EventToCommand.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Interactivity\EventTrigger.cs">
-      <Link>EventTrigger.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Interactivity\IBehaviour.cs">
-      <Link>IBehaviour.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Interactivity\Interaction.cs">
-      <Link>Interaction.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Interactivity\InteractionTemplate.cs">
-      <Link>InteractionTemplate.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Interactivity\PasswordBoxBinding.cs">
-      <Link>PasswordBoxBinding.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Interactivity\PropertyChangedTrigger.cs">
-      <Link>PropertyChangedTrigger.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Interactivity\SetFocusOnLoad.cs">
-      <Link>SetFocusOnLoad.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Interactivity\StyleInteraction.cs">
-      <Link>StyleInteraction.cs</Link>
-    </Compile>
     <Compile Include="Attached\CustomCursor.cs" />
     <Compile Include="Attached\ListViewProperties.cs" />
     <Compile Include="Attached\HyperlinkProperties.cs" />
@@ -156,6 +90,7 @@
   </ItemGroup>
   <Import Project="..\..\Shared\Cauldron.Diagnostics\Cauldron.Diagnostics.projitems" Label="Shared" />
   <Import Project="..\..\Shared\IEnumerableExtensions\IEnumerableExtensions.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.XAML.Interactivity\Cauldron.XAML.Interactivity.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

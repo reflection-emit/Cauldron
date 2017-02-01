@@ -128,6 +128,7 @@
     </Compile>
     <Compile Include="Navigation\Navigator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ValueConverters\ItemClickEventArgsToViewModelConverter.cs" />
     <EmbeddedResource Include="Properties\Cauldron.UWP.XAML.rd.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -144,9 +145,7 @@
       <Name>Cauldron.UWP.Localization</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ValueConverters\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Page Include="Resources\MessageDialogView.xaml">
       <SubType>Designer</SubType>

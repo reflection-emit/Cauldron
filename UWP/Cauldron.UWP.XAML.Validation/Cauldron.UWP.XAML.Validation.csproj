@@ -116,25 +116,7 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EqualityAttribute.cs" />
-    <Compile Include="GreaterThanAttribute.cs" />
-    <Compile Include="GreaterThanOrEqualAttribute.cs" />
-    <Compile Include="InEqualityAttribute.cs" />
-    <Compile Include="IsMandatoryAttribute.cs" />
-    <Compile Include="LessThan.cs" />
-    <Compile Include="LessThanOrEqual.cs" />
-    <Compile Include="PasswordStrengthAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StringLengthAttribute.cs" />
-    <Compile Include="ValidationBaseAttribute.cs" />
-    <Compile Include="ValidationBehaviour.cs" />
-    <Compile Include="ValidationEventArgs.cs" />
-    <Compile Include="ValidationHandler.cs" />
-    <Compile Include="ValidationProperties.cs" />
-    <Compile Include="ValidatorCollection.cs" />
-    <Compile Include="ValidatorGroup.cs" />
-    <Compile Include="ViewModels\IValidatableViewModel.cs" />
-    <Compile Include="ViewModels\ValidatableViewModelBase.cs" />
     <EmbeddedResource Include="Properties\Cauldron.UWP.XAML.Validation.rd.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -164,6 +146,7 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="..\..\Shared\IEnumerableExtensions\IEnumerableExtensions.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.XAML.Validation\Cauldron.XAML.Validation.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

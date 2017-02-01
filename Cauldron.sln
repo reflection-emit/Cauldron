@@ -159,10 +159,13 @@ Global
 		Shared\Cauldron.Cryptography\Cauldron.Cryptography.projitems*{1890c23c-8e1a-4216-9f8c-69ddb81bb61c}*SharedItemsImports = 4
 		Shared\Cauldron.Diagnostics\Cauldron.Diagnostics.projitems*{30d10e9e-861b-45ec-84d8-e14064a37788}*SharedItemsImports = 13
 		Shared\Cauldron.Diagnostics\Cauldron.Diagnostics.projitems*{362950dc-8fad-4675-8a74-e80a0ddf2bbd}*SharedItemsImports = 4
+		Shared\Cauldron.XAML.Validation\Cauldron.XAML.Validation.projitems*{362950dc-8fad-4675-8a74-e80a0ddf2bbd}*SharedItemsImports = 4
 		Shared\IEnumerableExtensions\IEnumerableExtensions.projitems*{362950dc-8fad-4675-8a74-e80a0ddf2bbd}*SharedItemsImports = 4
 		Shared\Cauldron.Localization\Cauldron.Localization.projitems*{3758d2e9-3a20-4b19-9c38-0c393f25d784}*SharedItemsImports = 4
 		Shared\Cauldron.Activator\Cauldron.Activator.projitems*{37c96e09-05b8-423d-bf9f-633dc580be0e}*SharedItemsImports = 13
+		Shared\Cauldron.XAML.Interactivity\Cauldron.XAML.Interactivity.projitems*{3973e03e-8401-4129-ac62-97b000b51ed8}*SharedItemsImports = 4
 		Shared\IEnumerableExtensions\IEnumerableExtensions.projitems*{3973e03e-8401-4129-ac62-97b000b51ed8}*SharedItemsImports = 4
+		Shared\Cauldron.XAML.Validation\Cauldron.XAML.Validation.projitems*{4d6c8285-6e45-40e9-ade3-cf0ceb665c8e}*SharedItemsImports = 4
 		Shared\IEnumerableExtensions\IEnumerableExtensions.projitems*{4d6c8285-6e45-40e9-ade3-cf0ceb665c8e}*SharedItemsImports = 4
 		Shared\Cauldron.XAML\Cauldron.XAML.projitems*{54b17512-035a-49ee-afdf-e0495fe9ce50}*SharedItemsImports = 13
 		Shared\Cauldron.Core.Desktop\Cauldron.Core.Desktop.projitems*{67c37bf6-3d55-4863-9a0b-3542db70369c}*SharedItemsImports = 13
@@ -188,6 +191,7 @@ Global
 		Shared\IEnumerableExtensions\IEnumerableExtensions.projitems*{ba19d691-4514-4059-95ef-8a6fe7612f83}*SharedItemsImports = 13
 		Shared\Cauldron.Cryptography\Cauldron.Cryptography.projitems*{bc84f1d6-e20d-41a5-8ab1-90b9d023850d}*SharedItemsImports = 13
 		Shared\Cauldron.Diagnostics\Cauldron.Diagnostics.projitems*{d09d5044-4799-4ccf-997d-31f10b6fce24}*SharedItemsImports = 4
+		Shared\Cauldron.XAML.Interactivity\Cauldron.XAML.Interactivity.projitems*{d09d5044-4799-4ccf-997d-31f10b6fce24}*SharedItemsImports = 4
 		Shared\IEnumerableExtensions\IEnumerableExtensions.projitems*{d09d5044-4799-4ccf-997d-31f10b6fce24}*SharedItemsImports = 4
 		Shared\Cauldron.Cryptography\Cauldron.Cryptography.projitems*{d20bc350-336c-4e82-9848-773de5abac39}*SharedItemsImports = 4
 		Shared\Cauldron.Core\Cauldron.Core.projitems*{e977dae7-c754-4da7-b7dc-bca8b1c0ce09}*SharedItemsImports = 4

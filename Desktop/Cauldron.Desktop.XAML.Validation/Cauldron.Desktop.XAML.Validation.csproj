@@ -46,60 +46,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Validation\EqualityAttribute.cs">
-      <Link>EqualityAttribute.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Validation\GreaterThanAttribute.cs">
-      <Link>GreaterThanAttribute.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Validation\GreaterThanOrEqualAttribute.cs">
-      <Link>GreaterThanOrEqualAttribute.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Validation\InEqualityAttribute.cs">
-      <Link>InEqualityAttribute.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Validation\IsMandatoryAttribute.cs">
-      <Link>IsMandatoryAttribute.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Validation\LessThan.cs">
-      <Link>LessThan.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Validation\LessThanOrEqual.cs">
-      <Link>LessThanOrEqual.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Validation\PasswordStrengthAttribute.cs">
-      <Link>PasswordStrengthAttribute.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Validation\StringLengthAttribute.cs">
-      <Link>StringLengthAttribute.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Validation\ValidationBaseAttribute.cs">
-      <Link>ValidationBaseAttribute.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Validation\ValidationBehaviour.cs">
-      <Link>ValidationBehaviour.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Validation\ValidationEventArgs.cs">
-      <Link>ValidationEventArgs.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Validation\ValidationHandler.cs">
-      <Link>ValidationHandler.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Validation\ValidationProperties.cs">
-      <Link>ValidationProperties.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Validation\ValidatorCollection.cs">
-      <Link>ValidatorCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Validation\ValidatorGroup.cs">
-      <Link>ValidatorGroup.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Validation\ViewModels\IValidatableViewModel.cs">
-      <Link>ViewModels\IValidatableViewModel.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Validation\ViewModels\ValidatableViewModelBase.cs">
-      <Link>ViewModels\ValidatableViewModelBase.cs</Link>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -130,6 +76,7 @@
   </ItemGroup>
   <Import Project="..\..\Shared\Cauldron.Diagnostics\Cauldron.Diagnostics.projitems" Label="Shared" />
   <Import Project="..\..\Shared\IEnumerableExtensions\IEnumerableExtensions.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.XAML.Validation\Cauldron.XAML.Validation.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
