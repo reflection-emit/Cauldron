@@ -137,39 +137,39 @@
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Cauldron.Core\Cauldron.UWP.Core.csproj">
+    <ProjectReference Include="..\..\Cauldron.Core\Cauldron.UWP.Core.csproj">
       <Project>{e977dae7-c754-4da7-b7dc-bca8b1c0ce09}</Project>
       <Name>Cauldron.UWP.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Cauldron.UWP.Activator\Cauldron.UWP.Activator.csproj">
+    <ProjectReference Include="..\..\Cauldron.UWP.Activator\Cauldron.UWP.Activator.csproj">
       <Project>{a80a73e9-825b-4032-ae6b-a6c4340dc0fc}</Project>
       <Name>Cauldron.UWP.Activator</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Cauldron.UWP.Cryptography\Cauldron.UWP.Cryptography.csproj">
+    <ProjectReference Include="..\..\Cauldron.UWP.Cryptography\Cauldron.UWP.Cryptography.csproj">
       <Project>{1890c23c-8e1a-4216-9f8c-69ddb81bb61c}</Project>
       <Name>Cauldron.UWP.Cryptography</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Cauldron.UWP.Injection\Cauldron.UWP.Injection.csproj">
+    <ProjectReference Include="..\..\Cauldron.UWP.Injection\Cauldron.UWP.Injection.csproj">
       <Project>{9789f677-3774-4c31-a34b-f13501d48a8e}</Project>
       <Name>Cauldron.UWP.Injection</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Cauldron.UWP.Localization\Cauldron.UWP.Localization.csproj">
+    <ProjectReference Include="..\..\Cauldron.UWP.Localization\Cauldron.UWP.Localization.csproj">
       <Project>{3758d2e9-3a20-4b19-9c38-0c393f25d784}</Project>
       <Name>Cauldron.UWP.Localization</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Cauldron.UWP.Potions\Cauldron.UWP.Potions.csproj">
+    <ProjectReference Include="..\..\Cauldron.UWP.Potions\Cauldron.UWP.Potions.csproj">
       <Project>{8a8cb406-4b9c-4ae8-8f04-68b501aa4218}</Project>
       <Name>Cauldron.UWP.Potions</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Cauldron.UWP.XAML.Interactivity\Cauldron.UWP.XAML.Interactivity.csproj">
+    <ProjectReference Include="..\..\Cauldron.UWP.XAML.Interactivity\Cauldron.UWP.XAML.Interactivity.csproj">
       <Project>{3973e03e-8401-4129-ac62-97b000b51ed8}</Project>
       <Name>Cauldron.UWP.XAML.Interactivity</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Cauldron.UWP.XAML.Validation\Cauldron.UWP.XAML.Validation.csproj">
+    <ProjectReference Include="..\..\Cauldron.UWP.XAML.Validation\Cauldron.UWP.XAML.Validation.csproj">
       <Project>{4D6C8285-6E45-40E9-ADE3-CF0CEB665C8E}</Project>
       <Name>Cauldron.UWP.XAML.Validation</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Cauldron.UWP.XAML\Cauldron.UWP.XAML.csproj">
+    <ProjectReference Include="..\..\Cauldron.UWP.XAML\Cauldron.UWP.XAML.csproj">
       <Project>{766A1588-8618-4D3F-A9E4-631216B8A5D2}</Project>
       <Name>Cauldron.UWP.XAML</Name>
     </ProjectReference>
