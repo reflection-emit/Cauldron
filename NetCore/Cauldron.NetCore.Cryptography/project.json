@@ -21,15 +21,18 @@
     "xmlDoc": true,
     "compile": {
       "includeFiles": [
-        "..\\..\\Desktop\\Cauldron.Desktop.Cryptography\\Aes.cs",
-        "..\\..\\Desktop\\Cauldron.Desktop.Cryptography\\CryptoUtils.cs",
         "..\\..\\Desktop\\Cauldron.Desktop.Cryptography\\Extensions.cs",
-        "..\\..\\Desktop\\Cauldron.Desktop.Cryptography\\KeyMaterial.cs",
-        "..\\..\\Desktop\\Cauldron.Desktop.Cryptography\\KeyPair.cs",
-        "..\\..\\Desktop\\Cauldron.Desktop.Cryptography\\PasswordScore.cs",
-        "..\\..\\Desktop\\Cauldron.Desktop.Cryptography\\Rsa.cs",
-        "..\\..\\Desktop\\Cauldron.Desktop.Cryptography\\RsaAes.cs",
-        "..\\..\\Desktop\\Cauldron.Desktop.Cryptography\\RSAKeySizes.cs"
+        "..\\..\\Shared\\Cauldron.Cryptography\\Aes.cs",
+        "..\\..\\Shared\\Cauldron.Cryptography\\CryptoUtils.cs",
+        "..\\..\\Shared\\Cauldron.Cryptography\\KeyMaterial.cs",
+        "..\\..\\Shared\\Cauldron.Cryptography\\KeyPair.cs",
+        "..\\..\\Shared\\Cauldron.Cryptography\\PasswordScore.cs",
+        "..\\..\\Shared\\Cauldron.Cryptography\\Rsa.cs",
+        "..\\..\\Shared\\Cauldron.Cryptography\\RsaAes.cs",
+        "..\\..\\Shared\\Cauldron.Cryptography\\RSAKeySizes.cs",
+
+        "..\\..\\Shared\\Cauldron.Diagnostics\\Output.cs"
+
       ]
     },
     "define": [ "NETCORE" ]

@@ -123,61 +123,13 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationInfo.cs" />
-    <Compile Include="AssemblyAndResourceNameInfo.cs" />
-    <Compile Include="Assemblies.cs" />
-    <Compile Include="AsyncHelper.cs" />
-    <Compile Include="Collections\ConcurrentKeyedCollection.cs" />
-    <Compile Include="Collections\ConcurrentKeyedCollectionEx.cs" />
-    <Compile Include="Collections\ConcurrentList.cs" />
-    <Compile Include="Collections\KeyedCollectionEx.cs" />
-    <Compile Include="ComparerUtils.cs" />
-    <Compile Include="Compression.cs" />
-    <Compile Include="ConnectionGenerationTypes.cs" />
-    <Compile Include="DateTimeUtils.cs" />
-    <Compile Include="DeviceFamilies.cs" />
     <Compile Include="DispatcherEx.cs" />
-    <Compile Include="CreateInstanceIsAnInterfaceException.cs" />
-    <Compile Include="DisposableBase.cs" />
-    <Compile Include="DynamicEqualityComparer.cs" />
-    <Compile Include="Encodings.cs" />
-    <Compile Include="ExecutionTimer.cs" />
-    <Compile Include="DisplayNameAttribute.cs" />
-    <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="Extensions\ExtensionsConvertions.cs" />
-    <Compile Include="Extensions\ExtensionsConvertions.UWP.cs" />
-    <Compile Include="Extensions\ExtensionsFileIO.cs" />
-    <Compile Include="Extensions\ExtensionsReflection.cs" />
     <Compile Include="Extensions\ExtensionsStorageItem.cs" />
     <Compile Include="Extensions\ExtensionsXmlDocument.cs" />
-    <Compile Include="Formatters\Formatter.cs" />
-    <Compile Include="Formatters\FormatterBase.cs" />
-    <Compile Include="Formatters\MetricUnitFormatter.cs" />
-    <Compile Include="HashAlgorithms.cs" />
     <Compile Include="ICloneable.cs" />
-    <Compile Include="IDisposableObject.cs" />
-    <Compile Include="Java\JavaProperties.cs" />
-    <Compile Include="MathEx.cs" />
-    <Compile Include="MessageManager.cs" />
-    <Compile Include="MessageObject.cs" />
-    <Compile Include="MessagingArgs.cs" />
-    <Compile Include="Formatters\ByteSizeFormatter.cs" />
-    <Compile Include="MiscUtils.cs" />
-    <Compile Include="Network.cs" />
-    <Compile Include="Output.cs" />
-    <Compile Include="PingResults.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Randomizer.cs" />
-    <Compile Include="Serializer.cs" />
-    <Compile Include="SystemInfo.cs" />
     <Compile Include="UserInformation.cs" />
-    <Compile Include="Web.cs" />
-    <Compile Include="WebAuthenticationBrokerWrapper.cs" />
-    <Compile Include="Yaml\Yaml.cs" />
-    <Compile Include="Yaml\YamlCollection.cs" />
-    <Compile Include="Yaml\YamlConvert.cs" />
-    <Compile Include="Yaml\YamlDeserializer.cs" />
-    <Compile Include="Yaml\YamlPropertyAttribute.cs" />
     <EmbeddedResource Include="Properties\Cauldron.Core.rd.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -186,6 +138,8 @@
     </SDKReference>
   </ItemGroup>
   <ItemGroup />
+  <Import Project="..\..\Shared\Cauldron.Core\Cauldron.Core.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.Diagnostics\Cauldron.Diagnostics.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

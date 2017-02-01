@@ -160,10 +160,6 @@
       <Project>{1890C23C-8E1A-4216-9F8C-69DDB81BB61C}</Project>
       <Name>Cauldron.UWP.Cryptography</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Cauldron.UWP.IEnumerableExtensions\Cauldron.UWP.IEnumerableExtensions.csproj">
-      <Project>{726ca3ac-9bae-4074-aca0-a5872a5b1d84}</Project>
-      <Name>Cauldron.UWP.IEnumerableExtensions</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Cauldron.UWP.Localization\Cauldron.UWP.Localization.csproj">
       <Project>{3758D2E9-3A20-4B19-9C38-0C393F25D784}</Project>
       <Name>Cauldron.UWP.Localization</Name>
@@ -179,6 +175,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <Import Project="..\..\Shared\IEnumerableExtensions\IEnumerableExtensions.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

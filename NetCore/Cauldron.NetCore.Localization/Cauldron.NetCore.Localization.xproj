@@ -15,13 +15,5 @@
   <PropertyGroup>
     <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
-  <ItemGroup>
-    <Compile Include="..\..\UWP\Cauldron.UWP.Localization\ILocalizationSource.cs">
-      <Link>ILocalizationSource.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.Localization\Locale.cs">
-      <Link>Locale.cs</Link>
-    </Compile>
-  </ItemGroup>
   <Import Project="$(VSToolsPath)\DotNet\Microsoft.DotNet.targets" Condition="'$(VSToolsPath)' != ''" />
 </Project>

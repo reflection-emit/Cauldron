@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>81dba3a9-2acf-4881-a3fe-f56db6cf3958</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Cauldron.Core</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)ApplicationInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Assemblies.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AssemblyAndResourceNameInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AsyncHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collections\ConcurrentKeyedCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collections\ConcurrentKeyedCollectionEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collections\ConcurrentList.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Collections\KeyedCollectionEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ComparerUtils.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Compression.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ConnectionGenerationTypes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CreateInstanceIsAnInterfaceException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DateTimeUtils.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DeviceFamilies.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DisplayNameAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DisposableBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DynamicEqualityComparer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Encodings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExecutionTimer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\Extensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\ExtensionsConvertions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\ExtensionsFileIO.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\ExtensionsReflection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Formatters\ByteSizeFormatter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Formatters\Formatter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Formatters\FormatterBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Formatters\MetricUnitFormatter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)HashAlgorithms.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IDisposableObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Java\JavaProperties.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MathEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MessageManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MessageObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MessagingArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MiscUtils.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Network.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PingResults.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Randomizer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Serializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SystemInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Web.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebAuthenticationBrokerWrapper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Yaml\Yaml.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Yaml\YamlCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Yaml\YamlConvert.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Yaml\YamlDeserializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Yaml\YamlPropertyAttribute.cs" />
+  </ItemGroup>
+</Project>

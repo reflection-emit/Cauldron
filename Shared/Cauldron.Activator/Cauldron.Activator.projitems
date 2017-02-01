@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>37c96e09-05b8-423d-bf9f-633dc580be0e</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Cauldron.Activator</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)CloneIgnoreAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ComponentAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ComponentConstructorAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExtensionsCloning.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Factory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FactoryCreationPolicy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FactoryTypeInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IFactoryExtension.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IFactoryInitializeComponent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Singleton.cs" />
+  </ItemGroup>
+</Project>

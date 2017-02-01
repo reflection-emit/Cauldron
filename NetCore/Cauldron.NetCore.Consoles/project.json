@@ -19,18 +19,21 @@
     "xmlDoc": true,
     "compile": {
       "includeFiles": [
-        "..\\..\\Desktop\\Cauldron.Desktop.Consoles\\ColumnAlignment.cs",
-        "..\\..\\Desktop\\Cauldron.Desktop.Consoles\\ConsoleTableColumn.cs",
-        "..\\..\\Desktop\\Cauldron.Desktop.Consoles\\ConsoleUtils.cs",
-        "..\\..\\Desktop\\Cauldron.Desktop.Consoles\\ExecutionGroupAttribute.cs",
-        "..\\..\\Desktop\\Cauldron.Desktop.Consoles\\ExecutionGroupParameter.cs",
-        "..\\..\\Desktop\\Cauldron.Desktop.Consoles\\ExecutionGroupProperties.cs",
-        "..\\..\\Desktop\\Cauldron.Desktop.Consoles\\IExecutionGroup.cs",
-        "..\\..\\Desktop\\Cauldron.Desktop.Consoles\\ParameterAttribute.cs",
-        "..\\..\\Desktop\\Cauldron.Desktop.Consoles\\ParameterParser.cs",
-        "..\\..\\Desktop\\Cauldron.Desktop.Consoles\\RequiredParametersMissingException.cs",
-        "..\\..\\Desktop\\Cauldron.Desktop.Consoles\\RequiredValuesMissingException.cs",
-        "..\\..\\Desktop\\Cauldron.Desktop.Consoles\\UnknownParameterException.cs"
+        "..\\..\\Shared\\Cauldron.Consoles\\ColumnAlignment.cs",
+        "..\\..\\Shared\\Cauldron.Consoles\\ConsoleTableColumn.cs",
+        "..\\..\\Shared\\Cauldron.Consoles\\ConsoleUtils.cs",
+        "..\\..\\Shared\\Cauldron.Consoles\\ExecutionGroupAttribute.cs",
+        "..\\..\\Shared\\Cauldron.Consoles\\ExecutionGroupParameter.cs",
+        "..\\..\\Shared\\Cauldron.Consoles\\ExecutionGroupProperties.cs",
+        "..\\..\\Shared\\Cauldron.Consoles\\IExecutionGroup.cs",
+        "..\\..\\Shared\\Cauldron.Consoles\\ParameterAttribute.cs",
+        "..\\..\\Shared\\Cauldron.Consoles\\ParameterParser.cs",
+        "..\\..\\Shared\\Cauldron.Consoles\\RequiredParametersMissingException.cs",
+        "..\\..\\Shared\\Cauldron.Consoles\\RequiredValuesMissingException.cs",
+        "..\\..\\Shared\\Cauldron.Consoles\\UnknownParameterException.cs",
+
+        "..\\..\\Shared\\Cauldron.Diagnostics\\Output.cs"
+
       ]
     },
     "define": [ "NETCORE" ]

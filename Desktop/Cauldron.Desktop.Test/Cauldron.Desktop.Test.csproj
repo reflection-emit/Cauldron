@@ -106,10 +106,6 @@
       <Project>{BE706332-B2D6-4D53-96C5-1C617F282E0D}</Project>
       <Name>Cauldron.Desktop.Dynamic</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Cauldron.Desktop.IEnumerableExtensions\Cauldron.Desktop.IEnumerableExtensions.csproj">
-      <Project>{6aa1bcea-a613-4c58-8d1f-71f606665f2a}</Project>
-      <Name>Cauldron.Desktop.IEnumerableExtensions</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Cauldron.Desktop.XAML.Validation\Cauldron.Desktop.XAML.Validation.csproj">
       <Project>{362950dc-8fad-4675-8a74-e80a0ddf2bbd}</Project>
       <Name>Cauldron.Desktop.XAML.Validation</Name>
@@ -146,13 +142,14 @@
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\Fody.1.29.4\build\dotnet\Fody.targets" Condition="Exists('..\..\packages\Fody.1.29.4\build\dotnet\Fody.targets')" />
+  <Import Project="..\..\Shared\IEnumerableExtensions\IEnumerableExtensions.projitems" Label="Shared" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\..\packages\Fody.1.29.4\build\dotnet\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Fody.1.29.4\build\dotnet\Fody.targets'))" />
   </Target>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>

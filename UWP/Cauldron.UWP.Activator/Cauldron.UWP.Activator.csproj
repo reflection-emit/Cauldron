@@ -116,20 +116,7 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Cauldron.Core\Output.cs">
-      <Link>Output.cs</Link>
-    </Compile>
-    <Compile Include="CloneIgnoreAttribute.cs" />
-    <Compile Include="ComponentAttribute.cs" />
-    <Compile Include="ComponentConstructorAttribute.cs" />
-    <Compile Include="ExtensionsCloning.cs" />
-    <Compile Include="Factory.cs" />
-    <Compile Include="FactoryCreationPolicy.cs" />
-    <Compile Include="FactoryTypeInfo.cs" />
-    <Compile Include="IFactoryExtension.cs" />
-    <Compile Include="IFactoryInitializeComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Singleton.cs" />
     <EmbeddedResource Include="Properties\Cauldron.UWP.Activator.rd.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -137,11 +124,10 @@
       <Project>{e977dae7-c754-4da7-b7dc-bca8b1c0ce09}</Project>
       <Name>Cauldron.UWP.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Cauldron.UWP.IEnumerableExtensions\Cauldron.UWP.IEnumerableExtensions.csproj">
-      <Project>{726CA3AC-9BAE-4074-ACA0-A5872A5B1D84}</Project>
-      <Name>Cauldron.UWP.IEnumerableExtensions</Name>
-    </ProjectReference>
   </ItemGroup>
+  <Import Project="..\..\Shared\Cauldron.Diagnostics\Cauldron.Diagnostics.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.Activator\Cauldron.Activator.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\IEnumerableExtensions\IEnumerableExtensions.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

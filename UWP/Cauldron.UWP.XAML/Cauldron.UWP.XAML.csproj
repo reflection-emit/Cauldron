@@ -115,63 +115,19 @@
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <None Include="project.json" />
-    <EmbeddedResource Include="Resources\Text\7B5BE4E7E11D87C4E23B68589848BB2A.yaml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Cauldron.Core\Output.cs">
-      <Link>Output.cs</Link>
-    </Compile>
     <Compile Include="ApplicationBase.cs" />
-    <Compile Include="BehaviourInvocationArgs.cs" />
-    <Compile Include="BitmapImageEx.cs" />
-    <Compile Include="CauldronUICommand.cs" />
     <Compile Include="CauldronTemplateSelector.cs" />
-    <Compile Include="CauldronUICommandCollection.cs" />
     <Compile Include="Controls\NavigationFrame.cs" />
-    <Compile Include="DynamicEventHandler.cs" />
-    <Compile Include="Extensions.cs" />
-    <Compile Include="IImageManager.cs" />
-    <Compile Include="ImageManager.cs" />
-    <Compile Include="IMessageDialog.cs" />
-    <Compile Include="IRelayCommand.cs" />
-    <Compile Include="MessageBoxImage.cs" />
-    <Compile Include="MessageDialogEx.cs" />
-    <Compile Include="Resources\LocalizationSource.cs" />
     <Compile Include="Resources\StylesAndTemplates.xaml.cs">
       <DependentUpon>StylesAndTemplates.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TextBlockInline.cs" />
-    <Compile Include="ValueConverterBase.cs" />
-    <Compile Include="ValueConverters\BooleanInvertConverter.cs" />
-    <Compile Include="ValueConverters\BooleanToVisibilityConverter.cs" />
-    <Compile Include="ValueConverters\ItemClickEventArgsToViewModelConverter.cs" />
-    <Compile Include="ValueConverters\KeyToLocalizedStringConverter.cs" />
-    <Compile Include="ValueConverters\ObjectToVisibilityConverter.cs" />
-    <Compile Include="ValueConverters\VisibilityToBooleanConverter.cs" />
-    <Compile Include="ViewModels\MessageDialogViewModel.cs" />
-    <Compile Include="Navigation\NavigatingInfo.cs" />
-    <Compile Include="Navigation\NavigationInfo.cs" />
-    <Compile Include="RelayCommand.cs" />
     <Compile Include="Resources\MessageDialogView.xaml.cs">
       <DependentUpon>MessageDialogView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\IDialogViewModel.cs" />
-    <Compile Include="ViewModels\IFrameAware.cs" />
-    <Compile Include="ViewModels\INavigable.cs" />
-    <Compile Include="Navigation\INavigator.cs" />
-    <Compile Include="INotifyBehaviourInvocation.cs" />
-    <Compile Include="Navigation\CauldronBackRequestedEventArgs.cs" />
-    <Compile Include="Navigation\NavigationType.cs" />
-    <Compile Include="Navigation\PageStackEntry.cs" />
     <Compile Include="Navigation\Navigator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewAttribute.cs" />
-    <Compile Include="ViewModels\IPrelaunchAware.cs" />
-    <Compile Include="ViewModels\ISizeAware.cs" />
-    <Compile Include="ViewModels\IViewModel.cs" />
-    <Compile Include="ViewModels\MessageDialogCommandViewModel.cs" />
-    <Compile Include="ViewModels\ViewModelBase.cs" />
-    <Compile Include="XAMLHelper.cs" />
     <EmbeddedResource Include="Properties\Cauldron.UWP.XAML.rd.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -183,22 +139,13 @@
       <Project>{A80A73E9-825B-4032-AE6B-A6C4340DC0FC}</Project>
       <Name>Cauldron.UWP.Activator</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Cauldron.UWP.IEnumerableExtensions\Cauldron.UWP.IEnumerableExtensions.csproj">
-      <Project>{726CA3AC-9BAE-4074-ACA0-A5872A5B1D84}</Project>
-      <Name>Cauldron.UWP.IEnumerableExtensions</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Cauldron.UWP.Localization\Cauldron.UWP.Localization.csproj">
       <Project>{3758D2E9-3A20-4B19-9C38-0C393F25D784}</Project>
       <Name>Cauldron.UWP.Localization</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Images\error_red_32x32.png" />
-    <EmbeddedResource Include="Resources\Images\Information%28Help%29_7833.png" />
-    <EmbeddedResource Include="Resources\Images\Information_6227_32x.png" />
-    <None Include="Resources\Images\Readme.txt" />
-    <EmbeddedResource Include="Resources\Images\Warning_yellow_7231_31x32.png" />
+    <Folder Include="ValueConverters\" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Resources\MessageDialogView.xaml">
@@ -210,6 +157,9 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <Import Project="..\..\Shared\Cauldron.Diagnostics\Cauldron.Diagnostics.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\IEnumerableExtensions\IEnumerableExtensions.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.XAML\Cauldron.XAML.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

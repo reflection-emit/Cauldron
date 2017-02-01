@@ -15,40 +15,5 @@
   <PropertyGroup>
     <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
-  <ItemGroup>
-    <Compile Include="..\..\UWP\Cauldron.Core\Output.cs">
-      <Link>Output.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.Activator\CloneIgnoreAttribute.cs">
-      <Link>CloneIgnoreAttribute.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.Activator\ComponentAttribute.cs">
-      <Link>ComponentAttribute.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.Activator\ComponentConstructorAttribute.cs">
-      <Link>ComponentConstructorAttribute.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.Activator\ExtensionsCloning.cs">
-      <Link>ExtensionsCloning.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.Activator\Factory.cs">
-      <Link>Factory.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.Activator\FactoryCreationPolicy.cs">
-      <Link>FactoryCreationPolicy.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.Activator\FactoryTypeInfo.cs">
-      <Link>FactoryTypeInfo.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.Activator\IFactoryExtension.cs">
-      <Link>IFactoryExtension.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.Activator\IFactoryInitializeComponent.cs">
-      <Link>IFactoryInitializeComponent.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.Activator\Singleton.cs">
-      <Link>Singleton.cs</Link>
-    </Compile>
-  </ItemGroup>
   <Import Project="$(VSToolsPath)\DotNet\Microsoft.DotNet.targets" Condition="'$(VSToolsPath)' != ''" />
 </Project>

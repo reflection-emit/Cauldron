@@ -19,7 +19,10 @@
     "xmlDoc": true,
     "compile": {
       "includeFiles": [
-        "..\\..\\UWP\\Cauldron.UWP.IEnumerableExtensions\\Extensions.cs"
+        "..\\..\\UWP\\Cauldron.UWP.IEnumerableExtensions\\Extensions.cs",
+
+        "..\\..\\Shared\\Cauldron.Diagnostics\\Output.cs"
+
       ]
     }
   }

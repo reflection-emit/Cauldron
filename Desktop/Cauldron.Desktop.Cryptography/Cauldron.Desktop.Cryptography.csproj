@@ -46,16 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Aes.cs" />
-    <Compile Include="CryptoUtils.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="KeyMaterial.cs" />
-    <Compile Include="KeyPair.cs" />
-    <Compile Include="PasswordScore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Rsa.cs" />
-    <Compile Include="RsaAes.cs" />
-    <Compile Include="RSAKeySizes.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Cauldron.Core\Cauldron.Desktop.Core.csproj">
@@ -63,6 +55,7 @@
       <Name>Cauldron.Desktop.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <Import Project="..\..\Shared\Cauldron.Cryptography\Cauldron.Cryptography.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

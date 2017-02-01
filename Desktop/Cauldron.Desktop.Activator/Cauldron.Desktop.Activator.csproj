@@ -42,39 +42,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\UWP\Cauldron.Core\Output.cs">
-      <Link>Output.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.Activator\CloneIgnoreAttribute.cs">
-      <Link>CloneIgnoreAttribute.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.Activator\ComponentAttribute.cs">
-      <Link>ComponentAttribute.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.Activator\ComponentConstructorAttribute.cs">
-      <Link>ComponentConstructorAttribute.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.Activator\ExtensionsCloning.cs">
-      <Link>ExtensionsCloning.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.Activator\Factory.cs">
-      <Link>Factory.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.Activator\FactoryCreationPolicy.cs">
-      <Link>FactoryCreationPolicy.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.Activator\FactoryTypeInfo.cs">
-      <Link>FactoryTypeInfo.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.Activator\IFactoryExtension.cs">
-      <Link>IFactoryExtension.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.Activator\IFactoryInitializeComponent.cs">
-      <Link>IFactoryInitializeComponent.cs</Link>
-    </Compile>
-    <Compile Include="..\..\UWP\Cauldron.UWP.Activator\Singleton.cs">
-      <Link>Singleton.cs</Link>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -82,11 +49,10 @@
       <Project>{0b23e7be-0e65-4a53-988f-67a0e9eeea2e}</Project>
       <Name>Cauldron.Desktop.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Cauldron.Desktop.IEnumerableExtensions\Cauldron.Desktop.IEnumerableExtensions.csproj">
-      <Project>{6aa1bcea-a613-4c58-8d1f-71f606665f2a}</Project>
-      <Name>Cauldron.Desktop.IEnumerableExtensions</Name>
-    </ProjectReference>
   </ItemGroup>
+  <Import Project="..\..\Shared\Cauldron.Diagnostics\Cauldron.Diagnostics.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.Activator\Cauldron.Activator.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\IEnumerableExtensions\IEnumerableExtensions.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

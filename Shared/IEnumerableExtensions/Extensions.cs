@@ -9,7 +9,7 @@ namespace Cauldron.IEnumerableExtensions
     /// <summary>
     /// Provides usefull extensions for <see cref="IEnumerable"/>
     /// </summary>
-    public static class Extensions
+    internal static class Extensions
     {
         /// <summary>
         /// Determines whether any element of a sequence satisfies a condition.

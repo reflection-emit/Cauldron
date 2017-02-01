@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>bc84f1d6-e20d-41a5-8ab1-90b9d023850d</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Cauldron.Cryptography</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Aes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CryptoUtils.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)KeyMaterial.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)KeyPair.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PasswordScore.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Rsa.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RsaAes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RSAKeySizes.cs" />
+  </ItemGroup>
+</Project>

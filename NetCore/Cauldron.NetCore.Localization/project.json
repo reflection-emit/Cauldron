@@ -20,8 +20,12 @@
     "xmlDoc": true,
     "compile": {
       "includeFiles": [
-        "..\\..\\UWP\\Cauldron.UWP.Localization\\ILocalizationSource.cs",
-        "..\\..\\UWP\\Cauldron.UWP.Localization\\Locale.cs"
+        "..\\..\\Shared\\Cauldron.Localization\\ILocalizationSource.cs",
+        "..\\..\\Shared\\Cauldron.Localization\\Locale.cs",
+
+        "..\\..\\Shared\\Cauldron.Diagnostics\\Output.cs",
+        "..\\..\\Shared\\IEnumerableExtensions\\Extensions.cs"
+
       ]
     },
     "define": [ "NETCORE" ]

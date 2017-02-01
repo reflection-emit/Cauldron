@@ -116,8 +116,6 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ILocalizationSource.cs" />
-    <Compile Include="Locale.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Cauldron.UWP.Localization.rd.xml" />
   </ItemGroup>
@@ -131,6 +129,7 @@
       <Name>Cauldron.UWP.Activator</Name>
     </ProjectReference>
   </ItemGroup>
+  <Import Project="..\..\Shared\Cauldron.Localization\Cauldron.Localization.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

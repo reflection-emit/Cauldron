@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>67c37bf6-3d55-4863-9a0b-3542db70369c</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Cauldron.Core</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)ApplicationData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CoreDispatcherPriority.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CreationCollisionOption.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\ExtensionsDirectoryInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\ExtensionsFileInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\ExtensionsXmlDocument.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)KnownFolders.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LogonType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NameCollisionOption.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Network.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewOrientation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebAuthenticationBrokerCallbackEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebAuthenticationBrokerWrapper.cs" />
+  </ItemGroup>
+</Project>

@@ -16,33 +16,4 @@
     <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <Import Project="$(VSToolsPath)\DotNet\Microsoft.DotNet.targets" Condition="'$(VSToolsPath)' != ''" />
-  <ItemGroup>
-    <Compile Include="..\..\Desktop\Cauldron.Desktop.Cryptography\Aes.cs">
-      <Link>Aes.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Desktop\Cauldron.Desktop.Cryptography\CryptoUtils.cs">
-      <Link>CryptoUtils.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Desktop\Cauldron.Desktop.Cryptography\KeyMaterial.cs">
-      <Link>KeyMaterial.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Desktop\Cauldron.Desktop.Cryptography\KeyPair.cs">
-      <Link>KeyPair.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Desktop\Cauldron.Desktop.Cryptography\Extensions.cs">
-      <Link>Extensions.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Desktop\Cauldron.Desktop.Cryptography\PasswordScore.cs">
-      <Link>PasswordScore.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Desktop\Cauldron.Desktop.Cryptography\Rsa.cs">
-      <Link>Rsa.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Desktop\Cauldron.Desktop.Cryptography\RsaAes.cs">
-      <Link>RsaAes.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Desktop\Cauldron.Desktop.Cryptography\RSAKeySizes.cs">
-      <Link>RSAKeySizes.cs</Link>
-    </Compile>
-  </ItemGroup>
 </Project>

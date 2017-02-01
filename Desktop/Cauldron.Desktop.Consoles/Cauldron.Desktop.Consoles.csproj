@@ -42,20 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ColumnAlignment.cs" />
-    <Compile Include="ConsoleTableColumn.cs" />
-    <Compile Include="ConsoleUtils.cs" />
-    <Compile Include="ExecutionGroupAttribute.cs" />
-    <Compile Include="ExecutionGroupProperties.cs" />
-    <Compile Include="IExecutionGroup.cs" />
-    <Compile Include="ExecutionGroupParameter.cs" />
-    <Compile Include="ParameterAttribute.cs" />
-    <Compile Include="ParameterParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RequiredParametersMissingException.cs" />
-    <Compile Include="RequiredValuesMissingException.cs" />
-    <Compile Include="UnknownParameterException.cs" />
-    <Compile Include="UnsafeNative.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Cauldron.Core\Cauldron.Desktop.Core.csproj">
@@ -71,6 +58,7 @@
       <Name>Cauldron.Desktop.Localization</Name>
     </ProjectReference>
   </ItemGroup>
+  <Import Project="..\..\Shared\Cauldron.Consoles\Cauldron.Consoles.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

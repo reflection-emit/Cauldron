@@ -122,30 +122,6 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\Desktop\Cauldron.Desktop.Cryptography\Aes.cs">
-      <Link>Aes.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Desktop\Cauldron.Desktop.Cryptography\CryptoUtils.cs">
-      <Link>CryptoUtils.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Desktop\Cauldron.Desktop.Cryptography\KeyMaterial.cs">
-      <Link>KeyMaterial.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Desktop\Cauldron.Desktop.Cryptography\KeyPair.cs">
-      <Link>KeyPair.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Desktop\Cauldron.Desktop.Cryptography\PasswordScore.cs">
-      <Link>PasswordScore.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Desktop\Cauldron.Desktop.Cryptography\Rsa.cs">
-      <Link>Rsa.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Desktop\Cauldron.Desktop.Cryptography\RsaAes.cs">
-      <Link>RsaAes.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Desktop\Cauldron.Desktop.Cryptography\RSAKeySizes.cs">
-      <Link>RSAKeySizes.cs</Link>
-    </Compile>
     <Compile Include="Extensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SecureString.cs" />
@@ -157,6 +133,7 @@
       <Name>Cauldron.UWP.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <Import Project="..\..\Shared\Cauldron.Cryptography\Cauldron.Cryptography.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

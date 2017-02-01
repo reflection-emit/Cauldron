@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>54b17512-035a-49ee-afdf-e0495fe9ce50</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Cauldron.XAML</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)BehaviourInvocationArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BitmapImageEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CauldronUICommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CauldronUICommandCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DynamicEventHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IImageManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ImageManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IMessageDialog.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)INotifyBehaviourInvocation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IRelayCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MessageBoxImage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MessageDialogEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Navigation\CauldronBackRequestedEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Navigation\INavigator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Navigation\NavigatingInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Navigation\NavigationInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Navigation\NavigationType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Navigation\PageStackEntry.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RelayCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Resources\LocalizationSource.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TextBlockInline.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverterBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\BooleanInvertConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\ItemClickEventArgsToViewModelConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\KeyToLocalizedStringConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\ObjectToVisibilityConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\VisibilityToBooleanConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\IDialogViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\IFrameAware.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\INavigable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\IPrelaunchAware.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ISizeAware.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\IViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MessageDialogCommandViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MessageDialogViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ViewModelBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)XAMLHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\Images\error_red_32x32.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\Images\Information(Help)_7833.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\Images\Information_6227_32x.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\Images\Warning_yellow_7231_31x32.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\Text\7B5BE4E7E11D87C4E23B68589848BB2A.yaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)Resources\Images\Readme.txt" />
+  </ItemGroup>
+</Project>

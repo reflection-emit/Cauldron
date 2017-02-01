@@ -47,9 +47,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\UWP\Cauldron.Core\Output.cs">
-      <Link>Output.cs</Link>
-    </Compile>
     <Compile Include="..\..\UWP\Cauldron.UWP.XAML.Interactivity\Actions\ActionBase.cs">
       <Link>Actions\ActionBase.cs</Link>
     </Compile>
@@ -142,10 +139,6 @@
       <Project>{d20bc350-336c-4e82-9848-773de5abac39}</Project>
       <Name>Cauldron.Desktop.Cryptography</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Cauldron.Desktop.IEnumerableExtensions\Cauldron.Desktop.IEnumerableExtensions.csproj">
-      <Project>{6aa1bcea-a613-4c58-8d1f-71f606665f2a}</Project>
-      <Name>Cauldron.Desktop.IEnumerableExtensions</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Cauldron.Desktop.Localization\Cauldron.Desktop.Localization.csproj">
       <Project>{0c1146b3-ada7-4b8b-921c-cb73f665b4ff}</Project>
       <Name>Cauldron.Desktop.Localization</Name>
@@ -161,6 +154,8 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <Import Project="..\..\Shared\Cauldron.Diagnostics\Cauldron.Diagnostics.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\IEnumerableExtensions\IEnumerableExtensions.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -149,10 +149,6 @@
       <Project>{1890c23c-8e1a-4216-9f8c-69ddb81bb61c}</Project>
       <Name>Cauldron.UWP.Cryptography</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Cauldron.UWP.IEnumerableExtensions\Cauldron.UWP.IEnumerableExtensions.csproj">
-      <Project>{726CA3AC-9BAE-4074-ACA0-A5872A5B1D84}</Project>
-      <Name>Cauldron.UWP.IEnumerableExtensions</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Cauldron.UWP.Injection\Cauldron.UWP.Injection.csproj">
       <Project>{9789f677-3774-4c31-a34b-f13501d48a8e}</Project>
       <Name>Cauldron.UWP.Injection</Name>
