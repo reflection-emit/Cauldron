@@ -97,7 +97,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{B22AD21D
 		NuGet\Cauldron.Core.nuspec = NuGet\Cauldron.Core.nuspec
 		NuGet\Cauldron.Cryptography.nuspec = NuGet\Cauldron.Cryptography.nuspec
 		NuGet\Cauldron.Dynamic.nuspec = NuGet\Cauldron.Dynamic.nuspec
-		NuGet\Cauldron.IEnumerableExtensions.nuspec = NuGet\Cauldron.IEnumerableExtensions.nuspec
 		NuGet\Cauldron.Injection.nuspec = NuGet\Cauldron.Injection.nuspec
 		NuGet\Cauldron.Localization.nuspec = NuGet\Cauldron.Localization.nuspec
 		NuGet\Cauldron.XAML.Interactivity.nuspec = NuGet\Cauldron.XAML.Interactivity.nuspec
