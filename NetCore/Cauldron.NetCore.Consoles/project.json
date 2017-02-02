@@ -1,9 +1,9 @@
 {
-  "version": "1.0.0.10",
+  "version": "1.0.0.11",
   "dependencies": {
-    "Cauldron.NetCore.Activator": "1.0.0.10",
-    "Cauldron.NetCore.Core": "1.0.0.10",
-    "Cauldron.NetCore.Localization": "1.0.0.10",
+    "Cauldron.NetCore.Activator": "1.0.0.11",
+    "Cauldron.NetCore.Core": "1.0.0.11",
+    "Cauldron.NetCore.Localization": "1.0.0.11",
     "NETStandard.Library": "1.6.1"
   },
   "frameworks": {
