@@ -22,7 +22,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -53,7 +53,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Interceptors\TestMethodInterceptorAttribute.cs" />
-    <Compile Include="MethodInterceptionTest.cs" />
+    <Compile Include="Method_Interceptor_Code_Validation_Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
