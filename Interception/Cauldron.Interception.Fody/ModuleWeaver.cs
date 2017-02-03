@@ -2,6 +2,7 @@
 using Mono.Cecil.Cil;
 using Mono.Cecil.Rocks;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -11,9 +12,13 @@ namespace Cauldron.Interception.Fody
     public sealed class ModuleWeaver
     {
         public IAssemblyResolver AssemblyResolver { get; set; }
+
         public Action<string> LogError { get; set; }
+
         public Action<string> LogInfo { get; set; }
+
         public Action<string> LogWarning { get; set; }
+
         public ModuleDefinition ModuleDefinition { get; set; }
 
         public void Execute()
@@ -31,6 +36,106 @@ namespace Cauldron.Interception.Fody
         }
 
         public IEnumerable<AssemblyDefinition> GetAssemblies() => this.ModuleDefinition.AssemblyReferences.Select(x => this.AssemblyResolver.Resolve(x)).Concat(new AssemblyDefinition[] { this.ModuleDefinition.Assembly }).ToArray();
+
+        private IEnumerable<Instruction> AttributeParameterToOpCode(ILProcessor processor, CustomAttributeArgument attributeArgument)
+        {
+            /*
+                - One of the following types: bool, byte, char, double, float, int, long, short, string, sbyte, ushort, uint, ulong.
+                - The type object.
+                - The type System.Type.
+                - An enum type, provided it has public accessibility and the types in which it is nested (if any) also have public accessibility (Section 17.2).
+                - Single-dimensional arrays of the above types.
+             */
+
+            if (attributeArgument.Value == null)
+                return new Instruction[] { processor.Create(OpCodes.Ldnull) };
+
+            var valueType = attributeArgument.Value.GetType();
+
+            var createInstructions = new Func<Type, object, IEnumerable<Instruction>>((type, value) =>
+            {
+                if (type == typeof(string))
+                    return new Instruction[] { processor.Create(OpCodes.Ldstr, attributeArgument.Value.ToString()) };
+
+                if (type == typeof(TypeReference))
+                {
+                    return new Instruction[]
+                    {
+                        processor.Create(OpCodes.Ldtoken, this.ModuleDefinition.Import(value as TypeReference)),
+                        processor.Create(OpCodes.Call, this.ModuleDefinition.Import(typeof(Type).GetMethodReference("GetTypeFromHandle", 1)))
+                    };
+                }
+
+                var createInstructionsResult = new List<Instruction>();
+
+                if (
+                    type == typeof(int) ||
+                    type == typeof(uint) ||
+                    type == typeof(bool) ||
+                    type == typeof(byte) ||
+                    type == typeof(sbyte) ||
+                    type == typeof(char) ||
+                    type == typeof(short) ||
+                    type == typeof(ushort) ||
+                    type.IsEnum)
+                    createInstructionsResult.Add(processor.Create(OpCodes.Ldc_I4_S, (int)value));
+                else if (type == typeof(long) || type == typeof(ulong))
+                    createInstructionsResult.Add(processor.Create(OpCodes.Ldc_I8, (long)value));
+                else if (type == typeof(double))
+                    createInstructionsResult.Add(processor.Create(OpCodes.Ldc_R8, (double)attributeArgument.Value));
+                else if (type == typeof(float))
+                    createInstructionsResult.Add(processor.Create(OpCodes.Ldc_R4, (float)attributeArgument.Value));
+
+                if (type.IsValueType && !attributeArgument.Type.IsValueType)
+                    createInstructionsResult.Add(processor.Create(OpCodes.Box, type.IsEnum ? Enum.GetUnderlyingType(type).GetTypeReference() : type.GetTypeReference()));
+
+                return createInstructionsResult;
+            });
+
+            var result = new List<Instruction>();
+            if (valueType.IsArray)
+            {
+                var array = (attributeArgument.Value as IEnumerable).ToArray_<object>();
+                var arrayType = array.GetType().GetElementType();
+                var arrayTypeReference = arrayType.GetTypeReference();
+                result.Add(processor.Create(OpCodes.Ldc_I4_S, array.Length));
+                result.Add(processor.Create(OpCodes.Newarr, arrayTypeReference));
+                result.Add(processor.Create(OpCodes.Dup));
+
+                for (int i = 0; i < array.Length; i++)
+                {
+                    result.Add(processor.Create(OpCodes.Ldc_I4_S, i));
+                    result.AddRange(createInstructions(arrayType, array[i]));
+
+                    if (arrayType.IsValueType)
+                    {
+                        if (arrayType == typeof(int) ||
+                            arrayType == typeof(uint) ||
+                            arrayType == typeof(bool) ||
+                            arrayType == typeof(byte) ||
+                            arrayType == typeof(sbyte) ||
+                            arrayType == typeof(char) ||
+                            arrayType.IsEnum)
+                            result.Add(processor.Create(OpCodes.Stelem_I4));
+                        else if (arrayType == typeof(short))
+                            result.Add(processor.Create(OpCodes.Stelem_I2));
+                        else if (arrayType == typeof(long))
+                            result.Add(processor.Create(OpCodes.Stelem_I8));
+                        else if (arrayType == typeof(float))
+                            result.Add(processor.Create(OpCodes.Stelem_R4));
+                        else if (arrayType == typeof(double))
+                            result.Add(processor.Create(OpCodes.Stelem_R8));
+                    }
+                    else
+                        result.Add(processor.Create(OpCodes.Stelem_Ref));
+                    result.Add(processor.Create(OpCodes.Dup));
+                }
+            }
+            else
+                result.AddRange(createInstructions(valueType, attributeArgument.Value));
+
+            return result;
+        }
 
         private AssemblyDefinition GetCauldronCore()
         {
@@ -54,7 +159,7 @@ namespace Cauldron.Interception.Fody
             var finallyInstructions = new List<Instruction>();
             var originalBody = method.Body.Instructions.ToList();
             var localVariables = new List<VariableDefinition>();
-            var interceptorOnEnter = this.ModuleDefinition.Import(methodInterceptorInterface.GetMethodReference("OnEnter", 2));
+            var interceptorOnEnter = this.ModuleDefinition.Import(methodInterceptorInterface.GetMethodReference("OnEnter", 3));
             var interceptorOnException = this.ModuleDefinition.Import(methodInterceptorInterface.GetMethodReference("OnException", 1));
             var interceptorOnExit = this.ModuleDefinition.Import(methodInterceptorInterface.GetMethodReference("OnExit", 0));
             method.Body.Instructions.Clear();
@@ -67,6 +172,20 @@ namespace Cauldron.Interception.Fody
             attributeInitialization.Add(processor.Create(OpCodes.Ldtoken, method.DeclaringType));
             attributeInitialization.Add(processor.Create(OpCodes.Call, getMethodFromHandleRef));
             attributeInitialization.Add(processor.Create(OpCodes.Stloc_S, methodBaseReference));
+
+            // Create object array for the method args
+            var objectReference = this.ModuleDefinition.Import(typeof(object).GetTypeReference());
+            var parametersArrayTypeRef = new ArrayType(objectReference);
+            var parametersArrayVariable = new VariableDefinition(parametersArrayTypeRef);
+            processor.Body.Variables.Add(parametersArrayVariable);
+
+            attributeInitialization.Add(processor.Create(OpCodes.Ldc_I4, method.Parameters.Count));
+            attributeInitialization.Add(processor.Create(OpCodes.Newarr, objectReference));
+            attributeInitialization.Add(processor.Create(OpCodes.Stloc, parametersArrayVariable));
+
+            foreach (var parameter in method.Parameters)
+                attributeInitialization.AddRange(IlHelper.ProcessParam(parameter, parametersArrayVariable));
+
             // Get attribute instance
             foreach (var attribute in attributes)
             {
@@ -74,13 +193,14 @@ namespace Cauldron.Interception.Fody
                 localVariables.Add(variableDefinition);
                 processor.Body.Variables.Add(variableDefinition);
                 foreach (var arg in attribute.ConstructorArguments)
-                    attributeInitialization.AddRange(ValueToOpCode(processor, arg.Value, arg.Type));
+                    attributeInitialization.AddRange(AttributeParameterToOpCode(processor, arg));
                 attributeInitialization.Add(processor.Create(OpCodes.Newobj, attribute.Constructor));
                 attributeInitialization.Add(processor.Create(OpCodes.Stloc_S, variableDefinition));
                 method.CustomAttributes.Remove(attribute);
                 onEnterInstructions.Add(processor.Create(OpCodes.Ldloc_S, variableDefinition));
                 onEnterInstructions.Add(processor.Create(OpCodes.Ldarg_0));
                 onEnterInstructions.Add(processor.Create(OpCodes.Ldloc_S, methodBaseReference));
+                onEnterInstructions.Add(processor.Create(OpCodes.Ldloc_S, parametersArrayVariable));
                 onEnterInstructions.Add(processor.Create(OpCodes.Callvirt, interceptorOnEnter));
             }
             var exceptionReference = new VariableDefinition(this.ModuleDefinition.Import(typeof(Exception).GetTypeReference()));
@@ -101,12 +221,18 @@ namespace Cauldron.Interception.Fody
             finallyInstructions.Add(processor.Create(OpCodes.Endfinally));
             var lastReturn = processor.Create(OpCodes.Ret);
 
+            var newBody = this.ReplaceReturn(processor, method, originalBody, lastReturn);
+            originalBody = newBody.Item1;
+
             processor.Append(attributeInitialization);
             processor.Append(onEnterInstructions);
             processor.Append(originalBody);
             processor.Append(exceptionInstructions);
             processor.Append(finallyInstructions);
             processor.Append(lastReturn);
+
+            if (newBody.Item2 != null)
+                processor.InsertBefore(lastReturn, newBody.Item2);
 
             var exceptionHandler = new ExceptionHandler(ExceptionHandlerType.Catch)
             {
@@ -126,7 +252,6 @@ namespace Cauldron.Interception.Fody
             method.Body.ExceptionHandlers.Add(exceptionHandler);
             method.Body.ExceptionHandlers.Add(finallyHandler);
 
-            this.ReplaceReturn(processor, method, originalBody, lastReturn);
             processor.Body.OptimizeMacros();
         }
 
@@ -151,13 +276,13 @@ namespace Cauldron.Interception.Fody
                 throw new Exception($"Unable to find the interface IPropertyInterceptor.");
         }
 
-        private void ReplaceReturn(ILProcessor processor, MethodDefinition method, IEnumerable<Instruction> body, Instruction leaveInstruction)
+        private Tuple<List<Instruction>, Instruction> ReplaceReturn(ILProcessor processor, MethodDefinition method, IEnumerable<Instruction> body, Instruction leaveInstruction)
         {
-            if (method.ReturnType == TypeSystem.Void)
-            {
-                var instructionsSet = body.ToArray();
+            var instructionsSet = body.ToList();
 
-                for (int i = 0; i < instructionsSet.Length; i++)
+            if (method.ReturnType == this.ModuleDefinition.TypeSystem.Void)
+            {
+                for (int i = 0; i < instructionsSet.Count; i++)
                 {
                     if (instructionsSet[i].OpCode != OpCodes.Ret)
                         continue;
@@ -166,76 +291,28 @@ namespace Cauldron.Interception.Fody
                     instruction.OpCode = OpCodes.Leave_S;
                     instruction.Operand = leaveInstruction;
                 }
+
+                return new Tuple<List<Instruction>, Instruction>(instructionsSet, null);
             }
-        }
-
-        private IEnumerable<Instruction> ValueToOpCode(ILProcessor processor, object value, TypeReference parameterType)
-        {
-            var result = new List<Instruction>();
-            if (value == null)
+            else
             {
-                result.Add(processor.Create(OpCodes.Ldnull));
-                return result;
-            }
+                var returnVariable = new VariableDefinition("__var_" + Guid.NewGuid().ToString().Replace('-', '_'), method.ReturnType);
+                processor.Body.Variables.Add(returnVariable);
+                var loadReturnVariable = processor.Create(OpCodes.Ldloc_S, returnVariable);
 
-            var type = value.GetType();
-
-            if (type == typeof(string))
-            {
-                result.Add(processor.Create(OpCodes.Ldstr, value.ToString()));
-                return result;
-            }
-
-            if (type == typeof(Type))
-            {
-                result.Add(processor.Create(OpCodes.Ldtoken, type.GetTypeReference()));
-                result.Add(processor.Create(OpCodes.Call, type.GetMethodReference("GetTypeFromHandle", 1)));
-            }
-
-            if (type.IsValueType && !parameterType.IsValueType)
-                result.Add(processor.Create(OpCodes.Box, type.IsEnum ? typeof(int).GetTypeReference() : type.GetTypeReference()));
-
-            if (type == typeof(int) || type.IsEnum)
-            {
-                var intValue = (int)value;
-                switch (intValue)
+                for (int i = 0; i < instructionsSet.Count; i++)
                 {
-                    case 0: result.Add(processor.Create(OpCodes.Ldc_I4_0)); break;
-                    case 1: result.Add(processor.Create(OpCodes.Ldc_I4_1)); break;
-                    case 2: result.Add(processor.Create(OpCodes.Ldc_I4_2)); break;
-                    case 3: result.Add(processor.Create(OpCodes.Ldc_I4_3)); break;
-                    case 4: result.Add(processor.Create(OpCodes.Ldc_I4_4)); break;
-                    case 5: result.Add(processor.Create(OpCodes.Ldc_I4_5)); break;
-                    case 6: result.Add(processor.Create(OpCodes.Ldc_I4_6)); break;
-                    case 7: result.Add(processor.Create(OpCodes.Ldc_I4_7)); break;
-                    case 8: result.Add(processor.Create(OpCodes.Ldc_I4_8)); break;
-                    default: result.Add(processor.Create(OpCodes.Ldc_I4_S, intValue)); break;
-                }
-            }
-            else if (type == typeof(long))
-            {
-                var intValue = (long)value;
-                switch (intValue)
-                {
-                    case 0: result.Add(processor.Create(OpCodes.Ldc_I4_0)); break;
-                    case 1: result.Add(processor.Create(OpCodes.Ldc_I4_1)); break;
-                    case 2: result.Add(processor.Create(OpCodes.Ldc_I4_2)); break;
-                    case 3: result.Add(processor.Create(OpCodes.Ldc_I4_3)); break;
-                    case 4: result.Add(processor.Create(OpCodes.Ldc_I4_4)); break;
-                    case 5: result.Add(processor.Create(OpCodes.Ldc_I4_5)); break;
-                    case 6: result.Add(processor.Create(OpCodes.Ldc_I4_6)); break;
-                    case 7: result.Add(processor.Create(OpCodes.Ldc_I4_7)); break;
-                    case 8: result.Add(processor.Create(OpCodes.Ldc_I4_8)); break;
-                    default: result.Add(processor.Create(OpCodes.Ldc_I4_S, intValue)); break;
-                }
-                result.Add(processor.Create(OpCodes.Conv_I8));
-            }
-            else if (type == typeof(double))
-                result.Add(processor.Create(OpCodes.Ldc_R8, (double)value));
-            else if (type == typeof(float))
-                result.Add(processor.Create(OpCodes.Ldc_R4, (float)value));
+                    if (instructionsSet[i].OpCode != OpCodes.Ret)
+                        continue;
 
-            return result;
+                    var instruction = instructionsSet[i];
+                    instruction.OpCode = OpCodes.Leave_S;
+                    instruction.Operand = loadReturnVariable;
+                    instructionsSet.Insert(i, processor.Create(OpCodes.Stloc_S, returnVariable));
+                }
+
+                return new Tuple<List<Instruction>, Instruction>(instructionsSet, loadReturnVariable);
+            }
         }
     }
 }

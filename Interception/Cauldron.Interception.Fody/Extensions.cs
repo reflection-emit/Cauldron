@@ -1,6 +1,7 @@
 ﻿using Mono.Cecil;
 using Mono.Cecil.Cil;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -15,6 +16,35 @@ namespace Cauldron.Interception.Fody
         {
             foreach (var instruction in instructions)
                 processor.Append(instruction);
+        }
+
+        /// <summary>
+        /// Gets the number of elements contained in the <see cref="IEnumerable"/>
+        /// </summary>
+        /// <param name="source">The <see cref="IEnumerable"/></param>
+        /// <returns>The total count of items in the <see cref="IEnumerable"/></returns>
+        /// <exception cref="ArgumentNullException"><paramref name="source"/> is null</exception>
+        public static int Count_(this IEnumerable source)
+        {
+            if (source == null)
+                throw new ArgumentNullException(nameof(source));
+
+            int count = 0;
+
+            if (source.GetType().IsArray)
+                return (source as Array).Length;
+
+            var collection = source as ICollection;
+            if (collection != null)
+                return collection.Count;
+
+            var enumerator = source.GetEnumerator();
+            while (enumerator.MoveNext())
+                count++;
+
+            (enumerator as IDisposable)?.Dispose();
+
+            return count;
         }
 
         public static MethodReference GetMethodReference(this Type type, string methodName, Type[] parameterTypes)
@@ -74,6 +104,29 @@ namespace Cauldron.Interception.Fody
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Converts a <see cref="IEnumerable"/> to an array
+        /// </summary>
+        /// <typeparam name="T">The type of elements the <see cref="IEnumerable"/> contains</typeparam>
+        /// <param name="items">The <see cref="IEnumerable"/> to convert</param>
+        /// <returns>An array of <typeparamref name="T"/></returns>
+        public static T[] ToArray_<T>(this IEnumerable items)
+        {
+            if (items == null)
+                return new T[0];
+
+            T[] result = new T[items.Count_()];
+            int counter = 0;
+
+            foreach (T item in items)
+            {
+                result[counter] = item;
+                counter++;
+            }
+
+            return result;
         }
     }
 }

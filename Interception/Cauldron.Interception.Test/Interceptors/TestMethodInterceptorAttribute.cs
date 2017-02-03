@@ -7,7 +7,7 @@ namespace Cauldron.Interception.Test.Interceptors
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
     public sealed class TestMethodInterceptorAttribute : Attribute, IMethodInterceptor
     {
-        public void OnEnter(object instance, MethodBase methodbase)
+        public void OnEnter(object instance, MethodBase methodbase, object[] values)
         {
         }
 
