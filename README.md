@@ -13,6 +13,10 @@ https://reflection-emit.github.io/Cauldron/eveonline/
 - [CodeMaid](http://www.codemaid.net/)
 
 ## Release Notes
+### 1.0.5
+- Reference to Fody
+- Method interceptor and Property interceptor added
+
 ### 1.0.4
 - .NET Standard 1.6 added to NuGet package
 - Missing resources in UWP packages added
