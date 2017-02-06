@@ -67,31 +67,7 @@ namespace Cauldron.Interception.Test.Interceptors
         {
         }
 
-        public bool BoolParam { get; private set; }
-
-        public byte ByteParam { get; private set; }
-
-        public char CharParam { get; private set; }
-
-        public double DoubleParam { get; private set; }
-
-        public TestEnum[] EnumArrayParam { get; private set; }
-
-        public TestEnum EnumParam { get; private set; }
-
-        public float[] FloatArrayParam { get; private set; }
-
-        public int[] IntArrayParam { get; private set; }
-
-        public object ObjectParam { get; private set; }
-
-        public string[] StringArrayParam { get; private set; }
-
-        public string StringParam { get; private set; }
-
-        public Type TypeParam { get; private set; }
-
-        public void OnEnter(object instance, MethodBase methodbase, object[] values)
+        public void OnEnter(Type declaringType, object instance, MethodBase methodbase, object[] values)
         {
         }
 

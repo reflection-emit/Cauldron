@@ -40,6 +40,9 @@ namespace Cauldron.Core
         /// <returns>true if <paramref name="a"/> is equal to <paramref name="b"/>; otherwise, false.</returns>
         public new static bool Equals(object a, object b)
         {
+            // TODO - Dariusz - Numeric types needs to be able to compared to each other
+            // long -> int -> byte -> short -> double ... As long as the ranges are ok ... First check ranges, then do converts, then compare
+
             if (a == null && b == null)
                 return true;
 

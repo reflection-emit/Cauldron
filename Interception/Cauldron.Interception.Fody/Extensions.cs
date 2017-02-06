@@ -65,6 +65,9 @@ namespace Cauldron.Interception.Fody
             return definition.Methods.FirstOrDefault(x => x.Name == methodName && x.Parameters.Count == parameterCount);
         }
 
+        public static PropertyDefinition GetPropertyDefinition(this MethodDefinition method) =>
+                                            method.DeclaringType.Properties.FirstOrDefault(x => x.GetMethod == method || x.SetMethod == method);
+
         public static TypeDefinition GetTypeDefinition(this Type type) => Types.FirstOrDefault(x => x.FullName == type.FullName);
 
         public static TypeReference GetTypeReference(this Type type) => Types.FirstOrDefault(x => x.FullName == type.FullName);

@@ -134,6 +134,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.Interception.Fody"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.Interception.Test", "Interception\Cauldron.Interception.Test\Cauldron.Interception.Test.csproj", "{0A0F244A-B479-4B08-9883-CB731AD3BB60}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.Interception.External.Test", "Interception\Cauldron.Interception.External.Test\Cauldron.Interception.External.Test.csproj", "{296681A6-37F3-407D-9E71-95551B1E46FF}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Shared\Cauldron.Consoles\Cauldron.Consoles.projitems*{00c29751-1557-46a8-9547-f74065b36592}*SharedItemsImports = 4
@@ -679,6 +681,22 @@ Global
 		{0A0F244A-B479-4B08-9883-CB731AD3BB60}.Release|x64.Build.0 = Release|Any CPU
 		{0A0F244A-B479-4B08-9883-CB731AD3BB60}.Release|x86.ActiveCfg = Release|Any CPU
 		{0A0F244A-B479-4B08-9883-CB731AD3BB60}.Release|x86.Build.0 = Release|Any CPU
+		{296681A6-37F3-407D-9E71-95551B1E46FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{296681A6-37F3-407D-9E71-95551B1E46FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{296681A6-37F3-407D-9E71-95551B1E46FF}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{296681A6-37F3-407D-9E71-95551B1E46FF}.Debug|ARM.Build.0 = Debug|Any CPU
+		{296681A6-37F3-407D-9E71-95551B1E46FF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{296681A6-37F3-407D-9E71-95551B1E46FF}.Debug|x64.Build.0 = Debug|Any CPU
+		{296681A6-37F3-407D-9E71-95551B1E46FF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{296681A6-37F3-407D-9E71-95551B1E46FF}.Debug|x86.Build.0 = Debug|Any CPU
+		{296681A6-37F3-407D-9E71-95551B1E46FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{296681A6-37F3-407D-9E71-95551B1E46FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{296681A6-37F3-407D-9E71-95551B1E46FF}.Release|ARM.ActiveCfg = Release|Any CPU
+		{296681A6-37F3-407D-9E71-95551B1E46FF}.Release|ARM.Build.0 = Release|Any CPU
+		{296681A6-37F3-407D-9E71-95551B1E46FF}.Release|x64.ActiveCfg = Release|Any CPU
+		{296681A6-37F3-407D-9E71-95551B1E46FF}.Release|x64.Build.0 = Release|Any CPU
+		{296681A6-37F3-407D-9E71-95551B1E46FF}.Release|x86.ActiveCfg = Release|Any CPU
+		{296681A6-37F3-407D-9E71-95551B1E46FF}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -728,5 +746,6 @@ Global
 		{17EFE0CA-0D61-4A27-9563-CB61350561A6} = {061AFBC5-FC70-405E-80BB-974A63AFAFED}
 		{6A7E8B99-2542-4530-83EA-FC7355C9CBBD} = {B1732329-29AB-4590-8408-6A6A3A2236D8}
 		{0A0F244A-B479-4B08-9883-CB731AD3BB60} = {B1732329-29AB-4590-8408-6A6A3A2236D8}
+		{296681A6-37F3-407D-9E71-95551B1E46FF} = {B1732329-29AB-4590-8408-6A6A3A2236D8}
 	EndGlobalSection
 EndGlobal
