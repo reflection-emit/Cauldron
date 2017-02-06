@@ -16,6 +16,8 @@ https://reflection-emit.github.io/Cauldron/eveonline/
 ### 1.0.5
 - Reference to Fody
 - Method interceptor and Property interceptor added
+  - Try Catch Finally implementation
+  - Method and property interceptors with SemaphoreSlim implementation
 
 ### 1.0.4
 - .NET Standard 1.6 added to NuGet package
