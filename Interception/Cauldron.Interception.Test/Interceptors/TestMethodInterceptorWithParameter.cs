@@ -8,7 +8,24 @@ namespace Cauldron.Interception.Test.Interceptors
     public sealed class TestMethodInterceptorWithParameter : Attribute, IMethodInterceptor
     {
         public TestMethodInterceptorWithParameter(
-            Type paramType, int ff)
+            int paramInt,
+            uint paramUInt,
+            bool paramBool,
+            byte paramByte,
+            sbyte paramSByte,
+            char paramChar,
+            short paramShort,
+            ushort paramUShort,
+            long paramLong,
+            ulong paramULong,
+            double paramDouble,
+            float paramFloat,
+            string paramString,
+            object paramObject,
+            object paramObject2,
+            Type paramType,
+            TestEnum paramEnum,
+            int[] paramIntArray)
         {
         }
 

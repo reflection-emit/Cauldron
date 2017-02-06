@@ -52,89 +52,102 @@ namespace Cauldron.Interception.Fody
 
             var valueType = attributeArgument.Value.GetType();
 
-            var createInstructions = new Func<Type, object, IEnumerable<Instruction>>((type, value) =>
-            {
-                if (type == typeof(string))
-                    return new Instruction[] { processor.Create(OpCodes.Ldstr, attributeArgument.Value.ToString()) };
-
-                if (type == typeof(TypeReference))
-                {
-                    return new Instruction[]
-                    {
-                        processor.Create(OpCodes.Ldtoken, this.ModuleDefinition.Import(value as TypeReference)),
-                        processor.Create(OpCodes.Call, this.ModuleDefinition.Import(typeof(Type).GetMethodReference("GetTypeFromHandle", 1)))
-                    };
-                }
-
-                var createInstructionsResult = new List<Instruction>();
-
-                if (
-                    type == typeof(int) ||
-                    type == typeof(uint) ||
-                    type == typeof(bool) ||
-                    type == typeof(byte) ||
-                    type == typeof(sbyte) ||
-                    type == typeof(char) ||
-                    type == typeof(short) ||
-                    type == typeof(ushort) ||
-                    type.IsEnum)
-                    createInstructionsResult.Add(processor.Create(OpCodes.Ldc_I4_S, (int)value));
-                else if (type == typeof(long) || type == typeof(ulong))
-                    createInstructionsResult.Add(processor.Create(OpCodes.Ldc_I8, (long)value));
-                else if (type == typeof(double))
-                    createInstructionsResult.Add(processor.Create(OpCodes.Ldc_R8, (double)attributeArgument.Value));
-                else if (type == typeof(float))
-                    createInstructionsResult.Add(processor.Create(OpCodes.Ldc_R4, (float)attributeArgument.Value));
-
-                if (type.IsValueType && !attributeArgument.Type.IsValueType)
-                    createInstructionsResult.Add(processor.Create(OpCodes.Box, type.IsEnum ? Enum.GetUnderlyingType(type).GetTypeReference() : type.GetTypeReference()));
-
-                return createInstructionsResult;
-            });
-
             var result = new List<Instruction>();
             if (valueType.IsArray)
             {
-                var array = (attributeArgument.Value as IEnumerable).ToArray_<object>();
-                var arrayType = array.GetType().GetElementType();
-                var arrayTypeReference = arrayType.GetTypeReference();
-                result.Add(processor.Create(OpCodes.Ldc_I4_S, array.Length));
-                result.Add(processor.Create(OpCodes.Newarr, arrayTypeReference));
+                var array = (attributeArgument.Value as IEnumerable).ToArray_<CustomAttributeArgument>();
+
+                result.Add(processor.Create(OpCodes.Ldc_I4, array.Length));
+                result.Add(processor.Create(OpCodes.Newarr, this.ModuleDefinition.Import(attributeArgument.Type)));
                 result.Add(processor.Create(OpCodes.Dup));
 
                 for (int i = 0; i < array.Length; i++)
                 {
-                    result.Add(processor.Create(OpCodes.Ldc_I4_S, i));
-                    result.AddRange(createInstructions(arrayType, array[i]));
-
-                    if (arrayType.IsValueType)
-                    {
-                        if (arrayType == typeof(int) ||
-                            arrayType == typeof(uint) ||
-                            arrayType == typeof(bool) ||
-                            arrayType == typeof(byte) ||
-                            arrayType == typeof(sbyte) ||
-                            arrayType == typeof(char) ||
-                            arrayType.IsEnum)
-                            result.Add(processor.Create(OpCodes.Stelem_I4));
-                        else if (arrayType == typeof(short))
-                            result.Add(processor.Create(OpCodes.Stelem_I2));
-                        else if (arrayType == typeof(long))
-                            result.Add(processor.Create(OpCodes.Stelem_I8));
-                        else if (arrayType == typeof(float))
-                            result.Add(processor.Create(OpCodes.Stelem_R4));
-                        else if (arrayType == typeof(double))
-                            result.Add(processor.Create(OpCodes.Stelem_R8));
-                    }
+                    if (array[i].Value == null)
+                        return new Instruction[] { processor.Create(OpCodes.Ldnull), processor.Create(OpCodes.Stelem_Ref) };
                     else
-                        result.Add(processor.Create(OpCodes.Stelem_Ref));
-                    result.Add(processor.Create(OpCodes.Dup));
+                    {
+                        var arrayType = array[i].Value.GetType();
+                        result.Add(processor.Create(OpCodes.Ldc_I4, i));
+                        result.AddRange(this.CreateInstructionsFromAttributeTypes(processor, array[i].Type, arrayType, array[i].Value));
+
+                        if (arrayType.IsValueType && attributeArgument.Type.GetElementType().IsValueType)
+                        {
+                            if (arrayType == typeof(int) ||
+                                arrayType == typeof(uint) ||
+                                arrayType.IsEnum)
+                                result.Add(processor.Create(OpCodes.Stelem_I4));
+                            else if (arrayType == typeof(bool) ||
+                                arrayType == typeof(byte) ||
+                                arrayType == typeof(sbyte))
+                                result.Add(processor.Create(OpCodes.Stelem_I1));
+                            else if (arrayType == typeof(short) ||
+                                arrayType == typeof(ushort) ||
+                                arrayType == typeof(char))
+                                result.Add(processor.Create(OpCodes.Stelem_I2));
+                            else if (arrayType == typeof(long) ||
+                                arrayType == typeof(ulong))
+                                result.Add(processor.Create(OpCodes.Stelem_I8));
+                            else if (arrayType == typeof(float))
+                                result.Add(processor.Create(OpCodes.Stelem_R4));
+                            else if (arrayType == typeof(double))
+                                result.Add(processor.Create(OpCodes.Stelem_R8));
+                        }
+                        else
+                            result.Add(processor.Create(OpCodes.Stelem_Ref));
+                    }
+                    if (i < array.Length - 1)
+                        result.Add(processor.Create(OpCodes.Dup));
                 }
             }
             else
-                result.AddRange(createInstructions(valueType, attributeArgument.Value));
+                result.AddRange(this.CreateInstructionsFromAttributeTypes(processor, attributeArgument.Type, valueType, attributeArgument.Value));
 
             return result;
+        }
+
+        private IEnumerable<Instruction> CreateInstructionsFromAttributeTypes(ILProcessor processor, TypeReference targetType, Type type, object value)
+        {
+            if (type == typeof(CustomAttributeArgument))
+            {
+                var attrib = (CustomAttributeArgument)value;
+                type = attrib.Value.GetType();
+                value = attrib.Value;
+            }
+
+            if (type == typeof(string))
+                return new Instruction[] { processor.Create(OpCodes.Ldstr, value.ToString()) };
+
+            if (type == typeof(TypeReference))
+            {
+                return new Instruction[]
+                {
+                    processor.Create(OpCodes.Ldtoken, this.ModuleDefinition.Import(value as TypeReference)),
+                    processor.Create(OpCodes.Call, this.ModuleDefinition.Import(typeof(Type).GetMethodReference("GetTypeFromHandle", 1)))
+                };
+            }
+
+            var createInstructionsResult = new List<Instruction>();
+
+            if (type.IsEnum) createInstructionsResult.Add(processor.Create(OpCodes.Ldc_I4, (int)value));
+            else if (type == typeof(int)) createInstructionsResult.Add(processor.Create(OpCodes.Ldc_I4, (int)value));
+            else if (type == typeof(uint)) createInstructionsResult.Add(processor.Create(OpCodes.Ldc_I4, (int)(uint)value));
+            else if (type == typeof(bool)) createInstructionsResult.Add(processor.Create(OpCodes.Ldc_I4, (bool)value ? 1 : 0));
+            else if (type == typeof(char)) createInstructionsResult.Add(processor.Create(OpCodes.Ldc_I4, (char)value));
+            else if (type == typeof(short)) createInstructionsResult.Add(processor.Create(OpCodes.Ldc_I4, (short)value));
+            else if (type == typeof(ushort)) createInstructionsResult.Add(processor.Create(OpCodes.Ldc_I4, (ushort)value));
+            else if (type == typeof(byte)) createInstructionsResult.Add(processor.Create(OpCodes.Ldc_I4, (int)(byte)value));
+            else if (type == typeof(sbyte)) createInstructionsResult.Add(processor.Create(OpCodes.Ldc_I4, (int)(sbyte)value));
+            else if (type == typeof(long)) createInstructionsResult.Add(processor.Create(OpCodes.Ldc_I8, (long)value));
+            else if (type == typeof(ulong)) createInstructionsResult.Add(processor.Create(OpCodes.Ldc_I8, (long)(ulong)value));
+            else if (type == typeof(double)) createInstructionsResult.Add(processor.Create(OpCodes.Ldc_R8, (double)value));
+            else if (type == typeof(float)) createInstructionsResult.Add(processor.Create(OpCodes.Ldc_R4, (float)value));
+
+            if (type.IsValueType && !targetType.IsValueType)
+                createInstructionsResult.Add(processor.Create(OpCodes.Box, type.IsEnum ?
+                    this.ModuleDefinition.Import(Enum.GetUnderlyingType(type).GetTypeReference()) : this.ModuleDefinition.Import(type.GetTypeReference())));
+
+            return createInstructionsResult;
         }
 
         private AssemblyDefinition GetCauldronCore()
@@ -152,7 +165,7 @@ namespace Cauldron.Interception.Fody
             this.LogInfo($"Implenting Method interception: {method.Name} with {string.Join(", ", attributes.Select(x => x.AttributeType.FullName))}");
             var processor = method.Body.GetILProcessor();
             method.Body.SimplifyMacros();
-            var methodInterceptorInterface = this.GetType("Cauldron.Core.Interceptors.IMethodInterceptor");
+            var methodInterceptorInterface = this.ModuleDefinition.Import(this.GetType("Cauldron.Core.Interceptors.IMethodInterceptor"));
             var attributeInitialization = new List<Instruction>();
             var onEnterInstructions = new List<Instruction>();
             var exceptionInstructions = new List<Instruction>();
@@ -164,7 +177,6 @@ namespace Cauldron.Interception.Fody
             var interceptorOnExit = this.ModuleDefinition.Import(methodInterceptorInterface.GetMethodReference("OnExit", 0));
             method.Body.Instructions.Clear();
             method.Body.InitLocals = true;
-            var interceptorInterface = method.Module.Import(methodInterceptorInterface);
             var getMethodFromHandleRef = this.ModuleDefinition.Import(typeof(MethodBase).GetMethodReference("GetMethodFromHandle", 2));
             var methodBaseReference = new VariableDefinition(this.ModuleDefinition.Import(typeof(MethodBase).GetTypeReference()));
             processor.Body.Variables.Add(methodBaseReference);
@@ -189,7 +201,7 @@ namespace Cauldron.Interception.Fody
             // Get attribute instance
             foreach (var attribute in attributes)
             {
-                var variableDefinition = new VariableDefinition(interceptorInterface);
+                var variableDefinition = new VariableDefinition(methodInterceptorInterface);
                 localVariables.Add(variableDefinition);
                 processor.Body.Variables.Add(variableDefinition);
                 foreach (var arg in attribute.ConstructorArguments)
@@ -271,7 +283,7 @@ namespace Cauldron.Interception.Fody
 
         private void ImplementPropertyInterception()
         {
-            var propertyInterceptorInterface = this.GetType("Cauldron.Core.Interceptors.IPropertyInterceptor");
+            var propertyInterceptorInterface = this.ModuleDefinition.Import(this.GetType("Cauldron.Core.Interceptors.IPropertyInterceptor"));
             if (propertyInterceptorInterface == null)
                 throw new Exception($"Unable to find the interface IPropertyInterceptor.");
         }
@@ -296,7 +308,7 @@ namespace Cauldron.Interception.Fody
             }
             else
             {
-                var returnVariable = new VariableDefinition("__var_" + Guid.NewGuid().ToString().Replace('-', '_'), method.ReturnType);
+                var returnVariable = new VariableDefinition("__var_" + Guid.NewGuid().ToString().Replace('-', '_'), this.ModuleDefinition.Import(method.ReturnType));
                 processor.Body.Variables.Add(returnVariable);
                 var loadReturnVariable = processor.Create(OpCodes.Ldloc_S, returnVariable);
 

@@ -11,7 +11,24 @@ namespace Cauldron.Interception.Test
     {
         [TestMethod]
         [TestMethodInterceptorWithParameter(
-                typeof(string), 344)]
+                1, 2, true, 3, 4, 'd', 5, 6, 7, 8, 9.9, 8.8f, "Hi here", 66, "stringMe", typeof(Guid), TestEnum.One,
+                new int[] { 3, 4 },
+                new uint[] { 5, 6 },
+                new bool[] { true, false, true },
+                new byte[] { 4, 6, 33 },
+                new sbyte[] { 43, 8 },
+                new char[] { 'ö', 'ä' },
+                new short[] { 43, 2 },
+                new ushort[] { 3, 6 },
+                new long[] { 12, 3 },
+                new ulong[] { 45, 3 },
+                new double[] { 4.5, 6.2 },
+                new float[] { 34f, 6.7f },
+                new string[] { "Hello", "My Friend" },
+                null,
+                null,
+                null,
+                null)]
 
         //[TestMethodInterceptorWithParameter(
         //        1, 2, true, 3, 4, 'd', 5, 6, 7, 8, 9.9, 8.8f, "Hi here", 66, "stringMe", typeof(Guid), TestEnum.One,
