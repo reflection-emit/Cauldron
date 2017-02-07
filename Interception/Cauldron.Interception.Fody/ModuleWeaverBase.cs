@@ -97,17 +97,18 @@ namespace Cauldron.Interception.Fody
             return result;
         }
 
-        protected virtual VariableDefinition CreateParameterObject(MethodDefinition method, ILProcessor processor, List<Instruction> attributeInitialization, TypeReference objectReference, ArrayType parametersArrayTypeRef)
+        protected virtual VariableDefinition CreateParameterObject(MethodWeaverInfo methodWeaverInfo, TypeReference objectReference, ArrayType parametersArrayTypeRef)
         {
             var parametersArrayVariable = new VariableDefinition(parametersArrayTypeRef);
-            processor.Body.Variables.Add(parametersArrayVariable);
 
-            attributeInitialization.Add(processor.Create(OpCodes.Ldc_I4, method.Parameters.Count));
-            attributeInitialization.Add(processor.Create(OpCodes.Newarr, objectReference));
-            attributeInitialization.Add(processor.Create(OpCodes.Stloc, parametersArrayVariable));
+            methodWeaverInfo.Processor.Body.Variables.Add(parametersArrayVariable);
 
-            foreach (var parameter in method.Parameters)
-                attributeInitialization.AddRange(IlHelper.ProcessParam(parameter, parametersArrayVariable));
+            methodWeaverInfo.Initializations.Add(methodWeaverInfo.Processor.Create(OpCodes.Ldc_I4, methodWeaverInfo.MethodDefinition.Parameters.Count));
+            methodWeaverInfo.Initializations.Add(methodWeaverInfo.Processor.Create(OpCodes.Newarr, objectReference));
+            methodWeaverInfo.Initializations.Add(methodWeaverInfo.Processor.Create(OpCodes.Stloc, parametersArrayVariable));
+
+            foreach (var parameter in methodWeaverInfo.MethodDefinition.Parameters)
+                methodWeaverInfo.Initializations.AddRange(IlHelper.ProcessParam(parameter, parametersArrayVariable));
 
             return parametersArrayVariable;
         }
@@ -152,39 +153,52 @@ namespace Cauldron.Interception.Fody
 
         protected TypeDefinition GetType(string typeName) => this.weaver.GetType(typeName);
 
-        protected abstract void ImplementLockableOnEnter(ILProcessor processor, List<Instruction> onEnterInstructions, MethodDefinition method, VariableDefinition attributeVariable, MethodReference interceptorOnEnter, VariableDefinition methodBaseReference, VariableDefinition parametersArrayVariable, FieldDefinition semaphoreSlim);
+        protected abstract void ImplementLockableOnEnter(MethodWeaverInfo methodWeaverInfo, VariableDefinition attributeVariable, MethodReference interceptorOnEnter, VariableDefinition parametersArrayVariable, FieldDefinition semaphoreSlim);
 
         protected void ImplementMethod(MethodDefinition method, CustomAttribute[] attributes, Func<TypeReference, bool, MethodReference> onEnterMethod)
         {
             this.LogInfo($"Implenting Method interception: {method.Name} with {string.Join(", ", attributes.Select(x => x.AttributeType.FullName))}");
-            var processor = method.Body.GetILProcessor();
+            var methodWeavingInfo = new MethodWeaverInfo(method);
+
             method.Body.SimplifyMacros();
-            var attributeInitialization = new List<Instruction>();
-            var onEnterInstructions = new List<Instruction>();
-            var exceptionInstructions = new List<Instruction>();
-            var finallyInstructions = new List<Instruction>();
-            var originalBody = method.Body.Instructions.ToList();
             method.Body.Instructions.Clear();
             method.Body.InitLocals = true;
-            var getMethodFromHandleRef = this.ModuleDefinition.Import(typeof(System.Reflection.MethodBase).GetMethodReference("GetMethodFromHandle", 2));
-            var methodBaseReference = new VariableDefinition(this.ModuleDefinition.Import(typeof(System.Reflection.MethodBase).GetTypeReference()));
 
-            this.GetConstructors(method.DeclaringType);
+            var getMethodFromHandleRef = typeof(System.Reflection.MethodBase).GetMethodReference("GetMethodFromHandle", 2).Import();
 
-            processor.Body.Variables.Add(methodBaseReference);
-            attributeInitialization.Add(processor.Create(OpCodes.Ldtoken, method));
-            attributeInitialization.Add(processor.Create(OpCodes.Ldtoken, method.DeclaringType));
-            attributeInitialization.Add(processor.Create(OpCodes.Call, getMethodFromHandleRef));
-            attributeInitialization.Add(processor.Create(OpCodes.Stloc_S, methodBaseReference));
+            methodWeavingInfo.MethodDefinition.DeclaringType.Fields.Add(methodWeavingInfo.MethodBaseField);
+
+            var methodBaseVariableEndIf = methodWeavingInfo.Processor.Create(OpCodes.Nop);
+            if (!methodWeavingInfo.MethodDefinition.IsStatic)
+            {
+                methodWeavingInfo.Initializations.Add(methodWeavingInfo.Processor.Create(OpCodes.Ldarg_0));
+                methodWeavingInfo.Initializations.Add(methodWeavingInfo.Processor.Create(OpCodes.Ldfld, methodWeavingInfo.MethodBaseField));
+            }
+            else
+                methodWeavingInfo.Initializations.Add(methodWeavingInfo.Processor.Create(OpCodes.Ldsfld, methodWeavingInfo.MethodBaseField));
+
+            methodWeavingInfo.Initializations.Add(methodWeavingInfo.Processor.Create(OpCodes.Ldnull));
+            methodWeavingInfo.Initializations.Add(methodWeavingInfo.Processor.Create(OpCodes.Ceq));
+            methodWeavingInfo.Initializations.Add(methodWeavingInfo.Processor.Create(OpCodes.Brfalse_S, methodBaseVariableEndIf));
+
+            if (!methodWeavingInfo.MethodDefinition.IsStatic)
+                methodWeavingInfo.Initializations.Add(methodWeavingInfo.Processor.Create(OpCodes.Ldarg_0));
+            methodWeavingInfo.Initializations.Add(methodWeavingInfo.Processor.Create(OpCodes.Ldtoken, method));
+            methodWeavingInfo.Initializations.Add(methodWeavingInfo.Processor.Create(OpCodes.Ldtoken, method.DeclaringType));
+            methodWeavingInfo.Initializations.Add(methodWeavingInfo.Processor.Create(OpCodes.Call, getMethodFromHandleRef));
+            methodWeavingInfo.Initializations.Add(methodWeavingInfo.Processor.Create(method.IsStatic ? OpCodes.Stsfld : OpCodes.Stfld, methodWeavingInfo.MethodBaseField));
+            methodWeavingInfo.Initializations.Add(methodBaseVariableEndIf);
+
+            this.OnImplementMethod(methodWeavingInfo);
 
             // Create object array for the method args
             var objectReference = this.ModuleDefinition.Import(typeof(object).GetTypeReference());
             var parametersArrayTypeRef = new ArrayType(objectReference);
-            VariableDefinition parametersArrayVariable = CreateParameterObject(method, processor, attributeInitialization, objectReference, parametersArrayTypeRef);
+            var parametersArrayVariable = CreateParameterObject(methodWeavingInfo, objectReference, parametersArrayTypeRef);
 
             var exceptionReference = new VariableDefinition(this.ModuleDefinition.Import(typeof(Exception).GetTypeReference()));
-            processor.Body.Variables.Add(exceptionReference);
-            exceptionInstructions.Add(processor.Create(OpCodes.Stloc_S, exceptionReference));
+            methodWeavingInfo.Processor.Body.Variables.Add(exceptionReference);
+            methodWeavingInfo.ExceptionInstructions.Add(methodWeavingInfo.Processor.Create(OpCodes.Stloc_S, exceptionReference));
 
             // Get attribute instance
             foreach (var attribute in attributes)
@@ -196,98 +210,103 @@ namespace Cauldron.Interception.Fody
                 var interceptorOnExit = this.ModuleDefinition.Import(methodInterceptorTypeRef.GetMethodReference("OnExit", 0));
 
                 var variableDefinition = new VariableDefinition(methodInterceptorTypeRef);
-                processor.Body.Variables.Add(variableDefinition);
+                methodWeavingInfo.Processor.Body.Variables.Add(variableDefinition);
 
                 foreach (var arg in attribute.ConstructorArguments)
-                    attributeInitialization.AddRange(AttributeParameterToOpCode(processor, arg));
+                    methodWeavingInfo.Initializations.AddRange(AttributeParameterToOpCode(methodWeavingInfo.Processor, arg));
 
-                attributeInitialization.Add(processor.Create(OpCodes.Newobj, attribute.Constructor));
-                attributeInitialization.Add(processor.Create(OpCodes.Stloc_S, variableDefinition));
+                methodWeavingInfo.Initializations.Add(methodWeavingInfo.Processor.Create(OpCodes.Newobj, attribute.Constructor));
+                methodWeavingInfo.Initializations.Add(methodWeavingInfo.Processor.Create(OpCodes.Stloc_S, variableDefinition));
                 method.CustomAttributes.Remove(attribute);
 
                 if (isLockable)
                 {
-                    FieldDefinition semaphoreSlim;
+                    var semaphoreSlimAttribute = FieldAttributes.Private;
 
                     if (method.IsStatic)
-                        semaphoreSlim = new FieldDefinition($"<{method.Name}>_semaphore_static_field", Mono.Cecil.FieldAttributes.Private | Mono.Cecil.FieldAttributes.Static, this.ModuleDefinition.Import(typeof(SemaphoreSlim).GetTypeReference()));
-                    else
-                        semaphoreSlim = new FieldDefinition($"<{method.Name}>_semaphore_field", Mono.Cecil.FieldAttributes.Private, this.ModuleDefinition.Import(typeof(SemaphoreSlim).GetTypeReference()));
+                        semaphoreSlimAttribute |= FieldAttributes.Static;
+
+                    var semaphoreSlim = new FieldDefinition($"<{method.Name}>_semaphore_{methodWeavingInfo.Id}_field", semaphoreSlimAttribute, this.ModuleDefinition.Import(typeof(SemaphoreSlim).GetTypeReference()));
 
                     method.DeclaringType.Fields.Add(semaphoreSlim);
 
-                    this.ImplementLockableOnEnter(processor, onEnterInstructions, method, variableDefinition, interceptorOnEnter, methodBaseReference, parametersArrayVariable, semaphoreSlim);
+                    this.ImplementLockableOnEnter(methodWeavingInfo, variableDefinition, interceptorOnEnter, parametersArrayVariable, semaphoreSlim);
 
-                    var endOfIf = processor.Create(OpCodes.Nop);
-                    finallyInstructions.Add(processor.Create(method.IsStatic ? OpCodes.Ldnull : OpCodes.Ldarg_0));
-                    finallyInstructions.Add(processor.Create(OpCodes.Ldfld, semaphoreSlim));
-                    finallyInstructions.Add(processor.Create(OpCodes.Callvirt, this.ModuleDefinition.Import(typeof(SemaphoreSlim).GetMethodReference("get_CurrentCount", 0))));
-                    finallyInstructions.Add(processor.Create(OpCodes.Ldc_I4_0));
-                    finallyInstructions.Add(processor.Create(OpCodes.Ceq));
-                    finallyInstructions.Add(processor.Create(OpCodes.Brfalse_S, endOfIf));
+                    var endOfIf = methodWeavingInfo.Processor.Create(OpCodes.Nop);
+                    if (method.IsStatic)
+                        methodWeavingInfo.FinallyInstructions.Add(methodWeavingInfo.Processor.Create(OpCodes.Ldsfld, semaphoreSlim));
+                    else
+                    {
+                        methodWeavingInfo.FinallyInstructions.Add(methodWeavingInfo.Processor.Create(OpCodes.Ldarg_0));
+                        methodWeavingInfo.FinallyInstructions.Add(methodWeavingInfo.Processor.Create(OpCodes.Ldfld, semaphoreSlim));
+                    }
+                    methodWeavingInfo.FinallyInstructions.Add(methodWeavingInfo.Processor.Create(OpCodes.Callvirt, this.ModuleDefinition.Import(typeof(SemaphoreSlim).GetMethodReference("get_CurrentCount", 0))));
+                    methodWeavingInfo.FinallyInstructions.Add(methodWeavingInfo.Processor.Create(OpCodes.Ldc_I4_0));
+                    methodWeavingInfo.FinallyInstructions.Add(methodWeavingInfo.Processor.Create(OpCodes.Ceq));
+                    methodWeavingInfo.FinallyInstructions.Add(methodWeavingInfo.Processor.Create(OpCodes.Brfalse_S, endOfIf));
 
-                    finallyInstructions.Add(processor.Create(method.IsStatic ? OpCodes.Ldnull : OpCodes.Ldarg_0));
-                    finallyInstructions.Add(processor.Create(OpCodes.Ldfld, semaphoreSlim));
-                    finallyInstructions.Add(processor.Create(OpCodes.Callvirt, this.ModuleDefinition.Import(typeof(SemaphoreSlim).GetMethodReference("Release", 0))));
-                    finallyInstructions.Add(processor.Create(OpCodes.Pop));
-                    finallyInstructions.Add(endOfIf);
+                    if (method.IsStatic)
+                        methodWeavingInfo.FinallyInstructions.Add(methodWeavingInfo.Processor.Create(OpCodes.Ldsfld, semaphoreSlim));
+                    else
+                    {
+                        methodWeavingInfo.FinallyInstructions.Add(methodWeavingInfo.Processor.Create(OpCodes.Ldarg_0));
+                        methodWeavingInfo.FinallyInstructions.Add(methodWeavingInfo.Processor.Create(OpCodes.Ldfld, semaphoreSlim));
+                    }
+                    methodWeavingInfo.FinallyInstructions.Add(methodWeavingInfo.Processor.Create(OpCodes.Callvirt, this.ModuleDefinition.Import(typeof(SemaphoreSlim).GetMethodReference("Release", 0))));
+                    methodWeavingInfo.FinallyInstructions.Add(methodWeavingInfo.Processor.Create(OpCodes.Pop));
+                    methodWeavingInfo.FinallyInstructions.Add(endOfIf);
                 }
                 else
-                    this.ImplementOnEnter(processor, onEnterInstructions, method, variableDefinition, interceptorOnEnter, methodBaseReference, parametersArrayVariable, originalBody);
+                    this.ImplementOnEnter(methodWeavingInfo, variableDefinition, interceptorOnEnter, parametersArrayVariable);
 
-                exceptionInstructions.Add(processor.Create(OpCodes.Ldloc_S, variableDefinition));
-                exceptionInstructions.Add(processor.Create(OpCodes.Ldloc_S, exceptionReference));
-                exceptionInstructions.Add(processor.Create(OpCodes.Callvirt, interceptorOnException));
+                methodWeavingInfo.ExceptionInstructions.Add(methodWeavingInfo.Processor.Create(OpCodes.Ldloc_S, variableDefinition));
+                methodWeavingInfo.ExceptionInstructions.Add(methodWeavingInfo.Processor.Create(OpCodes.Ldloc_S, exceptionReference));
+                methodWeavingInfo.ExceptionInstructions.Add(methodWeavingInfo.Processor.Create(OpCodes.Callvirt, interceptorOnException));
 
-                finallyInstructions.Add(processor.Create(OpCodes.Ldloc_S, variableDefinition));
-                finallyInstructions.Add(processor.Create(OpCodes.Callvirt, interceptorOnExit));
+                methodWeavingInfo.FinallyInstructions.Add(methodWeavingInfo.Processor.Create(OpCodes.Ldloc_S, variableDefinition));
+                methodWeavingInfo.FinallyInstructions.Add(methodWeavingInfo.Processor.Create(OpCodes.Callvirt, interceptorOnExit));
             }
 
-            exceptionInstructions.Add(processor.Create(OpCodes.Rethrow));
-            finallyInstructions.Add(processor.Create(OpCodes.Endfinally));
+            methodWeavingInfo.ExceptionInstructions.Add(methodWeavingInfo.Processor.Create(OpCodes.Rethrow));
+            methodWeavingInfo.FinallyInstructions.Add(methodWeavingInfo.Processor.Create(OpCodes.Endfinally));
 
-            var lastReturn = processor.Create(OpCodes.Ret);
+            var lastReturn = this.ReplaceReturn(methodWeavingInfo);
+            methodWeavingInfo.Build();
 
-            var newBody = this.ReplaceReturn(processor, method, originalBody, lastReturn);
-            originalBody = newBody.Item1;
-
-            processor.Append(attributeInitialization);
-            processor.Append(onEnterInstructions);
-            processor.Append(originalBody);
-            processor.Append(exceptionInstructions);
-            processor.Append(finallyInstructions);
-            processor.Append(lastReturn);
-
-            if (newBody.Item2 != null)
-                processor.InsertBefore(lastReturn, newBody.Item2);
+            if (lastReturn != null)
+                methodWeavingInfo.Processor.InsertBefore(methodWeavingInfo.LastReturn, lastReturn);
 
             var exceptionHandler = new ExceptionHandler(ExceptionHandlerType.Catch)
             {
-                TryStart = onEnterInstructions.First(),
-                TryEnd = exceptionInstructions.First(),
-                HandlerStart = exceptionInstructions.First(),
-                HandlerEnd = exceptionInstructions.Last().Next,
+                TryStart = methodWeavingInfo.OnEnterInstructions.First(),
+                TryEnd = methodWeavingInfo.ExceptionInstructions.First(),
+                HandlerStart = methodWeavingInfo.ExceptionInstructions.First(),
+                HandlerEnd = methodWeavingInfo.ExceptionInstructions.Last().Next,
                 CatchType = this.ModuleDefinition.Import(typeof(Exception))
             };
             var finallyHandler = new ExceptionHandler(ExceptionHandlerType.Finally)
             {
-                TryStart = onEnterInstructions.First(),
-                TryEnd = finallyInstructions.First(),
-                HandlerStart = finallyInstructions.First(),
-                HandlerEnd = finallyInstructions.Last().Next,
+                TryStart = methodWeavingInfo.OnEnterInstructions.First(),
+                TryEnd = methodWeavingInfo.FinallyInstructions.First(),
+                HandlerStart = methodWeavingInfo.FinallyInstructions.First(),
+                HandlerEnd = methodWeavingInfo.FinallyInstructions.Last().Next,
             };
             method.Body.ExceptionHandlers.Add(exceptionHandler);
             method.Body.ExceptionHandlers.Add(finallyHandler);
-            processor.Body.OptimizeMacros();
+            methodWeavingInfo.Processor.Body.OptimizeMacros();
         }
 
-        protected abstract void ImplementOnEnter(ILProcessor processor, List<Instruction> onEnterInstructions, MethodDefinition method, VariableDefinition attributeVariable, MethodReference interceptorOnEnter, VariableDefinition methodBaseReference, VariableDefinition parametersArrayVariable, List<Instruction> originalBody);
+        protected abstract void ImplementOnEnter(MethodWeaverInfo methodWeaverInfo, VariableDefinition attributeVariable, MethodReference interceptorOnEnter, VariableDefinition parametersArrayVariable);
 
-        protected Tuple<List<Instruction>, Instruction> ReplaceReturn(ILProcessor processor, MethodDefinition method, IEnumerable<Instruction> body, Instruction leaveInstruction)
+        protected virtual void OnImplementMethod(MethodWeaverInfo methodWeaverInfo)
         {
-            var instructionsSet = body.ToList();
+        }
 
-            if (method.ReturnType == this.ModuleDefinition.TypeSystem.Void)
+        protected Instruction ReplaceReturn(MethodWeaverInfo methodWeaverInfo)
+        {
+            var instructionsSet = methodWeaverInfo.OriginalBody.ToList();
+
+            if (methodWeaverInfo.MethodDefinition.ReturnType == this.ModuleDefinition.TypeSystem.Void)
             {
                 for (int i = 0; i < instructionsSet.Count; i++)
                 {
@@ -296,16 +315,17 @@ namespace Cauldron.Interception.Fody
 
                     var instruction = instructionsSet[i];
                     instruction.OpCode = OpCodes.Leave_S;
-                    instruction.Operand = leaveInstruction;
+                    instruction.Operand = methodWeaverInfo.LastReturn;
                 }
 
-                return new Tuple<List<Instruction>, Instruction>(instructionsSet, null);
+                methodWeaverInfo.OriginalBody = instructionsSet;
+                return null;
             }
             else
             {
-                var returnVariable = new VariableDefinition("__var_" + Guid.NewGuid().ToString().Replace('-', '_'), this.ModuleDefinition.Import(method.ReturnType));
-                processor.Body.Variables.Add(returnVariable);
-                var loadReturnVariable = processor.Create(OpCodes.Ldloc_S, returnVariable);
+                var returnVariable = new VariableDefinition("__var_" + methodWeaverInfo.Id, this.ModuleDefinition.Import(methodWeaverInfo.MethodDefinition.ReturnType));
+                methodWeaverInfo.Processor.Body.Variables.Add(returnVariable);
+                var loadReturnVariable = methodWeaverInfo.Processor.Create(OpCodes.Ldloc_S, returnVariable);
 
                 for (int i = 0; i < instructionsSet.Count; i++)
                 {
@@ -315,10 +335,11 @@ namespace Cauldron.Interception.Fody
                     var instruction = instructionsSet[i];
                     instruction.OpCode = OpCodes.Leave_S;
                     instruction.Operand = loadReturnVariable;
-                    instructionsSet.Insert(i, processor.Create(OpCodes.Stloc_S, returnVariable));
+                    instructionsSet.Insert(i, methodWeaverInfo.Processor.Create(OpCodes.Stloc_S, returnVariable));
                 }
 
-                return new Tuple<List<Instruction>, Instruction>(instructionsSet, loadReturnVariable);
+                methodWeaverInfo.OriginalBody = instructionsSet;
+                return loadReturnVariable;
             }
         }
 

@@ -4,12 +4,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace Cauldron.Interception.Fody
 {
     internal static class Extensions
     {
         public static IEnumerable<AssemblyDefinition> Asemblies;
+        public static ModuleDefinition ModuleDefinition;
         public static IEnumerable<TypeDefinition> Types;
 
         public static void Append(this ILProcessor processor, IEnumerable<Instruction> instructions)
@@ -66,7 +68,32 @@ namespace Cauldron.Interception.Fody
         }
 
         public static PropertyDefinition GetPropertyDefinition(this MethodDefinition method) =>
-                                            method.DeclaringType.Properties.FirstOrDefault(x => x.GetMethod == method || x.SetMethod == method);
+                                                    method.DeclaringType.Properties.FirstOrDefault(x => x.GetMethod == method || x.SetMethod == method);
+
+        /// <summary>
+        /// Gets the stacktrace of the exception and the inner exceptions recursively
+        /// </summary>
+        /// <param name="e">The exception with the stack trace</param>
+        /// <returns>A string representation of the stacktrace</returns>
+        public static string GetStackTrace(this Exception e)
+        {
+            var sb = new StringBuilder();
+            var ex = e;
+
+            do
+            {
+                sb.AppendLine("Exception Type: " + ex.GetType().Name);
+                sb.AppendLine("Source: " + ex.Source);
+                sb.AppendLine(ex.Message);
+                sb.AppendLine("------------------------");
+                sb.AppendLine(ex.StackTrace);
+                sb.AppendLine("------------------------");
+
+                ex = ex.InnerException;
+            } while (ex != null);
+
+            return sb.ToString();
+        }
 
         public static TypeDefinition GetTypeDefinition(this Type type) => Types.FirstOrDefault(x => x.FullName == type.FullName);
 
@@ -87,6 +114,16 @@ namespace Cauldron.Interception.Fody
 
             return false;
         }
+
+        public static TypeReference Import(this TypeReference value) => ModuleDefinition.Import(value);
+
+        public static MethodReference Import(this System.Reflection.MethodBase value) => ModuleDefinition.Import(value);
+
+        public static TypeReference Import(this Type value) => ModuleDefinition.Import(value);
+
+        public static MethodReference Import(this MethodReference value) => ModuleDefinition.Import(value);
+
+        public static FieldReference Import(this FieldReference value) => ModuleDefinition.Import(value);
 
         public static void InsertBefore(this ILProcessor processor, Instruction target, IEnumerable<Instruction> instructions)
         {

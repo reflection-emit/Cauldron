@@ -29,6 +29,7 @@ namespace Cauldron.Interception.Fody
             {
                 Extensions.Asemblies = this.GetAssemblies();
                 Extensions.Types = Extensions.Asemblies.SelectMany(x => x.Modules).SelectMany(x => x.Types).ToArray();
+                Extensions.ModuleDefinition = this.ModuleDefinition;
 
                 foreach (var weaverType in this.weavers)
                 {
@@ -38,7 +39,8 @@ namespace Cauldron.Interception.Fody
             }
             catch (Exception e)
             {
-                this.LogError(e.Message);
+                this.LogError(e.GetStackTrace());
+                this.LogError(e.StackTrace);
             }
         }
 

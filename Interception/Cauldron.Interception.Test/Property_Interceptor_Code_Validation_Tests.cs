@@ -1,26 +1,37 @@
-﻿using Cauldron.Interception.Test.Interceptors;
+﻿using Cauldron.Core.Interceptors;
+using Cauldron.Interception.Test.Interceptors;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Reflection;
 
 namespace Cauldron.Interception.Test
 {
     [TestClass]
     public class Property_Interceptor_Code_Validation_Tests
     {
+        private MethodBase huhu;
         private string k_BackingField;
 
         private int k_BackingField2;
 
+        private PropertyInterceptionInfo propertyInterceptionInfo;
+        private PropertyInterceptionInfo propertyInterceptionInfo2;
+
         [TestPropertyInterceptor]
+        public ITestInterface InterfaceProperty { get; set; }
+
         public string TestProperty
         {
             get
             {
+                if (propertyInterceptionInfo == null)
+                    propertyInterceptionInfo = new PropertyInterceptionInfo(huhu, "TestProperty", typeof(string), this, TestPropertySetter);
+
                 TestPropertyInterceptorAttribute interceptor = new TestPropertyInterceptorAttribute();
-                interceptor.OnGet(typeof(Property_Interceptor_Code_Validation_Tests), this, "TestProperty", null, k_BackingField, TestPropertySetter);
+                interceptor.OnGet(propertyInterceptionInfo, k_BackingField);
 
                 return k_BackingField;
             }
-
             set
             {
                 k_BackingField = value;
@@ -31,12 +42,14 @@ namespace Cauldron.Interception.Test
         {
             get
             {
+                if (propertyInterceptionInfo2 == null)
+                    propertyInterceptionInfo2 = new PropertyInterceptionInfo(null, "TestProperty2", typeof(int), this, TestPropertySetter2);
+
                 TestPropertyInterceptorAttribute interceptor = new TestPropertyInterceptorAttribute();
-                interceptor.OnGet(typeof(Property_Interceptor_Code_Validation_Tests), this, "TestProperty", null, k_BackingField2, TestPropertySetter2);
+                interceptor.OnGet(propertyInterceptionInfo2, k_BackingField2);
 
                 return k_BackingField2;
             }
-
             set
             {
                 k_BackingField2 = value;
@@ -63,7 +76,9 @@ namespace Cauldron.Interception.Test
 
         private void TestPropertySetter2(object value)
         {
-            this.k_BackingField2 = (int)value;
+            ITestInterface zz = value as ITestInterface;
+
+            this.k_BackingField2 = Convert.ToInt32(value);
         }
     }
 }

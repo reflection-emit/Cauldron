@@ -42,6 +42,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Interceptors\ILockablePropertyInterceptor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interceptors\IMethodInterceptor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interceptors\IPropertyInterceptor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interceptors\PropertyInterceptionInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Java\JavaProperties.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MathEx.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MessageManager.cs" />

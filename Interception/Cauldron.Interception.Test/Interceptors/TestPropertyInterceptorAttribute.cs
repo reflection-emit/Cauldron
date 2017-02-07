@@ -1,7 +1,6 @@
 ﻿using Cauldron.Core;
 using Cauldron.Core.Interceptors;
 using System;
-using System.Reflection;
 
 namespace Cauldron.Interception.Test.Interceptors
 {
@@ -16,10 +15,10 @@ namespace Cauldron.Interception.Test.Interceptors
         {
         }
 
-        public void OnGet(Type declaringType, object instance, string propertyName, MethodBase methodbase, object value, Action<object> setter)
+        public void OnGet(PropertyInterceptionInfo propertyInterceptionInfo, object value)
         {
             if (ComparerUtils.Equals(value, (long)30))
-                setter((long)9999);
+                propertyInterceptionInfo.Set(9999);
         }
     }
 }

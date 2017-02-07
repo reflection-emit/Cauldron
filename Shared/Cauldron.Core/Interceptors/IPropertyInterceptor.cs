@@ -18,6 +18,6 @@ namespace Cauldron.Core.Interceptors
         /// </summary>
         void OnExit();
 
-        void OnGet(Type declaringType, object instance, string propertyName, MethodBase methodbase, object value, Action<object> setter);
+        void OnGet(PropertyInterceptionInfo propertyInterceptionInfo, object value);
     }
 }

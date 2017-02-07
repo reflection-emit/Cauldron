@@ -58,6 +58,7 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="IlHelper.cs" />
     <Compile Include="MethodInterceptorWeaver.cs" />
+    <Compile Include="MethodWeaverInfo.cs" />
     <Compile Include="ModuleWeaver.cs" />
     <Compile Include="ModuleWeaverBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -69,7 +70,8 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>mkdir $(SolutionDir)packages\Cauldron.Interception.Fody.1.0.0
-copy $(TargetDir)$(TargetFileName) $(SolutionDir)packages\Cauldron.Interception.Fody.1.0.0</PostBuildEvent>
+copy $(TargetDir)$(TargetFileName) $(SolutionDir)packages\Cauldron.Interception.Fody.1.0.0
+copy $(TargetDir)$(TargetName).pdb $(SolutionDir)packages\Cauldron.Interception.Fody.1.0.0</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
