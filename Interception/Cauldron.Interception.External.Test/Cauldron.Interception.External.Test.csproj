@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExternalLockableMethodAttribute.cs" />
+    <Compile Include="ExternalLockablePropertyInterceptorAttribute.cs" />
     <Compile Include="ExternalMethodInterceptorAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

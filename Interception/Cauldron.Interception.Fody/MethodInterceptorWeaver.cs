@@ -73,8 +73,7 @@ namespace Cauldron.Interception.Fody
             else
                 methodWeaverInfo.OnEnterInstructions.Add(methodWeaverInfo.Processor.Create(OpCodes.Ldsfld, semaphoreSlim));
 
-            methodWeaverInfo.OnEnterInstructions.Add(methodWeaverInfo.Processor.Create(OpCodes.Ldtoken, methodWeaverInfo.MethodDefinition.DeclaringType));
-            methodWeaverInfo.OnEnterInstructions.Add(methodWeaverInfo.Processor.Create(OpCodes.Call, this.ModuleDefinition.Import(typeof(Type).GetMethodReference("GetTypeFromHandle", 1))));
+            methodWeaverInfo.OnEnterInstructions.AddRange(methodWeaverInfo.Processor.TypeOf(methodWeaverInfo.MethodDefinition.DeclaringType));
             methodWeaverInfo.OnEnterInstructions.Add(methodWeaverInfo.Processor.Create(methodWeaverInfo.MethodDefinition.IsStatic ? OpCodes.Ldnull : OpCodes.Ldarg_0));
             if (!methodWeaverInfo.MethodDefinition.IsStatic)
             {
@@ -91,8 +90,7 @@ namespace Cauldron.Interception.Fody
         protected override void ImplementOnEnter(MethodWeaverInfo methodWeaverInfo, VariableDefinition attributeVariable, MethodReference interceptorOnEnter, VariableDefinition parametersArrayVariable)
         {
             methodWeaverInfo.OnEnterInstructions.Add(methodWeaverInfo.Processor.Create(OpCodes.Ldloc_S, attributeVariable));
-            methodWeaverInfo.OnEnterInstructions.Add(methodWeaverInfo.Processor.Create(OpCodes.Ldtoken, methodWeaverInfo.MethodDefinition.DeclaringType));
-            methodWeaverInfo.OnEnterInstructions.Add(methodWeaverInfo.Processor.Create(OpCodes.Call, this.ModuleDefinition.Import(typeof(Type).GetMethodReference("GetTypeFromHandle", 1))));
+            methodWeaverInfo.OnEnterInstructions.AddRange(methodWeaverInfo.Processor.TypeOf(methodWeaverInfo.MethodDefinition.DeclaringType));
             methodWeaverInfo.OnEnterInstructions.Add(methodWeaverInfo.Processor.Create(methodWeaverInfo.MethodDefinition.IsStatic ? OpCodes.Ldnull : OpCodes.Ldarg_0));
             if (!methodWeaverInfo.MethodDefinition.IsStatic)
             {

@@ -5,7 +5,7 @@ using System;
 namespace Cauldron.Interception.Test.Interceptors
 {
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = false)]
-    public class TestPropertyInterceptorAttribute : Attribute, IPropertyGetterInterceptor, IPropertySetterInterceptor
+    public class EnumPropertyInterceptorAttribute : Attribute, IPropertyGetterInterceptor, IPropertySetterInterceptor
     {
         public void OnException(Exception e)
         {
@@ -17,15 +17,21 @@ namespace Cauldron.Interception.Test.Interceptors
 
         public void OnGet(PropertyInterceptionInfo propertyInterceptionInfo, object value)
         {
-            if (ComparerUtils.Equals(value, (long)30))
-                propertyInterceptionInfo.SetValue(9999);
+            if (Convert.ToInt32(value) == 20)
+                propertyInterceptionInfo.SetValue("45");
 
-            if (ComparerUtils.Equals(value, (double)66))
-                propertyInterceptionInfo.SetValue(78344.8f);
+            if (Convert.ToInt32(value) == 5)
+                propertyInterceptionInfo.SetValue(TestEnum.Two);
+
+            if (Convert.ToInt32(value) == 12)
+                propertyInterceptionInfo.SetValue(232);
         }
 
         public bool OnSet(PropertyInterceptionInfo propertyInterceptionInfo, object oldValue, object newValue)
         {
+            if (ComparerUtils.Equals(oldValue, newValue))
+                throw new Exception("");
+
             return false;
         }
     }

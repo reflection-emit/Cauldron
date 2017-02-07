@@ -4,6 +4,7 @@ using Mono.Cecil.Rocks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 
@@ -117,7 +118,7 @@ namespace Cauldron.Interception.Fody
         {
             var result = new List<MethodReference>();
 
-            foreach (var constructor in type.GetConstructors())
+            foreach (var constructor in type.Methods.Where(x => x.Name == ".ctor"))
             {
                 foreach (var instruction in constructor.Body.Instructions.Where(x => x.OpCode == OpCodes.Call))
                 {
@@ -126,13 +127,25 @@ namespace Cauldron.Interception.Fody
                     if (methodReference == null)
                         continue;
 
+                    if (type.BaseType.FullName != methodReference.DeclaringType.FullName && !methodReference.FullName.Contains(".ctor"))
+                        continue;
+
                     if (methodReference.DeclaringType.FullName != type.FullName)
+                    {
                         result.Add(constructor);
+                        break;
+                    }
                 }
             }
 
             return result;
         }
+
+        protected IEnumerable<MethodAndInstruction> GetMethodsWhere(Func<Instruction, bool> predicate) => this.ModuleDefinition.Types
+                .SelectMany(x => x.Methods)
+                .Where(x => x.Body != null)
+                .Select(x => new MethodAndInstruction(x, x.Body.Instructions.Where(predicate).ToArray()))
+                .ToArray();
 
         protected MethodDefinition GetOrCreateStaticConstructor(TypeDefinition type)
         {
@@ -157,6 +170,9 @@ namespace Cauldron.Interception.Fody
 
         protected void ImplementMethod(MethodDefinition method, CustomAttribute[] attributes, Func<TypeReference, bool, MethodReference> onEnterMethod)
         {
+            if (attributes == null || attributes.Length == 0)
+                return;
+
             this.LogInfo($"Implenting Method interception: {method.Name} with {string.Join(", ", attributes.Select(x => x.AttributeType.FullName))}");
             var methodWeavingInfo = new MethodWeaverInfo(method);
 
@@ -164,30 +180,32 @@ namespace Cauldron.Interception.Fody
             method.Body.Instructions.Clear();
             method.Body.InitLocals = true;
 
-            var getMethodFromHandleRef = typeof(System.Reflection.MethodBase).GetMethodReference("GetMethodFromHandle", 2).Import();
-
-            methodWeavingInfo.MethodDefinition.DeclaringType.Fields.Add(methodWeavingInfo.MethodBaseField);
-
-            var methodBaseVariableEndIf = methodWeavingInfo.Processor.Create(OpCodes.Nop);
-            if (!methodWeavingInfo.MethodDefinition.IsStatic)
+            // Dont create these if we have properties
+            if (methodWeavingInfo.Property == null)
             {
-                methodWeavingInfo.Initializations.Add(methodWeavingInfo.Processor.Create(OpCodes.Ldarg_0));
-                methodWeavingInfo.Initializations.Add(methodWeavingInfo.Processor.Create(OpCodes.Ldfld, methodWeavingInfo.MethodBaseField));
+                var getMethodFromHandleRef = typeof(System.Reflection.MethodBase).GetMethodReference("GetMethodFromHandle", 2).Import();
+
+                var methodBaseVariableEndIf = methodWeavingInfo.Processor.Create(OpCodes.Nop);
+                if (!methodWeavingInfo.MethodDefinition.IsStatic)
+                {
+                    methodWeavingInfo.Initializations.Add(methodWeavingInfo.Processor.Create(OpCodes.Ldarg_0));
+                    methodWeavingInfo.Initializations.Add(methodWeavingInfo.Processor.Create(OpCodes.Ldfld, methodWeavingInfo.MethodBaseField));
+                }
+                else
+                    methodWeavingInfo.Initializations.Add(methodWeavingInfo.Processor.Create(OpCodes.Ldsfld, methodWeavingInfo.MethodBaseField));
+
+                methodWeavingInfo.Initializations.Add(methodWeavingInfo.Processor.Create(OpCodes.Ldnull));
+                methodWeavingInfo.Initializations.Add(methodWeavingInfo.Processor.Create(OpCodes.Ceq));
+                methodWeavingInfo.Initializations.Add(methodWeavingInfo.Processor.Create(OpCodes.Brfalse_S, methodBaseVariableEndIf));
+
+                if (!methodWeavingInfo.MethodDefinition.IsStatic)
+                    methodWeavingInfo.Initializations.Add(methodWeavingInfo.Processor.Create(OpCodes.Ldarg_0));
+                methodWeavingInfo.Initializations.Add(methodWeavingInfo.Processor.Create(OpCodes.Ldtoken, method));
+                methodWeavingInfo.Initializations.Add(methodWeavingInfo.Processor.Create(OpCodes.Ldtoken, method.DeclaringType));
+                methodWeavingInfo.Initializations.Add(methodWeavingInfo.Processor.Create(OpCodes.Call, getMethodFromHandleRef));
+                methodWeavingInfo.Initializations.Add(methodWeavingInfo.Processor.Create(method.IsStatic ? OpCodes.Stsfld : OpCodes.Stfld, methodWeavingInfo.MethodBaseField));
+                methodWeavingInfo.Initializations.Add(methodBaseVariableEndIf);
             }
-            else
-                methodWeavingInfo.Initializations.Add(methodWeavingInfo.Processor.Create(OpCodes.Ldsfld, methodWeavingInfo.MethodBaseField));
-
-            methodWeavingInfo.Initializations.Add(methodWeavingInfo.Processor.Create(OpCodes.Ldnull));
-            methodWeavingInfo.Initializations.Add(methodWeavingInfo.Processor.Create(OpCodes.Ceq));
-            methodWeavingInfo.Initializations.Add(methodWeavingInfo.Processor.Create(OpCodes.Brfalse_S, methodBaseVariableEndIf));
-
-            if (!methodWeavingInfo.MethodDefinition.IsStatic)
-                methodWeavingInfo.Initializations.Add(methodWeavingInfo.Processor.Create(OpCodes.Ldarg_0));
-            methodWeavingInfo.Initializations.Add(methodWeavingInfo.Processor.Create(OpCodes.Ldtoken, method));
-            methodWeavingInfo.Initializations.Add(methodWeavingInfo.Processor.Create(OpCodes.Ldtoken, method.DeclaringType));
-            methodWeavingInfo.Initializations.Add(methodWeavingInfo.Processor.Create(OpCodes.Call, getMethodFromHandleRef));
-            methodWeavingInfo.Initializations.Add(methodWeavingInfo.Processor.Create(method.IsStatic ? OpCodes.Stsfld : OpCodes.Stfld, methodWeavingInfo.MethodBaseField));
-            methodWeavingInfo.Initializations.Add(methodBaseVariableEndIf);
 
             this.OnImplementMethod(methodWeavingInfo);
 
@@ -226,10 +244,10 @@ namespace Cauldron.Interception.Fody
                     if (method.IsStatic)
                         semaphoreSlimAttribute |= FieldAttributes.Static;
 
-                    var semaphoreSlim = new FieldDefinition($"<{method.Name}>_semaphore_{methodWeavingInfo.Id}_field", semaphoreSlimAttribute, this.ModuleDefinition.Import(typeof(SemaphoreSlim).GetTypeReference()));
+                    // we need to check how we will name the semaphore... If this is a method that is part of a property, then we have to make sure, that
+                    // getter and setter are using the same naming and also reusing the same fields and delegates
 
-                    method.DeclaringType.Fields.Add(semaphoreSlim);
-
+                    var semaphoreSlim = methodWeavingInfo.GetOrCreateField(typeof(SemaphoreSlim));
                     this.ImplementLockableOnEnter(methodWeavingInfo, variableDefinition, interceptorOnEnter, parametersArrayVariable, semaphoreSlim);
 
                     var endOfIf = methodWeavingInfo.Processor.Create(OpCodes.Nop);
@@ -356,13 +374,7 @@ namespace Cauldron.Interception.Fody
                 return new Instruction[] { processor.Create(OpCodes.Ldstr, value.ToString()) };
 
             if (type == typeof(TypeReference))
-            {
-                return new Instruction[]
-                {
-                    processor.Create(OpCodes.Ldtoken, this.ModuleDefinition.Import(value as TypeReference)),
-                    processor.Create(OpCodes.Call, this.ModuleDefinition.Import(typeof(Type).GetMethodReference("GetTypeFromHandle", 1)))
-                };
-            }
+                return processor.TypeOf(value as TypeReference);
 
             var createInstructionsResult = new List<Instruction>();
 

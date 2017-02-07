@@ -38,10 +38,14 @@
     <Compile Include="$(MSBuildThisFileDirectory)Formatters\MetricUnitFormatter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HashAlgorithms.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IDisposableObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interceptors\IFieldInterceptor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interceptors\ILockableMethodInterceptor.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Interceptors\ILockablePropertyInterceptor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interceptors\ILockablePropertyGetterInterceptor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interceptors\ILockablePropertySetterInterceptor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interceptors\IMethodInterceptor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interceptors\IPropertyGetterInterceptor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interceptors\IPropertyInterceptor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interceptors\IPropertySetterInterceptor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interceptors\PropertyInterceptionInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Java\JavaProperties.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MathEx.cs" />
@@ -52,6 +56,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Network.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PingResults.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Randomizer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Reflection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Serializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SystemInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Web.cs" />

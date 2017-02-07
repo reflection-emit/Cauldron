@@ -146,6 +146,8 @@ namespace Cauldron.Interception.Fody
             return false;
         }
 
+        public static TypeDefinition Resolve(this string typeName) => Types.FirstOrDefault(x => x.FullName == typeName || x.Name == typeName);
+
         /// <summary>
         /// Converts a <see cref="IEnumerable"/> to an array
         /// </summary>
@@ -167,6 +169,14 @@ namespace Cauldron.Interception.Fody
             }
 
             return result;
+        }
+
+        public static IEnumerable<Instruction> TypeOf(this ILProcessor processor, TypeReference type)
+        {
+            return new Instruction[] {
+                processor.Create(OpCodes.Ldtoken, type),
+                processor.Create(OpCodes.Call, ModuleDefinition.Import(typeof(Type).GetMethodReference("GetTypeFromHandle", 1)))
+            };
         }
     }
 }

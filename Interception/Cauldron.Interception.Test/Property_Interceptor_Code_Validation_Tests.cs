@@ -1,63 +1,73 @@
-﻿using Cauldron.Core.Interceptors;
+﻿using Cauldron.Interception.External.Test;
 using Cauldron.Interception.Test.Interceptors;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Reflection;
 
 namespace Cauldron.Interception.Test
 {
     [TestClass]
     public class Property_Interceptor_Code_Validation_Tests
     {
-        private MethodBase huhu;
-        private string k_BackingField;
+        [ExternalLockablePropertyInterceptor]
+        public static string StaticLockableProperty { get; set; }
 
-        private int k_BackingField2;
-
-        private PropertyInterceptionInfo propertyInterceptionInfo;
-        private PropertyInterceptionInfo propertyInterceptionInfo2;
+        [TestPropertyInterceptor]
+        public static double StaticProperty { get; set; }
 
         [TestPropertyInterceptor]
         public ITestInterface InterfaceProperty { get; set; }
 
-        public string TestProperty
-        {
-            get
-            {
-                if (propertyInterceptionInfo == null)
-                    propertyInterceptionInfo = new PropertyInterceptionInfo(huhu, "TestProperty", typeof(string), this, TestPropertySetter);
+        [ExternalLockablePropertyInterceptor]
+        public string LockableProperty { get; set; }
 
-                TestPropertyInterceptorAttribute interceptor = new TestPropertyInterceptorAttribute();
-                interceptor.OnGet(propertyInterceptionInfo, k_BackingField);
-
-                return k_BackingField;
-            }
-            set
-            {
-                k_BackingField = value;
-            }
-        }
-
-        public int TestProperty2
-        {
-            get
-            {
-                if (propertyInterceptionInfo2 == null)
-                    propertyInterceptionInfo2 = new PropertyInterceptionInfo(null, "TestProperty2", typeof(int), this, TestPropertySetter2);
-
-                TestPropertyInterceptorAttribute interceptor = new TestPropertyInterceptorAttribute();
-                interceptor.OnGet(propertyInterceptionInfo2, k_BackingField2);
-
-                return k_BackingField2;
-            }
-            set
-            {
-                k_BackingField2 = value;
-            }
-        }
+        [EnumPropertyInterceptor]
+        public TestEnum PropertyWithEnumValue { get; private set; }
 
         [TestPropertyInterceptor]
         public long ValueTypeProperty { get; set; }
+
+        [TestPropertyInterceptor]
+        public long ValueTypePropertyPrivateSetter { get; private set; }
+
+        [TestMethod]
+        public void EnumProperty_Property_Getter()
+        {
+            this.PropertyWithEnumValue = (TestEnum)20;
+            Assert.AreEqual((TestEnum)45, this.PropertyWithEnumValue);
+
+            this.PropertyWithEnumValue = (TestEnum)5;
+            Assert.AreEqual(TestEnum.Two, this.PropertyWithEnumValue);
+
+            this.PropertyWithEnumValue = (TestEnum)12;
+            Assert.AreEqual((TestEnum)232, this.PropertyWithEnumValue);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void EnumProperty_Property_Setter()
+        {
+            this.PropertyWithEnumValue = TestEnum.Three;
+            this.PropertyWithEnumValue = TestEnum.Three;
+        }
+
+        [TestMethod]
+        public void LockableProperties()
+        {
+            this.LockableProperty = "Hello";
+            StaticLockableProperty = "Computer";
+            Assert.AreEqual("Hello", this.LockableProperty);
+            Assert.AreEqual("Computer", StaticLockableProperty);
+        }
+
+        [TestMethod]
+        public void Static_Property()
+        {
+            StaticProperty = 4.6;
+            Assert.AreEqual(4.6, StaticProperty);
+
+            StaticProperty = 66;
+            Assert.AreEqual(78344.796875, StaticProperty);
+        }
 
         [TestMethod]
         public void ValueType_Property()
@@ -67,18 +77,6 @@ namespace Cauldron.Interception.Test
 
             this.ValueTypeProperty = 30;
             Assert.AreEqual(9999, this.ValueTypeProperty);
-        }
-
-        private void TestPropertySetter(object value)
-        {
-            this.k_BackingField = (string)value;
-        }
-
-        private void TestPropertySetter2(object value)
-        {
-            ITestInterface zz = value as ITestInterface;
-
-            this.k_BackingField2 = Convert.ToInt32(value);
         }
     }
 }

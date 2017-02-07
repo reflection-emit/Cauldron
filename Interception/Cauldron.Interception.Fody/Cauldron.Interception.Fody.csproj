@@ -56,8 +56,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions.cs" />
+    <Compile Include="FieldInterceptorWeaver.cs" />
+    <Compile Include="FieldOfWeaver.cs" />
     <Compile Include="IlHelper.cs" />
+    <Compile Include="MethodAndInstruction.cs" />
     <Compile Include="MethodInterceptorWeaver.cs" />
+    <Compile Include="MethodOfWeaver.cs" />
     <Compile Include="MethodWeaverInfo.cs" />
     <Compile Include="ModuleWeaver.cs" />
     <Compile Include="ModuleWeaverBase.cs" />

@@ -1,28 +1,71 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Reflection;
 
 namespace Cauldron.Core.Interceptors
 {
+    /// <summary>
+    /// Contains information about the intercepted property
+    /// </summary>
     public sealed class PropertyInterceptionInfo
     {
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private Action<object> _setter;
 
-        public PropertyInterceptionInfo(MethodBase method, string propertyName, Type propertyType, object instance, Action<object> setter)
+        /// <summary>
+        /// Initializes a new instance of <see cref="PropertyInterceptionInfo"/>
+        /// </summary>
+        /// <param name="getterMethod">Provides information about the method</param>
+        /// <param name="setterMethod">Provides information about the method</param>
+        /// <param name="propertyName">The name of the intercepted property</param>
+        /// <param name="propertyType">The return tyoe of the property</param>
+        /// <param name="instance">The instance of the declaring type</param>
+        /// <param name="setter">A delegate to set the property backing field</param>
+        public PropertyInterceptionInfo(MethodBase getterMethod, MethodBase setterMethod, string propertyName, Type propertyType, object instance, Action<object> setter)
         {
             this._setter = setter;
-            this.Method = method;
+            this.GetMethod = getterMethod;
+            this.SetMethod = setterMethod;
             this.PropertyName = propertyName;
             this.PropertyType = propertyType;
             this.Instance = instance;
-            this.DeclaringType = method.DeclaringType;
+            this.DeclaringType = getterMethod.DeclaringType;
         }
 
+        /// <summary>
+        /// Gets the <see cref="Type"/> of the object where the property resides in
+        /// </summary>
         public Type DeclaringType { get; private set; }
+
+        /// <summary>
+        /// Gets an object that provides information about the getter method
+        /// </summary>
+        public MethodBase GetMethod { get; private set; }
+
+        /// <summary>
+        /// Gets the instance of the declaring type
+        /// </summary>
         public object Instance { get; private set; }
-        public MethodBase Method { get; private set; }
+
+        /// <summary>
+        /// Gets the name of the property
+        /// </summary>
         public string PropertyName { get; private set; }
+
+        /// <summary>
+        /// Gets the type of the property
+        /// </summary>
         public Type PropertyType { get; private set; }
 
-        public void Set(object value) => this._setter(value);
+        /// <summary>
+        /// Gets an object that provides information about the setter method
+        /// </summary>
+        public MethodBase SetMethod { get; private set; }
+
+        /// <summary>
+        /// Sets the value of the property's backing field
+        /// </summary>
+        /// <param name="value">The new value of the property</param>
+        public void SetValue(object value) => this._setter(value);
     }
 }
