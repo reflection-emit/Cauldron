@@ -2,7 +2,6 @@
 using StandardApplication.ViewModels;
 using System;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace StandardApplication
 {

@@ -17,7 +17,7 @@
   },
 
   "dependencies": {
-    "Capgemini.Cauldron.Consoles": "1.0.4",
+    "Capgemini.Cauldron.Consoles": "1.0.5",
     "EveOnlineApi.NetCore": "1.0.0.10",
     "Microsoft.NETCore.App": {
       "type": "platform",

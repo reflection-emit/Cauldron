@@ -13,7 +13,7 @@
     <description>Cauldron Core is the core toolkit assembly that the Cauldron Toolkit builds upon</description>
     <summary>Cauldron Core is the core toolkit assembly that the Cauldron Toolkit builds upon  (Open Source)</summary>
     <copyright>Copyright (c) 2016 Alexander Schunk, Capgemini Deutschland GmbH and Contributors</copyright>
-    <tags>Toolkit Capgemini Cauldron Core</tags>
+    <tags>Toolkit Capgemini Cauldron Core AOP Fody interceptor interception</tags>
     <dependencies>
       <group targetFramework="net452">
         <dependency id="Fody" version="1.29.4" />

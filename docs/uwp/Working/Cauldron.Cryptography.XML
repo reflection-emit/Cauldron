@@ -1,0 +1,362 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cauldron.Cryptography</name>
+    </assembly>
+    <members>
+        <member name="T:Cauldron.Cryptography.Extensions">
+            <summary>
+            Provides usefull extension methods
+            </summary>
+        </member>
+        <member name="M:Cauldron.Cryptography.Extensions.ToSecureString(System.String)">
+            <summary>
+            Converts a string to a <see cref="T:System.Security.SecureString"/>
+            </summary>
+            <param name="value">The string to convert</param>
+            <returns>The <see cref="T:System.Security.SecureString"/> equivalent of the string</returns>
+        </member>
+        <member name="M:Cauldron.Cryptography.Extensions.ToSecureString(System.Byte[])">
+            <summary>
+            Converts a byte array to a <see cref="T:System.Security.SecureString"/>
+            </summary>
+            <param name="value">The byte array to convert</param>
+            <returns>The <see cref="T:System.Security.SecureString"/> equivalent of the byte array</returns>
+        </member>
+        <member name="T:Cauldron.Cryptography.Aes">
+            <summary>
+            Provides methods to encrypt and decrypt data with AES
+            </summary>
+        </member>
+        <member name="M:Cauldron.Cryptography.Aes.Encrypt(System.Security.SecureString,System.String)">
+            <summary>
+            Encrypts a string data
+            </summary>
+            <param name="password">The password to use to encrypt the data</param>
+            <param name="data">The data to encrypt. The string data will be converted to bytes using <see cref="P:System.Text.Encoding.UTF8"/></param>
+            <returns>The encrypted data represented by bytes</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="password"/> is null</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="data"/> is null</exception>
+        </member>
+        <member name="M:Cauldron.Cryptography.Aes.Encrypt(System.Security.SecureString,System.Byte[])">
+            <summary>
+            Encrypts a binary data
+            </summary>
+            <param name="password">The password to use to encrypt the data</param>
+            <param name="data">The data to encrypt</param>
+            <returns>The encrypted data represented by bytes</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="password"/> is null</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="data"/> is null</exception>
+        </member>
+        <member name="M:Cauldron.Cryptography.Aes.Encrypt(Cauldron.Cryptography.KeyMaterial,System.Byte[])">
+            <summary>
+            Encrypts a string data
+            </summary>
+            <param name="keyMaterial">The <see cref="T:Cauldron.Cryptography.KeyMaterial"/> to use to encrypt the data</param>
+            <param name="data">The data to encrypt</param>
+            <returns>The encrypted data represented by bytes</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="keyMaterial"/> is null</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="data"/> is null</exception>
+        </member>
+        <member name="M:Cauldron.Cryptography.Aes.Decrypt(System.Security.SecureString,System.Byte[])">
+            <summary>
+            Descrypts encrypted data
+            </summary>
+            <param name="password">The password used to decrypt data</param>
+            <param name="data">The data to decrypt</param>
+            <returns>The decrypted data</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="password"/> is null</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="data"/> is null</exception>
+        </member>
+        <member name="M:Cauldron.Cryptography.Aes.Decrypt(System.Security.SecureString,System.Int32,System.Byte[])">
+            <summary>
+            Descrypts encrypted data
+            </summary>
+            <param name="password">The password used to decrypt data</param>
+            <param name="iterations">The number of iteration for the KDF</param>
+            <param name="data">The data to decrypt</param>
+            <returns>The decrypted data</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="password"/> is null</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="data"/> is null</exception>
+            <exception cref="T:System.Security.SecurityException"><paramref name="iterations"/> is lower than 1000</exception>
+        </member>
+        <member name="T:Cauldron.Cryptography.CryptoUtils">
+            <summary>
+            Provides methods for cryptography
+            </summary>
+        </member>
+        <member name="F:Cauldron.Cryptography.CryptoUtils.AlphaNumericCharactersSet">
+            <summary>
+            A character set of lower and upper case letters and numbers
+            </summary>
+        </member>
+        <member name="M:Cauldron.Cryptography.CryptoUtils.BrewPassword(System.UInt32)">
+            <summary>
+            Generates a random password
+            </summary>
+            <param name="length">The length of the password to generate</param>
+            <returns>The generated password</returns>
+        </member>
+        <member name="M:Cauldron.Cryptography.CryptoUtils.BrewPassword(System.String,System.UInt32)">
+            <summary>
+            Generates a random password
+            </summary>
+            <param name="characterSet">The set of characters to generate the password from</param>
+            <param name="length">The length of the password to generate</param>
+            <returns>The generated password</returns>
+        </member>
+        <member name="M:Cauldron.Cryptography.CryptoUtils.GetPasswordScore(System.String)">
+            <summary>
+            Checks the password's strength
+            </summary>
+            <param name="password">The password to check</param>
+            <returns>Returns <see cref="T:Cauldron.Cryptography.PasswordScore"/> rating</returns>
+        </member>
+        <member name="T:Cauldron.Cryptography.KeyMaterial">
+            <summary>
+            Provides methods to create a key material
+            </summary>
+        </member>
+        <member name="F:Cauldron.Cryptography.KeyMaterial.DefaultIterations">
+            <summary>
+            The default KDF iterations
+            </summary>
+        </member>
+        <member name="P:Cauldron.Cryptography.KeyMaterial.InitializationVector">
+            <summary>
+            Gets the initialization vector for the symmethric algorithm
+            </summary>
+        </member>
+        <member name="P:Cauldron.Cryptography.KeyMaterial.Key">
+            <summary>
+            Gets the secret key for the symmethric algorithm
+            </summary>
+        </member>
+        <member name="P:Cauldron.Cryptography.KeyMaterial.Salt">
+            <summary>
+            Gets the salt for the symmethric algorithm
+            </summary>
+        </member>
+        <member name="M:Cauldron.Cryptography.KeyMaterial.CreateKeyMaterial(System.Security.SecureString,System.Byte[],System.Int32)">
+            <summary>
+            Creates a key material for the symmethric algorithm
+            </summary>
+            <param name="password">The password used for the encryption or description</param>
+            <param name="salt">The salt forthe symmethric algorithm</param>
+            <param name="iterations">The number of iteration for the KDF</param>
+            <returns>The key material</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="password"/> is null</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="salt"/> is null</exception>
+            <exception cref="T:System.Security.SecurityException"><paramref name="iterations"/> is lower than 1000</exception>
+        </member>
+        <member name="M:Cauldron.Cryptography.KeyMaterial.CreateKeyMaterial(System.Security.SecureString,System.Int32)">
+            <summary>
+            Creates a key material for the symmethric algorithm. The salt will be generated from the password hash.
+            </summary>
+            <param name="password">The password used for the encryption or description</param>
+            <param name="iterations">The number of iteration for the KDF</param>
+            <returns>The key material</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="password"/> is null</exception>
+            <exception cref="T:System.Security.SecurityException"><paramref name="iterations"/> is lower than 1000</exception>
+        </member>
+        <member name="M:Cauldron.Cryptography.KeyMaterial.OnDispose(System.Boolean)">
+            <summary>
+            Occures after <see cref="M:System.IDisposable.Dispose"/> has been invoked
+            </summary>
+            <param name="disposeManaged">true if managed resources requires disposing</param>
+        </member>
+        <member name="T:Cauldron.Cryptography.KeyPair">
+            <summary>
+            Represents the generated private and public key pair of the asymmethric algorithm
+            </summary>
+        </member>
+        <member name="P:Cauldron.Cryptography.KeyPair.PrivateKey">
+            <summary>
+            Gets the private Key
+            </summary>
+        </member>
+        <member name="P:Cauldron.Cryptography.KeyPair.PublicKey">
+            <summary>
+            Gets the public key
+            </summary>
+        </member>
+        <member name="M:Cauldron.Cryptography.KeyPair.OnDispose(System.Boolean)">
+            <summary>
+            Occures after <see cref="M:System.IDisposable.Dispose"/> has been invoked
+            </summary>
+            <param name="disposeManaged">true if managed resources requires disposing</param>
+        </member>
+        <member name="T:Cauldron.Cryptography.PasswordScore">
+            <summary>
+            Describes the password strength as a scoring system
+            </summary>
+        </member>
+        <member name="F:Cauldron.Cryptography.PasswordScore.Blank">
+            <summary>
+            Password is blank
+            </summary>
+        </member>
+        <member name="F:Cauldron.Cryptography.PasswordScore.VeryWeak">
+            <summary>
+            Password length is shorter than 4 characters
+            </summary>
+        </member>
+        <member name="F:Cauldron.Cryptography.PasswordScore.Weak">
+            <summary>
+            Password is weak
+            </summary>
+        </member>
+        <member name="F:Cauldron.Cryptography.PasswordScore.Medium">
+            <summary>
+            Password is medium
+            </summary>
+        </member>
+        <member name="F:Cauldron.Cryptography.PasswordScore.Strong">
+            <summary>
+            The password is considered as strong
+            </summary>
+        </member>
+        <member name="F:Cauldron.Cryptography.PasswordScore.VeryStrong">
+            <summary>
+            The password is considered as very strong
+            </summary>
+        </member>
+        <member name="T:Cauldron.Cryptography.Rsa">
+            <summary>
+            Provides methods to encrypt and decrypt data with RSA
+            </summary>
+        </member>
+        <member name="M:Cauldron.Cryptography.Rsa.CreateKeyPair(Cauldron.Cryptography.RSAKeySizes)">
+            <summary>
+            Creates a public and private key pair that can be used for asymmethric encryption
+            </summary>
+            <param name="keySize">The keysize to generate</param>
+            <returns>The generated key size</returns>
+        </member>
+        <member name="M:Cauldron.Cryptography.Rsa.Decrypt(System.Security.SecureString,System.Byte[])">
+            <summary>
+            Decrypts encrypted data
+            </summary>
+            <param name="privateKey">The private key used to decrypt</param>
+            <param name="data">The data to decrypt</param>
+            <returns>The decrypted data</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="privateKey"/> is null</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="data"/> is null</exception>
+        </member>
+        <member name="M:Cauldron.Cryptography.Rsa.Encrypt(System.String,System.Byte[])">
+            <summary>
+            Encrypts data
+            </summary>
+            <param name="publicKey">The public key to use to encrypt the data</param>
+            <param name="data">The data to encrypt</param>
+            <returns>The ecrypted data</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="publicKey"/> is null</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="data"/> is null</exception>
+        </member>
+        <member name="M:Cauldron.Cryptography.Rsa.Encrypt(System.String,System.String)">
+            <summary>
+            Encrypts data
+            </summary>
+            <param name="publicKey">The public key to use to encrypt the data</param>
+            <param name="data">The data to encrypt. The string data will be converted to bytes using <see cref="P:System.Text.Encoding.UTF8"/></param>
+            <returns>The ecrypted data</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="publicKey"/> is null</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="data"/> is null</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="data"/> is empty</exception>
+        </member>
+        <member name="T:Cauldron.Cryptography.RsaAes">
+            <summary>
+            Encrypts the data with AES and a random key.
+            The Key itself will be encrypted with RSA
+            </summary>
+        </member>
+        <member name="M:Cauldron.Cryptography.RsaAes.Decrypt(System.Security.SecureString,System.Byte[])">
+            <summary>
+            Decrypts encrypted data
+            </summary>
+            <param name="privateKey">The private key used to decrypt</param>
+            <param name="data">The data to decrypt</param>
+            <returns>The decrypted data</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="privateKey"/> is null</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="data"/> is null</exception>
+        </member>
+        <member name="M:Cauldron.Cryptography.RsaAes.Encrypt(System.String,System.String)">
+            <summary>
+            Encrypts data
+            </summary>
+            <param name="publicKey">The public key to use to encrypt the data</param>
+            <param name="data">The data to encrypt. The string data will be converted to bytes using <see cref="P:System.Text.Encoding.UTF8"/></param>
+            <returns>The ecrypted data</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="publicKey"/> is null</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="data"/> is null</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="data"/> is empty</exception>
+        </member>
+        <member name="M:Cauldron.Cryptography.RsaAes.Encrypt(System.String,System.Byte[])">
+            <summary>
+            Encrypts data
+            </summary>
+            <param name="publicKey">The public key to use to encrypt the data</param>
+            <param name="data">The data to encrypt</param>
+            <returns>The ecrypted data</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="publicKey"/> is null</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="data"/> is null</exception>
+        </member>
+        <member name="T:Cauldron.Cryptography.RSAKeySizes">
+            <summary>
+            Defines the RSA key sizes
+            </summary>
+        </member>
+        <member name="F:Cauldron.Cryptography.RSAKeySizes.Size1024">
+            <summary>
+            The key size of 1024 bits
+            </summary>
+        </member>
+        <member name="F:Cauldron.Cryptography.RSAKeySizes.Size2048">
+            <summary>
+            The key size of 2048 bits
+            </summary>
+        </member>
+        <member name="F:Cauldron.Cryptography.RSAKeySizes.Size4096">
+            <summary>
+            The key size of 4096 bits
+            </summary>
+        </member>
+        <member name="T:System.Security.SecureString">
+            <summary>
+            Represents text that should be kept confidential. The text is encrypted for privacy
+            when being used, and deleted from computer memory when no longer needed. This
+            class cannot be inherited.
+            </summary>
+        </member>
+        <member name="M:System.Security.SecureString.#ctor(System.Char*,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:System.Security.SecureString"/> class from a subarray of <see cref="T:System.Char"/> objects.
+            </summary>
+            <param name="value">A pointer to an array of System.Char objects.</param>
+            <param name="length">The number of elements of value to include in the new instance.</param>
+        </member>
+        <member name="P:System.Security.SecureString.Length">
+            <summary>
+            Gets the number of characters in the current secure string.
+            </summary>
+        </member>
+        <member name="M:System.Security.SecureString.GetBytes">
+            <summary>
+            Returns the <see cref="T:System.Security.SecureString"/> value as an array of bytes
+            </summary>
+            <returns>An array of bytes</returns>
+        </member>
+        <member name="M:System.Security.SecureString.GetString">
+            <summary>
+            Returns the <see cref="T:System.Security.SecureString"/> as a <see cref="T:System.String"/>
+            </summary>
+            <returns>The content of the <see cref="T:System.Security.SecureString"/> as a <see cref="T:System.String"/></returns>
+        </member>
+        <member name="M:System.Security.SecureString.OnDispose(System.Boolean)">
+            <summary>
+            Occures after <see cref="M:System.IDisposable.Dispose"/> has been invoked
+            </summary>
+            <param name="disposeManaged">true if managed resources requires disposing</param>
+        </member>
+    </members>
+</doc>

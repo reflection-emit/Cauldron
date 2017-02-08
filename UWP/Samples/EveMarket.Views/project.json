@@ -1,6 +1,7 @@
 ﻿{
   "dependencies": {
-    "Capgemini.Cauldron.XAML.Validation": "1.0.4",
+    "Capgemini.Cauldron.Core": "1.0.5",
+    "Capgemini.Cauldron.XAML.Validation": "1.0.5",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2"
   },
   "frameworks": {

@@ -28,22 +28,26 @@ namespace Cauldron.Interception.Fody
 
         public void Execute()
         {
-            try
-            {
-                Extensions.Asemblies = this.GetAssemblies();
-                Extensions.Types = Extensions.Asemblies.SelectMany(x => x.Modules).SelectMany(x => x.Types).ToArray();
-                Extensions.ModuleDefinition = this.ModuleDefinition;
+            Extensions.Asemblies = this.GetAssemblies();
+            Extensions.Types = Extensions.Asemblies.SelectMany(x => x.Modules).SelectMany(x => x.Types).ToArray();
+            Extensions.ModuleDefinition = this.ModuleDefinition;
 
-                foreach (var weaverType in this.weavers)
+            foreach (var weaverType in this.weavers)
+            {
+                var weaver = Activator.CreateInstance(weaverType, this) as ModuleWeaverBase;
+                try
                 {
-                    var weaver = Activator.CreateInstance(weaverType, this) as ModuleWeaverBase;
                     weaver.Implement();
                 }
-            }
-            catch (Exception e)
-            {
-                this.LogError(e.GetStackTrace());
-                this.LogError(e.StackTrace);
+                catch (NotImplementedException e)
+                {
+                    this.LogWarning(e.Message);
+                }
+                catch (Exception e)
+                {
+                    this.LogError(e.GetStackTrace());
+                    this.LogError(e.StackTrace);
+                }
             }
         }
 
@@ -55,7 +59,7 @@ namespace Cauldron.Interception.Fody
         {
             var assemblyNameReference = this.ModuleDefinition.AssemblyReferences.FirstOrDefault(x => x.Name == "Cauldron.Core");
             if (assemblyNameReference == null)
-                throw new Exception($"The project {this.ModuleDefinition.Name} does not reference to 'Cauldron.Core'. Please add Cauldron.Core to your project.");
+                throw new NotImplementedException($"The project {this.ModuleDefinition.Name} does not reference to 'Cauldron.Core'. Please add Cauldron.Core to your project.");
             return this.AssemblyResolver.Resolve(assemblyNameReference);
         }
     }

@@ -1,8 +1,8 @@
-﻿using Cauldron.IEnumerableExtensions;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace EveOnlineApi.Models
 {
@@ -30,7 +30,7 @@ namespace EveOnlineApi.Models
         IEnumerable IXmlModelCollection.Items
         {
             get { return this.Items; }
-            set { this.Items = value.ToList_<T>(); }
+            set { this.Items = value.Cast<T>().ToList<T>(); }
         }
 
         [JsonProperty("key")]

@@ -1,4 +1,5 @@
-﻿using Cauldron.XAML;
+﻿using Cauldron.Core;
+using Cauldron.XAML;
 using InputValidation.ViewModels;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;

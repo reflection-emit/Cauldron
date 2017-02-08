@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cauldron.Localization</name>
+    </assembly>
+    <members>
+        <member name="T:Cauldron.Localization.ILocalizationSource">
+            <summary>
+            Represents a source for a localization source
+            </summary>
+        </member>
+        <member name="M:Cauldron.Localization.ILocalizationSource.Contains(System.String,System.String)">
+            <summary>
+            Determines whether an element is in the <see cref="T:Cauldron.Localization.ILocalizationSource"/>
+            </summary>
+            <param name="key">The key of the localized string</param>
+            <param name="twoLetterISOLanguageName">The two letter iso language name according to ISO</param>
+            <returns>true if item is found in the <see cref="T:Cauldron.Localization.ILocalizationSource"/>; otherwise, false.</returns>
+        </member>
+        <member name="M:Cauldron.Localization.ILocalizationSource.GetValue(System.String,System.String)">
+            <summary>
+            Returns a localized value associated with the key
+            </summary>
+            <param name="key">The key of the localized string data</param>
+            <param name="twoLetterISOLanguageName">The two letter iso language name according to ISO</param>
+            <returns>A <see cref="T:System.String"/></returns>
+        </member>
+        <member name="T:Cauldron.Localization.Locale">
+            <summary>
+            Provides methods regarding localization
+            </summary>
+        </member>
+        <member name="M:Cauldron.Localization.Locale.#ctor">
+            <summary>
+            Initiates a new instance of the <see cref="T:Cauldron.Localization.Locale"/> class
+            </summary>
+        </member>
+        <member name="P:Cauldron.Localization.Locale.CultureInfo">
+            <summary>
+            Gets or sets the culture used for the localization. Default is <see cref="P:System.Globalization.CultureInfo.CurrentCulture"/> in Windows desktop and the UI language in UWP
+            </summary>
+        </member>
+        <member name="P:Cauldron.Localization.Locale.Item(System.String)">
+            <summary>
+            Gets the localized string with the specified key
+            <para />
+            Returns null if the key was not found
+            </summary>
+            <param name="key">The key of the localized string</param>
+            <returns>The localized string</returns>
+        </member>
+        <member name="P:Cauldron.Localization.Locale.Item(System.Object)">
+            <summary>
+            Gets the localized string with an object as a key
+            <para/>
+            If the <paramref name="key"/> is an enum the returned formatting will be: enum value - enum name
+            <para/>
+            <see cref="T:System.Int64"/>, <see cref="T:System.Int32"/>, <see cref="T:System.UInt32"/> and <see cref="T:System.UInt64"/> are formatted using {0:#,#}.
+            <para/>
+            <see cref="T:System.Double"/>, <see cref="T:System.Single"/> and <see cref="T:System.Decimal"/> are formatted using {0:#,#.00}.
+            <para/>
+            Otherwise its tries to retrieve the localized string using the <paramref name="key"/>'s type name as key.
+            </summary>
+            <param name="key">The object used as key</param>
+            <returns>The localized string</returns>
+        </member>
+        <member name="M:Cauldron.Localization.Locale.GetCurrentCultureInfo">
+            <summary>
+            Gets the current culture
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Cauldron.Localization.Locale.Rebuild">
+            <summary>
+            Rebuilds the localization source.
+            </summary>
+        </member>
+    </members>
+</doc>

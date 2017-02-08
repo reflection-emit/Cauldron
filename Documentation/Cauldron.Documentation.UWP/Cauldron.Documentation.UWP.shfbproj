@@ -34,7 +34,6 @@
       <DocumentationSource sourceFile="..\..\UWP\Cauldron.UWP.Activator\Cauldron.UWP.Activator.csproj" />
       <DocumentationSource sourceFile="..\..\UWP\Cauldron.Core\Cauldron.UWP.Core.csproj" />
       <DocumentationSource sourceFile="..\..\UWP\Cauldron.UWP.Cryptography\Cauldron.UWP.Cryptography.csproj" />
-      <DocumentationSource sourceFile="..\..\UWP\Cauldron.UWP.IEnumerableExtensions\Cauldron.UWP.IEnumerableExtensions.csproj" />
       <DocumentationSource sourceFile="..\..\UWP\Cauldron.UWP.Injection\Cauldron.UWP.Injection.csproj" />
       <DocumentationSource sourceFile="..\..\UWP\Cauldron.UWP.Localization\Cauldron.UWP.Localization.csproj" />
       <DocumentationSource sourceFile="..\..\UWP\Cauldron.UWP.XAML\Cauldron.UWP.XAML.csproj" />
@@ -88,7 +87,8 @@
     </PlugInConfigurations>
     <NamespaceSummaries>
       <NamespaceSummaryItem name="Cauldron.XAML.Cauldron_UWP_XAML_XamlTypeInfo" isDocumented="False" xmlns="" />
-<NamespaceSummaryItem name="Cauldron.XAML.Interactivity.Cauldron_UWP_XAML_Interactivity_XamlTypeInfo" isDocumented="False" xmlns="" /></NamespaceSummaries>
+      <NamespaceSummaryItem name="Cauldron.XAML.Interactivity.Cauldron_UWP_XAML_Interactivity_XamlTypeInfo" isDocumented="False" xmlns="" />
+    </NamespaceSummaries>
   </PropertyGroup>
   <!-- There are no properties for these groups.  AnyCPU needs to appear in order for Visual Studio to perform
 			 the build.  The others are optional common platform types that may appear. -->
