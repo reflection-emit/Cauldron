@@ -16,8 +16,8 @@
     <tags>Toolkit Capgemini Cauldron Dynamic Assembly Anonymous Type Interface</tags>
     <dependencies>
       <group targetFramework="net452">
-        <dependency id="Capgemini.Cauldron.Core" version="1.0.4" />
-        <dependency id="Capgemini.Cauldron.Cryptography" version="1.0.4" />
+        <dependency id="Capgemini.Cauldron.Core" version="1.0.5" />
+        <dependency id="Capgemini.Cauldron.Cryptography" version="1.0.5" />
       </group>
     </dependencies>
   </metadata>

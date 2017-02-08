@@ -80,6 +80,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{B22AD21D
 		NuGet\color.cs = NuGet\color.cs
 		NuGet\Create-NuGet-Packages.bat = NuGet\Create-NuGet-Packages.bat
 		NuGet\EveOnlineApi.NET.nuspec = NuGet\EveOnlineApi.NET.nuspec
+		NuGet\Upload-Packages.bat = NuGet\Upload-Packages.bat
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.Xamarin.Android.Core", "Xamarin.Android\Cauldron.Xamarin.Android.Core\Cauldron.Xamarin.Android.Core.csproj", "{A6273C28-AADA-4FB6-87EA-ADFD6B6D6BDA}"
