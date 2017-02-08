@@ -9,11 +9,11 @@ namespace Cauldron.Interception.Fody
     {
         private List<Type> weavers = new List<Type>
         {
+            typeof(FieldInterceptorWeaver),
             typeof(MethodInterceptorWeaver),
             typeof(PropertyInterceptorWeaver),
             typeof(MethodOfWeaver),
-            typeof (FieldOfWeaver),
-            typeof(FieldInterceptorWeaver)
+            typeof(FieldOfWeaver)
         };
 
         public IAssemblyResolver AssemblyResolver { get; set; }

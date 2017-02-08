@@ -38,7 +38,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Formatters\MetricUnitFormatter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HashAlgorithms.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IDisposableObject.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Interceptors\IFieldInterceptor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interceptors\ILockableMethodInterceptor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interceptors\ILockablePropertyGetterInterceptor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interceptors\ILockablePropertySetterInterceptor.cs" />

@@ -22,15 +22,7 @@ namespace Cauldron.Interception.Fody
 
         public override void Implement()
         {
-            var propertyInterceptorInterface = this.GetType(this.propertyGetterInterceptor);
-            if (propertyInterceptorInterface == null)
-                throw new Exception($"Unable to find the interface {this.propertyGetterInterceptor}.");
-
-            var propertyInterceptors = propertyInterceptorInterface.GetTypesThatImplementsInterface()
-                .Concat(this.GetType(this.lockablePropertyGetterInterceptor).GetTypesThatImplementsInterface())
-                .Concat(this.GetType(this.propertySetterInterceptor).GetTypesThatImplementsInterface())
-                .Concat(this.GetType(this.lockablePropertySetterInterceptor).GetTypesThatImplementsInterface());
-
+            var propertyInterceptors = GetPropertyInterceptorTypes();
             this.propertyInterceptionInfoReference = this.GetType("Cauldron.Core.Interceptors.PropertyInterceptionInfo").Import();
 
             // find all types with methods that are decorated with any of the found property interceptors
@@ -44,6 +36,18 @@ namespace Cauldron.Interception.Fody
         }
 
         protected override VariableDefinition CreateParameterObject(MethodWeaverInfo methodWeaverInfo, TypeReference objectReference, ArrayType parametersArrayTypeRef) => null;
+
+        protected IEnumerable<TypeDefinition> GetPropertyInterceptorTypes()
+        {
+            var propertyInterceptorInterface = this.GetType(this.propertyGetterInterceptor);
+            if (propertyInterceptorInterface == null)
+                throw new Exception($"Unable to find the interface {this.propertyGetterInterceptor}.");
+
+            return propertyInterceptorInterface.GetTypesThatImplementsInterface()
+                .Concat(this.GetType(this.lockablePropertyGetterInterceptor).GetTypesThatImplementsInterface())
+                .Concat(this.GetType(this.propertySetterInterceptor).GetTypesThatImplementsInterface())
+                .Concat(this.GetType(this.lockablePropertySetterInterceptor).GetTypesThatImplementsInterface());
+        }
 
         protected override void ImplementLockableOnEnter(MethodWeaverInfo methodWeaverInfo, VariableDefinition attributeVariable, MethodReference interceptorOnEnter, VariableDefinition parametersArrayVariable, FieldDefinition semaphoreSlim)
         {
@@ -196,45 +200,7 @@ namespace Cauldron.Interception.Fody
             if (method == null)
             {
                 method = methodWeaverInfo.GetOrCreateMethod("setterAction", methodParams);
-
-                var processor = method.Body.GetILProcessor();
-
-                if (!isStatic)
-                    processor.Append(processor.Create(OpCodes.Ldarg_0));
-
-                if (!field.FieldType.Resolve().IsEnum)
-                    processor.Append(processor.Create(isStatic ? OpCodes.Ldarg_0 : OpCodes.Ldarg_1));
-
-                if (field.FieldType.Resolve().IsEnum)
-                {
-                    processor.Append(processor.TypeOf(field.FieldType.Import()));
-                    processor.Append(processor.Create(isStatic ? OpCodes.Ldarg_0 : OpCodes.Ldarg_1));
-                    processor.Append(processor.TypeOf(field.FieldType.Import()));
-                    processor.Append(processor.Create(OpCodes.Call, typeof(Enum).GetMethodReference("GetUnderlyingType", new Type[] { typeof(Type) }).Import()));
-                    processor.Append(processor.Create(OpCodes.Call, typeof(Convert).GetMethodReference("ChangeType", new Type[] { typeof(object), typeof(Type) }).Import()));
-                    processor.Append(processor.Create(OpCodes.Call, typeof(Enum).GetMethodReference("ToObject", new Type[] { typeof(Type), typeof(object) }).Import()));
-                    processor.Append(processor.Create(OpCodes.Unbox_Any, field.FieldType.Import()));
-                }
-                else if (field.FieldType.FullName == typeof(int).FullName) processor.Append(processor.Create(OpCodes.Call, typeof(Convert).GetMethodReference("ToInt32", new Type[] { typeof(object) }).Import()));
-                else if (field.FieldType.FullName == typeof(uint).FullName) processor.Append(processor.Create(OpCodes.Call, typeof(Convert).GetMethodReference("ToUInt32", new Type[] { typeof(object) }).Import()));
-                else if (field.FieldType.FullName == typeof(bool).FullName) processor.Append(processor.Create(OpCodes.Call, typeof(Convert).GetMethodReference("ToBoolean", new Type[] { typeof(object) }).Import()));
-                else if (field.FieldType.FullName == typeof(byte).FullName) processor.Append(processor.Create(OpCodes.Call, typeof(Convert).GetMethodReference("ToByte", new Type[] { typeof(object) }).Import()));
-                else if (field.FieldType.FullName == typeof(char).FullName) processor.Append(processor.Create(OpCodes.Call, typeof(Convert).GetMethodReference("ToChar", new Type[] { typeof(object) }).Import()));
-                else if (field.FieldType.FullName == typeof(DateTime).FullName) processor.Append(processor.Create(OpCodes.Call, typeof(Convert).GetMethodReference("ToDateTime", new Type[] { typeof(object) }).Import()));
-                else if (field.FieldType.FullName == typeof(decimal).FullName) processor.Append(processor.Create(OpCodes.Call, typeof(Convert).GetMethodReference("ToDecimal", new Type[] { typeof(object) }).Import()));
-                else if (field.FieldType.FullName == typeof(double).FullName) processor.Append(processor.Create(OpCodes.Call, typeof(Convert).GetMethodReference("ToDouble", new Type[] { typeof(object) }).Import()));
-                else if (field.FieldType.FullName == typeof(short).FullName) processor.Append(processor.Create(OpCodes.Call, typeof(Convert).GetMethodReference("ToInt16", new Type[] { typeof(object) }).Import()));
-                else if (field.FieldType.FullName == typeof(long).FullName) processor.Append(processor.Create(OpCodes.Call, typeof(Convert).GetMethodReference("ToInt64", new Type[] { typeof(object) }).Import()));
-                else if (field.FieldType.FullName == typeof(sbyte).FullName) processor.Append(processor.Create(OpCodes.Call, typeof(Convert).GetMethodReference("ToSByte", new Type[] { typeof(object) }).Import()));
-                else if (field.FieldType.FullName == typeof(float).FullName) processor.Append(processor.Create(OpCodes.Call, typeof(Convert).GetMethodReference("ToSingle", new Type[] { typeof(object) }).Import()));
-                else if (field.FieldType.FullName == typeof(string).FullName) processor.Append(processor.Create(OpCodes.Call, typeof(Convert).GetMethodReference("ToString", new Type[] { typeof(object) }).Import()));
-                else if (field.FieldType.FullName == typeof(ushort).FullName) processor.Append(processor.Create(OpCodes.Call, typeof(Convert).GetMethodReference("ToUInt16", new Type[] { typeof(object) }).Import()));
-                else if (field.FieldType.FullName == typeof(ulong).FullName) processor.Append(processor.Create(OpCodes.Call, typeof(Convert).GetMethodReference("ToUInt64", new Type[] { typeof(object) }).Import()));
-                else if (field.FieldType.Resolve().IsInterface) processor.Append(processor.Create(OpCodes.Isinst, field.FieldType.Import()));
-                else processor.Append(processor.Create(field.FieldType.IsValueType ? OpCodes.Unbox_Any : OpCodes.Castclass, field.FieldType.Import()));
-
-                processor.Append(processor.Create(isStatic ? OpCodes.Stsfld : OpCodes.Stfld, field));
-                processor.Append(processor.Create(OpCodes.Ret));
+                this.ImplementFieldSetterDelegate(method, field, isStatic);
             }
 
             var fieldDefinition = methodWeaverInfo.GetField(this.propertyInterceptionInfoReference);

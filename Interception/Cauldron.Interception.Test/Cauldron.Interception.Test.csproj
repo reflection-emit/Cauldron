@@ -55,7 +55,6 @@
     <Compile Include="FieldOf_Implementer_Test.cs" />
     <Compile Include="Field_Interception_Code_Validation_Tests.cs" />
     <Compile Include="Interceptors\EnumPropertyInterceptorAttribute.cs" />
-    <Compile Include="Interceptors\TestFieldInterceptorAttribute.cs" />
     <Compile Include="Interceptors\TestMethodInterceptorAttribute.cs" />
     <Compile Include="Interceptors\TestMethodInterceptorWithParameter.cs" />
     <Compile Include="Interceptors\TestPropertyInterceptorAttribute.cs" />
