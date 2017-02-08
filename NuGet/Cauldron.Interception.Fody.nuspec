@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Capgemini.Cauldron.Interception.Fody</id>
+    <version>1.0.3</version>
+    <title>Capgemini Cauldron Interception for Fody</title>
+    <authors>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</authors>
+    <owners>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</owners>
+    <licenseUrl>https://raw.githubusercontent.com/reflection-emit/Cauldron/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/reflection-emit/Cauldron</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/reflection-emit/Cauldron/master/cauldron.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Fody add-in that provides method, property and field interception. It also adds a 'methodof' and a 'fieldof' implementation.</description>
+    <summary>Fody add-in that provides method, property and field interception. (Open Source)</summary>
+    <copyright>Copyright (c) 2016 Alexander Schunk, Capgemini Deutschland GmbH and Contributors</copyright>
+    <tags>Toolkit Capgemini Cauldron Interception interceptor interception AOP Fody Cecil CIL ILWeaving</tags>
+    <dependencies>
+      <dependency id="Capgemini.Cauldron.Core" version="1.0.5" />
+      <dependency id="Fody" version="1.29.4" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="..\Interception\Cauldron.Interception.Fody\bin\Release\Cauldron.Interception.Fody.dll" target="Cauldron.Interception.Fody.dll" />
+    <file src="..\Interception\Cauldron.Interception.Fody\bin\Release\Cauldron.Interception.Fody.pdb" target="Cauldron.Interception.Fody.pdb" />
+  </files>
+</package>

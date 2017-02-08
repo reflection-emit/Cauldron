@@ -16,8 +16,6 @@ namespace Cauldron.Interception.Fody
             typeof(FieldOfWeaver)
         };
 
-        public IAssemblyResolver AssemblyResolver { get; set; }
-
         public Action<string> LogError { get; set; }
 
         public Action<string> LogInfo { get; set; }
@@ -28,9 +26,12 @@ namespace Cauldron.Interception.Fody
 
         public void Execute()
         {
-            Extensions.Asemblies = this.GetAssemblies();
-            Extensions.Types = Extensions.Asemblies.SelectMany(x => x.Modules).SelectMany(x => x.Types).ToArray();
             Extensions.ModuleDefinition = this.ModuleDefinition;
+
+            // Check if th module has a reference to Cauldron.Core
+            var assemblyNameReference = this.ModuleDefinition.AllReferencedAssemblies().FirstOrDefault(x => x.Name.Name == "Cauldron.Core");
+            if (assemblyNameReference == null)
+                throw new NotImplementedException($"The project {this.ModuleDefinition.Name} does not reference to 'Cauldron.Core'. Please add Cauldron.Core to your project.");
 
             foreach (var weaverType in this.weavers)
             {
@@ -49,18 +50,6 @@ namespace Cauldron.Interception.Fody
                     this.LogError(e.StackTrace);
                 }
             }
-        }
-
-        internal TypeDefinition GetType(string typeName) => this.GetCauldronCore().Modules.SelectMany(x => x.Types).FirstOrDefault(x => x.FullName == typeName);
-
-        private IEnumerable<AssemblyDefinition> GetAssemblies() => this.ModuleDefinition.AssemblyReferences.Select(x => this.AssemblyResolver.Resolve(x)).Concat(new AssemblyDefinition[] { this.ModuleDefinition.Assembly }).ToArray();
-
-        private AssemblyDefinition GetCauldronCore()
-        {
-            var assemblyNameReference = this.ModuleDefinition.AssemblyReferences.FirstOrDefault(x => x.Name == "Cauldron.Core");
-            if (assemblyNameReference == null)
-                throw new NotImplementedException($"The project {this.ModuleDefinition.Name} does not reference to 'Cauldron.Core'. Please add Cauldron.Core to your project.");
-            return this.AssemblyResolver.Resolve(assemblyNameReference);
         }
     }
 }

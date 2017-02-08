@@ -14,7 +14,7 @@ namespace Cauldron.Interception.Fody
         {
             this.LogInfo("Implementing Cauldron.Core.Reflection.GetMethodBase");
 
-            var methodOf = this.GetType("Cauldron.Core.Reflection").GetMethodReference("GetMethodBase", 0);
+            var methodOf = "Cauldron.Core.Reflection".ToTypeDefinition().GetMethodReference("GetMethodBase", 0);
             var allMethodsWithMethodOfCalls = this.GetMethodsWhere(x => x.OpCode == OpCodes.Call && (x.Operand as MethodReference).FullName == methodOf.FullName);
             var getMethodFromHandleRef = typeof(System.Reflection.MethodBase).Import().GetMethodReference("GetMethodFromHandle", 2).Import();
 

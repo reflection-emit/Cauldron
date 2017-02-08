@@ -142,8 +142,9 @@ namespace Cauldron.Interception.Fody
         }
 
         protected IEnumerable<MethodAndInstruction> GetMethodsWhere(Func<Instruction, bool> predicate) => this.ModuleDefinition.Types
+                .Where(x => x != null)
                 .SelectMany(x => x.Methods)
-                .Where(x => x.Body != null)
+                .Where(x => x != null && x.Body != null)
                 .Select(x => new MethodAndInstruction(x, x.Body.Instructions.Where(predicate).ToArray()))
                 .ToArray();
 
@@ -163,8 +164,6 @@ namespace Cauldron.Interception.Fody
 
             return method;
         }
-
-        protected TypeDefinition GetType(string typeName) => this.weaver.GetType(typeName);
 
         protected void ImplementFieldSetterDelegate(MethodDefinition method, FieldDefinition field, bool isStatic)
         {

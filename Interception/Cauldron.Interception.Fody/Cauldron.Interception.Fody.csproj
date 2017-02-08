@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssemblyNameReferenceEqualityComparer.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="FieldInterceptorWeaver.cs" />
     <Compile Include="FieldOfWeaver.cs" />

@@ -23,7 +23,7 @@ namespace Cauldron.Interception.Fody
         public override void Implement()
         {
             var propertyInterceptors = GetPropertyInterceptorTypes();
-            this.propertyInterceptionInfoReference = this.GetType("Cauldron.Core.Interceptors.PropertyInterceptionInfo").Import();
+            this.propertyInterceptionInfoReference = "Cauldron.Core.Interceptors.PropertyInterceptionInfo".ToTypeDefinition().Import();
 
             // find all types with methods that are decorated with any of the found property interceptors
             var propertiesAndAttributes = this.ModuleDefinition.Types.SelectMany(x => x.Properties).Where(x => x.HasCustomAttributes)
@@ -39,14 +39,14 @@ namespace Cauldron.Interception.Fody
 
         protected IEnumerable<TypeDefinition> GetPropertyInterceptorTypes()
         {
-            var propertyInterceptorInterface = this.GetType(this.propertyGetterInterceptor);
+            var propertyInterceptorInterface = this.propertyGetterInterceptor.ToTypeDefinition();
             if (propertyInterceptorInterface == null)
                 throw new Exception($"Unable to find the interface {this.propertyGetterInterceptor}.");
 
             return propertyInterceptorInterface.GetTypesThatImplementsInterface()
-                .Concat(this.GetType(this.lockablePropertyGetterInterceptor).GetTypesThatImplementsInterface())
-                .Concat(this.GetType(this.propertySetterInterceptor).GetTypesThatImplementsInterface())
-                .Concat(this.GetType(this.lockablePropertySetterInterceptor).GetTypesThatImplementsInterface());
+                .Concat(this.lockablePropertyGetterInterceptor.ToTypeDefinition().GetTypesThatImplementsInterface())
+                .Concat(this.propertySetterInterceptor.ToTypeDefinition().GetTypesThatImplementsInterface())
+                .Concat(this.lockablePropertySetterInterceptor.ToTypeDefinition().GetTypesThatImplementsInterface());
         }
 
         protected override void ImplementLockableOnEnter(MethodWeaverInfo methodWeaverInfo, VariableDefinition attributeVariable, MethodReference interceptorOnEnter, VariableDefinition parametersArrayVariable, FieldDefinition semaphoreSlim)

@@ -15,7 +15,7 @@ namespace Cauldron.Interception.Fody
         {
             this.LogInfo("Implementing Cauldron.Core.Reflection.GetFieldInfo");
 
-            var fieldOf = this.GetType("Cauldron.Core.Reflection").GetMethodReference("GetFieldInfo", 1);
+            var fieldOf = "Cauldron.Core.Reflection".ToTypeDefinition().GetMethodReference("GetFieldInfo", 1);
             var allMethodsWithMethodOfCalls = this.GetMethodsWhere(x => x.OpCode == OpCodes.Call && (x.Operand as MethodReference).FullName == fieldOf.FullName);
             var getFieldFromHandleRef = typeof(System.Reflection.FieldInfo).Import().GetMethodReference("GetFieldFromHandle", 2).Import();
 

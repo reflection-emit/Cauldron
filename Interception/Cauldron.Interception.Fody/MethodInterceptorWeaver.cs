@@ -17,12 +17,12 @@ namespace Cauldron.Interception.Fody
 
         public override void Implement()
         {
-            var methodInterceptorInterface = this.GetType(this.methodInterceptor);
+            var methodInterceptorInterface = this.methodInterceptor.ToTypeDefinition();
             if (methodInterceptorInterface == null)
                 throw new Exception($"Unable to find the interface {this.methodInterceptor}.");
 
             var methodInterceptors = methodInterceptorInterface.GetTypesThatImplementsInterface()
-                .Concat(this.GetType(this.lockableMethodInterceptor).GetTypesThatImplementsInterface());
+                .Concat(this.lockableMethodInterceptor.ToTypeDefinition().GetTypesThatImplementsInterface());
             // find all types with methods that are decorated with any of the found method interceptors
             var methodsAndAttributes = this.ModuleDefinition.Types.SelectMany(x => x.Methods).Where(x => x.HasCustomAttributes)
                 .Select(x => new { Method = x, Attributes = x.CustomAttributes.Where(y => methodInterceptors.Any(t => y.AttributeType.FullName == t.FullName)).ToArray() })

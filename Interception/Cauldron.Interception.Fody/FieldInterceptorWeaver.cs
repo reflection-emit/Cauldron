@@ -22,8 +22,8 @@ namespace Cauldron.Interception.Fody
                 .Where(x => x.Attributes != null && x.Attributes.Length > 0)
                 .ToArray();
 
-            if (fieldsAndAttributes.Any(x => !x.Field.IsPrivate))
-                this.LogError("The FieldInterceptor does not support fields that are not private.");
+            foreach (var nonPrivateFields in fieldsAndAttributes.Where(x => !x.Field.IsPrivate))
+                this.LogError($"The FieldInterceptor does not support fields that are not private. '{nonPrivateFields.Field.FullName}'");
 
             foreach (var field in fieldsAndAttributes.Where(x => x.Field.IsPrivate))
                 this.ImplementField(field.Field, field.Attributes);
@@ -33,7 +33,7 @@ namespace Cauldron.Interception.Fody
         {
             this.LogInfo($"Implementing Field interception: {field.FullName} with {string.Join(", ", attributes.Select(x => x.AttributeType.FullName))}");
 
-            var methodsWithLoadStoreFields = this.GetMethodsWhere(x => (x.OpCode == OpCodes.Ldfld || x.OpCode == OpCodes.Ldsfld || x.OpCode == OpCodes.Stsfld || x.OpCode == OpCodes.Stfld) && (x.Operand as FieldDefinition).FullName == field.FullName);
+            var methodsWithLoadStoreFields = this.GetMethodsWhere(x => (x.OpCode == OpCodes.Ldfld || x.OpCode == OpCodes.Ldsfld || x.OpCode == OpCodes.Stsfld || x.OpCode == OpCodes.Stfld) && (x.Operand as FieldDefinition)?.FullName == field.FullName);
             var propertyMethodAttributes = MethodAttributes.HideBySig | MethodAttributes.SpecialName | MethodAttributes.Private;
             if (field.IsStatic)
                 propertyMethodAttributes |= MethodAttributes.Static;

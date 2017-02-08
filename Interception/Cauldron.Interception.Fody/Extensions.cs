@@ -10,9 +10,22 @@ namespace Cauldron.Interception.Fody
 {
     internal static class Extensions
     {
-        public static IEnumerable<AssemblyDefinition> Asemblies;
-        public static ModuleDefinition ModuleDefinition;
-        public static IEnumerable<TypeDefinition> Types;
+        private static ModuleDefinition _moduleDefinition;
+        private static IEnumerable<AssemblyDefinition> allAssemblies;
+        private static IEnumerable<TypeDefinition> allTypes;
+
+        public static ModuleDefinition ModuleDefinition
+        {
+            get { return _moduleDefinition; }
+            set
+            {
+                _moduleDefinition = value;
+                allAssemblies = value.AssemblyReferences.GetAll().Select(x => value.AssemblyResolver.Resolve(x)).ToArray();
+                allTypes = allAssemblies.SelectMany(x => x.Modules).Where(x => x != null).SelectMany(x => x.Types).Where(x => x != null).ToArray();
+            }
+        }
+
+        public static IEnumerable<AssemblyDefinition> AllReferencedAssemblies(this ModuleDefinition target) => allAssemblies;
 
         public static void Append(this ILProcessor processor, IEnumerable<Instruction> instructions)
         {
@@ -49,22 +62,56 @@ namespace Cauldron.Interception.Fody
             return count;
         }
 
+        public static IEnumerable<AssemblyNameReference> GetAll(this IEnumerable<AssemblyNameReference> target)
+        {
+            var result = new List<AssemblyNameReference>();
+            result.AddRange(target);
+
+            foreach (var item in target)
+            {
+                var assembly = ModuleDefinition.AssemblyResolver.Resolve(item);
+
+                if (assembly == null)
+                    continue;
+
+                if (assembly.MainModule.HasAssemblyReferences)
+                    result.AddRange(assembly.MainModule.AssemblyReferences);
+            }
+
+            return result.Distinct(new AssemblyNameReferenceEqualityComparer()).OrderBy(x => x.FullName);
+        }
+
         public static MethodReference GetMethodReference(this Type type, string methodName, Type[] parameterTypes)
         {
             var definition = type.GetTypeDefinition();
-            return definition.Methods.FirstOrDefault(x => x.Name == methodName && parameterTypes.Select(y => y.FullName).SequenceEqual(x.Parameters.Select(y => y.ParameterType.FullName)));
+            var result = definition.Methods.FirstOrDefault(x => x.Name == methodName && parameterTypes.Select(y => y.FullName).SequenceEqual(x.Parameters.Select(y => y.ParameterType.FullName)));
+
+            if (result != null)
+                return result;
+
+            throw new Exception($"Unable to proceed. The type '{type.FullName}' does not contain a method '{methodName}'");
         }
 
         public static MethodReference GetMethodReference(this TypeReference typeReference, string methodName, int parameterCount)
         {
             var definition = typeReference.Resolve();
-            return definition.Methods.FirstOrDefault(x => x.Name == methodName && x.Parameters.Count == parameterCount);
+            var result = definition.Methods.FirstOrDefault(x => x.Name == methodName && x.Parameters.Count == parameterCount);
+
+            if (result != null)
+                return result;
+
+            throw new Exception($"Unable to proceed. The type '{typeReference.FullName}' does not contain a method '{methodName}'");
         }
 
         public static MethodReference GetMethodReference(this Type type, string methodName, int parameterCount)
         {
             var definition = type.GetTypeDefinition();
-            return definition.Methods.FirstOrDefault(x => x.Name == methodName && x.Parameters.Count == parameterCount);
+            var result = definition.Methods.FirstOrDefault(x => x.Name == methodName && x.Parameters.Count == parameterCount);
+
+            if (result != null)
+                return result;
+
+            throw new Exception($"Unable to proceed. The type '{type.FullName}' does not contain a method '{methodName}'");
         }
 
         public static PropertyDefinition GetPropertyDefinition(this MethodDefinition method) =>
@@ -95,12 +142,28 @@ namespace Cauldron.Interception.Fody
             return sb.ToString();
         }
 
-        public static TypeDefinition GetTypeDefinition(this Type type) => Types.FirstOrDefault(x => x.FullName == type.FullName);
+        public static TypeDefinition GetTypeDefinition(this Type type)
+        {
+            var result = allTypes.FirstOrDefault(x => x.FullName == type.FullName);
 
-        public static TypeReference GetTypeReference(this Type type) => Types.FirstOrDefault(x => x.FullName == type.FullName);
+            if (result == null)
+                throw new Exception($"Unable to proceed. The type '{type.FullName}' was not found.");
+
+            return result;
+        }
+
+        public static TypeReference GetTypeReference(this Type type)
+        {
+            var result = allTypes.FirstOrDefault(x => x.FullName == type.FullName);
+
+            if (result == null)
+                throw new Exception($"Unable to proceed. The type '{type.FullName}' was not found.");
+
+            return result;
+        }
 
         public static IEnumerable<TypeDefinition> GetTypesThatImplementsInterface(this TypeDefinition typeDefinitionOfInterface) =>
-             Types.Where(x => x.Implements(typeDefinitionOfInterface.Name)).ToArray();
+             allTypes.Where(x => x.Implements(typeDefinitionOfInterface.Name)).ToArray();
 
         public static bool Implements(this TypeDefinition typeDefinition, string interfaceName)
         {
@@ -146,7 +209,7 @@ namespace Cauldron.Interception.Fody
             return false;
         }
 
-        public static TypeDefinition Resolve(this string typeName) => Types.FirstOrDefault(x => x.FullName == typeName || x.Name == typeName);
+        public static TypeDefinition Resolve(this string typeName) => allTypes.FirstOrDefault(x => x.FullName == typeName || x.Name == typeName);
 
         /// <summary>
         /// Converts a <see cref="IEnumerable"/> to an array
@@ -170,6 +233,8 @@ namespace Cauldron.Interception.Fody
 
             return result;
         }
+
+        public static TypeDefinition ToTypeDefinition(this string typeName) => allTypes.FirstOrDefault(x => x.FullName == typeName || x.FullName.EndsWith(typeName));
 
         public static IEnumerable<Instruction> TypeOf(this ILProcessor processor, TypeReference type)
         {
