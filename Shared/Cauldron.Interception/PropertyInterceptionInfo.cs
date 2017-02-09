@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Diagnostics;
 using System.Reflection;
 
@@ -20,8 +21,9 @@ namespace Cauldron.Interception
         /// <param name="propertyName">The name of the intercepted property</param>
         /// <param name="propertyType">The return tyoe of the property</param>
         /// <param name="instance">The instance of the declaring type</param>
+        /// <param name="childType">The child type of <see cref="PropertyType"/> if <see cref="PropertyType"/> is a <see cref="IEnumerable"/></param>
         /// <param name="setter">A delegate to set the property backing field</param>
-        public PropertyInterceptionInfo(MethodBase getterMethod, MethodBase setterMethod, string propertyName, Type propertyType, object instance, Action<object> setter)
+        public PropertyInterceptionInfo(MethodBase getterMethod, MethodBase setterMethod, string propertyName, Type propertyType, object instance, Type childType, Action<object> setter)
         {
             this._setter = setter;
             this.GetMethod = getterMethod;
@@ -30,7 +32,15 @@ namespace Cauldron.Interception
             this.PropertyType = propertyType;
             this.Instance = instance;
             this.DeclaringType = getterMethod.DeclaringType;
+            this.ChildType = childType;
         }
+
+        /// <summary>
+        /// Gets the <see cref="Type"/> of element.
+        /// Returns null if the <see cref="PropertyInterceptionInfo.PropertyType"/> is not a <see cref="IEnumerable"/>.
+        /// Returns an <see cref="object"/> if the weaver was not able to detect the child type.
+        /// </summary>
+        public Type ChildType { get; private set; }
 
         /// <summary>
         /// Gets the <see cref="Type"/> of the object where the property resides in
@@ -43,7 +53,7 @@ namespace Cauldron.Interception
         public MethodBase GetMethod { get; private set; }
 
         /// <summary>
-        /// Gets the instance of the declaring type
+        /// Gets the instance of the declaring type. Will be null if the property is static
         /// </summary>
         public object Instance { get; private set; }
 

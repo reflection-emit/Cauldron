@@ -12,6 +12,7 @@ namespace Cauldron.Interception.Fody
             typeof(FieldInterceptorWeaver),
             typeof(MethodInterceptorWeaver),
             typeof(PropertyInterceptorWeaver),
+            typeof(ChildOfWeaver),
             typeof(MethodOfWeaver),
             typeof(FieldOfWeaver)
         };

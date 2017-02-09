@@ -5,9 +5,9 @@ using System.Linq;
 
 namespace Cauldron.Interception.Fody
 {
-    public class MethodOfWeaver : ModuleWeaverBase
+    public class ChildOfWeaver : ModuleWeaverBase
     {
-        public MethodOfWeaver(ModuleWeaver weaver) : base(weaver)
+        public ChildOfWeaver(ModuleWeaver weaver) : base(weaver)
         {
         }
 
@@ -15,13 +15,13 @@ namespace Cauldron.Interception.Fody
         {
             if (!this.ModuleDefinition.AllReferencedAssemblies().Any(x => x.Name.Name == "Cauldron.Core"))
             {
-                this.LogInfo("Skipping implementation of Cauldron.Core.Reflection.GetMethodBase. Cauldron.Core is not referenced in the project");
+                this.LogInfo("Skipping implementation of Cauldron.Core.Reflection.ChildTypeOf. Cauldron.Core is not referenced in the project");
                 return;
             }
 
-            this.LogInfo("Implementing Cauldron.Core.Reflection.GetMethodBase");
+            this.LogInfo("Implementing Cauldron.Core.Reflection.ChildTypeOf");
 
-            var methodOf = "Cauldron.Core.Reflection".ToTypeDefinition().GetMethodReference("GetMethodBase", 0);
+            var methodOf = "Cauldron.Core.Reflection".ToTypeDefinition().GetMethodReference("ChildTypeOf", 1);
             var allMethodsWithMethodOfCalls = this.GetMethodsWhere(x => x.OpCode == OpCodes.Call && (x.Operand as MethodReference).FullName == methodOf.FullName);
             var getMethodFromHandleRef = typeof(System.Reflection.MethodBase).Import().GetMethodReference("GetMethodFromHandle", 2).Import();
 
@@ -31,9 +31,14 @@ namespace Cauldron.Interception.Fody
 
                 foreach (var getMethodBaseCall in method.Instruction)
                 {
-                    processor.InsertBefore(getMethodBaseCall, processor.Create(OpCodes.Ldtoken, method.Method));
-                    processor.InsertBefore(getMethodBaseCall, processor.Create(OpCodes.Ldtoken, method.Method.DeclaringType));
-                    processor.InsertBefore(getMethodBaseCall, processor.Create(OpCodes.Call, getMethodFromHandleRef));
+                    var ldToken = getMethodBaseCall.Previous.Previous;
+                    var getTypeFromHandleCall = getMethodBaseCall.Previous;
+                    TypeReference typeToken = getMethodBaseCall.Previous.Previous.Operand as TypeReference;
+
+                    processor.Remove(ldToken);
+                    processor.Remove(getTypeFromHandleCall);
+
+                    processor.InsertBefore(getMethodBaseCall, processor.TypeOf(typeToken.GetChildrenType().Import()));
                     processor.Remove(getMethodBaseCall);
                 }
             }

@@ -1,9 +1,7 @@
-﻿using Cauldron.Core.Extensions;
+﻿using Cauldron.Core;
+using Cauldron.Core.Extensions;
 using Cauldron.Interception;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
 using System.Threading;
 
 namespace Cauldron.Activator
@@ -14,6 +12,45 @@ namespace Cauldron.Activator
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false, Inherited = true)]
     public sealed class InjectAttribute : Attribute, ILockablePropertyGetterInterceptor
     {
+        private object[] arguments;
+
+        /// <summary>
+        /// Initializes a new instance of <see cref="InjectAttribute"/>
+        /// </summary>
+        public InjectAttribute()
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of <see cref="InjectAttribute"/>
+        /// </summary>
+        /// <param name="arguments">The The arguments that can be used to initialize the instance</param>
+        public InjectAttribute(object[] arguments) : this(contractName: null, arguments: arguments)
+        {
+        }
+
+        private string contractName;
+
+        /// <summary>
+        /// Initializes a new instance of <see cref="InjectAttribute"/>
+        /// </summary>
+        /// <param name="contractType">The type of the contract to inject</param>
+        /// <param name="arguments">The The arguments that can be used to initialize the instance</param>
+        public InjectAttribute(Type contractType, object[] arguments) : this(contractType.FullName, arguments)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of <see cref="InjectAttribute"/>
+        /// </summary>
+        /// <param name="contractName">The name of the contract to inject</param>
+        /// <param name="arguments">The The arguments that can be used to initialize the instance</param>
+        public InjectAttribute(string contractName, object[] arguments)
+        {
+            this.contractName = contractName;
+            this.arguments = arguments;
+        }
+
         /// <summary>
         /// Invoked if an intercepted method has raised an exception. The method will always rethrow the exception.
         /// </summary>
@@ -43,63 +80,51 @@ namespace Cauldron.Activator
 
                 if (value == null)
                 {
-                    if (propertyInterceptionInfo.PropertyType.ImplementsInterface(typeof(IEnumerable<>)) && !Factory.HasContract(propertyInterceptionInfo.PropertyType))
-                        propertyInterceptionInfo.SetValue(this.CreateManyObject(propertyInterceptionInfo.PropertyType));
-                    else
-                        propertyInterceptionInfo.SetValue(Factory.Create(propertyInterceptionInfo.PropertyType));
+                    // If the property or field implements IEnumerable then it could be an array or list or anything else
+                    // if it does not have a contract, then we look at its child elements... maybe they have a contract
+                    if (string.IsNullOrEmpty(this.contractName))
+                        this.contractName = propertyInterceptionInfo.PropertyType.FullName;
+
+                    object injectionInstance;
+
+                    if (Factory.HasContract(this.contractName))
+                    {
+                        if (this.arguments == null || this.arguments.Length == 0)
+                            injectionInstance = Factory.Create(this.contractName);
+                        else
+                            injectionInstance = Factory.Create(this.contractName, this.arguments);
+                    }
+                    else if (propertyInterceptionInfo.ChildType != null && propertyInterceptionInfo.ChildType != typeof(object))
+                        injectionInstance = Factory.CreateMany(propertyInterceptionInfo.ChildType);
+                    else if (!propertyInterceptionInfo.PropertyType.IsInterface)
+                    {
+                        // If the property type is not an interface, then we will try to create the type with its default constructor
+                        if (this.arguments == null || this.arguments.Length == 0)
+                            injectionInstance = propertyInterceptionInfo.PropertyType.CreateInstance();
+                        else
+                            injectionInstance = propertyInterceptionInfo.PropertyType.CreateInstance(this.arguments);
+                    }
+                    else // If everthing else fails... We will throw an exception
+                        throw new InvalidOperationException($"Unable to inject the contract '{this.contractName}' to the property or field '{propertyInterceptionInfo.PropertyName}' in '{propertyInterceptionInfo.DeclaringType.FullName}'.");
+
+                    propertyInterceptionInfo.SetValue(injectionInstance);
+
+                    // Add these to auto dispose if possible
+                    var disposableInstance = injectionInstance as IDisposable;
+
+                    if (disposableInstance != null)
+                    {
+                        var disposableMe = propertyInterceptionInfo.Instance as IDisposableObject;
+                        // TODO - Mabe auto implement IDisposable???
+                        if (disposableMe != null)
+                            disposableMe.Disposed += (s, e) => disposableInstance?.Dispose();
+                        else
+                            Output.WriteLineError($"'{propertyInterceptionInfo.DeclaringType.FullName}' must implement '{typeof(IDisposableObject).FullName}' because '{injectionInstance}' is disposable.");
+                    }
                 }
 
                 semaphore.Release();
             }
-        }
-
-        private object CreateManyObject(Type type)
-        {
-            // TODO - IL weaving with fody instead
-
-            var childType = type.GetChildrenType();
-            var objects = Factory.CreateMany(childType);
-
-            // Check first if it is an array, because arrays are easy to create
-            if (type.IsArray)
-            {
-            }
-
-            var context = Factory.CreateInstance(type);
-
-            // Let us check if the type has a suitable AddRange method
-            // But... this will take longer than just getting the first best addrange and passing the collection to it
-
-            // This will fail in UWP in most cases because the addition of the certain type to rd.xml will be missing.
-            // AddRange is also not defined by any of the interfaces... That is why it is very hard to handle this.
-            var addRange = type.GetMethod("AddRange", new Type[] { typeof(IEnumerable<>).MakeGenericType(childType) }, BindingFlags.Instance | BindingFlags.Public);
-
-            if (addRange != null)
-            {
-                try
-                {
-                    addRange.Invoke(context, new object[] { objects });
-                    return context;
-                }
-                catch
-                {
-                    // Oh no!
-                }
-            }
-
-            // Lets makes this one UWP native friendly... It is also muchg faster than reflection
-            var list = context as IList;
-
-            if (list != null)
-            {
-                foreach (var item in objects)
-                    list.Add(item);
-
-                return context;
-            }
-
-            // No add method? No AddRange? .. What is this sorcery
-            return objects;
         }
     }
 }

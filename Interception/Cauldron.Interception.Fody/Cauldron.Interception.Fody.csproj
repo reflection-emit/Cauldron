@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyNameReferenceEqualityComparer.cs" />
+    <Compile Include="ChildOfWeaver.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="FieldInterceptorWeaver.cs" />
     <Compile Include="FieldOfWeaver.cs" />

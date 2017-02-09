@@ -228,10 +228,16 @@ namespace Cauldron.Interception.Fody
                        result.Add(processor.Create(OpCodes.Ldstr, property.Name));
                        result.AddRange(processor.TypeOf(property.PropertyType.Import()));
                        result.Add(processor.Create(isStatic ? OpCodes.Ldnull : OpCodes.Ldarg_0));
+
+                       if (property.PropertyType.IsIEnumerable())
+                           result.AddRange(processor.TypeOf(property.PropertyType.GetChildrenType().Import()));
+                       else
+                           result.Add(processor.Create(OpCodes.Ldnull));
+
                        result.Add(processor.Create(isStatic ? OpCodes.Ldnull : OpCodes.Ldarg_0));
                        result.Add(processor.Create(OpCodes.Ldftn, method));
                        result.Add(processor.Create(OpCodes.Newobj, typeof(Action<object>).GetConstructor(new Type[] { typeof(object), typeof(IntPtr) }).Import()));
-                       result.Add(processor.Create(OpCodes.Newobj, this.propertyInterceptionInfoReference.GetMethodReference(".ctor", 6).Import()));
+                       result.Add(processor.Create(OpCodes.Newobj, this.propertyInterceptionInfoReference.GetMethodReference(".ctor", 7).Import()));
                        result.Add(processor.Create(isStatic ? OpCodes.Stsfld : OpCodes.Stfld, fieldDefinition));
 
                        return result;

@@ -146,6 +146,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.UWP.Interception",
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Cauldron.NetCore.Interception", "NetCore\Cauldron.NetCore.Interception\Cauldron.NetCore.Interception.xproj", "{2CC566BD-FBDA-41D7-8CD4-094BA62AB36A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.Desktop.Activator.Test", "Desktop\Unit Tests\Cauldron.Desktop.Activator.Test\Cauldron.Desktop.Activator.Test.csproj", "{683DA2ED-4C8D-4E6F-B217-C5645EE20071}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Shared\Cauldron.Consoles\Cauldron.Consoles.projitems*{00c29751-1557-46a8-9547-f74065b36592}*SharedItemsImports = 4
@@ -758,6 +760,22 @@ Global
 		{2CC566BD-FBDA-41D7-8CD4-094BA62AB36A}.Release|x64.Build.0 = Release|Any CPU
 		{2CC566BD-FBDA-41D7-8CD4-094BA62AB36A}.Release|x86.ActiveCfg = Release|Any CPU
 		{2CC566BD-FBDA-41D7-8CD4-094BA62AB36A}.Release|x86.Build.0 = Release|Any CPU
+		{683DA2ED-4C8D-4E6F-B217-C5645EE20071}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{683DA2ED-4C8D-4E6F-B217-C5645EE20071}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{683DA2ED-4C8D-4E6F-B217-C5645EE20071}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{683DA2ED-4C8D-4E6F-B217-C5645EE20071}.Debug|ARM.Build.0 = Debug|Any CPU
+		{683DA2ED-4C8D-4E6F-B217-C5645EE20071}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{683DA2ED-4C8D-4E6F-B217-C5645EE20071}.Debug|x64.Build.0 = Debug|Any CPU
+		{683DA2ED-4C8D-4E6F-B217-C5645EE20071}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{683DA2ED-4C8D-4E6F-B217-C5645EE20071}.Debug|x86.Build.0 = Debug|Any CPU
+		{683DA2ED-4C8D-4E6F-B217-C5645EE20071}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{683DA2ED-4C8D-4E6F-B217-C5645EE20071}.Release|Any CPU.Build.0 = Release|Any CPU
+		{683DA2ED-4C8D-4E6F-B217-C5645EE20071}.Release|ARM.ActiveCfg = Release|Any CPU
+		{683DA2ED-4C8D-4E6F-B217-C5645EE20071}.Release|ARM.Build.0 = Release|Any CPU
+		{683DA2ED-4C8D-4E6F-B217-C5645EE20071}.Release|x64.ActiveCfg = Release|Any CPU
+		{683DA2ED-4C8D-4E6F-B217-C5645EE20071}.Release|x64.Build.0 = Release|Any CPU
+		{683DA2ED-4C8D-4E6F-B217-C5645EE20071}.Release|x86.ActiveCfg = Release|Any CPU
+		{683DA2ED-4C8D-4E6F-B217-C5645EE20071}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -812,5 +830,6 @@ Global
 		{C656C9C1-BEE8-40B1-BAC7-6DD7B6FF5FBB} = {45646BEE-05CB-4168-8F1F-291F511B6B76}
 		{659A319C-9460-43D9-9453-2731AC5DAB55} = {18FF0088-AC5D-4491-91DF-37B55422635B}
 		{2CC566BD-FBDA-41D7-8CD4-094BA62AB36A} = {BC7D3C90-F242-42A1-B039-5B051273B466}
+		{683DA2ED-4C8D-4E6F-B217-C5645EE20071} = {061AFBC5-FC70-405E-80BB-974A63AFAFED}
 	EndGlobalSection
 EndGlobal

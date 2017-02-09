@@ -1,5 +1,6 @@
 ﻿using Mono.Cecil;
 using Mono.Cecil.Cil;
+using Mono.Cecil.Rocks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -83,6 +84,121 @@ namespace Cauldron.Interception.Fody
             return result.Distinct(new AssemblyNameReferenceEqualityComparer()).OrderBy(x => x.FullName);
         }
 
+        public static IEnumerable<TypeReference> GetBaseClassAndInterfaces(this TypeDefinition type)
+        {
+            var result = new List<TypeReference>();
+            result.Add(type);
+
+            if (type.Interfaces != null && type.Interfaces.Count > 0)
+                result.AddRange(type.Interfaces.Select(x => x.Resolve()));
+
+            if (type.BaseType != null)
+                result.AddRange(type.BaseType.Resolve().GetBaseClassAndInterfaces());
+
+            return result;
+        }
+
+        public static TypeReference GetChildrenType(this TypeReference type)
+        {
+            if (type.IsArray)
+                return type.GetElementType();
+
+            if (type.IsGenericInstance)
+            {
+                var genericType = type as GenericInstanceType;
+
+                if (genericType != null)
+                {
+                    // If we have more than 1 generic argument then we try to get a IEnumerable<> interface
+                    // otherwise we just return the last argument in the list
+                    var ienumerableInterface = genericType.GetGenericInstances().FirstOrDefault(x => x.FullName.StartsWith("System.Collections.Generic.IEnumerable`1<"));
+
+                    // We just don't know :(
+                    if (ienumerableInterface == null)
+                        return typeof(object).GetTypeReference();
+
+                    return (ienumerableInterface as GenericInstanceType).GenericArguments[0];
+                }
+            }
+
+            // This might be a type that inherits from list<> or something...
+            // lets find out
+            if (type.Resolve().GetBaseClassAndInterfaces().Any(x => x.FullName == "System.Collections.Generic.IEnumerable`1"))
+            {
+                // if this is the case we will dig until we find a generic instance type
+                var baseType = type.Resolve().BaseType;
+
+                while (baseType != null)
+                {
+                    if (baseType.IsGenericInstance)
+                    {
+                        var genericType = baseType as GenericInstanceType;
+
+                        if (genericType != null)
+                        {
+                            var ienumerableInterface = genericType.GetGenericInstances().FirstOrDefault(x => x.FullName.StartsWith("System.Collections.Generic.IEnumerable`1<"));
+
+                            if (ienumerableInterface == null)
+                                break;
+
+                            return (ienumerableInterface as GenericInstanceType).GenericArguments[0];
+                        }
+                    }
+
+                    baseType = baseType.Resolve().BaseType;
+                };
+            }
+
+            return typeof(object).GetTypeReference();
+        }
+
+        public static MethodReference GetDefaultConstructor(this TypeReference type)
+        {
+            if (!type.HasMethod(".ctor", 0))
+                return null;
+
+            var ctor = type.GetMethodReference(".ctor", 0);
+
+            if (type.IsGenericInstance)
+                return ctor.MakeHostInstanceGeneric((type as GenericInstanceType).GenericArguments.ToArray());
+
+            return ctor;
+        }
+
+        public static IEnumerable<TypeReference> GetGenericInstances(this GenericInstanceType type)
+        {
+            var result = new List<TypeReference>();
+            result.Add(type);
+
+            var resolved = type.Resolve();
+            var genericArgumentsNames = resolved.GenericParameters.Select(x => x.FullName).ToArray();
+            var genericArguments = type.GenericArguments.ToArray();
+
+            if (resolved.BaseType != null)
+                result.AddRange(resolved.BaseType.GetGenericInstances(genericArgumentsNames, genericArguments));
+
+            if (resolved.Interfaces != null && resolved.Interfaces.Count > 0)
+            {
+                foreach (var item in resolved.Interfaces)
+                    result.AddRange(item.GetGenericInstances(genericArgumentsNames, genericArguments));
+            }
+
+            return result;
+        }
+
+        public static IEnumerable<TypeReference> GetInterfaces(this TypeDefinition type)
+        {
+            var result = new List<TypeReference>();
+
+            if (type.Interfaces != null && type.Interfaces.Count > 0)
+                result.AddRange(type.Interfaces.Select(x => x.Resolve()));
+
+            if (type.BaseType != null)
+                result.AddRange(type.BaseType.Resolve().GetInterfaces());
+
+            return result;
+        }
+
         public static MethodReference GetMethodReference(this Type type, string methodName, Type[] parameterTypes)
         {
             var definition = type.GetTypeDefinition();
@@ -114,6 +230,12 @@ namespace Cauldron.Interception.Fody
                 return result;
 
             throw new Exception($"Unable to proceed. The type '{type.FullName}' does not contain a method '{methodName}'");
+        }
+
+        public static IEnumerable<MethodReference> GetMethodReferences(this TypeReference typeReference, string methodName, int parameterCount)
+        {
+            var definition = typeReference.Resolve();
+            return definition.Methods.Where(x => x.Name == methodName && x.Parameters.Count == parameterCount);
         }
 
         public static PropertyDefinition GetPropertyDefinition(this MethodDefinition method) =>
@@ -165,23 +287,19 @@ namespace Cauldron.Interception.Fody
         }
 
         public static IEnumerable<TypeDefinition> GetTypesThatImplementsInterface(this TypeDefinition typeDefinitionOfInterface) =>
-             allTypes.Where(x => x.Implements(typeDefinitionOfInterface.Name)).ToArray();
+            allTypes.Where(x => x.ImplementsInterface(typeDefinitionOfInterface.FullName)).ToArray();
 
-        public static bool Implements(this TypeDefinition typeDefinition, string interfaceName)
+        public static bool HasMethod(this TypeReference typeReference, string methodName, int parameterCount)
         {
-            while (typeDefinition != null)
-            {
-                if (typeDefinition.Interfaces != null && typeDefinition.Interfaces.Any(x => x.Name == interfaceName))
-                    return true;
-
-                typeDefinition = typeDefinition.BaseType?.Resolve();
-            }
-
-            return false;
+            var definition = typeReference.Resolve();
+            return definition.Methods.FirstOrDefault(x => x.Name == methodName && x.Parameters.Count == parameterCount) != null;
         }
 
         public static bool ImplementsInterface(this TypeDefinition type, Type interfaceType) =>
-            type.Interfaces.Any(x => x.FullName.Equals(interfaceType.FullName)) || type.NestedTypes.Any(x => x.ImplementsInterface(interfaceType));
+            type.GetInterfaces().Any(x => x.FullName == interfaceType.FullName);
+
+        public static bool ImplementsInterface(this TypeDefinition type, string interfaceName) =>
+            type.GetInterfaces().Any(x => x.FullName == interfaceName);
 
         public static TypeReference Import(this TypeReference value) => ModuleDefinition.Import(value);
 
@@ -214,6 +332,18 @@ namespace Cauldron.Interception.Fody
             return false;
         }
 
+        public static bool IsIEnumerable(this TypeReference type)
+        {
+            var resolved = type.Resolve();
+            return
+                resolved.ImplementsInterface(typeof(IList)) ||
+                resolved.ImplementsInterface(typeof(IEnumerable)) ||
+                type.IsArray ||
+                type.FullName.EndsWith("[]") ||
+                resolved.IsArray ||
+                resolved.FullName.EndsWith("[]");
+        }
+
         public static MethodReference MakeGeneric(this MethodReference method, params TypeReference[] args)
         {
             if (args.Length == 0)
@@ -228,6 +358,26 @@ namespace Cauldron.Interception.Fody
                 genericTypeRef.GenericArguments.Add(arg);
 
             return genericTypeRef;
+        }
+
+        public static MethodReference MakeHostInstanceGeneric(this MethodReference self, params TypeReference[] arguments)
+        {
+            // https://groups.google.com/forum/#!topic/mono-cecil/mCat5UuR47I by ShdNx
+
+            var reference = new MethodReference(self.Name, self.ReturnType, self.DeclaringType.MakeGenericInstanceType(arguments))
+            {
+                HasThis = self.HasThis,
+                ExplicitThis = self.ExplicitThis,
+                CallingConvention = self.CallingConvention
+            };
+
+            foreach (var parameter in self.Parameters)
+                reference.Parameters.Add(new ParameterDefinition(parameter.ParameterType));
+
+            foreach (var generic_parameter in self.GenericParameters)
+                reference.GenericParameters.Add(new GenericParameter(generic_parameter.Name, reference));
+
+            return reference;
         }
 
         /// <summary>
@@ -261,6 +411,24 @@ namespace Cauldron.Interception.Fody
                 processor.Create(OpCodes.Ldtoken, type),
                 processor.Create(OpCodes.Call, ModuleDefinition.Import(typeof(Type).GetMethodReference("GetTypeFromHandle", 1)))
             };
+        }
+
+        private static IEnumerable<TypeReference> GetGenericInstances(this TypeReference type, string[] genericArgumentNames, TypeReference[] genericArgumentsOfCurrentType)
+        {
+            var resolvedBase = type.Resolve();
+
+            if (resolvedBase.HasGenericParameters)
+            {
+                var genericArguments = new List<TypeReference>();
+
+                foreach (var arg in (type as GenericInstanceType).GenericArguments)
+                    genericArguments.Add(genericArgumentsOfCurrentType[Array.IndexOf(genericArgumentNames, genericArgumentNames.First(x => x == arg.FullName))]);
+
+                var genericType = resolvedBase.MakeGenericInstanceType(genericArguments.ToArray());
+                return genericType.GetGenericInstances();
+            }
+
+            return new TypeReference[0];
         }
     }
 }

@@ -184,10 +184,8 @@ namespace Cauldron.Interception.Fody
                 processor.Append(processor.Create(OpCodes.Unbox_Any, field.FieldType.Import()));
                 processor.Append(processor.Create(isStatic ? OpCodes.Stsfld : OpCodes.Stfld, field));
             }
-            else if (field.FieldType.IsArray)
-                EmitSpecializedArraySetter(field, isStatic, processor);
-            else if (field.FieldType.Resolve().ImplementsInterface(typeof(IList)))
-                EmitSpecializedListSetter(field, isStatic, processor);
+            else if (field.FieldType.IsIEnumerable())
+                EmitSpecializedEnumerableSetter(field, isStatic, processor);
             else
             {
                 if (!isStatic)
@@ -412,69 +410,238 @@ namespace Cauldron.Interception.Fody
             }
         }
 
-        private static void EmitSpecializedArraySetter(FieldDefinition field, bool isStatic, ILProcessor processor)
+        private IEnumerable<Instruction> CreateInstructionsFromAttributeTypes(ILProcessor processor, TypeReference targetType, Type type, object value)
+        {
+            if (type == typeof(CustomAttributeArgument))
+            {
+                var attrib = (CustomAttributeArgument)value;
+                type = attrib.Value.GetType();
+                value = attrib.Value;
+            }
+
+            if (type == typeof(string))
+                return new Instruction[] { processor.Create(OpCodes.Ldstr, value.ToString()) };
+
+            if (type == typeof(TypeReference))
+                return processor.TypeOf(value as TypeReference);
+
+            var createInstructionsResult = new List<Instruction>();
+
+            if (type.IsEnum) createInstructionsResult.Add(processor.Create(OpCodes.Ldc_I4, (int)value));
+            else if (type == typeof(int)) createInstructionsResult.Add(processor.Create(OpCodes.Ldc_I4, (int)value));
+            else if (type == typeof(uint)) createInstructionsResult.Add(processor.Create(OpCodes.Ldc_I4, (int)(uint)value));
+            else if (type == typeof(bool)) createInstructionsResult.Add(processor.Create(OpCodes.Ldc_I4, (bool)value ? 1 : 0));
+            else if (type == typeof(char)) createInstructionsResult.Add(processor.Create(OpCodes.Ldc_I4, (char)value));
+            else if (type == typeof(short)) createInstructionsResult.Add(processor.Create(OpCodes.Ldc_I4, (short)value));
+            else if (type == typeof(ushort)) createInstructionsResult.Add(processor.Create(OpCodes.Ldc_I4, (ushort)value));
+            else if (type == typeof(byte)) createInstructionsResult.Add(processor.Create(OpCodes.Ldc_I4, (int)(byte)value));
+            else if (type == typeof(sbyte)) createInstructionsResult.Add(processor.Create(OpCodes.Ldc_I4, (int)(sbyte)value));
+            else if (type == typeof(long)) createInstructionsResult.Add(processor.Create(OpCodes.Ldc_I8, (long)value));
+            else if (type == typeof(ulong)) createInstructionsResult.Add(processor.Create(OpCodes.Ldc_I8, (long)(ulong)value));
+            else if (type == typeof(double)) createInstructionsResult.Add(processor.Create(OpCodes.Ldc_R8, (double)value));
+            else if (type == typeof(float)) createInstructionsResult.Add(processor.Create(OpCodes.Ldc_R4, (float)value));
+
+            if (type.IsValueType && !targetType.IsValueType)
+                createInstructionsResult.Add(processor.Create(OpCodes.Box, type.IsEnum ?
+                    Enum.GetUnderlyingType(type).GetTypeReference().Import() : type.GetTypeReference().Import()));
+
+            return createInstructionsResult;
+        }
+
+        private void EmitSpecializedEnumerableSetter(FieldDefinition field, bool isStatic, ILProcessor processor)
         {
             /*
+                backingField.TryDispose();
+
                 if (value == null)
                 {
-                    backingField.TryDispose();
                     backingField = null;
                 }
                 else
                 {
-                    backingField.TryDispose();
+                    if(typeof(<backingField>) == value.GetType())
+                    {
+                        backingField = value;
+                        return;
+                    }
+
+                    // Only if a default constructor is present
+                    if(backingField == null)
+                    {
+                        backingField = new ITestInterface();
+                    }
+
+                    // Only if array or IEnumerable<>
                     backingField = (value as IEnumerable).Cast<ITestInterface>().ToArray<ITestInterface>();
+
+                    // Only if a Clear method was found
+                    backingField.Clear();
+
+                    // Only if a AddRange method was found
+                    backingField.AddRange( (value as IEnumerable).Cast<ITestInterface>() );
+                    // Or
+                    backingField.AddRange(value as IEnumerable);
+
+                    // Only if a Add method was found
+                    foreach(var item in value as IEnumerable)
+                        backingField.Add(item as ITestInterface);
+                    // Or
+                    foreach(var item in value as IEnumerable)
+                        backingField.Add(item);
+
+                    backingField = value as <backingField>;
                 }
              */
+
+            var childType = field.FieldType.GetChildrenType();
             var elseClause = processor.Create(OpCodes.Nop);
             var endClause = processor.Create(OpCodes.Nop);
+            var endifBackingFieldNull = processor.Create(OpCodes.Nop);
+            var endifBackingFieldType = processor.Create(OpCodes.Nop);
 
-            // if (value == null)
-            processor.Append(processor.Create(isStatic ? OpCodes.Ldarg_0 : OpCodes.Ldarg_1));
-            processor.Append(processor.Create(OpCodes.Ldnull));
-            processor.Append(processor.Create(OpCodes.Ceq));
-            processor.Append(processor.Create(OpCodes.Brfalse_S, elseClause));
+            #region backingField.TryDispose();
 
-            // backingField.TryDispose();
             if (!isStatic)
                 processor.Append(processor.Create(OpCodes.Ldarg_0));
 
             processor.Append(processor.Create(isStatic ? OpCodes.Ldsfld : OpCodes.Ldfld, field));
             processor.Append(processor.Create(OpCodes.Call, "Cauldron.Interception.Extensions".ToTypeDefinition().GetMethodReference("TryDispose", 1).Import()));
 
-            // backingField = null;
+            #endregion backingField.TryDispose();
+
+            #region if (value == null)
+
+            processor.Append(processor.Create(isStatic ? OpCodes.Ldarg_0 : OpCodes.Ldarg_1));
+            processor.Append(processor.Create(OpCodes.Ldnull));
+            processor.Append(processor.Create(OpCodes.Ceq));
+            processor.Append(processor.Create(OpCodes.Brfalse_S, elseClause));
+
+            #endregion if (value == null)
+
+            #region backingField = null;
+
             if (!isStatic)
                 processor.Append(processor.Create(OpCodes.Ldarg_0));
 
             processor.Append(processor.Create(OpCodes.Ldnull));
             processor.Append(processor.Create(isStatic ? OpCodes.Stsfld : OpCodes.Stfld, field));
             processor.Append(processor.Create(OpCodes.Br_S, endClause));
+
+            #endregion backingField = null;
+
+            // else
             processor.Append(elseClause);
 
-            // backingField.TryDispose();
-            if (!isStatic)
-                processor.Append(processor.Create(OpCodes.Ldarg_0));
+            #region if(typeof(<backingField>) == value.GetType())
 
-            processor.Append(processor.Create(isStatic ? OpCodes.Ldsfld : OpCodes.Ldfld, field));
-            processor.Append(processor.Create(OpCodes.Call, "Cauldron.Interception.Extensions".ToTypeDefinition().GetMethodReference("TryDispose", 1).Import()));
-
-            // backingField = (value as IEnumerable).Cast<ITestInterface>().ToArray<ITestInterface>();
-            if (!isStatic)
-                processor.Append(processor.Create(OpCodes.Ldarg_0));
-
-            var castMethod = typeof(System.Linq.Enumerable).GetMethodReference("Cast", new Type[] { typeof(IEnumerable) }).MakeGeneric(field.FieldType.GetElementType()).Import();
-            var toArrayMethod = typeof(System.Linq.Enumerable).GetMethodReference("ToArray", 1).MakeGeneric(field.FieldType.GetElementType()).Import();
-
+            processor.Append(processor.TypeOf(field.FieldType.Import()));
             processor.Append(processor.Create(isStatic ? OpCodes.Ldarg_0 : OpCodes.Ldarg_1));
-            processor.Append(processor.Create(OpCodes.Isinst, typeof(IEnumerable).GetTypeReference().Import()));
-            processor.Append(processor.Create(OpCodes.Call, castMethod));
-            processor.Append(processor.Create(OpCodes.Call, toArrayMethod));
-            processor.Append(processor.Create(isStatic ? OpCodes.Stsfld : OpCodes.Stfld, field));
+            processor.Append(processor.Create(OpCodes.Call, typeof(object).GetMethodReference("GetType", 0).Import()));
+            processor.Append(processor.Create(OpCodes.Ceq));
+            processor.Append(processor.Create(OpCodes.Brfalse_S, endifBackingFieldType));
 
+            #endregion if(typeof(<backingField>) == value.GetType())
+
+            #region backingField = value;
+
+            if (!isStatic)
+                processor.Append(processor.Create(OpCodes.Ldarg_0));
+            processor.Append(processor.Create(isStatic ? OpCodes.Ldarg_0 : OpCodes.Ldarg_1));
+            processor.Append(processor.Create(isStatic ? OpCodes.Stsfld : OpCodes.Stfld, field));
+            processor.Append(processor.Create(OpCodes.Br_S, endClause));
+
+            #endregion backingField = value;
+
+            processor.Append(endifBackingFieldType);
+
+            var ctor = field.FieldType.GetDefaultConstructor();
+            if (ctor != null)
+            {
+                // We will only use public constructors
+                if (ctor.Resolve().IsPublic)
+                {
+                    #region if(backingField == null)
+
+                    if (!isStatic)
+                        processor.Append(processor.Create(OpCodes.Ldarg_0));
+                    processor.Append(processor.Create(isStatic ? OpCodes.Ldsfld : OpCodes.Ldfld, field));
+                    processor.Append(processor.Create(OpCodes.Ldnull));
+                    processor.Append(processor.Create(OpCodes.Ceq));
+                    processor.Append(processor.Create(OpCodes.Brfalse_S, endifBackingFieldNull));
+
+                    #endregion if(backingField == null)
+
+                    #region backingField = new ITestInterface();
+
+                    if (!isStatic)
+                        processor.Append(processor.Create(OpCodes.Ldarg_0));
+                    processor.Append(processor.Create(OpCodes.Newobj, ctor.Import()));
+                    processor.Append(processor.Create(isStatic ? OpCodes.Stsfld : OpCodes.Stfld, field));
+
+                    #endregion backingField = new ITestInterface();
+
+                    processor.Append(endifBackingFieldNull);
+                }
+            }
+            if (field.FieldType.IsArray || field.FieldType.Resolve().FullName == typeof(IEnumerable<>).FullName)
+            {
+                #region backingField = (value as IEnumerable).Cast<ITestInterface>().ToArray<ITestInterface>();
+
+                if (!isStatic)
+                    processor.Append(processor.Create(OpCodes.Ldarg_0));
+
+                var castMethod = typeof(System.Linq.Enumerable).GetMethodReference("Cast", new Type[] { typeof(IEnumerable) }).MakeGeneric(childType).Import();
+                var toArrayMethod = typeof(System.Linq.Enumerable).GetMethodReference("ToArray", 1).MakeGeneric(childType).Import();
+
+                processor.Append(processor.Create(isStatic ? OpCodes.Ldarg_0 : OpCodes.Ldarg_1));
+                processor.Append(processor.Create(OpCodes.Isinst, typeof(IEnumerable).GetTypeReference().Import()));
+                processor.Append(processor.Create(OpCodes.Call, castMethod));
+                processor.Append(processor.Create(OpCodes.Call, toArrayMethod));
+                processor.Append(processor.Create(isStatic ? OpCodes.Stsfld : OpCodes.Stfld, field));
+
+                #endregion backingField = (value as IEnumerable).Cast<ITestInterface>().ToArray<ITestInterface>();
+            }
+            else if (field.FieldType.HasMethod("Add", 1))
+            {
+                // Check if there is a AddRange... We prefer add range
+                if (field.FieldType.HasMethod("AddRange", 1))
+                {
+                    // Find out if this method requires an object or T
+                    var addRangeMethods = field.FieldType.GetMethodReferences("AddRange", 1);
+                    MethodReference addRangeReference = null;
+
+                    if (addRangeMethods.Count() == 1)
+                        addRangeReference = addRangeMethods.First();
+                    else
+                        addRangeReference = addRangeMethods.FirstOrDefault(x => x.Parameters[0].ParameterType.FullName == childType.FullName);
+
+                    if (addRangeReference == null)
+                        addRangeReference = addRangeMethods.FirstOrDefault(x => x.Parameters[0].ParameterType.FullName == typeof(object).FullName);
+
+                    if (addRangeReference == null) // Just take the first one... Code could break here... A lot of reasons why it could
+                        addRangeReference = addRangeMethods.First();
+
+                    #region backingField.AddRange(value as IEnumerable);
+
+                    var castMethod = typeof(System.Linq.Enumerable).GetMethodReference("Cast", new Type[] { typeof(IEnumerable) }).MakeGeneric(childType).Import();
+
+                    if (!isStatic)
+                        processor.Append(processor.Create(OpCodes.Ldarg_0));
+                    processor.Append(processor.Create(isStatic ? OpCodes.Ldsfld : OpCodes.Ldfld, field));
+                    processor.Append(processor.Create(isStatic ? OpCodes.Ldarg_0 : OpCodes.Ldarg_1));
+                    processor.Append(processor.Create(OpCodes.Isinst, typeof(IEnumerable).GetTypeReference().Import()));
+                    processor.Append(processor.Create(OpCodes.Call, castMethod));
+                    processor.Append(processor.Create(OpCodes.Callvirt, addRangeReference.MakeHostInstanceGeneric(childType).Import()));
+
+                    #endregion backingField.AddRange(value as IEnumerable);
+                }
+            }
+
+            // End if
             processor.Append(endClause);
         }
 
-        private static void EmitSpecializedListSetter(FieldDefinition field, bool isStatic, ILProcessor processor)
+        private void EmitSpecializedListSetter(FieldDefinition field, bool isStatic, ILProcessor processor)
         {
             /*
 	                if (value == null)
@@ -555,7 +722,7 @@ namespace Cauldron.Interception.Fody
             if (!isStatic)
                 processor.Append(processor.Create(OpCodes.Ldarg_0));
 
-            var childElement = field.FieldType.Resolve().GenericParameters[0];
+            var childElement = field.FieldType.GetChildrenType();
             var castMethod = typeof(System.Linq.Enumerable).GetMethodReference("Cast", new Type[] { typeof(IEnumerable) }).MakeGeneric(childElement).Import();
             var toListMethod = typeof(System.Linq.Enumerable).GetMethodReference("ToList", 1).MakeGeneric(childElement).Import();
 
@@ -566,44 +733,6 @@ namespace Cauldron.Interception.Fody
             processor.Append(processor.Create(isStatic ? OpCodes.Stsfld : OpCodes.Stfld, field));
 
             processor.Append(endClause);
-        }
-
-        private IEnumerable<Instruction> CreateInstructionsFromAttributeTypes(ILProcessor processor, TypeReference targetType, Type type, object value)
-        {
-            if (type == typeof(CustomAttributeArgument))
-            {
-                var attrib = (CustomAttributeArgument)value;
-                type = attrib.Value.GetType();
-                value = attrib.Value;
-            }
-
-            if (type == typeof(string))
-                return new Instruction[] { processor.Create(OpCodes.Ldstr, value.ToString()) };
-
-            if (type == typeof(TypeReference))
-                return processor.TypeOf(value as TypeReference);
-
-            var createInstructionsResult = new List<Instruction>();
-
-            if (type.IsEnum) createInstructionsResult.Add(processor.Create(OpCodes.Ldc_I4, (int)value));
-            else if (type == typeof(int)) createInstructionsResult.Add(processor.Create(OpCodes.Ldc_I4, (int)value));
-            else if (type == typeof(uint)) createInstructionsResult.Add(processor.Create(OpCodes.Ldc_I4, (int)(uint)value));
-            else if (type == typeof(bool)) createInstructionsResult.Add(processor.Create(OpCodes.Ldc_I4, (bool)value ? 1 : 0));
-            else if (type == typeof(char)) createInstructionsResult.Add(processor.Create(OpCodes.Ldc_I4, (char)value));
-            else if (type == typeof(short)) createInstructionsResult.Add(processor.Create(OpCodes.Ldc_I4, (short)value));
-            else if (type == typeof(ushort)) createInstructionsResult.Add(processor.Create(OpCodes.Ldc_I4, (ushort)value));
-            else if (type == typeof(byte)) createInstructionsResult.Add(processor.Create(OpCodes.Ldc_I4, (int)(byte)value));
-            else if (type == typeof(sbyte)) createInstructionsResult.Add(processor.Create(OpCodes.Ldc_I4, (int)(sbyte)value));
-            else if (type == typeof(long)) createInstructionsResult.Add(processor.Create(OpCodes.Ldc_I8, (long)value));
-            else if (type == typeof(ulong)) createInstructionsResult.Add(processor.Create(OpCodes.Ldc_I8, (long)(ulong)value));
-            else if (type == typeof(double)) createInstructionsResult.Add(processor.Create(OpCodes.Ldc_R8, (double)value));
-            else if (type == typeof(float)) createInstructionsResult.Add(processor.Create(OpCodes.Ldc_R4, (float)value));
-
-            if (type.IsValueType && !targetType.IsValueType)
-                createInstructionsResult.Add(processor.Create(OpCodes.Box, type.IsEnum ?
-                    Enum.GetUnderlyingType(type).GetTypeReference().Import() : type.GetTypeReference().Import()));
-
-            return createInstructionsResult;
         }
     }
 }

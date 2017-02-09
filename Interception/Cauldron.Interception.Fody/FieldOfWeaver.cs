@@ -13,7 +13,7 @@ namespace Cauldron.Interception.Fody
 
         public override void Implement()
         {
-            if (!this.ModuleDefinition.AllReferencedAssemblies().Any(x => x.FullName == "Cauldron.Core"))
+            if (!this.ModuleDefinition.AllReferencedAssemblies().Any(x => x.Name.Name == "Cauldron.Core"))
             {
                 this.LogInfo("Skipping implementation of Cauldron.Core.Reflection.GetFieldInfo. Cauldron.Core is not referenced in the project");
                 return;
