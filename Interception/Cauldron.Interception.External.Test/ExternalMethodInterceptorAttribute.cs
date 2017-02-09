@@ -1,5 +1,4 @@
-﻿using Cauldron.Core.Interceptors;
-using System;
+﻿using System;
 using System.Reflection;
 
 namespace Cauldron.Interception.External.Test

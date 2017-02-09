@@ -32,12 +32,12 @@ namespace Cauldron.Interception.Fody
         protected IEnumerable<Instruction> AttributeParameterToOpCode(ILProcessor processor, CustomAttributeArgument attributeArgument)
         {
             /*
-                - One of the following types: bool, byte, char, double, float, int, long, short, string, sbyte, ushort, uint, ulong.
-                - The type object.
-                - The type System.Type.
-                - An enum type, provided it has public accessibility and the types in which it is nested (if any) also have public accessibility (Section 17.2).
-                - Single-dimensional arrays of the above types.
-             */
+				- One of the following types: bool, byte, char, double, float, int, long, short, string, sbyte, ushort, uint, ulong.
+				- The type object.
+				- The type System.Type.
+				- An enum type, provided it has public accessibility and the types in which it is nested (if any) also have public accessibility (Section 17.2).
+				- Single-dimensional arrays of the above types.
+			 */
 
             if (attributeArgument.Value == null)
                 return new Instruction[] { processor.Create(OpCodes.Ldnull) };
@@ -170,14 +170,11 @@ namespace Cauldron.Interception.Fody
             var processor = method.Body.GetILProcessor();
             method.Body.Instructions.Clear();
 
-            if (!isStatic)
-                processor.Append(processor.Create(OpCodes.Ldarg_0));
-
-            if (!field.FieldType.Resolve().IsEnum)
-                processor.Append(processor.Create(isStatic ? OpCodes.Ldarg_0 : OpCodes.Ldarg_1));
-
             if (field.FieldType.Resolve().IsEnum)
             {
+                if (!isStatic)
+                    processor.Append(processor.Create(OpCodes.Ldarg_0));
+
                 processor.Append(processor.TypeOf(field.FieldType.Import()));
                 processor.Append(processor.Create(isStatic ? OpCodes.Ldarg_0 : OpCodes.Ldarg_1));
                 processor.Append(processor.TypeOf(field.FieldType.Import()));
@@ -185,26 +182,38 @@ namespace Cauldron.Interception.Fody
                 processor.Append(processor.Create(OpCodes.Call, typeof(Convert).GetMethodReference("ChangeType", new Type[] { typeof(object), typeof(Type) }).Import()));
                 processor.Append(processor.Create(OpCodes.Call, typeof(Enum).GetMethodReference("ToObject", new Type[] { typeof(Type), typeof(object) }).Import()));
                 processor.Append(processor.Create(OpCodes.Unbox_Any, field.FieldType.Import()));
+                processor.Append(processor.Create(isStatic ? OpCodes.Stsfld : OpCodes.Stfld, field));
             }
-            else if (field.FieldType.FullName == typeof(int).FullName) processor.Append(processor.Create(OpCodes.Call, typeof(Convert).GetMethodReference("ToInt32", new Type[] { typeof(object) }).Import()));
-            else if (field.FieldType.FullName == typeof(uint).FullName) processor.Append(processor.Create(OpCodes.Call, typeof(Convert).GetMethodReference("ToUInt32", new Type[] { typeof(object) }).Import()));
-            else if (field.FieldType.FullName == typeof(bool).FullName) processor.Append(processor.Create(OpCodes.Call, typeof(Convert).GetMethodReference("ToBoolean", new Type[] { typeof(object) }).Import()));
-            else if (field.FieldType.FullName == typeof(byte).FullName) processor.Append(processor.Create(OpCodes.Call, typeof(Convert).GetMethodReference("ToByte", new Type[] { typeof(object) }).Import()));
-            else if (field.FieldType.FullName == typeof(char).FullName) processor.Append(processor.Create(OpCodes.Call, typeof(Convert).GetMethodReference("ToChar", new Type[] { typeof(object) }).Import()));
-            else if (field.FieldType.FullName == typeof(DateTime).FullName) processor.Append(processor.Create(OpCodes.Call, typeof(Convert).GetMethodReference("ToDateTime", new Type[] { typeof(object) }).Import()));
-            else if (field.FieldType.FullName == typeof(decimal).FullName) processor.Append(processor.Create(OpCodes.Call, typeof(Convert).GetMethodReference("ToDecimal", new Type[] { typeof(object) }).Import()));
-            else if (field.FieldType.FullName == typeof(double).FullName) processor.Append(processor.Create(OpCodes.Call, typeof(Convert).GetMethodReference("ToDouble", new Type[] { typeof(object) }).Import()));
-            else if (field.FieldType.FullName == typeof(short).FullName) processor.Append(processor.Create(OpCodes.Call, typeof(Convert).GetMethodReference("ToInt16", new Type[] { typeof(object) }).Import()));
-            else if (field.FieldType.FullName == typeof(long).FullName) processor.Append(processor.Create(OpCodes.Call, typeof(Convert).GetMethodReference("ToInt64", new Type[] { typeof(object) }).Import()));
-            else if (field.FieldType.FullName == typeof(sbyte).FullName) processor.Append(processor.Create(OpCodes.Call, typeof(Convert).GetMethodReference("ToSByte", new Type[] { typeof(object) }).Import()));
-            else if (field.FieldType.FullName == typeof(float).FullName) processor.Append(processor.Create(OpCodes.Call, typeof(Convert).GetMethodReference("ToSingle", new Type[] { typeof(object) }).Import()));
-            else if (field.FieldType.FullName == typeof(string).FullName) processor.Append(processor.Create(OpCodes.Call, typeof(Convert).GetMethodReference("ToString", new Type[] { typeof(object) }).Import()));
-            else if (field.FieldType.FullName == typeof(ushort).FullName) processor.Append(processor.Create(OpCodes.Call, typeof(Convert).GetMethodReference("ToUInt16", new Type[] { typeof(object) }).Import()));
-            else if (field.FieldType.FullName == typeof(ulong).FullName) processor.Append(processor.Create(OpCodes.Call, typeof(Convert).GetMethodReference("ToUInt64", new Type[] { typeof(object) }).Import()));
-            else if (field.FieldType.Resolve().IsInterface) processor.Append(processor.Create(OpCodes.Isinst, field.FieldType.Import()));
-            else processor.Append(processor.Create(field.FieldType.IsValueType ? OpCodes.Unbox_Any : OpCodes.Castclass, field.FieldType.Import()));
+            else if (field.FieldType.IsArray)
+                EmitSpecializedArraySetter(field, isStatic, processor);
+            else if (field.FieldType.Resolve().ImplementsInterface(typeof(IList)))
+                EmitSpecializedListSetter(field, isStatic, processor);
+            else
+            {
+                if (!isStatic)
+                    processor.Append(processor.Create(OpCodes.Ldarg_0));
+                processor.Append(processor.Create(isStatic ? OpCodes.Ldarg_0 : OpCodes.Ldarg_1));
 
-            processor.Append(processor.Create(isStatic ? OpCodes.Stsfld : OpCodes.Stfld, field));
+                if (field.FieldType.FullName == typeof(int).FullName) processor.Append(processor.Create(OpCodes.Call, typeof(Convert).GetMethodReference("ToInt32", new Type[] { typeof(object) }).Import()));
+                else if (field.FieldType.FullName == typeof(uint).FullName) processor.Append(processor.Create(OpCodes.Call, typeof(Convert).GetMethodReference("ToUInt32", new Type[] { typeof(object) }).Import()));
+                else if (field.FieldType.FullName == typeof(bool).FullName) processor.Append(processor.Create(OpCodes.Call, typeof(Convert).GetMethodReference("ToBoolean", new Type[] { typeof(object) }).Import()));
+                else if (field.FieldType.FullName == typeof(byte).FullName) processor.Append(processor.Create(OpCodes.Call, typeof(Convert).GetMethodReference("ToByte", new Type[] { typeof(object) }).Import()));
+                else if (field.FieldType.FullName == typeof(char).FullName) processor.Append(processor.Create(OpCodes.Call, typeof(Convert).GetMethodReference("ToChar", new Type[] { typeof(object) }).Import()));
+                else if (field.FieldType.FullName == typeof(DateTime).FullName) processor.Append(processor.Create(OpCodes.Call, typeof(Convert).GetMethodReference("ToDateTime", new Type[] { typeof(object) }).Import()));
+                else if (field.FieldType.FullName == typeof(decimal).FullName) processor.Append(processor.Create(OpCodes.Call, typeof(Convert).GetMethodReference("ToDecimal", new Type[] { typeof(object) }).Import()));
+                else if (field.FieldType.FullName == typeof(double).FullName) processor.Append(processor.Create(OpCodes.Call, typeof(Convert).GetMethodReference("ToDouble", new Type[] { typeof(object) }).Import()));
+                else if (field.FieldType.FullName == typeof(short).FullName) processor.Append(processor.Create(OpCodes.Call, typeof(Convert).GetMethodReference("ToInt16", new Type[] { typeof(object) }).Import()));
+                else if (field.FieldType.FullName == typeof(long).FullName) processor.Append(processor.Create(OpCodes.Call, typeof(Convert).GetMethodReference("ToInt64", new Type[] { typeof(object) }).Import()));
+                else if (field.FieldType.FullName == typeof(sbyte).FullName) processor.Append(processor.Create(OpCodes.Call, typeof(Convert).GetMethodReference("ToSByte", new Type[] { typeof(object) }).Import()));
+                else if (field.FieldType.FullName == typeof(float).FullName) processor.Append(processor.Create(OpCodes.Call, typeof(Convert).GetMethodReference("ToSingle", new Type[] { typeof(object) }).Import()));
+                else if (field.FieldType.FullName == typeof(string).FullName) processor.Append(processor.Create(OpCodes.Call, typeof(Convert).GetMethodReference("ToString", new Type[] { typeof(object) }).Import()));
+                else if (field.FieldType.FullName == typeof(ushort).FullName) processor.Append(processor.Create(OpCodes.Call, typeof(Convert).GetMethodReference("ToUInt16", new Type[] { typeof(object) }).Import()));
+                else if (field.FieldType.FullName == typeof(ulong).FullName) processor.Append(processor.Create(OpCodes.Call, typeof(Convert).GetMethodReference("ToUInt64", new Type[] { typeof(object) }).Import()));
+                else if (field.FieldType.Resolve().IsInterface) processor.Append(processor.Create(OpCodes.Isinst, field.FieldType.Import()));
+                else processor.Append(processor.Create(field.FieldType.IsValueType ? OpCodes.Unbox_Any : OpCodes.Castclass, field.FieldType.Import()));
+
+                processor.Append(processor.Create(isStatic ? OpCodes.Stsfld : OpCodes.Stfld, field));
+            }
             processor.Append(processor.Create(OpCodes.Ret));
         }
 
@@ -401,6 +410,162 @@ namespace Cauldron.Interception.Fody
                 methodWeaverInfo.OriginalBody = instructionsSet;
                 return loadReturnVariable;
             }
+        }
+
+        private static void EmitSpecializedArraySetter(FieldDefinition field, bool isStatic, ILProcessor processor)
+        {
+            /*
+                if (value == null)
+                {
+                    backingField.TryDispose();
+                    backingField = null;
+                }
+                else
+                {
+                    backingField.TryDispose();
+                    backingField = (value as IEnumerable).Cast<ITestInterface>().ToArray<ITestInterface>();
+                }
+             */
+            var elseClause = processor.Create(OpCodes.Nop);
+            var endClause = processor.Create(OpCodes.Nop);
+
+            // if (value == null)
+            processor.Append(processor.Create(isStatic ? OpCodes.Ldarg_0 : OpCodes.Ldarg_1));
+            processor.Append(processor.Create(OpCodes.Ldnull));
+            processor.Append(processor.Create(OpCodes.Ceq));
+            processor.Append(processor.Create(OpCodes.Brfalse_S, elseClause));
+
+            // backingField.TryDispose();
+            if (!isStatic)
+                processor.Append(processor.Create(OpCodes.Ldarg_0));
+
+            processor.Append(processor.Create(isStatic ? OpCodes.Ldsfld : OpCodes.Ldfld, field));
+            processor.Append(processor.Create(OpCodes.Call, "Cauldron.Interception.Extensions".ToTypeDefinition().GetMethodReference("TryDispose", 1).Import()));
+
+            // backingField = null;
+            if (!isStatic)
+                processor.Append(processor.Create(OpCodes.Ldarg_0));
+
+            processor.Append(processor.Create(OpCodes.Ldnull));
+            processor.Append(processor.Create(isStatic ? OpCodes.Stsfld : OpCodes.Stfld, field));
+            processor.Append(processor.Create(OpCodes.Br_S, endClause));
+            processor.Append(elseClause);
+
+            // backingField.TryDispose();
+            if (!isStatic)
+                processor.Append(processor.Create(OpCodes.Ldarg_0));
+
+            processor.Append(processor.Create(isStatic ? OpCodes.Ldsfld : OpCodes.Ldfld, field));
+            processor.Append(processor.Create(OpCodes.Call, "Cauldron.Interception.Extensions".ToTypeDefinition().GetMethodReference("TryDispose", 1).Import()));
+
+            // backingField = (value as IEnumerable).Cast<ITestInterface>().ToArray<ITestInterface>();
+            if (!isStatic)
+                processor.Append(processor.Create(OpCodes.Ldarg_0));
+
+            var castMethod = typeof(System.Linq.Enumerable).GetMethodReference("Cast", new Type[] { typeof(IEnumerable) }).MakeGeneric(field.FieldType.GetElementType()).Import();
+            var toArrayMethod = typeof(System.Linq.Enumerable).GetMethodReference("ToArray", 1).MakeGeneric(field.FieldType.GetElementType()).Import();
+
+            processor.Append(processor.Create(isStatic ? OpCodes.Ldarg_0 : OpCodes.Ldarg_1));
+            processor.Append(processor.Create(OpCodes.Isinst, typeof(IEnumerable).GetTypeReference().Import()));
+            processor.Append(processor.Create(OpCodes.Call, castMethod));
+            processor.Append(processor.Create(OpCodes.Call, toArrayMethod));
+            processor.Append(processor.Create(isStatic ? OpCodes.Stsfld : OpCodes.Stfld, field));
+
+            processor.Append(endClause);
+        }
+
+        private static void EmitSpecializedListSetter(FieldDefinition field, bool isStatic, ILProcessor processor)
+        {
+            /*
+	                if (value == null)
+	                {
+		                this.backingField.TryDispose();
+		                this.backingField = null;
+	                }
+	                else
+	                {
+		                if (value is IList)
+		                {
+			                this.backingField.TryDispose();
+			                this.backingField = value as IList;
+		                }
+		                else
+		                {
+			                this.backingField.TryDispose();
+			                this.backingField = (value as IEnumerable).Cast<ITestInterface>().ToList<ITestInterface>();
+		                }
+	                }
+             */
+            var elseClause = processor.Create(OpCodes.Nop);
+            var else2Clause = processor.Create(OpCodes.Nop);
+            var endClause = processor.Create(OpCodes.Nop);
+
+            // if (value == null)
+            processor.Append(processor.Create(isStatic ? OpCodes.Ldarg_0 : OpCodes.Ldarg_1));
+            processor.Append(processor.Create(OpCodes.Ldnull));
+            processor.Append(processor.Create(OpCodes.Ceq));
+            processor.Append(processor.Create(OpCodes.Brfalse_S, elseClause));
+
+            // backingField.TryDispose();
+            if (!isStatic)
+                processor.Append(processor.Create(OpCodes.Ldarg_0));
+
+            processor.Append(processor.Create(isStatic ? OpCodes.Ldsfld : OpCodes.Ldfld, field));
+            processor.Append(processor.Create(OpCodes.Call, "Cauldron.Interception.Extensions".ToTypeDefinition().GetMethodReference("TryDispose", 1).Import()));
+
+            // backingField = null;
+            if (!isStatic)
+                processor.Append(processor.Create(OpCodes.Ldarg_0));
+
+            processor.Append(processor.Create(OpCodes.Ldnull));
+            processor.Append(processor.Create(isStatic ? OpCodes.Stsfld : OpCodes.Stfld, field));
+            processor.Append(processor.Create(OpCodes.Br_S, endClause));
+            processor.Append(elseClause);
+
+            // if (value is IList)
+            processor.Append(processor.Create(isStatic ? OpCodes.Ldarg_0 : OpCodes.Ldarg_1));
+            processor.Append(processor.Create(OpCodes.Isinst, typeof(IList).GetTypeReference().Import()));
+            processor.Append(processor.Create(OpCodes.Ldnull));
+            processor.Append(processor.Create(OpCodes.Cgt_Un));
+            processor.Append(processor.Create(OpCodes.Brfalse_S, else2Clause));
+
+            // backingField.TryDispose();
+            if (!isStatic)
+                processor.Append(processor.Create(OpCodes.Ldarg_0));
+
+            processor.Append(processor.Create(isStatic ? OpCodes.Ldsfld : OpCodes.Ldfld, field));
+            processor.Append(processor.Create(OpCodes.Call, "Cauldron.Interception.Extensions".ToTypeDefinition().GetMethodReference("TryDispose", 1).Import()));
+
+            // this.backingField = value as IList;
+            if (!isStatic)
+                processor.Append(processor.Create(OpCodes.Ldarg_0));
+            processor.Append(processor.Create(isStatic ? OpCodes.Ldarg_0 : OpCodes.Ldarg_1));
+            processor.Append(processor.Create(OpCodes.Isinst, typeof(IList).GetTypeReference().Import()));
+            processor.Append(processor.Create(isStatic ? OpCodes.Stsfld : OpCodes.Stfld, field));
+            processor.Append(else2Clause);
+
+            // backingField.TryDispose();
+            if (!isStatic)
+                processor.Append(processor.Create(OpCodes.Ldarg_0));
+
+            processor.Append(processor.Create(isStatic ? OpCodes.Ldsfld : OpCodes.Ldfld, field));
+            processor.Append(processor.Create(OpCodes.Call, "Cauldron.Interception.Extensions".ToTypeDefinition().GetMethodReference("TryDispose", 1).Import()));
+
+            // this.backingField = (value as IEnumerable).Cast<ITestInterface>().ToList<ITestInterface>();
+            if (!isStatic)
+                processor.Append(processor.Create(OpCodes.Ldarg_0));
+
+            var childElement = field.FieldType.Resolve().GenericParameters[0];
+            var castMethod = typeof(System.Linq.Enumerable).GetMethodReference("Cast", new Type[] { typeof(IEnumerable) }).MakeGeneric(childElement).Import();
+            var toListMethod = typeof(System.Linq.Enumerable).GetMethodReference("ToList", 1).MakeGeneric(childElement).Import();
+
+            processor.Append(processor.Create(isStatic ? OpCodes.Ldarg_0 : OpCodes.Ldarg_1));
+            processor.Append(processor.Create(OpCodes.Isinst, typeof(IEnumerable).GetTypeReference().Import()));
+            processor.Append(processor.Create(OpCodes.Call, castMethod));
+            processor.Append(processor.Create(OpCodes.Call, toListMethod));
+            processor.Append(processor.Create(isStatic ? OpCodes.Stsfld : OpCodes.Stfld, field));
+
+            processor.Append(endClause);
         }
 
         private IEnumerable<Instruction> CreateInstructionsFromAttributeTypes(ILProcessor processor, TypeReference targetType, Type type, object value)

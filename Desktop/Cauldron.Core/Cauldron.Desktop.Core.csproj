@@ -62,7 +62,12 @@
     <Compile Include="Win32Api.cs" />
     <Compile Include="WindowsMessages.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Cauldron.Desktop.Interception\Cauldron.Desktop.Interception.csproj">
+      <Project>{c656c9c1-bee8-40b1-bac7-6dd7b6ff5fbb}</Project>
+      <Name>Cauldron.Desktop.Interception</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="..\..\Shared\Cauldron.Core\Cauldron.Core.projitems" Label="Shared" />
   <Import Project="..\..\Shared\Cauldron.Core.Desktop\Cauldron.Core.Desktop.projitems" Label="Shared" />
   <Import Project="..\..\Shared\Cauldron.Diagnostics\Cauldron.Diagnostics.projitems" Label="Shared" />

@@ -1,8 +1,9 @@
 {
-  "version": "1.0.0.11",
+  "version": "1.0.0.12",
 
   "dependencies": {
-    "Cauldron.NetCore.Core": "1.0.0.11",
+    "Cauldron.NetCore.Core": "1.0.0.12",
+    "Cauldron.NetCore.Interception": "1.0.0.12",
     "NETStandard.Library": "1.6.1",
     "System.Threading.Tasks": "4.3.0",
     "System.Threading.Thread": "4.3.0"
@@ -20,22 +21,10 @@
     "allowUnsafe": false,
     "xmlDoc": true,
     "compile": {
-      "includeFiles": [
-        "..\\..\\Shared\\Cauldron.Activator\\CloneIgnoreAttribute.cs",
-        "..\\..\\Shared\\Cauldron.Activator\\ComponentAttribute.cs",
-        "..\\..\\Shared\\Cauldron.Activator\\ComponentConstructorAttribute.cs",
-        "..\\..\\Shared\\Cauldron.Activator\\ExtensionsCloning.cs",
-        "..\\..\\Shared\\Cauldron.Activator\\Factory.cs",
-        "..\\..\\Shared\\Cauldron.Activator\\FactoryCreationPolicy.cs",
-        "..\\..\\Shared\\Cauldron.Activator\\FactoryTypeInfo.cs",
-        "..\\..\\Shared\\Cauldron.Activator\\IFactoryExtension.cs",
-        "..\\..\\Shared\\Cauldron.Activator\\IFactoryInitializeComponent.cs",
-        "..\\..\\Shared\\Cauldron.Activator\\IFactoryInitializeComponent.cs",
-        "..\\..\\Shared\\Cauldron.Activator\\Singleton.cs",
-
-        "..\\..\\Shared\\IEnumerableExtensions\\Extensions.cs",
-        "..\\..\\Shared\\Cauldron.Diagnostics\\Output.cs"
-
+      "include": [
+        "../../Shared/Cauldron.Activator/**/*.cs",
+        "../../Shared/IEnumerableExtensions/**/*.cs",
+        "../../Shared/Cauldron.Diagnostics/**/*.cs"
       ]
     },
     "define": [ "NETCORE" ]

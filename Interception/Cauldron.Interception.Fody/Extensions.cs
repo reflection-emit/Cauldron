@@ -20,8 +20,10 @@ namespace Cauldron.Interception.Fody
             set
             {
                 _moduleDefinition = value;
-                allAssemblies = value.AssemblyReferences.GetAll().Select(x => value.AssemblyResolver.Resolve(x)).ToArray();
-                allTypes = allAssemblies.SelectMany(x => x.Modules).Where(x => x != null).SelectMany(x => x.Types).Where(x => x != null).ToArray();
+                allAssemblies = value.AssemblyReferences.GetAll().Select(x => value.AssemblyResolver.Resolve(x))
+                    .Concat(new AssemblyDefinition[] { value.Assembly }).ToArray();
+                allTypes = allAssemblies.SelectMany(x => x.Modules).Where(x => x != null).SelectMany(x => x.Types).Where(x => x != null)
+                    .Concat(value.Types).ToArray();
             }
         }
 
@@ -178,6 +180,9 @@ namespace Cauldron.Interception.Fody
             return false;
         }
 
+        public static bool ImplementsInterface(this TypeDefinition type, Type interfaceType) =>
+            type.Interfaces.Any(x => x.FullName.Equals(interfaceType.FullName)) || type.NestedTypes.Any(x => x.ImplementsInterface(interfaceType));
+
         public static TypeReference Import(this TypeReference value) => ModuleDefinition.Import(value);
 
         public static MethodReference Import(this System.Reflection.MethodBase value) => ModuleDefinition.Import(value);
@@ -209,7 +214,21 @@ namespace Cauldron.Interception.Fody
             return false;
         }
 
-        public static TypeDefinition Resolve(this string typeName) => allTypes.FirstOrDefault(x => x.FullName == typeName || x.Name == typeName);
+        public static MethodReference MakeGeneric(this MethodReference method, params TypeReference[] args)
+        {
+            if (args.Length == 0)
+                return method;
+
+            if (method.GenericParameters.Count != args.Length)
+                throw new ArgumentException("Invalid number of generic type arguments supplied");
+
+            var genericTypeRef = new GenericInstanceMethod(method);
+
+            foreach (var arg in args)
+                genericTypeRef.GenericArguments.Add(arg);
+
+            return genericTypeRef;
+        }
 
         /// <summary>
         /// Converts a <see cref="IEnumerable"/> to an array
@@ -234,7 +253,7 @@ namespace Cauldron.Interception.Fody
             return result;
         }
 
-        public static TypeDefinition ToTypeDefinition(this string typeName) => allTypes.FirstOrDefault(x => x.FullName == typeName || x.FullName.EndsWith(typeName));
+        public static TypeDefinition ToTypeDefinition(this string typeName) => allTypes.FirstOrDefault(x => x.FullName == typeName || x.FullName.EndsWith(typeName) || x.Name == typeName);
 
         public static IEnumerable<Instruction> TypeOf(this ILProcessor processor, TypeReference type)
         {

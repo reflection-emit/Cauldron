@@ -1,12 +1,12 @@
 ﻿using System;
+using System.Threading;
 
-namespace Cauldron.Core.Interceptors
+namespace Cauldron.Interception
 {
     /// <summary>
-    /// Represents an interceptor that can intercept a property's setter method
+    /// Represents an interceptor that can intercept a property's setter method with a <see cref="SemaphoreSlim"/>
     /// </summary>
-
-    public interface IPropertySetterInterceptor
+    public interface ILockablePropertySetterInterceptor
     {
         /// <summary>
         /// Invoked if an intercepted method has raised an exception. The method will always rethrow the exception.
@@ -22,10 +22,11 @@ namespace Cauldron.Core.Interceptors
         /// <summary>
         /// Invoked if the intercepted property setter has been called
         /// </summary>
+        /// <param name="semaphore">The <see cref="SemaphoreSlim"/> instance that can be used to lock the the method</param>
         /// <param name="propertyInterceptionInfo">An object that containes information about the intercepted method</param>
         /// <param name="oldValue">The current value of the property</param>
         /// <param name="newValue">The to be new value of the property</param>
         /// <returns>If returns false, the backing field will be set to <paramref name="newValue"/></returns>
-        bool OnSet(PropertyInterceptionInfo propertyInterceptionInfo, object oldValue, object newValue);
+        bool OnSet(SemaphoreSlim semaphore, PropertyInterceptionInfo propertyInterceptionInfo, object oldValue, object newValue);
     }
 }

@@ -137,7 +137,12 @@
       <Name>Windows Mobile Extensions for the UWP</Name>
     </SDKReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Cauldron.UWP.Interception\Cauldron.UWP.Interception.csproj">
+      <Project>{659a319c-9460-43d9-9453-2731ac5dab55}</Project>
+      <Name>Cauldron.UWP.Interception</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="..\..\Shared\Cauldron.Core\Cauldron.Core.projitems" Label="Shared" />
   <Import Project="..\..\Shared\Cauldron.Diagnostics\Cauldron.Diagnostics.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

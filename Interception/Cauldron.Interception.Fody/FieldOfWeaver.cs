@@ -13,6 +13,12 @@ namespace Cauldron.Interception.Fody
 
         public override void Implement()
         {
+            if (!this.ModuleDefinition.AllReferencedAssemblies().Any(x => x.FullName == "Cauldron.Core"))
+            {
+                this.LogInfo("Skipping implementation of Cauldron.Core.Reflection.GetFieldInfo. Cauldron.Core is not referenced in the project");
+                return;
+            }
+
             this.LogInfo("Implementing Cauldron.Core.Reflection.GetFieldInfo");
 
             var fieldOf = "Cauldron.Core.Reflection".ToTypeDefinition().GetMethodReference("GetFieldInfo", 1);
@@ -30,7 +36,22 @@ namespace Cauldron.Interception.Fody
 
                     // This is a concrete definition of the field with class and namespace
                     if (fieldName.Contains("."))
-                        fieldDefinition = fieldName.Substring(0, fieldName.LastIndexOf('.')).Resolve().Import().Resolve().Fields.FirstOrDefault(x => x.Name == fieldName.Split('.').Last());
+                    {
+                        var typeName = fieldName.Substring(0, fieldName.LastIndexOf('.'));
+                        var typeDefinition = typeName.ToTypeDefinition();
+
+                        if (typeDefinition == null)
+                        {
+                            this.LogError($"Unable to resolve type '{typeName}'. The field '{fieldName}' cannot be processed.");
+
+                            foreach (var uuu in this.ModuleDefinition.AllReferencedAssemblies())
+                                this.LogInfo(uuu.FullName);
+
+                            continue;
+                        }
+
+                        fieldDefinition = typeDefinition.Import().Resolve().Fields.FirstOrDefault(x => x.Name == fieldName.Split('.').Last());
+                    }
                     else
                         fieldDefinition = method.Method.DeclaringType.Fields.FirstOrDefault(x => x.Name == fieldName);
 

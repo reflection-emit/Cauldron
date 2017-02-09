@@ -27,7 +27,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)DisposableBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DynamicEqualityComparer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Encodings.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ExecutionTimer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\Extensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\ExtensionsConvertions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\ExtensionsFileIO.cs" />
@@ -38,14 +37,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Formatters\MetricUnitFormatter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HashAlgorithms.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IDisposableObject.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Interceptors\ILockableMethodInterceptor.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Interceptors\ILockablePropertyGetterInterceptor.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Interceptors\ILockablePropertySetterInterceptor.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Interceptors\IMethodInterceptor.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Interceptors\IPropertyGetterInterceptor.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Interceptors\IPropertyInterceptor.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Interceptors\IPropertySetterInterceptor.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Interceptors\PropertyInterceptionInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interceptors\ExecutionTimeAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Java\JavaProperties.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MathEx.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MessageManager.cs" />

@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCompany("Alexander Schunk, Capgemini Deutschland GmbH and Contributors")]
 [assembly: AssemblyProduct("Cauldron.NetCore.Core")]
 [assembly: AssemblyTrademark("")]
-
+[assembly: AssemblyCopyright("Copyright © 2016 Alexander Schunk, Capgemini Deutschland GmbH and Contributors")]
 // Setting ComVisible to false makes the types in this assembly not visible
 // to COM components.  If you need to access a type in this assembly from
 // COM, set the ComVisible attribute to true on that type.

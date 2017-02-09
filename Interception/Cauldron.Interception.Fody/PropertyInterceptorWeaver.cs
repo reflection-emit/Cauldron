@@ -9,12 +9,12 @@ namespace Cauldron.Interception.Fody
 {
     public class PropertyInterceptorWeaver : ModuleWeaverBase
     {
-        private string lockablePropertyGetterInterceptor = "Cauldron.Core.Interceptors.ILockablePropertyGetterInterceptor";
-        private string lockablePropertySetterInterceptor = "Cauldron.Core.Interceptors.ILockablePropertySetterInterceptor";
+        private string lockablePropertyGetterInterceptor = "Cauldron.Interception.ILockablePropertyGetterInterceptor";
+        private string lockablePropertySetterInterceptor = "Cauldron.Interception.ILockablePropertySetterInterceptor";
 
-        private string propertyGetterInterceptor = "Cauldron.Core.Interceptors.IPropertyGetterInterceptor";
+        private string propertyGetterInterceptor = "Cauldron.Interception.IPropertyGetterInterceptor";
         private TypeReference propertyInterceptionInfoReference;
-        private string propertySetterInterceptor = "Cauldron.Core.Interceptors.IPropertySetterInterceptor";
+        private string propertySetterInterceptor = "Cauldron.Interception.IPropertySetterInterceptor";
 
         public PropertyInterceptorWeaver(ModuleWeaver weaver) : base(weaver)
         {
@@ -23,7 +23,7 @@ namespace Cauldron.Interception.Fody
         public override void Implement()
         {
             var propertyInterceptors = GetPropertyInterceptorTypes();
-            this.propertyInterceptionInfoReference = "Cauldron.Core.Interceptors.PropertyInterceptionInfo".ToTypeDefinition().Import();
+            this.propertyInterceptionInfoReference = "Cauldron.Interception.PropertyInterceptionInfo".ToTypeDefinition().Import();
 
             // find all types with methods that are decorated with any of the found property interceptors
             var propertiesAndAttributes = this.ModuleDefinition.Types.SelectMany(x => x.Properties).Where(x => x.HasCustomAttributes)

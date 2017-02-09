@@ -138,6 +138,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.Interception.Test"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.Interception.External.Test", "Interception\Cauldron.Interception.External.Test\Cauldron.Interception.External.Test.csproj", "{296681A6-37F3-407D-9E71-95551B1E46FF}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Cauldron.Interception", "Shared\Cauldron.Interception\Cauldron.Interception.shproj", "{A8F9DAB9-CEB7-4C3B-81EC-5C681F87EB59}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.Desktop.Interception", "Desktop\Cauldron.Desktop.Interception\Cauldron.Desktop.Interception.csproj", "{C656C9C1-BEE8-40B1-BAC7-6DD7B6FF5FBB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.UWP.Interception", "UWP\Cauldron.UWP.Interception\Cauldron.UWP.Interception.csproj", "{659A319C-9460-43D9-9453-2731AC5DAB55}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Cauldron.NetCore.Interception", "NetCore\Cauldron.NetCore.Interception\Cauldron.NetCore.Interception.xproj", "{2CC566BD-FBDA-41D7-8CD4-094BA62AB36A}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Shared\Cauldron.Consoles\Cauldron.Consoles.projitems*{00c29751-1557-46a8-9547-f74065b36592}*SharedItemsImports = 4
@@ -158,6 +166,7 @@ Global
 		Shared\Cauldron.XAML.Validation\Cauldron.XAML.Validation.projitems*{4d6c8285-6e45-40e9-ade3-cf0ceb665c8e}*SharedItemsImports = 4
 		Shared\IEnumerableExtensions\IEnumerableExtensions.projitems*{4d6c8285-6e45-40e9-ade3-cf0ceb665c8e}*SharedItemsImports = 4
 		Shared\Cauldron.XAML\Cauldron.XAML.projitems*{54b17512-035a-49ee-afdf-e0495fe9ce50}*SharedItemsImports = 13
+		Shared\Cauldron.Interception\Cauldron.Interception.projitems*{659a319c-9460-43d9-9453-2731ac5dab55}*SharedItemsImports = 4
 		Shared\Cauldron.Core.Desktop\Cauldron.Core.Desktop.projitems*{67c37bf6-3d55-4863-9a0b-3542db70369c}*SharedItemsImports = 13
 		Shared\Cauldron.Activator\Cauldron.Activator.projitems*{6e8a953e-2732-4a58-bc7b-f86b1a5ca5dd}*SharedItemsImports = 4
 		Shared\Cauldron.Diagnostics\Cauldron.Diagnostics.projitems*{6e8a953e-2732-4a58-bc7b-f86b1a5ca5dd}*SharedItemsImports = 4
@@ -177,9 +186,11 @@ Global
 		Shared\Cauldron.Activator\Cauldron.Activator.projitems*{a80a73e9-825b-4032-ae6b-a6c4340dc0fc}*SharedItemsImports = 4
 		Shared\Cauldron.Diagnostics\Cauldron.Diagnostics.projitems*{a80a73e9-825b-4032-ae6b-a6c4340dc0fc}*SharedItemsImports = 4
 		Shared\IEnumerableExtensions\IEnumerableExtensions.projitems*{a80a73e9-825b-4032-ae6b-a6c4340dc0fc}*SharedItemsImports = 4
+		Shared\Cauldron.Interception\Cauldron.Interception.projitems*{a8f9dab9-ceb7-4c3b-81ec-5c681f87eb59}*SharedItemsImports = 13
 		Shared\Cauldron.XAML.Interactivity\Cauldron.XAML.Interactivity.projitems*{ab91b0bd-baa6-43bb-a33a-c07a3a91a1ef}*SharedItemsImports = 13
 		Shared\IEnumerableExtensions\IEnumerableExtensions.projitems*{ba19d691-4514-4059-95ef-8a6fe7612f83}*SharedItemsImports = 13
 		Shared\Cauldron.Cryptography\Cauldron.Cryptography.projitems*{bc84f1d6-e20d-41a5-8ab1-90b9d023850d}*SharedItemsImports = 13
+		Shared\Cauldron.Interception\Cauldron.Interception.projitems*{c656c9c1-bee8-40b1-bac7-6dd7b6ff5fbb}*SharedItemsImports = 4
 		Shared\Cauldron.Diagnostics\Cauldron.Diagnostics.projitems*{d09d5044-4799-4ccf-997d-31f10b6fce24}*SharedItemsImports = 4
 		Shared\Cauldron.XAML.Interactivity\Cauldron.XAML.Interactivity.projitems*{d09d5044-4799-4ccf-997d-31f10b6fce24}*SharedItemsImports = 4
 		Shared\IEnumerableExtensions\IEnumerableExtensions.projitems*{d09d5044-4799-4ccf-997d-31f10b6fce24}*SharedItemsImports = 4
@@ -699,6 +710,54 @@ Global
 		{296681A6-37F3-407D-9E71-95551B1E46FF}.Release|x64.Build.0 = Release|Any CPU
 		{296681A6-37F3-407D-9E71-95551B1E46FF}.Release|x86.ActiveCfg = Release|Any CPU
 		{296681A6-37F3-407D-9E71-95551B1E46FF}.Release|x86.Build.0 = Release|Any CPU
+		{C656C9C1-BEE8-40B1-BAC7-6DD7B6FF5FBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C656C9C1-BEE8-40B1-BAC7-6DD7B6FF5FBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C656C9C1-BEE8-40B1-BAC7-6DD7B6FF5FBB}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{C656C9C1-BEE8-40B1-BAC7-6DD7B6FF5FBB}.Debug|ARM.Build.0 = Debug|Any CPU
+		{C656C9C1-BEE8-40B1-BAC7-6DD7B6FF5FBB}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C656C9C1-BEE8-40B1-BAC7-6DD7B6FF5FBB}.Debug|x64.Build.0 = Debug|Any CPU
+		{C656C9C1-BEE8-40B1-BAC7-6DD7B6FF5FBB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C656C9C1-BEE8-40B1-BAC7-6DD7B6FF5FBB}.Debug|x86.Build.0 = Debug|Any CPU
+		{C656C9C1-BEE8-40B1-BAC7-6DD7B6FF5FBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C656C9C1-BEE8-40B1-BAC7-6DD7B6FF5FBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C656C9C1-BEE8-40B1-BAC7-6DD7B6FF5FBB}.Release|ARM.ActiveCfg = Release|Any CPU
+		{C656C9C1-BEE8-40B1-BAC7-6DD7B6FF5FBB}.Release|ARM.Build.0 = Release|Any CPU
+		{C656C9C1-BEE8-40B1-BAC7-6DD7B6FF5FBB}.Release|x64.ActiveCfg = Release|Any CPU
+		{C656C9C1-BEE8-40B1-BAC7-6DD7B6FF5FBB}.Release|x64.Build.0 = Release|Any CPU
+		{C656C9C1-BEE8-40B1-BAC7-6DD7B6FF5FBB}.Release|x86.ActiveCfg = Release|Any CPU
+		{C656C9C1-BEE8-40B1-BAC7-6DD7B6FF5FBB}.Release|x86.Build.0 = Release|Any CPU
+		{659A319C-9460-43D9-9453-2731AC5DAB55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{659A319C-9460-43D9-9453-2731AC5DAB55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{659A319C-9460-43D9-9453-2731AC5DAB55}.Debug|ARM.ActiveCfg = Debug|ARM
+		{659A319C-9460-43D9-9453-2731AC5DAB55}.Debug|ARM.Build.0 = Debug|ARM
+		{659A319C-9460-43D9-9453-2731AC5DAB55}.Debug|x64.ActiveCfg = Debug|x64
+		{659A319C-9460-43D9-9453-2731AC5DAB55}.Debug|x64.Build.0 = Debug|x64
+		{659A319C-9460-43D9-9453-2731AC5DAB55}.Debug|x86.ActiveCfg = Debug|x86
+		{659A319C-9460-43D9-9453-2731AC5DAB55}.Debug|x86.Build.0 = Debug|x86
+		{659A319C-9460-43D9-9453-2731AC5DAB55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{659A319C-9460-43D9-9453-2731AC5DAB55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{659A319C-9460-43D9-9453-2731AC5DAB55}.Release|ARM.ActiveCfg = Release|ARM
+		{659A319C-9460-43D9-9453-2731AC5DAB55}.Release|ARM.Build.0 = Release|ARM
+		{659A319C-9460-43D9-9453-2731AC5DAB55}.Release|x64.ActiveCfg = Release|x64
+		{659A319C-9460-43D9-9453-2731AC5DAB55}.Release|x64.Build.0 = Release|x64
+		{659A319C-9460-43D9-9453-2731AC5DAB55}.Release|x86.ActiveCfg = Release|x86
+		{659A319C-9460-43D9-9453-2731AC5DAB55}.Release|x86.Build.0 = Release|x86
+		{2CC566BD-FBDA-41D7-8CD4-094BA62AB36A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CC566BD-FBDA-41D7-8CD4-094BA62AB36A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CC566BD-FBDA-41D7-8CD4-094BA62AB36A}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{2CC566BD-FBDA-41D7-8CD4-094BA62AB36A}.Debug|ARM.Build.0 = Debug|Any CPU
+		{2CC566BD-FBDA-41D7-8CD4-094BA62AB36A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2CC566BD-FBDA-41D7-8CD4-094BA62AB36A}.Debug|x64.Build.0 = Debug|Any CPU
+		{2CC566BD-FBDA-41D7-8CD4-094BA62AB36A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2CC566BD-FBDA-41D7-8CD4-094BA62AB36A}.Debug|x86.Build.0 = Debug|Any CPU
+		{2CC566BD-FBDA-41D7-8CD4-094BA62AB36A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CC566BD-FBDA-41D7-8CD4-094BA62AB36A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CC566BD-FBDA-41D7-8CD4-094BA62AB36A}.Release|ARM.ActiveCfg = Release|Any CPU
+		{2CC566BD-FBDA-41D7-8CD4-094BA62AB36A}.Release|ARM.Build.0 = Release|Any CPU
+		{2CC566BD-FBDA-41D7-8CD4-094BA62AB36A}.Release|x64.ActiveCfg = Release|Any CPU
+		{2CC566BD-FBDA-41D7-8CD4-094BA62AB36A}.Release|x64.Build.0 = Release|Any CPU
+		{2CC566BD-FBDA-41D7-8CD4-094BA62AB36A}.Release|x86.ActiveCfg = Release|Any CPU
+		{2CC566BD-FBDA-41D7-8CD4-094BA62AB36A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -749,5 +808,9 @@ Global
 		{6A7E8B99-2542-4530-83EA-FC7355C9CBBD} = {B1732329-29AB-4590-8408-6A6A3A2236D8}
 		{0A0F244A-B479-4B08-9883-CB731AD3BB60} = {B1732329-29AB-4590-8408-6A6A3A2236D8}
 		{296681A6-37F3-407D-9E71-95551B1E46FF} = {B1732329-29AB-4590-8408-6A6A3A2236D8}
+		{A8F9DAB9-CEB7-4C3B-81EC-5C681F87EB59} = {4424AE9A-725C-4D9B-8DCF-D6D4289AB769}
+		{C656C9C1-BEE8-40B1-BAC7-6DD7B6FF5FBB} = {45646BEE-05CB-4168-8F1F-291F511B6B76}
+		{659A319C-9460-43D9-9453-2731AC5DAB55} = {18FF0088-AC5D-4491-91DF-37B55422635B}
+		{2CC566BD-FBDA-41D7-8CD4-094BA62AB36A} = {BC7D3C90-F242-42A1-B039-5B051273B466}
 	EndGlobalSection
 EndGlobal

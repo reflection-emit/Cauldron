@@ -1,9 +1,9 @@
 {
-  "version": "1.0.0.11",
+  "version": "1.0.0.12",
   "dependencies": {
-    "Cauldron.NetCore.Activator": "1.0.0.11",
-    "Cauldron.NetCore.Core": "1.0.0.11",
-    "Cauldron.NetCore.Localization": "1.0.0.11",
+    "Cauldron.NetCore.Activator": "1.0.0.12",
+    "Cauldron.NetCore.Core": "1.0.0.12",
+    "Cauldron.NetCore.Localization": "1.0.0.12",
     "NETStandard.Library": "1.6.1"
   },
   "frameworks": {
@@ -18,22 +18,9 @@
     "allowUnsafe": false,
     "xmlDoc": true,
     "compile": {
-      "includeFiles": [
-        "..\\..\\Shared\\Cauldron.Consoles\\ColumnAlignment.cs",
-        "..\\..\\Shared\\Cauldron.Consoles\\ConsoleTableColumn.cs",
-        "..\\..\\Shared\\Cauldron.Consoles\\ConsoleUtils.cs",
-        "..\\..\\Shared\\Cauldron.Consoles\\ExecutionGroupAttribute.cs",
-        "..\\..\\Shared\\Cauldron.Consoles\\ExecutionGroupParameter.cs",
-        "..\\..\\Shared\\Cauldron.Consoles\\ExecutionGroupProperties.cs",
-        "..\\..\\Shared\\Cauldron.Consoles\\IExecutionGroup.cs",
-        "..\\..\\Shared\\Cauldron.Consoles\\ParameterAttribute.cs",
-        "..\\..\\Shared\\Cauldron.Consoles\\ParameterParser.cs",
-        "..\\..\\Shared\\Cauldron.Consoles\\RequiredParametersMissingException.cs",
-        "..\\..\\Shared\\Cauldron.Consoles\\RequiredValuesMissingException.cs",
-        "..\\..\\Shared\\Cauldron.Consoles\\UnknownParameterException.cs",
-
-        "..\\..\\Shared\\Cauldron.Diagnostics\\Output.cs"
-
+      "include": [
+        "../../Shared/Cauldron.Consoles/**/*.cs",
+        "../../Shared/Cauldron.Diagnostics/**/*.cs"
       ]
     },
     "define": [ "NETCORE" ]

@@ -2,6 +2,7 @@
 using Cauldron.Interception.Test.Interceptors;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 
 namespace Cauldron.Interception.Test
 {
@@ -15,7 +16,13 @@ namespace Cauldron.Interception.Test
         public static double StaticProperty { get; set; }
 
         [TestPropertyInterceptor]
+        public long[] ArrayProperty { get; set; }
+
+        [TestPropertyInterceptor]
         public ITestInterface InterfaceProperty { get; set; }
+
+        [TestPropertyInterceptor]
+        public List<long> ListProperty { get; set; }
 
         [ExternalLockablePropertyInterceptor]
         public string LockableProperty { get; set; }
@@ -28,6 +35,15 @@ namespace Cauldron.Interception.Test
 
         [TestPropertyInterceptor]
         public long ValueTypePropertyPrivateSetter { get; private set; }
+
+        [TestMethod]
+        public void Array_Property_Setter()
+        {
+            this.ArrayProperty = new long[0];
+
+            Assert.AreEqual(4, this.ArrayProperty.Length);
+            Assert.AreEqual(5643, this.ArrayProperty[2]);
+        }
 
         [TestMethod]
         public void EnumProperty_Property_Getter()
@@ -48,6 +64,15 @@ namespace Cauldron.Interception.Test
         {
             this.PropertyWithEnumValue = TestEnum.Three;
             this.PropertyWithEnumValue = TestEnum.Three;
+        }
+
+        [TestMethod]
+        public void List_Property_Setter()
+        {
+            this.ListProperty = new List<long>();
+
+            Assert.AreEqual(4, this.ArrayProperty.Length);
+            Assert.AreEqual(5643, this.ArrayProperty[2]);
         }
 
         [TestMethod]

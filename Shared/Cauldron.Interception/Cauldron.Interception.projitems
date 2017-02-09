@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>a8f9dab9-ceb7-4c3b-81ec-5c681f87eb59</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Cauldron.Interception</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ILockableMethodInterceptor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ILockablePropertyGetterInterceptor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ILockablePropertySetterInterceptor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IMethodInterceptor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IPropertyGetterInterceptor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IPropertyInterceptor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IPropertySetterInterceptor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PropertyInterceptionInfo.cs" />
+  </ItemGroup>
+</Project>

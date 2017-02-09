@@ -1,6 +1,6 @@
 ﻿using Cauldron.Core;
-using Cauldron.Core.Interceptors;
 using System;
+using System.Collections.Generic;
 
 namespace Cauldron.Interception.Test.Interceptors
 {
@@ -26,6 +26,17 @@ namespace Cauldron.Interception.Test.Interceptors
 
         public bool OnSet(PropertyInterceptionInfo propertyInterceptionInfo, object oldValue, object newValue)
         {
+            if (propertyInterceptionInfo.PropertyType.IsArray)
+            {
+                var passed = new List<long>();
+                passed.Add(2);
+                passed.Add(232);
+                passed.Add(5643);
+                passed.Add(52435);
+                propertyInterceptionInfo.SetValue(passed);
+                return true;
+            }
+
             return false;
         }
     }

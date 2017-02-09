@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Threading;
 
-namespace Cauldron.Core.Interceptors
+namespace Cauldron.Interception
 {
     /// <summary>
     /// Represents a method interceptor with a <see cref="SemaphoreSlim"/>

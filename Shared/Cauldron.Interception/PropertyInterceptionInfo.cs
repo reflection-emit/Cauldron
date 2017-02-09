@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Reflection;
 
-namespace Cauldron.Core.Interceptors
+namespace Cauldron.Interception
 {
     /// <summary>
     /// Contains information about the intercepted property
@@ -67,5 +67,18 @@ namespace Cauldron.Core.Interceptors
         /// </summary>
         /// <param name="value">The new value of the property</param>
         public void SetValue(object value) => this._setter(value);
+
+        /// <summary>
+        /// Converts the <see cref="PropertyInterceptionInfo"/> instance to a <see cref="PropertyInfo"/>
+        /// </summary>
+        /// <returns>A new instance of <see cref="PropertyInfo"/></returns>
+
+#if NETCORE
+        public PropertyInfo ToPropertyInfo() => this.DeclaringType.GetTypeInfo().GetProperty(this.PropertyName, BindingFlags.DeclaredOnly | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Public | BindingFlags.Instance);
+#else
+
+        public PropertyInfo ToPropertyInfo() => this.DeclaringType.GetProperty(this.PropertyName, BindingFlags.DeclaredOnly | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Public | BindingFlags.Instance);
+
+#endif
     }
 }

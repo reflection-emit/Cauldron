@@ -1,6 +1,4 @@
-﻿using Cauldron.Core.Interceptors;
-using System;
-using System.Diagnostics;
+﻿using System;
 using System.Reflection;
 using System.Threading;
 

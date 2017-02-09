@@ -1,6 +1,7 @@
 ﻿using Mono.Cecil;
 using Mono.Cecil.Cil;
 using System;
+using System.Linq;
 
 namespace Cauldron.Interception.Fody
 {
@@ -12,6 +13,12 @@ namespace Cauldron.Interception.Fody
 
         public override void Implement()
         {
+            if (!this.ModuleDefinition.AllReferencedAssemblies().Any(x => x.FullName == "Cauldron.Core"))
+            {
+                this.LogInfo("Skipping implementation of Cauldron.Core.Reflection.GetMethodBase. Cauldron.Core is not referenced in the project");
+                return;
+            }
+
             this.LogInfo("Implementing Cauldron.Core.Reflection.GetMethodBase");
 
             var methodOf = "Cauldron.Core.Reflection".ToTypeDefinition().GetMethodReference("GetMethodBase", 0);

@@ -1,5 +1,8 @@
 ﻿using Cauldron.Interception.Test.Interceptors;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Cauldron.Interception.Test
 {

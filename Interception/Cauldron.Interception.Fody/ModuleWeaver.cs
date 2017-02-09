@@ -28,10 +28,10 @@ namespace Cauldron.Interception.Fody
         {
             Extensions.ModuleDefinition = this.ModuleDefinition;
 
-            // Check if th module has a reference to Cauldron.Core
-            var assemblyNameReference = this.ModuleDefinition.AllReferencedAssemblies().FirstOrDefault(x => x.Name.Name == "Cauldron.Core");
+            // Check if th module has a reference to Cauldron.Interception
+            var assemblyNameReference = this.ModuleDefinition.AllReferencedAssemblies().FirstOrDefault(x => x.Name.Name == "Cauldron.Interception");
             if (assemblyNameReference == null)
-                throw new NotImplementedException($"The project {this.ModuleDefinition.Name} does not reference to 'Cauldron.Core'. Please add Cauldron.Core to your project.");
+                throw new NotImplementedException($"The project {this.ModuleDefinition.Name} does not reference to 'Cauldron.Interception'. Please add Cauldron.Interception to your project.");
 
             foreach (var weaverType in this.weavers)
             {

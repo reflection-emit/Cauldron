@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace Cauldron.Core.Interceptors
+namespace Cauldron.Interception
 {
     /// <summary>
     /// Represents a method interceptor

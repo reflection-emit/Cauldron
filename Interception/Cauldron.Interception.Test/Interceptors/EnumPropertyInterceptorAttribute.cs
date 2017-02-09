@@ -1,5 +1,4 @@
 ﻿using Cauldron.Core;
-using Cauldron.Core.Interceptors;
 using System;
 
 namespace Cauldron.Interception.Test.Interceptors

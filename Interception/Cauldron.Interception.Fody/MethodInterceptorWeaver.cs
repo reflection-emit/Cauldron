@@ -8,8 +8,8 @@ namespace Cauldron.Interception.Fody
 {
     public class MethodInterceptorWeaver : ModuleWeaverBase
     {
-        private string lockableMethodInterceptor = "Cauldron.Core.Interceptors.ILockableMethodInterceptor";
-        private string methodInterceptor = "Cauldron.Core.Interceptors.IMethodInterceptor";
+        private string lockableMethodInterceptor = "Cauldron.Interception.ILockableMethodInterceptor";
+        private string methodInterceptor = "Cauldron.Interception.IMethodInterceptor";
 
         public MethodInterceptorWeaver(ModuleWeaver weaver) : base(weaver)
         {

@@ -1,8 +1,8 @@
 {
-  "version": "1.0.0.11",
+  "version": "1.0.0.12",
 
   "dependencies": {
-    "Cauldron.NetCore.Core": "1.0.0.11",
+    "Cauldron.NetCore.Core": "1.0.0.12",
     "NETStandard.Library": "1.6.1",
     "System.Security.Cryptography.Csp": "4.0.0",
     "System.Security.SecureString": "4.3.0"
@@ -20,19 +20,12 @@
     "allowUnsafe": true,
     "xmlDoc": true,
     "compile": {
+      "include": [
+        "../../Shared/Cauldron.Cryptography/**/*.cs",
+        "../../Shared/Cauldron.Diagnostics/**/*.cs"
+      ],
       "includeFiles": [
-        "..\\..\\Desktop\\Cauldron.Desktop.Cryptography\\Extensions.cs",
-        "..\\..\\Shared\\Cauldron.Cryptography\\Aes.cs",
-        "..\\..\\Shared\\Cauldron.Cryptography\\CryptoUtils.cs",
-        "..\\..\\Shared\\Cauldron.Cryptography\\KeyMaterial.cs",
-        "..\\..\\Shared\\Cauldron.Cryptography\\KeyPair.cs",
-        "..\\..\\Shared\\Cauldron.Cryptography\\PasswordScore.cs",
-        "..\\..\\Shared\\Cauldron.Cryptography\\Rsa.cs",
-        "..\\..\\Shared\\Cauldron.Cryptography\\RsaAes.cs",
-        "..\\..\\Shared\\Cauldron.Cryptography\\RSAKeySizes.cs",
-
-        "..\\..\\Shared\\Cauldron.Diagnostics\\Output.cs"
-
+        "..\\..\\Desktop\\Cauldron.Desktop.Cryptography\\Extensions.cs"
       ]
     },
     "define": [ "NETCORE" ]
