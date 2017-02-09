@@ -55,6 +55,8 @@ namespace Cauldron.Activator
 
         private object CreateManyObject(Type type)
         {
+            // TODO - IL weaving with fody instead
+
             var childType = type.GetChildrenType();
             var objects = Factory.CreateMany(childType);
 
