@@ -1,6 +1,7 @@
 ﻿using Cauldron.Activator;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -19,8 +20,8 @@ namespace Cauldron.Desktop.Activator.Test
         [Inject]
         private IEnumerable<ITestInterface> injectToEnumerable = null;
 
-        //[Inject]
-        //private KeyedCollection<string, ITestInterface> injectToKeyedCollection = null;
+        [Inject]
+        private KeyedTestList<string, int, ITestInterface> injectToKeyedCollection = null;
 
         [Inject]
         private List<ITestInterface> injectToList = null;
@@ -89,6 +90,25 @@ namespace Cauldron.Desktop.Activator.Test
         }
 
         [TestMethod]
+        public void KeyedCollection_Injection()
+        {
+            var documentMock1 = new Mock<ITestInterface>();
+            var documentMock2 = new Mock<ITestInterface>();
+
+            Factory.AddType(typeof(ITestInterface).FullName, FactoryCreationPolicy.Instanced, documentMock1.Object.GetType());
+            Factory.AddType(typeof(ITestInterface).FullName, FactoryCreationPolicy.Instanced, documentMock2.Object.GetType());
+
+            Assert.AreEqual(3, this.injectToKeyedCollection.Count);
+
+            this.injectToKeyedCollection[0].Height = 66;
+
+            Assert.AreEqual(66, this.injectToKeyedCollection[0].Height);
+
+            Factory.RemoveType(typeof(ITestInterface).FullName, documentMock1.Object.GetType());
+            Factory.RemoveType(typeof(ITestInterface).FullName, documentMock2.Object.GetType());
+        }
+
+        [TestMethod]
         public void List_Injection()
         {
             var documentMock1 = new Mock<ITestInterface>();
@@ -112,11 +132,6 @@ namespace Cauldron.Desktop.Activator.Test
         {
             this.InterfaceInject.Height = 66;
             Assert.AreEqual(66, InterfaceInject.Height);
-
-            foreach (var item in this.injectToList)
-            {
-                injectToList.Add(item as ITestInterface);
-            }
         }
     }
 }

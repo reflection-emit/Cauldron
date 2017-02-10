@@ -459,7 +459,7 @@ namespace Cauldron.Interception.Fody
                 }
                 else
                 {
-                    if(typeof(<backingField>) == value.GetType())
+                    if(value as <backingField>)
                     {
                         backingField = value;
                         return;
@@ -532,25 +532,26 @@ namespace Cauldron.Interception.Fody
             // else
             processor.Append(elseClause);
 
-            #region if(typeof(<backingField>) == value.GetType())
+            #region if(value is <backingField>)
 
-            processor.Append(processor.TypeOf(field.FieldType.Import()));
             processor.Append(processor.Create(isStatic ? OpCodes.Ldarg_0 : OpCodes.Ldarg_1));
-            processor.Append(processor.Create(OpCodes.Call, typeof(object).GetMethodReference("GetType", 0).Import()));
-            processor.Append(processor.Create(OpCodes.Ceq));
+            processor.Append(processor.Create(OpCodes.Isinst, field.FieldType.Import()));
+            processor.Append(processor.Create(OpCodes.Ldnull));
+            processor.Append(processor.Create(OpCodes.Cgt_Un));
             processor.Append(processor.Create(OpCodes.Brfalse_S, endifBackingFieldType));
 
-            #endregion if(typeof(<backingField>) == value.GetType())
+            #endregion if(value is <backingField>)
 
-            #region backingField = value;
+            #region backingField = value as <backingField>;
 
             if (!isStatic)
                 processor.Append(processor.Create(OpCodes.Ldarg_0));
             processor.Append(processor.Create(isStatic ? OpCodes.Ldarg_0 : OpCodes.Ldarg_1));
+            processor.Append(processor.Create(OpCodes.Isinst, field.FieldType.Import()));
             processor.Append(processor.Create(isStatic ? OpCodes.Stsfld : OpCodes.Stfld, field));
             processor.Append(processor.Create(OpCodes.Br_S, endClause));
 
-            #endregion backingField = value;
+            #endregion backingField = value as <backingField>;
 
             processor.Append(endifBackingFieldType);
 
@@ -601,7 +602,7 @@ namespace Cauldron.Interception.Fody
 
                 #endregion backingField = (value as IEnumerable).Cast<ITestInterface>().ToArray<ITestInterface>();
             }
-            else if (field.FieldType.HasMethod("Add", 1))
+            else if (field.FieldType.HasMethod("Add", 1) || field.FieldType.Resolve().ImplementsInterface(typeof(IList)))
             {
                 // Check if there is a AddRange... We prefer add range
                 if (field.FieldType.HasMethod("AddRange", 1))
@@ -613,10 +614,10 @@ namespace Cauldron.Interception.Fody
                     if (addRangeMethods.Count() == 1)
                         addRangeReference = addRangeMethods.First();
                     else
-                        addRangeReference = addRangeMethods.FirstOrDefault(x => x.Parameters[0].ParameterType.FullName == childType.FullName);
+                        addRangeReference = addRangeMethods.FirstOrDefault(x => x.Parameters[0].ParameterType.FullName == typeof(IEnumerable<>).GetTypeReference().MakeGenericInstanceType(childType).FullName);
 
                     if (addRangeReference == null)
-                        addRangeReference = addRangeMethods.FirstOrDefault(x => x.Parameters[0].ParameterType.FullName == typeof(object).FullName);
+                        addRangeReference = addRangeMethods.FirstOrDefault(x => x.Parameters[0].ParameterType.FullName == typeof(IEnumerable<>).GetTypeReference().MakeGenericInstanceType(typeof(object).GetTypeReference()).FullName);
 
                     if (addRangeReference == null) // Just take the first one... Code could break here... A lot of reasons why it could
                         addRangeReference = addRangeMethods.First();
@@ -631,107 +632,86 @@ namespace Cauldron.Interception.Fody
                     processor.Append(processor.Create(isStatic ? OpCodes.Ldarg_0 : OpCodes.Ldarg_1));
                     processor.Append(processor.Create(OpCodes.Isinst, typeof(IEnumerable).GetTypeReference().Import()));
                     processor.Append(processor.Create(OpCodes.Call, castMethod));
-                    processor.Append(processor.Create(OpCodes.Callvirt, addRangeReference.MakeHostInstanceGeneric(childType).Import()));
+
+                    if (field.FieldType.IsGenericInstance)
+                        processor.Append(processor.Create(OpCodes.Callvirt, addRangeReference.MakeHostInstanceGeneric((field.FieldType as GenericInstanceType).GenericArguments.ToArray()).Import()));
+                    else
+                        processor.Append(processor.Create(OpCodes.Callvirt, addRangeReference.Import()));
 
                     #endregion backingField.AddRange(value as IEnumerable);
+                }
+                else
+                {
+                    var addMethods = field.FieldType.GetMethodReferences("Add", 1);
+                    MethodReference addReference = null;
+
+                    if (addMethods.Count() == 1)
+                        addReference = addMethods.First();
+                    else
+                        addReference = addMethods.FirstOrDefault(x => x.Parameters[0].ParameterType.FullName == childType.FullName);
+
+                    if (addReference == null)
+                        addReference = addMethods.FirstOrDefault(x => x.Parameters[0].ParameterType.FullName == typeof(object).FullName);
+
+                    if (addReference == null)
+                        addReference = addMethods.First();
+
+                    #region var array = (value as IEnumerable).Cast<ITestInterface>().ToArray<ITestInterface>();
+
+                    var castMethod = typeof(System.Linq.Enumerable).GetMethodReference("Cast", new Type[] { typeof(IEnumerable) }).MakeGeneric(childType).Import();
+                    var toArrayMethod = typeof(System.Linq.Enumerable).GetMethodReference("ToArray", 1).MakeGeneric(childType).Import();
+                    var localVariable = new VariableDefinition(childType.MakeArrayType().Import());
+                    processor.Body.Variables.Add(localVariable);
+
+                    processor.Append(processor.Create(isStatic ? OpCodes.Ldarg_0 : OpCodes.Ldarg_1));
+                    processor.Append(processor.Create(OpCodes.Isinst, typeof(IEnumerable).GetTypeReference().Import()));
+                    processor.Append(processor.Create(OpCodes.Call, castMethod));
+                    processor.Append(processor.Create(OpCodes.Call, toArrayMethod));
+                    processor.Append(processor.Create(OpCodes.Stloc, localVariable));
+
+                    #endregion var array = (value as IEnumerable).Cast<ITestInterface>().ToArray<ITestInterface>();
+
+                    #region for(int index = 0; index < localVariable.Length; index++)
+
+                    this.LogInfo(addReference.FullName);
+                    var indexer = new VariableDefinition(typeof(int).GetTypeReference().Import());
+                    var lengthCheck = processor.Create(OpCodes.Ldloc, indexer);
+
+                    processor.Body.Variables.Add(indexer);
+                    processor.Append(processor.Create(OpCodes.Ldc_I4_0));
+                    processor.Append(processor.Create(OpCodes.Stloc, indexer));
+                    processor.Append(processor.Create(OpCodes.Br_S, lengthCheck));
+
+                    var start = processor.Create(OpCodes.Nop);
+                    processor.Append(start);
+                    if (!isStatic)
+                        processor.Append(processor.Create(OpCodes.Ldarg_0));
+                    processor.Append(processor.Create(isStatic ? OpCodes.Ldsfld : OpCodes.Ldfld, field));
+                    processor.Append(processor.Create(OpCodes.Ldloc, localVariable));
+                    processor.Append(processor.Create(OpCodes.Ldloc, indexer));
+                    processor.Append(processor.Create(OpCodes.Ldelem_Ref));
+                    if (field.FieldType.IsGenericInstance)
+                        processor.Append(processor.Create(OpCodes.Callvirt, addReference.MakeHostInstanceGeneric((field.FieldType as GenericInstanceType).GenericArguments.ToArray()).Import()));
+                    else
+                        processor.Append(processor.Create(OpCodes.Callvirt, addReference.Import()));
+
+                    processor.Append(processor.Create(OpCodes.Ldloc, indexer));
+                    processor.Append(processor.Create(OpCodes.Ldc_I4_1));
+                    processor.Append(processor.Create(OpCodes.Add));
+                    processor.Append(processor.Create(OpCodes.Stloc, indexer));
+
+                    processor.Append(lengthCheck);
+                    processor.Append(processor.Create(OpCodes.Ldloc, localVariable));
+                    processor.Append(processor.Create(OpCodes.Ldlen));
+                    processor.Append(processor.Create(OpCodes.Conv_I4));
+                    processor.Append(processor.Create(OpCodes.Clt));
+                    processor.Append(processor.Create(OpCodes.Brtrue_S, start));
+
+                    #endregion for(int index = 0; index < localVariable.Length; index++)
                 }
             }
 
             // End if
-            processor.Append(endClause);
-        }
-
-        private void EmitSpecializedListSetter(FieldDefinition field, bool isStatic, ILProcessor processor)
-        {
-            /*
-	                if (value == null)
-	                {
-		                this.backingField.TryDispose();
-		                this.backingField = null;
-	                }
-	                else
-	                {
-		                if (value is IList)
-		                {
-			                this.backingField.TryDispose();
-			                this.backingField = value as IList;
-		                }
-		                else
-		                {
-			                this.backingField.TryDispose();
-			                this.backingField = (value as IEnumerable).Cast<ITestInterface>().ToList<ITestInterface>();
-		                }
-	                }
-             */
-            var elseClause = processor.Create(OpCodes.Nop);
-            var else2Clause = processor.Create(OpCodes.Nop);
-            var endClause = processor.Create(OpCodes.Nop);
-
-            // if (value == null)
-            processor.Append(processor.Create(isStatic ? OpCodes.Ldarg_0 : OpCodes.Ldarg_1));
-            processor.Append(processor.Create(OpCodes.Ldnull));
-            processor.Append(processor.Create(OpCodes.Ceq));
-            processor.Append(processor.Create(OpCodes.Brfalse_S, elseClause));
-
-            // backingField.TryDispose();
-            if (!isStatic)
-                processor.Append(processor.Create(OpCodes.Ldarg_0));
-
-            processor.Append(processor.Create(isStatic ? OpCodes.Ldsfld : OpCodes.Ldfld, field));
-            processor.Append(processor.Create(OpCodes.Call, "Cauldron.Interception.Extensions".ToTypeDefinition().GetMethodReference("TryDispose", 1).Import()));
-
-            // backingField = null;
-            if (!isStatic)
-                processor.Append(processor.Create(OpCodes.Ldarg_0));
-
-            processor.Append(processor.Create(OpCodes.Ldnull));
-            processor.Append(processor.Create(isStatic ? OpCodes.Stsfld : OpCodes.Stfld, field));
-            processor.Append(processor.Create(OpCodes.Br_S, endClause));
-            processor.Append(elseClause);
-
-            // if (value is IList)
-            processor.Append(processor.Create(isStatic ? OpCodes.Ldarg_0 : OpCodes.Ldarg_1));
-            processor.Append(processor.Create(OpCodes.Isinst, typeof(IList).GetTypeReference().Import()));
-            processor.Append(processor.Create(OpCodes.Ldnull));
-            processor.Append(processor.Create(OpCodes.Cgt_Un));
-            processor.Append(processor.Create(OpCodes.Brfalse_S, else2Clause));
-
-            // backingField.TryDispose();
-            if (!isStatic)
-                processor.Append(processor.Create(OpCodes.Ldarg_0));
-
-            processor.Append(processor.Create(isStatic ? OpCodes.Ldsfld : OpCodes.Ldfld, field));
-            processor.Append(processor.Create(OpCodes.Call, "Cauldron.Interception.Extensions".ToTypeDefinition().GetMethodReference("TryDispose", 1).Import()));
-
-            // this.backingField = value as IList;
-            if (!isStatic)
-                processor.Append(processor.Create(OpCodes.Ldarg_0));
-            processor.Append(processor.Create(isStatic ? OpCodes.Ldarg_0 : OpCodes.Ldarg_1));
-            processor.Append(processor.Create(OpCodes.Isinst, typeof(IList).GetTypeReference().Import()));
-            processor.Append(processor.Create(isStatic ? OpCodes.Stsfld : OpCodes.Stfld, field));
-            processor.Append(else2Clause);
-
-            // backingField.TryDispose();
-            if (!isStatic)
-                processor.Append(processor.Create(OpCodes.Ldarg_0));
-
-            processor.Append(processor.Create(isStatic ? OpCodes.Ldsfld : OpCodes.Ldfld, field));
-            processor.Append(processor.Create(OpCodes.Call, "Cauldron.Interception.Extensions".ToTypeDefinition().GetMethodReference("TryDispose", 1).Import()));
-
-            // this.backingField = (value as IEnumerable).Cast<ITestInterface>().ToList<ITestInterface>();
-            if (!isStatic)
-                processor.Append(processor.Create(OpCodes.Ldarg_0));
-
-            var childElement = field.FieldType.GetChildrenType();
-            var castMethod = typeof(System.Linq.Enumerable).GetMethodReference("Cast", new Type[] { typeof(IEnumerable) }).MakeGeneric(childElement).Import();
-            var toListMethod = typeof(System.Linq.Enumerable).GetMethodReference("ToList", 1).MakeGeneric(childElement).Import();
-
-            processor.Append(processor.Create(isStatic ? OpCodes.Ldarg_0 : OpCodes.Ldarg_1));
-            processor.Append(processor.Create(OpCodes.Isinst, typeof(IEnumerable).GetTypeReference().Import()));
-            processor.Append(processor.Create(OpCodes.Call, castMethod));
-            processor.Append(processor.Create(OpCodes.Call, toListMethod));
-            processor.Append(processor.Create(isStatic ? OpCodes.Stsfld : OpCodes.Stfld, field));
-
             processor.Append(endClause);
         }
     }

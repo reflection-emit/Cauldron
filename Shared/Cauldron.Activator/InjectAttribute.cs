@@ -2,6 +2,7 @@
 using Cauldron.Core.Extensions;
 using Cauldron.Interception;
 using System;
+using System.Reflection;
 using System.Threading;
 
 namespace Cauldron.Activator
@@ -96,7 +97,7 @@ namespace Cauldron.Activator
                     }
                     else if (propertyInterceptionInfo.ChildType != null && propertyInterceptionInfo.ChildType != typeof(object))
                         injectionInstance = Factory.CreateMany(propertyInterceptionInfo.ChildType);
-                    else if (!propertyInterceptionInfo.PropertyType.IsInterface)
+                    else if (!propertyInterceptionInfo.PropertyType.GetTypeInfo().IsInterface)
                     {
                         // If the property type is not an interface, then we will try to create the type with its default constructor
                         if (this.arguments == null || this.arguments.Length == 0)

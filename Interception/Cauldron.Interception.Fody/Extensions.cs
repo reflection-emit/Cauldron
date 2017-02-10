@@ -199,10 +199,49 @@ namespace Cauldron.Interception.Fody
             return result;
         }
 
+        public static IEnumerable<MethodReference> GetMethodDefinitionsByName(this TypeReference type, string methodName)
+        {
+            var result = new List<MethodReference>();
+
+            var baseType = type;
+
+            while (baseType != null)
+            {
+                if (baseType.IsGenericInstance)
+                {
+                    var genericType = baseType as GenericInstanceType;
+
+                    if (genericType != null)
+                    {
+                        var instances = genericType.GetGenericInstances();
+
+                        foreach (var item in instances)
+                        {
+                            var methods = item.Resolve().Methods.Where(x => x.Name == methodName).Select(x => x.MakeHostInstanceGeneric((item as GenericInstanceType).GenericArguments.ToArray()));
+
+                            if (methods != null || methods.Any())
+                                result.AddRange(methods);
+                        }
+                    }
+                }
+                else
+                {
+                    var methods = baseType.Resolve().Methods.Where(x => x.Name == methodName);
+
+                    if (methods != null || methods.Any())
+                        result.AddRange(methods);
+                }
+
+                baseType = baseType.Resolve().BaseType;
+            };
+
+            return result;
+        }
+
         public static MethodReference GetMethodReference(this Type type, string methodName, Type[] parameterTypes)
         {
             var definition = type.GetTypeDefinition();
-            var result = definition.Methods.FirstOrDefault(x => x.Name == methodName && parameterTypes.Select(y => y.FullName).SequenceEqual(x.Parameters.Select(y => y.ParameterType.FullName)));
+            var result = definition.GetMethodDefinitionsByName(methodName).FirstOrDefault(x => x.Name == methodName && parameterTypes.Select(y => y.FullName).SequenceEqual(x.Parameters.Select(y => y.ParameterType.FullName)));
 
             if (result != null)
                 return result;
@@ -213,7 +252,7 @@ namespace Cauldron.Interception.Fody
         public static MethodReference GetMethodReference(this TypeReference typeReference, string methodName, int parameterCount)
         {
             var definition = typeReference.Resolve();
-            var result = definition.Methods.FirstOrDefault(x => x.Name == methodName && x.Parameters.Count == parameterCount);
+            var result = definition.GetMethodDefinitionsByName(methodName).FirstOrDefault(x => x.Name == methodName && x.Parameters.Count == parameterCount);
 
             if (result != null)
                 return result;
@@ -224,7 +263,7 @@ namespace Cauldron.Interception.Fody
         public static MethodReference GetMethodReference(this Type type, string methodName, int parameterCount)
         {
             var definition = type.GetTypeDefinition();
-            var result = definition.Methods.FirstOrDefault(x => x.Name == methodName && x.Parameters.Count == parameterCount);
+            var result = definition.GetMethodDefinitionsByName(methodName).FirstOrDefault(x => x.Name == methodName && x.Parameters.Count == parameterCount);
 
             if (result != null)
                 return result;
@@ -235,7 +274,7 @@ namespace Cauldron.Interception.Fody
         public static IEnumerable<MethodReference> GetMethodReferences(this TypeReference typeReference, string methodName, int parameterCount)
         {
             var definition = typeReference.Resolve();
-            return definition.Methods.Where(x => x.Name == methodName && x.Parameters.Count == parameterCount);
+            return definition.GetMethodDefinitionsByName(methodName).Where(x => x.Name == methodName && x.Parameters.Count == parameterCount);
         }
 
         public static PropertyDefinition GetPropertyDefinition(this MethodDefinition method) =>
@@ -422,7 +461,14 @@ namespace Cauldron.Interception.Fody
                 var genericArguments = new List<TypeReference>();
 
                 foreach (var arg in (type as GenericInstanceType).GenericArguments)
-                    genericArguments.Add(genericArgumentsOfCurrentType[Array.IndexOf(genericArgumentNames, genericArgumentNames.First(x => x == arg.FullName))]);
+                {
+                    var t = genericArgumentNames.FirstOrDefault(x => x == arg.FullName);
+
+                    if (t == null)
+                        genericArguments.Add(arg);
+                    else
+                        genericArguments.Add(genericArgumentsOfCurrentType[Array.IndexOf(genericArgumentNames, t)]);
+                }
 
                 var genericType = resolvedBase.MakeGenericInstanceType(genericArguments.ToArray());
                 return genericType.GetGenericInstances();
