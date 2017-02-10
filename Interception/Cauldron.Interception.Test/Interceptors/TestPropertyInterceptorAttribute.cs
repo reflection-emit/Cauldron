@@ -1,4 +1,5 @@
 ﻿using Cauldron.Core;
+using Cauldron.Core.Extensions;
 using System;
 using System.Collections.Generic;
 
@@ -26,7 +27,7 @@ namespace Cauldron.Interception.Test.Interceptors
 
         public bool OnSet(PropertyInterceptionInfo propertyInterceptionInfo, object oldValue, object newValue)
         {
-            if (propertyInterceptionInfo.PropertyType.IsArray)
+            if (propertyInterceptionInfo.PropertyType.IsArray || propertyInterceptionInfo.PropertyType.AreReferenceAssignable(typeof(List<long>)))
             {
                 var passed = new List<long>();
                 passed.Add(2);

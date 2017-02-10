@@ -1,6 +1,7 @@
 ﻿using Mono.Cecil;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Cauldron.Interception.Fody
@@ -9,6 +10,7 @@ namespace Cauldron.Interception.Fody
     {
         private List<Type> weavers = new List<Type>
         {
+            typeof(AnonymouseTypeToInterfaceWeaver),
             typeof(FieldInterceptorWeaver),
             typeof(MethodInterceptorWeaver),
             typeof(PropertyInterceptorWeaver),

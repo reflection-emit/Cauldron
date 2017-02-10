@@ -259,9 +259,9 @@ namespace Cauldron.Interception.Fody
                     {
                         var body = constructor.Resolve().Body;
                         var ctorProcessor = body.GetILProcessor();
-                        var first = body.Instructions.First();
+                        var first = body.Instructions.FirstOrDefault(x => x.OpCode == OpCodes.Call && (x.Operand as MethodReference).Name == ".ctor");
 
-                        ctorProcessor.InsertBefore(first, intitalizePropertyInfo(ctorProcessor));
+                        ctorProcessor.InsertAfter(first, intitalizePropertyInfo(ctorProcessor));
                     }
                 }
             }

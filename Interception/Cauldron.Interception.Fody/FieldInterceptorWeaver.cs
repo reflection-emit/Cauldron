@@ -72,7 +72,7 @@ namespace Cauldron.Interception.Fody
             field.DeclaringType.Methods.Add(property.GetMethod);
             field.DeclaringType.Methods.Add(property.SetMethod);
 
-            foreach (var method in methodsWithLoadStoreFields)
+            foreach (var method in methodsWithLoadStoreFields.Where(x => x.Method.Name != ".ctor" && x.Method.Name != ".cctor"))
             {
                 var processor = method.Method.Body.GetILProcessor();
 

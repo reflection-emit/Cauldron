@@ -141,12 +141,22 @@ namespace Cauldron.Interception.Fody
             return result;
         }
 
-        protected IEnumerable<MethodAndInstruction> GetMethodsWhere(Func<Instruction, bool> predicate) => this.ModuleDefinition.Types
-                .Where(x => x != null)
+        protected IEnumerable<MethodAndInstruction> GetMethodsWhere(Func<Instruction, bool> predicate)
+        {
+            var allModuleTypes = new List<TypeDefinition>();
+            var types = this.ModuleDefinition.Types.Where(x => x != null);
+
+            foreach (var item in types)
+                allModuleTypes.AddRange(item.GetNestedTypes());
+
+            allModuleTypes.AddRange(types.Distinct(new TypeDefinitionEqualityComparer()));
+
+            return allModuleTypes
                 .SelectMany(x => x.Methods)
                 .Where(x => x != null && x.Body != null)
                 .Select(x => new MethodAndInstruction(x, x.Body.Instructions.Where(predicate).ToArray()))
-                .ToArray();
+                .ToList();
+        }
 
         protected MethodDefinition GetOrCreateStaticConstructor(TypeDefinition type)
         {
@@ -169,6 +179,7 @@ namespace Cauldron.Interception.Fody
         {
             var processor = method.Body.GetILProcessor();
             method.Body.Instructions.Clear();
+            var returnOpCode = processor.Create(OpCodes.Ret);
 
             if (field.FieldType.Resolve().IsEnum)
             {
@@ -185,7 +196,7 @@ namespace Cauldron.Interception.Fody
                 processor.Append(processor.Create(isStatic ? OpCodes.Stsfld : OpCodes.Stfld, field));
             }
             else if (field.FieldType.IsIEnumerable())
-                EmitSpecializedEnumerableSetter(field, isStatic, processor);
+                EmitSpecializedEnumerableSetter(field, isStatic, processor, returnOpCode);
             else
             {
                 if (!isStatic)
@@ -212,7 +223,7 @@ namespace Cauldron.Interception.Fody
 
                 processor.Append(processor.Create(isStatic ? OpCodes.Stsfld : OpCodes.Stfld, field));
             }
-            processor.Append(processor.Create(OpCodes.Ret));
+            processor.Append(returnOpCode);
         }
 
         protected abstract void ImplementLockableOnEnter(MethodWeaverInfo methodWeaverInfo, VariableDefinition attributeVariable, MethodReference interceptorOnEnter, VariableDefinition parametersArrayVariable, FieldDefinition semaphoreSlim);
@@ -448,56 +459,14 @@ namespace Cauldron.Interception.Fody
             return createInstructionsResult;
         }
 
-        private void EmitSpecializedEnumerableSetter(FieldDefinition field, bool isStatic, ILProcessor processor)
+        private void EmitSpecializedEnumerableSetter(FieldDefinition field, bool isStatic, ILProcessor processor, Instruction returnOpCode)
         {
-            /*
-                backingField.TryDispose();
-
-                if (value == null)
-                {
-                    backingField = null;
-                }
-                else
-                {
-                    if(value as <backingField>)
-                    {
-                        backingField = value;
-                        return;
-                    }
-
-                    // Only if a default constructor is present
-                    if(backingField == null)
-                    {
-                        backingField = new ITestInterface();
-                    }
-
-                    // Only if array or IEnumerable<>
-                    backingField = (value as IEnumerable).Cast<ITestInterface>().ToArray<ITestInterface>();
-
-                    // Only if a Clear method was found
-                    backingField.Clear();
-
-                    // Only if a AddRange method was found
-                    backingField.AddRange( (value as IEnumerable).Cast<ITestInterface>() );
-                    // Or
-                    backingField.AddRange(value as IEnumerable);
-
-                    // Only if a Add method was found
-                    foreach(var item in value as IEnumerable)
-                        backingField.Add(item as ITestInterface);
-                    // Or
-                    foreach(var item in value as IEnumerable)
-                        backingField.Add(item);
-
-                    backingField = value as <backingField>;
-                }
-             */
-
             var childType = field.FieldType.GetChildrenType();
             var elseClause = processor.Create(OpCodes.Nop);
-            var endClause = processor.Create(OpCodes.Nop);
             var endifBackingFieldNull = processor.Create(OpCodes.Nop);
             var endifBackingFieldType = processor.Create(OpCodes.Nop);
+
+            processor.Body.InitLocals = true;
 
             #region backingField.TryDispose();
 
@@ -525,7 +494,7 @@ namespace Cauldron.Interception.Fody
 
             processor.Append(processor.Create(OpCodes.Ldnull));
             processor.Append(processor.Create(isStatic ? OpCodes.Stsfld : OpCodes.Stfld, field));
-            processor.Append(processor.Create(OpCodes.Br_S, endClause));
+            processor.Append(processor.Create(OpCodes.Br_S, returnOpCode));
 
             #endregion backingField = null;
 
@@ -549,7 +518,7 @@ namespace Cauldron.Interception.Fody
             processor.Append(processor.Create(isStatic ? OpCodes.Ldarg_0 : OpCodes.Ldarg_1));
             processor.Append(processor.Create(OpCodes.Isinst, field.FieldType.Import()));
             processor.Append(processor.Create(isStatic ? OpCodes.Stsfld : OpCodes.Stfld, field));
-            processor.Append(processor.Create(OpCodes.Br_S, endClause));
+            processor.Append(processor.Create(OpCodes.Br_S, returnOpCode));
 
             #endregion backingField = value as <backingField>;
 
@@ -602,8 +571,21 @@ namespace Cauldron.Interception.Fody
 
                 #endregion backingField = (value as IEnumerable).Cast<ITestInterface>().ToArray<ITestInterface>();
             }
-            else if (field.FieldType.HasMethod("Add", 1) || field.FieldType.Resolve().ImplementsInterface(typeof(IList)))
+            else if (field.FieldType.HasMethod("Add", 1))
             {
+                #region backingField.Clear();
+
+                // TODO - Causes error 0x8013189F on IL ... returnOpCode jumps to somewhere else
+                //if (field.FieldType.HasMethod("Clear"))
+                //{
+                //    if (!isStatic)
+                //        processor.Append(processor.Create(OpCodes.Ldarg_0));
+                //    processor.Append(processor.Create(isStatic ? OpCodes.Ldsfld : OpCodes.Ldfld, field));
+                //    processor.Append(processor.Create(OpCodes.Callvirt, field.FieldType.GetMethodReference("Clear", 0).Import()));
+                //}
+
+                #endregion backingField.Clear();
+
                 // Check if there is a AddRange... We prefer add range
                 if (field.FieldType.HasMethod("AddRange", 1))
                 {
@@ -632,17 +614,14 @@ namespace Cauldron.Interception.Fody
                     processor.Append(processor.Create(isStatic ? OpCodes.Ldarg_0 : OpCodes.Ldarg_1));
                     processor.Append(processor.Create(OpCodes.Isinst, typeof(IEnumerable).GetTypeReference().Import()));
                     processor.Append(processor.Create(OpCodes.Call, castMethod));
-
-                    if (field.FieldType.IsGenericInstance)
-                        processor.Append(processor.Create(OpCodes.Callvirt, addRangeReference.MakeHostInstanceGeneric((field.FieldType as GenericInstanceType).GenericArguments.ToArray()).Import()));
-                    else
-                        processor.Append(processor.Create(OpCodes.Callvirt, addRangeReference.Import()));
+                    processor.Append(processor.Create(OpCodes.Callvirt, addRangeReference.Import()));
 
                     #endregion backingField.AddRange(value as IEnumerable);
                 }
                 else
                 {
                     var addMethods = field.FieldType.GetMethodReferences("Add", 1);
+
                     MethodReference addReference = null;
 
                     if (addMethods.Count() == 1)
@@ -673,7 +652,6 @@ namespace Cauldron.Interception.Fody
 
                     #region for(int index = 0; index < localVariable.Length; index++)
 
-                    this.LogInfo(addReference.FullName);
                     var indexer = new VariableDefinition(typeof(int).GetTypeReference().Import());
                     var lengthCheck = processor.Create(OpCodes.Ldloc, indexer);
 
@@ -690,10 +668,7 @@ namespace Cauldron.Interception.Fody
                     processor.Append(processor.Create(OpCodes.Ldloc, localVariable));
                     processor.Append(processor.Create(OpCodes.Ldloc, indexer));
                     processor.Append(processor.Create(OpCodes.Ldelem_Ref));
-                    if (field.FieldType.IsGenericInstance)
-                        processor.Append(processor.Create(OpCodes.Callvirt, addReference.MakeHostInstanceGeneric((field.FieldType as GenericInstanceType).GenericArguments.ToArray()).Import()));
-                    else
-                        processor.Append(processor.Create(OpCodes.Callvirt, addReference.Import()));
+                    processor.Append(processor.Create(OpCodes.Callvirt, addReference.Import()));
 
                     processor.Append(processor.Create(OpCodes.Ldloc, indexer));
                     processor.Append(processor.Create(OpCodes.Ldc_I4_1));
@@ -710,9 +685,6 @@ namespace Cauldron.Interception.Fody
                     #endregion for(int index = 0; index < localVariable.Length; index++)
                 }
             }
-
-            // End if
-            processor.Append(endClause);
         }
     }
 }

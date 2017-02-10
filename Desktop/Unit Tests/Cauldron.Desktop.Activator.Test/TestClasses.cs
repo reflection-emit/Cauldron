@@ -8,14 +8,6 @@ namespace Cauldron.Desktop.Activator.Test
 {
     public class KeyedTestList<TKey, TItem2, TItem> : KeyedCollection<string, TItem>
     {
-        //public void AddRange(IEnumerable<TItem> items)
-        //{
-        //}
-
-        //public void AddRange(IEnumerable items)
-        //{
-        //}
-
         protected override string GetKeyForItem(TItem item)
         {
             return item.ToString();

@@ -71,8 +71,8 @@ namespace Cauldron.Interception.Test
         {
             this.ListProperty = new List<long>();
 
-            Assert.AreEqual(4, this.ArrayProperty.Length);
-            Assert.AreEqual(5643, this.ArrayProperty[2]);
+            Assert.AreEqual(4, this.ListProperty.Count);
+            Assert.AreEqual(5643, this.ListProperty[2]);
         }
 
         [TestMethod]

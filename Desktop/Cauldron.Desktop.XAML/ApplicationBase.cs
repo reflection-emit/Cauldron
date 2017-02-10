@@ -370,12 +370,9 @@ namespace Cauldron.XAML
 
                     window.Show();
 
-                    using (var p = new ExecutionTimer("Preload"))
-                    {
-                        window.Content = this;
-                        window.Activate();
-                        await this.OnPreload();
-                    }
+                    window.Content = this;
+                    window.Activate();
+                    await this.OnPreload();
 
                     var rootFrame = new NavigationFrame();
                     rootFrame.DataContext = this;
