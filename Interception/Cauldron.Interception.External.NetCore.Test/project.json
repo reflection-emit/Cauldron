@@ -1,0 +1,26 @@
+{
+  "version": "1.0.0-*",
+
+  "dependencies": {
+    "Cauldron.NetCore.Core": "1.0.0.12",
+    "Cauldron.NetCore.Interception": "1.0.0.12",
+    "NETStandard.Library": "1.6.1"
+  },
+
+  "frameworks": {
+    "netstandard1.6": {
+      "imports": "dnxcore50"
+    }
+  },
+  "buildOptions": {
+    "compile": {
+      "include": [
+        "../Cauldron.Interception.External.Test/**/*.cs"
+      ],
+      "excludeFiles": [
+        "../Cauldron.Interception.External.Test/Properties/AssemblyInfo.cs"
+      ]
+    },
+    "define": [ "NETCORE" ]
+  }
+}

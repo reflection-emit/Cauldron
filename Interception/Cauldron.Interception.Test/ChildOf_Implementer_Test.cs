@@ -1,5 +1,15 @@
 ﻿using Cauldron.Core;
+
+#if WINDOWS_UWP
+
+using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+
+#else
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+#endif
+
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 

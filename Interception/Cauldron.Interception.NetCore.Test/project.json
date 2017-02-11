@@ -1,0 +1,29 @@
+{
+  "version": "1.0.0-*",
+  "testRunner": "mstest",
+
+  "dependencies": {
+    "Cauldron.NetCore.Activator": "1.0.0.12",
+    "Cauldron.NetCore.Core": "1.0.0.12",
+    "Cauldron.NetCore.Interception": "1.0.0.12",
+    "Fody": "1.29.4",
+    "NETStandard.Library": "1.6.1"
+  },
+
+  "frameworks": {
+    "netstandard1.6": {
+      "imports": "dnxcore50"
+    }
+  },
+  "buildOptions": {
+    "compile": {
+      "include": [
+        "../Cauldron.Interception.Test/**/*.cs"
+      ],
+      "excludeFiles": [
+        "../Cauldron.Interception.Test/Properties/AssemblyInfo.cs"
+      ]
+    },
+    "define": [ "NETCORE" ]
+  }
+}

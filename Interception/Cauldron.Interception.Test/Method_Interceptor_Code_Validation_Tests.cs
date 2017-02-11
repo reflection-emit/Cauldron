@@ -1,7 +1,18 @@
-﻿using Cauldron.Core.Extensions;
+﻿using Cauldron.Core;
+using Cauldron.Core.Extensions;
 using Cauldron.Interception.External.Test;
 using Cauldron.Interception.Test.Interceptors;
+
+#if WINDOWS_UWP
+
+using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+
+#else
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+#endif
+
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,7 +25,8 @@ namespace Cauldron.Interception.Test
         [ExternalLockableMethod]
         public static void Static_Lockable_Method_()
         {
-            Console.WriteLine("Nothing");
+            var uu = Cauldron.Core.MiscUtils.GenerateLoremIpsum(4, 8);
+            System.Diagnostics.Debug.WriteLine(uu);
         }
 
         [TestMethod]
@@ -71,7 +83,8 @@ namespace Cauldron.Interception.Test
         [TestMethod]
         public void Lockable_Method()
         {
-            Console.WriteLine("Nothing");
+            var uu = Cauldron.Core.MiscUtils.GenerateLoremIpsum(4, 6);
+            System.Diagnostics.Debug.WriteLine(uu);
         }
 
         [TestMethodInterceptor]
@@ -164,14 +177,14 @@ namespace Cauldron.Interception.Test
         [TestMethod]
         public void Void_Method_With_Multiple_Returns()
         {
-            var username = Environment.UserName;
+            var username = UserInformation.GetUserNameAsync().RunSync();
 
             if (username == "batman")
                 return;
 
             if (username == "catwoman")
             {
-                var t = Environment.Version.ToString() + Environment.SystemDirectory;
+                var t = SystemInfo.HardwareIdentifier;
                 username = t;
                 return;
             }
@@ -184,7 +197,8 @@ namespace Cauldron.Interception.Test
                     return;
                 }
 
-                Console.WriteLine("Nothing");
+                var uu = Cauldron.Core.MiscUtils.GenerateLoremIpsum(4, 7);
+                System.Diagnostics.Debug.WriteLine(uu);
             }
 
             // If the unit test was successfully invoked, then we are sure that our weaver weaved the whole thing correctly
@@ -197,14 +211,14 @@ namespace Cauldron.Interception.Test
         {
             var action = new Action(() =>
             {
-                var username = Environment.UserName;
+                var username = UserInformation.GetUserNameAsync().RunSync();
 
                 if (username == "batman")
                     return;
 
                 if (username == "catwoman")
                 {
-                    var t = Environment.Version.ToString() + Environment.SystemDirectory;
+                    var t = SystemInfo.HardwareIdentifier;
                     username = t;
                     return;
                 }
@@ -217,7 +231,8 @@ namespace Cauldron.Interception.Test
                         return;
                     }
 
-                    Console.WriteLine("Nothing");
+                    var uu = Cauldron.Core.MiscUtils.GenerateLoremIpsum(4, 7);
+                    System.Diagnostics.Debug.WriteLine(uu);
                 }
             });
 
@@ -233,14 +248,14 @@ namespace Cauldron.Interception.Test
         {
             var action = new Action(() =>
             {
-                var username = Environment.UserName;
+                var username = UserInformation.GetUserNameAsync().RunSync();
 
                 if (username == "batman")
                     return;
 
                 if (username == "catwoman")
                 {
-                    var t = Environment.Version.ToString() + Environment.SystemDirectory;
+                    var t = SystemInfo.HardwareIdentifier;
                     username = t;
                     return;
                 }
@@ -253,7 +268,8 @@ namespace Cauldron.Interception.Test
                         return;
                     }
 
-                    Console.WriteLine("Nothing");
+                    var uu = Cauldron.Core.MiscUtils.GenerateLoremIpsum(4, 7);
+                    System.Diagnostics.Debug.WriteLine(uu);
                 }
             });
 
@@ -269,14 +285,14 @@ namespace Cauldron.Interception.Test
         {
             try
             {
-                var username = Environment.UserName;
+                var username = UserInformation.GetUserNameAsync().RunSync();
 
                 if (username == "batman")
                     return;
 
                 if (username == "catwoman")
                 {
-                    var t = Environment.Version.ToString() + Environment.SystemDirectory;
+                    var t = SystemInfo.HardwareIdentifier;
                     username = t;
                     return;
                 }
@@ -289,12 +305,14 @@ namespace Cauldron.Interception.Test
                         return;
                     }
 
-                    Console.WriteLine("Nothing");
+                    var uu = Cauldron.Core.MiscUtils.GenerateLoremIpsum(4, 6);
+                    System.Diagnostics.Debug.WriteLine(uu);
                 }
             }
             catch (Exception)
             {
-                Console.WriteLine("Nothing");
+                var uu = Cauldron.Core.MiscUtils.GenerateLoremIpsum(4, 6);
+                System.Diagnostics.Debug.WriteLine(uu);
                 throw;
             }
 
@@ -341,7 +359,8 @@ namespace Cauldron.Interception.Test
             }
             catch (Exception)
             {
-                Console.WriteLine("Nothing");
+                var uu = Cauldron.Core.MiscUtils.GenerateLoremIpsum(4, 3);
+                System.Diagnostics.Debug.WriteLine(uu);
                 throw;
             }
 
@@ -447,7 +466,8 @@ namespace Cauldron.Interception.Test
             }
             catch (Exception)
             {
-                Console.WriteLine("Nothing");
+                var uu = Cauldron.Core.MiscUtils.GenerateLoremIpsum(4, 3);
+                System.Diagnostics.Debug.WriteLine(uu);
                 throw;
             }
         }

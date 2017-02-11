@@ -29,7 +29,7 @@ namespace Cauldron.Interception.Fody
 
         public void Execute()
         {
-            Extensions.ModuleDefinition = this.ModuleDefinition;
+            Extensions.ModuleWeaver = this;
 
             // Check if th module has a reference to Cauldron.Interception
             var assemblyNameReference = this.ModuleDefinition.AllReferencedAssemblies().FirstOrDefault(x => x.Name.Name == "Cauldron.Interception");

@@ -1,5 +1,15 @@
 ﻿using Cauldron.Activator;
+
+#if WINDOWS_UWP
+
+using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+
+#else
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+#endif
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -108,13 +118,21 @@ namespace Cauldron.Interception.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NotImplementedException))]
         public void Type_Creation_With_Method_In_Interface_Exception_Test()
         {
-            var anonClass = new { ADouble = 9922.992, AnyInt = 666, TheString = "TestString" };
-            var newObject = anonClass.CreateObject<IAnonymousClassWithInterfaceExtensionTestInterfaceWithMethod>();
+            try
+            {
+                var anonClass = new { ADouble = 9922.992, AnyInt = 666, TheString = "TestString" };
+                var newObject = anonClass.CreateObject<IAnonymousClassWithInterfaceExtensionTestInterfaceWithMethod>();
 
-            newObject.GetAnyStringMethod(99, 'p');
+                newObject.GetAnyStringMethod(99, 'p');
+
+                Assert.IsTrue(false);
+            }
+            catch (NotImplementedException)
+            {
+                Assert.IsTrue(true);
+            }
         }
 
         [TestMethod]

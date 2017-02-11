@@ -4,7 +4,7 @@
   "dependencies": {
     "Cauldron.NetCore.Core": "1.0.0.12",
     "NETStandard.Library": "1.6.1",
-    "System.Security.Cryptography.Csp": "4.0.0",
+    "System.Security.Cryptography.Csp": "4.3.0",
     "System.Security.SecureString": "4.3.0"
   },
 

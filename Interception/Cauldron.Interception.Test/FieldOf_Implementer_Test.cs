@@ -1,5 +1,14 @@
 ﻿using Cauldron.Core;
+
+#if WINDOWS_UWP
+
+using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+
+#else
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+#endif
 
 namespace Cauldron.Interception.Test
 {

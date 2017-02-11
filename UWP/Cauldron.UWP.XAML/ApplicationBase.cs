@@ -242,17 +242,14 @@ namespace Cauldron.XAML
 
             if (rootFrame == null)
             {
-                using (var p = new ExecutionTimer("Preload"))
-                {
-                    var contentControl = new ContentControl();
-                    contentControl.ContentTemplateSelector = new CauldronTemplateSelector();
-                    contentControl.VerticalContentAlignment = VerticalAlignment.Stretch;
-                    contentControl.HorizontalContentAlignment = HorizontalAlignment.Stretch;
-                    Window.Current.Content = contentControl;
-                    contentControl.Content = this;
-                    Window.Current.Activate();
-                    await this.OnPreload();
-                }
+                var contentControl = new ContentControl();
+                contentControl.ContentTemplateSelector = new CauldronTemplateSelector();
+                contentControl.VerticalContentAlignment = VerticalAlignment.Stretch;
+                contentControl.HorizontalContentAlignment = HorizontalAlignment.Stretch;
+                Window.Current.Content = contentControl;
+                contentControl.Content = this;
+                Window.Current.Activate();
+                await this.OnPreload();
             }
 
             // Do not repeat app initialization when the Window already has content,
@@ -365,39 +362,36 @@ namespace Cauldron.XAML
 
         private void LoadResources()
         {
-            using (var m = new ExecutionTimer())
+            if (this.resourceLoaded)
+                return;
+
+            this.resourceLoaded = true;
+            this.OnResourceLoad();
+
+            // Add the custom template selector to the resources
+            this.Resources.Add(typeof(CauldronTemplateSelector).Name, new CauldronTemplateSelector());
+
+            // Add all Value converters to the dictionary
+            foreach (var valueConverter in Assemblies.ExportedTypes.Where(x => !x.ContainsGenericParameters && !x.IsAbstract && x.ImplementsInterface<IValueConverter>()))
+                if (!Application.Current.Resources.ContainsKey(valueConverter.Name))
+                    Application.Current.Resources.Add(valueConverter.Name, System.Activator.CreateInstance(valueConverter.AsType()));
+
+            // find all resourcedictionaries and add them to the existing resources
+            var resourceDictionaries = Assemblies.ExportedTypes.Where(x => x.IsSubclassOf(typeof(ResourceDictionary)));
+            var cauldronDictionaries = resourceDictionaries.Where(x => x.Assembly.FullName.StartsWith("Cauldron.")).OrderBy(x => x.Name);
+            var otherDictionaries = resourceDictionaries.Where(x => !x.Assembly.FullName.StartsWith("Cauldron.")).OrderBy(x => x.Name);
+
+            // add all cauldron dictionaries first
+            foreach (var item in cauldronDictionaries)
             {
-                if (this.resourceLoaded)
-                    return;
-
-                this.resourceLoaded = true;
-                this.OnResourceLoad();
-
-                // Add the custom template selector to the resources
-                this.Resources.Add(typeof(CauldronTemplateSelector).Name, new CauldronTemplateSelector());
-
-                // Add all Value converters to the dictionary
-                foreach (var valueConverter in Assemblies.ExportedTypes.Where(x => !x.ContainsGenericParameters && !x.IsAbstract && x.ImplementsInterface<IValueConverter>()))
-                    if (!Application.Current.Resources.ContainsKey(valueConverter.Name))
-                        Application.Current.Resources.Add(valueConverter.Name, System.Activator.CreateInstance(valueConverter.AsType()));
-
-                // find all resourcedictionaries and add them to the existing resources
-                var resourceDictionaries = Assemblies.ExportedTypes.Where(x => x.IsSubclassOf(typeof(ResourceDictionary)));
-                var cauldronDictionaries = resourceDictionaries.Where(x => x.Assembly.FullName.StartsWith("Cauldron.")).OrderBy(x => x.Name);
-                var otherDictionaries = resourceDictionaries.Where(x => !x.Assembly.FullName.StartsWith("Cauldron.")).OrderBy(x => x.Name);
-
-                // add all cauldron dictionaries first
-                foreach (var item in cauldronDictionaries)
-                {
-                    var dictionary = System.Activator.CreateInstance(item.AsType()) as ResourceDictionary;
-                    Application.Current.Resources.MergedDictionaries.Add(dictionary);
-                }
-                // Them then others
-                foreach (var item in otherDictionaries)
-                {
-                    var dictionary = System.Activator.CreateInstance(item.AsType()) as ResourceDictionary;
-                    Application.Current.Resources.MergedDictionaries.Add(dictionary);
-                }
+                var dictionary = System.Activator.CreateInstance(item.AsType()) as ResourceDictionary;
+                Application.Current.Resources.MergedDictionaries.Add(dictionary);
+            }
+            // Them then others
+            foreach (var item in otherDictionaries)
+            {
+                var dictionary = System.Activator.CreateInstance(item.AsType()) as ResourceDictionary;
+                Application.Current.Resources.MergedDictionaries.Add(dictionary);
             }
         }
 

@@ -14,19 +14,24 @@ namespace Cauldron.Interception.Fody
 {
     internal static class Extensions
     {
-        private static ModuleDefinition _moduleDefinition;
+        private static ModuleWeaver _moduleWeaver;
         private static IEnumerable<AssemblyDefinition> allAssemblies;
         private static IEnumerable<TypeDefinition> allTypes;
+        private static ModuleDefinition moduleDefinition;
 
-        public static ModuleDefinition ModuleDefinition
+        public static ModuleWeaver ModuleWeaver
         {
-            get { return _moduleDefinition; }
             set
             {
-                _moduleDefinition = value;
-                allAssemblies = value.AssemblyReferences.GetAll().Select(x => value.AssemblyResolver.Resolve(x))
-                    .Concat(new AssemblyDefinition[] { value.Assembly }).ToArray();
-                allTypes = allAssemblies.SelectMany(x => x.Modules).Where(x => x != null).SelectMany(x => x.Types).Where(x => x != null).Concat(value.Types).ToArray();
+                _moduleWeaver = value;
+                moduleDefinition = value.ModuleDefinition;
+                allAssemblies = value.ModuleDefinition.AssemblyReferences.GetAllAssemblyDefinitions()
+                    .Concat(new AssemblyDefinition[] { value.ModuleDefinition.Assembly }).ToArray();
+
+                foreach (var item in allAssemblies)
+                    _moduleWeaver.LogInfo("<<Assembly>> " + item.FullName);
+
+                allTypes = allAssemblies.SelectMany(x => x.Modules).Where(x => x != null).SelectMany(x => x.Types).Where(x => x != null).Concat(value.ModuleDefinition.Types).ToArray();
             }
         }
 
@@ -85,23 +90,28 @@ namespace Cauldron.Interception.Fody
             return count;
         }
 
-        public static IEnumerable<AssemblyNameReference> GetAll(this IEnumerable<AssemblyNameReference> target)
+        public static IEnumerable<AssemblyDefinition> GetAllAssemblyDefinitions(this IEnumerable<AssemblyNameReference> target)
         {
-            var result = new List<AssemblyNameReference>();
-            result.AddRange(target);
+            var result = new List<AssemblyDefinition>();
+            result.AddRange(target.Select(x => moduleDefinition.AssemblyResolver.Resolve(x)).Where(x => x != null));
 
             foreach (var item in target)
             {
-                var assembly = ModuleDefinition.AssemblyResolver.Resolve(item);
+                var assembly = moduleDefinition.AssemblyResolver.Resolve(item);
 
                 if (assembly == null)
                     continue;
 
+                result.Add(assembly);
+
                 if (assembly.MainModule.HasAssemblyReferences)
-                    result.AddRange(assembly.MainModule.AssemblyReferences);
+                {
+                    foreach (var a in assembly.Modules)
+                        GetAllAssemblyDefinitions(a.AssemblyReferences, result);
+                }
             }
 
-            return result.Distinct(new AssemblyNameReferenceEqualityComparer()).OrderBy(x => x.FullName);
+            return result.Distinct(new AssemblyDefinitionEqualityComparer()).OrderBy(x => x.FullName);
         }
 
         public static IEnumerable<TypeReference> GetBaseClassAndInterfaces(this TypeDefinition type)
@@ -212,10 +222,10 @@ namespace Cauldron.Interception.Fody
             var result = new List<TypeReference>();
 
             if (type.Interfaces != null && type.Interfaces.Count > 0)
-                result.AddRange(type.Interfaces.Select(x => x.Resolve()));
+                result.AddRange(type.Interfaces.Select(x => x.Resolve()).Where(x => x != null));
 
             if (type.BaseType != null)
-                result.AddRange(type.BaseType.Resolve().GetInterfaces());
+                result.AddRange(type.BaseType.Resolve().GetInterfaces().Where(x => x != null));
 
             return result;
         }
@@ -382,15 +392,15 @@ namespace Cauldron.Interception.Fody
         public static bool ImplementsInterface(this TypeDefinition type, string interfaceName) =>
             type.GetInterfaces().Any(x => x.FullName == interfaceName);
 
-        public static TypeReference Import(this TypeReference value) => ModuleDefinition.Import(value);
+        public static TypeReference Import(this TypeReference value) => moduleDefinition.Import(value);
 
-        public static MethodReference Import(this System.Reflection.MethodBase value) => ModuleDefinition.Import(value);
+        public static MethodReference Import(this System.Reflection.MethodBase value) => moduleDefinition.Import(value);
 
-        public static TypeReference Import(this Type value) => ModuleDefinition.Import(value);
+        public static TypeReference Import(this Type value) => moduleDefinition.Import(value);
 
-        public static MethodReference Import(this MethodReference value) => ModuleDefinition.Import(value);
+        public static MethodReference Import(this MethodReference value) => moduleDefinition.Import(value);
 
-        public static FieldReference Import(this FieldReference value) => ModuleDefinition.Import(value);
+        public static FieldReference Import(this FieldReference value) => moduleDefinition.Import(value);
 
         public static void InsertAfter(this ILProcessor processor, Instruction target, IEnumerable<Instruction> instructions)
         {
@@ -504,8 +514,32 @@ namespace Cauldron.Interception.Fody
         {
             return new Instruction[] {
                 processor.Create(OpCodes.Ldtoken, type),
-                processor.Create(OpCodes.Call, ModuleDefinition.Import(typeof(Type).GetMethodReference("GetTypeFromHandle", 1)))
+                processor.Create(OpCodes.Call, moduleDefinition.Import(typeof(Type).GetMethodReference("GetTypeFromHandle", 1)))
             };
+        }
+
+        private static void GetAllAssemblyDefinitions(IEnumerable<AssemblyNameReference> target, List<AssemblyDefinition> result)
+        {
+            result.AddRange(target.Select(x => moduleDefinition.AssemblyResolver.Resolve(x)).Where(x => x != null));
+
+            foreach (var item in target)
+            {
+                var assembly = moduleDefinition.AssemblyResolver.Resolve(item);
+
+                if (assembly == null)
+                    continue;
+
+                if (result.Contains(assembly))
+                    continue;
+
+                result.Add(assembly);
+
+                if (assembly.MainModule.HasAssemblyReferences)
+                {
+                    foreach (var a in assembly.Modules)
+                        GetAllAssemblyDefinitions(a.AssemblyReferences, result);
+                }
+            }
         }
 
         private static IEnumerable<TypeReference> GetGenericInstances(this TypeReference type, string[] genericArgumentNames, TypeReference[] genericArgumentsOfCurrentType)

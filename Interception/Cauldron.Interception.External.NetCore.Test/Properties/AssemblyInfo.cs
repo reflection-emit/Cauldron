@@ -6,14 +6,14 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Alexander Schunk, Capgemini Deutschland GmbH and Contributors")]
-[assembly: AssemblyProduct("Cauldron.NetCore.Core")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("Cauldron.Interception.External.NetCore.Test")]
 [assembly: AssemblyTrademark("")]
-[assembly: AssemblyCopyright("Copyright © 2016 Alexander Schunk, Capgemini Deutschland GmbH and Contributors")]
+
 // Setting ComVisible to false makes the types in this assembly not visible
 // to COM components.  If you need to access a type in this assembly from
 // COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("35e07ffd-203f-4fbb-8da4-3e06136029b4")]
+[assembly: Guid("1291e891-0e37-4749-a758-bc0fd782a3a4")]

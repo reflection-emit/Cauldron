@@ -1,6 +1,16 @@
 ﻿using Cauldron.Interception.External.Test;
 using Cauldron.Interception.Test.Interceptors;
+
+#if WINDOWS_UWP
+
+using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+
+#else
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+#endif
+
 using System;
 using System.Collections.Generic;
 
@@ -59,11 +69,19 @@ namespace Cauldron.Interception.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(Exception))]
         public void EnumProperty_Property_Setter()
         {
-            this.PropertyWithEnumValue = TestEnum.Three;
-            this.PropertyWithEnumValue = TestEnum.Three;
+            try
+            {
+                this.PropertyWithEnumValue = TestEnum.Three;
+                this.PropertyWithEnumValue = TestEnum.Three;
+
+                Assert.IsTrue(false);
+            }
+            catch (Exception)
+            {
+                Assert.IsTrue(true);
+            }
         }
 
         [TestMethod]

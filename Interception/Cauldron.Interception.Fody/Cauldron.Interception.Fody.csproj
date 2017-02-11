@@ -56,7 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnonymouseTypeToInterfaceWeaver.cs" />
-    <Compile Include="AssemblyNameReferenceEqualityComparer.cs" />
+    <Compile Include="AssemblyDefinitionEqualityComparer.cs" />
     <Compile Include="ChildOfWeaver.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="FieldInterceptorWeaver.cs" />
