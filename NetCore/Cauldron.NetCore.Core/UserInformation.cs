@@ -11,7 +11,7 @@ namespace Cauldron.Core
     public static class UserInformation
     {
         // TODO: Dariusz Nosaka :-)
-        
+
         //        private static string _domainName;
         //        private static string _username;
         //        private static bool isInitialized = false;
@@ -68,15 +68,11 @@ namespace Cauldron.Core
         //            return (await user.GetPropertyAsync(KnownUserProperties.PrincipalName))?.ToString();
         //        }
 
-        //        /// <summary>
-        //        /// Gets the user name of the user.
-        //        /// </summary>
-        //        /// <returns>A string that represents the user name of the user.</returns>
-        //        public static async Task<string> GetUserNameAsync()
-        //        {
-        //            await GetUserInformationAsync();
-        //            return _username;
-        //        }
+        /// <summary>
+        /// Gets the user name of the user.
+        /// </summary>
+        /// <returns>A string that represents the user name of the user.</returns>
+        public static Task<string> GetUserNameAsync() => Task.FromResult(Environment.GetEnvironmentVariable("USERNAME") ?? Environment.GetEnvironmentVariable("USER"));
 
         //        /// <summary>
         //        /// Gets the account picture for the user.

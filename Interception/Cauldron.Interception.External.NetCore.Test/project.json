@@ -13,6 +13,7 @@
     }
   },
   "buildOptions": {
+    "outputName": "Cauldron.Interception.External.Test",
     "compile": {
       "include": [
         "../Cauldron.Interception.External.Test/**/*.cs"

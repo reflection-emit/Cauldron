@@ -156,6 +156,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Cauldron.Interception.NetCore.Test", "Interception\Cauldron.Interception.NetCore.Test\Cauldron.Interception.NetCore.Test.xproj", "{BB5C05F8-46CC-437E-B7B6-B8B98C7085AB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unit Tests", "Unit Tests", "{0AF540C8-B76C-428F-88B6-22702B082A5D}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Shared\Cauldron.Consoles\Cauldron.Consoles.projitems*{00c29751-1557-46a8-9547-f74065b36592}*SharedItemsImports = 4
@@ -187,9 +189,6 @@ Global
 		Shared\Cauldron.Core\Cauldron.Core.projitems*{81dba3a9-2acf-4881-a3fe-f56db6cf3958}*SharedItemsImports = 13
 		Shared\Cauldron.Consoles\Cauldron.Consoles.projitems*{867e2ed4-292a-4625-8e4f-c3f3b3d55db9}*SharedItemsImports = 13
 		Shared\Cauldron.Localization\Cauldron.Localization.projitems*{a2ca82ea-faa4-4cd9-aebc-89ae833e993a}*SharedItemsImports = 13
-		Shared\Cauldron.Core.Desktop\Cauldron.Core.Desktop.projitems*{a6273c28-aada-4fb6-87ea-adfd6b6d6bda}*SharedItemsImports = 4
-		Shared\Cauldron.Core\Cauldron.Core.projitems*{a6273c28-aada-4fb6-87ea-adfd6b6d6bda}*SharedItemsImports = 4
-		Shared\Cauldron.Diagnostics\Cauldron.Diagnostics.projitems*{a6273c28-aada-4fb6-87ea-adfd6b6d6bda}*SharedItemsImports = 4
 		Shared\Cauldron.Diagnostics\Cauldron.Diagnostics.projitems*{a6a45af3-6c56-4906-8c5c-8ad557aa89c7}*SharedItemsImports = 4
 		Shared\Cauldron.XAML\Cauldron.XAML.projitems*{a6a45af3-6c56-4906-8c5c-8ad557aa89c7}*SharedItemsImports = 4
 		Shared\IEnumerableExtensions\IEnumerableExtensions.projitems*{a6a45af3-6c56-4906-8c5c-8ad557aa89c7}*SharedItemsImports = 4
@@ -877,5 +876,6 @@ Global
 		{35E07FFD-233F-4FBB-6DA4-3E06136029B3} = {BC7D3C90-F242-42A1-B039-5B051273B466}
 		{1291E891-0E37-4749-A758-BC0FD782A3A4} = {B1732329-29AB-4590-8408-6A6A3A2236D8}
 		{BB5C05F8-46CC-437E-B7B6-B8B98C7085AB} = {B1732329-29AB-4590-8408-6A6A3A2236D8}
+		{0AF540C8-B76C-428F-88B6-22702B082A5D} = {BC7D3C90-F242-42A1-B039-5B051273B466}
 	EndGlobalSection
 EndGlobal

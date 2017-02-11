@@ -53,9 +53,25 @@ namespace Cauldron.Interception.Fody
                         declaringType = (previousInstruction.Operand as MethodReference).DeclaringType;
                         anonymousType = declaringType.Resolve();
                     }
-                    else if (previousInstruction.OpCode == OpCodes.Ldarg_1)
+                    else if (previousInstruction.OpCode == OpCodes.Ldarg_1 ||
+                       previousInstruction.OpCode == OpCodes.Ldarg_2 ||
+                       previousInstruction.OpCode == OpCodes.Ldarg_3 ||
+                       previousInstruction.OpCode == OpCodes.Ldarg_S)
                     {
-                        declaringType = t.Method.Parameters[0].ParameterType;
+                        TypeReference parameter;
+
+                        if (previousInstruction.OpCode == OpCodes.Ldloc_0)
+                            parameter = t.Method.Parameters[0].ParameterType;
+                        else if (previousInstruction.OpCode == OpCodes.Ldloc_1)
+                            parameter = t.Method.Parameters[1].ParameterType;
+                        else if (previousInstruction.OpCode == OpCodes.Ldloc_2)
+                            parameter = t.Method.Parameters[2].ParameterType;
+                        else if (previousInstruction.OpCode == OpCodes.Ldloc_3)
+                            parameter = t.Method.Parameters[3].ParameterType;
+                        else
+                            parameter = t.Method.Parameters[(int)previousInstruction.Operand].ParameterType;
+
+                        declaringType = parameter;
                         anonymousType = declaringType.Resolve();
                     }
                     else if (previousInstruction.OpCode == OpCodes.Ldloc_0 ||
