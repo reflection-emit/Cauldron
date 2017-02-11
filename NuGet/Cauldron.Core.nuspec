@@ -32,6 +32,7 @@
         <dependency id="System.Xml.XPath.XmlDocument" version="4.3.0" />
       </group>
       <dependency id="Capgemini.Cauldron.Interception.Fody" version="1.0.6" />
+      <dependency id="Fody" version="1.29.4" />
     </dependencies>
   </metadata>
   <files>

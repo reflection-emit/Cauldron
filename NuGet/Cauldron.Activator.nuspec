@@ -28,6 +28,8 @@
         <dependency id="System.Threading.Thread" version="4.3.0" />
         <dependency id="Capgemini.Cauldron.Core" version="1.0.5" />
       </group>
+      <dependency id="Fody" version="1.29.4" />
+      <dependency id="Capgemini.Cauldron.Interception.Fody" version="1.0.6" />
     </dependencies>
   </metadata>
   <files>

@@ -42,7 +42,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnonymousTypeWithInterfaceExtension.cs" />
     <Compile Include="DynamicAssembly.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyPathInfo.cs" />
