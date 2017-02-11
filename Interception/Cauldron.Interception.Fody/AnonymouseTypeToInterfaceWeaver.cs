@@ -2,6 +2,8 @@
 using Mono.Cecil.Cil;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
@@ -41,127 +43,33 @@ namespace Cauldron.Interception.Fody
             {
                 foreach (var instruction in t.Instruction)
                 {
-                    var newObjCall = instruction.Previous;
-                    var ctor = newObjCall.Operand as MethodReference;
+                    this.LogInfo("Implementing anonymouse type CreateObject: " + t.Method.FullName);
+                    TypeDefinition anonymousType = null;
+                    TypeReference declaringType = null;
+                    var previousInstruction = instruction.Previous;
 
-                    // TODO - !!!
-                    if (ctor == null)
+                    if (previousInstruction.Operand is MethodReference)
+                    {
+                        declaringType = (previousInstruction.Operand as MethodReference).DeclaringType;
+                        anonymousType = declaringType.Resolve();
+                    }
+                    else if (previousInstruction.OpCode == OpCodes.Ldarg_1)
+                    {
+                        declaringType = t.Method.Parameters[0].ParameterType;
+                        anonymousType = declaringType.Resolve();
+                    }
+                    else
+                    {
+                        this.LogWarning($"Unable to implement CreateObject<> in '{t.Method.Name}'. The anonymouse type was not found.");
                         continue;
+                    }
 
                     var interfaceType = GetInterface(instruction);
-                    var anonymousType = ctor.DeclaringType.Resolve();
 
                     if (!knownTypes.ContainsKey(interfaceType))
-                    {
-                        var newAnonymousType = new TypeDefinition(anonymousType.Namespace, "Cauldron_AnonymousType" + knownTypes.Count + 1, TypeAttributes.NotPublic | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit, typeof(object).GetTypeReference().Import());
-                        newAnonymousType.Interfaces.Add(interfaceType.Import());
+                        knownTypes.Add(interfaceType, this.CreateAnonymouseType(anonymousType.Namespace, $"<{interfaceType.Name}>Cauldron_AnonymousType" + knownTypes.Count + 1, interfaceType));
 
-                        knownTypes.Add(interfaceType, newAnonymousType);
-                        this.ModuleDefinition.Types.Add(newAnonymousType);
-
-                        var newAnonymousTypeCtor = new MethodDefinition(".ctor", MethodAttributes.Public | MethodAttributes.HideBySig | MethodAttributes.SpecialName | MethodAttributes.RTSpecialName, this.ModuleDefinition.TypeSystem.Void);
-                        var newAnonymousTypeCtorProcessor = newAnonymousTypeCtor.Body.GetILProcessor();
-                        newAnonymousTypeCtorProcessor.Append(newAnonymousTypeCtorProcessor.Create(OpCodes.Ldarg_0));
-                        newAnonymousTypeCtorProcessor.Append(newAnonymousTypeCtorProcessor.Create(OpCodes.Call, typeof(object).GetTypeDefinition().GetDefaultConstructor().Import()));
-                        newAnonymousTypeCtorProcessor.Append(newAnonymousTypeCtorProcessor.Create(OpCodes.Ret));
-
-                        newAnonymousType.Methods.Add(newAnonymousTypeCtor);
-
-                        foreach (var property in interfaceType.Resolve().Properties)
-                        {
-                            var type = property.PropertyType;
-                            var backingFieldName = $"<{property.Name}>i__Field";
-                            var backingField = newAnonymousType.Fields.FirstOrDefault(x => x.Name == backingFieldName);
-
-                            if (backingField == null)
-                            {
-                                backingField = new FieldDefinition(backingFieldName, FieldAttributes.Private, type.Import());
-                                newAnonymousType.Fields.Add(backingField);
-                            }
-                            else
-                                backingField.FieldType = type.Import();
-
-                            var propertyMethodAttributes = MethodAttributes.HideBySig | MethodAttributes.SpecialName | MethodAttributes.Final | MethodAttributes.Public | MethodAttributes.Virtual | MethodAttributes.NewSlot;
-                            var newProperty = new PropertyDefinition(property.Name, PropertyAttributes.None, type.Import());
-                            newProperty.GetMethod = new MethodDefinition("get_" + property.Name, propertyMethodAttributes, type.Import());
-                            newProperty.SetMethod = new MethodDefinition("set_" + property.Name, propertyMethodAttributes, this.ModuleDefinition.TypeSystem.Void);
-                            newProperty.SetMethod.Parameters.Add(new ParameterDefinition("value", ParameterAttributes.None, type.Import()));
-
-                            newProperty.GetMethod.CustomAttributes.Add(new CustomAttribute(typeof(CompilerGeneratedAttribute).GetMethodReference(".ctor", 0).Import()));
-                            newProperty.SetMethod.CustomAttributes.Add(new CustomAttribute(typeof(CompilerGeneratedAttribute).GetMethodReference(".ctor", 0).Import()));
-
-                            var getterProcessor = newProperty.GetMethod.Body.GetILProcessor();
-                            var setterProcessor = newProperty.SetMethod.Body.GetILProcessor();
-
-                            getterProcessor.Append(getterProcessor.Create(OpCodes.Ldarg_0));
-                            getterProcessor.Append(getterProcessor.Create(OpCodes.Ldfld, backingField));
-                            getterProcessor.Append(getterProcessor.Create(OpCodes.Ret));
-
-                            setterProcessor.Append(setterProcessor.Create(OpCodes.Ldarg_0));
-                            setterProcessor.Append(setterProcessor.Create(OpCodes.Ldarg_1));
-                            setterProcessor.Append(setterProcessor.Create(OpCodes.Stfld, backingField));
-                            setterProcessor.Append(setterProcessor.Create(OpCodes.Ret));
-
-                            newAnonymousType.Properties.Add(newProperty);
-                            newAnonymousType.Methods.Add(newProperty.GetMethod);
-                            newAnonymousType.Methods.Add(newProperty.SetMethod);
-
-                            newProperty.GetMethod.Overrides.Add(property.GetMethod);
-                            newProperty.SetMethod.Overrides.Add(property.SetMethod);
-                        }
-                    }
-
-                    var targetTypeDef = knownTypes[interfaceType];
-                    var sourceVariable = new VariableDefinition(ctor.DeclaringType.Import());
-                    VariableDefinition targetVariable = null;
-
-                    if (instruction.Next.OpCode == OpCodes.Stloc)
-                        targetVariable = instruction.Next.Operand as VariableDefinition;
-                    else
-                        targetVariable = new VariableDefinition(targetTypeDef.Import());
-
-                    t.Method.Body.Variables.Add(sourceVariable);
-                    t.Method.Body.Variables.Add(targetVariable);
-                    t.Method.Body.InitLocals = true;
-
-                    var processor = t.Method.Body.GetILProcessor();
-                    var createAndStoreTarget = new Instruction[]
-                    {
-                        processor.Create(OpCodes.Newobj, targetTypeDef.GetDefaultConstructor()),
-                        processor.Create(OpCodes.Stloc, targetVariable)
-                    };
-                    processor.InsertBefore(t.Method.Body.Instructions.First(), createAndStoreTarget);
-                    processor.InsertBefore(instruction, processor.Create(OpCodes.Stloc, sourceVariable));
-                    processor.InsertAfter(instruction, processor.Create(OpCodes.Ldloc, targetVariable));
-
-                    var genericTypes = (ctor.DeclaringType as GenericInstanceType).GenericArguments.ToArray();
-                    var genericParameters = anonymousType.GenericParameters;
-
-                    foreach (var propertyDef in anonymousType.Properties)
-                    {
-                        var returnType = genericTypes[genericParameters.FirstOrDefault(x => x.FullName == propertyDef.PropertyType.FullName).Position];
-                        var propertyGetter = propertyDef.GetMethod.MakeHostInstanceGeneric(genericTypes);
-                        var targetProperty = targetTypeDef.Properties.FirstOrDefault(x => x.Name == propertyDef.Name);
-
-                        if (targetProperty == null)
-                        {
-                            this.LogError($"The anonymous type in '{t.Method.FullName}' has a property '{propertyDef.Name}' that does not exist in the interface '{interfaceType.FullName}'.");
-                            continue;
-                        }
-
-                        if (targetProperty.PropertyType.FullName != returnType.FullName)
-                        {
-                            this.LogError($"The anonymous type in '{t.Method.FullName}' has a property '{propertyDef.Name}' with a type '{returnType.FullName}' that does not match with the interface '{interfaceType.FullName}'. Expected: {targetProperty.PropertyType.FullName}");
-                            continue;
-                        }
-
-                        processor.InsertBefore(instruction, processor.Create(OpCodes.Ldloc, targetVariable));
-                        processor.InsertBefore(instruction, processor.Create(OpCodes.Ldloc, sourceVariable));
-                        processor.InsertBefore(instruction, processor.Create(OpCodes.Callvirt, propertyGetter));
-                        processor.InsertBefore(instruction, processor.Create(OpCodes.Callvirt, targetProperty.SetMethod));
-                    }
-
-                    processor.Remove(instruction);
+                    instruction.Operand = this.CreateAssignMethod(t.Method, declaringType, instruction.Operand as MethodReference, knownTypes[interfaceType]);
                 }
             }
         }
@@ -174,6 +82,113 @@ namespace Cauldron.Interception.Fody
         protected override void ImplementOnEnter(MethodWeaverInfo methodWeaverInfo, VariableDefinition attributeVariable, MethodReference interceptorOnEnter, VariableDefinition parametersArrayVariable)
         {
             throw new NotImplementedException();
+        }
+
+        private TypeDefinition CreateAnonymouseType(string namespaceName, string name, TypeReference interfaceType)
+        {
+            var newAnonymousType = new TypeDefinition(namespaceName, name, TypeAttributes.Public | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit | TypeAttributes.Serializable, typeof(object).GetTypeReference().Import());
+            newAnonymousType.Interfaces.Add(interfaceType.Import());
+            this.ModuleDefinition.Types.Add(newAnonymousType);
+
+            newAnonymousType.CustomAttributes.AddEditorBrowsableAttribute(EditorBrowsableState.Never);
+
+            var newAnonymousTypeCtor = new MethodDefinition(".ctor", MethodAttributes.Public | MethodAttributes.HideBySig | MethodAttributes.SpecialName | MethodAttributes.RTSpecialName, this.ModuleDefinition.TypeSystem.Void);
+            var newAnonymousTypeCtorProcessor = newAnonymousTypeCtor.Body.GetILProcessor();
+            newAnonymousTypeCtorProcessor.Append(newAnonymousTypeCtorProcessor.Create(OpCodes.Ldarg_0));
+            newAnonymousTypeCtorProcessor.Append(newAnonymousTypeCtorProcessor.Create(OpCodes.Call, typeof(object).GetTypeDefinition().GetDefaultConstructor().Import()));
+            newAnonymousTypeCtorProcessor.Append(newAnonymousTypeCtorProcessor.Create(OpCodes.Ret));
+
+            newAnonymousType.Methods.Add(newAnonymousTypeCtor);
+
+            foreach (var property in interfaceType.Resolve().Properties)
+            {
+                var type = property.PropertyType.Import();
+                var backingFieldName = $"<{property.Name}>k_BackingField";
+                var backingField = new FieldDefinition(backingFieldName, FieldAttributes.Private, type);
+                var propertyMethodAttributes = MethodAttributes.HideBySig | MethodAttributes.SpecialName | MethodAttributes.Final | MethodAttributes.Public | MethodAttributes.Virtual | MethodAttributes.NewSlot;
+                var newProperty = new PropertyDefinition(property.Name, PropertyAttributes.None, type);
+                newAnonymousType.Fields.Add(backingField);
+                backingField.CustomAttributes.AddDebuggerBrowsableAttribute(DebuggerBrowsableState.Never);
+
+                newProperty.GetMethod = new MethodDefinition("get_" + property.Name, propertyMethodAttributes, type);
+                newProperty.SetMethod = new MethodDefinition("set_" + property.Name, propertyMethodAttributes, this.ModuleDefinition.TypeSystem.Void);
+                newProperty.SetMethod.Parameters.Add(new ParameterDefinition("value", ParameterAttributes.None, type));
+
+                newProperty.GetMethod.CustomAttributes.Add(new CustomAttribute(typeof(CompilerGeneratedAttribute).GetMethodReference(".ctor", 0).Import()));
+                newProperty.SetMethod.CustomAttributes.Add(new CustomAttribute(typeof(CompilerGeneratedAttribute).GetMethodReference(".ctor", 0).Import()));
+
+                var getterProcessor = newProperty.GetMethod.Body.GetILProcessor();
+                var setterProcessor = newProperty.SetMethod.Body.GetILProcessor();
+
+                getterProcessor.Append(getterProcessor.Create(OpCodes.Ldarg_0));
+                getterProcessor.Append(getterProcessor.Create(OpCodes.Ldfld, backingField));
+                getterProcessor.Append(getterProcessor.Create(OpCodes.Ret));
+
+                setterProcessor.Append(setterProcessor.Create(OpCodes.Ldarg_0));
+                setterProcessor.Append(setterProcessor.Create(OpCodes.Ldarg_1));
+                setterProcessor.Append(setterProcessor.Create(OpCodes.Stfld, backingField));
+                setterProcessor.Append(setterProcessor.Create(OpCodes.Ret));
+
+                newAnonymousType.Properties.Add(newProperty);
+                newAnonymousType.Methods.Add(newProperty.GetMethod);
+                newAnonymousType.Methods.Add(newProperty.SetMethod);
+
+                //newProperty.GetMethod.Overrides.Add(property.GetMethod);
+                //newProperty.SetMethod.Overrides.Add(property.SetMethod);
+            }
+
+            return newAnonymousType;
+        }
+
+        private MethodReference CreateAssignMethod(MethodDefinition containingMethod, TypeReference anonType, MethodReference createObject, TypeDefinition newTypeDef)
+        {
+            var containingMethodDeclaringTypeDef = containingMethod.DeclaringType.Resolve();
+            var targetInterfaceTypeRef = (createObject as GenericInstanceMethod).GenericArguments[0].Import();
+            var assignMethod = new MethodDefinition("<>anon_assign_" + containingMethod.DeclaringType.Methods.Count, MethodAttributes.Static | MethodAttributes.Private, targetInterfaceTypeRef);
+            assignMethod.Parameters.Add(new ParameterDefinition(anonType));
+            containingMethod.DeclaringType.Methods.Add(assignMethod);
+
+            var targetVariable = new VariableDefinition(newTypeDef);
+            var processor = assignMethod.Body.GetILProcessor();
+            assignMethod.Body.Variables.Add(targetVariable);
+            assignMethod.Body.InitLocals = true;
+
+            processor.Append(processor.Create(OpCodes.Newobj, newTypeDef.GetDefaultConstructor()));
+            processor.Append(processor.Create(OpCodes.Stloc, targetVariable));
+
+            var genericTypes = (anonType as GenericInstanceType).GenericArguments.ToArray();
+            var genericParameters = anonType.Resolve().GenericParameters;
+            var sourceTypeDef = anonType.Resolve();
+
+            foreach (var propertyDef in sourceTypeDef.Properties)
+            {
+                var returnType = genericTypes[genericParameters.FirstOrDefault(x => x.FullName == propertyDef.PropertyType.FullName).Position];
+                var propertyGetter = propertyDef.GetMethod.MakeHostInstanceGeneric(genericTypes);
+                var targetProperty = newTypeDef.Properties.FirstOrDefault(x => x.Name == propertyDef.Name);
+
+                if (targetProperty == null)
+                {
+                    this.LogError($"The anonymous type in '{containingMethod.Name}' has a property '{propertyDef.Name}' that does not exist in the interface '{targetInterfaceTypeRef.Name}'.");
+                    continue;
+                }
+
+                if (targetProperty.PropertyType.FullName != returnType.FullName)
+                {
+                    this.LogError($"The anonymous type in '{containingMethod.Name}' has a property '{propertyDef.Name}' with a type '{returnType.Name}' that does not match with the interface '{targetInterfaceTypeRef.Name}'. Expected: {targetProperty.PropertyType.Name}");
+                    continue;
+                }
+
+                processor.Append(processor.Create(OpCodes.Ldloc, targetVariable));
+                processor.Append(processor.Create(OpCodes.Ldarg_0));
+                processor.Append(processor.Create(OpCodes.Callvirt, propertyGetter));
+                processor.Append(processor.Create(OpCodes.Callvirt, targetProperty.SetMethod));
+            }
+
+            processor.Append(processor.Create(OpCodes.Ldloc, targetVariable));
+            processor.Append(processor.Create(OpCodes.Isinst, targetInterfaceTypeRef.Import()));
+            processor.Append(processor.Create(OpCodes.Ret));
+
+            return assignMethod;
         }
 
         private TypeReference GetInterface(Instruction instruction)

@@ -1,9 +1,12 @@
 ﻿using Mono.Cecil;
 using Mono.Cecil.Cil;
 using Mono.Cecil.Rocks;
+using Mono.Collections.Generic;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
@@ -25,6 +28,24 @@ namespace Cauldron.Interception.Fody
                     .Concat(new AssemblyDefinition[] { value.Assembly }).ToArray();
                 allTypes = allAssemblies.SelectMany(x => x.Modules).Where(x => x != null).SelectMany(x => x.Types).Where(x => x != null).Concat(value.Types).ToArray();
             }
+        }
+
+        public static void AddDebuggerBrowsableAttribute(this Collection<CustomAttribute> customAttributeCollection, DebuggerBrowsableState state)
+        {
+            var ctor = typeof(DebuggerBrowsableAttribute).GetMethodReference(".ctor", new Type[] { typeof(DebuggerBrowsableState) }).Import();
+            var attribute = new CustomAttribute(ctor);
+
+            attribute.ConstructorArguments.Add(new CustomAttributeArgument(typeof(DebuggerBrowsableState).GetTypeReference().Import(), state));
+            customAttributeCollection.Add(attribute);
+        }
+
+        public static void AddEditorBrowsableAttribute(this Collection<CustomAttribute> customAttributeCollection, EditorBrowsableState state)
+        {
+            var ctor = typeof(EditorBrowsableAttribute).GetMethodReference(".ctor", new Type[] { typeof(EditorBrowsableState) }).Import();
+            var attribute = new CustomAttribute(ctor);
+
+            attribute.ConstructorArguments.Add(new CustomAttributeArgument(typeof(EditorBrowsableState).GetTypeReference().Import(), state));
+            customAttributeCollection.Add(attribute);
         }
 
         public static IEnumerable<AssemblyDefinition> AllReferencedAssemblies(this ModuleDefinition target) => allAssemblies;

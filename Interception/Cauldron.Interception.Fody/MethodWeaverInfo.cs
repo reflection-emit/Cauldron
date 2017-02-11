@@ -117,10 +117,7 @@ namespace Cauldron.Interception.Fody
                 attributes |= FieldAttributes.Static;
 
             field = new FieldDefinition(fieldName, attributes, fieldType.Import());
-
-            var attribute = new CustomAttribute(typeof(DebuggerBrowsableAttribute).GetMethodReference(".ctor", 1).Import());
-            attribute.ConstructorArguments.Add(new CustomAttributeArgument(typeof(DebuggerBrowsableState).GetTypeReference().Import(), DebuggerBrowsableState.Never));
-            field.CustomAttributes.Add(attribute);
+            field.CustomAttributes.AddDebuggerBrowsableAttribute(DebuggerBrowsableState.Never);
 
             this.MethodDefinition.DeclaringType.Fields.Add(field);
 

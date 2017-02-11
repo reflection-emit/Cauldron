@@ -41,6 +41,8 @@ namespace Cauldron.Interception.Test
                 .ToList();
 
             Assert.AreEqual(1, obj.Count());
+            Assert.AreEqual(4, obj[0].Items.Length);
+            Assert.AreEqual("Test 2", obj[0].Key);
         }
 
         [TestMethod]
