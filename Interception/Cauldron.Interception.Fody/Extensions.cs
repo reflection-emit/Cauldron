@@ -300,6 +300,8 @@ namespace Cauldron.Interception.Fody
             return typeReference.GetMethodDefinitionsByName(methodName).Where(x => x.Name == methodName && x.Parameters.Count == parameterCount).ToArray();
         }
 
+        public static IEnumerable<MethodDefinition> GetMethods(this TypeDefinition type) => type.Methods.Concat(type.GetInterfaces().SelectMany(x => x.Resolve().Methods));
+
         public static IEnumerable<TypeDefinition> GetNestedTypes(this TypeDefinition type)
         {
             var result = new List<TypeDefinition>();
@@ -315,6 +317,8 @@ namespace Cauldron.Interception.Fody
 
             return result;
         }
+
+        public static IEnumerable<PropertyDefinition> GetProperties(this TypeDefinition type) => type.Properties.Concat(type.GetInterfaces().SelectMany(x => x.Resolve().Properties));
 
         public static PropertyDefinition GetPropertyDefinition(this MethodDefinition method) =>
             method.DeclaringType.Properties.FirstOrDefault(x => x.GetMethod == method || x.SetMethod == method);

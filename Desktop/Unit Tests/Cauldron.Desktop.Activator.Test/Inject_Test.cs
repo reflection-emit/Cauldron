@@ -1,7 +1,6 @@
 ﻿using Cauldron.Activator;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -27,8 +26,6 @@ namespace Cauldron.Desktop.Activator.Test
 
         [Inject]
         private List<ITestInterface> injectToList = null;
-
-        private Collection<string> test;
 
         [Inject]
         public Dictionary<string, float> InjectToDictionary { get; private set; }
@@ -163,20 +160,6 @@ namespace Cauldron.Desktop.Activator.Test
         {
             this.InterfaceInject.Height = 66;
             Assert.AreEqual(66, InterfaceInject.Height);
-        }
-
-        private void GZGZG()
-        {
-            if (test.Count > 9)
-            {
-                test.Clear();
-                return;
-            }
-            test.Add("zuzu");
-            if (bjbj.Count == 2)
-            {
-                bjbj.Clear();
-            }
         }
     }
 }

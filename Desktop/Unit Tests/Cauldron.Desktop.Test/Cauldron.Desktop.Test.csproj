@@ -84,7 +84,6 @@
     <Compile Include="..\..\UWP\Cauldron.UWP.Test\ViewModelTest.cs">
       <Link>ViewModelTest.cs</Link>
     </Compile>
-    <Compile Include="AnonymousClassWithInterfaceExtensionTest.cs" />
     <Compile Include="DynamicAssemblyTest.cs" />
     <Compile Include="Network_Class_Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
