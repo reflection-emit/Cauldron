@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>8ae5e4df-4d6e-4c84-838c-3fccf746f61f</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Cauldron.Activator.Test</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)FactoryTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Inject_Test.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ITestInterface.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MappingTest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TestClasses.cs" />
+  </ItemGroup>
+</Project>

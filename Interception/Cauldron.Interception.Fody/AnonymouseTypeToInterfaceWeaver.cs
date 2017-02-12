@@ -218,32 +218,36 @@ namespace Cauldron.Interception.Fody
             processor.Append(processor.Create(OpCodes.Newobj, newTypeDef.GetDefaultConstructor()));
             processor.Append(processor.Create(OpCodes.Stloc, targetVariable));
 
-            var genericTypes = (anonType as GenericInstanceType).GenericArguments.ToArray();
-            var genericParameters = anonType.Resolve().GenericParameters;
-            var sourceTypeDef = anonType.Resolve();
+            var genericTypes = (anonType as GenericInstanceType)?.GenericArguments.ToArray();
 
-            foreach (var propertyDef in sourceTypeDef.Properties)
+            if (genericTypes == null)
             {
-                var returnType = genericTypes[genericParameters.FirstOrDefault(x => x.FullName == propertyDef.PropertyType.FullName).Position];
-                var propertyGetter = propertyDef.GetMethod.MakeHostInstanceGeneric(genericTypes);
-                var targetProperty = newTypeDef.Properties.FirstOrDefault(x => x.Name == propertyDef.Name);
+                var genericParameters = anonType.Resolve().GenericParameters;
+                var sourceTypeDef = anonType.Resolve();
 
-                if (targetProperty == null)
+                foreach (var propertyDef in sourceTypeDef.Properties)
                 {
-                    this.LogError($"The anonymous type in '{containingMethod.Name}' has a property '{propertyDef.Name}' that does not exist in the interface '{targetInterfaceTypeRef.Name}'.");
-                    continue;
-                }
+                    var returnType = genericTypes[genericParameters.FirstOrDefault(x => x.FullName == propertyDef.PropertyType.FullName).Position];
+                    var propertyGetter = propertyDef.GetMethod.MakeHostInstanceGeneric(genericTypes);
+                    var targetProperty = newTypeDef.Properties.FirstOrDefault(x => x.Name == propertyDef.Name);
 
-                if (targetProperty.PropertyType.FullName != returnType.FullName)
-                {
-                    this.LogError($"The anonymous type in '{containingMethod.Name}' has a property '{propertyDef.Name}' with a type '{returnType.Name}' that does not match with the interface '{targetInterfaceTypeRef.Name}'. Expected: {targetProperty.PropertyType.Name}");
-                    continue;
-                }
+                    if (targetProperty == null)
+                    {
+                        this.LogError($"The anonymous type in '{containingMethod.Name}' has a property '{propertyDef.Name}' that does not exist in the interface '{targetInterfaceTypeRef.Name}'.");
+                        continue;
+                    }
 
-                processor.Append(processor.Create(OpCodes.Ldloc, targetVariable));
-                processor.Append(processor.Create(OpCodes.Ldarg_0));
-                processor.Append(processor.Create(OpCodes.Callvirt, propertyGetter));
-                processor.Append(processor.Create(OpCodes.Callvirt, targetProperty.SetMethod));
+                    if (targetProperty.PropertyType.FullName != returnType.FullName)
+                    {
+                        this.LogError($"The anonymous type in '{containingMethod.Name}' has a property '{propertyDef.Name}' with a type '{returnType.Name}' that does not match with the interface '{targetInterfaceTypeRef.Name}'. Expected: {targetProperty.PropertyType.Name}");
+                        continue;
+                    }
+
+                    processor.Append(processor.Create(OpCodes.Ldloc, targetVariable));
+                    processor.Append(processor.Create(OpCodes.Ldarg_0));
+                    processor.Append(processor.Create(OpCodes.Callvirt, propertyGetter));
+                    processor.Append(processor.Create(OpCodes.Callvirt, targetProperty.SetMethod));
+                }
             }
 
             processor.Append(processor.Create(OpCodes.Ldloc, targetVariable));
