@@ -1,7 +1,21 @@
+![Cauldron Logo](https://raw.githubusercontent.com/reflection-emit/Cauldron/master/cauldron2.png)
 
 # Cauldron C# Toolkit
+Assembly | Description
+-------- | -------------
+**Cauldron.Interception.Fody** | Fody add-in that provides method, property and field interception. It also provides weavers for Cauldron.Core and Cauldron.Activator.
+**Cauldron.Core** | Cauldron Core is the core toolkit assembly that the Cauldron Toolkit builds upon.
+**Cauldron.Activator** | The activator is a simple and extensible dependency injection framework. It is based on attributes and does not require any configuration files for configuration. It also supports using static methods as component constructor.
+**Cauldron.Consoles** | Cauldron.Consoles is a Cauldron.Core based parameter parser which supports grouping of parameters in execution groups. It is also supports localization and has a nice parameter table.
+**Cauldron.Cryptography** | Contains typical implementations for AES, RSA and RSA-AES encryptions. It also contains extensions that helps working with SecureString.
+**Cauldron.Localization** | A simple localization implementation that can work with different sources.
+**Cauldron.XAML** | A Simple MVVM framework based on Cauldron.Core.
+**Cauldron.XAML.Interactivity** | Behaviours and Action for Cauldron.XAML. (incomplete)
+**Cauldron.XAML.Validation** | Validation Framework for Cauldron.XAML.
 
 ## Documentation
+### Wiki
+https://github.com/reflection-emit/Cauldron/wiki
 ### .NET Desktop
 https://reflection-emit.github.io/Cauldron/desktop/
 ### UWP
@@ -13,6 +27,17 @@ https://reflection-emit.github.io/Cauldron/eveonline/
 - [CodeMaid](http://www.codemaid.net/)
 
 ## Release Notes
+### 1.0.6
+- Inject attribute from Cauldron.Injection moved to Cauldron.Activator
+  - InjectAttribute is now based on Cauldron.Interception
+- Cauldron property interceptors setters can deal with IEnumerables if target property implements the IEnumerable<> interface
+- Experimental ChildTypeOf method added.
+- Cauldron.Activator has now an extension that can create types from interfaces.
+  - CreateObject extension removed from Cauldron.Dynamic
+- Cauldron.Injection removed
+- Fody add-in weaver bugs fixed
+- Nuget packages fixed
+
 ### 1.0.5
 - Reference to Fody
 - Method, fields and property interceptor added
