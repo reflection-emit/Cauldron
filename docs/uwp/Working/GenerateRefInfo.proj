@@ -30,6 +30,12 @@
 		</GenerateDependsOn>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="System.Net, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Name>System.Net</Name>
+      <AssemblyName>System.Net.dll</AssemblyName>
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.Net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Runtime.Serialization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
       <Name>System.Runtime.Serialization</Name>
       <AssemblyName>System.Runtime.Serialization.dll</AssemblyName>
@@ -41,7 +47,6 @@
     <Assembly Include="C:\Users\baltar\Source\Repos\Cauldron\UWP\Cauldron.Core\bin\Release\Cauldron.Core.dll" />
     <Assembly Include="C:\Users\baltar\Source\Repos\Cauldron\UWP\Cauldron.UWP.Activator\bin\Release\Cauldron.Activator.dll" />
     <Assembly Include="C:\Users\baltar\Source\Repos\Cauldron\UWP\Cauldron.UWP.Cryptography\bin\Release\Cauldron.Cryptography.dll" />
-    <Assembly Include="C:\Users\baltar\Source\Repos\Cauldron\UWP\Cauldron.UWP.Injection\bin\Release\Cauldron.Injection.dll" />
     <Assembly Include="C:\Users\baltar\Source\Repos\Cauldron\UWP\Cauldron.UWP.Localization\bin\Release\Cauldron.Localization.dll" />
     <Assembly Include="C:\Users\baltar\Source\Repos\Cauldron\UWP\Cauldron.UWP.Potions\bin\Release\Cauldron.Potions.dll" />
     <Assembly Include="C:\Users\baltar\Source\Repos\Cauldron\UWP\Cauldron.UWP.XAML.Interactivity\bin\Release\Cauldron.XAML.Interactivity.dll" />

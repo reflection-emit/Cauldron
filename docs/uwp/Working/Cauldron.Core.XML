@@ -2460,30 +2460,6 @@
             Encoding for the IBM EBCDIC format.
             </summary>
         </member>
-        <member name="T:Cauldron.Core.ExecutionTimer">
-            <summary>
-            Provides a simple performance measurement of a code block
-            </summary>
-            <example>
-            <code>
-            using(var perf = new ExecutionTimer())
-            {
-            }
-            </code>
-            </example>
-        </member>
-        <member name="M:Cauldron.Core.ExecutionTimer.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of <see cref="T:Cauldron.Core.ExecutionTimer"/>
-            </summary>
-            <param name="memberName">The name of the calling method</param>
-        </member>
-        <member name="M:Cauldron.Core.ExecutionTimer.OnDispose(System.Boolean)">
-            <summary>
-            Occures after <see cref="M:System.IDisposable.Dispose"/> has been invoked
-            </summary>
-            <param name="disposeManaged">true if managed resources requires disposing</param>
-        </member>
         <member name="T:Cauldron.Core.Formatters.ByteSizeFormatter">
             <summary>
             Formats a numeric value to a human readable size.
@@ -2651,88 +2627,17 @@
             Gets a value indicating if the object has been disposed or not
             </summary>
         </member>
-        <member name="T:Cauldron.Core.Interceptors.ILockableMethodInterceptor">
+        <member name="T:Cauldron.Core.Interceptors.ExecutionTimeAttribute">
             <summary>
-            Represents a method interceptor with a <see cref="T:System.Threading.SemaphoreSlim"/>
+            Provides a simple performance measurement of a code block
             </summary>
         </member>
-        <member name="M:Cauldron.Core.Interceptors.ILockableMethodInterceptor.OnEnter(System.Threading.SemaphoreSlim,System.Type,System.Object,System.Reflection.MethodBase,System.Object[])">
+        <member name="M:Cauldron.Core.Interceptors.ExecutionTimeAttribute.#ctor">
             <summary>
-            Invoked if an intercepted method has been called
-            </summary>
-            <param name="semaphore">The <see cref="T:System.Threading.SemaphoreSlim"/> instance that can be used to lock the the method</param>
-            <param name="declaringType">The type declaring the intercepted method</param>
-            <param name="instance">The instance of the class where the method is residing. will be null if the method is static</param>
-            <param name="methodbase">Contains information about the method</param>
-            <param name="values">The passed arguments of the method.</param>
-        </member>
-        <member name="M:Cauldron.Core.Interceptors.ILockableMethodInterceptor.OnException(System.Exception)">
-            <summary>
-            Invoked if an intercepted method has raised an exception. The method will always rethrow the exception.
-            </summary>
-            <param name="e">The exception information.</param>
-        </member>
-        <member name="M:Cauldron.Core.Interceptors.ILockableMethodInterceptor.OnExit">
-            <summary>
-            Invoked if the intercepted method has finished executing.
+            Initializes a new instance of <see cref="T:Cauldron.Core.Interceptors.ExecutionTimeAttribute"/>
             </summary>
         </member>
-        <member name="T:Cauldron.Core.Interceptors.ILockablePropertyGetterInterceptor">
-            <summary>
-            Represents an interceptor that can intercept a property's getter method with a <see cref="T:System.Threading.SemaphoreSlim"/>
-            </summary>
-        </member>
-        <member name="M:Cauldron.Core.Interceptors.ILockablePropertyGetterInterceptor.OnException(System.Exception)">
-            <summary>
-            Invoked if an intercepted method has raised an exception. The method will always rethrow the exception.
-            </summary>
-            <param name="e">The exception information.</param>
-        </member>
-        <member name="M:Cauldron.Core.Interceptors.ILockablePropertyGetterInterceptor.OnExit">
-            <summary>
-            Invoked if the intercepted method has finished executing.
-            </summary>
-        </member>
-        <member name="M:Cauldron.Core.Interceptors.ILockablePropertyGetterInterceptor.OnGet(System.Threading.SemaphoreSlim,Cauldron.Core.Interceptors.PropertyInterceptionInfo,System.Object)">
-            <summary>
-            Invoked if the intercepted property getter has been called
-            </summary>
-            <param name="semaphore">The <see cref="T:System.Threading.SemaphoreSlim"/> instance that can be used to lock the the method</param>
-            <param name="propertyInterceptionInfo">An object that containes information about the intercepted method</param>
-            <param name="value">The current value of the property</param>
-        </member>
-        <member name="T:Cauldron.Core.Interceptors.ILockablePropertySetterInterceptor">
-            <summary>
-            Represents an interceptor that can intercept a property's setter method with a <see cref="T:System.Threading.SemaphoreSlim"/>
-            </summary>
-        </member>
-        <member name="M:Cauldron.Core.Interceptors.ILockablePropertySetterInterceptor.OnException(System.Exception)">
-            <summary>
-            Invoked if an intercepted method has raised an exception. The method will always rethrow the exception.
-            </summary>
-            <param name="e">The exception information.</param>
-        </member>
-        <member name="M:Cauldron.Core.Interceptors.ILockablePropertySetterInterceptor.OnExit">
-            <summary>
-            Invoked if the intercepted method has finished executing.
-            </summary>
-        </member>
-        <member name="M:Cauldron.Core.Interceptors.ILockablePropertySetterInterceptor.OnSet(System.Threading.SemaphoreSlim,Cauldron.Core.Interceptors.PropertyInterceptionInfo,System.Object,System.Object)">
-            <summary>
-            Invoked if the intercepted property setter has been called
-            </summary>
-            <param name="semaphore">The <see cref="T:System.Threading.SemaphoreSlim"/> instance that can be used to lock the the method</param>
-            <param name="propertyInterceptionInfo">An object that containes information about the intercepted method</param>
-            <param name="oldValue">The current value of the property</param>
-            <param name="newValue">The to be new value of the property</param>
-            <returns>If returns false, the backing field will be set to <paramref name="newValue"/></returns>
-        </member>
-        <member name="T:Cauldron.Core.Interceptors.IMethodInterceptor">
-            <summary>
-            Represents a method interceptor
-            </summary>
-        </member>
-        <member name="M:Cauldron.Core.Interceptors.IMethodInterceptor.OnEnter(System.Type,System.Object,System.Reflection.MethodBase,System.Object[])">
+        <member name="M:Cauldron.Core.Interceptors.ExecutionTimeAttribute.OnEnter(System.Type,System.Object,System.Reflection.MethodBase,System.Object[])">
             <summary>
             Invoked if an intercepted method has been called
             </summary>
@@ -2741,62 +2646,25 @@
             <param name="methodbase">Contains information about the method</param>
             <param name="values">The passed arguments of the method.</param>
         </member>
-        <member name="M:Cauldron.Core.Interceptors.IMethodInterceptor.OnException(System.Exception)">
+        <member name="M:Cauldron.Core.Interceptors.ExecutionTimeAttribute.OnException(System.Exception)">
             <summary>
             Invoked if an intercepted method has raised an exception. The method will always rethrow the exception.
             </summary>
             <param name="e">The exception information.</param>
         </member>
-        <member name="M:Cauldron.Core.Interceptors.IMethodInterceptor.OnExit">
+        <member name="M:Cauldron.Core.Interceptors.ExecutionTimeAttribute.OnExit">
             <summary>
             Invoked if the intercepted method has finished executing.
             </summary>
         </member>
-        <member name="T:Cauldron.Core.Interceptors.IPropertyGetterInterceptor">
-            <summary>
-            Represents an interceptor that can intercept a property's getter method
-            </summary>
-        </member>
-        <member name="M:Cauldron.Core.Interceptors.IPropertyGetterInterceptor.OnException(System.Exception)">
-            <summary>
-            Invoked if an intercepted method has raised an exception. The method will always rethrow the exception.
-            </summary>
-            <param name="e">The exception information.</param>
-        </member>
-        <member name="M:Cauldron.Core.Interceptors.IPropertyGetterInterceptor.OnExit">
-            <summary>
-            Invoked if the intercepted method has finished executing.
-            </summary>
-        </member>
-        <member name="M:Cauldron.Core.Interceptors.IPropertyGetterInterceptor.OnGet(Cauldron.Core.Interceptors.PropertyInterceptionInfo,System.Object)">
+        <member name="M:Cauldron.Core.Interceptors.ExecutionTimeAttribute.OnGet(Cauldron.Interception.PropertyInterceptionInfo,System.Object)">
             <summary>
             Invoked if the intercepted property getter has been called
             </summary>
             <param name="propertyInterceptionInfo">An object that containes information about the intercepted method</param>
             <param name="value">The current value of the property</param>
         </member>
-        <member name="T:Cauldron.Core.Interceptors.IPropertyInterceptor">
-            <summary>
-            Represents an interceptor that can intercept a property's getter and setter method
-            </summary>
-        </member>
-        <member name="T:Cauldron.Core.Interceptors.IPropertySetterInterceptor">
-            <summary>
-            Represents an interceptor that can intercept a property's setter method
-            </summary>
-        </member>
-        <member name="M:Cauldron.Core.Interceptors.IPropertySetterInterceptor.OnException(System.Exception)">
-            <summary>
-            Invoked if an intercepted method has raised an exception. The method will always rethrow the exception.
-            </summary>
-            <param name="e">The exception information.</param>
-        </member>
-        <member name="M:Cauldron.Core.Interceptors.IPropertySetterInterceptor.OnExit">
-            <summary>
-            Invoked if the intercepted method has finished executing.
-            </summary>
-        </member>
-        <member name="M:Cauldron.Core.Interceptors.IPropertySetterInterceptor.OnSet(Cauldron.Core.Interceptors.PropertyInterceptionInfo,System.Object,System.Object)">
+        <member name="M:Cauldron.Core.Interceptors.ExecutionTimeAttribute.OnSet(Cauldron.Interception.PropertyInterceptionInfo,System.Object,System.Object)">
             <summary>
             Invoked if the intercepted property setter has been called
             </summary>
@@ -2804,58 +2672,6 @@
             <param name="oldValue">The current value of the property</param>
             <param name="newValue">The to be new value of the property</param>
             <returns>If returns false, the backing field will be set to <paramref name="newValue"/></returns>
-        </member>
-        <member name="T:Cauldron.Core.Interceptors.PropertyInterceptionInfo">
-            <summary>
-            Contains information about the intercepted property
-            </summary>
-        </member>
-        <member name="M:Cauldron.Core.Interceptors.PropertyInterceptionInfo.#ctor(System.Reflection.MethodBase,System.Reflection.MethodBase,System.String,System.Type,System.Object,System.Action{System.Object})">
-            <summary>
-            Initializes a new instance of <see cref="T:Cauldron.Core.Interceptors.PropertyInterceptionInfo"/>
-            </summary>
-            <param name="getterMethod">Provides information about the method</param>
-            <param name="setterMethod">Provides information about the method</param>
-            <param name="propertyName">The name of the intercepted property</param>
-            <param name="propertyType">The return tyoe of the property</param>
-            <param name="instance">The instance of the declaring type</param>
-            <param name="setter">A delegate to set the property backing field</param>
-        </member>
-        <member name="P:Cauldron.Core.Interceptors.PropertyInterceptionInfo.DeclaringType">
-            <summary>
-            Gets the <see cref="T:System.Type"/> of the object where the property resides in
-            </summary>
-        </member>
-        <member name="P:Cauldron.Core.Interceptors.PropertyInterceptionInfo.GetMethod">
-            <summary>
-            Gets an object that provides information about the getter method
-            </summary>
-        </member>
-        <member name="P:Cauldron.Core.Interceptors.PropertyInterceptionInfo.Instance">
-            <summary>
-            Gets the instance of the declaring type
-            </summary>
-        </member>
-        <member name="P:Cauldron.Core.Interceptors.PropertyInterceptionInfo.PropertyName">
-            <summary>
-            Gets the name of the property
-            </summary>
-        </member>
-        <member name="P:Cauldron.Core.Interceptors.PropertyInterceptionInfo.PropertyType">
-            <summary>
-            Gets the type of the property
-            </summary>
-        </member>
-        <member name="P:Cauldron.Core.Interceptors.PropertyInterceptionInfo.SetMethod">
-            <summary>
-            Gets an object that provides information about the setter method
-            </summary>
-        </member>
-        <member name="M:Cauldron.Core.Interceptors.PropertyInterceptionInfo.SetValue(System.Object)">
-            <summary>
-            Sets the value of the property's backing field
-            </summary>
-            <param name="value">The new value of the property</param>
         </member>
         <member name="T:Cauldron.Core.Java.JavaProperties">
             <summary>
@@ -3308,9 +3124,37 @@
             Provides useful reflection methods
             </summary>
         </member>
+        <member name="M:Cauldron.Core.Reflection.ChildTypeOf(System.Type)">
+            <summary>
+            Returns the child type of a <see cref="T:System.Collections.Generic.IEnumerable`1"/> or an array. The <see cref="T:System.Type"/> will be hardcoded in the dll by the Fody weaver. Use with caution!
+            <para/>
+            EXPERIMENTAL - Only tested for the case in the example
+            </summary>
+            <param name="type">The type to get the child from</param>
+            <returns>The type of the child object</returns>
+            <example>
+            Take example of a collection implemented like following:
+            <code>
+            public class AClassThatInheritsFromDictionary : KeyedCollection&lt;int, string&gt;
+            {
+                ...
+            }
+            </code>
+            The following code will ...
+            <code>
+            var child = Reflection.ChildTypeOf(typeof(AClassThatInheritsFromDictionary));
+            </code>
+            ... be replace by
+            <code>
+            var child = typeof(string);
+            </code>
+            </example>
+        </member>
         <member name="M:Cauldron.Core.Reflection.GetFieldInfo(System.String)">
             <summary>
             Returns field information of the field defined by <paramref name="fieldName"/>
+            <para/>
+            EXPERIMENTAL - Only tested for the case in the example
             </summary>
             <param name="fieldName">The name of the field</param>
             <returns>An instance of <see cref="T:System.Reflection.FieldInfo"/> that contains the information about the field</returns>
@@ -3322,6 +3166,11 @@
             For static fields from another classes:
             <code>
             var fieldInfo = Reflection.GetFieldInfo("TestNamespace.AnyClass.myField");
+            </code>
+            What gets compiled:
+            <code>
+            var fieldInfo = fieldof(myField);
+            var fieldInfo = fieldof(TestNamespace.AnyClass.myField);
             </code>
             </example>
         </member>

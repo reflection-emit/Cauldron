@@ -112,6 +112,12 @@ namespace Cauldron.Interception.Fody
 
                     var interfaceType = GetInterface(instruction);
 
+                    if (!interfaceType.Resolve().IsInterface)
+                    {
+                        this.LogError($"CreateObject<{interfaceType.FullName}> is unable to create a type that implemts {interfaceType.Name}. {interfaceType.Name} is not an interface.");
+                        continue;
+                    }
+
                     if (!knownTypes.ContainsKey(interfaceType))
                         knownTypes.Add(interfaceType, this.CreateAnonymouseType(anonymousType.Namespace, $"<{interfaceType.Name}>Cauldron_AnonymousType" + knownTypes.Count + 1, interfaceType));
 
