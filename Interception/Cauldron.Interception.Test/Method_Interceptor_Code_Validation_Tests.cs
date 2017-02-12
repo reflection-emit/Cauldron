@@ -30,6 +30,12 @@ namespace Cauldron.Interception.Test
         }
 
         [TestMethod]
+        public void Async_Method()
+        {
+            Assert.AreEqual(7, MethodAsync().RunSync());
+        }
+
+        [TestMethod]
         [TestMethodInterceptorWithParameter(
                 1, 2, true, 3, 4, 'd', 5, 6, 7, 8, 9.9, 8.8f, "Hi here", 66, "stringMe", typeof(Guid), TestEnum.One,
                 new int[] { 3, 4 },
@@ -410,6 +416,9 @@ namespace Cauldron.Interception.Test
         {
             return new TestClass { CharProperty = 'e', IntegerProperty = 33, StringProperty = "Hello" };
         }
+
+        [TestMethodInterceptor]
+        private Task<int> MethodAsync() => Task.FromResult(7);
 
         [TestMethodInterceptor]
         private int ValueType_Method_With_Multiple_Returns_(int index)
