@@ -16,15 +16,15 @@
     <tags>Toolkit Capgemini Crypto Encryption Cryptography AES RSA</tags>
     <dependencies>
       <group targetFramework="uap10.0">
-        <dependency id="Capgemini.Cauldron.Core" version="1.0.5" />
+        <dependency id="Capgemini.Cauldron.Core" version="1.0.6" />
         <dependency id="Microsoft.NETCore.UniversalWindowsPlatform" version="5.2.2" />
       </group>
       <group targetFramework="net452">
-        <dependency id="Capgemini.Cauldron.Core" version="1.0.5" />
+        <dependency id="Capgemini.Cauldron.Core" version="1.0.6" />
       </group>
       <group targetFramework="netstandard1.6">
         <dependency id="NETStandard.Library" version="1.6.1" />
-        <dependency id="Capgemini.Cauldron.Core" version="1.0.5" />
+        <dependency id="Capgemini.Cauldron.Core" version="1.0.6" />
         <dependency id="System.Security.Cryptography.Csp" version="4.0.0" />
         <dependency id="System.Security.SecureString" version="4.3.0" />
       </group>

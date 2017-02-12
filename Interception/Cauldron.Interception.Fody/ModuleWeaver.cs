@@ -34,7 +34,7 @@ namespace Cauldron.Interception.Fody
             // Check if th module has a reference to Cauldron.Interception
             var assemblyNameReference = this.ModuleDefinition.AllReferencedAssemblies().FirstOrDefault(x => x.Name.Name == "Cauldron.Interception");
             if (assemblyNameReference == null)
-                throw new NotImplementedException($"The project {this.ModuleDefinition.Name} does not reference to 'Cauldron.Interception'. Please add Cauldron.Interception to your project.");
+                return;
 
             foreach (var weaverType in this.weavers)
             {
