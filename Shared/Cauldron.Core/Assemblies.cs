@@ -521,7 +521,10 @@ namespace Cauldron.Core
 
         private static Assembly ResolveAssembly(object sender, ResolveEventArgs e)
         {
-            Output.WriteLineInfo($"Assembly '{e.RequestingAssembly.FullName}' requesting for '{e.Name}'");
+            if (e.RequestingAssembly == null)
+                Output.WriteLineInfo($"Assembly requesting for '{e.Name}'");
+            else
+                Output.WriteLineInfo($"Assembly '{e.RequestingAssembly.FullName}' requesting for '{e.Name}'");
 
             var assembly = _assemblies.FirstOrDefault(x => x.FullName == e.Name || e.Name.StartsWith(x.GetName().Name));
 

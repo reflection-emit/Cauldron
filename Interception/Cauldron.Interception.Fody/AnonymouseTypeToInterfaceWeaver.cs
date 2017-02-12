@@ -53,7 +53,8 @@ namespace Cauldron.Interception.Fody
                         declaringType = (previousInstruction.Operand as MethodReference).DeclaringType;
                         anonymousType = declaringType.Resolve();
                     }
-                    else if (previousInstruction.OpCode == OpCodes.Ldarg_1 ||
+                    else if (previousInstruction.OpCode == OpCodes.Ldarg_0 ||
+                       previousInstruction.OpCode == OpCodes.Ldarg_1 ||
                        previousInstruction.OpCode == OpCodes.Ldarg_2 ||
                        previousInstruction.OpCode == OpCodes.Ldarg_3 ||
                        previousInstruction.OpCode == OpCodes.Ldarg_S)
@@ -220,7 +221,7 @@ namespace Cauldron.Interception.Fody
 
             var genericTypes = (anonType as GenericInstanceType)?.GenericArguments.ToArray();
 
-            if (genericTypes == null)
+            if (genericTypes != null)
             {
                 var genericParameters = anonType.Resolve().GenericParameters;
                 var sourceTypeDef = anonType.Resolve();
