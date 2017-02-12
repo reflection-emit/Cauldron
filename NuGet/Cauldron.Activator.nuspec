@@ -18,18 +18,22 @@
       <group targetFramework="uap10.0">
         <dependency id="Capgemini.Cauldron.Core" version="1.0.5" />
         <dependency id="Microsoft.NETCore.UniversalWindowsPlatform" version="5.2.2" />
+        <dependency id="Cauldron.Interception.Fody" version="1.0.6" />
+        <dependency id="Fody" version="1.29.4" />
       </group>
       <group targetFramework="net452">
         <dependency id="Capgemini.Cauldron.Core" version="1.0.5" />
+        <dependency id="Cauldron.Interception.Fody" version="1.0.6" />
+        <dependency id="Fody" version="1.29.4" />
       </group>
       <group targetFramework="netstandard1.6">
         <dependency id="NETStandard.Library" version="1.6.1" />
         <dependency id="System.Threading.Tasks" version="4.3.0" />
         <dependency id="System.Threading.Thread" version="4.3.0" />
         <dependency id="Capgemini.Cauldron.Core" version="1.0.5" />
+        <dependency id="Cauldron.Interception.Fody" version="1.0.6" />
+        <dependency id="Fody" version="1.29.4" />
       </group>
-      <dependency id="Fody" version="1.29.4" />
-      <dependency id="Capgemini.Cauldron.Interception.Fody" version="1.0.6" />
     </dependencies>
   </metadata>
   <files>

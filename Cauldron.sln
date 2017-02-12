@@ -184,6 +184,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.UWP.XAML.Test", "U
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.UWP.XAML.Validation.Test", "UWP\Unit Tests\Cauldron.UWP.XAML.Validation.Test\Cauldron.UWP.XAML.Validation.Test.csproj", "{9E87B47B-8B3C-429C-A06D-FA7D1E226F62}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Fody", "Fody", "{2B8BFCA0-8A5F-43E3-BE9C-FB74E68B0EB6}"
+	ProjectSection(SolutionItems) = preProject
+		NuGet\Fody\Fody_ToBeDeleted.txt = NuGet\Fody\Fody_ToBeDeleted.txt
+		NuGet\Fody\install.ps1 = NuGet\Fody\install.ps1
+		NuGet\Fody\uninstall.ps1 = NuGet\Fody\uninstall.ps1
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Shared\Cauldron.Consoles\Cauldron.Consoles.projitems*{00c29751-1557-46a8-9547-f74065b36592}*SharedItemsImports = 4
@@ -1060,5 +1067,6 @@ Global
 		{E9AB2632-7A4A-4C85-A04A-C2A1152BFE32} = {4AAF65BD-71FB-407B-B598-A01A8FE1ED48}
 		{8365E281-779D-4A4A-9143-E4D3EEC63251} = {4AAF65BD-71FB-407B-B598-A01A8FE1ED48}
 		{9E87B47B-8B3C-429C-A06D-FA7D1E226F62} = {4AAF65BD-71FB-407B-B598-A01A8FE1ED48}
+		{2B8BFCA0-8A5F-43E3-BE9C-FB74E68B0EB6} = {B22AD21D-6FEC-4B21-A89B-43C7EEB0CD92}
 	EndGlobalSection
 EndGlobal

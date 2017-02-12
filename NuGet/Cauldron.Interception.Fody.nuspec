@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
-    <id>Capgemini.Cauldron.Interception.Fody</id>
+    <id>Cauldron.Interception.Fody</id>
     <version>1.0.3</version>
     <title>Capgemini Cauldron Interception for Fody</title>
     <authors>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</authors>
@@ -30,5 +30,7 @@
 
     <!-- Net Standard 1.6 -->
     <file src="..\NetCore\Cauldron.NetCore.Interception\bin\Release\netstandard1.6\Cauldron.Interception**" target="lib\netstandard1.6" />
+
+    <file src="Fody\**" target="tools" />
   </files>
 </package>

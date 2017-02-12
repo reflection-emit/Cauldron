@@ -20,7 +20,7 @@ goto:eof
 set projectPath=%~1
 write-colored Green --------------------------
 write-colored Cyan Building %projectPath%
-msbuild.exe %projectPath% /verbosity:m /p:Configuration=Release;PreBuildEvent=;PostBuildEvent=
+msbuild.exe %projectPath% /verbosity:m /p:Configuration=Release;PreBuildEvent=;PostBuildEvent= /t:Rebuild
 
 goto:eof
 
