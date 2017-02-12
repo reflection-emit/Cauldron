@@ -4,6 +4,8 @@ call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat"
 csc /target:exe /out:write-colored.exe /optimize+ color.cs
 
 :: Build all projects
+write-colored Cyan Building Interception Projects
+for /F %%i in ('dir %~dp0..\Interception\Cauldron.Interception.Fody\*.csproj /s /b') do call:buildProject %%i
 write-colored Cyan Building UWP Projects
 for /F %%i in ('dir %~dp0..\UWP\*.csproj /s /b') do call:buildProject %%i
 write-colored Cyan Building Desktop Projects
