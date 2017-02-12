@@ -3,10 +3,15 @@
 # Cauldron C# Toolkit
 Assembly | Description
 -------- | -------------
-**Cauldron.Interception.Fody** | _Fody add-in that provides method, property and field interception. It also provides weavers for Cauldron.Core and Cauldron.Activator._
-**Cauldron.Core** | _Cauldron Core is the core toolkit assembly that the Cauldron Toolkit builds upon._
-**Cauldron.Activator** | _The activator is a simple and extensible dependency injection framework. It is based on attributes and does not require any configuration files for configuration. It also supports using static methods as component constructor._
-**Cauldron.Consoles** | _Cauldron.Consoles is a Cauldron.Core based parameter parser which supports grouping of parameters in execution groups. It is also supports localization and has a nice parameter table._
+**Cauldron.Interception.Fody** | Fody add-in that provides method, property and field interception. It also provides weavers for Cauldron.Core and Cauldron.Activator.
+**Cauldron.Core** | Cauldron Core is the core toolkit assembly that the Cauldron Toolkit builds upon.
+**Cauldron.Activator** | The activator is a simple and extensible dependency injection framework. It is based on attributes and does not require any configuration files for configuration. It also supports using static methods as component constructor.
+**Cauldron.Consoles** | Cauldron.Consoles is a Cauldron.Core based parameter parser which supports grouping of parameters in execution groups. It is also supports localization and has a nice parameter table.
+**Cauldron.Cryptography** | Contains typical implementations for AES, RSA and RSA-AES encryptions. It also contains extensions that helps working with SecureString.
+**Cauldron.Localization** | A simple localization implementation that can work with different sources.
+**Cauldron.XAML** | A Simple MVVM framework based on Cauldron.Core.
+**Cauldron.XAML.Interactivity** | Behaviours and Action for Cauldron.XAML. (incomplete)
+**Cauldron.XAML.Validation** | Validation Framework for Cauldron.XAML.
 
 ## Documentation
 ### Wiki
