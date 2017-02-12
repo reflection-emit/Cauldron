@@ -60,14 +60,14 @@ namespace Cauldron.Interception.Fody
                     {
                         TypeReference parameter;
 
-                        if (previousInstruction.OpCode == OpCodes.Ldloc_0)
-                            parameter = t.Method.Parameters[0].ParameterType;
-                        else if (previousInstruction.OpCode == OpCodes.Ldloc_1)
-                            parameter = t.Method.Parameters[1].ParameterType;
-                        else if (previousInstruction.OpCode == OpCodes.Ldloc_2)
-                            parameter = t.Method.Parameters[2].ParameterType;
-                        else if (previousInstruction.OpCode == OpCodes.Ldloc_3)
-                            parameter = t.Method.Parameters[3].ParameterType;
+                        if (previousInstruction.OpCode == OpCodes.Ldarg_0)
+                            parameter = t.Method.IsStatic ? t.Method.Parameters[0].ParameterType : t.Method.DeclaringType;
+                        else if (previousInstruction.OpCode == OpCodes.Ldarg_1)
+                            parameter = t.Method.Parameters[t.Method.IsStatic ? 1 : 0].ParameterType;
+                        else if (previousInstruction.OpCode == OpCodes.Ldarg_2)
+                            parameter = t.Method.Parameters[t.Method.IsStatic ? 2 : 1].ParameterType;
+                        else if (previousInstruction.OpCode == OpCodes.Ldarg_3)
+                            parameter = t.Method.Parameters[t.Method.IsStatic ? 3 : 2].ParameterType;
                         else
                             parameter = t.Method.Parameters[(int)previousInstruction.Operand].ParameterType;
 

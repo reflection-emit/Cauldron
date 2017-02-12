@@ -140,6 +140,10 @@
       <Project>{A80A73E9-825B-4032-AE6B-A6C4340DC0FC}</Project>
       <Name>Cauldron.UWP.Activator</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Cauldron.UWP.Interception\Cauldron.UWP.Interception.csproj">
+      <Project>{659a319c-9460-43d9-9453-2731ac5dab55}</Project>
+      <Name>Cauldron.UWP.Interception</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Cauldron.UWP.Localization\Cauldron.UWP.Localization.csproj">
       <Project>{3758D2E9-3A20-4B19-9C38-0C393F25D784}</Project>
       <Name>Cauldron.UWP.Localization</Name>
