@@ -22,7 +22,10 @@ namespace Cauldron.Interception.Fody
             this.Processor = method.Body.GetILProcessor();
             this.LastReturn = this.Processor.Create(OpCodes.Ret);
             this.Property = method.GetPropertyDefinition();
-            this.AutoPropertyBackingField = this.OriginalBody.FirstOrDefault(x => x.OpCode == OpCodes.Ldfld || x.OpCode == OpCodes.Ldsfld || x.OpCode == OpCodes.Stfld || x.OpCode == OpCodes.Stsfld)?.Operand as FieldDefinition;
+
+            var operand = this.OriginalBody.FirstOrDefault(x => x.OpCode == OpCodes.Ldfld || x.OpCode == OpCodes.Ldsfld || x.OpCode == OpCodes.Stfld || x.OpCode == OpCodes.Stsfld)?.Operand;
+            this.AutoPropertyBackingField = operand is FieldDefinition ? operand as FieldDefinition : operand as FieldReference;
+            this.IsGenericType = (this.AutoPropertyBackingField == null ? method.ReturnType : this.AutoPropertyBackingField.FieldType).IsGenericParameter;
 
             var fieldAttribute = FieldAttributes.Private;
 
@@ -32,7 +35,7 @@ namespace Cauldron.Interception.Fody
             this.MethodBaseField = this.Property == null ? this.GetOrCreateField(typeof(System.Reflection.MethodBase)) : null;
         }
 
-        public FieldDefinition AutoPropertyBackingField { get; private set; }
+        public FieldReference AutoPropertyBackingField { get; private set; }
 
         public List<Instruction> ExceptionInstructions { get; private set; } = new List<Instruction>();
 
@@ -41,6 +44,8 @@ namespace Cauldron.Interception.Fody
         public string Id { get; private set; }
 
         public List<Instruction> Initializations { get; private set; } = new List<Instruction>();
+
+        public bool IsGenericType { get; private set; }
 
         public Instruction LastReturn { get; private set; }
 

@@ -106,15 +106,18 @@ namespace Cauldron.Interception.Fody
                     }
                     else
                     {
-                        this.LogWarning($"Unable to implement CreateObject<> in '{t.Method.Name}'. The anonymouse type was not found.");
+                        this.LogWarning($"Unable to implement CreateObject<> in '{t.Method.Name}'. The anonymous type was not found.");
                         continue;
                     }
 
                     var interfaceType = GetInterface(instruction);
 
+                    if (interfaceType == null)
+                        continue;
+
                     if (!interfaceType.Resolve().IsInterface)
                     {
-                        this.LogError($"CreateObject<{interfaceType.FullName}> is unable to create a type that implemts {interfaceType.Name}. {interfaceType.Name} is not an interface.");
+                        this.LogError($"CreateObject<{interfaceType.FullName}> is unable to create a type that implements {interfaceType.Name}. {interfaceType.Name} is not an interface.");
                         continue;
                     }
 
@@ -267,6 +270,10 @@ namespace Cauldron.Interception.Fody
         private TypeReference GetInterface(Instruction instruction)
         {
             var method = instruction.Operand as GenericInstanceMethod;
+
+            if (method == null)
+                return null;
+
             return method.GenericArguments[0];
         }
     }

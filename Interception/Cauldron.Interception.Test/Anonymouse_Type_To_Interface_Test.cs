@@ -145,5 +145,27 @@ namespace Cauldron.Interception.Test
             Assert.IsTrue(anonClass.AnyInt == newObject.AnyInt);
             Assert.IsTrue(anonClass.TheString == newObject.TheString);
         }
+
+        [TestMethod]
+        public void Nested_Class_Test()
+        {
+            var nested = new OuterClass.NestedClass();
+            var value = nested.GetValues();
+
+            Assert.AreEqual(6666.666, value.ADouble);
+            Assert.AreEqual(666, value.AnyInt);
+            Assert.AreEqual("TestString", value.TheString);
+        }
+    }
+
+    public class OuterClass
+    {
+        public class NestedClass
+        {
+            public IAnonymousClassWithInterfaceExtensionTestInterface GetValues()
+            {
+                return new { ADouble = 6666.666, AnyInt = 666, TheString = "TestString" }.CreateObject<IAnonymousClassWithInterfaceExtensionTestInterface>();
+            }
+        }
     }
 }

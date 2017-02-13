@@ -38,6 +38,12 @@ namespace Cauldron.Interception.Test.Interceptors
                 return true;
             }
 
+            if (propertyInterceptionInfo.PropertyType == typeof(long) && Convert.ToInt64(newValue) == 66)
+            {
+                propertyInterceptionInfo.SetValue(99);
+                return true;
+            }
+
             return false;
         }
     }

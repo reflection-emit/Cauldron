@@ -90,6 +90,32 @@ namespace Cauldron.Interception.Fody
             return count;
         }
 
+        public static FieldReference CreateFieldReference(this FieldDefinition field)
+        {
+            if (field.DeclaringType.HasGenericParameters)
+            {
+                var declaringType = new GenericInstanceType(field.DeclaringType);
+
+                foreach (var parameter in field.DeclaringType.GenericParameters)
+                    declaringType.GenericArguments.Add(parameter);
+
+                return new FieldReference(field.Name, field.FieldType, declaringType);
+            }
+
+            return field;
+        }
+
+        public static MethodReference CreateMethodReference(this MethodDefinition method)
+        {
+            if (method.DeclaringType.HasGenericParameters)
+            {
+                var declaringType = new GenericInstanceType(method.DeclaringType);
+                return method.MakeHostInstanceGeneric(method.DeclaringType.GenericParameters.ToArray());
+            }
+
+            return method;
+        }
+
         public static IEnumerable<AssemblyDefinition> GetAllAssemblyDefinitions(this IEnumerable<AssemblyNameReference> target)
         {
             var result = new List<AssemblyDefinition>();
@@ -437,6 +463,10 @@ namespace Cauldron.Interception.Fody
         public static bool IsIEnumerable(this TypeReference type)
         {
             var resolved = type.Resolve();
+
+            if (resolved == null)
+                return false;
+
             return
                 type.FullName != typeof(string).FullName /* Strings are arrays too */ &&
                 (

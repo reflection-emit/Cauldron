@@ -141,6 +141,14 @@ namespace Cauldron.Interception.Fody
             return result;
         }
 
+        protected IEnumerable<MethodAndInstruction> GetMethodsWhere(TypeDefinition type, Func<Instruction, bool> predicate)
+        {
+            return type.GetNestedTypes().Concat(new TypeDefinition[] { type }).SelectMany(x => x.Methods)
+                .Where(x => x != null && x.Body != null)
+                .Select(x => new MethodAndInstruction(x, x.Body.Instructions.Where(predicate).ToArray()))
+                .ToList();
+        }
+
         protected IEnumerable<MethodAndInstruction> GetMethodsWhere(Func<Instruction, bool> predicate)
         {
             var allModuleTypes = new List<TypeDefinition>();
@@ -175,13 +183,22 @@ namespace Cauldron.Interception.Fody
             return method;
         }
 
-        protected void ImplementFieldSetterDelegate(MethodDefinition method, FieldDefinition field, bool isStatic)
+        protected void ImplementFieldSetterDelegate(MethodDefinition method, FieldReference field, bool isStatic)
         {
             var processor = method.Body.GetILProcessor();
             method.Body.Instructions.Clear();
             var returnOpCode = processor.Create(OpCodes.Ret);
 
-            if (field.FieldType.Resolve().IsEnum)
+            if (field.FieldType.Resolve() == null) /* This happens if the field type is a generic */
+            {
+                if (!isStatic)
+                    processor.Append(processor.Create(OpCodes.Ldarg_0));
+
+                processor.Append(processor.Create(isStatic ? OpCodes.Ldarg_0 : OpCodes.Ldarg_1));
+                processor.Append(processor.Create(OpCodes.Unbox_Any, field.FieldType.Import()));
+                processor.Append(processor.Create(isStatic ? OpCodes.Stsfld : OpCodes.Stfld, field));
+            }
+            else if (field.FieldType.Resolve().IsEnum)
             {
                 if (!isStatic)
                     processor.Append(processor.Create(OpCodes.Ldarg_0));
@@ -459,7 +476,7 @@ namespace Cauldron.Interception.Fody
             return createInstructionsResult;
         }
 
-        private void EmitSpecializedEnumerableSetter(FieldDefinition field, bool isStatic, ILProcessor processor, Instruction returnOpCode)
+        private void EmitSpecializedEnumerableSetter(FieldReference field, bool isStatic, ILProcessor processor, Instruction returnOpCode)
         {
             var childType = field.FieldType.GetChildrenType();
             var elseClause = processor.Create(OpCodes.Nop);

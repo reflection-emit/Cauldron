@@ -155,6 +155,9 @@ namespace Cauldron.Interception.Fody
                 methodWeaverInfo.OnEnterInstructions.Add(methodWeaverInfo.Processor.Create(OpCodes.Ldfld, propertyWeaverInfo));
                 methodWeaverInfo.OnEnterInstructions.Add(methodWeaverInfo.Processor.Create(OpCodes.Ldarg_0));
                 methodWeaverInfo.OnEnterInstructions.Add(methodWeaverInfo.Processor.Create(OpCodes.Ldfld, backingField));
+
+                if (methodWeaverInfo.IsGenericType)
+                    methodWeaverInfo.OnEnterInstructions.Add(methodWeaverInfo.Processor.Create(OpCodes.Box, methodWeaverInfo.AutoPropertyBackingField.FieldType));
             }
 
             if (backingField.FieldType.IsValueType)
