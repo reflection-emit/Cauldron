@@ -13,9 +13,11 @@ namespace Cauldron.Core.Extensions
     /// </summary>
     public static class ExtensionsReflection
     {
-        private static ConcurrentDictionary<ConstructorInfo, ObjectActivator> objectActivator = new ConcurrentDictionary<ConstructorInfo, ObjectActivator>();
+        //private static ConcurrentDictionary<Type, ObjectActivator> objectActivator = new ConcurrentDictionary<Type, ObjectActivator>();
 
-        private delegate object ObjectActivator(params object[] args);
+        //private delegate object ObjectActivator(params object[] args);
+
+        private static ActivatorArray objectActivator = new ActivatorArray();
 
         /// <summary>
         /// Returns a value that indicates whether the specified type can be assigned to the current type.
@@ -62,21 +64,10 @@ namespace Cauldron.Core.Extensions
 #endif
                 throw new CreateInstanceIsAnInterfaceException("Unable to create an instance from an interface: " + type.FullName);
 
-            var types = args == null || args.Length == 0 ? Type.EmptyTypes : args.Select(x => x == null ? typeof(object) : x.GetType()).ToArray();
-            var ctor = type.GetConstructor(types);
+            if (args == null || args.Length == 0)
+                return objectActivator.CreateInstance(type);
 
-            if (ctor == null)
-                ctor = type.GetConstructors(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)
-                    .FirstOrDefault(x => x.MatchesArgumentTypes(types));
-
-            if (ctor == null)
-                ctor = type.GetConstructors(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)
-                    .FirstOrDefault(x => x.GetParameters().Length == types.Length);
-
-            if (ctor == null)
-                throw new MissingMethodException($"A constructor with the given arguments was not found in type '{type.FullName}'");
-
-            return ctor.CreateInstance(args);
+            return objectActivator.CreateInstance(type, args);
         }
 
         /// <summary>
@@ -95,15 +86,20 @@ namespace Cauldron.Core.Extensions
             if (ctor == null)
                 throw new ArgumentNullException(nameof(ctor));
 
-            if (objectActivator.ContainsKey(ctor))
-                return objectActivator[ctor](args != null && args.Length == 0 ? null : args);
-            else
-            {
-                var createdActivator = GetActivator(ctor);
-                objectActivator.TryAdd(ctor, createdActivator);
+            //if (objectActivator.ContainsKey(ctor.ReflectedType))
+            //    return objectActivator[ctor.ReflectedType](args != null && args.Length == 0 ? null : args);
+            //else
+            //{
+            //    var createdActivator = GetActivator(ctor);
+            //    objectActivator.TryAdd(ctor.ReflectedType, createdActivator);
 
-                return createdActivator(args != null && args.Length == 0 ? null : args);
-            }
+            //    return createdActivator(args != null && args.Length == 0 ? null : args);
+            //}
+
+            if (args == null || args.Length == 0)
+                return objectActivator.CreateInstance(ctor);
+
+            return objectActivator.CreateInstance(ctor, args);
         }
 
         /// <summary>
@@ -655,39 +651,65 @@ namespace Cauldron.Core.Extensions
             return false;
         }
 
-        private static ObjectActivator GetActivator(ConstructorInfo ctor)
+        /// <summary>
+        /// Returns true if the argument types defined by <paramref name="argumentTypes"/> matches with the argument types of <paramref name="parameters"/>
+        /// </summary>
+        /// <param name="parameters">The parameters info which has to be compared to</param>
+        /// <param name="argumentTypes">The argument types that has to match to</param>
+        /// <returns>true if the argument types of <paramref name="parameters"/> matches with the argument type defined by <paramref name="argumentTypes"/>; otherwise, false.</returns>
+        public static bool MatchesArgumentTypes(this ParameterInfo[] parameters, Type[] argumentTypes)
         {
-            // from https://rogeralsing.com/2008/02/28/linq-expressions-creating-objects/
+            if (parameters == null && argumentTypes == null)
+                return true;
 
-            Type type = ctor.DeclaringType;
-            var paramsInfo = ctor.GetParameters();
+            if (parameters == null || argumentTypes == null)
+                return false;
 
-            // create a single param of type object[]
-            var param = Expression.Parameter(typeof(object[]), "args");
-            var argsExp = new Expression[paramsInfo.Length];
-
-            // pick each arg from the params array 
-            // and create a typed expression of them
-            for (int i = 0; i < paramsInfo.Length; i++)
+            if (parameters.Length == argumentTypes.Length)
             {
-                var index = Expression.Constant(i);
-                var paramType = paramsInfo[i].ParameterType;
-                var paramAccessorExp = Expression.ArrayIndex(param, index);
-                var paramCastExp = Expression.Convert(paramAccessorExp, paramType);
+                for (int i = 0; i < parameters.Length; i++)
+                    if (!parameters[i].ParameterType.AreReferenceAssignable(argumentTypes[i]))
+                        return false;
 
-                argsExp[i] = paramCastExp;
+                return true;
             }
 
-            // make a NewExpression that calls the
-            // ctor with the args we just created
-            var newExp = Expression.New(ctor, argsExp);
-
-            // create a lambda with the New
-            // Expression as body and our param object[] as arg
-            var lambda = Expression.Lambda(typeof(ObjectActivator), newExp, param);
-
-            // compile it
-            return lambda.Compile() as ObjectActivator;
+            return false;
         }
+
+        //private static ObjectActivator GetActivator(ConstructorInfo ctor)
+        //{
+        //    // from https://rogeralsing.com/2008/02/28/linq-expressions-creating-objects/
+
+        //    Type type = ctor.DeclaringType;
+        //    var paramsInfo = ctor.GetParameters();
+
+        //    // create a single param of type object[]
+        //    var param = Expression.Parameter(typeof(object[]), "args");
+        //    var argsExp = new Expression[paramsInfo.Length];
+
+        //    // pick each arg from the params array 
+        //    // and create a typed expression of them
+        //    for (int i = 0; i < paramsInfo.Length; i++)
+        //    {
+        //        var index = Expression.Constant(i);
+        //        var paramType = paramsInfo[i].ParameterType;
+        //        var paramAccessorExp = Expression.ArrayIndex(param, index);
+        //        var paramCastExp = Expression.Convert(paramAccessorExp, paramType);
+
+        //        argsExp[i] = paramCastExp;
+        //    }
+
+        //    // make a NewExpression that calls the
+        //    // ctor with the args we just created
+        //    var newExp = Expression.New(ctor, argsExp);
+
+        //    // create a lambda with the New
+        //    // Expression as body and our param object[] as arg
+        //    var lambda = Expression.Lambda(typeof(ObjectActivator), newExp, param);
+
+        //    // compile it
+        //    return lambda.Compile() as ObjectActivator;
+        //}
     }
 }

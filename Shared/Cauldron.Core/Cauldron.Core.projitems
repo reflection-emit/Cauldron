@@ -27,6 +27,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)DisposableBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DynamicEqualityComparer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Encodings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\ActivatorArray.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\Extensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\ExtensionsConvertions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\ExtensionsFileIO.cs" />

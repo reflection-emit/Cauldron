@@ -15,6 +15,10 @@ namespace Cauldron.Activator
     {
         private object[] arguments;
 
+        private string contractName;
+
+        private Type typeToCreate;
+
         /// <summary>
         /// Initializes a new instance of <see cref="InjectAttribute"/>
         /// </summary>
@@ -30,8 +34,6 @@ namespace Cauldron.Activator
         {
         }
 
-        private string contractName;
-
         /// <summary>
         /// Initializes a new instance of <see cref="InjectAttribute"/>
         /// </summary>
@@ -39,6 +41,7 @@ namespace Cauldron.Activator
         /// <param name="arguments">The The arguments that can be used to initialize the instance</param>
         public InjectAttribute(Type contractType, object[] arguments) : this(contractType.FullName, arguments)
         {
+            this.typeToCreate = contractType;
         }
 
         /// <summary>
@@ -101,9 +104,9 @@ namespace Cauldron.Activator
                     {
                         // If the property type is not an interface, then we will try to create the type with its default constructor
                         if (this.arguments == null || this.arguments.Length == 0)
-                            injectionInstance = propertyInterceptionInfo.PropertyType.CreateInstance();
+                            injectionInstance = this.typeToCreate == null ? propertyInterceptionInfo.PropertyType.CreateInstance() : this.typeToCreate.CreateInstance();
                         else
-                            injectionInstance = propertyInterceptionInfo.PropertyType.CreateInstance(this.arguments);
+                            injectionInstance = this.typeToCreate == null ? propertyInterceptionInfo.PropertyType.CreateInstance(this.arguments) : this.typeToCreate.CreateInstance(this.arguments);
                     }
                     else // If everthing else fails... We will throw an exception
                         throw new InvalidOperationException($"Unable to inject the contract '{this.contractName}' to the property or field '{propertyInterceptionInfo.PropertyName}' in '{propertyInterceptionInfo.DeclaringType.FullName}'.");
