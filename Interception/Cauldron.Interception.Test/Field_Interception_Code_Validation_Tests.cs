@@ -124,6 +124,8 @@ namespace Cauldron.Interception.Test
         [TestPropertyInterceptor]
         private T fieldTwo;
 
+        private T uuuuuuuuu;
+
         public T FieldTwo
         {
             get { return fieldTwo; }

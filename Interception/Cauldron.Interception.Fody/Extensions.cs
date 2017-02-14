@@ -440,7 +440,7 @@ namespace Cauldron.Interception.Fody
 
             var endif = processor.Create(OpCodes.Nop);
             instructions.Add(processor.Create(OpCodes.Ldc_I4_1));
-            instructions.Add(processor.Create(OpCodes.Pop));
+            instructions.Add(processor.Create(OpCodes.Ceq));
             instructions.Add(processor.Create(OpCodes.Brfalse_S, endif));
             instructions.Add(processor.Create(OpCodes.Leave_S, exit));
             instructions.Add(endif);
@@ -591,8 +591,10 @@ namespace Cauldron.Interception.Fody
             if (!field.IsStatic)
                 instructions.Add(processor.Create(OpCodes.Ldarg_0));
 
+            var fieldRef = field.CreateFieldReference();
+
             instructions.AddRange(SetupParameter(processor, OpCodes.Newobj, null, methodReference, parameters));
-            instructions.Add(processor.Create(field.IsStatic ? OpCodes.Stsfld : OpCodes.Stfld, field));
+            instructions.Add(processor.Create(field.IsStatic ? OpCodes.Stsfld : OpCodes.Stfld, fieldRef));
             return instructions;
         }
 
