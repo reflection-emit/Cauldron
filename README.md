@@ -1,17 +1,17 @@
 ![Cauldron Logo](https://raw.githubusercontent.com/reflection-emit/Cauldron/master/cauldron2.png)
 
 # Cauldron C# Toolkit
-Assembly | Description
--------- | -------------
-**Cauldron.Interception.Fody** | Fody add-in that provides method, property and field interception. It also provides weavers for Cauldron.Core and Cauldron.Activator.
-**Cauldron.Core** | Cauldron Core is the core toolkit assembly that the Cauldron Toolkit builds upon.
-**Cauldron.Activator** | The activator is a simple and extensible dependency injection framework. It is based on attributes and does not require any configuration files for configuration. It also supports using static methods as component constructor.
-**Cauldron.Consoles** | Cauldron.Consoles is a Cauldron.Core based parameter parser which supports grouping of parameters in execution groups. It is also supports localization and has a nice parameter table.
-**Cauldron.Cryptography** | Contains typical implementations for AES, RSA and RSA-AES encryptions. It also contains extensions that helps working with SecureString.
-**Cauldron.Localization** | A simple localization implementation that can work with different sources.
-**Cauldron.XAML** | A Simple MVVM framework based on Cauldron.Core.
-**Cauldron.XAML.Interactivity** | Behaviours and Action for Cauldron.XAML. (incomplete)
-**Cauldron.XAML.Validation** | Validation Framework for Cauldron.XAML.
+Assembly | Description   | NuGet
+-------- | ------------- | ----------------
+**Cauldron.Interception.Fody** | Fody add-in that provides method, property and field interception. It also provides weavers for Cauldron.Core and Cauldron.Activator. | [![NuGet](https://img.shields.io/nuget/v/Cauldron.Interception.Fody.svg)](https://www.nuget.org/packages/Cauldron.Interception.Fody/)
+**Cauldron.Core** | Cauldron Core is the core toolkit assembly that the Cauldron Toolkit builds upon. | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Core.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Core/)
+**Cauldron.Activator** | The activator is a simple and extensible dependency injection framework. It is based on attributes and does not require any configuration files for configuration. It also supports using static methods as component constructor. | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Activator.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Activator/)
+**Cauldron.Consoles** | Cauldron.Consoles is a Cauldron.Core based parameter parser which supports grouping of parameters in execution groups. It is also supports localization and has a nice parameter table. | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Consoles.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Consoles/)
+**Cauldron.Cryptography** | Contains typical implementations for AES, RSA and RSA-AES encryptions. It also contains extensions that helps working with SecureString. | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Cryptography.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Cryptography/)
+**Cauldron.Localization** | A simple localization implementation that can work with different sources. | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Localization.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Localization/)
+**Cauldron.XAML** | A Simple MVVM framework based on Cauldron.Core. | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.XAML.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.XAML/)
+**Cauldron.XAML.Interactivity** | Behaviours and Action for Cauldron.XAML. (incomplete) | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.XAML.Interactivity.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.XAML.Interactivity/)
+**Cauldron.XAML.Validation** | Validation Framework for Cauldron.XAML. | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.XAML.Validation.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.XAML.Validation/)
 
 ## Documentation
 ### Wiki
