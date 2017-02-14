@@ -38,9 +38,9 @@ namespace Cauldron.Interception.Test.Interceptors
                 return true;
             }
 
-            if (propertyInterceptionInfo.PropertyType == typeof(long) && Convert.ToInt64(newValue) == 66)
+            if (propertyInterceptionInfo.PropertyType == typeof(long) && Convert.ToInt64(newValue) == 66L)
             {
-                propertyInterceptionInfo.SetValue(99);
+                propertyInterceptionInfo.SetValue(99L);
                 return true;
             }
 

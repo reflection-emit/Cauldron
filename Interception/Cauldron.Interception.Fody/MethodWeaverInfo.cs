@@ -16,15 +16,16 @@ namespace Cauldron.Interception.Fody
             if (index + 1 == uint.MaxValue)
                 index = 0;
 
-            this.Id = (index++).ToString();
             this.MethodDefinition = method;
+            this.Id = (index++).ToString();
+            this.MethodReference = method.CreateMethodReference();
             this.OriginalBody = method.Body.Instructions.ToList();
             this.Processor = method.Body.GetILProcessor();
             this.LastReturn = this.Processor.Create(OpCodes.Ret);
             this.Property = method.GetPropertyDefinition();
 
             var operand = this.OriginalBody.FirstOrDefault(x => x.OpCode == OpCodes.Ldfld || x.OpCode == OpCodes.Ldsfld || x.OpCode == OpCodes.Stfld || x.OpCode == OpCodes.Stsfld)?.Operand;
-            this.AutoPropertyBackingField = operand is FieldDefinition ? operand as FieldDefinition : operand as FieldReference;
+            this.AutoPropertyBackingField = (operand is FieldDefinition ? operand as FieldDefinition : operand as FieldReference)?.CreateFieldReference();
             this.IsGenericType = (this.AutoPropertyBackingField == null ? method.ReturnType : this.AutoPropertyBackingField.FieldType).IsGenericParameter;
 
             var fieldAttribute = FieldAttributes.Private;
@@ -36,29 +37,20 @@ namespace Cauldron.Interception.Fody
         }
 
         public FieldReference AutoPropertyBackingField { get; private set; }
-
+        public TypeReference DeclaringType { get { return this.MethodReference.DeclaringType; } }
         public List<Instruction> ExceptionInstructions { get; private set; } = new List<Instruction>();
-
         public List<Instruction> FinallyInstructions { get; private set; } = new List<Instruction>();
-
         public string Id { get; private set; }
-
         public List<Instruction> Initializations { get; private set; } = new List<Instruction>();
-
         public bool IsGenericType { get; private set; }
-
+        public bool IsStatic { get { return this.MethodDefinition.IsStatic; } }
         public Instruction LastReturn { get; private set; }
-
         public FieldDefinition MethodBaseField { get; private set; }
-
         public MethodDefinition MethodDefinition { get; private set; }
-
+        public MethodReference MethodReference { get; private set; }
         public List<Instruction> OnEnterInstructions { get; private set; } = new List<Instruction>();
-
         public List<Instruction> OriginalBody { get; set; }
-
         public ILProcessor Processor { get; private set; }
-
         public PropertyDefinition Property { get; private set; }
 
         public void Build()
@@ -80,12 +72,12 @@ namespace Cauldron.Interception.Fody
             if (this.Property != null)
                 fieldName = $"<{this.Property.Name}>k_{fieldType.Name.ToLower()}";
             else
-                fieldName = $"<{this.MethodDefinition.Name}>k_{fieldType.Name.ToLower()}{this.Id}";
+                fieldName = $"<{this.MethodReference.Name}>k_{fieldType.Name.ToLower()}{this.Id}";
 
             return this.MethodDefinition.DeclaringType.Fields.FirstOrDefault(x => x.Name == fieldName);
         }
 
-        public MethodDefinition GetMethod(string name, params ParameterDefinition[] parameters) => this.GetMethod(name, this.MethodDefinition.Module.TypeSystem.Void, parameters);
+        public MethodDefinition GetMethod(string name, params ParameterDefinition[] parameters) => this.GetMethod(name, this.MethodReference.Module.TypeSystem.Void, parameters);
 
         public MethodDefinition GetMethod(string name, TypeReference returnType, params ParameterDefinition[] parameters)
         {
@@ -94,7 +86,7 @@ namespace Cauldron.Interception.Fody
             if (this.Property != null)
                 methodName = $"<{this.Property.Name}>m_{name.ToLower()}";
             else
-                methodName = $"<{this.MethodDefinition.Name}>m_{name.ToLower()}{this.Id}";
+                methodName = $"<{this.MethodReference.Name}>m_{name.ToLower()}{this.Id}";
 
             return this.MethodDefinition.DeclaringType.Methods.FirstOrDefault(x => x.Name == methodName && x.ReturnType.FullName == returnType.FullName &&
                 x.Parameters.Select(y => y.ParameterType.FullName).SequenceEqual(parameters.Select(y => y.ParameterType.FullName)));
@@ -114,11 +106,11 @@ namespace Cauldron.Interception.Fody
             if (this.Property != null)
                 fieldName = $"<{this.Property.Name}>k_{fieldType.Name.ToLower()}";
             else
-                fieldName = $"<{this.MethodDefinition.Name}>k_{fieldType.Name.ToLower()}{this.Id}";
+                fieldName = $"<{this.MethodReference.Name}>k_{fieldType.Name.ToLower()}{this.Id}";
 
             var attributes = FieldAttributes.Private;
 
-            if (this.MethodDefinition.IsStatic)
+            if (this.IsStatic)
                 attributes |= FieldAttributes.Static;
 
             field = new FieldDefinition(fieldName, attributes, fieldType.Import());
@@ -129,7 +121,7 @@ namespace Cauldron.Interception.Fody
             return field;
         }
 
-        public MethodDefinition GetOrCreateMethod(string name, params ParameterDefinition[] parameters) => this.GetOrCreateMethod(name, this.MethodDefinition.Module.TypeSystem.Void, parameters);
+        public MethodDefinition GetOrCreateMethod(string name, params ParameterDefinition[] parameters) => this.GetOrCreateMethod(name, this.MethodReference.Module.TypeSystem.Void, parameters);
 
         public MethodDefinition GetOrCreateMethod(string name, TypeReference returnType, params ParameterDefinition[] parameters)
         {
@@ -143,11 +135,11 @@ namespace Cauldron.Interception.Fody
             if (this.Property != null)
                 methodName = $"<{this.Property.Name}>m_{name.ToLower()}";
             else
-                methodName = $"<{this.MethodDefinition.Name}>m_{name.ToLower()}{this.Id}";
+                methodName = $"<{this.MethodReference.Name}>m_{name.ToLower()}{this.Id}";
 
             var attributes = MethodAttributes.Private;
 
-            if (this.MethodDefinition.IsStatic)
+            if (this.IsStatic)
                 attributes |= MethodAttributes.Static;
 
             method = new MethodDefinition(methodName, attributes, returnType);

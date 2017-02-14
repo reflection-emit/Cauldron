@@ -104,41 +104,14 @@ namespace Cauldron.Interception.Fody
 
             methodWeaverInfo.Processor.Body.Variables.Add(parametersArrayVariable);
 
-            methodWeaverInfo.Initializations.Add(methodWeaverInfo.Processor.Create(OpCodes.Ldc_I4, methodWeaverInfo.MethodDefinition.Parameters.Count));
+            methodWeaverInfo.Initializations.Add(methodWeaverInfo.Processor.Create(OpCodes.Ldc_I4, methodWeaverInfo.MethodReference.Parameters.Count));
             methodWeaverInfo.Initializations.Add(methodWeaverInfo.Processor.Create(OpCodes.Newarr, objectReference));
             methodWeaverInfo.Initializations.Add(methodWeaverInfo.Processor.Create(OpCodes.Stloc, parametersArrayVariable));
 
-            foreach (var parameter in methodWeaverInfo.MethodDefinition.Parameters)
+            foreach (var parameter in methodWeaverInfo.MethodReference.Parameters)
                 methodWeaverInfo.Initializations.AddRange(IlHelper.ProcessParam(parameter, parametersArrayVariable));
 
             return parametersArrayVariable;
-        }
-
-        protected IEnumerable<MethodReference> GetConstructors(TypeDefinition type)
-        {
-            var result = new List<MethodReference>();
-
-            foreach (var constructor in type.Methods.Where(x => x.Name == ".ctor"))
-            {
-                foreach (var instruction in constructor.Body.Instructions.Where(x => x.OpCode == OpCodes.Call))
-                {
-                    var methodReference = instruction.Operand as MethodReference;
-
-                    if (methodReference == null)
-                        continue;
-
-                    if (type.BaseType.FullName != methodReference.DeclaringType.FullName && !methodReference.FullName.Contains(".ctor"))
-                        continue;
-
-                    if (methodReference.DeclaringType.FullName != type.FullName)
-                    {
-                        result.Add(constructor);
-                        break;
-                    }
-                }
-            }
-
-            return result;
         }
 
         protected IEnumerable<MethodAndInstruction> GetMethodsWhere(TypeDefinition type, Func<Instruction, bool> predicate)
@@ -166,27 +139,11 @@ namespace Cauldron.Interception.Fody
                 .ToList();
         }
 
-        protected MethodDefinition GetOrCreateStaticConstructor(TypeDefinition type)
+        protected void ImplementFieldSetterDelegate(MethodReference method, FieldReference field, bool isStatic)
         {
-            var cctor = type.GetStaticConstructor();
-
-            if (cctor != null)
-                return cctor;
-
-            var method = new MethodDefinition(".cctor", MethodAttributes.Static | MethodAttributes.Private | MethodAttributes.HideBySig | MethodAttributes.SpecialName | MethodAttributes.RTSpecialName, this.ModuleDefinition.TypeSystem.Void);
-
-            var processor = method.Body.GetILProcessor();
-            processor.Append(processor.Create(OpCodes.Ret));
-
-            type.Methods.Add(method);
-
-            return method;
-        }
-
-        protected void ImplementFieldSetterDelegate(MethodDefinition method, FieldReference field, bool isStatic)
-        {
-            var processor = method.Body.GetILProcessor();
-            method.Body.Instructions.Clear();
+            var methodDefinition = method.Resolve();
+            var processor = methodDefinition.Body.GetILProcessor();
+            methodDefinition.Body.Instructions.Clear();
             var returnOpCode = processor.Create(OpCodes.Ret);
 
             if (field.FieldType.Resolve() == null) /* This happens if the field type is a generic */
@@ -263,7 +220,7 @@ namespace Cauldron.Interception.Fody
                 var getMethodFromHandleRef = typeof(System.Reflection.MethodBase).GetMethodReference("GetMethodFromHandle", 2).Import();
 
                 var methodBaseVariableEndIf = methodWeavingInfo.Processor.Create(OpCodes.Nop);
-                if (!methodWeavingInfo.MethodDefinition.IsStatic)
+                if (!methodWeavingInfo.IsStatic)
                 {
                     methodWeavingInfo.Initializations.Add(methodWeavingInfo.Processor.Create(OpCodes.Ldarg_0));
                     methodWeavingInfo.Initializations.Add(methodWeavingInfo.Processor.Create(OpCodes.Ldfld, methodWeavingInfo.MethodBaseField));
@@ -275,19 +232,19 @@ namespace Cauldron.Interception.Fody
                 methodWeavingInfo.Initializations.Add(methodWeavingInfo.Processor.Create(OpCodes.Ceq));
                 methodWeavingInfo.Initializations.Add(methodWeavingInfo.Processor.Create(OpCodes.Brfalse_S, methodBaseVariableEndIf));
 
-                if (!methodWeavingInfo.MethodDefinition.IsStatic)
+                if (!methodWeavingInfo.IsStatic)
                     methodWeavingInfo.Initializations.Add(methodWeavingInfo.Processor.Create(OpCodes.Ldarg_0));
-                methodWeavingInfo.Initializations.Add(methodWeavingInfo.Processor.Create(OpCodes.Ldtoken, method));
-                methodWeavingInfo.Initializations.Add(methodWeavingInfo.Processor.Create(OpCodes.Ldtoken, method.DeclaringType));
+                methodWeavingInfo.Initializations.Add(methodWeavingInfo.Processor.Create(OpCodes.Ldtoken, methodWeavingInfo.MethodReference));
+                methodWeavingInfo.Initializations.Add(methodWeavingInfo.Processor.Create(OpCodes.Ldtoken, methodWeavingInfo.DeclaringType));
                 methodWeavingInfo.Initializations.Add(methodWeavingInfo.Processor.Create(OpCodes.Call, getMethodFromHandleRef));
-                methodWeavingInfo.Initializations.Add(methodWeavingInfo.Processor.Create(method.IsStatic ? OpCodes.Stsfld : OpCodes.Stfld, methodWeavingInfo.MethodBaseField));
+                methodWeavingInfo.Initializations.Add(methodWeavingInfo.Processor.Create(methodWeavingInfo.IsStatic ? OpCodes.Stsfld : OpCodes.Stfld, methodWeavingInfo.MethodBaseField));
                 methodWeavingInfo.Initializations.Add(methodBaseVariableEndIf);
             }
 
             this.OnImplementMethod(methodWeavingInfo);
 
             // Create object array for the method args
-            var objectReference = this.ModuleDefinition.Import(typeof(object).GetTypeReference());
+            var objectReference = typeof(object).GetTypeReference().Import();
             var parametersArrayTypeRef = new ArrayType(objectReference);
             var parametersArrayVariable = CreateParameterObject(methodWeavingInfo, objectReference, parametersArrayTypeRef);
 
@@ -299,10 +256,10 @@ namespace Cauldron.Interception.Fody
             foreach (var attribute in attributes)
             {
                 var isLockable = attribute.AttributeType.Resolve().Interfaces.Any(x => x.Name.StartsWith("ILockable"));
-                var methodInterceptorTypeRef = this.ModuleDefinition.Import(attribute.AttributeType);
-                var interceptorOnEnter = this.ModuleDefinition.Import(onEnterMethod(methodInterceptorTypeRef, isLockable));
-                var interceptorOnException = this.ModuleDefinition.Import(methodInterceptorTypeRef.GetMethodReference("OnException", 1));
-                var interceptorOnExit = this.ModuleDefinition.Import(methodInterceptorTypeRef.GetMethodReference("OnExit", 0));
+                var methodInterceptorTypeRef = attribute.AttributeType.Import();
+                var interceptorOnEnter = onEnterMethod(methodInterceptorTypeRef, isLockable).Import();
+                var interceptorOnException = methodInterceptorTypeRef.GetMethodReference("OnException", 1).Import();
+                var interceptorOnExit = methodInterceptorTypeRef.GetMethodReference("OnExit", 0).Import();
 
                 var variableDefinition = new VariableDefinition(methodInterceptorTypeRef);
                 methodWeavingInfo.Processor.Body.Variables.Add(variableDefinition);
@@ -401,7 +358,7 @@ namespace Cauldron.Interception.Fody
         {
             var instructionsSet = methodWeaverInfo.OriginalBody.ToList();
 
-            if (methodWeaverInfo.MethodDefinition.ReturnType == this.ModuleDefinition.TypeSystem.Void)
+            if (methodWeaverInfo.MethodReference.ReturnType == this.ModuleDefinition.TypeSystem.Void)
             {
                 for (int i = 0; i < instructionsSet.Count; i++)
                 {
@@ -418,7 +375,7 @@ namespace Cauldron.Interception.Fody
             }
             else
             {
-                var returnVariable = new VariableDefinition("__var_" + methodWeaverInfo.Id, this.ModuleDefinition.Import(methodWeaverInfo.MethodDefinition.ReturnType));
+                var returnVariable = new VariableDefinition("__var_" + methodWeaverInfo.Id, this.ModuleDefinition.Import(methodWeaverInfo.MethodReference.ReturnType));
                 methodWeaverInfo.Processor.Body.Variables.Add(returnVariable);
                 var loadReturnVariable = methodWeaverInfo.Processor.Create(OpCodes.Ldloc_S, returnVariable);
 

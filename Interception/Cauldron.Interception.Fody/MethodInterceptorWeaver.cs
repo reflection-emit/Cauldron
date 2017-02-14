@@ -34,73 +34,29 @@ namespace Cauldron.Interception.Fody
 
         protected override void ImplementLockableOnEnter(MethodWeaverInfo methodWeaverInfo, VariableDefinition attributeVariable, MethodReference interceptorOnEnter, VariableDefinition parametersArrayVariable, FieldDefinition semaphoreSlim)
         {
-            // Implement fields
-            if (methodWeaverInfo.MethodDefinition.IsStatic)
+            methodWeaverInfo.DeclaringType.InsertToCtorOrCctor(methodWeaverInfo.IsStatic, (processor, instructions) =>
             {
-                var cctor = this.GetOrCreateStaticConstructor(methodWeaverInfo.MethodDefinition.DeclaringType);
+                instructions.AddRange(processor.Newobj(semaphoreSlim, this.ModuleDefinition.Import(typeof(SemaphoreSlim).GetMethodReference(".ctor", new Type[] { typeof(int), typeof(int) })), new object[] { 1, 1 }));
+                return InsertionPosition.InsertBeforeBaseCall;
+            });
 
-                var body = cctor.Body;
-                var ctorProcessor = body.GetILProcessor();
-                var first = body.Instructions.FirstOrDefault();
-
-                ctorProcessor.InsertBefore(first, ctorProcessor.Create(OpCodes.Ldc_I4_1));
-                ctorProcessor.InsertBefore(first, ctorProcessor.Create(OpCodes.Ldc_I4_1));
-                ctorProcessor.InsertBefore(first, ctorProcessor.Create(OpCodes.Newobj, this.ModuleDefinition.Import(typeof(SemaphoreSlim).GetMethodReference(".ctor", new Type[] { typeof(int), typeof(int) }))));
-                ctorProcessor.InsertBefore(first, ctorProcessor.Create(OpCodes.Stsfld, semaphoreSlim));
-            }
-            else
-            {
-                foreach (var constructor in this.GetConstructors(methodWeaverInfo.MethodDefinition.DeclaringType))
-                {
-                    var body = constructor.Resolve().Body;
-                    var ctorProcessor = body.GetILProcessor();
-                    var first = body.Instructions.First();
-
-                    ctorProcessor.InsertBefore(first, ctorProcessor.Create(OpCodes.Ldarg_0));
-                    ctorProcessor.InsertBefore(first, ctorProcessor.Create(OpCodes.Ldc_I4_1));
-                    ctorProcessor.InsertBefore(first, ctorProcessor.Create(OpCodes.Ldc_I4_1));
-                    ctorProcessor.InsertBefore(first, ctorProcessor.Create(OpCodes.Newobj, this.ModuleDefinition.Import(typeof(SemaphoreSlim).GetMethodReference(".ctor", new Type[] { typeof(int), typeof(int) }))));
-                    ctorProcessor.InsertBefore(first, ctorProcessor.Create(OpCodes.Stfld, semaphoreSlim));
-                }
-            }
-
-            methodWeaverInfo.OnEnterInstructions.Add(methodWeaverInfo.Processor.Create(OpCodes.Ldloc_S, attributeVariable));
-            if (!methodWeaverInfo.MethodDefinition.IsStatic)
-            {
-                methodWeaverInfo.OnEnterInstructions.Add(methodWeaverInfo.Processor.Create(OpCodes.Ldarg_0));
-                methodWeaverInfo.OnEnterInstructions.Add(methodWeaverInfo.Processor.Create(OpCodes.Ldfld, semaphoreSlim));
-            }
-            else
-                methodWeaverInfo.OnEnterInstructions.Add(methodWeaverInfo.Processor.Create(OpCodes.Ldsfld, semaphoreSlim));
-
-            methodWeaverInfo.OnEnterInstructions.AddRange(methodWeaverInfo.Processor.TypeOf(methodWeaverInfo.MethodDefinition.DeclaringType));
-            methodWeaverInfo.OnEnterInstructions.Add(methodWeaverInfo.Processor.Create(methodWeaverInfo.MethodDefinition.IsStatic ? OpCodes.Ldnull : OpCodes.Ldarg_0));
-            if (!methodWeaverInfo.MethodDefinition.IsStatic)
-            {
-                methodWeaverInfo.OnEnterInstructions.Add(methodWeaverInfo.Processor.Create(OpCodes.Ldarg_0));
-                methodWeaverInfo.OnEnterInstructions.Add(methodWeaverInfo.Processor.Create(OpCodes.Ldfld, methodWeaverInfo.MethodBaseField));
-            }
-            else
-                methodWeaverInfo.OnEnterInstructions.Add(methodWeaverInfo.Processor.Create(OpCodes.Ldsfld, methodWeaverInfo.MethodBaseField));
-
-            methodWeaverInfo.OnEnterInstructions.Add(methodWeaverInfo.Processor.Create(OpCodes.Ldloc_S, parametersArrayVariable));
-            methodWeaverInfo.OnEnterInstructions.Add(methodWeaverInfo.Processor.Create(OpCodes.Callvirt, interceptorOnEnter));
+            methodWeaverInfo.OnEnterInstructions.AddRange(methodWeaverInfo.Processor.Callvirt(attributeVariable, interceptorOnEnter, new object[] {
+                    semaphoreSlim,
+                    methodWeaverInfo.Processor.TypeOf(methodWeaverInfo.DeclaringType),
+                    new This(),
+                    methodWeaverInfo.MethodBaseField,
+                    parametersArrayVariable
+                }));
         }
 
         protected override void ImplementOnEnter(MethodWeaverInfo methodWeaverInfo, VariableDefinition attributeVariable, MethodReference interceptorOnEnter, VariableDefinition parametersArrayVariable)
         {
-            methodWeaverInfo.OnEnterInstructions.Add(methodWeaverInfo.Processor.Create(OpCodes.Ldloc_S, attributeVariable));
-            methodWeaverInfo.OnEnterInstructions.AddRange(methodWeaverInfo.Processor.TypeOf(methodWeaverInfo.MethodDefinition.DeclaringType));
-            methodWeaverInfo.OnEnterInstructions.Add(methodWeaverInfo.Processor.Create(methodWeaverInfo.MethodDefinition.IsStatic ? OpCodes.Ldnull : OpCodes.Ldarg_0));
-            if (!methodWeaverInfo.MethodDefinition.IsStatic)
-            {
-                methodWeaverInfo.OnEnterInstructions.Add(methodWeaverInfo.Processor.Create(OpCodes.Ldarg_0));
-                methodWeaverInfo.OnEnterInstructions.Add(methodWeaverInfo.Processor.Create(OpCodes.Ldfld, methodWeaverInfo.MethodBaseField));
-            }
-            else
-                methodWeaverInfo.OnEnterInstructions.Add(methodWeaverInfo.Processor.Create(OpCodes.Ldsfld, methodWeaverInfo.MethodBaseField));
-            methodWeaverInfo.OnEnterInstructions.Add(methodWeaverInfo.Processor.Create(OpCodes.Ldloc_S, parametersArrayVariable));
-            methodWeaverInfo.OnEnterInstructions.Add(methodWeaverInfo.Processor.Create(OpCodes.Callvirt, interceptorOnEnter));
+            methodWeaverInfo.OnEnterInstructions.AddRange(methodWeaverInfo.Processor.Callvirt(attributeVariable, interceptorOnEnter, new object[] {
+                    methodWeaverInfo.Processor.TypeOf(methodWeaverInfo.DeclaringType),
+                    new This(),
+                    methodWeaverInfo.MethodBaseField,
+                    parametersArrayVariable
+                }));
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Cauldron.Interception.Test.Interceptors;
+using System;
 
 #if WINDOWS_UWP
 
@@ -7,7 +8,6 @@ using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 #else
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 
 #endif
 
@@ -18,6 +18,25 @@ using System.Reflection;
 
 namespace Cauldron.Interception.Test
 {
+    public class ClassWithNestedType
+    {
+        [TestPropertyInterceptor]
+        private long afield;
+
+        public long AField { get { return afield; } }
+
+        public class NestedTypeAccessingPrivateField
+        {
+            private ClassWithNestedType parent;
+
+            public NestedTypeAccessingPrivateField(ClassWithNestedType parent)
+            {
+                this.parent = parent;
+                this.parent.afield = 66;
+            }
+        }
+    }
+
     [TestClass]
     public class Field_Interception_Code_Validation_Tests
     {
@@ -29,6 +48,24 @@ namespace Cauldron.Interception.Test
 
         [TestPropertyInterceptor]
         private int? nullableValueType;
+
+        [TestMethod]
+        public void Generic_Type_With_Field()
+        {
+            var generic = new GenericTypeWithField<long>();
+
+            generic.FieldTwo = 66;
+            Assert.AreEqual(99, generic.FieldTwo);
+        }
+
+        [TestMethod]
+        public void Generic_Type_With_Generic_Field()
+        {
+            var generic = new GenericTypeWithGenericField<long>();
+
+            generic.FieldTwo = 66L;
+            Assert.AreEqual(99L, generic.FieldTwo);
+        }
 
         [TestMethod]
         public void Instance_Method_Field_Interception()
@@ -51,16 +88,6 @@ namespace Cauldron.Interception.Test
         }
 
         [TestMethod]
-        public void Static_Method_Field_Interception()
-        {
-            fieldTwo = 4.6;
-            Assert.AreEqual(4.6, fieldTwo);
-
-            fieldTwo = 66;
-            Assert.AreEqual(78344.796875, fieldTwo);
-        }
-
-        [TestMethod]
         public void Private_Field_Accessed_By_Nested_Type()
         {
             var parent = new ClassWithNestedType();
@@ -69,72 +96,38 @@ namespace Cauldron.Interception.Test
             Assert.AreEqual(66, parent.AField);
         }
 
-        //[TestMethod]
-        //public void Generic_Type_With_Generic_Field()
-        //{
-        //    var generic = new GenericTypeWithGenericField<long>();
-
-        //    generic.FieldTwo = 66;
-        //    Assert.AreEqual(99, generic.FieldTwo);
-        //}
-
         [TestMethod]
-        public void Generic_Type_With_Field()
+        public void Static_Method_Field_Interception()
         {
-            var generic = new GenericTypeWithField<long>();
+            fieldTwo = 4.6;
+            Assert.AreEqual(4.6, fieldTwo);
 
-            generic.FieldTwo = 66;
-            Assert.AreEqual(99, generic.FieldTwo);
+            fieldTwo = 66;
+            Assert.AreEqual(78344.796875, fieldTwo);
         }
     }
-
-    //public class GenericTypeWithGenericField<T>
-    //{
-    //    [TestPropertyInterceptor]
-    //    private T fieldTwo;
-
-    //    public T FieldTwo
-    //    {
-    //        get { return fieldTwo; }
-    //        set { fieldTwo = value; }
-    //    }
-    //}
 
     public class GenericTypeWithField<T>
     {
         [TestPropertyInterceptor]
         private long fieldTwo;
 
-        private int secondField;
-
         public long FieldTwo
         {
             get { return fieldTwo; }
             set { fieldTwo = value; }
         }
-
-        private void bla(object value)
-        {
-            this.secondField = Convert.ToInt32(value);
-        }
     }
 
-    public class ClassWithNestedType
+    public class GenericTypeWithGenericField<T>
     {
         [TestPropertyInterceptor]
-        private long afield;
+        private T fieldTwo;
 
-        public class NestedTypeAccessingPrivateField
+        public T FieldTwo
         {
-            private ClassWithNestedType parent;
-
-            public NestedTypeAccessingPrivateField(ClassWithNestedType parent)
-            {
-                this.parent = parent;
-                this.parent.afield = 66;
-            }
+            get { return fieldTwo; }
+            set { fieldTwo = value; }
         }
-
-        public long AField { get { return afield; } }
     }
 }

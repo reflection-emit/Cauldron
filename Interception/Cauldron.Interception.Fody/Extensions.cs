@@ -61,6 +61,12 @@ namespace Cauldron.Interception.Fody
                 processor.Append(instruction);
         }
 
+        public static IEnumerable<Instruction> Call(this ILProcessor processor, object instance, MethodReference methodReference, params object[] parameters) =>
+            SetupParameter(processor, OpCodes.Call, instance, methodReference, parameters);
+
+        public static IEnumerable<Instruction> Callvirt(this ILProcessor processor, object instance, MethodReference methodReference, params object[] parameters) =>
+            SetupParameter(processor, OpCodes.Callvirt, instance, methodReference, parameters);
+
         /// <summary>
         /// Gets the number of elements contained in the <see cref="IEnumerable"/>
         /// </summary>
@@ -91,6 +97,21 @@ namespace Cauldron.Interception.Fody
         }
 
         public static FieldReference CreateFieldReference(this FieldDefinition field)
+        {
+            if (field.DeclaringType.HasGenericParameters)
+            {
+                var declaringType = new GenericInstanceType(field.DeclaringType);
+
+                foreach (var parameter in field.DeclaringType.GenericParameters)
+                    declaringType.GenericArguments.Add(parameter);
+
+                return new FieldReference(field.Name, field.FieldType, declaringType);
+            }
+
+            return field;
+        }
+
+        public static FieldReference CreateFieldReference(this FieldReference field)
         {
             if (field.DeclaringType.HasGenericParameters)
             {
@@ -412,6 +433,21 @@ namespace Cauldron.Interception.Fody
         public static bool HasMethod(this TypeReference typeReference, string methodName, int parameterCount) =>
             typeReference.GetMethodReferences(methodName, parameterCount).Any();
 
+        public static IEnumerable<Instruction> If(this ILProcessor processor, Action<List<Instruction>> action, Instruction exit)
+        {
+            var instructions = new List<Instruction>();
+            action(instructions);
+
+            var endif = processor.Create(OpCodes.Nop);
+            instructions.Add(processor.Create(OpCodes.Ldc_I4_1));
+            instructions.Add(processor.Create(OpCodes.Pop));
+            instructions.Add(processor.Create(OpCodes.Brfalse_S, endif));
+            instructions.Add(processor.Create(OpCodes.Leave_S, exit));
+            instructions.Add(endif);
+
+            return instructions;
+        }
+
         public static bool ImplementsInterface(this TypeDefinition type, Type interfaceType) =>
             type.GetInterfaces().Any(x => x.FullName == interfaceType.FullName);
 
@@ -443,6 +479,30 @@ namespace Cauldron.Interception.Fody
         {
             foreach (var instruction in instructions)
                 processor.InsertBefore(target, instruction);
+        }
+
+        public static void InsertToCtorOrCctor(this TypeReference typeReference, bool isStatic, Func<ILProcessor, List<Instruction>, InsertionPosition> action)
+        {
+            var list = new List<Instruction>();
+            var insertAction = new Action<MethodReference>(ctor =>
+            {
+                var body = ctor.Resolve().Body;
+                var ctorProcessor = body.GetILProcessor();
+                var first = body.Instructions.FirstOrDefault(x => x.OpCode == OpCodes.Call && (x.Operand as MethodReference).Name == ".ctor") ?? body.Instructions.FirstOrDefault();
+
+                if (action(ctorProcessor, list) == InsertionPosition.InsertAfterBaseCall)
+                    ctorProcessor.InsertAfter(first, list);
+                else
+                    ctorProcessor.InsertBefore(first, list);
+            });
+
+            if (isStatic)
+                insertAction(GetOrCreateStaticConstructor(typeReference));
+            else
+            {
+                foreach (var constructor in GetConstructors(typeReference))
+                    insertAction(constructor);
+            }
         }
 
         public static bool IsAttribute(this TypeDefinition typeDefinition)
@@ -515,6 +575,38 @@ namespace Cauldron.Interception.Fody
             return reference;
         }
 
+        public static IEnumerable<Instruction> MethodOf(this ILProcessor processor, MethodDefinition method)
+        {
+            var methodRef = method.CreateMethodReference();
+            return new Instruction[] {
+                processor.Create(OpCodes.Ldtoken, methodRef),
+                processor.Create(OpCodes.Ldtoken, methodRef.DeclaringType),
+                processor.Create(OpCodes.Call, typeof(System.Reflection.MethodBase).GetMethodReference("GetMethodFromHandle", 2).Import())
+            };
+        }
+
+        public static IEnumerable<Instruction> Newobj(this ILProcessor processor, FieldDefinition field, MethodReference methodReference, params object[] parameters)
+        {
+            var instructions = new List<Instruction>();
+            if (!field.IsStatic)
+                instructions.Add(processor.Create(OpCodes.Ldarg_0));
+
+            instructions.AddRange(SetupParameter(processor, OpCodes.Newobj, null, methodReference, parameters));
+            instructions.Add(processor.Create(field.IsStatic ? OpCodes.Stsfld : OpCodes.Stfld, field));
+            return instructions;
+        }
+
+        public static IEnumerable<Instruction> Newobj(this ILProcessor processor, VariableDefinition local, MethodReference methodReference, params object[] parameters)
+        {
+            var instructions = new List<Instruction>();
+            instructions.AddRange(SetupParameter(processor, OpCodes.Newobj, null, methodReference, parameters));
+            instructions.Add(processor.Create(OpCodes.Ldloca_S, local));
+            return instructions;
+        }
+
+        public static IEnumerable<Instruction> Newobj(this ILProcessor processor, MethodReference methodReference, params object[] parameters) =>
+            SetupParameter(processor, OpCodes.Newobj, null, methodReference, parameters);
+
         /// <summary>
         /// Converts a <see cref="IEnumerable"/> to an array
         /// </summary>
@@ -544,8 +636,31 @@ namespace Cauldron.Interception.Fody
         {
             return new Instruction[] {
                 processor.Create(OpCodes.Ldtoken, type),
-                processor.Create(OpCodes.Call, moduleDefinition.Import(typeof(Type).GetMethodReference("GetTypeFromHandle", 1)))
+                processor.Create(OpCodes.Call, typeof(Type).GetMethodReference("GetTypeFromHandle", 1).Import())
             };
+        }
+
+        private static VariableDefinition AddVariableDefinitionToInstruction(ILProcessor processor, List<Instruction> instructions, MethodDefinition methodDef, object p)
+        {
+            var value = p as VariableDefinition;
+            var variableDef = methodDef.Body.Variables.FirstOrDefault(x => x == p);
+            var index = int.MaxValue;
+
+            if (variableDef == null)
+                index = methodDef.Body.Variables.IndexOf(variableDef);
+
+            switch (index)
+            {
+                case 0: instructions.Add(processor.Create(OpCodes.Ldloc_0)); break;
+                case 1: instructions.Add(processor.Create(OpCodes.Ldloc_1)); break;
+                case 2: instructions.Add(processor.Create(OpCodes.Ldloc_2)); break;
+                case 3: instructions.Add(processor.Create(OpCodes.Ldloc_3)); break;
+                default:
+                    instructions.Add(processor.Create(OpCodes.Ldloc_S, value));
+                    break;
+            }
+
+            return value;
         }
 
         private static void GetAllAssemblyDefinitions(IEnumerable<AssemblyNameReference> target, List<AssemblyDefinition> result)
@@ -572,6 +687,38 @@ namespace Cauldron.Interception.Fody
             }
         }
 
+        private static IEnumerable<MethodReference> GetConstructors(TypeReference type)
+        {
+            var resolvedType = type.Resolve();
+
+            if (resolvedType == null)
+                return new MethodReference[0];
+
+            var result = new List<MethodReference>();
+
+            foreach (var constructor in resolvedType.Methods.Where(x => x.Name == ".ctor"))
+            {
+                foreach (var instruction in constructor.Body.Instructions.Where(x => x.OpCode == OpCodes.Call))
+                {
+                    var methodReference = instruction.Operand as MethodReference;
+
+                    if (methodReference == null)
+                        continue;
+
+                    if (resolvedType.BaseType.FullName != methodReference.DeclaringType.FullName && !methodReference.FullName.Contains(".ctor"))
+                        continue;
+
+                    if (methodReference.DeclaringType.FullName != type.FullName)
+                    {
+                        result.Add(constructor);
+                        break;
+                    }
+                }
+            }
+
+            return result;
+        }
+
         private static IEnumerable<TypeReference> GetGenericInstances(this TypeReference type, string[] genericArgumentNames, TypeReference[] genericArgumentsOfCurrentType)
         {
             var resolvedBase = type.Resolve();
@@ -595,6 +742,174 @@ namespace Cauldron.Interception.Fody
             }
 
             return new TypeReference[0];
+        }
+
+        private static MethodDefinition GetOrCreateStaticConstructor(TypeReference type)
+        {
+            var resolvedType = type.Resolve();
+
+            if (resolvedType == null)
+                return null;
+
+            var cctor = resolvedType.GetStaticConstructor();
+
+            if (cctor != null)
+                return cctor;
+
+            var method = new MethodDefinition(".cctor", MethodAttributes.Static | MethodAttributes.Private | MethodAttributes.HideBySig | MethodAttributes.SpecialName | MethodAttributes.RTSpecialName, _moduleWeaver.ModuleDefinition.TypeSystem.Void);
+
+            var processor = method.Body.GetILProcessor();
+            processor.Append(processor.Create(OpCodes.Ret));
+
+            resolvedType.Methods.Add(method);
+
+            return method;
+        }
+
+        private static IEnumerable<Instruction> SetupParameter(ILProcessor processor, OpCode opCode, object instance, MethodReference methodReference, params object[] parameters)
+        {
+            // Extend this method if neccessary... Not all scenarios are handled here
+            var instructions = new List<Instruction>();
+            var methodDef = processor.Body.Method;
+            var isStatic = methodDef.IsStatic;
+
+            if (instance != null && instance.GetType() == typeof(VariableDefinition))
+                AddVariableDefinitionToInstruction(processor, instructions, methodDef, instance);
+
+            for (int i = 0; i < parameters.Length; i++)
+            {
+                var p = parameters[i];
+
+                if (p == null)
+                {
+                    instructions.Add(processor.Create(OpCodes.Ldnull));
+                    continue;
+                }
+
+                var type = p.GetType();
+                var targetType = methodReference.Parameters[i].ParameterType;
+                TypeReference paramType = null;
+
+                if (type == typeof(string))
+                {
+                    instructions.Add(processor.Create(OpCodes.Ldstr, p.ToString()));
+                    paramType = typeof(string).GetTypeReference();
+                }
+                else if (type == typeof(FieldDefinition))
+                {
+                    var value = p as FieldDefinition;
+
+                    if (!isStatic)
+                        instructions.Add(processor.Create(OpCodes.Ldarg_0));
+
+                    instructions.Add(processor.Create(isStatic ? OpCodes.Ldsfld : OpCodes.Ldfld, value.CreateFieldReference()));
+                    paramType = value.FieldType;
+                }
+                else if (type == typeof(FieldReference))
+                {
+                    var value = p as FieldReference;
+
+                    if (!isStatic)
+                        instructions.Add(processor.Create(OpCodes.Ldarg_0));
+
+                    instructions.Add(processor.Create(isStatic ? OpCodes.Ldsfld : OpCodes.Ldfld, value));
+                    paramType = value.FieldType;
+                }
+                else if (type == typeof(int))
+                {
+                    instructions.Add(processor.Create(OpCodes.Ldc_I4, (int)p));
+                    paramType = typeof(int).GetTypeReference();
+                }
+                else if (type == typeof(uint))
+                {
+                    instructions.Add(processor.Create(OpCodes.Ldc_I4, (int)(uint)p));
+                    paramType = typeof(uint).GetTypeReference();
+                }
+                else if (type == typeof(bool))
+                {
+                    instructions.Add(processor.Create(OpCodes.Ldc_I4, (bool)p ? 1 : 0));
+                    paramType = typeof(bool).GetTypeReference();
+                }
+                else if (type == typeof(char))
+                {
+                    instructions.Add(processor.Create(OpCodes.Ldc_I4, (char)p));
+                    paramType = typeof(char).GetTypeReference();
+                }
+                else if (type == typeof(short))
+                {
+                    instructions.Add(processor.Create(OpCodes.Ldc_I4, (short)p));
+                    paramType = typeof(short).GetTypeReference();
+                }
+                else if (type == typeof(ushort))
+                {
+                    instructions.Add(processor.Create(OpCodes.Ldc_I4, (ushort)p));
+                    paramType = typeof(ushort).GetTypeReference();
+                }
+                else if (type == typeof(byte))
+                {
+                    instructions.Add(processor.Create(OpCodes.Ldc_I4, (int)(byte)p));
+                    paramType = typeof(byte).GetTypeReference();
+                }
+                else if (type == typeof(sbyte))
+                {
+                    instructions.Add(processor.Create(OpCodes.Ldc_I4, (int)(sbyte)p));
+                    paramType = typeof(sbyte).GetTypeReference();
+                }
+                else if (type == typeof(long))
+                {
+                    instructions.Add(processor.Create(OpCodes.Ldc_I8, (long)p));
+                    paramType = typeof(long).GetTypeReference();
+                }
+                else if (type == typeof(ulong))
+                {
+                    instructions.Add(processor.Create(OpCodes.Ldc_I8, (long)(ulong)p));
+                    paramType = typeof(ulong).GetTypeReference();
+                }
+                else if (type == typeof(double))
+                {
+                    instructions.Add(processor.Create(OpCodes.Ldc_R8, (double)p));
+                    paramType = typeof(double).GetTypeReference();
+                }
+                else if (type == typeof(float))
+                {
+                    instructions.Add(processor.Create(OpCodes.Ldc_R4, (float)p));
+                    paramType = typeof(float).GetTypeReference();
+                }
+                else if (type == typeof(VariableDefinition))
+                {
+                    var value = AddVariableDefinitionToInstruction(processor, instructions, methodDef, p);
+                    paramType = value.VariableType;
+                }
+                else if (type == typeof(This))
+                {
+                    if (!isStatic)
+                        instructions.Add(processor.Create(OpCodes.Ldarg_0));
+                    else
+                        instructions.Add(processor.Create(OpCodes.Ldnull));
+
+                    paramType = methodDef.DeclaringType;
+                }
+                else if (type == typeof(ParameterDefinition))
+                {
+                    var value = p as ParameterDefinition;
+                    instructions.Add(processor.Create(OpCodes.Ldarg_S, value));
+                    paramType = value.ParameterType;
+                }
+                else if (p is IEnumerable<Instruction>)
+                {
+                    foreach (var item in p as IEnumerable<Instruction>)
+                        instructions.Add(item);
+                }
+
+                if (paramType != null && paramType.Resolve() == null)
+                    instructions.Add(processor.Create(OpCodes.Box, paramType));
+
+                if (paramType != null && paramType.IsValueType && !targetType.IsValueType)
+                    instructions.Add(processor.Create(OpCodes.Box, paramType));
+            }
+
+            instructions.Add(processor.Create(opCode, methodReference));
+            return instructions;
         }
     }
 }
