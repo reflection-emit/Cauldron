@@ -30,6 +30,7 @@ https://reflection-emit.github.io/Cauldron/eveonline/
 ### 1.0.7
 - Bug fix in Cauldron.Interception.Fody regarding nested classes and generic classes and methods
 - References of the Nuget packages updated
+
 ### 1.0.6
 - Inject attribute from Cauldron.Injection moved to Cauldron.Activator
   - InjectAttribute is now based on Cauldron.Interception
