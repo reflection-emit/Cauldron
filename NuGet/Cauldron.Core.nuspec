@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>Capgemini.Cauldron.Core</id>
-    <version>1.0.3</version>
+    <version>1.0.7</version>
     <title>Capgemini Cauldron Core</title>
     <authors>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</authors>
     <owners>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</owners>
@@ -17,7 +17,7 @@
     <dependencies>
       <group targetFramework="uap10.0">
         <dependency id="Microsoft.NETCore.UniversalWindowsPlatform" version="5.2.2" />
-        <dependency id="Cauldron.Interception.Fody" version="1.0.6" />
+        <dependency id="Cauldron.Interception.Fody" version="1.0.7" />
         <dependency id="Fody" version="1.29.4" />
       </group>
       <group targetFramework="netstandard1.6">
@@ -32,11 +32,11 @@
         <dependency id="System.Runtime.Serialization.Xml" version="4.3.0" />
         <dependency id="System.Xml.XPath" version="4.3.0" />
         <dependency id="System.Xml.XPath.XmlDocument" version="4.3.0" />
-        <dependency id="Cauldron.Interception.Fody" version="1.0.6" />
+        <dependency id="Cauldron.Interception.Fody" version="1.0.7" />
         <dependency id="Fody" version="1.29.4" />
       </group>
       <group targetFramework="net452">
-        <dependency id="Cauldron.Interception.Fody" version="1.0.6" />
+        <dependency id="Cauldron.Interception.Fody" version="1.0.7" />
         <dependency id="Fody" version="1.29.4" />
       </group>
     </dependencies>
