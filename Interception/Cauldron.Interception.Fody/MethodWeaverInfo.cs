@@ -1,5 +1,6 @@
 ﻿using Mono.Cecil;
 using Mono.Cecil.Cil;
+using Mono.Cecil.Rocks;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -16,15 +17,15 @@ namespace Cauldron.Interception.Fody
             if (index + 1 == uint.MaxValue)
                 index = 0;
 
+            method.Body.SimplifyMacros();
             this.MethodDefinition = method;
             this.Id = (index++).ToString();
             this.MethodReference = method.CreateMethodReference();
-            this.OriginalBody = method.Body.Instructions.ToList();
             this.Processor = method.Body.GetILProcessor();
             this.LastReturn = this.Processor.Create(OpCodes.Ret);
             this.Property = method.GetPropertyDefinition();
 
-            var operand = this.OriginalBody.FirstOrDefault(x => x.OpCode == OpCodes.Ldfld || x.OpCode == OpCodes.Ldsfld || x.OpCode == OpCodes.Stfld || x.OpCode == OpCodes.Stsfld)?.Operand;
+            var operand = this.MethodDefinition.Body.Instructions.FirstOrDefault(x => x.OpCode == OpCodes.Ldfld || x.OpCode == OpCodes.Ldsfld || x.OpCode == OpCodes.Stfld || x.OpCode == OpCodes.Stsfld)?.Operand;
             this.AutoPropertyBackingField = (operand is FieldDefinition ? operand as FieldDefinition : operand as FieldReference)?.CreateFieldReference();
             this.IsGenericType = (this.AutoPropertyBackingField == null ? method.ReturnType : this.AutoPropertyBackingField.FieldType).IsGenericParameter;
 
@@ -37,27 +38,49 @@ namespace Cauldron.Interception.Fody
         }
 
         public FieldReference AutoPropertyBackingField { get; private set; }
+
         public TypeReference DeclaringType { get { return this.MethodReference.DeclaringType; } }
+
         public List<Instruction> ExceptionInstructions { get; private set; } = new List<Instruction>();
+
         public List<Instruction> FinallyInstructions { get; private set; } = new List<Instruction>();
+
         public string Id { get; private set; }
+
         public List<Instruction> Initializations { get; private set; } = new List<Instruction>();
+
         public bool IsGenericType { get; private set; }
+
         public bool IsStatic { get { return this.MethodDefinition.IsStatic; } }
+
         public Instruction LastReturn { get; private set; }
+
         public FieldDefinition MethodBaseField { get; private set; }
+
         public MethodDefinition MethodDefinition { get; private set; }
+
         public MethodReference MethodReference { get; private set; }
+
         public List<Instruction> OnEnterInstructions { get; private set; } = new List<Instruction>();
-        public List<Instruction> OriginalBody { get; set; }
+
         public ILProcessor Processor { get; private set; }
+
         public PropertyDefinition Property { get; private set; }
 
         public void Build()
         {
-            this.Processor.Append(this.Initializations);
-            this.Processor.Append(this.OnEnterInstructions);
-            this.Processor.Append(this.OriginalBody);
+            // I think this is a bug in Cecil where reference are not correctly changed maybe the jump point is a fix address?
+            // Analyse the body and correct the references
+
+            // TODO - Do analysis here
+
+            var first = this.MethodDefinition.Body.Instructions.First();
+
+            this.Processor.InsertBefore(first, this.Initializations);
+            this.Processor.InsertBefore(first, this.OnEnterInstructions);
+
+            var last = this.MethodDefinition.Body.Instructions.Last();
+
             this.Processor.Append(this.ExceptionInstructions);
             this.Processor.Append(this.FinallyInstructions);
             this.Processor.Append(this.LastReturn);
