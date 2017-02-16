@@ -82,11 +82,11 @@ namespace Cauldron.Interception.Fody
                 foreach (var instruction in method.Instruction)
                 {
                     if (instruction.OpCode == OpCodes.Ldsfld || instruction.OpCode == OpCodes.Ldfld)
-                        processor.InsertBefore(instruction, processor.Create(OpCodes.Call, property.GetMethod.CreateMethodReference()));
+                        instruction.Operand = property.GetMethod.CreateMethodReference();
                     else if (instruction.OpCode == OpCodes.Stsfld || instruction.OpCode == OpCodes.Stfld)
-                        processor.InsertBefore(instruction, processor.Create(OpCodes.Call, property.SetMethod.CreateMethodReference()));
+                        instruction.Operand = property.SetMethod.CreateMethodReference();
 
-                    processor.Remove(instruction);
+                    instruction.OpCode = OpCodes.Call;
                 }
             }
 
@@ -96,16 +96,15 @@ namespace Cauldron.Interception.Fody
 
                 foreach (var instruction in method.Instruction)
                 {
-                    if (instruction.OpCode == OpCodes.Ldsfld)
-                        processor.InsertBefore(instruction, processor.Create(OpCodes.Ldsfld, fieldReference));
-                    if (instruction.OpCode == OpCodes.Ldfld)
-                        processor.InsertBefore(instruction, processor.Create(OpCodes.Ldfld, fieldReference));
+                    if (instruction.OpCode == OpCodes.Ldsfld || instruction.OpCode == OpCodes.Ldfld)
+                    {
+                        instruction.OpCode = OpCodes.Call;
+                        instruction.Operand = property.GetMethod.CreateMethodReference();
+                    }
                     else if (instruction.OpCode == OpCodes.Stsfld)
-                        processor.InsertBefore(instruction, processor.Create(OpCodes.Stsfld, fieldReference));
+                        instruction.Operand = fieldReference;
                     else if (instruction.OpCode == OpCodes.Stfld)
-                        processor.InsertBefore(instruction, processor.Create(OpCodes.Stfld, fieldReference));
-
-                    processor.Remove(instruction);
+                        instruction.Operand = fieldReference;
                 }
             }
         }
