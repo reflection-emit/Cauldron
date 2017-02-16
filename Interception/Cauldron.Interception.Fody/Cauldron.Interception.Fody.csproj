@@ -78,11 +78,19 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cauldron.Interception.Cecilator\Cauldron.Interception.Cecilator.csproj">
+      <Project>{1645bdc0-c886-4f5c-bf14-7927356efbd9}</Project>
+      <Name>Cauldron.Interception.Cecilator</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>mkdir $(SolutionDir)packages\Cauldron.Interception.Fody.99.9.9
 copy $(TargetDir)$(TargetFileName) $(SolutionDir)packages\Cauldron.Interception.Fody.99.9.9
-copy $(TargetDir)$(TargetName).pdb $(SolutionDir)packages\Cauldron.Interception.Fody.99.9.9</PostBuildEvent>
+copy $(TargetDir)$(TargetName).pdb $(SolutionDir)packages\Cauldron.Interception.Fody.99.9.9
+copy $(TargetDir)Cauldron.Interception.Cecilator.dll $(SolutionDir)packages\Cauldron.Interception.Fody.99.9.9
+copy $(TargetDir)Cauldron.Interception.Cecilator.pdb $(SolutionDir)packages\Cauldron.Interception.Fody.99.9.9</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
