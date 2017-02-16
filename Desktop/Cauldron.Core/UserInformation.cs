@@ -207,7 +207,7 @@ namespace Cauldron.Core
         /// <param name="other">The object to compare with the current object</param>
         /// <returns>True if equal; otherwise false</returns>
         public bool Equals(User other) =>
-            object.Equals(other, null) &&
+            !object.Equals(other, null) &&
             (
                 object.ReferenceEquals(this, other) ||
                 (
