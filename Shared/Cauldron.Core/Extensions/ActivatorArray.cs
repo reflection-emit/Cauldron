@@ -22,7 +22,7 @@ namespace Cauldron.Core.Extensions
         {
             var parameters = ctor.GetParameters();
             ObjectActivator activator = null;
-            var type = ctor.ReflectedType;
+            var type = ctor.DeclaringType;
 
             for (int i = 0; i < this.keys.Length; i++)
             {
@@ -40,7 +40,7 @@ namespace Cauldron.Core.Extensions
                 return activator(args);
 
             activator = GetActivator(ctor);
-            this.Add(ctor.ReflectedType, parameters, activator);
+            this.Add(ctor.DeclaringType, parameters, activator);
             return activator(args);
         }
 
@@ -73,7 +73,7 @@ namespace Cauldron.Core.Extensions
             throw new MissingMethodException($"A constructor with the given arguments was not found in type '{type.FullName}'");
         }
 
-        public unsafe object CreateInstance(Type type)
+        public object CreateInstance(Type type)
         {
             ObjectActivator activator = null;
 
@@ -89,27 +89,32 @@ namespace Cauldron.Core.Extensions
             // Get the parameterless default constructor
             var ctor = type.GetConstructor(Type.EmptyTypes);
 
-            if (ctor == null)
+            if (ctor != null)
             {
                 activator = GetActivator(ctor);
-                this.Add(ctor.ReflectedType, null, activator);
+                this.Add(ctor.DeclaringType, null, activator);
                 return activator();
             }
 
+#if WINDOWS_UWP || NETCORE
+
+            ctor = type.GetConstructors(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance).FirstOrDefault(x => x.GetParameters().Length == 0);
+#else
             ctor = type.GetConstructor(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance, null, Type.EmptyTypes, null);
 
+#endif
             if (ctor == null)
                 throw new MissingMethodException($"Unable to find parameterless constructor in type {type.FullName}");
 
             activator = GetActivator(ctor);
-            this.Add(ctor.ReflectedType, null, activator);
+            this.Add(ctor.DeclaringType, null, activator);
             return activator();
         }
 
         public object CreateInstance(ConstructorInfo ctor)
         {
             ObjectActivator activator = null;
-            var type = ctor.ReflectedType;
+            var type = ctor.DeclaringType;
 
             for (int i = 0; i < this.keys.Length; i++)
             {
@@ -127,7 +132,7 @@ namespace Cauldron.Core.Extensions
                 return activator();
 
             activator = GetActivator(ctor);
-            this.Add(ctor.ReflectedType, null, activator);
+            this.Add(ctor.DeclaringType, null, activator);
             return activator();
         }
 

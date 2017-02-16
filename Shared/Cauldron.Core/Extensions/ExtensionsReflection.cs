@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
 
 namespace Cauldron.Core.Extensions
@@ -85,16 +83,6 @@ namespace Cauldron.Core.Extensions
         {
             if (ctor == null)
                 throw new ArgumentNullException(nameof(ctor));
-
-            //if (objectActivator.ContainsKey(ctor.ReflectedType))
-            //    return objectActivator[ctor.ReflectedType](args != null && args.Length == 0 ? null : args);
-            //else
-            //{
-            //    var createdActivator = GetActivator(ctor);
-            //    objectActivator.TryAdd(ctor.ReflectedType, createdActivator);
-
-            //    return createdActivator(args != null && args.Length == 0 ? null : args);
-            //}
 
             if (args == null || args.Length == 0)
                 return objectActivator.CreateInstance(ctor);
@@ -676,40 +664,5 @@ namespace Cauldron.Core.Extensions
 
             return false;
         }
-
-        //private static ObjectActivator GetActivator(ConstructorInfo ctor)
-        //{
-        //    // from https://rogeralsing.com/2008/02/28/linq-expressions-creating-objects/
-
-        //    Type type = ctor.DeclaringType;
-        //    var paramsInfo = ctor.GetParameters();
-
-        //    // create a single param of type object[]
-        //    var param = Expression.Parameter(typeof(object[]), "args");
-        //    var argsExp = new Expression[paramsInfo.Length];
-
-        //    // pick each arg from the params array 
-        //    // and create a typed expression of them
-        //    for (int i = 0; i < paramsInfo.Length; i++)
-        //    {
-        //        var index = Expression.Constant(i);
-        //        var paramType = paramsInfo[i].ParameterType;
-        //        var paramAccessorExp = Expression.ArrayIndex(param, index);
-        //        var paramCastExp = Expression.Convert(paramAccessorExp, paramType);
-
-        //        argsExp[i] = paramCastExp;
-        //    }
-
-        //    // make a NewExpression that calls the
-        //    // ctor with the args we just created
-        //    var newExp = Expression.New(ctor, argsExp);
-
-        //    // create a lambda with the New
-        //    // Expression as body and our param object[] as arg
-        //    var lambda = Expression.Lambda(typeof(ObjectActivator), newExp, param);
-
-        //    // compile it
-        //    return lambda.Compile() as ObjectActivator;
-        //}
     }
 }

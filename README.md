@@ -27,6 +27,10 @@ https://reflection-emit.github.io/Cauldron/eveonline/
 - [CodeMaid](http://www.codemaid.net/)
 
 ## Release Notes
+### 1.0.8
+- CreateObject moved to Cauldron.Core
+- Performance boost to CreateInstance
+
 ### 1.0.7
 - Bug fix in Cauldron.Interception.Fody regarding nested classes and generic classes and methods
 - References of the Nuget packages updated

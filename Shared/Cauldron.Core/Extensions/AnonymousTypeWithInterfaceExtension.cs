@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cauldron.Activator
+namespace Cauldron.Core.Extensions
 {
     /// <summary>
     /// Provides usefull extension methods for anonymous class
@@ -14,6 +14,10 @@ namespace Cauldron.Activator
         /// <typeparam name="T">The type of interface to implement</typeparam>
         /// <param name="anon">The anonymous object</param>
         /// <returns>A new object implementing the interface defined by <typeparamref name="T"/></returns>
-        public static T CreateObject<T>(this object anon) where T : class => /* NOTE: This will be implemented by Cauldron.Interception.Fody */ null;
+        public static T CreateObject<T>(this object anon) where T : class
+        {
+            /* NOTE: This will be implemented by Cauldron.Interception.Fody */
+            throw new NotImplementedException("No weaving happend.");
+        }
     }
 }

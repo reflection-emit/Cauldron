@@ -9,7 +9,6 @@
     <Import_RootNamespace>Cauldron.Activator</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)AnonymousTypeWithInterfaceExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CloneIgnoreAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ComponentAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ComponentConstructorAttribute.cs" />

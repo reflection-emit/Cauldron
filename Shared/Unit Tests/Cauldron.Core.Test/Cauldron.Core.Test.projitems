@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)ConcurrentListTest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CreateInstance_Test.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExtensionTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)JavaPropertyFileTest.cs" />
   </ItemGroup>

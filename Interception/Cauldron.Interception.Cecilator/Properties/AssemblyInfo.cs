@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Cauldron.Interception.Test")]
+[assembly: AssemblyTitle("Cauldron.Interception.Cecilator")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Alexander Schunk, Capgemini Deutschland GmbH and Contributors")]
-[assembly: AssemblyProduct("Cauldron.Interception.Test")]
-[assembly: AssemblyCopyright("Copyright © 2016 Alexander Schunk, Capgemini Deutschland GmbH and Contributors")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("Cauldron.Interception.Cecilator")]
+[assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("0a0f244a-b479-4b08-9883-cb731ad3bb60")]
+[assembly: Guid("1645bdc0-c886-4f5c-bf14-7927356efbd9")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.14")]
-[assembly: AssemblyFileVersion("1.0.0.14")]
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]

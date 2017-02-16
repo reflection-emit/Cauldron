@@ -191,6 +191,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Fody", "Fody", "{2B8BFCA0-8
 		NuGet\Fody\uninstall.ps1 = NuGet\Fody\uninstall.ps1
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.Interception.Cecilator", "Interception\Cauldron.Interception.Cecilator\Cauldron.Interception.Cecilator.csproj", "{1645BDC0-C886-4F5C-BF14-7927356EFBD9}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Shared\Cauldron.Consoles\Cauldron.Consoles.projitems*{00c29751-1557-46a8-9547-f74065b36592}*SharedItemsImports = 4
@@ -996,6 +998,22 @@ Global
 		{9E87B47B-8B3C-429C-A06D-FA7D1E226F62}.Release|x86.ActiveCfg = Release|x86
 		{9E87B47B-8B3C-429C-A06D-FA7D1E226F62}.Release|x86.Build.0 = Release|x86
 		{9E87B47B-8B3C-429C-A06D-FA7D1E226F62}.Release|x86.Deploy.0 = Release|x86
+		{1645BDC0-C886-4F5C-BF14-7927356EFBD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1645BDC0-C886-4F5C-BF14-7927356EFBD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1645BDC0-C886-4F5C-BF14-7927356EFBD9}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{1645BDC0-C886-4F5C-BF14-7927356EFBD9}.Debug|ARM.Build.0 = Debug|Any CPU
+		{1645BDC0-C886-4F5C-BF14-7927356EFBD9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1645BDC0-C886-4F5C-BF14-7927356EFBD9}.Debug|x64.Build.0 = Debug|Any CPU
+		{1645BDC0-C886-4F5C-BF14-7927356EFBD9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1645BDC0-C886-4F5C-BF14-7927356EFBD9}.Debug|x86.Build.0 = Debug|Any CPU
+		{1645BDC0-C886-4F5C-BF14-7927356EFBD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1645BDC0-C886-4F5C-BF14-7927356EFBD9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1645BDC0-C886-4F5C-BF14-7927356EFBD9}.Release|ARM.ActiveCfg = Release|Any CPU
+		{1645BDC0-C886-4F5C-BF14-7927356EFBD9}.Release|ARM.Build.0 = Release|Any CPU
+		{1645BDC0-C886-4F5C-BF14-7927356EFBD9}.Release|x64.ActiveCfg = Release|Any CPU
+		{1645BDC0-C886-4F5C-BF14-7927356EFBD9}.Release|x64.Build.0 = Release|Any CPU
+		{1645BDC0-C886-4F5C-BF14-7927356EFBD9}.Release|x86.ActiveCfg = Release|Any CPU
+		{1645BDC0-C886-4F5C-BF14-7927356EFBD9}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1068,5 +1086,6 @@ Global
 		{8365E281-779D-4A4A-9143-E4D3EEC63251} = {4AAF65BD-71FB-407B-B598-A01A8FE1ED48}
 		{9E87B47B-8B3C-429C-A06D-FA7D1E226F62} = {4AAF65BD-71FB-407B-B598-A01A8FE1ED48}
 		{2B8BFCA0-8A5F-43E3-BE9C-FB74E68B0EB6} = {B22AD21D-6FEC-4B21-A89B-43C7EEB0CD92}
+		{1645BDC0-C886-4F5C-BF14-7927356EFBD9} = {B1732329-29AB-4590-8408-6A6A3A2236D8}
 	EndGlobalSection
 EndGlobal

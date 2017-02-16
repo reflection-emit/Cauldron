@@ -1,4 +1,4 @@
-﻿using Cauldron.Activator;
+﻿using Cauldron.Core.Extensions;
 
 #if WINDOWS_UWP
 
@@ -107,6 +107,17 @@ namespace Cauldron.Interception.Test
         }
 
         [TestMethod]
+        public void Nested_Class_Test()
+        {
+            var nested = new OuterClass.NestedClass();
+            var value = nested.GetValues();
+
+            Assert.AreEqual(6666.666, value.ADouble);
+            Assert.AreEqual(666, value.AnyInt);
+            Assert.AreEqual("TestString", value.TheString);
+        }
+
+        [TestMethod]
         public void Simple_Type_Creation_Test()
         {
             var anonClass = new { ADouble = 9922.992, AnyInt = 666, TheString = "TestString" };
@@ -144,17 +155,6 @@ namespace Cauldron.Interception.Test
             Assert.IsTrue(anonClass.ADouble == newObject.ADouble);
             Assert.IsTrue(anonClass.AnyInt == newObject.AnyInt);
             Assert.IsTrue(anonClass.TheString == newObject.TheString);
-        }
-
-        [TestMethod]
-        public void Nested_Class_Test()
-        {
-            var nested = new OuterClass.NestedClass();
-            var value = nested.GetValues();
-
-            Assert.AreEqual(6666.666, value.ADouble);
-            Assert.AreEqual(666, value.AnyInt);
-            Assert.AreEqual("TestString", value.TheString);
         }
     }
 

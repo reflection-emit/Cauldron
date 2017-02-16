@@ -1,4 +1,5 @@
-﻿using Mono.Cecil;
+﻿using Cauldron.Interception.Cecilator;
+using Mono.Cecil;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -6,7 +7,7 @@ using System.Linq;
 
 namespace Cauldron.Interception.Fody
 {
-    public sealed class ModuleWeaver
+    public sealed class ModuleWeaver : IWeaver
     {
         private List<Type> weavers = new List<Type>
         {
@@ -29,6 +30,9 @@ namespace Cauldron.Interception.Fody
 
         public void Execute()
         {
+            //foreach (var item in this.CreateBuilder().TypesWithInterface("Cauldron.Interception.Test.ITestInterface").First().Interfaces)
+            //    this.LogInfo("ßßß " + item.ToString());
+
             Extensions.ModuleWeaver = this;
 
             // Check if th module has a reference to Cauldron.Interception

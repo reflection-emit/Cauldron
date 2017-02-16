@@ -17,13 +17,13 @@ namespace Cauldron.Interception.Fody
 
         public override void Implement()
         {
-            if (!this.ModuleDefinition.AllReferencedAssemblies().Any(x => x.Name.Name == "Cauldron.Activator"))
+            if (!this.ModuleDefinition.AllReferencedAssemblies().Any(x => x.Name.Name == "Cauldron.Core"))
             {
-                this.LogInfo("Skipping implementation of Cauldron.Activator.AnonymousTypeWithInterfaceExtension.CreateObject<>. Cauldron.Activator is not referenced in the project");
+                this.LogInfo("Skipping implementation of Cauldron.Core.Extensions.AnonymousTypeWithInterfaceExtension.CreateObject<>. Cauldron.Core is not referenced in the project");
                 return;
             }
 
-            this.LogInfo("Implementing Cauldron.Activator.AnonymousTypeWithInterfaceExtension.CreateObject<>");
+            this.LogInfo("Implementing Cauldron.Core.Extensions.AnonymousTypeWithInterfaceExtension.CreateObject<>");
 
             var allMethodsWithMethodOfCalls = this.GetMethodsWhere(x =>
             {
@@ -32,7 +32,7 @@ namespace Cauldron.Interception.Fody
 
                 var methodReference = x.Operand as MethodReference;
 
-                if (methodReference.Name == "CreateObject" && methodReference.DeclaringType.Namespace == "Cauldron.Activator")
+                if (methodReference.Name == "CreateObject" && methodReference.DeclaringType.Namespace == "Cauldron.Core.Extensions")
                     return true;
 
                 return false;
