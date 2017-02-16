@@ -166,10 +166,10 @@ namespace Cauldron.Core
 
         public static bool operator !=(User a, User b)
         {
-            if (a == null && b == null)
+            if (object.Equals(a, null) && object.Equals(b, null))
                 return false;
 
-            if (a == null)
+            if (object.Equals(a, null))
                 return true;
 
             return !a.Equals(b);
@@ -177,10 +177,10 @@ namespace Cauldron.Core
 
         public static bool operator ==(User a, User b)
         {
-            if (a == null && b == null)
+            if (object.Equals(a, null) && object.Equals(b, null))
                 return true;
 
-            if (a == null)
+            if (object.Equals(a, null))
                 return false;
 
             return a.Equals(b);
@@ -207,9 +207,14 @@ namespace Cauldron.Core
         /// <param name="other">The object to compare with the current object</param>
         /// <returns>True if equal; otherwise false</returns>
         public bool Equals(User other) =>
-            other.Equals(null) &&
-            other._username.Equals(this._username, StringComparison.InvariantCultureIgnoreCase) &&
-            other._domainName.Equals(this._domainName, StringComparison.InvariantCultureIgnoreCase);
+            object.Equals(other, null) &&
+            (
+                object.ReferenceEquals(this, other) ||
+                (
+                    other._username.Equals(this._username, StringComparison.InvariantCultureIgnoreCase) &&
+                    other._domainName.Equals(this._domainName, StringComparison.InvariantCultureIgnoreCase)
+                )
+            );
 
         /// <summary>
         /// Gets the display name for the user account.
