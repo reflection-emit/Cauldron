@@ -733,7 +733,7 @@ namespace Cauldron.Core.Extensions
                 {
                     var valueChar = *(chr + i);
                     for (int x = 0; x < oldChars.Length; x++)
-                        if (valueChar == oldChars[i])
+                        if (valueChar == oldChars[x])
                             *(chr + i) = newChar;
                 }
 
