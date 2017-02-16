@@ -770,6 +770,29 @@ namespace Cauldron.Core.Extensions
         }
 
         /// <summary>
+        /// Replaces a char in the given index with <paramref name="newChar"/>
+        /// </summary>
+        /// <param name="value">The string to replace the char</param>
+        /// <param name="index">The index of the char</param>
+        /// <param name="newChar">The new char</param>
+        /// <exception cref="ArgumentNullException">value is null</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="index"/> is higher than <paramref name="value"/> length</exception>
+        public unsafe static void Replace(this string value, uint index, char newChar)
+        {
+            if (value == null)
+                throw new ArgumentNullException(nameof(value));
+
+            if (value.Length < index)
+                throw new ArgumentOutOfRangeException("index cannot be higher than value length");
+
+            if (value.Length == 0)
+                return;
+
+            fixed (char* chr = value)
+                *(chr + index) = newChar;
+        }
+
+        /// <summary>
         /// Returns a string containing a specified number of characters from the right side of a string.
         /// </summary>
         /// <param name="source"><see cref="string"/> expression from which the rightmost characters are returned.</param>
