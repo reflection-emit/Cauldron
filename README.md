@@ -30,6 +30,9 @@ https://reflection-emit.github.io/Cauldron/eveonline/
 ### 1.0.8
 - CreateObject moved to Cauldron.Core
 - Performance boost to CreateInstance
+- IEquatable<> interface added to User class
+- Minor bugs fixed
+- Bug fixed that caused Cauldron.Interception.dll to be referenced with copy local set to false.
 
 ### 1.0.7
 - Bug fix in Cauldron.Interception.Fody regarding nested classes and generic classes and methods
