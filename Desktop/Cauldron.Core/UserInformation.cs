@@ -105,7 +105,7 @@ namespace Cauldron.Core
     /// <summary>
     /// Represents information about the user, such as name and account picture.
     /// </summary>
-    public sealed class User
+    public sealed class User : IEquatable<User>
     {
         private string _displayName;
         private string _domainName;
@@ -163,6 +163,26 @@ namespace Cauldron.Core
         }
 
         /// <summary>
+        /// Determines whether the specified object is equal to the current object
+        /// </summary>
+        /// <param name="obj">The object to compare with the current object</param>
+        /// <returns>True if equal; otherwise false</returns>
+        public override bool Equals(object obj)
+        {
+            if (obj is User)
+                return this.Equals(obj as User);
+
+            return false;
+        }
+
+        /// <summary>
+        /// Determines whether the specified object is equal to the current object
+        /// </summary>
+        /// <param name="other">The object to compare with the current object</param>
+        /// <returns>True if equal; otherwise false</returns>
+        public bool Equals(User other) => other != null && other._username == this._username && other._domainName == this._domainName;
+
+        /// <summary>
         /// Gets the display name for the user account.
         /// </summary>
         /// <returns>The display name for the user account.</returns>
@@ -197,6 +217,12 @@ namespace Cauldron.Core
             await GetUserInformationAsync();
             return _firstName;
         }
+
+        /// <summary>
+        /// Returns the hash code for this object
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode() => this._domainName.GetHashCode() ^ this._username.GetHashCode();
 
         /// <summary>
         /// Gets the user's home directory.
@@ -257,6 +283,12 @@ namespace Cauldron.Core
             await GetUserInformationAsync();
             return _isLockedOut;
         }
+
+        /// <summary>
+        /// Returns domainname and username
+        /// </summary>
+        /// <returns>The domain and user name</returns>
+        public override string ToString() => this._domainName + "\\" + this._username;
 
         /// <summary>
         /// Gets the account picture for the user.
