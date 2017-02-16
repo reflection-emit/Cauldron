@@ -712,32 +712,61 @@ namespace Cauldron.Core.Extensions
         }
 
         /// <summary>
-        /// Replaces a series of chars <paramref name="oldChars"/> with a single char <paramref name="newChar"/>
+        /// Replaces a series of chars <paramref name="oldChars"/> with a single char <paramref name="newChar"/>.
         /// </summary>
         /// <param name="value">The string with the chars to replace</param>
         /// <param name="oldChars">The old chars to be replaced by <paramref name="newChar"/></param>
         /// <param name="newChar">The new char that replaces the old chars</param>
+        /// <param name="startingIndex">The index where to start replacing chars</param>
         /// <returns>A copy of the original string with the chars defined by <paramref name="oldChars"/> replaced by <paramref name="newChar"/>.</returns>
-        public unsafe static string Replace(this string value, char[] oldChars, char newChar)
+        /// <exception cref="ArgumentNullException">value is null</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="startingIndex"/> is higher than <paramref name="value"/> length</exception>
+        public static string Replace(this string value, char[] oldChars, char newChar, int startingIndex = 0)
         {
             if (value == null)
                 throw new ArgumentNullException(nameof(value));
+
+            if (value.Length < startingIndex)
+                throw new ArgumentOutOfRangeException("startingIndex cannot be higher than value length");
 
             if (value.Length == 0)
                 return "";
 
             var result = value.Copy();
+            result.ReplaceMe(oldChars, newChar, startingIndex);
+            return result;
+        }
 
-            fixed (char* chr = result)
-                for (int i = 0; i < value.Length; i++)
+        /// <summary>
+        /// Replaces a series of chars <paramref name="oldChars"/> with a single char <paramref name="newChar"/>.
+        /// <para/>
+        /// ATTENTION: The original string is the target of the manipulation.
+        /// </summary>
+        /// <param name="value">The string with the chars to replace</param>
+        /// <param name="oldChars">The old chars to be replaced by <paramref name="newChar"/></param>
+        /// <param name="newChar">The new char that replaces the old chars</param>
+        /// <param name="startingIndex">The index where to start replacing chars</param>
+        /// <exception cref="ArgumentNullException">value is null</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="startingIndex"/> is higher than <paramref name="value"/> length</exception>
+        public unsafe static void ReplaceMe(this string value, char[] oldChars, char newChar, int startingIndex = 0)
+        {
+            if (value == null)
+                throw new ArgumentNullException(nameof(value));
+
+            if (value.Length < startingIndex)
+                throw new ArgumentOutOfRangeException("startingIndex cannot be higher than value length");
+
+            if (value.Length == 0)
+                return;
+
+            fixed (char* chr = value)
+                for (int i = startingIndex; i < value.Length; i++)
                 {
                     var valueChar = *(chr + i);
                     for (int x = 0; x < oldChars.Length; x++)
                         if (valueChar == oldChars[x])
                             *(chr + i) = newChar;
                 }
-
-            return result;
         }
 
         /// <summary>
