@@ -48,6 +48,9 @@ namespace Cauldron.Interception.Fody
                     TypeReference declaringType = null;
                     var previousInstruction = instruction.Previous;
 
+                    if (previousInstruction.OpCode == OpCodes.Dup)
+                        previousInstruction = previousInstruction.Previous;
+
                     if (previousInstruction.Operand is MethodReference)
                     {
                         declaringType = (previousInstruction.Operand as MethodReference).DeclaringType;

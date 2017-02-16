@@ -134,16 +134,16 @@ namespace Cauldron.Core
             if (userName == "")
                 throw new ArgumentException("Parameter 'userName' cannot be empty", nameof(userName));
 
-            if (!userName.Contains("\\")) // johnd
-            {
-                this._domainName = Environment.UserDomainName;
-                this._username = userName;
-            }
-            else if (userName.Contains("@")) // johnd@companydomain
+            if (userName.Contains("@")) // johnd@companydomain
             {
                 var splittedInfo = userName.Split(new char[] { '@' }, 2);
                 this._domainName = splittedInfo[1];
                 this._username = splittedInfo[0];
+            }
+            else if (!userName.Contains("\\")) // johnd
+            {
+                this._domainName = Environment.UserDomainName;
+                this._username = userName;
             }
             else // companydomain\johnd
             {

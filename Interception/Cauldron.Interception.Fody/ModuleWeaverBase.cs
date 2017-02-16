@@ -210,8 +210,6 @@ namespace Cauldron.Interception.Fody
             this.LogInfo($"Implementing Method interception: {method.Name} with {string.Join(", ", attributes.Select(x => x.AttributeType.FullName))}");
             var methodWeavingInfo = new MethodWeaverInfo(method);
 
-            method.Body.SimplifyMacros();
-            method.Body.Instructions.Clear();
             method.Body.InitLocals = true;
 
             // Dont create these if we have properties
@@ -356,21 +354,21 @@ namespace Cauldron.Interception.Fody
 
         protected Instruction ReplaceReturn(MethodWeaverInfo methodWeaverInfo)
         {
-            var instructionsSet = methodWeaverInfo.OriginalBody.ToList();
+            //var instructionsSet = methodWeaverInfo.MethodDefinition.Body.Instructions;
 
             if (methodWeaverInfo.MethodReference.ReturnType == this.ModuleDefinition.TypeSystem.Void)
             {
-                for (int i = 0; i < instructionsSet.Count; i++)
+                for (int i = 0; i < methodWeaverInfo.MethodDefinition.Body.Instructions.Count; i++)
                 {
-                    if (instructionsSet[i].OpCode != OpCodes.Ret)
+                    if (methodWeaverInfo.MethodDefinition.Body.Instructions[i].OpCode != OpCodes.Ret)
                         continue;
 
-                    var instruction = instructionsSet[i];
+                    var instruction = methodWeaverInfo.MethodDefinition.Body.Instructions[i];
                     instruction.OpCode = OpCodes.Leave_S;
                     instruction.Operand = methodWeaverInfo.LastReturn;
                 }
 
-                methodWeaverInfo.OriginalBody = instructionsSet;
+                //methodWeaverInfo.OriginalBody = instructionsSet;
                 return null;
             }
             else
@@ -379,18 +377,18 @@ namespace Cauldron.Interception.Fody
                 methodWeaverInfo.Processor.Body.Variables.Add(returnVariable);
                 var loadReturnVariable = methodWeaverInfo.Processor.Create(OpCodes.Ldloc_S, returnVariable);
 
-                for (int i = 0; i < instructionsSet.Count; i++)
+                for (int i = 0; i < methodWeaverInfo.MethodDefinition.Body.Instructions.Count; i++)
                 {
-                    if (instructionsSet[i].OpCode != OpCodes.Ret)
+                    if (methodWeaverInfo.MethodDefinition.Body.Instructions[i].OpCode != OpCodes.Ret)
                         continue;
 
-                    var instruction = instructionsSet[i];
+                    var instruction = methodWeaverInfo.MethodDefinition.Body.Instructions[i];
                     instruction.OpCode = OpCodes.Leave_S;
                     instruction.Operand = loadReturnVariable;
-                    instructionsSet.Insert(i, methodWeaverInfo.Processor.Create(OpCodes.Stloc_S, returnVariable));
+                    methodWeaverInfo.MethodDefinition.Body.Instructions.Insert(i, methodWeaverInfo.Processor.Create(OpCodes.Stloc_S, returnVariable));
                 }
 
-                methodWeaverInfo.OriginalBody = instructionsSet;
+                //methodWeaverInfo.OriginalBody = instructionsSet;
                 return loadReturnVariable;
             }
         }
