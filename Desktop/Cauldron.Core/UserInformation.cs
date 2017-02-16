@@ -137,13 +137,13 @@ namespace Cauldron.Core
             if (userName.Contains("@")) // johnd@companydomain
             {
                 var splittedInfo = userName.Split(new char[] { '@' }, 2);
-                this._domainName = splittedInfo[1];
-                this._username = splittedInfo[0];
+                this._domainName = splittedInfo[1].ToLower();
+                this._username = splittedInfo[0].ToLower();
             }
             else if (!userName.Contains("\\")) // johnd
             {
-                this._domainName = Environment.UserDomainName;
-                this._username = userName;
+                this._domainName = Environment.UserDomainName.ToLower();
+                this._username = userName.ToLower();
             }
             else // companydomain\johnd
             {
@@ -161,6 +161,32 @@ namespace Cauldron.Core
         {
             get { return string.Equals(Environment.MachineName, _domainName, StringComparison.InvariantCultureIgnoreCase); }
         }
+
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
+        public static bool operator !=(User a, User b)
+        {
+            if (object.Equals(a, null) && object.Equals(b, null))
+                return false;
+
+            if (object.Equals(a, null))
+                return true;
+
+            return !a.Equals(b);
+        }
+
+        public static bool operator ==(User a, User b)
+        {
+            if (object.Equals(a, null) && object.Equals(b, null))
+                return true;
+
+            if (object.Equals(a, null))
+                return false;
+
+            return a.Equals(b);
+        }
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
         /// <summary>
         /// Determines whether the specified object is equal to the current object
@@ -180,7 +206,15 @@ namespace Cauldron.Core
         /// </summary>
         /// <param name="other">The object to compare with the current object</param>
         /// <returns>True if equal; otherwise false</returns>
-        public bool Equals(User other) => other != null && other._username == this._username && other._domainName == this._domainName;
+        public bool Equals(User other) =>
+            !object.Equals(other, null) &&
+            (
+                object.ReferenceEquals(this, other) ||
+                (
+                    other._username.Equals(this._username, StringComparison.InvariantCultureIgnoreCase) &&
+                    other._domainName.Equals(this._domainName, StringComparison.InvariantCultureIgnoreCase)
+                )
+            );
 
         /// <summary>
         /// Gets the display name for the user account.

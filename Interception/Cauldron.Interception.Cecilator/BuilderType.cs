@@ -33,7 +33,7 @@ namespace Cauldron.Interception.Cecilator
             this.typeDefinition = typeReference.Resolve();
         }
 
-        public IEnumerable<BuilderType> Interfaces { get { return this.GetInterfaces(this.typeDefinition).Select(x => new BuilderType(this, x)); } }
+        public IEnumerable<BuilderType> Interfaces { get { return this.GetInterfaces(this.typeReference).Select(x => new BuilderType(this, x)); } }
 
         public void Remove() => this.moduleDefinition.Types.Remove(this.typeDefinition);
 

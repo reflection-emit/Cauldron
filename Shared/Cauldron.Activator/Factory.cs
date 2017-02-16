@@ -201,6 +201,9 @@ namespace Cauldron.Activator
                         var ctor = factoryType.objectConstructorInfo;
                         var creatorExtension = factoryExtensions.FirstOrDefault(x => x.CanModifyArguments(ctor, type));
 
+                        if (ctor.GetParameters().Length != args.Length)
+                            throw new ArgumentException($"Factory is unable to initiate an instance of the type '{type.Name}'. Verify the passed parameters.");
+
                         return ctor.CreateInstance(
                             creatorExtension == null ?
                             args :
@@ -228,6 +231,10 @@ namespace Cauldron.Activator
                     if (ctor != null)
                     {
                         var creatorExtension = factoryExtensions.FirstOrDefault(x => x.CanModifyArguments(ctor, type));
+
+                        if (ctor.GetParameters().Length != args.Length)
+                            throw new ArgumentException($"Factory is unable to initiate an instance of the type '{type.Name}'. Verify the passed parameters.");
+
                         return ctor.CreateInstance(creatorExtension == null ?
                             args :
                             creatorExtension.ModifyArgument(ctor.GetParameters(), args));

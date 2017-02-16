@@ -56,17 +56,16 @@ namespace Cauldron.Interception.Cecilator
             this.allTypes = builderBase.allTypes;
         }
 
-        internal IEnumerable<TypeReference> GetInterfaces(TypeDefinition type)
+        internal IEnumerable<TypeReference> GetInterfaces(TypeReference type)
         {
-            var result = new List<TypeReference>();
+            var typeDef = type.Resolve();
 
-            if (type.Interfaces != null && type.Interfaces.Count > 0)
-                result.AddRange(type.Interfaces.Select(x => x.Resolve()).Where(x => x != null));
-
-            if (type.BaseType != null)
-                result.AddRange(GetInterfaces(type.BaseType.Resolve()).Where(x => x != null));
-
-            return result;
+            if (typeDef.Interfaces != null && typeDef.Interfaces.Count > 0)
+            {
+                for (int i = 0; i < typeDef.Interfaces.Count; i++)
+                    foreach (var item in GetInterfaces(typeDef.Interfaces[i]))
+                        yield return item.ResolveType(type);
+            }
         }
 
         internal bool ImplementsInterface(TypeDefinition type, string interfaceName) => GetInterfaces(type).Any(x => x.FullName == interfaceName);

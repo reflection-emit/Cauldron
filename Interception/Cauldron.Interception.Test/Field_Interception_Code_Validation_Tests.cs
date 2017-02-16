@@ -105,6 +105,15 @@ namespace Cauldron.Interception.Test
             fieldTwo = 66;
             Assert.AreEqual(78344.796875, fieldTwo);
         }
+
+        [TestMethod]
+        public void Static_Field_In_Constructor()
+        {
+            // If not correctly implemented... Would cause a Null exception
+            var type = new Static_Field_In_Constructor();
+
+            Assert.AreNotEqual(null, type);
+        }
     }
 
     public class GenericTypeWithField<T>
@@ -124,12 +133,24 @@ namespace Cauldron.Interception.Test
         [TestPropertyInterceptor]
         private T fieldTwo;
 
-        private T uuuuuuuuu;
-
         public T FieldTwo
         {
             get { return fieldTwo; }
             set { fieldTwo = value; }
+        }
+    }
+
+    public class Static_Field_In_Constructor
+    {
+        [CreateATypeInterceptor]
+        private static TestClass field;
+
+        public Static_Field_In_Constructor() : this(field.StringProperty)
+        {
+        }
+
+        public Static_Field_In_Constructor(string name)
+        {
         }
     }
 }
