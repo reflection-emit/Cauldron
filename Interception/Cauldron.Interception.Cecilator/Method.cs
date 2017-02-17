@@ -2,7 +2,7 @@
 
 namespace Cauldron.Interception.Cecilator
 {
-    public class Method : BuilderBase
+    public class Method : CecilatorBase
     {
         private MethodDefinition methodDefinition;
         private MethodReference methodReference;

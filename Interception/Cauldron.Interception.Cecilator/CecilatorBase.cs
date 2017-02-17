@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Cauldron.Interception.Cecilator
 {
-    public class BuilderBase
+    public abstract class CecilatorBase
     {
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
         protected IEnumerable<AssemblyDefinition> allAssemblies;
@@ -27,7 +27,7 @@ namespace Cauldron.Interception.Cecilator
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
         protected ModuleDefinition moduleDefinition;
 
-        internal BuilderBase(IWeaver weaver)
+        internal CecilatorBase(IWeaver weaver)
         {
             this.logError = weaver.LogError;
             this.logInfo = weaver.LogInfo;
@@ -46,7 +46,7 @@ namespace Cauldron.Interception.Cecilator
             this.logInfo("-----------------------------------------------------------------------------");
         }
 
-        internal BuilderBase(BuilderBase builderBase)
+        internal CecilatorBase(CecilatorBase builderBase)
         {
             this.logError = builderBase.logError;
             this.logInfo = builderBase.logInfo;
@@ -56,6 +56,18 @@ namespace Cauldron.Interception.Cecilator
             this.allTypes = builderBase.allTypes;
         }
 
+        internal IEnumerable<TypeReference> GetBaseClasses(TypeReference type)
+        {
+            var typeDef = type.Resolve();
+
+            if (typeDef.BaseType != null)
+            {
+                yield return typeDef.BaseType;
+                foreach (var item in GetBaseClasses(typeDef.BaseType))
+                    yield return item;
+            }
+        }
+
         internal IEnumerable<TypeReference> GetInterfaces(TypeReference type)
         {
             var typeDef = type.Resolve();
@@ -63,12 +75,40 @@ namespace Cauldron.Interception.Cecilator
             if (typeDef.Interfaces != null && typeDef.Interfaces.Count > 0)
             {
                 for (int i = 0; i < typeDef.Interfaces.Count; i++)
+                {
+                    yield return typeDef.Interfaces[i].ResolveType(type);
                     foreach (var item in GetInterfaces(typeDef.Interfaces[i]))
                         yield return item.ResolveType(type);
+                }
+            }
+
+            if (typeDef.BaseType != null)
+            {
+                foreach (var item in GetInterfaces(typeDef.BaseType))
+                    yield return item;
             }
         }
 
-        internal bool ImplementsInterface(TypeDefinition type, string interfaceName) => GetInterfaces(type).Any(x => x.FullName == interfaceName);
+        internal IEnumerable<TypeReference> GetNestedTypes(TypeReference type)
+        {
+            var typeDef = type.Resolve();
+
+            if (typeDef.NestedTypes != null && typeDef.NestedTypes.Count > 0)
+            {
+                for (int i = 0; i < typeDef.NestedTypes.Count; i++)
+                {
+                    yield return typeDef.NestedTypes[i].ResolveType(type);
+                    foreach (var item in GetNestedTypes(typeDef.NestedTypes[i]))
+                        yield return item.ResolveType(type);
+                }
+            }
+
+            if (typeDef.BaseType != null)
+            {
+                foreach (var item in GetNestedTypes(typeDef.BaseType))
+                    yield return item;
+            }
+        }
 
         private void GetAllAssemblyDefinitions(IEnumerable<AssemblyNameReference> target, List<AssemblyDefinition> result)
         {

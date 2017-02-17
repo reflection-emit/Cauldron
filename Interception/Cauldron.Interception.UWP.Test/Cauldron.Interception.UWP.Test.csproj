@@ -107,6 +107,9 @@
     <Compile Include="..\Cauldron.Interception.Test\Field_Interception_Code_Validation_Tests.cs">
       <Link>Field_Interception_Code_Validation_Tests.cs</Link>
     </Compile>
+    <Compile Include="..\Cauldron.Interception.Test\Interceptors\CreateATypeInterceptorAttribute.cs">
+      <Link>Interceptors\CreateATypeInterceptorAttribute.cs</Link>
+    </Compile>
     <Compile Include="..\Cauldron.Interception.Test\Interceptors\EnumPropertyInterceptorAttribute.cs">
       <Link>Interceptors\EnumPropertyInterceptorAttribute.cs</Link>
     </Compile>

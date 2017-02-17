@@ -2,34 +2,50 @@
 using Mono.Cecil.Rocks;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace Cauldron.Interception.Cecilator
 {
     public static class Extension
     {
-        public static Builder CreateBuilder(this IWeaver weaver) => new Builder(weaver);
+        public static Builder CreateBuilder(this IWeaver weaver)
+        {
+            if (weaver == null)
+                throw new ArgumentNullException(nameof(weaver), $"Argument '{nameof(weaver)}' cannot be null");
 
-        //public static IEnumerable<TypeReference> GetGenericInstances(this GenericInstanceType type)
-        //{
-        //    var result = new List<TypeReference>();
-        //    result.Add(type);
+            return new Builder(weaver);
+        }
 
-        //    var resolved = type.Resolve();
-        //    var genericArgumentsNames = resolved.GenericParameters.Select(x => x.FullName).ToArray();
-        //    var genericArguments = type.GenericArguments.ToArray();
+        internal static FieldReference CreateFieldReference(this FieldDefinition field)
+        {
+            if (field.DeclaringType.HasGenericParameters)
+            {
+                var declaringType = new GenericInstanceType(field.DeclaringType);
 
-        //    if (resolved.BaseType != null)
-        //        result.AddRange(resolved.BaseType.GetGenericInstances(genericArgumentsNames, genericArguments));
+                foreach (var parameter in field.DeclaringType.GenericParameters)
+                    declaringType.GenericArguments.Add(parameter);
 
-        //    if (resolved.Interfaces != null && resolved.Interfaces.Count > 0)
-        //    {
-        //        foreach (var item in resolved.Interfaces)
-        //            result.AddRange(item.GetGenericInstances(genericArgumentsNames, genericArguments));
-        //    }
+                return new FieldReference(field.Name, field.FieldType, declaringType);
+            }
 
-        //    return result;
-        //}
+            return field;
+        }
+
+        internal static FieldReference CreateFieldReference(this FieldReference field)
+        {
+            if (field.DeclaringType.HasGenericParameters)
+            {
+                var declaringType = new GenericInstanceType(field.DeclaringType);
+
+                foreach (var parameter in field.DeclaringType.GenericParameters)
+                    declaringType.GenericArguments.Add(parameter);
+
+                return new FieldReference(field.Name, field.FieldType, declaringType);
+            }
+
+            return field;
+        }
 
         internal static MethodReference MakeHostInstanceGeneric(this MethodReference self, params TypeReference[] arguments)
         {
