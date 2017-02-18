@@ -31,11 +31,12 @@ namespace Cauldron.Interception.Fody
         public void Execute()
         {
             var tt = this.CreateBuilder();
-            var tttt = tt.FindFields("Backing");
+            var tttt = tt.FindFieldsByAttribute(tt.GetType("Cauldron.Interception.Test.Interceptors.TestPropertyInterceptorAttribute"));
             foreach (var o in tttt)
             {
                 this.LogInfo(o);
             }
+
             //Extensions.ModuleWeaver = this;
 
             //// Check if th module has a reference to Cauldron.Interception

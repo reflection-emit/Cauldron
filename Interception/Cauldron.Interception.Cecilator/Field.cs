@@ -1,32 +1,29 @@
 ﻿using Mono.Cecil;
+using Mono.Cecil.Cil;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 
 namespace Cauldron.Interception.Cecilator
 {
     public class Field : CecilatorBase, IEquatable<Field>
     {
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private FieldDefinition fieldDef;
+        internal FieldDefinition fieldDef;
 
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private FieldReference fieldRef;
+        internal FieldReference fieldRef;
 
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private BuilderType type;
+        internal BuilderType type;
 
         internal Field(BuilderType type, FieldDefinition field) : base(type)
         {
             this.fieldDef = field;
             this.fieldRef = field.CreateFieldReference();
             this.type = type;
-        }
-
-        public FieldAttributes Attributes
-        {
-            get { return this.fieldDef.Attributes; }
-            set { this.fieldDef.Attributes = value; }
         }
 
         public BuilderType DeclaringType { get { return this.type; } }
@@ -36,7 +33,43 @@ namespace Cauldron.Interception.Cecilator
         public bool IsStatic { get { return this.fieldDef.IsStatic; } }
         public string Name { get { return this.fieldDef.Name; } }
 
-        public void Remove() => this.type.typeDefinition.Fields.Remove(this.fieldDef);
+        public IEnumerable<FieldUsage> FindUsages()
+        {
+            var result = this.fieldDef
+                .DeclaringType
+                .Methods
+                .SelectMany(x => this.GetFieldUsage(x));
+
+            if (!this.IsPrivate)
+                return result.Concat(this.type.Builder.GetTypes().SelectMany(x => x.Resolve().Methods).SelectMany(x => this.GetFieldUsage(x)));
+
+            return result;
+        }
+
+        public void Remove()
+        {
+            if (this.FindUsages().Any())
+                throw new FieldInUseException("The field cannot be removed. It is in use.");
+
+            this.type.typeDefinition.Fields.Remove(this.fieldDef);
+        }
+
+        private IEnumerable<FieldUsage> GetFieldUsage(MethodDefinition method)
+        {
+            for (int i = 0; i < method.Body.Instructions.Count; i++)
+            {
+                var instruction = method.Body.Instructions[i];
+                if (instruction.OpCode == OpCodes.Ldsfld ||
+                    instruction.OpCode == OpCodes.Ldflda ||
+                    instruction.OpCode == OpCodes.Ldsflda ||
+                    instruction.OpCode == OpCodes.Ldfld ||
+                    instruction.OpCode == OpCodes.Stsfld ||
+                    instruction.OpCode == OpCodes.Stfld ||
+                    instruction.Operand is FieldDefinition ||
+                    instruction.Operand is FieldReference)
+                    yield return new FieldUsage(this, method, instruction);
+            }
+        }
 
         #region Equitable stuff
 

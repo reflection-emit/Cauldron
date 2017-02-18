@@ -52,6 +52,21 @@ namespace Cauldron.Interception.Cecilator
 
         public IEnumerable<Field> FindFields(string regexPattern) => this.Types.SelectMany(x => x.Fields).Where(x => Regex.IsMatch(x.Name, regexPattern, RegexOptions.Singleline));
 
+        public IEnumerable<AttributedField> FindFieldsByAttribute(Type attributeType) => FindFieldsByAttribute(attributeType.FullName);
+
+        public IEnumerable<AttributedField> FindFieldsByAttribute(string attributeName)
+        {
+            var result = this.Types
+                .SelectMany(x => x.Fields)
+                .Where(x => x.fieldDef.HasCustomAttributes)
+                .Select(x => new { Field = x, CustomAttributes = x.fieldDef.CustomAttributes.Where(y => y.AttributeType.FullName == attributeName) })
+                .Where(x => x.CustomAttributes.Any());
+
+            foreach (var item in result)
+                foreach (var attrib in item.CustomAttributes)
+                    yield return new AttributedField(item.Field, attrib);
+        }
+
         public IEnumerable<Field> FindFieldsByName(string fieldName) => this.Types.SelectMany(x => x.Fields).Where(x => x.Name == fieldName);
 
         #endregion Field Finders
@@ -60,15 +75,7 @@ namespace Cauldron.Interception.Cecilator
 
         public IEnumerable<BuilderType> Types
         {
-            get
-            {
-                return this.moduleDefinition.Types
-                    .SelectMany(x => GetInterfaces(x).Concat(GetBaseClasses(x)).Concat(GetNestedTypes(x).Concat(new TypeReference[] { x })))
-                    .Where(x => x.Module.Assembly == this.moduleDefinition.Assembly)
-                    .Distinct(new TypeReferenceEqualityComparer())
-                    .Select(x => new BuilderType(this, x))
-                    .ToArray();
-            }
+            get { return this.GetTypes().Select(x => new BuilderType(this, x)).ToArray(); }
         }
 
         public BuilderType GetType(string typeName)
@@ -83,6 +90,12 @@ namespace Cauldron.Interception.Cecilator
         }
 
         public IEnumerable<BuilderType> GetTypesInNamespace(string namespaceName) => this.Types.Where(x => x.Namespace == namespaceName);
+
+        internal IEnumerable<TypeReference> GetTypes() =>
+                    this.moduleDefinition.Types
+                    .SelectMany(x => GetInterfaces(x).Concat(GetBaseClasses(x)).Concat(GetNestedTypes(x).Concat(new TypeReference[] { x })))
+                    .Where(x => x.Module.Assembly == this.moduleDefinition.Assembly)
+                    .Distinct(new TypeReferenceEqualityComparer());
 
         #endregion Getting types
     }

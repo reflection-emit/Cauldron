@@ -47,6 +47,17 @@ namespace Cauldron.Interception.Cecilator
             return field;
         }
 
+        internal static MethodReference CreateMethodReference(this MethodDefinition method)
+        {
+            if (method.DeclaringType.HasGenericParameters)
+            {
+                var declaringType = new GenericInstanceType(method.DeclaringType);
+                return method.MakeHostInstanceGeneric(method.DeclaringType.GenericParameters.ToArray());
+            }
+
+            return method;
+        }
+
         internal static MethodReference MakeHostInstanceGeneric(this MethodReference self, params TypeReference[] arguments)
         {
             // https://groups.google.com/forum/#!topic/mono-cecil/mCat5UuR47I by ShdNx

@@ -15,6 +15,7 @@ namespace Cauldron.Interception.Cecilator
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
         internal TypeReference typeReference;
 
+        public Builder Builder { get; private set; }
         public string Fullname { get { return this.typeReference.FullName; } }
         public string Namespace { get { return this.typeDefinition.Namespace; } }
 
@@ -28,34 +29,38 @@ namespace Cauldron.Interception.Cecilator
 
         #region Constructors
 
-        internal BuilderType(IWeaver weaver, TypeReference typeReference, TypeDefinition typeDefinition) : base(weaver)
-        {
-            this.typeDefinition = typeDefinition;
-            this.typeReference = typeReference;
-        }
+        //internal BuilderType(IWeaver weaver, TypeReference typeReference, TypeDefinition typeDefinition) : base(weaver)
+        //{
+        //    this.typeDefinition = typeDefinition;
+        //    this.typeReference = typeReference;
+        //}
 
         internal BuilderType(Builder builder, TypeDefinition typeDefinition) : base(builder)
         {
             this.typeDefinition = typeDefinition;
             this.typeReference = typeDefinition.ResolveType(typeDefinition);
+            this.Builder = builder;
         }
 
         internal BuilderType(Builder builder, TypeReference typeReference) : base(builder)
         {
             this.typeDefinition = typeReference.Resolve();
             this.typeReference = typeReference;
+            this.Builder = builder;
         }
 
         internal BuilderType(BuilderType builderType, TypeDefinition typeDefinition) : base(builderType)
         {
             this.typeDefinition = typeDefinition;
             this.typeReference = typeDefinition.ResolveType(typeDefinition);
+            this.Builder = builderType.Builder;
         }
 
         internal BuilderType(BuilderType builderType, TypeReference typeReference) : base(builderType)
         {
             this.typeReference = typeReference;
             this.typeDefinition = typeReference.Resolve();
+            this.Builder = builderType.Builder;
         }
 
         #endregion Constructors
@@ -97,6 +102,24 @@ namespace Cauldron.Interception.Cecilator
         #region Fields
 
         public FieldCollection Fields { get { return new FieldCollection(this, this.typeDefinition.Fields); } }
+
+        public Field CreateField(Modifiers modifier, Type fieldType, string name) => this.CreateField(modifier, this.GetTypeDefinition(fieldType).ResolveType(this.typeReference), name);
+
+        public Field CreateField(Modifiers modifier, Field field, string name) => this.CreateField(modifier, field.fieldRef.FieldType, name);
+
+        public Field CreateField(Modifiers modifier, TypeReference typeReference, string name)
+        {
+            var attributes = FieldAttributes.CompilerControlled;
+
+            if (modifier.HasFlag(Modifiers.Private)) attributes |= FieldAttributes.Private;
+            if (modifier.HasFlag(Modifiers.Static)) attributes |= FieldAttributes.Static;
+            if (modifier.HasFlag(Modifiers.Public)) attributes |= FieldAttributes.Public;
+
+            var field = new FieldDefinition(name, attributes, typeReference);
+            this.typeDefinition.Fields.Add(field);
+
+            return new Field(this, field);
+        }
 
         #endregion Fields
 

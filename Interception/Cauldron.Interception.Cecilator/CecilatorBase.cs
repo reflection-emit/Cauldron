@@ -1,4 +1,5 @@
 ﻿using Mono.Cecil;
+using Mono.Cecil.Cil;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -108,6 +109,16 @@ namespace Cauldron.Interception.Cecilator
                 foreach (var item in GetNestedTypes(typeDef.BaseType))
                     yield return item;
             }
+        }
+
+        internal TypeDefinition GetTypeDefinition(Type type)
+        {
+            var result = this.allTypes.FirstOrDefault(x => x.FullName == type.FullName);
+
+            if (result == null)
+                throw new Exception($"Unable to proceed. The type '{type.FullName}' was not found.");
+
+            return result;
         }
 
         private void GetAllAssemblyDefinitions(IEnumerable<AssemblyNameReference> target, List<AssemblyDefinition> result)
