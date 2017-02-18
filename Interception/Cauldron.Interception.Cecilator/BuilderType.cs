@@ -1,4 +1,5 @@
 ﻿using Mono.Cecil;
+using Mono.Cecil.Cil;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -94,6 +95,91 @@ namespace Cauldron.Interception.Cecilator
         #endregion Interfaces Base classes and nested types
 
         #region Actions
+
+        public Method ParameterlessContructor
+        {
+            get
+            {
+                if (!this.typeDefinition.HasMethods)
+                    return null;
+
+                var ctor = this.typeDefinition.Methods.FirstOrDefault(x => x.Name == ".ctor" && x.Parameters.Count == 0);
+
+                if (ctor == null)
+                    return null;
+
+                return new Method(this, ctor);
+            }
+        }
+
+        public Method StaticConstructor
+        {
+            get
+            {
+                if (!this.typeDefinition.HasMethods)
+                    return null;
+
+                var ctor = this.typeDefinition.Methods.FirstOrDefault(x => x.Name == ".cctor");
+
+                if (ctor == null)
+                    return null;
+
+                return new Method(this, ctor);
+            }
+        }
+
+        public Method CreateStaticConstructor()
+        {
+            var cctor = this.StaticConstructor;
+
+            if (cctor != null)
+                return cctor;
+
+            var method = new MethodDefinition(".cctor", MethodAttributes.Static | MethodAttributes.Private | MethodAttributes.HideBySig | MethodAttributes.SpecialName | MethodAttributes.RTSpecialName, this.moduleDefinition.TypeSystem.Void);
+
+            var processor = method.Body.GetILProcessor();
+            processor.Append(processor.Create(OpCodes.Ret));
+            this.typeDefinition.Methods.Add(method);
+
+            return new Method(this, method);
+        }
+
+        /// <summary>
+        /// Returns all constructors that does call the base class constructor. All constructors that calls this() is excluded
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<Method> GetRelevantConstructors()
+        {
+            if (this.typeDefinition.HasMethods)
+            {
+                var ctors = this.typeDefinition.Methods.Where(ctor =>
+                {
+                    if (ctor.Name != ".ctor")
+                        return false;
+
+                    var body = ctor.Body;
+                    var first = body.Instructions.FirstOrDefault(x => x.OpCode == OpCodes.Call && (x.Operand as MethodReference).Name == ".ctor");
+
+                    if (first == null)
+                        return false;
+
+                    var operand = first.Operand as MethodReference;
+
+                    if (operand.DeclaringType.Resolve().FullName == this.typeDefinition.FullName)
+                        return true;
+
+                    return false;
+                });
+
+                foreach (var item in ctors)
+                    yield return new Method(this, item);
+
+                var cctor = this.StaticConstructor;
+
+                if (cctor != null)
+                    yield return cctor;
+            }
+        }
 
         public void Remove() => this.moduleDefinition.Types.Remove(this.typeDefinition);
 

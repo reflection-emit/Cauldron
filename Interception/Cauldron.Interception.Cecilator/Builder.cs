@@ -46,6 +46,10 @@ namespace Cauldron.Interception.Cecilator
             return this.FindTypesByInterface(interfaceType.FullName);
         }
 
+        public IEnumerable<BuilderType> FindTypesByInterfaces(params string[] interfaceNames) => this.Types.Where(x => interfaceNames.Any(y => x.Implements(y)));
+
+        public IEnumerable<BuilderType> FindTypesByInterfaces(params Type[] interfaceTypes) => this.FindTypesByInterfaces(interfaceTypes.Select(x => x.FullName).ToArray());
+
         #endregion Type Finders
 
         #region Field Finders
@@ -60,6 +64,19 @@ namespace Cauldron.Interception.Cecilator
                 .SelectMany(x => x.Fields)
                 .Where(x => x.fieldDef.HasCustomAttributes)
                 .Select(x => new { Field = x, CustomAttributes = x.fieldDef.CustomAttributes.Where(y => y.AttributeType.FullName == attributeName) })
+                .Where(x => x.CustomAttributes.Any());
+
+            foreach (var item in result)
+                foreach (var attrib in item.CustomAttributes)
+                    yield return new AttributedField(item.Field, attrib);
+        }
+
+        public IEnumerable<AttributedField> FindFieldsByAttributes(IEnumerable<BuilderType> types)
+        {
+            var result = this.Types
+                .SelectMany(x => x.Fields)
+                .Where(x => x.fieldDef.HasCustomAttributes)
+                .Select(x => new { Field = x, CustomAttributes = x.fieldDef.CustomAttributes.Where(y => types.Any(t => t.typeDefinition.FullName == y.AttributeType.Resolve().FullName)) })
                 .Where(x => x.CustomAttributes.Any());
 
             foreach (var item in result)

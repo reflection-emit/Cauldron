@@ -68,7 +68,7 @@ namespace Cauldron.Interception.Cecilator
         public override int GetHashCode() => this.Method.ToString().GetHashCode() ^ this.Field.ToString().GetHashCode();
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override string ToString() => $"IL_{this.instruction.Offset.ToString("X4")} >> {this.Method.methodDefinition.Name} >> {this.Field.fieldDef.Name}";
+        public override string ToString() => $"IL_{this.instruction.Offset.ToString("X4")} >> {this.Method.methodDefinition.FullName} >> {this.Field.fieldDef.Name}";
 
         #endregion Equitable stuff
     }

@@ -77,15 +77,7 @@ namespace Cauldron.Interception.Cecilator
 
         public static bool operator !=(Field a, Field b) => !object.Equals(a, null) && !a.Equals(b);
 
-        public static bool operator !=(FieldReference a, Field b) => !object.Equals(b, null) && !b.Equals(a);
-
-        public static bool operator !=(Field a, FieldReference b) => !object.Equals(a, null) && !a.Equals(b);
-
         public static bool operator ==(Field a, Field b) => !object.Equals(a, null) && a.Equals(b);
-
-        public static bool operator ==(FieldReference a, Field b) => !object.Equals(b, null) && b.Equals(a);
-
-        public static bool operator ==(Field a, FieldReference b) => !object.Equals(a, null) && a.Equals(b);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj)
