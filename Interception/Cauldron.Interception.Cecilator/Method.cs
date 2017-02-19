@@ -22,6 +22,7 @@ namespace Cauldron.Interception.Cecilator
             this.type = type;
             this.methodDefinition = methodDefinition;
             this.methodReference = methodReference;
+            this.Code = new InstructionsSet(type, this);
         }
 
         internal Method(BuilderType type, MethodDefinition methodDefinition) : base(type)
@@ -29,7 +30,12 @@ namespace Cauldron.Interception.Cecilator
             this.type = type;
             this.methodDefinition = methodDefinition;
             this.methodReference = methodDefinition.CreateMethodReference();
+            this.Code = new InstructionsSet(type, this);
         }
+
+        public InstructionsSet Code { get; private set; }
+
+        public BuilderType DeclaringType { get { return this.type; } }
 
         public Method Clear(MethodClearOptions options)
         {

@@ -31,16 +31,23 @@ namespace Cauldron.Interception.Fody
         public void Execute()
         {
             var builder = this.CreateBuilder();
-            var attributes = builder.FindTypesByInterfaces(
-                "Cauldron.Interception.ILockablePropertyGetterInterceptor",
-                "Cauldron.Interception.ILockablePropertySetterInterceptor",
-                "Cauldron.Interception.IPropertyGetterInterceptor",
-                "Cauldron.Interception.IPropertySetterInterceptor");
-            var fields = builder.FindFieldsByAttributes(attributes);
-            var fieldUsage = fields.SelectMany(x => x.Field.FindUsages());
+            //var attributes = builder.FindTypesByInterfaces(
+            //    "Cauldron.Interception.ILockablePropertyGetterInterceptor",
+            //    "Cauldron.Interception.ILockablePropertySetterInterceptor",
+            //    "Cauldron.Interception.IPropertyGetterInterceptor",
+            //    "Cauldron.Interception.IPropertySetterInterceptor");
+            //var fields = builder.FindFieldsByAttributes(attributes);
+            //var fieldUsage = fields.SelectMany(x => x.Field.FindUsages());
 
-            foreach (var field in fieldUsage)
-                this.LogInfo(field);
+            var type = builder.FindTypes("FieldOf_Implementer_Test").FirstOrDefault();
+            var field = type.Fields["field2"];
+
+            foreach (var item in type.GetRelevantConstructors())
+            {
+                item.Code
+                    .AssignToField(field, "This is a test")
+                    .Insert(Cecilator.InsertionPosition.Beginning);
+            }
 
             //Extensions.ModuleWeaver = this;
 

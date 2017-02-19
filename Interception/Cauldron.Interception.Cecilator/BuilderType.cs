@@ -165,7 +165,7 @@ namespace Cauldron.Interception.Cecilator
 
                     var operand = first.Operand as MethodReference;
 
-                    if (operand.DeclaringType.Resolve().FullName == this.typeDefinition.FullName)
+                    if (operand.DeclaringType.FullName == this.typeDefinition.BaseType.FullName)
                         return true;
 
                     return false;

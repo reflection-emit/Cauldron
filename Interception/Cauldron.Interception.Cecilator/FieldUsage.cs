@@ -15,6 +15,7 @@ namespace Cauldron.Interception.Cecilator
         {
             this.Field = field;
             this.Method = new Method(field.type, method);
+            this.Type = field.type;
             this.instruction = instruction;
         }
 
@@ -22,11 +23,13 @@ namespace Cauldron.Interception.Cecilator
         {
             this.Field = field;
             this.Method = this.Method;
+            this.Type = field.type;
             this.instruction = instruction;
         }
 
         public Field Field { get; private set; }
         public Method Method { get; private set; }
+        public BuilderType Type { get; private set; }
 
         public FieldUsage Replace(Field field)
         {

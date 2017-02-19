@@ -66,11 +66,14 @@
     <Compile Include="FieldCollection.cs" />
     <Compile Include="FieldInUseException.cs" />
     <Compile Include="FieldUsage.cs" />
+    <Compile Include="InsertionPosition.cs" />
+    <Compile Include="InstructionsSet.cs" />
     <Compile Include="IWeaver.cs" />
     <Compile Include="BuilderType.cs" />
     <Compile Include="Method.cs" />
     <Compile Include="MethodClearOptions.cs" />
     <Compile Include="Modifiers.cs" />
+    <Compile Include="ParamResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TypeReferenceEqualityComparer.cs" />
     <Compile Include="TypeNotFoundException.cs" />

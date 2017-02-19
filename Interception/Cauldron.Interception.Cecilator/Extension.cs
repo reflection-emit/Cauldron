@@ -1,4 +1,5 @@
 ﻿using Mono.Cecil;
+using Mono.Cecil.Cil;
 using Mono.Cecil.Rocks;
 using System;
 using System.Collections.Generic;
@@ -56,6 +57,23 @@ namespace Cauldron.Interception.Cecilator
             }
 
             return method;
+        }
+
+        internal static void InsertAfter(this ILProcessor processor, Instruction target, IEnumerable<Instruction> instructions)
+        {
+            var last = target;
+
+            foreach (var instruction in instructions)
+            {
+                processor.InsertAfter(last, instruction);
+                last = instruction;
+            }
+        }
+
+        internal static void InsertBefore(this ILProcessor processor, Instruction target, IEnumerable<Instruction> instructions)
+        {
+            foreach (var instruction in instructions)
+                processor.InsertBefore(target, instruction);
         }
 
         internal static MethodReference MakeHostInstanceGeneric(this MethodReference self, params TypeReference[] arguments)

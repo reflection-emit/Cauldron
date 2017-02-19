@@ -57,6 +57,139 @@ namespace Cauldron.Interception.Cecilator
             this.allTypes = builderBase.allTypes;
         }
 
+        internal ParamResult AddParameter(bool isStatic, ILProcessor processor, TypeReference targetType, object parameter)
+        {
+            var result = new ParamResult();
+
+            if (parameter == null)
+            {
+                result.Instructions.Add(processor.Create(OpCodes.Ldnull));
+                return result;
+            }
+
+            var type = parameter.GetType();
+
+            if (type == typeof(string))
+            {
+                result.Instructions.Add(processor.Create(OpCodes.Ldstr, parameter.ToString()));
+                result.Type = this.GetTypeDefinition(typeof(string));
+            }
+            else if (type == typeof(FieldDefinition))
+            {
+                var value = parameter as FieldDefinition;
+
+                if (!isStatic)
+                    result.Instructions.Add(processor.Create(OpCodes.Ldarg_0));
+
+                result.Instructions.Add(processor.Create(isStatic ? OpCodes.Ldsfld : OpCodes.Ldfld, value.CreateFieldReference()));
+                result.Type = value.FieldType;
+            }
+            else if (type == typeof(FieldReference))
+            {
+                var value = parameter as FieldReference;
+
+                if (!isStatic)
+                    result.Instructions.Add(processor.Create(OpCodes.Ldarg_0));
+
+                result.Instructions.Add(processor.Create(isStatic ? OpCodes.Ldsfld : OpCodes.Ldfld, value));
+                result.Type = value.FieldType;
+            }
+            else if (type == typeof(int))
+            {
+                result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, (int)parameter));
+                result.Type = this.GetTypeDefinition(typeof(int));
+            }
+            else if (type == typeof(uint))
+            {
+                result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, (int)(uint)parameter));
+                result.Type = this.GetTypeDefinition(typeof(uint));
+            }
+            else if (type == typeof(bool))
+            {
+                result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, (bool)parameter ? 1 : 0));
+                result.Type = this.GetTypeDefinition(typeof(bool));
+            }
+            else if (type == typeof(char))
+            {
+                result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, (char)parameter));
+                result.Type = this.GetTypeDefinition(typeof(char));
+            }
+            else if (type == typeof(short))
+            {
+                result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, (short)parameter));
+                result.Type = this.GetTypeDefinition(typeof(short));
+            }
+            else if (type == typeof(ushort))
+            {
+                result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, (ushort)parameter));
+                result.Type = this.GetTypeDefinition(typeof(ushort));
+            }
+            else if (type == typeof(byte))
+            {
+                result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, (int)(byte)parameter));
+                result.Type = this.GetTypeDefinition(typeof(byte));
+            }
+            else if (type == typeof(sbyte))
+            {
+                result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, (int)(sbyte)parameter));
+                result.Type = this.GetTypeDefinition(typeof(sbyte));
+            }
+            else if (type == typeof(long))
+            {
+                result.Instructions.Add(processor.Create(OpCodes.Ldc_I8, (long)parameter));
+                result.Type = this.GetTypeDefinition(typeof(long));
+            }
+            else if (type == typeof(ulong))
+            {
+                result.Instructions.Add(processor.Create(OpCodes.Ldc_I8, (long)(ulong)parameter));
+                result.Type = this.GetTypeDefinition(typeof(ulong));
+            }
+            else if (type == typeof(double))
+            {
+                result.Instructions.Add(processor.Create(OpCodes.Ldc_R8, (double)parameter));
+                result.Type = this.GetTypeDefinition(typeof(double));
+            }
+            else if (type == typeof(float))
+            {
+                result.Instructions.Add(processor.Create(OpCodes.Ldc_R4, (float)parameter));
+                result.Type = this.GetTypeDefinition(typeof(float));
+            }
+            else if (type == typeof(VariableDefinition))
+            {
+                var value = AddVariableDefinitionToInstruction(processor, result.Instructions, parameter);
+                result.Type = value.VariableType;
+            }
+            else if (type == typeof(BuilderType))
+            {
+                if (!isStatic)
+                    result.Instructions.Add(processor.Create(OpCodes.Ldarg_0));
+                else
+                    result.Instructions.Add(processor.Create(OpCodes.Ldnull));
+
+                var bt = parameter as BuilderType;
+                result.Type = bt.typeReference;
+            }
+            else if (type == typeof(ParameterDefinition))
+            {
+                var value = parameter as ParameterDefinition;
+                result.Instructions.Add(processor.Create(OpCodes.Ldarg_S, value));
+                result.Type = value.ParameterType;
+            }
+            else if (parameter is IEnumerable<Instruction>)
+            {
+                foreach (var item in parameter as IEnumerable<Instruction>)
+                    result.Instructions.Add(item);
+            }
+
+            if (result.Type != null && result.Type.Resolve() == null)
+                result.Instructions.Add(processor.Create(OpCodes.Box, result.Type));
+
+            if (result.Type != null && result.Type.IsValueType && !targetType.IsValueType)
+                result.Instructions.Add(processor.Create(OpCodes.Box, result.Type));
+
+            return result;
+        }
+
         internal IEnumerable<TypeReference> GetBaseClasses(TypeReference type)
         {
             var typeDef = type.Resolve();
@@ -119,6 +252,29 @@ namespace Cauldron.Interception.Cecilator
                 throw new Exception($"Unable to proceed. The type '{type.FullName}' was not found.");
 
             return result;
+        }
+
+        private static VariableDefinition AddVariableDefinitionToInstruction(ILProcessor processor, List<Instruction> instructions, object p)
+        {
+            var value = p as VariableDefinition;
+            var variableDef = processor.Body.Variables.FirstOrDefault(x => x == p);
+            var index = int.MaxValue;
+
+            if (variableDef == null)
+                index = processor.Body.Variables.IndexOf(variableDef);
+
+            switch (index)
+            {
+                case 0: instructions.Add(processor.Create(OpCodes.Ldloc_0)); break;
+                case 1: instructions.Add(processor.Create(OpCodes.Ldloc_1)); break;
+                case 2: instructions.Add(processor.Create(OpCodes.Ldloc_2)); break;
+                case 3: instructions.Add(processor.Create(OpCodes.Ldloc_3)); break;
+                default:
+                    instructions.Add(processor.Create(OpCodes.Ldloc_S, value));
+                    break;
+            }
+
+            return value;
         }
 
         private void GetAllAssemblyDefinitions(IEnumerable<AssemblyNameReference> target, List<AssemblyDefinition> result)
