@@ -31,23 +31,45 @@ namespace Cauldron.Interception.Fody
         public void Execute()
         {
             var builder = this.CreateBuilder();
-            //var attributes = builder.FindTypesByInterfaces(
-            //    "Cauldron.Interception.ILockablePropertyGetterInterceptor",
-            //    "Cauldron.Interception.ILockablePropertySetterInterceptor",
-            //    "Cauldron.Interception.IPropertyGetterInterceptor",
-            //    "Cauldron.Interception.IPropertySetterInterceptor");
+            var attributes = builder.FindTypesByInterfaces(
+                "Cauldron.Interception.ILockableMethodInterceptor",
+                "Cauldron.Interception.IMethodInterceptor");
+
+            var methods = builder.FindMethodsByAttributes(attributes);
+            var test = builder.GetType("Cauldron.Interception.Test.TestClass");
+
+            foreach (var method in methods)
+            {
+                this.LogInfo(method);
+                var variable = method.Method.CreateVariable(method.Attribute);
+
+                method.Method.Code
+                    .Assign(variable)
+                    .NewObj(method)
+                    .Load(variable)
+                    .Callvirt(method.Attribute.GetMethod("OnExit"))
+                    .Insert(Cecilator.InsertionPosition.Beginning);
+            }
+
             //var fields = builder.FindFieldsByAttributes(attributes);
             //var fieldUsage = fields.SelectMany(x => x.Field.FindUsages());
 
-            var type = builder.FindTypes("FieldOf_Implementer_Test").FirstOrDefault();
-            var field = type.Fields["field2"];
+            //var type = builder.FindTypes("FieldOf_Implementer_Test").FirstOrDefault();
+            //var field = type.Fields["field2"];
 
-            foreach (var item in type.GetRelevantConstructors())
-            {
-                item.Code
-                    .AssignToField(field, "This is a test")
-                    .Insert(Cecilator.InsertionPosition.Beginning);
-            }
+            //foreach (var item in type.GetRelevantConstructors())
+            //{
+            //    item.Code
+            //        .Assign(field)
+            //        .Set("This is a test")
+            //        .Insert(Cecilator.InsertionPosition.End);
+            //}
+
+            //type.GetMethod("Static_Private_Field_Info")
+            //    .Code
+            //    .Assign(field)
+            //    .Set("My god it works")
+            //    .Insert(Cecilator.InsertionPosition.End);
 
             //Extensions.ModuleWeaver = this;
 

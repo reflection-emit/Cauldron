@@ -88,6 +88,44 @@ namespace Cauldron.Interception.Cecilator
 
         #endregion Field Finders
 
+        #region Method Finders
+
+        public IEnumerable<Method> FindMethods(string regexPattern) => this.Types.SelectMany(x => x.Methods).Where(x => Regex.IsMatch(x.Name, regexPattern, RegexOptions.Singleline));
+
+        public IEnumerable<AttributedMethod> FindMethodsByAttribute(Type attributeType) => this.FindMethodsByAttribute(attributeType.FullName);
+
+        public IEnumerable<AttributedMethod> FindMethodsByAttribute(string attributeName)
+        {
+            var result = this.Types
+                .SelectMany(x => x.Methods)
+                .Where(x => x.methodDefinition.HasCustomAttributes)
+                .Select(x => new { Method = x, CustomAttributes = x.methodDefinition.CustomAttributes.Where(y => y.AttributeType.FullName == attributeName) })
+                .Where(x => x.CustomAttributes.Any() && x.Method != null);
+
+            foreach (var item in result)
+                foreach (var attrib in item.CustomAttributes)
+                    yield return new AttributedMethod(item.Method, attrib);
+        }
+
+        public IEnumerable<AttributedMethod> FindMethodsByAttributes(IEnumerable<BuilderType> types)
+        {
+            var result = this.Types
+                .SelectMany(x => x.Methods)
+                .Where(x => x.methodDefinition.HasCustomAttributes)
+                .Select(x => new { Method = x, CustomAttributes = x.methodDefinition.CustomAttributes.Where(y => types.Any(t => t.typeDefinition.FullName == y.AttributeType.Resolve().FullName)) })
+                .Where(x => x.CustomAttributes.Any() && x.Method != null);
+
+            foreach (var item in result)
+                foreach (var attrib in item.CustomAttributes)
+                    yield return new AttributedMethod(item.Method, attrib);
+        }
+
+        public IEnumerable<Method> FindMethodsByName(string methodName, int parameterCount) => this.Types.SelectMany(x => x.GetMethods(methodName, parameterCount));
+
+        public IEnumerable<Method> FindMethodsByName(string methodName) => this.Types.SelectMany(x => x.GetMethods(methodName, 0));
+
+        #endregion Method Finders
+
         #region Getting types
 
         public IEnumerable<BuilderType> Types

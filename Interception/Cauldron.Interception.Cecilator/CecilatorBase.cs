@@ -94,6 +94,16 @@ namespace Cauldron.Interception.Cecilator
                 result.Instructions.Add(processor.Create(isStatic ? OpCodes.Ldsfld : OpCodes.Ldfld, value));
                 result.Type = value.FieldType;
             }
+            else if (type == typeof(Field))
+            {
+                var value = parameter as Field;
+
+                if (!isStatic)
+                    result.Instructions.Add(processor.Create(OpCodes.Ldarg_0));
+
+                result.Instructions.Add(processor.Create(isStatic ? OpCodes.Ldsfld : OpCodes.Ldfld, value.fieldRef));
+                result.Type = value.fieldRef.FieldType;
+            }
             else if (type == typeof(int))
             {
                 result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, (int)parameter));
@@ -154,6 +164,11 @@ namespace Cauldron.Interception.Cecilator
                 result.Instructions.Add(processor.Create(OpCodes.Ldc_R4, (float)parameter));
                 result.Type = this.GetTypeDefinition(typeof(float));
             }
+            else if (type == typeof(LocalVariable))
+            {
+                var value = AddVariableDefinitionToInstruction(processor, result.Instructions, (parameter as LocalVariable).variable);
+                result.Type = value.VariableType;
+            }
             else if (type == typeof(VariableDefinition))
             {
                 var value = AddVariableDefinitionToInstruction(processor, result.Instructions, parameter);
@@ -166,6 +181,7 @@ namespace Cauldron.Interception.Cecilator
                 else
                     result.Instructions.Add(processor.Create(OpCodes.Ldnull));
 
+                // TODO -> typeof
                 var bt = parameter as BuilderType;
                 result.Type = bt.typeReference;
             }
@@ -254,14 +270,21 @@ namespace Cauldron.Interception.Cecilator
             return result;
         }
 
+        protected IEnumerable<Instruction> TypeOf(ILProcessor processor, TypeReference type)
+        {
+            return new Instruction[] {
+                processor.Create(OpCodes.Ldtoken, type),
+                processor.Create(OpCodes.Call,
+                    this.moduleDefinition.Import(
+                        this.GetTypeDefinition(typeof(Type))
+                            .Methods.FirstOrDefault(x=>x.Name == "GetTypeFromHandle" && x.Parameters.Count == 1)))
+            };
+        }
+
         private static VariableDefinition AddVariableDefinitionToInstruction(ILProcessor processor, List<Instruction> instructions, object p)
         {
             var value = p as VariableDefinition;
-            var variableDef = processor.Body.Variables.FirstOrDefault(x => x == p);
-            var index = int.MaxValue;
-
-            if (variableDef == null)
-                index = processor.Body.Variables.IndexOf(variableDef);
+            var index = value.Index;
 
             switch (index)
             {

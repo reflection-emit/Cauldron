@@ -2,11 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Diagnostics;
 
 namespace Cauldron.Interception.Cecilator
 {
     public sealed class FieldCollection : IEnumerable<Field>
     {
+        [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private InnerFieldCollection innerCollection = new InnerFieldCollection();
 
         internal FieldCollection(BuilderType type, Mono.Collections.Generic.Collection<FieldDefinition> fields)

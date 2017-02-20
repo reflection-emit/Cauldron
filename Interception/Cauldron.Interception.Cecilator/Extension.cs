@@ -59,6 +59,17 @@ namespace Cauldron.Interception.Cecilator
             return method;
         }
 
+        internal static IEnumerable<Instruction> GetJumpSources(this IEnumerable<Instruction> body, Instruction jumpTarget)
+        {
+            foreach (var item in body)
+            {
+                var target = item.Operand as Instruction;
+
+                if (target != null && target.Offset == jumpTarget.Offset)
+                    yield return item;
+            }
+        }
+
         internal static void InsertAfter(this ILProcessor processor, Instruction target, IEnumerable<Instruction> instructions)
         {
             var last = target;
@@ -74,6 +85,32 @@ namespace Cauldron.Interception.Cecilator
         {
             foreach (var instruction in instructions)
                 processor.InsertBefore(target, instruction);
+        }
+
+        internal static bool IsLoadLocal(this Instruction instruction)
+        {
+            var opCode = instruction.OpCode;
+            return
+                opCode == OpCodes.Ldloc ||
+                opCode == OpCodes.Ldloc_S ||
+                opCode == OpCodes.Ldloca ||
+                opCode == OpCodes.Ldloca_S ||
+                opCode == OpCodes.Ldloc_0 ||
+                opCode == OpCodes.Ldloc_1 ||
+                opCode == OpCodes.Ldloc_2 ||
+                opCode == OpCodes.Ldloc_3;
+        }
+
+        internal static bool IsStoreLocal(this Instruction instruction)
+        {
+            var opCode = instruction.OpCode;
+            return
+                opCode == OpCodes.Stloc ||
+                opCode == OpCodes.Stloc_S ||
+                opCode == OpCodes.Stloc_0 ||
+                opCode == OpCodes.Stloc_1 ||
+                opCode == OpCodes.Stloc_2 ||
+                opCode == OpCodes.Stloc_3;
         }
 
         internal static MethodReference MakeHostInstanceGeneric(this MethodReference self, params TypeReference[] arguments)

@@ -12,10 +12,10 @@ namespace Cauldron.Interception.Cecilator
         internal MethodDefinition methodDefinition;
 
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private MethodReference methodReference;
+        internal MethodReference methodReference;
 
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private BuilderType type;
+        internal BuilderType type;
 
         internal Method(BuilderType type, MethodReference methodReference, MethodDefinition methodDefinition) : base(type)
         {
@@ -33,9 +33,21 @@ namespace Cauldron.Interception.Cecilator
             this.Code = new InstructionsSet(type, this);
         }
 
-        public InstructionsSet Code { get; private set; }
+        public ICode Code { get; private set; }
 
         public BuilderType DeclaringType { get { return this.type; } }
+
+        public bool IsCCtor { get { return this.methodDefinition.Name == ".cctor"; } }
+
+        public bool IsCtor { get { return this.methodDefinition.Name == ".ctor"; } }
+
+        public bool IsStatic { get { return this.methodDefinition.IsStatic; } }
+
+        public bool IsVoid { get { return this.methodDefinition.ReturnType == this.moduleDefinition.TypeSystem.Void; } }
+
+        public string Name { get { return this.methodDefinition.Name; } }
+
+        public BuilderType ReturnType { get { return new BuilderType(this.type, this.methodReference.ReturnType); } }
 
         public Method Clear(MethodClearOptions options)
         {
@@ -51,6 +63,64 @@ namespace Cauldron.Interception.Cecilator
         public Method Clear() => this.Clear(MethodClearOptions.Body);
 
         internal ILProcessor GetILProcessor() => this.methodDefinition.Body.GetILProcessor();
+
+        #region Variables
+
+        public LocalVariableCollection LocalVariables { get { return new LocalVariableCollection(this.type, this.methodDefinition.Body.Variables); } }
+
+        public LocalVariable CreateVariable(string name, Method method)
+        {
+            if (method.IsCtor)
+                return this.CreateVariable(name, method.DeclaringType);
+
+            return this.CreateVariable(name, method.ReturnType);
+        }
+
+        public LocalVariable CreateVariable(string name, BuilderType type)
+        {
+            var isInitialized = this.methodDefinition.Body.InitLocals;
+            var newVariable = new VariableDefinition(name, this.moduleDefinition.Import(type.typeReference));
+            this.methodDefinition.Body.Variables.Add(newVariable);
+
+            if (!isInitialized)
+                this.methodDefinition.Body.InitLocals = true;
+
+            return new LocalVariable(this.type, newVariable);
+        }
+
+        public LocalVariable CreateVariable(Type type)
+        {
+            var isInitialized = this.methodDefinition.Body.InitLocals;
+            var newVariable = new VariableDefinition("var_" + Guid.NewGuid().ToString().Replace('-', 'x'), this.moduleDefinition.Import(GetTypeDefinition(type)));
+            this.methodDefinition.Body.Variables.Add(newVariable);
+
+            if (!isInitialized)
+                this.methodDefinition.Body.InitLocals = true;
+
+            return new LocalVariable(this.type, newVariable);
+        }
+
+        public LocalVariable CreateVariable(Method method)
+        {
+            if (method.IsCtor)
+                return this.CreateVariable(method.DeclaringType);
+
+            return this.CreateVariable(method.ReturnType);
+        }
+
+        public LocalVariable CreateVariable(BuilderType type)
+        {
+            var isInitialized = this.methodDefinition.Body.InitLocals;
+            var newVariable = new VariableDefinition("var_" + Guid.NewGuid().ToString().Replace('-', 'x'), this.moduleDefinition.Import(type.typeReference));
+            this.methodDefinition.Body.Variables.Add(newVariable);
+
+            if (!isInitialized)
+                this.methodDefinition.Body.InitLocals = true;
+
+            return new LocalVariable(this.type, newVariable);
+        }
+
+        #endregion Variables
 
         #region Equitable stuff
 

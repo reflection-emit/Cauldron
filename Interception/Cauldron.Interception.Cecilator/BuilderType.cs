@@ -18,6 +18,7 @@ namespace Cauldron.Interception.Cecilator
 
         public Builder Builder { get; private set; }
         public string Fullname { get { return this.typeReference.FullName; } }
+        public bool IsForeign { get { return this.moduleDefinition.Assembly == this.typeDefinition.Module.Assembly; } }
         public string Namespace { get { return this.typeDefinition.Namespace; } }
 
         public bool Implements(Type interfaceType) => this.Implements(interfaceType.FullName);
@@ -189,7 +190,7 @@ namespace Cauldron.Interception.Cecilator
 
         public FieldCollection Fields { get { return new FieldCollection(this, this.typeDefinition.Fields); } }
 
-        public Field CreateField(Modifiers modifier, Type fieldType, string name) => this.CreateField(modifier, this.GetTypeDefinition(fieldType).ResolveType(this.typeReference), name);
+        public Field CreateField(Modifiers modifier, Type fieldType, string name) => this.CreateField(modifier, this.moduleDefinition.Import(this.GetTypeDefinition(fieldType).ResolveType(this.typeReference)), name);
 
         public Field CreateField(Modifiers modifier, Field field, string name) => this.CreateField(modifier, field.fieldRef.FieldType, name);
 
@@ -201,13 +202,74 @@ namespace Cauldron.Interception.Cecilator
             if (modifier.HasFlag(Modifiers.Static)) attributes |= FieldAttributes.Static;
             if (modifier.HasFlag(Modifiers.Public)) attributes |= FieldAttributes.Public;
 
-            var field = new FieldDefinition(name, attributes, typeReference);
+            var field = new FieldDefinition(name, attributes, this.moduleDefinition.Import(typeReference));
             this.typeDefinition.Fields.Add(field);
 
             return new Field(this, field);
         }
 
         #endregion Fields
+
+        #region Methods
+
+        public IEnumerable<Method> Methods { get { return this.typeDefinition.Methods.Where(x => x.Body != null).Select(x => new Method(this, x)); } }
+
+        public Method GetMethod(string name)
+        {
+            var result = this.typeDefinition.Methods
+                .Concat(this.BaseClasses.SelectMany(x => x.typeDefinition.Methods))
+                .FirstOrDefault(x => x.Name == name && x.Parameters.Count == 0);
+
+            if (result == null)
+                throw new MethodNotFoundException($"Unable to proceed. The type '{this.typeDefinition.FullName}' does not contain a method '{name}'");
+
+            return new Method(this, result);
+        }
+
+        public Method GetMethod(string name, int parameterCount)
+        {
+            var result = this.typeDefinition.Methods
+                .Concat(this.BaseClasses.SelectMany(x => x.typeDefinition.Methods))
+                .FirstOrDefault(x => x.Name == name && x.Parameters.Count == parameterCount);
+
+            if (result == null)
+                throw new MethodNotFoundException($"Unable to proceed. The type '{this.typeDefinition.FullName}' does not contain a method '{name}'");
+
+            return new Method(this, result);
+        }
+
+        public Method GetMethod(string name, params Type[] parameters)
+        {
+            var result = this.typeDefinition.Methods
+                .Concat(this.BaseClasses.SelectMany(x => x.typeDefinition.Methods))
+                .Where(x => x.Name == name && x.Parameters.Count == parameters.Length)
+                .FirstOrDefault(x =>
+                {
+                    var p1 = x.Parameters.Select(y => y.ParameterType.FullName);
+                    var p2 = parameters.Select(y => y.FullName);
+
+                    return p1.SequenceEqual(p2);
+                });
+
+            if (result == null)
+                throw new MethodNotFoundException($"Unable to proceed. The type '{this.typeDefinition.FullName}' does not contain a method '{name}'");
+
+            return new Method(this, result);
+        }
+
+        public IEnumerable<Method> GetMethods(string name, int parameterCount)
+        {
+            var result = this.typeDefinition.Methods
+                .Concat(this.BaseClasses.SelectMany(x => x.typeDefinition.Methods))
+                .Where(x => x.Name == name && x.Parameters.Count == parameterCount).Select(x => new Method(this, x));
+
+            if (!result.Any())
+                throw new MethodNotFoundException($"Unable to proceed. The type '{this.typeDefinition.FullName}' does not contain a method '{name}'");
+
+            return result;
+        }
+
+        #endregion Methods
 
         #region Equitable stuff
 
@@ -250,7 +312,7 @@ namespace Cauldron.Interception.Cecilator
         public override int GetHashCode() => this.typeDefinition.FullName.GetHashCode();
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override string ToString() => this.typeReference.FullName;
+        public override string ToString() => this.typeReference.FullName + " in " + this.typeDefinition.Module.Assembly.Name.Name;
 
         #endregion Equitable stuff
     }

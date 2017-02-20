@@ -8,7 +8,7 @@ namespace Cauldron.Interception.Cecilator
     public sealed class AttributedField : CecilatorBase, IEquatable<AttributedField>
     {
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private CustomAttribute customAttribute;
+        internal CustomAttribute customAttribute;
 
         internal AttributedField(Field field, CustomAttribute customAttribute) : base(field)
         {
