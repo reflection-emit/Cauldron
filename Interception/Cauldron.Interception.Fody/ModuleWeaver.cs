@@ -42,12 +42,18 @@ namespace Cauldron.Interception.Fody
             {
                 this.LogInfo(method);
                 var variable = method.Method.CreateVariable(method.Attribute);
+                var bla = method.Method.DeclaringType.Fields.Contains("bla") ? method.Method.DeclaringType.Fields["bla"] : method.Method.DeclaringType.CreateField(Modifiers.PrivateStatic, typeof(int), "bla");
 
-                method.Method.Code
-                    .Assign(variable)
-                    .NewObj(method)
-                    .Load(variable)
-                    .Callvirt(method.Attribute.GetMethod("OnExit"))
+                method.Method
+                    .Code
+                        .Assign(variable)
+                            .NewObj(method)
+                        .Load(variable)
+                            .Callvirt(method.Attribute.GetMethod("OnExit"))
+                        .Assign(variable)
+                            .Set(null)
+                        .Assign(bla)
+                            .Set(2)
                     .Insert(Cecilator.InsertionPosition.Beginning);
             }
 
