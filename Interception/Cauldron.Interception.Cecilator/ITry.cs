@@ -5,14 +5,14 @@ namespace Cauldron.Interception.Cecilator
 {
     public interface ITry
     {
-        ICatch Catch(Type exceptionType, Func<ICatchCode, ICode> body);
+        ICatch Catch(Type exceptionType, Action<ICatchCode> body);
 
-        ICatch Catch(BuilderType exceptionType, Func<ICatchCode, ICode> body);
+        ICatch Catch(BuilderType exceptionType, Action<ICatchCode> body);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         bool Equals(object obj);
 
-        IFinally Finally(Func<ICatchCode, ICode> body);
+        IFinally Finally(Action<ICatchCode> body);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         int GetHashCode();

@@ -9,14 +9,6 @@ namespace Cauldron.Interception.Cecilator
 {
     public static class Extension
     {
-        public static void Concat(this ICode a, ICode b)
-        {
-            if (a == null || b == null)
-                return;
-
-            (a as InstructionsSet).instructions.AddRange((b as InstructionsSet).instructions);
-        }
-
         public static Builder CreateBuilder(this IWeaver weaver)
         {
             if (weaver == null)
@@ -24,6 +16,8 @@ namespace Cauldron.Interception.Cecilator
 
             return new Builder(weaver);
         }
+
+        internal static void Append(this ILProcessor processor, Instruction[] instructions) => processor.Append(instructions as IEnumerable<Instruction>);
 
         internal static void Append(this ILProcessor processor, IEnumerable<Instruction> instructions)
         {
@@ -83,6 +77,8 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
+        internal static void InsertAfter(this ILProcessor processor, Instruction target, Instruction[] instructions) => processor.InsertAfter(target, instructions as IEnumerable<Instruction>);
+
         internal static void InsertAfter(this ILProcessor processor, Instruction target, IEnumerable<Instruction> instructions)
         {
             var last = target;
@@ -93,6 +89,8 @@ namespace Cauldron.Interception.Cecilator
                 last = instruction;
             }
         }
+
+        internal static void InsertBefore(this ILProcessor processor, Instruction target, Instruction[] instructions) => processor.InsertBefore(target, instructions as IEnumerable<Instruction>);
 
         internal static void InsertBefore(this ILProcessor processor, Instruction target, IEnumerable<Instruction> instructions)
         {

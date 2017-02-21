@@ -78,6 +78,7 @@
     <Compile Include="IFinally.cs" />
     <Compile Include="ILocalVariableCode.cs" />
     <Compile Include="InsertionPosition.cs" />
+    <Compile Include="InstructionContainer.cs" />
     <Compile Include="InstructionsSet.cs" />
     <Compile Include="ITry.cs" />
     <Compile Include="ITryCode.cs" />

@@ -2,8 +2,9 @@
 {
     internal enum MarkerType
     {
-        Try,
-        Catch,
-        Finally
+        Try = -1,
+        Catch = 0,
+        Finally = 2,
+        EndTry
     }
 }

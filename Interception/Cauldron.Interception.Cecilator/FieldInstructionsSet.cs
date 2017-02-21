@@ -8,11 +8,11 @@ namespace Cauldron.Interception.Cecilator
 {
     public class FieldInstructionsSet : AssignInstructionsSet<Field>, IFieldCode
     {
-        internal FieldInstructionsSet(InstructionsSet instructionsSet, Field target, IEnumerable<Instruction> instructions) : base(instructionsSet, target, instructions)
+        internal FieldInstructionsSet(InstructionsSet instructionsSet, Field target, InstructionContainer instructions) : base(instructionsSet, target, instructions)
         {
         }
 
-        internal FieldInstructionsSet(InstructionsSet instructionsSet, IEnumerable<Field> targets, IEnumerable<Instruction> instructions) : base(instructionsSet, targets, instructions)
+        internal FieldInstructionsSet(InstructionsSet instructionsSet, IEnumerable<Field> targets, InstructionContainer instructions) : base(instructionsSet, targets, instructions)
         {
         }
 
@@ -29,7 +29,7 @@ namespace Cauldron.Interception.Cecilator
         protected override void StoreCall()
         {
             var field = this.target.Last();
-            this.instructions.Add(processor.Create(field.IsStatic ? OpCodes.Stsfld : OpCodes.Stfld, field.fieldRef));
+            this.instructions.Append(processor.Create(field.IsStatic ? OpCodes.Stsfld : OpCodes.Stfld, field.fieldRef));
         }
 
         #region Equitable stuff

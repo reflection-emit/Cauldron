@@ -65,17 +65,14 @@ namespace Cauldron.Interception.Fody
                         .Context(x =>
                         {
                             foreach (var item in attributeMethods)
-                                x.Concat(x.Assign(item.Variable).NewObj(item.Method));
-
-                            return x;
+                                x.Assign(item.Variable).NewObj(item.Method);
                         })
                         .Try(x => x.OriginalBody())
                         .Catch(typeof(Exception), x => x.Rethrow())
                         .Finally(x =>
                         {
                             foreach (var item in attributeMethods)
-                                x.Concat(x.LoadLocalVariable(item.Variable).Call(item.OnExitMethod));
-                            return x;
+                                x.LoadLocalVariable(item.Variable).Call(item.OnExitMethod);
                         })
                         .EndTry()
                         .Return()

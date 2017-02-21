@@ -8,11 +8,11 @@ namespace Cauldron.Interception.Cecilator
 {
     public class LocalVariableInstructionSet : AssignInstructionsSet<LocalVariable>, ILocalVariableCode
     {
-        internal LocalVariableInstructionSet(InstructionsSet instructionsSet, LocalVariable target, IEnumerable<Instruction> instructions) : base(instructionsSet, target, instructions)
+        internal LocalVariableInstructionSet(InstructionsSet instructionsSet, LocalVariable target, InstructionContainer instructions) : base(instructionsSet, target, instructions)
         {
         }
 
-        internal LocalVariableInstructionSet(InstructionsSet instructionsSet, IEnumerable<LocalVariable> targets, IEnumerable<Instruction> instructions) : base(instructionsSet, targets, instructions)
+        internal LocalVariableInstructionSet(InstructionsSet instructionsSet, IEnumerable<LocalVariable> targets, InstructionContainer instructions) : base(instructionsSet, targets, instructions)
         {
         }
 
@@ -32,12 +32,12 @@ namespace Cauldron.Interception.Cecilator
 
             switch (last.Index)
             {
-                case 0: this.instructions.Add(processor.Create(OpCodes.Stloc_0)); break;
-                case 1: this.instructions.Add(processor.Create(OpCodes.Stloc_1)); break;
-                case 2: this.instructions.Add(processor.Create(OpCodes.Stloc_2)); break;
-                case 3: this.instructions.Add(processor.Create(OpCodes.Stloc_3)); break;
+                case 0: this.instructions.Append(processor.Create(OpCodes.Stloc_0)); break;
+                case 1: this.instructions.Append(processor.Create(OpCodes.Stloc_1)); break;
+                case 2: this.instructions.Append(processor.Create(OpCodes.Stloc_2)); break;
+                case 3: this.instructions.Append(processor.Create(OpCodes.Stloc_3)); break;
                 default:
-                    this.instructions.Add(processor.Create(OpCodes.Stloc, last.variable));
+                    this.instructions.Append(processor.Create(OpCodes.Stloc, last.variable));
                     break;
             }
         }

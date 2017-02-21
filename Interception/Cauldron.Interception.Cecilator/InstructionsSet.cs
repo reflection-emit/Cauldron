@@ -10,10 +10,10 @@ using System.Linq;
 
 namespace Cauldron.Interception.Cecilator
 {
-    public class InstructionsSet : CecilatorBase, ICode, IAction
+    public class InstructionsSet : CecilatorBase, ICode, IAction, ITryCode
     {
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        internal List<Instruction> instructions = new List<Instruction>();
+        internal readonly InstructionContainer instructions;
 
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
         internal ILProcessor processor;
@@ -23,16 +23,17 @@ namespace Cauldron.Interception.Cecilator
 
         internal InstructionsSet(BuilderType type, Method method) : base(type)
         {
+            this.instructions = new InstructionContainer();
             this.method = method;
             this.processor = method.GetILProcessor();
             this.method.methodDefinition.Body.SimplifyMacros();
         }
 
-        internal InstructionsSet(InstructionsSet instructionsSet, IEnumerable<Instruction> instructions) : base(instructionsSet.method.DeclaringType)
+        internal InstructionsSet(InstructionsSet instructionsSet, InstructionContainer instructions) : base(instructionsSet.method.DeclaringType)
         {
             this.method = instructionsSet.method;
             this.processor = instructionsSet.processor;
-            this.instructions.AddRange(instructions);
+            this.instructions = instructions;
         }
 
         protected bool RequiresReturn
@@ -55,7 +56,7 @@ namespace Cauldron.Interception.Cecilator
                 if (field.DeclaringType != this.method.DeclaringType)
                     throw new NotImplementedException();
 
-                this.instructions.Add(processor.Create(OpCodes.Ldarg_0));
+                this.instructions.Append(processor.Create(OpCodes.Ldarg_0));
             }
 
             return new FieldInstructionsSet(this, field, this.instructions);
@@ -85,10 +86,10 @@ namespace Cauldron.Interception.Cecilator
             for (int i = 0; i < parameters.Length; i++)
             {
                 var inst = this.AddParameter(false, this.processor, method.methodDefinition.Parameters[i].ParameterType, parameters[i]);
-                this.instructions.AddRange(inst.Instructions);
+                this.instructions.Append(inst.Instructions);
             }
 
-            this.instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(method.methodReference)));
+            this.instructions.Append(processor.Create(OpCodes.Call, this.moduleDefinition.Import(method.methodReference)));
 
             if (!method.IsVoid)
                 this.StoreCall();
@@ -101,10 +102,10 @@ namespace Cauldron.Interception.Cecilator
             for (int i = 0; i < parameters.Length; i++)
             {
                 var inst = this.AddParameter(false, this.processor, method.methodDefinition.Parameters[i].ParameterType, parameters[i]);
-                this.instructions.AddRange(inst.Instructions);
+                this.instructions.Append(inst.Instructions);
             }
 
-            this.instructions.Add(processor.Create(OpCodes.Callvirt, this.moduleDefinition.Import(method.methodReference)));
+            this.instructions.Append(processor.Create(OpCodes.Callvirt, this.moduleDefinition.Import(method.methodReference)));
 
             if (!method.IsVoid)
                 this.StoreCall();
@@ -112,13 +113,9 @@ namespace Cauldron.Interception.Cecilator
             return new InstructionsSet(this, this.instructions);
         }
 
-        public ICode Context(Func<ICode, ICode> body)
+        public ICode Context(Action<ICode> body)
         {
-            var block = new List<Instruction>();
-            var iset = body(new InstructionsSet(this, block)) as InstructionsSet;
-
-            if (iset != null)
-                this.instructions.AddRange(iset.instructions);
+            body(this);
             return new InstructionsSet(this, this.instructions);
         }
 
@@ -162,7 +159,7 @@ namespace Cauldron.Interception.Cecilator
                     }
 
                     foreach (var item in jumpers)
-                        item.Operand = this.instructions[0];
+                        item.Operand = this.instructions.First();
                 }
             }
 
@@ -174,9 +171,9 @@ namespace Cauldron.Interception.Cecilator
         public IFieldCode Load(Field field)
         {
             if (!this.method.IsStatic)
-                this.instructions.Add(processor.Create(OpCodes.Ldarg_0));
+                this.instructions.Append(processor.Create(OpCodes.Ldarg_0));
 
-            this.instructions.Add(processor.Create(OpCodes.Ldfld, field.fieldRef));
+            this.instructions.Append(processor.Create(OpCodes.Ldfld, field.fieldRef));
             return new FieldInstructionsSet(this, field, this.instructions);
         }
 
@@ -184,12 +181,12 @@ namespace Cauldron.Interception.Cecilator
         {
             switch (localVariable.Index)
             {
-                case 0: this.instructions.Add(processor.Create(OpCodes.Ldloc_0)); break;
-                case 1: this.instructions.Add(processor.Create(OpCodes.Ldloc_1)); break;
-                case 2: this.instructions.Add(processor.Create(OpCodes.Ldloc_2)); break;
-                case 3: this.instructions.Add(processor.Create(OpCodes.Ldloc_3)); break;
+                case 0: this.instructions.Append(processor.Create(OpCodes.Ldloc_0)); break;
+                case 1: this.instructions.Append(processor.Create(OpCodes.Ldloc_1)); break;
+                case 2: this.instructions.Append(processor.Create(OpCodes.Ldloc_2)); break;
+                case 3: this.instructions.Append(processor.Create(OpCodes.Ldloc_3)); break;
                 default:
-                    this.instructions.Add(processor.Create(OpCodes.Ldloc, localVariable.variable));
+                    this.instructions.Append(processor.Create(OpCodes.Ldloc, localVariable.variable));
                     break;
             }
 
@@ -220,6 +217,12 @@ namespace Cauldron.Interception.Cecilator
             return this.Load(localvariable);
         }
 
+        public ICode OriginalBody()
+        {
+            this.instructions.Append(this.processor.Body.Instructions);
+            return new InstructionsSet(this, this.instructions);
+        }
+
         public void Replace()
         {
             this.method.methodDefinition.Body.Instructions.Clear();
@@ -232,23 +235,19 @@ namespace Cauldron.Interception.Cecilator
 
         public ICode Return()
         {
-            this.instructions.Add(this.processor.Create(OpCodes.Ret));
+            this.instructions.Append(this.processor.Create(OpCodes.Ret));
             return new InstructionsSet(this, this.instructions);
         }
 
-        public ITry Try(Func<ITryCode, ICode> body)
+        public ITry Try(Action<ITryCode> body)
         {
-            var block = new List<Instruction>();
-            int index = this.instructions.Count == 0 ? 0 : this.instructions.Count - 1;
-            this.instructions.AddRange((body(new MarkerInstructionSet(this, block)) as InstructionsSet).instructions);
+            var markerStart = this.instructions.Last();
+            body(this);
 
             if (this.RequiresReturn)
-                this.instructions.Add(this.processor.Create(OpCodes.Ret));
+                this.instructions.Append(this.processor.Create(OpCodes.Ret));
 
-            if (index > 0 && index < this.instructions.Count)
-                index++;
-
-            return new MarkerInstructionSet(this, MarkerType.Try, this.instructions.Count == 0 ? null : this.instructions[index], this.instructions);
+            return new MarkerInstructionSet(this, MarkerType.Try, markerStart ?? this.instructions.First(), this.instructions);
         }
 
         protected IEnumerable<Instruction> AttributeParameterToOpCode(ILProcessor processor, CustomAttributeArgument attributeArgument)
@@ -360,18 +359,14 @@ namespace Cauldron.Interception.Cecilator
 
         protected virtual ILocalVariableCode CreateLocalVariableInstructionSet(LocalVariable localVariable) => new LocalVariableInstructionSet(this, localVariable, this.instructions);
 
-        protected void InstructionDebug()
-        {
-            foreach (var item in this.instructions)
-                this.logInfo($"IL_{item.Offset.ToString("X4")}: {item.OpCode.ToString()} {item.Operand?.ToString()}");
-        }
+        protected void InstructionDebug() => this.logInfo(this.instructions.ToString());
 
         protected ICode NewObj(CustomAttribute attribute)
         {
             foreach (var arg in attribute.ConstructorArguments)
-                this.instructions.AddRange(AttributeParameterToOpCode(this.processor, arg));
+                this.instructions.Append(AttributeParameterToOpCode(this.processor, arg));
 
-            this.instructions.Add(this.processor.Create(OpCodes.Newobj, attribute.Constructor));
+            this.instructions.Append(this.processor.Create(OpCodes.Newobj, attribute.Constructor));
             this.StoreCall();
             return new InstructionsSet(this, this.instructions);
         }
