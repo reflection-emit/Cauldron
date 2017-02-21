@@ -18,6 +18,12 @@ namespace Cauldron.Interception.Cecilator
             return new Builder(weaver);
         }
 
+        internal static void Append(this ILProcessor processor, IEnumerable<Instruction> instructions)
+        {
+            foreach (var instruction in instructions)
+                processor.Append(instruction);
+        }
+
         internal static FieldReference CreateFieldReference(this FieldDefinition field)
         {
             if (field.DeclaringType.HasGenericParameters)

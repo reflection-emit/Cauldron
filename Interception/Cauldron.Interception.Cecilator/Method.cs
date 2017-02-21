@@ -3,6 +3,7 @@ using Mono.Cecil.Cil;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 
 namespace Cauldron.Interception.Cecilator
 {
@@ -22,7 +23,6 @@ namespace Cauldron.Interception.Cecilator
             this.type = type;
             this.methodDefinition = methodDefinition;
             this.methodReference = methodReference;
-            this.Code = new InstructionsSet(type, this);
         }
 
         internal Method(BuilderType type, MethodDefinition methodDefinition) : base(type)
@@ -30,10 +30,9 @@ namespace Cauldron.Interception.Cecilator
             this.type = type;
             this.methodDefinition = methodDefinition;
             this.methodReference = methodDefinition.CreateMethodReference();
-            this.Code = new InstructionsSet(type, this);
         }
 
-        public ICode Code { get; private set; }
+        public ICode Code { get { return new InstructionsSet(this.type, this); } }
 
         public BuilderType DeclaringType { get { return this.type; } }
 
@@ -79,6 +78,12 @@ namespace Cauldron.Interception.Cecilator
         public LocalVariable CreateVariable(string name, BuilderType type)
         {
             var isInitialized = this.methodDefinition.Body.InitLocals;
+
+            var existingVariable = this.methodDefinition.Body.Variables.FirstOrDefault(x => x.Name == name);
+
+            if (existingVariable != null)
+                return new LocalVariable(this.type, existingVariable);
+
             var newVariable = new VariableDefinition(name, this.moduleDefinition.Import(type.typeReference));
             this.methodDefinition.Body.Variables.Add(newVariable);
 

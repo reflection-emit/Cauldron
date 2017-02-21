@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 
 namespace Cauldron.Interception.Cecilator
 {
@@ -34,7 +35,11 @@ namespace Cauldron.Interception.Cecilator
 
         ILocalVariableCode LoadLocalVariable(string variableName);
 
+        ICode Return();
+
         [EditorBrowsable(EditorBrowsableState.Never)]
         new string ToString();
+
+        ITry Try(Func<ITryCode, ICode> body);
     }
 }

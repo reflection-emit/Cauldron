@@ -2,19 +2,17 @@
 
 namespace Cauldron.Interception.Cecilator
 {
-    public interface IAction
+    public interface ICatchCode : ICode
     {
         [EditorBrowsable(EditorBrowsableState.Never)]
-        bool Equals(object obj);
+        new bool Equals(object obj);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        int GetHashCode();
+        new int GetHashCode();
 
-        void Insert(InsertionPosition position);
-
-        void Replace();
+        ICode Rethrow();
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        string ToString();
+        new string ToString();
     }
 }

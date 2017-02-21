@@ -1,67 +1,34 @@
-﻿using Mono.Cecil.Cil;
+﻿using Mono.Cecil;
+using Mono.Cecil.Cil;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 
 namespace Cauldron.Interception.Cecilator
 {
-    public class FieldInstructionsSet : InstructionsSet, IFieldCode
+    public class FieldInstructionsSet : AssignInstructionsSet<Field>, IFieldCode
     {
-        [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private List<Field> fields = new List<Field>();
-
-        internal FieldInstructionsSet(InstructionsSet instructionsSet, IEnumerable<Field> fields, IEnumerable<Instruction> instructions) : base(instructionsSet, instructions)
+        internal FieldInstructionsSet(InstructionsSet instructionsSet, Field target, IEnumerable<Instruction> instructions) : base(instructionsSet, target, instructions)
         {
-            this.fields.AddRange(fields);
         }
 
-        internal FieldInstructionsSet(InstructionsSet instructionsSet, Field field, IEnumerable<Instruction> instructions) : base(instructionsSet, instructions)
+        internal FieldInstructionsSet(InstructionsSet instructionsSet, IEnumerable<Field> targets, IEnumerable<Instruction> instructions) : base(instructionsSet, targets, instructions)
         {
-            this.fields.Add(field);
         }
 
-        public ICode NewObj(AttributedField attribute) => this.NewObj(attribute.customAttribute);
-
-        public ICode NewObj(AttributedMethod attribute) => this.NewObj(attribute.customAttribute);
-
-        public ICode NewObj(Method constructor, params object[] parameters)
-        {
-            for (int i = 0; i < parameters.Length; i++)
-            {
-                var inst = this.AddParameter(false, this.processor, constructor.methodDefinition.Parameters[i].ParameterType, parameters[i]);
-                this.instructions.AddRange(inst.Instructions);
-            }
-
-            var field = this.fields.Last();
-
-            this.instructions.Add(processor.Create(OpCodes.Newobj, this.moduleDefinition.Import(constructor.methodReference)));
-            this.instructions.Add(processor.Create(field.IsStatic ? OpCodes.Stsfld : OpCodes.Stfld, field.fieldRef));
-
-            return new InstructionsSet(this, this.instructions);
-        }
-
-        public ICode Set(object value)
-        {
-            var field = this.fields.Last();
-            var inst = this.AddParameter(field.IsStatic, this.processor, field.fieldRef.FieldType, value);
-            this.instructions.AddRange(inst.Instructions);
-            this.instructions.Add(processor.Create(field.IsStatic ? OpCodes.Stsfld : OpCodes.Stfld, field.fieldRef));
-
-            return new InstructionsSet(this, this.instructions);
-        }
+        protected override TypeReference TargetType { get { return this.target.Last().fieldRef.FieldType; } }
 
         protected override IFieldCode CreateFieldInstructionSet(Field field)
         {
             var newList = new List<Field>();
-            newList.AddRange(this.fields);
+            newList.AddRange(this.target);
             newList.Add(field);
             return new FieldInstructionsSet(this, newList, this.instructions);
         }
 
         protected override void StoreCall()
         {
-            var field = this.fields.Last();
+            var field = this.target.Last();
             this.instructions.Add(processor.Create(field.IsStatic ? OpCodes.Stsfld : OpCodes.Stfld, field.fieldRef));
         }
 
@@ -80,7 +47,7 @@ namespace Cauldron.Interception.Cecilator
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override int GetHashCode() => this.fields.GetHashCode();
+        public override int GetHashCode() => this.target.GetHashCode();
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override string ToString() => this.GetType().FullName;

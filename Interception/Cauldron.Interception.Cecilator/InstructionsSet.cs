@@ -1,5 +1,6 @@
 ﻿using Mono.Cecil;
 using Mono.Cecil.Cil;
+using Mono.Cecil.Rocks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,10 +13,10 @@ namespace Cauldron.Interception.Cecilator
     public class InstructionsSet : CecilatorBase, ICode, IAction
     {
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        protected List<Instruction> instructions = new List<Instruction>();
+        internal List<Instruction> instructions = new List<Instruction>();
 
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        protected ILProcessor processor;
+        internal ILProcessor processor;
 
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private Method method;
@@ -24,6 +25,7 @@ namespace Cauldron.Interception.Cecilator
         {
             this.method = method;
             this.processor = method.GetILProcessor();
+            this.method.methodDefinition.Body.SimplifyMacros();
         }
 
         internal InstructionsSet(InstructionsSet instructionsSet, IEnumerable<Instruction> instructions) : base(instructionsSet.method.DeclaringType)
@@ -31,6 +33,17 @@ namespace Cauldron.Interception.Cecilator
             this.method = instructionsSet.method;
             this.processor = instructionsSet.processor;
             this.instructions.AddRange(instructions);
+        }
+
+        protected bool RequiresReturn
+        {
+            get
+            {
+                return this.instructions.Count > 0 &&
+                    this.instructions.Last().OpCode != OpCodes.Rethrow &&
+                    this.instructions.Last().OpCode != OpCodes.Throw &&
+                    this.instructions.Last().OpCode != OpCodes.Ret;
+            }
         }
 
         public ILocalVariableCode Assign(LocalVariable localVariable) => new LocalVariableInstructionSet(this, localVariable, this.instructions);
@@ -128,14 +141,13 @@ namespace Cauldron.Interception.Cecilator
                     else
                     {
                         var isInitialized = this.method.methodDefinition.Body.InitLocals;
-                        var localVariable = new VariableDefinition("<>returnValue", this.method.methodReference.ReturnType);
-                        this.method.methodDefinition.Body.Variables.Add(localVariable);
+                        var localVariable = this.method.CreateVariable("<>returnValue", this.method.ReturnType);
 
                         if (!isInitialized)
                             this.method.methodDefinition.Body.InitLocals = true;
 
-                        processor.InsertBefore(last, processor.Create(OpCodes.Stloc, localVariable));
-                        processor.InsertBefore(last, processor.Create(OpCodes.Ldloc, localVariable));
+                        processor.InsertBefore(last, processor.Create(OpCodes.Stloc, localVariable.variable));
+                        processor.InsertBefore(last, processor.Create(OpCodes.Ldloc, localVariable.variable));
                         instructionPosition = last.Previous.Previous;
                     }
 
@@ -145,6 +157,8 @@ namespace Cauldron.Interception.Cecilator
             }
 
             processor.InsertBefore(instructionPosition, this.instructions);
+            this.ReplaceReturns();
+            this.method.methodDefinition.Body.OptimizeMacros();
         }
 
         public IFieldCode Load(Field field)
@@ -194,6 +208,37 @@ namespace Cauldron.Interception.Cecilator
 
             var localvariable = this.method.LocalVariables[variableName];
             return this.Load(localvariable);
+        }
+
+        public void Replace()
+        {
+            this.method.methodDefinition.Body.Instructions.Clear();
+
+            processor.Append(this.instructions);
+            this.ReplaceReturns();
+
+            this.method.methodDefinition.Body.OptimizeMacros();
+        }
+
+        public ICode Return()
+        {
+            this.instructions.Add(this.processor.Create(OpCodes.Ret));
+            return new InstructionsSet(this, this.instructions);
+        }
+
+        public ITry Try(Func<ITryCode, ICode> body)
+        {
+            var block = new List<Instruction>();
+            int index = this.instructions.Count == 0 ? 0 : this.instructions.Count - 1;
+            this.instructions.AddRange((body(new MarkerInstructionSet(this, block)) as InstructionsSet).instructions);
+
+            if (this.RequiresReturn)
+                this.instructions.Add(this.processor.Create(OpCodes.Ret));
+
+            if (index > 0 && index < this.instructions.Count)
+                index++;
+
+            return new MarkerInstructionSet(this, MarkerType.Try, this.instructions.Count == 0 ? null : this.instructions[index], this.instructions);
         }
 
         protected IEnumerable<Instruction> AttributeParameterToOpCode(ILProcessor processor, CustomAttributeArgument attributeArgument)
@@ -265,9 +310,51 @@ namespace Cauldron.Interception.Cecilator
             return result;
         }
 
+        protected IEnumerable<Instruction> Copy()
+        {
+            var result = new List<Instruction>();
+            var jumps = new List<Tuple<int, int>>();
+
+            for (int i = 0; i < this.method.methodDefinition.Body.Instructions.Count; i++)
+            {
+                var item = this.method.methodDefinition.Body.Instructions[i];
+
+                if (item.Operand is Instruction)
+                {
+                    var operand = item.Operand as Instruction;
+                    var index = method.methodDefinition.Body.Instructions.IndexOf(operand);
+                    jumps.Add(new Tuple<int, int>(i, index));
+
+                    var instruction = this.processor.Create(OpCodes.Nop);
+                    instruction.OpCode = item.OpCode;
+                    result.Add(instruction);
+                }
+                else if (item.Operand is CallSite || item.Operand is Instruction[])
+                    throw new NotImplementedException($"Unknown operand '{item.Operand.GetType().FullName}'");
+                else
+                {
+                    var instruction = this.processor.Create(OpCodes.Nop);
+                    instruction.OpCode = item.OpCode;
+                    instruction.Operand = item.Operand;
+                    result.Add(instruction);
+                }
+            }
+
+            for (int i = 0; i < jumps.Count; i++)
+                result[jumps[i].Item1].Operand = result[jumps[i].Item2];
+
+            return result;
+        }
+
         protected virtual IFieldCode CreateFieldInstructionSet(Field field) => new FieldInstructionsSet(this, field, this.instructions);
 
         protected virtual ILocalVariableCode CreateLocalVariableInstructionSet(LocalVariable localVariable) => new LocalVariableInstructionSet(this, localVariable, this.instructions);
+
+        protected void InstructionDebug()
+        {
+            foreach (var item in this.instructions)
+                this.logInfo($"IL_{item.Offset.ToString("X4")}: {item.OpCode.ToString()} {item.Operand?.ToString()}");
+        }
 
         protected ICode NewObj(CustomAttribute attribute)
         {
@@ -277,6 +364,48 @@ namespace Cauldron.Interception.Cecilator
             this.instructions.Add(this.processor.Create(OpCodes.Newobj, attribute.Constructor));
             this.StoreCall();
             return new InstructionsSet(this, this.instructions);
+        }
+
+        protected void ReplaceReturns()
+        {
+            if (this.method.IsVoid)
+            {
+                var realReturn = this.method.methodDefinition.Body.Instructions.Last();
+
+                for (var i = 0; i < this.method.methodDefinition.Body.Instructions.Count - 1; i++)
+                {
+                    var instruction = this.method.methodDefinition.Body.Instructions[i];
+
+                    if (instruction.OpCode != OpCodes.Ret)
+                        continue;
+
+                    instruction.OpCode = OpCodes.Leave;
+                    instruction.Operand = realReturn;
+                }
+            }
+            else
+            {
+                var returnVariable = this.method.CreateVariable("<>returnValue", this.method.ReturnType);
+                var realReturn = this.method.methodDefinition.Body.Instructions.Last();
+
+                if (!realReturn.Previous.IsLoadLocal())
+                {
+                    this.processor.InsertBefore(realReturn, this.processor.Create(OpCodes.Ldloc, returnVariable.variable));
+                }
+                realReturn = realReturn.Previous;
+
+                for (var i = 0; i < this.method.methodDefinition.Body.Instructions.Count - 1; i++)
+                {
+                    var instruction = this.method.methodDefinition.Body.Instructions[i];
+
+                    if (instruction.OpCode != OpCodes.Ret)
+                        continue;
+
+                    instruction.OpCode = OpCodes.Leave;
+                    instruction.Operand = realReturn;
+                    this.processor.InsertBefore(instruction, this.processor.Create(OpCodes.Stloc, returnVariable.variable));
+                }
+            }
         }
 
         protected virtual void StoreCall()

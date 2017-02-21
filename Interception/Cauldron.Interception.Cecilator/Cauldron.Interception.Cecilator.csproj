@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyDefinitionEqualityComparer.cs" />
+    <Compile Include="AssignInstructionsSet.cs" />
     <Compile Include="AttributedField.cs" />
     <Compile Include="AttributedMethod.cs" />
     <Compile Include="Builder.cs" />
@@ -70,22 +71,29 @@
     <Compile Include="FieldInUseException.cs" />
     <Compile Include="FieldUsage.cs" />
     <Compile Include="IAction.cs" />
+    <Compile Include="ICatch.cs" />
+    <Compile Include="ICatchCode.cs" />
     <Compile Include="ICode.cs" />
     <Compile Include="IFieldCode.cs" />
+    <Compile Include="IFinally.cs" />
     <Compile Include="ILocalVariableCode.cs" />
     <Compile Include="InsertionPosition.cs" />
     <Compile Include="InstructionsSet.cs" />
+    <Compile Include="ITry.cs" />
+    <Compile Include="ITryCode.cs" />
     <Compile Include="IWeaver.cs" />
     <Compile Include="BuilderType.cs" />
     <Compile Include="LocalVariable.cs" />
     <Compile Include="LocalVariableCollection.cs" />
     <Compile Include="LocalVariableInstructionSet.cs" />
+    <Compile Include="MarkerType.cs" />
     <Compile Include="Method.cs" />
     <Compile Include="MethodClearOptions.cs" />
     <Compile Include="MethodNotFoundException.cs" />
     <Compile Include="Modifiers.cs" />
     <Compile Include="ParamResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="MarkerInstructionSet.cs" />
     <Compile Include="TypeReferenceEqualityComparer.cs" />
     <Compile Include="TypeNotFoundException.cs" />
   </ItemGroup>

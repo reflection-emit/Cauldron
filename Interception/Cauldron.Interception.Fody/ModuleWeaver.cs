@@ -38,6 +38,17 @@ namespace Cauldron.Interception.Fody
             var methods = builder.FindMethodsByAttributes(attributes);
             var test = builder.GetType("Cauldron.Interception.Test.TestClass");
 
+            //var method = test.CreateStaticConstructor();
+            //var field = test.CreateField(Modifiers.PrivateStatic, typeof(string), "standardField");
+            //method
+            //    .Code
+            //        .Try(x => x.Assign(field).Set("Hello You"))
+            //        .Catch(typeof(FieldAccessException), x => x.Rethrow())
+            //        .Catch(typeof(Exception), x => x.Rethrow())
+            //        .Finally(x => x.Assign(field).Set("My god"))
+            //        .EndTry()
+            //    .Insert(Cecilator.InsertionPosition.Beginning);
+
             foreach (var method in methods)
             {
                 this.LogInfo(method);
@@ -46,15 +57,11 @@ namespace Cauldron.Interception.Fody
 
                 method.Method
                     .Code
-                        .Assign(variable)
-                            .NewObj(method)
-                        .Load(variable)
-                            .Callvirt(method.Attribute.GetMethod("OnExit"))
-                        .Assign(variable)
-                            .Set(null)
-                        .Assign(bla)
-                            .Set(2)
-                    .Insert(Cecilator.InsertionPosition.Beginning);
+                        .Try(x => x.OriginalBody())
+                        .Catch(typeof(Exception), x => x.Rethrow())
+                        .EndTry()
+                        .Return()
+                    .Replace();
             }
 
             //var fields = builder.FindFieldsByAttributes(attributes);

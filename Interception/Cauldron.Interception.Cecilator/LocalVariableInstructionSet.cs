@@ -1,65 +1,34 @@
-﻿using Mono.Cecil.Cil;
-using System;
+﻿using Mono.Cecil;
+using Mono.Cecil.Cil;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 
 namespace Cauldron.Interception.Cecilator
 {
-    public class LocalVariableInstructionSet : InstructionsSet, ILocalVariableCode
+    public class LocalVariableInstructionSet : AssignInstructionsSet<LocalVariable>, ILocalVariableCode
     {
-        [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private List<LocalVariable> localVariables = new List<LocalVariable>();
-
-        internal LocalVariableInstructionSet(InstructionsSet instructionsSet, LocalVariable localVariable, IEnumerable<Instruction> instructions) : base(instructionsSet, instructions)
+        internal LocalVariableInstructionSet(InstructionsSet instructionsSet, LocalVariable target, IEnumerable<Instruction> instructions) : base(instructionsSet, target, instructions)
         {
-            this.localVariables.Add(localVariable);
         }
 
-        internal LocalVariableInstructionSet(InstructionsSet instructionsSet, IEnumerable<LocalVariable> localVariables, IEnumerable<Instruction> instructions) : base(instructionsSet, instructions)
+        internal LocalVariableInstructionSet(InstructionsSet instructionsSet, IEnumerable<LocalVariable> targets, IEnumerable<Instruction> instructions) : base(instructionsSet, targets, instructions)
         {
-            this.localVariables.AddRange(localVariables);
         }
 
-        public ICode NewObj(Method constructor, params object[] parameters)
-        {
-            for (int i = 0; i < parameters.Length; i++)
-            {
-                var inst = this.AddParameter(false, this.processor, constructor.methodDefinition.Parameters[i].ParameterType, parameters[i]);
-                this.instructions.AddRange(inst.Instructions);
-            }
-
-            this.instructions.Add(processor.Create(OpCodes.Newobj, this.moduleDefinition.Import(constructor.methodReference)));
-            this.StoreToLocal();
-            return new InstructionsSet(this, this.instructions);
-        }
-
-        public ICode NewObj(AttributedField attribute) => this.NewObj(attribute.customAttribute);
-
-        public ICode NewObj(AttributedMethod attribute) => this.NewObj(attribute.customAttribute);
-
-        public ICode Set(object value)
-        {
-            var inst = this.AddParameter(this.processor.Body.Method.IsStatic, this.processor, localVariables.Last().variable.VariableType, value);
-            this.instructions.AddRange(inst.Instructions);
-            this.StoreToLocal();
-            return new InstructionsSet(this, this.instructions);
-        }
+        protected override TypeReference TargetType { get { return this.target.Last().variable.VariableType; } }
 
         protected override ILocalVariableCode CreateLocalVariableInstructionSet(LocalVariable localVariable)
         {
             var newList = new List<LocalVariable>();
-            newList.AddRange(this.localVariables);
+            newList.AddRange(this.target);
             newList.Add(localVariable);
             return new LocalVariableInstructionSet(this, newList, this.instructions);
         }
 
-        protected override void StoreCall() => this.StoreToLocal();
-
-        private void StoreToLocal()
+        protected override void StoreCall()
         {
-            var last = this.localVariables.Last();
+            var last = this.target.Last();
 
             switch (last.Index)
             {
@@ -88,7 +57,7 @@ namespace Cauldron.Interception.Cecilator
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override int GetHashCode() => this.localVariables.GetHashCode();
+        public override int GetHashCode() => this.target.GetHashCode();
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override string ToString() => this.GetType().FullName;
