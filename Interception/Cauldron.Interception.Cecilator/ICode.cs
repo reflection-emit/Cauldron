@@ -19,6 +19,8 @@ namespace Cauldron.Interception.Cecilator
 
         ICode Callvirt(Method method, params object[] parameters);
 
+        ICode Context(Func<ICode, ICode> body);
+
         [EditorBrowsable(EditorBrowsableState.Never)]
         new bool Equals(object obj);
 

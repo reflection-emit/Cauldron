@@ -35,7 +35,7 @@ namespace Cauldron.Interception.Fody
                 "Cauldron.Interception.ILockableMethodInterceptor",
                 "Cauldron.Interception.IMethodInterceptor");
 
-            var methods = builder.FindMethodsByAttributes(attributes);
+            var methods = builder.FindMethodsByAttributes(attributes).GroupBy(x => x.Method).Select(x => new { Key = x.Key, Item = x.ToArray() });
             var test = builder.GetType("Cauldron.Interception.Test.TestClass");
 
             //var method = test.CreateStaticConstructor();
@@ -51,14 +51,32 @@ namespace Cauldron.Interception.Fody
 
             foreach (var method in methods)
             {
-                this.LogInfo(method);
-                var variable = method.Method.CreateVariable(method.Attribute);
-                var bla = method.Method.DeclaringType.Fields.Contains("bla") ? method.Method.DeclaringType.Fields["bla"] : method.Method.DeclaringType.CreateField(Modifiers.PrivateStatic, typeof(int), "bla");
+                this.LogInfo(method.Key);
+                var variablesAndAttribute = method.Item.Select(x => new { Variable = method.Key.CreateVariable(x.Attribute), Attribute = x }).ToArray();
+                var attributeMethods = variablesAndAttribute.Select(x => new
+                {
+                    OnExitMethod = x.Attribute.Attribute.GetMethod("OnExit"),
+                    Method = x.Attribute,
+                    Variable = x.Variable
+                });
 
-                method.Method
+                method.Key
                     .Code
+                        .Context(x =>
+                        {
+                            foreach (var item in attributeMethods)
+                                x.Concat(x.Assign(item.Variable).NewObj(item.Method));
+
+                            return x;
+                        })
                         .Try(x => x.OriginalBody())
                         .Catch(typeof(Exception), x => x.Rethrow())
+                        .Finally(x =>
+                        {
+                            foreach (var item in attributeMethods)
+                                x.Concat(x.LoadLocalVariable(item.Variable).Call(item.OnExitMethod));
+                            return x;
+                        })
                         .EndTry()
                         .Return()
                     .Replace();

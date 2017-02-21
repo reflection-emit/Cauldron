@@ -112,6 +112,16 @@ namespace Cauldron.Interception.Cecilator
             return new InstructionsSet(this, this.instructions);
         }
 
+        public ICode Context(Func<ICode, ICode> body)
+        {
+            var block = new List<Instruction>();
+            var iset = body(new InstructionsSet(this, block)) as InstructionsSet;
+
+            if (iset != null)
+                this.instructions.AddRange(iset.instructions);
+            return new InstructionsSet(this, this.instructions);
+        }
+
         public void Insert(InsertionPosition position)
         {
             Instruction instructionPosition = null;

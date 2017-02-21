@@ -20,7 +20,7 @@ namespace Cauldron.Interception.Cecilator
 
             for (int i = 0; i < localVariables.Count; i++)
             {
-                if (string.IsNullOrEmpty(localVariables[i].Name))
+                if (string.IsNullOrEmpty(localVariables[i].Name) || this.innerCollection.Contains(localVariables[i].Name))
                     localVariables[i].Name = "var_" + Guid.NewGuid().ToString().Replace('-', 'x');
 
                 this.innerCollection.Add(new LocalVariable(type, localVariables[i]));

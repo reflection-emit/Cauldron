@@ -75,7 +75,11 @@ namespace Cauldron.Interception.Cecilator
         {
             var block = new List<Instruction>();
             int index = this.instructions.Count == 0 ? 0 : this.instructions.Count - 1;
-            this.instructions.AddRange((body(new MarkerInstructionSet(this, block)) as InstructionsSet).instructions);
+            var iset = body(new MarkerInstructionSet(this, block)) as InstructionsSet;
+
+            if (iset != null)
+                this.instructions.AddRange(iset.instructions);
+
             this.instructions.Add(this.processor.Create(OpCodes.Endfinally));
 
             if (index > 0 && index < this.instructions.Count)
@@ -107,7 +111,9 @@ namespace Cauldron.Interception.Cecilator
             var block = new List<Instruction>();
             int index = this.instructions.Count == 0 ? 0 : this.instructions.Count - 1;
 
-            this.instructions.AddRange((body(new MarkerInstructionSet(this, block)) as InstructionsSet).instructions);
+            var iset = body(new MarkerInstructionSet(this, block)) as InstructionsSet;
+            if (iset != null)
+                this.instructions.AddRange(iset.instructions);
 
             if (this.RequiresReturn)
                 this.instructions.Add(this.processor.Create(OpCodes.Ret));

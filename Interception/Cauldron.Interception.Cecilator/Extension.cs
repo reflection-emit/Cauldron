@@ -3,13 +3,20 @@ using Mono.Cecil.Cil;
 using Mono.Cecil.Rocks;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace Cauldron.Interception.Cecilator
 {
     public static class Extension
     {
+        public static void Concat(this ICode a, ICode b)
+        {
+            if (a == null || b == null)
+                return;
+
+            (a as InstructionsSet).instructions.AddRange((b as InstructionsSet).instructions);
+        }
+
         public static Builder CreateBuilder(this IWeaver weaver)
         {
             if (weaver == null)
