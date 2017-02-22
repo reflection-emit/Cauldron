@@ -129,6 +129,10 @@ namespace Cauldron.Core.Extensions
                 throw new ArgumentException($"{type.FullName} is not an enum type");
 
             var memInfo = type.GetMember(enumValue.ToString());
+
+            if (memInfo == null || memInfo.Length == 0)
+                return null;
+
             return memInfo[0].GetCustomAttribute<TAttib>();
         }
 
@@ -226,6 +230,9 @@ namespace Cauldron.Core.Extensions
         /// <returns>The value of <see cref="DisplayNameAttribute.DisplayName"/>. Returns null if the enum member has no <see cref="DisplayNameAttribute"/></returns>
         public static string GetDisplayName<TEnum>(this TEnum enumValue) where TEnum : struct, IConvertible
         {
+            if (!Enum.IsDefined(typeof(TEnum), enumValue))
+                return null;
+
             var attrib = enumValue.GetCustomAttribute<DisplayNameAttribute, TEnum>();
 
             if (attrib == null)
@@ -521,6 +528,35 @@ namespace Cauldron.Core.Extensions
         /// <exception cref="NullReferenceException">The property defined by <paramref name="propertyName"/> was not found</exception>
         public static T GetPropertyValue<T>(this object obj, string propertyName) =>
             obj.GetPropertyValue<T>(propertyName, BindingFlags.Instance | BindingFlags.Public);
+
+        /// <summary>
+        /// Returns the enum value from a display name. The enum members requires the <see cref="DisplayNameAttribute"/>.
+        /// If non of the enum values has a matching <see cref="DisplayNameAttribute.DisplayName"/>, then it will try to use <see cref="Enum.TryParse{TEnum}(string, out TEnum)"/>
+        /// to retrive a value; otherwise it will return the default value.
+        /// <para/>
+        /// Returns the default value of the enum if <paramref name="value"/> is null
+        /// </summary>
+        /// <typeparam name="TEnum">The enum type to parse into</typeparam>
+        /// <param name="value">The value that corresponeds with the enum's <see cref="DisplayNameAttribute.DisplayName"/></param>
+        /// <returns>The associated enum value of <paramref name="value"/></returns>
+        public static TEnum GetValue<TEnum>(this string value) where TEnum : struct, IConvertible
+        {
+            if (value == null)
+                return default(TEnum);
+
+            var result = MiscUtils.GetDisplayNames<TEnum>().FirstOrDefault(x => x.Value == value);
+            if (string.IsNullOrEmpty(result.Value))
+            {
+                TEnum tEnum;
+
+                if (Enum.TryParse(value, out tEnum))
+                    return tEnum;
+                else
+                    return default(TEnum);
+            }
+            else
+                return result.Key;
+        }
 
         /// <summary>
         /// Checks if the type has implemented the defined interface
