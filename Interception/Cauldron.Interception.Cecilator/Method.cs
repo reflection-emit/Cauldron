@@ -42,7 +42,15 @@ namespace Cauldron.Interception.Cecilator
 
         public bool IsStatic { get { return this.methodDefinition.IsStatic; } }
 
-        public bool IsVoid { get { return this.methodDefinition.ReturnType == this.moduleDefinition.TypeSystem.Void; } }
+        public bool IsVoid
+        {
+            get
+            {
+                return this.methodDefinition.ReturnType == this.moduleDefinition.TypeSystem.Void ||
+                        this.methodDefinition.MethodReturnType.ReturnType == this.moduleDefinition.TypeSystem.Void ||
+                        this.methodReference.ReturnType == this.moduleDefinition.TypeSystem.Void;
+            }
+        }
 
         public string Name { get { return this.methodDefinition.Name; } }
 

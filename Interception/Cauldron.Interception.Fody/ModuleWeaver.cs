@@ -32,8 +32,11 @@ namespace Cauldron.Interception.Fody
         {
             var builder = this.CreateBuilder();
             var attributes = builder.FindTypesByInterfaces(
+                SearchContext.AllReferencedModules,
                 "Cauldron.Interception.ILockableMethodInterceptor",
                 "Cauldron.Interception.IMethodInterceptor");
+
+            builder.FindTypes(SearchContext.AllReferencedModules, "Lockable").LogContent();
 
             var methods = builder.FindMethodsByAttributes(attributes).GroupBy(x => x.Method).Select(x => new { Key = x.Key, Item = x.ToArray() });
             var test = builder.GetType("Cauldron.Interception.Test.TestClass");
@@ -51,7 +54,7 @@ namespace Cauldron.Interception.Fody
 
             foreach (var method in methods)
             {
-                this.LogInfo(method.Key);
+                //this.LogInfo(method.Key);
                 var variablesAndAttribute = method.Item.Select(x => new { Variable = method.Key.CreateVariable(x.Attribute), Attribute = x }).ToArray();
                 var attributeMethods = variablesAndAttribute.Select(x => new
                 {

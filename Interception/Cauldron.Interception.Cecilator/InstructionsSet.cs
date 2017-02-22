@@ -359,7 +359,7 @@ namespace Cauldron.Interception.Cecilator
 
         protected virtual ILocalVariableCode CreateLocalVariableInstructionSet(LocalVariable localVariable) => new LocalVariableInstructionSet(this, localVariable, this.instructions);
 
-        protected void InstructionDebug() => this.logInfo(this.instructions.ToString());
+        protected void InstructionDebug() => this.LogInfo(this.instructions);
 
         protected ICode NewObj(CustomAttribute attribute)
         {

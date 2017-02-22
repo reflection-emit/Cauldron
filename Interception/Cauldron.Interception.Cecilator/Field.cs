@@ -41,7 +41,7 @@ namespace Cauldron.Interception.Cecilator
                 .SelectMany(x => this.GetFieldUsage(x));
 
             if (!this.IsPrivate)
-                return result.Concat(this.type.Builder.GetTypes().SelectMany(x => x.Resolve().Methods).SelectMany(x => this.GetFieldUsage(x)));
+                return result.Concat(this.type.Builder.GetTypesInternal().SelectMany(x => x.Resolve().Methods).SelectMany(x => this.GetFieldUsage(x)));
 
             return result;
         }

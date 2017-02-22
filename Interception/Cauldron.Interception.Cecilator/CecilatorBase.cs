@@ -1,5 +1,6 @@
 ﻿using Mono.Cecil;
 using Mono.Cecil.Cil;
+using Mono.Cecil.Rocks;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,22 +12,22 @@ namespace Cauldron.Interception.Cecilator
     public abstract class CecilatorBase
     {
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        protected IEnumerable<AssemblyDefinition> allAssemblies;
+        protected readonly IEnumerable<AssemblyDefinition> allAssemblies;
 
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        protected IEnumerable<TypeDefinition> allTypes;
-
-        [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        protected Action<string> logError;
-
-        [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        protected Action<string> logInfo;
-
-        [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        protected Action<string> logWarning;
+        protected readonly IEnumerable<TypeDefinition> allTypes;
 
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
         protected ModuleDefinition moduleDefinition;
+
+        [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private Action<string> logError;
+
+        [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private Action<string> logInfo;
+
+        [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private Action<string> logWarning;
 
         internal CecilatorBase(IWeaver weaver)
         {
@@ -210,7 +211,7 @@ namespace Cauldron.Interception.Cecilator
         {
             var typeDef = type.Resolve();
 
-            if (typeDef.BaseType != null)
+            if (typeDef != null && typeDef.BaseType != null)
             {
                 yield return typeDef.BaseType;
                 foreach (var item in GetBaseClasses(typeDef.BaseType))
@@ -222,42 +223,32 @@ namespace Cauldron.Interception.Cecilator
         {
             var typeDef = type.Resolve();
 
+            if (typeDef == null)
+                return new TypeReference[0];
+
             if (typeDef.Interfaces != null && typeDef.Interfaces.Count > 0)
-            {
-                for (int i = 0; i < typeDef.Interfaces.Count; i++)
-                {
-                    yield return typeDef.Interfaces[i].ResolveType(type);
-                    foreach (var item in GetInterfaces(typeDef.Interfaces[i]))
-                        yield return item.ResolveType(type);
-                }
-            }
+                return type.Recursive(x => x.Resolve().Interfaces).Select(x => x.ResolveType(type));
 
             if (typeDef.BaseType != null)
-            {
-                foreach (var item in GetInterfaces(typeDef.BaseType))
-                    yield return item;
-            }
+                return GetInterfaces(typeDef.BaseType);
+
+            return new TypeReference[0];
         }
 
         internal IEnumerable<TypeReference> GetNestedTypes(TypeReference type)
         {
             var typeDef = type.Resolve();
 
+            if (typeDef == null)
+                return new TypeReference[0];
+
             if (typeDef.NestedTypes != null && typeDef.NestedTypes.Count > 0)
-            {
-                for (int i = 0; i < typeDef.NestedTypes.Count; i++)
-                {
-                    yield return typeDef.NestedTypes[i].ResolveType(type);
-                    foreach (var item in GetNestedTypes(typeDef.NestedTypes[i]))
-                        yield return item.ResolveType(type);
-                }
-            }
+                return type.Recursive(x => x.Resolve().NestedTypes).Select(x => x.ResolveType(type));
 
             if (typeDef.BaseType != null)
-            {
-                foreach (var item in GetNestedTypes(typeDef.BaseType))
-                    yield return item;
-            }
+                return GetNestedTypes(typeDef.BaseType);
+
+            return new TypeReference[0];
         }
 
         internal TypeDefinition GetTypeDefinition(Type type)
@@ -268,6 +259,30 @@ namespace Cauldron.Interception.Cecilator
                 throw new Exception($"Unable to proceed. The type '{type.FullName}' was not found.");
 
             return result;
+        }
+
+        internal void LogError(object value)
+        {
+            if (value is string)
+                this.logError(value as string);
+            else
+                this.logError(value.ToString());
+        }
+
+        internal void LogInfo(object value)
+        {
+            if (value is string)
+                this.logInfo(value as string);
+            else
+                this.logInfo(value.ToString());
+        }
+
+        internal void LogWarning(object value)
+        {
+            if (value is string)
+                this.logWarning(value as string);
+            else
+                this.logWarning(value.ToString());
         }
 
         protected IEnumerable<Instruction> TypeOf(ILProcessor processor, TypeReference type)
