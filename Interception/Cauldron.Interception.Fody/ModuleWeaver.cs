@@ -31,30 +31,18 @@ namespace Cauldron.Interception.Fody
         public void Execute()
         {
             var builder = this.CreateBuilder();
-            var attributes = builder.FindTypesByInterfaces(
-                SearchContext.AllReferencedModules,
+            var attributes = builder.FindAttributesByInterfaces(
                 "Cauldron.Interception.ILockableMethodInterceptor",
                 "Cauldron.Interception.IMethodInterceptor");
 
-            builder.FindTypes(SearchContext.AllReferencedModules, "Lockable").LogContent();
+            builder.FindTypes(SearchContext.AllReferencedModules, "Lockable");
 
             var methods = builder.FindMethodsByAttributes(attributes).GroupBy(x => x.Method).Select(x => new { Key = x.Key, Item = x.ToArray() });
             var test = builder.GetType("Cauldron.Interception.Test.TestClass");
 
-            //var method = test.CreateStaticConstructor();
-            //var field = test.CreateField(Modifiers.PrivateStatic, typeof(string), "standardField");
-            //method
-            //    .Code
-            //        .Try(x => x.Assign(field).Set("Hello You"))
-            //        .Catch(typeof(FieldAccessException), x => x.Rethrow())
-            //        .Catch(typeof(Exception), x => x.Rethrow())
-            //        .Finally(x => x.Assign(field).Set("My god"))
-            //        .EndTry()
-            //    .Insert(Cecilator.InsertionPosition.Beginning);
-
             foreach (var method in methods)
             {
-                //this.LogInfo(method.Key);
+                this.LogInfo($"Implementing interceptors in {method.Key}");
                 var variablesAndAttribute = method.Item.Select(x => new { Variable = method.Key.CreateVariable(x.Attribute), Attribute = x }).ToArray();
                 var attributeMethods = variablesAndAttribute.Select(x => new
                 {
@@ -70,8 +58,14 @@ namespace Cauldron.Interception.Fody
                             foreach (var item in attributeMethods)
                                 x.Assign(item.Variable).NewObj(item.Method);
                         })
-                        .Try(x => x.OriginalBody())
-                        .Catch(typeof(Exception), x => x.Rethrow())
+                        .Try(x =>
+                        {
+                            x.OriginalBody();
+                        })
+                        .Catch(typeof(Exception), x =>
+                        {
+                            x.Rethrow();
+                        })
                         .Finally(x =>
                         {
                             foreach (var item in attributeMethods)

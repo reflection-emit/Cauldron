@@ -165,6 +165,30 @@ namespace Cauldron.Interception.Cecilator
 
         #endregion Method Finders
 
+        #region Attribute Finders
+
+        public IEnumerable<BuilderType> FindAttributesByInterfaces(Type[] interfaceTypes) => this.FindAttributesByInterfaces(interfaceTypes.Select(x => x.FullName).ToArray());
+
+        public IEnumerable<BuilderType> FindAttributesByInterfaces(IEnumerable<BuilderType> interfaceTypes) => this.FindAttributesInModule().Where(x => interfaceTypes.Any(y => x.Implements(y)));
+
+        public IEnumerable<BuilderType> FindAttributesByInterfaces(params string[] interfaceName) => this.FindAttributesInModule().Where(x => interfaceName.Any(y => x.Implements(y)));
+
+        public IEnumerable<BuilderType> FindAttributesInModule() =>
+                    this.GetTypesInternal(SearchContext.Module)
+                .SelectMany(x => x.Resolve().Methods)
+                .Where(x => x.HasCustomAttributes)
+                .SelectMany(x => x.CustomAttributes)
+                .Concat(
+                        this.GetTypesInternal(SearchContext.Module)
+                            .Select(x => x.Resolve())
+                            .Where(x => x.HasCustomAttributes)
+                            .SelectMany(x => x.CustomAttributes)
+                    )
+                .Distinct(new CustomAttributeEqualityComparer())
+                .Select(x => new BuilderType(this, x.AttributeType));
+
+        #endregion Attribute Finders
+
         #region Getting types
 
         private IEnumerable<TypeReference> typeCache;

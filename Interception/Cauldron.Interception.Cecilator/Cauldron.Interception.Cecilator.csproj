@@ -64,6 +64,7 @@
     <Compile Include="BuilderAttribute.cs" />
     <Compile Include="BuilderTypeEqualityComparer.cs" />
     <Compile Include="CecilatorBase.cs" />
+    <Compile Include="CustomAttributeEqualityComparer.cs" />
     <Compile Include="Extension.cs" />
     <Compile Include="Field.cs" />
     <Compile Include="FieldCollection.cs" />
