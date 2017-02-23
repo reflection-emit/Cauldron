@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
 
 namespace Cauldron.Interception.Cecilator
 {
@@ -12,6 +11,15 @@ namespace Cauldron.Interception.Cecilator
     {
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly List<InstructionMarker> markers = new List<InstructionMarker>();
+
+        [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private Instruction beforeCatchBody;
+
+        [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private TypeReference exceptionType;
+
+        [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private bool hasExceptionVariable;
 
         internal MarkerInstructionSet(InstructionsSet instructionsSet, MarkerType markerType, Instruction mark, InstructionContainer instructions) : base(instructionsSet, instructions)
         {
@@ -26,6 +34,32 @@ namespace Cauldron.Interception.Cecilator
 
         internal MarkerInstructionSet(InstructionsSet instructionsSet, InstructionContainer instructions) : base(instructionsSet, instructions)
         {
+        }
+
+        public Crumb Exception
+        {
+            get
+            {
+                if (this.beforeCatchBody == null)
+                    throw new InvalidOperationException("Exception property does not work outside of a catch");
+
+                var exceptionVariableName = "<>Exception_" + this.Identification;
+
+                if (!this.hasExceptionVariable)
+                {
+                    var exceptionVariable = this.method.CreateVariable(exceptionVariableName, new BuilderType(this.method.type, this.exceptionType));
+                    this.hasExceptionVariable = true;
+                    this.instructions.InsertAfter(this.beforeCatchBody, this.processor.Create(OpCodes.Stloc, exceptionVariable.variable));
+                }
+
+                return new Crumb
+                {
+                    CrumbType = CrumbTypes.Exception,
+                    Name = exceptionVariableName,
+                    ExceptionType = this.exceptionType,
+                    Context = this.method
+                };
+            }
         }
 
         public ICatch Catch(Type exceptionType, Action<ICatchCode> body) => this.Catch(this.moduleDefinition.Import(GetTypeDefinition(exceptionType)), body);
@@ -90,7 +124,13 @@ namespace Cauldron.Interception.Cecilator
 
         private ICatch Catch(TypeReference exceptionType, Action<ICatchCode> body)
         {
+            this.exceptionType = exceptionType;
             var markerStart = this.instructions.Last();
+
+            // save the exception object to a local variable if required
+            // but... we will only do this if required... so we save the current position and
+            // if the exception property is called, we insert the store local opcode here
+            this.beforeCatchBody = markerStart;
             body(this);
 
             if (this.RequiresReturn)

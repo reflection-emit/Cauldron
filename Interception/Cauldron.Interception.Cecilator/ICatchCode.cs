@@ -4,6 +4,8 @@ namespace Cauldron.Interception.Cecilator
 {
     public interface ICatchCode : ICode
     {
+        Crumb Exception { get; }
+
         [EditorBrowsable(EditorBrowsableState.Never)]
         new bool Equals(object obj);
 

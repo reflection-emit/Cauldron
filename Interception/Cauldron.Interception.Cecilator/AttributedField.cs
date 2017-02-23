@@ -18,7 +18,10 @@ namespace Cauldron.Interception.Cecilator
         }
 
         public BuilderType Attribute { get; private set; }
+
         public Field Field { get; private set; }
+
+        public void Remove() => this.Field.fieldDef.CustomAttributes.Remove(this.customAttribute);
 
         #region Equitable stuff
 

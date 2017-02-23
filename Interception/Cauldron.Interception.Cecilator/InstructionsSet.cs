@@ -16,10 +16,10 @@ namespace Cauldron.Interception.Cecilator
         internal readonly InstructionContainer instructions;
 
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        internal ILProcessor processor;
+        internal Method method;
 
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private Method method;
+        internal ILProcessor processor;
 
         internal InstructionsSet(BuilderType type, Method method) : base(type)
         {
@@ -35,6 +35,33 @@ namespace Cauldron.Interception.Cecilator
             this.processor = instructionsSet.processor;
             this.instructions = instructions;
         }
+
+        public Crumb Parameters
+        {
+            get
+            {
+                var variableName = "<>Params_" + this.method.Identification;
+                if (!this.method.LocalVariables.Contains(variableName))
+                {
+                    var objectArrayType = this.method.DeclaringType.Builder.GetType(typeof(object[]));
+                    var variable = this.method.CreateVariable(variableName, objectArrayType);
+                    var newInstructions = new List<Instruction>();
+
+                    newInstructions.Add(processor.Create(OpCodes.Ldc_I4, this.method.methodReference.Parameters.Count));
+                    newInstructions.Add(processor.Create(OpCodes.Newarr, (objectArrayType.typeReference as ArrayType).ElementType));
+                    newInstructions.Add(processor.Create(OpCodes.Stloc, variable.variable));
+
+                    foreach (var parameter in this.method.methodReference.Parameters)
+                        newInstructions.AddRange(IlHelper.ProcessParam(parameter, variable.variable));
+                    // Insert the call in the beginning of the instruction list
+                    this.instructions.Insert(0, newInstructions);
+                }
+
+                return new Crumb { Context = this.method, CrumbType = CrumbTypes.Parameters, Name = variableName };
+            }
+        }
+
+        public Crumb This { get { return new Crumb { CrumbType = CrumbTypes.This, Context = this.method }; } }
 
         protected bool RequiresReturn
         {
@@ -83,9 +110,12 @@ namespace Cauldron.Interception.Cecilator
 
         public ICode Call(Method method, params object[] parameters)
         {
+            if (method.DeclaringType.IsInterface || method.IsAbstract)
+                this.LogError($"Use Callvirt to call {method.ToString()}");
+
             for (int i = 0; i < parameters.Length; i++)
             {
-                var inst = this.AddParameter(false, this.processor, method.methodDefinition.Parameters[i].ParameterType, parameters[i]);
+                var inst = this.AddParameter(this.processor, method.methodDefinition.Parameters[i].ParameterType, parameters[i]);
                 this.instructions.Append(inst.Instructions);
             }
 
@@ -101,7 +131,7 @@ namespace Cauldron.Interception.Cecilator
         {
             for (int i = 0; i < parameters.Length; i++)
             {
-                var inst = this.AddParameter(false, this.processor, method.methodDefinition.Parameters[i].ParameterType, parameters[i]);
+                var inst = this.AddParameter(this.processor, method.methodDefinition.Parameters[i].ParameterType, parameters[i]);
                 this.instructions.Append(inst.Instructions);
             }
 
@@ -166,6 +196,7 @@ namespace Cauldron.Interception.Cecilator
             processor.InsertBefore(instructionPosition, this.instructions);
             this.ReplaceReturns();
             this.method.methodDefinition.Body.OptimizeMacros();
+            this.instructions.Clear();
         }
 
         public IFieldCode Load(Field field)
@@ -231,6 +262,7 @@ namespace Cauldron.Interception.Cecilator
             this.ReplaceReturns();
 
             this.method.methodDefinition.Body.OptimizeMacros();
+            this.instructions.Clear();
         }
 
         public ICode Return()

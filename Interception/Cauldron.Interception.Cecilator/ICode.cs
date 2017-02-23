@@ -5,6 +5,9 @@ namespace Cauldron.Interception.Cecilator
 {
     public interface ICode : IAction
     {
+        Crumb Parameters { get; }
+        Crumb This { get; }
+
         IFieldCode Assign(Field field);
 
         ILocalVariableCode Assign(LocalVariable localVariable);

@@ -25,6 +25,8 @@ namespace Cauldron.Interception.Cecilator
             return target;
         }
 
+        public static TNew New<TType, TNew>(this TType target, Func<TType, TNew> predicate) => predicate(target);
+
         internal static void Append(this ILProcessor processor, Instruction[] instructions) => processor.Append(instructions as IEnumerable<Instruction>);
 
         internal static void Append(this ILProcessor processor, IEnumerable<Instruction> instructions)

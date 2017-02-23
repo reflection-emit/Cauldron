@@ -27,7 +27,7 @@ namespace Cauldron.Interception.Cecilator
         {
             for (int i = 0; i < parameters.Length; i++)
             {
-                var inst = this.AddParameter(false, this.processor, constructor.methodDefinition.Parameters[i].ParameterType, parameters[i]);
+                var inst = this.AddParameter(this.processor, constructor.methodDefinition.Parameters[i].ParameterType, parameters[i]);
                 this.instructions.Append(inst.Instructions);
             }
 
@@ -42,7 +42,7 @@ namespace Cauldron.Interception.Cecilator
 
         public ICode Set(object value)
         {
-            var inst = this.AddParameter(this.processor.Body.Method.IsStatic, this.processor, this.TargetType, value);
+            var inst = this.AddParameter(this.processor, this.TargetType, value);
             this.instructions.Append(inst.Instructions);
             this.StoreCall();
             return new InstructionsSet(this, this.instructions);

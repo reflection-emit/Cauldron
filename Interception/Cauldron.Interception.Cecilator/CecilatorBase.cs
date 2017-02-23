@@ -1,10 +1,10 @@
 ﻿using Mono.Cecil;
 using Mono.Cecil.Cil;
-using Mono.Cecil.Rocks;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 
 namespace Cauldron.Interception.Cecilator
@@ -46,6 +46,8 @@ namespace Cauldron.Interception.Cecilator
 
             this.allTypes = this.allAssemblies.SelectMany(x => x.Modules).Where(x => x != null).SelectMany(x => x.Types).Where(x => x != null).Concat(this.moduleDefinition.Types).ToArray();
             this.logInfo("-----------------------------------------------------------------------------");
+
+            this.Identification = GenerateName();
         }
 
         internal CecilatorBase(CecilatorBase builderBase)
@@ -56,9 +58,15 @@ namespace Cauldron.Interception.Cecilator
             this.moduleDefinition = builderBase.moduleDefinition;
             this.allAssemblies = builderBase.allAssemblies;
             this.allTypes = builderBase.allTypes;
+
+            this.Identification = GenerateName();
         }
 
-        internal ParamResult AddParameter(bool isStatic, ILProcessor processor, TypeReference targetType, object parameter)
+        public string Identification { get; private set; }
+
+        public static string GenerateName() => Path.GetRandomFileName().Replace(".", DateTime.Now.Second.ToString());
+
+        internal ParamResult AddParameter(ILProcessor processor, TypeReference targetType, object parameter)
         {
             var result = new ParamResult();
 
@@ -79,30 +87,31 @@ namespace Cauldron.Interception.Cecilator
             {
                 var value = parameter as FieldDefinition;
 
-                if (!isStatic)
+                if (!value.IsStatic)
                     result.Instructions.Add(processor.Create(OpCodes.Ldarg_0));
 
-                result.Instructions.Add(processor.Create(isStatic ? OpCodes.Ldsfld : OpCodes.Ldfld, value.CreateFieldReference()));
+                result.Instructions.Add(processor.Create(value.IsStatic ? OpCodes.Ldsfld : OpCodes.Ldfld, value.CreateFieldReference()));
                 result.Type = value.FieldType;
             }
             else if (type == typeof(FieldReference))
             {
                 var value = parameter as FieldReference;
+                var fieldDef = value.Resolve();
 
-                if (!isStatic)
+                if (!fieldDef.IsStatic)
                     result.Instructions.Add(processor.Create(OpCodes.Ldarg_0));
 
-                result.Instructions.Add(processor.Create(isStatic ? OpCodes.Ldsfld : OpCodes.Ldfld, value));
+                result.Instructions.Add(processor.Create(fieldDef.IsStatic ? OpCodes.Ldsfld : OpCodes.Ldfld, value));
                 result.Type = value.FieldType;
             }
             else if (type == typeof(Field))
             {
                 var value = parameter as Field;
 
-                if (!isStatic)
+                if (!value.IsStatic)
                     result.Instructions.Add(processor.Create(OpCodes.Ldarg_0));
 
-                result.Instructions.Add(processor.Create(isStatic ? OpCodes.Ldsfld : OpCodes.Ldfld, value.fieldRef));
+                result.Instructions.Add(processor.Create(value.IsStatic ? OpCodes.Ldsfld : OpCodes.Ldfld, value.fieldRef));
                 result.Type = value.fieldRef.FieldType;
             }
             else if (type == typeof(int))
@@ -175,16 +184,43 @@ namespace Cauldron.Interception.Cecilator
                 var value = AddVariableDefinitionToInstruction(processor, result.Instructions, parameter);
                 result.Type = value.VariableType;
             }
+            else if (type == typeof(Crumb))
+            {
+                var crumb = parameter as Crumb;
+
+                switch (crumb.CrumbType)
+                {
+                    case CrumbTypes.Exception:
+                    case CrumbTypes.Parameters:
+                        {
+                            var variable = crumb.Context.LocalVariables[crumb.Name];
+                            result.Instructions.Add(processor.Create(OpCodes.Ldloc, variable.variable));
+                            break;
+                        }
+                    case CrumbTypes.This:
+                        result.Instructions.Add(processor.Create(crumb.Context.IsStatic ? OpCodes.Ldnull : OpCodes.Ldarg_0));
+                        break;
+
+                    default:
+                        throw new NotImplementedException();
+                }
+            }
             else if (type == typeof(BuilderType))
             {
-                if (!isStatic)
-                    result.Instructions.Add(processor.Create(OpCodes.Ldarg_0));
-                else
-                    result.Instructions.Add(processor.Create(OpCodes.Ldnull));
-
-                // TODO -> typeof
                 var bt = parameter as BuilderType;
-                result.Type = bt.typeReference;
+                result.Instructions.AddRange(this.TypeOf(processor, bt.typeReference));
+                result.Type = this.GetTypeDefinition(typeof(Type));
+            }
+            else if (type == typeof(Method))
+            {
+                var method = parameter as Method;
+
+                result.Instructions.Add(processor.Create(OpCodes.Ldtoken, method.methodReference));
+                result.Instructions.Add(processor.Create(OpCodes.Ldtoken, method.DeclaringType.typeReference));
+                result.Instructions.Add(processor.Create(OpCodes.Call,
+                    this.moduleDefinition.Import(
+                        this.GetTypeDefinition(typeof(System.Reflection.MethodBase))
+                            .Methods.FirstOrDefault(x => x.Name == "GetMethodFromHandle" && x.Parameters.Count == 2))));
             }
             else if (type == typeof(ParameterDefinition))
             {

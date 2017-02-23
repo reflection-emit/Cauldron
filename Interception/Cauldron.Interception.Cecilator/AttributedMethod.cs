@@ -20,6 +20,8 @@ namespace Cauldron.Interception.Cecilator
         public BuilderType Attribute { get; private set; }
         public Method Method { get; private set; }
 
+        public void Remove() => this.Method.methodDefinition.CustomAttributes.Remove(this.customAttribute);
+
         #region Equitable stuff
 
         public static implicit operator string(AttributedMethod field) => field.ToString();

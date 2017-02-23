@@ -18,7 +18,13 @@ namespace Cauldron.Interception.Cecilator
 
         public Builder Builder { get; private set; }
         public string Fullname { get { return this.typeReference.FullName; } }
+        public bool IsAbstract { get { return this.typeDefinition.Attributes.HasFlag(TypeAttributes.Abstract); } }
+        public bool IsArray { get { return this.typeDefinition.IsArray; } }
         public bool IsForeign { get { return this.moduleDefinition.Assembly == this.typeDefinition.Module.Assembly; } }
+        public bool IsInterface { get { return this.typeDefinition.Attributes.HasFlag(TypeAttributes.Interface); } }
+        public bool IsPublic { get { return this.typeDefinition.Attributes.HasFlag(TypeAttributes.Public); } }
+        public bool IsSealed { get { return this.typeDefinition.Attributes.HasFlag(TypeAttributes.Sealed); } }
+        public bool IsStatic { get { return this.IsAbstract && this.IsSealed; } }
         public string Namespace { get { return this.typeDefinition.Namespace; } }
 
         public bool Implements(Type interfaceType) => this.Implements(interfaceType.FullName);
@@ -36,6 +42,13 @@ namespace Cauldron.Interception.Cecilator
         //    this.typeDefinition = typeDefinition;
         //    this.typeReference = typeReference;
         //}
+
+        internal BuilderType(Builder builder, ArrayType arrayType) : base(builder)
+        {
+            this.typeReference = arrayType;
+            this.typeDefinition = this.typeReference.Resolve();
+            this.Builder = builder;
+        }
 
         internal BuilderType(Builder builder, TypeDefinition typeDefinition) : base(builder)
         {

@@ -193,6 +193,18 @@ namespace Cauldron.Interception.Cecilator
 
         private IEnumerable<TypeReference> typeCache;
 
+        public BuilderType GetType(Type type)
+        {
+            if (type.IsArray)
+            {
+                var child = type.GetElementType();
+                var bt = this.GetType(child.FullName);
+                return new BuilderType(this, new ArrayType(this.moduleDefinition.Import(bt.typeReference)));
+            }
+
+            return this.GetType(type.FullName);
+        }
+
         public BuilderType GetType(string typeName)
         {
             var nameSpace = typeName.Substring(0, typeName.LastIndexOf('.'));

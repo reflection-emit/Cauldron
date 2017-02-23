@@ -38,7 +38,27 @@ namespace Cauldron.Interception.Cecilator
 
         public void Append(IEnumerable<Instruction> instruction) => this.instruction.AddRange(instruction);
 
+        public void Clear() => this.instruction.Clear();
+
         public Instruction First() => this.instruction.Count == 0 ? null : this.instruction[0];
+
+        public void Insert(int index, Instruction item) => this.instruction.Insert(index, item);
+
+        public void Insert(int index, IEnumerable<Instruction> items)
+        {
+            foreach (var item in items)
+                this.instruction.Insert(index++, item);
+        }
+
+        public void InsertAfter(Instruction position, Instruction instructionToInsert)
+        {
+            var index = this.instruction.IndexOf(position) + 1;
+
+            if (index == this.instruction.Count)
+                this.instruction.Add(instructionToInsert);
+            else
+                this.instruction.Insert(index, instructionToInsert);
+        }
 
         public Instruction Last() => this.instruction.Count == 0 ? null : this.instruction[this.instruction.Count - 1];
 

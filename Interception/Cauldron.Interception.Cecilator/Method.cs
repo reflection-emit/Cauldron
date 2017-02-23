@@ -36,30 +36,16 @@ namespace Cauldron.Interception.Cecilator
 
         public BuilderType DeclaringType { get { return this.type; } }
 
+        public bool IsAbstract { get { return this.methodDefinition.IsAbstract; } }
         public bool IsCCtor { get { return this.methodDefinition.Name == ".cctor"; } }
-
         public bool IsCtor { get { return this.methodDefinition.Name == ".ctor"; } }
-
+        public bool IsPublic { get { return this.methodDefinition.Attributes.HasFlag(MethodAttributes.Public); } }
         public bool IsStatic { get { return this.methodDefinition.IsStatic; } }
-
         public bool IsVoid { get { return this.methodDefinition.ReturnType.FullName == "System.Void"; } }
 
         public string Name { get { return this.methodDefinition.Name; } }
 
         public BuilderType ReturnType { get { return new BuilderType(this.type, this.methodReference.ReturnType); } }
-
-        public Method Clear(MethodClearOptions options)
-        {
-            if (options.HasFlag(MethodClearOptions.Body))
-                this.methodDefinition.Body.Instructions.Clear();
-
-            if (options.HasFlag(MethodClearOptions.LocalVariables))
-                this.methodDefinition.Body.Variables.Clear();
-
-            return this;
-        }
-
-        public Method Clear() => this.Clear(MethodClearOptions.Body);
 
         internal ILProcessor GetILProcessor() => this.methodDefinition.Body.GetILProcessor();
 
@@ -96,7 +82,7 @@ namespace Cauldron.Interception.Cecilator
         public LocalVariable CreateVariable(Type type)
         {
             var isInitialized = this.methodDefinition.Body.InitLocals;
-            var newVariable = new VariableDefinition("var_" + Guid.NewGuid().ToString().Replace('-', 'x'), this.moduleDefinition.Import(GetTypeDefinition(type)));
+            var newVariable = new VariableDefinition("<>var_" + CecilatorBase.GenerateName(), this.moduleDefinition.Import(GetTypeDefinition(type)));
             this.methodDefinition.Body.Variables.Add(newVariable);
 
             if (!isInitialized)
@@ -116,7 +102,7 @@ namespace Cauldron.Interception.Cecilator
         public LocalVariable CreateVariable(BuilderType type)
         {
             var isInitialized = this.methodDefinition.Body.InitLocals;
-            var newVariable = new VariableDefinition("var_" + Guid.NewGuid().ToString().Replace('-', 'x'), this.moduleDefinition.Import(type.typeReference));
+            var newVariable = new VariableDefinition("<>var_" + CecilatorBase.GenerateName(), this.moduleDefinition.Import(type.typeReference));
             this.methodDefinition.Body.Variables.Add(newVariable);
 
             if (!isInitialized)

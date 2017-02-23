@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 
 namespace Cauldron.Interception.Fody
 {
@@ -37,43 +38,102 @@ namespace Cauldron.Interception.Fody
 
             builder.FindTypes(SearchContext.AllReferencedModules, "Lockable");
 
-            var methods = builder.FindMethodsByAttributes(attributes).GroupBy(x => x.Method).Select(x => new { Key = x.Key, Item = x.ToArray() });
-            var test = builder.GetType("Cauldron.Interception.Test.TestClass");
+            var iLockableMethodInterceptor = builder.GetType("Cauldron.Interception.ILockableMethodInterceptor")
+                .New(x => new
+                {
+                    Lockable = true,
+                    Type = x,
+                    OnEnter = x.GetMethod("OnEnter", 5),
+                    OnException = x.GetMethod("OnException", 1),
+                    OnExit = x.GetMethod("OnExit")
+                });
+
+            var iMethodInterceptor = builder.GetType("Cauldron.Interception.IMethodInterceptor")
+                .New(x => new
+                {
+                    Lockable = false,
+                    Type = x,
+                    OnEnter = x.GetMethod("OnEnter", 4),
+                    OnException = x.GetMethod("OnException", 1),
+                    OnExit = x.GetMethod("OnExit")
+                });
+
+            var methods = builder
+                .FindMethodsByAttributes(attributes)
+                .GroupBy(x => x.Method)
+                .Select(x => new
+                {
+                    Key = x.Key,
+                    Item = x.Select(y => new
+                    {
+                        Interface = y.Attribute.Implements(iLockableMethodInterceptor.Type.Fullname) ? iLockableMethodInterceptor : iMethodInterceptor,
+                        Attribute = y,
+                        Method = y.Method
+                    }).ToArray()
+                });
+
+            var semaphoreSlim = builder.GetType(typeof(SemaphoreSlim)).New(x => new
+            {
+                Ctor = x.GetMethod(".ctor", typeof(int), typeof(int)),
+                Release = x.GetMethod("Release"),
+                CurrentCount = x.GetMethod("get_CurrentCount")
+            });
 
             foreach (var method in methods)
             {
                 this.LogInfo($"Implementing interceptors in {method.Key}");
-                var variablesAndAttribute = method.Item.Select(x => new { Variable = method.Key.CreateVariable(x.Attribute), Attribute = x }).ToArray();
-                var attributeMethods = variablesAndAttribute.Select(x => new
-                {
-                    OnExitMethod = x.Attribute.Attribute.GetMethod("OnExit"),
-                    Method = x.Attribute,
-                    Variable = x.Variable
-                });
+                var variablesAndAttribute = method.Item.Select(x => new { Variable = method.Key.CreateVariable(x.Interface.Type), Content = x }).ToArray();
+                var lockable = variablesAndAttribute.Any(x => x.Content.Interface.Lockable);
+                var semaphoreFieldName = "<>lock_" + method.Key.Identification;
+
+                if (lockable)
+                    foreach (var ctor in method.Key.DeclaringType.GetRelevantConstructors())
+                        ctor.Code
+                            .Assign(method.Key.DeclaringType.CreateField(Modifiers.Private, typeof(SemaphoreSlim), semaphoreFieldName))
+                            .NewObj(semaphoreSlim.Ctor, 1, 1)
+                            .Insert(Cecilator.InsertionPosition.Beginning);
 
                 method.Key
-                    .Code
-                        .Context(x =>
+                .Code
+                    .Context(x =>
+                    {
+                        foreach (var item in variablesAndAttribute)
                         {
-                            foreach (var item in attributeMethods)
-                                x.Assign(item.Variable).NewObj(item.Method);
-                        })
-                        .Try(x =>
+                            x.Assign(item.Variable).NewObj(item.Content.Attribute);
+                            item.Content.Attribute.Remove();
+                        }
+                    })
+                    .Try(x =>
+                    {
+                        foreach (var item in variablesAndAttribute)
                         {
-                            x.OriginalBody();
-                        })
-                        .Catch(typeof(Exception), x =>
-                        {
-                            x.Rethrow();
-                        })
-                        .Finally(x =>
-                        {
-                            foreach (var item in attributeMethods)
-                                x.LoadLocalVariable(item.Variable).Call(item.OnExitMethod);
-                        })
-                        .EndTry()
-                        .Return()
-                    .Replace();
+                            if (item.Content.Interface.Lockable)
+                                x.Load(item.Variable).Callvirt(item.Content.Interface.OnEnter, method.Key.DeclaringType.Fields[semaphoreFieldName], item.Content.Method.DeclaringType, x.This, item.Content.Method, x.Parameters);
+                            else
+                                x.Load(item.Variable).Callvirt(item.Content.Interface.OnEnter, item.Content.Method.DeclaringType, x.This, item.Content.Method, x.Parameters);
+                        }
+
+                        x.OriginalBody();
+                    })
+                    .Catch(typeof(Exception), x =>
+                    {
+                        foreach (var item in variablesAndAttribute)
+                            x.Load(item.Variable).Callvirt(item.Content.Interface.OnException, x.Exception);
+
+                        x.Rethrow();
+                    })
+                    .Finally(x =>
+                    {
+                        //if (lockable)
+                        //    x.LoadField(semaphoreFieldName)
+                        //        .Call(semaphoreSlim.Release);
+
+                        foreach (var item in variablesAndAttribute)
+                            x.Load(item.Variable).Callvirt(item.Content.Interface.OnExit);
+                    })
+                    .EndTry()
+                    .Return()
+                .Replace();
             }
 
             //var fields = builder.FindFieldsByAttributes(attributes);
