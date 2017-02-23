@@ -8,26 +8,29 @@ namespace Cauldron.Interception.Cecilator
 {
     public class FieldInstructionsSet : AssignInstructionsSet<Field>, IFieldCode
     {
-        internal FieldInstructionsSet(InstructionsSet instructionsSet, Field target, InstructionContainer instructions) : base(instructionsSet, target, instructions)
+        internal FieldInstructionsSet(InstructionsSet instructionsSet, IEnumerable<Field> targets, InstructionContainer instructions, AssignInstructionType instructionType) : base(instructionsSet, targets, instructions, instructionType)
         {
         }
 
-        internal FieldInstructionsSet(InstructionsSet instructionsSet, IEnumerable<Field> targets, InstructionContainer instructions) : base(instructionsSet, targets, instructions)
+        internal FieldInstructionsSet(InstructionsSet instructionsSet, Field target, InstructionContainer instructions, AssignInstructionType instructionType) : base(instructionsSet, target, instructions, instructionType)
         {
         }
 
         protected override TypeReference TargetType { get { return this.target.Last().fieldRef.FieldType; } }
 
-        protected override IFieldCode CreateFieldInstructionSet(Field field)
+        protected override IFieldCode CreateFieldInstructionSet(Field field, AssignInstructionType instructionType)
         {
             var newList = new List<Field>();
             newList.AddRange(this.target);
             newList.Add(field);
-            return new FieldInstructionsSet(this, newList, this.instructions);
+            return new FieldInstructionsSet(this, newList, this.instructions, instructionType);
         }
 
         protected override void StoreCall()
         {
+            if (this.instructionType == AssignInstructionType.Load)
+                return;
+
             var field = this.target.Last();
             this.instructions.Append(processor.Create(field.IsStatic ? OpCodes.Stsfld : OpCodes.Stfld, field.fieldRef));
         }

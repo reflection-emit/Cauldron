@@ -8,26 +8,29 @@ namespace Cauldron.Interception.Cecilator
 {
     public class LocalVariableInstructionSet : AssignInstructionsSet<LocalVariable>, ILocalVariableCode
     {
-        internal LocalVariableInstructionSet(InstructionsSet instructionsSet, LocalVariable target, InstructionContainer instructions) : base(instructionsSet, target, instructions)
+        internal LocalVariableInstructionSet(InstructionsSet instructionsSet, LocalVariable target, InstructionContainer instructions, AssignInstructionType instructionType) : base(instructionsSet, target, instructions, instructionType)
         {
         }
 
-        internal LocalVariableInstructionSet(InstructionsSet instructionsSet, IEnumerable<LocalVariable> targets, InstructionContainer instructions) : base(instructionsSet, targets, instructions)
+        internal LocalVariableInstructionSet(InstructionsSet instructionsSet, IEnumerable<LocalVariable> targets, InstructionContainer instructions, AssignInstructionType instructionType) : base(instructionsSet, targets, instructions, instructionType)
         {
         }
 
         protected override TypeReference TargetType { get { return this.target.Last().variable.VariableType; } }
 
-        protected override ILocalVariableCode CreateLocalVariableInstructionSet(LocalVariable localVariable)
+        protected override ILocalVariableCode CreateLocalVariableInstructionSet(LocalVariable localVariable, AssignInstructionType instructionType)
         {
             var newList = new List<LocalVariable>();
             newList.AddRange(this.target);
             newList.Add(localVariable);
-            return new LocalVariableInstructionSet(this, newList, this.instructions);
+            return new LocalVariableInstructionSet(this, newList, this.instructions, instructionType);
         }
 
         protected override void StoreCall()
         {
+            if (this.instructionType == AssignInstructionType.Load)
+                return;
+
             var last = this.target.Last();
 
             switch (last.Index)

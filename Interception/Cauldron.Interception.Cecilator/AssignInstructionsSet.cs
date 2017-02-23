@@ -6,19 +6,30 @@ using System.Diagnostics;
 
 namespace Cauldron.Interception.Cecilator
 {
+    public enum AssignInstructionType
+    {
+        Load,
+        Store
+    }
+
     public abstract class AssignInstructionsSet<T> : InstructionsSet
     {
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        internal readonly AssignInstructionType instructionType;
+
+        [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
         protected readonly List<T> target = new List<T>();
 
-        internal AssignInstructionsSet(InstructionsSet instructionsSet, T target, InstructionContainer instructions) : base(instructionsSet, instructions)
+        internal AssignInstructionsSet(InstructionsSet instructionsSet, T target, InstructionContainer instructions, AssignInstructionType instructionType) : base(instructionsSet, instructions)
         {
             this.target.Add(target);
+            this.instructionType = instructionType;
         }
 
-        internal AssignInstructionsSet(InstructionsSet instructionsSet, IEnumerable<T> targets, InstructionContainer instructions) : base(instructionsSet, instructions)
+        internal AssignInstructionsSet(InstructionsSet instructionsSet, IEnumerable<T> targets, InstructionContainer instructions, AssignInstructionType instructionType) : base(instructionsSet, instructions)
         {
             this.target.AddRange(targets);
+            this.instructionType = instructionType;
         }
 
         protected abstract TypeReference TargetType { get; }

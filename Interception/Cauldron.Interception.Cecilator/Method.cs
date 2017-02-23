@@ -37,15 +37,30 @@ namespace Cauldron.Interception.Cecilator
         public BuilderType DeclaringType { get { return this.type; } }
 
         public bool IsAbstract { get { return this.methodDefinition.IsAbstract; } }
+
         public bool IsCCtor { get { return this.methodDefinition.Name == ".cctor"; } }
+
         public bool IsCtor { get { return this.methodDefinition.Name == ".ctor"; } }
+
         public bool IsPublic { get { return this.methodDefinition.Attributes.HasFlag(MethodAttributes.Public); } }
+
         public bool IsStatic { get { return this.methodDefinition.IsStatic; } }
+
         public bool IsVoid { get { return this.methodDefinition.ReturnType.FullName == "System.Void"; } }
 
         public string Name { get { return this.methodDefinition.Name; } }
 
+        public BuilderType[] Parameters { get { return this.methodReference.Parameters.Select(x => new BuilderType(this.DeclaringType.Builder, x.ParameterType)).ToArray(); } }
+
         public BuilderType ReturnType { get { return new BuilderType(this.type, this.methodReference.ReturnType); } }
+
+        public Field CreateField(Type fieldType, string name) =>
+            this.CreateField(this.moduleDefinition.Import(this.GetTypeDefinition(fieldType).ResolveType(this.DeclaringType.typeReference)), name);
+
+        public Field CreateField(Field field, string name) => this.CreateField(field.fieldRef.FieldType, name);
+
+        public Field CreateField(TypeReference typeReference, string name) =>
+            this.IsStatic ? this.DeclaringType.CreateField(Modifiers.PrivateStatic, typeReference, name) : this.DeclaringType.CreateField(Modifiers.Private, typeReference, name);
 
         internal ILProcessor GetILProcessor() => this.methodDefinition.Body.GetILProcessor();
 

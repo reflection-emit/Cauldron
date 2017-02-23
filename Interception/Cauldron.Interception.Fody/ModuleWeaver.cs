@@ -89,7 +89,7 @@ namespace Cauldron.Interception.Fody
                 if (lockable)
                     foreach (var ctor in method.Key.DeclaringType.GetRelevantConstructors())
                         ctor.Code
-                            .Assign(method.Key.DeclaringType.CreateField(Modifiers.Private, typeof(SemaphoreSlim), semaphoreFieldName))
+                            .Assign(method.Key.CreateField(typeof(SemaphoreSlim), semaphoreFieldName))
                             .NewObj(semaphoreSlim.Ctor, 1, 1)
                             .Insert(Cecilator.InsertionPosition.Beginning);
 
@@ -112,8 +112,8 @@ namespace Cauldron.Interception.Fody
                             else
                                 x.Load(item.Variable).Callvirt(item.Content.Interface.OnEnter, item.Content.Method.DeclaringType, x.This, item.Content.Method, x.Parameters);
                         }
-
-                        x.OriginalBody();
+                        x.Load(x.This).Call(x.Copy(Modifiers.Private, "bla" + method.Key.Name));
+                        //x.OriginalBody();
                     })
                     .Catch(typeof(Exception), x =>
                     {

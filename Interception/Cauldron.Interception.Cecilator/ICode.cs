@@ -6,6 +6,7 @@ namespace Cauldron.Interception.Cecilator
     public interface ICode : IAction
     {
         Crumb Parameters { get; }
+
         Crumb This { get; }
 
         IFieldCode Assign(Field field);
@@ -24,6 +25,8 @@ namespace Cauldron.Interception.Cecilator
 
         ICode Context(Action<ICode> body);
 
+        Method Copy(Modifiers modifiers, string newName);
+
         [EditorBrowsable(EditorBrowsableState.Never)]
         new bool Equals(object obj);
 
@@ -33,6 +36,8 @@ namespace Cauldron.Interception.Cecilator
         ILocalVariableCode Load(LocalVariable localVariable);
 
         IFieldCode Load(Field field);
+
+        ICode Load(Crumb crumb);
 
         IFieldCode LoadField(string fieldName);
 

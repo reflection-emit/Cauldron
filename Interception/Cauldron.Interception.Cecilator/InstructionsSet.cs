@@ -74,7 +74,7 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
-        public ILocalVariableCode Assign(LocalVariable localVariable) => new LocalVariableInstructionSet(this, localVariable, this.instructions);
+        public ILocalVariableCode Assign(LocalVariable localVariable) => new LocalVariableInstructionSet(this, localVariable, this.instructions, AssignInstructionType.Store);
 
         public IFieldCode Assign(Field field)
         {
@@ -86,7 +86,7 @@ namespace Cauldron.Interception.Cecilator
                 this.instructions.Append(processor.Create(OpCodes.Ldarg_0));
             }
 
-            return new FieldInstructionsSet(this, field, this.instructions);
+            return new FieldInstructionsSet(this, field, this.instructions, AssignInstructionType.Store);
         }
 
         public IFieldCode AssignToField(string fieldName)
@@ -110,6 +110,9 @@ namespace Cauldron.Interception.Cecilator
 
         public ICode Call(Method method, params object[] parameters)
         {
+            if (method.Parameters.Length != parameters.Length)
+                this.LogWarning($"Parameter count of method {method.Name} does not match with the passed parameters. Expected: {method.Parameters.Length}, is: {parameters.Length}");
+
             if (method.DeclaringType.IsInterface || method.IsAbstract)
                 this.LogError($"Use Callvirt to call {method.ToString()}");
 
@@ -129,6 +132,9 @@ namespace Cauldron.Interception.Cecilator
 
         public ICode Callvirt(Method method, params object[] parameters)
         {
+            if (method.Parameters.Length != parameters.Length)
+                this.LogWarning($"Parameter count of method {method.Name} does not match with the passed parameters. Expected: {method.Parameters.Length}, is: {parameters.Length}");
+
             for (int i = 0; i < parameters.Length; i++)
             {
                 var inst = this.AddParameter(this.processor, method.methodDefinition.Parameters[i].ParameterType, parameters[i]);
@@ -147,6 +153,92 @@ namespace Cauldron.Interception.Cecilator
         {
             body(this);
             return new InstructionsSet(this, this.instructions);
+        }
+
+        public Method Copy(Modifiers modifiers, string newName)
+        {
+            var jumps = new List<Tuple<int, int>>();
+            var method = this.method.DeclaringType.typeDefinition.Methods.FirstOrDefault(x => x.Name == newName);
+
+            if (method != null)
+                return new Method(this.method.DeclaringType, method);
+
+            var attributes = MethodAttributes.CompilerControlled;
+
+            if (modifiers.HasFlag(Modifiers.Private)) attributes |= MethodAttributes.Private;
+            if (this.method.IsStatic) attributes |= MethodAttributes.Static;
+            if (modifiers.HasFlag(Modifiers.Public)) attributes |= MethodAttributes.Public;
+
+            method = new MethodDefinition(newName, attributes, this.method.methodReference.ReturnType);
+
+            foreach (var item in this.method.methodReference.Parameters)
+                method.Parameters.Add(item);
+
+            foreach (var item in this.method.methodReference.GenericParameters)
+                method.GenericParameters.Add(item);
+
+            foreach (var item in this.method.methodDefinition.Body.Variables)
+                method.Body.Variables.Add(item);
+
+            method.Body.InitLocals = this.method.methodDefinition.Body.InitLocals;
+
+            this.method.DeclaringType.typeDefinition.Methods.Add(method);
+            var methodProcessor = method.Body.GetILProcessor();
+
+            for (int i = 0; i < this.method.methodDefinition.Body.Instructions.Count; i++)
+            {
+                var item = this.method.methodDefinition.Body.Instructions[i];
+
+                if (item.Operand is Instruction)
+                {
+                    var operand = item.Operand as Instruction;
+                    var index = this.method.methodDefinition.Body.Instructions.IndexOf(operand);
+                    jumps.Add(new Tuple<int, int>(i, index));
+
+                    this.LogInfo($"{item.OpCode.ToString()} {i} -> {index}");
+
+                    var instruction = methodProcessor.Create(OpCodes.Nop);
+                    instruction.OpCode = item.OpCode;
+                    methodProcessor.Append(instruction);
+                }
+                else if (item.Operand is CallSite || item.Operand is Instruction[])
+                    throw new NotImplementedException($"Unknown operand '{item.Operand.GetType().FullName}'");
+                else
+                {
+                    var instruction = methodProcessor.Create(OpCodes.Nop);
+                    instruction.OpCode = item.OpCode;
+                    instruction.Operand = item.Operand;
+                    methodProcessor.Append(instruction);
+                }
+            }
+
+            for (int i = 0; i < jumps.Count; i++)
+                methodProcessor.Body.Instructions[jumps[i].Item1].Operand = methodProcessor.Body.Instructions[jumps[i].Item2];
+
+            var getInstruction = new Func<Instruction, Instruction>(x =>
+            {
+                if (x == null)
+                    return null;
+
+                var index = this.method.methodDefinition.Body.Instructions.IndexOf(x);
+                return method.Body.Instructions[index];
+            });
+
+            foreach (var item in this.method.methodDefinition.Body.ExceptionHandlers)
+            {
+                var handler = new ExceptionHandler(item.HandlerType)
+                {
+                    CatchType = item.CatchType,
+                    FilterStart = getInstruction(item.FilterStart),
+                    HandlerEnd = getInstruction(item.HandlerEnd),
+                    HandlerStart = getInstruction(item.HandlerStart),
+                    TryEnd = getInstruction(item.TryEnd),
+                    TryStart = getInstruction(item.TryStart)
+                };
+                method.Body.ExceptionHandlers.Add(handler);
+            }
+
+            return new Method(this.method.DeclaringType, method);
         }
 
         public void Insert(InsertionPosition position)
@@ -205,7 +297,7 @@ namespace Cauldron.Interception.Cecilator
                 this.instructions.Append(processor.Create(OpCodes.Ldarg_0));
 
             this.instructions.Append(processor.Create(OpCodes.Ldfld, field.fieldRef));
-            return new FieldInstructionsSet(this, field, this.instructions);
+            return this.CreateFieldInstructionSet(field, AssignInstructionType.Load);
         }
 
         public ILocalVariableCode Load(LocalVariable localVariable)
@@ -221,7 +313,15 @@ namespace Cauldron.Interception.Cecilator
                     break;
             }
 
-            return this.CreateLocalVariableInstructionSet(localVariable);
+            return this.CreateLocalVariableInstructionSet(localVariable, AssignInstructionType.Load);
+        }
+
+        public ICode Load(Crumb crumb)
+        {
+            var inst = this.AddParameter(this.processor, null, crumb);
+            this.instructions.Append(inst.Instructions);
+
+            return this;
         }
 
         public IFieldCode LoadField(string fieldName)
@@ -250,7 +350,7 @@ namespace Cauldron.Interception.Cecilator
 
         public ICode OriginalBody()
         {
-            this.instructions.Append(this.processor.Body.Instructions);
+            this.instructions.Append(processor.Body.Instructions);
             return new InstructionsSet(this, this.instructions);
         }
 
@@ -351,45 +451,9 @@ namespace Cauldron.Interception.Cecilator
             return result;
         }
 
-        protected IEnumerable<Instruction> Copy()
-        {
-            var result = new List<Instruction>();
-            var jumps = new List<Tuple<int, int>>();
+        protected virtual IFieldCode CreateFieldInstructionSet(Field field, AssignInstructionType instructionType) => new FieldInstructionsSet(this, field, this.instructions, instructionType);
 
-            for (int i = 0; i < this.method.methodDefinition.Body.Instructions.Count; i++)
-            {
-                var item = this.method.methodDefinition.Body.Instructions[i];
-
-                if (item.Operand is Instruction)
-                {
-                    var operand = item.Operand as Instruction;
-                    var index = method.methodDefinition.Body.Instructions.IndexOf(operand);
-                    jumps.Add(new Tuple<int, int>(i, index));
-
-                    var instruction = this.processor.Create(OpCodes.Nop);
-                    instruction.OpCode = item.OpCode;
-                    result.Add(instruction);
-                }
-                else if (item.Operand is CallSite || item.Operand is Instruction[])
-                    throw new NotImplementedException($"Unknown operand '{item.Operand.GetType().FullName}'");
-                else
-                {
-                    var instruction = this.processor.Create(OpCodes.Nop);
-                    instruction.OpCode = item.OpCode;
-                    instruction.Operand = item.Operand;
-                    result.Add(instruction);
-                }
-            }
-
-            for (int i = 0; i < jumps.Count; i++)
-                result[jumps[i].Item1].Operand = result[jumps[i].Item2];
-
-            return result;
-        }
-
-        protected virtual IFieldCode CreateFieldInstructionSet(Field field) => new FieldInstructionsSet(this, field, this.instructions);
-
-        protected virtual ILocalVariableCode CreateLocalVariableInstructionSet(LocalVariable localVariable) => new LocalVariableInstructionSet(this, localVariable, this.instructions);
+        protected virtual ILocalVariableCode CreateLocalVariableInstructionSet(LocalVariable localVariable, AssignInstructionType instructionType) => new LocalVariableInstructionSet(this, localVariable, this.instructions, instructionType);
 
         protected void InstructionDebug() => this.LogInfo(this.instructions);
 

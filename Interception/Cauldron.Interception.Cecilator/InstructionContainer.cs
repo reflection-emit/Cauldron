@@ -6,7 +6,9 @@ namespace Cauldron.Interception.Cecilator
 {
     internal class InstructionContainer
     {
+        private readonly List<ExceptionHandler> exceptionHandler = new List<ExceptionHandler>();
         private readonly List<Instruction> instruction = new List<Instruction>();
+        private readonly List<VariableDefinition> variables = new List<VariableDefinition>();
 
         public InstructionContainer()
         {
@@ -26,6 +28,10 @@ namespace Cauldron.Interception.Cecilator
 
         public int Count { get { return this.instruction.Count; } }
 
+        public List<ExceptionHandler> ExceptionHandler { get { return this.exceptionHandler; } }
+
+        public List<VariableDefinition> Variables { get { return this.variables; } }
+
         public Instruction this[int index] { get { return this.instruction[index]; } }
 
         public static implicit operator Instruction[] (InstructionContainer a) => a.instruction.ToArray();
@@ -38,7 +44,12 @@ namespace Cauldron.Interception.Cecilator
 
         public void Append(IEnumerable<Instruction> instruction) => this.instruction.AddRange(instruction);
 
-        public void Clear() => this.instruction.Clear();
+        public void Clear()
+        {
+            this.instruction.Clear();
+            this.exceptionHandler.Clear();
+            this.variables.Clear();
+        }
 
         public Instruction First() => this.instruction.Count == 0 ? null : this.instruction[0];
 
