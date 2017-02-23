@@ -1,14 +1,16 @@
 ﻿using Mono.Cecil.Cil;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
+using System;
 
 namespace Cauldron.Interception.Cecilator
 {
     internal class InstructionContainer
     {
-        private readonly List<ExceptionHandler> exceptionHandler = new List<ExceptionHandler>();
+        private readonly List<ExceptionHandler> exceptionHandlers = new List<ExceptionHandler>();
         private readonly List<Instruction> instruction = new List<Instruction>();
-        private readonly List<VariableDefinition> variables = new List<VariableDefinition>();
+        private readonly VariableDefinitionKeyedCollection variables = new VariableDefinitionKeyedCollection();
 
         public InstructionContainer()
         {
@@ -28,9 +30,9 @@ namespace Cauldron.Interception.Cecilator
 
         public int Count { get { return this.instruction.Count; } }
 
-        public List<ExceptionHandler> ExceptionHandler { get { return this.exceptionHandler; } }
+        public List<ExceptionHandler> ExceptionHandlers { get { return this.exceptionHandlers; } }
 
-        public List<VariableDefinition> Variables { get { return this.variables; } }
+        public VariableDefinitionKeyedCollection Variables { get { return this.variables; } }
 
         public Instruction this[int index] { get { return this.instruction[index]; } }
 
@@ -47,7 +49,7 @@ namespace Cauldron.Interception.Cecilator
         public void Clear()
         {
             this.instruction.Clear();
-            this.exceptionHandler.Clear();
+            this.exceptionHandlers.Clear();
             this.variables.Clear();
         }
 

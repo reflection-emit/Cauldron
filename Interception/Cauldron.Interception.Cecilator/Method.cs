@@ -68,64 +68,6 @@ namespace Cauldron.Interception.Cecilator
 
         public LocalVariableCollection LocalVariables { get { return new LocalVariableCollection(this.type, this.methodDefinition.Body.Variables); } }
 
-        public LocalVariable CreateVariable(string name, Method method)
-        {
-            if (method.IsCtor)
-                return this.CreateVariable(name, method.DeclaringType);
-
-            return this.CreateVariable(name, method.ReturnType);
-        }
-
-        public LocalVariable CreateVariable(string name, BuilderType type)
-        {
-            var isInitialized = this.methodDefinition.Body.InitLocals;
-
-            var existingVariable = this.methodDefinition.Body.Variables.FirstOrDefault(x => x.Name == name);
-
-            if (existingVariable != null)
-                return new LocalVariable(this.type, existingVariable);
-
-            var newVariable = new VariableDefinition(name, this.moduleDefinition.Import(type.typeReference));
-            this.methodDefinition.Body.Variables.Add(newVariable);
-
-            if (!isInitialized)
-                this.methodDefinition.Body.InitLocals = true;
-
-            return new LocalVariable(this.type, newVariable);
-        }
-
-        public LocalVariable CreateVariable(Type type)
-        {
-            var isInitialized = this.methodDefinition.Body.InitLocals;
-            var newVariable = new VariableDefinition("<>var_" + CecilatorBase.GenerateName(), this.moduleDefinition.Import(GetTypeDefinition(type)));
-            this.methodDefinition.Body.Variables.Add(newVariable);
-
-            if (!isInitialized)
-                this.methodDefinition.Body.InitLocals = true;
-
-            return new LocalVariable(this.type, newVariable);
-        }
-
-        public LocalVariable CreateVariable(Method method)
-        {
-            if (method.IsCtor)
-                return this.CreateVariable(method.DeclaringType);
-
-            return this.CreateVariable(method.ReturnType);
-        }
-
-        public LocalVariable CreateVariable(BuilderType type)
-        {
-            var isInitialized = this.methodDefinition.Body.InitLocals;
-            var newVariable = new VariableDefinition("<>var_" + CecilatorBase.GenerateName(), this.moduleDefinition.Import(type.typeReference));
-            this.methodDefinition.Body.Variables.Add(newVariable);
-
-            if (!isInitialized)
-                this.methodDefinition.Body.InitLocals = true;
-
-            return new LocalVariable(this.type, newVariable);
-        }
-
         #endregion Variables
 
         #region Equitable stuff

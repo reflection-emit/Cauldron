@@ -82,8 +82,7 @@ namespace Cauldron.Interception.Fody
             foreach (var method in methods)
             {
                 this.LogInfo($"Implementing interceptors in {method.Key}");
-                var variablesAndAttribute = method.Item.Select(x => new { Variable = method.Key.CreateVariable(x.Interface.Type), Content = x }).ToArray();
-                var lockable = variablesAndAttribute.Any(x => x.Content.Interface.Lockable);
+                var lockable = method.Item.Any(x => x.Interface.Lockable);
                 var semaphoreFieldName = "<>lock_" + method.Key.Identification;
 
                 if (lockable)
@@ -97,28 +96,29 @@ namespace Cauldron.Interception.Fody
                 .Code
                     .Context(x =>
                     {
-                        foreach (var item in variablesAndAttribute)
+                        for (int i = 0; i < method.Item.Length; i++)
                         {
-                            x.Assign(item.Variable).NewObj(item.Content.Attribute);
-                            item.Content.Attribute.Remove();
+                            var item = method.Item[i];
+                            x.Assign(x.CreateVariable("<>interceptor_" + i, item.Interface.Type)).NewObj(item.Attribute);
+                            item.Attribute.Remove();
                         }
                     })
                     .Try(x =>
                     {
-                        foreach (var item in variablesAndAttribute)
+                        for (int i = 0; i < method.Item.Length; i++)
                         {
-                            if (item.Content.Interface.Lockable)
-                                x.Load(item.Variable).Callvirt(item.Content.Interface.OnEnter, method.Key.DeclaringType.Fields[semaphoreFieldName], item.Content.Method.DeclaringType, x.This, item.Content.Method, x.Parameters);
+                            var item = method.Item[i];
+                            if (item.Interface.Lockable)
+                                x.LoadVariable("<>interceptor_" + i).Callvirt(item.Interface.OnEnter, method.Key.DeclaringType.Fields[semaphoreFieldName], item.Method.DeclaringType, x.This, item.Method, x.Parameters);
                             else
-                                x.Load(item.Variable).Callvirt(item.Content.Interface.OnEnter, item.Content.Method.DeclaringType, x.This, item.Content.Method, x.Parameters);
+                                x.LoadVariable("<>interceptor_" + i).Callvirt(item.Interface.OnEnter, item.Method.DeclaringType, x.This, item.Method, x.Parameters);
                         }
-                        x.Load(x.This).Call(x.Copy(Modifiers.Private, "bla" + method.Key.Name));
-                        //x.OriginalBody();
+                        x.OriginalBody();
                     })
                     .Catch(typeof(Exception), x =>
                     {
-                        foreach (var item in variablesAndAttribute)
-                            x.Load(item.Variable).Callvirt(item.Content.Interface.OnException, x.Exception);
+                        for (int i = 0; i < method.Item.Length; i++)
+                            x.LoadVariable("<>interceptor_" + i).Callvirt(method.Item[i].Interface.OnException, x.Exception);
 
                         x.Rethrow();
                     })
@@ -128,58 +128,13 @@ namespace Cauldron.Interception.Fody
                         //    x.LoadField(semaphoreFieldName)
                         //        .Call(semaphoreSlim.Release);
 
-                        foreach (var item in variablesAndAttribute)
-                            x.Load(item.Variable).Callvirt(item.Content.Interface.OnExit);
+                        for (int i = 0; i < method.Item.Length; i++)
+                            x.LoadVariable("<>interceptor_" + i).Callvirt(method.Item[i].Interface.OnExit);
                     })
                     .EndTry()
                     .Return()
                 .Replace();
             }
-
-            //var fields = builder.FindFieldsByAttributes(attributes);
-            //var fieldUsage = fields.SelectMany(x => x.Field.FindUsages());
-
-            //var type = builder.FindTypes("FieldOf_Implementer_Test").FirstOrDefault();
-            //var field = type.Fields["field2"];
-
-            //foreach (var item in type.GetRelevantConstructors())
-            //{
-            //    item.Code
-            //        .Assign(field)
-            //        .Set("This is a test")
-            //        .Insert(Cecilator.InsertionPosition.End);
-            //}
-
-            //type.GetMethod("Static_Private_Field_Info")
-            //    .Code
-            //    .Assign(field)
-            //    .Set("My god it works")
-            //    .Insert(Cecilator.InsertionPosition.End);
-
-            //Extensions.ModuleWeaver = this;
-
-            //// Check if th module has a reference to Cauldron.Interception
-            //var assemblyNameReference = this.ModuleDefinition.AllReferencedAssemblies().FirstOrDefault(x => x.Name.Name == "Cauldron.Interception");
-            //if (assemblyNameReference == null)
-            //    return;
-
-            //foreach (var weaverType in this.weavers)
-            //{
-            //    var weaver = Activator.CreateInstance(weaverType, this) as ModuleWeaverBase;
-            //    try
-            //    {
-            //        weaver.Implement();
-            //    }
-            //    catch (NotImplementedException e)
-            //    {
-            //        this.LogWarning(e.Message);
-            //    }
-            //    catch (Exception e)
-            //    {
-            //        this.LogError(e.GetStackTrace());
-            //        this.LogError(e.StackTrace);
-            //    }
-            //}
         }
     }
 }

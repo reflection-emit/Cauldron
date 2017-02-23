@@ -15,7 +15,6 @@ namespace Cauldron.Interception.Cecilator
         {
         }
 
-        internal Method Context { get; set; }
         internal CrumbTypes CrumbType { get; set; }
         internal TypeReference ExceptionType { get; set; }
         internal string Name { get; set; }

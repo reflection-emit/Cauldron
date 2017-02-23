@@ -40,11 +40,11 @@ namespace Cauldron.Interception.Cecilator
         {
             get
             {
-                var variableName = "<>Params_" + this.method.Identification;
-                if (!this.method.LocalVariables.Contains(variableName))
+                var variableName = "<>params_" + this.method.Identification;
+                if (!this.instructions.Variables.Contains(variableName))
                 {
                     var objectArrayType = this.method.DeclaringType.Builder.GetType(typeof(object[]));
-                    var variable = this.method.CreateVariable(variableName, objectArrayType);
+                    var variable = this.CreateVariable(variableName, objectArrayType);
                     var newInstructions = new List<Instruction>();
 
                     newInstructions.Add(processor.Create(OpCodes.Ldc_I4, this.method.methodReference.Parameters.Count));
@@ -57,11 +57,11 @@ namespace Cauldron.Interception.Cecilator
                     this.instructions.Insert(0, newInstructions);
                 }
 
-                return new Crumb { Context = this.method, CrumbType = CrumbTypes.Parameters, Name = variableName };
+                return new Crumb { CrumbType = CrumbTypes.Parameters, Name = variableName };
             }
         }
 
-        public Crumb This { get { return new Crumb { CrumbType = CrumbTypes.This, Context = this.method }; } }
+        public Crumb This { get { return new Crumb { CrumbType = CrumbTypes.This }; } }
 
         protected bool RequiresReturn
         {
@@ -195,8 +195,6 @@ namespace Cauldron.Interception.Cecilator
                     var index = this.method.methodDefinition.Body.Instructions.IndexOf(operand);
                     jumps.Add(new Tuple<int, int>(i, index));
 
-                    this.LogInfo($"{item.OpCode.ToString()} {i} -> {index}");
-
                     var instruction = methodProcessor.Create(OpCodes.Nop);
                     instruction.OpCode = item.OpCode;
                     methodProcessor.Append(instruction);
@@ -238,6 +236,8 @@ namespace Cauldron.Interception.Cecilator
                 method.Body.ExceptionHandlers.Add(handler);
             }
 
+            method.Body.OptimizeMacros();
+
             return new Method(this.method.DeclaringType, method);
         }
 
@@ -270,13 +270,10 @@ namespace Cauldron.Interception.Cecilator
                     else
                     {
                         var isInitialized = this.method.methodDefinition.Body.InitLocals;
-                        var localVariable = this.method.CreateVariable("<>returnValue", this.method.ReturnType);
+                        var localVariable = this.GetOrCreateReturnVariable();
 
-                        if (!isInitialized)
-                            this.method.methodDefinition.Body.InitLocals = true;
-
-                        processor.InsertBefore(last, processor.Create(OpCodes.Stloc, localVariable.variable));
-                        processor.InsertBefore(last, processor.Create(OpCodes.Ldloc, localVariable.variable));
+                        processor.InsertBefore(last, processor.Create(OpCodes.Stloc, localVariable));
+                        processor.InsertBefore(last, processor.Create(OpCodes.Ldloc, localVariable));
                         instructionPosition = last.Previous.Previous;
                     }
 
@@ -285,8 +282,17 @@ namespace Cauldron.Interception.Cecilator
                 }
             }
 
+            foreach (var item in this.instructions.Variables)
+                processor.Body.Variables.Add(item);
+
             processor.InsertBefore(instructionPosition, this.instructions);
+
+            foreach (var item in this.instructions.ExceptionHandlers)
+                processor.Body.ExceptionHandlers.Add(item);
+
+            this.method.methodDefinition.Body.InitLocals = this.method.methodDefinition.Body.Variables.Count > 0;
             this.ReplaceReturns();
+
             this.method.methodDefinition.Body.OptimizeMacros();
             this.instructions.Clear();
         }
@@ -333,32 +339,49 @@ namespace Cauldron.Interception.Cecilator
             return this.Load(field);
         }
 
-        public ILocalVariableCode LoadLocalVariable(int variableIndex)
+        public ILocalVariableCode LoadVariable(string variableName)
         {
-            var localVariable = this.method.LocalVariables[variableIndex];
-            return this.Load(localVariable);
-        }
-
-        public ILocalVariableCode LoadLocalVariable(string variableName)
-        {
-            if (!this.method.LocalVariables.Contains(variableName))
+            if (!this.instructions.Variables.Contains(variableName))
                 throw new KeyNotFoundException($"The local variable with the name '{variableName}' does not exist in '{method.DeclaringType}'");
 
-            var localvariable = this.method.LocalVariables[variableName];
-            return this.Load(localvariable);
+            var localvariable = this.instructions.Variables[variableName];
+            return this.Load(new LocalVariable(this.method.DeclaringType, localvariable));
+        }
+
+        public ILocalVariableCode LoadVariable(int variableIndex)
+        {
+            var localvariable = this.instructions.Variables[variableIndex];
+            return this.Load(new LocalVariable(this.method.DeclaringType, localvariable));
         }
 
         public ICode OriginalBody()
         {
-            this.instructions.Append(processor.Body.Instructions);
+            var newMethod = this.Copy(Modifiers.Private, "<>original_" + this.method.Name);
+
+            for (int i = 0; i < this.method.Parameters.Length + (this.method.IsStatic ? 0 : 1); i++)
+                this.instructions.Append(processor.Create(OpCodes.Ldarg, i));
+
+            this.instructions.Append(processor.Create(OpCodes.Call, this.moduleDefinition.Import(newMethod.methodReference)));
+
             return new InstructionsSet(this, this.instructions);
         }
 
         public void Replace()
         {
             this.method.methodDefinition.Body.Instructions.Clear();
+            this.method.methodDefinition.Body.Variables.Clear();
+            this.method.methodDefinition.Body.ExceptionHandlers.Clear();
+
+            foreach (var item in this.instructions.Variables)
+                processor.Body.Variables.Add(item);
 
             processor.Append(this.instructions);
+
+            foreach (var item in this.instructions.ExceptionHandlers)
+                processor.Body.ExceptionHandlers.Add(item);
+
+            this.method.methodDefinition.Body.InitLocals = this.method.methodDefinition.Body.Variables.Count > 0;
+
             this.ReplaceReturns();
 
             this.method.methodDefinition.Body.OptimizeMacros();
@@ -380,6 +403,183 @@ namespace Cauldron.Interception.Cecilator
                 this.instructions.Append(this.processor.Create(OpCodes.Ret));
 
             return new MarkerInstructionSet(this, MarkerType.Try, markerStart ?? this.instructions.First(), this.instructions);
+        }
+
+        internal ParamResult AddParameter(ILProcessor processor, TypeReference targetType, object parameter)
+        {
+            var result = new ParamResult();
+
+            if (parameter == null)
+            {
+                result.Instructions.Add(processor.Create(OpCodes.Ldnull));
+                return result;
+            }
+
+            var type = parameter.GetType();
+
+            if (type == typeof(string))
+            {
+                result.Instructions.Add(processor.Create(OpCodes.Ldstr, parameter.ToString()));
+                result.Type = this.GetTypeDefinition(typeof(string));
+            }
+            else if (type == typeof(FieldDefinition))
+            {
+                var value = parameter as FieldDefinition;
+
+                if (!value.IsStatic)
+                    result.Instructions.Add(processor.Create(OpCodes.Ldarg_0));
+
+                result.Instructions.Add(processor.Create(value.IsStatic ? OpCodes.Ldsfld : OpCodes.Ldfld, value.CreateFieldReference()));
+                result.Type = value.FieldType;
+            }
+            else if (type == typeof(FieldReference))
+            {
+                var value = parameter as FieldReference;
+                var fieldDef = value.Resolve();
+
+                if (!fieldDef.IsStatic)
+                    result.Instructions.Add(processor.Create(OpCodes.Ldarg_0));
+
+                result.Instructions.Add(processor.Create(fieldDef.IsStatic ? OpCodes.Ldsfld : OpCodes.Ldfld, value));
+                result.Type = value.FieldType;
+            }
+            else if (type == typeof(Field))
+            {
+                var value = parameter as Field;
+
+                if (!value.IsStatic)
+                    result.Instructions.Add(processor.Create(OpCodes.Ldarg_0));
+
+                result.Instructions.Add(processor.Create(value.IsStatic ? OpCodes.Ldsfld : OpCodes.Ldfld, value.fieldRef));
+                result.Type = value.fieldRef.FieldType;
+            }
+            else if (type == typeof(int))
+            {
+                result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, (int)parameter));
+                result.Type = this.GetTypeDefinition(typeof(int));
+            }
+            else if (type == typeof(uint))
+            {
+                result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, (int)(uint)parameter));
+                result.Type = this.GetTypeDefinition(typeof(uint));
+            }
+            else if (type == typeof(bool))
+            {
+                result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, (bool)parameter ? 1 : 0));
+                result.Type = this.GetTypeDefinition(typeof(bool));
+            }
+            else if (type == typeof(char))
+            {
+                result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, (char)parameter));
+                result.Type = this.GetTypeDefinition(typeof(char));
+            }
+            else if (type == typeof(short))
+            {
+                result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, (short)parameter));
+                result.Type = this.GetTypeDefinition(typeof(short));
+            }
+            else if (type == typeof(ushort))
+            {
+                result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, (ushort)parameter));
+                result.Type = this.GetTypeDefinition(typeof(ushort));
+            }
+            else if (type == typeof(byte))
+            {
+                result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, (int)(byte)parameter));
+                result.Type = this.GetTypeDefinition(typeof(byte));
+            }
+            else if (type == typeof(sbyte))
+            {
+                result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, (int)(sbyte)parameter));
+                result.Type = this.GetTypeDefinition(typeof(sbyte));
+            }
+            else if (type == typeof(long))
+            {
+                result.Instructions.Add(processor.Create(OpCodes.Ldc_I8, (long)parameter));
+                result.Type = this.GetTypeDefinition(typeof(long));
+            }
+            else if (type == typeof(ulong))
+            {
+                result.Instructions.Add(processor.Create(OpCodes.Ldc_I8, (long)(ulong)parameter));
+                result.Type = this.GetTypeDefinition(typeof(ulong));
+            }
+            else if (type == typeof(double))
+            {
+                result.Instructions.Add(processor.Create(OpCodes.Ldc_R8, (double)parameter));
+                result.Type = this.GetTypeDefinition(typeof(double));
+            }
+            else if (type == typeof(float))
+            {
+                result.Instructions.Add(processor.Create(OpCodes.Ldc_R4, (float)parameter));
+                result.Type = this.GetTypeDefinition(typeof(float));
+            }
+            else if (type == typeof(LocalVariable))
+            {
+                var value = AddVariableDefinitionToInstruction(processor, result.Instructions, (parameter as LocalVariable).variable);
+                result.Type = value.VariableType;
+            }
+            else if (type == typeof(VariableDefinition))
+            {
+                var value = AddVariableDefinitionToInstruction(processor, result.Instructions, parameter);
+                result.Type = value.VariableType;
+            }
+            else if (type == typeof(Crumb))
+            {
+                var crumb = parameter as Crumb;
+
+                switch (crumb.CrumbType)
+                {
+                    case CrumbTypes.Exception:
+                    case CrumbTypes.Parameters:
+                        {
+                            var variable = this.instructions.Variables[crumb.Name];
+                            result.Instructions.Add(processor.Create(OpCodes.Ldloc, variable));
+                            break;
+                        }
+                    case CrumbTypes.This:
+                        result.Instructions.Add(processor.Create(this.method.IsStatic ? OpCodes.Ldnull : OpCodes.Ldarg_0));
+                        break;
+
+                    default:
+                        throw new NotImplementedException();
+                }
+            }
+            else if (type == typeof(BuilderType))
+            {
+                var bt = parameter as BuilderType;
+                result.Instructions.AddRange(this.TypeOf(processor, bt.typeReference));
+                result.Type = this.GetTypeDefinition(typeof(Type));
+            }
+            else if (type == typeof(Method))
+            {
+                var method = parameter as Method;
+
+                result.Instructions.Add(processor.Create(OpCodes.Ldtoken, method.methodReference));
+                result.Instructions.Add(processor.Create(OpCodes.Ldtoken, method.DeclaringType.typeReference));
+                result.Instructions.Add(processor.Create(OpCodes.Call,
+                    this.moduleDefinition.Import(
+                        this.GetTypeDefinition(typeof(System.Reflection.MethodBase))
+                            .Methods.FirstOrDefault(x => x.Name == "GetMethodFromHandle" && x.Parameters.Count == 2))));
+            }
+            else if (type == typeof(ParameterDefinition))
+            {
+                var value = parameter as ParameterDefinition;
+                result.Instructions.Add(processor.Create(OpCodes.Ldarg_S, value));
+                result.Type = value.ParameterType;
+            }
+            else if (parameter is IEnumerable<Instruction>)
+            {
+                foreach (var item in parameter as IEnumerable<Instruction>)
+                    result.Instructions.Add(item);
+            }
+
+            if (result.Type != null && result.Type.Resolve() == null)
+                result.Instructions.Add(processor.Create(OpCodes.Box, result.Type));
+
+            if (result.Type != null && result.Type.IsValueType && !targetType.IsValueType)
+                result.Instructions.Add(processor.Create(OpCodes.Box, result.Type));
+
+            return result;
         }
 
         protected IEnumerable<Instruction> AttributeParameterToOpCode(ILProcessor processor, CustomAttributeArgument attributeArgument)
@@ -486,12 +686,12 @@ namespace Cauldron.Interception.Cecilator
             }
             else
             {
-                var returnVariable = this.method.CreateVariable("<>returnValue", this.method.ReturnType);
+                var returnVariable = this.GetOrCreateReturnVariable();
                 var realReturn = this.method.methodDefinition.Body.Instructions.Last();
 
                 if (!realReturn.Previous.IsLoadLocal())
                 {
-                    this.processor.InsertBefore(realReturn, this.processor.Create(OpCodes.Ldloc, returnVariable.variable));
+                    this.processor.InsertBefore(realReturn, this.processor.Create(OpCodes.Ldloc, returnVariable));
                 }
                 realReturn = realReturn.Previous;
 
@@ -504,13 +704,32 @@ namespace Cauldron.Interception.Cecilator
 
                     instruction.OpCode = OpCodes.Leave;
                     instruction.Operand = realReturn;
-                    this.processor.InsertBefore(instruction, this.processor.Create(OpCodes.Stloc, returnVariable.variable));
+                    this.processor.InsertBefore(instruction, this.processor.Create(OpCodes.Stloc, returnVariable));
                 }
             }
         }
 
         protected virtual void StoreCall()
         {
+        }
+
+        private static VariableDefinition AddVariableDefinitionToInstruction(ILProcessor processor, List<Instruction> instructions, object parameter)
+        {
+            var value = parameter as VariableDefinition;
+            var index = value.Index;
+
+            switch (index)
+            {
+                case 0: instructions.Add(processor.Create(OpCodes.Ldloc_0)); break;
+                case 1: instructions.Add(processor.Create(OpCodes.Ldloc_1)); break;
+                case 2: instructions.Add(processor.Create(OpCodes.Ldloc_2)); break;
+                case 3: instructions.Add(processor.Create(OpCodes.Ldloc_3)); break;
+                default:
+                    instructions.Add(processor.Create(OpCodes.Ldloc_S, value));
+                    break;
+            }
+
+            return value;
         }
 
         private IEnumerable<Instruction> CreateInstructionsFromAttributeTypes(ILProcessor processor, TypeReference targetType, Type type, object value)
@@ -596,6 +815,65 @@ namespace Cauldron.Interception.Cecilator
                 return false;
             });
         }
+
+        private VariableDefinition GetOrCreateReturnVariable()
+        {
+            var variable = this.method.methodDefinition.Body.Variables.FirstOrDefault(x => x.Name == "<>returnValue");
+
+            if (variable != null)
+                return variable;
+
+            variable = new VariableDefinition("<>returnValue", this.method.ReturnType.typeReference);
+            this.method.methodDefinition.Body.Variables.Add(variable);
+            return variable;
+        }
+
+        #region Variable
+
+        public LocalVariable CreateVariable(string name, Method method)
+        {
+            if (method.IsCtor)
+                return this.CreateVariable(name, method.DeclaringType);
+
+            return this.CreateVariable(name, method.ReturnType);
+        }
+
+        public LocalVariable CreateVariable(string name, BuilderType type)
+        {
+            var existingVariable = this.method.methodDefinition.Body.Variables.FirstOrDefault(x => x.Name == name);
+
+            if (existingVariable != null)
+                return new LocalVariable(this.method.type, existingVariable);
+
+            var newVariable = new VariableDefinition(name, this.moduleDefinition.Import(type.typeReference));
+            this.instructions.Variables.Add(newVariable);
+
+            return new LocalVariable(this.method.type, newVariable);
+        }
+
+        public LocalVariable CreateVariable(Type type)
+        {
+            var newVariable = new VariableDefinition("<>var_" + CecilatorBase.GenerateName(), this.moduleDefinition.Import(GetTypeDefinition(type)));
+            this.instructions.Variables.Add(newVariable);
+            return new LocalVariable(this.method.type, newVariable);
+        }
+
+        public LocalVariable CreateVariable(Method method)
+        {
+            if (method.IsCtor)
+                return this.CreateVariable(method.DeclaringType);
+
+            return this.CreateVariable(method.ReturnType);
+        }
+
+        public LocalVariable CreateVariable(BuilderType type)
+        {
+            var newVariable = new VariableDefinition("<>var_" + CecilatorBase.GenerateName(), this.moduleDefinition.Import(type.typeReference));
+            this.instructions.Variables.Add(newVariable);
+            return new LocalVariable(this.method.type, newVariable);
+        }
+
+        #endregion Variable
 
         #region Equitable stuff
 

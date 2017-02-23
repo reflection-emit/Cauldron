@@ -27,6 +27,16 @@ namespace Cauldron.Interception.Cecilator
 
         Method Copy(Modifiers modifiers, string newName);
 
+        LocalVariable CreateVariable(BuilderType type);
+
+        LocalVariable CreateVariable(Method method);
+
+        LocalVariable CreateVariable(string name, Method method);
+
+        LocalVariable CreateVariable(string name, BuilderType type);
+
+        LocalVariable CreateVariable(Type type);
+
         [EditorBrowsable(EditorBrowsableState.Never)]
         new bool Equals(object obj);
 
@@ -41,9 +51,9 @@ namespace Cauldron.Interception.Cecilator
 
         IFieldCode LoadField(string fieldName);
 
-        ILocalVariableCode LoadLocalVariable(int variableIndex);
+        ILocalVariableCode LoadVariable(string variableName);
 
-        ILocalVariableCode LoadLocalVariable(string variableName);
+        ILocalVariableCode LoadVariable(int variableIndex);
 
         ICode Return();
 

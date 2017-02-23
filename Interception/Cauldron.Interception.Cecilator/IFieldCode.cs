@@ -20,9 +20,9 @@ namespace Cauldron.Interception.Cecilator
 
         IFieldCode LoadField(string fieldName);
 
-        ILocalVariableCode LoadLocalVariable(int variableIndex);
+        ILocalVariableCode LoadVariable(int variableIndex);
 
-        ILocalVariableCode LoadLocalVariable(string variableName);
+        ILocalVariableCode LoadVariable(string variableName);
 
         ICode NewObj(AttributedMethod attribute);
 

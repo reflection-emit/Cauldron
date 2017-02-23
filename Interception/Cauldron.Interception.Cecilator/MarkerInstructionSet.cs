@@ -47,7 +47,7 @@ namespace Cauldron.Interception.Cecilator
 
                 if (!this.hasExceptionVariable)
                 {
-                    var exceptionVariable = this.method.CreateVariable(exceptionVariableName, new BuilderType(this.method.type, this.exceptionType));
+                    var exceptionVariable = this.CreateVariable(exceptionVariableName, new BuilderType(this.method.type, this.exceptionType));
                     this.hasExceptionVariable = true;
                     this.instructions.InsertAfter(this.beforeCatchBody, this.processor.Create(OpCodes.Stloc, exceptionVariable.variable));
                 }
@@ -56,8 +56,7 @@ namespace Cauldron.Interception.Cecilator
                 {
                     CrumbType = CrumbTypes.Exception,
                     Name = exceptionVariableName,
-                    ExceptionType = this.exceptionType,
-                    Context = this.method
+                    ExceptionType = this.exceptionType
                 };
             }
         }
@@ -95,7 +94,7 @@ namespace Cauldron.Interception.Cecilator
                     CatchType = handlerType == ExceptionHandlerType.Finally ? null : this.moduleDefinition.Import(this.markers[i].exceptionType)
                 };
 
-                this.processor.Body.ExceptionHandlers.Add(handler);
+                this.instructions.ExceptionHandlers.Add(handler);
             }
 
             return new InstructionsSet(this, this.instructions);
