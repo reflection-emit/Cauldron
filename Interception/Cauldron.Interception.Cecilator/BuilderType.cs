@@ -223,6 +223,12 @@ namespace Cauldron.Interception.Cecilator
 
         #endregion Fields
 
+        #region Properties
+
+        public IEnumerable<Property> Properties { get { return this.typeDefinition.Properties.Select(x => new Property(this, x)); } }
+
+        #endregion Properties
+
         #region Methods
 
         public IEnumerable<Method> Methods { get { return this.typeDefinition.Methods.Where(x => x.Body != null).Select(x => new Method(this, x)); } }

@@ -115,6 +115,25 @@ namespace Cauldron.Interception.Cecilator
 
         #endregion Field Finders
 
+        #region Property Finders
+
+        public IEnumerable<AttributedProperty> FindPropertiesByAttributes(IEnumerable<BuilderType> types) => this.FindPropertiesByAttributes(SearchContext.Module, types);
+
+        public IEnumerable<AttributedProperty> FindPropertiesByAttributes(SearchContext searchContext, IEnumerable<BuilderType> types)
+        {
+            var result = this.GetTypes(searchContext)
+                .SelectMany(x => x.Properties)
+                .Where(x => x.propertyDefinition.HasCustomAttributes)
+                .Select(x => new { Property = x, CustomAttributes = x.propertyDefinition.CustomAttributes.Where(y => types.Any(t => t.typeDefinition == y.AttributeType.Resolve())) })
+                .Where(x => x.CustomAttributes.Any() && x.Property != null);
+
+            foreach (var item in result)
+                foreach (var attrib in item.CustomAttributes)
+                    yield return new AttributedProperty(item.Property, attrib);
+        }
+
+        #endregion Property Finders
+
         #region Method Finders
 
         public IEnumerable<Method> FindMethods(string regexPattern) => this.FindMethods(SearchContext.Module, regexPattern);

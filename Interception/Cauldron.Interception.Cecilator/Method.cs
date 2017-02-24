@@ -10,13 +10,13 @@ namespace Cauldron.Interception.Cecilator
     public class Method : CecilatorBase, IEquatable<Method>
     {
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        internal MethodDefinition methodDefinition;
+        internal readonly MethodDefinition methodDefinition;
 
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        internal MethodReference methodReference;
+        internal readonly MethodReference methodReference;
 
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        internal BuilderType type;
+        internal readonly BuilderType type;
 
         internal Method(BuilderType type, MethodReference methodReference, MethodDefinition methodDefinition) : base(type)
         {
