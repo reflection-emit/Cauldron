@@ -32,8 +32,6 @@ namespace Cauldron.Interception.Cecilator
             this.methodReference = methodDefinition.CreateMethodReference();
         }
 
-        public ICode Code { get { return new InstructionsSet(this.type, this); } }
-
         public BuilderType DeclaringType { get { return this.type; } }
 
         public bool IsAbstract { get { return this.methodDefinition.IsAbstract; } }
@@ -62,6 +60,8 @@ namespace Cauldron.Interception.Cecilator
         public Field CreateField(TypeReference typeReference, string name) =>
             this.IsStatic ? this.DeclaringType.CreateField(Modifiers.PrivateStatic, typeReference, name) : this.DeclaringType.CreateField(Modifiers.Private, typeReference, name);
 
+        public ICode NewCode() => new InstructionsSet(this.type, this);
+
         internal ILProcessor GetILProcessor() => this.methodDefinition.Body.GetILProcessor();
 
         #region Variables
@@ -72,11 +72,20 @@ namespace Cauldron.Interception.Cecilator
 
         #region Equitable stuff
 
-        public static implicit operator string(Method method) => method.methodReference.FullName;
+        public static implicit operator string(Method value) => value.ToString();
 
-        public static bool operator !=(Method a, Method b) => !object.Equals(a, null) && !a.Equals(b);
+        public static bool operator !=(Method a, Method b) => !(a == b);
 
-        public static bool operator ==(Method a, Method b) => !object.Equals(a, null) && a.Equals(b);
+        public static bool operator ==(Method a, Method b)
+        {
+            if (object.Equals(a, null) && object.Equals(b, null))
+                return true;
+
+            if (object.Equals(a, null))
+                return false;
+
+            return a.Equals(b);
+        }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj)
@@ -90,16 +99,29 @@ namespace Cauldron.Interception.Cecilator
             if (obj is Method)
                 return this.Equals(obj as Method);
 
+            if (obj is MethodDefinition)
+                return this.methodDefinition == obj as MethodDefinition;
+
             if (obj is MethodReference)
-                return this.methodDefinition.FullName == (obj as MethodReference).FullName;
+                return this.methodReference == obj as MethodReference;
 
             return false;
         }
 
-        public bool Equals(Method other) => !object.Equals(other, null) && (object.ReferenceEquals(other, this) || (other.methodDefinition.FullName == this.methodDefinition.FullName));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public bool Equals(Method other)
+        {
+            if (object.Equals(other, null))
+                return false;
+
+            if (object.ReferenceEquals(other, this))
+                return true;
+
+            return this.methodDefinition == other.methodDefinition;
+        }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override int GetHashCode() => this.methodDefinition.FullName.GetHashCode();
+        public override int GetHashCode() => this.methodDefinition.GetHashCode();
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override string ToString() => this.methodReference.FullName;

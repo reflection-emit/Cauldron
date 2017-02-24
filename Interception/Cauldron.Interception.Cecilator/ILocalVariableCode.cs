@@ -24,6 +24,8 @@ namespace Cauldron.Interception.Cecilator
 
         ILocalVariableCode LoadVariable(string variableName);
 
+        ICode NewObj(AttributedProperty attribute);
+
         ICode NewObj(AttributedMethod attribute);
 
         ICode NewObj(AttributedField attribute);

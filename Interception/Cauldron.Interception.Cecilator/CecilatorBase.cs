@@ -18,16 +18,16 @@ namespace Cauldron.Interception.Cecilator
         protected readonly IEnumerable<TypeDefinition> allTypes;
 
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        protected ModuleDefinition moduleDefinition;
+        protected readonly ModuleDefinition moduleDefinition;
 
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private Action<string> logError;
+        private readonly Action<string> logError;
 
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private Action<string> logInfo;
+        private readonly Action<string> logInfo;
 
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private Action<string> logWarning;
+        private readonly Action<string> logWarning;
 
         internal CecilatorBase(IWeaver weaver)
         {

@@ -49,6 +49,8 @@ namespace Cauldron.Interception.Cecilator
         [EditorBrowsable(EditorBrowsableState.Never)]
         new int GetHashCode();
 
+        IIfCode IsNull();
+
         ILocalVariableCode Load(LocalVariable localVariable);
 
         //IIfCode LesserThan(long value);
@@ -64,6 +66,14 @@ namespace Cauldron.Interception.Cecilator
         ILocalVariableCode LoadVariable(string variableName);
 
         ILocalVariableCode LoadVariable(int variableIndex);
+
+        ICode NewCode();
+
+        ICode NewObj(AttributedMethod attribute);
+
+        ICode NewObj(Method constructor, params object[] parameters);
+
+        ICode NewObj(AttributedField attribute);
 
         ICode Pop();
 

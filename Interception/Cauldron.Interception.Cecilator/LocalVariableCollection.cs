@@ -11,7 +11,7 @@ namespace Cauldron.Interception.Cecilator
     public class LocalVariableCollection : IEnumerable<LocalVariable>
     {
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private InnerLocalVariableCollection innerCollection = new InnerLocalVariableCollection();
+        private readonly InnerLocalVariableCollection innerCollection = new InnerLocalVariableCollection();
 
         internal LocalVariableCollection(BuilderType type, Mono.Collections.Generic.Collection<VariableDefinition> localVariables)
         {

@@ -43,7 +43,7 @@ namespace Cauldron.Interception.Cecilator
                 if (this.beforeCatchBody == null)
                     throw new InvalidOperationException("Exception property does not work outside of a catch");
 
-                var exceptionVariableName = "<>Exception_" + this.Identification;
+                var exceptionVariableName = "<>exception_" + this.Identification;
 
                 if (!this.hasExceptionVariable)
                 {

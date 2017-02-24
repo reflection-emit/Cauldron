@@ -19,6 +19,12 @@ namespace Cauldron.Interception.Cecilator
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override int GetHashCode() => this.moduleDefinition.Assembly.FullName.GetHashCode();
 
+        public Method Import(System.Reflection.MethodBase value)
+        {
+            var result = this.moduleDefinition.Import(value);
+            return new Method(new BuilderType(this, result.DeclaringType), result, result.Resolve());
+        }
+
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override string ToString() => this.moduleDefinition.Assembly.FullName;
 
@@ -124,7 +130,11 @@ namespace Cauldron.Interception.Cecilator
             var result = this.GetTypes(searchContext)
                 .SelectMany(x => x.Properties)
                 .Where(x => x.propertyDefinition.HasCustomAttributes)
-                .Select(x => new { Property = x, CustomAttributes = x.propertyDefinition.CustomAttributes.Where(y => types.Any(t => t.typeDefinition == y.AttributeType.Resolve())) })
+                .Select(x => new
+                {
+                    Property = x,
+                    CustomAttributes = x.propertyDefinition.CustomAttributes.Where(y => types.Any(t => t.typeDefinition == y.AttributeType.Resolve()))
+                })
                 .Where(x => x.CustomAttributes.Any() && x.Property != null);
 
             foreach (var item in result)
@@ -186,25 +196,34 @@ namespace Cauldron.Interception.Cecilator
 
         #region Attribute Finders
 
+        private IEnumerable<BuilderType> findAttributesInModuleCache;
+
         public IEnumerable<BuilderType> FindAttributesByInterfaces(Type[] interfaceTypes) => this.FindAttributesByInterfaces(interfaceTypes.Select(x => x.FullName).ToArray());
 
         public IEnumerable<BuilderType> FindAttributesByInterfaces(IEnumerable<BuilderType> interfaceTypes) => this.FindAttributesInModule().Where(x => interfaceTypes.Any(y => x.Implements(y)));
 
         public IEnumerable<BuilderType> FindAttributesByInterfaces(params string[] interfaceName) => this.FindAttributesInModule().Where(x => interfaceName.Any(y => x.Implements(y)));
 
-        public IEnumerable<BuilderType> FindAttributesInModule() =>
-                    this.GetTypesInternal(SearchContext.Module)
-                .SelectMany(x => x.Resolve().Methods)
-                .Where(x => x.HasCustomAttributes)
-                .SelectMany(x => x.CustomAttributes)
-                .Concat(
-                        this.GetTypesInternal(SearchContext.Module)
-                            .Select(x => x.Resolve())
-                            .Where(x => x.HasCustomAttributes)
-                            .SelectMany(x => x.CustomAttributes)
-                    )
-                .Distinct(new CustomAttributeEqualityComparer())
-                .Select(x => new BuilderType(this, x.AttributeType));
+        public IEnumerable<BuilderType> FindAttributesInModule()
+        {
+            if (findAttributesInModuleCache == null)
+                findAttributesInModuleCache = this.GetTypesInternal(SearchContext.Module)
+                   .SelectMany(x =>
+                   {
+                       var type = x.Resolve();
+                       return type
+                           .CustomAttributes
+                               .Concat(this.moduleDefinition.CustomAttributes)
+                               .Concat(this.moduleDefinition.Assembly.CustomAttributes)
+                               .Concat(type.Methods.SelectMany(y => y.CustomAttributes))
+                               .Concat(type.Fields.SelectMany(y => y.CustomAttributes))
+                               .Concat(type.Properties.SelectMany(y => y.CustomAttributes));
+                   })
+                   .Distinct(new CustomAttributeEqualityComparer())
+                   .Select(x => new BuilderType(this, x.AttributeType));
+
+            return findAttributesInModuleCache;
+        }
 
         #endregion Attribute Finders
 

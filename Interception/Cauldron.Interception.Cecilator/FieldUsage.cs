@@ -9,7 +9,7 @@ namespace Cauldron.Interception.Cecilator
     public class FieldUsage : CecilatorBase, IEquatable<FieldUsage>
     {
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private Instruction instruction;
+        private readonly Instruction instruction;
 
         internal FieldUsage(Field field, MethodDefinition method, Instruction instruction) : base(field)
         {
@@ -28,7 +28,9 @@ namespace Cauldron.Interception.Cecilator
         }
 
         public Field Field { get; private set; }
+
         public Method Method { get; private set; }
+
         public BuilderType Type { get; private set; }
 
         public FieldUsage Replace(Field field)
@@ -44,11 +46,20 @@ namespace Cauldron.Interception.Cecilator
 
         #region Equitable stuff
 
-        public static implicit operator string(FieldUsage usage) => usage.ToString();
+        public static implicit operator string(FieldUsage value) => value.ToString();
 
-        public static bool operator !=(FieldUsage a, FieldUsage b) => !object.Equals(a, null) && !a.Equals(b);
+        public static bool operator !=(FieldUsage a, FieldUsage b) => !(a == b);
 
-        public static bool operator ==(FieldUsage a, FieldUsage b) => !object.Equals(a, null) && a.Equals(b);
+        public static bool operator ==(FieldUsage a, FieldUsage b)
+        {
+            if (object.Equals(a, null) && object.Equals(b, null))
+                return true;
+
+            if (object.Equals(a, null))
+                return false;
+
+            return a.Equals(b);
+        }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj)
@@ -65,10 +76,20 @@ namespace Cauldron.Interception.Cecilator
             return false;
         }
 
-        public bool Equals(FieldUsage other) => !object.Equals(other, null) && (object.ReferenceEquals(other, this) || (other.ToString() == this.ToString()));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public bool Equals(FieldUsage other)
+        {
+            if (object.Equals(other, null))
+                return false;
+
+            if (object.ReferenceEquals(other, this))
+                return true;
+
+            return object.Equals(other, this);
+        }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override int GetHashCode() => this.Method.ToString().GetHashCode() ^ this.Field.ToString().GetHashCode();
+        public override int GetHashCode() => this.Method.GetHashCode() ^ this.Field.GetHashCode();
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override string ToString() => $"IL_{this.instruction.Offset.ToString("X4")} >> {this.Method.methodDefinition.FullName} >> {this.Field.fieldDef.Name}";

@@ -47,6 +47,21 @@ namespace Cauldron.Interception.Cecilator
 
         #region Equitable stuff
 
+        public static implicit operator string(LocalVariableInstructionSet value) => value.ToString();
+
+        public static bool operator !=(LocalVariableInstructionSet a, LocalVariableInstructionSet b) => !(a == b);
+
+        public static bool operator ==(LocalVariableInstructionSet a, LocalVariableInstructionSet b)
+        {
+            if (object.Equals(a, null) && object.Equals(b, null))
+                return true;
+
+            if (object.Equals(a, null))
+                return false;
+
+            return a.Equals(b);
+        }
+
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj)
         {
@@ -56,7 +71,22 @@ namespace Cauldron.Interception.Cecilator
             if (object.ReferenceEquals(obj, this))
                 return true;
 
-            return object.Equals(obj, this);
+            if (obj is LocalVariableInstructionSet)
+                return this.Equals(obj as LocalVariableInstructionSet);
+
+            return false;
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public bool Equals(FieldInstructionsSet other)
+        {
+            if (object.Equals(other, null))
+                return false;
+
+            if (object.ReferenceEquals(other, this))
+                return true;
+
+            return object.Equals(other, this);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]

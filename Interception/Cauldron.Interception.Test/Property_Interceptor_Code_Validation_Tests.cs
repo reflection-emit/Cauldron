@@ -68,6 +68,10 @@ namespace Cauldron.Interception.Test
             Assert.AreEqual((TestEnum)232, this.PropertyWithEnumValue);
         }
 
+        private static void bla(object value)
+        {
+        }
+
         [TestMethod]
         public void EnumProperty_Property_Setter()
         {

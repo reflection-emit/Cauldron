@@ -10,7 +10,7 @@ namespace Cauldron.Interception.Cecilator
     public sealed class FieldCollection : IEnumerable<Field>
     {
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private InnerFieldCollection innerCollection = new InnerFieldCollection();
+        private readonly InnerFieldCollection innerCollection = new InnerFieldCollection();
 
         internal FieldCollection(BuilderType type, Mono.Collections.Generic.Collection<FieldDefinition> fields)
         {

@@ -8,7 +8,7 @@ namespace Cauldron.Interception.Cecilator
     public class AttributedMethod : CecilatorBase, IEquatable<AttributedMethod>
     {
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        internal CustomAttribute customAttribute;
+        internal readonly CustomAttribute customAttribute;
 
         internal AttributedMethod(Method method, CustomAttribute customAttribute) : base(method)
         {
@@ -18,17 +18,27 @@ namespace Cauldron.Interception.Cecilator
         }
 
         public BuilderType Attribute { get; private set; }
+
         public Method Method { get; private set; }
 
         public void Remove() => this.Method.methodDefinition.CustomAttributes.Remove(this.customAttribute);
 
         #region Equitable stuff
 
-        public static implicit operator string(AttributedMethod field) => field.ToString();
+        public static implicit operator string(AttributedMethod value) => value.ToString();
 
-        public static bool operator !=(AttributedMethod a, AttributedMethod b) => !object.Equals(a, null) && !a.Equals(b);
+        public static bool operator !=(AttributedMethod a, AttributedMethod b) => !(a == b);
 
-        public static bool operator ==(AttributedMethod a, AttributedMethod b) => !object.Equals(a, null) && a.Equals(b);
+        public static bool operator ==(AttributedMethod a, AttributedMethod b)
+        {
+            if (object.Equals(a, null) && object.Equals(b, null))
+                return true;
+
+            if (object.Equals(a, null))
+                return false;
+
+            return a.Equals(b);
+        }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj)
@@ -42,11 +52,26 @@ namespace Cauldron.Interception.Cecilator
             if (obj is AttributedMethod)
                 return this.Equals(obj as AttributedMethod);
 
+            if (obj is MethodDefinition)
+                return this.Method.methodDefinition == obj as MethodDefinition;
+
+            if (obj is MethodReference)
+                return this.Method.methodReference == obj as MethodReference;
+
             return false;
         }
 
-        public bool Equals(AttributedMethod other) => !object.Equals(other, null) && (object.ReferenceEquals(other, this) ||
-            (other.Method.methodDefinition.FullName == this.Method.methodDefinition.FullName && other.Attribute.typeDefinition.FullName == this.Attribute.typeDefinition.FullName));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public bool Equals(AttributedMethod other)
+        {
+            if (object.Equals(other, null))
+                return false;
+
+            if (object.ReferenceEquals(other, this))
+                return true;
+
+            return this.customAttribute == other.customAttribute && this.Method.methodReference == other.Method.methodReference;
+        }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override int GetHashCode() => this.Method.GetHashCode() ^ this.Attribute.GetHashCode();

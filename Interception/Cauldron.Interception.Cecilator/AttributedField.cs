@@ -8,7 +8,7 @@ namespace Cauldron.Interception.Cecilator
     public sealed class AttributedField : CecilatorBase, IEquatable<AttributedField>
     {
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        internal CustomAttribute customAttribute;
+        internal readonly CustomAttribute customAttribute;
 
         internal AttributedField(Field field, CustomAttribute customAttribute) : base(field)
         {
@@ -25,11 +25,20 @@ namespace Cauldron.Interception.Cecilator
 
         #region Equitable stuff
 
-        public static implicit operator string(AttributedField field) => field.ToString();
+        public static implicit operator string(AttributedField value) => value.ToString();
 
-        public static bool operator !=(AttributedField a, AttributedField b) => !object.Equals(a, null) && !a.Equals(b);
+        public static bool operator !=(AttributedField a, AttributedField b) => !(a == b);
 
-        public static bool operator ==(AttributedField a, AttributedField b) => !object.Equals(a, null) && a.Equals(b);
+        public static bool operator ==(AttributedField a, AttributedField b)
+        {
+            if (object.Equals(a, null) && object.Equals(b, null))
+                return true;
+
+            if (object.Equals(a, null))
+                return false;
+
+            return a.Equals(b);
+        }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj)
@@ -43,10 +52,26 @@ namespace Cauldron.Interception.Cecilator
             if (obj is AttributedField)
                 return this.Equals(obj as AttributedField);
 
+            if (obj is FieldDefinition)
+                return this.Field.fieldDef == obj as FieldDefinition;
+
+            if (obj is FieldReference)
+                return this.Field.fieldRef == obj as FieldReference;
+
             return false;
         }
 
-        public bool Equals(AttributedField other) => !object.Equals(other, null) && (object.ReferenceEquals(other, this) || (other.Field.fieldDef.FullName == this.Field.fieldDef.FullName && other.Attribute.typeDefinition.FullName == this.Attribute.typeDefinition.FullName));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public bool Equals(AttributedField other)
+        {
+            if (object.Equals(other, null))
+                return false;
+
+            if (object.ReferenceEquals(other, this))
+                return true;
+
+            return this.customAttribute == other.customAttribute && this.Field.fieldRef == other.Field.fieldRef;
+        }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override int GetHashCode() => this.Field.GetHashCode() ^ this.Attribute.GetHashCode();

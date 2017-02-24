@@ -90,5 +90,7 @@ namespace Cauldron.Interception.Cecilator
 
             return sb.ToString();
         }
+
+        internal Instruction[] ToArray() => this.instruction.ToArray();
     }
 }

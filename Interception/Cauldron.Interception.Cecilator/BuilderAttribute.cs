@@ -8,7 +8,7 @@ namespace Cauldron.Interception.Cecilator
     public class BuilderAttribute : CecilatorBase, IEquatable<BuilderAttribute>
     {
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private CustomAttribute attribute;
+        private readonly CustomAttribute attribute;
 
         internal BuilderAttribute(BuilderType type, CustomAttribute attribute) : base(type)
         {
@@ -17,11 +17,20 @@ namespace Cauldron.Interception.Cecilator
 
         #region Equitable stuff
 
-        public static implicit operator string(BuilderAttribute attribute) => attribute.attribute.ToString();
+        public static implicit operator string(BuilderAttribute value) => value.ToString();
 
-        public static bool operator !=(BuilderAttribute a, BuilderAttribute b) => !object.Equals(a, null) && !a.Equals(b);
+        public static bool operator !=(BuilderAttribute a, BuilderAttribute b) => !(a == b);
 
-        public static bool operator ==(BuilderAttribute a, BuilderAttribute b) => !object.Equals(a, null) && a.Equals(b);
+        public static bool operator ==(BuilderAttribute a, BuilderAttribute b)
+        {
+            if (object.Equals(a, null) && object.Equals(b, null))
+                return true;
+
+            if (object.Equals(a, null))
+                return false;
+
+            return a.Equals(b);
+        }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj)
@@ -36,18 +45,28 @@ namespace Cauldron.Interception.Cecilator
                 return this.Equals(obj as BuilderAttribute);
 
             if (obj is CustomAttribute)
-                return this.attribute == (obj as CustomAttribute);
+                return this.attribute == obj as CustomAttribute;
 
             return false;
         }
 
-        public bool Equals(BuilderAttribute other) => !object.Equals(other, null) && (object.ReferenceEquals(other, this) || (other.attribute == this.attribute));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public bool Equals(BuilderAttribute other)
+        {
+            if (object.Equals(other, null))
+                return false;
+
+            if (object.ReferenceEquals(other, this))
+                return true;
+
+            return this.attribute == other.attribute;
+        }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override int GetHashCode() => this.attribute.GetHashCode();
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override string ToString() => this.attribute.ToString();
+        public override string ToString() => this.attribute.AttributeType.FullName;
 
         #endregion Equitable stuff
     }

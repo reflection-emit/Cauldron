@@ -16,10 +16,10 @@ namespace Cauldron.Interception.Cecilator
         internal readonly InstructionContainer instructions;
 
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        internal Method method;
+        internal readonly Method method;
 
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        internal ILProcessor processor;
+        internal readonly ILProcessor processor;
 
         internal InstructionsSet(BuilderType type, Method method) : base(type)
         {
@@ -354,9 +354,33 @@ namespace Cauldron.Interception.Cecilator
             return this.Load(new LocalVariable(this.method.DeclaringType, localvariable));
         }
 
+        public ICode NewCode() => new InstructionsSet(this.method.DeclaringType, this.method);
+
+        public ICode NewObj(Method constructor, params object[] parameters)
+        {
+            if (constructor.methodDefinition.Parameters.Count != parameters.Length)
+                this.LogWarning($"Parameter count of constructor {constructor.Name} does not match with the passed parameters. Expected: {constructor.methodDefinition.Parameters.Count}, is: {parameters.Length}");
+
+            for (int i = 0; i < parameters.Length; i++)
+            {
+                var inst = this.AddParameter(this.processor, constructor.methodDefinition.Parameters[i].ParameterType, parameters[i]);
+                this.instructions.Append(inst.Instructions);
+            }
+
+            this.instructions.Append(processor.Create(OpCodes.Newobj, this.moduleDefinition.Import(constructor.methodReference)));
+            this.StoreCall();
+            return new InstructionsSet(this, this.instructions);
+        }
+
+        public ICode NewObj(AttributedProperty attribute) => this.NewObj(attribute.customAttribute);
+
+        public ICode NewObj(AttributedField attribute) => this.NewObj(attribute.customAttribute);
+
+        public ICode NewObj(AttributedMethod attribute) => this.NewObj(attribute.customAttribute);
+
         public ICode OriginalBody()
         {
-            var newMethod = this.Copy(Modifiers.Private, "<>original_" + this.method.Name);
+            var newMethod = this.Copy(Modifiers.Private, $"<{this.method.Name}>m__original");
 
             for (int i = 0; i < this.method.Parameters.Length + (this.method.IsStatic ? 0 : 1); i++)
                 this.instructions.Append(processor.Create(OpCodes.Ldarg, i));
@@ -537,11 +561,20 @@ namespace Cauldron.Interception.Cecilator
                 {
                     case CrumbTypes.Exception:
                     case CrumbTypes.Parameters:
+                        if (crumb.Index.HasValue)
+                        {
+                            if (this.method.methodDefinition.Parameters.Count == 0)
+                                throw new ArgumentException($"The method {this.method.Name} does not have any parameters");
+
+                            result.Instructions.Add(processor.Create(OpCodes.Ldarg, this.method.IsStatic ? crumb.Index.Value : crumb.Index.Value + 1));
+                        }
+                        else
                         {
                             var variable = this.instructions.Variables[crumb.Name];
                             result.Instructions.Add(processor.Create(OpCodes.Ldloc, variable));
-                            break;
                         }
+                        break;
+
                     case CrumbTypes.This:
                         result.Instructions.Add(processor.Create(this.method.IsStatic ? OpCodes.Ldnull : OpCodes.Ldarg_0));
                         break;
@@ -560,12 +593,18 @@ namespace Cauldron.Interception.Cecilator
             {
                 var method = parameter as Method;
 
-                result.Instructions.Add(processor.Create(OpCodes.Ldtoken, method.methodReference));
-                result.Instructions.Add(processor.Create(OpCodes.Ldtoken, method.DeclaringType.typeReference));
-                result.Instructions.Add(processor.Create(OpCodes.Call,
-                    this.moduleDefinition.Import(
-                        this.GetTypeDefinition(typeof(System.Reflection.MethodBase))
-                            .Methods.FirstOrDefault(x => x.Name == "GetMethodFromHandle" && x.Parameters.Count == 2))));
+                if (targetType.FullName == typeof(IntPtr).FullName)
+                    result.Instructions.Add(processor.Create(OpCodes.Ldftn, method.methodReference));
+                else
+                {
+                    // methodof
+                    result.Instructions.Add(processor.Create(OpCodes.Ldtoken, method.methodReference));
+                    result.Instructions.Add(processor.Create(OpCodes.Ldtoken, method.DeclaringType.typeReference));
+                    result.Instructions.Add(processor.Create(OpCodes.Call,
+                        this.moduleDefinition.Import(
+                            this.GetTypeDefinition(typeof(System.Reflection.MethodBase))
+                                .Methods.FirstOrDefault(x => x.Name == "GetMethodFromHandle" && x.Parameters.Count == 2))));
+                }
             }
             else if (type == typeof(ParameterDefinition))
             {
@@ -573,6 +612,8 @@ namespace Cauldron.Interception.Cecilator
                 result.Instructions.Add(processor.Create(OpCodes.Ldarg_S, value));
                 result.Type = value.ParameterType;
             }
+            else if (parameter is InstructionsSet)
+                result.Instructions.AddRange((parameter as InstructionsSet).instructions.ToArray());
             else if (parameter is IEnumerable<Instruction>)
             {
                 foreach (var item in parameter as IEnumerable<Instruction>)
@@ -694,12 +735,26 @@ namespace Cauldron.Interception.Cecilator
             {
                 var returnVariable = this.GetOrCreateReturnVariable();
                 var realReturn = this.method.methodDefinition.Body.Instructions.Last();
+                var resultJump = false;
 
-                if (!realReturn.Previous.IsLoadLocal())
+                if (!realReturn.Previous.IsLoadLocal() &&
+                    !realReturn.Previous.IsLoadField() &&
+                    !realReturn.Previous.IsCallOrNew() &&
+                    realReturn.Previous.OpCode != OpCodes.Ldnull)
                 {
+                    resultJump = true;
                     this.processor.InsertBefore(realReturn, this.processor.Create(OpCodes.Ldloc, returnVariable));
+                    realReturn = realReturn.Previous;
                 }
-                realReturn = realReturn.Previous;
+                else if (realReturn.Previous.IsLoadField() || realReturn.Previous.IsLoadLocal() || realReturn.Previous.OpCode == OpCodes.Ldnull)
+                {
+                    realReturn = realReturn.Previous;
+
+                    if (realReturn.OpCode == OpCodes.Ldfld || realReturn.OpCode == OpCodes.Ldflda)
+                        realReturn = realReturn.Previous;
+                }
+                else
+                    throw new NotImplementedException("Sorry... Not implemented.");
 
                 for (var i = 0; i < this.method.methodDefinition.Body.Instructions.Count - 1; i++)
                 {
@@ -710,7 +765,9 @@ namespace Cauldron.Interception.Cecilator
 
                     instruction.OpCode = OpCodes.Leave;
                     instruction.Operand = realReturn;
-                    this.processor.InsertBefore(instruction, this.processor.Create(OpCodes.Stloc, returnVariable));
+
+                    if (resultJump)
+                        this.processor.InsertBefore(instruction, this.processor.Create(OpCodes.Stloc, returnVariable));
                 }
             }
         }
@@ -883,6 +940,21 @@ namespace Cauldron.Interception.Cecilator
 
         #region Equitable stuff
 
+        public static implicit operator string(InstructionsSet value) => value.ToString();
+
+        public static bool operator !=(InstructionsSet a, InstructionsSet b) => !(a == b);
+
+        public static bool operator ==(InstructionsSet a, InstructionsSet b)
+        {
+            if (object.Equals(a, null) && object.Equals(b, null))
+                return true;
+
+            if (object.Equals(a, null))
+                return false;
+
+            return a.Equals(b);
+        }
+
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj)
         {
@@ -892,11 +964,26 @@ namespace Cauldron.Interception.Cecilator
             if (object.ReferenceEquals(obj, this))
                 return true;
 
-            return object.Equals(obj, this);
+            if (obj is InstructionsSet)
+                return this.Equals(obj as InstructionsSet);
+
+            return false;
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override int GetHashCode() => this.method.methodDefinition.FullName.GetHashCode();
+        public bool Equals(InstructionsSet other)
+        {
+            if (object.Equals(other, null))
+                return false;
+
+            if (object.ReferenceEquals(other, this))
+                return true;
+
+            return object.Equals(other, this);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override int GetHashCode() => this.method.methodDefinition.GetHashCode();
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override string ToString() => this.GetType().FullName;
@@ -910,6 +997,8 @@ namespace Cauldron.Interception.Cecilator
         public IIfCode EqualTo(int value) => this.EqualTo(this.AddParameter(this.processor, this.moduleDefinition.TypeSystem.Int32, value).Instructions);
 
         public IIfCode EqualTo(bool value) => this.EqualTo(this.AddParameter(this.processor, this.moduleDefinition.TypeSystem.Boolean, value).Instructions);
+
+        public IIfCode IsNull() => this.EqualTo(new Instruction[] { this.processor.Create(OpCodes.Ldnull) });
 
         public IIfCode NotEqualTo(long value) => this.NotEqualTo(this.AddParameter(this.processor, this.moduleDefinition.TypeSystem.Int64, value).Instructions);
 

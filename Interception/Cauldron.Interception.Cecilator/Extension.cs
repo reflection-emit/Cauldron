@@ -108,6 +108,36 @@ namespace Cauldron.Interception.Cecilator
                 processor.InsertBefore(target, instruction);
         }
 
+        internal static bool IsCallOrNew(this Instruction instruction)
+        {
+            var opCode = instruction.OpCode;
+            return
+                opCode == OpCodes.Call ||
+                opCode == OpCodes.Calli ||
+                opCode == OpCodes.Callvirt ||
+                opCode == OpCodes.Newobj;
+        }
+
+        internal static bool IsDelegate(this TypeDefinition typeDefinition)
+        {
+            if (typeDefinition.BaseType == null)
+                return false;
+
+            return typeDefinition.BaseType.FullName == "System.MulticastDelegate";
+        }
+
+        internal static bool IsDelegate(this TypeReference typeReference) => typeReference.Resolve().IsDelegate();
+
+        internal static bool IsLoadField(this Instruction instruction)
+        {
+            var opCode = instruction.OpCode;
+            return
+                opCode == OpCodes.Ldsfld ||
+                opCode == OpCodes.Ldsflda ||
+                opCode == OpCodes.Ldfld ||
+                opCode == OpCodes.Ldflda;
+        }
+
         internal static bool IsLoadLocal(this Instruction instruction)
         {
             var opCode = instruction.OpCode;

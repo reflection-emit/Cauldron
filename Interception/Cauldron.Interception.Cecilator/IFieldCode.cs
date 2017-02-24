@@ -11,8 +11,16 @@ namespace Cauldron.Interception.Cecilator
         [EditorBrowsable(EditorBrowsableState.Never)]
         bool Equals(object obj);
 
+        IIfCode EqualTo(long value);
+
+        IIfCode EqualTo(int value);
+
+        IIfCode EqualTo(bool value);
+
         [EditorBrowsable(EditorBrowsableState.Never)]
         int GetHashCode();
+
+        IIfCode IsNull();
 
         ILocalVariableCode Load(LocalVariable localVariable);
 
@@ -29,6 +37,8 @@ namespace Cauldron.Interception.Cecilator
         ICode NewObj(Method constructor, params object[] parameters);
 
         ICode NewObj(AttributedField attribute);
+
+        ICode Return();
 
         ICode Set(object value);
 

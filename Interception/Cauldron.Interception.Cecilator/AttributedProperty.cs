@@ -8,7 +8,7 @@ namespace Cauldron.Interception.Cecilator
     public class AttributedProperty : CecilatorBase, IEquatable<AttributedProperty>
     {
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        internal CustomAttribute customAttribute;
+        internal readonly CustomAttribute customAttribute;
 
         internal AttributedProperty(Property property, CustomAttribute customAttribute) : base(property)
         {
@@ -18,17 +18,27 @@ namespace Cauldron.Interception.Cecilator
         }
 
         public BuilderType Attribute { get; private set; }
+
         public Property Property { get; private set; }
 
         public void Remove() => this.Property.propertyDefinition.CustomAttributes.Remove(this.customAttribute);
 
         #region Equitable stuff
 
-        public static implicit operator string(AttributedProperty field) => field.ToString();
+        public static implicit operator string(AttributedProperty value) => value.ToString();
 
-        public static bool operator !=(AttributedProperty a, AttributedProperty b) => !object.Equals(a, null) && !a.Equals(b);
+        public static bool operator !=(AttributedProperty a, AttributedProperty b) => !(a == b);
 
-        public static bool operator ==(AttributedProperty a, AttributedProperty b) => !object.Equals(a, null) && a.Equals(b);
+        public static bool operator ==(AttributedProperty a, AttributedProperty b)
+        {
+            if (object.Equals(a, null) && object.Equals(b, null))
+                return true;
+
+            if (object.Equals(a, null))
+                return false;
+
+            return a.Equals(b);
+        }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj)
@@ -42,11 +52,23 @@ namespace Cauldron.Interception.Cecilator
             if (obj is AttributedProperty)
                 return this.Equals(obj as AttributedProperty);
 
+            if (obj is PropertyDefinition)
+                return this.Property.propertyDefinition == obj as PropertyDefinition;
+
             return false;
         }
 
-        public bool Equals(AttributedProperty other) => !object.Equals(other, null) && (object.ReferenceEquals(other, this) ||
-            (other.Property.propertyDefinition.FullName == this.Property.propertyDefinition.FullName && other.Attribute.typeDefinition.FullName == this.Attribute.typeDefinition.FullName));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public bool Equals(AttributedProperty other)
+        {
+            if (object.Equals(other, null))
+                return false;
+
+            if (object.ReferenceEquals(other, this))
+                return true;
+
+            return this.customAttribute == other.customAttribute && this.Property.propertyDefinition == other.Property.propertyDefinition;
+        }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override int GetHashCode() => this.Property.GetHashCode() ^ this.Attribute.GetHashCode();

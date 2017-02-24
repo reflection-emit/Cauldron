@@ -11,20 +11,29 @@ namespace Cauldron.Interception.Cecilator
     public sealed class BuilderType : CecilatorBase, IEquatable<BuilderType>
     {
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        internal TypeDefinition typeDefinition;
+        internal readonly TypeDefinition typeDefinition;
 
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        internal TypeReference typeReference;
+        internal readonly TypeReference typeReference;
 
         public Builder Builder { get; private set; }
+
         public string Fullname { get { return this.typeReference.FullName; } }
+
         public bool IsAbstract { get { return this.typeDefinition.Attributes.HasFlag(TypeAttributes.Abstract); } }
+
         public bool IsArray { get { return this.typeDefinition.IsArray; } }
+
         public bool IsForeign { get { return this.moduleDefinition.Assembly == this.typeDefinition.Module.Assembly; } }
+
         public bool IsInterface { get { return this.typeDefinition.Attributes.HasFlag(TypeAttributes.Interface); } }
+
         public bool IsPublic { get { return this.typeDefinition.Attributes.HasFlag(TypeAttributes.Public); } }
+
         public bool IsSealed { get { return this.typeDefinition.Attributes.HasFlag(TypeAttributes.Sealed); } }
+
         public bool IsStatic { get { return this.IsAbstract && this.IsSealed; } }
+
         public string Namespace { get { return this.typeDefinition.Namespace; } }
 
         public bool Implements(Type interfaceType) => this.Implements(interfaceType.FullName);
@@ -225,7 +234,15 @@ namespace Cauldron.Interception.Cecilator
 
         #region Properties
 
-        public IEnumerable<Property> Properties { get { return this.typeDefinition.Properties.Select(x => new Property(this, x)); } }
+        public IEnumerable<Property> Properties
+        {
+            get
+            {
+                if (this.typeDefinition.HasProperties)
+                    foreach (var item in this.typeDefinition.Properties)
+                        yield return new Property(this, item);
+            }
+        }
 
         #endregion Properties
 
@@ -292,19 +309,20 @@ namespace Cauldron.Interception.Cecilator
 
         #region Equitable stuff
 
-        public static implicit operator string(BuilderType type) => type.typeReference.FullName;
+        public static implicit operator string(BuilderType value) => value.ToString();
 
-        public static bool operator !=(BuilderType a, BuilderType b) => !object.Equals(a, null) && !a.Equals(b);
+        public static bool operator !=(BuilderType a, BuilderType b) => !(a == b);
 
-        public static bool operator !=(TypeReference a, BuilderType b) => !object.Equals(b, null) && !b.Equals(a);
+        public static bool operator ==(BuilderType a, BuilderType b)
+        {
+            if (object.Equals(a, null) && object.Equals(b, null))
+                return true;
 
-        public static bool operator !=(BuilderType a, TypeReference b) => !object.Equals(a, null) && !a.Equals(b);
+            if (object.Equals(a, null))
+                return false;
 
-        public static bool operator ==(BuilderType a, BuilderType b) => !object.Equals(a, null) && a.Equals(b);
-
-        public static bool operator ==(TypeReference a, BuilderType b) => !object.Equals(b, null) && b.Equals(a);
-
-        public static bool operator ==(BuilderType a, TypeReference b) => !object.Equals(a, null) && a.Equals(b);
+            return a.Equals(b);
+        }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj)
@@ -318,20 +336,32 @@ namespace Cauldron.Interception.Cecilator
             if (obj is BuilderType)
                 return this.Equals(obj as BuilderType);
 
+            if (obj is TypeDefinition)
+                return this.typeDefinition == obj as TypeDefinition;
+
             if (obj is TypeReference)
-                return this.typeDefinition.FullName == (obj as TypeReference).FullName;
+                return this.typeReference == obj as TypeReference;
 
             return false;
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public bool Equals(BuilderType other) => !object.Equals(other, null) && (object.ReferenceEquals(other, this) || (other.typeDefinition.FullName == this.typeDefinition.FullName));
+        public bool Equals(BuilderType other)
+        {
+            if (object.Equals(other, null))
+                return false;
+
+            if (object.ReferenceEquals(other, this))
+                return true;
+
+            return this.typeDefinition == other.typeDefinition;
+        }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override int GetHashCode() => this.typeDefinition.FullName.GetHashCode();
+        public override int GetHashCode() => this.typeDefinition.GetHashCode();
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override string ToString() => this.typeReference.FullName + " in " + this.typeDefinition.Module.Assembly.Name.Name;
+        public override string ToString() => this.typeReference.FullName;
 
         #endregion Equitable stuff
     }
