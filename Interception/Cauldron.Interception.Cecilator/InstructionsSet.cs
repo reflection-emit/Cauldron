@@ -299,10 +299,10 @@ namespace Cauldron.Interception.Cecilator
 
         public IFieldCode Load(Field field)
         {
-            if (!this.method.IsStatic)
+            if (!field.IsStatic)
                 this.instructions.Append(processor.Create(OpCodes.Ldarg_0));
 
-            this.instructions.Append(processor.Create(OpCodes.Ldfld, field.fieldRef));
+            this.instructions.Append(processor.Create(field.IsStatic ? OpCodes.Ldsfld : OpCodes.Ldfld, field.fieldRef));
             return this.CreateFieldInstructionSet(field, AssignInstructionType.Load);
         }
 
@@ -364,6 +364,12 @@ namespace Cauldron.Interception.Cecilator
             this.instructions.Append(processor.Create(OpCodes.Call, this.moduleDefinition.Import(newMethod.methodReference)));
 
             return new InstructionsSet(this, this.instructions);
+        }
+
+        public ICode Pop()
+        {
+            this.instructions.Append(this.processor.Create(OpCodes.Pop));
+            return this;
         }
 
         public void Replace()
@@ -896,5 +902,39 @@ namespace Cauldron.Interception.Cecilator
         public override string ToString() => this.GetType().FullName;
 
         #endregion Equitable stuff
+
+        #region Comparision stuff
+
+        public IIfCode EqualTo(long value) => this.EqualTo(this.AddParameter(this.processor, this.moduleDefinition.TypeSystem.Int64, value).Instructions);
+
+        public IIfCode EqualTo(int value) => this.EqualTo(this.AddParameter(this.processor, this.moduleDefinition.TypeSystem.Int32, value).Instructions);
+
+        public IIfCode EqualTo(bool value) => this.EqualTo(this.AddParameter(this.processor, this.moduleDefinition.TypeSystem.Boolean, value).Instructions);
+
+        public IIfCode NotEqualTo(long value) => this.NotEqualTo(this.AddParameter(this.processor, this.moduleDefinition.TypeSystem.Int64, value).Instructions);
+
+        public IIfCode NotEqualTo(int value) => this.NotEqualTo(this.AddParameter(this.processor, this.moduleDefinition.TypeSystem.Int32, value).Instructions);
+
+        public IIfCode NotEqualTo(bool value) => this.NotEqualTo(this.AddParameter(this.processor, this.moduleDefinition.TypeSystem.Boolean, value).Instructions);
+
+        private IIfCode EqualTo(IEnumerable<Instruction> instruction)
+        {
+            var jumpTarget = this.processor.Create(OpCodes.Nop);
+            this.instructions.Append(instruction);
+            this.instructions.Append(this.processor.Create(OpCodes.Ceq));
+            this.instructions.Append(this.processor.Create(OpCodes.Brfalse, jumpTarget));
+            return new IfCode(this, this.instructions, jumpTarget);
+        }
+
+        private IIfCode NotEqualTo(IEnumerable<Instruction> instruction)
+        {
+            var jumpTarget = this.processor.Create(OpCodes.Nop);
+            this.instructions.Append(instruction);
+            this.instructions.Append(this.processor.Create(OpCodes.Ceq));
+            this.instructions.Append(this.processor.Create(OpCodes.Brtrue, jumpTarget));
+            return new IfCode(this, this.instructions, jumpTarget);
+        }
+
+        #endregion Comparision stuff
     }
 }

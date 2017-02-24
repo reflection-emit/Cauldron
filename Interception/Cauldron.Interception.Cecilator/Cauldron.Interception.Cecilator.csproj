@@ -76,8 +76,10 @@
     <Compile Include="ICatch.cs" />
     <Compile Include="ICatchCode.cs" />
     <Compile Include="ICode.cs" />
+    <Compile Include="IfCode.cs" />
     <Compile Include="IFieldCode.cs" />
     <Compile Include="IFinally.cs" />
+    <Compile Include="IIfCode.cs" />
     <Compile Include="IlHelper.cs" />
     <Compile Include="ILocalVariableCode.cs" />
     <Compile Include="InsertionPosition.cs" />

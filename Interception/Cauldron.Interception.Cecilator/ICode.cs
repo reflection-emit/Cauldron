@@ -40,20 +40,32 @@ namespace Cauldron.Interception.Cecilator
         [EditorBrowsable(EditorBrowsableState.Never)]
         new bool Equals(object obj);
 
+        IIfCode EqualTo(long value);
+
+        IIfCode EqualTo(int value);
+
+        IIfCode EqualTo(bool value);
+
         [EditorBrowsable(EditorBrowsableState.Never)]
         new int GetHashCode();
 
         ILocalVariableCode Load(LocalVariable localVariable);
 
+        //IIfCode LesserThan(long value);
         IFieldCode Load(Field field);
 
+        //IIfCode LesserThan(int value);
         ICode Load(Crumb crumb);
 
+        //IIfCode GreaterThan(long value);
         IFieldCode LoadField(string fieldName);
 
+        //IIfCode GreaterThan(int value);
         ILocalVariableCode LoadVariable(string variableName);
 
         ILocalVariableCode LoadVariable(int variableIndex);
+
+        ICode Pop();
 
         ICode Return();
 

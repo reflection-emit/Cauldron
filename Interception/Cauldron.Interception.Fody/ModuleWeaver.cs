@@ -124,9 +124,10 @@ namespace Cauldron.Interception.Fody
                     })
                     .Finally(x =>
                     {
-                        //if (lockable)
-                        //    x.LoadField(semaphoreFieldName)
-                        //        .Call(semaphoreSlim.Release);
+                        if (lockable)
+                            x.LoadField(semaphoreFieldName).Call(semaphoreSlim.CurrentCount).EqualTo(0).Then(y =>
+                                y.LoadField(semaphoreFieldName).Call(semaphoreSlim.Release).Pop()
+                                );
 
                         for (int i = 0; i < method.Item.Length; i++)
                             x.LoadVariable("<>interceptor_" + i).Callvirt(method.Item[i].Interface.OnExit);
