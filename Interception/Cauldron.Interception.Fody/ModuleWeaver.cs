@@ -32,11 +32,15 @@ namespace Cauldron.Interception.Fody
         public void Execute()
         {
             var builder = this.CreateBuilder();
+
+            this.InterceptMethods(builder);
+        }
+
+        private void InterceptMethods(Builder builder)
+        {
             var attributes = builder.FindAttributesByInterfaces(
                 "Cauldron.Interception.ILockableMethodInterceptor",
                 "Cauldron.Interception.IMethodInterceptor");
-
-            builder.FindTypes(SearchContext.AllReferencedModules, "Lockable");
 
             var iLockableMethodInterceptor = builder.GetType("Cauldron.Interception.ILockableMethodInterceptor")
                 .New(x => new
