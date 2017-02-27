@@ -20,6 +20,8 @@ namespace Cauldron.Interception.Cecilator
         [EditorBrowsable(EditorBrowsableState.Never)]
         int GetHashCode();
 
+        IIfCode IsNotNull();
+
         IIfCode IsNull();
 
         ILocalVariableCode Load(LocalVariable localVariable);

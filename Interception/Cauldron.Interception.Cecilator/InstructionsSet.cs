@@ -74,6 +74,12 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
+        public ICode As(BuilderType type)
+        {
+            this.instructions.Append(this.processor.Create(OpCodes.Isinst, type.typeReference));
+            return this;
+        }
+
         public ILocalVariableCode Assign(LocalVariable localVariable) => new LocalVariableInstructionSet(this, localVariable, this.instructions, AssignInstructionType.Store);
 
         public IFieldCode Assign(Field field)
@@ -127,7 +133,7 @@ namespace Cauldron.Interception.Cecilator
             if (!method.IsVoid)
                 this.StoreCall();
 
-            return new InstructionsSet(this, this.instructions);
+            return this;
         }
 
         public ICode Callvirt(Method method, params object[] parameters)
@@ -146,13 +152,13 @@ namespace Cauldron.Interception.Cecilator
             if (!method.IsVoid)
                 this.StoreCall();
 
-            return new InstructionsSet(this, this.instructions);
+            return this;
         }
 
         public ICode Context(Action<ICode> body)
         {
             body(this);
-            return new InstructionsSet(this, this.instructions);
+            return this;
         }
 
         public Method Copy(Modifiers modifiers, string newName)
@@ -367,9 +373,17 @@ namespace Cauldron.Interception.Cecilator
                 this.instructions.Append(inst.Instructions);
             }
 
+            //var ctor = constructor.methodReference;
+
+            //if(ctor.ContainsGenericParameter && !ctor.IsGenericInstance)
+            //    ctor = ctor.MakeHostInstanceGeneric(ctor)
+
+            //foreach (var item in constructor.methodReference)
+            //    this.LogInfo(item);
+
             this.instructions.Append(processor.Create(OpCodes.Newobj, this.moduleDefinition.Import(constructor.methodReference)));
             this.StoreCall();
-            return new InstructionsSet(this, this.instructions);
+            return this;
         }
 
         public ICode NewObj(AttributedProperty attribute) => this.NewObj(attribute.customAttribute);
@@ -387,7 +401,7 @@ namespace Cauldron.Interception.Cecilator
 
             this.instructions.Append(processor.Create(OpCodes.Call, this.moduleDefinition.Import(newMethod.methodReference)));
 
-            return new InstructionsSet(this, this.instructions);
+            return this;
         }
 
         public ICode Pop()
@@ -421,7 +435,15 @@ namespace Cauldron.Interception.Cecilator
         public ICode Return()
         {
             this.instructions.Append(this.processor.Create(OpCodes.Ret));
-            return new InstructionsSet(this, this.instructions);
+            return this;
+        }
+
+        public ICode ThrowNew(Type exception, string message)
+        {
+            this.instructions.Append(processor.Create(OpCodes.Ldstr, message));
+            this.instructions.Append(processor.Create(OpCodes.Newobj, this.moduleDefinition.Import(this.moduleDefinition.Import(exception).GetMethodReference(".ctor", new Type[] { typeof(string) }))));
+            this.instructions.Append(processor.Create(OpCodes.Throw));
+            return this;
         }
 
         public ITry Try(Action<ITryCode> body)
@@ -445,12 +467,16 @@ namespace Cauldron.Interception.Cecilator
                 return result;
             }
 
+            var targetDef = targetType?.Resolve();
             var type = parameter.GetType();
+
+            if (targetDef != null && targetDef.IsEnum)
+                result.Instructions.AddRange(this.TypeOf(processor, this.moduleDefinition.Import(targetType)));
 
             if (type == typeof(string))
             {
                 result.Instructions.Add(processor.Create(OpCodes.Ldstr, parameter.ToString()));
-                result.Type = this.GetTypeDefinition(typeof(string));
+                result.Type = this.moduleDefinition.TypeSystem.String;
             }
             else if (type == typeof(FieldDefinition))
             {
@@ -486,62 +512,72 @@ namespace Cauldron.Interception.Cecilator
             else if (type == typeof(int))
             {
                 result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, (int)parameter));
-                result.Type = this.GetTypeDefinition(typeof(int));
+                result.Type = this.moduleDefinition.TypeSystem.Int32;
             }
             else if (type == typeof(uint))
             {
                 result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, (int)(uint)parameter));
-                result.Type = this.GetTypeDefinition(typeof(uint));
+                result.Type = this.moduleDefinition.TypeSystem.UInt32;
             }
             else if (type == typeof(bool))
             {
                 result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, (bool)parameter ? 1 : 0));
-                result.Type = this.GetTypeDefinition(typeof(bool));
+                result.Type = this.moduleDefinition.TypeSystem.Boolean;
             }
             else if (type == typeof(char))
             {
                 result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, (char)parameter));
-                result.Type = this.GetTypeDefinition(typeof(char));
+                result.Type = this.moduleDefinition.TypeSystem.Char;
             }
             else if (type == typeof(short))
             {
                 result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, (short)parameter));
-                result.Type = this.GetTypeDefinition(typeof(short));
+                result.Type = this.moduleDefinition.TypeSystem.Int16;
             }
             else if (type == typeof(ushort))
             {
                 result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, (ushort)parameter));
-                result.Type = this.GetTypeDefinition(typeof(ushort));
+                result.Type = this.moduleDefinition.TypeSystem.UInt16;
             }
             else if (type == typeof(byte))
             {
                 result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, (int)(byte)parameter));
-                result.Type = this.GetTypeDefinition(typeof(byte));
+                result.Type = this.moduleDefinition.TypeSystem.Byte;
             }
             else if (type == typeof(sbyte))
             {
                 result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, (int)(sbyte)parameter));
-                result.Type = this.GetTypeDefinition(typeof(sbyte));
+                result.Type = this.moduleDefinition.TypeSystem.SByte;
             }
             else if (type == typeof(long))
             {
                 result.Instructions.Add(processor.Create(OpCodes.Ldc_I8, (long)parameter));
-                result.Type = this.GetTypeDefinition(typeof(long));
+                result.Type = this.moduleDefinition.TypeSystem.Int64;
             }
             else if (type == typeof(ulong))
             {
                 result.Instructions.Add(processor.Create(OpCodes.Ldc_I8, (long)(ulong)parameter));
-                result.Type = this.GetTypeDefinition(typeof(ulong));
+                result.Type = this.moduleDefinition.TypeSystem.UInt64;
             }
             else if (type == typeof(double))
             {
                 result.Instructions.Add(processor.Create(OpCodes.Ldc_R8, (double)parameter));
-                result.Type = this.GetTypeDefinition(typeof(double));
+                result.Type = this.moduleDefinition.TypeSystem.Double;
             }
             else if (type == typeof(float))
             {
                 result.Instructions.Add(processor.Create(OpCodes.Ldc_R4, (float)parameter));
-                result.Type = this.GetTypeDefinition(typeof(float));
+                result.Type = this.moduleDefinition.TypeSystem.Single;
+            }
+            else if (type == typeof(IntPtr))
+            {
+                result.Instructions.Add(processor.Create(OpCodes.Ldc_R4, (int)parameter));
+                result.Type = this.moduleDefinition.TypeSystem.IntPtr;
+            }
+            else if (type == typeof(UIntPtr))
+            {
+                result.Instructions.Add(processor.Create(OpCodes.Ldc_R4, (int)parameter));
+                result.Type = this.moduleDefinition.TypeSystem.UIntPtr;
             }
             else if (type == typeof(LocalVariable))
             {
@@ -567,16 +603,19 @@ namespace Cauldron.Interception.Cecilator
                                 throw new ArgumentException($"The method {this.method.Name} does not have any parameters");
 
                             result.Instructions.Add(processor.Create(OpCodes.Ldarg, this.method.IsStatic ? crumb.Index.Value : crumb.Index.Value + 1));
+                            result.Type = this.method.methodDefinition.Parameters[crumb.Index.Value].ParameterType;
                         }
                         else
                         {
                             var variable = this.instructions.Variables[crumb.Name];
                             result.Instructions.Add(processor.Create(OpCodes.Ldloc, variable));
+                            result.Type = variable.VariableType;
                         }
                         break;
 
                     case CrumbTypes.This:
                         result.Instructions.Add(processor.Create(this.method.IsStatic ? OpCodes.Ldnull : OpCodes.Ldarg_0));
+                        result.Type = this.method.DeclaringType.typeReference;
                         break;
 
                     default:
@@ -587,23 +626,26 @@ namespace Cauldron.Interception.Cecilator
             {
                 var bt = parameter as BuilderType;
                 result.Instructions.AddRange(this.TypeOf(processor, bt.typeReference));
-                result.Type = this.GetTypeDefinition(typeof(Type));
+                result.Type = this.moduleDefinition.Import(typeof(Type));
             }
             else if (type == typeof(Method))
             {
                 var method = parameter as Method;
 
                 if (targetType.FullName == typeof(IntPtr).FullName)
+                {
                     result.Instructions.Add(processor.Create(OpCodes.Ldftn, method.methodReference));
+                    result.Type = this.moduleDefinition.TypeSystem.IntPtr;
+                }
                 else
                 {
+                    var methodBaseRef = this.moduleDefinition.Import(typeof(System.Reflection.MethodBase));
                     // methodof
                     result.Instructions.Add(processor.Create(OpCodes.Ldtoken, method.methodReference));
                     result.Instructions.Add(processor.Create(OpCodes.Ldtoken, method.DeclaringType.typeReference));
-                    result.Instructions.Add(processor.Create(OpCodes.Call,
-                        this.moduleDefinition.Import(
-                            this.GetTypeDefinition(typeof(System.Reflection.MethodBase))
-                                .Methods.FirstOrDefault(x => x.Name == "GetMethodFromHandle" && x.Parameters.Count == 2))));
+                    result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(methodBaseRef.Resolve().Methods.FirstOrDefault(x => x.Name == "GetMethodFromHandle" && x.Parameters.Count == 2))));
+
+                    result.Type = methodBaseRef;
                 }
             }
             else if (type == typeof(ParameterDefinition))
@@ -612,19 +654,65 @@ namespace Cauldron.Interception.Cecilator
                 result.Instructions.Add(processor.Create(OpCodes.Ldarg_S, value));
                 result.Type = value.ParameterType;
             }
+            else if (type == typeof(ParameterReference))
+            {
+                var value = parameter as ParameterReference;
+                result.Instructions.Add(processor.Create(OpCodes.Ldarg_S, value.Index));
+                result.Type = value.ParameterType;
+            }
             else if (parameter is InstructionsSet)
-                result.Instructions.AddRange((parameter as InstructionsSet).instructions.ToArray());
+            {
+                var instruction = parameter as InstructionsSet;
+
+                if (instruction == this)
+                    throw new NotSupportedException("Nope... Not gonna work... Use NewCode() if you want to pass an instructions set as parameters.");
+
+                result.Instructions.AddRange(instruction.instructions.ToArray());
+            }
             else if (parameter is IEnumerable<Instruction>)
             {
                 foreach (var item in parameter as IEnumerable<Instruction>)
                     result.Instructions.Add(item);
             }
 
-            if (result.Type != null && result.Type.Resolve() == null)
-                result.Instructions.Add(processor.Create(OpCodes.Box, result.Type));
+            if (result.Type == null || targetDef == null)
+                return result;
 
-            if (result.Type != null && result.Type.IsValueType && !targetType.IsValueType)
+            // TODO - adds additional checks for not resolved generics
+            if (targetDef == null || targetType.IsGenericInstance) /* This happens if the target type is a generic */
+                result.Instructions.Add(processor.Create(OpCodes.Unbox_Any, targetType));
+            else if (targetDef.IsEnum)
+            {
+                result.Instructions.AddRange(this.TypeOf(processor, this.moduleDefinition.Import(targetType)));
+                result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Enum)).GetMethodReference("GetUnderlyingType", new Type[] { typeof(Type) }))));
+                result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Convert)).GetMethodReference("ChangeType", new Type[] { typeof(object), typeof(Type) }))));
+                result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Enum)).GetMethodReference("ToObject", new Type[] { typeof(Type), typeof(object) }))));
+                result.Instructions.Add(processor.Create(OpCodes.Unbox_Any, targetType));
+            }
+            else if (result.Type.FullName == typeof(object).FullName && (targetDef.IsInterface || targetType.IsIEnumerable() || targetDef.FullName == typeof(string).FullName))
+                result.Instructions.Add(processor.Create(OpCodes.Isinst, this.moduleDefinition.Import(targetType)));
+            else if (result.Type.FullName == typeof(object).FullName && targetDef.IsValueType)
+            {
+                if (targetDef.FullName == typeof(int).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Convert)).GetMethodReference("ToInt32", new Type[] { typeof(object) }))));
+                else if (targetDef.FullName == typeof(uint).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Convert)).GetMethodReference("ToUInt32", new Type[] { typeof(object) }))));
+                else if (targetDef.FullName == typeof(bool).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Convert)).GetMethodReference("ToBoolean", new Type[] { typeof(object) }))));
+                else if (targetDef.FullName == typeof(byte).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Convert)).GetMethodReference("ToByte", new Type[] { typeof(object) }))));
+                else if (targetDef.FullName == typeof(char).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Convert)).GetMethodReference("ToChar", new Type[] { typeof(object) }))));
+                else if (targetDef.FullName == typeof(DateTime).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Convert)).GetMethodReference("ToDateTime", new Type[] { typeof(object) }))));
+                else if (targetDef.FullName == typeof(decimal).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Convert)).GetMethodReference("ToDecimal", new Type[] { typeof(object) }))));
+                else if (targetDef.FullName == typeof(double).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Convert)).GetMethodReference("ToDouble", new Type[] { typeof(object) }))));
+                else if (targetDef.FullName == typeof(short).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Convert)).GetMethodReference("ToInt16", new Type[] { typeof(object) }))));
+                else if (targetDef.FullName == typeof(long).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Convert)).GetMethodReference("ToInt64", new Type[] { typeof(object) }))));
+                else if (targetDef.FullName == typeof(sbyte).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Convert)).GetMethodReference("ToSByte", new Type[] { typeof(object) }))));
+                else if (targetDef.FullName == typeof(float).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Convert)).GetMethodReference("ToSingle", new Type[] { typeof(object) }))));
+                else if (targetDef.FullName == typeof(ushort).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Convert)).GetMethodReference("ToUInt16", new Type[] { typeof(object) }))));
+                else if (targetDef.FullName == typeof(ulong).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Convert)).GetMethodReference("ToUInt64", new Type[] { typeof(object) }))));
+                else result.Instructions.Add(processor.Create(OpCodes.Unbox_Any, targetType));
+            }
+            else if (result.Type.IsValueType && !targetType.IsValueType)
                 result.Instructions.Add(processor.Create(OpCodes.Box, result.Type));
+            else if (targetType.FullName != result.Type.FullName && this.AreReferenceAssignable(targetType, result.Type))
+                result.Instructions.Add(processor.Create(OpCodes.Castclass, result.Type));
 
             return result;
         }
@@ -711,7 +799,7 @@ namespace Cauldron.Interception.Cecilator
 
             this.instructions.Append(this.processor.Create(OpCodes.Newobj, attribute.Constructor));
             this.StoreCall();
-            return new InstructionsSet(this, this.instructions);
+            return this;
         }
 
         protected void ReplaceReturns()
@@ -997,6 +1085,20 @@ namespace Cauldron.Interception.Cecilator
         public IIfCode EqualTo(int value) => this.EqualTo(this.AddParameter(this.processor, this.moduleDefinition.TypeSystem.Int32, value).Instructions);
 
         public IIfCode EqualTo(bool value) => this.EqualTo(this.AddParameter(this.processor, this.moduleDefinition.TypeSystem.Boolean, value).Instructions);
+
+        public IIfCode Is(BuilderType type)
+        {
+            var jumpTarget = this.processor.Create(OpCodes.Nop);
+
+            this.instructions.Append(this.processor.Create(OpCodes.Isinst, type.typeReference));
+            this.instructions.Append(this.processor.Create(OpCodes.Ldnull));
+            this.instructions.Append(this.processor.Create(OpCodes.Cgt_Un));
+            this.instructions.Append(this.processor.Create(OpCodes.Brfalse_S, jumpTarget));
+
+            return new IfCode(this, this.instructions, jumpTarget);
+        }
+
+        public IIfCode IsNotNull() => this.NotEqualTo(new Instruction[] { this.processor.Create(OpCodes.Ldnull) });
 
         public IIfCode IsNull() => this.EqualTo(new Instruction[] { this.processor.Create(OpCodes.Ldnull) });
 

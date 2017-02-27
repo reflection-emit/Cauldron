@@ -2,6 +2,7 @@
 using Mono.Cecil.Cil;
 using Mono.Cecil.Rocks;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -16,6 +17,100 @@ namespace Cauldron.Interception.Cecilator
 
             return new Builder(weaver);
         }
+
+        public static IEnumerable<TypeReference> GetBaseClasses(this TypeReference type)
+        {
+            var typeDef = type.Resolve();
+
+            if (typeDef != null && typeDef.BaseType != null)
+            {
+                yield return typeDef.BaseType;
+                foreach (var item in GetBaseClasses(typeDef.BaseType))
+                    yield return item;
+            }
+        }
+
+        public static IEnumerable<TypeReference> GetInterfaces(this TypeReference type)
+        {
+            var typeDef = type.Resolve();
+
+            if (typeDef == null)
+                return new TypeReference[0];
+
+            if (typeDef.Interfaces != null && typeDef.Interfaces.Count > 0)
+                return type.Recursive(x => x.Resolve().Interfaces).Select(x => x.ResolveType(type));
+
+            if (typeDef.BaseType != null)
+                return GetInterfaces(typeDef.BaseType);
+
+            return new TypeReference[0];
+        }
+
+        public static MethodReference GetMethodReference(this TypeReference type, string methodName, Type[] parameterTypes)
+        {
+            var definition = type.Resolve();
+            var result = definition
+                .Methods
+                .FirstOrDefault(x => x.Name == methodName && parameterTypes.Select(y => y.FullName).SequenceEqual(x.Parameters.Select(y => y.ParameterType.FullName)));
+
+            if (result != null)
+                return result;
+
+            throw new Exception($"Unable to proceed. The type '{type.FullName}' does not contain a method '{methodName}'");
+        }
+
+        public static IEnumerable<TypeReference> GetNestedTypes(this TypeReference type)
+        {
+            var typeDef = type.Resolve();
+
+            if (typeDef == null)
+                return new TypeReference[0];
+
+            if (typeDef.NestedTypes != null && typeDef.NestedTypes.Count > 0)
+                return type.Recursive(x => x.Resolve().NestedTypes).Select(x => x.ResolveType(type));
+
+            if (typeDef.BaseType != null)
+                return GetNestedTypes(typeDef.BaseType);
+
+            return new TypeReference[0];
+        }
+
+        public static bool Implements(this TypeReference type, string interfaceName) => type.GetInterfaces().Any(x => x.FullName == interfaceName);
+
+        public static bool IsAssignableFrom(this BuilderType target, BuilderType source) =>
+                            target == source ||
+            target.typeDefinition == source.typeDefinition ||
+            source.IsSubclassOf(target) ||
+            target.IsInterface && source.BaseClasses.Any(x => x.Implements(target));
+
+        public static bool IsAssignableFrom(this TypeReference target, TypeReference source) =>
+                    target == source ||
+            target == source ||
+            source.IsSubclassOf(target) ||
+            target.Resolve().IsInterface && source.GetBaseClasses().Any(x => x.Implements(target.FullName));
+
+        public static bool IsIEnumerable(this TypeReference type)
+        {
+            var resolved = type.Resolve();
+
+            if (resolved == null)
+                return false;
+
+            return
+                type.FullName != typeof(string).FullName /* Strings are arrays too */ &&
+                (
+                    type is ArrayType ||
+                    type.GetInterfaces().Any(x => x.FullName == typeof(IList).FullName || x.FullName == typeof(IEnumerable).FullName) ||
+                    type.IsArray ||
+                    type.FullName.EndsWith("[]") ||
+                    resolved.IsArray ||
+                    resolved.FullName.EndsWith("[]")
+                );
+        }
+
+        public static bool IsSubclassOf(this BuilderType child, BuilderType parent) => child.typeDefinition != parent.typeDefinition && child.BaseClasses.Any(x => x.typeDefinition == parent.typeDefinition);
+
+        public static bool IsSubclassOf(this TypeReference child, TypeReference parent) => child != parent && child.GetBaseClasses().Any(x => x == parent);
 
         public static T LogContent<T>(this T target) where T : IEnumerable<BuilderType>
         {
@@ -127,6 +222,19 @@ namespace Cauldron.Interception.Cecilator
         }
 
         internal static bool IsDelegate(this TypeReference typeReference) => typeReference.Resolve().IsDelegate();
+
+        internal static bool IsLoadArgument(this Instruction instruction)
+        {
+            var opCode = instruction.OpCode;
+            return
+                opCode == OpCodes.Ldarg ||
+                opCode == OpCodes.Ldarga ||
+                opCode == OpCodes.Ldarga_S ||
+                opCode == OpCodes.Ldarg_0 ||
+                opCode == OpCodes.Ldarg_1 ||
+                opCode == OpCodes.Ldarg_2 ||
+                opCode == OpCodes.Ldarg_3;
+        }
 
         internal static bool IsLoadField(this Instruction instruction)
         {

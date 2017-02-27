@@ -268,14 +268,14 @@ namespace Cauldron.Interception.Cecilator
         {
             if (searchContext == SearchContext.Module)
                 return this.moduleDefinition.Types
-                    .SelectMany(x => GetInterfaces(x).Concat(GetBaseClasses(x)).Concat(GetNestedTypes(x).Concat(new TypeReference[] { x })))
+                    .SelectMany(x => x.GetInterfaces().Concat(x.GetBaseClasses()).Concat(x.GetNestedTypes().Concat(new TypeReference[] { x })))
                     .Where(x => x.Module.Assembly == this.moduleDefinition.Assembly)
                     .Distinct(new TypeReferenceEqualityComparer());
             else
             {
                 if (typeCache == null)
                     typeCache = this.allTypes
-                    .SelectMany(x => GetNestedTypes(x).Concat(new TypeReference[] { x }))
+                    .SelectMany(x => x.GetNestedTypes().Concat(new TypeReference[] { x }))
                     .Where(x => !x.Module.Assembly.FullName.StartsWith("System."))
                     .Distinct(new TypeReferenceEqualityComparer());
 

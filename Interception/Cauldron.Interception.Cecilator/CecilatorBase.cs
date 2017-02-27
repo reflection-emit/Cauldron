@@ -66,48 +66,20 @@ namespace Cauldron.Interception.Cecilator
 
         public static string GenerateName() => Path.GetRandomFileName().Replace(".", DateTime.Now.Second.ToString());
 
-        internal IEnumerable<TypeReference> GetBaseClasses(TypeReference type)
+        internal bool AreReferenceAssignable(BuilderType type, BuilderType toBeAssigned)
         {
-            var typeDef = type.Resolve();
+            if (type == toBeAssigned || (!type.typeDefinition.IsValueType && !toBeAssigned.typeDefinition.IsValueType && type.IsAssignableFrom(toBeAssigned)) || (type.IsInterface && toBeAssigned.typeReference == this.moduleDefinition.TypeSystem.Object))
+                return true;
 
-            if (typeDef != null && typeDef.BaseType != null)
-            {
-                yield return typeDef.BaseType;
-                foreach (var item in GetBaseClasses(typeDef.BaseType))
-                    yield return item;
-            }
+            return false;
         }
 
-        internal IEnumerable<TypeReference> GetInterfaces(TypeReference type)
+        internal bool AreReferenceAssignable(TypeReference type, TypeReference toBeAssigned)
         {
-            var typeDef = type.Resolve();
+            if (type == toBeAssigned || (!type.IsValueType && !toBeAssigned.IsValueType && type.IsAssignableFrom(toBeAssigned)) || (type.Resolve().IsInterface && toBeAssigned == this.moduleDefinition.TypeSystem.Object))
+                return true;
 
-            if (typeDef == null)
-                return new TypeReference[0];
-
-            if (typeDef.Interfaces != null && typeDef.Interfaces.Count > 0)
-                return type.Recursive(x => x.Resolve().Interfaces).Select(x => x.ResolveType(type));
-
-            if (typeDef.BaseType != null)
-                return GetInterfaces(typeDef.BaseType);
-
-            return new TypeReference[0];
-        }
-
-        internal IEnumerable<TypeReference> GetNestedTypes(TypeReference type)
-        {
-            var typeDef = type.Resolve();
-
-            if (typeDef == null)
-                return new TypeReference[0];
-
-            if (typeDef.NestedTypes != null && typeDef.NestedTypes.Count > 0)
-                return type.Recursive(x => x.Resolve().NestedTypes).Select(x => x.ResolveType(type));
-
-            if (typeDef.BaseType != null)
-                return GetNestedTypes(typeDef.BaseType);
-
-            return new TypeReference[0];
+            return false;
         }
 
         internal TypeDefinition GetTypeDefinition(Type type)
@@ -117,7 +89,7 @@ namespace Cauldron.Interception.Cecilator
             if (result == null)
                 throw new Exception($"Unable to proceed. The type '{type.FullName}' was not found.");
 
-            return result;
+            return this.moduleDefinition.Import(type).Resolve();
         }
 
         internal void LogError(object value)

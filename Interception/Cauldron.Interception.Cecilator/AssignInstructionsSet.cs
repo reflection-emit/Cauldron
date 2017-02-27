@@ -1,5 +1,7 @@
 ﻿using Mono.Cecil;
 using Mono.Cecil.Cil;
+using Mono.Cecil.Rocks;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -36,8 +38,12 @@ namespace Cauldron.Interception.Cecilator
 
         public ICode Set(object value)
         {
+            if (this.instructionType == AssignInstructionType.Load)
+                this.LogWarning("This could provoke error 0x8013184B. Use Assign() instead of Load if you want to set a new value to a field, property or variable.");
+
             var inst = this.AddParameter(this.processor, this.TargetType, value);
             this.instructions.Append(inst.Instructions);
+
             this.StoreCall();
             return new InstructionsSet(this, this.instructions);
         }

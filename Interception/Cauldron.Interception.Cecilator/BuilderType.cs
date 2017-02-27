@@ -19,21 +19,15 @@ namespace Cauldron.Interception.Cecilator
         public Builder Builder { get; private set; }
 
         public string Fullname { get { return this.typeReference.FullName; } }
-
         public bool IsAbstract { get { return this.typeDefinition.Attributes.HasFlag(TypeAttributes.Abstract); } }
-
         public bool IsArray { get { return this.typeDefinition.IsArray; } }
-
         public bool IsForeign { get { return this.moduleDefinition.Assembly == this.typeDefinition.Module.Assembly; } }
-
         public bool IsInterface { get { return this.typeDefinition.Attributes.HasFlag(TypeAttributes.Interface); } }
-
+        public bool IsNullable { get { return this.typeDefinition.FullName == this.moduleDefinition.Import(typeof(Nullable<>)).Resolve().FullName; } }
         public bool IsPublic { get { return this.typeDefinition.Attributes.HasFlag(TypeAttributes.Public); } }
-
         public bool IsSealed { get { return this.typeDefinition.Attributes.HasFlag(TypeAttributes.Sealed); } }
-
         public bool IsStatic { get { return this.IsAbstract && this.IsSealed; } }
-
+        public bool IsValueType { get { return this.typeDefinition.IsValueType; } }
         public string Namespace { get { return this.typeDefinition.Namespace; } }
 
         public bool Implements(Type interfaceType) => this.Implements(interfaceType.FullName);
@@ -95,7 +89,7 @@ namespace Cauldron.Interception.Cecilator
         {
             get
             {
-                return this.GetBaseClasses(this.typeReference).Select(x => new BuilderType(this, x)).Distinct(new BuilderTypeEqualityComparer());
+                return this.typeReference.GetBaseClasses().Select(x => new BuilderType(this, x)).Distinct(new BuilderTypeEqualityComparer());
             }
         }
 
@@ -103,7 +97,7 @@ namespace Cauldron.Interception.Cecilator
         {
             get
             {
-                return this.GetInterfaces(this.typeReference).Select(x => new BuilderType(this, x)).Distinct(new BuilderTypeEqualityComparer());
+                return this.typeReference.GetInterfaces().Select(x => new BuilderType(this, x)).Distinct(new BuilderTypeEqualityComparer());
             }
         }
 
@@ -111,7 +105,7 @@ namespace Cauldron.Interception.Cecilator
         {
             get
             {
-                return this.GetNestedTypes(this.typeReference).Select(x => new BuilderType(this, x)).Distinct(new BuilderTypeEqualityComparer());
+                return this.typeReference.GetNestedTypes().Select(x => new BuilderType(this, x)).Distinct(new BuilderTypeEqualityComparer());
             }
         }
 
@@ -131,7 +125,10 @@ namespace Cauldron.Interception.Cecilator
                 if (ctor == null)
                     return null;
 
-                return new Method(this, ctor);
+                if (this.typeReference.IsGenericInstance)
+                    return new Method(this, ctor.MakeHostInstanceGeneric((this.typeReference as GenericInstanceType).GenericArguments.ToArray()), ctor.Resolve());
+
+                return new Method(this, ctor, ctor.Resolve());
             }
         }
 
@@ -249,6 +246,48 @@ namespace Cauldron.Interception.Cecilator
         #region Methods
 
         public IEnumerable<Method> Methods { get { return this.typeDefinition.Methods.Where(x => x.Body != null).Select(x => new Method(this, x)); } }
+
+        public Method CreateMethod(Modifiers modifier, Type returnType, string name, params Type[] parameters) =>
+            this.CreateMethod(modifier, this.Builder.GetType(returnType), name, parameters.Select(x => this.Builder.GetType(x)).ToArray());
+
+        public Method CreateMethod(Modifiers modifier, BuilderType returnType, string name, params BuilderType[] parameters)
+        {
+            var attributes = MethodAttributes.CompilerControlled;
+
+            if (modifier.HasFlag(Modifiers.Private)) attributes |= MethodAttributes.Private;
+            if (modifier.HasFlag(Modifiers.Static)) attributes |= MethodAttributes.Static;
+            if (modifier.HasFlag(Modifiers.Public)) attributes |= MethodAttributes.Public;
+
+            var method = new MethodDefinition(name, attributes, returnType.typeReference);
+
+            foreach (var item in parameters)
+                method.Parameters.Add(new ParameterDefinition(item.typeDefinition));
+
+            this.typeDefinition.Methods.Add(method);
+
+            return new Method(this, method);
+        }
+
+        public Method CreateMethod(Modifiers modifier, string name, params Type[] parameters) =>
+            this.CreateMethod(modifier, name, parameters.Select(x => this.Builder.GetType(x)).ToArray());
+
+        public Method CreateMethod(Modifiers modifier, string name, params BuilderType[] parameters)
+        {
+            var attributes = MethodAttributes.CompilerControlled;
+
+            if (modifier.HasFlag(Modifiers.Private)) attributes |= MethodAttributes.Private;
+            if (modifier.HasFlag(Modifiers.Static)) attributes |= MethodAttributes.Static;
+            if (modifier.HasFlag(Modifiers.Public)) attributes |= MethodAttributes.Public;
+
+            var method = new MethodDefinition(name, attributes, this.moduleDefinition.TypeSystem.Void);
+
+            foreach (var item in parameters)
+                method.Parameters.Add(new ParameterDefinition(item.typeDefinition));
+
+            this.typeDefinition.Methods.Add(method);
+
+            return new Method(this, method);
+        }
 
         public Method GetMethod(string name)
         {

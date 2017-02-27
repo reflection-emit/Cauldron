@@ -65,7 +65,18 @@ namespace Cauldron.Interception.Cecilator
 
         public string Name { get { return this.propertyDefinition.Name; } }
 
-        public BuilderType ReturnType { get { return new BuilderType(this.type, this.propertyDefinition.PropertyType); } }
+        public BuilderType ReturnType
+        {
+            get
+            {
+                var type = this.Getter?.ReturnType.typeReference ?? this.propertyDefinition.PropertyType;
+
+                if (type.HasGenericParameters && !type.IsGenericInstance)
+                    return new BuilderType(this.type, type.ResolveType(this.propertyDefinition.PropertyType));
+
+                return new BuilderType(this.type, type);
+            }
+        }
 
         public Method Setter { get; private set; }
 

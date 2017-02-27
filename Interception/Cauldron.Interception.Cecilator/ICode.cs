@@ -9,6 +9,8 @@ namespace Cauldron.Interception.Cecilator
 
         Crumb This { get; }
 
+        ICode As(BuilderType type);
+
         IFieldCode Assign(Field field);
 
         ILocalVariableCode Assign(LocalVariable localVariable);
@@ -49,6 +51,10 @@ namespace Cauldron.Interception.Cecilator
         [EditorBrowsable(EditorBrowsableState.Never)]
         new int GetHashCode();
 
+        IIfCode Is(BuilderType type);
+
+        IIfCode IsNotNull();
+
         IIfCode IsNull();
 
         ILocalVariableCode Load(LocalVariable localVariable);
@@ -78,6 +84,8 @@ namespace Cauldron.Interception.Cecilator
         ICode Pop();
 
         ICode Return();
+
+        ICode ThrowNew(Type exceptionType, string message);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         new string ToString();

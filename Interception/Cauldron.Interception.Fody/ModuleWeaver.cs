@@ -1,6 +1,7 @@
 ﻿using Cauldron.Interception.Cecilator;
 using Mono.Cecil;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -251,7 +252,49 @@ namespace Cauldron.Interception.Fody
                 }
 
                 var actionObjectCtor = builder.Import(typeof(Action<object>).GetConstructor(new Type[] { typeof(object), typeof(IntPtr) }));
-                var propertySetter = property.Key.DeclaringType.GetMethod("bla", 1);
+                var propertySetter = property.Key.DeclaringType.CreateMethod(property.Key.IsStatic ? Modifiers.PrivateStatic : Modifiers.Private, $"<{property.Key.Name}>m__setterMethod", builder.GetType(typeof(object)));
+
+                #region Setter "Delegate"
+
+                var tryDisposeMethod = builder.GetType("Cauldron.Interception.Extensions").GetMethod("TryDispose", 1);
+
+                var setterCode = propertySetter.NewCode();
+
+                if (property.Key.BackingField.FieldType.ParameterlessContructor != null)
+                    setterCode.Load(property.Key.BackingField).IsNotNull().Then(y =>
+                        y.Assign(property.Key.BackingField).Set(propertySetter.NewCode()
+                            .NewObj(property.Key.BackingField.FieldType.ParameterlessContructor)));
+
+                // Only this if the property implements idisposable
+                if (property.Key.BackingField.FieldType.Implements(typeof(IDisposable)))
+                    setterCode.Call(tryDisposeMethod, property.Key.BackingField);
+
+                setterCode.Load(propertySetter.NewCode().Parameters[0]).IsNull().Then(x =>
+                {
+                    // Just clear if its clearable
+                    if (property.Key.BackingField.FieldType.Implements(typeof(IList)))
+                        x.Load(property.Key.BackingField).Callvirt(builder.GetType(typeof(IList)).GetMethod("Clear"));
+                    // Only this if the property is not a value type and nullable
+                    else if (!property.Key.BackingField.FieldType.IsValueType || property.Key.BackingField.FieldType.IsNullable)
+                        x.Assign(property.Key.BackingField).Set(null).Return();
+                    else // otherwise... throw an exception
+                        x.ThrowNew(typeof(NotSupportedException), "Value types does not accept null values.");
+                });
+
+                setterCode.Load(propertySetter.NewCode().Parameters[0]).Is(property.Key.ReturnType).Then(x =>
+                    x.Assign(property.Key.BackingField).Set(propertySetter.NewCode().Parameters[0]))
+                .Context(x =>
+                {
+                    //var ctor = property.Key.ReturnType.ParameterlessContructor;
+                    //this.LogInfo(ctor ?? "x");
+
+                    //if (ctor != null && ctor.IsPublic)
+                    //    x.Load(property.Key.BackingField).IsNull().Then(y => propertySetter.NewCode().NewObj(ctor));
+                })
+                .Return()
+                .Replace();
+
+                #endregion Setter "Delegate"
 
                 #region Getter implementation
 
