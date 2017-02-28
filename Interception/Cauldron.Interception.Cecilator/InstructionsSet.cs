@@ -247,6 +247,44 @@ namespace Cauldron.Interception.Cecilator
             return new Method(this.method.DeclaringType, method);
         }
 
+        public ICode For(LocalVariable array, Action<ICode, LocalVariable> action)
+        {
+            var item = this.CreateVariable(array.Type.ChildType);
+            var indexer = this.CreateVariable(typeof(int));
+            var lengthCheck = processor.Create(OpCodes.Ldloc, indexer.variable);
+
+            // var i = 0;
+            this.instructions.Append(processor.Create(OpCodes.Ldc_I4_0));
+            this.instructions.Append(processor.Create(OpCodes.Stloc, indexer.variable));
+            this.instructions.Append(processor.Create(OpCodes.Br, lengthCheck));
+
+            var start = processor.Create(OpCodes.Nop);
+            this.instructions.Append(start);
+
+            this.instructions.Append(processor.Create(OpCodes.Ldloc, array.variable));
+            this.instructions.Append(processor.Create(OpCodes.Ldloc, indexer.variable));
+            this.instructions.Append(processor.Create(OpCodes.Ldelem_Ref)); // TODO - cases for primitiv types
+            this.instructions.Append(processor.Create(OpCodes.Stloc, item.variable));
+
+            action(this, item);
+
+            // i++
+            this.instructions.Append(processor.Create(OpCodes.Ldloc, indexer.variable));
+            this.instructions.Append(processor.Create(OpCodes.Ldc_I4_1));
+            this.instructions.Append(processor.Create(OpCodes.Add));
+            this.instructions.Append(processor.Create(OpCodes.Stloc, indexer.variable));
+
+            // i < array.Length
+            this.instructions.Append(lengthCheck);
+            this.instructions.Append(processor.Create(OpCodes.Ldloc, array.variable));
+            this.instructions.Append(processor.Create(OpCodes.Ldlen));
+            this.instructions.Append(processor.Create(OpCodes.Conv_I4));
+            this.instructions.Append(processor.Create(OpCodes.Clt));
+            this.instructions.Append(processor.Create(OpCodes.Brtrue, start));
+
+            return this;
+        }
+
         public void Insert(InsertionPosition position)
         {
             Instruction instructionPosition = null;
@@ -681,6 +719,8 @@ namespace Cauldron.Interception.Cecilator
             // TODO - adds additional checks for not resolved generics
             if (targetDef == null || targetType.IsGenericInstance) /* This happens if the target type is a generic */
                 result.Instructions.Add(processor.Create(OpCodes.Unbox_Any, targetType));
+            else if ((targetDef.FullName == typeof(string).FullName || result.Type.FullName == typeof(object).FullName || targetDef.IsInterface) && !targetType.IsValueType && !targetType.IsArray)
+                result.Instructions.Add(processor.Create(OpCodes.Isinst, this.moduleDefinition.Import(targetType)));
             else if (targetDef.IsEnum)
             {
                 result.Instructions.AddRange(this.TypeOf(processor, this.moduleDefinition.Import(targetType)));
@@ -689,8 +729,16 @@ namespace Cauldron.Interception.Cecilator
                 result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Enum)).GetMethodReference("ToObject", new Type[] { typeof(Type), typeof(object) }))));
                 result.Instructions.Add(processor.Create(OpCodes.Unbox_Any, targetType));
             }
-            else if (result.Type.FullName == typeof(object).FullName && (targetDef.IsInterface || targetType.IsIEnumerable() || targetDef.FullName == typeof(string).FullName))
-                result.Instructions.Add(processor.Create(OpCodes.Isinst, this.moduleDefinition.Import(targetType)));
+            else if (result.Type.FullName == typeof(object).FullName && (targetType.IsArray || targetDef.FullName == typeof(IEnumerable<>).FullName))
+            {
+                var childType = this.moduleDefinition.GetChildrenType(targetType);
+                var castMethod = this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(System.Linq.Enumerable)).GetMethodReference("Cast", new Type[] { typeof(IEnumerable) }).MakeGeneric(childType));
+                var toArrayMethod = this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(System.Linq.Enumerable)).GetMethodReference("ToArray", 1).MakeGeneric(childType));
+
+                result.Instructions.Add(processor.Create(OpCodes.Isinst, this.moduleDefinition.Import(typeof(IEnumerable))));
+                result.Instructions.Add(processor.Create(OpCodes.Call, castMethod));
+                result.Instructions.Add(processor.Create(OpCodes.Call, toArrayMethod));
+            }
             else if (result.Type.FullName == typeof(object).FullName && targetDef.IsValueType)
             {
                 if (targetDef.FullName == typeof(int).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Convert)).GetMethodReference("ToInt32", new Type[] { typeof(object) }))));
@@ -711,8 +759,8 @@ namespace Cauldron.Interception.Cecilator
             }
             else if (result.Type.IsValueType && !targetType.IsValueType)
                 result.Instructions.Add(processor.Create(OpCodes.Box, result.Type));
-            else if (targetType.FullName != result.Type.FullName && this.AreReferenceAssignable(targetType, result.Type))
-                result.Instructions.Add(processor.Create(OpCodes.Castclass, result.Type));
+            else if (targetType.FullName != result.Type.FullName && this.AreReferenceAssignable(targetType, this.moduleDefinition.Import(result.Type)))
+                result.Instructions.Add(processor.Create(OpCodes.Castclass, this.moduleDefinition.Import(result.Type)));
 
             return result;
         }
@@ -1085,6 +1133,18 @@ namespace Cauldron.Interception.Cecilator
         public IIfCode EqualTo(int value) => this.EqualTo(this.AddParameter(this.processor, this.moduleDefinition.TypeSystem.Int32, value).Instructions);
 
         public IIfCode EqualTo(bool value) => this.EqualTo(this.AddParameter(this.processor, this.moduleDefinition.TypeSystem.Boolean, value).Instructions);
+
+        public IIfCode Is(Type type)
+        {
+            var jumpTarget = this.processor.Create(OpCodes.Nop);
+
+            this.instructions.Append(this.processor.Create(OpCodes.Isinst, this.moduleDefinition.Import(type)));
+            this.instructions.Append(this.processor.Create(OpCodes.Ldnull));
+            this.instructions.Append(this.processor.Create(OpCodes.Cgt_Un));
+            this.instructions.Append(this.processor.Create(OpCodes.Brfalse_S, jumpTarget));
+
+            return new IfCode(this, this.instructions, jumpTarget);
+        }
 
         public IIfCode Is(BuilderType type)
         {

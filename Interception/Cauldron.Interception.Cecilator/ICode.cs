@@ -48,10 +48,14 @@ namespace Cauldron.Interception.Cecilator
 
         IIfCode EqualTo(bool value);
 
+        ICode For(LocalVariable array, Action<ICode, LocalVariable> action);
+
         [EditorBrowsable(EditorBrowsableState.Never)]
         new int GetHashCode();
 
         IIfCode Is(BuilderType type);
+
+        IIfCode Is(Type type);
 
         IIfCode IsNotNull();
 

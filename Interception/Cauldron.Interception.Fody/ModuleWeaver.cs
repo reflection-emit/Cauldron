@@ -274,16 +274,34 @@ namespace Cauldron.Interception.Fody
                     // Just clear if its clearable
                     if (property.Key.BackingField.FieldType.Implements(typeof(IList)))
                         x.Load(property.Key.BackingField).Callvirt(builder.GetType(typeof(IList)).GetMethod("Clear"));
-                    // Only this if the property is not a value type and nullable
-                    else if (!property.Key.BackingField.FieldType.IsValueType || property.Key.BackingField.FieldType.IsNullable)
+                    // Otherwise if the property is not a value type and nullable
+                    else if (!property.Key.BackingField.FieldType.IsValueType || property.Key.BackingField.FieldType.IsNullable || property.Key.BackingField.FieldType.IsArray)
                         x.Assign(property.Key.BackingField).Set(null).Return();
                     else // otherwise... throw an exception
                         x.ThrowNew(typeof(NotSupportedException), "Value types does not accept null values.");
                 });
 
-                setterCode.Load(propertySetter.NewCode().Parameters[0]).Is(property.Key.ReturnType).Then(x =>
-                    x.Assign(property.Key.BackingField).Set(propertySetter.NewCode().Parameters[0]))
-                .Context(x =>
+                if (property.Key.BackingField.FieldType.IsArray)
+                    setterCode.Load(propertySetter.NewCode().Parameters[0]).Is(typeof(IEnumerable)).Then(x => x.Assign(property.Key.BackingField).Set(propertySetter.NewCode().Parameters[0]));
+                else if (property.Key.BackingField.FieldType.Implements(typeof(IList)) && property.Key.BackingField.FieldType.ParameterlessContructor != null)
+                {
+                    var addRange = property.Key.BackingField.FieldType.GetMethod("AddRange", 1);
+                    if (addRange == null)
+                    {
+                        var add = property.Key.BackingField.FieldType.GetMethod("Add", 1);
+                        var array = setterCode.CreateVariable(property.Key.BackingField.FieldType.ChildType.MakeArray());
+                        setterCode.Assign(array).Set(propertySetter.NewCode().Parameters[0]);
+                        setterCode.For(array, (x, item) => x.Load(property.Key.BackingField).Callvirt(add, item));
+                        if (!add.ReturnType.IsVoid)
+                            setterCode.Pop();
+                    }
+                    else
+                        setterCode.Callvirt(addRange, propertySetter.NewCode().Parameters[0]);
+                }
+                else
+                    setterCode.Load(propertySetter.NewCode().Parameters[0]).Is(property.Key.ReturnType).Then(x => x.Assign(property.Key.BackingField).Set(propertySetter.NewCode().Parameters[0]));
+
+                setterCode.Context(x =>
                 {
                     //var ctor = property.Key.ReturnType.ParameterlessContructor;
                     //this.LogInfo(ctor ?? "x");

@@ -30,6 +30,66 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
+        public static TypeReference GetChildrenType(this ModuleDefinition module, TypeReference type)
+        {
+            if (type.IsArray)
+                return type.GetElementType();
+
+            var getIEnumerableInterfaceChild = new Func<TypeReference, TypeReference>(typeReference =>
+            {
+                if (typeReference.IsGenericInstance)
+                {
+                    var genericType = typeReference as GenericInstanceType;
+
+                    if (genericType != null)
+                    {
+                        var genericInstances = genericType.GetGenericInstances();
+
+                        // We have to make some exceptions to dictionaries
+                        var ienumerableInterface = genericInstances.FirstOrDefault(x => x.FullName.StartsWith("System.Collections.Generic.IDictionary`2<"));
+
+                        // If we have more than 1 generic argument then we try to get a IEnumerable<> interface
+                        // otherwise we just return the last argument in the list
+                        if (ienumerableInterface == null)
+                            ienumerableInterface = genericInstances.FirstOrDefault(x => x.FullName.StartsWith("System.Collections.Generic.IEnumerable`1<"));
+
+                        // We just don't know :(
+                        if (ienumerableInterface == null)
+                            return module.Import(typeof(object));
+
+                        return (ienumerableInterface as GenericInstanceType).GenericArguments[0];
+                    }
+                }
+
+                return null;
+            });
+
+            var result = getIEnumerableInterfaceChild(type);
+
+            if (result != null)
+                return result;
+
+            // This might be a type that inherits from list<> or something...
+            // lets find out
+            if (type.Resolve().GetInterfaces().Any(x => x.FullName == "System.Collections.Generic.IEnumerable`1"))
+            {
+                // if this is the case we will dig until we find a generic instance type
+                var baseType = type.Resolve().BaseType;
+
+                while (baseType != null)
+                {
+                    result = getIEnumerableInterfaceChild(baseType);
+
+                    if (result != null)
+                        return result;
+
+                    baseType = baseType.Resolve().BaseType;
+                };
+            }
+
+            return module.Import(typeof(object));
+        }
+
         public static IEnumerable<TypeReference> GetInterfaces(this TypeReference type)
         {
             var typeDef = type.Resolve();
@@ -44,6 +104,19 @@ namespace Cauldron.Interception.Cecilator
                 return GetInterfaces(typeDef.BaseType);
 
             return new TypeReference[0];
+        }
+
+        public static MethodReference GetMethodReference(this TypeReference type, string methodName, int parameterCount)
+        {
+            var definition = type.Resolve();
+            var result = definition
+                .Methods
+                .FirstOrDefault(x => x.Name == methodName && x.Parameters.Count == parameterCount);
+
+            if (result != null)
+                return result;
+
+            throw new Exception($"Unable to proceed. The type '{type.FullName}' does not contain a method '{methodName}'");
         }
 
         public static MethodReference GetMethodReference(this TypeReference type, string methodName, Type[] parameterTypes)
@@ -88,25 +161,6 @@ namespace Cauldron.Interception.Cecilator
             target == source ||
             source.IsSubclassOf(target) ||
             target.Resolve().IsInterface && source.GetBaseClasses().Any(x => x.Implements(target.FullName));
-
-        public static bool IsIEnumerable(this TypeReference type)
-        {
-            var resolved = type.Resolve();
-
-            if (resolved == null)
-                return false;
-
-            return
-                type.FullName != typeof(string).FullName /* Strings are arrays too */ &&
-                (
-                    type is ArrayType ||
-                    type.GetInterfaces().Any(x => x.FullName == typeof(IList).FullName || x.FullName == typeof(IEnumerable).FullName) ||
-                    type.IsArray ||
-                    type.FullName.EndsWith("[]") ||
-                    resolved.IsArray ||
-                    resolved.FullName.EndsWith("[]")
-                );
-        }
 
         public static bool IsSubclassOf(this BuilderType child, BuilderType parent) => child.typeDefinition != parent.typeDefinition && child.BaseClasses.Any(x => x.typeDefinition == parent.typeDefinition);
 
@@ -272,6 +326,22 @@ namespace Cauldron.Interception.Cecilator
                 opCode == OpCodes.Stloc_3;
         }
 
+        internal static MethodReference MakeGeneric(this MethodReference method, params TypeReference[] args)
+        {
+            if (args.Length == 0)
+                return method;
+
+            if (method.GenericParameters.Count != args.Length)
+                throw new ArgumentException("Invalid number of generic type arguments supplied");
+
+            var genericTypeRef = new GenericInstanceMethod(method);
+
+            foreach (var arg in args)
+                genericTypeRef.GenericArguments.Add(arg);
+
+            return genericTypeRef;
+        }
+
         internal static MethodReference MakeHostInstanceGeneric(this MethodReference self, params TypeReference[] arguments)
         {
             // https://groups.google.com/forum/#!topic/mono-cecil/mCat5UuR47I by ShdNx
@@ -337,6 +407,52 @@ namespace Cauldron.Interception.Cecilator
                 return type.MakeGenericInstanceType(type.GenericParameters.ToArray());
             else
                 return type;
+        }
+
+        private static IEnumerable<TypeReference> GetGenericInstances(this GenericInstanceType type)
+        {
+            var result = new List<TypeReference>();
+            result.Add(type);
+
+            var resolved = type.Resolve();
+            var genericArgumentsNames = resolved.GenericParameters.Select(x => x.FullName).ToArray();
+            var genericArguments = type.GenericArguments.ToArray();
+
+            if (resolved.BaseType != null)
+                result.AddRange(resolved.BaseType.GetGenericInstances(genericArgumentsNames, genericArguments));
+
+            if (resolved.Interfaces != null && resolved.Interfaces.Count > 0)
+            {
+                foreach (var item in resolved.Interfaces)
+                    result.AddRange(item.GetGenericInstances(genericArgumentsNames, genericArguments));
+            }
+
+            return result;
+        }
+
+        private static IEnumerable<TypeReference> GetGenericInstances(this TypeReference type, string[] genericArgumentNames, TypeReference[] genericArgumentsOfCurrentType)
+        {
+            var resolvedBase = type.Resolve();
+
+            if (resolvedBase.HasGenericParameters)
+            {
+                var genericArguments = new List<TypeReference>();
+
+                foreach (var arg in (type as GenericInstanceType).GenericArguments)
+                {
+                    var t = genericArgumentNames.FirstOrDefault(x => x == arg.FullName);
+
+                    if (t == null)
+                        genericArguments.Add(arg);
+                    else
+                        genericArguments.Add(genericArgumentsOfCurrentType[Array.IndexOf(genericArgumentNames, t)]);
+                }
+
+                var genericType = resolvedBase.MakeGenericInstanceType(genericArguments.ToArray());
+                return genericType.GetGenericInstances();
+            }
+
+            return new TypeReference[0];
         }
     }
 }

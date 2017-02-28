@@ -22,7 +22,7 @@ namespace Cauldron.Interception.Cecilator
         {
             this.type = type;
             this.methodDefinition = methodDefinition;
-            this.methodReference = methodReference;
+            this.methodReference = this.moduleDefinition.Import(methodReference);
         }
 
         internal Method(BuilderType type, MethodDefinition methodDefinition) : base(type)

@@ -1,4 +1,8 @@
-﻿namespace Cauldron.Interception.Test
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Cauldron.Interception.Test
 {
     public sealed class TestClass : ITestInterface
     {
