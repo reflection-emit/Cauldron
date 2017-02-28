@@ -4,6 +4,7 @@ using Mono.Cecil.Rocks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace Cauldron.Interception.Cecilator
@@ -88,6 +89,19 @@ namespace Cauldron.Interception.Cecilator
             }
 
             return module.Import(typeof(object));
+        }
+
+        public static IReadOnlyDictionary<string, TypeReference> GetGenericResolvedTypeName(this GenericInstanceType type)
+        {
+            var genericArgumentNames = type.Resolve().GenericParameters.Select(x => x.FullName).ToArray();
+            var genericArgumentsOfCurrentType = type.GenericArguments.ToArray();
+
+            var result = new Dictionary<string, TypeReference>();
+
+            for (int i = 0; i < genericArgumentNames.Length; i++)
+                result.Add(genericArgumentNames[i], genericArgumentsOfCurrentType[i]);
+
+            return new ReadOnlyDictionary<string, TypeReference>(result);
         }
 
         public static IEnumerable<TypeReference> GetInterfaces(this TypeReference type)
@@ -175,6 +189,20 @@ namespace Cauldron.Interception.Cecilator
         }
 
         public static TNew New<TType, TNew>(this TType target, Func<TType, TNew> predicate) => predicate(target);
+
+        public static GenericInstanceType ResolveGenericArguments(this GenericInstanceType self, GenericInstanceType inheritingOrImplementingType)
+        {
+            if (self.FullName == inheritingOrImplementingType.FullName)
+                return self;
+
+            var genericParameters = inheritingOrImplementingType.GetGenericResolvedTypeName();
+            var genericArguments = new TypeReference[self.GenericArguments.Count];
+
+            for (int i = 0; i < genericArguments.Length; i++)
+                genericArguments[i] = genericParameters.ContainsKey(self.GenericArguments[i].FullName) ? genericParameters[self.GenericArguments[i].FullName] : self.GenericArguments[i];
+
+            return self.Resolve().MakeGenericInstanceType(genericArguments);
+        }
 
         internal static void Append(this ILProcessor processor, Instruction[] instructions) => processor.Append(instructions as IEnumerable<Instruction>);
 
@@ -346,7 +374,8 @@ namespace Cauldron.Interception.Cecilator
         {
             // https://groups.google.com/forum/#!topic/mono-cecil/mCat5UuR47I by ShdNx
 
-            var reference = new MethodReference(self.Name, self.ReturnType, self.DeclaringType.MakeGenericInstanceType(arguments))
+            var genericDeclaringType = self.DeclaringType.MakeGenericInstanceType(arguments);
+            var reference = new MethodReference(self.Name, self.ReturnType, genericDeclaringType)
             {
                 HasThis = self.HasThis,
                 ExplicitThis = self.ExplicitThis,
@@ -373,8 +402,8 @@ namespace Cauldron.Interception.Cecilator
             while (stack.Count != 0)
             {
                 var current = stack.Pop();
-                // If you don't care about maintaining child order then remove the Reverse.
-                foreach (var child in children(current).Reverse())
+
+                foreach (var child in children(current))
                     stack.Push(child);
 
                 yield return current;
@@ -385,23 +414,16 @@ namespace Cauldron.Interception.Cecilator
         {
             if (type.HasGenericParameters && inheritingOrImplementingType is GenericInstanceType)
             {
-                var genericArgumentNames = inheritingOrImplementingType.GenericParameters.Select(x => x.FullName).ToArray();
-                var genericArgumentsOfCurrentType = (inheritingOrImplementingType as GenericInstanceType).GenericArguments.ToArray();
-
                 var genericInstanceType = type as GenericInstanceType ?? type.MakeGenericInstanceType(type.GenericParameters.ToArray());
-                var genericArguments = new TypeReference[genericInstanceType.GenericArguments.Count];
+                return genericInstanceType.ResolveGenericArguments(inheritingOrImplementingType as GenericInstanceType);
+            }
+            else if (type.ContainsGenericParameter && inheritingOrImplementingType is GenericInstanceType)
+            {
+                if (!type.IsGenericInstance)
+                    return type;
 
-                for (int i = 0; i < genericInstanceType.GenericArguments.Count; i++)
-                {
-                    var t = genericArgumentNames.FirstOrDefault(x => x == genericInstanceType.GenericArguments[i].FullName);
-
-                    if (t == null)
-                        genericArguments[i] = genericInstanceType.GenericArguments[i];
-                    else
-                        genericArguments[i] = genericArgumentsOfCurrentType[Array.IndexOf(genericArgumentNames, t)];
-                }
-
-                return type.MakeGenericInstanceType(genericArguments);
+                var genericInstanceType = type as GenericInstanceType;
+                return genericInstanceType.ResolveGenericArguments(inheritingOrImplementingType as GenericInstanceType);
             }
             else if (type.HasGenericParameters)
                 return type.MakeGenericInstanceType(type.GenericParameters.ToArray());

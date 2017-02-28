@@ -223,36 +223,44 @@ namespace Cauldron.Interception.Fody
                     Key = x.Key,
                     Item = x.Select(y => new
                     {
-                        InterfaceSetter = y.Attribute.Implements(iLockablePropertySetterInterceptor.Type.Fullname) ? iLockablePropertySetterInterceptor : iPropertySetterInterceptor,
-                        InterfaceGetter = y.Attribute.Implements(iLockablePropertyGetterInterceptor.Type.Fullname) ? iLockablePropertyGetterInterceptor : iPropertyGetterInterceptor,
+                        InterfaceSetter = y.Attribute.Implements(iLockablePropertySetterInterceptor.Type.Fullname) ? iLockablePropertySetterInterceptor : y.Attribute.Implements(iPropertySetterInterceptor.Type.Fullname) ? iPropertySetterInterceptor : null,
+                        InterfaceGetter = y.Attribute.Implements(iLockablePropertyGetterInterceptor.Type.Fullname) ? iLockablePropertyGetterInterceptor : y.Attribute.Implements(iPropertyGetterInterceptor.Type.Fullname) ? iPropertyGetterInterceptor : null,
                         Attribute = y,
                         Property = y.Property
                     }).ToArray()
-                });
+                })
+                .Select(x => new
+                {
+                    Property = x.Key,
+                    InterceptorInfos = x.Item,
+                    HasGetterInterception = x.Item.Any(y => y.InterfaceGetter != null),
+                    HasSetterInterception = x.Item.Any(y => y.InterfaceSetter != null),
+                    RequiredLocking = x.Item.Any(y => (y.InterfaceGetter != null && y.InterfaceGetter.Lockable) || (y.InterfaceSetter != null && y.InterfaceSetter.Lockable))
+                })
+                .ToArray();
 
-            foreach (var property in properties)
+            foreach (var member in properties)
             {
-                this.LogInfo($"Implementing interceptors in property {property.Key}");
-                var lockable = property.Item.Any(x => x.InterfaceGetter.Lockable | x.InterfaceSetter.Lockable);
-                var semaphoreFieldName = $"<{property.Key.Name}>lock_" + property.Key.Identification;
+                this.LogInfo($"Implementing interceptors in property {member.Property}");
+                var semaphoreFieldName = $"<{member.Property.Name}>lock_" + member.Property.Identification;
 
-                if (lockable)
-                    foreach (var ctor in property.Key.DeclaringType.GetRelevantConstructors())
+                if (member.RequiredLocking)
+                    foreach (var ctor in member.Property.DeclaringType.GetRelevantConstructors())
                         ctor.NewCode()
-                            .Assign(property.Key.CreateField(typeof(SemaphoreSlim), semaphoreFieldName))
+                            .Assign(member.Property.CreateField(typeof(SemaphoreSlim), semaphoreFieldName))
                             .NewObj(semaphoreSlim.Ctor, 1, 1)
                             .Insert(Cecilator.InsertionPosition.Beginning);
 
-                var propertyField = property.Key.CreateField(propertyInterceptionInfo.Type, $"<{property.Key.Name}>p__propertyInfo");
+                var propertyField = member.Property.CreateField(propertyInterceptionInfo.Type, $"<{member.Property.Name}>p__propertyInfo");
 
-                if (!property.Key.IsAutoProperty)
+                if (!member.Property.IsAutoProperty)
                 {
-                    this.LogWarning($"{property.Key.Name}: The current version of the property interceptor only supports auto-properties.");
+                    this.LogWarning($"{member.Property.Name}: The current version of the property interceptor only supports auto-properties.");
                     continue;
                 }
 
                 var actionObjectCtor = builder.Import(typeof(Action<object>).GetConstructor(new Type[] { typeof(object), typeof(IntPtr) }));
-                var propertySetter = property.Key.DeclaringType.CreateMethod(property.Key.IsStatic ? Modifiers.PrivateStatic : Modifiers.Private, $"<{property.Key.Name}>m__setterMethod", builder.GetType(typeof(object)));
+                var propertySetter = member.Property.DeclaringType.CreateMethod(member.Property.IsStatic ? Modifiers.PrivateStatic : Modifiers.Private, $"<{member.Property.Name}>m__setterMethod", builder.GetType(typeof(object)));
 
                 #region Setter "Delegate"
 
@@ -260,119 +268,175 @@ namespace Cauldron.Interception.Fody
 
                 var setterCode = propertySetter.NewCode();
 
-                if (property.Key.BackingField.FieldType.ParameterlessContructor != null)
-                    setterCode.Load(property.Key.BackingField).IsNotNull().Then(y =>
-                        y.Assign(property.Key.BackingField).Set(propertySetter.NewCode()
-                            .NewObj(property.Key.BackingField.FieldType.ParameterlessContructor)));
+                if (member.Property.BackingField.FieldType.ParameterlessContructor != null)
+                    setterCode.Load(member.Property.BackingField).IsNull().Then(y =>
+                        y.Assign(member.Property.BackingField).Set(propertySetter.NewCode()
+                            .NewObj(member.Property.BackingField.FieldType.ParameterlessContructor)));
 
                 // Only this if the property implements idisposable
-                if (property.Key.BackingField.FieldType.Implements(typeof(IDisposable)))
-                    setterCode.Call(tryDisposeMethod, property.Key.BackingField);
+                if (member.Property.BackingField.FieldType.Implements(typeof(IDisposable)))
+                    setterCode.Call(tryDisposeMethod, member.Property.BackingField);
 
                 setterCode.Load(propertySetter.NewCode().Parameters[0]).IsNull().Then(x =>
                 {
                     // Just clear if its clearable
-                    if (property.Key.BackingField.FieldType.Implements(typeof(IList)))
-                        x.Load(property.Key.BackingField).Callvirt(builder.GetType(typeof(IList)).GetMethod("Clear"));
+                    if (member.Property.BackingField.FieldType.Implements(typeof(IList)))
+                        x.Load(member.Property.BackingField).Callvirt(builder.GetType(typeof(IList)).GetMethod("Clear")).Return();
                     // Otherwise if the property is not a value type and nullable
-                    else if (!property.Key.BackingField.FieldType.IsValueType || property.Key.BackingField.FieldType.IsNullable || property.Key.BackingField.FieldType.IsArray)
-                        x.Assign(property.Key.BackingField).Set(null).Return();
+                    else if (!member.Property.BackingField.FieldType.IsValueType || member.Property.BackingField.FieldType.IsNullable || member.Property.BackingField.FieldType.IsArray)
+                        x.Assign(member.Property.BackingField).Set(null).Return();
                     else // otherwise... throw an exception
                         x.ThrowNew(typeof(NotSupportedException), "Value types does not accept null values.");
                 });
 
-                if (property.Key.BackingField.FieldType.IsArray)
-                    setterCode.Load(propertySetter.NewCode().Parameters[0]).Is(typeof(IEnumerable)).Then(x => x.Assign(property.Key.BackingField).Set(propertySetter.NewCode().Parameters[0]));
-                else if (property.Key.BackingField.FieldType.Implements(typeof(IList)) && property.Key.BackingField.FieldType.ParameterlessContructor != null)
+                if (member.Property.BackingField.FieldType.IsArray)
+                    setterCode.Load(propertySetter.NewCode().Parameters[0]).Is(typeof(IEnumerable))
+                        .Then(x => x.Assign(member.Property.BackingField).Set(propertySetter.NewCode().Parameters[0]).Return())
+                        .ThrowNew(typeof(NotSupportedException), "Value does not inherits from IEnumerable");
+                else if (member.Property.BackingField.FieldType.Implements(typeof(IList)) && member.Property.BackingField.FieldType.ParameterlessContructor != null)
                 {
-                    var addRange = property.Key.BackingField.FieldType.GetMethod("AddRange", 1);
+                    var addRange = member.Property.BackingField.FieldType.GetMethod("AddRange", 1);
                     if (addRange == null)
                     {
-                        var add = property.Key.BackingField.FieldType.GetMethod("Add", 1);
-                        var array = setterCode.CreateVariable(property.Key.BackingField.FieldType.ChildType.MakeArray());
+                        var add = member.Property.BackingField.FieldType.GetMethod("Add", 1);
+                        var array = setterCode.CreateVariable(member.Property.BackingField.FieldType.ChildType.MakeArray());
                         setterCode.Assign(array).Set(propertySetter.NewCode().Parameters[0]);
-                        setterCode.For(array, (x, item) => x.Load(property.Key.BackingField).Callvirt(add, item));
+                        setterCode.For(array, (x, item) => x.Load(member.Property.BackingField).Callvirt(add, item));
                         if (!add.ReturnType.IsVoid)
                             setterCode.Pop();
                     }
                     else
-                        setterCode.Callvirt(addRange, propertySetter.NewCode().Parameters[0]);
+                        setterCode.Load(member.Property.BackingField).Callvirt(addRange, propertySetter.NewCode().Parameters[0]);
                 }
                 else
-                    setterCode.Load(propertySetter.NewCode().Parameters[0]).Is(property.Key.ReturnType).Then(x => x.Assign(property.Key.BackingField).Set(propertySetter.NewCode().Parameters[0]));
+                    setterCode.Assign(member.Property.BackingField).Set(propertySetter.NewCode().Parameters[0]);
 
-                setterCode.Context(x =>
-                {
-                    //var ctor = property.Key.ReturnType.ParameterlessContructor;
-                    //this.LogInfo(ctor ?? "x");
-
-                    //if (ctor != null && ctor.IsPublic)
-                    //    x.Load(property.Key.BackingField).IsNull().Then(y => propertySetter.NewCode().NewObj(ctor));
-                })
-                .Return()
-                .Replace();
+                setterCode.Return().Replace();
 
                 #endregion Setter "Delegate"
 
                 #region Getter implementation
 
-                property.Key.Getter
-                    .NewCode()
-                        .Context(x =>
-                        {
-                            for (int i = 0; i < property.Item.Length; i++)
+                if (member.HasGetterInterception)
+                    member.Property.Getter
+                        .NewCode()
+                            .Context(x =>
                             {
-                                var item = property.Item[i];
-                                x.Assign(x.CreateVariable("<>interceptor_" + i, item.InterfaceGetter.Type)).NewObj(item.Attribute);
-                                item.Attribute.Remove();
-                            }
+                                for (int i = 0; i < member.InterceptorInfos.Length; i++)
+                                {
+                                    var item = member.InterceptorInfos[i];
+                                    x.Assign(x.CreateVariable("<>interceptor_" + i, item.InterfaceGetter.Type)).NewObj(item.Attribute);
+                                    item.Attribute.Remove();
+                                }
 
-                            x.Load(propertyField).IsNull().Then(y =>
-                                y.Assign(propertyField)
-                                    .NewObj(propertyInterceptionInfo.Ctor,
-                                        property.Key.Getter,
-                                        property.Key.Setter,
-                                        property.Key.Name,
-                                        property.Key.ReturnType,
-                                        y.This,
-                                        null,
-                                        y.NewCode().NewObj(actionObjectCtor, null, propertySetter)));
-                        })
-                        .Try(x =>
-                        {
-                            for (int i = 0; i < property.Item.Length; i++)
+                                x.Load(propertyField).IsNull().Then(y =>
+                                    y.Assign(propertyField)
+                                        .NewObj(propertyInterceptionInfo.Ctor,
+                                            member.Property.Getter,
+                                            member.Property.Setter,
+                                            member.Property.Name,
+                                            member.Property.ReturnType,
+                                            y.This,
+                                            member.Property.ReturnType.IsArray || member.Property.ReturnType.Implements(typeof(IEnumerable)) ? member.Property.ReturnType.ChildType : null,
+                                            y.NewCode().NewObj(actionObjectCtor, y.NewCode().This, propertySetter)));
+                            })
+                            .Try(x =>
                             {
-                                var item = property.Item[i];
-                                if (item.InterfaceGetter.Lockable)
-                                    x.LoadVariable("<>interceptor_" + i).Callvirt(item.InterfaceGetter.OnGet, x.NewCode().LoadField(semaphoreFieldName), propertyField, x.NewCode().Load(propertyField));
-                                else
-                                    x.LoadVariable("<>interceptor_" + i).Callvirt(item.InterfaceGetter.OnGet, propertyField, x.NewCode().Load(propertyField));
-                            }
-                        })
-                        .Catch(typeof(Exception), x =>
-                        {
-                            for (int i = 0; i < property.Item.Length; i++)
-                                x.LoadVariable("<>interceptor_" + i).Callvirt(property.Item[i].InterfaceGetter.OnException, x.Exception);
+                                for (int i = 0; i < member.InterceptorInfos.Length; i++)
+                                {
+                                    var item = member.InterceptorInfos[i];
+                                    if (item.InterfaceGetter.Lockable)
+                                        x.LoadVariable("<>interceptor_" + i).Callvirt(item.InterfaceGetter.OnGet, x.NewCode().LoadField(semaphoreFieldName), propertyField, member.Property.BackingField);
+                                    else
+                                        x.LoadVariable("<>interceptor_" + i).Callvirt(item.InterfaceGetter.OnGet, propertyField, member.Property.BackingField);
+                                }
+                            })
+                            .Catch(typeof(Exception), x =>
+                            {
+                                for (int i = 0; i < member.InterceptorInfos.Length; i++)
+                                    x.LoadVariable("<>interceptor_" + i).Callvirt(member.InterceptorInfos[i].InterfaceGetter.OnException, x.Exception);
 
-                            x.Rethrow();
-                        })
-                        .Finally(x =>
-                        {
-                            if (lockable)
-                                x.LoadField(semaphoreFieldName)
-                                .Call(semaphoreSlim.CurrentCount)
-                                    .EqualTo(0)
-                                        .Then(y => y.LoadField(semaphoreFieldName).Call(semaphoreSlim.Release).Pop());
+                                x.Rethrow();
+                            })
+                            .Finally(x =>
+                            {
+                                if (member.RequiredLocking)
+                                    x.LoadField(semaphoreFieldName)
+                                    .Call(semaphoreSlim.CurrentCount)
+                                        .EqualTo(0)
+                                            .Then(y => y.LoadField(semaphoreFieldName).Call(semaphoreSlim.Release).Pop());
 
-                            for (int i = 0; i < property.Item.Length; i++)
-                                x.LoadVariable("<>interceptor_" + i).Callvirt(property.Item[i].InterfaceGetter.OnExit);
-                        })
-                        .EndTry()
-                        .Load(property.Key.BackingField)
-                        .Return()
-                    .Replace();
+                                for (int i = 0; i < member.InterceptorInfos.Length; i++)
+                                    x.LoadVariable("<>interceptor_" + i).Callvirt(member.InterceptorInfos[i].InterfaceGetter.OnExit);
+                            })
+                            .EndTry()
+                            .Load(member.Property.BackingField)
+                            .Return()
+                        .Replace();
 
                 #endregion Getter implementation
+
+                #region Setter implementation
+
+                if (member.HasSetterInterception)
+                    member.Property.Setter
+                        .NewCode()
+                            .Context(x =>
+                            {
+                                for (int i = 0; i < member.InterceptorInfos.Length; i++)
+                                {
+                                    var item = member.InterceptorInfos[i];
+                                    x.Assign(x.CreateVariable("<>interceptor_" + i, item.InterfaceSetter.Type)).NewObj(item.Attribute);
+                                    item.Attribute.Remove();
+                                }
+
+                                x.Load(propertyField).IsNull().Then(y =>
+                                    y.Assign(propertyField)
+                                        .NewObj(propertyInterceptionInfo.Ctor,
+                                            member.Property.Getter,
+                                            member.Property.Setter,
+                                            member.Property.Name,
+                                            member.Property.ReturnType,
+                                            y.This,
+                                            member.Property.ReturnType.IsArray || member.Property.ReturnType.Implements(typeof(IEnumerable)) ? member.Property.ReturnType.ChildType : null,
+                                            y.NewCode().NewObj(actionObjectCtor, y.NewCode().This, propertySetter)));
+                            })
+                            .Try(x =>
+                            {
+                                for (int i = 0; i < member.InterceptorInfos.Length; i++)
+                                {
+                                    var item = member.InterceptorInfos[i];
+                                    if (item.InterfaceSetter.Lockable)
+                                        x.LoadVariable("<>interceptor_" + i).Callvirt(item.InterfaceSetter.OnSet, x.NewCode().LoadField(semaphoreFieldName), propertyField, member.Property.BackingField, member.Property.Setter.NewCode().Parameters[0]);
+                                    else
+                                        x.LoadVariable("<>interceptor_" + i).Callvirt(item.InterfaceSetter.OnSet, propertyField, member.Property.BackingField, member.Property.Setter.NewCode().Parameters[0]);
+
+                                    x.IsFalse().Then(y => y.Assign(member.Property.BackingField).Set(member.Property.Setter.NewCode().Parameters[0]));
+                                }
+                            })
+                            .Catch(typeof(Exception), x =>
+                            {
+                                for (int i = 0; i < member.InterceptorInfos.Length; i++)
+                                    x.LoadVariable("<>interceptor_" + i).Callvirt(member.InterceptorInfos[i].InterfaceSetter.OnException, x.Exception);
+
+                                x.Rethrow();
+                            })
+                            .Finally(x =>
+                            {
+                                if (member.RequiredLocking)
+                                    x.LoadField(semaphoreFieldName)
+                                    .Call(semaphoreSlim.CurrentCount)
+                                        .EqualTo(0)
+                                            .Then(y => y.LoadField(semaphoreFieldName).Call(semaphoreSlim.Release).Pop());
+
+                                for (int i = 0; i < member.InterceptorInfos.Length; i++)
+                                    x.LoadVariable("<>interceptor_" + i).Callvirt(member.InterceptorInfos[i].InterfaceSetter.OnExit);
+                            })
+                            .EndTry()
+                            .Return()
+                        .Replace();
+
+                #endregion Setter implementation
             }
         }
     }

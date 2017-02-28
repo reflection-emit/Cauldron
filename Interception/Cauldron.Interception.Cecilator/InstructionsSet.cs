@@ -124,7 +124,8 @@ namespace Cauldron.Interception.Cecilator
 
             for (int i = 0; i < parameters.Length; i++)
             {
-                var inst = this.AddParameter(this.processor, method.methodDefinition.Parameters[i].ParameterType, parameters[i]);
+                var parameterType = this.moduleDefinition.Import(method.methodDefinition.Parameters[i].ParameterType.IsGenericInstance ? method.methodDefinition.Parameters[i].ParameterType.ResolveType(method.DeclaringType.typeReference) : method.methodDefinition.Parameters[i].ParameterType);
+                var inst = this.AddParameter(this.processor, parameterType, parameters[i]);
                 this.instructions.Append(inst.Instructions);
             }
 
@@ -143,7 +144,8 @@ namespace Cauldron.Interception.Cecilator
 
             for (int i = 0; i < parameters.Length; i++)
             {
-                var inst = this.AddParameter(this.processor, method.methodDefinition.Parameters[i].ParameterType, parameters[i]);
+                var parameterType = this.moduleDefinition.Import(method.methodDefinition.Parameters[i].ParameterType.IsGenericInstance ? method.methodDefinition.Parameters[i].ParameterType.ResolveType(method.DeclaringType.typeReference) : method.methodDefinition.Parameters[i].ParameterType);
+                var inst = this.AddParameter(this.processor, parameterType, parameters[i]);
                 this.instructions.Append(inst.Instructions);
             }
 
@@ -508,9 +510,6 @@ namespace Cauldron.Interception.Cecilator
             var targetDef = targetType?.Resolve();
             var type = parameter.GetType();
 
-            if (targetDef != null && targetDef.IsEnum)
-                result.Instructions.AddRange(this.TypeOf(processor, this.moduleDefinition.Import(targetType)));
-
             if (type == typeof(string))
             {
                 result.Instructions.Add(processor.Create(OpCodes.Ldstr, parameter.ToString()));
@@ -641,13 +640,13 @@ namespace Cauldron.Interception.Cecilator
                                 throw new ArgumentException($"The method {this.method.Name} does not have any parameters");
 
                             result.Instructions.Add(processor.Create(OpCodes.Ldarg, this.method.IsStatic ? crumb.Index.Value : crumb.Index.Value + 1));
-                            result.Type = this.method.methodDefinition.Parameters[crumb.Index.Value].ParameterType;
+                            result.Type = this.moduleDefinition.Import(this.method.methodDefinition.Parameters[crumb.Index.Value].ParameterType);
                         }
                         else
                         {
                             var variable = this.instructions.Variables[crumb.Name];
                             result.Instructions.Add(processor.Create(OpCodes.Ldloc, variable));
-                            result.Type = variable.VariableType;
+                            result.Type = this.moduleDefinition.Import(variable.VariableType);
                         }
                         break;
 
@@ -713,23 +712,25 @@ namespace Cauldron.Interception.Cecilator
                     result.Instructions.Add(item);
             }
 
-            if (result.Type == null || targetDef == null)
+            if (result.Type == null || targetType == null || result.Type.FullName == targetType.FullName)
                 return result;
 
             // TODO - adds additional checks for not resolved generics
-            if (targetDef == null || targetType.IsGenericInstance) /* This happens if the target type is a generic */
+            if (targetDef == null) /* This happens if the target type is a generic */
                 result.Instructions.Add(processor.Create(OpCodes.Unbox_Any, targetType));
-            else if ((targetDef.FullName == typeof(string).FullName || result.Type.FullName == typeof(object).FullName || targetDef.IsInterface) && !targetType.IsValueType && !targetType.IsArray)
+            else if ((targetDef.FullName == typeof(string).FullName || result.Type.FullName == typeof(object).FullName || targetDef.IsInterface) && !targetType.IsValueType && !targetType.IsArray && !targetDef.FullName.StartsWith("System.Collections.Generic.IEnumerable`1"))
                 result.Instructions.Add(processor.Create(OpCodes.Isinst, this.moduleDefinition.Import(targetType)));
             else if (targetDef.IsEnum)
             {
+                result.Instructions.InsertRange(0, this.TypeOf(processor, targetType));
+
                 result.Instructions.AddRange(this.TypeOf(processor, this.moduleDefinition.Import(targetType)));
                 result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Enum)).GetMethodReference("GetUnderlyingType", new Type[] { typeof(Type) }))));
                 result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Convert)).GetMethodReference("ChangeType", new Type[] { typeof(object), typeof(Type) }))));
                 result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Enum)).GetMethodReference("ToObject", new Type[] { typeof(Type), typeof(object) }))));
                 result.Instructions.Add(processor.Create(OpCodes.Unbox_Any, targetType));
             }
-            else if (result.Type.FullName == typeof(object).FullName && (targetType.IsArray || targetDef.FullName == typeof(IEnumerable<>).FullName))
+            else if (result.Type.FullName == typeof(object).FullName && (targetType.IsArray || targetDef.FullName.StartsWith("System.Collections.Generic.IEnumerable`1")))
             {
                 var childType = this.moduleDefinition.GetChildrenType(targetType);
                 var castMethod = this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(System.Linq.Enumerable)).GetMethodReference("Cast", new Type[] { typeof(IEnumerable) }).MakeGeneric(childType));
@@ -737,7 +738,9 @@ namespace Cauldron.Interception.Cecilator
 
                 result.Instructions.Add(processor.Create(OpCodes.Isinst, this.moduleDefinition.Import(typeof(IEnumerable))));
                 result.Instructions.Add(processor.Create(OpCodes.Call, castMethod));
-                result.Instructions.Add(processor.Create(OpCodes.Call, toArrayMethod));
+
+                if (targetType.IsArray)
+                    result.Instructions.Add(processor.Create(OpCodes.Call, toArrayMethod));
             }
             else if (result.Type.FullName == typeof(object).FullName && targetDef.IsValueType)
             {
@@ -1158,9 +1161,13 @@ namespace Cauldron.Interception.Cecilator
             return new IfCode(this, this.instructions, jumpTarget);
         }
 
+        public IIfCode IsFalse() => this.NotEqualTo(new Instruction[] { this.processor.Create(OpCodes.Ldc_I4_1) });
+
         public IIfCode IsNotNull() => this.NotEqualTo(new Instruction[] { this.processor.Create(OpCodes.Ldnull) });
 
         public IIfCode IsNull() => this.EqualTo(new Instruction[] { this.processor.Create(OpCodes.Ldnull) });
+
+        public IIfCode IsTrue() => this.EqualTo(new Instruction[] { this.processor.Create(OpCodes.Ldc_I4_1) });
 
         public IIfCode NotEqualTo(long value) => this.NotEqualTo(this.AddParameter(this.processor, this.moduleDefinition.TypeSystem.Int64, value).Instructions);
 

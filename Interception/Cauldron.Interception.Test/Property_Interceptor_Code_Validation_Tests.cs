@@ -12,7 +12,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 #endif
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Cauldron.Interception.Test
 {
@@ -120,10 +122,6 @@ namespace Cauldron.Interception.Test
 
             this.ValueTypeProperty = 30;
             Assert.AreEqual(9999, this.ValueTypeProperty);
-        }
-
-        private static void bla(object value)
-        {
         }
     }
 }

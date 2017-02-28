@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Cauldron.Interception.Test
+﻿namespace Cauldron.Interception.Test
 {
     public sealed class TestClass : ITestInterface
     {
@@ -19,6 +15,7 @@ namespace Cauldron.Interception.Test
         public int IntegerProperty { get; set; }
 
         public ITestInterface[] Items { get; set; }
+
         public long LongProperty { get; set; }
 
         public short ShortProperty { get; set; }

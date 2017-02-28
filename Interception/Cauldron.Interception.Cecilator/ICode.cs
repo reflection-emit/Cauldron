@@ -57,9 +57,13 @@ namespace Cauldron.Interception.Cecilator
 
         IIfCode Is(Type type);
 
+        IIfCode IsFalse();
+
         IIfCode IsNotNull();
 
         IIfCode IsNull();
+
+        IIfCode IsTrue();
 
         ILocalVariableCode Load(LocalVariable localVariable);
 

@@ -21,16 +21,27 @@ namespace Cauldron.Interception.Cecilator
         public BuilderType ChildType { get { return new BuilderType(this.Builder, this.moduleDefinition.GetChildrenType(this.typeReference)); } }
 
         public string Fullname { get { return this.typeReference.FullName; } }
+
         public bool IsAbstract { get { return this.typeDefinition.Attributes.HasFlag(TypeAttributes.Abstract); } }
+
         public bool IsArray { get { return this.typeDefinition.IsArray || this.typeReference.FullName.EndsWith("[]") || this.typeDefinition.FullName.EndsWith("[]"); } }
+
         public bool IsForeign { get { return this.moduleDefinition.Assembly == this.typeDefinition.Module.Assembly; } }
+
         public bool IsInterface { get { return this.typeDefinition.Attributes.HasFlag(TypeAttributes.Interface); } }
+
         public bool IsNullable { get { return this.typeDefinition.FullName == this.moduleDefinition.Import(typeof(Nullable<>)).Resolve().FullName; } }
+
         public bool IsPublic { get { return this.typeDefinition.Attributes.HasFlag(TypeAttributes.Public); } }
+
         public bool IsSealed { get { return this.typeDefinition.Attributes.HasFlag(TypeAttributes.Sealed); } }
+
         public bool IsStatic { get { return this.IsAbstract && this.IsSealed; } }
+
         public bool IsValueType { get { return this.typeDefinition.IsValueType; } }
+
         public bool IsVoid { get { return this.typeDefinition.FullName == "System.Void"; } }
+
         public string Namespace { get { return this.typeDefinition.Namespace; } }
 
         public bool Implements(Type interfaceType) => this.Implements(interfaceType.FullName);
@@ -334,7 +345,7 @@ namespace Cauldron.Interception.Cecilator
             if (result == null)
                 throw new MethodNotFoundException($"Unable to proceed. The type '{this.typeDefinition.FullName}' does not contain a method '{name}'");
 
-            return new Method(this, result);
+            return new Method(this, result.ContainsGenericParameter ? result.MakeHostInstanceGeneric((this.typeReference as GenericInstanceType).GenericArguments.ToArray()) : result, result);
         }
 
         public IEnumerable<Method> GetMethods(string name, int parameterCount)
