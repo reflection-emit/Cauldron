@@ -43,6 +43,20 @@ namespace Cauldron.Interception.Cecilator
 
         public bool IsStatic { get { return this.fieldDef.IsStatic; } }
 
+        public Modifiers Modifiers
+        {
+            get
+            {
+                Modifiers modifiers = 0;
+
+                if (this.fieldDef.Attributes.HasFlag(FieldAttributes.Private)) modifiers |= Modifiers.Private;
+                if (this.fieldDef.Attributes.HasFlag(FieldAttributes.Static)) modifiers |= Modifiers.Static;
+                if (this.fieldDef.Attributes.HasFlag(FieldAttributes.Public)) modifiers |= Modifiers.Public;
+
+                return modifiers;
+            }
+        }
+
         public string Name { get { return this.fieldDef.Name; } }
 
         public IEnumerable<FieldUsage> FindUsages()
@@ -71,14 +85,13 @@ namespace Cauldron.Interception.Cecilator
             for (int i = 0; i < method.Body.Instructions.Count; i++)
             {
                 var instruction = method.Body.Instructions[i];
-                if (instruction.OpCode == OpCodes.Ldsfld ||
+                if ((instruction.OpCode == OpCodes.Ldsfld ||
                     instruction.OpCode == OpCodes.Ldflda ||
                     instruction.OpCode == OpCodes.Ldsflda ||
                     instruction.OpCode == OpCodes.Ldfld ||
                     instruction.OpCode == OpCodes.Stsfld ||
-                    instruction.OpCode == OpCodes.Stfld ||
-                    instruction.Operand is FieldDefinition ||
-                    instruction.Operand is FieldReference)
+                    instruction.OpCode == OpCodes.Stfld) &&
+                    (instruction.Operand as FieldDefinition ?? instruction.Operand as FieldReference) == this.fieldRef)
                     yield return new FieldUsage(this, method, instruction);
             }
         }

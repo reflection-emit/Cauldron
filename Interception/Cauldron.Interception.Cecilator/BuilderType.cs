@@ -42,6 +42,8 @@ namespace Cauldron.Interception.Cecilator
 
         public bool IsVoid { get { return this.typeDefinition.FullName == "System.Void"; } }
 
+        public string Name { get { return this.typeDefinition.Name; } }
+
         public string Namespace { get { return this.typeDefinition.Namespace; } }
 
         public bool Implements(Type interfaceType) => this.Implements(interfaceType.FullName);
@@ -255,6 +257,89 @@ namespace Cauldron.Interception.Cecilator
                     foreach (var item in this.typeDefinition.Properties)
                         yield return new Property(this, item);
             }
+        }
+
+        public Property CreateProperty(Modifiers modifier, Type propertyType, string name) =>
+            this.CreateProperty(modifier, this.Builder.GetType(propertyType), name);
+
+        public Property CreateProperty(Modifiers modifier, BuilderType propertyType, string name)
+        {
+            var contain = this.typeDefinition.Properties
+                .Concat(this.BaseClasses.SelectMany(x => x.typeDefinition.Properties))
+                .FirstOrDefault(x => x.Name == name);
+
+            if (contain != null)
+                return new Property(this, contain);
+
+            var attributes = MethodAttributes.HideBySig | MethodAttributes.SpecialName | MethodAttributes.Private;
+
+            if (modifier.HasFlag(Modifiers.Private)) attributes |= MethodAttributes.Private;
+            if (modifier.HasFlag(Modifiers.Static)) attributes |= MethodAttributes.Static;
+            if (modifier.HasFlag(Modifiers.Public)) attributes |= MethodAttributes.Public;
+
+            var property = new PropertyDefinition(name, PropertyAttributes.None, propertyType.typeReference);
+            var backingField = this.CreateField(modifier, propertyType.typeReference, $"<{name}>k__BackingField");
+
+            property.GetMethod = new MethodDefinition("get_" + name, attributes, propertyType.typeReference);
+            property.SetMethod = new MethodDefinition("set_" + name, attributes, this.moduleDefinition.TypeSystem.Void);
+            property.SetMethod.Parameters.Add(new ParameterDefinition("value", ParameterAttributes.None, propertyType.typeReference));
+
+            this.typeDefinition.Properties.Add(property);
+            this.typeDefinition.Methods.Add(property.GetMethod);
+            this.typeDefinition.Methods.Add(property.SetMethod);
+
+            var result = new Property(this, property);
+
+            result.Getter.NewCode().Load(backingField).Return().Replace();
+            result.Setter.NewCode().Assign(backingField).Set(result.Setter.NewCode().Parameters[0]).Return().Replace();
+
+            return result;
+        }
+
+        public Property CreateProperty(Field field)
+        {
+            var name = field.Name.Substring(0, 1).ToUpper() + field.Name.Substring(1);
+            var contain = this.typeDefinition.Properties
+                .Concat(this.BaseClasses.SelectMany(x => x.typeDefinition.Properties))
+                .FirstOrDefault(x => x.Name == name);
+
+            if (contain != null)
+                return new Property(this, contain);
+
+            var attributes = MethodAttributes.HideBySig | MethodAttributes.SpecialName | MethodAttributes.Private;
+
+            if (field.Modifiers.HasFlag(Modifiers.Private)) attributes |= MethodAttributes.Private;
+            if (field.Modifiers.HasFlag(Modifiers.Static)) attributes |= MethodAttributes.Static;
+            if (field.Modifiers.HasFlag(Modifiers.Public)) attributes |= MethodAttributes.Public;
+
+            var property = new PropertyDefinition(name, PropertyAttributes.None, field.FieldType.typeReference);
+
+            property.GetMethod = new MethodDefinition("get_" + name, attributes, field.FieldType.typeReference);
+            property.SetMethod = new MethodDefinition("set_" + name, attributes, this.moduleDefinition.TypeSystem.Void);
+            property.SetMethod.Parameters.Add(new ParameterDefinition("value", ParameterAttributes.None, field.FieldType.typeReference));
+
+            this.typeDefinition.Properties.Add(property);
+            this.typeDefinition.Methods.Add(property.GetMethod);
+            this.typeDefinition.Methods.Add(property.SetMethod);
+
+            var result = new Property(this, property);
+
+            result.Getter.NewCode().Load(field).Return().Replace();
+            result.Setter.NewCode().Assign(field).Set(result.Setter.NewCode().Parameters[0]).Return().Replace();
+
+            return result;
+        }
+
+        public Property GetProperty(string name)
+        {
+            var result = this.typeDefinition.Properties
+                .Concat(this.BaseClasses.SelectMany(x => x.typeDefinition.Properties))
+                .FirstOrDefault(x => x.Name == name);
+
+            if (result == null)
+                throw new MethodNotFoundException($"Unable to proceed. The type '{this.typeDefinition.FullName}' does not contain a property '{name}'");
+
+            return new Property(this, result);
         }
 
         #endregion Properties

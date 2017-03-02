@@ -35,13 +35,30 @@ namespace Cauldron.Interception.Cecilator
 
         public FieldUsage Replace(Field field)
         {
-            if (this.Field.IsStatic == field.IsStatic && field.fieldDef.DeclaringType.FullName == this.Method.methodDefinition.DeclaringType.FullName)
+            if (this.Field.IsStatic != field.IsStatic || field.fieldDef.DeclaringType.FullName != this.Method.methodDefinition.DeclaringType.FullName)
+                throw new InvalidOperationException($"Replacement field must have the same modifier and declaring type.");
+
+            this.instruction.Operand = field.fieldRef;
+            return new FieldUsage(field, this.Method, this.instruction);
+        }
+
+        public PropertyUsage Replace(Property property)
+        {
+            if (this.Field.IsStatic != property.IsStatic || property.propertyDefinition.DeclaringType.FullName != this.Method.methodDefinition.DeclaringType.FullName)
+                throw new InvalidOperationException($"Replacement property must have the same modifier and declaring type.");
+
+            if (this.instruction.OpCode == OpCodes.Ldfld || this.instruction.OpCode == OpCodes.Ldsfld || this.instruction.OpCode == OpCodes.Ldsflda || this.instruction.OpCode == OpCodes.Ldflda)
             {
-                this.instruction.Operand = field.fieldRef;
-                return new FieldUsage(this.Field, this.Method, this.instruction);
+                this.instruction.OpCode = OpCodes.Callvirt;
+                this.instruction.Operand = property.Getter.methodReference;
+            }
+            else if (this.instruction.OpCode == OpCodes.Stfld || this.instruction.OpCode == OpCodes.Stsfld)
+            {
+                this.instruction.OpCode = OpCodes.Callvirt;
+                this.instruction.Operand = property.Setter.methodReference;
             }
 
-            throw new InvalidOperationException($"Replacement field must have the same modifier and declaring type.");
+            return new PropertyUsage(property, this.Method, this.instruction);
         }
 
         #region Equitable stuff

@@ -46,6 +46,20 @@ namespace Cauldron.Interception.Cecilator
 
         public bool IsVoid { get { return this.methodDefinition.ReturnType.FullName == "System.Void"; } }
 
+        public Modifiers Modifiers
+        {
+            get
+            {
+                Modifiers modifiers = 0;
+
+                if (this.methodDefinition.Attributes.HasFlag(MethodAttributes.Private)) modifiers |= Modifiers.Private;
+                if (this.methodDefinition.Attributes.HasFlag(MethodAttributes.Static)) modifiers |= Modifiers.Static;
+                if (this.methodDefinition.Attributes.HasFlag(MethodAttributes.Public)) modifiers |= Modifiers.Public;
+
+                return modifiers;
+            }
+        }
+
         public string Name { get { return this.methodDefinition.Name; } }
 
         public BuilderType[] Parameters { get { return this.methodReference.Parameters.Select(x => new BuilderType(this.DeclaringType.Builder, x.ParameterType)).ToArray(); } }

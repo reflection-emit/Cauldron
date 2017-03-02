@@ -34,8 +34,46 @@ namespace Cauldron.Interception.Fody
         {
             var builder = this.CreateBuilder();
 
+            this.InterceptFields(builder);
             this.InterceptMethods(builder);
             this.InterceptProperties(builder);
+        }
+
+        private void InterceptFields(Builder builder)
+        {
+            var attributes = builder.FindAttributesByInterfaces(
+                "Cauldron.Interception.IPropertyInterceptor",
+                "Cauldron.Interception.ILockablePropertyGetterInterceptor",
+                "Cauldron.Interception.ILockablePropertySetterInterceptor",
+                "Cauldron.Interception.IPropertyGetterInterceptor",
+                "Cauldron.Interception.IPropertySetterInterceptor");
+
+            var fields = builder.FindFieldsByAttributes(attributes).ToArray();
+
+            foreach (var field in fields)
+            {
+                this.LogInfo($"Implementing interceptors in fields {field.Field}");
+
+                if (field.Field.Modifiers.HasFlag(Modifiers.Public))
+                {
+                    this.LogWarning($"The current version of the field interceptor only intercepts private fields. Field '{field.Field.Name}' in type '{field.Field.DeclaringType.Name}'");
+                    continue;
+                }
+
+                var type = field.Field.DeclaringType;
+                var property = type.CreateProperty(field.Field);
+
+                foreach (var item in field.Field.FindUsages())
+                {
+                    this.LogInfo(item);
+
+                    if (item.Method.Name == "set_" + property.Name || item.Method.Name == "get_" + property.Name)
+                        continue;
+
+                    if (item.Method.Name != ".ctor" && item.Method.Name != ".cctor")
+                        item.Replace(property);
+                }
+            }
         }
 
         private void InterceptMethods(Builder builder)

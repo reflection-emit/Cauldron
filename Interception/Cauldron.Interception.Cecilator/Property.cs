@@ -63,6 +63,33 @@ namespace Cauldron.Interception.Cecilator
 
         public bool IsStatic { get { return this.propertyDefinition.GetMethod?.IsStatic ?? false | this.propertyDefinition.SetMethod?.IsStatic ?? false; } }
 
+        public Modifiers Modifiers
+        {
+            get
+            {
+                Modifiers modifiers = 0;
+
+                if (this.Getter != null)
+                {
+                    if (this.Getter.methodDefinition.Attributes.HasFlag(MethodAttributes.Private)) modifiers |= Modifiers.Private;
+                    if (this.Getter.methodDefinition.Attributes.HasFlag(MethodAttributes.Static)) modifiers |= Modifiers.Static;
+                    if (this.Getter.methodDefinition.Attributes.HasFlag(MethodAttributes.Public)) modifiers |= Modifiers.Public;
+                }
+
+                if (this.Setter != null)
+                {
+                    if (this.Setter.methodDefinition.Attributes.HasFlag(MethodAttributes.Private)) modifiers |= Modifiers.Private;
+                    if (this.Setter.methodDefinition.Attributes.HasFlag(MethodAttributes.Static)) modifiers |= Modifiers.Static;
+                    if (this.Setter.methodDefinition.Attributes.HasFlag(MethodAttributes.Public)) modifiers |= Modifiers.Public;
+                }
+
+                if (modifiers.HasFlag(Modifiers.Public) && modifiers.HasFlag(Modifiers.Private))
+                    modifiers &= ~Modifiers.Private;
+
+                return modifiers;
+            }
+        }
+
         public string Name { get { return this.propertyDefinition.Name; } }
 
         public BuilderType ReturnType
