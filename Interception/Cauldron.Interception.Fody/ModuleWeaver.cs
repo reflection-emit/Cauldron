@@ -60,15 +60,13 @@ namespace Cauldron.Interception.Fody
                     continue;
                 }
 
+                var usage = field.Field.FindUsages().ToArray();
                 var type = field.Field.DeclaringType;
                 var property = type.CreateProperty(field.Field);
 
-                foreach (var item in field.Field.FindUsages())
+                foreach (var item in usage)
                 {
                     this.LogInfo(item);
-
-                    if (item.Method.Name == "set_" + property.Name || item.Method.Name == "get_" + property.Name)
-                        continue;
 
                     if (item.Method.Name != ".ctor" && item.Method.Name != ".cctor")
                         item.Replace(property);

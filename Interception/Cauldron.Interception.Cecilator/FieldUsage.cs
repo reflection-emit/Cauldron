@@ -47,7 +47,7 @@ namespace Cauldron.Interception.Cecilator
             if (this.Field.IsStatic != property.IsStatic || property.propertyDefinition.DeclaringType.FullName != this.Method.methodDefinition.DeclaringType.FullName)
                 throw new InvalidOperationException($"Replacement property must have the same modifier and declaring type.");
 
-            if (this.instruction.OpCode == OpCodes.Ldfld || this.instruction.OpCode == OpCodes.Ldsfld || this.instruction.OpCode == OpCodes.Ldsflda || this.instruction.OpCode == OpCodes.Ldflda)
+            if (this.instruction.OpCode == OpCodes.Ldfld || this.instruction.OpCode == OpCodes.Ldsfld)
             {
                 this.instruction.OpCode = OpCodes.Callvirt;
                 this.instruction.Operand = property.Getter.methodReference;
