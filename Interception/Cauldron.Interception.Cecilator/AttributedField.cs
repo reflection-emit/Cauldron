@@ -14,10 +14,10 @@ namespace Cauldron.Interception.Cecilator
         {
             this.customAttribute = customAttribute;
             this.Field = field;
-            this.Attribute = new BuilderType(field.type, customAttribute.AttributeType);
+            this.Attribute = new BuilderCustomAttribute(field.type, field.fieldDef, customAttribute);
         }
 
-        public BuilderType Attribute { get; private set; }
+        public BuilderCustomAttribute Attribute { get; private set; }
 
         public Field Field { get; private set; }
 

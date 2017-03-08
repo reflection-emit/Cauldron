@@ -68,7 +68,7 @@ namespace Cauldron.Interception.Cecilator
 
         internal bool AreReferenceAssignable(BuilderType type, BuilderType toBeAssigned)
         {
-            if (type == toBeAssigned || (!type.typeDefinition.IsValueType && !toBeAssigned.typeDefinition.IsValueType && type.IsAssignableFrom(toBeAssigned)) || (type.IsInterface && toBeAssigned.typeReference == this.moduleDefinition.TypeSystem.Object))
+            if ((toBeAssigned == null && !type.IsValueType) || type == toBeAssigned || (!type.typeDefinition.IsValueType && !toBeAssigned.typeDefinition.IsValueType && type.IsAssignableFrom(toBeAssigned)) || (type.IsInterface && toBeAssigned.typeReference == this.moduleDefinition.TypeSystem.Object))
                 return true;
 
             return false;
@@ -76,7 +76,7 @@ namespace Cauldron.Interception.Cecilator
 
         internal bool AreReferenceAssignable(TypeReference type, TypeReference toBeAssigned)
         {
-            if (type == toBeAssigned || (!type.IsValueType && !toBeAssigned.IsValueType && type.IsAssignableFrom(toBeAssigned)) || (type.Resolve().IsInterface && toBeAssigned == this.moduleDefinition.TypeSystem.Object))
+            if ((toBeAssigned == null && !type.IsValueType) || type == toBeAssigned || (!type.IsValueType && !toBeAssigned.IsValueType && type.IsAssignableFrom(toBeAssigned)) || (type.Resolve().IsInterface && toBeAssigned == this.moduleDefinition.TypeSystem.Object))
                 return true;
 
             return false;

@@ -33,6 +33,8 @@ namespace Cauldron.Interception.Cecilator
             this.type = type;
         }
 
+        public BuilderCustomAttributeCollection CustomAttributes { get { return new BuilderCustomAttributeCollection(this.type, this.fieldDef); } }
+
         public BuilderType DeclaringType { get { return this.type; } }
 
         public BuilderType FieldType { get { return new BuilderType(this.type, this.fieldRef.FieldType); } }

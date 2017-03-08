@@ -33,16 +33,22 @@ namespace Cauldron.Interception.Cecilator
 
             var last = this.target.Last();
 
-            switch (last.Index)
+            if (this.instructions.Last().OpCode == OpCodes.Ldnull && last.Type.IsNullable)
             {
-                case 0: this.instructions.Append(processor.Create(OpCodes.Stloc_0)); break;
-                case 1: this.instructions.Append(processor.Create(OpCodes.Stloc_1)); break;
-                case 2: this.instructions.Append(processor.Create(OpCodes.Stloc_2)); break;
-                case 3: this.instructions.Append(processor.Create(OpCodes.Stloc_3)); break;
-                default:
-                    this.instructions.Append(processor.Create(OpCodes.Stloc, last.variable));
-                    break;
+                this.instructions.Append(processor.Create(OpCodes.Ldloca, last.variable));
+                this.instructions.Append(processor.Create(OpCodes.Initobj, last.variable.VariableType));
             }
+            else
+                switch (last.Index)
+                {
+                    case 0: this.instructions.Append(processor.Create(OpCodes.Stloc_0)); break;
+                    case 1: this.instructions.Append(processor.Create(OpCodes.Stloc_1)); break;
+                    case 2: this.instructions.Append(processor.Create(OpCodes.Stloc_2)); break;
+                    case 3: this.instructions.Append(processor.Create(OpCodes.Stloc_3)); break;
+                    default:
+                        this.instructions.Append(processor.Create(OpCodes.Stloc, last.variable));
+                        break;
+                }
         }
 
         #region Equitable stuff

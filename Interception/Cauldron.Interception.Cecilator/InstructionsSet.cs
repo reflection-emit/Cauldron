@@ -500,6 +500,7 @@ namespace Cauldron.Interception.Cecilator
         internal ParamResult AddParameter(ILProcessor processor, TypeReference targetType, object parameter)
         {
             var result = new ParamResult();
+            var targetDef = targetType?.Resolve();
 
             if (parameter == null)
             {
@@ -507,7 +508,6 @@ namespace Cauldron.Interception.Cecilator
                 return result;
             }
 
-            var targetDef = targetType?.Resolve();
             var type = parameter.GetType();
 
             if (type == typeof(string))
@@ -760,7 +760,7 @@ namespace Cauldron.Interception.Cecilator
                 else if (targetDef.FullName == typeof(ulong).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Convert)).GetMethodReference("ToUInt64", new Type[] { typeof(object) }))));
                 else result.Instructions.Add(processor.Create(OpCodes.Unbox_Any, targetType));
             }
-            else if (result.Type.IsValueType && !targetType.IsValueType)
+            else if ((result.Type.Resolve() == null || result.Type.IsValueType) && !targetType.IsValueType)
                 result.Instructions.Add(processor.Create(OpCodes.Box, result.Type));
             else if (targetType.FullName != result.Type.FullName && this.AreReferenceAssignable(targetType, this.moduleDefinition.Import(result.Type)))
                 result.Instructions.Add(processor.Create(OpCodes.Castclass, this.moduleDefinition.Import(result.Type)));

@@ -20,13 +20,17 @@ namespace Cauldron.Interception.Cecilator
 
         public BuilderType ChildType { get { return new BuilderType(this.Builder, this.moduleDefinition.GetChildrenType(this.typeReference)); } }
 
+        public BuilderCustomAttributeCollection CustomAttributes { get { return new BuilderCustomAttributeCollection(this, this.typeDefinition); } }
+
         public string Fullname { get { return this.typeReference.FullName; } }
 
         public bool IsAbstract { get { return this.typeDefinition.Attributes.HasFlag(TypeAttributes.Abstract); } }
 
-        public bool IsArray { get { return this.typeDefinition.IsArray || this.typeReference.FullName.EndsWith("[]") || this.typeDefinition.FullName.EndsWith("[]"); } }
+        public bool IsArray { get { return this.typeDefinition != null && (this.typeDefinition.IsArray || this.typeReference.FullName.EndsWith("[]") || this.typeDefinition.FullName.EndsWith("[]")); } }
 
         public bool IsForeign { get { return this.moduleDefinition.Assembly == this.typeDefinition.Module.Assembly; } }
+
+        public bool IsGenericType { get { return this.typeDefinition == null || this.typeReference.Resolve() == null; } }
 
         public bool IsInterface { get { return this.typeDefinition.Attributes.HasFlag(TypeAttributes.Interface); } }
 
@@ -37,7 +41,6 @@ namespace Cauldron.Interception.Cecilator
         public bool IsSealed { get { return this.typeDefinition.Attributes.HasFlag(TypeAttributes.Sealed); } }
 
         public bool IsStatic { get { return this.IsAbstract && this.IsSealed; } }
-
         public bool IsValueType { get { return this.typeDefinition.IsValueType; } }
 
         public bool IsVoid { get { return this.typeDefinition.FullName == "System.Void"; } }
@@ -133,6 +136,9 @@ namespace Cauldron.Interception.Cecilator
         {
             get
             {
+                if (this.IsGenericType)
+                    return null;
+
                 if (!this.typeDefinition.HasMethods)
                     return null;
 

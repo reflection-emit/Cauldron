@@ -62,7 +62,8 @@
     <Compile Include="AttributedMethod.cs" />
     <Compile Include="AttributedProperty.cs" />
     <Compile Include="Builder.cs" />
-    <Compile Include="BuilderAttribute.cs" />
+    <Compile Include="BuilderCustomAttribute.cs" />
+    <Compile Include="BuilderCustomAttributeCollection.cs" />
     <Compile Include="BuilderTypeEqualityComparer.cs" />
     <Compile Include="CecilatorBase.cs" />
     <Compile Include="Crumb.cs" />

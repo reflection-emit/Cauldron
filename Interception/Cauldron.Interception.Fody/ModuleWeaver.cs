@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading;
 
 namespace Cauldron.Interception.Fody
@@ -33,21 +34,20 @@ namespace Cauldron.Interception.Fody
         public void Execute()
         {
             var builder = this.CreateBuilder();
-
-            this.InterceptFields(builder);
-            this.InterceptMethods(builder);
-            this.InterceptProperties(builder);
-        }
-
-        private void InterceptFields(Builder builder)
-        {
-            var attributes = builder.FindAttributesByInterfaces(
+            var propertyInterceptingAttributes = builder.FindAttributesByInterfaces(
                 "Cauldron.Interception.IPropertyInterceptor",
                 "Cauldron.Interception.ILockablePropertyGetterInterceptor",
                 "Cauldron.Interception.ILockablePropertySetterInterceptor",
                 "Cauldron.Interception.IPropertyGetterInterceptor",
                 "Cauldron.Interception.IPropertySetterInterceptor");
 
+            this.InterceptFields(builder, propertyInterceptingAttributes);
+            this.InterceptMethods(builder);
+            this.InterceptProperties(builder, propertyInterceptingAttributes);
+        }
+
+        private void InterceptFields(Builder builder, IEnumerable<BuilderType> attributes)
+        {
             var fields = builder.FindFieldsByAttributes(attributes).ToArray();
 
             foreach (var field in fields)
@@ -64,11 +64,14 @@ namespace Cauldron.Interception.Fody
                 var type = field.Field.DeclaringType;
                 var property = type.CreateProperty(field.Field);
 
+                property.CustomAttributes.AddCompilerGeneratedAttribute();
+                field.Attribute.MoveTo(property);
+
                 foreach (var item in usage)
                 {
-                    this.LogInfo(item);
-
-                    if (item.Method.Name != ".ctor" && item.Method.Name != ".cctor")
+                    // TODO - fields has to be replaced by property if ctor is not calling base... instead this
+                    if (item.Method.Name != ".ctor" && item.Method.Name != ".cctor" ||
+                        (item.Method.Name == ".ctor" && !item.Method.IsConstructorWithBaseCall))
                         item.Replace(property);
                 }
             }
@@ -119,7 +122,7 @@ namespace Cauldron.Interception.Fody
                     Key = x.Key,
                     Item = x.Select(y => new
                     {
-                        Interface = y.Attribute.Implements(iLockableMethodInterceptor.Type.Fullname) ? iLockableMethodInterceptor : iMethodInterceptor,
+                        Interface = y.Attribute.Type.Implements(iLockableMethodInterceptor.Type.Fullname) ? iLockableMethodInterceptor : iMethodInterceptor,
                         Attribute = y,
                         Method = y.Method
                     }).ToArray()
@@ -185,15 +188,8 @@ namespace Cauldron.Interception.Fody
             }
         }
 
-        private void InterceptProperties(Builder builder)
+        private void InterceptProperties(Builder builder, IEnumerable<BuilderType> attributes)
         {
-            var attributes = builder.FindAttributesByInterfaces(
-                "Cauldron.Interception.IPropertyInterceptor",
-                "Cauldron.Interception.ILockablePropertyGetterInterceptor",
-                "Cauldron.Interception.ILockablePropertySetterInterceptor",
-                "Cauldron.Interception.IPropertyGetterInterceptor",
-                "Cauldron.Interception.IPropertySetterInterceptor");
-
             #region define Interfaces and the methods we want to invoke
 
             var iLockablePropertyGetterInterceptor = builder.GetType("Cauldron.Interception.ILockablePropertyGetterInterceptor")
@@ -259,8 +255,8 @@ namespace Cauldron.Interception.Fody
                     Key = x.Key,
                     Item = x.Select(y => new
                     {
-                        InterfaceSetter = y.Attribute.Implements(iLockablePropertySetterInterceptor.Type.Fullname) ? iLockablePropertySetterInterceptor : y.Attribute.Implements(iPropertySetterInterceptor.Type.Fullname) ? iPropertySetterInterceptor : null,
-                        InterfaceGetter = y.Attribute.Implements(iLockablePropertyGetterInterceptor.Type.Fullname) ? iLockablePropertyGetterInterceptor : y.Attribute.Implements(iPropertyGetterInterceptor.Type.Fullname) ? iPropertyGetterInterceptor : null,
+                        InterfaceSetter = y.Attribute.Type.Implements(iLockablePropertySetterInterceptor.Type.Fullname) ? iLockablePropertySetterInterceptor : y.Attribute.Type.Implements(iPropertySetterInterceptor.Type.Fullname) ? iPropertySetterInterceptor : null,
+                        InterfaceGetter = y.Attribute.Type.Implements(iLockablePropertyGetterInterceptor.Type.Fullname) ? iLockablePropertyGetterInterceptor : y.Attribute.Type.Implements(iPropertyGetterInterceptor.Type.Fullname) ? iPropertyGetterInterceptor : null,
                         Attribute = y,
                         Property = y.Property
                     }).ToArray()
@@ -300,49 +296,53 @@ namespace Cauldron.Interception.Fody
 
                 #region Setter "Delegate"
 
-                var tryDisposeMethod = builder.GetType("Cauldron.Interception.Extensions").GetMethod("TryDispose", 1);
-
                 var setterCode = propertySetter.NewCode();
-
-                if (member.Property.BackingField.FieldType.ParameterlessContructor != null)
-                    setterCode.Load(member.Property.BackingField).IsNull().Then(y =>
-                        y.Assign(member.Property.BackingField).Set(propertySetter.NewCode()
-                            .NewObj(member.Property.BackingField.FieldType.ParameterlessContructor)));
-
-                // Only this if the property implements idisposable
-                if (member.Property.BackingField.FieldType.Implements(typeof(IDisposable)))
-                    setterCode.Call(tryDisposeMethod, member.Property.BackingField);
-
-                setterCode.Load(propertySetter.NewCode().Parameters[0]).IsNull().Then(x =>
+                if (!member.Property.BackingField.FieldType.IsGenericType)
                 {
-                    // Just clear if its clearable
-                    if (member.Property.BackingField.FieldType.Implements(typeof(IList)))
-                        x.Load(member.Property.BackingField).Callvirt(builder.GetType(typeof(IList)).GetMethod("Clear")).Return();
-                    // Otherwise if the property is not a value type and nullable
-                    else if (!member.Property.BackingField.FieldType.IsValueType || member.Property.BackingField.FieldType.IsNullable || member.Property.BackingField.FieldType.IsArray)
-                        x.Assign(member.Property.BackingField).Set(null).Return();
-                    else // otherwise... throw an exception
-                        x.ThrowNew(typeof(NotSupportedException), "Value types does not accept null values.");
-                });
+                    var tryDisposeMethod = builder.GetType("Cauldron.Interception.Extensions").GetMethod("TryDispose", 1);
 
-                if (member.Property.BackingField.FieldType.IsArray)
-                    setterCode.Load(propertySetter.NewCode().Parameters[0]).Is(typeof(IEnumerable))
-                        .Then(x => x.Assign(member.Property.BackingField).Set(propertySetter.NewCode().Parameters[0]).Return())
-                        .ThrowNew(typeof(NotSupportedException), "Value does not inherits from IEnumerable");
-                else if (member.Property.BackingField.FieldType.Implements(typeof(IList)) && member.Property.BackingField.FieldType.ParameterlessContructor != null)
-                {
-                    var addRange = member.Property.BackingField.FieldType.GetMethod("AddRange", 1);
-                    if (addRange == null)
+                    if (member.Property.BackingField.FieldType.ParameterlessContructor != null)
+                        setterCode.Load(member.Property.BackingField).IsNull().Then(y =>
+                            y.Assign(member.Property.BackingField).Set(propertySetter.NewCode()
+                                .NewObj(member.Property.BackingField.FieldType.ParameterlessContructor)));
+
+                    // Only this if the property implements idisposable
+                    if (member.Property.BackingField.FieldType.Implements(typeof(IDisposable)))
+                        setterCode.Call(tryDisposeMethod, member.Property.BackingField);
+
+                    setterCode.Load(propertySetter.NewCode().Parameters[0]).IsNull().Then(x =>
                     {
-                        var add = member.Property.BackingField.FieldType.GetMethod("Add", 1);
-                        var array = setterCode.CreateVariable(member.Property.BackingField.FieldType.ChildType.MakeArray());
-                        setterCode.Assign(array).Set(propertySetter.NewCode().Parameters[0]);
-                        setterCode.For(array, (x, item) => x.Load(member.Property.BackingField).Callvirt(add, item));
-                        if (!add.ReturnType.IsVoid)
-                            setterCode.Pop();
+                        // Just clear if its clearable
+                        if (member.Property.BackingField.FieldType.Implements(typeof(IList)))
+                            x.Load(member.Property.BackingField).Callvirt(builder.GetType(typeof(IList)).GetMethod("Clear")).Return();
+                        // Otherwise if the property is not a value type and nullable
+                        else if (!member.Property.BackingField.FieldType.IsValueType || member.Property.BackingField.FieldType.IsNullable || member.Property.BackingField.FieldType.IsArray)
+                            x.Assign(member.Property.BackingField).Set(null).Return();
+                        else // otherwise... throw an exception
+                            x.ThrowNew(typeof(NotSupportedException), "Value types does not accept null values.");
+                    });
+
+                    if (member.Property.BackingField.FieldType.IsArray)
+                        setterCode.Load(propertySetter.NewCode().Parameters[0]).Is(typeof(IEnumerable))
+                            .Then(x => x.Assign(member.Property.BackingField).Set(propertySetter.NewCode().Parameters[0]).Return())
+                            .ThrowNew(typeof(NotSupportedException), "Value does not inherits from IEnumerable");
+                    else if (member.Property.BackingField.FieldType.Implements(typeof(IList)) && member.Property.BackingField.FieldType.ParameterlessContructor != null)
+                    {
+                        var addRange = member.Property.BackingField.FieldType.GetMethod("AddRange", 1);
+                        if (addRange == null)
+                        {
+                            var add = member.Property.BackingField.FieldType.GetMethod("Add", 1);
+                            var array = setterCode.CreateVariable(member.Property.BackingField.FieldType.ChildType.MakeArray());
+                            setterCode.Assign(array).Set(propertySetter.NewCode().Parameters[0]);
+                            setterCode.For(array, (x, item) => x.Load(member.Property.BackingField).Callvirt(add, item));
+                            if (!add.ReturnType.IsVoid)
+                                setterCode.Pop();
+                        }
+                        else
+                            setterCode.Load(member.Property.BackingField).Callvirt(addRange, propertySetter.NewCode().Parameters[0]);
                     }
                     else
-                        setterCode.Load(member.Property.BackingField).Callvirt(addRange, propertySetter.NewCode().Parameters[0]);
+                        setterCode.Assign(member.Property.BackingField).Set(propertySetter.NewCode().Parameters[0]);
                 }
                 else
                     setterCode.Assign(member.Property.BackingField).Set(propertySetter.NewCode().Parameters[0]);
@@ -473,6 +473,10 @@ namespace Cauldron.Interception.Fody
                         .Replace();
 
                 #endregion Setter implementation
+
+                // Also remove the compilergenerated attribute
+                member.Property.Getter?.CustomAttributes.Remove(typeof(CompilerGeneratedAttribute));
+                member.Property.Setter?.CustomAttributes.Remove(typeof(CompilerGeneratedAttribute));
             }
         }
     }

@@ -32,11 +32,34 @@ namespace Cauldron.Interception.Cecilator
             this.methodReference = methodDefinition.CreateMethodReference();
         }
 
+        public BuilderCustomAttributeCollection CustomAttributes { get { return new BuilderCustomAttributeCollection(this.type, this.methodDefinition); } }
+
         public BuilderType DeclaringType { get { return this.type; } }
 
         public bool IsAbstract { get { return this.methodDefinition.IsAbstract; } }
 
         public bool IsCCtor { get { return this.methodDefinition.Name == ".cctor"; } }
+
+        public bool IsConstructorWithBaseCall
+        {
+            get
+            {
+                if (this.Name != ".ctor")
+                    return false;
+
+                var first = this.methodDefinition.Body.Instructions.FirstOrDefault(x => x.OpCode == OpCodes.Call && (x.Operand as MethodReference).Name == ".ctor");
+
+                if (first == null)
+                    return false;
+
+                var operand = first.Operand as MethodReference;
+
+                if (operand.DeclaringType.FullName == this.methodDefinition.DeclaringType.BaseType.FullName)
+                    return true;
+
+                return false;
+            }
+        }
 
         public bool IsCtor { get { return this.methodDefinition.Name == ".ctor"; } }
 

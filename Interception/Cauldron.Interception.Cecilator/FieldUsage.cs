@@ -49,12 +49,12 @@ namespace Cauldron.Interception.Cecilator
 
             if (this.instruction.OpCode == OpCodes.Ldfld || this.instruction.OpCode == OpCodes.Ldsfld)
             {
-                this.instruction.OpCode = OpCodes.Callvirt;
+                this.instruction.OpCode = property.Getter.IsAbstract ? OpCodes.Callvirt : OpCodes.Call;
                 this.instruction.Operand = property.Getter.methodReference;
             }
             else if (this.instruction.OpCode == OpCodes.Stfld || this.instruction.OpCode == OpCodes.Stsfld)
             {
-                this.instruction.OpCode = OpCodes.Callvirt;
+                this.instruction.OpCode = property.Setter.IsAbstract ? OpCodes.Callvirt : OpCodes.Call;
                 this.instruction.Operand = property.Setter.methodReference;
             }
 

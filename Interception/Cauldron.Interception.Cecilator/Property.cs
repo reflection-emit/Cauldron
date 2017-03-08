@@ -45,6 +45,7 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
+        public BuilderCustomAttributeCollection CustomAttributes { get { return new BuilderCustomAttributeCollection(this.type, this.propertyDefinition); } }
         public BuilderType DeclaringType { get { return this.type; } }
 
         public Method Getter { get; private set; }
