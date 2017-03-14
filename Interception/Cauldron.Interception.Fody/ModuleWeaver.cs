@@ -41,9 +41,82 @@ namespace Cauldron.Interception.Fody
                 "Cauldron.Interception.IPropertyGetterInterceptor",
                 "Cauldron.Interception.IPropertySetterInterceptor");
 
+            this.ImplementAnonymousTypeInterface(builder);
             this.InterceptFields(builder, propertyInterceptingAttributes);
             this.InterceptMethods(builder);
             this.InterceptProperties(builder, propertyInterceptingAttributes);
+        }
+
+        private void ImplementAnonymousTypeInterface(Builder builder)
+        {
+            if (!builder.IsReferenced("Cauldron.Core"))
+            {
+                this.LogInfo("Skipping implementation of interface in anonymous types. Cauldron.Core not found.");
+                return;
+            }
+
+            var cauldronCoreExtension = builder.GetType("Cauldron.Core.Extensions.AnonymousTypeWithInterfaceExtension");
+            var createObjectMethod = cauldronCoreExtension.GetMethod("CreateObject", 1).FindUsages();
+
+            var counter = 0;
+            var action = new Action<BuilderType, BuilderType, Method>((anonSource, anonTarget, containingMethod) =>
+            {
+                var name = $"<{counter++}>AnonAssign";
+                var assignMethod = containingMethod.DeclaringType.CreateMethod((containingMethod.Modifiers & ~Modifiers.Public) | Modifiers.Private, name, anonSource, anonTarget);
+                assignMethod.NewCode()
+                    .Context(x =>
+                    {
+                        foreach (var property in anonSource.Properties)
+                        {
+                            try
+                            {
+                                x.Call(anonTarget.GetProperty(property.Name).Setter, property);
+                            }
+                            catch (Exception)
+                            {
+                                throw;
+                            }
+                        }
+                    })
+                    .Return()
+                    .Replace();
+
+                this.LogInfo($">>> {name} - {containingMethod}");
+            });
+
+            foreach (var item in createObjectMethod)
+            {
+                var interfaceToImplement = item.GetGenericArgument(0);
+
+                if (!interfaceToImplement.IsInterface)
+                {
+                    this.LogError($"{interfaceToImplement.Fullname} is not an interface.");
+                    continue;
+                }
+
+                var anonymousTypeName = $"<{interfaceToImplement.Name}>Cauldron_AnonymousType";
+                var type = item.GetPreviousInstructionObjectType();
+
+                if (builder.TypeExists($"{type.Namespace}.{anonymousTypeName}"))
+                    continue;
+
+                this.LogInfo($"Creating new type: {type.Namespace}.{anonymousTypeName}");
+
+                var newType = builder.CreateType(type.Namespace, TypeAttributes.Public | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit | TypeAttributes.Serializable, anonymousTypeName);
+                newType.AddInterface(interfaceToImplement);
+
+                // Implement the methods
+                foreach (var method in interfaceToImplement.Methods.Where(x => !x.Name.StartsWith("get_") && !x.Name.StartsWith("set_")))
+                    newType.CreateMethod(Modifiers.Public | Modifiers.Overrrides, method.ReturnType, method.Name, method.Parameters)
+                        .NewCode()
+                        .ThrowNew(typeof(NotImplementedException), $"The method '{method.Name}' in type '{newType.Name}' is not implemented.")
+                        .Replace();
+                // Implement the properties
+                foreach (var property in interfaceToImplement.Properties)
+                    newType.CreateProperty(Modifiers.Public | Modifiers.Overrrides, property.ReturnType, property.Name);
+
+                action(type, newType, item.ContainedMethod);
+            }
         }
 
         private void InterceptFields(Builder builder, IEnumerable<BuilderType> attributes)

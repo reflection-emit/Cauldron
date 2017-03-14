@@ -170,6 +170,22 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
+        public void AddInterface(Type interfaceType) => this.AddInterface(new BuilderType(this.Builder, this.moduleDefinition.Import(interfaceType)));
+
+        public void AddInterface(BuilderType interfaceType) => this.typeDefinition.Interfaces.Add(interfaceType.typeReference);
+
+        public Method CreateConstructor(params BuilderType[] parameters)
+        {
+            var method = new MethodDefinition(".ctor", MethodAttributes.Public | MethodAttributes.HideBySig | MethodAttributes.SpecialName | MethodAttributes.RTSpecialName, this.moduleDefinition.TypeSystem.Void);
+
+            foreach (var item in parameters)
+                method.Parameters.Add(new ParameterDefinition(item.typeDefinition));
+
+            this.typeDefinition.Methods.Add(method);
+
+            return new Method(this, method);
+        }
+
         public Method CreateStaticConstructor()
         {
             var cctor = this.StaticConstructor;
@@ -265,8 +281,12 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
+        public bool ContainsProperty(string name) => this.typeDefinition.Properties
+                .Concat(this.BaseClasses.SelectMany(x => x.typeDefinition.Properties))
+                .Any(x => x.Name == name);
+
         public Property CreateProperty(Modifiers modifier, Type propertyType, string name) =>
-            this.CreateProperty(modifier, this.Builder.GetType(propertyType), name);
+                    this.CreateProperty(modifier, this.Builder.GetType(propertyType), name);
 
         public Property CreateProperty(Modifiers modifier, BuilderType propertyType, string name)
         {
@@ -277,11 +297,12 @@ namespace Cauldron.Interception.Cecilator
             if (contain != null)
                 return new Property(this, contain);
 
-            var attributes = MethodAttributes.HideBySig | MethodAttributes.SpecialName | MethodAttributes.Private;
+            var attributes = MethodAttributes.HideBySig | MethodAttributes.SpecialName;
 
             if (modifier.HasFlag(Modifiers.Private)) attributes |= MethodAttributes.Private;
             if (modifier.HasFlag(Modifiers.Static)) attributes |= MethodAttributes.Static;
             if (modifier.HasFlag(Modifiers.Public)) attributes |= MethodAttributes.Public;
+            if (modifier.HasFlag(Modifiers.Overrrides)) attributes |= MethodAttributes.Final | MethodAttributes.Virtual | MethodAttributes.NewSlot;
 
             var property = new PropertyDefinition(name, PropertyAttributes.None, propertyType.typeReference);
             var backingField = this.CreateField(modifier, propertyType.typeReference, $"<{name}>k__BackingField");
@@ -317,6 +338,7 @@ namespace Cauldron.Interception.Cecilator
             if (field.Modifiers.HasFlag(Modifiers.Private)) attributes |= MethodAttributes.Private;
             if (field.Modifiers.HasFlag(Modifiers.Static)) attributes |= MethodAttributes.Static;
             if (field.Modifiers.HasFlag(Modifiers.Public)) attributes |= MethodAttributes.Public;
+            if (field.Modifiers.HasFlag(Modifiers.Overrrides)) attributes |= MethodAttributes.Final | MethodAttributes.Virtual | MethodAttributes.NewSlot;
 
             var property = new PropertyDefinition(name, PropertyAttributes.None, field.FieldType.typeReference);
 
@@ -352,7 +374,16 @@ namespace Cauldron.Interception.Cecilator
 
         #region Methods
 
-        public IEnumerable<Method> Methods { get { return this.typeDefinition.Methods.Where(x => x.Body != null).Select(x => new Method(this, x)); } }
+        public IEnumerable<Method> Methods
+        {
+            get
+            {
+                return
+                    this.typeDefinition.IsInterface ?
+                    this.typeDefinition.Methods.Select(x => new Method(this, x)) :
+                    this.typeDefinition.Methods.Where(x => x.Body != null).Select(x => new Method(this, x));
+            }
+        }
 
         public Method CreateMethod(Modifiers modifier, Type returnType, string name, params Type[] parameters) =>
             this.CreateMethod(modifier, this.Builder.GetType(returnType), name, parameters.Select(x => this.Builder.GetType(x)).ToArray());
@@ -364,6 +395,7 @@ namespace Cauldron.Interception.Cecilator
             if (modifier.HasFlag(Modifiers.Private)) attributes |= MethodAttributes.Private;
             if (modifier.HasFlag(Modifiers.Static)) attributes |= MethodAttributes.Static;
             if (modifier.HasFlag(Modifiers.Public)) attributes |= MethodAttributes.Public;
+            if (modifier.HasFlag(Modifiers.Overrrides)) attributes |= MethodAttributes.Final | MethodAttributes.Virtual | MethodAttributes.NewSlot;
 
             var method = new MethodDefinition(name, attributes, returnType.typeReference);
 
@@ -385,6 +417,7 @@ namespace Cauldron.Interception.Cecilator
             if (modifier.HasFlag(Modifiers.Private)) attributes |= MethodAttributes.Private;
             if (modifier.HasFlag(Modifiers.Static)) attributes |= MethodAttributes.Static;
             if (modifier.HasFlag(Modifiers.Public)) attributes |= MethodAttributes.Public;
+            if (modifier.HasFlag(Modifiers.Overrrides)) attributes |= MethodAttributes.Final | MethodAttributes.NewSlot | MethodAttributes.Virtual;
 
             var method = new MethodDefinition(name, attributes, this.moduleDefinition.TypeSystem.Void);
 
@@ -417,7 +450,7 @@ namespace Cauldron.Interception.Cecilator
             if (result == null)
                 throw new MethodNotFoundException($"Unable to proceed. The type '{this.typeDefinition.FullName}' does not contain a method '{name}'");
 
-            return new Method(this, result.ContainsGenericParameter ? result.MakeHostInstanceGeneric((this.typeReference as GenericInstanceType).GenericArguments.ToArray()) : result, result);
+            return new Method(this, result.ContainsGenericParameter && this.typeReference.IsGenericInstance ? result.MakeHostInstanceGeneric((this.typeReference as GenericInstanceType).GenericArguments.ToArray()) : result, result);
         }
 
         public Method GetMethod(string name, params Type[] parameters)

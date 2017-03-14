@@ -1,6 +1,7 @@
 ﻿using Mono.Cecil;
 using Mono.Cecil.Cil;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -97,9 +98,33 @@ namespace Cauldron.Interception.Cecilator
         public Field CreateField(TypeReference typeReference, string name) =>
             this.IsStatic ? this.DeclaringType.CreateField(Modifiers.PrivateStatic, typeReference, name) : this.DeclaringType.CreateField(Modifiers.Private, typeReference, name);
 
+        public IEnumerable<MethodUsage> FindUsages()
+        {
+            var result = this.type.Builder.GetTypes()
+                .SelectMany(x => x.Methods)
+                .SelectMany(x => this.GetFieldUsage(x.methodDefinition));
+
+            return result;
+        }
+
         public ICode NewCode() => new InstructionsSet(this.type, this);
 
+        public void Overrides(Method method) => this.methodDefinition.Overrides.Add(method.methodReference);
+
         internal ILProcessor GetILProcessor() => this.methodDefinition.Body.GetILProcessor();
+
+        private IEnumerable<MethodUsage> GetFieldUsage(MethodDefinition method)
+        {
+            if (method.Body != null)
+                for (int i = 0; i < method.Body.Instructions.Count; i++)
+                {
+                    var instruction = method.Body.Instructions[i];
+                    if ((instruction.OpCode == OpCodes.Call ||
+                        instruction.OpCode == OpCodes.Callvirt) &&
+                        (instruction.Operand as MethodDefinition ?? instruction.Operand as MethodReference).Resolve() == this.methodDefinition)
+                        yield return new MethodUsage(this, method, instruction);
+                }
+        }
 
         #region Variables
 

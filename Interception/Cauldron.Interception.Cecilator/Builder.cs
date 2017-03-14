@@ -1,4 +1,5 @@
 ﻿using Mono.Cecil;
+using Mono.Cecil.Cil;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,6 +25,8 @@ namespace Cauldron.Interception.Cecilator
             var result = this.moduleDefinition.Import(value);
             return new Method(new BuilderType(this, result.DeclaringType), result, result.Resolve());
         }
+
+        public bool IsReferenced(string assemblyName) => this.allAssemblies.Any(x => x.Name.Name == assemblyName);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override string ToString() => this.moduleDefinition.Assembly.FullName;
@@ -246,7 +249,8 @@ namespace Cauldron.Interception.Cecilator
         public BuilderType GetType(string typeName)
         {
             var nameSpace = typeName.Substring(0, typeName.LastIndexOf('.'));
-            var result = this.allTypes.FirstOrDefault(x => x.FullName == typeName || (x.Name == typeName && x.Namespace == nameSpace));
+            var type = typeName.Substring(typeName.LastIndexOf('.') + 1);
+            var result = this.allTypes.FirstOrDefault(x => x.FullName == typeName || (x.Name == type && x.Namespace == nameSpace));
 
             if (result == null)
                 throw new TypeNotFoundException($"The type '{typeName}' does not exist in any of the referenced assemblies.");
@@ -261,6 +265,14 @@ namespace Cauldron.Interception.Cecilator
         public IEnumerable<BuilderType> GetTypesInNamespace(string namespaceName) => this.GetTypesInNamespace(SearchContext.Module, namespaceName);
 
         public IEnumerable<BuilderType> GetTypesInNamespace(SearchContext searchContext, string namespaceName) => this.GetTypes(searchContext).Where(x => x.Namespace == namespaceName);
+
+        public bool TypeExists(string typeName)
+        {
+            var nameSpace = typeName.Substring(0, typeName.LastIndexOf('.'));
+            var type = typeName.Substring(typeName.LastIndexOf('.') + 1);
+
+            return this.GetTypesInternal(SearchContext.Module).Any(x => x.FullName == typeName || (x.Name == type && x.Namespace == nameSpace));
+        }
 
         internal IEnumerable<TypeReference> GetTypesInternal() => GetTypesInternal(SearchContext.Module);
 
@@ -284,5 +296,23 @@ namespace Cauldron.Interception.Cecilator
         }
 
         #endregion Getting types
+
+        #region Create Type
+
+        public BuilderType CreateType(string namespaceName, string typeName) => this.CreateType(namespaceName, TypeAttributes.Public | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit | TypeAttributes.Serializable, typeName, this.moduleDefinition.TypeSystem.Object);
+
+        public BuilderType CreateType(string namespaceName, TypeAttributes attributes, string typeName) => this.CreateType(namespaceName, attributes, typeName, this.moduleDefinition.TypeSystem.Object);
+
+        public BuilderType CreateType(string namespaceName, TypeAttributes attributes, string typeName, BuilderType baseType) => this.CreateType(namespaceName, attributes, typeName, baseType.typeReference);
+
+        private BuilderType CreateType(string namespaceName, TypeAttributes attributes, string typeName, TypeReference baseType)
+        {
+            var newType = new TypeDefinition(namespaceName, typeName, attributes, this.moduleDefinition.Import(baseType));
+            this.moduleDefinition.Types.Add(newType);
+
+            return new BuilderType(this, newType);
+        }
+
+        #endregion Create Type
     }
 }

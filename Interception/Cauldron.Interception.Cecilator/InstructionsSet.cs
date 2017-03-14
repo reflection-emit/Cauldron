@@ -176,6 +176,7 @@ namespace Cauldron.Interception.Cecilator
             if (modifiers.HasFlag(Modifiers.Private)) attributes |= MethodAttributes.Private;
             if (this.method.IsStatic) attributes |= MethodAttributes.Static;
             if (modifiers.HasFlag(Modifiers.Public)) attributes |= MethodAttributes.Public;
+            if (modifiers.HasFlag(Modifiers.Overrrides)) attributes |= MethodAttributes.Final | MethodAttributes.Virtual | MethodAttributes.NewSlot;
 
             method = new MethodDefinition(newName, attributes, this.method.methodReference.ReturnType);
 
@@ -855,7 +856,7 @@ namespace Cauldron.Interception.Cecilator
 
         protected void ReplaceReturns()
         {
-            if (this.method.IsVoid)
+            if (this.method.IsVoid || this.instructions.Last().OpCode != OpCodes.Ret)
             {
                 var realReturn = this.method.methodDefinition.Body.Instructions.Last();
 

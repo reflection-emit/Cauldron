@@ -75,6 +75,8 @@ namespace Cauldron.Interception.Cecilator
                     if (this.Getter.methodDefinition.Attributes.HasFlag(MethodAttributes.Private)) modifiers |= Modifiers.Private;
                     if (this.Getter.methodDefinition.Attributes.HasFlag(MethodAttributes.Static)) modifiers |= Modifiers.Static;
                     if (this.Getter.methodDefinition.Attributes.HasFlag(MethodAttributes.Public)) modifiers |= Modifiers.Public;
+                    if (this.Getter.methodDefinition.Attributes.HasFlag(MethodAttributes.Virtual) &&
+                        this.Getter.methodDefinition.Attributes.HasFlag(MethodAttributes.NewSlot)) modifiers |= Modifiers.Overrrides;
                 }
 
                 if (this.Setter != null)
@@ -82,6 +84,8 @@ namespace Cauldron.Interception.Cecilator
                     if (this.Setter.methodDefinition.Attributes.HasFlag(MethodAttributes.Private)) modifiers |= Modifiers.Private;
                     if (this.Setter.methodDefinition.Attributes.HasFlag(MethodAttributes.Static)) modifiers |= Modifiers.Static;
                     if (this.Setter.methodDefinition.Attributes.HasFlag(MethodAttributes.Public)) modifiers |= Modifiers.Public;
+                    if (this.Setter.methodDefinition.Attributes.HasFlag(MethodAttributes.Virtual) &&
+                        this.Setter.methodDefinition.Attributes.HasFlag(MethodAttributes.NewSlot)) modifiers |= Modifiers.Overrrides;
                 }
 
                 if (modifiers.HasFlag(Modifiers.Public) && modifiers.HasFlag(Modifiers.Private))
@@ -108,8 +112,18 @@ namespace Cauldron.Interception.Cecilator
 
         public Method Setter { get; private set; }
 
+        public void AddSetter()
+        {
+            this.propertyDefinition.SetMethod = new MethodDefinition("set_" + this.Name, this.propertyDefinition.GetMethod.Attributes, this.moduleDefinition.TypeSystem.Void);
+            this.propertyDefinition.SetMethod.Parameters.Add(new ParameterDefinition("value", ParameterAttributes.None, this.ReturnType.typeReference));
+            this.type.typeDefinition.Methods.Add(this.propertyDefinition.SetMethod);
+
+            this.Setter = new Method(this.type, this.propertyDefinition.SetMethod);
+            this.Setter.NewCode().Assign(this.BackingField).Set(this.Setter.NewCode().Parameters[0]).Replace();
+        }
+
         public Field CreateField(Type fieldType, string name) =>
-            this.CreateField(this.moduleDefinition.Import(this.GetTypeDefinition(fieldType).ResolveType(this.DeclaringType.typeReference)), name);
+                    this.CreateField(this.moduleDefinition.Import(this.GetTypeDefinition(fieldType).ResolveType(this.DeclaringType.typeReference)), name);
 
         public Field CreateField(Field field, string name) => this.CreateField(field.fieldRef.FieldType, name);
 
@@ -117,6 +131,12 @@ namespace Cauldron.Interception.Cecilator
 
         public Field CreateField(TypeReference typeReference, string name) =>
             this.IsStatic ? this.DeclaringType.CreateField(Modifiers.PrivateStatic, typeReference, name) : this.DeclaringType.CreateField(Modifiers.Private, typeReference, name);
+
+        public void Overrides(Property property)
+        {
+            this.Getter?.methodDefinition.Overrides.Add(property.Getter.methodReference);
+            this.Setter?.methodDefinition.Overrides.Add(property.Setter.methodReference);
+        }
 
         #region Equitable stuff
 

@@ -97,6 +97,7 @@
     <Compile Include="MarkerType.cs" />
     <Compile Include="Method.cs" />
     <Compile Include="MethodNotFoundException.cs" />
+    <Compile Include="MethodUsage.cs" />
     <Compile Include="Modifiers.cs" />
     <Compile Include="ParamResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
