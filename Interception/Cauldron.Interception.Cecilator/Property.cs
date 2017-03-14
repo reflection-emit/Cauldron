@@ -22,7 +22,7 @@ namespace Cauldron.Interception.Cecilator
         {
             this.type = type;
             this.propertyDefinition = propertyDefinition;
-            this.Getter = propertyDefinition.GetMethod == null ? null : new Method(type, propertyDefinition.GetMethod);
+            this.Getter = propertyDefinition.GetMethod == null ? null : new Method(type, propertyDefinition.GetMethod.MakeGeneric propertyDefinition.GetMethod);
             this.Setter = propertyDefinition.SetMethod == null ? null : new Method(type, propertyDefinition.SetMethod);
         }
 
@@ -46,6 +46,7 @@ namespace Cauldron.Interception.Cecilator
         }
 
         public BuilderCustomAttributeCollection CustomAttributes { get { return new BuilderCustomAttributeCollection(this.type, this.propertyDefinition); } }
+
         public BuilderType DeclaringType { get { return this.type; } }
 
         public Method Getter { get; private set; }
@@ -119,7 +120,7 @@ namespace Cauldron.Interception.Cecilator
             this.type.typeDefinition.Methods.Add(this.propertyDefinition.SetMethod);
 
             this.Setter = new Method(this.type, this.propertyDefinition.SetMethod);
-            this.Setter.NewCode().Assign(this.BackingField).Set(this.Setter.NewCode().Parameters[0]).Replace();
+            this.Setter.NewCode().Assign(this.BackingField).Set(this.Setter.NewCode().GetParameter(0)).Replace();
         }
 
         public Field CreateField(Type fieldType, string name) =>

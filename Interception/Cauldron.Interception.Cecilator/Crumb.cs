@@ -22,17 +22,5 @@ namespace Cauldron.Interception.Cecilator
         internal int? Index { get; set; }
 
         internal string Name { get; set; }
-
-        public Crumb this[int index]
-        {
-            get
-            {
-                return new Crumb
-                {
-                    CrumbType = CrumbTypes.Parameters,
-                    Index = index
-                };
-            }
-        }
     }
 }

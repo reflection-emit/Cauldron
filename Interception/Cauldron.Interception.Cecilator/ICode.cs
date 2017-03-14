@@ -5,8 +5,6 @@ namespace Cauldron.Interception.Cecilator
 {
     public interface ICode : IAction
     {
-        Crumb Parameters { get; }
-
         Crumb This { get; }
 
         ICode As(BuilderType type);
@@ -52,6 +50,10 @@ namespace Cauldron.Interception.Cecilator
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         new int GetHashCode();
+
+        Crumb GetParameter(int index);
+
+        Crumb GetParametersArray();
 
         IIfCode Is(BuilderType type);
 

@@ -102,7 +102,7 @@ namespace Cauldron.Interception.Cecilator
         {
             var result = this.type.Builder.GetTypes()
                 .SelectMany(x => x.Methods)
-                .SelectMany(x => this.GetFieldUsage(x.methodDefinition));
+                .SelectMany(x => this.GetMethodUsage(x));
 
             return result;
         }
@@ -113,12 +113,12 @@ namespace Cauldron.Interception.Cecilator
 
         internal ILProcessor GetILProcessor() => this.methodDefinition.Body.GetILProcessor();
 
-        private IEnumerable<MethodUsage> GetFieldUsage(MethodDefinition method)
+        private IEnumerable<MethodUsage> GetMethodUsage(Method method)
         {
-            if (method.Body != null)
-                for (int i = 0; i < method.Body.Instructions.Count; i++)
+            if (method.methodDefinition.Body != null)
+                for (int i = 0; i < method.methodDefinition.Body.Instructions.Count; i++)
                 {
-                    var instruction = method.Body.Instructions[i];
+                    var instruction = method.methodDefinition.Body.Instructions[i];
                     if ((instruction.OpCode == OpCodes.Call ||
                         instruction.OpCode == OpCodes.Callvirt) &&
                         (instruction.Operand as MethodDefinition ?? instruction.Operand as MethodReference).Resolve() == this.methodDefinition)

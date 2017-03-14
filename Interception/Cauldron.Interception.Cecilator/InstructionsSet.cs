@@ -36,31 +36,6 @@ namespace Cauldron.Interception.Cecilator
             this.instructions = instructions;
         }
 
-        public Crumb Parameters
-        {
-            get
-            {
-                var variableName = "<>params_" + this.method.Identification;
-                if (!this.instructions.Variables.Contains(variableName))
-                {
-                    var objectArrayType = this.method.DeclaringType.Builder.GetType(typeof(object[]));
-                    var variable = this.CreateVariable(variableName, objectArrayType);
-                    var newInstructions = new List<Instruction>();
-
-                    newInstructions.Add(processor.Create(OpCodes.Ldc_I4, this.method.methodReference.Parameters.Count));
-                    newInstructions.Add(processor.Create(OpCodes.Newarr, (objectArrayType.typeReference as ArrayType).ElementType));
-                    newInstructions.Add(processor.Create(OpCodes.Stloc, variable.variable));
-
-                    foreach (var parameter in this.method.methodReference.Parameters)
-                        newInstructions.AddRange(IlHelper.ProcessParam(parameter, variable.variable));
-                    // Insert the call in the beginning of the instruction list
-                    this.instructions.Insert(0, newInstructions);
-                }
-
-                return new Crumb { CrumbType = CrumbTypes.Parameters, Name = variableName };
-            }
-        }
-
         public Crumb This { get { return new Crumb { CrumbType = CrumbTypes.This }; } }
 
         protected bool RequiresReturn
@@ -286,6 +261,37 @@ namespace Cauldron.Interception.Cecilator
             this.instructions.Append(processor.Create(OpCodes.Brtrue, start));
 
             return this;
+        }
+
+        public Crumb GetParameter(int index)
+        {
+            return new Crumb
+            {
+                CrumbType = CrumbTypes.Parameters,
+                Index = index
+            };
+        }
+
+        public Crumb GetParametersArray()
+        {
+            var variableName = "<>params_" + this.method.Identification;
+            if (!this.instructions.Variables.Contains(variableName))
+            {
+                var objectArrayType = this.method.DeclaringType.Builder.GetType(typeof(object[]));
+                var variable = this.CreateVariable(variableName, objectArrayType);
+                var newInstructions = new List<Instruction>();
+
+                newInstructions.Add(processor.Create(OpCodes.Ldc_I4, this.method.methodReference.Parameters.Count));
+                newInstructions.Add(processor.Create(OpCodes.Newarr, (objectArrayType.typeReference as ArrayType).ElementType));
+                newInstructions.Add(processor.Create(OpCodes.Stloc, variable.variable));
+
+                foreach (var parameter in this.method.methodReference.Parameters)
+                    newInstructions.AddRange(IlHelper.ProcessParam(parameter, variable.variable));
+                // Insert the call in the beginning of the instruction list
+                this.instructions.Insert(0, newInstructions);
+            }
+
+            return new Crumb { CrumbType = CrumbTypes.Parameters, Name = variableName };
         }
 
         public void Insert(InsertionPosition position)

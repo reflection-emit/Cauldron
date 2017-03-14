@@ -11,18 +11,10 @@ namespace Cauldron.Interception.Cecilator
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly Instruction instruction;
 
-        internal FieldUsage(Field field, MethodDefinition method, Instruction instruction) : base(field)
-        {
-            this.Field = field;
-            this.Method = new Method(field.type, method);
-            this.Type = field.type;
-            this.instruction = instruction;
-        }
-
         internal FieldUsage(Field field, Method method, Instruction instruction) : base(field)
         {
             this.Field = field;
-            this.Method = this.Method;
+            this.Method = method;
             this.Type = field.type;
             this.instruction = instruction;
         }

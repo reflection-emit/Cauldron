@@ -12,6 +12,8 @@ namespace Cauldron.Interception.Fody
 {
     public sealed class ModuleWeaver : IWeaver
     {
+        private int counter = 0;
+
         private List<Type> weavers = new List<Type>
         {
             typeof(AnonymouseTypeToInterfaceWeaver),
@@ -47,6 +49,30 @@ namespace Cauldron.Interception.Fody
             this.InterceptProperties(builder, propertyInterceptingAttributes);
         }
 
+        private void CreateAssigningMethod(BuilderType anonSource, BuilderType anonTarget, Method method)
+        {
+            var name = $"<{counter++}>AnonAssign";
+            var assignMethod = method.DeclaringType.CreateMethod((method.Modifiers & ~Modifiers.Public) | Modifiers.Private, name, anonSource, anonTarget);
+            assignMethod.NewCode()
+                .Context(x =>
+                {
+                    foreach (var property in anonSource.Properties)
+                    {
+                        try
+                        {
+                            var targetProperty = anonTarget.GetProperty(property.Name);
+                            x.Load(x.GetParameter(1)).Load(x.GetParameter(0)).Call(property.Getter).Call(targetProperty.Setter);
+                        }
+                        catch (MethodNotFoundException)
+                        {
+                            this.LogError($"The property '{property.Name}' does not exist in '{anonTarget.Name}'");
+                        }
+                    }
+                })
+                .Return()
+                .Replace();
+        }
+
         private void ImplementAnonymousTypeInterface(Builder builder)
         {
             if (!builder.IsReferenced("Cauldron.Core"))
@@ -56,33 +82,7 @@ namespace Cauldron.Interception.Fody
             }
 
             var cauldronCoreExtension = builder.GetType("Cauldron.Core.Extensions.AnonymousTypeWithInterfaceExtension");
-            var createObjectMethod = cauldronCoreExtension.GetMethod("CreateObject", 1).FindUsages();
-
-            var counter = 0;
-            var action = new Action<BuilderType, BuilderType, Method>((anonSource, anonTarget, containingMethod) =>
-            {
-                var name = $"<{counter++}>AnonAssign";
-                var assignMethod = containingMethod.DeclaringType.CreateMethod((containingMethod.Modifiers & ~Modifiers.Public) | Modifiers.Private, name, anonSource, anonTarget);
-                assignMethod.NewCode()
-                    .Context(x =>
-                    {
-                        foreach (var property in anonSource.Properties)
-                        {
-                            try
-                            {
-                                x.Call(anonTarget.GetProperty(property.Name).Setter, property);
-                            }
-                            catch (Exception)
-                            {
-                                throw;
-                            }
-                        }
-                    })
-                    .Return()
-                    .Replace();
-
-                this.LogInfo($">>> {name} - {containingMethod}");
-            });
+            var createObjectMethod = cauldronCoreExtension.GetMethod("CreateObject", 1).FindUsages().ToArray();
 
             foreach (var item in createObjectMethod)
             {
@@ -115,7 +115,7 @@ namespace Cauldron.Interception.Fody
                 foreach (var property in interfaceToImplement.Properties)
                     newType.CreateProperty(Modifiers.Public | Modifiers.Overrrides, property.ReturnType, property.Name);
 
-                action(type, newType, item.ContainedMethod);
+                CreateAssigningMethod(type, newType, item.HostMethod);
             }
         }
 
@@ -231,9 +231,9 @@ namespace Cauldron.Interception.Fody
                         {
                             var item = method.Item[i];
                             if (item.Interface.Lockable)
-                                x.LoadVariable("<>interceptor_" + i).Callvirt(item.Interface.OnEnter, x.NewCode().LoadField(semaphoreFieldName), item.Method.DeclaringType, x.This, item.Method, x.Parameters);
+                                x.LoadVariable("<>interceptor_" + i).Callvirt(item.Interface.OnEnter, x.NewCode().LoadField(semaphoreFieldName), item.Method.DeclaringType, x.This, item.Method, x.GetParametersArray());
                             else
-                                x.LoadVariable("<>interceptor_" + i).Callvirt(item.Interface.OnEnter, item.Method.DeclaringType, x.This, item.Method, x.Parameters);
+                                x.LoadVariable("<>interceptor_" + i).Callvirt(item.Interface.OnEnter, item.Method.DeclaringType, x.This, item.Method, x.GetParametersArray());
                         }
                         x.OriginalBody();
                     })
@@ -383,7 +383,7 @@ namespace Cauldron.Interception.Fody
                     if (member.Property.BackingField.FieldType.Implements(typeof(IDisposable)))
                         setterCode.Call(tryDisposeMethod, member.Property.BackingField);
 
-                    setterCode.Load(propertySetter.NewCode().Parameters[0]).IsNull().Then(x =>
+                    setterCode.Load(propertySetter.NewCode().GetParameter(0)).IsNull().Then(x =>
                     {
                         // Just clear if its clearable
                         if (member.Property.BackingField.FieldType.Implements(typeof(IList)))
@@ -396,8 +396,8 @@ namespace Cauldron.Interception.Fody
                     });
 
                     if (member.Property.BackingField.FieldType.IsArray)
-                        setterCode.Load(propertySetter.NewCode().Parameters[0]).Is(typeof(IEnumerable))
-                            .Then(x => x.Assign(member.Property.BackingField).Set(propertySetter.NewCode().Parameters[0]).Return())
+                        setterCode.Load(propertySetter.NewCode().GetParameter(0)).Is(typeof(IEnumerable))
+                            .Then(x => x.Assign(member.Property.BackingField).Set(propertySetter.NewCode().GetParameter(0)).Return())
                             .ThrowNew(typeof(NotSupportedException), "Value does not inherits from IEnumerable");
                     else if (member.Property.BackingField.FieldType.Implements(typeof(IList)) && member.Property.BackingField.FieldType.ParameterlessContructor != null)
                     {
@@ -406,19 +406,19 @@ namespace Cauldron.Interception.Fody
                         {
                             var add = member.Property.BackingField.FieldType.GetMethod("Add", 1);
                             var array = setterCode.CreateVariable(member.Property.BackingField.FieldType.ChildType.MakeArray());
-                            setterCode.Assign(array).Set(propertySetter.NewCode().Parameters[0]);
+                            setterCode.Assign(array).Set(propertySetter.NewCode().GetParameter(0));
                             setterCode.For(array, (x, item) => x.Load(member.Property.BackingField).Callvirt(add, item));
                             if (!add.ReturnType.IsVoid)
                                 setterCode.Pop();
                         }
                         else
-                            setterCode.Load(member.Property.BackingField).Callvirt(addRange, propertySetter.NewCode().Parameters[0]);
+                            setterCode.Load(member.Property.BackingField).Callvirt(addRange, propertySetter.NewCode().GetParameter(0));
                     }
                     else
-                        setterCode.Assign(member.Property.BackingField).Set(propertySetter.NewCode().Parameters[0]);
+                        setterCode.Assign(member.Property.BackingField).Set(propertySetter.NewCode().GetParameter(0));
                 }
                 else
-                    setterCode.Assign(member.Property.BackingField).Set(propertySetter.NewCode().Parameters[0]);
+                    setterCode.Assign(member.Property.BackingField).Set(propertySetter.NewCode().GetParameter(0));
 
                 setterCode.Return().Replace();
 
@@ -516,11 +516,11 @@ namespace Cauldron.Interception.Fody
                                 {
                                     var item = member.InterceptorInfos[i];
                                     if (item.InterfaceSetter.Lockable)
-                                        x.LoadVariable("<>interceptor_" + i).Callvirt(item.InterfaceSetter.OnSet, x.NewCode().LoadField(semaphoreFieldName), propertyField, member.Property.BackingField, member.Property.Setter.NewCode().Parameters[0]);
+                                        x.LoadVariable("<>interceptor_" + i).Callvirt(item.InterfaceSetter.OnSet, x.NewCode().LoadField(semaphoreFieldName), propertyField, member.Property.BackingField, member.Property.Setter.NewCode().GetParameter(0));
                                     else
-                                        x.LoadVariable("<>interceptor_" + i).Callvirt(item.InterfaceSetter.OnSet, propertyField, member.Property.BackingField, member.Property.Setter.NewCode().Parameters[0]);
+                                        x.LoadVariable("<>interceptor_" + i).Callvirt(item.InterfaceSetter.OnSet, propertyField, member.Property.BackingField, member.Property.Setter.NewCode().GetParameter(0));
 
-                                    x.IsFalse().Then(y => y.Assign(member.Property.BackingField).Set(member.Property.Setter.NewCode().Parameters[0]));
+                                    x.IsFalse().Then(y => y.Assign(member.Property.BackingField).Set(member.Property.Setter.NewCode().GetParameter(0)));
                                 }
                             })
                             .Catch(typeof(Exception), x =>

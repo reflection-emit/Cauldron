@@ -41,6 +41,7 @@ namespace Cauldron.Interception.Cecilator
         public bool IsSealed { get { return this.typeDefinition.Attributes.HasFlag(TypeAttributes.Sealed); } }
 
         public bool IsStatic { get { return this.IsAbstract && this.IsSealed; } }
+
         public bool IsValueType { get { return this.typeDefinition.IsValueType; } }
 
         public bool IsVoid { get { return this.typeDefinition.FullName == "System.Void"; } }
@@ -318,7 +319,7 @@ namespace Cauldron.Interception.Cecilator
             var result = new Property(this, property);
 
             result.Getter.NewCode().Load(backingField).Return().Replace();
-            result.Setter.NewCode().Assign(backingField).Set(result.Setter.NewCode().Parameters[0]).Return().Replace();
+            result.Setter.NewCode().Assign(backingField).Set(result.Setter.NewCode().GetParameter(0)).Return().Replace();
 
             return result;
         }
@@ -353,7 +354,7 @@ namespace Cauldron.Interception.Cecilator
             var result = new Property(this, property);
 
             result.Getter.NewCode().Load(field).Return().Replace();
-            result.Setter.NewCode().Assign(field).Set(result.Setter.NewCode().Parameters[0]).Return().Replace();
+            result.Setter.NewCode().Assign(field).Set(result.Setter.NewCode().GetParameter(0)).Return().Replace();
 
             return result;
         }

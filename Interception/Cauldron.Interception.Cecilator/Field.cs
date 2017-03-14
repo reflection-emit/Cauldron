@@ -66,10 +66,10 @@ namespace Cauldron.Interception.Cecilator
             var result = this.fieldDef
                 .DeclaringType
                 .Methods
-                .SelectMany(x => this.GetFieldUsage(x));
+                .SelectMany(x => this.GetFieldUsage(new Method(new BuilderType(this.type.Builder, x.DeclaringType), x)));
 
             if (!this.IsPrivate)
-                return result.Concat(this.type.Builder.GetTypesInternal().SelectMany(x => x.Resolve().Methods).SelectMany(x => this.GetFieldUsage(x)));
+                return result.Concat(this.type.Builder.GetTypes().SelectMany(x => x.Methods).SelectMany(x => this.GetFieldUsage(x)));
 
             return result;
         }
@@ -82,11 +82,11 @@ namespace Cauldron.Interception.Cecilator
             this.type.typeDefinition.Fields.Remove(this.fieldDef);
         }
 
-        private IEnumerable<FieldUsage> GetFieldUsage(MethodDefinition method)
+        private IEnumerable<FieldUsage> GetFieldUsage(Method method)
         {
-            for (int i = 0; i < method.Body.Instructions.Count; i++)
+            for (int i = 0; i < method.methodDefinition.Body.Instructions.Count; i++)
             {
-                var instruction = method.Body.Instructions[i];
+                var instruction = method.methodDefinition.Body.Instructions[i];
                 if ((instruction.OpCode == OpCodes.Ldsfld ||
                     instruction.OpCode == OpCodes.Ldflda ||
                     instruction.OpCode == OpCodes.Ldsflda ||

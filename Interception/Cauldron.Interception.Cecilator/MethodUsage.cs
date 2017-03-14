@@ -11,24 +11,18 @@ namespace Cauldron.Interception.Cecilator
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly Instruction instruction;
 
-        internal MethodUsage(Method method, MethodDefinition methodDef, Instruction instruction) : base(method)
+        internal MethodUsage(Method method, Method hostMethod, Instruction instruction) : base(method)
         {
             this.Method = method;
-            this.ContainedMethod = new Method(method.type, methodDef);
+            this.HostMethod = hostMethod;
             this.Type = method.type;
             this.instruction = instruction;
         }
 
-        internal MethodUsage(Method method, Method containedMethod, Instruction instruction) : base(method)
-        {
-            this.Method = method;
-            this.ContainedMethod = this.ContainedMethod;
-            this.Type = method.type;
-            this.instruction = instruction;
-        }
+        public Method HostMethod { get; private set; }
 
-        public Method ContainedMethod { get; private set; }
         public Method Method { get; private set; }
+
         public BuilderType Type { get; private set; }
 
         public BuilderType GetGenericArgument(int index)
@@ -60,15 +54,15 @@ namespace Cauldron.Interception.Cecilator
                 TypeReference parameter;
 
                 if (previousInstruction.OpCode == OpCodes.Ldarg_0)
-                    parameter = this.ContainedMethod.IsStatic ? this.ContainedMethod.methodReference.Parameters[0].ParameterType : this.ContainedMethod.DeclaringType.typeReference;
+                    parameter = this.HostMethod.IsStatic ? this.HostMethod.methodReference.Parameters[0].ParameterType : this.HostMethod.DeclaringType.typeReference;
                 else if (previousInstruction.OpCode == OpCodes.Ldarg_1)
-                    parameter = this.ContainedMethod.methodReference.Parameters[this.ContainedMethod.IsStatic ? 1 : 0].ParameterType;
+                    parameter = this.HostMethod.methodReference.Parameters[this.HostMethod.IsStatic ? 1 : 0].ParameterType;
                 else if (previousInstruction.OpCode == OpCodes.Ldarg_2)
-                    parameter = this.ContainedMethod.methodReference.Parameters[this.ContainedMethod.IsStatic ? 2 : 1].ParameterType;
+                    parameter = this.HostMethod.methodReference.Parameters[this.HostMethod.IsStatic ? 2 : 1].ParameterType;
                 else if (previousInstruction.OpCode == OpCodes.Ldarg_3)
-                    parameter = this.ContainedMethod.methodReference.Parameters[this.ContainedMethod.IsStatic ? 3 : 2].ParameterType;
+                    parameter = this.HostMethod.methodReference.Parameters[this.HostMethod.IsStatic ? 3 : 2].ParameterType;
                 else
-                    parameter = this.ContainedMethod.methodReference.Parameters[(int)previousInstruction.Operand].ParameterType;
+                    parameter = this.HostMethod.methodReference.Parameters[(int)previousInstruction.Operand].ParameterType;
 
                 declaringType = parameter;
             }
@@ -81,13 +75,13 @@ namespace Cauldron.Interception.Cecilator
                 VariableReference local;
 
                 if (previousInstruction.OpCode == OpCodes.Ldloc_0)
-                    local = this.ContainedMethod.methodDefinition.Body.Variables[0];
+                    local = this.HostMethod.methodDefinition.Body.Variables[0];
                 else if (previousInstruction.OpCode == OpCodes.Ldloc_1)
-                    local = this.ContainedMethod.methodDefinition.Body.Variables[1];
+                    local = this.HostMethod.methodDefinition.Body.Variables[1];
                 else if (previousInstruction.OpCode == OpCodes.Ldloc_2)
-                    local = this.ContainedMethod.methodDefinition.Body.Variables[2];
+                    local = this.HostMethod.methodDefinition.Body.Variables[2];
                 else if (previousInstruction.OpCode == OpCodes.Ldloc_3)
-                    local = this.ContainedMethod.methodDefinition.Body.Variables[3];
+                    local = this.HostMethod.methodDefinition.Body.Variables[3];
                 else
                     local = previousInstruction.Operand as VariableReference;
 
@@ -100,7 +94,7 @@ namespace Cauldron.Interception.Cecilator
             }
             else
             {
-                this.LogWarning($"Unable to implement CreateObject<> in '{ this.ContainedMethod.methodDefinition.Name}'. The anonymous type was not found.");
+                this.LogWarning($"Unable to implement CreateObject<> in '{ this.HostMethod.methodDefinition.Name}'. The anonymous type was not found.");
             }
 
             return new BuilderType(this.Method.type.Builder, declaringType);
@@ -151,10 +145,10 @@ namespace Cauldron.Interception.Cecilator
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override int GetHashCode() => this.ContainedMethod.GetHashCode() ^ this.Method.GetHashCode();
+        public override int GetHashCode() => this.HostMethod.GetHashCode() ^ this.Method.GetHashCode();
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override string ToString() => $"IL_{this.instruction.Offset.ToString("X4")} >> {this.ContainedMethod.methodDefinition.FullName} >> {this.Method.methodReference.Name}";
+        public override string ToString() => $"IL_{this.instruction.Offset.ToString("X4")} >> {this.HostMethod.methodDefinition.FullName} >> {this.Method.methodReference.Name}";
 
         #endregion Equitable stuff
     }
