@@ -76,7 +76,12 @@ namespace Cauldron.Interception.Cecilator
 
         internal bool AreReferenceAssignable(TypeReference type, TypeReference toBeAssigned)
         {
-            if ((toBeAssigned == null && !type.IsValueType) || type == toBeAssigned || (!type.IsValueType && !toBeAssigned.IsValueType && type.IsAssignableFrom(toBeAssigned)) || (type.Resolve().IsInterface && toBeAssigned == this.moduleDefinition.TypeSystem.Object))
+            if (
+                (toBeAssigned == null && !type.IsValueType) ||
+                type == toBeAssigned ||
+                (!type.IsValueType && !toBeAssigned.IsValueType && type.IsAssignableFrom(toBeAssigned)) ||
+                (type.Resolve().IsInterface && toBeAssigned == this.moduleDefinition.TypeSystem.Object) ||
+                type.FullName == toBeAssigned.FullName)
                 return true;
 
             return false;

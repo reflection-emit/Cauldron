@@ -3,7 +3,7 @@ using Mono.Cecil;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -13,17 +13,6 @@ namespace Cauldron.Interception.Fody
     public sealed class ModuleWeaver : IWeaver
     {
         private int counter = 0;
-
-        private List<Type> weavers = new List<Type>
-        {
-            typeof(AnonymouseTypeToInterfaceWeaver),
-            typeof(FieldInterceptorWeaver),
-            typeof(MethodInterceptorWeaver),
-            typeof(PropertyInterceptorWeaver),
-            typeof(ChildOfWeaver),
-            typeof(MethodOfWeaver),
-            typeof(FieldOfWeaver)
-        };
 
         public Action<string> LogError { get; set; }
 
@@ -49,28 +38,41 @@ namespace Cauldron.Interception.Fody
             this.InterceptProperties(builder, propertyInterceptingAttributes);
         }
 
-        private void CreateAssigningMethod(BuilderType anonSource, BuilderType anonTarget, Method method)
+        private Method CreateAssigningMethod(BuilderType anonSource, BuilderType anonTarget, BuilderType anonTargetInterface, Method method)
         {
-            var name = $"<{counter++}>AnonAssign";
-            var assignMethod = method.DeclaringType.CreateMethod((method.Modifiers & ~Modifiers.Public) | Modifiers.Private, name, anonSource, anonTarget);
+            var name = $"<{counter++}>f__Anon_Assign";
+            var assignMethod = method.DeclaringType.CreateMethod(Modifiers.PrivateStatic, anonTarget, name, anonSource);
             assignMethod.NewCode()
                 .Context(x =>
                 {
+                    var resultVar = x.GetReturnVariable(); // x.CreateVariable("return", anonTarget);
+                    x.Assign(resultVar).Set(x.NewCode().NewObj(anonTarget.ParameterlessContructor));
+
                     foreach (var property in anonSource.Properties)
                     {
                         try
                         {
                             var targetProperty = anonTarget.GetProperty(property.Name);
-                            x.Load(x.GetParameter(1)).Load(x.GetParameter(0)).Call(property.Getter).Call(targetProperty.Setter);
+                            if (property.ReturnType.Fullname != targetProperty.ReturnType.Fullname)
+                            {
+                                this.LogError($"The property '{property.Name}' in '{method.Name}' in type '{method.DeclaringType.Name}' does not have the expected return type. Is: {property.ReturnType.Fullname} Expected: {targetProperty.ReturnType.Fullname}");
+                                continue;
+                            }
+                            x.Load(resultVar).Callvirt(targetProperty.Setter, x.NewCode().Load(x.GetParameter(0)).Callvirt(property.Getter));
                         }
                         catch (MethodNotFoundException)
                         {
                             this.LogError($"The property '{property.Name}' does not exist in '{anonTarget.Name}'");
                         }
                     }
+
+                    x.Load(resultVar).Return();
                 })
-                .Return()
                 .Replace();
+
+            assignMethod.CustomAttributes.AddEditorBrowsableAttribute(EditorBrowsableState.Never);
+
+            return assignMethod;
         }
 
         private void ImplementAnonymousTypeInterface(Builder builder)
@@ -83,6 +85,7 @@ namespace Cauldron.Interception.Fody
 
             var cauldronCoreExtension = builder.GetType("Cauldron.Core.Extensions.AnonymousTypeWithInterfaceExtension");
             var createObjectMethod = cauldronCoreExtension.GetMethod("CreateObject", 1).FindUsages().ToArray();
+            var createdTypes = new Dictionary<string, BuilderType>();
 
             foreach (var item in createObjectMethod)
             {
@@ -94,12 +97,15 @@ namespace Cauldron.Interception.Fody
                     continue;
                 }
 
-                var anonymousTypeName = $"<{interfaceToImplement.Name}>Cauldron_AnonymousType";
                 var type = item.GetPreviousInstructionObjectType();
 
-                if (builder.TypeExists($"{type.Namespace}.{anonymousTypeName}"))
+                if (createdTypes.ContainsKey(interfaceToImplement.Fullname))
+                {
+                    item.Replace(CreateAssigningMethod(type, createdTypes[interfaceToImplement.Fullname], interfaceToImplement, item.HostMethod));
                     continue;
+                }
 
+                var anonymousTypeName = $"<>f__{interfaceToImplement.Name}_Cauldron_AnonymousType{counter++}";
                 this.LogInfo($"Creating new type: {type.Namespace}.{anonymousTypeName}");
 
                 var newType = builder.CreateType(type.Namespace, TypeAttributes.Public | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit | TypeAttributes.Serializable, anonymousTypeName);
@@ -115,7 +121,21 @@ namespace Cauldron.Interception.Fody
                 foreach (var property in interfaceToImplement.Properties)
                     newType.CreateProperty(Modifiers.Public | Modifiers.Overrrides, property.ReturnType, property.Name);
 
-                CreateAssigningMethod(type, newType, item.HostMethod);
+                // Create ctor
+                newType.CreateConstructor()
+                    .NewCode()
+                    .Context(x =>
+                    {
+                        x.Load(x.This).Call(builder.GetType(typeof(object)).ParameterlessContructor);
+                    })
+                    .Return()
+                    .Replace();
+
+                newType.CustomAttributes.AddEditorBrowsableAttribute(EditorBrowsableState.Never);
+
+                createdTypes.Add(interfaceToImplement.Fullname, newType);
+
+                item.Replace(CreateAssigningMethod(type, newType, interfaceToImplement, item.HostMethod));
             }
         }
 

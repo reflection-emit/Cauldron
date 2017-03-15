@@ -55,25 +55,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnonymouseTypeToInterfaceWeaver.cs" />
-    <Compile Include="AssemblyDefinitionEqualityComparer.cs" />
-    <Compile Include="ChildOfWeaver.cs" />
-    <Compile Include="Extensions.cs" />
-    <Compile Include="FieldInterceptorWeaver.cs" />
-    <Compile Include="FieldOfWeaver.cs" />
-    <Compile Include="IlHelper.cs" />
-    <Compile Include="InsertionPosition.cs" />
-    <Compile Include="MethodAndInstruction.cs" />
-    <Compile Include="MethodInterceptorWeaver.cs" />
-    <Compile Include="MethodOfWeaver.cs" />
-    <Compile Include="MethodReferenceEqualityComparer.cs" />
-    <Compile Include="MethodWeaverInfo.cs" />
     <Compile Include="ModuleWeaver.cs" />
-    <Compile Include="ModuleWeaverBase.cs" />
-    <Compile Include="This.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropertyInterceptorWeaver.cs" />
-    <Compile Include="TypeDefinitionEqualityComparer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

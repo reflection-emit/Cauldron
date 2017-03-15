@@ -4,6 +4,8 @@ namespace Cauldron.Interception.Cecilator
 {
     public interface ILocalVariableCode
     {
+        ICode As(BuilderType type);
+
         ICode Call(Method method, params object[] parameters);
 
         ICode Callvirt(Method method, params object[] parameters);
@@ -31,6 +33,8 @@ namespace Cauldron.Interception.Cecilator
         ICode NewObj(AttributedField attribute);
 
         ICode NewObj(Method constructor, params object[] parameters);
+
+        ICode Return();
 
         ICode Set(object value);
 

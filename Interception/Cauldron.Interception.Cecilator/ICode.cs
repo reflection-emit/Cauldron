@@ -55,6 +55,8 @@ namespace Cauldron.Interception.Cecilator
 
         Crumb GetParametersArray();
 
+        LocalVariable GetReturnVariable();
+
         IIfCode Is(BuilderType type);
 
         IIfCode Is(Type type);

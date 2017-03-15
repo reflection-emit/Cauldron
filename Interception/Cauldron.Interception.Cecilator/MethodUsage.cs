@@ -100,6 +100,11 @@ namespace Cauldron.Interception.Cecilator
             return new BuilderType(this.Method.type.Builder, declaringType);
         }
 
+        public void Replace(Method method)
+        {
+            this.instruction.Operand = method.methodReference;
+        }
+
         #region Equitable stuff
 
         public static implicit operator string(MethodUsage value) => value.ToString();

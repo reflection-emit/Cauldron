@@ -294,6 +294,8 @@ namespace Cauldron.Interception.Cecilator
             return new Crumb { CrumbType = CrumbTypes.Parameters, Name = variableName };
         }
 
+        public LocalVariable GetReturnVariable() => new LocalVariable(this.method.type, this.GetOrCreateReturnVariable());
+
         public void Insert(InsertionPosition position)
         {
             Instruction instructionPosition = null;
@@ -463,17 +465,17 @@ namespace Cauldron.Interception.Cecilator
             this.method.methodDefinition.Body.Variables.Clear();
             this.method.methodDefinition.Body.ExceptionHandlers.Clear();
 
-            foreach (var item in this.instructions.Variables)
-                processor.Body.Variables.Add(item);
-
             processor.Append(this.instructions);
 
             foreach (var item in this.instructions.ExceptionHandlers)
                 processor.Body.ExceptionHandlers.Add(item);
 
-            this.method.methodDefinition.Body.InitLocals = this.method.methodDefinition.Body.Variables.Count > 0;
-
             this.ReplaceReturns();
+
+            foreach (var item in this.instructions.Variables)
+                processor.Body.Variables.Add(item);
+
+            this.method.methodDefinition.Body.InitLocals = this.method.methodDefinition.Body.Variables.Count > 0;
 
             this.method.methodDefinition.Body.OptimizeMacros();
             this.instructions.Clear();
@@ -740,8 +742,8 @@ namespace Cauldron.Interception.Cecilator
             else if (result.Type.FullName == typeof(object).FullName && (targetType.IsArray || targetDef.FullName.StartsWith("System.Collections.Generic.IEnumerable`1")))
             {
                 var childType = this.moduleDefinition.GetChildrenType(targetType);
-                var castMethod = this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(System.Linq.Enumerable)).GetMethodReference("Cast", new Type[] { typeof(IEnumerable) }).MakeGeneric(childType));
-                var toArrayMethod = this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(System.Linq.Enumerable)).GetMethodReference("ToArray", 1).MakeGeneric(childType));
+                var castMethod = this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(System.Linq.Enumerable)).GetMethodReference("Cast", new Type[] { typeof(IEnumerable) }).MakeGeneric(null, childType));
+                var toArrayMethod = this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(System.Linq.Enumerable)).GetMethodReference("ToArray", 1).MakeGeneric(null, childType));
 
                 result.Instructions.Add(processor.Create(OpCodes.Isinst, this.moduleDefinition.Import(typeof(IEnumerable))));
                 result.Instructions.Add(processor.Create(OpCodes.Call, castMethod));
@@ -889,7 +891,9 @@ namespace Cauldron.Interception.Cecilator
                     realReturn.Previous.OpCode != OpCodes.Ldnull)
                 {
                     resultJump = true;
-                    this.processor.InsertBefore(realReturn, this.processor.Create(OpCodes.Ldloc, returnVariable));
+                    //this.processor.InsertBefore(realReturn, this.processor.Create(OpCodes.Ldloc, returnVariable));
+                    this.processor.InsertBefore(realReturn, this.AddParameter(this.processor, this.method.ReturnType.typeReference, returnVariable).Instructions);
+
                     realReturn = realReturn.Previous;
                 }
                 else if (realReturn.Previous.IsLoadField() || realReturn.Previous.IsLoadLocal() || realReturn.Previous.OpCode == OpCodes.Ldnull)
@@ -1027,13 +1031,13 @@ namespace Cauldron.Interception.Cecilator
 
         private VariableDefinition GetOrCreateReturnVariable()
         {
-            var variable = this.method.methodDefinition.Body.Variables.FirstOrDefault(x => x.Name == "<>returnValue");
+            var variable = this.instructions.Variables.FirstOrDefault(x => x.Name == "<>returnValue");
 
             if (variable != null)
                 return variable;
 
             variable = new VariableDefinition("<>returnValue", this.method.ReturnType.typeReference);
-            this.method.methodDefinition.Body.Variables.Add(variable);
+            this.instructions.Variables.Add(variable);
             return variable;
         }
 

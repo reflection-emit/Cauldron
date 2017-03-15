@@ -354,7 +354,7 @@ namespace Cauldron.Interception.Cecilator
                 opCode == OpCodes.Stloc_3;
         }
 
-        internal static MethodReference MakeGeneric(this MethodReference method, params TypeReference[] args)
+        internal static MethodReference MakeGeneric(this MethodReference method, TypeReference returnType, params TypeReference[] args)
         {
             if (args.Length == 0)
                 return method;
@@ -366,6 +366,9 @@ namespace Cauldron.Interception.Cecilator
 
             foreach (var arg in args)
                 genericTypeRef.GenericArguments.Add(arg);
+
+            if (returnType != null)
+                genericTypeRef.ReturnType = returnType;
 
             return genericTypeRef;
         }
@@ -410,9 +413,30 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
+        internal static MethodReference ResolveMethod(this MethodReference method, TypeReference declaringType)
+        {
+            if (method.ContainsGenericParameter && declaringType is GenericInstanceType)
+            {
+                var declaringTypeInstance = declaringType as GenericInstanceType;
+                //var genericParameters = declaringTypeInstance.GetGenericResolvedTypeName();
+
+                //if (method.ReturnType.FullName != "System.Void" && !genericParameters.ContainsKey(method.ReturnType.FullName))
+                //    return method; // TODO - go from highest implemented interface / base class generic to lowest and parse thier names ... TItem in KeyedCollection<TKey, TItem> -> T in IList<T>
+
+                return method.MakeHostInstanceGeneric(declaringTypeInstance.GenericArguments.ToArray());
+            }
+            else
+                return method;
+        }
+
         internal static TypeReference ResolveType(this TypeReference type, TypeReference inheritingOrImplementingType)
         {
-            if (type.HasGenericParameters && inheritingOrImplementingType is GenericInstanceType)
+            if (type.IsGenericParameter && inheritingOrImplementingType is GenericInstanceType)
+            {
+                var genericParameters = (inheritingOrImplementingType as GenericInstanceType).GetGenericResolvedTypeName();
+                return genericParameters[type.FullName];
+            }
+            else if (type.HasGenericParameters && inheritingOrImplementingType is GenericInstanceType)
             {
                 var genericInstanceType = type as GenericInstanceType ?? type.MakeGenericInstanceType(type.GenericParameters.ToArray());
                 return genericInstanceType.ResolveGenericArguments(inheritingOrImplementingType as GenericInstanceType);

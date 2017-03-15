@@ -22,8 +22,8 @@ namespace Cauldron.Interception.Cecilator
         {
             this.type = type;
             this.propertyDefinition = propertyDefinition;
-            this.Getter = propertyDefinition.GetMethod == null ? null : new Method(type, propertyDefinition.GetMethod.MakeGeneric propertyDefinition.GetMethod);
-            this.Setter = propertyDefinition.SetMethod == null ? null : new Method(type, propertyDefinition.SetMethod);
+            this.Getter = propertyDefinition.GetMethod == null ? null : new Method(type, propertyDefinition.GetMethod.ResolveMethod(type.typeReference), propertyDefinition.GetMethod);
+            this.Setter = propertyDefinition.SetMethod == null ? null : new Method(type, propertyDefinition.SetMethod.ResolveMethod(type.typeReference), propertyDefinition.SetMethod);
         }
 
         public Field BackingField
@@ -104,8 +104,8 @@ namespace Cauldron.Interception.Cecilator
             {
                 var type = this.Getter?.ReturnType.typeReference ?? this.propertyDefinition.PropertyType;
 
-                if (type.HasGenericParameters && !type.IsGenericInstance)
-                    return new BuilderType(this.type, type.ResolveType(this.propertyDefinition.PropertyType));
+                if ((type.HasGenericParameters && !type.IsGenericInstance) || type.Resolve() == null)
+                    return new BuilderType(this.type, type.ResolveType(this.type.typeReference));
 
                 return new BuilderType(this.type, type);
             }

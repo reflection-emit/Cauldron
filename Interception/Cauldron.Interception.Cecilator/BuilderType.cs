@@ -276,9 +276,10 @@ namespace Cauldron.Interception.Cecilator
         {
             get
             {
-                if (this.typeDefinition.HasProperties)
-                    foreach (var item in this.typeDefinition.Properties)
-                        yield return new Property(this, item);
+                if (this.IsInterface)
+                    return this.typeDefinition.Properties.Concat(this.typeDefinition.GetInterfaces().SelectMany(x => x.Resolve().Properties)).Select(x => new Property(this, x));
+                else
+                    return this.typeDefinition.Properties.Select(x => new Property(this, x));
             }
         }
 
@@ -381,7 +382,7 @@ namespace Cauldron.Interception.Cecilator
             {
                 return
                     this.typeDefinition.IsInterface ?
-                    this.typeDefinition.Methods.Select(x => new Method(this, x)) :
+                    this.typeDefinition.Methods.Concat(this.typeDefinition.GetInterfaces().SelectMany(x => x.Resolve().Methods)).Select(x => new Method(this, x)) :
                     this.typeDefinition.Methods.Where(x => x.Body != null).Select(x => new Method(this, x));
             }
         }
@@ -401,7 +402,7 @@ namespace Cauldron.Interception.Cecilator
             var method = new MethodDefinition(name, attributes, returnType.typeReference);
 
             foreach (var item in parameters)
-                method.Parameters.Add(new ParameterDefinition(item.typeDefinition));
+                method.Parameters.Add(new ParameterDefinition(item.typeReference));
 
             this.typeDefinition.Methods.Add(method);
 

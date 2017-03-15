@@ -137,7 +137,7 @@ namespace Cauldron.Interception.Cecilator
 
         public void AddDebuggerBrowsableAttribute(DebuggerBrowsableState state) => this.Add(typeof(DebuggerBrowsableAttribute), state);
 
-        public void AddEditorBrowsableAttribute(EditorBrowsableAttribute state) => this.Add(typeof(EditorBrowsableAttribute), state);
+        public void AddEditorBrowsableAttribute(EditorBrowsableState state) => this.Add(typeof(EditorBrowsableAttribute), state);
 
         public void Remove(Type type)
         {
