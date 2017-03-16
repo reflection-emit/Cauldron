@@ -33,7 +33,7 @@ namespace Cauldron.Core.Java
 
                 sb.Append(trimedLine);
 
-                if (!trimedLine.EndsWith("\\") || (trimedLine.EndsWith("\\") && lines.Length > i + 1 && !lines[i].Contains(":") && !lines[i].Contains("=") && !lines[i].StartsWith("\"")))
+                if (!trimedLine.EndsWith("\\") || lines[i].EndsWith(" "))
                     sb.Append("\r\n");
                 else if (sb[sb.Length - 1] == '\\')
                     sb[sb.Length - 1] = ' ';

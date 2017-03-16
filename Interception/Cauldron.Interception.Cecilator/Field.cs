@@ -74,13 +74,7 @@ namespace Cauldron.Interception.Cecilator
             return result;
         }
 
-        public void Remove()
-        {
-            if (this.FindUsages().Any())
-                throw new FieldInUseException("The field cannot be removed. It is in use.");
-
-            this.type.typeDefinition.Fields.Remove(this.fieldDef);
-        }
+        public void Remove() => this.type.typeDefinition.Fields.Remove(this.fieldDef);
 
         private IEnumerable<FieldUsage> GetFieldUsage(Method method)
         {
@@ -93,7 +87,7 @@ namespace Cauldron.Interception.Cecilator
                     instruction.OpCode == OpCodes.Ldfld ||
                     instruction.OpCode == OpCodes.Stsfld ||
                     instruction.OpCode == OpCodes.Stfld) &&
-                    (instruction.Operand as FieldDefinition ?? instruction.Operand as FieldReference) == this.fieldRef)
+                    (instruction.Operand as FieldDefinition ?? instruction.Operand as FieldReference).FullName == this.fieldRef.FullName)
                     yield return new FieldUsage(this, method, instruction);
             }
         }

@@ -283,18 +283,14 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
-        public bool ContainsProperty(string name) => this.typeDefinition.Properties
-                .Concat(this.BaseClasses.SelectMany(x => x.typeDefinition.Properties))
-                .Any(x => x.Name == name);
+        public bool ContainsProperty(string name) => this.GetProperties().Any(x => x.Name == name);
 
         public Property CreateProperty(Modifiers modifier, Type propertyType, string name) =>
                     this.CreateProperty(modifier, this.Builder.GetType(propertyType), name);
 
         public Property CreateProperty(Modifiers modifier, BuilderType propertyType, string name)
         {
-            var contain = this.typeDefinition.Properties
-                .Concat(this.BaseClasses.SelectMany(x => x.typeDefinition.Properties))
-                .FirstOrDefault(x => x.Name == name);
+            var contain = this.GetProperties().FirstOrDefault(x => x.Name == name);
 
             if (contain != null)
                 return new Property(this, contain);
@@ -327,10 +323,9 @@ namespace Cauldron.Interception.Cecilator
 
         public Property CreateProperty(Field field)
         {
-            var name = field.Name.Substring(0, 1).ToUpper() + field.Name.Substring(1);
-            var contain = this.typeDefinition.Properties
-                .Concat(this.BaseClasses.SelectMany(x => x.typeDefinition.Properties))
-                .FirstOrDefault(x => x.Name == name);
+            var name = field.Name;
+
+            var contain = this.GetProperties().FirstOrDefault(x => x.Name == name);
 
             if (contain != null)
                 return new Property(this, contain);
@@ -362,15 +357,15 @@ namespace Cauldron.Interception.Cecilator
 
         public Property GetProperty(string name)
         {
-            var result = this.typeDefinition.Properties
-                .Concat(this.BaseClasses.SelectMany(x => x.typeDefinition.Properties))
-                .FirstOrDefault(x => x.Name == name);
+            var result = this.GetProperties().FirstOrDefault(x => x.Name == name);
 
             if (result == null)
                 throw new MethodNotFoundException($"Unable to proceed. The type '{this.typeDefinition.FullName}' does not contain a property '{name}'");
 
             return new Property(this, result);
         }
+
+        private IEnumerable<PropertyDefinition> GetProperties() => this.typeDefinition.Properties.Concat(this.BaseClasses.SelectMany(x => x.typeDefinition.Properties).Where(x => !x.IsPrivate()));
 
         #endregion Properties
 

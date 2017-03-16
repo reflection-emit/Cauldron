@@ -123,15 +123,29 @@ namespace Cauldron.Interception.Cecilator
             this.Setter.NewCode().Assign(this.BackingField).Set(this.Setter.NewCode().GetParameter(0)).Replace();
         }
 
-        public Field CreateField(Type fieldType, string name) =>
-                    this.CreateField(this.moduleDefinition.Import(this.GetTypeDefinition(fieldType).ResolveType(this.DeclaringType.typeReference)), name);
+        public Field CreateField(Type fieldType, string name)
+        {
+            var field = this.DeclaringType.typeDefinition.Fields.FirstOrDefault(x => x.Name == name);
+
+            if (field != null)
+                return new Field(this.type, field);
+
+            return this.CreateField(this.moduleDefinition.Import(this.GetTypeDefinition(fieldType).ResolveType(this.DeclaringType.typeReference)), name);
+        }
 
         public Field CreateField(Field field, string name) => this.CreateField(field.fieldRef.FieldType, name);
 
         public Field CreateField(BuilderType type, string name) => this.CreateField(type.typeReference, name);
 
-        public Field CreateField(TypeReference typeReference, string name) =>
-            this.IsStatic ? this.DeclaringType.CreateField(Modifiers.PrivateStatic, typeReference, name) : this.DeclaringType.CreateField(Modifiers.Private, typeReference, name);
+        public Field CreateField(TypeReference typeReference, string name)
+        {
+            var field = this.DeclaringType.typeDefinition.Fields.FirstOrDefault(x => x.Name == name);
+
+            if (field != null)
+                return new Field(this.type, field);
+
+            return this.IsStatic ? this.DeclaringType.CreateField(Modifiers.PrivateStatic, typeReference, name) : this.DeclaringType.CreateField(Modifiers.Private, typeReference, name);
+        }
 
         public void Overrides(Property property)
         {

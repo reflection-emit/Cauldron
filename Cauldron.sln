@@ -124,6 +124,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Interception", "Interception", "{B1732329-29AB-4590-8408-6A6A3A2236D8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.Interception.Fody", "Interception\Cauldron.Interception.Fody\Cauldron.Interception.Fody.csproj", "{6A7E8B99-2542-4530-83EA-FC7355C9CBBD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1645BDC0-C886-4F5C-BF14-7927356EFBD9} = {1645BDC0-C886-4F5C-BF14-7927356EFBD9}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.Interception.Test", "Interception\Cauldron.Interception.Test\Cauldron.Interception.Test.csproj", "{0A0F244A-B479-4B08-9883-CB731AD3BB60}"
 EndProject

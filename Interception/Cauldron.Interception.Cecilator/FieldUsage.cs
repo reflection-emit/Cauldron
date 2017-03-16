@@ -27,8 +27,11 @@ namespace Cauldron.Interception.Cecilator
 
         public FieldUsage Replace(Field field)
         {
-            if (this.Field.IsStatic != field.IsStatic || field.fieldDef.DeclaringType.FullName != this.Method.methodDefinition.DeclaringType.FullName)
-                throw new InvalidOperationException($"Replacement field must have the same modifier and declaring type.");
+            if (field.fieldDef.DeclaringType.FullName != this.Method.methodDefinition.DeclaringType.FullName)
+                throw new InvalidOperationException($"Replacement property must be declared in the same type. Field: {field.fieldDef.DeclaringType.FullName} - Method: {this.Method.methodDefinition.DeclaringType.FullName}");
+
+            if (this.Field.IsStatic != field.IsStatic)
+                throw new InvalidOperationException($"Replacement property must have the same modifier.");
 
             this.instruction.Operand = field.fieldRef;
             return new FieldUsage(field, this.Method, this.instruction);
@@ -36,18 +39,21 @@ namespace Cauldron.Interception.Cecilator
 
         public PropertyUsage Replace(Property property)
         {
-            if (this.Field.IsStatic != property.IsStatic || property.propertyDefinition.DeclaringType.FullName != this.Method.methodDefinition.DeclaringType.FullName)
-                throw new InvalidOperationException($"Replacement property must have the same modifier and declaring type.");
+            if (property.propertyDefinition.DeclaringType.FullName != this.Method.methodDefinition.DeclaringType.FullName)
+                throw new InvalidOperationException($"Replacement property must be declared in the same type. Property: {property.propertyDefinition.DeclaringType.FullName} - Method: {this.Method.methodDefinition.DeclaringType.FullName}");
+
+            if (this.Field.IsStatic != property.IsStatic)
+                throw new InvalidOperationException($"Replacement property must have the same modifier.");
 
             if (this.instruction.OpCode == OpCodes.Ldfld || this.instruction.OpCode == OpCodes.Ldsfld)
             {
                 this.instruction.OpCode = property.Getter.IsAbstract ? OpCodes.Callvirt : OpCodes.Call;
-                this.instruction.Operand = property.Getter.methodReference;
+                this.instruction.Operand = property.Getter.methodReference.ResolveMethod(property.type.typeReference);
             }
             else if (this.instruction.OpCode == OpCodes.Stfld || this.instruction.OpCode == OpCodes.Stsfld)
             {
                 this.instruction.OpCode = property.Setter.IsAbstract ? OpCodes.Callvirt : OpCodes.Call;
-                this.instruction.Operand = property.Setter.methodReference;
+                this.instruction.Operand = property.Setter.methodReference.ResolveMethod(property.type.typeReference);
             }
 
             return new PropertyUsage(property, this.Method, this.instruction);

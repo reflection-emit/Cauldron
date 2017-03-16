@@ -342,6 +342,14 @@ namespace Cauldron.Interception.Cecilator
                 opCode == OpCodes.Ldloc_3;
         }
 
+        internal static bool IsPrivate(this PropertyDefinition property)
+        {
+            var getter = property.GetMethod?.Attributes.HasFlag(MethodAttributes.Private) ?? true;
+            var setter = property.SetMethod?.Attributes.HasFlag(MethodAttributes.Private) ?? true;
+
+            return getter | setter;
+        }
+
         internal static bool IsStoreLocal(this Instruction instruction)
         {
             var opCode = instruction.OpCode;
@@ -425,6 +433,8 @@ namespace Cauldron.Interception.Cecilator
 
                 return method.MakeHostInstanceGeneric(declaringTypeInstance.GenericArguments.ToArray());
             }
+            else if ((declaringType.HasGenericParameters && method.ContainsGenericParameter) || declaringType.HasGenericParameters)
+                return method.Resolve().CreateMethodReference();
             else
                 return method;
         }

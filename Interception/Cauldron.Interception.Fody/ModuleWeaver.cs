@@ -153,19 +153,28 @@ namespace Cauldron.Interception.Fody
                     continue;
                 }
 
-                var usage = field.Field.FindUsages().ToArray();
                 var type = field.Field.DeclaringType;
-                var property = type.CreateProperty(field.Field);
 
-                property.CustomAttributes.AddCompilerGeneratedAttribute();
-                field.Attribute.MoveTo(property);
-
-                foreach (var item in usage)
+                if (type.ContainsProperty(field.Field.Name))
                 {
-                    // TODO - fields has to be replaced by property if ctor is not calling base... instead this
-                    if (item.Method.Name != ".ctor" && item.Method.Name != ".cctor" ||
-                        (item.Method.Name == ".ctor" && !item.Method.IsConstructorWithBaseCall))
-                        item.Replace(property);
+                    this.LogInfo($"Property '{field.Field.Name}' already exists. Moving attribute '{field.Attribute.Fullname}' to property");
+                    field.Attribute.MoveTo(type.Properties.FirstOrDefault(x => x.Name == field.Field.Name));
+                }
+                else
+                {
+                    var usage = field.Field.FindUsages().ToArray();
+                    var property = type.CreateProperty(field.Field);
+
+                    property.CustomAttributes.AddCompilerGeneratedAttribute();
+                    field.Attribute.MoveTo(property);
+
+                    foreach (var item in usage)
+                    {
+                        // TODO - fields has to be replaced by property if ctor is not calling base... instead this
+                        if (item.Method.Name != ".ctor" && item.Method.Name != ".cctor" ||
+                            (item.Method.Name == ".ctor" && !item.Method.IsConstructorWithBaseCall))
+                            item.Replace(property);
+                    }
                 }
             }
         }
@@ -367,22 +376,32 @@ namespace Cauldron.Interception.Fody
             foreach (var member in properties)
             {
                 this.LogInfo($"Implementing interceptors in property {member.Property}");
-                var semaphoreFieldName = $"<{member.Property.Name}>lock_" + member.Property.Identification;
-
-                if (member.RequiredLocking)
-                    foreach (var ctor in member.Property.DeclaringType.GetRelevantConstructors())
-                        ctor.NewCode()
-                            .Assign(member.Property.CreateField(typeof(SemaphoreSlim), semaphoreFieldName))
-                            .NewObj(semaphoreSlim.Ctor, 1, 1)
-                            .Insert(Cecilator.InsertionPosition.Beginning);
-
-                var propertyField = member.Property.CreateField(propertyInterceptionInfo.Type, $"<{member.Property.Name}>p__propertyInfo");
 
                 if (!member.Property.IsAutoProperty)
                 {
                     this.LogWarning($"{member.Property.Name}: The current version of the property interceptor only supports auto-properties.");
                     continue;
                 }
+
+                var semaphoreFieldName = $"<{member.Property.Name}>lock_" + member.Property.Identification;
+
+                if (member.RequiredLocking)
+                {
+                    if (member.Property.IsStatic)
+                        (member.Property.DeclaringType.StaticConstructor ?? member.Property.DeclaringType.CreateStaticConstructor())
+                            .NewCode()
+                                .Assign(member.Property.CreateField(typeof(SemaphoreSlim), semaphoreFieldName))
+                                .NewObj(semaphoreSlim.Ctor, 1, 1)
+                                .Insert(Cecilator.InsertionPosition.Beginning);
+                    else
+                        foreach (var ctor in member.Property.DeclaringType.GetRelevantConstructors().Where(x => !x.IsStatic))
+                            ctor.NewCode()
+                                .Assign(member.Property.CreateField(typeof(SemaphoreSlim), semaphoreFieldName))
+                                .NewObj(semaphoreSlim.Ctor, 1, 1)
+                                .Insert(Cecilator.InsertionPosition.Beginning);
+                }
+
+                var propertyField = member.Property.CreateField(propertyInterceptionInfo.Type, $"<{member.Property.Name}>p__propertyInfo");
 
                 var actionObjectCtor = builder.Import(typeof(Action<object>).GetConstructor(new Type[] { typeof(object), typeof(IntPtr) }));
                 var propertySetter = member.Property.DeclaringType.CreateMethod(member.Property.IsStatic ? Modifiers.PrivateStatic : Modifiers.Private, $"<{member.Property.Name}>m__setterMethod", builder.GetType(typeof(object)));

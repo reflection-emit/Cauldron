@@ -92,30 +92,38 @@ namespace Cauldron.Interception.Cecilator
 
         public IEnumerable<AttributedField> FindFieldsByAttribute(SearchContext searchContext, string attributeName)
         {
-            var result = this.GetTypes(searchContext)
+            var fieldsAndAttribs = this.GetTypes(searchContext)
                 .SelectMany(x => x.Fields)
                 .Where(x => x.fieldDef.HasCustomAttributes)
                 .Select(x => new { Field = x, CustomAttributes = x.fieldDef.CustomAttributes.Where(y => y.AttributeType.FullName == attributeName) })
                 .Where(x => x.CustomAttributes.Any());
 
-            foreach (var item in result)
+            var result = new List<AttributedField>();
+
+            foreach (var item in fieldsAndAttribs)
                 foreach (var attrib in item.CustomAttributes)
-                    yield return new AttributedField(item.Field, attrib);
+                    result.Add(new AttributedField(item.Field, attrib));
+
+            return result;
         }
 
         public IEnumerable<AttributedField> FindFieldsByAttributes(IEnumerable<BuilderType> types) => this.FindFieldsByAttributes(SearchContext.Module, types);
 
         public IEnumerable<AttributedField> FindFieldsByAttributes(SearchContext searchContext, IEnumerable<BuilderType> types)
         {
-            var result = this.GetTypes(searchContext)
+            var fieldsAndAttribs = this.GetTypes(searchContext)
                 .SelectMany(x => x.Fields)
                 .Where(x => x.fieldDef.HasCustomAttributes)
                 .Select(x => new { Field = x, CustomAttributes = x.fieldDef.CustomAttributes.Where(y => types.Any(t => t.typeDefinition.FullName == y.AttributeType.Resolve().FullName)) })
                 .Where(x => x.CustomAttributes.Any());
 
-            foreach (var item in result)
+            var result = new List<AttributedField>();
+
+            foreach (var item in fieldsAndAttribs)
                 foreach (var attrib in item.CustomAttributes)
-                    yield return new AttributedField(item.Field, attrib);
+                    result.Add(new AttributedField(item.Field, attrib));
+
+            return result;
         }
 
         public IEnumerable<Field> FindFieldsByName(string fieldName) => this.FindFieldsByName(SearchContext.Module, fieldName);
@@ -280,7 +288,7 @@ namespace Cauldron.Interception.Cecilator
         {
             if (searchContext == SearchContext.Module)
                 return this.moduleDefinition.Types
-                    .SelectMany(x => x.GetInterfaces().Concat(x.GetBaseClasses()).Concat(x.GetNestedTypes().Concat(new TypeReference[] { x })))
+                    .SelectMany(x => x.GetNestedTypes().Concat(new TypeReference[] { x }))
                     .Where(x => x.Module.Assembly == this.moduleDefinition.Assembly)
                     .Distinct(new TypeReferenceEqualityComparer());
             else
