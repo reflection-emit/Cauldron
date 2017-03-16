@@ -218,32 +218,47 @@ namespace Cauldron.Interception.Fody
 
             var methods = builder
                 .FindMethodsByAttributes(attributes)
-                .GroupBy(x => x.Method)
+                .GroupBy(x => new { Method = x.Method, AsyncMethod = x.AsyncMethod })
                 .Select(x => new
                 {
                     Key = x.Key,
                     Item = x.Select(y => new
                     {
                         Interface = y.Attribute.Type.Implements(iLockableMethodInterceptor.Type.Fullname) ? iLockableMethodInterceptor : iMethodInterceptor,
-                        Attribute = y,
-                        Method = y.Method
+                        Attribute = y
                     }).ToArray()
                 });
 
             foreach (var method in methods)
             {
                 this.LogInfo($"Implementing interceptors in method {method.Key}");
+
+                var targetedMethod = method.Key.AsyncMethod == null ? method.Key.Method : method.Key.AsyncMethod;
+                var attributedMethod = method.Key.Method;
+
+                if (method.Key.AsyncMethod != null && !targetedMethod.DeclaringType.Fields.Any(x => x.Name == "<>4__this"))
+                {
+                    var thisField = targetedMethod.DeclaringType.CreateField(Modifiers.Public, attributedMethod.DeclaringType, "<>4__this");
+                    attributedMethod.NewCode()
+                        .LoadVariable(0)
+                        .Assign(thisField)
+                        .Set(attributedMethod.NewCode().This)
+                        .Insert(InsertionPosition.Beginning);
+                }
+
+                var typeInstance = method.Key.AsyncMethod == null ? (object)targetedMethod.NewCode().This : targetedMethod.DeclaringType.Fields.FirstOrDefault(x => x.Name == "<>4__this");
+
                 var lockable = method.Item.Any(x => x.Interface.Lockable);
-                var semaphoreFieldName = $"<{method.Key.Name}>lock_" + method.Key.Identification;
+                var semaphoreFieldName = $"<{attributedMethod.Name}>lock_" + attributedMethod.Identification;
 
                 if (lockable)
-                    foreach (var ctor in method.Key.DeclaringType.GetRelevantConstructors())
+                    foreach (var ctor in targetedMethod.DeclaringType.GetRelevantConstructors())
                         ctor.NewCode()
-                            .Assign(method.Key.CreateField(typeof(SemaphoreSlim), semaphoreFieldName))
+                            .Assign(targetedMethod.CreateField(typeof(SemaphoreSlim), semaphoreFieldName))
                             .NewObj(semaphoreSlim.Ctor, 1, 1)
                             .Insert(Cecilator.InsertionPosition.Beginning);
 
-                method.Key
+                targetedMethod
                 .NewCode()
                     .Context(x =>
                     {
@@ -260,9 +275,9 @@ namespace Cauldron.Interception.Fody
                         {
                             var item = method.Item[i];
                             if (item.Interface.Lockable)
-                                x.LoadVariable("<>interceptor_" + i).Callvirt(item.Interface.OnEnter, x.NewCode().LoadField(semaphoreFieldName), item.Method.DeclaringType, x.This, item.Method, x.GetParametersArray());
+                                x.LoadVariable("<>interceptor_" + i).Callvirt(item.Interface.OnEnter, x.NewCode().LoadField(semaphoreFieldName), attributedMethod.DeclaringType, typeInstance, attributedMethod, x.GetParametersArray());
                             else
-                                x.LoadVariable("<>interceptor_" + i).Callvirt(item.Interface.OnEnter, item.Method.DeclaringType, x.This, item.Method, x.GetParametersArray());
+                                x.LoadVariable("<>interceptor_" + i).Callvirt(item.Interface.OnEnter, attributedMethod.DeclaringType, typeInstance, attributedMethod, x.GetParametersArray());
                         }
                         x.OriginalBody();
                     })

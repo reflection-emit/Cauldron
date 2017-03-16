@@ -1,8 +1,8 @@
 ﻿using Mono.Cecil.Cil;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Text;
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
 
 namespace Cauldron.Interception.Cecilator
 {
@@ -12,17 +12,21 @@ namespace Cauldron.Interception.Cecilator
         private readonly List<Instruction> instruction = new List<Instruction>();
         private readonly VariableDefinitionKeyedCollection variables = new VariableDefinitionKeyedCollection();
 
-        public InstructionContainer()
+        private Mono.Collections.Generic.Collection<VariableDefinition> orginalVariables;
+
+        public InstructionContainer(Mono.Collections.Generic.Collection<VariableDefinition> variables)
         {
+            this.orginalVariables = variables;
+            this.SyncLocalVariables();
         }
 
-        private InstructionContainer(InstructionContainer a, InstructionContainer b)
+        private InstructionContainer(InstructionContainer a, InstructionContainer b, Mono.Collections.Generic.Collection<VariableDefinition> variables) : this(variables)
         {
             this.instruction.AddRange(a.instruction);
             this.instruction.AddRange(b.instruction);
         }
 
-        private InstructionContainer(InstructionContainer a, IEnumerable<Instruction> b)
+        private InstructionContainer(InstructionContainer a, IEnumerable<Instruction> b, Mono.Collections.Generic.Collection<VariableDefinition> variables) : this(variables)
         {
             this.instruction.AddRange(a.instruction);
             this.instruction.AddRange(b);
@@ -38,10 +42,6 @@ namespace Cauldron.Interception.Cecilator
 
         public static implicit operator Instruction[] (InstructionContainer a) => a.instruction.ToArray();
 
-        public static InstructionContainer operator +(InstructionContainer a, InstructionContainer b) => new InstructionContainer(a, b);
-
-        public static InstructionContainer operator +(InstructionContainer a, IEnumerable<Instruction> b) => new InstructionContainer(a, b);
-
         public void Append(Instruction instruction) => this.instruction.Add(instruction);
 
         public void Append(IEnumerable<Instruction> instruction) => this.instruction.AddRange(instruction);
@@ -51,6 +51,8 @@ namespace Cauldron.Interception.Cecilator
             this.instruction.Clear();
             this.exceptionHandlers.Clear();
             this.variables.Clear();
+
+            this.SyncLocalVariables();
         }
 
         public Instruction First() => this.instruction.Count == 0 ? null : this.instruction[0];
@@ -92,5 +94,21 @@ namespace Cauldron.Interception.Cecilator
         }
 
         internal Instruction[] ToArray() => this.instruction.ToArray();
+
+        private void SyncLocalVariables()
+        {
+            foreach (var item in this.orginalVariables)
+            {
+                var name = string.IsNullOrEmpty(item.Name) ? item.Index.ToString() : item.Name;
+
+                if (this.variables.Contains(name) && this.variables[name].VariableType == item.VariableType)
+                    continue;
+                else if (this.variables.Contains(name) && this.variables[name].VariableType != item.VariableType)
+                    name = Path.GetRandomFileName().Replace(".", DateTime.Now.Second.ToString());
+
+                item.Name = name;
+                this.variables.Add(item);
+            }
+        }
     }
 }

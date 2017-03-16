@@ -14,6 +14,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 #endif
 
 using System;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -30,9 +31,19 @@ namespace Cauldron.Interception.Test
         }
 
         [TestMethod]
-        public void Async_Method()
+        public void Async_Method_Interception_Try_Catch_Correctly_Catching()
         {
-            Assert.AreEqual(7, MethodAsync().RunSync());
+            bool exception = false;
+
+            try
+            {
+                Method_1_Async().RunSync();
+            }
+            catch (Exception e)
+            {
+                exception = e.GetBaseException().GetType() == typeof(DivideByZeroException);
+            }
+            Assert.AreEqual(true, exception);
         }
 
         [TestMethod]
@@ -405,6 +416,36 @@ namespace Cauldron.Interception.Test
             return new TestClass { EnumProperty = TestEnum.Three };
         }
 
+        [TestMethod, TestMethodInterceptor]
+        public void SwitchTest()
+        {
+            var test = "asdf";
+            // TODO - Test does not preform correct tests
+            switch (UserInformation.CurrentUser.GetHashCode())
+            {
+                case 55:
+                case 1:
+                    test = "ioi";
+                    break;
+
+                case 0:
+                case 77:
+                    test = "";
+
+                    break;
+
+                case 834:
+                    return;
+
+                default:
+                    test = "io645764i";
+
+                    break;
+            }
+
+            Assert.IsTrue(!string.IsNullOrEmpty(test));
+        }
+
         [TestMethodInterceptor]
         private TestClass Class_Method_With_Single_Return_()
         {
@@ -417,8 +458,25 @@ namespace Cauldron.Interception.Test
             return new TestClass { CharProperty = 'e', IntegerProperty = 33, StringProperty = "Hello" };
         }
 
-        [TestMethodInterceptor]
-        private Task<int> MethodAsync() => Task.FromResult(7);
+        [ExceptionThrowingMethodInterceptor]
+        private async Task<bool> Method_1_Async()
+        {
+            var result = await LongRunningTaskAsync();
+
+            if (result)
+                throw new DivideByZeroException();
+
+            return result;
+        }
+
+        private async Task<bool> LongRunningTaskAsync()
+        {
+            await Task.Run(() =>
+            {
+                Task.Delay(5000).RunSync();
+            });
+            return true;
+        }
 
         [TestMethodInterceptor]
         private int ValueType_Method_With_Multiple_Returns_(int index)

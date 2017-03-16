@@ -23,7 +23,7 @@ namespace Cauldron.Interception.Cecilator
 
         internal InstructionsSet(BuilderType type, Method method) : base(type)
         {
-            this.instructions = new InstructionContainer();
+            this.instructions = new InstructionContainer(method.methodDefinition.Body.Variables);
             this.method = method;
             this.processor = method.GetILProcessor();
             this.method.methodDefinition.Body.SimplifyMacros();
@@ -61,10 +61,8 @@ namespace Cauldron.Interception.Cecilator
         {
             if (!field.IsStatic)
             {
-                if (field.DeclaringType != this.method.DeclaringType)
-                    throw new NotImplementedException();
-
-                this.instructions.Append(processor.Create(OpCodes.Ldarg_0));
+                if (field.DeclaringType == this.method.DeclaringType)
+                    this.instructions.Append(processor.Create(OpCodes.Ldarg_0));
             }
 
             return new FieldInstructionsSet(this, field, this.instructions, AssignInstructionType.Store);
@@ -169,22 +167,38 @@ namespace Cauldron.Interception.Cecilator
             this.method.DeclaringType.typeDefinition.Methods.Add(method);
             var methodProcessor = method.Body.GetILProcessor();
 
+            var instructionAction = new Func<Instruction, int, Instruction>((item, i) =>
+            {
+                var operand = item.Operand as Instruction;
+                var index = this.method.methodDefinition.Body.Instructions.IndexOf(operand);
+                jumps.Add(new Tuple<int, int>(i, index));
+
+                var instruction = methodProcessor.Create(OpCodes.Nop);
+                instruction.OpCode = item.OpCode;
+                return instruction;
+            });
+
             for (int i = 0; i < this.method.methodDefinition.Body.Instructions.Count; i++)
             {
                 var item = this.method.methodDefinition.Body.Instructions[i];
 
                 if (item.Operand is Instruction)
+                    methodProcessor.Append(instructionAction(item, i));
+                else if (item.Operand is Instruction[])
                 {
-                    var operand = item.Operand as Instruction;
-                    var index = this.method.methodDefinition.Body.Instructions.IndexOf(operand);
-                    jumps.Add(new Tuple<int, int>(i, index));
+                    var instructions = item.Operand as Instruction[];
+                    var newInstructions = new Instruction[instructions.Length];
+                    for (int x = 0; x < instructions.Length; x++)
+                        newInstructions[x] = instructionAction(instructions[x], i);
 
                     var instruction = methodProcessor.Create(OpCodes.Nop);
                     instruction.OpCode = item.OpCode;
+                    instruction.Operand = newInstructions;
+
                     methodProcessor.Append(instruction);
                 }
-                else if (item.Operand is CallSite || item.Operand is Instruction[])
-                    throw new NotImplementedException($"Unknown operand '{item.Operand.GetType().FullName}'");
+                //else if (item.Operand is CallSite )
+                //    throw new NotImplementedException($"Unknown operand '{item.OpCode.ToString()}' '{item.Operand.GetType().FullName}'");
                 else
                 {
                     var instruction = methodProcessor.Create(OpCodes.Nop);
@@ -194,8 +208,20 @@ namespace Cauldron.Interception.Cecilator
                 }
             }
 
-            for (int i = 0; i < jumps.Count; i++)
-                methodProcessor.Body.Instructions[jumps[i].Item1].Operand = methodProcessor.Body.Instructions[jumps[i].Item2];
+            foreach (var j in jumps.GroupBy(x => x.Item1))
+            {
+                if (methodProcessor.Body.Instructions[j.Key].OpCode == OpCodes.Switch)
+                {
+                    var instructions = new List<Instruction>();
+
+                    foreach (var switches in j)
+                        instructions.Add(methodProcessor.Body.Instructions[switches.Item2]);
+
+                    methodProcessor.Body.Instructions[j.Key].Operand = instructions.ToArray();
+                }
+                else
+                    methodProcessor.Body.Instructions[j.Key].Operand = methodProcessor.Body.Instructions[j.First().Item2];
+            }
 
             var getInstruction = new Func<Instruction, Instruction>(x =>
             {
@@ -337,8 +363,8 @@ namespace Cauldron.Interception.Cecilator
                 }
             }
 
-            foreach (var item in this.instructions.Variables)
-                processor.Body.Variables.Add(item);
+            for (int i = processor.Body.Variables.Count; i < this.instructions.Variables.Count; i++)
+                processor.Body.Variables.Add(this.instructions.Variables[i]);
 
             processor.InsertBefore(instructionPosition, this.instructions);
 
@@ -363,16 +389,19 @@ namespace Cauldron.Interception.Cecilator
 
         public ILocalVariableCode Load(LocalVariable localVariable)
         {
-            switch (localVariable.Index)
-            {
-                case 0: this.instructions.Append(processor.Create(OpCodes.Ldloc_0)); break;
-                case 1: this.instructions.Append(processor.Create(OpCodes.Ldloc_1)); break;
-                case 2: this.instructions.Append(processor.Create(OpCodes.Ldloc_2)); break;
-                case 3: this.instructions.Append(processor.Create(OpCodes.Ldloc_3)); break;
-                default:
-                    this.instructions.Append(processor.Create(OpCodes.Ldloc, localVariable.variable));
-                    break;
-            }
+            if (localVariable.variable.VariableType.IsValueType)
+                this.instructions.Append(processor.Create(OpCodes.Ldloca, localVariable.variable));
+            else
+                switch (localVariable.Index)
+                {
+                    case 0: this.instructions.Append(processor.Create(OpCodes.Ldloc_0)); break;
+                    case 1: this.instructions.Append(processor.Create(OpCodes.Ldloc_1)); break;
+                    case 2: this.instructions.Append(processor.Create(OpCodes.Ldloc_2)); break;
+                    case 3: this.instructions.Append(processor.Create(OpCodes.Ldloc_3)); break;
+                    default:
+                        this.instructions.Append(processor.Create(OpCodes.Ldloc, localVariable.variable));
+                        break;
+                }
 
             return this.CreateLocalVariableInstructionSet(localVariable, AssignInstructionType.Load);
         }

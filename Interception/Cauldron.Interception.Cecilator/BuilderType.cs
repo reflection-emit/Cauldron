@@ -254,6 +254,8 @@ namespace Cauldron.Interception.Cecilator
 
         public Field CreateField(Modifiers modifier, Field field, string name) => this.CreateField(modifier, field.fieldRef.FieldType, name);
 
+        public Field CreateField(Modifiers modifier, BuilderType fieldType, string name) => this.CreateField(modifier, fieldType.typeDefinition, name);
+
         public Field CreateField(Modifiers modifier, TypeReference typeReference, string name)
         {
             var attributes = FieldAttributes.CompilerControlled;

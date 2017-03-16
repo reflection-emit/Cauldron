@@ -6,6 +6,16 @@ namespace Cauldron.Interception.Cecilator
     {
         ICode As(BuilderType type);
 
+        IFieldCode Assign(Field field);
+
+        ILocalVariableCode Assign(LocalVariable localVariable);
+
+        IFieldCode AssignToField(string fieldName);
+
+        ILocalVariableCode AssignToLocalVariable(string localVariableName);
+
+        ILocalVariableCode AssignToLocalVariable(int localVariableIndex);
+
         ICode Call(Method method, params object[] parameters);
 
         ICode Callvirt(Method method, params object[] parameters);

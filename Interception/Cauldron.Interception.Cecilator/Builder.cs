@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace Cauldron.Interception.Cecilator
 {
@@ -172,12 +173,32 @@ namespace Cauldron.Interception.Cecilator
             var result = this.GetTypes(searchContext)
                 .SelectMany(x => x.Methods)
                 .Where(x => x.methodDefinition.HasCustomAttributes)
-                .Select(x => new { Method = x, CustomAttributes = x.methodDefinition.CustomAttributes.Where(y => y.AttributeType.FullName == attributeName) })
+                .Select(x =>
+                {
+                    var asyncResult = this.GetAsyncMethod(x.methodDefinition);
+
+                    if (asyncResult != null)
+                    {
+                        return new
+                        {
+                            Method = x,
+                            AsyncMethod = asyncResult,
+                            CustomAttributes = x.methodDefinition.CustomAttributes.Where(y => y.AttributeType.FullName == attributeName)
+                        };
+                    }
+                    else
+                        return new
+                        {
+                            Method = x,
+                            AsyncMethod = (Method)null,
+                            CustomAttributes = x.methodDefinition.CustomAttributes.Where(y => y.AttributeType.FullName == attributeName)
+                        };
+                })
                 .Where(x => x.CustomAttributes.Any() && x.Method != null);
 
             foreach (var item in result)
                 foreach (var attrib in item.CustomAttributes)
-                    yield return new AttributedMethod(item.Method, attrib);
+                    yield return new AttributedMethod(item.Method, attrib, item.AsyncMethod);
         }
 
         public IEnumerable<AttributedMethod> FindMethodsByAttributes(IEnumerable<BuilderType> types) => this.FindMethodsByAttributes(SearchContext.Module, types);
@@ -187,12 +208,32 @@ namespace Cauldron.Interception.Cecilator
             var result = this.GetTypes(searchContext)
                 .SelectMany(x => x.Methods)
                 .Where(x => x.methodDefinition.HasCustomAttributes)
-                .Select(x => new { Method = x, CustomAttributes = x.methodDefinition.CustomAttributes.Where(y => types.Any(t => t.typeDefinition == y.AttributeType.Resolve())) })
-                .Where(x => x.CustomAttributes.Any() && x.Method != null);
+                .Select(x =>
+                {
+                    var asyncResult = this.GetAsyncMethod(x.methodDefinition);
+
+                    if (asyncResult != null)
+                    {
+                        return new
+                        {
+                            Method = x,
+                            AsyncMethod = asyncResult,
+                            CustomAttributes = x.methodDefinition.CustomAttributes.Where(y => types.Any(t => t.typeDefinition == y.AttributeType.Resolve()))
+                        };
+                    }
+                    else
+                        return new
+                        {
+                            Method = x,
+                            AsyncMethod = (Method)null,
+                            CustomAttributes = x.methodDefinition.CustomAttributes.Where(y => types.Any(t => t.typeDefinition == y.AttributeType.Resolve()))
+                        };
+                })
+                .Where(x => x.Method != null && x.CustomAttributes.Any() && x.Method != null);
 
             foreach (var item in result)
                 foreach (var attrib in item.CustomAttributes)
-                    yield return new AttributedMethod(item.Method, attrib);
+                    yield return new AttributedMethod(item.Method, attrib, item.AsyncMethod);
         }
 
         public IEnumerable<Method> FindMethodsByName(string methodName, int parameterCount) => this.FindMethodsByName(SearchContext.Module, methodName, parameterCount);
@@ -202,6 +243,27 @@ namespace Cauldron.Interception.Cecilator
         public IEnumerable<Method> FindMethodsByName(string methodName) => this.FindMethodsByName(SearchContext.Module, methodName);
 
         public IEnumerable<Method> FindMethodsByName(SearchContext searchContext, string methodName) => this.GetTypes(searchContext).SelectMany(x => x.GetMethods(methodName, 0));
+
+        private Method GetAsyncMethod(MethodDefinition method)
+        {
+            var asyncStateMachine = method.CustomAttributes.FirstOrDefault(x => x.AttributeType.FullName == "System.Runtime.CompilerServices.AsyncStateMachineAttribute");
+
+            if (asyncStateMachine != null)
+            {
+                var asyncType = asyncStateMachine.ConstructorArguments[0].Value as TypeReference;
+                var asyncTypeMethod = asyncType.Resolve().Methods.FirstOrDefault(y => y.Name == "MoveNext");
+
+                if (asyncTypeMethod == null)
+                {
+                    this.LogError("Unable to find the method MoveNext of async method " + method.Name);
+                    return null;
+                }
+
+                return new Method(new BuilderType(this, asyncType), asyncTypeMethod);
+            }
+
+            return null;
+        }
 
         #endregion Method Finders
 
