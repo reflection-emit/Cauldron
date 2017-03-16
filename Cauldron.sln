@@ -235,6 +235,9 @@ Global
 		Shared\Unit Tests\Cauldron.Activator.Test\Cauldron.Activator.Test.projitems*{8ae5e4df-4d6e-4c84-838c-3fccf746f61f}*SharedItemsImports = 13
 		Shared\Unit Tests\Cauldron.XAML.Validation.Test\Cauldron.XAML.Validation.Test.projitems*{9e87b47b-8b3c-429c-a06d-fa7d1e226f62}*SharedItemsImports = 4
 		Shared\Cauldron.Localization\Cauldron.Localization.projitems*{a2ca82ea-faa4-4cd9-aebc-89ae833e993a}*SharedItemsImports = 13
+		Shared\Cauldron.Core.Desktop\Cauldron.Core.Desktop.projitems*{a6273c28-aada-4fb6-87ea-adfd6b6d6bda}*SharedItemsImports = 4
+		Shared\Cauldron.Core\Cauldron.Core.projitems*{a6273c28-aada-4fb6-87ea-adfd6b6d6bda}*SharedItemsImports = 4
+		Shared\Cauldron.Diagnostics\Cauldron.Diagnostics.projitems*{a6273c28-aada-4fb6-87ea-adfd6b6d6bda}*SharedItemsImports = 4
 		Shared\Cauldron.Diagnostics\Cauldron.Diagnostics.projitems*{a6a45af3-6c56-4906-8c5c-8ad557aa89c7}*SharedItemsImports = 4
 		Shared\Cauldron.XAML\Cauldron.XAML.projitems*{a6a45af3-6c56-4906-8c5c-8ad557aa89c7}*SharedItemsImports = 4
 		Shared\IEnumerableExtensions\IEnumerableExtensions.projitems*{a6a45af3-6c56-4906-8c5c-8ad557aa89c7}*SharedItemsImports = 4

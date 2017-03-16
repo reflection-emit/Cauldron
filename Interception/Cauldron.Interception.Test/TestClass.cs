@@ -15,6 +15,7 @@
         public int IntegerProperty { get; set; }
 
         public ITestInterface[] Items { get; set; }
+
         public long LongProperty { get; set; }
 
         public short ShortProperty { get; set; }

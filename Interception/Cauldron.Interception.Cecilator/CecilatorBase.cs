@@ -1,33 +1,35 @@
 ﻿using Mono.Cecil;
+using Mono.Cecil.Cil;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 
 namespace Cauldron.Interception.Cecilator
 {
-    public class BuilderBase
+    public abstract class CecilatorBase
     {
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        protected IEnumerable<AssemblyDefinition> allAssemblies;
+        protected readonly IEnumerable<AssemblyDefinition> allAssemblies;
 
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        protected IEnumerable<TypeDefinition> allTypes;
+        protected readonly IEnumerable<TypeDefinition> allTypes;
 
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        protected Action<string> logError;
+        protected readonly ModuleDefinition moduleDefinition;
 
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        protected Action<string> logInfo;
+        private readonly Action<string> logError;
 
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        protected Action<string> logWarning;
+        private readonly Action<string> logInfo;
 
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        protected ModuleDefinition moduleDefinition;
+        private readonly Action<string> logWarning;
 
-        internal BuilderBase(IWeaver weaver)
+        internal CecilatorBase(IWeaver weaver)
         {
             this.logError = weaver.LogError;
             this.logInfo = weaver.LogInfo;
@@ -44,9 +46,11 @@ namespace Cauldron.Interception.Cecilator
 
             this.allTypes = this.allAssemblies.SelectMany(x => x.Modules).Where(x => x != null).SelectMany(x => x.Types).Where(x => x != null).Concat(this.moduleDefinition.Types).ToArray();
             this.logInfo("-----------------------------------------------------------------------------");
+
+            this.Identification = GenerateName();
         }
 
-        internal BuilderBase(BuilderBase builderBase)
+        internal CecilatorBase(CecilatorBase builderBase)
         {
             this.logError = builderBase.logError;
             this.logInfo = builderBase.logInfo;
@@ -54,21 +58,79 @@ namespace Cauldron.Interception.Cecilator
             this.moduleDefinition = builderBase.moduleDefinition;
             this.allAssemblies = builderBase.allAssemblies;
             this.allTypes = builderBase.allTypes;
+
+            this.Identification = GenerateName();
         }
 
-        internal IEnumerable<TypeReference> GetInterfaces(TypeReference type)
+        public string Identification { get; private set; }
+
+        public static string GenerateName() => Path.GetRandomFileName().Replace(".", DateTime.Now.Second.ToString());
+
+        internal bool AreReferenceAssignable(BuilderType type, BuilderType toBeAssigned)
         {
-            var typeDef = type.Resolve();
+            if ((toBeAssigned == null && !type.IsValueType) || type == toBeAssigned || (!type.typeDefinition.IsValueType && !toBeAssigned.typeDefinition.IsValueType && type.IsAssignableFrom(toBeAssigned)) || (type.IsInterface && toBeAssigned.typeReference == this.moduleDefinition.TypeSystem.Object))
+                return true;
 
-            if (typeDef.Interfaces != null && typeDef.Interfaces.Count > 0)
-            {
-                for (int i = 0; i < typeDef.Interfaces.Count; i++)
-                    foreach (var item in GetInterfaces(typeDef.Interfaces[i]))
-                        yield return item.ResolveType(type);
-            }
+            return false;
         }
 
-        internal bool ImplementsInterface(TypeDefinition type, string interfaceName) => GetInterfaces(type).Any(x => x.FullName == interfaceName);
+        internal bool AreReferenceAssignable(TypeReference type, TypeReference toBeAssigned)
+        {
+            if (
+                (toBeAssigned == null && !type.IsValueType) ||
+                type == toBeAssigned ||
+                (!type.IsValueType && !toBeAssigned.IsValueType && type.IsAssignableFrom(toBeAssigned)) ||
+                (type.Resolve().IsInterface && toBeAssigned == this.moduleDefinition.TypeSystem.Object) ||
+                type.FullName == toBeAssigned.FullName)
+                return true;
+
+            return false;
+        }
+
+        internal TypeDefinition GetTypeDefinition(Type type)
+        {
+            var result = this.allTypes.FirstOrDefault(x => x.FullName == type.FullName);
+
+            if (result == null)
+                throw new Exception($"Unable to proceed. The type '{type.FullName}' was not found.");
+
+            return this.moduleDefinition.Import(type).Resolve();
+        }
+
+        internal void LogError(object value)
+        {
+            if (value is string)
+                this.logError(value as string);
+            else
+                this.logError(value.ToString());
+        }
+
+        internal void LogInfo(object value)
+        {
+            if (value is string)
+                this.logInfo(value as string);
+            else
+                this.logInfo(value.ToString());
+        }
+
+        internal void LogWarning(object value)
+        {
+            if (value is string)
+                this.logWarning(value as string);
+            else
+                this.logWarning(value.ToString());
+        }
+
+        protected IEnumerable<Instruction> TypeOf(ILProcessor processor, TypeReference type)
+        {
+            return new Instruction[] {
+                processor.Create(OpCodes.Ldtoken, type),
+                processor.Create(OpCodes.Call,
+                    this.moduleDefinition.Import(
+                        this.GetTypeDefinition(typeof(Type))
+                            .Methods.FirstOrDefault(x=>x.Name == "GetTypeFromHandle" && x.Parameters.Count == 1)))
+            };
+        }
 
         private void GetAllAssemblyDefinitions(IEnumerable<AssemblyNameReference> target, List<AssemblyDefinition> result)
         {

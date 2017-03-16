@@ -2,7 +2,7 @@
 using Mono.Cecil.Cil;
 using System.Collections.Generic;
 
-namespace Cauldron.Interception.Fody
+namespace Cauldron.Interception.Cecilator
 {
     /*
         From https://github.com/Fody/MethodDecorator
