@@ -5,7 +5,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.Storage;
 
 namespace Cauldron.Core.Java
 {
@@ -24,19 +23,19 @@ namespace Cauldron.Core.Java
             var sb = new StringBuilder();
 
             // concat lines that are ending with \\
-            foreach (var line in body.GetLines())
+            var lines = body.GetLines();
+            for (int i = 0; i < lines.Length; i++)
             {
-                var trimedLine = line.Trim();
+                var trimedLine = lines[i].Trim();
 
                 if (trimedLine == "")
                     continue;
 
                 sb.Append(trimedLine);
 
-                if (!trimedLine.EndsWith("\\"))
+                if (!trimedLine.EndsWith("\\") || (trimedLine.EndsWith("\\") && lines.Length > i + 1 && !lines[i].Contains(":") && !lines[i].Contains("=") && !lines[i].StartsWith("\"")))
                     sb.Append("\r\n");
-
-                if (sb[sb.Length - 1] == '\\')
+                else if (sb[sb.Length - 1] == '\\')
                     sb[sb.Length - 1] = ' ';
             }
 
