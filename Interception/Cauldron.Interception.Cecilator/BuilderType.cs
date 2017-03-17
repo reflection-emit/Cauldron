@@ -20,7 +20,7 @@ namespace Cauldron.Interception.Cecilator
 
         public BuilderType ChildType { get { return new BuilderType(this.Builder, this.moduleDefinition.GetChildrenType(this.typeReference)); } }
 
-        public BuilderCustomAttributeCollection CustomAttributes { get { return new BuilderCustomAttributeCollection(this, this.typeDefinition); } }
+        public BuilderCustomAttributeCollection CustomAttributes { get { return new BuilderCustomAttributeCollection(this.Builder, this.typeDefinition); } }
 
         public string Fullname { get { return this.typeReference.FullName; } }
 

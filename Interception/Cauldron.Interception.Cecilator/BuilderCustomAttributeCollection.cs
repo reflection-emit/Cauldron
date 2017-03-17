@@ -5,56 +5,35 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Collections;
 
 namespace Cauldron.Interception.Cecilator
 {
-    public class BuilderCustomAttributeCollection : CecilatorBase
+    public class BuilderCustomAttributeCollection : CecilatorBase, IEnumerable<BuilderCustomAttribute>
     {
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private readonly FieldDefinition fieldDefinition;
+        private readonly Builder builder;
+
+        [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly ICustomAttributeProvider customAttributeProvider;
 
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly List<BuilderCustomAttribute> innerCollection = new List<BuilderCustomAttribute>();
 
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private readonly MethodDefinition methodDefinition;
-
-        [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly PropertyDefinition propertyDefinition;
 
-        [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private readonly BuilderType type;
-
-        [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private readonly TypeDefinition typeDefinition;
-
-        internal BuilderCustomAttributeCollection(BuilderType builder, MethodDefinition methodDefinition) : base(builder)
+        internal BuilderCustomAttributeCollection(Builder builder, ICustomAttributeProvider customAttributeProvider) : base(builder)
         {
-            this.type = builder;
-            this.methodDefinition = methodDefinition;
+            this.builder = builder;
+            this.customAttributeProvider = customAttributeProvider;
 
-            this.innerCollection.AddRange(this.methodDefinition.CustomAttributes.Select(x => new BuilderCustomAttribute(builder, this.methodDefinition, x)));
+            this.innerCollection.AddRange(customAttributeProvider.CustomAttributes.Select(x => new BuilderCustomAttribute(builder, customAttributeProvider, x)));
         }
 
-        internal BuilderCustomAttributeCollection(BuilderType builder, FieldDefinition fieldDefinition) : base(builder)
+        internal BuilderCustomAttributeCollection(Builder builder, PropertyDefinition propertyDefinition) : base(builder)
         {
-            this.type = builder;
-            this.fieldDefinition = fieldDefinition;
-
-            this.innerCollection.AddRange(this.fieldDefinition.CustomAttributes.Select(x => new BuilderCustomAttribute(builder, this.fieldDefinition, x)));
-        }
-
-        internal BuilderCustomAttributeCollection(BuilderType builder, TypeDefinition typeDefinition) : base(builder)
-        {
-            this.type = builder;
-            this.typeDefinition = typeDefinition;
-
-            this.innerCollection.AddRange(this.typeDefinition.CustomAttributes.Select(x => new BuilderCustomAttribute(builder, this.typeDefinition, x)));
-        }
-
-        internal BuilderCustomAttributeCollection(BuilderType builder, PropertyDefinition propertyDefinition) : base(builder)
-        {
-            this.type = builder;
+            this.builder = builder;
             this.propertyDefinition = propertyDefinition;
 
             if (propertyDefinition.GetMethod != null)
@@ -105,31 +84,19 @@ namespace Cauldron.Interception.Cecilator
             if (this.propertyDefinition != null && this.propertyDefinition.GetMethod != null)
             {
                 this.propertyDefinition.GetMethod.CustomAttributes.Add(attrib);
-                this.innerCollection.Add(new BuilderCustomAttribute(this.type, this.propertyDefinition.GetMethod, attrib));
+                this.innerCollection.Add(new BuilderCustomAttribute(this.builder, this.propertyDefinition.GetMethod, attrib));
             }
 
             if (this.propertyDefinition != null && this.propertyDefinition.SetMethod != null)
             {
                 this.propertyDefinition.SetMethod.CustomAttributes.Add(attrib);
-                this.innerCollection.Add(new BuilderCustomAttribute(this.type, this.propertyDefinition.SetMethod, attrib));
+                this.innerCollection.Add(new BuilderCustomAttribute(this.builder, this.propertyDefinition.SetMethod, attrib));
             }
 
-            if (this.typeDefinition != null)
+            if (this.customAttributeProvider != null)
             {
-                this.typeDefinition.CustomAttributes.Add(attrib);
-                this.innerCollection.Add(new BuilderCustomAttribute(this.type, this.typeDefinition, attrib));
-            }
-
-            if (this.fieldDefinition != null)
-            {
-                this.fieldDefinition.CustomAttributes.Add(attrib);
-                this.innerCollection.Add(new BuilderCustomAttribute(this.type, this.fieldDefinition, attrib));
-            }
-
-            if (this.methodDefinition != null)
-            {
-                this.methodDefinition.CustomAttributes.Add(attrib);
-                this.innerCollection.Add(new BuilderCustomAttribute(this.type, this.methodDefinition, attrib));
+                this.customAttributeProvider.CustomAttributes.Add(attrib);
+                this.innerCollection.Add(new BuilderCustomAttribute(this.builder, this.customAttributeProvider, attrib));
             }
         }
 
@@ -138,6 +105,10 @@ namespace Cauldron.Interception.Cecilator
         public void AddDebuggerBrowsableAttribute(DebuggerBrowsableState state) => this.Add(typeof(DebuggerBrowsableAttribute), state);
 
         public void AddEditorBrowsableAttribute(EditorBrowsableState state) => this.Add(typeof(EditorBrowsableAttribute), state);
+
+        public IEnumerator<BuilderCustomAttribute> GetEnumerator() => this.innerCollection.GetEnumerator();
+
+        IEnumerator IEnumerable.GetEnumerator() => this.innerCollection.GetEnumerator();
 
         public void Remove(Type type)
         {
@@ -153,14 +124,7 @@ namespace Cauldron.Interception.Cecilator
                 if (this.propertyDefinition != null && this.propertyDefinition.SetMethod != null)
                     this.propertyDefinition.SetMethod.CustomAttributes.Remove(item.attribute);
 
-                if (this.typeDefinition != null)
-                    this.typeDefinition.CustomAttributes.Remove(item.attribute);
-
-                if (this.fieldDefinition != null)
-                    this.fieldDefinition.CustomAttributes.Remove(item.attribute);
-
-                if (this.methodDefinition != null)
-                    this.methodDefinition.CustomAttributes.Remove(item.attribute);
+                this.customAttributeProvider?.CustomAttributes.Remove(item.attribute);
             }
         }
     }

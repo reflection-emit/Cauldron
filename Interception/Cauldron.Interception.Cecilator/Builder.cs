@@ -1,11 +1,9 @@
 ﻿using Mono.Cecil;
-using Mono.Cecil.Cil;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Cauldron.Interception.Cecilator
 {
@@ -14,6 +12,8 @@ namespace Cauldron.Interception.Cecilator
         internal Builder(IWeaver weaver) : base(weaver)
         {
         }
+
+        public BuilderCustomAttributeCollection CustomAttributes { get { return new BuilderCustomAttributeCollection(this, this.moduleDefinition); } }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => this.ToString().Equals(obj.ToString());

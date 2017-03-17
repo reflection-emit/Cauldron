@@ -15,7 +15,7 @@ namespace Cauldron.Interception.Cecilator
             this.customAttribute = customAttribute;
             this.Method = method;
             this.AsyncMethod = asyncMethod;
-            this.Attribute = new BuilderCustomAttribute(method.type, method.methodDefinition, customAttribute);
+            this.Attribute = new BuilderCustomAttribute(method.type.Builder, method.methodDefinition, customAttribute);
         }
 
         public Method AsyncMethod { get; private set; }

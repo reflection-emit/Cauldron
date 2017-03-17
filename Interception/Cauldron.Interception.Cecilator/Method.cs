@@ -33,7 +33,7 @@ namespace Cauldron.Interception.Cecilator
             this.methodReference = methodDefinition.CreateMethodReference();
         }
 
-        public BuilderCustomAttributeCollection CustomAttributes { get { return new BuilderCustomAttributeCollection(this.type, this.methodDefinition); } }
+        public BuilderCustomAttributeCollection CustomAttributes { get { return new BuilderCustomAttributeCollection(this.type.Builder, this.methodDefinition); } }
 
         public BuilderType DeclaringType { get { return this.type; } }
 

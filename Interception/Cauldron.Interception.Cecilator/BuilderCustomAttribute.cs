@@ -11,33 +11,13 @@ namespace Cauldron.Interception.Cecilator
         internal readonly CustomAttribute attribute;
 
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private readonly FieldDefinition fieldDefinition;
+        private readonly ICustomAttributeProvider customAttributeProvider;
 
-        [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private readonly MethodDefinition methodDefinition;
-
-        [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private readonly TypeDefinition typeDefinition;
-
-        internal BuilderCustomAttribute(BuilderType type, FieldDefinition fieldDefinition, CustomAttribute attribute) : base(type)
+        internal BuilderCustomAttribute(Builder builder, ICustomAttributeProvider customAttributeProvider, CustomAttribute attribute) : base(builder)
         {
-            this.fieldDefinition = fieldDefinition;
+            this.customAttributeProvider = customAttributeProvider;
             this.attribute = attribute;
-            this.Type = new BuilderType(type, attribute.AttributeType);
-        }
-
-        internal BuilderCustomAttribute(BuilderType type, MethodDefinition methodDefinition, CustomAttribute attribute) : base(type)
-        {
-            this.methodDefinition = methodDefinition;
-            this.attribute = attribute;
-            this.Type = new BuilderType(type, attribute.AttributeType);
-        }
-
-        internal BuilderCustomAttribute(BuilderType type, TypeDefinition typeDefinition, CustomAttribute attribute) : base(type)
-        {
-            this.typeDefinition = typeDefinition;
-            this.attribute = attribute;
-            this.Type = new BuilderType(type, attribute.AttributeType);
+            this.Type = new BuilderType(builder, attribute.AttributeType);
         }
 
         public string Fullname { get { return this.attribute.AttributeType.FullName; } }
@@ -68,17 +48,7 @@ namespace Cauldron.Interception.Cecilator
             method.methodDefinition.CustomAttributes.Add(attribute);
         }
 
-        public void Remove()
-        {
-            if (this.methodDefinition != null)
-                this.methodDefinition.CustomAttributes.Remove(this.attribute);
-
-            if (this.typeDefinition != null)
-                this.typeDefinition.CustomAttributes.Remove(this.attribute);
-
-            if (this.fieldDefinition != null)
-                this.fieldDefinition.CustomAttributes.Remove(this.attribute);
-        }
+        public void Remove() => this.customAttributeProvider?.CustomAttributes.Remove(this.attribute);
 
         #region Equitable stuff
 

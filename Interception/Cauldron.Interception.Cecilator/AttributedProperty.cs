@@ -14,7 +14,7 @@ namespace Cauldron.Interception.Cecilator
         {
             this.customAttribute = customAttribute;
             this.Property = property;
-            this.Attribute = new BuilderCustomAttribute(property.type, property.Getter != null ? property.Getter.methodDefinition : property.Setter.methodDefinition, customAttribute);
+            this.Attribute = new BuilderCustomAttribute(property.type.Builder, property.Getter != null ? property.Getter.methodDefinition : property.Setter.methodDefinition, customAttribute);
         }
 
         public BuilderCustomAttribute Attribute { get; private set; }

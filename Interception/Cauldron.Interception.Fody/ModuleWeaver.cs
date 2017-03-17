@@ -25,12 +25,14 @@ namespace Cauldron.Interception.Fody
         public void Execute()
         {
             var builder = this.CreateBuilder();
-            var propertyInterceptingAttributes = builder.FindAttributesByInterfaces(
+            var interfaceNames = new string[] {
                 "Cauldron.Interception.IPropertyInterceptor",
                 "Cauldron.Interception.ILockablePropertyGetterInterceptor",
                 "Cauldron.Interception.ILockablePropertySetterInterceptor",
                 "Cauldron.Interception.IPropertyGetterInterceptor",
-                "Cauldron.Interception.IPropertySetterInterceptor");
+                "Cauldron.Interception.IPropertySetterInterceptor"};
+
+            var propertyInterceptingAttributes = builder.CustomAttributes.Where(x => interfaceNames.Any(y => x.Type.Implements(y))).Select(x => x.Type);
 
             this.ImplementAnonymousTypeInterface(builder);
             this.InterceptFields(builder, propertyInterceptingAttributes);
@@ -181,9 +183,10 @@ namespace Cauldron.Interception.Fody
 
         private void InterceptMethods(Builder builder)
         {
-            var attributes = builder.FindAttributesByInterfaces(
+            var interfaceNames = new string[] {
                 "Cauldron.Interception.ILockableMethodInterceptor",
-                "Cauldron.Interception.IMethodInterceptor");
+                "Cauldron.Interception.IMethodInterceptor"};
+            var attributes = builder.CustomAttributes.Where(x => interfaceNames.Any(y => x.Type.Implements(y))).Select(x => x.Type);
 
             #region define Interfaces and the methods we want to invoke
 
