@@ -2,7 +2,7 @@
 
 namespace Cauldron.Interception.Test.Interceptors
 {
-    [AttributeUsage(AttributeTargets.Field, AllowMultiple = false, Inherited = false)]
+    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Module, AllowMultiple = false, Inherited = false)]
     public class CreateATypeInterceptorAttribute : Attribute, IPropertyGetterInterceptor
     {
         public void OnException(Exception e)

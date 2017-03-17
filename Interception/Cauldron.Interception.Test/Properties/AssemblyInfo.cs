@@ -1,6 +1,5 @@
 ﻿using Cauldron.Interception.Test.Interceptors;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
@@ -40,3 +39,6 @@ using System.Runtime.InteropServices;
 [module: TestPropertyInterceptor]
 [module: TestMethodInterceptor]
 [module: TestMethodInterceptorWithParameter]
+[module: CreateATypeInterceptor]
+[module: EnumPropertyInterceptor]
+[module: ExceptionThrowingMethodInterceptor]
