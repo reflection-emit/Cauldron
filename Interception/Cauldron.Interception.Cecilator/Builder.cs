@@ -1,9 +1,12 @@
 ﻿using Mono.Cecil;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace Cauldron.Interception.Cecilator
 {
@@ -14,6 +17,8 @@ namespace Cauldron.Interception.Cecilator
         }
 
         public BuilderCustomAttributeCollection CustomAttributes { get { return new BuilderCustomAttributeCollection(this, this.moduleDefinition); } }
+
+        public string Name { get { return this.moduleDefinition.Name; } }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => this.ToString().Equals(obj.ToString());
@@ -93,17 +98,20 @@ namespace Cauldron.Interception.Cecilator
 
         public IEnumerable<AttributedField> FindFieldsByAttribute(SearchContext searchContext, string attributeName)
         {
-            var fieldsAndAttribs = this.GetTypes(searchContext)
-                .SelectMany(x => x.Fields)
-                .Where(x => x.fieldDef.HasCustomAttributes)
-                .Select(x => new { Field = x, CustomAttributes = x.fieldDef.CustomAttributes.Where(y => y.AttributeType.FullName == attributeName) })
-                .Where(x => x.CustomAttributes.Any());
+            var result = new ConcurrentBag<AttributedField>();
 
-            var result = new List<AttributedField>();
-
-            foreach (var item in fieldsAndAttribs)
-                foreach (var attrib in item.CustomAttributes)
-                    result.Add(new AttributedField(item.Field, attrib));
+            Parallel.ForEach(this.GetTypes(searchContext), type =>
+            {
+                foreach (var field in type.Fields.Where(x => x.fieldDef.HasCustomAttributes))
+                {
+                    for (int i = 0; i < field.fieldDef.CustomAttributes.Count; i++)
+                    {
+                        var fullname = field.fieldDef.CustomAttributes[i].AttributeType.Resolve().FullName;
+                        if (fullname.GetHashCode() == attributeName.GetHashCode() && fullname == attributeName)
+                            result.Add(new AttributedField(field, field.fieldDef.CustomAttributes[i]));
+                    }
+                }
+            });
 
             return result;
         }
@@ -112,17 +120,20 @@ namespace Cauldron.Interception.Cecilator
 
         public IEnumerable<AttributedField> FindFieldsByAttributes(SearchContext searchContext, IEnumerable<BuilderType> types)
         {
-            var fieldsAndAttribs = this.GetTypes(searchContext)
-                .SelectMany(x => x.Fields)
-                .Where(x => x.fieldDef.HasCustomAttributes)
-                .Select(x => new { Field = x, CustomAttributes = x.fieldDef.CustomAttributes.Where(y => types.Any(t => t.typeDefinition.FullName == y.AttributeType.Resolve().FullName)) })
-                .Where(x => x.CustomAttributes.Any());
+            var result = new ConcurrentBag<AttributedField>();
+            var attributes = types.Select(x => x.Fullname).ToList();
 
-            var result = new List<AttributedField>();
-
-            foreach (var item in fieldsAndAttribs)
-                foreach (var attrib in item.CustomAttributes)
-                    result.Add(new AttributedField(item.Field, attrib));
+            Parallel.ForEach(this.GetTypes(searchContext), type =>
+            {
+                foreach (var field in type.Fields.Where(x => x.fieldDef.HasCustomAttributes))
+                {
+                    for (int i = 0; i < field.fieldDef.CustomAttributes.Count; i++)
+                    {
+                        if (attributes.Contains(field.fieldDef.CustomAttributes[i].AttributeType.Resolve().FullName))
+                            result.Add(new AttributedField(field, field.fieldDef.CustomAttributes[i]));
+                    }
+                }
+            });
 
             return result;
         }
@@ -139,19 +150,22 @@ namespace Cauldron.Interception.Cecilator
 
         public IEnumerable<AttributedProperty> FindPropertiesByAttributes(SearchContext searchContext, IEnumerable<BuilderType> types)
         {
-            var result = this.GetTypes(searchContext)
-                .SelectMany(x => x.Properties)
-                .Where(x => x.propertyDefinition.HasCustomAttributes)
-                .Select(x => new
-                {
-                    Property = x,
-                    CustomAttributes = x.propertyDefinition.CustomAttributes.Where(y => types.Any(t => t.typeDefinition == y.AttributeType.Resolve()))
-                })
-                .Where(x => x.CustomAttributes.Any() && x.Property != null);
+            var result = new ConcurrentBag<AttributedProperty>();
+            var attributes = types.Select(x => x.Fullname).ToList();
 
-            foreach (var item in result)
-                foreach (var attrib in item.CustomAttributes)
-                    yield return new AttributedProperty(item.Property, attrib);
+            Parallel.ForEach(this.GetTypes(searchContext), type =>
+            {
+                foreach (var property in type.Properties.Where(x => x.propertyDefinition.HasCustomAttributes))
+                {
+                    for (int i = 0; i < property.propertyDefinition.CustomAttributes.Count; i++)
+                    {
+                        if (attributes.Contains(property.propertyDefinition.CustomAttributes[i].AttributeType.Resolve().FullName))
+                            result.Add(new AttributedProperty(property, property.propertyDefinition.CustomAttributes[i]));
+                    }
+                }
+            });
+
+            return result;
         }
 
         #endregion Property Finders
@@ -170,70 +184,58 @@ namespace Cauldron.Interception.Cecilator
 
         public IEnumerable<AttributedMethod> FindMethodsByAttribute(SearchContext searchContext, string attributeName)
         {
-            var result = this.GetTypes(searchContext)
-                .SelectMany(x => x.Methods)
-                .Where(x => x.methodDefinition.HasCustomAttributes)
-                .Select(x =>
+            var result = new ConcurrentBag<AttributedMethod>();
+
+            Parallel.ForEach(this.GetTypes(searchContext), type =>
+            {
+                foreach (var method in type.Methods.Where(x => x.methodDefinition.HasCustomAttributes))
                 {
-                    var asyncResult = this.GetAsyncMethod(x.methodDefinition);
+                    var asyncResult = this.GetAsyncMethod(method.methodDefinition);
 
-                    if (asyncResult != null)
+                    for (int i = 0; i < method.methodDefinition.CustomAttributes.Count; i++)
                     {
-                        return new
+                        var fullname = method.methodDefinition.CustomAttributes[i].AttributeType.Resolve().FullName;
+                        if (attributeName.GetHashCode() == fullname.GetHashCode() && fullname == attributeName)
                         {
-                            Method = x,
-                            AsyncMethod = asyncResult,
-                            CustomAttributes = x.methodDefinition.CustomAttributes.Where(y => y.AttributeType.FullName == attributeName)
-                        };
+                            if (asyncResult == null)
+                                result.Add(new AttributedMethod(method, method.methodDefinition.CustomAttributes[i], asyncResult));
+                            else
+                                result.Add(new AttributedMethod(method, method.methodDefinition.CustomAttributes[i], asyncResult));
+                        }
                     }
-                    else
-                        return new
-                        {
-                            Method = x,
-                            AsyncMethod = (Method)null,
-                            CustomAttributes = x.methodDefinition.CustomAttributes.Where(y => y.AttributeType.FullName == attributeName)
-                        };
-                })
-                .Where(x => x.CustomAttributes.Any() && x.Method != null);
+                }
+            });
 
-            foreach (var item in result)
-                foreach (var attrib in item.CustomAttributes)
-                    yield return new AttributedMethod(item.Method, attrib, item.AsyncMethod);
+            return result;
         }
 
         public IEnumerable<AttributedMethod> FindMethodsByAttributes(IEnumerable<BuilderType> types) => this.FindMethodsByAttributes(SearchContext.Module, types);
 
         public IEnumerable<AttributedMethod> FindMethodsByAttributes(SearchContext searchContext, IEnumerable<BuilderType> types)
         {
-            var result = this.GetTypes(searchContext)
-                .SelectMany(x => x.Methods)
-                .Where(x => x.methodDefinition.HasCustomAttributes)
-                .Select(x =>
+            var result = new ConcurrentBag<AttributedMethod>();
+            var attributes = types.Select(x => x.Fullname).ToList();
+
+            Parallel.ForEach(this.GetTypes(searchContext), type =>
+            {
+                foreach (var method in type.Methods.Where(x => x.methodDefinition.HasCustomAttributes))
                 {
-                    var asyncResult = this.GetAsyncMethod(x.methodDefinition);
+                    var asyncResult = this.GetAsyncMethod(method.methodDefinition);
 
-                    if (asyncResult != null)
+                    for (int i = 0; i < method.methodDefinition.CustomAttributes.Count; i++)
                     {
-                        return new
+                        if (attributes.Contains(method.methodDefinition.CustomAttributes[i].AttributeType.Resolve().FullName))
                         {
-                            Method = x,
-                            AsyncMethod = asyncResult,
-                            CustomAttributes = x.methodDefinition.CustomAttributes.Where(y => types.Any(t => t.typeDefinition == y.AttributeType.Resolve()))
-                        };
+                            if (asyncResult == null)
+                                result.Add(new AttributedMethod(method, method.methodDefinition.CustomAttributes[i], asyncResult));
+                            else
+                                result.Add(new AttributedMethod(method, method.methodDefinition.CustomAttributes[i], asyncResult));
+                        }
                     }
-                    else
-                        return new
-                        {
-                            Method = x,
-                            AsyncMethod = (Method)null,
-                            CustomAttributes = x.methodDefinition.CustomAttributes.Where(y => types.Any(t => t.typeDefinition == y.AttributeType.Resolve()))
-                        };
-                })
-                .Where(x => x.Method != null && x.CustomAttributes.Any() && x.Method != null);
+                }
+            });
 
-            foreach (var item in result)
-                foreach (var attrib in item.CustomAttributes)
-                    yield return new AttributedMethod(item.Method, attrib, item.AsyncMethod);
+            return result;
         }
 
         public IEnumerable<Method> FindMethodsByName(string methodName, int parameterCount) => this.FindMethodsByName(SearchContext.Module, methodName, parameterCount);
@@ -246,12 +248,12 @@ namespace Cauldron.Interception.Cecilator
 
         private Method GetAsyncMethod(MethodDefinition method)
         {
-            var asyncStateMachine = method.CustomAttributes.FirstOrDefault(x => x.AttributeType.FullName == "System.Runtime.CompilerServices.AsyncStateMachineAttribute");
+            var asyncStateMachine = method.CustomAttributes.Get("System.Runtime.CompilerServices.AsyncStateMachineAttribute");
 
             if (asyncStateMachine != null)
             {
                 var asyncType = asyncStateMachine.ConstructorArguments[0].Value as TypeReference;
-                var asyncTypeMethod = asyncType.Resolve().Methods.FirstOrDefault(y => y.Name == "MoveNext");
+                var asyncTypeMethod = asyncType.Resolve().Methods.Get("MoveNext");
 
                 if (asyncTypeMethod == null)
                 {
@@ -279,6 +281,8 @@ namespace Cauldron.Interception.Cecilator
 
         public IEnumerable<BuilderType> FindAttributesInModule()
         {
+            var stopwatch = Stopwatch.StartNew();
+
             if (findAttributesInModuleCache == null)
                 findAttributesInModuleCache = this.GetTypesInternal(SearchContext.Module)
                    .SelectMany(x =>
@@ -286,14 +290,17 @@ namespace Cauldron.Interception.Cecilator
                        var type = x.Resolve();
                        return type
                            .CustomAttributes
-                               .Concat(this.moduleDefinition.CustomAttributes)
-                               .Concat(this.moduleDefinition.Assembly.CustomAttributes)
                                .Concat(type.Methods.SelectMany(y => y.CustomAttributes))
                                .Concat(type.Fields.SelectMany(y => y.CustomAttributes))
                                .Concat(type.Properties.SelectMany(y => y.CustomAttributes));
                    })
+                   .Concat(this.moduleDefinition.CustomAttributes)
+                   .Concat(this.moduleDefinition.Assembly.CustomAttributes)
                    .Distinct(new CustomAttributeEqualityComparer())
                    .Select(x => new BuilderType(this, x.AttributeType));
+
+            stopwatch.Stop();
+            this.LogInfo($"Finding attributes took {stopwatch.Elapsed.TotalMilliseconds}ms");
 
             return findAttributesInModuleCache;
         }
@@ -301,8 +308,6 @@ namespace Cauldron.Interception.Cecilator
         #endregion Attribute Finders
 
         #region Getting types
-
-        private IEnumerable<TypeReference> typeCache;
 
         public BuilderType GetType(Type type)
         {
@@ -318,9 +323,7 @@ namespace Cauldron.Interception.Cecilator
 
         public BuilderType GetType(string typeName)
         {
-            var nameSpace = typeName.Substring(0, typeName.LastIndexOf('.'));
-            var type = typeName.Substring(typeName.LastIndexOf('.') + 1);
-            var result = this.allTypes.FirstOrDefault(x => x.FullName == typeName || (x.Name == type && x.Namespace == nameSpace));
+            var result = this.allTypes.Get(typeName);
 
             if (result == null)
                 throw new TypeNotFoundException($"The type '{typeName}' does not exist in any of the referenced assemblies.");
@@ -348,21 +351,21 @@ namespace Cauldron.Interception.Cecilator
 
         internal IEnumerable<TypeReference> GetTypesInternal(SearchContext searchContext)
         {
-            if (searchContext == SearchContext.Module)
-                return this.moduleDefinition.Types
-                    .SelectMany(x => x.GetNestedTypes().Concat(new TypeReference[] { x }))
-                    .Where(x => x.Module.Assembly == this.moduleDefinition.Assembly)
-                    .Distinct(new TypeReferenceEqualityComparer());
-            else
-            {
-                if (typeCache == null)
-                    typeCache = this.allTypes
-                    .SelectMany(x => x.GetNestedTypes().Concat(new TypeReference[] { x }))
-                    .Where(x => !x.Module.Assembly.FullName.StartsWith("System."))
-                    .Distinct(new TypeReferenceEqualityComparer());
+            var types = searchContext == SearchContext.Module ? this.moduleDefinition.Types : this.allTypes;
+            var result = new ConcurrentBag<TypeReference>();
 
-                return typeCache;
-            }
+            Parallel.ForEach(types, type =>
+            {
+                if (type.HasNestedTypes)
+                {
+                    foreach (var t in type.Recursive(x => x.NestedTypes))
+                        result.Add(t);
+                }
+                else
+                    result.Add(type);
+            });
+
+            return result;
         }
 
         #endregion Getting types

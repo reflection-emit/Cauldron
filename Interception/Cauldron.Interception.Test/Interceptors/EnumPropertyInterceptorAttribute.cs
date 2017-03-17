@@ -3,7 +3,7 @@ using System;
 
 namespace Cauldron.Interception.Test.Interceptors
 {
-    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Module, AllowMultiple = false, Inherited = false)]
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = false)]
     public class EnumPropertyInterceptorAttribute : Attribute, IPropertyGetterInterceptor, IPropertySetterInterceptor
     {
         public void OnException(Exception e)

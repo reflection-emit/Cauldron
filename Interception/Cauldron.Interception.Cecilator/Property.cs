@@ -57,7 +57,7 @@ namespace Cauldron.Interception.Cecilator
         {
             get
             {
-                return (this.propertyDefinition.GetMethod ?? this.propertyDefinition.SetMethod).CustomAttributes.FirstOrDefault(x => x.AttributeType.Name == "CompilerGeneratedAttribute") != null;
+                return (this.propertyDefinition.GetMethod ?? this.propertyDefinition.SetMethod).CustomAttributes.Get("CompilerGeneratedAttribute") != null;
             }
         }
 
@@ -125,7 +125,7 @@ namespace Cauldron.Interception.Cecilator
 
         public Field CreateField(Type fieldType, string name)
         {
-            var field = this.DeclaringType.typeDefinition.Fields.FirstOrDefault(x => x.Name == name);
+            var field = this.DeclaringType.typeDefinition.Fields.Get(name);
 
             if (field != null)
                 return new Field(this.type, field);
@@ -139,7 +139,7 @@ namespace Cauldron.Interception.Cecilator
 
         public Field CreateField(TypeReference typeReference, string name)
         {
-            var field = this.DeclaringType.typeDefinition.Fields.FirstOrDefault(x => x.Name == name);
+            var field = this.DeclaringType.typeDefinition.Fields.Get(name);
 
             if (field != null)
                 return new Field(this.type, field);

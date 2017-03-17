@@ -3,9 +3,11 @@ using Mono.Cecil.Cil;
 using Mono.Cecil.Rocks;
 using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Cauldron.Interception.Cecilator
 {
@@ -17,6 +19,55 @@ namespace Cauldron.Interception.Cecilator
                 throw new ArgumentNullException(nameof(weaver), $"Argument '{nameof(weaver)}' cannot be null");
 
             return new Builder(weaver);
+        }
+
+        public static CustomAttribute Get(this Mono.Collections.Generic.Collection<CustomAttribute> collection, string name)
+        {
+            if (name.IndexOf('.') > 0)
+            {
+                for (int i = 0; i < collection.Count; i++)
+                {
+                    var fullname = collection[i].AttributeType.Resolve().FullName;
+                    if (fullname.GetHashCode() == name.GetHashCode() && fullname == name)
+                        return collection[i];
+                }
+            }
+            else
+            {
+                for (int i = 0; i < collection.Count; i++)
+                {
+                    var shortname = collection[i].AttributeType.Resolve().Name;
+                    if (shortname.GetHashCode() == name.GetHashCode() && shortname == name)
+                        return collection[i];
+                }
+            }
+
+            return null;
+        }
+
+        public static T Get<T>(this IEnumerable<T> source, string name) where T : MemberReference
+        {
+            var collection = source.ToArray();
+            if (name.IndexOf('.') > 0)
+            {
+                for (int i = 0; i < collection.Length; i++)
+                {
+                    var fullname = collection[i].FullName;
+                    if (fullname.GetHashCode() == name.GetHashCode() && fullname == name)
+                        return collection[i];
+                }
+            }
+            else
+            {
+                for (int i = 0; i < collection.Length; i++)
+                {
+                    var shortname = collection[i].Name;
+                    if (shortname.GetHashCode() == name.GetHashCode() && shortname == name)
+                        return collection[i];
+                }
+            }
+
+            return null;
         }
 
         public static IEnumerable<TypeReference> GetBaseClasses(this TypeReference type)

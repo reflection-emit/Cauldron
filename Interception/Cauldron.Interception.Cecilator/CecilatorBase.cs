@@ -89,7 +89,7 @@ namespace Cauldron.Interception.Cecilator
 
         internal TypeDefinition GetTypeDefinition(Type type)
         {
-            var result = this.allTypes.FirstOrDefault(x => x.FullName == type.FullName);
+            var result = this.allTypes.Get(type.FullName);
 
             if (result == null)
                 throw new Exception($"Unable to proceed. The type '{type.FullName}' was not found.");

@@ -32,7 +32,7 @@ namespace Cauldron.Interception.Cecilator
 
         public bool IsGenericType { get { return this.typeDefinition == null || this.typeReference.Resolve() == null; } }
 
-        public bool IsInterface { get { return this.typeDefinition.Attributes.HasFlag(TypeAttributes.Interface); } }
+        public bool IsInterface { get { return this.typeDefinition == null ? false : this.typeDefinition.Attributes.HasFlag(TypeAttributes.Interface); } }
 
         public bool IsNullable { get { return this.typeDefinition.FullName == this.moduleDefinition.Import(typeof(Nullable<>)).Resolve().FullName; } }
 
@@ -117,7 +117,10 @@ namespace Cauldron.Interception.Cecilator
         {
             get
             {
-                return this.typeReference.GetInterfaces().Select(x => new BuilderType(this, x)).Distinct(new BuilderTypeEqualityComparer());
+                if (this.IsInterface)
+                    return this.typeReference.GetInterfaces().Select(x => new BuilderType(this, x)).Distinct(new BuilderTypeEqualityComparer());
+                else
+                    return this.typeReference.GetInterfaces().Select(x => new BuilderType(this, x)).Distinct(new BuilderTypeEqualityComparer());
             }
         }
 
@@ -292,7 +295,7 @@ namespace Cauldron.Interception.Cecilator
 
         public Property CreateProperty(Modifiers modifier, BuilderType propertyType, string name)
         {
-            var contain = this.GetProperties().FirstOrDefault(x => x.Name == name);
+            var contain = this.GetProperties().Get(name);
 
             if (contain != null)
                 return new Property(this, contain);
@@ -327,7 +330,7 @@ namespace Cauldron.Interception.Cecilator
         {
             var name = field.Name;
 
-            var contain = this.GetProperties().FirstOrDefault(x => x.Name == name);
+            var contain = this.GetProperties().Get(name);
 
             if (contain != null)
                 return new Property(this, contain);
@@ -359,7 +362,7 @@ namespace Cauldron.Interception.Cecilator
 
         public Property GetProperty(string name)
         {
-            var result = this.GetProperties().FirstOrDefault(x => x.Name == name);
+            var result = this.GetProperties().Get(name);
 
             if (result == null)
                 throw new MethodNotFoundException($"Unable to proceed. The type '{this.typeDefinition.FullName}' does not contain a property '{name}'");

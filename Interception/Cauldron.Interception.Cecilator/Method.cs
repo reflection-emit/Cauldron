@@ -1,10 +1,12 @@
 ﻿using Mono.Cecil;
 using Mono.Cecil.Cil;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Cauldron.Interception.Cecilator
 {
@@ -36,6 +38,8 @@ namespace Cauldron.Interception.Cecilator
         public BuilderCustomAttributeCollection CustomAttributes { get { return new BuilderCustomAttributeCollection(this.type.Builder, this.methodDefinition); } }
 
         public BuilderType DeclaringType { get { return this.type; } }
+
+        public string Fullname { get { return this.methodReference.FullName; } }
 
         public bool IsAbstract { get { return this.methodDefinition.IsAbstract; } }
 

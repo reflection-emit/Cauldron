@@ -93,9 +93,13 @@ namespace Cauldron.Interception.Cecilator
 
         ICode NewObj(AttributedField attribute);
 
+        ICode OriginalBody();
+
         ICode Pop();
 
         ICode Return();
+
+        ICode StoreLocal(LocalVariable localVariable);
 
         ICode ThrowNew(Type exceptionType, string message);
 

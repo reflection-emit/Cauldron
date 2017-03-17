@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace Cauldron.Interception.Test.Interceptors
 {
-    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Module, AllowMultiple = false, Inherited = false)]
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
     public sealed class TestMethodInterceptorWithParameter : Attribute, IMethodInterceptor
     {
         public TestMethodInterceptorWithParameter(

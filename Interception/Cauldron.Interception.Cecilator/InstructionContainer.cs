@@ -83,6 +83,8 @@ namespace Cauldron.Interception.Cecilator
             return this.instruction[index + 1];
         }
 
+        public void RemoveLast() => this.instruction.RemoveAt(this.instruction.Count - 1);
+
         public override string ToString()
         {
             var sb = new StringBuilder();

@@ -35,6 +35,7 @@ namespace Cauldron.Interception.Cecilator
 
             if (this.instructions.Last().OpCode == OpCodes.Ldnull && last.Type.IsNullable)
             {
+                this.instructions.RemoveLast();
                 this.instructions.Append(processor.Create(OpCodes.Ldloca, last.variable));
                 this.instructions.Append(processor.Create(OpCodes.Initobj, last.variable.VariableType));
             }

@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -25,19 +26,25 @@ namespace Cauldron.Interception.Fody
         public void Execute()
         {
             var builder = this.CreateBuilder();
-            var interfaceNames = new string[] {
+
+            if (!builder.IsReferenced("Cauldron.Interception"))
+            {
+                this.LogWarning($"The assembly 'Cauldron.Interception' is not referenced or used in '{builder.Name}'. Weaving will not continue.");
+                return;
+            }
+
+            var propertyInterceptingAttributes = builder.FindAttributesByInterfaces(
                 "Cauldron.Interception.IPropertyInterceptor",
                 "Cauldron.Interception.ILockablePropertyGetterInterceptor",
                 "Cauldron.Interception.ILockablePropertySetterInterceptor",
                 "Cauldron.Interception.IPropertyGetterInterceptor",
-                "Cauldron.Interception.IPropertySetterInterceptor"};
-
-            var propertyInterceptingAttributes = builder.CustomAttributes.Where(x => interfaceNames.Any(y => x.Type.Implements(y))).Select(x => x.Type);
+                "Cauldron.Interception.IPropertySetterInterceptor");
 
             this.ImplementAnonymousTypeInterface(builder);
             this.InterceptFields(builder, propertyInterceptingAttributes);
             this.InterceptMethods(builder);
             this.InterceptProperties(builder, propertyInterceptingAttributes);
+            this.ImplementTimedCache(builder);
         }
 
         private Method CreateAssigningMethod(BuilderType anonSource, BuilderType anonTarget, BuilderType anonTargetInterface, Method method)
@@ -85,15 +92,21 @@ namespace Cauldron.Interception.Fody
                 return;
             }
 
+            var stopwatch = Stopwatch.StartNew();
+
             var cauldronCoreExtension = builder.GetType("Cauldron.Core.Extensions.AnonymousTypeWithInterfaceExtension");
             var createObjectMethod = cauldronCoreExtension.GetMethod("CreateObject", 1).FindUsages().ToArray();
             var createdTypes = new Dictionary<string, BuilderType>();
 
+            if (!createObjectMethod.Any())
+                return;
+
             foreach (var item in createObjectMethod)
             {
+                this.LogInfo($"Implementing anonymous to interface {item}");
                 var interfaceToImplement = item.GetGenericArgument(0);
 
-                if (!interfaceToImplement.IsInterface)
+                if (interfaceToImplement == null || !interfaceToImplement.IsInterface)
                 {
                     this.LogError($"{interfaceToImplement.Fullname} is not an interface.");
                     continue;
@@ -108,7 +121,7 @@ namespace Cauldron.Interception.Fody
                 }
 
                 var anonymousTypeName = $"<>f__{interfaceToImplement.Name}_Cauldron_AnonymousType{counter++}";
-                this.LogInfo($"Creating new type: {type.Namespace}.{anonymousTypeName}");
+                this.LogInfo($"- Creating new type: {type.Namespace}.{anonymousTypeName}");
 
                 var newType = builder.CreateType(type.Namespace, TypeAttributes.Public | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit | TypeAttributes.Serializable, anonymousTypeName);
                 newType.AddInterface(interfaceToImplement);
@@ -139,54 +152,126 @@ namespace Cauldron.Interception.Fody
 
                 item.Replace(CreateAssigningMethod(type, newType, interfaceToImplement, item.HostMethod));
             }
+            stopwatch.Stop();
+            this.LogInfo($"Implementing anonymous type to interface took {stopwatch.Elapsed.TotalMilliseconds}ms");
+        }
+
+        private void ImplementTimedCache(Builder builder)
+        {
+            var methods = builder.FindMethodsByAttribute("Cauldron.Interception.TimedCacheAttribute");
+
+            if (!methods.Any())
+                return;
+
+            var timedCacheAttribute = builder.GetType("Cauldron.Interception.TimedCacheAttribute")
+                .New(x => new
+                {
+                    CreateKey = x.GetMethod("CreateKey", 2),
+                    HasCache = x.GetMethod("HasCache", 1),
+                    SetCache = x.GetMethod("SetCache", 2),
+                    GetCache = x.GetMethod("GetCache", 1)
+                });
+
+            foreach (var method in methods)
+            {
+                this.LogInfo($"Implementing TimedCache in method {method.Method.Name}");
+
+                if (method.Method.ReturnType.Fullname == "System.Void")
+                {
+                    this.LogWarning("TimedCacheAttribute does not support void return types");
+                    continue;
+                }
+
+                var keyName = "<>timedcache_key";
+                var timecacheVarName = "<>timedcache";
+
+                if (method.AsyncMethod == null)
+                    method.Method.NewCode()
+                        .Context(x =>
+                        {
+                            var timedCache = x.CreateVariable(timecacheVarName, method.Attribute.Type);
+                            var key = x.CreateVariable(keyName, timedCacheAttribute.CreateKey);
+                            var returnVariable = x.GetReturnVariable();
+
+                            x.Assign(timedCache).NewObj(method);
+
+                            // Create a cache key
+                            x.Load(timedCache).Call(timedCacheAttribute.CreateKey, method.Method.Fullname, x.GetParametersArray())
+                                    .StoreLocal(key);
+
+                            // check
+                            x.Load(timedCache).Call(timedCacheAttribute.HasCache, key)
+                                    .IsTrue().Then(y =>
+                                    {
+                                        y.Load(timedCache).Call(timedCacheAttribute.GetCache, key)
+                                            .As(method.Method.ReturnType)
+                                            .StoreLocal(returnVariable)
+                                            .Return();
+                                    });
+
+                            x.OriginalBody().StoreLocal(returnVariable);
+
+                            // Set the cache
+                            x.Load(timedCache).Call(timedCacheAttribute.SetCache, key, returnVariable);
+
+                            x.Load(returnVariable).Return();
+                        })
+                        .Replace();
+                else
+                    this.LogWarning($"- TimedCacheAttribute for method {method.Method.Name} will not be implemented. Async method are currently not supported.");
+            }
         }
 
         private void InterceptFields(Builder builder, IEnumerable<BuilderType> attributes)
         {
-            var fields = builder.FindFieldsByAttributes(attributes).ToArray();
+            if (!attributes.Any())
+                return;
+
+            var stopwatch = Stopwatch.StartNew();
+            var fields = builder.FindFieldsByAttributes(attributes).GroupBy(x => x.Field).ToArray();
 
             foreach (var field in fields)
             {
-                this.LogInfo($"Implementing interceptors in fields {field.Field}");
+                this.LogInfo($"Implementing interceptors in fields {field.Key}");
 
-                if (field.Field.Modifiers.HasFlag(Modifiers.Public))
+                if (field.Key.Modifiers.HasFlag(Modifiers.Public))
                 {
-                    this.LogWarning($"The current version of the field interceptor only intercepts private fields. Field '{field.Field.Name}' in type '{field.Field.DeclaringType.Name}'");
+                    this.LogWarning($"The current version of the field interceptor only intercepts private fields. Field '{field.Key.Name}' in type '{field.Key.DeclaringType.Name}'");
                     continue;
                 }
 
-                var type = field.Field.DeclaringType;
+                var type = field.Key.DeclaringType;
+                var usage = field.Key.FindUsages().ToArray();
+                var property = type.CreateProperty(field.Key);
 
-                if (type.ContainsProperty(field.Field.Name))
+                property.CustomAttributes.AddCompilerGeneratedAttribute();
+
+                foreach (var attribute in field)
+                    attribute.Attribute.MoveTo(property);
+
+                foreach (var item in usage)
                 {
-                    this.LogInfo($"Property '{field.Field.Name}' already exists. Moving attribute '{field.Attribute.Fullname}' to property");
-                    field.Attribute.MoveTo(type.Properties.FirstOrDefault(x => x.Name == field.Field.Name));
-                }
-                else
-                {
-                    var usage = field.Field.FindUsages().ToArray();
-                    var property = type.CreateProperty(field.Field);
-
-                    property.CustomAttributes.AddCompilerGeneratedAttribute();
-                    field.Attribute.MoveTo(property);
-
-                    foreach (var item in usage)
-                    {
-                        // TODO - fields has to be replaced by property if ctor is not calling base... instead this
-                        if (item.Method.Name != ".ctor" && item.Method.Name != ".cctor" ||
-                            (item.Method.Name == ".ctor" && !item.Method.IsConstructorWithBaseCall))
-                            item.Replace(property);
-                    }
+                    // TODO - fields has to be replaced by property if ctor is not calling base... instead this
+                    if (item.Method.Name != ".ctor" && item.Method.Name != ".cctor" ||
+                        (item.Method.Name == ".ctor" && !item.Method.IsConstructorWithBaseCall))
+                        item.Replace(property);
                 }
             }
+
+            stopwatch.Stop();
+            this.LogInfo($"Implementing field interceptors took {stopwatch.Elapsed.TotalMilliseconds}ms");
         }
 
         private void InterceptMethods(Builder builder)
         {
-            var interfaceNames = new string[] {
+            var attributes = builder.FindAttributesByInterfaces(
                 "Cauldron.Interception.ILockableMethodInterceptor",
-                "Cauldron.Interception.IMethodInterceptor"};
-            var attributes = builder.CustomAttributes.Where(x => interfaceNames.Any(y => x.Type.Implements(y))).Select(x => x.Type);
+                "Cauldron.Interception.IMethodInterceptor");
+
+            if (!attributes.Any())
+                return;
+
+            var stopwatch = Stopwatch.StartNew();
 
             #region define Interfaces and the methods we want to invoke
 
@@ -230,7 +315,7 @@ namespace Cauldron.Interception.Fody
                         Interface = y.Attribute.Type.Implements(iLockableMethodInterceptor.Type.Fullname) ? iLockableMethodInterceptor : iMethodInterceptor,
                         Attribute = y
                     }).ToArray()
-                });
+                }).ToArray();
 
             foreach (var method in methods)
             {
@@ -305,11 +390,19 @@ namespace Cauldron.Interception.Fody
                     .EndTry()
                     .Return()
                 .Replace();
-            }
+            };
+
+            stopwatch.Stop();
+            this.LogInfo($"Implementing method interceptors took {stopwatch.Elapsed.TotalMilliseconds}ms");
         }
 
         private void InterceptProperties(Builder builder, IEnumerable<BuilderType> attributes)
         {
+            if (!attributes.Any())
+                return;
+
+            var stopwatch = Stopwatch.StartNew();
+
             #region define Interfaces and the methods we want to invoke
 
             var iLockablePropertyGetterInterceptor = builder.GetType("Cauldron.Interception.ILockablePropertyGetterInterceptor")
@@ -608,6 +701,9 @@ namespace Cauldron.Interception.Fody
                 member.Property.Getter?.CustomAttributes.Remove(typeof(CompilerGeneratedAttribute));
                 member.Property.Setter?.CustomAttributes.Remove(typeof(CompilerGeneratedAttribute));
             }
+
+            stopwatch.Stop();
+            this.LogInfo($"Implementing property interceptors took {stopwatch.Elapsed.TotalMilliseconds}ms");
         }
     }
 }

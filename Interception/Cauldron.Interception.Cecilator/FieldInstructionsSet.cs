@@ -35,6 +35,7 @@ namespace Cauldron.Interception.Cecilator
 
             if (this.instructions.Last().OpCode == OpCodes.Ldnull && field.FieldType.IsNullable)
             {
+                this.instructions.RemoveLast();
                 this.instructions.Append(processor.Create(field.IsStatic ? OpCodes.Ldsflda : OpCodes.Ldflda, field.fieldRef));
                 this.instructions.Append(processor.Create(OpCodes.Initobj, field.fieldRef.FieldType));
             }
