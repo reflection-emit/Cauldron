@@ -6,6 +6,10 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
+#if WINDOWS_UWP
+using Windows.Storage;
+#endif
+
 namespace Cauldron.Core.Java
 {
     /// <summary>

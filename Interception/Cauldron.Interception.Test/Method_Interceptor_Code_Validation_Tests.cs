@@ -146,6 +146,36 @@ namespace Cauldron.Interception.Test
             Assert.AreEqual(3434, result);
         }
 
+        [TestMethod, TestMethodInterceptor]
+        public void SwitchTest()
+        {
+            var test = "asdf";
+            // TODO - Test does not preform correct tests
+            switch (UserInformation.GetUserNameAsync().GetHashCode())
+            {
+                case 55:
+                case 1:
+                    test = "ioi";
+                    break;
+
+                case 0:
+                case 77:
+                    test = "";
+
+                    break;
+
+                case 834:
+                    return;
+
+                default:
+                    test = "io645764i";
+
+                    break;
+            }
+
+            Assert.IsTrue(!string.IsNullOrEmpty(test));
+        }
+
         [TestMethod]
         public void ValueType_Method_With_Multiple_Returns()
         {
@@ -416,36 +446,6 @@ namespace Cauldron.Interception.Test
             return new TestClass { EnumProperty = TestEnum.Three };
         }
 
-        [TestMethod, TestMethodInterceptor]
-        public void SwitchTest()
-        {
-            var test = "asdf";
-            // TODO - Test does not preform correct tests
-            switch (UserInformation.CurrentUser.GetHashCode())
-            {
-                case 55:
-                case 1:
-                    test = "ioi";
-                    break;
-
-                case 0:
-                case 77:
-                    test = "";
-
-                    break;
-
-                case 834:
-                    return;
-
-                default:
-                    test = "io645764i";
-
-                    break;
-            }
-
-            Assert.IsTrue(!string.IsNullOrEmpty(test));
-        }
-
         [TestMethodInterceptor]
         private TestClass Class_Method_With_Single_Return_()
         {
@@ -458,6 +458,15 @@ namespace Cauldron.Interception.Test
             return new TestClass { CharProperty = 'e', IntegerProperty = 33, StringProperty = "Hello" };
         }
 
+        private async Task<bool> LongRunningTaskAsync()
+        {
+            await Task.Run(() =>
+            {
+                Task.Delay(5000).RunSync();
+            });
+            return true;
+        }
+
         [ExceptionThrowingMethodInterceptor]
         private async Task<bool> Method_1_Async()
         {
@@ -467,15 +476,6 @@ namespace Cauldron.Interception.Test
                 throw new DivideByZeroException();
 
             return result;
-        }
-
-        private async Task<bool> LongRunningTaskAsync()
-        {
-            await Task.Run(() =>
-            {
-                Task.Delay(5000).RunSync();
-            });
-            return true;
         }
 
         [TestMethodInterceptor]

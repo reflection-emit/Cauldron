@@ -98,12 +98,6 @@
     <Compile Include="..\Cauldron.Interception.Test\Anonymouse_Type_To_Interface_Test.cs">
       <Link>Anonymouse_Type_To_Interface_Test.cs</Link>
     </Compile>
-    <Compile Include="..\Cauldron.Interception.Test\ChildOf_Implementer_Test.cs">
-      <Link>ChildOf_Implementer_Test.cs</Link>
-    </Compile>
-    <Compile Include="..\Cauldron.Interception.Test\FieldOf_Implementer_Test.cs">
-      <Link>FieldOf_Implementer_Test.cs</Link>
-    </Compile>
     <Compile Include="..\Cauldron.Interception.Test\Field_Interception_Code_Validation_Tests.cs">
       <Link>Field_Interception_Code_Validation_Tests.cs</Link>
     </Compile>
@@ -112,6 +106,9 @@
     </Compile>
     <Compile Include="..\Cauldron.Interception.Test\Interceptors\EnumPropertyInterceptorAttribute.cs">
       <Link>Interceptors\EnumPropertyInterceptorAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\Cauldron.Interception.Test\Interceptors\ExceptionThrowingMethodInterceptorAttribute.cs">
+      <Link>Interceptors\ExceptionThrowingMethodInterceptorAttribute.cs</Link>
     </Compile>
     <Compile Include="..\Cauldron.Interception.Test\Interceptors\TestMethodInterceptorAttribute.cs">
       <Link>Interceptors\TestMethodInterceptorAttribute.cs</Link>
@@ -124,9 +121,6 @@
     </Compile>
     <Compile Include="..\Cauldron.Interception.Test\ITestInterface.cs">
       <Link>ITestInterface.cs</Link>
-    </Compile>
-    <Compile Include="..\Cauldron.Interception.Test\MethodOf_Implementer_Test.cs">
-      <Link>MethodOf_Implementer_Test.cs</Link>
     </Compile>
     <Compile Include="..\Cauldron.Interception.Test\Method_Interceptor_Code_Validation_Tests.cs">
       <Link>Method_Interceptor_Code_Validation_Tests.cs</Link>
