@@ -20,6 +20,12 @@ namespace Cauldron.Core.Test
     public class CreateInstance_Test
     {
         [TestMethod]
+        public void CreateInstance_With_NullParameter()
+        {
+            var instance = typeof(TestClass16).CreateInstance(null, null);
+        }
+
+        [TestMethod]
         public void Parallel_Instance_Creation()
         {
             var types = new Type[]
@@ -99,6 +105,17 @@ namespace Cauldron.Core.Test
             }
 
             private TestClass15(string p)
+            {
+            }
+        }
+
+        public class TestClass16
+        {
+            public TestClass16(string arg1, string arg2)
+            {
+            }
+
+            public TestClass16()
             {
             }
         }

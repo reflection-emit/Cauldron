@@ -1,5 +1,4 @@
 ﻿using Cauldron.Activator;
-using Cauldron.Injection;
 using Cauldron.XAML;
 using Cauldron.XAML.ViewModels;
 using EveOnlineApi;

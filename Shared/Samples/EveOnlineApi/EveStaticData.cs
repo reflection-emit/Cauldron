@@ -10,10 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Runtime.Serialization;
-using System.Threading;
 using System.Threading.Tasks;
-using Windows.Storage;
 
 namespace EveOnlineApi
 {
@@ -63,21 +60,18 @@ namespace EveOnlineApi
 
         private async Task<List<TResult>> ConsumeUntil<TResult>(string requestUri, Func<TResult, string> nextUri)
         {
-            using (var apiStatus = new ExecutionTimer())
+            List<TResult> items = new List<TResult>();
+            TResult result;
+
+            do
             {
-                List<TResult> items = new List<TResult>();
-                TResult result;
+                result = await WebServiceConsumer.Consume<DefaultRestClient, JsonDeserializer, TResult>(requestUri);
+                requestUri = nextUri(result);
 
-                do
-                {
-                    result = await WebServiceConsumer.Consume<DefaultRestClient, JsonDeserializer, TResult>(requestUri);
-                    requestUri = nextUri(result);
+                items.Add(result);
+            } while (requestUri != null);
 
-                    items.Add(result);
-                } while (requestUri != null);
-
-                return items;
-            }
+            return items;
         }
 
         private async Task LoadCache()
@@ -138,41 +132,32 @@ namespace EveOnlineApi
 
         private async Task RebuildRefTypeItem()
         {
-            using (var apiStatus = new ExecutionTimer())
-            {
-                var server = Factory.Create<IEveApi>().Server;
-                var result = await WebServiceConsumer.Consume<DefaultRestClient, XmlDeserializer, RefTypeItemCollection>($"{server.XMLApi}eve/RefTypes.xml.aspx");
-                await EveCache.SetCache(result.Items);
-            }
+            var server = Factory.Create<IEveApi>().Server;
+            var result = await WebServiceConsumer.Consume<DefaultRestClient, XmlDeserializer, RefTypeItemCollection>($"{server.XMLApi}eve/RefTypes.xml.aspx");
+            await EveCache.SetCache(result.Items);
         }
 
         private async Task RebuildRegionsAndSolarSystems()
         {
-            using (var apiStatus = new ExecutionTimer())
-            {
-                var eve = Factory.Create<IEveApi>();
-                var regions = (await this.ConsumeUntil<RegionCollection>((await eve.GetMotdAsync()).Regions.HRef, x => x.Next == null ? null : x.Next.HRef)).SelectMany(x => x.Items);
-                var solarSystems = (await this.ConsumeUntil<SolarSystemCollection>((await eve.GetMotdAsync()).SolarSystems.HRef, x => x.Next == null ? null : x.Next.HRef)).SelectMany(x => x.Items);
+            var eve = Factory.Create<IEveApi>();
+            var regions = (await this.ConsumeUntil<RegionCollection>((await eve.GetMotdAsync()).Regions.HRef, x => x.Next == null ? null : x.Next.HRef)).SelectMany(x => x.Items);
+            var solarSystems = (await this.ConsumeUntil<SolarSystemCollection>((await eve.GetMotdAsync()).SolarSystems.HRef, x => x.Next == null ? null : x.Next.HRef)).SelectMany(x => x.Items);
 
-                await EveCache.SetCache(regions);
-                await EveCache.SetCache(solarSystems);
-            }
+            await EveCache.SetCache(regions);
+            await EveCache.SetCache(solarSystems);
         }
 
         private async Task RebuildStaticDataAsync()
         {
-            using (var progress = new ExecutionTimer())
-            {
-                if (!Network.HasInternetConnection || await EveUtils.GetServerStatusAsync() != EveServerStatus.Online)
-                    throw new EveServersOfflineException("Not connected to the internet or Eve servers are offline.");
+            if (!Network.HasInternetConnection || await EveUtils.GetServerStatusAsync() != EveServerStatus.Online)
+                throw new EveServersOfflineException("Not connected to the internet or Eve servers are offline.");
 
-                await this.RebuildRegionsAndSolarSystems();
-                await this.RebuildRefTypeItem();
+            await this.RebuildRegionsAndSolarSystems();
+            await this.RebuildRefTypeItem();
 
-                this.solarSystemCache = null;
-                this.regionCache = null;
-                this.refTypeItemCache = null;
-            }
+            this.solarSystemCache = null;
+            this.regionCache = null;
+            this.refTypeItemCache = null;
         }
 
         #region ItemTypes

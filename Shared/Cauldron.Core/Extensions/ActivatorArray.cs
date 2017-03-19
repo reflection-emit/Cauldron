@@ -46,7 +46,7 @@ namespace Cauldron.Core.Extensions
 
         public object CreateInstance(Type type, object[] args)
         {
-            var types = args == null || args.Length == 0 ? Type.EmptyTypes : args.Select(x => x?.GetType() ?? typeof(object)).ToArray();
+            var types = args == null || args.Length == 0 ? Type.EmptyTypes : args.Select(x => x?.GetType() ?? null).ToArray();
             for (int i = 0; i < this.keys.Length; i++)
             {
                 if (this.keys[i] == null)
@@ -254,12 +254,7 @@ namespace Cauldron.Core.Extensions
             return true;
         }
 
-        public bool Equals(Type type)
-        {
-            if (this.type != type)
-                return false;
-
-            return true;
-        }
+        public bool Equals(Type type) =>
+            this.type.GetHashCode() == type.GetHashCode() && this.type.FullName.GetHashCode() == type.FullName.GetHashCode() && this.type.FullName == type.FullName;
     }
 }

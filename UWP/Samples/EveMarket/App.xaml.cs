@@ -26,7 +26,6 @@ namespace EveMarket
             this.InitializeComponent();
             this.StartSearchCommand = new RelayCommand(this.StartSearchAction);
 
-            Assemblies.AddAssembly(Assembly.Load(new AssemblyName("Cauldron.Injection")));
             Assemblies.AddAssembly(Assembly.Load(new AssemblyName("EveOnlineApi")));
             Assemblies.AddAssembly(Assembly.Load(new AssemblyName("EveMarket.Views")));
         }

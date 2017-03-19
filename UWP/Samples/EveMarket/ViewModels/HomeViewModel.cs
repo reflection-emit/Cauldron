@@ -1,6 +1,5 @@
 ﻿using Cauldron.Activator;
 using Cauldron.Core.Extensions;
-using Cauldron.Injection;
 using Cauldron.XAML;
 using Cauldron.XAML.ViewModels;
 using EveMarket.Views;

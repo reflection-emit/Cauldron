@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>cb0047ff-37a1-4eee-9cb5-54ab7e1ac0f8</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>EveOnlineApi</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Api.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ApiKey.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CrestAccessScopes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EveCache.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EveServers.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EveServerStatus.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EveStaticData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EveUtils.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\EveServersOfflineException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\WebServiceConsumerException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IEveApi.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IEveStaticData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ImageType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\AssertItemCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\AssetItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Character.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\CharacterCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\CharacterLocationInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\CharacterName.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\CharacterNameCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\CharacterSheet.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ConquerableStation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ConquerableStationCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Corporation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\CorporationTitle.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\CorporationTitles.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\CrestCharacterInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\CrestTokenInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\DefaultNode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\EveTime.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Faction.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\IKeyedModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Implant.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ImplantAttributes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Incursion.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ItemAttributes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ItemPrice.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ItemPriceCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ItemProperties.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\JumpClone.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\JumpCloneImplant.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Location.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\MailBody.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\MailBodyCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\MailMessageCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\MailMessageItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ModelCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Motd.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Next.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Notification.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\NotificationCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\OpenMarketBody.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\PriceHistory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\PriceHistoryCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\QuicklookCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\QuicklookOrder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ServerStatus.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ServerVersion.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ShipFitting.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Skill.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SkillInTraining.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SkillQueue.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SkillQueueCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SolarSystemInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\StaticData\InventoryFlag.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\StaticData\ItemGroup.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\StaticData\ItemType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\StaticData\MarketGroup.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\StaticData\NpcCorporation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\StaticData\NpcStation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\StaticData\RefTypeItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\StaticData\RefTypeItemCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\StaticData\Region.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\StaticData\RegionCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\StaticData\SolarSystem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\StaticData\SolarSystemCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\TokenKey.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\WalletJournal.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\WalletJournalItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\XmlModelCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NotificationTypes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ReferenceTypes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebService\AzureMobileServicesClient.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebService\DefaultDiskCacheAgent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebService\DefaultRestClient.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebService\EveXmlSpecializedCacheAgent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebService\EveXmlSpecializedCollectionCacheAgent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebService\FiveMinutesDiskCacheAgent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebService\JsonDeserializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebService\MotdCachingAgent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebService\OneDayLifetimeDiskCacheAgent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebService\WebServiceConsumer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebService\XmlDeserializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)XmlDeserializer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\GroupId.bin" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\InventoryFlag.bin" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\MarketGroup.bin" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\NPCCorporation.bin" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\NPCStation.bin" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\TypeId.bin" />
+  </ItemGroup>
+</Project>

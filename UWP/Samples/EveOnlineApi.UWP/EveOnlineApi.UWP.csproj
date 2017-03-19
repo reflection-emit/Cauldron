@@ -107,114 +107,15 @@
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <None Include="project.json" />
-    <EmbeddedResource Include="Resources\GroupId.bin" />
-    <EmbeddedResource Include="Resources\InventoryFlag.bin" />
-    <EmbeddedResource Include="Resources\MarketGroup.bin" />
-    <EmbeddedResource Include="Resources\NPCCorporation.bin" />
-    <EmbeddedResource Include="Resources\NPCStation.bin" />
-    <EmbeddedResource Include="Resources\TypeId.bin" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Api.cs" />
-    <Compile Include="ApiKey.cs" />
-    <Compile Include="CrestAccessScopes.cs" />
-    <Compile Include="EveCache.cs" />
-    <Compile Include="EveServers.cs" />
-    <Compile Include="EveServerStatus.cs" />
-    <Compile Include="EveStaticData.cs" />
-    <Compile Include="EveUtils.cs" />
-    <Compile Include="Exceptions\EveServersOfflineException.cs" />
-    <Compile Include="Exceptions\WebServiceConsumerException.cs" />
-    <Compile Include="IEveApi.cs" />
-    <Compile Include="IEveStaticData.cs" />
-    <Compile Include="ImageType.cs" />
-    <Compile Include="Models\AssertItemCollection.cs" />
-    <Compile Include="Models\AssetItem.cs" />
-    <Compile Include="Models\Character.cs" />
-    <Compile Include="Models\CharacterCollection.cs" />
-    <Compile Include="Models\CharacterLocationInfo.cs" />
-    <Compile Include="Models\CharacterName.cs" />
-    <Compile Include="Models\CharacterNameCollection.cs" />
-    <Compile Include="Models\CharacterSheet.cs" />
-    <Compile Include="Models\ConquerableStation.cs" />
-    <Compile Include="Models\ConquerableStationCollection.cs" />
-    <Compile Include="Models\Corporation.cs" />
-    <Compile Include="Models\CorporationTitle.cs" />
-    <Compile Include="Models\CorporationTitles.cs" />
-    <Compile Include="Models\CrestCharacterInfo.cs" />
-    <Compile Include="Models\CrestTokenInfo.cs" />
-    <Compile Include="Models\DefaultNode.cs" />
-    <Compile Include="Models\EveTime.cs" />
-    <Compile Include="Models\Faction.cs" />
-    <Compile Include="Models\IKeyedModel.cs" />
-    <Compile Include="Models\Implant.cs" />
-    <Compile Include="Models\ImplantAttributes.cs" />
-    <Compile Include="Models\Incursion.cs" />
-    <Compile Include="Models\ItemAttributes.cs" />
-    <Compile Include="Models\ItemPrice.cs" />
-    <Compile Include="Models\ItemPriceCollection.cs" />
-    <Compile Include="Models\ItemProperties.cs" />
-    <Compile Include="Models\JumpClone.cs" />
-    <Compile Include="Models\JumpCloneImplant.cs" />
-    <Compile Include="Models\Location.cs" />
-    <Compile Include="Models\MailBody.cs" />
-    <Compile Include="Models\MailBodyCollection.cs" />
-    <Compile Include="Models\MailMessageCollection.cs" />
-    <Compile Include="Models\MailMessageItem.cs" />
-    <Compile Include="Models\ModelCollection.cs" />
-    <Compile Include="Models\Motd.cs" />
-    <Compile Include="Models\Next.cs" />
-    <Compile Include="Models\Notification.cs" />
-    <Compile Include="Models\NotificationCollection.cs" />
-    <Compile Include="Models\OpenMarketBody.cs" />
-    <Compile Include="Models\PriceHistory.cs" />
-    <Compile Include="Models\PriceHistoryCollection.cs" />
-    <Compile Include="Models\QuicklookCollection.cs" />
-    <Compile Include="Models\QuicklookOrder.cs" />
-    <Compile Include="Models\ServerStatus.cs" />
-    <Compile Include="Models\ServerVersion.cs" />
-    <Compile Include="Models\ShipFitting.cs" />
-    <Compile Include="Models\Skill.cs" />
-    <Compile Include="Models\SkillInTraining.cs" />
-    <Compile Include="Models\SkillQueue.cs" />
-    <Compile Include="Models\SkillQueueCollection.cs" />
-    <Compile Include="Models\SolarSystemInfo.cs" />
-    <Compile Include="Models\StaticData\InventoryFlag.cs" />
-    <Compile Include="Models\StaticData\ItemGroup.cs" />
-    <Compile Include="Models\StaticData\ItemType.cs" />
-    <Compile Include="Models\StaticData\MarketGroup.cs" />
-    <Compile Include="Models\StaticData\NpcCorporation.cs" />
-    <Compile Include="Models\StaticData\NpcStation.cs" />
-    <Compile Include="Models\StaticData\RefTypeItem.cs" />
-    <Compile Include="Models\StaticData\RefTypeItemCollection.cs" />
-    <Compile Include="Models\StaticData\Region.cs" />
-    <Compile Include="Models\StaticData\RegionCollection.cs" />
-    <Compile Include="Models\StaticData\SolarSystem.cs" />
-    <Compile Include="Models\StaticData\SolarSystemCollection.cs" />
-    <Compile Include="Models\TokenKey.cs" />
-    <Compile Include="Models\WalletJournal.cs" />
-    <Compile Include="Models\WalletJournalItem.cs" />
-    <Compile Include="Models\XmlModelCollection.cs" />
-    <Compile Include="NotificationTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReferenceTypes.cs" />
-    <Compile Include="WebService\AzureMobileServicesClient.cs" />
-    <Compile Include="WebService\DefaultDiskCacheAgent.cs" />
-    <Compile Include="WebService\DefaultRestClient.cs" />
-    <Compile Include="WebService\EveXmlSpecializedCacheAgent.cs" />
-    <Compile Include="WebService\EveXmlSpecializedCollectionCacheAgent.cs" />
-    <Compile Include="WebService\FiveMinutesDiskCacheAgent.cs" />
-    <Compile Include="WebService\JsonDeserializer.cs" />
-    <Compile Include="WebService\MotdCachingAgent.cs" />
-    <Compile Include="WebService\OneDayLifetimeDiskCacheAgent.cs" />
-    <Compile Include="WebService\WebServiceConsumer.cs" />
-    <Compile Include="WebService\XmlDeserializer.cs" />
-    <Compile Include="XmlDeserializer.cs" />
     <EmbeddedResource Include="Properties\EveOnlineApi.UWP.rd.xml" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="FodyWeavers.xml" />
   </ItemGroup>
+  <Import Project="..\..\..\Shared\Samples\EveOnlineApi\EveOnlineApi.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
