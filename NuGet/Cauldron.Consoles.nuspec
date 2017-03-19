@@ -2,29 +2,29 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>Capgemini.Cauldron.Consoles</id>
-    <version>1.0.7</version>
+    <version>1.0.10</version>
     <title>Capgemini Cauldron Consoles</title>
-    <authors>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</authors>
-    <owners>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</owners>
+    <authors>Capgemini Deutschland GmbH</authors>
+    <owners>Capgemini Deutschland GmbH</owners>
     <licenseUrl>https://raw.githubusercontent.com/reflection-emit/Cauldron/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/reflection-emit/Cauldron</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/reflection-emit/Cauldron/master/cauldron.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Cauldron.Consoles is a Cauldron.Core based parameter parser which supports grouping of parameters in execution groups. It is also supports localization and has a nice parameter table :)</description>
     <summary>A simple parameter parser for console applications. (Open Source)</summary>
-    <copyright>Copyright (c) 2016 Alexander Schunk, Capgemini Deutschland GmbH and Contributors</copyright>
+    <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Console Parameter Parsing Argument Arguments Parameters Cauldron Command CommandLine Args</tags>
     <dependencies>
       <group targetFramework="net452">
-        <dependency id="Capgemini.Cauldron.Core" version="1.0.8" />
-        <dependency id="Capgemini.Cauldron.Activator" version="1.0.8" />
-        <dependency id="Capgemini.Cauldron.Localization" version="1.0.8" />
+        <dependency id="Capgemini.Cauldron.Core" version="1.0.10" />
+        <dependency id="Capgemini.Cauldron.Activator" version="1.0.10" />
+        <dependency id="Capgemini.Cauldron.Localization" version="1.0.10" />
       </group>
       <group targetFramework="netstandard1.6">
         <dependency id="NETStandard.Library" version="1.6.1" />
-        <dependency id="Capgemini.Cauldron.Core" version="1.0.8" />
-        <dependency id="Capgemini.Cauldron.Localization" version="1.0.8" />
-        <dependency id="Capgemini.Cauldron.Activator" version="1.0.8" />
+        <dependency id="Capgemini.Cauldron.Core" version="1.0.10" />
+        <dependency id="Capgemini.Cauldron.Localization" version="1.0.10" />
+        <dependency id="Capgemini.Cauldron.Activator" version="1.0.10" />
       </group>
     </dependencies>
   </metadata>

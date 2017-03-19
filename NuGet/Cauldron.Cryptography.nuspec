@@ -2,29 +2,29 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>Capgemini.Cauldron.Cryptography</id>
-    <version>1.0.7</version>
+    <version>1.0.10</version>
     <title>Capgemini Cauldron Cryptography</title>
-    <authors>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</authors>
-    <owners>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</owners>
+    <authors>Capgemini Deutschland GmbH</authors>
+    <owners>Capgemini Deutschland GmbH</owners>
     <licenseUrl>https://raw.githubusercontent.com/reflection-emit/Cauldron/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/reflection-emit/Cauldron</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/reflection-emit/Cauldron/master/cauldron.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Contains typical implementations for AES, RSA and RSA-AES encryptions. It also contains extensions that helps working with SecureString.</description>
     <summary>Implementation for AES, RSA and AES-RSA encryptions  (Open Source)</summary>
-    <copyright>Copyright (c) 2016 Alexander Schunk, Capgemini Deutschland GmbH and Contributors</copyright>
+    <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Crypto Encryption Cryptography AES RSA</tags>
     <dependencies>
       <group targetFramework="uap10.0">
-        <dependency id="Capgemini.Cauldron.Core" version="1.0.8" />
+        <dependency id="Capgemini.Cauldron.Core" version="1.0.10" />
         <dependency id="Microsoft.NETCore.UniversalWindowsPlatform" version="5.2.2" />
       </group>
       <group targetFramework="net452">
-        <dependency id="Capgemini.Cauldron.Core" version="1.0.8" />
+        <dependency id="Capgemini.Cauldron.Core" version="1.0.10" />
       </group>
       <group targetFramework="netstandard1.6">
         <dependency id="NETStandard.Library" version="1.6.1" />
-        <dependency id="Capgemini.Cauldron.Core" version="1.0.8" />
+        <dependency id="Capgemini.Cauldron.Core" version="1.0.10" />
         <dependency id="System.Security.Cryptography.Csp" version="4.0.0" />
         <dependency id="System.Security.SecureString" version="4.3.0" />
       </group>

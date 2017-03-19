@@ -4,6 +4,7 @@ using System.Threading;
 
 namespace Cauldron.Interception.Test
 {
+#if DESKTOP
     [TestClass]
     public class TimedCachedAttributeTest
     {
@@ -71,4 +72,5 @@ namespace Cauldron.Interception.Test
             return index.ToString();
         }
     }
+#endif
 }

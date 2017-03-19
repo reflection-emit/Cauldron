@@ -2,22 +2,22 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>Capgemini.Cauldron.Core</id>
-    <version>1.0.7</version>
+    <version>1.0.10</version>
     <title>Capgemini Cauldron Core</title>
-    <authors>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</authors>
-    <owners>Alexander Schunk, Capgemini Deutschland GmbH and Contributors</owners>
+    <authors>Capgemini Deutschland GmbH</authors>
+    <owners>Capgemini Deutschland GmbH</owners>
     <licenseUrl>https://raw.githubusercontent.com/reflection-emit/Cauldron/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/reflection-emit/Cauldron</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/reflection-emit/Cauldron/master/cauldron.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Cauldron Core is the core toolkit assembly that the Cauldron Toolkit builds upon</description>
     <summary>Cauldron Core is the core toolkit assembly that the Cauldron Toolkit builds upon  (Open Source)</summary>
-    <copyright>Copyright (c) 2016 Alexander Schunk, Capgemini Deutschland GmbH and Contributors</copyright>
+    <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Core AOP Fody interceptor interception</tags>
     <dependencies>
       <group targetFramework="uap10.0">
         <dependency id="Microsoft.NETCore.UniversalWindowsPlatform" version="5.2.2" />
-        <dependency id="Cauldron.Interception.Fody" version="1.0.8" />
+        <dependency id="Cauldron.Interception.Fody" version="1.0.10" />
         <dependency id="Fody" version="1.29.4" />
       </group>
       <group targetFramework="netstandard1.6">
@@ -32,11 +32,11 @@
         <dependency id="System.Runtime.Serialization.Xml" version="4.3.0" />
         <dependency id="System.Xml.XPath" version="4.3.0" />
         <dependency id="System.Xml.XPath.XmlDocument" version="4.3.0" />
-        <dependency id="Cauldron.Interception.Fody" version="1.0.8" />
+        <dependency id="Cauldron.Interception.Fody" version="1.0.10" />
         <dependency id="Fody" version="1.29.4" />
       </group>
       <group targetFramework="net452">
-        <dependency id="Cauldron.Interception.Fody" version="1.0.8" />
+        <dependency id="Cauldron.Interception.Fody" version="1.0.10" />
         <dependency id="Fody" version="1.29.4" />
       </group>
     </dependencies>

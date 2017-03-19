@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Alexander Schunk, Capgemini Deutschland GmbH and Contributors")]
+[assembly: AssemblyCompany("Capgemini Deutschland GmbH")]
 [assembly: AssemblyProduct("Cauldron.NetCore.Cryptography")]
-[assembly: AssemblyCopyright("Copyright © 2016 Alexander Schunk, Capgemini Deutschland GmbH and Contributors")]
+[assembly: AssemblyCopyright("Copyright © 2016 Capgemini Deutschland GmbH")]
 [assembly: AssemblyTrademark("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible

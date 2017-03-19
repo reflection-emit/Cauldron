@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Alexander Schunk, Capgemini Deutschland GmbH and Contributors")]
+[assembly: AssemblyCompany("Capgemini Deutschland GmbH")]
 [assembly: AssemblyProduct("Cauldron.NetCore.Localization")]
 [assembly: AssemblyTrademark("")]
 
