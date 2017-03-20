@@ -251,12 +251,8 @@ namespace Cauldron.Interception.Fody
                     attribute.Attribute.MoveTo(property);
 
                 foreach (var item in usage)
-                {
-                    // TODO - fields has to be replaced by property if ctor is not calling base... instead this
-                    if (item.Method.Name != ".ctor" && item.Method.Name != ".cctor" ||
-                        (item.Method.Name == ".ctor" && !item.Method.IsConstructorWithBaseCall))
+                    if (!item.IsBeforeBaseCall)
                         item.Replace(property);
-                }
             }
 
             stopwatch.Stop();

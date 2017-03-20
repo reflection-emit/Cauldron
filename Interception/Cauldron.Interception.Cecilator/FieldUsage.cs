@@ -3,6 +3,7 @@ using Mono.Cecil.Cil;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 
 namespace Cauldron.Interception.Cecilator
 {
@@ -20,6 +21,36 @@ namespace Cauldron.Interception.Cecilator
         }
 
         public Field Field { get; private set; }
+
+        public bool IsBeforeBaseCall
+        {
+            get
+            {
+                var instructions = this.Method.methodDefinition.Body.Instructions;
+                for (int i = 0; i < instructions.Count; i++)
+                {
+                    if (instructions[i].OpCode == OpCodes.Call && (instructions[i].Operand as MethodReference).Name == ".ctor")
+                    {
+                        if (this.instruction.Offset < instructions[i].Offset)
+                            return true;
+
+                        break;
+                    }
+                }
+
+                return false;
+            }
+        }
+
+        public bool IsLoadField
+        {
+            get { return this.instruction.OpCode == OpCodes.Ldfld || this.instruction.OpCode == OpCodes.Ldsfld; }
+        }
+
+        public bool IsStoreField
+        {
+            get { return this.instruction.OpCode == OpCodes.Stfld || this.instruction.OpCode == OpCodes.Stsfld; }
+        }
 
         public Method Method { get; private set; }
 
@@ -39,6 +70,8 @@ namespace Cauldron.Interception.Cecilator
 
         public PropertyUsage Replace(Property property)
         {
+            this.LogInfo("Replacing - " + this.Method);
+
             if (property.propertyDefinition.DeclaringType.FullName != this.Method.methodDefinition.DeclaringType.FullName)
                 throw new InvalidOperationException($"Replacement property must be declared in the same type. Property: {property.propertyDefinition.DeclaringType.FullName} - Method: {this.Method.methodDefinition.DeclaringType.FullName}");
 
@@ -54,6 +87,11 @@ namespace Cauldron.Interception.Cecilator
             {
                 this.instruction.OpCode = property.Setter.IsAbstract ? OpCodes.Callvirt : OpCodes.Call;
                 this.instruction.Operand = property.Setter.methodReference.ResolveMethod(property.type.typeReference);
+            }
+            else if (this.instruction.OpCode == OpCodes.Ldflda || this.instruction.OpCode == OpCodes.Ldsflda)
+            {
+                // We leave this alone for this version... We have to find out how to deal with this first
+                this.LogWarning($"OpCodes.Ldflda or OpCodes.Ldsflda found in {this.Method.Name}. This will not be replaced. Affected field: {this.Field}");
             }
 
             return new PropertyUsage(property, this.Method, this.instruction);
