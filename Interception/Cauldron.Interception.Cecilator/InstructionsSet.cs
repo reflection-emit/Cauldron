@@ -787,7 +787,9 @@ namespace Cauldron.Interception.Cecilator
 
                 result.Add(processor.Create(OpCodes.Ldc_I4, array.Length));
                 result.Add(processor.Create(OpCodes.Newarr, this.moduleDefinition.Import(attributeArgument.Type.GetElementType())));
-                result.Add(processor.Create(OpCodes.Dup));
+
+                if (array.Length > 0)
+                    result.Add(processor.Create(OpCodes.Dup));
 
                 for (int i = 0; i < array.Length; i++)
                 {
