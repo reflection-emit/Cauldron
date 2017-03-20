@@ -67,7 +67,8 @@ namespace Cauldron.Interception.Cecilator
         {
             var result = this.fieldDef
                 .DeclaringType
-                .Methods
+                .Methods.Concat(this.fieldDef.DeclaringType.GetNestedTypes().SelectMany(x => x.Resolve().Methods))
+                .Where(x => x.Body != null)
                 .SelectMany(x => this.GetFieldUsage(new Method(new BuilderType(this.type.Builder, x.DeclaringType), x)));
 
             if (!this.IsPrivate)
