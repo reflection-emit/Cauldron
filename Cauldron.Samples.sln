@@ -43,8 +43,8 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "EveOnlineApi", "Shared\Samp
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Shared\Samples\EveOnlineApi\EveOnlineApi.projitems*{040a2df8-beca-48ee-bd78-0a9350fcb997}*SharedItemsImports = 4
 		Shared\Samples\EveOnlineApi\EveOnlineApi.projitems*{cb0047ff-37a1-4eee-9cb5-54ab7e1ac0f8}*SharedItemsImports = 13
-		Shared\Samples\EveOnlineApi\EveOnlineApi.projitems*{db22a9b3-7688-483a-8458-0beae6fb31e8}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

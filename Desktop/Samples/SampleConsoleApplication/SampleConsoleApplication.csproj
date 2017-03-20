@@ -35,26 +35,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Cauldron.Activator, Version=1.0.0.15, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Capgemini.Cauldron.Activator.1.0.10\lib\net452\Cauldron.Activator.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Cauldron.Consoles, Version=1.0.0.15, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Capgemini.Cauldron.Consoles.1.0.10\lib\net452\Cauldron.Consoles.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Cauldron.Core, Version=1.0.0.15, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Capgemini.Cauldron.Core.1.0.10\lib\net452\Cauldron.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Cauldron.Interception, Version=1.0.0.15, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Cauldron.Interception.Fody.1.0.10\lib\net452\Cauldron.Interception.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Cauldron.Localization, Version=1.0.0.15, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Capgemini.Cauldron.Localization.1.0.10\lib\net452\Cauldron.Localization.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>

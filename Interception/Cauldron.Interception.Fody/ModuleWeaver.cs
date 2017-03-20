@@ -245,6 +245,7 @@ namespace Cauldron.Interception.Fody
                 var property = type.CreateProperty(field.Key);
 
                 property.CustomAttributes.AddCompilerGeneratedAttribute();
+                property.CustomAttributes.AddDebuggerBrowsableAttribute(DebuggerBrowsableState.Never);
 
                 foreach (var attribute in field)
                     attribute.Attribute.MoveTo(property);

@@ -199,28 +199,14 @@ namespace Cauldron.Activator
                     if (factoryType.objectConstructorInfo != null)
                     {
                         var ctor = factoryType.objectConstructorInfo;
-                        var creatorExtension = factoryExtensions.FirstOrDefault(x => x.CanModifyArguments(ctor, type));
 
                         if (ctor.GetParameters().Length != args.Length)
                             throw new ArgumentException($"Factory is unable to initiate an instance of the type '{type.Name}'. Verify the passed parameters.");
 
-                        return ctor.CreateInstance(
-                            creatorExtension == null ?
-                            args :
-                            creatorExtension.ModifyArgument(
-                                factoryType.objectConstructorInfo.GetParameters(),
-                                args));
+                        return ctor.CreateInstance(args);
                     }
                     else
-                    {
-                        var creatorExtension = factoryExtensions.FirstOrDefault(x => x.CanModifyArguments(factoryType.objectConstructorMethodInfo, type));
-                        return factoryType.objectConstructorMethodInfo.Invoke(null,
-                                creatorExtension == null ?
-                                args :
-                                creatorExtension.ModifyArgument(
-                                    factoryType.objectConstructorMethodInfo.GetParameters(),
-                                    args));
-                    }
+                        return factoryType.objectConstructorMethodInfo.Invoke(null, args);
                 }
                 else
                 {
@@ -230,14 +216,10 @@ namespace Cauldron.Activator
 
                     if (ctor != null)
                     {
-                        var creatorExtension = factoryExtensions.FirstOrDefault(x => x.CanModifyArguments(ctor, type));
-
                         if (ctor.GetParameters().Length != args.Length)
                             throw new ArgumentException($"Factory is unable to initiate an instance of the type '{type.Name}'. Verify the passed parameters.");
 
-                        return ctor.CreateInstance(creatorExtension == null ?
-                            args :
-                            creatorExtension.ModifyArgument(ctor.GetParameters(), args));
+                        return ctor.CreateInstance(args);
                     }
                     else if (ctor == null) // or a method acting as constructor
                     {
@@ -245,12 +227,7 @@ namespace Cauldron.Activator
                             .FirstOrDefault(x => x.GetCustomAttribute<ComponentConstructorAttribute>() != null);
 
                         if (methodInfo != null)
-                        {
-                            var creatorExtension = factoryExtensions.FirstOrDefault(x => x.CanModifyArguments(methodInfo, type));
-                            return methodInfo.Invoke(null, creatorExtension == null ?
-                                args :
-                                creatorExtension.ModifyArgument(ctor.GetParameters(), args));
-                        }
+                            return methodInfo.Invoke(null, args);
                     }
 
                     return type.CreateInstance(args);
@@ -456,20 +433,7 @@ namespace Cauldron.Activator
                 factoryExtensions[i].OnCreateObject(result, type);
 
             // Invoke the IFactoryInitializeComponent.OnInitializeComponent method if implemented
-            if (result is IFactoryInitializeComponent)
-            {
-#if NETCORE
-                Task.Run(async () => await (result as IFactoryInitializeComponent)?.OnInitializeComponentAsync());
-
-#else
-                var dispatcher = DispatcherEx.Current;
-
-#pragma warning disable 4014
-
-                dispatcher.RunAsync(CoreDispatcherPriority.Low, async () => await (result as IFactoryInitializeComponent)?.OnInitializeComponentAsync());
-#pragma warning restore 4014
-#endif
-            }
+            result.As<IFactoryInitializeComponent>()?.OnInitializeComponent();
 
             return result;
         }

@@ -34,22 +34,6 @@
     <DocumentationFile>bin\Release\EveOnlineApi.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Cauldron.Activator, Version=1.0.0.15, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Capgemini.Cauldron.Activator.1.0.10\lib\net452\Cauldron.Activator.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Cauldron.Core, Version=1.0.0.15, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Capgemini.Cauldron.Core.1.0.10\lib\net452\Cauldron.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Cauldron.Cryptography, Version=1.0.0.15, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Capgemini.Cauldron.Cryptography.1.0.10\lib\net452\Cauldron.Cryptography.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Cauldron.Interception, Version=1.0.0.15, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Cauldron.Interception.Fody.1.0.10\lib\net452\Cauldron.Interception.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -65,314 +49,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Api.cs">
-      <Link>Api.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\ApiKey.cs">
-      <Link>ApiKey.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\CrestAccessScopes.cs">
-      <Link>CrestAccessScopes.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\EveCache.cs">
-      <Link>EveCache.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\EveServers.cs">
-      <Link>EveServers.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\EveServerStatus.cs">
-      <Link>EveServerStatus.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\EveStaticData.cs">
-      <Link>EveStaticData.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\EveUtils.cs">
-      <Link>EveUtils.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Exceptions\EveServersOfflineException.cs">
-      <Link>Exceptions\EveServersOfflineException.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Exceptions\WebServiceConsumerException.cs">
-      <Link>Exceptions\WebServiceConsumerException.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\IEveApi.cs">
-      <Link>IEveApi.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\IEveStaticData.cs">
-      <Link>IEveStaticData.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\ImageType.cs">
-      <Link>ImageType.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\AssertItemCollection.cs">
-      <Link>Models\AssertItemCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\AssetItem.cs">
-      <Link>Models\AssetItem.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\Character.cs">
-      <Link>Models\Character.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\CharacterCollection.cs">
-      <Link>Models\CharacterCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\CharacterLocationInfo.cs">
-      <Link>Models\CharacterLocationInfo.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\CharacterName.cs">
-      <Link>Models\CharacterName.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\CharacterNameCollection.cs">
-      <Link>Models\CharacterNameCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\CharacterSheet.cs">
-      <Link>Models\CharacterSheet.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\ConquerableStation.cs">
-      <Link>Models\ConquerableStation.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\ConquerableStationCollection.cs">
-      <Link>Models\ConquerableStationCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\Corporation.cs">
-      <Link>Models\Corporation.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\CorporationTitle.cs">
-      <Link>Models\CorporationTitle.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\CorporationTitles.cs">
-      <Link>Models\CorporationTitles.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\CrestCharacterInfo.cs">
-      <Link>Models\CrestCharacterInfo.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\CrestTokenInfo.cs">
-      <Link>Models\CrestTokenInfo.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\DefaultNode.cs">
-      <Link>Models\DefaultNode.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\EveTime.cs">
-      <Link>Models\EveTime.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\Faction.cs">
-      <Link>Models\Faction.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\IKeyedModel.cs">
-      <Link>Models\IKeyedModel.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\Implant.cs">
-      <Link>Models\Implant.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\ImplantAttributes.cs">
-      <Link>Models\ImplantAttributes.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\Incursion.cs">
-      <Link>Models\Incursion.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\ItemAttributes.cs">
-      <Link>Models\ItemAttributes.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\ItemPrice.cs">
-      <Link>Models\ItemPrice.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\ItemPriceCollection.cs">
-      <Link>Models\ItemPriceCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\ItemProperties.cs">
-      <Link>Models\ItemProperties.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\JumpClone.cs">
-      <Link>Models\JumpClone.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\JumpCloneImplant.cs">
-      <Link>Models\JumpCloneImplant.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\Location.cs">
-      <Link>Models\Location.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\MailBody.cs">
-      <Link>Models\MailBody.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\MailBodyCollection.cs">
-      <Link>Models\MailBodyCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\MailMessageCollection.cs">
-      <Link>Models\MailMessageCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\MailMessageItem.cs">
-      <Link>Models\MailMessageItem.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\ModelCollection.cs">
-      <Link>Models\ModelCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\Motd.cs">
-      <Link>Models\Motd.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\Next.cs">
-      <Link>Models\Next.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\Notification.cs">
-      <Link>Models\Notification.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\NotificationCollection.cs">
-      <Link>Models\NotificationCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\OpenMarketBody.cs">
-      <Link>Models\OpenMarketBody.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\PriceHistory.cs">
-      <Link>Models\PriceHistory.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\PriceHistoryCollection.cs">
-      <Link>Models\PriceHistoryCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\QuicklookCollection.cs">
-      <Link>Models\QuicklookCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\QuicklookOrder.cs">
-      <Link>Models\QuicklookOrder.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\ServerStatus.cs">
-      <Link>Models\ServerStatus.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\ServerVersion.cs">
-      <Link>Models\ServerVersion.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\ShipFitting.cs">
-      <Link>Models\ShipFitting.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\Skill.cs">
-      <Link>Models\Skill.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\SkillInTraining.cs">
-      <Link>Models\SkillInTraining.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\SkillQueue.cs">
-      <Link>Models\SkillQueue.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\SkillQueueCollection.cs">
-      <Link>Models\SkillQueueCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\SolarSystemInfo.cs">
-      <Link>Models\SolarSystemInfo.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\StaticData\InventoryFlag.cs">
-      <Link>Models\StaticData\InventoryFlag.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\StaticData\ItemGroup.cs">
-      <Link>Models\StaticData\ItemGroup.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\StaticData\ItemType.cs">
-      <Link>Models\StaticData\ItemType.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\StaticData\MarketGroup.cs">
-      <Link>Models\StaticData\MarketGroup.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\StaticData\NpcCorporation.cs">
-      <Link>Models\StaticData\NpcCorporation.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\StaticData\NpcStation.cs">
-      <Link>Models\StaticData\NpcStation.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\StaticData\RefTypeItem.cs">
-      <Link>Models\StaticData\RefTypeItem.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\StaticData\RefTypeItemCollection.cs">
-      <Link>Models\StaticData\RefTypeItemCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\StaticData\Region.cs">
-      <Link>Models\StaticData\Region.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\StaticData\RegionCollection.cs">
-      <Link>Models\StaticData\RegionCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\StaticData\SolarSystem.cs">
-      <Link>Models\StaticData\SolarSystem.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\StaticData\SolarSystemCollection.cs">
-      <Link>Models\StaticData\SolarSystemCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\TokenKey.cs">
-      <Link>Models\TokenKey.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\WalletJournal.cs">
-      <Link>Models\WalletJournal.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\WalletJournalItem.cs">
-      <Link>Models\WalletJournalItem.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Models\XmlModelCollection.cs">
-      <Link>Models\XmlModelCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\NotificationTypes.cs">
-      <Link>NotificationTypes.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\ReferenceTypes.cs">
-      <Link>ReferenceTypes.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\WebService\AzureMobileServicesClient.cs">
-      <Link>WebService\AzureMobileServicesClient.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\WebService\DefaultDiskCacheAgent.cs">
-      <Link>WebService\DefaultDiskCacheAgent.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\WebService\DefaultRestClient.cs">
-      <Link>WebService\DefaultRestClient.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\WebService\EveXmlSpecializedCacheAgent.cs">
-      <Link>WebService\EveXmlSpecializedCacheAgent.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\WebService\EveXmlSpecializedCollectionCacheAgent.cs">
-      <Link>WebService\EveXmlSpecializedCollectionCacheAgent.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\WebService\FiveMinutesDiskCacheAgent.cs">
-      <Link>WebService\FiveMinutesDiskCacheAgent.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\WebService\JsonDeserializer.cs">
-      <Link>WebService\JsonDeserializer.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\WebService\MotdCachingAgent.cs">
-      <Link>WebService\MotdCachingAgent.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\WebService\OneDayLifetimeDiskCacheAgent.cs">
-      <Link>WebService\OneDayLifetimeDiskCacheAgent.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\WebService\WebServiceConsumer.cs">
-      <Link>WebService\WebServiceConsumer.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\WebService\XmlDeserializer.cs">
-      <Link>WebService\XmlDeserializer.cs</Link>
-    </Compile>
-    <Compile Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\XmlDeserializer.cs">
-      <Link>XmlDeserializer.cs</Link>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Resources\GroupId.bin">
-      <Link>Resources\GroupId.bin</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Resources\InventoryFlag.bin">
-      <Link>Resources\InventoryFlag.bin</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Resources\MarketGroup.bin">
-      <Link>Resources\MarketGroup.bin</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Resources\NPCCorporation.bin">
-      <Link>Resources\NPCCorporation.bin</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Resources\NPCStation.bin">
-      <Link>Resources\NPCStation.bin</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\..\UWP\Samples\EveOnlineApi.UWP\Resources\TypeId.bin">
-      <Link>Resources\TypeId.bin</Link>
-    </EmbeddedResource>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Cauldron.Core\Cauldron.Desktop.Core.csproj">
+      <Project>{0b23e7be-0e65-4a53-988f-67a0e9eeea2e}</Project>
+      <Name>Cauldron.Desktop.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cauldron.Desktop.Activator\Cauldron.Desktop.Activator.csproj">
+      <Project>{6e8a953e-2732-4a58-bc7b-f86b1a5ca5dd}</Project>
+      <Name>Cauldron.Desktop.Activator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cauldron.Desktop.Cryptography\Cauldron.Desktop.Cryptography.csproj">
+      <Project>{d20bc350-336c-4e82-9848-773de5abac39}</Project>
+      <Name>Cauldron.Desktop.Cryptography</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cauldron.Desktop.Interception\Cauldron.Desktop.Interception.csproj">
+      <Project>{c656c9c1-bee8-40b1-bac7-6dd7b6ff5fbb}</Project>
+      <Name>Cauldron.Desktop.Interception</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="..\..\..\Shared\Samples\EveOnlineApi\EveOnlineApi.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\..\packages\Fody.1.29.4\build\dotnet\Fody.targets" Condition="Exists('..\..\..\packages\Fody.1.29.4\build\dotnet\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

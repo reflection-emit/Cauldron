@@ -42,9 +42,9 @@ namespace EveMarket.ViewModels
 
         public IEnumerable<QuicklookOrder> SellOrders { get; set; }
 
-        public async Task OnInitializeComponentAsync()
+        public void OnInitializeComponent()
         {
-            await this.RunAsync(async () =>
+            this.RunAsync(async () =>
             {
                 var item = this.eveApi.StaticData.GetItemType(this.ItemId);
 

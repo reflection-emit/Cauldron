@@ -41,26 +41,6 @@
     </StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Cauldron.Activator, Version=1.0.0.15, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Capgemini.Cauldron.Activator.1.0.10\lib\net452\Cauldron.Activator.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Cauldron.Core, Version=1.0.0.15, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Capgemini.Cauldron.Core.1.0.10\lib\net452\Cauldron.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Cauldron.Interception, Version=1.0.0.15, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Cauldron.Interception.Fody.1.0.10\lib\net452\Cauldron.Interception.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Cauldron.Localization, Version=1.0.0.15, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Capgemini.Cauldron.Localization.1.0.10\lib\net452\Cauldron.Localization.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Cauldron.XAML, Version=1.0.0.15, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Capgemini.Cauldron.XAML.1.0.10\lib\net452\Cauldron.XAML.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />

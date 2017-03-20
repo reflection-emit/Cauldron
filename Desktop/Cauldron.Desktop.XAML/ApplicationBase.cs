@@ -62,9 +62,9 @@ namespace Cauldron.XAML
             var otherDictionaries = resourceDictionaries.Where(x => !x.Assembly.FullName.StartsWith("Cauldron.")).OrderBy(x => x.Name);
 
             // add all cauldron dictionaries first
-            cauldronDictionaries.Foreach(x => this.Resources.MergedDictionaries.Add(System.Activator.CreateInstance(x) as ResourceDictionary));
+            cauldronDictionaries.Foreach(x => this.Resources.MergedDictionaries.Add(x.CreateInstance() as ResourceDictionary));
             // Them then others
-            otherDictionaries.Foreach(x => this.Resources.MergedDictionaries.Add(System.Activator.CreateInstance(x) as ResourceDictionary));
+            otherDictionaries.Foreach(x => this.Resources.MergedDictionaries.Add(x.CreateInstance() as ResourceDictionary));
             this.applicationHash = (ApplicationInfo.ApplicationName + ApplicationInfo.ApplicationPublisher + ApplicationInfo.ApplicationVersion.ToString()).GetHash(HashAlgorithms.Md5);
         }
 

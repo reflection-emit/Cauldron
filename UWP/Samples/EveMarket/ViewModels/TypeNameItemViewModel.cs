@@ -28,14 +28,11 @@ namespace EveMarket.ViewModels
 
         public string Name { get; private set; }
 
-        public async Task OnInitializeComponentAsync()
+        public void OnInitializeComponent()
         {
-            await this.RunAsync(async () =>
-            {
-                this.GroupName = this.eveApi.StaticData.GetGroupNameFromTypeId(this.ItemId);
-                this.Icon = await (await eveApi.GetImageAsync(ImageType.Item, this.ItemId, 1, 64)).ToBitmapImageAsync();
-                this.AveragePrice = this.eveApi.GetItemAveragePrice(this.ItemId);
-            });
+            this.GroupName = this.eveApi.StaticData.GetGroupNameFromTypeId(this.ItemId);
+            //this.Icon = await(await eveApi.GetImageAsync(ImageType.Item, this.ItemId, 1, 64)).ToBitmapImageAsync();
+            this.AveragePrice = this.eveApi.GetItemAveragePrice(this.ItemId);
         }
     }
 }

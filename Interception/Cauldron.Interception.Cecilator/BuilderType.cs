@@ -328,7 +328,7 @@ namespace Cauldron.Interception.Cecilator
 
         public Property CreateProperty(Field field)
         {
-            var name = field.Name;
+            var name = $"{field.Name}";
 
             var contain = this.GetProperties().Get(name);
 

@@ -455,7 +455,7 @@ namespace Cauldron.Core
             if (assembly.IsDynamic)
                 throw new NotSupportedException("Dynamic assemblies are not supported");
 
-            if (_assemblies.Any(x => x.ManifestModule.Name == assembly.ManifestModule.Name))
+            if (_assemblies.Any(x => x.ManifestModule.Name.GetHashCode() == assembly.ManifestModule.Name.GetHashCode() && x.ManifestModule.Name == assembly.ManifestModule.Name))
                 return;
 
             _assemblies.Add(assembly);
@@ -486,12 +486,11 @@ namespace Cauldron.Core
         {
             Output.WriteLineInfo($"Requesting Resolving of Assembly '{assemblyName.FullName}'");
 
-            var assembly = _assemblies.FirstOrDefault(x =>
-                x.FullName.Equals(assemblyName.FullName, StringComparison.CurrentCultureIgnoreCase) || assemblyName.Name.StartsWith(x.GetName().Name, StringComparison.CurrentCultureIgnoreCase));
+            var assembly = _assemblies.FirstOrDefault(x => x.FullName.GetHashCode() == assemblyName.FullName.GetHashCode() && x.FullName == assemblyName.FullName );
 
             if (assembly == null)
             {
-                var runtime = DependencyContext.Default.RuntimeLibraries.FirstOrDefault(x => x.Name.Equals(assemblyName.Name, StringComparison.CurrentCultureIgnoreCase));
+                var runtime = DependencyContext.Default.RuntimeLibraries.FirstOrDefault(x => x.Name.GetHashCode() == assemblyName.Name.GetHashCode() && x.Name == assemblyName.Name);
                 if (runtime != null)
                     return context.LoadFromAssemblyPath(runtime.Path);
             }
@@ -526,7 +525,7 @@ namespace Cauldron.Core
             else
                 Output.WriteLineInfo($"Assembly '{e.RequestingAssembly.FullName}' requesting for '{e.Name}'");
 
-            var assembly = _assemblies.FirstOrDefault(x => x.FullName == e.Name || e.Name.StartsWith(x.GetName().Name));
+            var assembly = _assemblies.FirstOrDefault(x => x.FullName.GetHashCode() == e.Name.GetHashCode() && x.FullName == e.Name);
 
             // The following resolve tries can only be successfull if the dll's name is the same as the simple Assembly name
 
