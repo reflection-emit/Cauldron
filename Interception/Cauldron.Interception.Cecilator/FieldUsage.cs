@@ -70,8 +70,6 @@ namespace Cauldron.Interception.Cecilator
 
         public PropertyUsage Replace(Property property)
         {
-            this.LogInfo("Replacing - " + this.Method);
-
             if (property.propertyDefinition.DeclaringType.FullName != this.Method.methodDefinition.DeclaringType.FullName)
                 throw new InvalidOperationException($"Replacement property must be declared in the same type. Property: {property.propertyDefinition.DeclaringType.FullName} - Method: {this.Method.methodDefinition.DeclaringType.FullName}");
 
