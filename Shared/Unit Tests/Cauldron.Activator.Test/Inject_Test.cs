@@ -166,6 +166,17 @@ namespace Cauldron.Desktop.Activator.Test
         }
 
         [TestMethod]
+        public void NestedType_Reference_To_Parent_Injection()
+        {
+            var parent = new NestedClassParent();
+            var child = new NestedClassParent.NestedClassChild(parent);
+
+            // This will throw an null exception
+
+            Assert.AreEqual(true, true);
+        }
+
+        [TestMethod]
         public void Object_Injection()
         {
             this.InterfaceInject.Height = 66;

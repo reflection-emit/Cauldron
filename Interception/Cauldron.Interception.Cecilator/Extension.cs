@@ -477,14 +477,19 @@ namespace Cauldron.Interception.Cecilator
             if (method.ContainsGenericParameter && declaringType is GenericInstanceType)
             {
                 var declaringTypeInstance = declaringType as GenericInstanceType;
-                //var genericParameters = declaringTypeInstance.GetGenericResolvedTypeName();
+                var genericParameters = declaringTypeInstance.GetGenericResolvedTypeName();
+
+                var genericArguments = new TypeReference[declaringTypeInstance.GenericArguments.Count];
+
+                for (int i = 0; i < genericArguments.Length; i++)
+                    genericArguments[i] = genericParameters.ContainsKey(declaringTypeInstance.GenericArguments[i].FullName) ? genericParameters[declaringTypeInstance.GenericArguments[i].FullName] : declaringTypeInstance.GenericArguments[i];
 
                 //if (method.ReturnType.FullName != "System.Void" && !genericParameters.ContainsKey(method.ReturnType.FullName))
                 //    return method; // TODO - go from highest implemented interface / base class generic to lowest and parse thier names ... TItem in KeyedCollection<TKey, TItem> -> T in IList<T>
 
-                return method.MakeHostInstanceGeneric(declaringTypeInstance.GenericArguments.ToArray());
+                return method.MakeHostInstanceGeneric(genericArguments);
             }
-            else if ((declaringType.HasGenericParameters && method.ContainsGenericParameter) || declaringType.HasGenericParameters)
+            else if (declaringType.HasGenericParameters)
                 return method.Resolve().CreateMethodReference();
             else
                 return method;

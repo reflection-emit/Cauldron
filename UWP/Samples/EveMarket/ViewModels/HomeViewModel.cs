@@ -45,42 +45,25 @@ namespace EveMarket.ViewModels
 
         public void OnInitializeComponent()
         {
-            //this.RunAsync(async () =>
-            //{
-            //    if (this.searchString == null || this.searchString.Length < 5)
-            //    {
-            //        await this.MessageDialog.ShowOKAsync("morethan5CharsRequired");
-            //        return;
-            //    }
-
-            //    this.TypeItemCollection.Clear();
-
-            //    foreach (var item in this.eveApi.StaticData.ItemTypes
-            //        .Where(x => x.Value.IsPublished &&
-            //        (x.Value.Name.Contains(this.searchString, StringComparison.CurrentCultureIgnoreCase) ||
-            //        x.Value.GroupName.Contains(this.searchString, StringComparison.CurrentCultureIgnoreCase)))
-            //        .OrderBy(x => x.Value.Name))
-            //    {
-            //        this.TypeItemCollection.Add(Factory.Create<TypeNameItemViewModel>(item.Value.Id, item.Value.Name));
-            //    }
-            //});
-
-            if (this.searchString == null || this.searchString.Length < 5)
+            this.Run(() =>
             {
-                this.MessageDialog.ShowOKAsync("morethan5CharsRequired");
-                return;
-            }
+                if (this.searchString == null || this.searchString.Length < 5)
+                {
+                    this.MessageDialog.ShowOKAsync("morethan5CharsRequired");
+                    return;
+                }
 
-            this.TypeItemCollection.Clear();
+                this.TypeItemCollection.Clear();
 
-            foreach (var item in this.eveApi.StaticData.ItemTypes.AsParallel()
-                .Where(x => x.Value.IsPublished &&
-                (x.Value.Name.Contains(this.searchString, StringComparison.CurrentCultureIgnoreCase) ||
-                x.Value.GroupName.Contains(this.searchString, StringComparison.CurrentCultureIgnoreCase)))
-                .OrderBy(x => x.Value.Name))
-            {
-                this.TypeItemCollection.Add(Factory.Create<TypeNameItemViewModel>(item.Value.Id, item.Value.Name));
-            }
+                foreach (var item in this.eveApi.StaticData.ItemTypes
+                    .Where(x => x.Value.IsPublished &&
+                    (x.Value.Name.Contains(this.searchString, StringComparison.CurrentCultureIgnoreCase) ||
+                    x.Value.GroupName.Contains(this.searchString, StringComparison.CurrentCultureIgnoreCase)))
+                    .OrderBy(x => x.Value.Name))
+                {
+                    this.TypeItemCollection.Add(Factory.Create<TypeNameItemViewModel>(item.Value.Id, item.Value.Name));
+                }
+            });
         }
 
         private async void OpenInfoAction(IViewModel arg) =>

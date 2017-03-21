@@ -14,6 +14,24 @@ namespace Cauldron.Desktop.Activator.Test
         }
     }
 
+    public class NestedClassParent
+    {
+        [Inject]
+        private ITestInterface injectMe;
+
+        public class NestedClassChild
+        {
+            private NestedClassParent parent;
+
+            public NestedClassChild(NestedClassParent parent)
+            {
+                this.parent = parent;
+            }
+
+            public double Height { get { return this.parent.injectMe.Height.HasValue ? this.parent.injectMe.Height.Value : -1; } }
+        }
+    }
+
     [Component(typeof(ITestInterface))]
     public class TestClass : ITestInterface
     {

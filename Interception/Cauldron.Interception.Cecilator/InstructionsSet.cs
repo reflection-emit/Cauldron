@@ -117,7 +117,9 @@ namespace Cauldron.Interception.Cecilator
 
             for (int i = 0; i < parameters.Length; i++)
             {
-                var parameterType = this.moduleDefinition.Import(method.methodDefinition.Parameters[i].ParameterType.IsGenericInstance ? method.methodDefinition.Parameters[i].ParameterType.ResolveType(method.DeclaringType.typeReference) : method.methodDefinition.Parameters[i].ParameterType);
+                var parameterType = this.moduleDefinition.Import(method.methodDefinition.Parameters[i].ParameterType.IsGenericInstance || method.methodDefinition.Parameters[i].ParameterType.IsGenericParameter ?
+                    method.methodDefinition.Parameters[i].ParameterType.ResolveType(method.DeclaringType.typeReference) :
+                    method.methodDefinition.Parameters[i].ParameterType);
                 var inst = this.AddParameter(this.processor, parameterType, parameters[i]);
                 this.instructions.Append(inst.Instructions);
             }
