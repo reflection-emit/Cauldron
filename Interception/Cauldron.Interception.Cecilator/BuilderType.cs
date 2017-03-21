@@ -431,31 +431,62 @@ namespace Cauldron.Interception.Cecilator
             return new Method(this, method);
         }
 
-        public Method GetMethod(string name)
+        public Method GetMethod(string name, bool throwException = true)
         {
             var result = this.typeDefinition.Methods
                 .Concat(this.BaseClasses.SelectMany(x => x.typeDefinition.Methods))
                 .FirstOrDefault(x => x.Name == name && x.Parameters.Count == 0);
 
-            if (result == null)
+            if (result == null && throwException)
                 throw new MethodNotFoundException($"Unable to proceed. The type '{this.typeDefinition.FullName}' does not contain a method '{name}'");
+            else if (result == null)
+                return null;
 
             return new Method(this, result);
         }
 
-        public Method GetMethod(string name, int parameterCount)
+        public Method GetMethod(string name, int parameterCount, bool throwException = true)
         {
             var result = this.typeDefinition.Methods
                 .Concat(this.BaseClasses.SelectMany(x => x.typeDefinition.Methods))
                 .FirstOrDefault(x => x.Name == name && x.Parameters.Count == parameterCount);
 
-            if (result == null)
+            if (result == null && throwException)
                 throw new MethodNotFoundException($"Unable to proceed. The type '{this.typeDefinition.FullName}' does not contain a method '{name}'");
+            else if (result == null)
+                return null;
 
-            return new Method(this, result.ContainsGenericParameter && this.typeReference.IsGenericInstance ? result.MakeHostInstanceGeneric((this.typeReference as GenericInstanceType).GenericArguments.ToArray()) : result, result);
+            if (this.typeReference.IsGenericInstance)
+                foreach (var item in (this.typeReference as GenericInstanceType).GenericArguments)
+                    this.LogInfo(">> " + item.FullName);
+
+            if (result.ContainsGenericParameter)
+                foreach (var item in result.GenericParameters)
+                    this.LogInfo("+++ " + item.FullName);
+
+            this.LogInfo("**!  " + result.DeclaringType.ResolveType(this.typeReference).FullName);
+            this.LogInfo("**!  " + result.FullName);
+
+            if (this.typeReference.IsGenericInstance)
+            {
+                var declaringTypeInstance = result.DeclaringType as TypeReference as GenericInstanceType;
+                var genericParameters = declaringTypeInstance.GetGenericResolvedTypeName();
+
+                var genericArguments = new TypeReference[declaringTypeInstance.GenericArguments.Count];
+
+                for (int i = 0; i < genericArguments.Length; i++)
+                    genericArguments[i] = genericParameters.ContainsKey(declaringTypeInstance.GenericArguments[i].FullName) ? genericParameters[declaringTypeInstance.GenericArguments[i].FullName] : declaringTypeInstance.GenericArguments[i];
+
+                foreach (var item in genericArguments)
+                    this.LogInfo("0000 " + item.FullName);
+
+                return new Method(this, result.MakeHostInstanceGeneric((this.typeReference as GenericInstanceType).GenericArguments.ToArray()), result);
+            }
+
+            return new Method(this, result.ResolveMethod(this.typeReference), result);
         }
 
-        public Method GetMethod(string name, params Type[] parameters)
+        public Method GetMethod(string name, bool throwException = true, params Type[] parameters)
         {
             var result = this.typeDefinition.Methods
                 .Concat(this.BaseClasses.SelectMany(x => x.typeDefinition.Methods))
@@ -468,20 +499,24 @@ namespace Cauldron.Interception.Cecilator
                     return p1.SequenceEqual(p2);
                 });
 
-            if (result == null)
+            if (result == null && throwException)
                 throw new MethodNotFoundException($"Unable to proceed. The type '{this.typeDefinition.FullName}' does not contain a method '{name}'");
+            else if (result == null)
+                return null;
 
             return new Method(this, result.ContainsGenericParameter ? result.MakeHostInstanceGeneric((this.typeReference as GenericInstanceType).GenericArguments.ToArray()) : result, result);
         }
 
-        public IEnumerable<Method> GetMethods(string name, int parameterCount)
+        public IEnumerable<Method> GetMethods(string name, int parameterCount, bool throwException = true)
         {
             var result = this.typeDefinition.Methods
                 .Concat(this.BaseClasses.SelectMany(x => x.typeDefinition.Methods))
                 .Where(x => x.Name == name && x.Parameters.Count == parameterCount).Select(x => new Method(this, x));
 
-            if (!result.Any())
+            if (!result.Any() && throwException)
                 throw new MethodNotFoundException($"Unable to proceed. The type '{this.typeDefinition.FullName}' does not contain a method '{name}'");
+            else if (result == null)
+                return null;
 
             return result;
         }

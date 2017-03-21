@@ -296,7 +296,7 @@ namespace Cauldron.Interception.Fody
 
             var semaphoreSlim = builder.GetType(typeof(SemaphoreSlim)).New(x => new
             {
-                Ctor = x.GetMethod(".ctor", typeof(int), typeof(int)),
+                Ctor = x.GetMethod(".ctor", true, typeof(int), typeof(int)),
                 Release = x.GetMethod("Release"),
                 CurrentCount = x.GetMethod("get_CurrentCount")
             });
@@ -446,7 +446,7 @@ namespace Cauldron.Interception.Fody
 
             var semaphoreSlim = builder.GetType(typeof(SemaphoreSlim)).New(x => new
             {
-                Ctor = x.GetMethod(".ctor", typeof(int), typeof(int)),
+                Ctor = x.GetMethod(".ctor", true, typeof(int), typeof(int)),
                 Release = x.GetMethod("Release"),
                 CurrentCount = x.GetMethod("get_CurrentCount")
             });
@@ -548,7 +548,7 @@ namespace Cauldron.Interception.Fody
                             .ThrowNew(typeof(NotSupportedException), "Value does not inherits from IEnumerable");
                     else if (member.Property.BackingField.FieldType.Implements(typeof(IList)) && member.Property.BackingField.FieldType.ParameterlessContructor != null)
                     {
-                        var addRange = member.Property.BackingField.FieldType.GetMethod("AddRange", 1);
+                        var addRange = member.Property.BackingField.FieldType.GetMethod("AddRange", 1, false);
                         if (addRange == null)
                         {
                             var add = member.Property.BackingField.FieldType.GetMethod("Add", 1);
