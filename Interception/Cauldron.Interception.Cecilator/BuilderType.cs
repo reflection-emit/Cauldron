@@ -449,39 +449,17 @@ namespace Cauldron.Interception.Cecilator
         {
             var result = this.typeDefinition.Methods
                 .Concat(this.BaseClasses.SelectMany(x => x.typeDefinition.Methods))
-                .FirstOrDefault(x => x.Name == name && x.Parameters.Count == parameterCount);
+                .FirstOrDefault(x => x.Name.GetHashCode() == name.GetHashCode() && x.Name == name && x.Parameters.Count == parameterCount);
 
             if (result == null && throwException)
                 throw new MethodNotFoundException($"Unable to proceed. The type '{this.typeDefinition.FullName}' does not contain a method '{name}'");
             else if (result == null)
                 return null;
 
-            if (this.typeReference.IsGenericInstance)
-                foreach (var item in (this.typeReference as GenericInstanceType).GenericArguments)
-                    this.LogInfo(">> " + item.FullName);
-
-            if (result.ContainsGenericParameter)
-                foreach (var item in result.GenericParameters)
-                    this.LogInfo("+++ " + item.FullName);
-
-            this.LogInfo("**!  " + result.DeclaringType.ResolveType(this.typeReference).FullName);
-            this.LogInfo("**!  " + result.FullName);
-
-            if (this.typeReference.IsGenericInstance)
-            {
-                var declaringTypeInstance = result.DeclaringType as TypeReference as GenericInstanceType;
-                var genericParameters = declaringTypeInstance.GetGenericResolvedTypeName();
-
-                var genericArguments = new TypeReference[declaringTypeInstance.GenericArguments.Count];
-
-                for (int i = 0; i < genericArguments.Length; i++)
-                    genericArguments[i] = genericParameters.ContainsKey(declaringTypeInstance.GenericArguments[i].FullName) ? genericParameters[declaringTypeInstance.GenericArguments[i].FullName] : declaringTypeInstance.GenericArguments[i];
-
-                foreach (var item in genericArguments)
-                    this.LogInfo("0000 " + item.FullName);
-
+            if (this.typeReference.IsGenericInstance && (this.typeReference as GenericInstanceType).GenericArguments.Count == result.DeclaringType.GenericParameters.Count)
                 return new Method(this, result.MakeHostInstanceGeneric((this.typeReference as GenericInstanceType).GenericArguments.ToArray()), result);
-            }
+            else if (this.typeReference.IsGenericInstance)
+                return new Method(this, this.typeReference.GetMethodReferences().FirstOrDefault(x => x.Name.GetHashCode() == result.Name.GetHashCode() && x.Name == result.Name), result);
 
             return new Method(this, result.ResolveMethod(this.typeReference), result);
         }

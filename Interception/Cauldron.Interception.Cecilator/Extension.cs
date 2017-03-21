@@ -155,6 +155,38 @@ namespace Cauldron.Interception.Cecilator
             return new ReadOnlyDictionary<string, TypeReference>(result);
         }
 
+        public static IReadOnlyDictionary<string, TypeReference> GetGenericResolvedTypeNames(this GenericInstanceType type)
+        {
+            var genericArgumentNames = type.Resolve().GenericParameters.Select(x => x.FullName).ToArray();
+            var genericArgumentsOfCurrentType = type.GenericArguments.ToArray();
+            var baseType = type as TypeReference;
+
+            var result = new Dictionary<string, TypeReference>();
+
+            while (baseType != null)
+            {
+                if (baseType.IsGenericInstance)
+                {
+                    var genericType = baseType as GenericInstanceType;
+                    if (genericType != null)
+                    {
+                        genericArgumentNames = genericType.Resolve().GenericParameters.Select(x => x.FullName).ToArray();
+                        genericArgumentsOfCurrentType = genericType.GenericArguments.ToArray();
+
+                        for (int i = 0; i < genericArgumentNames.Length; i++)
+                        {
+                            if (!result.ContainsKey(genericArgumentNames[i]))
+                                result.Add(genericArgumentNames[i], genericArgumentsOfCurrentType[i]);
+                        }
+                    }
+                }
+
+                baseType = baseType.Resolve().BaseType;
+            }
+
+            return new ReadOnlyDictionary<string, TypeReference>(result);
+        }
+
         public static IEnumerable<TypeReference> GetInterfaces(this TypeReference type)
         {
             var typeDef = type.Resolve();
@@ -195,6 +227,54 @@ namespace Cauldron.Interception.Cecilator
                 return result;
 
             throw new Exception($"Unable to proceed. The type '{type.FullName}' does not contain a method '{methodName}'");
+        }
+
+        public static IEnumerable<MethodReference> GetMethodReferences(this TypeReference type)
+        {
+            var result = new List<MethodReference>();
+            var baseType = type;
+
+            while (baseType != null)
+            {
+                if (baseType.IsGenericInstance)
+                {
+                    var genericType = baseType as GenericInstanceType;
+                    if (genericType != null)
+                    {
+                        var instances = genericType.GetGenericInstances().Where(x => !x.Resolve().IsInterface);
+                        foreach (var item in instances)
+                        {
+                            var methods = item.Resolve().Methods.Select(x => x.MakeHostInstanceGeneric((item as GenericInstanceType).GenericArguments.ToArray()));
+
+                            if (methods != null || methods.Any())
+                                result.AddRange(methods);
+                        }
+                    }
+                }
+                else
+                {
+                    var methods = baseType.Resolve().Methods;
+                    if (methods != null || methods.Count > 0)
+                        result.AddRange(methods);
+                }
+
+                baseType = baseType.Resolve().BaseType;
+            };
+
+            return result.Where(x =>
+            {
+                if (!x.DeclaringType.IsGenericInstance)
+                    return true;
+
+                var genericArgument = (x.DeclaringType as GenericInstanceType).GenericArguments;
+                for (int i = 0; i < genericArgument.Count; i++)
+                {
+                    if (genericArgument[i].IsGenericParameter)
+                        return false;
+                }
+
+                return true;
+            });
         }
 
         public static IEnumerable<TypeReference> GetNestedTypes(this TypeReference type)
@@ -500,6 +580,21 @@ namespace Cauldron.Interception.Cecilator
             if (type.IsGenericParameter && inheritingOrImplementingType is GenericInstanceType)
             {
                 var genericParameters = (inheritingOrImplementingType as GenericInstanceType).GetGenericResolvedTypeName();
+
+                if (genericParameters.ContainsKey(type.FullName))
+                    return genericParameters[type.FullName];
+
+                genericParameters = (inheritingOrImplementingType as GenericInstanceType).GetGenericResolvedTypeNames();
+                var genericType = genericParameters[type.FullName];
+
+                while (genericType.IsGenericParameter)
+                {
+                    genericType = genericParameters[genericType.FullName];
+
+                    if (!genericType.IsGenericParameter)
+                        return genericType;
+                }
+
                 return genericParameters[type.FullName];
             }
             else if (type.HasGenericParameters && inheritingOrImplementingType is GenericInstanceType)
