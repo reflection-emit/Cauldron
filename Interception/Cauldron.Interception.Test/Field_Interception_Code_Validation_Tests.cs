@@ -93,7 +93,7 @@ namespace Cauldron.Interception.Test
             var parent = new ClassWithNestedType();
             var child = new ClassWithNestedType.NestedTypeAccessingPrivateField(parent);
 
-            Assert.AreEqual(66, parent.AField);
+            Assert.AreEqual(99, parent.AField);
         }
 
         [TestMethod]

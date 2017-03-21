@@ -251,7 +251,7 @@ namespace Cauldron.Interception.Fody
                     attribute.Attribute.MoveTo(property);
 
                 foreach (var item in usage)
-                    if (!item.IsBeforeBaseCall)
+                    if (item.Field.IsStatic || !item.IsBeforeBaseCall)
                         item.Replace(property);
             }
 
