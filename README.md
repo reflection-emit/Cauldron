@@ -27,6 +27,12 @@ https://Capgemini.github.io/Cauldron/eveonline/
 - [CodeMaid](http://www.codemaid.net/)
 
 ## Release Notes
+### 1.1.0
+- MethodOf, FieldOf, ChildOf removed
+-
+-
+-
+-
 ### 1.0.8
 - CreateObject moved to Cauldron.Core
 - Performance boost to CreateInstance
