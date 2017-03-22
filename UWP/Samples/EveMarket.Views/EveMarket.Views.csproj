@@ -150,6 +150,24 @@
   <ItemGroup>
     <Resource Include="FodyWeavers.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Cauldron.Core\Cauldron.UWP.Core.csproj">
+      <Project>{e977dae7-c754-4da7-b7dc-bca8b1c0ce09}</Project>
+      <Name>Cauldron.UWP.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cauldron.UWP.XAML.Interactivity\Cauldron.UWP.XAML.Interactivity.csproj">
+      <Project>{3973e03e-8401-4129-ac62-97b000b51ed8}</Project>
+      <Name>Cauldron.UWP.XAML.Interactivity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cauldron.UWP.XAML.Validation\Cauldron.UWP.XAML.Validation.csproj">
+      <Project>{4d6c8285-6e45-40e9-ade3-cf0ceb665c8e}</Project>
+      <Name>Cauldron.UWP.XAML.Validation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cauldron.UWP.XAML\Cauldron.UWP.XAML.csproj">
+      <Project>{766a1588-8618-4d3f-a9e4-631216b8a5d2}</Project>
+      <Name>Cauldron.UWP.XAML</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

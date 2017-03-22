@@ -2,9 +2,6 @@
 using Cauldron.XAML;
 using Cauldron.XAML.ViewModels;
 using EveOnlineApi;
-using System;
-using System.Threading.Tasks;
-using Windows.UI.Core;
 
 namespace EveMarket.ViewModels
 {
@@ -31,25 +28,12 @@ namespace EveMarket.ViewModels
 
         public async void OnInitializeComponent()
         {
-            await this.Dispatcher.RunAsync(CoreDispatcherPriority.Low, async () =>
-             {
-                 this.IsLoading = true;
-
-                 try
-                 {
-                     this.GroupName = this.eveApi.StaticData.GetGroupNameFromTypeId(this.ItemId);
-                     this.AveragePrice = this.eveApi.GetItemAveragePrice(this.ItemId);
-                     this.Icon = await (await eveApi.GetImageAsync(ImageType.Item, this.ItemId, 1, 64)).ToBitmapImageAsync();
-                 }
-                 catch (Exception e)
-                 {
-                     this.OnException(e);
-                 }
-                 finally
-                 {
-                     this.IsLoading = false;
-                 }
-             });
+            await this.RunDispatcherAsync(async () =>
+            {
+                this.GroupName = this.eveApi.StaticData.GetGroupNameFromTypeId(this.ItemId);
+                this.AveragePrice = this.eveApi.GetItemAveragePrice(this.ItemId);
+                this.Icon = await (await eveApi.GetImageAsync(ImageType.Item, this.ItemId, 1, 64)).ToBitmapImageAsync();
+            });
         }
     }
 }

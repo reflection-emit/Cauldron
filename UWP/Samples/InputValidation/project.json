@@ -1,9 +1,7 @@
 ﻿{
   "dependencies": {
-    "Capgemini.Cauldron.Core": "1.0.11",
-    "Capgemini.Cauldron.XAML.Validation": "1.0.11",
     "Fody": "1.29.4",
-    "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
+    "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.3",
     "PropertyChanged.Fody": "1.52.1"
   },
   "frameworks": {

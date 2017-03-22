@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Collections;
 using System.Reflection;
 using System.Linq;
+using Windows.UI.Core;
 
 #if WINDOWS_UWP
 
@@ -358,9 +359,7 @@ namespace Cauldron.XAML
             }
             finally
             {
-#pragma warning disable 4014
-                viewModel.Dispatcher.RunAsync(() => viewModel.IsLoading = false);
-#pragma warning restore 4014
+                viewModel.IsLoading = false;
             }
         }
 
@@ -394,7 +393,43 @@ namespace Cauldron.XAML
             }
             finally
             {
-                await viewModel.Dispatcher.RunAsync(() => viewModel.IsLoading = false);
+                viewModel.IsLoading = false;
+            }
+        }
+
+        /// <summary>
+        /// Runs the <paramref name="action"/> asyncronously using the <see cref="IViewModel.Dispatcher"/> on the lowest priority.
+        /// Handles neccessary setting of the <see cref="IViewModel.IsLoading"/> flag and the error handling.
+        /// </summary>
+        /// <param name="viewModel">The viewmodel to start the operation from</param>
+        /// <param name="action">The action that occures</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"><paramref name="viewModel"/> is null</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="action"/> is null</exception>
+        public static async Task RunDispatcherAsync(this IViewModel viewModel, Func<Task> action)
+        {
+            if (viewModel == null)
+                throw new ArgumentNullException(nameof(viewModel));
+
+            if (action == null)
+                throw new ArgumentNullException(nameof(action));
+
+            viewModel.IsLoading = true;
+
+            try
+            {
+                await viewModel.Dispatcher.RunAsync(CoreDispatcherPriority.Low, async () =>
+                {
+                    await action();
+                });
+            }
+            catch (Exception e)
+            {
+                viewModel.OnException(e);
+            }
+            finally
+            {
+                viewModel.IsLoading = false;
             }
         }
 

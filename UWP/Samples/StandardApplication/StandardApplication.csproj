@@ -137,6 +137,32 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Cauldron.Core\Cauldron.UWP.Core.csproj">
+      <Project>{e977dae7-c754-4da7-b7dc-bca8b1c0ce09}</Project>
+      <Name>Cauldron.UWP.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cauldron.UWP.Activator\Cauldron.UWP.Activator.csproj">
+      <Project>{a80a73e9-825b-4032-ae6b-a6c4340dc0fc}</Project>
+      <Name>Cauldron.UWP.Activator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cauldron.UWP.Interception\Cauldron.UWP.Interception.csproj">
+      <Project>{659a319c-9460-43d9-9453-2731ac5dab55}</Project>
+      <Name>Cauldron.UWP.Interception</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cauldron.UWP.Localization\Cauldron.UWP.Localization.csproj">
+      <Project>{3758d2e9-3a20-4b19-9c38-0c393f25d784}</Project>
+      <Name>Cauldron.UWP.Localization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cauldron.UWP.XAML.Interactivity\Cauldron.UWP.XAML.Interactivity.csproj">
+      <Project>{3973e03e-8401-4129-ac62-97b000b51ed8}</Project>
+      <Name>Cauldron.UWP.XAML.Interactivity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cauldron.UWP.XAML\Cauldron.UWP.XAML.csproj">
+      <Project>{766a1588-8618-4d3f-a9e4-631216b8a5d2}</Project>
+      <Name>Cauldron.UWP.XAML</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

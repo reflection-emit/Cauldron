@@ -8,16 +8,16 @@ using System.Linq;
 using System.Reflection;
 using System.Xml;
 
+namespace EveOnlineApi
+{
 #if WINDOWS_UWP
 
-using Windows.Data.Xml.Dom;
+    using Windows.Data.Xml.Dom;
 
 #else
 
 #endif
 
-namespace EveOnlineApi
-{
     /*
      * We have to create our own xml deserializer based on XmlDocument to deal uncommon and unconventional (or malformed values) xmls
      */

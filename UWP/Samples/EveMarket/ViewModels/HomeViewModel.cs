@@ -43,13 +43,13 @@ namespace EveMarket.ViewModels
             await this.MessageDialog.ShowException(e);
         }
 
-        public void OnInitializeComponent()
+        public async void OnInitializeComponent()
         {
-            this.Run(() =>
+            await this.RunDispatcherAsync(async () =>
             {
                 if (this.searchString == null || this.searchString.Length < 5)
                 {
-                    this.MessageDialog.ShowOKAsync("morethan5CharsRequired");
+                    await this.MessageDialog.ShowOKAsync("morethan5CharsRequired");
                     return;
                 }
 

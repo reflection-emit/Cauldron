@@ -44,7 +44,7 @@ namespace EveMarket.ViewModels
 
         public void OnInitializeComponent()
         {
-            this.RunAsync(async () =>
+            this.RunDispatcherAsync(async () =>
             {
                 var item = this.eveApi.StaticData.GetItemType(this.ItemId);
 

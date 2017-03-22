@@ -35,8 +35,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Newtonsoft.Json.10.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -61,6 +61,26 @@
     <EmbeddedResource Include="string.yaml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Cauldron.Core\Cauldron.Desktop.Core.csproj">
+      <Project>{0b23e7be-0e65-4a53-988f-67a0e9eeea2e}</Project>
+      <Name>Cauldron.Desktop.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cauldron.Desktop.Activator\Cauldron.Desktop.Activator.csproj">
+      <Project>{6e8a953e-2732-4a58-bc7b-f86b1a5ca5dd}</Project>
+      <Name>Cauldron.Desktop.Activator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cauldron.Desktop.Consoles\Cauldron.Desktop.Consoles.csproj">
+      <Project>{00c29751-1557-46a8-9547-f74065b36592}</Project>
+      <Name>Cauldron.Desktop.Consoles</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cauldron.Desktop.Interception\Cauldron.Desktop.Interception.csproj">
+      <Project>{c656c9c1-bee8-40b1-bac7-6dd7b6ff5fbb}</Project>
+      <Name>Cauldron.Desktop.Interception</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cauldron.Desktop.Localization\Cauldron.Desktop.Localization.csproj">
+      <Project>{0c1146b3-ada7-4b8b-921c-cb73f665b4ff}</Project>
+      <Name>Cauldron.Desktop.Localization</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EveOnlineApi.Desktop\EveOnlineApi.Desktop.csproj">
       <Project>{040a2df8-beca-48ee-bd78-0a9350fcb997}</Project>
       <Name>EveOnlineApi.Desktop</Name>

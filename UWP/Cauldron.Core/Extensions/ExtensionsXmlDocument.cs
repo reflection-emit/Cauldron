@@ -38,7 +38,7 @@ namespace Cauldron.Core.Extensions
         /// <param name="target">The attribute collection to check</param>
         /// <param name="attributeName">The name of the attribute to find</param>
         /// <returns>Returns true if found; otherwise false</returns>
-        public static bool Contains(this XmlNamedNodeMap target, string attributeName)
+        public static bool Contains(this Windows.Data.Xml.Dom.XmlNamedNodeMap target, string attributeName)
         {
             for (int i = 0; i < target.Count; i++)
                 if (target[i].NodeName == attributeName)
@@ -53,7 +53,7 @@ namespace Cauldron.Core.Extensions
         /// <param name="target">The starting node</param>
         /// <param name="type">The type of child to count</param>
         /// <returns>Returns the number of children</returns>
-        public static int CountOf(this XmlNodeList target, NodeType type)
+        public static int CountOf(this Windows.Data.Xml.Dom.XmlNodeList target, NodeType type)
         {
             int count = 0;
 
@@ -83,7 +83,7 @@ namespace Cauldron.Core.Extensions
                 for (int i = 0; i < nodeNames.Length; i++)
                 {
                     var name = nodeNames[i];
-                    var elements = element.ChildNodes.Cast<XmlElement>().ToArray().Where(x => x.NodeName == name);
+                    var elements = element.ChildNodes.Cast<Windows.Data.Xml.Dom.XmlElement>().ToArray().Where(x => x.NodeName == name);
 
                     if (elements.Count() > 1)
                         element = elements.FirstOrDefault(x => x.Attributes.Contains(attributeName) && x.Attributes.GetNamedItem(attributeName).InnerText == attributeValue);
@@ -105,7 +105,7 @@ namespace Cauldron.Core.Extensions
         /// <param name="target">The xml document</param>
         /// <param name="nodePath">A node path separated by /</param>
         /// <returns>The concatenated values of the node and all its child nodes.</returns>
-        public static string GetNodeInnerText(this XmlDocument target, string nodePath)
+        public static string GetNodeInnerText(this Windows.Data.Xml.Dom.XmlDocument target, string nodePath)
         {
             var val = target.SelectSingleNode(nodePath);
 

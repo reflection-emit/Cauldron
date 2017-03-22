@@ -1,6 +1,6 @@
 ﻿{
   "dependencies": {
-    "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
+    "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.3",
     "PropertyChanged.Fody": "1.52.1"
   },
   "frameworks": {
