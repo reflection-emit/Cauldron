@@ -28,11 +28,10 @@ https://Capgemini.github.io/Cauldron/eveonline/
 
 ## Release Notes
 ### 1.1.0
+- Cauldron.Interception is now using Cecilator
 - MethodOf, FieldOf, ChildOf removed
--
--
--
--
+- New Interceptor added: TimedCacheAttribute - Caches Methods using MemoryCache
+- Several Bug fixes - See issues section
 ### 1.0.8
 - CreateObject moved to Cauldron.Core
 - Performance boost to CreateInstance
