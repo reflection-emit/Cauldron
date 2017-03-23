@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Cauldron.Interception.Fody
 {
@@ -172,6 +173,12 @@ namespace Cauldron.Interception.Fody
                     GetCache = x.GetMethod("GetCache", 1)
                 });
 
+            var asyncTaskMethodBuilder = builder.GetType("System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1")
+                .New(x => new
+                {
+                    SetResult = x.GetMethod("SetResult", 1)
+                });
+
             foreach (var method in methods)
             {
                 this.LogInfo($"Implementing TimedCache in method {method.Method.Name}");
@@ -185,7 +192,9 @@ namespace Cauldron.Interception.Fody
                 var keyName = "<>timedcache_key";
                 var timecacheVarName = "<>timedcache";
 
-                if (method.AsyncMethod == null)
+                if (method.AsyncMethod == null && method.Method.ReturnType.Inherits(typeof(Task).FullName))
+                    this.LogWarning($"- TimedCacheAttribute for method {method.Method.Name} will not be implemented. Methods that returns 'Task' without async are not supported.");
+                else if (method.AsyncMethod == null)
                     method.Method.NewCode()
                         .Context(x =>
                         {
@@ -217,8 +226,38 @@ namespace Cauldron.Interception.Fody
                             x.Load(returnVariable).Return();
                         })
                         .Replace();
-                else
-                    this.LogWarning($"- TimedCacheAttribute for method {method.Method.Name} will not be implemented. Async method are currently not supported.");
+                else if (method.AsyncMethod != null)
+                    method.AsyncMethod.NewCode()
+                        .Context(x =>
+                        {
+                            var timedCache = x.CreateVariable(timecacheVarName, method.Attribute.Type);
+                            var key = x.CreateVariable(keyName, timedCacheAttribute.CreateKey);
+                            var declaringType = method.AsyncMethod.DeclaringType;
+                            var taskReturnType = method.Method.ReturnType.GetGenericArgument(0);
+
+                            x.Assign(timedCache).NewObj(method);
+
+                            // Create a cache key
+                            x.Load(timedCache).Call(timedCacheAttribute.CreateKey, method.Method.Fullname, x.GetParametersArray())
+                                    .StoreLocal(key);
+
+                            x.Load(timedCache).Call(timedCacheAttribute.HasCache, key)
+                                    .IsTrue().Then(y =>
+                                    {
+                                        y.AssignToField("<>1__state").Set(-2);
+                                        y.Call(declaringType.GetField("<>t__builder"), asyncTaskMethodBuilder.SetResult.MakeGeneric(typeof(string)),
+                                            y.NewCode().Call(timedCache, timedCacheAttribute.GetCache, key).As(taskReturnType))
+                                            .Return();
+                                    });
+
+                            x.OriginalBody();
+
+                            // Set the cache
+                            //x.Load(timedCache).Call(timedCacheAttribute.SetCache, key, x.NewCode().Call();
+
+                            x.Return();
+                        })
+                        .Replace();
             }
         }
 

@@ -87,53 +87,21 @@ namespace Cauldron.Interception.Cecilator
             return this.Assign(new LocalVariable(this.method.DeclaringType, this.instructions.Variables[localVariableName]));
         }
 
-        public ICode Call(Method method, params object[] parameters)
-        {
-            if (method.Parameters.Length != parameters.Length)
-                this.LogWarning($"Parameter count of method {method.Name} does not match with the passed parameters. Expected: {method.Parameters.Length}, is: {parameters.Length}");
+        public ICode Call(Method method, params object[] parameters) => CallInternal(null, method, parameters);
 
-            if (method.DeclaringType.IsInterface || method.IsAbstract)
-                this.LogError($"Use Callvirt to call {method.ToString()}");
+        public ICode Call(Crumb instance, Method method, params object[] parameters) => CallInternal(instance, method, parameters);
 
-            for (int i = 0; i < parameters.Length; i++)
-            {
-                var parameterType = method.methodDefinition.Parameters[i].ParameterType.IsGenericInstance || method.methodDefinition.Parameters[i].ParameterType.IsGenericParameter ?
-                    method.methodDefinition.Parameters[i].ParameterType.ResolveType(method.DeclaringType.typeReference) :
-                    method.methodDefinition.Parameters[i].ParameterType;
-                var inst = this.AddParameter(this.processor, this.moduleDefinition.Import(parameterType), parameters[i]);
-                this.instructions.Append(inst.Instructions);
-            }
+        public ICode Call(Field instance, Method method, params object[] parameters) => CallInternal(instance, method, parameters);
 
-            this.instructions.Append(processor.Create(OpCodes.Call, this.moduleDefinition.Import(method.methodReference)));
+        public ICode Call(LocalVariable instance, Method method, params object[] parameters) => CallInternal(instance, method, parameters);
 
-            if (!method.IsVoid)
-                this.StoreCall();
+        public ICode Callvirt(Method method, params object[] parameters) => CallvirtInternal(null, method, parameters);
 
-            return this;
-        }
+        public ICode Callvirt(Crumb instance, Method method, params object[] parameters) => CallvirtInternal(instance, method, parameters);
 
-        public ICode Callvirt(Method method, params object[] parameters)
-        {
-            if (method.Parameters.Length != parameters.Length)
-                this.LogWarning($"Parameter count of method {method.Name} does not match with the passed parameters. Expected: {method.Parameters.Length}, is: {parameters.Length}");
+        public ICode Callvirt(Field instance, Method method, params object[] parameters) => CallvirtInternal(instance, method, parameters);
 
-            for (int i = 0; i < parameters.Length; i++)
-            {
-                var parameterType = method.methodDefinition.Parameters[i].ParameterType.IsGenericInstance || method.methodDefinition.Parameters[i].ParameterType.IsGenericParameter ?
-                    method.methodDefinition.Parameters[i].ParameterType.ResolveType(method.DeclaringType.typeReference) :
-                    method.methodDefinition.Parameters[i].ParameterType;
-
-                var inst = this.AddParameter(this.processor, this.moduleDefinition.Import(parameterType), parameters[i]);
-                this.instructions.Append(inst.Instructions);
-            }
-
-            this.instructions.Append(processor.Create(OpCodes.Callvirt, this.moduleDefinition.Import(method.methodReference)));
-
-            if (!method.IsVoid)
-                this.StoreCall();
-
-            return this;
-        }
+        public ICode Callvirt(LocalVariable instance, Method method, params object[] parameters) => CallvirtInternal(instance, method, parameters);
 
         public ICode Context(Action<ICode> body)
         {
@@ -443,7 +411,7 @@ namespace Cauldron.Interception.Cecilator
             return this.Load(new LocalVariable(this.method.DeclaringType, localvariable));
         }
 
-        public ICode NewCode() => new InstructionsSet(this.method.DeclaringType, this.method);
+        public ICode NewCode() => new InstructionsSet(this, this.instructions.Clone());
 
         public ICode NewObj(Method constructor, params object[] parameters)
         {
@@ -572,7 +540,10 @@ namespace Cauldron.Interception.Cecilator
                 if (!value.IsStatic)
                     result.Instructions.Add(processor.Create(OpCodes.Ldarg_0));
 
-                result.Instructions.Add(processor.Create(value.IsStatic ? OpCodes.Ldsfld : OpCodes.Ldfld, value.CreateFieldReference()));
+                if (value.FieldType.IsValueType && targetType == null)
+                    result.Instructions.Add(processor.Create(value.IsStatic ? OpCodes.Ldsflda : OpCodes.Ldflda, value.CreateFieldReference()));
+                else
+                    result.Instructions.Add(processor.Create(value.IsStatic ? OpCodes.Ldsfld : OpCodes.Ldfld, value.CreateFieldReference()));
                 result.Type = value.FieldType;
             }
             else if (type == typeof(FieldReference))
@@ -583,7 +554,10 @@ namespace Cauldron.Interception.Cecilator
                 if (!fieldDef.IsStatic)
                     result.Instructions.Add(processor.Create(OpCodes.Ldarg_0));
 
-                result.Instructions.Add(processor.Create(fieldDef.IsStatic ? OpCodes.Ldsfld : OpCodes.Ldfld, value));
+                if (value.FieldType.IsValueType && targetType == null)
+                    result.Instructions.Add(processor.Create(fieldDef.IsStatic ? OpCodes.Ldsflda : OpCodes.Ldflda, value));
+                else
+                    result.Instructions.Add(processor.Create(fieldDef.IsStatic ? OpCodes.Ldsfld : OpCodes.Ldfld, value));
                 result.Type = value.FieldType;
             }
             else if (type == typeof(Field))
@@ -593,7 +567,10 @@ namespace Cauldron.Interception.Cecilator
                 if (!value.IsStatic)
                     result.Instructions.Add(processor.Create(OpCodes.Ldarg_0));
 
-                result.Instructions.Add(processor.Create(value.IsStatic ? OpCodes.Ldsfld : OpCodes.Ldfld, value.fieldRef));
+                if (value.FieldType.IsValueType && targetType == null)
+                    result.Instructions.Add(processor.Create(value.IsStatic ? OpCodes.Ldsflda : OpCodes.Ldflda, value.fieldRef));
+                else
+                    result.Instructions.Add(processor.Create(value.IsStatic ? OpCodes.Ldsfld : OpCodes.Ldfld, value.fieldRef));
                 result.Type = value.fieldRef.FieldType;
             }
             else if (type == typeof(int))
@@ -668,12 +645,12 @@ namespace Cauldron.Interception.Cecilator
             }
             else if (type == typeof(LocalVariable))
             {
-                var value = AddVariableDefinitionToInstruction(processor, result.Instructions, (parameter as LocalVariable).variable);
+                var value = AddVariableDefinitionToInstruction(processor, result.Instructions, targetType, (parameter as LocalVariable).variable);
                 result.Type = value.VariableType;
             }
             else if (type == typeof(VariableDefinition))
             {
-                var value = AddVariableDefinitionToInstruction(processor, result.Instructions, parameter);
+                var value = AddVariableDefinitionToInstruction(processor, result.Instructions, targetType, parameter);
                 result.Type = value.VariableType;
             }
             else if (type == typeof(Crumb))
@@ -924,23 +901,81 @@ namespace Cauldron.Interception.Cecilator
         {
         }
 
-        private static VariableDefinition AddVariableDefinitionToInstruction(ILProcessor processor, List<Instruction> instructions, object parameter)
+        private static VariableDefinition AddVariableDefinitionToInstruction(ILProcessor processor, List<Instruction> instructions, TypeReference targetType, object parameter)
         {
             var value = parameter as VariableDefinition;
             var index = value.Index;
 
-            switch (index)
-            {
-                case 0: instructions.Add(processor.Create(OpCodes.Ldloc_0)); break;
-                case 1: instructions.Add(processor.Create(OpCodes.Ldloc_1)); break;
-                case 2: instructions.Add(processor.Create(OpCodes.Ldloc_2)); break;
-                case 3: instructions.Add(processor.Create(OpCodes.Ldloc_3)); break;
-                default:
-                    instructions.Add(processor.Create(OpCodes.Ldloc, value));
-                    break;
-            }
+            if (value.VariableType.IsValueType && targetType == null)
+                instructions.Add(processor.Create(OpCodes.Ldloca, value));
+            else
+                switch (index)
+                {
+                    case 0: instructions.Add(processor.Create(OpCodes.Ldloc_0)); break;
+                    case 1: instructions.Add(processor.Create(OpCodes.Ldloc_1)); break;
+                    case 2: instructions.Add(processor.Create(OpCodes.Ldloc_2)); break;
+                    case 3: instructions.Add(processor.Create(OpCodes.Ldloc_3)); break;
+                    default:
+                        instructions.Add(processor.Create(OpCodes.Ldloc, value));
+                        break;
+                }
 
             return value;
+        }
+
+        private ICode CallInternal(object instance, Method method, params object[] parameters)
+        {
+            if (instance != null)
+                this.instructions.Append(this.AddParameter(this.processor, null, instance).Instructions);
+
+            if (method.Parameters.Length != parameters.Length)
+                this.LogWarning($"Parameter count of method {method.Name} does not match with the passed parameters. Expected: {method.Parameters.Length}, is: {parameters.Length}");
+
+            if (method.DeclaringType.IsInterface || method.IsAbstract)
+                this.LogError($"Use Callvirt to call {method.ToString()}");
+
+            for (int i = 0; i < parameters.Length; i++)
+            {
+                var parameterType = method.methodDefinition.Parameters[i].ParameterType.IsGenericInstance || method.methodDefinition.Parameters[i].ParameterType.IsGenericParameter ?
+                    method.methodDefinition.Parameters[i].ParameterType.ResolveType(method.DeclaringType.typeReference) :
+                    method.methodDefinition.Parameters[i].ParameterType;
+
+                var inst = this.AddParameter(this.processor, this.moduleDefinition.Import(parameterType), parameters[i]);
+                this.instructions.Append(inst.Instructions);
+            }
+
+            this.instructions.Append(processor.Create(OpCodes.Call, this.moduleDefinition.Import(method.methodReference)));
+
+            if (!method.IsVoid)
+                this.StoreCall();
+
+            return this;
+        }
+
+        private ICode CallvirtInternal(object instance, Method method, params object[] parameters)
+        {
+            if (method.Parameters.Length != parameters.Length)
+                this.LogWarning($"Parameter count of method {method.Name} does not match with the passed parameters. Expected: {method.Parameters.Length}, is: {parameters.Length}");
+
+            if (instance != null)
+                this.instructions.Append(this.AddParameter(this.processor, null, instance).Instructions);
+
+            for (int i = 0; i < parameters.Length; i++)
+            {
+                var parameterType = method.methodDefinition.Parameters[i].ParameterType.IsGenericInstance || method.methodDefinition.Parameters[i].ParameterType.IsGenericParameter ?
+                    method.methodDefinition.Parameters[i].ParameterType.ResolveType(method.DeclaringType.typeReference) :
+                    method.methodDefinition.Parameters[i].ParameterType;
+
+                var inst = this.AddParameter(this.processor, this.moduleDefinition.Import(parameterType), parameters[i]);
+                this.instructions.Append(inst.Instructions);
+            }
+
+            this.instructions.Append(processor.Create(OpCodes.Callvirt, this.moduleDefinition.Import(method.methodReference)));
+
+            if (!method.IsVoid)
+                this.StoreCall();
+
+            return this;
         }
 
         private void CastOrBoxValues(ILProcessor processor, TypeReference targetType, ParamResult result, TypeDefinition targetDef)
@@ -1162,46 +1197,6 @@ namespace Cauldron.Interception.Cecilator
         #region Equitable stuff
 
         public static implicit operator string(InstructionsSet value) => value.ToString();
-
-        public static bool operator !=(InstructionsSet a, InstructionsSet b) => !(a == b);
-
-        public static bool operator ==(InstructionsSet a, InstructionsSet b)
-        {
-            if (object.Equals(a, null) && object.Equals(b, null))
-                return true;
-
-            if (object.Equals(a, null))
-                return false;
-
-            return a.Equals(b);
-        }
-
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public override bool Equals(object obj)
-        {
-            if (object.Equals(obj, null))
-                return false;
-
-            if (object.ReferenceEquals(obj, this))
-                return true;
-
-            if (obj is InstructionsSet)
-                return this.Equals(obj as InstructionsSet);
-
-            return false;
-        }
-
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public bool Equals(InstructionsSet other)
-        {
-            if (object.Equals(other, null))
-                return false;
-
-            if (object.ReferenceEquals(other, this))
-                return true;
-
-            return object.Equals(other, this);
-        }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override int GetHashCode() => this.method.methodDefinition.GetHashCode();

@@ -42,7 +42,7 @@ namespace Cauldron.Interception.Cecilator
 
         public bool IsStatic { get { return this.IsAbstract && this.IsSealed; } }
 
-        public bool IsValueType { get { return this.typeDefinition.IsValueType; } }
+        public bool IsValueType { get { return this.typeDefinition == null ? this.typeReference == null ? false : this.typeReference.IsValueType : this.typeDefinition.IsValueType; } }
 
         public bool IsVoid { get { return this.typeDefinition.FullName == "System.Void"; } }
 
@@ -50,13 +50,18 @@ namespace Cauldron.Interception.Cecilator
 
         public string Namespace { get { return this.typeDefinition.Namespace; } }
 
+        public BuilderType GetGenericArgument(int index) => this.typeReference.IsGenericInstance ? new BuilderType(this.Builder, (this.typeReference as GenericInstanceType).GenericArguments[index]) : null;
+
         public bool Implements(Type interfaceType) => this.Implements(interfaceType.FullName);
 
         public bool Implements(string interfaceName) => this.Interfaces.Any(x => x.typeReference.FullName == interfaceName || x.typeDefinition.FullName == interfaceName);
 
         public bool Inherits(Type type) => this.Inherits(typeDefinition.FullName);
 
-        public bool Inherits(string typename) => this.BaseClasses.Any(x => x.typeReference.FullName == typename || x.typeDefinition.FullName == typename);
+        public bool Inherits(string typename) =>
+            this.BaseClasses.Any(x =>
+                (x.typeReference.FullName.GetHashCode() == typename.GetHashCode() && x.typeReference.FullName == typename) ||
+                (x.typeDefinition.FullName.GetHashCode() == typename.GetHashCode() && x.typeDefinition.FullName == typename));
 
         #region Constructors
 
@@ -271,6 +276,19 @@ namespace Cauldron.Interception.Cecilator
             this.typeDefinition.Fields.Add(field);
 
             return new Field(this, field);
+        }
+
+        public Field GetField(string name)
+        {
+            if (name == null)
+                throw new ArgumentNullException(nameof(name));
+
+            var fields = this.typeDefinition.Fields;
+            for (int i = 0; i < fields.Count; i++)
+                if (fields[i].Name.GetHashCode() == name.GetHashCode() && fields[i].Name == name)
+                    return new Field(this, fields[i]);
+
+            throw new MissingFieldException($"Unable to find field '{name}' in type '{this.typeReference.FullName}'");
         }
 
         #endregion Fields

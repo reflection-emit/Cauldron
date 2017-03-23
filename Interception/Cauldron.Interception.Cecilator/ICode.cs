@@ -21,7 +21,19 @@ namespace Cauldron.Interception.Cecilator
 
         ICode Call(Method method, params object[] parameters);
 
+        ICode Call(Crumb instance, Method method, params object[] parameters);
+
+        ICode Call(Field instance, Method method, params object[] parameters);
+
+        ICode Call(LocalVariable instance, Method method, params object[] parameters);
+
         ICode Callvirt(Method method, params object[] parameters);
+
+        ICode Callvirt(Crumb instance, Method method, params object[] parameters);
+
+        ICode Callvirt(Field instance, Method method, params object[] parameters);
+
+        ICode Callvirt(LocalVariable instance, Method method, params object[] parameters);
 
         ICode Context(Action<ICode> body);
 

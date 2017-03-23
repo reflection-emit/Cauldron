@@ -28,6 +28,13 @@ namespace Cauldron.Interception.Cecilator
             this.methodReference = methodReference;
         }
 
+        internal Method(Builder builder, MethodReference methodReference, MethodDefinition methodDefinition) : base(builder)
+        {
+            this.type = new BuilderType(builder, methodReference.DeclaringType);
+            this.methodDefinition = methodDefinition;
+            this.methodReference = methodReference;
+        }
+
         internal Method(BuilderType type, MethodDefinition methodDefinition) : base(type)
         {
             this.type = type;
@@ -109,6 +116,22 @@ namespace Cauldron.Interception.Cecilator
                 .SelectMany(x => this.GetMethodUsage(x));
 
             return result;
+        }
+
+        public Method MakeGeneric(params Type[] types)
+        {
+            if (this.methodDefinition.GenericParameters.Count == 0)
+                return new Method(this.type.Builder, this.methodDefinition.MakeHostInstanceGeneric(types.Select(x => this.moduleDefinition.Import(x)).ToArray()), this.methodDefinition);
+            else
+                return new Method(this.type.Builder, this.methodDefinition.MakeGeneric(null, types.Select(x => this.moduleDefinition.Import(x)).ToArray()), this.methodDefinition);
+        }
+
+        public Method MakeGeneric(params string[] types)
+        {
+            if (this.methodDefinition.GenericParameters.Count == 0)
+                return new Method(this.type.Builder, this.methodDefinition.MakeHostInstanceGeneric(types.Select(x => this.type.Builder.GetType(x).typeReference).ToArray()), this.methodDefinition);
+            else
+                return new Method(this.type.Builder, this.methodDefinition.MakeGeneric(null, types.Select(x => this.type.Builder.GetType(x).typeReference).ToArray()), this.methodDefinition);
         }
 
         public ICode NewCode() => new InstructionsSet(this.type, this);

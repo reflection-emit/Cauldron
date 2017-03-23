@@ -20,6 +20,12 @@ namespace Cauldron.Interception.Cecilator
             this.SyncLocalVariables();
         }
 
+        private InstructionContainer(InstructionContainer container)
+        {
+            this.orginalVariables = container.orginalVariables;
+            this.SyncLocalVariables();
+        }
+
         private InstructionContainer(InstructionContainer a, InstructionContainer b, Mono.Collections.Generic.Collection<VariableDefinition> variables) : this(variables)
         {
             this.instruction.AddRange(a.instruction);
@@ -44,7 +50,7 @@ namespace Cauldron.Interception.Cecilator
 
         public void Append(Instruction instruction) => this.instruction.Add(instruction);
 
-        public void Append(IEnumerable<Instruction> instruction) => this.instruction.AddRange(instruction);
+        public void Append(IEnumerable<Instruction> instructions) => this.instruction.AddRange(instructions);
 
         public void Clear()
         {
@@ -54,6 +60,8 @@ namespace Cauldron.Interception.Cecilator
 
             this.SyncLocalVariables();
         }
+
+        public InstructionContainer Clone() => new InstructionContainer(this);
 
         public Instruction First() => this.instruction.Count == 0 ? null : this.instruction[0];
 
