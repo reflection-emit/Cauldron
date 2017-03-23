@@ -125,12 +125,6 @@
     <Content Include="icons\Help.png" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System.Net, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <Name>System.Net</Name>
-      <AssemblyName>System.Net.dll</AssemblyName>
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.Net.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.Runtime.Serialization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
       <Name>System.Runtime.Serialization</Name>
       <AssemblyName>System.Runtime.Serialization.dll</AssemblyName>

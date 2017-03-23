@@ -9,20 +9,6 @@
             Provides a set of methods that help to output information of a compiled dll
             </summary>
         </member>
-        <member name="T:Cauldron.Activator.AnonymousTypeWithInterfaceExtension">
-            <summary>
-            Provides usefull extension methods for anonymous class
-            </summary>
-        </member>
-        <member name="M:Cauldron.Activator.AnonymousTypeWithInterfaceExtension.CreateObject``1(System.Object)">
-            <summary>
-            Creates a new <see cref="T:System.Type"/> that implements the properties of an interface defined by <typeparamref name="T"/>
-            and copies all value of <paramref name="anon"/> to the new object
-            </summary>
-            <typeparam name="T">The type of interface to implement</typeparam>
-            <param name="anon">The anonymous object</param>
-            <returns>A new object implementing the interface defined by <typeparamref name="T"/></returns>
-        </member>
         <member name="T:Cauldron.Activator.CloneIgnoreAttribute">
             <summary>
             Instructs the Cloner not to clone the public field or public read/write property value
@@ -391,22 +377,6 @@
             Gets a value that indicates that this extension is able to resolve <see cref="T:System.Reflection.AmbiguousMatchException"/>
             </summary>
         </member>
-        <member name="M:Cauldron.Activator.IFactoryExtension.CanModifyArguments(System.Reflection.MethodBase,System.Type)">
-            <summary>
-            Returns true if a <see cref="T:System.Type"/> can modify arguments passed to <see cref="M:Cauldron.Activator.IFactoryExtension.ModifyArgument(System.Reflection.ParameterInfo[],System.Object[])"/> with this <see cref="T:Cauldron.Activator.IFactoryExtension"/> implementation
-            </summary>
-            <param name="method">The defined constructor defined by <see cref="T:Cauldron.Activator.ComponentConstructorAttribute"/></param>
-            <param name="objectType">The <see cref="T:System.Type"/> of the object created</param>
-            <returns>True if can be manipulated</returns>
-        </member>
-        <member name="M:Cauldron.Activator.IFactoryExtension.ModifyArgument(System.Reflection.ParameterInfo[],System.Object[])">
-            <summary>
-            Modifies the arguments defined by <paramref name="arguments"/> and returns the modified array
-            </summary>
-            <param name="argumentTypes">The parameter info of the constructor</param>
-            <param name="arguments">The arguments used to create an object</param>
-            <returns>A modified array of arguments</returns>
-        </member>
         <member name="M:Cauldron.Activator.IFactoryExtension.OnCreateObject(System.Object,System.Type)">
             <summary>
             Occures when an object is created
@@ -435,11 +405,10 @@
             Represents a component with an explicit instance initializer that will be invoked by the <see cref="T:Cauldron.Activator.Factory"/> after creation
             </summary>
         </member>
-        <member name="M:Cauldron.Activator.IFactoryInitializeComponent.OnInitializeComponentAsync">
+        <member name="M:Cauldron.Activator.IFactoryInitializeComponent.OnInitializeComponent">
             <summary>
             Occures after object creation by the <see cref="T:Cauldron.Activator.Factory"/>.
             </summary>
-            <returns>A <see cref="T:System.Threading.Tasks.Task"/></returns>
         </member>
         <member name="T:Cauldron.Activator.InjectAttribute">
             <summary>

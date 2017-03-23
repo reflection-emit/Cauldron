@@ -674,6 +674,20 @@
             <param name="nodePath">A node path separated by /</param>
             <returns>The concatenated values of the node and all its child nodes.</returns>
         </member>
+        <member name="T:Cauldron.Core.Extensions.AnonymousTypeWithInterfaceExtension">
+            <summary>
+            Provides usefull extension methods for anonymous class
+            </summary>
+        </member>
+        <member name="M:Cauldron.Core.Extensions.AnonymousTypeWithInterfaceExtension.CreateObject``1(System.Object)">
+            <summary>
+            Creates a new <see cref="T:System.Type"/> that implements the properties of an interface defined by <typeparamref name="T"/>
+            and copies all value of <paramref name="anon"/> to the new object
+            </summary>
+            <typeparam name="T">The type of interface to implement</typeparam>
+            <param name="anon">The anonymous object</param>
+            <returns>A new object implementing the interface defined by <typeparamref name="T"/></returns>
+        </member>
         <member name="T:Cauldron.Core.Extensions.Extensions">
             <summary>
             Provides usefull extension methods
@@ -1000,14 +1014,40 @@
             <exception cref="T:System.OutOfMemoryException">There is insufficient memory to allocate a buffer for the returned string.</exception>
             <exception cref="T:System.IO.IOException">An I/O error occurs.</exception>
         </member>
-        <member name="M:Cauldron.Core.Extensions.Extensions.Replace(System.String,System.Char[],System.Char)">
+        <member name="M:Cauldron.Core.Extensions.Extensions.Replace(System.String,System.Char[],System.Char,System.Int32)">
             <summary>
-            Replaces a series of chars <paramref name="oldChars"/> with a single char <paramref name="newChar"/>
+            Replaces a series of chars <paramref name="oldChars"/> with a single char <paramref name="newChar"/>.
             </summary>
             <param name="value">The string with the chars to replace</param>
             <param name="oldChars">The old chars to be replaced by <paramref name="newChar"/></param>
             <param name="newChar">The new char that replaces the old chars</param>
+            <param name="startingIndex">The index where to start replacing chars</param>
             <returns>A copy of the original string with the chars defined by <paramref name="oldChars"/> replaced by <paramref name="newChar"/>.</returns>
+            <exception cref="T:System.ArgumentNullException">value is null</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="startingIndex"/> is higher than <paramref name="value"/> length</exception>
+        </member>
+        <member name="M:Cauldron.Core.Extensions.Extensions.ReplaceMe(System.String,System.Char[],System.Char,System.Int32)">
+            <summary>
+            Replaces a series of chars <paramref name="oldChars"/> with a single char <paramref name="newChar"/>.
+            <para/>
+            ATTENTION: The original string is the target of the manipulation.
+            </summary>
+            <param name="value">The string with the chars to replace</param>
+            <param name="oldChars">The old chars to be replaced by <paramref name="newChar"/></param>
+            <param name="newChar">The new char that replaces the old chars</param>
+            <param name="startingIndex">The index where to start replacing chars</param>
+            <exception cref="T:System.ArgumentNullException">value is null</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="startingIndex"/> is higher than <paramref name="value"/> length</exception>
+        </member>
+        <member name="M:Cauldron.Core.Extensions.Extensions.Replace(System.String,System.UInt32,System.Char)">
+            <summary>
+            Replaces a char in the given index with <paramref name="newChar"/>
+            </summary>
+            <param name="value">The string to replace the char</param>
+            <param name="index">The index of the char</param>
+            <param name="newChar">The new char</param>
+            <exception cref="T:System.ArgumentNullException">value is null</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="index"/> is higher than <paramref name="value"/> length</exception>
         </member>
         <member name="M:Cauldron.Core.Extensions.Extensions.Right(System.String,System.Int32)">
             <summary>
@@ -1370,6 +1410,18 @@
             <exception cref="T:System.ArgumentNullException"><paramref name="obj"/> is null</exception>
             <exception cref="T:System.NullReferenceException">The property defined by <paramref name="propertyName"/> was not found</exception>
         </member>
+        <member name="M:Cauldron.Core.Extensions.ExtensionsReflection.GetValue``1(System.String)">
+            <summary>
+            Returns the enum value from a display name. The enum members requires the <see cref="T:Cauldron.Core.DisplayNameAttribute"/>.
+            If non of the enum values has a matching <see cref="P:Cauldron.Core.DisplayNameAttribute.DisplayName"/>, then it will try to use <see cref="M:System.Enum.TryParse``1(System.String,``0@)"/>
+            to retrive a value; otherwise it will return the default value.
+            <para/>
+            Returns the default value of the enum if <paramref name="value"/> is null
+            </summary>
+            <typeparam name="TEnum">The enum type to parse into</typeparam>
+            <param name="value">The value that corresponeds with the enum's <see cref="P:Cauldron.Core.DisplayNameAttribute.DisplayName"/></param>
+            <returns>The associated enum value of <paramref name="value"/></returns>
+        </member>
         <member name="M:Cauldron.Core.Extensions.ExtensionsReflection.ImplementsInterface``1(System.Type)">
             <summary>
             Checks if the type has implemented the defined interface
@@ -1427,6 +1479,14 @@
             <param name="method">The method info which has to be compared to</param>
             <param name="argumentTypes">The argument types that has to match to</param>
             <returns>true if the argument types of <paramref name="method"/> matches with the argument type defined by <paramref name="argumentTypes"/>; otherwise, false.</returns>
+        </member>
+        <member name="M:Cauldron.Core.Extensions.ExtensionsReflection.MatchesArgumentTypes(System.Reflection.ParameterInfo[],System.Type[])">
+            <summary>
+            Returns true if the argument types defined by <paramref name="argumentTypes"/> matches with the argument types of <paramref name="parameters"/>
+            </summary>
+            <param name="parameters">The parameters info which has to be compared to</param>
+            <param name="argumentTypes">The argument types that has to match to</param>
+            <returns>true if the argument types of <paramref name="parameters"/> matches with the argument type defined by <paramref name="argumentTypes"/>; otherwise, false.</returns>
         </member>
         <member name="T:Cauldron.Core.UserInformation">
             <summary>
