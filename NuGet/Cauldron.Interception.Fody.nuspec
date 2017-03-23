@@ -6,10 +6,10 @@
     <title>Capgemini Cauldron Interception for Fody</title>
     <authors>Capgemini Deutschland GmbH</authors>
     <owners>Capgemini Deutschland GmbH</owners>
-    <licenseUrl>https://raw.githubusercontent.com/reflection-emit/Cauldron/master/LICENSE</licenseUrl>
-    <projectUrl>https://github.com/reflection-emit/Cauldron</projectUrl>
-    <iconUrl>https://raw.githubusercontent.com/reflection-emit/Cauldron/master/cauldron.png</iconUrl>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/Capgemini/Cauldron</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Fody add-in that provides method, property and field interception.</description>
     <summary>Fody add-in that provides method, property and field interception. (Open Source)</summary>
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>

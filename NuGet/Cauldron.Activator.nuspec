@@ -6,10 +6,10 @@
     <title>Capgemini Cauldron Activator</title>
     <authors>Capgemini Deutschland GmbH</authors>
     <owners>Capgemini Deutschland GmbH</owners>
-    <licenseUrl>https://raw.githubusercontent.com/reflection-emit/Cauldron/master/LICENSE</licenseUrl>
-    <projectUrl>https://github.com/reflection-emit/Cauldron</projectUrl>
-    <iconUrl>https://raw.githubusercontent.com/reflection-emit/Cauldron/master/cauldron.png</iconUrl>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/Capgemini/Cauldron</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>The activator is a simple and extensible dependency injection framework. It is based on attributes and does not require any configuration files for configuration. It also supports using static methods as component constructor.</description>
     <summary>Simple Extensible Dependency Injection Framework (Open Source)</summary>
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>

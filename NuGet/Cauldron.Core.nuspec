@@ -6,10 +6,10 @@
     <title>Capgemini Cauldron Core</title>
     <authors>Capgemini Deutschland GmbH</authors>
     <owners>Capgemini Deutschland GmbH</owners>
-    <licenseUrl>https://raw.githubusercontent.com/reflection-emit/Cauldron/master/LICENSE</licenseUrl>
-    <projectUrl>https://github.com/reflection-emit/Cauldron</projectUrl>
-    <iconUrl>https://raw.githubusercontent.com/reflection-emit/Cauldron/master/cauldron.png</iconUrl>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/Capgemini/Cauldron</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Cauldron Core is the core toolkit assembly that the Cauldron Toolkit builds upon</description>
     <summary>Cauldron Core is the core toolkit assembly that the Cauldron Toolkit builds upon  (Open Source)</summary>
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>

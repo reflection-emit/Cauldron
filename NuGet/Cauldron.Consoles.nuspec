@@ -6,10 +6,10 @@
     <title>Capgemini Cauldron Consoles</title>
     <authors>Capgemini Deutschland GmbH</authors>
     <owners>Capgemini Deutschland GmbH</owners>
-    <licenseUrl>https://raw.githubusercontent.com/reflection-emit/Cauldron/master/LICENSE</licenseUrl>
-    <projectUrl>https://github.com/reflection-emit/Cauldron</projectUrl>
-    <iconUrl>https://raw.githubusercontent.com/reflection-emit/Cauldron/master/cauldron.png</iconUrl>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/Capgemini/Cauldron</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Cauldron.Consoles is a Cauldron.Core based parameter parser which supports grouping of parameters in execution groups. It is also supports localization and has a nice parameter table :)</description>
     <summary>A simple parameter parser for console applications. (Open Source)</summary>
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>

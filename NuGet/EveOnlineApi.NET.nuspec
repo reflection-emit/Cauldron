@@ -6,10 +6,10 @@
     <title>EveOnlineApi.NET</title>
     <authors>Alexander Schunk and Contributors</authors>
     <owners>Alexander Schunk and Contributors</owners>
-    <licenseUrl>https://raw.githubusercontent.com/reflection-emit/Cauldron/master/LICENSE</licenseUrl>
-    <projectUrl>https://github.com/reflection-emit/Cauldron</projectUrl>
-    <iconUrl>https://raw.githubusercontent.com/reflection-emit/Cauldron/master/cauldron.png</iconUrl>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/Capgemini/Cauldron</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>.NET library that handles SSO and common Eve Online API calls</description>
     <summary>.NET library that handles SSO and common Eve Online API calls</summary>
     <copyright>Copyright © Alexander Schunk and Contributors</copyright>
