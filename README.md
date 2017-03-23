@@ -15,18 +15,24 @@ Assembly | Description   | NuGet
 
 ## Documentation
 ### Wiki
-https://github.com/reflection-emit/Cauldron/wiki
+https://github.com/Capgemini/Cauldron/wiki
 ### .NET Desktop
-https://reflection-emit.github.io/Cauldron/desktop/
+https://Capgemini.github.io/Cauldron/desktop/
 ### UWP
-https://reflection-emit.github.io/Cauldron/uwp/
+https://Capgemini.github.io/Cauldron/uwp/
 ### Eve Online API for .NET 4.5.2 and UWP
-https://reflection-emit.github.io/Cauldron/eveonline/
+https://Capgemini.github.io/Cauldron/eveonline/
 ## Required Visual Studio Extensions
 - [Sandcastle Help File Builder](https://github.com/EWSoftware/SHFB/releases)
 - [CodeMaid](http://www.codemaid.net/)
 
 ## Release Notes
+### 1.1.0
+- MethodOf, FieldOf, ChildOf removed
+-
+-
+-
+-
 ### 1.0.8
 - CreateObject moved to Cauldron.Core
 - Performance boost to CreateInstance
