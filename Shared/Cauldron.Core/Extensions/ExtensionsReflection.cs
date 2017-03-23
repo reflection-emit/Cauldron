@@ -27,7 +27,7 @@ namespace Cauldron.Core.Extensions
         {
 #if WINDOWS_UWP || NETCORE
             var typeInfo = type.GetTypeInfo();
-            var toBeAssignedTypeInfo = toBeAssigned.GetTypeInfo();
+            var toBeAssignedTypeInfo = toBeAssigned?.GetTypeInfo();
             if (type == toBeAssigned || (!typeInfo.IsValueType && toBeAssigned == null) || (!typeInfo.IsValueType && !toBeAssignedTypeInfo.IsValueType && typeInfo.IsAssignableFrom(toBeAssignedTypeInfo)) || (typeInfo.IsInterface && toBeAssigned == typeof(object)))
 #else
 

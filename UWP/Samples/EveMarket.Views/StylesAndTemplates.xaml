@@ -10,7 +10,7 @@
     xmlns:controls="using:Cauldron.XAML.Controls"
     mc:Ignorable="d">
 
-    <!--<Style TargetType="controls:NavigationFrame">
+    <Style TargetType="controls:NavigationFrame">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="controls:NavigationFrame">
@@ -48,5 +48,5 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-    </Style>-->
+    </Style>
 </ResourceDictionary>

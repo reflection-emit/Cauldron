@@ -495,13 +495,6 @@ namespace Cauldron.Core
                     return context.LoadFromAssemblyPath(runtime.Path);
             }
 
-            if (assembly == null)
-            {
-                assembly = context.LoadFromAssemblyName(assemblyName);
-                if (assembly != null)
-                    return assembly;
-            }
-
             // The following resolve tries can only be successfull if the dll's name is the same as the simple Assembly name
             // Try to load it from application directory
             var file = Path.Combine(ApplicationInfo.ApplicationPath.FullName, $"{assemblyName.Name}.dll");

@@ -17,17 +17,28 @@
   },
 
   "dependencies": {
-    "Capgemini.Cauldron.Consoles": "1.0.10",
-    "EveOnlineApi.NetCore": "1.0.0.10",
-    "Microsoft.NETCore.App": {
-      "type": "platform",
-      "version": "1.0.1"
-    }
+    "Cauldron.NetCore.Activator": "1.0.0.12",
+    "Cauldron.NetCore.Consoles": "1.0.0.12",
+    "Cauldron.NetCore.Core": "1.0.0.12",
+    "Cauldron.NetCore.Interception": "1.0.0.12",
+    "Cauldron.NetCore.Localization": "1.0.0.12",
+    "EveOnlineApi.NetCore": "1.0.0.12",
+    "Microsoft.NETCore.App": "1.1.1"
   },
 
   "frameworks": {
     "netcoreapp1.0": {
-      "imports": "dnxcore50"
+      "dependencies": {
+      },
+
+      "imports": [
+        "dnxcore50"
+      ]
     }
+  },
+
+  "runtimes": {
+    "win10-x64": {},
+    "ubuntu.14.10": {}
   }
 }
