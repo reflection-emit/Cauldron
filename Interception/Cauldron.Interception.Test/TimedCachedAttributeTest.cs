@@ -1,5 +1,6 @@
 ﻿using Cauldron.Core.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -24,28 +25,6 @@ namespace Cauldron.Interception.Test
 
             stopWatch = Stopwatch.StartNew();
             var secondString = this.PerfectString(40);
-            stopWatch.Stop();
-
-            var secondResult = stopWatch.Elapsed.TotalMilliseconds;
-
-            Assert.AreEqual(true, firstResult > 3000);
-            Assert.AreEqual(true, secondResult < 500);
-            Assert.AreEqual("40", firstString);
-            Assert.AreEqual("40", secondString);
-        }
-
-        [TestMethod]
-        public void CacheTest_Async_1()
-        {
-            var stopWatch = Stopwatch.StartNew();
-
-            var firstString = this.PerfectStringAsync(40).RunSync();
-            stopWatch.Stop();
-
-            var firstResult = stopWatch.Elapsed.TotalMilliseconds;
-
-            stopWatch = Stopwatch.StartNew();
-            var secondString = this.PerfectStringAsync(40).RunSync();
             stopWatch.Stop();
 
             var secondResult = stopWatch.Elapsed.TotalMilliseconds;
@@ -90,6 +69,62 @@ namespace Cauldron.Interception.Test
             Assert.AreEqual("60", forthString);
         }
 
+        [TestMethod]
+        public void CacheTest_Async_1()
+        {
+            var stopWatch = Stopwatch.StartNew();
+
+            var firstString = this.PerfectStringAsync(40).RunSync();
+            stopWatch.Stop();
+
+            var firstResult = stopWatch.Elapsed.TotalMilliseconds;
+
+            stopWatch = Stopwatch.StartNew();
+            var secondString = this.PerfectStringAsync(40).RunSync();
+            stopWatch.Stop();
+
+            var secondResult = stopWatch.Elapsed.TotalMilliseconds;
+
+            Assert.AreEqual(true, firstResult > 3000);
+            Assert.AreEqual(true, secondResult < 500);
+            Assert.AreEqual("40", firstString);
+            Assert.AreEqual("40", secondString);
+        }
+
+        [TestMethod]
+        public void CacheTest_Async_2()
+        {
+            var stopWatch = Stopwatch.StartNew();
+            var firstString = this.PerfectStringAsync(80).RunSync();
+            stopWatch.Stop();
+            var firstResult = stopWatch.Elapsed.TotalMilliseconds;
+
+            stopWatch = Stopwatch.StartNew();
+            var secondString = this.PerfectStringAsync(80).RunSync();
+            stopWatch.Stop();
+            var secondResult = stopWatch.Elapsed.TotalMilliseconds;
+
+            stopWatch = Stopwatch.StartNew();
+            var thirdString = this.PerfectStringAsync(60).RunSync();
+            stopWatch.Stop();
+            var thirdResult = stopWatch.Elapsed.TotalMilliseconds;
+
+            stopWatch = Stopwatch.StartNew();
+            var forthString = this.PerfectStringAsync(60).RunSync();
+            stopWatch.Stop();
+            var forthResult = stopWatch.Elapsed.TotalMilliseconds;
+
+            Assert.AreEqual(true, firstResult > 3000);
+            Assert.AreEqual(true, secondResult < 500);
+            Assert.AreEqual("80", firstString);
+            Assert.AreEqual("80", secondString);
+
+            Assert.AreEqual(true, thirdResult > 3000);
+            Assert.AreEqual(true, forthResult < 500);
+            Assert.AreEqual("60", thirdString);
+            Assert.AreEqual("60", forthString);
+        }
+
         [TimedCache]
         private string PerfectString(int index)
         {
@@ -105,7 +140,7 @@ namespace Cauldron.Interception.Test
             return index.ToString();
         }
 
-        private async Task<string> PerfectStringAsync2(int index)
+        private async Task<string> PerfectStringAsync2(int index, string io, Guid iiii, double erte)
         {
             if (index == 0)
                 return await this.PerfectStringAsync(index);

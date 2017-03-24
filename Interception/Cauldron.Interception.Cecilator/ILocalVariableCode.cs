@@ -23,8 +23,18 @@ namespace Cauldron.Interception.Cecilator
         [EditorBrowsable(EditorBrowsableState.Never)]
         bool Equals(object obj);
 
+        IIfCode EqualTo(long value);
+
+        IIfCode EqualTo(int value);
+
+        IIfCode EqualTo(bool value);
+
         [EditorBrowsable(EditorBrowsableState.Never)]
         int GetHashCode();
+
+        IIfCode IsNotNull();
+
+        IIfCode IsNull();
 
         ILocalVariableCode Load(LocalVariable localVariable);
 

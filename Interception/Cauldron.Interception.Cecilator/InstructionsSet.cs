@@ -111,12 +111,12 @@ namespace Cauldron.Interception.Cecilator
 
         public Method Copy(Modifiers modifiers, string newName)
         {
-            var jumps = new List<Tuple<int, int>>();
             var method = this.method.DeclaringType.typeDefinition.Methods.Get(newName);
 
             if (method != null)
                 return new Method(this.method.DeclaringType, method);
 
+            var jumps = new List<Tuple<int, int>>();
             var attributes = MethodAttributes.CompilerControlled;
 
             if (modifiers.HasFlag(Modifiers.Private)) attributes |= MethodAttributes.Private;
@@ -728,7 +728,7 @@ namespace Cauldron.Interception.Cecilator
             {
                 var instruction = parameter as InstructionsSet;
 
-                if (instruction == this)
+                if (object.ReferenceEquals(instruction, this))
                     throw new NotSupportedException("Nope... Not gonna work... Use NewCode() if you want to pass an instructions set as parameters.");
 
                 result.Instructions.AddRange(instruction.instructions.ToArray());

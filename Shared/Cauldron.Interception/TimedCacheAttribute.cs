@@ -1,5 +1,4 @@
 ﻿#if DESKTOP
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 using System;
 using System.ComponentModel;
@@ -38,8 +37,9 @@ namespace Cauldron.Interception
         {
         }
 
+        /// <exclude/>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string CreateKey(string methodName, object[] arguments)
+        public static string CreateKey(string methodName, object[] arguments)
         {
             var sb = new StringBuilder();
 
@@ -48,9 +48,27 @@ namespace Cauldron.Interception
                     sb.Append(arguments[i].GetHashCode() + arguments[i].ToString());
 
             sb.Append(methodName);
-            return sb.ToString();
+            return sb.ToString().GetSHA256Hash();
         }
 
+        /// <exclude/>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public object GetCache(string key)
+        {
+            semaphore.Wait();
+
+            try
+            {
+                var cache = MemoryCache.Default;
+                return cache[key];
+            }
+            finally
+            {
+                semaphore.Release();
+            }
+        }
+
+        /// <exclude/>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public bool HasCache(string key)
         {
@@ -58,6 +76,7 @@ namespace Cauldron.Interception
             return cache[key] != null;
         }
 
+        /// <exclude/>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public void SetCache(string key, object content)
         {
@@ -72,22 +91,6 @@ namespace Cauldron.Interception
                 policy.ChangeMonitors.Add(new TimedCacheChangeMonitor());
 
                 cache.Set(key, content, policy);
-            }
-            finally
-            {
-                semaphore.Release();
-            }
-        }
-
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public object GetCache(string key)
-        {
-            semaphore.Wait();
-
-            try
-            {
-                var cache = MemoryCache.Default;
-                return cache[key];
             }
             finally
             {
@@ -122,5 +125,4 @@ namespace Cauldron.Interception
     }
 }
 
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 #endif

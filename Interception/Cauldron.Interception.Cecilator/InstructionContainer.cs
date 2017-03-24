@@ -23,7 +23,7 @@ namespace Cauldron.Interception.Cecilator
         private InstructionContainer(InstructionContainer container)
         {
             this.orginalVariables = container.orginalVariables;
-            this.SyncLocalVariables();
+            this.variables = container.variables;
         }
 
         private InstructionContainer(InstructionContainer a, InstructionContainer b, Mono.Collections.Generic.Collection<VariableDefinition> variables) : this(variables)

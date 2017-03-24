@@ -50,7 +50,13 @@ namespace Cauldron.Interception.Cecilator
 
         public string Namespace { get { return this.typeDefinition.Namespace; } }
 
-        public BuilderType GetGenericArgument(int index) => this.typeReference.IsGenericInstance ? new BuilderType(this.Builder, (this.typeReference as GenericInstanceType).GenericArguments[index]) : null;
+        public BuilderType GetGenericArgument(int index)
+        {
+            if (this.typeReference.IsGenericInstance)
+                return new BuilderType(this.Builder, (this.typeReference as GenericInstanceType).GenericArguments[index]);
+
+            throw new IndexOutOfRangeException("There is generic argument with index " + index);
+        }
 
         public bool Implements(Type interfaceType) => this.Implements(interfaceType.FullName);
 

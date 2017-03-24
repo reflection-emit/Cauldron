@@ -42,10 +42,11 @@ namespace Cauldron.Interception.Fody
                 "Cauldron.Interception.IPropertySetterInterceptor");
 
             this.ImplementAnonymousTypeInterface(builder);
+            this.ImplementTimedCache(builder);
+            // These should be done last, because they replace methods
             this.InterceptFields(builder, propertyInterceptingAttributes);
             this.InterceptMethods(builder);
             this.InterceptProperties(builder, propertyInterceptingAttributes);
-            this.ImplementTimedCache(builder);
         }
 
         private Method CreateAssigningMethod(BuilderType anonSource, BuilderType anonTarget, BuilderType anonTargetInterface, Method method)
@@ -176,8 +177,14 @@ namespace Cauldron.Interception.Fody
             var asyncTaskMethodBuilder = builder.GetType("System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1")
                 .New(x => new
                 {
-                    SetResult = x.GetMethod("SetResult", 1)
+                    SetResult = x.GetMethod("SetResult", 1),
+                    GetTask = x.GetMethod("get_Task")
                 });
+
+            var task = builder.GetType("System.Threading.Tasks.Task`1").New(x => new
+            {
+                GetResult = x.GetMethod("get_Result")
+            });
 
             foreach (var method in methods)
             {
@@ -205,7 +212,7 @@ namespace Cauldron.Interception.Fody
                             x.Assign(timedCache).NewObj(method);
 
                             // Create a cache key
-                            x.Load(timedCache).Call(timedCacheAttribute.CreateKey, method.Method.Fullname, x.GetParametersArray())
+                            x.Call(timedCacheAttribute.CreateKey, method.Method.Fullname, x.GetParametersArray())
                                     .StoreLocal(key);
 
                             // check
@@ -227,37 +234,44 @@ namespace Cauldron.Interception.Fody
                         })
                         .Replace();
                 else if (method.AsyncMethod != null)
+                {
+                    var cacheKey = method.AsyncMethod.DeclaringType.CreateField(Modifiers.Public, typeof(string), "<>x__cacheKey");
+                    method.Method.NewCode()
+                         .Context(x =>
+                         {
+                             x.LoadVariable(0)
+                                 .Assign(cacheKey)
+                                 .Set(x.NewCode().Call(timedCacheAttribute.CreateKey, method.Method.Fullname, x.GetParametersArray()));
+                         })
+                        .Insert(InsertionPosition.Beginning);
+
                     method.AsyncMethod.NewCode()
                         .Context(x =>
                         {
                             var timedCache = x.CreateVariable(timecacheVarName, method.Attribute.Type);
-                            var key = x.CreateVariable(keyName, timedCacheAttribute.CreateKey);
                             var declaringType = method.AsyncMethod.DeclaringType;
                             var taskReturnType = method.Method.ReturnType.GetGenericArgument(0);
 
                             x.Assign(timedCache).NewObj(method);
 
-                            // Create a cache key
-                            x.Load(timedCache).Call(timedCacheAttribute.CreateKey, method.Method.Fullname, x.GetParametersArray())
-                                    .StoreLocal(key);
-
-                            x.Load(timedCache).Call(timedCacheAttribute.HasCache, key)
+                            x.Load(timedCache).Call(timedCacheAttribute.HasCache, cacheKey)
                                     .IsTrue().Then(y =>
                                     {
                                         y.AssignToField("<>1__state").Set(-2);
-                                        y.Call(declaringType.GetField("<>t__builder"), asyncTaskMethodBuilder.SetResult.MakeGeneric(typeof(string)),
-                                            y.NewCode().Call(timedCache, timedCacheAttribute.GetCache, key).As(taskReturnType))
+                                        y.Call(declaringType.GetField("<>t__builder"), asyncTaskMethodBuilder.SetResult.MakeGeneric(taskReturnType),
+                                            y.NewCode().Call(timedCache, timedCacheAttribute.GetCache, cacheKey).As(taskReturnType))
                                             .Return();
                                     });
 
                             x.OriginalBody();
-
-                            // Set the cache
-                            //x.Load(timedCache).Call(timedCacheAttribute.SetCache, key, x.NewCode().Call();
+                            x.Call(timedCache, timedCacheAttribute.SetCache, cacheKey,
+                                x.NewCode().Call(declaringType.GetField("<>t__builder"), asyncTaskMethodBuilder.GetTask.MakeGeneric(taskReturnType))
+                                    .Call(task.GetResult.MakeGeneric(taskReturnType)));
 
                             x.Return();
                         })
                         .Replace();
+                }
             }
         }
 
@@ -340,6 +354,24 @@ namespace Cauldron.Interception.Fody
                 CurrentCount = x.GetMethod("get_CurrentCount")
             });
 
+            var asyncTaskMethodBuilder = builder.GetType("System.Runtime.CompilerServices.AsyncTaskMethodBuilder")
+                .New(x => new
+                {
+                    GetTask = x.GetMethod("get_Task")
+                });
+
+            var asyncTaskMethodBuilderGeneric = builder.GetType("System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1")
+                .New(x => new
+                {
+                    SetResult = x.GetMethod("SetResult", 1),
+                    GetTask = x.GetMethod("get_Task")
+                });
+
+            var task = builder.GetType("System.Threading.Tasks.Task").New(x => new
+            {
+                GetException = x.GetMethod("get_Exception")
+            });
+
             var methods = builder
                 .FindMethodsByAttributes(attributes)
                 .GroupBy(x => new { Method = x.Method, AsyncMethod = x.AsyncMethod })
@@ -404,11 +436,43 @@ namespace Cauldron.Interception.Fody
                                 x.LoadVariable("<>interceptor_" + i).Callvirt(item.Interface.OnEnter, attributedMethod.DeclaringType, typeInstance, attributedMethod, x.GetParametersArray());
                         }
                         x.OriginalBody();
+
+                        // Special case for async methods
+                        if (method.Key.AsyncMethod != null && method.Key.Method.ReturnType.Fullname == typeof(Task).FullName) // Task return
+                        {
+                            var exceptionVar = x.CreateVariable(builder.GetType("System.Exception"));
+
+                            x.Assign(exceptionVar).Set(
+                                x.Call(method.Key.AsyncMethod.DeclaringType.GetField("<>t__builder"), asyncTaskMethodBuilder.GetTask)
+                                .Call(task.GetException));
+
+                            x.Load(exceptionVar).IsNotNull().Then(y =>
+                            {
+                                for (int i = 0; i < method.Item.Length; i++)
+                                    y.LoadVariable("<>interceptor_" + i).Callvirt(method.Item[i].Interface.OnException, exceptionVar);
+                            });
+                        }
+                        else if (method.Key.AsyncMethod != null) // Task<> return
+                        {
+                            var exceptionVar = x.CreateVariable(builder.GetType("System.Exception"));
+                            var taskArgument = method.Key.Method.ReturnType.GetGenericArgument(0);
+
+                            x.Assign(exceptionVar).Set(
+                                x.NewCode().Call(method.Key.AsyncMethod.DeclaringType.GetField("<>t__builder"), asyncTaskMethodBuilderGeneric.GetTask.MakeGeneric(taskArgument))
+                                .Call(task.GetException));
+
+                            x.Load(exceptionVar).IsNotNull().Then(y =>
+                            {
+                                for (int i = 0; i < method.Item.Length; i++)
+                                    y.LoadVariable("<>interceptor_" + i).Callvirt(method.Item[i].Interface.OnException, exceptionVar);
+                            });
+                        }
                     })
                     .Catch(typeof(Exception), x =>
                     {
-                        for (int i = 0; i < method.Item.Length; i++)
-                            x.LoadVariable("<>interceptor_" + i).Callvirt(method.Item[i].Interface.OnException, x.Exception);
+                        if (method.Key.AsyncMethod == null)
+                            for (int i = 0; i < method.Item.Length; i++)
+                                x.LoadVariable("<>interceptor_" + i).Callvirt(method.Item[i].Interface.OnException, x.Exception);
 
                         x.Rethrow();
                     })
