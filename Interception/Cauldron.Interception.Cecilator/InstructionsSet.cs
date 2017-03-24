@@ -295,6 +295,26 @@ namespace Cauldron.Interception.Cecilator
 
         public LocalVariable GetReturnVariable() => new LocalVariable(this.method.type, this.GetOrCreateReturnVariable());
 
+        public void Insert(InsertionAction action, Position position)
+        {
+            for (int i = processor.Body.Variables.Count; i < this.instructions.Variables.Count; i++)
+                processor.Body.Variables.Add(this.instructions.Variables[i]);
+
+            if (action == InsertionAction.After)
+                processor.InsertAfter(position.instruction, this.instructions);
+            else if (action == InsertionAction.Before)
+                processor.InsertBefore(position.instruction, this.instructions);
+
+            foreach (var item in this.instructions.ExceptionHandlers)
+                processor.Body.ExceptionHandlers.Add(item);
+
+            this.method.methodDefinition.Body.InitLocals = this.method.methodDefinition.Body.Variables.Count > 0;
+            this.ReplaceReturns();
+
+            this.method.methodDefinition.Body.OptimizeMacros();
+            this.instructions.Clear();
+        }
+
         public void Insert(InsertionPosition position)
         {
             Instruction instructionPosition = null;
@@ -319,17 +339,16 @@ namespace Cauldron.Interception.Cecilator
                     var last = processor.Body.Instructions.Last();
                     var jumpers = processor.Body.Instructions.GetJumpSources(last.Previous);
 
-                    if (last.Previous.IsLoadLocal() || this.method.methodDefinition.ReturnType == this.moduleDefinition.TypeSystem.Void)
-                        instructionPosition = last.Previous;
-                    else
+                    if (!last.Previous.IsLoadLocal() && this.method.methodDefinition.ReturnType.FullName != "System.Void")
                     {
                         var isInitialized = this.method.methodDefinition.Body.InitLocals;
                         var localVariable = this.GetOrCreateReturnVariable();
 
                         processor.InsertBefore(last, processor.Create(OpCodes.Stloc, localVariable));
                         processor.InsertBefore(last, processor.Create(OpCodes.Ldloc, localVariable));
-                        instructionPosition = last.Previous.Previous;
                     }
+
+                    instructionPosition = last.Previous;
 
                     foreach (var item in jumpers)
                         item.Operand = this.instructions.First();
@@ -937,7 +956,7 @@ namespace Cauldron.Interception.Cecilator
             for (int i = 0; i < parameters.Length; i++)
             {
                 var parameterType = method.methodDefinition.Parameters[i].ParameterType.IsGenericInstance || method.methodDefinition.Parameters[i].ParameterType.IsGenericParameter ?
-                    method.methodDefinition.Parameters[i].ParameterType.ResolveType(method.DeclaringType.typeReference) :
+                    method.methodDefinition.Parameters[i].ParameterType.ResolveType(method.DeclaringType.typeReference, method.methodReference) :
                     method.methodDefinition.Parameters[i].ParameterType;
 
                 var inst = this.AddParameter(this.processor, this.moduleDefinition.Import(parameterType), parameters[i]);
@@ -963,7 +982,7 @@ namespace Cauldron.Interception.Cecilator
             for (int i = 0; i < parameters.Length; i++)
             {
                 var parameterType = method.methodDefinition.Parameters[i].ParameterType.IsGenericInstance || method.methodDefinition.Parameters[i].ParameterType.IsGenericParameter ?
-                    method.methodDefinition.Parameters[i].ParameterType.ResolveType(method.DeclaringType.typeReference) :
+                    method.methodDefinition.Parameters[i].ParameterType.ResolveType(method.DeclaringType.typeReference, method.methodReference) :
                     method.methodDefinition.Parameters[i].ParameterType;
 
                 var inst = this.AddParameter(this.processor, this.moduleDefinition.Import(parameterType), parameters[i]);

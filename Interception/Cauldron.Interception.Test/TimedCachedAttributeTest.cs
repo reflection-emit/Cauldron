@@ -2,7 +2,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Diagnostics;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -125,6 +124,11 @@ namespace Cauldron.Interception.Test
             Assert.AreEqual("60", forthString);
         }
 
+        private void HUHU()
+        {
+            var ff = Task.FromResult(22);
+        }
+
         [TimedCache]
         private string PerfectString(int index)
         {
@@ -136,7 +140,10 @@ namespace Cauldron.Interception.Test
         [TimedCache]
         private async Task<string> PerfectStringAsync(int index)
         {
-            await Task.Run(() => Thread.Sleep(4000));
+            await Task.Run(() =>
+            {
+                Thread.Sleep(4000);
+            });
             return index.ToString();
         }
 

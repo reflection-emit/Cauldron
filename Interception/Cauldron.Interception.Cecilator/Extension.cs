@@ -187,6 +187,26 @@ namespace Cauldron.Interception.Cecilator
             return new ReadOnlyDictionary<string, TypeReference>(result);
         }
 
+        public static IReadOnlyDictionary<string, TypeReference> GetGenericResolvedTypeNames(this GenericInstanceMethod method)
+        {
+            var genericArgumentNames = method.Resolve().GenericParameters.Select(x => x.FullName).ToArray();
+            var genericArgumentsOfCurrentType = method.GenericArguments.ToArray();
+
+            var result = new Dictionary<string, TypeReference>();
+            var genericType = method as GenericInstanceMethod;
+
+            genericArgumentNames = genericType.Resolve().GenericParameters.Select(x => x.FullName).ToArray();
+            genericArgumentsOfCurrentType = genericType.GenericArguments.ToArray();
+
+            for (int i = 0; i < genericArgumentNames.Length; i++)
+            {
+                if (!result.ContainsKey(genericArgumentNames[i]))
+                    result.Add(genericArgumentNames[i], genericArgumentsOfCurrentType[i]);
+            }
+
+            return new ReadOnlyDictionary<string, TypeReference>(result);
+        }
+
         public static IEnumerable<TypeReference> GetInterfaces(this TypeReference type)
         {
             var typeDef = type.Resolve();
@@ -416,6 +436,15 @@ namespace Cauldron.Interception.Cecilator
                 processor.InsertBefore(target, instruction);
         }
 
+        internal static bool IsCall(this Instruction instruction)
+        {
+            var opCode = instruction.OpCode;
+            return
+                opCode == OpCodes.Call ||
+                opCode == OpCodes.Calli ||
+                opCode == OpCodes.Callvirt;
+        }
+
         internal static bool IsCallOrNew(this Instruction instruction)
         {
             var opCode = instruction.OpCode;
@@ -575,7 +604,7 @@ namespace Cauldron.Interception.Cecilator
                 return method;
         }
 
-        internal static TypeReference ResolveType(this TypeReference type, TypeReference inheritingOrImplementingType)
+        internal static TypeReference ResolveType(this TypeReference type, TypeReference inheritingOrImplementingType, MethodReference ownerMethod = null)
         {
             if (type.IsGenericParameter && inheritingOrImplementingType is GenericInstanceType)
             {
@@ -612,6 +641,21 @@ namespace Cauldron.Interception.Cecilator
             }
             else if (type.HasGenericParameters)
                 return type.MakeGenericInstanceType(type.GenericParameters.ToArray());
+            else if (ownerMethod != null)
+            {
+                var genericParameters = (ownerMethod as GenericInstanceMethod).GetGenericResolvedTypeNames();
+                var genericType = genericParameters[type.FullName];
+
+                while (genericType.IsGenericParameter)
+                {
+                    genericType = genericParameters[genericType.FullName];
+
+                    if (!genericType.IsGenericParameter)
+                        return genericType;
+                }
+
+                return genericParameters[type.FullName];
+            }
             else
                 return type;
         }

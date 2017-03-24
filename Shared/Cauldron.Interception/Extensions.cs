@@ -21,7 +21,7 @@ namespace Cauldron.Interception
     {
         /// <exclude/>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public static void TryDispose(this object context)
+        public static void TryDisposeInternal(this object context)
         {
             var disposable = context as IDisposable;
             disposable?.Dispose();

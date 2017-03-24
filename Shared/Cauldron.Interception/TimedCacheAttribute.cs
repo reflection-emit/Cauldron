@@ -9,7 +9,7 @@ using System.Threading;
 namespace Cauldron.Interception
 {
     /// <summary>
-    /// Provides a timed caching for the intercepted method.
+    /// Provides a timed global caching for the intercepted method. The caching is implemented using <see cref="MemoryCache.Default"/>
     /// <para/>
     /// The cache is dependent to the passed arguments. The arguments requires a proper implementation of <see cref="object.GetHashCode"/> and a unique <see cref="object.ToString"/> value.
     /// </summary>
@@ -22,10 +22,10 @@ namespace Cauldron.Interception
         /// <summary>
         /// Initializes a new instance of <see cref="TimedCacheAttribute"/>
         /// </summary>
-        /// <param name="decayPeriod">The maximum period of cache lifetime</param>
-        public TimedCacheAttribute(TimeSpan decayPeriod)
+        /// <param name="decayPeriodInSeconds">The maximum period of cache lifetime in seconds</param>
+        public TimedCacheAttribute(uint decayPeriodInSeconds)
         {
-            this.decayPeriod = decayPeriod;
+            this.decayPeriod = TimeSpan.FromSeconds(decayPeriodInSeconds);
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace Cauldron.Interception
         /// <para/>
         /// Default cache decay period is 30 minutes.
         /// </summary>
-        public TimedCacheAttribute() : this(TimeSpan.FromMinutes(30))
+        public TimedCacheAttribute() : this(1800)
         {
         }
 
@@ -73,13 +73,17 @@ namespace Cauldron.Interception
         public bool HasCache(string key)
         {
             var cache = MemoryCache.Default;
-            return cache[key] != null;
+            var result = cache[key] != null;
+            return result;
         }
 
         /// <exclude/>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public void SetCache(string key, object content)
         {
+            if (content == null)
+                return;
+
             semaphore.Wait();
 
             try

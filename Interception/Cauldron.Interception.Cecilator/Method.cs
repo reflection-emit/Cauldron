@@ -42,6 +42,8 @@ namespace Cauldron.Interception.Cecilator
             this.methodReference = methodDefinition.CreateMethodReference();
         }
 
+        public AsyncMethodHelper AsyncMethodHelper { get { return new AsyncMethodHelper(this); } }
+
         public BuilderCustomAttributeCollection CustomAttributes { get { return new BuilderCustomAttributeCollection(this.type.Builder, this.methodDefinition); } }
 
         public BuilderType DeclaringType { get { return this.type; } }
@@ -130,6 +132,8 @@ namespace Cauldron.Interception.Cecilator
         {
             if (this.methodDefinition.GenericParameters.Count == 0)
                 return new Method(this.type.Builder, this.methodDefinition.MakeHostInstanceGeneric(types.Select(x => this.moduleDefinition.Import(x.typeReference)).ToArray()), this.methodDefinition);
+            else if (this.methodDefinition.ContainsGenericParameter)
+                return new Method(this.type.Builder, this.methodDefinition.MakeGeneric(null, types.Select(x => this.moduleDefinition.Import(x.typeReference)).ToArray()), this.methodDefinition);
             else
                 return new Method(this.type.Builder, this.methodDefinition.MakeGeneric(null, types.Select(x => this.moduleDefinition.Import(x.typeReference)).ToArray()), this.methodDefinition);
         }

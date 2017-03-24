@@ -12,6 +12,8 @@ namespace Cauldron.Interception.Cecilator
 
         void Insert(InsertionPosition position);
 
+        void Insert(InsertionAction action, Position position);
+
         void Replace();
 
         [EditorBrowsable(EditorBrowsableState.Never)]

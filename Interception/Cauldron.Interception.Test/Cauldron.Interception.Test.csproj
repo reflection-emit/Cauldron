@@ -67,6 +67,7 @@
     <Compile Include="TestEnum.cs" />
     <Compile Include="ITestInterface.cs" />
     <Compile Include="TestStruct.cs" />
+    <Compile Include="CachedAttributeTest.cs" />
     <Compile Include="TimedCachedAttributeTest.cs" />
   </ItemGroup>
   <ItemGroup>
