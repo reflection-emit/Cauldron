@@ -124,11 +124,6 @@ namespace Cauldron.Interception.Test
             Assert.AreEqual("60", forthString);
         }
 
-        private void HUHU()
-        {
-            var ff = Task.FromResult(22);
-        }
-
         [TimedCache]
         private string PerfectString(int index)
         {
