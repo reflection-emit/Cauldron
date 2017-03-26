@@ -400,7 +400,8 @@ namespace Cauldron.Interception.Fody
                             .NewObj(semaphoreSlim.Ctor, 1, 1)
                             .Insert(Cecilator.InsertionPosition.Beginning);
 
-                targetedMethod
+                if (method.Key.AsyncMethod == null)
+                    targetedMethod
                 .NewCode()
                     .Context(x =>
                     {
@@ -422,37 +423,6 @@ namespace Cauldron.Interception.Fody
                                 x.LoadVariable("<>interceptor_" + i).Callvirt(item.Interface.OnEnter, attributedMethod.DeclaringType, typeInstance, attributedMethod, x.GetParametersArray());
                         }
                         x.OriginalBody();
-
-                        // Special case for async methods
-                        if (method.Key.AsyncMethod != null && method.Key.Method.ReturnType.Fullname == typeof(Task).FullName) // Task return
-                        {
-                            var exceptionVar = x.CreateVariable(builder.GetType("System.Exception"));
-
-                            x.Assign(exceptionVar).Set(
-                                x.NewCode().Call(method.Key.AsyncMethod.DeclaringType.GetField("<>t__builder"), asyncTaskMethodBuilder.GetTask)
-                                .Call(task.GetException));
-
-                            x.Load(exceptionVar).IsNotNull().Then(y =>
-                            {
-                                for (int i = 0; i < method.Item.Length; i++)
-                                    y.LoadVariable("<>interceptor_" + i).Callvirt(method.Item[i].Interface.OnException, exceptionVar);
-                            });
-                        }
-                        else if (method.Key.AsyncMethod != null) // Task<> return
-                        {
-                            var exceptionVar = x.CreateVariable(builder.GetType("System.Exception"));
-                            var taskArgument = method.Key.Method.ReturnType.GetGenericArgument(0);
-
-                            x.Assign(exceptionVar).Set(
-                                x.NewCode().Call(method.Key.AsyncMethod.DeclaringType.GetField("<>t__builder"), asyncTaskMethodBuilderGeneric.GetTask.MakeGeneric(taskArgument))
-                                .Call(task.GetException));
-
-                            x.Load(exceptionVar).IsNotNull().Then(y =>
-                            {
-                                for (int i = 0; i < method.Item.Length; i++)
-                                    y.LoadVariable("<>interceptor_" + i).Callvirt(method.Item[i].Interface.OnException, exceptionVar);
-                            });
-                        }
                     })
                     .Catch(typeof(Exception), x =>
                     {
@@ -476,6 +446,75 @@ namespace Cauldron.Interception.Fody
                     .EndTry()
                     .Return()
                 .Replace();
+                else
+                    targetedMethod
+                    .NewCode()
+                        .Context(x =>
+                        {
+                            for (int i = 0; i < method.Item.Length; i++)
+                            {
+                                var item = method.Item[i];
+                                x.Assign(x.CreateVariable("<>interceptor_" + i, item.Interface.Type)).NewObj(item.Attribute);
+                                item.Attribute.Remove();
+                            }
+                        })
+                        .Try(x =>
+                        {
+                            for (int i = 0; i < method.Item.Length; i++)
+                            {
+                                var item = method.Item[i];
+                                if (item.Interface.Lockable)
+                                    x.LoadVariable("<>interceptor_" + i).Callvirt(item.Interface.OnEnter, x.NewCode().LoadField(semaphoreFieldName), attributedMethod.DeclaringType, typeInstance, attributedMethod, x.GetParametersArray());
+                                else
+                                    x.LoadVariable("<>interceptor_" + i).Callvirt(item.Interface.OnEnter, attributedMethod.DeclaringType, typeInstance, attributedMethod, x.GetParametersArray());
+                            }
+                            x.OriginalBody();
+
+                            // Special case for async methods
+                            if (method.Key.AsyncMethod != null && method.Key.Method.ReturnType.Fullname == typeof(Task).FullName) // Task return
+                            {
+                                var exceptionVar = x.CreateVariable(builder.GetType("System.Exception"));
+
+                                x.Assign(exceptionVar).Set(
+                                    x.NewCode().Call(method.Key.AsyncMethod.DeclaringType.GetField("<>t__builder"), asyncTaskMethodBuilder.GetTask)
+                                    .Call(task.GetException));
+
+                                x.Load(exceptionVar).IsNotNull().Then(y =>
+                                {
+                                    for (int i = 0; i < method.Item.Length; i++)
+                                        y.LoadVariable("<>interceptor_" + i).Callvirt(method.Item[i].Interface.OnException, exceptionVar);
+                                });
+                            }
+                            else if (method.Key.AsyncMethod != null) // Task<> return
+                            {
+                                var exceptionVar = x.CreateVariable(builder.GetType("System.Exception"));
+                                var taskArgument = method.Key.Method.ReturnType.GetGenericArgument(0);
+
+                                x.Assign(exceptionVar).Set(
+                                    x.NewCode().Call(method.Key.AsyncMethod.DeclaringType.GetField("<>t__builder"), asyncTaskMethodBuilderGeneric.GetTask.MakeGeneric(taskArgument))
+                                    .Call(task.GetException));
+
+                                x.Load(exceptionVar).IsNotNull().Then(y =>
+                                {
+                                    for (int i = 0; i < method.Item.Length; i++)
+                                        y.LoadVariable("<>interceptor_" + i).Callvirt(method.Item[i].Interface.OnException, exceptionVar);
+                                });
+                            }
+                        })
+                        .Finally(x =>
+                        {
+                            if (lockable)
+                                x.LoadField(semaphoreFieldName)
+                                .Call(semaphoreSlim.CurrentCount)
+                                    .EqualTo(0)
+                                        .Then(y => y.LoadField(semaphoreFieldName).Call(semaphoreSlim.Release).Pop());
+
+                            for (int i = 0; i < method.Item.Length; i++)
+                                x.LoadVariable("<>interceptor_" + i).Callvirt(method.Item[i].Interface.OnExit);
+                        })
+                        .EndTry()
+                        .Return()
+                    .Replace();
             };
 
             stopwatch.Stop();
