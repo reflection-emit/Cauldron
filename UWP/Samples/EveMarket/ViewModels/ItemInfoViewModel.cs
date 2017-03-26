@@ -42,24 +42,24 @@ namespace EveMarket.ViewModels
 
         public IEnumerable<QuicklookOrder> SellOrders { get; set; }
 
-        public void OnInitializeComponent()
+        public async void OnInitializeComponent()
         {
-            this.RunDispatcherAsync(async () =>
-            {
-                var item = this.eveApi.StaticData.GetItemType(this.ItemId);
+            await this.RunDispatcherAsync(async () =>
+             {
+                 var item = this.eveApi.StaticData.GetItemType(this.ItemId);
 
-                this.Description = EveUtils.XAMLify(item.Description);
-                this.Name = item.Name;
-                this.GroupName = item.GroupName;
-                this.MarketGroupName = item.MarketGroup?.Name;
+                 this.Description = EveUtils.XAMLify(item.Description);
+                 this.Name = item.Name;
+                 this.GroupName = item.GroupName;
+                 this.MarketGroupName = item.MarketGroup?.Name;
 
-                this.Icon = await (await this.eveApi.GetImageAsync(ImageType.Item, this.ItemId, 1, 128)).ToBitmapImageAsync();
+                 this.Icon = await (await this.eveApi.GetImageAsync(ImageType.Item, this.ItemId, 1, 128)).ToBitmapImageAsync();
 
-                var marketQuicklook = await this.eveApi.GetMarketOrdersAsync(this.ItemId);
-                this.Price = this.eveApi.GetItemPrice(this.ItemId).AdjustedPrice;
-                this.BuyOrders = marketQuicklook.BuyOrders.Where(x => x.Security > 0.4).OrderByDescending(x => x.Price).Take(10);
-                this.SellOrders = marketQuicklook.SellOrders.Where(x => x.Security > 0.4).OrderBy(x => x.Price).Take(10);
-            });
+                 var marketQuicklook = await this.eveApi.GetMarketOrdersAsync(this.ItemId);
+                 this.Price = this.eveApi.GetItemPrice(this.ItemId).AdjustedPrice;
+                 this.BuyOrders = marketQuicklook.BuyOrders.Where(x => x.Security > 0.4).OrderByDescending(x => x.Price).Take(10);
+                 this.SellOrders = marketQuicklook.SellOrders.Where(x => x.Security > 0.4).OrderBy(x => x.Price).Take(10);
+             });
         }
     }
 }
