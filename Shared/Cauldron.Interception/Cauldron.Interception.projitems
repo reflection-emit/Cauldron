@@ -9,7 +9,6 @@
     <Import_RootNamespace>Cauldron.Interception</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)CacheAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ILockableMethodInterceptor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ILockablePropertyGetterInterceptor.cs" />

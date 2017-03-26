@@ -43,7 +43,6 @@ namespace Cauldron.Interception.Fody
 
             this.ImplementAnonymousTypeInterface(builder);
             this.ImplementTimedCache(builder);
-            this.ImplementMethodCache(builder);
             // These should be done last, because they replace methods
             this.InterceptFields(builder, propertyInterceptingAttributes);
             this.InterceptMethods(builder);
@@ -157,76 +156,6 @@ namespace Cauldron.Interception.Fody
             }
             stopwatch.Stop();
             this.LogInfo($"Implementing anonymous type to interface took {stopwatch.Elapsed.TotalMilliseconds}ms");
-        }
-
-        private void ImplementMethodCache(Builder builder)
-        {
-            var methods = builder.FindMethodsByAttribute("Cauldron.Interception.CacheAttribute");
-
-            if (!methods.Any())
-                return;
-
-            var task = builder.GetType("System.Threading.Tasks.Task`1").New(x => new
-            {
-                GetResult = x.GetMethod("get_Result"),
-                FromResult = x.GetMethod("FromResult", 1)
-            });
-
-            foreach (var method in methods)
-            {
-                this.LogInfo($"Implementing Cache for method {method.Method.Name}");
-
-                if (method.Method.ReturnType.Fullname == "System.Void")
-                {
-                    this.LogWarning("CacheAttribute does not support void return types");
-                    continue;
-                }
-
-                var cacheField = $"<{method.Method.Name}>m__MethodCache";
-
-                if (method.AsyncMethod == null && method.Method.ReturnType.Inherits(typeof(Task).FullName))
-                    this.LogWarning($"- CacheAttribute for method {method.Method.Name} will not be implemented. Methods that returns 'Task' without async are not supported.");
-                else if (method.AsyncMethod == null)
-                    method.Method.NewCode()
-                        .Context(x =>
-                        {
-                            var cache = method.Method.DeclaringType.CreateField(method.Method.Modifiers & ~Modifiers.Public | Modifiers.Private, method.Method.ReturnType, cacheField);
-                            var returnVariable = x.GetReturnVariable();
-
-                            x.Load(cache).IsNull().Then(y =>
-                            {
-                                // TODO - Dont create a new method
-                                y.Assign(cache).Set(y.NewCode().OriginalBody()).Return();
-                            })
-                            .Load(cache).Return();
-                        })
-                        .Replace();
-                else if (method.AsyncMethod != null)
-                {
-                    method.Method.NewCode()
-                        .Context(x =>
-                        {
-                            var taskReturnType = method.Method.ReturnType.GetGenericArgument(0);
-                            var cache = method.Method.DeclaringType.CreateField(method.Method.Modifiers & ~Modifiers.Public | Modifiers.Private, taskReturnType, cacheField);
-
-                            x.Load(cache).IsNotNull().Then(y =>
-                            {
-                                y.Call(task.FromResult.MakeGeneric(taskReturnType), cache).Return();
-                            });
-                        }).Insert(InsertionPosition.Beginning);
-
-                    method.Method.NewCode()
-                        .Context(x =>
-                        {
-                            var taskReturnType = method.Method.ReturnType.GetGenericArgument(0);
-                            var cache = method.Method.DeclaringType.GetField(cacheField);
-                            var returnVariable = x.GetReturnVariable();
-                            x.Assign(cache).Set(x.NewCode().Call(returnVariable, task.GetResult.MakeGeneric(taskReturnType)));
-                        }).Insert(InsertionPosition.End);
-                }
-
-                method.Attribute.Remove();
-            }
         }
 
         private void ImplementTimedCache(Builder builder)
