@@ -27,6 +27,10 @@ https://Capgemini.github.io/Cauldron/eveonline/
 - [CodeMaid](http://www.codemaid.net/)
 
 ## Release Notes
+### 1.1.1
+- Several minor bug fixes
+- TimedCacheAttribute now supports async methods
+- Unused variables are now removed from the method's local varible list
 ### 1.1.0
 - Cauldron.Interception is now using Cecilator
 - MethodOf, FieldOf, ChildOf removed
