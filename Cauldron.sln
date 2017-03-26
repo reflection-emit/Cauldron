@@ -236,6 +236,10 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "EveOnlineApi.NetCore", "Net
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SampleConsoleApplication", "NetCore\Samples\SampleConsoleApplication\SampleConsoleApplication.xproj", "{14FEFB41-655C-4C16-A1F1-1A9F0AB1DE7E}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Cauldron.Interception.Logging.NLog", "Shared\Cauldron.Interception.Logging.NLog\Cauldron.Interception.Logging.NLog.shproj", "{9DCC8539-5A09-48DE-B60D-CE157FDF22A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.Desktop.Interception.Logging.NLog", "Desktop\Cauldron.Desktop.Interception.Logging.NLog\Cauldron.Desktop.Interception.Logging.NLog.csproj", "{443C91E5-E0FB-4110-ACA8-2D2D130CCBA8}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Shared\Cauldron.Consoles\Cauldron.Consoles.projitems*{00c29751-1557-46a8-9547-f74065b36592}*SharedItemsImports = 4
@@ -254,6 +258,7 @@ Global
 		Shared\Cauldron.Activator\Cauldron.Activator.projitems*{37c96e09-05b8-423d-bf9f-633dc580be0e}*SharedItemsImports = 13
 		Shared\Cauldron.XAML.Interactivity\Cauldron.XAML.Interactivity.projitems*{3973e03e-8401-4129-ac62-97b000b51ed8}*SharedItemsImports = 4
 		Shared\IEnumerableExtensions\IEnumerableExtensions.projitems*{3973e03e-8401-4129-ac62-97b000b51ed8}*SharedItemsImports = 4
+		Shared\Cauldron.Interception.Logging.NLog\Cauldron.Interception.Logging.NLog.projitems*{443c91e5-e0fb-4110-aca8-2d2d130ccba8}*SharedItemsImports = 4
 		Shared\Cauldron.XAML.Validation\Cauldron.XAML.Validation.projitems*{4d6c8285-6e45-40e9-ade3-cf0ceb665c8e}*SharedItemsImports = 4
 		Shared\IEnumerableExtensions\IEnumerableExtensions.projitems*{4d6c8285-6e45-40e9-ade3-cf0ceb665c8e}*SharedItemsImports = 4
 		Shared\Cauldron.XAML\Cauldron.XAML.projitems*{54b17512-035a-49ee-afdf-e0495fe9ce50}*SharedItemsImports = 13
@@ -277,6 +282,7 @@ Global
 		Shared\Unit Tests\Cauldron.XAML.Test\Cauldron.XAML.Test.projitems*{8365e281-779d-4a4a-9143-e4d3eec63251}*SharedItemsImports = 4
 		Shared\Cauldron.Consoles\Cauldron.Consoles.projitems*{867e2ed4-292a-4625-8e4f-c3f3b3d55db9}*SharedItemsImports = 13
 		Shared\Unit Tests\Cauldron.Activator.Test\Cauldron.Activator.Test.projitems*{8ae5e4df-4d6e-4c84-838c-3fccf746f61f}*SharedItemsImports = 13
+		Shared\Cauldron.Interception.Logging.NLog\Cauldron.Interception.Logging.NLog.projitems*{9dcc8539-5a09-48de-b60d-ce157fdf22a0}*SharedItemsImports = 13
 		Shared\Unit Tests\Cauldron.XAML.Validation.Test\Cauldron.XAML.Validation.Test.projitems*{9e87b47b-8b3c-429c-a06d-fa7d1e226f62}*SharedItemsImports = 4
 		Shared\Cauldron.Localization\Cauldron.Localization.projitems*{a2ca82ea-faa4-4cd9-aebc-89ae833e993a}*SharedItemsImports = 13
 		Shared\Cauldron.Core.Desktop\Cauldron.Core.Desktop.projitems*{a6273c28-aada-4fb6-87ea-adfd6b6d6bda}*SharedItemsImports = 4
@@ -1299,6 +1305,22 @@ Global
 		{14FEFB41-655C-4C16-A1F1-1A9F0AB1DE7E}.Release|x64.Build.0 = Release|Any CPU
 		{14FEFB41-655C-4C16-A1F1-1A9F0AB1DE7E}.Release|x86.ActiveCfg = Release|Any CPU
 		{14FEFB41-655C-4C16-A1F1-1A9F0AB1DE7E}.Release|x86.Build.0 = Release|Any CPU
+		{443C91E5-E0FB-4110-ACA8-2D2D130CCBA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{443C91E5-E0FB-4110-ACA8-2D2D130CCBA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{443C91E5-E0FB-4110-ACA8-2D2D130CCBA8}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{443C91E5-E0FB-4110-ACA8-2D2D130CCBA8}.Debug|ARM.Build.0 = Debug|Any CPU
+		{443C91E5-E0FB-4110-ACA8-2D2D130CCBA8}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{443C91E5-E0FB-4110-ACA8-2D2D130CCBA8}.Debug|x64.Build.0 = Debug|Any CPU
+		{443C91E5-E0FB-4110-ACA8-2D2D130CCBA8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{443C91E5-E0FB-4110-ACA8-2D2D130CCBA8}.Debug|x86.Build.0 = Debug|Any CPU
+		{443C91E5-E0FB-4110-ACA8-2D2D130CCBA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{443C91E5-E0FB-4110-ACA8-2D2D130CCBA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{443C91E5-E0FB-4110-ACA8-2D2D130CCBA8}.Release|ARM.ActiveCfg = Release|Any CPU
+		{443C91E5-E0FB-4110-ACA8-2D2D130CCBA8}.Release|ARM.Build.0 = Release|Any CPU
+		{443C91E5-E0FB-4110-ACA8-2D2D130CCBA8}.Release|x64.ActiveCfg = Release|Any CPU
+		{443C91E5-E0FB-4110-ACA8-2D2D130CCBA8}.Release|x64.Build.0 = Release|Any CPU
+		{443C91E5-E0FB-4110-ACA8-2D2D130CCBA8}.Release|x86.ActiveCfg = Release|Any CPU
+		{443C91E5-E0FB-4110-ACA8-2D2D130CCBA8}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1391,5 +1413,7 @@ Global
 		{49EFA630-EA83-481A-9C25-757D9B56C55C} = {525AA105-AA94-40BD-94D4-0409D58D14B3}
 		{5436DC3B-970B-454D-BB2D-DA0969D6BE12} = {EA06A323-B0C5-410B-8716-B5694678D0FE}
 		{14FEFB41-655C-4C16-A1F1-1A9F0AB1DE7E} = {EA06A323-B0C5-410B-8716-B5694678D0FE}
+		{9DCC8539-5A09-48DE-B60D-CE157FDF22A0} = {4424AE9A-725C-4D9B-8DCF-D6D4289AB769}
+		{443C91E5-E0FB-4110-ACA8-2D2D130CCBA8} = {45646BEE-05CB-4168-8F1F-291F511B6B76}
 	EndGlobalSection
 EndGlobal
