@@ -41,6 +41,8 @@
       <DocumentationSource sourceFile="..\..\Desktop\Cauldron.Desktop.XAML.Interactivity\Cauldron.Desktop.XAML.Interactivity.csproj" />
       <DocumentationSource sourceFile="..\..\Desktop\Cauldron.Desktop.XAML.Validation\Cauldron.Desktop.XAML.Validation.csproj" />
       <DocumentationSource sourceFile="..\..\Desktop\Cauldron.Desktop.XAML\Cauldron.Desktop.XAML.csproj" />
+      <DocumentationSource sourceFile="..\..\Desktop\Cauldron.Desktop.Interception\Cauldron.Desktop.Interception.csproj" />
+      <DocumentationSource sourceFile="..\..\Desktop\Cauldron.Desktop.Interception.Logging.NLog\Cauldron.Desktop.Interception.Logging.NLog.csproj" />
     </DocumentationSources>
     <SaveComponentCacheCapacity>100</SaveComponentCacheCapacity>
     <BuildAssemblerVerbosity>OnlyWarningsAndErrors</BuildAssemblerVerbosity>

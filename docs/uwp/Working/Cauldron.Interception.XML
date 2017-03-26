@@ -1,0 +1,234 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cauldron.Interception</name>
+    </assembly>
+    <members>
+        <member name="T:Cauldron.Interception.Extensions">
+            <exclude/>
+        </member>
+        <member name="M:Cauldron.Interception.Extensions.TryDispose(System.Object)">
+            <exclude/>
+        </member>
+        <member name="T:Cauldron.Interception.ILockableMethodInterceptor">
+            <summary>
+            Represents a method interceptor with a <see cref="T:System.Threading.SemaphoreSlim"/>
+            </summary>
+        </member>
+        <member name="M:Cauldron.Interception.ILockableMethodInterceptor.OnEnter(System.Threading.SemaphoreSlim,System.Type,System.Object,System.Reflection.MethodBase,System.Object[])">
+            <summary>
+            Invoked if an intercepted method has been called
+            </summary>
+            <param name="semaphore">The <see cref="T:System.Threading.SemaphoreSlim"/> instance that can be used to lock the the method</param>
+            <param name="declaringType">The type declaring the intercepted method</param>
+            <param name="instance">The instance of the class where the method is residing. will be null if the method is static</param>
+            <param name="methodbase">Contains information about the method</param>
+            <param name="values">The passed arguments of the method.</param>
+        </member>
+        <member name="M:Cauldron.Interception.ILockableMethodInterceptor.OnException(System.Exception)">
+            <summary>
+            Invoked if an intercepted method has raised an exception. The method will always rethrow the exception.
+            </summary>
+            <param name="e">The exception information.</param>
+        </member>
+        <member name="M:Cauldron.Interception.ILockableMethodInterceptor.OnExit">
+            <summary>
+            Invoked if the intercepted method has finished executing.
+            </summary>
+        </member>
+        <member name="T:Cauldron.Interception.ILockablePropertyGetterInterceptor">
+            <summary>
+            Represents an interceptor that can intercept a property's getter method with a <see cref="T:System.Threading.SemaphoreSlim"/>
+            </summary>
+        </member>
+        <member name="M:Cauldron.Interception.ILockablePropertyGetterInterceptor.OnException(System.Exception)">
+            <summary>
+            Invoked if an intercepted method has raised an exception. The method will always rethrow the exception.
+            </summary>
+            <param name="e">The exception information.</param>
+        </member>
+        <member name="M:Cauldron.Interception.ILockablePropertyGetterInterceptor.OnExit">
+            <summary>
+            Invoked if the intercepted method has finished executing.
+            </summary>
+        </member>
+        <member name="M:Cauldron.Interception.ILockablePropertyGetterInterceptor.OnGet(System.Threading.SemaphoreSlim,Cauldron.Interception.PropertyInterceptionInfo,System.Object)">
+            <summary>
+            Invoked if the intercepted property getter has been called
+            </summary>
+            <param name="semaphore">The <see cref="T:System.Threading.SemaphoreSlim"/> instance that can be used to lock the the method</param>
+            <param name="propertyInterceptionInfo">An object that containes information about the intercepted method</param>
+            <param name="value">The current value of the property</param>
+        </member>
+        <member name="T:Cauldron.Interception.ILockablePropertySetterInterceptor">
+            <summary>
+            Represents an interceptor that can intercept a property's setter method with a <see cref="T:System.Threading.SemaphoreSlim"/>
+            </summary>
+        </member>
+        <member name="M:Cauldron.Interception.ILockablePropertySetterInterceptor.OnException(System.Exception)">
+            <summary>
+            Invoked if an intercepted method has raised an exception. The method will always rethrow the exception.
+            </summary>
+            <param name="e">The exception information.</param>
+        </member>
+        <member name="M:Cauldron.Interception.ILockablePropertySetterInterceptor.OnExit">
+            <summary>
+            Invoked if the intercepted method has finished executing.
+            </summary>
+        </member>
+        <member name="M:Cauldron.Interception.ILockablePropertySetterInterceptor.OnSet(System.Threading.SemaphoreSlim,Cauldron.Interception.PropertyInterceptionInfo,System.Object,System.Object)">
+            <summary>
+            Invoked if the intercepted property setter has been called
+            </summary>
+            <param name="semaphore">The <see cref="T:System.Threading.SemaphoreSlim"/> instance that can be used to lock the the method</param>
+            <param name="propertyInterceptionInfo">An object that containes information about the intercepted method</param>
+            <param name="oldValue">The current value of the property</param>
+            <param name="newValue">The to be new value of the property</param>
+            <returns>If returns false, the backing field will be set to <paramref name="newValue"/></returns>
+        </member>
+        <member name="T:Cauldron.Interception.IMethodInterceptor">
+            <summary>
+            Represents a method interceptor
+            </summary>
+        </member>
+        <member name="M:Cauldron.Interception.IMethodInterceptor.OnEnter(System.Type,System.Object,System.Reflection.MethodBase,System.Object[])">
+            <summary>
+            Invoked if an intercepted method has been called
+            </summary>
+            <param name="declaringType">The type declaring the intercepted method</param>
+            <param name="instance">The instance of the class where the method is residing. will be null if the method is static</param>
+            <param name="methodbase">Contains information about the method</param>
+            <param name="values">The passed arguments of the method.</param>
+        </member>
+        <member name="M:Cauldron.Interception.IMethodInterceptor.OnException(System.Exception)">
+            <summary>
+            Invoked if an intercepted method has raised an exception. The method will always rethrow the exception.
+            </summary>
+            <param name="e">The exception information.</param>
+        </member>
+        <member name="M:Cauldron.Interception.IMethodInterceptor.OnExit">
+            <summary>
+            Invoked if the intercepted method has finished executing.
+            </summary>
+        </member>
+        <member name="T:Cauldron.Interception.IPropertyGetterInterceptor">
+            <summary>
+            Represents an interceptor that can intercept a property's getter method
+            </summary>
+        </member>
+        <member name="M:Cauldron.Interception.IPropertyGetterInterceptor.OnException(System.Exception)">
+            <summary>
+            Invoked if an intercepted method has raised an exception. The method will always rethrow the exception.
+            </summary>
+            <param name="e">The exception information.</param>
+        </member>
+        <member name="M:Cauldron.Interception.IPropertyGetterInterceptor.OnExit">
+            <summary>
+            Invoked if the intercepted method has finished executing.
+            </summary>
+        </member>
+        <member name="M:Cauldron.Interception.IPropertyGetterInterceptor.OnGet(Cauldron.Interception.PropertyInterceptionInfo,System.Object)">
+            <summary>
+            Invoked if the intercepted property getter has been called
+            </summary>
+            <param name="propertyInterceptionInfo">An object that containes information about the intercepted method</param>
+            <param name="value">The current value of the property</param>
+        </member>
+        <member name="T:Cauldron.Interception.IPropertyInterceptor">
+            <summary>
+            Represents an interceptor that can intercept a property's getter and setter method
+            </summary>
+        </member>
+        <member name="T:Cauldron.Interception.IPropertySetterInterceptor">
+            <summary>
+            Represents an interceptor that can intercept a property's setter method
+            </summary>
+        </member>
+        <member name="M:Cauldron.Interception.IPropertySetterInterceptor.OnException(System.Exception)">
+            <summary>
+            Invoked if an intercepted method has raised an exception. The method will always rethrow the exception.
+            </summary>
+            <param name="e">The exception information.</param>
+        </member>
+        <member name="M:Cauldron.Interception.IPropertySetterInterceptor.OnExit">
+            <summary>
+            Invoked if the intercepted method has finished executing.
+            </summary>
+        </member>
+        <member name="M:Cauldron.Interception.IPropertySetterInterceptor.OnSet(Cauldron.Interception.PropertyInterceptionInfo,System.Object,System.Object)">
+            <summary>
+            Invoked if the intercepted property setter has been called
+            </summary>
+            <param name="propertyInterceptionInfo">An object that containes information about the intercepted method</param>
+            <param name="oldValue">The current value of the property</param>
+            <param name="newValue">The to be new value of the property</param>
+            <returns>If returns false, the backing field will be set to <paramref name="newValue"/></returns>
+        </member>
+        <member name="T:Cauldron.Interception.PropertyInterceptionInfo">
+            <summary>
+            Contains information about the intercepted property
+            </summary>
+        </member>
+        <member name="M:Cauldron.Interception.PropertyInterceptionInfo.#ctor(System.Reflection.MethodBase,System.Reflection.MethodBase,System.String,System.Type,System.Object,System.Type,System.Action{System.Object})">
+            <summary>
+            Initializes a new instance of <see cref="T:Cauldron.Interception.PropertyInterceptionInfo"/>
+            </summary>
+            <param name="getterMethod">Provides information about the method</param>
+            <param name="setterMethod">Provides information about the method</param>
+            <param name="propertyName">The name of the intercepted property</param>
+            <param name="propertyType">The return tyoe of the property</param>
+            <param name="instance">The instance of the declaring type</param>
+            <param name="childType">The child type of <see cref="P:Cauldron.Interception.PropertyInterceptionInfo.PropertyType"/> if <see cref="P:Cauldron.Interception.PropertyInterceptionInfo.PropertyType"/> is a <see cref="T:System.Collections.IEnumerable"/></param>
+            <param name="setter">A delegate to set the property backing field</param>
+        </member>
+        <member name="P:Cauldron.Interception.PropertyInterceptionInfo.ChildType">
+            <summary>
+            Gets the <see cref="T:System.Type"/> of element.
+            Returns null if the <see cref="P:Cauldron.Interception.PropertyInterceptionInfo.PropertyType"/> is not a <see cref="T:System.Collections.IEnumerable"/>.
+            Returns an <see cref="T:System.Object"/> if the weaver was not able to detect the child type.
+            </summary>
+        </member>
+        <member name="P:Cauldron.Interception.PropertyInterceptionInfo.DeclaringType">
+            <summary>
+            Gets the <see cref="T:System.Type"/> of the object where the property resides in
+            </summary>
+        </member>
+        <member name="P:Cauldron.Interception.PropertyInterceptionInfo.GetMethod">
+            <summary>
+            Gets an object that provides information about the getter method
+            </summary>
+        </member>
+        <member name="P:Cauldron.Interception.PropertyInterceptionInfo.Instance">
+            <summary>
+            Gets the instance of the declaring type. Will be null if the property is static
+            </summary>
+        </member>
+        <member name="P:Cauldron.Interception.PropertyInterceptionInfo.PropertyName">
+            <summary>
+            Gets the name of the property
+            </summary>
+        </member>
+        <member name="P:Cauldron.Interception.PropertyInterceptionInfo.PropertyType">
+            <summary>
+            Gets the type of the property
+            </summary>
+        </member>
+        <member name="P:Cauldron.Interception.PropertyInterceptionInfo.SetMethod">
+            <summary>
+            Gets an object that provides information about the setter method
+            </summary>
+        </member>
+        <member name="M:Cauldron.Interception.PropertyInterceptionInfo.SetValue(System.Object)">
+            <summary>
+            Sets the value of the property's backing field
+            </summary>
+            <param name="value">The new value of the property</param>
+        </member>
+        <member name="M:Cauldron.Interception.PropertyInterceptionInfo.ToPropertyInfo">
+            <summary>
+            Converts the <see cref="T:Cauldron.Interception.PropertyInterceptionInfo"/> instance to a <see cref="T:System.Reflection.PropertyInfo"/>
+            </summary>
+            <returns>A new instance of <see cref="T:System.Reflection.PropertyInfo"/></returns>
+        </member>
+    </members>
+</doc>

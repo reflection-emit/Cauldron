@@ -41,6 +41,7 @@
     <Assembly Include="C:\Users\baltar\Source\Repos\Cauldron\UWP\Cauldron.Core\bin\Debug\Cauldron.Core.dll" />
     <Assembly Include="C:\Users\baltar\Source\Repos\Cauldron\UWP\Cauldron.UWP.Activator\bin\Debug\Cauldron.Activator.dll" />
     <Assembly Include="C:\Users\baltar\Source\Repos\Cauldron\UWP\Cauldron.UWP.Cryptography\bin\Debug\Cauldron.Cryptography.dll" />
+    <Assembly Include="C:\Users\baltar\Source\Repos\Cauldron\UWP\Cauldron.UWP.Interception\bin\Debug\Cauldron.Interception.dll" />
     <Assembly Include="C:\Users\baltar\Source\Repos\Cauldron\UWP\Cauldron.UWP.Localization\bin\Debug\Cauldron.Localization.dll" />
     <Assembly Include="C:\Users\baltar\Source\Repos\Cauldron\UWP\Cauldron.UWP.Potions\bin\Debug\Cauldron.Potions.dll" />
     <Assembly Include="C:\Users\baltar\Source\Repos\Cauldron\UWP\Cauldron.UWP.XAML.Interactivity\bin\Debug\Cauldron.XAML.Interactivity.dll" />

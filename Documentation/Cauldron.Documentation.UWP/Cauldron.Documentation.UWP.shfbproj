@@ -39,6 +39,7 @@
       <DocumentationSource sourceFile="..\..\UWP\Cauldron.UWP.XAML.Interactivity\Cauldron.UWP.XAML.Interactivity.csproj" />
       <DocumentationSource sourceFile="..\..\UWP\Cauldron.UWP.XAML.Validation\Cauldron.UWP.XAML.Validation.csproj" />
       <DocumentationSource sourceFile="..\..\UWP\Cauldron.UWP.Potions\Cauldron.UWP.Potions.csproj" />
+      <DocumentationSource sourceFile="..\..\UWP\Cauldron.UWP.Interception\Cauldron.UWP.Interception.csproj" />
     </DocumentationSources>
     <SaveComponentCacheCapacity>100</SaveComponentCacheCapacity>
     <BuildAssemblerVerbosity>OnlyWarningsAndErrors</BuildAssemblerVerbosity>
