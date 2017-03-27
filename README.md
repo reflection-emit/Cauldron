@@ -27,6 +27,8 @@ https://Capgemini.github.io/Cauldron/eveonline/
 - [CodeMaid](http://www.codemaid.net/)
 
 ## Release Notes
+### 1.1.2
+- Bug fix for anonymous type to interface convertion
 ### 1.1.1
 - Several minor bug fixes
 - TimedCacheAttribute now supports async methods
