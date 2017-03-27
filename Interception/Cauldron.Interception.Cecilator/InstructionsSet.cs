@@ -769,6 +769,59 @@ namespace Cauldron.Interception.Cecilator
             return result;
         }
 
+        internal void CastOrBoxValues(ILProcessor processor, TypeReference targetType, ParamResult result, TypeDefinition targetDef)
+        {
+            // TODO - adds additional checks for not resolved generics
+            if (targetDef == null) /* This happens if the target type is a generic */
+                result.Instructions.Add(processor.Create(OpCodes.Unbox_Any, targetType));
+            else if ((targetDef.FullName == typeof(string).FullName || result.Type.FullName == typeof(object).FullName || targetDef.IsInterface) && !targetType.IsValueType && !targetType.IsArray && !targetDef.FullName.StartsWith("System.Collections.Generic.IEnumerable`1"))
+                result.Instructions.Add(processor.Create(OpCodes.Isinst, this.moduleDefinition.Import(targetType)));
+            else if (targetDef.IsEnum)
+            {
+                result.Instructions.InsertRange(0, this.TypeOf(processor, targetType));
+
+                result.Instructions.AddRange(this.TypeOf(processor, this.moduleDefinition.Import(targetType)));
+                result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Enum)).GetMethodReference("GetUnderlyingType", new Type[] { typeof(Type) }))));
+                result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Convert)).GetMethodReference("ChangeType", new Type[] { typeof(object), typeof(Type) }))));
+                result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Enum)).GetMethodReference("ToObject", new Type[] { typeof(Type), typeof(object) }))));
+                result.Instructions.Add(processor.Create(OpCodes.Unbox_Any, targetType));
+            }
+            else if (result.Type.FullName == typeof(object).FullName && (targetType.IsArray || targetDef.FullName.StartsWith("System.Collections.Generic.IEnumerable`1")))
+            {
+                var childType = this.moduleDefinition.GetChildrenType(targetType);
+                var castMethod = this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(System.Linq.Enumerable)).GetMethodReference("Cast", new Type[] { typeof(IEnumerable) }).MakeGeneric(null, childType));
+                var toArrayMethod = this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(System.Linq.Enumerable)).GetMethodReference("ToArray", 1).MakeGeneric(null, childType));
+
+                result.Instructions.Add(processor.Create(OpCodes.Isinst, this.moduleDefinition.Import(typeof(IEnumerable))));
+                result.Instructions.Add(processor.Create(OpCodes.Call, castMethod));
+
+                if (targetType.IsArray)
+                    result.Instructions.Add(processor.Create(OpCodes.Call, toArrayMethod));
+            }
+            else if (result.Type.FullName == typeof(object).FullName && targetDef.IsValueType)
+            {
+                if (targetDef.FullName == typeof(int).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Convert)).GetMethodReference("ToInt32", new Type[] { typeof(object) }))));
+                else if (targetDef.FullName == typeof(uint).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Convert)).GetMethodReference("ToUInt32", new Type[] { typeof(object) }))));
+                else if (targetDef.FullName == typeof(bool).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Convert)).GetMethodReference("ToBoolean", new Type[] { typeof(object) }))));
+                else if (targetDef.FullName == typeof(byte).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Convert)).GetMethodReference("ToByte", new Type[] { typeof(object) }))));
+                else if (targetDef.FullName == typeof(char).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Convert)).GetMethodReference("ToChar", new Type[] { typeof(object) }))));
+                else if (targetDef.FullName == typeof(DateTime).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Convert)).GetMethodReference("ToDateTime", new Type[] { typeof(object) }))));
+                else if (targetDef.FullName == typeof(decimal).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Convert)).GetMethodReference("ToDecimal", new Type[] { typeof(object) }))));
+                else if (targetDef.FullName == typeof(double).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Convert)).GetMethodReference("ToDouble", new Type[] { typeof(object) }))));
+                else if (targetDef.FullName == typeof(short).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Convert)).GetMethodReference("ToInt16", new Type[] { typeof(object) }))));
+                else if (targetDef.FullName == typeof(long).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Convert)).GetMethodReference("ToInt64", new Type[] { typeof(object) }))));
+                else if (targetDef.FullName == typeof(sbyte).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Convert)).GetMethodReference("ToSByte", new Type[] { typeof(object) }))));
+                else if (targetDef.FullName == typeof(float).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Convert)).GetMethodReference("ToSingle", new Type[] { typeof(object) }))));
+                else if (targetDef.FullName == typeof(ushort).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Convert)).GetMethodReference("ToUInt16", new Type[] { typeof(object) }))));
+                else if (targetDef.FullName == typeof(ulong).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Convert)).GetMethodReference("ToUInt64", new Type[] { typeof(object) }))));
+                else result.Instructions.Add(processor.Create(OpCodes.Unbox_Any, targetType));
+            }
+            else if ((result.Type.Resolve() == null || result.Type.IsValueType) && !targetType.IsValueType)
+                result.Instructions.Add(processor.Create(OpCodes.Box, result.Type));
+            else if (targetType.FullName != result.Type.FullName && this.AreReferenceAssignable(targetType, this.moduleDefinition.Import(result.Type)))
+                result.Instructions.Add(processor.Create(OpCodes.Castclass, this.moduleDefinition.Import(result.Type)));
+        }
+
         protected IEnumerable<Instruction> AttributeParameterToOpCode(ILProcessor processor, CustomAttributeArgument attributeArgument)
         {
             /*
@@ -1048,59 +1101,6 @@ namespace Cauldron.Interception.Cecilator
                 this.StoreCall();
 
             return this;
-        }
-
-        private void CastOrBoxValues(ILProcessor processor, TypeReference targetType, ParamResult result, TypeDefinition targetDef)
-        {
-            // TODO - adds additional checks for not resolved generics
-            if (targetDef == null) /* This happens if the target type is a generic */
-                result.Instructions.Add(processor.Create(OpCodes.Unbox_Any, targetType));
-            else if ((targetDef.FullName == typeof(string).FullName || result.Type.FullName == typeof(object).FullName || targetDef.IsInterface) && !targetType.IsValueType && !targetType.IsArray && !targetDef.FullName.StartsWith("System.Collections.Generic.IEnumerable`1"))
-                result.Instructions.Add(processor.Create(OpCodes.Isinst, this.moduleDefinition.Import(targetType)));
-            else if (targetDef.IsEnum)
-            {
-                result.Instructions.InsertRange(0, this.TypeOf(processor, targetType));
-
-                result.Instructions.AddRange(this.TypeOf(processor, this.moduleDefinition.Import(targetType)));
-                result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Enum)).GetMethodReference("GetUnderlyingType", new Type[] { typeof(Type) }))));
-                result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Convert)).GetMethodReference("ChangeType", new Type[] { typeof(object), typeof(Type) }))));
-                result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Enum)).GetMethodReference("ToObject", new Type[] { typeof(Type), typeof(object) }))));
-                result.Instructions.Add(processor.Create(OpCodes.Unbox_Any, targetType));
-            }
-            else if (result.Type.FullName == typeof(object).FullName && (targetType.IsArray || targetDef.FullName.StartsWith("System.Collections.Generic.IEnumerable`1")))
-            {
-                var childType = this.moduleDefinition.GetChildrenType(targetType);
-                var castMethod = this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(System.Linq.Enumerable)).GetMethodReference("Cast", new Type[] { typeof(IEnumerable) }).MakeGeneric(null, childType));
-                var toArrayMethod = this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(System.Linq.Enumerable)).GetMethodReference("ToArray", 1).MakeGeneric(null, childType));
-
-                result.Instructions.Add(processor.Create(OpCodes.Isinst, this.moduleDefinition.Import(typeof(IEnumerable))));
-                result.Instructions.Add(processor.Create(OpCodes.Call, castMethod));
-
-                if (targetType.IsArray)
-                    result.Instructions.Add(processor.Create(OpCodes.Call, toArrayMethod));
-            }
-            else if (result.Type.FullName == typeof(object).FullName && targetDef.IsValueType)
-            {
-                if (targetDef.FullName == typeof(int).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Convert)).GetMethodReference("ToInt32", new Type[] { typeof(object) }))));
-                else if (targetDef.FullName == typeof(uint).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Convert)).GetMethodReference("ToUInt32", new Type[] { typeof(object) }))));
-                else if (targetDef.FullName == typeof(bool).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Convert)).GetMethodReference("ToBoolean", new Type[] { typeof(object) }))));
-                else if (targetDef.FullName == typeof(byte).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Convert)).GetMethodReference("ToByte", new Type[] { typeof(object) }))));
-                else if (targetDef.FullName == typeof(char).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Convert)).GetMethodReference("ToChar", new Type[] { typeof(object) }))));
-                else if (targetDef.FullName == typeof(DateTime).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Convert)).GetMethodReference("ToDateTime", new Type[] { typeof(object) }))));
-                else if (targetDef.FullName == typeof(decimal).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Convert)).GetMethodReference("ToDecimal", new Type[] { typeof(object) }))));
-                else if (targetDef.FullName == typeof(double).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Convert)).GetMethodReference("ToDouble", new Type[] { typeof(object) }))));
-                else if (targetDef.FullName == typeof(short).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Convert)).GetMethodReference("ToInt16", new Type[] { typeof(object) }))));
-                else if (targetDef.FullName == typeof(long).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Convert)).GetMethodReference("ToInt64", new Type[] { typeof(object) }))));
-                else if (targetDef.FullName == typeof(sbyte).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Convert)).GetMethodReference("ToSByte", new Type[] { typeof(object) }))));
-                else if (targetDef.FullName == typeof(float).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Convert)).GetMethodReference("ToSingle", new Type[] { typeof(object) }))));
-                else if (targetDef.FullName == typeof(ushort).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Convert)).GetMethodReference("ToUInt16", new Type[] { typeof(object) }))));
-                else if (targetDef.FullName == typeof(ulong).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.Import(this.moduleDefinition.Import(typeof(Convert)).GetMethodReference("ToUInt64", new Type[] { typeof(object) }))));
-                else result.Instructions.Add(processor.Create(OpCodes.Unbox_Any, targetType));
-            }
-            else if ((result.Type.Resolve() == null || result.Type.IsValueType) && !targetType.IsValueType)
-                result.Instructions.Add(processor.Create(OpCodes.Box, result.Type));
-            else if (targetType.FullName != result.Type.FullName && this.AreReferenceAssignable(targetType, this.moduleDefinition.Import(result.Type)))
-                result.Instructions.Add(processor.Create(OpCodes.Castclass, this.moduleDefinition.Import(result.Type)));
         }
 
         private IEnumerable<Instruction> CreateInstructionsFromAttributeTypes(ILProcessor processor, TypeReference targetType, Type type, object value)
