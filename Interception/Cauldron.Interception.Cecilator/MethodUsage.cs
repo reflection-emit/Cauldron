@@ -35,6 +35,19 @@ namespace Cauldron.Interception.Cecilator
             return new BuilderType(this.Method.type.Builder, method.GenericArguments[index]);
         }
 
+        public BuilderType GetLastNewObjectType()
+        {
+            var interestingInstruction = instruction.Previous.Previous.Previous.Previous;
+
+            if (interestingInstruction.OpCode == OpCodes.Newobj)
+            {
+                var ctor = interestingInstruction.Operand as MethodDefinition ?? interestingInstruction.Operand as MethodReference;
+                return new BuilderType(this.Method.type.Builder, ctor.DeclaringType);
+            }
+
+            return null;
+        }
+
         public BuilderType GetPreviousInstructionObjectType()
         {
             TypeReference declaringType = null;
@@ -103,6 +116,22 @@ namespace Cauldron.Interception.Cecilator
         public void Replace(Method method)
         {
             this.instruction.Operand = method.methodReference;
+
+            // If we know this method has only one param (Because easy to do), we should try to check the type and and try a cast if needed
+            var parameters = method.Parameters;
+            if (parameters.Length == 1)
+            {
+                var previousType = this.GetPreviousInstructionObjectType();
+
+                if (parameters[0].typeReference.FullName.GetHashCode() == previousType.typeReference.FullName.GetHashCode() && parameters[0].typeReference.FullName == previousType.typeReference.FullName)
+                    return;
+
+                var paramResult = new ParamResult();
+                var processor = this.HostMethod.GetILProcessor();
+                paramResult.Type = previousType.typeReference;
+                (method.NewCode() as InstructionsSet).CastOrBoxValues(processor, parameters[0].typeReference, paramResult, parameters[0].typeDefinition);
+                processor.InsertBefore(this.instruction, paramResult.Instructions);
+            }
         }
 
         #region Equitable stuff
