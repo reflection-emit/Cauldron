@@ -109,7 +109,7 @@ namespace Cauldron.Activator
                             injectionInstance = this.typeToCreate == null ? propertyInterceptionInfo.PropertyType.CreateInstance(this.arguments) : this.typeToCreate.CreateInstance(this.arguments);
                     }
                     else // If everthing else fails... We will throw an exception
-                        throw new InvalidOperationException($"Unable to inject the contract '{this.contractName}' to the property or field '{propertyInterceptionInfo.PropertyName}' in '{propertyInterceptionInfo.DeclaringType.FullName}'.");
+                        throw new InvalidOperationException($"Unable to inject the contract '{this.contractName}' to the property or field '{propertyInterceptionInfo.PropertyName}' in '{propertyInterceptionInfo.DeclaringType.FullName}'. Please make sure that the implementing type has a Component attribute.");
 
                     propertyInterceptionInfo.SetValue(injectionInstance);
 
