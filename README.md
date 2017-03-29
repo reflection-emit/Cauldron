@@ -27,6 +27,10 @@ https://Capgemini.github.io/Cauldron/eveonline/
 - [CodeMaid](http://www.codemaid.net/)
 
 ## Release Notes
+### 1.1.3
+- Inject attribute default paramaters are now "params"
+- Assemblies class now throws a better error message if an Assembly cannot be loaded
+- Better error message in Inject attribute
 ### 1.1.2
 - Bug fix for anonymous type to interface convertion
 ### 1.1.1
