@@ -30,7 +30,7 @@ namespace Cauldron.Activator
         /// Initializes a new instance of <see cref="InjectAttribute"/>
         /// </summary>
         /// <param name="arguments">The The arguments that can be used to initialize the instance</param>
-        public InjectAttribute(object[] arguments) : this(contractName: null, arguments: arguments)
+        public InjectAttribute(params object[] arguments) : this(contractName: null, arguments: arguments)
         {
         }
 
