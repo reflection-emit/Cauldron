@@ -31,6 +31,7 @@ https://Capgemini.github.io/Cauldron/eveonline/
 - Inject attribute default paramaters are now "params"
 - Assemblies class now throws a better error message if an Assembly cannot be loaded
 - Better error message in Inject attribute
+- Errors in Cauldron.Interception.Fody copy method fixed [1](https://github.com/Capgemini/Cauldron/commit/8206509d7956cc0e47c38c12249c4b68e29cb162) [2](https://github.com/Capgemini/Cauldron/commit/a1fb4a03c43689388c22e58dd2555c4a79c9170c)
 ### 1.1.2
 - Bug fix for anonymous type to interface convertion
 ### 1.1.1
