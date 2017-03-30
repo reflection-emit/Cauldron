@@ -143,8 +143,10 @@ namespace Cauldron.Interception.Cecilator
             var instructionAction = new Func<Instruction, int, Instruction>((item, i) =>
             {
                 var operand = item.Operand as Instruction;
-                var index = this.method.methodDefinition.Body.Instructions.IndexOf(operand);
+                var index = this.method.methodDefinition.Body.Instructions.IndexOf(operand?.Offset ?? item.Offset);
                 jumps.Add(new Tuple<int, int>(i, index));
+
+                this.LogInfo($"IL_{item.Offset.ToString("X4")}: {i} {index}");
 
                 var instruction = methodProcessor.Create(OpCodes.Nop);
                 instruction.OpCode = item.OpCode;

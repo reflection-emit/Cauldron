@@ -2,12 +2,9 @@
 using Mono.Cecil.Cil;
 using Mono.Cecil.Rocks;
 using System;
-using System.Collections;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Cauldron.Interception.Cecilator
 {
@@ -314,6 +311,15 @@ namespace Cauldron.Interception.Cecilator
         }
 
         public static bool Implements(this TypeReference type, string interfaceName) => type.GetInterfaces().Any(x => x.FullName == interfaceName);
+
+        public static int IndexOf(this Mono.Collections.Generic.Collection<Instruction> instructions, int offset)
+        {
+            for (int i = 0; i < instructions.Count; i++)
+                if (instructions[i].Offset == offset)
+                    return i;
+
+            return -1;
+        }
 
         public static bool IsAssignableFrom(this BuilderType target, BuilderType source) =>
                             target == source ||
