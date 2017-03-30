@@ -133,7 +133,7 @@ namespace Cauldron.Interception.Cecilator
                 method.GenericParameters.Add(item);
 
             foreach (var item in this.method.methodDefinition.Body.Variables)
-                method.Body.Variables.Add(item);
+                method.Body.Variables.Add(new VariableDefinition(item.Name, item.VariableType));
 
             method.Body.InitLocals = this.method.methodDefinition.Body.InitLocals;
 
@@ -145,8 +145,6 @@ namespace Cauldron.Interception.Cecilator
                 var operand = item.Operand as Instruction;
                 var index = this.method.methodDefinition.Body.Instructions.IndexOf(operand?.Offset ?? item.Offset);
                 jumps.Add(new Tuple<int, int>(i, index));
-
-                this.LogInfo($"IL_{item.Offset.ToString("X4")}: {i} {index}");
 
                 var instruction = methodProcessor.Create(OpCodes.Nop);
                 instruction.OpCode = item.OpCode;
@@ -180,6 +178,11 @@ namespace Cauldron.Interception.Cecilator
                     instruction.OpCode = item.OpCode;
                     instruction.Operand = item.Operand;
                     methodProcessor.Append(instruction);
+
+                    // Set the correct variable def if required
+                    var variable = instruction.Operand as VariableDefinition;
+                    if (variable != null)
+                        instruction.Operand = method.Body.Variables[variable.Index];
                 }
             }
 
@@ -203,7 +206,7 @@ namespace Cauldron.Interception.Cecilator
                 if (x == null)
                     return null;
 
-                var index = this.method.methodDefinition.Body.Instructions.IndexOf(x);
+                var index = this.method.methodDefinition.Body.Instructions.IndexOf(x.Offset);
                 return method.Body.Instructions[index];
             });
 
