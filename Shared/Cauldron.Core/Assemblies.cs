@@ -614,35 +614,42 @@ namespace Cauldron.Core
             if (!fileInfo.Exists)
                 throw new FileNotFoundException($"The file '{fileInfo.FullName}' does not exist");
 
+            try
+            {
 #if NETCORE
             var assembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(fileInfo.FullName);
 #else
-            var assembly = Assembly.LoadFile(fileInfo.FullName);
+                var assembly = Assembly.LoadFile(fileInfo.FullName);
 #endif
 
-            if (assembly.IsDynamic)
-                throw new NotSupportedException($"Dynamic assemblies are not supported.");
+                if (assembly.IsDynamic)
+                    throw new NotSupportedException($"Dynamic assemblies are not supported.");
 
-            if (Assemblies.Known.Any(x => x.ManifestModule.Name == assembly.ManifestModule.Name))
-                return; // this is already loaded... No need to load again
+                if (Assemblies.Known.Any(x => x.ManifestModule.Name == assembly.ManifestModule.Name))
+                    return; // this is already loaded... No need to load again
 
-            Assemblies.Known.Add(assembly);
-            var types = FilterTypes(assembly.DefinedTypes).ToArray();
+                Assemblies.Known.Add(assembly);
+                var types = FilterTypes(assembly.DefinedTypes).ToArray();
 
-            var definedTypes = types.Select(x => new TypesWithImplementedInterfaces
-            {
-                interfaces = x.ImplementedInterfaces.ToArray(),
-                typeInfo = x
-            });
+                var definedTypes = types.Select(x => new TypesWithImplementedInterfaces
+                {
+                    interfaces = x.ImplementedInterfaces.ToArray(),
+                    typeInfo = x
+                });
 
-            typesWithImplementedInterfaces.AddRange(definedTypes);
-            AssemblyAndResourceNamesInfo.AddRange(assembly.GetManifestResourceNames().Select(x => new AssemblyAndResourceNameInfo(assembly, x)));
+                typesWithImplementedInterfaces.AddRange(definedTypes);
+                AssemblyAndResourceNamesInfo.AddRange(assembly.GetManifestResourceNames().Select(x => new AssemblyAndResourceNameInfo(assembly, x)));
 
 #if NETCORE
             LoadedAssemblyChanged?.Invoke(null, new AssemblyAddedEventArgs(assembly, types.Select(x => x.AsType()).ToArray()));
 #else
-            LoadedAssemblyChanged?.Invoke(null, new AssemblyAddedEventArgs(assembly, types));
+                LoadedAssemblyChanged?.Invoke(null, new AssemblyAddedEventArgs(assembly, types));
 #endif
+            }
+            catch (ReflectionTypeLoadException e)
+            {
+                throw new Exception("Unable to load one or more of the requested types. Retrieve the LoaderExceptions property for more information.\r\n" + fileInfo.FullName, e);
+            }
         }
 
 #endif

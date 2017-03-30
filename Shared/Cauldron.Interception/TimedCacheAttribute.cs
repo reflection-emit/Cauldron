@@ -44,7 +44,9 @@ namespace Cauldron.Interception
             var sb = new StringBuilder();
 
             for (int i = 0; i < arguments.Length; i++)
-                if (arguments[i] != null)
+                if (arguments[i] == null)
+                    sb.Append(i.ToString() + "null");
+                else
                     sb.Append(arguments[i].GetHashCode() + arguments[i].ToString());
 
             sb.Append(methodName);
