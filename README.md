@@ -32,6 +32,7 @@ https://Capgemini.github.io/Cauldron/eveonline/
 - Assemblies class now throws a better error message if an Assembly cannot be loaded
 - Better error message in Inject attribute
 - Errors in Cauldron.Interception.Fody copy method fixed [1](https://github.com/Capgemini/Cauldron/commit/8206509d7956cc0e47c38c12249c4b68e29cb162) [2](https://github.com/Capgemini/Cauldron/commit/a1fb4a03c43689388c22e58dd2555c4a79c9170c)
+- TimedCache attribute key generation fixed.
 ### 1.1.2
 - Bug fix for anonymous type to interface convertion
 ### 1.1.1
