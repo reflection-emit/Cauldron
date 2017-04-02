@@ -62,6 +62,7 @@
     <Compile Include="AttributedField.cs" />
     <Compile Include="AttributedMethod.cs" />
     <Compile Include="AttributedProperty.cs" />
+    <Compile Include="AttributedType.cs" />
     <Compile Include="Builder.cs" />
     <Compile Include="BuilderCustomAttribute.cs" />
     <Compile Include="BuilderCustomAttributeCollection.cs" />

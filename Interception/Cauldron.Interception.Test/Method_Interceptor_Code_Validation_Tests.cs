@@ -467,7 +467,7 @@ namespace Cauldron.Interception.Test
             return true;
         }
 
-        [ExceptionThrowingMethodInterceptor]
+        [TestMethodInterceptor]
         private async Task<bool> Method_1_Async()
         {
             var result = await LongRunningTaskAsync();

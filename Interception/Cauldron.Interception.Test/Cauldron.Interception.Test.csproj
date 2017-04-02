@@ -61,8 +61,10 @@
     <Compile Include="Interceptors\TestMethodInterceptorWithParameter.cs" />
     <Compile Include="Interceptors\TestPropertyInterceptorAttribute.cs" />
     <Compile Include="Method_Interceptor_Code_Validation_Tests.cs" />
+    <Compile Include="Method_Interceptor_TypeWide_Validation_Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Property_Interceptor_Code_Validation_Tests.cs" />
+    <Compile Include="Property_Interceptor_TypeWide_Validation_Test.cs" />
     <Compile Include="TestClass.cs" />
     <Compile Include="TestEnum.cs" />
     <Compile Include="ITestInterface.cs" />

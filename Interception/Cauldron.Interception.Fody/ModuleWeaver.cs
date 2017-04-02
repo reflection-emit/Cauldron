@@ -41,12 +41,18 @@ namespace Cauldron.Interception.Fody
                 "Cauldron.Interception.IPropertyGetterInterceptor",
                 "Cauldron.Interception.IPropertySetterInterceptor");
 
+            var methodInterceptionAttributes = builder.FindAttributesByInterfaces(
+                "Cauldron.Interception.ILockableMethodInterceptor",
+                "Cauldron.Interception.IMethodInterceptor");
+
             this.ImplementAnonymousTypeInterface(builder);
             this.ImplementTimedCache(builder);
             this.ImplementMethodCache(builder);
+            this.ImplementTypeWidePropertyInterception(builder, propertyInterceptingAttributes);
+            this.ImplementTypeWideMethodInterception(builder, methodInterceptionAttributes);
             // These should be done last, because they replace methods
             this.InterceptFields(builder, propertyInterceptingAttributes);
-            this.InterceptMethods(builder);
+            this.InterceptMethods(builder, methodInterceptionAttributes);
             this.InterceptProperties(builder, propertyInterceptingAttributes);
         }
 
@@ -342,6 +348,96 @@ namespace Cauldron.Interception.Fody
             }
         }
 
+        private void ImplementTypeWideMethodInterception(Builder builder, IEnumerable<BuilderType> attributes)
+        {
+            if (!attributes.Any())
+                return;
+
+            var stopwatch = Stopwatch.StartNew();
+
+            var doNotInterceptAttribute = builder.GetType("DoNotInterceptAttribute");
+            var types = builder
+                .FindTypesByAttributes(attributes)
+                .GroupBy(x => x.Type)
+                .Select(x => new
+                {
+                    Key = x.Key,
+                    Item = x.ToArray()
+                })
+                .ToArray();
+
+            foreach (var type in types)
+            {
+                this.LogInfo($"Implementing interceptors in type {type.Key.Fullname}");
+
+                foreach (var method in type.Key.Methods)
+                {
+                    if (method.Name == ".ctor" || method.Name == ".cctor")
+                        continue;
+
+                    if (method.CustomAttributes.HasAttribute(doNotInterceptAttribute))
+                    {
+                        method.CustomAttributes.Remove(doNotInterceptAttribute);
+                        continue;
+                    }
+
+                    for (int i = 0; i < type.Item.Length; i++)
+                        method.CustomAttributes.Copy(type.Item[i].Attribute);
+                }
+
+                for (int i = 0; i < type.Item.Length; i++)
+                    type.Item[i].Remove();
+            }
+
+            stopwatch.Stop();
+            this.LogInfo($"Implementing class wide method interceptors took {stopwatch.Elapsed.TotalMilliseconds}ms");
+        }
+
+        private void ImplementTypeWidePropertyInterception(Builder builder, IEnumerable<BuilderType> attributes)
+        {
+            if (!attributes.Any())
+                return;
+
+            var stopwatch = Stopwatch.StartNew();
+
+            var doNotInterceptAttribute = builder.GetType("DoNotInterceptAttribute");
+            var types = builder
+                .FindTypesByAttributes(attributes)
+                .GroupBy(x => x.Type)
+                .Select(x => new
+                {
+                    Key = x.Key,
+                    Item = x.ToArray()
+                })
+                .ToArray();
+
+            foreach (var type in types)
+            {
+                this.LogInfo($"Implementing interceptors in type {type.Key.Fullname}");
+
+                foreach (var property in type.Key.Properties)
+                {
+                    if (!property.IsAutoProperty)
+                        continue;
+
+                    if (property.CustomAttributes.HasAttribute(doNotInterceptAttribute))
+                    {
+                        property.CustomAttributes.Remove(doNotInterceptAttribute);
+                        continue;
+                    }
+
+                    for (int i = 0; i < type.Item.Length; i++)
+                        property.CustomAttributes.Copy(type.Item[i].Attribute);
+                }
+
+                for (int i = 0; i < type.Item.Length; i++)
+                    type.Item[i].Remove();
+            }
+
+            stopwatch.Stop();
+            this.LogInfo($"Implementing class wide property interceptors took {stopwatch.Elapsed.TotalMilliseconds}ms");
+        }
+
         private void InterceptFields(Builder builder, IEnumerable<BuilderType> attributes)
         {
             if (!attributes.Any())
@@ -379,12 +475,8 @@ namespace Cauldron.Interception.Fody
             this.LogInfo($"Implementing field interceptors took {stopwatch.Elapsed.TotalMilliseconds}ms");
         }
 
-        private void InterceptMethods(Builder builder)
+        private void InterceptMethods(Builder builder, IEnumerable<BuilderType> attributes)
         {
-            var attributes = builder.FindAttributesByInterfaces(
-                "Cauldron.Interception.ILockableMethodInterceptor",
-                "Cauldron.Interception.IMethodInterceptor");
-
             if (!attributes.Any())
                 return;
 

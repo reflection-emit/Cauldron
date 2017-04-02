@@ -106,14 +106,62 @@ namespace Cauldron.Interception.Cecilator
 
         public void AddEditorBrowsableAttribute(EditorBrowsableState state) => this.Add(typeof(EditorBrowsableAttribute), state);
 
+        public void Copy(BuilderCustomAttribute attribute)
+        {
+            if (this.customAttributeProvider != null)
+                this.customAttributeProvider.CustomAttributes.Add(attribute.attribute);
+            else if (this.propertyDefinition != null)
+                this.propertyDefinition.CustomAttributes.Add(attribute.attribute);
+
+            this.innerCollection.Add(attribute);
+        }
+
         public IEnumerator<BuilderCustomAttribute> GetEnumerator() => this.innerCollection.GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() => this.innerCollection.GetEnumerator();
 
+        public bool HasAttribute(BuilderType type)
+        {
+            if (this.customAttributeProvider != null)
+                for (int i = 0; i < this.customAttributeProvider.CustomAttributes.Count; i++)
+                {
+                    var item = this.customAttributeProvider.CustomAttributes[i];
+
+                    if (item.AttributeType.FullName.GetHashCode() == type.typeReference.FullName.GetHashCode() &&
+                        item.AttributeType.FullName == type.typeReference.FullName)
+                        return true;
+                }
+            else if (this.propertyDefinition != null)
+                for (int i = 0; i < this.propertyDefinition.CustomAttributes.Count; i++)
+                {
+                    var item = this.propertyDefinition.CustomAttributes[i];
+
+                    if (item.AttributeType.FullName.GetHashCode() == type.typeReference.FullName.GetHashCode() &&
+                        item.AttributeType.FullName == type.typeReference.FullName)
+                        return true;
+                }
+
+            return false;
+        }
+
         public void Remove(Type type)
         {
-            var attributesToRemove = this.innerCollection.Where(x => x.Fullname == type.FullName).ToArray();
+            var attributesToRemove = this.innerCollection
+                .Where(x => x.Fullname.GetHashCode() == type.FullName.GetHashCode() && x.Fullname == type.FullName)
+                .ToArray();
+            this.Remove(attributesToRemove);
+        }
 
+        public void Remove(BuilderType type)
+        {
+            var attributesToRemove = this.innerCollection
+                .Where(x => x.Fullname.GetHashCode() == type.typeReference.FullName.GetHashCode() && x.Fullname == type.typeReference.FullName)
+                .ToArray();
+            this.Remove(attributesToRemove);
+        }
+
+        private void Remove(BuilderCustomAttribute[] attributesToRemove)
+        {
             foreach (var item in attributesToRemove)
             {
                 this.innerCollection.Remove(item);

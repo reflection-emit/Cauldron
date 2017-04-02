@@ -46,6 +46,25 @@ namespace Cauldron.Interception.Cecilator
                 .Where(x => Regex.IsMatch(x.FullName, regexPattern, RegexOptions.Singleline))
                 .Select(x => new BuilderType(this, x));
 
+        public IEnumerable<AttributedType> FindTypesByAttributes(IEnumerable<BuilderType> types) => this.FindTypesByAttributes(SearchContext.Module, types);
+
+        public IEnumerable<AttributedType> FindTypesByAttributes(SearchContext searchContext, IEnumerable<BuilderType> types)
+        {
+            var result = new ConcurrentBag<AttributedType>();
+            var attributes = types.Select(x => x.Fullname).ToList();
+
+            Parallel.ForEach(this.GetTypes(searchContext), type =>
+            {
+                for (int i = 0; i < type.typeDefinition.CustomAttributes.Count; i++)
+                {
+                    if (attributes.Contains(type.typeDefinition.CustomAttributes[i].AttributeType.Resolve().FullName))
+                        result.Add(new AttributedType(type, type.typeDefinition.CustomAttributes[i]));
+                }
+            });
+
+            return result;
+        }
+
         public IEnumerable<BuilderType> FindTypesByBaseClass(string baseClassName) => this.FindTypesByBaseClass(SearchContext.Module, baseClassName);
 
         public IEnumerable<BuilderType> FindTypesByBaseClass(SearchContext searchContext, string baseClassName) => this.GetTypes(searchContext).Where(x => x.Inherits(baseClassName));
