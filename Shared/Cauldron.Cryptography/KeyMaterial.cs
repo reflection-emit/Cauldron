@@ -106,7 +106,7 @@ namespace Cauldron.Cryptography
         /// Creates a key material for the symmethric algorithm
         /// </summary>
         /// <param name="password">The password used for the encryption or description</param>
-        /// <param name="salt">The salt forthe symmethric algorithm</param>
+        /// <param name="salt">The salt for the symmethric algorithm</param>
         /// <param name="iterations">The number of iteration for the KDF</param>
         /// <returns>The key material</returns>
         /// <exception cref="ArgumentNullException"><paramref name="password"/> is null</exception>
@@ -116,7 +116,7 @@ namespace Cauldron.Cryptography
             new KeyMaterial(password, salt, iterations);
 
         /// <summary>
-        /// Creates a key material for the symmethric algorithm. The salt will be generated from the password hash.
+        /// Creates a key material for the symmethric algorithm. The salt will be generated using the hash of a 42 character long generated string.
         /// </summary>
         /// <param name="password">The password used for the encryption or description</param>
         /// <param name="iterations">The number of iteration for the KDF</param>
