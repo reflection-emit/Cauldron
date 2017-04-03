@@ -185,9 +185,9 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
-        public void AddInterface(Type interfaceType) => this.AddInterface(new BuilderType(this.Builder, this.moduleDefinition.Import(interfaceType)));
+        public void AddInterface(Type interfaceType) => this.typeDefinition.Interfaces.Add(this.moduleDefinition.Import(interfaceType));
 
-        public void AddInterface(BuilderType interfaceType) => this.typeDefinition.Interfaces.Add(interfaceType.typeReference);
+        public void AddInterface(BuilderType interfaceType) => this.typeDefinition.Interfaces.Add(this.moduleDefinition.Import(interfaceType.typeReference));
 
         public Method CreateConstructor(params BuilderType[] parameters)
         {

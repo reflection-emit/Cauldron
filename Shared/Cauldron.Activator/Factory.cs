@@ -1,8 +1,10 @@
 ﻿using Cauldron.Core;
 using Cauldron.Core.Collections;
 using Cauldron.Core.Extensions;
+using Cauldron.Interception;
 using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -28,6 +30,8 @@ namespace Cauldron.Activator
         private static ConcurrentList<IFactoryExtension> factoryExtensions = new ConcurrentList<IFactoryExtension>();
         private static ConcurrentList<ObjectKey> instances = new ConcurrentList<ObjectKey>();
         private static ConcurrentList<FactoryTypeInfo> types = new ConcurrentList<FactoryTypeInfo>();
+        private static ConcurrentList<IFactoryCache> factoryCache = new ConcurrentList<IFactoryCache>();
+        private const string CauldronClassName = "<Cauldron>";
 
         static Factory()
         {
@@ -62,7 +66,17 @@ namespace Cauldron.Activator
                         Attrib = x.GetCustomAttribute<ComponentAttribute>(false),
                         TypeInfo = x
                     }));
+
+                var factoryCacheType = e.Assembly.GetType(CauldronClassName, false);
+
+                if (factoryCacheType != null)
+                    factoryCache.Add(System.Activator.CreateInstance(factoryCacheType) as IFactoryCache);
             };
+
+            Assemblies.Known
+                .SelectMany(x => x.ExportedTypes)
+                .Where(x => x.FullName != null && x.FullName.GetHashCode() == CauldronClassName.GetHashCode() && x.FullName == CauldronClassName)
+                .Foreach(x => factoryCache.Add(System.Activator.CreateInstance(x) as IFactoryCache));
         }
 
         /// <summary>
@@ -322,11 +336,8 @@ namespace Cauldron.Activator
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>
         /// <param name="contractName">The name that identifies the type</param>
-        public static void Destroy(string contractName)
-        {
-            if (instances.Contains(x => x.FactoryTypeInfo.contractName == contractName))
-                instances.Remove(x => x.FactoryTypeInfo.contractName == contractName).TryDispose();
-        }
+        public static void Destroy(string contractName) =>
+            instances.FirstOrDefault(x => x.FactoryTypeInfo.contractName.GetHashCode() == contractName.GetHashCode() && x.FactoryTypeInfo.contractName == contractName)?.TryDispose();
 
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
@@ -344,7 +355,7 @@ namespace Cauldron.Activator
         /// </summary>
         /// <param name="contractName">The name that identifies the type</param>
         /// <returns>True if the contract exists, otherwise false</returns>
-        public static bool HasContract(string contractName) => types.Any(x => x.contractName == contractName);
+        public static bool HasContract(string contractName) => types.Any(x => x.contractName.GetHashCode() == contractName.GetHashCode() && x.contractName == contractName);
 
         /// <summary>
         /// Determines whether a contract exist
@@ -389,8 +400,8 @@ namespace Cauldron.Activator
             if (contractName.Length == 0)
                 throw new ArgumentException("The parameter is an empty string", nameof(contractName));
 
-            if (types.Any(x => x.contractName == contractName))
-                return types.First(x => x.contractName == contractName).creationPolicy == FactoryCreationPolicy.Singleton;
+            if (types.Any(x => x.contractName.GetHashCode() == contractName.GetHashCode() && x.contractName == contractName))
+                return types.First(x => x.contractName.GetHashCode() == contractName.GetHashCode() && x.contractName == contractName).creationPolicy == FactoryCreationPolicy.Singleton;
 
             return null;
         }
@@ -444,8 +455,12 @@ namespace Cauldron.Activator
                 return CreateObject(factoryTypeInfo.type, factoryTypeInfo.typeInfo, parameters);
             else if (factoryTypeInfo.creationPolicy == FactoryCreationPolicy.Singleton)
             {
-                if (instances.Contains(x => x.FactoryTypeInfo.contractName == factoryTypeInfo.contractName && x.FactoryTypeInfo.type.FullName == factoryTypeInfo.type.FullName))
-                    return instances.First(x => x.FactoryTypeInfo.contractName == factoryTypeInfo.contractName && x.FactoryTypeInfo.type.FullName == factoryTypeInfo.type.FullName).Item;
+                var existingInstance = instances.FirstOrDefault(x =>
+                     x.FactoryTypeInfo.contractName.GetHashCode() == factoryTypeInfo.contractName.GetHashCode() && x.FactoryTypeInfo.type.FullName.GetHashCode() == factoryTypeInfo.type.FullName.GetHashCode() &&
+                     x.FactoryTypeInfo.contractName == factoryTypeInfo.contractName && x.FactoryTypeInfo.type.FullName == factoryTypeInfo.type.FullName);
+
+                if (existingInstance != null)
+                    return existingInstance.Item;
                 else
                 {
                     // Create the instance and return the object
@@ -474,7 +489,15 @@ namespace Cauldron.Activator
 
         private static object GetInstance(string contractName, object[] parameters)
         {
-            if (!types.Any(x => x.contractName == contractName) && !instances.Contains(x => x.FactoryTypeInfo.contractName == contractName))
+            for (int i = 0; i < factoryCache.Count; i++)
+            {
+                var result = factoryCache[i].GetInstance(contractName, parameters);
+
+                if (result != null)
+                    return result;
+            }
+
+            if (!types.Any(x => x.contractName.GetHashCode() == contractName.GetHashCode() && x.contractName == contractName) && !instances.Contains(x => x.FactoryTypeInfo.contractName == contractName))
             {
                 try
                 {
@@ -511,7 +534,7 @@ namespace Cauldron.Activator
                 }
             }
 
-            var factoryTypeInfos = types.Where(x => x.contractName == contractName);
+            var factoryTypeInfos = types.Where(x => x.contractName.GetHashCode() == contractName.GetHashCode() && x.contractName == contractName);
 
             if (factoryTypeInfos.Count() > 1)
             {
@@ -524,9 +547,19 @@ namespace Cauldron.Activator
                         if (selectedType == null)
                             continue;
 #if WINDOWS_UWP || NETCORE
-                        var selectedFactoryInfo = factoryTypeInfos.FirstOrDefault(x => x.type.FullName == selectedType.FullName && x.type.GetTypeInfo().Assembly.FullName == selectedType.GetTypeInfo().Assembly.FullName);
+                        var selectedFactoryInfo = factoryTypeInfos
+                            .FirstOrDefault(x =>
+                                x.type.FullName.GetHashCode() == selectedType.FullName.GetHashCode() &&
+                                x.type.GetTypeInfo().Assembly.FullName.GetHashCode() == selectedType.GetTypeInfo().Assembly.FullName.GetHashCode() &&
+                                x.type.FullName == selectedType.FullName &&
+                                x.type.GetTypeInfo().Assembly.FullName == selectedType.GetTypeInfo().Assembly.FullName);
 #else
-                        var selectedFactoryInfo = factoryTypeInfos.FirstOrDefault(x => x.type.FullName == selectedType.FullName && x.type.Assembly.FullName == selectedType.Assembly.FullName);
+                        var selectedFactoryInfo = factoryTypeInfos
+                            .FirstOrDefault(x =>
+                                x.type.FullName.GetHashCode() == selectedType.FullName.GetHashCode() &&
+                                x.type.Assembly.FullName.GetHashCode() == selectedType.Assembly.FullName.GetHashCode() &&
+                                x.type.FullName == selectedType.FullName &&
+                                x.type.Assembly.FullName == selectedType.Assembly.FullName);
 #endif
 
                         if (selectedFactoryInfo.type != null)
@@ -542,10 +575,11 @@ namespace Cauldron.Activator
 
         private static IEnumerable GetInstances(string contractName, object[] parameters)
         {
-            if (!types.Any(x => x.contractName == contractName) && !instances.Contains(x => x.FactoryTypeInfo.contractName == contractName))
+            if (!types.Any(x => x.contractName.GetHashCode() == contractName.GetHashCode() && x.contractName == contractName) &&
+                !instances.Contains(x => x.FactoryTypeInfo.contractName.GetHashCode() == contractName.GetHashCode() && x.FactoryTypeInfo.contractName == contractName))
                 throw new KeyNotFoundException("The contractName '" + contractName + "' was not found.");
 
-            var factoryTypeInfos = types.Where(x => x.contractName == contractName);
+            var factoryTypeInfos = types.Where(x => x.contractName.GetHashCode() == contractName.GetHashCode() && x.contractName == contractName);
             var result = new List<object>();
 
             foreach (var factoryTypeInfo in factoryTypeInfos)

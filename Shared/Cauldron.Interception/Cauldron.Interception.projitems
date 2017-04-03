@@ -12,6 +12,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)AssignMethodAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DoNotInterceptAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IAssembliesCache.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IFactoryCache.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ILockableMethodInterceptor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ILockablePropertyGetterInterceptor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ILockablePropertySetterInterceptor.cs" />

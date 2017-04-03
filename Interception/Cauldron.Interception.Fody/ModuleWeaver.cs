@@ -54,6 +54,8 @@ namespace Cauldron.Interception.Fody
             this.InterceptFields(builder, propertyInterceptingAttributes);
             this.InterceptMethods(builder, methodInterceptionAttributes);
             this.InterceptProperties(builder, propertyInterceptingAttributes);
+
+            this.CreateFactoryCache(builder);
         }
 
         private Method CreateAssigningMethod(BuilderType anonSource, BuilderType anonTarget, BuilderType anonTargetInterface, Method method)
@@ -91,6 +93,21 @@ namespace Cauldron.Interception.Fody
             assignMethod.CustomAttributes.AddEditorBrowsableAttribute(EditorBrowsableState.Never);
 
             return assignMethod;
+        }
+
+        private void CreateFactoryCache(Builder builder)
+        {
+            this.LogInfo($"Creating Factory cache.");
+
+            var cauldron = builder.CreateType("", TypeAttributes.Public | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit, "<Cauldron>");
+            var factoryCacheInterface = builder.GetType("Cauldron.Interception.IFactoryCache");
+            cauldron.AddInterface(factoryCacheInterface);
+            cauldron.CreateConstructor().NewCode()
+                .Context(x => x.Call(x.NewCode().This, builder.GetType(typeof(object)).ParameterlessContructor))
+                .Return()
+                .Replace();
+
+            this.LogInfo(factoryCacheInterface);
         }
 
         private void ImplementAnonymousTypeInterface(Builder builder)
