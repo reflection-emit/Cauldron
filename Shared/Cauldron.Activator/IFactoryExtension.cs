@@ -22,12 +22,6 @@ namespace Cauldron.Activator
         void OnCreateObject(object context, Type objectType);
 
         /// <summary>
-        /// Occures when <see cref="Factory"/> is initialized
-        /// </summary>
-        /// <param name="type">The <see cref="Type"/> of the object created</param>
-        void OnInitialize(Type type);
-
-        /// <summary>
         /// Occures if multiple Types with the same <paramref name="contractName"/> was found.
         /// <para/>
         /// Should return null if <paramref name="ambiguousTypes"/> collection does not contain the required <see cref="Type"/>

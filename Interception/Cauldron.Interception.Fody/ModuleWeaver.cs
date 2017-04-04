@@ -95,39 +95,206 @@ namespace Cauldron.Interception.Fody
             return assignMethod;
         }
 
+        private void CreateComponentCache(Builder builder, BuilderType cauldron)
+        {
+            int counter = 0;
+            var componentAttribute = builder.GetType("Cauldron.Activator.ComponentAttribute").New(x => new
+            {
+                Type = x,
+                ContractName = x.GetMethod("get_ContractName"),
+                Policy = x.GetMethod("get_Policy")
+            });
+            var arrayAvatar = builder.GetType("System.Array").New(x => new
+            {
+                Length = x.GetMethod("get_Length")
+            });
+            var extensionAvatar = builder.GetType("Cauldron.Core.Extensions.ExtensionsReflection").New(x => new
+            {
+                CreateInstance = x.GetMethod("CreateInstance", 2)
+            });
+            var componentConstructorAttribute = builder.GetType("Cauldron.Activator.ComponentConstructorAttribute");
+            var factoryCacheInterface = builder.GetType("Cauldron.Activator.IFactoryCache");
+            var factoryTypeInfoInterface = builder.GetType("Cauldron.Activator.IFactoryTypeInfo");
+            var createInstanceInterfaceMethod = factoryTypeInfoInterface.GetMethod("CreateInstance", 1);
+
+            // Get all Components
+            var components = builder.FindTypesByAttribute(componentAttribute.Type);
+            var componentTypes = new List<BuilderType>();
+
+            // Create types with the components properties
+            foreach (var component in components)
+            {
+                this.LogInfo("Hardcoding component factory .ctor: " + component.Type.Fullname);
+
+                var componentType = builder.CreateType("", TypeAttributes.Public | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit, $"<>f__IFactoryTypeInfo_{counter++}");
+                var componentAttributeField = componentType.CreateField(Modifiers.Private, componentAttribute.Type, "componentAttribute");
+                componentType.AddInterface(factoryTypeInfoInterface);
+                componentTypes.Add(componentType);
+
+                // Create ctor
+                componentType
+                   .CreateConstructor()
+                   .NewCode()
+                   .Context(x =>
+                   {
+                       x.Load(x.This).Call(builder.GetType(typeof(object)).ParameterlessContructor);
+                       x.Assign(componentAttributeField).NewObj(component);
+                   })
+                   .Return()
+                   .Replace();
+
+                // Implement the methods
+                componentType.CreateMethod(Modifiers.Public | Modifiers.Overrrides, createInstanceInterfaceMethod.ReturnType, createInstanceInterfaceMethod.Name, createInstanceInterfaceMethod.Parameters)
+                    .NewCode()
+                    .Context(x =>
+                    {
+                        // Find any method with a componentcontructor attribute
+                        var ctors = component.Type.GetMethods(y =>
+                                {
+                                    if (!y.Resolve().Attributes.HasFlag(MethodAttributes.Public))
+                                        return false;
+
+                                    if (y.Name == ".ctor" && y.DeclaringType.FullName.GetHashCode() != component.Type.Fullname.GetHashCode() && y.DeclaringType.FullName != component.Type.Fullname)
+                                        return false;
+
+                                    return true;
+                                })
+                                .Where(y => y.CustomAttributes.HasAttribute(componentConstructorAttribute))
+                                .OrderBy(y => y.Parameters.Length)
+                                .ToArray();
+
+                        if (ctors.Length > 0)
+                        {
+                            bool parameterlessCtorAlreadyHandled = false;
+
+                            for (int index = 0; index < ctors.Length; index++)
+                            {
+                                var ctor = ctors[index];
+                                // remove the component constructor attribute and add a EditorBrowsable attribute
+                                ctor.CustomAttributes.Remove(componentConstructorAttribute);
+                                ctor.CustomAttributes.AddEditorBrowsableAttribute(EditorBrowsableState.Never);
+                                var ctorParameters = ctor.Parameters;
+
+                                if (ctorParameters.Length > 0)
+                                {
+                                    // In this case we have to find a parameterless constructor first
+                                    if (component.Type.ParameterlessContructor != null && !parameterlessCtorAlreadyHandled)
+                                    {
+                                        x.Load(x.GetParameter(0)).IsNull().Then(y => y.NewObj(component.Type.ParameterlessContructor).Return());
+                                        x.Load(x.GetParameter(0)).Call(arrayAvatar.Length).EqualTo(0).Then(y => y.NewObj(component.Type.ParameterlessContructor).Return());
+                                        parameterlessCtorAlreadyHandled = true;
+                                    }
+
+                                    var code = x.Load(x.GetParameter(0)).Call(arrayAvatar.Length).EqualTo(ctorParameters.Length);
+
+                                    for (int i = 0; i < ctorParameters.Length; i++)
+                                        code.And.Load(x.GetParameter(0).UnPacked(i)).Is(ctorParameters[i]);
+
+                                    if (ctor.Name == ".ctor")
+                                        code.Then(y => y.NewObj(ctor, x.GetParameter(0).UnPacked()).Return());
+                                    else
+                                        code.Then(y => y.Call(ctor, x.GetParameter(0).UnPacked()).Return());
+                                }
+                                else
+                                {
+                                    if (ctor.Name == ".ctor")
+                                    {
+                                        x.Load(x.GetParameter(0)).IsNull().Then(y => y.NewObj(ctor).Return());
+                                        x.Load(x.GetParameter(0)).Call(arrayAvatar.Length).EqualTo(0).Then(y => y.NewObj(ctor).Return());
+                                    }
+                                    else
+                                    {
+                                        x.Load(x.GetParameter(0)).IsNull().Then(y => y.Call(ctor).Return());
+                                        x.Load(x.GetParameter(0)).Call(arrayAvatar.Length).EqualTo(0).Then(y => y.Call(ctor).Return());
+                                    }
+
+                                    parameterlessCtorAlreadyHandled = true;
+                                }
+                            }
+                        }
+                        else
+                            this.LogWarning($"The component '{component.Type.Fullname}' has no ComponentConstructor attribute or the constructor is not public");
+                    })
+                    .Context(x => x.Call(extensionAvatar.CreateInstance, component.Type, x.GetParameter(0)).Return())
+                    .Return()
+                    .Replace();
+
+                // Implement the properties
+                foreach (var property in factoryTypeInfoInterface.Properties)
+                {
+                    var propertyResult = componentType.CreateProperty(Modifiers.Public | Modifiers.Overrrides, property.ReturnType, property.Name, true);
+                    propertyResult.BackingField.Remove();
+
+                    switch (property.Name)
+                    {
+                        case "ContractName":
+                            propertyResult.Getter.NewCode().Call(componentAttributeField, componentAttribute.ContractName).Return().Replace();
+                            break;
+
+                        case "CreationPolicy":
+                            propertyResult.Getter.NewCode().Call(componentAttributeField, componentAttribute.Policy).Return().Replace();
+                            break;
+
+                        case "Type":
+                            propertyResult.Getter.NewCode().Load(component.Type).Return().Replace();
+                            break;
+                    }
+                }
+
+                componentType.CustomAttributes.AddEditorBrowsableAttribute(EditorBrowsableState.Never);
+                // Also remove the component attribute
+                component.Attribute.Remove();
+            }
+
+            this.LogInfo("Adding component IFactoryCache Interface");
+            cauldron.AddInterface(factoryCacheInterface);
+            var factoryCacheInterfaceAvatar = factoryCacheInterface.New(x => new
+            {
+                Components = x.GetMethod("GetComponents")
+            });
+            cauldron.CreateMethod(Modifiers.Public | Modifiers.Overrrides, factoryCacheInterfaceAvatar.Components.ReturnType, factoryCacheInterfaceAvatar.Components.Name)
+                .NewCode()
+                .Context(x =>
+                {
+                    var resultValue = x.GetReturnVariable();
+                    x.Newarr(factoryTypeInfoInterface, componentTypes.Count).StoreLocal(resultValue);
+
+                    for (int i = 0; i < componentTypes.Count; i++)
+                    {
+                        x.Load(resultValue);
+                        x.StoreElement(factoryTypeInfoInterface, x.NewCode().NewObj(componentTypes[i].ParameterlessContructor), i);
+                    }
+                })
+                .Return()
+                .Replace();
+        }
+
         private void CreateFactoryCache(Builder builder)
         {
-            this.LogInfo($"Creating Factory cache.");
+            this.LogInfo($"Creating Cauldron Cache");
 
             var cauldron = builder.CreateType("", TypeAttributes.Public | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit, "<Cauldron>");
-            var factoryCacheInterface = builder.GetType("Cauldron.Interception.IFactoryCache");
-            cauldron.AddInterface(factoryCacheInterface);
             cauldron.CreateConstructor().NewCode()
                 .Context(x => x.Call(x.NewCode().This, builder.GetType(typeof(object)).ParameterlessContructor))
                 .Return()
                 .Replace();
 
-            this.LogInfo(factoryCacheInterface);
+            if (builder.IsReferenced("Cauldron.Activator"))
+                CreateComponentCache(builder, cauldron);
         }
 
         private void ImplementAnonymousTypeInterface(Builder builder)
         {
-            if (!builder.IsReferenced("Cauldron.Core"))
-            {
-                this.LogInfo("Skipping implementation of interface in anonymous types. Cauldron.Core not found.");
-                return;
-            }
-
             var stopwatch = Stopwatch.StartNew();
 
-            var cauldronCoreExtension = builder.GetType("Cauldron.Core.Extensions.AnonymousTypeWithInterfaceExtension");
-            var createObjectMethod = cauldronCoreExtension.GetMethod("CreateObject", 1).FindUsages().ToArray();
+            var cauldronCoreExtension = builder.GetType("Cauldron.Interception.Extensions");
+            var createTypeMethod = cauldronCoreExtension.GetMethod("CreateType", 1).FindUsages().ToArray();
             var createdTypes = new Dictionary<string, BuilderType>();
 
-            if (!createObjectMethod.Any())
+            if (!createTypeMethod.Any())
                 return;
 
-            foreach (var item in createObjectMethod)
+            foreach (var item in createTypeMethod)
             {
                 this.LogInfo($"Implementing anonymous to interface {item}");
                 var interfaceToImplement = item.GetGenericArgument(0);

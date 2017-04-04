@@ -6,6 +6,44 @@ using System.Collections.ObjectModel;
 
 namespace Cauldron.Desktop.Activator.Test
 {
+    [Component(typeof(ComponentTest))]
+    public class ComponentTest : ComponentTestBase<ComponentTest>
+    {
+        [ComponentConstructor]
+        public ComponentTest()
+        {
+        }
+
+        [ComponentConstructor]
+        public ComponentTest(string arg1, int arg2)
+        {
+        }
+
+        [ComponentConstructor]
+        public ComponentTest(double arg1, int arg2)
+        {
+        }
+
+        [ComponentConstructor]
+        public ComponentTest(double arg1, int arg2, string arg3)
+        {
+        }
+    }
+
+    public class ComponentTestBase<T> where T : new()
+    {
+        [ComponentConstructor]
+        public ComponentTestBase()
+        {
+        }
+
+        [ComponentConstructor]
+        public static T CreateMe(int arg1)
+        {
+            return new T();
+        }
+    }
+
     public class KeyedTestList<TKey, TItem2, TItem> : KeyedCollection<string, TItem>
     {
         protected override string GetKeyForItem(TItem item)

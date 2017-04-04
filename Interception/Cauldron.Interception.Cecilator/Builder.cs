@@ -46,6 +46,25 @@ namespace Cauldron.Interception.Cecilator
                 .Where(x => Regex.IsMatch(x.FullName, regexPattern, RegexOptions.Singleline))
                 .Select(x => new BuilderType(this, x));
 
+        public IEnumerable<AttributedType> FindTypesByAttribute(BuilderType attributeType) => this.FindTypesByAttribute(SearchContext.Module, attributeType);
+
+        public IEnumerable<AttributedType> FindTypesByAttribute(SearchContext searchContext, BuilderType attributeType)
+        {
+            var result = new ConcurrentBag<AttributedType>();
+
+            Parallel.ForEach(this.GetTypes(searchContext), type =>
+            {
+                for (int i = 0; i < type.typeDefinition.CustomAttributes.Count; i++)
+                {
+                    var name = type.typeDefinition.CustomAttributes[i].AttributeType.Resolve().FullName;
+                    if (attributeType.Fullname.GetHashCode() == name.GetHashCode() && attributeType.Fullname == name)
+                        result.Add(new AttributedType(type, type.typeDefinition.CustomAttributes[i]));
+                }
+            });
+
+            return result;
+        }
+
         public IEnumerable<AttributedType> FindTypesByAttributes(IEnumerable<BuilderType> types) => this.FindTypesByAttributes(SearchContext.Module, types);
 
         public IEnumerable<AttributedType> FindTypesByAttributes(SearchContext searchContext, IEnumerable<BuilderType> types)
@@ -347,6 +366,9 @@ namespace Cauldron.Interception.Cecilator
             if (result == null)
                 throw new TypeNotFoundException($"The type '{typeName}' does not exist in any of the referenced assemblies.");
 
+            if (result.Module.FullyQualifiedName.GetHashCode() != this.moduleDefinition.FullyQualifiedName.GetHashCode() && result.Module.FullyQualifiedName != this.moduleDefinition.FullyQualifiedName)
+                this.moduleDefinition.Import(result);
+
             return new BuilderType(this, result);
         }
 
@@ -357,6 +379,8 @@ namespace Cauldron.Interception.Cecilator
         public IEnumerable<BuilderType> GetTypesInNamespace(string namespaceName) => this.GetTypesInNamespace(SearchContext.Module, namespaceName);
 
         public IEnumerable<BuilderType> GetTypesInNamespace(SearchContext searchContext, string namespaceName) => this.GetTypes(searchContext).Where(x => x.Namespace == namespaceName);
+
+        public BuilderType MakeArray(BuilderType type) => new BuilderType(this, new ArrayType(this.moduleDefinition.Import(type.typeReference)));
 
         public bool TypeExists(string typeName)
         {

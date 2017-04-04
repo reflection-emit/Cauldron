@@ -49,6 +49,8 @@ namespace Cauldron.Interception.Cecilator
 
         LocalVariable CreateVariable(Type type);
 
+        ICode Dup();
+
         [EditorBrowsable(EditorBrowsableState.Never)]
         new bool Equals(object obj);
 
@@ -81,6 +83,8 @@ namespace Cauldron.Interception.Cecilator
 
         IIfCode IsTrue();
 
+        ICode Load(object parameter);
+
         ILocalVariableCode Load(LocalVariable localVariable);
 
         //IIfCode LesserThan(long value);
@@ -97,7 +101,11 @@ namespace Cauldron.Interception.Cecilator
 
         ILocalVariableCode LoadVariable(int variableIndex);
 
+        ICode Newarr(BuilderType type, int size);
+
         ICode NewCode();
+
+        ICode NewObj(AttributedType attribute);
 
         ICode NewObj(AttributedMethod attribute);
 
@@ -110,6 +118,8 @@ namespace Cauldron.Interception.Cecilator
         ICode Pop();
 
         ICode Return();
+
+        ICode StoreElement(BuilderType arrayType, object element, int index);
 
         ICode StoreLocal(LocalVariable localVariable);
 

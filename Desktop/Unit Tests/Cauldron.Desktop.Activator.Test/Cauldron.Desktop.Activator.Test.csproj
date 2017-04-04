@@ -63,6 +63,10 @@
       <Project>{6E8A953E-2732-4A58-BC7B-F86B1A5CA5DD}</Project>
       <Name>Cauldron.Desktop.Activator</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Cauldron.Desktop.Interception\Cauldron.Desktop.Interception.csproj">
+      <Project>{C656C9C1-BEE8-40B1-BAC7-6DD7B6FF5FBB}</Project>
+      <Name>Cauldron.Desktop.Interception</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

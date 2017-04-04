@@ -26,13 +26,15 @@ namespace Cauldron.Core
     /// </summary>
     public static partial class Assemblies
     {
+        private const string CauldronClassName = "<Cauldron>";
+
         private static ConcurrentList<Assembly> _assemblies;
-        private static ConcurrentList<TypesWithImplementedInterfaces> typesWithImplementedInterfaces;
+        private static ConcurrentList<object> _cauldron;
 
         static Assemblies()
         {
             GetAllAssemblies();
-            GetAllDefinedTypes();
+            GetAllCauldronCache();
             GetAllAssemblyAndResourceNameInfo();
         }
 
@@ -42,27 +44,32 @@ namespace Cauldron.Core
         public static event EventHandler<AssemblyAddedEventArgs> LoadedAssemblyChanged;
 
         /// <summary>
-        /// Gets a collection of <see cref="AssemblyAndResourceNameInfo"/> that contains all fully qualified filename of embedded resources and thier corresponding <see cref="Assembly"/>
+        /// Gets a collection of cauldron cache objects
         /// </summary>
-        public static ConcurrentList<AssemblyAndResourceNameInfo> AssemblyAndResourceNamesInfo { get; private set; }
+        public static IList<object> CauldronObjects { get { return _cauldron; } }
 
         /// <summary>
-        /// Gets a collection of classes loaded to the <see cref="Core.Assemblies"/>
+        /// Gets a collection of <see cref="AssemblyResource"/> that contains all fully qualified filename of embedded resources and thier corresponding <see cref="Assembly"/>
         /// </summary>
-        public static IEnumerable<TypeInfo> Classes { get { return ExportedTypes.Where(x => x.IsClass); } }
+        public static ConcurrentList<AssemblyResource> AssemblyAndResourceNamesInfo { get; private set; }
 
         /// <summary>
-        /// Gets a collection of exported types found in the loaded <see cref="Assembly"/>
+        /// Gets a collection of classes loaded to the <see cref="AppDomain"/>
         /// </summary>
-        public static IEnumerable<TypeInfo> ExportedTypes { get { return typesWithImplementedInterfaces.Select(x => x.typeInfo); } }
+        public static IEnumerable<Type> Classes { get { return _assemblies.SelectMany(x => x.ExportedTypes).Where(x => x.IsClass); } }
 
         /// <summary>
-        /// Gets a colleciton of Interfaces found in the loaded <see cref="Assembly"/>
+        /// Gets a collection of exported types found in the loaded <see cref="AppDomain"/>
         /// </summary>
-        public static IEnumerable<TypeInfo> Interfaces { get { return ExportedTypes.Where(x => x.IsInterface); } }
+        public static IEnumerable<Type> ExportedTypes { get { return _assemblies.SelectMany(x => x.ExportedTypes); } }
 
         /// <summary>
-        /// Gets a collection of <see cref="Assembly"/> that is loaded to the <see cref="Core.Assemblies"/>
+        /// Gets a colleciton of Interfaces found in the loaded <see cref="AppDomain"/>
+        /// </summary>
+        public static IEnumerable<Type> Interfaces { get { return _assemblies.SelectMany(x => x.ExportedTypes).Where(x => x.IsInterface); } }
+
+        /// <summary>
+        /// Gets a collection of <see cref="Assembly"/> that is loaded to the <see cref="AppDomain"/>
         /// </summary>
         public static ConcurrentList<Assembly> Known { get { return _assemblies; } }
 
@@ -124,7 +131,7 @@ namespace Cauldron.Core
         /// <exception cref="ArgumentException">The <paramref name="selector"/> parameter is an empty string</exception>
         /// <exception cref="FileLoadException">A file that was found could not be loaded.</exception>
         /// <exception cref="NotImplementedException">Resource length is greater than <see cref="Int64.MaxValue"/></exception>
-        public static byte[] GetManifestResource(Func<AssemblyAndResourceNameInfo, bool> selector)
+        public static byte[] GetManifestResource(Func<AssemblyResource, bool> selector)
         {
             if (selector == null)
                 throw new ArgumentNullException(nameof(selector));
@@ -176,7 +183,7 @@ namespace Cauldron.Core
         /// <returns>An <see cref="List{T}"/> object that is populated with information about the resource's topology</returns>
         /// <exception cref="ArgumentNullException"><paramref name="resourceInfoName"/> is null.</exception>
         /// <exception cref="ArgumentException">The <paramref name="resourceInfoName"/> parameter is an empty string ("").</exception>
-        public static List<AssemblyAndResourceNameInfo> GetManifestResources(string resourceInfoName)
+        public static List<AssemblyResource> GetManifestResources(string resourceInfoName)
         {
             if (resourceInfoName == null)
                 throw new ArgumentNullException(nameof(resourceInfoName));
@@ -202,15 +209,25 @@ namespace Cauldron.Core
             if (typeName.Length == 0)
                 throw new ArgumentException("The parameter is an empty string", nameof(typeName));
 
-            var result = ExportedTypes.FirstOrDefault(x => x.Name.EndsWith(typeName));
+            var result = ExportedTypes
+                .FirstOrDefault(x =>
+                    x.FullName != null &&
+                    x.FullName.GetHashCode() == typeName.GetHashCode() &&
+                    x.FullName == typeName);
 
             if (result != null)
-                return result.AsType();
+                return result;
+
+            // Maybe the type is just a part of the type name...
+            result = ExportedTypes.FirstOrDefault(x => x.FullName != null && x.Name.EndsWith(typeName));
+
+            if (result != null)
+                return result;
 
             // Else let us loop through all known assemblies and look for the type
-            foreach (var assembly in Core.Assemblies._assemblies)
+            for (int i = 0; i < _assemblies.Count; i++)
             {
-                var type = assembly.GetType(typeName);
+                var type = _assemblies[i].GetType(typeName);
 
                 if (type != null)
                     return type;
@@ -220,28 +237,14 @@ namespace Cauldron.Core
             return null;
         }
 
-        /// <summary>
-        /// Returns all Types that implements the interface <typeparamref name="T"/>
-        /// </summary>
-        /// <typeparam name="T">The interface <see cref="Type"/></typeparam>
-        /// <returns>A colletion of <see cref="Type"/> that implements the interface <typeparamref name="T"/> otherwise null</returns>
-        /// <exception cref="ArgumentException"><typeparamref name="T"/> is not an interface</exception>
-        public static IEnumerable<TypeInfo> GetTypesImplementsInterface<T>()
+        private static void GetAllCauldronCache()
         {
-#if WINDOWS_UWP || NETCORE
-            if (!typeof(T).GetTypeInfo().IsInterface)
-#else
-            if (!typeof(T).IsInterface)
-#endif
-                throw new ArgumentException(string.Format("The Type '{0}' is not an interface.", typeof(T).FullName));
-
-            var interfaceType = typeof(T);
-            var result = typesWithImplementedInterfaces.Where(x => x.interfaces.Length > 0 && x.interfaces.Contains(interfaceType));
-
-            if (result == null)
-                return null;
-
-            return result.Select(x => x.typeInfo);
+            for (int i = 0; i < _assemblies.Count; i++)
+            {
+                foreach (var item in _assemblies[i].DefinedTypes)
+                    if (item.FullName != null && item.FullName.GetHashCode() == CauldronClassName.GetHashCode() && item.FullName == CauldronClassName)
+                        _cauldron.Add(Activator.CreateInstance(item));
+            }
         }
 
         private static void GetAllAssemblies()
@@ -310,96 +313,69 @@ namespace Cauldron.Core
             _assemblies = new ConcurrentList<Assembly>(assemblies.Where(x => !x.IsDynamic).Distinct());
         }
 
-        #region Private Methods
-
-        private static IEnumerable<TypeInfo> FilterTypes(IEnumerable<TypeInfo> types) =>
-            types.Where(x =>
-                    !string.IsNullOrEmpty(x.Namespace) &&
-                    !x.FullName.StartsWith("Microsoft.") &&
-                    !x.FullName.StartsWith("System.") &&
-                    !x.FullName.StartsWith("Windows.") &&
-                    !x.FullName.StartsWith("MS.Internal.") &&
-                    !x.FullName.StartsWith("<CrtImplementationDetails>") &&
-                    !x.FullName.StartsWith("<CppImplementationDetails>") &&
-                    !x.FullName.StartsWith("MS.") &&
-                    !x.FullName.StartsWith("XamlGeneratedNamespace.") &&
-                    !x.FullName.StartsWith("Castle.") &&
-                    !x.FullName.StartsWith("PostSharp.") &&
-                    !x.FullName.StartsWith("Newtonsoft.Json.") &&
-                    !x.FullName.StartsWith("Standard."));
-
         private static void GetAllAssemblyAndResourceNameInfo()
         {
-            var list = new List<AssemblyAndResourceNameInfo>();
+            var list = new List<AssemblyResource>();
 
-            foreach (var assembly in Core.Assemblies._assemblies)
+            for (int i = 0; i < _assemblies.Count; i++)
             {
-                var resources = assembly.GetManifestResourceNames().Select(x => new AssemblyAndResourceNameInfo(assembly, x));
+                var resources = _assemblies[i].GetManifestResourceNames().Select(x => new AssemblyResource(_assemblies[i], x));
 
                 if (resources != null && resources.Count() > 0)
                     list.AddRange(resources);
             }
 
-            AssemblyAndResourceNamesInfo = new ConcurrentList<AssemblyAndResourceNameInfo>(list.OrderBy(x => x.Filename));
+            AssemblyAndResourceNamesInfo = new ConcurrentList<AssemblyResource>(list.OrderBy(x => x.Filename));
         }
-
-        private static void GetAllDefinedTypes()
-        {
-            List<TypeInfo> types = new List<TypeInfo>();
-
-            foreach (var assembly in Core.Assemblies._assemblies)
-            {
-                try
-                {
-                    types.AddRange(assembly.ExportedTypes.Select(x => x.GetTypeInfo()));
-                }
-                catch (Exception e)
-                {
-                    // Just ignore this exception... Its actually not very interesting and cruicial
-                    Output.WriteLineError("An error has occured while getting getting all types from assembly '{0}'\r\n{1}", assembly.FullName, e.Message);
-                }
-            }
-
-            typesWithImplementedInterfaces = new ConcurrentList<TypesWithImplementedInterfaces>(
-                FilterTypes(types) /* Exclude everything that is in the namespace microsoft and system. We dont need those for anything */
-                    .Select(x => new TypesWithImplementedInterfaces
-                    {
-                        typeInfo = x,
-                        interfaces = x.ImplementedInterfaces.ToArray()
-                    }));
-        }
-
-        #endregion Private Methods
 
         /// <summary>
-        /// Contains data of the <see cref="LoadedAssemblyChanged"/> event.
+        /// Adds a new Assembly to the assembly collection
         /// </summary>
-        public sealed class AssemblyAddedEventArgs : EventArgs
+        /// <param name="assembly">The assembly to be added</param>
+        /// <exception cref="NotSupportedException"><paramref name="assembly"/> is a dynamic assembly</exception>
+        public static void AddAssembly(Assembly assembly)
         {
-            internal AssemblyAddedEventArgs(Assembly assembly, Type[] types)
-            {
-                this.Types = types;
-                this.Assembly = assembly;
-            }
+            if (assembly.IsDynamic)
+                throw new NotSupportedException("Dynamic assemblies are not supported");
 
-            /// <summary>
-            /// Gets the assembly that has been added to the known assembly collection
-            /// </summary>
-            public Assembly Assembly { get; private set; }
+            if (_assemblies.Any(x => x.ManifestModule.Name.GetHashCode() == assembly.ManifestModule.Name.GetHashCode() && x.ManifestModule.Name == assembly.ManifestModule.Name))
+                return;
 
-            /// <summary>
-            /// Gets a collection of types that is defined in the assembly
-            /// </summary>
-            public IEnumerable<Type> Types { get; private set; }
+            _assemblies.Add(assembly);
+            object cauldronObject = null;
+
+            foreach (var item in assembly.DefinedTypes)
+                if (item.FullName != null && item.FullName.GetHashCode() == CauldronClassName.GetHashCode() && item.FullName == CauldronClassName)
+                {
+                    cauldronObject = Activator.CreateInstance(item);
+                    _cauldron.Add(cauldronObject);
+                }
+
+            AssemblyAndResourceNamesInfo.AddRange(assembly.GetManifestResourceNames().Select(x => new AssemblyResource(assembly, x)));
+            LoadedAssemblyChanged?.Invoke(null, new AssemblyAddedEventArgs(assembly, cauldronObject));
+        }
+    }
+
+    /// <summary>
+    /// Contains data of the <see cref="Assemblies.LoadedAssemblyChanged"/> event.
+    /// </summary>
+    public sealed class AssemblyAddedEventArgs : EventArgs
+    {
+        internal AssemblyAddedEventArgs(Assembly assembly, object cauldron)
+        {
+            this.Cauldron = cauldron;
+            this.Assembly = assembly;
         }
 
-        private class TypesWithImplementedInterfaces
-        {
-            public Type[] interfaces;
-            public TypeInfo typeInfo;
+        /// <summary>
+        /// Gets the assembly that has been added to the known assembly collection
+        /// </summary>
+        public Assembly Assembly { get; private set; }
 
-            public override string ToString() => typeInfo.ToString() + " (" + interfaces.Count() + ")";
-        }
+        /// <summary>
+        /// Gets the auto-generated cauldron object.
+        /// </summary>
+        public object Cauldron { get; private set; }
     }
 
     #region Shared methods
@@ -443,36 +419,6 @@ namespace Cauldron.Core
     /// </summary>
     public static partial class Assemblies
     {
-#if WINDOWS_UWP || NETCORE
-
-        /// <summary>
-        /// Adds a new Assembly to the assembly collection
-        /// </summary>
-        /// <param name="assembly">The assembly to be added</param>
-        /// <exception cref="NotSupportedException"><paramref name="assembly"/> is a dynamic assembly</exception>
-        public static void AddAssembly(Assembly assembly)
-        {
-            if (assembly.IsDynamic)
-                throw new NotSupportedException("Dynamic assemblies are not supported");
-
-            if (_assemblies.Any(x => x.ManifestModule.Name.GetHashCode() == assembly.ManifestModule.Name.GetHashCode() && x.ManifestModule.Name == assembly.ManifestModule.Name))
-                return;
-
-            _assemblies.Add(assembly);
-            var types = FilterTypes(assembly.DefinedTypes);
-
-            var definedTypes = types.Select(x => new TypesWithImplementedInterfaces
-            {
-                interfaces = x.ImplementedInterfaces.ToArray(),
-                typeInfo = x
-            });
-            typesWithImplementedInterfaces.AddRange(definedTypes);
-            AssemblyAndResourceNamesInfo.AddRange(assembly.GetManifestResourceNames().Select(x => new AssemblyAndResourceNameInfo(assembly, x)));
-
-            LoadedAssemblyChanged?.Invoke(null, new AssemblyAddedEventArgs(assembly, types.Select(x => x.AsType()).ToArray()));
-        }
-
-#endif
     }
 
     /// <summary>
@@ -593,8 +539,9 @@ namespace Cauldron.Core
         /// <exception cref="FileLoadException">A file that was found could not be loaded</exception>
         public static void LoadAssembly(DirectoryInfo directory, string filter = "*.dll")
         {
-            foreach (var files in directory.GetFiles(filter))
-                LoadAssembly(files);
+            var files = directory.GetFiles(filter);
+            for (int i = 0; i < files.Length; i++)
+                LoadAssembly(files[i]);
         }
 
         /// <summary>
@@ -617,7 +564,7 @@ namespace Cauldron.Core
             try
             {
 #if NETCORE
-            var assembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(fileInfo.FullName);
+                var assembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(fileInfo.FullName);
 #else
                 var assembly = Assembly.LoadFile(fileInfo.FullName);
 #endif
@@ -625,26 +572,7 @@ namespace Cauldron.Core
                 if (assembly.IsDynamic)
                     throw new NotSupportedException($"Dynamic assemblies are not supported.");
 
-                if (Assemblies.Known.Any(x => x.ManifestModule.Name == assembly.ManifestModule.Name))
-                    return; // this is already loaded... No need to load again
-
-                Assemblies.Known.Add(assembly);
-                var types = FilterTypes(assembly.DefinedTypes).ToArray();
-
-                var definedTypes = types.Select(x => new TypesWithImplementedInterfaces
-                {
-                    interfaces = x.ImplementedInterfaces.ToArray(),
-                    typeInfo = x
-                });
-
-                typesWithImplementedInterfaces.AddRange(definedTypes);
-                AssemblyAndResourceNamesInfo.AddRange(assembly.GetManifestResourceNames().Select(x => new AssemblyAndResourceNameInfo(assembly, x)));
-
-#if NETCORE
-            LoadedAssemblyChanged?.Invoke(null, new AssemblyAddedEventArgs(assembly, types.Select(x => x.AsType()).ToArray()));
-#else
-                LoadedAssemblyChanged?.Invoke(null, new AssemblyAddedEventArgs(assembly, types));
-#endif
+                AddAssembly(assembly);
             }
             catch (ReflectionTypeLoadException e)
             {

@@ -87,21 +87,21 @@ namespace Cauldron.Interception.Cecilator
             return this.Assign(new LocalVariable(this.method.DeclaringType, this.instructions.Variables[localVariableName]));
         }
 
-        public ICode Call(Method method, params object[] parameters) => CallInternal(null, method, parameters);
+        public ICode Call(Method method, params object[] parameters) => CallInternal(null, method, OpCodes.Call, parameters);
 
-        public ICode Call(Crumb instance, Method method, params object[] parameters) => CallInternal(instance, method, parameters);
+        public ICode Call(Crumb instance, Method method, params object[] parameters) => CallInternal(instance, method, OpCodes.Call, parameters);
 
-        public ICode Call(Field instance, Method method, params object[] parameters) => CallInternal(instance, method, parameters);
+        public ICode Call(Field instance, Method method, params object[] parameters) => CallInternal(instance, method, OpCodes.Call, parameters);
 
-        public ICode Call(LocalVariable instance, Method method, params object[] parameters) => CallInternal(instance, method, parameters);
+        public ICode Call(LocalVariable instance, Method method, params object[] parameters) => CallInternal(instance, method, OpCodes.Call, parameters);
 
-        public ICode Callvirt(Method method, params object[] parameters) => CallvirtInternal(null, method, parameters);
+        public ICode Callvirt(Method method, params object[] parameters) => CallInternal(null, method, OpCodes.Callvirt, parameters);
 
-        public ICode Callvirt(Crumb instance, Method method, params object[] parameters) => CallvirtInternal(instance, method, parameters);
+        public ICode Callvirt(Crumb instance, Method method, params object[] parameters) => CallInternal(instance, method, OpCodes.Callvirt, parameters);
 
-        public ICode Callvirt(Field instance, Method method, params object[] parameters) => CallvirtInternal(instance, method, parameters);
+        public ICode Callvirt(Field instance, Method method, params object[] parameters) => CallInternal(instance, method, OpCodes.Callvirt, parameters);
 
-        public ICode Callvirt(LocalVariable instance, Method method, params object[] parameters) => CallvirtInternal(instance, method, parameters);
+        public ICode Callvirt(LocalVariable instance, Method method, params object[] parameters) => CallInternal(instance, method, OpCodes.Callvirt, parameters);
 
         public ICode Context(Action<ICode> body)
         {
@@ -227,6 +227,12 @@ namespace Cauldron.Interception.Cecilator
             method.Body.OptimizeMacros();
 
             return new Method(this.method.DeclaringType, method);
+        }
+
+        public ICode Dup()
+        {
+            this.instructions.Append(this.processor.Create(OpCodes.Dup));
+            return this;
         }
 
         public ICode For(LocalVariable array, Action<ICode, LocalVariable> action)
@@ -405,10 +411,19 @@ namespace Cauldron.Interception.Cecilator
             return this.CreateLocalVariableInstructionSet(localVariable, AssignInstructionType.Load);
         }
 
-        public ICode Load(Crumb crumb)
+        public ICode Load(Crumb crumb) => this.Load(parameter: crumb);
+
+        public ICode Load(object parameter)
         {
-            var inst = this.AddParameter(this.processor, null, crumb);
+            var inst = this.AddParameter(this.processor, null, parameter);
             this.instructions.Append(inst.Instructions);
+
+            if (parameter != null && parameter is Crumb && (parameter as Crumb).UnPackArray)
+            {
+                var crumbArray = parameter as Crumb;
+                this.instructions.Append(this.AddParameter(this.processor, null, crumbArray.UnPackArrayIndex).Instructions);
+                this.instructions.Append(this.processor.Create(OpCodes.Ldelem_Ref));
+            }
 
             return this;
         }
@@ -437,17 +452,41 @@ namespace Cauldron.Interception.Cecilator
             return this.Load(new LocalVariable(this.method.DeclaringType, localvariable));
         }
 
+        public ICode Newarr(BuilderType type, int size)
+        {
+            this.instructions.Append(this.AddParameter(this.processor, null, size).Instructions);
+            this.instructions.Append(this.processor.Create(OpCodes.Newarr, this.moduleDefinition.Import(type.typeReference)));
+
+            return this;
+        }
+
         public ICode NewCode() => new InstructionsSet(this, this.instructions.Clone());
 
         public ICode NewObj(Method constructor, params object[] parameters)
         {
-            if (constructor.methodDefinition.Parameters.Count != parameters.Length)
-                this.LogWarning($"Parameter count of constructor {constructor.Name} does not match with the passed parameters. Expected: {constructor.methodDefinition.Parameters.Count}, is: {parameters.Length}");
-
-            for (int i = 0; i < parameters.Length; i++)
+            if (parameters != null && parameters.Length > 0 && parameters[0] is Crumb && (parameters[0] as Crumb).UnPackArray)
             {
-                var inst = this.AddParameter(this.processor, constructor.methodDefinition.Parameters[i].ParameterType, parameters[i]);
-                this.instructions.Append(inst.Instructions);
+                var ctorParameters = constructor.methodDefinition.Parameters;
+                for (int i = 0; i < ctorParameters.Count; i++)
+                {
+                    this.instructions.Append(this.AddParameter(this.processor, null, parameters[0]).Instructions);
+                    this.instructions.Append(this.AddParameter(this.processor, null, i).Instructions);
+                    this.instructions.Append(this.processor.Create(OpCodes.Ldelem_Ref));
+                    var paramResult = new ParamResult { Type = this.moduleDefinition.TypeSystem.Object };
+                    this.CastOrBoxValues(this.processor, ctorParameters[i].ParameterType, paramResult, ctorParameters[i].ParameterType.Resolve());
+                    this.instructions.Append(paramResult.Instructions);
+                }
+            }
+            else
+            {
+                if (constructor.methodDefinition.Parameters.Count != parameters.Length)
+                    this.LogWarning($"Parameter count of constructor {constructor.Name} does not match with the passed parameters. Expected: {constructor.methodDefinition.Parameters.Count}, is: {parameters.Length}");
+
+                for (int i = 0; i < parameters.Length; i++)
+                {
+                    var inst = this.AddParameter(this.processor, constructor.methodDefinition.Parameters[i].ParameterType, parameters[i]);
+                    this.instructions.Append(inst.Instructions);
+                }
             }
 
             //var ctor = constructor.methodReference;
@@ -468,6 +507,8 @@ namespace Cauldron.Interception.Cecilator
         public ICode NewObj(AttributedField attribute) => this.NewObj(attribute.customAttribute);
 
         public ICode NewObj(AttributedMethod attribute) => this.NewObj(attribute.customAttribute);
+
+        public ICode NewObj(AttributedType attribute) => this.NewObj(attribute.customAttribute);
 
         public ICode OriginalBody()
         {
@@ -513,6 +554,15 @@ namespace Cauldron.Interception.Cecilator
         public ICode Return()
         {
             this.instructions.Append(this.processor.Create(OpCodes.Ret));
+            return this;
+        }
+
+        public ICode StoreElement(BuilderType arrayType, object element, int index)
+        {
+            this.instructions.Append(this.AddParameter(this.processor, null, index).Instructions);
+            this.instructions.Append(this.AddParameter(this.processor, arrayType.typeReference, element).Instructions);
+            this.instructions.Append(processor.Create(OpCodes.Stelem_Ref));
+
             return this;
         }
 
@@ -712,6 +762,12 @@ namespace Cauldron.Interception.Cecilator
                     default:
                         throw new NotImplementedException();
                 }
+            }
+            else if (type == typeof(TypeReference) || type == typeof(TypeDefinition))
+            {
+                var bt = parameter as TypeReference;
+                result.Instructions.AddRange(this.TypeOf(processor, bt));
+                result.Type = this.moduleDefinition.Import(typeof(Type));
             }
             else if (type == typeof(BuilderType))
             {
@@ -1005,9 +1061,12 @@ namespace Cauldron.Interception.Cecilator
                 {
                     realReturn = realReturn.Previous;
 
+                    // Think twice before removing this ;)
                     if (realReturn.OpCode == OpCodes.Ldfld || realReturn.OpCode == OpCodes.Ldflda)
                         realReturn = realReturn.Previous;
                 }
+                else if (realReturn.Previous.OpCode == OpCodes.Call || realReturn.Previous.OpCode == OpCodes.Callvirt || realReturn.Previous.OpCode == OpCodes.Calli)
+                    realReturn = realReturn.Previous;
                 else
                     throw new NotImplementedException("Sorry... Not implemented.");
 
@@ -1053,54 +1112,44 @@ namespace Cauldron.Interception.Cecilator
             return value;
         }
 
-        private ICode CallInternal(object instance, Method method, params object[] parameters)
+        private ICode CallInternal(object instance, Method method, OpCode opcode, params object[] parameters)
         {
             if (instance != null)
                 this.instructions.Append(this.AddParameter(this.processor, null, instance).Instructions);
 
-            if (method.Parameters.Length != parameters.Length)
-                this.LogWarning($"Parameter count of method {method.Name} does not match with the passed parameters. Expected: {method.Parameters.Length}, is: {parameters.Length}");
-
-            if (method.DeclaringType.IsInterface || method.IsAbstract)
-                this.LogError($"Use Callvirt to call {method.ToString()}");
-
-            for (int i = 0; i < parameters.Length; i++)
+            if (parameters != null && parameters.Length > 0 && parameters[0] is Crumb && (parameters[0] as Crumb).UnPackArray)
             {
-                var parameterType = method.methodDefinition.Parameters[i].ParameterType.IsGenericInstance || method.methodDefinition.Parameters[i].ParameterType.IsGenericParameter ?
-                    method.methodDefinition.Parameters[i].ParameterType.ResolveType(method.DeclaringType.typeReference, method.methodReference) :
-                    method.methodDefinition.Parameters[i].ParameterType;
+                var methodParameters = method.methodDefinition.Parameters;
+                for (int i = 0; i < methodParameters.Count; i++)
+                {
+                    this.instructions.Append(this.AddParameter(this.processor, null, parameters[0]).Instructions);
+                    this.instructions.Append(this.AddParameter(this.processor, null, i).Instructions);
+                    this.instructions.Append(this.processor.Create(OpCodes.Ldelem_Ref));
+                    var paramResult = new ParamResult { Type = this.moduleDefinition.TypeSystem.Object };
+                    this.CastOrBoxValues(this.processor, methodParameters[i].ParameterType, paramResult, methodParameters[i].ParameterType.Resolve());
+                    this.instructions.Append(paramResult.Instructions);
+                }
+            }
+            else
+            {
+                if (method.Parameters.Length != parameters.Length)
+                    this.LogWarning($"Parameter count of method {method.Name} does not match with the passed parameters. Expected: {method.Parameters.Length}, is: {parameters.Length}");
 
-                var inst = this.AddParameter(this.processor, this.moduleDefinition.Import(parameterType), parameters[i]);
-                this.instructions.Append(inst.Instructions);
+                if ((method.DeclaringType.IsInterface || method.IsAbstract) && opcode != OpCodes.Calli)
+                    opcode = OpCodes.Callvirt;
+
+                for (int i = 0; i < parameters.Length; i++)
+                {
+                    var parameterType = method.methodDefinition.Parameters[i].ParameterType.IsGenericInstance || method.methodDefinition.Parameters[i].ParameterType.IsGenericParameter ?
+                        method.methodDefinition.Parameters[i].ParameterType.ResolveType(method.DeclaringType.typeReference, method.methodReference) :
+                        method.methodDefinition.Parameters[i].ParameterType;
+
+                    var inst = this.AddParameter(this.processor, this.moduleDefinition.Import(parameterType), parameters[i]);
+                    this.instructions.Append(inst.Instructions);
+                }
             }
 
-            this.instructions.Append(processor.Create(OpCodes.Call, this.moduleDefinition.Import(method.methodReference)));
-
-            if (!method.IsVoid)
-                this.StoreCall();
-
-            return this;
-        }
-
-        private ICode CallvirtInternal(object instance, Method method, params object[] parameters)
-        {
-            if (method.Parameters.Length != parameters.Length)
-                this.LogWarning($"Parameter count of method {method.Name} does not match with the passed parameters. Expected: {method.Parameters.Length}, is: {parameters.Length}");
-
-            if (instance != null)
-                this.instructions.Append(this.AddParameter(this.processor, null, instance).Instructions);
-
-            for (int i = 0; i < parameters.Length; i++)
-            {
-                var parameterType = method.methodDefinition.Parameters[i].ParameterType.IsGenericInstance || method.methodDefinition.Parameters[i].ParameterType.IsGenericParameter ?
-                    method.methodDefinition.Parameters[i].ParameterType.ResolveType(method.DeclaringType.typeReference, method.methodReference) :
-                    method.methodDefinition.Parameters[i].ParameterType;
-
-                var inst = this.AddParameter(this.processor, this.moduleDefinition.Import(parameterType), parameters[i]);
-                this.instructions.Append(inst.Instructions);
-            }
-
-            this.instructions.Append(processor.Create(OpCodes.Callvirt, this.moduleDefinition.Import(method.methodReference)));
+            this.instructions.Append(processor.Create(opcode, this.moduleDefinition.Import(method.methodReference)));
 
             if (!method.IsVoid)
                 this.StoreCall();
@@ -1120,7 +1169,7 @@ namespace Cauldron.Interception.Cecilator
             if (type == typeof(string))
                 return new Instruction[] { processor.Create(OpCodes.Ldstr, value.ToString()) };
 
-            if (type == typeof(TypeReference))
+            if (type == typeof(TypeReference) || type == typeof(TypeDefinition))
                 return this.TypeOf(processor, value as TypeReference);
 
             var createInstructionsResult = new List<Instruction>();
@@ -1285,6 +1334,9 @@ namespace Cauldron.Interception.Cecilator
 
         #region Comparision stuff
 
+        [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        protected virtual Instruction JumpTarget { get; }
+
         public IIfCode EqualTo(long value) => this.EqualTo(this.AddParameter(this.processor, this.moduleDefinition.TypeSystem.Int64, value).Instructions);
 
         public IIfCode EqualTo(int value) => this.EqualTo(this.AddParameter(this.processor, this.moduleDefinition.TypeSystem.Int32, value).Instructions);
@@ -1293,7 +1345,7 @@ namespace Cauldron.Interception.Cecilator
 
         public IIfCode Is(Type type)
         {
-            var jumpTarget = this.processor.Create(OpCodes.Nop);
+            var jumpTarget = this.JumpTarget == null ? this.processor.Create(OpCodes.Nop) : this.JumpTarget;
 
             this.instructions.Append(this.processor.Create(OpCodes.Isinst, this.moduleDefinition.Import(type)));
             this.instructions.Append(this.processor.Create(OpCodes.Ldnull));
@@ -1305,7 +1357,7 @@ namespace Cauldron.Interception.Cecilator
 
         public IIfCode Is(BuilderType type)
         {
-            var jumpTarget = this.processor.Create(OpCodes.Nop);
+            var jumpTarget = this.JumpTarget == null ? this.processor.Create(OpCodes.Nop) : this.JumpTarget;
 
             this.instructions.Append(this.processor.Create(OpCodes.Isinst, type.typeReference));
             this.instructions.Append(this.processor.Create(OpCodes.Ldnull));
@@ -1331,7 +1383,8 @@ namespace Cauldron.Interception.Cecilator
 
         private IIfCode EqualTo(IEnumerable<Instruction> instruction)
         {
-            var jumpTarget = this.processor.Create(OpCodes.Nop);
+            var jumpTarget = this.JumpTarget == null ? this.processor.Create(OpCodes.Nop) : this.JumpTarget;
+
             this.instructions.Append(instruction);
             this.instructions.Append(this.processor.Create(OpCodes.Ceq));
             this.instructions.Append(this.processor.Create(OpCodes.Brfalse, jumpTarget));
@@ -1340,7 +1393,8 @@ namespace Cauldron.Interception.Cecilator
 
         private IIfCode NotEqualTo(IEnumerable<Instruction> instruction)
         {
-            var jumpTarget = this.processor.Create(OpCodes.Nop);
+            var jumpTarget = this.JumpTarget == null ? this.processor.Create(OpCodes.Nop) : this.JumpTarget;
+
             this.instructions.Append(instruction);
             this.instructions.Append(this.processor.Create(OpCodes.Ceq));
             this.instructions.Append(this.processor.Create(OpCodes.Brtrue, jumpTarget));

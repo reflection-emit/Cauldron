@@ -77,7 +77,7 @@ namespace Cauldron.Interception.Test
                 .Select(x => new { Key = x.Key, Items = x.ToArray<ITestInterface>() })
                 .OrderBy(x => x.Key)
                 .Where(x => x.Items.Length > 3)
-                .Select(x => x.CreateObject<IKeyValue>())
+                .Select(x => x.CreateType<IKeyValue>())
                 .ToList();
 
             Assert.AreEqual(1, obj.Count());
@@ -88,7 +88,7 @@ namespace Cauldron.Interception.Test
         [TestMethod]
         public void Anonymouse_Type_Verify()
         {
-            var obj = new { DoubleProperty = 5.5, LongProperty = 60L, StringProperty = "Hello" }.CreateObject<ITestInterface>();
+            var obj = new { DoubleProperty = 5.5, LongProperty = 60L, StringProperty = "Hello" }.CreateType<ITestInterface>();
 
             Assert.AreEqual("Hello", obj.StringProperty);
             Assert.AreEqual(5.5, obj.DoubleProperty);
@@ -99,7 +99,7 @@ namespace Cauldron.Interception.Test
         public void Complex_Type_Creation_Test()
         {
             var anonClass = new { AnyDate = DateTime.Now, FirstProperty = "TestString" };
-            var newObject = anonClass.CreateObject<IAnonymousClassWithInterfaceExtension2TestInterface>();
+            var newObject = anonClass.CreateType<IAnonymousClassWithInterfaceExtension2TestInterface>();
 
             Assert.IsTrue(anonClass.AnyDate == newObject.AnyDate);
             Assert.IsTrue(anonClass.FirstProperty == newObject.FirstProperty);
@@ -121,7 +121,7 @@ namespace Cauldron.Interception.Test
         public void Simple_Type_Creation_Test()
         {
             var anonClass = new { ADouble = 9922.992, AnyInt = 666, TheString = "TestString" };
-            var newObject = anonClass.CreateObject<IAnonymousClassWithInterfaceExtensionTestInterface>();
+            var newObject = anonClass.CreateType<IAnonymousClassWithInterfaceExtensionTestInterface>();
 
             Assert.IsTrue(anonClass.ADouble == newObject.ADouble);
             Assert.IsTrue(anonClass.AnyInt == newObject.AnyInt);
@@ -134,7 +134,7 @@ namespace Cauldron.Interception.Test
             try
             {
                 var anonClass = new { ADouble = 9922.992, AnyInt = 666, TheString = "TestString" };
-                var newObject = anonClass.CreateObject<IAnonymousClassWithInterfaceExtensionTestInterfaceWithMethod>();
+                var newObject = anonClass.CreateType<IAnonymousClassWithInterfaceExtensionTestInterfaceWithMethod>();
 
                 newObject.GetAnyStringMethod(99, 'p');
 
@@ -150,7 +150,7 @@ namespace Cauldron.Interception.Test
         public void Type_Creation_With_Method_In_Interface_Test()
         {
             var anonClass = new { ADouble = 9922.992, AnyInt = 666, TheString = "TestString" };
-            var newObject = anonClass.CreateObject<IAnonymousClassWithInterfaceExtensionTestInterfaceWithMethod>();
+            var newObject = anonClass.CreateType<IAnonymousClassWithInterfaceExtensionTestInterfaceWithMethod>();
 
             Assert.IsTrue(anonClass.ADouble == newObject.ADouble);
             Assert.IsTrue(anonClass.AnyInt == newObject.AnyInt);
@@ -164,7 +164,7 @@ namespace Cauldron.Interception.Test
         {
             public IAnonymousClassWithInterfaceExtensionTestInterface GetValues()
             {
-                return new { ADouble = 6666.666, AnyInt = 666, TheString = "TestString" }.CreateObject<IAnonymousClassWithInterfaceExtensionTestInterface>();
+                return new { ADouble = 6666.666, AnyInt = 666, TheString = "TestString" }.CreateType<IAnonymousClassWithInterfaceExtensionTestInterface>();
             }
         }
     }

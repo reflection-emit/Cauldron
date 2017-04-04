@@ -5,9 +5,9 @@ namespace Cauldron.Core
     /// <summary>
     /// Represents a resource info of an embedded resource with its corresponding <see cref="Assembly"/>
     /// </summary>
-    public sealed class AssemblyAndResourceNameInfo
+    public sealed class AssemblyResource
     {
-        internal AssemblyAndResourceNameInfo(Assembly assembly, string filename)
+        internal AssemblyResource(Assembly assembly, string filename)
         {
             this.Assembly = assembly;
             this.Filename = filename;

@@ -1,13 +1,10 @@
 ﻿using Mono.Cecil.Cil;
 using System;
-using System.ComponentModel;
-using System.Diagnostics;
 
 namespace Cauldron.Interception.Cecilator
 {
     public class IfCode : InstructionsSet, IIfCode
     {
-        [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private Instruction jumpTarget;
 
         internal IfCode(InstructionsSet instructionsSet, InstructionContainer instructions, Instruction jumpTarget) : base(instructionsSet, instructions)
@@ -15,9 +12,22 @@ namespace Cauldron.Interception.Cecilator
             this.jumpTarget = jumpTarget;
         }
 
-        public ICode Else
+        public IIfCode And
         {
             get { return this; }
+        }
+
+        public ICode Else
+        {
+            get { return new InstructionsSet(this, this.instructions); }
+        }
+
+        protected override Instruction JumpTarget
+        {
+            get
+            {
+                return this.jumpTarget;
+            }
         }
 
         public ICode EndIf()
@@ -28,8 +38,9 @@ namespace Cauldron.Interception.Cecilator
         public IIfCode Then(Action<ICode> action)
         {
             action(this);
-            this.instructions.Append(this.jumpTarget);
-            return this;
+            this.instructions.Append(this.JumpTarget);
+
+            return new IfCode(this, this.instructions, this.jumpTarget);
         }
     }
 }

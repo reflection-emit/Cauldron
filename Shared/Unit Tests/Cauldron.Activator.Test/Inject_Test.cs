@@ -1,5 +1,6 @@
 ﻿using Cauldron.Activator;
 using Cauldron.Core.Extensions;
+using Cauldron.Interception;
 
 #if WINDOWS_UWP
 
@@ -46,11 +47,13 @@ namespace Cauldron.Desktop.Activator.Test
         [TestMethod]
         public void Array_Injection()
         {
-            var documentMock1 = new { }.CreateObject<ITestInterface>();
-            var documentMock2 = new { }.CreateObject<ITestInterface>();
+            var documentMock1 = new { }.CreateType<ITestInterface>();
+            var documentMock2 = new { }.CreateType<ITestInterface>();
+            var documentMock1Type = documentMock1.GetType();
+            var documentMock2Type = documentMock2.GetType();
 
-            Factory.AddType(typeof(ITestInterface).FullName, FactoryCreationPolicy.Instanced, documentMock1.GetType());
-            Factory.AddType(typeof(ITestInterface).FullName, FactoryCreationPolicy.Instanced, documentMock2.GetType());
+            Factory.AddType(typeof(ITestInterface).FullName, FactoryCreationPolicy.Instanced, documentMock1Type, x => documentMock1Type.CreateInstance());
+            Factory.AddType(typeof(ITestInterface).FullName, FactoryCreationPolicy.Instanced, documentMock2Type, x => documentMock2Type.CreateInstance());
 
             Assert.AreEqual(3, this.injectToArray.Length);
 
@@ -65,11 +68,13 @@ namespace Cauldron.Desktop.Activator.Test
         [TestMethod]
         public void Collection_Injection()
         {
-            var documentMock1 = new { }.CreateObject<ITestInterface>();
-            var documentMock2 = new { }.CreateObject<ITestInterface>();
+            var documentMock1 = new { }.CreateType<ITestInterface>();
+            var documentMock2 = new { }.CreateType<ITestInterface>();
+            var documentMock1Type = documentMock1.GetType();
+            var documentMock2Type = documentMock2.GetType();
 
-            Factory.AddType(typeof(ITestInterface).FullName, FactoryCreationPolicy.Instanced, documentMock1.GetType());
-            Factory.AddType(typeof(ITestInterface).FullName, FactoryCreationPolicy.Instanced, documentMock2.GetType());
+            Factory.AddType(typeof(ITestInterface).FullName, FactoryCreationPolicy.Instanced, documentMock1Type, x => documentMock1Type.CreateInstance());
+            Factory.AddType(typeof(ITestInterface).FullName, FactoryCreationPolicy.Instanced, documentMock2Type, x => documentMock2Type.CreateInstance());
 
             Assert.AreEqual(3, this.injectToCollection.Count);
 
@@ -85,8 +90,9 @@ namespace Cauldron.Desktop.Activator.Test
         public void Dictionary_Injection()
         {
             var dictionaryMock = new Dictionary<string, float>();
+            var documentMockType = dictionaryMock.GetType();
 
-            Factory.AddType(typeof(Dictionary<string, float>).FullName, FactoryCreationPolicy.Singleton, dictionaryMock.GetType());
+            Factory.AddType(typeof(Dictionary<string, float>).FullName, FactoryCreationPolicy.Singleton, dictionaryMock.GetType(), x => documentMockType.CreateInstance());
             dictionaryMock = Factory.Create(typeof(Dictionary<string, float>).FullName) as Dictionary<string, float>;
 
             dictionaryMock.Add("Hi", 33.6f);
@@ -114,11 +120,13 @@ namespace Cauldron.Desktop.Activator.Test
         [TestMethod]
         public void IEnumerable_Injection()
         {
-            var documentMock1 = new { }.CreateObject<ITestInterface>();
-            var documentMock2 = new { }.CreateObject<ITestInterface>();
+            var documentMock1 = new { }.CreateType<ITestInterface>();
+            var documentMock2 = new { }.CreateType<ITestInterface>();
+            var documentMock1Type = documentMock1.GetType();
+            var documentMock2Type = documentMock2.GetType();
 
-            Factory.AddType(typeof(ITestInterface).FullName, FactoryCreationPolicy.Instanced, documentMock1.GetType());
-            Factory.AddType(typeof(ITestInterface).FullName, FactoryCreationPolicy.Instanced, documentMock2.GetType());
+            Factory.AddType(typeof(ITestInterface).FullName, FactoryCreationPolicy.Instanced, documentMock1Type, x => documentMock1Type.CreateInstance());
+            Factory.AddType(typeof(ITestInterface).FullName, FactoryCreationPolicy.Instanced, documentMock2Type, x => documentMock2Type.CreateInstance());
 
             Assert.AreEqual(3, this.injectToEnumerable.Count());
 
@@ -133,9 +141,10 @@ namespace Cauldron.Desktop.Activator.Test
         [TestMethod]
         public void KeyedCollection_Injection()
         {
-            var documentMock1 = new { }.CreateObject<ITestInterface>();
+            var dictionaryMock = new { }.CreateType<ITestInterface>();
+            var documentMockType = dictionaryMock.GetType();
 
-            Factory.AddType(typeof(ITestInterface).FullName, FactoryCreationPolicy.Instanced, documentMock1.GetType());
+            Factory.AddType(typeof(Dictionary<string, float>).FullName, FactoryCreationPolicy.Singleton, dictionaryMock.GetType(), x => documentMockType.CreateInstance());
 
             Assert.AreEqual(2, this.injectToKeyedCollection.Count);
 
@@ -143,17 +152,19 @@ namespace Cauldron.Desktop.Activator.Test
 
             Assert.AreEqual(66, this.injectToKeyedCollection[0].Height);
 
-            Factory.RemoveType(typeof(ITestInterface).FullName, documentMock1.GetType());
+            Factory.RemoveType(typeof(ITestInterface).FullName, dictionaryMock.GetType());
         }
 
         [TestMethod]
         public void List_Injection()
         {
-            var documentMock1 = new { }.CreateObject<ITestInterface>();
-            var documentMock2 = new { }.CreateObject<ITestInterface>();
+            var documentMock1 = new { }.CreateType<ITestInterface>();
+            var documentMock2 = new { }.CreateType<ITestInterface>();
+            var documentMock1Type = documentMock1.GetType();
+            var documentMock2Type = documentMock2.GetType();
 
-            Factory.AddType(typeof(ITestInterface).FullName, FactoryCreationPolicy.Instanced, documentMock1.GetType());
-            Factory.AddType(typeof(ITestInterface).FullName, FactoryCreationPolicy.Instanced, documentMock2.GetType());
+            Factory.AddType(typeof(ITestInterface).FullName, FactoryCreationPolicy.Instanced, documentMock1Type, x => documentMock1Type.CreateInstance());
+            Factory.AddType(typeof(ITestInterface).FullName, FactoryCreationPolicy.Instanced, documentMock2Type, x => documentMock2Type.CreateInstance());
 
             Assert.AreEqual(3, this.injectToList.Count);
 
