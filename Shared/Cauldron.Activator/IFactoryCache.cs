@@ -8,8 +8,6 @@ namespace Cauldron.Activator
     [EditorBrowsable(EditorBrowsableState.Never)]
     public interface IFactoryCache
     {
-        //object GetInstance(string contractName, object[] parameters);
-
         /// <exclude/>
         IFactoryTypeInfo[] GetComponents();
     }

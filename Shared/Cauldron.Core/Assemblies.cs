@@ -29,7 +29,7 @@ namespace Cauldron.Core
         private const string CauldronClassName = "<Cauldron>";
 
         private static ConcurrentList<Assembly> _assemblies;
-        private static ConcurrentList<object> _cauldron;
+        private static ConcurrentList<object> _cauldron = new ConcurrentList<object>();
 
         static Assemblies()
         {
@@ -44,34 +44,85 @@ namespace Cauldron.Core
         public static event EventHandler<AssemblyAddedEventArgs> LoadedAssemblyChanged;
 
         /// <summary>
-        /// Gets a collection of cauldron cache objects
-        /// </summary>
-        public static IList<object> CauldronObjects { get { return _cauldron; } }
-
-        /// <summary>
         /// Gets a collection of <see cref="AssemblyResource"/> that contains all fully qualified filename of embedded resources and thier corresponding <see cref="Assembly"/>
         /// </summary>
         public static ConcurrentList<AssemblyResource> AssemblyAndResourceNamesInfo { get; private set; }
 
         /// <summary>
-        /// Gets a collection of classes loaded to the <see cref="AppDomain"/>
+        /// Gets a collection of cauldron cache objects
         /// </summary>
-        public static IEnumerable<Type> Classes { get { return _assemblies.SelectMany(x => x.ExportedTypes).Where(x => x.IsClass); } }
+        public static IList<object> CauldronObjects { get { return _cauldron; } }
 
         /// <summary>
-        /// Gets a collection of exported types found in the loaded <see cref="AppDomain"/>
+        /// Gets a collection of classes loaded to the AppDomain
+        /// </summary>
+        public static IEnumerable<Type> Classes
+        {
+            get
+            {
+#if NETFX_CORE || NETCORE
+                return _assemblies.SelectMany(x => x.ExportedTypes).Where(x => x.GetTypeInfo().IsClass);
+#else
+                return _assemblies.SelectMany(x => x.ExportedTypes).Where(x => x.IsClass);
+#endif
+            }
+        }
+
+        /// <summary>
+        /// Gets a collection of exported types found in the AppDomain
         /// </summary>
         public static IEnumerable<Type> ExportedTypes { get { return _assemblies.SelectMany(x => x.ExportedTypes); } }
 
         /// <summary>
-        /// Gets a colleciton of Interfaces found in the loaded <see cref="AppDomain"/>
+        /// Gets a colleciton of Interfaces found in the AppDomain
         /// </summary>
-        public static IEnumerable<Type> Interfaces { get { return _assemblies.SelectMany(x => x.ExportedTypes).Where(x => x.IsInterface); } }
+        public static IEnumerable<Type> Interfaces
+        {
+            get
+            {
+#if NETFX_CORE || NETCORE
+                return _assemblies.SelectMany(x => x.ExportedTypes).Where(x => x.GetTypeInfo().IsInterface);
+#else
+                return _assemblies.SelectMany(x => x.ExportedTypes).Where(x => x.IsInterface);
+#endif
+            }
+        }
 
         /// <summary>
-        /// Gets a collection of <see cref="Assembly"/> that is loaded to the <see cref="AppDomain"/>
+        /// Gets a collection of <see cref="Assembly"/> that is loaded to the AppDomain
         /// </summary>
         public static ConcurrentList<Assembly> Known { get { return _assemblies; } }
+
+        /// <summary>
+        /// Adds a new Assembly to the assembly collection
+        /// </summary>
+        /// <param name="assembly">The assembly to be added</param>
+        /// <exception cref="NotSupportedException"><paramref name="assembly"/> is a dynamic assembly</exception>
+        public static void AddAssembly(Assembly assembly)
+        {
+            if (assembly.IsDynamic)
+                throw new NotSupportedException("Dynamic assemblies are not supported");
+
+            if (_assemblies.Any(x => x.ManifestModule.Name.GetHashCode() == assembly.ManifestModule.Name.GetHashCode() && x.ManifestModule.Name == assembly.ManifestModule.Name))
+                return;
+
+            _assemblies.Add(assembly);
+            object cauldronObject = null;
+
+            foreach (var item in assembly.DefinedTypes)
+                if (item.FullName != null && item.FullName.GetHashCode() == CauldronClassName.GetHashCode() && item.FullName == CauldronClassName)
+                {
+#if NETFX_CORE || NETCORE
+                    cauldronObject = Activator.CreateInstance(item.AsType());
+#else
+                    cauldronObject = Activator.CreateInstance(item);
+#endif
+                    _cauldron.Add(cauldronObject);
+                }
+
+            AssemblyAndResourceNamesInfo.AddRange(assembly.GetManifestResourceNames().Select(x => new AssemblyResource(assembly, x)));
+            LoadedAssemblyChanged?.Invoke(null, new AssemblyAddedEventArgs(assembly, cauldronObject));
+        }
 
         /// <summary>
         /// Returns the first found <see cref="Assembly"/> that contains an embedded resource with the given resource name
@@ -237,16 +288,6 @@ namespace Cauldron.Core
             return null;
         }
 
-        private static void GetAllCauldronCache()
-        {
-            for (int i = 0; i < _assemblies.Count; i++)
-            {
-                foreach (var item in _assemblies[i].DefinedTypes)
-                    if (item.FullName != null && item.FullName.GetHashCode() == CauldronClassName.GetHashCode() && item.FullName == CauldronClassName)
-                        _cauldron.Add(Activator.CreateInstance(item));
-            }
-        }
-
         private static void GetAllAssemblies()
         {
 #if WINDOWS_UWP
@@ -328,31 +369,18 @@ namespace Cauldron.Core
             AssemblyAndResourceNamesInfo = new ConcurrentList<AssemblyResource>(list.OrderBy(x => x.Filename));
         }
 
-        /// <summary>
-        /// Adds a new Assembly to the assembly collection
-        /// </summary>
-        /// <param name="assembly">The assembly to be added</param>
-        /// <exception cref="NotSupportedException"><paramref name="assembly"/> is a dynamic assembly</exception>
-        public static void AddAssembly(Assembly assembly)
+        private static void GetAllCauldronCache()
         {
-            if (assembly.IsDynamic)
-                throw new NotSupportedException("Dynamic assemblies are not supported");
-
-            if (_assemblies.Any(x => x.ManifestModule.Name.GetHashCode() == assembly.ManifestModule.Name.GetHashCode() && x.ManifestModule.Name == assembly.ManifestModule.Name))
-                return;
-
-            _assemblies.Add(assembly);
-            object cauldronObject = null;
-
-            foreach (var item in assembly.DefinedTypes)
-                if (item.FullName != null && item.FullName.GetHashCode() == CauldronClassName.GetHashCode() && item.FullName == CauldronClassName)
-                {
-                    cauldronObject = Activator.CreateInstance(item);
-                    _cauldron.Add(cauldronObject);
-                }
-
-            AssemblyAndResourceNamesInfo.AddRange(assembly.GetManifestResourceNames().Select(x => new AssemblyResource(assembly, x)));
-            LoadedAssemblyChanged?.Invoke(null, new AssemblyAddedEventArgs(assembly, cauldronObject));
+            for (int i = 0; i < _assemblies.Count; i++)
+            {
+                foreach (var item in _assemblies[i].DefinedTypes)
+                    if (item.FullName != null && item.FullName.GetHashCode() == CauldronClassName.GetHashCode() && item.FullName == CauldronClassName)
+#if NETFX_CORE || NETCORE
+                        _cauldron.Add(Activator.CreateInstance(item.AsType()));
+#else
+                        _cauldron.Add(Activator.CreateInstance(item));
+#endif
+            }
         }
     }
 

@@ -28,12 +28,11 @@ namespace Cauldron.Activator
     /// </summary>
     public sealed class Factory
     {
-        private static ConcurrentList<IFactoryExtension> factoryExtensions = new ConcurrentList<IFactoryExtension>();
-        private static ConcurrentList<ObjectKey> instances = new ConcurrentList<ObjectKey>();
         private static ConcurrentList<IFactoryTypeInfo> components = new ConcurrentList<IFactoryTypeInfo>();
         private static ConcurrentList<IFactoryCache> factoryCache = new ConcurrentList<IFactoryCache>();
-
+        private static ConcurrentList<IFactoryExtension> factoryExtensions = new ConcurrentList<IFactoryExtension>();
         private static string iFactoryExtensionName = typeof(IFactoryExtension).FullName;
+        private static ConcurrentList<ObjectKey> instances = new ConcurrentList<ObjectKey>();
 
         static Factory()
         {
@@ -183,29 +182,7 @@ namespace Cauldron.Activator
                 if (factoryType != null)
                     result = factoryType.CreateInstance(args);
                 else
-                {
-                    // Check if the type has a predefined object constructor
-                    var ctor = type.GetConstructors(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)
-                        .FirstOrDefault(x => x.GetCustomAttribute<ComponentConstructorAttribute>() != null);
-
-                    if (ctor != null)
-                    {
-                        if (ctor.GetParameters().Length != args.Length)
-                            throw new ArgumentException($"Factory is unable to initiate an instance of the type '{type.Name}'. Verify the passed parameters.");
-
-                        result = ctor.CreateInstance(args);
-                    }
-                    else if (ctor == null) // or a method acting as constructor
-                    {
-                        var methodInfo = type.GetMethodsEx(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static)
-                            .FirstOrDefault(x => x.GetCustomAttribute<ComponentConstructorAttribute>() != null);
-
-                        if (methodInfo != null)
-                            result = methodInfo.Invoke(null, args);
-                    }
-                    else
-                        result = type.CreateInstance(args);
-                }
+                    result = type.CreateInstance(args);
             }
             catch (TypeIsInterfaceException e)
             {
@@ -221,26 +198,6 @@ namespace Cauldron.Activator
                 // Activate all Extensions
                 for (int i = 0; i < factoryExtensions.Count; i++)
                     factoryExtensions[i].OnCreateObject(result, type);
-
-                // Invoke the IFactoryInitializeComponent.OnInitializeComponent method if implemented
-                result.As<IFactoryInitializeComponent>()?.OnInitializeComponent();
-            }
-
-            return result;
-        }
-
-        private static object CreateInstance(IFactoryTypeInfo factoryType, params object[] args)
-        {
-            if (factoryType == null)
-                throw new ArgumentNullException(nameof(factoryType));
-
-            var result = factoryType.CreateInstance(args);
-
-            if (result != null)
-            {
-                // Activate all Extensions
-                for (int i = 0; i < factoryExtensions.Count; i++)
-                    factoryExtensions[i].OnCreateObject(result, factoryType.Type);
 
                 // Invoke the IFactoryInitializeComponent.OnInitializeComponent method if implemented
                 result.As<IFactoryInitializeComponent>()?.OnInitializeComponent();
@@ -405,7 +362,28 @@ namespace Cauldron.Activator
         /// </summary>
         /// <param name="contractName">The name that identifies the type</param>
         /// <param name="type">The type to be removed</param>
-        public static void RemoveType(string contractName, Type type) => components.Remove(x => x.ContractName.GetHashCode() == contractName.GetHashCode() && x.ContractName == contractName && x.Type == type);
+        public static void RemoveType(string contractName, Type type) =>
+            components.Remove(x => x.ContractName.GetHashCode() == contractName.GetHashCode() && x.ContractName == contractName && x.Type == type);
+
+        private static object CreateInstance(IFactoryTypeInfo factoryType, params object[] args)
+        {
+            if (factoryType == null)
+                throw new ArgumentNullException(nameof(factoryType));
+
+            var result = factoryType.CreateInstance(args);
+
+            if (result != null)
+            {
+                // Activate all Extensions
+                for (int i = 0; i < factoryExtensions.Count; i++)
+                    factoryExtensions[i].OnCreateObject(result, factoryType.Type);
+
+                // Invoke the IFactoryInitializeComponent.OnInitializeComponent method if implemented
+                result.As<IFactoryInitializeComponent>()?.OnInitializeComponent();
+            }
+
+            return result;
+        }
 
         private static object GetInstance(IFactoryTypeInfo factoryTypeInfo, object[] parameters)
         {
@@ -466,7 +444,7 @@ namespace Cauldron.Activator
                         return null;
                     }
 
-                    return CreateInstance(realType, parameters);
+                    return realType.CreateInstance(parameters);
                 }
                 catch (Exception e)
                 {
@@ -507,8 +485,12 @@ namespace Cauldron.Activator
             if (factoryTypeInfos == null)
                 throw new KeyNotFoundException("The contractName '" + contractName + "' was not found.");
 
+            var result = new List<object>();
+
             foreach (var factoryTypeInfo in factoryTypeInfos)
-                yield return GetInstance(factoryTypeInfo, parameters);
+                result.Add(GetInstance(factoryTypeInfo, parameters));
+
+            return result;
         }
 
         private class ObjectKey : DisposableBase
