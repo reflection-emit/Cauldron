@@ -20,6 +20,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)IMessageDialog.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)INotifyBehaviourInvocation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IRelayCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IViewInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IViewModelInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IXAMLCache.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MessageBoxImage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MessageDialogEx.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Navigation\CauldronBackRequestedEventArgs.cs" />
