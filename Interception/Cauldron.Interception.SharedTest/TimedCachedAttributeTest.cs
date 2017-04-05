@@ -1,9 +1,18 @@
 ﻿using Cauldron.Core.Extensions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
+
+#if WINDOWS_UWP
+
+using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+
+#else
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+#endif
 
 namespace Cauldron.Interception.Test
 {

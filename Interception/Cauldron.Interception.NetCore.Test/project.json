@@ -20,7 +20,7 @@
     "outputName": "Cauldron.Interception.Test",
     "compile": {
       "include": [
-        "../Cauldron.Interception.Test/**/*.cs"
+        "../Cauldron.Interception.SharedTest/**/*.cs"
       ],
       "excludeFiles": [
         "../Cauldron.Interception.Test/Properties/AssemblyInfo.cs"

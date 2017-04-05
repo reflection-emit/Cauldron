@@ -207,17 +207,24 @@ namespace Cauldron.Interception.Cecilator
         public static IEnumerable<TypeReference> GetInterfaces(this TypeReference type)
         {
             var typeDef = type.Resolve();
+            var result = new List<TypeReference>();
 
-            if (typeDef == null)
-                return new TypeReference[0];
+            while (true)
+            {
+                if (typeDef == null)
+                    break;
 
-            if (typeDef.Interfaces != null && typeDef.Interfaces.Count > 0)
-                return type.Recursive(x => x.Resolve().Interfaces).Select(x => x.ResolveType(type));
+                if (typeDef.BaseType == null)
+                    break;
 
-            if (typeDef.BaseType != null)
-                return GetInterfaces(typeDef.BaseType);
+                if (typeDef.Interfaces != null && typeDef.Interfaces.Count > 0)
+                    result.AddRange(type.Recursive(x => x.Resolve().Interfaces).Select(x => x.ResolveType(type)));
 
-            return new TypeReference[0];
+                type = typeDef.BaseType;
+                typeDef = type.Resolve();
+            };
+
+            return result;
         }
 
         public static MethodReference GetMethodReference(this TypeReference type, string methodName, int parameterCount)

@@ -43,7 +43,11 @@ namespace Cauldron.Interception.Cecilator
                 this.innerCollection.AddRange(propertyDefinition.SetMethod.CustomAttributes.Select(x => new BuilderCustomAttribute(builder, propertyDefinition.SetMethod, x)));
         }
 
-        public void Add(Type customAttributeType, params object[] parameters)
+        public void Add(Type customAttributeType, params object[] parameters) => this.Add(this.moduleDefinition.Import(customAttributeType), parameters);
+
+        public void Add(BuilderType customAttributeType, params object[] parameters) => this.Add(customAttributeType.typeReference, parameters);
+
+        public void Add(TypeReference customAttributeType, params object[] parameters)
         {
             MethodReference ctor = null;
             var type = this.moduleDefinition.Import(customAttributeType);

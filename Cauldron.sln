@@ -240,14 +240,19 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Cauldron.Interception.Loggi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.Desktop.Interception.Logging.NLog", "Desktop\Cauldron.Desktop.Interception.Logging.NLog\Cauldron.Desktop.Interception.Logging.NLog.csproj", "{443C91E5-E0FB-4110-ACA8-2D2D130CCBA8}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Cauldron.Interception.SharedTest", "Interception\Cauldron.Interception.SharedTest\Cauldron.Interception.SharedTest.shproj", "{0C0FC5CB-C4BF-443D-BB52-E37B74538702}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Shared\Cauldron.Consoles\Cauldron.Consoles.projitems*{00c29751-1557-46a8-9547-f74065b36592}*SharedItemsImports = 4
 		Shared\Samples\EveOnlineApi\EveOnlineApi.projitems*{040a2df8-beca-48ee-bd78-0a9350fcb997}*SharedItemsImports = 4
+		Interception\Cauldron.Interception.SharedTest\Cauldron.Interception.SharedTest.projitems*{0a0f244a-b479-4b08-9883-cb731ad3bb60}*SharedItemsImports = 4
 		Shared\Cauldron.Core.Desktop\Cauldron.Core.Desktop.projitems*{0b23e7be-0e65-4a53-988f-67a0e9eeea2e}*SharedItemsImports = 4
 		Shared\Cauldron.Core\Cauldron.Core.projitems*{0b23e7be-0e65-4a53-988f-67a0e9eeea2e}*SharedItemsImports = 4
 		Shared\Cauldron.Diagnostics\Cauldron.Diagnostics.projitems*{0b23e7be-0e65-4a53-988f-67a0e9eeea2e}*SharedItemsImports = 4
+		Interception\Cauldron.Interception.SharedTest\Cauldron.Interception.SharedTest.projitems*{0c0fc5cb-c4bf-443d-bb52-e37b74538702}*SharedItemsImports = 13
 		Shared\Cauldron.Localization\Cauldron.Localization.projitems*{0c1146b3-ada7-4b8b-921c-cb73f665b4ff}*SharedItemsImports = 4
+		Interception\Cauldron.Interception.SharedTest\Cauldron.Interception.SharedTest.projitems*{0cd2e3fc-ad8c-4bd5-aa9f-f8c9aa62c8c3}*SharedItemsImports = 4
 		Shared\Cauldron.Cryptography\Cauldron.Cryptography.projitems*{1890c23c-8e1a-4216-9f8c-69ddb81bb61c}*SharedItemsImports = 4
 		Shared\Unit Tests\Cauldron.Core.Test\Cauldron.Core.Test.projitems*{1d12878f-02b5-4faa-87df-6df764abf44a}*SharedItemsImports = 13
 		Shared\Cauldron.Diagnostics\Cauldron.Diagnostics.projitems*{30d10e9e-861b-45ec-84d8-e14064a37788}*SharedItemsImports = 13
@@ -297,7 +302,6 @@ Global
 		Shared\Cauldron.Interception\Cauldron.Interception.projitems*{a8f9dab9-ceb7-4c3b-81ec-5c681f87eb59}*SharedItemsImports = 13
 		Shared\Cauldron.XAML.Interactivity\Cauldron.XAML.Interactivity.projitems*{ab91b0bd-baa6-43bb-a33a-c07a3a91a1ef}*SharedItemsImports = 13
 		Shared\Unit Tests\Cauldron.XAML.Test\Cauldron.XAML.Test.projitems*{b14eac3c-6b7f-4c1d-ab6b-aca7ca47d453}*SharedItemsImports = 4
-		Shared\Unit Tests\Cauldron.Core.Test\Cauldron.Core.Test.projitems*{b3ec6b94-192a-4fe2-8309-4e632ae0a64b}*SharedItemsImports = 4
 		Shared\IEnumerableExtensions\IEnumerableExtensions.projitems*{ba19d691-4514-4059-95ef-8a6fe7612f83}*SharedItemsImports = 13
 		Shared\Unit Tests\Cauldron.XAML.Test\Cauldron.XAML.Test.projitems*{bb1efccc-11f3-4730-b8c7-7cdce54bd369}*SharedItemsImports = 13
 		Shared\Cauldron.Cryptography\Cauldron.Cryptography.projitems*{bc84f1d6-e20d-41a5-8ab1-90b9d023850d}*SharedItemsImports = 13
@@ -1415,5 +1419,6 @@ Global
 		{14FEFB41-655C-4C16-A1F1-1A9F0AB1DE7E} = {EA06A323-B0C5-410B-8716-B5694678D0FE}
 		{9DCC8539-5A09-48DE-B60D-CE157FDF22A0} = {4424AE9A-725C-4D9B-8DCF-D6D4289AB769}
 		{443C91E5-E0FB-4110-ACA8-2D2D130CCBA8} = {45646BEE-05CB-4168-8F1F-291F511B6B76}
+		{0C0FC5CB-C4BF-443D-BB52-E37B74538702} = {B1732329-29AB-4590-8408-6A6A3A2236D8}
 	EndGlobalSection
 EndGlobal

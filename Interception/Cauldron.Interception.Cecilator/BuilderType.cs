@@ -24,6 +24,20 @@ namespace Cauldron.Interception.Cecilator
 
         public string Fullname { get { return this.typeReference.FullName; } }
 
+        public bool HasUnresolvedGenericParameters
+        {
+            get
+            {
+                if (!this.typeReference.HasGenericParameters)
+                    return false;
+
+                if (!this.typeReference.ContainsGenericParameter)
+                    return false;
+
+                return this.typeReference.GenericParameters.Any(x => x.IsGenericParameter) || ((this.typeReference as GenericInstanceType)?.GenericArguments.Any(x => x.IsGenericParameter) ?? false);
+            }
+        }
+
         public bool IsAbstract { get { return this.typeDefinition.Attributes.HasFlag(TypeAttributes.Abstract); } }
 
         public bool IsArray { get { return this.typeDefinition != null && (this.typeDefinition.IsArray || this.typeReference.FullName.EndsWith("[]") || this.typeDefinition.FullName.EndsWith("[]")); } }
@@ -31,7 +45,6 @@ namespace Cauldron.Interception.Cecilator
         public bool IsForeign { get { return this.moduleDefinition.Assembly == this.typeDefinition.Module.Assembly; } }
 
         public bool IsGenericType { get { return this.typeDefinition == null || this.typeReference.Resolve() == null; } }
-
         public bool IsInterface { get { return this.typeDefinition == null ? false : this.typeDefinition.Attributes.HasFlag(TypeAttributes.Interface); } }
 
         public bool IsNullable { get { return this.typeDefinition.FullName == this.moduleDefinition.Import(typeof(Nullable<>)).Resolve().FullName; } }
@@ -60,14 +73,15 @@ namespace Cauldron.Interception.Cecilator
 
         public bool Implements(Type interfaceType) => this.Implements(interfaceType.FullName);
 
-        public bool Implements(string interfaceName) => this.Interfaces.Any(x => x.typeReference.FullName == interfaceName || x.typeDefinition.FullName == interfaceName);
+        public bool Implements(string interfaceName) => this.Interfaces.Any(x =>
+            (x.typeReference.FullName.GetHashCode() == interfaceName.GetHashCode() && x.typeReference.FullName == interfaceName) ||
+            (x.typeDefinition.FullName.GetHashCode() == interfaceName.GetHashCode() && x.typeDefinition.FullName == interfaceName));
 
         public bool Inherits(Type type) => this.Inherits(typeDefinition.FullName);
 
-        public bool Inherits(string typename) =>
-            this.BaseClasses.Any(x =>
-                (x.typeReference.FullName.GetHashCode() == typename.GetHashCode() && x.typeReference.FullName == typename) ||
-                (x.typeDefinition.FullName.GetHashCode() == typename.GetHashCode() && x.typeDefinition.FullName == typename));
+        public bool Inherits(string typename) => this.BaseClasses.Any(x =>
+            (x.typeReference.FullName.GetHashCode() == typename.GetHashCode() && x.typeReference.FullName == typename) ||
+            (x.typeDefinition.Name.GetHashCode() == typename.GetHashCode() && x.typeDefinition.Name == typename));
 
         #region Constructors
 

@@ -17,15 +17,6 @@ namespace Cauldron.XAML
     public interface IXAMLCache
     {
         /// <exclude/>
-        ResourceDictionary[] GetResourceDictionaries();
-
-        /// <exclude/>
-        IValueConverter[] GetValueConverters();
-
-        /// <exclude/>
         IViewModelInfo[] GetViewModels();
-
-        /// <exclude/>
-        IViewInfo[] GetViews();
     }
 }

@@ -17,7 +17,6 @@ namespace Cauldron.Interception.Cecilator
         }
 
         public BuilderCustomAttributeCollection CustomAttributes { get { return new BuilderCustomAttributeCollection(this, this.moduleDefinition); } }
-
         public string Name { get { return this.moduleDefinition.Name; } }
 
         [EditorBrowsable(EditorBrowsableState.Never)]

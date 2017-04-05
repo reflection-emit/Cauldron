@@ -37,13 +37,21 @@ namespace Cauldron.Interception.Cecilator
             this.logWarning = weaver.LogWarning;
             this.moduleDefinition = weaver.ModuleDefinition;
 
-            this.allAssemblies = this.GetAllAssemblyDefinitions(this.moduleDefinition.AssemblyReferences)
-                  .Concat(new AssemblyDefinition[] { this.moduleDefinition.Assembly }).ToArray();
+            var assemblies = this.GetAllAssemblyDefinitions(this.moduleDefinition.AssemblyReferences)
+                  .Concat(new AssemblyDefinition[] { this.moduleDefinition.Assembly });
+
+            var unusedAssembly = weaver.ReferenceCopyLocalPaths
+                .Where(x => x.EndsWith(".dll"))
+                .Select(x => AssemblyDefinition.ReadAssembly(x))
+                .Where(x => !assemblies.Any(y => y.FullName.GetHashCode() == x.FullName.GetHashCode() && y.FullName == x.FullName))
+                .ToArray();
+
+            this.allAssemblies = assemblies.Concat(unusedAssembly).ToArray();
 
             this.logInfo("-----------------------------------------------------------------------------");
 
             foreach (var item in allAssemblies)
-                this.logInfo("<<Assembly>> " + item.FullName);
+                this.logInfo("<<Assembly>> " + item.Name);
 
             this.allTypes = this.allAssemblies.SelectMany(x => x.Modules).Where(x => x != null).SelectMany(x => x.Types).Where(x => x != null).Concat(this.moduleDefinition.Types).ToArray();
             this.logInfo("-----------------------------------------------------------------------------");

@@ -17,6 +17,8 @@ namespace Cauldron.Interception.Test
     [TestClass]
     public class Method_Interceptor_TypeWide_Validation_Test
     {
+#if !WINDOWS_UWP
+
         [TestMethod]
         [ExpectedException(typeof(Exception))]
         public void InterceptAllMethods_Test()
@@ -24,6 +26,18 @@ namespace Cauldron.Interception.Test
             var testClass = new TypeWideMethodTestClass();
             testClass.Method1();
         }
+
+#else
+        [TestMethod]
+        public void InterceptAllMethods_Test()
+        {
+            Assert.ThrowsException<Exception>(() =>
+            {
+                var testClass = new TypeWideMethodTestClass();
+                testClass.Method1();
+            });
+        }
+#endif
 
         [TestMethod]
         public void Method_Interceptor_Respect_DoNotInterceptAttribute_Test()

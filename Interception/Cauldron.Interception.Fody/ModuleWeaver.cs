@@ -24,6 +24,8 @@ namespace Cauldron.Interception.Fody
 
         public ModuleDefinition ModuleDefinition { get; set; }
 
+        public List<string> ReferenceCopyLocalPaths { get; set; }
+
         public void Execute()
         {
             var builder = this.CreateBuilder();
@@ -56,6 +58,75 @@ namespace Cauldron.Interception.Fody
             this.InterceptProperties(builder, propertyInterceptingAttributes);
 
             this.CreateFactoryCache(builder);
+        }
+
+        private void AddAttributeToXAMLResources(Builder builder)
+        {
+            var valueConverterInterface = builder.TypeExists("Windows.UI.Xaml.Data.IValueConverter") ? builder.GetType("Windows.UI.Xaml.Data.IValueConverter") : builder.GetType("System.Windows.Data.IValueConverter");
+            var notifyPropertyChangedInterface = builder.GetType("System.ComponentModel.INotifyPropertyChanged");
+            var componentAttribute = builder.GetType("Cauldron.Activator.ComponentAttribute");
+            var componentConstructorAttribute = builder.GetType("Cauldron.Activator.ComponentConstructorAttribute");
+
+            var views = builder.FindTypesByBaseClass("FrameworkElement");
+            var viewModels = builder.FindTypesByInterface(notifyPropertyChangedInterface);
+            var valueConverters = builder.FindTypesByInterface(valueConverterInterface);
+            var resourceDictionaries = builder.FindTypesByBaseClass("System.Windows.ResourceDictionary");
+
+            foreach (var item in views)
+            {
+                if (item.IsAbstract || item.IsInterface || item.HasUnresolvedGenericParameters)
+                    continue;
+
+                if (item.CustomAttributes.HasAttribute(componentAttribute))
+                    continue;
+
+                item.CustomAttributes.Add(componentAttribute, item.Fullname);
+                // Add a component contructor attribute to all .ctors
+                foreach (var ctor in item.Methods.Where(x => x.Name == ".ctor"))
+                    ctor.CustomAttributes.Add(componentConstructorAttribute);
+            }
+
+            foreach (var item in viewModels)
+            {
+                if (item.IsAbstract || item.IsInterface || item.HasUnresolvedGenericParameters)
+                    continue;
+
+                if (item.CustomAttributes.HasAttribute(componentAttribute))
+                    continue;
+
+                item.CustomAttributes.Add(componentAttribute, item.Fullname);
+                // Add a component contructor attribute to all .ctors
+                foreach (var ctor in item.Methods.Where(x => x.Name == ".ctor"))
+                    ctor.CustomAttributes.Add(componentConstructorAttribute);
+            }
+
+            foreach (var item in valueConverters)
+            {
+                if (item.IsAbstract || item.IsInterface || item.HasUnresolvedGenericParameters)
+                    continue;
+
+                if (item.CustomAttributes.HasAttribute(componentAttribute))
+                    continue;
+
+                item.CustomAttributes.Add(componentAttribute, valueConverterInterface.Fullname);
+                // Add a component contructor attribute to all .ctors
+                foreach (var ctor in item.Methods.Where(x => x.Name == ".ctor"))
+                    ctor.CustomAttributes.Add(componentConstructorAttribute);
+            }
+
+            foreach (var item in resourceDictionaries)
+            {
+                if (item.IsAbstract || item.IsInterface || item.HasUnresolvedGenericParameters)
+                    continue;
+
+                if (item.CustomAttributes.HasAttribute(componentAttribute))
+                    continue;
+
+                item.CustomAttributes.Add(componentAttribute, "System.Windows.ResourceDictionary");
+                // Add a component contructor attribute to all .ctors
+                foreach (var ctor in item.Methods.Where(x => x.Name == ".ctor"))
+                    ctor.CustomAttributes.Add(componentConstructorAttribute);
+            }
         }
 
         private Method CreateAssigningMethod(BuilderType anonSource, BuilderType anonTarget, BuilderType anonTargetInterface, Method method)
@@ -278,6 +349,9 @@ namespace Cauldron.Interception.Fody
                 .Context(x => x.Call(x.NewCode().This, builder.GetType(typeof(object)).ParameterlessContructor))
                 .Return()
                 .Replace();
+
+            if (builder.IsReferenced("Cauldron.XAML"))
+                AddAttributeToXAMLResources(builder);
 
             if (builder.IsReferenced("Cauldron.Activator"))
                 CreateComponentCache(builder, cauldron);
