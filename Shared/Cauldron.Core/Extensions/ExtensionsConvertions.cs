@@ -86,6 +86,8 @@ namespace Cauldron.Core.Extensions
         /// <code>
         /// var bar = someOtherClassInstance.GetFooFromSomewhere("fooThatINeed").As&lt;Bar&gt;();
         /// </code>
+        /// The GetFooFromSomewhere method returns a Foo type. The Bar class does not have any relation to the Foo class. It does not even implements the IFoo interface.
+        /// The Bar type has an implicit convertion to the Foo type. The As&lt;&gt; will use this implicit convertion to convert the Foo instance to a Bar instance.
         /// </example>
         public static T As<T>(this object source) where T : class
         {
