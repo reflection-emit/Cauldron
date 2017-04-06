@@ -27,6 +27,8 @@ https://Capgemini.github.io/Cauldron/eveonline/
 - [CodeMaid](http://www.codemaid.net/)
 
 ## Release Notes
+### 1.2.0
+- NetCore Dlls droped from package due to issues with Fody - This will be back as soon as NetCore and Fody works a lot better
 ### 1.1.4
 - Inject attribute default paramaters are now "params"
 - Assemblies class now throws a better error message if an Assembly cannot be loaded
