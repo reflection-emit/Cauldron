@@ -29,7 +29,7 @@ https://Capgemini.github.io/Cauldron/eveonline/
 ## Release Notes
 ### 1.2.0
 - NetCore Dlls droped from package due to issues with Fody - This will be back as soon as NetCore and Fody works a lot better
-- Types with the component attribute get a hard-coded CreateInstance method. The Factory with use this method to create an instance. This should give the factory an instancing performance almost on par with the new keyword.
+- Types with the component attribute get a hard-coded CreateInstance method. The Factory will use this method to create an instance of the type. This should give the factory an instancing performance almost on par with the __new__ keyword.
 - Types that inherits or implements the following classes or interfaces are considered as components and will also recieve a CreateInstance method: ResourceDictionary, IValueConverter, INotifyPropertyChanged, FrameworkElement
 ### 1.1.4
 - Inject attribute default paramaters are now "params"
