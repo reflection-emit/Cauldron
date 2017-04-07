@@ -47,11 +47,21 @@ namespace Cauldron.Core
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool GetCursorPos(ref Win32Point pt);
 
+        public delegate bool EnumThreadDelegate(IntPtr hWnd, IntPtr lParam);
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool EnumThreadWindows(int dwThreadId, EnumThreadDelegate lpfn, IntPtr lParam);
+
         //[DllImport("user32.dll")]
         //public static extern bool GetIconInfo(IntPtr hIcon, out ICONINFO piconinfo);
 
-        [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
-        public static extern IntPtr GetModuleHandle(string lpModuleName);
+        /*
+         *  Don't remove this so that it won't be forgotten!
+         *  Don't use GetModuleHandle ... It is broken for .NET
+            [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
+            public static extern IntPtr GetModuleHandle(string lpModuleName);
+        */
 
         [DllImport("user32")]
         public static extern bool GetMonitorInfo(IntPtr hMonitor, MONITORINFO lpmi);
