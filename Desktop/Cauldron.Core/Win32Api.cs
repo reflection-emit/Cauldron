@@ -146,8 +146,15 @@ namespace Cauldron.Core
         {
             if (message == UnsafeNative.WM_COPYDATA)
             {
-                var data = Marshal.PtrToStructure<UnsafeNative.COPYDATASTRUCT>(lParam);
-                return data.lpData;
+                try
+                {
+                    var data = Marshal.PtrToStructure<UnsafeNative.COPYDATASTRUCT>(lParam);
+                    return data.lpData;
+                }
+                catch
+                {
+                    return null;
+                }
             }
 
             return null;
