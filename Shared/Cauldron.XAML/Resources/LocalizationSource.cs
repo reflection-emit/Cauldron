@@ -19,8 +19,9 @@ namespace Cauldron.XAML.Resources
         private Dictionary<string, PropertyInfo> language = new Dictionary<string, PropertyInfo>();
         private Dictionary<string, LocalizationKeyValue> localizations = new Dictionary<string, LocalizationKeyValue>();
 
+        /// <exclude/>
         [ComponentConstructor]
-        internal LocalizationSource()
+        public LocalizationSource()
         {
             try
             {

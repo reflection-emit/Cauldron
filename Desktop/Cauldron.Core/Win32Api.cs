@@ -208,7 +208,8 @@ namespace Cauldron.Core
         /// <param name="lParam">Additional message-specific information.</param>
         public static void SendMessage(IntPtr hwnd, WindowsMessages windowMessage, IntPtr wParam, IntPtr lParam)
         {
-            UnsafeNative.SendMessage(hwnd, (int)windowMessage, wParam, lParam);
+            if (UnsafeNative.SendMessage(hwnd, (int)windowMessage, wParam, lParam) != 0)
+                throw new Win32Exception(Marshal.GetLastWin32Error());
         }
 
         /// <summary>

@@ -66,6 +66,7 @@ namespace Cauldron.Interception.Fody
             var notifyPropertyChangedInterface = builder.GetType("System.ComponentModel.INotifyPropertyChanged");
             var componentAttribute = builder.GetType("Cauldron.Activator.ComponentAttribute");
             var componentConstructorAttribute = builder.GetType("Cauldron.Activator.ComponentConstructorAttribute");
+            var windowType = builder.TypeExists("System.Windows.Window") ? builder.GetType("System.Windows.Window") : null;
 
             var views = builder.FindTypesByBaseClass("FrameworkElement");
             var viewModels = builder.FindTypesByInterface(notifyPropertyChangedInterface);
@@ -80,7 +81,13 @@ namespace Cauldron.Interception.Fody
                 if (item.CustomAttributes.HasAttribute(componentAttribute))
                     continue;
 
-                item.CustomAttributes.Add(componentAttribute, item.Fullname);
+                // We have to make some exceptions here
+                // Everything that inherits from Window, should have to contractname Window ... but only for desktop... because UWP does not have custom windows
+                if (windowType != null && item.IsSubclassOf(windowType))
+                    item.CustomAttributes.Add(componentAttribute, windowType.Fullname);
+                else
+                    item.CustomAttributes.Add(componentAttribute, item.Fullname);
+
                 // Add a component contructor attribute to all .ctors
                 foreach (var ctor in item.Methods.Where(x => x.Name == ".ctor"))
                     ctor.CustomAttributes.Add(componentConstructorAttribute);

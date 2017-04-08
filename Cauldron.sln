@@ -242,6 +242,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.Desktop.Intercepti
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Cauldron.Interception.SharedTest", "Interception\Cauldron.Interception.SharedTest\Cauldron.Interception.SharedTest.shproj", "{0C0FC5CB-C4BF-443D-BB52-E37B74538702}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParameterPassingToRunningConsoleApplication", "Desktop\Samples\ParameterPassingToRunningConsoleApplication\ParameterPassingToRunningConsoleApplication.csproj", "{C0A9C5FA-B50F-4A66-9593-6410EB865783}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Shared\Cauldron.Consoles\Cauldron.Consoles.projitems*{00c29751-1557-46a8-9547-f74065b36592}*SharedItemsImports = 4
@@ -1325,6 +1327,22 @@ Global
 		{443C91E5-E0FB-4110-ACA8-2D2D130CCBA8}.Release|x64.Build.0 = Release|Any CPU
 		{443C91E5-E0FB-4110-ACA8-2D2D130CCBA8}.Release|x86.ActiveCfg = Release|Any CPU
 		{443C91E5-E0FB-4110-ACA8-2D2D130CCBA8}.Release|x86.Build.0 = Release|Any CPU
+		{C0A9C5FA-B50F-4A66-9593-6410EB865783}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0A9C5FA-B50F-4A66-9593-6410EB865783}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0A9C5FA-B50F-4A66-9593-6410EB865783}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{C0A9C5FA-B50F-4A66-9593-6410EB865783}.Debug|ARM.Build.0 = Debug|Any CPU
+		{C0A9C5FA-B50F-4A66-9593-6410EB865783}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C0A9C5FA-B50F-4A66-9593-6410EB865783}.Debug|x64.Build.0 = Debug|Any CPU
+		{C0A9C5FA-B50F-4A66-9593-6410EB865783}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C0A9C5FA-B50F-4A66-9593-6410EB865783}.Debug|x86.Build.0 = Debug|Any CPU
+		{C0A9C5FA-B50F-4A66-9593-6410EB865783}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0A9C5FA-B50F-4A66-9593-6410EB865783}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0A9C5FA-B50F-4A66-9593-6410EB865783}.Release|ARM.ActiveCfg = Release|Any CPU
+		{C0A9C5FA-B50F-4A66-9593-6410EB865783}.Release|ARM.Build.0 = Release|Any CPU
+		{C0A9C5FA-B50F-4A66-9593-6410EB865783}.Release|x64.ActiveCfg = Release|Any CPU
+		{C0A9C5FA-B50F-4A66-9593-6410EB865783}.Release|x64.Build.0 = Release|Any CPU
+		{C0A9C5FA-B50F-4A66-9593-6410EB865783}.Release|x86.ActiveCfg = Release|Any CPU
+		{C0A9C5FA-B50F-4A66-9593-6410EB865783}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1420,5 +1438,6 @@ Global
 		{9DCC8539-5A09-48DE-B60D-CE157FDF22A0} = {4424AE9A-725C-4D9B-8DCF-D6D4289AB769}
 		{443C91E5-E0FB-4110-ACA8-2D2D130CCBA8} = {45646BEE-05CB-4168-8F1F-291F511B6B76}
 		{0C0FC5CB-C4BF-443D-BB52-E37B74538702} = {B1732329-29AB-4590-8408-6A6A3A2236D8}
+		{C0A9C5FA-B50F-4A66-9593-6410EB865783} = {3BE31091-7470-4D9B-B163-4BE4A674A5D1}
 	EndGlobalSection
 EndGlobal

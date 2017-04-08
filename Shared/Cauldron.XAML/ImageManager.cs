@@ -5,6 +5,7 @@ using System.Collections.Concurrent;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using System.Linq;
+using Cauldron.Internal;
 
 #if WINDOWS_UWP
 

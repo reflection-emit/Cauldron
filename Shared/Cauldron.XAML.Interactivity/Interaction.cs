@@ -1,6 +1,6 @@
-﻿using Cauldron.IEnumerableExtensions;
-using System;
+﻿using System;
 using System.Linq;
+using Cauldron.Internal;
 
 #if WINDOWS_UWP
 

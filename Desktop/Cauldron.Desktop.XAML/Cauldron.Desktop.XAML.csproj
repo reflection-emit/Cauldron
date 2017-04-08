@@ -69,6 +69,7 @@
       <DependentUpon>StylesAndTemplates.xaml</DependentUpon>
     </Compile>
     <Compile Include="WindowConfiguration.cs" />
+    <Compile Include="WindowType.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Cauldron.Core\Cauldron.Desktop.Core.csproj">
