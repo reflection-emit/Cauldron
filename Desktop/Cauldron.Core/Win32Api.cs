@@ -1,10 +1,12 @@
 ﻿using Cauldron.Core.Extensions;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security.Principal;
@@ -87,6 +89,27 @@ namespace Cauldron.Core
         }
 
         /// <summary>
+        /// Returns all window handles associated with the process id. The process id can be retrieved with <see cref="Process.GetCurrentProcess()"/>.Id
+        /// </summary>
+        /// <param name="processId">The unique identifier for the associated process.</param>
+        /// <returns>A collection of window handles associated with the process id</returns>
+        public static IEnumerable<IntPtr> GetAllThreadWindowHandles(int processId)
+        {
+            var result = new List<IntPtr>();
+            var threads = Process.GetProcessById(processId).Threads;
+
+            for (int i = 0; i < threads.Count; i++)
+                UnsafeNative.EnumThreadWindows(threads[i].Id,
+                    (hWnd, lParam) =>
+                    {
+                        result.Add(hWnd);
+                        return true;
+                    }, IntPtr.Zero);
+
+            return result;
+        }
+
+        /// <summary>
         /// Extracts an icon from a exe, dll or ico file.
         /// </summary>
         /// <param name="filename">The filename of the resource</param>
@@ -146,8 +169,17 @@ namespace Cauldron.Core
         {
             if (message == UnsafeNative.WM_COPYDATA)
             {
-                var data = Marshal.PtrToStructure<UnsafeNative.COPYDATASTRUCT>(lParam);
-                return data.lpData;
+                try
+                {
+                    var data = Marshal.PtrToStructure<UnsafeNative.COPYDATASTRUCT>(lParam);
+                    var result = data.lpData.Copy();
+                    Marshal.FreeCoTaskMem(lParam);
+                    return result;
+                }
+                catch
+                {
+                    return null;
+                }
             }
 
             return null;
@@ -243,6 +275,21 @@ namespace Cauldron.Core
 
             if (UnsafeNative.SendMessage(hwnd, UnsafeNative.WM_COPYDATA, IntPtr.Zero, ref data) != 0)
                 throw new Win32Exception(Marshal.GetLastWin32Error());
+        }
+
+        /// <summary>
+        /// Sends the specified message string to all windows of all processes with the given process name.
+        /// The SendMessage function calls the window procedure for the specified window and does not return until the window procedure has processed the message.
+        /// </summary>
+        /// <param name="processName">The name of the process</param>
+        /// <param name="message">The message to be sent to the windows</param>
+        public static void SendMessage(string processName, string message)
+        {
+            var currentProcess = Process.GetCurrentProcess();
+
+            foreach (var process in Process.GetProcessesByName(processName).Where(x => x.Id != currentProcess.Id))
+                foreach (var handle in GetAllThreadWindowHandles(process.Id))
+                    SendMessage(handle, message);
         }
 
         /// <summary>

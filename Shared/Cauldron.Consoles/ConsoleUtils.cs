@@ -17,7 +17,7 @@ namespace Cauldron.Consoles
         /// <summary>
         /// Retrieves the window handle used by the console associated with the calling process.
         /// </summary>
-        /// <returns>The return value is a handle to the window used by the console associated with the calling process or NULL if there is no such associated console.</returns>
+        /// <returns>The return value is a handle to the window used by the console associated with the calling process or NULL if there is no such window associated console.</returns>
         public static IntPtr GetConsoleWindowHandle() => UnsafeNative.GetConsoleWindow();
 
         /// <summary>
