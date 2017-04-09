@@ -20,7 +20,7 @@
         <dependency id="Cauldron.Interception.Fody" version="1.2.0-beta" />
         <dependency id="Fody" version="1.29.4" />
       </group>
-      <group targetFramework="netstandard1.6">
+      <!--   <group targetFramework="netstandard1.6">
         <dependency id="Microsoft.Extensions.DependencyModel" version="1.2.0-beta" />
         <dependency id="NETStandard.Library" version="1.6.1" />
         <dependency id="System.Diagnostics.Process" version="4.3.0" />
@@ -34,7 +34,7 @@
         <dependency id="System.Xml.XPath.XmlDocument" version="4.3.0" />
         <dependency id="Cauldron.Interception.Fody" version="1.2.0-beta" />
         <dependency id="Fody" version="1.29.4" />
-      </group>
+      </group>-->
       <group targetFramework="net452">
         <dependency id="Cauldron.Interception.Fody" version="1.2.0-beta" />
         <dependency id="Fody" version="1.29.4" />
