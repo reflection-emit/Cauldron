@@ -71,7 +71,7 @@ namespace Cauldron.Interception.Fody
             var views = builder.FindTypesByBaseClass("FrameworkElement");
             var viewModels = builder.FindTypesByInterface(notifyPropertyChangedInterface);
             var valueConverters = builder.FindTypesByInterface(valueConverterInterface);
-            var resourceDictionaries = builder.FindTypesByBaseClass("System.Windows.ResourceDictionary");
+            var resourceDictionaries = builder.TypeExists("System.Windows.ResourceDictionary") ? builder.FindTypesByBaseClass("System.Windows.ResourceDictionary") : builder.FindTypesByBaseClass("Windows.UI.Xaml.ResourceDictionary");
 
             foreach (var item in views)
             {
@@ -381,6 +381,9 @@ namespace Cauldron.Interception.Fody
 
             if (builder.IsReferenced("Cauldron.Activator"))
                 CreateComponentCache(builder, cauldron);
+
+            // Add all unused assembly to modules
+            // TODO
         }
 
         private void ImplementAnonymousTypeInterface(Builder builder)

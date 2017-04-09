@@ -21,8 +21,9 @@ namespace Cauldron.XAML
     {
         private INavigator navigator;
 
+        /// <exclude/>
         [ComponentConstructor]
-        private MessageDialogEx()
+        public MessageDialogEx()
         {
             this.navigator = Factory.Create<INavigator>();
         }

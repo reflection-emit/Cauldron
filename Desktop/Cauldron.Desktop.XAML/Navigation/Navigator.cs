@@ -29,6 +29,12 @@ namespace Cauldron.XAML.Navigation
 
         private WindowType windowType;
 
+        /// <exclude/>
+        [ComponentConstructor]
+        public Navigator()
+        {
+        }
+
         /// <summary>
         /// Gets a value that indicates whether there is at least one entry in back navigation history.
         /// <para/>

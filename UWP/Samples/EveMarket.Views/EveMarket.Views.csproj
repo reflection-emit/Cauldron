@@ -163,6 +163,10 @@
       <Project>{659a319c-9460-43d9-9453-2731ac5dab55}</Project>
       <Name>Cauldron.UWP.Interception</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Cauldron.UWP.Localization\Cauldron.UWP.Localization.csproj">
+      <Project>{3758d2e9-3a20-4b19-9c38-0c393f25d784}</Project>
+      <Name>Cauldron.UWP.Localization</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Cauldron.UWP.XAML.Interactivity\Cauldron.UWP.XAML.Interactivity.csproj">
       <Project>{3973e03e-8401-4129-ac62-97b000b51ed8}</Project>
       <Name>Cauldron.UWP.XAML.Interactivity</Name>

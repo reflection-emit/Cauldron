@@ -56,6 +56,13 @@ namespace Cauldron.XAML
             Factory.CreateMany<IValueConverter>().Foreach(x => this.Resources.Add(x.GetType().Name, x));
 
             // find all resourcedictionaries and add them to the existing resources
+            Factory.CreateMany<ResourceDictionary>().Select(x =>
+            {
+                var type = x.GetType();
+                return type.FullName.StartsWith("Cauldron.") ? new { Index = 0, Instance = x } : new { Index = 1, Instance = x };
+            })
+            .OrderBy(x => x.Index)
+            .Foreach(x => this.Resources.MergedDictionaries.Add(x.Instance));
 
             this.applicationHash = (ApplicationInfo.ApplicationName + ApplicationInfo.ApplicationPublisher + ApplicationInfo.ApplicationVersion.ToString()).GetHash(HashAlgorithms.Md5);
         }

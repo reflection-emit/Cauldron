@@ -2,7 +2,7 @@
   "dependencies": {
     "Fody": "1.29.4",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.3",
-    "Newtonsoft.Json": "10.0.1",
+    "Newtonsoft.Json": "10.0.2",
     "PropertyChanged.Fody": "1.52.1"
   },
   "frameworks": {

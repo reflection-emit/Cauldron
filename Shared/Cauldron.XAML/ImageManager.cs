@@ -29,8 +29,9 @@ namespace Cauldron.XAML
     {
         private ConcurrentDictionary<string, BitmapImage> cache = new ConcurrentDictionary<string, BitmapImage>();
 
+        /// <exclude/>
         [ComponentConstructor]
-        private ImageManager()
+        public ImageManager()
         {
         }
 

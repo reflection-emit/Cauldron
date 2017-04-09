@@ -40,13 +40,29 @@ namespace Cauldron.Interception.Cecilator
             var assemblies = this.GetAllAssemblyDefinitions(this.moduleDefinition.AssemblyReferences)
                   .Concat(new AssemblyDefinition[] { this.moduleDefinition.Assembly });
 
-            var unusedAssembly = weaver.ReferenceCopyLocalPaths
+            this.UnusedReference = weaver.ReferenceCopyLocalPaths
                 .Where(x => x.EndsWith(".dll"))
-                .Select(x => AssemblyDefinition.ReadAssembly(x))
-                .Where(x => !assemblies.Any(y => y.FullName.GetHashCode() == x.FullName.GetHashCode() && y.FullName == x.FullName))
+                .Select(x =>
+                {
+                    try
+                    {
+                        return AssemblyDefinition.ReadAssembly(x);
+                    }
+                    catch (BadImageFormatException e)
+                    {
+                        this.LogInfo(e.Message + " " + x);
+                        return null;
+                    }
+                    catch (Exception e)
+                    {
+                        this.LogWarning(e.Message);
+                        return null;
+                    }
+                })
+                .Where(x => x != null && !assemblies.Any(y => y.FullName.GetHashCode() == x.FullName.GetHashCode() && y.FullName == x.FullName))
                 .ToArray();
 
-            this.allAssemblies = assemblies.Concat(unusedAssembly).ToArray();
+            this.allAssemblies = assemblies.Concat(this.UnusedReference).ToArray();
 
             this.logInfo("-----------------------------------------------------------------------------");
 
@@ -72,6 +88,7 @@ namespace Cauldron.Interception.Cecilator
         }
 
         public string Identification { get; private set; }
+        public AssemblyDefinition[] UnusedReference { get; private set; }
 
         public static string GenerateName() => Path.GetRandomFileName().Replace(".", DateTime.Now.Second.ToString());
 
