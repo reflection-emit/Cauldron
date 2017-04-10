@@ -33,6 +33,7 @@ https://Capgemini.github.io/Cauldron/eveonline/
 - Types that inherits or implements the following classes or interfaces are considered as components and will also recieve a CreateInstance method: ResourceDictionary, IValueConverter, INotifyPropertyChanged, FrameworkElement
 - Breaking changes in Assemblies class. Some methods and properties were removed without replacement.
 - Method and Property interceptor can now be used to intercept all methods and properties in a class. Excluded method can be attributed by the DoNotIntercept attribute.
+- CreateObject<> renamed to CreateType, which fits more to what it does.
 ### 1.1.4
 - Inject attribute default paramaters are now "params"
 - Assemblies class now throws a better error message if an Assembly cannot be loaded
