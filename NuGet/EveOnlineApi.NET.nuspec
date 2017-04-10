@@ -47,6 +47,6 @@
     <file src="..\UWP\Samples\EveOnlineApi.UWP\bin\Release\EveOnlineApi**" target="lib\uap10.0" />
 
     <!-- Net Standard 1.6 -->
-    <file src="..\NetCore\Samples\EveOnlineApi.NetCore\bin\Release\netstandard1.6\EveOnlineApi**" target="lib\netstandard1.6" />
+    <!--<file src="..\NetCore\Samples\EveOnlineApi.NetCore\bin\Release\netstandard1.6\EveOnlineApi**" target="lib\netstandard1.6" />-->
   </files>
 </package>
