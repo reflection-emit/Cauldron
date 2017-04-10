@@ -372,7 +372,7 @@ namespace Cauldron.Activator
             foreach (var factoryInfo in GetFactoryTypeInfos(contractName).Where(x => x.Type == type))
             {
                 for (int i = 0; i < tempArray.Length; i++)
-                    if (tempArray[i].ContractName.GetHashCode() == factoryInfo.ContractName.GetHashCode() && tempArray[i].ContractName == factoryInfo.ContractName && factoryInfo.Type == type)
+                    if (tempArray[i] != null && tempArray[i].ContractName.GetHashCode() == factoryInfo.ContractName.GetHashCode() && tempArray[i].ContractName == factoryInfo.ContractName && tempArray[i].Type == type)
                         tempArray[i] = null;
             }
 

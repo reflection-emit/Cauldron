@@ -214,14 +214,14 @@ namespace Cauldron.Interception.Cecilator
                 if (typeDef == null)
                     break;
 
-                if (typeDef.BaseType == null)
+                if (typeDef.BaseType == null && (typeDef.Interfaces == null || typeDef.Interfaces.Count == 0))
                     break;
 
                 if (typeDef.Interfaces != null && typeDef.Interfaces.Count > 0)
                     result.AddRange(type.Recursive(x => x.Resolve().Interfaces).Select(x => x.ResolveType(type)));
 
                 type = typeDef.BaseType;
-                typeDef = type.Resolve();
+                typeDef = type?.Resolve();
             };
 
             return result;
