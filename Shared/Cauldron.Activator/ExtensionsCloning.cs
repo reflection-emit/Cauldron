@@ -138,7 +138,7 @@ namespace Cauldron.Activator
         /// <param name="source">The source object</param>
         /// <returns>Returns the target</returns>
         /// <exception cref="ArgumentNullException"><paramref name="source"/> is null</exception>
-        public static T MapTo<T>(this object source) where T : new() =>
+        public static T MapTo<T>(this object source) where T : class, new() =>
             source.MapTo(Factory.Create<T>());
 
         private static object CopyObject(Type valueType, object value)

@@ -302,6 +302,7 @@ Global
 		Shared\Cauldron.Interception\Cauldron.Interception.projitems*{a8f9dab9-ceb7-4c3b-81ec-5c681f87eb59}*SharedItemsImports = 13
 		Shared\Cauldron.XAML.Interactivity\Cauldron.XAML.Interactivity.projitems*{ab91b0bd-baa6-43bb-a33a-c07a3a91a1ef}*SharedItemsImports = 13
 		Shared\Unit Tests\Cauldron.XAML.Test\Cauldron.XAML.Test.projitems*{b14eac3c-6b7f-4c1d-ab6b-aca7ca47d453}*SharedItemsImports = 4
+		Shared\Unit Tests\Cauldron.Core.Test\Cauldron.Core.Test.projitems*{b3ec6b94-192a-4fe2-8309-4e632ae0a64b}*SharedItemsImports = 4
 		Shared\IEnumerableExtensions\IEnumerableExtensions.projitems*{ba19d691-4514-4059-95ef-8a6fe7612f83}*SharedItemsImports = 13
 		Shared\Unit Tests\Cauldron.XAML.Test\Cauldron.XAML.Test.projitems*{bb1efccc-11f3-4730-b8c7-7cdce54bd369}*SharedItemsImports = 13
 		Shared\Cauldron.Cryptography\Cauldron.Cryptography.projitems*{bc84f1d6-e20d-41a5-8ab1-90b9d023850d}*SharedItemsImports = 13

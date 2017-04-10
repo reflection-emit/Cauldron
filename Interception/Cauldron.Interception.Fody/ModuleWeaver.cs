@@ -1115,7 +1115,7 @@ namespace Cauldron.Interception.Fody
                                             member.Property.ReturnType,
                                             y.This,
                                             member.Property.ReturnType.IsArray || member.Property.ReturnType.Implements(typeof(IEnumerable)) ? member.Property.ReturnType.ChildType : null,
-                                            y.NewCode().NewObj(actionObjectCtor, y.NewCode().This, propertySetter)));
+                                            propertySetter.IsStatic ? y.NewCode().NewObj(actionObjectCtor, propertySetter) : y.NewCode().NewObj(actionObjectCtor, y.NewCode().This, propertySetter)));
                             })
                             .Try(x =>
                             {
@@ -1176,7 +1176,7 @@ namespace Cauldron.Interception.Fody
                                             member.Property.ReturnType,
                                             y.This,
                                             member.Property.ReturnType.IsArray || member.Property.ReturnType.Implements(typeof(IEnumerable)) ? member.Property.ReturnType.ChildType : null,
-                                            y.NewCode().NewObj(actionObjectCtor, y.NewCode().This, propertySetter)));
+                                            propertySetter.IsStatic ? y.NewCode().NewObj(actionObjectCtor, propertySetter) : y.NewCode().NewObj(actionObjectCtor, y.NewCode().This, propertySetter)));
                             })
                             .Try(x =>
                             {

@@ -67,6 +67,7 @@ namespace Cauldron.Core.Extensions
         /// <summary>
         /// Concatenates a jagged array to a one-dimensional array
         /// </summary>
+        /// <typeparam name="T">The element type of the array</typeparam>
         /// <param name="arrays">The jagged array</param>
         /// <returns>An one dimensional array</returns>
         public static T[] Concat<T>(this T[][] arrays)
@@ -79,6 +80,104 @@ namespace Cauldron.Core.Extensions
                 System.Buffer.BlockCopy(arrays[i], 0, result, offset, arrays[i].Length);
                 offset += arrays[i].Length;
             }
+
+            return (T[])result;
+        }
+
+        /// <summary>
+        /// Concats an item to an array creating a new array containing the original array and the item.
+        /// </summary>
+        /// <typeparam name="T">The element type of the array</typeparam>
+        /// <param name="arrayA">The array</param>
+        /// <param name="item">The item to add to the array</param>
+        /// <returns>A new array containing the original array and the item.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="arrayA"/> is null</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="item"/> is null</exception>
+        public static T[] Concat<T>(this T[] arrayA, T item)
+        {
+            if (arrayA == null)
+                throw new ArgumentNullException(nameof(arrayA));
+
+            if (item == null)
+                throw new ArgumentNullException(nameof(item));
+
+            var result = Array.CreateInstance(typeof(T), arrayA.Length + 1);
+
+            if (arrayA.Length > 0)
+                Array.Copy(arrayA, 0, result, 0, arrayA.Length);
+            result.SetValue(item, result.Length - 1);
+
+            return (T[])result;
+        }
+
+        /// <summary>
+        /// Removes all null elements from the array.
+        /// </summary>
+        /// <typeparam name="T">The element type of the array</typeparam>
+        /// <param name="array">The array</param>
+        /// <returns>A new array with all non null elements</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="array"/> is null</exception>
+        public static T[] RemoveNull<T>(this T[] array) where T : class
+        {
+            if (array == null)
+                throw new ArgumentNullException(nameof(array));
+
+            var newSize = 0;
+
+            for (int i = 0; i < array.Length; i++)
+                if (array[i] != null)
+                    newSize++;
+
+            var newArray = new T[newSize];
+            var counter = 0;
+
+            for (int i = 0; i < array.Length; i++)
+                if (array[i] != null)
+                    newArray[counter++] = array[i];
+
+            return newArray;
+        }
+
+        /// <summary>
+        /// Copies an array.
+        /// </summary>
+        /// <typeparam name="T">The element type of the array</typeparam>
+        /// <param name="array">The array</param>
+        /// <returns>A new array that contains the same elements as <paramref name="array"/></returns>
+        /// <exception cref="ArgumentNullException"><paramref name="array"/> is null</exception>
+        public static T[] Copy<T>(this T[] array)
+        {
+            if (array == null)
+                throw new ArgumentNullException(nameof(array));
+
+            var result = Array.CreateInstance(typeof(T), array.Length);
+            Array.Copy(array, result, array.Length);
+            return (T[])result;
+        }
+
+        /// <summary>
+        /// Concatenates two arrays together creating a new array containing both arrays
+        /// </summary>
+        /// <typeparam name="T">The element type of the array</typeparam>
+        /// <param name="arrayA">The first array</param>
+        /// <param name="arrayB">The second array</param>
+        /// <returns>A new array containing both arrays.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="arrayA"/> is null</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="arrayB"/> is null</exception>
+        public static T[] Concat<T>(this T[] arrayA, T[] arrayB)
+        {
+            if (arrayA == null)
+                throw new ArgumentNullException(nameof(arrayA));
+
+            if (arrayB == null)
+                throw new ArgumentNullException(nameof(arrayB));
+
+            var result = Array.CreateInstance(typeof(T), arrayA.Length + arrayB.Length);
+
+            if (arrayA.Length > 0)
+                Array.Copy(arrayA, 0, result, 0, arrayA.Length);
+            if (arrayB.Length > 0)
+                Array.Copy(arrayB, 0, result, arrayA.Length, arrayB.Length);
 
             return (T[])result;
         }
