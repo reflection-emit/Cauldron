@@ -1,5 +1,5 @@
 ﻿using Cauldron.Core.Extensions;
-using Cauldron.IEnumerableExtensions;
+using Cauldron.Internal;
 using System;
 using System.Collections;
 using System.Linq;

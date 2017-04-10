@@ -340,9 +340,8 @@ namespace Cauldron.XAML
             {
                 if (this.IsSinglePage)
                 {
-                    Type windowType = null;
-                    bool isCustomWindow = false;
-                    var window = Common.CreateWindow(ref windowType, ref isCustomWindow);
+                    WindowType windowType = null;
+                    var window = Common.CreateWindow(ref windowType);
 
                     window.ContentTemplateSelector = new CauldronTemplateSelector();
 

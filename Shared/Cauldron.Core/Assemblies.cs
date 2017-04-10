@@ -7,6 +7,7 @@ using Cauldron.Core.Extensions;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
+using Cauldron.Internal;
 
 #if NETFX_CORE
 

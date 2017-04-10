@@ -381,13 +381,7 @@ namespace Cauldron.Interception.Cecilator
 
         public BuilderType MakeArray(BuilderType type) => new BuilderType(this, new ArrayType(this.moduleDefinition.Import(type.typeReference)));
 
-        public bool TypeExists(string typeName)
-        {
-            var nameSpace = typeName.Substring(0, typeName.LastIndexOf('.'));
-            var type = typeName.Substring(typeName.LastIndexOf('.') + 1);
-
-            return this.GetTypesInternal(SearchContext.Module).Any(x => x.FullName == typeName || (x.Name == type && x.Namespace == nameSpace));
-        }
+        public bool TypeExists(string typeName) => this.allTypes.Get(typeName) != null;
 
         internal IEnumerable<TypeReference> GetTypesInternal() => GetTypesInternal(SearchContext.Module);
 

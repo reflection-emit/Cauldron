@@ -1,4 +1,4 @@
-﻿using Cauldron.IEnumerableExtensions;
+﻿using Cauldron.Internal;
 using Cauldron.XAML.Validation.ViewModels;
 using System;
 using System.Collections;

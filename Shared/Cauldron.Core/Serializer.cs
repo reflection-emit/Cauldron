@@ -1,4 +1,5 @@
 ﻿using Cauldron.Core.Extensions;
+using Cauldron.Internal;
 using System;
 using System.IO;
 using System.Reflection;

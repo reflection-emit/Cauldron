@@ -1,6 +1,7 @@
 ﻿using Cauldron.Core;
 using Cauldron.Core.Extensions;
 using Cauldron.Interception;
+using Cauldron.Internal;
 using System;
 using System.Reflection;
 using System.Threading;

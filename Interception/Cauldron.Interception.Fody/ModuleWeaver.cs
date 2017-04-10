@@ -66,11 +66,12 @@ namespace Cauldron.Interception.Fody
             var notifyPropertyChangedInterface = builder.GetType("System.ComponentModel.INotifyPropertyChanged");
             var componentAttribute = builder.GetType("Cauldron.Activator.ComponentAttribute");
             var componentConstructorAttribute = builder.GetType("Cauldron.Activator.ComponentConstructorAttribute");
+            var windowType = builder.TypeExists("System.Windows.Window") ? builder.GetType("System.Windows.Window") : null;
 
             var views = builder.FindTypesByBaseClass("FrameworkElement");
             var viewModels = builder.FindTypesByInterface(notifyPropertyChangedInterface);
             var valueConverters = builder.FindTypesByInterface(valueConverterInterface);
-            var resourceDictionaries = builder.FindTypesByBaseClass("System.Windows.ResourceDictionary");
+            var resourceDictionaries = builder.TypeExists("System.Windows.ResourceDictionary") ? builder.FindTypesByBaseClass("System.Windows.ResourceDictionary") : builder.FindTypesByBaseClass("Windows.UI.Xaml.ResourceDictionary");
 
             foreach (var item in views)
             {
@@ -80,7 +81,13 @@ namespace Cauldron.Interception.Fody
                 if (item.CustomAttributes.HasAttribute(componentAttribute))
                     continue;
 
-                item.CustomAttributes.Add(componentAttribute, item.Fullname);
+                // We have to make some exceptions here
+                // Everything that inherits from Window, should have to contractname Window ... but only for desktop... because UWP does not have custom windows
+                if (windowType != null && item.IsSubclassOf(windowType))
+                    item.CustomAttributes.Add(componentAttribute, windowType.Fullname);
+                else
+                    item.CustomAttributes.Add(componentAttribute, item.Fullname);
+
                 // Add a component contructor attribute to all .ctors
                 foreach (var ctor in item.Methods.Where(x => x.Name == ".ctor"))
                     ctor.CustomAttributes.Add(componentConstructorAttribute);
@@ -168,13 +175,33 @@ namespace Cauldron.Interception.Fody
 
         private void CreateComponentCache(Builder builder, BuilderType cauldron)
         {
-            int counter = 0;
             var componentAttribute = builder.GetType("Cauldron.Activator.ComponentAttribute").New(x => new
             {
                 Type = x,
                 ContractName = x.GetMethod("get_ContractName"),
                 Policy = x.GetMethod("get_Policy")
             });
+            var componentConstructorAttribute = builder.GetType("Cauldron.Activator.ComponentConstructorAttribute");
+
+            // Before we start let us find all factoryextensions and add a component attribute to them
+            var factoryExtensionInterface = builder.GetType("Cauldron.Activator.IFactoryExtension");
+            var factoryExtensions = builder.FindTypesByInterface(factoryExtensionInterface);
+
+            foreach (var item in factoryExtensions)
+            {
+                if (item.IsAbstract || item.IsInterface || item.HasUnresolvedGenericParameters)
+                    continue;
+
+                if (item.CustomAttributes.HasAttribute(componentAttribute.Type))
+                    continue;
+
+                item.CustomAttributes.Add(componentAttribute.Type, factoryExtensionInterface.Fullname);
+                // Add a component contructor attribute to all .ctors
+                foreach (var ctor in item.Methods.Where(x => x.Name == ".ctor"))
+                    ctor.CustomAttributes.Add(componentConstructorAttribute);
+            }
+
+            int counter = 0;
             var arrayAvatar = builder.GetType("System.Array").New(x => new
             {
                 Length = x.GetMethod("get_Length")
@@ -183,7 +210,6 @@ namespace Cauldron.Interception.Fody
             {
                 CreateInstance = x.GetMethod("CreateInstance", 2)
             });
-            var componentConstructorAttribute = builder.GetType("Cauldron.Activator.ComponentConstructorAttribute");
             var factoryCacheInterface = builder.GetType("Cauldron.Activator.IFactoryCache");
             var factoryTypeInfoInterface = builder.GetType("Cauldron.Activator.IFactoryTypeInfo");
             var createInstanceInterfaceMethod = factoryTypeInfoInterface.GetMethod("CreateInstance", 1);
@@ -355,6 +381,9 @@ namespace Cauldron.Interception.Fody
 
             if (builder.IsReferenced("Cauldron.Activator"))
                 CreateComponentCache(builder, cauldron);
+
+            // Add all unused assembly to modules
+            // TODO
         }
 
         private void ImplementAnonymousTypeInterface(Builder builder)

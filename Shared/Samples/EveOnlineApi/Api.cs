@@ -27,7 +27,7 @@ namespace EveOnlineApi
         private List<TokenKey> tokenInfos = new List<TokenKey>();
 
         [ComponentConstructor]
-        private Api()
+        public Api()
         {
         }
 

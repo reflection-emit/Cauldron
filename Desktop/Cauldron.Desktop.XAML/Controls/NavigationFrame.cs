@@ -24,12 +24,11 @@ namespace Cauldron.XAML.Controls
     /// </summary>
     public class NavigationFrame : ContentControl
     {
-        private static bool isCustomWindow = false;
         private ViewOrientation currentViewOrientation;
         private ConcurrentDictionary<Guid, Window> dialogs = new ConcurrentDictionary<Guid, Window>();
         private CauldronTemplateSelector selector = new CauldronTemplateSelector();
 
-        private Type windowType;
+        private WindowType windowType;
 
         /// <summary>
         /// Initializes a new instance of <see cref="NavigationFrame"/>
@@ -463,11 +462,11 @@ namespace Cauldron.XAML.Controls
 
         private Window CreateContentDialog(Type viewModelType)
         {
-            var window = Common.CreateWindow(ref windowType, ref isCustomWindow);
+            var window = Common.CreateWindow(ref windowType);
             window.BeginInit();
 
             // set the configs
-            if (isCustomWindow)
+            if (windowType.IsCutomWindow)
                 window.ResizeMode = ResizeMode.NoResize;
             else
             {

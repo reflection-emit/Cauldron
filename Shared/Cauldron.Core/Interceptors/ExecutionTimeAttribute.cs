@@ -1,4 +1,5 @@
 ﻿using Cauldron.Interception;
+using Cauldron.Internal;
 using System;
 using System.Diagnostics;
 using System.Reflection;

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Cauldron.Activator;
 using System.Collections;
-using Cauldron.IEnumerableExtensions;
 using Cauldron.Core.Extensions;
+using Cauldron.Internal;
 
 #if WINDOWS_UWP
 

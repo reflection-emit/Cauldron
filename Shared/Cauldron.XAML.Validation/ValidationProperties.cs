@@ -1,7 +1,7 @@
-﻿using Cauldron.IEnumerableExtensions;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Globalization;
+using Cauldron.Internal;
 
 #if WINDOWS_UWP
 

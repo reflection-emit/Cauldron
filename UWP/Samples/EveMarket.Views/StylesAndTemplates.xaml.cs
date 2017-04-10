@@ -1,6 +1,8 @@
-﻿namespace EveMarket.Views
+﻿using Windows.UI.Xaml;
+
+namespace EveMarket.Views
 {
-    public sealed partial class StylesAndTemplates
+    public sealed partial class StylesAndTemplates : ResourceDictionary
     {
         public StylesAndTemplates()
         {

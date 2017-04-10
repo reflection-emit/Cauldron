@@ -4,7 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Cauldron.IEnumerableExtensions
+namespace Cauldron.Internal
 {
     /// <summary>
     /// Provides usefull extensions for <see cref="IEnumerable"/>

@@ -1,6 +1,7 @@
 ﻿using Cauldron.Core;
 using Cauldron.Core.Collections;
 using Cauldron.Core.Extensions;
+using Cauldron.Internal;
 using System;
 using System.Collections;
 using System.Collections.Concurrent;

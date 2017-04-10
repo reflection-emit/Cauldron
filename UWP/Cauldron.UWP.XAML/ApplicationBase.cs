@@ -1,6 +1,7 @@
 ﻿using Cauldron.Activator;
 using Cauldron.Core;
 using Cauldron.Core.Extensions;
+using Cauldron.Internal;
 using Cauldron.Localization;
 using Cauldron.XAML.Controls;
 using Cauldron.XAML.Navigation;
@@ -372,27 +373,16 @@ namespace Cauldron.XAML
             this.Resources.Add(typeof(CauldronTemplateSelector).Name, new CauldronTemplateSelector());
 
             // Add all Value converters to the dictionary
-            foreach (var valueConverter in Assemblies.ExportedTypes.Where(x => !x.ContainsGenericParameters && !x.IsAbstract && x.ImplementsInterface<IValueConverter>()))
-                if (!Application.Current.Resources.ContainsKey(valueConverter.Name))
-                    Application.Current.Resources.Add(valueConverter.Name, System.Activator.CreateInstance(valueConverter.AsType()));
+            Factory.CreateMany<IValueConverter>().Foreach(x => this.Resources.Add(x.GetType().Name, x));
 
             // find all resourcedictionaries and add them to the existing resources
-            var resourceDictionaries = Assemblies.ExportedTypes.Where(x => x.IsSubclassOf(typeof(ResourceDictionary)));
-            var cauldronDictionaries = resourceDictionaries.Where(x => x.Assembly.FullName.StartsWith("Cauldron.")).OrderBy(x => x.Name);
-            var otherDictionaries = resourceDictionaries.Where(x => !x.Assembly.FullName.StartsWith("Cauldron.")).OrderBy(x => x.Name);
-
-            // add all cauldron dictionaries first
-            foreach (var item in cauldronDictionaries)
+            Factory.CreateMany<ResourceDictionary>().Select(x =>
             {
-                var dictionary = System.Activator.CreateInstance(item.AsType()) as ResourceDictionary;
-                Application.Current.Resources.MergedDictionaries.Add(dictionary);
-            }
-            // Them then others
-            foreach (var item in otherDictionaries)
-            {
-                var dictionary = System.Activator.CreateInstance(item.AsType()) as ResourceDictionary;
-                Application.Current.Resources.MergedDictionaries.Add(dictionary);
-            }
+                var type = x.GetType();
+                return type.FullName.StartsWith("Cauldron.") ? new { Index = 0, Instance = x } : new { Index = 1, Instance = x };
+            })
+            .OrderBy(x => x.Index)
+            .Foreach(x => this.Resources.MergedDictionaries.Add(x.Instance));
         }
 
         /// <summary>
