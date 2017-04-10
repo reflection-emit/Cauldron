@@ -16,15 +16,15 @@
     <tags>Toolkit Capgemini Console Parameter Parsing Argument Arguments Parameters Cauldron Command CommandLine Args</tags>
     <dependencies>
       <group targetFramework="net452">
-        <dependency id="Capgemini.Cauldron.Core" version="1.2.0-beta" />
-        <dependency id="Capgemini.Cauldron.Activator" version="1.2.0-beta" />
-        <dependency id="Capgemini.Cauldron.Localization" version="1.2.0-beta" />
+        <dependency id="Capgemini.Cauldron.Core" version="1.2.1-beta" />
+        <dependency id="Capgemini.Cauldron.Activator" version="1.2.1-beta" />
+        <dependency id="Capgemini.Cauldron.Localization" version="1.2.1-beta" />
       </group>
       <!--   <group targetFramework="netstandard1.6">
         <dependency id="NETStandard.Library" version="1.6.1" />
-        <dependency id="Capgemini.Cauldron.Core" version="1.2.0-beta" />
-        <dependency id="Capgemini.Cauldron.Localization" version="1.2.0-beta" />
-        <dependency id="Capgemini.Cauldron.Activator" version="1.2.0-beta" />
+        <dependency id="Capgemini.Cauldron.Core" version="1.2.1-beta" />
+        <dependency id="Capgemini.Cauldron.Localization" version="1.2.1-beta" />
+        <dependency id="Capgemini.Cauldron.Activator" version="1.2.1-beta" />
       </group>-->
     </dependencies>
   </metadata>

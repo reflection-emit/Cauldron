@@ -16,22 +16,22 @@
     <tags>Toolkit Capgemini Activator Dependency Injection Factory Cauldron</tags>
     <dependencies>
       <group targetFramework="uap10.0">
-        <dependency id="Capgemini.Cauldron.Core" version="1.2.0-beta" />
+        <dependency id="Capgemini.Cauldron.Core" version="1.2.1-beta" />
         <dependency id="Microsoft.NETCore.UniversalWindowsPlatform" version="5.2.2" />
-        <dependency id="Cauldron.Interception.Fody" version="1.2.0-beta" />
+        <dependency id="Cauldron.Interception.Fody" version="1.2.1-beta" />
         <dependency id="Fody" version="1.29.4" />
       </group>
       <group targetFramework="net452">
-        <dependency id="Capgemini.Cauldron.Core" version="1.2.0-beta" />
-        <dependency id="Cauldron.Interception.Fody" version="1.2.0-beta" />
+        <dependency id="Capgemini.Cauldron.Core" version="1.2.1-beta" />
+        <dependency id="Cauldron.Interception.Fody" version="1.2.1-beta" />
         <dependency id="Fody" version="1.29.4" />
       </group>
       <!-- <group targetFramework="netstandard1.6">
         <dependency id="NETStandard.Library" version="1.6.1" />
         <dependency id="System.Threading.Tasks" version="4.3.0" />
         <dependency id="System.Threading.Thread" version="4.3.0" />
-        <dependency id="Capgemini.Cauldron.Core" version="1.2.0-beta" />
-        <dependency id="Cauldron.Interception.Fody" version="1.2.0-beta" />
+        <dependency id="Capgemini.Cauldron.Core" version="1.2.1-beta" />
+        <dependency id="Cauldron.Interception.Fody" version="1.2.1-beta" />
         <dependency id="Fody" version="1.29.4" />
       </group>-->
     </dependencies>
