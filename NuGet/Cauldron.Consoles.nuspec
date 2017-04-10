@@ -34,9 +34,9 @@
     <file src="..\Desktop\Cauldron.Desktop.Consoles\bin\Release\Cauldron.Consoles**" target="lib\net452" />
 
     <!-- UWP -->
-    <!--<file src="..\UWP\Cauldron.UWP.Consoles\bin\Release\Cauldron.Consoles**" target="lib\uap10.0" />-->
+    <file src="..\UWP\Cauldron.UWP.Consoles\bin\Release\Cauldron.Consoles**" target="lib\uap10.0" />
 
     <!-- Net Standard 1.6 -->
-    <file src="..\NetCore\Cauldron.NetCore.Consoles\bin\Release\netstandard1.6\Cauldron.Consoles**" target="lib\netstandard1.6" />
+    <!--<file src="..\NetCore\Cauldron.NetCore.Consoles\bin\Release\netstandard1.6\Cauldron.Consoles**" target="lib\netstandard1.6" />-->
   </files>
 </package>

@@ -44,6 +44,6 @@
     <file src="..\UWP\Cauldron.UWP.Activator\bin\Release\Cauldron.Activator**" target="lib\uap10.0" />
 
     <!-- Net Standard 1.6 -->
-    <file src="..\NetCore\Cauldron.NetCore.Activator\bin\Release\netstandard1.6\Cauldron.Activator**" target="lib\netstandard1.6" />
+    <!--<file src="..\NetCore\Cauldron.NetCore.Activator\bin\Release\netstandard1.6\Cauldron.Activator**" target="lib\netstandard1.6" />-->
   </files>
 </package>
