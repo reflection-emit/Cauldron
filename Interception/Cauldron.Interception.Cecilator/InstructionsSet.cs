@@ -879,7 +879,7 @@ namespace Cauldron.Interception.Cecilator
             }
             else if ((result.Type.Resolve() == null || result.Type.IsValueType) && !targetType.IsValueType)
                 result.Instructions.Add(processor.Create(OpCodes.Box, result.Type));
-            else if (targetType.FullName != result.Type.FullName && this.AreReferenceAssignable(targetType, this.moduleDefinition.Import(result.Type)))
+            else if (result.Instructions.Last().OpCode != OpCodes.Ldnull && targetType.FullName != result.Type.FullName && this.AreReferenceAssignable(targetType, this.moduleDefinition.Import(result.Type)))
                 result.Instructions.Add(processor.Create(OpCodes.Castclass, this.moduleDefinition.Import(result.Type)));
         }
 
