@@ -33,7 +33,7 @@ namespace Cauldron.Activator
         static Factory()
         {
             // Get all known components
-            components = Assemblies.CauldronObjects.Cast<IFactoryCache>().Where(x => x != null).SelectMany(x => x.GetComponents()).ToArray();
+            components = Assemblies.CauldronObjects.Select(x => x as IFactoryCache).Where(x => x != null).SelectMany(x => x.GetComponents()).ToArray();
             // Get all factory extensions
             factoryExtensions = components
                 .Where(x => x.ContractName.GetHashCode() == iFactoryExtensionName.GetHashCode() && x.ContractName == iFactoryExtensionName).Select(x => x.CreateInstance() as IFactoryExtension)
