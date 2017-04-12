@@ -17,7 +17,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)FactoryCreationPolicy.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IFactoryTypeInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IFactoryCache.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IFactoryExtension.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IFactoryResolver.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IFactoryInitializeComponent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)InjectAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Singleton.cs" />

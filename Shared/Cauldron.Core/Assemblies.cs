@@ -571,6 +571,8 @@ namespace Cauldron.Core
             var files = directory.GetFiles(filter);
             for (int i = 0; i < files.Length; i++)
                 LoadAssembly(files[i]);
+
+            LoadedAssemblyChanged?.Invoke(null, new AssemblyAddedEventArgs(null, null));
         }
 
         /// <summary>

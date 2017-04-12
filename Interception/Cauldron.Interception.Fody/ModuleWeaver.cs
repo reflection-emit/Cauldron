@@ -184,7 +184,7 @@ namespace Cauldron.Interception.Fody
             var componentConstructorAttribute = builder.GetType("Cauldron.Activator.ComponentConstructorAttribute");
 
             // Before we start let us find all factoryextensions and add a component attribute to them
-            var factoryExtensionInterface = builder.GetType("Cauldron.Activator.IFactoryExtension");
+            var factoryExtensionInterface = builder.GetType("Cauldron.Activator.IFactoryResolver");
             var factoryExtensions = builder.FindTypesByInterface(factoryExtensionInterface);
 
             foreach (var item in factoryExtensions)

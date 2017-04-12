@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Cauldron.Core.Extensions;
+using System.Diagnostics;
+using System.Linq;
 
 #if WINDOWS_UWP
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;

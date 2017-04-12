@@ -4,7 +4,6 @@ using Cauldron.XAML.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Windows;
 
 namespace Cauldron.XAML
@@ -12,25 +11,8 @@ namespace Cauldron.XAML
     /// <summary>
     /// Automatically selects the correct Navigator
     /// </summary>
-    public sealed class NavigatorSelectorFactoryExtension : IFactoryExtension
+    public sealed class NavigatorSelectorFactoryResolver : IFactoryResolver
     {
-        /// <summary>
-        /// Gets a value that indicates that this extension is able to resolve <see cref="AmbiguousMatchException"/>
-        /// </summary>
-        public bool CanHandleAmbiguousMatch
-        {
-            get { return true; }
-        }
-
-        /// <summary>
-        /// Occures when an object is created
-        /// </summary>
-        /// <param name="context">The object instance</param>
-        /// <param name="objectType">The <see cref="Type"/> of the object created</param>
-        public void OnCreateObject(object context, Type objectType)
-        {
-        }
-
         /// <summary>
         /// Occures if multiple Types with the same <paramref name="contractName"/> was found.
         /// <para/>

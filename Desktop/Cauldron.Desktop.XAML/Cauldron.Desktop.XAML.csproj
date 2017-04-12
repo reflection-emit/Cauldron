@@ -58,7 +58,7 @@
     <Compile Include="LaunchActivatedEventArgs.cs" />
     <Compile Include="Navigation\INavigator.cs" />
     <Compile Include="Navigation\Navigator.cs" />
-    <Compile Include="NavigatorSelectorFactoryExtension.cs" />
+    <Compile Include="NavigatorSelectorFactoryResolver.cs" />
     <Compile Include="PersistentWindowInformation.cs" />
     <Compile Include="PersistentWindowProperties.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

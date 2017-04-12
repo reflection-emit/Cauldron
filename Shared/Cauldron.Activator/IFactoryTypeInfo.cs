@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace Cauldron.Activator
 {
@@ -27,6 +28,7 @@ namespace Cauldron.Activator
         /// </summary>
         /// <param name="arguments">The arguments required to create a type instance</param>
         /// <returns>The instance of the component</returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
         object CreateInstance(params object[] arguments);
     }
 }
