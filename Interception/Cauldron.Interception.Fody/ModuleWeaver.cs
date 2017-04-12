@@ -349,6 +349,7 @@ namespace Cauldron.Interception.Fody
             {
                 Components = x.GetMethod("GetComponents")
             });
+            var ctorCoder = cauldron.ParameterlessContructor.NewCode();
             cauldron.CreateMethod(Modifiers.Public | Modifiers.Overrrides, factoryCacheInterfaceAvatar.Components.ReturnType, factoryCacheInterfaceAvatar.Components.Name)
                 .NewCode()
                 .Context(x =>
@@ -358,12 +359,17 @@ namespace Cauldron.Interception.Fody
 
                     for (int i = 0; i < componentTypes.Count; i++)
                     {
+                        var field = cauldron.CreateField(Modifiers.Private, factoryTypeInfoInterface, "<FactoryType>f__" + i);
                         x.Load(resultValue);
-                        x.StoreElement(factoryTypeInfoInterface, x.NewCode().NewObj(componentTypes[i].ParameterlessContructor), i);
+                        x.StoreElement(factoryTypeInfoInterface, field, i);
+                        // x.StoreElement(factoryTypeInfoInterface, x.NewCode().NewObj(componentTypes[i].ParameterlessContructor), i);
+                        ctorCoder.Assign(field).NewObj(componentTypes[i].ParameterlessContructor);
                     }
                 })
                 .Return()
                 .Replace();
+
+            ctorCoder.Insert(InsertionPosition.End);
         }
 
         private void CreateFactoryCache(Builder builder)

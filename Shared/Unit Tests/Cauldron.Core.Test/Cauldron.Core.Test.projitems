@@ -12,6 +12,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ConcurrentListTest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CreateType_Test.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExtensionTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ParallelCreation_Test_Resource.generated.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)JavaPropertyFileTest.cs" />
   </ItemGroup>
 </Project>

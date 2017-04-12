@@ -15,7 +15,7 @@ namespace Cauldron.Core.Extensions
 
         //private delegate object ObjectActivator(params object[] args);
 
-        private static ActivatorArray objectActivator = new ActivatorArray();
+        private static ActivatorCollection objectActivator = new ActivatorCollection();
 
         /// <summary>
         /// Returns a value that indicates whether the specified type can be assigned to the current type.

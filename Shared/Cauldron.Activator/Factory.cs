@@ -25,9 +25,10 @@ namespace Cauldron.Activator
     /// </summary>
     public sealed class Factory
     {
+        private static readonly string iFactoryExtensionName = typeof(IFactoryExtension).FullName;
+        private static Dictionary<string, IFactoryTypeInfo> componentCache = new Dictionary<string, IFactoryTypeInfo>();
         private static IFactoryTypeInfo[] components;
         private static IFactoryExtension[] factoryExtensions;
-        private static readonly string iFactoryExtensionName = typeof(IFactoryExtension).FullName;
         private static ConcurrentDictionary<string, FactoryInstancedObject> instances = new ConcurrentDictionary<string, FactoryInstancedObject>();
 
         static Factory()
@@ -400,6 +401,24 @@ namespace Cauldron.Activator
             return result;
         }
 
+        private static IFactoryTypeInfo GetFactoryTypeInfoByType(Type type)
+        {
+            var c = components;
+            for (int i = 0; i < c.Length; i++)
+                if (c[i].Type.GetHashCode() == type.GetHashCode() && c[i].Type == type)
+                    return c[i];
+
+            return null;
+        }
+
+        private static IEnumerable<IFactoryTypeInfo> GetFactoryTypeInfos(string contractName)
+        {
+            var c = components;
+            for (int i = 0; i < c.Length; i++)
+                if (c[i].ContractName.GetHashCode() == contractName.GetHashCode() && c[i].ContractName == contractName)
+                    yield return c[i];
+        }
+
         private static object GetInstance(IFactoryTypeInfo factoryTypeInfo, object[] parameters)
         {
             if (factoryTypeInfo.CreationPolicy == FactoryCreationPolicy.Instanced)
@@ -443,26 +462,13 @@ namespace Cauldron.Activator
                 throw new Exception("Unknown creation policy");
         }
 
-        private static IFactoryTypeInfo GetFactoryTypeInfoByType(Type type)
-        {
-            var c = components;
-            for (int i = 0; i < c.Length; i++)
-                if (c[i].Type.GetHashCode() == type.GetHashCode() && c[i].Type == type)
-                    return c[i];
-
-            return null;
-        }
-
-        private static IEnumerable<IFactoryTypeInfo> GetFactoryTypeInfos(string contractName)
-        {
-            var c = components;
-            for (int i = 0; i < c.Length; i++)
-                if (c[i].ContractName.GetHashCode() == contractName.GetHashCode() && c[i].ContractName == contractName)
-                    yield return c[i];
-        }
-
         private static object GetInstance(string contractName, object[] parameters)
         {
+            IFactoryTypeInfo factoryInfo;
+
+            if (componentCache.TryGetValue(contractName, out factoryInfo))
+                return GetInstance(factoryInfo, parameters);
+
             var factoryTypeInfos = GetFactoryTypeInfos(contractName);
             var factoryTypeInfosCount = factoryTypeInfos.Count();
 
@@ -515,7 +521,9 @@ namespace Cauldron.Activator
                 throw new AmbiguousMatchException("There is more than one implementation with contractname '" + contractName + "' found.");
             }
 
-            return GetInstance(factoryTypeInfos.First(), parameters);
+            factoryInfo = factoryTypeInfos.First();
+            componentCache.Add(contractName, factoryInfo);
+            return GetInstance(factoryInfo, parameters);
         }
 
         private static IEnumerable GetInstances(string contractName, object[] parameters)
