@@ -21,16 +21,16 @@ namespace Cauldron.XAML
         /// <param name="ambiguousTypes">A collection of Types that with the same <paramref name="contractName"/></param>
         /// <param name="contractName">The contract name of the implementations</param>
         /// <returns>The selected <see cref="Type"/></returns>
-        public Type SelectAmbiguousMatch(IEnumerable<Type> ambiguousTypes, string contractName)
+        public IFactoryTypeInfo SelectAmbiguousMatch(IFactoryTypeInfo[] ambiguousTypes, string contractName)
         {
             if (contractName == typeof(INavigator).FullName && ambiguousTypes.Count() == 2)
             {
                 var app = Application.Current.As<ApplicationBase>();
 
                 if (app != null && app.IsSinglePage)
-                    return typeof(NavigatorSinglePage);
+                    return ambiguousTypes.FirstOrDefault(x => x.Type == typeof(NavigatorSinglePage));
 
-                return typeof(Navigator);
+                return ambiguousTypes.FirstOrDefault(x => x.Type == typeof(Navigator));
             }
 
             return null;
