@@ -26,7 +26,7 @@ namespace Cauldron.Activator
     public sealed class Factory
     {
         private static readonly string iFactoryExtensionName = typeof(IFactoryExtension).FullName;
-        private static Dictionary<string, IFactoryTypeInfo> componentCache = new Dictionary<string, IFactoryTypeInfo>();
+        private static ConcurrentDictionary<string, IFactoryTypeInfo> componentCache = new ConcurrentDictionary<string, IFactoryTypeInfo>();
         private static IFactoryTypeInfo[] components;
         private static IFactoryExtension[] factoryExtensions;
         private static ConcurrentDictionary<string, FactoryInstancedObject> instances = new ConcurrentDictionary<string, FactoryInstancedObject>();
@@ -522,7 +522,7 @@ namespace Cauldron.Activator
             }
 
             factoryInfo = factoryTypeInfos.First();
-            componentCache.Add(contractName, factoryInfo);
+            componentCache.TryAdd(contractName, factoryInfo);
             return GetInstance(factoryInfo, parameters);
         }
 

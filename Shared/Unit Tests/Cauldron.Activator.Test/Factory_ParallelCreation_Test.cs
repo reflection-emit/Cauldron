@@ -27,7 +27,7 @@ namespace Cauldron.Activator.Test
             Parallel.ForEach(types, x =>
             {
                 var y1 = Factory.Create(x);
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 100; i++)
                     y1 = Factory.Create(types.ToArray().RandomPick());
             });
         }
