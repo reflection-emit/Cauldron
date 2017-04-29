@@ -13,9 +13,10 @@ namespace Cauldron.Activator
         /// </summary>
         /// <param name="contractName">The contract name that is used to export the type</param>
         /// <param name="policy">The creation policy</param>
+        /// <param name="priority">The priority of the component. The <see cref="Factory"/> uses this information to sort the instances for <see cref="Factory.CreateMany(string, object[])"/></param>. 0 is lowest; uint.Max is highest.
         /// <exception cref="ArgumentNullException">Parameter <paramref name="contractName"/> is null</exception>
         /// <exception cref="ArgumentException">Parameter <paramref name="contractName"/> is empty</exception>
-        public ComponentAttribute(string contractName, FactoryCreationPolicy policy)
+        public ComponentAttribute(string contractName, FactoryCreationPolicy policy, uint priority)
         {
             if (contractName == null)
                 throw new ArgumentNullException(nameof(contractName));
@@ -31,9 +32,20 @@ namespace Cauldron.Activator
         /// Initializes an instance of <see cref="ComponentAttribute"/>
         /// </summary>
         /// <param name="contractName">The contract name that is used to export the type</param>
+        /// <param name="priority">The priority of the component. The <see cref="Factory"/> uses this information to sort the instances for <see cref="Factory.CreateMany(string, object[])"/></param>. 0 is lowest; uint.Max is highest.
         /// <exception cref="ArgumentNullException">Parameter <paramref name="contractName"/> is null</exception>
         /// <exception cref="ArgumentException">Parameter <paramref name="contractName"/> is empty</exception>
-        public ComponentAttribute(string contractName) : this(contractName, FactoryCreationPolicy.Instanced)
+        public ComponentAttribute(string contractName, uint priority) : this(contractName, FactoryCreationPolicy.Instanced, priority)
+        {
+        }
+
+        /// <summary>
+        /// Initializes an instance of <see cref="ComponentAttribute"/>. The default <see cref="ComponentAttribute.Priority"/> is 0.
+        /// </summary>
+        /// <param name="contractName">The contract name that is used to export the type</param>
+        /// <exception cref="ArgumentNullException">Parameter <paramref name="contractName"/> is null</exception>
+        /// <exception cref="ArgumentException">Parameter <paramref name="contractName"/> is empty</exception>
+        public ComponentAttribute(string contractName) : this(contractName, FactoryCreationPolicy.Instanced, 0)
         {
         }
 
@@ -41,7 +53,16 @@ namespace Cauldron.Activator
         /// Initializes an instance of <see cref="ComponentAttribute"/>
         /// </summary>
         /// <param name="contractType">A type from which to derive the contract name that is used to export the type</param>
-        public ComponentAttribute(Type contractType) : this(contractType.FullName, FactoryCreationPolicy.Instanced)
+        /// <param name="priority">The priority of the component. The <see cref="Factory"/> uses this information to sort the instances for <see cref="Factory.CreateMany(string, object[])"/></param>. 0 is lowest; uint.Max is highest.
+        public ComponentAttribute(Type contractType, uint priority) : this(contractType.FullName, FactoryCreationPolicy.Instanced, priority)
+        {
+        }
+
+        /// <summary>
+        /// Initializes an instance of <see cref="ComponentAttribute"/>. The default <see cref="ComponentAttribute.Priority"/> is 0.
+        /// </summary>
+        /// <param name="contractType">A type from which to derive the contract name that is used to export the type</param>
+        public ComponentAttribute(Type contractType) : this(contractType.FullName, FactoryCreationPolicy.Instanced, 0)
         {
         }
 
@@ -50,7 +71,17 @@ namespace Cauldron.Activator
         /// </summary>
         /// <param name="contractType">A type from which to derive the contract name that is used to export the type</param>
         /// <param name="policy">The creation policy</param>
-        public ComponentAttribute(Type contractType, FactoryCreationPolicy policy) : this(contractType.FullName, policy)
+        /// <param name="priority">The priority of the component. The <see cref="Factory"/> uses this information to sort the instances for <see cref="Factory.CreateMany(string, object[])"/></param>. 0 is lowest; uint.Max is highest.
+        public ComponentAttribute(Type contractType, FactoryCreationPolicy policy, uint priority) : this(contractType.FullName, policy, priority)
+        {
+        }
+
+        /// <summary>
+        /// Initializes an instance of <see cref="ComponentAttribute"/>. The default <see cref="ComponentAttribute.Priority"/> is 0.
+        /// </summary>
+        /// <param name="contractType">A type from which to derive the contract name that is used to export the type</param>
+        /// <param name="policy">The creation policy</param>
+        public ComponentAttribute(Type contractType, FactoryCreationPolicy policy) : this(contractType.FullName, policy, 0)
         {
         }
 
@@ -63,5 +94,10 @@ namespace Cauldron.Activator
         /// Gets the creation policy
         /// </summary>
         public FactoryCreationPolicy Policy { get; private set; }
+
+        /// <summary>
+        /// Gets the priority of the component
+        /// </summary>
+        public uint Priority { get; private set; }
     }
 }

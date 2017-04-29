@@ -10,7 +10,6 @@ namespace Cauldron.Activator
     /// <typeparam name="T">The type that is contained in the singleton</typeparam>
     public abstract class Singleton<T> where T : class
     {
-        private static string contractName = null;
         private static volatile T current;
         private static object syncRoot = new object();
 
@@ -47,17 +46,12 @@ namespace Cauldron.Activator
             {
                 lock (syncRoot)
                 {
-                    var disposable = current.As<IDisposable>();
+                    var disposable = current as IDisposable;
 
                     if (disposable != null)
-                    {
-                        if (string.IsNullOrEmpty(contractName))
-                            disposable.Dispose();
-                        else
-                            Factory.Destroy(contractName);
-                    };
+                        Factory.Destroy<T>();
+
                     current = null;
-                    contractName = null;
                 }
             }
         }

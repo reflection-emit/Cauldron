@@ -68,6 +68,7 @@ namespace Cauldron.Activator
         /// <summary>
         /// Adds a new <see cref="Type"/> to list of known types. Should only be used for unit-tests
         /// </summary>
+        /// <threadsafety static="false" instance="false"/>
         /// <param name="contractName">The name that identifies the type</param>
         /// <param name="creationPolicy">The creation policy of the type as defined by <see cref="FactoryCreationPolicy"/></param>
         /// <param name="type">The type to be added</param>
@@ -317,6 +318,7 @@ namespace Cauldron.Activator
         /// </summary>
         /// <param name="contractName">The name that identifies the type</param>
         /// <param name="type">The type to be removed</param>
+        /// <threadsafety static="false" instance="false"/>
         public static void RemoveType(string contractName, Type type)
         {
             if (!components.ContainsKey(contractName))
@@ -350,7 +352,7 @@ namespace Cauldron.Activator
                     var newInstance = CreateInstance(factoryTypeInfo, parameters);
                     var key = factoryTypeInfo.ContractName + factoryTypeInfo.Type.FullName;
 
-                    // every singleton that implements the idisposable interface has also to implement the IdisposableObject interface
+                    // every singleton that implements the idisposable interface has also to implement the IDisposableObject interface
                     // this is because we want to know if an instance was disposed (somehow)
                     var disposable = newInstance as IDisposable;
                     if (disposable != null)
@@ -439,7 +441,7 @@ namespace Cauldron.Activator
                 if (factoryInfos.Length == 0)
                     return new object[0];
 
-                return factoryInfos.Select(x => GetInstance(x, parameters));
+                return factoryInfos.OrderByDescending(x => x.Priority).Select(x => GetInstance(x, parameters)).ToArray();
             }
 
             if (CanRaiseExceptions)
@@ -466,7 +468,7 @@ namespace Cauldron.Activator
 
         private static IFactoryTypeInfo ResolveAmbiguousMatch(IFactoryTypeInfo[] factoryInfos, string contractName)
         {
-            for (int i = 0; i < factoryInfos.Length; i++)
+            for (int i = 0; i < factoryResolvers.Length; i++)
             {
                 var selectedType = factoryResolvers[i].SelectAmbiguousMatch(factoryInfos, contractName);
 
@@ -516,6 +518,10 @@ namespace Cauldron.Activator
         /// <exclude/>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public FactoryCreationPolicy CreationPolicy { get; private set; }
+
+        /// <exclude/>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public uint Priority { get; private set; } = 0;
 
         /// <exclude/>
         [EditorBrowsable(EditorBrowsableState.Never)]

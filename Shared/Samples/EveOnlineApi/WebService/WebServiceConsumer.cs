@@ -56,8 +56,10 @@ namespace EveOnlineApi.WebService
                             return (TResult)data;
                         else if (data == null)
                             return default(TResult);
-                        else
+                        else if (data is string)
                             return deserializer.DeserializeObject<TResult>(data as string);
+
+                        return default(TResult);
                     }
                     catch
                     {

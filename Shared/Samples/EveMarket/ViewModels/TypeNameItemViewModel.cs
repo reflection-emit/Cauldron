@@ -5,7 +5,7 @@ using EveOnlineApi;
 
 namespace EveMarket.ViewModels
 {
-    public sealed class TypeNameItemViewModel : ViewModelBase, IFactoryInitializeComponent
+    public sealed class TypeNameItemViewModel : ViewModelBase
     {
         [Inject]
         private IEveApi eveApi = null;
@@ -14,6 +14,8 @@ namespace EveMarket.ViewModels
         {
             this.Name = name;
             this.ItemId = itemId;
+
+            this.InitializeComponent();
         }
 
         public double AveragePrice { get; private set; }
@@ -26,7 +28,7 @@ namespace EveMarket.ViewModels
 
         public string Name { get; private set; }
 
-        public async void OnInitializeComponent()
+        private async void InitializeComponent()
         {
             await this.RunDispatcherAsync(async () =>
             {

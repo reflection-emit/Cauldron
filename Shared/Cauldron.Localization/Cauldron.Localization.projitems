@@ -9,7 +9,11 @@
     <Import_RootNamespace>Cauldron.Localization</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)ILocalizationKeyValue.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ILocalizationSource.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)JsonLocalizationSourceBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Locale.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LocalizationKeyValue.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)YamlLocalizationSourceBase.cs" />
   </ItemGroup>
 </Project>

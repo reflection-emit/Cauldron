@@ -11,7 +11,7 @@
     <iconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Contains typical implementations for AES, RSA and RSA-AES encryptions. It also contains extensions that helps working with SecureString.</description>
-    <summary>Implementation for AES, RSA and AES-RSA encryptions  (Open Source)</summary>
+    <summary>Implementation for AES, RSA and AES-RSA encryptions </summary>
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Crypto Encryption Cryptography AES RSA</tags>
     <dependencies>

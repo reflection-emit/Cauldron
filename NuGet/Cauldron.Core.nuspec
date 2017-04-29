@@ -11,13 +11,14 @@
     <iconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Cauldron Core is the core toolkit assembly that the Cauldron Toolkit builds upon</description>
-    <summary>Cauldron Core is the core toolkit assembly that the Cauldron Toolkit builds upon  (Open Source)</summary>
+    <summary>Cauldron Core is the core toolkit assembly that the Cauldron Toolkit builds upon </summary>
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Core AOP Fody interceptor interception</tags>
     <dependencies>
       <group targetFramework="uap10.0">
         <dependency id="Microsoft.NETCore.UniversalWindowsPlatform" version="5.2.2" />
         <dependency id="Cauldron.Interception.Fody" version="1.2.1-beta" />
+        <dependency id="Newtonsoft.Json" version="10.0.2" />
         <dependency id="Fody" version="1.29.4" />
       </group>
       <!--   <group targetFramework="netstandard1.6">
@@ -37,6 +38,7 @@
       </group>-->
       <group targetFramework="net452">
         <dependency id="Cauldron.Interception.Fody" version="1.2.1-beta" />
+        <dependency id="Newtonsoft.Json" version="10.0.2" />
         <dependency id="Fody" version="1.29.4" />
       </group>
     </dependencies>

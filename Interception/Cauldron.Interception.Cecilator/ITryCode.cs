@@ -10,8 +10,6 @@ namespace Cauldron.Interception.Cecilator
         [EditorBrowsable(EditorBrowsableState.Never)]
         new int GetHashCode();
 
-        ICode OriginalBody();
-
         [EditorBrowsable(EditorBrowsableState.Never)]
         new string ToString();
     }

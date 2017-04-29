@@ -31,9 +31,6 @@ namespace Cauldron.Potions.Implementation
         public Task<T> DeserializeAsync<T>(DirectoryInfo folder, string name) where T : class =>
             Core.Serializer.DeserializeAsync<T>(folder, name);
 
-        public void Serialize(object context, DirectoryInfo folder, string name) =>
-            Core.Serializer.Serialize(context, folder, name);
-
         public Task SerializeAsync(object context, string name) =>
             Core.Serializer.SerializeAsync(context, name);
 

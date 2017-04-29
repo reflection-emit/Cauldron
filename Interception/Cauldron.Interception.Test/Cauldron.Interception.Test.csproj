@@ -69,9 +69,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="FodyWeavers.xml" />
-  </ItemGroup>
-  <ItemGroup>
+    <None Include="FodyWeavers.xml" />
     <None Include="packages.config" />
   </ItemGroup>
   <Choose>
@@ -92,7 +90,6 @@
       </ItemGroup>
     </When>
   </Choose>
-
   <Import Project="..\Cauldron.Interception.SharedTest\Cauldron.Interception.SharedTest.projitems" Label="Shared" />
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

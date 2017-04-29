@@ -71,7 +71,8 @@ namespace Cauldron.Interception.Fody
             var views = builder.FindTypesByBaseClass("FrameworkElement");
             var viewModels = builder.FindTypesByInterface(notifyPropertyChangedInterface);
             var valueConverters = builder.FindTypesByInterface(valueConverterInterface);
-            var resourceDictionaries = builder.TypeExists("System.Windows.ResourceDictionary") ? builder.FindTypesByBaseClass("System.Windows.ResourceDictionary") : builder.FindTypesByBaseClass("Windows.UI.Xaml.ResourceDictionary");
+            var resourceDictionaryBaseClass = builder.TypeExists("Windows.UI.Xaml.ResourceDictionary") ? "Windows.UI.Xaml.ResourceDictionary" : "System.Windows.ResourceDictionary";
+            var resourceDictionaries = builder.FindTypesByBaseClass(resourceDictionaryBaseClass);
 
             foreach (var item in views)
             {
@@ -129,7 +130,7 @@ namespace Cauldron.Interception.Fody
                 if (item.CustomAttributes.HasAttribute(componentAttribute))
                     continue;
 
-                item.CustomAttributes.Add(componentAttribute, "System.Windows.ResourceDictionary");
+                item.CustomAttributes.Add(componentAttribute, resourceDictionaryBaseClass);
                 // Add a component contructor attribute to all .ctors
                 foreach (var ctor in item.Methods.Where(x => x.Name == ".ctor"))
                     ctor.CustomAttributes.Add(componentConstructorAttribute);
@@ -179,15 +180,16 @@ namespace Cauldron.Interception.Fody
             {
                 Type = x,
                 ContractName = x.GetMethod("get_ContractName"),
-                Policy = x.GetMethod("get_Policy")
+                Policy = x.GetMethod("get_Policy"),
+                Priority = x.GetMethod("get_Priority")
             });
             var componentConstructorAttribute = builder.GetType("Cauldron.Activator.ComponentConstructorAttribute");
 
             // Before we start let us find all factoryextensions and add a component attribute to them
-            var factoryExtensionInterface = builder.GetType("Cauldron.Activator.IFactoryResolver");
-            var factoryExtensions = builder.FindTypesByInterface(factoryExtensionInterface);
+            var factoryResolverInterface = builder.GetType("Cauldron.Activator.IFactoryResolver");
+            var factoryResolvers = builder.FindTypesByInterface(factoryResolverInterface);
 
-            foreach (var item in factoryExtensions)
+            foreach (var item in factoryResolvers)
             {
                 if (item.IsAbstract || item.IsInterface || item.HasUnresolvedGenericParameters)
                     continue;
@@ -195,7 +197,7 @@ namespace Cauldron.Interception.Fody
                 if (item.CustomAttributes.HasAttribute(componentAttribute.Type))
                     continue;
 
-                item.CustomAttributes.Add(componentAttribute.Type, factoryExtensionInterface.Fullname);
+                item.CustomAttributes.Add(componentAttribute.Type, factoryResolverInterface.Fullname);
                 // Add a component contructor attribute to all .ctors
                 foreach (var ctor in item.Methods.Where(x => x.Name == ".ctor"))
                     ctor.CustomAttributes.Add(componentConstructorAttribute);
@@ -257,6 +259,7 @@ namespace Cauldron.Interception.Fody
                                     return true;
                                 })
                                 .Where(y => y.CustomAttributes.HasAttribute(componentConstructorAttribute))
+                                .Concat(component.Type.Properties.Where(z => z.CustomAttributes.HasAttribute(componentConstructorAttribute) && z.Getter != null).Select(z => z.Getter))
                                 .OrderBy(y => y.Parameters.Length)
                                 .ToArray();
 
@@ -330,6 +333,10 @@ namespace Cauldron.Interception.Fody
 
                         case "CreationPolicy":
                             propertyResult.Getter.NewCode().Call(componentAttributeField, componentAttribute.Policy).Return().Replace();
+                            break;
+
+                        case "Priority":
+                            propertyResult.Getter.NewCode().Call(componentAttributeField, componentAttribute.Priority).Return().Replace();
                             break;
 
                         case "Type":

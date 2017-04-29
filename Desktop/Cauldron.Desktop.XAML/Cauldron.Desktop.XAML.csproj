@@ -103,9 +103,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="FodyWeavers.xml" />
-  </ItemGroup>
-  <ItemGroup>
+    <None Include="FodyWeavers.xml" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="..\..\Shared\Cauldron.Diagnostics\Cauldron.Diagnostics.projitems" Label="Shared" />

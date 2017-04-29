@@ -4,16 +4,13 @@ using Cauldron.XAML.ViewModels;
 using EveMarket.Views;
 using EveOnlineApi;
 using EveOnlineApi.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace EveMarket.ViewModels
 {
     [View(typeof(ItemInfoView))]
-    public class ItemInfoViewModel : ViewModelBase, IFactoryInitializeComponent
+    public class ItemInfoViewModel : ViewModelBase
     {
         [Inject]
         private IEveApi eveApi = null;
@@ -22,6 +19,8 @@ namespace EveMarket.ViewModels
         public ItemInfoViewModel(long itemId)
         {
             this.ItemId = itemId;
+
+            this.InitializeComponent();
         }
 
         public IEnumerable<QuicklookOrder> BuyOrders { get; set; }
@@ -42,7 +41,7 @@ namespace EveMarket.ViewModels
 
         public IEnumerable<QuicklookOrder> SellOrders { get; set; }
 
-        public async void OnInitializeComponent()
+        private async void InitializeComponent()
         {
             await this.RunDispatcherAsync(async () =>
              {

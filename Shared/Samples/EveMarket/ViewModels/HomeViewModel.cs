@@ -7,14 +7,12 @@ using EveOnlineApi;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Security;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace EveMarket.ViewModels
 {
     [View(typeof(HomeView))]
-    public class HomeViewModel : ViewModelBase, IFactoryInitializeComponent
+    public class HomeViewModel : ViewModelBase
     {
         [Inject]
         private IEveApi eveApi = null;
@@ -27,6 +25,8 @@ namespace EveMarket.ViewModels
             this.searchString = searchString;
             this.TypeItemCollection = new ObservableCollection<TypeNameItemViewModel>();
             this.OpenInfoCommand = new RelayCommand<IViewModel>(this.OpenInfoAction);
+
+            this.InitializeComponent();
         }
 
         public IViewModel Details { get; set; }
@@ -43,7 +43,7 @@ namespace EveMarket.ViewModels
             await this.MessageDialog.ShowException(e);
         }
 
-        public async void OnInitializeComponent()
+        private async void InitializeComponent()
         {
             await this.RunDispatcherAsync(async () =>
             {

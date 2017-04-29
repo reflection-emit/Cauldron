@@ -19,6 +19,11 @@ namespace Cauldron.Activator
         FactoryCreationPolicy CreationPolicy { get; }
 
         /// <summary>
+        /// Gets the priority of the component
+        /// </summary>
+        uint Priority { get; }
+
+        /// <summary>
         /// The type to be constructed
         /// </summary>
         Type Type { get; }

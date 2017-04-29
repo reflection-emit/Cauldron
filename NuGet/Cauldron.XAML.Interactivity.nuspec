@@ -11,7 +11,7 @@
     <iconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Behaviours and Action for Cauldron.XAML</description>
-    <summary>(beta) Behaviours and Action for Cauldron.XAML (Open Source)</summary>
+    <summary>(beta) Behaviours and Action for Cauldron.XAML</summary>
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron XAML WPF Behaviours Actions MVVM</tags>
     <dependencies>

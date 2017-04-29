@@ -89,32 +89,6 @@ namespace Cauldron.Potions
         /// <exception cref="NotSupportedException"><paramref name="name"/> is a value type</exception>
         Task<T> DeserializeAsync<T>(string name) where T : class;
 
-#if WINDOWS_UWP
-
-        /// <summary>
-        /// Serializes an object.
-        /// </summary>
-        /// <param name="context">The object to serialize</param>
-        /// <param name="name">The name of the file</param>
-        /// <param name="folder">The directory where the file resides</param>
-        /// <exception cref="ArgumentNullException"><paramref name="context"/> is null</exception>
-        /// <exception cref="NotSupportedException"><paramref name="context"/> is a value type</exception>
-        void Serialize(object context, StorageFolder folder, string name);
-
-#else
-
-        /// <summary>
-        /// Serializes an object.
-        /// </summary>
-        /// <param name="context">The object to serialize</param>
-        /// <param name="name">The name of the file</param>
-        /// <param name="folder">The directory where the file resides</param>
-        /// <exception cref="ArgumentNullException"><paramref name="context"/> is null</exception>
-        /// <exception cref="NotSupportedException"><paramref name="context"/> is a value type</exception>
-        void Serialize(object context, DirectoryInfo folder, string name);
-
-#endif
-
         /// <summary>
         /// Serializes an object.
         /// </summary>

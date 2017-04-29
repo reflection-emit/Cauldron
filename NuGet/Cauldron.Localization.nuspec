@@ -11,7 +11,7 @@
     <iconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>A simple localization implementation that can work with different sources.</description>
-    <summary>A simple localization implementation that can work with different sources (Open Source)</summary>
+    <summary>A simple localization implementation that can work with different sources</summary>
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Multisource Localization Language</tags>
     <dependencies>

@@ -10,8 +10,8 @@
     <projectUrl>https://github.com/Capgemini/Cauldron</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
-    <description>A Simple MVVM framework based on Cauldron.Core</description>
-    <summary>(beta) A Simple MVVM framework based on Cauldron.Core (Open Source)</summary>
+    <description>A simple MVVM framework based on Cauldron.Core</description>
+    <summary>(beta) A simple MVVM framework based on Cauldron.Core</summary>
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron XAML WPF MVVM Framework ViewModels</tags>
     <dependencies>

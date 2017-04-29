@@ -1,0 +1,107 @@
+﻿[
+  {
+    "key": "search",
+    "de": [
+      "Suche"
+    ],
+    "en": [
+      "Search"
+    ]
+  },
+  {
+    "key": "startSearch",
+    "de": [
+      "Suche starten"
+    ],
+    "en": [
+      "Start Search"
+    ]
+  },
+  {
+    "key": "typeName",
+    "de": [
+      "Typenname"
+    ],
+    "en": [
+      "Type name"
+    ]
+  },
+  {
+    "key": "averagePrice",
+    "de": [
+      "Preis ∅ "
+    ],
+    "en": [
+      "Av. Price"
+    ]
+  },
+  {
+    "key": "groupName",
+    "de": [
+      "Marktgruppe"
+    ],
+    "en": [
+      "Market group"
+    ]
+  },
+  {
+    "key": "morethan5CharsRequired",
+    "de": [
+      "<Inline>Es werden mindestens <Bold>5 Zeichen</Bold> für die Suche benötigt.</Inline>"
+    ],
+    "en": [
+      "<Inline>Please enter at least <Bold>5 characters</Bold> in the searchbox.</Inline>"
+    ]
+  },
+  {
+    "key": "openInEve",
+    "de": [
+      "In EvE öffnen"
+    ],
+    "en": [
+      "Open in EvE"
+    ]
+  },
+  {
+    "key": "iskValue",
+    "en": [
+      "{0:C}"
+    ]
+  },
+  {
+    "key": "sellOrders",
+    "de": [
+      "Verkaufsaufträge"
+    ],
+    "en": [
+      "Sell Orders"
+    ]
+  },
+  {
+    "key": "buyOrders",
+    "de": [
+      "Kaufaufträge"
+    ],
+    "en": [
+      "Buy Orders"
+    ]
+  },
+  {
+    "key": "description",
+    "de": [
+      "Beschreibung"
+    ],
+    "en": [
+      "Description"
+    ]
+  },
+  {
+    "key": "loading",
+    "de": [
+      "Statische Daten werden geladen."
+    ],
+    "en": [
+      "Loading Static Data"
+    ]
+  }
+]

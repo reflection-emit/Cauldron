@@ -14,6 +14,10 @@ namespace Cauldron.XAML.Interactivity.Actions
     /// </summary>
     public sealed class ActionCollection : BehaviourCollection<ActionBase>
     {
+        /// <summary>
+        /// Initializes a new instance of <see cref="ActionCollection"/>
+        /// </summary>
+        /// <param name="owner"></param>
         public ActionCollection(DependencyObject owner) : base(owner)
         {
         }

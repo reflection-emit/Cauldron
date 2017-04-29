@@ -244,6 +244,8 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Cauldron.Interception.Share
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParameterPassingToRunningConsoleApplication", "Desktop\Samples\ParameterPassingToRunningConsoleApplication\ParameterPassingToRunningConsoleApplication.csproj", "{C0A9C5FA-B50F-4A66-9593-6410EB865783}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "EveMarket", "Shared\Samples\EveMarket\EveMarket.shproj", "{8E9BE0BB-4226-4D4A-AA40-19456B95ECC3}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Shared\Cauldron.Consoles\Cauldron.Consoles.projitems*{00c29751-1557-46a8-9547-f74065b36592}*SharedItemsImports = 4
@@ -289,6 +291,8 @@ Global
 		Shared\Unit Tests\Cauldron.XAML.Test\Cauldron.XAML.Test.projitems*{8365e281-779d-4a4a-9143-e4d3eec63251}*SharedItemsImports = 4
 		Shared\Cauldron.Consoles\Cauldron.Consoles.projitems*{867e2ed4-292a-4625-8e4f-c3f3b3d55db9}*SharedItemsImports = 13
 		Shared\Unit Tests\Cauldron.Activator.Test\Cauldron.Activator.Test.projitems*{8ae5e4df-4d6e-4c84-838c-3fccf746f61f}*SharedItemsImports = 13
+		Shared\Samples\EveMarket\EveMarket.projitems*{8c23e95a-3b90-4d05-9dd0-46755ddd09da}*SharedItemsImports = 4
+		Shared\Samples\EveMarket\EveMarket.projitems*{8e9be0bb-4226-4d4a-aa40-19456b95ecc3}*SharedItemsImports = 13
 		Shared\Cauldron.Interception.Logging.NLog\Cauldron.Interception.Logging.NLog.projitems*{9dcc8539-5a09-48de-b60d-ce157fdf22a0}*SharedItemsImports = 13
 		Shared\Unit Tests\Cauldron.XAML.Validation.Test\Cauldron.XAML.Validation.Test.projitems*{9e87b47b-8b3c-429c-a06d-fa7d1e226f62}*SharedItemsImports = 4
 		Shared\Cauldron.Localization\Cauldron.Localization.projitems*{a2ca82ea-faa4-4cd9-aebc-89ae833e993a}*SharedItemsImports = 13
@@ -315,6 +319,7 @@ Global
 		Shared\IEnumerableExtensions\IEnumerableExtensions.projitems*{d09d5044-4799-4ccf-997d-31f10b6fce24}*SharedItemsImports = 4
 		Shared\Cauldron.Cryptography\Cauldron.Cryptography.projitems*{d20bc350-336c-4e82-9848-773de5abac39}*SharedItemsImports = 4
 		Shared\Samples\EveOnlineApi\EveOnlineApi.projitems*{db22a9b3-7688-483a-8458-0beae6fb31e8}*SharedItemsImports = 4
+		Shared\Samples\EveMarket\EveMarket.projitems*{e2a547b5-aad8-46b2-9748-6c7318e19a30}*SharedItemsImports = 4
 		Shared\Unit Tests\Cauldron.XAML.Validation.Test\Cauldron.XAML.Validation.Test.projitems*{e2eab9df-5873-4bba-bdfd-b8a9beba5921}*SharedItemsImports = 13
 		Shared\Cauldron.Core\Cauldron.Core.projitems*{e977dae7-c754-4da7-b7dc-bca8b1c0ce09}*SharedItemsImports = 4
 		Shared\Cauldron.Diagnostics\Cauldron.Diagnostics.projitems*{e977dae7-c754-4da7-b7dc-bca8b1c0ce09}*SharedItemsImports = 4
@@ -1440,5 +1445,6 @@ Global
 		{443C91E5-E0FB-4110-ACA8-2D2D130CCBA8} = {45646BEE-05CB-4168-8F1F-291F511B6B76}
 		{0C0FC5CB-C4BF-443D-BB52-E37B74538702} = {B1732329-29AB-4590-8408-6A6A3A2236D8}
 		{C0A9C5FA-B50F-4A66-9593-6410EB865783} = {3BE31091-7470-4D9B-B163-4BE4A674A5D1}
+		{8E9BE0BB-4226-4D4A-AA40-19456B95ECC3} = {711572C9-DA8A-43F7-A94D-E406ED56E6C4}
 	EndGlobalSection
 EndGlobal
