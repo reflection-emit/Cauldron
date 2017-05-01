@@ -143,11 +143,18 @@ namespace Cauldron.Interception.Fody
                 return;
 
             var module = builder.GetType("<Module>", SearchContext.Module);
-            var isUWP = false;
+            var isUWP = builder.TypeExists("Windows.UI.Xaml.ResourceDictionary");
 
             if (isUWP)
             {
                 // UWP has to actually use any type from the Assembly, so that it is not thrown out while compiling to Nativ Code
+
+                module.CreateStaticConstructor().NewCode().Context(x =>
+                {
+                })
+                .Insert(InsertionPosition.End);
+
+                module.StaticConstructor.CustomAttributes.Add(typeof(MethodImplAttribute), MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization);
             }
             else
             {

@@ -59,10 +59,6 @@
       <Project>{0b23e7be-0e65-4a53-988f-67a0e9eeea2e}</Project>
       <Name>Cauldron.Desktop.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Desktop\Cauldron.Desktop.Activator\Cauldron.Desktop.Activator.csproj">
-      <Project>{6e8a953e-2732-4a58-bc7b-f86b1a5ca5dd}</Project>
-      <Name>Cauldron.Desktop.Activator</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Desktop\Cauldron.Desktop.Interception\Cauldron.Desktop.Interception.csproj">
       <Project>{c656c9c1-bee8-40b1-bac7-6dd7b6ff5fbb}</Project>
       <Name>Cauldron.Desktop.Interception</Name>
