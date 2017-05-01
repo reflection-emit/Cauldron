@@ -137,6 +137,54 @@ namespace Cauldron.Interception.Fody
             }
         }
 
+        private void AddLoadLocalReferencedAssembly(Builder builder)
+        {
+            if (builder.UnusedReference.Length == 0)
+                return;
+
+            var module = builder.GetType("<Module>", SearchContext.Module);
+            var isUWP = false;
+
+            if (isUWP)
+            {
+                // UWP has to actually use any type from the Assembly, so that it is not thrown out while compiling to Nativ Code
+            }
+            else
+            {
+                var assembly = builder.GetType("System.Reflection.Assembly").New(x => new
+                {
+                    Type = x,
+                    LoadFile = x.GetMethod("LoadFile", 1),
+                    GetAssembly = x.GetMethod("GetAssembly", 1),
+                    Location = x.GetMethod("get_Location")
+                });
+                var path = builder.GetType("System.IO.Path").New(x => new
+                {
+                    GetDirectoryName = x.GetMethod("GetDirectoryName", 1),
+                    Combine = x.GetMethod("Combine", 2)
+                });
+                var file = builder.GetType("System.IO.File").New(x => new
+                {
+                    Exists = x.GetMethod("Exists", 1)
+                });
+
+                module.CreateStaticConstructor().NewCode().Context(x =>
+                {
+                    var currentPath = x.CreateVariable(typeof(string));
+                    x.Call(assembly.GetAssembly, module).Callvirt(assembly.Location).StoreLocal(currentPath);
+                    x.Call(path.GetDirectoryName, currentPath).StoreLocal(currentPath);
+                    var assemblyPathVariable = x.CreateVariable(typeof(string));
+
+                    foreach (var item in builder.UnusedReference)
+                    {
+                        x.Call(path.Combine, currentPath, item.Filename).StoreLocal(assemblyPathVariable);
+                        x.Call(file.Exists, assemblyPathVariable).IsTrue().Then(y => y.Call(assembly.LoadFile, assemblyPathVariable).Pop());
+                    }
+                })
+                .Insert(InsertionPosition.End);
+            }
+        }
+
         private Method CreateAssigningMethod(BuilderType anonSource, BuilderType anonTarget, BuilderType anonTargetInterface, Method method)
         {
             var name = $"<{counter++}>f__Anon_Assign";
@@ -396,7 +444,7 @@ namespace Cauldron.Interception.Fody
                 CreateComponentCache(builder, cauldron);
 
             // Add all unused assembly to modules
-            // TODO
+            this.AddLoadLocalReferencedAssembly(builder);
         }
 
         private void ImplementAnonymousTypeInterface(Builder builder)

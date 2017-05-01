@@ -21,5 +21,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)IPropertySetterInterceptor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PropertyInterceptionInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TimedCacheAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils.cs" />
   </ItemGroup>
 </Project>

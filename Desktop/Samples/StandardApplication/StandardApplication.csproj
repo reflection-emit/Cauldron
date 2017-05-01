@@ -56,9 +56,6 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\..\UWP\Samples\StandardApplication\LocaleSource.cs">
-      <Link>LocaleSource.cs</Link>
-    </Compile>
     <Compile Include="..\..\..\UWP\Samples\StandardApplication\ViewModels\MainViewModel.cs">
       <Link>ViewModels\MainViewModel.cs</Link>
     </Compile>

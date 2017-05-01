@@ -46,7 +46,7 @@ namespace Cauldron.Interception.Cecilator
                 {
                     try
                     {
-                        return AssemblyDefinition.ReadAssembly(x);
+                        return new AssemblyDefinitionEx(AssemblyDefinition.ReadAssembly(x), x);
                     }
                     catch (BadImageFormatException e)
                     {
@@ -59,10 +59,10 @@ namespace Cauldron.Interception.Cecilator
                         return null;
                     }
                 })
-                .Where(x => x != null && !assemblies.Any(y => y.FullName.GetHashCode() == x.FullName.GetHashCode() && y.FullName == x.FullName))
+                .Where(x => x != null && !assemblies.Any(y => y.FullName.GetHashCode() == x.AssemblyDefinition.FullName.GetHashCode() && y.FullName == x.AssemblyDefinition.FullName))
                 .ToArray();
 
-            this.allAssemblies = assemblies.Concat(this.UnusedReference).ToArray();
+            this.allAssemblies = assemblies.Concat(this.UnusedReference.Select(x => x.AssemblyDefinition)).ToArray();
 
             this.logInfo("-----------------------------------------------------------------------------");
 
@@ -88,7 +88,7 @@ namespace Cauldron.Interception.Cecilator
         }
 
         public string Identification { get; private set; }
-        public AssemblyDefinition[] UnusedReference { get; private set; }
+        public AssemblyDefinitionEx[] UnusedReference { get; private set; }
 
         public static string GenerateName() => Path.GetRandomFileName().Replace(".", DateTime.Now.Second.ToString());
 

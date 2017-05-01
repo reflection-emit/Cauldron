@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyDefinitionEqualityComparer.cs" />
+    <Compile Include="AssemblyDefinitionEx.cs" />
     <Compile Include="AssignInstructionsSet.cs" />
     <Compile Include="AsyncMethodHelper.cs" />
     <Compile Include="AttributedField.cs" />

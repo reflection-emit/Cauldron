@@ -358,9 +358,16 @@ namespace Cauldron.Interception.Cecilator
             return this.GetType(type.FullName);
         }
 
-        public BuilderType GetType(string typeName)
+        /// <summary>
+        /// Gets a type from its name. Default search context is <see cref="SearchContext.AllReferencedModules"/>
+        /// </summary>
+        /// <param name="typeName"></param>
+        /// <returns></returns>
+        public BuilderType GetType(string typeName) => this.GetType(typeName, SearchContext.AllReferencedModules);
+
+        public BuilderType GetType(string typeName, SearchContext searchContext)
         {
-            var result = this.allTypes.Get(typeName);
+            var result = this.GetTypesInternal(searchContext).Get(typeName);
 
             if (result == null)
                 throw new TypeNotFoundException($"The type '{typeName}' does not exist in any of the referenced assemblies.");
