@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.0</TargetFramework>
+    <AssemblyName>SampleConsoleApplication</AssemblyName>
+    <OutputType>Exe</OutputType>
+    <PackageId>SampleConsoleApplication</PackageId>
+    <RuntimeIdentifiers>win10-x64;ubuntu.14.10</RuntimeIdentifiers>
+    <RuntimeFrameworkVersion>1.1.1</RuntimeFrameworkVersion>
+    <PackageTargetFallback>$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\..\..\Desktop\Samples\SampleConsoleApplication\EveMarketExecutionGroup.cs;..\..\..\Desktop\Samples\SampleConsoleApplication\LocaleSource.cs;..\..\..\Desktop\Samples\SampleConsoleApplication\MainExecutionGroup.cs;..\..\..\Desktop\Samples\SampleConsoleApplication\Program.cs" />
+    <EmbeddedResource Include="..\..\..\Desktop\Samples\SampleConsoleApplication\string.yaml" Exclude="bin\**;obj\**;**\*.xproj;packages\**;@(EmbeddedResource)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Cauldron.NetCore.Activator\Cauldron.NetCore.Activator.csproj" />
+    <ProjectReference Include="..\..\Cauldron.NetCore.Consoles\Cauldron.NetCore.Consoles.csproj" />
+    <ProjectReference Include="..\..\Cauldron.NetCore.Core\Cauldron.NetCore.Core.csproj" />
+    <ProjectReference Include="..\..\Cauldron.NetCore.Interception\Cauldron.NetCore.Interception.csproj" />
+    <ProjectReference Include="..\..\Cauldron.NetCore.Localization\Cauldron.NetCore.Localization.csproj" />
+    <ProjectReference Include="..\EveOnlineApi.NetCore\EveOnlineApi.NetCore.csproj" />
+  </ItemGroup>
+
+</Project>

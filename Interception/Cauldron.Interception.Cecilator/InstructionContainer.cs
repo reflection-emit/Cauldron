@@ -10,14 +10,13 @@ namespace Cauldron.Interception.Cecilator
     {
         private readonly List<ExceptionHandler> exceptionHandlers = new List<ExceptionHandler>();
         private readonly List<Instruction> instruction = new List<Instruction>();
-        private readonly VariableDefinitionKeyedCollection variables = new VariableDefinitionKeyedCollection();
+        private readonly List<VariableDefinition> variables = new List<VariableDefinition>();
 
         private Mono.Collections.Generic.Collection<VariableDefinition> orginalVariables;
 
         public InstructionContainer(Mono.Collections.Generic.Collection<VariableDefinition> variables)
         {
             this.orginalVariables = variables;
-            this.SyncLocalVariables();
         }
 
         private InstructionContainer(InstructionContainer container)
@@ -42,8 +41,6 @@ namespace Cauldron.Interception.Cecilator
 
         public List<ExceptionHandler> ExceptionHandlers { get { return this.exceptionHandlers; } }
 
-        public VariableDefinitionKeyedCollection Variables { get { return this.variables; } }
-
         public Instruction this[int index] { get { return this.instruction[index]; } }
 
         public static implicit operator Instruction[] (InstructionContainer a) => a.instruction.ToArray();
@@ -57,8 +54,6 @@ namespace Cauldron.Interception.Cecilator
             this.instruction.Clear();
             this.exceptionHandlers.Clear();
             this.variables.Clear();
-
-            this.SyncLocalVariables();
         }
 
         public InstructionContainer Clone() => new InstructionContainer(this);
@@ -104,21 +99,5 @@ namespace Cauldron.Interception.Cecilator
         }
 
         internal Instruction[] ToArray() => this.instruction.ToArray();
-
-        private void SyncLocalVariables()
-        {
-            foreach (var item in this.orginalVariables)
-            {
-                var name = string.IsNullOrEmpty(item.Name) ? item.Index.ToString() : item.Name;
-
-                if (this.variables.Contains(name) && this.variables[name].VariableType == item.VariableType)
-                    continue;
-                else if (this.variables.Contains(name) && this.variables[name].VariableType != item.VariableType)
-                    name = Path.GetRandomFileName().Replace(".", DateTime.Now.Second.ToString());
-
-                item.Name = name;
-                this.variables.Add(item);
-            }
-        }
     }
 }

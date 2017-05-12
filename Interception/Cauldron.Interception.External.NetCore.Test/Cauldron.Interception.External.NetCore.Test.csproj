@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.6</TargetFramework>
+    <DefineConstants>$(DefineConstants);NETCORE</DefineConstants>
+    <AssemblyName>Cauldron.Interception.External.Test</AssemblyName>
+    <PackageId>Cauldron.Interception.External.NetCore.Test</PackageId>
+    <NetStandardImplicitPackageVersion>1.6.1</NetStandardImplicitPackageVersion>
+    <PackageTargetFallback>$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="..\Cauldron.Interception.External.Test\Properties\AssemblyInfo.cs" />
+    <Compile Include="..\Cauldron.Interception.External.Test\**\*.cs" Exclude="bin\**;obj\**;**\*.xproj;packages\**;..\Cauldron.Interception.External.Test\Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\NetCore\Cauldron.NetCore.Core\Cauldron.NetCore.Core.csproj" />
+    <ProjectReference Include="..\..\NetCore\Cauldron.NetCore.Interception\Cauldron.NetCore.Interception.csproj" />
+  </ItemGroup>
+
+</Project>

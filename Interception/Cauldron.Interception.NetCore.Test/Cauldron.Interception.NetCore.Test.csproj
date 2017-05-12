@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.6</TargetFramework>
+    <DefineConstants>$(DefineConstants);NETCORE</DefineConstants>
+    <AssemblyName>Cauldron.Interception.Test</AssemblyName>
+    <PackageId>Cauldron.Interception.NetCore.Test</PackageId>
+    <NetStandardImplicitPackageVersion>1.6.1</NetStandardImplicitPackageVersion>
+    <PackageTargetFallback>$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="..\Cauldron.Interception.Test\Properties\AssemblyInfo.cs" />
+    <Compile Include="..\Cauldron.Interception.SharedTest\**\*.cs" Exclude="bin\**;obj\**;**\*.xproj;packages\**;..\Cauldron.Interception.Test\Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\NetCore\Cauldron.NetCore.Activator\Cauldron.NetCore.Activator.csproj" />
+    <ProjectReference Include="..\..\NetCore\Cauldron.NetCore.Core\Cauldron.NetCore.Core.csproj" />
+    <ProjectReference Include="..\..\NetCore\Cauldron.NetCore.Interception\Cauldron.NetCore.Interception.csproj" />
+    <ProjectReference Include="..\Cauldron.Interception.External.NetCore.Test\Cauldron.Interception.External.NetCore.Test.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MSTest.TestFramework" Version="1.0.8-rc" />
+  </ItemGroup>
+
+  <Import Project="..\Cauldron.Interception.SharedTest\Cauldron.Interception.SharedTest.projitems" Label="Shared" />
+
+</Project>

@@ -43,14 +43,14 @@ namespace Cauldron.Interception.Cecilator
                 this.innerCollection.AddRange(propertyDefinition.SetMethod.CustomAttributes.Select(x => new BuilderCustomAttribute(builder, propertyDefinition.SetMethod, x)));
         }
 
-        public void Add(Type customAttributeType, params object[] parameters) => this.Add(this.moduleDefinition.Import(customAttributeType), parameters);
+        public void Add(Type customAttributeType, params object[] parameters) => this.Add(this.moduleDefinition.ImportReference(customAttributeType), parameters);
 
         public void Add(BuilderType customAttributeType, params object[] parameters) => this.Add(customAttributeType.typeReference, parameters);
 
         public void Add(TypeReference customAttributeType, params object[] parameters)
         {
             MethodReference ctor = null;
-            var type = this.moduleDefinition.Import(customAttributeType);
+            var type = this.moduleDefinition.ImportReference(customAttributeType);
 
             if (parameters == null || parameters.Length == 0)
                 ctor = type.Resolve().Methods.FirstOrDefault(x => x.Name == ".ctor" && x.Parameters.Count == 0);
@@ -66,7 +66,7 @@ namespace Cauldron.Interception.Cecilator
 
                     for (int i = 0; i < x.Parameters.Count; i++)
                     {
-                        var parameterType = parameters[i] == null ? null : this.moduleDefinition.Import(parameters[i].GetType());
+                        var parameterType = parameters[i] == null ? null : this.moduleDefinition.ImportReference(parameters[i].GetType());
 
                         if (!this.AreReferenceAssignable(x.Parameters[i].ParameterType, parameterType))
                             return false;
@@ -79,7 +79,7 @@ namespace Cauldron.Interception.Cecilator
             if (ctor == null)
                 throw new ArgumentException("Unable to find matching ctor.");
 
-            var attrib = new CustomAttribute(this.moduleDefinition.Import(ctor));
+            var attrib = new CustomAttribute(this.moduleDefinition.ImportReference(ctor));
 
             if (ctor.Parameters.Count > 0)
                 for (int i = 0; i < ctor.Parameters.Count; i++)
@@ -122,8 +122,6 @@ namespace Cauldron.Interception.Cecilator
 
         public IEnumerator<BuilderCustomAttribute> GetEnumerator() => this.innerCollection.GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator() => this.innerCollection.GetEnumerator();
-
         public bool HasAttribute(BuilderType type)
         {
             if (this.customAttributeProvider != null)
@@ -163,6 +161,8 @@ namespace Cauldron.Interception.Cecilator
                 .ToArray();
             this.Remove(attributesToRemove);
         }
+
+        IEnumerator IEnumerable.GetEnumerator() => this.innerCollection.GetEnumerator();
 
         private void Remove(BuilderCustomAttribute[] attributesToRemove)
         {

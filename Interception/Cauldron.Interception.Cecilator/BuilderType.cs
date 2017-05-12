@@ -47,7 +47,7 @@ namespace Cauldron.Interception.Cecilator
         public bool IsGenericType { get { return this.typeDefinition == null || this.typeReference.Resolve() == null; } }
         public bool IsInterface { get { return this.typeDefinition == null ? false : this.typeDefinition.Attributes.HasFlag(TypeAttributes.Interface); } }
 
-        public bool IsNullable { get { return this.typeDefinition.FullName == this.moduleDefinition.Import(typeof(Nullable<>)).Resolve().FullName; } }
+        public bool IsNullable { get { return this.typeDefinition.FullName == this.moduleDefinition.ImportReference(typeof(Nullable<>)).Resolve().FullName; } }
 
         public bool IsPublic { get { return this.typeDefinition.Attributes.HasFlag(TypeAttributes.Public); } }
 
@@ -199,9 +199,9 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
-        public void AddInterface(Type interfaceType) => this.typeDefinition.Interfaces.Add(this.moduleDefinition.Import(interfaceType));
+        public void AddInterface(Type interfaceType) => this.typeDefinition.Interfaces.Add(new InterfaceImplementation(this.moduleDefinition.ImportReference(interfaceType)));
 
-        public void AddInterface(BuilderType interfaceType) => this.typeDefinition.Interfaces.Add(this.moduleDefinition.Import(interfaceType.typeReference));
+        public void AddInterface(BuilderType interfaceType) => this.typeDefinition.Interfaces.Add(new InterfaceImplementation(this.moduleDefinition.ImportReference(interfaceType.typeReference)));
 
         public Method CreateConstructor(params BuilderType[] parameters)
         {
@@ -278,7 +278,7 @@ namespace Cauldron.Interception.Cecilator
 
         public FieldCollection Fields { get { return new FieldCollection(this, this.typeDefinition.Fields); } }
 
-        public Field CreateField(Modifiers modifier, Type fieldType, string name) => this.CreateField(modifier, this.moduleDefinition.Import(this.GetTypeDefinition(fieldType).ResolveType(this.typeReference)), name);
+        public Field CreateField(Modifiers modifier, Type fieldType, string name) => this.CreateField(modifier, this.moduleDefinition.ImportReference(this.GetTypeDefinition(fieldType).ResolveType(this.typeReference)), name);
 
         public Field CreateField(Modifiers modifier, Field field, string name) => this.CreateField(modifier, field.fieldRef.FieldType, name);
 
@@ -292,7 +292,7 @@ namespace Cauldron.Interception.Cecilator
             if (modifier.HasFlag(Modifiers.Static)) attributes |= FieldAttributes.Static;
             if (modifier.HasFlag(Modifiers.Public)) attributes |= FieldAttributes.Public;
 
-            var field = new FieldDefinition(name, attributes, this.moduleDefinition.Import(typeReference));
+            var field = new FieldDefinition(name, attributes, this.moduleDefinition.ImportReference(typeReference));
             this.typeDefinition.Fields.Add(field);
 
             return new Field(this, field);
@@ -345,7 +345,7 @@ namespace Cauldron.Interception.Cecilator
             if (modifier.HasFlag(Modifiers.Public)) attributes |= MethodAttributes.Public;
             if (modifier.HasFlag(Modifiers.Overrrides)) attributes |= MethodAttributes.Final | MethodAttributes.Virtual | MethodAttributes.NewSlot;
 
-            var returnType = this.moduleDefinition.Import(propertyType.typeReference);
+            var returnType = this.moduleDefinition.ImportReference(propertyType.typeReference);
             var property = new PropertyDefinition(name, PropertyAttributes.None, returnType);
             var backingField = this.CreateField(modifier, returnType, $"<{name}>k__BackingField");
 
@@ -448,10 +448,10 @@ namespace Cauldron.Interception.Cecilator
             if (modifier.HasFlag(Modifiers.Public)) attributes |= MethodAttributes.Public;
             if (modifier.HasFlag(Modifiers.Overrrides)) attributes |= MethodAttributes.Final | MethodAttributes.Virtual | MethodAttributes.NewSlot;
 
-            var method = new MethodDefinition(name, attributes, this.moduleDefinition.Import(returnType.typeReference));
+            var method = new MethodDefinition(name, attributes, this.moduleDefinition.ImportReference(returnType.typeReference));
 
             foreach (var item in parameters)
-                method.Parameters.Add(new ParameterDefinition(this.moduleDefinition.Import(item.typeReference)));
+                method.Parameters.Add(new ParameterDefinition(this.moduleDefinition.ImportReference(item.typeReference)));
 
             this.typeDefinition.Methods.Add(method);
 
@@ -473,7 +473,7 @@ namespace Cauldron.Interception.Cecilator
             var method = new MethodDefinition(name, attributes, this.moduleDefinition.TypeSystem.Void);
 
             foreach (var item in parameters)
-                method.Parameters.Add(new ParameterDefinition(this.moduleDefinition.Import(item.typeReference)));
+                method.Parameters.Add(new ParameterDefinition(this.moduleDefinition.ImportReference(item.typeReference)));
 
             this.typeDefinition.Methods.Add(method);
 

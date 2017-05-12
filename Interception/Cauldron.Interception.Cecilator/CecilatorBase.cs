@@ -120,7 +120,7 @@ namespace Cauldron.Interception.Cecilator
             if (result == null)
                 throw new Exception($"Unable to proceed. The type '{type.FullName}' was not found.");
 
-            return this.moduleDefinition.Import(type).Resolve();
+            return this.moduleDefinition.ImportReference(type).Resolve();
         }
 
         internal void LogError(object value)
@@ -152,7 +152,7 @@ namespace Cauldron.Interception.Cecilator
             return new Instruction[] {
                 processor.Create(OpCodes.Ldtoken, type),
                 processor.Create(OpCodes.Call,
-                    this.moduleDefinition.Import(
+                    this.moduleDefinition.ImportReference(
                         this.GetTypeDefinition(typeof(Type))
                             .Methods.FirstOrDefault(x=>x.Name == "GetTypeFromHandle" && x.Parameters.Count == 1)))
             };

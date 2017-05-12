@@ -130,7 +130,7 @@ namespace Cauldron.Interception.Cecilator
             if (field != null)
                 return new Field(this.type, field);
 
-            return this.CreateField(this.moduleDefinition.Import(this.GetTypeDefinition(fieldType).ResolveType(this.DeclaringType.typeReference)), name);
+            return this.CreateField(this.moduleDefinition.ImportReference(this.GetTypeDefinition(fieldType).ResolveType(this.DeclaringType.typeReference)), name);
         }
 
         public Field CreateField(Field field, string name) => this.CreateField(field.fieldRef.FieldType, name);

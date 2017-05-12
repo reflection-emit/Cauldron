@@ -27,7 +27,7 @@ namespace Cauldron.Interception.Cecilator
 
         public Method Import(System.Reflection.MethodBase value)
         {
-            var result = this.moduleDefinition.Import(value);
+            var result = this.moduleDefinition.ImportReference(value);
             return new Method(new BuilderType(this, result.DeclaringType), result, result.Resolve());
         }
 
@@ -352,7 +352,7 @@ namespace Cauldron.Interception.Cecilator
             {
                 var child = type.GetElementType();
                 var bt = this.GetType(child.FullName);
-                return new BuilderType(this, new ArrayType(this.moduleDefinition.Import(bt.typeReference)));
+                return new BuilderType(this, new ArrayType(this.moduleDefinition.ImportReference(bt.typeReference)));
             }
 
             return this.GetType(type.FullName);
@@ -372,8 +372,8 @@ namespace Cauldron.Interception.Cecilator
             if (result == null)
                 throw new TypeNotFoundException($"The type '{typeName}' does not exist in any of the referenced assemblies.");
 
-            if (result.Module.FullyQualifiedName.GetHashCode() != this.moduleDefinition.FullyQualifiedName.GetHashCode() && result.Module.FullyQualifiedName != this.moduleDefinition.FullyQualifiedName)
-                this.moduleDefinition.Import(result);
+            if (result.Module.FileName.GetHashCode() != this.moduleDefinition.FileName.GetHashCode() && result.Module.FileName != this.moduleDefinition.FileName)
+                this.moduleDefinition.ImportReference(result);
 
             return new BuilderType(this, result);
         }
@@ -386,7 +386,7 @@ namespace Cauldron.Interception.Cecilator
 
         public IEnumerable<BuilderType> GetTypesInNamespace(SearchContext searchContext, string namespaceName) => this.GetTypes(searchContext).Where(x => x.Namespace == namespaceName);
 
-        public BuilderType MakeArray(BuilderType type) => new BuilderType(this, new ArrayType(this.moduleDefinition.Import(type.typeReference)));
+        public BuilderType MakeArray(BuilderType type) => new BuilderType(this, new ArrayType(this.moduleDefinition.ImportReference(type.typeReference)));
 
         public bool TypeExists(string typeName) => this.allTypes.Get(typeName) != null;
 
@@ -423,7 +423,7 @@ namespace Cauldron.Interception.Cecilator
 
         private BuilderType CreateType(string namespaceName, TypeAttributes attributes, string typeName, TypeReference baseType)
         {
-            var newType = new TypeDefinition(namespaceName, typeName, attributes, this.moduleDefinition.Import(baseType));
+            var newType = new TypeDefinition(namespaceName, typeName, attributes, this.moduleDefinition.ImportReference(baseType));
             this.moduleDefinition.Types.Add(newType);
 
             return new BuilderType(this, newType);

@@ -2,6 +2,7 @@
 using Mono.Cecil.Cil;
 using Mono.Cecil.Rocks;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -104,7 +105,7 @@ namespace Cauldron.Interception.Cecilator
 
                         // We just don't know :(
                         if (ienumerableInterface == null)
-                            return module.Import(typeof(object));
+                            return module.ImportReference(typeof(object));
 
                         return (ienumerableInterface as GenericInstanceType).GenericArguments[0];
                     }
@@ -136,7 +137,7 @@ namespace Cauldron.Interception.Cecilator
                 };
             }
 
-            return module.Import(typeof(object));
+            return module.ImportReference(typeof(object));
         }
 
         public static IReadOnlyDictionary<string, TypeReference> GetGenericResolvedTypeName(this GenericInstanceType type)
@@ -218,7 +219,7 @@ namespace Cauldron.Interception.Cecilator
                     break;
 
                 if (typeDef.Interfaces != null && typeDef.Interfaces.Count > 0)
-                    result.AddRange(type.Recursive(x => x.Resolve().Interfaces).Select(x => x.ResolveType(type)));
+                    result.AddRange(type.Recursive(x => x.Resolve().Interfaces.Select(y => y.InterfaceType)).Select(x => x.ResolveType(type)));
 
                 type = typeDef.BaseType;
                 typeDef = type?.Resolve();
@@ -688,7 +689,7 @@ namespace Cauldron.Interception.Cecilator
             if (resolved.Interfaces != null && resolved.Interfaces.Count > 0)
             {
                 foreach (var item in resolved.Interfaces)
-                    result.AddRange(item.GetGenericInstances(genericArgumentsNames, genericArguments));
+                    result.AddRange(item.InterfaceType.GetGenericInstances(genericArgumentsNames, genericArguments));
             }
 
             return result;
