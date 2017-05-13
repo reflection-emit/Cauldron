@@ -13,11 +13,8 @@
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
     <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
+    <RootNamespace>Cauldron.Activator</RootNamespace>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Include="..\..\Shared\Cauldron.Activator\**\*.cs;..\..\Shared\IEnumerableExtensions\**\*.cs;..\..\Shared\Cauldron.Diagnostics\**\*.cs" Exclude="bin\**;obj\**;**\*.xproj;packages\**" />
-  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Cauldron.NetCore.Core\Cauldron.NetCore.Core.csproj" />
@@ -29,4 +26,9 @@
     <PackageReference Include="System.Threading.Thread" Version="4.3.0" />
   </ItemGroup>
 
+  <Import Project="..\..\Shared\Cauldron.Activator\Cauldron.Activator.projitems" Label="Shared" />
+
+  <Import Project="..\..\Shared\Cauldron.Diagnostics\Cauldron.Diagnostics.projitems" Label="Shared" />
+
+  <Import Project="..\..\Shared\IEnumerableExtensions\IEnumerableExtensions.projitems" Label="Shared" />
 </Project>

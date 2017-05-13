@@ -13,11 +13,8 @@
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
     <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
+    <RootNamespace>Cauldron.Consoles</RootNamespace>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Include="..\..\Shared\Cauldron.Consoles\**\*.cs;..\..\Shared\Cauldron.Diagnostics\**\*.cs" Exclude="bin\**;obj\**;**\*.xproj;packages\**" />
-  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Cauldron.NetCore.Activator\Cauldron.NetCore.Activator.csproj" />
@@ -25,4 +22,5 @@
     <ProjectReference Include="..\Cauldron.NetCore.Localization\Cauldron.NetCore.Localization.csproj" />
   </ItemGroup>
 
+  <Import Project="..\..\Shared\Cauldron.Consoles\Cauldron.Consoles.projitems" Label="Shared" />
 </Project>

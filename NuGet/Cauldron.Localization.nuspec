@@ -40,6 +40,6 @@
     <file src="..\UWP\Cauldron.UWP.Localization\bin\Release\Cauldron.Localization**" target="lib\uap10.0" />
 
     <!-- Net Standard 1.6 -->
-    <!--<file src="..\NetCore\Cauldron.NetCore.Localization\bin\Release\netstandard1.6\Cauldron.Localization**" target="lib\netstandard1.6" />-->
+    <file src="..\NetCore\Cauldron.NetCore.Localization\bin\Release\netstandard1.6\Cauldron.Localization**" target="lib\netstandard1.6" />
   </files>
 </package>

@@ -950,61 +950,132 @@ namespace Cauldron.Interception.Cecilator
 
         protected void CleanLocalVariableList()
         {
-            var usedVariables = new List<Tuple<Instruction, int>>();
+            var usedVariables = new List<VariableDefinition>();
+            var instructions = this.method.methodDefinition.Body.Instructions;
+            var variables = this.method.methodDefinition.Body.Variables;
 
-            for (int i = 0; i < this.method.methodDefinition.Body.Instructions.Count; i++)
+            for (int i = 0; i < instructions.Count; i++)
             {
-                var instruction = this.method.methodDefinition.Body.Instructions[i];
+                VariableDefinition variable = null;
+                if (instructions[i].OpCode == OpCodes.Ldloc_0)
+                {
+                    variable = variables[0];
+                    instructions[i].OpCode = OpCodes.Ldloc;
+                }
+                else if (instructions[i].OpCode == OpCodes.Ldloc_1)
+                {
+                    variable = variables[1];
+                    instructions[i].OpCode = OpCodes.Ldloc;
+                }
+                else if (instructions[i].OpCode == OpCodes.Ldloc_2)
+                {
+                    variable = variables[2];
+                    instructions[i].OpCode = OpCodes.Ldloc;
+                }
+                else if (instructions[i].OpCode == OpCodes.Ldloc_3)
+                {
+                    variable = variables[3];
+                    instructions[i].OpCode = OpCodes.Ldloc;
+                }
+                else if (instructions[i].OpCode == OpCodes.Stloc_0)
+                {
+                    variable = variables[0];
+                    instructions[i].OpCode = OpCodes.Stloc;
+                }
+                else if (instructions[i].OpCode == OpCodes.Stloc_1)
+                {
+                    variable = variables[1];
+                    instructions[i].OpCode = OpCodes.Stloc;
+                }
+                else if (instructions[i].OpCode == OpCodes.Stloc_2)
+                {
+                    variable = variables[2];
+                    instructions[i].OpCode = OpCodes.Stloc;
+                }
+                else if (instructions[i].OpCode == OpCodes.Stloc_3)
+                {
+                    variable = variables[3];
+                    instructions[i].OpCode = OpCodes.Stloc;
+                }
+                else if (instructions[i].OpCode == OpCodes.Ldloc || instructions[i].OpCode == OpCodes.Ldloca || instructions[i].OpCode == OpCodes.Ldloca_S || instructions[i].OpCode == OpCodes.Ldloc_S || instructions[i].OpCode == OpCodes.Stloc)
+                    variable = instructions[i].Operand as VariableDefinition;
 
-                if (!instruction.IsLoadLocal() && !instruction.IsStoreLocal())
+                if (variable != null)
+                    instructions[i].Operand = variable;
+
+                if (variable != null && !usedVariables.Contains(variable))
+                    usedVariables.Add(variable);
+            }
+
+            for (int i = 0; i < variables.Count; i++)
+            {
+                if (usedVariables.Contains(variables[i]))
                     continue;
 
-                if (instruction.OpCode == OpCodes.Ldloc ||
-                    instruction.OpCode == OpCodes.Ldloca ||
-                    instruction.OpCode == OpCodes.Ldloca_S ||
-                    instruction.OpCode == OpCodes.Stloc ||
-                    instruction.OpCode == OpCodes.Stloc_S)
-                {
-                    usedVariables.Add(new Tuple<Instruction, int>(instruction, (instruction.Operand as VariableDefinition).Index));
-                }
-                else if (instruction.OpCode == OpCodes.Ldloc_0 || instruction.OpCode == OpCodes.Stloc_0) usedVariables.Add(new Tuple<Instruction, int>(instruction, 0));
-                else if (instruction.OpCode == OpCodes.Ldloc_1 || instruction.OpCode == OpCodes.Stloc_1) usedVariables.Add(new Tuple<Instruction, int>(instruction, 1));
-                else if (instruction.OpCode == OpCodes.Ldloc_2 || instruction.OpCode == OpCodes.Stloc_2) usedVariables.Add(new Tuple<Instruction, int>(instruction, 2));
-                else if (instruction.OpCode == OpCodes.Ldloc_3 || instruction.OpCode == OpCodes.Stloc_3) usedVariables.Add(new Tuple<Instruction, int>(instruction, 3));
+                variables.RemoveAt(i);
+                i--;
             }
 
-            var usedVariablesArray = usedVariables.ToArray();
-            var variableList = new List<VariableDefinition>();
+            //this.method.methodDefinition.Body.Variables.Clear();
 
-            for (int i = 0; i < usedVariablesArray.Length; i++)
-            {
-                var variable = this.method.methodDefinition.Body.Variables[usedVariablesArray[i].Item2];
+            //for (int i = 0; i < usedVariables.Count; i++)
+            //    this.method.methodDefinition.Body.Variables.Add(usedVariables[i]);
 
-                if (!variableList.Contains(variable))
-                    variableList.Add(variable);
+            //var usedVariables = new List<Tuple<Instruction, int>>();
 
-                if (usedVariablesArray[i].Item1.OpCode == OpCodes.Ldloc_0 ||
-                    usedVariablesArray[i].Item1.OpCode == OpCodes.Ldloc_1 ||
-                    usedVariablesArray[i].Item1.OpCode == OpCodes.Ldloc_2 ||
-                    usedVariablesArray[i].Item1.OpCode == OpCodes.Ldloc_3)
-                {
-                    usedVariablesArray[i].Item1.OpCode = OpCodes.Ldloc;
-                    usedVariablesArray[i].Item1.Operand = variable;
-                }
-                else if (usedVariablesArray[i].Item1.OpCode == OpCodes.Stloc_0 ||
-                    usedVariablesArray[i].Item1.OpCode == OpCodes.Stloc_1 ||
-                    usedVariablesArray[i].Item1.OpCode == OpCodes.Stloc_2 ||
-                    usedVariablesArray[i].Item1.OpCode == OpCodes.Stloc_3)
-                {
-                    usedVariablesArray[i].Item1.OpCode = OpCodes.Stloc;
-                    usedVariablesArray[i].Item1.Operand = variable;
-                }
-            }
+            //for (int i = 0; i < this.method.methodDefinition.Body.Instructions.Count; i++)
+            //{
+            //    var instruction = this.method.methodDefinition.Body.Instructions[i];
 
-            this.method.methodDefinition.Body.Variables.Clear();
+            //    if (!instruction.IsLoadLocal() && !instruction.IsStoreLocal())
+            //        continue;
 
-            for (int i = 0; i < variableList.Count; i++)
-                this.method.methodDefinition.Body.Variables.Add(variableList[i]);
+            //    if (instruction.OpCode == OpCodes.Ldloc ||
+            //        instruction.OpCode == OpCodes.Ldloca ||
+            //        instruction.OpCode == OpCodes.Ldloca_S ||
+            //        instruction.OpCode == OpCodes.Stloc ||
+            //        instruction.OpCode == OpCodes.Stloc_S)
+            //    {
+            //        usedVariables.Add(new Tuple<Instruction, int>(instruction, (instruction.Operand as VariableDefinition).Index));
+            //    }
+            //    else if (instruction.OpCode == OpCodes.Ldloc_0 || instruction.OpCode == OpCodes.Stloc_0) usedVariables.Add(new Tuple<Instruction, int>(instruction, 0));
+            //    else if (instruction.OpCode == OpCodes.Ldloc_1 || instruction.OpCode == OpCodes.Stloc_1) usedVariables.Add(new Tuple<Instruction, int>(instruction, 1));
+            //    else if (instruction.OpCode == OpCodes.Ldloc_2 || instruction.OpCode == OpCodes.Stloc_2) usedVariables.Add(new Tuple<Instruction, int>(instruction, 2));
+            //    else if (instruction.OpCode == OpCodes.Ldloc_3 || instruction.OpCode == OpCodes.Stloc_3) usedVariables.Add(new Tuple<Instruction, int>(instruction, 3));
+            //}
+
+            //var usedVariablesArray = usedVariables.ToArray();
+            //var variableList = new List<VariableDefinition>();
+
+            //for (int i = 0; i < usedVariablesArray.Length; i++)
+            //{
+            //    var variable = this.method.methodDefinition.Body.Variables[usedVariablesArray[i].Item2];
+
+            //    if (!variableList.Contains(variable))
+            //        variableList.Add(variable);
+
+            //    if (usedVariablesArray[i].Item1.OpCode == OpCodes.Ldloc_0 ||
+            //        usedVariablesArray[i].Item1.OpCode == OpCodes.Ldloc_1 ||
+            //        usedVariablesArray[i].Item1.OpCode == OpCodes.Ldloc_2 ||
+            //        usedVariablesArray[i].Item1.OpCode == OpCodes.Ldloc_3)
+            //    {
+            //        usedVariablesArray[i].Item1.OpCode = OpCodes.Ldloc;
+            //        usedVariablesArray[i].Item1.Operand = variable;
+            //    }
+            //    else if (usedVariablesArray[i].Item1.OpCode == OpCodes.Stloc_0 ||
+            //        usedVariablesArray[i].Item1.OpCode == OpCodes.Stloc_1 ||
+            //        usedVariablesArray[i].Item1.OpCode == OpCodes.Stloc_2 ||
+            //        usedVariablesArray[i].Item1.OpCode == OpCodes.Stloc_3)
+            //    {
+            //        usedVariablesArray[i].Item1.OpCode = OpCodes.Stloc;
+            //        usedVariablesArray[i].Item1.Operand = variable;
+            //    }
+            //}
+
+            //this.method.methodDefinition.Body.Variables.Clear();
+
+            //for (int i = 0; i < variableList.Count; i++)
+            //    this.method.methodDefinition.Body.Variables.Add(variableList[i]);
         }
 
         protected virtual IFieldCode CreateFieldInstructionSet(Field field, AssignInstructionType instructionType) => new FieldInstructionsSet(this, field, this.instructions, instructionType);

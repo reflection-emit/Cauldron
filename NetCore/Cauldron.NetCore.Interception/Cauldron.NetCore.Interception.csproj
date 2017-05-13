@@ -1,5 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputType>Library</OutputType>
+  </PropertyGroup>
+
   <PropertyGroup>
     <VersionPrefix>1.0.0.12</VersionPrefix>
     <TargetFramework>netstandard1.6</TargetFramework>
@@ -14,10 +18,11 @@
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
     <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
+    <ApplicationIcon />
+    <OutputTypeEx>library</OutputTypeEx>
+    <StartupObject />
+    <RootNamespace>Cauldron.Interception</RootNamespace>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Include="..\..\Shared\Cauldron.Interception\**\*.cs" Exclude="bin\**;obj\**;**\*.xproj;packages\**" />
-  </ItemGroup>
-
+  <Import Project="..\..\Shared\Cauldron.Interception\Cauldron.Interception.projitems" Label="Shared" />
 </Project>

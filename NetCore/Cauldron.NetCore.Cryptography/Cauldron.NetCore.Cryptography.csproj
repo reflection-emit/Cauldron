@@ -18,7 +18,6 @@
 
   <ItemGroup>
     <Compile Include="..\..\Desktop\Cauldron.Desktop.Cryptography\Extensions.cs" />
-    <Compile Include="..\..\Shared\Cauldron.Cryptography\**\*.cs;..\..\Shared\Cauldron.Diagnostics\**\*.cs" Exclude="bin\**;obj\**;**\*.xproj;packages\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,4 +29,5 @@
     <PackageReference Include="System.Security.SecureString" Version="4.3.0" />
   </ItemGroup>
 
+  <Import Project="..\..\Shared\Cauldron.Cryptography\Cauldron.Cryptography.projitems" Label="Shared" />
 </Project>

@@ -22,12 +22,12 @@
       <group targetFramework="net452">
         <dependency id="Capgemini.Cauldron.Core" version="1.2.1-beta" />
       </group>
-      <!--     <group targetFramework="netstandard1.6">
+      <group targetFramework="netstandard1.6">
         <dependency id="NETStandard.Library" version="1.6.1" />
         <dependency id="Capgemini.Cauldron.Core" version="1.2.1-beta" />
         <dependency id="System.Security.Cryptography.Csp" version="4.0.0" />
         <dependency id="System.Security.SecureString" version="4.3.0" />
-      </group>-->
+      </group>
     </dependencies>
   </metadata>
   <files>
@@ -38,6 +38,6 @@
     <file src="..\UWP\Cauldron.UWP.Cryptography\bin\Release\Cauldron.Cryptography**" target="lib\uap10.0" />
 
     <!-- Net Standard 1.6 -->
-    <!-- <file src="..\NetCore\Cauldron.NetCore.Cryptography\bin\Release\netstandard1.6\Cauldron.Cryptography**" target="lib\netstandard1.6" /> -->
+    <file src="..\NetCore\Cauldron.NetCore.Cryptography\bin\Release\netstandard1.6\Cauldron.Cryptography**" target="lib\netstandard1.6" />
   </files>
 </package>

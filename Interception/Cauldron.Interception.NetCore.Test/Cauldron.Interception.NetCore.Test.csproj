@@ -10,24 +10,29 @@
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <RootNamespace>Cauldron.Interception.Test</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard1.6\Cauldron.Interception.Test.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="..\Cauldron.Interception.Test\Properties\AssemblyInfo.cs" />
-    <Compile Include="..\Cauldron.Interception.SharedTest\**\*.cs" Exclude="bin\**;obj\**;**\*.xproj;packages\**;..\Cauldron.Interception.Test\Properties\AssemblyInfo.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\NetCore\Cauldron.NetCore.Interception\Cauldron.NetCore.Interception.csproj" />
     <ProjectReference Include="..\..\NetCore\Cauldron.NetCore.Activator\Cauldron.NetCore.Activator.csproj" />
     <ProjectReference Include="..\..\NetCore\Cauldron.NetCore.Core\Cauldron.NetCore.Core.csproj" />
-    <ProjectReference Include="..\..\NetCore\Cauldron.NetCore.Interception\Cauldron.NetCore.Interception.csproj" />
     <ProjectReference Include="..\Cauldron.Interception.External.NetCore.Test\Cauldron.Interception.External.NetCore.Test.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MSTest.TestFramework" Version="1.0.8-rc" />
+    <PackageReference Include="Cauldron.Interception.Fody" Version="1.1.4" />
+    <PackageReference Include="Fody" Version="2.0.7" />
+    <PackageReference Include="MSTest.TestFramework" Version="1.1.17" />
   </ItemGroup>
 
   <Import Project="..\Cauldron.Interception.SharedTest\Cauldron.Interception.SharedTest.projitems" Label="Shared" />
-
 </Project>

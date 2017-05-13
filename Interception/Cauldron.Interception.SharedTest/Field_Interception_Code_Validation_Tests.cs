@@ -143,7 +143,7 @@ namespace Cauldron.Interception.Test
     public class Static_Field_In_Constructor
     {
         [CreateATypeInterceptor]
-        private static TestClass field;
+        private static TestClass field = null;
 
         public Static_Field_In_Constructor() : this(field.StringProperty)
         {
