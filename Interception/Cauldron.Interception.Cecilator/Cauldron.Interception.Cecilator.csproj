@@ -89,7 +89,7 @@
     <Compile Include="InstructionsSet.cs" />
     <Compile Include="ITry.cs" />
     <Compile Include="ITryCode.cs" />
-    <Compile Include="IWeaver.cs" />
+    <Compile Include="WeaverBase.cs" />
     <Compile Include="BuilderType.cs" />
     <Compile Include="LocalVariable.cs" />
     <Compile Include="LocalVariableInstructionSet.cs" />

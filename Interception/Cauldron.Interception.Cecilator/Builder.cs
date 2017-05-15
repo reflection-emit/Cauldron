@@ -12,7 +12,7 @@ namespace Cauldron.Interception.Cecilator
 {
     public sealed class Builder : CecilatorBase
     {
-        internal Builder(IWeaver weaver) : base(weaver)
+        internal Builder(WeaverBase weaver) : base(weaver)
         {
         }
 

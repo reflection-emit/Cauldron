@@ -1,5 +1,6 @@
 ﻿using Mono.Cecil;
 using System.IO;
+using System.Linq;
 
 namespace Cauldron.Interception.Cecilator
 {

@@ -128,6 +128,7 @@
     <Compile Include="Extensions\ExtensionsStorageItem.cs" />
     <Compile Include="Extensions\ExtensionsXmlDocument.cs" />
     <Compile Include="ICloneable.cs" />
+    <Compile Include="ILoadedAssemblies.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserInformation.cs" />
     <EmbeddedResource Include="Properties\Cauldron.Core.rd.xml" />

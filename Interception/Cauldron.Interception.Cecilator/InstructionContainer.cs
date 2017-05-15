@@ -10,28 +10,18 @@ namespace Cauldron.Interception.Cecilator
     {
         private readonly List<ExceptionHandler> exceptionHandlers = new List<ExceptionHandler>();
         private readonly List<Instruction> instruction = new List<Instruction>();
-        private readonly List<VariableDefinition> variables = new List<VariableDefinition>();
 
-        private Mono.Collections.Generic.Collection<VariableDefinition> orginalVariables;
-
-        public InstructionContainer(Mono.Collections.Generic.Collection<VariableDefinition> variables)
+        public InstructionContainer()
         {
-            this.orginalVariables = variables;
         }
 
-        private InstructionContainer(InstructionContainer container)
-        {
-            this.orginalVariables = container.orginalVariables;
-            this.variables = container.variables;
-        }
-
-        private InstructionContainer(InstructionContainer a, InstructionContainer b, Mono.Collections.Generic.Collection<VariableDefinition> variables) : this(variables)
+        private InstructionContainer(InstructionContainer a, InstructionContainer b, Mono.Collections.Generic.Collection<VariableDefinition> variables)
         {
             this.instruction.AddRange(a.instruction);
             this.instruction.AddRange(b.instruction);
         }
 
-        private InstructionContainer(InstructionContainer a, IEnumerable<Instruction> b, Mono.Collections.Generic.Collection<VariableDefinition> variables) : this(variables)
+        private InstructionContainer(InstructionContainer a, IEnumerable<Instruction> b, Mono.Collections.Generic.Collection<VariableDefinition> variables)
         {
             this.instruction.AddRange(a.instruction);
             this.instruction.AddRange(b);
@@ -53,10 +43,9 @@ namespace Cauldron.Interception.Cecilator
         {
             this.instruction.Clear();
             this.exceptionHandlers.Clear();
-            this.variables.Clear();
         }
 
-        public InstructionContainer Clone() => new InstructionContainer(this);
+        public InstructionContainer Clone() => new InstructionContainer();
 
         public Instruction First() => this.instruction.Count == 0 ? null : this.instruction[0];
 

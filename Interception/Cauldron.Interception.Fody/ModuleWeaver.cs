@@ -12,52 +12,40 @@ using System.Threading.Tasks;
 
 namespace Cauldron.Interception.Fody
 {
-    public sealed class ModuleWeaver : IWeaver
+    public sealed class ModuleWeaver : WeaverBase
     {
         private int counter = 0;
 
-        public Action<string> LogError { get; set; }
-
-        public Action<string> LogInfo { get; set; }
-
-        public Action<string> LogWarning { get; set; }
-
-        public ModuleDefinition ModuleDefinition { get; set; }
-
-        public List<string> ReferenceCopyLocalPaths { get; set; }
-
-        public void Execute()
+        public override void OnExecute()
         {
-            var builder = this.CreateBuilder();
-
-            if (!builder.IsReferenced("Cauldron.Interception"))
+            if (!this.Builder.IsReferenced("Cauldron.Interception"))
             {
-                this.LogWarning($"The assembly 'Cauldron.Interception' is not referenced or used in '{builder.Name}'. Weaving will not continue.");
+                this.LogWarning($"The assembly 'Cauldron.Interception' is not referenced or used in '{this.Builder.Name}'. Weaving will not continue.");
                 return;
             }
 
-            var propertyInterceptingAttributes = builder.FindAttributesByInterfaces(
+            var propertyInterceptingAttributes = this.Builder.FindAttributesByInterfaces(
                 "Cauldron.Interception.IPropertyInterceptor",
                 "Cauldron.Interception.ILockablePropertyGetterInterceptor",
                 "Cauldron.Interception.ILockablePropertySetterInterceptor",
                 "Cauldron.Interception.IPropertyGetterInterceptor",
                 "Cauldron.Interception.IPropertySetterInterceptor");
 
-            var methodInterceptionAttributes = builder.FindAttributesByInterfaces(
+            var methodInterceptionAttributes = this.Builder.FindAttributesByInterfaces(
                 "Cauldron.Interception.ILockableMethodInterceptor",
                 "Cauldron.Interception.IMethodInterceptor");
 
-            this.ImplementAnonymousTypeInterface(builder);
-            this.ImplementTimedCache(builder);
-            this.ImplementMethodCache(builder);
-            this.ImplementTypeWidePropertyInterception(builder, propertyInterceptingAttributes);
-            this.ImplementTypeWideMethodInterception(builder, methodInterceptionAttributes);
+            this.ImplementAnonymousTypeInterface(this.Builder);
+            this.ImplementTimedCache(this.Builder);
+            this.ImplementMethodCache(this.Builder);
+            this.ImplementTypeWidePropertyInterception(this.Builder, propertyInterceptingAttributes);
+            this.ImplementTypeWideMethodInterception(this.Builder, methodInterceptionAttributes);
             // These should be done last, because they replace methods
-            this.InterceptFields(builder, propertyInterceptingAttributes);
-            this.InterceptMethods(builder, methodInterceptionAttributes);
-            this.InterceptProperties(builder, propertyInterceptingAttributes);
+            this.InterceptFields(this.Builder, propertyInterceptingAttributes);
+            this.InterceptMethods(this.Builder, methodInterceptionAttributes);
+            this.InterceptProperties(this.Builder, propertyInterceptingAttributes);
 
-            this.CreateFactoryCache(builder);
+            this.CreateFactoryCache(this.Builder);
         }
 
         private void AddAttributeToXAMLResources(Builder builder)
@@ -147,14 +135,32 @@ namespace Cauldron.Interception.Fody
 
             if (isUWP)
             {
+                var cauldron = builder.GetType("<Cauldron>", SearchContext.Module);
+                var assembly = builder.GetType("System.Reflection.Assembly").New(x => new { Type = x, Load = x.GetMethod("Load", 1) });
                 // UWP has to actually use any type from the Assembly, so that it is not thrown out while compiling to Nativ Code
+                CreateAssemblyListingArray(builder, module.CreateStaticConstructor(), assembly.Type, builder.UnusedReference.Select(x => x.AssemblyDefinition).ToArray());
 
                 module.CreateStaticConstructor().NewCode().Context(x =>
                 {
+                    if (builder.TypeExists("Cauldron.Core.Assemblies"))
+                    {
+                        var introspectionExtensions = builder.GetType("System.Reflection.IntrospectionExtensions").New(y => new { Type = y, GetTypeInfo = y.GetMethod("GetTypeInfo", 1) });
+                        var typeInfo = builder.GetType("System.Reflection.TypeInfo").New(y => new { Type = y, Assembly = y.GetMethod("get_Assembly") });
+                        var assemblies = builder.GetType("Cauldron.Core.AssembliesUWP").New(y => new { Type = y, EntryAssembly = y.GetMethod("set_EntryAssembly", 1) });
+                        x.Call(assemblies.EntryAssembly, x.NewCode().Callvirt(x.NewCode().Call(introspectionExtensions.GetTypeInfo, module), typeInfo.Assembly));
+                    }
                 })
                 .Insert(InsertionPosition.End);
 
                 module.StaticConstructor.CustomAttributes.Add(typeof(MethodImplAttribute), MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization);
+
+                // Add a new interface to <Cauldron> type
+                if (builder.TypeExists("Cauldron.Core.ILoadedAssemblies"))
+                {
+                    var loadedAssembliesInterface = builder.GetType("Cauldron.Core.ILoadedAssemblies").New(x => new { Type = x, ReferencedAssemblies = x.GetMethod("ReferencedAssemblies") });
+                    cauldron.AddInterface(loadedAssembliesInterface.Type);
+                    CreateAssemblyListingArray(builder, cauldron.CreateMethod(Modifiers.Overrrides | Modifiers.Public, builder.MakeArray(assembly.Type), "ReferencedAssemblies"), assembly.Type, builder.ReferencedAssemblies);
+                }
             }
             else
             {
@@ -190,6 +196,39 @@ namespace Cauldron.Interception.Fody
                 })
                 .Insert(InsertionPosition.End);
             }
+        }
+
+        private void CreateAssemblyListingArray(Builder builder, Method method, BuilderType assemblyType, AssemblyDefinition[] assembliesToList)
+        {
+            var introspectionExtensions = builder.GetType("System.Reflection.IntrospectionExtensions").New(y => new { Type = y, GetTypeInfo = y.GetMethod("GetTypeInfo", 1) });
+            var typeInfo = builder.GetType("System.Reflection.TypeInfo").New(y => new { Type = y, Assembly = y.GetMethod("get_Assembly") });
+
+            method.NewCode().Context(x =>
+            {
+                var returnValue = x.GetReturnVariable();
+                x.Newarr(assemblyType, assembliesToList.Length).StoreLocal(returnValue);
+
+                for (int i = 0; i < assembliesToList.Length; i++)
+                {
+                    // We make an exeption on test platform
+                    if (assembliesToList[i].FullName.StartsWith("Microsoft.VisualStudio.TestPlatform"))
+                        continue;
+
+                    var type = assembliesToList[i].Modules
+                        .SelectMany(y => y.Types)
+                        .FirstOrDefault(y => y.FullName.Contains('.') && !y.HasCustomAttributes && !y.IsGenericParameter && !y.ContainsGenericParameter)?
+                        .ToBuilderType(this.Builder)?
+                        .Import();
+
+                    if (type == null)
+                        continue;
+
+                    x.Load(returnValue);
+                    x.StoreElement(assemblyType, x.NewCode().Callvirt(x.NewCode().Call(introspectionExtensions.GetTypeInfo, type), typeInfo.Assembly), i);
+                }
+
+                x.Return();
+            }).Replace();
         }
 
         private Method CreateAssigningMethod(BuilderType anonSource, BuilderType anonTarget, BuilderType anonTargetInterface, Method method)

@@ -16,6 +16,7 @@ namespace Cauldron.Interception.Cecilator
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
         internal readonly TypeReference typeReference;
 
+        public AssemblyDefinition Assembly { get { return this.typeDefinition.Module.Assembly; } }
         public Builder Builder { get; private set; }
 
         public BuilderType ChildType { get { return new BuilderType(this.Builder, this.moduleDefinition.GetChildrenType(this.typeReference)); } }
@@ -76,6 +77,12 @@ namespace Cauldron.Interception.Cecilator
         public bool Implements(string interfaceName) => this.Interfaces.Any(x =>
             (x.typeReference.FullName.GetHashCode() == interfaceName.GetHashCode() && x.typeReference.FullName == interfaceName) ||
             (x.typeDefinition.FullName.GetHashCode() == interfaceName.GetHashCode() && x.typeDefinition.FullName == interfaceName));
+
+        public BuilderType Import()
+        {
+            this.LogInfo("Importing " + this);
+            return new BuilderType(this.Builder, this.moduleDefinition.ImportReference(this.typeReference ?? this.typeDefinition));
+        }
 
         public bool Inherits(Type type) => this.Inherits(typeDefinition.FullName);
 

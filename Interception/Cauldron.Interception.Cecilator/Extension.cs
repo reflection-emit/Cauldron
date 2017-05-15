@@ -11,7 +11,7 @@ namespace Cauldron.Interception.Cecilator
 {
     public static class Extension
     {
-        public static Builder CreateBuilder(this IWeaver weaver)
+        public static Builder CreateBuilder(this WeaverBase weaver)
         {
             if (weaver == null)
                 throw new ArgumentNullException(nameof(weaver), $"Argument '{nameof(weaver)}' cannot be null");
@@ -368,6 +368,8 @@ namespace Cauldron.Interception.Cecilator
 
             return self.Resolve().MakeGenericInstanceType(genericArguments);
         }
+
+        public static BuilderType ToBuilderType(this TypeDefinition value, Builder builder) => new BuilderType(builder, value);
 
         internal static void Append(this ILProcessor processor, Instruction[] instructions) => processor.Append(instructions as IEnumerable<Instruction>);
 

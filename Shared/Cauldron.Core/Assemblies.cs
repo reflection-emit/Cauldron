@@ -12,6 +12,7 @@ using Cauldron.Internal;
 #if NETFX_CORE
 
 using Windows.UI.Xaml;
+using System.ComponentModel;
 
 #elif NETCORE
 
@@ -293,8 +294,9 @@ namespace Cauldron.Core
         {
 #if WINDOWS_UWP
             var assemblies = new List<Assembly>();
-            assemblies.Add(Application.Current.GetType().GetTypeInfo().Assembly);
-            assemblies.Add(typeof(Assemblies).GetTypeInfo().Assembly);
+            var cauldron = AssembliesUWP.EntryAssembly.GetType("<Cauldron>") as ILoadedAssemblies;
+            assemblies.Add(AssembliesUWP.EntryAssembly);
+            assemblies.AddRange(cauldron.ReferencedAssemblies());
 #elif NETCORE
 
             var assemblies = new List<Assembly>();
@@ -461,7 +463,7 @@ namespace Cauldron.Core
         {
             Output.WriteLineInfo($"Requesting Resolving of Assembly '{assemblyName.FullName}'");
 
-            var assembly = _assemblies.FirstOrDefault(x => x.FullName.GetHashCode() == assemblyName.FullName.GetHashCode() && x.FullName == assemblyName.FullName );
+            var assembly = _assemblies.FirstOrDefault(x => x.FullName.GetHashCode() == assemblyName.FullName.GetHashCode() && x.FullName == assemblyName.FullName);
 
             if (assembly == null)
             {
@@ -615,4 +617,25 @@ namespace Cauldron.Core
     }
 
     #endregion Shared methods
+
+#if NETFX_CORE
+    /// <exclude/>
+    [EditorBrowsable(EditorBrowsableState.Never)]
+    public static class AssembliesUWP
+    {
+        /// <exclude/>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static Assembly EntryAssembly
+        {
+            get { return _entryAssembly; }
+            set
+            {
+                if(_entryAssembly == null)
+                    _entryAssembly = value;
+            }
+        }
+
+        private static Assembly _entryAssembly;
+    }
+#endif
 }

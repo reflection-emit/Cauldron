@@ -23,7 +23,7 @@ namespace Cauldron.Interception.Cecilator
 
         internal InstructionsSet(BuilderType type, Method method) : base(type)
         {
-            this.instructions = new InstructionContainer(method.methodDefinition.Body.Variables);
+            this.instructions = new InstructionContainer();
             this.method = method;
             this.processor = method.GetILProcessor();
             this.method.methodDefinition.Body.SimplifyMacros();
@@ -97,6 +97,8 @@ namespace Cauldron.Interception.Cecilator
 
         public ICode Call(LocalVariable instance, Method method, params object[] parameters) => CallInternal(instance, method, OpCodes.Call, parameters);
 
+        public ICode Call(ICode instance, Method method, params object[] parameters) => CallInternal(instance, method, OpCodes.Call, parameters);
+
         public ICode Callvirt(Method method, params object[] parameters) => CallInternal(null, method, OpCodes.Callvirt, parameters);
 
         public ICode Callvirt(Crumb instance, Method method, params object[] parameters) => CallInternal(instance, method, OpCodes.Callvirt, parameters);
@@ -104,6 +106,8 @@ namespace Cauldron.Interception.Cecilator
         public ICode Callvirt(Field instance, Method method, params object[] parameters) => CallInternal(instance, method, OpCodes.Callvirt, parameters);
 
         public ICode Callvirt(LocalVariable instance, Method method, params object[] parameters) => CallInternal(instance, method, OpCodes.Callvirt, parameters);
+
+        public ICode Callvirt(ICode instance, Method method, params object[] parameters) => CallInternal(instance, method, OpCodes.Callvirt, parameters);
 
         public ICode Context(Action<ICode> body)
         {
@@ -1015,67 +1019,6 @@ namespace Cauldron.Interception.Cecilator
                 variables.RemoveAt(i);
                 i--;
             }
-
-            //this.method.methodDefinition.Body.Variables.Clear();
-
-            //for (int i = 0; i < usedVariables.Count; i++)
-            //    this.method.methodDefinition.Body.Variables.Add(usedVariables[i]);
-
-            //var usedVariables = new List<Tuple<Instruction, int>>();
-
-            //for (int i = 0; i < this.method.methodDefinition.Body.Instructions.Count; i++)
-            //{
-            //    var instruction = this.method.methodDefinition.Body.Instructions[i];
-
-            //    if (!instruction.IsLoadLocal() && !instruction.IsStoreLocal())
-            //        continue;
-
-            //    if (instruction.OpCode == OpCodes.Ldloc ||
-            //        instruction.OpCode == OpCodes.Ldloca ||
-            //        instruction.OpCode == OpCodes.Ldloca_S ||
-            //        instruction.OpCode == OpCodes.Stloc ||
-            //        instruction.OpCode == OpCodes.Stloc_S)
-            //    {
-            //        usedVariables.Add(new Tuple<Instruction, int>(instruction, (instruction.Operand as VariableDefinition).Index));
-            //    }
-            //    else if (instruction.OpCode == OpCodes.Ldloc_0 || instruction.OpCode == OpCodes.Stloc_0) usedVariables.Add(new Tuple<Instruction, int>(instruction, 0));
-            //    else if (instruction.OpCode == OpCodes.Ldloc_1 || instruction.OpCode == OpCodes.Stloc_1) usedVariables.Add(new Tuple<Instruction, int>(instruction, 1));
-            //    else if (instruction.OpCode == OpCodes.Ldloc_2 || instruction.OpCode == OpCodes.Stloc_2) usedVariables.Add(new Tuple<Instruction, int>(instruction, 2));
-            //    else if (instruction.OpCode == OpCodes.Ldloc_3 || instruction.OpCode == OpCodes.Stloc_3) usedVariables.Add(new Tuple<Instruction, int>(instruction, 3));
-            //}
-
-            //var usedVariablesArray = usedVariables.ToArray();
-            //var variableList = new List<VariableDefinition>();
-
-            //for (int i = 0; i < usedVariablesArray.Length; i++)
-            //{
-            //    var variable = this.method.methodDefinition.Body.Variables[usedVariablesArray[i].Item2];
-
-            //    if (!variableList.Contains(variable))
-            //        variableList.Add(variable);
-
-            //    if (usedVariablesArray[i].Item1.OpCode == OpCodes.Ldloc_0 ||
-            //        usedVariablesArray[i].Item1.OpCode == OpCodes.Ldloc_1 ||
-            //        usedVariablesArray[i].Item1.OpCode == OpCodes.Ldloc_2 ||
-            //        usedVariablesArray[i].Item1.OpCode == OpCodes.Ldloc_3)
-            //    {
-            //        usedVariablesArray[i].Item1.OpCode = OpCodes.Ldloc;
-            //        usedVariablesArray[i].Item1.Operand = variable;
-            //    }
-            //    else if (usedVariablesArray[i].Item1.OpCode == OpCodes.Stloc_0 ||
-            //        usedVariablesArray[i].Item1.OpCode == OpCodes.Stloc_1 ||
-            //        usedVariablesArray[i].Item1.OpCode == OpCodes.Stloc_2 ||
-            //        usedVariablesArray[i].Item1.OpCode == OpCodes.Stloc_3)
-            //    {
-            //        usedVariablesArray[i].Item1.OpCode = OpCodes.Stloc;
-            //        usedVariablesArray[i].Item1.Operand = variable;
-            //    }
-            //}
-
-            //this.method.methodDefinition.Body.Variables.Clear();
-
-            //for (int i = 0; i < variableList.Count; i++)
-            //    this.method.methodDefinition.Body.Variables.Add(variableList[i]);
         }
 
         protected virtual IFieldCode CreateFieldInstructionSet(Field field, AssignInstructionType instructionType) => new FieldInstructionsSet(this, field, this.instructions, instructionType);

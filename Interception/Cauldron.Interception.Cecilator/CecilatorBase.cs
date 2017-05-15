@@ -30,7 +30,7 @@ namespace Cauldron.Interception.Cecilator
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly Action<string> logWarning;
 
-        internal CecilatorBase(IWeaver weaver)
+        internal CecilatorBase(WeaverBase weaver)
         {
             this.logError = weaver.LogError;
             this.logInfo = weaver.LogInfo;
@@ -88,6 +88,7 @@ namespace Cauldron.Interception.Cecilator
         }
 
         public string Identification { get; private set; }
+        public AssemblyDefinition[] ReferencedAssemblies { get { return this.moduleDefinition.AssemblyReferences.Select(x => this.moduleDefinition.AssemblyResolver.Resolve(x)).ToArray(); } }
         public AssemblyDefinitionEx[] UnusedReference { get; private set; }
 
         public static string GenerateName() => Path.GetRandomFileName().Replace(".", DateTime.Now.Second.ToString());

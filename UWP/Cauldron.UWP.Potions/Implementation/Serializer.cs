@@ -31,8 +31,12 @@ namespace Cauldron.Potions.Implementation
         public Task<T> DeserializeAsync<T>(StorageFolder folder, string name) where T : class =>
             Core.Serializer.DeserializeAsync<T>(folder, name);
 
+#if !NETFX_CORE
+
         public void Serialize(object context, StorageFolder folder, string name) =>
             Core.Serializer.Serialize(context, folder, name);
+
+#endif
 
         public Task SerializeAsync(object context, string name) =>
             Core.Serializer.SerializeAsync(context, name);

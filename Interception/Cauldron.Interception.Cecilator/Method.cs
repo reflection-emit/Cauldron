@@ -12,6 +12,8 @@ namespace Cauldron.Interception.Cecilator
 {
     public class Method : CecilatorBase, IEquatable<Method>
     {
+        internal readonly static Dictionary<string, Dictionary<string, VariableDefinition>> variableDictionary = new Dictionary<string, Dictionary<string, VariableDefinition>>();
+
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
         internal readonly MethodDefinition methodDefinition;
 
@@ -20,8 +22,6 @@ namespace Cauldron.Interception.Cecilator
 
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
         internal readonly BuilderType type;
-
-        private static ConcurrentDictionary<string, ConcurrentDictionary<string, int>> variableDictionary = new ConcurrentDictionary<string, ConcurrentDictionary<string, int>>();
 
         internal Method(BuilderType type, MethodReference methodReference, MethodDefinition methodDefinition) : base(type)
         {
@@ -107,7 +107,7 @@ namespace Cauldron.Interception.Cecilator
 
         public VariableDefinition AddLocalVariable(string name, VariableDefinition variable)
         {
-            ConcurrentDictionary<string, int> methodsDictionary;
+            Dictionary<string, VariableDefinition> methodsDictionary;
 
             if (variableDictionary.TryGetValue(this.methodDefinition.FullName, out methodsDictionary))
             {
@@ -116,13 +116,12 @@ namespace Cauldron.Interception.Cecilator
             }
             else
             {
-                methodsDictionary = new ConcurrentDictionary<string, int>();
-                variableDictionary.TryAdd(this.methodDefinition.FullName, methodsDictionary);
+                methodsDictionary = new Dictionary<string, VariableDefinition>();
+                variableDictionary.Add(this.methodDefinition.FullName, methodsDictionary);
             }
-            methodsDictionary.TryAdd(name, this.methodDefinition.Body.Variables.Count);
-            this.methodDefinition.Body.Variables.Add(variable);
 
-            this.LogInfo($">>>>>>>>  {this.Identification}  {this.methodDefinition.FullName} - {name} { this.methodDefinition.Body.Variables.Count}");
+            methodsDictionary.Add(name, variable);
+            this.methodDefinition.Body.Variables.Add(variable);
 
             return variable;
         }
@@ -146,16 +145,14 @@ namespace Cauldron.Interception.Cecilator
 
         public VariableDefinition GetLocalVariable(string name)
         {
-            ConcurrentDictionary<string, int> methodsDictionary;
-
-            this.LogInfo($">>>>>>>> {this.Identification} {this.methodDefinition.FullName} - {name} { this.methodDefinition.Body.Variables.Count}");
+            Dictionary<string, VariableDefinition> methodsDictionary;
 
             if (variableDictionary.TryGetValue(this.methodDefinition.FullName, out methodsDictionary))
             {
-                int index;
+                VariableDefinition variableDefinition;
 
-                if (methodsDictionary.TryGetValue(name, out index))
-                    return this.methodDefinition.Body.Variables[index];
+                if (methodsDictionary.TryGetValue(name, out variableDefinition))
+                    return variableDefinition;
             }
 
             return null;
