@@ -78,11 +78,7 @@ namespace Cauldron.Interception.Cecilator
             (x.typeReference.FullName.GetHashCode() == interfaceName.GetHashCode() && x.typeReference.FullName == interfaceName) ||
             (x.typeDefinition.FullName.GetHashCode() == interfaceName.GetHashCode() && x.typeDefinition.FullName == interfaceName));
 
-        public BuilderType Import()
-        {
-            this.LogInfo("Importing " + this);
-            return new BuilderType(this.Builder, this.moduleDefinition.ImportReference(this.typeReference ?? this.typeDefinition));
-        }
+        public BuilderType Import() => new BuilderType(this.Builder, this.moduleDefinition.ImportReference(this.typeReference ?? this.typeDefinition));
 
         public bool Inherits(Type type) => this.Inherits(typeDefinition.FullName);
 

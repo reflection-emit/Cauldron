@@ -138,7 +138,7 @@ namespace Cauldron.Interception.Fody
                 var cauldron = builder.GetType("<Cauldron>", SearchContext.Module);
                 var assembly = builder.GetType("System.Reflection.Assembly").New(x => new { Type = x, Load = x.GetMethod("Load", 1) });
                 // UWP has to actually use any type from the Assembly, so that it is not thrown out while compiling to Nativ Code
-                CreateAssemblyListingArray(builder, module.CreateStaticConstructor(), assembly.Type, builder.UnusedReference.Select(x => x.AssemblyDefinition).ToArray());
+                // CreateAssemblyLoadDummy(builder, module.CreateStaticConstructor(), assembly.Type, builder.UnusedReference.Select(x => x.AssemblyDefinition).ToArray());
 
                 module.CreateStaticConstructor().NewCode().Context(x =>
                 {
@@ -206,29 +206,54 @@ namespace Cauldron.Interception.Fody
             method.NewCode().Context(x =>
             {
                 var returnValue = x.GetReturnVariable();
-                x.Newarr(assemblyType, assembliesToList.Length).StoreLocal(returnValue);
+                var referencedTypes = this.FilterAssemblyList(assembliesToList);
 
+                if (referencedTypes.Length > 0)
+                {
+                    x.Newarr(assemblyType, referencedTypes.Length).StoreLocal(returnValue);
+
+                    for (int i = 0; i < referencedTypes.Length; i++)
+                    {
+                        //x.Try(y =>
+                        //{
+                        x.Load(returnValue);
+                        x.StoreElement(assemblyType, x.NewCode().Callvirt(x.NewCode().Call(introspectionExtensions.GetTypeInfo, referencedTypes[i].ToBuilderType(this.Builder).Import()), typeInfo.Assembly), i);
+                        //})
+                        //.Catch(typeof(Exception), y =>
+                        //{
+                        //});
+                    }
+                }
+
+                x.Return();
+            }).Replace();
+        }
+
+        private void CreateAssemblyLoadDummy(Builder builder, Method method, BuilderType assemblyType, AssemblyDefinition[] assembliesToList)
+        {
+            var introspectionExtensions = builder.GetType("System.Reflection.IntrospectionExtensions").New(y => new { Type = y, GetTypeInfo = y.GetMethod("GetTypeInfo", 1) });
+            var typeInfo = builder.GetType("System.Reflection.TypeInfo").New(y => new { Type = y, Assembly = y.GetMethod("get_Assembly") });
+
+            method.NewCode().Context(x =>
+            {
                 for (int i = 0; i < assembliesToList.Length; i++)
                 {
                     // We make an exeption on test platform
-                    if (assembliesToList[i].FullName.StartsWith("Microsoft.VisualStudio.TestPlatform"))
+                    if (assembliesToList[i] == null || assembliesToList[i].FullName == null || assembliesToList[i].FullName.StartsWith("Microsoft.VisualStudio.TestPlatform"))
                         continue;
 
                     var type = assembliesToList[i].Modules
                         .SelectMany(y => y.Types)
-                        .FirstOrDefault(y => y.FullName.Contains('.') && !y.HasCustomAttributes && !y.IsGenericParameter && !y.ContainsGenericParameter)?
+                        .FirstOrDefault(y => y.IsPublic && y.FullName.Contains('.') && !y.HasCustomAttributes && !y.IsGenericParameter && !y.ContainsGenericParameter && !y.FullName.Contains('`'))?
                         .ToBuilderType(this.Builder)?
                         .Import();
 
                     if (type == null)
                         continue;
 
-                    x.Load(returnValue);
-                    x.StoreElement(assemblyType, x.NewCode().Callvirt(x.NewCode().Call(introspectionExtensions.GetTypeInfo, type), typeInfo.Assembly), i);
+                    x.Callvirt(x.NewCode().Call(introspectionExtensions.GetTypeInfo, type), typeInfo.Assembly).Pop();
                 }
-
-                x.Return();
-            }).Replace();
+            }).Insert(InsertionPosition.Beginning);
         }
 
         private Method CreateAssigningMethod(BuilderType anonSource, BuilderType anonTarget, BuilderType anonTargetInterface, Method method)
@@ -492,6 +517,15 @@ namespace Cauldron.Interception.Fody
             // Add all unused assembly to modules
             this.AddLoadLocalReferencedAssembly(builder);
         }
+
+        private TypeDefinition[] FilterAssemblyList(IEnumerable<AssemblyDefinition> assemblies) =>
+            assemblies
+            .Where(x => x != null && x.FullName != null && !x.FullName.StartsWith("Microsoft.VisualStudio.TestPlatform") && !x.FullName.StartsWith("System."))
+            .Select(x => x.MainModule.Types
+                    .FirstOrDefault(y => y.IsPublic && !y.IsGenericParameter && !y.HasCustomAttributes && !y.ContainsGenericParameter && !y.FullName.Contains('`') && y.FullName.Contains('.'))
+            )
+            .Where(x => x != null)
+            .ToArray();
 
         private void ImplementAnonymousTypeInterface(Builder builder)
         {

@@ -286,6 +286,12 @@ namespace Cauldron.Core
                     return type;
             }
 
+            // The last resort
+            result = Type.GetType(typeName);
+
+            if (result != null)
+                return result;
+
             Output.WriteLineError($"The type '{typeName}' defined by the parameter 'typeName' was not found");
             return null;
         }
@@ -294,9 +300,11 @@ namespace Cauldron.Core
         {
 #if WINDOWS_UWP
             var assemblies = new List<Assembly>();
-            var cauldron = AssembliesUWP.EntryAssembly.GetType("<Cauldron>") as ILoadedAssemblies;
+            var cauldron = Activator.CreateInstance( AssembliesUWP.EntryAssembly.GetType("<Cauldron>")) as ILoadedAssemblies;
             assemblies.Add(AssembliesUWP.EntryAssembly);
-            assemblies.AddRange(cauldron.ReferencedAssemblies());
+
+            if(cauldron != null)
+                assemblies.AddRange(cauldron.ReferencedAssemblies());
 #elif NETCORE
 
             var assemblies = new List<Assembly>();
