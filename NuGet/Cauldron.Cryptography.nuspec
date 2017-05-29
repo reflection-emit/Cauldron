@@ -38,6 +38,6 @@
     <file src="..\UWP\Cauldron.UWP.Cryptography\bin\Release\Cauldron.Cryptography**" target="lib\uap10.0" />
 
     <!-- Net Standard 1.6 -->
-    <file src="..\NetCore\Cauldron.NetCore.Cryptography\bin\Release\netstandard1.6\Cauldron.Cryptography**" target="lib\netstandard1.6" />
+    <!--<file src="..\NetCore\Cauldron.NetCore.Cryptography\bin\Release\netstandard1.6\Cauldron.Cryptography**" target="lib\netstandard1.6" />-->
   </files>
 </package>

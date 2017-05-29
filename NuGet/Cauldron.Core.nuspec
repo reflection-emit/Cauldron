@@ -51,6 +51,6 @@
     <file src="..\UWP\Cauldron.Core\bin\Release\Cauldron.Core**" target="lib\uap10.0" />
 
     <!-- Net Standard 1.6 -->
-    <file src="..\NetCore\Cauldron.NetCore.Core\bin\Release\netstandard1.6\Cauldron.Core**" target="lib\netstandard1.6" />
+    <!--<file src="..\NetCore\Cauldron.NetCore.Core\bin\Release\netstandard1.6\Cauldron.Core**" target="lib\netstandard1.6" />-->
   </files>
 </package>

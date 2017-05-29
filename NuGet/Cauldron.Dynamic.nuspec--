@@ -24,7 +24,7 @@
   <files>
 
     <!-- Desktop -->
-    <file src="..\Desktop\Cauldron.Desktop.Dynamic\bin\Release\Cauldron.Dynamic**" target="lib\net452" />
+    <!--<file src="..\Desktop\Cauldron.Desktop.Dynamic\bin\Release\Cauldron.Dynamic**" target="lib\net452" />-->
 
     <!-- UWP -->
     <!-- <file src="..\UWP\Cauldron.UWP.Dynamic\bin\Release\Cauldron.Dynamic**" target="lib\uap10.0" /> -->

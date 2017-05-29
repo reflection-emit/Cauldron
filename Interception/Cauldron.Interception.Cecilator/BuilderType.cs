@@ -29,13 +29,11 @@ namespace Cauldron.Interception.Cecilator
         {
             get
             {
-                if (!this.typeReference.HasGenericParameters)
-                    return false;
+                if (this.typeReference.HasGenericParameters || this.typeReference.ContainsGenericParameter ||
+                    this.typeReference.GenericParameters.Any(x => x.IsGenericParameter) || ((this.typeReference as GenericInstanceType)?.GenericArguments.Any(x => x.IsGenericParameter) ?? false))
+                    return true;
 
-                if (!this.typeReference.ContainsGenericParameter)
-                    return false;
-
-                return this.typeReference.GenericParameters.Any(x => x.IsGenericParameter) || ((this.typeReference as GenericInstanceType)?.GenericArguments.Any(x => x.IsGenericParameter) ?? false);
+                return false;
             }
         }
 

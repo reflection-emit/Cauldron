@@ -68,7 +68,7 @@ namespace Cauldron.XAML.Validation.ViewModels
         }
 
         /// <summary>
-        /// Starts a validation on all properties
+        /// Starts a validation on a single properties
         /// </summary>
         /// <param name="propertyName">The name of the property that requires validation</param>
         public void Validate(string propertyName)

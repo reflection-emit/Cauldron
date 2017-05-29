@@ -22,9 +22,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\NetCore\Cauldron.NetCore.Interception\Cauldron.NetCore.Interception.csproj" />
     <ProjectReference Include="..\..\NetCore\Cauldron.NetCore.Activator\Cauldron.NetCore.Activator.csproj" />
     <ProjectReference Include="..\..\NetCore\Cauldron.NetCore.Core\Cauldron.NetCore.Core.csproj" />
+    <ProjectReference Include="..\..\NetCore\Cauldron.NetCore.Interception\Cauldron.NetCore.Interception.csproj" />
     <ProjectReference Include="..\Cauldron.Interception.External.NetCore.Test\Cauldron.Interception.External.NetCore.Test.csproj" />
   </ItemGroup>
 

@@ -214,14 +214,8 @@ namespace Cauldron.Interception.Fody
 
                     for (int i = 0; i < referencedTypes.Length; i++)
                     {
-                        //x.Try(y =>
-                        //{
                         x.Load(returnValue);
                         x.StoreElement(assemblyType, x.NewCode().Callvirt(x.NewCode().Call(introspectionExtensions.GetTypeInfo, referencedTypes[i].ToBuilderType(this.Builder).Import()), typeInfo.Assembly), i);
-                        //})
-                        //.Catch(typeof(Exception), y =>
-                        //{
-                        //});
                     }
                 }
 

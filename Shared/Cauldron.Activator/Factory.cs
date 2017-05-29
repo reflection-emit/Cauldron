@@ -462,6 +462,9 @@ namespace Cauldron.Activator
             factoryResolvers = factoryInfoTypes
                 .Where(x => x.ContractName.GetHashCode() == iFactoryExtensionName.GetHashCode() && x.ContractName == iFactoryExtensionName).Select(x => x.CreateInstance() as IFactoryResolver)
                 .ToArray();
+
+            if (components.Count == 0)
+                Output.WriteLineError($"Unable to find any components. Please check if FodyWeavers.xml has an entry for Cauldron.Interception");
         }
 
         private static IFactoryTypeInfo ResolveAmbiguousMatch(string contractName) => ResolveAmbiguousMatch(components[contractName], contractName);

@@ -31,7 +31,7 @@
     <file src="..\UWP\Cauldron.UWP.Interception\bin\Release\Cauldron.Interception**" target="lib\uap10.0" />
 
     <!-- Net Standard 1.6 -->
-    <file src="..\NetCore\Cauldron.NetCore.Interception\bin\Release\netstandard1.6\Cauldron.Interception**" target="lib\netstandard1.6" />
+    <!--<file src="..\NetCore\Cauldron.NetCore.Interception\bin\Release\netstandard1.6\Cauldron.Interception**" target="lib\netstandard1.6" />-->
 
     <file src="Fody\**" target="tools" />
   </files>
