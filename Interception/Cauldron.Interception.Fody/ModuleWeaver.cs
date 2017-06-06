@@ -426,7 +426,18 @@ namespace Cauldron.Interception.Fody
                             }
                         }
                         else
-                            this.LogWarning($"The component '{component.Type.Fullname}' has no ComponentConstructor attribute or the constructor is not public");
+                        {
+                            // In case we don't have constructor with ComponentConstructor Attribute, then we should look for a parameterless Ctor
+                            if (component.Type.ParameterlessContructor == null)
+                                this.LogError($"The component '{component.Type.Fullname}' has no ComponentConstructor attribute or the constructor is not public");
+                            else
+                            {
+                                x.Load(x.GetParameter(0)).IsNull().Then(y => y.NewObj(component.Type.ParameterlessContructor).Return());
+                                x.Load(x.GetParameter(0)).Call(arrayAvatar.Length).EqualTo(0).Then(y => y.NewObj(component.Type.ParameterlessContructor).Return());
+
+                                this.LogWarning($"The component '{component.Type.Fullname}' has no ComponentConstructor attribute. A parameterless ctor was found and will be used.");
+                            }
+                        }
                     })
                     .Context(x => x.Call(extensionAvatar.CreateInstance, component.Type, x.GetParameter(0)).Return())
                     .Return()

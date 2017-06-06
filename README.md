@@ -45,6 +45,7 @@ https://Capgemini.github.io/Cauldron/eveonline/
   - IFactoryInitializeComponent interface removed - Factory does not support this anymore
   - IFactoryExtension removed - The Factory is not extensible anymore :( ... To Resolve ambigousity the IFactoryResolver can be use instead.
   - This is the current performance of the factory <br/>![Factory performance](https://raw.githubusercontent.com/Capgemini/Cauldron/feature/images/factory-performance.PNG)
+- Upgraded to the newest version of Fody
 ### 1.1.4
 - Inject attribute default paramaters are now "params"
 - Assemblies class now throws a better error message if an Assembly cannot be loaded
