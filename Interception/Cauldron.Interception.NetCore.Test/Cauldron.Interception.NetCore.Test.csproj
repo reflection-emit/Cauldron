@@ -30,8 +30,8 @@
 
   <ItemGroup>
     <PackageReference Include="Cauldron.Interception.Fody" Version="1.1.4" />
-    <PackageReference Include="Fody" Version="2.0.7" />
-    <PackageReference Include="MSTest.TestFramework" Version="1.1.17" />
+    <PackageReference Include="Fody" Version="2.1.0" />
+    <PackageReference Include="MSTest.TestFramework" Version="1.1.18" />
   </ItemGroup>
 
   <Import Project="..\Cauldron.Interception.SharedTest\Cauldron.Interception.SharedTest.projitems" Label="Shared" />

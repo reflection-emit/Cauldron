@@ -23,7 +23,7 @@ goto:eof
 set projectPath=%~1
 write-colored Green --------------------------
 write-colored Cyan Building %projectPath%
-msbuild.exe %projectPath% /verbosity:m /p:Configuration=Release;PreBuildEvent=;PostBuildEvent= /t:Rebuild
+"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\devenv.com" %projectPath% /Rebuild Release
 
 goto:eof
 
@@ -31,7 +31,9 @@ goto:eof
 write-colored Green --------------------------
 set nuspec=%~1
 write-colored Cyan Creating NuGet Packages %nuspec%
-nuget.exe pack %nuspec% -OutputDir %~dp0Packages -version 1.2.1-beta
+nuget.exe pack %nuspec% -OutputDir %~dp0Packages -version 1.2.2-beta
 goto:eof
 
 echo on
+
+pause
