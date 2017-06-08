@@ -16,6 +16,7 @@ namespace Cauldron.Activator
         /// <summary>
         /// Gets the current instance of <typeparamref name="T"/>
         /// </summary>
+        [ComponentConstructor]
         public static T Current
         {
             get

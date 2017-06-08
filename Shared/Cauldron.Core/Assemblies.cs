@@ -578,6 +578,9 @@ namespace Cauldron.Core
         /// <exception cref="FileLoadException">A file that was found could not be loaded</exception>
         public static void LoadAssembly(DirectoryInfo directory, string filter = "*.dll")
         {
+            if (!directory.Exists)
+                throw new DirectoryNotFoundException("Unable to find directory: " + directory.FullName);
+
             var files = directory.GetFiles(filter);
             for (int i = 0; i < files.Length; i++)
                 LoadAssembly(files[i]);

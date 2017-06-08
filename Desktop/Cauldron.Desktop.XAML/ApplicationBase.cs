@@ -1,6 +1,7 @@
 ﻿using Cauldron.Activator;
 using Cauldron.Core;
 using Cauldron.Core.Extensions;
+using Cauldron.Internal;
 using Cauldron.XAML.Controls;
 using Cauldron.XAML.Navigation;
 using Cauldron.XAML.ViewModels;
@@ -59,10 +60,15 @@ namespace Cauldron.XAML
             Factory.CreateMany<ResourceDictionary>().Select(x =>
             {
                 var type = x.GetType();
-                return type.FullName.StartsWith("Cauldron.") ? new { Index = 0, Instance = x } : new { Index = 1, Instance = x };
+                return type.FullName.StartsWith("Cauldron.") ? new { Index = 0, Instance = x, Type = type } : new { Index = 1, Instance = x, Type = type };
             })
             .OrderBy(x => x.Index)
-            .Foreach(x => this.Resources.MergedDictionaries.Add(x.Instance));
+            .ThenBy(x => x.Type.FullName)
+            .Foreach(x =>
+            {
+                this.Resources.MergedDictionaries.Add(x.Instance);
+                Output.WriteLineInfo($"Adding ResourceDictionary: {x.Type.FullName}");
+            });
 
             this.applicationHash = (ApplicationInfo.ApplicationName + ApplicationInfo.ApplicationPublisher + ApplicationInfo.ApplicationVersion.ToString()).GetHash(HashAlgorithms.Md5);
         }

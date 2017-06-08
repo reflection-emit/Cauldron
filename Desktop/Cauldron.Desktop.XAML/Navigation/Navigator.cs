@@ -374,10 +374,10 @@ namespace Cauldron.XAML.Navigation
                     if (dataTemplate == null)
                     {
                         var possibleViewName = viewModelType.Name.Left(viewModelType.Name.Length - "Model".Length);
-                        var possibleViewType = Assemblies.GetTypeFromName(possibleViewName);
+                        var possibleView = Factory.Create(possibleViewName) ?? Factory.Create(Assemblies.GetTypeFromName(possibleViewName));
 
                         // On such case we create a dummy View
-                        if (possibleViewType == null)
+                        if (possibleView == null)
                         {
                             var textBlock = new TextBlock();
                             textBlock.Text = viewModelType.FullName;
@@ -389,8 +389,7 @@ namespace Cauldron.XAML.Navigation
                             windowInfo = await CreateDefaultWindow(callback1, callback2, textBlock, viewModel);
                         }
                         else
-
-                            windowInfo = await CreateDefaultWindow(callback1, callback2, Factory.Create(possibleViewType) as FrameworkElement, viewModel);
+                            windowInfo = await CreateDefaultWindow(callback1, callback2, possibleView as FrameworkElement, viewModel);
                     }
                     else
                         // try to get a WindowConfiguration attach in the datatemplate

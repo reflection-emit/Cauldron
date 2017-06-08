@@ -56,11 +56,11 @@ namespace Cauldron.Interception.Fody
             var componentConstructorAttribute = builder.GetType("Cauldron.Activator.ComponentConstructorAttribute");
             var windowType = builder.TypeExists("System.Windows.Window") ? builder.GetType("System.Windows.Window") : null;
 
-            var views = builder.FindTypesByBaseClass("FrameworkElement");
-            var viewModels = builder.FindTypesByInterface(notifyPropertyChangedInterface);
-            var valueConverters = builder.FindTypesByInterface(valueConverterInterface);
+            var views = builder.FindTypesByBaseClass("FrameworkElement").Where(x => x.IsPublic);
+            var viewModels = builder.FindTypesByInterface(notifyPropertyChangedInterface).Where(x => x.IsPublic);
+            var valueConverters = builder.FindTypesByInterface(valueConverterInterface).Where(x => x.IsPublic);
             var resourceDictionaryBaseClass = builder.TypeExists("Windows.UI.Xaml.ResourceDictionary") ? "Windows.UI.Xaml.ResourceDictionary" : "System.Windows.ResourceDictionary";
-            var resourceDictionaries = builder.FindTypesByBaseClass(resourceDictionaryBaseClass);
+            var resourceDictionaries = builder.FindTypesByBaseClass(resourceDictionaryBaseClass).Where(x => x.IsPublic);
 
             foreach (var item in views)
             {
@@ -391,7 +391,7 @@ namespace Cauldron.Interception.Fody
                                 if (ctorParameters.Length > 0)
                                 {
                                     // In this case we have to find a parameterless constructor first
-                                    if (component.Type.ParameterlessContructor != null && !parameterlessCtorAlreadyHandled)
+                                    if (component.Type.ParameterlessContructor != null && !parameterlessCtorAlreadyHandled && component.Type.ParameterlessContructor.Modifiers.HasFlag(Modifiers.Public))
                                     {
                                         x.Load(x.GetParameter(0)).IsNull().Then(y => y.NewObj(component.Type.ParameterlessContructor).Return());
                                         x.Load(x.GetParameter(0)).Call(arrayAvatar.Length).EqualTo(0).Then(y => y.NewObj(component.Type.ParameterlessContructor).Return());
@@ -430,7 +430,7 @@ namespace Cauldron.Interception.Fody
                             // In case we don't have constructor with ComponentConstructor Attribute, then we should look for a parameterless Ctor
                             if (component.Type.ParameterlessContructor == null)
                                 this.LogError($"The component '{component.Type.Fullname}' has no ComponentConstructor attribute or the constructor is not public");
-                            else
+                            else if (component.Type.ParameterlessContructor.Modifiers.HasFlag(Modifiers.Public))
                             {
                                 x.Load(x.GetParameter(0)).IsNull().Then(y => y.NewObj(component.Type.ParameterlessContructor).Return());
                                 x.Load(x.GetParameter(0)).Call(arrayAvatar.Length).EqualTo(0).Then(y => y.NewObj(component.Type.ParameterlessContructor).Return());
@@ -513,7 +513,7 @@ namespace Cauldron.Interception.Fody
                 .Return()
                 .Replace();
 
-            if (builder.IsReferenced("Cauldron.XAML"))
+            if (builder.IsReferenced("Cauldron.Activator") && (builder.IsReferenced("Cauldron.XAML") || builder.IsReferenced("System.Xaml") || builder.IsReferenced("Windows.UI.Xaml")))
                 AddAttributeToXAMLResources(builder);
 
             if (builder.IsReferenced("Cauldron.Activator"))
