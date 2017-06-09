@@ -116,6 +116,14 @@
       <Project>{d09d5044-4799-4ccf-997d-31f10b6fce24}</Project>
       <Name>Cauldron.Desktop.XAML.Interactivity</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Cauldron.Desktop.XAML.Theme.VSDark\Cauldron.Desktop.XAML.Theme.VSDark.csproj">
+      <Project>{2cefbc62-00b8-487b-86d5-ec610134de49}</Project>
+      <Name>Cauldron.Desktop.XAML.Theme.VSDark</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cauldron.Desktop.XAML.Theme\Cauldron.Desktop.XAML.Theme.csproj">
+      <Project>{b5cadc73-4e25-40ff-8130-e5af16a8d0c2}</Project>
+      <Name>Cauldron.Desktop.XAML.Theme</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Cauldron.Desktop.XAML.Validation\Cauldron.Desktop.XAML.Validation.csproj">
       <Project>{362950dc-8fad-4675-8a74-e80a0ddf2bbd}</Project>
       <Name>Cauldron.Desktop.XAML.Validation</Name>

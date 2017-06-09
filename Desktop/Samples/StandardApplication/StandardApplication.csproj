@@ -139,6 +139,14 @@
       <Project>{d09d5044-4799-4ccf-997d-31f10b6fce24}</Project>
       <Name>Cauldron.Desktop.XAML.Interactivity</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Cauldron.Desktop.XAML.Theme.VSLight\Cauldron.Desktop.XAML.Theme.VSLight.csproj">
+      <Project>{d7ff3579-5959-4907-8bb2-acdddacf64ca}</Project>
+      <Name>Cauldron.Desktop.XAML.Theme.VSLight</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cauldron.Desktop.XAML.Theme\Cauldron.Desktop.XAML.Theme.csproj">
+      <Project>{b5cadc73-4e25-40ff-8130-e5af16a8d0c2}</Project>
+      <Name>Cauldron.Desktop.XAML.Theme</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Cauldron.Desktop.XAML\Cauldron.Desktop.XAML.csproj">
       <Project>{a6a45af3-6c56-4906-8c5c-8ad557aa89c7}</Project>
       <Name>Cauldron.Desktop.XAML</Name>

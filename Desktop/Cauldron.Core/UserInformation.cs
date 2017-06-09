@@ -217,6 +217,37 @@ namespace Cauldron.Core
             );
 
         /// <summary>
+        /// Gets the account picture for the user.
+        /// </summary>
+        /// <returns>The image of the user</returns>
+        public async Task<byte[]> GetAccountPictureAsync()
+        {
+            if (!IsLocalAccount)
+            {
+                var data = await GetUserPictureFromActiveDirectoryAsync();
+
+                if (data != null)
+                    return data;
+            }
+
+            string path = null;
+
+            await Task.Run(() =>
+            {
+                if (path == null)
+                    path = GetAccountPicturePathFromDatFile();
+
+                if (path == null)
+                    path = Win32Api.GetUserTilePath(_username);
+            });
+
+            if (File.Exists(path))
+                return File.ReadAllBytes(path);
+
+            return null;
+        }
+
+        /// <summary>
         /// Gets the display name for the user account.
         /// </summary>
         /// <returns>The display name for the user account.</returns>
@@ -323,37 +354,6 @@ namespace Cauldron.Core
         /// </summary>
         /// <returns>The domain and user name</returns>
         public override string ToString() => this._domainName + "\\" + this._username;
-
-        /// <summary>
-        /// Gets the account picture for the user.
-        /// </summary>
-        /// <returns>The image of the user</returns>
-        private async Task<byte[]> GetAccountPictureAsync()
-        {
-            if (!IsLocalAccount)
-            {
-                var data = await GetUserPictureFromActiveDirectoryAsync();
-
-                if (data != null)
-                    return data;
-            }
-
-            string path = null;
-
-            await Task.Run(() =>
-            {
-                if (path == null)
-                    path = GetAccountPicturePathFromDatFile();
-
-                if (path == null)
-                    path = Win32Api.GetUserTilePath(_username);
-            });
-
-            if (File.Exists(path))
-                return File.ReadAllBytes(path);
-
-            return null;
-        }
 
         private string GetAccountPicturePathFromDatFile()
         {

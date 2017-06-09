@@ -57,18 +57,23 @@ namespace Cauldron.XAML
             Factory.CreateMany<IValueConverter>().Foreach(x => this.Resources.Add(x.GetType().Name, x));
 
             // find all resourcedictionaries and add them to the existing resources
-            Factory.CreateMany<ResourceDictionary>().Select(x =>
-            {
-                var type = x.GetType();
-                return type.FullName.StartsWith("Cauldron.") ? new { Index = 0, Instance = x, Type = type } : new { Index = 1, Instance = x, Type = type };
-            })
-            .OrderBy(x => x.Index)
-            .ThenBy(x => x.Type.FullName)
-            .Foreach(x =>
-            {
-                this.Resources.MergedDictionaries.Add(x.Instance);
-                Output.WriteLineInfo($"Adding ResourceDictionary: {x.Type.FullName}");
-            });
+            Assemblies.CauldronObjects
+                .Select(x => x as IFactoryCache)
+                .Where(x => x != null)
+                .SelectMany(x => x.GetComponents())
+                .Where(x => x.ContractName == typeof(ResourceDictionary).FullName).Select(x =>
+                {
+                    var type = x.Type;
+                    return type.FullName.StartsWith("Cauldron.") ? new { Index = 0, FactoryInfo = x, Type = type } : new { Index = 1, FactoryInfo = x, Type = type };
+                })
+                .OrderBy(x => x.Index)
+                .ThenByDescending(x => x.FactoryInfo.Priority)
+                .ThenBy(x => x.Type.FullName)
+                .Foreach(x =>
+                {
+                    this.Resources.MergedDictionaries.Add(x.FactoryInfo.CreateInstance() as ResourceDictionary);
+                    Output.WriteLineInfo($"Adding ResourceDictionary: {x.Type.FullName}");
+                });
 
             this.applicationHash = (ApplicationInfo.ApplicationName + ApplicationInfo.ApplicationPublisher + ApplicationInfo.ApplicationVersion.ToString()).GetHash(HashAlgorithms.Md5);
         }

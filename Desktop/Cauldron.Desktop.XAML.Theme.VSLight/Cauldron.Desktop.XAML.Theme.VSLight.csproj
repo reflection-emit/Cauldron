@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D7FF3579-5959-4907-8BB2-ACDDDACF64CA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Cauldron.XAML.Theme.VSLight</RootNamespace>
+    <AssemblyName>Cauldron.XAML.Theme.VSLight</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ColorsAndBrushes.xaml.cs">
+      <DependentUpon>ColorsAndBrushes.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="FodyWeavers.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="ColorsAndBrushes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cauldron.Core\Cauldron.Desktop.Core.csproj">
+      <Project>{0b23e7be-0e65-4a53-988f-67a0e9eeea2e}</Project>
+      <Name>Cauldron.Desktop.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cauldron.Desktop.Activator\Cauldron.Desktop.Activator.csproj">
+      <Project>{6e8a953e-2732-4a58-bc7b-f86b1a5ca5dd}</Project>
+      <Name>Cauldron.Desktop.Activator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cauldron.Desktop.Interception\Cauldron.Desktop.Interception.csproj">
+      <Project>{c656c9c1-bee8-40b1-bac7-6dd7b6ff5fbb}</Project>
+      <Name>Cauldron.Desktop.Interception</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cauldron.Desktop.XAML.Theme\Cauldron.Desktop.XAML.Theme.csproj">
+      <Project>{b5cadc73-4e25-40ff-8130-e5af16a8d0c2}</Project>
+      <Name>Cauldron.Desktop.XAML.Theme</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cauldron.Desktop.XAML\Cauldron.Desktop.XAML.csproj">
+      <Project>{a6a45af3-6c56-4906-8c5c-8ad557aa89c7}</Project>
+      <Name>Cauldron.Desktop.XAML</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\..\packages\Fody.2.1.0\build\netstandard1.0\Fody.targets" Condition="Exists('..\..\packages\Fody.2.1.0\build\netstandard1.0\Fody.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\Fody.2.1.0\build\netstandard1.0\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Fody.2.1.0\build\netstandard1.0\Fody.targets'))" />
+  </Target>
+</Project>

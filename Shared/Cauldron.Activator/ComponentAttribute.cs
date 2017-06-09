@@ -26,6 +26,7 @@ namespace Cauldron.Activator
 
             this.Policy = policy;
             this.ContractName = contractName;
+            this.Priority = priority;
         }
 
         /// <summary>

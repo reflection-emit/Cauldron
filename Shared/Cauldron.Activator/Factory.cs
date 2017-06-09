@@ -313,6 +313,13 @@ namespace Cauldron.Activator
         public static bool HasContract(Type contractType) => components.ContainsKey(contractType.FullName);
 
         /// <summary>
+        /// Determines whether a contract exist
+        /// </summary>
+        /// <typeparam name="T">The Type that contract name derives from</typeparam>
+        /// <returns>True if the contract exists, otherwise false</returns>
+        public static bool HasContract<T>() => components.ContainsKey(typeof(T).FullName);
+
+        /// <summary>
         /// Removes a <see cref="Type"/> from the list of known types.
         /// ATTENTION: Should only be used in unit-tests.
         /// </summary>
