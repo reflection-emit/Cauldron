@@ -11,11 +11,11 @@
     <iconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Fody add-in that provides method, property and field interception.</description>
-    <summary>Fody add-in that provides method, property and field interception. (Open Source)</summary>
+    <summary>Fody add-in that provides method, property and field interception.</summary>
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Interception interceptor interception AOP Fody Cecil CIL ILWeaving</tags>
     <dependencies>
-      <dependency id="Fody" version="1.29.4" />
+      <dependency id="Fody" version="2.1.0" />
     </dependencies>
   </metadata>
   <files>
@@ -31,7 +31,7 @@
     <file src="..\UWP\Cauldron.UWP.Interception\bin\Release\Cauldron.Interception**" target="lib\uap10.0" />
 
     <!-- Net Standard 1.6 -->
-    <file src="..\NetCore\Cauldron.NetCore.Interception\bin\Release\netstandard1.6\Cauldron.Interception**" target="lib\netstandard1.6" />
+    <!--<file src="..\NetCore\Cauldron.NetCore.Interception\bin\Release\netstandard1.6\Cauldron.Interception**" target="lib\netstandard1.6" />-->
 
     <file src="Fody\**" target="tools" />
   </files>

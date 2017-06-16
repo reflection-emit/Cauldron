@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>0c0fc5cb-c4bf-443d-bb52-e37b74538702</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Cauldron.Interception.SharedTest</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Anonymouse_Type_To_Interface_Test.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Field_Interception_Code_Validation_Tests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interceptors\CreateATypeInterceptorAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interceptors\EnumPropertyInterceptorAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interceptors\ExceptionThrowingMethodInterceptorAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interceptors\TestMethodInterceptorAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interceptors\TestMethodInterceptorWithParameter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interceptors\TestPropertyInterceptorAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ITestInterface.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Method_Interceptor_Code_Validation_Tests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Method_Interceptor_TypeWide_Validation_Test.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Property_Interceptor_Code_Validation_Tests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Property_Interceptor_TypeWide_Validation_Test.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TestClass.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TestEnum.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TestStruct.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TimedCachedAttributeTest.cs" />
+  </ItemGroup>
+</Project>

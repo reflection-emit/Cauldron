@@ -1,0 +1,54 @@
+﻿<ResourceDictionary x:Class="Cauldron.XAML.Theme.VSDark.ColorsAndBrushes"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:t="clr-namespace:Cauldron.XAML.Theme;assembly=Cauldron.XAML.Theme"
+             mc:Ignorable="d">
+    <SolidColorBrush x:Key="Transparent" Color="Transparent" />
+
+    <Color x:Key="{x:Static t:CauldronTheme.DarkBackgroundColor}">#1e1e1e</Color>
+    <SolidColorBrush x:Key="{x:Static t:CauldronTheme.DarkBackgroundBrush}" Color="{StaticResource {x:Static t:CauldronTheme.DarkBackgroundColor}}" />
+
+    <Color x:Key="{x:Static t:CauldronTheme.BackgroundColor}">#2D2D30</Color>
+    <SolidColorBrush x:Key="{x:Static t:CauldronTheme.BackgroundBrush}" Color="{StaticResource {x:Static t:CauldronTheme.BackgroundColor}}" />
+
+    <Color x:Key="{x:Static t:CauldronTheme.LightBackgroundColor}">#333337</Color>
+    <SolidColorBrush x:Key="{x:Static t:CauldronTheme.LightBackgroundBrush}" Color="{StaticResource {x:Static t:CauldronTheme.LightBackgroundColor}}" />
+
+    <SolidColorBrush x:Key="{x:Static t:CauldronTheme.AccentBrush}" Color="{StaticResource {x:Static t:CauldronTheme.AccentColor}}" />
+    <SolidColorBrush x:Key="{x:Static t:CauldronTheme.LightAccentBrush}" Color="{StaticResource {x:Static t:CauldronTheme.AccentColor}}" Opacity="0.6" />
+
+    <Color x:Key="{x:Static t:CauldronTheme.DisabledTextColor}">#546D60</Color>
+    <SolidColorBrush x:Key="{x:Static t:CauldronTheme.DisabledTextBrush}" Color="{StaticResource {x:Static t:CauldronTheme.DisabledTextColor}}" />
+
+    <Color x:Key="{x:Static t:CauldronTheme.DisabledBackgroundColor}">#252526</Color>
+    <SolidColorBrush x:Key="{x:Static t:CauldronTheme.DisabledBackgroundBrush}" Color="{StaticResource {x:Static t:CauldronTheme.DisabledBackgroundColor}}" />
+
+    <Color x:Key="{x:Static t:CauldronTheme.TextColor}">White</Color>
+    <SolidColorBrush x:Key="{x:Static t:CauldronTheme.TextBrush}" Color="{StaticResource {x:Static t:CauldronTheme.TextColor}}" />
+
+    <Color x:Key="{x:Static t:CauldronTheme.HoveredTextColor}">White</Color>
+    <SolidColorBrush x:Key="{x:Static t:CauldronTheme.HoveredTextBrush}" Color="{StaticResource {x:Static t:CauldronTheme.HoveredTextColor}}" />
+
+    <Color x:Key="{x:Static t:CauldronTheme.HoverLightColor}">#3F3F46</Color>
+    <SolidColorBrush x:Key="{x:Static t:CauldronTheme.HoverLightBrush}" Color="{StaticResource {x:Static t:CauldronTheme.HoverLightColor}}" />
+
+    <Color x:Key="{x:Static t:CauldronTheme.LightBorderColor}">#434346</Color>
+    <SolidColorBrush x:Key="{x:Static t:CauldronTheme.LightBorderBrush}" Color="{StaticResource {x:Static t:CauldronTheme.LightBorderColor}}" />
+
+    <Color x:Key="{x:Static t:CauldronTheme.LightOverlayColor}">#90FFFFFF</Color>
+    <SolidColorBrush x:Key="{x:Static t:CauldronTheme.LightOverlayBrush}" Color="{StaticResource {x:Static t:CauldronTheme.LightOverlayColor}}" />
+
+    <Color x:Key="{x:Static t:CauldronTheme.DarkOverlayColor}">#90000000</Color>
+    <SolidColorBrush x:Key="{x:Static t:CauldronTheme.DarkOverlayBrush}" Color="{StaticResource {x:Static t:CauldronTheme.DarkOverlayColor}}" />
+
+    <Color x:Key="{x:Static t:CauldronTheme.ButtonbackColor}">#3E3E42</Color>
+    <SolidColorBrush x:Key="{x:Static t:CauldronTheme.ButtonbackBrush}" Color="{StaticResource {x:Static t:CauldronTheme.ButtonbackColor}}" />
+
+    <Color x:Key="{x:Static t:CauldronTheme.ComboBoxArrowColor}">WhiteSmoke</Color>
+    <SolidColorBrush x:Key="{x:Static t:CauldronTheme.ComboBoxArrowBrush}" Color="{StaticResource {x:Static t:CauldronTheme.ComboBoxArrowColor}}" />
+
+    <Color x:Key="{x:Static t:CauldronTheme.DropdownBackgroundColor}">#F6F6F6</Color>
+    <SolidColorBrush x:Key="{x:Static t:CauldronTheme.DropdownBackgroundBrush}" Color="{StaticResource {x:Static t:CauldronTheme.DropdownBackgroundColor}}" />
+</ResourceDictionary>

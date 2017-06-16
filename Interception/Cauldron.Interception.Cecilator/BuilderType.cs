@@ -16,6 +16,7 @@ namespace Cauldron.Interception.Cecilator
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
         internal readonly TypeReference typeReference;
 
+        public AssemblyDefinition Assembly { get { return this.typeDefinition.Module.Assembly; } }
         public Builder Builder { get; private set; }
 
         public BuilderType ChildType { get { return new BuilderType(this.Builder, this.moduleDefinition.GetChildrenType(this.typeReference)); } }
@@ -24,6 +25,18 @@ namespace Cauldron.Interception.Cecilator
 
         public string Fullname { get { return this.typeReference.FullName; } }
 
+        public bool HasUnresolvedGenericParameters
+        {
+            get
+            {
+                if (this.typeReference.HasGenericParameters || this.typeReference.ContainsGenericParameter ||
+                    this.typeReference.GenericParameters.Any(x => x.IsGenericParameter) || ((this.typeReference as GenericInstanceType)?.GenericArguments.Any(x => x.IsGenericParameter) ?? false))
+                    return true;
+
+                return false;
+            }
+        }
+
         public bool IsAbstract { get { return this.typeDefinition.Attributes.HasFlag(TypeAttributes.Abstract); } }
 
         public bool IsArray { get { return this.typeDefinition != null && (this.typeDefinition.IsArray || this.typeReference.FullName.EndsWith("[]") || this.typeDefinition.FullName.EndsWith("[]")); } }
@@ -31,10 +44,9 @@ namespace Cauldron.Interception.Cecilator
         public bool IsForeign { get { return this.moduleDefinition.Assembly == this.typeDefinition.Module.Assembly; } }
 
         public bool IsGenericType { get { return this.typeDefinition == null || this.typeReference.Resolve() == null; } }
-
         public bool IsInterface { get { return this.typeDefinition == null ? false : this.typeDefinition.Attributes.HasFlag(TypeAttributes.Interface); } }
 
-        public bool IsNullable { get { return this.typeDefinition.FullName == this.moduleDefinition.Import(typeof(Nullable<>)).Resolve().FullName; } }
+        public bool IsNullable { get { return this.typeDefinition.FullName == this.moduleDefinition.ImportReference(typeof(Nullable<>)).Resolve().FullName; } }
 
         public bool IsPublic { get { return this.typeDefinition.Attributes.HasFlag(TypeAttributes.Public); } }
 
@@ -60,14 +72,17 @@ namespace Cauldron.Interception.Cecilator
 
         public bool Implements(Type interfaceType) => this.Implements(interfaceType.FullName);
 
-        public bool Implements(string interfaceName) => this.Interfaces.Any(x => x.typeReference.FullName == interfaceName || x.typeDefinition.FullName == interfaceName);
+        public bool Implements(string interfaceName) => this.Interfaces.Any(x =>
+            (x.typeReference.FullName.GetHashCode() == interfaceName.GetHashCode() && x.typeReference.FullName == interfaceName) ||
+            (x.typeDefinition.FullName.GetHashCode() == interfaceName.GetHashCode() && x.typeDefinition.FullName == interfaceName));
+
+        public BuilderType Import() => new BuilderType(this.Builder, this.moduleDefinition.ImportReference(this.typeReference ?? this.typeDefinition));
 
         public bool Inherits(Type type) => this.Inherits(typeDefinition.FullName);
 
-        public bool Inherits(string typename) =>
-            this.BaseClasses.Any(x =>
-                (x.typeReference.FullName.GetHashCode() == typename.GetHashCode() && x.typeReference.FullName == typename) ||
-                (x.typeDefinition.FullName.GetHashCode() == typename.GetHashCode() && x.typeDefinition.FullName == typename));
+        public bool Inherits(string typename) => this.BaseClasses.Any(x =>
+            (x.typeReference.FullName.GetHashCode() == typename.GetHashCode() && x.typeReference.FullName == typename) ||
+            (x.typeDefinition.Name.GetHashCode() == typename.GetHashCode() && x.typeDefinition.Name == typename));
 
         #region Constructors
 
@@ -185,9 +200,9 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
-        public void AddInterface(Type interfaceType) => this.AddInterface(new BuilderType(this.Builder, this.moduleDefinition.Import(interfaceType)));
+        public void AddInterface(Type interfaceType) => this.typeDefinition.Interfaces.Add(new InterfaceImplementation(this.moduleDefinition.ImportReference(interfaceType)));
 
-        public void AddInterface(BuilderType interfaceType) => this.typeDefinition.Interfaces.Add(interfaceType.typeReference);
+        public void AddInterface(BuilderType interfaceType) => this.typeDefinition.Interfaces.Add(new InterfaceImplementation(this.moduleDefinition.ImportReference(interfaceType.typeReference)));
 
         public Method CreateConstructor(params BuilderType[] parameters)
         {
@@ -264,7 +279,7 @@ namespace Cauldron.Interception.Cecilator
 
         public FieldCollection Fields { get { return new FieldCollection(this, this.typeDefinition.Fields); } }
 
-        public Field CreateField(Modifiers modifier, Type fieldType, string name) => this.CreateField(modifier, this.moduleDefinition.Import(this.GetTypeDefinition(fieldType).ResolveType(this.typeReference)), name);
+        public Field CreateField(Modifiers modifier, Type fieldType, string name) => this.CreateField(modifier, this.moduleDefinition.ImportReference(this.GetTypeDefinition(fieldType).ResolveType(this.typeReference)), name);
 
         public Field CreateField(Modifiers modifier, Field field, string name) => this.CreateField(modifier, field.fieldRef.FieldType, name);
 
@@ -278,7 +293,7 @@ namespace Cauldron.Interception.Cecilator
             if (modifier.HasFlag(Modifiers.Static)) attributes |= FieldAttributes.Static;
             if (modifier.HasFlag(Modifiers.Public)) attributes |= FieldAttributes.Public;
 
-            var field = new FieldDefinition(name, attributes, this.moduleDefinition.Import(typeReference));
+            var field = new FieldDefinition(name, attributes, this.moduleDefinition.ImportReference(typeReference));
             this.typeDefinition.Fields.Add(field);
 
             return new Field(this, field);
@@ -314,10 +329,10 @@ namespace Cauldron.Interception.Cecilator
 
         public bool ContainsProperty(string name) => this.GetProperties().Any(x => x.Name == name);
 
-        public Property CreateProperty(Modifiers modifier, Type propertyType, string name) =>
-                    this.CreateProperty(modifier, this.Builder.GetType(propertyType), name);
+        public Property CreateProperty(Modifiers modifier, Type propertyType, string name, bool getterOnly = false) =>
+                    this.CreateProperty(modifier, this.Builder.GetType(propertyType), name, getterOnly);
 
-        public Property CreateProperty(Modifiers modifier, BuilderType propertyType, string name)
+        public Property CreateProperty(Modifiers modifier, BuilderType propertyType, string name, bool getterOnly = false)
         {
             var contain = this.GetProperties().Get(name);
 
@@ -331,26 +346,32 @@ namespace Cauldron.Interception.Cecilator
             if (modifier.HasFlag(Modifiers.Public)) attributes |= MethodAttributes.Public;
             if (modifier.HasFlag(Modifiers.Overrrides)) attributes |= MethodAttributes.Final | MethodAttributes.Virtual | MethodAttributes.NewSlot;
 
-            var property = new PropertyDefinition(name, PropertyAttributes.None, propertyType.typeReference);
-            var backingField = this.CreateField(modifier, propertyType.typeReference, $"<{name}>k__BackingField");
+            var returnType = this.moduleDefinition.ImportReference(propertyType.typeReference);
+            var property = new PropertyDefinition(name, PropertyAttributes.None, returnType);
+            var backingField = this.CreateField(modifier, returnType, $"<{name}>k__BackingField");
 
-            property.GetMethod = new MethodDefinition("get_" + name, attributes, propertyType.typeReference);
-            property.SetMethod = new MethodDefinition("set_" + name, attributes, this.moduleDefinition.TypeSystem.Void);
-            property.SetMethod.Parameters.Add(new ParameterDefinition("value", ParameterAttributes.None, propertyType.typeReference));
-
+            property.GetMethod = new MethodDefinition("get_" + name, attributes, returnType);
             this.typeDefinition.Properties.Add(property);
             this.typeDefinition.Methods.Add(property.GetMethod);
-            this.typeDefinition.Methods.Add(property.SetMethod);
+
+            if (!getterOnly)
+            {
+                property.SetMethod = new MethodDefinition("set_" + name, attributes, this.moduleDefinition.TypeSystem.Void);
+                property.SetMethod.Parameters.Add(new ParameterDefinition("value", ParameterAttributes.None, returnType));
+                this.typeDefinition.Methods.Add(property.SetMethod);
+            }
 
             var result = new Property(this, property);
 
             result.Getter.NewCode().Load(backingField).Return().Replace();
-            result.Setter.NewCode().Assign(backingField).Set(result.Setter.NewCode().GetParameter(0)).Return().Replace();
+
+            if (!getterOnly)
+                result.Setter.NewCode().Assign(backingField).Set(result.Setter.NewCode().GetParameter(0)).Return().Replace();
 
             return result;
         }
 
-        public Property CreateProperty(Field field)
+        public Property CreateProperty(Field field, bool getterOnly = false)
         {
             var name = $"{field.Name}";
 
@@ -369,17 +390,22 @@ namespace Cauldron.Interception.Cecilator
             var property = new PropertyDefinition(name, PropertyAttributes.None, field.FieldType.typeReference);
 
             property.GetMethod = new MethodDefinition("get_" + name, attributes, field.FieldType.typeReference);
-            property.SetMethod = new MethodDefinition("set_" + name, attributes, this.moduleDefinition.TypeSystem.Void);
-            property.SetMethod.Parameters.Add(new ParameterDefinition("value", ParameterAttributes.None, field.FieldType.typeReference));
-
             this.typeDefinition.Properties.Add(property);
             this.typeDefinition.Methods.Add(property.GetMethod);
-            this.typeDefinition.Methods.Add(property.SetMethod);
+
+            if (!getterOnly)
+            {
+                property.SetMethod = new MethodDefinition("set_" + name, attributes, this.moduleDefinition.TypeSystem.Void);
+                property.SetMethod.Parameters.Add(new ParameterDefinition("value", ParameterAttributes.None, field.FieldType.typeReference));
+                this.typeDefinition.Methods.Add(property.SetMethod);
+            }
 
             var result = new Property(this, property);
 
             result.Getter.NewCode().Load(field).Return().Replace();
-            result.Setter.NewCode().Assign(field).Set(result.Setter.NewCode().GetParameter(0)).Return().Replace();
+
+            if (!getterOnly)
+                result.Setter.NewCode().Assign(field).Set(result.Setter.NewCode().GetParameter(0)).Return().Replace();
 
             return result;
         }
@@ -423,10 +449,10 @@ namespace Cauldron.Interception.Cecilator
             if (modifier.HasFlag(Modifiers.Public)) attributes |= MethodAttributes.Public;
             if (modifier.HasFlag(Modifiers.Overrrides)) attributes |= MethodAttributes.Final | MethodAttributes.Virtual | MethodAttributes.NewSlot;
 
-            var method = new MethodDefinition(name, attributes, returnType.typeReference);
+            var method = new MethodDefinition(name, attributes, this.moduleDefinition.ImportReference(returnType.typeReference));
 
             foreach (var item in parameters)
-                method.Parameters.Add(new ParameterDefinition(item.typeReference));
+                method.Parameters.Add(new ParameterDefinition(this.moduleDefinition.ImportReference(item.typeReference)));
 
             this.typeDefinition.Methods.Add(method);
 
@@ -448,7 +474,7 @@ namespace Cauldron.Interception.Cecilator
             var method = new MethodDefinition(name, attributes, this.moduleDefinition.TypeSystem.Void);
 
             foreach (var item in parameters)
-                method.Parameters.Add(new ParameterDefinition(item.typeDefinition));
+                method.Parameters.Add(new ParameterDefinition(this.moduleDefinition.ImportReference(item.typeReference)));
 
             this.typeDefinition.Methods.Add(method);
 
@@ -508,6 +534,8 @@ namespace Cauldron.Interception.Cecilator
 
             return new Method(this, result.ContainsGenericParameter ? result.MakeHostInstanceGeneric((this.typeReference as GenericInstanceType).GenericArguments.ToArray()) : result, result);
         }
+
+        public IEnumerable<Method> GetMethods(Func<MethodReference, bool> predicate) => this.typeReference.GetMethodReferences().Where(predicate).Select(x => new Method(this, x, x.Resolve()));
 
         public IEnumerable<Method> GetMethods(string name, int parameterCount, bool throwException = true)
         {

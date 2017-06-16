@@ -23,7 +23,7 @@
                         <DataTemplate>
                             <Grid>
                                 <Image Width="32" Height="32" Source="{Binding Icon.Value}" />
-                                <ProgressBar IsIndeterminate="{Binding IsLoading}" Margin="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Opacity="0.4"
+                                <ProgressBar IsIndeterminate="{Binding IsLoading}" Margin="0" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Opacity="0.4"
                                              Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}, RelativeSource={RelativeSource TemplatedParent}}" />
                             </Grid>
                         </DataTemplate>

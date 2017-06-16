@@ -9,6 +9,7 @@ using Windows.UI.Xaml;
 #else
 
 using System.Windows;
+using System.ComponentModel;
 
 #endif
 
@@ -32,12 +33,12 @@ namespace Cauldron.XAML.Interactivity
         /// </summary>
         public T AssociatedObject { get { return (this as IBehaviour).AssociatedObject as T; } }
 
-        object IBehaviour.AssociatedObject { get; set; }
-
         /// <summary>
         /// Gets a value that indicates if the behaviour was assigned from template
         /// </summary>
         public bool IsAssignedFromTemplate { get; private set; }
+
+        object IBehaviour.AssociatedObject { get; set; }
 
         void IBehaviour.Attach() => this.OnAttach();
 

@@ -12,12 +12,11 @@ namespace Cauldron.Interception.Cecilator
 {
     public sealed class Builder : CecilatorBase
     {
-        internal Builder(IWeaver weaver) : base(weaver)
+        internal Builder(WeaverBase weaver) : base(weaver)
         {
         }
 
         public BuilderCustomAttributeCollection CustomAttributes { get { return new BuilderCustomAttributeCollection(this, this.moduleDefinition); } }
-
         public string Name { get { return this.moduleDefinition.Name; } }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -28,7 +27,7 @@ namespace Cauldron.Interception.Cecilator
 
         public Method Import(System.Reflection.MethodBase value)
         {
-            var result = this.moduleDefinition.Import(value);
+            var result = this.moduleDefinition.ImportReference(value);
             return new Method(new BuilderType(this, result.DeclaringType), result, result.Resolve());
         }
 
@@ -45,6 +44,44 @@ namespace Cauldron.Interception.Cecilator
             this.GetTypesInternal(searchContext)
                 .Where(x => Regex.IsMatch(x.FullName, regexPattern, RegexOptions.Singleline))
                 .Select(x => new BuilderType(this, x));
+
+        public IEnumerable<AttributedType> FindTypesByAttribute(BuilderType attributeType) => this.FindTypesByAttribute(SearchContext.Module, attributeType);
+
+        public IEnumerable<AttributedType> FindTypesByAttribute(SearchContext searchContext, BuilderType attributeType)
+        {
+            var result = new ConcurrentBag<AttributedType>();
+
+            Parallel.ForEach(this.GetTypes(searchContext), type =>
+            {
+                for (int i = 0; i < type.typeDefinition.CustomAttributes.Count; i++)
+                {
+                    var name = type.typeDefinition.CustomAttributes[i].AttributeType.Resolve().FullName;
+                    if (attributeType.Fullname.GetHashCode() == name.GetHashCode() && attributeType.Fullname == name)
+                        result.Add(new AttributedType(type, type.typeDefinition.CustomAttributes[i]));
+                }
+            });
+
+            return result;
+        }
+
+        public IEnumerable<AttributedType> FindTypesByAttributes(IEnumerable<BuilderType> types) => this.FindTypesByAttributes(SearchContext.Module, types);
+
+        public IEnumerable<AttributedType> FindTypesByAttributes(SearchContext searchContext, IEnumerable<BuilderType> types)
+        {
+            var result = new ConcurrentBag<AttributedType>();
+            var attributes = types.Select(x => x.Fullname).ToList();
+
+            Parallel.ForEach(this.GetTypes(searchContext), type =>
+            {
+                for (int i = 0; i < type.typeDefinition.CustomAttributes.Count; i++)
+                {
+                    if (attributes.Contains(type.typeDefinition.CustomAttributes[i].AttributeType.Resolve().FullName))
+                        result.Add(new AttributedType(type, type.typeDefinition.CustomAttributes[i]));
+                }
+            });
+
+            return result;
+        }
 
         public IEnumerable<BuilderType> FindTypesByBaseClass(string baseClassName) => this.FindTypesByBaseClass(SearchContext.Module, baseClassName);
 
@@ -315,18 +352,28 @@ namespace Cauldron.Interception.Cecilator
             {
                 var child = type.GetElementType();
                 var bt = this.GetType(child.FullName);
-                return new BuilderType(this, new ArrayType(this.moduleDefinition.Import(bt.typeReference)));
+                return new BuilderType(this, new ArrayType(this.moduleDefinition.ImportReference(bt.typeReference)));
             }
 
             return this.GetType(type.FullName);
         }
 
-        public BuilderType GetType(string typeName)
+        /// <summary>
+        /// Gets a type from its name. Default search context is <see cref="SearchContext.AllReferencedModules"/>
+        /// </summary>
+        /// <param name="typeName"></param>
+        /// <returns></returns>
+        public BuilderType GetType(string typeName) => this.GetType(typeName, SearchContext.AllReferencedModules);
+
+        public BuilderType GetType(string typeName, SearchContext searchContext)
         {
-            var result = this.allTypes.Get(typeName);
+            var result = this.GetTypesInternal(searchContext).Get(typeName);
 
             if (result == null)
                 throw new TypeNotFoundException($"The type '{typeName}' does not exist in any of the referenced assemblies.");
+
+            if (result.Module.FileName.GetHashCode() != this.moduleDefinition.FileName.GetHashCode() && result.Module.FileName != this.moduleDefinition.FileName)
+                this.moduleDefinition.ImportReference(result);
 
             return new BuilderType(this, result);
         }
@@ -339,13 +386,9 @@ namespace Cauldron.Interception.Cecilator
 
         public IEnumerable<BuilderType> GetTypesInNamespace(SearchContext searchContext, string namespaceName) => this.GetTypes(searchContext).Where(x => x.Namespace == namespaceName);
 
-        public bool TypeExists(string typeName)
-        {
-            var nameSpace = typeName.Substring(0, typeName.LastIndexOf('.'));
-            var type = typeName.Substring(typeName.LastIndexOf('.') + 1);
+        public BuilderType MakeArray(BuilderType type) => new BuilderType(this, new ArrayType(this.moduleDefinition.ImportReference(type.typeReference)));
 
-            return this.GetTypesInternal(SearchContext.Module).Any(x => x.FullName == typeName || (x.Name == type && x.Namespace == nameSpace));
-        }
+        public bool TypeExists(string typeName) => this.allTypes.Get(typeName) != null;
 
         internal IEnumerable<TypeReference> GetTypesInternal() => GetTypesInternal(SearchContext.Module);
 
@@ -380,7 +423,7 @@ namespace Cauldron.Interception.Cecilator
 
         private BuilderType CreateType(string namespaceName, TypeAttributes attributes, string typeName, TypeReference baseType)
         {
-            var newType = new TypeDefinition(namespaceName, typeName, attributes, this.moduleDefinition.Import(baseType));
+            var newType = new TypeDefinition(namespaceName, typeName, attributes, this.moduleDefinition.ImportReference(baseType));
             this.moduleDefinition.Types.Add(newType);
 
             return new BuilderType(this, newType);

@@ -1,4 +1,5 @@
-﻿using Cauldron.Core;
+﻿using Cauldron.Activator;
+using Cauldron.Core;
 using Cauldron.Core.Extensions;
 using System;
 using System.Linq;
@@ -34,20 +35,18 @@ namespace Cauldron.XAML
             };
         }
 
-        public static Window CreateWindow(ref Type windowType, ref bool isCustomWindow)
+        public static Window CreateWindow(ref WindowType windowType)
         {
-            if (windowType == null)
-                windowType = Assemblies.ExportedTypes.FirstOrDefault(x => x.IsSubclassOf(typeof(Window)));
+            if (windowType == null && Factory.HasContract(typeof(Window)))
+                windowType = new WindowType { IsFactoryType = true };
 
             if (windowType == null)
-                windowType = typeof(Window);
+                windowType = new WindowType { Type = Assemblies.ExportedTypes.FirstOrDefault(x => x.IsSubclassOf(typeof(Window))) };
 
-            if (windowType == typeof(Window))
-                return new Window();
+            if (windowType == null)
+                windowType = new WindowType { Type = typeof(Window) };
 
-            isCustomWindow = true;
-
-            return windowType.CreateInstance() as Window;
+            return windowType.CreateWindow();
         }
     }
 }

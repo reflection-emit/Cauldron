@@ -15,10 +15,24 @@ using System.Security.Cryptography;
 
 namespace Cauldron.Interception
 {
-    /// <exclude/>
-    [EditorBrowsable(EditorBrowsableState.Never)]
+    /// <summary>
+    /// Provides usefull extension methods
+    /// </summary>
     public static class Extensions
     {
+        /// <summary>
+        /// Creates a new <see cref="Type"/> that implements the properties of an interface defined by <typeparamref name="T"/>
+        /// and copies all value of <paramref name="anon"/> to the new object
+        /// </summary>
+        /// <typeparam name="T">The type of interface to implement</typeparam>
+        /// <param name="anon">The anonymous object</param>
+        /// <returns>A new object implementing the interface defined by <typeparamref name="T"/></returns>
+        public static T CreateType<T>(this object anon) where T : class
+        {
+            /* NOTE: This will be implemented by Cauldron.Interception.Fody */
+            throw new NotImplementedException("No weaving happend.");
+        }
+
         /// <exclude/>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static void TryDisposeInternal(this object context)

@@ -1,5 +1,5 @@
 ﻿using Cauldron.Core.Extensions;
-using Cauldron.IEnumerableExtensions;
+using Cauldron.Internal;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -138,7 +138,7 @@ namespace Cauldron.Activator
         /// <param name="source">The source object</param>
         /// <returns>Returns the target</returns>
         /// <exception cref="ArgumentNullException"><paramref name="source"/> is null</exception>
-        public static T MapTo<T>(this object source) where T : new() =>
+        public static T MapTo<T>(this object source) where T : class, new() =>
             source.MapTo(Factory.Create<T>());
 
         private static object CopyObject(Type valueType, object value)
@@ -186,10 +186,7 @@ namespace Cauldron.Activator
                     return CreateArray(valueType.GetElementType(), value);
 
                 var childType = valueType.GetChildrenType();
-                result = Factory.Create(valueType);
-
-                if (result == null)
-                    result = valueType.CreateInstance();
+                result = valueType.CreateInstance();
 
                 // Check if this collection has a addrange
                 var addRange = valueType.GetMethod("AddRange", new Type[] { typeof(IEnumerable<>).MakeGenericType(childType) }, BindingFlags.Instance | BindingFlags.Public);

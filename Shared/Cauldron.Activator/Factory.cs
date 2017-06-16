@@ -1,16 +1,15 @@
 ﻿using Cauldron.Core;
-using Cauldron.Core.Collections;
 using Cauldron.Core.Extensions;
+using Cauldron.Internal;
 using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 
 #if NETFX_CORE || DESKTOP
-
-using Windows.UI.Core;
 
 #elif NETCORE
 
@@ -25,83 +24,68 @@ namespace Cauldron.Activator
     /// </summary>
     public sealed class Factory
     {
-        private static ConcurrentList<IFactoryExtension> factoryExtensions = new ConcurrentList<IFactoryExtension>();
-        private static ConcurrentList<ObjectKey> instances = new ConcurrentList<ObjectKey>();
-        private static ConcurrentList<FactoryTypeInfo> types = new ConcurrentList<FactoryTypeInfo>();
+        private static readonly string iFactoryExtensionName = typeof(IFactoryResolver).FullName;
+        private static Dictionary<string, IFactoryTypeInfo[]> components;
+        private static IFactoryTypeInfo[] factoryInfoTypes;
+        private static IFactoryResolver[] factoryResolvers;
+        private static ConcurrentDictionary<string, FactoryInstancedObject> instances = new ConcurrentDictionary<string, FactoryInstancedObject>();
 
         static Factory()
         {
-            // Get all factory extensions
-            factoryExtensions.AddRange(Assemblies.GetTypesImplementsInterface<IFactoryExtension>()
-                .Select(x => System.Activator.CreateInstance(x.AsType()) as IFactoryExtension));
+            factoryInfoTypes = Assemblies.CauldronObjects
+                .Select(x => x as IFactoryCache)
+                .Where(x => x != null)
+                .SelectMany(x => x.GetComponents())
+                .ToArray();
 
-            var attributeType = typeof(ComponentAttribute);
-            var definedTypes = Assemblies.ExportedTypes
-                .Where(x => !x.IsInterface)
-                .Select(x => new Component
-                {
-                    Attrib = x.GetCustomAttribute<ComponentAttribute>(false),
-                    TypeInfo = x
-                });
-
-            AddTypes(definedTypes);
+            InitializeFactory(factoryInfoTypes);
 
             Assemblies.LoadedAssemblyChanged += (s, e) =>
             {
-                // Get all factory extensions
-                var factoryExtensionTypes = e.Types.Where(x => x.ImplementsInterface<IFactoryExtension>())
-                    .Select(x => System.Activator.CreateInstance(x) as IFactoryExtension);
+                if (e.Cauldron == null)
+                    return;
 
-                if (factoryExtensionTypes.Any())
-                    factoryExtensions.AddRange(factoryExtensionTypes);
+                var factoryCache = e.Cauldron as IFactoryCache;
 
-                AddTypes(e.Types.Select(x => x.GetTypeInfo())
-                    .Where(x => !x.IsInterface)
-                    .Select(x => new Component
-                    {
-                        Attrib = x.GetCustomAttribute<ComponentAttribute>(false),
-                        TypeInfo = x
-                    }));
+                if (factoryCache == null)
+                    return;
+
+                factoryInfoTypes = factoryInfoTypes.Concat(factoryCache.GetComponents());
+                InitializeFactory(factoryInfoTypes);
             };
         }
 
         /// <summary>
         /// Gets or sets a value that indicates if the <see cref="Factory"/> is allowed to raise an exception or not.
         /// </summary>
-        public static bool CanRaiseExceptions { get; set; } = false;
+        public static bool CanRaiseExceptions { get; set; } = true;
 
         /// <summary>
         /// Gets a collection types that is known to the <see cref="Factory"/>
         /// </summary>
-        public static IEnumerable<FactoryTypeInfo> RegisteredTypes { get { return types; } }
+        public static IEnumerable<IFactoryTypeInfo> RegisteredTypes { get { return components.Values.SelectMany(x => x); } }
 
         /// <summary>
-        /// Adds a new <see cref="Type"/> to list of known types.
+        /// Adds a new <see cref="Type"/> to list of known types. Should only be used for unit-tests
         /// </summary>
+        /// <threadsafety static="false" instance="false"/>
         /// <param name="contractName">The name that identifies the type</param>
         /// <param name="creationPolicy">The creation policy of the type as defined by <see cref="FactoryCreationPolicy"/></param>
         /// <param name="type">The type to be added</param>
-        public static FactoryTypeInfo AddType(string contractName, FactoryCreationPolicy creationPolicy, Type type)
+        /// <param name="createInstance">An action that is called by the factory to create the object</param>
+        public static IFactoryTypeInfo AddType(string contractName, FactoryCreationPolicy creationPolicy, Type type, Func<object[], object> createInstance)
         {
-            // Check if the type has a predefined object constructor
-            var constructor = type.GetConstructors(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)
-                .FirstOrDefault(x => x.GetCustomAttribute<ComponentConstructorAttribute>() != null);
+            var factoryTypeInfo = new FactoryTypeInfoInternal(contractName, creationPolicy, type, createInstance);
 
-            MethodInfo methodInfo = null;
+            if (components.ContainsKey(contractName))
+            {
+                var content = components[contractName];
+                components[contractName] = content.Concat(factoryTypeInfo);
+                return factoryTypeInfo;
+            }
 
-            if (constructor == null) // or a method acting as constructor
-                methodInfo = type.GetMethodsEx(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static)
-                    .FirstOrDefault(x => x.GetCustomAttribute<ComponentConstructorAttribute>() != null);
-            var info = new FactoryTypeInfo(
-                 contractName,
-                 creationPolicy,
-                 constructor,
-                 methodInfo,
-                 type,
-                 type.GetTypeInfo());
-            Factory.types.Add(info);
-
-            return info;
+            components.Add(contractName, new IFactoryTypeInfo[] { factoryTypeInfo });
+            return factoryTypeInfo;
         }
 
         /// <summary>
@@ -118,7 +102,7 @@ namespace Cauldron.Activator
         /// <exception cref="Exception">Unknown <see cref="FactoryCreationPolicy"/></exception>
         /// <exception cref="AmbiguousMatchException">There is more than one implementation with contractname <typeparamref name="T"/> found.</exception>
         /// <exception cref="NotSupportedException">An <see cref="object"/> with <see cref="FactoryCreationPolicy.Singleton"/> with an implemented <see cref="IDisposable"/> must also implement the <see cref="IDisposableObject"/> interface.</exception>
-        public static T Create<T>(params object[] parameters) => (T)GetInstance(typeof(T).FullName, parameters);
+        public static T Create<T>(params object[] parameters) where T : class => GetInstance(typeof(T).FullName, parameters) as T;
 
         /// <summary>
         /// Creates an instance of the specified type depending on the <see cref="ComponentAttribute"/>
@@ -173,7 +157,7 @@ namespace Cauldron.Activator
         /// <summary>
         /// Creates an instance of the specified type using the constructor that best matches the specified parameters.
         /// This method is similar to <see cref="ExtensionsReflection.CreateInstance(Type, object[])"/>, but this takes the types defined with <see cref="ComponentAttribute"/> into
-        /// account. This also executes the factory extensions (<see cref="IFactoryExtension"/>).
+        /// account. This also executes the factory extensions (<see cref="IFactoryResolver"/>).
         /// </summary>
         /// <param name="type">The type of object to create.</param>
         /// <param name="args">
@@ -189,58 +173,21 @@ namespace Cauldron.Activator
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
 
-            // First check if we can use predefined constructors
-            var factoryType = Factory.types.FirstOrDefault(x => x.type == type && (x.objectConstructorMethodInfo != null || x.objectConstructorInfo != null));
+            IFactoryTypeInfo[] factoryTypes;
 
-            try
+            if (components.TryGetValue(type.FullName, out factoryTypes))
             {
-                if (factoryType != null)
-                {
-                    if (factoryType.objectConstructorInfo != null)
-                    {
-                        var ctor = factoryType.objectConstructorInfo;
+                if (factoryTypes.Length == 1)
+                    return factoryTypes[0].CreateInstance(args);
 
-                        if (ctor.GetParameters().Length != args.Length)
-                            throw new ArgumentException($"Factory is unable to initiate an instance of the type '{type.Name}'. Verify the passed parameters.");
-
-                        return ctor.CreateInstance(args);
-                    }
-                    else
-                        return factoryType.objectConstructorMethodInfo.Invoke(null, args);
-                }
-                else
-                {
-                    // Check if the type has a predefined object constructor
-                    var ctor = type.GetConstructors(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)
-                        .FirstOrDefault(x => x.GetCustomAttribute<ComponentConstructorAttribute>() != null);
-
-                    if (ctor != null)
-                    {
-                        if (ctor.GetParameters().Length != args.Length)
-                            throw new ArgumentException($"Factory is unable to initiate an instance of the type '{type.Name}'. Verify the passed parameters.");
-
-                        return ctor.CreateInstance(args);
-                    }
-                    else if (ctor == null) // or a method acting as constructor
-                    {
-                        var methodInfo = type.GetMethodsEx(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static)
-                            .FirstOrDefault(x => x.GetCustomAttribute<ComponentConstructorAttribute>() != null);
-
-                        if (methodInfo != null)
-                            return methodInfo.Invoke(null, args);
-                    }
-
+                if (factoryTypes.Length == 0)
                     return type.CreateInstance(args);
-                }
+
+                var resolved = ResolveAmbiguousMatch(factoryTypes, type.FullName);
+                return resolved.CreateInstance(args);
             }
-            catch (CreateInstanceIsAnInterfaceException e)
-            {
-                throw new NotImplementedException($"Unable to find the implementation of '{type.FullName}'. Make sure that the Assembly with implementation was loaded in the AppDomain.", e);
-            }
-            catch
-            {
-                throw;
-            }
+
+            return type.CreateInstance(args);
         }
 
         /// <summary>
@@ -324,8 +271,19 @@ namespace Cauldron.Activator
         /// <param name="contractName">The name that identifies the type</param>
         public static void Destroy(string contractName)
         {
-            if (instances.Contains(x => x.FactoryTypeInfo.contractName == contractName))
-                instances.Remove(x => x.FactoryTypeInfo.contractName == contractName).TryDispose();
+            if (!components.ContainsKey(contractName))
+                return;
+
+            var content = components[contractName];
+
+            for (int i = 0; i < content.Length; i++)
+            {
+                var key = contractName + content[i].Type.FullName;
+                FactoryInstancedObject instance;
+
+                if (instances.ContainsKey(key) && instances.TryRemove(key, out instance))
+                    instance?.Dispose();
+            }
         }
 
         /// <summary>
@@ -336,7 +294,8 @@ namespace Cauldron.Activator
             var oldInstances = instances.ToArray();
             instances.Clear();
 
-            oldInstances.TryDispose();
+            for (int i = 0; i < oldInstances.Length; i++)
+                oldInstances[i].TryDispose();
         }
 
         /// <summary>
@@ -344,128 +303,83 @@ namespace Cauldron.Activator
         /// </summary>
         /// <param name="contractName">The name that identifies the type</param>
         /// <returns>True if the contract exists, otherwise false</returns>
-        public static bool HasContract(string contractName) => types.Any(x => x.contractName == contractName);
+        public static bool HasContract(string contractName) => components.ContainsKey(contractName);
 
         /// <summary>
         /// Determines whether a contract exist
         /// </summary>
         /// <param name="contractType">The Type that contract name derives from</param>
         /// <returns>True if the contract exists, otherwise false</returns>
-        public static bool HasContract(Type contractType) => HasContract(contractType.FullName);
+        public static bool HasContract(Type contractType) => components.ContainsKey(contractType.FullName);
 
         /// <summary>
-        /// Returns a value that indicates if the contract is a singleton or not
+        /// Determines whether a contract exist
         /// </summary>
-        /// <typeparam name="T">The type that the contract name derives from</typeparam>
-        /// <returns>Returns null if the <typeparamref name="T"/> does not exist</returns>
-        public static bool? IsSingleton<T>() => IsSingleton(typeof(T).FullName);
+        /// <typeparam name="T">The Type that contract name derives from</typeparam>
+        /// <returns>True if the contract exists, otherwise false</returns>
+        public static bool HasContract<T>() => components.ContainsKey(typeof(T).FullName);
 
         /// <summary>
-        /// Returns a value that indicates if the contract is a singleton or not
-        /// </summary>
-        /// <param name="contractType">The type that the contract name derives from</param>
-        /// <returns>Returns null if the <paramref name="contractType"/> does not exist</returns>
-        /// <exception cref="ArgumentNullException">The parameter <paramref name="contractType"/> is null</exception>
-        public static bool? IsSingleton(Type contractType)
-        {
-            if (contractType == null)
-                throw new ArgumentNullException(nameof(contractType));
-
-            return IsSingleton(contractType.FullName);
-        }
-
-        /// <summary>
-        /// Returns a value that indicates if the contract is a singleton or not
-        /// </summary>
-        /// <param name="contractName">The name that identifies the type</param>
-        /// <returns>Returns null if the <paramref name="contractName"/> does not exist</returns>
-        /// <exception cref="ArgumentNullException">The parameter <paramref name="contractName"/> is null</exception>
-        /// <exception cref="ArgumentException">The <paramref name="contractName"/> is empty</exception>
-        public static bool? IsSingleton(string contractName)
-        {
-            if (contractName == null)
-                throw new ArgumentNullException(nameof(contractName));
-
-            if (contractName.Length == 0)
-                throw new ArgumentException("The parameter is an empty string", nameof(contractName));
-
-            if (types.Any(x => x.contractName == contractName))
-                return types.First(x => x.contractName == contractName).creationPolicy == FactoryCreationPolicy.Singleton;
-
-            return null;
-        }
-
-        /// <summary>
-        /// Removes a <see cref="Type"/> from the list of known types
+        /// Removes a <see cref="Type"/> from the list of known types.
+        /// ATTENTION: Should only be used in unit-tests.
         /// </summary>
         /// <param name="contractName">The name that identifies the type</param>
         /// <param name="type">The type to be removed</param>
+        /// <threadsafety static="false" instance="false"/>
         public static void RemoveType(string contractName, Type type)
         {
-            var t = Factory.types.FirstOrDefault(x => x.contractName == contractName && x.type.FullName == type.FullName);
+            if (!components.ContainsKey(contractName))
+                return;
 
-            if (t.type != null)
-                Factory.types.Remove(t);
+            var content = components[contractName].ToArray() /* ToArray should insure that we are dealing with a new array */.Where(x => x.Type != type);
+            components[contractName] = content.ToArray();
         }
 
-        private static void AddTypes(IEnumerable<Component> definedTypes)
+        private static object CreateInstance(IFactoryTypeInfo factoryType, params object[] args)
         {
-            foreach (var d in definedTypes)
+            if (factoryType == null)
+                throw new ArgumentNullException(nameof(factoryType));
+
+            return factoryType.CreateInstance(args);
+        }
+
+        private static object GetInstance(IFactoryTypeInfo factoryTypeInfo, object[] parameters)
+        {
+            if (factoryTypeInfo.CreationPolicy == FactoryCreationPolicy.Instanced)
+                return CreateInstance(factoryTypeInfo, parameters);
+            else if (factoryTypeInfo.CreationPolicy == FactoryCreationPolicy.Singleton)
             {
-                var type = d.TypeInfo.AsType();
+                FactoryInstancedObject existingInstance;
 
-                for (int i = 0; i < factoryExtensions.Count; i++)
-                    factoryExtensions[i].OnInitialize(type);
-
-                var contractName = d.Attrib == null ? type.FullName : d.Attrib.ContractName;
-                var policy = d.Attrib == null ? FactoryCreationPolicy.Instanced : d.Attrib.Policy;
-
-                AddType(contractName, policy, type);
-            }
-        }
-
-        private static object CreateObject(Type type, TypeInfo typeInfo, object[] parameters)
-        {
-            var result = CreateInstance(type, parameters);
-
-            // Activate all Extensions
-            for (int i = 0; i < factoryExtensions.Count; i++)
-                factoryExtensions[i].OnCreateObject(result, type);
-
-            // Invoke the IFactoryInitializeComponent.OnInitializeComponent method if implemented
-            result.As<IFactoryInitializeComponent>()?.OnInitializeComponent();
-
-            return result;
-        }
-
-        private static object GetInstance(FactoryTypeInfo factoryTypeInfo, object[] parameters)
-        {
-            if (factoryTypeInfo.creationPolicy == FactoryCreationPolicy.Instanced)
-                return CreateObject(factoryTypeInfo.type, factoryTypeInfo.typeInfo, parameters);
-            else if (factoryTypeInfo.creationPolicy == FactoryCreationPolicy.Singleton)
-            {
-                if (instances.Contains(x => x.FactoryTypeInfo.contractName == factoryTypeInfo.contractName && x.FactoryTypeInfo.type.FullName == factoryTypeInfo.type.FullName))
-                    return instances.First(x => x.FactoryTypeInfo.contractName == factoryTypeInfo.contractName && x.FactoryTypeInfo.type.FullName == factoryTypeInfo.type.FullName).Item;
+                if (instances.TryGetValue(factoryTypeInfo.ContractName + factoryTypeInfo.Type.FullName, out existingInstance))
+                    return existingInstance.Item;
                 else
                 {
                     // Create the instance and return the object
-                    var instance = CreateObject(factoryTypeInfo.type, factoryTypeInfo.typeInfo, parameters);
+                    var newInstance = CreateInstance(factoryTypeInfo, parameters);
+                    var key = factoryTypeInfo.ContractName + factoryTypeInfo.Type.FullName;
 
-                    // every singleton that implements the idisposable interface has also to implement the IdisposableObject interface
+                    // every singleton that implements the idisposable interface has also to implement the IDisposableObject interface
                     // this is because we want to know if an instance was disposed (somehow)
-                    var disposable = instance as IDisposable;
+                    var disposable = newInstance as IDisposable;
                     if (disposable != null)
                     {
-                        var disposableObject = instance as IDisposableObject;
+                        var disposableObject = newInstance as IDisposableObject;
                         if (disposableObject == null)
                             throw new NotSupportedException("An object with creation policy 'Singleton' with an implemented 'IDisposable' must also implement the 'IDisposableObject' interface.");
 
-                        disposableObject.Disposed += (s, e) => instances.Remove(x => x.Item == instance);
+                        disposableObject.Disposed += (s, e) =>
+                        {
+                            FactoryInstancedObject thisInstance;
+
+                            if (instances.ContainsKey(key) && instances.TryRemove(key, out thisInstance))
+                                thisInstance?.Dispose();
+                        };
                     }
 
-                    instances.Add(new ObjectKey { FactoryTypeInfo = factoryTypeInfo, Item = instance });
+                    instances.TryAdd(key, new FactoryInstancedObject { FactoryTypeInfo = factoryTypeInfo, Item = newInstance });
 
-                    return instance;
+                    return newInstance;
                 }
             }
             else
@@ -474,7 +388,24 @@ namespace Cauldron.Activator
 
         private static object GetInstance(string contractName, object[] parameters)
         {
-            if (!types.Any(x => x.contractName == contractName) && !instances.Contains(x => x.FactoryTypeInfo.contractName == contractName))
+            IFactoryTypeInfo[] factoryInfos;
+
+            if (components.TryGetValue(contractName, out factoryInfos))
+            {
+                if (factoryInfos.Length == 1)
+                    return GetInstance(factoryInfos[0], parameters);
+
+                if (factoryInfos.Length == 0)
+                {
+                    if (CanRaiseExceptions)
+                        throw new NotImplementedException("The contractName '" + contractName + "' was not found.");
+                    else
+                        Output.WriteLineError("The contractName '" + contractName + "' was not found.");
+                }
+
+                return GetInstance(ResolveAmbiguousMatch(factoryInfos, contractName), parameters);
+            }
+            else
             {
                 try
                 {
@@ -491,14 +422,7 @@ namespace Cauldron.Activator
                         return null;
                     }
 
-                    var attr = realType.GetTypeInfo().GetCustomAttribute(typeof(ComponentAttribute)) as ComponentAttribute;
-
-                    var info = AddType(
-                        contractName,
-                        attr == null ? FactoryCreationPolicy.Instanced : attr.Policy,
-                        realType);
-
-                    return GetInstance(info, parameters);
+                    return realType.CreateInstance(parameters);
                 }
                 catch (Exception e)
                 {
@@ -510,66 +434,68 @@ namespace Cauldron.Activator
                     return null;
                 }
             }
-
-            var factoryTypeInfos = types.Where(x => x.contractName == contractName);
-
-            if (factoryTypeInfos.Count() > 1)
-            {
-                for (int i = 0; i < factoryExtensions.Count; i++)
-                {
-                    if (factoryExtensions[i].CanHandleAmbiguousMatch)
-                    {
-                        var selectedType = factoryExtensions[i].SelectAmbiguousMatch(factoryTypeInfos.Select(x => x.type), contractName);
-
-                        if (selectedType == null)
-                            continue;
-#if WINDOWS_UWP || NETCORE
-                        var selectedFactoryInfo = factoryTypeInfos.FirstOrDefault(x => x.type.FullName == selectedType.FullName && x.type.GetTypeInfo().Assembly.FullName == selectedType.GetTypeInfo().Assembly.FullName);
-#else
-                        var selectedFactoryInfo = factoryTypeInfos.FirstOrDefault(x => x.type.FullName == selectedType.FullName && x.type.Assembly.FullName == selectedType.Assembly.FullName);
-#endif
-
-                        if (selectedFactoryInfo.type != null)
-                            return GetInstance(selectedFactoryInfo, parameters);
-                    }
-                }
-
-                throw new AmbiguousMatchException("There is more than one implementation with contractname '" + contractName + "' found.");
-            }
-
-            return GetInstance(factoryTypeInfos.First(), parameters);
         }
 
         private static IEnumerable GetInstances(string contractName, object[] parameters)
         {
-            if (!types.Any(x => x.contractName == contractName) && !instances.Contains(x => x.FactoryTypeInfo.contractName == contractName))
-                throw new KeyNotFoundException("The contractName '" + contractName + "' was not found.");
+            IFactoryTypeInfo[] factoryInfos;
 
-            var factoryTypeInfos = types.Where(x => x.contractName == contractName);
-            var result = new List<object>();
+            if (components.TryGetValue(contractName, out factoryInfos))
+            {
+                if (factoryInfos.Length == 1)
+                    return new object[] { GetInstance(factoryInfos[0], parameters) };
 
-            foreach (var factoryTypeInfo in factoryTypeInfos)
-                result.Add(GetInstance(factoryTypeInfo, parameters));
+                if (factoryInfos.Length == 0)
+                    return new object[0];
 
-            return result;
+                return factoryInfos.OrderByDescending(x => x.Priority).Select(x => GetInstance(x, parameters)).ToArray();
+            }
+
+            if (CanRaiseExceptions)
+                throw new NotImplementedException("The contractName '" + contractName + "' was not found.");
+
+            Output.WriteLineError("The contractName '" + contractName + "' was not found.");
+            return new object[0];
         }
 
-        private sealed class Component
+        private static void InitializeFactory(IFactoryTypeInfo[] factoryInfoTypes)
         {
-            public ComponentAttribute Attrib;
-            public TypeInfo TypeInfo;
+            // Get all known components
+            components = factoryInfoTypes
+                .GroupBy(x => x.ContractName)
+                .ToDictionary(x => x.Key, x => x.ToArray());
+
+            // Get all factory extensions
+            factoryResolvers = factoryInfoTypes
+                .Where(x => x.ContractName.GetHashCode() == iFactoryExtensionName.GetHashCode() && x.ContractName == iFactoryExtensionName).Select(x => x.CreateInstance() as IFactoryResolver)
+                .ToArray();
+
+            if (components.Count == 0)
+                Output.WriteLineError($"Unable to find any components. Please check if FodyWeavers.xml has an entry for Cauldron.Interception");
         }
 
-        private class ObjectKey : DisposableBase
+        private static IFactoryTypeInfo ResolveAmbiguousMatch(string contractName) => ResolveAmbiguousMatch(components[contractName], contractName);
+
+        private static IFactoryTypeInfo ResolveAmbiguousMatch(IFactoryTypeInfo[] factoryInfos, string contractName)
         {
-            public FactoryTypeInfo FactoryTypeInfo { get; set; }
+            for (int i = 0; i < factoryResolvers.Length; i++)
+            {
+                var selectedType = factoryResolvers[i].SelectAmbiguousMatch(factoryInfos, contractName);
+
+                if (selectedType == null)
+                    continue;
+
+                return selectedType;
+            }
+
+            throw new AmbiguousMatchException("There is more than one implementation with contractname '" + contractName + "' found.");
+        }
+
+        private class FactoryInstancedObject : DisposableBase
+        {
+            public IFactoryTypeInfo FactoryTypeInfo { get; set; }
 
             public object Item { get; set; }
-
-            public override string ToString()
-            {
-                return this.FactoryTypeInfo.contractName + " -> " + this.FactoryTypeInfo.type.FullName;
-            }
 
             protected override void OnDispose(bool disposeManaged)
             {
@@ -577,5 +503,42 @@ namespace Cauldron.Activator
                     this.Item.TryDispose();
             }
         }
+    }
+
+    /// <exclude/>
+    [EditorBrowsable(EditorBrowsableState.Never)]
+    public sealed class FactoryTypeInfoInternal : IFactoryTypeInfo
+    {
+        private Func<object[], object> createInstance;
+
+        /// <exclude/>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        internal FactoryTypeInfoInternal(string contractName, FactoryCreationPolicy creationPolicy, Type type, Func<object[], object> createInstance)
+        {
+            this.ContractName = contractName;
+            this.CreationPolicy = creationPolicy;
+            this.Type = type;
+            this.createInstance = createInstance;
+        }
+
+        /// <exclude/>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public string ContractName { get; private set; }
+
+        /// <exclude/>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public FactoryCreationPolicy CreationPolicy { get; private set; }
+
+        /// <exclude/>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public uint Priority { get; private set; } = 0;
+
+        /// <exclude/>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public Type Type { get; private set; }
+
+        /// <exclude/>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public object CreateInstance(params object[] arguments) => this.createInstance(arguments);
     }
 }

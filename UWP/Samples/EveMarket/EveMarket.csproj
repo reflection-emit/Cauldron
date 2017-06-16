@@ -90,20 +90,12 @@
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <None Include="project.json" />
-    <EmbeddedResource Include="Resources\Strings.json" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resources\LocalizationKeyValue.cs" />
-    <Compile Include="Resources\LocalizationLanguage.cs" />
-    <Compile Include="Resources\LocalizationSource.cs" />
-    <Compile Include="ViewModels\ItemInfoViewModel.cs" />
-    <Compile Include="ViewModels\HomeViewModel.cs" />
-    <Compile Include="ViewModels\MarketInfoDetailsViewModel.cs" />
-    <Compile Include="ViewModels\TypeNameItemViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -166,9 +158,8 @@
       <Name>EveOnlineApi.UWP</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Messages\" />
-  </ItemGroup>
+  <ItemGroup />
+  <Import Project="..\..\..\Shared\Samples\EveMarket\EveMarket.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

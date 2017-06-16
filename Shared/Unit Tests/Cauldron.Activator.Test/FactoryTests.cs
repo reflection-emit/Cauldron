@@ -17,6 +17,14 @@ namespace Cauldron.Test
     public class FactoryTest
     {
         [TestMethod]
+        public void Create_By_Static_Property()
+        {
+            var instance = Factory.Create<ConstructionByProperty>();
+
+            Assert.AreEqual(300, instance.Value);
+        }
+
+        [TestMethod]
         public void Create_Type_With_Private_Constructor()
         {
             var obj = Factory.Create<TypeWithPrivateConstructor>();
@@ -67,6 +75,18 @@ namespace Cauldron.Test
     public class Cat : IAnimal
     {
         public string Name { get { return this.GetType().Name; } }
+    }
+
+    [Component(typeof(ConstructionByProperty))]
+    public class ConstructionByProperty
+    {
+        [ComponentConstructor]
+        public static ConstructionByProperty Current
+        {
+            get { return new ConstructionByProperty { Value = 300 }; }
+        }
+
+        public int Value { get; set; }
     }
 
     [Component(typeof(IAnimal))]

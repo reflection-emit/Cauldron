@@ -10,9 +10,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)FactoryTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Factory_ParallelCreation_Test_Resource.generated.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Inject_Test.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ITestInterface.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MappingTest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Factory_ParallelCreation_Test.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TestClasses.cs" />
   </ItemGroup>
 </Project>

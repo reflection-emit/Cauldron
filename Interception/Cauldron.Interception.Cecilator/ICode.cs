@@ -27,6 +27,8 @@ namespace Cauldron.Interception.Cecilator
 
         ICode Call(LocalVariable instance, Method method, params object[] parameters);
 
+        ICode Call(ICode instance, Method method, params object[] parameters);
+
         ICode Callvirt(Method method, params object[] parameters);
 
         ICode Callvirt(Crumb instance, Method method, params object[] parameters);
@@ -34,6 +36,8 @@ namespace Cauldron.Interception.Cecilator
         ICode Callvirt(Field instance, Method method, params object[] parameters);
 
         ICode Callvirt(LocalVariable instance, Method method, params object[] parameters);
+
+        ICode Callvirt(ICode instance, Method method, params object[] parameters);
 
         ICode Context(Action<ICode> body);
 
@@ -48,6 +52,8 @@ namespace Cauldron.Interception.Cecilator
         LocalVariable CreateVariable(string name, BuilderType type);
 
         LocalVariable CreateVariable(Type type);
+
+        ICode Dup();
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         new bool Equals(object obj);
@@ -81,6 +87,8 @@ namespace Cauldron.Interception.Cecilator
 
         IIfCode IsTrue();
 
+        ICode Load(object parameter);
+
         ILocalVariableCode Load(LocalVariable localVariable);
 
         //IIfCode LesserThan(long value);
@@ -97,7 +105,11 @@ namespace Cauldron.Interception.Cecilator
 
         ILocalVariableCode LoadVariable(int variableIndex);
 
+        ICode Newarr(BuilderType type, int size);
+
         ICode NewCode();
+
+        ICode NewObj(AttributedType attribute);
 
         ICode NewObj(AttributedMethod attribute);
 
@@ -110,6 +122,8 @@ namespace Cauldron.Interception.Cecilator
         ICode Pop();
 
         ICode Return();
+
+        ICode StoreElement(BuilderType arrayType, object element, int index);
 
         ICode StoreLocal(LocalVariable localVariable);
 

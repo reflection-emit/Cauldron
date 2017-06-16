@@ -1,6 +1,7 @@
 ﻿using Cauldron.Activator;
 using Cauldron.Core.Extensions;
 using Cauldron.XAML;
+using Cauldron.XAML.Theme;
 using EveMarket.ViewModels;
 using EveOnlineApi;
 using System;
@@ -34,8 +35,14 @@ namespace EveMarket
             await eveApi.CachePriceAsync();
         }
 
+        protected override void OnResourceLoad()
+        {
+            CauldronTheme.SetAccentColor(System.Windows.Media.Colors.Brown);
+            base.OnResourceLoad();
+        }
+
         protected override async Task OnStartup(LaunchActivatedEventArgs e) =>
-            await this.Navigator.NavigateAsync<HomeViewModel>("Typhoon");
+                    await this.Navigator.NavigateAsync<HomeViewModel>("Typhoon");
 
         private async void StartSearchAction() =>
             await this.Navigator.NavigateAsync<HomeViewModel>(this.SearchedItem);

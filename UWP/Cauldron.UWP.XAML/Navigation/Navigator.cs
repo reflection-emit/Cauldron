@@ -18,11 +18,9 @@ namespace Cauldron.XAML.Navigation
     {
         private NavigationFrame rootFrame;
 
-        /// <summary>
-        /// Initializes a new instance of <see cref="Navigator"/>
-        /// </summary>
+        /// <exclude/>
         [ComponentConstructor]
-        private Navigator()
+        public Navigator()
         {
             this.rootFrame = Window.Current.Content as NavigationFrame;
             this.rootFrame.Navigated += RootFrame_Navigated;

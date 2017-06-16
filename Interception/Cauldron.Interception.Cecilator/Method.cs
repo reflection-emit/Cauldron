@@ -12,6 +12,8 @@ namespace Cauldron.Interception.Cecilator
 {
     public class Method : CecilatorBase, IEquatable<Method>
     {
+        internal readonly static Dictionary<string, Dictionary<string, VariableDefinition>> variableDictionary = new Dictionary<string, Dictionary<string, VariableDefinition>>();
+
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
         internal readonly MethodDefinition methodDefinition;
 
@@ -103,8 +105,29 @@ namespace Cauldron.Interception.Cecilator
 
         public BuilderType ReturnType { get { return new BuilderType(this.type, this.methodReference.ReturnType); } }
 
+        public VariableDefinition AddLocalVariable(string name, VariableDefinition variable)
+        {
+            Dictionary<string, VariableDefinition> methodsDictionary;
+
+            if (variableDictionary.TryGetValue(this.methodDefinition.FullName, out methodsDictionary))
+            {
+                if (methodsDictionary.ContainsKey(name))
+                    throw new ArgumentException($"The variable with the name '{name}' already exist in '{this.Name}'");
+            }
+            else
+            {
+                methodsDictionary = new Dictionary<string, VariableDefinition>();
+                variableDictionary.Add(this.methodDefinition.FullName, methodsDictionary);
+            }
+
+            methodsDictionary.Add(name, variable);
+            this.methodDefinition.Body.Variables.Add(variable);
+
+            return variable;
+        }
+
         public Field CreateField(Type fieldType, string name) =>
-            this.CreateField(this.moduleDefinition.Import(this.GetTypeDefinition(fieldType).ResolveType(this.DeclaringType.typeReference)), name);
+            this.CreateField(this.moduleDefinition.ImportReference(this.GetTypeDefinition(fieldType).ResolveType(this.DeclaringType.typeReference)), name);
 
         public Field CreateField(Field field, string name) => this.CreateField(field.fieldRef.FieldType, name);
 
@@ -120,30 +143,45 @@ namespace Cauldron.Interception.Cecilator
             return result;
         }
 
+        public VariableDefinition GetLocalVariable(string name)
+        {
+            Dictionary<string, VariableDefinition> methodsDictionary;
+
+            if (variableDictionary.TryGetValue(this.methodDefinition.FullName, out methodsDictionary))
+            {
+                VariableDefinition variableDefinition;
+
+                if (methodsDictionary.TryGetValue(name, out variableDefinition))
+                    return variableDefinition;
+            }
+
+            return null;
+        }
+
         public Method MakeGeneric(params Type[] types)
         {
             if (this.methodDefinition.GenericParameters.Count == 0)
-                return new Method(this.type.Builder, this.methodDefinition.MakeHostInstanceGeneric(types.Select(x => this.moduleDefinition.Import(x)).ToArray()), this.methodDefinition);
+                return new Method(this.type.Builder, this.methodDefinition.MakeHostInstanceGeneric(types.Select(x => this.moduleDefinition.ImportReference(x)).ToArray()), this.methodDefinition);
             else
-                return new Method(this.type.Builder, this.methodDefinition.MakeGeneric(null, types.Select(x => this.moduleDefinition.Import(x)).ToArray()), this.methodDefinition);
+                return new Method(this.type.Builder, this.methodDefinition.MakeGeneric(null, types.Select(x => this.moduleDefinition.ImportReference(x)).ToArray()), this.methodDefinition);
         }
 
         public Method MakeGeneric(params BuilderType[] types)
         {
             if (this.methodDefinition.GenericParameters.Count == 0)
-                return new Method(this.type.Builder, this.methodDefinition.MakeHostInstanceGeneric(types.Select(x => this.moduleDefinition.Import(x.typeReference)).ToArray()), this.methodDefinition);
+                return new Method(this.type.Builder, this.methodDefinition.MakeHostInstanceGeneric(types.Select(x => this.moduleDefinition.ImportReference(x.typeReference)).ToArray()), this.methodDefinition);
             else if (this.methodDefinition.ContainsGenericParameter)
-                return new Method(this.type.Builder, this.methodDefinition.MakeGeneric(null, types.Select(x => this.moduleDefinition.Import(x.typeReference)).ToArray()), this.methodDefinition);
+                return new Method(this.type.Builder, this.methodDefinition.MakeGeneric(null, types.Select(x => this.moduleDefinition.ImportReference(x.typeReference)).ToArray()), this.methodDefinition);
             else
-                return new Method(this.type.Builder, this.methodDefinition.MakeGeneric(null, types.Select(x => this.moduleDefinition.Import(x.typeReference)).ToArray()), this.methodDefinition);
+                return new Method(this.type.Builder, this.methodDefinition.MakeGeneric(null, types.Select(x => this.moduleDefinition.ImportReference(x.typeReference)).ToArray()), this.methodDefinition);
         }
 
         public Method MakeGeneric(params string[] types)
         {
             if (this.methodDefinition.GenericParameters.Count == 0)
-                return new Method(this.type.Builder, this.methodDefinition.MakeHostInstanceGeneric(types.Select(x => this.moduleDefinition.Import(this.type.Builder.GetType(x).typeReference)).ToArray()), this.methodDefinition);
+                return new Method(this.type.Builder, this.methodDefinition.MakeHostInstanceGeneric(types.Select(x => this.moduleDefinition.ImportReference(this.type.Builder.GetType(x).typeReference)).ToArray()), this.methodDefinition);
             else
-                return new Method(this.type.Builder, this.methodDefinition.MakeGeneric(null, types.Select(x => this.moduleDefinition.Import(this.type.Builder.GetType(x).typeReference)).ToArray()), this.methodDefinition);
+                return new Method(this.type.Builder, this.methodDefinition.MakeGeneric(null, types.Select(x => this.moduleDefinition.ImportReference(this.type.Builder.GetType(x).typeReference)).ToArray()), this.methodDefinition);
         }
 
         public ICode NewCode() => new InstructionsSet(this.type, this);
@@ -164,12 +202,6 @@ namespace Cauldron.Interception.Cecilator
                         yield return new MethodUsage(this, method, instruction);
                 }
         }
-
-        #region Variables
-
-        public LocalVariableCollection LocalVariables { get { return new LocalVariableCollection(this.type, this.methodDefinition.Body.Variables); } }
-
-        #endregion Variables
 
         #region Equitable stuff
 

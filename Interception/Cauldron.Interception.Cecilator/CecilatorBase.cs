@@ -30,20 +30,44 @@ namespace Cauldron.Interception.Cecilator
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly Action<string> logWarning;
 
-        internal CecilatorBase(IWeaver weaver)
+        internal CecilatorBase(WeaverBase weaver)
         {
             this.logError = weaver.LogError;
             this.logInfo = weaver.LogInfo;
             this.logWarning = weaver.LogWarning;
             this.moduleDefinition = weaver.ModuleDefinition;
 
-            this.allAssemblies = this.GetAllAssemblyDefinitions(this.moduleDefinition.AssemblyReferences)
-                  .Concat(new AssemblyDefinition[] { this.moduleDefinition.Assembly }).ToArray();
+            var assemblies = this.GetAllAssemblyDefinitions(this.moduleDefinition.AssemblyReferences)
+                  .Concat(new AssemblyDefinition[] { this.moduleDefinition.Assembly });
+
+            this.UnusedReference = weaver.ReferenceCopyLocalPaths
+                .Where(x => x.EndsWith(".dll"))
+                .Select(x =>
+                {
+                    try
+                    {
+                        return new AssemblyDefinitionEx(AssemblyDefinition.ReadAssembly(x), x);
+                    }
+                    catch (BadImageFormatException e)
+                    {
+                        this.LogInfo(e.Message + " " + x);
+                        return null;
+                    }
+                    catch (Exception e)
+                    {
+                        this.LogWarning(e.Message);
+                        return null;
+                    }
+                })
+                .Where(x => x != null && !assemblies.Any(y => y.FullName.GetHashCode() == x.AssemblyDefinition.FullName.GetHashCode() && y.FullName == x.AssemblyDefinition.FullName))
+                .ToArray();
+
+            this.allAssemblies = assemblies.Concat(this.UnusedReference.Select(x => x.AssemblyDefinition)).ToArray();
 
             this.logInfo("-----------------------------------------------------------------------------");
 
             foreach (var item in allAssemblies)
-                this.logInfo("<<Assembly>> " + item.FullName);
+                this.logInfo("<<Assembly>> " + item.Name);
 
             this.allTypes = this.allAssemblies.SelectMany(x => x.Modules).Where(x => x != null).SelectMany(x => x.Types).Where(x => x != null).Concat(this.moduleDefinition.Types).ToArray();
             this.logInfo("-----------------------------------------------------------------------------");
@@ -64,6 +88,8 @@ namespace Cauldron.Interception.Cecilator
         }
 
         public string Identification { get; private set; }
+        public AssemblyDefinition[] ReferencedAssemblies { get { return this.moduleDefinition.AssemblyReferences.Select(x => this.moduleDefinition.AssemblyResolver.Resolve(x)).ToArray(); } }
+        public AssemblyDefinitionEx[] UnusedReference { get; private set; }
 
         public static string GenerateName() => Path.GetRandomFileName().Replace(".", DateTime.Now.Second.ToString());
 
@@ -95,7 +121,7 @@ namespace Cauldron.Interception.Cecilator
             if (result == null)
                 throw new Exception($"Unable to proceed. The type '{type.FullName}' was not found.");
 
-            return this.moduleDefinition.Import(type).Resolve();
+            return this.moduleDefinition.ImportReference(type).Resolve();
         }
 
         internal void LogError(object value)
@@ -127,7 +153,7 @@ namespace Cauldron.Interception.Cecilator
             return new Instruction[] {
                 processor.Create(OpCodes.Ldtoken, type),
                 processor.Create(OpCodes.Call,
-                    this.moduleDefinition.Import(
+                    this.moduleDefinition.ImportReference(
                         this.GetTypeDefinition(typeof(Type))
                             .Methods.FirstOrDefault(x=>x.Name == "GetTypeFromHandle" && x.Parameters.Count == 1)))
             };

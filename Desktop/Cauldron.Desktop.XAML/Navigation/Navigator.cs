@@ -12,6 +12,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 
 namespace Cauldron.XAML.Navigation
@@ -23,12 +24,17 @@ namespace Cauldron.XAML.Navigation
     public sealed class Navigator : Singleton<INavigator>, INavigator
     {
         private static readonly object MainWindowTag = new object();
-        private static bool isCustomWindow = false;
 
         // The navigator always knows every window that it has created
         private ConcurrentList<WindowViewModelObject> windows = new ConcurrentList<WindowViewModelObject>();
 
-        private Type windowType;
+        private WindowType windowType;
+
+        /// <exclude/>
+        [ComponentConstructor]
+        public Navigator()
+        {
+        }
 
         /// <summary>
         /// Gets a value that indicates whether there is at least one entry in back navigation history.
@@ -225,14 +231,14 @@ namespace Cauldron.XAML.Navigation
 
         private async Task<Window> CreateWindow<TResult>(Func<TResult, Task> callback1, Func<Task> callback2, FrameworkElement view, IViewModel viewModel)
         {
-            var window = Common.CreateWindow(ref windowType, ref isCustomWindow);
+            var window = Common.CreateWindow(ref windowType);
             window.BeginInit();
 
             // Add this new window to the dictionary
             windows.Add(new WindowViewModelObject { window = window, viewModelId = viewModel.Id });
 
             // set the configs
-            if (isCustomWindow)
+            if (windowType.IsCutomWindow)
                 window.ResizeMode = WindowConfiguration.GetResizeMode(view);
             else
             {
@@ -369,10 +375,10 @@ namespace Cauldron.XAML.Navigation
                     if (dataTemplate == null)
                     {
                         var possibleViewName = viewModelType.Name.Left(viewModelType.Name.Length - "Model".Length);
-                        var possibleViewType = Assemblies.GetTypeFromName(possibleViewName);
+                        var possibleView = Factory.Create(possibleViewName) ?? Factory.Create(Assemblies.GetTypeFromName(possibleViewName));
 
                         // On such case we create a dummy View
-                        if (possibleViewType == null)
+                        if (possibleView == null)
                         {
                             var textBlock = new TextBlock();
                             textBlock.Text = viewModelType.FullName;
@@ -384,8 +390,7 @@ namespace Cauldron.XAML.Navigation
                             windowInfo = await CreateDefaultWindow(callback1, callback2, textBlock, viewModel);
                         }
                         else
-
-                            windowInfo = await CreateDefaultWindow(callback1, callback2, Factory.Create(possibleViewType) as FrameworkElement, viewModel);
+                            windowInfo = await CreateDefaultWindow(callback1, callback2, possibleView as FrameworkElement, viewModel);
                     }
                     else
                         // try to get a WindowConfiguration attach in the datatemplate
@@ -438,7 +443,11 @@ namespace Cauldron.XAML.Navigation
 
                 return true;
             }
-            catch (Exception e)
+            catch (XamlParseException)
+            {
+                throw;
+            }
+            catch
             {
                 return false;
             }

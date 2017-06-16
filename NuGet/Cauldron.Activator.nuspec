@@ -10,30 +10,30 @@
     <projectUrl>https://github.com/Capgemini/Cauldron</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
-    <description>The activator is a simple and extensible dependency injection framework. It is based on attributes and does not require any configuration files for configuration. It also supports using static methods as component constructor.</description>
-    <summary>Simple Extensible Dependency Injection Framework (Open Source)</summary>
+    <description>The activator is a simple and very fast dependency injection framework. It is based on attributes and does not require any configuration files for configuration. It also supports using static methods as component constructor.</description>
+    <summary>Simple Extensible Dependency Injection Framework</summary>
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Activator Dependency Injection Factory Cauldron</tags>
     <dependencies>
       <group targetFramework="uap10.0">
-        <dependency id="Capgemini.Cauldron.Core" version="1.1.4" />
-        <dependency id="Microsoft.NETCore.UniversalWindowsPlatform" version="5.2.2" />
-        <dependency id="Cauldron.Interception.Fody" version="1.1.4" />
-        <dependency id="Fody" version="1.29.4" />
+        <dependency id="Capgemini.Cauldron.Core" version="1.2.7" />
+        <dependency id="Microsoft.NETCore.UniversalWindowsPlatform" version="5.3.3" />
+        <dependency id="Cauldron.Interception.Fody" version="1.2.7" />
+        <dependency id="Fody" version="2.1.0" />
       </group>
       <group targetFramework="net452">
-        <dependency id="Capgemini.Cauldron.Core" version="1.1.4" />
-        <dependency id="Cauldron.Interception.Fody" version="1.1.4" />
-        <dependency id="Fody" version="1.29.4" />
+        <dependency id="Capgemini.Cauldron.Core" version="1.2.7" />
+        <dependency id="Cauldron.Interception.Fody" version="1.2.7" />
+        <dependency id="Fody" version="2.1.0" />
       </group>
-      <group targetFramework="netstandard1.6">
+      <!--<group targetFramework="netstandard1.6">
         <dependency id="NETStandard.Library" version="1.6.1" />
         <dependency id="System.Threading.Tasks" version="4.3.0" />
         <dependency id="System.Threading.Thread" version="4.3.0" />
-        <dependency id="Capgemini.Cauldron.Core" version="1.1.4" />
-        <dependency id="Cauldron.Interception.Fody" version="1.1.4" />
-        <dependency id="Fody" version="1.29.4" />
-      </group>
+        <dependency id="Capgemini.Cauldron.Core" version="1.2.7" />
+        <dependency id="Cauldron.Interception.Fody" version="1.2.7" />
+        <dependency id="Fody" version="2.1.0" />
+      </group>-->
     </dependencies>
   </metadata>
   <files>
@@ -44,6 +44,6 @@
     <file src="..\UWP\Cauldron.UWP.Activator\bin\Release\Cauldron.Activator**" target="lib\uap10.0" />
 
     <!-- Net Standard 1.6 -->
-    <file src="..\NetCore\Cauldron.NetCore.Activator\bin\Release\netstandard1.6\Cauldron.Activator**" target="lib\netstandard1.6" />
+    <!--<file src="..\NetCore\Cauldron.NetCore.Activator\bin\Release\netstandard1.6\Cauldron.Activator**" target="lib\netstandard1.6" />-->
   </files>
 </package>

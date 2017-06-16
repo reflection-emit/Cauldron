@@ -61,7 +61,7 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
-        public ICatch Catch(Type exceptionType, Action<ICatchCode> body) => this.Catch(this.moduleDefinition.Import(GetTypeDefinition(exceptionType)), body);
+        public ICatch Catch(Type exceptionType, Action<ICatchCode> body) => this.Catch(this.moduleDefinition.ImportReference(GetTypeDefinition(exceptionType)), body);
 
         public ICatch Catch(BuilderType exceptionType, Action<ICatchCode> body) => this.Catch(exceptionType.typeReference, body);
 
@@ -91,7 +91,7 @@ namespace Cauldron.Interception.Cecilator
                     TryEnd = this.instructions.Next(this.markers[i].instruction),
                     HandlerStart = handlerStart,
                     HandlerEnd = handlerEnd,
-                    CatchType = handlerType == ExceptionHandlerType.Finally ? null : this.moduleDefinition.Import(this.markers[i].exceptionType)
+                    CatchType = handlerType == ExceptionHandlerType.Finally ? null : this.moduleDefinition.ImportReference(this.markers[i].exceptionType)
                 };
 
                 this.instructions.ExceptionHandlers.Add(handler);
@@ -137,7 +137,7 @@ namespace Cauldron.Interception.Cecilator
 
             this.markers.Add(new InstructionMarker
             {
-                exceptionType = this.moduleDefinition.Import(exceptionType),
+                exceptionType = this.moduleDefinition.ImportReference(exceptionType),
                 instruction = markerStart,
                 markerType = MarkerType.Catch
             });

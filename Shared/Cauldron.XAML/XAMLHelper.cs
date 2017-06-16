@@ -1,5 +1,5 @@
 ﻿using Cauldron.Core.Extensions;
-using Cauldron.IEnumerableExtensions;
+using Cauldron.Internal;
 using System;
 using System.Collections;
 using System.Linq;
@@ -100,6 +100,8 @@ namespace Cauldron.XAML
         /// <summary>
         /// Reads the XAML input in the specified text string and returns a <see cref="Span"/> wrapping the an object that
         /// corresponds to the root of the specified markup.
+        /// <para/>
+        /// Be careful using this feature in UWP release. Behaviours, action and converters does not work most of the time.
         /// </summary>
         /// <param name="xamlText">The input XAML, as a single text string.</param>
         /// <returns>The <see cref="Span"/> root of the created object tree.</returns>

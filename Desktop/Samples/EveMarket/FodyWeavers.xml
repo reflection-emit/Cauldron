@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Weavers>
+<?xml version="1.0" encoding="utf-8"?>
+<Weavers VerifyAssembly="True">
   <PropertyChanged />
   <Cauldron.Interception />
 </Weavers>

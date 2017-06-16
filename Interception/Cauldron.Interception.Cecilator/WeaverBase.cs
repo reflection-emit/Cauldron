@@ -1,0 +1,46 @@
+﻿using Mono.Cecil;
+using System;
+using System.Collections.Generic;
+
+namespace Cauldron.Interception.Cecilator
+{
+    public abstract class WeaverBase
+    {
+        public Builder Builder { get; private set; }
+        public Action<string> LogError { get; set; }
+        public Action<string> LogInfo { get; set; }
+        public Action<string> LogWarning { get; set; }
+        public ModuleDefinition ModuleDefinition { get; set; }
+        public List<string> ReferenceCopyLocalPaths { get; set; }
+
+        public void AfterWeaving()
+        {
+            Method.variableDictionary.Clear();
+            this.OnAfterWeaving();
+        }
+
+        public void Cancel()
+        {
+            Method.variableDictionary.Clear();
+            this.OnCancel();
+        }
+
+        public void Execute()
+        {
+            this.Builder = this.CreateBuilder();
+            this.OnExecute();
+        }
+
+        public virtual void OnAfterWeaving()
+        {
+        }
+
+        public virtual void OnCancel()
+        {
+        }
+
+        public virtual void OnExecute()
+        {
+        }
+    }
+}

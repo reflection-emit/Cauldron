@@ -1,10 +1,9 @@
 ﻿namespace Cauldron.XAML.Resources
 {
+    /// <exclude/>
     public sealed partial class StylesAndTemplates
     {
-        /// <summary>
-        /// Initializes a new instance of <see cref="StylesAndTemplates"/>
-        /// </summary>
+        /// <exclude/>
         public StylesAndTemplates()
         {
             this.InitializeComponent();

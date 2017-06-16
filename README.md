@@ -1,15 +1,15 @@
-![Cauldron Logo](https://raw.githubusercontent.com/reflection-emit/Cauldron/master/cauldron2.png)
+![Cauldron Logo](https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron2.png)
 
 # Cauldron C# Toolkit
 Assembly | Description   | NuGet
 -------- | ------------- | ----------------
 **Cauldron.Interception.Fody** | Fody add-in that provides method, property and field interception. It also provides weavers for Cauldron.Core and Cauldron.Activator. | [![NuGet](https://img.shields.io/nuget/v/Cauldron.Interception.Fody.svg)](https://www.nuget.org/packages/Cauldron.Interception.Fody/)
 **Cauldron.Core** | Cauldron Core is the core toolkit assembly that the Cauldron Toolkit builds upon. | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Core.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Core/)
-**Cauldron.Activator** | The activator is a simple and extensible dependency injection framework. It is based on attributes and does not require any configuration files for configuration. It also supports using static methods as component constructor. | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Activator.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Activator/)
+**Cauldron.Activator** | The activator is a simple and very fast dependency injection. It is based on attributes and does not require any configuration files for configuration. It also supports using static methods as component constructor. | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Activator.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Activator/)
 **Cauldron.Consoles** | Cauldron.Consoles is a Cauldron.Core based parameter parser which supports grouping of parameters in execution groups. It also supports localization and has a nice parameter table. | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Consoles.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Consoles/)
 **Cauldron.Cryptography** | Contains typical implementations for AES, RSA and RSA-AES encryptions. It also contains extensions that helps working with SecureString. | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Cryptography.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Cryptography/)
 **Cauldron.Localization** | A simple localization implementation that can work with different sources. | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Localization.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Localization/)
-**Cauldron.XAML** | A Simple MVVM framework based on Cauldron.Core. | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.XAML.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.XAML/)
+**Cauldron.XAML** | A simple MVVM framework based on Cauldron.Core. | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.XAML.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.XAML/)
 **Cauldron.XAML.Interactivity** | Behaviours and Action for Cauldron.XAML. (incomplete) | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.XAML.Interactivity.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.XAML.Interactivity/)
 **Cauldron.XAML.Validation** | Validation Framework for Cauldron.XAML. | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.XAML.Validation.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.XAML.Validation/)
 
@@ -27,13 +27,26 @@ https://Capgemini.github.io/Cauldron/eveonline/
 - [CodeMaid](http://www.codemaid.net/)
 
 ## Release Notes
-### 1.2.0
+### 1.2.7 (1.2.0 to 1.2.6 betas)
 - NetCore Dlls droped from package due to issues with Fody - This will be back as soon as NetCore and Fody works a lot better
 - Types with the component attribute get a hard-coded CreateInstance method. The Factory will use this method to create an instance of the type. This should give the factory an instancing performance almost on par with the __new__ keyword.
 - Types that inherits or implements the following classes or interfaces are considered as components and will also recieve a CreateInstance method: ResourceDictionary, IValueConverter, INotifyPropertyChanged, FrameworkElement
+- ComponentConstructor Attribute
+  - Now also accepts static Properties as Component constructor
+  - New Property added: Priority; This is used by the Factory to order the result of CreateMany. 0 is lowest; uint.Max is highest.
 - Breaking changes in Assemblies class. Some methods and properties were removed without replacement.
 - Method and Property interceptor can now be used to intercept all methods and properties in a class. Excluded method can be attributed by the DoNotIntercept attribute.
 - CreateObject<> renamed to CreateType, which fits more to what it does.
+- Locale class redesigned for more performance
+- Localization source implementations now requires a component attribute
+- Basic implementation base classes added for ILocalizationSource
+- XML serialization/deserialization in Serializer class replaced by much faster JSON.NET
+- Breaking changes in Factory - The performance of the Factory was boosted with the following drawbacks
+  - IFactoryInitializeComponent interface removed - Factory does not support this anymore
+  - IFactoryExtension removed - The Factory is not extensible anymore :( ... To Resolve ambigousity the IFactoryResolver can be use instead.
+  - This is the current performance of the factory <br/>![Factory performance](https://raw.githubusercontent.com/Capgemini/Cauldron/feature/images/factory-performance.PNG)
+- Upgraded to the newest version of Fody
+- Minor bug fixes
 ### 1.1.4
 - Inject attribute default paramaters are now "params"
 - Assemblies class now throws a better error message if an Assembly cannot be loaded

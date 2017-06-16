@@ -1,5 +1,6 @@
 ﻿using Cauldron.Core;
 using Cauldron.Core.Extensions;
+using Cauldron.Internal;
 using Cauldron.XAML.Interactivity.Attached;
 using System;
 using System.Collections.Generic;

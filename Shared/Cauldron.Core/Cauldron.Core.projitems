@@ -11,7 +11,7 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)ApplicationInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Assemblies.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)AssemblyAndResourceNameInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AssemblyResource.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AsyncHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Collections\ConcurrentKeyedCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Collections\ConcurrentKeyedCollectionEx.cs" />
@@ -20,15 +20,14 @@
     <Compile Include="$(MSBuildThisFileDirectory)ComparerUtils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Compression.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ConnectionGenerationTypes.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)CreateInstanceIsAnInterfaceException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TypeIsInterfaceException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DateTimeUtils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DeviceFamilies.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DisplayNameAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DisposableBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DynamicEqualityComparer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Encodings.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Extensions\ActivatorArray.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Extensions\AnonymousTypeWithInterfaceExtension.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\ActivatorCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\Extensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\ExtensionsConvertions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\ExtensionsFileIO.cs" />

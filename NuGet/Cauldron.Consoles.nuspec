@@ -11,21 +11,21 @@
     <iconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Cauldron.Consoles is a Cauldron.Core based parameter parser which supports grouping of parameters in execution groups. It is also supports localization and has a nice parameter table :)</description>
-    <summary>A simple parameter parser for console applications. (Open Source)</summary>
+    <summary>A simple parameter parser for console applications.</summary>
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Console Parameter Parsing Argument Arguments Parameters Cauldron Command CommandLine Args</tags>
     <dependencies>
       <group targetFramework="net452">
-        <dependency id="Capgemini.Cauldron.Core" version="1.1.4" />
-        <dependency id="Capgemini.Cauldron.Activator" version="1.1.4" />
-        <dependency id="Capgemini.Cauldron.Localization" version="1.1.4" />
+        <dependency id="Capgemini.Cauldron.Core" version="1.2.7" />
+        <dependency id="Capgemini.Cauldron.Activator" version="1.2.7" />
+        <dependency id="Capgemini.Cauldron.Localization" version="1.2.7" />
       </group>
-      <group targetFramework="netstandard1.6">
+      <!--<group targetFramework="netstandard1.6">
         <dependency id="NETStandard.Library" version="1.6.1" />
-        <dependency id="Capgemini.Cauldron.Core" version="1.1.4" />
-        <dependency id="Capgemini.Cauldron.Localization" version="1.1.4" />
-        <dependency id="Capgemini.Cauldron.Activator" version="1.1.4" />
-      </group>
+        <dependency id="Capgemini.Cauldron.Core" version="1.2.7" />
+        <dependency id="Capgemini.Cauldron.Localization" version="1.2.7" />
+        <dependency id="Capgemini.Cauldron.Activator" version="1.2.7" />
+      </group>-->
     </dependencies>
   </metadata>
   <files>
@@ -34,9 +34,10 @@
     <file src="..\Desktop\Cauldron.Desktop.Consoles\bin\Release\Cauldron.Consoles**" target="lib\net452" />
 
     <!-- UWP -->
-    <!--<file src="..\UWP\Cauldron.UWP.Consoles\bin\Release\Cauldron.Consoles**" target="lib\uap10.0" />-->
+    <!--
+    <file src="..\UWP\Cauldron.UWP.Consoles\bin\Release\Cauldron.Consoles**" target="lib\uap10.0" />-->
 
     <!-- Net Standard 1.6 -->
-    <file src="..\NetCore\Cauldron.NetCore.Consoles\bin\Release\netstandard1.6\Cauldron.Consoles**" target="lib\netstandard1.6" />
+    <!--<file src="..\NetCore\Cauldron.NetCore.Consoles\bin\Release\netstandard1.6\Cauldron.Consoles**" target="lib\netstandard1.6" />-->
   </files>
 </package>

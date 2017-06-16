@@ -12,42 +12,242 @@ using System.Threading.Tasks;
 
 namespace Cauldron.Interception.Fody
 {
-    public sealed class ModuleWeaver : IWeaver
+    public sealed class ModuleWeaver : WeaverBase
     {
         private int counter = 0;
 
-        public Action<string> LogError { get; set; }
-
-        public Action<string> LogInfo { get; set; }
-
-        public Action<string> LogWarning { get; set; }
-
-        public ModuleDefinition ModuleDefinition { get; set; }
-
-        public void Execute()
+        public override void OnExecute()
         {
-            var builder = this.CreateBuilder();
-
-            if (!builder.IsReferenced("Cauldron.Interception"))
+            if (!this.Builder.IsReferenced("Cauldron.Interception"))
             {
-                this.LogWarning($"The assembly 'Cauldron.Interception' is not referenced or used in '{builder.Name}'. Weaving will not continue.");
+                this.LogWarning($"The assembly 'Cauldron.Interception' is not referenced or used in '{this.Builder.Name}'. Weaving will not continue.");
                 return;
             }
 
-            var propertyInterceptingAttributes = builder.FindAttributesByInterfaces(
+            var propertyInterceptingAttributes = this.Builder.FindAttributesByInterfaces(
                 "Cauldron.Interception.IPropertyInterceptor",
                 "Cauldron.Interception.ILockablePropertyGetterInterceptor",
                 "Cauldron.Interception.ILockablePropertySetterInterceptor",
                 "Cauldron.Interception.IPropertyGetterInterceptor",
                 "Cauldron.Interception.IPropertySetterInterceptor");
 
-            this.ImplementAnonymousTypeInterface(builder);
-            this.ImplementTimedCache(builder);
-            this.ImplementMethodCache(builder);
+            var methodInterceptionAttributes = this.Builder.FindAttributesByInterfaces(
+                "Cauldron.Interception.ILockableMethodInterceptor",
+                "Cauldron.Interception.IMethodInterceptor");
+
+            this.ImplementAnonymousTypeInterface(this.Builder);
+            this.ImplementTimedCache(this.Builder);
+            this.ImplementMethodCache(this.Builder);
+            this.ImplementTypeWidePropertyInterception(this.Builder, propertyInterceptingAttributes);
+            this.ImplementTypeWideMethodInterception(this.Builder, methodInterceptionAttributes);
             // These should be done last, because they replace methods
-            this.InterceptFields(builder, propertyInterceptingAttributes);
-            this.InterceptMethods(builder);
-            this.InterceptProperties(builder, propertyInterceptingAttributes);
+            this.InterceptFields(this.Builder, propertyInterceptingAttributes);
+            this.InterceptMethods(this.Builder, methodInterceptionAttributes);
+            this.InterceptProperties(this.Builder, propertyInterceptingAttributes);
+
+            this.CreateFactoryCache(this.Builder);
+        }
+
+        private void AddAttributeToXAMLResources(Builder builder)
+        {
+            var valueConverterInterface = builder.TypeExists("Windows.UI.Xaml.Data.IValueConverter") ? builder.GetType("Windows.UI.Xaml.Data.IValueConverter") : builder.GetType("System.Windows.Data.IValueConverter");
+            var notifyPropertyChangedInterface = builder.GetType("System.ComponentModel.INotifyPropertyChanged");
+            var componentAttribute = builder.GetType("Cauldron.Activator.ComponentAttribute");
+            var componentConstructorAttribute = builder.GetType("Cauldron.Activator.ComponentConstructorAttribute");
+            var windowType = builder.TypeExists("System.Windows.Window") ? builder.GetType("System.Windows.Window") : null;
+
+            var views = builder.FindTypesByBaseClass("FrameworkElement").Where(x => x.IsPublic);
+            var viewModels = builder.FindTypesByInterface(notifyPropertyChangedInterface).Where(x => x.IsPublic);
+            var valueConverters = builder.FindTypesByInterface(valueConverterInterface).Where(x => x.IsPublic);
+            var resourceDictionaryBaseClass = builder.TypeExists("Windows.UI.Xaml.ResourceDictionary") ? "Windows.UI.Xaml.ResourceDictionary" : "System.Windows.ResourceDictionary";
+            var resourceDictionaries = builder.FindTypesByBaseClass(resourceDictionaryBaseClass).Where(x => x.IsPublic);
+
+            foreach (var item in views)
+            {
+                if (item.IsAbstract || item.IsInterface || item.HasUnresolvedGenericParameters)
+                    continue;
+
+                if (item.CustomAttributes.HasAttribute(componentAttribute))
+                    continue;
+
+                // We have to make some exceptions here
+                // Everything that inherits from Window, should have to contractname Window ... but only for desktop... because UWP does not have custom windows
+                if (windowType != null && item.IsSubclassOf(windowType))
+                    item.CustomAttributes.Add(componentAttribute, windowType.Fullname);
+                else
+                    item.CustomAttributes.Add(componentAttribute, item.Fullname);
+
+                // Add a component contructor attribute to all .ctors
+                foreach (var ctor in item.Methods.Where(x => x.Name == ".ctor"))
+                    ctor.CustomAttributes.Add(componentConstructorAttribute);
+            }
+
+            foreach (var item in viewModels)
+            {
+                if (item.IsAbstract || item.IsInterface || item.HasUnresolvedGenericParameters)
+                    continue;
+
+                if (item.CustomAttributes.HasAttribute(componentAttribute))
+                    continue;
+
+                item.CustomAttributes.Add(componentAttribute, item.Fullname);
+                // Add a component contructor attribute to all .ctors
+                foreach (var ctor in item.Methods.Where(x => x.Name == ".ctor"))
+                    ctor.CustomAttributes.Add(componentConstructorAttribute);
+            }
+
+            foreach (var item in valueConverters)
+            {
+                if (item.IsAbstract || item.IsInterface || item.HasUnresolvedGenericParameters)
+                    continue;
+
+                if (item.CustomAttributes.HasAttribute(componentAttribute))
+                    continue;
+
+                item.CustomAttributes.Add(componentAttribute, valueConverterInterface.Fullname);
+                // Add a component contructor attribute to all .ctors
+                foreach (var ctor in item.Methods.Where(x => x.Name == ".ctor"))
+                    ctor.CustomAttributes.Add(componentConstructorAttribute);
+            }
+
+            foreach (var item in resourceDictionaries)
+            {
+                if (item.IsAbstract || item.IsInterface || item.HasUnresolvedGenericParameters)
+                    continue;
+
+                if (item.CustomAttributes.HasAttribute(componentAttribute))
+                    continue;
+
+                item.CustomAttributes.Add(componentAttribute, resourceDictionaryBaseClass);
+                // Add a component contructor attribute to all .ctors
+                foreach (var ctor in item.Methods.Where(x => x.Name == ".ctor"))
+                    ctor.CustomAttributes.Add(componentConstructorAttribute);
+            }
+        }
+
+        private void AddLoadLocalReferencedAssembly(Builder builder)
+        {
+            if (builder.UnusedReference.Length == 0)
+                return;
+
+            var module = builder.GetType("<Module>", SearchContext.Module);
+            var isUWP = builder.TypeExists("Windows.UI.Xaml.ResourceDictionary");
+
+            if (isUWP)
+            {
+                var cauldron = builder.GetType("<Cauldron>", SearchContext.Module);
+                var assembly = builder.GetType("System.Reflection.Assembly").New(x => new { Type = x, Load = x.GetMethod("Load", 1) });
+                // UWP has to actually use any type from the Assembly, so that it is not thrown out while compiling to Nativ Code
+                // CreateAssemblyLoadDummy(builder, module.CreateStaticConstructor(), assembly.Type, builder.UnusedReference.Select(x => x.AssemblyDefinition).ToArray());
+
+                module.CreateStaticConstructor().NewCode().Context(x =>
+                {
+                    if (builder.TypeExists("Cauldron.Core.Assemblies"))
+                    {
+                        var introspectionExtensions = builder.GetType("System.Reflection.IntrospectionExtensions").New(y => new { Type = y, GetTypeInfo = y.GetMethod("GetTypeInfo", 1) });
+                        var typeInfo = builder.GetType("System.Reflection.TypeInfo").New(y => new { Type = y, Assembly = y.GetMethod("get_Assembly") });
+                        var assemblies = builder.GetType("Cauldron.Core.AssembliesUWP").New(y => new { Type = y, EntryAssembly = y.GetMethod("set_EntryAssembly", 1) });
+                        x.Call(assemblies.EntryAssembly, x.NewCode().Callvirt(x.NewCode().Call(introspectionExtensions.GetTypeInfo, module), typeInfo.Assembly));
+                    }
+                })
+                .Insert(InsertionPosition.End);
+
+                module.StaticConstructor.CustomAttributes.Add(typeof(MethodImplAttribute), MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization);
+
+                // Add a new interface to <Cauldron> type
+                if (builder.TypeExists("Cauldron.Core.ILoadedAssemblies"))
+                {
+                    var loadedAssembliesInterface = builder.GetType("Cauldron.Core.ILoadedAssemblies").New(x => new { Type = x, ReferencedAssemblies = x.GetMethod("ReferencedAssemblies") });
+                    cauldron.AddInterface(loadedAssembliesInterface.Type);
+                    CreateAssemblyListingArray(builder, cauldron.CreateMethod(Modifiers.Overrrides | Modifiers.Public, builder.MakeArray(assembly.Type), "ReferencedAssemblies"), assembly.Type, builder.ReferencedAssemblies);
+                }
+            }
+            else
+            {
+                var assembly = builder.GetType("System.Reflection.Assembly").New(x => new
+                {
+                    Type = x,
+                    LoadFile = x.GetMethod("LoadFile", 1),
+                    GetAssembly = x.GetMethod("GetAssembly", 1),
+                    Location = x.GetMethod("get_Location")
+                });
+                var path = builder.GetType("System.IO.Path").New(x => new
+                {
+                    GetDirectoryName = x.GetMethod("GetDirectoryName", 1),
+                    Combine = x.GetMethod("Combine", 2)
+                });
+                var file = builder.GetType("System.IO.File").New(x => new
+                {
+                    Exists = x.GetMethod("Exists", 1)
+                });
+
+                module.CreateStaticConstructor().NewCode().Context(x =>
+                {
+                    var currentPath = x.CreateVariable(typeof(string));
+                    x.Call(assembly.GetAssembly, module).Callvirt(assembly.Location).StoreLocal(currentPath);
+                    x.Call(path.GetDirectoryName, currentPath).StoreLocal(currentPath);
+                    var assemblyPathVariable = x.CreateVariable(typeof(string));
+
+                    foreach (var item in builder.UnusedReference)
+                    {
+                        x.Call(path.Combine, currentPath, item.Filename).StoreLocal(assemblyPathVariable);
+                        x.Call(file.Exists, assemblyPathVariable).IsTrue().Then(y => y.Call(assembly.LoadFile, assemblyPathVariable).Pop());
+                    }
+                })
+                .Insert(InsertionPosition.End);
+            }
+        }
+
+        private void CreateAssemblyListingArray(Builder builder, Method method, BuilderType assemblyType, AssemblyDefinition[] assembliesToList)
+        {
+            var introspectionExtensions = builder.GetType("System.Reflection.IntrospectionExtensions").New(y => new { Type = y, GetTypeInfo = y.GetMethod("GetTypeInfo", 1) });
+            var typeInfo = builder.GetType("System.Reflection.TypeInfo").New(y => new { Type = y, Assembly = y.GetMethod("get_Assembly") });
+
+            method.NewCode().Context(x =>
+            {
+                var returnValue = x.GetReturnVariable();
+                var referencedTypes = this.FilterAssemblyList(assembliesToList);
+
+                if (referencedTypes.Length > 0)
+                {
+                    x.Newarr(assemblyType, referencedTypes.Length).StoreLocal(returnValue);
+
+                    for (int i = 0; i < referencedTypes.Length; i++)
+                    {
+                        x.Load(returnValue);
+                        x.StoreElement(assemblyType, x.NewCode().Callvirt(x.NewCode().Call(introspectionExtensions.GetTypeInfo, referencedTypes[i].ToBuilderType(this.Builder).Import()), typeInfo.Assembly), i);
+                    }
+                }
+
+                x.Return();
+            }).Replace();
+        }
+
+        private void CreateAssemblyLoadDummy(Builder builder, Method method, BuilderType assemblyType, AssemblyDefinition[] assembliesToList)
+        {
+            var introspectionExtensions = builder.GetType("System.Reflection.IntrospectionExtensions").New(y => new { Type = y, GetTypeInfo = y.GetMethod("GetTypeInfo", 1) });
+            var typeInfo = builder.GetType("System.Reflection.TypeInfo").New(y => new { Type = y, Assembly = y.GetMethod("get_Assembly") });
+
+            method.NewCode().Context(x =>
+            {
+                for (int i = 0; i < assembliesToList.Length; i++)
+                {
+                    // We make an exeption on test platform
+                    if (assembliesToList[i] == null || assembliesToList[i].FullName == null || assembliesToList[i].FullName.StartsWith("Microsoft.VisualStudio.TestPlatform"))
+                        continue;
+
+                    var type = assembliesToList[i].Modules
+                        .SelectMany(y => y.Types)
+                        .FirstOrDefault(y => y.IsPublic && y.FullName.Contains('.') && !y.HasCustomAttributes && !y.IsGenericParameter && !y.ContainsGenericParameter && !y.FullName.Contains('`'))?
+                        .ToBuilderType(this.Builder)?
+                        .Import();
+
+                    if (type == null)
+                        continue;
+
+                    x.Callvirt(x.NewCode().Call(introspectionExtensions.GetTypeInfo, type), typeInfo.Assembly).Pop();
+                }
+            }).Insert(InsertionPosition.Beginning);
         }
 
         private Method CreateAssigningMethod(BuilderType anonSource, BuilderType anonTarget, BuilderType anonTargetInterface, Method method)
@@ -87,24 +287,263 @@ namespace Cauldron.Interception.Fody
             return assignMethod;
         }
 
-        private void ImplementAnonymousTypeInterface(Builder builder)
+        private void CreateComponentCache(Builder builder, BuilderType cauldron)
         {
-            if (!builder.IsReferenced("Cauldron.Core"))
+            var componentAttribute = builder.GetType("Cauldron.Activator.ComponentAttribute").New(x => new
             {
-                this.LogInfo("Skipping implementation of interface in anonymous types. Cauldron.Core not found.");
-                return;
+                Type = x,
+                ContractName = x.GetMethod("get_ContractName"),
+                Policy = x.GetMethod("get_Policy"),
+                Priority = x.GetMethod("get_Priority")
+            });
+            var componentConstructorAttribute = builder.GetType("Cauldron.Activator.ComponentConstructorAttribute");
+
+            // Before we start let us find all factoryextensions and add a component attribute to them
+            var factoryResolverInterface = builder.GetType("Cauldron.Activator.IFactoryResolver");
+            var factoryResolvers = builder.FindTypesByInterface(factoryResolverInterface);
+
+            foreach (var item in factoryResolvers)
+            {
+                if (item.IsAbstract || item.IsInterface || item.HasUnresolvedGenericParameters)
+                    continue;
+
+                if (item.CustomAttributes.HasAttribute(componentAttribute.Type))
+                    continue;
+
+                item.CustomAttributes.Add(componentAttribute.Type, factoryResolverInterface.Fullname);
+                // Add a component contructor attribute to all .ctors
+                foreach (var ctor in item.Methods.Where(x => x.Name == ".ctor"))
+                    ctor.CustomAttributes.Add(componentConstructorAttribute);
             }
 
+            int counter = 0;
+            var arrayAvatar = builder.GetType("System.Array").New(x => new
+            {
+                Length = x.GetMethod("get_Length")
+            });
+            var extensionAvatar = builder.GetType("Cauldron.Core.Extensions.ExtensionsReflection").New(x => new
+            {
+                CreateInstance = x.GetMethod("CreateInstance", 2)
+            });
+            var factoryCacheInterface = builder.GetType("Cauldron.Activator.IFactoryCache");
+            var factoryTypeInfoInterface = builder.GetType("Cauldron.Activator.IFactoryTypeInfo");
+            var createInstanceInterfaceMethod = factoryTypeInfoInterface.GetMethod("CreateInstance", 1);
+
+            // Get all Components
+            var components = builder.FindTypesByAttribute(componentAttribute.Type);
+            var componentTypes = new List<BuilderType>();
+
+            // Create types with the components properties
+            foreach (var component in components)
+            {
+                this.LogInfo("Hardcoding component factory .ctor: " + component.Type.Fullname);
+
+                var componentType = builder.CreateType("", TypeAttributes.Public | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit, $"<>f__IFactoryTypeInfo_{counter++}");
+                var componentAttributeField = componentType.CreateField(Modifiers.Private, componentAttribute.Type, "componentAttribute");
+                componentType.AddInterface(factoryTypeInfoInterface);
+                componentTypes.Add(componentType);
+
+                // Create ctor
+                componentType
+                   .CreateConstructor()
+                   .NewCode()
+                   .Context(x =>
+                   {
+                       x.Load(x.This).Call(builder.GetType(typeof(object)).ParameterlessContructor);
+                       x.Assign(componentAttributeField).NewObj(component);
+                   })
+                   .Return()
+                   .Replace();
+
+                // Implement the methods
+                componentType.CreateMethod(Modifiers.Public | Modifiers.Overrrides, createInstanceInterfaceMethod.ReturnType, createInstanceInterfaceMethod.Name, createInstanceInterfaceMethod.Parameters)
+                    .NewCode()
+                    .Context(x =>
+                    {
+                        // Find any method with a componentcontructor attribute
+                        var ctors = component.Type.GetMethods(y =>
+                                {
+                                    if (!y.Resolve().Attributes.HasFlag(MethodAttributes.Public))
+                                        return false;
+
+                                    if (y.Name == ".ctor" && y.DeclaringType.FullName.GetHashCode() != component.Type.Fullname.GetHashCode() && y.DeclaringType.FullName != component.Type.Fullname)
+                                        return false;
+
+                                    return true;
+                                })
+                                .Where(y => y.CustomAttributes.HasAttribute(componentConstructorAttribute))
+                                .Concat(component.Type.Properties.Where(z => z.CustomAttributes.HasAttribute(componentConstructorAttribute) && z.Getter != null).Select(z => z.Getter))
+                                .OrderBy(y => y.Parameters.Length)
+                                .ToArray();
+
+                        if (ctors.Length > 0)
+                        {
+                            bool parameterlessCtorAlreadyHandled = false;
+
+                            for (int index = 0; index < ctors.Length; index++)
+                            {
+                                var ctor = ctors[index];
+                                // remove the component constructor attribute and add a EditorBrowsable attribute
+                                ctor.CustomAttributes.Remove(componentConstructorAttribute);
+                                ctor.CustomAttributes.AddEditorBrowsableAttribute(EditorBrowsableState.Never);
+                                var ctorParameters = ctor.Parameters;
+
+                                if (ctorParameters.Length > 0)
+                                {
+                                    // In this case we have to find a parameterless constructor first
+                                    if (component.Type.ParameterlessContructor != null && !parameterlessCtorAlreadyHandled && component.Type.ParameterlessContructor.Modifiers.HasFlag(Modifiers.Public))
+                                    {
+                                        x.Load(x.GetParameter(0)).IsNull().Then(y => y.NewObj(component.Type.ParameterlessContructor).Return());
+                                        x.Load(x.GetParameter(0)).Call(arrayAvatar.Length).EqualTo(0).Then(y => y.NewObj(component.Type.ParameterlessContructor).Return());
+                                        parameterlessCtorAlreadyHandled = true;
+                                    }
+
+                                    var code = x.Load(x.GetParameter(0)).Call(arrayAvatar.Length).EqualTo(ctorParameters.Length);
+
+                                    for (int i = 0; i < ctorParameters.Length; i++)
+                                        code.And.Load(x.GetParameter(0).UnPacked(i)).Is(ctorParameters[i]);
+
+                                    if (ctor.Name == ".ctor")
+                                        code.Then(y => y.NewObj(ctor, x.GetParameter(0).UnPacked()).Return());
+                                    else
+                                        code.Then(y => y.Call(ctor, x.GetParameter(0).UnPacked()).Return());
+                                }
+                                else
+                                {
+                                    if (ctor.Name == ".ctor")
+                                    {
+                                        x.Load(x.GetParameter(0)).IsNull().Then(y => y.NewObj(ctor).Return());
+                                        x.Load(x.GetParameter(0)).Call(arrayAvatar.Length).EqualTo(0).Then(y => y.NewObj(ctor).Return());
+                                    }
+                                    else
+                                    {
+                                        x.Load(x.GetParameter(0)).IsNull().Then(y => y.Call(ctor).Return());
+                                        x.Load(x.GetParameter(0)).Call(arrayAvatar.Length).EqualTo(0).Then(y => y.Call(ctor).Return());
+                                    }
+
+                                    parameterlessCtorAlreadyHandled = true;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            // In case we don't have constructor with ComponentConstructor Attribute, then we should look for a parameterless Ctor
+                            if (component.Type.ParameterlessContructor == null)
+                                this.LogError($"The component '{component.Type.Fullname}' has no ComponentConstructor attribute or the constructor is not public");
+                            else if (component.Type.ParameterlessContructor.Modifiers.HasFlag(Modifiers.Public))
+                            {
+                                x.Load(x.GetParameter(0)).IsNull().Then(y => y.NewObj(component.Type.ParameterlessContructor).Return());
+                                x.Load(x.GetParameter(0)).Call(arrayAvatar.Length).EqualTo(0).Then(y => y.NewObj(component.Type.ParameterlessContructor).Return());
+
+                                this.LogWarning($"The component '{component.Type.Fullname}' has no ComponentConstructor attribute. A parameterless ctor was found and will be used.");
+                            }
+                        }
+                    })
+                    .Context(x => x.Call(extensionAvatar.CreateInstance, component.Type, x.GetParameter(0)).Return())
+                    .Return()
+                    .Replace();
+
+                // Implement the properties
+                foreach (var property in factoryTypeInfoInterface.Properties)
+                {
+                    var propertyResult = componentType.CreateProperty(Modifiers.Public | Modifiers.Overrrides, property.ReturnType, property.Name, true);
+                    propertyResult.BackingField.Remove();
+
+                    switch (property.Name)
+                    {
+                        case "ContractName":
+                            propertyResult.Getter.NewCode().Call(componentAttributeField, componentAttribute.ContractName).Return().Replace();
+                            break;
+
+                        case "CreationPolicy":
+                            propertyResult.Getter.NewCode().Call(componentAttributeField, componentAttribute.Policy).Return().Replace();
+                            break;
+
+                        case "Priority":
+                            propertyResult.Getter.NewCode().Call(componentAttributeField, componentAttribute.Priority).Return().Replace();
+                            break;
+
+                        case "Type":
+                            propertyResult.Getter.NewCode().Load(component.Type).Return().Replace();
+                            break;
+                    }
+                }
+
+                componentType.CustomAttributes.AddEditorBrowsableAttribute(EditorBrowsableState.Never);
+                // Also remove the component attribute
+                component.Attribute.Remove();
+            }
+
+            this.LogInfo("Adding component IFactoryCache Interface");
+            cauldron.AddInterface(factoryCacheInterface);
+            var factoryCacheInterfaceAvatar = factoryCacheInterface.New(x => new
+            {
+                Components = x.GetMethod("GetComponents")
+            });
+            var ctorCoder = cauldron.ParameterlessContructor.NewCode();
+            cauldron.CreateMethod(Modifiers.Public | Modifiers.Overrrides, factoryCacheInterfaceAvatar.Components.ReturnType, factoryCacheInterfaceAvatar.Components.Name)
+                .NewCode()
+                .Context(x =>
+                {
+                    var resultValue = x.GetReturnVariable();
+                    x.Newarr(factoryTypeInfoInterface, componentTypes.Count).StoreLocal(resultValue);
+
+                    for (int i = 0; i < componentTypes.Count; i++)
+                    {
+                        var field = cauldron.CreateField(Modifiers.Private, factoryTypeInfoInterface, "<FactoryType>f__" + i);
+                        x.Load(resultValue);
+                        x.StoreElement(factoryTypeInfoInterface, field, i);
+                        // x.StoreElement(factoryTypeInfoInterface, x.NewCode().NewObj(componentTypes[i].ParameterlessContructor), i);
+                        ctorCoder.Assign(field).NewObj(componentTypes[i].ParameterlessContructor);
+                    }
+                })
+                .Return()
+                .Replace();
+
+            ctorCoder.Insert(InsertionPosition.End);
+        }
+
+        private void CreateFactoryCache(Builder builder)
+        {
+            this.LogInfo($"Creating Cauldron Cache");
+
+            var cauldron = builder.CreateType("", TypeAttributes.Public | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit, "<Cauldron>");
+            cauldron.CreateConstructor().NewCode()
+                .Context(x => x.Call(x.NewCode().This, builder.GetType(typeof(object)).ParameterlessContructor))
+                .Return()
+                .Replace();
+
+            if (builder.IsReferenced("Cauldron.Activator") && (builder.IsReferenced("Cauldron.XAML") || builder.IsReferenced("System.Xaml") || builder.IsReferenced("Windows.UI.Xaml")))
+                AddAttributeToXAMLResources(builder);
+
+            if (builder.IsReferenced("Cauldron.Activator"))
+                CreateComponentCache(builder, cauldron);
+
+            // Add all unused assembly to modules
+            this.AddLoadLocalReferencedAssembly(builder);
+        }
+
+        private TypeDefinition[] FilterAssemblyList(IEnumerable<AssemblyDefinition> assemblies) =>
+            assemblies
+            .Where(x => x != null && x.FullName != null && !x.FullName.StartsWith("Microsoft.VisualStudio.TestPlatform") && !x.FullName.StartsWith("System."))
+            .Select(x => x.MainModule.Types
+                    .FirstOrDefault(y => y.IsPublic && !y.IsGenericParameter && !y.HasCustomAttributes && !y.ContainsGenericParameter && !y.FullName.Contains('`') && y.FullName.Contains('.'))
+            )
+            .Where(x => x != null)
+            .ToArray();
+
+        private void ImplementAnonymousTypeInterface(Builder builder)
+        {
             var stopwatch = Stopwatch.StartNew();
 
-            var cauldronCoreExtension = builder.GetType("Cauldron.Core.Extensions.AnonymousTypeWithInterfaceExtension");
-            var createObjectMethod = cauldronCoreExtension.GetMethod("CreateObject", 1).FindUsages().ToArray();
+            var cauldronCoreExtension = builder.GetType("Cauldron.Interception.Extensions");
+            var createTypeMethod = cauldronCoreExtension.GetMethod("CreateType", 1).FindUsages().ToArray();
             var createdTypes = new Dictionary<string, BuilderType>();
 
-            if (!createObjectMethod.Any())
+            if (!createTypeMethod.Any())
                 return;
 
-            foreach (var item in createObjectMethod)
+            foreach (var item in createTypeMethod)
             {
                 this.LogInfo($"Implementing anonymous to interface {item}");
                 var interfaceToImplement = item.GetGenericArgument(0);
@@ -342,6 +781,96 @@ namespace Cauldron.Interception.Fody
             }
         }
 
+        private void ImplementTypeWideMethodInterception(Builder builder, IEnumerable<BuilderType> attributes)
+        {
+            if (!attributes.Any())
+                return;
+
+            var stopwatch = Stopwatch.StartNew();
+
+            var doNotInterceptAttribute = builder.GetType("DoNotInterceptAttribute");
+            var types = builder
+                .FindTypesByAttributes(attributes)
+                .GroupBy(x => x.Type)
+                .Select(x => new
+                {
+                    Key = x.Key,
+                    Item = x.ToArray()
+                })
+                .ToArray();
+
+            foreach (var type in types)
+            {
+                this.LogInfo($"Implementing interceptors in type {type.Key.Fullname}");
+
+                foreach (var method in type.Key.Methods)
+                {
+                    if (method.Name == ".ctor" || method.Name == ".cctor")
+                        continue;
+
+                    if (method.CustomAttributes.HasAttribute(doNotInterceptAttribute))
+                    {
+                        method.CustomAttributes.Remove(doNotInterceptAttribute);
+                        continue;
+                    }
+
+                    for (int i = 0; i < type.Item.Length; i++)
+                        method.CustomAttributes.Copy(type.Item[i].Attribute);
+                }
+
+                for (int i = 0; i < type.Item.Length; i++)
+                    type.Item[i].Remove();
+            }
+
+            stopwatch.Stop();
+            this.LogInfo($"Implementing class wide method interceptors took {stopwatch.Elapsed.TotalMilliseconds}ms");
+        }
+
+        private void ImplementTypeWidePropertyInterception(Builder builder, IEnumerable<BuilderType> attributes)
+        {
+            if (!attributes.Any())
+                return;
+
+            var stopwatch = Stopwatch.StartNew();
+
+            var doNotInterceptAttribute = builder.GetType("DoNotInterceptAttribute");
+            var types = builder
+                .FindTypesByAttributes(attributes)
+                .GroupBy(x => x.Type)
+                .Select(x => new
+                {
+                    Key = x.Key,
+                    Item = x.ToArray()
+                })
+                .ToArray();
+
+            foreach (var type in types)
+            {
+                this.LogInfo($"Implementing interceptors in type {type.Key.Fullname}");
+
+                foreach (var property in type.Key.Properties)
+                {
+                    if (!property.IsAutoProperty)
+                        continue;
+
+                    if (property.CustomAttributes.HasAttribute(doNotInterceptAttribute))
+                    {
+                        property.CustomAttributes.Remove(doNotInterceptAttribute);
+                        continue;
+                    }
+
+                    for (int i = 0; i < type.Item.Length; i++)
+                        property.CustomAttributes.Copy(type.Item[i].Attribute);
+                }
+
+                for (int i = 0; i < type.Item.Length; i++)
+                    type.Item[i].Remove();
+            }
+
+            stopwatch.Stop();
+            this.LogInfo($"Implementing class wide property interceptors took {stopwatch.Elapsed.TotalMilliseconds}ms");
+        }
+
         private void InterceptFields(Builder builder, IEnumerable<BuilderType> attributes)
         {
             if (!attributes.Any())
@@ -379,12 +908,8 @@ namespace Cauldron.Interception.Fody
             this.LogInfo($"Implementing field interceptors took {stopwatch.Elapsed.TotalMilliseconds}ms");
         }
 
-        private void InterceptMethods(Builder builder)
+        private void InterceptMethods(Builder builder, IEnumerable<BuilderType> attributes)
         {
-            var attributes = builder.FindAttributesByInterfaces(
-                "Cauldron.Interception.ILockableMethodInterceptor",
-                "Cauldron.Interception.IMethodInterceptor");
-
             if (!attributes.Any())
                 return;
 

@@ -149,7 +149,9 @@
       <Name>Cauldron.UWP.Localization</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="FodyWeavers.xml" />
+  </ItemGroup>
   <ItemGroup>
     <Page Include="Resources\MessageDialogView.xaml">
       <SubType>Designer</SubType>

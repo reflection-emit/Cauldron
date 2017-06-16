@@ -17,14 +17,19 @@ namespace Cauldron.Interception.Cecilator
         {
             this.variable = variable;
             this.type = type;
+            this.Name = variable.Index.ToString();
+        }
+
+        internal LocalVariable(BuilderType type, VariableDefinition variable, string name) : base(type)
+        {
+            this.variable = variable;
+            this.type = type;
+            this.Name = name;
         }
 
         public int Index { get { return this.variable.Index; } }
-
         public bool IsPinned { get { return this.variable.IsPinned; } }
-
-        public string Name { get { return this.variable.Name; } }
-
+        public string Name { get; private set; }
         public BuilderType Type { get { return new BuilderType(this.type, this.variable.VariableType); } }
 
         #region Equitable stuff
@@ -81,7 +86,7 @@ namespace Cauldron.Interception.Cecilator
         public override int GetHashCode() => this.variable.GetHashCode();
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override string ToString() => this.variable.Name;
+        public override string ToString() => this.variable.Index.ToString();
 
         #endregion Equitable stuff
     }

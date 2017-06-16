@@ -1,6 +1,7 @@
 ﻿using Cauldron.Activator;
 using Cauldron.Core;
 using Cauldron.Core.Extensions;
+using Cauldron.Internal;
 using Cauldron.XAML.Controls;
 using Cauldron.XAML.Navigation;
 using Cauldron.XAML.ViewModels;
@@ -25,6 +26,7 @@ namespace Cauldron.XAML
     /// </summary>
     public abstract class ApplicationBase : Application, IViewModel
     {
+        private readonly string applicationHash;
         private DispatcherEx _dispatcher;
         private Guid? _id;
         private bool _isLoading = true;
@@ -32,7 +34,6 @@ namespace Cauldron.XAML
         private bool _isSinglePage;
         private IMessageDialog _messageDialog;
         private INavigator _navigator;
-        private string applicationHash;
         private bool isInitialized;
 
         /// <summary>
@@ -53,18 +54,27 @@ namespace Cauldron.XAML
             this.Resources.Add(typeof(CauldronTemplateSelector).Name, new CauldronTemplateSelector());
 
             // Add all Value converters to the dictionary
-            foreach (var valueConverter in Assemblies.ExportedTypes.Where(x => !x.ContainsGenericParameters && !x.IsAbstract && x.ImplementsInterface<IValueConverter>()))
-                this.Resources.Add(valueConverter.Name, System.Activator.CreateInstance(valueConverter));
+            Factory.CreateMany<IValueConverter>().Foreach(x => this.Resources.Add(x.GetType().Name, x));
 
             // find all resourcedictionaries and add them to the existing resources
-            var resourceDictionaries = Assemblies.ExportedTypes.Where(x => x.IsSubclassOf(typeof(ResourceDictionary)));
-            var cauldronDictionaries = resourceDictionaries.Where(x => x.Assembly.FullName.StartsWith("Cauldron.")).OrderBy(x => x.Name);
-            var otherDictionaries = resourceDictionaries.Where(x => !x.Assembly.FullName.StartsWith("Cauldron.")).OrderBy(x => x.Name);
+            Assemblies.CauldronObjects
+                .Select(x => x as IFactoryCache)
+                .Where(x => x != null)
+                .SelectMany(x => x.GetComponents())
+                .Where(x => x.ContractName == typeof(ResourceDictionary).FullName).Select(x =>
+                {
+                    var type = x.Type;
+                    return type.FullName.StartsWith("Cauldron.") ? new { Index = 0, FactoryInfo = x, Type = type } : new { Index = 1, FactoryInfo = x, Type = type };
+                })
+                .OrderBy(x => x.Index)
+                .ThenByDescending(x => x.FactoryInfo.Priority)
+                .ThenBy(x => x.Type.FullName)
+                .Foreach(x =>
+                {
+                    this.Resources.MergedDictionaries.Add(x.FactoryInfo.CreateInstance() as ResourceDictionary);
+                    Output.WriteLineInfo($"Adding ResourceDictionary: {x.Type.FullName}");
+                });
 
-            // add all cauldron dictionaries first
-            cauldronDictionaries.Foreach(x => this.Resources.MergedDictionaries.Add(x.CreateInstance() as ResourceDictionary));
-            // Them then others
-            otherDictionaries.Foreach(x => this.Resources.MergedDictionaries.Add(x.CreateInstance() as ResourceDictionary));
             this.applicationHash = (ApplicationInfo.ApplicationName + ApplicationInfo.ApplicationPublisher + ApplicationInfo.ApplicationVersion.ToString()).GetHash(HashAlgorithms.Md5);
         }
 
@@ -341,9 +351,8 @@ namespace Cauldron.XAML
             {
                 if (this.IsSinglePage)
                 {
-                    Type windowType = null;
-                    bool isCustomWindow = false;
-                    var window = Common.CreateWindow(ref windowType, ref isCustomWindow);
+                    WindowType windowType = null;
+                    var window = Common.CreateWindow(ref windowType);
 
                     window.ContentTemplateSelector = new CauldronTemplateSelector();
 

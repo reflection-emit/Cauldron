@@ -1,4 +1,6 @@
-﻿namespace Cauldron.XAML.Interactivity
+﻿using System.Windows;
+
+namespace Cauldron.XAML.Interactivity
 {
     /// <summary>
     /// Represents a behaviour

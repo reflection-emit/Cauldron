@@ -2,6 +2,7 @@
 using Mono.Cecil.Cil;
 using Mono.Cecil.Rocks;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace Cauldron.Interception.Cecilator
 {
     public static class Extension
     {
-        public static Builder CreateBuilder(this IWeaver weaver)
+        public static Builder CreateBuilder(this WeaverBase weaver)
         {
             if (weaver == null)
                 throw new ArgumentNullException(nameof(weaver), $"Argument '{nameof(weaver)}' cannot be null");
@@ -104,7 +105,7 @@ namespace Cauldron.Interception.Cecilator
 
                         // We just don't know :(
                         if (ienumerableInterface == null)
-                            return module.Import(typeof(object));
+                            return module.ImportReference(typeof(object));
 
                         return (ienumerableInterface as GenericInstanceType).GenericArguments[0];
                     }
@@ -136,7 +137,7 @@ namespace Cauldron.Interception.Cecilator
                 };
             }
 
-            return module.Import(typeof(object));
+            return module.ImportReference(typeof(object));
         }
 
         public static IReadOnlyDictionary<string, TypeReference> GetGenericResolvedTypeName(this GenericInstanceType type)
@@ -207,17 +208,24 @@ namespace Cauldron.Interception.Cecilator
         public static IEnumerable<TypeReference> GetInterfaces(this TypeReference type)
         {
             var typeDef = type.Resolve();
+            var result = new List<TypeReference>();
 
-            if (typeDef == null)
-                return new TypeReference[0];
+            while (true)
+            {
+                if (typeDef == null)
+                    break;
 
-            if (typeDef.Interfaces != null && typeDef.Interfaces.Count > 0)
-                return type.Recursive(x => x.Resolve().Interfaces).Select(x => x.ResolveType(type));
+                if (typeDef.BaseType == null && (typeDef.Interfaces == null || typeDef.Interfaces.Count == 0))
+                    break;
 
-            if (typeDef.BaseType != null)
-                return GetInterfaces(typeDef.BaseType);
+                if (typeDef.Interfaces != null && typeDef.Interfaces.Count > 0)
+                    result.AddRange(type.Recursive(x => x.Resolve().Interfaces.Select(y => y.InterfaceType)).Select(x => x.ResolveType(type)));
 
-            return new TypeReference[0];
+                type = typeDef.BaseType;
+                typeDef = type?.Resolve();
+            };
+
+            return result;
         }
 
         public static MethodReference GetMethodReference(this TypeReference type, string methodName, int parameterCount)
@@ -360,6 +368,8 @@ namespace Cauldron.Interception.Cecilator
 
             return self.Resolve().MakeGenericInstanceType(genericArguments);
         }
+
+        public static BuilderType ToBuilderType(this TypeDefinition value, Builder builder) => new BuilderType(builder, value);
 
         internal static void Append(this ILProcessor processor, Instruction[] instructions) => processor.Append(instructions as IEnumerable<Instruction>);
 
@@ -681,7 +691,7 @@ namespace Cauldron.Interception.Cecilator
             if (resolved.Interfaces != null && resolved.Interfaces.Count > 0)
             {
                 foreach (var item in resolved.Interfaces)
-                    result.AddRange(item.GetGenericInstances(genericArgumentsNames, genericArguments));
+                    result.AddRange(item.InterfaceType.GetGenericInstances(genericArgumentsNames, genericArguments));
             }
 
             return result;

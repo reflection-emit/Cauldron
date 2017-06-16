@@ -74,6 +74,9 @@
       <Name>Cauldron.Desktop.XAML</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="FodyWeavers.xml" />
+  </ItemGroup>
   <Import Project="..\..\Shared\Cauldron.Diagnostics\Cauldron.Diagnostics.projitems" Label="Shared" />
   <Import Project="..\..\Shared\IEnumerableExtensions\IEnumerableExtensions.projitems" Label="Shared" />
   <Import Project="..\..\Shared\Cauldron.XAML.Validation\Cauldron.XAML.Validation.projitems" Label="Shared" />

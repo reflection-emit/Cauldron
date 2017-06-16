@@ -6,7 +6,7 @@ using Windows.Data.Xml.Dom;
 namespace Cauldron.Core.Extensions
 {
     /// <summary>
-    /// Provides usefull extension methods for <see cref="XmlDocument"/>
+    /// Provides usefull extension methods for XmlDocument/>
     /// </summary>
     public static class ExtensionsXmlDocument
     {

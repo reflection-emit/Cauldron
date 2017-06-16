@@ -1,7 +1,6 @@
 ﻿using Cauldron.Core;
 using Cauldron.Core.Extensions;
 using System;
-using System.Reflection;
 
 namespace Cauldron.Activator
 {
@@ -11,13 +10,13 @@ namespace Cauldron.Activator
     /// <typeparam name="T">The type that is contained in the singleton</typeparam>
     public abstract class Singleton<T> where T : class
     {
-        private static string contractName = null;
         private static volatile T current;
         private static object syncRoot = new object();
 
         /// <summary>
         /// Gets the current instance of <typeparamref name="T"/>
         /// </summary>
+        [ComponentConstructor]
         public static T Current
         {
             get
@@ -29,21 +28,7 @@ namespace Cauldron.Activator
                     lock (syncRoot)
                     {
                         if (current == null || (disposable != null && disposable.IsDisposed))
-                        {
-                            var type = typeof(T);
-#if WINDOWS_UWP || NETCORE
-                            var attr = type.GetTypeInfo().GetCustomAttribute<ComponentAttribute>();
-#else
-                            var attr = type.GetCustomAttribute<ComponentAttribute>();
-#endif
-                            if (attr == null)
-                                current = Factory.Create<T>();
-                            else
-                            {
-                                contractName = attr.ContractName;
-                                current = Factory.Create(contractName) as T;
-                            }
-                        }
+                            current = Factory.Create<T>();
                     }
                 }
 
@@ -62,17 +47,12 @@ namespace Cauldron.Activator
             {
                 lock (syncRoot)
                 {
-                    var disposable = current.As<IDisposable>();
+                    var disposable = current as IDisposable;
 
                     if (disposable != null)
-                    {
-                        if (string.IsNullOrEmpty(contractName))
-                            disposable.Dispose();
-                        else
-                            Factory.Destroy(contractName);
-                    };
+                        Factory.Destroy<T>();
+
                     current = null;
-                    contractName = null;
                 }
             }
         }

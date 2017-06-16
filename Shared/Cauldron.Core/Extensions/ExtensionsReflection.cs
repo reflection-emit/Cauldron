@@ -15,7 +15,7 @@ namespace Cauldron.Core.Extensions
 
         //private delegate object ObjectActivator(params object[] args);
 
-        private static ActivatorArray objectActivator = new ActivatorArray();
+        private static ActivatorCollection objectActivator = new ActivatorCollection();
 
         /// <summary>
         /// Returns a value that indicates whether the specified type can be assigned to the current type.
@@ -49,7 +49,7 @@ namespace Cauldron.Core.Extensions
         /// </param>
         /// <returns>A reference to the newly created object.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="type"/> is null</exception>
-        /// <exception cref="CreateInstanceIsAnInterfaceException"><paramref name="type"/> is an interface</exception>
+        /// <exception cref="TypeIsInterfaceException"><paramref name="type"/> is an interface</exception>
         public static object CreateInstance(this Type type, params object[] args)
         {
             if (type == null)
@@ -60,7 +60,7 @@ namespace Cauldron.Core.Extensions
 #else
             if (type.IsInterface)
 #endif
-                throw new CreateInstanceIsAnInterfaceException("Unable to create an instance from an interface: " + type.FullName);
+                throw new TypeIsInterfaceException("Unable to create an instance from an interface: " + type.FullName);
 
             if (args == null || args.Length == 0)
                 return objectActivator.CreateInstance(type);
@@ -191,7 +191,7 @@ namespace Cauldron.Core.Extensions
             {
                 try
                 {
-                    return Activator.CreateInstance(type);
+                    return type.CreateInstance();
                 }
                 catch (Exception e)
                 {

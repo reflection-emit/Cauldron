@@ -11,23 +11,23 @@
     <iconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Contains typical implementations for AES, RSA and RSA-AES encryptions. It also contains extensions that helps working with SecureString.</description>
-    <summary>Implementation for AES, RSA and AES-RSA encryptions  (Open Source)</summary>
+    <summary>Implementation for AES, RSA and AES-RSA encryptions </summary>
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Crypto Encryption Cryptography AES RSA</tags>
     <dependencies>
       <group targetFramework="uap10.0">
-        <dependency id="Capgemini.Cauldron.Core" version="1.1.4" />
-        <dependency id="Microsoft.NETCore.UniversalWindowsPlatform" version="5.2.2" />
+        <dependency id="Capgemini.Cauldron.Core" version="1.2.7" />
+        <dependency id="Microsoft.NETCore.UniversalWindowsPlatform" version="5.3.3" />
       </group>
       <group targetFramework="net452">
-        <dependency id="Capgemini.Cauldron.Core" version="1.1.4" />
+        <dependency id="Capgemini.Cauldron.Core" version="1.2.7" />
       </group>
-      <group targetFramework="netstandard1.6">
+      <!--<group targetFramework="netstandard1.6">
         <dependency id="NETStandard.Library" version="1.6.1" />
-        <dependency id="Capgemini.Cauldron.Core" version="1.1.4" />
+        <dependency id="Capgemini.Cauldron.Core" version="1.2.7" />
         <dependency id="System.Security.Cryptography.Csp" version="4.0.0" />
         <dependency id="System.Security.SecureString" version="4.3.0" />
-      </group>
+      </group>-->
     </dependencies>
   </metadata>
   <files>
@@ -38,6 +38,6 @@
     <file src="..\UWP\Cauldron.UWP.Cryptography\bin\Release\Cauldron.Cryptography**" target="lib\uap10.0" />
 
     <!-- Net Standard 1.6 -->
-    <file src="..\NetCore\Cauldron.NetCore.Cryptography\bin\Release\netstandard1.6\Cauldron.Cryptography**" target="lib\netstandard1.6" />
+    <!--<file src="..\NetCore\Cauldron.NetCore.Cryptography\bin\Release\netstandard1.6\Cauldron.Cryptography**" target="lib\netstandard1.6" />-->
   </files>
 </package>

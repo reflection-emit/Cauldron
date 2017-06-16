@@ -1,16 +1,12 @@
 ﻿using Cauldron.Core.Extensions;
+using Cauldron.Internal;
+using Newtonsoft.Json;
 using System;
+using System.ComponentModel;
 using System.IO;
 using System.Reflection;
-using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using Windows.Storage;
-
-#if ANDROID
-
-using AndroidXml = System.Xml.Serialization;
-
-#endif
 
 namespace Cauldron.Core
 {
@@ -111,60 +107,28 @@ namespace Cauldron.Core
 
             try
             {
-                var file = await folder.GetFileAsync($"{type.FullName.GetHash()}_{name}.xml");
+                var file = await folder.GetFileAsync($"{type.FullName.GetHash()}_{name}.json");
 
                 if (file == null)
                     return type.GetDefaultInstance();
-#if WINDOWS_UWP
 
-                using (var stream = await file.OpenSequentialReadAsync())
-                {
-                    var serializer = new DataContractSerializer(type);
-                    return serializer.ReadObject(stream.AsStreamForRead());
-                }
-#else
-                using (var stream = file.OpenRead())
-                {
-#if ANDROID
-                    var serializer = new AndroidXml.XmlSerializer(type);
-                    return serializer.Deserialize(stream);
-#else
-                    var serializer = new DataContractSerializer(type);
-                    return serializer.ReadObject(stream);
-#endif
-                }
-#endif
+                var content = await file.ReadTextAsync();
+                return JsonConvert.DeserializeObject(content, type);
             }
             catch (Exception e)
             {
+                // This is of those evil silent errors... But in this case we can definetely ignore this...
+                // This should only used for saving application settings like window position and other non-critical stuff
                 Output.WriteLineError(e.Message);
                 return type.GetDefaultInstance();
             }
         }
 
-#if WINDOWS_UWP
+#if DESKTOP
 
-        /// <summary>
-        /// Serializes an object.
-        /// </summary>
-        /// <param name="context">The object to serialize</param>
-        /// <param name="name">The name of the file</param>
-        /// <param name="folder">The directory where the file resides</param>
-        /// <exception cref="ArgumentNullException"><paramref name="context"/> is null</exception>
-        /// <exception cref="NotSupportedException"><paramref name="context"/> is a value type</exception>
-        public static void Serialize(object context, StorageFolder folder, string name)
-#else
-
-        /// <summary>
-        /// Serializes an object.
-        /// </summary>
-        /// <param name="context">The object to serialize</param>
-        /// <param name="name">The name of the file</param>
-        /// <param name="folder">The directory where the file resides</param>
-        /// <exception cref="ArgumentNullException"><paramref name="context"/> is null</exception>
-        /// <exception cref="NotSupportedException"><paramref name="context"/> is a value type</exception>
+        /// <exclude/>
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public static void Serialize(object context, DirectoryInfo folder, string name)
-#endif
         {
             if (context == null)
                 throw new ArgumentNullException(nameof(context));
@@ -174,43 +138,16 @@ namespace Cauldron.Core
             if (type.GetTypeInfo().IsValueType)
                 throw new NotSupportedException($"Value Types are not supported");
 
-            var ms = new MemoryStream();
+            var result = JsonConvert.SerializeObject(context);
+            var filename = Path.Combine(folder.FullName, $"{type.FullName.GetHash()}_{name}.json");
 
-#if ANDROID
-            var serializer = new AndroidXml.XmlSerializer(type);
-            serializer.Serialize(ms, context);
-#else
-            var serializer = new DataContractSerializer(type);
-            serializer.WriteObject(ms, context);
-#endif
+            if (File.Exists(filename))
+                File.Delete(filename);
 
-#if WINDOWS_UWP
-            var func = new Func<Task>(async () =>
-            {
-                var file = await folder.CreateFileAsync($"{type.FullName.GetHash()}_{name}.xml", CreationCollisionOption.ReplaceExisting).AsTask();
-
-                using (var fs = await file.OpenStreamForWriteAsync())
-                {
-                    ms.Seek(0, SeekOrigin.Begin);
-
-                    await ms.CopyToAsync(fs);
-                    await fs.FlushAsync();
-                }
-            });
-            func().RunSync();
-#else
-            var file = folder.CreateFileAsync($"{type.FullName.GetHash()}_{name}.xml", CreationCollisionOption.ReplaceExisting).RunSync();
-
-            using (var fs = file.OpenWrite())
-            {
-                ms.Seek(0, SeekOrigin.Begin);
-
-                ms.CopyTo(fs);
-                fs.Flush();
-            }
-
-#endif
+            File.WriteAllText(filename, result);
         }
+
+#endif
 
         /// <summary>
         /// Serializes an object.
@@ -254,29 +191,9 @@ namespace Cauldron.Core
             if (type.GetTypeInfo().IsValueType)
                 throw new NotSupportedException($"Value Types are not supported");
 
-            var ms = new MemoryStream();
-
-#if ANDROID
-            var serializer = new AndroidXml.XmlSerializer(type);
-            serializer.Serialize(ms, context);
-#else
-            var serializer = new DataContractSerializer(type);
-            serializer.WriteObject(ms, context);
-#endif
-
-            var file = await folder.CreateFileAsync($"{type.FullName.GetHash()}_{name}.xml", CreationCollisionOption.ReplaceExisting);
-#if WINDOWS_UWP
-
-            using (var fs = await file.OpenStreamForWriteAsync())
-#else
-            using (var fs = file.OpenWrite())
-#endif
-            {
-                ms.Seek(0, SeekOrigin.Begin);
-
-                await ms.CopyToAsync(fs);
-                await fs.FlushAsync();
-            }
+            var result = JsonConvert.SerializeObject(context);
+            var file = await folder.CreateFileAsync($"{type.FullName.GetHash()}_{name}.json", CreationCollisionOption.ReplaceExisting);
+            await file.WriteTextAsync(result);
         }
     }
 }

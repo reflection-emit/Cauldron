@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Cauldron.Core.Extensions;
+using System;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.System;
-using System.Threading;
-using Cauldron.Core.Extensions;
-using System.Linq;
 
 namespace Cauldron.Core
 {
