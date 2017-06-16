@@ -12,5 +12,7 @@
     cxaml:WindowConfiguration.Height="800" cxaml:WindowConfiguration.IsWindowPersistent="True"
     cxaml:WindowConfiguration.Icon="/StandardApplication;component/hey.ico">
 
-    <Button Width="300" Content="Open Dialog" VerticalAlignment="Center" HorizontalAlignment="Center" Command="{Binding PopupMeCommand}" />
+    <StackPanel>
+        <Button Width="300" Content="Open Dialog" VerticalAlignment="Center" HorizontalAlignment="Center" Command="{Binding PopupMeCommand}" />
+    </StackPanel>
 </UserControl>

@@ -39,7 +39,7 @@
 
                         <Border x:Name="loadingOverlay" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#33000000" Grid.Row="1"
                                 Visibility="{Binding Content.DataContext.IsLoading, Converter={StaticResource BooleanToVisibilityConverter}, RelativeSource={RelativeSource TemplatedParent}}">
-                            <ProgressBar x:Name="progress" Height="24" MaxWidth="200" HorizontalAlignment="Stretch">
+                            <ProgressBar x:Name="progress" Height="8" MaxWidth="200" HorizontalAlignment="Stretch">
                                 <ProgressBar.IsIndeterminate>
                                     <Binding Path="Content.DataContext.IsLoading" RelativeSource="{RelativeSource TemplatedParent}" />
                                 </ProgressBar.IsIndeterminate>

@@ -4,7 +4,7 @@ using System.Windows.Media;
 
 namespace Cauldron.XAML.Theme.VSLight
 {
-    [Component(typeof(ResourceDictionary), uint.MaxValue)]
+    [Component(typeof(ResourceDictionary), uint.MaxValue - 1)]
     public partial class ColorsAndBrushes
     {
         public ColorsAndBrushes()

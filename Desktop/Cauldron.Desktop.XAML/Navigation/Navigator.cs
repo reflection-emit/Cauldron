@@ -12,6 +12,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 
 namespace Cauldron.XAML.Navigation
@@ -442,7 +443,11 @@ namespace Cauldron.XAML.Navigation
 
                 return true;
             }
-            catch (Exception e)
+            catch (XamlParseException)
+            {
+                throw;
+            }
+            catch
             {
                 return false;
             }

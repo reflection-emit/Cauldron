@@ -16,6 +16,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Attached\ImageProperties.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Attached\Localized.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Attached\TextBlockProperties.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attached\TextBoxProperties.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Attributes\BehaviourUsageAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Behaviour.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BehaviourCollection.cs" />

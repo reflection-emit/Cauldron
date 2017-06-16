@@ -49,10 +49,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Behaviours\ChangeAwareIsChangedBehaviour.cs" />
+    <Compile Include="Behaviours\ProgressBarBehaviour.cs" />
     <Compile Include="CauldronTheme.cs" />
     <Compile Include="CauldronWindow.xaml.cs">
       <DependentUpon>CauldronWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ProgressBarProperties.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GrayscaleEffect.cs" />
     <Compile Include="Styles\ButtonStyle.xaml.cs">
@@ -104,6 +106,10 @@
     <ProjectReference Include="..\Cauldron.Desktop.XAML.Interactivity\Cauldron.Desktop.XAML.Interactivity.csproj">
       <Project>{d09d5044-4799-4ccf-997d-31f10b6fce24}</Project>
       <Name>Cauldron.Desktop.XAML.Interactivity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cauldron.Desktop.XAML.Validation\Cauldron.Desktop.XAML.Validation.csproj">
+      <Project>{362950dc-8fad-4675-8a74-e80a0ddf2bbd}</Project>
+      <Name>Cauldron.Desktop.XAML.Validation</Name>
     </ProjectReference>
     <ProjectReference Include="..\Cauldron.Desktop.XAML\Cauldron.Desktop.XAML.csproj">
       <Project>{a6a45af3-6c56-4906-8c5c-8ad557aa89c7}</Project>

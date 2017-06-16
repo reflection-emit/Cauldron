@@ -27,7 +27,7 @@ https://Capgemini.github.io/Cauldron/eveonline/
 - [CodeMaid](http://www.codemaid.net/)
 
 ## Release Notes
-### 1.2.0
+### 1.2.7 (1.2.0 to 1.2.6 betas)
 - NetCore Dlls droped from package due to issues with Fody - This will be back as soon as NetCore and Fody works a lot better
 - Types with the component attribute get a hard-coded CreateInstance method. The Factory will use this method to create an instance of the type. This should give the factory an instancing performance almost on par with the __new__ keyword.
 - Types that inherits or implements the following classes or interfaces are considered as components and will also recieve a CreateInstance method: ResourceDictionary, IValueConverter, INotifyPropertyChanged, FrameworkElement
@@ -46,6 +46,7 @@ https://Capgemini.github.io/Cauldron/eveonline/
   - IFactoryExtension removed - The Factory is not extensible anymore :( ... To Resolve ambigousity the IFactoryResolver can be use instead.
   - This is the current performance of the factory <br/>![Factory performance](https://raw.githubusercontent.com/Capgemini/Cauldron/feature/images/factory-performance.PNG)
 - Upgraded to the newest version of Fody
+- Minor bug fixes
 ### 1.1.4
 - Inject attribute default paramaters are now "params"
 - Assemblies class now throws a better error message if an Assembly cannot be loaded

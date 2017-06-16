@@ -10,7 +10,7 @@
 
     <DataTemplate x:Key="View_App">
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-            <ProgressBar IsIndeterminate="True" Height="24" Width="200" HorizontalAlignment="Center" Margin="10" />
+            <ProgressBar IsIndeterminate="True" Height="8" Width="200" HorizontalAlignment="Center" Margin="10" />
             <TextBlock a:Localized.Text="loading" HorizontalAlignment="Center" FontWeight="Thin" FontSize="18" />
         </StackPanel>
     </DataTemplate>

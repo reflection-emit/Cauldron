@@ -186,10 +186,7 @@ namespace Cauldron.Activator
                     return CreateArray(valueType.GetElementType(), value);
 
                 var childType = valueType.GetChildrenType();
-                result = Factory.Create(valueType);
-
-                if (result == null)
-                    result = valueType.CreateInstance();
+                result = valueType.CreateInstance();
 
                 // Check if this collection has a addrange
                 var addRange = valueType.GetMethod("AddRange", new Type[] { typeof(IEnumerable<>).MakeGenericType(childType) }, BindingFlags.Instance | BindingFlags.Public);

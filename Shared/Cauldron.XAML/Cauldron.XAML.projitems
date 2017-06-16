@@ -35,6 +35,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\BooleanInvertConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\BooleanToVisibilityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\KeyToLocalizedStringConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\NullOrEmptyToVisibilityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\ObjectToVisibilityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\VisibilityToBooleanConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewAttribute.cs" />
