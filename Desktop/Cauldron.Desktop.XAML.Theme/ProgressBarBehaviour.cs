@@ -5,7 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media.Animation;
 
-namespace Cauldron.XAML.Theme.Behaviours
+namespace Cauldron.XAML.Theme
 {
     internal sealed class ProgressBarBehaviour : Behaviour<ProgressBar>
     {

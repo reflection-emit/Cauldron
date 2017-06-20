@@ -1,12 +1,12 @@
 ﻿using Cauldron.Core;
 using Cauldron.Core.Extensions;
 using Cauldron.Internal;
-using Cauldron.XAML.Interactivity.Attached;
+using Cauldron.XAML.Interactivity;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Runtime.Serialization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -14,12 +14,12 @@ using System.Windows.Documents;
 using Windows.Storage;
 using Windows.UI.Core;
 
-namespace Cauldron.XAML.Interactivity
+namespace Cauldron.XAML.Theme
 {
     /// <summary>
     /// Provides a behaviour that implements column sorting, header width and position persisting
     /// </summary>
-    public class GridViewColumnHeaderBehaviours : Behaviour<GridView>
+    internal class GridViewColumnHeaderBehaviours : Behaviour<GridView>
     {
         private ColumnHeaderPropertiesCollection columnProperties = new ColumnHeaderPropertiesCollection();
         private DependencyObject inheritanceContext;
@@ -67,7 +67,7 @@ namespace Cauldron.XAML.Interactivity
         protected override void OnAttach()
         {
             this.AssociatedObject.AllowsColumnReorder = true;
-            this.inheritanceContext = this.AssociatedObject.GetInheritanceContext();
+            this.inheritanceContext = this.AssociatedObject.GetInheritanceContext(); // Getting Inheritance Context via Reflection is a HACK ... And will not work on native code
 
             if (this.inheritanceContext == null)
                 this.inheritanceContextChangedHandler = new DynamicEventHandler(this.AssociatedObject, "InheritanceContextChanged", (s, e) =>
@@ -340,32 +340,26 @@ namespace Cauldron.XAML.Interactivity
             }
         }
 
-        [DataContract]
         private class ColumnHeaderProperties
         {
-            [DataMember]
             public string Uid { get; set; }
 
-            [DataMember]
             public double Width { get; set; }
         }
 
-        [DataContract]
         private class ColumnHeaderPropertiesCollection
         {
-            [DataMember]
             public List<ColumnHeaderProperties> Columns { get; set; } = new List<ColumnHeaderProperties>();
 
-            [DataMember]
             public string SortedHeaderUid { get; set; }
 
+            [JsonIgnore]
             public ListSortDirection SortingDirection
             {
                 get { return (ListSortDirection)this.SortingDirectionPrimitiv; }
                 set { this.SortingDirectionPrimitiv = (int)value; }
             }
 
-            [DataMember]
             public int SortingDirectionPrimitiv { get; set; }
         }
     }

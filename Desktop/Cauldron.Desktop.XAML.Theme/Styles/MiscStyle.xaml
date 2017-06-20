@@ -3,11 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:Cauldron.XAML.Theme.Styles"
-             xmlns:localBehaviours="clr-namespace:Cauldron.XAML.Theme.Behaviours"
-             xmlns:behaviours="clr-namespace:Cauldron.XAML.Interactivity;assembly=Cauldron.XAML.Interactivity"
+             xmlns:local="clr-namespace:Cauldron.XAML.Theme"
+             xmlns:i="clr-namespace:Cauldron.XAML.Interactivity;assembly=Cauldron.XAML.Interactivity"
              xmlns:validation="clr-namespace:Cauldron.XAML.Validation;assembly=Cauldron.XAML.Validation"
-             xmlns:attached="clr-namespace:Cauldron.XAML.Interactivity.Attached;assembly=Cauldron.XAML.Interactivity"
              xmlns:t="clr-namespace:Cauldron.XAML.Theme"
              mc:Ignorable="d">
 
@@ -22,6 +20,40 @@
         <Setter Property="UseLayoutRounding" Value="True" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
+    </Style>
+
+    <Style TargetType="ContentControl">
+        <Setter Property="ContentTemplateSelector" Value="{StaticResource CauldronTemplateSelector}" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="Validation.ErrorTemplate" Value="{x:Null}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContentControl">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="{Binding Path=(i:ContentControlProperties.Header), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource KeyToLocalizedStringConverter}}"
+                                 Visibility="{Binding Path=(i:ContentControlProperties.Header), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NullOrEmptyToVisibilityConverter}, ConverterParameter=True}"
+                                 Margin="1,6,0,2" TextWrapping="NoWrap" TextAlignment="Left" TextTrimming="CharacterEllipsis" IsHitTestVisible="False" />
+
+                        <ContentPresenter Grid.Row="1"
+                          ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
+                          Content="{TemplateBinding Content}"
+                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                          Cursor="{TemplateBinding Cursor}"
+                          Margin="{TemplateBinding Padding}"
+                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <Style TargetType="ToolTip">
@@ -46,6 +78,29 @@
         </Setter>
     </Style>
 
+    <Style TargetType="GroupBox">
+        <Setter Property="Margin" Value="2,0,2,2" />
+        <Setter Property="Padding" Value="2" />
+        <Setter Property="Foreground" Value="{StaticResource {x:Static t:CauldronTheme.TextBrush}}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="GroupBox">
+                    <Grid Margin="{TemplateBinding Padding}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="27" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <ContentPresenter Margin="1,6,6,0" ContentSource="Header" RecognizesAccessKey="True" VerticalAlignment="Center" />
+                        <Rectangle VerticalAlignment="Bottom" Height="2" Fill="{StaticResource {x:Static t:CauldronTheme.AccentBrush}}" />
+                        <Border Grid.Row="1"  BorderBrush="{StaticResource {x:Static t:CauldronTheme.LightBorderBrush}}" BorderThickness="1">
+                            <ContentPresenter Margin="4" />
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style TargetType="Popup">
         <Setter Property="Placement" Value="Bottom" />
         <Setter Property="AllowsTransparency" Value="True" />
@@ -65,11 +120,11 @@
         <Setter Property="MaxWidth" Value="400" />
         <Setter Property="IsTabStop" Value="False" />
         <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="behaviours:StyleInteraction.Template">
+        <Setter Property="i:StyleInteraction.Template">
             <Setter.Value>
-                <behaviours:InteractionTemplate>
-                    <localBehaviours:ProgressBarBehaviour />
-                </behaviours:InteractionTemplate>
+                <i:InteractionTemplate>
+                    <local:ProgressBarBehaviour />
+                </i:InteractionTemplate>
             </Setter.Value>
         </Setter>
         <Setter Property="Template">
@@ -275,11 +330,11 @@
     </Style>
 
     <Style TargetType="TextBox">
-        <Setter Property="SelectionBrush" Value="{StaticResource ThemeLightAccentBrush}" />
-        <Setter Property="Foreground" Value="{StaticResource ThemeTextBrush}" />
-        <Setter Property="CaretBrush" Value="{StaticResource ThemeAccentBrush}" />
-        <Setter Property="BorderBrush" Value="{StaticResource ThemeLightBorderBrush}" />
-        <Setter Property="Background" Value="{StaticResource ThemeLightBackgroundBrush}" />
+        <Setter Property="SelectionBrush" Value="{StaticResource {x:Static t:CauldronTheme.LightAccentBrush}}" />
+        <Setter Property="Foreground" Value="{StaticResource {x:Static t:CauldronTheme.TextBrush}}" />
+        <Setter Property="CaretBrush" Value="{StaticResource {x:Static t:CauldronTheme.AccentBrush}}" />
+        <Setter Property="BorderBrush" Value="{StaticResource {x:Static t:CauldronTheme.LightBorderBrush}}" />
+        <Setter Property="Background" Value="{StaticResource {x:Static t:CauldronTheme.LightBackgroundBrush}}" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="KeyboardNavigation.TabNavigation" Value="None" />
@@ -290,11 +345,11 @@
         <Setter Property="AllowDrop" Value="true" />
         <Setter Property="AutoWordSelection" Value="True" />
         <Setter Property="Validation.ErrorTemplate" Value="{x:Null}" />
-        <Setter Property="behaviours:StyleInteraction.Template">
+        <Setter Property="i:StyleInteraction.Template">
             <Setter.Value>
-                <behaviours:InteractionTemplate>
+                <i:InteractionTemplate>
                     <validation:ValidationBehaviour />
-                </behaviours:InteractionTemplate>
+                </i:InteractionTemplate>
             </Setter.Value>
         </Setter>
         <Setter Property="Template">
@@ -307,21 +362,21 @@
                                 <VisualState x:Name="Disabled">
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ThemeBackgroundBrush}" />
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource {x:Static t:CauldronTheme.BackgroundBrush}}" />
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="ReadOnly">
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ThemeBackgroundBrush}" />
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource {x:Static t:CauldronTheme.BackgroundBrush}}" />
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="MouseOver">
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="Border">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ThemeAccentBrush}" />
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource {x:Static t:CauldronTheme.AccentBrush}}" />
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </VisualState>
@@ -345,8 +400,8 @@
                                 Background="{TemplateBinding Background}" />
 
                         <StackPanel Grid.ColumnSpan="4" Orientation="Horizontal">
-                            <TextBlock Text="{Binding Path=(attached:TextBoxProperties.Header), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource KeyToLocalizedStringConverter}}"
-                                 Visibility="{Binding Path=(attached:TextBoxProperties.Header), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NullOrEmptyToVisibilityConverter}, ConverterParameter=True}"
+                            <TextBlock Text="{Binding Path=(t:TextBoxProperties.Header), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource KeyToLocalizedStringConverter}}"
+                                 Visibility="{Binding Path=(t:TextBoxProperties.Header), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NullOrEmptyToVisibilityConverter}, ConverterParameter=True}"
                                  Margin="1,6,0,2" TextWrapping="NoWrap" TextAlignment="Left" TextTrimming="CharacterEllipsis" IsHitTestVisible="False" />
 
                             <TextBlock Text="*"
@@ -355,8 +410,8 @@
                         </StackPanel>
 
                         <TextBlock Grid.Row="1" Grid.Column="2" IsHitTestVisible="False"
-                                       Text="{Binding Path=(attached:TextBoxProperties.AlternativeText), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource KeyToLocalizedStringConverter}}"
-                                       Foreground="{StaticResource ThemeDisabledTextBrush}" Opacity="0.7" Margin="3"
+                                       Text="{Binding Path=(t:TextBoxProperties.AlternativeText), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource KeyToLocalizedStringConverter}}"
+                                       Foreground="{StaticResource {x:Static t:CauldronTheme.DisabledTextBrush}}" Opacity="0.7" Margin="3"
                                        Visibility="{Binding Path=Text, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NullOrEmptyToVisibilityConverter}, ConverterParameter=False}" />
 
                         <ScrollViewer Grid.Row="1" Grid.Column="2" Margin="3" x:Name="PART_ContentHost" TextElement.Foreground="{TemplateBinding Foreground}" />
@@ -365,10 +420,10 @@
                                      ToolTip="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(validation:ValidationProperties.Errors)}"
                                      Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(validation:ValidationProperties.HasErrors), Converter={StaticResource BooleanToVisibilityConverter}}" />
                         <TextBlock Grid.Row="1" Grid.Column="1" Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(validation:ValidationProperties.HasErrors), Converter={StaticResource BooleanToVisibilityConverter}}"
-                                       Text="!" IsHitTestVisible="False" FontFamily="Segoe UI" FontWeight="ExtraBold" Foreground="{StaticResource ThemeHoveredTextBrush}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                       Text="!" IsHitTestVisible="False" FontFamily="Segoe UI" FontWeight="ExtraBold" Foreground="{StaticResource {x:Static t:CauldronTheme.HoveredTextBrush}}" VerticalAlignment="Center" HorizontalAlignment="Center" />
 
-                        <ContentControl Margin="1" Grid.Column="3" Grid.Row="1" Template="{Binding Path=(attached:TextBoxProperties.ButtonsTemplate), RelativeSource={RelativeSource TemplatedParent}}"
-                                        Visibility="{Binding Path=(attached:TextBoxProperties.ButtonsTemplate), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ObjectToVisibilityConverter}}">
+                        <ContentControl Margin="1" Grid.Column="3" Grid.Row="1" Template="{Binding Path=(t:TextBoxProperties.ButtonsTemplate), RelativeSource={RelativeSource TemplatedParent}}"
+                                        Visibility="{Binding Path=(t:TextBoxProperties.ButtonsTemplate), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ObjectToVisibilityConverter}}">
                             <ContentControl.Resources>
                                 <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
                                     <Setter Property="MinHeight" Value="20" />
@@ -377,17 +432,17 @@
                                     <Setter Property="BorderThickness" Value="0" />
                                     <Setter Property="Padding" Value="2" />
                                     <Setter Property="Focusable" Value="False" />
-                                    <Setter Property="Background" Value="{StaticResource ThemeLightBackgroundBrush}" />
+                                    <Setter Property="Background" Value="{StaticResource {x:Static t:CauldronTheme.LightBackgroundBrush}}" />
                                 </Style>
                             </ContentControl.Resources>
                         </ContentControl>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsKeyboardFocused" Value="true">
-                            <Setter Property="BorderBrush" Value="{StaticResource ThemeAccentBrush}" />
+                            <Setter Property="BorderBrush" Value="{StaticResource {x:Static t:CauldronTheme.AccentBrush}}" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Foreground" Value="{StaticResource ThemeDisabledTextBrush}" />
+                            <Setter Property="Foreground" Value="{StaticResource {x:Static t:CauldronTheme.DisabledTextBrush}}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

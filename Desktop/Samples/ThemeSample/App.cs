@@ -22,9 +22,13 @@ namespace ThemeSample
             p.Run();
         }
 
-        protected override async Task OnStartup(LaunchActivatedEventArgs e)
+        protected override void OnResourceLoad()
         {
             CauldronTheme.SetAccentColor(Colors.GreenYellow);
+        }
+
+        protected override async Task OnStartup(LaunchActivatedEventArgs e)
+        {
             await this.Navigator.NavigateAsync(typeof(MainViewModel));
         }
     }

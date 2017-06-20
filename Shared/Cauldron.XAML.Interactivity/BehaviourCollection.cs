@@ -86,7 +86,16 @@ namespace Cauldron.XAML.Interactivity
                 base.InsertItem(index, item);
             }
 
-            if (!(this.owner is FrameworkElement))
+            var frameworkElement = this.owner as FrameworkElement;
+
+#if NETFX_CORE
+            if (frameworkElement == null /* Non FrameworkElements usually don't have a Loaded event */ ||
+                this.isOwnerLoaded)
+#else
+            if (frameworkElement == null /* Non FrameworkElements usually don't have a Loaded event */ ||
+                frameworkElement.IsLoaded /* UWP does not have an IsLoaded  */ ||
+                this.isOwnerLoaded)
+#endif
             {
                 foreach (var o in this.Items)
                 {
@@ -138,6 +147,8 @@ namespace Cauldron.XAML.Interactivity
 
         private void FrameworkElement_Unloaded(object sender, RoutedEventArgs e)
         {
+            this.isOwnerLoaded = false;
+
             foreach (var item in this.Items)
                 item.Detach();
 

@@ -111,51 +111,6 @@ namespace Cauldron.Core.Extensions
         }
 
         /// <summary>
-        /// Removes all null elements from the array.
-        /// </summary>
-        /// <typeparam name="T">The element type of the array</typeparam>
-        /// <param name="array">The array</param>
-        /// <returns>A new array with all non null elements</returns>
-        /// <exception cref="ArgumentNullException"><paramref name="array"/> is null</exception>
-        public static T[] RemoveNull<T>(this T[] array) where T : class
-        {
-            if (array == null)
-                throw new ArgumentNullException(nameof(array));
-
-            var newSize = 0;
-
-            for (int i = 0; i < array.Length; i++)
-                if (array[i] != null)
-                    newSize++;
-
-            var newArray = new T[newSize];
-            var counter = 0;
-
-            for (int i = 0; i < array.Length; i++)
-                if (array[i] != null)
-                    newArray[counter++] = array[i];
-
-            return newArray;
-        }
-
-        /// <summary>
-        /// Copies an array.
-        /// </summary>
-        /// <typeparam name="T">The element type of the array</typeparam>
-        /// <param name="array">The array</param>
-        /// <returns>A new array that contains the same elements as <paramref name="array"/></returns>
-        /// <exception cref="ArgumentNullException"><paramref name="array"/> is null</exception>
-        public static T[] Copy<T>(this T[] array)
-        {
-            if (array == null)
-                throw new ArgumentNullException(nameof(array));
-
-            var result = Array.CreateInstance(typeof(T), array.Length);
-            Array.Copy(array, result, array.Length);
-            return (T[])result;
-        }
-
-        /// <summary>
         /// Concatenates two arrays together creating a new array containing both arrays
         /// </summary>
         /// <typeparam name="T">The element type of the array</typeparam>
@@ -191,6 +146,23 @@ namespace Cauldron.Core.Extensions
         /// <returns>True if the value parameter occurs within this string, or if value is the empty string (""); otherwise, false.</returns>
         public static bool Contains(this string text, string value, StringComparison comparisonType) =>
             text.IndexOf(value, comparisonType) >= 0;
+
+        /// <summary>
+        /// Copies an array.
+        /// </summary>
+        /// <typeparam name="T">The element type of the array</typeparam>
+        /// <param name="array">The array</param>
+        /// <returns>A new array that contains the same elements as <paramref name="array"/></returns>
+        /// <exception cref="ArgumentNullException"><paramref name="array"/> is null</exception>
+        public static T[] Copy<T>(this T[] array)
+        {
+            if (array == null)
+                throw new ArgumentNullException(nameof(array));
+
+            var result = Array.CreateInstance(typeof(T), array.Length);
+            Array.Copy(array, result, array.Length);
+            return (T[])result;
+        }
 
         /// <summary>
         /// Creates a new instance of System.String with the same value as a specified System.String.
@@ -811,6 +783,34 @@ namespace Cauldron.Core.Extensions
         }
 
         /// <summary>
+        /// Removes all null elements from the array.
+        /// </summary>
+        /// <typeparam name="T">The element type of the array</typeparam>
+        /// <param name="array">The array</param>
+        /// <returns>A new array with all non null elements</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="array"/> is null</exception>
+        public static T[] RemoveNull<T>(this T[] array) where T : class
+        {
+            if (array == null)
+                throw new ArgumentNullException(nameof(array));
+
+            var newSize = 0;
+
+            for (int i = 0; i < array.Length; i++)
+                if (array[i] != null)
+                    newSize++;
+
+            var newArray = new T[newSize];
+            var counter = 0;
+
+            for (int i = 0; i < array.Length; i++)
+                if (array[i] != null)
+                    newArray[counter++] = array[i];
+
+            return newArray;
+        }
+
+        /// <summary>
         /// Replaces a series of chars <paramref name="oldChars"/> with a single char <paramref name="newChar"/>.
         /// </summary>
         /// <param name="value">The string with the chars to replace</param>
@@ -834,6 +834,29 @@ namespace Cauldron.Core.Extensions
             var result = value.Copy();
             result.ReplaceMe(oldChars, newChar, startingIndex);
             return result;
+        }
+
+        /// <summary>
+        /// Replaces a char in the given index with <paramref name="newChar"/>
+        /// </summary>
+        /// <param name="value">The string to replace the char</param>
+        /// <param name="index">The index of the char</param>
+        /// <param name="newChar">The new char</param>
+        /// <exception cref="ArgumentNullException">value is null</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="index"/> is higher than <paramref name="value"/> length</exception>
+        public unsafe static void Replace(this string value, uint index, char newChar)
+        {
+            if (value == null)
+                throw new ArgumentNullException(nameof(value));
+
+            if (value.Length < index)
+                throw new ArgumentOutOfRangeException("index cannot be higher than value length");
+
+            if (value.Length == 0)
+                return;
+
+            fixed (char* chr = value)
+                *(chr + index) = newChar;
         }
 
         /// <summary>
@@ -866,29 +889,6 @@ namespace Cauldron.Core.Extensions
                         if (valueChar == oldChars[x])
                             *(chr + i) = newChar;
                 }
-        }
-
-        /// <summary>
-        /// Replaces a char in the given index with <paramref name="newChar"/>
-        /// </summary>
-        /// <param name="value">The string to replace the char</param>
-        /// <param name="index">The index of the char</param>
-        /// <param name="newChar">The new char</param>
-        /// <exception cref="ArgumentNullException">value is null</exception>
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="index"/> is higher than <paramref name="value"/> length</exception>
-        public unsafe static void Replace(this string value, uint index, char newChar)
-        {
-            if (value == null)
-                throw new ArgumentNullException(nameof(value));
-
-            if (value.Length < index)
-                throw new ArgumentOutOfRangeException("index cannot be higher than value length");
-
-            if (value.Length == 0)
-                return;
-
-            fixed (char* chr = value)
-                *(chr + index) = newChar;
         }
 
         /// <summary>

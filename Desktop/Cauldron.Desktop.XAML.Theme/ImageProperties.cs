@@ -1,20 +1,11 @@
 ﻿using Cauldron.Core;
 using System;
-using Windows.UI.Core;
-
-#if WINDOWS_UWP
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media.Animation;
-#else
-
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
-using System.Windows;
+using Windows.UI.Core;
 
-#endif
-
-namespace Cauldron.XAML.Interactivity.Attached
+namespace Cauldron.XAML.Theme
 {
     /// <summary>
     /// Provides attached properties for the <see cref="Image"/> control

@@ -3,12 +3,12 @@ using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Documents;
 
-namespace Cauldron.XAML.Interactivity.Attached
+namespace Cauldron.XAML.Extended
 {
     /// <summary>
     /// Provides Attached Properties to <see cref="Hyperlink"/> that has the <see cref="LauncherOptions.TreatAsUntrusted"/> property set to false
     /// </summary>
-    public static class HyperlinkProperties
+    internal static class HyperlinkProperties
     {
         #region Dependency Attached Property NavigateUri
 

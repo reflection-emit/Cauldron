@@ -4,7 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
-namespace Cauldron.XAML.Interactivity.Attached
+namespace Cauldron.XAML.Interactivity
 {
     /// <summary>
     /// An attach property that can assign a cursor to a <see cref="FrameworkElement"/>

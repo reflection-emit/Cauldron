@@ -49,6 +49,6 @@
     <Color x:Key="{x:Static t:CauldronTheme.ComboBoxArrowColor}">WhiteSmoke</Color>
     <SolidColorBrush x:Key="{x:Static t:CauldronTheme.ComboBoxArrowBrush}" Color="{StaticResource {x:Static t:CauldronTheme.ComboBoxArrowColor}}" />
 
-    <Color x:Key="{x:Static t:CauldronTheme.DropdownBackgroundColor}">#F6F6F6</Color>
+    <Color x:Key="{x:Static t:CauldronTheme.DropdownBackgroundColor}">#686868</Color>
     <SolidColorBrush x:Key="{x:Static t:CauldronTheme.DropdownBackgroundBrush}" Color="{StaticResource {x:Static t:CauldronTheme.DropdownBackgroundColor}}" />
 </ResourceDictionary>

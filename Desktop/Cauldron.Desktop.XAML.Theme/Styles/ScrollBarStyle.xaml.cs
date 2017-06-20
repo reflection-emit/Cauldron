@@ -3,11 +3,11 @@ using System.Windows;
 
 namespace Cauldron.XAML.Theme.Styles
 {
-    [Component(typeof(ResourceDictionary), 10)]
-    public partial class MiscStyle
+    [Component(typeof(ResourceDictionary), 11)]
+    public partial class ScrollBarStyle
     {
         [ComponentConstructor]
-        public MiscStyle()
+        public ScrollBarStyle()
         {
             InitializeComponent();
         }

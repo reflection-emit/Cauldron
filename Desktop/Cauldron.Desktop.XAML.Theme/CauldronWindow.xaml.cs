@@ -1,6 +1,5 @@
 ﻿using Cauldron.Core;
 using Cauldron.Core.Extensions;
-using Cauldron.XAML.Theme.Resources;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;

@@ -18,9 +18,9 @@
             <RowDefinition />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <TextBlock i:TextBlockInline.TextBlockInline="{Binding Title}" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Left" IsHitTestVisible="False" Margin="0,5" />
+        <TextBlock i:TextBlockInline.Inline="{Binding Title}" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Left" IsHitTestVisible="False" Margin="0,5" />
         <Image Source="{Binding Icon}" Width="32" Height="32" Margin="0,3,10,3" Grid.Row="1" Visibility="{Binding Icon, Converter={StaticResource ObjectToVisibilityConverter}}" />
-        <TextBlock i:TextBlockInline.TextBlockInline="{Binding Message}" Grid.Column="1" Grid.Row="1" Margin="0,7,0,0" VerticalAlignment="Center" HorizontalAlignment="{Binding HorizontalAlignment}" IsHitTestVisible="False" />
+        <TextBlock i:TextBlockInline.Inline="{Binding Message}" Grid.Column="1" Grid.Row="1" Margin="0,7,0,0" VerticalAlignment="Center" HorizontalAlignment="{Binding HorizontalAlignment}" IsHitTestVisible="False" />
         <ItemsControl Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" ItemsSource="{Binding Buttons}" Margin="0,20,0,0">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>

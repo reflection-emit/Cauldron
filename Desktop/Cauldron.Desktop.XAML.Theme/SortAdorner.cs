@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
 
-namespace Cauldron.XAML.Interactivity
+namespace Cauldron.XAML.Theme
 {
     /// <summary>
     /// Decorates an Element with an up-arrow and down-arrow

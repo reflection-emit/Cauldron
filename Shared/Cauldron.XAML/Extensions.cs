@@ -20,6 +20,7 @@ using Windows.UI.Xaml.Media;
 using Windows.Graphics.Imaging;
 using Windows.UI.Xaml.Data;
 using Windows.Storage;
+using Windows.UI.Xaml.Controls;
 
 #else
 
@@ -27,7 +28,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows;
-
+using System.Windows.Controls;
 #endif
 
 namespace Cauldron.XAML
@@ -433,6 +434,28 @@ namespace Cauldron.XAML
             }
         }
 
+        /// <summary>
+        /// Set the inlined content of the <see cref="TextBlock"/>. This will clear the previous inline elements.
+        /// If <paramref name="text"/> is null then previous inline will also be cleared.
+        /// </summary>
+        /// <param name="textBlock">The <see cref="TextBlock"/> to set the inline elements to.</param>
+        /// <param name="text">The XAML formated text.</param>
+        public static void SetInlinedText(this TextBlock textBlock, string text)
+        {
+            if (text == null)
+            {
+                textBlock.Inlines.Clear();
+                return;
+            }
+
+            if (text.StartsWith("<Inline>") && text.EndsWith("</Inline>"))
+            {
+                textBlock.Inlines.Clear();
+                textBlock.Inlines.Add(XAMLHelper.ParseToInline(text));
+            }
+            else
+                textBlock.Text = text;
+        }
         /// <summary>
         /// Saves the visuals of a <see cref="FrameworkElement"/> to a png file
         /// </summary>

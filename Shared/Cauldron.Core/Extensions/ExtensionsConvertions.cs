@@ -554,6 +554,13 @@ namespace Cauldron.Core.Extensions
         public static double ToDouble(this string target) => target.ToDouble(cultureInfo.NumberFormat);
 
         /// <summary>
+        /// Returns a double-precision floating point number converted from eight bytes at a specified position in a byte array.
+        /// </summary>
+        /// <param name="target">The byte array to convert to its double representation</param>
+        /// <returns>The double-precision floating point number value of the byte array</returns>
+        public static double ToDouble(this byte[] target) => BitConverter.ToDouble(target, 0);
+
+        /// <summary>
         /// Converts the string representation of a number in a specified culture-specific format to its double-precision floating-point number equivalent.
         /// if the string content is "nan" then a <see cref="double.NaN"/> is returned.
         /// </summary>
@@ -596,6 +603,13 @@ namespace Cauldron.Core.Extensions
         /// <returns>A single-precision floating-point number equivalent to the numeric value or symbol specified in <paramref name="target"/>.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="target"/> is null</exception>
         public static float ToFloat(this string target) => target.ToFloat(cultureInfo.NumberFormat);
+
+        /// <summary>
+        /// Returns a single-precision floating point number converted from four bytes at a specified position in a byte array.
+        /// </summary>
+        /// <param name="target">The byte array to convert</param>
+        /// <returns>The single-precision floating point number representaion of the byte array</returns>
+        public static float ToFloat(this byte[] target) => BitConverter.ToSingle(target, 0);
 
         /// <summary>
         /// Converts the string representation of a number in a specified style and culture-specific format to its single-precision floating-point number equivalent.

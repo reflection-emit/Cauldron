@@ -1,26 +1,10 @@
-﻿#if WINDOWS_UWP
-
-using Cauldron.Core;
-using System;
-using System.Threading.Tasks;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
-
-#else
-
-using System;
+﻿using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
-#endif
-
-namespace Cauldron.XAML.Interactivity.Attached
+namespace Cauldron.XAML.Theme
 {
     /// <summary>
     /// Provides attached properties for the <see cref="Button"/> control

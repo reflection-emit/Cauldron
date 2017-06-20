@@ -1,6 +1,7 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 
-namespace Cauldron.XAML.Interactivity.Attached
+namespace Cauldron.XAML.Theme
 {
     /// <summary>
     /// Provides attached properties for the <see cref="GridViewColumn"/> control

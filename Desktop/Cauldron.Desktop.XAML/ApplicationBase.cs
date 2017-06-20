@@ -365,7 +365,7 @@ namespace Cauldron.XAML
                     window.Icon = await Win32Api.ExtractAssociatedIcon(Assembly.GetEntryAssembly().Location).ToBitmapImageAsync();
                     window.Title = ApplicationInfo.ApplicationName;
 
-                    await PersistentWindowInformation.Load(window, this.GetType());
+                    PersistentWindowInformation.Load(window, this.GetType());
 
                     window.SizeChanged += (s, e1) =>
                     {
@@ -375,7 +375,7 @@ namespace Cauldron.XAML
                             PersistentWindowProperties.SetWidth(window, e1.NewSize.Width);
                         }
                     };
-                    window.Closing += async (s, e1) => await PersistentWindowInformation.Save(window, this.GetType());
+                    window.Closing += (s, e1) => PersistentWindowInformation.Save(window, this.GetType());
 
                     window.Show();
 

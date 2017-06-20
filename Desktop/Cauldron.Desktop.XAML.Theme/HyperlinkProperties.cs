@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Documents;
 
-namespace Cauldron.XAML.Interactivity.Attached
+namespace Cauldron.XAML.Theme
 {
     /// <summary>
     /// Provides Attached Properties to <see cref="Hyperlink"/>

@@ -15,7 +15,7 @@ using System.Windows.Controls;
 
 #endif
 
-namespace Cauldron.XAML.Interactivity.Attached
+namespace Cauldron.XAML.Interactivity
 {
     /// <summary>
     /// Provides Attached Properties to enable localization in controls.

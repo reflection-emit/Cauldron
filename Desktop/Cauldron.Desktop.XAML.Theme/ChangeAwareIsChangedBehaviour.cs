@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
-namespace Cauldron.XAML.Theme.Behaviours
+namespace Cauldron.XAML.Theme
 {
     internal class ChangeAwareIsChangedBehaviour : Behaviour<TextBlock>
     {

@@ -1,4 +1,6 @@
-﻿namespace Cauldron.XAML.Interactivity
+﻿using System.Windows.Controls;
+
+namespace Cauldron.XAML.Theme
 {
     /// <summary>
     /// Describes the formatting of the the <see cref="GridViewColumn"/> cells

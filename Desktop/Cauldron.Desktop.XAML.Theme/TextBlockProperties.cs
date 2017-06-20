@@ -1,25 +1,8 @@
-﻿#if WINDOWS_UWP
-
-using Cauldron.Core;
-using System;
-using System.Threading.Tasks;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
-
-#else
-
-using System;
+﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
-#endif
-
-namespace Cauldron.XAML.Interactivity.Attached
+namespace Cauldron.XAML.Theme
 {
     /// <summary>
     /// Provides attached properties for the <see cref="Button"/> control
@@ -61,19 +44,7 @@ namespace Cauldron.XAML.Interactivity.Attached
             if (textBlock == null)
                 throw new NotSupportedException($"This attached property can only be attached to a {typeof(TextBlock).FullName}");
 
-            if (string.IsNullOrEmpty(value))
-            {
-                textBlock.Inlines.Clear();
-                return;
-            }
-
-            if (value.StartsWith("<Inline>") && value.EndsWith("</Inline>"))
-            {
-                textBlock.Inlines.Clear();
-                textBlock.Inlines.Add(XAMLHelper.ParseToInline(value));
-            }
-            else
-                textBlock.Text = value;
+            textBlock.SetInlinedText(value);
         }
 
         #endregion Dependency Attached Property Inline

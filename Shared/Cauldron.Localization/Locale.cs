@@ -83,6 +83,11 @@ namespace Cauldron.Localization
         }
 
         /// <summary>
+        /// Gets or sets a value that indicates if a localization for the given key is missing.
+        /// </summary>
+        public char MissingLocalizationIndicator { get; set; } = '♦';
+
+        /// <summary>
         /// Gets the localized string with the specified key
         /// <para />
         /// Returns null if the key was not found
@@ -101,7 +106,7 @@ namespace Cauldron.Localization
                 if (this.source.TryGetValue(key, out result))
                     return result.GetValue(this.CultureInfo.TwoLetterISOLanguageName);
 
-                return key + "*"; // indicates that the localization was not provided. Someone has to do his homework
+                return key + " " + this.MissingLocalizationIndicator; // indicates that the localization was not provided. Someone has to do his homework
             }
         }
 

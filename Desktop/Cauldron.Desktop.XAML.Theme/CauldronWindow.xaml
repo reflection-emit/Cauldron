@@ -4,9 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Cauldron.XAML.Theme"
-             xmlns:attached="clr-namespace:Cauldron.XAML.Interactivity.Attached;assembly=Cauldron.XAML.Interactivity"
              xmlns:behaviour="clr-namespace:Cauldron.XAML.Interactivity;assembly=Cauldron.XAML.Interactivity"
-             xmlns:localbehaviour="clr-namespace:Cauldron.XAML.Theme.Behaviours"
              xmlns:t="clr-namespace:Cauldron.XAML.Theme"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300"
@@ -37,13 +35,9 @@
                         Background="{StaticResource ThemeBackgroundBrush}"
                         BorderBrush="{StaticResource {x:Static t:CauldronTheme.AccentBrush}}"
                         BorderThickness="1"
-                        Margin="5"
+                        Margin="0"
                         VerticalAlignment="Stretch"
                         HorizontalAlignment="Stretch">
-                    <Border.Effect>
-                        <DropShadowEffect BlurRadius="9" Color="{StaticResource {x:Static t:CauldronTheme.AccentColor}}" Direction="0" Opacity="1" ShadowDepth="0" RenderingBias="Performance" />
-                    </Border.Effect>
-
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="26" />
@@ -114,17 +108,17 @@
 
                             <TextBlock x:Name="title" Margin="6,0,0,0" IsHitTestVisible="False" VerticalAlignment="Center" Text="{TemplateBinding Title}" TextAlignment="Left" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
                             <TextBlock Foreground="{Binding Foreground, ElementName=title}" IsHitTestVisible="False" Margin="2,6,0,0" Text="*">
-                                    <behaviour:Interaction.Behaviours>
+                                    <!--<behaviour:Interaction.Behaviours>
                                         <localbehaviour:ChangeAwareIsChangedBehaviour />
-                                    </behaviour:Interaction.Behaviours>
+                                    </behaviour:Interaction.Behaviours>-->
                             </TextBlock>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Grid.Column="2">
-                            <Button FontFamily="Webdings" FontSize="16" Focusable="False" attached:Localized.Tooltip="Minimize" x:Name="MinimizeButton" Content="&#x0030;" Style="{StaticResource TitleBarButtonStyle}" Click="MinimizeButton_Click" />
-                            <Button FontFamily="Webdings" FontSize="16" Focusable="False" attached:Localized.Tooltip="Restore Down" x:Name="RestoreButton" Content="&#x0032;" Style="{StaticResource TitleBarButtonStyle}" Click="RestoreButton_Click" />
-                            <Button FontFamily="Webdings" FontSize="16" Focusable="False" attached:Localized.Tooltip="Maximize" x:Name="MaximizeButton" Content="&#x0031;" Style="{StaticResource TitleBarButtonStyle}" Click="MaximizeButton_Click" />
-                            <Button FontFamily="Webdings" FontSize="16" Focusable="False" attached:Localized.Tooltip="Close" x:Name="CloseButton" Content="&#x0072;" Style="{StaticResource TitleBarButtonStyle}" Click="CloseButton_Click" />
+                            <Button FontFamily="Webdings" FontSize="16" Focusable="False" behaviour:Localized.Tooltip="Minimize" x:Name="MinimizeButton" Content="&#x0030;" Style="{StaticResource TitleBarButtonStyle}" Click="MinimizeButton_Click" />
+                            <Button FontFamily="Webdings" FontSize="16" Focusable="False" behaviour:Localized.Tooltip="Restore Down" x:Name="RestoreButton" Content="&#x0032;" Style="{StaticResource TitleBarButtonStyle}" Click="RestoreButton_Click" />
+                            <Button FontFamily="Webdings" FontSize="16" Focusable="False" behaviour:Localized.Tooltip="Maximize" x:Name="MaximizeButton" Content="&#x0031;" Style="{StaticResource TitleBarButtonStyle}" Click="MaximizeButton_Click" />
+                            <Button FontFamily="Webdings" FontSize="16" Focusable="False" behaviour:Localized.Tooltip="Close" x:Name="CloseButton" Content="&#x0072;" Style="{StaticResource TitleBarButtonStyle}" Click="CloseButton_Click" />
                         </StackPanel>
 
                         <ContentControl Grid.Column="1" Template="{Binding Path=(local:WindowToolbar.Template), RelativeSource={RelativeSource TemplatedParent}}" Focusable="False"

@@ -5,26 +5,32 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:ThemeSample.Views"
              xmlns:cauldron="clr-namespace:Cauldron.XAML;assembly=Cauldron.XAML"
+             xmlns:theme="clr-namespace:Cauldron.XAML.Theme;assembly=Cauldron.XAML.Theme"
              mc:Ignorable="d"
+             cauldron:WindowConfiguration.IsWindowPersistent="True"
              d:DesignHeight="300" d:DesignWidth="300">
-    <StackPanel Margin="20" VerticalAlignment="Center" HorizontalAlignment="Center" cauldron:WindowConfiguration.IsWindowPersistent="True">
-        <TextBlock Text="Button" />
-        <Button Content="Button" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20" />
-        <TextBlock Text="Indeterminate ProgressBar" />
-        <ProgressBar IsIndeterminate="True" Margin="20" />
-        <TextBlock Text="ProgressBar" />
-        <ProgressBar Margin="20">
-            <ProgressBar.Triggers>
-                <EventTrigger RoutedEvent="ProgressBar.Loaded">
-                    <BeginStoryboard>
-                        <Storyboard>
-                            <DoubleAnimation Storyboard.TargetProperty="Value" From="0" To="100" RepeatBehavior="Forever" Duration="0:0:8" AccelerationRatio="0.4" DecelerationRatio="0.6" />
-                        </Storyboard>
-                    </BeginStoryboard>
-                </EventTrigger>
-            </ProgressBar.Triggers>
-        </ProgressBar>
-        <TextBlock Text="TextBox" />
-        <TextBox Width="300" />
-    </StackPanel>
+    <Expander Header="Expander" Width="300">
+        <StackPanel>
+            <TextBlock Text="Button" />
+            <Button Content="Button" HorizontalAlignment="Left" Margin="10" />
+            <TextBlock Text="Indeterminate ProgressBar" />
+            <ProgressBar IsIndeterminate="True" Margin="10" />
+            <TextBlock Text="ProgressBar" />
+            <ProgressBar Margin="10">
+                <ProgressBar.Triggers>
+                    <EventTrigger RoutedEvent="ProgressBar.Loaded">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="Value" From="0" To="100" RepeatBehavior="Forever" Duration="0:0:8" AccelerationRatio="0.4" DecelerationRatio="0.6" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </ProgressBar.Triggers>
+            </ProgressBar>
+            <TextBox theme:TextBoxProperties.Header="TextBox" Margin="10" />
+            <ScrollBar Orientation="Horizontal" Minimum="0" Maximum="100" Value="50" />
+            <GroupBox Header="GroupBox" Height="100">
+            </GroupBox>
+        </StackPanel>
+    </Expander>
 </UserControl>

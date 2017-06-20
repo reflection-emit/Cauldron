@@ -282,7 +282,7 @@ namespace Cauldron.XAML.Navigation
             view.InputBindings.Clear();
 
             if (WindowConfiguration.GetIsWindowPersistent(view))
-                await PersistentWindowInformation.Load(window, viewModel.GetType());
+                PersistentWindowInformation.Load(window, viewModel.GetType());
 
             // set the window owner
             if (window.Tag != MainWindowTag && WindowConfiguration.GetHasOwner(view))

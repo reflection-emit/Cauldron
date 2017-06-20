@@ -1,6 +1,11 @@
-﻿#if WINDOWS_UWP
+﻿using System;
+
+#if WINDOWS_UWP
+
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+
 #else
 
 using System.Windows;
@@ -12,54 +17,44 @@ namespace Cauldron.XAML
 {
     internal static class TextBlockInline
     {
-        #region Dependency Attached Property TextBlockInline
+        #region Dependency Attached Property Inline
 
         /// <summary>
-        /// Identifies the TextBlockInline dependency property
+        /// Identifies the Inline dependency property
         /// </summary>
-        public static readonly DependencyProperty TextBlockInlineProperty = DependencyProperty.RegisterAttached("TextBlockInline", typeof(string), typeof(TextBlockInline), new PropertyMetadata(null, OnTextBlockInlineChanged));
+        public static readonly DependencyProperty InlineProperty = DependencyProperty.RegisterAttached("Inline", typeof(string), typeof(TextBlockInline), new PropertyMetadata(null, OnInlineChanged));
 
         /// <summary>
-        /// Gets the value of TextBlockInline
+        /// Gets the value of Inline
         /// </summary>
         /// <param name="obj"><see cref="DependencyObject" /> with the attached property</param>
         /// <returns>The value of the attached property</returns>
-        public static string GetTextBlockInline(DependencyObject obj)
+        public static string GetInline(DependencyObject obj)
         {
-            return (string)obj.GetValue(TextBlockInlineProperty);
+            return (string)obj.GetValue(InlineProperty);
         }
 
         /// <summary>
-        /// Sets the value of the TextBlockInline attached property
+        /// Sets the value of the Inline attached property
         /// </summary>
         /// <param name="obj"><see cref="DependencyObject" /> with the attached property</param>
         /// <param name="value">The new value to set</param>
-        public static void SetTextBlockInline(DependencyObject obj, string value)
+        public static void SetInline(DependencyObject obj, string value)
         {
-            obj.SetValue(TextBlockInlineProperty, value);
+            obj.SetValue(InlineProperty, value);
         }
 
-        private static void OnTextBlockInlineChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
+        private static void OnInlineChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
         {
             var textBlock = dependencyObject as TextBlock;
-
-            if (textBlock == null)
-                return;
-
             var value = args.NewValue as string;
 
-            if (value == null)
-                return;
+            if (textBlock == null)
+                throw new NotSupportedException($"This attached property can only be attached to a {typeof(TextBlock).FullName}");
 
-            if (value.StartsWith("<Inline>") && value.EndsWith("</Inline>"))
-            {
-                textBlock.Inlines.Clear();
-                textBlock.Inlines.Add(XAMLHelper.ParseToInline(value));
-            }
-            else
-                textBlock.Text = value;
+            textBlock.SetInlinedText(value);
         }
 
-        #endregion Dependency Attached Property TextBlockInline
+        #endregion Dependency Attached Property Inline
     }
 }

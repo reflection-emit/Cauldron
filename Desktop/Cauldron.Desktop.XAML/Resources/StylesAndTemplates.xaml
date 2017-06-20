@@ -35,19 +35,4 @@
             </Setter.Value>
         </Setter>
     </Style>
-
-    <Style TargetType="ListViewItem">
-        <Setter Property="SnapsToDevicePixels" Value="True" />
-        <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-        <Setter Property="HorizontalAlignment" Value="Stretch" />
-        <Setter Property="MinHeight" Value="20" />
-        <Setter Property="Background" Value="Transparent" />
-        <Style.Triggers>
-            <Trigger Property="ItemsControl.AlternationIndex" Value="0">
-                <Setter Property="Background" Value="#11000000" />
-            </Trigger>
-        </Style.Triggers>
-    </Style>
 </ResourceDictionary>
