@@ -11,7 +11,7 @@
     <iconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>The activator is a simple and very fast dependency injection framework. It is based on attributes and does not require any configuration files for configuration. It also supports using static methods as component constructor.</description>
-    <summary>Simple Extensible Dependency Injection Framework</summary>
+    <summary>Simple Dependency Injection Framework</summary>
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Activator Dependency Injection Factory Cauldron</tags>
     <dependencies>
