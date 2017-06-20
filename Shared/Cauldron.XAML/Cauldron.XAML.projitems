@@ -45,6 +45,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\INavigable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\IPrelaunchAware.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ISizeAware.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ISplashscreen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\IViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MessageDialogCommandViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MessageDialogViewModel.cs" />

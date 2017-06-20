@@ -259,7 +259,7 @@ namespace Cauldron.XAML.Navigation
             window.SizeToContent = WindowConfiguration.GetSizeToContent(view);
 
             // Special stuff for splashscreens
-            if (WindowConfiguration.GetIsMainWindow(view))
+            if (viewModel is ISplashscreen)
                 window.Tag = MainWindowTag;
 
             if (Application.Current.MainWindow != null && window.Tag == MainWindowTag)
@@ -311,9 +311,7 @@ namespace Cauldron.XAML.Navigation
             window.Closing += (s, e) =>
             {
                 if (WindowConfiguration.GetIsWindowPersistent(view))
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
                     PersistentWindowInformation.Save(window, viewModel.GetType());
-#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 
                 var canClose = viewModel as IFrameAware;
 
@@ -364,7 +362,7 @@ namespace Cauldron.XAML.Navigation
                 var viewAttrib = viewModelType.GetCustomAttribute<ViewAttribute>(false);
                 if (viewAttrib != null)
                     // Create the view - use the activator, since we dont expect any code in the view
-                    windowInfo = await CreateDefaultWindow(callback1, callback2, viewAttrib.ViewType.CreateInstance() as FrameworkElement, viewModel);
+                    windowInfo = await CreateDefaultWindow(callback1, callback2, Factory.Create(viewAttrib.ViewType) as FrameworkElement, viewModel);
                 else // The viewmodel does not have a defined view... Maybe we have a data template instead
                 {
                     // we always prefer our selector, because it rocks

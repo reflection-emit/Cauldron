@@ -6,14 +6,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:i="using:Cauldron.XAML.Interactivity"
-    xmlns:a="using:Cauldron.XAML.Interactivity.Attached"
     xmlns:controls="using:Cauldron.XAML.Controls"
     mc:Ignorable="d">
 
     <DataTemplate x:Key="View_App">
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
             <ProgressRing IsActive="True" Height="64" Width="64" HorizontalAlignment="Center" Margin="10" />
-            <TextBlock a:Localized.Text="loading" HorizontalAlignment="Center" FontWeight="Thin" FontSize="18" />
+            <TextBlock i:Localized.Text="loading" HorizontalAlignment="Center" FontWeight="Thin" FontSize="18" />
         </StackPanel>
     </DataTemplate>
 </ResourceDictionary>

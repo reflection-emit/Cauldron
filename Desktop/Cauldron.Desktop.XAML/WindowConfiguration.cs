@@ -353,35 +353,6 @@ namespace Cauldron.XAML
 
         #endregion Dependency Attached Property WindowState
 
-        #region Dependency Attached Property IsMainWindow
-
-        /// <summary>
-        /// Identifies the IsMainWindow dependency property
-        /// </summary>
-        public static readonly DependencyProperty IsMainWindowProperty = DependencyProperty.RegisterAttached("IsMainWindow", typeof(bool), typeof(WindowConfiguration), new PropertyMetadata(false));
-
-        /// <summary>
-        /// Gets the value of IsMainWindow
-        /// </summary>
-        /// <param name="obj"><see cref="DependencyObject" /> with the attached property</param>
-        /// <returns>The value of the attached property</returns>
-        public static bool GetIsMainWindow(DependencyObject obj)
-        {
-            return (bool)obj.GetValue(IsMainWindowProperty);
-        }
-
-        /// <summary>
-        /// Sets the value of the IsMainWindow attached property
-        /// </summary>
-        /// <param name="obj"><see cref="DependencyObject" /> with the attached property</param>
-        /// <param name="value">The new value to set</param>
-        public static void SetIsMainWindow(DependencyObject obj, bool value)
-        {
-            obj.SetValue(IsMainWindowProperty, value);
-        }
-
-        #endregion Dependency Attached Property IsMainWindow
-
         #region Dependency Attached Property HasOwner
 
         /// <summary>
