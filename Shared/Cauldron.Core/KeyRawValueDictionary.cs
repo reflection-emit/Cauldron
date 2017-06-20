@@ -6,16 +6,43 @@ using System.Text;
 
 namespace Cauldron.Core
 {
+    /// <summary>
+    /// Represents a collection of key and <see cref="RawValue"/>.
+    /// </summary>
     public sealed class KeyRawValueDictionary : Dictionary<string, RawValue>
     {
+        /// <summary>
+        /// Adds the specified key and value to the dictionary
+        /// </summary>
+        /// <param name="key">The key of the element to add.</param>
+        /// <param name="value">The value of the element to add.</param>
         public void Add(string key, int value) => this.Add(key, new RawValue(value.ToBytes()));
 
+        /// <summary>
+        /// Adds the specified key and value to the dictionary
+        /// </summary>
+        /// <param name="key">The key of the element to add.</param>
+        /// <param name="value">The value of the element to add.</param>
         public void Add(string key, double value) => this.Add(key, new RawValue(value.ToBytes()));
 
+        /// <summary>
+        /// Adds the specified key and value to the dictionary
+        /// </summary>
+        /// <param name="key">The key of the element to add.</param>
+        /// <param name="value">The value of the element to add.</param>
         public void Add(string key, float value) => this.Add(key, new RawValue(value.ToBytes()));
 
+        /// <summary>
+        /// Adds the specified key and value to the dictionary
+        /// </summary>
+        /// <param name="key">The key of the element to add.</param>
+        /// <param name="value">The value of the element to add.</param>
         public void Add(string key, string value) => this.Add(key, new RawValue(Encoding.UTF8.GetBytes(value)));
 
+        /// <summary>
+        /// Deserialize the serialized <see cref="RawValue"/> and adds these value to the existing items.
+        /// </summary>
+        /// <param name="bytes">The bytes representation of the <see cref="RawValue"/>s</param>
         public void Deserialize(byte[] bytes)
         {
             var currentPosition = 0;
@@ -60,6 +87,9 @@ namespace Cauldron.Core
         }
     }
 
+    /// <summary>
+    /// Represents the raw values that can be freely converted to int, double, float or string
+    /// </summary>
     public sealed class RawValue : IEqualityComparer<RawValue>
     {
         private byte[] raw;
@@ -74,6 +104,12 @@ namespace Cauldron.Core
 
         internal byte[] Raw { get { return this.raw; } }
 
+        /// <summary>
+        /// Determines whether the specified object are equal
+        /// </summary>
+        /// <param name="x">The first object of type <see cref="RawValue"/> to compare</param>
+        /// <param name="y">The second object of type <see cref="RawValue"/> to compare</param>
+        /// <returns>True if the specified objects are equal; otherwise, false</returns>
         public bool Equals(RawValue x, RawValue y)
         {
             if (x == null && y == null)
@@ -88,6 +124,11 @@ namespace Cauldron.Core
             return x.raw.SequenceEqual(y.raw);
         }
 
+        /// <summary>
+        /// Determines whether the specified object are equal
+        /// </summary>
+        /// <param name="obj">The object of type <see cref="RawValue"/> or byte[] to compare</param>
+        /// <returns>True if the specified objects are equal; otherwise, false</returns>
         public override bool Equals(object obj)
         {
             if (obj == null)
@@ -102,16 +143,40 @@ namespace Cauldron.Core
             return false;
         }
 
+        /// <summary>
+        /// Returns a hash code for the specified object
+        /// </summary>
+        /// <param name="obj">The <see cref="RawValue"/> for which a hash code is to be returned.</param>
+        /// <returns>A hash code for the specified object</returns>
         public int GetHashCode(RawValue obj) => obj.raw.GetHashCode();
 
+        /// <summary>
+        /// Returns a hash code for this object
+        /// </summary>
         public override int GetHashCode() => this.raw.GetHashCode();
 
+        /// <summary>
+        /// Converts the raw bytes value to double
+        /// </summary>
+        /// <returns>The converted value</returns>
         public double ToDouble() => this.raw.ToDouble();
 
+        /// <summary>
+        /// Converts the raw bytes value to float
+        /// </summary>
+        /// <returns>The converted value</returns>
         public float ToFloat() => this.raw.ToFloat();
 
+        /// <summary>
+        /// Converts the raw bytes value to integer
+        /// </summary>
+        /// <returns>The converted value</returns>
         public int ToInteger() => this.raw.ToInteger();
 
+        /// <summary>
+        /// Converts the raw bytes value to string
+        /// </summary>
+        /// <returns>The converted value</returns>
         public override string ToString() => Encoding.UTF8.GetString(this.raw);
     }
 }

@@ -2,10 +2,10 @@
 using Cauldron.Core.Extensions;
 using Cauldron.Internal;
 using Cauldron.XAML.Interactivity;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,11 +21,37 @@ namespace Cauldron.XAML.Theme
     /// </summary>
     internal class GridViewColumnHeaderBehaviours : Behaviour<GridView>
     {
+        private bool _databaseContextChanging = false;
+        private DependencyObject _inheritanceContext;
+
         private ColumnHeaderPropertiesCollection columnProperties = new ColumnHeaderPropertiesCollection();
-        private DependencyObject inheritanceContext;
         private DynamicEventHandler inheritanceContextChangedHandler;
+
         private SortAdorner sortAdorner = null;
+
         private GridViewColumnHeader sortedHeader;
+
+        private DependencyObject inheritanceContext
+        {
+            get { return this._inheritanceContext; }
+            set
+            {
+                this._inheritanceContext = value;
+
+                if (this._inheritanceContext != null)
+                {
+                    // The owner of this property is not a framework element therefor no Unloaded event
+                    // We have to get this from the inheritanceContext
+                    var element = this.inheritanceContext?.As<FrameworkElement>();
+                    if (element != null)
+                    {
+                        element.Unloaded += Element_Unloaded;
+                        element.DataContextChanged += Element_DataContextChanged;
+                        this.OnDataContextChanged();
+                    }
+                }
+            }
+        }
 
         #region Dependency Property IsSortable
 
@@ -74,15 +100,6 @@ namespace Cauldron.XAML.Theme
                 {
                     this.inheritanceContext = this.AssociatedObject.GetInheritanceContext();
                     this.inheritanceContextChangedHandler?.Dispose();
-
-                    // The owner of this property is not a framework element therefor no Unloaded event
-                    // We have to get this from the inheritanceContext
-                    var element = this.inheritanceContext?.As<FrameworkElement>();
-                    if (element != null)
-                    {
-                        element.Unloaded += Element_Unloaded;
-                        element.DataContextChanged += Element_DataContextChanged;
-                    }
                 });
 
             // We have to be aware of application exit...
@@ -98,9 +115,18 @@ namespace Cauldron.XAML.Theme
         {
             base.OnDataContextChanged();
 
+            if (this._databaseContextChanging)
+                return;
+
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-            DispatcherEx.Current.RunAsync(CoreDispatcherPriority.Low, () => this.Initialize());
+            DispatcherEx.Current.RunAsync(CoreDispatcherPriority.Low, () =>
+            {
+                this.Initialize();
+                this._databaseContextChanging = false;
+            });
 #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+
+            this._databaseContextChanging = true;
         }
 
         /// <summary>
@@ -132,7 +158,7 @@ namespace Cauldron.XAML.Theme
                     this.columnProperties.SortedHeaderUid = this.sortedHeader.Uid;
                 }
 
-                Serializer.Serialize(this.columnProperties, ApplicationData.Current.LocalFolder, this.GetSerializedUniqueName());
+                this.columnProperties.Save(this.GetSerializedUniqueName());
             }
             catch
             {
@@ -263,21 +289,18 @@ namespace Cauldron.XAML.Theme
 
         private string GetSerializedUniqueName() => this.inheritanceContext?.As<FrameworkElement>()?.DataContext?.GetType().FullName.GetHash(HashAlgorithms.Md5) + "_Listview";
 
-        private async void Initialize()
+        private void InheritanceContextDataContext_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+        }
+
+        private void Initialize()
         {
             if (this.inheritanceContext?.As<FrameworkElement>()?.DataContext != null)
             {
                 try
                 {
-                    this.columnProperties = await Serializer.DeserializeAsync<ColumnHeaderPropertiesCollection>(this.GetSerializedUniqueName());
-
+                    this.columnProperties.Load(this.GetSerializedUniqueName());
                     this.CreateHeaders();
-
-                    if (this.columnProperties == null)
-                    {
-                        this.columnProperties = new ColumnHeaderPropertiesCollection();
-                        return;
-                    }
 
                     this.ApplyPersistent();
 
@@ -349,18 +372,50 @@ namespace Cauldron.XAML.Theme
 
         private class ColumnHeaderPropertiesCollection
         {
+            private KeyRawValueDictionary dictionary = new KeyRawValueDictionary();
+
             public List<ColumnHeaderProperties> Columns { get; set; } = new List<ColumnHeaderProperties>();
 
             public string SortedHeaderUid { get; set; }
 
-            [JsonIgnore]
-            public ListSortDirection SortingDirection
+            public ListSortDirection SortingDirection { get; set; }
+
+            public void Load(string filename)
             {
-                get { return (ListSortDirection)this.SortingDirectionPrimitiv; }
-                set { this.SortingDirectionPrimitiv = (int)value; }
+                var path = Path.Combine(ApplicationData.Current.LocalFolder.FullName, filename);
+
+                if (!File.Exists(path))
+                    return;
+
+                dictionary.Clear();
+                dictionary.Deserialize(File.ReadAllBytes(path));
+
+                this.SortingDirection = (ListSortDirection)dictionary["SortingDirection"].ToInteger();
+                this.SortedHeaderUid = dictionary["SortedHeaderUid"].ToString();
+
+                var columns = dictionary["ColumnCount"].ToInteger();
+                this.Columns.Clear();
+
+                for (int i = 0; i < columns; i++)
+                    this.Columns.Add(new ColumnHeaderProperties { Uid = dictionary["Column" + i].ToString(), Width = dictionary["ColumnWidth" + i].ToDouble() });
             }
 
-            public int SortingDirectionPrimitiv { get; set; }
+            public void Save(string filename)
+            {
+                this.dictionary.Clear();
+                this.dictionary.Add("SortingDirection", (int)this.SortingDirection);
+                this.dictionary.Add("SortedHeaderUid", this.SortedHeaderUid);
+                this.dictionary.Add("ColumnCount", this.Columns.Count);
+
+                for (int i = 0; i < this.Columns.Count; i++)
+                {
+                    this.dictionary.Add("Column" + i, this.Columns[i].Uid);
+                    this.dictionary.Add("ColumnWidth" + i, this.Columns[i].Width);
+                }
+
+                var data = dictionary.Serialize();
+                File.WriteAllBytes(Path.Combine(ApplicationData.Current.LocalFolder.FullName, filename), data);
+            }
         }
     }
 }
