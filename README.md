@@ -36,6 +36,7 @@ https://Capgemini.github.io/Cauldron/eveonline/
   - ComponentConstructor attributes are now no longer removed after weaving
 - Locale class can now be injected without causing an error during Assembly verification
 - Singleton<> base class component construtor attribute removed, because it is redundant and causes errors.
+- NetCore versions of Cauldron.Interception, Cauldron.Core and Cauldron.Activator are now part of the NuGet package again.
 ### 1.2.7 (1.2.0 to 1.2.6 betas)
 - NetCore Dlls droped from package due to issues with Fody - This will be back as soon as NetCore and Fody works a lot better
 - Types with the component attribute get a hard-coded CreateInstance method. The Factory will use this method to create an instance of the type. This should give the factory an instancing performance almost on par with the __new__ keyword.

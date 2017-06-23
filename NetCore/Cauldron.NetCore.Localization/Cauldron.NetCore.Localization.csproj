@@ -16,8 +16,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Fody" Version="2.1.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Cauldron.NetCore.Activator\Cauldron.NetCore.Activator.csproj" />
     <ProjectReference Include="..\Cauldron.NetCore.Core\Cauldron.NetCore.Core.csproj" />
+    <ProjectReference Include="..\Cauldron.NetCore.Interception\Cauldron.NetCore.Interception.csproj" />
   </ItemGroup>
 
   <Import Project="..\..\Shared\Cauldron.Localization\Cauldron.Localization.projitems" Label="Shared" />
