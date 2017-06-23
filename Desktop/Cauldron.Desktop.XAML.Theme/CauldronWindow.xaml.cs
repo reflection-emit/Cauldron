@@ -1,10 +1,12 @@
 ﻿using Cauldron.Core;
 using Cauldron.Core.Extensions;
+using Cauldron.XAML.Controls;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
@@ -33,11 +35,47 @@ namespace Cauldron.XAML.Theme
             this.Deactivated += LightWindow_Deactivated;
         }
 
+        #region Dependency Property CanGoBack
+
+        /// <summary>
+        /// Identifies the <see cref="CanGoBack" /> dependency property
+        /// </summary>
+        public static readonly DependencyProperty CanGoBackProperty = DependencyProperty.Register(nameof(CanGoBack), typeof(bool), typeof(CauldronWindow), new PropertyMetadata(false));
+
+        /// <summary>
+        /// Gets or sets the <see cref="CanGoBack" /> Property
+        /// </summary>
+        public bool CanGoBack
+        {
+            get { return (bool)this.GetValue(CanGoBackProperty); }
+            set { this.SetValue(CanGoBackProperty, value); }
+        }
+
+        #endregion Dependency Property CanGoBack
+
+        protected override void OnContentChanged(object oldContent, object newContent)
+        {
+            base.OnContentChanged(oldContent, newContent);
+
+            var oldNavigationFrame = oldContent as NavigationFrame;
+            var newNavigationFrame = newContent as NavigationFrame;
+
+            if (oldNavigationFrame != null)
+                BindingOperations.ClearBinding(this, CanGoBackProperty);
+
+            if (newNavigationFrame != null)
+                this.SetBinding(CanGoBackProperty, newNavigationFrame, new PropertyPath("CanGoBack"), System.Windows.Data.BindingMode.OneWay);
+            else
+                this.CanGoBack = false;
+        }
+
         protected override void OnStateChanged(EventArgs e)
         {
             base.OnStateChanged(e);
             this.SetWindowStateDependentEffects();
         }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e) => this.Content.As<NavigationFrame>()?.GoBack(Navigation.NavigationType.BackButton);
 
         private void CloseButton_Click(object sender, RoutedEventArgs e) => this.Close();
 

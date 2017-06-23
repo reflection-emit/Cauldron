@@ -56,55 +56,9 @@
                                DragDelta="TitleThumb_DragDelta" MouseDoubleClick="TitleThumb_MouseDoubleClick" Style="{StaticResource invisibleThumb}" />
 
                         <StackPanel Orientation="Horizontal" Grid.RowSpan="2">
-                            <Grid>
-                                <ToggleButton Focusable="false" ClickMode="Release" HorizontalAlignment="Right" x:Name="mainMenuToggle" Width="38" Style="{x:Null}"
-                                              Visibility="{Binding Path=(local:WindowToolbar.MainMenuVisibility), RelativeSource={RelativeSource TemplatedParent}}">
-                                    <ToggleButton.Template>
-                                        <ControlTemplate TargetType="ToggleButton">
-                                            <Border Background="{StaticResource {x:Static t:CauldronTheme.DarkOverlayBrush}}" x:Name="Border" Width="{TemplateBinding Width}">
-                                                <VisualStateManager.VisualStateGroups>
-                                                    <VisualStateGroup x:Name="CommonStates">
-                                                        <VisualState x:Name="Normal" />
-                                                        <VisualState x:Name="MouseOver">
-                                                            <Storyboard>
-                                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
-                                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource {x:Static t:CauldronTheme.HoverLightBrush}}" />
-                                                                </ObjectAnimationUsingKeyFrames>
-                                                            </Storyboard>
-                                                        </VisualState>
-                                                        <VisualState x:Name="Pressed" />
-                                                        <VisualState x:Name="Disabled" />
-                                                    </VisualStateGroup>
-                                                    <VisualStateGroup x:Name="CheckStates">
-                                                        <VisualState x:Name="Checked">
-                                                            <Storyboard>
-                                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
-                                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource {x:Static t:CauldronTheme.AccentBrush}}" />
-                                                                </ObjectAnimationUsingKeyFrames>
-                                                            </Storyboard>
-                                                        </VisualState>
-                                                        <VisualState x:Name="Unchecked" />
-                                                        <VisualState x:Name="Indeterminate" />
-                                                    </VisualStateGroup>
-                                                </VisualStateManager.VisualStateGroups>
-                                                <ContentPresenter />
-                                            </Border>
-                                        </ControlTemplate>
-                                    </ToggleButton.Template>
-
-                                    <Popup IsOpen="{Binding IsChecked, ElementName=mainMenuToggle}" PopupAnimation="Fade" Placement="Bottom" HorizontalAlignment="Left">
-                                        <Border Margin="0,0,5,5" BorderBrush="{StaticResource {x:Static t:CauldronTheme.LightBorderBrush}}" BorderThickness="1" Background="{StaticResource {x:Static t:CauldronTheme.DropdownBackgroundBrush}}">
-                                            <ContentControl Template="{Binding Path=(local:WindowToolbar.MainMenuTemplate), RelativeSource={RelativeSource TemplatedParent}}" Margin="0" />
-                                            <Border.Effect>
-                                                <DropShadowEffect ShadowDepth="3" BlurRadius="5" RenderingBias="Performance" Color="Black" Opacity="0.6" />
-                                            </Border.Effect>
-                                        </Border>
-                                    </Popup>
-                                </ToggleButton>
-
-                                <Image IsHitTestVisible="False" Visibility="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ObjectToVisibilityConverter}}"
+                            <Button Visibility="{Binding ElementName=window, Path=CanGoBack, Converter={StaticResource BooleanToVisibilityConverter}}" FontFamily="Wingdings" FontSize="16" Focusable="False" behaviour:Localized.Tooltip="Back" x:Name="BackButton" Content="&#x00df;" Style="{StaticResource TitleBarButtonStyle}" VerticalAlignment="Top" Click="BackButton_Click" />
+                            <Image IsHitTestVisible="False" Visibility="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ObjectToVisibilityConverter}}"
                                    x:Name="icon" VerticalAlignment="Center" HorizontalAlignment="Left" Width="26" Height="26" Margin="6,0,0,0" Source="{TemplateBinding Icon}" Grid.RowSpan="2" />
-                            </Grid>
 
                             <TextBlock x:Name="title" Margin="6,0,0,0" IsHitTestVisible="False" VerticalAlignment="Center" Text="{TemplateBinding Title}" TextAlignment="Left" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
                             <TextBlock Foreground="{Binding Foreground, ElementName=title}" IsHitTestVisible="False" Margin="2,6,0,0" Text="*">

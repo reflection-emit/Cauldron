@@ -34,9 +34,6 @@
     <DocumentationFile>bin\Release\EveOnlineApi.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Cauldron.Interception, Version=1.0.1.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Cauldron.Interception.Fody.1.2.7\lib\net452\Cauldron.Interception.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -68,6 +65,10 @@
     <ProjectReference Include="..\..\Cauldron.Desktop.Cryptography\Cauldron.Desktop.Cryptography.csproj">
       <Project>{d20bc350-336c-4e82-9848-773de5abac39}</Project>
       <Name>Cauldron.Desktop.Cryptography</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cauldron.Desktop.Interception\Cauldron.Desktop.Interception.csproj">
+      <Project>{c656c9c1-bee8-40b1-bac7-6dd7b6ff5fbb}</Project>
+      <Name>Cauldron.Desktop.Interception</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
