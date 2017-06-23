@@ -3,9 +3,9 @@
 # Cauldron C# Toolkit
 Assembly | Description   | NuGet
 -------- | ------------- | ----------------
-**Cauldron.Interception.Fody** | Fody add-in that provides method, property and field interception. It also provides weavers for Cauldron.Core and Cauldron.Activator. | [![NuGet](https://img.shields.io/nuget/v/Cauldron.Interception.Fody.svg)](https://www.nuget.org/packages/Cauldron.Interception.Fody/)
-**Cauldron.Core** | Cauldron Core is the core toolkit assembly that the Cauldron Toolkit builds upon. | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Core.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Core/)
-**Cauldron.Activator** | The activator is a simple and very fast dependency injection. It is based on attributes and does not require any configuration files for configuration. It also supports using static methods as component constructor. | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Activator.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Activator/)
+**Cauldron.Interception.Fody** | Fody add-in that provides method, property and field interception. It also provides weavers for Cauldron.Core and Cauldron.Activator._<br/>Available for .Net452, UWP and NetStandard1.6_ | [![NuGet](https://img.shields.io/nuget/v/Cauldron.Interception.Fody.svg)](https://www.nuget.org/packages/Cauldron.Interception.Fody/)
+**Cauldron.Core** | Cauldron Core is the core toolkit assembly that the Cauldron Toolkit builds upon._<br/>Available for .Net452, UWP and NetStandard1.6_ | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Core.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Core/)
+**Cauldron.Activator** | The activator is a simple and very fast dependency injection. It is based on attributes and does not require any configuration files for configuration. It also supports using static methods as component constructor._<br/>Available for .Net452, UWP and NetStandard1.6_ | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Activator.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Activator/)
 **Cauldron.Consoles** | Cauldron.Consoles is a Cauldron.Core based parameter parser which supports grouping of parameters in execution groups. It also supports localization and has a nice parameter table. | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Consoles.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Consoles/)
 **Cauldron.Cryptography** | Contains typical implementations for AES, RSA and RSA-AES encryptions. It also contains extensions that helps working with SecureString. | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Cryptography.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Cryptography/)
 **Cauldron.Localization** | A simple localization implementation that can work with different sources. | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Localization.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Localization/)
@@ -22,13 +22,13 @@ https://Capgemini.github.io/Cauldron/desktop/
 https://Capgemini.github.io/Cauldron/uwp/
 ### Eve Online API for .NET 4.5.2 and UWP
 https://Capgemini.github.io/Cauldron/eveonline/
-## Required Visual Studio Extensions
+## Required Visual Studio Extensions (For Contributors)
 - [Sandcastle Help File Builder](https://github.com/EWSoftware/SHFB/releases)
 - [CodeMaid](http://www.codemaid.net/)
 
 ## Release Notes
 ### 1.2.8
-- Reorganisation of the XAML libraries
+- Breaking changes: Reorganisation of the XAML libraries
 - Skinning added (Skins from first version of Cauldron re-added)
 - The App class (which inherits from ApplicationBase) is now recognized as Splashscreen if it has assigned a view. The OnPreload method is only called if a view is assigned if the navigation-mode is not SinglePage.
 - Bug fixes in Interception.Fody
