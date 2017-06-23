@@ -10,6 +10,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
+using System.Windows.Shapes;
 
 namespace Cauldron.XAML.Theme
 {
@@ -25,6 +26,7 @@ namespace Cauldron.XAML.Theme
         private Button restoreButton;
         private Grid sizer;
         private TextBlock title;
+        private Rectangle titleRect;
         private Thumb titleThumb;
 
         public CauldronWindow()
@@ -108,6 +110,7 @@ namespace Cauldron.XAML.Theme
             this.icon = this.Template.FindName("icon", this) as Image;
             this.titleThumb = this.Template.FindName("TitleThumb", this) as Thumb;
             this.sizer = this.Template.FindName("sizer", this) as Grid;
+            this.titleRect = this.Template.FindName("TitleRect", this) as Rectangle;
 
             this.minimizeButton = this.Template.FindName("MinimizeButton", this) as Button;
             this.maximizeButton = this.Template.FindName("MaximizeButton", this) as Button;
@@ -118,6 +121,14 @@ namespace Cauldron.XAML.Theme
 
             if (this.icon != null)
                 this.icon.Effect = new GrayscaleEffect { DesaturationFactor = 1.0 };
+
+            if (WindowConfiguration.GetWindowStyle(this) == WindowStyle.None)
+            {
+                this.icon.IsNotNull(x => x.Visibility = Visibility.Collapsed);
+                this.titleThumb.IsNotNull(x => x.Visibility = Visibility.Collapsed);
+                this.title.IsNotNull(x => x.Visibility = Visibility.Collapsed);
+                this.titleRect.IsNotNull(x => Grid.SetRowSpan(this, 3));
+            }
         }
 
         private void MaximizeButton_Click(object sender, RoutedEventArgs e)
@@ -176,13 +187,11 @@ namespace Cauldron.XAML.Theme
                 switch (this.WindowState)
                 {
                     case WindowState.Normal:
-                        x.Margin = new Thickness(5);
                         x.BorderThickness = new Thickness(1);
                         break;
 
                     case WindowState.Minimized:
                     case WindowState.Maximized:
-                        x.Margin = new Thickness(0);
                         x.BorderThickness = new Thickness(0);
                         break;
 

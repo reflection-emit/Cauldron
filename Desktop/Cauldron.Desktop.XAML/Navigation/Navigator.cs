@@ -359,7 +359,10 @@ namespace Cauldron.XAML.Navigation
 
             // set the configs
             if (windowType.IsCutomWindow)
+            {
                 window.ResizeMode = WindowConfiguration.GetResizeMode(view);
+                WindowConfiguration.SetWindowStyle(window, WindowConfiguration.GetWindowStyle(view));
+            }
             else
             {
                 window.ResizeMode = WindowConfiguration.GetResizeMode(view);

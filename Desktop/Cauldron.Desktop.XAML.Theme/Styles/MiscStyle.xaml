@@ -18,7 +18,7 @@
         <Setter Property="RenderOptions.CachingHint" Value="Cache" />
         <Setter Property="RenderOptions.ClearTypeHint" Value="Auto" />
         <Setter Property="UseLayoutRounding" Value="True" />
-        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="SnapsToDevicePixels" Value="False" />
         <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
     </Style>
 
@@ -335,7 +335,7 @@
         <Setter Property="CaretBrush" Value="{StaticResource {x:Static t:CauldronTheme.AccentBrush}}" />
         <Setter Property="BorderBrush" Value="{StaticResource {x:Static t:CauldronTheme.LightBorderBrush}}" />
         <Setter Property="Background" Value="{StaticResource {x:Static t:CauldronTheme.LightBackgroundBrush}}" />
-        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="SnapsToDevicePixels" Value="False" />
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="KeyboardNavigation.TabNavigation" Value="None" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
@@ -451,7 +451,7 @@
     </Style>
 
     <Style TargetType="{x:Type RadioButton}">
-        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="SnapsToDevicePixels" Value="False" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="Template">
@@ -547,7 +547,7 @@
     </Style>
 
     <Style TargetType="{x:Type CheckBox}">
-        <Setter Property="SnapsToDevicePixels" Value="true" />
+        <Setter Property="SnapsToDevicePixels" Value="False" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="Template">

@@ -62,7 +62,7 @@
     <SolidColorBrush x:Key="ListViewAlternationCountBrush" Color="{StaticResource {x:Static local:CauldronTheme.AccentColor}}" Opacity="0.05" />
 
     <Style TargetType="ListView">
-        <Setter Property="SnapsToDevicePixels" Value="true" />
+        <Setter Property="SnapsToDevicePixels" Value="False" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
@@ -218,7 +218,7 @@
     </Style>
 
     <Style TargetType="ListViewItem">
-        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="SnapsToDevicePixels" Value="False" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />

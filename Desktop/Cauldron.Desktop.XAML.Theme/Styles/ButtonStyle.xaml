@@ -60,7 +60,7 @@
     </Style>
 
     <Style TargetType="Button">
-        <Setter Property="SnapsToDevicePixels" Value="true" />
+        <Setter Property="SnapsToDevicePixels" Value="False" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />

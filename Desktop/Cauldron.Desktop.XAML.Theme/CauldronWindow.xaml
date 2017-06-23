@@ -9,15 +9,16 @@
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300"
              Background="Transparent"
-             SnapsToDevicePixels="True"
-             UseLayoutRounding="True"
+             SnapsToDevicePixels="False"
              AllowsTransparency="True"
+             UseLayoutRounding="True"
              WindowStyle="None"
              ResizeMode="CanResize"
              x:Name="window">
 
     <Window.Resources>
         <Style TargetType="Thumb" x:Key="invisibleThumb">
+            <Setter Property="Background" Value="#01000000" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate>
@@ -32,9 +33,8 @@
         <ControlTemplate TargetType="Window">
             <Grid>
                 <Border x:Name="border"
-                        Background="{StaticResource ThemeBackgroundBrush}"
+                        Background="{StaticResource {x:Static t:CauldronTheme.BackgroundBrush}}"
                         BorderBrush="{StaticResource {x:Static t:CauldronTheme.AccentBrush}}"
-                        BorderThickness="1"
                         Margin="0"
                         VerticalAlignment="Stretch"
                         HorizontalAlignment="Stretch">
@@ -51,7 +51,7 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <Rectangle Grid.RowSpan="3" Grid.ColumnSpan="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown" Fill="{TemplateBinding Background}" />
+                        <Rectangle x:Name="TitleRect" Grid.RowSpan="2" Grid.ColumnSpan="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown" Fill="{TemplateBinding Background}" />
                         <Thumb Grid.ColumnSpan="3" Grid.RowSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" IsHitTestVisible="False" x:Name="TitleThumb" Background="{StaticResource {x:Static t:CauldronTheme.BackgroundBrush}}"
                                DragDelta="TitleThumb_DragDelta" MouseDoubleClick="TitleThumb_MouseDoubleClick" Style="{StaticResource invisibleThumb}" />
 
@@ -83,15 +83,15 @@
                 </Border>
                 <Grid x:Name="sizer">
 
-                    <Thumb Focusable="False" Style="{StaticResource invisibleThumb}" Cursor="SizeWE" Width="5" Margin="0,5" Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Left" DragDelta="Resizer_DragDelta" />
-                    <Thumb Focusable="False" Style="{StaticResource invisibleThumb}" Cursor="SizeWE" Width="5" Margin="0,5" Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Right" DragDelta="Resizer_DragDelta" />
-                    <Thumb Focusable="False" Style="{StaticResource invisibleThumb}" Cursor="SizeNS" Height="5" Margin="5,0" Background="Transparent" VerticalAlignment="Top" HorizontalAlignment="Stretch" DragDelta="Resizer_DragDelta" />
-                    <Thumb Focusable="False" Style="{StaticResource invisibleThumb}" Cursor="SizeNS" Height="5" Margin="5,0" Background="Transparent" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" DragDelta="Resizer_DragDelta" />
+                    <Thumb Focusable="False" Style="{StaticResource invisibleThumb}" Cursor="SizeWE" Width="5"  VerticalAlignment="Stretch" HorizontalAlignment="Left" DragDelta="Resizer_DragDelta" />
+                    <Thumb Focusable="False" Style="{StaticResource invisibleThumb}" Cursor="SizeWE" Width="5"  VerticalAlignment="Stretch" HorizontalAlignment="Right" DragDelta="Resizer_DragDelta" />
+                    <Thumb Focusable="False" Style="{StaticResource invisibleThumb}" Cursor="SizeNS" Height="5" VerticalAlignment="Top" HorizontalAlignment="Stretch" DragDelta="Resizer_DragDelta" />
+                    <Thumb Focusable="False" Style="{StaticResource invisibleThumb}" Cursor="SizeNS" Height="5" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" DragDelta="Resizer_DragDelta" />
 
-                    <Thumb Focusable="False" Style="{StaticResource invisibleThumb}" Cursor="SizeNWSE" Width="8" Height="8" Background="Transparent" VerticalAlignment="Top" HorizontalAlignment="Left" DragDelta="Resizer_DragDelta" />
-                    <Thumb Focusable="False" Style="{StaticResource invisibleThumb}" Cursor="SizeNWSE" Width="8" Height="8" Background="Transparent" VerticalAlignment="Bottom" HorizontalAlignment="Right" DragDelta="Resizer_DragDelta" />
-                    <Thumb Focusable="False" Style="{StaticResource invisibleThumb}" Cursor="SizeNESW" Width="8" Height="8" Background="Transparent" VerticalAlignment="Bottom" HorizontalAlignment="Left" DragDelta="Resizer_DragDelta" />
-                    <Thumb Focusable="False" Style="{StaticResource invisibleThumb}" Cursor="SizeNESW" Width="8" Height="8" Background="Transparent" VerticalAlignment="Top" HorizontalAlignment="Right" DragDelta="Resizer_DragDelta" />
+                    <Thumb Focusable="False" Style="{StaticResource invisibleThumb}" Cursor="SizeNWSE" Width="8" Height="8"  VerticalAlignment="Top" HorizontalAlignment="Left" DragDelta="Resizer_DragDelta" />
+                    <Thumb Focusable="False" Style="{StaticResource invisibleThumb}" Cursor="SizeNWSE" Width="8" Height="8"  VerticalAlignment="Bottom" HorizontalAlignment="Right" DragDelta="Resizer_DragDelta" />
+                    <Thumb Focusable="False" Style="{StaticResource invisibleThumb}" Cursor="SizeNESW" Width="8" Height="8"  VerticalAlignment="Bottom" HorizontalAlignment="Left" DragDelta="Resizer_DragDelta" />
+                    <Thumb Focusable="False" Style="{StaticResource invisibleThumb}" Cursor="SizeNESW" Width="8" Height="8"  VerticalAlignment="Top" HorizontalAlignment="Right" DragDelta="Resizer_DragDelta" />
                 </Grid>
             </Grid>
         </ControlTemplate>
