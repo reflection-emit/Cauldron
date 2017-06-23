@@ -410,6 +410,8 @@ namespace Cauldron.Interception.Cecilator
             return result;
         }
 
+        public IEnumerable<Property> GetAllProperties() => this.GetProperties().Select(x => new Property(this, x));
+
         public Property GetProperty(string name)
         {
             var result = this.GetProperties().Get(name);

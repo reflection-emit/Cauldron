@@ -18,6 +18,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
+using Windows.Storage;
 
 namespace Cauldron.XAML
 {
@@ -292,26 +293,38 @@ namespace Cauldron.XAML
         /// <param name="e">Details about the launch request and process.</param>
         protected abstract Task OnStartup(LaunchActivatedEventArgs e);
 
+        /// <summary>
+        /// Occures if the url protocoll requires registration.
+        /// </summary>
+        /// <param name="name">The application uri e.g. exampleApplication://</param>
+        protected virtual void OnUrlProtocolRegistration(string name)
+        {
+            try
+            {
+                UrlProtocol.Register(name);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                var location = Assembly.GetEntryAssembly().Location;
+
+                var processInfo = new ProcessStartInfo();
+                processInfo.Verb = "runas";
+                processInfo.FileName = Path.Combine(Path.GetDirectoryName(location), Path.GetFileName(location).Replace(".vshost.exe", ".exe"));
+                processInfo.Arguments = "registerUriScheme";
+                Process.Start(processInfo);
+            }
+        }
+
         private async void ApplicationBase_Startup(object sender, StartupEventArgs e)
         {
             this.isInitialized = true;
 
             if (this.UrlProtocolNames != null && this.UrlProtocolNames.Length > 0)
             {
-                try
+                for (int i = 0; i < this.UrlProtocolNames.Length; i++)
                 {
-                    for (int i = 0; i < this.UrlProtocolNames.Length; i++)
-                        UrlProtocol.Register(this.UrlProtocolNames[i]);
-                }
-                catch (UnauthorizedAccessException)
-                {
-                    var location = Assembly.GetEntryAssembly().Location;
-
-                    var processInfo = new ProcessStartInfo();
-                    processInfo.Verb = "runas";
-                    processInfo.FileName = Path.Combine(Path.GetDirectoryName(location), Path.GetFileName(location).Replace(".vshost.exe", ".exe"));
-                    processInfo.Arguments = "registerUriScheme";
-                    Process.Start(processInfo);
+                    if (UrlProtocol.RequiresRegistration(this.UrlProtocolNames[i]))
+                        this.OnUrlProtocolRegistration(this.UrlProtocolNames[i]);
                 }
 
                 if (e.Args.Length > 0 && e.Args[0] == "registerUriScheme")
@@ -388,8 +401,15 @@ namespace Cauldron.XAML
                     window.Content = rootFrame;
                     window.InputBindings.Add(new KeyBinding(new RelayCommand(async () => { await rootFrame.GoBack(); }, () => rootFrame.CanGoBack), Key.Back, ModifierKeys.None));
                 }
+                else if (this.GetType().GetCustomAttribute<ViewAttribute>() != null || Application.Current.Resources.Contains($"View_{this.GetType().Name}"))
+                {
+                    this.Navigator.As<Navigator>()?.NavigateInternal<ApplicationBase>(this, null, null);
+                    await this.OnPreload();
+                    Application.Current.MainWindow.Activate();
+                }
 
                 await this.OnStartup(new LaunchActivatedEventArgs(e.Args));
+                this.Navigator.TryClose(this);
 
                 if (Application.Current.MainWindow != null)
                 {

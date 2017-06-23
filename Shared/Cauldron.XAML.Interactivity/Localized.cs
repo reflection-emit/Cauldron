@@ -26,17 +26,6 @@ namespace Cauldron.XAML.Interactivity
     /// </summary>
     public static class Localized
     {
-        private static string AssignText(DependencyObject dependencyObject, string text)
-        {
-            if (Factory.HasContract(typeof(ILocalizationSource)))
-            {
-                var localized = Factory.Create<Locale>();
-                return localized[text];
-            }
-
-            return text;
-        }
-
         #region Dependency Attached Property Text
 
         /// <summary>
@@ -68,10 +57,9 @@ namespace Cauldron.XAML.Interactivity
         {
             var newValue = args.NewValue as string;
 
-            if (newValue == null)
-                newValue = string.Empty;
-
-            var text = newValue.StartsWith("<Inline>") && newValue.EndsWith("</Inline>") ? newValue : AssignText(dependencyObject, newValue);
+            var text = string.IsNullOrEmpty(newValue) ?
+                string.Empty :
+                (newValue.StartsWith("<Inline>") && newValue.EndsWith("</Inline>") ? newValue : Locale.Current[newValue]);
 
             if (dependencyObject is TextBlock)
             {
@@ -149,7 +137,8 @@ namespace Cauldron.XAML.Interactivity
 
         private static void OnTooltipChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
         {
-            var text = AssignText(dependencyObject, args.NewValue as string);
+            var value = args.NewValue as string;
+            var text = string.IsNullOrEmpty(value) ? string.Empty : Locale.Current[value];
             var frameworkElement = dependencyObject as FrameworkElement;
 
             if (frameworkElement == null)

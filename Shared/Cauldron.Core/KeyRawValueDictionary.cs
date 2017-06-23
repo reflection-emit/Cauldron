@@ -40,6 +40,13 @@ namespace Cauldron.Core
         public void Add(string key, string value) => this.Add(key, new RawValue(Encoding.UTF8.GetBytes(value)));
 
         /// <summary>
+        /// Adds the specified key and value to the dictionary
+        /// </summary>
+        /// <param name="key">The key of the element to add.</param>
+        /// <param name="value">The value of the element to add.</param>
+        public void Add(string key, bool value) => this.Add(key, new RawValue(value ? new byte[] { 1 } : new byte[] { 0 }));
+
+        /// <summary>
         /// Deserialize the serialized <see cref="RawValue"/> and adds these value to the existing items.
         /// </summary>
         /// <param name="bytes">The bytes representation of the <see cref="RawValue"/>s</param>
@@ -88,7 +95,7 @@ namespace Cauldron.Core
     }
 
     /// <summary>
-    /// Represents the raw values that can be freely converted to int, double, float or string
+    /// Represents the raw values that can be freely converted to int, double, float, bool or string
     /// </summary>
     public sealed class RawValue : IEqualityComparer<RawValue>
     {
@@ -103,6 +110,21 @@ namespace Cauldron.Core
         }
 
         internal byte[] Raw { get { return this.raw; } }
+
+        /// <exclude/>
+        public static implicit operator RawValue(int value) => new RawValue(value.ToBytes());
+
+        /// <exclude/>
+        public static implicit operator RawValue(string value) => new RawValue(Encoding.UTF8.GetBytes(value));
+
+        /// <exclude/>
+        public static implicit operator RawValue(double value) => new RawValue(value.ToBytes());
+
+        /// <exclude/>
+        public static implicit operator RawValue(float value) => new RawValue(value.ToBytes());
+
+        /// <exclude/>
+        public static implicit operator RawValue(bool value) => new RawValue(value ? new byte[] { 1 } : new byte[] { 0 });
 
         /// <summary>
         /// Determines whether the specified object are equal
@@ -154,6 +176,12 @@ namespace Cauldron.Core
         /// Returns a hash code for this object
         /// </summary>
         public override int GetHashCode() => this.raw.GetHashCode();
+
+        /// <summary>
+        /// Converts the raw bytes value to bool
+        /// </summary>
+        /// <returns></returns>
+        public bool ToBool() => this.raw[0] == 1;
 
         /// <summary>
         /// Converts the raw bytes value to double

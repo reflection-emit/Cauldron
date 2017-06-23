@@ -2,6 +2,7 @@
 using Cauldron.Core;
 using Cauldron.Core.Collections;
 using Cauldron.Core.Extensions;
+using Cauldron.Internal;
 using Cauldron.XAML.ViewModels;
 using System;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace Cauldron.XAML.Navigation
     [Component(typeof(INavigator), FactoryCreationPolicy.Singleton)]
     public sealed class Navigator : Singleton<INavigator>, INavigator
     {
-        private static readonly object MainWindowTag = new object();
+        private static readonly object SplashScreenWindowTag = new object();
 
         // The navigator always knows every window that it has created
         private ConcurrentList<WindowViewModelObject> windows = new ConcurrentList<WindowViewModelObject>();
@@ -207,154 +208,10 @@ namespace Cauldron.XAML.Navigation
             return true;
         }
 
-        private bool Close(Window window)
-        {
-            if (window == Application.Current.MainWindow)
-            {
-                foreach (var windowObject in windows)
-                {
-                    if (windowObject.window != Application.Current.MainWindow)
-                        windowObject.window.Close();
-                }
-
-                if (windows.Count == 1)
-                    return true;
-            }
-            else
-                return true;
-
-            return false;
-        }
-
-        private async Task<Tuple<Window, bool>> CreateDefaultWindow<TResult>(Func<TResult, Task> callback1, Func<Task> callback2, FrameworkElement view, IViewModel viewModel) =>
-            new Tuple<Window, bool>(await CreateWindow(callback1, callback2, view, viewModel), WindowConfiguration.GetIsModal(view));
-
-        private async Task<Window> CreateWindow<TResult>(Func<TResult, Task> callback1, Func<Task> callback2, FrameworkElement view, IViewModel viewModel)
-        {
-            var window = Common.CreateWindow(ref windowType);
-            window.BeginInit();
-
-            // Add this new window to the dictionary
-            windows.Add(new WindowViewModelObject { window = window, viewModelId = viewModel.Id });
-
-            // set the configs
-            if (windowType.IsCutomWindow)
-                window.ResizeMode = WindowConfiguration.GetResizeMode(view);
-            else
-            {
-                window.ResizeMode = WindowConfiguration.GetResizeMode(view);
-                window.WindowStyle = WindowConfiguration.GetWindowStyle(view);
-            }
-
-            window.Width = WindowConfiguration.GetWidth(view);
-            window.Height = WindowConfiguration.GetHeight(view);
-            window.MaxHeight = WindowConfiguration.GetMaxHeight(view);
-            window.MinHeight = WindowConfiguration.GetMinHeight(view);
-            window.MaxWidth = WindowConfiguration.GetMaxWidth(view);
-            window.MinWidth = WindowConfiguration.GetMinWidth(view);
-            window.ShowInTaskbar = WindowConfiguration.GetShowInTaskbar(view);
-            window.Topmost = WindowConfiguration.GetTopmost(view);
-            window.WindowStartupLocation = WindowConfiguration.GetWindowStartupLocation(view);
-            window.WindowState = WindowConfiguration.GetWindowState(view);
-            window.SizeToContent = WindowConfiguration.GetSizeToContent(view);
-
-            // Special stuff for splashscreens
-            if (viewModel is ISplashscreen)
-                window.Tag = MainWindowTag;
-
-            if (Application.Current.MainWindow != null && window.Tag == MainWindowTag)
-                Application.Current.MainWindow = window;
-
-            // Add the inputbindings to the window
-            // we have to recreate the binding here because the sources are all wrong
-
-            foreach (InputBinding inputBinding in view.InputBindings)
-            {
-                var oldBinding = BindingOperations.GetBinding(inputBinding, InputBinding.CommandProperty);
-                var newBinding = oldBinding.Clone();
-                newBinding.Source = viewModel;
-                BindingOperations.ClearBinding(inputBinding, InputBinding.CommandProperty);
-                BindingOperations.SetBinding(inputBinding, InputBinding.CommandProperty, newBinding);
-
-                window.InputBindings.Add(inputBinding);
-            }
-            // remove them from the view
-            view.InputBindings.Clear();
-
-            if (WindowConfiguration.GetIsWindowPersistent(view))
-                PersistentWindowInformation.Load(window, viewModel.GetType());
-
-            // set the window owner
-            if (window.Tag != MainWindowTag && WindowConfiguration.GetHasOwner(view))
-                windows.FirstOrDefault(x => x.window.IsActive).IsNotNull(x => window.Owner = x.window);
-
-            window.SetBinding(Window.IconProperty, new Binding { Path = new PropertyPath(WindowConfiguration.IconProperty), Source = view });
-            window.SetBinding(Window.TitleProperty, new Binding { Path = new PropertyPath(WindowConfiguration.TitleProperty), Source = view });
-
-            if (window.Icon == null)
-                window.Icon = await Win32Api.ExtractAssociatedIcon(Assembly.GetEntryAssembly().Location).ToBitmapImageAsync();
-
-            (viewModel as IFrameAware).IsNotNull(x =>
-            {
-                window.Activated += (s, e) => x.Activated();
-                window.Deactivated += (s, e) => x.Deactivated();
-            });
-            (viewModel as ISizeAware).IsNotNull(x => window.SizeChanged += (s, e) => x.SizeChanged(e.NewSize.Width, e.NewSize.Height));
-            window.SizeChanged += (s, e) =>
-            {
-                if (window.WindowState == WindowState.Normal)
-                {
-                    PersistentWindowProperties.SetHeight(window, e.NewSize.Height);
-                    PersistentWindowProperties.SetWidth(window, e.NewSize.Width);
-                }
-            };
-            window.Closing += (s, e) =>
-            {
-                if (WindowConfiguration.GetIsWindowPersistent(view))
-                    PersistentWindowInformation.Save(window, viewModel.GetType());
-
-                var canClose = viewModel as IFrameAware;
-
-                if (canClose == null)
-                    e.Cancel |= !Close(window);
-                else
-                    e.Cancel |= !canClose.CanClose() | !Close(window);
-            };
-            window.Closed += (s, e) =>
-            {
-                windows.Remove(x => x.window == s);
-
-                if (callback1 != null)
-                {
-                    (viewModel as IDialogViewModel<TResult>).IsNotNull(async x => await callback1(x.Result));
-                    (viewModel as IDialogViewModel).IsNotNull(async x => await callback2());
-                }
-
-                window.Content.As<FrameworkElement>()?.DataContext.TryDispose();
-
-                window.Content.TryDispose();
-                window.Content = null;
-                window.TryDispose(); // some custom windows have implemented the IDisposable interface
-            };
-
-            // make sure the datacontext of the window is correct
-            view.DataContextChanged += (s, e) => window.DataContext = view.DataContext;
-
-            window.Content = view;
-            view.DataContext = viewModel;
-
-            Common.AddTransistionStoryboard(view);
-            window.EndInit();
-
-            return window;
-        }
-
-        private async Task<bool> NavigateInternal<TResult>(Type type, Func<TResult, Task> callback1, Func<Task> callback2, params object[] args)
+        internal async Task<bool> NavigateInternal<TResult>(IViewModel viewModel, Func<TResult, Task> callback1, Func<Task> callback2)
         {
             try
             {
-                // create the new viewmodel
-                var viewModel = Factory.Create(type, args) as IViewModel;
                 var viewModelType = viewModel.GetType();
                 Tuple<Window, bool> windowInfo;
 
@@ -445,11 +302,171 @@ namespace Cauldron.XAML.Navigation
             {
                 throw;
             }
-            catch
+            catch (NullReferenceException)
             {
+                throw;
+            }
+            catch (Exception e)
+            {
+                Output.WriteLineError(e.GetStackTrace());
                 return false;
             }
         }
+
+        private bool Close(Window window)
+        {
+            if (window == Application.Current.MainWindow)
+            {
+                foreach (var windowObject in windows)
+                {
+                    if (windowObject.window != Application.Current.MainWindow)
+                        windowObject.window.Close();
+                }
+
+                if (windows.Count == 1)
+                    return true;
+            }
+            else
+                return true;
+
+            return false;
+        }
+
+        private async Task<Tuple<Window, bool>> CreateDefaultWindow<TResult>(Func<TResult, Task> callback1, Func<Task> callback2, FrameworkElement view, IViewModel viewModel) =>
+            new Tuple<Window, bool>(await CreateWindow(callback1, callback2, view, viewModel), WindowConfiguration.GetIsModal(view));
+
+        private async Task<Window> CreateWindow<TResult>(Func<TResult, Task> callback1, Func<Task> callback2, FrameworkElement view, IViewModel viewModel)
+        {
+            var window = Common.CreateWindow(ref windowType);
+            window.BeginInit();
+
+            // Special stuff for splashscreens
+            if (viewModel is ApplicationBase)
+            {
+                window.Tag = SplashScreenWindowTag;
+                WindowConfiguration.SetHasOwner(view, false);
+                WindowConfiguration.SetSizeToContent(view, SizeToContent.WidthAndHeight);
+                WindowConfiguration.SetShowInTaskbar(view, false);
+                WindowConfiguration.SetWindowStartupLocation(view, WindowStartupLocation.CenterScreen);
+                WindowConfiguration.SetWindowStyle(view, WindowStyle.None);
+                WindowConfiguration.SetResizeMode(view, ResizeMode.NoResize);
+                WindowConfiguration.SetIcon(view, null);
+                WindowConfiguration.SetTitle(view, null);
+            }
+
+            // Add this new window to the dictionary
+            windows.Add(new WindowViewModelObject { window = window, viewModelId = viewModel.Id });
+
+            // set the configs
+            if (windowType.IsCutomWindow)
+                window.ResizeMode = WindowConfiguration.GetResizeMode(view);
+            else
+            {
+                window.ResizeMode = WindowConfiguration.GetResizeMode(view);
+                window.WindowStyle = WindowConfiguration.GetWindowStyle(view);
+            }
+
+            window.Width = WindowConfiguration.GetWidth(view);
+            window.Height = WindowConfiguration.GetHeight(view);
+            window.MaxHeight = WindowConfiguration.GetMaxHeight(view);
+            window.MinHeight = WindowConfiguration.GetMinHeight(view);
+            window.MaxWidth = WindowConfiguration.GetMaxWidth(view);
+            window.MinWidth = WindowConfiguration.GetMinWidth(view);
+            window.ShowInTaskbar = WindowConfiguration.GetShowInTaskbar(view);
+            window.Topmost = WindowConfiguration.GetTopmost(view);
+            window.WindowStartupLocation = WindowConfiguration.GetWindowStartupLocation(view);
+            window.WindowState = WindowConfiguration.GetWindowState(view);
+            window.SizeToContent = WindowConfiguration.GetSizeToContent(view);
+
+            // Add the inputbindings to the window
+            // we have to recreate the binding here because the sources are all wrong
+
+            foreach (InputBinding inputBinding in view.InputBindings)
+            {
+                var oldBinding = BindingOperations.GetBinding(inputBinding, InputBinding.CommandProperty);
+                var newBinding = oldBinding.Clone();
+                newBinding.Source = viewModel;
+                BindingOperations.ClearBinding(inputBinding, InputBinding.CommandProperty);
+                BindingOperations.SetBinding(inputBinding, InputBinding.CommandProperty, newBinding);
+
+                window.InputBindings.Add(inputBinding);
+            }
+            // remove them from the view
+            view.InputBindings.Clear();
+
+            if (WindowConfiguration.GetIsWindowPersistent(view))
+                PersistentWindowInformation.Load(window, viewModel.GetType());
+
+            // set the window owner
+            if (window.Tag != SplashScreenWindowTag && WindowConfiguration.GetHasOwner(view) && Application.Current.MainWindow.Tag != SplashScreenWindowTag)
+                windows.FirstOrDefault(x => x.window.IsActive).IsNotNull(x => window.Owner = x?.window);
+
+            if (Application.Current.MainWindow != null && Application.Current.MainWindow.Tag == SplashScreenWindowTag)
+                Application.Current.MainWindow = window;
+
+            window.SetBinding(Window.IconProperty, new Binding { Path = new PropertyPath(WindowConfiguration.IconProperty), Source = view });
+            window.SetBinding(Window.TitleProperty, new Binding { Path = new PropertyPath(WindowConfiguration.TitleProperty), Source = view });
+
+            if (window.Icon == null && window.Tag != SplashScreenWindowTag)
+                window.Icon = await Win32Api.ExtractAssociatedIcon(Assembly.GetEntryAssembly().Location).ToBitmapImageAsync();
+
+            (viewModel as IFrameAware).IsNotNull(x =>
+            {
+                window.Activated += (s, e) => x.Activated();
+                window.Deactivated += (s, e) => x.Deactivated();
+            });
+            (viewModel as ISizeAware).IsNotNull(x => window.SizeChanged += (s, e) => x.SizeChanged(e.NewSize.Width, e.NewSize.Height));
+            window.SizeChanged += (s, e) =>
+            {
+                if (window.WindowState == WindowState.Normal)
+                {
+                    PersistentWindowProperties.SetHeight(window, e.NewSize.Height);
+                    PersistentWindowProperties.SetWidth(window, e.NewSize.Width);
+                }
+            };
+            window.Closing += (s, e) =>
+            {
+                if (WindowConfiguration.GetIsWindowPersistent(view))
+                    PersistentWindowInformation.Save(window, viewModel.GetType());
+
+                var canClose = viewModel as IFrameAware;
+
+                if (canClose == null)
+                    e.Cancel |= !Close(window);
+                else
+                    e.Cancel |= !canClose.CanClose() | !Close(window);
+            };
+            window.Closed += (s, e) =>
+            {
+                windows.Remove(x => x.window == s);
+
+                if (callback1 != null)
+                {
+                    (viewModel as IDialogViewModel<TResult>).IsNotNull(async x => await callback1(x.Result));
+                    (viewModel as IDialogViewModel).IsNotNull(async x => await callback2());
+                }
+
+                window.Content.As<FrameworkElement>()?.DataContext.TryDispose();
+
+                window.Content.TryDispose();
+                window.Content = null;
+                window.TryDispose(); // some custom windows have implemented the IDisposable interface
+            };
+
+            // make sure the datacontext of the window is correct
+            view.DataContextChanged += (s, e) => window.DataContext = view.DataContext;
+
+            window.Content = view;
+            view.DataContext = viewModel;
+
+            Common.AddTransistionStoryboard(view);
+            window.EndInit();
+
+            return window;
+        }
+
+        private Task<bool> NavigateInternal<TResult>(Type type, Func<TResult, Task> callback1, Func<Task> callback2, params object[] args) =>
+            this.NavigateInternal(Factory.Create(type, args) as IViewModel, callback1, callback2);
 
         private class WindowViewModelObject
         {

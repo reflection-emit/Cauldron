@@ -108,9 +108,9 @@
 
                             <TextBlock x:Name="title" Margin="6,0,0,0" IsHitTestVisible="False" VerticalAlignment="Center" Text="{TemplateBinding Title}" TextAlignment="Left" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
                             <TextBlock Foreground="{Binding Foreground, ElementName=title}" IsHitTestVisible="False" Margin="2,6,0,0" Text="*">
-                                    <!--<behaviour:Interaction.Behaviours>
-                                        <localbehaviour:ChangeAwareIsChangedBehaviour />
-                                    </behaviour:Interaction.Behaviours>-->
+                                    <behaviour:Interaction.Behaviours>
+                                        <t:ChangeAwareIsChangedBehaviour />
+                                    </behaviour:Interaction.Behaviours>
                             </TextBlock>
                         </StackPanel>
 

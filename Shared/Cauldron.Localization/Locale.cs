@@ -22,7 +22,9 @@ namespace Cauldron.Localization
         private CultureInfo cultureInfo;
         private Dictionary<string, ILocalizationKeyValue> source = new Dictionary<string, ILocalizationKeyValue>();
 
-        private Locale()
+        /// <exclude/>
+        [ComponentConstructor]
+        public Locale()
         {
             Assemblies.LoadedAssemblyChanged += (s, e) =>
             {

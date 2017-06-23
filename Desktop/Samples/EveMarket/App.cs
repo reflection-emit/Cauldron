@@ -41,8 +41,7 @@ namespace EveMarket
             base.OnResourceLoad();
         }
 
-        protected override async Task OnStartup(LaunchActivatedEventArgs e) =>
-                    await this.Navigator.NavigateAsync<HomeViewModel>("Typhoon");
+        protected override async Task OnStartup(LaunchActivatedEventArgs e) => await this.Navigator.NavigateAsync<HomeViewModel>("Typhoon");
 
         private async void StartSearchAction() =>
             await this.Navigator.NavigateAsync<HomeViewModel>(this.SearchedItem);

@@ -1,11 +1,10 @@
 ﻿using Cauldron.Core;
 using Cauldron.Core.Extensions;
-using System;
 
 namespace Cauldron.Activator
 {
     /// <summary>
-    /// Represents a singleton implementation of <typeparamref name="T"/>
+    /// Represents a testible singleton implementation of <typeparamref name="T"/>.
     /// </summary>
     /// <typeparam name="T">The type that is contained in the singleton</typeparam>
     public abstract class Singleton<T> where T : class
@@ -16,7 +15,6 @@ namespace Cauldron.Activator
         /// <summary>
         /// Gets the current instance of <typeparamref name="T"/>
         /// </summary>
-        [ComponentConstructor]
         public static T Current
         {
             get
@@ -47,11 +45,7 @@ namespace Cauldron.Activator
             {
                 lock (syncRoot)
                 {
-                    var disposable = current as IDisposable;
-
-                    if (disposable != null)
-                        Factory.Destroy<T>();
-
+                    current?.TryDispose();
                     current = null;
                 }
             }

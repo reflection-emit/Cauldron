@@ -363,16 +363,21 @@ namespace Cauldron.Interception.Fody
                         // Find any method with a componentcontructor attribute
                         var ctors = component.Type.GetMethods(y =>
                                 {
-                                    if (!y.Resolve().Attributes.HasFlag(MethodAttributes.Public))
+                                    if (y.Name == ".cctor")
+                                        return true;
+
+                                    if (!y.Resolve().IsPublic)
                                         return false;
 
                                     if (y.Name == ".ctor" && y.DeclaringType.FullName.GetHashCode() != component.Type.Fullname.GetHashCode() && y.DeclaringType.FullName != component.Type.Fullname)
                                         return false;
 
+                                    if (y.Name.StartsWith("set_"))
+                                        return false;
+
                                     return true;
                                 })
                                 .Where(y => y.CustomAttributes.HasAttribute(componentConstructorAttribute))
-                                .Concat(component.Type.Properties.Where(z => z.CustomAttributes.HasAttribute(componentConstructorAttribute) && z.Getter != null).Select(z => z.Getter))
                                 .OrderBy(y => y.Parameters.Length)
                                 .ToArray();
 
@@ -382,9 +387,10 @@ namespace Cauldron.Interception.Fody
 
                             for (int index = 0; index < ctors.Length; index++)
                             {
+                                this.LogInfo(ctors[index].Fullname);
+
                                 var ctor = ctors[index];
-                                // remove the component constructor attribute and add a EditorBrowsable attribute
-                                ctor.CustomAttributes.Remove(componentConstructorAttribute);
+                                // add a EditorBrowsable attribute
                                 ctor.CustomAttributes.AddEditorBrowsableAttribute(EditorBrowsableState.Never);
                                 var ctorParameters = ctor.Parameters;
 
@@ -1217,7 +1223,7 @@ namespace Cauldron.Interception.Fody
                 {
                     var tryDisposeMethod = builder.GetType("Cauldron.Interception.Extensions").GetMethod("TryDisposeInternal", 1);
 
-                    if (member.Property.BackingField.FieldType.ParameterlessContructor != null)
+                    if (member.Property.BackingField.FieldType.ParameterlessContructor != null && member.Property.BackingField.FieldType.ParameterlessContructor.IsPublic)
                         setterCode.Load(member.Property.BackingField).IsNull().Then(y =>
                             y.Assign(member.Property.BackingField).Set(propertySetter.NewCode()
                                 .NewObj(member.Property.BackingField.FieldType.ParameterlessContructor)));

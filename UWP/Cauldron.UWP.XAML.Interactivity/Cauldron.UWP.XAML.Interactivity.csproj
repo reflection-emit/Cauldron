@@ -155,7 +155,9 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="FodyWeavers.xml" />
+  </ItemGroup>
   <Import Project="..\..\Shared\IEnumerableExtensions\IEnumerableExtensions.projitems" Label="Shared" />
   <Import Project="..\..\Shared\Cauldron.XAML.Interactivity\Cauldron.XAML.Interactivity.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
