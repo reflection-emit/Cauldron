@@ -29,7 +29,13 @@
             </ProgressBar>
             <TextBox theme:TextBoxProperties.Header="TextBox" Margin="10" />
             <ScrollBar Orientation="Horizontal" Minimum="0" Maximum="100" Value="50" />
-            <GroupBox Header="GroupBox" Height="100">
+            <GroupBox Header="GroupBox">
+                <StackPanel>
+                    <RadioButton Content="RadioButton 1" />
+                    <RadioButton Content="RadioButton 2" />
+                    <CheckBox Content="CheckBox 1" IsThreeState="True" />
+                    <CheckBox Content="CheckBox 2" />
+                </StackPanel>
             </GroupBox>
         </StackPanel>
     </Expander>
