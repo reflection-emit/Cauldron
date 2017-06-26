@@ -376,3 +376,87 @@ Back:
     sv: Tillbaka
     th: ย้อนกลับ
     fr: Précédent
+Blank: 
+    de: Leer
+    en: Blank
+    zh: 空白
+    el: Κενό
+    ja: 空白
+    ko: 빈
+    lt: Tuščias
+    pt: Branco
+    ru: Пуст
+    es: Blanco
+    sv: Tomt
+    th: ว่างเปล่า
+    fr: Vide
+VeryWeak: 
+    de: Sehr schwach
+    en: Very weak
+    zh: 非常薄弱
+    el: Πολύ αδύναμος
+    ja: 非常に弱い
+    ko: 아주 약한
+    lt: Labai silpnas
+    pt: Muito fraco
+    ru: Очень слабый
+    es: Muy débil
+    sv: Mycket svag
+    th: อ่อนมาก
+    fr: Très faible
+Weak: 
+    de: Schwach
+    en: Weak
+    zh: 弱
+    el: Αδύναμη
+    ja: 弱い
+    ko: 약한
+    lt: Silpnas
+    pt: Fraco
+    ru: Слаб
+    es: Débil
+    sv: Svag
+    th: อ่อนแอ
+    fr: Faible
+Medium: 
+    de: Mittel
+    en: Medium
+    zh: 食物
+    el: Μέσο
+    ja: 普通
+    ko: 중간
+    lt: Vidutinės
+    pt: Comida
+    ru: Среднесроч
+    es: Medio
+    sv: Medium
+    th: ปานกลาง
+    fr: Moyen
+Strong: 
+    de: Gut
+    en: Strong
+    zh: 强
+    el: Ισχυρή
+    ja: 強い
+    ko: 강한
+    lt: Stiprus
+    pt: Forte
+    ru: Тверд
+    es: Fuerte
+    sv: Starka
+    th: แข็งแกร่ง
+    fr: Forte
+VeryStrong: 
+    de: Sehr Gut
+    en: Very strong
+    zh: 很强
+    el: Πολύ ισχυρή
+    ja: 非常に強い
+    ko: 아주 강한
+    lt: Labai stiprus
+    pt: Muito forte
+    ru: Очень сильный
+    es: Muy fuerte
+    sv: Mycket stark
+    th: แข็งแรงมาก
+    fr: Très fort

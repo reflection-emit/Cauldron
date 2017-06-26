@@ -5,14 +5,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:ThemeSample.Views"
              xmlns:cauldron="clr-namespace:Cauldron.XAML;assembly=Cauldron.XAML"
+             xmlns:i="clr-namespace:Cauldron.XAML.Interactivity;assembly=Cauldron.XAML.Interactivity"
              xmlns:theme="clr-namespace:Cauldron.XAML.Theme;assembly=Cauldron.XAML.Theme"
              mc:Ignorable="d"
              cauldron:WindowConfiguration.IsWindowPersistent="True"
              d:DesignHeight="300" d:DesignWidth="300">
     <Expander Header="Expander" Width="300">
         <StackPanel>
-            <TextBlock Text="Button" />
+            <TextBlock theme:TextBlockProperties.Inline="&lt;Inline&gt;Text&lt;Bold&gt;&lt;Italic&gt;Block&lt;/Italic&gt;&lt;/Bold&gt;&lt;/Inline&gt;" />
             <Button Content="Button" HorizontalAlignment="Left" Margin="10" />
+            <ToggleButton Content="ToggleButton" Margin="10" />
             <TextBlock Text="Indeterminate ProgressBar" />
             <ProgressBar IsIndeterminate="True" Margin="10" />
             <TextBlock Text="ProgressBar" />
@@ -27,7 +29,16 @@
                     </EventTrigger>
                 </ProgressBar.Triggers>
             </ProgressBar>
-            <TextBox theme:TextBoxProperties.Header="TextBox" Margin="10" />
+            <TextBox theme:TextBoxProperties.Header="TextBox" Margin="10">
+                <theme:TextBoxProperties.ButtonsTemplate>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <Button theme:ButtonProperties.ImageKey="hey.png" i:Localized.Tooltip="Button 1" />
+                            <Button theme:ButtonProperties.ImageKey="hey.png" i:Localized.Tooltip="Button 2" />
+                        </StackPanel>
+                    </ControlTemplate>
+                </theme:TextBoxProperties.ButtonsTemplate>
+            </TextBox>
             <ScrollBar Orientation="Horizontal" Minimum="0" Maximum="100" Value="50" />
             <GroupBox Header="GroupBox">
                 <StackPanel>
@@ -37,6 +48,22 @@
                     <CheckBox Content="CheckBox 2" />
                 </StackPanel>
             </GroupBox>
+            <PasswordBox theme:PasswordBoxProperties.Header="PasswordBox" Margin="10" />
+            <ComboBox Margin="10">
+                <theme:ComboBoxProperties.ButtonsTemplate>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <Button theme:ButtonProperties.ImageKey="hey.png" i:Localized.Tooltip="Button 1" />
+                            <Button theme:ButtonProperties.ImageKey="hey.png" i:Localized.Tooltip="Button 2" />
+                        </StackPanel>
+                    </ControlTemplate>
+                </theme:ComboBoxProperties.ButtonsTemplate>
+                <ComboBoxItem>Combobox Item 1</ComboBoxItem>
+                <ComboBoxItem>Combobox Item 2</ComboBoxItem>
+                <ComboBoxItem>Combobox Item 3</ComboBoxItem>
+                <ComboBoxItem>Combobox Item 4</ComboBoxItem>
+                <ComboBoxItem>Combobox Item 5</ComboBoxItem>
+            </ComboBox>
         </StackPanel>
     </Expander>
 </UserControl>

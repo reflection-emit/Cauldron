@@ -289,10 +289,6 @@ namespace Cauldron.XAML.Theme
 
         private string GetSerializedUniqueName() => this.inheritanceContext?.As<FrameworkElement>()?.DataContext?.GetType().FullName.GetHash(HashAlgorithms.Md5) + "_Listview";
 
-        private void InheritanceContextDataContext_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-        }
-
         private void Initialize()
         {
             if (this.inheritanceContext?.As<FrameworkElement>()?.DataContext != null)
