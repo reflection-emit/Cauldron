@@ -15,6 +15,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
+using System.Windows.Navigation;
 
 namespace Cauldron.XAML.Navigation
 {
@@ -269,48 +270,51 @@ namespace Cauldron.XAML.Navigation
                 Window window = windowInfo.Item1;
                 (viewModel as IDisposableObject).IsNotNull(x => x.Disposed += async (s, e) => await viewModel.Dispatcher.RunAsync(() => window.Close()));
 
-                // if this is not a dialog... we show the window first and then invoke the navigation method
-                if (!windowInfo.Item2)
-                    window.Show();
-
-                // This only applies to windows that are not maximized
-                if (window.WindowState != WindowState.Maximized)
+                window.Activated += (s, e) =>
                 {
-                    // Check if the window is visible for the user If the user has for example
-                    // undocked his laptop (which means he lost a monitor) and the application was
-                    // running on the secondary monitor, we can't just start the window with that configuration
-                    if (!MonitorInfo.WindowIsInAnyMonitor(window.GetWindowHandle()))
+                    // This only applies to windows that are not maximized
+                    if (window.WindowState != WindowState.Maximized)
                     {
-                        var dpi = MonitorInfo.GetDpi(window.GetWindowHandle());
-                        var primaryBounds = MonitorInfo.PrimaryMonitorBounds;
-                        window.Height = Math.Min(window.Height, primaryBounds.Height);
-                        window.Width = Math.Min(window.Width, primaryBounds.Width);
-
-                        window.Left = Math.Max(0, (primaryBounds.Width - window.Width) / (dpi.x / 96.0 * 4));
-                        window.Top = Math.Max(0, (primaryBounds.Height - window.Height) / (dpi.y / 96.0 * 4));
-                    }
-                    else
-                    {
-                        // we have to make sure, that the title bar of the window is visible for the user
-                        var monitorBounds = MonitorInfo.GetMonitorBounds(window.GetWindowHandle());
-
-                        if (monitorBounds.HasValue)
+                        // Check if the window is visible for the user If the user has for example
+                        // undocked his laptop (which means he lost a monitor) and the application
+                        // was running on the secondary monitor, we can't just start the window with
+                        // that configuration
+                        if (!MonitorInfo.WindowIsInAnyMonitor(window.GetWindowHandle()))
                         {
-                            window.Height = Math.Min(window.Height, monitorBounds.Value.Height);
-                            window.Width = Math.Min(window.Width, monitorBounds.Value.Width);
-                            window.Left = window.Left >= monitorBounds.Value.Left && window.Left <= monitorBounds.Value.Right ? window.Left : monitorBounds.Value.Left;
-                            window.Top = window.Top >= monitorBounds.Value.Top && window.Top <= monitorBounds.Value.Bottom ? window.Top : monitorBounds.Value.Top;
+                            var source = PresentationSource.FromVisual(window);
+                            var primaryBounds = MonitorInfo.PrimaryMonitorBounds;
+                            window.Height = Math.Min(window.Height, primaryBounds.Height);
+                            window.Width = Math.Min(window.Width, primaryBounds.Width);
+
+                            window.Left = Math.Max(0, (primaryBounds.Width / source.CompositionTarget.TransformToDevice.M11 / 2) - (window.Width / 2));
+                            window.Top = Math.Max(0, (primaryBounds.Height / source.CompositionTarget.TransformToDevice.M22 / 2) - (window.Height / 2));
                         }
-                        else // set the left and top to 0
+                        else
                         {
-                            window.Left = 0;
-                            window.Top = 0;
+                            // we have to make sure, that the title bar of the window is visible for
+                            // the user
+                            var monitorBounds = MonitorInfo.GetMonitorBounds(window.GetWindowHandle());
+
+                            if (monitorBounds.HasValue)
+                            {
+                                window.Height = Math.Min(window.Height, monitorBounds.Value.Height);
+                                window.Width = Math.Min(window.Width, monitorBounds.Value.Width);
+                                window.Left = window.Left >= monitorBounds.Value.Left && window.Left <= monitorBounds.Value.Right ? window.Left : monitorBounds.Value.Left;
+                                window.Top = window.Top >= monitorBounds.Value.Top && window.Top <= monitorBounds.Value.Bottom ? window.Top : monitorBounds.Value.Top;
+                            }
+                            else // set the left and top to 0
+                            {
+                                window.Left = 0;
+                                window.Top = 0;
+                            }
                         }
                     }
-                }
+                };
 
                 if (windowInfo.Item2)
                     window.ShowDialog();
+                else
+                    window.Show();
 
                 return true;
             }
