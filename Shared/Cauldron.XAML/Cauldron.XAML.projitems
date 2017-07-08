@@ -40,6 +40,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\VisibilityToBooleanConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\IChangeAwareViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ICloseAwareViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\IDialogViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\IFrameAware.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\INavigable.cs" />

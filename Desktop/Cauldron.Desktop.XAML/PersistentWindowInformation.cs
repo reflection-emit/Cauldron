@@ -35,8 +35,8 @@ namespace Cauldron.XAML
             window.WindowStartupLocation = WindowStartupLocation.Manual;
             window.Left = dictionary["Left"].ToDouble();
             window.Top = dictionary["Top"].ToDouble();
-            window.Height = dictionary["Height"].ToDouble();
-            window.Width = dictionary["Width"].ToDouble();
+            window.Height = Math.Max(dictionary["Height"].ToDouble(), 1);
+            window.Width = Math.Max(dictionary["Width"].ToDouble(), 1);
             window.WindowState = (WindowState)dictionary["WindowState"].ToInteger();
         }
 

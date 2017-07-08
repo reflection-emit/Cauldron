@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows;
 
@@ -35,7 +36,7 @@ namespace Cauldron.Core
         {
             get
             {
-                IntPtr monitor = UnsafeNative.MonitorFromPoint(new UnsafeNative.POINT { x = 0, y = 0 }, UnsafeNative.MonitorOptions.MONITOR_DEFAULTTOPRIMARY);
+                var monitor = UnsafeNative.MonitorFromPoint(new UnsafeNative.POINT { x = 0, y = 0 }, UnsafeNative.MonitorOptions.MONITOR_DEFAULTTOPRIMARY);
 
                 if (monitor != IntPtr.Zero)
                 {
@@ -71,13 +72,50 @@ namespace Cauldron.Core
         }
 
         /// <summary>
+        /// Gets the dpi of the display. If the window is not on any monitor the primary monitor's
+        /// dpi is returned instead.
+        /// <para/>
+        /// On Windows version lower than 8, the dpi is the same for all monitors.
+        /// </summary>
+        /// <param name="windowHandle">The handle of the window displayed by the monitor</param>
+        /// <returns>The dpi of the current display</returns>
+        public static MonitorDpi GetDpi(IntPtr windowHandle)
+        {
+            if ((Environment.OSVersion.Version.Major >= 6 && Environment.OSVersion.Version.Minor >= 2) || Environment.OSVersion.Version.Major >= 10)
+            {
+                uint dpiX;
+                uint dpiY;
+
+                var monitor = UnsafeNative.MonitorFromWindow(windowHandle, UnsafeNative.MonitorOptions.MONITOR_DEFAULTTONULL);
+
+                if (monitor == IntPtr.Zero)
+                    monitor = UnsafeNative.MonitorFromPoint(new UnsafeNative.POINT { x = 0, y = 0 }, UnsafeNative.MonitorOptions.MONITOR_DEFAULTTOPRIMARY);
+
+                UnsafeNative.GetDpiForMonitor(monitor, UnsafeNative.DpiType.Effective, out dpiX, out dpiY);
+
+                return new MonitorDpi { x = dpiX, y = dpiY };
+            }
+            else
+            {
+                var desktop = Graphics.FromHwnd(IntPtr.Zero).GetHdc();
+
+                var logicalPixelsx = (uint)UnsafeNative.GetDeviceCaps(desktop, UnsafeNative.DeviceCap.LOGPIXELSX);
+                var logicalPixelsy = (uint)UnsafeNative.GetDeviceCaps(desktop, UnsafeNative.DeviceCap.LOGPIXELSY);
+
+                return new MonitorDpi { x = logicalPixelsx, y = logicalPixelsy };
+            }
+        }
+
+        /// <summary>
         /// Gets the bounds of the monitor that contains the defined window
         /// </summary>
         /// <param name="windowHandle">The handle of the window displayed by the monitor</param>
-        /// <returns>Returns the bounds of the monitor. Returns null if window is not on any monitor.</returns>
+        /// <returns>
+        /// Returns the bounds of the monitor. Returns null if window is not on any monitor.
+        /// </returns>
         public static Rect? GetMonitorBounds(IntPtr windowHandle)
         {
-            IntPtr monitor = UnsafeNative.MonitorFromWindow(windowHandle, UnsafeNative.MonitorOptions.MONITOR_DEFAULTTONULL);
+            var monitor = UnsafeNative.MonitorFromWindow(windowHandle, UnsafeNative.MonitorOptions.MONITOR_DEFAULTTONULL);
 
             if (monitor != IntPtr.Zero)
             {
@@ -98,11 +136,14 @@ namespace Cauldron.Core
         /// <param name="windowHandle">The handle of the window displayed by the monitor</param>
         /// <returns>true if the window is displayed on any monitor; otherwise false</returns>
         public static bool WindowIsInAnyMonitor(IntPtr windowHandle) =>
-            // If MonitorFromWindow has returned zero, we are sure that the window is not in any of our monitors
+            // If MonitorFromWindow has returned zero, we are sure that the window is not in any of
+            // our monitors
             UnsafeNative.MonitorFromWindow(windowHandle, UnsafeNative.MonitorOptions.MONITOR_DEFAULTTONULL) != IntPtr.Zero;
 
         /// <summary>
-        /// Sent to a window when the size or position of the window is about to change. An application can use this message to override the window's default maximized size and position, or its default minimum or maximum tracking size.
+        /// Sent to a window when the size or position of the window is about to change. An
+        /// application can use this message to override the window's default maximized size and
+        /// position, or its default minimum or maximum tracking size.
         /// </summary>
         /// <param name="windowHandle">The handle of the window displayed by the monitor</param>
         /// <param name="lParam">Additional message-specific information</param>

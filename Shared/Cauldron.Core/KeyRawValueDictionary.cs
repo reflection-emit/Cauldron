@@ -23,6 +23,13 @@ namespace Cauldron.Core
         /// </summary>
         /// <param name="key">The key of the element to add.</param>
         /// <param name="value">The value of the element to add.</param>
+        public void Add(string key, long value) => this.Add(key, new RawValue(value.ToBytes()));
+
+        /// <summary>
+        /// Adds the specified key and value to the dictionary
+        /// </summary>
+        /// <param name="key">The key of the element to add.</param>
+        /// <param name="value">The value of the element to add.</param>
         public void Add(string key, double value) => this.Add(key, new RawValue(value.ToBytes()));
 
         /// <summary>
@@ -95,7 +102,7 @@ namespace Cauldron.Core
     }
 
     /// <summary>
-    /// Represents the raw values that can be freely converted to int, double, float, bool or string
+    /// Represents the raw values that can be freely converted to int, long, double, float, bool or string
     /// </summary>
     public sealed class RawValue : IEqualityComparer<RawValue>
     {
@@ -113,6 +120,9 @@ namespace Cauldron.Core
 
         /// <exclude/>
         public static implicit operator RawValue(int value) => new RawValue(value.ToBytes());
+
+        /// <exclude/>
+        public static implicit operator RawValue(long value) => new RawValue(value.ToBytes());
 
         /// <exclude/>
         public static implicit operator RawValue(string value) => new RawValue(Encoding.UTF8.GetBytes(value));
@@ -200,6 +210,12 @@ namespace Cauldron.Core
         /// </summary>
         /// <returns>The converted value</returns>
         public int ToInteger() => this.raw.ToInteger();
+
+        /// <summary>
+        /// Converts the raw bytes value to long
+        /// </summary>
+        /// <returns>The converted value</returns>
+        public long ToLong() => this.raw.ToLong();
 
         /// <summary>
         /// Converts the raw bytes value to string

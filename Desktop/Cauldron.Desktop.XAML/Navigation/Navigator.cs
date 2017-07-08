@@ -66,7 +66,8 @@ namespace Cauldron.XAML.Navigation
         }
 
         /// <summary>
-        /// Navigates to the most recent item in back navigation history, if a Frame manages its own navigation history.
+        /// Navigates to the most recent item in back navigation history, if a Frame manages its own
+        /// navigation history.
         /// <para/>
         /// Only relevant for UWP and Desktop single page application
         /// </summary>
@@ -77,7 +78,8 @@ namespace Cauldron.XAML.Navigation
         }
 
         /// <summary>
-        /// Navigates to the most recent item in forward navigation history, if a Frame manages its own navigation history.
+        /// Navigates to the most recent item in forward navigation history, if a Frame manages its
+        /// own navigation history.
         /// <para/>
         /// Only relevant for UWP and Desktop single page application
         /// </summary>
@@ -96,11 +98,13 @@ namespace Cauldron.XAML.Navigation
             await NavigateInternal<bool>(viewModelType, null, null);
 
         /// <summary>
-        /// Causes the window or page to load content represented by the specified <see cref="IViewModel"/>, also passing a parameter to be used to construct the view model.
+        /// Causes the window or page to load content represented by the specified <see
+        /// cref="IViewModel"/>, also passing a parameter to be used to construct the view model.
         /// </summary>
         /// <param name="viewModelType">The type of the viewmodel to construct</param>
         /// <param name="parameters">
-        /// The navigation parameter to pass to the target view model; must have a basic type (string, char, numeric, or GUID) to support parameter serialization.
+        /// The navigation parameter to pass to the target view model; must have a basic type
+        /// (string, char, numeric, or GUID) to support parameter serialization.
         /// </param>
         /// <returns>true if the navigation attempt was successful; otherwise, false</returns>
         public async Task<bool> NavigateAsync(Type viewModelType, params object[] parameters) =>
@@ -120,7 +124,9 @@ namespace Cauldron.XAML.Navigation
         /// <typeparam name="T">The type of the viewmodel to construct</typeparam>
         /// <typeparam name="TResult">The result type of the dialog</typeparam>
         /// <param name="callback">A delegate that is called after the popup has been closed</param>
-        /// <permission cref="NotSupportedException">The is already an open ContentDialog. Multiple ContentDialogs are not supported</permission>
+        /// <permission cref="NotSupportedException">
+        /// The is already an open ContentDialog. Multiple ContentDialogs are not supported
+        /// </permission>
         public async Task NavigateAsync<T, TResult>(Func<TResult, Task> callback) where T : class, IDialogViewModel<TResult> =>
             await NavigateInternal<TResult>(typeof(T), callback, null, null);
 
@@ -129,43 +135,49 @@ namespace Cauldron.XAML.Navigation
         /// </summary>
         /// <typeparam name="T">The type of the viewmodel to construct</typeparam>
         /// <param name="callback">A delegate that is called after the popup has been closed</param>
-        /// <permission cref="NotSupportedException">The is already an open ContentDialog. Multiple ContentDialogs are not supported</permission>
+        /// <permission cref="NotSupportedException">
+        /// The is already an open ContentDialog. Multiple ContentDialogs are not supported
+        /// </permission>
         public async Task NavigateAsync<T>(Func<Task> callback) where T : class, IDialogViewModel =>
             await NavigateInternal<bool>(typeof(T), null, callback, null);
 
         /// <summary>
-        /// Causes the window or page to load content represented by the specified <see cref="IViewModel"/>, also passing a parameter to be used to construct the view model.
+        /// Causes the window or page to load content represented by the specified <see
+        /// cref="IViewModel"/>, also passing a parameter to be used to construct the view model.
         /// </summary>
         /// <typeparam name="T">The type of the viewmodel to construct</typeparam>
         /// <param name="parameters">
-        /// The navigation parameter to pass to the target view model; must have a basic type (string, char, numeric, or GUID) to support parameter serialization.
+        /// The navigation parameter to pass to the target view model; must have a basic type
+        /// (string, char, numeric, or GUID) to support parameter serialization.
         /// </param>
         /// <returns>true if the navigation attempt was successful; otherwise, false</returns>
         public async Task<bool> NavigateAsync<T>(params object[] parameters) where T : IViewModel =>
             await NavigateInternal<bool>(typeof(T), null, null, parameters);
 
         /// <summary>
-        /// Create a new popup with the view defined by the view model, depending on the views definition, also passing a parameter to be used to construct the view model.
+        /// Create a new popup with the view defined by the view model, depending on the views
+        /// definition, also passing a parameter to be used to construct the view model.
         /// </summary>
         /// <typeparam name="T">The type of the viewmodel to construct</typeparam>
         /// <typeparam name="TResult">The result type of the dialog</typeparam>
         /// <param name="callback">A delegate that is called after the popup has been closed</param>
-        /// <param name="parameters">
-        /// The navigation parameter to pass to the target view model.
-        /// </param>
-        /// <permission cref="NotSupportedException">The is already an open ContentDialog. Multiple ContentDialogs are not supported</permission>
+        /// <param name="parameters">The navigation parameter to pass to the target view model.</param>
+        /// <permission cref="NotSupportedException">
+        /// The is already an open ContentDialog. Multiple ContentDialogs are not supported
+        /// </permission>
         public async Task NavigateAsync<T, TResult>(Func<TResult, Task> callback, params object[] parameters) where T : class, IDialogViewModel<TResult> =>
             await NavigateInternal<TResult>(typeof(T), callback, null, parameters);
 
         /// <summary>
-        /// Create a new popup with the view defined by the view model, depending on the views definition, also passing a parameter to be used to construct the view model.
+        /// Create a new popup with the view defined by the view model, depending on the views
+        /// definition, also passing a parameter to be used to construct the view model.
         /// </summary>
         /// <typeparam name="T">The type of the viewmodel to construct</typeparam>
         /// <param name="callback">A delegate that is called after the popup has been closed</param>
-        /// <param name="parameters">
-        /// The navigation parameter to pass to the target view model.
-        /// </param>
-        /// <permission cref="NotSupportedException">The is already an open ContentDialog. Multiple ContentDialogs are not supported</permission>
+        /// <param name="parameters">The navigation parameter to pass to the target view model.</param>
+        /// <permission cref="NotSupportedException">
+        /// The is already an open ContentDialog. Multiple ContentDialogs are not supported
+        /// </permission>
         public async Task NavigateAsync<T>(Func<Task> callback, params object[] parameters) where T : class, IDialogViewModel =>
             await NavigateInternal<bool>(typeof(T), null, callback, parameters);
 
@@ -174,7 +186,9 @@ namespace Cauldron.XAML.Navigation
         /// </summary>
         /// <param name="viewModel">The viewmodel to that was assigned to the window's data context</param>
         /// <returns>Returns true if successfully closed, otherwise false</returns>
-        /// <exception cref="ArgumentNullException">Parameter <paramref name="viewModel"/> is null</exception>
+        /// <exception cref="ArgumentNullException">
+        /// Parameter <paramref name="viewModel"/> is null
+        /// </exception>
         public bool TryClose(IViewModel viewModel)
         {
             if (viewModel == null)
@@ -262,16 +276,18 @@ namespace Cauldron.XAML.Navigation
                 // This only applies to windows that are not maximized
                 if (window.WindowState != WindowState.Maximized)
                 {
-                    // Check if the window is visible for the user
-                    // If the user has for example undocked his laptop (which means he lost a monitor) and the application
-                    // was running on the secondary monitor, we can't just start the window with that configuration
+                    // Check if the window is visible for the user If the user has for example
+                    // undocked his laptop (which means he lost a monitor) and the application was
+                    // running on the secondary monitor, we can't just start the window with that configuration
                     if (!MonitorInfo.WindowIsInAnyMonitor(window.GetWindowHandle()))
                     {
+                        var dpi = MonitorInfo.GetDpi(window.GetWindowHandle());
                         var primaryBounds = MonitorInfo.PrimaryMonitorBounds;
                         window.Height = Math.Min(window.Height, primaryBounds.Height);
                         window.Width = Math.Min(window.Width, primaryBounds.Width);
-                        window.Left = Math.Max(0, (primaryBounds.Width / 2) - (window.Width / 2));
-                        window.Top = Math.Max(0, (primaryBounds.Height / 2) - (window.Height / 2));
+
+                        window.Left = Math.Max(0, (primaryBounds.Width - window.Width) / (dpi.x / 96.0 * 4));
+                        window.Top = Math.Max(0, (primaryBounds.Height - window.Height) / (dpi.y / 96.0 * 4));
                     }
                     else
                     {
@@ -381,8 +397,8 @@ namespace Cauldron.XAML.Navigation
             window.WindowState = WindowConfiguration.GetWindowState(view);
             window.SizeToContent = WindowConfiguration.GetSizeToContent(view);
 
-            // Add the inputbindings to the window
-            // we have to recreate the binding here because the sources are all wrong
+            // Add the inputbindings to the window we have to recreate the binding here because the
+            // sources are all wrong
 
             foreach (InputBinding inputBinding in view.InputBindings)
             {

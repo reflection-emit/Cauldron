@@ -51,6 +51,7 @@
     <Compile Include="ChangeAwareIsChangedBehaviour.cs" />
     <Compile Include="ComboBoxBehaviour.cs" />
     <Compile Include="ComboBoxProperties.cs" />
+    <Compile Include="ListBoxProperties.cs" />
     <Compile Include="ListViewBehaviour.cs" />
     <Compile Include="PasswordBoxBehaviour.cs" />
     <Compile Include="PasswordBoxProperties.cs" />
@@ -80,6 +81,9 @@
     <Compile Include="Styles\ExpanderStyle.xaml.cs">
       <DependentUpon>ExpanderStyle.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Styles\ListBoxStyle.xaml.cs">
+      <DependentUpon>ListBoxStyle.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Styles\ListViewStyle.xaml.cs">
       <DependentUpon>ListViewStyle.xaml</DependentUpon>
     </Compile>
@@ -92,9 +96,16 @@
     <Compile Include="Styles\ScrollBarStyle.xaml.cs">
       <DependentUpon>ScrollBarStyle.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Styles\TabControlStyle.xaml.cs">
+      <DependentUpon>TabControlStyle.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Styles\TextBoxStyle.xaml.cs">
       <DependentUpon>TextBoxStyle.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TabControlDecorationBorderBehavior.cs" />
+    <Compile Include="TabItemBehaviour.cs" />
+    <Compile Include="TabItemHeaderProperties.cs" />
+    <Compile Include="TabsControlItemsControlBehaviour.cs" />
     <Compile Include="TextBlockProperties.cs" />
     <Compile Include="TextBoxProperties.cs" />
     <Compile Include="WindowToolbar.cs" />
@@ -116,6 +127,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Styles\ListBoxStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\ListViewStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -129,6 +144,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\ScrollBarStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\TabControlStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

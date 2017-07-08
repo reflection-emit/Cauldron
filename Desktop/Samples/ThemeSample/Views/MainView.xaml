@@ -10,60 +10,97 @@
              mc:Ignorable="d"
              cauldron:WindowConfiguration.IsWindowPersistent="True"
              d:DesignHeight="300" d:DesignWidth="300">
-    <Expander Header="Expander" Width="300">
-        <StackPanel>
-            <TextBlock theme:TextBlockProperties.Inline="&lt;Inline&gt;Text&lt;Bold&gt;&lt;Italic&gt;Block&lt;/Italic&gt;&lt;/Bold&gt;&lt;/Inline&gt;" />
-            <Button Content="Button" HorizontalAlignment="Left" Margin="10" />
-            <ToggleButton Content="ToggleButton" Margin="10" />
-            <TextBlock Text="Indeterminate ProgressBar" />
-            <ProgressBar IsIndeterminate="True" Margin="10" />
-            <TextBlock Text="ProgressBar" />
-            <ProgressBar Margin="10">
-                <ProgressBar.Triggers>
-                    <EventTrigger RoutedEvent="ProgressBar.Loaded">
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <DoubleAnimation Storyboard.TargetProperty="Value" From="0" To="100" RepeatBehavior="Forever" Duration="0:0:8" AccelerationRatio="0.4" DecelerationRatio="0.6" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger>
-                </ProgressBar.Triggers>
-            </ProgressBar>
-            <TextBox theme:TextBoxProperties.Header="TextBox" Margin="10">
-                <theme:TextBoxProperties.ButtonsTemplate>
-                    <ControlTemplate>
-                        <StackPanel>
-                            <Button theme:ButtonProperties.ImageKey="hey.png" i:Localized.Tooltip="Button 1" />
-                            <Button theme:ButtonProperties.ImageKey="hey.png" i:Localized.Tooltip="Button 2" />
-                        </StackPanel>
-                    </ControlTemplate>
-                </theme:TextBoxProperties.ButtonsTemplate>
-            </TextBox>
-            <ScrollBar Orientation="Horizontal" Minimum="0" Maximum="100" Value="50" />
-            <GroupBox Header="GroupBox">
-                <StackPanel>
-                    <RadioButton Content="RadioButton 1" />
-                    <RadioButton Content="RadioButton 2" />
-                    <CheckBox Content="CheckBox 1" IsThreeState="True" />
-                    <CheckBox Content="CheckBox 2" />
-                </StackPanel>
-            </GroupBox>
-            <PasswordBox theme:PasswordBoxProperties.Header="PasswordBox" Margin="10" />
-            <ComboBox Margin="10">
-                <theme:ComboBoxProperties.ButtonsTemplate>
-                    <ControlTemplate>
-                        <StackPanel>
-                            <Button theme:ButtonProperties.ImageKey="hey.png" i:Localized.Tooltip="Button 1" />
-                            <Button theme:ButtonProperties.ImageKey="hey.png" i:Localized.Tooltip="Button 2" />
-                        </StackPanel>
-                    </ControlTemplate>
-                </theme:ComboBoxProperties.ButtonsTemplate>
-                <ComboBoxItem>Combobox Item 1</ComboBoxItem>
-                <ComboBoxItem>Combobox Item 2</ComboBoxItem>
-                <ComboBoxItem>Combobox Item 3</ComboBoxItem>
-                <ComboBoxItem>Combobox Item 4</ComboBoxItem>
-                <ComboBoxItem>Combobox Item 5</ComboBoxItem>
-            </ComboBox>
-        </StackPanel>
-    </Expander>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Expander Header="Expander" Width="300" IsExpanded="True">
+            <StackPanel>
+                <TextBlock theme:TextBlockProperties.Inline="&lt;Inline&gt;Text&lt;Bold&gt;&lt;Italic&gt;Block&lt;/Italic&gt;&lt;/Bold&gt;&lt;/Inline&gt;" />
+                <Button Content="Button" HorizontalAlignment="Left" Margin="10" />
+                <ToggleButton Content="ToggleButton" Margin="10" />
+                <TextBlock Text="Indeterminate ProgressBar" />
+                <ProgressBar IsIndeterminate="True" Margin="10" />
+                <TextBlock Text="ProgressBar" />
+                <ProgressBar Margin="10">
+                    <ProgressBar.Triggers>
+                        <EventTrigger RoutedEvent="ProgressBar.Loaded">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetProperty="Value" From="0" To="100" RepeatBehavior="Forever" Duration="0:0:8" AccelerationRatio="0.4" DecelerationRatio="0.6" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </ProgressBar.Triggers>
+                </ProgressBar>
+                <TextBox theme:TextBoxProperties.Header="TextBox" Margin="10">
+                    <theme:TextBoxProperties.ButtonsTemplate>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <Button theme:ButtonProperties.ImageKey="hey.png" i:Localized.Tooltip="Button 1" />
+                                <Button theme:ButtonProperties.ImageKey="hey.png" i:Localized.Tooltip="Button 2" />
+                            </StackPanel>
+                        </ControlTemplate>
+                    </theme:TextBoxProperties.ButtonsTemplate>
+                </TextBox>
+                <ScrollBar Orientation="Horizontal" Minimum="0" Maximum="100" Value="50" />
+                <GroupBox Header="GroupBox">
+                    <StackPanel>
+                        <RadioButton Content="RadioButton 1" />
+                        <RadioButton Content="RadioButton 2" />
+                        <CheckBox Content="CheckBox 1" IsThreeState="True" />
+                        <CheckBox Content="CheckBox 2" />
+                    </StackPanel>
+                </GroupBox>
+                <PasswordBox theme:PasswordBoxProperties.Header="PasswordBox" Margin="10" />
+                <ComboBox Margin="10" theme:ComboBoxProperties.Header="ComboBox">
+                    <theme:ComboBoxProperties.ButtonsTemplate>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <Button theme:ButtonProperties.ImageKey="hey.png" i:Localized.Tooltip="Button 1" />
+                                <Button theme:ButtonProperties.ImageKey="hey.png" i:Localized.Tooltip="Button 2" />
+                            </StackPanel>
+                        </ControlTemplate>
+                    </theme:ComboBoxProperties.ButtonsTemplate>
+                    <ComboBoxItem>Combobox Item 1</ComboBoxItem>
+                    <ComboBoxItem>Combobox Item 2</ComboBoxItem>
+                    <ComboBoxItem>Combobox Item 3</ComboBoxItem>
+                    <ComboBoxItem>Combobox Item 4</ComboBoxItem>
+                    <ComboBoxItem>Combobox Item 5</ComboBoxItem>
+                </ComboBox>
+                <ComboBox Margin="10" IsEditable="True" theme:ComboBoxProperties.Header="ComboBox editable">
+                    <theme:ComboBoxProperties.ButtonsTemplate>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <Button theme:ButtonProperties.ImageKey="hey.png" i:Localized.Tooltip="Button 1" />
+                                <Button theme:ButtonProperties.ImageKey="hey.png" i:Localized.Tooltip="Button 2" />
+                            </StackPanel>
+                        </ControlTemplate>
+                    </theme:ComboBoxProperties.ButtonsTemplate>
+                    <ComboBoxItem>Combobox Item 1</ComboBoxItem>
+                    <ComboBoxItem>Combobox Item 2</ComboBoxItem>
+                    <ComboBoxItem>Combobox Item 3</ComboBoxItem>
+                    <ComboBoxItem>Combobox Item 4</ComboBoxItem>
+                    <ComboBoxItem>Combobox Item 5</ComboBoxItem>
+                </ComboBox>
+            </StackPanel>
+        </Expander>
+
+        <ListView theme:ListViewProperties.Header="ListView" Grid.Column="1" Margin="10" ItemsSource="{Binding ListViewItems}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn theme:GridViewColumnProperties.Formatting="Boolean" Header="Header 1" DisplayMemberBinding="{Binding Property4}" />
+                    <GridViewColumn theme:GridViewColumnProperties.Formatting="TextCenter" Header="Header 2" DisplayMemberBinding="{Binding Property3}" />
+                    <GridViewColumn theme:GridViewColumnProperties.Formatting="TextLeft" Header="Header 3" DisplayMemberBinding="{Binding Property2}" />
+                    <GridViewColumn theme:GridViewColumnProperties.Formatting="TextRight" Header="Header 4" DisplayMemberBinding="{Binding Property1}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <ListBox theme:ListBoxProperties.Header="ListBox" Grid.Column="2" Margin="10" ItemsSource="{Binding ListBoxItems}">
+        </ListBox>
+    </Grid>
 </UserControl>

@@ -134,6 +134,9 @@ namespace Cauldron.XAML.Theme
         /// </summary>
         protected override void OnDetach()
         {
+            if (this.IsDetached)
+                return;
+
             Application.Current.Exit -= Current_Exit;
             Application.Current.SessionEnding -= Current_SessionEnding;
 
@@ -180,7 +183,7 @@ namespace Cauldron.XAML.Theme
                 if (column == null)
                     return;
 
-                column.Width = p.Width;
+                column.Width = Math.Max(p.Width, 1);
                 this.AssociatedObject.Columns.Move(this.AssociatedObject.Columns.IndexOf(column), index++);
             }
         }
@@ -400,7 +403,7 @@ namespace Cauldron.XAML.Theme
             {
                 this.dictionary.Clear();
                 this.dictionary.Add("SortingDirection", (int)this.SortingDirection);
-                this.dictionary.Add("SortedHeaderUid", this.SortedHeaderUid);
+                this.dictionary.Add("SortedHeaderUid", this.SortedHeaderUid ?? "");
                 this.dictionary.Add("ColumnCount", this.Columns.Count);
 
                 for (int i = 0; i < this.Columns.Count; i++)

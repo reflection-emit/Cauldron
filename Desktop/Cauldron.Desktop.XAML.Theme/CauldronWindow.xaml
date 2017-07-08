@@ -83,15 +83,15 @@
                 </Border>
                 <Grid x:Name="sizer">
 
-                    <Thumb Focusable="False" Style="{StaticResource invisibleThumb}" Cursor="SizeWE" Width="5"  VerticalAlignment="Stretch" HorizontalAlignment="Left" DragDelta="Resizer_DragDelta" />
-                    <Thumb Focusable="False" Style="{StaticResource invisibleThumb}" Cursor="SizeWE" Width="5"  VerticalAlignment="Stretch" HorizontalAlignment="Right" DragDelta="Resizer_DragDelta" />
-                    <Thumb Focusable="False" Style="{StaticResource invisibleThumb}" Cursor="SizeNS" Height="5" VerticalAlignment="Top" HorizontalAlignment="Stretch" DragDelta="Resizer_DragDelta" />
-                    <Thumb Focusable="False" Style="{StaticResource invisibleThumb}" Cursor="SizeNS" Height="5" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" DragDelta="Resizer_DragDelta" />
+                    <Thumb Focusable="False" Style="{StaticResource invisibleThumb}" Cursor="SizeWE" Width="6"  VerticalAlignment="Stretch" HorizontalAlignment="Left" DragDelta="Resizer_DragDelta" />
+                    <Thumb Focusable="False" Style="{StaticResource invisibleThumb}" Cursor="SizeWE" Width="6"  VerticalAlignment="Stretch" HorizontalAlignment="Right" DragDelta="Resizer_DragDelta" />
+                    <Thumb Focusable="False" Style="{StaticResource invisibleThumb}" Cursor="SizeNS" Height="6" VerticalAlignment="Top" HorizontalAlignment="Stretch" DragDelta="Resizer_DragDelta" />
+                    <Thumb Focusable="False" Style="{StaticResource invisibleThumb}" Cursor="SizeNS" Height="6" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" DragDelta="Resizer_DragDelta" />
 
-                    <Thumb Focusable="False" Style="{StaticResource invisibleThumb}" Cursor="SizeNWSE" Width="8" Height="8"  VerticalAlignment="Top" HorizontalAlignment="Left" DragDelta="Resizer_DragDelta" />
-                    <Thumb Focusable="False" Style="{StaticResource invisibleThumb}" Cursor="SizeNWSE" Width="8" Height="8"  VerticalAlignment="Bottom" HorizontalAlignment="Right" DragDelta="Resizer_DragDelta" />
-                    <Thumb Focusable="False" Style="{StaticResource invisibleThumb}" Cursor="SizeNESW" Width="8" Height="8"  VerticalAlignment="Bottom" HorizontalAlignment="Left" DragDelta="Resizer_DragDelta" />
-                    <Thumb Focusable="False" Style="{StaticResource invisibleThumb}" Cursor="SizeNESW" Width="8" Height="8"  VerticalAlignment="Top" HorizontalAlignment="Right" DragDelta="Resizer_DragDelta" />
+                    <Thumb Focusable="False" Style="{StaticResource invisibleThumb}" Cursor="SizeNWSE" Width="9" Height="9"  VerticalAlignment="Top" HorizontalAlignment="Left" DragDelta="Resizer_DragDelta" />
+                    <Thumb Focusable="False" Style="{StaticResource invisibleThumb}" Cursor="SizeNWSE" Width="9" Height="9"  VerticalAlignment="Bottom" HorizontalAlignment="Right" DragDelta="Resizer_DragDelta" />
+                    <Thumb Focusable="False" Style="{StaticResource invisibleThumb}" Cursor="SizeNESW" Width="9" Height="9"  VerticalAlignment="Bottom" HorizontalAlignment="Left" DragDelta="Resizer_DragDelta" />
+                    <Thumb Focusable="False" Style="{StaticResource invisibleThumb}" Cursor="SizeNESW" Width="9" Height="9"  VerticalAlignment="Top" HorizontalAlignment="Right" DragDelta="Resizer_DragDelta" />
                 </Grid>
             </Grid>
         </ControlTemplate>
