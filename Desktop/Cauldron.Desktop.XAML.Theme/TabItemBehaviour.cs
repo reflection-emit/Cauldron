@@ -1,6 +1,8 @@
 ﻿using Cauldron.Core.Extensions;
 using Cauldron.XAML.Interactivity;
 using Cauldron.XAML.ViewModels;
+using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -18,14 +20,14 @@ namespace Cauldron.XAML.Theme
         #region Dependency Property MouseOverBrush
 
         /// <summary>
-        /// Identifies the <see cref="MouseOverBrush" /> dependency property
+        /// Identifies the <see cref="MouseOverBrush"/> dependency property
         /// </summary>
         public static readonly DependencyProperty MouseOverBrushProperty = DependencyProperty.Register(nameof(MouseOverBrush), typeof(Brush), typeof(TabItemBehaviour), new PropertyMetadata(null, TabItemBehaviour.OnMouseOverBrushChanged));
 
         private Brush _mouseOverBrush;
 
         /// <summary>
-        /// Gets or sets the <see cref="MouseOverBrush" /> Property
+        /// Gets or sets the <see cref="MouseOverBrush"/> Property
         /// </summary>
         public Brush MouseOverBrush
         {
@@ -44,6 +46,8 @@ namespace Cauldron.XAML.Theme
         }
 
         #endregion Dependency Property MouseOverBrush
+
+        private int lastUpdateIndex = 0;
 
         protected override void OnAttach()
         {
@@ -67,9 +71,9 @@ namespace Cauldron.XAML.Theme
             var parent = this.AssociatedObject.FindVisualParent<TabControl>();
 
             if (parent != null && !string.IsNullOrEmpty(parent.DisplayMemberPath))
-                this.AssociatedObject.SetBinding(TabItemHeaderProperties.HeaderProperty, this.AssociatedObject.DataContext, new PropertyPath(parent.DisplayMemberPath), BindingMode.OneWay);
+                this.AssociatedObject.SetBinding(TabItemProperties.HeaderProperty, this.AssociatedObject.DataContext, new PropertyPath(parent.DisplayMemberPath), BindingMode.OneWay);
             else
-                this.AssociatedObject.SetBinding(TabItemHeaderProperties.HeaderProperty, this.AssociatedObject, new PropertyPath(nameof(TabItem.Header)), BindingMode.OneWay);
+                this.AssociatedObject.SetBinding(TabItemProperties.HeaderProperty, this.AssociatedObject, new PropertyPath(nameof(TabItem.Header)), BindingMode.OneWay);
 
             this.UpdateColours();
         }
@@ -107,6 +111,24 @@ namespace Cauldron.XAML.Theme
             if (this.AssociatedObject.Template == null)
                 return;
 
+            var updateIndex = 0;
+
+            if (this.AssociatedObject.IsEnabled && this.AssociatedObject.IsMouseOver && !this.AssociatedObject.IsSelected)
+                updateIndex = 1;
+            else if (this.AssociatedObject.IsSelected && this.AssociatedObject.IsEnabled)
+                updateIndex = 2;
+            else if (!this.AssociatedObject.IsSelected && this.AssociatedObject.IsEnabled)
+                updateIndex = 3;
+            else if (this.AssociatedObject.IsSelected && !this.AssociatedObject.IsEnabled)
+                updateIndex = 4;
+            else if (!this.AssociatedObject.IsSelected && !this.AssociatedObject.IsEnabled)
+                updateIndex = 5;
+
+            if (updateIndex == this.lastUpdateIndex)
+                return;
+
+            this.lastUpdateIndex = updateIndex;
+
             if (this.border == null)
                 this.border = this.AssociatedObject.Template.FindName("border", this.AssociatedObject) as Border;
 
@@ -143,8 +165,17 @@ namespace Cauldron.XAML.Theme
             if (this.AssociatedObject.IsSelected && this.AssociatedObject.IsEnabled)
             {
                 this.border.IsNotNull(x => x.Background = this.AssociatedObject.Background);
-                this.header.IsNotNull(x => x.Foreground = Application.Current.Resources[CauldronTheme.HoveredTextBrush] as SolidColorBrush);
-                this.closeButton.IsNotNull(x => x.Visibility = this.AssociatedObject.DataContext is ICloseAwareViewModel ? Visibility.Visible : Visibility.Hidden);
+                var color = this.border.Background.As<SolidColorBrush>().Color;
+                this.header.IsNotNull(x => x.Foreground = (384 - color.R - color.G - color.B) > 0 ?
+                    Application.Current.Resources[CauldronTheme.HoveredTextBrush] as SolidColorBrush :
+                    Application.Current.Resources[CauldronTheme.DarkBackgroundBrush] as SolidColorBrush);
+                this.closeButton.IsNotNull(x =>
+                {
+                    x.Visibility = this.AssociatedObject.DataContext is ICloseAwareViewModel ? Visibility.Visible : Visibility.Hidden;
+                    x.Foreground = (384 - color.R - color.G - color.B) > 0 ?
+                        Application.Current.Resources[CauldronTheme.HoveredTextBrush] as SolidColorBrush :
+                        Application.Current.Resources[CauldronTheme.DarkBackgroundBrush] as SolidColorBrush;
+                });
             }
             else if (!this.AssociatedObject.IsSelected && this.AssociatedObject.IsEnabled)
             {

@@ -104,7 +104,7 @@
     </Compile>
     <Compile Include="TabControlDecorationBorderBehavior.cs" />
     <Compile Include="TabItemBehaviour.cs" />
-    <Compile Include="TabItemHeaderProperties.cs" />
+    <Compile Include="TabItemProperties.cs" />
     <Compile Include="TabsControlItemsControlBehaviour.cs" />
     <Compile Include="TextBlockProperties.cs" />
     <Compile Include="TextBoxProperties.cs" />

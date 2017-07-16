@@ -8,6 +8,8 @@ using System.Windows.Controls;
 
 #endif
 
+/* TODO */
+
 namespace Cauldron.XAML.ViewModels
 {
     /// <summary>
@@ -16,7 +18,8 @@ namespace Cauldron.XAML.ViewModels
     public interface ICloseAwareViewModel : IViewModel
     {
         /// <summary>
-        /// Occures if the control requests a closing. The viewmodel has to react to the requst by for example removing the tab from the <see cref="ObservableCollection{T}"/>.
+        /// Occures if the control requests a closing. The viewmodel has to react to the requst by
+        /// for example removing the tab from the <see cref="ObservableCollection{T}"/>.
         /// </summary>
         void Close();
     }

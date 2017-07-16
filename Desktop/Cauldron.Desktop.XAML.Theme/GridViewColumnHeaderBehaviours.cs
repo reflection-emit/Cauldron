@@ -31,6 +31,8 @@ namespace Cauldron.XAML.Theme
 
         private GridViewColumnHeader sortedHeader;
 
+        private string uniquename;
+
         private DependencyObject inheritanceContext
         {
             get { return this._inheritanceContext; }
@@ -40,8 +42,8 @@ namespace Cauldron.XAML.Theme
 
                 if (this._inheritanceContext != null)
                 {
-                    // The owner of this property is not a framework element therefor no Unloaded event
-                    // We have to get this from the inheritanceContext
+                    // The owner of this property is not a framework element therefor no Unloaded
+                    // event We have to get this from the inheritanceContext
                     var element = this.inheritanceContext?.As<FrameworkElement>();
                     if (element != null)
                     {
@@ -56,12 +58,12 @@ namespace Cauldron.XAML.Theme
         #region Dependency Property IsSortable
 
         /// <summary>
-        /// Identifies the <see cref="IsSortable" /> dependency property
+        /// Identifies the <see cref="IsSortable"/> dependency property
         /// </summary>
         public static readonly DependencyProperty IsSortableProperty = DependencyProperty.Register(nameof(IsSortable), typeof(bool), typeof(GridViewColumnHeaderBehaviours), new PropertyMetadata(true, GridViewColumnHeaderBehaviours.OnIsSortableChanged));
 
         /// <summary>
-        /// Gets or sets the <see cref="IsSortable" /> Property
+        /// Gets or sets the <see cref="IsSortable"/> Property
         /// </summary>
         public bool IsSortable
         {
@@ -102,14 +104,15 @@ namespace Cauldron.XAML.Theme
                     this.inheritanceContextChangedHandler?.Dispose();
                 });
 
-            // We have to be aware of application exit...
-            // The unload event of the controls does not occure on application exit
+            // We have to be aware of application exit... The unload event of the controls does not
+            // occure on application exit
             Application.Current.Exit += Current_Exit;
             Application.Current.SessionEnding += Current_SessionEnding;
         }
 
         /// <summary>
-        /// Occures if the <see cref="FrameworkElement.DataContext"/> of <see cref="Behaviour{T}.AssociatedObject"/> has changed
+        /// Occures if the <see cref="FrameworkElement.DataContext"/> of <see
+        /// cref="Behaviour{T}.AssociatedObject"/> has changed
         /// </summary>
         protected override void OnDataContextChanged()
         {
@@ -165,9 +168,10 @@ namespace Cauldron.XAML.Theme
             }
             catch
             {
-                // This can be a problem if the Unload event comes later than the session end or application exit event...
-                // In this case the Header will be null and we will have a nice Null exceptiuon
-                // But... We just skip this one... It does not matter actually... The columns are not persisted then... No problem
+                // This can be a problem if the Unload event comes later than the session end or
+                // application exit event... In this case the Header will be null and we will have a
+                // nice Null exceptiuon But... We just skip this one... It does not matter
+                // actually... The columns are not persisted then... No problem
             }
         }
 
@@ -247,8 +251,8 @@ namespace Cauldron.XAML.Theme
 
             foreach (var column in this.AssociatedObject.Columns)
             {
-                // check the header if it contains a GridViewColumnHeader or not...
-                // if not, then create a GridViewColumnHeader and assign the value to the GridViewColumnHeader
+                // check the header if it contains a GridViewColumnHeader or not... if not, then
+                // create a GridViewColumnHeader and assign the value to the GridViewColumnHeader
                 var header = column.Header is GridViewColumnHeader ?
                     column.Header as GridViewColumnHeader :
                     new GridViewColumnHeader { Content = column.Header };
@@ -290,7 +294,18 @@ namespace Cauldron.XAML.Theme
 
         private void Element_Unloaded(object sender, RoutedEventArgs e) => this.OnDetach();
 
-        private string GetSerializedUniqueName() => this.inheritanceContext?.As<FrameworkElement>()?.DataContext?.GetType().FullName.GetHash(HashAlgorithms.Md5) + "_Listview";
+        private string GetSerializedUniqueName()
+        {
+            var name = this.inheritanceContext?.As<FrameworkElement>()?.DataContext?.GetType().FullName.GetHash(HashAlgorithms.Md5);
+
+            if (string.IsNullOrEmpty(name))
+                name = this.uniquename;
+
+            if (string.IsNullOrEmpty(this.uniquename))
+                this.uniquename = name;
+
+            return name + "_Listview";
+        }
 
         private void Initialize()
         {

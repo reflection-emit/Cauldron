@@ -75,8 +75,22 @@
                             <Button FontFamily="Webdings" FontSize="16" Focusable="False" behaviour:Localized.Tooltip="Close" x:Name="CloseButton" Content="&#x0072;" Style="{StaticResource TitleBarButtonStyle}" Click="CloseButton_Click" />
                         </StackPanel>
 
-                        <ContentControl Grid.Column="1" Template="{Binding Path=(local:WindowToolbar.Template), RelativeSource={RelativeSource TemplatedParent}}" Focusable="False"
-                                        Visibility="{Binding Path=(local:WindowToolbar.Template), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ObjectToVisibilityConverter}}" />
+                        <ContentControl Grid.Column="1" Template="{Binding Path=WindowToolbarTemplate, RelativeSource={RelativeSource TemplatedParent}}" Focusable="False"
+                                        Visibility="{Binding Path=WindowToolbarTemplate, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ObjectToVisibilityConverter}}">
+                            <ContentControl.Resources>
+                                <Style TargetType="StackPanel">
+                                    <Setter Property="Orientation" Value="Horizontal" />
+                                    <Setter Property="Margin" Value="0" />
+                                </Style>
+                                <Style TargetType="Button" BasedOn="{StaticResource TitleBarButtonStyle}" />
+                                <Style TargetType="ComboBox" BasedOn="{StaticResource {x:Type ComboBox}}">
+                                    <Setter Property="MinWidth" Value="100" />
+                                </Style>
+                                <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
+                                    <Setter Property="MinWidth" Value="100" />
+                                </Style>
+                            </ContentControl.Resources>
+                        </ContentControl>
 
                         <ContentPresenter Grid.Row="2" Grid.ColumnSpan="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
                     </Grid>

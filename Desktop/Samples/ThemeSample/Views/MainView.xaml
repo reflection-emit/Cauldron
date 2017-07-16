@@ -10,10 +10,22 @@
              mc:Ignorable="d"
              cauldron:WindowConfiguration.IsWindowPersistent="True"
              d:DesignHeight="300" d:DesignWidth="300">
+
+    <theme:WindowToolbar.Template>
+        <ControlTemplate>
+            <StackPanel>
+                <Button Content="Bla" />
+                <ComboBox>
+                    <ComboBoxItem>Bla 1</ComboBoxItem>
+                    <ComboBoxItem>Bla 2</ComboBoxItem>
+                    <ComboBoxItem>Bla 3</ComboBoxItem>
+                </ComboBox>
+            </StackPanel>
+        </ControlTemplate>
+    </theme:WindowToolbar.Template>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
-            <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
@@ -89,18 +101,6 @@
             </StackPanel>
         </Expander>
 
-        <ListView theme:ListViewProperties.Header="ListView" Grid.Column="1" Margin="10" ItemsSource="{Binding ListViewItems}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn theme:GridViewColumnProperties.Formatting="Boolean" Header="Header 1" DisplayMemberBinding="{Binding Property4}" />
-                    <GridViewColumn theme:GridViewColumnProperties.Formatting="TextCenter" Header="Header 2" DisplayMemberBinding="{Binding Property3}" />
-                    <GridViewColumn theme:GridViewColumnProperties.Formatting="TextLeft" Header="Header 3" DisplayMemberBinding="{Binding Property2}" />
-                    <GridViewColumn theme:GridViewColumnProperties.Formatting="TextRight" Header="Header 4" DisplayMemberBinding="{Binding Property1}" />
-                </GridView>
-            </ListView.View>
-        </ListView>
-
-        <ListBox theme:ListBoxProperties.Header="ListBox" Grid.Column="2" Margin="10" ItemsSource="{Binding ListBoxItems}">
-        </ListBox>
+        <TabControl ItemsSource="{Binding Tabs}" SelectedItem="{Binding SelectedTab, Mode=TwoWay}" Grid.Column="1" DisplayMemberPath="Title" />
     </Grid>
 </UserControl>

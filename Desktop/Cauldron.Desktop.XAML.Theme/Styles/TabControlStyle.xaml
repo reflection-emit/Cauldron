@@ -10,7 +10,6 @@
              mc:Ignorable="d">
 
     <Style TargetType="TabControl">
-        <!-- TODO   -->
         <Setter Property="IsTabStop" Value="False" />
         <Setter Property="Background" Value="{StaticResource {x:Static t:CauldronTheme.AccentBrush}}" />
         <Setter Property="Foreground" Value="{StaticResource {x:Static t:CauldronTheme.TextBrush}}" />
@@ -21,14 +20,15 @@
         <Setter Property="FlowDirection" Value="LeftToRight" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="VerticalContentAlignment" Value="Stretch" />
-        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="SnapsToDevicePixels" Value="False" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TabControl">
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="21" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
                             <RowDefinition />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
@@ -36,7 +36,7 @@
                             <ColumnDefinition Width="14" />
                         </Grid.ColumnDefinitions>
 
-                        <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled">
+                        <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled" Margin="0">
                             <TabPanel x:Name="HeaderPanel" Grid.Row="0" Panel.ZIndex="1" Margin="0" IsItemsHost="True" KeyboardNavigation.TabIndex="1" Background="Transparent" />
                         </ScrollViewer>
 
@@ -45,7 +45,7 @@
                                         Background="{StaticResource {x:Static t:CauldronTheme.LightBackgroundBrush}}" BorderBrush="Transparent" Template="{StaticResource ComboBoxToggleButton}" />
 
                         <Popup x:Name="Popup" Grid.ColumnSpan="2" Grid.Row="0" Placement="Bottom" StaysOpen="False" PlacementTarget="{Binding ElementName=ToggleButton}" IsOpen="{Binding ElementName=ToggleButton, Path=IsChecked }">
-                            <Border x:Name="DropDown" SnapsToDevicePixels="True" Margin="0,0,5,5" MaxWidth="{TemplateBinding ActualWidth}" MinWidth="128"
+                            <Border x:Name="DropDown" SnapsToDevicePixels="False" Margin="0,0,5,5" MaxWidth="{TemplateBinding ActualWidth}" MinWidth="128"
                                         BorderThickness="1" BorderBrush="{StaticResource {x:Static t:CauldronTheme.LightBorderBrush}}" Background="{StaticResource {x:Static t:CauldronTheme.DropdownBackgroundBrush}}">
                                 <ItemsControl KeyboardNavigation.DirectionalNavigation="Contained" Margin="0" ItemsSource="{TemplateBinding ItemsSource}" DisplayMemberPath="{TemplateBinding DisplayMemberPath}">
                                     <i:Interaction.Behaviours>
@@ -58,13 +58,13 @@
                             </Border>
                         </Popup>
 
-                        <Rectangle x:Name="decorationBorder" Grid.ColumnSpan="2" Height="2" HorizontalAlignment="Stretch" VerticalAlignment="Bottom">
+                        <Rectangle x:Name="decorationBorder" Grid.ColumnSpan="2" Grid.Row="1" Height="2" HorizontalAlignment="Stretch" VerticalAlignment="Bottom">
                             <i:Interaction.Behaviours>
                                 <t:TabControlDecorationBorderBehavior />
                             </i:Interaction.Behaviours>
                         </Rectangle>
 
-                        <Border x:Name="Border" Grid.Row="1" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="{StaticResource {x:Static t:CauldronTheme.LightBorderBrush}}" Background="{StaticResource {x:Static t:CauldronTheme.LightBackgroundBrush}}"
+                        <Border x:Name="Border" Grid.Row="2" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="{StaticResource {x:Static t:CauldronTheme.LightBorderBrush}}" Background="{StaticResource {x:Static t:CauldronTheme.LightBackgroundBrush}}"
                                 KeyboardNavigation.TabNavigation="Local" KeyboardNavigation.DirectionalNavigation="Contained" KeyboardNavigation.TabIndex="2">
                             <ContentPresenter x:Name="PART_SelectedContentHost" ContentSource="SelectedContent" ContentTemplateSelector="{StaticResource CauldronTemplateSelector}" />
                         </Border>
@@ -77,10 +77,11 @@
     <Style TargetType="TabItem">
         <Setter Property="Height" Value="19" />
         <Setter Property="Padding" Value="0" />
+        <Setter Property="MaxWidth" Value="300" />
         <Setter Property="Margin" Value="0" />
         <Setter Property="Background" Value="{StaticResource {x:Static t:CauldronTheme.AccentBrush}}" />
         <Setter Property="Foreground" Value="{StaticResource {x:Static t:CauldronTheme.TextBrush}}" />
-        <Setter Property="t:TabItemHeaderProperties.Header" Value="" />
+        <Setter Property="t:TabItemProperties.Header" Value="" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="i:StyleInteraction.Template">
             <Setter.Value>
@@ -92,7 +93,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TabItem">
-                    <Grid x:Name="Root" MaxWidth="180">
+                    <Grid x:Name="Root" MaxWidth="{TemplateBinding MaxWidth}">
                         <!--
                             Visual state groups on TabItem does not support everything that we would like the tabs to do.
                             The colouring will be done in the behaviour
@@ -103,7 +104,7 @@
                                     <ColumnDefinition />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock x:Name="header" Text="{Binding Path=(local:TabItemHeader.Header), RelativeSource={RelativeSource TemplatedParent}}"
+                                <TextBlock x:Name="header" Text="{Binding Path=(t:TabItemProperties.Header), RelativeSource={RelativeSource TemplatedParent}}"
                                         ToolTip="{Binding Path=Text, RelativeSource={RelativeSource Self}}" TextAlignment="Left"
                                         TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" Padding="0">
                                     <Validation.ErrorTemplate>

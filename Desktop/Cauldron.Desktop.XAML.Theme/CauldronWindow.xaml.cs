@@ -37,15 +37,33 @@ namespace Cauldron.XAML.Theme
             this.Deactivated += LightWindow_Deactivated;
         }
 
+        #region Dependency Property WindowToolbarTemplate
+
+        /// <summary>
+        /// Identifies the <see cref="WindowToolbarTemplate"/> dependency property
+        /// </summary>
+        internal static readonly DependencyProperty WindowToolbarTemplateProperty = DependencyProperty.Register(nameof(WindowToolbarTemplate), typeof(ControlTemplate), typeof(CauldronWindow), new PropertyMetadata(null));
+
+        /// <summary>
+        /// Gets or sets the <see cref="WindowToolbarTemplate"/> Property
+        /// </summary>
+        internal ControlTemplate WindowToolbarTemplate
+        {
+            get { return (ControlTemplate)this.GetValue(WindowToolbarTemplateProperty); }
+            set { this.SetValue(WindowToolbarTemplateProperty, value); }
+        }
+
+        #endregion Dependency Property WindowToolbarTemplate
+
         #region Dependency Property CanGoBack
 
         /// <summary>
-        /// Identifies the <see cref="CanGoBack" /> dependency property
+        /// Identifies the <see cref="CanGoBack"/> dependency property
         /// </summary>
         public static readonly DependencyProperty CanGoBackProperty = DependencyProperty.Register(nameof(CanGoBack), typeof(bool), typeof(CauldronWindow), new PropertyMetadata(false));
 
         /// <summary>
-        /// Gets or sets the <see cref="CanGoBack" /> Property
+        /// Gets or sets the <see cref="CanGoBack"/> Property
         /// </summary>
         public bool CanGoBack
         {
@@ -69,6 +87,11 @@ namespace Cauldron.XAML.Theme
                 this.SetBinding(CanGoBackProperty, newNavigationFrame, new PropertyPath("CanGoBack"), System.Windows.Data.BindingMode.OneWay);
             else
                 this.CanGoBack = false;
+
+            if (this.Content != null && this.Content is DependencyObject)
+                this.WindowToolbarTemplate = WindowToolbar.GetTemplate(this.Content as DependencyObject);
+            else
+                this.WindowToolbarTemplate = null;
         }
 
         protected override void OnStateChanged(EventArgs e)
@@ -240,8 +263,13 @@ namespace Cauldron.XAML.Theme
                 return;
 
             var mouse = Mouse.GetPosition(this);
-            var mouseOnScreen = Win32Api.GetMousePosition();
             var oldWidth = this.ActualWidth;
+            var mouseOnScreen = new Func<Point>(() =>
+            {
+                var position = Win32Api.GetMousePosition();
+                var source = PresentationSource.FromVisual(window);
+                return new Point(position.X / source.CompositionTarget.TransformToDevice.M11, position.Y / source.CompositionTarget.TransformToDevice.M22);
+            })();
 
             var currentLeft = mouse.X + 5;
 
@@ -303,7 +331,8 @@ namespace Cauldron.XAML.Theme
         public bool IsDisposed { get { return this.disposed; } }
 
         /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting
+        /// unmanaged resources.
         /// </summary>
         public void Dispose()
         {
@@ -312,7 +341,8 @@ namespace Cauldron.XAML.Theme
         }
 
         /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting
+        /// unmanaged resources.
         /// </summary>
         /// <param name="disposing">true if managed resources requires disposing</param>
         [SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
