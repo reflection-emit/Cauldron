@@ -99,6 +99,9 @@
     <Compile Include="Styles\TabControlStyle.xaml.cs">
       <DependentUpon>TabControlStyle.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Styles\StatusBarStyle.xaml.cs">
+      <DependentUpon>StatusBarStyle.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Styles\TextBoxStyle.xaml.cs">
       <DependentUpon>TextBoxStyle.xaml</DependentUpon>
     </Compile>
@@ -150,6 +153,10 @@
     <Page Include="Styles\TabControlStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\StatusBarStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Styles\TextBoxStyle.xaml">
       <SubType>Designer</SubType>

@@ -1,0 +1,62 @@
+﻿<ResourceDictionary x:Class="Cauldron.XAML.Theme.Styles.StatusBarStyle"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Cauldron.XAML.Theme.Styles"
+             xmlns:i="clr-namespace:Cauldron.XAML.Interactivity;assembly=Cauldron.XAML.Interactivity"
+             xmlns:validation="clr-namespace:Cauldron.XAML.Validation;assembly=Cauldron.XAML.Validation"
+             xmlns:t="clr-namespace:Cauldron.XAML.Theme"
+             mc:Ignorable="d">
+
+    <Style TargetType="StatusBar">
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="SnapsToDevicePixels" Value="False" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="StatusBar">
+                    <Border Height="23" Background="{StaticResource {x:Static t:CauldronTheme.AccentBrush}}" BorderThickness="0" BorderBrush="{x:Null}" Padding="2,1">
+                        <ItemsPresenter />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="StatusBarItem">
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="SnapsToDevicePixels" Value="False" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="StatusBarItem">
+                    <ContentPresenter Height="23">
+                        <!--<ContentControl.Resources>
+                            <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                                <Setter Property="Foreground" Value="Red" />
+                                <Setter Property="FontSize" Value="12" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                                <Setter Property="Margin" Value="4,0" />
+                            </Style>
+                            <Style TargetType="ProgressBar" BasedOn="{StaticResource {x:Type ProgressBar}}">
+                                <Setter Property="Foreground" Value="{StaticResource {x:Static t:CauldronTheme.HoveredTextBrush}}" />
+                                <Setter Property="VerticalAlignment" Value="Stretch" />
+                                <Setter Property="MinWidth" Value="50" />
+                            </Style>
+
+                            <Style TargetType="Button" BasedOn="{StaticResource TitleBarButtonStyle}" />
+                        </ContentControl.Resources>-->
+                    </ContentPresenter>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="{StaticResource {x:Static t:CauldronTheme.DisabledTextColor}}" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

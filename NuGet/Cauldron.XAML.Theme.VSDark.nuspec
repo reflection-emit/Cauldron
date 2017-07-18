@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Capgemini.Cauldron.XAML.Theme.VSDark</id>
+    <version>1.1.4</version>
+    <title>Capgemini.Cauldron.XAML.Theme.VSDark</title>
+    <authors>Capgemini Deutschland GmbH</authors>
+    <owners>Capgemini Deutschland GmbH</owners>
+    <licenseUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/Capgemini/Cauldron</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>A simple theme based on Visual Studio 2015</description>
+    <summary>A simple theme based on Visual Studio 2015. Not all default WPF controls are covered yet.</summary>
+    <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
+    <tags>Toolkit Capgemini Cauldron XAML WPF Theme Skin</tags>
+    <dependencies>
+      <group targetFramework="net452">
+        <dependency id="Capgemini.Cauldron.Core" version="1.2.8-beta" />
+        <dependency id="Capgemini.Cauldron.Activator" version="1.2.8-beta" />
+        <dependency id="Capgemini.Cauldron.Localization" version="1.2.8-beta" />
+        <dependency id="Capgemini.Cauldron.XAML" version="1.2.8-beta" />
+        <dependency id="Capgemini.Cauldron.XAML.Interactivity" version="1.2.8-beta" />
+        <dependency id="Capgemini.Cauldron.XAML.Validation" version="1.2.8-beta" />
+        <dependency id="Capgemini.Cauldron.Cryptography" version="1.2.8-beta" />
+        <dependency id="PropertyChanged.Fody" version="2.1.2" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+
+    <!-- Desktop -->
+    <file src="..\Desktop\Cauldron.Desktop.XAML.Theme\bin\Release\Cauldron.XAML.Theme.dll" target="lib\net452" />
+    <file src="..\Desktop\Cauldron.Desktop.XAML.Theme\bin\Release\Cauldron.XAML.Theme.pdb" target="lib\net452" />
+    <file src="..\Desktop\Cauldron.Desktop.XAML.Theme\bin\Release\Cauldron.XAML.Theme.xml" target="lib\net452" />
+
+    <file src="..\Desktop\Cauldron.Desktop.XAML.Theme.VSDark\bin\Release\Cauldron.XAML.Theme.VSDark.dll" target="lib\net452" />
+    <file src="..\Desktop\Cauldron.Desktop.XAML.Theme.VSDark\bin\Release\Cauldron.XAML.Theme.VSDark.pdb" target="lib\net452" />
+    <file src="..\Desktop\Cauldron.Desktop.XAML.Theme.VSDark\bin\Release\Cauldron.XAML.Theme.VSDark.xml" target="lib\net452" />
+  </files>
+</package>

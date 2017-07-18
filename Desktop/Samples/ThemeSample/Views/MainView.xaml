@@ -29,6 +29,11 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
         <Expander Header="Expander" Width="300" IsExpanded="True">
             <StackPanel>
                 <TextBlock theme:TextBlockProperties.Inline="&lt;Inline&gt;Text&lt;Bold&gt;&lt;Italic&gt;Block&lt;/Italic&gt;&lt;/Bold&gt;&lt;/Inline&gt;" />
@@ -102,5 +107,31 @@
         </Expander>
 
         <TabControl ItemsSource="{Binding Tabs}" SelectedItem="{Binding SelectedTab, Mode=TwoWay}" Grid.Column="1" DisplayMemberPath="Title" />
+
+        <StatusBar Grid.ColumnSpan="2" Grid.Row="1">
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" MaxWidth="400" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+
+            <StatusBarItem>
+                <TextBlock Text="Ready" />
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="1">
+                <ProgressBar IsIndeterminate="True" />
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="3">
+                <Button Content="Press" />
+            </StatusBarItem>
+        </StatusBar>
     </Grid>
 </UserControl>
