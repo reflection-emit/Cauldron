@@ -44,7 +44,7 @@
                         </Grid.ColumnDefinitions>
 
                         <StackPanel Orientation="Horizontal" Grid.RowSpan="2">
-                            <Button Visibility="{Binding ElementName=window, Path=CanGoBack, Converter={StaticResource BooleanToVisibilityConverter}}" FontFamily="Wingdings" FontSize="16" Focusable="False" behaviour:Localized.Tooltip="Back" x:Name="BackButton" Content="&#x00df;" Style="{StaticResource TitleBarButtonStyle}" VerticalAlignment="Top" Click="BackButton_Click" />
+                            <Button Visibility="{Binding ElementName=window, Path=CanGoBack, Converter={StaticResource BooleanToVisibilityConverter}}" FontFamily="Wingdings" FontSize="16" Focusable="False" behaviour:Localized.ToolTip="Back" x:Name="BackButton" Content="&#x00df;" Style="{StaticResource TitleBarButtonStyle}" VerticalAlignment="Top" Click="BackButton_Click" />
                             <Image IsHitTestVisible="False" Visibility="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ObjectToVisibilityConverter}}"
                                    x:Name="icon" VerticalAlignment="Center" HorizontalAlignment="Left" Width="26" Height="26" Margin="6,0,0,0" Source="{TemplateBinding Icon}" Grid.RowSpan="2" />
 
@@ -57,10 +57,10 @@
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Grid.Column="2" WindowChrome.IsHitTestVisibleInChrome="True">
-                            <Button FontFamily="Webdings" FontSize="16" Focusable="False" behaviour:Localized.Tooltip="Minimize" x:Name="MinimizeButton" Content="&#x0030;" Style="{StaticResource TitleBarButtonStyle}" Click="MinimizeButton_Click" />
-                            <Button FontFamily="Webdings" FontSize="16" Focusable="False" behaviour:Localized.Tooltip="Restore Down" x:Name="RestoreButton" Content="&#x0032;" Style="{StaticResource TitleBarButtonStyle}" Click="RestoreButton_Click" />
-                            <Button FontFamily="Webdings" FontSize="16" Focusable="False" behaviour:Localized.Tooltip="Maximize" x:Name="MaximizeButton" Content="&#x0031;" Style="{StaticResource TitleBarButtonStyle}" Click="MaximizeButton_Click" />
-                            <Button FontFamily="Webdings" FontSize="16" Focusable="False" behaviour:Localized.Tooltip="Close" x:Name="CloseButton" Content="&#x0072;" Style="{StaticResource TitleBarButtonStyle}" Click="CloseButton_Click" />
+                            <Button FontFamily="Webdings" FontSize="16" Focusable="False" behaviour:Localized.ToolTip="Minimize" x:Name="MinimizeButton" Content="&#x0030;" Style="{StaticResource TitleBarButtonStyle}" Click="MinimizeButton_Click" />
+                            <Button FontFamily="Webdings" FontSize="16" Focusable="False" behaviour:Localized.ToolTip="Restore Down" x:Name="RestoreButton" Content="&#x0032;" Style="{StaticResource TitleBarButtonStyle}" Click="RestoreButton_Click" />
+                            <Button FontFamily="Webdings" FontSize="16" Focusable="False" behaviour:Localized.ToolTip="Maximize" x:Name="MaximizeButton" Content="&#x0031;" Style="{StaticResource TitleBarButtonStyle}" Click="MaximizeButton_Click" />
+                            <Button FontFamily="Webdings" FontSize="16" Focusable="False" behaviour:Localized.ToolTip="Close" x:Name="CloseButton" Content="&#x0072;" Style="{StaticResource TitleBarButtonStyle}" Click="CloseButton_Click" />
                         </StackPanel>
 
                         <ContentControl Grid.Column="1" Template="{Binding Path=WindowToolbarTemplate, RelativeSource={RelativeSource TemplatedParent}}" Focusable="False" WindowChrome.IsHitTestVisibleInChrome="True"
@@ -73,9 +73,11 @@
                                 <Style TargetType="Button" BasedOn="{StaticResource TitleBarButtonStyle}" />
                                 <Style TargetType="ComboBox" BasedOn="{StaticResource {x:Type ComboBox}}">
                                     <Setter Property="MinWidth" Value="100" />
+                                    <Setter Property="IsTabStop" Value="False" />
                                 </Style>
                                 <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
                                     <Setter Property="MinWidth" Value="100" />
+                                    <Setter Property="IsTabStop" Value="False" />
                                 </Style>
                             </ContentControl.Resources>
                         </ContentControl>

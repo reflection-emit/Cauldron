@@ -1,4 +1,4 @@
- ﻿using Cauldron.Core;
+using Cauldron.Core;
 using Cauldron.Core.Extensions;
 using Cauldron.Cryptography;
 using System.Runtime.InteropServices;
@@ -10,9 +10,8 @@ using Windows.Security.Cryptography.Core;
 namespace System.Security /* So that precompiler definitions are not required if classes are shared between UWP and Desktop */
 {
     /// <summary>
-    /// Represents text that should be kept confidential. The text is encrypted for privacy
-    /// when being used, and deleted from computer memory when no longer needed. This
-    /// class cannot be inherited.
+    /// Represents text that should be kept confidential. The text is encrypted for privacy when
+    /// being used, and deleted from computer memory when no longer needed. This class cannot be inherited.
     /// </summary>
     public sealed class SecureString : DisposableBase
     {
@@ -33,7 +32,8 @@ namespace System.Security /* So that precompiler definitions are not required if
         private byte[] initialisationVector;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SecureString"/> class from a subarray of <see cref="char"/> objects.
+        /// Initializes a new instance of the <see cref="SecureString"/> class from a subarray of
+        /// <see cref="char"/> objects.
         /// </summary>
         /// <param name="value">A pointer to an array of System.Char objects.</param>
         /// <param name="length">The number of elements of value to include in the new instance.</param>
@@ -48,9 +48,8 @@ namespace System.Security /* So that precompiler definitions are not required if
             for (int i = 0; i < dataCopy.Length; i++)
                 dataCopy[i] = (byte)*(value + i);
 
-            // We cannot use our Aes implemtation in here because we will
-            // cause a cycling dependency... And that will lead to
-            // a StackOverflow
+            // We cannot use our Aes implemtation in here because we will cause a cycling
+            // dependency... And that will lead to a StackOverflow
 
             var passPhrase = Encoding.UTF8.GetBytes(SystemInfo.HardwareIdentifier.GetHash(HashAlgorithms.Sha512));
             var keyMaterial = CryptographicBuffer.CreateFromByteArray(passPhrase);
@@ -83,6 +82,30 @@ namespace System.Security /* So that precompiler definitions are not required if
         /// <returns>The content of the <see cref="SecureString"/> as a <see cref="string"/></returns>
         [SecurityCritical]
         public string GetString() => Encoding.UTF8.GetString(this.Decrypt());
+
+        /// <summary>
+        /// Compares two <see cref="SecureString"/> for equality
+        /// </summary>
+        /// <param name="b">The second <see cref="SecureString"/> to compare</param>
+        /// <returns>Returns true if the <see cref="SecureString"/> s are equal; otherwise false.</returns>
+        public bool IsEqualTo(SecureString b)
+        {
+            // This is meant to mimic the SecureString extension for Desktop
+
+            int lengthA = this.data.Length;
+            int lengthB = b.data.Length;
+
+            if (lengthA == lengthB)
+            {
+                for (int x = 0; x < lengthA; ++x)
+                    if (this.data[x] != b.data[x])
+                        return false;
+            }
+            else
+                return false;
+
+            return true;
+        }
 
         /// <summary>
         /// Occures after <see cref="IDisposable.Dispose"/> has been invoked

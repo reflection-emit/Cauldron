@@ -24,12 +24,14 @@ namespace Cauldron.XAML.ValueConverters
         /// <param name="parameter">The converter parameter to use.</param>
         /// <param name="language">The language to use in the converter.</param>
         /// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
-        /// <exception cref="NotImplementedException">Always throws <see cref="NotImplementedException"/>. This method is not implemented.</exception>
+        /// <exception cref="NotImplementedException">
+        /// Always throws <see cref="NotImplementedException"/>. This method is not implemented.
+        /// </exception>
         public override object OnConvert(object value, Type targetType, object parameter, string language)
         {
             var stringValue = value as string;
 
-            if (parameter.ToString().ToBool())
+            if (parameter?.ToString().ToBool() ?? false)
                 return string.IsNullOrEmpty(stringValue) ? Visibility.Collapsed : Visibility.Visible;
             else
                 return string.IsNullOrEmpty(stringValue) ? Visibility.Visible : Visibility.Collapsed;
@@ -43,7 +45,9 @@ namespace Cauldron.XAML.ValueConverters
         /// <param name="parameter">The converter parameter to use.</param>
         /// <param name="language">The language to use in the converter.</param>
         /// <returns>A converted value.If the method returns null, the valid null value is used.</returns>
-        /// <exception cref="NotImplementedException">Always throws <see cref="NotImplementedException"/>. This method is not implemented.</exception>
+        /// <exception cref="NotImplementedException">
+        /// Always throws <see cref="NotImplementedException"/>. This method is not implemented.
+        /// </exception>
         public override object OnConvertBack(object value, Type targetType, object parameter, string language)
         {
             throw new NotImplementedException();

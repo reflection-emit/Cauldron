@@ -61,6 +61,7 @@
   <ItemGroup>
     <Compile Include="App.cs" />
     <Compile Include="CreateNewTabMessageArgs.cs" />
+    <Compile Include="LocaleSource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -74,6 +75,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="ViewModels\DummyItemViewModel.cs" />
     <Compile Include="ViewModels\TestViewModel.cs" />
     <Compile Include="ViewModels\ListBoxTestViewModel.cs" />
     <Compile Include="ViewModels\ListViewTestViewModel.cs" />
@@ -94,6 +96,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <EmbeddedResource Include="strings.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

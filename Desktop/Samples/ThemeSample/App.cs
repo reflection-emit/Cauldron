@@ -24,7 +24,7 @@ namespace ThemeSample
 
         protected override void OnResourceLoad()
         {
-            CauldronTheme.SetAccentColor(Colors.GreenYellow);
+            CauldronTheme.SetAccentColor(Colors.SteelBlue);
         }
 
         protected override async Task OnStartup(LaunchActivatedEventArgs e)

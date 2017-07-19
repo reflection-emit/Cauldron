@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Data;
 
 namespace Cauldron.XAML.Theme
 {
@@ -9,12 +10,17 @@ namespace Cauldron.XAML.Theme
         /// <summary>
         /// Identifies the Header dependency property
         /// </summary>
-        public static readonly DependencyProperty HeaderProperty = DependencyProperty.RegisterAttached("Header", typeof(string), typeof(PasswordBoxProperties), new PropertyMetadata(null));
+        public static readonly DependencyProperty HeaderProperty = DependencyProperty.RegisterAttached("Header", typeof(string), typeof(PasswordBoxProperties),
+            new FrameworkPropertyMetadata
+            {
+                BindsTwoWayByDefault = true,
+                DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+            });
 
         /// <summary>
         /// Gets the value of Header
         /// </summary>
-        /// <param name="obj"><see cref="DependencyObject" /> with the attached property</param>
+        /// <param name="obj"><see cref="DependencyObject"/> with the attached property</param>
         /// <returns>The value of the attached property</returns>
         public static string GetHeader(DependencyObject obj)
         {
@@ -24,7 +30,7 @@ namespace Cauldron.XAML.Theme
         /// <summary>
         /// Sets the value of the Header attached property
         /// </summary>
-        /// <param name="obj"><see cref="DependencyObject" /> with the attached property</param>
+        /// <param name="obj"><see cref="DependencyObject"/> with the attached property</param>
         /// <param name="value">The new value to set</param>
         public static void SetHeader(DependencyObject obj, string value)
         {

@@ -75,6 +75,7 @@
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
         <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
+        <Setter Property="ScrollViewer.PanningMode" Value="VerticalOnly" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListBox">
@@ -85,32 +86,15 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Path=(t:ListBoxProperties.Header), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource KeyToLocalizedStringConverter}}"
-                                 Visibility="{Binding Path=(t:ListBoxProperties.Header), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NullOrEmptyToVisibilityConverter}, ConverterParameter=True}"
-                                 Margin="1,6,0,2" TextWrapping="NoWrap" TextAlignment="Left" TextTrimming="CharacterEllipsis" IsHitTestVisible="False" />
+                        <t:HeaderDisplay Header="{Binding Path=(t:ListBoxProperties.Header), RelativeSource={RelativeSource TemplatedParent}}" />
 
-                            <TextBlock Text="*"
-                                 Visibility="{Binding Path=(validation:ValidationProperties.IsMandatory), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                 Margin="3,-3,0,2" TextAlignment="Left" IsHitTestVisible="False" FontSize="22" Height="16" Foreground="Tomato" />
-                        </StackPanel>
-
-                        <Border Grid.Row="1" Name="Border" BorderThickness="{TemplateBinding BorderThickness}" Margin="0"
-                            BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}">
+                        <Border Grid.Row="1" Name="Border" BorderThickness="{TemplateBinding BorderThickness}" Margin="0" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}">
                             <ScrollViewer Margin="0" Focusable="False">
                                 <StackPanel Margin="1" IsItemsHost="True" />
                             </ScrollViewer>
                         </Border>
 
-                        <Grid Grid.Row="2" Height="16" Margin="0" Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(validation:ValidationProperties.HasErrors), Converter={StaticResource BooleanToVisibilityConverter}}">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <Border Background="{TemplateBinding BorderBrush}" Grid.ColumnSpan="2" />
-                            <Ellipse Fill="Tomato" Width="14" Height="14" Margin="4,0" VerticalAlignment="Center" HorizontalAlignment="Center" ToolTip="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(validation:ValidationProperties.Errors)}" />
-                            <TextBlock Text="!" IsHitTestVisible="False" FontFamily="Segoe UI" FontWeight="ExtraBold" Foreground="{StaticResource {x:Static t:CauldronTheme.HoveredTextBrush}}" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                        </Grid>
+                        <t:ValidationDisplay Grid.Row="2" Height="16" Background="{TemplateBinding BorderBrush}" Padding="1,0" VerticalAlignment="Stretch" />
                     </Grid>
 
                     <ControlTemplate.Triggers>

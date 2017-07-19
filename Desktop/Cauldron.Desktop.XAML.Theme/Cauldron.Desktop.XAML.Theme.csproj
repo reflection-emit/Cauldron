@@ -51,6 +51,9 @@
     <Compile Include="ChangeAwareIsChangedBehaviour.cs" />
     <Compile Include="ComboBoxBehaviour.cs" />
     <Compile Include="ComboBoxProperties.cs" />
+    <Compile Include="Enforcer.cs" />
+    <Compile Include="HeaderDisplay.cs" />
+    <Compile Include="InlineTextValueConverter.cs" />
     <Compile Include="ListBoxProperties.cs" />
     <Compile Include="ListViewBehaviour.cs" />
     <Compile Include="PasswordBoxBehaviour.cs" />
@@ -111,6 +114,7 @@
     <Compile Include="TabsControlItemsControlBehaviour.cs" />
     <Compile Include="TextBlockProperties.cs" />
     <Compile Include="TextBoxProperties.cs" />
+    <Compile Include="ValidationDisplay.cs" />
     <Compile Include="WindowToolbar.cs" />
   </ItemGroup>
   <ItemGroup>

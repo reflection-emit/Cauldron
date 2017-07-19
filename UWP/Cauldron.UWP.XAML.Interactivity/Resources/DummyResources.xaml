@@ -12,7 +12,7 @@
 
     <DataTemplate x:Key="__dummy_hyper">
         <Span>
-            <!--<Hyperlink a:HyperlinkProperties.NavigateUri="ioi" a:Localized.Text="op" a:Localized.Tooltip="oo" />-->
+            <!--<Hyperlink a:HyperlinkProperties.NavigateUri="ioi" a:Localized.Text="op" a:Localized.ToolTip="oo" />-->
         </Span>
     </DataTemplate>
 </ResourceDictionary>

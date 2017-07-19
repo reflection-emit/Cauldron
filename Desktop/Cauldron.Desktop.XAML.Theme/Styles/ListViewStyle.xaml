@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:Cauldron.XAML.Theme"
              xmlns:i="clr-namespace:Cauldron.XAML.Interactivity;assembly=Cauldron.XAML.Interactivity"
              xmlns:validation="clr-namespace:Cauldron.XAML.Validation;assembly=Cauldron.XAML.Validation"
+             xmlns:t="clr-namespace:Cauldron.XAML.Theme"
              mc:Ignorable="d">
 
     <Style x:Key="GridViewScrollViewerStyleKey" TargetType="ScrollViewer">
@@ -69,6 +70,7 @@
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
         <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
+        <Setter Property="ScrollViewer.PanningMode" Value="Both" />
         <Setter Property="Background" Value="{StaticResource {x:Static local:CauldronTheme.DarkBackgroundBrush}}" />
         <Setter Property="BorderBrush" Value="{StaticResource {x:Static local:CauldronTheme.LightBorderBrush}}" />
         <Setter Property="Foreground" Value="{StaticResource {x:Static local:CauldronTheme.TextBrush}}" />
@@ -101,15 +103,7 @@
                             <RowDefinition />
                         </Grid.RowDefinitions>
 
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Path=(local:ListViewProperties.Header), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource KeyToLocalizedStringConverter}}"
-                                 Visibility="{Binding Path=(local:ListViewProperties.Header), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NullOrEmptyToVisibilityConverter}, ConverterParameter=True}"
-                                 Margin="1,6,0,2" TextWrapping="NoWrap" TextAlignment="Left" TextTrimming="CharacterEllipsis" IsHitTestVisible="False" />
-
-                            <TextBlock Text="*"
-                                 Visibility="{Binding Path=(validation:ValidationProperties.IsMandatory), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                 Margin="3,-3,0,2" TextAlignment="Left" IsHitTestVisible="False" FontSize="22" Height="16" Foreground="Tomato" />
-                        </StackPanel>
+                        <t:HeaderDisplay Header="{Binding Path=(t:ListViewProperties.Header), RelativeSource={RelativeSource TemplatedParent}}" />
 
                         <Border x:Name="Border" Grid.Row="1" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}">
                             <ScrollViewer x:Name="Viewer" Foreground="{TemplateBinding Foreground}" Style="{StaticResource GridViewScrollViewerStyleKey}">

@@ -2,6 +2,7 @@
 using Cauldron.XAML.ViewModels;
 using System.ComponentModel;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace Cauldron.XAML.Validation.ViewModels
 {
@@ -13,19 +14,19 @@ namespace Cauldron.XAML.Validation.ViewModels
         /// <summary>
         /// Starts a validation on all properties
         /// </summary>
-        void Validate();
+        Task ValidateAsync();
 
         /// <summary>
-        /// Starts a validation on all properties
+        /// Starts a validation on a property defined by name.
         /// </summary>
         /// <param name="propertyName">The name of the property that requires validation</param>
-        void Validate(string propertyName);
+        Task ValidateAsync(string propertyName);
 
         /// <summary>
-        /// Starts a validation on all properties
+        /// Starts a validation on a property defined by name.
         /// </summary>
         /// <param name="sender">The property info of the property that requested a validation</param>
         /// <param name="propertyName">The name of the property that requires validation</param>
-        void Validate(PropertyInfo sender, string propertyName);
+        Task ValidateAsync(PropertyInfo sender, string propertyName);
     }
 }

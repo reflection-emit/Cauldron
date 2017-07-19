@@ -21,8 +21,8 @@ namespace Cauldron.XAML.Interactivity
     /// Provides Attached Properties to enable localization in controls.
     /// <para/>
     /// Existing text are overridden.
-    /// <para />
-    /// Supported controls: <see cref="FrameworkElement.ToolTip"/> <see cref="TextBlock.Text"/>, <see cref="ContentControl.Content"/>
+    /// <para/>
+    /// Supported controls: <see cref="FrameworkElement.ToolTip"/><see cref="TextBlock.Text"/>, <see cref="ContentControl.Content"/>
     /// </summary>
     public static class Localized
     {
@@ -36,7 +36,7 @@ namespace Cauldron.XAML.Interactivity
         /// <summary>
         /// Gets the value of Text
         /// </summary>
-        /// <param name="obj"><see cref="DependencyObject" /> with the attached property</param>
+        /// <param name="obj"><see cref="DependencyObject"/> with the attached property</param>
         /// <returns>The value of the attached property</returns>
         public static string GetText(DependencyObject obj)
         {
@@ -46,7 +46,7 @@ namespace Cauldron.XAML.Interactivity
         /// <summary>
         /// Sets the value of the Text attached property
         /// </summary>
-        /// <param name="obj"><see cref="DependencyObject" /> with the attached property</param>
+        /// <param name="obj"><see cref="DependencyObject"/> with the attached property</param>
         /// <param name="value">The new value to set</param>
         public static void SetText(DependencyObject obj, string value)
         {
@@ -108,34 +108,34 @@ namespace Cauldron.XAML.Interactivity
 
         #endregion Dependency Attached Property Text
 
-        #region Dependency Attached Property Tooltip
+        #region Dependency Attached Property ToolTip
 
         /// <summary>
-        /// Identifies the <see cref="TooltipProperty" /> dependency property
+        /// Identifies the <see cref="ToolTipProperty"/> dependency property
         /// </summary>
-        public static readonly DependencyProperty TooltipProperty = DependencyProperty.RegisterAttached("Tooltip", typeof(string), typeof(Localized), new PropertyMetadata("", OnTooltipChanged));
+        public static readonly DependencyProperty ToolTipProperty = DependencyProperty.RegisterAttached("ToolTip", typeof(string), typeof(Localized), new PropertyMetadata("", OnToolTipChanged));
 
         /// <summary>
-        /// Gets the value of <see cref="TooltipProperty" />
+        /// Gets the value of <see cref="ToolTipProperty"/>
         /// </summary>
-        /// <param name="obj"><see cref="DependencyObject" /> with the attached property</param>
+        /// <param name="obj"><see cref="DependencyObject"/> with the attached property</param>
         /// <returns>The value of the attached property</returns>
-        public static string GetTooltip(DependencyObject obj)
+        public static string GetToolTip(DependencyObject obj)
         {
-            return (string)obj.GetValue(TooltipProperty);
+            return (string)obj.GetValue(ToolTipProperty);
         }
 
         /// <summary>
-        /// Sets the value of the <see cref="TooltipProperty" /> attached property
+        /// Sets the value of the <see cref="ToolTipProperty"/> attached property
         /// </summary>
-        /// <param name="obj"><see cref="DependencyObject" /> with the attached property</param>
+        /// <param name="obj"><see cref="DependencyObject"/> with the attached property</param>
         /// <param name="value">The new value to set</param>
-        public static void SetTooltip(DependencyObject obj, string value)
+        public static void SetToolTip(DependencyObject obj, string value)
         {
-            obj.SetValue(TooltipProperty, value);
+            obj.SetValue(ToolTipProperty, value);
         }
 
-        private static void OnTooltipChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
+        private static void OnToolTipChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
         {
             var value = args.NewValue as string;
             var text = string.IsNullOrEmpty(value) ? string.Empty : Locale.Current[value];
@@ -171,6 +171,6 @@ namespace Cauldron.XAML.Interactivity
 #endif
         }
 
-        #endregion Dependency Attached Property Tooltip
+        #endregion Dependency Attached Property ToolTip
     }
 }

@@ -79,15 +79,7 @@
                                 Grid.ColumnSpan="4" Grid.Row="1" Name="Border" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}"
                                 Background="{TemplateBinding Background}" />
 
-                        <StackPanel Grid.ColumnSpan="4" Orientation="Horizontal">
-                            <TextBlock Text="{Binding Path=(t:TextBoxProperties.Header), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource KeyToLocalizedStringConverter}}"
-                                 Visibility="{Binding Path=(t:TextBoxProperties.Header), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NullOrEmptyToVisibilityConverter}, ConverterParameter=True}"
-                                 Margin="1,6,0,2" TextWrapping="NoWrap" TextAlignment="Left" TextTrimming="CharacterEllipsis" IsHitTestVisible="False" />
-
-                            <TextBlock Text="*"
-                                 Visibility="{Binding Path=(validation:ValidationProperties.IsMandatory), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                 Margin="3,-3,0,2" TextAlignment="Left" IsHitTestVisible="False" FontSize="22" Height="16" Foreground="Tomato" />
-                        </StackPanel>
+                        <t:HeaderDisplay Grid.ColumnSpan="4" Header="{Binding Path=(t:TextBoxProperties.Header), RelativeSource={RelativeSource TemplatedParent}}" />
 
                         <TextBlock Grid.Row="1" Grid.Column="2" IsHitTestVisible="False"
                                        Text="{Binding Path=(t:TextBoxProperties.AlternativeText), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource KeyToLocalizedStringConverter}}"
@@ -95,13 +87,7 @@
                                        Visibility="{Binding Path=Text, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NullOrEmptyToVisibilityConverter}, ConverterParameter=False}" />
 
                         <ScrollViewer Grid.Row="1" Grid.Column="2" Margin="3" x:Name="PART_ContentHost" TextElement.Foreground="{TemplateBinding Foreground}" />
-
-                        <Ellipse Grid.Row="1" Grid.Column="1" Fill="Tomato" Width="14" Height="14" Margin="4,0" VerticalAlignment="Center" HorizontalAlignment="Center"
-                                     ToolTip="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(validation:ValidationProperties.Errors)}"
-                                     Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(validation:ValidationProperties.HasErrors), Converter={StaticResource BooleanToVisibilityConverter}}" />
-                        <TextBlock Grid.Row="1" Grid.Column="1" Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(validation:ValidationProperties.HasErrors), Converter={StaticResource BooleanToVisibilityConverter}}"
-                                       Text="!" IsHitTestVisible="False" FontFamily="Segoe UI" FontWeight="ExtraBold" Foreground="{StaticResource {x:Static t:CauldronTheme.HoveredTextBrush}}" VerticalAlignment="Center" HorizontalAlignment="Center" />
-
+                        <t:ValidationDisplay Grid.Row="1" Grid.Column="1" />
                         <ContentControl Margin="1" Grid.Column="3" Grid.Row="1" Template="{Binding Path=(t:TextBoxProperties.ButtonsTemplate), RelativeSource={RelativeSource TemplatedParent}}"
                                         Visibility="{Binding Path=(t:TextBoxProperties.ButtonsTemplate), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ObjectToVisibilityConverter}}">
                             <ContentControl.Resources>

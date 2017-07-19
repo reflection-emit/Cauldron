@@ -1,19 +1,22 @@
-﻿using Cauldron.Core;
-using Cauldron.Core.Extensions;
+﻿using Cauldron.Core.Extensions;
 using Cauldron.XAML.Validation.ViewModels;
 using System;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace Cauldron.XAML.Validation
 {
     /// <summary>
     /// Validates a property for the string length.
     /// <para/>
-    /// A <see cref="string"/> that is shorter or longer than the specified length will cause a validation error
+    /// A <see cref="string"/> that is shorter or longer than the specified length will cause a
+    /// validation error
     /// </summary>
-    /// <exception cref="ArgumentException">If the property is applied to a type that is not a string</exception>
+    /// <exception cref="ArgumentException">
+    /// If the property is applied to a type that is not a string
+    /// </exception>
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = false)]
-    public sealed class StringLengthAttribute : ValidationBaseAttribute
+    public sealed class StringLengthAttribute : ValidatorAttributeBase
     {
         private int maxLength;
         private int minLength;
@@ -49,7 +52,7 @@ namespace Cauldron.XAML.Validation
         /// <param name="propertyInfo">The <see cref="PropertyInfo"/> of the validated property</param>
         /// <param name="value">The value of the property</param>
         /// <returns>Has to return true on validation error otherwise false</returns>
-        protected override bool OnValidate(PropertyInfo sender, IValidatableViewModel context, PropertyInfo propertyInfo, object value)
+        protected override Task<bool> OnValidateAsync(PropertyInfo sender, IValidatableViewModel context, PropertyInfo propertyInfo, object value)
         {
             if (propertyInfo.PropertyType != typeof(string))
                 throw new ArgumentException("The StringLengthAttribute can only be applied to a string");
@@ -57,11 +60,11 @@ namespace Cauldron.XAML.Validation
             var str = value as string;
 
             if (str == null)
-                return true;
+                return Task.FromResult(true);
 
             var length = str.Length;
 
-            return length < this.minLength || length > this.maxLength;
+            return Task.FromResult(length < this.minLength || length > this.maxLength);
         }
 
         /// <summary>
