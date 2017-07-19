@@ -39,6 +39,7 @@ https://Capgemini.github.io/Cauldron/eveonline/
 - NetCore versions of Cauldron.Interception, Cauldron.Core and Cauldron.Activator are now part of the NuGet package again.
 - Password scoring now works a bit better
 - Inline text for TextBlock fixed
+- XAML.Validation is now awaitable
 ### 1.2.7 (1.2.0 to 1.2.6 betas)
 - NetCore Dlls droped from package due to issues with Fody - This will be back as soon as NetCore and Fody works a lot better
 - Types with the component attribute get a hard-coded CreateInstance method. The Factory will use this method to create an instance of the type. This should give the factory an instancing performance almost on par with the __new__ keyword.
