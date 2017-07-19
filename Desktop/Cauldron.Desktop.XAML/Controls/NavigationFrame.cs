@@ -20,7 +20,8 @@ using System.Windows.Threading;
 namespace Cauldron.XAML.Controls
 {
     /// <summary>
-    /// Displays Page instances, supports navigation to new pages, and maintains a navigation history to support forward and backward navigation.
+    /// Displays Page instances, supports navigation to new pages, and maintains a navigation history
+    /// to support forward and backward navigation.
     /// </summary>
     public class NavigationFrame : ContentControl
     {
@@ -54,17 +55,20 @@ namespace Cauldron.XAML.Controls
         public static event EventHandler<CauldronBackRequestedEventArgs> BackRequested;
 
         /// <summary>
-        /// Occurs when the content that is being navigated to has been found and is available from the Content property, although it may not have completed loading.
+        /// Occurs when the content that is being navigated to has been found and is available from
+        /// the Content property, although it may not have completed loading.
         /// </summary>
         public event EventHandler Navigated;
 
         /// <summary>
-        /// Gets a collection of <see cref="PageStackEntry"/> instances representing the backward navigation history of the <see cref="NavigationFrame"/>.
+        /// Gets a collection of <see cref="PageStackEntry"/> instances representing the backward
+        /// navigation history of the <see cref="NavigationFrame"/>.
         /// </summary>
         public List<PageStackEntry> BackStack { get; private set; }
 
         /// <summary>
-        /// Gets a collection of <see cref="PageStackEntry"/> instances representing the forward navigation history of the <see cref="NavigationFrame"/>.
+        /// Gets a collection of <see cref="PageStackEntry"/> instances representing the forward
+        /// navigation history of the <see cref="NavigationFrame"/>.
         /// </summary>
         public List<PageStackEntry> ForwardStack { get; private set; }
 
@@ -94,13 +98,15 @@ namespace Cauldron.XAML.Controls
         }
 
         /// <summary>
-        /// Navigates to the most recent item in back navigation history, if a Frame manages its own navigation history.
+        /// Navigates to the most recent item in back navigation history, if a Frame manages its own
+        /// navigation history.
         /// </summary>
         /// <returns>true if the navigation attempt was successful; otherwise, false</returns>
         public async Task<bool> GoBack() => await this.GoBack(NavigationType.User);
 
         /// <summary>
-        /// Navigates to the most recent item in back navigation history, if a Frame manages its own navigation history.
+        /// Navigates to the most recent item in back navigation history, if a Frame manages its own
+        /// navigation history.
         /// </summary>
         /// <param name="navigationType">The type of navigation attempt</param>
         /// <returns>true if the navigation attempt was successful; otherwise, false</returns>
@@ -126,13 +132,15 @@ namespace Cauldron.XAML.Controls
         }
 
         /// <summary>
-        /// Gets a collection of PageStackEntry instances representing the forward navigation history of the Frame.
+        /// Gets a collection of PageStackEntry instances representing the forward navigation history
+        /// of the Frame.
         /// </summary>
         /// <returns>true if the navigation attempt was successful; otherwise, false</returns>
         public async Task<bool> GoForward() => await this.GoForward(NavigationType.User);
 
         /// <summary>
-        /// Gets a collection of PageStackEntry instances representing the forward navigation history of the Frame.
+        /// Gets a collection of PageStackEntry instances representing the forward navigation history
+        /// of the Frame.
         /// </summary>
         /// <param name="navigationType">The type of navigation attempt</param>
         /// <returns>true if the navigation attempt was successful; otherwise, false</returns>
@@ -146,11 +154,13 @@ namespace Cauldron.XAML.Controls
         }
 
         /// <summary>
-        /// Causes the <see cref="NavigationFrame"/> to load content represented by the specified <see cref="IViewModel"/>, also passing a parameter to be used to construct the view model.
+        /// Causes the <see cref="NavigationFrame"/> to load content represented by the specified
+        /// <see cref="IViewModel"/>, also passing a parameter to be used to construct the view model.
         /// </summary>
         /// <param name="viewModelType">The type of the viewmodel to construct</param>
         /// <param name="arguments">
-        /// The navigation parameter to pass to the target view model; must have a basic type (string, char, numeric, or GUID) to support parameter serialization.
+        /// The navigation parameter to pass to the target view model; must have a basic type
+        /// (string, char, numeric, or GUID) to support parameter serialization.
         /// </param>
         /// <returns>true if the navigation attempt was successful; otherwise, false</returns>
         /// <exception cref="ArgumentNullException"><paramref name="viewModelType"/> is null</exception>
@@ -163,7 +173,8 @@ namespace Cauldron.XAML.Controls
         }
 
         /// <summary>
-        /// Causes the <see cref="NavigationFrame"/> to load content represented by the specified <see cref="IViewModel"/>, also passing a parameter to be used to construct the view model.
+        /// Causes the <see cref="NavigationFrame"/> to load content represented by the specified
+        /// <see cref="IViewModel"/>, also passing a parameter to be used to construct the view model.
         /// </summary>
         /// <param name="viewModelType">The type of the viewmodel to construct</param>
         /// <returns>true if the navigation attempt was successful; otherwise, false</returns>
@@ -177,12 +188,15 @@ namespace Cauldron.XAML.Controls
         }
 
         /// <summary>
-        /// Create a new <see cref="ContentDialog"/> or <see cref="Flyout"/> with the view defined by the view model, depending on the views definition.
+        /// Create a new <see cref="ContentDialog"/> or <see cref="Flyout"/> with the view defined by
+        /// the view model, depending on the views definition.
         /// </summary>
         /// <typeparam name="TViewModel">The type of the view model to create</typeparam>
         /// <param name="arguments">The parameters used to construct the view model</param>
         /// <param name="callback">A delegate that is invoked when the dialog is closed</param>
-        /// <permission cref="NotSupportedException">The is already an open ContentDialog. Multiple ContentDialogs are not supported</permission>
+        /// <permission cref="NotSupportedException">
+        /// The is already an open ContentDialog. Multiple ContentDialogs are not supported
+        /// </permission>
         public async Task Navigate<TViewModel>(object[] arguments, Func<Task> callback) where TViewModel : class, IDialogViewModel
         {
             var viewModelType = typeof(TViewModel);
@@ -209,13 +223,16 @@ namespace Cauldron.XAML.Controls
         }
 
         /// <summary>
-        /// Create a new <see cref="ContentDialog"/> or <see cref="Flyout"/> with the view defined by the view model, depending on the views definition.
+        /// Create a new <see cref="ContentDialog"/> or <see cref="Flyout"/> with the view defined by
+        /// the view model, depending on the views definition.
         /// </summary>
         /// <typeparam name="TViewModel">The type of the view model to create</typeparam>
         /// <typeparam name="TResult">The result of the dialog</typeparam>
         /// <param name="arguments">The parameters used to construct the view model</param>
         /// <param name="callback">A delegate that is invoked when the dialog is closed</param>
-        /// <permission cref="NotSupportedException">The is already an open ContentDialog. Multiple ContentDialogs are not supported</permission>
+        /// <permission cref="NotSupportedException">
+        /// The is already an open ContentDialog. Multiple ContentDialogs are not supported
+        /// </permission>
         public async Task Navigate<TViewModel, TResult>(object[] arguments, Func<TResult, Task> callback) where TViewModel : class, IDialogViewModel<TResult>
         {
             var viewModelType = typeof(TViewModel);
@@ -257,7 +274,7 @@ namespace Cauldron.XAML.Controls
         }
 
         /// <summary>
-        /// Tries to close all dialog <see cref="Window"/>s
+        /// Tries to close all dialog <see cref="Window"/> s
         /// </summary>
         /// <returns>Returns true if there are open dialogs, otherwise false</returns>
         public bool TryClose()
@@ -278,7 +295,9 @@ namespace Cauldron.XAML.Controls
         /// </summary>
         /// <param name="viewModel">The viewmodel to that was assigned to the window's data context</param>
         /// <returns>Returns true if successfully closed, otherwise false</returns>
-        /// <exception cref="ArgumentNullException">Parameter <paramref name="viewModel"/> is null</exception>
+        /// <exception cref="ArgumentNullException">
+        /// Parameter <paramref name="viewModel"/> is null
+        /// </exception>
         public bool TryClose(IViewModel viewModel)
         {
             if (viewModel == null)
@@ -328,8 +347,8 @@ namespace Cauldron.XAML.Controls
             }
             else if (navigationMode == NavigationMode.New)
             {
-                // NavigationMode.New means recreate the view but preserve the viewmodel
-                // we need to keep our current datacontext for later reassigning
+                // NavigationMode.New means recreate the view but preserve the viewmodel we need to
+                // keep our current datacontext for later reassigning
                 var currentDataContext = this.ContentDataContext;
                 var oldView = this.Content.As<FrameworkElement>();
 
@@ -361,9 +380,9 @@ namespace Cauldron.XAML.Controls
             // Refresh the stacks
             if (navigationMode == NavigationMode.Forward)
             {
-                // we have to check if the current viewmodel is the same as the one the top of the forwardstack
-                // if that is the case we remove it from the stack
-                // if that is not the case, then we clear the stack
+                // we have to check if the current viewmodel is the same as the one the top of the
+                // forwardstack if that is the case we remove it from the stack if that is not the
+                // case, then we clear the stack
                 if (this.ForwardStack.Count > 0)
                 {
                     var stackEntry = this.ForwardStack[0];
@@ -431,9 +450,9 @@ namespace Cauldron.XAML.Controls
             }
 
             if (newViewType == null)
-                // Use createinstance because we dont need anything other than creating an object
-                // The Factory uses a compile expression to create objects which is faster than Activator.CreateInstance.
-                // First create is always slow
+                // Use createinstance because we dont need anything other than creating an object The
+                // Factory uses a compile expression to create objects which is faster than
+                // Activator.CreateInstance. First create is always slow
                 return viewType.CreateInstance().As<FrameworkElement>();
             else
                 return newViewType.CreateInstance().As<FrameworkElement>();
@@ -465,14 +484,8 @@ namespace Cauldron.XAML.Controls
             var window = Common.CreateWindow(ref windowType);
             window.BeginInit();
 
-            // set the configs
-            if (windowType.IsCutomWindow)
-                window.ResizeMode = ResizeMode.NoResize;
-            else
-            {
-                window.ResizeMode = ResizeMode.NoResize;
-                window.WindowStyle = WindowStyle.SingleBorderWindow;
-            }
+            window.ResizeMode = ResizeMode.NoResize;
+            window.WindowStyle = WindowStyle.SingleBorderWindow;
 
             window.MinHeight = 50;
             window.MinWidth = 120;
@@ -581,7 +594,8 @@ namespace Cauldron.XAML.Controls
                 // The datatemplate has a higher priority than a control
                 var dt = this.selector.SelectTemplate(viewModelType, this);
 
-                // if we have no datatemplate for the viewmodel then we try getting the view based on the name of the viewmodel
+                // if we have no datatemplate for the viewmodel then we try getting the view based on
+                // the name of the viewmodel
                 if (dt == null && viewModelType.Name.EndsWith("Model"))
                     return GetViewInstance(viewModelType.Name.Left(viewModelType.Name.Length - "Model".Length));
 

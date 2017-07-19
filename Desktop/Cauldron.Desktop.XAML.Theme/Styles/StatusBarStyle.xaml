@@ -11,11 +11,12 @@
 
     <Style TargetType="StatusBar">
         <Setter Property="OverridesDefaultStyle" Value="True" />
-        <Setter Property="SnapsToDevicePixels" Value="False" />
+        <Setter Property="UseLayoutRounding" Value="True" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="StatusBar">
-                    <Border Height="23" Background="{StaticResource {x:Static t:CauldronTheme.AccentBrush}}" BorderThickness="0" BorderBrush="{x:Null}" Padding="2,1">
+                    <Border Height="23" Background="{StaticResource {x:Static t:CauldronTheme.AccentBrush}}" BorderThickness="0" BorderBrush="{x:Null}" Margin="0" Padding="2,1">
                         <ItemsPresenter />
                     </Border>
                 </ControlTemplate>
@@ -25,7 +26,8 @@
 
     <Style TargetType="StatusBarItem">
         <Setter Property="OverridesDefaultStyle" Value="True" />
-        <Setter Property="SnapsToDevicePixels" Value="False" />
+        <Setter Property="UseLayoutRounding" Value="True" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="StatusBarItem">

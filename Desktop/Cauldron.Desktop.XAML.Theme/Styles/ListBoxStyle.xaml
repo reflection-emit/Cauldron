@@ -10,12 +10,13 @@
              mc:Ignorable="d">
 
     <Style TargetType="ListBoxItem">
+        <Setter Property="UseLayoutRounding" Value="True" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListBoxItem">
-                    <Border x:Name="Border" Padding="2" SnapsToDevicePixels="True" Background="Transparent">
+                    <Border x:Name="Border" Padding="2" SnapsToDevicePixels="True" UseLayoutRounding="True" Background="Transparent">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="SelectionStates">
                                 <VisualState x:Name="Unselected" />
@@ -59,6 +60,7 @@
     </Style>
 
     <Style TargetType="ListBox">
+        <Setter Property="UseLayoutRounding" Value="True" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="KeyboardNavigation.TabNavigation" Value="None" />

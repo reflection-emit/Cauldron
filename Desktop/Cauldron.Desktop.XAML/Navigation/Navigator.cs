@@ -267,7 +267,7 @@ namespace Cauldron.XAML.Navigation
                         windowInfo = await CreateDefaultWindow(callback1, callback2, dataTemplate.LoadContent() as FrameworkElement, viewModel);
                 }
 
-                Window window = windowInfo.Item1;
+                var window = windowInfo.Item1;
                 (viewModel as IDisposableObject).IsNotNull(x => x.Disposed += async (s, e) => await viewModel.Dispatcher.RunAsync(() => window.Close()));
 
                 window.Activated += (s, e) =>
@@ -376,18 +376,8 @@ namespace Cauldron.XAML.Navigation
 
             // Add this new window to the dictionary
             windows.Add(new WindowViewModelObject { window = window, viewModelId = viewModel.Id });
-
-            // set the configs
-            if (windowType.IsCutomWindow)
-            {
-                window.ResizeMode = WindowConfiguration.GetResizeMode(view);
-                WindowConfiguration.SetWindowStyle(window, WindowConfiguration.GetWindowStyle(view));
-            }
-            else
-            {
-                window.ResizeMode = WindowConfiguration.GetResizeMode(view);
-                window.WindowStyle = WindowConfiguration.GetWindowStyle(view);
-            }
+            window.ResizeMode = WindowConfiguration.GetResizeMode(view);
+            window.WindowStyle = WindowConfiguration.GetWindowStyle(view);
 
             window.Width = WindowConfiguration.GetWidth(view);
             window.Height = WindowConfiguration.GetHeight(view);

@@ -17,12 +17,12 @@
             <Path Visibility="{Binding IsChecked, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanToVisibilityConverter}}"
                                                   Stroke="{TemplateBinding Foreground}" Fill="{TemplateBinding Foreground}"
                                                   Width="7" Height="7" x:Name="ArrowExpanded" IsHitTestVisible="False" Focusable="False"
-                                                  SnapsToDevicePixels="False" StrokeThickness="1" Data="M 0 7 L 7 7 L 7 0 z" />
+                                                  SnapsToDevicePixels="True" UseLayoutRounding="True" StrokeThickness="1" Data="M 0 7 L 7 7 L 7 0 z" />
 
             <Path Visibility="{Binding IsChecked, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=True}"
                                                   Stroke="{TemplateBinding Foreground}" IsHitTestVisible="False" Focusable="False"
                                                   Width="6" Height="11" x:Name="ArrowCollapsed" Margin="4,0,0,0"
-                                                  SnapsToDevicePixels="False" StrokeThickness="1" Data="M 0 1 L 0 10 M 0 1 L 5 6 M 0 10 L 5 5" />
+                                                  SnapsToDevicePixels="True" UseLayoutRounding="True" StrokeThickness="1" Data="M 0 1 L 0 10 M 0 1 L 5 6 M 0 10 L 5 5" />
 
             <Border x:Name="border" Grid.ColumnSpan="2" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
         </Grid>

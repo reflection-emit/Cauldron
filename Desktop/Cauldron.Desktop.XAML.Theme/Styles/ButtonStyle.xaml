@@ -60,7 +60,8 @@
     </Style>
 
     <Style TargetType="Button">
-        <Setter Property="SnapsToDevicePixels" Value="False" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="UseLayoutRounding" Value="True" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -115,7 +116,8 @@
     </Style>
 
     <Style TargetType="ToggleButton">
-        <Setter Property="SnapsToDevicePixels" Value="False" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="UseLayoutRounding" Value="True" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />

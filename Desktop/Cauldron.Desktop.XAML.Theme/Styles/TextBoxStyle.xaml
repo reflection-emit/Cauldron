@@ -14,7 +14,8 @@
         <Setter Property="CaretBrush" Value="{StaticResource {x:Static t:CauldronTheme.AccentBrush}}" />
         <Setter Property="BorderBrush" Value="{StaticResource {x:Static t:CauldronTheme.LightBorderBrush}}" />
         <Setter Property="Background" Value="{StaticResource {x:Static t:CauldronTheme.LightBackgroundBrush}}" />
-        <Setter Property="SnapsToDevicePixels" Value="False" />
+        <Setter Property="UseLayoutRounding" Value="True" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="KeyboardNavigation.TabNavigation" Value="None" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />

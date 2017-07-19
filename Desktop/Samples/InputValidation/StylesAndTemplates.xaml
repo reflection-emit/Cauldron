@@ -69,7 +69,8 @@
     </LinearGradientBrush>
 
     <Style TargetType="{x:Type TextBox}">
-        <Setter Property="SnapsToDevicePixels" Value="False" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="UseLayoutRounding" Value="True" />
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="KeyboardNavigation.TabNavigation" Value="None" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />

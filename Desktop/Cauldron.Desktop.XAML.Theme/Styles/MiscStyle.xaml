@@ -13,22 +13,23 @@
         <Setter Property="Foreground" Value="{StaticResource {x:Static t:CauldronTheme.TextBrush}}" />
     </Style>
 
+    <Style TargetType="Border">
+        <Setter Property="UseLayoutRounding" Value="True" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+    </Style>
+
+    <Style TargetType="ScrollViewer">
+        <Setter Property="UseLayoutRounding" Value="True" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+    </Style>
+
     <Style TargetType="Image">
         <Setter Property="RenderOptions.EdgeMode" Value="Aliased" />
         <Setter Property="RenderOptions.CachingHint" Value="Cache" />
         <Setter Property="RenderOptions.ClearTypeHint" Value="Auto" />
         <Setter Property="UseLayoutRounding" Value="True" />
-        <Setter Property="SnapsToDevicePixels" Value="False" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
-    </Style>
-
-    <Style TargetType="ContentControl" x:Key="internalContentControl">
-        <Setter Property="ContentTemplateSelector" Value="{StaticResource CauldronTemplateSelector}" />
-        <Setter Property="HorizontalAlignment" Value="Stretch" />
-        <Setter Property="VerticalAlignment" Value="Stretch" />
-        <Setter Property="VerticalContentAlignment" Value="Stretch" />
-        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-        <Setter Property="Validation.ErrorTemplate" Value="{x:Null}" />
     </Style>
 
     <Style TargetType="ContentControl">
@@ -38,31 +39,6 @@
         <Setter Property="VerticalContentAlignment" Value="Stretch" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="Validation.ErrorTemplate" Value="{x:Null}" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="ContentControl">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-
-                        <TextBlock Text="{Binding Path=(i:ContentControlProperties.Header), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource KeyToLocalizedStringConverter}}"
-                                 Visibility="{Binding Path=(i:ContentControlProperties.Header), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NullOrEmptyToVisibilityConverter}, ConverterParameter=True}"
-                                 Margin="1,6,0,2" TextWrapping="NoWrap" TextAlignment="Left" TextTrimming="CharacterEllipsis" IsHitTestVisible="False" />
-
-                        <ContentPresenter Grid.Row="1"
-                          ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
-                          Content="{TemplateBinding Content}"
-                          ContentTemplate="{TemplateBinding ContentTemplate}"
-                          Cursor="{TemplateBinding Cursor}"
-                          Margin="{TemplateBinding Padding}"
-                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
-                    </Grid>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
     </Style>
 
     <Style TargetType="ToolTip">
@@ -339,7 +315,8 @@
     </Style>
 
     <Style TargetType="{x:Type RadioButton}">
-        <Setter Property="SnapsToDevicePixels" Value="False" />
+        <Setter Property="UseLayoutRounding" Value="True" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="Template">
@@ -403,9 +380,9 @@
                         </VisualStateManager.VisualStateGroups>
                         <BulletDecorator.Bullet>
                             <Grid Width="13" Height="13" VerticalAlignment="Center">
-                                <Ellipse x:Name="Border" StrokeThickness="1" Stroke="{StaticResource {x:Static t:CauldronTheme.LightBorderBrush}}" Fill="{StaticResource {x:Static t:CauldronTheme.LightBackgroundBrush}}" SnapsToDevicePixels="False" />
-                                <Ellipse x:Name="CheckMark" StrokeThickness="5" Stroke="Transparent" Fill="{StaticResource {x:Static t:CauldronTheme.ComboBoxArrowBrush}}" Visibility="Hidden" SnapsToDevicePixels="False" />
-                                <Ellipse x:Name="InderminateMark" Margin="1" StrokeThickness="0" Fill="{StaticResource {x:Static t:CauldronTheme.ButtonbackBrush}}" Visibility="Hidden" SnapsToDevicePixels="False" />
+                                <Ellipse x:Name="Border" StrokeThickness="1" UseLayoutRounding="True" Stroke="{StaticResource {x:Static t:CauldronTheme.LightBorderBrush}}" Fill="{StaticResource {x:Static t:CauldronTheme.LightBackgroundBrush}}" SnapsToDevicePixels="True" />
+                                <Ellipse x:Name="CheckMark" StrokeThickness="5" UseLayoutRounding="True" Stroke="Transparent" Fill="{StaticResource {x:Static t:CauldronTheme.ComboBoxArrowBrush}}" Visibility="Hidden" SnapsToDevicePixels="True" />
+                                <Ellipse x:Name="InderminateMark" Margin="1" UseLayoutRounding="True" StrokeThickness="0" Fill="{StaticResource {x:Static t:CauldronTheme.ButtonbackBrush}}" Visibility="Hidden" SnapsToDevicePixels="True" />
                             </Grid>
                         </BulletDecorator.Bullet>
                         <Grid>
@@ -435,7 +412,8 @@
     </Style>
 
     <Style TargetType="{x:Type CheckBox}">
-        <Setter Property="SnapsToDevicePixels" Value="False" />
+        <Setter Property="UseLayoutRounding" Value="True" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="Template">
@@ -512,8 +490,8 @@
                         <BulletDecorator.Bullet>
                             <Grid>
                                 <Border x:Name="Border" Width="13" Height="13" CornerRadius="0" BorderThickness="1" BorderBrush="{StaticResource {x:Static t:CauldronTheme.LightBorderBrush}}" Background="{StaticResource {x:Static t:CauldronTheme.LightBackgroundBrush}}" />
-                                <Path Visibility="Hidden" Stroke="{StaticResource {x:Static t:CauldronTheme.ComboBoxArrowBrush}}" Width="7" Height="7" x:Name="CheckMark" SnapsToDevicePixels="False" StrokeStartLineCap="Flat" StrokeLineJoin="Miter" StrokeEndLineCap="Flat" StrokeThickness="2" Data="M 0 3 L 3 6 L 7 0" />
-                                <Rectangle Visibility="Hidden" Fill="{StaticResource {x:Static t:CauldronTheme.ComboBoxArrowBrush}}" Stroke="Transparent" Margin="0" StrokeThickness="5" x:Name="InderminateMark" SnapsToDevicePixels="False" />
+                                <Path Visibility="Hidden" UseLayoutRounding="True" Stroke="{StaticResource {x:Static t:CauldronTheme.ComboBoxArrowBrush}}" Width="7" Height="7" x:Name="CheckMark" SnapsToDevicePixels="True" StrokeStartLineCap="Flat" StrokeLineJoin="Miter" StrokeEndLineCap="Flat" StrokeThickness="2" Data="M 0 3 L 3 6 L 7 0" />
+                                <Rectangle Visibility="Hidden" UseLayoutRounding="True" Fill="{StaticResource {x:Static t:CauldronTheme.ComboBoxArrowBrush}}" Stroke="Transparent" Margin="0" StrokeThickness="5" x:Name="InderminateMark" SnapsToDevicePixels="True" />
                             </Grid>
                         </BulletDecorator.Bullet>
                         <Grid>

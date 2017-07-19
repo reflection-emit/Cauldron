@@ -9,12 +9,12 @@ namespace Cauldron.XAML.Theme
 {
     internal sealed class PasswordBoxBehaviour : Behaviour<PasswordBox>
     {
-        private System.Windows.Shapes.Rectangle passwordStrengthDisplay;
+        private System.Windows.Shapes.Ellipse passwordStrengthDisplay;
 
         protected override void OnAttach()
         {
             this.AssociatedObject.PasswordChanged += AssociatedObject_PasswordChanged;
-            this.passwordStrengthDisplay = this.AssociatedObject.FindVisualChildByName("PasswordStrengthDisplay") as System.Windows.Shapes.Rectangle;
+            this.passwordStrengthDisplay = this.AssociatedObject.FindVisualChildByName("PasswordStrengthDisplay") as System.Windows.Shapes.Ellipse;
         }
 
         protected override void OnDetach()

@@ -41,13 +41,14 @@
     </ControlTemplate>
 
     <Style TargetType="ComboBoxItem">
-        <Setter Property="SnapsToDevicePixels" Value="False" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="UseLayoutRounding" Value="True" />
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="MinHeight" Value="17" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ComboBoxItem">
-                    <Border x:Name="Border" Margin="2,0" SnapsToDevicePixels="true" Background="Transparent" MinHeight="17">
+                    <Border x:Name="Border" Margin="2,0" SnapsToDevicePixels="True" Background="Transparent" MinHeight="17">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="SelectionStates">
                                 <VisualState x:Name="Unselected" />
@@ -90,7 +91,8 @@
     </Style>
 
     <Style TargetType="ComboBox">
-        <Setter Property="SnapsToDevicePixels" Value="False" />
+        <Setter Property="UseLayoutRounding" Value="True" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
@@ -210,7 +212,7 @@
                         <Rectangle x:Name="keyboardFocused" Grid.ColumnSpan="4" Grid.Row="1" IsHitTestVisible="False" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
                                        StrokeThickness="1" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round" Stroke="{StaticResource {x:Static t:CauldronTheme.AccentBrush}}" StrokeDashArray="1 2" Visibility="Hidden" />
 
-                        <ToggleButton x:Name="ToggleButton" Grid.Row="1" Grid.Column="3" Width="14" Focusable="false" ClickMode="Press"
+                        <ToggleButton x:Name="ToggleButton" Grid.Row="1" Grid.Column="3" Width="14" Focusable="false" ClickMode="Press" Margin="0"
                                         Foreground="{StaticResource {x:Static t:CauldronTheme.ComboBoxArrowBrush}}" HorizontalAlignment="Right" Style="{x:Null}"
                                         Background="{StaticResource {x:Static t:CauldronTheme.LightBackgroundBrush}}" BorderBrush="Transparent" Template="{StaticResource ComboBoxToggleButton}"
                                         IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" />
@@ -230,7 +232,7 @@
                                  Foreground="{StaticResource {x:Static t:CauldronTheme.TextBrush}}" HorizontalScrollBarVisibility="Disabled"
                                  Style="{x:Null}" BorderBrush="Transparent" BorderThickness="0" Background="Transparent" HorizontalAlignment="Stretch" VerticalAlignment="Center"
                                  Margin="4,0" Focusable="True" Visibility="Hidden" IsReadOnly="{TemplateBinding IsReadOnly}" TextAlignment="Left"
-                                 AcceptsReturn="False" AcceptsTab="False" AllowDrop="False" SnapsToDevicePixels="True" TextWrapping="NoWrap" />
+                                 AcceptsReturn="False" AcceptsTab="False" AllowDrop="False" SnapsToDevicePixels="True" UseLayoutRounding="True" TextWrapping="NoWrap" />
 
                         <TextBlock Grid.Row="1" Grid.Column="1" IsHitTestVisible="False"
                                        Text="{Binding Path=(t:ComboBoxProperties.AlternativeText), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource KeyToLocalizedStringConverter}}"
@@ -247,6 +249,7 @@
                                     <Setter Property="MinHeight" Value="20" />
                                     <Setter Property="BorderThickness" Value="0" />
                                     <Setter Property="Padding" Value="2" />
+                                    <Setter Property="Margin" Value="0" />
                                     <Setter Property="Focusable" Value="False" />
                                     <Setter Property="Background" Value="{StaticResource {x:Static t:CauldronTheme.LightBackgroundBrush}}" />
                                 </Style>
@@ -257,9 +260,9 @@
                         </ContentControl>
 
                         <Popup x:Name="Popup" Grid.ColumnSpan="4" Grid.Row="1" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}">
-                            <Border x:Name="DropDown" SnapsToDevicePixels="True" Margin="0,0,5,5" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                            <Border x:Name="DropDown" SnapsToDevicePixels="True" UseLayoutRounding="True" Margin="0,0,5,5" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                         BorderThickness="1" BorderBrush="{StaticResource {x:Static t:CauldronTheme.LightBorderBrush}}" Background="{StaticResource {x:Static t:CauldronTheme.DropdownBackgroundBrush}}">
-                                <ScrollViewer Margin="0" SnapsToDevicePixels="True">
+                                <ScrollViewer Margin="0" SnapsToDevicePixels="True" UseLayoutRounding="True">
                                     <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained" Margin="0" />
                                 </ScrollViewer>
                                 <Border.Effect>
