@@ -4,10 +4,59 @@
         <name>Cauldron.Interception</name>
     </assembly>
     <members>
+        <member name="T:Cauldron.Interception.AssignMethodAttribute">
+            <summary>
+            Indicates the weaver to find the matching method and assign it to the <see cref="T:System.Action"/> or <see cref="T:System.Func`1"/>
+            <br/>
+            This attribute can only be applied to fields of type <see cref="T:System.Action"/> and <see cref="T:System.Func`1"/>.
+            <br/>
+            If the field's type is an <see cref="T:System.Action"/>, the weaver will look for a void method with arguments matching the action's generic arguments.
+            If the field's type in a <see cref="T:System.Func`1"/>, the weaver will look for a method with a return type that matches TResult and arguments matching the func's generic arguments.
+            </summary>
+        </member>
+        <member name="M:Cauldron.Interception.AssignMethodAttribute.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of <see cref="T:Cauldron.Interception.AssignMethodAttribute"/>.
+            </summary>
+            <param name="methodName">The name of the method to find and assign to the field.</param>
+        </member>
+        <member name="M:Cauldron.Interception.AssignMethodAttribute.#ctor">
+            <summary>
+            Initializes a new instance of <see cref="T:Cauldron.Interception.AssignMethodAttribute"/>.
+            The default method name is the intercepted method's, field's or property's name plus the prefix "On".
+            For example if the intercepted method's name is GetHashCode, the name of the method to find is OnGetHashCode.
+            </summary>
+        </member>
+        <member name="P:Cauldron.Interception.AssignMethodAttribute.MethodName">
+            <summary>
+            Gets the name of the method to find.
+            </summary>
+        </member>
+        <member name="T:Cauldron.Interception.DoNotInterceptAttribute">
+            <summary>
+            Indicates that the method or property should not be intercepted.
+            <br/>
+            ATTENTION: Only the property and method interceptor that is applied to a type respects this attribute
+            </summary>
+        </member>
         <member name="T:Cauldron.Interception.Extensions">
+            <summary>
+            Provides usefull extension methods
+            </summary>
+        </member>
+        <member name="M:Cauldron.Interception.Extensions.CreateType``1(System.Object)">
+            <summary>
+            Creates a new <see cref="T:System.Type"/> that implements the properties of an interface defined by <typeparamref name="T"/>
+            and copies all value of <paramref name="anon"/> to the new object
+            </summary>
+            <typeparam name="T">The type of interface to implement</typeparam>
+            <param name="anon">The anonymous object</param>
+            <returns>A new object implementing the interface defined by <typeparamref name="T"/></returns>
+        </member>
+        <member name="M:Cauldron.Interception.Extensions.TryDisposeInternal(System.Object)">
             <exclude/>
         </member>
-        <member name="M:Cauldron.Interception.Extensions.TryDispose(System.Object)">
+        <member name="M:Cauldron.Interception.Extensions.GetSHA256Hash(System.String)">
             <exclude/>
         </member>
         <member name="T:Cauldron.Interception.ILockableMethodInterceptor">
@@ -229,6 +278,9 @@
             Converts the <see cref="T:Cauldron.Interception.PropertyInterceptionInfo"/> instance to a <see cref="T:System.Reflection.PropertyInfo"/>
             </summary>
             <returns>A new instance of <see cref="T:System.Reflection.PropertyInfo"/></returns>
+        </member>
+        <member name="T:Cauldron.Interception.Utils">
+            <exclude/>
         </member>
     </members>
 </doc>

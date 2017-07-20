@@ -28,7 +28,7 @@ namespace Cauldron.XAML.Validation
                 var item = this[i];
 
                 // Dont invoke these kind of validators
-                if (!item.AlwaysValidate && sender == null && !validateAll)
+                if (!ValidationHandler.IgnoreAlwaysValidate && !item.AlwaysValidate && sender == null && !validateAll)
                     continue;
 
                 var error = await item.ValidateAsync(sender, context);
@@ -36,7 +36,7 @@ namespace Cauldron.XAML.Validation
                 if (!string.IsNullOrEmpty(error))
                 {
                     this.Error.Push(error);
-                    if (!ValidationHandler.ValidateAll)
+                    if (!ValidationHandler.StopValidationOnError)
                         break;
                 }
             }

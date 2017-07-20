@@ -18,9 +18,11 @@
   <HelpKINode Title="Api class">
     <HelpKINode Title="Api Class" Url="html/T_EveOnlineApi_Api.htm" />
     <HelpKINode Title="about Api class" Url="html/T_EveOnlineApi_Api.htm" />
+    <HelpKINode Title="constructor" Url="html/M_EveOnlineApi_Api__ctor.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_EveOnlineApi_Api.htm" />
     <HelpKINode Title="properties" Url="html/Properties_T_EveOnlineApi_Api.htm" />
   </HelpKINode>
+  <HelpKINode Title="Api.Api constructor" Url="html/M_EveOnlineApi_Api__ctor.htm" />
   <HelpKINode Title="Api.AuthorizeApplicationForCrestAsync method" Url="html/M_EveOnlineApi_Api_AuthorizeApplicationForCrestAsync.htm" />
   <HelpKINode Title="Api.CachePriceAsync method" Url="html/M_EveOnlineApi_Api_CachePriceAsync.htm" />
   <HelpKINode Title="Api.GetAssetsAsync method" Url="html/M_EveOnlineApi_Api_GetAssetsAsync.htm" />
@@ -2041,6 +2043,7 @@
     <HelpKINode Title="ItemPrice.Type Property " Url="html/P_EveOnlineApi_Models_ItemPrice_Type.htm" />
     <HelpKINode Title="OpenMarketBody.Type Property " Url="html/P_EveOnlineApi_Models_OpenMarketBody_Type.htm" />
   </HelpKINode>
+  <HelpKINode Title="TypeID property" Url="html/P_EveOnlineApi_Models_SkillQueue_TypeID.htm" />
   <HelpKINode Title="TypeId property">
     <HelpKINode Title="AssetItem.TypeId Property " Url="html/P_EveOnlineApi_Models_AssetItem_TypeId.htm" />
     <HelpKINode Title="Implant.TypeId Property " Url="html/P_EveOnlineApi_Models_Implant_TypeId.htm" />
@@ -2050,7 +2053,6 @@
     <HelpKINode Title="RefTypeItem.TypeId Property " Url="html/P_EveOnlineApi_Models_StaticData_RefTypeItem_TypeId.htm" />
     <HelpKINode Title="Skill.TypeId Property " Url="html/P_EveOnlineApi_Models_Skill_TypeId.htm" />
   </HelpKINode>
-  <HelpKINode Title="TypeID property" Url="html/P_EveOnlineApi_Models_SkillQueue_TypeID.htm" />
   <HelpKINode Title="TypeName property">
     <HelpKINode Title="AssetItem.TypeName Property " Url="html/P_EveOnlineApi_Models_AssetItem_TypeName.htm" />
     <HelpKINode Title="RefTypeItem.TypeName Property " Url="html/P_EveOnlineApi_Models_StaticData_RefTypeItem_TypeName.htm" />

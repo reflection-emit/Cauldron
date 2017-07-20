@@ -52,6 +52,12 @@ namespace ThemeSample.ViewModels
         [IsMandatory("isMandatory")]
         public IViewModel ComboBoxSelection { get; set; }
 
+        public bool IgnoreAlwaysValidateAllToggle
+        {
+            get { return ValidationHandler.IgnoreAlwaysValidate; }
+            set { ValidationHandler.IgnoreAlwaysValidate = value; }
+        }
+
         public ObservableCollection<IViewModel> Items { get; private set; } = new ObservableCollection<IViewModel>();
 
         [Equality(nameof(PasswordB), "mussbeEqual")]
@@ -63,13 +69,13 @@ namespace ThemeSample.ViewModels
 
         public IViewModel SelectedTab { get; set; }
 
-        public ObservableCollection<IViewModel> Tabs { get; private set; } = new ObservableCollection<IViewModel>();
-
-        public bool ValidateAllToggle
+        public bool StopValidationOnErrorToggle
         {
-            get { return !ValidationHandler.ValidateAll; }
-            set { ValidationHandler.ValidateAll = !value; }
+            get { return !ValidationHandler.StopValidationOnError; }
+            set { ValidationHandler.StopValidationOnError = !value; }
         }
+
+        public ObservableCollection<IViewModel> Tabs { get; private set; } = new ObservableCollection<IViewModel>();
 
         /// <summary>
         /// Gets the Validate command

@@ -39,11 +39,14 @@ namespace Cauldron.Core
         }
 
         /// <summary>
-        /// Brings the thread that created the specified window into the foreground and activates the window.
-        /// Keyboard input is directed to the window, and various visual cues are changed for the user.
-        /// The system assigns a slightly higher priority to the thread that created the foreground window than it does to other threads.
+        /// Brings the thread that created the specified window into the foreground and activates the
+        /// window. Keyboard input is directed to the window, and various visual cues are changed for
+        /// the user. The system assigns a slightly higher priority to the thread that created the
+        /// foreground window than it does to other threads.
         /// </summary>
-        /// <param name="hwnd">A handle to the window that should be activated and brought to the foreground.</param>
+        /// <param name="hwnd">
+        /// A handle to the window that should be activated and brought to the foreground.
+        /// </param>
         /// <returns>Returns true if successful; otherwise false</returns>
         /// <exception cref="ArgumentException"><paramref name="hwnd"/> is <see cref="IntPtr.Zero"/></exception>
         public static bool ActivateWindow(IntPtr hwnd)
@@ -55,26 +58,55 @@ namespace Cauldron.Core
         }
 
         /// <summary>
-        /// The message is sent to all top-level windows in the system, including disabled or invisible unowned windows, overlapped windows, and pop-up windows; but the message is not sent to child windows.
+        /// Adds a shadow effect to a window
         /// </summary>
-        /// <param name="registeredWindowMessage">The registered window message. use <see cref="Win32Api.RegisterWindowMessage(string)"/> to register a message.</param>
+        /// <param name="wrapper">
+        /// A managed object that should not be finalized until the platform invoke call returns.
+        /// </param>
+        /// <param name="windowHandle">The hwnd of the window</param>
+        public static void AddShadow(object wrapper, IntPtr windowHandle)
+        {
+            var myHandleRef = new HandleRef(wrapper, windowHandle);
+            UnsafeNative.SetClassLong(myHandleRef, UnsafeNative.GCL_STYLE,
+                new IntPtr(UnsafeNative.GetClassLongPtr(myHandleRef, UnsafeNative.CS_DROPSHADOW).ToInt32() | UnsafeNative.CS_DROPSHADOW));
+        }
+
+        /// <summary>
+        /// The message is sent to all top-level windows in the system, including disabled or
+        /// invisible unowned windows, overlapped windows, and pop-up windows; but the message is not
+        /// sent to child windows.
+        /// </summary>
+        /// <param name="registeredWindowMessage">
+        /// The registered window message. use <see cref="Win32Api.RegisterWindowMessage(string)"/>
+        /// to register a message.
+        /// </param>
         /// <exception cref="ArgumentException">Invalid registered window message</exception>
         /// <exception cref="Win32Exception">Win32 error occures</exception>
         public static void BroadcastMessage(uint registeredWindowMessage) => BroadcastMessage(registeredWindowMessage, IntPtr.Zero, IntPtr.Zero);
 
         /// <summary>
-        /// The message is sent to all top-level windows in the system, including disabled or invisible unowned windows, overlapped windows, and pop-up windows; but the message is not sent to child windows.
+        /// The message is sent to all top-level windows in the system, including disabled or
+        /// invisible unowned windows, overlapped windows, and pop-up windows; but the message is not
+        /// sent to child windows.
         /// </summary>
-        /// <param name="registeredWindowMessage">The registered window message. use <see cref="Win32Api.RegisterWindowMessage(string)"/> to register a message.</param>
+        /// <param name="registeredWindowMessage">
+        /// The registered window message. use <see cref="Win32Api.RegisterWindowMessage(string)"/>
+        /// to register a message.
+        /// </param>
         /// <param name="lParam">Additional message-specific information.</param>
         /// <exception cref="ArgumentException">Invalid registered window message</exception>
         /// <exception cref="Win32Exception">Win32 error occures</exception>
         public static void BroadcastMessage(uint registeredWindowMessage, IntPtr lParam) => BroadcastMessage(registeredWindowMessage, IntPtr.Zero, lParam);
 
         /// <summary>
-        /// The message is sent to all top-level windows in the system, including disabled or invisible unowned windows, overlapped windows, and pop-up windows; but the message is not sent to child windows.
+        /// The message is sent to all top-level windows in the system, including disabled or
+        /// invisible unowned windows, overlapped windows, and pop-up windows; but the message is not
+        /// sent to child windows.
         /// </summary>
-        /// <param name="registeredWindowMessage">The registered window message. use <see cref="Win32Api.RegisterWindowMessage(string)"/> to register a message.</param>
+        /// <param name="registeredWindowMessage">
+        /// The registered window message. use <see cref="Win32Api.RegisterWindowMessage(string)"/>
+        /// to register a message.
+        /// </param>
         /// <param name="wParam">Additional message-specific information.</param>
         /// <param name="lParam">Additional message-specific information.</param>
         /// <exception cref="ArgumentException">Invalid registered window message</exception>
@@ -86,27 +118,6 @@ namespace Cauldron.Core
 
             if (UnsafeNative.SendMessage(UnsafeNative.HWND_BROADCAST, (int)registeredWindowMessage, wParam, lParam) != 0)
                 throw new Win32Exception(Marshal.GetLastWin32Error());
-        }
-
-        /// <summary>
-        /// Returns all window handles associated with the process id. The process id can be retrieved with <see cref="Process.GetCurrentProcess()"/>.Id
-        /// </summary>
-        /// <param name="processId">The unique identifier for the associated process.</param>
-        /// <returns>A collection of window handles associated with the process id</returns>
-        public static IEnumerable<IntPtr> GetAllThreadWindowHandles(int processId)
-        {
-            var result = new List<IntPtr>();
-            var threads = Process.GetProcessById(processId).Threads;
-
-            for (int i = 0; i < threads.Count; i++)
-                UnsafeNative.EnumThreadWindows(threads[i].Id,
-                    (hWnd, lParam) =>
-                    {
-                        result.Add(hWnd);
-                        return true;
-                    }, IntPtr.Zero);
-
-            return result;
         }
 
         /// <summary>
@@ -157,6 +168,28 @@ namespace Cauldron.Core
                             UnsafeNative.DestroyIcon(ptr);
                 }
             }
+        }
+
+        /// <summary>
+        /// Returns all window handles associated with the process id. The process id can be
+        /// retrieved with <see cref="Process.GetCurrentProcess()"/>.Id
+        /// </summary>
+        /// <param name="processId">The unique identifier for the associated process.</param>
+        /// <returns>A collection of window handles associated with the process id</returns>
+        public static IEnumerable<IntPtr> GetAllThreadWindowHandles(int processId)
+        {
+            var result = new List<IntPtr>();
+            var threads = Process.GetProcessById(processId).Threads;
+
+            for (int i = 0; i < threads.Count; i++)
+                UnsafeNative.EnumThreadWindows(threads[i].Id,
+                    (hWnd, lParam) =>
+                    {
+                        result.Add(hWnd);
+                        return true;
+                    }, IntPtr.Zero);
+
+            return result;
         }
 
         /// <summary>
@@ -216,7 +249,8 @@ namespace Cauldron.Core
         }
 
         /// <summary>
-        /// Defines a new window message that is guaranteed to be unique throughout the system. The message value can be used when sending or posting messages.
+        /// Defines a new window message that is guaranteed to be unique throughout the system. The
+        /// message value can be used when sending or posting messages.
         /// </summary>
         /// <param name="message">The message to be registered.</param>
         /// <returns>Returns a message identifier in the range 0xC000 through 0xFFFF</returns>
@@ -232,7 +266,23 @@ namespace Cauldron.Core
         }
 
         /// <summary>
-        /// Sends the specified message to a window or windows. The SendMessage function calls the window procedure for the specified window and does not return until the window procedure has processed the message.
+        /// Removes the shadow from a window
+        /// </summary>
+        /// <param name="wrapper">
+        /// A managed object that should not be finalized until the platform invoke call returns.
+        /// </param>
+        /// <param name="windowHandle">The hwnd of the window</param>
+        public static void RemoveShadow(object wrapper, IntPtr windowHandle)
+        {
+            var myHandleRef = new HandleRef(wrapper, windowHandle);
+            UnsafeNative.SetClassLong(myHandleRef, UnsafeNative.GCL_STYLE,
+                new IntPtr(UnsafeNative.GetClassLongPtr(myHandleRef, UnsafeNative.CS_DROPSHADOW).ToInt32() & ~UnsafeNative.CS_DROPSHADOW));
+        }
+
+        /// <summary>
+        /// Sends the specified message to a window or windows. The SendMessage function calls the
+        /// window procedure for the specified window and does not return until the window procedure
+        /// has processed the message.
         /// </summary>
         /// <param name="hwnd">The window handle of the sending window</param>
         /// <param name="windowMessage">The message to be sent.</param>
@@ -245,8 +295,9 @@ namespace Cauldron.Core
         }
 
         /// <summary>
-        /// Sends the specified message string to a window.
-        /// The SendMessage function calls the window procedure for the specified window and does not return until the window procedure has processed the message.
+        /// Sends the specified message string to a window. The SendMessage function calls the window
+        /// procedure for the specified window and does not return until the window procedure has
+        /// processed the message.
         /// </summary>
         /// <param name="hwnd">A handle to the window whose window procedure will receive the message.</param>
         /// <param name="message">The message to be sent to the window</param>
@@ -278,8 +329,9 @@ namespace Cauldron.Core
         }
 
         /// <summary>
-        /// Sends the specified message string to all windows of all processes with the given process name.
-        /// The SendMessage function calls the window procedure for the specified window and does not return until the window procedure has processed the message.
+        /// Sends the specified message string to all windows of all processes with the given process
+        /// name. The SendMessage function calls the window procedure for the specified window and
+        /// does not return until the window procedure has processed the message.
         /// </summary>
         /// <param name="processName">The name of the process</param>
         /// <param name="message">The message to be sent to the windows</param>

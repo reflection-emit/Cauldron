@@ -4,40 +4,85 @@
         <name>Cauldron.Localization</name>
     </assembly>
     <members>
+        <member name="T:Cauldron.Localization.ILocalizationKeyValue">
+            <summary>
+            Represents an interface of the <see cref="T:Cauldron.Localization.ILocalizationSource"/> dictionary item
+            </summary>
+        </member>
+        <member name="P:Cauldron.Localization.ILocalizationKeyValue.Key">
+            <summary>
+            Gets the localization key
+            </summary>
+        </member>
+        <member name="M:Cauldron.Localization.ILocalizationKeyValue.GetValue(System.String)">
+            <summary>
+            Gets the localized value of the key
+            </summary>
+            <param name="twoLetterISOLanguageName">The two letter iso language name according to ISO</param>
+            <returns>The localized string.</returns>
+        </member>
         <member name="T:Cauldron.Localization.ILocalizationSource">
             <summary>
             Represents a source for a localization source
             </summary>
         </member>
-        <member name="M:Cauldron.Localization.ILocalizationSource.Contains(System.String,System.String)">
+        <member name="M:Cauldron.Localization.ILocalizationSource.GetValues">
             <summary>
-            Determines whether an element is in the <see cref="T:Cauldron.Localization.ILocalizationSource"/>
+            Returns all key values pair of the localization source
             </summary>
-            <param name="key">The key of the localized string</param>
-            <param name="twoLetterISOLanguageName">The two letter iso language name according to ISO</param>
-            <returns>true if item is found in the <see cref="T:Cauldron.Localization.ILocalizationSource"/>; otherwise, false.</returns>
+            <returns>A collection of key values pair</returns>
         </member>
-        <member name="M:Cauldron.Localization.ILocalizationSource.GetValue(System.String,System.String)">
+        <member name="T:Cauldron.Localization.JsonLocalizationSourceBase`1">
+             <summary>
+             Represents a base class for a localization using embedded json files.
+             <code>
+             The json should have the following structure:
+            
+             [
+                 {
+                     "key" : "attention-message",
+                     "en" : "Don't press the button.",
+                     "ja" : "ボタンを押さないでください。"
+                 },
+                 {
+                     "key" : "message2",
+                     "en" : "I am groot",
+                     "ja" : "私はホートです"
+                 }
+             ]
+             </code>
+             </summary>
+        </member>
+        <member name="M:Cauldron.Localization.JsonLocalizationSourceBase`1.#ctor(System.String)">
             <summary>
-            Returns a localized value associated with the key
+            Initializes a new instance of <see cref="T:Cauldron.Localization.JsonLocalizationSourceBase`1"/>
             </summary>
-            <param name="key">The key of the localized string data</param>
-            <param name="twoLetterISOLanguageName">The two letter iso language name according to ISO</param>
-            <returns>A <see cref="T:System.String"/></returns>
+            <param name="filename">The filename of the json file the contains the localization.</param>
+        </member>
+        <member name="M:Cauldron.Localization.JsonLocalizationSourceBase`1.GetValues">
+            <summary>
+            Returns all key values pair of the localization source
+            </summary>
+            <returns>A collection of key values pair</returns>
         </member>
         <member name="T:Cauldron.Localization.Locale">
             <summary>
-            Provides methods regarding localization
+            Provides methods regarding localization.
+            <para/>
+            https://github.com/Capgemini/Cauldron/wiki/Localization
             </summary>
         </member>
         <member name="M:Cauldron.Localization.Locale.#ctor">
-            <summary>
-            Initiates a new instance of the <see cref="T:Cauldron.Localization.Locale"/> class
-            </summary>
+            <exclude/>
         </member>
         <member name="P:Cauldron.Localization.Locale.CultureInfo">
             <summary>
             Gets or sets the culture used for the localization. Default is <see cref="P:System.Globalization.CultureInfo.CurrentCulture"/> in Windows desktop and the UI language in UWP
+            </summary>
+        </member>
+        <member name="P:Cauldron.Localization.Locale.MissingLocalizationIndicator">
+            <summary>
+            Gets or sets a value that indicates if a localization for the given key is missing.
             </summary>
         </member>
         <member name="P:Cauldron.Localization.Locale.Item(System.String)">
@@ -70,10 +115,98 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Cauldron.Localization.Locale.Rebuild">
+        <member name="T:Cauldron.Localization.LocalizationKeyValue">
             <summary>
-            Rebuilds the localization source.
+            Represents a base class for the <see cref="T:Cauldron.Localization.ILocalizationSource"/> dictionary item
             </summary>
+        </member>
+        <member name="P:Cauldron.Localization.LocalizationKeyValue.Chinese">
+            <exclude/>
+        </member>
+        <member name="P:Cauldron.Localization.LocalizationKeyValue.English">
+            <exclude/>
+        </member>
+        <member name="P:Cauldron.Localization.LocalizationKeyValue.French">
+            <exclude/>
+        </member>
+        <member name="P:Cauldron.Localization.LocalizationKeyValue.German">
+            <exclude/>
+        </member>
+        <member name="P:Cauldron.Localization.LocalizationKeyValue.Greek">
+            <exclude/>
+        </member>
+        <member name="P:Cauldron.Localization.LocalizationKeyValue.Japanese">
+            <exclude/>
+        </member>
+        <member name="P:Cauldron.Localization.LocalizationKeyValue.Key">
+            <exclude/>
+        </member>
+        <member name="P:Cauldron.Localization.LocalizationKeyValue.Korean">
+            <exclude/>
+        </member>
+        <member name="P:Cauldron.Localization.LocalizationKeyValue.Lithuanian">
+            <exclude/>
+        </member>
+        <member name="P:Cauldron.Localization.LocalizationKeyValue.Portuguese">
+            <exclude/>
+        </member>
+        <member name="P:Cauldron.Localization.LocalizationKeyValue.Russian">
+            <exclude/>
+        </member>
+        <member name="P:Cauldron.Localization.LocalizationKeyValue.Spanish">
+            <exclude/>
+        </member>
+        <member name="P:Cauldron.Localization.LocalizationKeyValue.Swedish">
+            <exclude/>
+        </member>
+        <member name="P:Cauldron.Localization.LocalizationKeyValue.Thai">
+            <exclude/>
+        </member>
+        <member name="P:Cauldron.Localization.LocalizationKeyValue.Default">
+            <summary>
+            Gets the default language localization
+            </summary>
+        </member>
+        <member name="M:Cauldron.Localization.LocalizationKeyValue.GetValue(System.String)">
+            <summary>
+            Gets the localized value of the key
+            </summary>
+            <param name="twoLetterISOLanguageName">The two letter iso language name according to ISO</param>
+            <returns>The localized string.</returns>
+        </member>
+        <member name="M:Cauldron.Localization.LocalizationKeyValue.OnGetValue(System.String)">
+            <summary>
+            Occures when the <see cref="M:Cauldron.Localization.LocalizationKeyValue.GetValue(System.String)"/> method has been invoked
+            </summary>
+            <param name="twoLetterISOLanguageName">The two letter iso language name according to ISO</param>
+            <returns>The localized string.</returns>
+        </member>
+        <member name="T:Cauldron.Localization.YamlLocalizationSourceBase`1">
+             <summary>
+             Represents a base class for a localization using embedded yaml files.
+             <code>
+             The yaml should have the following structure:
+            
+             Attention-message
+                 en: Don't press the button.
+                 ja: ボタンを押さないでください。
+             Message2
+                 en: I am groot
+                 ja: 私はホートです
+             </code>
+             </summary>
+        </member>
+        <member name="M:Cauldron.Localization.YamlLocalizationSourceBase`1.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of <see cref="T:Cauldron.Localization.YamlLocalizationSourceBase`1"/>
+            </summary>
+            <param name="filename">The filename of the json file the contains the localization.</param>
+        </member>
+        <member name="M:Cauldron.Localization.YamlLocalizationSourceBase`1.GetValues">
+            <summary>
+            Returns all key values pair of the localization source
+            </summary>
+            <returns>A collection of key values pair</returns>
         </member>
     </members>
 </doc>

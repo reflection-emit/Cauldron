@@ -56,11 +56,19 @@ namespace Cauldron.XAML.Validation
             if (sender == null)
                 await context.ValidateAsync(propertyInfo, secondProperty.Name);
 
+            if (value is SecureString && (secondValue is SecureString || secondValue == null))
+            {
+                var ssa = value as SecureString;
+                var ssb = secondValue as SecureString;
+
+                if (ssa.Length == 0 && ssb == null)
+                    return false;
+
+                return !ssa.IsEqualTo(ssb);
+            }
+
             if (secondValue == null)
                 return true;
-
-            if (value is SecureString && secondValue is SecureString)
-                return !(value as SecureString).IsEqualTo(secondValue as SecureString);
 
             return !ComparerUtils.Equals(value, secondValue);
         }

@@ -13,14 +13,14 @@ namespace Cauldron.Core
     /// </summary>
     internal static class UnsafeNative
     {
+        public const int CS_DROPSHADOW = 0x20000;
+        public const int GCL_STYLE = -26;
         public const int GWL_EXSTYLE = (-20);
 
         public const int SH_SHOW = 5;
-
         public const int WM_COPYDATA = 0x004A;
 
         public const int WS_EX_TRANSPARENT = 0x00000020;
-
         public readonly static IntPtr HWND_BOTTOM = new IntPtr(1);
 
         public readonly static IntPtr HWND_BROADCAST = new IntPtr(0xffff);
@@ -72,6 +72,20 @@ namespace Cauldron.Core
         [DllImport("shell32.dll", CharSet = CharSet.Auto)]
         public static extern uint ExtractIconEx(string szFileName, int nIconIndex, IntPtr[] phiconLarge, IntPtr[] phiconSmall, uint nIcons);
 
+        public static IntPtr GetClassLongPtr(HandleRef hWnd, int nIndex)
+        {
+            if (IntPtr.Size > 4)
+                return GetClassLongPtr64(hWnd, nIndex);
+            else
+                return new IntPtr(GetClassLongPtr32(hWnd, nIndex));
+        }
+
+        [DllImport("user32.dll", EntryPoint = "GetClassLong")]
+        public static extern uint GetClassLongPtr32(HandleRef hWnd, int nIndex);
+
+        [DllImport("user32.dll", EntryPoint = "GetClassLongPtr")]
+        public static extern IntPtr GetClassLongPtr64(HandleRef hWnd, int nIndex);
+
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool GetCursorPos(ref Win32Point pt);
@@ -82,25 +96,14 @@ namespace Cauldron.Core
         [DllImport("Shcore.dll")]
         public static extern IntPtr GetDpiForMonitor([In]IntPtr hmonitor, [In]DpiType dpiType, [Out]out uint dpiX, [Out]out uint dpiY);
 
-        //[DllImport("user32.dll")]
-        //public static extern bool GetIconInfo(IntPtr hIcon, out ICONINFO piconinfo);
-
-        /*
-         *  Don't remove this so that it won't be forgotten!
-         *  Don't use GetModuleHandle ... It is broken for .NET
-            [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
-            public static extern IntPtr GetModuleHandle(string lpModuleName);
-        */
-
         [DllImport("user32")]
         public static extern bool GetMonitorInfo(IntPtr hMonitor, MONITORINFO lpmi);
-
-        //[DllImport("gdi32.dll", SetLastError = true, CharSet = CharSet.Auto)]
-        //public static extern int GetObject(HandleRef hObject, int nSize, [In, Out] BITMAP bm);
 
         [DllImport("shell32.dll", EntryPoint = "#261", CharSet = CharSet.Unicode, PreserveSig = false)]
         public static extern void GetUserTilePath(string username, UInt32 whatever, StringBuilder picpath, int maxLength);
 
+        //[DllImport("gdi32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+        //public static extern int GetObject(HandleRef hObject, int nSize, [In, Out] BITMAP bm);
         [DllImport("user32.dll")]
         public static extern int GetWindowLong(IntPtr hwnd, int index);
 
@@ -128,6 +131,30 @@ namespace Cauldron.Core
 
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         public static extern int SendMessage(IntPtr hWnd, int Msg, IntPtr wParam, IntPtr lParam);
+
+        public static IntPtr SetClassLong(HandleRef hWnd, int nIndex, IntPtr dwNewLong)
+        {
+            if (IntPtr.Size > 4)
+                return SetClassLongPtr64(hWnd, nIndex, dwNewLong);
+            else
+                return new IntPtr(SetClassLongPtr32(hWnd, nIndex, unchecked((uint)dwNewLong.ToInt32())));
+        }
+
+        [DllImport("user32.dll", EntryPoint = "SetClassLong")]
+        public static extern uint SetClassLongPtr32(HandleRef hWnd, int nIndex, uint dwNewLong);
+
+        [DllImport("user32.dll", EntryPoint = "SetClassLongPtr")]
+        public static extern IntPtr SetClassLongPtr64(HandleRef hWnd, int nIndex, IntPtr dwNewLong);
+
+        //[DllImport("user32.dll")]
+        //public static extern bool GetIconInfo(IntPtr hIcon, out ICONINFO piconinfo);
+
+        /*
+         *  Don't remove this so that it won't be forgotten!
+         *  Don't use GetModuleHandle ... It is broken for .NET
+            [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
+            public static extern IntPtr GetModuleHandle(string lpModuleName);
+        */
 
         [DllImport("User32.dll", EntryPoint = "SetForegroundWindow")]
         [return: MarshalAs(UnmanagedType.Bool)]

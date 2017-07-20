@@ -49,186 +49,11 @@
             <param name="obj"><see cref="T:Windows.UI.Xaml.DependencyObject" /> with the attached property</param>
             <param name="value">The new value to set</param>
         </member>
-        <member name="T:Cauldron.XAML.Interactivity.Attached.HyperlinkProperties">
-            <summary>
-            Provides Attached Properties to <see cref="T:Windows.UI.Xaml.Documents.Hyperlink"/> that has the <see cref="P:Windows.System.LauncherOptions.TreatAsUntrusted"/> property set to false
-            </summary>
+        <member name="T:Cauldron.XAML.Interactivity.Resources.DummyResources">
+            <exclude/>
         </member>
-        <member name="F:Cauldron.XAML.Interactivity.Attached.HyperlinkProperties.NavigateUriProperty">
-            <summary>
-            Identifies the NavigateUri dependency property
-            </summary>
-        </member>
-        <member name="M:Cauldron.XAML.Interactivity.Attached.HyperlinkProperties.GetNavigateUri(Windows.UI.Xaml.DependencyObject)">
-            <summary>
-            Gets the value of NavigateUri
-            </summary>
-            <param name="obj"><see cref="T:Windows.UI.Xaml.DependencyObject" /> with the attached property</param>
-            <returns>The value of the attached property</returns>
-        </member>
-        <member name="M:Cauldron.XAML.Interactivity.Attached.HyperlinkProperties.SetNavigateUri(Windows.UI.Xaml.DependencyObject,System.Uri)">
-            <summary>
-            Sets the value of the NavigateUri attached property
-            </summary>
-            <param name="obj"><see cref="T:Windows.UI.Xaml.DependencyObject" /> with the attached property</param>
-            <param name="value">The new value to set</param>
-        </member>
-        <member name="T:Cauldron.XAML.Interactivity.Attached.ButtonProperties">
-            <summary>
-            Provides attached properties for the <see cref="T:Windows.UI.Xaml.Controls.Button"/> control
-            </summary>
-        </member>
-        <member name="F:Cauldron.XAML.Interactivity.Attached.ButtonProperties.TextProperty">
-            <summary>
-            Identifies the Text dependency property
-            </summary>
-        </member>
-        <member name="M:Cauldron.XAML.Interactivity.Attached.ButtonProperties.GetText(Windows.UI.Xaml.DependencyObject)">
-            <summary>
-            Gets the value of Text
-            </summary>
-            <param name="obj"><see cref="T:Windows.UI.Xaml.DependencyObject" /> with the attached property</param>
-            <returns>The value of the attached property</returns>
-        </member>
-        <member name="M:Cauldron.XAML.Interactivity.Attached.ButtonProperties.SetText(Windows.UI.Xaml.DependencyObject,System.String)">
-            <summary>
-            Sets the value of the Text attached property
-            </summary>
-            <param name="obj"><see cref="T:Windows.UI.Xaml.DependencyObject" /> with the attached property</param>
-            <param name="value">The new value to set</param>
-        </member>
-        <member name="F:Cauldron.XAML.Interactivity.Attached.ButtonProperties.ImageKeyProperty">
-            <summary>
-            Identifies the ImageKey dependency property
-            </summary>
-        </member>
-        <member name="M:Cauldron.XAML.Interactivity.Attached.ButtonProperties.GetImageKey(Windows.UI.Xaml.DependencyObject)">
-            <summary>
-            Gets the value of ImageKey
-            </summary>
-            <param name="obj"><see cref="T:Windows.UI.Xaml.DependencyObject" /> with the attached property</param>
-            <returns>The value of the attached property</returns>
-        </member>
-        <member name="M:Cauldron.XAML.Interactivity.Attached.ButtonProperties.SetImageKey(Windows.UI.Xaml.DependencyObject,System.String)">
-            <summary>
-            Sets the value of the ImageKey attached property
-            </summary>
-            <param name="obj"><see cref="T:Windows.UI.Xaml.DependencyObject" /> with the attached property</param>
-            <param name="value">The new value to set</param>
-        </member>
-        <member name="T:Cauldron.XAML.Interactivity.Attached.ImageProperties">
-            <summary>
-            Provides attached properties for the <see cref="T:Windows.UI.Xaml.Controls.Image"/> control
-            </summary>
-        </member>
-        <member name="F:Cauldron.XAML.Interactivity.Attached.ImageProperties.AnimateOpacityProperty">
-            <summary>
-            Identifies the AnimateOpacity dependency property
-            </summary>
-        </member>
-        <member name="M:Cauldron.XAML.Interactivity.Attached.ImageProperties.GetAnimateOpacity(Windows.UI.Xaml.DependencyObject)">
-            <summary>
-            Gets the value of AnimateOpacity
-            </summary>
-            <param name="obj"><see cref="T:Windows.UI.Xaml.DependencyObject" /> with the attached property</param>
-            <returns>The value of the attached property</returns>
-        </member>
-        <member name="M:Cauldron.XAML.Interactivity.Attached.ImageProperties.SetAnimateOpacity(Windows.UI.Xaml.DependencyObject,System.Boolean)">
-            <summary>
-            Sets the value of the AnimateOpacity attached property
-            </summary>
-            <param name="obj"><see cref="T:Windows.UI.Xaml.DependencyObject" /> with the attached property</param>
-            <param name="value">The new value to set</param>
-        </member>
-        <member name="F:Cauldron.XAML.Interactivity.Attached.ImageProperties.ImageKeyProperty">
-            <summary>
-            Identifies the ImageKey dependency property
-            </summary>
-        </member>
-        <member name="M:Cauldron.XAML.Interactivity.Attached.ImageProperties.GetImageKey(Windows.UI.Xaml.DependencyObject)">
-            <summary>
-            Gets the value of ImageKey
-            </summary>
-            <param name="obj"><see cref="T:Windows.UI.Xaml.DependencyObject" /> with the attached property</param>
-            <returns>The value of the attached property</returns>
-        </member>
-        <member name="M:Cauldron.XAML.Interactivity.Attached.ImageProperties.SetImageKey(Windows.UI.Xaml.DependencyObject,System.String)">
-            <summary>
-            Sets the value of the ImageKey attached property
-            </summary>
-            <param name="obj"><see cref="T:Windows.UI.Xaml.DependencyObject" /> with the attached property</param>
-            <param name="value">The new value to set</param>
-        </member>
-        <member name="T:Cauldron.XAML.Interactivity.Attached.Localized">
-            <summary>
-            Provides Attached Properties to enable localization in controls.
-            <para/>
-            Existing text are overridden.
-            <para />
-            Supported controls: <see cref="!:FrameworkElement.ToolTip"/> <see cref="P:Windows.UI.Xaml.Controls.TextBlock.Text"/>, <see cref="P:Windows.UI.Xaml.Controls.ContentControl.Content"/>
-            </summary>
-        </member>
-        <member name="F:Cauldron.XAML.Interactivity.Attached.Localized.TextProperty">
-            <summary>
-            Identifies the Text dependency property
-            </summary>
-        </member>
-        <member name="M:Cauldron.XAML.Interactivity.Attached.Localized.GetText(Windows.UI.Xaml.DependencyObject)">
-            <summary>
-            Gets the value of Text
-            </summary>
-            <param name="obj"><see cref="T:Windows.UI.Xaml.DependencyObject" /> with the attached property</param>
-            <returns>The value of the attached property</returns>
-        </member>
-        <member name="M:Cauldron.XAML.Interactivity.Attached.Localized.SetText(Windows.UI.Xaml.DependencyObject,System.String)">
-            <summary>
-            Sets the value of the Text attached property
-            </summary>
-            <param name="obj"><see cref="T:Windows.UI.Xaml.DependencyObject" /> with the attached property</param>
-            <param name="value">The new value to set</param>
-        </member>
-        <member name="F:Cauldron.XAML.Interactivity.Attached.Localized.TooltipProperty">
-            <summary>
-            Identifies the <see cref="F:Cauldron.XAML.Interactivity.Attached.Localized.TooltipProperty" /> dependency property
-            </summary>
-        </member>
-        <member name="M:Cauldron.XAML.Interactivity.Attached.Localized.GetTooltip(Windows.UI.Xaml.DependencyObject)">
-            <summary>
-            Gets the value of <see cref="F:Cauldron.XAML.Interactivity.Attached.Localized.TooltipProperty" />
-            </summary>
-            <param name="obj"><see cref="T:Windows.UI.Xaml.DependencyObject" /> with the attached property</param>
-            <returns>The value of the attached property</returns>
-        </member>
-        <member name="M:Cauldron.XAML.Interactivity.Attached.Localized.SetTooltip(Windows.UI.Xaml.DependencyObject,System.String)">
-            <summary>
-            Sets the value of the <see cref="F:Cauldron.XAML.Interactivity.Attached.Localized.TooltipProperty" /> attached property
-            </summary>
-            <param name="obj"><see cref="T:Windows.UI.Xaml.DependencyObject" /> with the attached property</param>
-            <param name="value">The new value to set</param>
-        </member>
-        <member name="T:Cauldron.XAML.Interactivity.Attached.TextBlockProperties">
-            <summary>
-            Provides attached properties for the <see cref="T:Windows.UI.Xaml.Controls.Button"/> control
-            </summary>
-        </member>
-        <member name="F:Cauldron.XAML.Interactivity.Attached.TextBlockProperties.InlineProperty">
-            <summary>
-            Identifies the Inline dependency property
-            </summary>
-        </member>
-        <member name="M:Cauldron.XAML.Interactivity.Attached.TextBlockProperties.GetInline(Windows.UI.Xaml.DependencyObject)">
-            <summary>
-            Gets the value of Inline
-            </summary>
-            <param name="obj"><see cref="T:Windows.UI.Xaml.DependencyObject" /> with the attached property</param>
-            <returns>The value of the attached property</returns>
-        </member>
-        <member name="M:Cauldron.XAML.Interactivity.Attached.TextBlockProperties.SetInline(Windows.UI.Xaml.DependencyObject,System.String)">
-            <summary>
-            Sets the value of the Inline attached property
-            </summary>
-            <param name="obj"><see cref="T:Windows.UI.Xaml.DependencyObject" /> with the attached property</param>
-            <param name="value">The new value to set</param>
+        <member name="M:Cauldron.XAML.Interactivity.Resources.DummyResources.#ctor">
+            <exclude/>
         </member>
         <member name="M:Cauldron.XAML.Interactivity.Resources.DummyResources.InitializeComponent">
             <summary>
@@ -238,16 +63,6 @@
         <member name="M:Cauldron.XAML.Interactivity.Resources.DummyResources.Connect(System.Int32,System.Object)">
             <summary>
             Connect()
-            </summary>
-        </member>
-        <member name="F:Cauldron.XAML.Interactivity.TextBoxOnTextChanged.TextProperty">
-            <summary>
-            Identifies the <see cref="P:Cauldron.XAML.Interactivity.TextBoxOnTextChanged.Text" /> dependency property
-            </summary>
-        </member>
-        <member name="P:Cauldron.XAML.Interactivity.TextBoxOnTextChanged.Text">
-            <summary>
-            Gets or sets the <see cref="P:Cauldron.XAML.Interactivity.TextBoxOnTextChanged.Text" /> Property
             </summary>
         </member>
         <member name="T:Cauldron.XAML.Interactivity.Actions.ActionBase">
@@ -265,6 +80,12 @@
             <summary>
             Represents a collection of <see cref="T:Cauldron.XAML.Interactivity.Actions.ActionBase"/>
             </summary>
+        </member>
+        <member name="M:Cauldron.XAML.Interactivity.Actions.ActionCollection.#ctor(Windows.UI.Xaml.DependencyObject)">
+            <summary>
+            Initializes a new instance of <see cref="T:Cauldron.XAML.Interactivity.Actions.ActionCollection"/>
+            </summary>
+            <param name="owner"></param>
         </member>
         <member name="T:Cauldron.XAML.Interactivity.Actions.InvokeMethodAction">
             <summary>
@@ -338,6 +159,53 @@
             Occures when the behaviour is detached from the object
             </summary>
         </member>
+        <member name="T:Cauldron.XAML.Interactivity.Localized">
+            <summary>
+            Provides Attached Properties to enable localization in controls.
+            <para/>
+            Existing text are overridden.
+            <para />
+            Supported controls: <see cref="!:FrameworkElement.ToolTip"/> <see cref="P:Windows.UI.Xaml.Controls.TextBlock.Text"/>, <see cref="P:Windows.UI.Xaml.Controls.ContentControl.Content"/>
+            </summary>
+        </member>
+        <member name="F:Cauldron.XAML.Interactivity.Localized.TextProperty">
+            <summary>
+            Identifies the Text dependency property
+            </summary>
+        </member>
+        <member name="M:Cauldron.XAML.Interactivity.Localized.GetText(Windows.UI.Xaml.DependencyObject)">
+            <summary>
+            Gets the value of Text
+            </summary>
+            <param name="obj"><see cref="T:Windows.UI.Xaml.DependencyObject" /> with the attached property</param>
+            <returns>The value of the attached property</returns>
+        </member>
+        <member name="M:Cauldron.XAML.Interactivity.Localized.SetText(Windows.UI.Xaml.DependencyObject,System.String)">
+            <summary>
+            Sets the value of the Text attached property
+            </summary>
+            <param name="obj"><see cref="T:Windows.UI.Xaml.DependencyObject" /> with the attached property</param>
+            <param name="value">The new value to set</param>
+        </member>
+        <member name="F:Cauldron.XAML.Interactivity.Localized.TooltipProperty">
+            <summary>
+            Identifies the <see cref="F:Cauldron.XAML.Interactivity.Localized.TooltipProperty" /> dependency property
+            </summary>
+        </member>
+        <member name="M:Cauldron.XAML.Interactivity.Localized.GetTooltip(Windows.UI.Xaml.DependencyObject)">
+            <summary>
+            Gets the value of <see cref="F:Cauldron.XAML.Interactivity.Localized.TooltipProperty" />
+            </summary>
+            <param name="obj"><see cref="T:Windows.UI.Xaml.DependencyObject" /> with the attached property</param>
+            <returns>The value of the attached property</returns>
+        </member>
+        <member name="M:Cauldron.XAML.Interactivity.Localized.SetTooltip(Windows.UI.Xaml.DependencyObject,System.String)">
+            <summary>
+            Sets the value of the <see cref="F:Cauldron.XAML.Interactivity.Localized.TooltipProperty" /> attached property
+            </summary>
+            <param name="obj"><see cref="T:Windows.UI.Xaml.DependencyObject" /> with the attached property</param>
+            <param name="value">The new value to set</param>
+        </member>
         <member name="T:Cauldron.XAML.Interactivity.Attributes.BehaviourUsageAttribute">
             <summary>
             Specifies that a behaviour can only be applied once
@@ -380,6 +248,11 @@
         <member name="P:Cauldron.XAML.Interactivity.Behaviour`1.IsAssignedFromTemplate">
             <summary>
             Gets a value that indicates if the behaviour was assigned from template
+            </summary>
+        </member>
+        <member name="P:Cauldron.XAML.Interactivity.Behaviour`1.IsDetached">
+            <summary>
+            Gets a value that indicates that the behaviour is detached
             </summary>
         </member>
         <member name="M:Cauldron.XAML.Interactivity.Behaviour`1.OnAttach">
@@ -846,12 +719,12 @@
             GetXmlnsDefinitions()
             </summary>
         </member>
-        <member name="T:Cauldron.IEnumerableExtensions.Extensions">
+        <member name="T:Cauldron.Internal.Extensions">
             <summary>
             Provides usefull extensions for <see cref="T:System.Collections.IEnumerable"/>
             </summary>
         </member>
-        <member name="M:Cauldron.IEnumerableExtensions.Extensions.Any_(System.Collections.IEnumerable,System.Func{System.Object,System.Boolean})">
+        <member name="M:Cauldron.Internal.Extensions.Any_(System.Collections.IEnumerable,System.Func{System.Object,System.Boolean})">
             <summary>
             Determines whether any element of a sequence satisfies a condition.
             </summary>
@@ -860,7 +733,7 @@
             <returns>True if any elements in the source sequence pass the test in the specified predicate, otherwise false</returns>
             <exception cref="T:System.ArgumentNullException"><paramref name="source"/> is null</exception>
         </member>
-        <member name="M:Cauldron.IEnumerableExtensions.Extensions.Any_(System.Collections.IEnumerable)">
+        <member name="M:Cauldron.Internal.Extensions.Any_(System.Collections.IEnumerable)">
             <summary>
             Determines whether a sequence contains any elements.
             </summary>
@@ -868,7 +741,7 @@
             <returns>True if the source sequence contains any elements, otherwise false.</returns>
             <exception cref="T:System.ArgumentNullException"><paramref name="source"/> is null</exception>
         </member>
-        <member name="M:Cauldron.IEnumerableExtensions.Extensions.Count_(System.Collections.IEnumerable)">
+        <member name="M:Cauldron.Internal.Extensions.Count_(System.Collections.IEnumerable)">
             <summary>
             Gets the number of elements contained in the <see cref="T:System.Collections.IEnumerable"/>
             </summary>
@@ -876,7 +749,7 @@
             <returns>The total count of items in the <see cref="T:System.Collections.IEnumerable"/></returns>
             <exception cref="T:System.ArgumentNullException"><paramref name="source"/> is null</exception>
         </member>
-        <member name="M:Cauldron.IEnumerableExtensions.Extensions.ElementAt_(System.Collections.IEnumerable,System.Int32)">
+        <member name="M:Cauldron.Internal.Extensions.ElementAt_(System.Collections.IEnumerable,System.Int32)">
             <summary>
             Returns the element at the defined index
             </summary>
@@ -885,7 +758,7 @@
             <returns>The element with the specified index</returns>
             <exception cref="T:System.ArgumentNullException"><paramref name="ienumerable"/> is null</exception>
         </member>
-        <member name="M:Cauldron.IEnumerableExtensions.Extensions.Except_(System.Collections.IEnumerable,System.Object)">
+        <member name="M:Cauldron.Internal.Extensions.Except_(System.Collections.IEnumerable,System.Object)">
             <summary>
             Removes the first occurrence of a specific object from the <see cref="T:System.Collections.IEnumerable"/>
             </summary>
@@ -894,7 +767,7 @@
             <returns>A new instance of the <see cref="T:System.Collections.IEnumerable"/> without the item specified by <paramref name="itemToExcept"/></returns>
             <exception cref="T:System.ArgumentNullException"><paramref name="items"/> is null</exception>
         </member>
-        <member name="M:Cauldron.IEnumerableExtensions.Extensions.FirstElement_(System.Collections.IEnumerable)">
+        <member name="M:Cauldron.Internal.Extensions.FirstElement_(System.Collections.IEnumerable)">
             <summary>
             Returns the first element of a sequence.
             </summary>
@@ -902,7 +775,7 @@
             <returns>The first element in the specified sequence.</returns>
             <exception cref="T:System.ArgumentNullException"><paramref name="source"/> is null</exception>
         </member>
-        <member name="M:Cauldron.IEnumerableExtensions.Extensions.SequenceEqual_(System.Collections.IEnumerable,System.Collections.IEnumerable)">
+        <member name="M:Cauldron.Internal.Extensions.SequenceEqual_(System.Collections.IEnumerable,System.Collections.IEnumerable)">
             <summary>
             Determines whether two sequences are equal by comparing the elements by using the default equality comparer for their types
             </summary>
@@ -915,7 +788,7 @@
             </returns>
             <exception cref="T:System.ArgumentNullException">first or second is null.</exception>
         </member>
-        <member name="M:Cauldron.IEnumerableExtensions.Extensions.ToArray_``1(System.Collections.IEnumerable)">
+        <member name="M:Cauldron.Internal.Extensions.ToArray_``1(System.Collections.IEnumerable)">
             <summary>
             Converts a <see cref="T:System.Collections.IEnumerable"/> to an array
             </summary>
@@ -923,7 +796,7 @@
             <param name="items">The <see cref="T:System.Collections.IEnumerable"/> to convert</param>
             <returns>An array of <typeparamref name="T"/></returns>
         </member>
-        <member name="M:Cauldron.IEnumerableExtensions.Extensions.ToList_``1(System.Collections.IEnumerable)">
+        <member name="M:Cauldron.Internal.Extensions.ToList_``1(System.Collections.IEnumerable)">
             <summary>
             Creates a <see cref="T:System.Collections.Generic.List`1"/> from an <see cref="T:System.Collections.IEnumerable"/>.
             </summary>

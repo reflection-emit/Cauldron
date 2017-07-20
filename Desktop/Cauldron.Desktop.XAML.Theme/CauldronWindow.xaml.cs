@@ -162,6 +162,8 @@ namespace Cauldron.XAML.Theme
                 this.icon.IsNotNull(x => x.Visibility = Visibility.Collapsed);
                 this.title.IsNotNull(x => x.Visibility = Visibility.Collapsed);
             }
+
+            Win32Api.AddShadow(this, hwnd);
         }
 
         private void MaximizeButton_Click(object sender, RoutedEventArgs e)

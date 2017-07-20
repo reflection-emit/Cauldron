@@ -333,6 +333,13 @@
             <returns> A double-precision floating-point number that is equivalent to the numeric value or symbol specified in <paramref name="target"/>.</returns>
             <exception cref="T:System.ArgumentNullException"><paramref name="target"/> is null</exception>
         </member>
+        <member name="M:Cauldron.Core.Extensions.ExtensionsConvertions.ToDouble(System.Byte[])">
+            <summary>
+            Returns a double-precision floating point number converted from eight bytes at a specified position in a byte array.
+            </summary>
+            <param name="target">The byte array to convert to its double representation</param>
+            <returns>The double-precision floating point number value of the byte array</returns>
+        </member>
         <member name="M:Cauldron.Core.Extensions.ExtensionsConvertions.ToDouble(System.String,System.Globalization.NumberFormatInfo)">
             <summary>
             Converts the string representation of a number in a specified culture-specific format to its double-precision floating-point number equivalent.
@@ -360,6 +367,13 @@
             <param name="target">A string that contains a number to convert.</param>
             <returns>A single-precision floating-point number equivalent to the numeric value or symbol specified in <paramref name="target"/>.</returns>
             <exception cref="T:System.ArgumentNullException"><paramref name="target"/> is null</exception>
+        </member>
+        <member name="M:Cauldron.Core.Extensions.ExtensionsConvertions.ToFloat(System.Byte[])">
+            <summary>
+            Returns a single-precision floating point number converted from four bytes at a specified position in a byte array.
+            </summary>
+            <param name="target">The byte array to convert</param>
+            <returns>The single-precision floating point number representaion of the byte array</returns>
         </member>
         <member name="M:Cauldron.Core.Extensions.ExtensionsConvertions.ToFloat(System.String,System.Globalization.NumberFormatInfo)">
             <summary>
@@ -629,7 +643,7 @@
         </member>
         <member name="T:Cauldron.Core.Extensions.ExtensionsXmlDocument">
             <summary>
-            Provides usefull extension methods for <see cref="T:Windows.Data.Xml.Dom.XmlDocument"/>
+            Provides usefull extension methods for XmlDocument/>
             </summary>
         </member>
         <member name="M:Cauldron.Core.Extensions.ExtensionsXmlDocument.Contains(Windows.Data.Xml.Dom.IXmlNode,System.String)">
@@ -674,20 +688,6 @@
             <param name="nodePath">A node path separated by /</param>
             <returns>The concatenated values of the node and all its child nodes.</returns>
         </member>
-        <member name="T:Cauldron.Core.Extensions.AnonymousTypeWithInterfaceExtension">
-            <summary>
-            Provides usefull extension methods for anonymous class
-            </summary>
-        </member>
-        <member name="M:Cauldron.Core.Extensions.AnonymousTypeWithInterfaceExtension.CreateObject``1(System.Object)">
-            <summary>
-            Creates a new <see cref="T:System.Type"/> that implements the properties of an interface defined by <typeparamref name="T"/>
-            and copies all value of <paramref name="anon"/> to the new object
-            </summary>
-            <typeparam name="T">The type of interface to implement</typeparam>
-            <param name="anon">The anonymous object</param>
-            <returns>A new object implementing the interface defined by <typeparamref name="T"/></returns>
-        </member>
         <member name="T:Cauldron.Core.Extensions.Extensions">
             <summary>
             Provides usefull extension methods
@@ -714,8 +714,31 @@
             <summary>
             Concatenates a jagged array to a one-dimensional array
             </summary>
+            <typeparam name="T">The element type of the array</typeparam>
             <param name="arrays">The jagged array</param>
             <returns>An one dimensional array</returns>
+        </member>
+        <member name="M:Cauldron.Core.Extensions.Extensions.Concat``1(``0[],``0)">
+            <summary>
+            Concats an item to an array creating a new array containing the original array and the item.
+            </summary>
+            <typeparam name="T">The element type of the array</typeparam>
+            <param name="arrayA">The array</param>
+            <param name="item">The item to add to the array</param>
+            <returns>A new array containing the original array and the item.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="arrayA"/> is null</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="item"/> is null</exception>
+        </member>
+        <member name="M:Cauldron.Core.Extensions.Extensions.Concat``1(``0[],``0[])">
+            <summary>
+            Concatenates two arrays together creating a new array containing both arrays
+            </summary>
+            <typeparam name="T">The element type of the array</typeparam>
+            <param name="arrayA">The first array</param>
+            <param name="arrayB">The second array</param>
+            <returns>A new array containing both arrays.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="arrayA"/> is null</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="arrayB"/> is null</exception>
         </member>
         <member name="M:Cauldron.Core.Extensions.Extensions.Contains(System.String,System.String,System.StringComparison)">
             <summary>
@@ -725,6 +748,15 @@
             <param name="value">The string to seek. </param>
             <param name="comparisonType">One of the enumeration values that specifies the rules for the search. </param>
             <returns>True if the value parameter occurs within this string, or if value is the empty string (""); otherwise, false.</returns>
+        </member>
+        <member name="M:Cauldron.Core.Extensions.Extensions.Copy``1(``0[])">
+            <summary>
+            Copies an array.
+            </summary>
+            <typeparam name="T">The element type of the array</typeparam>
+            <param name="array">The array</param>
+            <returns>A new array that contains the same elements as <paramref name="array"/></returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="array"/> is null</exception>
         </member>
         <member name="M:Cauldron.Core.Extensions.Extensions.Copy(System.String)">
             <summary>
@@ -1014,6 +1046,15 @@
             <exception cref="T:System.OutOfMemoryException">There is insufficient memory to allocate a buffer for the returned string.</exception>
             <exception cref="T:System.IO.IOException">An I/O error occurs.</exception>
         </member>
+        <member name="M:Cauldron.Core.Extensions.Extensions.RemoveNull``1(``0[])">
+            <summary>
+            Removes all null elements from the array.
+            </summary>
+            <typeparam name="T">The element type of the array</typeparam>
+            <param name="array">The array</param>
+            <returns>A new array with all non null elements</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="array"/> is null</exception>
+        </member>
         <member name="M:Cauldron.Core.Extensions.Extensions.Replace(System.String,System.Char[],System.Char,System.Int32)">
             <summary>
             Replaces a series of chars <paramref name="oldChars"/> with a single char <paramref name="newChar"/>.
@@ -1025,6 +1066,16 @@
             <returns>A copy of the original string with the chars defined by <paramref name="oldChars"/> replaced by <paramref name="newChar"/>.</returns>
             <exception cref="T:System.ArgumentNullException">value is null</exception>
             <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="startingIndex"/> is higher than <paramref name="value"/> length</exception>
+        </member>
+        <member name="M:Cauldron.Core.Extensions.Extensions.Replace(System.String,System.UInt32,System.Char)">
+            <summary>
+            Replaces a char in the given index with <paramref name="newChar"/>
+            </summary>
+            <param name="value">The string to replace the char</param>
+            <param name="index">The index of the char</param>
+            <param name="newChar">The new char</param>
+            <exception cref="T:System.ArgumentNullException">value is null</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="index"/> is higher than <paramref name="value"/> length</exception>
         </member>
         <member name="M:Cauldron.Core.Extensions.Extensions.ReplaceMe(System.String,System.Char[],System.Char,System.Int32)">
             <summary>
@@ -1038,16 +1089,6 @@
             <param name="startingIndex">The index where to start replacing chars</param>
             <exception cref="T:System.ArgumentNullException">value is null</exception>
             <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="startingIndex"/> is higher than <paramref name="value"/> length</exception>
-        </member>
-        <member name="M:Cauldron.Core.Extensions.Extensions.Replace(System.String,System.UInt32,System.Char)">
-            <summary>
-            Replaces a char in the given index with <paramref name="newChar"/>
-            </summary>
-            <param name="value">The string to replace the char</param>
-            <param name="index">The index of the char</param>
-            <param name="newChar">The new char</param>
-            <exception cref="T:System.ArgumentNullException">value is null</exception>
-            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="index"/> is higher than <paramref name="value"/> length</exception>
         </member>
         <member name="M:Cauldron.Core.Extensions.Extensions.Right(System.String,System.Int32)">
             <summary>
@@ -1221,7 +1262,7 @@
             </param>
             <returns>A reference to the newly created object.</returns>
             <exception cref="T:System.ArgumentNullException"><paramref name="type"/> is null</exception>
-            <exception cref="T:Cauldron.Core.CreateInstanceIsAnInterfaceException"><paramref name="type"/> is an interface</exception>
+            <exception cref="T:Cauldron.Core.TypeIsInterfaceException"><paramref name="type"/> is an interface</exception>
         </member>
         <member name="M:Cauldron.Core.Extensions.ExtensionsReflection.CreateInstance(System.Reflection.ConstructorInfo,System.Object[])">
             <summary>
@@ -1488,6 +1529,12 @@
             <param name="argumentTypes">The argument types that has to match to</param>
             <returns>true if the argument types of <paramref name="parameters"/> matches with the argument type defined by <paramref name="argumentTypes"/>; otherwise, false.</returns>
         </member>
+        <member name="T:Cauldron.Core.ILoadedAssemblies">
+            <exclude/>
+        </member>
+        <member name="M:Cauldron.Core.ILoadedAssemblies.ReferencedAssemblies">
+            <exclude/>
+        </member>
         <member name="T:Cauldron.Core.UserInformation">
             <summary>
             Represents information about the user, such as name and account picture.
@@ -1597,28 +1644,40 @@
         </member>
         <member name="P:Cauldron.Core.Assemblies.AssemblyAndResourceNamesInfo">
             <summary>
-            Gets a collection of <see cref="T:Cauldron.Core.AssemblyAndResourceNameInfo"/> that contains all fully qualified filename of embedded resources and thier corresponding <see cref="T:System.Reflection.Assembly"/>
+            Gets a collection of <see cref="T:Cauldron.Core.AssemblyResource"/> that contains all fully qualified filename of embedded resources and thier corresponding <see cref="T:System.Reflection.Assembly"/>
+            </summary>
+        </member>
+        <member name="P:Cauldron.Core.Assemblies.CauldronObjects">
+            <summary>
+            Gets a collection of cauldron cache objects
             </summary>
         </member>
         <member name="P:Cauldron.Core.Assemblies.Classes">
             <summary>
-            Gets a collection of classes loaded to the <see cref="T:Cauldron.Core.Assemblies"/>
+            Gets a collection of classes loaded to the AppDomain
             </summary>
         </member>
         <member name="P:Cauldron.Core.Assemblies.ExportedTypes">
             <summary>
-            Gets a collection of exported types found in the loaded <see cref="T:System.Reflection.Assembly"/>
+            Gets a collection of exported types found in the AppDomain
             </summary>
         </member>
         <member name="P:Cauldron.Core.Assemblies.Interfaces">
             <summary>
-            Gets a colleciton of Interfaces found in the loaded <see cref="T:System.Reflection.Assembly"/>
+            Gets a colleciton of Interfaces found in the AppDomain
             </summary>
         </member>
         <member name="P:Cauldron.Core.Assemblies.Known">
             <summary>
-            Gets a collection of <see cref="T:System.Reflection.Assembly"/> that is loaded to the <see cref="T:Cauldron.Core.Assemblies"/>
+            Gets a collection of <see cref="T:System.Reflection.Assembly"/> that is loaded to the AppDomain
             </summary>
+        </member>
+        <member name="M:Cauldron.Core.Assemblies.AddAssembly(System.Reflection.Assembly)">
+            <summary>
+            Adds a new Assembly to the assembly collection
+            </summary>
+            <param name="assembly">The assembly to be added</param>
+            <exception cref="T:System.NotSupportedException"><paramref name="assembly"/> is a dynamic assembly</exception>
         </member>
         <member name="M:Cauldron.Core.Assemblies.GetFirstAssemblyWithResourceName(System.String)">
             <summary>
@@ -1642,7 +1701,7 @@
             <exception cref="T:System.BadImageFormatException"><paramref name="resourceInfoName"/> is not a valid assembly.</exception>
             <exception cref="T:System.NotImplementedException">Resource length is greater than <see cref="F:System.Int64.MaxValue"/></exception>
         </member>
-        <member name="M:Cauldron.Core.Assemblies.GetManifestResource(System.Func{Cauldron.Core.AssemblyAndResourceNameInfo,System.Boolean})">
+        <member name="M:Cauldron.Core.Assemblies.GetManifestResource(System.Func{Cauldron.Core.AssemblyResource,System.Boolean})">
             <summary>
             Loads the specified manifest resource from this assembly.
             </summary>
@@ -1680,52 +1739,43 @@
             <exception cref="T:System.ArgumentNullException">The <paramref name="typeName"/> parameter is null</exception>
             <exception cref="T:System.ArgumentException">The <paramref name="typeName"/> parameter is an empty string</exception>
         </member>
-        <member name="M:Cauldron.Core.Assemblies.GetTypesImplementsInterface``1">
-            <summary>
-            Returns all Types that implements the interface <typeparamref name="T"/>
-            </summary>
-            <typeparam name="T">The interface <see cref="T:System.Type"/></typeparam>
-            <returns>A colletion of <see cref="T:System.Type"/> that implements the interface <typeparamref name="T"/> otherwise null</returns>
-            <exception cref="T:System.ArgumentException"><typeparamref name="T"/> is not an interface</exception>
-        </member>
-        <member name="T:Cauldron.Core.Assemblies.AssemblyAddedEventArgs">
-            <summary>
-            Contains data of the <see cref="E:Cauldron.Core.Assemblies.LoadedAssemblyChanged"/> event.
-            </summary>
-        </member>
-        <member name="P:Cauldron.Core.Assemblies.AssemblyAddedEventArgs.Assembly">
-            <summary>
-            Gets the assembly that has been added to the known assembly collection
-            </summary>
-        </member>
-        <member name="P:Cauldron.Core.Assemblies.AssemblyAddedEventArgs.Types">
-            <summary>
-            Gets a collection of types that is defined in the assembly
-            </summary>
-        </member>
         <member name="P:Cauldron.Core.Assemblies.IsDebugging">
             <summary>
             Gets a value that determines if the Debugger is attached to the process
             </summary>
         </member>
-        <member name="M:Cauldron.Core.Assemblies.AddAssembly(System.Reflection.Assembly)">
+        <member name="T:Cauldron.Core.AssemblyAddedEventArgs">
             <summary>
-            Adds a new Assembly to the assembly collection
-            </summary>
-            <param name="assembly">The assembly to be added</param>
-            <exception cref="T:System.NotSupportedException"><paramref name="assembly"/> is a dynamic assembly</exception>
-        </member>
-        <member name="T:Cauldron.Core.AssemblyAndResourceNameInfo">
-            <summary>
-            Represents a resource info of an embedded resource with its corresponding <see cref="P:Cauldron.Core.AssemblyAndResourceNameInfo.Assembly"/>
+            Contains data of the <see cref="E:Cauldron.Core.Assemblies.LoadedAssemblyChanged"/> event.
             </summary>
         </member>
-        <member name="P:Cauldron.Core.AssemblyAndResourceNameInfo.Assembly">
+        <member name="P:Cauldron.Core.AssemblyAddedEventArgs.Assembly">
+            <summary>
+            Gets the assembly that has been added to the known assembly collection
+            </summary>
+        </member>
+        <member name="P:Cauldron.Core.AssemblyAddedEventArgs.Cauldron">
+            <summary>
+            Gets the auto-generated cauldron object.
+            </summary>
+        </member>
+        <member name="T:Cauldron.Core.AssembliesUWP">
+            <exclude/>
+        </member>
+        <member name="P:Cauldron.Core.AssembliesUWP.EntryAssembly">
+            <exclude/>
+        </member>
+        <member name="T:Cauldron.Core.AssemblyResource">
+            <summary>
+            Represents a resource info of an embedded resource with its corresponding <see cref="P:Cauldron.Core.AssemblyResource.Assembly"/>
+            </summary>
+        </member>
+        <member name="P:Cauldron.Core.AssemblyResource.Assembly">
             <summary>
             Gets the Assembly that contains the embedded resource
             </summary>
         </member>
-        <member name="P:Cauldron.Core.AssemblyAndResourceNameInfo.Filename">
+        <member name="P:Cauldron.Core.AssemblyResource.Filename">
             <summary>
             Gets the fully qualified name of the embedded resource
             </summary>
@@ -2330,14 +2380,159 @@
             LAN
             </summary>
         </member>
-        <member name="T:Cauldron.Core.CreateInstanceIsAnInterfaceException">
+        <member name="T:Cauldron.Core.KeyRawValueDictionary">
+            <summary>
+            Represents a collection of key and <see cref="T:Cauldron.Core.RawValue"/>.
+            </summary>
+        </member>
+        <member name="M:Cauldron.Core.KeyRawValueDictionary.Add(System.String,System.Int32)">
+            <summary>
+            Adds the specified key and value to the dictionary
+            </summary>
+            <param name="key">The key of the element to add.</param>
+            <param name="value">The value of the element to add.</param>
+        </member>
+        <member name="M:Cauldron.Core.KeyRawValueDictionary.Add(System.String,System.Int64)">
+            <summary>
+            Adds the specified key and value to the dictionary
+            </summary>
+            <param name="key">The key of the element to add.</param>
+            <param name="value">The value of the element to add.</param>
+        </member>
+        <member name="M:Cauldron.Core.KeyRawValueDictionary.Add(System.String,System.Double)">
+            <summary>
+            Adds the specified key and value to the dictionary
+            </summary>
+            <param name="key">The key of the element to add.</param>
+            <param name="value">The value of the element to add.</param>
+        </member>
+        <member name="M:Cauldron.Core.KeyRawValueDictionary.Add(System.String,System.Single)">
+            <summary>
+            Adds the specified key and value to the dictionary
+            </summary>
+            <param name="key">The key of the element to add.</param>
+            <param name="value">The value of the element to add.</param>
+        </member>
+        <member name="M:Cauldron.Core.KeyRawValueDictionary.Add(System.String,System.String)">
+            <summary>
+            Adds the specified key and value to the dictionary
+            </summary>
+            <param name="key">The key of the element to add.</param>
+            <param name="value">The value of the element to add.</param>
+        </member>
+        <member name="M:Cauldron.Core.KeyRawValueDictionary.Add(System.String,System.Boolean)">
+            <summary>
+            Adds the specified key and value to the dictionary
+            </summary>
+            <param name="key">The key of the element to add.</param>
+            <param name="value">The value of the element to add.</param>
+        </member>
+        <member name="M:Cauldron.Core.KeyRawValueDictionary.Deserialize(System.Byte[])">
+            <summary>
+            Deserialize the serialized <see cref="T:Cauldron.Core.RawValue"/> and adds these value to the existing items.
+            </summary>
+            <param name="bytes">The bytes representation of the <see cref="T:Cauldron.Core.RawValue"/>s</param>
+        </member>
+        <member name="M:Cauldron.Core.KeyRawValueDictionary.Serialize">
+            <summary>
+            Serializes the dictionary to a byte array.
+            </summary>
+            <returns>A byte array</returns>
+        </member>
+        <member name="T:Cauldron.Core.RawValue">
+            <summary>
+            Represents the raw values that can be freely converted to int, long, double, float, bool or string
+            </summary>
+        </member>
+        <member name="M:Cauldron.Core.RawValue.op_Implicit(System.Int32)~Cauldron.Core.RawValue">
+            <exclude/>
+        </member>
+        <member name="M:Cauldron.Core.RawValue.op_Implicit(System.Int64)~Cauldron.Core.RawValue">
+            <exclude/>
+        </member>
+        <member name="M:Cauldron.Core.RawValue.op_Implicit(System.String)~Cauldron.Core.RawValue">
+            <exclude/>
+        </member>
+        <member name="M:Cauldron.Core.RawValue.op_Implicit(System.Double)~Cauldron.Core.RawValue">
+            <exclude/>
+        </member>
+        <member name="M:Cauldron.Core.RawValue.op_Implicit(System.Single)~Cauldron.Core.RawValue">
+            <exclude/>
+        </member>
+        <member name="M:Cauldron.Core.RawValue.op_Implicit(System.Boolean)~Cauldron.Core.RawValue">
+            <exclude/>
+        </member>
+        <member name="M:Cauldron.Core.RawValue.Equals(Cauldron.Core.RawValue,Cauldron.Core.RawValue)">
+            <summary>
+            Determines whether the specified object are equal
+            </summary>
+            <param name="x">The first object of type <see cref="T:Cauldron.Core.RawValue"/> to compare</param>
+            <param name="y">The second object of type <see cref="T:Cauldron.Core.RawValue"/> to compare</param>
+            <returns>True if the specified objects are equal; otherwise, false</returns>
+        </member>
+        <member name="M:Cauldron.Core.RawValue.Equals(System.Object)">
+            <summary>
+            Determines whether the specified object are equal
+            </summary>
+            <param name="obj">The object of type <see cref="T:Cauldron.Core.RawValue"/> or byte[] to compare</param>
+            <returns>True if the specified objects are equal; otherwise, false</returns>
+        </member>
+        <member name="M:Cauldron.Core.RawValue.GetHashCode(Cauldron.Core.RawValue)">
+            <summary>
+            Returns a hash code for the specified object
+            </summary>
+            <param name="obj">The <see cref="T:Cauldron.Core.RawValue"/> for which a hash code is to be returned.</param>
+            <returns>A hash code for the specified object</returns>
+        </member>
+        <member name="M:Cauldron.Core.RawValue.GetHashCode">
+            <summary>
+            Returns a hash code for this object
+            </summary>
+        </member>
+        <member name="M:Cauldron.Core.RawValue.ToBool">
+            <summary>
+            Converts the raw bytes value to bool
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Cauldron.Core.RawValue.ToDouble">
+            <summary>
+            Converts the raw bytes value to double
+            </summary>
+            <returns>The converted value</returns>
+        </member>
+        <member name="M:Cauldron.Core.RawValue.ToFloat">
+            <summary>
+            Converts the raw bytes value to float
+            </summary>
+            <returns>The converted value</returns>
+        </member>
+        <member name="M:Cauldron.Core.RawValue.ToInteger">
+            <summary>
+            Converts the raw bytes value to integer
+            </summary>
+            <returns>The converted value</returns>
+        </member>
+        <member name="M:Cauldron.Core.RawValue.ToLong">
+            <summary>
+            Converts the raw bytes value to long
+            </summary>
+            <returns>The converted value</returns>
+        </member>
+        <member name="M:Cauldron.Core.RawValue.ToString">
+            <summary>
+            Converts the raw bytes value to string
+            </summary>
+            <returns>The converted value</returns>
+        </member>
+        <member name="T:Cauldron.Core.TypeIsInterfaceException">
             <summary>
             Represents a exception that occures while creating an instance using an interface
             </summary>
         </member>
-        <member name="M:Cauldron.Core.CreateInstanceIsAnInterfaceException.#ctor(System.String)">
+        <member name="M:Cauldron.Core.TypeIsInterfaceException.#ctor(System.String)">
             <summary>
-            Initializes a new instance of <see cref="T:Cauldron.Core.CreateInstanceIsAnInterfaceException"/>
+            Initializes a new instance of <see cref="T:Cauldron.Core.TypeIsInterfaceException"/>
             </summary>
             <param name="message"></param>
         </member>
@@ -3285,16 +3480,6 @@
             <exception cref="T:System.ArgumentNullException"><paramref name="type"/> is null</exception>
             <exception cref="T:System.NotSupportedException"><paramref name="type"/> is a value type</exception>
         </member>
-        <member name="M:Cauldron.Core.Serializer.Serialize(System.Object,Windows.Storage.StorageFolder,System.String)">
-            <summary>
-            Serializes an object.
-            </summary>
-            <param name="context">The object to serialize</param>
-            <param name="name">The name of the file</param>
-            <param name="folder">The directory where the file resides</param>
-            <exception cref="T:System.ArgumentNullException"><paramref name="context"/> is null</exception>
-            <exception cref="T:System.NotSupportedException"><paramref name="context"/> is a value type</exception>
-        </member>
         <member name="M:Cauldron.Core.Serializer.SerializeAsync(System.Object,System.String)">
             <summary>
             Serializes an object.
@@ -3398,7 +3583,7 @@
             Gets the name of the property
             </summary>
         </member>
-        <member name="T:Cauldron.Core.Output">
+        <member name="T:Cauldron.Internal.Output">
             <summary>
             Provides a set of methods that help to output information of a compiled dll
             </summary>

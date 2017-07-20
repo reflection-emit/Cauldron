@@ -128,7 +128,8 @@
                         <ComboBox theme:ComboBoxProperties.Header="ComboBox" SelectedItem="{Binding ComboBoxSelection, Mode=TwoWay}" ItemsSource="{Binding Items}" DisplayMemberPath="Name" />
                         <ComboBox IsEditable="True" theme:ComboBoxProperties.Header="ComboBox editable" SelectedItem="{Binding ComboBoxSelection, Mode=TwoWay}" ItemsSource="{Binding Items}" DisplayMemberPath="Name" />
                         <Button i:Localized.Text="validate" Command="{Binding ValidateCommand}" HorizontalAlignment="Left" Margin="0,10,0,0" />
-                        <CheckBox IsChecked="{Binding ValidateAllToggle, Mode=TwoWay}" Content="Stop at first validation error" Margin="0,4,0,0" />
+                        <CheckBox IsChecked="{Binding StopValidationOnErrorToggle, Mode=TwoWay}" Content="Stop at first validation error" Margin="0,4,0,0" />
+                        <CheckBox IsChecked="{Binding IgnoreAlwaysValidateAllToggle, Mode=TwoWay}" Content="Ignore AlwaysValidate flag" Margin="0,4,0,0" />
                     </StackPanel>
                 </Expander>
             </StackPanel>

@@ -4,12 +4,12 @@
         <name>Cauldron.XAML.Validation</name>
     </assembly>
     <members>
-        <member name="T:Cauldron.IEnumerableExtensions.Extensions">
+        <member name="T:Cauldron.Internal.Extensions">
             <summary>
             Provides usefull extensions for <see cref="T:System.Collections.IEnumerable"/>
             </summary>
         </member>
-        <member name="M:Cauldron.IEnumerableExtensions.Extensions.Any_(System.Collections.IEnumerable,System.Func{System.Object,System.Boolean})">
+        <member name="M:Cauldron.Internal.Extensions.Any_(System.Collections.IEnumerable,System.Func{System.Object,System.Boolean})">
             <summary>
             Determines whether any element of a sequence satisfies a condition.
             </summary>
@@ -18,7 +18,7 @@
             <returns>True if any elements in the source sequence pass the test in the specified predicate, otherwise false</returns>
             <exception cref="T:System.ArgumentNullException"><paramref name="source"/> is null</exception>
         </member>
-        <member name="M:Cauldron.IEnumerableExtensions.Extensions.Any_(System.Collections.IEnumerable)">
+        <member name="M:Cauldron.Internal.Extensions.Any_(System.Collections.IEnumerable)">
             <summary>
             Determines whether a sequence contains any elements.
             </summary>
@@ -26,7 +26,7 @@
             <returns>True if the source sequence contains any elements, otherwise false.</returns>
             <exception cref="T:System.ArgumentNullException"><paramref name="source"/> is null</exception>
         </member>
-        <member name="M:Cauldron.IEnumerableExtensions.Extensions.Count_(System.Collections.IEnumerable)">
+        <member name="M:Cauldron.Internal.Extensions.Count_(System.Collections.IEnumerable)">
             <summary>
             Gets the number of elements contained in the <see cref="T:System.Collections.IEnumerable"/>
             </summary>
@@ -34,7 +34,7 @@
             <returns>The total count of items in the <see cref="T:System.Collections.IEnumerable"/></returns>
             <exception cref="T:System.ArgumentNullException"><paramref name="source"/> is null</exception>
         </member>
-        <member name="M:Cauldron.IEnumerableExtensions.Extensions.ElementAt_(System.Collections.IEnumerable,System.Int32)">
+        <member name="M:Cauldron.Internal.Extensions.ElementAt_(System.Collections.IEnumerable,System.Int32)">
             <summary>
             Returns the element at the defined index
             </summary>
@@ -43,7 +43,7 @@
             <returns>The element with the specified index</returns>
             <exception cref="T:System.ArgumentNullException"><paramref name="ienumerable"/> is null</exception>
         </member>
-        <member name="M:Cauldron.IEnumerableExtensions.Extensions.Except_(System.Collections.IEnumerable,System.Object)">
+        <member name="M:Cauldron.Internal.Extensions.Except_(System.Collections.IEnumerable,System.Object)">
             <summary>
             Removes the first occurrence of a specific object from the <see cref="T:System.Collections.IEnumerable"/>
             </summary>
@@ -52,7 +52,7 @@
             <returns>A new instance of the <see cref="T:System.Collections.IEnumerable"/> without the item specified by <paramref name="itemToExcept"/></returns>
             <exception cref="T:System.ArgumentNullException"><paramref name="items"/> is null</exception>
         </member>
-        <member name="M:Cauldron.IEnumerableExtensions.Extensions.FirstElement_(System.Collections.IEnumerable)">
+        <member name="M:Cauldron.Internal.Extensions.FirstElement_(System.Collections.IEnumerable)">
             <summary>
             Returns the first element of a sequence.
             </summary>
@@ -60,7 +60,7 @@
             <returns>The first element in the specified sequence.</returns>
             <exception cref="T:System.ArgumentNullException"><paramref name="source"/> is null</exception>
         </member>
-        <member name="M:Cauldron.IEnumerableExtensions.Extensions.SequenceEqual_(System.Collections.IEnumerable,System.Collections.IEnumerable)">
+        <member name="M:Cauldron.Internal.Extensions.SequenceEqual_(System.Collections.IEnumerable,System.Collections.IEnumerable)">
             <summary>
             Determines whether two sequences are equal by comparing the elements by using the default equality comparer for their types
             </summary>
@@ -73,7 +73,7 @@
             </returns>
             <exception cref="T:System.ArgumentNullException">first or second is null.</exception>
         </member>
-        <member name="M:Cauldron.IEnumerableExtensions.Extensions.ToArray_``1(System.Collections.IEnumerable)">
+        <member name="M:Cauldron.Internal.Extensions.ToArray_``1(System.Collections.IEnumerable)">
             <summary>
             Converts a <see cref="T:System.Collections.IEnumerable"/> to an array
             </summary>
@@ -81,7 +81,7 @@
             <param name="items">The <see cref="T:System.Collections.IEnumerable"/> to convert</param>
             <returns>An array of <typeparamref name="T"/></returns>
         </member>
-        <member name="M:Cauldron.IEnumerableExtensions.Extensions.ToList_``1(System.Collections.IEnumerable)">
+        <member name="M:Cauldron.Internal.Extensions.ToList_``1(System.Collections.IEnumerable)">
             <summary>
             Creates a <see cref="T:System.Collections.Generic.List`1"/> from an <see cref="T:System.Collections.IEnumerable"/>.
             </summary>
@@ -726,7 +726,7 @@
         </member>
         <member name="M:Cauldron.XAML.Validation.ViewModels.ValidatableViewModelBase.Validate(System.String)">
             <summary>
-            Starts a validation on all properties
+            Starts a validation on a single properties
             </summary>
             <param name="propertyName">The name of the property that requires validation</param>
         </member>

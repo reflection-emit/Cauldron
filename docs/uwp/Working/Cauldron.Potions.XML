@@ -74,16 +74,6 @@
             <exception cref="T:System.ArgumentNullException"><paramref name="name"/> is null</exception>
             <exception cref="T:System.NotSupportedException"><paramref name="name"/> is a value type</exception>
         </member>
-        <member name="M:Cauldron.Potions.ISerializer.Serialize(System.Object,Windows.Storage.StorageFolder,System.String)">
-            <summary>
-            Serializes an object.
-            </summary>
-            <param name="context">The object to serialize</param>
-            <param name="name">The name of the file</param>
-            <param name="folder">The directory where the file resides</param>
-            <exception cref="T:System.ArgumentNullException"><paramref name="context"/> is null</exception>
-            <exception cref="T:System.NotSupportedException"><paramref name="context"/> is a value type</exception>
-        </member>
         <member name="M:Cauldron.Potions.ISerializer.SerializeAsync(System.Object,System.String)">
             <summary>
             Serializes an object.

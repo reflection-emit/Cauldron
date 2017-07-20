@@ -342,10 +342,11 @@
             Gets or sets the DefaultChildrenTransistions Property
             </summary>
         </member>
+        <member name="T:Cauldron.XAML.Resources.StylesAndTemplates">
+            <exclude/>
+        </member>
         <member name="M:Cauldron.XAML.Resources.StylesAndTemplates.#ctor">
-            <summary>
-            Initializes a new instance of <see cref="T:Cauldron.XAML.Resources.StylesAndTemplates"/>
-            </summary>
+            <exclude/>
         </member>
         <member name="M:Cauldron.XAML.Resources.StylesAndTemplates.InitializeComponent">
             <summary>
@@ -392,21 +393,8 @@
             An implementation of <see cref="T:Cauldron.Localization.ILocalizationSource"/> for Cauldron.XAML
             </summary>
         </member>
-        <member name="M:Cauldron.XAML.Resources.LocalizationSource.Contains(System.String,System.String)">
-            <summary>
-            Determines whether an element is in the <see cref="T:Cauldron.Localization.ILocalizationSource"/>
-            </summary>
-            <param name="key">The key of the localized string</param>
-            <param name="twoLetterISOLanguageName">The two letter iso language name according to ISO</param>
-            <returns>true if item is found in the <see cref="T:Cauldron.Localization.ILocalizationSource"/>; otherwise, false.</returns>
-        </member>
-        <member name="M:Cauldron.XAML.Resources.LocalizationSource.GetValue(System.String,System.String)">
-            <summary>
-            Returns a localized value associated with the key
-            </summary>
-            <param name="key">The key of the localized string data</param>
-            <param name="twoLetterISOLanguageName">The two letter iso language name according to ISO</param>
-            <returns>A <see cref="T:System.String"/></returns>
+        <member name="M:Cauldron.XAML.Resources.LocalizationSource.#ctor">
+            <exclude/>
         </member>
         <member name="T:Cauldron.XAML.Navigation.Navigator">
             <summary>
@@ -414,9 +402,7 @@
             </summary>
         </member>
         <member name="M:Cauldron.XAML.Navigation.Navigator.#ctor">
-            <summary>
-            Initializes a new instance of <see cref="T:Cauldron.XAML.Navigation.Navigator"/>
-            </summary>
+            <exclude/>
         </member>
         <member name="E:Cauldron.XAML.Navigation.Navigator.PropertyChanged">
             <summary>
@@ -850,6 +836,33 @@
             <returns>A converted value.If the method returns null, the valid null value is used.</returns>
             <exception cref="T:System.NotImplementedException">Always throws <see cref="T:System.NotImplementedException"/>. This method is not implemented.</exception>
         </member>
+        <member name="T:Cauldron.XAML.ValueConverters.NullOrEmptyToVisibilityConverter">
+            <summary>
+            Converts a null or empty value of a string to a visibility value
+            </summary>
+        </member>
+        <member name="M:Cauldron.XAML.ValueConverters.NullOrEmptyToVisibilityConverter.OnConvert(System.Object,System.Type,System.Object,System.String)">
+            <summary>
+            Occures if a value is converted
+            </summary>
+            <param name="value">The value produced by the binding source.</param>
+            <param name="targetType">The type of the binding target property.</param>
+            <param name="parameter">The converter parameter to use.</param>
+            <param name="language">The language to use in the converter.</param>
+            <returns>A converted value. If the method returns null, the valid null value is used.</returns>
+            <exception cref="T:System.NotImplementedException">Always throws <see cref="T:System.NotImplementedException"/>. This method is not implemented.</exception>
+        </member>
+        <member name="M:Cauldron.XAML.ValueConverters.NullOrEmptyToVisibilityConverter.OnConvertBack(System.Object,System.Type,System.Object,System.String)">
+            <summary>
+            Occures if a value is converted
+            </summary>
+            <param name="value">The value that is produced by the binding target.</param>
+            <param name="targetType">The type to convert to.</param>
+            <param name="parameter">The converter parameter to use.</param>
+            <param name="language">The language to use in the converter.</param>
+            <returns>A converted value.If the method returns null, the valid null value is used.</returns>
+            <exception cref="T:System.NotImplementedException">Always throws <see cref="T:System.NotImplementedException"/>. This method is not implemented.</exception>
+        </member>
         <member name="T:Cauldron.XAML.ValueConverters.ObjectToVisibilityConverter">
             <summary>
             Checks if an object is null. If the object is null, the <see cref="T:Windows.UI.Xaml.Data.IValueConverter"/> will return <see cref="F:Windows.UI.Xaml.Visibility.Collapsed"/>
@@ -1116,6 +1129,14 @@
             <exception cref="T:System.ArgumentNullException"><paramref name="viewModel"/> is null</exception>
             <exception cref="T:System.ArgumentNullException"><paramref name="action"/> is null</exception>
         </member>
+        <member name="M:Cauldron.XAML.Extensions.SetInlinedText(Windows.UI.Xaml.Controls.TextBlock,System.String)">
+            <summary>
+            Set the inlined content of the <see cref="T:Windows.UI.Xaml.Controls.TextBlock"/>. This will clear the previous inline elements.
+            If <paramref name="text"/> is null then previous inline will also be cleared.
+            </summary>
+            <param name="textBlock">The <see cref="T:Windows.UI.Xaml.Controls.TextBlock"/> to set the inline elements to.</param>
+            <param name="text">The XAML formated text.</param>
+        </member>
         <member name="M:Cauldron.XAML.Extensions.SaveVisualAsPngAsync(Windows.UI.Xaml.FrameworkElement,Windows.Storage.StorageFile)">
             <summary>
             Saves the visuals of a <see cref="T:Windows.UI.Xaml.FrameworkElement"/> to a png file
@@ -1183,6 +1204,9 @@
             <summary>
             Provides retrieving and caching of embedded images
             </summary>
+        </member>
+        <member name="M:Cauldron.XAML.ImageManager.#ctor">
+            <exclude/>
         </member>
         <member name="M:Cauldron.XAML.ImageManager.GetImageAsync(System.String)">
             <summary>
@@ -1444,6 +1468,9 @@
             <summary>
             Represents a dialog.
             </summary>
+        </member>
+        <member name="M:Cauldron.XAML.MessageDialogEx.#ctor">
+            <exclude/>
         </member>
         <member name="M:Cauldron.XAML.MessageDialogEx.ShowAsync(System.String,System.String,Cauldron.XAML.CauldronUICommand,Cauldron.XAML.CauldronUICommand)">
             <summary>
@@ -1728,21 +1755,21 @@
             Occures if the <see cref="M:Cauldron.XAML.RelayCommand.RefreshCanExecute"/> method has been invoked
             </summary>
         </member>
-        <member name="F:Cauldron.XAML.TextBlockInline.TextBlockInlineProperty">
+        <member name="F:Cauldron.XAML.TextBlockInline.InlineProperty">
             <summary>
-            Identifies the TextBlockInline dependency property
+            Identifies the Inline dependency property
             </summary>
         </member>
-        <member name="M:Cauldron.XAML.TextBlockInline.GetTextBlockInline(Windows.UI.Xaml.DependencyObject)">
+        <member name="M:Cauldron.XAML.TextBlockInline.GetInline(Windows.UI.Xaml.DependencyObject)">
             <summary>
-            Gets the value of TextBlockInline
+            Gets the value of Inline
             </summary>
             <param name="obj"><see cref="T:Windows.UI.Xaml.DependencyObject" /> with the attached property</param>
             <returns>The value of the attached property</returns>
         </member>
-        <member name="M:Cauldron.XAML.TextBlockInline.SetTextBlockInline(Windows.UI.Xaml.DependencyObject,System.String)">
+        <member name="M:Cauldron.XAML.TextBlockInline.SetInline(Windows.UI.Xaml.DependencyObject,System.String)">
             <summary>
-            Sets the value of the TextBlockInline attached property
+            Sets the value of the Inline attached property
             </summary>
             <param name="obj"><see cref="T:Windows.UI.Xaml.DependencyObject" /> with the attached property</param>
             <param name="value">The new value to set</param>
@@ -1816,6 +1843,40 @@
         <member name="P:Cauldron.XAML.ViewAttribute.ViewType">
             <summary>
             Gets the <see cref="T:System.Type"/> of the view
+            </summary>
+        </member>
+        <member name="T:Cauldron.XAML.ViewModels.IChangeAwareViewModel">
+            <summary>
+            Represents a viewmodel that is aware of changes
+            </summary>
+        </member>
+        <member name="E:Cauldron.XAML.ViewModels.IChangeAwareViewModel.Changed">
+            <summary>
+            Occures when a value has changed
+            </summary>
+        </member>
+        <member name="P:Cauldron.XAML.ViewModels.IChangeAwareViewModel.IsChanged">
+            <summary>
+            Gets or sets a value that indicates if any property value has been changed
+            </summary>
+        </member>
+        <member name="M:Cauldron.XAML.ViewModels.IChangeAwareViewModel.RaisePropertyChanged(System.String,System.Object,System.Object)">
+            <summary>
+            Invokes the <see cref="E:System.ComponentModel.INotifyPropertyChanged.PropertyChanged"/> event
+            </summary>
+            <param name="propertyName">The name of the property where the value change has occured</param>
+            <param name="before">The value before the property value has changed</param>
+            <param name="after">The value after the property value has changed</param>
+        </member>
+        <member name="T:Cauldron.XAML.ViewModels.ICloseAwareViewModel">
+            <summary>
+            Represents an interface that can be used by <see cref="T:Windows.UI.Xaml.UIElement"/> to trigger viewmodels to close
+            </summary>
+        </member>
+        <member name="M:Cauldron.XAML.ViewModels.ICloseAwareViewModel.Close">
+            <summary>
+            Occures if the control requests a closing. The viewmodel has to react to the requst by
+            for example removing the tab from the <see cref="T:System.Collections.ObjectModel.ObservableCollection`1"/>.
             </summary>
         </member>
         <member name="T:Cauldron.XAML.ViewModels.IDialogViewModel`1">
@@ -2071,6 +2132,8 @@
             <summary>
             Reads the XAML input in the specified text string and returns a <see cref="T:Windows.UI.Xaml.Documents.Span"/> wrapping the an object that
             corresponds to the root of the specified markup.
+            <para/>
+            Be careful using this feature in UWP release. Behaviours, action and converters does not work most of the time.
             </summary>
             <param name="xamlText">The input XAML, as a single text string.</param>
             <returns>The <see cref="T:Windows.UI.Xaml.Documents.Span"/> root of the created object tree.</returns>
@@ -2090,17 +2153,17 @@
             GetXmlnsDefinitions()
             </summary>
         </member>
-        <member name="T:Cauldron.Core.Output">
+        <member name="T:Cauldron.Internal.Output">
             <summary>
             Provides a set of methods that help to output information of a compiled dll
             </summary>
         </member>
-        <member name="T:Cauldron.IEnumerableExtensions.Extensions">
+        <member name="T:Cauldron.Internal.Extensions">
             <summary>
             Provides usefull extensions for <see cref="T:System.Collections.IEnumerable"/>
             </summary>
         </member>
-        <member name="M:Cauldron.IEnumerableExtensions.Extensions.Any_(System.Collections.IEnumerable,System.Func{System.Object,System.Boolean})">
+        <member name="M:Cauldron.Internal.Extensions.Any_(System.Collections.IEnumerable,System.Func{System.Object,System.Boolean})">
             <summary>
             Determines whether any element of a sequence satisfies a condition.
             </summary>
@@ -2109,7 +2172,7 @@
             <returns>True if any elements in the source sequence pass the test in the specified predicate, otherwise false</returns>
             <exception cref="T:System.ArgumentNullException"><paramref name="source"/> is null</exception>
         </member>
-        <member name="M:Cauldron.IEnumerableExtensions.Extensions.Any_(System.Collections.IEnumerable)">
+        <member name="M:Cauldron.Internal.Extensions.Any_(System.Collections.IEnumerable)">
             <summary>
             Determines whether a sequence contains any elements.
             </summary>
@@ -2117,7 +2180,7 @@
             <returns>True if the source sequence contains any elements, otherwise false.</returns>
             <exception cref="T:System.ArgumentNullException"><paramref name="source"/> is null</exception>
         </member>
-        <member name="M:Cauldron.IEnumerableExtensions.Extensions.Count_(System.Collections.IEnumerable)">
+        <member name="M:Cauldron.Internal.Extensions.Count_(System.Collections.IEnumerable)">
             <summary>
             Gets the number of elements contained in the <see cref="T:System.Collections.IEnumerable"/>
             </summary>
@@ -2125,7 +2188,7 @@
             <returns>The total count of items in the <see cref="T:System.Collections.IEnumerable"/></returns>
             <exception cref="T:System.ArgumentNullException"><paramref name="source"/> is null</exception>
         </member>
-        <member name="M:Cauldron.IEnumerableExtensions.Extensions.ElementAt_(System.Collections.IEnumerable,System.Int32)">
+        <member name="M:Cauldron.Internal.Extensions.ElementAt_(System.Collections.IEnumerable,System.Int32)">
             <summary>
             Returns the element at the defined index
             </summary>
@@ -2134,7 +2197,7 @@
             <returns>The element with the specified index</returns>
             <exception cref="T:System.ArgumentNullException"><paramref name="ienumerable"/> is null</exception>
         </member>
-        <member name="M:Cauldron.IEnumerableExtensions.Extensions.Except_(System.Collections.IEnumerable,System.Object)">
+        <member name="M:Cauldron.Internal.Extensions.Except_(System.Collections.IEnumerable,System.Object)">
             <summary>
             Removes the first occurrence of a specific object from the <see cref="T:System.Collections.IEnumerable"/>
             </summary>
@@ -2143,7 +2206,7 @@
             <returns>A new instance of the <see cref="T:System.Collections.IEnumerable"/> without the item specified by <paramref name="itemToExcept"/></returns>
             <exception cref="T:System.ArgumentNullException"><paramref name="items"/> is null</exception>
         </member>
-        <member name="M:Cauldron.IEnumerableExtensions.Extensions.FirstElement_(System.Collections.IEnumerable)">
+        <member name="M:Cauldron.Internal.Extensions.FirstElement_(System.Collections.IEnumerable)">
             <summary>
             Returns the first element of a sequence.
             </summary>
@@ -2151,7 +2214,7 @@
             <returns>The first element in the specified sequence.</returns>
             <exception cref="T:System.ArgumentNullException"><paramref name="source"/> is null</exception>
         </member>
-        <member name="M:Cauldron.IEnumerableExtensions.Extensions.SequenceEqual_(System.Collections.IEnumerable,System.Collections.IEnumerable)">
+        <member name="M:Cauldron.Internal.Extensions.SequenceEqual_(System.Collections.IEnumerable,System.Collections.IEnumerable)">
             <summary>
             Determines whether two sequences are equal by comparing the elements by using the default equality comparer for their types
             </summary>
@@ -2164,7 +2227,7 @@
             </returns>
             <exception cref="T:System.ArgumentNullException">first or second is null.</exception>
         </member>
-        <member name="M:Cauldron.IEnumerableExtensions.Extensions.ToArray_``1(System.Collections.IEnumerable)">
+        <member name="M:Cauldron.Internal.Extensions.ToArray_``1(System.Collections.IEnumerable)">
             <summary>
             Converts a <see cref="T:System.Collections.IEnumerable"/> to an array
             </summary>
@@ -2172,7 +2235,7 @@
             <param name="items">The <see cref="T:System.Collections.IEnumerable"/> to convert</param>
             <returns>An array of <typeparamref name="T"/></returns>
         </member>
-        <member name="M:Cauldron.IEnumerableExtensions.Extensions.ToList_``1(System.Collections.IEnumerable)">
+        <member name="M:Cauldron.Internal.Extensions.ToList_``1(System.Collections.IEnumerable)">
             <summary>
             Creates a <see cref="T:System.Collections.Generic.List`1"/> from an <see cref="T:System.Collections.IEnumerable"/>.
             </summary>
