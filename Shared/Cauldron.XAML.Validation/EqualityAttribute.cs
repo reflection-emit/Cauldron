@@ -64,6 +64,9 @@ namespace Cauldron.XAML.Validation
                 if (ssa.Length == 0 && ssb == null)
                     return false;
 
+                if (ssa.Length != 0 && ssb == null)
+                    return true;
+
                 return !ssa.IsEqualTo(ssb);
             }
 

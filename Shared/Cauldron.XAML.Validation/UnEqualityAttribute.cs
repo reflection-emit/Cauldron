@@ -62,6 +62,9 @@ namespace Cauldron.XAML.Validation
                 var ssb = secondValue as SecureString;
 
                 if (ssa.Length == 0 && ssb == null)
+                    return true;
+
+                if (ssa.Length != 0 && ssb == null)
                     return false;
 
                 return ssa.IsEqualTo(ssb);

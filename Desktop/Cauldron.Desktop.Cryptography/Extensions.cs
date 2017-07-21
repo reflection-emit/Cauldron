@@ -96,10 +96,18 @@ namespace Cauldron.Cryptography
         /// <param name="a">The first <see cref="SecureString"/> to compare</param>
         /// <param name="b">The second <see cref="SecureString"/> to compare</param>
         /// <returns>Returns true if the <see cref="SecureString"/> s are equal; otherwise false.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="a"/> is null</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="b"/> is null</exception>
         public static bool IsEqualTo(this SecureString a, SecureString b)
         {
             // Origin: https://stackoverflow.com/questions/4502676/c-sharp-compare-two-securestrings-for-equality#23183092
             // Nikola Novak
+
+            if (a == null)
+                throw new ArgumentNullException(nameof(a));
+
+            if (b == null)
+                throw new ArgumentNullException(nameof(b));
 
             var bstrA = IntPtr.Zero;
             var bstrB = IntPtr.Zero;

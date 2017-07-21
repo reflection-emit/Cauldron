@@ -88,9 +88,13 @@ namespace System.Security /* So that precompiler definitions are not required if
         /// </summary>
         /// <param name="b">The second <see cref="SecureString"/> to compare</param>
         /// <returns>Returns true if the <see cref="SecureString"/> s are equal; otherwise false.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="b"/> is null</exception>
         public bool IsEqualTo(SecureString b)
         {
             // This is meant to mimic the SecureString extension for Desktop
+
+            if (b == null)
+                throw new ArgumentNullException(nameof(b));
 
             int lengthA = this.data.Length;
             int lengthB = b.data.Length;
