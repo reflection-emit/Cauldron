@@ -69,7 +69,12 @@
 copy $(TargetDir)$(TargetFileName) $(SolutionDir)packages\Cauldron.Interception.Fody.99.9.9
 copy $(TargetDir)$(TargetName).pdb $(SolutionDir)packages\Cauldron.Interception.Fody.99.9.9
 copy $(TargetDir)Cauldron.Interception.Cecilator.dll $(SolutionDir)packages\Cauldron.Interception.Fody.99.9.9
-copy $(TargetDir)Cauldron.Interception.Cecilator.pdb $(SolutionDir)packages\Cauldron.Interception.Fody.99.9.9</PostBuildEvent>
+copy $(TargetDir)Cauldron.Interception.Cecilator.pdb $(SolutionDir)packages\Cauldron.Interception.Fody.99.9.9
+mkdir $(SolutionDir)Tools\Cauldron.Interception.Fody.99.9.9
+copy $(TargetDir)$(TargetFileName) $(SolutionDir)Tools\Cauldron.Interception.Fody.99.9.9
+copy $(TargetDir)$(TargetName).pdb $(SolutionDir)Tools\Cauldron.Interception.Fody.99.9.9
+copy $(TargetDir)Cauldron.Interception.Cecilator.dll $(SolutionDir)Tools\Cauldron.Interception.Fody.99.9.9
+copy $(TargetDir)Cauldron.Interception.Cecilator.pdb $(SolutionDir)Tools\Cauldron.Interception.Fody.99.9.9</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
