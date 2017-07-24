@@ -46,6 +46,9 @@ namespace Cauldron.Interception.Fody
             this.InterceptProperties(this.Builder, propertyInterceptingAttributes);
 
             this.CreateFactoryCache(this.Builder);
+
+            if (this.Builder.IsReferenced("Cauldron.XAML") && this.Builder.IsReferenced("PropertyChanged"))
+                this.ImplementPropertyChangedEvent(this.Builder);
         }
 
         private void AddAttributeToXAMLResources(Builder builder)
@@ -70,8 +73,9 @@ namespace Cauldron.Interception.Fody
                 if (item.CustomAttributes.HasAttribute(componentAttribute))
                     continue;
 
-                // We have to make some exceptions here
-                // Everything that inherits from Window, should have to contractname Window ... but only for desktop... because UWP does not have custom windows
+                // We have to make some exceptions here Everything that inherits from Window, should
+                // have to contractname Window ... but only for desktop... because UWP does not have
+                // custom windows
                 if (windowType != null && item.IsSubclassOf(windowType))
                     item.CustomAttributes.Add(componentAttribute, windowType.Fullname);
                 else
@@ -137,8 +141,10 @@ namespace Cauldron.Interception.Fody
             {
                 var cauldron = builder.GetType("<Cauldron>", SearchContext.Module);
                 var assembly = builder.GetType("System.Reflection.Assembly").New(x => new { Type = x, Load = x.GetMethod("Load", 1) });
-                // UWP has to actually use any type from the Assembly, so that it is not thrown out while compiling to Nativ Code
-                // CreateAssemblyLoadDummy(builder, module.CreateStaticConstructor(), assembly.Type, builder.UnusedReference.Select(x => x.AssemblyDefinition).ToArray());
+                // UWP has to actually use any type from the Assembly, so that it is not thrown out
+                // while compiling to Nativ Code CreateAssemblyLoadDummy(builder,
+                // module.CreateStaticConstructor(), assembly.Type, builder.UnusedReference.Select(x
+                // => x.AssemblyDefinition).ToArray());
 
                 module.CreateStaticConstructor().NewCode().Context(x =>
                 {
@@ -433,7 +439,8 @@ namespace Cauldron.Interception.Fody
                         }
                         else
                         {
-                            // In case we don't have constructor with ComponentConstructor Attribute, then we should look for a parameterless Ctor
+                            // In case we don't have constructor with ComponentConstructor Attribute,
+                            // then we should look for a parameterless Ctor
                             if (component.Type.ParameterlessContructor == null)
                                 this.LogError($"The component '{component.Type.Fullname}' has no ComponentConstructor attribute or the constructor is not public");
                             else if (component.Type.ParameterlessContructor.Modifiers.HasFlag(Modifiers.Public))
@@ -499,7 +506,8 @@ namespace Cauldron.Interception.Fody
                         var field = cauldron.CreateField(Modifiers.Private, factoryTypeInfoInterface, "<FactoryType>f__" + i);
                         x.Load(resultValue);
                         x.StoreElement(factoryTypeInfoInterface, field, i);
-                        // x.StoreElement(factoryTypeInfoInterface, x.NewCode().NewObj(componentTypes[i].ParameterlessContructor), i);
+                        // x.StoreElement(factoryTypeInfoInterface,
+                        // x.NewCode().NewObj(componentTypes[i].ParameterlessContructor), i);
                         ctorCoder.Assign(field).NewObj(componentTypes[i].ParameterlessContructor);
                     }
                 })
@@ -682,6 +690,74 @@ namespace Cauldron.Interception.Fody
                 }
 
                 method.Attribute.Remove();
+            }
+        }
+
+        private void ImplementPropertyChangedEvent(Builder builder)
+        {
+            var changeAwareViewModelInterface = builder.GetType("Cauldron.XAML.ViewModels.IChangeAwareViewModel")
+                .New(x => new
+                {
+                    RaisePropertyChanged = x.GetMethod("RaisePropertyChanged", 3)
+                });
+            var eventHandler = builder.GetType("System.EventHandler`1")
+                .New(x => new
+                {
+                    Invoke = x.GetMethod("Invoke", 2)
+                });
+            var propertyIsChangedEventArgs = builder.GetType("Cauldron.XAML.PropertyIsChangedEventArgs")
+                .New(x => new
+                {
+                    Type = x,
+                    Ctor = x.GetMethod(".ctor", 3)
+                });
+
+            // Get all viewmodels with implemented change aware interface
+            var viewModels = builder.FindTypesByInterface("Cauldron.XAML.ViewModels.IChangeAwareViewModel")
+                .OrderBy(x =>
+                {
+                    if (x.Implements("Cauldron.XAML.ViewModels.IChangeAwareViewModel", false))
+                        return 0;
+
+                    return 1;
+                });
+
+            foreach (var vm in viewModels)
+            {
+                if (vm.IsInterface)
+                    continue;
+
+                var changed = vm.GetField("Changed", false);
+                Method method;
+
+                if (changed != null)
+                {
+                    method = vm.CreateMethod(Modifiers.Protected, "<>RaisePropertyChangedEventRaise", typeof(string), typeof(object), typeof(object));
+                    method.NewCode()
+                            .Load(changed)
+                            .IsNotNull()
+                            .Then(x =>
+                            {
+                                x.Callvirt(eventHandler.Invoke.MakeGeneric(propertyIsChangedEventArgs.Type),
+                                    x.NewCode().Load(changed), x.NewCode().NewObj(propertyIsChangedEventArgs.Ctor, x.NewCode().This, x.GetParameter(0), x.GetParameter(1), x.GetParameter(2)));
+                            })
+                            .Return()
+                            .Replace();
+                }
+                else
+                    method = vm.GetMethod("<>RaisePropertyChangedEventRaise", true, typeof(string), typeof(object), typeof(object));
+
+                this.LogInfo($"Implementing RaisePropertyChanged Raise Event in '{vm.Fullname}'");
+                var raisePropertyChanged = vm.GetMethod("RaisePropertyChanged", false, typeof(string), typeof(object), typeof(object));
+
+                if (raisePropertyChanged == null)
+                    continue;
+
+                if (!raisePropertyChanged.IsAbstract && !raisePropertyChanged.HasMethodBaseCall())
+                    raisePropertyChanged
+                        .NewCode()
+                        .Context(x => x.Call(x.NewCode().This, method, x.GetParameter(0), x.GetParameter(1), x.GetParameter(2)))
+                        .Insert(InsertionPosition.Beginning);
             }
         }
 

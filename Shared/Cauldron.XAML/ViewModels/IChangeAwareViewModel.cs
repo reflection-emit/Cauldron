@@ -13,7 +13,7 @@ namespace Cauldron.XAML.ViewModels
         /// <summary>
         /// Occures when a value has changed
         /// </summary>
-        event EventHandler Changed;
+        event EventHandler<PropertyIsChangedEventArgs> Changed;
 
         /// <summary>
         /// Gets or sets a value that indicates if any property value has been changed

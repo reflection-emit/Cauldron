@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Cauldron.Activator;
 using Cauldron.XAML.ViewModels;
 using PropertyChanged;
 using Cauldron.Core;
+using Cauldron.XAML;
 
 #if WINDOWS_UWP
 
@@ -30,9 +27,176 @@ namespace Cauldron.Test
         public double Speed { get; set; }
     }
 
+    public abstract class IsChangedViewModel_Abstract : ViewModelBase, IChangeAwareViewModel
+    {
+        public event EventHandler<PropertyIsChangedEventArgs> Changed;
+
+        public bool IsChanged { get; private set; } /* This should be implemented by PropertyChanged.Fody */
+
+        public string TestProperty { get; set; } /* This should be implemented by PropertyChanged.Fody */
+
+        public abstract void RaisePropertyChanged(string propertyName, object before, object after);
+    }
+
+    public class IsChangedViewModel_OverrideVirtual : IsChangedViewModel_With_Virtual
+    {
+        public override void RaisePropertyChanged(string propertyName, object before, object after)
+        {
+        }
+    }
+
+    public class IsChangedViewModel_OverrideVirtual_With_BaseCall : IsChangedViewModel_With_Virtual
+    {
+        public override void RaisePropertyChanged(string propertyName, object before, object after)
+        {
+            base.RaisePropertyChanged(propertyName, before, after);
+        }
+    }
+
+    public class IsChangedViewModel_Simple : ViewModelBase, IChangeAwareViewModel
+    {
+        public event EventHandler<PropertyIsChangedEventArgs> Changed;
+
+        public bool IsChanged { get; private set; } /* This should be implemented by PropertyChanged.Fody */
+
+        public string TestProperty { get; set; } /* This should be implemented by PropertyChanged.Fody */
+
+        public void RaisePropertyChanged(string propertyName, object before, object after)
+        {
+        }
+    }
+
+    public class IsChangedViewModel_SimpleOverride : IsChangedViewModel_Abstract
+    {
+        public override void RaisePropertyChanged(string propertyName, object before, object after)
+        {
+        }
+    }
+
+    public class IsChangedViewModel_SimpleOverride_With_BaseClassCall : IsChangedViewModel_SimpleOverride
+    {
+        public override void RaisePropertyChanged(string propertyName, object before, object after)
+        {
+            base.RaisePropertyChanged(propertyName, before, after);
+        }
+    }
+
+    public class IsChangedViewModel_With_Virtual : ViewModelBase, IChangeAwareViewModel
+    {
+        public event EventHandler<PropertyIsChangedEventArgs> Changed;
+
+        public bool IsChanged { get; private set; } /* This should be implemented by PropertyChanged.Fody */
+
+        public string TestProperty { get; set; } /* This should be implemented by PropertyChanged.Fody */
+
+        public virtual void RaisePropertyChanged(string propertyName, object before, object after)
+        {
+        }
+    }
+
     [TestClass]
     public class ViewModelTest
     {
+        [TestMethod]
+        public void ChangeAwareViewModel_AbstractBase_SimpleClass_Test()
+        {
+            var triggered = false;
+            var vm = new IsChangedViewModel_SimpleOverride();
+            vm.Changed += (s, e) =>
+            {
+                triggered = true;
+            };
+            vm.TestProperty = "tt;";
+
+            DispatcherEx.Current.ProcessEvents();
+
+            Assert.AreEqual(true, triggered);
+        }
+
+        [TestMethod]
+        public void ChangeAwareViewModel_AbstractBase_SimpleOverride_With_BaseClassCall_Test()
+        {
+            var triggered = 0;
+            var vm = new IsChangedViewModel_SimpleOverride_With_BaseClassCall();
+            vm.Changed += (s, e) =>
+            {
+                triggered++;
+            };
+            vm.TestProperty = "tt;";
+
+            DispatcherEx.Current.ProcessEvents();
+
+            // Should only be triggered once
+            Assert.AreEqual(1, triggered);
+        }
+
+        [TestMethod]
+        public void ChangeAwareViewModel_SimpleClass_Test()
+        {
+            var triggered = false;
+            var vm = new IsChangedViewModel_Simple();
+            vm.Changed += (s, e) =>
+            {
+                triggered = true;
+            };
+            vm.TestProperty = "tt;";
+
+            DispatcherEx.Current.ProcessEvents();
+
+            Assert.AreEqual(true, triggered);
+        }
+
+        [TestMethod]
+        public void ChangeAwareViewModel_Virtual_Override_Test()
+        {
+            var triggered = 0;
+            var vm = new IsChangedViewModel_OverrideVirtual();
+            vm.Changed += (s, e) =>
+            {
+                triggered++;
+            };
+            vm.TestProperty = "tt;";
+
+            DispatcherEx.Current.ProcessEvents();
+
+            // Should only be triggered once
+            Assert.AreEqual(1, triggered);
+        }
+
+        [TestMethod]
+        public void ChangeAwareViewModel_Virtual_Override_With_BaseCall_Test()
+        {
+            var triggered = 0;
+            var vm = new IsChangedViewModel_OverrideVirtual_With_BaseCall();
+            vm.Changed += (s, e) =>
+            {
+                triggered++;
+            };
+            vm.TestProperty = "tt;";
+
+            DispatcherEx.Current.ProcessEvents();
+
+            // Should only be triggered once
+            Assert.AreEqual(1, triggered);
+        }
+
+        [TestMethod]
+        public void ChangeAwareViewModel_Virtual_Test()
+        {
+            var triggered = 0;
+            var vm = new IsChangedViewModel_With_Virtual();
+            vm.Changed += (s, e) =>
+            {
+                triggered++;
+            };
+            vm.TestProperty = "tt;";
+
+            DispatcherEx.Current.ProcessEvents();
+
+            // Should only be triggered once
+            Assert.AreEqual(1, triggered);
+        }
+
         [TestMethod]
         public void NotifyPropertyChanged_Multiple_PropertyChange_Fire_Test()
         {

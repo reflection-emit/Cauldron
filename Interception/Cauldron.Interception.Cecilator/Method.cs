@@ -158,6 +158,35 @@ namespace Cauldron.Interception.Cecilator
             return null;
         }
 
+        public bool HasMethodBaseCall()
+        {
+            var first = this.methodDefinition.Body.Instructions
+                .Where(x => x.OpCode == OpCodes.Call)
+                .FirstOrDefault(x =>
+                {
+                    var o = x.Operand as MethodReference;
+                    return o.Name == this.Name && o.Parameters.Count == this.methodDefinition.Parameters.Count &&
+                        o.Parameters.Select(y => y.ParameterType).SequenceEqual(this.methodDefinition.Parameters.Select(y => y.ParameterType), new TypeReferenceEqualityComparer());
+                });
+
+            if (first == null)
+                return false;
+
+            var operand = first.Operand as MethodReference;
+
+            if (operand.DeclaringType.FullName == this.methodDefinition.DeclaringType.BaseType.FullName)
+                return true;
+
+            return false;
+        }
+
+        public bool HasMethodCall(Method method)
+        {
+            return this.methodDefinition.Body.Instructions
+                 .Where(x => x.OpCode == OpCodes.Call || x.OpCode == OpCodes.Calli || x.OpCode == OpCodes.Callvirt)
+                 .Any(x => x.Operand == method.methodReference);
+        }
+
         public Method MakeGeneric(params Type[] types)
         {
             if (this.methodDefinition.GenericParameters.Count == 0)

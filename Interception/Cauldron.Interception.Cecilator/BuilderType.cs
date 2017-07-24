@@ -70,11 +70,19 @@ namespace Cauldron.Interception.Cecilator
             throw new IndexOutOfRangeException("There is generic argument with index " + index);
         }
 
-        public bool Implements(Type interfaceType) => this.Implements(interfaceType.FullName);
+        public bool Implements(Type interfaceType, bool getAll = true) => this.Implements(interfaceType.FullName, getAll);
 
-        public bool Implements(string interfaceName) => this.Interfaces.Any(x =>
-            (x.typeReference.FullName.GetHashCode() == interfaceName.GetHashCode() && x.typeReference.FullName == interfaceName) ||
-            (x.typeDefinition.FullName.GetHashCode() == interfaceName.GetHashCode() && x.typeDefinition.FullName == interfaceName));
+        public bool Implements(string interfaceName, bool getAll = true)
+        {
+            if (getAll)
+                return this.Interfaces.Any(x =>
+                    (x.typeReference.FullName.GetHashCode() == interfaceName.GetHashCode() && x.typeReference.FullName == interfaceName) ||
+                    (x.typeDefinition.FullName.GetHashCode() == interfaceName.GetHashCode() && x.typeDefinition.FullName == interfaceName));
+            else
+                return this.typeDefinition.Interfaces.Any(x =>
+                    (x.InterfaceType.FullName.GetHashCode() == interfaceName.GetHashCode() && x.InterfaceType.FullName == interfaceName) ||
+                    (x.InterfaceType.FullName.GetHashCode() == interfaceName.GetHashCode() && x.InterfaceType.FullName == interfaceName));
+        }
 
         public BuilderType Import() => new BuilderType(this.Builder, this.moduleDefinition.ImportReference(this.typeReference ?? this.typeDefinition));
 
@@ -233,7 +241,8 @@ namespace Cauldron.Interception.Cecilator
         }
 
         /// <summary>
-        /// Returns all constructors that does call the base class constructor. All constructors that calls this() is excluded
+        /// Returns all constructors that does call the base class constructor. All constructors that
+        /// calls this() is excluded
         /// </summary>
         /// <returns></returns>
         public IEnumerable<Method> GetRelevantConstructors()
@@ -292,6 +301,7 @@ namespace Cauldron.Interception.Cecilator
             if (modifier.HasFlag(Modifiers.Private)) attributes |= FieldAttributes.Private;
             if (modifier.HasFlag(Modifiers.Static)) attributes |= FieldAttributes.Static;
             if (modifier.HasFlag(Modifiers.Public)) attributes |= FieldAttributes.Public;
+            if (modifier.HasFlag(Modifiers.Protected)) attributes |= FieldAttributes.Family;
 
             var field = new FieldDefinition(name, attributes, this.moduleDefinition.ImportReference(typeReference));
             this.typeDefinition.Fields.Add(field);
@@ -299,7 +309,7 @@ namespace Cauldron.Interception.Cecilator
             return new Field(this, field);
         }
 
-        public Field GetField(string name)
+        public Field GetField(string name, bool throwException = true)
         {
             if (name == null)
                 throw new ArgumentNullException(nameof(name));
@@ -309,7 +319,10 @@ namespace Cauldron.Interception.Cecilator
                 if (fields[i].Name.GetHashCode() == name.GetHashCode() && fields[i].Name == name)
                     return new Field(this, fields[i]);
 
-            throw new MissingFieldException($"Unable to find field '{name}' in type '{this.typeReference.FullName}'");
+            if (throwException)
+                throw new MissingFieldException($"Unable to find field '{name}' in type '{this.typeReference.FullName}'");
+            else
+                return null;
         }
 
         #endregion Fields
@@ -344,6 +357,7 @@ namespace Cauldron.Interception.Cecilator
             if (modifier.HasFlag(Modifiers.Private)) attributes |= MethodAttributes.Private;
             if (modifier.HasFlag(Modifiers.Static)) attributes |= MethodAttributes.Static;
             if (modifier.HasFlag(Modifiers.Public)) attributes |= MethodAttributes.Public;
+            if (modifier.HasFlag(Modifiers.Protected)) attributes |= MethodAttributes.Family;
             if (modifier.HasFlag(Modifiers.Overrrides)) attributes |= MethodAttributes.Final | MethodAttributes.Virtual | MethodAttributes.NewSlot;
 
             var returnType = this.moduleDefinition.ImportReference(propertyType.typeReference);
@@ -385,6 +399,7 @@ namespace Cauldron.Interception.Cecilator
             if (field.Modifiers.HasFlag(Modifiers.Private)) attributes |= MethodAttributes.Private;
             if (field.Modifiers.HasFlag(Modifiers.Static)) attributes |= MethodAttributes.Static;
             if (field.Modifiers.HasFlag(Modifiers.Public)) attributes |= MethodAttributes.Public;
+            if (field.Modifiers.HasFlag(Modifiers.Protected)) attributes |= MethodAttributes.Family;
             if (field.Modifiers.HasFlag(Modifiers.Overrrides)) attributes |= MethodAttributes.Final | MethodAttributes.Virtual | MethodAttributes.NewSlot;
 
             var property = new PropertyDefinition(name, PropertyAttributes.None, field.FieldType.typeReference);
@@ -449,6 +464,7 @@ namespace Cauldron.Interception.Cecilator
             if (modifier.HasFlag(Modifiers.Private)) attributes |= MethodAttributes.Private;
             if (modifier.HasFlag(Modifiers.Static)) attributes |= MethodAttributes.Static;
             if (modifier.HasFlag(Modifiers.Public)) attributes |= MethodAttributes.Public;
+            if (modifier.HasFlag(Modifiers.Protected)) attributes |= MethodAttributes.Family;
             if (modifier.HasFlag(Modifiers.Overrrides)) attributes |= MethodAttributes.Final | MethodAttributes.Virtual | MethodAttributes.NewSlot;
 
             var method = new MethodDefinition(name, attributes, this.moduleDefinition.ImportReference(returnType.typeReference));
@@ -471,6 +487,7 @@ namespace Cauldron.Interception.Cecilator
             if (modifier.HasFlag(Modifiers.Private)) attributes |= MethodAttributes.Private;
             if (modifier.HasFlag(Modifiers.Static)) attributes |= MethodAttributes.Static;
             if (modifier.HasFlag(Modifiers.Public)) attributes |= MethodAttributes.Public;
+            if (modifier.HasFlag(Modifiers.Protected)) attributes |= MethodAttributes.Family;
             if (modifier.HasFlag(Modifiers.Overrrides)) attributes |= MethodAttributes.Final | MethodAttributes.NewSlot | MethodAttributes.Virtual;
 
             var method = new MethodDefinition(name, attributes, this.moduleDefinition.TypeSystem.Void);

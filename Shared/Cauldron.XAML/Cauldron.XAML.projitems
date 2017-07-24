@@ -28,6 +28,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Navigation\NavigationInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Navigation\NavigationType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Navigation\PageStackEntry.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PropertyIsChangedEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RelayCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\LocalizationSource.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TextBlockInline.cs" />
