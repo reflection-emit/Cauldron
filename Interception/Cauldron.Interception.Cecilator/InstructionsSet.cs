@@ -1249,7 +1249,7 @@ namespace Cauldron.Interception.Cecilator
             });
 
             if (ctorCall != null)
-                return ctorCall;
+                return ctorCall.Next;
 
             // public MyClass() : this()
             return methodDefinition.Body.Instructions.FirstOrDefault(inst =>
@@ -1269,7 +1269,7 @@ namespace Cauldron.Interception.Cecilator
                     return true;
 
                 return false;
-            });
+            })?.Next;
         }
 
         private VariableDefinition GetOrCreateReturnVariable()

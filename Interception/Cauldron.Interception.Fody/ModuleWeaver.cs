@@ -49,6 +49,9 @@ namespace Cauldron.Interception.Fody
 
             if (this.Builder.IsReferenced("Cauldron.XAML") && this.Builder.IsReferenced("PropertyChanged"))
                 this.ImplementPropertyChangedEvent(this.Builder);
+
+            if (this.Builder.IsReferenced("Cauldron.XAML.Validation"))
+                this.AddValidatorInits(this.Builder);
         }
 
         private void AddAttributeToXAMLResources(Builder builder)
@@ -201,6 +204,41 @@ namespace Cauldron.Interception.Fody
                     }
                 })
                 .Insert(InsertionPosition.End);
+            }
+        }
+
+        private void AddValidatorInits(Builder builder)
+        {
+            var attributes = builder.FindAttributesByBaseClass("Cauldron.XAML.Validation.ValidatorAttributeBase");
+            var propertiesWithAttributes = builder.FindPropertiesByAttributes(attributes)
+                .Where(x => !x.Property.IsStatic)
+                .GroupBy(x => x.Property)
+                .Select(x => new
+                {
+                    Key = x.Key,
+                    Validators = x.ToArray()
+                });
+
+            foreach (var item in propertiesWithAttributes)
+            {
+                var addValidatorGroup = item.Key.DeclaringType.GetMethod("AddValidatorGroup", false, typeof(string));
+                if (addValidatorGroup == null)
+                    continue;
+                var addValidatorAttribute = item.Key.DeclaringType.GetMethod("AddValidator", false, typeof(string).FullName, "Cauldron.XAML.Validation.ValidatorAttributeBase");
+
+                this.LogInfo($"Adding initializer for validators ({item.Validators.Length}) of property '{item.Key.Name}' in type '{item.Key.DeclaringType.Fullname}'");
+
+                foreach (var ctors in item.Key.DeclaringType.GetRelevantConstructors())
+                {
+                    ctors.NewCode().Context(x =>
+                    {
+                        x.Call(x.This, addValidatorGroup, item.Key.Name);
+
+                        for (int i = 0; i < item.Validators.Length; i++)
+                            x.Call(x.This, addValidatorAttribute, item.Key.Name, x.NewCode().NewObj(item.Validators[i]));
+                    })
+                    .Insert(InsertionPosition.Beginning);
+                }
             }
         }
 

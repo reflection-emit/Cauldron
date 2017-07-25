@@ -310,6 +310,8 @@ namespace Cauldron.Interception.Cecilator
 
         private IEnumerable<BuilderType> findAttributesInModuleCache;
 
+        public IEnumerable<BuilderType> FindAttributesByBaseClass(string baseClassName) => this.FindAttributesInModule().Where(x => x.BaseClasses.Any(y => y.Fullname.GetHashCode() == baseClassName.GetHashCode() && y.Fullname == baseClassName));
+
         public IEnumerable<BuilderType> FindAttributesByInterfaces(Type[] interfaceTypes) => this.FindAttributesByInterfaces(interfaceTypes.Select(x => x.FullName).ToArray());
 
         public IEnumerable<BuilderType> FindAttributesByInterfaces(IEnumerable<BuilderType> interfaceTypes) => this.FindAttributesInModule().Where(x => interfaceTypes.Any(y => x.Implements(y)));

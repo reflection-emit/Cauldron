@@ -18,7 +18,7 @@ namespace Cauldron.XAML.ValueConverters
     /// Checks if an object is null. If the object is null, the <see cref="IValueConverter"/> will
     /// return <see cref="Visibility.Collapsed"/>
     /// </summary>
-    public sealed class ObjectToVisibilityConverter : ValueConverterBase
+    public sealed class ObjectToBooleanConverter : ValueConverterBase
     {
         /// <summary>
         /// Occures if a value is converted
@@ -36,9 +36,9 @@ namespace Cauldron.XAML.ValueConverters
             var p = parameter?.ToString().ToBool();
 
             if (p.HasValue && p.Value)
-                return value == null ? Visibility.Collapsed : Visibility.Visible;
+                return value == null ? false : true; // Leave it this way, so that it is easy to understand
             else
-                return value == null ? Visibility.Visible : Visibility.Collapsed;
+                return value == null ? true : false; // Leave it this way, so that it is easy to understand
         }
 
         /// <summary>
@@ -57,9 +57,9 @@ namespace Cauldron.XAML.ValueConverters
             var p = parameter?.ToString().ToBool();
 
             if (p.HasValue && p.Value)
-                return (Visibility)value == Visibility.Collapsed ? null : Factory.Create(targetType);
+                return (bool)value == false ? null : Factory.Create(targetType); // Leave it this way, so that it is easy to understand
             else
-                return (Visibility)value == Visibility.Visible ? null : Factory.Create(targetType);
+                return (bool)value == true ? null : Factory.Create(targetType); // Leave it this way, so that it is easy to understand
         }
     }
 }

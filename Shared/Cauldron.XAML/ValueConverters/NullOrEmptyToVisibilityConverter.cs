@@ -50,6 +50,7 @@ namespace Cauldron.XAML.ValueConverters
         /// </exception>
         public override object OnConvertBack(object value, Type targetType, object parameter, string language)
         {
+            // Impossible to do
             throw new NotImplementedException();
         }
     }

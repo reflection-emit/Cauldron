@@ -6,7 +6,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using Windows.UI.Core;
 
 namespace Cauldron.XAML.Validation.ViewModels
 {
@@ -15,15 +14,15 @@ namespace Cauldron.XAML.Validation.ViewModels
     /// </summary>
     public abstract class ValidatableViewModelBase : ViewModelBase, IValidatableViewModel
     {
+        private readonly ValidatorCollection validators = new ValidatorCollection();
+
         private string _errors;
-        private ValidatorCollection validators = new ValidatorCollection();
 
         /// <summary>
         /// Initializes a new instance of <see cref="ValidatableViewModelBase"/>
         /// </summary>
         public ValidatableViewModelBase() : base()
         {
-            this.AddValidators();
         }
 
         /// <summary>
@@ -32,7 +31,6 @@ namespace Cauldron.XAML.Validation.ViewModels
         /// <param name="id">A unique identifier of the viewmodel</param>
         public ValidatableViewModelBase(Guid id) : base(id)
         {
-            this.AddValidators();
         }
 
         /// <summary>
@@ -108,6 +106,18 @@ namespace Cauldron.XAML.Validation.ViewModels
         /// <param name="propertyName">The name of the property that requires validation</param>
         public Task ValidateAsync(string propertyName) => this.ValidateAsync(null, propertyName);
 
+        /// <exclude/>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        protected void AddValidator(string propertyName, ValidatorAttributeBase attribute) => this.validators[propertyName].Add(attribute);
+
+        /// <exclude/>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        protected void AddValidatorGroup(string propertyName)
+        {
+            if (!this.validators.Contains(propertyName))
+                this.validators.Add(new ValidatorGroup(propertyName));
+        }
+
         /// <summary>
         /// Occured before the <see cref="ViewModelBase.PropertyChanged"/> event is invoked.
         /// </summary>
@@ -146,32 +156,6 @@ namespace Cauldron.XAML.Validation.ViewModels
         /// </param>
         protected virtual void OnValidation(string propertyName)
         {
-        }
-
-        private void AddValidators()
-        {
-            var properties = this.GetType().GetProperties();
-            for (int i = 0; i < properties.Length; i++)
-            {
-                var property = properties[i];
-                var attributes = property.GetCustomAttributes(false).Where(x => x is ValidatorAttributeBase).ToArray();
-
-                if (attributes.Length == 0)
-                    continue;
-
-                this.validators.Add(new ValidatorGroup(property.Name));
-
-                for (int c = 0; c < attributes.Length; c++)
-                {
-                    var attrib = attributes[c] as ValidatorAttributeBase;
-
-                    if (attrib == null)
-                        continue;
-
-                    attrib.propertyInfo = property;
-                    this.validators[property.Name].Add(attrib); ;
-                }
-            }
         }
 
         private void RaiseErrorsChanged(string propertyName)

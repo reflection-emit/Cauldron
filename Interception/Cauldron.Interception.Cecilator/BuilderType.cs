@@ -241,8 +241,8 @@ namespace Cauldron.Interception.Cecilator
         }
 
         /// <summary>
-        /// Returns all constructors that does call the base class constructor. All constructors that
-        /// calls this() is excluded
+        /// Returns all constructors that calls the base class constructor. All constructors that
+        /// calls this() are excluded
         /// </summary>
         /// <returns></returns>
         public IEnumerable<Method> GetRelevantConstructors()
@@ -533,25 +533,27 @@ namespace Cauldron.Interception.Cecilator
             return new Method(this, result.ResolveMethod(this.typeReference), result);
         }
 
-        public Method GetMethod(string name, bool throwException = true, params Type[] parameters)
+        public Method GetMethod(string name, bool throwException = true, params Type[] parameters) => GetMethod(name, throwException, parameters.Select(x => x.FullName).ToArray());
+
+        public Method GetMethod(string name, bool throwException = true, params string[] parametersTypeNames)
         {
             var result = this.typeDefinition.Methods
                 .Concat(this.BaseClasses.SelectMany(x => x.typeDefinition.Methods))
-                .Where(x => x.Name == name && x.Parameters.Count == parameters.Length)
-                .FirstOrDefault(x =>
-                {
-                    var p1 = x.Parameters.Select(y => y.ParameterType.FullName);
-                    var p2 = parameters.Select(y => y.FullName);
-
-                    return p1.SequenceEqual(p2);
-                });
+                .Where(x => x.Name == name && x.Parameters.Count == parametersTypeNames.Length)
+                .FirstOrDefault(x => x.Parameters.Select(y => y.ParameterType.FullName).ToArray().SequenceEqual(parametersTypeNames));
 
             if (result == null && throwException)
                 throw new MethodNotFoundException($"Unable to proceed. The type '{this.typeDefinition.FullName}' does not contain a method '{name}'");
             else if (result == null)
                 return null;
 
-            return new Method(this, result.ContainsGenericParameter ? result.MakeHostInstanceGeneric((this.typeReference as GenericInstanceType).GenericArguments.ToArray()) : result, result);
+            var genericArguments = (this.typeReference as GenericInstanceType)?.GenericArguments.ToArray();
+            if (genericArguments == null)
+                return new Method(this, result);
+
+            return new Method(this, result.ContainsGenericParameter ?
+                result.MakeHostInstanceGeneric(genericArguments) :
+                result, result);
         }
 
         public IEnumerable<Method> GetMethods(Func<MethodReference, bool> predicate) => this.typeReference.GetMethodReferences().Where(predicate).Select(x => new Method(this, x, x.Resolve()));
