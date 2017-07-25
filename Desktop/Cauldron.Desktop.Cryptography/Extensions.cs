@@ -90,6 +90,8 @@ namespace Cauldron.Cryptography
             }
         }
 
+#if !NETCORE
+
         /// <summary>
         /// Compares two <see cref="SecureString"/> for equality
         /// </summary>
@@ -140,6 +142,8 @@ namespace Cauldron.Cryptography
                     Marshal.ZeroFreeBSTR(bstrA);
             }
         }
+
+#endif
 
         /// <summary>
         /// Converts a string to a <see cref="SecureString"/>
