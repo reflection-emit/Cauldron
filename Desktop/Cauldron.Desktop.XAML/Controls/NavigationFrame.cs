@@ -510,8 +510,11 @@ namespace Cauldron.XAML.Controls
         private void Current_Activated(object sender, EventArgs e) =>
                     this.ContentDataContext?.As<IFrameAware>()?.Activated();
 
-        private void Current_Closed(object sender, EventArgs e) =>
+        private void Current_Closed(object sender, EventArgs e)
+        {
+            this.ContentDataContext?.As<ICloseAwareViewModel>()?.Close();
             this.ContentDataContext?.TryDispose();
+        }
 
         private void Current_Deactivated(object sender, EventArgs e) =>
                 this.ContentDataContext?.As<IFrameAware>()?.Deactivated();

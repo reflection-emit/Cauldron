@@ -270,6 +270,16 @@ namespace Cauldron.XAML.Navigation
                 var window = windowInfo.Item1;
                 (viewModel as IDisposableObject).IsNotNull(x => x.Disposed += async (s, e) => await viewModel.Dispatcher.RunAsync(() => window.Close()));
 
+                window.Closing += (s, e) =>
+                {
+                    var closeAware = viewModel as ICloseAwareViewModel;
+
+                    if (closeAware != null)
+                        e.Cancel = !closeAware.CanClose();
+                };
+
+                window.Closed += (s, e) => (viewModel as ICloseAwareViewModel).IsNotNull(x => x.Close());
+
                 window.Activated += (s, e) =>
                 {
                     // This only applies to windows that are not maximized

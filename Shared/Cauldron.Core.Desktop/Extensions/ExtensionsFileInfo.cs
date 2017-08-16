@@ -21,7 +21,8 @@ namespace Cauldron.Core.Extensions
         }
 
         /// <summary>
-        /// Gets the timestamp of the last time the file was modified.
+        /// Gets the timestamp of the last time the file was modified. (Wrapper for <see
+        /// cref="FileSystemInfo.LastAccessTime"/> to match with UWP)
         /// </summary>
         /// <param name="file">The file</param>
         /// <returns>The timestamp.</returns>

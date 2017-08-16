@@ -15,7 +15,7 @@
              x:Name="window">
 
     <WindowChrome.WindowChrome>
-        <WindowChrome CaptionHeight="32" CornerRadius="0" GlassFrameThickness="0" NonClientFrameEdges="None" ResizeBorderThickness="5" UseAeroCaptionButtons="False" />
+        <WindowChrome CaptionHeight="32" CornerRadius="0" GlassFrameThickness="1" NonClientFrameEdges="None" ResizeBorderThickness="5" UseAeroCaptionButtons="False" />
     </WindowChrome.WindowChrome>
 
     <Window.Template>

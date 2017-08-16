@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows;
 
 #if NETFX_CORE
 using Windows.UI.Xaml;
@@ -17,6 +18,16 @@ namespace Cauldron.XAML.ViewModels
     /// </summary>
     public interface ICloseAwareViewModel : IViewModel
     {
+#if !NETFX_CORE
+
+        /// <summary>
+        /// Occures if the window is closing. Returning a false will prevent the window from closing.
+        /// </summary>
+        /// <returns></returns>
+        bool CanClose();
+
+#endif
+
         /// <summary>
         /// Occures if the control requests a closing. The viewmodel has to react to the requst by
         /// for example removing the tab from the <see cref="ObservableCollection{T}"/>.

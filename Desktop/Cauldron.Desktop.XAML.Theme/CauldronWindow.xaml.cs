@@ -163,7 +163,7 @@ namespace Cauldron.XAML.Theme
                 this.title.IsNotNull(x => x.Visibility = Visibility.Collapsed);
             }
 
-            Win32Api.AddShadow(this, hwnd);
+            //Win32Api.AddShadow(this, hwnd);
         }
 
         private void MaximizeButton_Click(object sender, RoutedEventArgs e)
