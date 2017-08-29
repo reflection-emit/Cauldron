@@ -34,15 +34,18 @@ namespace Cauldron.Core.Extensions
         }
 
         /// <summary>
-        /// Performs a cast between compatible reference types. If a convertion is not possible then null is returned.
+        /// Performs a cast between compatible reference types. If a convertion is not possible then
+        /// null is returned.
         /// <para/>
-        /// Tries to use the implicit and explicit operators if exists when convertion with 'as' returns null.
+        /// Tries to use the implicit and explicit operators if exists when convertion with 'as'
+        /// returns null.
         /// </summary>
         /// <typeparam name="T">The <see cref="Type"/> to convert to</typeparam>
         /// <param name="source">The object to convert</param>
         /// <returns>The object casted to <typeparamref name="T"/></returns>
         /// <example>
-        /// In the following code example, the 'As' extension is used to convert a returned object via the implicit operator.
+        /// In the following code example, the 'As' extension is used to convert a returned object
+        /// via the implicit operator.
         /// <code>
         /// public interface IFoo
         /// {
@@ -73,13 +76,13 @@ namespace Cauldron.Core.Extensions
         ///     {
         ///     }
         ///
-        ///     public static implicit operator Bar(Foo value) => new Boo(value);
-        ///     public static implicit operator Foo(Bar value) => value.internalFoo;
+        ///     public static implicit operator Bar(Foo value) =&gt; new Boo(value);
+        ///     public static implicit operator Foo(Bar value) =&gt; value.internalFoo;
         /// }
         ///
         /// public class SomeOtherClass
         /// {
-        ///     public IFoo GetFooFromSomewhere(string fooId) => new Foo { Name = "A Foo", Description = "This is the foo you are looking for." };
+        ///     public IFoo GetFooFromSomewhere(string fooId) =&gt; new Foo { Name = "A Foo", Description = "This is the foo you are looking for." };
         /// }
         /// </code>
         /// The code can be called like following:
@@ -112,7 +115,8 @@ namespace Cauldron.Core.Extensions
         }
 
         /// <summary>
-        /// Converts a <see cref="IDictionary{TKey, TValue}"/> to a <see cref="ReadOnlyDictionary{TKey, TValue}"/>.
+        /// Converts a <see cref="IDictionary{TKey, TValue}"/> to a <see
+        /// cref="ReadOnlyDictionary{TKey, TValue}"/>.
         /// </summary>
         /// <typeparam name="TKey">The type of keys in the dictionary.</typeparam>
         /// <typeparam name="TValue">The type of values in the dictionary.</typeparam>
@@ -141,7 +145,9 @@ namespace Cauldron.Core.Extensions
         /// </summary>
         /// <typeparam name="T">The type to convert the string to</typeparam>
         /// <param name="value">The string value to convert</param>
-        /// <param name="numberformat">An object that supplies culture-specific formatting information about <paramref name="value"/>.</param>
+        /// <param name="numberformat">
+        /// An object that supplies culture-specific formatting information about <paramref name="value"/>.
+        /// </param>
         /// <returns>The converted value</returns>
         public static T Convert<T>(this string value, NumberFormatInfo numberformat) =>
             (T)value.Convert(typeof(T), numberformat);
@@ -160,7 +166,9 @@ namespace Cauldron.Core.Extensions
         /// </summary>
         /// <param name="value">The string value to convert</param>
         /// <param name="targetType">The type to convert the string to</param>
-        /// <param name="numberformat">An object that supplies culture-specific formatting information about <paramref name="value"/>.</param>
+        /// <param name="numberformat">
+        /// An object that supplies culture-specific formatting information about <paramref name="value"/>.
+        /// </param>
         /// <returns>The converted value</returns>
         public static object Convert(this string value, Type targetType, NumberFormatInfo numberformat)
         {
@@ -260,7 +268,8 @@ namespace Cauldron.Core.Extensions
         }
 
         /// <summary>
-        /// Converts the readable escaped chars in a string to its equivalent char. This includes simple-escape-sequences such as \' \" \\ \0 \a \b \f \n \r \t \v
+        /// Converts the readable escaped chars in a string to its equivalent char. This includes
+        /// simple-escape-sequences such as \' \" \\ \0 \a \b \f \n \r \t \v
         /// </summary>
         /// <param name="source">The source string to convert</param>
         /// <returns>The converted string</returns>
@@ -269,7 +278,8 @@ namespace Cauldron.Core.Extensions
             var readableEscapedChars = new string[] { @"\'", @"\""", @"\\", @"\0", @"\a", @"\b", @"\f", @"\n", @"\r", @"\t", @"\v" };
             var escapedChars = new string[] { "\'", "\"", "\\", "\0", "\a", "\b", "\f", "\n", "\r", "\t", "\v" };
 
-            // we are explicitly not using string replace on this to lessen the GC load on such an easy thing like replacement
+            // we are explicitly not using string replace on this to lessen the GC load on such an
+            // easy thing like replacement
 
             var result = new char[source.Length];
             int indexer = 0;
@@ -378,9 +388,9 @@ namespace Cauldron.Core.Extensions
         /// <summary>
         /// Converts a string to bool.
         /// <para/>
-        /// This will first try to compare the string to "true" and then to "false". If both fails then it will
-        /// use <see cref="bool.TryParse(string, out bool)"/> to parse the string to bool. If that also fails
-        /// then the string will be compared to "1".
+        /// This will first try to compare the string to "true" and then to "false". If both fails
+        /// then it will use <see cref="bool.TryParse(string, out bool)"/> to parse the string to
+        /// bool. If that also fails then the string will be compared to "1".
         /// </summary>
         /// <param name="target">The value to convert</param>
         /// <returns>Returns true if the string is equivalent to true; otherwise false.</returns>
@@ -412,8 +422,7 @@ namespace Cauldron.Core.Extensions
         }
 
         /// <summary>
-        /// Converts the value to a byte
-        /// If convertion fails the value will always be 0
+        /// Converts the value to a byte If convertion fails the value will always be 0
         /// </summary>
         /// <param name="target">The value to convert</param>
         /// <returns>The byte value of the string</returns>
@@ -463,11 +472,14 @@ namespace Cauldron.Core.Extensions
         public static byte[] ToBytes(this float target) => BitConverter.GetBytes(target);
 
         /// <summary>
-        /// Converts a <see cref="Stream"/> to <see cref="byte"/> array. If the stream is not seekable, then this will use <see cref="StreamReader.ReadToEndAsync"/> to get the stream.
+        /// Converts a <see cref="Stream"/> to <see cref="byte"/> array. If the stream is not
+        /// seekable, then this will use <see cref="StreamReader.ReadToEndAsync"/> to get the stream.
         /// </summary>
         /// <param name="stream">The <see cref="Stream"/> to convert</param>
         /// <returns>An array of bytes</returns>
-        /// <exception cref="ArgumentNullException">Parameter <paramref name="stream"/> is null</exception>
+        /// <exception cref="ArgumentNullException">
+        /// Parameter <paramref name="stream"/> is null
+        /// </exception>
         public static async Task<byte[]> ToBytesAsync(this Stream stream)
         {
             if (stream == null)
@@ -497,8 +509,7 @@ namespace Cauldron.Core.Extensions
         }
 
         /// <summary>
-        /// Converts the value to a char
-        /// If convertion fails the value will always be '\0'
+        /// Converts the value to a char If convertion fails the value will always be '\0'
         /// </summary>
         /// <param name="target">The value to convert</param>
         /// <returns>The char value of the string</returns>
@@ -525,7 +536,9 @@ namespace Cauldron.Core.Extensions
         /// </summary>
         /// <param name="target">The string to convert</param>
         /// <returns>Returns a decimal that represents the converted string</returns>
-        /// <param name="numberformat">An object that supplies culture-specific formatting information about <paramref name="target"/>.</param>
+        /// <param name="numberformat">
+        /// An object that supplies culture-specific formatting information about <paramref name="target"/>.
+        /// </param>
         public static decimal ToDecimal(this string target, NumberFormatInfo numberformat)
         {
             decimal result;
@@ -537,7 +550,8 @@ namespace Cauldron.Core.Extensions
         }
 
         /// <summary>
-        /// Tries to convert a <see cref="string"/> to an <see cref="decimal"/>  using the en-US number format
+        /// Tries to convert a <see cref="string"/> to an <see cref="decimal"/> using the en-US
+        /// number format
         /// </summary>
         /// <param name="target">The string to convert</param>
         /// <returns>Returns a decimal that represents the converted string</returns>
@@ -545,28 +559,39 @@ namespace Cauldron.Core.Extensions
             target.ToDecimal(numberFormatInfoEnUs);
 
         /// <summary>
-        /// Converts the string representation of a number in a specified culture-specific format to its double-precision floating-point number equivalent.
-        /// if the string content is "nan" then a <see cref="double.NaN"/> is returned.
+        /// Converts the string representation of a number in a specified culture-specific format to
+        /// its double-precision floating-point number equivalent. if the string content is "nan"
+        /// then a <see cref="double.NaN"/> is returned.
         /// </summary>
         /// <param name="target">A string that contains a number to convert.</param>
-        /// <returns> A double-precision floating-point number that is equivalent to the numeric value or symbol specified in <paramref name="target"/>.</returns>
+        /// <returns>
+        /// A double-precision floating-point number that is equivalent to the numeric value or
+        /// symbol specified in <paramref name="target"/>.
+        /// </returns>
         /// <exception cref="ArgumentNullException"><paramref name="target"/> is null</exception>
         public static double ToDouble(this string target) => target.ToDouble(cultureInfo.NumberFormat);
 
         /// <summary>
-        /// Returns a double-precision floating point number converted from eight bytes at a specified position in a byte array.
+        /// Returns a double-precision floating point number converted from eight bytes at a
+        /// specified position in a byte array.
         /// </summary>
         /// <param name="target">The byte array to convert to its double representation</param>
         /// <returns>The double-precision floating point number value of the byte array</returns>
         public static double ToDouble(this byte[] target) => BitConverter.ToDouble(target, 0);
 
         /// <summary>
-        /// Converts the string representation of a number in a specified culture-specific format to its double-precision floating-point number equivalent.
-        /// if the string content is "nan" then a <see cref="double.NaN"/> is returned.
+        /// Converts the string representation of a number in a specified culture-specific format to
+        /// its double-precision floating-point number equivalent. if the string content is "nan"
+        /// then a <see cref="double.NaN"/> is returned.
         /// </summary>
         /// <param name="target">A string that contains a number to convert.</param>
-        /// <param name="numberformat">An object that supplies culture-specific formatting information about <paramref name="target"/>.</param>
-        /// <returns> A double-precision floating-point number that is equivalent to the numeric value or symbol specified in <paramref name="target"/>.</returns>
+        /// <param name="numberformat">
+        /// An object that supplies culture-specific formatting information about <paramref name="target"/>.
+        /// </param>
+        /// <returns>
+        /// A double-precision floating-point number that is equivalent to the numeric value or
+        /// symbol specified in <paramref name="target"/>.
+        /// </returns>
         /// <exception cref="ArgumentNullException"><paramref name="target"/> is null</exception>
         public static double ToDouble(this string target, NumberFormatInfo numberformat)
         {
@@ -587,37 +612,52 @@ namespace Cauldron.Core.Extensions
         }
 
         /// <summary>
-        /// Converts the string representation of a number in the en-US format to its double-precision floating-point number equivalent.
-        /// if the string content is "nan" then a <see cref="double.NaN"/> is returned.
+        /// Converts the string representation of a number in the en-US format to its
+        /// double-precision floating-point number equivalent. if the string content is "nan" then a
+        /// <see cref="double.NaN"/> is returned.
         /// </summary>
         /// <param name="target">A string that contains a number to convert.</param>
-        /// <returns> A double-precision floating-point number that is equivalent to the numeric value or symbol specified in <paramref name="target"/>.</returns>
+        /// <returns>
+        /// A double-precision floating-point number that is equivalent to the numeric value or
+        /// symbol specified in <paramref name="target"/>.
+        /// </returns>
         /// <exception cref="ArgumentNullException"><paramref name="target"/> is null</exception>
         public static double ToDoubleUS(this string target) => target.ToDouble(numberFormatInfoEnUs);
 
         /// <summary>
-        /// Converts the string representation of a number in a specified style and culture-specific format to its single-precision floating-point number equivalent.
-        /// if the string content is "nan" then a <see cref="double.NaN"/> is returned.
+        /// Converts the string representation of a number in a specified style and culture-specific
+        /// format to its single-precision floating-point number equivalent. if the string content is
+        /// "nan" then a <see cref="double.NaN"/> is returned.
         /// </summary>
         /// <param name="target">A string that contains a number to convert.</param>
-        /// <returns>A single-precision floating-point number equivalent to the numeric value or symbol specified in <paramref name="target"/>.</returns>
+        /// <returns>
+        /// A single-precision floating-point number equivalent to the numeric value or symbol
+        /// specified in <paramref name="target"/>.
+        /// </returns>
         /// <exception cref="ArgumentNullException"><paramref name="target"/> is null</exception>
         public static float ToFloat(this string target) => target.ToFloat(cultureInfo.NumberFormat);
 
         /// <summary>
-        /// Returns a single-precision floating point number converted from four bytes at a specified position in a byte array.
+        /// Returns a single-precision floating point number converted from four bytes at a specified
+        /// position in a byte array.
         /// </summary>
         /// <param name="target">The byte array to convert</param>
         /// <returns>The single-precision floating point number representaion of the byte array</returns>
         public static float ToFloat(this byte[] target) => BitConverter.ToSingle(target, 0);
 
         /// <summary>
-        /// Converts the string representation of a number in a specified style and culture-specific format to its single-precision floating-point number equivalent.
-        /// if the string content is "nan" then a <see cref="double.NaN"/> is returned.
+        /// Converts the string representation of a number in a specified style and culture-specific
+        /// format to its single-precision floating-point number equivalent. if the string content is
+        /// "nan" then a <see cref="double.NaN"/> is returned.
         /// </summary>
         /// <param name="target">A string that contains a number to convert.</param>
-        /// <param name="numberformat">An object that supplies culture-specific formatting information about <paramref name="target"/>.</param>
-        /// <returns>A single-precision floating-point number equivalent to the numeric value or symbol specified in <paramref name="target"/>.</returns>
+        /// <param name="numberformat">
+        /// An object that supplies culture-specific formatting information about <paramref name="target"/>.
+        /// </param>
+        /// <returns>
+        /// A single-precision floating-point number equivalent to the numeric value or symbol
+        /// specified in <paramref name="target"/>.
+        /// </returns>
         /// <exception cref="ArgumentNullException"><paramref name="target"/> is null</exception>
         public static float ToFloat(this string target, NumberFormatInfo numberformat)
         {
@@ -638,16 +678,21 @@ namespace Cauldron.Core.Extensions
         }
 
         /// <summary>
-        /// Converts the string representation of a number in a the en-US format format to its single-precision floating-point number equivalent.
-        /// if the string content is "nan" then a <see cref="double.NaN"/> is returned.
+        /// Converts the string representation of a number in a the en-US format format to its
+        /// single-precision floating-point number equivalent. if the string content is "nan" then a
+        /// <see cref="double.NaN"/> is returned.
         /// </summary>
         /// <param name="target">A string that contains a number to convert.</param>
-        /// <returns>A single-precision floating-point number equivalent to the numeric value or symbol specified in <paramref name="target"/>.</returns>
+        /// <returns>
+        /// A single-precision floating-point number equivalent to the numeric value or symbol
+        /// specified in <paramref name="target"/>.
+        /// </returns>
         /// <exception cref="ArgumentNullException"><paramref name="target"/> is null</exception>
         public static float ToFloatUS(this string target) => target.ToFloat(numberFormatInfoEnUs);
 
         /// <summary>
-        /// Returns a 32-bit signed integer converted from four bytes at a specified position in a byte array.
+        /// Returns a 32-bit signed integer converted from four bytes at a specified position in a
+        /// byte array.
         /// </summary>
         /// <param name="target">An array of bytes.</param>
         /// <returns>A 32-bit signed integer formed by four bytes</returns>
@@ -665,7 +710,9 @@ namespace Cauldron.Core.Extensions
         /// </summary>
         /// <param name="target">The string to convert</param>
         /// <returns>Returns an int that represents the converted string</returns>
-        /// <param name="numberformat">An object that supplies culture-specific formatting information about <paramref name="target"/>.</param>
+        /// <param name="numberformat">
+        /// An object that supplies culture-specific formatting information about <paramref name="target"/>.
+        /// </param>
         public static int ToInteger(this string target, NumberFormatInfo numberformat)
         {
             int result;
@@ -684,13 +731,18 @@ namespace Cauldron.Core.Extensions
         public static int ToIntegerUS(this string target) => target.ToInteger(numberFormatInfoEnUs);
 
         /// <summary>
-        /// Creates a <see cref="KeyedCollection{TKey, TItem}"/> from an <see cref="IEnumerable{T}"/> according to a specified key selector function.
+        /// Creates a <see cref="KeyedCollection{TKey, TItem}"/> from an <see cref="IEnumerable{T}"/>
+        /// according to a specified key selector function.
         /// </summary>
         /// <typeparam name="TKey">The type of the key returned by keySelector.</typeparam>
         /// <typeparam name="TSource">The type of the elements of source.</typeparam>
-        /// <param name="source">An <see cref="IEnumerable{T}"/> to create a <see cref="KeyedCollection{TKey, TItem}"/> from.</param>
+        /// <param name="source">
+        /// An <see cref="IEnumerable{T}"/> to create a <see cref="KeyedCollection{TKey, TItem}"/> from.
+        /// </param>
         /// <param name="keySelector">A function to extract a key from each element.</param>
-        /// <returns>A <see cref="KeyedCollection{TKey, TItem}"/> that contains values of <paramref name="source"/>.</returns>
+        /// <returns>
+        /// A <see cref="KeyedCollection{TKey, TItem}"/> that contains values of <paramref name="source"/>.
+        /// </returns>
         public static KeyedCollection<TKey, TSource> ToKeyedCollection<TKey, TSource>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
         {
             var collection = new KeyedCollectionEx<TKey, TSource>(keySelector);
@@ -707,7 +759,7 @@ namespace Cauldron.Core.Extensions
         /// <param name="target">An array of bytes.</param>
         /// <returns>A long formed by eight bytes</returns>
         /// <exception cref="ArgumentNullException"><paramref name="target"/> is null</exception>
-        /// <exception cref="ArgumentException"><paramref name="target"/>has less than 8 bytes</exception>
+        /// <exception cref="ArgumentException"><paramref name="target"/> has less than 8 bytes</exception>
         public static long ToLong(this byte[] target)
         {
             if (target == null)
@@ -744,7 +796,9 @@ namespace Cauldron.Core.Extensions
         /// </summary>
         /// <param name="target">The string to convert</param>
         /// <returns>Returns a long that represents the converted string</returns>
-        /// <param name="numberformat">An object that supplies culture-specific formatting information about <paramref name="target"/>.</param>
+        /// <param name="numberformat">
+        /// An object that supplies culture-specific formatting information about <paramref name="target"/>.
+        /// </param>
         public static long ToLong(this string target, NumberFormatInfo numberformat)
         {
             long result;
@@ -775,7 +829,9 @@ namespace Cauldron.Core.Extensions
         /// </summary>
         /// <param name="target">The string to convert</param>
         /// <returns>Returns a short that represents the converted string</returns>
-        /// <param name="numberformat">An object that supplies culture-specific formatting information about <paramref name="target"/>.</param>
+        /// <param name="numberformat">
+        /// An object that supplies culture-specific formatting information about <paramref name="target"/>.
+        /// </param>
         public static short ToShort(this string target, NumberFormatInfo numberformat)
         {
             short result;
@@ -787,7 +843,7 @@ namespace Cauldron.Core.Extensions
         }
 
         /// <summary>
-        /// Tries to convert a <see cref="string"/> to an <see cref="short"/>  using the en-US number format
+        /// Tries to convert a <see cref="string"/> to an <see cref="short"/> using the en-US number format
         /// </summary>
         /// <param name="target">The string to convert</param>
         /// <returns>Returns a short that represents the converted string</returns>
@@ -795,24 +851,32 @@ namespace Cauldron.Core.Extensions
             target.ToShort(numberFormatInfoEnUs);
 
         /// <summary>
-        /// Replaces the format item in a specified string with the string representation of a corresponding object in a specified array.
-        /// This also takes into account that <paramref name="source"/> can be an inline text for the TextBlock.
-        /// <see cref="CultureInfo.CurrentCulture"/> is used as <see cref="IFormatProvider"/>
+        /// Replaces the format item in a specified string with the string representation of a
+        /// corresponding object in a specified array. This also takes into account that <paramref
+        /// name="source"/> can be an inline text for the TextBlock. <see
+        /// cref="CultureInfo.CurrentCulture"/> is used as <see cref="IFormatProvider"/>
         /// </summary>
         /// <param name="source">The formatted string</param>
         /// <param name="args">An object array that contains zero or more objects to format.</param>
-        /// <returns>A copy of format in which the format items have been replaced by the string representation of the corresponding objects in <paramref name="args"/>.</returns>
+        /// <returns>
+        /// A copy of format in which the format items have been replaced by the string
+        /// representation of the corresponding objects in <paramref name="args"/>.
+        /// </returns>
         public static string ToString(this string source, params object[] args) =>
             source.ToString(cultureInfo, args);
 
         /// <summary>
-        /// Replaces the format item in a specified string with the string representation of a corresponding object in a specified array.
-        /// This also takes into account that <paramref name="source"/> can be an inline text for the TextBlock
+        /// Replaces the format item in a specified string with the string representation of a
+        /// corresponding object in a specified array. This also takes into account that <paramref
+        /// name="source"/> can be an inline text for the TextBlock
         /// </summary>
         /// <param name="source">The formatted string</param>
         /// <param name="provider">An object that supplies culture-specific formatting information</param>
         /// <param name="args">An object array that contains zero or more objects to format.</param>
-        /// <returns>A copy of format in which the format items have been replaced by the string representation of the corresponding objects in <paramref name="args"/>.</returns>
+        /// <returns>
+        /// A copy of format in which the format items have been replaced by the string
+        /// representation of the corresponding objects in <paramref name="args"/>.
+        /// </returns>
         public static string ToString(this string source, IFormatProvider provider, params object[] args)
         {
             if (source.StartsWith("<Inline>") && source.EndsWith("</Inline>"))
@@ -833,25 +897,31 @@ namespace Cauldron.Core.Extensions
         }
 
         /// <summary>
-        /// Converts the value of this instance to its equivalent string representation, using the specified format.
+        /// Converts the value of this instance to its equivalent string representation, using the
+        /// specified format.
         /// <para/>
         /// The following custom formatter are already added: <see cref="ByteSizeFormatter"/>, <see cref="MetricUnitFormatter"/>
         /// </summary>
         /// <param name="obj">The object to convert to string</param>
         /// <param name="format">A standard or custom format string</param>
-        /// <returns>The string representation of the value of this instance as specified by format.</returns>
+        /// <returns>
+        /// The string representation of the value of this instance as specified by format.
+        /// </returns>
         public static string ToStringEx(this object obj, string format) =>
             obj.ToStringEx(format, CultureInfo.CurrentCulture);
 
         /// <summary>
-        /// Converts the value of this instance to its equivalent string representation, using the specified format.
+        /// Converts the value of this instance to its equivalent string representation, using the
+        /// specified format.
         /// <para/>
         /// The following custom formatter are already added: <see cref="ByteSizeFormatter"/>, <see cref="MetricUnitFormatter"/>
         /// </summary>
         /// <param name="obj">The object to convert to string</param>
         /// <param name="format">A standard or custom format string</param>
         /// <param name="cultureInfo">An object that supplies culture-specific formatting information</param>
-        /// <returns>The string representation of the value of this instance as specified by format.</returns>
+        /// <returns>
+        /// The string representation of the value of this instance as specified by format.
+        /// </returns>
         public static string ToStringEx(this object obj, string format, CultureInfo cultureInfo) =>
             string.Format(new Formatter(cultureInfo), "{0:" + format.Replace("{", "").Replace("}", "") + "}", obj);
 
@@ -867,7 +937,9 @@ namespace Cauldron.Core.Extensions
         /// </summary>
         /// <param name="target">The string to convert</param>
         /// <returns>Returns an uint that represents the converted string</returns>
-        /// <param name="numberformat">An object that supplies culture-specific formatting information about <paramref name="target"/>.</param>
+        /// <param name="numberformat">
+        /// An object that supplies culture-specific formatting information about <paramref name="target"/>.
+        /// </param>
         public static uint ToUInteger(this string target, NumberFormatInfo numberformat)
         {
             uint result;
@@ -898,7 +970,9 @@ namespace Cauldron.Core.Extensions
         /// </summary>
         /// <param name="target">The string to convert</param>
         /// <returns>Returns a ulong that represents the converted string</returns>
-        /// <param name="numberformat">An object that supplies culture-specific formatting information about <paramref name="target"/>.</param>
+        /// <param name="numberformat">
+        /// An object that supplies culture-specific formatting information about <paramref name="target"/>.
+        /// </param>
         public static ulong ToULong(this string target, NumberFormatInfo numberformat)
         {
             ulong result;
@@ -910,7 +984,7 @@ namespace Cauldron.Core.Extensions
         }
 
         /// <summary>
-        /// Tries to convert a <see cref="string"/> to an <see cref="ulong"/>  using the en-US number format
+        /// Tries to convert a <see cref="string"/> to an <see cref="ulong"/> using the en-US number format
         /// </summary>
         /// <param name="target">The string to convert</param>
         /// <returns>Returns a ulong that represents the converted string</returns>
@@ -918,34 +992,12 @@ namespace Cauldron.Core.Extensions
             target.ToULong(numberFormatInfoEnUs);
 
         /// <summary>
-        /// Returns a 16-bit signed integer converted from four bytes at a specified position in a byte array.
+        /// Returns a 16-bit signed integer converted from four bytes at a specified position in a
+        /// byte array.
         /// </summary>
         /// <param name="target">An array of bytes.</param>
         /// <returns>A 16-bit signed integer formed by four bytes</returns>
-        public static ushort ToUshort(this byte[] target) => BitConverter.ToUInt16(target, 0);
-
-        /// <summary>
-        /// Tries to convert a <see cref="string"/> to an <see cref="ushort"/>
-        /// </summary>
-        /// <param name="target">The string to convert</param>
-        /// <returns>Returns an int that represents the converted string</returns>
-        public static ushort ToUshort(this string target) => target.ToUshort(cultureInfo.NumberFormat);
-
-        /// <summary>
-        /// Tries to convert a <see cref="string"/> to an <see cref="ushort"/>
-        /// </summary>
-        /// <param name="target">The string to convert</param>
-        /// <returns>Returns an int that represents the converted string</returns>
-        /// <param name="numberformat">An object that supplies culture-specific formatting information about <paramref name="target"/>.</param>
-        public static ushort ToUshort(this string target, NumberFormatInfo numberformat)
-        {
-            ushort result;
-
-            if (ushort.TryParse(target, NumberStyles.Any, numberformat, out result))
-                return result;
-
-            return ushort.MinValue;
-        }
+        public static ushort ToUShort(this byte[] target) => BitConverter.ToUInt16(target, 0);
 
         /// <summary>
         /// Tries to convert a <see cref="string"/> to an <see cref="ushort"/>
@@ -960,7 +1012,9 @@ namespace Cauldron.Core.Extensions
         /// </summary>
         /// <param name="target">The string to convert</param>
         /// <returns>Returns a ushort that represents the converted string</returns>
-        /// <param name="numberformat">An object that supplies culture-specific formatting information about <paramref name="target"/>.</param>
+        /// <param name="numberformat">
+        /// An object that supplies culture-specific formatting information about <paramref name="target"/>.
+        /// </param>
         public static ushort ToUShort(this string target, NumberFormatInfo numberformat)
         {
             ushort result;
@@ -975,16 +1029,8 @@ namespace Cauldron.Core.Extensions
         /// Tries to convert a <see cref="string"/> to an <see cref="ushort"/> using the en-US number format
         /// </summary>
         /// <param name="target">The string to convert</param>
-        /// <returns>Returns an int that represents the converted string</returns>
-        public static ushort ToUshortUS(this string target) => target.ToUshort(numberFormatInfoEnUs);
-
-        /// <summary>
-        /// Tries to convert a <see cref="string"/> to an <see cref="ushort"/>  using the en-US number format
-        /// </summary>
-        /// <param name="target">The string to convert</param>
         /// <returns>Returns a ushort that represents the converted string</returns>
-        public static ushort ToUShortUS(this string target) =>
-            target.ToUShort(numberFormatInfoEnUs);
+        public static ushort ToUShortUS(this string target) => target.ToUShort(numberFormatInfoEnUs);
 
         private static Encoding ToEncoding(Encodings encoding)
         {

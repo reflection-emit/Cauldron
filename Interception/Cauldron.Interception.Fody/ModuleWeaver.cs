@@ -565,7 +565,9 @@ namespace Cauldron.Interception.Fody
                 .Return()
                 .Replace();
 
-            if (builder.IsReferenced("Cauldron.Activator") && (builder.IsReferenced("Cauldron.XAML") || builder.IsReferenced("System.Xaml") || builder.IsReferenced("Windows.UI.Xaml")))
+            if (builder.IsReferenced("Cauldron.Activator") &&
+                (builder.IsReferenced("Cauldron.XAML") || builder.IsReferenced("System.Xaml") || builder.IsReferenced("Windows.UI.Xaml")) &&
+                (builder.TypeExists("Windows.UI.Xaml.Data.IValueConverter") || builder.TypeExists("System.Windows.Data.IValueConverter") /* Fixes #39 */))
                 AddAttributeToXAMLResources(builder);
 
             if (builder.IsReferenced("Cauldron.Activator"))
