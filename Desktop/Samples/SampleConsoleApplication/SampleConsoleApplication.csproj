@@ -51,6 +51,7 @@
     <Compile Include="EveMarketExecutionGroup.cs" />
     <Compile Include="LocaleSource.cs" />
     <Compile Include="MainExecutionGroup.cs" />
+    <Compile Include="Module.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

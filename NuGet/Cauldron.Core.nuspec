@@ -21,6 +21,7 @@
         <dependency id="Newtonsoft.Json" version="10.0.3" />
         <dependency id="Fody" version="2.1.2" />
       </group>
+      <!--
       <group targetFramework="netstandard1.6">
         <dependency id="Microsoft.Extensions.DependencyModel" version="1.1.2" />
         <dependency id="NETStandard.Library" version="1.6.1" />
@@ -37,6 +38,7 @@
         <dependency id="Newtonsoft.Json" version="10.0.3" />
         <dependency id="Fody" version="2.1.2" />
       </group>
+      -->
       <group targetFramework="net452">
         <dependency id="Cauldron.Interception.Fody" version="1.2.11-beta" />
         <dependency id="Newtonsoft.Json" version="10.0.3" />
@@ -52,6 +54,6 @@
     <file src="..\UWP\Cauldron.Core\bin\Release\Cauldron.Core**" target="lib\uap10.0" />
 
     <!-- Net Standard 1.6 -->
-    <file src="..\NetCore\Cauldron.NetCore.Core\bin\Release\netstandard1.6\Cauldron.Core**" target="lib\netstandard1.6" />
+    <!--<file src="..\NetCore\Cauldron.NetCore.Core\bin\Release\netstandard1.6\Cauldron.Core**" target="lib\netstandard1.6" />-->
   </files>
 </package>

@@ -26,6 +26,7 @@
         <dependency id="Cauldron.Interception.Fody" version="1.2.11-beta" />
         <dependency id="Fody" version="2.1.2" />
       </group>
+      <!--
       <group targetFramework="netstandard1.6">
         <dependency id="NETStandard.Library" version="1.6.1" />
         <dependency id="System.Threading.Tasks" version="4.3.0" />
@@ -34,6 +35,7 @@
         <dependency id="Cauldron.Interception.Fody" version="1.2.11-beta" />
         <dependency id="Fody" version="2.1.2" />
       </group>
+      -->
     </dependencies>
   </metadata>
   <files>
@@ -44,6 +46,6 @@
     <file src="..\UWP\Cauldron.UWP.Activator\bin\Release\Cauldron.Activator**" target="lib\uap10.0" />
 
     <!-- Net Standard 1.6 -->
-    <file src="..\NetCore\Cauldron.NetCore.Activator\bin\Release\netstandard1.6\Cauldron.Activator**" target="lib\netstandard1.6" />
+    <!-- <file src="..\NetCore\Cauldron.NetCore.Activator\bin\Release\netstandard1.6\Cauldron.Activator**" target="lib\netstandard1.6" /> -->
   </files>
 </package>

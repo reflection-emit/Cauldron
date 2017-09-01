@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Desktop", "Desktop", "{45646BEE-05CB-4168-8F1F-291F511B6B76}"
 EndProject
@@ -256,9 +256,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThemeSample", "Desktop\Samp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.UWP.XAML.Extended", "UWP\Cauldron.UWP.XAML.Extended\Cauldron.UWP.XAML.Extended.csproj", "{06854A0A-A368-49E7-B1DA-8BC91841F7C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.NetCore.Core.Test", "NetCore\Unit Tests\Cauldron.NetCore.Core.Test\Cauldron.NetCore.Core.Test.csproj", "{B03CD0D9-F58D-4D98-842C-E17879129514}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cauldron.NetCore.Core.Test", "NetCore\Unit Tests\Cauldron.NetCore.Core.Test\Cauldron.NetCore.Core.Test.csproj", "{B03CD0D9-F58D-4D98-842C-E17879129514}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.NetCore.Activator.Test", "NetCore\Unit Tests\Cauldron.NetCore.Activator.Test\Cauldron.NetCore.Activator.Test.csproj", "{8E613573-7F7C-493B-B1BD-0C19048FDF3F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cauldron.NetCore.Activator.Test", "NetCore\Unit Tests\Cauldron.NetCore.Activator.Test\Cauldron.NetCore.Activator.Test.csproj", "{8E613573-7F7C-493B-B1BD-0C19048FDF3F}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -1563,5 +1563,8 @@ Global
 		{06854A0A-A368-49E7-B1DA-8BC91841F7C6} = {18FF0088-AC5D-4491-91DF-37B55422635B}
 		{B03CD0D9-F58D-4D98-842C-E17879129514} = {0AF540C8-B76C-428F-88B6-22702B082A5D}
 		{8E613573-7F7C-493B-B1BD-0C19048FDF3F} = {0AF540C8-B76C-428F-88B6-22702B082A5D}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {51784082-B5BA-494E-B73D-FCCA59F1E025}
 	EndGlobalSection
 EndGlobal

@@ -132,81 +132,6 @@ namespace Cauldron.Interception.Fody
             }
         }
 
-        private void AddLoadLocalReferencedAssembly(Builder builder)
-        {
-            if (builder.UnusedReference.Length == 0)
-                return;
-
-            var module = builder.GetType("<Module>", SearchContext.Module);
-            var isUWP = builder.TypeExists("Windows.UI.Xaml.ResourceDictionary");
-
-            if (isUWP)
-            {
-                var cauldron = builder.GetType("<Cauldron>", SearchContext.Module);
-                var assembly = builder.GetType("System.Reflection.Assembly").New(x => new { Type = x, Load = x.GetMethod("Load", 1) });
-                // UWP has to actually use any type from the Assembly, so that it is not thrown out
-                // while compiling to Nativ Code CreateAssemblyLoadDummy(builder,
-                // module.CreateStaticConstructor(), assembly.Type, builder.UnusedReference.Select(x
-                // => x.AssemblyDefinition).ToArray());
-
-                module.CreateStaticConstructor().NewCode().Context(x =>
-                {
-                    if (builder.TypeExists("Cauldron.Core.Assemblies"))
-                    {
-                        var introspectionExtensions = builder.GetType("System.Reflection.IntrospectionExtensions").New(y => new { Type = y, GetTypeInfo = y.GetMethod("GetTypeInfo", 1) });
-                        var typeInfo = builder.GetType("System.Reflection.TypeInfo").New(y => new { Type = y, Assembly = y.GetMethod("get_Assembly") });
-                        var assemblies = builder.GetType("Cauldron.Core.AssembliesUWP").New(y => new { Type = y, EntryAssembly = y.GetMethod("set_EntryAssembly", 1) });
-                        x.Call(assemblies.EntryAssembly, x.NewCode().Callvirt(x.NewCode().Call(introspectionExtensions.GetTypeInfo, module), typeInfo.Assembly));
-                    }
-                })
-                .Insert(InsertionPosition.End);
-
-                module.StaticConstructor.CustomAttributes.Add(typeof(MethodImplAttribute), MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization);
-
-                // Add a new interface to <Cauldron> type
-                if (builder.TypeExists("Cauldron.Core.ILoadedAssemblies"))
-                {
-                    var loadedAssembliesInterface = builder.GetType("Cauldron.Core.ILoadedAssemblies").New(x => new { Type = x, ReferencedAssemblies = x.GetMethod("ReferencedAssemblies") });
-                    cauldron.AddInterface(loadedAssembliesInterface.Type);
-                    CreateAssemblyListingArray(builder, cauldron.CreateMethod(Modifiers.Overrrides | Modifiers.Public, builder.MakeArray(assembly.Type), "ReferencedAssemblies"), assembly.Type, builder.ReferencedAssemblies);
-                }
-            }
-            else
-            {
-                var assembly = builder.GetType("System.Reflection.Assembly").New(x => new
-                {
-                    Type = x,
-                    LoadFile = x.GetMethod("LoadFile", 1),
-                    GetAssembly = x.GetMethod("GetAssembly", 1),
-                    Location = x.GetMethod("get_Location")
-                });
-                var path = builder.GetType("System.IO.Path").New(x => new
-                {
-                    GetDirectoryName = x.GetMethod("GetDirectoryName", 1),
-                    Combine = x.GetMethod("Combine", 2)
-                });
-                var file = builder.GetType("System.IO.File").New(x => new
-                {
-                    Exists = x.GetMethod("Exists", 1)
-                });
-
-                module.CreateStaticConstructor().NewCode().Context(x =>
-                {
-                    var currentPath = x.CreateVariable(typeof(string));
-                    x.Call(assembly.GetAssembly, module).Callvirt(assembly.Location).StoreLocal(currentPath);
-                    x.Call(path.GetDirectoryName, currentPath).StoreLocal(currentPath);
-                    var assemblyPathVariable = x.CreateVariable(typeof(string));
-
-                    foreach (var item in builder.UnusedReference)
-                    {
-                        x.Call(path.Combine, currentPath, item.Filename).StoreLocal(assemblyPathVariable);
-                        x.Call(file.Exists, assemblyPathVariable).IsTrue().Then(y => y.Call(assembly.LoadFile, assemblyPathVariable).Pop());
-                    }
-                })
-                .Insert(InsertionPosition.End);
-            }
-        }
-
         private void AddValidatorInits(Builder builder)
         {
             var attributes = builder.FindAttributesByBaseClass("Cauldron.XAML.Validation.ValidatorAttributeBase");
@@ -573,8 +498,84 @@ namespace Cauldron.Interception.Fody
             if (builder.IsReferenced("Cauldron.Activator"))
                 CreateComponentCache(builder, cauldron);
 
-            // Add all unused assembly to modules
-            this.AddLoadLocalReferencedAssembly(builder);
+            this.ExecuteModuleAddition(builder);
+        }
+
+        private void ExecuteModuleAddition(Builder builder)
+        {
+            var @string = builder.GetType(typeof(string));
+            var arrayType = @string.MakeArray();
+
+            // First find a type without namespace and with a static method called OnLoad
+            var onLoadMethods = builder.GetTypes(SearchContext.Module)
+                .Where(x => x.Namespace == null || x.Namespace == "")
+                .Select(x => x.GetMethod("OnLoad", false, arrayType))
+                .Where(x => x != null);
+
+            if (onLoadMethods.Count() > 1)
+            {
+                this.LogError("There is more than one 'static OnLoad(string[])' in the program.");
+                return;
+            }
+
+            var onLoadMethod = onLoadMethods.FirstOrDefault();
+            if (onLoadMethod == null)
+                return;
+
+            var module = builder.GetType("<Module>", SearchContext.Module);
+
+            module.CreateStaticConstructor().NewCode().Context(x =>
+            {
+                var indexer = 0;
+                var array = x.CreateVariable(arrayType);
+                x.Newarr(@string, builder.UnusedReference.Length + builder.ReferencedAssemblies.Length).StoreLocal(array);
+
+                for (int i = 0; i < builder.UnusedReference.Length; i++)
+                {
+                    x.Load(array);
+                    x.StoreElement(@string, builder.UnusedReference[i].Filename, indexer++);
+                }
+
+                for (int i = 0; i < builder.ReferencedAssemblies.Length; i++)
+                {
+                    x.Load(array);
+                    x.StoreElement(@string, builder.ReferencedAssemblies[i].Name.Name, indexer++);
+                }
+
+                x.Call(onLoadMethod, array);
+            }).Insert(InsertionPosition.End);
+
+            if (builder.TypeExists("Windows.UI.Xaml.ResourceDictionary"))
+            {
+                var cauldron = builder.GetType("<Cauldron>", SearchContext.Module);
+                var assembly = builder.GetType("System.Reflection.Assembly").New(x => new { Type = x, Load = x.GetMethod("Load", 1) });
+                // UWP has to actually use any type from the Assembly, so that it is not thrown out
+                // while compiling to Nativ Code CreateAssemblyLoadDummy(builder,
+                // module.CreateStaticConstructor(), assembly.Type, builder.UnusedReference.Select(x
+                // => x.AssemblyDefinition).ToArray());
+
+                module.CreateStaticConstructor().NewCode().Context(x =>
+                {
+                    if (builder.TypeExists("Cauldron.Core.Assemblies"))
+                    {
+                        var introspectionExtensions = builder.GetType("System.Reflection.IntrospectionExtensions").New(y => new { Type = y, GetTypeInfo = y.GetMethod("GetTypeInfo", 1) });
+                        var typeInfo = builder.GetType("System.Reflection.TypeInfo").New(y => new { Type = y, Assembly = y.GetMethod("get_Assembly") });
+                        var assemblies = builder.GetType("Cauldron.Core.AssembliesUWP").New(y => new { Type = y, EntryAssembly = y.GetMethod("set_EntryAssembly", 1) });
+                        x.Call(assemblies.EntryAssembly, x.NewCode().Callvirt(x.NewCode().Call(introspectionExtensions.GetTypeInfo, module), typeInfo.Assembly));
+                    }
+                })
+                .Insert(InsertionPosition.End);
+
+                module.StaticConstructor.CustomAttributes.Add(typeof(MethodImplAttribute), MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization);
+
+                // Add a new interface to <Cauldron> type
+                if (builder.TypeExists("Cauldron.Core.ILoadedAssemblies"))
+                {
+                    var loadedAssembliesInterface = builder.GetType("Cauldron.Core.ILoadedAssemblies").New(x => new { Type = x, ReferencedAssemblies = x.GetMethod("ReferencedAssemblies") });
+                    cauldron.AddInterface(loadedAssembliesInterface.Type);
+                    CreateAssemblyListingArray(builder, cauldron.CreateMethod(Modifiers.Overrrides | Modifiers.Public, builder.MakeArray(assembly.Type), "ReferencedAssemblies"), assembly.Type, builder.ReferencedAssemblies);
+                }
+            }
         }
 
         private TypeDefinition[] FilterAssemblyList(IEnumerable<AssemblyDefinition> assemblies) =>
