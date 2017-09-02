@@ -35,9 +35,19 @@ namespace Cauldron.Core
 
         static Assemblies()
         {
-            GetAllAssemblies();
-            GetAllCauldronCache();
-            GetAllAssemblyAndResourceNameInfo();
+            try
+            {
+                GetAllAssemblies();
+                GetAllCauldronCache();
+                GetAllAssemblyAndResourceNameInfo();
+            }
+            catch (Exception e)
+            {
+                Output.WriteLineError(e.Message);
+                Output.WriteLineError("This may caused by an invalid assembly or incorrect / mismatching target CPUs");
+
+                throw;
+            }
         }
 
         /// <summary>
@@ -46,7 +56,8 @@ namespace Cauldron.Core
         public static event EventHandler<AssemblyAddedEventArgs> LoadedAssemblyChanged;
 
         /// <summary>
-        /// Gets a collection of <see cref="AssemblyResource"/> that contains all fully qualified filename of embedded resources and thier corresponding <see cref="Assembly"/>
+        /// Gets a collection of <see cref="AssemblyResource"/> that contains all fully qualified
+        /// filename of embedded resources and thier corresponding <see cref="Assembly"/>
         /// </summary>
         public static ConcurrentList<AssemblyResource> AssemblyAndResourceNamesInfo { get; private set; }
 
@@ -99,7 +110,9 @@ namespace Cauldron.Core
         /// Adds a new Assembly to the assembly collection
         /// </summary>
         /// <param name="assembly">The assembly to be added</param>
-        /// <exception cref="NotSupportedException"><paramref name="assembly"/> is a dynamic assembly</exception>
+        /// <exception cref="NotSupportedException">
+        /// <paramref name="assembly"/> is a dynamic assembly
+        /// </exception>
         public static void AddAssembly(Assembly assembly)
         {
             if (assembly.IsDynamic)
@@ -127,12 +140,19 @@ namespace Cauldron.Core
         }
 
         /// <summary>
-        /// Returns the first found <see cref="Assembly"/> that contains an embedded resource with the given resource name
+        /// Returns the first found <see cref="Assembly"/> that contains an embedded resource with
+        /// the given resource name
         /// </summary>
-        /// <param name="resourceInfoName">The end of the fully qualified name of the embedded resource</param>
+        /// <param name="resourceInfoName">
+        /// The end of the fully qualified name of the embedded resource
+        /// </param>
         /// <returns>The first found <see cref="Assembly"/> otherwise returns null</returns>
-        /// <exception cref="ArgumentNullException"><paramref name="resourceInfoName"/> is null</exception>
-        /// <exception cref="ArgumentException">The <paramref name="resourceInfoName"/> parameter is an empty string ("").</exception>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="resourceInfoName"/> is null
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        /// The <paramref name="resourceInfoName"/> parameter is an empty string ("").
+        /// </exception>
         public static Assembly GetFirstAssemblyWithResourceName(string resourceInfoName)
         {
             if (resourceInfoName == null)
@@ -151,14 +171,27 @@ namespace Cauldron.Core
         /// <summary>
         /// Loads the specified manifest resource from this assembly.
         /// </summary>
-        /// <param name="resourceInfoName">The end of the fully qualified name of the embedded resource</param>
-        /// <returns>The manifest resource; or null if no resources were specified during compilation or if the resource is not visible to the caller.</returns>
+        /// <param name="resourceInfoName">
+        /// The end of the fully qualified name of the embedded resource
+        /// </param>
+        /// <returns>
+        /// The manifest resource; or null if no resources were specified during compilation or if
+        /// the resource is not visible to the caller.
+        /// </returns>
         /// <exception cref="ArgumentNullException">The resourceInfoName parameter is null</exception>
-        /// <exception cref="ArgumentException">The resourceInfoName parameter is an empty string</exception>
+        /// <exception cref="ArgumentException">
+        /// The resourceInfoName parameter is an empty string
+        /// </exception>
         /// <exception cref="FileLoadException">A file that was found could not be loaded.</exception>
-        /// <exception cref="FileNotFoundException"><paramref name="resourceInfoName"/> was not found.</exception>
-        /// <exception cref="BadImageFormatException"><paramref name="resourceInfoName"/> is not a valid assembly.</exception>
-        /// <exception cref="NotImplementedException">Resource length is greater than <see cref="Int64.MaxValue"/></exception>
+        /// <exception cref="FileNotFoundException">
+        /// <paramref name="resourceInfoName"/> was not found.
+        /// </exception>
+        /// <exception cref="BadImageFormatException">
+        /// <paramref name="resourceInfoName"/> is not a valid assembly.
+        /// </exception>
+        /// <exception cref="NotImplementedException">
+        /// Resource length is greater than <see cref="Int64.MaxValue"/>
+        /// </exception>
         public static byte[] GetManifestResource(string resourceInfoName)
         {
             if (resourceInfoName == null)
@@ -179,11 +212,20 @@ namespace Cauldron.Core
         /// Loads the specified manifest resource from this assembly.
         /// </summary>
         /// <param name="selector"></param>
-        /// <returns>The manifest resource; or null if no resources were specified during compilation or if the resource is not visible to the caller.</returns>
-        /// <exception cref="ArgumentNullException">The <paramref name="selector"/> parameter is null</exception>
-        /// <exception cref="ArgumentException">The <paramref name="selector"/> parameter is an empty string</exception>
+        /// <returns>
+        /// The manifest resource; or null if no resources were specified during compilation or if
+        /// the resource is not visible to the caller.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// The <paramref name="selector"/> parameter is null
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        /// The <paramref name="selector"/> parameter is an empty string
+        /// </exception>
         /// <exception cref="FileLoadException">A file that was found could not be loaded.</exception>
-        /// <exception cref="NotImplementedException">Resource length is greater than <see cref="Int64.MaxValue"/></exception>
+        /// <exception cref="NotImplementedException">
+        /// Resource length is greater than <see cref="Int64.MaxValue"/>
+        /// </exception>
         public static byte[] GetManifestResource(Func<AssemblyResource, bool> selector)
         {
             if (selector == null)
@@ -209,10 +251,19 @@ namespace Cauldron.Core
         /// <summary>
         /// Returns information about how the given resource has been persisted.
         /// </summary>
-        /// <param name="resourceInfoName">The end of the fully qualified name of the embedded resource</param>
-        /// <returns>An object that is populated with information about the resource's topology, or null if the resource is not found.</returns>
-        /// <exception cref="ArgumentNullException"><paramref name="resourceInfoName"/> is null.</exception>
-        /// <exception cref="ArgumentException">The <paramref name="resourceInfoName"/> parameter is an empty string ("").</exception>
+        /// <param name="resourceInfoName">
+        /// The end of the fully qualified name of the embedded resource
+        /// </param>
+        /// <returns>
+        /// An object that is populated with information about the resource's topology, or null if
+        /// the resource is not found.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="resourceInfoName"/> is null.
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        /// The <paramref name="resourceInfoName"/> parameter is an empty string ("").
+        /// </exception>
         public static ManifestResourceInfo GetManifestResourceInfo(string resourceInfoName)
         {
             if (resourceInfoName == null)
@@ -232,10 +283,18 @@ namespace Cauldron.Core
         /// <summary>
         /// Returns all information about how the given resource has been persisted.
         /// </summary>
-        /// <param name="resourceInfoName">The end of the fully qualified name of the embedded resource</param>
-        /// <returns>An <see cref="List{T}"/> object that is populated with information about the resource's topology</returns>
-        /// <exception cref="ArgumentNullException"><paramref name="resourceInfoName"/> is null.</exception>
-        /// <exception cref="ArgumentException">The <paramref name="resourceInfoName"/> parameter is an empty string ("").</exception>
+        /// <param name="resourceInfoName">
+        /// The end of the fully qualified name of the embedded resource
+        /// </param>
+        /// <returns>
+        /// An <see cref="List{T}"/> object that is populated with information about the resource's topology
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="resourceInfoName"/> is null.
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        /// The <paramref name="resourceInfoName"/> parameter is an empty string ("").
+        /// </exception>
         public static List<AssemblyResource> GetManifestResources(string resourceInfoName)
         {
             if (resourceInfoName == null)
@@ -252,8 +311,12 @@ namespace Cauldron.Core
         /// </summary>
         /// <param name="typeName">The name of the <see cref="Type"/></param>
         /// <returns>The <see cref="Type"/> that is defined by the parameter <paramref name="typeName"/></returns>
-        /// <exception cref="ArgumentNullException">The <paramref name="typeName"/> parameter is null</exception>
-        /// <exception cref="ArgumentException">The <paramref name="typeName"/> parameter is an empty string</exception>
+        /// <exception cref="ArgumentNullException">
+        /// The <paramref name="typeName"/> parameter is null
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        /// The <paramref name="typeName"/> parameter is an empty string
+        /// </exception>
         public static Type GetTypeFromName(string typeName)
         {
             if (typeName == null)
@@ -312,8 +375,8 @@ namespace Cauldron.Core
             assemblies.Add(typeof(Assemblies).GetTypeInfo().Assembly);
 #else
 
-            // Get all assemblies in AppDomain and add them to our list
-            // TODO - This will not work in UWP and Core if compiled to native code
+            // Get all assemblies in AppDomain and add them to our list TODO - This will not work in
+            // UWP and Core if compiled to native code
             var assemblies = new List<Assembly>();
 #endif
 
@@ -340,7 +403,8 @@ namespace Cauldron.Core
                     // Get all referenced Assembly
                     foreach (var referencedAssembly in assembly.GetReferencedAssemblies())
                     {
-                        // We have to do this one by one instead of linq in order to be able to react to loading errors
+                        // We have to do this one by one instead of linq in order to be able to react
+                        // to loading errors
                         try
                         {
                             assemblies.Add(Assembly.Load(referencedAssembly));
@@ -434,7 +498,8 @@ namespace Cauldron.Core
 #else
 
         /// <summary>
-        /// Gets a value that determines if the <see cref="Assembly.GetEntryAssembly"/> or <see cref="Assembly.GetCallingAssembly"/> is in debug mode
+        /// Gets a value that determines if the <see cref="Assembly.GetEntryAssembly"/> or <see
+        /// cref="Assembly.GetCallingAssembly"/> is in debug mode
         /// </summary>
         public static bool IsDebugging
         {
@@ -480,8 +545,8 @@ namespace Cauldron.Core
                     return context.LoadFromAssemblyPath(runtime.Path);
             }
 
-            // The following resolve tries can only be successfull if the dll's name is the same as the simple Assembly name
-            // Try to load it from application directory
+            // The following resolve tries can only be successfull if the dll's name is the same as
+            // the simple Assembly name Try to load it from application directory
             var file = Path.Combine(ApplicationInfo.ApplicationPath.FullName, $"{assemblyName.Name}.dll");
             if (File.Exists(file))
                 return context.LoadFromAssemblyPath(file);
@@ -505,7 +570,8 @@ namespace Cauldron.Core
 
             var assembly = _assemblies.FirstOrDefault(x => x.FullName.GetHashCode() == e.Name.GetHashCode() && x.FullName == e.Name);
 
-            // The following resolve tries can only be successfull if the dll's name is the same as the simple Assembly name
+            // The following resolve tries can only be successfull if the dll's name is the same as
+            // the simple Assembly name
 
             // Try to load it from application directory
             if (assembly == null)
@@ -572,8 +638,9 @@ namespace Cauldron.Core
         /// </summary>
         /// <param name="directory">The directory where the assemblies are located</param>
         /// <param name="filter">
-        /// The search string to match against the names of files in <paramref name="directory"/>. This parameter can contain a combination of
-        /// valid literal path and wildcard (* and ?) characters, but doesn't support regular expressions.
+        /// The search string to match against the names of files in <paramref name="directory"/>.
+        /// This parameter can contain a combination of valid literal path and wildcard (* and ?)
+        /// characters, but doesn't support regular expressions.
         /// </param>
         /// <exception cref="FileLoadException">A file that was found could not be loaded</exception>
         public static void LoadAssembly(DirectoryInfo directory, string filter = "*.dll")
@@ -592,11 +659,19 @@ namespace Cauldron.Core
         /// Loads the contents of an assembly file on the specified path.
         /// </summary>
         /// <param name="fileInfo">The path of filename of the assembly</param>
-        /// <exception cref="NotSupportedException">The <paramref name="fileInfo"/> is a dynamic assembly.</exception>
-        /// <exception cref="ArgumentNullException">The <paramref name="fileInfo"/> parameter is null.</exception>
+        /// <exception cref="NotSupportedException">
+        /// The <paramref name="fileInfo"/> is a dynamic assembly.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        /// The <paramref name="fileInfo"/> parameter is null.
+        /// </exception>
         /// <exception cref="FileLoadException">A file that was found could not be loaded</exception>
-        /// <exception cref="FileNotFoundException">The <paramref name="fileInfo"/> does not exist</exception>
-        /// <exception cref="BadImageFormatException"><paramref name="fileInfo"/> is not a valid assembly.</exception>
+        /// <exception cref="FileNotFoundException">
+        /// The <paramref name="fileInfo"/> does not exist
+        /// </exception>
+        /// <exception cref="BadImageFormatException">
+        /// <paramref name="fileInfo"/> is not a valid assembly.
+        /// </exception>
         public static void LoadAssembly(FileInfo fileInfo)
         {
             if (fileInfo == null)

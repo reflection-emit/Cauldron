@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>Capgemini.Cauldron.XAML</id>
-    <version>1.1.4</version>
+    <version>1.1.5</version>
     <title>Capgemini.Cauldron.XAML</title>
     <authors>Capgemini Deutschland GmbH</authors>
     <owners>Capgemini Deutschland GmbH</owners>
@@ -17,15 +17,15 @@
     <dependencies>
       <group targetFramework="uap10.0">
         <dependency id="Microsoft.NETCore.UniversalWindowsPlatform" version="5.3.3" />
-        <dependency id="Capgemini.Cauldron.Core" version="1.2.11-beta" />
-        <dependency id="Capgemini.Cauldron.Activator" version="1.2.11-beta" />
-        <dependency id="Capgemini.Cauldron.Localization" version="1.2.11-beta" />
+        <dependency id="Capgemini.Cauldron.Core" version="1.2.12-beta" />
+        <dependency id="Capgemini.Cauldron.Activator" version="1.2.12-beta" />
+        <dependency id="Capgemini.Cauldron.Localization" version="1.2.12-beta" />
         <dependency id="PropertyChanged.Fody" version="2.1.3" />
       </group>
       <group targetFramework="net452">
-        <dependency id="Capgemini.Cauldron.Core" version="1.2.11-beta" />
-        <dependency id="Capgemini.Cauldron.Activator" version="1.2.11-beta" />
-        <dependency id="Capgemini.Cauldron.Localization" version="1.2.11-beta" />
+        <dependency id="Capgemini.Cauldron.Core" version="1.2.12-beta" />
+        <dependency id="Capgemini.Cauldron.Activator" version="1.2.12-beta" />
+        <dependency id="Capgemini.Cauldron.Localization" version="1.2.12-beta" />
         <dependency id="PropertyChanged.Fody" version="2.1.3" />
       </group>
     </dependencies>
