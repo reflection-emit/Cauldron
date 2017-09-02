@@ -87,7 +87,7 @@ namespace Cauldron.Core
             // http://stackoverflow.com/questions/1106881/using-the-wpf-dispatcher-in-unit-tests
 
             var frame = new DispatcherFrame();
-            this.dispatcher.Invoke(DispatcherPriority.ContextIdle, new DispatcherOperationCallback(ExitFrame), frame);
+            this.dispatcher.Invoke(DispatcherPriority.SystemIdle, new DispatcherOperationCallback(ExitFrame), frame);
             Dispatcher.PushFrame(frame);
         }
 
