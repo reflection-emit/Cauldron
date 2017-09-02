@@ -132,6 +132,42 @@ namespace Cauldron.Interception.Fody
             }
         }
 
+        private void AddEntranceAssemblyHACK(Builder builder)
+        {
+            if (builder.TypeExists("Cauldron.Core.ILoadedAssemblies"))
+            {
+                var module = builder.GetType("<Module>", SearchContext.Module);
+                var cauldron = builder.GetType("<Cauldron>", SearchContext.Module);
+                var assembly = builder.GetType("System.Reflection.Assembly").New(x => new { Type = x, Load = x.GetMethod("Load", 1) });
+                // UWP has to actually use any type from the Assembly, so that it is not thrown out
+                // while compiling to Nativ Code CreateAssemblyLoadDummy(builder,
+                // module.CreateStaticConstructor(), assembly.Type, builder.UnusedReference.Select(x
+                // => x.AssemblyDefinition).ToArray());
+
+                module.CreateStaticConstructor().NewCode().Context(x =>
+                {
+                    if (builder.TypeExists("Cauldron.Core.Assemblies"))
+                    {
+                        var introspectionExtensions = builder.GetType("System.Reflection.IntrospectionExtensions").New(y => new { Type = y, GetTypeInfo = y.GetMethod("GetTypeInfo", 1) });
+                        var typeInfo = builder.GetType("System.Reflection.TypeInfo").New(y => new { Type = y, Assembly = y.GetMethod("get_Assembly") });
+                        var assemblies = builder.GetType("Cauldron.Core.AssembliesCORE").New(y => new { Type = y, EntryAssembly = y.GetMethod("set_EntryAssembly", 1) });
+                        x.Call(assemblies.EntryAssembly, x.NewCode().Callvirt(x.NewCode().Call(introspectionExtensions.GetTypeInfo, module), typeInfo.Assembly));
+                    }
+                })
+                .Insert(InsertionPosition.End);
+
+                module.StaticConstructor.CustomAttributes.Add(typeof(MethodImplAttribute), MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization);
+
+                // Add a new interface to <Cauldron> type
+                if (builder.TypeExists("Cauldron.Core.ILoadedAssemblies"))
+                {
+                    var loadedAssembliesInterface = builder.GetType("Cauldron.Core.ILoadedAssemblies").New(x => new { Type = x, ReferencedAssemblies = x.GetMethod("ReferencedAssemblies") });
+                    cauldron.AddInterface(loadedAssembliesInterface.Type);
+                    CreateAssemblyListingArray(builder, cauldron.CreateMethod(Modifiers.Overrrides | Modifiers.Public, builder.MakeArray(assembly.Type), "ReferencedAssemblies"), assembly.Type, builder.ReferencedAssemblies);
+                }
+            }
+        }
+
         private void AddValidatorInits(Builder builder)
         {
             var attributes = builder.FindAttributesByBaseClass("Cauldron.XAML.Validation.ValidatorAttributeBase");
@@ -307,7 +343,7 @@ namespace Cauldron.Interception.Fody
             {
                 this.LogInfo("Hardcoding component factory .ctor: " + component.Type.Fullname);
 
-                var componentType = builder.CreateType("", TypeAttributes.Public | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit, $"<>f__IFactoryTypeInfo_{counter++}");
+                var componentType = builder.CreateType("", TypeAttributes.Public | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit, $"<>f__IFactoryTypeInfo_{component.Type.Name}_{counter++}");
                 var componentAttributeField = componentType.CreateField(Modifiers.Private, componentAttribute.Type, "componentAttribute");
                 componentType.AddInterface(factoryTypeInfoInterface);
                 componentTypes.Add(componentType);
@@ -347,6 +383,16 @@ namespace Cauldron.Interception.Fody
                                     return true;
                                 })
                                 .Where(y => y.CustomAttributes.HasAttribute(componentConstructorAttribute))
+                                .Concat(
+                                    component.Type.GetAllProperties().Where(y => y.CustomAttributes.HasAttribute(componentConstructorAttribute))
+                                        .Select(y =>
+                                        {
+                                            y.CustomAttributes.Remove(componentConstructorAttribute);
+                                            y.CustomAttributes.AddEditorBrowsableAttribute(EditorBrowsableState.Never);
+
+                                            return y.Getter;
+                                        })
+                                    )
                                 .OrderBy(y => y.Parameters.Length)
                                 .ToArray();
 
@@ -499,6 +545,7 @@ namespace Cauldron.Interception.Fody
                 CreateComponentCache(builder, cauldron);
 
             this.ExecuteModuleAddition(builder);
+            this.AddEntranceAssemblyHACK(builder);
         }
 
         private void ExecuteModuleAddition(Builder builder)
@@ -544,38 +591,6 @@ namespace Cauldron.Interception.Fody
 
                 x.Call(onLoadMethod, array);
             }).Insert(InsertionPosition.End);
-
-            if (builder.TypeExists("Windows.UI.Xaml.ResourceDictionary"))
-            {
-                var cauldron = builder.GetType("<Cauldron>", SearchContext.Module);
-                var assembly = builder.GetType("System.Reflection.Assembly").New(x => new { Type = x, Load = x.GetMethod("Load", 1) });
-                // UWP has to actually use any type from the Assembly, so that it is not thrown out
-                // while compiling to Nativ Code CreateAssemblyLoadDummy(builder,
-                // module.CreateStaticConstructor(), assembly.Type, builder.UnusedReference.Select(x
-                // => x.AssemblyDefinition).ToArray());
-
-                module.CreateStaticConstructor().NewCode().Context(x =>
-                {
-                    if (builder.TypeExists("Cauldron.Core.Assemblies"))
-                    {
-                        var introspectionExtensions = builder.GetType("System.Reflection.IntrospectionExtensions").New(y => new { Type = y, GetTypeInfo = y.GetMethod("GetTypeInfo", 1) });
-                        var typeInfo = builder.GetType("System.Reflection.TypeInfo").New(y => new { Type = y, Assembly = y.GetMethod("get_Assembly") });
-                        var assemblies = builder.GetType("Cauldron.Core.AssembliesUWP").New(y => new { Type = y, EntryAssembly = y.GetMethod("set_EntryAssembly", 1) });
-                        x.Call(assemblies.EntryAssembly, x.NewCode().Callvirt(x.NewCode().Call(introspectionExtensions.GetTypeInfo, module), typeInfo.Assembly));
-                    }
-                })
-                .Insert(InsertionPosition.End);
-
-                module.StaticConstructor.CustomAttributes.Add(typeof(MethodImplAttribute), MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization);
-
-                // Add a new interface to <Cauldron> type
-                if (builder.TypeExists("Cauldron.Core.ILoadedAssemblies"))
-                {
-                    var loadedAssembliesInterface = builder.GetType("Cauldron.Core.ILoadedAssemblies").New(x => new { Type = x, ReferencedAssemblies = x.GetMethod("ReferencedAssemblies") });
-                    cauldron.AddInterface(loadedAssembliesInterface.Type);
-                    CreateAssemblyListingArray(builder, cauldron.CreateMethod(Modifiers.Overrrides | Modifiers.Public, builder.MakeArray(assembly.Type), "ReferencedAssemblies"), assembly.Type, builder.ReferencedAssemblies);
-                }
-            }
         }
 
         private TypeDefinition[] FilterAssemblyList(IEnumerable<AssemblyDefinition> assemblies) =>
@@ -1413,7 +1428,7 @@ namespace Cauldron.Interception.Fody
                                             member.Property.ReturnType,
                                             y.This,
                                             member.Property.ReturnType.IsArray || member.Property.ReturnType.Implements(typeof(IEnumerable)) ? member.Property.ReturnType.ChildType : null,
-                                            y.NewCode().NewObj(actionObjectCtor, y.NewCode().This, propertySetter)));
+                                            y.NewCode().NewObj(actionObjectCtor, propertySetter)));
                             })
                             .Try(x =>
                             {
@@ -1474,7 +1489,7 @@ namespace Cauldron.Interception.Fody
                                             member.Property.ReturnType,
                                             y.This,
                                             member.Property.ReturnType.IsArray || member.Property.ReturnType.Implements(typeof(IEnumerable)) ? member.Property.ReturnType.ChildType : null,
-                                            y.NewCode().NewObj(actionObjectCtor, y.NewCode().This, propertySetter)));
+                                            y.NewCode().NewObj(actionObjectCtor, propertySetter)));
                             })
                             .Try(x =>
                             {

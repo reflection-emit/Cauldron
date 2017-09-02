@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.Runtime.InteropServices;
 using System.Linq;
-using System.Reflection;
 
 #if WINDOWS_UWP
 
@@ -368,7 +367,7 @@ namespace Cauldron.Core.Extensions
             return UTF8Encoding.UTF8.GetBytes(target).GetHash(algorithm);
 
 #else
-            return sha.ComputeHash(UTF8Encoding.UTF8.GetBytes(target).GetHash(algorithm);
+            return UTF8Encoding.UTF8.GetBytes(target).GetHash(algorithm);
 
 #endif
         }
@@ -417,13 +416,8 @@ namespace Cauldron.Core.Extensions
                 throw new NotSupportedException("Unsupported hash algorithm");
 #else
             if (algorithm == HashAlgorithms.Md5)
-            {
-                var md5 = new MD5CryptoServiceProvider();
-                byte[] textToHash = Encoding.Default.GetBytes(target);
-                byte[] result = md5.ComputeHash(textToHash);
-
-                return System.BitConverter.ToString(result).Replace("-", "");
-            }
+                using (var md5 = new MD5CryptoServiceProvider())
+                    return BitConverter.ToString(md5.ComputeHash(target)).Replace("-", "");
             else if (algorithm == HashAlgorithms.Sha256)
                 using (var sha = SHA256.Create())
                     return Convert.ToBase64String(sha.ComputeHash(target));

@@ -18,6 +18,7 @@ using System.ComponentModel;
 
 using System.Runtime.Loader;
 using Microsoft.Extensions.DependencyModel;
+using System.ComponentModel;
 
 #endif
 
@@ -40,6 +41,13 @@ namespace Cauldron.Core
                 GetAllAssemblies();
                 GetAllCauldronCache();
                 GetAllAssemblyAndResourceNameInfo();
+            }
+            catch (NullReferenceException e)
+            {
+                Output.WriteLineError(e.Message);
+                Output.WriteLineError(e.GetStackTrace());
+
+                throw;
             }
             catch (Exception e)
             {
@@ -361,18 +369,13 @@ namespace Cauldron.Core
 
         private static void GetAllAssemblies()
         {
-#if WINDOWS_UWP
+#if WINDOWS_UWP || NETCORE
             var assemblies = new List<Assembly>();
-            var cauldron = Activator.CreateInstance( AssembliesUWP.EntryAssembly.GetType("<Cauldron>")) as ILoadedAssemblies;
-            assemblies.Add(AssembliesUWP.EntryAssembly);
+            var cauldron = Activator.CreateInstance(AssembliesCORE.EntryAssembly.GetType("<Cauldron>")) as ILoadedAssemblies;
+            assemblies.Add(AssembliesCORE.EntryAssembly);
 
-            if(cauldron != null)
+            if (cauldron != null)
                 assemblies.AddRange(cauldron.ReferencedAssemblies());
-#elif NETCORE
-
-            var assemblies = new List<Assembly>();
-            assemblies.Add(Assembly.GetEntryAssembly());
-            assemblies.Add(typeof(Assemblies).GetTypeInfo().Assembly);
 #else
 
             // Get all assemblies in AppDomain and add them to our list TODO - This will not work in
@@ -458,6 +461,29 @@ namespace Cauldron.Core
             }
         }
     }
+
+#if NETFX_CORE || NETCORE
+
+    /// <exclude/>
+    [EditorBrowsable(EditorBrowsableState.Never)]
+    public static class AssembliesCORE
+    {
+        private static Assembly _entryAssembly;
+
+        /// <exclude/>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static Assembly EntryAssembly
+        {
+            get { return _entryAssembly; }
+            set
+            {
+                if (_entryAssembly == null)
+                    _entryAssembly = value;
+            }
+        }
+    }
+
+#endif
 
     /// <summary>
     /// Contains data of the <see cref="Assemblies.LoadedAssemblyChanged"/> event.
@@ -703,25 +729,4 @@ namespace Cauldron.Core
     }
 
     #endregion Shared methods
-
-#if NETFX_CORE
-    /// <exclude/>
-    [EditorBrowsable(EditorBrowsableState.Never)]
-    public static class AssembliesUWP
-    {
-        /// <exclude/>
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static Assembly EntryAssembly
-        {
-            get { return _entryAssembly; }
-            set
-            {
-                if(_entryAssembly == null)
-                    _entryAssembly = value;
-            }
-        }
-
-        private static Assembly _entryAssembly;
-    }
-#endif
 }

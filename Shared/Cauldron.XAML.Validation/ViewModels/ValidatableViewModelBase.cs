@@ -115,7 +115,7 @@ namespace Cauldron.XAML.Validation.ViewModels
         protected void AddValidatorGroup(string propertyName)
         {
             if (!this.validators.Contains(propertyName))
-                this.validators.Add(new ValidatorGroup(propertyName));
+                this.validators.Add(new ValidatorGroup(this.GetType().GetProperty(propertyName, BindingFlags.Public | BindingFlags.Instance)));
         }
 
         /// <summary>

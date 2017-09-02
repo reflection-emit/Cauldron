@@ -486,9 +486,11 @@ namespace Cauldron.Interception.Cecilator
                 if (!this.method.IsStatic)
                     this.instructions.Append(this.processor.Create(OpCodes.Ldarg_0));
 
+                var startParam = constructor.type.IsDelegate ? 1 : 0;
+
                 for (int i = 1; i < parameters.Length; i++)
                 {
-                    var inst = this.AddParameter(this.processor, constructor.methodDefinition.Parameters[i - 1].ParameterType, parameters[i]);
+                    var inst = this.AddParameter(this.processor, constructor.methodDefinition.Parameters[i - 1 + startParam].ParameterType, parameters[i]);
                     this.instructions.Append(inst.Instructions);
                 }
             }
@@ -497,9 +499,11 @@ namespace Cauldron.Interception.Cecilator
                 if (constructor.methodDefinition.Parameters.Count != parameters.Length)
                     this.LogWarning($"Parameter count of constructor {constructor.Name} does not match with the passed parameters. Expected: {constructor.methodDefinition.Parameters.Count}, is: {parameters.Length}");
 
+                var startParam = constructor.type.IsDelegate ? 1 : 0;
+
                 for (int i = 0; i < parameters.Length; i++)
                 {
-                    var inst = this.AddParameter(this.processor, constructor.methodDefinition.Parameters[i].ParameterType, parameters[i]);
+                    var inst = this.AddParameter(this.processor, constructor.methodDefinition.Parameters[i + startParam].ParameterType, parameters[i]);
                     this.instructions.Append(inst.Instructions);
                 }
             }
@@ -793,6 +797,8 @@ namespace Cauldron.Interception.Cecilator
 
                 if (targetType.FullName == typeof(IntPtr).FullName)
                 {
+                    result.Instructions.Add(processor.Create(method.IsStatic ? OpCodes.Ldnull : OpCodes.Ldarg_0));
+
                     result.Instructions.Add(processor.Create(OpCodes.Ldftn, method.methodReference));
                     result.Type = this.moduleDefinition.TypeSystem.IntPtr;
                 }

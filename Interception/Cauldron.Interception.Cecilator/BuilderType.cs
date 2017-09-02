@@ -38,29 +38,19 @@ namespace Cauldron.Interception.Cecilator
         }
 
         public bool IsAbstract { get { return this.typeDefinition.Attributes.HasFlag(TypeAttributes.Abstract); } }
-
         public bool IsArray { get { return this.typeDefinition != null && (this.typeDefinition.IsArray || this.typeReference.FullName.EndsWith("[]") || this.typeDefinition.FullName.EndsWith("[]")); } }
-
         public bool IsForeign { get { return this.moduleDefinition.Assembly == this.typeDefinition.Module.Assembly; } }
-
         public bool IsGenericType { get { return this.typeDefinition == null || this.typeReference.Resolve() == null; } }
         public bool IsInterface { get { return this.typeDefinition == null ? false : this.typeDefinition.Attributes.HasFlag(TypeAttributes.Interface); } }
-
         public bool IsNullable { get { return this.typeDefinition.FullName == this.moduleDefinition.ImportReference(typeof(Nullable<>)).Resolve().FullName; } }
-
         public bool IsPublic { get { return this.typeDefinition.Attributes.HasFlag(TypeAttributes.Public); } }
-
         public bool IsSealed { get { return this.typeDefinition.Attributes.HasFlag(TypeAttributes.Sealed); } }
-
         public bool IsStatic { get { return this.IsAbstract && this.IsSealed; } }
-
         public bool IsValueType { get { return this.typeDefinition == null ? this.typeReference == null ? false : this.typeReference.IsValueType : this.typeDefinition.IsValueType; } }
-
         public bool IsVoid { get { return this.typeDefinition.FullName == "System.Void"; } }
-
         public string Name { get { return this.typeDefinition.Name; } }
-
         public string Namespace { get { return this.typeDefinition.Namespace; } }
+        public bool IsDelegate => this.typeDefinition.IsDelegate();
 
         public BuilderType GetGenericArgument(int index)
         {

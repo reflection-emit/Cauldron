@@ -12,7 +12,7 @@ namespace Cauldron.XAML.Validation
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = true, Inherited = true)]
     public abstract class ValidatorAttributeBase : Attribute
     {
-        internal PropertyInfo propertyInfo;
+        internal PropertyInfo propertyInfo = null;
 
         /// <summary>
         /// Initializes a new instance of <see cref="ValidatorAttributeBase"/>

@@ -13,11 +13,12 @@ namespace Cauldron.XAML.Validation
     [EditorBrowsable(EditorBrowsableState.Never)]
     public sealed class ValidatorGroup : List<ValidatorAttributeBase>
     {
-        /// <exclude/>
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public ValidatorGroup(string propertyName)
+        private PropertyInfo propertyInfo;
+
+        internal ValidatorGroup(PropertyInfo propertyInfo)
         {
-            this.PropertyName = propertyName;
+            this.propertyInfo = propertyInfo;
+            this.PropertyName = propertyInfo.Name;
         }
 
         /// <exclude/>
@@ -27,6 +28,13 @@ namespace Cauldron.XAML.Validation
         /// <exclude/>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string PropertyName { get; private set; }
+
+        /// <exclude/>
+        public new void Add(ValidatorAttributeBase validator)
+        {
+            base.Add(validator);
+            validator.propertyInfo = this.propertyInfo;
+        }
 
         /// <exclude/>
         [EditorBrowsable(EditorBrowsableState.Never)]
