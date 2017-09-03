@@ -93,6 +93,7 @@ namespace Cauldron.Test
             var vm = Factory.Create<SparrowViewModel>();
             vm.Caption = "01234567890";
 
+            Task.Delay(2000);
             Assert.AreEqual(true, vm.HasErrors);
         }
 

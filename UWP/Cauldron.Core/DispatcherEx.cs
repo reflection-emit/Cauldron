@@ -74,33 +74,38 @@ namespace Cauldron.Core
         /// <summary>
         /// Starts the dispatcher processing the input event queue for this instance of CoreWindow.
         /// <para/>
-        /// Use this method only in unit tests!
-        /// Use the Dispatcher.ProcessEvents (UWP) in game loops directly.
+        /// Use this method only in unit tests! Use the Dispatcher.ProcessEvents (UWP) in game loops directly.
         /// </summary>
         public void ProcessEvents()
         {
             // TODO - Bugged! Does not work well
-            this.dispatcher.RunAsync(CoreDispatcherPriority.High, () =>
-             this.dispatcher.ProcessEvents(CoreProcessEventsOption.ProcessAllIfPresent));
+            this.dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+             this.dispatcher.ProcessEvents(CoreProcessEventsOption.ProcessOneAndAllPending));
         }
 
         /// <summary>
-        /// Executes the specified delegate asynchronously with the specified arguments,
-        /// with priority <see cref="CoreDispatcherPriority.Normal"/>, on the thread that the Dispatcher
+        /// Executes the specified delegate asynchronously with the specified arguments, with
+        /// priority <see cref="CoreDispatcherPriority.Normal"/>, on the thread that the Dispatcher
         /// was created on.
         /// </summary>
-        /// <param name="action">The delegate to a method, which is pushed onto the Dispatcher event queue.</param>
+        /// <param name="action">
+        /// The delegate to a method, which is pushed onto the Dispatcher event queue.
+        /// </param>
         /// <returns>Returns a awaitable task</returns>
         public async Task RunAsync(Action action) =>
                 await this.dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => action());
 
         /// <summary>
-        /// Executes the specified delegate asynchronously with the specified arguments,
-        /// at the specified priority, on the thread that the Dispatcher
-        /// was created on.
+        /// Executes the specified delegate asynchronously with the specified arguments, at the
+        /// specified priority, on the thread that the Dispatcher was created on.
         /// </summary>
-        /// <param name="priority">The priority, relative to the other pending operations in the Dispatcher event queue, the specified method is invoked.</param>
-        /// <param name="action">The delegate to a method, which is pushed onto the Dispatcher event queue.</param>
+        /// <param name="priority">
+        /// The priority, relative to the other pending operations in the Dispatcher event queue, the
+        /// specified method is invoked.
+        /// </param>
+        /// <param name="action">
+        /// The delegate to a method, which is pushed onto the Dispatcher event queue.
+        /// </param>
         /// <returns>Returns a awaitable task</returns>
         /// <exception cref="ArgumentNullException"><paramref name="action"/> is null</exception>
         public async Task RunAsync(CoreDispatcherPriority priority, Action action)

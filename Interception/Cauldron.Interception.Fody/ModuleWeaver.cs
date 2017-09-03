@@ -161,9 +161,19 @@ namespace Cauldron.Interception.Fody
                 // Add a new interface to <Cauldron> type
                 if (builder.TypeExists("Cauldron.Core.ILoadedAssemblies"))
                 {
+                    var referencedAssembliesFromOtherAssemblies = builder
+                        .FindTypesByInterface(SearchContext.AllReferencedModules, "Cauldron.Core.ILoadedAssemblies")
+                        .Select(x => x.GetMethod("ReferencedAssemblies"))
+                        .SelectMany(x => x.GetTokens())
+                        .Where(x => x != null)
+                        .Select(x => x.Module.Assembly);
+
                     var loadedAssembliesInterface = builder.GetType("Cauldron.Core.ILoadedAssemblies").New(x => new { Type = x, ReferencedAssemblies = x.GetMethod("ReferencedAssemblies") });
                     cauldron.AddInterface(loadedAssembliesInterface.Type);
-                    CreateAssemblyListingArray(builder, cauldron.CreateMethod(Modifiers.Overrrides | Modifiers.Public, builder.MakeArray(assembly.Type), "ReferencedAssemblies"), assembly.Type, builder.ReferencedAssemblies);
+
+                    CreateAssemblyListingArray(builder,
+                        cauldron.CreateMethod(Modifiers.Overrrides | Modifiers.Public, builder.MakeArray(assembly.Type), "ReferencedAssemblies"),
+                        assembly.Type, builder.ReferencedAssemblies.Concat(referencedAssembliesFromOtherAssemblies).Distinct());
                 }
             }
         }
@@ -203,7 +213,7 @@ namespace Cauldron.Interception.Fody
             }
         }
 
-        private void CreateAssemblyListingArray(Builder builder, Method method, BuilderType assemblyType, AssemblyDefinition[] assembliesToList)
+        private void CreateAssemblyListingArray(Builder builder, Method method, BuilderType assemblyType, IEnumerable<AssemblyDefinition> assembliesToList)
         {
             var introspectionExtensions = builder.GetType("System.Reflection.IntrospectionExtensions").New(y => new { Type = y, GetTypeInfo = y.GetMethod("GetTypeInfo", 1) });
             var typeInfo = builder.GetType("System.Reflection.TypeInfo").New(y => new { Type = y, Assembly = y.GetMethod("get_Assembly") });

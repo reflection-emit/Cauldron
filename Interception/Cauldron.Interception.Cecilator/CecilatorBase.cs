@@ -88,7 +88,12 @@ namespace Cauldron.Interception.Cecilator
         }
 
         public string Identification { get; private set; }
-        public AssemblyDefinition[] ReferencedAssemblies { get { return this.moduleDefinition.AssemblyReferences.Select(x => this.moduleDefinition.AssemblyResolver.Resolve(x)).ToArray(); } }
+
+        public AssemblyDefinition[] ReferencedAssemblies =>
+            this.moduleDefinition.AssemblyReferences
+                .Where(x => x.Name != "Microsoft.VisualStudio.TestPlatform.UnitTestFramework")
+                .Select(x => this.moduleDefinition.AssemblyResolver.Resolve(x)).ToArray();
+
         public AssemblyDefinitionEx[] UnusedReference { get; private set; }
 
         public static string GenerateName() => Path.GetRandomFileName().Replace(".", DateTime.Now.Second.ToString());

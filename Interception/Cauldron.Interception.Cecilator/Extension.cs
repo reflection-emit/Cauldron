@@ -98,8 +98,8 @@ namespace Cauldron.Interception.Cecilator
                         // We have to make some exceptions to dictionaries
                         var ienumerableInterface = genericInstances.FirstOrDefault(x => x.FullName.StartsWith("System.Collections.Generic.IDictionary`2<"));
 
-                        // If we have more than 1 generic argument then we try to get a IEnumerable<> interface
-                        // otherwise we just return the last argument in the list
+                        // If we have more than 1 generic argument then we try to get a IEnumerable<>
+                        // interface otherwise we just return the last argument in the list
                         if (ienumerableInterface == null)
                             ienumerableInterface = genericInstances.FirstOrDefault(x => x.FullName.StartsWith("System.Collections.Generic.IEnumerable`1<"));
 
@@ -119,8 +119,7 @@ namespace Cauldron.Interception.Cecilator
             if (result != null)
                 return result;
 
-            // This might be a type that inherits from list<> or something...
-            // lets find out
+            // This might be a type that inherits from list<> or something... lets find out
             if (type.Resolve().GetInterfaces().Any(x => x.FullName == "System.Collections.Generic.IEnumerable`1"))
             {
                 // if this is the case we will dig until we find a generic instance type
@@ -215,14 +214,22 @@ namespace Cauldron.Interception.Cecilator
                 if (typeDef == null)
                     break;
 
-                if (typeDef.BaseType == null && (typeDef.Interfaces == null || typeDef.Interfaces.Count == 0))
+                try
+                {
+                    if (typeDef.BaseType == null && (typeDef.Interfaces == null || typeDef.Interfaces.Count == 0))
+                        break;
+
+                    if (typeDef.Interfaces != null && typeDef.Interfaces.Count > 0)
+                        result.AddRange(type.Recursive(x => x.Resolve().Interfaces.Select(y => y.InterfaceType)).Select(x => x.ResolveType(type)));
+
+                    type = typeDef.BaseType;
+
+                    typeDef = type?.Resolve();
+                }
+                catch
+                {
                     break;
-
-                if (typeDef.Interfaces != null && typeDef.Interfaces.Count > 0)
-                    result.AddRange(type.Recursive(x => x.Resolve().Interfaces.Select(y => y.InterfaceType)).Select(x => x.ResolveType(type)));
-
-                type = typeDef.BaseType;
-                typeDef = type?.Resolve();
+                }
             };
 
             return result;

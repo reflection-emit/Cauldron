@@ -158,6 +158,21 @@ namespace Cauldron.Interception.Cecilator
             return null;
         }
 
+        public IEnumerable<TypeReference> GetTokens() => this.methodDefinition.Body.Instructions
+            .Where(x => x.OpCode == OpCodes.Ldtoken)
+            .Select(x =>
+            {
+                try
+                {
+                    return x.Operand as TypeReference;
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
+            })
+            .Where(x => x != null);
+
         public bool HasMethodBaseCall()
         {
             var first = this.methodDefinition.Body.Instructions
