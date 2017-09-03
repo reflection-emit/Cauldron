@@ -16,12 +16,6 @@
     <tags>Toolkit Capgemini Cauldron Interception interceptor interception AOP Fody Cecil CIL ILWeaving</tags>
     <dependencies>
       <dependency id="Fody" version="2.1.2" />
-
-      <!--
-      <group targetFramework="netstandard1.6">
-        <dependency id="NETStandard.Library" version="1.6.1" />
-      </group>
-      -->
     </dependencies>
   </metadata>
   <files>
@@ -37,7 +31,7 @@
     <file src="..\UWP\Cauldron.UWP.Interception\bin\Release\Cauldron.Interception**" target="lib\uap10.0" />
 
     <!-- Net Standard 1.6 -->
-    <!--<file src="..\NetCore\Cauldron.NetCore.Interception\bin\Release\netstandard1.6\Cauldron.Interception**" target="lib\netstandard1.6" />-->
+    <file src="..\NetCore\Cauldron.NetCore.Interception\bin\Release\netstandard2.0\Cauldron.Interception**" target="lib\netstandard2.0" />
 
     <file src="Fody\**" target="tools" />
   </files>
