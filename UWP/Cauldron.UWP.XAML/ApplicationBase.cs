@@ -72,9 +72,8 @@ namespace Cauldron.XAML
         }
 
         /// <summary>
-        /// Gets or sets a value that indicates whether to display frame-rate and per-frame
-        /// CPU usage info. These display as an overlay of counters in the window chrome
-        /// while the app runs.
+        /// Gets or sets a value that indicates whether to display frame-rate and per-frame CPU usage
+        /// info. These display as an overlay of counters in the window chrome while the app runs.
         /// </summary>
         public bool EnableFrameRateCounter
         {
@@ -186,7 +185,9 @@ namespace Cauldron.XAML
         /// Occured before the <see cref="PropertyChanged"/> event is invoked.
         /// </summary>
         /// <param name="propertyName">The name of the property where the value change has occured</param>
-        /// <returns>Returns true if <see cref="RaisePropertyChanged(string)"/> should be cancelled. Otherwise false</returns>
+        /// <returns>
+        /// Returns true if <see cref="RaisePropertyChanged(string)"/> should be cancelled. Otherwise false
+        /// </returns>
         protected virtual bool BeforeRaiseNotifyPropertyChanged(string propertyName) => false;
 
         /// <summary>
@@ -212,9 +213,12 @@ namespace Cauldron.XAML
         }
 
         /// <summary>
-        /// Occures if the application is activated by a URI whose scheme name this app is registered to handle.
+        /// Occures if the application is activated by a URI whose scheme name this app is registered
+        /// to handle.
         /// </summary>
-        /// <param name="uri">Gets the Uniform Resource Identifier (URI) for which the app was activated.</param>
+        /// <param name="uri">
+        /// Gets the Uniform Resource Identifier (URI) for which the app was activated.
+        /// </param>
         protected virtual void OnActivationProtocol(Uri uri)
         {
         }
@@ -225,7 +229,7 @@ namespace Cauldron.XAML
         protected virtual Task OnAppVisible() => Task.FromResult(0);
 
         /// <summary>
-        /// Invoked when the application is launched normally by the end user.  Other entry points
+        /// Invoked when the application is launched normally by the end user. Other entry points
         /// will be used such as when the application is launched to open a specific file.
         /// </summary>
         /// <param name="e">Details about the launch request and process.</param>
@@ -253,8 +257,8 @@ namespace Cauldron.XAML
                 await this.OnPreload();
             }
 
-            // Do not repeat app initialization when the Window already has content,
-            // just ensure that the window is active
+            // Do not repeat app initialization when the Window already has content, just ensure that
+            // the window is active
             if (rootFrame == null)
             {
                 Window.Current.VisibilityChanged -= Current_VisibilityChanged;
@@ -280,8 +284,8 @@ namespace Cauldron.XAML
             }
 
             if (rootFrame.Content == null)
-                // When the navigation stack isn't restored navigate to the first page,
-                // configuring the new page by passing required information as a navigation parameter
+                // When the navigation stack isn't restored navigate to the first page, configuring
+                // the new page by passing required information as a navigation parameter
                 await this.OnStartup(e);
 
             // Ensure the current window is active
@@ -324,9 +328,9 @@ namespace Cauldron.XAML
         }
 
         /// <summary>
-        /// Invoked when application execution is being suspended.  Application state is saved
-        /// without knowing whether the application will be terminated or resumed with the contents
-        /// of memory still intact.
+        /// Invoked when application execution is being suspended. Application state is saved without
+        /// knowing whether the application will be terminated or resumed with the contents of memory
+        /// still intact.
         /// </summary>
         /// <param name="e">Details about the suspend request.</param>
         protected virtual async Task OnSaveStateAsync(SuspendingEventArgs e)
@@ -373,7 +377,14 @@ namespace Cauldron.XAML
             this.Resources.Add(typeof(CauldronTemplateSelector).Name, new CauldronTemplateSelector());
 
             // Add all Value converters to the dictionary
-            Factory.CreateMany<IValueConverter>().Foreach(x => this.Resources.Add(x.GetType().Name, x));
+            Factory.CreateMany<IValueConverter>().Foreach(x =>
+            {
+                var name = x.GetType().Name;
+                if (!this.Resources.ContainsKey(name))
+                    this.Resources.Add(name, x);
+                else
+                    Output.WriteLineError("Multiple ValueConverters with the same name found: " + name);
+            });
 
             // find all resourcedictionaries and add them to the existing resources
             Assemblies.CauldronObjects
@@ -396,9 +407,9 @@ namespace Cauldron.XAML
         }
 
         /// <summary>
-        /// Invoked when application execution is being suspended.  Application state is saved
-        /// without knowing whether the application will be terminated or resumed with the contents
-        /// of memory still intact.
+        /// Invoked when application execution is being suspended. Application state is saved without
+        /// knowing whether the application will be terminated or resumed with the contents of memory
+        /// still intact.
         /// </summary>
         /// <param name="sender">The source of the suspend request.</param>
         /// <param name="e">Details about the suspend request.</param>

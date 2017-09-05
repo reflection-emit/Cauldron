@@ -17,6 +17,8 @@ namespace ThemeSample.ViewModels
         public ObservableCollection<string> Items { get; private set; } = new ObservableCollection<string>();
         public string Title { get { return "Listbox Test"; } }
 
+        public bool CanClose() => true;
+
         public void Close() => MessageManager.Send(new CreateNewTabMessageArgs(this, typeof(TestViewModel)));
     }
 }

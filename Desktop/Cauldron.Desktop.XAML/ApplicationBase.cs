@@ -55,7 +55,15 @@ namespace Cauldron.XAML
             this.Resources.Add(typeof(CauldronTemplateSelector).Name, new CauldronTemplateSelector());
 
             // Add all Value converters to the dictionary
-            Factory.CreateMany<IValueConverter>().Foreach(x => this.Resources.Add(x.GetType().Name, x));
+            Factory.CreateMany<IValueConverter>().Foreach(x =>
+            {
+                var name = x.GetType().Name;
+
+                if (!this.Resources.Contains(name))
+                    this.Resources.Add(name, x);
+                else
+                    Output.WriteLineError("Multiple ValueConverters with the same name found: " + name);
+            });
 
             // find all resourcedictionaries and add them to the existing resources
             Assemblies.CauldronObjects

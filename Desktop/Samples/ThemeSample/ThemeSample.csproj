@@ -63,6 +63,7 @@
     <Compile Include="App.cs" />
     <Compile Include="CreateNewTabMessageArgs.cs" />
     <Compile Include="LocaleSource.cs" />
+    <Compile Include="Module.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
