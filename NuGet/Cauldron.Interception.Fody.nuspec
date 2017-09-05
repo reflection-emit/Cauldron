@@ -25,7 +25,7 @@
     <file src="..\Interception\Cauldron.Interception.Cecilator\bin\Release\Cauldron.Interception.Cecilator.pdb" target="Cauldron.Interception.Cecilator.pdb" />
 
     <!-- Desktop -->
-    <file src="..\Desktop\Cauldron.Desktop.Interception\bin\Release\Cauldron.Interception**" target="lib\net452" />
+    <file src="..\Desktop\Cauldron.Desktop.Interception\bin\Release\Cauldron.Interception**" target="lib\net461" />
 
     <!-- UWP -->
     <file src="..\UWP\Cauldron.UWP.Interception\bin\Release\Cauldron.Interception**" target="lib\uap10.0" />
