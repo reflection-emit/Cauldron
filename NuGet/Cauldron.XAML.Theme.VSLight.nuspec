@@ -16,13 +16,13 @@
     <tags>Toolkit Capgemini Cauldron XAML WPF Theme Skin</tags>
     <dependencies>
       <group targetFramework="net452">
-        <dependency id="Capgemini.Cauldron.Core" version="1.2.13-beta" />
-        <dependency id="Capgemini.Cauldron.Activator" version="1.2.13-beta" />
-        <dependency id="Capgemini.Cauldron.Localization" version="1.2.13-beta" />
-        <dependency id="Capgemini.Cauldron.XAML" version="1.2.13-beta" />
-        <dependency id="Capgemini.Cauldron.XAML.Interactivity" version="1.2.13-beta" />
-        <dependency id="Capgemini.Cauldron.XAML.Validation" version="1.2.13-beta" />
-        <dependency id="Capgemini.Cauldron.Cryptography" version="1.2.13-beta" />
+        <dependency id="Capgemini.Cauldron.Core" version="1.2.14-beta" />
+        <dependency id="Capgemini.Cauldron.Activator" version="1.2.14-beta" />
+        <dependency id="Capgemini.Cauldron.Localization" version="1.2.14-beta" />
+        <dependency id="Capgemini.Cauldron.XAML" version="1.2.14-beta" />
+        <dependency id="Capgemini.Cauldron.XAML.Interactivity" version="1.2.14-beta" />
+        <dependency id="Capgemini.Cauldron.XAML.Validation" version="1.2.14-beta" />
+        <dependency id="Capgemini.Cauldron.Cryptography" version="1.2.14-beta" />
         <dependency id="PropertyChanged.Fody" version="2.1.3" />
       </group>
     </dependencies>
