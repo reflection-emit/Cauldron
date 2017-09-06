@@ -1405,6 +1405,18 @@ namespace Cauldron.Interception.Fody
                         else
                             setterCode.Load(member.Property.BackingField).Callvirt(addRange, propertySetter.NewCode().GetParameter(0));
                     }
+                    else if (member.Property.BackingField.FieldType.IsEnum)
+                    {
+                        // Enums requires special threatment
+                        setterCode.Load(propertySetter.NewCode().GetParameter(0)).Is(typeof(string)).Then(x =>
+                        {
+                            var stringVariable = setterCode.CreateVariable(typeof(string));
+                            setterCode.Assign(stringVariable).Set(x.NewCode().GetParameter(0));
+                            setterCode.Assign(member.Property.BackingField).Set(stringVariable).Return();
+                        });
+
+                        setterCode.Assign(member.Property.BackingField).Set(propertySetter.NewCode().GetParameter(0));
+                    }
                     else
                         setterCode.Assign(member.Property.BackingField).Set(propertySetter.NewCode().GetParameter(0));
                 }

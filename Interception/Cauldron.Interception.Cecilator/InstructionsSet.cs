@@ -480,8 +480,8 @@ namespace Cauldron.Interception.Cecilator
             }
             else if (parameters.Length > 0 && parameters[0] is Crumb && (parameters[0] as Crumb).CrumbType == CrumbTypes.This)
             {
-                if (constructor.methodDefinition.Parameters.Count + 1 != parameters.Length)
-                    this.LogWarning($"Parameter count of constructor {constructor.Name} does not match with the passed parameters. Expected: {constructor.methodDefinition.Parameters.Count}, is: {parameters.Length}");
+                //if (constructor.methodDefinition.Parameters.Count + 1 != parameters.Length)
+                //    this.LogWarning($"Parameter count of constructor {constructor.Name} does not match with the passed parameters. Expected: {constructor.methodDefinition.Parameters.Count}, is: {parameters.Length}");
 
                 if (!this.method.IsStatic)
                     this.instructions.Append(this.processor.Create(OpCodes.Ldarg_0));
@@ -496,8 +496,8 @@ namespace Cauldron.Interception.Cecilator
             }
             else
             {
-                if (constructor.methodDefinition.Parameters.Count != parameters.Length)
-                    this.LogWarning($"Parameter count of constructor {constructor.Name} does not match with the passed parameters. Expected: {constructor.methodDefinition.Parameters.Count}, is: {parameters.Length}");
+                //if (constructor.methodDefinition.Parameters.Count != parameters.Length)
+                //    this.LogWarning($"Parameter count of constructor {constructor.Name} does not match with the passed parameters. Expected: {constructor.methodDefinition.Parameters.Count}, is: {parameters.Length}");
 
                 var startParam = constructor.type.IsDelegate ? 1 : 0;
 
@@ -857,6 +857,19 @@ namespace Cauldron.Interception.Cecilator
                 result.Instructions.Add(processor.Create(OpCodes.Isinst, this.moduleDefinition.ImportReference(targetType)));
             else if (targetDef.IsEnum)
             {
+                if (result.Type.FullName == typeof(string).FullName)
+                {
+                    result.Instructions.InsertRange(0, this.TypeOf(processor, targetType));
+
+                    result.Instructions.AddRange(this.TypeOf(processor, this.moduleDefinition.ImportReference(targetType)));
+                    result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.ImportReference(this.moduleDefinition.ImportReference(typeof(Enum)).GetMethodReference("GetUnderlyingType", new Type[] { typeof(Type) }))));
+                    result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.ImportReference(this.moduleDefinition.ImportReference(typeof(Convert)).GetMethodReference("ChangeType", new Type[] { typeof(object), typeof(Type) }))));
+                    result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.ImportReference(this.moduleDefinition.ImportReference(typeof(Enum)).GetMethodReference("ToObject", new Type[] { typeof(Type), typeof(object) }))));
+                    result.Instructions.Add(processor.Create(OpCodes.Unbox_Any, targetType));
+                }
+                else
+                    result.Instructions.Add(processor.Create(OpCodes.Unbox_Any, targetType));
+
                 // Bug #23
                 //result.Instructions.InsertRange(0, this.TypeOf(processor, targetType));
 
@@ -864,8 +877,6 @@ namespace Cauldron.Interception.Cecilator
                 //result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.ImportReference(this.moduleDefinition.ImportReference(typeof(Enum)).GetMethodReference("GetUnderlyingType", new Type[] { typeof(Type) }))));
                 //result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.ImportReference(this.moduleDefinition.ImportReference(typeof(Convert)).GetMethodReference("ChangeType", new Type[] { typeof(object), typeof(Type) }))));
                 //result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.ImportReference(this.moduleDefinition.ImportReference(typeof(Enum)).GetMethodReference("ToObject", new Type[] { typeof(Type), typeof(object) }))));
-
-                result.Instructions.Add(processor.Create(OpCodes.Unbox_Any, targetType));
             }
             else if (result.Type.FullName == typeof(object).FullName && (targetType.IsArray || targetDef.FullName.StartsWith("System.Collections.Generic.IEnumerable`1")))
             {
@@ -1171,8 +1182,8 @@ namespace Cauldron.Interception.Cecilator
             }
             else
             {
-                if (method.Parameters.Length != parameters.Length)
-                    this.LogWarning($"Parameter count of method {method.Name} does not match with the passed parameters. Expected: {method.Parameters.Length}, is: {parameters.Length}");
+                //if (method.Parameters.Length != parameters.Length)
+                //    this.LogWarning($"Parameter count of method {method.Name} does not match with the passed parameters. Expected: {method.Parameters.Length}, is: {parameters.Length}");
 
                 if ((method.DeclaringType.IsInterface || method.IsAbstract) && opcode != OpCodes.Calli)
                     opcode = OpCodes.Callvirt;
@@ -1347,6 +1358,14 @@ namespace Cauldron.Interception.Cecilator
                 return this.CreateVariable(method.DeclaringType);
 
             return this.CreateVariable(method.ReturnType);
+        }
+
+        public LocalVariable CreateVariable(TypeReference type)
+        {
+            var newVariable = new VariableDefinition(this.moduleDefinition.ImportReference(type));
+            var name = "<>var_" + CecilatorBase.GenerateName();
+            this.method.AddLocalVariable(name, newVariable);
+            return new LocalVariable(this.method.type, newVariable, name);
         }
 
         public LocalVariable CreateVariable(BuilderType type)

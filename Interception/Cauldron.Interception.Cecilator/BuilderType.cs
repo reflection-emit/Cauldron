@@ -39,6 +39,7 @@ namespace Cauldron.Interception.Cecilator
 
         public bool IsAbstract { get { return this.typeDefinition.Attributes.HasFlag(TypeAttributes.Abstract); } }
         public bool IsArray { get { return this.typeDefinition != null && (this.typeDefinition.IsArray || this.typeReference.FullName.EndsWith("[]") || this.typeDefinition.FullName.EndsWith("[]")); } }
+        public bool IsEnum { get { return this.typeDefinition.IsEnum; } }
         public bool IsForeign { get { return this.moduleDefinition.Assembly == this.typeDefinition.Module.Assembly; } }
         public bool IsGenericType { get { return this.typeDefinition == null || this.typeReference.Resolve() == null; } }
         public bool IsInterface { get { return this.typeDefinition == null ? false : this.typeDefinition.Attributes.HasFlag(TypeAttributes.Interface); } }
