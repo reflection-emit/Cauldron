@@ -57,12 +57,20 @@ namespace Cauldron.Interception.Cecilator
                 previousInstruction = previousInstruction.Previous;
 
             if (previousInstruction.Operand is MethodReference)
-                declaringType = (previousInstruction.Operand as MethodReference).DeclaringType;
+            {
+                var methodReference = previousInstruction.Operand as MethodReference;
+                var declaringTypeDefinition = methodReference.DeclaringType.Resolve();
+
+                if (declaringTypeDefinition.IsAbstract && declaringTypeDefinition.IsSealed)
+                    declaringType = methodReference.Resolve().ReturnType.ResolveType(methodReference);
+                else
+                    declaringType = methodReference.DeclaringType;
+            }
             else if (previousInstruction.OpCode == OpCodes.Ldarg_0 ||
-               previousInstruction.OpCode == OpCodes.Ldarg_1 ||
-               previousInstruction.OpCode == OpCodes.Ldarg_2 ||
-               previousInstruction.OpCode == OpCodes.Ldarg_3 ||
-               previousInstruction.OpCode == OpCodes.Ldarg_S)
+              previousInstruction.OpCode == OpCodes.Ldarg_1 ||
+              previousInstruction.OpCode == OpCodes.Ldarg_2 ||
+              previousInstruction.OpCode == OpCodes.Ldarg_3 ||
+              previousInstruction.OpCode == OpCodes.Ldarg_S)
             {
                 TypeReference parameter;
 
@@ -117,7 +125,8 @@ namespace Cauldron.Interception.Cecilator
         {
             this.instruction.Operand = method.methodReference;
 
-            // If we know this method has only one param (Because easy to do), we should try to check the type and and try a cast if needed
+            // If we know this method has only one param (Because easy to do), we should try to check
+            // the type and and try a cast if needed
             var parameters = method.Parameters;
             if (parameters.Length == 1)
             {
