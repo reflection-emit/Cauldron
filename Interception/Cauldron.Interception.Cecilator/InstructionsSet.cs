@@ -857,12 +857,14 @@ namespace Cauldron.Interception.Cecilator
                 result.Instructions.Add(processor.Create(OpCodes.Isinst, this.moduleDefinition.ImportReference(targetType)));
             else if (targetDef.IsEnum)
             {
-                result.Instructions.InsertRange(0, this.TypeOf(processor, targetType));
+                // Bug #23
+                //result.Instructions.InsertRange(0, this.TypeOf(processor, targetType));
 
-                result.Instructions.AddRange(this.TypeOf(processor, this.moduleDefinition.ImportReference(targetType)));
-                result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.ImportReference(this.moduleDefinition.ImportReference(typeof(Enum)).GetMethodReference("GetUnderlyingType", new Type[] { typeof(Type) }))));
-                result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.ImportReference(this.moduleDefinition.ImportReference(typeof(Convert)).GetMethodReference("ChangeType", new Type[] { typeof(object), typeof(Type) }))));
-                result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.ImportReference(this.moduleDefinition.ImportReference(typeof(Enum)).GetMethodReference("ToObject", new Type[] { typeof(Type), typeof(object) }))));
+                //result.Instructions.AddRange(this.TypeOf(processor, this.moduleDefinition.ImportReference(targetType)));
+                //result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.ImportReference(this.moduleDefinition.ImportReference(typeof(Enum)).GetMethodReference("GetUnderlyingType", new Type[] { typeof(Type) }))));
+                //result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.ImportReference(this.moduleDefinition.ImportReference(typeof(Convert)).GetMethodReference("ChangeType", new Type[] { typeof(object), typeof(Type) }))));
+                //result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.ImportReference(this.moduleDefinition.ImportReference(typeof(Enum)).GetMethodReference("ToObject", new Type[] { typeof(Type), typeof(object) }))));
+
                 result.Instructions.Add(processor.Create(OpCodes.Unbox_Any, targetType));
             }
             else if (result.Type.FullName == typeof(object).FullName && (targetType.IsArray || targetDef.FullName.StartsWith("System.Collections.Generic.IEnumerable`1")))
