@@ -36,7 +36,7 @@ https://Capgemini.github.io/Cauldron/eveonline/
   - ComponentConstructor attributes are now no longer removed after weaving
 - Locale class can now be injected without causing an error during Assembly verification
 - Singleton<> base class component construtor attribute removed, because it is redundant and causes errors.
-- <S>NetCore versions of Cauldron.Interception, Cauldron.Core and Cauldron.Activator are now part of the NuGet package again.</S>
+- NetCore versions of Cauldron.Interception, Cauldron.Core and Cauldron.Activator are now part of the NuGet package again.
 - Password scoring now works a bit better
 - Inline text for TextBlock fixed
 - XAML.Validation is now awaitable
