@@ -106,7 +106,15 @@ namespace Cauldron.Core.Extensions
                 if (op != null)
                     return op.Invoke(null, new object[] { source }) as T;
 
+                op = sourceType.GetMethod("op_Implicit", new Type[] { sourceType }, BindingFlags.Static | BindingFlags.Public);
+                if (op != null)
+                    return op.Invoke(null, new object[] { source }) as T;
+
                 op = targetType.GetMethod("op_Explicit", new Type[] { sourceType }, BindingFlags.Static | BindingFlags.Public);
+                if (op != null)
+                    return op.Invoke(null, new object[] { source }) as T;
+
+                op = sourceType.GetMethod("op_Explicit", new Type[] { sourceType }, BindingFlags.Static | BindingFlags.Public);
                 if (op != null)
                     return op.Invoke(null, new object[] { source }) as T;
             }
