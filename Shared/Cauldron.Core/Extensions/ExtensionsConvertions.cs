@@ -35,7 +35,8 @@ namespace Cauldron.Core.Extensions
 
         /// <summary>
         /// Performs a cast between compatible reference types. If a convertion is not possible then
-        /// null is returned.
+        /// null is returned. As a last resort it will use <see
+        /// cref="System.Convert.ChangeType(object, Type)"/>.
         /// <para/>
         /// Tries to use the implicit and explicit operators if exists when convertion with 'as'
         /// returns null.
@@ -92,34 +93,88 @@ namespace Cauldron.Core.Extensions
         /// </example>
         public static T As<T>(this object source) where T : class
         {
-            if (source == null)
-                return null;
-
             var result = source as T;
 
-            if (result == null)
+            if (result == null && source != null)
             {
-                var targetType = typeof(T);
-                var sourceType = source.GetType();
+                var method = ImplicitExplicitConvertionCache.Get(source.GetType(), typeof(T));
+                if (method != null)
+                    return method(source) as T;
 
-                var op = targetType.GetMethod("op_Implicit", new Type[] { sourceType }, BindingFlags.Static | BindingFlags.Public);
-                if (op != null)
-                    return op.Invoke(null, new object[] { source }) as T;
-
-                op = sourceType.GetMethod("op_Implicit", new Type[] { sourceType }, BindingFlags.Static | BindingFlags.Public);
-                if (op != null)
-                    return op.Invoke(null, new object[] { source }) as T;
-
-                op = targetType.GetMethod("op_Explicit", new Type[] { sourceType }, BindingFlags.Static | BindingFlags.Public);
-                if (op != null)
-                    return op.Invoke(null, new object[] { source }) as T;
-
-                op = sourceType.GetMethod("op_Explicit", new Type[] { sourceType }, BindingFlags.Static | BindingFlags.Public);
-                if (op != null)
-                    return op.Invoke(null, new object[] { source }) as T;
+                return System.Convert.ChangeType(source, typeof(T)) as T;
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Converts a type using the implicit or explicit operators. If both fails it will try to
+        /// convert the value with <see cref="System.Convert.ChangeType(object, Type)"/>.
+        /// </summary>
+        /// <param name="source">The object to convert</param>
+        /// <param name="sourceType">The type of the object to convert</param>
+        /// <param name="targetType">The type to convert to</param>
+        /// <returns>A new instance of <paramref name="targetType"/>.</returns>
+        /// <example>
+        /// <code>
+        /// public class Bla
+        /// {
+        ///     public string Value { get; set; }
+        ///
+        ///     public static implicit operator Bla(string value) =&gt; new Bla { Value = value };
+        ///
+        ///     public static implicit operator Bla(int value) =&gt; new Bla { Value = value.ToString() };
+        /// }
+        /// </code>
+        /// The code can be called like following:
+        /// <code>
+        /// var bar = "Test Test".As(typeof(string), typeof(Bla));
+        /// </code>
+        /// </example>
+        public static object As(this object source, Type sourceType, Type targetType)
+        {
+            var method = ImplicitExplicitConvertionCache.Get(sourceType, targetType);
+            if (method != null)
+                return method(source);
+
+            return System.Convert.ChangeType(source, targetType);
+        }
+
+        /// <summary>
+        /// Converts a type using the implicit or explicit operators. If both fails it will try to
+        /// convert the value with <see cref="System.Convert.ChangeType(object, Type)"/>.
+        /// </summary>
+        /// <param name="source">The object to convert</param>
+        /// <param name="targetType">The type to convert to</param>
+        /// <returns>A new instance of <paramref name="targetType"/>.</returns>
+        /// <example>
+        /// <code>
+        /// public class Bla
+        /// {
+        ///     public string Value { get; set; }
+        ///
+        ///     public static implicit operator Bla(string value) =&gt; new Bla { Value = value };
+        ///
+        ///     public static implicit operator Bla(int value) =&gt; new Bla { Value = value.ToString() };
+        /// }
+        /// </code>
+        /// The code can be called like following:
+        /// <code>
+        /// var bar = "Test Test".As(typeof(Bla));
+        /// </code>
+        /// </example>
+        public static object As(this object source, Type targetType)
+        {
+            if (source != null)
+            {
+                var method = ImplicitExplicitConvertionCache.Get(source.GetType(), targetType);
+                if (method != null)
+                    return method(source);
+
+                return System.Convert.ChangeType(source, targetType);
+            }
+
+            return null;
         }
 
         /// <summary>
@@ -230,16 +285,9 @@ namespace Cauldron.Core.Extensions
             if (targetType == typeof(TimeSpan)) return TimeSpan.Parse(value);
             if (targetType == typeof(Guid)) return Guid.Parse(value);
 
-            var op = targetType.GetMethod("op_Implicit", new Type[] { typeof(string) }, BindingFlags.Static | BindingFlags.Public);
-
+            var op = ImplicitExplicitConvertionCache.Get(typeof(string), targetType);
             if (op != null)
-                return op.Invoke(null, new object[] { value });
-
-            if (op == null)
-                op = targetType.GetMethod("op_Explicit", new Type[] { typeof(string) }, BindingFlags.Static | BindingFlags.Public);
-
-            if (op != null)
-                return op.Invoke(null, new object[] { value });
+                return op(value);
 
             return targetType.GetDefaultInstance();
         }

@@ -20,6 +20,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ComparerUtils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Compression.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ConnectionGenerationTypes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\ImplicitExplicitConvertionCache.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)KeyRawValueDictionary.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TypeIsInterfaceException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DateTimeUtils.cs" />
