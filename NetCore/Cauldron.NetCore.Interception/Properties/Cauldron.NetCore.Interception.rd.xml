@@ -28,7 +28,7 @@
   <Library Name="Cauldron.Core">
 
     <!-- add directives for your library here -->
-    <Type Name="System.IEquatable{T}">
+    <Type Name="Cauldron.Interception.IInterceptor">
       <Subtypes Dynamic="Required Public" />
     </Type>
   </Library>

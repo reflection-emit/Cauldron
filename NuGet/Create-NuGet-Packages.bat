@@ -31,7 +31,7 @@ goto:eof
 write-colored Green --------------------------
 set nuspec=%~1
 write-colored Cyan Creating NuGet Packages %nuspec%
-nuget.exe pack %nuspec% -OutputDir %~dp0Packages -version 1.2.16-beta
+nuget.exe pack %nuspec% -OutputDir %~dp0Packages -version 1.2.17-beta
 goto:eof
 
 echo on

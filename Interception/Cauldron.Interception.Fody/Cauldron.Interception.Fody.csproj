@@ -49,6 +49,9 @@
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -71,11 +74,13 @@ copy $(TargetDir)$(TargetFileName) $(SolutionDir)packages\Cauldron.Interception.
 copy $(TargetDir)$(TargetName).pdb $(SolutionDir)packages\Cauldron.Interception.Fody.99.9.9
 copy $(TargetDir)Cauldron.Interception.Cecilator.dll $(SolutionDir)packages\Cauldron.Interception.Fody.99.9.9
 copy $(TargetDir)Cauldron.Interception.Cecilator.pdb $(SolutionDir)packages\Cauldron.Interception.Fody.99.9.9
+copy $(TargetDir)System.ValueTuple.dll $(SolutionDir)packages\Cauldron.Interception.Fody.99.9.9
 mkdir $(SolutionDir)Tools\Cauldron.Interception.Fody.99.9.9
 copy $(TargetDir)$(TargetFileName) $(SolutionDir)Tools\Cauldron.Interception.Fody.99.9.9
 copy $(TargetDir)$(TargetName).pdb $(SolutionDir)Tools\Cauldron.Interception.Fody.99.9.9
 copy $(TargetDir)Cauldron.Interception.Cecilator.dll $(SolutionDir)Tools\Cauldron.Interception.Fody.99.9.9
-copy $(TargetDir)Cauldron.Interception.Cecilator.pdb $(SolutionDir)Tools\Cauldron.Interception.Fody.99.9.9</PostBuildEvent>
+copy $(TargetDir)Cauldron.Interception.Cecilator.pdb $(SolutionDir)Tools\Cauldron.Interception.Fody.99.9.9
+copy $(TargetDir)System.ValueTuple.dll $(SolutionDir)Tools\Cauldron.Interception.Fody.99.9.9</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

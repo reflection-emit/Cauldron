@@ -327,7 +327,7 @@ namespace Cauldron.Interception.Cecilator
 
         public static bool Implements(this TypeReference type, string interfaceName) => type.GetInterfaces().Any(x => x.FullName == interfaceName);
 
-        public static int IndexOf(this Mono.Collections.Generic.Collection<Instruction> instructions, int offset)
+        public static int IndexOf(this IList<Instruction> instructions, int offset)
         {
             for (int i = 0; i < instructions.Count; i++)
                 if (instructions[i].Offset == offset)
@@ -451,10 +451,29 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
+        internal static void InsertAfter(this ILProcessor processor, int index, IEnumerable<Instruction> instructions)
+        {
+            var last = processor.Body.Instructions[index];
+
+            foreach (var instruction in instructions)
+            {
+                processor.InsertAfter(last, instruction);
+                last = instruction;
+            }
+        }
+
         internal static void InsertBefore(this ILProcessor processor, Instruction target, Instruction[] instructions) => processor.InsertBefore(target, instructions as IEnumerable<Instruction>);
 
         internal static void InsertBefore(this ILProcessor processor, Instruction target, IEnumerable<Instruction> instructions)
         {
+            foreach (var instruction in instructions)
+                processor.InsertBefore(target, instruction);
+        }
+
+        internal static void InsertBefore(this ILProcessor processor, int index, IEnumerable<Instruction> instructions)
+        {
+            var target = processor.Body.Instructions[index];
+
             foreach (var instruction in instructions)
                 processor.InsertBefore(target, instruction);
         }

@@ -3,10 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Collections;
 
 namespace Cauldron.Interception.Cecilator
 {
-    internal class InstructionContainer
+    internal class InstructionContainer : IList<Instruction>
     {
         private readonly List<ExceptionHandler> exceptionHandlers = new List<ExceptionHandler>();
         private readonly List<Instruction> instruction = new List<Instruction>();
@@ -31,7 +32,15 @@ namespace Cauldron.Interception.Cecilator
 
         public List<ExceptionHandler> ExceptionHandlers { get { return this.exceptionHandlers; } }
 
+        bool ICollection<Instruction>.IsReadOnly => false;
+
         public Instruction this[int index] { get { return this.instruction[index]; } }
+
+        Instruction IList<Instruction>.this[int index]
+        {
+            get => this[index];
+            set { }
+        }
 
         public static implicit operator Instruction[] (InstructionContainer a) => a.instruction.ToArray();
 
@@ -48,6 +57,10 @@ namespace Cauldron.Interception.Cecilator
         public InstructionContainer Clone() => new InstructionContainer();
 
         public Instruction First() => this.instruction.Count == 0 ? null : this.instruction[0];
+
+        public IEnumerator<Instruction> GetEnumerator() => this.instruction.GetEnumerator();
+
+        public int IndexOf(Instruction item) => this.instruction.IndexOf(item);
 
         public void Insert(int index, Instruction item) => this.instruction.Insert(index, item);
 
@@ -86,6 +99,18 @@ namespace Cauldron.Interception.Cecilator
 
             return sb.ToString();
         }
+
+        void ICollection<Instruction>.Add(Instruction item) => this.instruction.Add(item);
+
+        bool ICollection<Instruction>.Contains(Instruction item) => this.instruction.Contains(item);
+
+        void ICollection<Instruction>.CopyTo(Instruction[] array, int arrayIndex) => this.instruction.CopyTo(array, arrayIndex);
+
+        IEnumerator IEnumerable.GetEnumerator() => this.instruction.GetEnumerator();
+
+        bool ICollection<Instruction>.Remove(Instruction item) => this.instruction.Remove(item);
+
+        void IList<Instruction>.RemoveAt(int index) => this.instruction.RemoveAt(index);
 
         internal Instruction[] ToArray() => this.instruction.ToArray();
     }

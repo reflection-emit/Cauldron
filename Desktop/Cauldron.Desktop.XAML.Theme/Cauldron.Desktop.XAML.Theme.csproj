@@ -57,6 +57,7 @@
     <Compile Include="InlineTextValueConverter.cs" />
     <Compile Include="ListBoxProperties.cs" />
     <Compile Include="ListViewBehaviour.cs" />
+    <Compile Include="Module.cs" />
     <Compile Include="PasswordBoxBehaviour.cs" />
     <Compile Include="PasswordBoxProperties.cs" />
     <Compile Include="ProgressBarBehaviour.cs" />

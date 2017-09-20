@@ -12,5 +12,14 @@ namespace Cauldron.Interception.Cecilator
             this.method = method;
             this.instruction = instruction;
         }
+
+        public Method Method => this.method;
+
+        public Position Next => new Position(this.method, this.instruction.Next);
+        public Position Previous => new Position(this.method, this.instruction.Previous);
+
+        public bool IsOpCode(OpCode opcode) => this.instruction.OpCode == opcode;
+
+        public override string ToString() => this.instruction.ToString();
     }
 }

@@ -27,7 +27,9 @@
 <Directives xmlns="http://schemas.microsoft.com/netfx/2013/01/metadata">
   <Library Name="Cauldron.UWP.Interception">
 
-  	<!-- add directives for your library here -->
-
+    <!-- add directives for your library here -->
+    <Type Name="Cauldron.Interception.IInterceptor">
+      <Subtypes Dynamic="Required Public" />
+    </Type>
   </Library>
 </Directives>

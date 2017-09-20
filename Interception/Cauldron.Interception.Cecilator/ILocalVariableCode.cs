@@ -54,7 +54,7 @@ namespace Cauldron.Interception.Cecilator
 
         ICode NewObj(Method constructor, params object[] parameters);
 
-        ICode OriginalBody();
+        ICode OriginalBodyNewMethod();
 
         ICode Return();
 

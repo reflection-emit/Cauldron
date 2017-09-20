@@ -1,5 +1,6 @@
 ﻿using Cauldron.Interception.Cecilator;
 using Mono.Cecil;
+using Mono.Cecil.Cil;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -726,7 +727,7 @@ namespace Cauldron.Interception.Fody
                             x.Load(cache).IsNull().Then(y =>
                             {
                                 // TODO - Dont create a new method
-                                y.Assign(cache).Set(y.NewCode().OriginalBody()).Return();
+                                y.Assign(cache).Set(y.NewCode().OriginalBodyNewMethod()).Return();
                             })
                             .Load(cache).Return();
                         })
@@ -1135,12 +1136,12 @@ namespace Cauldron.Interception.Fody
                 if (method.Key.AsyncMethod != null && !targetedMethod.DeclaringType.Fields.Any(x => x.Name == "<>4__this"))
                 {
                     var thisField = targetedMethod.DeclaringType.CreateField(Modifiers.Public, attributedMethod.DeclaringType, "<>4__this");
-                    var position = targetedMethod.AsyncMethodHelper.GetAsyncTaskMethodBuilderInitialization();
-                    attributedMethod.NewCode()
-                        .LoadVariable(0)
-                        .Assign(thisField)
-                        .Set(attributedMethod.NewCode().This)
-                        .Insert(InsertionAction.After, position);
+                    var position = attributedMethod.AsyncMethodHelper.GetAsyncTaskMethodBuilderInitialization();
+
+                    if (position == null)
+                        attributedMethod.NewCode().LoadVariable(0).Assign(thisField).Set(attributedMethod.NewCode().This).Insert(InsertionPosition.Beginning);
+                    else
+                        attributedMethod.NewCode().LoadVariable(0).Assign(thisField).Set(attributedMethod.NewCode().This).Insert(InsertionAction.After, position);
                 }
 
                 var typeInstance = method.Key.AsyncMethod == null ? (object)targetedMethod.NewCode().This : targetedMethod.DeclaringType.Fields.FirstOrDefault(x => x.Name == "<>4__this");

@@ -5,7 +5,6 @@
     xmlns:local="using:StandardApplication.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:a="using:Cauldron.XAML.Interactivity.Attached"
     xmlns:i="using:Cauldron.XAML.Interactivity"
     mc:Ignorable="d"
     Width="300" Height="150">
@@ -15,7 +14,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <TextBox a:Localized.Text="Enter anything" Text="{Binding AText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+        <TextBox i:Localized.Text="Enter anything" Text="{Binding AText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Stretch">
             <i:Interaction.Behaviours>
                 <i:SetFocusOnLoad />
             </i:Interaction.Behaviours>

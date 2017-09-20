@@ -121,6 +121,8 @@ namespace Cauldron.Interception.Cecilator
 
         ICode OriginalBody();
 
+        ICode OriginalBodyNewMethod();
+
         ICode Pop();
 
         ICode Return();

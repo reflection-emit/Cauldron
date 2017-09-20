@@ -18,7 +18,7 @@ namespace Cauldron.XAML.Validation
         /// Initializes a new instance of <see cref="ValidatorAttributeBase"/>
         /// </summary>
         /// <param name="errorMessageKey">The key of the localized error message string</param>
-        internal ValidatorAttributeBase(string errorMessageKey)
+        protected ValidatorAttributeBase(string errorMessageKey)
         {
             this.ErrorMessageKey = errorMessageKey;
         }

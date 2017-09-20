@@ -4,7 +4,7 @@
     /// Represents an interceptor that can intercept a property's getter and setter method
     /// </summary>
 
-    public interface IPropertyInterceptor : IPropertyGetterInterceptor, IPropertySetterInterceptor
+    public interface IPropertyInterceptor : IPropertyGetterInterceptor, IPropertySetterInterceptor, IInterceptor
     {
     }
 }

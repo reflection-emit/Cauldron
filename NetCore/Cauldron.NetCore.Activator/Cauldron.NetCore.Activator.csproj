@@ -17,6 +17,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Properties\Cauldron.NetCore.Activator.rd.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Cauldron.NetCore.Core\Cauldron.NetCore.Core.csproj" />
     <ProjectReference Include="..\Cauldron.NetCore.Interception\Cauldron.NetCore.Interception.csproj" />
   </ItemGroup>

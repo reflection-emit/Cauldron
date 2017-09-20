@@ -17,10 +17,11 @@ namespace Cauldron.Interception.Cecilator
         {
             var result = this.method.methodDefinition.Body.Instructions.FirstOrDefault(x => x.OpCode == OpCodes.Newobj && (x.Operand as MethodDefinition ?? x.Operand as MethodReference).Name == ".ctor");
 
+            // If the result is null then probably the helper class is a struct
             if (result == null)
-                return new Position(this.method, this.method.methodDefinition.Body.Instructions[0]);
+                return null;
 
-            return new Position(this.method, result.Next);
+            return new Position(this.method, result);
         }
     }
 }

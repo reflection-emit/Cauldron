@@ -122,7 +122,6 @@ namespace Cauldron.Interception.Cecilator
             if (method != null)
                 return new Method(this.method.DeclaringType, method);
 
-            var jumps = new List<Tuple<int, int>>();
             var attributes = MethodAttributes.CompilerControlled;
 
             if (modifiers.HasFlag(Modifiers.Private)) attributes |= MethodAttributes.Private;
@@ -144,91 +143,7 @@ namespace Cauldron.Interception.Cecilator
             method.Body.InitLocals = this.method.methodDefinition.Body.InitLocals;
 
             this.method.DeclaringType.typeDefinition.Methods.Add(method);
-            var methodProcessor = method.Body.GetILProcessor();
-
-            var instructionAction = new Func<Instruction, int, Instruction>((item, i) =>
-            {
-                var operand = item.Operand as Instruction;
-                var index = this.method.methodDefinition.Body.Instructions.IndexOf(operand?.Offset ?? item.Offset);
-                jumps.Add(new Tuple<int, int>(i, index));
-
-                var instruction = methodProcessor.Create(OpCodes.Nop);
-                instruction.OpCode = item.OpCode;
-                return instruction;
-            });
-
-            for (int i = 0; i < this.method.methodDefinition.Body.Instructions.Count; i++)
-            {
-                var item = this.method.methodDefinition.Body.Instructions[i];
-
-                if (item.Operand is Instruction)
-                    methodProcessor.Append(instructionAction(item, i));
-                else if (item.Operand is Instruction[])
-                {
-                    var instructions = item.Operand as Instruction[];
-                    var newInstructions = new Instruction[instructions.Length];
-                    for (int x = 0; x < instructions.Length; x++)
-                        newInstructions[x] = instructionAction(instructions[x], i);
-
-                    var instruction = methodProcessor.Create(OpCodes.Nop);
-                    instruction.OpCode = item.OpCode;
-                    instruction.Operand = newInstructions;
-
-                    methodProcessor.Append(instruction);
-                }
-                //else if (item.Operand is CallSite )
-                //    throw new NotImplementedException($"Unknown operand '{item.OpCode.ToString()}' '{item.Operand.GetType().FullName}'");
-                else
-                {
-                    var instruction = methodProcessor.Create(OpCodes.Nop);
-                    instruction.OpCode = item.OpCode;
-                    instruction.Operand = item.Operand;
-                    methodProcessor.Append(instruction);
-
-                    // Set the correct variable def if required
-                    var variable = instruction.Operand as VariableDefinition;
-                    if (variable != null)
-                        instruction.Operand = method.Body.Variables[variable.Index];
-                }
-            }
-
-            foreach (var j in jumps.GroupBy(x => x.Item1))
-            {
-                if (methodProcessor.Body.Instructions[j.Key].OpCode == OpCodes.Switch)
-                {
-                    var instructions = new List<Instruction>();
-
-                    foreach (var switches in j)
-                        instructions.Add(methodProcessor.Body.Instructions[switches.Item2]);
-
-                    methodProcessor.Body.Instructions[j.Key].Operand = instructions.ToArray();
-                }
-                else
-                    methodProcessor.Body.Instructions[j.Key].Operand = methodProcessor.Body.Instructions[j.First().Item2];
-            }
-
-            var getInstruction = new Func<Instruction, Instruction>(x =>
-            {
-                if (x == null)
-                    return null;
-
-                var index = this.method.methodDefinition.Body.Instructions.IndexOf(x.Offset);
-                return method.Body.Instructions[index];
-            });
-
-            foreach (var item in this.method.methodDefinition.Body.ExceptionHandlers)
-            {
-                var handler = new ExceptionHandler(item.HandlerType)
-                {
-                    CatchType = item.CatchType,
-                    FilterStart = getInstruction(item.FilterStart),
-                    HandlerEnd = getInstruction(item.HandlerEnd),
-                    HandlerStart = getInstruction(item.HandlerStart),
-                    TryEnd = getInstruction(item.TryEnd),
-                    TryStart = getInstruction(item.TryStart)
-                };
-                method.Body.ExceptionHandlers.Add(handler);
-            }
+            CopyMethod(method);
 
             method.Body.OptimizeMacros();
 
@@ -531,6 +446,35 @@ namespace Cauldron.Interception.Cecilator
 
         public ICode OriginalBody()
         {
+            var instructions = CopyMethodBody(this.method.methodDefinition, this.method.methodDefinition.Body.Variables);
+
+            if (this.method.methodDefinition.ReturnType.FullName == "System.Void")
+            {
+                // On void method we just simply remove the return and replace all other jumps to the
+                // ret instruction with a ret instruction
+                var returnInstruction = instructions.Instructions.Last();
+
+                foreach (var item in instructions.Instructions)
+                {
+                    if (item.Operand == returnInstruction)
+                    {
+                        item.Operand = null;
+                        item.OpCode = OpCodes.Ret;
+                    }
+                }
+
+                this.instructions.Append(instructions.Instructions.Take(instructions.Instructions.Count() - 1 /* Removes the ret instruction */));
+            }
+            else
+                this.instructions.Append(instructions.Instructions.Take(instructions.Instructions.Count() - 1 /* Removes the ret instruction */));
+
+            this.instructions.ExceptionHandlers.AddRange(instructions.Exceptions);
+
+            return this;
+        }
+
+        public ICode OriginalBodyNewMethod()
+        {
             var newMethod = this.Copy(Modifiers.Private, $"<{this.method.Name}>m__original");
 
             for (int i = 0; i < this.method.Parameters.Length + (this.method.IsStatic ? 0 : 1); i++)
@@ -545,6 +489,18 @@ namespace Cauldron.Interception.Cecilator
         {
             this.instructions.Append(this.processor.Create(OpCodes.Pop));
             return this;
+        }
+
+        public (Position Beginning, Position End) Replace(Position position)
+        {
+            if (position.instruction == null)
+                throw new ArgumentNullException(nameof(position.instruction));
+
+            var index = this.method.methodDefinition.Body.Instructions.IndexOf(position.instruction);
+            processor.Remove(position.instruction);
+            processor.InsertBefore(index, this.instructions);
+
+            return (new Position(this.method, this.instructions[0]), new Position(this.method, this.instructions.Last()));
         }
 
         public void Replace()
@@ -833,6 +789,11 @@ namespace Cauldron.Interception.Cecilator
                     throw new NotSupportedException("Nope... Not gonna work... Use NewCode() if you want to pass an instructions set as parameters.");
 
                 result.Instructions.AddRange(instruction.instructions.ToArray());
+            }
+            else if (parameter is Position)
+            {
+                var instruction = (parameter as Position).instruction;
+                result.Instructions.Add(instruction);
             }
             else if (parameter is IEnumerable<Instruction>)
             {
@@ -1162,6 +1123,24 @@ namespace Cauldron.Interception.Cecilator
             return value;
         }
 
+        private static void SetCorrectJumpPoints(List<(int CurrentIndex, int Index)> jumps, IList<Instruction> methodInstructions)
+        {
+            foreach (var j in jumps.GroupBy(x => x.CurrentIndex))
+            {
+                if (methodInstructions[j.Key].OpCode == OpCodes.Switch)
+                {
+                    var instructions = new List<Instruction>();
+
+                    foreach (var switches in j)
+                        instructions.Add(methodInstructions[switches.Index]);
+
+                    methodInstructions[j.Key].Operand = instructions.ToArray();
+                }
+                else
+                    methodInstructions[j.Key].Operand = methodInstructions[j.First().Index];
+            }
+        }
+
         private ICode CallInternal(object instance, Method method, OpCode opcode, params object[] parameters)
         {
             if (instance != null)
@@ -1205,6 +1184,96 @@ namespace Cauldron.Interception.Cecilator
                 this.StoreCall();
 
             return this;
+        }
+
+        private ExceptionHandler Copy(ExceptionHandler original, IList<Instruction> instructionList) => new ExceptionHandler(original.HandlerType)
+        {
+            CatchType = original.CatchType,
+            FilterStart = GetInstruction(original.FilterStart, instructionList),
+            HandlerEnd = GetInstruction(original.HandlerEnd, instructionList),
+            HandlerStart = GetInstruction(original.HandlerStart, instructionList),
+            TryEnd = GetInstruction(original.TryEnd, instructionList),
+            TryStart = GetInstruction(original.TryStart, instructionList)
+        };
+
+        private void CopyMethod(MethodDefinition method)
+        {
+            var methodProcessor = method.Body.GetILProcessor();
+            var instructions = CopyMethodBody(this.method.methodDefinition, this.method.methodDefinition.Body.Variables);
+            methodProcessor.Append(instructions.Instructions);
+
+            foreach (var item in instructions.Exceptions)
+                method.Body.ExceptionHandlers.Add(item);
+        }
+
+        private (IEnumerable<Instruction> Instructions, IEnumerable<ExceptionHandler> Exceptions) CopyMethodBody(MethodDefinition originalMethod, IList<VariableDefinition> variableDefinition)
+        {
+            var methodProcessor = originalMethod.Body.GetILProcessor();
+            var resultingInstructions = new List<(Instruction Original, Instruction Target)>();
+            var exceptionList = new List<ExceptionHandler>();
+            var jumps = new List<(int CurrentIndex, int Index)>();
+
+            for (int i = 0; i < originalMethod.Body.Instructions.Count; i++)
+            {
+                var item = originalMethod.Body.Instructions[i];
+
+                if (item.Operand is Instruction)
+                    resultingInstructions.Add((item, CreateInstruction(originalMethod.Body.Instructions, item, i, methodProcessor, ref jumps)));
+                else if (item.Operand is Instruction[])
+                {
+                    var instructions = item.Operand as Instruction[];
+                    var newInstructions = new Instruction[instructions.Length];
+                    for (int x = 0; x < instructions.Length; x++)
+                        newInstructions[x] = CreateInstruction(originalMethod.Body.Instructions, instructions[x], i, methodProcessor, ref jumps);
+
+                    var instruction = methodProcessor.Create(OpCodes.Nop);
+                    instruction.OpCode = item.OpCode;
+                    instruction.Operand = newInstructions;
+
+                    resultingInstructions.Add((item, instruction));
+                }
+                //else if (item.Operand is CallSite )
+                //    throw new NotImplementedException($"Unknown operand '{item.OpCode.ToString()}' '{item.Operand.GetType().FullName}'");
+                else
+                {
+                    var instruction = methodProcessor.Create(OpCodes.Nop);
+                    instruction.OpCode = item.OpCode;
+                    instruction.Operand = item.Operand;
+                    resultingInstructions.Add((item, instruction));
+
+                    // Set the correct variable def if required
+                    var variable = instruction.Operand as VariableDefinition;
+                    if (variable != null)
+                        instruction.Operand = variableDefinition[variable.Index];
+                }
+            }
+
+            SetCorrectJumpPoints(jumps, resultingInstructions.Select(x => x.Target).ToList());
+            var getInstruction = new Func<Instruction, Instruction>(instruction => instruction == null ? null : resultingInstructions.FirstOrDefault(x => x.Original.Offset == instruction.Offset).Target ?? null);
+
+            var copyHandler = new Func<ExceptionHandler, ExceptionHandler>(original => new ExceptionHandler(original.HandlerType)
+            {
+                CatchType = original.CatchType,
+                FilterStart = getInstruction(original.FilterStart),
+                HandlerEnd = getInstruction(original.HandlerEnd),
+                HandlerStart = getInstruction(original.HandlerStart),
+                TryEnd = getInstruction(original.TryEnd),
+                TryStart = getInstruction(original.TryStart)
+            });
+
+            foreach (var item in originalMethod.Body.ExceptionHandlers)
+                exceptionList.Add(copyHandler(item));
+
+            return (resultingInstructions.Select(x => x.Target), exceptionList);
+        }
+
+        private Instruction CreateInstruction(IList<Instruction> instructions, Instruction instructionTarget, int currentIndex, ILProcessor processor, ref List<(int, int)> jumps)
+        {
+            GetJumpPoints(instructions, instructionTarget, currentIndex, ref jumps);
+
+            var instructionResult = processor.Create(OpCodes.Nop);
+            instructionResult.OpCode = instructionTarget.OpCode;
+            return instructionResult;
         }
 
         private IEnumerable<Instruction> CreateInstructionsFromAttributeTypes(ILProcessor processor, TypeReference targetType, Type type, object value)
@@ -1289,6 +1358,35 @@ namespace Cauldron.Interception.Cecilator
 
                 return false;
             })?.Next;
+        }
+
+        private Instruction GetInstruction(Instruction instruction, IList<Instruction> instructionList)
+        {
+            if (instruction == null)
+                return null;
+
+            var index = this.method.methodDefinition.Body.Instructions.IndexOf(instruction.Offset);
+            return instructionList[index];
+        }
+
+        private void GetJumpPoints(IList<Instruction> instructions, Instruction instructionTarget, int currentIndex, ref List<(int, int)> jumps)
+        {
+            var operand = instructionTarget.Operand as Instruction;
+
+            if (operand == null)
+                return;
+
+            var index = instructions.IndexOf(operand);
+
+            if (index >= 0)
+                jumps.Add((currentIndex, index));
+            else
+            {
+                index = instructions.IndexOf(operand.Offset);
+
+                if (index >= 0)
+                    jumps.Add((currentIndex, index));
+            }
         }
 
         private VariableDefinition GetOrCreateReturnVariable()
