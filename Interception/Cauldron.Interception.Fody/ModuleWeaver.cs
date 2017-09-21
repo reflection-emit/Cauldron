@@ -133,6 +133,34 @@ namespace Cauldron.Interception.Fody
             }
         }
 
+        private void AddComponentAttribute(Builder builder, IEnumerable<BuilderType> builderTypes, Func<BuilderType, string> contractNameDelegate = null)
+        {
+            var componentConstructorAttribute = builder.GetType("Cauldron.Activator.ComponentConstructorAttribute");
+            var componentAttribute = builder.GetType("Cauldron.Activator.ComponentAttribute").New(x => new
+            {
+                Type = x,
+                ContractName = x.GetMethod("get_ContractName"),
+                Policy = x.GetMethod("get_Policy"),
+                Priority = x.GetMethod("get_Priority")
+            });
+
+            foreach (var item in builderTypes)
+            {
+                if (item.IsAbstract || item.IsInterface || item.HasUnresolvedGenericParameters)
+                    continue;
+
+                if (item.CustomAttributes.HasAttribute(componentAttribute.Type))
+                    continue;
+
+                var contractName = contractNameDelegate == null ? item.Fullname : contractNameDelegate(item);
+                item.CustomAttributes.Add(componentAttribute.Type, contractName);
+
+                // Add a component contructor attribute to all .ctors
+                foreach (var ctor in item.Methods.Where(x => x.Name == ".ctor"))
+                    ctor.CustomAttributes.Add(componentConstructorAttribute);
+            }
+        }
+
         private void AddEntranceAssemblyHACK(Builder builder)
         {
             if (builder.TypeExists("Cauldron.Core.ILoadedAssemblies"))
@@ -316,21 +344,17 @@ namespace Cauldron.Interception.Fody
 
             // Before we start let us find all factoryextensions and add a component attribute to them
             var factoryResolverInterface = builder.GetType("Cauldron.Activator.IFactoryResolver");
-            var factoryResolvers = builder.FindTypesByInterface(factoryResolverInterface);
+            this.AddComponentAttribute(builder, builder.FindTypesByInterface(factoryResolverInterface), x => factoryResolverInterface.Fullname);
+            // Also the same to all types that inherits from Factory<>
+            var factoryGeneric = builder.GetType("Cauldron.Activator.Factory`1");
+            this.AddComponentAttribute(builder, builder.FindTypesByBaseClass(factoryGeneric), type =>
+               {
+                   var factory = type.BaseClasses.FirstOrDefault(x => x.Fullname.StartsWith("Cauldron.Activator.Factory"));
+                   if (factory == null)
+                       return type.Fullname;
 
-            foreach (var item in factoryResolvers)
-            {
-                if (item.IsAbstract || item.IsInterface || item.HasUnresolvedGenericParameters)
-                    continue;
-
-                if (item.CustomAttributes.HasAttribute(componentAttribute.Type))
-                    continue;
-
-                item.CustomAttributes.Add(componentAttribute.Type, factoryResolverInterface.Fullname);
-                // Add a component contructor attribute to all .ctors
-                foreach (var ctor in item.Methods.Where(x => x.Name == ".ctor"))
-                    ctor.CustomAttributes.Add(componentConstructorAttribute);
-            }
+                   return factory.GetGenericArgument(0).Fullname;
+               });
 
             int counter = 0;
             var arrayAvatar = builder.GetType("System.Array").New(x => new

@@ -22,7 +22,7 @@ using Windows.Storage;
 namespace EveOnlineApi
 {
     [Component(typeof(IEveApi), FactoryCreationPolicy.Singleton)]
-    public sealed class Api : Singleton<IEveApi>, IEveApi
+    public sealed class Api : Factory<IEveApi>, IEveApi
     {
         private List<TokenKey> tokenInfos = new List<TokenKey>();
 

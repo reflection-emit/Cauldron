@@ -81,7 +81,7 @@ namespace Cauldron.Interception.Cecilator
 
         public bool Inherits(string typename) => this.BaseClasses.Any(x =>
             (x.typeReference.FullName.GetHashCode() == typename.GetHashCode() && x.typeReference.FullName == typename) ||
-            (x.typeDefinition.Name.GetHashCode() == typename.GetHashCode() && x.typeDefinition.Name == typename));
+            (x.typeDefinition.FullName.GetHashCode() == typename.GetHashCode() && x.typeDefinition.FullName == typename));
 
         #region Constructors
 

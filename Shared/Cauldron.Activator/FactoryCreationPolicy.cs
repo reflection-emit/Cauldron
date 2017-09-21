@@ -12,13 +12,13 @@
         /// <para/>
         /// Default policy
         /// </summary>
-        Instanced,
+        Instanced = 0,
 
         /// <summary>
         /// Only a single instance is created and reused everytime.
         /// <para/>
         /// Instances are managed by the <see cref="Factory"/>
         /// </summary>
-        Singleton
+        Singleton = 1
     }
 }

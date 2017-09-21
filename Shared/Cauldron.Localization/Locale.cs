@@ -16,7 +16,7 @@ namespace Cauldron.Localization
     /// https://github.com/Capgemini/Cauldron/wiki/Localization
     /// </summary>
     [Component(typeof(Locale), FactoryCreationPolicy.Singleton)]
-    public sealed class Locale : Singleton<Locale>
+    public sealed class Locale : Factory<Locale>
     {
         private const string LocalizationSource = "Cauldron.Localization.ILocalizationSource";
         private CultureInfo cultureInfo;
