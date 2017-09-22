@@ -152,7 +152,7 @@ namespace Cauldron.Interception.Fody
                 if (item.CustomAttributes.HasAttribute(componentAttribute.Type))
                     continue;
 
-                var contractName = contractNameDelegate == null ? item.Fullname : contractNameDelegate(item);
+                var contractName = (contractNameDelegate == null ? item.Fullname : contractNameDelegate(item)).Replace('/', '+');
                 item.CustomAttributes.Add(componentAttribute.Type, contractName);
 
                 // Add a component contructor attribute to all .ctors

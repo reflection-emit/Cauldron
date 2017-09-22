@@ -27,7 +27,7 @@ namespace Cauldron.Activator.Test
 
             var instance = Factory.Create<MyClass>();
 
-            Assert.AreEqual(MyClass.Current.Value, instance.Value);
+            Assert.AreNotEqual(MyClass.Current.Value, instance.Value);
         }
 
         [TestMethod]
@@ -37,7 +37,7 @@ namespace Cauldron.Activator.Test
 
             var instance = Factory.Create<IMyClass>();
 
-            Assert.AreEqual(MySecondClass.Current.Value, instance.Value);
+            Assert.AreNotEqual(MySecondClass.Current.Value, instance.Value);
         }
 
         public class MyClass : Factory<MyClass>
