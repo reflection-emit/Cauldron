@@ -17,6 +17,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)IPropertyGetterInterceptor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IPropertyInterceptor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IPropertySetterInterceptor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ISyncRoot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PropertyInterceptionInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TimedCacheAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils.cs" />

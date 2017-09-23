@@ -383,7 +383,7 @@ namespace Cauldron.Interception.Fody
                    .NewCode()
                    .Context(x =>
                    {
-                       x.Load(x.This).Call(builder.GetType(typeof(object)).ParameterlessContructor);
+                       x.Load(x.This).Call(builder.GetType(typeof(object)).Import().ParameterlessContructor.Import());
                        x.Assign(componentAttributeField).NewObj(component);
                    })
                    .Return()
@@ -561,7 +561,7 @@ namespace Cauldron.Interception.Fody
 
             var cauldron = builder.CreateType("", TypeAttributes.Public | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit, "<Cauldron>");
             cauldron.CreateConstructor().NewCode()
-                .Context(x => x.Call(x.NewCode().This, builder.GetType(typeof(object)).ParameterlessContructor))
+                .Context(x => x.Call(x.NewCode().This, builder.GetType(typeof(object)).Import().ParameterlessContructor.Import()))
                 .Return()
                 .Replace();
 
@@ -693,7 +693,7 @@ namespace Cauldron.Interception.Fody
                     .NewCode()
                     .Context(x =>
                     {
-                        x.Load(x.This).Call(builder.GetType(typeof(object)).ParameterlessContructor);
+                        x.Load(x.This).Call(builder.GetType(typeof(object)).Import().ParameterlessContructor.Import());
                     })
                     .Return()
                     .Replace();

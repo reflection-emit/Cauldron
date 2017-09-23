@@ -101,6 +101,9 @@ namespace Cauldron.Interception.Test
         [TestMethod]
         public void Lockable_Method()
         {
+            // If the unit test was successfully invoked, then we are sure that our weaver weaved the
+            // whole thing correctly
+
             var uu = Cauldron.Core.MiscUtils.GenerateLoremIpsum(4, 6);
             System.Diagnostics.Debug.WriteLine(uu);
         }

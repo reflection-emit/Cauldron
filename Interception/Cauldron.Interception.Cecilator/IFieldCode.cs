@@ -4,6 +4,8 @@ namespace Cauldron.Interception.Cecilator
 {
     public interface IFieldCode
     {
+        ICode As(BuilderType type);
+
         ICode Call(Method method, params object[] parameters);
 
         ICode Callvirt(Method method, params object[] parameters);

@@ -202,6 +202,8 @@ namespace Cauldron.Interception.Cecilator
                  .Any(x => x.Operand == method.methodReference);
         }
 
+        public Method Import() => new Method(this.type, this.moduleDefinition.ImportReference(this.methodReference), this.methodDefinition);
+
         public Method MakeGeneric(params Type[] types)
         {
             if (this.methodDefinition.GenericParameters.Count == 0)

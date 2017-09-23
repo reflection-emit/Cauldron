@@ -65,6 +65,7 @@
     <Compile Include="HelperTypes\__IMethodInterceptor.cs" />
     <Compile Include="HelperTypes\__IPropertyGetterInterceptor.cs" />
     <Compile Include="HelperTypes\__IPropertySetterInterceptor.cs" />
+    <Compile Include="HelperTypes\__ISyncRoot.cs" />
     <Compile Include="HelperTypes\__PropertyInterceptionInfo.cs" />
     <Compile Include="HelperTypes\__Task.cs" />
     <Compile Include="HelperTypes\__Task`1.cs" />

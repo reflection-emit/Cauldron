@@ -51,7 +51,7 @@ namespace Cauldron.Interception.Cecilator
 
         public ICode As(BuilderType type)
         {
-            this.instructions.Append(this.processor.Create(OpCodes.Isinst, type.typeReference));
+            this.instructions.Append(this.processor.Create(OpCodes.Isinst, this.moduleDefinition.ImportReference(type.typeReference)));
             return this;
         }
 

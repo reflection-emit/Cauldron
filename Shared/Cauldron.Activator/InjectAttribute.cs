@@ -11,13 +11,12 @@ namespace Cauldron.Activator
     /// Specifies that the property or field contains a type that can be supplied by the <see cref="Factory"/>
     /// </summary>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false, Inherited = true)]
-    public sealed class InjectAttribute : Attribute, IPropertyGetterInterceptor
+    public sealed class InjectAttribute : Attribute, IPropertyGetterInterceptor, ISyncRoot
     {
         private object[] arguments;
 
         private string contractName;
 
-        private object syncObject = new object();
         private Type typeToCreate;
 
         /// <summary>
@@ -56,6 +55,8 @@ namespace Cauldron.Activator
             this.arguments = arguments;
         }
 
+        public object SyncRoot { get; set; }
+
         /// <summary>
         /// Invoked if an intercepted method has raised an exception. The method will always rethrow
         /// the exception.
@@ -83,7 +84,7 @@ namespace Cauldron.Activator
         {
             if (value == null)
             {
-                lock (syncObject)
+                lock (this.SyncRoot)
                 {
                     if (value == null)
                     {

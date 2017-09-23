@@ -64,6 +64,7 @@ namespace Cauldron.Interception.Fody
             var iMethodInterceptor = new __IMethodInterceptor(builder);
             var asyncTaskMethodBuilder = new __AsyncTaskMethodBuilder(builder);
             var asyncTaskMethodBuilderGeneric = new __AsyncTaskMethodBuilder_1(builder);
+            var syncRoot = new __ISyncRoot(builder);
             var task = new __Task(builder);
             var exception = new __Exception(builder);
 
@@ -75,7 +76,7 @@ namespace Cauldron.Interception.Fody
 
             foreach (var method in methods)
             {
-                this.LogInfo($"Implementing interceptors in method {method.Key}");
+                this.LogInfo($"Implementing interceptors in method {method.Key.Method}");
 
                 var targetedMethod = method.Key.AsyncMethod == null ? method.Key.Method : method.Key.AsyncMethod;
                 var attributedMethod = method.Key.Method;
@@ -85,6 +86,12 @@ namespace Cauldron.Interception.Fody
                 var typeInstance = method.GetAsyncMethodTypeInstace();
                 var interceptorField = new Field[method.Item.Length];
 
+                if (method.RequiresSyncRootField)
+                {
+                    foreach (var ctors in targetedMethod.DeclaringType.GetRelevantConstructors())
+                        ctors.NewCode().Assign(method.SyncRoot).NewObj(builder.GetType(typeof(object)).Import().ParameterlessContructor).Insert(InsertionPosition.Beginning);
+                }
+
                 targetedMethod
                 .NewCode()
                     .Context(x =>
@@ -92,10 +99,15 @@ namespace Cauldron.Interception.Fody
                         for (int i = 0; i < method.Item.Length; i++)
                         {
                             var item = method.Item[i];
-                            var name = $"<{targetedMethod.Name}>_{i}_{item.Attribute.Identification}";
+                            var name = $"<{targetedMethod.Name}>_attrib{i}_{item.Attribute.Identification}";
                             interceptorField[i] = targetedMethod.DeclaringType.CreateField(targetedMethod.Modifiers.GetPrivate(), item.Interface.Type, name);
 
-                            x.Load(interceptorField[i]).IsNull().Then(y => y.Assign(interceptorField[i]).NewObj(item.Attribute));
+                            x.Load(interceptorField[i]).IsNull().Then(y =>
+                            {
+                                y.Assign(interceptorField[i]).NewObj(item.Attribute);
+                                if (item.HasSyncRootInterface)
+                                    y.Load(interceptorField[i]).As(syncRoot.Type).Call(syncRoot.SyncRoot, method.SyncRoot);
+                            });
                             item.Attribute.Remove();
                         }
                     })
@@ -104,7 +116,7 @@ namespace Cauldron.Interception.Fody
                         for (int i = 0; i < method.Item.Length; i++)
                         {
                             var item = method.Item[i];
-                            x.Load(interceptorField[i]).Callvirt(item.Interface.OnEnter, attributedMethod.DeclaringType, typeInstance, attributedMethod, x.GetParametersArray());
+                            x.Load(interceptorField[i]).As(item.Interface.Type).Call(item.Interface.OnEnter, attributedMethod.DeclaringType, typeInstance, attributedMethod, x.GetParametersArray());
                         }
 
                         x.OriginalBody();
@@ -144,14 +156,14 @@ namespace Cauldron.Interception.Fody
                     {
                         if (method.Key.AsyncMethod == null)
                             for (int i = 0; i < method.Item.Length; i++)
-                                x.Load(interceptorField[i]).Callvirt(method.Item[i].Interface.OnException, x.Exception);
+                                x.Load(interceptorField[i]).As(method.Item[i].Interface.Type).Call(method.Item[i].Interface.OnException, x.Exception);
 
                         x.Rethrow();
                     })
                     .Finally(x =>
                     {
                         for (int i = 0; i < method.Item.Length; i++)
-                            x.Load(interceptorField[i]).Callvirt(method.Item[i].Interface.OnExit);
+                            x.Load(interceptorField[i]).As(method.Item[i].Interface.Type).Call(method.Item[i].Interface.OnExit);
                     })
                     .EndTry()
                     .Return()

@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Threading;
 
 namespace Cauldron.Interception.External.Test
 {
-    public sealed class ExternalLockablePropertyInterceptorAttribute : Attribute, IPropertyGetterInterceptor, IPropertySetterInterceptor
+    public sealed class ExternalLockablePropertyInterceptorAttribute : Attribute, IPropertyGetterInterceptor, IPropertySetterInterceptor, ISyncRoot
     {
-        private object lockObject = new object();
+        public object SyncRoot { get; set; }
 
         public void OnException(Exception e)
         {
@@ -21,9 +20,12 @@ namespace Cauldron.Interception.External.Test
 
         public bool OnSet(PropertyInterceptionInfo propertyInterceptionInfo, object oldValue, object newValue)
         {
+            if (SyncRoot == null)
+                throw new ArgumentNullException(nameof(SyncRoot));
+
             if (newValue != oldValue)
             {
-                lock (lockObject)
+                lock (SyncRoot)
                 {
                 }
             }

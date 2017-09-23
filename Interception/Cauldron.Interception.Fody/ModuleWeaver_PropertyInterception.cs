@@ -12,8 +12,9 @@ namespace Cauldron.Interception.Fody
 {
     public sealed partial class ModuleWeaver
     {
-        private static void AddPropertyGetterInterception(__PropertyInterceptionInfo propertyInterceptionInfo, PropertyBuilderInfo member, Field propertyField, Method actionObjectCtor, Method propertySetter, Dictionary<string, Field> interceptorFields)
+        private static void AddPropertyGetterInterception(Builder builder, __PropertyInterceptionInfo propertyInterceptionInfo, PropertyBuilderInfo member, Field propertyField, Method actionObjectCtor, Method propertySetter, Dictionary<string, Field> interceptorFields)
         {
+            var syncRoot = new __ISyncRoot(builder);
             var legalGetterInterceptors = member.InterceptorInfos.Where(x => x.InterfaceGetter != null).ToArray();
             member.Property.Getter
                 .NewCode()
@@ -23,7 +24,12 @@ namespace Cauldron.Interception.Fody
                         {
                             var item = legalGetterInterceptors[i];
                             var field = interceptorFields[item.Attribute.Identification];
-                            x.Load(field).IsNull().Then(y => y.Assign(field).NewObj(item.Attribute));
+                            x.Load(field).IsNull().Then(y =>
+                            {
+                                y.Assign(field).NewObj(item.Attribute);
+                                if (item.HasSyncRootInterface)
+                                    y.Load(field).As(syncRoot.Type.Import()).Call(syncRoot.SyncRoot, member.SyncRoot);
+                            });
                             item.Attribute.Remove();
                         }
 
@@ -44,7 +50,7 @@ namespace Cauldron.Interception.Fody
                         {
                             var item = legalGetterInterceptors[i];
                             var field = interceptorFields[item.Attribute.Identification];
-                            x.Load(field).Callvirt(item.InterfaceGetter.OnGet, propertyField, member.Property.BackingField);
+                            x.Load(field).As(item.InterfaceGetter.Type).Call(item.InterfaceGetter.OnGet, propertyField, member.Property.BackingField);
                         }
                     })
                     .Catch(typeof(Exception), x =>
@@ -53,7 +59,7 @@ namespace Cauldron.Interception.Fody
                         {
                             var item = legalGetterInterceptors[i];
                             var field = interceptorFields[item.Attribute.Identification];
-                            x.Load(field).Callvirt(legalGetterInterceptors[i].InterfaceGetter.OnException, x.Exception);
+                            x.Load(field).As(legalGetterInterceptors[i].InterfaceGetter.Type).Call(legalGetterInterceptors[i].InterfaceGetter.OnException, x.Exception);
                         }
 
                         x.Rethrow();
@@ -64,7 +70,7 @@ namespace Cauldron.Interception.Fody
                         {
                             var item = legalGetterInterceptors[i];
                             var field = interceptorFields[item.Attribute.Identification];
-                            x.Load(field).Callvirt(legalGetterInterceptors[i].InterfaceGetter.OnExit);
+                            x.Load(field).As(legalGetterInterceptors[i].InterfaceGetter.Type).Call(legalGetterInterceptors[i].InterfaceGetter.OnExit);
                         }
                     })
                     .EndTry()
@@ -73,8 +79,9 @@ namespace Cauldron.Interception.Fody
                 .Replace();
         }
 
-        private static void AddPropertySetterInterception(__PropertyInterceptionInfo propertyInterceptionInfo, PropertyBuilderInfo member, Field propertyField, Method actionObjectCtor, Method propertySetter, Dictionary<string, Field> interceptorFields)
+        private static void AddPropertySetterInterception(Builder builder, __PropertyInterceptionInfo propertyInterceptionInfo, PropertyBuilderInfo member, Field propertyField, Method actionObjectCtor, Method propertySetter, Dictionary<string, Field> interceptorFields)
         {
+            var syncRoot = new __ISyncRoot(builder);
             var legalSetterInterceptors = member.InterceptorInfos.Where(x => x.InterfaceSetter != null).ToArray();
             member.Property.Setter
                 .NewCode()
@@ -84,7 +91,13 @@ namespace Cauldron.Interception.Fody
                         {
                             var item = legalSetterInterceptors[i];
                             var field = interceptorFields[item.Attribute.Identification];
-                            x.Load(field).IsNull().Then(y => y.Assign(field).NewObj(item.Attribute));
+                            x.Load(field).IsNull().Then(y =>
+                            {
+                                y.Assign(field).NewObj(item.Attribute);
+
+                                if (item.HasSyncRootInterface)
+                                    y.Load(field).As(syncRoot.Type.Import()).Call(syncRoot.SyncRoot, member.SyncRoot);
+                            });
                             item.Attribute.Remove();
                         }
 
@@ -105,7 +118,7 @@ namespace Cauldron.Interception.Fody
                         {
                             var item = legalSetterInterceptors[i];
                             var field = interceptorFields[item.Attribute.Identification];
-                            x.Load(field).Callvirt(item.InterfaceSetter.OnSet, propertyField, member.Property.BackingField, member.Property.Setter.NewCode().GetParameter(0));
+                            x.Load(field).As(legalSetterInterceptors[i].InterfaceSetter.Type).Call(item.InterfaceSetter.OnSet, propertyField, member.Property.BackingField, member.Property.Setter.NewCode().GetParameter(0));
 
                             x.IsFalse().Then(y => y.Assign(member.Property.BackingField).Set(member.Property.Setter.NewCode().GetParameter(0)));
                         }
@@ -116,7 +129,7 @@ namespace Cauldron.Interception.Fody
                         {
                             var item = legalSetterInterceptors[i];
                             var field = interceptorFields[item.Attribute.Identification];
-                            x.Load(field).Callvirt(legalSetterInterceptors[i].InterfaceSetter.OnException, x.Exception);
+                            x.Load(field).As(legalSetterInterceptors[i].InterfaceSetter.Type).Call(legalSetterInterceptors[i].InterfaceSetter.OnException, x.Exception);
                         }
 
                         x.Rethrow();
@@ -127,7 +140,7 @@ namespace Cauldron.Interception.Fody
                         {
                             var item = legalSetterInterceptors[i];
                             var field = interceptorFields[item.Attribute.Identification];
-                            x.Load(field).Callvirt(legalSetterInterceptors[i].InterfaceSetter.OnExit);
+                            x.Load(field).As(legalSetterInterceptors[i].InterfaceSetter.Type).Call(legalSetterInterceptors[i].InterfaceSetter.OnExit);
                         }
                     })
                     .EndTry()
@@ -286,23 +299,28 @@ namespace Cauldron.Interception.Fody
 
                 CreatePropertySetterDelegate(builder, member, propertySetter);
 
-                // var semaphoreFieldName = $"<{member.Property.Name}>lock_" + member.Property.Identification;
+                if (member.RequiresSyncRootField)
+                {
+                    foreach (var ctors in member.Property.DeclaringType.GetRelevantConstructors())
+                        ctors.NewCode().Assign(member.SyncRoot).NewObj(builder.GetType(typeof(object)).Import().ParameterlessContructor).Insert(InsertionPosition.Beginning);
+                }
 
                 #region Getter implementation
 
+                var indexer = 0;
                 var interceptorFields = member.InterceptorInfos.ToDictionary(x => x.Attribute.Identification,
                     x => member.Property.DeclaringType.CreateField(x.Property.Modifiers.GetPrivate(), x.Attribute.Attribute.Type,
-                        $"<{x.Property.Name}>_{x.Attribute.Identification}"));
+                        $"<{x.Property.Name}>_attrib{indexer++}_{x.Attribute.Identification}"));
 
                 if (member.HasGetterInterception)
-                    AddPropertyGetterInterception(propertyInterceptionInfo, member, propertyField, actionObjectCtor, propertySetter, interceptorFields);
+                    AddPropertyGetterInterception(builder, propertyInterceptionInfo, member, propertyField, actionObjectCtor, propertySetter, interceptorFields);
 
                 #endregion Getter implementation
 
                 #region Setter implementation
 
                 if (member.HasSetterInterception)
-                    AddPropertySetterInterception(propertyInterceptionInfo, member, propertyField, actionObjectCtor, propertySetter, interceptorFields);
+                    AddPropertySetterInterception(builder, propertyInterceptionInfo, member, propertyField, actionObjectCtor, propertySetter, interceptorFields);
 
                 #endregion Setter implementation
 
