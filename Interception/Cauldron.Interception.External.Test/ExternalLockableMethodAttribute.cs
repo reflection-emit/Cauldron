@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Reflection;
-using System.Threading;
 
 namespace Cauldron.Interception.External.Test
 {
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
-    public sealed class ExternalLockableMethodAttribute : Attribute, ILockableMethodInterceptor
+    public sealed class ExternalLockableMethodAttribute : Attribute, IMethodInterceptor
     {
-        public void OnEnter(SemaphoreSlim semaphore, Type declaringType, object instance, MethodBase methodbase, object[] values)
+        private object lockObject = new object();
+
+        public void OnEnter(Type declaringType, object instance, MethodBase methodbase, object[] values)
         {
-            semaphore.Wait();
+            lock (lockObject)
+            {
+            }
         }
 
         public void OnException(Exception e)

@@ -36,6 +36,8 @@ namespace Cauldron.Interception.Cecilator
 
         ICode NewObj(AttributedType attribute);
 
+        ICode NewObj(AttributedProperty attribute);
+
         ICode NewObj(AttributedMethod attribute);
 
         ICode NewObj(Method constructor, params object[] parameters);

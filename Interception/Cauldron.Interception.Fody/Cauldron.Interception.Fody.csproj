@@ -55,8 +55,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\BuilderExtensions.cs" />
+    <Compile Include="HelperTypes\__AsyncTaskMethodBuilder`1.cs" />
+    <Compile Include="HelperTypes\__AsyncTaskMethodBuilder.cs" />
+    <Compile Include="HelperTypes\HelperTypeBase.cs" />
+    <Compile Include="HelperTypes\__Exception.cs" />
+    <Compile Include="HelperTypes\__Extensions.cs" />
+    <Compile Include="HelperTypes\__IList.cs" />
+    <Compile Include="HelperTypes\__IMethodInterceptor.cs" />
+    <Compile Include="HelperTypes\__IPropertyGetterInterceptor.cs" />
+    <Compile Include="HelperTypes\__IPropertySetterInterceptor.cs" />
+    <Compile Include="HelperTypes\__PropertyInterceptionInfo.cs" />
+    <Compile Include="HelperTypes\__Task.cs" />
+    <Compile Include="HelperTypes\__Task`1.cs" />
+    <Compile Include="HelperTypes\__TimedCacheAttribute.cs" />
+    <Compile Include="MethodBuilderInfo.cs" />
     <Compile Include="ModuleWeaver.cs" />
+    <Compile Include="ModuleWeaver_MethodCache.cs" />
+    <Compile Include="ModuleWeaver_MethodInterception.cs" />
+    <Compile Include="ModuleWeaver_PropertyInterception.cs" />
+    <Compile Include="ModuleWeaver_TimedCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyBuilderInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Cauldron.Interception.Cecilator\Cauldron.Interception.Cecilator.csproj">
@@ -67,6 +87,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>mkdir $(SolutionDir)packages\Cauldron.Interception.Fody.99.9.9

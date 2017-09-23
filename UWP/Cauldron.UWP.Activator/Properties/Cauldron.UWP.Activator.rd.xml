@@ -30,10 +30,10 @@
     <!-- add directives for your library here -->
     <Namespace Name="Cauldron.Activator">
 
-      <Type Name="Cauldron.Activator.IFactoryResolver">
+      <Type Name="IFactoryResolver">
         <Subtypes Activate="Required All" Dynamic="Required All" />
       </Type>
-      <Type Name="Cauldron.Activator.IFactoryCache">
+      <Type Name="IFactoryCache">
         <Subtypes Activate="Required All" Dynamic="Required All" />
       </Type>
     </Namespace>

@@ -3,8 +3,10 @@ using System.Threading;
 
 namespace Cauldron.Interception.External.Test
 {
-    public sealed class ExternalLockablePropertyInterceptorAttribute : Attribute, ILockablePropertySetterInterceptor, ILockablePropertyGetterInterceptor
+    public sealed class ExternalLockablePropertyInterceptorAttribute : Attribute, IPropertyGetterInterceptor, IPropertySetterInterceptor
     {
+        private object lockObject = new object();
+
         public void OnException(Exception e)
         {
         }
@@ -13,13 +15,18 @@ namespace Cauldron.Interception.External.Test
         {
         }
 
-        public void OnGet(SemaphoreSlim semaphore, PropertyInterceptionInfo propertyInterceptionInfo, object value)
+        public void OnGet(PropertyInterceptionInfo propertyInterceptionInfo, object value)
         {
         }
 
-        public bool OnSet(SemaphoreSlim semaphore, PropertyInterceptionInfo propertyInterceptionInfo, object oldValue, object newValue)
+        public bool OnSet(PropertyInterceptionInfo propertyInterceptionInfo, object oldValue, object newValue)
         {
-            semaphore.Wait();
+            if (newValue != oldValue)
+            {
+                lock (lockObject)
+                {
+                }
+            }
 
             return false;
         }
