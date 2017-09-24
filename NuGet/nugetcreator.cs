@@ -17,8 +17,19 @@ public class Program
             var desktop = GetProjects("Desktop");
 
             BuildProjects(interception);
-            BuildProjects(uwp.Concat(netcore).Concat(desktop).Where(x => x.Contains("Interception")));
-            BuildProjects(uwp.Concat(netcore).Concat(desktop).Where(x => !x.Contains("Interception")));
+            BuildProjects(uwp.Concat(netcore).Concat(desktop).Where(x => x.EndsWith(".Interception.csproj")));
+
+            BuildProjects(uwp.Concat(netcore).Concat(desktop).Where(x => x.EndsWith(".Core.csproj")));
+            BuildProjects(uwp.Concat(netcore).Concat(desktop).Where(x => x.EndsWith(".Activator.csproj")));
+            BuildProjects(uwp.Concat(netcore).Concat(desktop).Where(x => x.EndsWith(".Cryptography.csproj")));
+            BuildProjects(uwp.Concat(netcore).Concat(desktop).Where(x => x.EndsWith(".Consoles.csproj")));
+            BuildProjects(uwp /*.Concat(netcore) */.Concat(desktop).Where(x => x.EndsWith(".Localization.csproj")));
+            BuildProjects(uwp.Concat(desktop).Where(x => x.EndsWith(".XAML.csproj")));
+            BuildProjects(uwp.Concat(desktop).Where(x => x.EndsWith(".XAML.Interactivity.csproj")));
+            BuildProjects(uwp.Concat(desktop).Where(x => x.EndsWith(".XAML.Validation.csproj")));
+            BuildProjects(desktop.Where(x => x.EndsWith(".XAML.Theme.csproj")));
+            BuildProjects(desktop.Where(x => x.EndsWith(".XAML.Theme.VSDark.csproj")));
+            BuildProjects(desktop.Where(x => x.EndsWith(".XAML.Theme.VSLight.csproj")));
 
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("Creating NuGet Packages");
@@ -76,7 +87,7 @@ public class Program
 
         var startInfo = new ProcessStartInfo();
         startInfo.UseShellExecute = false;
-        startInfo.WorkingDirectory = filename.Directory.FullName;
+        startInfo.WorkingDirectory = Path.GetDirectoryName(path);
         startInfo.FileName = filename.FullName;
         startInfo.Arguments = string.Format("\"{0}\" /Rebuild Release", path);
         startInfo.CreateNoWindow = true;
@@ -95,6 +106,7 @@ public class Program
     {
         var path = Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)), subFolder);
         return Directory.GetFiles(path, "*.csproj", SearchOption.AllDirectories)
-            .Where(x => !(Path.GetFileNameWithoutExtension(x).EndsWith(".Test") || x.Contains("\\Samples\\")));
+            .Where(x => !(Path.GetFileNameWithoutExtension(x).EndsWith(".Test") || x.Contains("\\Samples\\")))
+            .ToArray();
     }
 }
