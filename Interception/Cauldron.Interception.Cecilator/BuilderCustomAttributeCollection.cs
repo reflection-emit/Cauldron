@@ -53,10 +53,10 @@ namespace Cauldron.Interception.Cecilator
             var type = this.moduleDefinition.ImportReference(customAttributeType);
 
             if (parameters == null || parameters.Length == 0)
-                ctor = type.Resolve().Methods.FirstOrDefault(x => x.Name == ".ctor" && x.Parameters.Count == 0);
+                ctor = (type.Resolve() ?? this.allTypes.Get(type.FullName)).Methods.FirstOrDefault(x => x.Name == ".ctor" && x.Parameters.Count == 0);
             else
             {
-                ctor = type.Resolve().Methods.FirstOrDefault(x =>
+                ctor = (type.Resolve() ?? this.allTypes.Get(type.FullName)).Methods.FirstOrDefault(x =>
                 {
                     if (x.Name != ".ctor")
                         return false;

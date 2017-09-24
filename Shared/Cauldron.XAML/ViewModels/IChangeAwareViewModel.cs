@@ -6,7 +6,7 @@ using System.ComponentModel;
 namespace Cauldron.XAML.ViewModels
 {
     /// <summary>
-    /// Represents a viewmodel that is aware of changes
+    /// Represents a viewmodel that is aware of changes.
     /// </summary>
     public interface IChangeAwareViewModel : IViewModel
     {

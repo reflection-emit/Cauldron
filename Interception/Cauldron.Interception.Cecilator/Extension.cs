@@ -11,6 +11,8 @@ namespace Cauldron.Interception.Cecilator
 {
     public static class Extension
     {
+        public static TypeDefinition BetterResolve(this TypeReference value) => value.Resolve() ?? WeaverBase.AllTypes.Get(value.FullName);
+
         public static Builder CreateBuilder(this WeaverBase weaver)
         {
             if (weaver == null)
@@ -25,7 +27,7 @@ namespace Cauldron.Interception.Cecilator
             {
                 for (int i = 0; i < collection.Count; i++)
                 {
-                    var fullname = collection[i].AttributeType.Resolve().FullName;
+                    var fullname = collection[i].AttributeType.BetterResolve().FullName;
                     if (fullname.GetHashCode() == name.GetHashCode() && fullname == name)
                         return collection[i];
                 }
@@ -34,7 +36,7 @@ namespace Cauldron.Interception.Cecilator
             {
                 for (int i = 0; i < collection.Count; i++)
                 {
-                    var shortname = collection[i].AttributeType.Resolve().Name;
+                    var shortname = collection[i].AttributeType.BetterResolve().Name;
                     if (shortname.GetHashCode() == name.GetHashCode() && shortname == name)
                         return collection[i];
                 }
@@ -70,7 +72,7 @@ namespace Cauldron.Interception.Cecilator
 
         public static IEnumerable<TypeReference> GetBaseClasses(this TypeReference type)
         {
-            var typeDef = type.Resolve();
+            var typeDef = type.BetterResolve();
 
             if (typeDef != null && typeDef.BaseType != null)
             {
@@ -120,10 +122,10 @@ namespace Cauldron.Interception.Cecilator
                 return result;
 
             // This might be a type that inherits from list<> or something... lets find out
-            if (type.Resolve().GetInterfaces().Any(x => x.FullName == "System.Collections.Generic.IEnumerable`1"))
+            if (type.BetterResolve().GetInterfaces().Any(x => x.FullName == "System.Collections.Generic.IEnumerable`1"))
             {
                 // if this is the case we will dig until we find a generic instance type
-                var baseType = type.Resolve().BaseType;
+                var baseType = type.BetterResolve().BaseType;
 
                 while (baseType != null)
                 {
@@ -132,7 +134,7 @@ namespace Cauldron.Interception.Cecilator
                     if (result != null)
                         return result;
 
-                    baseType = baseType.Resolve().BaseType;
+                    baseType = baseType.BetterResolve().BaseType;
                 };
             }
 
@@ -141,7 +143,7 @@ namespace Cauldron.Interception.Cecilator
 
         public static IReadOnlyDictionary<string, TypeReference> GetGenericResolvedTypeName(this GenericInstanceType type)
         {
-            var genericArgumentNames = type.Resolve().GenericParameters.Select(x => x.FullName).ToArray();
+            var genericArgumentNames = type.BetterResolve().GenericParameters.Select(x => x.FullName).ToArray();
             var genericArgumentsOfCurrentType = type.GenericArguments.ToArray();
 
             var result = new Dictionary<string, TypeReference>();
@@ -154,7 +156,7 @@ namespace Cauldron.Interception.Cecilator
 
         public static IReadOnlyDictionary<string, TypeReference> GetGenericResolvedTypeNames(this GenericInstanceType type)
         {
-            var genericArgumentNames = type.Resolve().GenericParameters.Select(x => x.FullName).ToArray();
+            var genericArgumentNames = type.BetterResolve().GenericParameters.Select(x => x.FullName).ToArray();
             var genericArgumentsOfCurrentType = type.GenericArguments.ToArray();
             var baseType = type as TypeReference;
 
@@ -167,7 +169,7 @@ namespace Cauldron.Interception.Cecilator
                     var genericType = baseType as GenericInstanceType;
                     if (genericType != null)
                     {
-                        genericArgumentNames = genericType.Resolve().GenericParameters.Select(x => x.FullName).ToArray();
+                        genericArgumentNames = genericType.BetterResolve().GenericParameters.Select(x => x.FullName).ToArray();
                         genericArgumentsOfCurrentType = genericType.GenericArguments.ToArray();
 
                         for (int i = 0; i < genericArgumentNames.Length; i++)
@@ -178,7 +180,7 @@ namespace Cauldron.Interception.Cecilator
                     }
                 }
 
-                baseType = baseType.Resolve().BaseType;
+                baseType = baseType.BetterResolve().BaseType;
             }
 
             return new ReadOnlyDictionary<string, TypeReference>(result);
@@ -206,7 +208,7 @@ namespace Cauldron.Interception.Cecilator
 
         public static IEnumerable<TypeReference> GetInterfaces(this TypeReference type)
         {
-            var typeDef = type.Resolve();
+            var typeDef = type.BetterResolve();
             var result = new List<TypeReference>();
 
             while (true)
@@ -220,11 +222,11 @@ namespace Cauldron.Interception.Cecilator
                         break;
 
                     if (typeDef.Interfaces != null && typeDef.Interfaces.Count > 0)
-                        result.AddRange(type.Recursive(x => x.Resolve().Interfaces.Select(y => y.InterfaceType)).Select(x => x.ResolveType(type)));
+                        result.AddRange(type.Recursive(x => x.BetterResolve().Interfaces.Select(y => y.InterfaceType)).Select(x => x.ResolveType(type)));
 
                     type = typeDef.BaseType;
 
-                    typeDef = type?.Resolve();
+                    typeDef = type?.BetterResolve();
                 }
                 catch
                 {
@@ -237,7 +239,7 @@ namespace Cauldron.Interception.Cecilator
 
         public static MethodReference GetMethodReference(this TypeReference type, string methodName, int parameterCount)
         {
-            var definition = type.Resolve();
+            var definition = type.BetterResolve();
             var result = definition
                 .Methods
                 .FirstOrDefault(x => x.Name == methodName && x.Parameters.Count == parameterCount);
@@ -250,7 +252,7 @@ namespace Cauldron.Interception.Cecilator
 
         public static MethodReference GetMethodReference(this TypeReference type, string methodName, Type[] parameterTypes)
         {
-            var definition = type.Resolve();
+            var definition = type.BetterResolve();
             var result = definition
                 .Methods
                 .FirstOrDefault(x => x.Name == methodName && parameterTypes.Select(y => y.FullName).SequenceEqual(x.Parameters.Select(y => y.ParameterType.FullName)));
@@ -273,10 +275,10 @@ namespace Cauldron.Interception.Cecilator
                     var genericType = baseType as GenericInstanceType;
                     if (genericType != null)
                     {
-                        var instances = genericType.GetGenericInstances().Where(x => !x.Resolve().IsInterface);
+                        var instances = genericType.GetGenericInstances().Where(x => !x.BetterResolve().IsInterface);
                         foreach (var item in instances)
                         {
-                            var methods = item.Resolve().Methods.Select(x => x.MakeHostInstanceGeneric((item as GenericInstanceType).GenericArguments.ToArray()));
+                            var methods = item.BetterResolve().Methods.Select(x => x.MakeHostInstanceGeneric((item as GenericInstanceType).GenericArguments.ToArray()));
 
                             if (methods != null || methods.Any())
                                 result.AddRange(methods);
@@ -285,12 +287,12 @@ namespace Cauldron.Interception.Cecilator
                 }
                 else
                 {
-                    var methods = baseType.Resolve().Methods;
+                    var methods = baseType.BetterResolve().Methods;
                     if (methods != null || methods.Count > 0)
                         result.AddRange(methods);
                 }
 
-                baseType = baseType.Resolve().BaseType;
+                baseType = baseType.BetterResolve().BaseType;
             };
 
             return result.Where(x =>
@@ -311,13 +313,13 @@ namespace Cauldron.Interception.Cecilator
 
         public static IEnumerable<TypeReference> GetNestedTypes(this TypeReference type)
         {
-            var typeDef = type.Resolve();
+            var typeDef = type.BetterResolve();
 
             if (typeDef == null)
                 return new TypeReference[0];
 
             if (typeDef.NestedTypes != null && typeDef.NestedTypes.Count > 0)
-                return type.Recursive(x => x.Resolve().NestedTypes).Select(x => x.ResolveType(type));
+                return type.Recursive(x => x.BetterResolve().NestedTypes).Select(x => x.ResolveType(type));
 
             if (typeDef.BaseType != null)
                 return GetNestedTypes(typeDef.BaseType);
@@ -346,7 +348,7 @@ namespace Cauldron.Interception.Cecilator
                     target == source ||
             target == source ||
             source.IsSubclassOf(target) ||
-            target.Resolve().IsInterface && source.GetBaseClasses().Any(x => x.Implements(target.FullName));
+            target.BetterResolve().IsInterface && source.GetBaseClasses().Any(x => x.Implements(target.FullName));
 
         public static bool IsSubclassOf(this BuilderType child, BuilderType parent) => child.typeDefinition != parent.typeDefinition && child.BaseClasses.Any(x => x.typeDefinition == parent.typeDefinition);
 
@@ -373,7 +375,7 @@ namespace Cauldron.Interception.Cecilator
             for (int i = 0; i < genericArguments.Length; i++)
                 genericArguments[i] = genericParameters.ContainsKey(self.GenericArguments[i].FullName) ? genericParameters[self.GenericArguments[i].FullName] : self.GenericArguments[i];
 
-            return self.Resolve().MakeGenericInstanceType(genericArguments);
+            return self.BetterResolve().MakeGenericInstanceType(genericArguments);
         }
 
         public static BuilderType ToBuilderType(this TypeDefinition value, Builder builder) => new BuilderType(builder, value);
@@ -499,13 +501,13 @@ namespace Cauldron.Interception.Cecilator
 
         internal static bool IsDelegate(this TypeDefinition typeDefinition)
         {
-            if (typeDefinition.BaseType == null)
+            if (typeDefinition == null || typeDefinition.BaseType == null)
                 return false;
 
             return typeDefinition.BaseType.FullName == "System.MulticastDelegate";
         }
 
-        internal static bool IsDelegate(this TypeReference typeReference) => typeReference.Resolve().IsDelegate();
+        internal static bool IsDelegate(this TypeReference typeReference) => typeReference.BetterResolve().IsDelegate();
 
         internal static bool IsLoadArgument(this Instruction instruction)
         {
@@ -668,7 +670,7 @@ namespace Cauldron.Interception.Cecilator
                 var genericParameters = (ownerMethod as GenericInstanceMethod).GetGenericResolvedTypeNames();
                 var genericTypeInstance = type as GenericInstanceType;
 
-                var result = new GenericInstanceType(genericTypeInstance.Resolve());
+                var result = new GenericInstanceType(genericTypeInstance.BetterResolve());
 
                 foreach (var item in genericTypeInstance.GenericArguments)
                     result.GenericArguments.Add(resolveType(genericParameters, item));
@@ -730,7 +732,7 @@ namespace Cauldron.Interception.Cecilator
             var result = new List<TypeReference>();
             result.Add(type);
 
-            var resolved = type.Resolve();
+            var resolved = type.BetterResolve();
             var genericArgumentsNames = resolved.GenericParameters.Select(x => x.FullName).ToArray();
             var genericArguments = type.GenericArguments.ToArray();
 
@@ -748,7 +750,7 @@ namespace Cauldron.Interception.Cecilator
 
         private static IEnumerable<TypeReference> GetGenericInstances(this TypeReference type, string[] genericArgumentNames, TypeReference[] genericArgumentsOfCurrentType)
         {
-            var resolvedBase = type.Resolve();
+            var resolvedBase = type.BetterResolve();
 
             if (resolvedBase.HasGenericParameters)
             {

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.12
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Desktop", "Desktop", "{45646BEE-05CB-4168-8F1F-291F511B6B76}"
 EndProject
@@ -73,9 +73,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{B22AD21D
 		NuGet\Cauldron.XAML.Theme.VSDark.nuspec = NuGet\Cauldron.XAML.Theme.VSDark.nuspec
 		NuGet\Cauldron.XAML.Theme.VSLight.nuspec = NuGet\Cauldron.XAML.Theme.VSLight.nuspec
 		NuGet\Cauldron.XAML.Validation.nuspec = NuGet\Cauldron.XAML.Validation.nuspec
-		NuGet\color.cs = NuGet\color.cs
 		NuGet\Create-NuGet-Packages.bat = NuGet\Create-NuGet-Packages.bat
 		NuGet\EveOnlineApi.NET.nuspec = NuGet\EveOnlineApi.NET.nuspec
+		NuGet\nugetcreator.cs = NuGet\nugetcreator.cs
 		NuGet\Upload-Packages.bat = NuGet\Upload-Packages.bat
 	EndProjectSection
 EndProject

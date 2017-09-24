@@ -1,11 +1,16 @@
 ﻿using Mono.Cecil;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 
 namespace Cauldron.Interception.Cecilator
 {
     public abstract class WeaverBase
     {
+        [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public static IEnumerable<TypeDefinition> AllTypes { get; internal set; }
+
         public Builder Builder { get; private set; }
         public Action<string> LogError { get; set; }
         public Action<string> LogInfo { get; set; }

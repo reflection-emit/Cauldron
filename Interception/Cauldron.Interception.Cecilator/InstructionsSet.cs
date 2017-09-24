@@ -764,7 +764,7 @@ namespace Cauldron.Interception.Cecilator
                     // methodof
                     result.Instructions.Add(processor.Create(OpCodes.Ldtoken, method.methodReference));
                     result.Instructions.Add(processor.Create(OpCodes.Ldtoken, method.DeclaringType.typeReference));
-                    result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.ImportReference(methodBaseRef.Resolve().Methods.FirstOrDefault(x => x.Name == "GetMethodFromHandle" && x.Parameters.Count == 2))));
+                    result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.ImportReference(methodBaseRef.BetterResolve().Methods.FirstOrDefault(x => x.Name == "GetMethodFromHandle" && x.Parameters.Count == 2))));
 
                     result.Type = methodBaseRef;
                 }
