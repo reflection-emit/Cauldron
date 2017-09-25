@@ -41,8 +41,23 @@
         UTF8,
 
         /// <summary>
-        /// Encoding for the IBM EBCDIC format.
+        /// Encoding for the IBM EBCDIC format (US-Canada).
         /// </summary>
-        EBCDIC
+        EBCDIC_IBM037,
+        
+        /// <summary>
+        /// Encoding for the IBM EBCDIC format (IBM Latin-1).
+        /// </summary>
+        EBCDIC_IBM01047,
+        
+        /// <summary>
+        /// Encoding for the IBM EBCDIC format (US-Canada-Euro).
+        /// </summary>
+        EBCDIC_IBM01140,
+        
+        /// <summary>
+        /// Encoding for the IBM EBCDIC format (Germany-Euro).
+        /// </summary>
+        EBCDIC_IBM01141,
     }
 }
