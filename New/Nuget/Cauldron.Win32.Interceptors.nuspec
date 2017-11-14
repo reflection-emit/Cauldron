@@ -14,6 +14,8 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Interceptors Fody Interception</tags>
     <dependencies>
+      <dependency id="Capgemini.Cauldron.Interceptors" version="2.0.0-beta" />
+      <dependency id="Fody" version="2.2.1" />
     </dependencies>
   </metadata>
   <files>

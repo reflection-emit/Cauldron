@@ -57,8 +57,6 @@ namespace CauldronBuilder
                 foreach (var nuget in Directory.GetFiles(Path.Combine(startingLocation, "Nuget"), "*.nuspec"))
                     BuildNuGetPackage(nuget, Path.Combine(startingLocation, "Nuget\\Packages"));
 
-                data.IncrementAndSave();
-
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("Do you want to upload the packages? Y/N");
                 if (Console.ReadKey().Key == ConsoleKey.Y)
@@ -66,6 +64,8 @@ namespace CauldronBuilder
                     foreach (var package in Directory.GetFiles(Path.Combine(startingLocation, "Nuget\\Packages"), "*.nupkg", SearchOption.TopDirectoryOnly))
                         UploadNugetPackage(package);
                 }
+
+                data.IncrementAndSave();
             }
             catch (Exception e)
             {

@@ -17,6 +17,7 @@
     <dependencies>
       <dependency id="Capgemini.Cauldron.Core.Comparing" version="2.0.0-beta" />
       <dependency id="Capgemini.Cauldron.Core.Extensions" version="2.0.0-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Net" version="2.0.0-beta" />
       <dependency id="Capgemini.Cauldron.Core.Extensions.Convertions" version="2.0.0-beta" />
     </dependencies>
   </metadata>
