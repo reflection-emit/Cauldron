@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Capgemini.Cauldron.Activator</id>
+    <version>2.0.2-beta</version>
+    <authors>Alexander Schunk, Capgemini Deutschland GmbH</authors>
+    <owners>Alexander Schunk, Capgemini Deutschland GmbH</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <licenseUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/Capgemini/Cauldron</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</iconUrl>
+    <description>The activator is a simple and very fast dependency injection framework. It is based on attributes and does not require any configuration files for configuration. It also supports using static methods as component constructor.</description>
+    <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
+    <tags>Toolkit Capgemini Activator Dependency Injection Factory Cauldron</tags>
+    <dependencies>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="Capgemini.Cauldron.Core.Extensions"   version="2.0.3-beta" />
+        <dependency id="Cauldron.Interception.Fody"           version="2.0.3-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Diagnostics"  version="2.0.3-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Reflection"   version="2.0.3-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Disposable"   version="2.0.3-beta" />
+        <dependency id="Fody" version="2.2.1" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="..\NetStandard\Cauldron.Activator\bin\Debug\netstandard2.0\Cauldron.Activator.dll" target="lib\netstandard2.0\Cauldron.Activator.dll" />
+    <file src="..\NetStandard\Cauldron.Activator\bin\Debug\netstandard2.0\Cauldron.Activator.xml" target="lib\netstandard2.0\Cauldron.Activator.xml" />
+
+    <file src="..\NetStandard\Cauldron.Activator\bin\Debug\netstandard2.0\Cauldron.Interception.dll" target="lib\netstandard2.0\Cauldron.Interception.dll" />
+    <file src="..\NetStandard\Cauldron.Activator\bin\Debug\netstandard2.0\Cauldron.Interception.xml" target="lib\netstandard2.0\Cauldron.Interception.xml" />
+
+    <file src="..\NetStandard\Cauldron.Activator\bin\Debug\netstandard2.0\Cauldron.Core.Collections.dll" target="lib\netstandard2.0\Cauldron.Core.Collections.dll" />
+    <file src="..\NetStandard\Cauldron.Activator\bin\Debug\netstandard2.0\Cauldron.Core.Collections.xml" target="lib\netstandard2.0\Cauldron.Core.Collections.xml" />
+  </files>
+</package>

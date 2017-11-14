@@ -42,7 +42,7 @@ namespace Cauldron.WPF.ParameterPassing
                 {
                     var data = Marshal.PtrToStructure<UnsafeNative.COPYDATASTRUCT>(lParam);
                     var result = string.Copy(data.lpData);
-                    Marshal.FreeCoTaskMem(lParam);
+                    // Marshal.FreeCoTaskMem(lParam); Causes a crash in Release mode
                     return result;
                 }
                 catch
@@ -98,9 +98,8 @@ namespace Cauldron.WPF.ParameterPassing
         [StructLayout(LayoutKind.Sequential)]
         private struct COPYDATASTRUCT
         {
-            public int cbData;
             public IntPtr dwData;  /* 1 */
-                                   /* 2 */
+            public int cbData;     /* 2 */
 
             [MarshalAs(UnmanagedType.LPStr)]  /* 3 */
             public string lpData; /* 4 */

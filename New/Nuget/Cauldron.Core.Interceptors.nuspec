@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Capgemini.Cauldron.Core.Interceptors</id>
+    <version>2.0.2-beta</version>
+    <authors>Alexander Schunk, Capgemini Deutschland GmbH</authors>
+    <owners>Alexander Schunk, Capgemini Deutschland GmbH</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <licenseUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/Capgemini/Cauldron</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</iconUrl>
+    <description>A collection a interceptor implementations.</description>
+    <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
+    <tags>Toolkit Capgemini Cauldron Interceptors Fody Interception</tags>
+    <dependencies>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="Cauldron.Interception.Fody" version="2.0.3-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="2.0.3-beta" />
+        <dependency id="Microsoft.Extensions.Caching.Memory" version="2.0.0" />
+        <dependency id="Fody" version="2.2.1" />
+        <dependency id="NLog" version="5.0.0-beta11" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="..\NetStandard\Cauldron.Core.Interceptors\bin\Release\netstandard2.0\Cauldron.Core.Interceptors.dll" target="lib\netstandard2.0\Cauldron.Core.Interceptors.dll" />
+    <file src="..\NetStandard\Cauldron.Core.Interceptors\bin\Release\netstandard2.0\Cauldron.Core.Interceptors.xml" target="lib\netstandard2.0\Cauldron.Core.Interceptors.xml" />
+
+    <file src="..\NetStandard\Cauldron.Activator\bin\Debug\netstandard2.0\Cauldron.Interception.dll" target="lib\netstandard2.0\Cauldron.Interception.dll" />
+    <file src="..\NetStandard\Cauldron.Activator\bin\Debug\netstandard2.0\Cauldron.Interception.xml" target="lib\netstandard2.0\Cauldron.Interception.xml" />
+  </files>
+</package>

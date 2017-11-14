@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Capgemini.Cauldron.Core</id>
+    <version>2.0.2-beta</version>
+    <authors>Alexander Schunk, Capgemini Deutschland GmbH</authors>
+    <owners>Alexander Schunk, Capgemini Deutschland GmbH</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <licenseUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/Capgemini/Cauldron</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</iconUrl>
+    <description>Cauldron Core is the core toolkit assembly that the Cauldron Toolkit builds upon</description>
+    <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
+    <tags>Toolkit Capgemini Cauldron Core</tags>
+    <dependencies>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="Capgemini.Cauldron.Core.Extensions" version="2.0.3-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Extensions.Convertions" version="2.0.3-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="2.0.3-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Extensions.IO" version="2.0.3-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Reflection" version="2.0.3-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Disposable" version="2.0.3-beta" />
+        <dependency id="Newtonsoft.Json" version="10.0.3" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="..\NetStandard\Cauldron.Core\bin\Debug\netstandard2.0\Cauldron.Core.dll" target="lib\netstandard2.0\Cauldron.Core.dll" />
+    <file src="..\NetStandard\Cauldron.Core\bin\Debug\netstandard2.0\Cauldron.Core.xml" target="lib\netstandard2.0\Cauldron.Core.xml" />
+
+    <file src="..\NetStandard\Cauldron.Activator\bin\Debug\netstandard2.0\Cauldron.Core.Collections.dll" target="lib\netstandard2.0\Cauldron.Core.Collections.dll" />
+    <file src="..\NetStandard\Cauldron.Activator\bin\Debug\netstandard2.0\Cauldron.Core.Collections.xml" target="lib\netstandard2.0\Cauldron.Core.Collections.xml" />
+  </files>
+</package>
