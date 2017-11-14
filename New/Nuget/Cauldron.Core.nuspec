@@ -25,10 +25,10 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="..\NetStandard\Cauldron.Core\bin\Debug\netstandard2.0\Cauldron.Core.dll" target="lib\netstandard2.0\Cauldron.Core.dll" />
-    <file src="..\NetStandard\Cauldron.Core\bin\Debug\netstandard2.0\Cauldron.Core.xml" target="lib\netstandard2.0\Cauldron.Core.xml" />
+    <file src="..\NetStandard\Cauldron.Core\bin\Release\netstandard2.0\Cauldron.Core.dll" target="lib\netstandard2.0\Cauldron.Core.dll" />
+    <file src="..\NetStandard\Cauldron.Core\bin\Release\netstandard2.0\Cauldron.Core.xml" target="lib\netstandard2.0\Cauldron.Core.xml" />
 
-    <file src="..\NetStandard\Cauldron.Activator\bin\Debug\netstandard2.0\Cauldron.Core.Collections.dll" target="lib\netstandard2.0\Cauldron.Core.Collections.dll" />
-    <file src="..\NetStandard\Cauldron.Activator\bin\Debug\netstandard2.0\Cauldron.Core.Collections.xml" target="lib\netstandard2.0\Cauldron.Core.Collections.xml" />
+    <file src="..\NetStandard\Cauldron.Core\bin\Release\netstandard2.0\Cauldron.Core.Collections.dll" target="lib\netstandard2.0\Cauldron.Core.Collections.dll" />
+    <file src="..\NetStandard\Cauldron.Core\bin\Release\netstandard2.0\Cauldron.Core.Collections.xml" target="lib\netstandard2.0\Cauldron.Core.Collections.xml" />
   </files>
 </package>

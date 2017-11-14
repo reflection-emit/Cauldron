@@ -26,7 +26,7 @@
     <file src="..\NetStandard\Cauldron.Cryptography\bin\Release\netstandard2.0\Cauldron.Cryptography.dll" target="lib\netstandard2.0\Cauldron.Cryptography.dll" />
     <file src="..\NetStandard\Cauldron.Cryptography\bin\Release\netstandard2.0\Cauldron.Cryptography.xml" target="lib\netstandard2.0\Cauldron.Cryptography.xml" />
 
-    <file src="..\NetStandard\Cauldron.Activator\bin\Debug\netstandard2.0\Cauldron.Core.MathExtensions.dll" target="lib\netstandard2.0\Cauldron.Core.MathExtensions.dll" />
-    <file src="..\NetStandard\Cauldron.Activator\bin\Debug\netstandard2.0\Cauldron.Core.MathExtensions.xml" target="lib\netstandard2.0\Cauldron.Core.MathExtensions.xml" />
+    <file src="..\NetStandard\Cauldron.Cryptography\bin\Release\netstandard2.0\Cauldron.Core.MathExtensions.dll" target="lib\netstandard2.0\Cauldron.Core.MathExtensions.dll" />
+    <file src="..\NetStandard\Cauldron.Cryptography\bin\Release\netstandard2.0\Cauldron.Core.MathExtensions.xml" target="lib\netstandard2.0\Cauldron.Core.MathExtensions.xml" />
   </files>
 </package>

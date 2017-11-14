@@ -13,28 +13,29 @@ namespace CauldronBuilder
 
         public static void Main(string[] args)
         {
-            data = CauldronBuilderData.Current;
+            var startingLocation = new DirectoryInfo(args == null || args.Length == 0 ? Path.GetDirectoryName(Path.GetFileName(typeof(Program).Assembly.Location)) : args[0]);
+            data = CauldronBuilderData.GetConfig(startingLocation);
 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"Version {data.CurrentPackageVersion} / {data.CurrentAssemblyVersion}");
+            Console.WriteLine($"Path {startingLocation.FullName}");
             Console.ResetColor();
 
             try
             {
-                var startingLocation = args == null || args.Length == 0 ? Path.GetDirectoryName(Path.GetFileName(typeof(Program).Assembly.Location)) : args[0];
+                var packages = new DirectoryInfo(Path.Combine(startingLocation.FullName, "Nuget\\Packages"));
 
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("Do you want to build the projects? Y/N");
                 if (Console.ReadKey().Key == ConsoleKey.Y)
                 {
                     Console.WriteLine("");
-                    var packages = new DirectoryInfo(Path.Combine(startingLocation, "Nuget\\Packages"));
 
-                    var allProjectFiles = Directory.GetFiles(startingLocation, "*.csproj", SearchOption.AllDirectories)
+                    var allProjectFiles = Directory.GetFiles(startingLocation.FullName, "*.csproj", SearchOption.AllDirectories)
                         .Select(x => new FileInfo(x))
                         .Where(x => !x.Name.Contains(".Test") && x.Name.StartsWith("Cauldron"))
                         .ToArray();
-                    var solutionPath = new FileInfo(Path.Combine(startingLocation, "Cauldron.sln"));
+                    var solutionPath = new FileInfo(Path.Combine(startingLocation.FullName, "Cauldron.sln"));
 
                     foreach (var project in allProjectFiles)
                         ChangeVersion(project);
@@ -51,19 +52,24 @@ namespace CauldronBuilder
                         File.Delete(file);
 
                     // Move all packages to the Package directory
-                    foreach (var nuget in Directory.GetFiles(startingLocation, "*.nupkg", SearchOption.AllDirectories)
+                    foreach (var nuget in Directory.GetFiles(startingLocation.FullName, "*.nupkg", SearchOption.AllDirectories)
                         .Where(x => x.Contains("\\Release\\")))
                     {
                         Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.WriteLine("Moving " + Path.GetFileName(nuget));
-                        File.Move(nuget, Path.Combine(startingLocation, "Nuget\\Packages", Path.GetFileName(nuget)));
+                        File.Move(nuget, Path.Combine(startingLocation.FullName, "Nuget\\Packages", Path.GetFileName(nuget)));
                     }
 
-                    // Build nugets of non NetStandard2.0 projects
-                    foreach (var nuget in Directory.GetFiles(Path.Combine(startingLocation, "Nuget"), "*.nuspec"))
-                        BuildNuGetPackage(nuget, packages.FullName);
-
                     data.IncrementAndSave();
+                }
+
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Do you want to build the Nuget packages? Y/N");
+                if (Console.ReadKey().Key == ConsoleKey.Y)
+                {
+                    // Build nugets of non NetStandard2.0 projects
+                    foreach (var nuget in Directory.GetFiles(Path.Combine(startingLocation.FullName, "Nuget"), "*.nuspec").Select(x => new FileInfo(x)))
+                        BuildNuGetPackage(nuget.FullName, packages.FullName);
                 }
 
                 Console.ForegroundColor = ConsoleColor.Green;
@@ -71,7 +77,6 @@ namespace CauldronBuilder
                 if (Console.ReadKey().Key == ConsoleKey.Y)
                 {
                     Console.WriteLine("");
-                    var packages = new DirectoryInfo(Path.Combine(startingLocation, "Nuget\\Packages"));
 
                     foreach (var package in Directory.GetFiles(packages.FullName, "*.nupkg", SearchOption.TopDirectoryOnly))
                         UploadNugetPackage(package);
@@ -96,20 +101,24 @@ namespace CauldronBuilder
 
             var startInfo = new ProcessStartInfo();
             startInfo.UseShellExecute = false;
-            startInfo.WorkingDirectory = Path.GetDirectoryName(targetDirectory);
+            startInfo.WorkingDirectory = Path.GetDirectoryName(path);
             startInfo.FileName = filename.FullName;
-            startInfo.Arguments = string.Format("pack \"{0}\" -OutputDir {1} -version {2}", path, targetDirectory,
+            startInfo.Arguments = string.Format("pack \"{0}\" -OutputDir Packages -version {2}", path, targetDirectory,
                 data.IsBeta ? data.CurrentPackageVersion + "-beta" : data.CurrentPackageVersion);
             startInfo.CreateNoWindow = true;
             startInfo.RedirectStandardOutput = true;
+            startInfo.RedirectStandardError = true;
 
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("Compiling " + startInfo.Arguments);
 
             var process = Process.Start(startInfo);
-            var error = process.StandardOutput.ReadToEnd();
+            var error = process.StandardError.ReadToEnd();
+            var output = process.StandardOutput.ReadToEnd();
 
             process.WaitForExit();
+
+            Console.WriteLine(output);
 
             if (process.ExitCode != 0)
                 throw new Exception(error);

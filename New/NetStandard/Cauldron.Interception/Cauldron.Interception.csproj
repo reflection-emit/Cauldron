@@ -3,8 +3,16 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>Capgemini.Cauldron.Interception</PackageId>
-  <AssemblyVersion>2.0.0.2</AssemblyVersion>
-<FileVersion>2.0.0.2</FileVersion>
+  <AssemblyVersion>2.0.0.3</AssemblyVersion>
+<FileVersion>2.0.0.3</FileVersion>
 </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard2.0\Cauldron.Interception.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netstandard2.0\Cauldron.Interception.xml</DocumentationFile>
+  </PropertyGroup>
 
 </Project>

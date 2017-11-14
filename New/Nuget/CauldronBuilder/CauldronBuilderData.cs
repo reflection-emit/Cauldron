@@ -9,19 +9,6 @@ namespace CauldronBuilder
         {
         }
 
-        public static CauldronBuilderData Current
-        {
-            get
-            {
-                var path = Path.Combine(Path.GetDirectoryName(typeof(CauldronBuilderData).Assembly.Location), "meta-data.json");
-
-                if (File.Exists(path))
-                    return JsonConvert.DeserializeObject<CauldronBuilderData>(File.ReadAllText(path));
-
-                return new CauldronBuilderData();
-            }
-        }
-
         [JsonProperty("current-assembly-version")]
         public string CurrentAssemblyVersion { get; set; } = "2.0.0.0";
 
@@ -30,6 +17,16 @@ namespace CauldronBuilder
 
         [JsonProperty("is-beta")]
         public bool IsBeta { get; set; } = true;
+
+        public static CauldronBuilderData GetConfig(DirectoryInfo directoryInfo)
+        {
+            var path = Path.Combine(directoryInfo.FullName, "meta-data.json");
+
+            if (File.Exists(path))
+                return JsonConvert.DeserializeObject<CauldronBuilderData>(File.ReadAllText(path));
+
+            return new CauldronBuilderData();
+        }
 
         public void IncrementAndSave()
         {
