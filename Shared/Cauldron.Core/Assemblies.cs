@@ -7,18 +7,17 @@ using Cauldron.Core.Extensions;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
+using System.ComponentModel;
 using Cauldron.Internal;
 
 #if NETFX_CORE
 
 using Windows.UI.Xaml;
-using System.ComponentModel;
 
 #elif NETCORE
 
 using System.Runtime.Loader;
 using Microsoft.Extensions.DependencyModel;
-using System.ComponentModel;
 
 #endif
 
@@ -462,28 +461,36 @@ namespace Cauldron.Core
         }
     }
 
-#if NETFX_CORE || NETCORE
-
     /// <exclude/>
     [EditorBrowsable(EditorBrowsableState.Never)]
     public static class AssembliesCORE
     {
+        /*
+         * We have to include this type for mixed .net frameworks...
+         * NETCore using Desktop dlls
+         */
+
+#if  NETFX_CORE || NETCORE
         private static Assembly _entryAssembly;
+#endif
 
         /// <exclude/>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static Assembly EntryAssembly
         {
+#if  NETFX_CORE || NETCORE
             get { return _entryAssembly; }
             set
             {
                 if (_entryAssembly == null)
                     _entryAssembly = value;
             }
+#else
+            get { return Assembly.GetEntryAssembly(); }
+            set {}
+#endif
         }
     }
-
-#endif
 
     /// <summary>
     /// Contains data of the <see cref="Assemblies.LoadedAssemblyChanged"/> event.

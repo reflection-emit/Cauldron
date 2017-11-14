@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageId>Capgemini.Cauldron.Localization</PackageId>
+    <Version>2.0.0-beta</Version>
+    <Authors>Alexander Schunk, Capgemini Deutschland GmbH</Authors>
+    <Company>Capgemini Deutschland GmbH</Company>
+    <Product>Cauldron.Consoles</Product>
+    <Copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</Copyright>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/Capgemini/Cauldron</PackageProjectUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</PackageIconUrl>
+    <Description>A simple localization implementation that can work with different sources.</Description>
+    <PackageReleaseNotes></PackageReleaseNotes>
+    <PackageTags>Toolkit Capgemini Cauldron Multisource Localization Language</PackageTags>
+  <AssemblyVersion>2.0.0.0</AssemblyVersion>
+<FileVersion>2.0.0.0</FileVersion>
+</PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard2.0\Cauldron.Localization.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netstandard2.0\Cauldron.Localization.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cauldron.Activator\Cauldron.Activator.csproj" />
+    <ProjectReference Include="..\Cauldron.Core.Extensions\Cauldron.Core.Extensions.csproj" />
+    <ProjectReference Include="..\Cauldron.Core.Reflection\Cauldron.Core.Reflection.csproj" />
+    <ProjectReference Include="..\Cauldron.Core.Yaml\Cauldron.Core.Yaml.csproj" />
+  </ItemGroup>
+
+</Project>

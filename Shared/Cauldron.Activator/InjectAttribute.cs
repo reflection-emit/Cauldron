@@ -125,7 +125,7 @@ namespace Cauldron.Activator
                         if (disposableInstance != null)
                         {
                             var disposableMe = propertyInterceptionInfo.Instance as IDisposableObject;
-                            // TODO - Mabe auto implement IDisposable???
+                            // TODO - Maybe auto implement IDisposable???
                             if (disposableMe != null)
                                 disposableMe.Disposed += (s, e) => disposableInstance?.Dispose();
                             else

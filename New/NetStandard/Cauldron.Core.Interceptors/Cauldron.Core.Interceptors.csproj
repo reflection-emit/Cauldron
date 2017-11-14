@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>Capgemini.Cauldron.Core.Interceptors</PackageId>
+  <AssemblyVersion>2.0.0.0</AssemblyVersion>
+<FileVersion>2.0.0.0</FileVersion>
+<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+<Version>2.0.0-beta</Version>
+<Authors>Alexander Schunk, Capgemini Deutschland GmbH</Authors>
+<Copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</Copyright>
+<PackageLicenseUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/LICENSE</PackageLicenseUrl>
+<PackageProjectUrl>https://github.com/Capgemini/Cauldron</PackageProjectUrl>
+<PackageIconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</PackageIconUrl>
+<PackageTags>Toolkit Capgemini Cauldron Interceptors Fody Interception</PackageTags>
+<Description>A collection a interceptor implementations.</Description>
+<Company>Capgemini Deutschland GmbH</Company>
+</PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard2.0\Cauldron.Core.Interceptors.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netstandard2.0\Cauldron.Core.Interceptors.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="TimedCacheAttribute.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.0.0" />
+    <PackageReference Include="NLog" Version="5.0.0-beta11" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cauldron.Core.Diagnostics\Cauldron.Core.Diagnostics.csproj" />
+    <ProjectReference Include="..\Cauldron.Interception\Cauldron.Interception.csproj" />
+  </ItemGroup>
+
+</Project>

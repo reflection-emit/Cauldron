@@ -17,18 +17,18 @@
     <dependencies>
       <group targetFramework="uap10.0">
         <dependency id="Microsoft.NETCore.UniversalWindowsPlatform" version="5.3.3" />
-        <dependency id="Capgemini.Cauldron.Core" version="1.2.18-beta" />
-        <dependency id="Capgemini.Cauldron.Activator" version="1.2.18-beta" />
-        <dependency id="Capgemini.Cauldron.Localization" version="1.2.18-beta" />
-        <dependency id="Capgemini.Cauldron.Cryptography" version="1.2.18-beta" />
-        <dependency id="Capgemini.Cauldron.XAML" version="1.2.18-beta" />
+        <dependency id="Capgemini.Cauldron.Core" version="1.2.20-beta" />
+        <dependency id="Capgemini.Cauldron.Activator" version="1.2.20-beta" />
+        <dependency id="Capgemini.Cauldron.Localization" version="1.2.20-beta" />
+        <dependency id="Capgemini.Cauldron.Cryptography" version="1.2.20-beta" />
+        <dependency id="Capgemini.Cauldron.XAML" version="1.2.20-beta" />
       </group>
       <group targetFramework="net461">
-        <dependency id="Capgemini.Cauldron.Core" version="1.2.18-beta" />
-        <dependency id="Capgemini.Cauldron.Activator" version="1.2.18-beta" />
-        <dependency id="Capgemini.Cauldron.Localization" version="1.2.18-beta" />
-        <dependency id="Capgemini.Cauldron.Cryptography" version="1.2.18-beta" />
-        <dependency id="Capgemini.Cauldron.XAML" version="1.2.18-beta" />
+        <dependency id="Capgemini.Cauldron.Core" version="1.2.20-beta" />
+        <dependency id="Capgemini.Cauldron.Activator" version="1.2.20-beta" />
+        <dependency id="Capgemini.Cauldron.Localization" version="1.2.20-beta" />
+        <dependency id="Capgemini.Cauldron.Cryptography" version="1.2.20-beta" />
+        <dependency id="Capgemini.Cauldron.XAML" version="1.2.20-beta" />
       </group>
     </dependencies>
   </metadata>

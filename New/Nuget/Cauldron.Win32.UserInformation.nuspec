@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Capgemini.Cauldron.Win32.UserInformation</id>
+    <version>2.0.0</version>
+    <title>Cauldron.Win32.UserInformation</title>
+    <authors>Capgemini Deutschland GmbH</authors>
+    <owners>Capgemini Deutschland GmbH</owners>
+    <licenseUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/Capgemini/Cauldron</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>Consolidates methods for getting user information (profile picture, email address, home directory ect.) to a single class.</description>
+    <summary>Consolidates methods for getting user information (profile picture, email address, home directory ect.) to a single class.</summary>
+    <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
+    <tags>Toolkit Capgemini Cauldron User information UserInformation</tags>
+    <dependencies>
+      <dependency id="Capgemini.Cauldron.Core.Comparing" version="2.0.0-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Extensions" version="2.0.0-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Extensions.Convertions" version="2.0.0-beta" />
+    </dependencies>
+  </metadata>
+  <files>
+    <!-- Desktop -->
+    <file src="..\Win32\Cauldron.Win32.UserInformation\bin\Release\Cauldron.Win32**" target="lib\net461" />
+  </files>
+</package>
