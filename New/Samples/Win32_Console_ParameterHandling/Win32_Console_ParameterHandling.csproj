@@ -43,6 +43,9 @@
     <Reference Include="Cauldron.Core.Collections, Version=2.0.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Capgemini.Cauldron.Activator.2.0.4-beta\lib\netstandard2.0\Cauldron.Core.Collections.dll</HintPath>
     </Reference>
+    <Reference Include="Cauldron.Core.Comparing, Version=2.0.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Comparing.2.0.3-beta\lib\netstandard2.0\Cauldron.Core.Comparing.dll</HintPath>
+    </Reference>
     <Reference Include="Cauldron.Core.Diagnostics, Version=2.0.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Capgemini.Cauldron.Core.Diagnostics.2.0.3-beta\lib\netstandard2.0\Cauldron.Core.Diagnostics.dll</HintPath>
     </Reference>
@@ -52,8 +55,14 @@
     <Reference Include="Cauldron.Core.Extensions, Version=2.0.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Capgemini.Cauldron.Core.Extensions.2.0.3-beta\lib\netstandard2.0\Cauldron.Core.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="Cauldron.Core.Extensions.Compression, Version=2.0.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Extensions.Compression.2.0.3-beta\lib\netstandard2.0\Cauldron.Core.Extensions.Compression.dll</HintPath>
+    </Reference>
     <Reference Include="Cauldron.Core.Extensions.Convertions, Version=2.0.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Capgemini.Cauldron.Core.Extensions.Convertions.2.0.3-beta\lib\netstandard2.0\Cauldron.Core.Extensions.Convertions.dll</HintPath>
+    </Reference>
+    <Reference Include="Cauldron.Core.MathExtensions, Version=2.0.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Cryptography.2.0.3-beta\lib\netstandard2.0\Cauldron.Core.MathExtensions.dll</HintPath>
     </Reference>
     <Reference Include="Cauldron.Core.Randomizer, Version=2.0.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Capgemini.Cauldron.Core.Randomizer.2.0.3-beta\lib\netstandard2.0\Cauldron.Core.Randomizer.dll</HintPath>
@@ -61,8 +70,14 @@
     <Reference Include="Cauldron.Core.Reflection, Version=2.0.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Capgemini.Cauldron.Core.Reflection.2.0.3-beta\lib\netstandard2.0\Cauldron.Core.Reflection.dll</HintPath>
     </Reference>
+    <Reference Include="Cauldron.Core.Threading, Version=2.0.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Threading.2.0.3-beta\lib\netstandard2.0\Cauldron.Core.Threading.dll</HintPath>
+    </Reference>
     <Reference Include="Cauldron.Core.Yaml, Version=2.0.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Capgemini.Cauldron.Core.Yaml.2.0.3-beta\lib\netstandard2.0\Cauldron.Core.Yaml.dll</HintPath>
+    </Reference>
+    <Reference Include="Cauldron.Cryptography, Version=2.0.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Cryptography.2.0.3-beta\lib\netstandard2.0\Cauldron.Cryptography.dll</HintPath>
     </Reference>
     <Reference Include="Cauldron.Interception, Version=2.0.0.3, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Capgemini.Cauldron.Activator.2.0.4-beta\lib\netstandard2.0\Cauldron.Interception.dll</HintPath>
@@ -79,16 +94,22 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EveApi.cs" />
+    <Compile Include="EveMarketExecutionGroup.cs" />
+    <Compile Include="LocaleSource.cs" />
+    <Compile Include="MainExecutionGroup.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <EmbeddedResource Include="string.yaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="FodyWeavers.xml" />
