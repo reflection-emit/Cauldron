@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Win32_Console_ParameterHandling\EveApi.cs" Link="EveApi.cs" />
+    <Compile Include="..\Win32_Console_ParameterHandling\EveMarketExecutionGroup.cs" Link="EveMarketExecutionGroup.cs" />
+    <Compile Include="..\Win32_Console_ParameterHandling\LocaleSource.cs" Link="LocaleSource.cs" />
+    <Compile Include="..\Win32_Console_ParameterHandling\MainExecutionGroup.cs" Link="MainExecutionGroup.cs" />
+    <Compile Include="..\Win32_Console_ParameterHandling\Program.cs" Link="Program.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="..\Win32_Console_ParameterHandling\string.yaml" Link="string.yaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Capgemini.Cauldron.Activator" Version="2.0.4-beta" />
+    <PackageReference Include="Capgemini.Cauldron.Consoles" Version="2.0.4-beta" />
+    <PackageReference Include="Capgemini.Cauldron.Core.Comparing" Version="2.0.4-beta" />
+    <PackageReference Include="Capgemini.Cauldron.Core.Threading" Version="2.0.4-beta" />
+    <PackageReference Include="Capgemini.Cauldron.Cryptography" Version="2.0.4-beta" />
+  </ItemGroup>
+</Project>

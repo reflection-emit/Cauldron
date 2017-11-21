@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "NetCore_Console_ParameterHandling": {
+      "commandName": "Project",
+      "commandLineArgs": "typhoon"
+    }
+  }
+}

@@ -18,6 +18,7 @@ namespace Win32_WPF_ParameterPassing
                 });
             });
 
+            // This is only relevant for this example
             try
             {
                 new App().Run(new MainWindow());

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Xml;
 
 namespace CauldronBuilder
 {
@@ -16,8 +17,10 @@ namespace CauldronBuilder
             var startingLocation = new DirectoryInfo(args == null || args.Length == 0 ? Path.GetDirectoryName(Path.GetFileName(typeof(Program).Assembly.Location)) : args[0]);
             data = CauldronBuilderData.GetConfig(startingLocation);
 
+            var version = data.IsBeta ? data.CurrentPackageVersion + "-beta" : data.CurrentPackageVersion;
+
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"Version {data.CurrentPackageVersion} / {data.CurrentAssemblyVersion}");
+            Console.WriteLine($"Version {version} / {data.CurrentAssemblyVersion}");
             Console.WriteLine($"Path {startingLocation.FullName}");
             Console.ResetColor();
 
@@ -38,7 +41,7 @@ namespace CauldronBuilder
                     var solutionPath = new FileInfo(Path.Combine(startingLocation.FullName, "Cauldron.sln"));
 
                     foreach (var project in allProjectFiles)
-                        ChangeVersion(project);
+                        ChangeVersion(project, version);
 
                     for (int i = 0; i < allProjectFiles.Length; i++)
                     {
@@ -69,7 +72,10 @@ namespace CauldronBuilder
                 {
                     // Build nugets of non NetStandard2.0 projects
                     foreach (var nuget in Directory.GetFiles(Path.Combine(startingLocation.FullName, "Nuget"), "*.nuspec").Select(x => new FileInfo(x)))
-                        BuildNuGetPackage(nuget.FullName, packages.FullName);
+                    {
+                        ChangeVersionOfNuspec(nuget, version);
+                        BuildNuGetPackage(nuget.FullName, packages.FullName, version);
+                    }
                 }
 
                 Console.ForegroundColor = ConsoleColor.Green;
@@ -95,7 +101,7 @@ namespace CauldronBuilder
             }
         }
 
-        private static void BuildNuGetPackage(string path, string targetDirectory)
+        private static void BuildNuGetPackage(string path, string targetDirectory, string version)
         {
             var filename = new FileInfo(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "nuget.exe"));
 
@@ -103,8 +109,7 @@ namespace CauldronBuilder
             startInfo.UseShellExecute = false;
             startInfo.WorkingDirectory = Path.GetDirectoryName(path);
             startInfo.FileName = filename.FullName;
-            startInfo.Arguments = string.Format("pack \"{0}\" -OutputDir Packages -version {2}", path, targetDirectory,
-                data.IsBeta ? data.CurrentPackageVersion + "-beta" : data.CurrentPackageVersion);
+            startInfo.Arguments = string.Format("pack \"{0}\" -OutputDir Packages -version {2}", path, targetDirectory, version);
             startInfo.CreateNoWindow = true;
             startInfo.RedirectStandardOutput = true;
             startInfo.RedirectStandardError = true;
@@ -145,14 +150,14 @@ namespace CauldronBuilder
                 throw new Exception(error);
         }
 
-        private static void ChangeVersion(FileInfo path)
+        private static void ChangeVersion(FileInfo path, string version)
         {
             var projectFileBody = File.ReadAllText(path.FullName);
             if (projectFileBody.StartsWith(@"<Project Sdk=""Microsoft.NET.Sdk"">")) // This is a NetStandard project
             {
                 var packageVersion = projectFileBody.EnclosedIn("<Version>", "</Version>");
                 if (packageVersion != null)
-                    projectFileBody = projectFileBody.Replace(packageVersion, $"<Version>{(data.IsBeta ? data.CurrentPackageVersion + "-beta" : data.CurrentPackageVersion)}</Version>");
+                    projectFileBody = projectFileBody.Replace(packageVersion, $"<Version>{version}</Version>");
 
                 var assemblyVersion = projectFileBody.EnclosedIn("<AssemblyVersion>", "</AssemblyVersion>");
                 if (assemblyVersion != null)
@@ -186,6 +191,34 @@ namespace CauldronBuilder
                     assemblyInfoBody = assemblyInfoBody.Replace(fileVersion, $"[assembly: AssemblyFileVersion(\"{data.CurrentAssemblyVersion}\")]");
 
                 File.WriteAllText(assemblyInfo, assemblyInfoBody);
+            }
+        }
+
+        private static void ChangeVersionOfNuspec(FileInfo path, string version)
+        {
+            var nuspec = new XmlDocument();
+            nuspec.Load(path.FullName);
+            var dependencies = nuspec["package"]["metadata"]["dependencies"];
+
+            foreach (XmlElement item in dependencies.Contains("group") ? dependencies["group"] : dependencies)
+            {
+                if (item.Attributes["id"].Value.Contains("Cauldron"))
+                    item.Attributes["version"].Value = version;
+            }
+
+            nuspec.Save(path.FullName);
+        }
+
+        private static bool Contains(this XmlElement element, string key)
+        {
+            try
+            {
+                var result = element[key];
+                return result != null;
+            }
+            catch
+            {
+                return false;
             }
         }
 

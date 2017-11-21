@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ParameterPassingSample.Properties
+namespace Win32_WPF_ParameterHandlingAndPassing.Properties
 {
 
 
@@ -44,7 +44,7 @@ namespace ParameterPassingSample.Properties
             {
                 if ((resourceMan == null))
                 {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ParameterPassingSample.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Win32_WPF_ParameterHandlingAndPassing.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

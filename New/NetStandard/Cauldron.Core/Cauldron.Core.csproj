@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>Capgemini.Cauldron.Core</PackageId>
-    <Version>2.0.3-beta</Version>
+    <Version>2.0.4-beta</Version>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Authors>Alexander Schunk, Capgemini Deutschland GmbH</Authors>

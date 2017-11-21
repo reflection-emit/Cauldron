@@ -11,14 +11,20 @@ namespace Win32_WPF_ParameterPassing
         {
             InitializeComponent();
 
+            // This is online meant for Lazy people
+            // So that they don't have to open the console separately
             var process = Process.Start(new ProcessStartInfo
             {
                 FileName = "cmd",
                 WorkingDirectory = ApplicationInfo.ApplicationPath.FullName
             });
-
-            this.Loaded += (s, e) => this.AddHook();
             this.Unloaded += (s, e) => process.Kill();
+
+            // This is the only relevant line here.
+            // This can be also added via Behaviour / Action
+            // As long as the Window is loaded and a Window handle exists,
+            // then everything is fine.
+            this.Loaded += (s, e) => this.AddHook();
         }
     }
 }

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ParameterPassingSample.Properties
+namespace Win32_WPF_ParameterHandlingAndPassing.Properties
 {
 
 

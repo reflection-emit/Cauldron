@@ -12,7 +12,7 @@ namespace Cauldron
     public static class ExtensionsDirectoryServices
     {
         /// <summary>
-        /// Impersonates the given user
+        /// Impersonates the given user using Win32 API.
         /// </summary>
         /// <param name="principalContext">The principal context of the user</param>
         /// <param name="username">The user name of the user to impersonate</param>
@@ -49,15 +49,24 @@ namespace Cauldron
             if (string.IsNullOrEmpty(password))
                 throw new ArgumentException("The parameter cannot be empty", nameof(password));
 
-            SafeTokenHandle handle;
+            SafeTokenHandle handle = null;
 
-            if (!UnsafeNative.LogonUser(username, principalContext.Name, password, (int)logonType, 3 /* LOGON32_PROVIDER_WINNT50 */, out handle))
-                throw new PrincipalOperationException("Could not impersonate the user.", Marshal.GetLastWin32Error());
+            try
+            {
+                if (!UnsafeNative.LogonUser(username, principalContext.Name, password, (int)logonType, 3 /* LOGON32_PROVIDER_WINNT50 */, out handle))
+                    throw new PrincipalOperationException("Could not impersonate the user.", Marshal.GetLastWin32Error());
 
-            var identity = WindowsIdentity.Impersonate(handle.DangerousGetHandle());
-            handle.Dispose();
-
-            return identity;
+                var identity = WindowsIdentity.Impersonate(handle.DangerousGetHandle());
+                return identity;
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                handle?.Dispose();
+            }
         }
     }
 }

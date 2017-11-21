@@ -24,16 +24,12 @@
     <file src="..\Fody\Cauldron.Interception.Cecilator\bin\Release\Cauldron.Interception.Cecilator.dll" target="Cauldron.Interception.Cecilator.dll" />
     <file src="..\Fody\Cauldron.Interception.Cecilator\bin\Release\Cauldron.Interception.Cecilator.pdb" target="Cauldron.Interception.Cecilator.pdb" />
     <file src="..\Fody\Cauldron.Interception.Cecilator\bin\Release\System.ValueTuple.dll" target="System.ValueTuple.dll" />
-
     <!-- Desktop -->
     <!-- <file src="..\Desktop\Cauldron.Desktop.Interception\bin\Release\Cauldron.Interception**" target="lib\net461" /> -->
-
     <!-- UWP -->
     <!-- <file src="..\UWP\Cauldron.UWP.Interception\bin\Release\Cauldron.Interception**" target="lib\uap10.0" /> -->
-
     <!-- Net Standard 2.0 -->
     <file src="..\NetStandard\Cauldron.Interception\bin\Release\netstandard2.0\Cauldron.Interception**" target="lib\netstandard2.0" />
-
     <file src="Fody\**" target="tools" />
   </files>
 </package>
