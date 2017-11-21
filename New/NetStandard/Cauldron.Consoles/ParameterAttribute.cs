@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cauldron.Localization;
+using System;
 
 namespace Cauldron.Consoles
 {

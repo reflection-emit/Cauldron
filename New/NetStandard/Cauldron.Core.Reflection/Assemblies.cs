@@ -1,5 +1,4 @@
-﻿using Cauldron.Core.Diagnostics;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,6 +9,7 @@ using System.Reflection;
 #if NETFX_CORE
 
 using Windows.UI.Xaml;
+using System.Diagnostics;
 
 #elif NETCORE
 
@@ -20,6 +20,8 @@ using Microsoft.Extensions.DependencyModel;
 
 namespace Cauldron.Core.Reflection
 {
+    using Cauldron.Core.Diagnostics;
+
     /// <summary>
     /// Contains methods and properties that helps to manage and gather <see cref="Assembly"/> information
     /// </summary>
@@ -133,7 +135,7 @@ namespace Cauldron.Core.Reflection
                 if (item.FullName != null && item.FullName.GetHashCode() == CauldronClassName.GetHashCode() && item.FullName == CauldronClassName)
                 {
 #if NETFX_CORE || NETCORE
-                    cauldronObject = Activator.CreateInstance(item.AsType());
+                    cauldronObject = System.Activator.CreateInstance(item.AsType());
 #else
                     cauldronObject = Activator.CreateInstance(item);
 #endif
@@ -370,7 +372,7 @@ namespace Cauldron.Core.Reflection
         {
 #if WINDOWS_UWP || NETCORE
             var assemblies = new List<Assembly>();
-            var cauldron = Activator.CreateInstance(AssembliesCORE.EntryAssembly.GetType("<Cauldron>")) as ILoadedAssemblies;
+            var cauldron = System.Activator.CreateInstance(AssembliesCORE.EntryAssembly.GetType("<Cauldron>")) as ILoadedAssemblies;
             assemblies.Add(AssembliesCORE.EntryAssembly);
 
             if (cauldron != null)
@@ -453,7 +455,7 @@ namespace Cauldron.Core.Reflection
                 foreach (var item in assembly.DefinedTypes)
                     if (item.FullName != null && item.FullName.GetHashCode() == CauldronClassName.GetHashCode() && item.FullName == CauldronClassName)
 #if NETFX_CORE || NETCORE
-                        _cauldron.Add(Activator.CreateInstance(item.AsType()));
+                        _cauldron.Add(System.Activator.CreateInstance(item.AsType()));
 #else
                         _cauldron.Add(Activator.CreateInstance(item));
 #endif

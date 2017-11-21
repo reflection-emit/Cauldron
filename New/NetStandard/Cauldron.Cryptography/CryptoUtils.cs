@@ -67,14 +67,14 @@ namespace Cauldron.Cryptography
                 score++;
 
             // If 90% of the password are numbers then lower the score
-            if (Mathc.ValueOf(Regex.Match(password, @"[0-9]+(\.[0-9][0-9]?)?").Length, password.Length, 100) > 90)
+            if (MathEx.ValueOf(Regex.Match(password, @"[0-9]+(\.[0-9][0-9]?)?").Length, password.Length, 100) > 90)
                 score--;
             // At least 4 of the chars should be numbers
             else if (Regex.Match(password, @"[0-9]+(\.[0-9][0-9]?)?").Length > 4)
                 score++;
 
             // If 99% of the password are letters then lower the score
-            if (Mathc.ValueOf(Regex.Match(password, @"^(?=.*[a-z])(?=.*[A-Z]).+$").Length, password.Length, 100) == 99)
+            if (MathEx.ValueOf(Regex.Match(password, @"^(?=.*[a-z])(?=.*[A-Z]).+$").Length, password.Length, 100) == 99)
                 score--;
             else if (Regex.IsMatch(password, @"^(?=.*[a-z])(?=.*[A-Z]).+$"))
                 score++;
@@ -90,7 +90,7 @@ namespace Cauldron.Cryptography
             if (password.Distinct(new DynamicEqualityComparer<char>((a, b) => a == b)).Count() == 1)
                 score = score - 2;
 
-            return (PasswordScore)Mathc.Clamp(score, 1, 5);
+            return (PasswordScore)MathEx.Clamp(score, 1, 5);
         }
     }
 }

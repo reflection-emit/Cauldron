@@ -110,13 +110,292 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\..\NetStandard\Cauldron.Activator\CloneIgnoreAttribute.cs">
+      <Link>Activator\CloneIgnoreAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Activator\ComponentAttribute.cs">
+      <Link>Activator\ComponentAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Activator\ComponentConstructorAttribute.cs">
+      <Link>Activator\ComponentConstructorAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Activator\ExtensionsCloning.cs">
+      <Link>Activator\ExtensionsCloning.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Activator\Factory.cs">
+      <Link>Activator\Factory.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Activator\FactoryCreationPolicy.cs">
+      <Link>Activator\FactoryCreationPolicy.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Activator\FactoryGeneric.cs">
+      <Link>Activator\FactoryGeneric.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Activator\FactoryTypeInfoInternal.cs">
+      <Link>Activator\FactoryTypeInfoInternal.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Activator\IFactoryCache.cs">
+      <Link>Activator\IFactoryCache.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Activator\IFactoryResolver.cs">
+      <Link>Activator\IFactoryResolver.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Activator\IFactoryTypeInfo.cs">
+      <Link>Activator\IFactoryTypeInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Activator\InjectAttribute.cs">
+      <Link>Activator\InjectAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Collections\ConcurrentKeyedCollection.cs">
+      <Link>Core\Collections\ConcurrentKeyedCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Collections\ConcurrentKeyedCollectionEx.cs">
+      <Link>Core\Collections\ConcurrentKeyedCollectionEx.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Collections\ConcurrentList.cs">
+      <Link>Core\Collections\ConcurrentList.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Collections\Extensions.cs">
+      <Link>Core\Collections\Extensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Collections\IEnumerableExtensions.cs">
+      <Link>Core\Collections\IEnumerableExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Collections\KeyedCollectionEx.cs">
+      <Link>Core\Collections\KeyedCollectionEx.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Comparing\Comparer.cs">
+      <Link>Core\Comparing\Comparer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Comparing\DynamicEqualityComparer.cs">
+      <Link>Core\Comparing\DynamicEqualityComparer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Comparing\Extensions.cs">
+      <Link>Core\Comparing\Extensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Diagnostics\Debug.cs">
+      <Link>Core\Diagnostics\Debug.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Disposable\DisposableBase.cs">
+      <Link>Core\Disposable\DisposableBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Disposable\IDisposableObject.cs">
+      <Link>Core\Disposable\IDisposableObject.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Extensions.Compression\ExtensionsGZipStream.cs">
+      <Link>Core\Extensions\Compression\ExtensionsGZipStream.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Extensions.Compression\GZip.cs">
+      <Link>Core\Extensions\Compression\GZip.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Extensions.Convertions\Encodings.cs">
+      <Link>Core\Extensions\Convertions\Encodings.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Extensions.Convertions\ExtensionsConvertions.cs">
+      <Link>Core\Extensions\Convertions\ExtensionsConvertions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Extensions.Convertions\ImplicitExplicitConvertionCache.cs">
+      <Link>Core\Extensions\Convertions\ImplicitExplicitConvertionCache.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Extensions.IO\ExtensionsFileIO.cs">
+      <Link>Core\Extensions\IO\ExtensionsFileIO.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Extensions\Extensions.cs">
+      <Link>Core\Extensions\Extensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Formatters\ByteSizeFormatter.cs">
+      <Link>Core\Formatters\ByteSizeFormatter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Formatters\Extensions.cs">
+      <Link>Core\Formatters\Extensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Formatters\Formatter.cs">
+      <Link>Core\Formatters\Formatter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Formatters\FormatterBase.cs">
+      <Link>Core\Formatters\FormatterBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Formatters\MetricUnitFormatter.cs">
+      <Link>Core\Formatters\MetricUnitFormatter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Interceptors\ExecutionTimeAttribute.cs">
+      <Link>Core\Interceptors\ExecutionTimeAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.MathExtensions\MathEx.cs">
+      <Link>Core\MathExtensions\MathEx.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Net\ConnectionGenerationTypes.cs">
+      <Link>Core\Net\ConnectionGenerationTypes.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Net\Network.cs">
+      <Link>Core\Net\Network.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Net\PingResults.cs">
+      <Link>Core\Net\PingResults.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Net\Web.cs">
+      <Link>Core\Net\Web.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Net\WebAuthenticationBrokerCallbackEventArgs.cs">
+      <Link>Core\Net\WebAuthenticationBrokerCallbackEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Net\WebAuthenticationBrokerWrapper.cs">
+      <Link>Core\Net\WebAuthenticationBrokerWrapper.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Net\WebException.cs">
+      <Link>Core\Net\WebException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Randomizer\Extensions.cs">
+      <Link>Core\Randomizer\Extensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Randomizer\Randomizer.cs">
+      <Link>Core\Randomizer\Randomizer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Reflection\ActivatorCollection.cs">
+      <Link>Core\Reflection\ActivatorCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Reflection\ApplicationInfo.cs">
+      <Link>Core\Reflection\ApplicationInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Reflection\Assemblies.cs">
+      <Link>Core\Reflection\Assemblies.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Reflection\AssemblyResource.cs">
+      <Link>Core\Reflection\AssemblyResource.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Reflection\DisplayNameAttribute.cs">
+      <Link>Core\Reflection\DisplayNameAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Reflection\Enum.cs">
+      <Link>Core\Reflection\Enum.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Reflection\ExtensionsReflection.cs">
+      <Link>Core\Reflection\ExtensionsReflection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Reflection\TypeIsInterfaceException.cs">
+      <Link>Core\Reflection\TypeIsInterfaceException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Threading\AsyncHelper.cs">
+      <Link>Core\Threading\AsyncHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Threading\CoreDispatcherPriority.cs">
+      <Link>Core\Threading\CoreDispatcherPriority.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Yaml\Yaml.cs">
+      <Link>Core\Yaml\Yaml.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Yaml\YamlCollection.cs">
+      <Link>Core\Yaml\YamlCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Yaml\YamlConvert.cs">
+      <Link>Core\Yaml\YamlConvert.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Yaml\YamlDeserializer.cs">
+      <Link>Core\Yaml\YamlDeserializer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Yaml\YamlPropertyAttribute.cs">
+      <Link>Core\Yaml\YamlPropertyAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core\DeviceFamilies.cs">
+      <Link>Core\DeviceFamilies.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core\KeyRawValueDictionary.cs">
+      <Link>Core\KeyRawValueDictionary.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core\MessageManager.cs">
+      <Link>Core\MessageManager.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core\MessageObject.cs">
+      <Link>Core\MessageObject.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core\MessagingArgs.cs">
+      <Link>Core\MessagingArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core\Serializer.cs">
+      <Link>Core\Serializer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core\Utilities.cs">
+      <Link>Core\Utilities.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Cryptography\Aes.cs">
+      <Link>Cryptography\Aes.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Cryptography\CryptoUtils.cs">
+      <Link>Cryptography\CryptoUtils.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Cryptography\DisposableObject.cs">
+      <Link>Cryptography\DisposableObject.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Cryptography\HashAlgorithms.cs">
+      <Link>Cryptography\HashAlgorithms.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Cryptography\KeyMaterial.cs">
+      <Link>Cryptography\KeyMaterial.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Cryptography\KeyPair.cs">
+      <Link>Cryptography\KeyPair.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Cryptography\PasswordScore.cs">
+      <Link>Cryptography\PasswordScore.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Cryptography\Rsa.cs">
+      <Link>Cryptography\Rsa.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Cryptography\RsaAes.cs">
+      <Link>Cryptography\RsaAes.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Cryptography\RSAKeySizes.cs">
+      <Link>Cryptography\RSAKeySizes.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Localization\ILocalizationKeyValue.cs">
+      <Link>Localization\ILocalizationKeyValue.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Localization\ILocalizationSource.cs">
+      <Link>Localization\ILocalizationSource.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Localization\JsonLocalizationSourceBase.cs">
+      <Link>Localization\JsonLocalizationSourceBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Localization\Locale.cs">
+      <Link>Localization\Locale.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Localization\LocalizationKeyValue.cs">
+      <Link>Localization\LocalizationKeyValue.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Localization\YamlLocalizationSourceBase.cs">
+      <Link>Localization\YamlLocalizationSourceBase.cs</Link>
+    </Compile>
+    <Compile Include="Core\Extensions\IO\ExtensionsStorageItem.cs" />
+    <Compile Include="Core\Extensions\ExtensionsXmlDocument.cs" />
+    <Compile Include="Core\Threading\DispatcherEx.cs" />
+    <Compile Include="Cryptography\Extensions.cs" />
+    <Compile Include="Cryptography\SecureString.cs" />
+    <Compile Include="ICloneable.cs" />
+    <Compile Include="Core\Extensions\Convertions\ExtensionsConvertions_UWP.cs" />
+    <Compile Include="Core\ILoadedAssemblies.cs" />
+    <Compile Include="Core\UserInformation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Cauldron.rd.xml" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Fody">
+      <Version>2.2.1</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.0.1</Version>
     </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>10.0.3</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="FodyWeavers.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cauldron.Interception\Cauldron.Interception.csproj">
+      <Project>{38abf85c-9322-4333-be30-a1b37fa5cc52}</Project>
+      <Name>Cauldron.Interception</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

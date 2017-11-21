@@ -5,9 +5,10 @@ using System.Text;
 
 #if WINDOWS_UWP
 
-using System;
 using Windows.Storage.Streams;
 using Windows.System.Profile;
+using Windows.Security.Cryptography.Core;
+using Windows.Security.Cryptography;
 
 #else
 
@@ -25,6 +26,38 @@ namespace Cauldron.Core.Diagnostics
     /// </summary>
     public static class Debug
     {
+        /// <summary>
+        /// Returns a string that can be used to identify the hardware
+        /// </summary>
+        public static string HardwareIdentifier
+        {
+            get
+            {
+#if NETFX_CORE
+                var token = HardwareIdentification.GetPackageSpecificToken(null);
+                var id = token.Id;
+                var bytes = new byte[id.Length];
+
+                using (var reader = DataReader.FromBuffer(id))
+                    reader.ReadBytes(bytes);
+
+                return GetHash(Convert.ToBase64String(bytes));
+#else
+                // TODO - This may not be enough to uniquely identify a hardware...
+                var sb = new StringBuilder();
+
+                foreach (var adapter in NetworkInterface.GetAllNetworkInterfaces())
+                    sb.Append(adapter.GetPhysicalAddress().ToString());
+
+                sb.Append(Environment.MachineName);
+                sb.Append(Environment.ProcessorCount);
+                sb.Append(Environment.OSVersion);
+
+                return GetHash(sb.ToString());
+#endif
+            }
+        }
+
         /// <summary>
         /// Gets the stacktrace of the exception and the inner exceptions recursively
         /// </summary>
@@ -75,44 +108,11 @@ namespace Cauldron.Core.Diagnostics
         /// <param name="e">The exception to write</param>
         public static void WriteLine(Exception e) => System.Diagnostics.Debug.WriteLine(e.GetStackTrace());
 
-
-        /// <summary>
-        /// Returns a string that can be used to identify the hardware
-        /// </summary>
-        public static string HardwareIdentifier
-        {
-            get
-            {
-#if NETFX_CORE
-                var token = HardwareIdentification.GetPackageSpecificToken(null);
-                var id = token.Id;
-                var bytes = new byte[id.Length];
-
-                using (var reader = DataReader.FromBuffer(id))
-                    reader.ReadBytes(bytes);
-
-                return Convert.ToBase64String(bytes).GetHash(HashAlgorithms.Sha256);
-#else
-                // TODO - This may not be enough to uniquely identify a hardware...
-                var sb = new StringBuilder();
-
-                foreach (var adapter in NetworkInterface.GetAllNetworkInterfaces())
-                    sb.Append(adapter.GetPhysicalAddress().ToString());
-
-                sb.Append(Environment.MachineName);
-                sb.Append(Environment.ProcessorCount);
-                sb.Append(Environment.OSVersion);
-
-                return GetHash(sb.ToString());
-#endif
-            }
-        }
-
         private static string GetHash(string value)
         {
 #if WINDOWS_UWP
             var sha = HashAlgorithmProvider.OpenAlgorithm(HashAlgorithmNames.Sha256);
-            var buffer = CryptographicBuffer.CreateFromByteArray(target);
+            var buffer = CryptographicBuffer.CreateFromByteArray(Encoding.UTF8.GetBytes(value));
 
             var hashed = sha.HashData(buffer);
             byte[] bytes;
@@ -125,6 +125,5 @@ namespace Cauldron.Core.Diagnostics
 
 #endif
         }
-
     }
 }

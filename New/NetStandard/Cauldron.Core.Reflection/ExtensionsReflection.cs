@@ -170,7 +170,7 @@ namespace Cauldron
             {
                 try
                 {
-                    return Activator.CreateInstance(type);
+                    return System.Activator.CreateInstance(type);
                 }
                 catch (Exception e)
                 {

@@ -58,8 +58,8 @@ namespace Cauldron.Cryptography
             var keyOriginal = keyDerivationProvider.CreateKey(passwordBuffer);
             var keyMaterial = CryptographicEngine.DeriveKeyMaterial(keyOriginal, pbkdf2Parms, 32);
             var derivedPasswordKey = keyDerivationProvider.CreateKey(passwordBuffer);
-            this.key = keyMaterial.ToArray().Compress();
-            this.initialisationVector = keyMaterial.ToArray().GetBytes(16).Compress();
+            this.key = keyMaterial.ToArray().ZipAsBytes();
+            this.initialisationVector = keyMaterial.ToArray().GetBytes(16).ZipAsBytes();
 
 #else
             using (Rfc2898DeriveBytes keyMaterial = new Rfc2898DeriveBytes(password.GetString(), salt, iterations))

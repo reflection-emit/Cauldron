@@ -1,5 +1,4 @@
-﻿using Cauldron.Core.Extensions;
-using System;
+﻿using System;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -9,9 +8,9 @@ using System.ComponentModel;
 
 #if WINDOWS_UWP
 
-using System;
-using Windows.Storage.Streams;
-using Windows.System.Profile;
+using Windows.Security.Cryptography;
+using Windows.Security.Cryptography.Core;
+using Windows.Storage;
 
 #else
 
@@ -213,7 +212,7 @@ namespace Cauldron.Core
         {
 #if WINDOWS_UWP
             var sha = HashAlgorithmProvider.OpenAlgorithm(HashAlgorithmNames.Sha256);
-            var buffer = CryptographicBuffer.CreateFromByteArray(target);
+            var buffer = CryptographicBuffer.CreateFromByteArray(Encoding.UTF8.GetBytes(value));
 
             var hashed = sha.HashData(buffer);
             byte[] bytes;

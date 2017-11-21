@@ -1,6 +1,7 @@
-﻿using System.Runtime.InteropServices;
+﻿using Cauldron.Core;
+using System.Runtime.InteropServices;
 
-namespace Cauldron.Core.Extensions
+namespace Cauldron
 {
     /// <summary>
     /// Provides usefull extension methods
@@ -43,8 +44,5 @@ namespace Cauldron.Core.Extensions
         /// <param name="array">The array to pick a random element from</param>
         /// <returns>The randomly picked element</returns>
         public static T RandomPick<T>(this T[] array) => array[Randomizer.Next(0, array.Length - 1)];
-
-
-
     }
 }

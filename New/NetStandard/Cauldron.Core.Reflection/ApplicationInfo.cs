@@ -17,7 +17,7 @@ using System.IO;
 namespace Cauldron.Core.Reflection
 {
     /// <summary>
-    /// Provides methods to retrieve information about the application
+    /// Provides methods to retrieve information about the application. In UWP it is a wrapper for Package.Current
     /// </summary>
     public static class ApplicationInfo
     {
@@ -29,31 +29,17 @@ namespace Cauldron.Core.Reflection
             get
             {
 #if WINDOWS_UWP
-                Func<Task<string>> getApplicationDisplayNameFromManifestAsync = async () =>
-                 {
-                     var xml = new Windows.Data.Xml.Dom.XmlDocument();
-                     var file = await Package.Current.InstalledLocation.GetFileAsync("AppxManifest.xml");
-                     xml.LoadXml(await FileIO.ReadTextAsync(file));
-
-                     return xml.GetElementsByTagName("DisplayName")[0].InnerText.Trim();
-                 };
-
-                var result = Package.Current.DisplayName;
-
-                if (string.IsNullOrEmpty(result))
-                    return AsyncHelper.RunSync(() => getApplicationDisplayNameFromManifestAsync());
-
-                return result;
+                return Package.Current.DisplayName;
 #else
 
                 var assembly = Assembly.GetEntryAssembly();
-#if !NETCORE
+
                 if (assembly == null)
                     assembly = Assembly.GetCallingAssembly();
 
                 if (assembly == null)
                     assembly = Assembly.GetExecutingAssembly();
-#endif
+
                 return assembly.GetName().Name;
 #endif
             }
@@ -64,10 +50,7 @@ namespace Cauldron.Core.Reflection
         /// </summary>
 #if WINDOWS_UWP
 
-        public static StorageFolder ApplicationPath
-        {
-            get { return Package.Current.InstalledLocation; }
-        }
+        public static StorageFolder ApplicationPath => Package.Current.InstalledLocation;
 
 #else
 
@@ -76,13 +59,12 @@ namespace Cauldron.Core.Reflection
             get
             {
                 var assembly = Assembly.GetEntryAssembly();
-#if !NETCORE
+
                 if (assembly == null)
                     assembly = Assembly.GetCallingAssembly();
 
                 if (assembly == null)
                     assembly = Assembly.GetExecutingAssembly();
-#endif
 
                 return new DirectoryInfo(Path.GetDirectoryName(assembly.Location));
             }
@@ -102,13 +84,12 @@ namespace Cauldron.Core.Reflection
 #else
 
                 var assembly = Assembly.GetEntryAssembly();
-#if !NETCORE
+
                 if (assembly == null)
                     assembly = Assembly.GetCallingAssembly();
 
                 if (assembly == null)
                     assembly = Assembly.GetExecutingAssembly();
-#endif
 
                 return assembly.GetCustomAttribute<AssemblyCompanyAttribute>()?.Company;
 #endif
@@ -127,20 +108,17 @@ namespace Cauldron.Core.Reflection
 #else
 
                 var assembly = Assembly.GetEntryAssembly();
-#if !NETCORE
+
                 if (assembly == null)
                     assembly = Assembly.GetCallingAssembly();
 
                 if (assembly == null)
                     assembly = Assembly.GetExecutingAssembly();
-#endif
 
                 return assembly.GetName().Version;
 #endif
             }
         }
-
-#if !WINDOWS_UWP
 
         /// <summary>
         /// Gets the application description
@@ -149,20 +127,20 @@ namespace Cauldron.Core.Reflection
         {
             get
             {
+#if WINDOWS_UWP
+                return Package.Current.Description;
+#else
                 var assembly = Assembly.GetEntryAssembly();
-#if !NETCORE
                 if (assembly == null)
                     assembly = Assembly.GetCallingAssembly();
 
                 if (assembly == null)
                     assembly = Assembly.GetExecutingAssembly();
-#endif
 
                 return assembly.GetCustomAttribute<AssemblyDescriptionAttribute>()?.Description;
+#endif
             }
         }
-
-#endif
 
         /// <summary>
         /// Gets the applications product name
@@ -175,13 +153,12 @@ namespace Cauldron.Core.Reflection
                 return Package.Current.Id.Name;
 #else
                 var assembly = Assembly.GetEntryAssembly();
-#if !NETCORE
+
                 if (assembly == null)
                     assembly = Assembly.GetCallingAssembly();
 
                 if (assembly == null)
                     assembly = Assembly.GetExecutingAssembly();
-#endif
 
                 return assembly.GetCustomAttribute<AssemblyProductAttribute>()?.Product;
 #endif
@@ -199,13 +176,12 @@ namespace Cauldron.Core.Reflection
                 return "Universal Windows Platform";
 #else
                 var assembly = Assembly.GetEntryAssembly();
-#if !NETCORE
+
                 if (assembly == null)
                     assembly = Assembly.GetCallingAssembly();
 
                 if (assembly == null)
                     assembly = Assembly.GetExecutingAssembly();
-#endif
 
                 return assembly.GetCustomAttribute<TargetFrameworkAttribute>()?.FrameworkDisplayName;
 #endif

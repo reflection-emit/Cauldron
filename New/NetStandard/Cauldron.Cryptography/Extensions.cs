@@ -12,7 +12,7 @@ namespace Cauldron
     /// <summary>
     /// Provides usefull extension methods
     /// </summary>
-    public static class Extensions
+    public static partial class Extensions
     {
         /// <summary>
         /// Returns the <see cref="SecureString"/> value as an array of bytes
@@ -67,29 +67,7 @@ namespace Cauldron
         /// <returns>The hash value</returns>
         public static string GetHash(this string target, HashAlgorithms algorithm)
         {
-#if WINDOWS_UWP
-            if (algorithm == HashAlgorithms.Md5)
-            {
-                var md5 = HashAlgorithmProvider.OpenAlgorithm(HashAlgorithmNames.Md5);
-                var buffer = CryptographicBuffer.ConvertStringToBinary(target, BinaryStringEncoding.Utf8);
-                var hashed = md5.HashData(buffer);
-                return CryptographicBuffer.EncodeToHexString(hashed);
-            }
-            else if (algorithm == HashAlgorithms.Sha512 || algorithm == HashAlgorithms.Sha256)
-            {
-                var sha = HashAlgorithmProvider.OpenAlgorithm(algorithm == HashAlgorithms.Sha512 ? HashAlgorithmNames.Sha256 : HashAlgorithmNames.Sha512);
-                var buffer = CryptographicBuffer.ConvertStringToBinary(target, BinaryStringEncoding.Utf8);
-
-                var hashed = sha.HashData(buffer);
-                byte[] bytes;
-
-                CryptographicBuffer.CopyToByteArray(hashed, out bytes);
-                return Convert.ToBase64String(bytes);
-            }
-            else
-                throw new NotSupportedException("Unsupported hash algorithm");
-
-#elif NETCORE
+#if NETCORE
             return UTF8Encoding.UTF8.GetBytes(target).GetHash(algorithm);
 
 #else
@@ -106,28 +84,7 @@ namespace Cauldron
         /// <returns>The hash value</returns>
         public static string GetHash(this byte[] target, HashAlgorithms algorithm)
         {
-#if WINDOWS_UWP
-            if (algorithm == HashAlgorithms.Md5)
-            {
-                var md5 = HashAlgorithmProvider.OpenAlgorithm(HashAlgorithmNames.Md5);
-                var buffer = CryptographicBuffer.CreateFromByteArray(target);
-                var hashed = md5.HashData(buffer);
-                return CryptographicBuffer.EncodeToHexString(hashed);
-            }
-            else if (algorithm == HashAlgorithms.Sha512 || algorithm == HashAlgorithms.Sha256)
-            {
-                var sha = HashAlgorithmProvider.OpenAlgorithm(algorithm == HashAlgorithms.Sha512 ? HashAlgorithmNames.Sha256 : HashAlgorithmNames.Sha512);
-                var buffer = CryptographicBuffer.CreateFromByteArray(target);
-
-                var hashed = sha.HashData(buffer);
-                byte[] bytes;
-
-                CryptographicBuffer.CopyToByteArray(hashed, out bytes);
-                return Convert.ToBase64String(bytes);
-            }
-            else
-                throw new NotSupportedException("Unsupported hash algorithm");
-#elif NETCORE
+#if NETCORE
 
             if (algorithm == HashAlgorithms.Md5)
                 using (var md5 = MD5.Create())

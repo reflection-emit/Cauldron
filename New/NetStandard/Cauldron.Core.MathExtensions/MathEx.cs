@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Reflection;
+using Cauldron;
 
-namespace Cauldron.Core
+namespace System  /* Make this prominent ... side by side with Math */
 {
     /// <summary>
     /// Provides static methods for common mathematical functions.
     /// </summary>
-    public static class Mathc
+    public static class MathEx
     {
         /// <summary>
         /// Adds <paramref name="a"/> to <paramref name="b"/>

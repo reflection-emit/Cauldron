@@ -1,14 +1,11 @@
 ﻿using System.Threading.Tasks;
 using System.Text;
+using System;
 
 #if WINDOWS_UWP
 
 using Windows.Storage;
 using Windows.Storage.Streams;
-#elif NETCORE
-
-using System.Runtime.InteropServices;
-using System.IO;
 
 #else
 

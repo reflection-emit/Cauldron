@@ -11,6 +11,12 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
+#if WINDOWS_UWP
+
+using System.Reflection;
+
+#endif
+
 namespace Cauldron
 {
     /// <summary>

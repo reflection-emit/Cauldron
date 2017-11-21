@@ -17,6 +17,12 @@ namespace Cauldron.Core
         }
 
         /// <summary>
+        /// Gets the account picture for the user.
+        /// </summary>
+        /// <returns>The image of the user</returns>
+        public static byte[] AccountPicture => currentUser.AccountPicture;
+
+        /// <summary>
         /// Gets the current user
         /// </summary>
         public static User CurrentUser => currentUser;
