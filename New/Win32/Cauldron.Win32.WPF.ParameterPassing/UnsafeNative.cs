@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace Cauldron.WPF.ParameterPassing
+namespace Cauldron.XAML
 {
     internal static class UnsafeNative
     {

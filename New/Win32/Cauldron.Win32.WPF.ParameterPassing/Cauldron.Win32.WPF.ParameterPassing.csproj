@@ -7,7 +7,7 @@
     <ProjectGuid>{3B7C0640-5D31-46AA-97D2-689787409853}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Cauldron.WPF.ParameterPassing</RootNamespace>
+    <RootNamespace>Cauldron.XAML</RootNamespace>
     <AssemblyName>Cauldron.Win32.WPF.ParameterPassing</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

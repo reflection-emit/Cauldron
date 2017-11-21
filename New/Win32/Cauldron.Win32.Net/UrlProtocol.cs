@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -74,6 +75,30 @@ namespace Cauldron.Net
                 {
                     throw new UnauthorizedAccessException("Process Elevation required to execute this method");
                 }
+            }
+        }
+
+        /// <summary>
+        /// Registers the application to a URI scheme using runas to elevate the process if required.
+        /// Not that this can still throw a <see cref="UnauthorizedAccessException"/> if the elevated process is also not authorized.
+        /// </summary>
+        /// <param name="name">The application uri e.g. exampleApplication://</param>
+        /// <exception cref="UnauthorizedAccessException">Process elevation required</exception>
+        public static void RegisterElevated(string name)
+        {
+            try
+            {
+                UrlProtocol.Register(name);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                var location = Assembly.GetEntryAssembly().Location;
+
+                var processInfo = new ProcessStartInfo();
+                processInfo.Verb = "runas";
+                processInfo.FileName = Path.Combine(Path.GetDirectoryName(location), Path.GetFileName(location).Replace(".vshost.exe", ".exe"));
+                processInfo.Arguments = "registerUriScheme";
+                Process.Start(processInfo);
             }
         }
 

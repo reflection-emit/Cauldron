@@ -3,7 +3,7 @@ using System;
 using System.Diagnostics;
 using System.Linq;
 
-namespace Cauldron.WPF.ParameterPassing
+namespace Cauldron.XAML
 {
     /// <summary>
     /// Handles parameter passing
@@ -50,20 +50,68 @@ namespace Cauldron.WPF.ParameterPassing
         internal static ParameterPassingConfig @params;
 
         /// <summary>
+        /// Gets a value that indicates if other instances of the application are already running.
+        /// </summary>
+        public static bool AreOtherInstanceActive => Processes.Length > 0;
+
+        private static Process[] Processes
+        {
+            get
+            {
+                // If an application is being run by VS then it will have the .vshost suffix to its proc
+                // name. We have to also check them
+                var proc = Process.GetCurrentProcess();
+                var processName = proc.ProcessName.Replace(".vshost", "");
+                return Process.GetProcesses()
+                    .Where(x => (x.ProcessName == processName || x.ProcessName == proc.ProcessName || x.ProcessName == proc.ProcessName + ".vshost") && x.Id != proc.Id)
+                    .ToArray();
+            }
+        }
+
+        /// <summary>
+        /// Brings the thread that created the specified application into the foreground and activates the
+        /// window. Keyboard input is directed to the window, and various visual cues are changed for
+        /// the user. The system assigns a slightly higher priority to the thread that created the
+        /// foreground window than it does to other threads.
+        /// <para/>
+        /// This will only activate the first application instance in the list, if multiple instances are active.
+        /// </summary>
+        /// <returns>Returns true if successfull; otherwise false</returns>
+        public static bool BringToFront()
+        {
+            var process = Processes.FirstOrDefault(x => x.MainWindowHandle != IntPtr.Zero);
+
+            if (process != null)
+            {
+                UnsafeNative.ActivateWindow(process.MainWindowHandle);
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Brings the thread that created the specified application into the foreground and activates the
+        /// window. Keyboard input is directed to the window, and various visual cues are changed for
+        /// the user. The system assigns a slightly higher priority to the thread that created the
+        /// foreground window than it does to other threads.
+        /// </summary>
+        /// <param name="selector">If returns true, the window is activated.</param>
+        public static void BringToFront(Func<Process, bool> selector)
+        {
+            foreach (var item in Processes.Where(x => x.MainWindowHandle != IntPtr.Zero))
+                if (selector(item))
+                    UnsafeNative.ActivateWindow(item.MainWindowHandle);
+        }
+
+        /// <summary>
         /// Configures the parameter passing
         /// </summary>
         /// <param name="args">The arguments passed to the application.</param>
         /// <param name="config">A delegate used to configure the parameter passing.</param>
         public static void Configure(string[] args, Action<ParameterPassingConfig> config)
         {
-            // If an application is being run by VS then it will have the .vshost suffix to its proc
-            // name. We have to also check them
-            var proc = Process.GetCurrentProcess();
-            var processName = proc.ProcessName.Replace(".vshost", "");
-            var processes = Process.GetProcesses()
-                .Where(x => (x.ProcessName == processName || x.ProcessName == proc.ProcessName || x.ProcessName == proc.ProcessName + ".vshost") && x.Id != proc.Id)
-                .ToArray();
-
+            var processes = Processes;
             @params = new ParameterPassingConfig(processes);
             config(@params);
 

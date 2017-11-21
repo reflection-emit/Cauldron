@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Cauldron.XAML;
+using System;
 using System.Windows;
 using System.Windows.Interop;
 
-namespace Cauldron.WPF.ParameterPassing
+namespace Cauldron
 {
     /// <summary>
     /// Provides extension methods
@@ -10,10 +11,10 @@ namespace Cauldron.WPF.ParameterPassing
     public static class Extensions
     {
         /// <summary>
-        /// Adds a message hook to the window
+        /// Adds a message hook to the window that handles the parameter passing callback.
         /// </summary>
         /// <param name="window">The window to add the hook to</param>
-        public static void AddHook(this Window window)
+        public static void AddHookParameterPassing(this Window window)
         {
             if (ParamPassing.@params == null)
                 throw new Exception("Execute App.Configure first before adding the hook.");

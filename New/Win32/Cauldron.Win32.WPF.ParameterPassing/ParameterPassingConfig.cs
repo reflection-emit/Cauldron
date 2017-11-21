@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Windows;
 
-namespace Cauldron.WPF.ParameterPassing
+namespace Cauldron.XAML
 {
     /// <summary>
     /// Represents the configuration of the parameter passing
