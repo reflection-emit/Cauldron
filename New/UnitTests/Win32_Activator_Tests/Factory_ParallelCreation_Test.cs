@@ -1,18 +1,11 @@
-﻿using System;
+﻿using Cauldron;
+using Cauldron.Activator;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Cauldron.Core.Extensions;
-using Cauldron.Activator;
 
-#if WINDOWS_UWP
-using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-#else
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-#endif
-
-namespace Win32_Activator_Tests
+namespace Activator_Tests
 {
     [TestClass]
     public class Factory_ParallelCreation_Test
@@ -23,7 +16,7 @@ namespace Win32_Activator_Tests
             var types = new List<Type>();
 
             for (int i = 1; i <= 1000; i++)
-                types.Add(Type.GetType("Win32_Activator_Tests.TestClass" + i, true));
+                types.Add(Type.GetType("Activator_Tests.TestClass" + i, true));
 
             Parallel.ForEach(types, x =>
             {

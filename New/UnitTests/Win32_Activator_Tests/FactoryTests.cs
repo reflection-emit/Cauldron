@@ -1,14 +1,7 @@
 ﻿using Cauldron.Activator;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 using System.Reflection;
-
-#if WINDOWS_UWP
-using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-#else
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-#endif
 
 namespace Cauldron.Test
 {
@@ -45,18 +38,11 @@ namespace Cauldron.Test
             Assert.AreEqual(5, animals.Count());
         }
 
-#if !WINDOWS_UWP
-
         [ExpectedException(typeof(AmbiguousMatchException))]
-#endif
         [TestMethod]
         public void CreateSingle_With_AmbiguousMatchException_Test()
         {
-#if WINDOWS_UWP
-            Assert.ThrowsException<AmbiguousMatchException>(() => Factory.Create<IAnimal>());
-#else
             Factory.Create<IAnimal>();
-#endif
         }
 
         [TestMethod]

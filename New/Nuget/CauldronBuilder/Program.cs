@@ -37,6 +37,9 @@ namespace CauldronBuilder
                     var allProjectFiles = Directory.GetFiles(startingLocation.FullName, "*.csproj", SearchOption.AllDirectories)
                         .Select(x => new FileInfo(x))
                         .Where(x => !x.Name.Contains(".Test") && x.Name.StartsWith("Cauldron"))
+                        .Select(x => new { Index = x.Name.Contains("Fody") ? 0 : 1, File = x })
+                        .OrderBy(x => x.Index)
+                        .Select(x => x.File)
                         .ToArray();
                     var solutionPath = new FileInfo(Path.Combine(startingLocation.FullName, "Cauldron.sln"));
 

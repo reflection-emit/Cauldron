@@ -31,26 +31,29 @@
     <Type Name="System.IEquatable{T}">
       <Subtypes Dynamic="Required Public" />
     </Type>
+
     <Type Name="Cauldron.Core.ILoadedAssemblies">
       <Subtypes Dynamic="Required Public" />
     </Type>
-    <Type Name="IFactoryResolver">
+
+    <Type Name="Cauldron.Activator.IFactoryResolver">
       <Subtypes Activate="Required All" Dynamic="Required Public" />
     </Type>
-    <Type Name="IFactoryCache">
+
+    <Type Name="Cauldron.Activator.IFactoryCache">
       <Subtypes Activate="Required All" Dynamic="Required Public" />
     </Type>
-    <Type Name="Cauldron.Interception.IInterceptor">
-      <Subtypes Dynamic="Required Public" />
-    </Type>
+
     <Type Name="Cauldron.Activator.ComponentAttribute">
       <AttributeImplies Activate="Required All" Dynamic="Required All" />
     </Type>
+
     <Type Name="Cauldron.Activator.ComponentConstructorAttribute">
       <AttributeImplies Activate="Required All" Dynamic="Required All" />
     </Type>
 
     <Type Name="Windows.UI.Xaml.Visibility" Dynamic="Required All" DataContractJsonSerializer="Required All" />
+    <Type Name="&lt;Cauldron&gt;" Dynamic="Required All" Activate="Required All" />
 
     <Type Name="Windows.UI.Xaml.DependencyProperty">
       <Subtypes Activate="Required All" Dynamic="Required All" />
@@ -64,7 +67,7 @@
       <Subtypes Activate="Required Public" />
     </Type>
 
-    <Namespace Name="Windows.UI.Xaml" MarshalObject="Required All" Dynamic="Required All" />
+    <Namespace Name="Windows.UI.Xaml" Dynamic="Required All" Activate="Required All" />
     <Namespace Name="Windows.UI.Xaml.Controls" Dynamic="Required All" Activate="Required All" />
   </Library>
 </Directives>

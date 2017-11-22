@@ -1,0 +1,8 @@
+﻿<Application
+    x:Class="UWP_Fody_Assembly_Validation_Tests.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWP_Fody_Assembly_Validation_Tests"
+    RequestedTheme="Light">
+
+</Application>

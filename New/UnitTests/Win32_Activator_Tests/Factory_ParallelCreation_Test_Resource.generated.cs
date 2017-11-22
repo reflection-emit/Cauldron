@@ -1,6 +1,6 @@
 ﻿using Cauldron.Activator;
 
-namespace Win32_Activator_Tests
+namespace Activator_Tests
 {
 [Component(typeof(TestClass1))]  public class TestClass1 { [ComponentConstructor]public TestClass1() { }}
 [Component(typeof(TestClass2))]  public class TestClass2 { [ComponentConstructor]public TestClass2() { }}

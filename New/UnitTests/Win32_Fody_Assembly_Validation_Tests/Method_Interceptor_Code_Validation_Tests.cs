@@ -1,20 +1,10 @@
-﻿using Cauldron.Core;
+﻿using Cauldron;
+using Cauldron.Core;
+using Cauldron.Core.Diagnostics;
 using Fody_Assembly_Validation_External_Resources;
-using Cauldron;
-
-#if WINDOWS_UWP
-
-using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-
-#else
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-#endif
-
 using System;
 using System.Threading.Tasks;
-using Cauldron.Core.Diagnostics;
 
 namespace Win32_Fody_Assembly_Validation_Tests
 {

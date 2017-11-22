@@ -20,6 +20,16 @@ namespace Cauldron.Interception.Cecilator
 
         public void AfterWeaving()
         {
+            AllTypes = null;
+
+            this.Builder = null;
+            this.LogError = null;
+            this.LogInfo = null;
+            this.LogWarning = null;
+            this.ReferenceCopyLocalPaths.Clear();
+            this.ModuleDefinition.Dispose();
+            this.ModuleDefinition = null;
+
             Method.variableDictionary.Clear();
             this.OnAfterWeaving();
         }

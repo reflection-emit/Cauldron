@@ -1,16 +1,9 @@
 ﻿using Cauldron.Cryptography;
 using System.Linq;
 using Cauldron;
-
-#if WINDOWS_UWP
-using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-#else
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-#endif
-
-namespace Win32_Cryptography_Tests
+namespace Cryptography_Tests
 {
     /// <summary>
     /// These tests are meant for compitibility tests with the desktop version

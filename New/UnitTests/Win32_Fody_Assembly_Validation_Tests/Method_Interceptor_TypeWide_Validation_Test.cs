@@ -1,16 +1,5 @@
-﻿using Win32_Fody_Assembly_Validation_Tests;
-using Cauldron.Interception;
-
-#if WINDOWS_UWP
-
-using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-
-#else
-
+﻿using Cauldron.Interception;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-#endif
-
 using System;
 
 namespace Win32_Fody_Assembly_Validation_Tests
@@ -18,8 +7,6 @@ namespace Win32_Fody_Assembly_Validation_Tests
     [TestClass]
     public class Method_Interceptor_TypeWide_Validation_Test
     {
-#if !WINDOWS_UWP
-
         [TestMethod]
         [ExpectedException(typeof(Exception))]
         public void InterceptAllMethods_Test()
@@ -27,18 +14,6 @@ namespace Win32_Fody_Assembly_Validation_Tests
             var testClass = new TypeWideMethodTestClass();
             testClass.Method1();
         }
-
-#else
-        [TestMethod]
-        public void InterceptAllMethods_Test()
-        {
-            Assert.ThrowsException<Exception>(() =>
-            {
-                var testClass = new TypeWideMethodTestClass();
-                testClass.Method1();
-            });
-        }
-#endif
 
         [TestMethod]
         public void Method_Interceptor_Respect_DoNotInterceptAttribute_Test()

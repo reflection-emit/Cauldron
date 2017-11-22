@@ -14,7 +14,6 @@ using Windows.Networking;
 using System.Net;
 using System.Net.Sockets;
 using System.Collections.Generic;
-using System.Net.NetworkInformation;
 using System.Linq;
 
 #endif

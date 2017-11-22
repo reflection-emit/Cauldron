@@ -91,18 +91,21 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>mkdir $(ProjectDir)..\..\packages\Cauldron.Interception.Fody.99.9.9
-copy $(TargetDir)$(TargetFileName) $(ProjectDir)..\..\packages\Cauldron.Interception.Fody.99.9.9
-copy $(TargetDir)$(TargetName).pdb $(ProjectDir)..\..\packages\Cauldron.Interception.Fody.99.9.9
-copy $(TargetDir)Cauldron.Interception.Cecilator.dll $(ProjectDir)..\..\packages\Cauldron.Interception.Fody.99.9.9
-copy $(TargetDir)Cauldron.Interception.Cecilator.pdb $(ProjectDir)..\..\packages\Cauldron.Interception.Fody.99.9.9
-copy $(TargetDir)System.ValueTuple.dll $(ProjectDir)..\..\packages\Cauldron.Interception.Fody.99.9.9
-mkdir $(ProjectDir)..\..\Tools\Cauldron.Interception.Fody.99.9.9
-copy $(TargetDir)$(TargetFileName) $(ProjectDir)..\..\Tools\Cauldron.Interception.Fody.99.9.9
-copy $(TargetDir)$(TargetName).pdb $(ProjectDir)..\..\Tools\Cauldron.Interception.Fody.99.9.9
-copy $(TargetDir)Cauldron.Interception.Cecilator.dll $(ProjectDir)..\..\Tools\Cauldron.Interception.Fody.99.9.9
-copy $(TargetDir)Cauldron.Interception.Cecilator.pdb $(ProjectDir)..\..\Tools\Cauldron.Interception.Fody.99.9.9
-copy $(TargetDir)System.ValueTuple.dll $(ProjectDir)..\..\Tools\Cauldron.Interception.Fody.99.9.9</PostBuildEvent>
+    <PostBuildEvent>rem mkdir $(ProjectDir)..\..\packages\Cauldron.Interception.Fody.99.9.9
+rem copy $(TargetDir)$(TargetFileName) $(ProjectDir)..\..\packages\Cauldron.Interception.Fody.99.9.9
+rem copy $(TargetDir)$(TargetName).pdb $(ProjectDir)..\..\packages\Cauldron.Interception.Fody.99.9.9
+rem copy $(TargetDir)Cauldron.Interception.Cecilator.dll $(ProjectDir)..\..\packages\Cauldron.Interception.Fody.99.9.9
+rem copy $(TargetDir)Cauldron.Interception.Cecilator.pdb $(ProjectDir)..\..\packages\Cauldron.Interception.Fody.99.9.9
+rem copy $(TargetDir)System.ValueTuple.dll $(ProjectDir)..\..\packages\Cauldron.Interception.Fody.99.9.9
+rem mkdir $(ProjectDir)..\..\Tools\Cauldron.Interception.Fody.99.9.9
+rem copy $(TargetDir)$(TargetFileName) $(ProjectDir)..\..\Tools\Cauldron.Interception.Fody.99.9.9
+rem copy $(TargetDir)$(TargetName).pdb $(ProjectDir)..\..\Tools\Cauldron.Interception.Fody.99.9.9
+rem copy $(TargetDir)Cauldron.Interception.Cecilator.dll $(ProjectDir)..\..\Tools\Cauldron.Interception.Fody.99.9.9
+rem copy $(TargetDir)Cauldron.Interception.Cecilator.pdb $(ProjectDir)..\..\Tools\Cauldron.Interception.Fody.99.9.9
+rem copy $(TargetDir)System.ValueTuple.dll $(ProjectDir)..\..\Tools\Cauldron.Interception.Fody.99.9.9
+
+$(ProjectDir)..\..\Helper\fodycopy.exe $(TargetDir) $(ProjectDir)..\..\Tools Cauldron.Interception.Fody
+$(ProjectDir)..\..\Helper\fodycopy.exe $(TargetDir) $(ProjectDir)..\..\packages Cauldron.Interception.Fody</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

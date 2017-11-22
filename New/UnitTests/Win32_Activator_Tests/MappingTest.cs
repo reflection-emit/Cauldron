@@ -5,18 +5,9 @@ using Cauldron.Activator;
 using System.Collections;
 using Cauldron;
 using Cauldron.Core.Collections;
-
-#if WINDOWS_UWP
-
-using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-
-#else
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-#endif
-
-namespace Win32_Activator_Tests
+namespace Activator_Tests
 {
     [TestClass]
     public class MappingTest

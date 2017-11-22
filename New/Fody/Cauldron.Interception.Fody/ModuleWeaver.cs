@@ -22,6 +22,12 @@ namespace Cauldron.Interception.Fody
                 return;
             }
 
+            var versionAttribute = typeof(ModuleWeaver)
+                .Assembly
+                .GetCustomAttributes(typeof(System.Reflection.AssemblyFileVersionAttribute), true)
+                .FirstOrDefault() as System.Reflection.AssemblyFileVersionAttribute;
+            this.LogInfo($"Cauldron Interception v" + versionAttribute.Version);
+
             var propertyInterceptingAttributes = this.Builder.FindAttributesByInterfaces(
                 "Cauldron.Interception.IPropertyInterceptor",
                 "Cauldron.Interception.IPropertyGetterInterceptor",
@@ -42,10 +48,10 @@ namespace Cauldron.Interception.Fody
 
             this.CreateFactoryCache(this.Builder);
 
-            if (this.Builder.IsReferenced("Cauldron.XAML") && this.Builder.IsReferenced("PropertyChanged"))
+            if (this.Builder.TypeExists("Cauldron.XAML.ApplicationBase") && this.Builder.IsReferenced("PropertyChanged"))
                 this.ImplementPropertyChangedEvent(this.Builder);
 
-            if (this.Builder.IsReferenced("Cauldron.XAML.Validation"))
+            if (this.Builder.TypeExists("Cauldron.XAML.Validation.ValidatorGroup"))
                 this.AddValidatorInits(this.Builder);
         }
 
@@ -162,24 +168,25 @@ namespace Cauldron.Interception.Fody
                 var module = builder.GetType("<Module>", SearchContext.Module);
                 var cauldron = builder.GetType("<Cauldron>", SearchContext.Module);
                 var assembly = builder.GetType("System.Reflection.Assembly").New(x => new { Type = x, Load = x.GetMethod("Load", 1) });
-                // UWP has to actually use any type from the Assembly, so that it is not thrown out
-                // while compiling to Nativ Code CreateAssemblyLoadDummy(builder,
-                // module.CreateStaticConstructor(), assembly.Type, builder.UnusedReference.Select(x
-                // => x.AssemblyDefinition).ToArray());
 
-                module.CreateStaticConstructor().NewCode().Context(x =>
+                // UWP has to actually use any type from the Assembly, so that it is not thrown out
+                // while compiling to Nativ Code
+
+                this.LogInfo(builder.Name);
+
+                if (builder.Name != "Cauldron.dll" && builder.TypeExists("Cauldron.Core.Reflection.AssembliesCORE"))
                 {
-                    if (builder.TypeExists("Cauldron.Core.Assemblies"))
+                    module.CreateStaticConstructor().NewCode().Context(x =>
                     {
                         var introspectionExtensions = builder.GetType("System.Reflection.IntrospectionExtensions").New(y => new { Type = y, GetTypeInfo = y.GetMethod("GetTypeInfo", 1) });
                         var typeInfo = builder.GetType("System.Reflection.TypeInfo").New(y => new { Type = y, Assembly = y.GetMethod("get_Assembly") });
-                        var assemblies = builder.GetType("Cauldron.Core.AssembliesCORE").New(y => new { Type = y, EntryAssembly = y.GetMethod("set_EntryAssembly", 1) });
+                        var assemblies = builder.GetType("Cauldron.Core.Reflection.AssembliesCORE").New(y => new { Type = y, EntryAssembly = y.GetMethod("set_EntryAssembly", 1) });
                         x.Call(assemblies.EntryAssembly, x.NewCode().Callvirt(x.NewCode().Call(introspectionExtensions.GetTypeInfo, module), typeInfo.Assembly));
-                    }
-                })
-                .Insert(InsertionPosition.End);
+                    })
+                    .Insert(InsertionPosition.End);
 
-                module.StaticConstructor.CustomAttributes.Add(typeof(MethodImplAttribute), MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization);
+                    module.StaticConstructor.CustomAttributes.Add(typeof(MethodImplAttribute), MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization);
+                }
 
                 // Add a new interface to <Cauldron> type
                 if (builder.TypeExists("Cauldron.Core.ILoadedAssemblies"))
@@ -271,7 +278,10 @@ namespace Cauldron.Interception.Fody
                 for (int i = 0; i < assembliesToList.Length; i++)
                 {
                     // We make an exeption on test platform
-                    if (assembliesToList[i] == null || assembliesToList[i].FullName == null || assembliesToList[i].FullName.StartsWith("Microsoft.VisualStudio.TestPlatform"))
+                    if (assembliesToList[i] == null ||
+                        assembliesToList[i].FullName == null ||
+                        assembliesToList[i].FullName.StartsWith("Microsoft.VisualStudio.TestPlatform") ||
+                        assembliesToList[i].FullName.StartsWith("Microsoft.VisualStudio.TestTools.UnitTesting"))
                         continue;
 
                     var type = assembliesToList[i].Modules
@@ -565,12 +575,12 @@ namespace Cauldron.Interception.Fody
                 .Return()
                 .Replace();
 
-            if (builder.IsReferenced("Cauldron.Activator") &&
+            if (builder.TypeExists("Cauldron.Activator.Factory") &&
                 (builder.IsReferenced("Cauldron.XAML") || builder.IsReferenced("System.Xaml") || builder.IsReferenced("Windows.UI.Xaml")) &&
                 (builder.TypeExists("Windows.UI.Xaml.Data.IValueConverter") || builder.TypeExists("System.Windows.Data.IValueConverter") /* Fixes #39 */))
                 AddAttributeToXAMLResources(builder);
 
-            if (builder.IsReferenced("Cauldron.Activator"))
+            if (builder.TypeExists("Cauldron.Activator.Factory"))
                 CreateComponentCache(builder, cauldron);
 
             this.ExecuteModuleAddition(builder);
@@ -624,7 +634,7 @@ namespace Cauldron.Interception.Fody
 
         private TypeDefinition[] FilterAssemblyList(IEnumerable<AssemblyDefinition> assemblies) =>
             assemblies
-            .Where(x => x != null && x.FullName != null && !x.FullName.StartsWith("Microsoft.VisualStudio.TestPlatform") && !x.FullName.StartsWith("System."))
+            .Where(x => x != null && x.FullName != null && !x.FullName.StartsWith("Microsoft.VisualStudio.TestPlatform") && !x.FullName.StartsWith("Microsoft.VisualStudio.TestTools.UnitTesting") && !x.FullName.StartsWith("System."))
             .Select(x => x.MainModule.Types
                     .FirstOrDefault(y => y.IsPublic && !y.IsGenericParameter && !y.HasCustomAttributes && !y.ContainsGenericParameter && !y.FullName.Contains('`') && y.FullName.Contains('.'))
             )

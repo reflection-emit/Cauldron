@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace Win32_Activator_Tests
+namespace Activator_Tests
 {
     [Component(typeof(ComponentTest))]
     public class ComponentTest : ComponentTestBase<ComponentTest>
@@ -55,7 +55,7 @@ namespace Win32_Activator_Tests
     public class NestedClassParent
     {
         [Inject]
-        private ITestInterface injectMe;
+        private ITestInterface injectMe = null;
 
         public class NestedClassChild
         {

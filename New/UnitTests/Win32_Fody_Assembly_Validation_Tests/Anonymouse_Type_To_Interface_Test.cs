@@ -1,17 +1,8 @@
-﻿#if WINDOWS_UWP
-
-using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-
-#else
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-#endif
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cauldron.Interception;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Win32_Fody_Assembly_Validation_Tests
 {

@@ -17,6 +17,68 @@ namespace Cauldron.Core
         private static User user;
 
         /// <summary>
+        /// Gets the account picture for the user.
+        /// <para/>
+        /// Attention: Cauld cause thread-locks.
+        /// </summary>
+        /// <returns>The image of the user</returns>
+        public static byte[] AccountPicture => GetAccountPictureAsync().RunSync();
+
+        /// <summary>
+        /// Gets the current user
+        /// <para/>
+        /// Attention: Cauld cause thread-locks.
+        /// </summary>
+        public static User CurrentUser
+        {
+            get
+            {
+                GetUserInformationAsync().RunSync();
+                return user;
+            }
+        }
+
+        /// <summary>
+        /// Gets the display name for the user account.
+        /// <para/>
+        /// Attention: Cauld cause thread-locks.
+        /// </summary>
+        /// <returns>The display name for the user account.</returns>
+        public static string DisplayName => GetDisplayNameAsync().RunSync();
+
+        /// <summary>
+        /// Gets the domain name for the user.
+        /// <para/>
+        /// Attention: Cauld cause thread-locks.
+        /// </summary>
+        /// <returns>A string that represents the domain name for the user.</returns>
+        public static string DomainName => GetDomainNameAsync().RunSync();
+
+        /// <summary>
+        /// Gets the user's first name.
+        /// <para/>
+        /// Attention: Cauld cause thread-locks.
+        /// </summary>
+        /// <returns>The user's first name.</returns>
+        public static string FirstName => GetFirstNameAsync().RunSync();
+
+        /// <summary>
+        /// Gets the user's last name.
+        /// <para/>
+        /// Attention: Cauld cause thread-locks.
+        /// </summary>
+        /// <returns>The user's last name.</returns>
+        public static string LastName => GetLastNameAsync().RunSync();
+
+        /// <summary>
+        /// Gets the user name of the user.
+        /// <para/>
+        /// Attention: Cauld cause thread-locks.
+        /// </summary>
+        /// <returns>A string that represents the user name of the user.</returns>
+        public static string UserName => GetUserNameAsync().RunSync();
+
+        /// <summary>
         /// Gets the display name for the user account.
         /// </summary>
         /// <returns>The display name for the user account.</returns>

@@ -1,4 +1,4 @@
-﻿namespace Win32_Activator_Tests
+﻿namespace Activator_Tests
 {
     public interface ITestInterface
     {

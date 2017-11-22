@@ -1,23 +1,12 @@
-﻿using Cauldron.Activator;
-using Cauldron.Core.Extensions;
+﻿using Cauldron;
+using Cauldron.Activator;
 using Cauldron.Interception;
-using Cauldron;
-
-#if WINDOWS_UWP
-
-using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-
-#else
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-#endif
-
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace Win32_Activator_Tests
+namespace Activator_Tests
 {
     [TestClass]
     public class Inject_Test

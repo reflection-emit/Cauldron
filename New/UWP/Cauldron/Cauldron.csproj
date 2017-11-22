@@ -236,9 +236,6 @@
     <Compile Include="..\..\NetStandard\Cauldron.Core.Net\Web.cs">
       <Link>Core\Net\Web.cs</Link>
     </Compile>
-    <Compile Include="..\..\NetStandard\Cauldron.Core.Net\WebAuthenticationBrokerCallbackEventArgs.cs">
-      <Link>Core\Net\WebAuthenticationBrokerCallbackEventArgs.cs</Link>
-    </Compile>
     <Compile Include="..\..\NetStandard\Cauldron.Core.Net\WebAuthenticationBrokerWrapper.cs">
       <Link>Core\Net\WebAuthenticationBrokerWrapper.cs</Link>
     </Compile>
@@ -382,7 +379,7 @@
       <Version>2.2.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.0.1</Version>
+      <Version>6.0.2</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>10.0.3</Version>

@@ -1,17 +1,8 @@
-﻿using Cauldron.Cryptography;
-using Cauldron;
-
-#if WINDOWS_UWP
-
-using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-
-#else
-
+﻿using Cauldron;
+using Cauldron.Cryptography;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-#endif
-
-namespace Win32_Cryptography_Tests
+namespace Cryptography_Tests
 {
     [TestClass]
     public class SecureStringTest
