@@ -15,27 +15,31 @@
     <tags>Toolkit Capgemini Cauldron XAML WPF MVVM Framework ViewModels</tags>
     <dependencies>
       <dependency id="Fody" version="2.2.1" />
-      <dependency id="Capgemini.Cauldron.Activator" version="2.0.4-beta" />
-      <dependency id="Capgemini.Cauldron.Core" version="2.0.4-beta" />
-      <dependency id="Capgemini.Cauldron.Core.Comparing" version="2.0.4-beta" />
-      <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="2.0.4-beta" />
-      <dependency id="Capgemini.Cauldron.Core.Disposable" version="2.0.4-beta" />
-      <dependency id="Capgemini.Cauldron.Core.Extensions" version="2.0.4-beta" />
-      <dependency id="Capgemini.Cauldron.Core.Extensions.Convertions" version="2.0.4-beta" />
-      <dependency id="Capgemini.Cauldron.Core.Reflection" version="2.0.4-beta" />
-      <dependency id="Capgemini.Cauldron.Core.Threading" version="2.0.4-beta" />
-      <dependency id="Capgemini.Cauldron.Cryptography" version="2.0.4-beta" />
-      <dependency id="Capgemini.Cauldron.Interception" version="2.0.4-beta" />
-      <dependency id="Capgemini.Cauldron.Localization" version="2.0.4-beta" />
-      <dependency id="Capgemini.Cauldron.Win32.MonitorInfo" version="2.0.4-beta" />
-      <dependency id="Capgemini.Cauldron.Win32.Net" version="2.0.4-beta" />
-      <dependency id="Capgemini.Cauldron.Win32.Threading" version="2.0.4-beta" />
-      <dependency id="Capgemini.Cauldron.Win32.UserInformation" version="2.0.4-beta" />
-      <dependency id="Capgemini.Cauldron.Win32.WPF.ParameterPassing" version="2.0.4-beta" />
+      <dependency id="Newtonsoft.Json" version="10.0.3" />
+      <dependency id="PropertyChanged.Fody" version="2.1.4" />
+      <dependency id="Cauldron.Interception.Fody" version="2.0.5-beta" />
+      <dependency id="Capgemini.Cauldron.Activator" version="2.0.5-beta" />
+      <dependency id="Capgemini.Cauldron.Core" version="2.0.5-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Comparing" version="2.0.5-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="2.0.5-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Disposable" version="2.0.5-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Extensions" version="2.0.5-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Extensions.Convertions" version="2.0.5-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Reflection" version="2.0.5-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Threading" version="2.0.5-beta" />
+      <dependency id="Capgemini.Cauldron.Cryptography" version="2.0.5-beta" />
+      <dependency id="Capgemini.Cauldron.Localization" version="2.0.5-beta" />
+      <dependency id="Capgemini.Cauldron.Win32.MonitorInfo" version="2.0.5-beta" />
+      <dependency id="Capgemini.Cauldron.Win32.Net" version="2.0.5-beta" />
+      <dependency id="Capgemini.Cauldron.Win32.Threading" version="2.0.5-beta" />
+      <dependency id="Capgemini.Cauldron.Win32.UserInformation" version="2.0.5-beta" />
+      <dependency id="Capgemini.Cauldron.Win32.WPF.ParameterPassing" version="2.0.5-beta" />
     </dependencies>
   </metadata>
   <files>
     <!-- Desktop -->
-    <file src="..\Win32\Cauldron.Win32.WPF\bin\Release\Cauldron.Win32**" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Win32.WPF\bin\Release\Cauldron.Win32.WPF**" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Win32.WPF\bin\Release\Cauldron.Core.Collections**" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Win32.WPF\bin\Release\Cauldron.Core.MathExtensions**" target="lib\net461" />
   </files>
 </package>

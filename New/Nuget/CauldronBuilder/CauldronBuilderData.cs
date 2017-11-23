@@ -5,6 +5,8 @@ namespace CauldronBuilder
 {
     public class CauldronBuilderData
     {
+        private static string path;
+
         private CauldronBuilderData()
         {
         }
@@ -20,7 +22,7 @@ namespace CauldronBuilder
 
         public static CauldronBuilderData GetConfig(DirectoryInfo directoryInfo)
         {
-            var path = Path.Combine(directoryInfo.FullName, "meta-data.json");
+            path = Path.Combine(directoryInfo.FullName, "meta-data.json");
 
             if (File.Exists(path))
                 return JsonConvert.DeserializeObject<CauldronBuilderData>(File.ReadAllText(path));
@@ -33,7 +35,6 @@ namespace CauldronBuilder
             this.CurrentAssemblyVersion = IncrementRevision(this.CurrentAssemblyVersion);
             this.CurrentPackageVersion = IncrementRevision(this.CurrentPackageVersion);
 
-            var path = Path.Combine(Path.GetDirectoryName(typeof(CauldronBuilderData).Assembly.Location), "meta-data.json");
             File.WriteAllText(path, JsonConvert.SerializeObject(this));
         }
 
