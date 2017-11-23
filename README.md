@@ -32,7 +32,8 @@ https://Capgemini.github.io/Cauldron/uwp/
 - Cauldron.XAML renamed to Cauldron.Win32.WPF
 - UWP libraries are combined together to a single library
 - Win32 specific libraries has now the following nomenclature: Cauldron.Win32.*
-- DispatcherEx is now injectable. It uses the new UnitTest aware Factory resolver to inject either the dummy dispatcher or the real deal.
+- DispatcherEx is now injectable. It uses the new UnitTest aware Factory resolver to inject either the dummy dispatcher or the real deal. 
+- ComparerUtils renamed to Comparer
 ### 1.2.8
 - Breaking changes: Reorganisation of the XAML libraries
 - Skinning added (Skins from first version of Cauldron re-added)

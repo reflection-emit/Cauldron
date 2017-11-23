@@ -431,6 +431,57 @@
     <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Interactivity\StyleInteraction.cs">
       <Link>XAML\Interactivity\StyleInteraction.cs</Link>
     </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Validation\EqualityAttribute.cs">
+      <Link>XAML\Validation\EqualityAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Validation\GreaterThanAttribute.cs">
+      <Link>XAML\Validation\GreaterThanAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Validation\GreaterThanOrEqualAttribute.cs">
+      <Link>XAML\Validation\GreaterThanOrEqualAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Validation\IsMandatoryAttribute.cs">
+      <Link>XAML\Validation\IsMandatoryAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Validation\LessThan.cs">
+      <Link>XAML\Validation\LessThan.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Validation\LessThanOrEqual.cs">
+      <Link>XAML\Validation\LessThanOrEqual.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Validation\PasswordStrengthAttribute.cs">
+      <Link>XAML\Validation\PasswordStrengthAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Validation\StringLengthAttribute.cs">
+      <Link>XAML\Validation\StringLengthAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Validation\UnEqualityAttribute.cs">
+      <Link>XAML\Validation\UnEqualityAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Validation\ValidationBehaviour.cs">
+      <Link>XAML\Validation\ValidationBehaviour.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Validation\ValidationHandler.cs">
+      <Link>XAML\Validation\ValidationHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Validation\ValidationProperties.cs">
+      <Link>XAML\Validation\ValidationProperties.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Validation\ValidatorAttributeBase.cs">
+      <Link>XAML\Validation\ValidatorAttributeBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Validation\ValidatorCollection.cs">
+      <Link>XAML\Validation\ValidatorCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Validation\ValidatorGroup.cs">
+      <Link>XAML\Validation\ValidatorGroup.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Validation\ViewModels\IValidatableViewModel.cs">
+      <Link>XAML\Validation\ViewModels\IValidatableViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Validation\ViewModels\ValidatableViewModelBase.cs">
+      <Link>XAML\Validation\ViewModels\ValidatableViewModelBase.cs</Link>
+    </Compile>
     <Compile Include="..\..\Win32\Cauldron.Win32.WPF\BehaviourInvocationArgs.cs">
       <Link>XAML\BehaviourInvocationArgs.cs</Link>
     </Compile>

@@ -4,15 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7CE75511-7DCE-4162-936F-AD9031E8A987}</ProjectGuid>
+    <ProjectGuid>{3BC85368-B2C4-48D0-9877-86C9A59DD161}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Cauldron.XAML.Interactivity</RootNamespace>
-    <AssemblyName>Cauldron.Win32.WPF.Interactivity</AssemblyName>
+    <RootNamespace>Cauldron.XAML.Validation</RootNamespace>
+    <AssemblyName>Cauldron.Win32.WPF.Validation</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -22,7 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\Cauldron.Win32.WPF.Interactivity.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\Cauldron.Win32.WPF.Validation.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,15 +29,11 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\Cauldron.Win32.WPF.Interactivity.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\Cauldron.Win32.WPF.Validation.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="PropertyChanged, Version=2.1.4.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\PropertyChanged.Fody.2.1.4\lib\netstandard1.0\PropertyChanged.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xaml" />
@@ -52,26 +46,24 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Actions\ActionBase.cs" />
-    <Compile Include="Actions\ActionCollection.cs" />
-    <Compile Include="Actions\InvokeMethodAction.cs" />
-    <Compile Include="Attributes\BehaviourUsageAttribute.cs" />
-    <Compile Include="Behaviour.cs" />
-    <Compile Include="BehaviourCollection.cs" />
-    <Compile Include="BehaviourInvocation\BehaviourInvokeAwareBehaviourBase.cs" />
-    <Compile Include="BehaviourInvocation\InvocationTrigger.cs" />
-    <Compile Include="EnterKeyToCommand.cs" />
-    <Compile Include="EventToCommand.cs" />
-    <Compile Include="EventTrigger.cs" />
-    <Compile Include="IBehaviour.cs" />
-    <Compile Include="Interaction.cs" />
-    <Compile Include="InteractionTemplate.cs" />
-    <Compile Include="Localized.cs" />
-    <Compile Include="PasswordBoxBinding.cs" />
+    <Compile Include="EqualityAttribute.cs" />
+    <Compile Include="GreaterThanAttribute.cs" />
+    <Compile Include="GreaterThanOrEqualAttribute.cs" />
+    <Compile Include="IsMandatoryAttribute.cs" />
+    <Compile Include="LessThan.cs" />
+    <Compile Include="LessThanOrEqual.cs" />
+    <Compile Include="PasswordStrengthAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropertyChangedTrigger.cs" />
-    <Compile Include="SetFocusOnLoad.cs" />
-    <Compile Include="StyleInteraction.cs" />
+    <Compile Include="StringLengthAttribute.cs" />
+    <Compile Include="UnEqualityAttribute.cs" />
+    <Compile Include="ValidationBehaviour.cs" />
+    <Compile Include="ValidationHandler.cs" />
+    <Compile Include="ValidationProperties.cs" />
+    <Compile Include="ValidatorAttributeBase.cs" />
+    <Compile Include="ValidatorCollection.cs" />
+    <Compile Include="ValidatorGroup.cs" />
+    <Compile Include="ViewModels\IValidatableViewModel.cs" />
+    <Compile Include="ViewModels\ValidatableViewModelBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\NetStandard\Cauldron.Activator\Cauldron.Activator.csproj">
@@ -82,13 +74,17 @@
       <Project>{2d5b073e-f086-4169-a473-f734bfad777c}</Project>
       <Name>Cauldron.Core.Collections</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Diagnostics\Cauldron.Core.Diagnostics.csproj">
-      <Project>{9631764e-e771-4d96-a7cf-757c257a0630}</Project>
-      <Name>Cauldron.Core.Diagnostics</Name>
+    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Comparing\Cauldron.Core.Comparing.csproj">
+      <Project>{75a87a26-d167-4e61-84ba-5595ae475934}</Project>
+      <Name>Cauldron.Core.Comparing</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Disposable\Cauldron.Core.Disposable.csproj">
       <Project>{fee69c60-3463-47e9-9a7c-735b4f967aad}</Project>
       <Name>Cauldron.Core.Disposable</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Extensions.Convertions\Cauldron.Core.Extensions.Convertions.csproj">
+      <Project>{aeca1669-9742-4ac6-ab32-2b8be1c5dac0}</Project>
+      <Name>Cauldron.Core.Extensions.Convertions</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Extensions\Cauldron.Core.Extensions.csproj">
       <Project>{80d83040-3340-4b2b-8c62-b0ce6b069a34}</Project>
@@ -114,9 +110,9 @@
       <Project>{2729fd6d-0685-4fdf-a995-3eae4e5ae942}</Project>
       <Name>Cauldron.Localization</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Cauldron.Win32.Threading\Cauldron.Win32.Threading.csproj">
-      <Project>{4aeb2c1e-1625-483d-ad8e-6dca3c28742e}</Project>
-      <Name>Cauldron.Win32.Threading</Name>
+    <ProjectReference Include="..\Cauldron.Win32.WPF.Interactivity\Cauldron.Win32.WPF.Interactivity.csproj">
+      <Project>{7ce75511-7dce-4162-936f-ad9031e8a987}</Project>
+      <Name>Cauldron.Win32.WPF.Interactivity</Name>
     </ProjectReference>
     <ProjectReference Include="..\Cauldron.Win32.WPF\Cauldron.Win32.WPF.csproj">
       <Project>{9607b822-ba0f-46fd-b487-c431f3fd9eed}</Project>
@@ -126,15 +122,5 @@
   <ItemGroup>
     <None Include="FodyWeavers.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\..\packages\Fody.2.2.1.0\build\net452\Fody.targets" Condition="Exists('..\..\packages\Fody.2.2.1.0\build\net452\Fody.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\Fody.2.2.1.0\build\net452\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Fody.2.2.1.0\build\net452\Fody.targets'))" />
-  </Target>
 </Project>

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Cauldron.Win32.WPF.Interactivity")]
+[assembly: AssemblyTitle("Cauldron.Win32.WPF.Validation")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Capgemini Deutschland GmbH")]
-[assembly: AssemblyProduct("Cauldron.Win32.WPF.Interactivity")]
+[assembly: AssemblyProduct("Cauldron.Win32.WPF.Validation")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("7ce75511-7dce-4162-936f-ad9031e8a987")]
+[assembly: Guid("3bc85368-b2c4-48d0-9877-86c9a59dd161")]
 
 // Version information for an assembly consists of the following four values:
 //
