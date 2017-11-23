@@ -66,6 +66,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nuget", "Nuget", "{8675B75E
 		Nuget\Cauldron.Win32.Net.nuspec = Nuget\Cauldron.Win32.Net.nuspec
 		Nuget\Cauldron.Win32.Threading.nuspec = Nuget\Cauldron.Win32.Threading.nuspec
 		Nuget\Cauldron.Win32.UserInformation.nuspec = Nuget\Cauldron.Win32.UserInformation.nuspec
+		Nuget\Cauldron.Win32.WPF.nuspec = Nuget\Cauldron.Win32.WPF.nuspec
 		Nuget\Cauldron.Win32.WPF.ParameterPassing.nuspec = Nuget\Cauldron.Win32.WPF.ParameterPassing.nuspec
 	EndProjectSection
 EndProject

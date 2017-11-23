@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Capgemini.Cauldron.Win32.WPF</id>
+    <version>2.0.0</version>
+    <title>Cauldron.Win32.WPF</title>
+    <authors>Capgemini Deutschland GmbH</authors>
+    <owners>Capgemini Deutschland GmbH</owners>
+    <licenseUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/Capgemini/Cauldron</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>A simple MVVM framework that heavily uses IL-weaving based on Fody.</description>
+    <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
+    <tags>Toolkit Capgemini Cauldron XAML WPF MVVM Framework ViewModels</tags>
+    <dependencies>
+      <dependency id="Fody" version="2.2.1" />
+      <dependency id="Capgemini.Cauldron.Activator" version="2.0.4-beta" />
+      <dependency id="Capgemini.Cauldron.Core" version="2.0.4-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Comparing" version="2.0.4-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="2.0.4-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Disposable" version="2.0.4-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Extensions" version="2.0.4-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Extensions.Convertions" version="2.0.4-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Reflection" version="2.0.4-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Threading" version="2.0.4-beta" />
+      <dependency id="Capgemini.Cauldron.Cryptography" version="2.0.4-beta" />
+      <dependency id="Capgemini.Cauldron.Interception" version="2.0.4-beta" />
+      <dependency id="Capgemini.Cauldron.Localization" version="2.0.4-beta" />
+      <dependency id="Capgemini.Cauldron.Win32.MonitorInfo" version="2.0.4-beta" />
+      <dependency id="Capgemini.Cauldron.Win32.Net" version="2.0.4-beta" />
+      <dependency id="Capgemini.Cauldron.Win32.Threading" version="2.0.4-beta" />
+      <dependency id="Capgemini.Cauldron.Win32.UserInformation" version="2.0.4-beta" />
+      <dependency id="Capgemini.Cauldron.Win32.WPF.ParameterPassing" version="2.0.4-beta" />
+    </dependencies>
+  </metadata>
+  <files>
+    <!-- Desktop -->
+    <file src="..\Win32\Cauldron.Win32.WPF\bin\Release\Cauldron.Win32**" target="lib\net461" />
+  </files>
+</package>
