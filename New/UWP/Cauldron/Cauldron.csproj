@@ -374,6 +374,63 @@
     <Compile Include="..\..\NetStandard\Cauldron.Localization\YamlLocalizationSourceBase.cs">
       <Link>Localization\YamlLocalizationSourceBase.cs</Link>
     </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Interactivity\Actions\ActionBase.cs">
+      <Link>XAML\Interactivity\Actions\ActionBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Interactivity\Actions\ActionCollection.cs">
+      <Link>XAML\Interactivity\Actions\ActionCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Interactivity\Actions\InvokeMethodAction.cs">
+      <Link>XAML\Interactivity\Actions\InvokeMethodAction.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Interactivity\Attributes\BehaviourUsageAttribute.cs">
+      <Link>XAML\Interactivity\Attributes\BehaviourUsageAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Interactivity\Behaviour.cs">
+      <Link>XAML\Interactivity\Behaviour.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Interactivity\BehaviourCollection.cs">
+      <Link>XAML\Interactivity\BehaviourCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Interactivity\BehaviourInvocation\BehaviourInvokeAwareBehaviourBase.cs">
+      <Link>XAML\Interactivity\BehaviourInvocation\BehaviourInvokeAwareBehaviourBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Interactivity\BehaviourInvocation\InvocationTrigger.cs">
+      <Link>XAML\Interactivity\BehaviourInvocation\InvocationTrigger.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Interactivity\EnterKeyToCommand.cs">
+      <Link>XAML\Interactivity\EnterKeyToCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Interactivity\EventToCommand.cs">
+      <Link>XAML\Interactivity\EventToCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Interactivity\EventTrigger.cs">
+      <Link>XAML\Interactivity\EventTrigger.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Interactivity\IBehaviour.cs">
+      <Link>XAML\Interactivity\IBehaviour.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Interactivity\Interaction.cs">
+      <Link>XAML\Interactivity\Interaction.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Interactivity\InteractionTemplate.cs">
+      <Link>XAML\Interactivity\InteractionTemplate.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Interactivity\Localized.cs">
+      <Link>XAML\Interactivity\Localized.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Interactivity\PasswordBoxBinding.cs">
+      <Link>XAML\Interactivity\PasswordBoxBinding.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Interactivity\PropertyChangedTrigger.cs">
+      <Link>XAML\Interactivity\PropertyChangedTrigger.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Interactivity\SetFocusOnLoad.cs">
+      <Link>XAML\Interactivity\SetFocusOnLoad.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Interactivity\StyleInteraction.cs">
+      <Link>XAML\Interactivity\StyleInteraction.cs</Link>
+    </Compile>
     <Compile Include="..\..\Win32\Cauldron.Win32.WPF\BehaviourInvocationArgs.cs">
       <Link>XAML\BehaviourInvocationArgs.cs</Link>
     </Compile>
