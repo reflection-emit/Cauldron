@@ -1,5 +1,6 @@
 ﻿using Cauldron.Activator;
 using Cauldron.Core;
+using Cauldron.Core.Threading;
 using Cauldron.XAML.Navigation;
 using System;
 using System.ComponentModel;
@@ -12,7 +13,7 @@ namespace Cauldron.XAML.ViewModels
     /// </summary>
     public abstract class ViewModelBase : DisposableBase, IViewModel
     {
-        private DispatcherEx _dispatcher;
+        private IDispatcher _dispatcher;
         private Guid? _id;
         private bool _isLoading = true;
         private IMessageDialog _messageDialog;
@@ -45,15 +46,15 @@ namespace Cauldron.XAML.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
-        /// Gets the <see cref="Dispatcher"/> this <see cref="DispatcherEx "/> is associated with.
+        /// Gets the <see cref="Dispatcher"/> this <see cref="IDispatcher "/> is associated with.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        public DispatcherEx Dispatcher
+        public IDispatcher Dispatcher
         {
             get
             {
                 if (this._dispatcher == null)
-                    this._dispatcher = DispatcherEx.Current;
+                    this._dispatcher = Factory.Create<IDispatcher>();
 
                 return this._dispatcher;
             }

@@ -1,13 +1,10 @@
-﻿using Cauldron.Activator;
+﻿using Cauldron;
+using Cauldron.Activator;
 using Cauldron.Core.Reflection;
 using Cauldron.Core.Threading;
-using Cauldron.Net;
 using Cauldron.XAML.ViewModels;
-using Cauldron;
 using System;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -15,13 +12,14 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
-using System.Windows.Interop;
 using System.Windows.Media;
+using Cauldron.Cryptography;
+using Cauldron.XAML.Navigation;
 
 namespace Cauldron.XAML
 {
     using Cauldron.Core.Diagnostics;
-    using Cauldron.Cryptography;
+    using Cauldron.XAML.Controls;
 
     /// <summary>
     /// Encapsulates a Windows Presentation Foundation (WPF) application.
@@ -29,7 +27,7 @@ namespace Cauldron.XAML
     public abstract class ApplicationBase : Application, IViewModel
     {
         private readonly string applicationHash;
-        private DispatcherEx _dispatcher;
+        private IDispatcher _dispatcher;
         private Guid? _id;
         private bool _isLoading = true;
         private bool _isSingleInstance;
@@ -45,7 +43,6 @@ namespace Cauldron.XAML
         {
             this.Startup += ApplicationBase_Startup;
 
-            DispatcherEx dispatcher = Application.Current == null ? System.Windows.Threading.Dispatcher.CurrentDispatcher : Application.Current.Dispatcher;
             this.OnConstruction();
             this.ShutdownMode = ShutdownMode.OnMainWindowClose;
 
@@ -107,12 +104,12 @@ namespace Cauldron.XAML
         /// <summary>
         /// Gets the <see cref="Dispatcher"/> this <see cref="DispatcherEx "/> is associated with.
         /// </summary>
-        public new DispatcherEx Dispatcher
+        public new IDispatcher Dispatcher
         {
             get
             {
                 if (this._dispatcher == null)
-                    this._dispatcher = DispatcherEx.Current;
+                    this._dispatcher = Factory.Create<IDispatcher>();
 
                 return this._dispatcher;
             }
@@ -336,7 +333,7 @@ namespace Cauldron.XAML
                     window.Topmost = false;
                     window.WindowStartupLocation = WindowStartupLocation.Manual;
                     window.WindowState = WindowState.Normal;
-                    window.Icon = await Win32Api.ExtractAssociatedIcon(Assembly.GetEntryAssembly().Location).ToBitmapImageAsync();
+                    window.Icon = await UnsafeNative.ExtractAssociatedIcon(Assembly.GetEntryAssembly().Location).ToBitmapImageAsync();
                     window.Title = ApplicationInfo.ApplicationName;
 
                     PersistentWindowInformation.Load(window, this.GetType());

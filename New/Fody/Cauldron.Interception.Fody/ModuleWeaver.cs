@@ -280,7 +280,6 @@ namespace Cauldron.Interception.Fody
                     // We make an exeption on test platform
                     if (assembliesToList[i] == null ||
                         assembliesToList[i].FullName == null ||
-                        assembliesToList[i].FullName.StartsWith("Microsoft.VisualStudio.TestPlatform") ||
                         assembliesToList[i].FullName.StartsWith("Microsoft.VisualStudio.TestTools.UnitTesting"))
                         continue;
 
@@ -634,7 +633,7 @@ namespace Cauldron.Interception.Fody
 
         private TypeDefinition[] FilterAssemblyList(IEnumerable<AssemblyDefinition> assemblies) =>
             assemblies
-            .Where(x => x != null && x.FullName != null && !x.FullName.StartsWith("Microsoft.VisualStudio.TestPlatform") && !x.FullName.StartsWith("Microsoft.VisualStudio.TestTools.UnitTesting") && !x.FullName.StartsWith("System."))
+            .Where(x => x != null && x.FullName != null && !x.FullName.StartsWith("Microsoft.VisualStudio.TestTools.UnitTesting") && !x.FullName.StartsWith("System."))
             .Select(x => x.MainModule.Types
                     .FirstOrDefault(y => y.IsPublic && !y.IsGenericParameter && !y.HasCustomAttributes && !y.ContainsGenericParameter && !y.FullName.Contains('`') && y.FullName.Contains('.'))
             )

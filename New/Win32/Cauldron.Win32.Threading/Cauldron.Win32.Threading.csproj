@@ -46,9 +46,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\NetStandard\Cauldron.Activator\Cauldron.Activator.csproj">
+      <Project>{e5a31648-dac2-4c60-a1b8-2fc291c2bf9e}</Project>
+      <Name>Cauldron.Activator</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Threading\Cauldron.Core.Threading.csproj">
       <Project>{a6137484-c3c9-4808-b4b4-76e27420025d}</Project>
       <Name>Cauldron.Core.Threading</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NetStandard\Cauldron.Interception\Cauldron.Interception.csproj">
+      <Project>{54d84f50-0b4b-40cb-a27d-5ccd84f5b1ee}</Project>
+      <Name>Cauldron.Interception</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

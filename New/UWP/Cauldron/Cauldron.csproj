@@ -146,6 +146,9 @@
     <Compile Include="..\..\NetStandard\Cauldron.Activator\InjectAttribute.cs">
       <Link>Activator\InjectAttribute.cs</Link>
     </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Activator\UnitTestAwareFactoryResolverBase.cs">
+      <Link>Activator\UnitTestAwareFactoryResolverBase.cs</Link>
+    </Compile>
     <Compile Include="..\..\NetStandard\Cauldron.Core.Collections\ConcurrentKeyedCollection.cs">
       <Link>Core\Collections\ConcurrentKeyedCollection.cs</Link>
     </Compile>
@@ -275,8 +278,17 @@
     <Compile Include="..\..\NetStandard\Cauldron.Core.Threading\AsyncHelper.cs">
       <Link>Core\Threading\AsyncHelper.cs</Link>
     </Compile>
-    <Compile Include="..\..\NetStandard\Cauldron.Core.Threading\CoreDispatcherPriority.cs">
-      <Link>Core\Threading\CoreDispatcherPriority.cs</Link>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Threading\DispatcherDummy.cs">
+      <Link>Core\Threading\DispatcherDummy.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Threading\DispatcherFactoryResolver.cs">
+      <Link>Core\Threading\DispatcherFactoryResolver.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Threading\DispatcherPriority.cs">
+      <Link>Core\Threading\DispatcherPriority.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Threading\IDispatcher.cs">
+      <Link>Core\Threading\IDispatcher.cs</Link>
     </Compile>
     <Compile Include="..\..\NetStandard\Cauldron.Core.Yaml\Yaml.cs">
       <Link>Core\Yaml\Yaml.cs</Link>
@@ -362,9 +374,141 @@
     <Compile Include="..\..\NetStandard\Cauldron.Localization\YamlLocalizationSourceBase.cs">
       <Link>Localization\YamlLocalizationSourceBase.cs</Link>
     </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\BehaviourInvocationArgs.cs">
+      <Link>XAML\BehaviourInvocationArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\BitmapImageEx.cs">
+      <Link>XAML\BitmapImageEx.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\CauldronUICommand.cs">
+      <Link>XAML\CauldronUICommand.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\CauldronUICommandCollection.cs">
+      <Link>XAML\CauldronUICommandCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\DynamicEventHandler.cs">
+      <Link>XAML\DynamicEventHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\Extensions.cs">
+      <Link>XAML\Extensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\IImageManager.cs">
+      <Link>XAML\IImageManager.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\ImageManager.cs">
+      <Link>XAML\ImageManager.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\IMessageDialog.cs">
+      <Link>XAML\IMessageDialog.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\INotifyBehaviourInvocation.cs">
+      <Link>XAML\INotifyBehaviourInvocation.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\IRelayCommand.cs">
+      <Link>XAML\IRelayCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\MessageBoxImage.cs">
+      <Link>XAML\MessageBoxImage.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\MessageDialogEx.cs">
+      <Link>XAML\MessageDialogEx.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\Navigation\CauldronBackRequestedEventArgs.cs">
+      <Link>XAML\Navigation\CauldronBackRequestedEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\Navigation\INavigator.cs">
+      <Link>XAML\Navigation\INavigator.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\Navigation\NavigatingInfo.cs">
+      <Link>XAML\Navigation\NavigatingInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\Navigation\NavigationInfo.cs">
+      <Link>XAML\Navigation\NavigationInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\Navigation\NavigationType.cs">
+      <Link>XAML\Navigation\NavigationType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\Navigation\PageStackEntry.cs">
+      <Link>XAML\Navigation\PageStackEntry.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\PropertyIsChangedEventArgs.cs">
+      <Link>XAML\PropertyIsChangedEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\RelayCommand.cs">
+      <Link>XAML\RelayCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\Resources\LocalizationSource.cs">
+      <Link>XAML\Resources\LocalizationSource.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\TextBlockInline.cs">
+      <Link>XAML\TextBlockInline.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\ValueConverterBase.cs">
+      <Link>XAML\ValueConverterBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\ValueConverters\BooleanInvertConverter.cs">
+      <Link>XAML\ValueConverters\BooleanInvertConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\ValueConverters\BooleanToVisibilityConverter.cs">
+      <Link>XAML\ValueConverters\BooleanToVisibilityConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\ValueConverters\KeyToLocalizedStringConverter.cs">
+      <Link>XAML\ValueConverters\KeyToLocalizedStringConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\ValueConverters\NullOrEmptyToVisibilityConverter.cs">
+      <Link>XAML\ValueConverters\NullOrEmptyToVisibilityConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\ValueConverters\ObjectToBooleanConverter.cs">
+      <Link>XAML\ValueConverters\ObjectToBooleanConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\ValueConverters\ObjectToVisibilityConverter.cs">
+      <Link>XAML\ValueConverters\ObjectToVisibilityConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\ValueConverters\VisibilityToBooleanConverter.cs">
+      <Link>XAML\ValueConverters\VisibilityToBooleanConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\ViewAttribute.cs">
+      <Link>XAML\ViewAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\ViewModels\IChangeAwareViewModel.cs">
+      <Link>XAML\ViewModels\IChangeAwareViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\ViewModels\ICloseAwareViewModel.cs">
+      <Link>XAML\ViewModels\ICloseAwareViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\ViewModels\IDialogViewModel.cs">
+      <Link>XAML\ViewModels\IDialogViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\ViewModels\IFrameAware.cs">
+      <Link>XAML\ViewModels\IFrameAware.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\ViewModels\INavigable.cs">
+      <Link>XAML\ViewModels\INavigable.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\ViewModels\IPrelaunchAware.cs">
+      <Link>XAML\ViewModels\IPrelaunchAware.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\ViewModels\ISizeAware.cs">
+      <Link>XAML\ViewModels\ISizeAware.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\ViewModels\IViewModel.cs">
+      <Link>XAML\ViewModels\IViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\ViewModels\MessageDialogCommandViewModel.cs">
+      <Link>XAML\ViewModels\MessageDialogCommandViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\ViewModels\MessageDialogViewModel.cs">
+      <Link>XAML\ViewModels\MessageDialogViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\ViewModels\ViewModelBase.cs">
+      <Link>XAML\ViewModels\ViewModelBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\XAMLHelper.cs">
+      <Link>XAML\XAMLHelper.cs</Link>
+    </Compile>
     <Compile Include="Core\Extensions\IO\ExtensionsStorageItem.cs" />
     <Compile Include="Core\Extensions\ExtensionsXmlDocument.cs" />
-    <Compile Include="Core\Threading\DispatcherEx.cs" />
+    <Compile Include="Core\Threading\DispatcherUWP.cs" />
     <Compile Include="Cryptography\Extensions.cs" />
     <Compile Include="Cryptography\SecureString.cs" />
     <Compile Include="ICloneable.cs" />
@@ -372,6 +516,17 @@
     <Compile Include="Core\ILoadedAssemblies.cs" />
     <Compile Include="Core\UserInformation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="XAML\ApplicationBase.cs" />
+    <Compile Include="XAML\CauldronTemplateSelector.cs" />
+    <Compile Include="XAML\Controls\NavigationFrame.cs" />
+    <Compile Include="XAML\Navigation\Navigator.cs" />
+    <Compile Include="XAML\Resources\MessageDialogView.xaml.cs">
+      <DependentUpon>MessageDialogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XAML\Resources\StylesAndTemplates.xaml.cs">
+      <DependentUpon>StylesAndTemplates.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XAML\ValueConverters\ItemClickEventArgsToViewModelConverter.cs" />
     <EmbeddedResource Include="Properties\Cauldron.rd.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -386,6 +541,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="..\..\Win32\Cauldron.Win32.WPF\Resources\Text\7B5BE4E7E11D87C4E23B68589848BB2A.yaml">
+      <Link>XAML\Resources\Text\7B5BE4E7E11D87C4E23B68589848BB2A.yaml</Link>
+    </EmbeddedResource>
     <None Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -393,6 +551,33 @@
       <Project>{38abf85c-9322-4333-be30-a1b37fa5cc52}</Project>
       <Name>Cauldron.Interception</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="XAML\Resources\MessageDialogView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="XAML\Resources\StylesAndTemplates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\Win32\Cauldron.Win32.WPF\Resources\Images\error_red_32x32.png">
+      <Link>XAML\Resources\Images\error_red_32x32.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\Win32\Cauldron.Win32.WPF\Resources\Images\Information%28Help%29_7833.png">
+      <Link>XAML\Resources\Images\Information%28Help%29_7833.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\Win32\Cauldron.Win32.WPF\Resources\Images\Information_6227_32x.png">
+      <Link>XAML\Resources\Images\Information_6227_32x.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\Win32\Cauldron.Win32.WPF\Resources\Images\Readme.txt">
+      <Link>XAML\Resources\Images\Readme.txt</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\Win32\Cauldron.Win32.WPF\Resources\Images\Warning_yellow_7231_31x32.png">
+      <Link>XAML\Resources\Images\Warning_yellow_7231_31x32.png</Link>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

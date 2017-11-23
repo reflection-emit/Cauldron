@@ -3,8 +3,13 @@
     /// <summary>
     /// Describes the priorities at which operations can be invoked
     /// </summary>
-    public enum CoreDispatcherPriority
+    public enum DispatcherPriority
     {
+        /// <summary>
+        /// Lowest priority. Use this priority for background tasks. Delegates are processed when the window's main thread is idle and there is no input pending in the queue.
+        /// </summary>
+        Idle = -2,
+
         /// <summary>
         /// Low priority. Delegates are processed when the window's main thread is idle and there is
         /// no input pending in the queue.

@@ -12,9 +12,9 @@ namespace Cauldron.XAML.ViewModels
     public interface IViewModel : INotifyPropertyChanged, INotifyBehaviourInvocation
     {
         /// <summary>
-        /// Gets the <see cref="Dispatcher"/> this <see cref="DispatcherEx"/> is associated with.
+        /// Gets the <see cref="Dispatcher"/> this <see cref="IDispatcher"/> is associated with.
         /// </summary>
-        DispatcherEx Dispatcher { get; }
+        IDispatcher Dispatcher { get; }
 
         /// <summary>
         /// Gets the unique Id of the view model

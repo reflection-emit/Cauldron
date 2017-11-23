@@ -92,7 +92,6 @@ namespace Cauldron.Interception.Cecilator
 
         public AssemblyDefinition[] ReferencedAssemblies =>
             this.moduleDefinition.AssemblyReferences
-                .Where(x => x.Name != "Microsoft.VisualStudio.TestPlatform.UnitTestFramework")
                 .Select(x => this.moduleDefinition.AssemblyResolver.Resolve(x)).ToArray();
 
         public AssemblyDefinitionEx[] UnusedReference { get; private set; }

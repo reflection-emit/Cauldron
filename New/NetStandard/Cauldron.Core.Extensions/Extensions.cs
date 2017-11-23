@@ -410,6 +410,116 @@ namespace Cauldron
         }
 
         /// <summary>
+        /// Returns the item with the maximum value in a sequence of values.
+        /// </summary>
+        /// <typeparam name="TSource">The type of the elements of source.</typeparam>
+        /// <typeparam name="TKey">The type of the elements of selector.</typeparam>
+        /// <param name="source">A sequence of values to determine the minimum value of.</param>
+        /// <param name="selector">A delegate used to select the values</param>
+        /// <returns>The maximum value in the sequence</returns>
+        public static TSource MaxBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> selector) => source.MaxBy(selector, null);
+
+        /// <summary>
+        /// Returns the item with the maximum value in a sequence of values.
+        /// </summary>
+        /// <typeparam name="TSource">The type of the elements of source.</typeparam>
+        /// <typeparam name="TKey">The type of the elements of selector.</typeparam>
+        /// <param name="source">A sequence of values to determine the maximum value of.</param>
+        /// <param name="selector">A delegate used to select the values</param>
+        /// <param name="comparer">
+        /// A comparer used to compare the value defined by <typeparamref name="TKey"/>
+        /// </param>
+        /// <returns>The maximum value in the sequence</returns>
+        public static TSource MaxBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> selector, IComparer<TKey> comparer)
+        {
+            // https://stackoverflow.com/questions/914109/how-to-use-linq-to-select-object-with-minimum-or-maximum-property-value
+
+            if (source == null)
+                throw new ArgumentNullException("source");
+
+            if (selector == null)
+                throw new ArgumentNullException("selector");
+
+            comparer = comparer ?? Comparer<TKey>.Default;
+
+            using (var sourceIterator = source.GetEnumerator())
+            {
+                if (!sourceIterator.MoveNext())
+                    throw new InvalidOperationException("Sequence contains no elements");
+
+                var max = sourceIterator.Current;
+                var maxKey = selector(max);
+
+                while (sourceIterator.MoveNext())
+                {
+                    var candidate = sourceIterator.Current;
+                    var candidateProjected = selector(candidate);
+                    if (comparer.Compare(candidateProjected, maxKey) > 0)
+                    {
+                        max = candidate;
+                        maxKey = candidateProjected;
+                    }
+                }
+                return max;
+            }
+        }
+
+        /// <summary>
+        /// Returns the item with the minimum value in a sequence of values.
+        /// </summary>
+        /// <typeparam name="TSource">The type of the elements of source.</typeparam>
+        /// <typeparam name="TKey">The type of the elements of selector.</typeparam>
+        /// <param name="source">A sequence of values to determine the minimum value of.</param>
+        /// <param name="selector">A delegate used to select the values</param>
+        /// <returns>The minimum value in the sequence</returns>
+        public static TSource MinBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> selector) => source.MinBy(selector, null);
+
+        /// <summary>
+        /// Returns the item with the minimum value in a sequence of values.
+        /// </summary>
+        /// <typeparam name="TSource">The type of the elements of source.</typeparam>
+        /// <typeparam name="TKey">The type of the elements of selector.</typeparam>
+        /// <param name="source">A sequence of values to determine the minimum value of.</param>
+        /// <param name="selector">A delegate used to select the values</param>
+        /// <param name="comparer">
+        /// A comparer used to compare the value defined by <typeparamref name="TKey"/>
+        /// </param>
+        /// <returns>The minimum value in the sequence</returns>
+        public static TSource MinBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> selector, IComparer<TKey> comparer)
+        {
+            // https://stackoverflow.com/questions/914109/how-to-use-linq-to-select-object-with-minimum-or-maximum-property-value
+
+            if (source == null)
+                throw new ArgumentNullException("source");
+
+            if (selector == null)
+                throw new ArgumentNullException("selector");
+
+            comparer = comparer ?? Comparer<TKey>.Default;
+
+            using (var sourceIterator = source.GetEnumerator())
+            {
+                if (!sourceIterator.MoveNext())
+                    throw new InvalidOperationException("Sequence contains no elements");
+
+                var min = sourceIterator.Current;
+                var minKey = selector(min);
+
+                while (sourceIterator.MoveNext())
+                {
+                    var candidate = sourceIterator.Current;
+                    var candidateProjected = selector(candidate);
+                    if (comparer.Compare(candidateProjected, minKey) < 0)
+                    {
+                        min = candidate;
+                        minKey = candidateProjected;
+                    }
+                }
+                return min;
+            }
+        }
+
+        /// <summary>
         /// Moves the specified item to a new location in the collection
         /// </summary>
         /// <typeparam name="T">The Type of item contained in the collection</typeparam>

@@ -23,7 +23,7 @@ namespace Cauldron.XAML.ViewModels
         /// <summary>
         /// Occures if the window is closing. Returning a false will prevent the window from closing.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Should return true if window can be closed.</returns>
         bool CanClose();
 
 #endif

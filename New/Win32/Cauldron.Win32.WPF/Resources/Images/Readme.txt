@@ -1,0 +1,1 @@
+﻿The icons are from the Visual Studio Image Library https://msdn.microsoft.com/en-us/library/ms246582.aspx

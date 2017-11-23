@@ -32,6 +32,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Fody" Version="2.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cauldron.Activator\Cauldron.Activator.csproj" />
+    <ProjectReference Include="..\Cauldron.Core.Disposable\Cauldron.Core.Disposable.csproj" />
     <ProjectReference Include="..\Cauldron.Core.Reflection\Cauldron.Core.Reflection.csproj" />
   </ItemGroup>
 

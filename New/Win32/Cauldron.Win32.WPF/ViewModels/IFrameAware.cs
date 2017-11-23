@@ -10,11 +10,13 @@
         /// </summary>
         void Activated();
 
+#if NETFX_CORE
         /// <summary>
         /// Occures if a page or window is about to close. If returns false, the closing will be cancelled.
         /// </summary>
         /// <returns>Should return true if page or window can be closed.</returns>
         bool CanClose();
+#endif
 
         /// <summary>
         /// Occures if the page or window is deactivated
