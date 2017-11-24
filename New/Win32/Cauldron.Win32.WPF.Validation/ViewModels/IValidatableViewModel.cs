@@ -1,5 +1,6 @@
 ﻿using Cauldron.Core;
 using Cauldron.XAML.ViewModels;
+using System;
 using System.ComponentModel;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -11,6 +12,11 @@ namespace Cauldron.XAML.Validation.ViewModels
     /// </summary>
     public interface IValidatableViewModel : IViewModel, INotifyDataErrorInfo, IDisposableObject
     {
+        /// <summary>
+        /// Occured if a property is veing validated.
+        /// </summary>
+        event EventHandler<ValidationEventArgs> Validating;
+
         /// <summary>
         /// Starts a validation on all properties
         /// </summary>

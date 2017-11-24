@@ -16,12 +16,27 @@ namespace Cauldron.XAML.Validation
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = false)]
     public sealed class IsMandatoryAttribute : ValidatorAttributeBase
     {
+        private string isEnabledPropertyName;
+
         /// <summary>
         /// Initializes a new instance of <see cref="IsMandatoryAttribute"/>
         /// </summary>
         /// <param name="errorMessageKey">The key of the localized error message string</param>
         public IsMandatoryAttribute(string errorMessageKey) : base(errorMessageKey)
         {
+            this.isEnabledPropertyName = null;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of <see cref="IsMandatoryAttribute"/>
+        /// </summary>
+        /// <param name="isEnabledPropertyName">The name of the property that can "turn off" the mandatory attribute.
+        /// The property's <see cref="Type"/> has to be <see cref="bool"/>.
+        /// If the property returns true, the <see cref="IsMandatoryAttribute"/> is enabled; otherwise disabled.</param>
+        /// <param name="errorMessageKey">The key of the localized error message string</param>
+        public IsMandatoryAttribute(string isEnabledPropertyName, string errorMessageKey) : base(errorMessageKey)
+        {
+            this.isEnabledPropertyName = isEnabledPropertyName;
         }
 
         /// <summary>
@@ -29,6 +44,29 @@ namespace Cauldron.XAML.Validation
         /// property has changed
         /// </summary>
         public override bool AlwaysValidate { get { return false; } }
+
+        /// <summary>
+        /// Gets a value that indicates if the attribute can be deactivated
+        /// </summary>
+        public bool IsDeactivatable => this.isEnabledPropertyName != null;
+
+        /// <exclude />
+        internal bool IsEnabled(object context, PropertyInfo propertyInfo)
+        {
+            try
+            {
+                var propertyValue = (bool?)context.GetPropertyValue(this.isEnabledPropertyName, BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public);
+
+                if (propertyValue.HasValue && propertyValue.Value)
+                    return true;
+            }
+            catch (InvalidCastException e)
+            {
+                throw new InvalidCastException($"IsMandatoryAttribute: The IsEnabledProperty '{this.isEnabledPropertyName}' does not return a bool. Property: '{propertyInfo.Name}'", e);
+            }
+
+            return false;
+        }
 
         /// <summary>
         /// Invokes the validation on the specified context with the specified parameters
@@ -40,6 +78,9 @@ namespace Cauldron.XAML.Validation
         /// <returns>Has to return true on validation error otherwise false</returns>
         protected override Task<bool> OnValidateAsync(PropertyInfo sender, IValidatableViewModel context, PropertyInfo propertyInfo, object value)
         {
+            if (this.isEnabledPropertyName != null && !this.IsEnabled(context, propertyInfo))
+                return Task.FromResult(true);
+
             if (value == null)
                 return Task.FromResult(true);
 

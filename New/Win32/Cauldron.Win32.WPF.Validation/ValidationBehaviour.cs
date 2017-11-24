@@ -1,5 +1,6 @@
 ﻿using Cauldron.Core.Extensions;
 using Cauldron.XAML.Interactivity;
+using Cauldron.XAML.Validation.ViewModels;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -95,7 +96,11 @@ namespace Cauldron.XAML.Validation
             this.allErrors.Clear();
 
             foreach (var item in this.validableProperties.Values)
-                item.GetTarget().IsNotNull(x => x.ErrorsChanged -= this.Source_ErrorsChanged);
+                item.GetTarget().IsNotNull(x =>
+                {
+                    x.ErrorsChanged -= this.Source_ErrorsChanged;
+                    (x as IValidatableViewModel).IsNotNull(y => y.Validating -= Source_Validating);
+                });
 
             this.validableProperties.Clear();
         }
@@ -139,6 +144,7 @@ namespace Cauldron.XAML.Validation
             {
                 this.validableProperties.Add(propertyName, new WeakReference<INotifyDataErrorInfo>(source));
                 source.ErrorsChanged += this.Source_ErrorsChanged;
+                (source as IValidatableViewModel).IsNotNull(x => x.Validating += Source_Validating);
 
                 // Also... If we have a mandatory attribute... Add it
                 if (property.GetCustomAttribute<IsMandatoryAttribute>() != null)
@@ -168,6 +174,33 @@ namespace Cauldron.XAML.Validation
                 ValidationProperties.SetHasErrors(this.AssociatedObject, this.allErrors.Count > 0);
                 ValidationProperties.SetErrors(this.AssociatedObject, this.allErrors.Count == 0 ? string.Empty : this.allErrors.Values.Join("\r\n\r\n"));
             }
+        }
+
+        private void Source_Validating(object sender, ValidationEventArgs e)
+        {
+            if (!this.validableProperties.ContainsKey(e.PropertyName))
+                return;
+
+            var context = this.validableProperties[e.PropertyName];
+            var source = context.GetTarget();
+
+            if (source == null)
+            {
+                this.validableProperties.Remove(e.PropertyName);
+                return;
+            }
+
+            var property = source.GetType().GetPropertyEx(e.PropertyName);
+
+            if (property == null)
+                return;
+
+            var attrib = property.GetCustomAttribute<IsMandatoryAttribute>();
+
+            if (attrib == null || !attrib.IsDeactivatable)
+                return;
+
+            ValidationProperties.SetIsMandatory(this.AssociatedObject, attrib.IsEnabled(source, property));
         }
     }
 }

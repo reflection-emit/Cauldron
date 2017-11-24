@@ -314,6 +314,40 @@ namespace Cauldron.XAML
         }
 
         /// <summary>
+        /// Get the value of the source of the given <see cref="BindingExpression"/>.
+        /// </summary>
+        /// <param name="bindingExpression">The <see cref="BindingExpression"/> of interest.</param>
+        /// <returns>The value of the <see cref="DependencyProperty"/>.</returns>
+        public static object GetValue(this BindingExpression bindingExpression) => XAMLHelper.GetPropertyValueFromPath(bindingExpression.DataItem, bindingExpression.ParentBinding.Path.Path);
+
+        /// <summary>
+        /// Get the value of the source of the given <see cref="Binding"/>.
+        /// </summary>
+        /// <param name="binding">The <see cref="Binding"/> of interest.</param>
+        /// <returns>The value of the <see cref="DependencyProperty"/>.</returns>
+        public static object GetValue(this Binding binding) => XAMLHelper.GetPropertyValueFromPath(binding.Source, binding.Path.Path);
+
+        /// <summary>
+        /// Gets the value of the <see cref="FrameworkElement"/>'s <see cref="DependencyProperty"/>. If the <see cref="DependencyProperty"/> is binded, then it will
+        /// return the value of the binding source. If it is not binded, then it will return the value of the <see cref="DependencyProperty"/>.
+        /// </summary>
+        /// <param name="frameworkElement">The <see cref="FrameworkElement"/> to get the value of the <see cref="DependencyProperty"/> from.</param>
+        /// <param name="dependencyProperty">The <see cref="DependencyProperty"/> of interest.</param>
+        /// <returns>The value of the <see cref="DependencyProperty"/>.</returns>
+        public static object GetValueFromBindingOrProperty(this FrameworkElement frameworkElement, DependencyProperty dependencyProperty)
+        {
+#if WINDOWS_UWP
+            var bindingExpression = frameworkElement.GetBindingExpression(dependencyProperty);
+#else
+            var bindingExpression = BindingOperations.GetBindingExpression(frameworkElement, dependencyProperty);
+#endif
+            if (bindingExpression == null || bindingExpression.ParentBinding == null)
+                return frameworkElement.GetValue(dependencyProperty);
+
+            return bindingExpression.GetValue();
+        }
+
+        /// <summary>
         /// Gets the direct visual children of the element
         /// </summary>
         /// <param name="element">The parent element</param>

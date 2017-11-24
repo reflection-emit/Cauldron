@@ -57,6 +57,7 @@
     <Compile Include="StringLengthAttribute.cs" />
     <Compile Include="UnEqualityAttribute.cs" />
     <Compile Include="ValidationBehaviour.cs" />
+    <Compile Include="ValidationEventArgs.cs" />
     <Compile Include="ValidationHandler.cs" />
     <Compile Include="ValidationProperties.cs" />
     <Compile Include="ValidatorAttributeBase.cs" />

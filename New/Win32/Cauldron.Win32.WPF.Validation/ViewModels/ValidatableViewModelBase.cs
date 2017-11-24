@@ -38,6 +38,12 @@ namespace Cauldron.XAML.Validation.ViewModels
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
 
         /// <summary>
+        /// Occures if a property is veing validated.
+        /// </summary>
+
+        public event EventHandler<ValidationEventArgs> Validating;
+
+        /// <summary>
         /// Gets or sets the error info strings
         /// </summary>
         public string Errors
@@ -160,6 +166,7 @@ namespace Cauldron.XAML.Validation.ViewModels
         private void RaiseErrorsChanged(string propertyName)
         {
 #pragma warning disable 4014
+            this.Dispatcher.RunAsync(() => this.Validating?.Invoke(this, new ValidationEventArgs(propertyName)));
             this.Errors = this.validators.SelectMany(x => x.Error).Join("\r\n");
             this.Dispatcher.RunAsync(() => this.ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName)));
             this.OnValidation(propertyName);
