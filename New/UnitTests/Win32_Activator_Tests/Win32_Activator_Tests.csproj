@@ -66,10 +66,6 @@
       <Project>{e5a31648-dac2-4c60-a1b8-2fc291c2bf9e}</Project>
       <Name>Cauldron.Activator</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Collections\Cauldron.Core.Collections.csproj">
-      <Project>{2d5b073e-f086-4169-a473-f734bfad777c}</Project>
-      <Name>Cauldron.Core.Collections</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Extensions.Convertions\Cauldron.Core.Extensions.Convertions.csproj">
       <Project>{aeca1669-9742-4ac6-ab32-2b8be1c5dac0}</Project>
       <Name>Cauldron.Core.Extensions.Convertions</Name>

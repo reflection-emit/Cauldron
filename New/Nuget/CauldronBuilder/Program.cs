@@ -76,7 +76,7 @@ namespace CauldronBuilder
                     // Build nugets of non NetStandard2.0 projects
                     foreach (var nuget in Directory.GetFiles(Path.Combine(startingLocation.FullName, "Nuget"), "*.nuspec").Select(x => new FileInfo(x)))
                     {
-                        ChangeVersionOfNuspec(nuget, version);
+                        ModifyNuspec(nuget, version);
                         BuildNuGetPackage(nuget.FullName, packages.FullName, version);
                     }
                 }
@@ -112,7 +112,7 @@ namespace CauldronBuilder
             startInfo.UseShellExecute = false;
             startInfo.WorkingDirectory = Path.GetDirectoryName(path);
             startInfo.FileName = filename.FullName;
-            startInfo.Arguments = string.Format("pack \"{0}\" -OutputDir Packages -version {2}", path, targetDirectory, version);
+            startInfo.Arguments = string.Format("pack \"{0}\" -Symbols -OutputDir Packages -version {2}", path, targetDirectory, version);
             startInfo.CreateNoWindow = true;
             startInfo.RedirectStandardOutput = true;
             startInfo.RedirectStandardError = true;
@@ -197,21 +197,6 @@ namespace CauldronBuilder
             }
         }
 
-        private static void ChangeVersionOfNuspec(FileInfo path, string version)
-        {
-            var nuspec = new XmlDocument();
-            nuspec.Load(path.FullName);
-            var dependencies = nuspec["package"]["metadata"]["dependencies"];
-
-            foreach (XmlElement item in dependencies.Contains("group") ? dependencies["group"] : dependencies)
-            {
-                if (item.Attributes["id"].Value.Contains("Cauldron"))
-                    item.Attributes["version"].Value = version;
-            }
-
-            nuspec.Save(path.FullName);
-        }
-
         private static bool Contains(this XmlElement element, string key)
         {
             try
@@ -271,6 +256,30 @@ namespace CauldronBuilder
                 return;
 
             body = body.Insert(position, data);
+        }
+
+        private static void ModifyNuspec(FileInfo path, string version)
+        {
+            var nuspec = new XmlDocument();
+            nuspec.Load(path.FullName);
+            var dependencies = nuspec["package"]["metadata"]["dependencies"];
+
+            foreach (XmlElement item in dependencies.Contains("group") ? dependencies["group"] : dependencies)
+            {
+                if (item.Attributes["id"].Value.Contains("Cauldron"))
+                    item.Attributes["version"].Value = version;
+            }
+
+            nuspec["package"]["metadata"]["owners"].Value = "Alexander Schunk, Capgemini Deutschland GmbH";
+            nuspec["package"]["metadata"]["authors"].Value = "Alexander Schunk, Capgemini Deutschland GmbH";
+            nuspec["package"]["metadata"]["requireLicenseAcceptance"].Value = "true";
+            nuspec["package"]["metadata"]["licenseUrl"].Value = "https://raw.githubusercontent.com/Capgemini/Cauldron/master/LICENSE";
+            nuspec["package"]["metadata"]["projectUrl"].Value = "https://github.com/Capgemini/Cauldron";
+            nuspec["package"]["metadata"]["iconUrl"].Value = "https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png";
+            nuspec["package"]["metadata"]["copyright"].Value = "Copyright (c) 2016 Capgemini Deutschland GmbH";
+            nuspec["package"]["metadata"]["id"].Value = Path.GetFileNameWithoutExtension(path.FullName);
+
+            nuspec.Save(path.FullName);
         }
 
         private static void UploadNugetPackage(string path)

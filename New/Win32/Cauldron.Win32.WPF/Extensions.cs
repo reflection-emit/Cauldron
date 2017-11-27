@@ -228,11 +228,12 @@ namespace Cauldron.XAML
         /// </summary>
         /// <typeparam name="T">The typ of child to search for</typeparam>
         /// <param name="element">The parent element</param>
-        /// <returns>A collection of <see cref="FrameworkElement"/></returns>
-        public static IEnumerable<FrameworkElement> FindVisualChildren<T>(this DependencyObject element)
+        /// <returns>A collection of <see cref="T"/></returns>
+        public static IEnumerable<T> FindVisualChildren<T>(this DependencyObject element) where T : FrameworkElement
         {
-            List<FrameworkElement> elements = new List<FrameworkElement>();
-            FindVisualChildren(typeof(T), element as FrameworkElement, elements);
+            var childType = typeof(T);
+            var elements = new List<T>();
+            FindVisualChildren(x => x.GetType() == childType, element as FrameworkElement, false, elements);
             return elements;
         }
 
@@ -244,8 +245,21 @@ namespace Cauldron.XAML
         /// <returns>A collection of <see cref="FrameworkElement"/></returns>
         public static IEnumerable FindVisualChildren(this DependencyObject element, Type dependencyObjectType)
         {
-            List<FrameworkElement> elements = new List<FrameworkElement>();
-            FindVisualChildren(dependencyObjectType, element as FrameworkElement, elements);
+            var elements = new List<FrameworkElement>();
+            FindVisualChildren(x => x.GetType() == dependencyObjectType, element as FrameworkElement, false, elements);
+            return elements;
+        }
+
+        /// <summary>
+        /// Returns all visual childs and sub child (recursively) of the element that matches the predicate.
+        /// </summary>
+        /// <param name="element">The parent element</param>
+        /// <param name="predicate">A function to test each element for a condition.</param>
+        /// <returns>A collection of <see cref="FrameworkElement"/></returns>
+        public static IEnumerable<T> FindVisualChildren<T>(this DependencyObject element, Func<FrameworkElement, bool> predicate) where T : FrameworkElement
+        {
+            var elements = new List<T>();
+            FindVisualChildren(predicate, element as FrameworkElement, true, elements);
             return elements;
         }
 
@@ -644,19 +658,21 @@ namespace Cauldron.XAML
         /// <exception cref="ArgumentNullException">Parameter <paramref name="viewModel"/> is null</exception>
         public static bool TryClose(this IDialogViewModel viewModel) => Navigator.Current.TryClose(viewModel);
 
-        private static void FindVisualChildren(Type childType, FrameworkElement element, List<FrameworkElement> list)
+        private static void FindVisualChildren<T>(Func<FrameworkElement, bool> predicate, FrameworkElement element, bool skipChildren, List<T> list) where T : FrameworkElement
         {
             if (element != null)
             {
                 for (int i = 0; i < VisualTreeHelper.GetChildrenCount(element); i++)
                 {
-                    var child = VisualTreeHelper.GetChild(element, i) as FrameworkElement;
+                    var child = VisualTreeHelper.GetChild(element, i) as T;
 
-                    if (child != null && child.GetType() == childType)
+                    if (child != null && predicate(child))
                         list.Add(child);
+                    else if (skipChildren)
+                        continue;
 
                     if (child != null)
-                        FindVisualChildren(childType, child, list);
+                        FindVisualChildren(predicate, child, skipChildren, list);
                 }
             }
         }

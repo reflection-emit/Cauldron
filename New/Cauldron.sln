@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cauldron.Core", "NetStandar
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NetStandard", "NetStandard", "{D61DB804-8031-458B-841A-B9F79F4E56E0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cauldron.Core.Collections", "NetStandard\Cauldron.Core.Collections\Cauldron.Core.Collections.csproj", "{2D5B073E-F086-4169-A473-F734BFAD777C}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cauldron.Core.Interceptors", "NetStandard\Cauldron.Core.Interceptors\Cauldron.Core.Interceptors.csproj", "{8520EF20-40FD-47C6-898F-F029588E5444}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cauldron.Core.Yaml", "NetStandard\Cauldron.Core.Yaml\Cauldron.Core.Yaml.csproj", "{47B0856B-142D-482D-A3AA-DF73D4392371}"
@@ -39,8 +37,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cauldron.Cryptography", "Ne
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cauldron.Core.Extensions.Compression", "NetStandard\Cauldron.Core.Extensions.Compression\Cauldron.Core.Extensions.Compression.csproj", "{195032D9-387E-4C08-BB66-48C2D03A7D77}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cauldron.Core.MathExtensions", "NetStandard\Cauldron.Core.MathExtensions\Cauldron.Core.MathExtensions.csproj", "{E228B89D-5C33-465A-948C-050684A1344B}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cauldron.Core.Net", "NetStandard\Cauldron.Core.Net\Cauldron.Core.Net.csproj", "{348FCF40-B2C1-42B6-8742-5F51A1E3A4E8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.Win32.WPF.ParameterPassing", "Win32\Cauldron.Win32.WPF.ParameterPassing\Cauldron.Win32.WPF.ParameterPassing.csproj", "{3B7C0640-5D31-46AA-97D2-689787409853}"
@@ -55,20 +51,21 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.Win32.Extension.Im
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nuget", "Nuget", "{8675B75E-1FCE-47AA-91EB-00710F88A1A5}"
 	ProjectSection(SolutionItems) = preProject
-		Nuget\Cauldron.Activator.nuspec = Nuget\Cauldron.Activator.nuspec
-		Nuget\Cauldron.Core.Interceptors.nuspec = Nuget\Cauldron.Core.Interceptors.nuspec
-		Nuget\Cauldron.Core.nuspec = Nuget\Cauldron.Core.nuspec
-		Nuget\Cauldron.Cryptography.nuspec = Nuget\Cauldron.Cryptography.nuspec
+		Nuget\Capgemini.Cauldron.Activator.nuspec = Nuget\Capgemini.Cauldron.Activator.nuspec
+		Nuget\Capgemini.Cauldron.Consoles.nuspec = Nuget\Capgemini.Cauldron.Consoles.nuspec
+		Nuget\Capgemini.Cauldron.Core.Interceptors.nuspec = Nuget\Capgemini.Cauldron.Core.Interceptors.nuspec
+		Nuget\Capgemini.Cauldron.Core.nuspec = Nuget\Capgemini.Cauldron.Core.nuspec
+		Nuget\Capgemini.Cauldron.Cryptography.nuspec = Nuget\Capgemini.Cauldron.Cryptography.nuspec
+		Nuget\Capgemini.Cauldron.Win32.Extension.Impersonation.nuspec = Nuget\Capgemini.Cauldron.Win32.Extension.Impersonation.nuspec
+		Nuget\Capgemini.Cauldron.Win32.Interceptors.nuspec = Nuget\Capgemini.Cauldron.Win32.Interceptors.nuspec
+		Nuget\Capgemini.Cauldron.Win32.MonitorInfo.nuspec = Nuget\Capgemini.Cauldron.Win32.MonitorInfo.nuspec
+		Nuget\Capgemini.Cauldron.Win32.Net.nuspec = Nuget\Capgemini.Cauldron.Win32.Net.nuspec
+		Nuget\Capgemini.Cauldron.Win32.Threading.nuspec = Nuget\Capgemini.Cauldron.Win32.Threading.nuspec
+		Nuget\Capgemini.Cauldron.Win32.UserInformation.nuspec = Nuget\Capgemini.Cauldron.Win32.UserInformation.nuspec
+		Nuget\Capgemini.Cauldron.Win32.WPF.Interactivity.nuspec = Nuget\Capgemini.Cauldron.Win32.WPF.Interactivity.nuspec
+		Nuget\Capgemini.Cauldron.Win32.WPF.nuspec = Nuget\Capgemini.Cauldron.Win32.WPF.nuspec
+		Nuget\Capgemini.Cauldron.Win32.WPF.ParameterPassing.nuspec = Nuget\Capgemini.Cauldron.Win32.WPF.ParameterPassing.nuspec
 		Nuget\Cauldron.Interception.Fody.nuspec = Nuget\Cauldron.Interception.Fody.nuspec
-		Nuget\Cauldron.Win32.Extension.Impersonation.nuspec = Nuget\Cauldron.Win32.Extension.Impersonation.nuspec
-		Nuget\Cauldron.Win32.Interceptors.nuspec = Nuget\Cauldron.Win32.Interceptors.nuspec
-		Nuget\Cauldron.Win32.MonitorInfo.nuspec = Nuget\Cauldron.Win32.MonitorInfo.nuspec
-		Nuget\Cauldron.Win32.Net.nuspec = Nuget\Cauldron.Win32.Net.nuspec
-		Nuget\Cauldron.Win32.Threading.nuspec = Nuget\Cauldron.Win32.Threading.nuspec
-		Nuget\Cauldron.Win32.UserInformation.nuspec = Nuget\Cauldron.Win32.UserInformation.nuspec
-		Nuget\Cauldron.Win32.WPF.Interactivity.nuspec = Nuget\Cauldron.Win32.WPF.Interactivity.nuspec
-		Nuget\Cauldron.Win32.WPF.nuspec = Nuget\Cauldron.Win32.WPF.nuspec
-		Nuget\Cauldron.Win32.WPF.ParameterPassing.nuspec = Nuget\Cauldron.Win32.WPF.ParameterPassing.nuspec
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Packages", "Packages", "{12DB1AF7-F8D3-4346-8658-ECB315E8DCFB}"
@@ -147,6 +144,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.Win32.WPF.Validati
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Win32_XAML_Validation_Tests", "UnitTests\Win32_XAML_Validation_Tests\Win32_XAML_Validation_Tests.csproj", "{BF0E64FD-70F3-4BB6-A131-B11D667ED0B0}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cauldron.Core.Collections", "NetStandard\Cauldron.Core.Collections\Cauldron.Core.Collections.csproj", "{A3970375-C96B-443C-86B3-59BB32CE8CB1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -175,22 +174,6 @@ Global
 		{A19F8E3A-657F-4123-85E8-AD4111D63E98}.Release|x64.Build.0 = Release|Any CPU
 		{A19F8E3A-657F-4123-85E8-AD4111D63E98}.Release|x86.ActiveCfg = Release|Any CPU
 		{A19F8E3A-657F-4123-85E8-AD4111D63E98}.Release|x86.Build.0 = Release|Any CPU
-		{2D5B073E-F086-4169-A473-F734BFAD777C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2D5B073E-F086-4169-A473-F734BFAD777C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2D5B073E-F086-4169-A473-F734BFAD777C}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{2D5B073E-F086-4169-A473-F734BFAD777C}.Debug|ARM.Build.0 = Debug|Any CPU
-		{2D5B073E-F086-4169-A473-F734BFAD777C}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{2D5B073E-F086-4169-A473-F734BFAD777C}.Debug|x64.Build.0 = Debug|Any CPU
-		{2D5B073E-F086-4169-A473-F734BFAD777C}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{2D5B073E-F086-4169-A473-F734BFAD777C}.Debug|x86.Build.0 = Debug|Any CPU
-		{2D5B073E-F086-4169-A473-F734BFAD777C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2D5B073E-F086-4169-A473-F734BFAD777C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2D5B073E-F086-4169-A473-F734BFAD777C}.Release|ARM.ActiveCfg = Release|Any CPU
-		{2D5B073E-F086-4169-A473-F734BFAD777C}.Release|ARM.Build.0 = Release|Any CPU
-		{2D5B073E-F086-4169-A473-F734BFAD777C}.Release|x64.ActiveCfg = Release|Any CPU
-		{2D5B073E-F086-4169-A473-F734BFAD777C}.Release|x64.Build.0 = Release|Any CPU
-		{2D5B073E-F086-4169-A473-F734BFAD777C}.Release|x86.ActiveCfg = Release|Any CPU
-		{2D5B073E-F086-4169-A473-F734BFAD777C}.Release|x86.Build.0 = Release|Any CPU
 		{8520EF20-40FD-47C6-898F-F029588E5444}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8520EF20-40FD-47C6-898F-F029588E5444}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8520EF20-40FD-47C6-898F-F029588E5444}.Debug|ARM.ActiveCfg = Debug|Any CPU
@@ -383,22 +366,6 @@ Global
 		{195032D9-387E-4C08-BB66-48C2D03A7D77}.Release|x64.Build.0 = Release|Any CPU
 		{195032D9-387E-4C08-BB66-48C2D03A7D77}.Release|x86.ActiveCfg = Release|Any CPU
 		{195032D9-387E-4C08-BB66-48C2D03A7D77}.Release|x86.Build.0 = Release|Any CPU
-		{E228B89D-5C33-465A-948C-050684A1344B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E228B89D-5C33-465A-948C-050684A1344B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E228B89D-5C33-465A-948C-050684A1344B}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{E228B89D-5C33-465A-948C-050684A1344B}.Debug|ARM.Build.0 = Debug|Any CPU
-		{E228B89D-5C33-465A-948C-050684A1344B}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{E228B89D-5C33-465A-948C-050684A1344B}.Debug|x64.Build.0 = Debug|Any CPU
-		{E228B89D-5C33-465A-948C-050684A1344B}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{E228B89D-5C33-465A-948C-050684A1344B}.Debug|x86.Build.0 = Debug|Any CPU
-		{E228B89D-5C33-465A-948C-050684A1344B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E228B89D-5C33-465A-948C-050684A1344B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E228B89D-5C33-465A-948C-050684A1344B}.Release|ARM.ActiveCfg = Release|Any CPU
-		{E228B89D-5C33-465A-948C-050684A1344B}.Release|ARM.Build.0 = Release|Any CPU
-		{E228B89D-5C33-465A-948C-050684A1344B}.Release|x64.ActiveCfg = Release|Any CPU
-		{E228B89D-5C33-465A-948C-050684A1344B}.Release|x64.Build.0 = Release|Any CPU
-		{E228B89D-5C33-465A-948C-050684A1344B}.Release|x86.ActiveCfg = Release|Any CPU
-		{E228B89D-5C33-465A-948C-050684A1344B}.Release|x86.Build.0 = Release|Any CPU
 		{348FCF40-B2C1-42B6-8742-5F51A1E3A4E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{348FCF40-B2C1-42B6-8742-5F51A1E3A4E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{348FCF40-B2C1-42B6-8742-5F51A1E3A4E8}.Debug|ARM.ActiveCfg = Debug|Any CPU
@@ -1031,13 +998,28 @@ Global
 		{BF0E64FD-70F3-4BB6-A131-B11D667ED0B0}.Release|x64.Build.0 = Release|Any CPU
 		{BF0E64FD-70F3-4BB6-A131-B11D667ED0B0}.Release|x86.ActiveCfg = Release|Any CPU
 		{BF0E64FD-70F3-4BB6-A131-B11D667ED0B0}.Release|x86.Build.0 = Release|Any CPU
+		{A3970375-C96B-443C-86B3-59BB32CE8CB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3970375-C96B-443C-86B3-59BB32CE8CB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3970375-C96B-443C-86B3-59BB32CE8CB1}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{A3970375-C96B-443C-86B3-59BB32CE8CB1}.Debug|ARM.Build.0 = Debug|Any CPU
+		{A3970375-C96B-443C-86B3-59BB32CE8CB1}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A3970375-C96B-443C-86B3-59BB32CE8CB1}.Debug|x64.Build.0 = Debug|Any CPU
+		{A3970375-C96B-443C-86B3-59BB32CE8CB1}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A3970375-C96B-443C-86B3-59BB32CE8CB1}.Debug|x86.Build.0 = Debug|Any CPU
+		{A3970375-C96B-443C-86B3-59BB32CE8CB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3970375-C96B-443C-86B3-59BB32CE8CB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3970375-C96B-443C-86B3-59BB32CE8CB1}.Release|ARM.ActiveCfg = Release|Any CPU
+		{A3970375-C96B-443C-86B3-59BB32CE8CB1}.Release|ARM.Build.0 = Release|Any CPU
+		{A3970375-C96B-443C-86B3-59BB32CE8CB1}.Release|x64.ActiveCfg = Release|Any CPU
+		{A3970375-C96B-443C-86B3-59BB32CE8CB1}.Release|x64.Build.0 = Release|Any CPU
+		{A3970375-C96B-443C-86B3-59BB32CE8CB1}.Release|x86.ActiveCfg = Release|Any CPU
+		{A3970375-C96B-443C-86B3-59BB32CE8CB1}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{A19F8E3A-657F-4123-85E8-AD4111D63E98} = {D61DB804-8031-458B-841A-B9F79F4E56E0}
-		{2D5B073E-F086-4169-A473-F734BFAD777C} = {D61DB804-8031-458B-841A-B9F79F4E56E0}
 		{8520EF20-40FD-47C6-898F-F029588E5444} = {D61DB804-8031-458B-841A-B9F79F4E56E0}
 		{47B0856B-142D-482D-A3AA-DF73D4392371} = {D61DB804-8031-458B-841A-B9F79F4E56E0}
 		{54D84F50-0B4B-40CB-A27D-5CCD84F5B1EE} = {D61DB804-8031-458B-841A-B9F79F4E56E0}
@@ -1050,7 +1032,6 @@ Global
 		{75A87A26-D167-4E61-84BA-5595AE475934} = {D61DB804-8031-458B-841A-B9F79F4E56E0}
 		{FE7BD804-A339-486C-8D28-B58E11D8D676} = {D61DB804-8031-458B-841A-B9F79F4E56E0}
 		{195032D9-387E-4C08-BB66-48C2D03A7D77} = {D61DB804-8031-458B-841A-B9F79F4E56E0}
-		{E228B89D-5C33-465A-948C-050684A1344B} = {D61DB804-8031-458B-841A-B9F79F4E56E0}
 		{348FCF40-B2C1-42B6-8742-5F51A1E3A4E8} = {D61DB804-8031-458B-841A-B9F79F4E56E0}
 		{3B7C0640-5D31-46AA-97D2-689787409853} = {E1A20339-CE10-4F28-BB52-AB7D56DB3F25}
 		{589782AE-C5C3-437F-AD7F-B77B25ADBF0E} = {D61DB804-8031-458B-841A-B9F79F4E56E0}
@@ -1092,6 +1073,7 @@ Global
 		{7CE75511-7DCE-4162-936F-AD9031E8A987} = {E1A20339-CE10-4F28-BB52-AB7D56DB3F25}
 		{3BC85368-B2C4-48D0-9877-86C9A59DD161} = {E1A20339-CE10-4F28-BB52-AB7D56DB3F25}
 		{BF0E64FD-70F3-4BB6-A131-B11D667ED0B0} = {E2046C41-0213-4CB9-A569-1458B080F9E7}
+		{A3970375-C96B-443C-86B3-59BB32CE8CB1} = {D61DB804-8031-458B-841A-B9F79F4E56E0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D1F2CDF5-23CA-42FF-B139-C74A73C3FA62}

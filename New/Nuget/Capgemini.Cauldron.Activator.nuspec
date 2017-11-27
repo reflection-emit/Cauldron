@@ -26,8 +26,10 @@
   <files>
     <file src="..\NetStandard\Cauldron.Activator\bin\Release\netstandard2.0\Cauldron.Activator.dll" target="lib\netstandard2.0\Cauldron.Activator.dll" />
     <file src="..\NetStandard\Cauldron.Activator\bin\Release\netstandard2.0\Cauldron.Activator.xml" target="lib\netstandard2.0\Cauldron.Activator.xml" />
+
     <file src="..\NetStandard\Cauldron.Activator\bin\Release\netstandard2.0\Cauldron.Interception.dll" target="lib\netstandard2.0\Cauldron.Interception.dll" />
     <file src="..\NetStandard\Cauldron.Activator\bin\Release\netstandard2.0\Cauldron.Interception.xml" target="lib\netstandard2.0\Cauldron.Interception.xml" />
+
     <file src="..\NetStandard\Cauldron.Activator\bin\Release\netstandard2.0\Cauldron.Core.Collections.dll" target="lib\netstandard2.0\Cauldron.Core.Collections.dll" />
     <file src="..\NetStandard\Cauldron.Activator\bin\Release\netstandard2.0\Cauldron.Core.Collections.xml" target="lib\netstandard2.0\Cauldron.Core.Collections.xml" />
   </files>

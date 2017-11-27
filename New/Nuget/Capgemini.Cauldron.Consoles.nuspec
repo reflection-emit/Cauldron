@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Capgemini.Cauldron.Consoles</id>
+    <version>2.0.5-beta</version>
+    <authors>Alexander Schunk, Capgemini Deutschland GmbH</authors>
+    <owners>Alexander Schunk, Capgemini Deutschland GmbH</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <licenseUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/Capgemini/Cauldron</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</iconUrl>
+    <description>Cauldron.Consoles is a Cauldron.Core based parameter parser which supports grouping of parameters in execution groups. It is also supports localization and has a nice parameter table :)</description>
+    <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
+    <tags>Toolkit Capgemini Console Parameter Parsing Argument Arguments Parameters Cauldron Command CommandLine Args</tags>
+    <dependencies>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="Capgemini.Cauldron.Core.Extensions" version="2.0.5-beta" exclude="Build,Analyzers" />
+        <dependency id="Capgemini.Cauldron.Localization" version="2.0.5-beta" exclude="Build,Analyzers" />
+        <dependency id="Capgemini.Cauldron.Core.Randomizer" version="2.0.5-beta" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="..\NetStandard\Cauldron.Consoles\bin\Release\netstandard2.0\Cauldron.Consoles.dll" target="lib\netstandard2.0\Cauldron.Consoles.dll" />
+    <file src="..\NetStandard\Cauldron.Consoles\bin\Release\netstandard2.0\Cauldron.Consoles.xml" target="lib\netstandard2.0\Cauldron.Consoles.xml" />
+  </files>
+</package>

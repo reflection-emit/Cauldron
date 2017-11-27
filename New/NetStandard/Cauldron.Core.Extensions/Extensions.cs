@@ -260,12 +260,40 @@ namespace Cauldron
         }
 
         /// <summary>
+        /// Interleve combine two collections.
+        /// </summary>
+        /// <typeparam name="T">The type of the collection item.</typeparam>
+        /// <param name="first">The first collection.</param>
+        /// <param name="second">The second collection.</param>
+        /// <returns>The combined collection.</returns>
+        public static IEnumerable<T> Interleave<T>(this IEnumerable<T> first, IEnumerable<T> second)
+        {
+            // Original: https://stackoverflow.com/questions/7224511/interleaved-merge-with-linq by Julian Lettner
+
+            using (var enumerator1 = first.GetEnumerator())
+            using (var enumerator2 = second.GetEnumerator())
+            {
+                bool firstHasMore;
+                bool secondHasMore;
+
+                while ((firstHasMore = enumerator1.MoveNext()) | (secondHasMore = enumerator2.MoveNext()))
+                {
+                    if (firstHasMore)
+                        yield return enumerator1.Current;
+
+                    if (secondHasMore)
+                        yield return enumerator2.Current;
+                }
+            }
+        }
+
+        /// <summary>
         /// Checks if the value is null. If not, it will invoke <paramref name="action"/>
         /// </summary>
         /// <typeparam name="T">The type of the value</typeparam>
         /// <param name="value">The value to check</param>
         /// <param name="action">The action to invoke if <paramref name="value"/> is not null</param>
-        /// <returns>the instance of the value</returns>
+        /// <returns>The instance of the value</returns>
         public static T IsNotNull<T>(this T value, Action<T> action) where T : class
         {
             if (value != null)
