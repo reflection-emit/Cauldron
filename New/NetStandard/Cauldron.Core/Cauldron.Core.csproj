@@ -33,6 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Cauldron.Core.Collections\Cauldron.Core.Collections.csproj" />
     <ProjectReference Include="..\Cauldron.Core.Diagnostics\Cauldron.Core.Diagnostics.csproj" />
     <ProjectReference Include="..\Cauldron.Core.Disposable\Cauldron.Core.Disposable.csproj" />
     <ProjectReference Include="..\Cauldron.Core.Extensions.Convertions\Cauldron.Core.Extensions.Convertions.csproj" />

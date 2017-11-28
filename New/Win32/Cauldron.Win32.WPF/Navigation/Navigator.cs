@@ -1,13 +1,11 @@
 ﻿using Cauldron.Activator;
 using Cauldron.Core;
 using Cauldron.Core.Collections;
-using Cauldron.Core.Extensions;
 using Cauldron.Core.Reflection;
 using Cauldron.XAML.ViewModels;
 using System;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,7 +13,6 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
-using System.Windows.Navigation;
 
 namespace Cauldron.XAML.Navigation
 {

@@ -1,4 +1,5 @@
 ﻿using Cauldron.XAML.Interactivity.Actions;
+using System.ComponentModel;
 
 #if WINDOWS_UWP
 

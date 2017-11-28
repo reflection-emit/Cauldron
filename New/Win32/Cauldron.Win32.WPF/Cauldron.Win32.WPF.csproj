@@ -131,6 +131,10 @@
       <Project>{e5a31648-dac2-4c60-a1b8-2fc291c2bf9e}</Project>
       <Name>Cauldron.Activator</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Collections\Cauldron.Core.Collections.csproj">
+      <Project>{a3970375-c96b-443c-86b3-59bb32ce8cb1}</Project>
+      <Name>Cauldron.Core.Collections</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Comparing\Cauldron.Core.Comparing.csproj">
       <Project>{75a87a26-d167-4e61-84ba-5595ae475934}</Project>
       <Name>Cauldron.Core.Comparing</Name>
@@ -150,6 +154,10 @@
     <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Extensions\Cauldron.Core.Extensions.csproj">
       <Project>{80d83040-3340-4b2b-8c62-b0ce6b069a34}</Project>
       <Name>Cauldron.Core.Extensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.MathExtensions\Cauldron.Core.MathExtensions.csproj">
+      <Project>{1c4d93d9-20af-4e93-bee4-9e9799c1d088}</Project>
+      <Name>Cauldron.Core.MathExtensions</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Reflection\Cauldron.Core.Reflection.csproj">
       <Project>{9bc69306-6188-403e-bce3-0c85fe049a9b}</Project>

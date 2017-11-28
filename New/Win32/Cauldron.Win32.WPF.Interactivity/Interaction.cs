@@ -43,7 +43,7 @@ namespace Cauldron.XAML.Interactivity
             if (behaviourCollection == null)
                 return null;
 
-            return behaviourCollection.Where(x => x.GetType() == typeof(T)).ToArray_<T>();
+            return behaviourCollection.Where(x => x.GetType() == typeof(T)).Operations().ToArray<T>();
         }
 
         /// <summary>

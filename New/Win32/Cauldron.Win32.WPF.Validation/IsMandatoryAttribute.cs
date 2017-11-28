@@ -98,7 +98,7 @@ namespace Cauldron.XAML.Validation
             if (propertyInfo.PropertyType == typeof(bool))
                 return Task.FromResult(!(bool)value);
 
-            if (value is IEnumerable && (value as IEnumerable).Count_() == 0)
+            if (value is IEnumerable && (value as IEnumerable).Operations().Count() == 0)
                 return Task.FromResult(true);
 
             if (propertyInfo.PropertyType == typeof(SecureString))

@@ -1,5 +1,4 @@
-﻿using Cauldron.Core.Collections;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -254,10 +253,34 @@ namespace Cauldron.Activator
             return value.MapTo(result);
         }
 
+        private static int Count(IEnumerable enumerable)
+        {
+            var source = enumerable as ICollection;
+            if (source != null)
+                return source.Count;
+
+            var enumerator = enumerable.GetEnumerator();
+            try
+            {
+                int count = 0;
+                while (enumerator.MoveNext())
+                    count++;
+                return count;
+            }
+            catch
+            {
+                return 0;
+            }
+            finally
+            {
+                enumerator.TryDispose();
+            }
+        }
+
         private static IEnumerable CreateArray(Type valueType, object value)
         {
             var items = value as IEnumerable;
-            var count = items.Count_();
+            var count = Count(items);
             int counter = 0;
 
             var array = Array.CreateInstance(valueType, count);

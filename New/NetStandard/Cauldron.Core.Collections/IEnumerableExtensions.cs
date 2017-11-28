@@ -10,18 +10,43 @@ namespace Cauldron.Core.Collections
     public static class Extensions
     {
         /// <summary>
-        /// Determines whether any element of a sequence satisfies a condition.
+        /// Provides linq like methods for handling and converting <see cref="IEnumerable"/>s.
+        /// <para/>
+        /// This is separated from actual extension to avoid confusions with <see cref="System.Linq"/> extensions. And
+        /// also to avoid accidental usage.
         /// </summary>
-        /// <param name="source">An <see cref="IEnumerable"/> whose elements to apply the predicate to</param>
-        /// <param name="predicate">A function to test each element for a condition.</param>
-        /// <returns>True if any elements in the source sequence pass the test in the specified predicate, otherwise false</returns>
+        /// <param name="source">The <see cref="IEnumerable"/> of interest.</param>
+        /// <returns>A new instance of the <see cref="IEnumerableExtensions"/> class.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="source"/> is null</exception>
-        public static bool Any_(this IEnumerable source, Func<object, bool> predicate)
+        public static IEnumerableExtensions Operations(this IEnumerable source)
         {
             if (source == null)
                 throw new ArgumentNullException(nameof(source));
 
-            foreach (var item in source)
+            return new IEnumerableExtensions(source);
+        }
+    }
+
+    /// <summary>
+    /// Provides usefull extensions for <see cref="IEnumerable"/>.
+    /// </summary>
+    public sealed class IEnumerableExtensions
+    {
+        private IEnumerable source;
+
+        internal IEnumerableExtensions(IEnumerable enumerable)
+        {
+            this.source = enumerable;
+        }
+
+        /// <summary>
+        /// Determines whether any element of a sequence satisfies a condition.
+        /// </summary>
+        /// <param name="predicate">A function to test each element for a condition.</param>
+        /// <returns>True if any elements in the source sequence pass the test in the specified predicate, otherwise false</returns>
+        public bool Any(Func<object, bool> predicate)
+        {
+            foreach (var item in this.source)
             {
                 if (predicate(item))
                     return true;
@@ -33,14 +58,9 @@ namespace Cauldron.Core.Collections
         /// <summary>
         /// Determines whether a sequence contains any elements.
         /// </summary>
-        /// <param name="source">The <see cref="IEnumerable"/> to check for emptiness.</param>
         /// <returns>True if the source sequence contains any elements, otherwise false.</returns>
-        /// <exception cref="ArgumentNullException"><paramref name="source"/> is null</exception>
-        public static bool Any_(this IEnumerable source)
+        public bool Any()
         {
-            if (source == null)
-                throw new ArgumentNullException(nameof(source));
-
             foreach (var item in source)
                 return true;
 
@@ -50,14 +70,9 @@ namespace Cauldron.Core.Collections
         /// <summary>
         /// Gets the number of elements contained in the <see cref="IEnumerable"/>
         /// </summary>
-        /// <param name="source">The <see cref="IEnumerable"/></param>
         /// <returns>The total count of items in the <see cref="IEnumerable"/></returns>
-        /// <exception cref="ArgumentNullException"><paramref name="source"/> is null</exception>
-        public static int Count_(this IEnumerable source)
+        public int Count()
         {
-            if (source == null)
-                throw new ArgumentNullException(nameof(source));
-
             int count = 0;
 
             if (source.GetType().IsArray)
@@ -79,17 +94,12 @@ namespace Cauldron.Core.Collections
         /// <summary>
         /// Returns the element at the defined index
         /// </summary>
-        /// <param name="ienumerable">The enumerable that contains the element</param>
         /// <param name="index">The index of the element</param>
         /// <returns>The element with the specified index</returns>
-        /// <exception cref="ArgumentNullException"><paramref name="ienumerable"/> is null</exception>
-        public static object ElementAt_(this IEnumerable ienumerable, int index)
+        public object ElementAt(int index)
         {
-            if (ienumerable == null)
-                throw new ArgumentNullException(nameof(ienumerable));
-
             var counter = 0;
-            foreach (var item in ienumerable)
+            foreach (var item in this.source)
             {
                 if (counter++ == index)
                     return item;
@@ -101,18 +111,13 @@ namespace Cauldron.Core.Collections
         /// <summary>
         /// Removes the first occurrence of a specific object from the <see cref="IEnumerable"/>
         /// </summary>
-        /// <param name="items">The <see cref="IEnumerable"/> that may contain the object to remove</param>
         /// <param name="itemToExcept">The object to remove from the <see cref="IEnumerable"/>. The value can be null for reference types.</param>
         /// <returns>A new instance of the <see cref="IEnumerable"/> without the item specified by <paramref name="itemToExcept"/></returns>
-        /// <exception cref="ArgumentNullException"><paramref name="items"/> is null</exception>
-        public static IEnumerable Except_(this IEnumerable items, object itemToExcept)
+        public IEnumerable Except(object itemToExcept)
         {
-            if (items == null)
-                throw new ArgumentNullException(nameof(items));
-
             var result = new List<object>();
 
-            foreach (var item in items)
+            foreach (var item in this.source)
             {
                 if (!Comparer.Equals(item, itemToExcept))
                     result.Add(item);
@@ -122,45 +127,68 @@ namespace Cauldron.Core.Collections
         }
 
         /// <summary>
-        /// Returns the first element of a sequence.
+        /// Returns the first element of a sequence; otherwise null.
         /// </summary>
-        /// <param name="source">The <see cref="IEnumerable"/> to return the first element of.</param>
         /// <returns>The first element in the specified sequence.</returns>
-        /// <exception cref="ArgumentNullException"><paramref name="source"/> is null</exception>
-        public static object FirstElement_(this IEnumerable source)
+        public object FirstOrDefault()
         {
-            if (source == null)
-                throw new ArgumentNullException(nameof(source));
+            var list = this.source as IList;
+            if (list != null)
+            {
+                if (list.Count == 0)
+                    return null;
+
+                return list[0];
+            }
+
+            var collection = this.source as ICollection;
+            if (collection != null && collection.Count == 0)
+                return null;
+
+            var array = this.source as Array;
+            if (array != null)
+            {
+                if (array.Length == 0)
+                    return null;
+
+                return array.GetValue(0);
+            }
 
             var enumerator = source.GetEnumerator();
-            enumerator.Reset();
 
-            if (enumerator.MoveNext())
-                return enumerator.Current;
+            try
+            {
+                enumerator.Reset();
 
+                if (enumerator.MoveNext())
+                    return enumerator.Current;
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                enumerator.TryDispose();
+            }
             return null;
         }
 
         /// <summary>
         /// Determines whether two sequences are equal by comparing the elements by using the default equality comparer for their types
         /// </summary>
-        /// <param name="first">An <see cref="IEnumerable"/> to compare to second.</param>
         /// <param name="second">An <see cref="IEnumerable"/> to compare to the first sequence.</param>
         /// <returns>
         /// true if the two source sequences are of equal length and their corresponding
         /// elements are equal according to the default equality comparer for their type;
         /// otherwise, false.
         /// </returns>
-        /// <exception cref="ArgumentNullException">first or second is null.</exception>
-        public static bool SequenceEqual_(this IEnumerable first, IEnumerable second)
+        public bool SequenceEqual(IEnumerable second)
         {
-            if (first == null)
-                throw new ArgumentNullException(nameof(first));
-
             if (second == null)
                 throw new ArgumentNullException(nameof(second));
 
-            var firstCol = first as ICollection;
+            var firstCol = this.source as ICollection;
 
             if (firstCol != null)
             {
@@ -176,7 +204,7 @@ namespace Cauldron.Core.Collections
                 before we try to compare them.
             */
 
-            var e1 = first.GetEnumerator();
+            var e1 = source.GetEnumerator();
             var e2 = second.GetEnumerator();
             e1.Reset();
             e2.Reset();
@@ -192,17 +220,13 @@ namespace Cauldron.Core.Collections
         /// Converts a <see cref="IEnumerable"/> to an array
         /// </summary>
         /// <typeparam name="T">The type of elements the <see cref="IEnumerable"/> contains</typeparam>
-        /// <param name="items">The <see cref="IEnumerable"/> to convert</param>
         /// <returns>An array of <typeparamref name="T"/></returns>
-        public static T[] ToArray_<T>(this IEnumerable items)
+        public T[] ToArray<T>()
         {
-            if (items == null)
-                return new T[0];
+            var result = new T[this.Count()];
+            var counter = 0;
 
-            T[] result = new T[items.Count_()];
-            int counter = 0;
-
-            foreach (T item in items)
+            foreach (T item in this.source)
             {
                 result[counter] = item;
                 counter++;
@@ -215,18 +239,13 @@ namespace Cauldron.Core.Collections
         /// Creates a <see cref="List{T}"/> from an <see cref="IEnumerable"/>.
         /// </summary>
         /// <typeparam name="T">The type of the elements of source.</typeparam>
-        /// <param name="target">The <see cref="IEnumerable"/> to create a <see cref="List{T}"/> from.</param>
-        /// <returns>A System.Collections.Generic.List`1 that contains elements from the input sequence.</returns>
-        /// <exception cref="ArgumentNullException"><paramref name="target"/> is null</exception>
-        public static List<T> ToList_<T>(this IEnumerable target)
+        /// <returns>A <see cref="List{T}"/> that contains elements from the input sequence.</returns>
+        public List<T> ToList<T>()
         {
-            if (target == null)
-                throw new ArgumentNullException(nameof(target));
+            var result = new List<T>(this.Count());
 
-            List<T> result = new List<T>(target.Count_());
-
-            foreach (T x in target)
-                result.Add(x);
+            foreach (T item in this.source)
+                result.Add(item);
 
             return result;
         }

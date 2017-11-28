@@ -47,7 +47,6 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
@@ -77,6 +76,10 @@
     <ProjectReference Include="..\..\NetStandard\Cauldron.Activator\Cauldron.Activator.csproj">
       <Project>{e5a31648-dac2-4c60-a1b8-2fc291c2bf9e}</Project>
       <Name>Cauldron.Activator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Collections\Cauldron.Core.Collections.csproj">
+      <Project>{a3970375-c96b-443c-86b3-59bb32ce8cb1}</Project>
+      <Name>Cauldron.Core.Collections</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Diagnostics\Cauldron.Core.Diagnostics.csproj">
       <Project>{9631764e-e771-4d96-a7cf-757c257a0630}</Project>

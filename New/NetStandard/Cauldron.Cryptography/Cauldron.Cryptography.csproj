@@ -37,6 +37,7 @@
     <ProjectReference Include="..\Cauldron.Core.Extensions.Compression\Cauldron.Core.Extensions.Compression.csproj" />
     <ProjectReference Include="..\Cauldron.Core.Extensions.Convertions\Cauldron.Core.Extensions.Convertions.csproj" />
     <ProjectReference Include="..\Cauldron.Core.Extensions\Cauldron.Core.Extensions.csproj" />
+    <ProjectReference Include="..\Cauldron.Core.MathExtensions\Cauldron.Core.MathExtensions.csproj" />
     <ProjectReference Include="..\Cauldron.Core.Randomizer\Cauldron.Core.Randomizer.csproj" />
   </ItemGroup>
 

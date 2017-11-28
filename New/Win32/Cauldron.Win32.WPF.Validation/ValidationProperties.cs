@@ -77,7 +77,7 @@ namespace Cauldron.XAML.Validation
                 if (dataContext == null)
                     return false;
 
-                return !dataContext.GetErrors(propertyName).Any_();
+                return !dataContext.GetErrors(propertyName).Operations().Any();
             };
 
 #if WINDOWS_UWP

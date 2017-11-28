@@ -76,7 +76,7 @@ namespace Cauldron.XAML
                     }
 
                     var array = propertyInfo.GetValue(source) as IEnumerable;
-                    source = array.ElementAt_(indexer);
+                    source = array.Operations().ElementAt(indexer);
                 }
                 else
                 {
