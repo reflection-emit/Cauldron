@@ -4,8 +4,8 @@
     <id>Cauldron.Interception.Fody</id>
     <version>2.0.0</version>
     <title>Capgemini Cauldron Interception for Fody</title>
-    <authors>Capgemini Deutschland GmbH</authors>
-    <owners>Capgemini Deutschland GmbH</owners>
+    <authors>Alexander Schunk, Capgemini Deutschland GmbH</authors>
+    <owners>Alexander Schunk, Capgemini Deutschland GmbH</owners>
     <licenseUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/Capgemini/Cauldron</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</iconUrl>
@@ -20,7 +20,6 @@
   </metadata>
   <files>
     <file src="..\Fody\Cauldron.Interception.Fody\bin\Release\Cauldron.Interception.Fody.dll" target="Cauldron.Interception.Fody.dll" />
-    <file src="..\Fody\Cauldron.Interception.Fody\bin\Release\Cauldron.Interception.Fody.pdb" target="Cauldron.Interception.Fody.pdb" />
     <file src="..\Fody\Cauldron.Interception.Cecilator\bin\Release\Cauldron.Interception.Cecilator.dll" target="Cauldron.Interception.Cecilator.dll" />
     <file src="..\Fody\Cauldron.Interception.Cecilator\bin\Release\Cauldron.Interception.Cecilator.pdb" target="Cauldron.Interception.Cecilator.pdb" />
     <file src="..\Fody\Cauldron.Interception.Cecilator\bin\Release\System.ValueTuple.dll" target="System.ValueTuple.dll" />
@@ -31,5 +30,6 @@
     <!-- Net Standard 2.0 -->
     <file src="..\NetStandard\Cauldron.Interception\bin\Release\netstandard2.0\Cauldron.Interception**" target="lib\netstandard2.0" />
     <file src="Fody\**" target="tools" />
+    <file src="..\NetStandard\Cauldron.Interception\**\*.cs" target="src" />
   </files>
 </package>

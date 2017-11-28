@@ -4,23 +4,26 @@
     <id>Capgemini.Cauldron.Win32.Interceptors</id>
     <version>2.0.0</version>
     <title>Cauldron.Win32.Interceptors</title>
-    <authors>Capgemini Deutschland GmbH</authors>
-    <owners>Capgemini Deutschland GmbH</owners>
+    <authors>Alexander Schunk, Capgemini Deutschland GmbH</authors>
+    <owners>Alexander Schunk, Capgemini Deutschland GmbH</owners>
     <licenseUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/Capgemini/Cauldron</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
-    <description>A collection a interceptor implementations.</description>
+    <description>A collection of interceptor implementations.</description>
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Interceptors Fody Interception</tags>
     <dependencies>
-      <dependency id="Capgemini.Cauldron.Interceptors" version="2.0.5-beta" />
-      <dependency id="Cauldron.Interception.Fody" version="2.0.5-beta" />
+      <dependency id="Capgemini.Cauldron.Interceptors" version="2.0.8-beta" />
+      <dependency id="Cauldron.Interception.Fody" version="2.0.8-beta" />
       <dependency id="Fody" version="2.2.1" />
     </dependencies>
   </metadata>
   <files>
     <!-- Desktop -->
-    <file src="..\Win32\Cauldron.Win32.Interceptors\bin\Release\Cauldron.Win32**" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Win32.Interceptors\bin\Release\Cauldron.Win32.Interceptors.dll" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Win32.Interceptors\bin\Release\Cauldron.Win32.Interceptors.xml" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Win32.Interceptors\bin\Release\Cauldron.Win32.Interceptors.pdb" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Win32.Interceptors\**\*.cs" target="src" />
   </files>
 </package>

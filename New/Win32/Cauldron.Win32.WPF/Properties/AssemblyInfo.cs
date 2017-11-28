@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Cauldron.Win32.WPF")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Capgemini Deutschland GmbH")]
+[assembly: AssemblyCompany("Alexander Schunk, Capgemini Deutschland GmbH")]
 [assembly: AssemblyProduct("Cauldron.Win32.WPF")]
-[assembly: AssemblyCopyright("Copyright ©  2017")]
+[assembly: AssemblyCopyright("Copyright (c) 2016 Capgemini Deutschland GmbH")]
 [assembly: AssemblyTrademark("Copyright © 2016 Capgemini Deutschland GmbH")]
 [assembly: AssemblyCulture("")]
 
@@ -31,6 +31,6 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
-// [assembly: AssemblyVersion("2.0.0.5")]
+// [assembly: AssemblyVersion("2.0.0.6")]
 [assembly: AssemblyVersion("2.0.0.0")]
-[assembly: AssemblyFileVersion("2.0.0.5")]
+[assembly: AssemblyFileVersion("2.0.0.6")]

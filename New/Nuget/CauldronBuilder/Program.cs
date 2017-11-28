@@ -10,6 +10,8 @@ namespace CauldronBuilder
 {
     internal static class Program
     {
+        private const string Authors = "Alexander Schunk, Capgemini Deutschland GmbH";
+        private const string Copyright = "Copyright (c) 2016 Capgemini Deutschland GmbH";
         private static CauldronBuilderData data;
 
         public static void Main(string[] args)
@@ -44,7 +46,10 @@ namespace CauldronBuilder
                     var solutionPath = new FileInfo(Path.Combine(startingLocation.FullName, "Cauldron.sln"));
 
                     foreach (var project in allProjectFiles)
+                    {
+                        ModifyAssemblyInfo(project);
                         ChangeVersion(project, version);
+                    }
 
                     for (int i = 0; i < allProjectFiles.Length; i++)
                     {
@@ -87,7 +92,8 @@ namespace CauldronBuilder
                 {
                     Console.WriteLine("");
 
-                    foreach (var package in Directory.GetFiles(packages.FullName, "*.nupkg", SearchOption.TopDirectoryOnly))
+                    foreach (var package in Directory.GetFiles(packages.FullName, "*.nupkg", SearchOption.TopDirectoryOnly)
+                        .Where(x => x.IndexOf(".symbols.", StringComparison.InvariantCultureIgnoreCase) < 0))
                         UploadNugetPackage(package);
                 }
             }
@@ -258,6 +264,46 @@ namespace CauldronBuilder
             body = body.Insert(position, data);
         }
 
+        private static void ModifyAssemblyInfo(FileInfo path)
+        {
+            var projectFileBody = File.ReadAllText(path.FullName);
+            if (projectFileBody.StartsWith(@"<Project Sdk=""Microsoft.NET.Sdk"">")) // This is a NetStandard project
+            {
+                var authors = projectFileBody.EnclosedIn("<Authors>", "</Authors>");
+                if (authors != null)
+                    projectFileBody = projectFileBody.Replace(authors, $"<Authors>{Authors}</Authors>");
+                else
+                    Insert(ref projectFileBody, $"<Authors>{Authors}</Authors>\r\n");
+
+                var copyright = projectFileBody.EnclosedIn("<Copyright>", "</Copyright>");
+                if (copyright != null)
+                    projectFileBody = projectFileBody.Replace(copyright, $"<Copyright>{Copyright}</Copyright>");
+                else
+                    Insert(ref projectFileBody, $"<Copyright>{Copyright}</Copyright>\r\n");
+
+                File.WriteAllText(path.FullName, projectFileBody);
+            }
+            else
+            {
+                // Lets look for AssemblyInfo.cs
+                var assemblyInfo = Path.Combine(path.Directory.FullName, "Properties\\AssemblyInfo.cs");
+                if (!File.Exists(assemblyInfo))
+                    return;
+
+                var assemblyInfoBody = File.ReadAllText(assemblyInfo);
+
+                var authors = assemblyInfoBody.EnclosedIn("[assembly: AssemblyCompany(\"", "\")]");
+                if (authors != null)
+                    assemblyInfoBody = assemblyInfoBody.Replace(authors, $"[assembly: AssemblyCompany(\"{Authors}\")]");
+
+                var copyright = assemblyInfoBody.EnclosedIn("[assembly: AssemblyCopyright(\"", "\")]");
+                if (copyright != null)
+                    assemblyInfoBody = assemblyInfoBody.Replace(copyright, $"[assembly: AssemblyCopyright(\"{Copyright}\")]");
+
+                File.WriteAllText(assemblyInfo, assemblyInfoBody);
+            }
+        }
+
         private static void ModifyNuspec(FileInfo path, string version)
         {
             var nuspec = new XmlDocument();
@@ -270,14 +316,14 @@ namespace CauldronBuilder
                     item.Attributes["version"].Value = version;
             }
 
-            nuspec["package"]["metadata"]["owners"].Value = "Alexander Schunk, Capgemini Deutschland GmbH";
-            nuspec["package"]["metadata"]["authors"].Value = "Alexander Schunk, Capgemini Deutschland GmbH";
-            nuspec["package"]["metadata"]["requireLicenseAcceptance"].Value = "true";
-            nuspec["package"]["metadata"]["licenseUrl"].Value = "https://raw.githubusercontent.com/Capgemini/Cauldron/master/LICENSE";
-            nuspec["package"]["metadata"]["projectUrl"].Value = "https://github.com/Capgemini/Cauldron";
-            nuspec["package"]["metadata"]["iconUrl"].Value = "https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png";
-            nuspec["package"]["metadata"]["copyright"].Value = "Copyright (c) 2016 Capgemini Deutschland GmbH";
-            nuspec["package"]["metadata"]["id"].Value = Path.GetFileNameWithoutExtension(path.FullName);
+            nuspec["package"]["metadata"]["owners"].InnerText = Authors;
+            nuspec["package"]["metadata"]["authors"].InnerText = Authors;
+            nuspec["package"]["metadata"]["requireLicenseAcceptance"].InnerText = "true";
+            nuspec["package"]["metadata"]["licenseUrl"].InnerText = "https://raw.githubusercontent.com/Capgemini/Cauldron/master/LICENSE";
+            nuspec["package"]["metadata"]["projectUrl"].InnerText = "https://github.com/Capgemini/Cauldron";
+            nuspec["package"]["metadata"]["iconUrl"].InnerText = "https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png";
+            nuspec["package"]["metadata"]["copyright"].InnerText = Copyright;
+            nuspec["package"]["metadata"]["id"].InnerText = Path.GetFileNameWithoutExtension(path.FullName);
 
             nuspec.Save(path.FullName);
         }

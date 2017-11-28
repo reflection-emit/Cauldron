@@ -4,8 +4,8 @@
     <id>Capgemini.Cauldron.Win32.Extension.Impersonation</id>
     <version>2.0.0</version>
     <title>Cauldron.Win32.Extension.Impersonation</title>
-    <authors>Capgemini Deutschland GmbH</authors>
-    <owners>Capgemini Deutschland GmbH</owners>
+    <authors>Alexander Schunk, Capgemini Deutschland GmbH</authors>
+    <owners>Alexander Schunk, Capgemini Deutschland GmbH</owners>
     <licenseUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/Capgemini/Cauldron</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</iconUrl>
@@ -19,6 +19,9 @@
   </metadata>
   <files>
     <!-- Desktop -->
-    <file src="..\Win32\Cauldron.Win32.Extension.Impersonation\bin\Release\Cauldron.Win32**" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Win32.Extension.Impersonation\bin\Release\Cauldron.Win32.Extension.Impersonation.dll" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Win32.Extension.Impersonation\bin\Release\Cauldron.Win32.Extension.Impersonation.xml" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Win32.Extension.Impersonation\bin\Release\Cauldron.Win32.Extension.Impersonation.pdb" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Win32.Extension.Impersonation\**\*.cs" target="src" />
   </files>
 </package>

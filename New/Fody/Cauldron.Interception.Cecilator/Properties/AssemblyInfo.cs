@@ -7,9 +7,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Cauldron.Interception.Cecilator")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Capgemini Deutschland GmbH")]
+[assembly: AssemblyCompany("Alexander Schunk, Capgemini Deutschland GmbH")]
 [assembly: AssemblyProduct("Cauldron.Interception.Cecilator")]
-[assembly: AssemblyCopyright("Copyright © 2017 Capgemini Deutschland GmbH")]
+[assembly: AssemblyCopyright("Copyright (c) 2016 Capgemini Deutschland GmbH")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -24,5 +24,5 @@ using System.Runtime.InteropServices;
 //
 // Major Version Minor Version Build Number Revision
 //
-[assembly: AssemblyVersion("2.0.0.5")]
-[assembly: AssemblyFileVersion("2.0.0.5")]
+[assembly: AssemblyVersion("2.0.0.6")]
+[assembly: AssemblyFileVersion("2.0.0.6")]

@@ -6,9 +6,9 @@
     <Authors>Alexander Schunk, Capgemini Deutschland GmbH</Authors>
     <Product>Cauldron.Core.Extensions.Compression</Product>
     <Description>Provides System.IO.Compression.GZipStream extension methods for System.IO.Stream, System.IO.FileInfo, byte array and System.String</Description>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>2.0.5-beta</Version>
+    <Version>2.0.6-beta</Version>
     <Company>Capgemini Deutschland GmbH</Company>
     <Copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</Copyright>
     <PackageLicenseUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/LICENSE</PackageLicenseUrl>
@@ -16,20 +16,20 @@
     <PackageIconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</PackageIconUrl>
     <PackageTags>Toolkit Capgemini Cauldron Extensions Compression GZipStream GZip</PackageTags>
     <RootNamespace>Cauldron</RootNamespace>
-  <AssemblyVersion>2.0.0.5</AssemblyVersion>
-<FileVersion>2.0.0.5</FileVersion>
+  <AssemblyVersion>2.0.0.6</AssemblyVersion>
+<FileVersion>2.0.0.6</FileVersion>
 </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
-    <DocumentationFile>bin\Release\netstandard2.0\Cauldron.Core.Compression.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\netstandard2.0\Cauldron.Core.Extensions.Compression.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
-    <DocumentationFile>bin\Debug\netstandard2.0\Cauldron.Core.Compression.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\netstandard2.0\Cauldron.Core.Extensions.Compression.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

@@ -4,8 +4,8 @@
     <id>Capgemini.Cauldron.Win32.WPF.ParameterPassing</id>
     <version>2.0.0</version>
     <title>Cauldron.Win32.WPF.ParameterPassing</title>
-    <authors>Capgemini Deutschland GmbH</authors>
-    <owners>Capgemini Deutschland GmbH</owners>
+    <authors>Alexander Schunk, Capgemini Deutschland GmbH</authors>
+    <owners>Alexander Schunk, Capgemini Deutschland GmbH</owners>
     <licenseUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/Capgemini/Cauldron</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</iconUrl>
@@ -15,11 +15,14 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Dispatcher</tags>
     <dependencies>
-      <dependency id="Capgemini.Cauldron.Core.Randomizer" version="2.0.5-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Randomizer" version="2.0.8-beta" />
     </dependencies>
   </metadata>
   <files>
     <!-- Desktop -->
-    <file src="..\Win32\Cauldron.Win32.WPF.ParameterPassing\bin\Release\Cauldron.Win32**" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Win32.WPF.ParameterPassing\bin\Release\Cauldron.Win32.WPF.ParameterPassing.dll" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Win32.WPF.ParameterPassing\bin\Release\Cauldron.Win32.WPF.ParameterPassing.xml" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Win32.WPF.ParameterPassing\bin\Release\Cauldron.Win32.WPF.ParameterPassing.pdb" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Win32.WPF.ParameterPassing\**\*.cs" target="src" />
   </files>
 </package>

@@ -461,6 +461,9 @@
     <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Validation\ValidationBehaviour.cs">
       <Link>XAML\Validation\ValidationBehaviour.cs</Link>
     </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Validation\ValidationEventArgs.cs">
+      <Link>XAML\Validation\ValidationEventArgs.cs</Link>
+    </Compile>
     <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Validation\ValidationHandler.cs">
       <Link>XAML\Validation\ValidationHandler.cs</Link>
     </Compile>

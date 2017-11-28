@@ -2,9 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyVersion>2.0.0.5</AssemblyVersion>
-    <FileVersion>2.0.0.5</FileVersion>
-  </PropertyGroup>
+    <AssemblyVersion>2.0.0.6</AssemblyVersion>
+    <FileVersion>2.0.0.6</FileVersion>
+  <Authors>Alexander Schunk, Capgemini Deutschland GmbH</Authors>
+<Copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</Copyright>
+</PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>bin\Release\netstandard2.0\Cauldron.Core.MathExtensions.xml</DocumentationFile>
