@@ -39,6 +39,7 @@ namespace Cauldron.Interception.Cecilator
 
         public bool IsAbstract { get { return this.typeDefinition.Attributes.HasFlag(TypeAttributes.Abstract); } }
         public bool IsArray { get { return this.typeDefinition != null && (this.typeDefinition.IsArray || this.typeReference.FullName.EndsWith("[]") || this.typeDefinition.FullName.EndsWith("[]")); } }
+        public bool IsDelegate => this.typeDefinition.IsDelegate();
         public bool IsEnum { get { return this.typeDefinition.IsEnum; } }
         public bool IsForeign { get { return this.moduleDefinition.Assembly == this.typeDefinition.Module.Assembly; } }
         public bool IsGenericType { get { return this.typeDefinition == null || this.typeReference.Resolve() == null; } }
@@ -51,7 +52,6 @@ namespace Cauldron.Interception.Cecilator
         public bool IsVoid { get { return this.typeDefinition.FullName == "System.Void"; } }
         public string Name { get { return this.typeDefinition.Name; } }
         public string Namespace { get { return this.typeDefinition.Namespace; } }
-        public bool IsDelegate => this.typeDefinition.IsDelegate();
 
         public BuilderType GetGenericArgument(int index)
         {
@@ -450,22 +450,45 @@ namespace Cauldron.Interception.Cecilator
 
         public Method CreateMethod(Modifiers modifier, BuilderType returnType, string name, params BuilderType[] parameters)
         {
-            var attributes = MethodAttributes.CompilerControlled;
+            try
+            {
+                var attributes = MethodAttributes.CompilerControlled;
 
-            if (modifier.HasFlag(Modifiers.Private)) attributes |= MethodAttributes.Private;
-            if (modifier.HasFlag(Modifiers.Static)) attributes |= MethodAttributes.Static;
-            if (modifier.HasFlag(Modifiers.Public)) attributes |= MethodAttributes.Public;
-            if (modifier.HasFlag(Modifiers.Protected)) attributes |= MethodAttributes.Family;
-            if (modifier.HasFlag(Modifiers.Overrrides)) attributes |= MethodAttributes.Final | MethodAttributes.Virtual | MethodAttributes.NewSlot;
+                if (modifier.HasFlag(Modifiers.Private)) attributes |= MethodAttributes.Private;
+                if (modifier.HasFlag(Modifiers.Static)) attributes |= MethodAttributes.Static;
+                if (modifier.HasFlag(Modifiers.Public)) attributes |= MethodAttributes.Public;
+                if (modifier.HasFlag(Modifiers.Protected)) attributes |= MethodAttributes.Family;
+                if (modifier.HasFlag(Modifiers.Overrrides)) attributes |= MethodAttributes.Final | MethodAttributes.Virtual | MethodAttributes.NewSlot;
 
-            var method = new MethodDefinition(name, attributes, this.moduleDefinition.ImportReference(returnType.typeReference));
+                var method = new MethodDefinition(name, attributes, this.moduleDefinition.ImportReference(returnType.typeReference));
 
-            foreach (var item in parameters)
-                method.Parameters.Add(new ParameterDefinition(this.moduleDefinition.ImportReference(item.typeReference)));
+                foreach (var item in parameters)
+                {
+                    var parameterType = item.typeReference.ResolveType(this.typeReference) ?? item.typeDefinition.ResolveType(this.typeReference);
+                    if (parameterType.IsGenericParameter)
+                        parameterType = this.moduleDefinition.TypeSystem.Object;
 
-            this.typeDefinition.Methods.Add(method);
+                    method.Parameters.Add(new ParameterDefinition(this.moduleDefinition.ImportReference(parameterType)));
+                }
 
-            return new Method(this, method);
+                this.typeDefinition.Methods.Add(method);
+
+                return new Method(this, method);
+            }
+            catch (NullReferenceException e)
+            {
+                throw new NullReferenceException(
+                  string.Join("\r\n", new string[] {
+                    "Object reference not set to an instance of an object.",
+                    "Return Type: " + returnType.typeReference,
+                    "Parameters: " + parameters == null? "0" : parameters.Length.ToString(),
+                    string.Join("             Parameter 1: ", parameters?.Select(x=>(x.typeReference ?? x.typeDefinition.ResolveType(this.typeReference))?.ToString() ?? "").ToArray() ?? new string[0])
+                    }), e);
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         public Method CreateMethod(Modifiers modifier, string name, params Type[] parameters) =>

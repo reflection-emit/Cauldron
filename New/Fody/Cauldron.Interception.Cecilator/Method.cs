@@ -239,7 +239,7 @@ namespace Cauldron.Interception.Cecilator
         private IEnumerable<MethodUsage> GetMethodUsage(Method method)
         {
             if (method.methodDefinition.Body != null)
-                for (int i = 0; i < method.methodDefinition.Body.Instructions.Count; i++)
+                for (int i = 0; i < (method.methodDefinition.Body?.Instructions.Count ?? 0); i++)
                 {
                     var instruction = method.methodDefinition.Body.Instructions[i];
                     if ((instruction.OpCode == OpCodes.Call ||

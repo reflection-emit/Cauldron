@@ -248,7 +248,7 @@ namespace Cauldron.Interception.Cecilator
         public void Insert(InsertionPosition position)
         {
             Instruction instructionPosition = null;
-            if (processor.Body.Instructions.Count == 0)
+            if (processor.Body == null || processor.Body.Instructions.Count == 0)
                 processor.Append(processor.Create(OpCodes.Ret));
 
             if (position == InsertionPosition.Beginning)
@@ -1036,6 +1036,9 @@ namespace Cauldron.Interception.Cecilator
             if (instructions.Count == 0)
                 return;
 
+            if (this.method.IsAbstract)
+                throw new NotSupportedException("Interceptors does not support abstract methods.");
+
             if (this.method.IsVoid || this.instructions.Last().OpCode != OpCodes.Ret)
             {
                 var realReturn = this.method.methodDefinition.Body.Instructions.Last();
@@ -1208,12 +1211,15 @@ namespace Cauldron.Interception.Cecilator
 
         private (IEnumerable<Instruction> Instructions, IEnumerable<ExceptionHandler> Exceptions) CopyMethodBody(MethodDefinition originalMethod, IList<VariableDefinition> variableDefinition)
         {
+            if (this.method.IsAbstract)
+                throw new NotSupportedException("Interceptors does not support abstract methods.");
+
             var methodProcessor = originalMethod.Body.GetILProcessor();
             var resultingInstructions = new List<(Instruction Original, Instruction Target)>();
             var exceptionList = new List<ExceptionHandler>();
             var jumps = new List<(int CurrentIndex, int Index)>();
 
-            for (int i = 0; i < originalMethod.Body.Instructions.Count; i++)
+            for (int i = 0; i < (originalMethod.Body?.Instructions.Count ?? 0); i++)
             {
                 var item = originalMethod.Body.Instructions[i];
 

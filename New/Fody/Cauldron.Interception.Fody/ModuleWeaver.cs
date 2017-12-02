@@ -457,7 +457,7 @@ namespace Cauldron.Interception.Fody
 
                             for (int index = 0; index < ctors.Length; index++)
                             {
-                                this.LogInfo(ctors[index].Fullname);
+                                this.LogInfo("- " + ctors[index].Fullname);
 
                                 var ctor = ctors[index];
                                 // add a EditorBrowsable attribute

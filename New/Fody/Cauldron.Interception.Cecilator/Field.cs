@@ -81,9 +81,10 @@ namespace Cauldron.Interception.Cecilator
 
         private IEnumerable<FieldUsage> GetFieldUsage(Method method)
         {
-            for (int i = 0; i < method.methodDefinition.Body.Instructions.Count; i++)
+            for (int i = 0; i < (method.methodDefinition.Body?.Instructions.Count ?? 0); i++)
             {
                 var instruction = method.methodDefinition.Body.Instructions[i];
+
                 if ((instruction.OpCode == OpCodes.Ldsfld ||
                     instruction.OpCode == OpCodes.Ldflda ||
                     instruction.OpCode == OpCodes.Ldsflda ||
