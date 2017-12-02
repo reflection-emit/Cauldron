@@ -14,7 +14,7 @@
     <tags>Toolkit Capgemini Cauldron Convertion</tags>
     <dependencies>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="Capgemini.Cauldron.Core.Reflection" version="2.0.9-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Reflection" version="2.0.10-beta" />
       </group>
     </dependencies>
   </metadata>

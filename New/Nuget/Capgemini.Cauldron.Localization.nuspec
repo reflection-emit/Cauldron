@@ -14,10 +14,10 @@
     <tags>Toolkit Capgemini Cauldron Multisource Localization Language</tags>
     <dependencies>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="Capgemini.Cauldron.Activator" version="2.0.9-beta" />
-        <dependency id="Capgemini.Cauldron.Core.Extensions" version="2.0.9-beta" />
-        <dependency id="Capgemini.Cauldron.Core.Reflection" version="2.0.9-beta" />
-        <dependency id="Capgemini.Cauldron.Core.Yaml" version="2.0.9-beta" />
+        <dependency id="Capgemini.Cauldron.Activator" version="2.0.10-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Extensions" version="2.0.10-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Reflection" version="2.0.10-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Yaml" version="2.0.10-beta" />
         <dependency id="Newtonsoft.Json" version="10.0.3" />
         <dependency id="Fody" version="2.2.1" />
       </group>

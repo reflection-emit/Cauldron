@@ -1,5 +1,6 @@
 ﻿using Cauldron.Activator;
 using System;
+using System.ComponentModel;
 
 #if WINDOWS_UWP
 
@@ -8,7 +9,6 @@ using Windows.UI.Xaml;
 #else
 
 using System.Windows;
-using System.ComponentModel;
 
 #endif
 

@@ -8,6 +8,7 @@ using Windows.UI.Xaml.Controls;
 #else
 
 using System.Windows.Controls;
+using System.Windows;
 
 #endif
 

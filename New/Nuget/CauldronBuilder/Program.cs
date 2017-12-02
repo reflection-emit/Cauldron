@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -97,6 +98,8 @@ namespace CauldronBuilder
                         .Where(x => x.IndexOf(".symbols.", StringComparison.InvariantCultureIgnoreCase) < 0))
                         UploadNugetPackage(package);
                 }
+
+                CreateReadmeFromNuspec(startingLocation);
             }
             catch (Exception e)
             {
@@ -215,6 +218,31 @@ namespace CauldronBuilder
             {
                 return false;
             }
+        }
+
+        private static void CreateReadmeFromNuspec(DirectoryInfo startingLocation)
+        {
+            var bag = new ConcurrentBag<string>();
+
+            Parallel.ForEach(Directory.GetFiles(Path.Combine(startingLocation.FullName, "Nuget"), "*.nuspec").Select(x => new FileInfo(x)), nuget =>
+            {
+                var nuspec = new XmlDocument();
+                nuspec.Load(nuget.FullName);
+
+                var name = nuspec["package"]["metadata"]["id"].InnerText;
+                var description = nuspec["package"]["metadata"]["description"].InnerText;
+                var nugetLink = nuspec["package"]["metadata"]["id"].InnerText;
+
+                if (name.StartsWith("Capgemini."))
+                    name = name.Substring("Capgemini.".Length);
+
+                nugetLink = $"[![NuGet](https://img.shields.io/nuget/v/{nugetLink}.svg)](https://www.nuget.org/packages/{nugetLink}/)";
+
+                bag.Add($"**{name}** | {description} | {nugetLink}");
+            });
+
+            var content = string.Join("\r\n", bag.OrderBy(x => x));
+            File.WriteAllText(Path.Combine(startingLocation.FullName, "generated-list.txt"), content);
         }
 
         private static string EnclosedIn(this string target, string start, string end)
