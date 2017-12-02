@@ -105,6 +105,9 @@ namespace Cauldron
                 if (method != null)
                     return method(source) as T;
 
+                if (typeof(T).IsEnum && source != null)
+                    return Enum.Parse(typeof(T), source.ToString()) as T;
+
                 return System.Convert.ChangeType(source, typeof(T)) as T;
             }
 
@@ -141,6 +144,9 @@ namespace Cauldron
             if (method != null)
                 return method(source);
 
+            if (targetType.IsEnum && source != null)
+                return Enum.Parse(targetType, source.ToString());
+
             return System.Convert.ChangeType(source, targetType);
         }
 
@@ -174,6 +180,9 @@ namespace Cauldron
                 var method = ImplicitExplicitConvertionCache.Get(source.GetType(), targetType);
                 if (method != null)
                     return method(source);
+
+                if (targetType.IsEnum && source != null)
+                    return Enum.Parse(targetType, source.ToString());
 
                 return System.Convert.ChangeType(source, targetType);
             }

@@ -17,6 +17,8 @@ namespace Cauldron.XAML.Validation.ViewModels
 
         private string _errors;
 
+        private bool _IsValidating;
+
         /// <summary>
         /// Initializes a new instance of <see cref="ValidatableViewModelBase"/>
         /// </summary>
@@ -40,7 +42,6 @@ namespace Cauldron.XAML.Validation.ViewModels
         /// <summary>
         /// Occures if a property is veing validated.
         /// </summary>
-
         public event EventHandler<ValidationEventArgs> Validating;
 
         /// <summary>
@@ -64,6 +65,23 @@ namespace Cauldron.XAML.Validation.ViewModels
         public bool HasErrors { get { return this.validators.Any(x => x.Error.Count > 0); } }
 
         /// <summary>
+        /// Gets a value that indicates that the properties are currently being validated.
+        /// </summary>
+        public bool IsValidating
+        {
+            get { return this._IsValidating; }
+            set
+            {
+                if (this._IsValidating == value)
+                    return;
+
+                this._IsValidating = value;
+                this.RaisePropertyChanged();
+                this.OnIsValidatingChanged();
+            }
+        }
+
+        /// <summary>
         /// Gets the validation errors for a specified property or for the entire entity.
         /// </summary>
         /// <param name="propertyName">
@@ -84,6 +102,8 @@ namespace Cauldron.XAML.Validation.ViewModels
         /// </summary>
         public async Task ValidateAsync()
         {
+            this.IsValidating = true;
+
             for (int i = 0; i < this.validators.Count; i++)
             {
                 var validator = this.validators[i];
@@ -91,6 +111,7 @@ namespace Cauldron.XAML.Validation.ViewModels
                 this.RaiseErrorsChanged(validator.PropertyName);
             }
 
+            this.IsValidating = false;
             this.RaiseErrorsChanged("");
         }
 
@@ -101,6 +122,9 @@ namespace Cauldron.XAML.Validation.ViewModels
         /// <param name="propertyName">The name of the property that requires validation</param>
         public async Task ValidateAsync(PropertyInfo sender, string propertyName)
         {
+            if (!this.validators.Contains(propertyName))
+                return;
+
             await this.validators[propertyName].ValidateAsync(this, sender, false);
             this.RaiseErrorsChanged(propertyName);
         }
@@ -150,6 +174,13 @@ namespace Cauldron.XAML.Validation.ViewModels
         {
             if (disposeManaged)
                 this.validators.Clear();
+        }
+
+        /// <summary>
+        /// Occures if the <see cref="IsValidating"/> property has changed its value
+        /// </summary>
+        protected virtual void OnIsValidatingChanged()
+        {
         }
 
         /// <summary>

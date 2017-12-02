@@ -18,6 +18,11 @@ namespace Cauldron.XAML.Validation.ViewModels
         event EventHandler<ValidationEventArgs> Validating;
 
         /// <summary>
+        /// Gets a value that indicates that the properties are currently being validated.
+        /// </summary>
+        bool IsValidating { get; }
+
+        /// <summary>
         /// Starts a validation on all properties
         /// </summary>
         Task ValidateAsync();

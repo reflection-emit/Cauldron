@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Security;
 using System.Threading.Tasks;
 
 namespace Cauldron

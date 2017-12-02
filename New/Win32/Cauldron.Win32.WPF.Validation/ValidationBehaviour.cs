@@ -69,7 +69,7 @@ namespace Cauldron.XAML.Validation
             }
 
             // Get all known Dependency Property with bindings
-            foreach (var item in dependencyProperties)
+            foreach (var item in dependencyProperties.Where(x => x.Name != "IsEnabled" && x.Name != "Visibility"))
             {
                 var bindingExpression = this.AssociatedObject.GetBindingExpression(item);
                 this.SetValidationInfo(bindingExpression);

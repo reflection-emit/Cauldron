@@ -228,7 +228,7 @@ namespace Cauldron.XAML
         /// </summary>
         /// <typeparam name="T">The typ of child to search for</typeparam>
         /// <param name="element">The parent element</param>
-        /// <returns>A collection of <see cref="T"/></returns>
+        /// <returns>A collection of <typeparamref name="T"/></returns>
         public static IEnumerable<T> FindVisualChildren<T>(this DependencyObject element) where T : FrameworkElement
         {
             var childType = typeof(T);

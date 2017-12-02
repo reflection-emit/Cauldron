@@ -1,0 +1,46 @@
+﻿[
+  {
+    "key": "application-name",
+    "en": "Application name"
+  },
+  {
+    "key": "version",
+    "en": "Version"
+  },
+  {
+    "key": "description",
+    "en": "Description"
+  },
+  {
+    "key": "product-name",
+    "en": "Product Name"
+  },
+  {
+    "key": "publisher",
+    "en": "Publisher"
+  },
+  {
+    "key": "group-name-service",
+    "en": "Services"
+  },
+  {
+    "key": "help",
+    "en": "Shows all parameters and their description and example usage."
+  },
+  {
+    "key": "install",
+    "en": "Installs the service"
+  },
+  {
+    "key": "uinstall",
+    "en": "Uninstalls the service"
+  },
+  {
+    "key": "service-info",
+    "en": "Shows information about the service"
+  },
+  {
+    "key": "exception-0",
+    "en": "Install and Uninstall cannot be both called at the same time"
+  }
+]

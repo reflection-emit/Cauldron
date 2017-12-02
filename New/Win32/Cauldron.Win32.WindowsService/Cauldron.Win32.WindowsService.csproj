@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0D6E5399-52B9-44EC-B8BB-430FED2795A6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Cauldron.WindowsService</RootNamespace>
+    <AssemblyName>Cauldron.Win32.WindowsService</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\Cauldron.Win32.WindowsService.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Cauldron.Win32.WindowsService.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Content\Service.cs">
+      <SubType>Component</SubType>
+    </None>
+    <None Include="Content\ServiceMain.cs">
+      <SubType>Component</SubType>
+    </None>
+    <Compile Include="AccessTokenException.cs" />
+    <None Include="Content\LocaleSource.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="FailureActions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RecoveryAction.cs" />
+    <Compile Include="ServiceExecutionGroup.cs" />
+    <Compile Include="Configuration.cs" />
+    <Compile Include="ServiceManagerException.cs" />
+    <Compile Include="UnsafeNative.cs" />
+    <Compile Include="WindowsServiceInstaller.cs">
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Content\configuration.json" />
+    <None Include="Content\install.ps1" />
+    <None Include="Content\strings.json" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\NetStandard\Cauldron.Activator\Cauldron.Activator.csproj">
+      <Project>{e5a31648-dac2-4c60-a1b8-2fc291c2bf9e}</Project>
+      <Name>Cauldron.Activator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NetStandard\Cauldron.Consoles\Cauldron.Consoles.csproj">
+      <Project>{4e7a4b0a-8254-4a89-818d-a1678ad01238}</Project>
+      <Name>Cauldron.Consoles</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Extensions.IO\Cauldron.Core.Extensions.IO.csproj">
+      <Project>{589782ae-c5c3-437f-ad7f-b77b25adbf0e}</Project>
+      <Name>Cauldron.Core.Extensions.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Extensions\Cauldron.Core.Extensions.csproj">
+      <Project>{80d83040-3340-4b2b-8c62-b0ce6b069a34}</Project>
+      <Name>Cauldron.Core.Extensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Reflection\Cauldron.Core.Reflection.csproj">
+      <Project>{9bc69306-6188-403e-bce3-0c85fe049a9b}</Project>
+      <Name>Cauldron.Core.Reflection</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NetStandard\Cauldron.Cryptography\Cauldron.Cryptography.csproj">
+      <Project>{fe7bd804-a339-486c-8d28-b58e11d8d676}</Project>
+      <Name>Cauldron.Cryptography</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NetStandard\Cauldron.Interception\Cauldron.Interception.csproj">
+      <Project>{54d84f50-0b4b-40cb-a27d-5ccd84f5b1ee}</Project>
+      <Name>Cauldron.Interception</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NetStandard\Cauldron.Localization\Cauldron.Localization.csproj">
+      <Project>{2729fd6d-0685-4fdf-a995-3eae4e5ae942}</Project>
+      <Name>Cauldron.Localization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cauldron.Win32.Extension.IO\Cauldron.Win32.Extension.IO.csproj">
+      <Project>{2d763abc-3f00-42a4-8bcf-d5543e54bd97}</Project>
+      <Name>Cauldron.Win32.Extension.IO</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

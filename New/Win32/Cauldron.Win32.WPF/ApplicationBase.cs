@@ -63,6 +63,17 @@ namespace Cauldron.XAML
                     Debug.WriteLine("ERROR: Multiple ValueConverters with the same name found: " + name);
             });
 
+            // Add all Value converters to the dictionary
+            Factory.CreateMany<IMultiValueConverter>().Foreach(x =>
+            {
+                var name = x.GetType().Name;
+
+                if (!this.Resources.Contains(name))
+                    this.Resources.Add(name, x);
+                else
+                    Debug.WriteLine("ERROR: Multiple MultiValueConverters with the same name found: " + name);
+            });
+
             // find all resourcedictionaries and add them to the existing resources
             Assemblies.CauldronObjects
                 .Select(x => x as IFactoryCache)

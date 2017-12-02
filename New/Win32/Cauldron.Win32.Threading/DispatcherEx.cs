@@ -37,17 +37,15 @@ namespace Cauldron.Core.Threading
         }
 
         /// <summary>
-        /// Starts the dispatcher processing the input event queue for this instance of CoreWindow.
-        /// <para/>
-        /// Use this method only in unit tests!
+        /// Starts the dispatcher processing the input event queue for this instance of Dispatcher.
         /// </summary>
         [SecurityPermission(SecurityAction.Demand, Flags = SecurityPermissionFlag.UnmanagedCode)]
-        public void ProcessEvents()
+        public static void ProcessEvents()
         {
             // http://stackoverflow.com/questions/1106881/using-the-wpf-dispatcher-in-unit-tests
 
             var frame = new DispatcherFrame();
-            this.dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.SystemIdle, new DispatcherOperationCallback(ExitFrame), frame);
+            Dispatcher.CurrentDispatcher.Invoke(System.Windows.Threading.DispatcherPriority.SystemIdle, new DispatcherOperationCallback(ExitFrame), frame);
             Dispatcher.PushFrame(frame);
         }
 

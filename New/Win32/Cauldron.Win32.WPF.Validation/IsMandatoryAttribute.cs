@@ -87,7 +87,7 @@ namespace Cauldron.XAML.Validation
         protected override Task<bool> OnValidateAsync(PropertyInfo sender, IValidatableViewModel context, PropertyInfo propertyInfo, object value)
         {
             if (this.isEnabledPropertyName != null && !this.IsEnabled(context, propertyInfo))
-                return Task.FromResult(true);
+                return Task.FromResult(false);
 
             if (value == null)
                 return Task.FromResult(true);

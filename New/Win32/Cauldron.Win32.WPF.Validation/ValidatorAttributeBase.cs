@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Cauldron.XAML.Validation
 {
     /// <summary>
-    /// Specifies the validation method for a property
+    /// Represents a base class for property validators.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = true, Inherited = true)]
     public abstract class ValidatorAttributeBase : Attribute

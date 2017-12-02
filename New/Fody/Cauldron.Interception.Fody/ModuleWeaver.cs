@@ -57,6 +57,7 @@ namespace Cauldron.Interception.Fody
 
         private void AddAttributeToXAMLResources(Builder builder)
         {
+            var multiBindingValueConverterInterface = builder.TypeExists("System.Windows.Data.IMultiValueConverter") ? builder.GetType("System.Windows.Data.IMultiValueConverter") : null;
             var valueConverterInterface = builder.TypeExists("Windows.UI.Xaml.Data.IValueConverter") ? builder.GetType("Windows.UI.Xaml.Data.IValueConverter") : builder.GetType("System.Windows.Data.IValueConverter");
             var notifyPropertyChangedInterface = builder.GetType("System.ComponentModel.INotifyPropertyChanged");
             var componentAttribute = builder.GetType("Cauldron.Activator.ComponentAttribute");
@@ -68,6 +69,7 @@ namespace Cauldron.Interception.Fody
             var valueConverters = builder.FindTypesByInterface(valueConverterInterface).Where(x => x.IsPublic);
             var resourceDictionaryBaseClass = builder.TypeExists("Windows.UI.Xaml.ResourceDictionary") ? "Windows.UI.Xaml.ResourceDictionary" : "System.Windows.ResourceDictionary";
             var resourceDictionaries = builder.FindTypesByBaseClass(resourceDictionaryBaseClass).Where(x => x.IsPublic);
+            var multiBindingConverters = multiBindingValueConverterInterface == null ? null : builder.FindTypesByInterface(multiBindingValueConverterInterface).Where(x => x.IsPublic);
 
             foreach (var item in views)
             {
@@ -117,6 +119,21 @@ namespace Cauldron.Interception.Fody
                 foreach (var ctor in item.Methods.Where(x => x.Name == ".ctor"))
                     ctor.CustomAttributes.Add(componentConstructorAttribute);
             }
+
+            if (multiBindingConverters != null)
+                foreach (var item in multiBindingConverters)
+                {
+                    if (item.IsAbstract || item.IsInterface || item.HasUnresolvedGenericParameters)
+                        continue;
+
+                    if (item.CustomAttributes.HasAttribute(componentAttribute))
+                        continue;
+
+                    item.CustomAttributes.Add(componentAttribute, multiBindingValueConverterInterface.Fullname);
+                    // Add a component contructor attribute to all .ctors
+                    foreach (var ctor in item.Methods.Where(x => x.Name == ".ctor"))
+                        ctor.CustomAttributes.Add(componentConstructorAttribute);
+                }
 
             foreach (var item in resourceDictionaries)
             {
@@ -662,56 +679,66 @@ namespace Cauldron.Interception.Fody
                     continue;
                 }
 
-                var type = item.GetPreviousInstructionObjectType();
-
-                if (type.Fullname.GetHashCode() == "System.Object".GetHashCode() && type.Fullname == "System.Object")
+                try
                 {
-                    type = item.GetLastNewObjectType();
+                    var type = item.GetPreviousInstructionObjectType();
 
                     if (type.Fullname.GetHashCode() == "System.Object".GetHashCode() && type.Fullname == "System.Object")
                     {
-                        this.LogError($"Error in CreateObject in method '{item.HostMethod}'. Unable to detect anonymous type.");
+                        type = item.GetLastNewObjectType();
+
+                        if (type.Fullname.GetHashCode() == "System.Object".GetHashCode() && type.Fullname == "System.Object")
+                        {
+                            this.LogError($"Error in CreateObject in method '{item.HostMethod}'. Unable to detect anonymous type.");
+                            continue;
+                        }
+                    }
+
+                    if (createdTypes.ContainsKey(interfaceToImplement.Fullname))
+                    {
+                        item.Replace(CreateAssigningMethod(type, createdTypes[interfaceToImplement.Fullname], interfaceToImplement, item.HostMethod));
                         continue;
                     }
-                }
 
-                if (createdTypes.ContainsKey(interfaceToImplement.Fullname))
-                {
-                    item.Replace(CreateAssigningMethod(type, createdTypes[interfaceToImplement.Fullname], interfaceToImplement, item.HostMethod));
-                    continue;
-                }
+                    var anonymousTypeName = $"<>f__{interfaceToImplement.Name}_Cauldron_AnonymousType{counter++}";
+                    this.LogInfo($"- Creating new type: {type.Namespace}.{anonymousTypeName}");
 
-                var anonymousTypeName = $"<>f__{interfaceToImplement.Name}_Cauldron_AnonymousType{counter++}";
-                this.LogInfo($"- Creating new type: {type.Namespace}.{anonymousTypeName}");
+                    var newType = builder.CreateType(type.Namespace, TypeAttributes.Public | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit | TypeAttributes.Serializable, anonymousTypeName);
+                    newType.AddInterface(interfaceToImplement);
 
-                var newType = builder.CreateType(type.Namespace, TypeAttributes.Public | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit | TypeAttributes.Serializable, anonymousTypeName);
-                newType.AddInterface(interfaceToImplement);
+                    // Implement the methods
+                    foreach (var method in interfaceToImplement.Methods.Where(x => !x.Name.StartsWith("get_") && !x.Name.StartsWith("set_")))
+                        newType.CreateMethod(Modifiers.Public | Modifiers.Overrrides, method.ReturnType, method.Name, method.Parameters)
+                            .NewCode()
+                            .ThrowNew(typeof(NotImplementedException), $"The method '{method.Name}' in type '{newType.Name}' is not implemented.")
+                            .Replace();
+                    // Implement the properties
+                    foreach (var property in interfaceToImplement.Properties)
+                        newType.CreateProperty(Modifiers.Public | Modifiers.Overrrides, property.ReturnType, property.Name);
 
-                // Implement the methods
-                foreach (var method in interfaceToImplement.Methods.Where(x => !x.Name.StartsWith("get_") && !x.Name.StartsWith("set_")))
-                    newType.CreateMethod(Modifiers.Public | Modifiers.Overrrides, method.ReturnType, method.Name, method.Parameters)
+                    // Create ctor
+                    newType.CreateConstructor()
                         .NewCode()
-                        .ThrowNew(typeof(NotImplementedException), $"The method '{method.Name}' in type '{newType.Name}' is not implemented.")
+                        .Context(x =>
+                        {
+                            x.Load(x.This).Call(builder.GetType(typeof(object)).Import().ParameterlessContructor.Import());
+                        })
+                        .Return()
                         .Replace();
-                // Implement the properties
-                foreach (var property in interfaceToImplement.Properties)
-                    newType.CreateProperty(Modifiers.Public | Modifiers.Overrrides, property.ReturnType, property.Name);
 
-                // Create ctor
-                newType.CreateConstructor()
-                    .NewCode()
-                    .Context(x =>
-                    {
-                        x.Load(x.This).Call(builder.GetType(typeof(object)).Import().ParameterlessContructor.Import());
-                    })
-                    .Return()
-                    .Replace();
+                    newType.CustomAttributes.AddEditorBrowsableAttribute(EditorBrowsableState.Never);
 
-                newType.CustomAttributes.AddEditorBrowsableAttribute(EditorBrowsableState.Never);
+                    createdTypes.Add(interfaceToImplement.Fullname, newType);
 
-                createdTypes.Add(interfaceToImplement.Fullname, newType);
+                    item.Replace(CreateAssigningMethod(type, newType, interfaceToImplement, item.HostMethod));
+                }
+                catch (Exception e)
+                {
+                    this.LogError(e.Message);
+                    this.LogInfo(item.ToHostMethodINstructionsString());
 
-                item.Replace(CreateAssigningMethod(type, newType, interfaceToImplement, item.HostMethod));
+                    throw;
+                }
             }
             stopwatch.Stop();
             this.LogInfo($"Implementing anonymous type to interface took {stopwatch.Elapsed.TotalMilliseconds}ms");

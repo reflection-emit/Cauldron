@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace Cauldron.Interception.Cecilator
 {
@@ -69,6 +70,42 @@ namespace Cauldron.Interception.Cecilator
             foreach (var item in allAssemblies)
                 this.logInfo("<<Assembly>> " + item.Name);
 
+            foreach (var item in this.moduleDefinition.Resources)
+            {
+                this.LogInfo("<<Resource>> " + item.Name + " " + item.ResourceType);
+                if (item.ResourceType == ResourceType.Embedded)
+                {
+                    var embeddedResource = item as EmbeddedResource;
+                    using (var stream = embeddedResource.GetResourceStream())
+                    {
+                        var resourceNames = new List<string>();
+                        var bytes = new byte[stream.Length];
+                        stream.Read(bytes, 0, bytes.Length);
+                        if (bytes[0] == 0xce && bytes[1] == 0xca && bytes[2] == 0xef && bytes[3] == 0xbe)
+                        {
+                            var resourceCount = BitConverter.ToInt16(bytes.GetBytes(160, 2).Reverse().ToArray(), 0);
+
+                            if (resourceCount > 0)
+                            {
+                                var startPoint = resourceCount * 8 + 180;
+
+                                for (int i = 0; i < resourceCount; i++)
+                                {
+                                    var length = (int)bytes[startPoint];
+                                    var data = Encoding.Unicode.GetString(bytes, startPoint + 1, length);
+                                    startPoint += length + 5;
+
+                                    if (data.EndsWith(".baml", StringComparison.CurrentCultureIgnoreCase))
+                                        resourceNames.Add(data);
+
+                                    this.LogInfo("             " + data);
+                                }
+                            }
+                        }
+                        this.BamlResourceNames = resourceNames;
+                    }
+                }
+            }
             this.allTypes = this.allAssemblies.SelectMany(x => x.Modules).Where(x => x != null).SelectMany(x => x.Types).Where(x => x != null).Concat(this.moduleDefinition.Types).ToArray();
             this.logInfo("-----------------------------------------------------------------------------");
             WeaverBase.AllTypes = this.allTypes;
@@ -84,10 +121,12 @@ namespace Cauldron.Interception.Cecilator
             this.moduleDefinition = builderBase.moduleDefinition;
             this.allAssemblies = builderBase.allAssemblies;
             this.allTypes = builderBase.allTypes;
+            this.BamlResourceNames = builderBase.BamlResourceNames;
 
             this.Identification = GenerateName();
         }
 
+        public IEnumerable<string> BamlResourceNames { get; private set; }
         public string Identification { get; private set; }
 
         public AssemblyDefinition[] ReferencedAssemblies =>

@@ -1,0 +1,35 @@
+﻿{
+  // The name of the service that is used to identify the service
+  "service-name": "",
+  // The name of the service that is shown in "services" and task manager
+  // Also accepts keys from localization source to have a localized display name. See strings.json
+  "display-name": "",
+  // The description of the service
+  // Also accepts keys from localization source to have a localized description. See strings.json
+  "description": "",
+  // Indicates how and when this service is started.
+  // Possible values: Automatic, Boot, Disabled, Manual, System
+  "start-type": "Automatic",
+  // true to delay automatic start of the service; otherwise, false.
+  "delayed-autostart": "false",
+  // The type of account under which to run this service application.
+  // Possible values: LocalService, NetworkService, LocalSystem, User
+  "account": "User",
+  // Number of days to wait to reset the fail counter.
+  "reset-fail-counter-after": "1",
+  // Number of minutes to wait until the service is restarted after a failure
+  "restart-service-after": "1",
+  // What to do if an error occures
+  // Possible values: None, Restart, Reboot, RunCommand
+  "first-failure": "Restart",
+  // What to do if error still persist
+  // Possible values: None, Restart, Reboot, RunCommand
+  "second-failure": "Restart",
+  // What to do if error still persist the 3rd time...
+  // Possible values: None, Restart, Reboot, RunCommand
+  "subsequent-failure": "RunCommand",
+  // The program to run on "RunCommand"
+  "run-program": "",
+  // The arguments of 'run-program'
+  "run-program-args": ""
+}

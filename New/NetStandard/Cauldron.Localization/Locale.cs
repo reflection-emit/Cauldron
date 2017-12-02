@@ -1,5 +1,4 @@
 ﻿using Cauldron.Activator;
-using Cauldron.Core;
 using Cauldron.Core.Reflection;
 using System;
 using System.Collections.Generic;

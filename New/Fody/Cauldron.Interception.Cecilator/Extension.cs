@@ -339,16 +339,16 @@ namespace Cauldron.Interception.Cecilator
         }
 
         public static bool IsAssignableFrom(this BuilderType target, BuilderType source) =>
-                            target == source ||
-            target.typeDefinition == source.typeDefinition ||
-            source.IsSubclassOf(target) ||
-            target.IsInterface && source.BaseClasses.Any(x => x.Implements(target));
+                                    target == source ||
+                    target.typeDefinition == source.typeDefinition ||
+                    source.IsSubclassOf(target) ||
+                    target.IsInterface && source.BaseClasses.Any(x => x.Implements(target));
 
         public static bool IsAssignableFrom(this TypeReference target, TypeReference source) =>
+                            target == source ||
                     target == source ||
-            target == source ||
-            source.IsSubclassOf(target) ||
-            target.BetterResolve().IsInterface && source.GetBaseClasses().Any(x => x.Implements(target.FullName));
+                    source.IsSubclassOf(target) ||
+                    target.BetterResolve().IsInterface && source.GetBaseClasses().Any(x => x.Implements(target.FullName));
 
         public static bool IsSubclassOf(this BuilderType child, BuilderType parent) => child.typeDefinition != parent.typeDefinition && child.BaseClasses.Any(x => x.typeDefinition == parent.typeDefinition);
 
@@ -427,6 +427,29 @@ namespace Cauldron.Interception.Cecilator
             }
 
             return method;
+        }
+
+        /// <summary>
+        /// Gets a specified length of bytes
+        /// </summary>
+        /// <param name="target">The Array that contains the data to copy.</param>
+        /// <param name="startingPosition">
+        /// A 32-bit integer that represents the index in the sourceArray at which copying begins.
+        /// </param>
+        /// <param name="length">A 32-bit integer that represents the number of elements to copy.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Parameter <paramref name="startingPosition"/> and <paramref name="length"/> are out of range
+        /// </exception>
+        internal static byte[] GetBytes(this byte[] target, int startingPosition, int length)
+        {
+            if (length + startingPosition > target.Length)
+                throw new ArgumentOutOfRangeException("length", "Parameter startingPosition and length are out of range");
+
+            byte[] value = new byte[length];
+
+            Array.Copy(target, startingPosition, value, 0, length);
+            return value;
         }
 
         internal static IEnumerable<Instruction> GetJumpSources(this IEnumerable<Instruction> body, Instruction jumpTarget)

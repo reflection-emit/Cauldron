@@ -3,6 +3,7 @@ using Mono.Cecil.Cil;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Text;
 
 namespace Cauldron.Interception.Cecilator
 {
@@ -114,9 +115,7 @@ namespace Cauldron.Interception.Cecilator
                 declaringType = field.FieldType;
             }
             else
-            {
-                this.LogWarning($"Unable to implement CreateObject<> in '{ this.HostMethod.methodDefinition.Name}'. The anonymous type was not found.");
-            }
+                throw new Exception($"'{ this.HostMethod.methodDefinition.Name}': The anonymous type was not found.");
 
             return new BuilderType(this.Method.type.Builder, declaringType);
         }
@@ -141,6 +140,16 @@ namespace Cauldron.Interception.Cecilator
                 (method.NewCode() as InstructionsSet).CastOrBoxValues(processor, parameters[0].typeReference, paramResult, parameters[0].typeDefinition);
                 processor.InsertBefore(this.instruction, paramResult.Instructions);
             }
+        }
+
+        public string ToHostMethodINstructionsString()
+        {
+            var sb = new StringBuilder();
+
+            foreach (var item in this.HostMethod.methodDefinition.Body.Instructions)
+                sb.AppendLine($"IL_{item.Offset.ToString("X4")}: {item.OpCode.ToString()} { (item.Operand is Instruction ? "IL_" + (item.Operand as Instruction).Offset.ToString("X4") : item.Operand?.ToString())} ");
+
+            return sb.ToString();
         }
 
         #region Equitable stuff

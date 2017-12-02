@@ -42,10 +42,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExceptionToEventLogAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TimedCacheAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Diagnostics\Cauldron.Core.Diagnostics.csproj">
+      <Project>{9631764e-e771-4d96-a7cf-757c257a0630}</Project>
+      <Name>Cauldron.Core.Diagnostics</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\NetStandard\Cauldron.Interception\Cauldron.Interception.csproj">
       <Project>{54d84f50-0b4b-40cb-a27d-5ccd84f5b1ee}</Project>
       <Name>Cauldron.Interception</Name>

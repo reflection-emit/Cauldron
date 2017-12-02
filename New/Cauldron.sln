@@ -79,6 +79,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nuget", "Nuget", "{8675B75E
 		Nuget\Capgemini.Cauldron.Win32.Net.nuspec = Nuget\Capgemini.Cauldron.Win32.Net.nuspec
 		Nuget\Capgemini.Cauldron.Win32.Threading.nuspec = Nuget\Capgemini.Cauldron.Win32.Threading.nuspec
 		Nuget\Capgemini.Cauldron.Win32.UserInformation.nuspec = Nuget\Capgemini.Cauldron.Win32.UserInformation.nuspec
+		Nuget\Capgemini.Cauldron.Win32.WindowsService.nuspec = Nuget\Capgemini.Cauldron.Win32.WindowsService.nuspec
 		Nuget\Capgemini.Cauldron.Win32.WPF.Interactivity.nuspec = Nuget\Capgemini.Cauldron.Win32.WPF.Interactivity.nuspec
 		Nuget\Capgemini.Cauldron.Win32.WPF.nuspec = Nuget\Capgemini.Cauldron.Win32.WPF.nuspec
 		Nuget\Capgemini.Cauldron.Win32.WPF.ParameterPassing.nuspec = Nuget\Capgemini.Cauldron.Win32.WPF.ParameterPassing.nuspec
@@ -165,6 +166,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cauldron.Core.Collections", "NetStandard\Cauldron.Core.Collections\Cauldron.Core.Collections.csproj", "{A3970375-C96B-443C-86B3-59BB32CE8CB1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cauldron.Core.MathExtensions", "NetStandard\Cauldron.Core.MathExtensions\Cauldron.Core.MathExtensions.csproj", "{1C4D93D9-20AF-4E93-BEE4-9E9799C1D088}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.Win32.WindowsService", "Win32\Cauldron.Win32.WindowsService\Cauldron.Win32.WindowsService.csproj", "{0D6E5399-52B9-44EC-B8BB-430FED2795A6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1050,6 +1053,22 @@ Global
 		{1C4D93D9-20AF-4E93-BEE4-9E9799C1D088}.Release|x64.Build.0 = Release|Any CPU
 		{1C4D93D9-20AF-4E93-BEE4-9E9799C1D088}.Release|x86.ActiveCfg = Release|Any CPU
 		{1C4D93D9-20AF-4E93-BEE4-9E9799C1D088}.Release|x86.Build.0 = Release|Any CPU
+		{0D6E5399-52B9-44EC-B8BB-430FED2795A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D6E5399-52B9-44EC-B8BB-430FED2795A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D6E5399-52B9-44EC-B8BB-430FED2795A6}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{0D6E5399-52B9-44EC-B8BB-430FED2795A6}.Debug|ARM.Build.0 = Debug|Any CPU
+		{0D6E5399-52B9-44EC-B8BB-430FED2795A6}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{0D6E5399-52B9-44EC-B8BB-430FED2795A6}.Debug|x64.Build.0 = Debug|Any CPU
+		{0D6E5399-52B9-44EC-B8BB-430FED2795A6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0D6E5399-52B9-44EC-B8BB-430FED2795A6}.Debug|x86.Build.0 = Debug|Any CPU
+		{0D6E5399-52B9-44EC-B8BB-430FED2795A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D6E5399-52B9-44EC-B8BB-430FED2795A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D6E5399-52B9-44EC-B8BB-430FED2795A6}.Release|ARM.ActiveCfg = Release|Any CPU
+		{0D6E5399-52B9-44EC-B8BB-430FED2795A6}.Release|ARM.Build.0 = Release|Any CPU
+		{0D6E5399-52B9-44EC-B8BB-430FED2795A6}.Release|x64.ActiveCfg = Release|Any CPU
+		{0D6E5399-52B9-44EC-B8BB-430FED2795A6}.Release|x64.Build.0 = Release|Any CPU
+		{0D6E5399-52B9-44EC-B8BB-430FED2795A6}.Release|x86.ActiveCfg = Release|Any CPU
+		{0D6E5399-52B9-44EC-B8BB-430FED2795A6}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1111,6 +1130,7 @@ Global
 		{BF0E64FD-70F3-4BB6-A131-B11D667ED0B0} = {E2046C41-0213-4CB9-A569-1458B080F9E7}
 		{A3970375-C96B-443C-86B3-59BB32CE8CB1} = {D61DB804-8031-458B-841A-B9F79F4E56E0}
 		{1C4D93D9-20AF-4E93-BEE4-9E9799C1D088} = {D61DB804-8031-458B-841A-B9F79F4E56E0}
+		{0D6E5399-52B9-44EC-B8BB-430FED2795A6} = {E1A20339-CE10-4F28-BB52-AB7D56DB3F25}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D1F2CDF5-23CA-42FF-B139-C74A73C3FA62}
