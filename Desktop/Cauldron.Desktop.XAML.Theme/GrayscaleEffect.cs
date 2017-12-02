@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
 
-namespace Cauldron.XAML.Theme.Resources
+namespace Cauldron.XAML.Theme
 {
     internal class GrayscaleEffect : ShaderEffect
     {

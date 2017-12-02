@@ -9,6 +9,7 @@
     <Import_RootNamespace>Cauldron.Activator.Test</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)FactoryGenericSingletonTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FactoryTests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Factory_ParallelCreation_Test_Resource.generated.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Inject_Test.cs" />

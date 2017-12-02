@@ -3,9 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:EveMarket"
              xmlns:i="clr-namespace:Cauldron.XAML.Interactivity;assembly=Cauldron.XAML.Interactivity"
-             xmlns:a="clr-namespace:Cauldron.XAML.Interactivity.Attached;assembly=Cauldron.XAML.Interactivity"
              xmlns:controls="clr-namespace:Cauldron.XAML.Controls;assembly=Cauldron.XAML">
 
     <Style TargetType="controls:NavigationFrame">
@@ -22,13 +20,13 @@
                         </Grid.RowDefinitions>
 
                         <StackPanel Orientation="Horizontal" Margin="10" Height="24">
-                            <TextBlock a:Localized.Text="search" Margin="0,0,5,0" VerticalAlignment="Center" />
+                            <TextBlock i:Localized.Text="search" Margin="0,0,5,0" VerticalAlignment="Center" />
                             <TextBox Width="250" Text="{Binding SearchedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                 <i:Interaction.Behaviours>
                                     <i:EnterKeyToCommand Command="{Binding StartSearchCommand}" />
                                 </i:Interaction.Behaviours>
                             </TextBox>
-                            <Button a:Localized.Text="startSearch" Margin="3,0,0,0" Command="{Binding StartSearchCommand}" Padding="3,0" VerticalAlignment="Stretch" />
+                            <Button i:Localized.Text="startSearch" Margin="3,0,0,0" Command="{Binding StartSearchCommand}" Padding="3,0" VerticalAlignment="Stretch" />
                         </StackPanel>
 
                         <ContentPresenter Content="{TemplateBinding Content}"

@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Capgemini.Cauldron.Win32.WPF.ParameterPassing</id>
+    <version>2.0.0</version>
+    <title>Cauldron.Win32.WPF.ParameterPassing</title>
+    <authors>Alexander Schunk, Capgemini Deutschland GmbH</authors>
+    <owners>Alexander Schunk, Capgemini Deutschland GmbH</owners>
+    <licenseUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/Capgemini/Cauldron</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>Handles passing of parameters to running instance(s) of an application.</description>
+    <summary>Handles passing of parameters to running instance(s) of an application.</summary>
+    <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
+    <tags>Toolkit Capgemini Cauldron Dispatcher</tags>
+    <dependencies>
+      <dependency id="Capgemini.Cauldron.Core.Randomizer" version="2.0.10-beta" />
+    </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="PresentationCore" />
+      <frameworkAssembly assemblyName="PresentationFramework" />
+      <frameworkAssembly assemblyName="System.Xaml" />
+      <frameworkAssembly assemblyName="WindowsBase" />
+    </frameworkAssemblies>
+  </metadata>
+  <files>
+    <!-- Desktop -->
+    <file src="..\Win32\Cauldron.Win32.WPF.ParameterPassing\bin\Release\Cauldron.Win32.WPF.ParameterPassing.dll" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Win32.WPF.ParameterPassing\bin\Release\Cauldron.Win32.WPF.ParameterPassing.xml" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Win32.WPF.ParameterPassing\bin\Release\Cauldron.Win32.WPF.ParameterPassing.pdb" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Win32.WPF.ParameterPassing\**\*.cs" target="src" />
+  </files>
+</package>

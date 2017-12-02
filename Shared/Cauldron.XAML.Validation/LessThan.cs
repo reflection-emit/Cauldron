@@ -3,6 +3,7 @@ using Cauldron.Core.Extensions;
 using Cauldron.XAML.Validation.ViewModels;
 using System;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace Cauldron.XAML.Validation
 {
@@ -11,7 +12,7 @@ namespace Cauldron.XAML.Validation
     /// </summary>
     /// <exception cref="ArgumentException">The property was not found</exception>
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = true, Inherited = false)]
-    public sealed class LessThanAttribute : ValidationBaseAttribute
+    public sealed class LessThanAttribute : ValidatorAttributeBase
     {
         private string propertyName;
         private object value;
@@ -48,15 +49,15 @@ namespace Cauldron.XAML.Validation
         /// <param name="propertyInfo">The <see cref="PropertyInfo"/> of the validated property</param>
         /// <param name="value">The value of the property</param>
         /// <returns>Has to return true on validation error otherwise false</returns>
-        protected override bool OnValidate(PropertyInfo sender, IValidatableViewModel context, PropertyInfo propertyInfo, object value)
+        protected override Task<bool> OnValidateAsync(PropertyInfo sender, IValidatableViewModel context, PropertyInfo propertyInfo, object value)
         {
-            // if the value is null, then we should return a validation successfull, so that it is possible
-            // to have non mandatory inputs
+            // if the value is null, then we should return a validation successfull, so that it is
+            // possible to have non mandatory inputs
             if (value == null)
-                return false;
+                return Task.FromResult(false);
 
             if (this.value != null)
-                return !ComparerUtils.LessThan(value, this.value);
+                return Task.FromResult(!ComparerUtils.LessThan(value, this.value));
 
             var otherProperty = context.GetType().GetPropertyEx(this.propertyName);
 
@@ -67,9 +68,9 @@ namespace Cauldron.XAML.Validation
             var comparisonValue = otherProperty.GetValue(context);
 
             if (comparisonValue == null)
-                return false;
+                return Task.FromResult(false);
 
-            return !ComparerUtils.LessThan(value, comparisonValue);
+            return Task.FromResult(!ComparerUtils.LessThan(value, comparisonValue));
         }
 
         /// <summary>

@@ -1,0 +1,50 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Anonymouse_Type_To_Interface_Test.cs" Link="Anonymouse_Type_To_Interface_Test.cs" />
+    <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Field_Interception_Code_Validation_Tests.cs" Link="Field_Interception_Code_Validation_Tests.cs" />
+    <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Interceptors\CreateATypeInterceptorAttribute.cs" Link="Interceptors\CreateATypeInterceptorAttribute.cs" />
+    <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Interceptors\EnumPropertyInterceptorAttribute.cs" Link="Interceptors\EnumPropertyInterceptorAttribute.cs" />
+    <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Interceptors\ExceptionThrowingMethodInterceptorAttribute.cs" Link="Interceptors\ExceptionThrowingMethodInterceptorAttribute.cs" />
+    <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Interceptors\TestMethodInterceptorAttribute.cs" Link="Interceptors\TestMethodInterceptorAttribute.cs" />
+    <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Interceptors\TestMethodInterceptorWithParameter.cs" Link="Interceptors\TestMethodInterceptorWithParameter.cs" />
+    <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Interceptors\TestPropertyInterceptorAttribute.cs" Link="Interceptors\TestPropertyInterceptorAttribute.cs" />
+    <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\ITestInterface.cs" Link="ITestInterface.cs" />
+    <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Method_Interceptor_Code_Validation_Tests.cs" Link="Method_Interceptor_Code_Validation_Tests.cs" />
+    <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Method_Interceptor_TypeWide_Validation_Test.cs" Link="Method_Interceptor_TypeWide_Validation_Test.cs" />
+    <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Property_Interceptor_Code_Validation_Tests.cs" Link="Property_Interceptor_Code_Validation_Tests.cs" />
+    <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Property_Interceptor_TypeWide_Validation_Test.cs" Link="Property_Interceptor_TypeWide_Validation_Test.cs" />
+    <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\TestClass.cs" Link="TestClass.cs" />
+    <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\TestEnum.cs" Link="TestEnum.cs" />
+    <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\TestStruct.cs" Link="TestStruct.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Fody" Version="2.2.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="1.2.0" />
+    <PackageReference Include="MSTest.TestFramework" Version="1.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Interceptors\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Comparing\Cauldron.Core.Comparing.csproj" />
+    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Diagnostics\Cauldron.Core.Diagnostics.csproj" />
+    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Randomizer\Cauldron.Core.Randomizer.csproj" />
+    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Reflection\Cauldron.Core.Reflection.csproj" />
+    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Threading\Cauldron.Core.Threading.csproj" />
+    <ProjectReference Include="..\..\NetStandard\Cauldron.Interception\Cauldron.Interception.csproj" />
+    <ProjectReference Include="..\..\Win32\Cauldron.Win32.UserInformation\Cauldron.Win32.UserInformation.csproj" />
+    <ProjectReference Include="..\Win32_Fody_Assembly_Validation_Tests\Win32_Fody_Assembly_Validation_Tests.csproj" />
+  </ItemGroup>
+
+</Project>

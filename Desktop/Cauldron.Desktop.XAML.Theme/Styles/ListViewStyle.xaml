@@ -1,0 +1,274 @@
+﻿<ResourceDictionary x:Class="Cauldron.XAML.Theme.Styles.ListViewStyle"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Cauldron.XAML.Theme"
+             xmlns:i="clr-namespace:Cauldron.XAML.Interactivity;assembly=Cauldron.XAML.Interactivity"
+             xmlns:validation="clr-namespace:Cauldron.XAML.Validation;assembly=Cauldron.XAML.Validation"
+             xmlns:t="clr-namespace:Cauldron.XAML.Theme"
+             mc:Ignorable="d">
+
+    <Style x:Key="GridViewScrollViewerStyleKey" TargetType="ScrollViewer">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ScrollViewer">
+                    <Grid Background="Transparent">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <DockPanel Margin="{TemplateBinding Padding}">
+                            <ScrollViewer DockPanel.Dock="Top" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Focusable="false" MinHeight="0">
+                                <GridViewHeaderRowPresenter Margin="0" MinHeight="0"
+                                          Columns="{Binding Path=TemplatedParent.View.Columns, RelativeSource={RelativeSource TemplatedParent}}"
+                                          ColumnHeaderContainerStyle="{Binding Path=TemplatedParent.View.ColumnHeaderContainerStyle, RelativeSource={RelativeSource TemplatedParent}}"
+                                          ColumnHeaderTemplate="{Binding Path=TemplatedParent.View.ColumnHeaderTemplate, RelativeSource={RelativeSource TemplatedParent}}"
+                                          ColumnHeaderTemplateSelector="{Binding Path=TemplatedParent.View.ColumnHeaderTemplateSelector, RelativeSource={RelativeSource TemplatedParent}}"
+                                          AllowsColumnReorder="{Binding Path=TemplatedParent.View.AllowsColumnReorder, RelativeSource={RelativeSource TemplatedParent}}"
+                                          ColumnHeaderContextMenu="{Binding Path=TemplatedParent.View.ColumnHeaderContextMenu, RelativeSource={RelativeSource TemplatedParent}}"
+                                          ColumnHeaderToolTip="{Binding Path=TemplatedParent.View.ColumnHeaderToolTip, RelativeSource={RelativeSource TemplatedParent}}"
+                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                          UseLayoutRounding="{TemplateBinding UseLayoutRounding}" />
+                            </ScrollViewer>
+
+                            <ScrollContentPresenter Name="PART_ScrollContentPresenter" KeyboardNavigation.DirectionalNavigation="Local"
+                                                        CanContentScroll="True" CanHorizontallyScroll="False" CanVerticallyScroll="False" />
+                        </DockPanel>
+
+                        <ScrollBar Name="PART_HorizontalScrollBar"
+                                 Orientation="Horizontal"
+                                 Grid.Row="1"
+                                 Maximum="{TemplateBinding ScrollableWidth}"
+                                 ViewportSize="{TemplateBinding ViewportWidth}"
+                                 Value="{TemplateBinding HorizontalOffset}"
+                                 Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}" />
+
+                        <ScrollBar Name="PART_VerticalScrollBar"
+                                 Grid.Column="1"
+                                 Maximum="{TemplateBinding ScrollableHeight}"
+                                 ViewportSize="{TemplateBinding ViewportHeight}"
+                                 Value="{TemplateBinding VerticalOffset}"
+                                 Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <SolidColorBrush x:Key="ListViewAlternationCountBrush" Color="{StaticResource {x:Static local:CauldronTheme.AccentColor}}" Opacity="0.05" />
+
+    <Style TargetType="ListView">
+        <Setter Property="UseLayoutRounding" Value="True" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="OverridesDefaultStyle" Value="true" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
+        <Setter Property="ScrollViewer.PanningMode" Value="Both" />
+        <Setter Property="Background" Value="{StaticResource {x:Static local:CauldronTheme.DarkBackgroundBrush}}" />
+        <Setter Property="BorderBrush" Value="{StaticResource {x:Static local:CauldronTheme.LightBorderBrush}}" />
+        <Setter Property="Foreground" Value="{StaticResource {x:Static local:CauldronTheme.TextBrush}}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="AlternationCount" Value="2" />
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel />
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Setter Property="i:StyleInteraction.Template">
+            <Setter.Value>
+                <i:InteractionTemplate>
+                    <local:ListViewBehaviour />
+                </i:InteractionTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListView">
+                    <Grid>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+
+                        <t:HeaderDisplay Header="{Binding Path=(t:ListViewProperties.Header), RelativeSource={RelativeSource TemplatedParent}}" />
+
+                        <Border x:Name="Border" Grid.Row="1" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <ScrollViewer x:Name="Viewer" Foreground="{TemplateBinding Foreground}" Style="{StaticResource GridViewScrollViewerStyleKey}">
+                                <ItemsPresenter />
+                            </ScrollViewer>
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsGrouping" Value="true">
+                            <Setter Property="ScrollViewer.CanContentScroll" Value="false" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource {x:Static local:CauldronTheme.AccentBrush}}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="GridViewColumnHeaderGripper" TargetType="Thumb">
+        <Setter Property="Width" Value="18" />
+        <Setter Property="Background" Value="{StaticResource {x:Static local:CauldronTheme.LightBorderBrush}}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Thumb}">
+                    <Border Padding="{TemplateBinding Padding}" Background="Transparent">
+                        <Rectangle HorizontalAlignment="Center" Width="1" Fill="{TemplateBinding Background}" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="BorderBrush" Value="{StaticResource {x:Static local:CauldronTheme.LightBorderBrush}}" />
+    </Style>
+
+    <Style TargetType="GridViewColumnHeader">
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="MinHeight" Value="22" />
+        <Setter Property="Foreground" Value="{StaticResource {x:Static local:CauldronTheme.TextBrush}}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="GridViewColumnHeader">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="HeaderBorder">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource {x:Static local:CauldronTheme.AccentBrush}}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="HeaderBorder">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource {x:Static local:CauldronTheme.HoverLightBrush}}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed" />
+                                <VisualState x:Name="Disabled" />
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+                        <Border x:Name="HeaderBorder" Background="{StaticResource {x:Static local:CauldronTheme.LightBackgroundBrush}}" BorderBrush="{StaticResource {x:Static local:CauldronTheme.LightBorderBrush}}" BorderThickness="0,0,0,1" />
+
+                        <ContentPresenter x:Name="HeaderContent"
+                              Margin="3,0,18,1"
+                              MinWidth="16"
+                              RecognizesAccessKey="True"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              UseLayoutRounding="{TemplateBinding UseLayoutRounding}"
+                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                            <ContentPresenter.Resources>
+                                <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                                    <Setter Property="Foreground" Value="{Binding Foreground, RelativeSource={RelativeSource AncestorType=GridViewColumnHeader}}" />
+                                    <Setter Property="TextWrapping" Value="NoWrap" />
+                                    <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+                                </Style>
+                            </ContentPresenter.Resources>
+                        </ContentPresenter>
+                        <Thumb x:Name="PART_HeaderGripper" HorizontalAlignment="Right" Margin="0,0,-9,0" Style="{StaticResource GridViewColumnHeaderGripper}" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="Role" Value="Floating">
+                <Setter Property="Opacity" Value="0.7" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="GridViewColumnHeader">
+                            <Canvas Name="PART_FloatingHeaderCanvas">
+                                <Rectangle Fill="#60000000" Width="{TemplateBinding ActualWidth}" Height="{TemplateBinding ActualHeight}" />
+                            </Canvas>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="Role" Value="Padding">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="GridViewColumnHeader">
+                            <Border Name="HeaderBorder" BorderThickness="0,1,0,1" Background="{StaticResource {x:Static local:CauldronTheme.LightBackgroundBrush}}" BorderBrush="{StaticResource {x:Static local:CauldronTheme.LightBorderBrush}}" />
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="ListViewItem">
+        <Setter Property="UseLayoutRounding" Value="True" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="OverridesDefaultStyle" Value="true" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="MinHeight" Value="20" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBoxItem">
+                    <Grid Background="{TemplateBinding Background}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="BorderHover">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource {x:Static local:CauldronTheme.HoverLightBrush}}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled" />
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="SelectionStates">
+                                <VisualState x:Name="Unselected" />
+                                <VisualState x:Name="Selected">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource {x:Static local:CauldronTheme.LightAccentBrush}}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="SelectedUnfocused">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource {x:Static local:CauldronTheme.DisabledBackgroundBrush}}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Border x:Name="BorderHover" Padding="2" UseLayoutRounding="True" SnapsToDevicePixels="True" Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderBrush="{StaticResource {x:Static local:CauldronTheme.AccentBrush}}" />
+                        <Border x:Name="Border" Padding="2" SnapsToDevicePixels="True" UseLayoutRounding="True" Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                        <GridViewRowPresenter VerticalAlignment="Center" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                <Setter Property="Background" Value="{StaticResource ListViewAlternationCountBrush}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>

@@ -70,9 +70,10 @@ namespace Cauldron.Core
         public static async Task<string> GetLastNameAsync() => await currentUser.GetLastNameAsync();
 
         /// <summary>
-        /// Gets the principal name for the user. This name is the User Principal Name (typically the user's address, although this is not always true.)
+        /// Gets the principal name for the user. This name is the User Principal Name (typically the
+        /// user's address, although this is not always true.)
         /// </summary>
-        /// <returns> The user's principal name.</returns>
+        /// <returns>The user's principal name.</returns>
         public static async Task<string> GetPrincipalNameAsync() => await currentUser.GetPrincipalNameAsync();
 
         /// <summary>
@@ -157,10 +158,12 @@ namespace Cauldron.Core
         /// <para/>
         /// Returns true if the account is a local account, otherwise false
         /// </summary>
-        public bool IsLocalAccount
-        {
-            get { return string.Equals(Environment.MachineName, _domainName, StringComparison.InvariantCultureIgnoreCase); }
-        }
+        public bool IsLocalAccount => string.Equals(Environment.MachineName, _domainName, StringComparison.InvariantCultureIgnoreCase);
+
+        /// <summary>
+        /// Tests whether the current user is an elevated administrator.
+        /// </summary>
+        public static bool IsCurrentUserAnAdministrator => Win32Api.IsCurrentUserAnAdministrator;
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
@@ -314,9 +317,10 @@ namespace Cauldron.Core
         }
 
         /// <summary>
-        /// Gets the principal name for the user. This name is the User Principal Name (typically the user's address, although this is not always true.)
+        /// Gets the principal name for the user. This name is the User Principal Name (typically the
+        /// user's address, although this is not always true.)
         /// </summary>
-        /// <returns> The user's principal name.</returns>
+        /// <returns>The user's principal name.</returns>
         public async Task<string> GetPrincipalNameAsync()
         {
             await GetUserInformationAsync();
@@ -412,8 +416,8 @@ namespace Cauldron.Core
             {
                 lock (lockObject)
                 {
-                    // we have to avoid thing that already entered and waited for
-                    // the lock to be released from other thread
+                    // we have to avoid thing that already entered and waited for the lock to be
+                    // released from other thread
                     if (!isInitialized)
                     {
                         try

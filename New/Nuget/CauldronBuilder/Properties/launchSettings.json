@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "CauldronBuilder": {
+      "commandName": "Project",
+      "commandLineArgs": "C:\\Users\\evron\\OneDrive\\Minmatar\\Source\\Repos\\Cauldron\\New"
+    }
+  }
+}

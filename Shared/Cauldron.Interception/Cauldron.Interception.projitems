@@ -12,13 +12,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)AssignMethodAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DoNotInterceptAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ILockableMethodInterceptor.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ILockablePropertyGetterInterceptor.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ILockablePropertySetterInterceptor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IInterceptor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IMethodInterceptor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IPropertyGetterInterceptor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IPropertyInterceptor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IPropertySetterInterceptor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ISyncRoot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PropertyInterceptionInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TimedCacheAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils.cs" />

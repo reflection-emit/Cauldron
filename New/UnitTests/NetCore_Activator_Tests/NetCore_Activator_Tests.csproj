@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Win32_Activator_Tests\FactoryGenericSingletonTests.cs" Link="FactoryGenericSingletonTests.cs" />
+    <Compile Include="..\Win32_Activator_Tests\FactoryTests.cs" Link="FactoryTests.cs" />
+    <Compile Include="..\Win32_Activator_Tests\Factory_ParallelCreation_Test.cs" Link="Factory_ParallelCreation_Test.cs" />
+    <Compile Include="..\Win32_Activator_Tests\Factory_ParallelCreation_Test_Resource.generated.cs" Link="Factory_ParallelCreation_Test_Resource.generated.cs" />
+    <Compile Include="..\Win32_Activator_Tests\Inject_Test.cs" Link="Inject_Test.cs" />
+    <Compile Include="..\Win32_Activator_Tests\ITestInterface.cs" Link="ITestInterface.cs" />
+    <Compile Include="..\Win32_Activator_Tests\MappingTest.cs" Link="MappingTest.cs" />
+    <Compile Include="..\Win32_Activator_Tests\TestClasses.cs" Link="TestClasses.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Fody" Version="2.2.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="1.2.0" />
+    <PackageReference Include="MSTest.TestFramework" Version="1.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\NetStandard\Cauldron.Activator\Cauldron.Activator.csproj" />
+    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Extensions.Convertions\Cauldron.Core.Extensions.Convertions.csproj" />
+    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Randomizer\Cauldron.Core.Randomizer.csproj" />
+    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Reflection\Cauldron.Core.Reflection.csproj" />
+    <ProjectReference Include="..\..\NetStandard\Cauldron.Interception\Cauldron.Interception.csproj" />
+  </ItemGroup>
+
+</Project>

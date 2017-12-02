@@ -30,18 +30,11 @@
     <!-- add directives for your library here -->
     <Namespace Name="Cauldron.Activator">
 
-      <Type Name="Cauldron.Activator.Singleton{}">
-        <Subtypes Dynamic="Required All" />
-      </Type>
-
-      <Type Name="Cauldron.Activator.IFactoryExtension">
+      <Type Name="IFactoryResolver">
         <Subtypes Activate="Required All" Dynamic="Required All" />
       </Type>
-      <Type Name="Cauldron.Activator.ComponentAttribute">
-        <AttributeImplies Activate="Required All" Dynamic="Required All" />
-      </Type>
-      <Type Name="Cauldron.Activator.ComponentConstructorAttribute">
-        <AttributeImplies Activate="Required All"  Dynamic="Required All" />
+      <Type Name="IFactoryCache">
+        <Subtypes Activate="Required All" Dynamic="Required All" />
       </Type>
     </Namespace>
   </Library>

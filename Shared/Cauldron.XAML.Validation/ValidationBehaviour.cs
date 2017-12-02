@@ -46,7 +46,8 @@ namespace Cauldron.XAML.Validation
         protected override void OnAttach() => this.OnDataContextChanged();
 
         /// <summary>
-        /// Occures if the <see cref="FrameworkElement.DataContext"/> of <see cref="Behaviour{T}.AssociatedObject"/> has changed
+        /// Occures if the <see cref="FrameworkElement.DataContext"/> of <see
+        /// cref="Behaviour{T}.AssociatedObject"/> has changed
         /// </summary>
         protected override void OnDataContextChanged()
         {
@@ -122,8 +123,9 @@ namespace Cauldron.XAML.Validation
                 propertyName = propertyName.Right(propertyName.Length - propertyName.LastIndexOf('.') - 1);
             }
 
-            // if our source is still null then either the source does not implements the INotifyDataErrorInfo interface or we dont have a valid source at all
-            // In both cases we just give up
+            // if our source is still null then either the source does not implements the
+            // INotifyDataErrorInfo interface or we dont have a valid source at all In both cases we
+            // just give up
             if (source == null)
                 return;
 
@@ -133,7 +135,7 @@ namespace Cauldron.XAML.Validation
             if (property == null)
                 return;
 
-            if (!this.validableProperties.ContainsKey(propertyName) && property.GetCustomAttributes().Any(x => x is ValidationBaseAttribute))
+            if (!this.validableProperties.ContainsKey(propertyName) && property.GetCustomAttributes().Any(x => x is ValidatorAttributeBase))
             {
                 this.validableProperties.Add(propertyName, new WeakReference<INotifyDataErrorInfo>(source));
                 source.ErrorsChanged += this.Source_ErrorsChanged;
@@ -157,7 +159,7 @@ namespace Cauldron.XAML.Validation
                     return;
                 }
 
-                var errors = source.GetErrors(e.PropertyName) as List<string>;
+                var errors = source.GetErrors(e.PropertyName) as IEnumerable<string>;
                 this.allErrors.Remove(e.PropertyName);
 
                 if (errors != null)

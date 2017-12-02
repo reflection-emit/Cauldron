@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1645BDC0-C886-4F5C-BF14-7927356EFBD9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Cauldron.Interception.Cecilator</RootNamespace>
+    <AssemblyName>Cauldron.Interception.Cecilator</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Mono.Cecil, Version=0.10.0.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FodyCecil.2.2.1.0\lib\net40\Mono.Cecil.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Mdb, Version=0.10.0.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FodyCecil.2.2.1.0\lib\net40\Mono.Cecil.Mdb.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Pdb, Version=0.10.0.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FodyCecil.2.2.1.0\lib\net40\Mono.Cecil.Pdb.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Rocks, Version=0.10.0.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FodyCecil.2.2.1.0\lib\net40\Mono.Cecil.Rocks.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyDefinitionEqualityComparer.cs" />
+    <Compile Include="AssemblyDefinitionEx.cs" />
+    <Compile Include="AssignInstructionsSet.cs" />
+    <Compile Include="AsyncMethodHelper.cs" />
+    <Compile Include="AttributedField.cs" />
+    <Compile Include="AttributedMethod.cs" />
+    <Compile Include="AttributedProperty.cs" />
+    <Compile Include="AttributedType.cs" />
+    <Compile Include="Builder.cs" />
+    <Compile Include="BuilderCustomAttribute.cs" />
+    <Compile Include="BuilderCustomAttributeCollection.cs" />
+    <Compile Include="BuilderTypeEqualityComparer.cs" />
+    <Compile Include="CecilatorBase.cs" />
+    <Compile Include="Crumb.cs" />
+    <Compile Include="CustomAttributeEqualityComparer.cs" />
+    <Compile Include="Extension.cs" />
+    <Compile Include="Field.cs" />
+    <Compile Include="FieldCollection.cs" />
+    <Compile Include="FieldInstructionsSet.cs" />
+    <Compile Include="FieldInUseException.cs" />
+    <Compile Include="FieldUsage.cs" />
+    <Compile Include="IAction.cs" />
+    <Compile Include="ICatch.cs" />
+    <Compile Include="ICatchCode.cs" />
+    <Compile Include="ICode.cs" />
+    <Compile Include="IfCode.cs" />
+    <Compile Include="IFieldCode.cs" />
+    <Compile Include="IFinally.cs" />
+    <Compile Include="IIfCode.cs" />
+    <Compile Include="IlHelper.cs" />
+    <Compile Include="ILocalVariableCode.cs" />
+    <Compile Include="InsertionAction.cs" />
+    <Compile Include="InsertionPosition.cs" />
+    <Compile Include="InstructionContainer.cs" />
+    <Compile Include="InstructionsSet.cs" />
+    <Compile Include="ITry.cs" />
+    <Compile Include="ITryCode.cs" />
+    <Compile Include="TypeResolveException.cs" />
+    <Compile Include="WeaverBase.cs" />
+    <Compile Include="BuilderType.cs" />
+    <Compile Include="LocalVariable.cs" />
+    <Compile Include="LocalVariableInstructionSet.cs" />
+    <Compile Include="MarkerType.cs" />
+    <Compile Include="Method.cs" />
+    <Compile Include="MethodNotFoundException.cs" />
+    <Compile Include="MethodUsage.cs" />
+    <Compile Include="Modifiers.cs" />
+    <Compile Include="ParamResult.cs" />
+    <Compile Include="Position.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="MarkerInstructionSet.cs" />
+    <Compile Include="Property.cs" />
+    <Compile Include="PropertyUsage.cs" />
+    <Compile Include="SearchContext.cs" />
+    <Compile Include="TypeReferenceEqualityComparer.cs" />
+    <Compile Include="TypeNotFoundException.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

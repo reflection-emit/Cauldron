@@ -1,4 +1,5 @@
 ﻿using Cauldron.Core;
+using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -51,9 +52,6 @@ namespace Cauldron.Cryptography
 
             int score = 1;
 
-            if (password.Length < 1)
-                return PasswordScore.Blank;
-
             if (password.Length < 4)
                 return PasswordScore.VeryWeak;
 
@@ -63,19 +61,31 @@ namespace Cauldron.Cryptography
             if (password.Length >= 12)
                 score++;
 
-            // number only //"^\d+$" if you need to match more than one digit.
-            if (Regex.IsMatch(password, @"[0-9]+(\.[0-9][0-9]?)?"))
+            // If 90% of the password are numbers then lower the score
+            if (Mathc.ValueOf(Regex.Match(password, @"[0-9]+(\.[0-9][0-9]?)?").Length, password.Length, 100) > 90)
+                score--;
+            // At least 4 of the chars should be numbers
+            else if (Regex.Match(password, @"[0-9]+(\.[0-9][0-9]?)?").Length > 4)
                 score++;
 
-            // both, lower and upper case
-            if (Regex.IsMatch(password, @"^(?=.*[a-z])(?=.*[A-Z]).+$"))
+            // If 99% of the password are letters then lower the score
+            if (Mathc.ValueOf(Regex.Match(password, @"^(?=.*[a-z])(?=.*[A-Z]).+$").Length, password.Length, 100) == 99)
+                score--;
+            else if (Regex.IsMatch(password, @"^(?=.*[a-z])(?=.*[A-Z]).+$"))
                 score++;
 
-            // ^[A-Z]+$
             if (Regex.IsMatch(password, @"[!,@,#,$,%,^,&,*,?,_,~,-,£,(,)]"))
                 score++;
 
-            return (PasswordScore)score;
+            if (string.Equals(password, "password", StringComparison.CurrentCultureIgnoreCase) ||
+                string.Equals(password, "p4ssw0rd", StringComparison.CurrentCultureIgnoreCase) ||
+                string.Equals(password, "p455w0rd", StringComparison.CurrentCultureIgnoreCase))
+                score = 1;
+
+            if (password.Distinct(new DynamicEqualityComparer<char>((a, b) => a == b)).Count() == 1)
+                score = score - 2;
+
+            return (PasswordScore)Mathc.Clamp(score, 1, 5);
         }
     }
 }

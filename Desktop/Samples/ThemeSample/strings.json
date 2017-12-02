@@ -1,0 +1,35 @@
+﻿[
+  {
+    "key": "error1",
+    "en": "<Inline>The entry must have a min length of <Span Foreground='Tomato'>{0}</Span> and a max length of <Span Foreground='Tomato'>{1}</Span></Inline>",
+    "de": "<Inline>Der Eintrag muss mindestens eine Länge von <Span Foreground='Tomato'>{0}</Span> und maximal eine Länge von <Span Foreground='Tomato'>{1}</Span> haben.</Inline>"
+  },
+  {
+    "key": "Button 1",
+    "en": "Button 1 tooltip is localized",
+    "de": "Button 1 tooltip ist localisiert"
+  },
+  {
+    "key": "isMandatory",
+    "en": "This is mandatory",
+    "de": "Dies ist ein Mussfeld"
+  },
+  {
+    "key": "inlinedExample",
+    "en": "<Inline>Localized <Bold>inline</Bold> can have other <Span FontFamily='Comic Sans MS'>text</Span> <Bold><Span Foreground='Purple'>colors</Span></Bold></Inline>"
+  },
+  {
+    "key": "validate",
+    "en": "Validate",
+    "de": "Validieren"
+  },
+  {
+    "key": "mussbeEqual",
+    "en": "The passwords must be equal"
+  },
+  {
+    "key": "textbox",
+    "en": "TextBox"
+  }
+
+]

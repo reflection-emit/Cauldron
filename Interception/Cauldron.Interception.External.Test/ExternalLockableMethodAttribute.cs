@@ -1,15 +1,21 @@
 ﻿using System;
 using System.Reflection;
-using System.Threading;
 
 namespace Cauldron.Interception.External.Test
 {
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
-    public sealed class ExternalLockableMethodAttribute : Attribute, ILockableMethodInterceptor
+    public sealed class ExternalLockableMethodAttribute : Attribute, IMethodInterceptor, ISyncRoot
     {
-        public void OnEnter(SemaphoreSlim semaphore, Type declaringType, object instance, MethodBase methodbase, object[] values)
+        public object SyncRoot { get; set; }
+
+        public void OnEnter(Type declaringType, object instance, MethodBase methodbase, object[] values)
         {
-            semaphore.Wait();
+            if (SyncRoot == null)
+                throw new ArgumentNullException(nameof(SyncRoot));
+
+            lock (SyncRoot)
+            {
+            }
         }
 
         public void OnException(Exception e)

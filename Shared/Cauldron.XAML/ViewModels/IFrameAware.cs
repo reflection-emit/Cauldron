@@ -3,7 +3,7 @@
     /// <summary>
     /// Represents a view model that reacts to certain events in the NavigationFrame (UWP) or Window (Desktop).
     /// </summary>
-    public interface IFrameAware : IViewModel
+    public interface IFrameAware : ICloseAwareViewModel
     {
         /// <summary>
         /// Occures if the page or window is activated

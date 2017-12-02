@@ -1,10 +1,12 @@
-﻿using System.Reflection;
+﻿using System.Diagnostics;
+using System.Reflection;
 
 namespace Cauldron.Core
 {
     /// <summary>
     /// Represents a resource info of an embedded resource with its corresponding <see cref="Assembly"/>
     /// </summary>
+    [DebuggerDisplay("Filename = {Filename}")]
     public sealed class AssemblyResource
     {
         internal AssemblyResource(Assembly assembly, string filename)

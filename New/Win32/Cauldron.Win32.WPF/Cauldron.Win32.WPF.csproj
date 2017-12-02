@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9607B822-BA0F-46FD-B487-C431F3FD9EED}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Cauldron.XAML</RootNamespace>
+    <AssemblyName>Cauldron.Win32.WPF</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\Cauldron.Win32.WPF.xml</DocumentationFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Cauldron.Win32.WPF.xml</DocumentationFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApplicationBase.cs" />
+    <Compile Include="BehaviourInvocationArgs.cs" />
+    <Compile Include="BitmapImageEx.cs" />
+    <Compile Include="CauldronTemplateSelector.cs" />
+    <Compile Include="CauldronUICommand.cs" />
+    <Compile Include="CauldronUICommandCollection.cs" />
+    <Compile Include="Common.cs" />
+    <Compile Include="Controls\NavigationFrame.cs" />
+    <Compile Include="DependencyPropertyInfo.cs" />
+    <Compile Include="DispatcherWPF.cs" />
+    <Compile Include="DynamicEventHandler.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="IImageManager.cs" />
+    <Compile Include="ImageManager.cs" />
+    <Compile Include="IMessageDialog.cs" />
+    <Compile Include="MessageBoxImage.cs" />
+    <Compile Include="MessageDialogEx.cs" />
+    <Compile Include="Navigation\INavigator_Win32.cs" />
+    <Compile Include="INotifyBehaviourInvocation.cs" />
+    <Compile Include="IRelayCommand.cs" />
+    <Compile Include="LaunchActivatedEventArgs.cs" />
+    <Compile Include="Navigation\CauldronBackRequestedEventArgs.cs" />
+    <Compile Include="Navigation\INavigator.cs" />
+    <Compile Include="Navigation\NavigatingInfo.cs" />
+    <Compile Include="Navigation\NavigationInfo.cs" />
+    <Compile Include="Navigation\NavigationMode.cs" />
+    <Compile Include="Navigation\NavigationType.cs" />
+    <Compile Include="Navigation\Navigator.cs" />
+    <Compile Include="Navigation\NavigatorSinglePage.cs" />
+    <Compile Include="Navigation\PageStackEntry.cs" />
+    <Compile Include="NavigatorSelectorFactoryResolver.cs" />
+    <Compile Include="PersistentWindowInformation.cs" />
+    <Compile Include="PersistentWindowProperties.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyIsChangedEventArgs.cs" />
+    <Compile Include="RelayCommand.cs" />
+    <Compile Include="Resources\LocalizationSource.cs" />
+    <Compile Include="Resources\MessageDialogView.xaml.cs">
+      <DependentUpon>MessageDialogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\StylesAndTemplates.xaml.cs">
+      <DependentUpon>StylesAndTemplates.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TextBlockInline.cs" />
+    <Compile Include="UnsafeNative.cs" />
+    <Compile Include="ValueConverterBase.cs" />
+    <Compile Include="ValueConverters\BooleanInvertConverter.cs" />
+    <Compile Include="ValueConverters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="ValueConverters\KeyToLocalizedStringConverter.cs" />
+    <Compile Include="ValueConverters\NullOrEmptyToVisibilityConverter.cs" />
+    <Compile Include="ValueConverters\ObjectToBooleanConverter.cs" />
+    <Compile Include="ValueConverters\ObjectToVisibilityConverter.cs" />
+    <Compile Include="ValueConverters\VisibilityToBooleanConverter.cs" />
+    <Compile Include="ViewAttribute.cs" />
+    <Compile Include="Extensions_Win32.cs" />
+    <Compile Include="ViewModels\IChangeAwareViewModel.cs" />
+    <Compile Include="ViewModels\ICloseAwareViewModel.cs" />
+    <Compile Include="ViewModels\IDialogViewModel.cs" />
+    <Compile Include="ViewModels\IFrameAware.cs" />
+    <Compile Include="ViewModels\INavigable.cs" />
+    <Compile Include="ViewModels\IPrelaunchAware.cs" />
+    <Compile Include="ViewModels\ISizeAware.cs" />
+    <Compile Include="ViewModels\IViewModel.cs" />
+    <Compile Include="ViewModels\MessageDialogCommandViewModel.cs" />
+    <Compile Include="ViewModels\MessageDialogViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="WindowConfiguration.cs" />
+    <Compile Include="WindowType.cs" />
+    <Compile Include="XAMLHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="FodyWeavers.xml" />
+    <EmbeddedResource Include="Resources\Text\7B5BE4E7E11D87C4E23B68589848BB2A.yaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\NetStandard\Cauldron.Activator\Cauldron.Activator.csproj">
+      <Project>{e5a31648-dac2-4c60-a1b8-2fc291c2bf9e}</Project>
+      <Name>Cauldron.Activator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Collections\Cauldron.Core.Collections.csproj">
+      <Project>{a3970375-c96b-443c-86b3-59bb32ce8cb1}</Project>
+      <Name>Cauldron.Core.Collections</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Comparing\Cauldron.Core.Comparing.csproj">
+      <Project>{75a87a26-d167-4e61-84ba-5595ae475934}</Project>
+      <Name>Cauldron.Core.Comparing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Diagnostics\Cauldron.Core.Diagnostics.csproj">
+      <Project>{9631764e-e771-4d96-a7cf-757c257a0630}</Project>
+      <Name>Cauldron.Core.Diagnostics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Disposable\Cauldron.Core.Disposable.csproj">
+      <Project>{fee69c60-3463-47e9-9a7c-735b4f967aad}</Project>
+      <Name>Cauldron.Core.Disposable</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Extensions.Convertions\Cauldron.Core.Extensions.Convertions.csproj">
+      <Project>{aeca1669-9742-4ac6-ab32-2b8be1c5dac0}</Project>
+      <Name>Cauldron.Core.Extensions.Convertions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Extensions\Cauldron.Core.Extensions.csproj">
+      <Project>{80d83040-3340-4b2b-8c62-b0ce6b069a34}</Project>
+      <Name>Cauldron.Core.Extensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.MathExtensions\Cauldron.Core.MathExtensions.csproj">
+      <Project>{1c4d93d9-20af-4e93-bee4-9e9799c1d088}</Project>
+      <Name>Cauldron.Core.MathExtensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Reflection\Cauldron.Core.Reflection.csproj">
+      <Project>{9bc69306-6188-403e-bce3-0c85fe049a9b}</Project>
+      <Name>Cauldron.Core.Reflection</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Threading\Cauldron.Core.Threading.csproj">
+      <Project>{a6137484-c3c9-4808-b4b4-76e27420025d}</Project>
+      <Name>Cauldron.Core.Threading</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NetStandard\Cauldron.Core\Cauldron.Core.csproj">
+      <Project>{a19f8e3a-657f-4123-85e8-ad4111d63e98}</Project>
+      <Name>Cauldron.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NetStandard\Cauldron.Cryptography\Cauldron.Cryptography.csproj">
+      <Project>{fe7bd804-a339-486c-8d28-b58e11d8d676}</Project>
+      <Name>Cauldron.Cryptography</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NetStandard\Cauldron.Interception\Cauldron.Interception.csproj">
+      <Project>{54d84f50-0b4b-40cb-a27d-5ccd84f5b1ee}</Project>
+      <Name>Cauldron.Interception</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NetStandard\Cauldron.Localization\Cauldron.Localization.csproj">
+      <Project>{2729fd6d-0685-4fdf-a995-3eae4e5ae942}</Project>
+      <Name>Cauldron.Localization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cauldron.Win32.MonitorInfo\Cauldron.Win32.MonitorInfo.csproj">
+      <Project>{e8fded13-93e7-4120-95b6-c829d8220850}</Project>
+      <Name>Cauldron.Win32.MonitorInfo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cauldron.Win32.Net\Cauldron.Win32.Net.csproj">
+      <Project>{01317cbc-76f0-4c39-a8da-5c93be7c8c41}</Project>
+      <Name>Cauldron.Win32.Net</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cauldron.Win32.Threading\Cauldron.Win32.Threading.csproj">
+      <Project>{4aeb2c1e-1625-483d-ad8e-6dca3c28742e}</Project>
+      <Name>Cauldron.Win32.Threading</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cauldron.Win32.UserInformation\Cauldron.Win32.UserInformation.csproj">
+      <Project>{bc37d605-f19e-4093-bfe5-347054fd8895}</Project>
+      <Name>Cauldron.Win32.UserInformation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cauldron.Win32.WPF.ParameterPassing\Cauldron.Win32.WPF.ParameterPassing.csproj">
+      <Project>{3b7c0640-5d31-46aa-97d2-689787409853}</Project>
+      <Name>Cauldron.Win32.WPF.ParameterPassing</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Images\error_red_32x32.png" />
+    <EmbeddedResource Include="Resources\Images\Information%28Help%29_7833.png" />
+    <EmbeddedResource Include="Resources\Images\Information_6227_32x.png" />
+    <Content Include="Resources\Images\Readme.txt" />
+    <EmbeddedResource Include="Resources\Images\Warning_yellow_7231_31x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Resources\MessageDialogView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\StylesAndTemplates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\..\packages\Fody.2.2.1.0\build\net452\Fody.targets" Condition="Exists('..\..\packages\Fody.2.2.1.0\build\net452\Fody.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\Fody.2.2.1.0\build\net452\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Fody.2.2.1.0\build\net452\Fody.targets'))" />
+  </Target>
+</Project>

@@ -3,30 +3,77 @@
 # Cauldron C# Toolkit
 Assembly | Description   | NuGet
 -------- | ------------- | ----------------
-**Cauldron.Interception.Fody** | Fody add-in that provides method, property and field interception. It also provides weavers for Cauldron.Core and Cauldron.Activator. | [![NuGet](https://img.shields.io/nuget/v/Cauldron.Interception.Fody.svg)](https://www.nuget.org/packages/Cauldron.Interception.Fody/)
-**Cauldron.Core** | Cauldron Core is the core toolkit assembly that the Cauldron Toolkit builds upon. | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Core.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Core/)
-**Cauldron.Activator** | The activator is a simple and very fast dependency injection. It is based on attributes and does not require any configuration files for configuration. It also supports using static methods as component constructor. | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Activator.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Activator/)
-**Cauldron.Consoles** | Cauldron.Consoles is a Cauldron.Core based parameter parser which supports grouping of parameters in execution groups. It also supports localization and has a nice parameter table. | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Consoles.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Consoles/)
+**Cauldron.Activator** | The activator is a simple and very fast dependency injection framework. It is based on attributes and does not require any configuration files for configuration. It also supports using static methods as component constructor. | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Activator.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Activator/)
+**Cauldron.Consoles** | Cauldron.Consoles is a Cauldron.Core based parameter parser which supports grouping of parameters in execution groups. It is also supports localization and has a nice parameter table :) | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Consoles.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Consoles/)
+**Cauldron.Core** | Cauldron Core is the core toolkit assembly that the Cauldron Toolkit builds upon | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Core.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Core/)
+**Cauldron.Core.Collections** | Contains usefull collections and collection extensions. | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Core.Collections.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Core.Collections/)
+**Cauldron.Core.Comparing** | Provides usefull extensions and methods regarding comparing | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Core.Comparing.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Core.Comparing/)
+**Cauldron.Core.Diagnostics** | Provides a set of methods that help debug code or output errors in compiled dlls. | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Core.Diagnostics.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Core.Diagnostics/)
+**Cauldron.Core.Disposable** | Implementation of IDisposable | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Core.Disposable.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Core.Disposable/)
+**Cauldron.Core.Extensions** | Provides usefull extension methods | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Core.Extensions.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Core.Extensions/)
+**Cauldron.Core.Extensions.Compression** | Provides System.IO.Compression.GZipStream extension methods for System.IO.Stream, System.IO.FileInfo, byte array and System.String | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Core.Extensions.Compression.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Core.Extensions.Compression/)
+**Cauldron.Core.Extensions.Convertions** | Provides extension methods regarding common convertions. | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Core.Extensions.Convertions.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Core.Extensions.Convertions/)
+**Cauldron.Core.Extensions.IO** | Provides extensions methods for FileInfo, DirectoryInfo and other IO operations | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Core.Extensions.IO.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Core.Extensions.IO/)
+**Cauldron.Core.Formatters** | Contains the following formatter implementations:<br/>      - ByteSizeFormatter<br/>      - MetricUnitFormatter<br/> | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Core.Formatters.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Core.Formatters/)
+**Cauldron.Core.Interceptors** | A collection of interceptor implementations. | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Core.Interceptors.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Core.Interceptors/)
+**Cauldron.Core.MathExtensions** | Provides additional functions that are missing from System.Math | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Core.MathExtensions.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Core.MathExtensions/)
+**Cauldron.Core.Net** | A collection of usefull methods regarding networks | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Core.Net.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Core.Net/)
+**Cauldron.Core.Randomizer** | Provides a randomizer that is cryptographically secure | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Core.Randomizer.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Core.Randomizer/)
+**Cauldron.Core.Reflection** | This package adds:<br/>      - Usefull extension methods to the existing System.Reflection.<br/>      - A expression base activator which is a lot faster than System.Activator.<br/>      - Enum DisplayName attribute<br/>      - addtional meta-data to an enum<br/>      - Assemblies static class<br/>      - A "wrapper" for Assembly but applied on all loaded Assemblies<br/> | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Core.Reflection.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Core.Reflection/)
+**Cauldron.Core.Threading** | Provides useful helpers regarding threading | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Core.Threading.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Core.Threading/)
+**Cauldron.Core.Yaml** | A YAML deserializer | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Core.Yaml.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Core.Yaml/)
 **Cauldron.Cryptography** | Contains typical implementations for AES, RSA and RSA-AES encryptions. It also contains extensions that helps working with SecureString. | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Cryptography.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Cryptography/)
+**Cauldron.Interception.Fody** | Fody add-in that provides method, property and field interception. Supports NetStandard2.0 and UWP. | [![NuGet](https://img.shields.io/nuget/v/Cauldron.Interception.Fody.svg)](https://www.nuget.org/packages/Cauldron.Interception.Fody/)
 **Cauldron.Localization** | A simple localization implementation that can work with different sources. | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Localization.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Localization/)
-**Cauldron.XAML** | A simple MVVM framework based on Cauldron.Core. | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.XAML.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.XAML/)
-**Cauldron.XAML.Interactivity** | Behaviours and Action for Cauldron.XAML. (incomplete) | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.XAML.Interactivity.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.XAML.Interactivity/)
-**Cauldron.XAML.Validation** | Validation Framework for Cauldron.XAML. | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.XAML.Validation.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.XAML.Validation/)
+**Cauldron.Win32.Extension.Impersonation** | Provides an extension for PrincipalContext to impersonate a user. | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Win32.Extension.Impersonation.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Win32.Extension.Impersonation/)
+**Cauldron.Win32.Extension.IO** | Provides extension methods with Windows specific functionalities like GetShortPath and IsNetworkPath | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Win32.Extension.IO.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Win32.Extension.IO/)
+**Cauldron.Win32.Interceptors** | A collection of interceptor implementations. | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Win32.Interceptors.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Win32.Interceptors/)
+**Cauldron.Win32.MonitorInfo** | Provides properties and methods for getting information about the monitor | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Win32.MonitorInfo.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Win32.MonitorInfo/)
+**Cauldron.Win32.Net** | Provides usefull implementations regarding network. | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Win32.Net.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Win32.Net/)
+**Cauldron.Win32.Threading** | A wrapper for the System.Windows.Threading.Dispatcher unify the usage for UWP and Win32. | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Win32.Threading.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Win32.Threading/)
+**Cauldron.Win32.UserInformation** | Consolidates methods for getting user information (profile picture, email address, home directory ect.) to a single class. | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Win32.UserInformation.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Win32.UserInformation/)
+**Cauldron.Win32.WindowsService** | Creating Windows Services is now a cake walk. This implementation can also handle localized service name and description. | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Win32.WindowsService.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Win32.WindowsService/)
+**Cauldron.Win32.WPF** | A simple MVVM framework that heavily uses IL-weaving based on Fody. | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Win32.WPF.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Win32.WPF/)
+**Cauldron.Win32.WPF.Interactivity** | Behaviours and Action for Cauldron.XAML | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Win32.WPF.Interactivity.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Win32.WPF.Interactivity/)
+**Cauldron.Win32.WPF.ParameterPassing** | Handles passing of parameters to running instance(s) of an application. | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Win32.WPF.ParameterPassing.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Win32.WPF.ParameterPassing/)
+**Cauldron.Win32.WPF.Validation** | Validation Framework for Cauldron.Win32.WPF | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Win32.WPF.Validation.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Win32.WPF.Validation/)
 
 ## Documentation
 ### Wiki
 https://github.com/Capgemini/Cauldron/wiki
-### .NET Desktop
-https://Capgemini.github.io/Cauldron/desktop/
+### .NET 4.6.1
+https://Capgemini.github.io/Cauldron/win32/
+### .NET Standard 2.0
+https://Capgemini.github.io/Cauldron/netstandard/
 ### UWP
 https://Capgemini.github.io/Cauldron/uwp/
-### Eve Online API for .NET 4.5.2 and UWP
-https://Capgemini.github.io/Cauldron/eveonline/
-## Required Visual Studio Extensions
+## Required Visual Studio Extensions (For Contributors)
 - [Sandcastle Help File Builder](https://github.com/EWSoftware/SHFB/releases)
 - [CodeMaid](http://www.codemaid.net/)
 
 ## Release Notes
+### 2.0.0 betas
+- NetCore and Desktop libraries combined to NetStandard 2.0
+- Cauldron.XAML renamed to Cauldron.Win32.WPF
+- UWP libraries are combined together to a single library
+- Win32 specific libraries has now the following nomenclature: Cauldron.Win32.*
+- DispatcherEx is now injectable. It uses the new UnitTest aware Factory resolver to inject either the dummy dispatcher or the real deal. 
+- ComparerUtils renamed to Comparer
+### 1.2.8
+- Breaking changes: Reorganisation of the XAML libraries
+- Skinning added (Skins from first version of Cauldron re-added)
+- The App class (which inherits from ApplicationBase) is now recognized as Splashscreen if it has assigned a view. The OnPreload method is only called if a view is assigned if the navigation-mode is not SinglePage.
+- Bug fixes in Interception.Fody
+  - Properties as constructors now works as expected
+  - ComponentConstructor attributes are now no longer removed after weaving
+- Locale class can now be injected without causing an error during Assembly verification
+- Singleton<> base class component construtor attribute removed, because it is redundant and causes errors.
+- NetCore versions of Cauldron.Interception, Cauldron.Core and Cauldron.Activator are now part of the NuGet package again.
+- Password scoring now works a bit better
+- Inline text for TextBlock fixed
+- XAML.Validation is now awaitable
+- Module OnLoad "interceptor" added
+- Bug fixes - see Incidents
 ### 1.2.7 (1.2.0 to 1.2.6 betas)
 - NetCore Dlls droped from package due to issues with Fody - This will be back as soon as NetCore and Fody works a lot better
 - Types with the component attribute get a hard-coded CreateInstance method. The Factory will use this method to create an instance of the type. This should give the factory an instancing performance almost on par with the __new__ keyword.
@@ -53,8 +100,7 @@ https://Capgemini.github.io/Cauldron/eveonline/
 - Better error message in Inject attribute
 - Errors in Cauldron.Interception.Fody copy method fixed [1](https://github.com/Capgemini/Cauldron/commit/8206509d7956cc0e47c38c12249c4b68e29cb162) [2](https://github.com/Capgemini/Cauldron/commit/a1fb4a03c43689388c22e58dd2555c4a79c9170c)
 - TimedCache attribute key generation fixed.
-### 1.1.2
-- Bug fix for anonymous type to interface convertion
+bBlock now works- Bug fix for anonymous type to interface convertion
 ### 1.1.1
 - Several minor bug fixes
 - TimedCacheAttribute now supports async methods

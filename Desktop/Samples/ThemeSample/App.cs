@@ -1,4 +1,6 @@
-﻿using Cauldron.XAML;
+﻿using Cauldron.Activator;
+using Cauldron.Core.Extensions;
+using Cauldron.XAML;
 using Cauldron.XAML.Theme;
 using System;
 using System.Threading.Tasks;
@@ -18,13 +20,24 @@ namespace ThemeSample
         [STAThread]
         public static void Main(string[] args)
         {
-            var p = new App();
-            p.Run();
+            try
+            {
+                var p = new App();
+                p.Run();
+            }
+            catch (Exception e)
+            {
+                Factory.Create<IMessageDialog>().ShowException(e).RunSync();
+            }
+        }
+
+        protected override void OnResourceLoad()
+        {
+            CauldronTheme.SetAccentColor(Colors.SteelBlue);
         }
 
         protected override async Task OnStartup(LaunchActivatedEventArgs e)
         {
-            CauldronTheme.SetAccentColor(Colors.GreenYellow);
             await this.Navigator.NavigateAsync(typeof(MainViewModel));
         }
     }

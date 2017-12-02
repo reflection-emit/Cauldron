@@ -2,6 +2,7 @@
 using Cauldron.Core;
 using Cauldron.Core.Collections;
 using Cauldron.Core.Extensions;
+using Cauldron.Internal;
 using Cauldron.XAML.ViewModels;
 using System;
 using System.Linq;
@@ -14,6 +15,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
+using System.Windows.Navigation;
 
 namespace Cauldron.XAML.Navigation
 {
@@ -21,9 +23,9 @@ namespace Cauldron.XAML.Navigation
     /// Handles creation of a new <see cref="Window"/> and association of the viewmodel
     /// </summary>
     [Component(typeof(INavigator), FactoryCreationPolicy.Singleton)]
-    public sealed class Navigator : Singleton<INavigator>, INavigator
+    public sealed class Navigator : Factory<INavigator>, INavigator
     {
-        private static readonly object MainWindowTag = new object();
+        private static readonly object SplashScreenWindowTag = new object();
 
         // The navigator always knows every window that it has created
         private ConcurrentList<WindowViewModelObject> windows = new ConcurrentList<WindowViewModelObject>();
@@ -65,7 +67,8 @@ namespace Cauldron.XAML.Navigation
         }
 
         /// <summary>
-        /// Navigates to the most recent item in back navigation history, if a Frame manages its own navigation history.
+        /// Navigates to the most recent item in back navigation history, if a Frame manages its own
+        /// navigation history.
         /// <para/>
         /// Only relevant for UWP and Desktop single page application
         /// </summary>
@@ -76,7 +79,8 @@ namespace Cauldron.XAML.Navigation
         }
 
         /// <summary>
-        /// Navigates to the most recent item in forward navigation history, if a Frame manages its own navigation history.
+        /// Navigates to the most recent item in forward navigation history, if a Frame manages its
+        /// own navigation history.
         /// <para/>
         /// Only relevant for UWP and Desktop single page application
         /// </summary>
@@ -95,11 +99,13 @@ namespace Cauldron.XAML.Navigation
             await NavigateInternal<bool>(viewModelType, null, null);
 
         /// <summary>
-        /// Causes the window or page to load content represented by the specified <see cref="IViewModel"/>, also passing a parameter to be used to construct the view model.
+        /// Causes the window or page to load content represented by the specified <see
+        /// cref="IViewModel"/>, also passing a parameter to be used to construct the view model.
         /// </summary>
         /// <param name="viewModelType">The type of the viewmodel to construct</param>
         /// <param name="parameters">
-        /// The navigation parameter to pass to the target view model; must have a basic type (string, char, numeric, or GUID) to support parameter serialization.
+        /// The navigation parameter to pass to the target view model; must have a basic type
+        /// (string, char, numeric, or GUID) to support parameter serialization.
         /// </param>
         /// <returns>true if the navigation attempt was successful; otherwise, false</returns>
         public async Task<bool> NavigateAsync(Type viewModelType, params object[] parameters) =>
@@ -119,7 +125,9 @@ namespace Cauldron.XAML.Navigation
         /// <typeparam name="T">The type of the viewmodel to construct</typeparam>
         /// <typeparam name="TResult">The result type of the dialog</typeparam>
         /// <param name="callback">A delegate that is called after the popup has been closed</param>
-        /// <permission cref="NotSupportedException">The is already an open ContentDialog. Multiple ContentDialogs are not supported</permission>
+        /// <permission cref="NotSupportedException">
+        /// The is already an open ContentDialog. Multiple ContentDialogs are not supported
+        /// </permission>
         public async Task NavigateAsync<T, TResult>(Func<TResult, Task> callback) where T : class, IDialogViewModel<TResult> =>
             await NavigateInternal<TResult>(typeof(T), callback, null, null);
 
@@ -128,43 +136,49 @@ namespace Cauldron.XAML.Navigation
         /// </summary>
         /// <typeparam name="T">The type of the viewmodel to construct</typeparam>
         /// <param name="callback">A delegate that is called after the popup has been closed</param>
-        /// <permission cref="NotSupportedException">The is already an open ContentDialog. Multiple ContentDialogs are not supported</permission>
+        /// <permission cref="NotSupportedException">
+        /// The is already an open ContentDialog. Multiple ContentDialogs are not supported
+        /// </permission>
         public async Task NavigateAsync<T>(Func<Task> callback) where T : class, IDialogViewModel =>
             await NavigateInternal<bool>(typeof(T), null, callback, null);
 
         /// <summary>
-        /// Causes the window or page to load content represented by the specified <see cref="IViewModel"/>, also passing a parameter to be used to construct the view model.
+        /// Causes the window or page to load content represented by the specified <see
+        /// cref="IViewModel"/>, also passing a parameter to be used to construct the view model.
         /// </summary>
         /// <typeparam name="T">The type of the viewmodel to construct</typeparam>
         /// <param name="parameters">
-        /// The navigation parameter to pass to the target view model; must have a basic type (string, char, numeric, or GUID) to support parameter serialization.
+        /// The navigation parameter to pass to the target view model; must have a basic type
+        /// (string, char, numeric, or GUID) to support parameter serialization.
         /// </param>
         /// <returns>true if the navigation attempt was successful; otherwise, false</returns>
         public async Task<bool> NavigateAsync<T>(params object[] parameters) where T : IViewModel =>
             await NavigateInternal<bool>(typeof(T), null, null, parameters);
 
         /// <summary>
-        /// Create a new popup with the view defined by the view model, depending on the views definition, also passing a parameter to be used to construct the view model.
+        /// Create a new popup with the view defined by the view model, depending on the views
+        /// definition, also passing a parameter to be used to construct the view model.
         /// </summary>
         /// <typeparam name="T">The type of the viewmodel to construct</typeparam>
         /// <typeparam name="TResult">The result type of the dialog</typeparam>
         /// <param name="callback">A delegate that is called after the popup has been closed</param>
-        /// <param name="parameters">
-        /// The navigation parameter to pass to the target view model.
-        /// </param>
-        /// <permission cref="NotSupportedException">The is already an open ContentDialog. Multiple ContentDialogs are not supported</permission>
+        /// <param name="parameters">The navigation parameter to pass to the target view model.</param>
+        /// <permission cref="NotSupportedException">
+        /// The is already an open ContentDialog. Multiple ContentDialogs are not supported
+        /// </permission>
         public async Task NavigateAsync<T, TResult>(Func<TResult, Task> callback, params object[] parameters) where T : class, IDialogViewModel<TResult> =>
             await NavigateInternal<TResult>(typeof(T), callback, null, parameters);
 
         /// <summary>
-        /// Create a new popup with the view defined by the view model, depending on the views definition, also passing a parameter to be used to construct the view model.
+        /// Create a new popup with the view defined by the view model, depending on the views
+        /// definition, also passing a parameter to be used to construct the view model.
         /// </summary>
         /// <typeparam name="T">The type of the viewmodel to construct</typeparam>
         /// <param name="callback">A delegate that is called after the popup has been closed</param>
-        /// <param name="parameters">
-        /// The navigation parameter to pass to the target view model.
-        /// </param>
-        /// <permission cref="NotSupportedException">The is already an open ContentDialog. Multiple ContentDialogs are not supported</permission>
+        /// <param name="parameters">The navigation parameter to pass to the target view model.</param>
+        /// <permission cref="NotSupportedException">
+        /// The is already an open ContentDialog. Multiple ContentDialogs are not supported
+        /// </permission>
         public async Task NavigateAsync<T>(Func<Task> callback, params object[] parameters) where T : class, IDialogViewModel =>
             await NavigateInternal<bool>(typeof(T), null, callback, parameters);
 
@@ -173,7 +187,9 @@ namespace Cauldron.XAML.Navigation
         /// </summary>
         /// <param name="viewModel">The viewmodel to that was assigned to the window's data context</param>
         /// <returns>Returns true if successfully closed, otherwise false</returns>
-        /// <exception cref="ArgumentNullException">Parameter <paramref name="viewModel"/> is null</exception>
+        /// <exception cref="ArgumentNullException">
+        /// Parameter <paramref name="viewModel"/> is null
+        /// </exception>
         public bool TryClose(IViewModel viewModel)
         {
             if (viewModel == null)
@@ -207,6 +223,126 @@ namespace Cauldron.XAML.Navigation
             return true;
         }
 
+        internal async Task<bool> NavigateInternal<TResult>(IViewModel viewModel, Func<TResult, Task> callback1, Func<Task> callback2)
+        {
+            try
+            {
+                var viewModelType = viewModel.GetType();
+                Tuple<Window, bool> windowInfo;
+
+                // Check if the view model has a defined view
+                var viewAttrib = viewModelType.GetCustomAttribute<ViewAttribute>(false);
+                if (viewAttrib != null)
+                    // Create the view - use the activator, since we dont expect any code in the view
+                    windowInfo = await CreateDefaultWindow(callback1, callback2, Factory.Create(viewAttrib.ViewType) as FrameworkElement, viewModel);
+                else // The viewmodel does not have a defined view... Maybe we have a data template instead
+                {
+                    // we always prefer our selector, because it rocks
+                    var templateSelector = Application.Current.Resources[typeof(CauldronTemplateSelector).Name] as DataTemplateSelector;
+                    var dataTemplate = templateSelector.SelectTemplate(viewModel, null);
+
+                    // If we dont have a dataTemplate... we try to find a matching FrameworkElement
+                    if (dataTemplate == null)
+                    {
+                        var possibleViewName = viewModelType.Name.Left(viewModelType.Name.Length - "Model".Length);
+                        var possibleView = Factory.Create(possibleViewName) ?? Factory.Create(Assemblies.GetTypeFromName(possibleViewName));
+
+                        // On such case we create a dummy View
+                        if (possibleView == null)
+                        {
+                            var textBlock = new TextBlock();
+                            textBlock.Text = viewModelType.FullName;
+                            textBlock.Foreground = new SolidColorBrush(Colors.Tomato);
+                            textBlock.TextWrapping = TextWrapping.NoWrap;
+                            textBlock.TextTrimming = TextTrimming.CharacterEllipsis;
+                            textBlock.FontSize = 18;
+
+                            windowInfo = await CreateDefaultWindow(callback1, callback2, textBlock, viewModel);
+                        }
+                        else
+                            windowInfo = await CreateDefaultWindow(callback1, callback2, possibleView as FrameworkElement, viewModel);
+                    }
+                    else
+                        // try to get a WindowConfiguration attach in the datatemplate
+                        windowInfo = await CreateDefaultWindow(callback1, callback2, dataTemplate.LoadContent() as FrameworkElement, viewModel);
+                }
+
+                var window = windowInfo.Item1;
+                (viewModel as IDisposableObject).IsNotNull(x => x.Disposed += async (s, e) => await viewModel.Dispatcher.RunAsync(() => window.Close()));
+
+                window.Closing += (s, e) =>
+                {
+                    var closeAware = viewModel as ICloseAwareViewModel;
+
+                    if (closeAware != null)
+                        e.Cancel = !closeAware.CanClose();
+                };
+
+                window.Closed += (s, e) => (viewModel as ICloseAwareViewModel).IsNotNull(x => x.Close());
+
+                window.Activated += (s, e) =>
+                {
+                    // This only applies to windows that are not maximized
+                    if (window.WindowState != WindowState.Maximized)
+                    {
+                        // Check if the window is visible for the user If the user has for example
+                        // undocked his laptop (which means he lost a monitor) and the application
+                        // was running on the secondary monitor, we can't just start the window with
+                        // that configuration
+                        if (!MonitorInfo.WindowIsInAnyMonitor(window.GetWindowHandle()))
+                        {
+                            var source = PresentationSource.FromVisual(window);
+                            var primaryBounds = MonitorInfo.PrimaryMonitorBounds;
+                            window.Height = Math.Min(window.Height, primaryBounds.Height);
+                            window.Width = Math.Min(window.Width, primaryBounds.Width);
+
+                            window.Left = Math.Max(0, (primaryBounds.Width / source.CompositionTarget.TransformToDevice.M11 / 2) - (window.Width / 2));
+                            window.Top = Math.Max(0, (primaryBounds.Height / source.CompositionTarget.TransformToDevice.M22 / 2) - (window.Height / 2));
+                        }
+                        else
+                        {
+                            // we have to make sure, that the title bar of the window is visible for
+                            // the user
+                            var monitorBounds = MonitorInfo.GetMonitorBounds(window.GetWindowHandle());
+
+                            if (monitorBounds.HasValue)
+                            {
+                                window.Height = Math.Min(window.Height, monitorBounds.Value.Height);
+                                window.Width = Math.Min(window.Width, monitorBounds.Value.Width);
+                                window.Left = window.Left >= monitorBounds.Value.Left && window.Left <= monitorBounds.Value.Right ? window.Left : monitorBounds.Value.Left;
+                                window.Top = window.Top >= monitorBounds.Value.Top && window.Top <= monitorBounds.Value.Bottom ? window.Top : monitorBounds.Value.Top;
+                            }
+                            else // set the left and top to 0
+                            {
+                                window.Left = 0;
+                                window.Top = 0;
+                            }
+                        }
+                    }
+                };
+
+                if (windowInfo.Item2)
+                    window.ShowDialog();
+                else
+                    window.Show();
+
+                return true;
+            }
+            catch (XamlParseException)
+            {
+                throw;
+            }
+            catch (NullReferenceException)
+            {
+                throw;
+            }
+            catch (Exception e)
+            {
+                Output.WriteLineError(e.GetStackTrace());
+                return false;
+            }
+        }
+
         private bool Close(Window window)
         {
             if (window == Application.Current.MainWindow)
@@ -234,17 +370,24 @@ namespace Cauldron.XAML.Navigation
             var window = Common.CreateWindow(ref windowType);
             window.BeginInit();
 
+            // Special stuff for splashscreens
+            if (viewModel is ApplicationBase)
+            {
+                window.Tag = SplashScreenWindowTag;
+                WindowConfiguration.SetHasOwner(view, false);
+                WindowConfiguration.SetSizeToContent(view, SizeToContent.WidthAndHeight);
+                WindowConfiguration.SetShowInTaskbar(view, false);
+                WindowConfiguration.SetWindowStartupLocation(view, WindowStartupLocation.CenterScreen);
+                WindowConfiguration.SetWindowStyle(view, WindowStyle.None);
+                WindowConfiguration.SetResizeMode(view, ResizeMode.NoResize);
+                WindowConfiguration.SetIcon(view, null);
+                WindowConfiguration.SetTitle(view, null);
+            }
+
             // Add this new window to the dictionary
             windows.Add(new WindowViewModelObject { window = window, viewModelId = viewModel.Id });
-
-            // set the configs
-            if (windowType.IsCutomWindow)
-                window.ResizeMode = WindowConfiguration.GetResizeMode(view);
-            else
-            {
-                window.ResizeMode = WindowConfiguration.GetResizeMode(view);
-                window.WindowStyle = WindowConfiguration.GetWindowStyle(view);
-            }
+            window.ResizeMode = WindowConfiguration.GetResizeMode(view);
+            window.WindowStyle = WindowConfiguration.GetWindowStyle(view);
 
             window.Width = WindowConfiguration.GetWidth(view);
             window.Height = WindowConfiguration.GetHeight(view);
@@ -258,15 +401,8 @@ namespace Cauldron.XAML.Navigation
             window.WindowState = WindowConfiguration.GetWindowState(view);
             window.SizeToContent = WindowConfiguration.GetSizeToContent(view);
 
-            // Special stuff for splashscreens
-            if (WindowConfiguration.GetIsMainWindow(view))
-                window.Tag = MainWindowTag;
-
-            if (Application.Current.MainWindow != null && window.Tag == MainWindowTag)
-                Application.Current.MainWindow = window;
-
-            // Add the inputbindings to the window
-            // we have to recreate the binding here because the sources are all wrong
+            // Add the inputbindings to the window we have to recreate the binding here because the
+            // sources are all wrong
 
             foreach (InputBinding inputBinding in view.InputBindings)
             {
@@ -282,16 +418,19 @@ namespace Cauldron.XAML.Navigation
             view.InputBindings.Clear();
 
             if (WindowConfiguration.GetIsWindowPersistent(view))
-                await PersistentWindowInformation.Load(window, viewModel.GetType());
+                PersistentWindowInformation.Load(window, viewModel.GetType());
 
             // set the window owner
-            if (window.Tag != MainWindowTag && WindowConfiguration.GetHasOwner(view))
-                windows.FirstOrDefault(x => x.window.IsActive).IsNotNull(x => window.Owner = x.window);
+            if (window.Tag != SplashScreenWindowTag && WindowConfiguration.GetHasOwner(view) && Application.Current.MainWindow.Tag != SplashScreenWindowTag)
+                windows.FirstOrDefault(x => x.window.IsActive).IsNotNull(x => window.Owner = x?.window);
+
+            if (Application.Current.MainWindow != null && Application.Current.MainWindow.Tag == SplashScreenWindowTag)
+                Application.Current.MainWindow = window;
 
             window.SetBinding(Window.IconProperty, new Binding { Path = new PropertyPath(WindowConfiguration.IconProperty), Source = view });
             window.SetBinding(Window.TitleProperty, new Binding { Path = new PropertyPath(WindowConfiguration.TitleProperty), Source = view });
 
-            if (window.Icon == null)
+            if (window.Icon == null && window.Tag != SplashScreenWindowTag)
                 window.Icon = await Win32Api.ExtractAssociatedIcon(Assembly.GetEntryAssembly().Location).ToBitmapImageAsync();
 
             (viewModel as IFrameAware).IsNotNull(x =>
@@ -311,9 +450,7 @@ namespace Cauldron.XAML.Navigation
             window.Closing += (s, e) =>
             {
                 if (WindowConfiguration.GetIsWindowPersistent(view))
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
                     PersistentWindowInformation.Save(window, viewModel.GetType());
-#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 
                 var canClose = viewModel as IFrameAware;
 
@@ -351,107 +488,8 @@ namespace Cauldron.XAML.Navigation
             return window;
         }
 
-        private async Task<bool> NavigateInternal<TResult>(Type type, Func<TResult, Task> callback1, Func<Task> callback2, params object[] args)
-        {
-            try
-            {
-                // create the new viewmodel
-                var viewModel = Factory.Create(type, args) as IViewModel;
-                var viewModelType = viewModel.GetType();
-                Tuple<Window, bool> windowInfo;
-
-                // Check if the view model has a defined view
-                var viewAttrib = viewModelType.GetCustomAttribute<ViewAttribute>(false);
-                if (viewAttrib != null)
-                    // Create the view - use the activator, since we dont expect any code in the view
-                    windowInfo = await CreateDefaultWindow(callback1, callback2, viewAttrib.ViewType.CreateInstance() as FrameworkElement, viewModel);
-                else // The viewmodel does not have a defined view... Maybe we have a data template instead
-                {
-                    // we always prefer our selector, because it rocks
-                    var templateSelector = Application.Current.Resources[typeof(CauldronTemplateSelector).Name] as DataTemplateSelector;
-                    var dataTemplate = templateSelector.SelectTemplate(viewModel, null);
-
-                    // If we dont have a dataTemplate... we try to find a matching FrameworkElement
-                    if (dataTemplate == null)
-                    {
-                        var possibleViewName = viewModelType.Name.Left(viewModelType.Name.Length - "Model".Length);
-                        var possibleView = Factory.Create(possibleViewName) ?? Factory.Create(Assemblies.GetTypeFromName(possibleViewName));
-
-                        // On such case we create a dummy View
-                        if (possibleView == null)
-                        {
-                            var textBlock = new TextBlock();
-                            textBlock.Text = viewModelType.FullName;
-                            textBlock.Foreground = new SolidColorBrush(Colors.Tomato);
-                            textBlock.TextWrapping = TextWrapping.NoWrap;
-                            textBlock.TextTrimming = TextTrimming.CharacterEllipsis;
-                            textBlock.FontSize = 18;
-
-                            windowInfo = await CreateDefaultWindow(callback1, callback2, textBlock, viewModel);
-                        }
-                        else
-                            windowInfo = await CreateDefaultWindow(callback1, callback2, possibleView as FrameworkElement, viewModel);
-                    }
-                    else
-                        // try to get a WindowConfiguration attach in the datatemplate
-                        windowInfo = await CreateDefaultWindow(callback1, callback2, dataTemplate.LoadContent() as FrameworkElement, viewModel);
-                }
-
-                Window window = windowInfo.Item1;
-                (viewModel as IDisposableObject).IsNotNull(x => x.Disposed += async (s, e) => await viewModel.Dispatcher.RunAsync(() => window.Close()));
-
-                // if this is not a dialog... we show the window first and then invoke the navigation method
-                if (!windowInfo.Item2)
-                    window.Show();
-
-                // This only applies to windows that are not maximized
-                if (window.WindowState != WindowState.Maximized)
-                {
-                    // Check if the window is visible for the user
-                    // If the user has for example undocked his laptop (which means he lost a monitor) and the application
-                    // was running on the secondary monitor, we can't just start the window with that configuration
-                    if (!MonitorInfo.WindowIsInAnyMonitor(window.GetWindowHandle()))
-                    {
-                        var primaryBounds = MonitorInfo.PrimaryMonitorBounds;
-                        window.Height = Math.Min(window.Height, primaryBounds.Height);
-                        window.Width = Math.Min(window.Width, primaryBounds.Width);
-                        window.Left = Math.Max(0, (primaryBounds.Width / 2) - (window.Width / 2));
-                        window.Top = Math.Max(0, (primaryBounds.Height / 2) - (window.Height / 2));
-                    }
-                    else
-                    {
-                        // we have to make sure, that the title bar of the window is visible for the user
-                        var monitorBounds = MonitorInfo.GetMonitorBounds(window.GetWindowHandle());
-
-                        if (monitorBounds.HasValue)
-                        {
-                            window.Height = Math.Min(window.Height, monitorBounds.Value.Height);
-                            window.Width = Math.Min(window.Width, monitorBounds.Value.Width);
-                            window.Left = window.Left >= monitorBounds.Value.Left && window.Left <= monitorBounds.Value.Right ? window.Left : monitorBounds.Value.Left;
-                            window.Top = window.Top >= monitorBounds.Value.Top && window.Top <= monitorBounds.Value.Bottom ? window.Top : monitorBounds.Value.Top;
-                        }
-                        else // set the left and top to 0
-                        {
-                            window.Left = 0;
-                            window.Top = 0;
-                        }
-                    }
-                }
-
-                if (windowInfo.Item2)
-                    window.ShowDialog();
-
-                return true;
-            }
-            catch (XamlParseException)
-            {
-                throw;
-            }
-            catch
-            {
-                return false;
-            }
-        }
+        private Task<bool> NavigateInternal<TResult>(Type type, Func<TResult, Task> callback1, Func<Task> callback2, params object[] args) =>
+            this.NavigateInternal(Factory.Create(type, args) as IViewModel, callback1, callback2);
 
         private class WindowViewModelObject
         {

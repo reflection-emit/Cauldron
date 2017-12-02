@@ -27,12 +27,12 @@ namespace Cauldron.XAML.Interactivity
         #region Dependency Property Password
 
         /// <summary>
-        /// Identifies the <see cref="Password" /> dependency property
+        /// Identifies the <see cref="Password"/> dependency property
         /// </summary>
         public static readonly DependencyProperty PasswordProperty = DependencyProperty.Register(nameof(Password), typeof(SecureString), typeof(PasswordBoxBinding), new PropertyMetadata(null));
 
         /// <summary>
-        /// Gets or sets the <see cref="Password" /> Property
+        /// Gets or sets the <see cref="Password"/> Property
         /// </summary>
         public SecureString Password
         {
@@ -60,7 +60,11 @@ namespace Cauldron.XAML.Interactivity
 
         private void AssociatedObject_PasswordChanged(object sender, RoutedEventArgs e)
         {
+#if WINDOWS_UWP
             this.Password = this.AssociatedObject.Password.ToSecureString();
+#else
+            this.Password = this.AssociatedObject.SecurePassword;
+#endif
         }
     }
 }

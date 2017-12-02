@@ -56,7 +56,8 @@ namespace Cauldron.Activator
         }
 
         /// <summary>
-        /// Gets or sets a value that indicates if the <see cref="Factory"/> is allowed to raise an exception or not.
+        /// Gets or sets a value that indicates if the <see cref="Factory"/> is allowed to raise an
+        /// exception or not.
         /// </summary>
         public static bool CanRaiseExceptions { get; set; } = true;
 
@@ -72,7 +73,9 @@ namespace Cauldron.Activator
         /// <param name="contractName">The name that identifies the type</param>
         /// <param name="creationPolicy">The creation policy of the type as defined by <see cref="FactoryCreationPolicy"/></param>
         /// <param name="type">The type to be added</param>
-        /// <param name="createInstance">An action that is called by the factory to create the object</param>
+        /// <param name="createInstance">
+        /// An action that is called by the factory to create the object
+        /// </param>
         public static IFactoryTypeInfo AddType(string contractName, FactoryCreationPolicy creationPolicy, Type type, Func<object[], object> createInstance)
         {
             var factoryTypeInfo = new FactoryTypeInfoInternal(contractName, creationPolicy, type, createInstance);
@@ -93,15 +96,23 @@ namespace Cauldron.Activator
         /// </summary>
         /// <typeparam name="T">The Type that contract name derives from</typeparam>
         /// <param name="parameters">
-        /// An array of arguments that match in number, order, and type the parameters of
-        /// the constructor to invoke. If args is an empty array or null, the constructor
-        /// that takes no parameters (the default constructor) is invoked.
+        /// An array of arguments that match in number, order, and type the parameters of the
+        /// constructor to invoke. If args is an empty array or null, the constructor that takes no
+        /// parameters (the default constructor) is invoked.
         /// </param>
         /// <returns>A reference to the newly created object.</returns>
-        /// <exception cref="KeyNotFoundException">The contract described by <typeparamref name="T"/> was not found</exception>
+        /// <exception cref="KeyNotFoundException">
+        /// The contract described by <typeparamref name="T"/> was not found
+        /// </exception>
         /// <exception cref="Exception">Unknown <see cref="FactoryCreationPolicy"/></exception>
-        /// <exception cref="AmbiguousMatchException">There is more than one implementation with contractname <typeparamref name="T"/> found.</exception>
-        /// <exception cref="NotSupportedException">An <see cref="object"/> with <see cref="FactoryCreationPolicy.Singleton"/> with an implemented <see cref="IDisposable"/> must also implement the <see cref="IDisposableObject"/> interface.</exception>
+        /// <exception cref="AmbiguousMatchException">
+        /// There is more than one implementation with contractname <typeparamref name="T"/> found.
+        /// </exception>
+        /// <exception cref="NotSupportedException">
+        /// An <see cref="object"/> with <see cref="FactoryCreationPolicy.Singleton"/> with an
+        /// implemented <see cref="IDisposable"/> must also implement the <see
+        /// cref="IDisposableObject"/> interface.
+        /// </exception>
         public static T Create<T>(params object[] parameters) where T : class => GetInstance(typeof(T).FullName, parameters) as T;
 
         /// <summary>
@@ -109,17 +120,29 @@ namespace Cauldron.Activator
         /// </summary>
         /// <param name="contractName">The name that identifies the type</param>
         /// <param name="parameters">
-        /// An array of arguments that match in number, order, and type the parameters of
-        /// the constructor to invoke. If args is an empty array or null, the constructor
-        /// that takes no parameters (the default constructor) is invoked.
+        /// An array of arguments that match in number, order, and type the parameters of the
+        /// constructor to invoke. If args is an empty array or null, the constructor that takes no
+        /// parameters (the default constructor) is invoked.
         /// </param>
         /// <returns>A reference to the newly created object.</returns>
-        /// <exception cref="ArgumentNullException">The parameter <paramref name="contractName"/> is null</exception>
-        /// <exception cref="ArgumentException">The parameter <paramref name="contractName"/> is an empty string</exception>
-        /// <exception cref="KeyNotFoundException">The contract described by <paramref name="contractName"/> was not found</exception>
+        /// <exception cref="ArgumentNullException">
+        /// The parameter <paramref name="contractName"/> is null
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        /// The parameter <paramref name="contractName"/> is an empty string
+        /// </exception>
+        /// <exception cref="KeyNotFoundException">
+        /// The contract described by <paramref name="contractName"/> was not found
+        /// </exception>
         /// <exception cref="Exception">Unknown <see cref="FactoryCreationPolicy"/></exception>
-        /// <exception cref="AmbiguousMatchException">There is more than one implementation with contractname <paramref name="contractName"/> found.</exception>
-        /// <exception cref="NotSupportedException">An <see cref="object"/> with <see cref="FactoryCreationPolicy.Singleton"/> with an implemented <see cref="IDisposable"/> must also implement the <see cref="IDisposableObject"/> interface.</exception>
+        /// <exception cref="AmbiguousMatchException">
+        /// There is more than one implementation with contractname <paramref name="contractName"/> found.
+        /// </exception>
+        /// <exception cref="NotSupportedException">
+        /// An <see cref="object"/> with <see cref="FactoryCreationPolicy.Singleton"/> with an
+        /// implemented <see cref="IDisposable"/> must also implement the <see
+        /// cref="IDisposableObject"/> interface.
+        /// </exception>
         public static object Create(string contractName, params object[] parameters)
         {
             if (contractName == null)
@@ -136,16 +159,26 @@ namespace Cauldron.Activator
         /// </summary>
         /// <param name="contractType">The Type that contract name derives from</param>
         /// <param name="parameters">
-        /// An array of arguments that match in number, order, and type the parameters of
-        /// the constructor to invoke. If args is an empty array or null, the constructor
-        /// that takes no parameters (the default constructor) is invoked.
+        /// An array of arguments that match in number, order, and type the parameters of the
+        /// constructor to invoke. If args is an empty array or null, the constructor that takes no
+        /// parameters (the default constructor) is invoked.
         /// </param>
         /// <returns>A reference to the newly created object.</returns>
-        /// <exception cref="ArgumentNullException">The parameter <paramref name="contractType"/> is null</exception>
-        /// <exception cref="KeyNotFoundException">The contract described by <paramref name="contractType"/> was not found</exception>
+        /// <exception cref="ArgumentNullException">
+        /// The parameter <paramref name="contractType"/> is null
+        /// </exception>
+        /// <exception cref="KeyNotFoundException">
+        /// The contract described by <paramref name="contractType"/> was not found
+        /// </exception>
         /// <exception cref="Exception">Unknown <see cref="FactoryCreationPolicy"/></exception>
-        /// <exception cref="AmbiguousMatchException">There is more than one implementation with contractname <paramref name="contractType"/> found.</exception>
-        /// <exception cref="NotSupportedException">An <see cref="object"/> with <see cref="FactoryCreationPolicy.Singleton"/> with an implemented <see cref="IDisposable"/> must also implement the <see cref="IDisposableObject"/> interface.</exception>
+        /// <exception cref="AmbiguousMatchException">
+        /// There is more than one implementation with contractname <paramref name="contractType"/> found.
+        /// </exception>
+        /// <exception cref="NotSupportedException">
+        /// An <see cref="object"/> with <see cref="FactoryCreationPolicy.Singleton"/> with an
+        /// implemented <see cref="IDisposable"/> must also implement the <see
+        /// cref="IDisposableObject"/> interface.
+        /// </exception>
         public static object Create(Type contractType, params object[] parameters)
         {
             if (contractType == null)
@@ -155,19 +188,23 @@ namespace Cauldron.Activator
         }
 
         /// <summary>
-        /// Creates an instance of the specified type using the constructor that best matches the specified parameters.
-        /// This method is similar to <see cref="ExtensionsReflection.CreateInstance(Type, object[])"/>, but this takes the types defined with <see cref="ComponentAttribute"/> into
-        /// account. This also executes the factory extensions (<see cref="IFactoryResolver"/>).
+        /// Creates an instance of the specified type using the constructor that best matches the
+        /// specified parameters. This method is similar to <see
+        /// cref="ExtensionsReflection.CreateInstance(Type, object[])"/>, but this takes the types
+        /// defined with <see cref="ComponentAttribute"/> into account. This also executes the
+        /// factory extensions ( <see cref="IFactoryResolver"/>).
         /// </summary>
         /// <param name="type">The type of object to create.</param>
         /// <param name="args">
-        /// An array of arguments that match in number, order, and type the parameters of
-        /// the constructor to invoke. If args is an empty array or null, the constructor
-        /// that takes no parameters (the default constructor) is invoked.
+        /// An array of arguments that match in number, order, and type the parameters of the
+        /// constructor to invoke. If args is an empty array or null, the constructor that takes no
+        /// parameters (the default constructor) is invoked.
         /// </param>
         /// <returns>A reference to the newly created object.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="type"/> is null</exception>
-        /// <exception cref="NotImplementedException">Implementation of <paramref name="type"/> not found</exception>
+        /// <exception cref="NotImplementedException">
+        /// Implementation of <paramref name="type"/> not found
+        /// </exception>
         public static object CreateInstance(Type type, params object[] args)
         {
             if (type == null)
@@ -195,16 +232,26 @@ namespace Cauldron.Activator
         /// </summary>
         /// <param name="contractName">The name that identifies the type</param>
         /// <param name="parameters">
-        /// An array of arguments that match in number, order, and type the parameters of
-        /// the constructor to invoke. If args is an empty array or null, the constructor
-        /// that takes no parameters (the default constructor) is invoked.
+        /// An array of arguments that match in number, order, and type the parameters of the
+        /// constructor to invoke. If args is an empty array or null, the constructor that takes no
+        /// parameters (the default constructor) is invoked.
         /// </param>
         /// <returns>A collection of the newly created objects.</returns>
-        /// <exception cref="ArgumentNullException">The parameter <paramref name="contractName"/> is null</exception>
-        /// <exception cref="ArgumentException">The parameter <paramref name="contractName"/> is an empty string</exception>
-        /// <exception cref="KeyNotFoundException">The contract described by <paramref name="contractName"/> was not found</exception>
+        /// <exception cref="ArgumentNullException">
+        /// The parameter <paramref name="contractName"/> is null
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        /// The parameter <paramref name="contractName"/> is an empty string
+        /// </exception>
+        /// <exception cref="KeyNotFoundException">
+        /// The contract described by <paramref name="contractName"/> was not found
+        /// </exception>
         /// <exception cref="Exception">Unknown <see cref="FactoryCreationPolicy"/></exception>
-        /// <exception cref="NotSupportedException">An <see cref="object"/> with <see cref="FactoryCreationPolicy.Singleton"/> with an implemented <see cref="IDisposable"/> must also implement the <see cref="IDisposableObject"/> interface.</exception>
+        /// <exception cref="NotSupportedException">
+        /// An <see cref="object"/> with <see cref="FactoryCreationPolicy.Singleton"/> with an
+        /// implemented <see cref="IDisposable"/> must also implement the <see
+        /// cref="IDisposableObject"/> interface.
+        /// </exception>
         public static IEnumerable CreateMany(string contractName, params object[] parameters)
         {
             if (contractName == null)
@@ -221,15 +268,23 @@ namespace Cauldron.Activator
         /// </summary>
         /// <param name="contractType">The Type that contract name derives from</param>
         /// <param name="parameters">
-        /// An array of arguments that match in number, order, and type the parameters of
-        /// the constructor to invoke. If args is an empty array or null, the constructor
-        /// that takes no parameters (the default constructor) is invoked.
+        /// An array of arguments that match in number, order, and type the parameters of the
+        /// constructor to invoke. If args is an empty array or null, the constructor that takes no
+        /// parameters (the default constructor) is invoked.
         /// </param>
         /// <returns>A collection of the newly created objects.</returns>
-        /// <exception cref="ArgumentNullException">The parameter <paramref name="contractType"/> is null</exception>
-        /// <exception cref="KeyNotFoundException">The contract described by <paramref name="contractType"/> was not found</exception>
+        /// <exception cref="ArgumentNullException">
+        /// The parameter <paramref name="contractType"/> is null
+        /// </exception>
+        /// <exception cref="KeyNotFoundException">
+        /// The contract described by <paramref name="contractType"/> was not found
+        /// </exception>
         /// <exception cref="Exception">Unknown <see cref="FactoryCreationPolicy"/></exception>
-        /// <exception cref="NotSupportedException">An <see cref="object"/> with <see cref="FactoryCreationPolicy.Singleton"/> with an implemented <see cref="IDisposable"/> must also implement the <see cref="IDisposableObject"/> interface.</exception>
+        /// <exception cref="NotSupportedException">
+        /// An <see cref="object"/> with <see cref="FactoryCreationPolicy.Singleton"/> with an
+        /// implemented <see cref="IDisposable"/> must also implement the <see
+        /// cref="IDisposableObject"/> interface.
+        /// </exception>
         public static IEnumerable CreateMany(Type contractType, params object[] parameters)
         {
             if (contractType == null)
@@ -243,30 +298,39 @@ namespace Cauldron.Activator
         /// </summary>
         /// <typeparam name="T">The Type that contract name derives from</typeparam>
         /// <param name="parameters">
-        /// An array of arguments that match in number, order, and type the parameters of
-        /// the constructor to invoke. If args is an empty array or null, the constructor
-        /// that takes no parameters (the default constructor) is invoked.
+        /// An array of arguments that match in number, order, and type the parameters of the
+        /// constructor to invoke. If args is an empty array or null, the constructor that takes no
+        /// parameters (the default constructor) is invoked.
         /// </param>
         /// <returns>A collection of the newly created objects.</returns>
-        /// <exception cref="KeyNotFoundException">The contract described by <typeparamref name="T"/> was not found</exception>
+        /// <exception cref="KeyNotFoundException">
+        /// The contract described by <typeparamref name="T"/> was not found
+        /// </exception>
         /// <exception cref="Exception">Unknown <see cref="FactoryCreationPolicy"/></exception>
-        /// <exception cref="NotSupportedException">An <see cref="object"/> with <see cref="FactoryCreationPolicy.Singleton"/> with an implemented <see cref="IDisposable"/> must also implement the <see cref="IDisposableObject"/> interface.</exception>
+        /// <exception cref="NotSupportedException">
+        /// An <see cref="object"/> with <see cref="FactoryCreationPolicy.Singleton"/> with an
+        /// implemented <see cref="IDisposable"/> must also implement the <see
+        /// cref="IDisposableObject"/> interface.
+        /// </exception>
         public static IEnumerable<T> CreateMany<T>(params object[] parameters) => GetInstances(typeof(T).FullName, parameters).Cast<T>();
 
         /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting
+        /// unmanaged resources.
         /// </summary>
         /// <typeparam name="T">The Type that the contract name derives from</typeparam>
         public static void Destroy<T>() => Destroy(typeof(T));
 
         /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting
+        /// unmanaged resources.
         /// </summary>
         /// <param name="contractType">The Type that the contract name derives from</param>
         public static void Destroy(Type contractType) => Destroy(contractType.FullName);
 
         /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting
+        /// unmanaged resources.
         /// </summary>
         /// <param name="contractName">The name that identifies the type</param>
         public static void Destroy(string contractName)
@@ -287,7 +351,8 @@ namespace Cauldron.Activator
         }
 
         /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting
+        /// unmanaged resources.
         /// </summary>
         public static void Destroy()
         {
@@ -359,8 +424,9 @@ namespace Cauldron.Activator
                     var newInstance = CreateInstance(factoryTypeInfo, parameters);
                     var key = factoryTypeInfo.ContractName + factoryTypeInfo.Type.FullName;
 
-                    // every singleton that implements the idisposable interface has also to implement the IDisposableObject interface
-                    // this is because we want to know if an instance was disposed (somehow)
+                    // every singleton that implements the idisposable interface has also to
+                    // implement the IDisposableObject interface this is because we want to know if
+                    // an instance was disposed (somehow)
                     var disposable = newInstance as IDisposable;
                     if (disposable != null)
                     {

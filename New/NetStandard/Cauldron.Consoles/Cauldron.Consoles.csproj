@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <AssemblyVersion>2.0.0.10</AssemblyVersion>
+    <FileVersion>2.0.0.10</FileVersion>
+    <Version>2.0.10-beta</Version>
+    <Authors>Alexander Schunk, Capgemini Deutschland GmbH</Authors>
+    <Company>Capgemini Deutschland GmbH</Company>
+    <Copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</Copyright>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/Capgemini/Cauldron</PackageProjectUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</PackageIconUrl>
+    <Description>Cauldron.Consoles is a Cauldron.Core based parameter parser which supports grouping of parameters in execution groups. It is also supports localization and has a nice parameter table :)</Description>
+    <PackageTags>Toolkit Capgemini Console Parameter Parsing Argument Arguments Parameters Cauldron Command CommandLine Args</PackageTags>
+    <PackageId>Capgemini.Cauldron.Consoles</PackageId>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard2.0\Cauldron.Consoles.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netstandard2.0\Cauldron.Consoles.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cauldron.Core.Extensions\Cauldron.Core.Extensions.csproj" />
+    <ProjectReference Include="..\Cauldron.Core.Randomizer\Cauldron.Core.Randomizer.csproj" />
+    <ProjectReference Include="..\Cauldron.Localization\Cauldron.Localization.csproj" />
+  </ItemGroup>
+
+</Project>

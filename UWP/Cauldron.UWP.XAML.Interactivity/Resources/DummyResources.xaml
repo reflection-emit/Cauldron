@@ -5,14 +5,14 @@
     xmlns:local="using:Cauldron.XAML.Interactivity.Resources"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:a="using:Cauldron.XAML.Interactivity.Attached"
+    xmlns:a="using:Cauldron.XAML.Interactivity"
     mc:Ignorable="d">
 
     <!-- This is required, so that XamlReader.Load can load our custom attached properties and behaviours -->
 
     <DataTemplate x:Key="__dummy_hyper">
         <Span>
-            <Hyperlink a:HyperlinkProperties.NavigateUri="ioi" a:Localized.Text="op" a:Localized.Tooltip="oo" />
+            <!--<Hyperlink a:HyperlinkProperties.NavigateUri="ioi" a:Localized.Text="op" a:Localized.ToolTip="oo" />-->
         </Span>
     </DataTemplate>
 </ResourceDictionary>

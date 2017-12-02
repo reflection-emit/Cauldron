@@ -45,6 +45,17 @@ namespace Cauldron.Interception.Test
         string GetAnyStringMethod(int aParameter, char bParameter);
     }
 
+    public interface ISpecial
+    {
+        string Description { get; }
+        string Name { get; }
+    }
+
+    public static class Anonymouse_Type_To_Interface_Test_Extensions
+    {
+        public static TResult Blabla<T, TResult>(this T value, Func<T, TResult> function) => function(value);
+    }
+
     [TestClass]
     public class Anonymouse_Type_To_Interface_Test
     {
@@ -93,6 +104,15 @@ namespace Cauldron.Interception.Test
             Assert.AreEqual("Hello", obj.StringProperty);
             Assert.AreEqual(5.5, obj.DoubleProperty);
             Assert.AreEqual(60, obj.LongProperty);
+        }
+
+        [TestMethod]
+        public void Bug38_Validator()
+        {
+            var blub = "Hi;This;Is;Me";
+            var huhu = blub.Split(';')
+                .Select(x => new { Name = x[3], Description = x[1] })
+                .CreateType<ISpecial>();
         }
 
         [TestMethod]

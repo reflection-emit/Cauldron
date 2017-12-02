@@ -21,6 +21,8 @@ namespace Cauldron.XAML.Interactivity
     /// <typeparam name="T">The control type the behaviour can be attached to</typeparam>
     public abstract class Behaviour<T> : FrameworkElement, IBehaviour where T : DependencyObject
     {
+        private bool isdetached = false;
+
         /// <summary>
         /// Initializes a new instance of <see cref="Behaviour{T}"/>
         /// </summary>
@@ -38,9 +40,18 @@ namespace Cauldron.XAML.Interactivity
         /// </summary>
         public bool IsAssignedFromTemplate { get; private set; }
 
+        /// <summary>
+        /// Gets a value that indicates that the behaviour is detached
+        /// </summary>
+        public bool IsDetached { get { return this.isdetached; } }
+
         object IBehaviour.AssociatedObject { get; set; }
 
-        void IBehaviour.Attach() => this.OnAttach();
+        void IBehaviour.Attach()
+        {
+            this.OnAttach();
+            this.isdetached = false;
+        }
 
         IBehaviour IBehaviour.Copy()
         {
@@ -60,7 +71,14 @@ namespace Cauldron.XAML.Interactivity
 
         void IBehaviour.DataContextPropertyChanged(string name) => this.OnDataContextPropertyChanged(name);
 
-        void IBehaviour.Detach() => this.OnDetach();
+        void IBehaviour.Detach()
+        {
+            if (this.isdetached)
+                return;
+
+            this.OnDetach();
+            this.isdetached = true;
+        }
 
         /// <summary>
         /// Occures when the behavior is attached to the object

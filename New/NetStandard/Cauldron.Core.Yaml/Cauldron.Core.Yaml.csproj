@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Version>2.0.10-beta</Version>
+    <Authors>Alexander Schunk, Capgemini Deutschland GmbH</Authors>
+    <Company>Capgemini Deutschland GmbH</Company>
+    <Copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</Copyright>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/Capgemini/Cauldron</PackageProjectUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</PackageIconUrl>
+    <PackageTags>Toolkit Capgemini Cauldron Yaml</PackageTags>
+    <Description>A YAML deserializer</Description>
+    <PackageId>Capgemini.Cauldron.Core.Yaml</PackageId>
+  <AssemblyVersion>2.0.0.10</AssemblyVersion>
+<FileVersion>2.0.0.10</FileVersion>
+</PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard2.0\Cauldron.Core.Yaml.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netstandard2.0\Cauldron.Core.Yaml.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cauldron.Core.Extensions.Convertions\Cauldron.Core.Extensions.Convertions.csproj" />
+    <ProjectReference Include="..\Cauldron.Core.Reflection\Cauldron.Core.Reflection.csproj" />
+  </ItemGroup>
+
+</Project>

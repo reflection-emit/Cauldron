@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>Capgemini.Cauldron.Cryptography</PackageId>
+    <Version>2.0.10-beta</Version>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Description>Contains typical implementations for AES, RSA and RSA-AES encryptions. It also contains extensions that helps working with SecureString.</Description>
+    <Copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</Copyright>
+    <Authors>Alexander Schunk, Capgemini Deutschland GmbH</Authors>
+    <Company>Capgemini Deutschland GmbH</Company>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/Capgemini/Cauldron</PackageProjectUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</PackageIconUrl>
+    <PackageTags>Toolkit Capgemini Cauldron Cryptography AES RSA SecureString</PackageTags>
+    <AssemblyVersion>2.0.0.10</AssemblyVersion>
+    <FileVersion>2.0.0.10</FileVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+    <DocumentationFile>bin\Release\netstandard2.0\Cauldron.Cryptography.xml</DocumentationFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+    <DocumentationFile>bin\Debug\netstandard2.0\Cauldron.Cryptography.xml</DocumentationFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cauldron.Core.Comparing\Cauldron.Core.Comparing.csproj" />
+    <ProjectReference Include="..\Cauldron.Core.Extensions.Compression\Cauldron.Core.Extensions.Compression.csproj" />
+    <ProjectReference Include="..\Cauldron.Core.Extensions.Convertions\Cauldron.Core.Extensions.Convertions.csproj" />
+    <ProjectReference Include="..\Cauldron.Core.Extensions\Cauldron.Core.Extensions.csproj" />
+    <ProjectReference Include="..\Cauldron.Core.MathExtensions\Cauldron.Core.MathExtensions.csproj" />
+    <ProjectReference Include="..\Cauldron.Core.Randomizer\Cauldron.Core.Randomizer.csproj" />
+  </ItemGroup>
+
+</Project>

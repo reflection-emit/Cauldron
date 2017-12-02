@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>    
+    <TargetFramework>netcoreapp2.0</TargetFramework>    
+    <PreBuildEvent>echo $(NuGetPackageRoot)</PreBuildEvent>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Fody" Version="2.1.2" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="1.1.18" />
+    <PackageReference Include="MSTest.TestFramework" Version="1.1.18" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Cauldron.NetCore.Activator\Cauldron.NetCore.Activator.csproj" />
+    <ProjectReference Include="..\..\Cauldron.NetCore.Core\Cauldron.NetCore.Core.csproj" />
+    <ProjectReference Include="..\..\Cauldron.NetCore.Interception\Cauldron.NetCore.Interception.csproj" />
+  </ItemGroup>
+
+  <Import Project="..\..\..\Shared\Unit Tests\Cauldron.Activator.Test\Cauldron.Activator.Test.projitems" Label="Shared" />
+
+  <Import Project="..\..\..\Shared\IEnumerableExtensions\IEnumerableExtensions.projitems" Label="Shared" />
+
+</Project>

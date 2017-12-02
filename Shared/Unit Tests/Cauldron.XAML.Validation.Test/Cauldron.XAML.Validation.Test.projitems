@@ -9,6 +9,7 @@
     <Import_RootNamespace>Cauldron.XAML.Validation.Test</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)MultipleValidatorsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ValidationTest.cs" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyVersion>2.0.0.10</AssemblyVersion>
+    <FileVersion>2.0.0.10</FileVersion>
+  <Authors>Alexander Schunk, Capgemini Deutschland GmbH</Authors>
+<Copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</Copyright>
+</PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard2.0\Cauldron.Core.Collections.xml</DocumentationFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netstandard2.0\Cauldron.Core.Collections.xml</DocumentationFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cauldron.Core.Comparing\Cauldron.Core.Comparing.csproj" />
+    <ProjectReference Include="..\Cauldron.Core.Extensions\Cauldron.Core.Extensions.csproj" />
+  </ItemGroup>
+
+</Project>

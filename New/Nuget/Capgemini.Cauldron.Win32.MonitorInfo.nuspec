@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Capgemini.Cauldron.Win32.MonitorInfo</id>
+    <version>2.0.0</version>
+    <title>Cauldron.Win32.MonitorInfo</title>
+    <authors>Alexander Schunk, Capgemini Deutschland GmbH</authors>
+    <owners>Alexander Schunk, Capgemini Deutschland GmbH</owners>
+    <licenseUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/Capgemini/Cauldron</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>Provides properties and methods for getting information about the monitor</description>
+    <summary>Provides properties and methods for getting information about the monitor</summary>
+    <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
+    <tags>Toolkit Capgemini Cauldron Monitor Information Info</tags>
+    <dependencies>
+    </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Drawing" />
+      <frameworkAssembly assemblyName="WindowsBase" />
+    </frameworkAssemblies>
+  </metadata>
+  <files>
+    <!-- Desktop -->
+    <file src="..\Win32\Cauldron.Win32.MonitorInfo\bin\Release\Cauldron.Win32.MonitorInfo.dll" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Win32.MonitorInfo\bin\Release\Cauldron.Win32.MonitorInfo.xml" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Win32.MonitorInfo\bin\Release\Cauldron.Win32.MonitorInfo.pdb" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Win32.MonitorInfo\**\*.cs" target="src" />
+  </files>
+</package>

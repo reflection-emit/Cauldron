@@ -31,7 +31,7 @@ namespace InputValidation.ViewModels
 
         private async void ExecuteAction()
         {
-            this.Validate();
+            await this.ValidateAsync();
 
             if (this.HasErrors)
                 return;

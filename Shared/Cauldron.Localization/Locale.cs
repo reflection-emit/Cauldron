@@ -16,13 +16,15 @@ namespace Cauldron.Localization
     /// https://github.com/Capgemini/Cauldron/wiki/Localization
     /// </summary>
     [Component(typeof(Locale), FactoryCreationPolicy.Singleton)]
-    public sealed class Locale : Singleton<Locale>
+    public sealed class Locale : Factory<Locale>
     {
         private const string LocalizationSource = "Cauldron.Localization.ILocalizationSource";
         private CultureInfo cultureInfo;
         private Dictionary<string, ILocalizationKeyValue> source = new Dictionary<string, ILocalizationKeyValue>();
 
-        private Locale()
+        /// <exclude/>
+        [ComponentConstructor]
+        public Locale()
         {
             Assemblies.LoadedAssemblyChanged += (s, e) =>
             {
@@ -83,6 +85,11 @@ namespace Cauldron.Localization
         }
 
         /// <summary>
+        /// Gets or sets a value that indicates if a localization for the given key is missing.
+        /// </summary>
+        public char MissingLocalizationIndicator { get; set; } = '♦';
+
+        /// <summary>
         /// Gets the localized string with the specified key
         /// <para />
         /// Returns null if the key was not found
@@ -101,7 +108,7 @@ namespace Cauldron.Localization
                 if (this.source.TryGetValue(key, out result))
                     return result.GetValue(this.CultureInfo.TwoLetterISOLanguageName);
 
-                return key + "*"; // indicates that the localization was not provided. Someone has to do his homework
+                return key + " " + this.MissingLocalizationIndicator; // indicates that the localization was not provided. Someone has to do his homework
             }
         }
 

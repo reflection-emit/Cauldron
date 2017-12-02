@@ -8,13 +8,14 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>ThemeSample</RootNamespace>
     <AssemblyName>ThemeSample</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -36,14 +37,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Cauldron.Interception, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Cauldron.Interception.Fody.1.2.6-beta\lib\net452\Cauldron.Interception.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="PropertyChanged, Version=2.1.2.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\PropertyChanged.Fody.2.1.2\lib\netstandard1.0\PropertyChanged.dll</HintPath>
+    <Reference Include="PropertyChanged, Version=2.1.4.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\PropertyChanged.Fody.2.1.4\lib\netstandard1.0\PropertyChanged.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -63,6 +61,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="CreateNewTabMessageArgs.cs" />
+    <Compile Include="LocaleSource.cs" />
+    <Compile Include="Module.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -76,7 +77,15 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="ViewModels\DummyItemViewModel.cs" />
+    <Compile Include="ViewModels\TestViewModel.cs" />
+    <Compile Include="ViewModels\ListBoxTestViewModel.cs" />
+    <Compile Include="ViewModels\ListViewTestViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\TestListViewViewModel.cs" />
+    <Compile Include="Views\DataTemplateResourceDictionary.xaml.cs">
+      <DependentUpon>DataTemplateResourceDictionary.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
@@ -89,6 +98,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <EmbeddedResource Include="strings.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -97,6 +107,10 @@
     <None Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\DataTemplateResourceDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -114,6 +128,10 @@
     <ProjectReference Include="..\..\Cauldron.Desktop.Cryptography\Cauldron.Desktop.Cryptography.csproj">
       <Project>{d20bc350-336c-4e82-9848-773de5abac39}</Project>
       <Name>Cauldron.Desktop.Cryptography</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cauldron.Desktop.Interception\Cauldron.Desktop.Interception.csproj">
+      <Project>{c656c9c1-bee8-40b1-bac7-6dd7b6ff5fbb}</Project>
+      <Name>Cauldron.Desktop.Interception</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Cauldron.Desktop.Localization\Cauldron.Desktop.Localization.csproj">
       <Project>{0c1146b3-ada7-4b8b-921c-cb73f665b4ff}</Project>
@@ -140,12 +158,15 @@
       <Name>Cauldron.Desktop.XAML</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="hey.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\..\..\packages\Fody.2.1.0\build\netstandard1.0\Fody.targets" Condition="Exists('..\..\..\packages\Fody.2.1.0\build\netstandard1.0\Fody.targets')" />
+  <Import Project="..\..\..\packages\Fody.2.1.2\build\netstandard1.0\Fody.targets" Condition="Exists('..\..\..\packages\Fody.2.1.2\build\netstandard1.0\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\..\packages\Fody.2.1.0\build\netstandard1.0\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Fody.2.1.0\build\netstandard1.0\Fody.targets'))" />
+    <Error Condition="!Exists('..\..\..\packages\Fody.2.1.2\build\netstandard1.0\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Fody.2.1.2\build\netstandard1.0\Fody.targets'))" />
   </Target>
 </Project>

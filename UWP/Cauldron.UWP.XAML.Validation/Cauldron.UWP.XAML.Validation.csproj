@@ -11,11 +11,12 @@
     <AssemblyName>Cauldron.XAML.Validation</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>
+    <TargetPlatformVersion>10.0.15063.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.10586.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <RuntimeIdentifiers>win10-arm;win10-arm-aot;win10-x86;win10-x86-aot;win10-x64;win10-x64-aot</RuntimeIdentifiers>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -112,10 +113,6 @@
     <DocumentationFile>bin\x64\Release\Cauldron.XAML.Validation.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <None Include="project.json" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Cauldron.UWP.XAML.Validation.rd.xml" />
   </ItemGroup>
@@ -132,6 +129,10 @@
       <Project>{1890C23C-8E1A-4216-9F8C-69DDB81BB61C}</Project>
       <Name>Cauldron.UWP.Cryptography</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Cauldron.UWP.Interception\Cauldron.UWP.Interception.csproj">
+      <Project>{659a319c-9460-43d9-9453-2731ac5dab55}</Project>
+      <Name>Cauldron.UWP.Interception</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Cauldron.UWP.Localization\Cauldron.UWP.Localization.csproj">
       <Project>{3758D2E9-3A20-4B19-9C38-0C393F25D784}</Project>
       <Name>Cauldron.UWP.Localization</Name>
@@ -144,6 +145,17 @@
       <Project>{766A1588-8618-4D3F-A9E4-631216B8A5D2}</Project>
       <Name>Cauldron.UWP.XAML</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Fody">
+      <Version>2.1.2</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
+      <Version>5.4.0</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="FodyWeavers.xml" />
   </ItemGroup>
   <Import Project="..\..\Shared\IEnumerableExtensions\IEnumerableExtensions.projitems" Label="Shared" />
   <Import Project="..\..\Shared\Cauldron.XAML.Validation\Cauldron.XAML.Validation.projitems" Label="Shared" />

@@ -77,6 +77,38 @@ namespace Cauldron.Core
             }
         }
 
+        /// <summary>
+        /// Returns true if the uri requires registration; otherwise false.
+        /// </summary>
+        /// <param name="name">The application uri e.g. exampleApplication://</param>
+        /// <returns>Returns true if the uri requires registration; otherwise false.</returns>
+        public static bool RequiresRegistration(string name)
+        {
+            var key = name.Split(':').First();
+            var location = Assembly.GetEntryAssembly().Location;
+            var applicationPath = Path.Combine(Path.GetDirectoryName(location), Path.GetFileName(location).Replace(".vshost.exe", ".exe"));
+
+            if (Registry.ClassesRoot.OpenSubKey(key, false) == null)
+                return true;
+
+            var command = Registry.ClassesRoot?
+                .OpenSubKey(key, false)?
+                .OpenSubKey("shell", false)?
+                .OpenSubKey("open", false)?
+                .OpenSubKey("command", false);
+
+            if (command == null)
+                return true;
+
+            var value = command.GetValue("") as string;
+            var path = $"\"{location}\" \"%1\"";
+
+            if (value != path)
+                return true;
+
+            return false;
+        }
+
         private static void StartRegistration(string name, string location)
         {
             var subKey = Registry.ClassesRoot.CreateSubKey(name);

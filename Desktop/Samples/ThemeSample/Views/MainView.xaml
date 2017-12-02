@@ -5,26 +5,166 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:ThemeSample.Views"
              xmlns:cauldron="clr-namespace:Cauldron.XAML;assembly=Cauldron.XAML"
+             xmlns:i="clr-namespace:Cauldron.XAML.Interactivity;assembly=Cauldron.XAML.Interactivity"
+             xmlns:theme="clr-namespace:Cauldron.XAML.Theme;assembly=Cauldron.XAML.Theme"
              mc:Ignorable="d"
+             cauldron:WindowConfiguration.IsWindowPersistent="True"
              d:DesignHeight="300" d:DesignWidth="300">
-    <StackPanel Margin="20" VerticalAlignment="Center" HorizontalAlignment="Center" cauldron:WindowConfiguration.IsWindowPersistent="True">
-        <TextBlock Text="Button" />
-        <Button Content="Button" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20" />
-        <TextBlock Text="Indeterminate ProgressBar" />
-        <ProgressBar IsIndeterminate="True" Margin="20" />
-        <TextBlock Text="ProgressBar" />
-        <ProgressBar Margin="20">
-            <ProgressBar.Triggers>
-                <EventTrigger RoutedEvent="ProgressBar.Loaded">
-                    <BeginStoryboard>
-                        <Storyboard>
-                            <DoubleAnimation Storyboard.TargetProperty="Value" From="0" To="100" RepeatBehavior="Forever" Duration="0:0:8" AccelerationRatio="0.4" DecelerationRatio="0.6" />
-                        </Storyboard>
-                    </BeginStoryboard>
-                </EventTrigger>
-            </ProgressBar.Triggers>
-        </ProgressBar>
-        <TextBlock Text="TextBox" />
-        <TextBox Width="300" />
-    </StackPanel>
+
+    <theme:WindowToolbar.Template>
+        <ControlTemplate>
+            <StackPanel>
+                <Button Content="Bla" />
+                <ComboBox ItemsSource="{Binding Items}" SelectedItem="{Binding ComboBoxSelection, Mode=TwoWay}" DisplayMemberPath="Name" />
+            </StackPanel>
+        </ControlTemplate>
+    </theme:WindowToolbar.Template>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <StackPanel>
+                <Expander Header="Expander" Width="300" IsExpanded="False">
+                    <StackPanel>
+                        <TextBlock theme:TextBlockProperties.Inline="&lt;Inline&gt;Text&lt;Bold&gt;&lt;Italic&gt;Block&lt;/Italic&gt;&lt;/Bold&gt;&lt;/Inline&gt;" />
+                        <Button Content="Button" HorizontalAlignment="Left" Margin="0,6" />
+                        <ToggleButton Content="ToggleButton" HorizontalAlignment="Left" Margin="0,6" />
+                        <TextBlock Text="Indeterminate ProgressBar" />
+                        <ProgressBar IsIndeterminate="True" Margin="0,2,0,6" />
+                        <TextBlock Text="ProgressBar" />
+                        <ProgressBar Margin="0,2,0,6">
+                            <ProgressBar.Triggers>
+                                <EventTrigger RoutedEvent="ProgressBar.Loaded">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="Value" From="0" To="100" RepeatBehavior="Forever" Duration="0:0:8" AccelerationRatio="0.4" DecelerationRatio="0.6" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </ProgressBar.Triggers>
+                        </ProgressBar>
+                        <TextBox theme:TextBoxProperties.Header="TextBox">
+                            <theme:TextBoxProperties.ButtonsTemplate>
+                                <ControlTemplate>
+                                    <StackPanel>
+                                        <Button theme:ButtonProperties.ImageKey="hey.png" i:Localized.ToolTip="Button 1" />
+                                        <Button theme:ButtonProperties.ImageKey="hey.png" i:Localized.ToolTip="Button 2" />
+                                    </StackPanel>
+                                </ControlTemplate>
+                            </theme:TextBoxProperties.ButtonsTemplate>
+                        </TextBox>
+                        <GroupBox Header="GroupBox">
+                            <StackPanel>
+                                <RadioButton Content="RadioButton 1" />
+                                <RadioButton Content="RadioButton 2" />
+                                <CheckBox Content="CheckBox 1" IsThreeState="True" />
+                                <CheckBox Content="CheckBox 2" />
+                            </StackPanel>
+                        </GroupBox>
+                        <PasswordBox theme:PasswordBoxProperties.Header="PasswordBox" />
+                        <ComboBox theme:ComboBoxProperties.Header="ComboBox">
+                            <theme:ComboBoxProperties.ButtonsTemplate>
+                                <ControlTemplate>
+                                    <StackPanel>
+                                        <Button theme:ButtonProperties.ImageKey="hey.png" i:Localized.ToolTip="Button 1" />
+                                        <Button theme:ButtonProperties.ImageKey="hey.png" i:Localized.ToolTip="Button 2" />
+                                    </StackPanel>
+                                </ControlTemplate>
+                            </theme:ComboBoxProperties.ButtonsTemplate>
+                            <ComboBoxItem>Combobox Item 1</ComboBoxItem>
+                            <ComboBoxItem>Combobox Item 2</ComboBoxItem>
+                            <ComboBoxItem>Combobox Item 3</ComboBoxItem>
+                            <ComboBoxItem>Combobox Item 4</ComboBoxItem>
+                            <ComboBoxItem>Combobox Item 5</ComboBoxItem>
+                        </ComboBox>
+                        <ComboBox IsEditable="True" theme:ComboBoxProperties.Header="ComboBox editable">
+                            <theme:ComboBoxProperties.ButtonsTemplate>
+                                <ControlTemplate>
+                                    <StackPanel>
+                                        <Button theme:ButtonProperties.ImageKey="hey.png" i:Localized.ToolTip="Button 1" />
+                                        <Button theme:ButtonProperties.ImageKey="hey.png" i:Localized.ToolTip="Button 2" />
+                                    </StackPanel>
+                                </ControlTemplate>
+                            </theme:ComboBoxProperties.ButtonsTemplate>
+                            <ComboBoxItem>Combobox Item 1</ComboBoxItem>
+                            <ComboBoxItem>Combobox Item 2</ComboBoxItem>
+                            <ComboBoxItem>Combobox Item 3</ComboBoxItem>
+                            <ComboBoxItem>Combobox Item 4</ComboBoxItem>
+                            <ComboBoxItem>Combobox Item 5</ComboBoxItem>
+                        </ComboBox>
+                    </StackPanel>
+                </Expander>
+
+                <Expander Header="Expander (Validation)" Width="300" IsExpanded="True">
+                    <StackPanel>
+                        <TextBlock i:Localized.Text="inlinedExample" />
+                        <TextBox theme:TextBoxProperties.Header="textbox" Text="{Binding ValidatedText, Mode=TwoWay}" />
+                        <GroupBox Header="GroupBox">
+                            <StackPanel>
+                                <RadioButton Content="RadioButton 1" />
+                                <RadioButton Content="RadioButton 2" />
+                                <CheckBox Content="CheckBox 1" IsThreeState="True" />
+                                <CheckBox Content="CheckBox 2" />
+                            </StackPanel>
+                        </GroupBox>
+                        <PasswordBox theme:PasswordBoxProperties.Header="PasswordBox">
+                            <i:Interaction.Behaviours>
+                                <i:PasswordBoxBinding Password="{Binding PasswordA, Mode=OneWayToSource}" />
+                            </i:Interaction.Behaviours>
+                        </PasswordBox>
+                        <PasswordBox theme:PasswordBoxProperties.Header="PasswordBox">
+                            <i:Interaction.Behaviours>
+                                <i:PasswordBoxBinding Password="{Binding PasswordB, Mode=OneWayToSource}" />
+                            </i:Interaction.Behaviours>
+                        </PasswordBox>
+                        <ComboBox theme:ComboBoxProperties.Header="ComboBox" SelectedItem="{Binding ComboBoxSelection, Mode=TwoWay}" ItemsSource="{Binding Items}" DisplayMemberPath="Name" />
+                        <ComboBox IsEditable="True" theme:ComboBoxProperties.Header="ComboBox editable" SelectedItem="{Binding ComboBoxSelection, Mode=TwoWay}" ItemsSource="{Binding Items}" DisplayMemberPath="Name" />
+                        <Button i:Localized.Text="validate" Command="{Binding ValidateCommand}" HorizontalAlignment="Left" Margin="0,10,0,0" />
+                        <CheckBox IsChecked="{Binding StopValidationOnErrorToggle, Mode=TwoWay}" Content="Stop at first validation error" Margin="0,4,0,0" />
+                        <CheckBox IsChecked="{Binding IgnoreAlwaysValidateAllToggle, Mode=TwoWay}" Content="Ignore AlwaysValidate flag" Margin="0,4,0,0" />
+                    </StackPanel>
+                </Expander>
+            </StackPanel>
+        </ScrollViewer>
+
+        <TabControl ItemsSource="{Binding Tabs}" SelectedItem="{Binding SelectedTab, Mode=TwoWay}" Grid.Column="1" DisplayMemberPath="Title" />
+
+        <StatusBar Grid.ColumnSpan="2" Grid.Row="1">
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" MaxWidth="400" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+
+            <StatusBarItem>
+                <TextBlock Text="TextBlock" />
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="1">
+                <ProgressBar IsIndeterminate="True" />
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="3">
+                <Button Content="Button" />
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="4">
+                <ComboBox ItemsSource="{Binding Items}" SelectedItem="{Binding ComboBoxSelection, Mode=TwoWay}" DisplayMemberPath="Name" />
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
 </UserControl>

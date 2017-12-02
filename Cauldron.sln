@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.12
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Desktop", "Desktop", "{45646BEE-05CB-4168-8F1F-291F511B6B76}"
 EndProject
@@ -70,10 +70,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{B22AD21D
 		NuGet\Cauldron.Localization.nuspec = NuGet\Cauldron.Localization.nuspec
 		NuGet\Cauldron.XAML.Interactivity.nuspec = NuGet\Cauldron.XAML.Interactivity.nuspec
 		NuGet\Cauldron.XAML.nuspec = NuGet\Cauldron.XAML.nuspec
+		NuGet\Cauldron.XAML.Theme.VSDark.nuspec = NuGet\Cauldron.XAML.Theme.VSDark.nuspec
+		NuGet\Cauldron.XAML.Theme.VSLight.nuspec = NuGet\Cauldron.XAML.Theme.VSLight.nuspec
 		NuGet\Cauldron.XAML.Validation.nuspec = NuGet\Cauldron.XAML.Validation.nuspec
-		NuGet\color.cs = NuGet\color.cs
 		NuGet\Create-NuGet-Packages.bat = NuGet\Create-NuGet-Packages.bat
 		NuGet\EveOnlineApi.NET.nuspec = NuGet\EveOnlineApi.NET.nuspec
+		NuGet\nugetcreator.cs = NuGet\nugetcreator.cs
 		NuGet\Upload-Packages.bat = NuGet\Upload-Packages.bat
 	EndProjectSection
 EndProject
@@ -252,6 +254,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.Desktop.XAML.Theme
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThemeSample", "Desktop\Samples\ThemeSample\ThemeSample.csproj", "{09541FE4-BBA6-4158-8EBB-DFA17E93222B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.UWP.XAML.Extended", "UWP\Cauldron.UWP.XAML.Extended\Cauldron.UWP.XAML.Extended.csproj", "{06854A0A-A368-49E7-B1DA-8BC91841F7C6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cauldron.NetCore.Core.Test", "NetCore\Unit Tests\Cauldron.NetCore.Core.Test\Cauldron.NetCore.Core.Test.csproj", "{B03CD0D9-F58D-4D98-842C-E17879129514}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cauldron.NetCore.Activator.Test", "NetCore\Unit Tests\Cauldron.NetCore.Activator.Test\Cauldron.NetCore.Activator.Test.csproj", "{8E613573-7F7C-493B-B1BD-0C19048FDF3F}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Shared\Cauldron.Consoles\Cauldron.Consoles.projitems*{00c29751-1557-46a8-9547-f74065b36592}*SharedItemsImports = 4
@@ -315,6 +323,7 @@ Global
 		Shared\Cauldron.XAML.Interactivity\Cauldron.XAML.Interactivity.projitems*{ab91b0bd-baa6-43bb-a33a-c07a3a91a1ef}*SharedItemsImports = 13
 		Shared\Unit Tests\Cauldron.XAML.Test\Cauldron.XAML.Test.projitems*{b14eac3c-6b7f-4c1d-ab6b-aca7ca47d453}*SharedItemsImports = 4
 		Shared\Unit Tests\Cauldron.Core.Test\Cauldron.Core.Test.projitems*{b3ec6b94-192a-4fe2-8309-4e632ae0a64b}*SharedItemsImports = 4
+		Shared\Cauldron.Diagnostics\Cauldron.Diagnostics.projitems*{b5cadc73-4e25-40ff-8130-e5af16a8d0c2}*SharedItemsImports = 4
 		Shared\IEnumerableExtensions\IEnumerableExtensions.projitems*{ba19d691-4514-4059-95ef-8a6fe7612f83}*SharedItemsImports = 13
 		Shared\Unit Tests\Cauldron.XAML.Test\Cauldron.XAML.Test.projitems*{bb1efccc-11f3-4730-b8c7-7cdce54bd369}*SharedItemsImports = 13
 		Shared\Cauldron.Cryptography\Cauldron.Cryptography.projitems*{bc84f1d6-e20d-41a5-8ab1-90b9d023850d}*SharedItemsImports = 13
@@ -1403,6 +1412,54 @@ Global
 		{09541FE4-BBA6-4158-8EBB-DFA17E93222B}.Release|x64.Build.0 = Release|Any CPU
 		{09541FE4-BBA6-4158-8EBB-DFA17E93222B}.Release|x86.ActiveCfg = Release|Any CPU
 		{09541FE4-BBA6-4158-8EBB-DFA17E93222B}.Release|x86.Build.0 = Release|Any CPU
+		{06854A0A-A368-49E7-B1DA-8BC91841F7C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06854A0A-A368-49E7-B1DA-8BC91841F7C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06854A0A-A368-49E7-B1DA-8BC91841F7C6}.Debug|ARM.ActiveCfg = Debug|ARM
+		{06854A0A-A368-49E7-B1DA-8BC91841F7C6}.Debug|ARM.Build.0 = Debug|ARM
+		{06854A0A-A368-49E7-B1DA-8BC91841F7C6}.Debug|x64.ActiveCfg = Debug|x64
+		{06854A0A-A368-49E7-B1DA-8BC91841F7C6}.Debug|x64.Build.0 = Debug|x64
+		{06854A0A-A368-49E7-B1DA-8BC91841F7C6}.Debug|x86.ActiveCfg = Debug|x86
+		{06854A0A-A368-49E7-B1DA-8BC91841F7C6}.Debug|x86.Build.0 = Debug|x86
+		{06854A0A-A368-49E7-B1DA-8BC91841F7C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06854A0A-A368-49E7-B1DA-8BC91841F7C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06854A0A-A368-49E7-B1DA-8BC91841F7C6}.Release|ARM.ActiveCfg = Release|ARM
+		{06854A0A-A368-49E7-B1DA-8BC91841F7C6}.Release|ARM.Build.0 = Release|ARM
+		{06854A0A-A368-49E7-B1DA-8BC91841F7C6}.Release|x64.ActiveCfg = Release|x64
+		{06854A0A-A368-49E7-B1DA-8BC91841F7C6}.Release|x64.Build.0 = Release|x64
+		{06854A0A-A368-49E7-B1DA-8BC91841F7C6}.Release|x86.ActiveCfg = Release|x86
+		{06854A0A-A368-49E7-B1DA-8BC91841F7C6}.Release|x86.Build.0 = Release|x86
+		{B03CD0D9-F58D-4D98-842C-E17879129514}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B03CD0D9-F58D-4D98-842C-E17879129514}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B03CD0D9-F58D-4D98-842C-E17879129514}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{B03CD0D9-F58D-4D98-842C-E17879129514}.Debug|ARM.Build.0 = Debug|Any CPU
+		{B03CD0D9-F58D-4D98-842C-E17879129514}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B03CD0D9-F58D-4D98-842C-E17879129514}.Debug|x64.Build.0 = Debug|Any CPU
+		{B03CD0D9-F58D-4D98-842C-E17879129514}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B03CD0D9-F58D-4D98-842C-E17879129514}.Debug|x86.Build.0 = Debug|Any CPU
+		{B03CD0D9-F58D-4D98-842C-E17879129514}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B03CD0D9-F58D-4D98-842C-E17879129514}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B03CD0D9-F58D-4D98-842C-E17879129514}.Release|ARM.ActiveCfg = Release|Any CPU
+		{B03CD0D9-F58D-4D98-842C-E17879129514}.Release|ARM.Build.0 = Release|Any CPU
+		{B03CD0D9-F58D-4D98-842C-E17879129514}.Release|x64.ActiveCfg = Release|Any CPU
+		{B03CD0D9-F58D-4D98-842C-E17879129514}.Release|x64.Build.0 = Release|Any CPU
+		{B03CD0D9-F58D-4D98-842C-E17879129514}.Release|x86.ActiveCfg = Release|Any CPU
+		{B03CD0D9-F58D-4D98-842C-E17879129514}.Release|x86.Build.0 = Release|Any CPU
+		{8E613573-7F7C-493B-B1BD-0C19048FDF3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E613573-7F7C-493B-B1BD-0C19048FDF3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E613573-7F7C-493B-B1BD-0C19048FDF3F}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{8E613573-7F7C-493B-B1BD-0C19048FDF3F}.Debug|ARM.Build.0 = Debug|Any CPU
+		{8E613573-7F7C-493B-B1BD-0C19048FDF3F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8E613573-7F7C-493B-B1BD-0C19048FDF3F}.Debug|x64.Build.0 = Debug|Any CPU
+		{8E613573-7F7C-493B-B1BD-0C19048FDF3F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8E613573-7F7C-493B-B1BD-0C19048FDF3F}.Debug|x86.Build.0 = Debug|Any CPU
+		{8E613573-7F7C-493B-B1BD-0C19048FDF3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E613573-7F7C-493B-B1BD-0C19048FDF3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E613573-7F7C-493B-B1BD-0C19048FDF3F}.Release|ARM.ActiveCfg = Release|Any CPU
+		{8E613573-7F7C-493B-B1BD-0C19048FDF3F}.Release|ARM.Build.0 = Release|Any CPU
+		{8E613573-7F7C-493B-B1BD-0C19048FDF3F}.Release|x64.ActiveCfg = Release|Any CPU
+		{8E613573-7F7C-493B-B1BD-0C19048FDF3F}.Release|x64.Build.0 = Release|Any CPU
+		{8E613573-7F7C-493B-B1BD-0C19048FDF3F}.Release|x86.ActiveCfg = Release|Any CPU
+		{8E613573-7F7C-493B-B1BD-0C19048FDF3F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1503,5 +1560,11 @@ Global
 		{B5CADC73-4E25-40FF-8130-E5AF16A8D0C2} = {45646BEE-05CB-4168-8F1F-291F511B6B76}
 		{D7FF3579-5959-4907-8BB2-ACDDDACF64CA} = {45646BEE-05CB-4168-8F1F-291F511B6B76}
 		{09541FE4-BBA6-4158-8EBB-DFA17E93222B} = {3BE31091-7470-4D9B-B163-4BE4A674A5D1}
+		{06854A0A-A368-49E7-B1DA-8BC91841F7C6} = {18FF0088-AC5D-4491-91DF-37B55422635B}
+		{B03CD0D9-F58D-4D98-842C-E17879129514} = {0AF540C8-B76C-428F-88B6-22702B082A5D}
+		{8E613573-7F7C-493B-B1BD-0C19048FDF3F} = {0AF540C8-B76C-428F-88B6-22702B082A5D}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {51784082-B5BA-494E-B73D-FCCA59F1E025}
 	EndGlobalSection
 EndGlobal

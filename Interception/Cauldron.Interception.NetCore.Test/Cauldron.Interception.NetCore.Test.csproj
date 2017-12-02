@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.6</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <DefineConstants>$(DefineConstants);NETCORE</DefineConstants>
     <AssemblyName>Cauldron.Interception.Test</AssemblyName>
     <PackageId>Cauldron.Interception.NetCore.Test</PackageId>
@@ -29,8 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Cauldron.Interception.Fody" Version="1.1.4" />
-    <PackageReference Include="Fody" Version="2.1.0" />
+    <PackageReference Include="Fody" version="2.1.2" />
     <PackageReference Include="MSTest.TestFramework" Version="1.1.18" />
   </ItemGroup>
 

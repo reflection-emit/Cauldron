@@ -92,21 +92,27 @@ namespace Cauldron.Core
         }
 
         /// <summary>
-        /// Executes the specified delegate synchronously with the specified arguments,
-        /// with priority <see cref="CoreDispatcherPriority.Normal"/>, on the thread that the <see cref="Dispatcher"/>
-        /// was created on.
+        /// Executes the specified delegate synchronously with the specified arguments, with priority
+        /// <see cref="CoreDispatcherPriority.Normal"/>, on the thread that the <see
+        /// cref="Dispatcher"/> was created on.
         /// </summary>
-        /// <param name="action">The delegate to a method, which is pushed onto the <see cref="Dispatcher"/> event queue.</param>
+        /// <param name="action">
+        /// The delegate to a method, which is pushed onto the <see cref="Dispatcher"/> event queue.
+        /// </param>
         /// <exception cref="ArgumentNullException"><paramref name="action"/> is null</exception>
         public void Run(Action action) => this.dispatcher.Invoke(action, System.Windows.Threading.DispatcherPriority.Normal);
 
         /// <summary>
-        /// Executes the specified delegate synchronously with the specified arguments,
-        /// at the specified priority, on the thread that the <see cref="Dispatcher"/>
-        /// was created on.
+        /// Executes the specified delegate synchronously with the specified arguments, at the
+        /// specified priority, on the thread that the <see cref="Dispatcher"/> was created on.
         /// </summary>
-        /// <param name="priority">The priority, relative to the other pending operations in the <see cref="Dispatcher"/> event queue, the specified method is invoked.</param>
-        /// <param name="action">The delegate to a method, which is pushed onto the <see cref="Dispatcher"/> event queue.</param>
+        /// <param name="priority">
+        /// The priority, relative to the other pending operations in the <see cref="Dispatcher"/>
+        /// event queue, the specified method is invoked.
+        /// </param>
+        /// <param name="action">
+        /// The delegate to a method, which is pushed onto the <see cref="Dispatcher"/> event queue.
+        /// </param>
         /// <exception cref="ArgumentNullException"><paramref name="action"/> is null</exception>
         public void Run(CoreDispatcherPriority priority, Action action)
         {
@@ -130,21 +136,27 @@ namespace Cauldron.Core
         }
 
         /// <summary>
-        /// Executes the specified delegate asynchronously with the specified arguments,
-        /// with priority <see cref="CoreDispatcherPriority.Normal"/>, on the thread that the <see cref="Dispatcher"/>
-        /// was created on.
+        /// Executes the specified delegate asynchronously with the specified arguments, with
+        /// priority <see cref="CoreDispatcherPriority.Normal"/>, on the thread that the <see
+        /// cref="Dispatcher"/> was created on.
         /// </summary>
-        /// <param name="action">The delegate to a method, which is pushed onto the <see cref="Dispatcher"/> event queue.</param>
+        /// <param name="action">
+        /// The delegate to a method, which is pushed onto the <see cref="Dispatcher"/> event queue.
+        /// </param>
         /// <returns>Returns a awaitable task</returns>
         public async Task RunAsync(Action action) => await this.dispatcher.BeginInvoke(action, System.Windows.Threading.DispatcherPriority.Normal);
 
         /// <summary>
-        /// Executes the specified delegate asynchronously with the specified arguments,
-        /// at the specified priority, on the thread that the <see cref="Dispatcher"/>
-        /// was created on.
+        /// Executes the specified delegate asynchronously with the specified arguments, at the
+        /// specified priority, on the thread that the <see cref="Dispatcher"/> was created on.
         /// </summary>
-        /// <param name="priority">The priority, relative to the other pending operations in the <see cref="Dispatcher"/> event queue, the specified method is invoked.</param>
-        /// <param name="action">The delegate to a method, which is pushed onto the <see cref="Dispatcher"/> event queue.</param>
+        /// <param name="priority">
+        /// The priority, relative to the other pending operations in the <see cref="Dispatcher"/>
+        /// event queue, the specified method is invoked.
+        /// </param>
+        /// <param name="action">
+        /// The delegate to a method, which is pushed onto the <see cref="Dispatcher"/> event queue.
+        /// </param>
         /// <returns>Returns a awaitable task</returns>
         /// <exception cref="ArgumentNullException"><paramref name="action"/> is null</exception>
         public async Task RunAsync(CoreDispatcherPriority priority, Action action)

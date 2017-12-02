@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.Runtime.InteropServices;
 using System.Linq;
-using System.Reflection;
 
 #if WINDOWS_UWP
 
@@ -111,51 +110,6 @@ namespace Cauldron.Core.Extensions
         }
 
         /// <summary>
-        /// Removes all null elements from the array.
-        /// </summary>
-        /// <typeparam name="T">The element type of the array</typeparam>
-        /// <param name="array">The array</param>
-        /// <returns>A new array with all non null elements</returns>
-        /// <exception cref="ArgumentNullException"><paramref name="array"/> is null</exception>
-        public static T[] RemoveNull<T>(this T[] array) where T : class
-        {
-            if (array == null)
-                throw new ArgumentNullException(nameof(array));
-
-            var newSize = 0;
-
-            for (int i = 0; i < array.Length; i++)
-                if (array[i] != null)
-                    newSize++;
-
-            var newArray = new T[newSize];
-            var counter = 0;
-
-            for (int i = 0; i < array.Length; i++)
-                if (array[i] != null)
-                    newArray[counter++] = array[i];
-
-            return newArray;
-        }
-
-        /// <summary>
-        /// Copies an array.
-        /// </summary>
-        /// <typeparam name="T">The element type of the array</typeparam>
-        /// <param name="array">The array</param>
-        /// <returns>A new array that contains the same elements as <paramref name="array"/></returns>
-        /// <exception cref="ArgumentNullException"><paramref name="array"/> is null</exception>
-        public static T[] Copy<T>(this T[] array)
-        {
-            if (array == null)
-                throw new ArgumentNullException(nameof(array));
-
-            var result = Array.CreateInstance(typeof(T), array.Length);
-            Array.Copy(array, result, array.Length);
-            return (T[])result;
-        }
-
-        /// <summary>
         /// Concatenates two arrays together creating a new array containing both arrays
         /// </summary>
         /// <typeparam name="T">The element type of the array</typeparam>
@@ -186,11 +140,33 @@ namespace Cauldron.Core.Extensions
         /// Returns a value indicating whether a specified substring occurs within this string.
         /// </summary>
         /// <param name="text">The string to seek from.</param>
-        /// <param name="value">The string to seek. </param>
-        /// <param name="comparisonType">One of the enumeration values that specifies the rules for the search. </param>
-        /// <returns>True if the value parameter occurs within this string, or if value is the empty string (""); otherwise, false.</returns>
+        /// <param name="value">The string to seek.</param>
+        /// <param name="comparisonType">
+        /// One of the enumeration values that specifies the rules for the search.
+        /// </param>
+        /// <returns>
+        /// True if the value parameter occurs within this string, or if value is the empty string
+        /// (""); otherwise, false.
+        /// </returns>
         public static bool Contains(this string text, string value, StringComparison comparisonType) =>
             text.IndexOf(value, comparisonType) >= 0;
+
+        /// <summary>
+        /// Copies an array.
+        /// </summary>
+        /// <typeparam name="T">The element type of the array</typeparam>
+        /// <param name="array">The array</param>
+        /// <returns>A new array that contains the same elements as <paramref name="array"/></returns>
+        /// <exception cref="ArgumentNullException"><paramref name="array"/> is null</exception>
+        public static T[] Copy<T>(this T[] array)
+        {
+            if (array == null)
+                throw new ArgumentNullException(nameof(array));
+
+            var result = Array.CreateInstance(typeof(T), array.Length);
+            Array.Copy(array, result, array.Length);
+            return (T[])result;
+        }
 
         /// <summary>
         /// Creates a new instance of System.String with the same value as a specified System.String.
@@ -219,8 +195,12 @@ namespace Cauldron.Core.Extensions
         /// </summary>
         /// <typeparam name="TSource">The type of the elements of <paramref name="source"/></typeparam>
         /// <param name="source">The sequence to remove duplicate elements from.</param>
-        /// <param name="selector">An expression used to determines whether the specified object are equal</param>
-        /// <returns>An <see cref="IEnumerable{T}"/> that contains distinct elements from the source sequence.</returns>
+        /// <param name="selector">
+        /// An expression used to determines whether the specified object are equal
+        /// </param>
+        /// <returns>
+        /// An <see cref="IEnumerable{T}"/> that contains distinct elements from the source sequence.
+        /// </returns>
         public static IEnumerable<TSource> Distinct<TSource>(this IEnumerable<TSource> source, Func<TSource, TSource, bool> selector)
         {
             var comparer = new DynamicEqualityComparer<TSource>(selector);
@@ -276,7 +256,9 @@ namespace Cauldron.Core.Extensions
         /// </summary>
         /// <typeparam name="T">The type that is contained in the <see cref="IEnumerable{T}"/></typeparam>
         /// <param name="collection">The collection to perform the action on</param>
-        /// <param name="action">The <see cref="Action{T}"/> delegate to perform on each element of the <see cref="IEnumerable{T}"/>.</param>
+        /// <param name="action">
+        /// The <see cref="Action{T}"/> delegate to perform on each element of the <see cref="IEnumerable{T}"/>.
+        /// </param>
         /// <returns>Returns <paramref name="collection"/></returns>
         /// <exception cref="ArgumentNullException"><paramref name="action"/> is null</exception>
         public static IEnumerable<T> Foreach<T>(this IEnumerable<T> collection, Action<T> action)
@@ -295,8 +277,9 @@ namespace Cauldron.Core.Extensions
 
         /// <summary>
         /// Gets a specified length of bytes.
-        /// <para />
-        /// If the specified length <paramref name="length"/> is longer than the source array the source array will be returned instead.
+        /// <para/>
+        /// If the specified length <paramref name="length"/> is longer than the source array the
+        /// source array will be returned instead.
         /// </summary>
         /// <param name="target">The Array that contains the data to copy.</param>
         /// <param name="length">A 32-bit integer that represents the number of elements to copy.</param>
@@ -324,10 +307,14 @@ namespace Cauldron.Core.Extensions
         /// Gets a specified length of bytes
         /// </summary>
         /// <param name="target">The Array that contains the data to copy.</param>
-        /// <param name="startingPosition">A 32-bit integer that represents the index in the sourceArray at which copying begins.</param>
+        /// <param name="startingPosition">
+        /// A 32-bit integer that represents the index in the sourceArray at which copying begins.
+        /// </param>
         /// <param name="length">A 32-bit integer that represents the number of elements to copy.</param>
         /// <returns></returns>
-        /// <exception cref="ArgumentOutOfRangeException">Parameter <paramref name="startingPosition"/> and <paramref name="length"/> are out of range</exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Parameter <paramref name="startingPosition"/> and <paramref name="length"/> are out of range
+        /// </exception>
         public static byte[] GetBytes(this byte[] target, int startingPosition, int length)
         {
             if (length + startingPosition > target.Length)
@@ -375,34 +362,68 @@ namespace Cauldron.Core.Extensions
             }
             else
                 throw new NotSupportedException("Unsupported hash algorithm");
+
+#elif NETCORE
+            return UTF8Encoding.UTF8.GetBytes(target).GetHash(algorithm);
+
+#else
+            return UTF8Encoding.UTF8.GetBytes(target).GetHash(algorithm);
+
+#endif
+        }
+
+        /// <summary>
+        /// Get the hash representing the string
+        /// </summary>
+        /// <param name="target">The bytes array to hash</param>
+        /// <param name="algorithm">The hash algortihm to use</param>
+        /// <returns>The hash value</returns>
+        public static string GetHash(this byte[] target, HashAlgorithms algorithm)
+        {
+#if WINDOWS_UWP
+            if (algorithm == HashAlgorithms.Md5)
+            {
+                var md5 = HashAlgorithmProvider.OpenAlgorithm(HashAlgorithmNames.Md5);
+                var buffer = CryptographicBuffer.CreateFromByteArray(target);
+                var hashed = md5.HashData(buffer);
+                return CryptographicBuffer.EncodeToHexString(hashed);
+            }
+            else if (algorithm == HashAlgorithms.Sha512 || algorithm == HashAlgorithms.Sha256)
+            {
+                var sha = HashAlgorithmProvider.OpenAlgorithm(algorithm == HashAlgorithms.Sha512 ? HashAlgorithmNames.Sha256 : HashAlgorithmNames.Sha512);
+                var buffer = CryptographicBuffer.CreateFromByteArray(target);
+
+                var hashed = sha.HashData(buffer);
+                byte[] bytes;
+
+                CryptographicBuffer.CopyToByteArray(hashed, out bytes);
+                return Convert.ToBase64String(bytes);
+            }
+            else
+                throw new NotSupportedException("Unsupported hash algorithm");
 #elif NETCORE
 
             if (algorithm == HashAlgorithms.Md5)
                 using (var md5 = MD5.Create())
-                    return BitConverter.ToString(md5.ComputeHash(UTF8Encoding.UTF8.GetBytes(target))).Replace("-", "");
+                    return BitConverter.ToString(md5.ComputeHash(target)).Replace("-", "");
             else if (algorithm == HashAlgorithms.Sha256)
                 using (var sha = SHA256.Create())
-                    return Convert.ToBase64String(sha.ComputeHash(UTF8Encoding.UTF8.GetBytes(target)));
+                    return Convert.ToBase64String(sha.ComputeHash(target));
             else if (algorithm == HashAlgorithms.Sha512)
                 using (var sha = SHA512.Create())
-                    return Convert.ToBase64String(sha.ComputeHash(UTF8Encoding.UTF8.GetBytes(target)));
+                    return Convert.ToBase64String(sha.ComputeHash(target));
             else
                 throw new NotSupportedException("Unsupported hash algorithm");
 #else
             if (algorithm == HashAlgorithms.Md5)
-            {
-                var md5 = new MD5CryptoServiceProvider();
-                byte[] textToHash = Encoding.Default.GetBytes(target);
-                byte[] result = md5.ComputeHash(textToHash);
-
-                return System.BitConverter.ToString(result).Replace("-", "");
-            }
+                using (var md5 = new MD5CryptoServiceProvider())
+                    return BitConverter.ToString(md5.ComputeHash(target)).Replace("-", "");
             else if (algorithm == HashAlgorithms.Sha256)
                 using (var sha = SHA256.Create())
-                    return Convert.ToBase64String(sha.ComputeHash(UTF8Encoding.UTF8.GetBytes(target)));
+                    return Convert.ToBase64String(sha.ComputeHash(target));
             else if (algorithm == HashAlgorithms.Sha512)
                 using (var sha = SHA512.Create())
-                    return Convert.ToBase64String(sha.ComputeHash(UTF8Encoding.UTF8.GetBytes(target)));
+                    return Convert.ToBase64String(sha.ComputeHash(target));
             else
                 throw new NotSupportedException("Unsupported hash algorithm");
 
@@ -484,8 +505,13 @@ namespace Cauldron.Core.Extensions
         /// occurrence within the entire <see cref="Array"/>
         /// </summary>
         /// <param name="data">The <see cref="Array"/> that could contain <paramref name="value"/></param>
-        /// <param name="value">The object to locate in the <see cref="Array"/>. The value can be null for reference types.</param>
-        /// <returns>The zero-based index of the first occurrence of item within the entire <see cref="Array"/>, if found; otherwise, –1.</returns>
+        /// <param name="value">
+        /// The object to locate in the <see cref="Array"/>. The value can be null for reference types.
+        /// </param>
+        /// <returns>
+        /// The zero-based index of the first occurrence of item within the entire <see
+        /// cref="Array"/>, if found; otherwise, –1.
+        /// </returns>
         public static long IndexOf(this byte[] data, byte[] value)
         {
             if (value.Length > data.Length)
@@ -543,8 +569,13 @@ namespace Cauldron.Core.Extensions
         /// </summary>
         /// <typeparam name="T">The type of the <see cref="Array"/></typeparam>
         /// <param name="target">The <see cref="Array"/> that could contain <paramref name="value"/></param>
-        /// <param name="value">The object to locate in the <see cref="Array"/>. The value can be null for reference types.</param>
-        /// <returns>The zero-based index of the first occurrence of item within the entire <see cref="Array"/>, if found; otherwise, –1.</returns>
+        /// <param name="value">
+        /// The object to locate in the <see cref="Array"/>. The value can be null for reference types.
+        /// </param>
+        /// <returns>
+        /// The zero-based index of the first occurrence of item within the entire <see
+        /// cref="Array"/>, if found; otherwise, –1.
+        /// </returns>
         public static int IndexOf<T>(this T[] target, T value)
         {
             for (int i = 0; i < target.Length; i++)
@@ -610,62 +641,65 @@ namespace Cauldron.Core.Extensions
         }
 
         /// <summary>
-        /// Concatenates the members of a constructed <see cref="IEnumerable{T}"/>
-        /// collection of type <see cref="string"/>, using the specified <paramref name="separator"/> between each member.
+        /// Concatenates the members of a constructed <see cref="IEnumerable{T}"/> collection of type
+        /// <see cref="string"/>, using the specified <paramref name="separator"/> between each member.
         /// </summary>
         /// <param name="source">A collection that contains the strings to concatenate.</param>
         /// <param name="separator">
-        /// The string to use as a <paramref name="separator"/>. <paramref name="separator"/> is included in the returned string
-        /// only if values has more than one element.
+        /// The string to use as a <paramref name="separator"/>. <paramref name="separator"/> is
+        /// included in the returned string only if values has more than one element.
         /// </param>
         /// <returns>
-        /// A string that consists of the members of values delimited by the <paramref name="separator"/> string.
-        /// If values has no members, the method returns <see cref="string.Empty"/>.
+        /// A string that consists of the members of values delimited by the <paramref
+        /// name="separator"/> string. If values has no members, the method returns <see cref="string.Empty"/>.
         /// </returns>
         /// <exception cref="ArgumentNullException"><paramref name="source"/> is null.</exception>
         public static string Join(this IEnumerable<string> source, string separator) => string.Join(separator, source);
 
         /// <summary>
-        /// Concatenates the elements of an object array, using the specified <paramref name="separator"/> between each element.
+        /// Concatenates the elements of an object array, using the specified <paramref
+        /// name="separator"/> between each element.
         /// </summary>
         /// <param name="source">An array that contains the elements to concatenate.</param>
         /// <param name="separator">
-        /// The string to use as a <paramref name="separator"/>. <paramref name="separator"/> is included in the returned string
-        /// only if values has more than one element.
+        /// The string to use as a <paramref name="separator"/>. <paramref name="separator"/> is
+        /// included in the returned string only if values has more than one element.
         /// </param>
         /// <returns>
-        /// A string that consists of the elements of values delimited by the <paramref name="separator"/> string.
-        /// If values is an empty array, the method returns <see cref="string.Empty"/>.
+        /// A string that consists of the elements of values delimited by the <paramref
+        /// name="separator"/> string. If values is an empty array, the method returns <see cref="string.Empty"/>.
         /// </returns>
         /// <exception cref="ArgumentNullException"><paramref name="source"/> is null.</exception>
         public static string Join(this object[] source, string separator) => string.Join(separator, source);
 
         /// <summary>
-        /// Concatenates the members of a collection, using the specified <paramref name="separator"/> between each member.
+        /// Concatenates the members of a collection, using the specified <paramref
+        /// name="separator"/> between each member.
         /// </summary>
         /// <param name="source">A collection that contains the objects to concatenate.</param>
         /// <param name="separator">
-        /// The string to use as a <paramref name="separator"/>. <paramref name="separator"/> is included in the returned string
-        /// only if values has more than one element.
+        /// The string to use as a <paramref name="separator"/>. <paramref name="separator"/> is
+        /// included in the returned string only if values has more than one element.
         /// </param>
         /// <returns>
-        /// A string that consists of the members of values delimited by the <paramref name="separator"/> string.
-        /// If values has no members, the method returns <see cref="string.Empty"/>.
+        /// A string that consists of the members of values delimited by the <paramref
+        /// name="separator"/> string. If values has no members, the method returns <see cref="string.Empty"/>.
         /// </returns>
         /// <exception cref="ArgumentNullException"><paramref name="source"/> is null.</exception>
         public static string Join<T>(this IEnumerable<T> source, string separator) => string.Join(separator, source);
 
         /// <summary>
-        /// Concatenates all the elements of a string array, using the specified <paramref name="separator"/> between each element.
+        /// Concatenates all the elements of a string array, using the specified <paramref
+        /// name="separator"/> between each element.
         /// </summary>
         /// <param name="source">An array that contains the elements to concatenate.</param>
         /// <param name="separator">
-        /// The string to use as a <paramref name="separator"/>. <paramref name="separator"/> is included in the returned string
-        /// only if values has more than one element.
+        /// The string to use as a <paramref name="separator"/>. <paramref name="separator"/> is
+        /// included in the returned string only if values has more than one element.
         /// </param>
         /// <returns>
-        /// A string that consists of the elements in value delimited by the <paramref name="separator"/> string.
-        /// If value is an empty array, the method returns <see cref="string.Empty"/>.
+        /// A string that consists of the elements in value delimited by the <paramref
+        /// name="separator"/> string. If value is an empty array, the method returns <see cref="string.Empty"/>.
         /// </returns>
         /// <exception cref="ArgumentNullException"><paramref name="source"/> is null.</exception>
         public static string Join(this string[] source, string separator) => string.Join(separator, source);
@@ -673,12 +707,17 @@ namespace Cauldron.Core.Extensions
         /// <summary>
         /// Returns a string containing a specified number of characters from the left side of a string.
         /// </summary>
-        /// <param name="source"><see cref="string"/> expression from which the leftmost characters are returned.</param>
-        /// <param name="length">
-        /// Numeric expression indicating how many characters to return. If 0, a zero-length string (<see cref="string.Empty"/>) is returned.
-        /// If greater than or equal to the number of characters in str, the entire string is returned.
+        /// <param name="source">
+        /// <see cref="string"/> expression from which the leftmost characters are returned.
         /// </param>
-        /// <returns>Returns a string containing a specified number of characters from the left side of a string.</returns>
+        /// <param name="length">
+        /// Numeric expression indicating how many characters to return. If 0, a zero-length string (
+        /// <see cref="string.Empty"/>) is returned. If greater than or equal to the number of
+        /// characters in str, the entire string is returned.
+        /// </param>
+        /// <returns>
+        /// Returns a string containing a specified number of characters from the left side of a string.
+        /// </returns>
         public static string Left(this string source, int length)
         {
             if (string.IsNullOrEmpty(source))
@@ -750,7 +789,9 @@ namespace Cauldron.Core.Extensions
         /// <param name="array">A sequence of values to order.</param>
         /// <typeparam name="TElements">Der Typ der Elemente von source.</typeparam>
         /// <param name="keySelector">A function to extract a key from an element.</param>
-        /// <returns>An <see cref="IOrderedEnumerable{TElement}"/> whose elements are sorted according to a key.</returns>
+        /// <returns>
+        /// An <see cref="IOrderedEnumerable{TElement}"/> whose elements are sorted according to a key.
+        /// </returns>
         public static IOrderedEnumerable<TElements> OrderBy<TElements>(this Array array, Func<TElements, bool> keySelector) =>
             array.Cast<TElements>().OrderBy(keySelector);
 
@@ -788,8 +829,13 @@ namespace Cauldron.Core.Extensions
         /// </summary>
         /// <param name="stream">The stream to read</param>
         /// <param name="encoding">The character encoding to use.</param>
-        /// <returns>The rest of the stream as a string, from the current position to the end. If the current position is at the end of the stream, returns an empty string ("").</returns>
-        /// <exception cref="OutOfMemoryException">There is insufficient memory to allocate a buffer for the returned string.</exception>
+        /// <returns>
+        /// The rest of the stream as a string, from the current position to the end. If the current
+        /// position is at the end of the stream, returns an empty string ("").
+        /// </returns>
+        /// <exception cref="OutOfMemoryException">
+        /// There is insufficient memory to allocate a buffer for the returned string.
+        /// </exception>
         /// <exception cref="IOException">An I/O error occurs.</exception>
         public static string ReadToEnd(this Stream stream, Encoding encoding)
         {
@@ -801,13 +847,46 @@ namespace Cauldron.Core.Extensions
         /// Reads all characters from the current position to the end of the stream.
         /// </summary>
         /// <param name="stream">The stream to read</param>
-        /// <returns>The rest of the stream as a string, from the current position to the end. If the current position is at the end of the stream, returns an empty string ("").</returns>
-        /// <exception cref="OutOfMemoryException">There is insufficient memory to allocate a buffer for the returned string.</exception>
+        /// <returns>
+        /// The rest of the stream as a string, from the current position to the end. If the current
+        /// position is at the end of the stream, returns an empty string ("").
+        /// </returns>
+        /// <exception cref="OutOfMemoryException">
+        /// There is insufficient memory to allocate a buffer for the returned string.
+        /// </exception>
         /// <exception cref="IOException">An I/O error occurs.</exception>
         public static string ReadToEnd(this Stream stream)
         {
             using (StreamReader reader = new StreamReader(stream))
                 return reader.ReadToEnd();
+        }
+
+        /// <summary>
+        /// Removes all null elements from the array.
+        /// </summary>
+        /// <typeparam name="T">The element type of the array</typeparam>
+        /// <param name="array">The array</param>
+        /// <returns>A new array with all non null elements</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="array"/> is null</exception>
+        public static T[] RemoveNull<T>(this T[] array) where T : class
+        {
+            if (array == null)
+                throw new ArgumentNullException(nameof(array));
+
+            var newSize = 0;
+
+            for (int i = 0; i < array.Length; i++)
+                if (array[i] != null)
+                    newSize++;
+
+            var newArray = new T[newSize];
+            var counter = 0;
+
+            for (int i = 0; i < array.Length; i++)
+                if (array[i] != null)
+                    newArray[counter++] = array[i];
+
+            return newArray;
         }
 
         /// <summary>
@@ -817,9 +896,14 @@ namespace Cauldron.Core.Extensions
         /// <param name="oldChars">The old chars to be replaced by <paramref name="newChar"/></param>
         /// <param name="newChar">The new char that replaces the old chars</param>
         /// <param name="startingIndex">The index where to start replacing chars</param>
-        /// <returns>A copy of the original string with the chars defined by <paramref name="oldChars"/> replaced by <paramref name="newChar"/>.</returns>
+        /// <returns>
+        /// A copy of the original string with the chars defined by <paramref name="oldChars"/>
+        /// replaced by <paramref name="newChar"/>.
+        /// </returns>
         /// <exception cref="ArgumentNullException">value is null</exception>
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="startingIndex"/> is higher than <paramref name="value"/> length</exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// <paramref name="startingIndex"/> is higher than <paramref name="value"/> length
+        /// </exception>
         public static string Replace(this string value, char[] oldChars, char newChar, int startingIndex = 0)
         {
             if (value == null)
@@ -837,6 +921,31 @@ namespace Cauldron.Core.Extensions
         }
 
         /// <summary>
+        /// Replaces a char in the given index with <paramref name="newChar"/>
+        /// </summary>
+        /// <param name="value">The string to replace the char</param>
+        /// <param name="index">The index of the char</param>
+        /// <param name="newChar">The new char</param>
+        /// <exception cref="ArgumentNullException">value is null</exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// <paramref name="index"/> is higher than <paramref name="value"/> length
+        /// </exception>
+        public unsafe static void Replace(this string value, uint index, char newChar)
+        {
+            if (value == null)
+                throw new ArgumentNullException(nameof(value));
+
+            if (value.Length < index)
+                throw new ArgumentOutOfRangeException("index cannot be higher than value length");
+
+            if (value.Length == 0)
+                return;
+
+            fixed (char* chr = value)
+                *(chr + index) = newChar;
+        }
+
+        /// <summary>
         /// Replaces a series of chars <paramref name="oldChars"/> with a single char <paramref name="newChar"/>.
         /// <para/>
         /// ATTENTION: The original string is the target of the manipulation.
@@ -846,7 +955,9 @@ namespace Cauldron.Core.Extensions
         /// <param name="newChar">The new char that replaces the old chars</param>
         /// <param name="startingIndex">The index where to start replacing chars</param>
         /// <exception cref="ArgumentNullException">value is null</exception>
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="startingIndex"/> is higher than <paramref name="value"/> length</exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// <paramref name="startingIndex"/> is higher than <paramref name="value"/> length
+        /// </exception>
         public unsafe static void ReplaceMe(this string value, char[] oldChars, char newChar, int startingIndex = 0)
         {
             if (value == null)
@@ -869,37 +980,19 @@ namespace Cauldron.Core.Extensions
         }
 
         /// <summary>
-        /// Replaces a char in the given index with <paramref name="newChar"/>
-        /// </summary>
-        /// <param name="value">The string to replace the char</param>
-        /// <param name="index">The index of the char</param>
-        /// <param name="newChar">The new char</param>
-        /// <exception cref="ArgumentNullException">value is null</exception>
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="index"/> is higher than <paramref name="value"/> length</exception>
-        public unsafe static void Replace(this string value, uint index, char newChar)
-        {
-            if (value == null)
-                throw new ArgumentNullException(nameof(value));
-
-            if (value.Length < index)
-                throw new ArgumentOutOfRangeException("index cannot be higher than value length");
-
-            if (value.Length == 0)
-                return;
-
-            fixed (char* chr = value)
-                *(chr + index) = newChar;
-        }
-
-        /// <summary>
         /// Returns a string containing a specified number of characters from the right side of a string.
         /// </summary>
-        /// <param name="source"><see cref="string"/> expression from which the rightmost characters are returned.</param>
-        /// <param name="length">
-        /// Numeric expression indicating how many characters to return. If 0, a zero-length string (<see cref="string.Empty"/>) is returned.
-        /// If greater than or equal to the number of characters in str, the entire string is returned.
+        /// <param name="source">
+        /// <see cref="string"/> expression from which the rightmost characters are returned.
         /// </param>
-        /// <returns>Returns a string containing a specified number of characters from the right side of a string.</returns>
+        /// <param name="length">
+        /// Numeric expression indicating how many characters to return. If 0, a zero-length string (
+        /// <see cref="string.Empty"/>) is returned. If greater than or equal to the number of
+        /// characters in str, the entire string is returned.
+        /// </param>
+        /// <returns>
+        /// Returns a string containing a specified number of characters from the right side of a string.
+        /// </returns>
         public static string Right(this string source, int length)
         {
             if (string.IsNullOrEmpty(source))
@@ -974,7 +1067,8 @@ namespace Cauldron.Core.Extensions
         }
 
         /// <summary>
-        /// Tries to performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// Tries to performs application-defined tasks associated with freeing, releasing, or
+        /// resetting unmanaged resources.
         /// <para/>
         /// This will dispose an object if it implements the <see cref="IDisposable "/> interface.
         /// </summary>
@@ -988,7 +1082,8 @@ namespace Cauldron.Core.Extensions
         /// <summary>
         /// Tries to encode a byte array to a string by detecting its encoding.
         /// <para/>
-        /// It will try to detect the encoding for for UTF-7, UTF-8/16/32 (bom, no bom, little and big endian), and local default codepage, and potentially other codepages.
+        /// It will try to detect the encoding for for UTF-7, UTF-8/16/32 (bom, no bom, little and
+        /// big endian), and local default codepage, and potentially other codepages.
         /// </summary>
         /// <param name="data">The byte array that contains the string to be encoded</param>
         /// <returns>The encoded string</returns>
@@ -1002,8 +1097,7 @@ namespace Cauldron.Core.Extensions
             // Original: http://stackoverflow.com/questions/1025332/determine-a-strings-encoding-in-c-sharp
             // Dan W - 2012
 
-            // First check the low hanging fruit by checking if a
-            // BOM/signature exists (sourced from http://www.unicode.org/faq/utf_bom.html#bom4)
+            // First check the low hanging fruit by checking if a BOM/signature exists (sourced from http://www.unicode.org/faq/utf_bom.html#bom4)
             if (data.Length >= 4 && data[0] == 0x00 && data[1] == 0x00 && data[2] == 0xFE && data[3] == 0xFF)
                 // UTF-32, big-endian
                 return Encoding.GetEncoding("utf-32BE").GetString(data, 4, data.Length - 4);
@@ -1023,26 +1117,27 @@ namespace Cauldron.Core.Extensions
                 // UTF-7
                 return Encoding.UTF7.GetString(data, 3, data.Length - 3);
 
-            // If the code reaches here, no BOM/signature was found, so now
-            // we need to 'taste' the file to see if can manually discover
-            // the encoding. A high taster value is desired for UTF-8
+            // If the code reaches here, no BOM/signature was found, so now we need to 'taste' the
+            // file to see if can manually discover the encoding. A high taster value is desired for UTF-8
             var taster = data.Length;    // Taster size can't be bigger than the filesize obviously.
 
-            // Some text files are encoded in UTF8, but have no BOM/signature. Hence
-            // the below manually checks for a UTF8 pattern. This code is based off
-            // the top answer at: http://stackoverflow.com/questions/6555015/check-for-invalid-utf8
-            // For our purposes, an unnecessarily strict (and terser/slower)
-            // implementation is shown at: http://stackoverflow.com/questions/1031645/how-to-detect-utf-8-in-plain-c
-            // For the below, false positives should be exceedingly rare (and would
-            // be either slightly malformed UTF-8 (which would suit our purposes
+            // Some text files are encoded in UTF8, but have no BOM/signature. Hence the below
+            // manually checks for a UTF8 pattern. This code is based off the top answer at:
+            // http://stackoverflow.com/questions/6555015/check-for-invalid-utf8 For our purposes, an
+            // unnecessarily strict (and terser/slower) implementation is shown at:
+            // http://stackoverflow.com/questions/1031645/how-to-detect-utf-8-in-plain-c For the
+            // below, false positives should be exceedingly rare (and would be either slightly
+            // malformed UTF-8 (which would suit our purposes
             // anyway) or 8-bit extended ASCII/UTF-16/32 at a vanishingly long shot).
             int i = 0;
             bool utf8 = false;
 
             while (i < taster - 4)
             {
-                // If all characters are below 0x80, then it is valid UTF8, but UTF8 is not 'required' (and therefore the text is more desirable to be treated as the default codepage of the computer).
-                // Hence, there's no "utf8 = true;" code unlike the next three checks.
+                // If all characters are below 0x80, then it is valid UTF8, but UTF8 is not
+                // 'required' (and therefore the text is more desirable to be treated as the default
+                // codepage of the computer). Hence, there's no "utf8 = true;" code unlike the next
+                // three checks.
                 if (data[i] <= 0x7F)
                 {
                     i += 1;
@@ -1074,9 +1169,9 @@ namespace Cauldron.Core.Extensions
             if (utf8 == true)
                 return Encoding.UTF8.GetString(data);
 
-            // The next check is a heuristic attempt to detect UTF-16 without a BOM.
-            // We simply look for zeroes in odd or even byte places, and if a certain
-            // threshold is reached, the code is 'probably' UF-16.
+            // The next check is a heuristic attempt to detect UTF-16 without a BOM. We simply look
+            // for zeroes in odd or even byte places, and if a certain threshold is reached, the code
+            // is 'probably' UF-16.
             double threshold = 0.1; // proportion of chars step 2 which must be zeroed to be diagnosed as utf-16. 0.1 = 10%
             int count = 0;
 
@@ -1095,8 +1190,8 @@ namespace Cauldron.Core.Extensions
             if ((double)count / taster > threshold)
                 return Encoding.Unicode.GetString(data); // (little-endian)
 
-            // Finally, a long shot - let's see if we can find "charset=xyz" or
-            // "encoding=xyz" to identify the encoding:
+            // Finally, a long shot - let's see if we can find "charset=xyz" or "encoding=xyz" to
+            // identify the encoding:
             for (int n = 0; n < taster - 9; n++)
             {
                 if (
@@ -1135,8 +1230,9 @@ namespace Cauldron.Core.Extensions
             }
 
             // If all else fails, the encoding is probably (though certainly not
-            // definitely) the user's local codepage! One might present to the user a
-            // list of alternative encodings as shown here: http://stackoverflow.com/questions/8509339/what-is-the-most-common-encoding-of-each-language
+            // definitely) the user's local codepage! One might present to the user a list of
+            // alternative encodings as shown here:
+            // http://stackoverflow.com/questions/8509339/what-is-the-most-common-encoding-of-each-language
             // A full list can be found using Encoding.GetEncodings();
             return Encoding.ASCII.GetString(data);
         }

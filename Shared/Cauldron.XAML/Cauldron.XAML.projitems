@@ -28,6 +28,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Navigation\NavigationInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Navigation\NavigationType.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Navigation\PageStackEntry.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PropertyIsChangedEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RelayCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\LocalizationSource.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TextBlockInline.cs" />
@@ -36,10 +37,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\BooleanToVisibilityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\KeyToLocalizedStringConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\NullOrEmptyToVisibilityConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\ObjectToBooleanConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\ObjectToVisibilityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ValueConverters\VisibilityToBooleanConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\IChangeAwareViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ICloseAwareViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\IDialogViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\IFrameAware.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\INavigable.cs" />

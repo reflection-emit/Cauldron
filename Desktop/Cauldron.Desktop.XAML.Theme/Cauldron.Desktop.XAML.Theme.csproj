@@ -9,10 +9,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Cauldron.XAML.Theme</RootNamespace>
     <AssemblyName>Cauldron.XAML.Theme</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -22,8 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>
-    </DocumentationFile>
+    <DocumentationFile>bin\Debug\Cauldron.XAML.Theme.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -32,6 +32,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Cauldron.XAML.Theme.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
@@ -48,21 +49,74 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Behaviours\ChangeAwareIsChangedBehaviour.cs" />
-    <Compile Include="Behaviours\ProgressBarBehaviour.cs" />
+    <Compile Include="ChangeAwareIsChangedBehaviour.cs" />
+    <Compile Include="ComboBoxBehaviour.cs" />
+    <Compile Include="ComboBoxProperties.cs" />
+    <Compile Include="Enforcer.cs" />
+    <Compile Include="HeaderDisplay.cs" />
+    <Compile Include="InlineTextValueConverter.cs" />
+    <Compile Include="ListBoxProperties.cs" />
+    <Compile Include="ListViewBehaviour.cs" />
+    <Compile Include="Module.cs" />
+    <Compile Include="PasswordBoxBehaviour.cs" />
+    <Compile Include="PasswordBoxProperties.cs" />
+    <Compile Include="ProgressBarBehaviour.cs" />
+    <Compile Include="ButtonProperties.cs" />
     <Compile Include="CauldronTheme.cs" />
     <Compile Include="CauldronWindow.xaml.cs">
       <DependentUpon>CauldronWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ContentControlProperties.cs" />
+    <Compile Include="GridViewColumnFormatting.cs" />
+    <Compile Include="GridViewColumnHeaderBehaviours.cs" />
+    <Compile Include="GridViewColumnProperties.cs" />
+    <Compile Include="HyperlinkProperties.cs" />
+    <Compile Include="ImageProperties.cs" />
+    <Compile Include="ListViewProperties.cs" />
     <Compile Include="ProgressBarProperties.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GrayscaleEffect.cs" />
+    <Compile Include="SortAdorner.cs" />
     <Compile Include="Styles\ButtonStyle.xaml.cs">
       <DependentUpon>ButtonStyle.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Styles\ComboBoxStyle.xaml.cs">
+      <DependentUpon>ComboBoxStyle.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Styles\ExpanderStyle.xaml.cs">
+      <DependentUpon>ExpanderStyle.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Styles\ListBoxStyle.xaml.cs">
+      <DependentUpon>ListBoxStyle.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Styles\ListViewStyle.xaml.cs">
+      <DependentUpon>ListViewStyle.xaml</DependentUpon>
     </Compile>
     <Compile Include="Styles\MiscStyle.xaml.cs">
       <DependentUpon>MiscStyle.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Styles\PasswordBoxStyle.xaml.cs">
+      <DependentUpon>PasswordBoxStyle.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Styles\ScrollBarStyle.xaml.cs">
+      <DependentUpon>ScrollBarStyle.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Styles\TabControlStyle.xaml.cs">
+      <DependentUpon>TabControlStyle.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Styles\StatusBarStyle.xaml.cs">
+      <DependentUpon>StatusBarStyle.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Styles\TextBoxStyle.xaml.cs">
+      <DependentUpon>TextBoxStyle.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TabControlDecorationBorderBehavior.cs" />
+    <Compile Include="TabItemBehaviour.cs" />
+    <Compile Include="TabItemProperties.cs" />
+    <Compile Include="TabsControlItemsControlBehaviour.cs" />
+    <Compile Include="TextBlockProperties.cs" />
+    <Compile Include="TextBoxProperties.cs" />
+    <Compile Include="ValidationDisplay.cs" />
     <Compile Include="WindowToolbar.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -74,17 +128,51 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Styles\ComboBoxStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\ExpanderStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\ListBoxStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\ListViewStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\MiscStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\PasswordBoxStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\ScrollBarStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\TabControlStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\StatusBarStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\TextBoxStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
     <None Include="FodyWeavers.xml" />
-    <Resource Include="Resources\GrayscaleEffect.ps" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
+    <Resource Include="Resources\GrayscaleEffect.ps" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Cauldron.Core\Cauldron.Desktop.Core.csproj">
@@ -94,6 +182,10 @@
     <ProjectReference Include="..\Cauldron.Desktop.Activator\Cauldron.Desktop.Activator.csproj">
       <Project>{6e8a953e-2732-4a58-bc7b-f86b1a5ca5dd}</Project>
       <Name>Cauldron.Desktop.Activator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cauldron.Desktop.Cryptography\Cauldron.Desktop.Cryptography.csproj">
+      <Project>{d20bc350-336c-4e82-9848-773de5abac39}</Project>
+      <Name>Cauldron.Desktop.Cryptography</Name>
     </ProjectReference>
     <ProjectReference Include="..\Cauldron.Desktop.Interception\Cauldron.Desktop.Interception.csproj">
       <Project>{c656c9c1-bee8-40b1-bac7-6dd7b6ff5fbb}</Project>
@@ -116,12 +208,13 @@
       <Name>Cauldron.Desktop.XAML</Name>
     </ProjectReference>
   </ItemGroup>
+  <Import Project="..\..\Shared\Cauldron.Diagnostics\Cauldron.Diagnostics.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\..\packages\Fody.2.1.0\build\netstandard1.0\Fody.targets" Condition="Exists('..\..\packages\Fody.2.1.0\build\netstandard1.0\Fody.targets')" />
+  <Import Project="..\..\packages\Fody.2.1.2\build\netstandard1.0\Fody.targets" Condition="Exists('..\..\packages\Fody.2.1.2\build\netstandard1.0\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\Fody.2.1.0\build\netstandard1.0\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Fody.2.1.0\build\netstandard1.0\Fody.targets'))" />
+    <Error Condition="!Exists('..\..\packages\Fody.2.1.2\build\netstandard1.0\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Fody.2.1.2\build\netstandard1.0\Fody.targets'))" />
   </Target>
 </Project>

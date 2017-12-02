@@ -68,7 +68,8 @@ namespace Cauldron.Interception.Test
                 new TestEnum[] { TestEnum.One, TestEnum.Three })]
         public void Attribute_Parameter()
         {
-            // If the unit test was successfully invoked, then we are sure that our weaver weaved the whole thing correctly
+            // If the unit test was successfully invoked, then we are sure that our weaver weaved the
+            // whole thing correctly
             Assert.AreEqual(true, true);
         }
 
@@ -100,6 +101,9 @@ namespace Cauldron.Interception.Test
         [TestMethod]
         public void Lockable_Method()
         {
+            // If the unit test was successfully invoked, then we are sure that our weaver weaved the
+            // whole thing correctly
+
             var uu = Cauldron.Core.MiscUtils.GenerateLoremIpsum(4, 6);
             System.Diagnostics.Debug.WriteLine(uu);
         }
@@ -129,7 +133,8 @@ namespace Cauldron.Interception.Test
         [ExternalMethodInterceptor("test_opop", 2342)]
         public void Multiple_Attributes()
         {
-            // If the unit test was successfully invoked, then we are sure that our weaver weaved the whole thing correctly
+            // If the unit test was successfully invoked, then we are sure that our weaver weaved the
+            // whole thing correctly
             Assert.AreEqual(true, true);
         }
 
@@ -248,7 +253,8 @@ namespace Cauldron.Interception.Test
                 System.Diagnostics.Debug.WriteLine(uu);
             }
 
-            // If the unit test was successfully invoked, then we are sure that our weaver weaved the whole thing correctly
+            // If the unit test was successfully invoked, then we are sure that our weaver weaved the
+            // whole thing correctly
             Assert.AreEqual(true, true);
         }
 
@@ -285,7 +291,8 @@ namespace Cauldron.Interception.Test
 
             action();
 
-            // If the unit test was successfully invoked, then we are sure that our weaver weaved the whole thing correctly
+            // If the unit test was successfully invoked, then we are sure that our weaver weaved the
+            // whole thing correctly
             Assert.AreEqual(true, true);
         }
 
@@ -322,7 +329,8 @@ namespace Cauldron.Interception.Test
 
             action();
 
-            // If the unit test was successfully invoked, then we are sure that our weaver weaved the whole thing correctly
+            // If the unit test was successfully invoked, then we are sure that our weaver weaved the
+            // whole thing correctly
             Assert.AreEqual(true, true);
         }
 
@@ -363,7 +371,8 @@ namespace Cauldron.Interception.Test
                 throw;
             }
 
-            // If the unit test was successfully invoked, then we are sure that our weaver weaved the whole thing correctly
+            // If the unit test was successfully invoked, then we are sure that our weaver weaved the
+            // whole thing correctly
             Assert.AreEqual(true, true);
         }
 
@@ -374,7 +383,8 @@ namespace Cauldron.Interception.Test
             var i = 3 + 5;
             var date = DateTime.Now.AddMonths(i);
 
-            // If the unit test was successfully invoked, then we are sure that our weaver weaved the whole thing correctly
+            // If the unit test was successfully invoked, then we are sure that our weaver weaved the
+            // whole thing correctly
             Assert.AreEqual(true, true);
         }
 
@@ -391,7 +401,8 @@ namespace Cauldron.Interception.Test
 
             var tt = func();
 
-            // If the unit test was successfully invoked, then we are sure that our weaver weaved the whole thing correctly
+            // If the unit test was successfully invoked, then we are sure that our weaver weaved the
+            // whole thing correctly
             Assert.AreEqual(true, true);
         }
 
@@ -411,7 +422,8 @@ namespace Cauldron.Interception.Test
                 throw;
             }
 
-            // If the unit test was successfully invoked, then we are sure that our weaver weaved the whole thing correctly
+            // If the unit test was successfully invoked, then we are sure that our weaver weaved the
+            // whole thing correctly
             Assert.AreEqual(true, true);
         }
 

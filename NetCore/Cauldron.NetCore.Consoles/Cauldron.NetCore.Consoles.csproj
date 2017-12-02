@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <VersionPrefix>1.0.0.12</VersionPrefix>
-    <TargetFramework>netstandard1.6</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <DefineConstants>$(DefineConstants);NETCORE</DefineConstants>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AssemblyName>Cauldron.Consoles</AssemblyName>
@@ -15,6 +15,10 @@
     <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
     <RootNamespace>Cauldron.Consoles</RootNamespace>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Diagnostics.Process" Version="4.3.0" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Cauldron.NetCore.Activator\Cauldron.NetCore.Activator.csproj" />

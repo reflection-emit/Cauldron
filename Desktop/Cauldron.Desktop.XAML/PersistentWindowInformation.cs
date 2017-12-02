@@ -1,57 +1,57 @@
 ﻿using Cauldron.Core;
+using Cauldron.Core.Extensions;
 using System;
-using System.Runtime.Serialization;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows;
+using Windows.Storage;
 
 namespace Cauldron.XAML
 {
-    [DataContract(IsReference = false, Name = "PersistentWindowInformation", Namespace = "Cauldron.XAML.Navigation")]
     internal sealed class PersistentWindowInformation
     {
-        [DataMember]
         public double Height { get; set; }
 
-        [DataMember]
         public double Left { get; set; }
 
-        [DataMember]
         public int State { get; set; }
 
-        [DataMember]
         public double Top { get; set; }
 
-        [DataMember]
         public double Width { get; set; }
 
-        public static async Task Load(Window window, Type viewModelType)
+        public static void Load(Window window, Type viewModelType)
         {
             PersistentWindowProperties.SetHeight(window, Mathc.Clamp(window.ActualHeight, window.MinHeight, window.MaxHeight));
             PersistentWindowProperties.SetWidth(window, Mathc.Clamp(window.ActualWidth, window.MinWidth, window.MaxWidth));
 
-            var obj = await Serializer.DeserializeAsync<PersistentWindowInformation>("Navigator");
+            var filename = Path.Combine(ApplicationData.Current.LocalFolder.FullName, viewModelType.FullName.GetHash() + "_Navigator");
 
-            if (obj == null)
+            if (!File.Exists(filename))
                 return;
 
+            var dictionary = new KeyRawValueDictionary();
+            dictionary.Deserialize(File.ReadAllBytes(filename));
+
             window.WindowStartupLocation = WindowStartupLocation.Manual;
-            window.Left = obj.Left;
-            window.Top = obj.Top;
-            window.Height = obj.Height;
-            window.Width = obj.Width;
-            window.WindowState = (WindowState)obj.State;
+            window.Left = dictionary["Left"].ToDouble();
+            window.Top = dictionary["Top"].ToDouble();
+            window.Height = Math.Max(dictionary["Height"].ToDouble(), 1);
+            window.Width = Math.Max(dictionary["Width"].ToDouble(), 1);
+            window.WindowState = (WindowState)dictionary["WindowState"].ToInteger();
         }
 
-        public static async Task Save(Window window, Type viewModelType)
+        public static void Save(Window window, Type viewModelType)
         {
-            var obj = new PersistentWindowInformation();
-            obj.Width = Mathc.Clamp(PersistentWindowProperties.GetWidth(window), window.MinWidth, window.MaxWidth);
-            obj.Height = Mathc.Clamp(PersistentWindowProperties.GetHeight(window), window.MinHeight, window.MaxHeight);
-            obj.Top = window.Top;
-            obj.Left = window.Left;
-            obj.State = (int)window.WindowState;
+            var filename = Path.Combine(ApplicationData.Current.LocalFolder.FullName, viewModelType.FullName.GetHash() + "_Navigator");
 
-            await Serializer.SerializeAsync(obj, "Navigator");
+            var dictionary = new KeyRawValueDictionary();
+            dictionary.Add("Width", Mathc.Clamp(PersistentWindowProperties.GetWidth(window), window.MinWidth, window.MaxWidth));
+            dictionary.Add("Height", Mathc.Clamp(PersistentWindowProperties.GetHeight(window), window.MinHeight, window.MaxHeight));
+            dictionary.Add("Top", window.Top);
+            dictionary.Add("Left", window.Left);
+            dictionary.Add("WindowState", (int)window.WindowState);
+
+            File.WriteAllBytes(filename, dictionary.Serialize());
         }
     }
 }

@@ -9,12 +9,14 @@ using System.Threading;
 namespace Cauldron.Interception
 {
     /// <summary>
-    /// Provides a timed global caching for the intercepted method. The caching is implemented using <see cref="MemoryCache.Default"/>
+    /// Provides a timed global caching for the intercepted method. The caching is implemented using
+    /// <see cref="MemoryCache.Default"/>
     /// <para/>
-    /// The cache is dependent to the passed arguments. The arguments requires a proper implementation of <see cref="object.GetHashCode"/> and a unique <see cref="object.ToString"/> value.
+    /// The cache is dependent to the passed arguments. The arguments requires a proper
+    /// implementation of <see cref="object.GetHashCode"/> and a unique <see cref="object.ToString"/> value.
     /// </summary>
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
-    public sealed class TimedCacheAttribute : Attribute
+    public sealed class TimedCacheAttribute : Attribute, IInterceptor
     {
         private readonly SemaphoreSlim semaphore = new SemaphoreSlim(1, 1);
         private TimeSpan decayPeriod;

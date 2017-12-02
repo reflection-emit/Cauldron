@@ -18,6 +18,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
+using Windows.Storage;
 
 namespace Cauldron.XAML
 {
@@ -54,7 +55,15 @@ namespace Cauldron.XAML
             this.Resources.Add(typeof(CauldronTemplateSelector).Name, new CauldronTemplateSelector());
 
             // Add all Value converters to the dictionary
-            Factory.CreateMany<IValueConverter>().Foreach(x => this.Resources.Add(x.GetType().Name, x));
+            Factory.CreateMany<IValueConverter>().Foreach(x =>
+            {
+                var name = x.GetType().Name;
+
+                if (!this.Resources.Contains(name))
+                    this.Resources.Add(name, x);
+                else
+                    Output.WriteLineError("Multiple ValueConverters with the same name found: " + name);
+            });
 
             // find all resourcedictionaries and add them to the existing resources
             Assemblies.CauldronObjects
@@ -89,7 +98,8 @@ namespace Cauldron.XAML
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
-        /// Gets or sets the application splash screen image. This is only neccessary if the property <see cref="IsSinglePage"/> is set to true
+        /// Gets or sets the application splash screen image. This is only neccessary if the property
+        /// <see cref="IsSinglePage"/> is set to true
         /// </summary>
         public ImageSource ApplicationSplash { get; set; }
 
@@ -152,7 +162,8 @@ namespace Cauldron.XAML
         }
 
         /// <summary>
-        /// Gets or sets a value that indicates that the application is a single page application. This application will behave almost like a UWP app. Default is false.
+        /// Gets or sets a value that indicates that the application is a single page application.
+        /// This application will behave almost like a UWP app. Default is false.
         /// </summary>
         public bool IsSinglePage
         {
@@ -195,7 +206,8 @@ namespace Cauldron.XAML
         }
 
         /// <summary>
-        /// Gets or sets a value that indicates if the main window should be brought to front if a second instance of the application sends arguments. Default is true.
+        /// Gets or sets a value that indicates if the main window should be brought to front if a
+        /// second instance of the application sends arguments. Default is true.
         /// </summary>
         public bool ShouldBringToFront { get; set; } = true;
 
@@ -246,7 +258,9 @@ namespace Cauldron.XAML
         /// Occured before the <see cref="PropertyChanged"/> event is invoked.
         /// </summary>
         /// <param name="propertyName">The name of the property where the value change has occured</param>
-        /// <returns>Returns true if <see cref="RaisePropertyChanged(string)"/> should be cancelled. Otherwise false</returns>
+        /// <returns>
+        /// Returns true if <see cref="RaisePropertyChanged(string)"/> should be cancelled. Otherwise false
+        /// </returns>
         protected virtual bool BeforeRaiseNotifyPropertyChanged(string propertyName) => false;
 
         /// <summary>
@@ -259,9 +273,12 @@ namespace Cauldron.XAML
         }
 
         /// <summary>
-        /// Occures if the application is activated by a URI whose scheme name this app is registered to handle.
+        /// Occures if the application is activated by a URI whose scheme name this app is registered
+        /// to handle.
         /// </summary>
-        /// <param name="uri">Gets the Uniform Resource Identifier (URI) for which the app was activated.</param>
+        /// <param name="uri">
+        /// Gets the Uniform Resource Identifier (URI) for which the app was activated.
+        /// </param>
         protected virtual void OnActivationProtocol(Uri uri)
         {
         }
@@ -274,8 +291,7 @@ namespace Cauldron.XAML
         }
 
         /// <summary>
-        /// Occures on preload.
-        /// Will only occures if <see cref="IsSingleInstance"/> is true
+        /// Occures on preload. Will only occures if <see cref="IsSingleInstance"/> is true
         /// </summary>
         protected virtual Task OnPreload() => Task.FromResult(0);
 
@@ -292,26 +308,38 @@ namespace Cauldron.XAML
         /// <param name="e">Details about the launch request and process.</param>
         protected abstract Task OnStartup(LaunchActivatedEventArgs e);
 
+        /// <summary>
+        /// Occures if the url protocoll requires registration.
+        /// </summary>
+        /// <param name="name">The application uri e.g. exampleApplication://</param>
+        protected virtual void OnUrlProtocolRegistration(string name)
+        {
+            try
+            {
+                UrlProtocol.Register(name);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                var location = Assembly.GetEntryAssembly().Location;
+
+                var processInfo = new ProcessStartInfo();
+                processInfo.Verb = "runas";
+                processInfo.FileName = Path.Combine(Path.GetDirectoryName(location), Path.GetFileName(location).Replace(".vshost.exe", ".exe"));
+                processInfo.Arguments = "registerUriScheme";
+                Process.Start(processInfo);
+            }
+        }
+
         private async void ApplicationBase_Startup(object sender, StartupEventArgs e)
         {
             this.isInitialized = true;
 
             if (this.UrlProtocolNames != null && this.UrlProtocolNames.Length > 0)
             {
-                try
+                for (int i = 0; i < this.UrlProtocolNames.Length; i++)
                 {
-                    for (int i = 0; i < this.UrlProtocolNames.Length; i++)
-                        UrlProtocol.Register(this.UrlProtocolNames[i]);
-                }
-                catch (UnauthorizedAccessException)
-                {
-                    var location = Assembly.GetEntryAssembly().Location;
-
-                    var processInfo = new ProcessStartInfo();
-                    processInfo.Verb = "runas";
-                    processInfo.FileName = Path.Combine(Path.GetDirectoryName(location), Path.GetFileName(location).Replace(".vshost.exe", ".exe"));
-                    processInfo.Arguments = "registerUriScheme";
-                    Process.Start(processInfo);
+                    if (UrlProtocol.RequiresRegistration(this.UrlProtocolNames[i]))
+                        this.OnUrlProtocolRegistration(this.UrlProtocolNames[i]);
                 }
 
                 if (e.Args.Length > 0 && e.Args[0] == "registerUriScheme")
@@ -322,12 +350,14 @@ namespace Cauldron.XAML
                 }
             }
 
-            // If an application is being run by VS then it will have the .vshost suffix to its proc name. We have to also check them
+            // If an application is being run by VS then it will have the .vshost suffix to its proc
+            // name. We have to also check them
             var proc = Process.GetCurrentProcess();
             var processName = proc.ProcessName.Replace(".vshost", "");
             var processes = Process.GetProcesses().Where(x => (x.ProcessName == processName || x.ProcessName == proc.ProcessName || x.ProcessName == proc.ProcessName + ".vshost") && x.Id != proc.Id).ToArray();
 
-            // Special case ... If we recieve a call from an uri protocol we will be passing this to all instances of the application
+            // Special case ... If we recieve a call from an uri protocol we will be passing this to
+            // all instances of the application
             if (this.UrlProtocolNames != null &&
                 this.UrlProtocolNames.Length > 0 &&
                 e.Args.Length > 0 &&
@@ -343,9 +373,14 @@ namespace Cauldron.XAML
 
             if (this.IsSingleInstance && processes.Length > 0)
             {
-                Win32Api.SendMessage(processes[0].MainWindowHandle, $"{e.Args.Join("\n")}");
-                this.ShutdownMode = ShutdownMode.OnExplicitShutdown;
-                this.Shutdown();
+                var hwnd = processes[0].MainWindowHandle;
+
+                if (hwnd != IntPtr.Zero)
+                {
+                    Win32Api.SendMessage(hwnd, $"{e.Args.Join("\n")}");
+                    this.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+                    this.Shutdown();
+                }
             }
             else
             {
@@ -365,7 +400,7 @@ namespace Cauldron.XAML
                     window.Icon = await Win32Api.ExtractAssociatedIcon(Assembly.GetEntryAssembly().Location).ToBitmapImageAsync();
                     window.Title = ApplicationInfo.ApplicationName;
 
-                    await PersistentWindowInformation.Load(window, this.GetType());
+                    PersistentWindowInformation.Load(window, this.GetType());
 
                     window.SizeChanged += (s, e1) =>
                     {
@@ -375,7 +410,7 @@ namespace Cauldron.XAML
                             PersistentWindowProperties.SetWidth(window, e1.NewSize.Width);
                         }
                     };
-                    window.Closing += async (s, e1) => await PersistentWindowInformation.Save(window, this.GetType());
+                    window.Closing += (s, e1) => PersistentWindowInformation.Save(window, this.GetType());
 
                     window.Show();
 
@@ -388,8 +423,15 @@ namespace Cauldron.XAML
                     window.Content = rootFrame;
                     window.InputBindings.Add(new KeyBinding(new RelayCommand(async () => { await rootFrame.GoBack(); }, () => rootFrame.CanGoBack), Key.Back, ModifierKeys.None));
                 }
+                else if (this.GetType().GetCustomAttribute<ViewAttribute>() != null || Application.Current.Resources.Contains($"View_{this.GetType().Name}"))
+                {
+                    this.Navigator.As<Navigator>()?.NavigateInternal<ApplicationBase>(this, null, null);
+                    await this.OnPreload();
+                    Application.Current.MainWindow.Activate();
+                }
 
                 await this.OnStartup(new LaunchActivatedEventArgs(e.Args));
+                this.Navigator.TryClose(this);
 
                 if (Application.Current.MainWindow != null)
                 {

@@ -9,10 +9,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>EveMarket.Views</RootNamespace>
     <AssemblyName>EveMarket.Views</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -103,6 +104,14 @@
       <Project>{d09d5044-4799-4ccf-997d-31f10b6fce24}</Project>
       <Name>Cauldron.Desktop.XAML.Interactivity</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Cauldron.Desktop.XAML.Theme.VSDark\Cauldron.Desktop.XAML.Theme.VSDark.csproj">
+      <Project>{2cefbc62-00b8-487b-86d5-ec610134de49}</Project>
+      <Name>Cauldron.Desktop.XAML.Theme.VSDark</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Cauldron.Desktop.XAML.Theme\Cauldron.Desktop.XAML.Theme.csproj">
+      <Project>{b5cadc73-4e25-40ff-8130-e5af16a8d0c2}</Project>
+      <Name>Cauldron.Desktop.XAML.Theme</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Cauldron.Desktop.XAML.Validation\Cauldron.Desktop.XAML.Validation.csproj">
       <Project>{362950dc-8fad-4675-8a74-e80a0ddf2bbd}</Project>
       <Name>Cauldron.Desktop.XAML.Validation</Name>
@@ -114,17 +123,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="FodyWeavers.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\..\..\packages\Fody.2.1.0\build\netstandard1.0\Fody.targets" Condition="Exists('..\..\..\packages\Fody.2.1.0\build\netstandard1.0\Fody.targets')" />
+  <Import Project="..\..\..\packages\Fody.2.1.2\build\netstandard1.0\Fody.targets" Condition="Exists('..\..\..\packages\Fody.2.1.2\build\netstandard1.0\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\..\packages\Fody.2.1.0\build\netstandard1.0\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Fody.2.1.0\build\netstandard1.0\Fody.targets'))" />
+    <Error Condition="!Exists('..\..\..\packages\Fody.2.1.2\build\netstandard1.0\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Fody.2.1.2\build\netstandard1.0\Fody.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

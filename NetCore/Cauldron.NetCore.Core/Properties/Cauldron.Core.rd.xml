@@ -31,5 +31,8 @@
     <Type Name="System.IEquatable{T}">
       <Subtypes Dynamic="Required Public" />
     </Type>
+    <Type Name="Cauldron.Core.ILoadedAssemblies">
+      <Subtypes Dynamic="Required Public" />
+    </Type>
   </Library>
 </Directives>

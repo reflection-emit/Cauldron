@@ -43,6 +43,11 @@ namespace Cauldron.Interception.Test
         public TestEnum PropertyWithEnumValue { get; private set; }
 
         [TestPropertyInterceptor]
+        [ExternalLockablePropertyInterceptor]
+        [EnumPropertyInterceptor]
+        public int PropertyWithMultipleInterceptors { get; set; }
+
+        [TestPropertyInterceptor]
         public long ValueTypeProperty { get; set; }
 
         [TestPropertyInterceptor]
@@ -102,6 +107,12 @@ namespace Cauldron.Interception.Test
             StaticLockableProperty = "Computer";
             Assert.AreEqual("Hello", this.LockableProperty);
             Assert.AreEqual("Computer", StaticLockableProperty);
+        }
+
+        [TestMethod]
+        public void Property_With_Multiple_interceptors()
+        {
+            this.PropertyWithMultipleInterceptors = 2;
         }
 
         [TestMethod]

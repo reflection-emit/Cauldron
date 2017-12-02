@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>Capgemini.Cauldron.Core.Extensions.Compression</PackageId>
+    <Authors>Alexander Schunk, Capgemini Deutschland GmbH</Authors>
+    <Product>Cauldron.Core.Extensions.Compression</Product>
+    <Description>Provides System.IO.Compression.GZipStream extension methods for System.IO.Stream, System.IO.FileInfo, byte array and System.String</Description>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Version>2.0.10-beta</Version>
+    <Company>Capgemini Deutschland GmbH</Company>
+    <Copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</Copyright>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/Capgemini/Cauldron</PackageProjectUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</PackageIconUrl>
+    <PackageTags>Toolkit Capgemini Cauldron Extensions Compression GZipStream GZip</PackageTags>
+    <RootNamespace>Cauldron</RootNamespace>
+  <AssemblyVersion>2.0.0.10</AssemblyVersion>
+<FileVersion>2.0.0.10</FileVersion>
+</PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+    <DocumentationFile>bin\Release\netstandard2.0\Cauldron.Core.Extensions.Compression.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+    <DocumentationFile>bin\Debug\netstandard2.0\Cauldron.Core.Extensions.Compression.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cauldron.Core.Comparing\Cauldron.Core.Comparing.csproj" />
+  </ItemGroup>
+</Project>

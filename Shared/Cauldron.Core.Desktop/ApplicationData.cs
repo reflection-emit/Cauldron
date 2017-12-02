@@ -89,6 +89,7 @@ namespace Windows.Storage /* So that precompiler definitions are not required if
         }
 
 #else
+
         /// <summary>
         /// Gets the root folder in the local app data store.
         /// </summary>
@@ -122,6 +123,7 @@ namespace Windows.Storage /* So that precompiler definitions are not required if
 
             return new DirectoryInfo(path);
         }
+
 #endif
     }
 }

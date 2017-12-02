@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <VersionPrefix>1.0.0.12</VersionPrefix>
-    <TargetFramework>netstandard1.6</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <DefineConstants>$(DefineConstants);NETCORE</DefineConstants>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AssemblyName>Cauldron.Activator</AssemblyName>
@@ -15,6 +15,10 @@
     <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
     <RootNamespace>Cauldron.Activator</RootNamespace>
   </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Cauldron.NetCore.Activator.rd.xml" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Cauldron.NetCore.Core\Cauldron.NetCore.Core.csproj" />

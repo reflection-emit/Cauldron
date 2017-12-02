@@ -4,47 +4,33 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Cauldron.XAML.Theme"
-             xmlns:attached="clr-namespace:Cauldron.XAML.Interactivity.Attached;assembly=Cauldron.XAML.Interactivity"
              xmlns:behaviour="clr-namespace:Cauldron.XAML.Interactivity;assembly=Cauldron.XAML.Interactivity"
-             xmlns:localbehaviour="clr-namespace:Cauldron.XAML.Theme.Behaviours"
              xmlns:t="clr-namespace:Cauldron.XAML.Theme"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300"
-             Background="Transparent"
              SnapsToDevicePixels="True"
              UseLayoutRounding="True"
-             AllowsTransparency="True"
-             WindowStyle="None"
              ResizeMode="CanResize"
+             Background="{StaticResource {x:Static t:CauldronTheme.BackgroundBrush}}"
              x:Name="window">
 
-    <Window.Resources>
-        <Style TargetType="Thumb" x:Key="invisibleThumb">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate>
-                        <Rectangle Fill="{TemplateBinding Background}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </Window.Resources>
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="32" CornerRadius="0" GlassFrameThickness="1" NonClientFrameEdges="None" ResizeBorderThickness="5" UseAeroCaptionButtons="False" />
+    </WindowChrome.WindowChrome>
 
     <Window.Template>
         <ControlTemplate TargetType="Window">
-            <Grid>
+            <Border Background="{StaticResource {x:Static t:CauldronTheme.BackgroundBrush}}">
                 <Border x:Name="border"
-                        Background="{StaticResource ThemeBackgroundBrush}"
+                        Background="{StaticResource {x:Static t:CauldronTheme.BackgroundBrush}}"
                         BorderBrush="{StaticResource {x:Static t:CauldronTheme.AccentBrush}}"
-                        BorderThickness="1"
-                        Margin="5"
+                        Margin="0"
+                        Padding="0"
                         VerticalAlignment="Stretch"
-                        HorizontalAlignment="Stretch">
-                    <Border.Effect>
-                        <DropShadowEffect BlurRadius="9" Color="{StaticResource {x:Static t:CauldronTheme.AccentColor}}" Direction="0" Opacity="1" ShadowDepth="0" RenderingBias="Performance" />
-                    </Border.Effect>
-
-                    <Grid>
+                        HorizontalAlignment="Stretch"
+                        SnapsToDevicePixels="True"
+                        UseLayoutRounding="True">
+                    <Grid SnapsToDevicePixels="True" UseLayoutRounding="True">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="26" />
                             <RowDefinition Height="8" />
@@ -57,95 +43,49 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <Rectangle Grid.RowSpan="3" Grid.ColumnSpan="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown" Fill="{TemplateBinding Background}" />
-                        <Thumb Grid.ColumnSpan="3" Grid.RowSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" IsHitTestVisible="False" x:Name="TitleThumb" Background="{StaticResource {x:Static t:CauldronTheme.BackgroundBrush}}"
-                               DragDelta="TitleThumb_DragDelta" MouseDoubleClick="TitleThumb_MouseDoubleClick" Style="{StaticResource invisibleThumb}" />
-
                         <StackPanel Orientation="Horizontal" Grid.RowSpan="2">
-                            <Grid>
-                                <ToggleButton Focusable="false" ClickMode="Release" HorizontalAlignment="Right" x:Name="mainMenuToggle" Width="38" Style="{x:Null}"
-                                              Visibility="{Binding Path=(local:WindowToolbar.MainMenuVisibility), RelativeSource={RelativeSource TemplatedParent}}">
-                                    <ToggleButton.Template>
-                                        <ControlTemplate TargetType="ToggleButton">
-                                            <Border Background="{StaticResource {x:Static t:CauldronTheme.DarkOverlayBrush}}" x:Name="Border" Width="{TemplateBinding Width}">
-                                                <VisualStateManager.VisualStateGroups>
-                                                    <VisualStateGroup x:Name="CommonStates">
-                                                        <VisualState x:Name="Normal" />
-                                                        <VisualState x:Name="MouseOver">
-                                                            <Storyboard>
-                                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
-                                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource {x:Static t:CauldronTheme.HoverLightBrush}}" />
-                                                                </ObjectAnimationUsingKeyFrames>
-                                                            </Storyboard>
-                                                        </VisualState>
-                                                        <VisualState x:Name="Pressed" />
-                                                        <VisualState x:Name="Disabled" />
-                                                    </VisualStateGroup>
-                                                    <VisualStateGroup x:Name="CheckStates">
-                                                        <VisualState x:Name="Checked">
-                                                            <Storyboard>
-                                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
-                                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource {x:Static t:CauldronTheme.AccentBrush}}" />
-                                                                </ObjectAnimationUsingKeyFrames>
-                                                            </Storyboard>
-                                                        </VisualState>
-                                                        <VisualState x:Name="Unchecked" />
-                                                        <VisualState x:Name="Indeterminate" />
-                                                    </VisualStateGroup>
-                                                </VisualStateManager.VisualStateGroups>
-                                                <ContentPresenter />
-                                            </Border>
-                                        </ControlTemplate>
-                                    </ToggleButton.Template>
-
-                                    <Popup IsOpen="{Binding IsChecked, ElementName=mainMenuToggle}" PopupAnimation="Fade" Placement="Bottom" HorizontalAlignment="Left">
-                                        <Border Margin="0,0,5,5" BorderBrush="{StaticResource {x:Static t:CauldronTheme.LightBorderBrush}}" BorderThickness="1" Background="{StaticResource {x:Static t:CauldronTheme.DropdownBackgroundBrush}}">
-                                            <ContentControl Template="{Binding Path=(local:WindowToolbar.MainMenuTemplate), RelativeSource={RelativeSource TemplatedParent}}" Margin="0" />
-                                            <Border.Effect>
-                                                <DropShadowEffect ShadowDepth="3" BlurRadius="5" RenderingBias="Performance" Color="Black" Opacity="0.6" />
-                                            </Border.Effect>
-                                        </Border>
-                                    </Popup>
-                                </ToggleButton>
-
-                                <Image IsHitTestVisible="False" Visibility="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ObjectToVisibilityConverter}}"
+                            <Button Visibility="{Binding ElementName=window, Path=CanGoBack, Converter={StaticResource BooleanToVisibilityConverter}}" FontFamily="Wingdings" FontSize="16" Focusable="False" behaviour:Localized.ToolTip="Back" x:Name="BackButton" Content="&#x00df;" Style="{StaticResource TitleBarButtonStyle}" VerticalAlignment="Top" Click="BackButton_Click" />
+                            <Image IsHitTestVisible="False" Visibility="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ObjectToVisibilityConverter}}"
                                    x:Name="icon" VerticalAlignment="Center" HorizontalAlignment="Left" Width="26" Height="26" Margin="6,0,0,0" Source="{TemplateBinding Icon}" Grid.RowSpan="2" />
-                            </Grid>
 
                             <TextBlock x:Name="title" Margin="6,0,0,0" IsHitTestVisible="False" VerticalAlignment="Center" Text="{TemplateBinding Title}" TextAlignment="Left" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
                             <TextBlock Foreground="{Binding Foreground, ElementName=title}" IsHitTestVisible="False" Margin="2,6,0,0" Text="*">
                                     <behaviour:Interaction.Behaviours>
-                                        <localbehaviour:ChangeAwareIsChangedBehaviour />
+                                        <t:ChangeAwareIsChangedBehaviour />
                                     </behaviour:Interaction.Behaviours>
                             </TextBlock>
                         </StackPanel>
 
-                        <StackPanel Orientation="Horizontal" Grid.Column="2">
-                            <Button FontFamily="Webdings" FontSize="16" Focusable="False" attached:Localized.Tooltip="Minimize" x:Name="MinimizeButton" Content="&#x0030;" Style="{StaticResource TitleBarButtonStyle}" Click="MinimizeButton_Click" />
-                            <Button FontFamily="Webdings" FontSize="16" Focusable="False" attached:Localized.Tooltip="Restore Down" x:Name="RestoreButton" Content="&#x0032;" Style="{StaticResource TitleBarButtonStyle}" Click="RestoreButton_Click" />
-                            <Button FontFamily="Webdings" FontSize="16" Focusable="False" attached:Localized.Tooltip="Maximize" x:Name="MaximizeButton" Content="&#x0031;" Style="{StaticResource TitleBarButtonStyle}" Click="MaximizeButton_Click" />
-                            <Button FontFamily="Webdings" FontSize="16" Focusable="False" attached:Localized.Tooltip="Close" x:Name="CloseButton" Content="&#x0072;" Style="{StaticResource TitleBarButtonStyle}" Click="CloseButton_Click" />
+                        <StackPanel Orientation="Horizontal" Grid.Column="2" WindowChrome.IsHitTestVisibleInChrome="True">
+                            <Button FontFamily="Webdings" FontSize="16" Focusable="False" behaviour:Localized.ToolTip="Minimize" x:Name="MinimizeButton" Content="&#x0030;" Style="{StaticResource TitleBarButtonStyle}" Click="MinimizeButton_Click" />
+                            <Button FontFamily="Webdings" FontSize="16" Focusable="False" behaviour:Localized.ToolTip="Restore Down" x:Name="RestoreButton" Content="&#x0032;" Style="{StaticResource TitleBarButtonStyle}" Click="RestoreButton_Click" />
+                            <Button FontFamily="Webdings" FontSize="16" Focusable="False" behaviour:Localized.ToolTip="Maximize" x:Name="MaximizeButton" Content="&#x0031;" Style="{StaticResource TitleBarButtonStyle}" Click="MaximizeButton_Click" />
+                            <Button FontFamily="Webdings" FontSize="16" Focusable="False" behaviour:Localized.ToolTip="Close" x:Name="CloseButton" Content="&#x0072;" Style="{StaticResource TitleBarButtonStyle}" Click="CloseButton_Click" />
                         </StackPanel>
 
-                        <ContentControl Grid.Column="1" Template="{Binding Path=(local:WindowToolbar.Template), RelativeSource={RelativeSource TemplatedParent}}" Focusable="False"
-                                        Visibility="{Binding Path=(local:WindowToolbar.Template), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ObjectToVisibilityConverter}}" />
+                        <ContentControl Grid.Column="1" Template="{Binding Path=WindowToolbarTemplate, RelativeSource={RelativeSource TemplatedParent}}" Focusable="False" WindowChrome.IsHitTestVisibleInChrome="True"
+                                        Visibility="{Binding Path=WindowToolbarTemplate, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ObjectToVisibilityConverter}}">
+                            <ContentControl.Resources>
+                                <Style TargetType="StackPanel">
+                                    <Setter Property="Orientation" Value="Horizontal" />
+                                    <Setter Property="Margin" Value="0" />
+                                </Style>
+                                <Style TargetType="Button" BasedOn="{StaticResource TitleBarButtonStyle}" />
+                                <Style TargetType="ComboBox" BasedOn="{StaticResource {x:Type ComboBox}}">
+                                    <Setter Property="MinWidth" Value="100" />
+                                    <Setter Property="IsTabStop" Value="False" />
+                                </Style>
+                                <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
+                                    <Setter Property="MinWidth" Value="100" />
+                                    <Setter Property="IsTabStop" Value="False" />
+                                </Style>
+                            </ContentControl.Resources>
+                        </ContentControl>
 
-                        <ContentPresenter Grid.Row="2" Grid.ColumnSpan="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                        <ContentPresenter Grid.Row="2" Grid.ColumnSpan="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0" />
                     </Grid>
                 </Border>
-                <Grid x:Name="sizer">
-
-                    <Thumb Focusable="False" Style="{StaticResource invisibleThumb}" Cursor="SizeWE" Width="5" Margin="0,5" Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Left" DragDelta="Resizer_DragDelta" />
-                    <Thumb Focusable="False" Style="{StaticResource invisibleThumb}" Cursor="SizeWE" Width="5" Margin="0,5" Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Right" DragDelta="Resizer_DragDelta" />
-                    <Thumb Focusable="False" Style="{StaticResource invisibleThumb}" Cursor="SizeNS" Height="5" Margin="5,0" Background="Transparent" VerticalAlignment="Top" HorizontalAlignment="Stretch" DragDelta="Resizer_DragDelta" />
-                    <Thumb Focusable="False" Style="{StaticResource invisibleThumb}" Cursor="SizeNS" Height="5" Margin="5,0" Background="Transparent" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" DragDelta="Resizer_DragDelta" />
-
-                    <Thumb Focusable="False" Style="{StaticResource invisibleThumb}" Cursor="SizeNWSE" Width="8" Height="8" Background="Transparent" VerticalAlignment="Top" HorizontalAlignment="Left" DragDelta="Resizer_DragDelta" />
-                    <Thumb Focusable="False" Style="{StaticResource invisibleThumb}" Cursor="SizeNWSE" Width="8" Height="8" Background="Transparent" VerticalAlignment="Bottom" HorizontalAlignment="Right" DragDelta="Resizer_DragDelta" />
-                    <Thumb Focusable="False" Style="{StaticResource invisibleThumb}" Cursor="SizeNESW" Width="8" Height="8" Background="Transparent" VerticalAlignment="Bottom" HorizontalAlignment="Left" DragDelta="Resizer_DragDelta" />
-                    <Thumb Focusable="False" Style="{StaticResource invisibleThumb}" Cursor="SizeNESW" Width="8" Height="8" Background="Transparent" VerticalAlignment="Top" HorizontalAlignment="Right" DragDelta="Resizer_DragDelta" />
-                </Grid>
-            </Grid>
+            </Border>
         </ControlTemplate>
     </Window.Template>
 </Window>

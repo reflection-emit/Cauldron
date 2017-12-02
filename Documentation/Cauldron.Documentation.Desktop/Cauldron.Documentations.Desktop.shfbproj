@@ -35,7 +35,6 @@
       <DocumentationSource sourceFile="..\..\Desktop\Cauldron.Desktop.Activator\Cauldron.Desktop.Activator.csproj" />
       <DocumentationSource sourceFile="..\..\Desktop\Cauldron.Desktop.Consoles\Cauldron.Desktop.Consoles.csproj" />
       <DocumentationSource sourceFile="..\..\Desktop\Cauldron.Desktop.Cryptography\Cauldron.Desktop.Cryptography.csproj" />
-      <DocumentationSource sourceFile="..\..\Desktop\Cauldron.Desktop.Dynamic\Cauldron.Desktop.Dynamic.csproj" />
       <DocumentationSource sourceFile="..\..\Desktop\Cauldron.Desktop.Localization\Cauldron.Desktop.Localization.csproj" />
       <DocumentationSource sourceFile="..\..\Desktop\Cauldron.Desktop.Potions\Cauldron.Desktop.Potions.csproj" />
       <DocumentationSource sourceFile="..\..\Desktop\Cauldron.Desktop.XAML.Interactivity\Cauldron.Desktop.XAML.Interactivity.csproj" />

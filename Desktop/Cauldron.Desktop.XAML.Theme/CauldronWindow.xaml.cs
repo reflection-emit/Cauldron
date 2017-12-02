@@ -1,17 +1,32 @@
 ﻿using Cauldron.Core;
 using Cauldron.Core.Extensions;
-using Cauldron.XAML.Theme.Resources;
+using Cauldron.XAML.Controls;
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
+using System.Windows.Shapes;
 
 namespace Cauldron.XAML.Theme
 {
+    [StructLayout(LayoutKind.Sequential)]
+    internal struct WINDOWPOS
+    {
+        public IntPtr hwnd;
+        public IntPtr hwndInsertAfter;
+        public int x;
+        public int y;
+        public int cx;
+        public int cy;
+        public int flags;
+    }
+
     public partial class CauldronWindow : IDisposable
     {
         private Border border;
@@ -22,10 +37,11 @@ namespace Cauldron.XAML.Theme
         private Button maximizeButton;
         private Button minimizeButton;
         private Button restoreButton;
-        private Grid sizer;
         private TextBlock title;
-        private Thumb titleThumb;
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="CauldronWindow"/>
+        /// </summary>
         public CauldronWindow()
         {
             this.InitializeComponent();
@@ -34,11 +50,72 @@ namespace Cauldron.XAML.Theme
             this.Deactivated += LightWindow_Deactivated;
         }
 
+        #region Dependency Property WindowToolbarTemplate
+
+        /// <summary>
+        /// Identifies the <see cref="WindowToolbarTemplate"/> dependency property
+        /// </summary>
+        internal static readonly DependencyProperty WindowToolbarTemplateProperty = DependencyProperty.Register(nameof(WindowToolbarTemplate), typeof(ControlTemplate), typeof(CauldronWindow), new PropertyMetadata(null));
+
+        /// <summary>
+        /// Gets or sets the <see cref="WindowToolbarTemplate"/> Property
+        /// </summary>
+        internal ControlTemplate WindowToolbarTemplate
+        {
+            get { return (ControlTemplate)this.GetValue(WindowToolbarTemplateProperty); }
+            set { this.SetValue(WindowToolbarTemplateProperty, value); }
+        }
+
+        #endregion Dependency Property WindowToolbarTemplate
+
+        #region Dependency Property CanGoBack
+
+        /// <summary>
+        /// Identifies the <see cref="CanGoBack"/> dependency property
+        /// </summary>
+        public static readonly DependencyProperty CanGoBackProperty = DependencyProperty.Register(nameof(CanGoBack), typeof(bool), typeof(CauldronWindow), new PropertyMetadata(false));
+
+        /// <summary>
+        /// Gets or sets the <see cref="CanGoBack"/> Property
+        /// </summary>
+        public bool CanGoBack
+        {
+            get { return (bool)this.GetValue(CanGoBackProperty); }
+            set { this.SetValue(CanGoBackProperty, value); }
+        }
+
+        #endregion Dependency Property CanGoBack
+
+        /// <exclude/>
+        protected override void OnContentChanged(object oldContent, object newContent)
+        {
+            base.OnContentChanged(oldContent, newContent);
+
+            var oldNavigationFrame = oldContent as NavigationFrame;
+            var newNavigationFrame = newContent as NavigationFrame;
+
+            if (oldNavigationFrame != null)
+                BindingOperations.ClearBinding(this, CanGoBackProperty);
+
+            if (newNavigationFrame != null)
+                this.SetBinding(CanGoBackProperty, newNavigationFrame, new PropertyPath("CanGoBack"), System.Windows.Data.BindingMode.OneWay);
+            else
+                this.CanGoBack = false;
+
+            if (this.Content != null && this.Content is DependencyObject)
+                this.WindowToolbarTemplate = WindowToolbar.GetTemplate(this.Content as DependencyObject);
+            else
+                this.WindowToolbarTemplate = null;
+        }
+
+        /// <exclude/>
         protected override void OnStateChanged(EventArgs e)
         {
             base.OnStateChanged(e);
             this.SetWindowStateDependentEffects();
         }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e) => this.Content.As<NavigationFrame>()?.GoBack(Navigation.NavigationType.BackButton);
 
         private void CloseButton_Click(object sender, RoutedEventArgs e) => this.Close();
 
@@ -69,8 +146,6 @@ namespace Cauldron.XAML.Theme
             this.border = this.Template.FindName("border", this) as Border;
             this.title = this.Template.FindName("title", this) as TextBlock;
             this.icon = this.Template.FindName("icon", this) as Image;
-            this.titleThumb = this.Template.FindName("TitleThumb", this) as Thumb;
-            this.sizer = this.Template.FindName("sizer", this) as Grid;
 
             this.minimizeButton = this.Template.FindName("MinimizeButton", this) as Button;
             this.maximizeButton = this.Template.FindName("MaximizeButton", this) as Button;
@@ -81,6 +156,14 @@ namespace Cauldron.XAML.Theme
 
             if (this.icon != null)
                 this.icon.Effect = new GrayscaleEffect { DesaturationFactor = 1.0 };
+
+            if (WindowConfiguration.GetWindowStyle(this) == WindowStyle.None)
+            {
+                this.icon.IsNotNull(x => x.Visibility = Visibility.Collapsed);
+                this.title.IsNotNull(x => x.Visibility = Visibility.Collapsed);
+            }
+
+            //Win32Api.AddShadow(this, hwnd);
         }
 
         private void MaximizeButton_Click(object sender, RoutedEventArgs e)
@@ -95,38 +178,6 @@ namespace Cauldron.XAML.Theme
                 this.WindowState = WindowState.Minimized;
         }
 
-        private void Resizer_DragDelta(object sender, DragDeltaEventArgs e)
-        {
-            this.BeginInit();
-            sender.As<Thumb>().IsNotNull(x =>
-            {
-                if (x.VerticalAlignment == VerticalAlignment.Bottom)
-                    this.Height = Mathc.Clamp(this.Height + e.VerticalChange, this.MinHeight, this.MaxHeight);
-
-                if (x.HorizontalAlignment == HorizontalAlignment.Right)
-                    this.Width = Mathc.Clamp(this.Width + e.HorizontalChange, this.MinWidth, this.MaxWidth);
-
-                if (x.VerticalAlignment == VerticalAlignment.Top)
-                {
-                    var height = this.Height;
-                    this.Height = Mathc.Clamp(this.Height - e.VerticalChange, this.MinHeight, this.MaxHeight);
-
-                    if (this.Height != height)
-                        this.Top += e.VerticalChange;
-                }
-
-                if (x.HorizontalAlignment == HorizontalAlignment.Left)
-                {
-                    var width = this.Width;
-                    this.Width = Mathc.Clamp(this.Width - e.HorizontalChange, this.MinWidth, this.MaxWidth);
-
-                    if (this.Width != width)
-                        this.Left += e.HorizontalChange;
-                }
-            });
-            this.EndInit();
-        }
-
         private void RestoreButton_Click(object sender, RoutedEventArgs e)
         {
             this.WindowState = WindowState.Normal;
@@ -139,23 +190,20 @@ namespace Cauldron.XAML.Theme
                 switch (this.WindowState)
                 {
                     case WindowState.Normal:
-                        x.Margin = new Thickness(5);
                         x.BorderThickness = new Thickness(1);
+                        x.Margin = new Thickness(0);
                         break;
 
                     case WindowState.Minimized:
                     case WindowState.Maximized:
-                        x.Margin = new Thickness(0);
                         x.BorderThickness = new Thickness(0);
+                        x.Margin = new Thickness(8);
                         break;
 
                     default:
                         break;
                 }
             });
-
-            this.titleThumb.IsNotNull(x => x.IsHitTestVisible = this.WindowState == WindowState.Maximized);
-            this.sizer.IsNotNull(x => x.Visibility = this.WindowState == WindowState.Maximized || this.ResizeMode == ResizeMode.NoResize ? Visibility.Collapsed : Visibility.Visible);
 
             if (this.ResizeMode == ResizeMode.NoResize)
             {
@@ -180,54 +228,49 @@ namespace Cauldron.XAML.Theme
             }
         }
 
-        private void TitleBar_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            if (e.ClickCount == 1 && this.WindowState == WindowState.Normal)
-                this.DragMove();
-            else if (e.ClickCount == 2 && this.WindowState == WindowState.Normal && this.ResizeMode != ResizeMode.NoResize)
-                this.WindowState = WindowState.Maximized;
-        }
-
-        private void TitleThumb_DragDelta(object sender, DragDeltaEventArgs e)
-        {
-            if (this.WindowState != WindowState.Maximized || (Math.Abs(e.HorizontalChange) < 3 && Math.Abs(e.VerticalChange) < 3) || this.ResizeMode == ResizeMode.NoResize)
-                return;
-
-            var mouse = Mouse.GetPosition(this);
-            var mouseOnScreen = Win32Api.GetMousePosition();
-            var oldWidth = this.ActualWidth;
-
-            var currentLeft = mouse.X + 5;
-
-            this.WindowState = WindowState.Normal;
-
-            if (currentLeft > this.ActualWidth / 2 && currentLeft < oldWidth / 2)
-                this.Left = mouseOnScreen.X - (this.ActualWidth / 2);
-            else if (currentLeft > this.ActualWidth / 2 && currentLeft > oldWidth / 2)
-                this.Left = mouseOnScreen.X - (this.ActualWidth - (oldWidth - currentLeft));
-            else
-                this.Left = mouseOnScreen.X - currentLeft;
-
-            this.Top = mouseOnScreen.Y - mouse.Y - 5;
-
-            var lParam = (int)(uint)mouse.X | ((int)mouse.Y << 16);
-
-            var hwnd = this.GetWindowHandle();
-            Win32Api.SendMessage(hwnd, WindowsMessages.LBUTTONUP, (IntPtr)0x2 /* HT_CAPTION */, (IntPtr)lParam);
-            Win32Api.SendMessage(hwnd, WindowsMessages.SYSCOMMAND, (IntPtr)0xf012 /* SC_MOUSEMOVE */, IntPtr.Zero);
-        }
-
-        private void TitleThumb_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            if (this.ResizeMode != ResizeMode.NoResize)
-                this.WindowState = WindowState.Normal;
-        }
-
         private IntPtr WindowProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool isHandled)
         {
             if (msg == 0x0024)
             {
                 MonitorInfo.WmGetMinMaxInfo(this.GetWindowHandle(), lParam);
+                isHandled = true;
+            }
+            else if (msg == 0x0046 /* WINDOWPOSCHANGING */)
+            {
+                // https://stackoverflow.com/questions/1718666/how-to-enforce-minwidth-minheight-in-a-wpf-window-where-windowstyle-none
+
+                var pos = (WINDOWPOS)Marshal.PtrToStructure(lParam, typeof(WINDOWPOS));
+                if ((pos.flags & 0x0002 /* SWP_NOMOVE */) != 0)
+                    return IntPtr.Zero;
+
+                var window = HwndSource.FromHwnd(hwnd).RootVisual as Window;
+                if (window == null)
+                    return IntPtr.Zero;
+
+                var source = PresentationSource.FromVisual(this.window);
+
+                var changedPos = false;
+                var m11 = source.CompositionTarget.TransformToDevice.M11;
+                var m22 = source.CompositionTarget.TransformToDevice.M22;
+                var x = pos.cx / m11;
+                var y = pos.cy / m22;
+
+                if (this.MinWidth > x)
+                {
+                    pos.cx = (int)(this.MinWidth * m11);
+                    changedPos = true;
+                }
+
+                if (this.MinHeight > y)
+                {
+                    pos.cy = (int)(this.MinHeight * m22);
+                    changedPos = true;
+                }
+
+                if (!changedPos)
+                    return IntPtr.Zero;
+
+                Marshal.StructureToPtr(pos, lParam, true);
                 isHandled = true;
             }
 
@@ -257,7 +300,8 @@ namespace Cauldron.XAML.Theme
         public bool IsDisposed { get { return this.disposed; } }
 
         /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting
+        /// unmanaged resources.
         /// </summary>
         public void Dispose()
         {
@@ -266,7 +310,8 @@ namespace Cauldron.XAML.Theme
         }
 
         /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting
+        /// unmanaged resources.
         /// </summary>
         /// <param name="disposing">true if managed resources requires disposing</param>
         [SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]

@@ -3,6 +3,8 @@ using Cauldron.XAML.Validation.ViewModels;
 using System;
 using System.Collections;
 using System.Reflection;
+using System.Security;
+using System.Threading.Tasks;
 
 namespace Cauldron.XAML.Validation
 {
@@ -12,7 +14,7 @@ namespace Cauldron.XAML.Validation
     /// Value is null or empty will cause a validation error
     /// </summary>
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = false)]
-    public sealed class IsMandatoryAttribute : ValidationBaseAttribute
+    public sealed class IsMandatoryAttribute : ValidatorAttributeBase
     {
         /// <summary>
         /// Initializes a new instance of <see cref="IsMandatoryAttribute"/>
@@ -23,7 +25,8 @@ namespace Cauldron.XAML.Validation
         }
 
         /// <summary>
-        /// Gets a value that if true indicates that this validator will be invoked everytime the property has changed
+        /// Gets a value that if true indicates that this validator will be invoked everytime the
+        /// property has changed
         /// </summary>
         public override bool AlwaysValidate { get { return false; } }
 
@@ -35,21 +38,24 @@ namespace Cauldron.XAML.Validation
         /// <param name="propertyInfo">The <see cref="PropertyInfo"/> of the validated property</param>
         /// <param name="value">The value of the property</param>
         /// <returns>Has to return true on validation error otherwise false</returns>
-        protected override bool OnValidate(PropertyInfo sender, IValidatableViewModel context, PropertyInfo propertyInfo, object value)
+        protected override Task<bool> OnValidateAsync(PropertyInfo sender, IValidatableViewModel context, PropertyInfo propertyInfo, object value)
         {
             if (value == null)
-                return true;
+                return Task.FromResult(true);
 
             if (propertyInfo.PropertyType == typeof(string))
-                return string.IsNullOrEmpty(value.ToString());
+                return Task.FromResult(string.IsNullOrEmpty(value.ToString()));
 
             if (propertyInfo.PropertyType == typeof(bool))
-                return !(bool)value;
+                return Task.FromResult(!(bool)value);
 
             if (value is IEnumerable && (value as IEnumerable).Count_() == 0)
-                return true;
+                return Task.FromResult(true);
 
-            return false;
+            if (propertyInfo.PropertyType == typeof(SecureString))
+                return Task.FromResult((value as SecureString).Length == 0);
+
+            return Task.FromResult(false);
         }
     }
 }

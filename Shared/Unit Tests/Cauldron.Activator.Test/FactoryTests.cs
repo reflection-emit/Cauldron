@@ -1,5 +1,4 @@
 ﻿using Cauldron.Activator;
-using System;
 using System.Linq;
 using System.Reflection;
 
@@ -16,6 +15,14 @@ namespace Cauldron.Test
     [TestClass]
     public class FactoryTest
     {
+        [TestMethod]
+        public void Class_With_Enum_In_Ctor_Test()
+        {
+            var instance = Factory.Create<ClassWithEnumInCtor>(AnyEnumWillDo.Two);
+
+            Assert.AreEqual(AnyEnumWillDo.Two, instance.TheEnum);
+        }
+
         [TestMethod]
         public void Create_By_Static_Property()
         {
@@ -62,6 +69,12 @@ namespace Cauldron.Test
 
     #region Resources
 
+    public enum AnyEnumWillDo
+    {
+        One,
+        Two
+    }
+
     public interface IAnimal
     {
         string Name { get; }
@@ -75,6 +88,18 @@ namespace Cauldron.Test
     public class Cat : IAnimal
     {
         public string Name { get { return this.GetType().Name; } }
+    }
+
+    [Component(typeof(ClassWithEnumInCtor))]
+    public class ClassWithEnumInCtor
+    {
+        [ComponentConstructor]
+        public ClassWithEnumInCtor(AnyEnumWillDo @enum)
+        {
+            this.TheEnum = @enum;
+        }
+
+        public AnyEnumWillDo TheEnum { get; private set; }
     }
 
     [Component(typeof(ConstructionByProperty))]

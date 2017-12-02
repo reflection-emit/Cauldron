@@ -71,6 +71,7 @@ namespace Cauldron.Interception.Cecilator
 
             this.allTypes = this.allAssemblies.SelectMany(x => x.Modules).Where(x => x != null).SelectMany(x => x.Types).Where(x => x != null).Concat(this.moduleDefinition.Types).ToArray();
             this.logInfo("-----------------------------------------------------------------------------");
+            WeaverBase.AllTypes = this.allTypes;
 
             this.Identification = GenerateName();
         }
@@ -88,7 +89,12 @@ namespace Cauldron.Interception.Cecilator
         }
 
         public string Identification { get; private set; }
-        public AssemblyDefinition[] ReferencedAssemblies { get { return this.moduleDefinition.AssemblyReferences.Select(x => this.moduleDefinition.AssemblyResolver.Resolve(x)).ToArray(); } }
+
+        public AssemblyDefinition[] ReferencedAssemblies =>
+            this.moduleDefinition.AssemblyReferences
+                .Where(x => x.Name != "Microsoft.VisualStudio.TestPlatform.UnitTestFramework")
+                .Select(x => this.moduleDefinition.AssemblyResolver.Resolve(x)).ToArray();
+
         public AssemblyDefinitionEx[] UnusedReference { get; private set; }
 
         public static string GenerateName() => Path.GetRandomFileName().Replace(".", DateTime.Now.Second.ToString());
@@ -121,7 +127,7 @@ namespace Cauldron.Interception.Cecilator
             if (result == null)
                 throw new Exception($"Unable to proceed. The type '{type.FullName}' was not found.");
 
-            return this.moduleDefinition.ImportReference(type).Resolve();
+            return this.moduleDefinition.ImportReference(type).Resolve() ?? result;
         }
 
         internal void LogError(object value)

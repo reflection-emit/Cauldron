@@ -4,6 +4,8 @@ using Cauldron.XAML.Validation;
 using Cauldron.XAML.Validation.ViewModels;
 using System.Collections;
 using System.Linq;
+using Cauldron.Core;
+using System.Threading.Tasks;
 
 #if WINDOWS_UWP
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
@@ -61,7 +63,8 @@ namespace Cauldron.Test
         {
             var vm = Factory.Create<SparrowViewModel>();
             vm.Name = "";
-            vm.Validate();
+
+            vm.ValidateAsync().RunSync();
 
             Assert.AreEqual(true, vm.HasErrors);
         }
@@ -90,6 +93,7 @@ namespace Cauldron.Test
             var vm = Factory.Create<SparrowViewModel>();
             vm.Caption = "01234567890";
 
+            Task.Delay(2000);
             Assert.AreEqual(true, vm.HasErrors);
         }
 
@@ -116,7 +120,7 @@ namespace Cauldron.Test
         {
             var vm = Factory.Create<SparrowViewModel>();
             vm.Name = "";
-            vm.Validate();
+            vm.ValidateAsync().RunSync();
             var errorMessage = vm.GetErrors(nameof(SparrowViewModel.Name)).Cast<string>().ToArray().Join("\n");
 
             Assert.IsFalse(string.IsNullOrEmpty(errorMessage));

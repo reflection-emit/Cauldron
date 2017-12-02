@@ -1,0 +1,36 @@
+﻿mainGroup:
+    de: Allgemeines
+    en: General
+eveMarket:
+    de: Eve Online Markt
+    en: Eve Online Market
+eveMisc:
+    de: Eve Online Sonstiges
+    en: Eve Online Misc
+help:
+    de: Zeigt die Hilfeseite an
+    en: Shows the help page
+get-price:
+    de: Zeigt die Durschschnittspreise der Gegenstände.
+    en: Shows the average prices of the items.
+get-id-of:
+    de: Zeigt die id der Gegenstände.
+    en: Shows the id of the items.
+use-regex:
+    de: Für die Suche wird Regex genutzt anstatt contains.
+    en: The search will use Regex instead of contains.
+searchString:
+    de: Der name des gesuchten Gegenstands.$mm$ typhoon
+    en: The item name to search.$mm$ typhoon
+please-wait:
+    de: Bitte warten Sie. Dies könnte einige Minuten benötigen.
+    en: Please wait. This could take several minutes.
+usage-example:
+    de: Verwendungsbeispiel
+    en: Usage example
+application-name:
+    de: Applikationsname
+    en: Application name
+language:
+    de: "Zeigt oder ändert die Sprache.$mm$ Optional:[de-DE|en-US]$ux$ de-DE"
+    en: "Shows or changes the current language.$mm$ optional:[de-DE|en-US]$ux$ de-DE"
