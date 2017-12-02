@@ -5,6 +5,7 @@ using Windows.UI.Xaml;
 #else
 
 using System.Windows;
+
 #endif
 
 namespace Cauldron.XAML
@@ -14,6 +15,11 @@ namespace Cauldron.XAML
     /// </summary>
     public sealed class DependencyPropertyInfo
     {
+        /*
+         * UWP does not have a Name property in DependencyProperties... Which can come handy sometimes...
+         * That is why this class exist as a wrapper...
+         */
+
         internal DependencyPropertyInfo(DependencyProperty dependencyProperty, string name)
         {
             this.DependencyProperty = dependencyProperty;
@@ -26,7 +32,7 @@ namespace Cauldron.XAML
                 this.Name = name;
 
 #else
-            this.Name = dependencyPropertyInfo.Name;
+            this.Name = dependencyProperty.Name;
 #endif
         }
 
