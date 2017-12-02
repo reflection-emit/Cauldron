@@ -15,10 +15,10 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron User information UserInformation</tags>
     <dependencies>
-      <dependency id="Capgemini.Cauldron.Core.Comparing" version="2.0.8-beta" />
-      <dependency id="Capgemini.Cauldron.Core.Extensions" version="2.0.8-beta" />
-      <dependency id="Capgemini.Cauldron.Core.Net" version="2.0.8-beta" />
-      <dependency id="Capgemini.Cauldron.Core.Extensions.Convertions" version="2.0.8-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Comparing" version="2.0.9-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Extensions" version="2.0.9-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Net" version="2.0.9-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Extensions.Convertions" version="2.0.9-beta" />
     </dependencies>
   </metadata>
   <files>

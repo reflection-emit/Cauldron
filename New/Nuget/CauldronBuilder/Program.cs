@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading.Tasks;
 using System.Xml;
 
 namespace CauldronBuilder
@@ -79,11 +80,11 @@ namespace CauldronBuilder
                 if (Console.ReadKey().Key == ConsoleKey.Y)
                 {
                     // Build nugets of non NetStandard2.0 projects
-                    foreach (var nuget in Directory.GetFiles(Path.Combine(startingLocation.FullName, "Nuget"), "*.nuspec").Select(x => new FileInfo(x)))
-                    {
-                        ModifyNuspec(nuget, version);
-                        BuildNuGetPackage(nuget.FullName, packages.FullName, version);
-                    }
+                    Parallel.ForEach(Directory.GetFiles(Path.Combine(startingLocation.FullName, "Nuget"), "*.nuspec").Select(x => new FileInfo(x)), nuget =>
+                       {
+                           ModifyNuspec(nuget, version);
+                           BuildNuGetPackage(nuget.FullName, packages.FullName, version);
+                       });
                 }
 
                 Console.ForegroundColor = ConsoleColor.Green;

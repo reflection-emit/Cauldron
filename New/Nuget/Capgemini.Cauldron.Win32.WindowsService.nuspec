@@ -10,18 +10,18 @@
     <projectUrl>https://github.com/Capgemini/Cauldron</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
-    <description>Creating Windows Services is now a cake walk.</description>
+    <description>Creating Windows Services is now a cake walk. This implementation can also handle localized service name and description.</description>
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Windows Service</tags>
     <dependencies>
       <dependency id="Newtonsoft.Json" version="10.0.3" />
-      <dependency id="Capgemini.Cauldron.Activator" version="2.0.8-beta" />
-      <dependency id="Capgemini.Cauldron.Consoles" version="2.0.8-beta" />
-      <dependency id="Capgemini.Cauldron.Localization" version="2.0.8-beta" />
-      <dependency id="Capgemini.Cauldron.Core.Extensions" version="2.0.8-beta" />
-      <dependency id="Capgemini.Cauldron.Core.Reflection" version="2.0.8-beta" />
-      <dependency id="Capgemini.Cauldron.Cryptography" version="2.0.8-beta" />
-      <dependency id="Capgemini.Cauldron.Win32.Extension.IO" version="2.0.8-beta" />
+      <dependency id="Capgemini.Cauldron.Activator" version="2.0.9-beta" />
+      <dependency id="Capgemini.Cauldron.Consoles" version="2.0.9-beta" />
+      <dependency id="Capgemini.Cauldron.Localization" version="2.0.9-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Extensions" version="2.0.9-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Reflection" version="2.0.9-beta" />
+      <dependency id="Capgemini.Cauldron.Cryptography" version="2.0.9-beta" />
+      <dependency id="Capgemini.Cauldron.Win32.Extension.IO" version="2.0.9-beta" />
       <dependency id="Fody" version="2.2.1" />
     </dependencies>
     <frameworkAssemblies>
@@ -35,11 +35,9 @@
     <file src="..\Win32\Cauldron.Win32.WindowsService\bin\Release\Cauldron.Win32.WindowsService.xml" target="lib\net461" />
     <file src="..\Win32\Cauldron.Win32.WindowsService\bin\Release\Cauldron.Win32.WindowsService.pdb" target="lib\net461" />
     <file src="..\Win32\Cauldron.Win32.WindowsService\**\*.cs" target="src" />
-
     <file src="..\Win32\Cauldron.Win32.WindowsService\Content\configuration.json" target="Content" />
     <file src="..\Win32\Cauldron.Win32.WindowsService\Content\strings.json" target="Content" />
     <file src="..\Win32\Cauldron.Win32.WindowsService\Content\install.ps1" target="tools" />
-
     <file src="..\Win32\Cauldron.Win32.WindowsService\Content\Service.cs" target="Content" />
     <file src="..\Win32\Cauldron.Win32.WindowsService\Content\ServiceMain.cs" target="Content" />
     <file src="..\Win32\Cauldron.Win32.WindowsService\Content\LocaleSource.cs" target="Content" />
