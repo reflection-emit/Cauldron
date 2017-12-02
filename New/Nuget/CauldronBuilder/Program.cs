@@ -230,11 +230,14 @@ namespace CauldronBuilder
                 nuspec.Load(nuget.FullName);
 
                 var name = nuspec["package"]["metadata"]["id"].InnerText;
-                var description = nuspec["package"]["metadata"]["description"].InnerText;
+                var description = nuspec["package"]["metadata"]["description"].InnerText?.Replace("\r\n", "<br/>");
                 var nugetLink = nuspec["package"]["metadata"]["id"].InnerText;
 
                 if (name.StartsWith("Capgemini."))
                     name = name.Substring("Capgemini.".Length);
+
+                if (description.StartsWith("<br/>"))
+                    description = description.Substring("<br/>".Length).Trim();
 
                 nugetLink = $"[![NuGet](https://img.shields.io/nuget/v/{nugetLink}.svg)](https://www.nuget.org/packages/{nugetLink}/)";
 
