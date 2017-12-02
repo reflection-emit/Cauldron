@@ -316,15 +316,15 @@ namespace Cauldron.XAML
         /// </summary>
         /// <param name="dependencyObject">The dependency object whose dependency property to extract</param>
         /// <returns>A collection of dependencyProperties</returns>
-        public static IEnumerable<DependencyProperty> GetDependencyProperties(this DependencyObject dependencyObject)
+        public static IEnumerable<DependencyPropertyInfo> GetDependencyProperties(this DependencyObject dependencyObject)
         {
             var type = dependencyObject.GetType();
 
             foreach (var item in type.GetFieldsEx(BindingFlags.Public | BindingFlags.Static).Where(x => x.FieldType == typeof(DependencyProperty)))
-                yield return item.GetValue(null) as DependencyProperty;
+                yield return new DependencyPropertyInfo(item.GetValue(null) as DependencyProperty, item.Name);
 
             foreach (var item in type.GetPropertiesEx(BindingFlags.Public | BindingFlags.Static).Where(x => x.PropertyType == typeof(DependencyProperty)))
-                yield return item.GetValue(null) as DependencyProperty;
+                yield return new DependencyPropertyInfo(item.GetValue(null) as DependencyProperty, item.Name);
         }
 
         /// <summary>

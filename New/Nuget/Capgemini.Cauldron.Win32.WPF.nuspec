@@ -37,6 +37,13 @@
       <dependency id="Capgemini.Cauldron.Win32.UserInformation" version="2.0.9-beta" />
       <dependency id="Capgemini.Cauldron.Win32.WPF.ParameterPassing" version="2.0.9-beta" />
     </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="PresentationCore" />
+      <frameworkAssembly assemblyName="PresentationFramework" />
+      <frameworkAssembly assemblyName="System.Xaml" />
+      <frameworkAssembly assemblyName="WindowsBase" />
+      <frameworkAssembly assemblyName="System.Drawing" />
+    </frameworkAssemblies>
   </metadata>
   <files>
     <!-- Desktop -->

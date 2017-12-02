@@ -31,7 +31,7 @@ namespace Cauldron.XAML.Validation
     /// </summary>
     public sealed class ValidationBehaviour : Behaviour<FrameworkElement>, ICloneable
     {
-        private static ConcurrentDictionary<Type, IEnumerable<DependencyProperty>> dependencyPropertyCache = new ConcurrentDictionary<Type, IEnumerable<DependencyProperty>>();
+        private static ConcurrentDictionary<Type, IEnumerable<DependencyPropertyInfo>> dependencyPropertyCache = new ConcurrentDictionary<Type, IEnumerable<DependencyPropertyInfo>>();
         private Dictionary<string, string> allErrors = new Dictionary<string, string>();
         private Dictionary<string, WeakReference<INotifyDataErrorInfo>> validableProperties = new Dictionary<string, WeakReference<INotifyDataErrorInfo>>();
 
@@ -58,7 +58,7 @@ namespace Cauldron.XAML.Validation
             this.validableProperties.Clear();
 
             var type = this.AssociatedObject.GetType();
-            IEnumerable<DependencyProperty> dependencyProperties = null;
+            IEnumerable<DependencyPropertyInfo> dependencyProperties = null;
 
             if (dependencyPropertyCache.ContainsKey(type))
                 dependencyProperties = dependencyPropertyCache[type];
@@ -69,9 +69,12 @@ namespace Cauldron.XAML.Validation
             }
 
             // Get all known Dependency Property with bindings
-            foreach (var item in dependencyProperties.Where(x => x.Name != "IsEnabled" && x.Name != "Visibility"))
+            foreach (var item in dependencyProperties)
             {
-                var bindingExpression = this.AssociatedObject.GetBindingExpression(item);
+                if (item.Name == "IsEnabled" || item.Name == "Visibility")
+                    continue;
+
+                var bindingExpression = this.AssociatedObject.GetBindingExpression(item.DependencyProperty);
                 this.SetValidationInfo(bindingExpression);
             }
 

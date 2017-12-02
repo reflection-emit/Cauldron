@@ -61,6 +61,7 @@
     <Compile Include="CauldronUICommandCollection.cs" />
     <Compile Include="Common.cs" />
     <Compile Include="Controls\NavigationFrame.cs" />
+    <Compile Include="DependencyPropertyInfo.cs" />
     <Compile Include="DispatcherWPF.cs" />
     <Compile Include="DynamicEventHandler.cs" />
     <Compile Include="Extensions.cs" />

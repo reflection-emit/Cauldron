@@ -16,6 +16,10 @@
     <tags>Toolkit Capgemini Cauldron Monitor Information Info</tags>
     <dependencies>
     </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Drawing" />
+      <frameworkAssembly assemblyName="WindowsBase" />
+    </frameworkAssemblies>
   </metadata>
   <files>
     <!-- Desktop -->

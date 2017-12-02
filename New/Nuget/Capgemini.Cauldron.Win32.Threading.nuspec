@@ -20,6 +20,9 @@
       <dependency id="Fody" version="2.2.1" />
       <dependency id="Cauldron.Interception.Fody" version="2.0.9-beta" />
     </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="WindowsBase" />
+    </frameworkAssemblies>
   </metadata>
   <files>
     <!-- Desktop -->

@@ -18,6 +18,9 @@
       <dependency id="Cauldron.Interception.Fody" version="2.0.9-beta" />
       <dependency id="Fody" version="2.2.1" />
     </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Runtime.Caching" />
+    </frameworkAssemblies>
   </metadata>
   <files>
     <!-- Desktop -->

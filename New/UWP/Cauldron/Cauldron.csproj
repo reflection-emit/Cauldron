@@ -497,6 +497,9 @@
     <Compile Include="..\..\Win32\Cauldron.Win32.WPF\CauldronUICommandCollection.cs">
       <Link>XAML\CauldronUICommandCollection.cs</Link>
     </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\DependencyPropertyInfo.cs">
+      <Link>XAML\DependencyPropertyInfo.cs</Link>
+    </Compile>
     <Compile Include="..\..\Win32\Cauldron.Win32.WPF\DynamicEventHandler.cs">
       <Link>XAML\DynamicEventHandler.cs</Link>
     </Compile>

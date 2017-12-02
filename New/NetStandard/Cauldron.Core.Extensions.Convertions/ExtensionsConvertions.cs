@@ -105,7 +105,11 @@ namespace Cauldron
                 if (method != null)
                     return method(source) as T;
 
+#if NETFX_CORE
+                if (typeof(T).GetTypeInfo().IsEnum && source != null)
+#else
                 if (typeof(T).IsEnum && source != null)
+#endif
                     return Enum.Parse(typeof(T), source.ToString()) as T;
 
                 return System.Convert.ChangeType(source, typeof(T)) as T;
@@ -144,7 +148,11 @@ namespace Cauldron
             if (method != null)
                 return method(source);
 
+#if NETFX_CORE
+            if (targetType.GetTypeInfo().IsEnum && source != null)
+#else
             if (targetType.IsEnum && source != null)
+#endif
                 return Enum.Parse(targetType, source.ToString());
 
             return System.Convert.ChangeType(source, targetType);
@@ -181,7 +189,11 @@ namespace Cauldron
                 if (method != null)
                     return method(source);
 
+#if NETFX_CORE
+                if (targetType.GetTypeInfo().IsEnum && source != null)
+#else
                 if (targetType.IsEnum && source != null)
+#endif
                     return Enum.Parse(targetType, source.ToString());
 
                 return System.Convert.ChangeType(source, targetType);

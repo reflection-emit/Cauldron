@@ -16,6 +16,9 @@
     <tags>Toolkit Capgemini Cauldron PrincipalContext Impersonate Impersonation Extension User</tags>
     <dependencies>
     </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.DirectoryServices.AccountManagement" />
+    </frameworkAssemblies>
   </metadata>
   <files>
     <!-- Desktop -->
