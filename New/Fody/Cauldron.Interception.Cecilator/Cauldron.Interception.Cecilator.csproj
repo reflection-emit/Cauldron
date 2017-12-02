@@ -93,6 +93,7 @@
     <Compile Include="InstructionsSet.cs" />
     <Compile Include="ITry.cs" />
     <Compile Include="ITryCode.cs" />
+    <Compile Include="TypeResolveException.cs" />
     <Compile Include="WeaverBase.cs" />
     <Compile Include="BuilderType.cs" />
     <Compile Include="LocalVariable.cs" />

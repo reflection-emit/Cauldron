@@ -673,37 +673,50 @@ namespace Cauldron.Interception.Cecilator
 
         internal static TypeReference ResolveType(this TypeReference type, MethodReference ownerMethod = null)
         {
-            var resolveType = new Func<IReadOnlyDictionary<string, TypeReference>, TypeReference, TypeReference>((genericParameters, ptype) =>
+            try
             {
-                var genericType = genericParameters[ptype.FullName];
-
-                while (genericType.IsGenericParameter)
+                var resolveType = new Func<IReadOnlyDictionary<string, TypeReference>, TypeReference, TypeReference>((genericParameters, ptype) =>
                 {
-                    genericType = genericParameters[genericType.FullName];
+                    var genericType = genericParameters[ptype.FullName];
 
-                    if (!genericType.IsGenericParameter)
-                        return genericType;
+                    while (genericType.IsGenericParameter)
+                    {
+                        genericType = genericParameters[genericType.FullName];
+
+                        if (!genericType.IsGenericParameter)
+                            return genericType;
+                    }
+
+                    return genericParameters[ptype.FullName];
+                });
+
+                if (type.IsGenericInstance && ownerMethod is GenericInstanceMethod)
+                {
+                    var genericParameters = (ownerMethod as GenericInstanceMethod).GetGenericResolvedTypeNames();
+                    var genericTypeInstance = type as GenericInstanceType;
+
+                    var result = new GenericInstanceType(genericTypeInstance.BetterResolve());
+
+                    foreach (var item in genericTypeInstance.GenericArguments)
+                        result.GenericArguments.Add(resolveType(genericParameters, item));
+
+                    return result;
                 }
-
-                return genericParameters[ptype.FullName];
-            });
-
-            if (type.IsGenericInstance)
-            {
-                var genericParameters = (ownerMethod as GenericInstanceMethod).GetGenericResolvedTypeNames();
-                var genericTypeInstance = type as GenericInstanceType;
-
-                var result = new GenericInstanceType(genericTypeInstance.BetterResolve());
-
-                foreach (var item in genericTypeInstance.GenericArguments)
-                    result.GenericArguments.Add(resolveType(genericParameters, item));
-
-                return result;
+                else if (ownerMethod is GenericInstanceMethod)
+                {
+                    var genericParameters = (ownerMethod as GenericInstanceMethod).GetGenericResolvedTypeNames();
+                    return resolveType(genericParameters, type);
+                }
+                else
+                    return type;
             }
-            else
+            catch (NullReferenceException e)
             {
-                var genericParameters = (ownerMethod as GenericInstanceMethod).GetGenericResolvedTypeNames();
-                return resolveType(genericParameters, type);
+                throw new TypeResolveException($"Unable to resolve type '{type?.FullName ?? "Unknown"}'. The ", e);
+            }
+            catch (Exception e)
+            {
+                throw new TypeResolveException($"Unable to resolve type '{type?.FullName ?? "Unknown"}'", e);
             }
         }
 

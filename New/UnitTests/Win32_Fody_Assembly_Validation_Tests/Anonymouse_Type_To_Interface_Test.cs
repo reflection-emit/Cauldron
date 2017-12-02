@@ -35,6 +35,12 @@ namespace Win32_Fody_Assembly_Validation_Tests
         string GetAnyStringMethod(int aParameter, char bParameter);
     }
 
+    public interface IInterfaceWithNullableTypesAndGenericTypes
+    {
+        GenericType<double> AnyDouble { get; }
+        int? AnyInt { get; }
+    }
+
     public interface ISpecial
     {
         string Description { get; }
@@ -84,6 +90,19 @@ namespace Win32_Fody_Assembly_Validation_Tests
             Assert.AreEqual(1, obj.Count());
             Assert.AreEqual(4, obj[0].Items.Length);
             Assert.AreEqual("Test 2", obj[0].Key);
+        }
+
+        [TestMethod]
+        public void Anonymouse_Type_Generic_Types()
+        {
+            var item = new
+            {
+                AnyDouble = new GenericType<double> { Value = 9.4 },
+                AnyInt = (int?)20
+            }.CreateType<IInterfaceWithNullableTypesAndGenericTypes>();
+
+            Assert.AreEqual(9.4, item.AnyDouble.Value);
+            Assert.AreEqual(20, item.AnyInt);
         }
 
         [TestMethod]
@@ -166,6 +185,11 @@ namespace Win32_Fody_Assembly_Validation_Tests
             Assert.IsTrue(anonClass.AnyInt == newObject.AnyInt);
             Assert.IsTrue(anonClass.TheString == newObject.TheString);
         }
+    }
+
+    public class GenericType<T>
+    {
+        public T Value { get; set; }
     }
 
     public class OuterClass

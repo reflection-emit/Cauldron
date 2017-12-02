@@ -735,7 +735,7 @@ namespace Cauldron.Interception.Fody
                 catch (Exception e)
                 {
                     this.LogError(e.Message);
-                    this.LogInfo(item.ToHostMethodINstructionsString());
+                    this.LogInfo("\r\n" + item.ToHostMethodINstructionsString());
 
                     throw;
                 }
