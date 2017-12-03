@@ -22,7 +22,7 @@
     <tags>Toolkit Capgemini Cauldron Reflection</tags>
     <dependencies>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="2.0.11-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="2.0.12" />
       </group>
     </dependencies>
   </metadata>
