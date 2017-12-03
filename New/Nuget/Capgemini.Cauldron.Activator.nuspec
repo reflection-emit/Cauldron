@@ -14,11 +14,11 @@
     <tags>Toolkit Capgemini Activator Dependency Injection Factory Cauldron</tags>
     <dependencies>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="2.0.10-beta" />
-        <dependency id="Capgemini.Cauldron.Core.Disposable" version="2.0.10-beta" />
-        <dependency id="Capgemini.Cauldron.Core.Extensions" version="2.0.10-beta" />
-        <dependency id="Capgemini.Cauldron.Core.Reflection" version="2.0.10-beta" />
-        <dependency id="Cauldron.Interception.Fody" version="2.0.10-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="2.0.11-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Disposable" version="2.0.11-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Extensions" version="2.0.11-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Reflection" version="2.0.11-beta" />
+        <dependency id="Cauldron.Interception.Fody" version="2.0.11-beta" />
         <dependency id="Fody" version="2.2.1" />
       </group>
     </dependencies>
