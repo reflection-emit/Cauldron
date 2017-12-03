@@ -88,7 +88,8 @@ namespace Cauldron.Interception.Fody
 
                 if (method.RequiresSyncRootField)
                 {
-                    foreach (var ctors in targetedMethod.DeclaringType.GetRelevantConstructors())
+                    foreach (var ctors in targetedMethod.DeclaringType.GetRelevantConstructors()
+                        .Where(x => (method.SyncRoot.IsStatic && x.Name == ".cctor") || (!method.SyncRoot.IsStatic && x.Name == ".ctor")))
                         ctors.NewCode().Assign(method.SyncRoot).NewObj(builder.GetType(typeof(object)).Import().ParameterlessContructor).Insert(InsertionPosition.Beginning);
                 }
 
