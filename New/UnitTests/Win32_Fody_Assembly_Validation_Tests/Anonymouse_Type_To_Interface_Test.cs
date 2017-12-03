@@ -35,6 +35,11 @@ namespace Win32_Fody_Assembly_Validation_Tests
         string GetAnyStringMethod(int aParameter, char bParameter);
     }
 
+    public interface IHasGenericInterfaces : IEquatable<string>, IEquatable<int>
+    {
+        int AnyInt { get; }
+    }
+
     public interface IInterfaceWithNullableTypesAndGenericTypes
     {
         GenericType<double> AnyDouble { get; }
@@ -113,6 +118,13 @@ namespace Win32_Fody_Assembly_Validation_Tests
             Assert.AreEqual("Hello", obj.StringProperty);
             Assert.AreEqual(5.5, obj.DoubleProperty);
             Assert.AreEqual(60, obj.LongProperty);
+        }
+
+        [TestMethod]
+        public void Anonymouse_With_GenericInterface()
+        {
+            var obj = new { AnyInt = 9 }.CreateType<IHasGenericInterfaces>();
+            Assert.Equals(9, obj.AnyInt);
         }
 
         [TestMethod]

@@ -131,6 +131,9 @@
     <Compile Include="..\..\NetStandard\Cauldron.Activator\FactoryGeneric.cs">
       <Link>Activator\FactoryGeneric.cs</Link>
     </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Activator\FactoryObjectCreatedEventArgs.cs">
+      <Link>Activator\FactoryObjectCreatedEventArgs.cs</Link>
+    </Compile>
     <Compile Include="..\..\NetStandard\Cauldron.Activator\FactoryTypeInfoInternal.cs">
       <Link>Activator\FactoryTypeInfoInternal.cs</Link>
     </Compile>

@@ -42,8 +42,15 @@ namespace Cauldron.Interception.Cecilator
 
         public void Execute()
         {
-            this.Builder = this.CreateBuilder();
-            this.OnExecute();
+            try
+            {
+                this.Builder = this.CreateBuilder();
+                this.OnExecute();
+            }
+            catch (Exception e)
+            {
+                this.LogError(e.GetStackTrace());
+            }
         }
 
         public virtual void OnAfterWeaving()

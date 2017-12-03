@@ -1,4 +1,5 @@
 ﻿using Cauldron.Interception.Cecilator;
+using Cauldron.Interception.Fody.HelperTypes;
 using Mono.Cecil;
 using System;
 using System.Collections.Generic;
@@ -338,7 +339,7 @@ namespace Cauldron.Interception.Fody
                         }
                         catch (MethodNotFoundException)
                         {
-                            this.LogError($"The property '{property.Name}' does not exist in '{anonTarget.Name}'");
+                            this.LogWarning($"The property '{property.Name}' does not exist in '{anonTarget.Name}'");
                         }
                     }
 
@@ -361,6 +362,7 @@ namespace Cauldron.Interception.Fody
                 Priority = x.GetMethod("get_Priority")
             });
             var componentConstructorAttribute = builder.GetType("Cauldron.Activator.ComponentConstructorAttribute");
+            var factory = new __Factory(builder);
 
             // Before we start let us find all factoryextensions and add a component attribute to them
             var factoryResolverInterface = builder.GetType("Cauldron.Activator.IFactoryResolver");
@@ -369,11 +371,11 @@ namespace Cauldron.Interception.Fody
             var factoryGeneric = builder.GetType("Cauldron.Activator.Factory`1");
             this.AddComponentAttribute(builder, builder.FindTypesByBaseClass(factoryGeneric), type =>
                {
-                   var factory = type.BaseClasses.FirstOrDefault(x => x.Fullname.StartsWith("Cauldron.Activator.Factory"));
-                   if (factory == null)
+                   var factoryBase = type.BaseClasses.FirstOrDefault(x => x.Fullname.StartsWith("Cauldron.Activator.Factory"));
+                   if (factoryBase == null)
                        return type.Fullname;
 
-                   return factory.GetGenericArgument(0).Fullname;
+                   return factoryBase.GetGenericArgument(0).Fullname;
                });
 
             int counter = 0;
@@ -420,6 +422,7 @@ namespace Cauldron.Interception.Fody
                     .NewCode()
                     .Context(x =>
                     {
+                        var localVariable = x.GetReturnVariable();
                         // Find any method with a componentcontructor attribute
                         var ctors = component.Type.GetMethods(y =>
                                 {
@@ -469,8 +472,8 @@ namespace Cauldron.Interception.Fody
                                     // In this case we have to find a parameterless constructor first
                                     if (component.Type.ParameterlessContructor != null && !parameterlessCtorAlreadyHandled && component.Type.ParameterlessContructor.Modifiers.HasFlag(Modifiers.Public))
                                     {
-                                        x.Load(x.GetParameter(0)).IsNull().Then(y => y.NewObj(component.Type.ParameterlessContructor).Return());
-                                        x.Load(x.GetParameter(0)).Call(arrayAvatar.Length).EqualTo(0).Then(y => y.NewObj(component.Type.ParameterlessContructor).Return());
+                                        x.Load(x.GetParameter(0)).IsNull().Then(y => y.NewObj(component.Type.ParameterlessContructor).StoreLocal(localVariable).Call(factory.OnObjectCreation, localVariable, x.This).Return());
+                                        x.Load(x.GetParameter(0)).Call(arrayAvatar.Length).EqualTo(0).Then(y => y.NewObj(component.Type.ParameterlessContructor).StoreLocal(localVariable).Call(factory.OnObjectCreation, localVariable, x.This).Return());
                                         parameterlessCtorAlreadyHandled = true;
                                     }
 
@@ -480,21 +483,21 @@ namespace Cauldron.Interception.Fody
                                         code.And.Load(x.GetParameter(0).UnPacked(i)).Is(ctorParameters[i]);
 
                                     if (ctor.Name == ".ctor")
-                                        code.Then(y => y.NewObj(ctor, x.GetParameter(0).UnPacked()).Return());
+                                        code.Then(y => y.NewObj(ctor, x.GetParameter(0).UnPacked()).StoreLocal(localVariable).Call(factory.OnObjectCreation, localVariable, x.This).Return());
                                     else
-                                        code.Then(y => y.Call(ctor, x.GetParameter(0).UnPacked()).Return());
+                                        code.Then(y => y.Call(ctor, x.GetParameter(0).UnPacked()).StoreLocal(localVariable).Call(factory.OnObjectCreation, localVariable, x.This).Return());
                                 }
                                 else
                                 {
                                     if (ctor.Name == ".ctor")
                                     {
-                                        x.Load(x.GetParameter(0)).IsNull().Then(y => y.NewObj(ctor).Return());
-                                        x.Load(x.GetParameter(0)).Call(arrayAvatar.Length).EqualTo(0).Then(y => y.NewObj(ctor).Return());
+                                        x.Load(x.GetParameter(0)).IsNull().Then(y => y.NewObj(ctor).StoreLocal(localVariable).Call(factory.OnObjectCreation, localVariable, x.This).Return());
+                                        x.Load(x.GetParameter(0)).Call(arrayAvatar.Length).EqualTo(0).Then(y => y.NewObj(ctor).StoreLocal(localVariable).Call(factory.OnObjectCreation, localVariable, x.This).Return());
                                     }
                                     else
                                     {
-                                        x.Load(x.GetParameter(0)).IsNull().Then(y => y.Call(ctor).Return());
-                                        x.Load(x.GetParameter(0)).Call(arrayAvatar.Length).EqualTo(0).Then(y => y.Call(ctor).Return());
+                                        x.Load(x.GetParameter(0)).IsNull().Then(y => y.Call(ctor).StoreLocal(localVariable).Call(factory.OnObjectCreation, localVariable, x.This).Return());
+                                        x.Load(x.GetParameter(0)).Call(arrayAvatar.Length).EqualTo(0).Then(y => y.Call(ctor).StoreLocal(localVariable).Call(factory.OnObjectCreation, localVariable, x.This).Return());
                                     }
 
                                     parameterlessCtorAlreadyHandled = true;
@@ -509,14 +512,14 @@ namespace Cauldron.Interception.Fody
                                 this.LogError($"The component '{component.Type.Fullname}' has no ComponentConstructor attribute or the constructor is not public");
                             else if (component.Type.ParameterlessContructor.Modifiers.HasFlag(Modifiers.Public))
                             {
-                                x.Load(x.GetParameter(0)).IsNull().Then(y => y.NewObj(component.Type.ParameterlessContructor).Return());
-                                x.Load(x.GetParameter(0)).Call(arrayAvatar.Length).EqualTo(0).Then(y => y.NewObj(component.Type.ParameterlessContructor).Return());
+                                x.Load(x.GetParameter(0)).IsNull().Then(y => y.NewObj(component.Type.ParameterlessContructor).StoreLocal(localVariable).Call(factory.OnObjectCreation, localVariable, x.This).Return());
+                                x.Load(x.GetParameter(0)).Call(arrayAvatar.Length).EqualTo(0).Then(y => y.NewObj(component.Type.ParameterlessContructor).StoreLocal(localVariable).Call(factory.OnObjectCreation, localVariable, x.This).Return());
 
                                 this.LogWarning($"The component '{component.Type.Fullname}' has no ComponentConstructor attribute. A parameterless ctor was found and will be used.");
                             }
                         }
                     })
-                    .Context(x => x.Call(extensionAvatar.CreateInstance, component.Type, x.GetParameter(0)).Return())
+                    .Context(x => x.Call(extensionAvatar.CreateInstance, component.Type, x.GetParameter(0)).StoreLocal(x.GetReturnVariable()).Call(factory.OnObjectCreation, x.GetReturnVariable(), x.This).Return())
                     .Return()
                     .Replace();
 
@@ -591,7 +594,7 @@ namespace Cauldron.Interception.Fody
                 .Return()
                 .Replace();
 
-            if (builder.TypeExists("Cauldron.Activator.Factory") &&
+            if (builder.TypeExists("Cauldron.Activator.Factory") && builder.TypeExists("Cauldron.Activator.FactoryObjectCreatedEventArgs") &&
                 (builder.IsReferenced("Cauldron.XAML") || builder.IsReferenced("System.Xaml") || builder.IsReferenced("Windows.UI.Xaml")) &&
                 (builder.TypeExists("Windows.UI.Xaml.Data.IValueConverter") || builder.TypeExists("System.Windows.Data.IValueConverter") /* Fixes #39 */))
                 AddAttributeToXAMLResources(builder);

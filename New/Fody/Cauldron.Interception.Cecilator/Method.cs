@@ -101,7 +101,8 @@ namespace Cauldron.Interception.Cecilator
 
         public string Name { get { return this.methodDefinition.Name; } }
 
-        public BuilderType[] Parameters { get { return this.methodReference.Parameters.Select(x => new BuilderType(this.DeclaringType.Builder, x.ParameterType)).ToArray(); } }
+        public BuilderType[] Parameters =>
+            this.methodReference.Parameters.Select(x => new BuilderType(this.DeclaringType.Builder, x.ParameterType.ResolveType(this.type.typeReference, this.methodReference))).ToArray();
 
         public BuilderType ReturnType { get { return new BuilderType(this.type, this.methodReference.ReturnType); } }
 

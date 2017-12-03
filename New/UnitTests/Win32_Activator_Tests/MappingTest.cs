@@ -109,7 +109,7 @@ namespace Activator_Tests
 
             Assert.AreEqual(source.List.Count, target.List.Count);
             Assert.AreEqual(source.IEnumerableT.Count(), target.IEnumerableT.Count());
-            Assert.AreEqual(source.IEnumerable.Count_(), target.IEnumerable.Count_());
+            Assert.AreEqual(source.IEnumerable.Operations().Count(), target.IEnumerable.Operations().Count());
             Assert.AreEqual(source.Dictionary.Count, target.Dictionary.Count);
             Assert.AreEqual(source.Array.Length, target.Array.Length);
 
@@ -129,13 +129,13 @@ namespace Activator_Tests
             Assert.AreEqual(source.IEnumerableT.ElementAt(0).As<TestMappingInterface1>().EinStruct.Value, target.IEnumerableT.ElementAt(0).As<TestMappingInterface1>().EinStruct.Value);
             Assert.AreEqual(source.IEnumerableT.ElementAt(1).Property1, target.IEnumerableT.ElementAt(1).Property1);
 
-            Assert.IsFalse(Object.ReferenceEquals(source.IEnumerable.ElementAt_(0), target.IEnumerable.ElementAt_(0)));
-            Assert.IsFalse(Object.ReferenceEquals(source.IEnumerable.ElementAt_(1), target.IEnumerable.ElementAt_(1)));
-            Assert.AreEqual(source.IEnumerable.ElementAt_(0).As<TestMappingInterface1>().Property1, target.IEnumerable.ElementAt_(0).As<TestMappingInterface1>().Property1);
-            Assert.AreEqual(source.IEnumerable.ElementAt_(0).As<TestMappingInterface1>().field, target.IEnumerable.ElementAt_(0).As<TestMappingInterface1>().field);
-            Assert.AreEqual(source.IEnumerable.ElementAt_(0).As<TestMappingInterface1>().EinStruct.field, target.IEnumerable.ElementAt_(0).As<TestMappingInterface1>().EinStruct.field);
-            Assert.AreEqual(source.IEnumerable.ElementAt_(0).As<TestMappingInterface1>().EinStruct.Value, target.IEnumerable.ElementAt_(0).As<TestMappingInterface1>().EinStruct.Value);
-            Assert.AreEqual(source.IEnumerable.ElementAt_(1).As<TestMappingInterface2>().Property1, target.IEnumerable.ElementAt_(1).As<TestMappingInterface2>().Property1);
+            Assert.IsFalse(Object.ReferenceEquals(source.IEnumerable.Operations().ElementAt(0), target.IEnumerable.Operations().ElementAt(0)));
+            Assert.IsFalse(Object.ReferenceEquals(source.IEnumerable.Operations().ElementAt(1), target.IEnumerable.Operations().ElementAt(1)));
+            Assert.AreEqual(source.IEnumerable.Operations().ElementAt(0).As<TestMappingInterface1>().Property1, target.IEnumerable.Operations().ElementAt(0).As<TestMappingInterface1>().Property1);
+            Assert.AreEqual(source.IEnumerable.Operations().ElementAt(0).As<TestMappingInterface1>().field, target.IEnumerable.Operations().ElementAt(0).As<TestMappingInterface1>().field);
+            Assert.AreEqual(source.IEnumerable.Operations().ElementAt(0).As<TestMappingInterface1>().EinStruct.field, target.IEnumerable.Operations().ElementAt(0).As<TestMappingInterface1>().EinStruct.field);
+            Assert.AreEqual(source.IEnumerable.Operations().ElementAt(0).As<TestMappingInterface1>().EinStruct.Value, target.IEnumerable.Operations().ElementAt(0).As<TestMappingInterface1>().EinStruct.Value);
+            Assert.AreEqual(source.IEnumerable.Operations().ElementAt(1).As<TestMappingInterface2>().Property1, target.IEnumerable.Operations().ElementAt(1).As<TestMappingInterface2>().Property1);
 
             Assert.IsFalse(Object.ReferenceEquals(source.Array[0], target.Array[0]));
             Assert.IsFalse(Object.ReferenceEquals(source.Array[1], target.Array[1]));

@@ -440,7 +440,7 @@ namespace Cauldron.Interception.Cecilator
             {
                 return
                     this.typeDefinition.IsInterface ?
-                    this.typeDefinition.Methods.Concat(this.typeDefinition.GetInterfaces().SelectMany(x => x.Resolve().Methods)).Select(x => new Method(this, x)) :
+                    this.typeReference.GetMethodReferencesByInterfaces().Select(x => new Method(new BuilderType(this.Builder, x.DeclaringType), x, x.Resolve())) :
                     this.typeDefinition.Methods.Where(x => x.Body != null).Select(x => new Method(this, x));
             }
         }

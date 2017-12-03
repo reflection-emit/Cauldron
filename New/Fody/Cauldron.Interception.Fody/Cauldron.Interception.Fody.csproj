@@ -61,6 +61,7 @@
     <Compile Include="HelperTypes\HelperTypeBase.cs" />
     <Compile Include="HelperTypes\__Exception.cs" />
     <Compile Include="HelperTypes\__Extensions.cs" />
+    <Compile Include="HelperTypes\__Factory.cs" />
     <Compile Include="HelperTypes\__IList.cs" />
     <Compile Include="HelperTypes\__IMethodInterceptor.cs" />
     <Compile Include="HelperTypes\__IPropertyGetterInterceptor.cs" />

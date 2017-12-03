@@ -1094,6 +1094,13 @@ namespace Cauldron.Interception.Cecilator
                     instruction.OpCode = this.IsInclosedInHandlers(instruction) ? OpCodes.Leave : OpCodes.Br;
                     instruction.Operand = realReturn;
 
+                    if (instruction.Previous.IsCall() && instruction.Previous.Operand.New(x =>
+                     {
+                         var methodReference = x as MethodReference ?? x as MethodDefinition;
+                         return methodReference.ReturnType.FullName == "System.Void" || methodReference.ReturnType.FullName == "System.Threading.Tasks.Task";
+                     }))
+                        continue;
+
                     if (resultJump)
                         this.processor.InsertBefore(instruction, this.processor.Create(OpCodes.Stloc, returnVariable));
                 }

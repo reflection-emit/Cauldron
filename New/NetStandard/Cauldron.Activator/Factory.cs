@@ -1,16 +1,19 @@
 ﻿using Cauldron.Core;
-using Cauldron.Core.Diagnostics;
 using Cauldron.Core.Reflection;
 using System;
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 
 namespace Cauldron.Activator
 {
+    using Cauldron.Core.Diagnostics;
+
     /// <summary>
     /// Provides methods for creating and destroying object instances
     /// </summary>
@@ -46,6 +49,11 @@ namespace Cauldron.Activator
                 InitializeFactory(factoryInfoTypes);
             };
         }
+
+        /// <summary>
+        /// Occures if an object was created
+        /// </summary>
+        public static event EventHandler<FactoryObjectCreatedEventArgs> ObjectCreated;
 
         /// <summary>
         /// Gets or sets a value that indicates if the <see cref="Factory"/> is allowed to raise an
@@ -375,6 +383,10 @@ namespace Cauldron.Activator
         /// <typeparam name="T">The Type that contract name derives from</typeparam>
         /// <returns>True if the contract exists, otherwise false</returns>
         public static bool HasContract<T>() => components.ContainsKey(typeof(T).FullName);
+
+        /// <exclude/>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static void OnObjectCreation(object @object, IFactoryTypeInfo factoryTypeInfo) => ObjectCreated?.Invoke(null, new FactoryObjectCreatedEventArgs(@object, factoryTypeInfo));
 
         /// <summary>
         /// Removes a <see cref="Type"/> from the list of known types.

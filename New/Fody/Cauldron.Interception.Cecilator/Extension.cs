@@ -6,6 +6,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text;
 
 namespace Cauldron.Interception.Cecilator
 {
@@ -263,53 +264,9 @@ namespace Cauldron.Interception.Cecilator
             throw new Exception($"Unable to proceed. The type '{type.FullName}' does not contain a method '{methodName}'");
         }
 
-        public static IEnumerable<MethodReference> GetMethodReferences(this TypeReference type)
-        {
-            var result = new List<MethodReference>();
-            var baseType = type;
+        public static IEnumerable<MethodReference> GetMethodReferences(this TypeReference type) => GetMethodReferences(type, false);
 
-            while (baseType != null)
-            {
-                if (baseType.IsGenericInstance)
-                {
-                    var genericType = baseType as GenericInstanceType;
-                    if (genericType != null)
-                    {
-                        var instances = genericType.GetGenericInstances().Where(x => !x.BetterResolve().IsInterface);
-                        foreach (var item in instances)
-                        {
-                            var methods = item.BetterResolve().Methods.Select(x => x.MakeHostInstanceGeneric((item as GenericInstanceType).GenericArguments.ToArray()));
-
-                            if (methods != null || methods.Any())
-                                result.AddRange(methods);
-                        }
-                    }
-                }
-                else
-                {
-                    var methods = baseType.BetterResolve().Methods;
-                    if (methods != null || methods.Count > 0)
-                        result.AddRange(methods);
-                }
-
-                baseType = baseType.BetterResolve().BaseType;
-            };
-
-            return result.Where(x =>
-            {
-                if (!x.DeclaringType.IsGenericInstance)
-                    return true;
-
-                var genericArgument = (x.DeclaringType as GenericInstanceType).GenericArguments;
-                for (int i = 0; i < genericArgument.Count; i++)
-                {
-                    if (genericArgument[i].IsGenericParameter)
-                        return false;
-                }
-
-                return true;
-            });
-        }
+        public static IEnumerable<MethodReference> GetMethodReferencesByInterfaces(this TypeReference type) => GetMethodReferences(type, true);
 
         public static IEnumerable<TypeReference> GetNestedTypes(this TypeReference type)
         {
@@ -461,6 +418,26 @@ namespace Cauldron.Interception.Cecilator
                 if (target != null && target.Offset == jumpTarget.Offset)
                     yield return item;
             }
+        }
+
+        internal static string GetStackTrace(this Exception e)
+        {
+            var sb = new StringBuilder();
+            var ex = e;
+
+            do
+            {
+                sb.AppendLine("Exception Type: " + ex.GetType().Name);
+                sb.AppendLine("Source: " + ex.Source);
+                sb.AppendLine(ex.Message);
+                sb.AppendLine("------------------------");
+                sb.AppendLine(ex.StackTrace);
+                sb.AppendLine("------------------------");
+
+                ex = ex.InnerException;
+            } while (ex != null);
+
+            return sb.ToString();
         }
 
         internal static void InsertAfter(this ILProcessor processor, Instruction target, Instruction[] instructions) => processor.InsertAfter(target, instructions as IEnumerable<Instruction>);
@@ -710,10 +687,6 @@ namespace Cauldron.Interception.Cecilator
                 else
                     return type;
             }
-            catch (NullReferenceException e)
-            {
-                throw new TypeResolveException($"Unable to resolve type '{type?.FullName ?? "Unknown"}'. The ", e);
-            }
             catch (Exception e)
             {
                 throw new TypeResolveException($"Unable to resolve type '{type?.FullName ?? "Unknown"}'", e);
@@ -807,6 +780,65 @@ namespace Cauldron.Interception.Cecilator
             }
 
             return new TypeReference[0];
+        }
+
+        private static IEnumerable<MethodReference> GetMethodReferences(this TypeReference type, bool byInterfaces)
+        {
+            var result = new List<MethodReference>();
+            GetMethodReferences(type, result, byInterfaces);
+
+            return result.Where(x =>
+            {
+                if (!x.DeclaringType.IsGenericInstance)
+                    return true;
+
+                var genericArgument = (x.DeclaringType as GenericInstanceType).GenericArguments;
+                for (int i = 0; i < genericArgument.Count; i++)
+                {
+                    if (genericArgument[i].IsGenericParameter)
+                        return false;
+                }
+
+                return true;
+            });
+        }
+
+        private static void GetMethodReferences(TypeReference typeToInspect, List<MethodReference> result, bool byInterfaces)
+        {
+            if (typeToInspect == null)
+                return;
+
+            if (typeToInspect.IsGenericInstance)
+            {
+                var genericType = typeToInspect as GenericInstanceType;
+                if (genericType != null)
+                {
+                    var instances = genericType.GetGenericInstances().Where(x => (!x.BetterResolve().IsInterface || byInterfaces));
+                    foreach (var item in instances)
+                    {
+                        var methods = item.BetterResolve().Methods.Select(x => x.MakeHostInstanceGeneric((item as GenericInstanceType).GenericArguments.ToArray()));
+
+                        if (methods != null || methods.Any())
+                            result.AddRange(methods);
+                    }
+                }
+            }
+            else
+            {
+                var methods = typeToInspect.BetterResolve().Methods;
+                if (methods != null || methods.Count > 0)
+                    result.AddRange(methods);
+            }
+
+            var typeReference = typeToInspect.BetterResolve();
+
+            if (byInterfaces)
+            {
+                for (int i = 0; i < typeReference.Interfaces.Count; i++)
+                    GetMethodReferences(typeReference.Interfaces[i].InterfaceType, result, true);
+            }
+            else if (typeReference.BaseType != null)
+                GetMethodReferences(typeReference.BaseType, result, false);
         }
     }
 }
