@@ -827,9 +827,9 @@ namespace Cauldron.Interception.Fody
             {
                 this.LogInfo($"Implementing interceptors in fields {field.Key}");
 
-                if (field.Key.Modifiers.HasFlag(Modifiers.Public))
+                if (!field.Key.Modifiers.HasFlag(Modifiers.Private))
                 {
-                    this.LogWarning($"The current version of the field interceptor only intercepts private fields. Field '{field.Key.Name}' in type '{field.Key.DeclaringType.Name}'");
+                    this.LogError($"The current version of the field interceptor only intercepts private fields. Field '{field.Key.Name}' in type '{field.Key.DeclaringType.Name}'");
                     continue;
                 }
 
