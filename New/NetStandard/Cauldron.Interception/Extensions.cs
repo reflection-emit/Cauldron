@@ -35,14 +35,6 @@ namespace Cauldron.Interception
 
         /// <exclude/>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public static void TryDisposeInternal(this object context)
-        {
-            var disposable = context as IDisposable;
-            disposable?.Dispose();
-        }
-
-        /// <exclude/>
-        [EditorBrowsable(EditorBrowsableState.Never)]
         public static string GetSHA256Hash(this string value)
         {
 #if WINDOWS_UWP
@@ -63,6 +55,17 @@ namespace Cauldron.Interception
                 return Convert.ToBase64String(sha.ComputeHash(UTF8Encoding.UTF8.GetBytes(value)));
 
 #endif
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static Uri RelativeUri(string uri) => new Uri(uri, UriKind.Relative);
+
+        /// <exclude/>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static void TryDisposeInternal(this object context)
+        {
+            var disposable = context as IDisposable;
+            disposable?.Dispose();
         }
     }
 }

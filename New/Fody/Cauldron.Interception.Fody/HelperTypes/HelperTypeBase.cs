@@ -13,6 +13,14 @@ namespace Cauldron.Interception.Fody.HelperTypes
             this.type = builder.GetType(typeFullname);
         }
 
+        public HelperTypeBase(Builder builder, string typeFullname1, string typeFullname2)
+        {
+            this.builder = builder;
+            this.type = builder.GetType(builder.TypeExists(typeFullname1) ? typeFullname1 : typeFullname2);
+        }
+
         public BuilderType Type => this.type;
+
+        public void Import() => this.type.Import();
     }
 }

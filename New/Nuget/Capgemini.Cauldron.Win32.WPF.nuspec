@@ -13,6 +13,9 @@
     <description>A simple MVVM framework that heavily uses IL-weaving based on Fody.</description>
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron XAML WPF MVVM Framework ViewModels</tags>
+    <releaseNotes>
+      2017.12.04 - [F] IViewAware interface added.
+    </releaseNotes>
     <dependencies>
       <dependency id="Fody" version="2.2.1" />
       <dependency id="Newtonsoft.Json" version="10.0.3" />

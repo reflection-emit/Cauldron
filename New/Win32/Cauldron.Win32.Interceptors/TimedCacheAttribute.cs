@@ -5,7 +5,7 @@ using System.Runtime.Caching;
 using System.Text;
 using System.Threading;
 
-namespace Cauldron.Core.Interception
+namespace Cauldron.Core.Interceptors
 {
     /// <summary>
     /// Provides a timed global caching for the intercepted method. The caching is implemented using

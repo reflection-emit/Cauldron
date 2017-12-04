@@ -43,13 +43,7 @@ namespace Cauldron.XAML.Navigation
         /// Only relevant for UWP and Desktop single page application
         /// </summary>
         /// <exception cref="NotImplementedException"></exception>
-        public bool CanGoBack
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public bool CanGoBack => throw new NotImplementedException();
 
         /// <summary>
         /// Gets a value that indicates whether there is at least one entry in forward navigation history.
@@ -57,13 +51,7 @@ namespace Cauldron.XAML.Navigation
         /// Only relevant for UWP and Desktop single page application
         /// </summary>
         /// <exception cref="NotImplementedException"></exception>
-        public bool CanGoForward
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public bool CanGoForward => throw new NotImplementedException();
 
         /// <summary>
         /// Navigates to the most recent item in back navigation history, if a Frame manages its own
@@ -72,10 +60,7 @@ namespace Cauldron.XAML.Navigation
         /// Only relevant for UWP and Desktop single page application
         /// </summary>
         /// <exception cref="NotImplementedException"></exception>
-        public Task<bool> GoBack()
-        {
-            throw new NotImplementedException();
-        }
+        public Task<bool> GoBack() => throw new NotImplementedException();
 
         /// <summary>
         /// Navigates to the most recent item in forward navigation history, if a Frame manages its
@@ -84,18 +69,14 @@ namespace Cauldron.XAML.Navigation
         /// Only relevant for UWP and Desktop single page application
         /// </summary>
         /// <exception cref="NotImplementedException"></exception>
-        public Task<bool> GoForward()
-        {
-            throw new NotImplementedException();
-        }
+        public Task<bool> GoForward() => throw new NotImplementedException();
 
         /// <summary>
         /// Causes the window or page to load content represented by the specified <see cref="IViewModel"/>.
         /// </summary>
         /// <param name="viewModelType">The type of the viewmodel to construct</param>
         /// <returns>true if the navigation attempt was successful; otherwise, false</returns>
-        public async Task<bool> NavigateAsync(Type viewModelType) =>
-            await NavigateInternal<bool>(viewModelType, null, null);
+        public async Task<bool> NavigateAsync(Type viewModelType) => await NavigateInternal<bool>(viewModelType, null, null);
 
         /// <summary>
         /// Causes the window or page to load content represented by the specified <see
@@ -107,16 +88,14 @@ namespace Cauldron.XAML.Navigation
         /// (string, char, numeric, or GUID) to support parameter serialization.
         /// </param>
         /// <returns>true if the navigation attempt was successful; otherwise, false</returns>
-        public async Task<bool> NavigateAsync(Type viewModelType, params object[] parameters) =>
-            await NavigateInternal<bool>(viewModelType, null, null, parameters);
+        public async Task<bool> NavigateAsync(Type viewModelType, params object[] parameters) => await NavigateInternal<bool>(viewModelType, null, null, parameters);
 
         /// <summary>
         /// Causes the window or page to load content represented by the specified <see cref="IViewModel"/>.
         /// </summary>
         /// <typeparam name="T">The type of the viewmodel to construct</typeparam>
         /// <returns>true if the navigation attempt was successful; otherwise, false</returns>
-        public async Task<bool> NavigateAsync<T>() where T : IViewModel =>
-            await NavigateInternal<bool>(typeof(T), null, null);
+        public async Task<bool> NavigateAsync<T>() where T : IViewModel => await NavigateInternal<bool>(typeof(T), null, null);
 
         /// <summary>
         /// Create a new popup with the view defined by the view model, depending on the views definition.
@@ -127,8 +106,7 @@ namespace Cauldron.XAML.Navigation
         /// <permission cref="NotSupportedException">
         /// The is already an open ContentDialog. Multiple ContentDialogs are not supported
         /// </permission>
-        public async Task NavigateAsync<T, TResult>(Func<TResult, Task> callback) where T : class, IDialogViewModel<TResult> =>
-            await NavigateInternal<TResult>(typeof(T), callback, null, null);
+        public async Task NavigateAsync<T, TResult>(Func<TResult, Task> callback) where T : class, IDialogViewModel<TResult> => await NavigateInternal<TResult>(typeof(T), callback, null, null);
 
         /// <summary>
         /// Create a new popup with the view defined by the view model, depending on the views definition.
@@ -138,8 +116,7 @@ namespace Cauldron.XAML.Navigation
         /// <permission cref="NotSupportedException">
         /// The is already an open ContentDialog. Multiple ContentDialogs are not supported
         /// </permission>
-        public async Task NavigateAsync<T>(Func<Task> callback) where T : class, IDialogViewModel =>
-            await NavigateInternal<bool>(typeof(T), null, callback, null);
+        public async Task NavigateAsync<T>(Func<Task> callback) where T : class, IDialogViewModel => await NavigateInternal<bool>(typeof(T), null, callback, null);
 
         /// <summary>
         /// Causes the window or page to load content represented by the specified <see
@@ -151,8 +128,7 @@ namespace Cauldron.XAML.Navigation
         /// (string, char, numeric, or GUID) to support parameter serialization.
         /// </param>
         /// <returns>true if the navigation attempt was successful; otherwise, false</returns>
-        public async Task<bool> NavigateAsync<T>(params object[] parameters) where T : IViewModel =>
-            await NavigateInternal<bool>(typeof(T), null, null, parameters);
+        public async Task<bool> NavigateAsync<T>(params object[] parameters) where T : IViewModel => await NavigateInternal<bool>(typeof(T), null, null, parameters);
 
         /// <summary>
         /// Create a new popup with the view defined by the view model, depending on the views
@@ -165,8 +141,7 @@ namespace Cauldron.XAML.Navigation
         /// <permission cref="NotSupportedException">
         /// The is already an open ContentDialog. Multiple ContentDialogs are not supported
         /// </permission>
-        public async Task NavigateAsync<T, TResult>(Func<TResult, Task> callback, params object[] parameters) where T : class, IDialogViewModel<TResult> =>
-            await NavigateInternal<TResult>(typeof(T), callback, null, parameters);
+        public async Task NavigateAsync<T, TResult>(Func<TResult, Task> callback, params object[] parameters) where T : class, IDialogViewModel<TResult> => await NavigateInternal<TResult>(typeof(T), callback, null, parameters);
 
         /// <summary>
         /// Create a new popup with the view defined by the view model, depending on the views
@@ -178,8 +153,7 @@ namespace Cauldron.XAML.Navigation
         /// <permission cref="NotSupportedException">
         /// The is already an open ContentDialog. Multiple ContentDialogs are not supported
         /// </permission>
-        public async Task NavigateAsync<T>(Func<Task> callback, params object[] parameters) where T : class, IDialogViewModel =>
-            await NavigateInternal<bool>(typeof(T), null, callback, parameters);
+        public async Task NavigateAsync<T>(Func<Task> callback, params object[] parameters) where T : class, IDialogViewModel => await NavigateInternal<bool>(typeof(T), null, callback, parameters);
 
         /// <summary>
         /// Tries to close a view model associated popup
@@ -480,6 +454,9 @@ namespace Cauldron.XAML.Navigation
 
             window.Content = view;
             view.DataContext = viewModel;
+
+            if (viewModel is IViewAware viewAwareViewModel)
+                viewAwareViewModel.OnAssignToDataContext(window.InputBindings);
 
             Common.AddTransistionStoryboard(view);
             window.EndInit();

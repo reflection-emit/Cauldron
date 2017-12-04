@@ -4,7 +4,7 @@ namespace Cauldron.Interception.Fody.HelperTypes
 {
     public sealed class __TimedCacheAttribute : HelperTypeBase
     {
-        public const string TypeName = "Cauldron.Core.Interception.TimedCacheAttribute";
+        public const string TypeName = "Cauldron.Core.Interceptors.TimedCacheAttribute";
 
         public __TimedCacheAttribute(Builder builder) : base(builder, TypeName)
         {

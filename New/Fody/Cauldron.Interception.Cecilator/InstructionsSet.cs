@@ -576,6 +576,13 @@ namespace Cauldron.Interception.Cecilator
 
             var type = parameter.GetType();
 
+            if (type.IsEnum)
+            {
+                this.moduleDefinition.ImportReference(type.GetType());
+                type = Enum.GetUnderlyingType(type);
+                parameter = Convert.ChangeType(parameter, type);
+            }
+
             if (type == typeof(string))
             {
                 result.Instructions.Add(processor.Create(OpCodes.Ldstr, parameter.ToString()));

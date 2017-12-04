@@ -144,6 +144,17 @@ namespace Cauldron.Interception.Cecilator
             return result;
         }
 
+        public IEnumerable<string> GetLoadStrings()
+        {
+            foreach (var items in this.methodDefinition.Body.Instructions)
+            {
+                if (items.OpCode != OpCodes.Ldstr)
+                    continue;
+
+                yield return items.Operand as string;
+            }
+        }
+
         public VariableDefinition GetLocalVariable(string name)
         {
             Dictionary<string, VariableDefinition> methodsDictionary;
@@ -159,20 +170,16 @@ namespace Cauldron.Interception.Cecilator
             return null;
         }
 
-        public IEnumerable<TypeReference> GetTokens() => this.methodDefinition.Body.Instructions
-            .Where(x => x.OpCode == OpCodes.Ldtoken)
-            .Select(x =>
+        public IEnumerable<TypeReference> GetTokens()
+        {
+            foreach (var items in this.methodDefinition.Body.Instructions)
             {
-                try
-                {
-                    return x.Operand as TypeReference;
-                }
-                catch (Exception)
-                {
-                    return null;
-                }
-            })
-            .Where(x => x != null);
+                if (items.OpCode != OpCodes.Ldtoken)
+                    continue;
+
+                yield return items.Operand as TypeReference;
+            }
+        }
 
         public bool HasMethodBaseCall()
         {

@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\BuilderExtensions.cs" />
+    <Compile Include="HelperTypes\__Application.cs" />
     <Compile Include="HelperTypes\__AsyncTaskMethodBuilder`1.cs" />
     <Compile Include="HelperTypes\__AsyncTaskMethodBuilder.cs" />
     <Compile Include="HelperTypes\HelperTypeBase.cs" />
@@ -68,11 +69,14 @@
     <Compile Include="HelperTypes\__IPropertySetterInterceptor.cs" />
     <Compile Include="HelperTypes\__ISyncRoot.cs" />
     <Compile Include="HelperTypes\__PropertyInterceptionInfo.cs" />
+    <Compile Include="HelperTypes\__ResourceDictionary.cs" />
     <Compile Include="HelperTypes\__Task.cs" />
     <Compile Include="HelperTypes\__Task`1.cs" />
     <Compile Include="HelperTypes\__TimedCacheAttribute.cs" />
+    <Compile Include="HelperTypes\__Uri.cs" />
     <Compile Include="MethodBuilderInfo.cs" />
     <Compile Include="ModuleWeaver.cs" />
+    <Compile Include="ModuleWeaver_BamlXamlInitializer.cs" />
     <Compile Include="ModuleWeaver_MethodCache.cs" />
     <Compile Include="ModuleWeaver_MethodInterception.cs" />
     <Compile Include="ModuleWeaver_PropertyInterception.cs" />

@@ -39,7 +39,8 @@ namespace Cauldron.Interception.Fody
 
             this.ImplementAnonymousTypeInterface(this.Builder);
             this.ImplementTimedCache(this.Builder);
-            this.ImplementMethodCache(this.Builder);
+            // this.ImplementMethodCache(this.Builder);
+            this.ImplementBamlInitializer(this.Builder);
             this.ImplementTypeWidePropertyInterception(this.Builder, propertyInterceptingAttributes);
             this.ImplementTypeWideMethodInterception(this.Builder, methodInterceptionAttributes);
             // These should be done last, because they replace methods
@@ -95,7 +96,7 @@ namespace Cauldron.Interception.Fody
 
             foreach (var item in viewModels)
             {
-                if (item.IsAbstract || item.IsInterface || item.HasUnresolvedGenericParameters)
+                if (item.IsAbstract || item.IsInterface || item.HasUnresolvedGenericParameters || !item.IsPublic)
                     continue;
 
                 if (item.CustomAttributes.HasAttribute(componentAttribute))
@@ -109,7 +110,7 @@ namespace Cauldron.Interception.Fody
 
             foreach (var item in valueConverters)
             {
-                if (item.IsAbstract || item.IsInterface || item.HasUnresolvedGenericParameters)
+                if (item.IsAbstract || item.IsInterface || item.HasUnresolvedGenericParameters || !item.IsPublic)
                     continue;
 
                 if (item.CustomAttributes.HasAttribute(componentAttribute))
@@ -124,7 +125,7 @@ namespace Cauldron.Interception.Fody
             if (multiBindingConverters != null)
                 foreach (var item in multiBindingConverters)
                 {
-                    if (item.IsAbstract || item.IsInterface || item.HasUnresolvedGenericParameters)
+                    if (item.IsAbstract || item.IsInterface || item.HasUnresolvedGenericParameters || !item.IsPublic)
                         continue;
 
                     if (item.CustomAttributes.HasAttribute(componentAttribute))
@@ -138,7 +139,7 @@ namespace Cauldron.Interception.Fody
 
             foreach (var item in resourceDictionaries)
             {
-                if (item.IsAbstract || item.IsInterface || item.HasUnresolvedGenericParameters)
+                if (item.IsAbstract || item.IsInterface || item.HasUnresolvedGenericParameters || !item.IsPublic)
                     continue;
 
                 if (item.CustomAttributes.HasAttribute(componentAttribute))

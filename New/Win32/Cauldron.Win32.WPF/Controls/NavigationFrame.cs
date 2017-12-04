@@ -206,7 +206,13 @@ namespace Cauldron.XAML.Controls
             dialogs.TryAdd(viewModel.Id, dialog);
             dialog.Content = view;
 
-            await this.Dispatcher.InvokeAsync(() => view.DataContext = viewModel, System.Windows.Threading.DispatcherPriority.Normal);
+            await this.Dispatcher.InvokeAsync(() =>
+            {
+                view.DataContext = viewModel;
+
+                if (viewModel is IViewAware viewAwareViewModel)
+                    viewAwareViewModel.OnAssignToDataContext(Application.Current.MainWindow.InputBindings);
+            }, System.Windows.Threading.DispatcherPriority.Normal);
 
             Common.AddTransistionStoryboard(view);
             var result = dialog.ShowDialog();
@@ -242,7 +248,13 @@ namespace Cauldron.XAML.Controls
             dialogs.TryAdd(viewModel.Id, dialog);
             dialog.Content = view;
 
-            await this.Dispatcher.InvokeAsync(() => view.DataContext = viewModel, System.Windows.Threading.DispatcherPriority.Normal);
+            await this.Dispatcher.InvokeAsync(() =>
+            {
+                view.DataContext = viewModel;
+
+                if (viewModel is IViewAware viewAwareViewModel)
+                    viewAwareViewModel.OnAssignToDataContext(Application.Current.MainWindow.InputBindings);
+            }, System.Windows.Threading.DispatcherPriority.Normal);
 
             Common.AddTransistionStoryboard(view);
             var result = dialog.ShowDialog();
@@ -331,7 +343,13 @@ namespace Cauldron.XAML.Controls
                 var oldView = this.Content as FrameworkElement;
                 // Assign our new content
                 this.Content = view;
-                await this.Dispatcher.InvokeAsync(() => view.DataContext = viewModel, System.Windows.Threading.DispatcherPriority.Normal);
+                await this.Dispatcher.InvokeAsync(() =>
+                {
+                    view.DataContext = viewModel;
+
+                    if (viewModel is IViewAware viewAwareViewModel)
+                        viewAwareViewModel.OnAssignToDataContext(Application.Current.MainWindow.InputBindings);
+                }, System.Windows.Threading.DispatcherPriority.Normal);
                 // Invoke the Navigation stuff in the current datacontext
                 await AsyncHelper.NullGuard((viewModel as INavigable)?.OnNavigatedTo(new NavigationInfo(navigationMode, navigationType, oldDataContext?.GetType())));
                 // Remove the reference of the old vm from the old view
@@ -366,7 +384,13 @@ namespace Cauldron.XAML.Controls
                 var oldDataContext = this.ContentDataContext;
                 // NavigationMode.Refresh means recreate the view model but preserve the view
                 viewModel = Factory.Create(viewModelType, arguments) as IViewModel;
-                await this.Dispatcher.InvokeAsync(() => view.DataContext = viewModel, System.Windows.Threading.DispatcherPriority.Normal);
+                await this.Dispatcher.InvokeAsync(() =>
+                {
+                    view.DataContext = viewModel;
+
+                    if (viewModel is IViewAware viewAwareViewModel)
+                        viewAwareViewModel.OnAssignToDataContext(Application.Current.MainWindow.InputBindings);
+                }, System.Windows.Threading.DispatcherPriority.Normal);
                 // Invoke the Navigation stuff in the current datacontext
                 await AsyncHelper.NullGuard((viewModel as INavigable)?.OnNavigatedTo(new NavigationInfo(navigationMode, navigationType, viewModelType)));
                 // dispose the old viewmodel
