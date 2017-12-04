@@ -96,7 +96,7 @@ namespace Cauldron.Interception.Fody
 
             foreach (var item in viewModels)
             {
-                if (item.IsAbstract || item.IsInterface || item.HasUnresolvedGenericParameters || !item.IsPublic)
+                if (item.IsAbstract || item.IsInterface || item.HasUnresolvedGenericParameters || item.IsNestedPrivate)
                     continue;
 
                 if (item.CustomAttributes.HasAttribute(componentAttribute))
@@ -110,7 +110,7 @@ namespace Cauldron.Interception.Fody
 
             foreach (var item in valueConverters)
             {
-                if (item.IsAbstract || item.IsInterface || item.HasUnresolvedGenericParameters || !item.IsPublic)
+                if (item.IsAbstract || item.IsInterface || item.HasUnresolvedGenericParameters || item.IsNestedPrivate)
                     continue;
 
                 if (item.CustomAttributes.HasAttribute(componentAttribute))
@@ -125,7 +125,7 @@ namespace Cauldron.Interception.Fody
             if (multiBindingConverters != null)
                 foreach (var item in multiBindingConverters)
                 {
-                    if (item.IsAbstract || item.IsInterface || item.HasUnresolvedGenericParameters || !item.IsPublic)
+                    if (item.IsAbstract || item.IsInterface || item.HasUnresolvedGenericParameters || item.IsNestedPrivate)
                         continue;
 
                     if (item.CustomAttributes.HasAttribute(componentAttribute))
@@ -139,7 +139,7 @@ namespace Cauldron.Interception.Fody
 
             foreach (var item in resourceDictionaries)
             {
-                if (item.IsAbstract || item.IsInterface || item.HasUnresolvedGenericParameters || !item.IsPublic)
+                if (item.IsAbstract || item.IsInterface || item.HasUnresolvedGenericParameters || item.IsNestedPrivate)
                     continue;
 
                 if (item.CustomAttributes.HasAttribute(componentAttribute))
