@@ -40,9 +40,6 @@ namespace Cauldron.XAML
                 windowType = new WindowType { IsFactoryType = true };
 
             if (windowType == null)
-                windowType = new WindowType { Type = Assemblies.ExportedTypes.FirstOrDefault(x => x.IsSubclassOf(typeof(Window))) };
-
-            if (windowType == null)
                 windowType = new WindowType { Type = typeof(Window) };
 
             return windowType.CreateWindow();

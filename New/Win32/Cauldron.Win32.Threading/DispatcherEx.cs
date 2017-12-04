@@ -59,7 +59,13 @@ namespace Cauldron.Core.Threading
         /// </param>
         /// <returns>Returns a awaitable task</returns>
         /// <exception cref="ArgumentNullException"><paramref name="action"/> is null</exception>
-        public async Task RunAsync(Action action) => await this.dispatcher.BeginInvoke(action, System.Windows.Threading.DispatcherPriority.Normal);
+        public async Task RunAsync(Action action)
+        {
+            if (this.dispatcher == null)
+                return;
+
+            await this.dispatcher.BeginInvoke(action, System.Windows.Threading.DispatcherPriority.Normal);
+        }
 
         /// <summary>
         /// Executes the specified delegate asynchronously with the specified arguments, at the
@@ -78,6 +84,9 @@ namespace Cauldron.Core.Threading
         {
             if (action == null)
                 throw new ArgumentNullException(nameof(action));
+
+            if (this.dispatcher == null)
+                return;
 
             switch (priority)
             {

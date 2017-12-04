@@ -218,7 +218,15 @@ namespace Cauldron.XAML.Navigation
                     if (dataTemplate == null)
                     {
                         var possibleViewName = viewModelType.Name.Left(viewModelType.Name.Length - "Model".Length);
-                        var possibleView = Factory.Create(possibleViewName) ?? Factory.Create(Assemblies.GetTypeFromName(possibleViewName));
+                        var possibleView = Factory.HasContract(possibleViewName) ? Factory.Create(possibleViewName) : null;
+
+                        if (possibleView == null)
+                        {
+                            var possibleType = Assemblies.GetTypeFromName(possibleViewName);
+
+                            if (possibleType != null)
+                                possibleView = Factory.Create(possibleType);
+                        }
 
                         // On such case we create a dummy View
                         if (possibleView == null)

@@ -1005,5 +1005,15 @@ namespace Cauldron
             // A full list can be found using Encoding.GetEncodings();
             return Encoding.ASCII.GetString(data);
         }
+
+        /// <summary>
+        /// Makes it possible to modify or to check an object using a delegate.
+        /// </summary>
+        /// <typeparam name="TType">The type of the instance.</typeparam>
+        /// <typeparam name="TNew">The new type to return. Can be the same as <typeparamref name="TType"/>.</typeparam>
+        /// <param name="target">The instance of interest.</param>
+        /// <param name="predicate">The delegate that is used to modify or check the object.</param>
+        /// <returns>Any return value from the <paramref name="predicate"/></returns>
+        public static TNew With<TType, TNew>(this TType target, Func<TType, TNew> predicate) => predicate(target);
     }
 }

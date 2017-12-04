@@ -92,17 +92,14 @@ namespace Cauldron.Interception.Cecilator
                                 for (int i = 0; i < resourceCount; i++)
                                 {
                                     var length = (int)bytes[startPoint];
-                                    var data = Encoding.Unicode.GetString(bytes, startPoint + 1, length);
+                                    var data = Encoding.Unicode.GetString(bytes, startPoint + 1, length).Trim();
                                     startPoint += length + 5;
-
-                                    if (data.EndsWith(".baml", StringComparison.CurrentCultureIgnoreCase))
-                                        resourceNames.Add(data);
-
+                                    resourceNames.Add(data);
                                     this.LogInfo("             " + data);
                                 }
                             }
                         }
-                        this.BamlResourceNames = resourceNames;
+                        this.ResourceNames.AddRange(resourceNames);
                     }
                 }
             }
@@ -121,18 +118,18 @@ namespace Cauldron.Interception.Cecilator
             this.moduleDefinition = builderBase.moduleDefinition;
             this.allAssemblies = builderBase.allAssemblies;
             this.allTypes = builderBase.allTypes;
-            this.BamlResourceNames = builderBase.BamlResourceNames;
+            this.ResourceNames = builderBase.ResourceNames;
 
             this.Identification = GenerateName();
         }
 
-        public IEnumerable<string> BamlResourceNames { get; private set; }
         public string Identification { get; private set; }
 
         public AssemblyDefinition[] ReferencedAssemblies =>
             this.moduleDefinition.AssemblyReferences
                 .Select(x => this.moduleDefinition.AssemblyResolver.Resolve(x)).ToArray();
 
+        public List<string> ResourceNames { get; private set; } = new List<string>();
         public AssemblyDefinitionEx[] UnusedReference { get; private set; }
 
         public static string GenerateName() => Path.GetRandomFileName().Replace(".", DateTime.Now.Second.ToString());

@@ -26,7 +26,7 @@ namespace Cauldron.XAML
                 return Application.Current.Resources[specializedDataTemplateKey] as DataTemplate;
 
             specializedDataTemplateKey = defaultDataTemplateKey;
-            var orientation = Application.Current.MainWindow.Width > Application.Current.MainWindow.Height ? ViewOrientation.Landscape : ViewOrientation.Portrait;
+            var orientation = MonitorInfo.GetCurrentOrientation();
 
             if (orientation == ViewOrientation.Landscape)
                 specializedDataTemplateKey += "_Landscape";

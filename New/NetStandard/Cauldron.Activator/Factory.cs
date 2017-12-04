@@ -188,6 +188,106 @@ namespace Cauldron.Activator
         }
 
         /// <summary>
+        /// Creates an instance of the specified type depending on the <see cref="ComponentAttribute"/>.
+        /// If multiple implementations are available, the <see cref="Factory"/> will prefer the implementation with the highest priority.
+        /// </summary>
+        /// <typeparam name="T">The Type that contract name derives from</typeparam>
+        /// <param name="parameters">
+        /// An array of arguments that match in number, order, and type the parameters of the
+        /// constructor to invoke. If args is an empty array or null, the constructor that takes no
+        /// parameters (the default constructor) is invoked.
+        /// </param>
+        /// <returns>A reference to the newly created object.</returns>
+        /// <exception cref="KeyNotFoundException">
+        /// The contract described by <typeparamref name="T"/> was not found
+        /// </exception>
+        /// <exception cref="Exception">Unknown <see cref="FactoryCreationPolicy"/></exception>
+        /// <exception cref="NotSupportedException">
+        /// An <see cref="object"/> with <see cref="FactoryCreationPolicy.Singleton"/> with an
+        /// implemented <see cref="IDisposable"/> must also implement the <see cref="IDisposableObject"/> interface.
+        /// </exception>
+        public static T CreateFirst<T>(params object[] parameters) where T : class => CreateFirst(typeof(T).FullName, parameters) as T;
+
+        /// <summary>
+        /// Creates an instance of the specified type depending on the <see cref="ComponentAttribute"/>.
+        /// If multiple implementations are available, the <see cref="Factory"/> will prefer the implementation with the highest priority.
+        /// </summary>
+        /// <param name="contractType">The Type that contract name derives from</param>
+        /// <param name="parameters">
+        /// An array of arguments that match in number, order, and type the parameters of the
+        /// constructor to invoke. If args is an empty array or null, the constructor that takes no
+        /// parameters (the default constructor) is invoked.
+        /// </param>
+        /// <returns>A reference to the newly created object.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// The parameter <paramref name="contractType"/> is null
+        /// </exception>
+        /// <exception cref="KeyNotFoundException">
+        /// The contract described by <paramref name="contractName"/> was not found
+        /// </exception>
+        /// <exception cref="Exception">Unknown <see cref="FactoryCreationPolicy"/></exception>
+        /// <exception cref="NotSupportedException">
+        /// An <see cref="object"/> with <see cref="FactoryCreationPolicy.Singleton"/> with an
+        /// implemented <see cref="IDisposable"/> must also implement the <see cref="IDisposableObject"/> interface.
+        /// </exception>
+        public static object CreateFirst(Type contractType, params object[] parameters)
+        {
+            if (contractType == null)
+                throw new ArgumentNullException(nameof(contractType));
+
+            return CreateFirst(contractType.FullName, parameters);
+        }
+
+        /// <summary>
+        /// Creates an instance of the specified type depending on the <see cref="ComponentAttribute"/>.
+        /// If multiple implementations are available, the <see cref="Factory"/> will prefer the implementation with the highest priority.
+        /// </summary>
+        /// <param name="contractName">The name that identifies the type</param>
+        /// <param name="parameters">
+        /// An array of arguments that match in number, order, and type the parameters of the
+        /// constructor to invoke. If args is an empty array or null, the constructor that takes no
+        /// parameters (the default constructor) is invoked.
+        /// </param>
+        /// <returns>A reference to the newly created object.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// The parameter <paramref name="contractName"/> is null
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        /// The parameter <paramref name="contractName"/> is empty.
+        /// </exception>
+        /// <exception cref="KeyNotFoundException">
+        /// The contract described by <paramref name="contractName"/> was not found
+        /// </exception>
+        /// <exception cref="Exception">Unknown <see cref="FactoryCreationPolicy"/></exception>
+        /// <exception cref="NotSupportedException">
+        /// An <see cref="object"/> with <see cref="FactoryCreationPolicy.Singleton"/> with an
+        /// implemented <see cref="IDisposable"/> must also implement the <see cref="IDisposableObject"/> interface.
+        /// </exception>
+        public static object CreateFirst(string contractName, params object[] parameters)
+        {
+            if (contractName == null)
+                throw new ArgumentNullException(nameof(contractName));
+
+            if (contractName == "")
+                throw new ArgumentException("contractName cannot be empty");
+
+            if (components.TryGetValue(contractName, out IFactoryTypeInfo[] factoryInfos))
+            {
+                if (factoryInfos.Length == 1)
+                    return new object[] { GetInstance(factoryInfos[0], parameters) };
+
+                if (factoryInfos.Length != 0)
+                    return GetInstance(factoryInfos.MaxBy(x => x.Priority), parameters);
+            }
+
+            if (CanRaiseExceptions)
+                throw new KeyNotFoundException("The contractName '" + contractName + "' was not found.");
+
+            Debug.WriteLine($"ERROR: The contractName '" + contractName + "' was not found.");
+            return null;
+        }
+
+        /// <summary>
         /// Creates an instance of the specified type using the constructor that best matches the
         /// specified parameters. This method is similar to <see
         /// cref="ExtensionsReflection.CreateInstance(Type, object[])"/>, but this takes the types

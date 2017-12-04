@@ -57,6 +57,7 @@ namespace Cauldron.Interception
 #endif
         }
 
+        /// <exclude/>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static Uri RelativeUri(string uri) => new Uri(uri, UriKind.Relative);
 

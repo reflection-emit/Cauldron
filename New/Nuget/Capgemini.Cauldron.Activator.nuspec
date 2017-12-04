@@ -18,14 +18,15 @@
       2017.12.04 - [F] Weaves an initializer for xaml resources to be able to auto-load them.
       2017.12.04 - [C] TimedCacheAttribute namespace change also reflected to weaver.
       2017.12.04 - [R] Useless method cache removed from weaver.
+      2017.12.04 - [A] CreateFIrst method added to the Factory. This will auto-pick the implementation with the highest priority if multiple implementations are available.
     </releaseNotes>
     <dependencies>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="2.0.12" />
-        <dependency id="Capgemini.Cauldron.Core.Disposable" version="2.0.12" />
-        <dependency id="Capgemini.Cauldron.Core.Extensions" version="2.0.12" />
-        <dependency id="Capgemini.Cauldron.Core.Reflection" version="2.0.12" />
-        <dependency id="Cauldron.Interception.Fody" version="2.0.12" />
+        <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="2.0.13" />
+        <dependency id="Capgemini.Cauldron.Core.Disposable" version="2.0.13" />
+        <dependency id="Capgemini.Cauldron.Core.Extensions" version="2.0.13" />
+        <dependency id="Capgemini.Cauldron.Core.Reflection" version="2.0.13" />
+        <dependency id="Cauldron.Interception.Fody" version="2.0.13" />
         <dependency id="Fody" version="2.2.1" />
       </group>
     </dependencies>

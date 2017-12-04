@@ -12,7 +12,7 @@ namespace Cauldron.XAML
         public Window CreateWindow()
         {
             if (this.IsFactoryType)
-                return Factory.Create<Window>();
+                return Factory.CreateFirst<Window>();
 
             return this.Type.CreateInstance() as Window;
         }

@@ -51,28 +51,30 @@ namespace Cauldron.XAML
 
             // Add the custom template selector to the resources
             this.Resources.Add(typeof(CauldronTemplateSelector).Name, new CauldronTemplateSelector());
+            // Add some application information also as resources
+            this.Resources.Add(nameof(ApplicationInfo.ApplicationName), ApplicationInfo.ApplicationName);
+            this.Resources.Add(nameof(ApplicationInfo.ApplicationPublisher), ApplicationInfo.ApplicationPublisher);
+            this.Resources.Add(nameof(ApplicationInfo.ApplicationVersion), ApplicationInfo.ApplicationVersion);
+            this.Resources.Add(nameof(ApplicationInfo.ProductName), ApplicationInfo.ProductName);
+            this.Resources.Add(nameof(ApplicationInfo.Description), ApplicationInfo.Description);
 
             // Add all Value converters to the dictionary
-            Factory.CreateMany<IValueConverter>().Foreach(x =>
-            {
-                var name = x.GetType().Name;
+            Assemblies.CauldronObjects
+                .Select(x => x as IFactoryCache)
+                .Where(x => x != null)
+                .SelectMany(x => x.GetComponents())
+                .Where(x => x.ContractName == typeof(IValueConverter).FullName || x.ContractName == typeof(IMultiValueConverter).FullName)
+                .OrderBy(x => x.Priority)
+                .ThenBy(x => x.Type.FullName)
+                .Foreach(x =>
+                {
+                    var name = x.Type.Name;
 
-                if (!this.Resources.Contains(name))
-                    this.Resources.Add(name, x);
-                else
-                    Debug.WriteLine("ERROR: Multiple ValueConverters with the same name found: " + name);
-            });
-
-            // Add all Value converters to the dictionary
-            Factory.CreateMany<IMultiValueConverter>().Foreach(x =>
-            {
-                var name = x.GetType().Name;
-
-                if (!this.Resources.Contains(name))
-                    this.Resources.Add(name, x);
-                else
-                    Debug.WriteLine("ERROR: Multiple MultiValueConverters with the same name found: " + name);
-            });
+                    if (!this.Resources.Contains(name))
+                        this.Resources.Add(name, x.CreateInstance());
+                    else
+                        Debug.WriteLine("ERROR: Multiple MultiValueConverters with the same name found: " + name);
+                });
 
             // find all resourcedictionaries and add them to the existing resources
             Assemblies.CauldronObjects
@@ -89,8 +91,11 @@ namespace Cauldron.XAML
                 .ThenBy(x => x.Type.FullName)
                 .Foreach(x =>
                 {
-                    this.Resources.MergedDictionaries.Add(x.FactoryInfo.CreateInstance() as ResourceDictionary);
-                    Debug.WriteLine($"Adding ResourceDictionary: {x.Type.FullName}");
+                    if (x.FactoryInfo.CreateInstance() is ResourceDictionary instance)
+                    {
+                        this.Resources.MergedDictionaries.Add(instance);
+                        Debug.WriteLine($"Adding ResourceDictionary: {x.Type.FullName}");
+                    }
                 });
 
             this.applicationHash = (ApplicationInfo.ApplicationName + ApplicationInfo.ApplicationPublisher + ApplicationInfo.ApplicationVersion.ToString()).GetHash(HashAlgorithms.Md5);
@@ -107,8 +112,7 @@ namespace Cauldron.XAML
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
-        /// Gets or sets the application splash screen image. This is only neccessary if the property
-        /// <see cref="IsSinglePage"/> is set to true
+        /// Gets or sets the application splash screen image. This is only neccessary if the property <see cref="IsSinglePage"/> is set to true
         /// </summary>
         public ImageSource ApplicationSplash { get; set; }
 
