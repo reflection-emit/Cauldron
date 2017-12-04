@@ -1,5 +1,6 @@
 ﻿using Mono.Cecil;
 using Mono.Cecil.Cil;
+using Mono.Cecil.Rocks;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -270,6 +271,12 @@ namespace Cauldron.Interception.Cecilator
         }
 
         public BuilderType MakeArray() => new BuilderType(this.Builder, new ArrayType(this.typeReference));
+
+        public BuilderType MakeGeneric(params BuilderType[] typeReference) => new BuilderType(this.Builder, this.typeDefinition.MakeGenericInstanceType(typeReference.Select(x => x.typeReference).ToArray()));
+
+        public BuilderType MakeGeneric(params Type[] type) => MakeGeneric(type.Select(x => this.Builder.GetType(x)).ToArray());
+
+        public BuilderType MakeGeneric(params TypeReference[] typeReference) => new BuilderType(this.Builder, this.typeDefinition.MakeGenericInstanceType(typeReference));
 
         public void Remove() => this.moduleDefinition.Types.Remove(this.typeDefinition);
 
