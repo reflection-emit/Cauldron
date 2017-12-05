@@ -14,12 +14,13 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron XAML WPF MVVM Framework ViewModels</tags>
     <releaseNotes>
-      2017.12.04 - [F] IViewAware interface added.
+      2017.12.05 - [A] The ViewAttribute now accepts a string as view name/type.
+      2017.12.04 - [A] IViewAware interface added.
       2017.12.04 - [B] Fixed a bug that caused the application to crash if there are no IMultiValueConverter in the application.
       2017.12.04 - [B] Bug in CauldronTemplateSelector regarding view orientation fixed.
       2017.12.04 - [B] Bug regarding auto-selection of views in the navigator fixed.
       2017.12.04 - [B] Now picks the correct Window implementaion.
-      2017.12.04 - [F] Several information from ApplicationInfo added as static resources.
+      2017.12.04 - [A] Several information from ApplicationInfo added as static resources.
     </releaseNotes>
     <dependencies>
       <dependency id="Fody" version="2.2.1" />

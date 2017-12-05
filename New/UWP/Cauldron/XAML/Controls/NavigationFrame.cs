@@ -678,8 +678,10 @@ namespace Cauldron.XAML.Controls
         {
             var attrib = viewModelType.GetTypeInfo().GetCustomAttribute<ViewAttribute>();
 
-            if (attrib != null)
+            if (attrib != null && attrib.ViewType != null)
                 return GetViewInstance(attrib.ViewType.Name, attrib.ViewType);
+            else if (attrib != null && !string.IsNullOrEmpty(attrib.ViewName))
+                return GetViewInstance(attrib.ViewName);
             else
             {
                 // The datatemplate has a higher priority than a control

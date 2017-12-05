@@ -201,13 +201,15 @@ namespace Cauldron.XAML.Navigation
             try
             {
                 var viewModelType = viewModel.GetType();
-                Tuple<Window, bool> windowInfo;
+                Tuple<Window, bool> windowInfo = null;
 
                 // Check if the view model has a defined view
                 var viewAttrib = viewModelType.GetCustomAttribute<ViewAttribute>(false);
-                if (viewAttrib != null)
+                if (viewAttrib != null && viewAttrib.ViewType != null)
                     // Create the view - use the activator, since we dont expect any code in the view
                     windowInfo = await CreateDefaultWindow(callback1, callback2, Factory.Create(viewAttrib.ViewType) as FrameworkElement, viewModel);
+                else if (viewAttrib != null && !string.IsNullOrEmpty(viewAttrib.ViewName))
+                    windowInfo = await CreateWindow(viewModel, callback1, callback2, viewAttrib.ViewName);
                 else // The viewmodel does not have a defined view... Maybe we have a data template instead
                 {
                     // we always prefer our selector, because it rocks
@@ -215,37 +217,7 @@ namespace Cauldron.XAML.Navigation
                     var dataTemplate = templateSelector.SelectTemplate(viewModel, null);
 
                     // If we dont have a dataTemplate... we try to find a matching FrameworkElement
-                    if (dataTemplate == null)
-                    {
-                        var possibleViewName = viewModelType.Name.Left(viewModelType.Name.Length - "Model".Length);
-                        var possibleView = Factory.HasContract(possibleViewName) ? Factory.Create(possibleViewName) : null;
-
-                        if (possibleView == null)
-                        {
-                            var possibleType = Assemblies.GetTypeFromName(possibleViewName);
-
-                            if (possibleType != null)
-                                possibleView = Factory.Create(possibleType);
-                        }
-
-                        // On such case we create a dummy View
-                        if (possibleView == null)
-                        {
-                            var textBlock = new TextBlock();
-                            textBlock.Text = viewModelType.FullName;
-                            textBlock.Foreground = new SolidColorBrush(Colors.Tomato);
-                            textBlock.TextWrapping = TextWrapping.NoWrap;
-                            textBlock.TextTrimming = TextTrimming.CharacterEllipsis;
-                            textBlock.FontSize = 18;
-
-                            windowInfo = await CreateDefaultWindow(callback1, callback2, textBlock, viewModel);
-                        }
-                        else
-                            windowInfo = await CreateDefaultWindow(callback1, callback2, possibleView as FrameworkElement, viewModel);
-                    }
-                    else
-                        // try to get a WindowConfiguration attach in the datatemplate
-                        windowInfo = await CreateDefaultWindow(callback1, callback2, dataTemplate.LoadContent() as FrameworkElement, viewModel);
+                    windowInfo = await CreateWindow(viewModel, callback1, callback2, viewModelType.FullName);
                 }
 
                 var window = windowInfo.Item1;
@@ -345,6 +317,47 @@ namespace Cauldron.XAML.Navigation
 
         private async Task<Tuple<Window, bool>> CreateDefaultWindow<TResult>(Func<TResult, Task> callback1, Func<Task> callback2, FrameworkElement view, IViewModel viewModel) =>
             new Tuple<Window, bool>(await CreateWindow(callback1, callback2, view, viewModel), WindowConfiguration.GetIsModal(view));
+
+        private async Task<Tuple<Window, bool>> CreateWindow<TResult>(IViewModel viewModel, Func<TResult, Task> callback1, Func<Task> callback2, string viewModelName)
+        {
+            // we always prefer our selector, because it rocks
+            var templateSelector = Application.Current.Resources[typeof(CauldronTemplateSelector).Name] as DataTemplateSelector;
+            var dataTemplate = templateSelector.SelectTemplate(viewModel, null);
+
+            if (dataTemplate == null)
+            {
+                var possibleViewName = viewModelName.EndsWith("Model") ? viewModelName.Substring(0, viewModelName.Length - 5) : viewModelName;
+                var possibleView = Factory.HasContract(possibleViewName) ? Factory.Create(possibleViewName) : null;
+
+                if (possibleView == null)
+                {
+                    var possibleType = Assemblies.GetTypeFromName(possibleViewName);
+
+                    if (possibleType != null)
+                        possibleView = Factory.Create(possibleType);
+                }
+
+                // On such case we create a dummy View
+                if (possibleView == null)
+                {
+                    var textBlock = new TextBlock
+                    {
+                        Text = viewModelName,
+                        Foreground = new SolidColorBrush(Colors.Tomato),
+                        TextWrapping = TextWrapping.NoWrap,
+                        TextTrimming = TextTrimming.CharacterEllipsis,
+                        FontSize = 18
+                    };
+
+                    return await CreateDefaultWindow(callback1, callback2, textBlock, viewModel);
+                }
+                else
+                    return await CreateDefaultWindow(callback1, callback2, possibleView as FrameworkElement, viewModel);
+            }
+            else
+                // try to get a WindowConfiguration attach in the datatemplate
+                return await CreateDefaultWindow(callback1, callback2, dataTemplate.LoadContent() as FrameworkElement, viewModel);
+        }
 
         private async Task<Window> CreateWindow<TResult>(Func<TResult, Task> callback1, Func<Task> callback2, FrameworkElement view, IViewModel viewModel)
         {
