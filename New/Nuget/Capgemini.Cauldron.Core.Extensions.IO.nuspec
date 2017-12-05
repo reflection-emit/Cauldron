@@ -12,6 +12,9 @@
     <description>Provides extensions methods for FileInfo, DirectoryInfo and other IO operations</description>
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Extension IO FileInfo DirectoryInfo</tags>
+    <releaseNotes>
+      2017.12.05 - [A] GetUniqueDirectoryName and GetUniqueFilename added.
+    </releaseNotes>
     <dependencies>
       <group targetFramework=".NETStandard2.0" />
     </dependencies>

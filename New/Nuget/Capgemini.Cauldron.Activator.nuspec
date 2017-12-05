@@ -18,7 +18,7 @@
       2017.12.04 - [F] Weaves an initializer for xaml resources to be able to auto-load them.
       2017.12.04 - [C] TimedCacheAttribute namespace change also reflected to weaver.
       2017.12.04 - [R] Useless method cache removed from weaver.
-      2017.12.04 - [A] CreateFIrst method added to the Factory. This will auto-pick the implementation with the highest priority if multiple implementations are available.
+      2017.12.04 - [A] CreateFirst method added to the Factory. This will auto-pick the implementation with the highest priority if multiple implementations are available.
     </releaseNotes>
     <dependencies>
       <group targetFramework=".NETStandard2.0">

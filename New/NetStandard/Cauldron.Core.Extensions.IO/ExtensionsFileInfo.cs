@@ -2,7 +2,7 @@
 using System.IO;
 using System.Threading.Tasks;
 
-namespace Cauldron.Core.Extensions
+namespace Cauldron
 {
     /// <summary>
     /// Provides usefull extension methods for the <see cref="FileInfo"/> class
@@ -27,5 +27,12 @@ namespace Cauldron.Core.Extensions
         /// <param name="file">The file</param>
         /// <returns>The timestamp.</returns>
         public static Task<DateTime> GetDateModifiedAsync(this FileInfo file) => Task.FromResult(file.LastAccessTime);
+
+        /// <summary>
+        /// Checks if the filename exist. If the file already exists, an indexer will be added to the filename to make it unique.
+        /// </summary>
+        /// <param name="file">The file to check.</param>
+        /// <returns>A unique and valid path and filename.</returns>
+        public static FileInfo GetUniqueFilename(this FileInfo file) => new FileInfo(Utils.GetUniqueFilename(file.FullName));
     }
 }

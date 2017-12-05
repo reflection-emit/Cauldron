@@ -160,7 +160,7 @@ namespace Cauldron
                         break;
 
                     case NameCollisionOption.GenerateUniqueName:
-                        File.Copy(source.FullName, GetUniqueFilename(filename), true);
+                        File.Copy(source.FullName, Utils.GetUniqueFilename(filename), true);
                         break;
                 }
             });
@@ -212,7 +212,7 @@ namespace Cauldron
                          break;
 
                      case CreationCollisionOption.GenerateUniqueName:
-                         File.Create(GetUniqueFilename(filename))?.Dispose();
+                         File.Create(Utils.GetUniqueFilename(filename))?.Dispose();
                          break;
 
                      case CreationCollisionOption.OpenIfExists:
@@ -299,7 +299,7 @@ namespace Cauldron
                         break;
 
                     case CreationCollisionOption.GenerateUniqueName:
-                        string name = GetUniqueDirectoryName(folderFullPath);
+                        string name = Utils.GetUniqueDirectoryName(folderFullPath);
                         Directory.CreateDirectory(name);
                         break;
 
@@ -331,6 +331,13 @@ namespace Cauldron
         /// </returns>
         public static Task<FileInfo> GetFileAsync(this DirectoryInfo directoryInfo, string name) =>
             Task.FromResult(new FileInfo(Path.Combine(directoryInfo.FullName, name)));
+
+        /// <summary>
+        /// Checks if the directory name exist. If the directory already exists, an indexer will be added to the directory name to make it unique.
+        /// </summary>
+        /// <param name="directory">The directory to check.</param>
+        /// <returns>A unique and valid path and filename.</returns>
+        public static DirectoryInfo GetUniqueDirectoryName(this DirectoryInfo directory) => new DirectoryInfo(Utils.GetUniqueDirectoryName(directory.FullName));
 
         /// <summary>
         /// Converts a string to a <see cref="DirectoryInfo"/>
@@ -374,48 +381,5 @@ namespace Cauldron
         /// <paramref name="filename"/> contains a colon (:) in the middle of the string.
         /// </exception>
         public static FileInfo ToFileInfo(this string filename) => new FileInfo(filename);
-
-        /// <summary>
-        /// Checks if the filename of <paramref name="path"/> exist. If the file already exists, an
-        /// indexer will be added to the filename to make it unique.
-        /// </summary>
-        /// <param name="path">The path and filename of a file</param>
-        /// <returns>A unique and valied path and filename</returns>
-        private static string GetUniqueDirectoryName(string path)
-        {
-            var directoryInfo = new DirectoryInfo(path);
-            var directoryName = directoryInfo.FullName;
-            var indexer = 1;
-
-            while (Directory.Exists(directoryName))
-                directoryName = Path.Combine(directoryInfo.Parent.FullName, $"{directoryInfo.Name} ({indexer++})");
-
-            return directoryName;
-        }
-
-        /// <summary>
-        /// Checks if the filename of <paramref name="path"/> exist. If the file already exists, an
-        /// indexer will be added to the filename to make it unique.
-        /// </summary>
-        /// <param name="path">The path and filename of a file</param>
-        /// <returns>A unique and valied path and filename</returns>
-        private static string GetUniqueFilename(string path)
-        {
-            var extension = Path.GetExtension(path);
-            var filenameWithoutExtension = Path.GetFileNameWithoutExtension(path);
-            var filePath = Path.GetDirectoryName(path);
-
-            // Check if the filepath exists if not... Exception
-            if (!Directory.Exists(filePath))
-                throw new DirectoryNotFoundException($"The path '{filePath}' does not exist.");
-
-            var filename = path;
-            var indexer = 1;
-
-            while (File.Exists(filename))
-                filename = Path.Combine(filePath, $"{filenameWithoutExtension} ({indexer++}){extension}");
-
-            return filename;
-        }
     }
 }
