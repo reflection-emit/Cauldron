@@ -13,11 +13,6 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Activator Dependency Injection Factory Cauldron</tags>
     <releaseNotes>
-      2017.12.04 - [B] Interceptors that uses ISyncRoot interface was not correctly weaved. This caused the object initialization to be weaved in the .cctor even though it is not static.
-      2017.12.04 - [B] The weaving of the auto-ComponentAttribute attributed types caused an error in some cases if the type is not public.
-      2017.12.04 - [A] Weaves an initializer for xaml resources to be able to auto-load them.
-      2017.12.04 - [C] TimedCacheAttribute namespace change also reflected to weaver.
-      2017.12.04 - [R] Useless method cache removed from weaver.
       2017.12.04 - [A] CreateFirst method added to the Factory. This will auto-pick the implementation with the highest priority if multiple implementations are available.
     </releaseNotes>
     <dependencies>
