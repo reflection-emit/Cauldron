@@ -131,6 +131,9 @@
     <Compile Include="..\..\NetStandard\Cauldron.Interception\IPropertyInterceptor.cs">
       <Link>IPropertyInterceptor.cs</Link>
     </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Interception\IPropertyInterceptorInitialize.cs">
+      <Link>IPropertyInterceptorInitialize.cs</Link>
+    </Compile>
     <Compile Include="..\..\NetStandard\Cauldron.Interception\IPropertySetterInterceptor.cs">
       <Link>IPropertySetterInterceptor.cs</Link>
     </Compile>

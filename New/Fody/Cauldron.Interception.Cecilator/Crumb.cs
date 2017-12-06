@@ -15,6 +15,8 @@ namespace Cauldron.Interception.Cecilator
         {
         }
 
+        public static Crumb This => new Crumb { CrumbType = CrumbTypes.This };
+
         internal CrumbTypes CrumbType { get; set; }
 
         internal TypeReference ExceptionType { get; set; }
@@ -26,6 +28,12 @@ namespace Cauldron.Interception.Cecilator
         internal bool UnPackArray { get; set; }
 
         internal int UnPackArrayIndex { get; set; }
+
+        public static Crumb GetParameter(int index) => new Crumb
+        {
+            CrumbType = CrumbTypes.Parameters,
+            Index = index
+        };
 
         public Crumb UnPacked(int arrayIndex = 0) => new Crumb
         {

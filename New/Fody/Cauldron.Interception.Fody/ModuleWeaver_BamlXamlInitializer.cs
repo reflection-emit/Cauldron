@@ -48,7 +48,7 @@ namespace Cauldron.Interception.Fody
             //var method = resourceDictionaryMergerClass.CreateMethod(Modifiers.Private, "AddToDictionary", typeof(string));
             resourceDictionaryMergerClass.CreateConstructor().NewCode().Context(x =>
             {
-                x.Load(x.This).Call(builder.GetType(typeof(object)).Import().ParameterlessContructor.Import());
+                x.Load(Crumb.This).Call(builder.GetType(typeof(object)).Import().ParameterlessContructor.Import());
 
                 var resourceDick = x.CreateVariable(collection.Type.MakeGeneric(resourceDictionary.Type));
                 x.Call(

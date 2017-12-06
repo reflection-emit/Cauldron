@@ -5,7 +5,6 @@ namespace Cauldron.Interception
     /// <summary>
     /// Represents an interceptor that can intercept a property's setter method
     /// </summary>
-
     public interface IPropertySetterInterceptor : IInterceptor
     {
         /// <summary>

@@ -255,10 +255,10 @@ namespace Cauldron.Interception.Fody
                 {
                     ctors.NewCode().Context(x =>
                     {
-                        x.Call(x.This, addValidatorGroup, item.Key.Name);
+                        x.Call(Crumb.This, addValidatorGroup, item.Key.Name);
 
                         for (int i = 0; i < item.Validators.Length; i++)
-                            x.Call(x.This, addValidatorAttribute, item.Key.Name, x.NewCode().NewObj(item.Validators[i]));
+                            x.Call(Crumb.This, addValidatorAttribute, item.Key.Name, x.NewCode().NewObj(item.Validators[i]));
                     })
                     .Insert(InsertionPosition.Beginning);
                 }
@@ -339,7 +339,7 @@ namespace Cauldron.Interception.Fody
                                 this.Log(LogTypes.Error, property, $"The property '{property.Name}' does not have the expected return type. Is: {property.ReturnType.Fullname} Expected: {targetProperty.ReturnType.Fullname}");
                                 continue;
                             }
-                            x.Load(resultVar).Callvirt(targetProperty.Setter, x.NewCode().Load(x.GetParameter(0)).Callvirt(property.Getter));
+                            x.Load(resultVar).Callvirt(targetProperty.Setter, x.NewCode().Load(Crumb.GetParameter(0)).Callvirt(property.Getter));
                         }
                         catch (MethodNotFoundException)
                         {
@@ -415,7 +415,7 @@ namespace Cauldron.Interception.Fody
                    .NewCode()
                    .Context(x =>
                    {
-                       x.Load(x.This).Call(builder.GetType(typeof(object)).Import().ParameterlessContructor.Import());
+                       x.Load(Crumb.This).Call(builder.GetType(typeof(object)).Import().ParameterlessContructor.Import());
                        x.Assign(componentAttributeField).NewObj(component);
                    })
                    .Return()
@@ -476,32 +476,32 @@ namespace Cauldron.Interception.Fody
                                     // In this case we have to find a parameterless constructor first
                                     if (component.Type.ParameterlessContructor != null && !parameterlessCtorAlreadyHandled && component.Type.ParameterlessContructor.Modifiers.HasFlag(Modifiers.Public))
                                     {
-                                        x.Load(x.GetParameter(0)).IsNull().Then(y => y.NewObj(component.Type.ParameterlessContructor).StoreLocal(localVariable).Call(factory.OnObjectCreation, localVariable, x.This).Return());
-                                        x.Load(x.GetParameter(0)).Call(arrayAvatar.Length).EqualTo(0).Then(y => y.NewObj(component.Type.ParameterlessContructor).StoreLocal(localVariable).Call(factory.OnObjectCreation, localVariable, x.This).Return());
+                                        x.Load(Crumb.GetParameter(0)).IsNull().Then(y => y.NewObj(component.Type.ParameterlessContructor).StoreLocal(localVariable).Call(factory.OnObjectCreation, localVariable, Crumb.This).Return());
+                                        x.Load(Crumb.GetParameter(0)).Call(arrayAvatar.Length).EqualTo(0).Then(y => y.NewObj(component.Type.ParameterlessContructor).StoreLocal(localVariable).Call(factory.OnObjectCreation, localVariable, Crumb.This).Return());
                                         parameterlessCtorAlreadyHandled = true;
                                     }
 
-                                    var code = x.Load(x.GetParameter(0)).Call(arrayAvatar.Length).EqualTo(ctorParameters.Length);
+                                    var code = x.Load(Crumb.GetParameter(0)).Call(arrayAvatar.Length).EqualTo(ctorParameters.Length);
 
                                     for (int i = 0; i < ctorParameters.Length; i++)
-                                        code.And.Load(x.GetParameter(0).UnPacked(i)).Is(ctorParameters[i]);
+                                        code.And.Load(Crumb.GetParameter(0).UnPacked(i)).Is(ctorParameters[i]);
 
                                     if (ctor.Name == ".ctor")
-                                        code.Then(y => y.NewObj(ctor, x.GetParameter(0).UnPacked()).StoreLocal(localVariable).Call(factory.OnObjectCreation, localVariable, x.This).Return());
+                                        code.Then(y => y.NewObj(ctor, Crumb.GetParameter(0).UnPacked()).StoreLocal(localVariable).Call(factory.OnObjectCreation, localVariable, Crumb.This).Return());
                                     else
-                                        code.Then(y => y.Call(ctor, x.GetParameter(0).UnPacked()).StoreLocal(localVariable).Call(factory.OnObjectCreation, localVariable, x.This).Return());
+                                        code.Then(y => y.Call(ctor, Crumb.GetParameter(0).UnPacked()).StoreLocal(localVariable).Call(factory.OnObjectCreation, localVariable, Crumb.This).Return());
                                 }
                                 else
                                 {
                                     if (ctor.Name == ".ctor")
                                     {
-                                        x.Load(x.GetParameter(0)).IsNull().Then(y => y.NewObj(ctor).StoreLocal(localVariable).Call(factory.OnObjectCreation, localVariable, x.This).Return());
-                                        x.Load(x.GetParameter(0)).Call(arrayAvatar.Length).EqualTo(0).Then(y => y.NewObj(ctor).StoreLocal(localVariable).Call(factory.OnObjectCreation, localVariable, x.This).Return());
+                                        x.Load(Crumb.GetParameter(0)).IsNull().Then(y => y.NewObj(ctor).StoreLocal(localVariable).Call(factory.OnObjectCreation, localVariable, Crumb.This).Return());
+                                        x.Load(Crumb.GetParameter(0)).Call(arrayAvatar.Length).EqualTo(0).Then(y => y.NewObj(ctor).StoreLocal(localVariable).Call(factory.OnObjectCreation, localVariable, Crumb.This).Return());
                                     }
                                     else
                                     {
-                                        x.Load(x.GetParameter(0)).IsNull().Then(y => y.Call(ctor).StoreLocal(localVariable).Call(factory.OnObjectCreation, localVariable, x.This).Return());
-                                        x.Load(x.GetParameter(0)).Call(arrayAvatar.Length).EqualTo(0).Then(y => y.Call(ctor).StoreLocal(localVariable).Call(factory.OnObjectCreation, localVariable, x.This).Return());
+                                        x.Load(Crumb.GetParameter(0)).IsNull().Then(y => y.Call(ctor).StoreLocal(localVariable).Call(factory.OnObjectCreation, localVariable, Crumb.This).Return());
+                                        x.Load(Crumb.GetParameter(0)).Call(arrayAvatar.Length).EqualTo(0).Then(y => y.Call(ctor).StoreLocal(localVariable).Call(factory.OnObjectCreation, localVariable, Crumb.This).Return());
                                     }
 
                                     parameterlessCtorAlreadyHandled = true;
@@ -516,14 +516,14 @@ namespace Cauldron.Interception.Fody
                                 this.Log(LogTypes.Error, component.Type, $"The component '{component.Type.Fullname}' has no ComponentConstructor attribute or the constructor is not public");
                             else if (component.Type.ParameterlessContructor.Modifiers.HasFlag(Modifiers.Public))
                             {
-                                x.Load(x.GetParameter(0)).IsNull().Then(y => y.NewObj(component.Type.ParameterlessContructor).StoreLocal(localVariable).Call(factory.OnObjectCreation, localVariable, x.This).Return());
-                                x.Load(x.GetParameter(0)).Call(arrayAvatar.Length).EqualTo(0).Then(y => y.NewObj(component.Type.ParameterlessContructor).StoreLocal(localVariable).Call(factory.OnObjectCreation, localVariable, x.This).Return());
+                                x.Load(Crumb.GetParameter(0)).IsNull().Then(y => y.NewObj(component.Type.ParameterlessContructor).StoreLocal(localVariable).Call(factory.OnObjectCreation, localVariable, Crumb.This).Return());
+                                x.Load(Crumb.GetParameter(0)).Call(arrayAvatar.Length).EqualTo(0).Then(y => y.NewObj(component.Type.ParameterlessContructor).StoreLocal(localVariable).Call(factory.OnObjectCreation, localVariable, Crumb.This).Return());
 
                                 this.Log($"The component '{component.Type.Fullname}' has no ComponentConstructor attribute. A parameterless ctor was found and will be used.");
                             }
                         }
                     })
-                    .Context(x => x.Call(extensionAvatar.CreateInstance, component.Type, x.GetParameter(0)).StoreLocal(x.GetReturnVariable()).Call(factory.OnObjectCreation, x.GetReturnVariable(), x.This).Return())
+                    .Context(x => x.Call(extensionAvatar.CreateInstance, component.Type, Crumb.GetParameter(0)).StoreLocal(x.GetReturnVariable()).Call(factory.OnObjectCreation, x.GetReturnVariable(), Crumb.This).Return())
                     .Return()
                     .Replace();
 
@@ -594,7 +594,7 @@ namespace Cauldron.Interception.Fody
 
             var cauldron = builder.CreateType("", TypeAttributes.Public | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit, "<Cauldron>");
             cauldron.CreateConstructor().NewCode()
-                .Context(x => x.Call(x.NewCode().This, builder.GetType(typeof(object)).Import().ParameterlessContructor.Import()))
+                .Context(x => x.Call(Crumb.This, builder.GetType(typeof(object)).Import().ParameterlessContructor.Import()))
                 .Return()
                 .Replace();
 
@@ -728,7 +728,7 @@ namespace Cauldron.Interception.Fody
                         .NewCode()
                         .Context(x =>
                         {
-                            x.Load(x.This).Call(builder.GetType(typeof(object)).Import().ParameterlessContructor.Import());
+                            x.Load(Crumb.This).Call(builder.GetType(typeof(object)).Import().ParameterlessContructor.Import());
                         })
                         .Return()
                         .Replace();
@@ -748,74 +748,6 @@ namespace Cauldron.Interception.Fody
             }
             stopwatch.Stop();
             this.Log($"Implementing anonymous type to interface took {stopwatch.Elapsed.TotalMilliseconds}ms");
-        }
-
-        private void ImplementPropertyChangedEvent(Builder builder)
-        {
-            var changeAwareViewModelInterface = builder.GetType("Cauldron.XAML.ViewModels.IChangeAwareViewModel")
-                .New(x => new
-                {
-                    RaisePropertyChanged = x.GetMethod("RaisePropertyChanged", 3)
-                });
-            var eventHandler = builder.GetType("System.EventHandler`1")
-                .New(x => new
-                {
-                    Invoke = x.GetMethod("Invoke", 2)
-                });
-            var propertyIsChangedEventArgs = builder.GetType("Cauldron.XAML.PropertyIsChangedEventArgs")
-                .New(x => new
-                {
-                    Type = x,
-                    Ctor = x.GetMethod(".ctor", 3)
-                });
-
-            // Get all viewmodels with implemented change aware interface
-            var viewModels = builder.FindTypesByInterface("Cauldron.XAML.ViewModels.IChangeAwareViewModel")
-                .OrderBy(x =>
-                {
-                    if (x.Implements("Cauldron.XAML.ViewModels.IChangeAwareViewModel", false))
-                        return 0;
-
-                    return 1;
-                });
-
-            foreach (var vm in viewModels)
-            {
-                if (vm.IsInterface)
-                    continue;
-
-                var changed = vm.GetField("Changed", false);
-                Method method;
-
-                if (changed != null)
-                {
-                    method = vm.CreateMethod(Modifiers.Protected, "<>RaisePropertyChangedEventRaise", typeof(string), typeof(object), typeof(object));
-                    method.NewCode()
-                            .Load(changed)
-                            .IsNotNull()
-                            .Then(x =>
-                            {
-                                x.Callvirt(eventHandler.Invoke.MakeGeneric(propertyIsChangedEventArgs.Type),
-                                    x.NewCode().Load(changed), x.NewCode().NewObj(propertyIsChangedEventArgs.Ctor, x.NewCode().This, x.GetParameter(0), x.GetParameter(1), x.GetParameter(2)));
-                            })
-                            .Return()
-                            .Replace();
-                }
-                else
-                    method = vm.GetMethod("<>RaisePropertyChangedEventRaise", true, typeof(string), typeof(object), typeof(object));
-
-                this.Log($"Implementing RaisePropertyChanged Raise Event in '{vm.Fullname}'");
-                var raisePropertyChanged = vm.GetMethod("RaisePropertyChanged", false, typeof(string), typeof(object), typeof(object));
-
-                if (raisePropertyChanged == null)
-                    continue;
-
-                if (!raisePropertyChanged.IsAbstract && !raisePropertyChanged.HasMethodBaseCall())
-                    raisePropertyChanged
-                        .NewCode()
-                        .Context(x => x.Call(x.NewCode().This, method, x.GetParameter(0), x.GetParameter(1), x.GetParameter(2)))
-                        .Insert(InsertionPosition.Beginning);
-            }
         }
 
         private void InterceptFields(Builder builder, IEnumerable<BuilderType> attributes)

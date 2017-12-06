@@ -43,7 +43,7 @@ namespace Cauldron.Interception.Fody
                                     member.Property.Setter,
                                     member.Property.Name,
                                     member.Property.ReturnType,
-                                    y.This,
+                                    Crumb.This,
                                     member.Property.ReturnType.IsArray || member.Property.ReturnType.Implements(typeof(IEnumerable)) ? member.Property.ReturnType.ChildType : null,
                                     y.NewCode().NewObj(actionObjectCtor, propertySetter)));
                     })
@@ -110,7 +110,7 @@ namespace Cauldron.Interception.Fody
                                     member.Property.Setter,
                                     member.Property.Name,
                                     member.Property.ReturnType,
-                                    x.This,
+                                    Crumb.This,
                                     member.Property.ReturnType.IsArray || member.Property.ReturnType.Implements(typeof(IEnumerable)) ? member.Property.ReturnType.ChildType : null,
                                     x.NewCode().NewObj(actionObjectCtor, propertySetter));
 
@@ -157,7 +157,7 @@ namespace Cauldron.Interception.Fody
                                     member.Property.Setter,
                                     member.Property.Name,
                                     member.Property.ReturnType,
-                                    y.This,
+                                    Crumb.This,
                                     member.Property.ReturnType.IsArray || member.Property.ReturnType.Implements(typeof(IEnumerable)) ? member.Property.ReturnType.ChildType : null,
                                     y.NewCode().NewObj(actionObjectCtor, propertySetter)));
                     })
@@ -167,7 +167,7 @@ namespace Cauldron.Interception.Fody
                         {
                             var item = legalSetterInterceptors[i];
                             var field = interceptorFields[item.Attribute.Identification];
-                            x.Load(field).As(legalSetterInterceptors[i].InterfaceSetter.Type).Call(item.InterfaceSetter.OnSet, propertyField, member.Property.BackingField, member.Property.Setter.NewCode().GetParameter(0));
+                            x.Load(field).As(legalSetterInterceptors[i].InterfaceSetter.Type).Call(item.InterfaceSetter.OnSet, propertyField, member.Property.BackingField, Crumb.GetParameter(0));
 
                             //x.IsFalse().Then(y => y.Assign(member.Property.BackingField).Set(member.Property.Setter.NewCode().GetParameter(0)));
                             x.IsFalse().Then(y => y.OriginalBody());
@@ -216,7 +216,7 @@ namespace Cauldron.Interception.Fody
                 if (member.Property.BackingField.FieldType.Implements(typeof(IDisposable)))
                     setterCode.Call(extensions.TryDisposeInternal, member.Property.BackingField);
 
-                setterCode.Load(propertySetter.NewCode().GetParameter(0)).IsNull().Then(x =>
+                setterCode.Load(Crumb.GetParameter(0)).IsNull().Then(x =>
                 {
                     // Just clear if its clearable
                     if (member.Property.BackingField.FieldType.Implements(iList.Type.Fullname))
@@ -229,8 +229,8 @@ namespace Cauldron.Interception.Fody
                 });
 
                 if (member.Property.BackingField.FieldType.IsArray)
-                    setterCode.Load(propertySetter.NewCode().GetParameter(0)).Is(typeof(IEnumerable))
-                        .Then(x => x.Assign(member.Property.BackingField).Set(propertySetter.NewCode().GetParameter(0)).Return())
+                    setterCode.Load(Crumb.GetParameter(0)).Is(typeof(IEnumerable))
+                        .Then(x => x.Assign(member.Property.BackingField).Set(Crumb.GetParameter(0)).Return())
                         .ThrowNew(typeof(NotSupportedException), "Value does not inherits from IEnumerable");
                 else if (member.Property.BackingField.FieldType.Implements(iList.Type.Fullname) && member.Property.BackingField.FieldType.ParameterlessContructor != null)
                 {
@@ -239,31 +239,31 @@ namespace Cauldron.Interception.Fody
                     {
                         var add = member.Property.BackingField.FieldType.GetMethod("Add", 1);
                         var array = setterCode.CreateVariable(member.Property.BackingField.FieldType.ChildType.MakeArray());
-                        setterCode.Assign(array).Set(propertySetter.NewCode().GetParameter(0));
+                        setterCode.Assign(array).Set(Crumb.GetParameter(0));
                         setterCode.For(array, (x, item) => x.Load(member.Property.BackingField).Callvirt(add, item));
                         if (!add.ReturnType.IsVoid)
                             setterCode.Pop();
                     }
                     else
-                        setterCode.Load(member.Property.BackingField).Callvirt(addRange, propertySetter.NewCode().GetParameter(0));
+                        setterCode.Load(member.Property.BackingField).Callvirt(addRange, Crumb.GetParameter(0));
                 }
                 else if (member.Property.BackingField.FieldType.IsEnum)
                 {
                     // Enums requires special threatment
-                    setterCode.Load(propertySetter.NewCode().GetParameter(0)).Is(typeof(string)).Then(x =>
+                    setterCode.Load(Crumb.GetParameter(0)).Is(typeof(string)).Then(x =>
                     {
                         var stringVariable = setterCode.CreateVariable(typeof(string));
-                        setterCode.Assign(stringVariable).Set(x.NewCode().GetParameter(0));
+                        setterCode.Assign(stringVariable).Set(Crumb.GetParameter(0));
                         setterCode.Assign(member.Property.BackingField).Set(stringVariable).Return();
                     });
 
-                    setterCode.Assign(member.Property.BackingField).Set(propertySetter.NewCode().GetParameter(0));
+                    setterCode.Assign(member.Property.BackingField).Set(Crumb.GetParameter(0));
                 }
                 else
-                    setterCode.Assign(member.Property.BackingField).Set(propertySetter.NewCode().GetParameter(0));
+                    setterCode.Assign(member.Property.BackingField).Set(Crumb.GetParameter(0));
             }
             else
-                setterCode.Assign(member.Property.BackingField).Set(propertySetter.NewCode().GetParameter(0));
+                setterCode.Assign(member.Property.BackingField).Set(Crumb.GetParameter(0));
 
             setterCode.Return().Replace();
         }
@@ -368,9 +368,13 @@ namespace Cauldron.Interception.Fody
                 // Do this at the end to ensure that syncroot init is always on the top
                 if (member.RequiresSyncRootField)
                 {
-                    foreach (var ctors in member.Property.DeclaringType.GetRelevantConstructors()
-                        .Where(x => (member.SyncRoot.IsStatic && x.Name == ".cctor") || (!member.SyncRoot.IsStatic && x.Name == ".ctor")))
-                        ctors.NewCode().Assign(member.SyncRoot).NewObj(builder.GetType(typeof(object)).Import().ParameterlessContructor).Insert(InsertionPosition.Beginning);
+                    if (member.SyncRoot.IsStatic)
+                        member.Property.DeclaringType.CreateStaticConstructor().NewCode()
+                            .Assign(member.SyncRoot).NewObj(builder.GetType(typeof(object)).Import().ParameterlessContructor)
+                            .Insert(InsertionPosition.Beginning);
+                    else
+                        foreach (var ctors in member.Property.DeclaringType.GetRelevantConstructors().Where(x => x.Name == ".ctor"))
+                            ctors.NewCode().Assign(member.SyncRoot).NewObj(builder.GetType(typeof(object)).Import().ParameterlessContructor).Insert(InsertionPosition.Beginning);
                 }
 
                 // Also remove the compilergenerated attribute

@@ -36,8 +36,6 @@ namespace Cauldron.Interception.Cecilator
             this.instructions = instructions;
         }
 
-        public Crumb This { get { return new Crumb { CrumbType = CrumbTypes.This }; } }
-
         protected bool RequiresReturn
         {
             get
@@ -194,15 +192,6 @@ namespace Cauldron.Interception.Cecilator
             return this;
         }
 
-        public Crumb GetParameter(int index)
-        {
-            return new Crumb
-            {
-                CrumbType = CrumbTypes.Parameters,
-                Index = index
-            };
-        }
-
         public Crumb GetParametersArray()
         {
             var variableName = "<>params_" + this.method.Identification;
@@ -210,11 +199,12 @@ namespace Cauldron.Interception.Cecilator
             {
                 var objectArrayType = this.method.DeclaringType.Builder.GetType(typeof(object[]));
                 var variable = this.CreateVariable(variableName, objectArrayType);
-                var newInstructions = new List<Instruction>();
-
-                newInstructions.Add(processor.Create(OpCodes.Ldc_I4, this.method.methodReference.Parameters.Count));
-                newInstructions.Add(processor.Create(OpCodes.Newarr, (objectArrayType.typeReference as ArrayType).ElementType));
-                newInstructions.Add(processor.Create(OpCodes.Stloc, variable.variable));
+                var newInstructions = new List<Instruction>
+                {
+                    processor.Create(OpCodes.Ldc_I4, this.method.methodReference.Parameters.Count),
+                    processor.Create(OpCodes.Newarr, (objectArrayType.typeReference as ArrayType).ElementType),
+                    processor.Create(OpCodes.Stloc, variable.variable)
+                };
 
                 foreach (var parameter in this.method.methodReference.Parameters)
                     newInstructions.AddRange(IlHelper.ProcessParam(parameter, variable.variable));
@@ -1265,8 +1255,7 @@ namespace Cauldron.Interception.Cecilator
                     resultingInstructions.Add((item, instruction));
 
                     // Set the correct variable def if required
-                    var variable = instruction.Operand as VariableDefinition;
-                    if (variable != null)
+                    if (instruction.Operand is VariableDefinition variable)
                         instruction.Operand = variableDefinition[variable.Index];
                 }
             }
@@ -1516,6 +1505,8 @@ namespace Cauldron.Interception.Cecilator
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
         protected virtual Instruction JumpTarget { get; }
 
+        public IIfCode EqualTo(string value) => this.EqualTo(this.AddParameter(this.processor, this.moduleDefinition.TypeSystem.Int64, value).Instructions);
+
         public IIfCode EqualTo(long value) => this.EqualTo(this.AddParameter(this.processor, this.moduleDefinition.TypeSystem.Int64, value).Instructions);
 
         public IIfCode EqualTo(int value) => this.EqualTo(this.AddParameter(this.processor, this.moduleDefinition.TypeSystem.Int32, value).Instructions);
@@ -1524,7 +1515,7 @@ namespace Cauldron.Interception.Cecilator
 
         public IIfCode Is(Type type)
         {
-            var jumpTarget = this.JumpTarget == null ? this.processor.Create(OpCodes.Nop) : this.JumpTarget;
+            var jumpTarget = this.JumpTarget ?? this.processor.Create(OpCodes.Nop);
 
             this.instructions.Append(this.processor.Create(OpCodes.Isinst, this.moduleDefinition.ImportReference(type)));
             this.instructions.Append(this.processor.Create(OpCodes.Ldnull));
@@ -1536,7 +1527,7 @@ namespace Cauldron.Interception.Cecilator
 
         public IIfCode Is(BuilderType type)
         {
-            var jumpTarget = this.JumpTarget == null ? this.processor.Create(OpCodes.Nop) : this.JumpTarget;
+            var jumpTarget = this.JumpTarget ?? this.processor.Create(OpCodes.Nop);
 
             this.instructions.Append(this.processor.Create(OpCodes.Isinst, type.typeReference));
             this.instructions.Append(this.processor.Create(OpCodes.Ldnull));
@@ -1562,7 +1553,7 @@ namespace Cauldron.Interception.Cecilator
 
         private IIfCode EqualTo(IEnumerable<Instruction> instruction)
         {
-            var jumpTarget = this.JumpTarget == null ? this.processor.Create(OpCodes.Nop) : this.JumpTarget;
+            var jumpTarget = this.JumpTarget ?? this.processor.Create(OpCodes.Nop);
 
             this.instructions.Append(instruction);
             this.instructions.Append(this.processor.Create(OpCodes.Ceq));
@@ -1572,7 +1563,7 @@ namespace Cauldron.Interception.Cecilator
 
         private IIfCode NotEqualTo(IEnumerable<Instruction> instruction)
         {
-            var jumpTarget = this.JumpTarget == null ? this.processor.Create(OpCodes.Nop) : this.JumpTarget;
+            var jumpTarget = this.JumpTarget ?? this.processor.Create(OpCodes.Nop);
 
             this.instructions.Append(instruction);
             this.instructions.Append(this.processor.Create(OpCodes.Ceq));

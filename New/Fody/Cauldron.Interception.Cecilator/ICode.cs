@@ -5,8 +5,6 @@ namespace Cauldron.Interception.Cecilator
 {
     public interface ICode : IAction
     {
-        Crumb This { get; }
-
         ICode As(BuilderType type);
 
         IFieldCode Assign(Field field);
@@ -60,6 +58,8 @@ namespace Cauldron.Interception.Cecilator
 
         IIfCode EqualTo(long value);
 
+        IIfCode EqualTo(string value);
+
         IIfCode EqualTo(int value);
 
         IIfCode EqualTo(bool value);
@@ -68,8 +68,6 @@ namespace Cauldron.Interception.Cecilator
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         new int GetHashCode();
-
-        Crumb GetParameter(int index);
 
         Crumb GetParametersArray();
 

@@ -15,6 +15,7 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Interception interceptor interception AOP Fody Cecil CIL ILWeaving</tags>
     <releaseNotes>
+      2017.12.06 - [B] Fixed the weaver for the IChangeAwareViewModel interface.
       2017.12.06 - [B] Fixed a bug that caused try-catches to be malformed if the modified method was empty.
       2017.12.06 - [A] IPropertyInitializer added. This interface forces an interceptor to be loaded on type init instead of the first call.
       2017.12.06 - [B] If PropertyChanged.Fody weaved before Cauldron then Cauldron has removed the implementation for the particular property. This is now fixed.

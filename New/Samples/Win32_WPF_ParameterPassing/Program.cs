@@ -1,4 +1,4 @@
-﻿using Cauldron.WPF.ParameterPassing;
+﻿using Cauldron.XAML;
 using System;
 using System.Windows;
 

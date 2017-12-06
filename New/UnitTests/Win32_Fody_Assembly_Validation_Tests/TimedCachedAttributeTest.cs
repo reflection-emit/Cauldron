@@ -1,10 +1,10 @@
-﻿using Cauldron.Core.Interception;
+﻿using Cauldron;
+using Cauldron.Core.Interceptors;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
-using Cauldron;
 
 namespace Win32_Fody_Assembly_Validation_Tests
 {

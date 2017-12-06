@@ -53,6 +53,11 @@ namespace Cauldron.XAML
         public event EventHandler<BehaviourInvocationArgs> BehaviourInvoke;
 
         /// <summary>
+        /// Occures if the <see cref="IsLoading"/> property has changed.
+        /// </summary>
+        public event EventHandler IsLoadingChanged;
+
+        /// <summary>
         /// Occurs when a property value changes.
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
@@ -111,8 +116,10 @@ namespace Cauldron.XAML
             {
                 if (this._isLoading == value)
                     return;
+
                 this._isLoading = value;
                 this.RaisePropertyChanged();
+                this.IsLoadingChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -248,10 +255,12 @@ namespace Cauldron.XAML
 
             if (rootFrame == null)
             {
-                var contentControl = new ContentControl();
-                contentControl.ContentTemplateSelector = new CauldronTemplateSelector();
-                contentControl.VerticalContentAlignment = VerticalAlignment.Stretch;
-                contentControl.HorizontalContentAlignment = HorizontalAlignment.Stretch;
+                var contentControl = new ContentControl
+                {
+                    ContentTemplateSelector = new CauldronTemplateSelector(),
+                    VerticalContentAlignment = VerticalAlignment.Stretch,
+                    HorizontalContentAlignment = HorizontalAlignment.Stretch
+                };
                 Window.Current.Content = contentControl;
                 contentControl.Content = this;
                 Window.Current.Activate();
@@ -266,8 +275,10 @@ namespace Cauldron.XAML
                 Window.Current.VisibilityChanged += Current_VisibilityChanged;
 
                 // Create a Frame to act as the navigation context and navigate to the first page
-                rootFrame = new NavigationFrame();
-                rootFrame.ContentTemplateSelector = new CauldronTemplateSelector();
+                rootFrame = new NavigationFrame
+                {
+                    ContentTemplateSelector = new CauldronTemplateSelector()
+                };
 
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;

@@ -1,6 +1,13 @@
 ﻿using System;
+
+#if NETFX_CORE
+
+using Windows.UI.Xaml;
+
+#else
 using System.Windows;
 using System.Windows.Controls;
+#endif
 
 namespace Cauldron.XAML
 {

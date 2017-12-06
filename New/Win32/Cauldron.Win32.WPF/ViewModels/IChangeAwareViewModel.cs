@@ -16,6 +16,11 @@ namespace Cauldron.XAML.ViewModels
         event EventHandler<PropertyIsChangedEventArgs> Changed;
 
         /// <summary>
+        /// Occures if the <see cref="IsChanged"/> property has changed.
+        /// </summary>
+        event EventHandler IsChangedChanged;
+
+        /// <summary>
         /// Gets or sets a value that indicates if any property value has been changed
         /// </summary>
         bool IsChanged { get; set; }

@@ -23,6 +23,8 @@ namespace Cauldron.Test
     {
         public event EventHandler<PropertyIsChangedEventArgs> Changed;
 
+        public event EventHandler IsChangedChanged;
+
         public bool IsChanged { get; set; } /* This should be implemented by PropertyChanged.Fody */
 
         public string TestProperty { get; set; } /* This should be implemented by PropertyChanged.Fody */
@@ -48,6 +50,8 @@ namespace Cauldron.Test
     public class IsChangedViewModel_Simple : ViewModelBase, IChangeAwareViewModel
     {
         public event EventHandler<PropertyIsChangedEventArgs> Changed;
+
+        public event EventHandler IsChangedChanged;
 
         public bool IsChanged { get; set; } /* This should be implemented by PropertyChanged.Fody */
 
@@ -76,6 +80,8 @@ namespace Cauldron.Test
     public class IsChangedViewModel_With_Virtual : ViewModelBase, IChangeAwareViewModel
     {
         public event EventHandler<PropertyIsChangedEventArgs> Changed;
+
+        public event EventHandler IsChangedChanged;
 
         public bool IsChanged { get; set; } /* This should be implemented by PropertyChanged.Fody */
 

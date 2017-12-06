@@ -1,4 +1,5 @@
-﻿using Cauldron.Core.Diagnostics;
+﻿using Cauldron.Core;
+using Cauldron.Core.Diagnostics;
 using Cauldron.Interception;
 using System;
 using System.Collections;
@@ -6,6 +7,10 @@ using System.Collections.Specialized;
 
 namespace Cauldron.XAML.ViewModels
 {
+    /// <summary>
+    /// Registers the property to the declaring viewmodel.
+    /// A registered child will able to propagate changes of its <see cref="IViewModel.IsLoading"/> and <see cref="IChangeAwareViewModel.IsChanged"/> property to its parent viewmodel.
+    /// </summary>
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = false)]
     public sealed class RegisterChildrenAttribute : Attribute, IPropertySetterInterceptor, IPropertyInterceptorInitialize
     {
@@ -15,10 +20,10 @@ namespace Cauldron.XAML.ViewModels
         private bool propagatesIsLoading;
 
         /// <summary>
-        ///
+        /// Initializes a new instance of <see cref="RegisterChildrenAttribute"/>.
         /// </summary>
-        /// <param name="propagatesIsChange"></param>
-        /// <param name="propagatesIsLoading"></param>
+        /// <param name="propagatesIsChange">If true, changes to the <see cref="IChangeAwareViewModel.IsChanged"/> property will be propagated to the parent viewmodel.</param>
+        /// <param name="propagatesIsLoading">If true, changes to the <see cref="IViewModel.IsLoading"/> property will be propagated to the parent viewmodel.</param>
         /// <exception cref="Exception">Attributed property is static.</exception>
         public RegisterChildrenAttribute(bool propagatesIsChange = false, bool propagatesIsLoading = false)
         {
@@ -26,6 +31,9 @@ namespace Cauldron.XAML.ViewModels
             this.propagatesIsLoading = propagatesIsLoading;
         }
 
+        /// <summary>
+        /// Gets the declaring viewmodel instance.
+        /// </summary>
         public IViewModel Context
         {
             get { return this._context; }
@@ -36,25 +44,49 @@ namespace Cauldron.XAML.ViewModels
 
                 // Deregister the events first
                 if (this._context != null && this._context is IChangeAwareViewModel changeAwareBefore)
-                    changeAwareBefore.Changed -= ChangeAware_Changed;
+                    changeAwareBefore.IsChangedChanged -= ParentIsChangeChanged;
+
+                if (this._context != null && this._context is IDisposableObject disposableBefore)
+                    disposableBefore.Disposed -= Parent_Disposed;
 
                 this._context = value;
 
                 if (this._context != null && this._context is IChangeAwareViewModel changeAwareAfter)
-                    changeAwareAfter.Changed += ChangeAware_Changed;
+                    changeAwareAfter.IsChangedChanged += ParentIsChangeChanged;
+
+                if (this._context != null && this._context is IDisposableObject disposableAfter)
+                    disposableAfter.Disposed += Parent_Disposed;
             }
         }
 
+        /// <exclude/>
         public void OnException(Exception e)
         {
         }
 
+        /// <exclude/>
         public void OnExit()
         {
         }
 
+        /// <summary>
+        /// Invoked if the declaring class is initialized.
+        /// </summary>
+        /// <param name="propertyInterceptionInfo">
+        /// An object that containes information about the intercepted method
+        /// </param>
+        /// <param name="value">The current value of the property</param>
         public void OnInitialize(PropertyInterceptionInfo propertyInterceptionInfo, object value) => this.OnSet(propertyInterceptionInfo, null, value);
 
+        /// <summary>
+        /// Invoked if the intercepted property setter has been called
+        /// </summary>
+        /// <param name="propertyInterceptionInfo">
+        /// An object that containes information about the intercepted method
+        /// </param>
+        /// <param name="oldValue">The current value of the property</param>
+        /// <param name="newValue">The to be new value of the property</param>
+        /// <returns>If returns false, the backing field will be set to <paramref name="newValue"/></returns>
         public bool OnSet(PropertyInterceptionInfo propertyInterceptionInfo, object oldValue, object newValue)
         {
             this.Context = propertyInterceptionInfo.Instance as IViewModel;
@@ -66,37 +98,61 @@ namespace Cauldron.XAML.ViewModels
             if (newValue == null)
                 return false;
 
-            if (newValue is IEnumerable enumerable)
+            if (oldValue != null)
+                this.DetachEvents(oldValue);
+
+            if (newValue is INotifyCollectionChanged specializedCollection)
+                specializedCollection.CollectionChanged += SpecializedCollection_CollectionChanged;
+            else if (newValue is IEnumerable)
+                Debug.WriteLine($"RegisterChildrenAttribute: The type of the attributed property '{propertyInterceptionInfo.PropertyName}' does not implement the 'INotifyCollectionChanged' interface. The elements will be registered, but changes cannot be monitored.");
+
+            foreach (var item in newValue is IEnumerable enumerable ? enumerable : new object[] { newValue })
             {
-                if (newValue is INotifyCollectionChanged specializedCollection)
-                    specializedCollection.CollectionChanged += SpecializedCollection_CollectionChanged;
-                else
-                {
-                    Debug.WriteLine($"RegisterChildrenAttribute: The type of the attributed property '{propertyInterceptionInfo.PropertyName}' does not implement the 'INotifyCollectionChanged' interface. The elements will be registered, but changes cannot be monitored.");
+                if (this.propagatesIsLoading && item is IViewModel vm)
+                    vm.IsLoadingChanged -= ChildIsLoadingChanged;
 
-                    foreach (var item in enumerable)
-                    {
-                        if (this.propagatesIsLoading && item is IViewModel vm)
-                            vm.IsLoadingChanged += Vm_IsLoadingChanged;
-
-                        if (this.propagatesIsChange && item is IChangeAwareViewModel changeAware)
-                            changeAware.IsLoadingChanged += ChangeAware_IsLoadingChanged;
-                    }
-                }
-            }
-            else
-            {
-                if (this.propagatesIsLoading && newValue is IViewModel vm)
-                    vm.IsLoadingChanged += Vm_IsLoadingChanged;
-
-                if (this.propagatesIsChange && newValue is IChangeAwareViewModel changeAware)
-                    changeAware.IsLoadingChanged += ChangeAware_IsLoadingChanged;
+                if (this.propagatesIsChange && item is IChangeAwareViewModel changeAware)
+                    changeAware.IsChangedChanged -= ChildIsChangedChanged;
             }
 
             return false;
         }
 
-        private void ChangeAware_Changed(object sender, PropertyIsChangedEventArgs e)
+        private void ChildIsChangedChanged(object sender, EventArgs e)
+        {
+            if (this.propagatesIsChange && this.Context is IChangeAwareViewModel changeAware)
+                changeAware.IsChanged |= (sender as IChangeAwareViewModel)?.IsChanged ?? false;
+        }
+
+        private void ChildIsLoadingChanged(object sender, EventArgs e)
+        {
+            if (this.propagatesIsLoading && this.Context != null)
+                this.Context.IsLoading = (sender as IViewModel)?.IsLoading ?? false;
+        }
+
+        private void DetachEvents(object value)
+        {
+            if (value is INotifyCollectionChanged notiyCollection)
+                notiyCollection.CollectionChanged -= SpecializedCollection_CollectionChanged;
+
+            foreach (var item in value is IEnumerable enumerable ? enumerable : new object[] { value })
+            {
+                if (this.propagatesIsLoading && item is IViewModel vm)
+                    vm.IsLoadingChanged -= ChildIsLoadingChanged;
+
+                if (this.propagatesIsChange && item is IChangeAwareViewModel changeAware)
+                    changeAware.IsChangedChanged -= ChildIsChangedChanged;
+            }
+        }
+
+        private void Parent_Disposed(object sender, EventArgs e)
+        {
+            (sender as IDisposableObject).Disposed -= Parent_Disposed;
+            this.Context = null;
+            this.DetachEvents(this.children);
+        }
+
+        private void ParentIsChangeChanged(object sender, EventArgs e)
         {
             var changeAwareContext = this._context as IChangeAwareViewModel;
 
@@ -114,39 +170,27 @@ namespace Cauldron.XAML.ViewModels
                 changeAware.IsChanged = false;
         }
 
-        private void ChangeAware_IsLoadingChanged(object sender, EventArgs e)
-        {
-            if (this.propagatesIsLoading && this.Context != null)
-                this.Context.IsLoading = (sender as IViewModel)?.IsLoading ?? false;
-        }
-
         private void SpecializedCollection_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (e.Action == NotifyCollectionChangedAction.Add)
                 foreach (var item in e.NewItems)
                 {
                     if (this.propagatesIsLoading && item is IViewModel vm)
-                        vm.IsLoadingChanged += Vm_IsLoadingChanged;
+                        vm.IsLoadingChanged += ChildIsLoadingChanged;
 
                     if (this.propagatesIsChange && item is IChangeAwareViewModel changeAware)
-                        changeAware.IsLoadingChanged += ChangeAware_IsLoadingChanged;
+                        changeAware.IsChangedChanged += ChildIsChangedChanged;
                 }
 
             if (e.Action == NotifyCollectionChangedAction.Remove || e.Action == NotifyCollectionChangedAction.Replace)
                 foreach (var item in e.OldItems)
                 {
                     if (this.propagatesIsLoading && item is IViewModel vm)
-                        vm.IsLoadingChanged -= Vm_IsLoadingChanged;
+                        vm.IsLoadingChanged -= ChildIsLoadingChanged;
 
                     if (this.propagatesIsChange && item is IChangeAwareViewModel changeAware)
-                        changeAware.IsLoadingChanged -= ChangeAware_IsLoadingChanged;
+                        changeAware.IsChangedChanged -= ChildIsChangedChanged;
                 }
-        }
-
-        private void Vm_IsLoadingChanged(object sender, EventArgs e)
-        {
-            if (this.propagatesIsChange && this.Context is IChangeAwareViewModel changeAware)
-                changeAware.IsChanged |= (sender as IChangeAwareViewModel)?.IsChanged ?? false;
         }
     }
 }

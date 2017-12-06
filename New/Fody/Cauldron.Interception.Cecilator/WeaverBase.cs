@@ -61,6 +61,7 @@ namespace Cauldron.Interception.Cecilator
             catch (Exception e)
             {
                 this.LogError(e.GetStackTrace());
+                throw;
             }
         }
 

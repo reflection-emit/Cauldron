@@ -382,7 +382,7 @@ namespace Cauldron.Interception.Cecilator
             result.Getter.NewCode().Load(backingField).Return().Replace();
 
             if (!getterOnly)
-                result.Setter.NewCode().Assign(backingField).Set(result.Setter.NewCode().GetParameter(0)).Return().Replace();
+                result.Setter.NewCode().Assign(backingField).Set(Crumb.GetParameter(0)).Return().Replace();
 
             return result;
         }
@@ -422,7 +422,7 @@ namespace Cauldron.Interception.Cecilator
             result.Getter.NewCode().Load(field).Return().Replace();
 
             if (!getterOnly)
-                result.Setter.NewCode().Assign(field).Set(result.Setter.NewCode().GetParameter(0)).Return().Replace();
+                result.Setter.NewCode().Assign(field).Set(Crumb.GetParameter(0)).Return().Replace();
 
             return result;
         }

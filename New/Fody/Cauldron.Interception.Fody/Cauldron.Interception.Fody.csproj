@@ -60,6 +60,10 @@
     <Compile Include="HelperTypes\__AsyncTaskMethodBuilder`1.cs" />
     <Compile Include="HelperTypes\__AsyncTaskMethodBuilder.cs" />
     <Compile Include="HelperTypes\HelperTypeBase.cs" />
+    <Compile Include="HelperTypes\__EventArgs.cs" />
+    <Compile Include="HelperTypes\__EventHandler.cs" />
+    <Compile Include="HelperTypes\__EventHandler`1.cs" />
+    <Compile Include="HelperTypes\__IChangeAwareViewModel.cs" />
     <Compile Include="HelperTypes\__ICollection`1.cs" />
     <Compile Include="HelperTypes\__Exception.cs" />
     <Compile Include="HelperTypes\__Extensions.cs" />
@@ -71,6 +75,7 @@
     <Compile Include="HelperTypes\__IPropertySetterInterceptor.cs" />
     <Compile Include="HelperTypes\__ISyncRoot.cs" />
     <Compile Include="HelperTypes\__PropertyInterceptionInfo.cs" />
+    <Compile Include="HelperTypes\__PropertyIsChangedEventArgs.cs" />
     <Compile Include="HelperTypes\__ResourceDictionary.cs" />
     <Compile Include="HelperTypes\__Task.cs" />
     <Compile Include="HelperTypes\__Task`1.cs" />
@@ -79,6 +84,7 @@
     <Compile Include="MethodBuilderInfo.cs" />
     <Compile Include="ModuleWeaver.cs" />
     <Compile Include="ModuleWeaver_BamlXamlInitializer.cs" />
+    <Compile Include="ModuleWeaver_ChangeAwareViewModel.cs" />
     <Compile Include="ModuleWeaver_MethodCache.cs" />
     <Compile Include="ModuleWeaver_MethodInterception.cs" />
     <Compile Include="ModuleWeaver_NomenclatureCheck_Async.cs" />

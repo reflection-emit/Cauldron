@@ -78,7 +78,7 @@ namespace Cauldron.Interception.Fody
             {
                 this.Log($"Implementing interceptors in method {method.Key.Method}");
 
-                var targetedMethod = method.Key.AsyncMethod == null ? method.Key.Method : method.Key.AsyncMethod;
+                var targetedMethod = method.Key.AsyncMethod ?? method.Key.Method;
                 var attributedMethod = method.Key.Method;
 
                 method.AddThisReferenceToAsyncMethod();
@@ -88,9 +88,13 @@ namespace Cauldron.Interception.Fody
 
                 if (method.RequiresSyncRootField)
                 {
-                    foreach (var ctors in targetedMethod.DeclaringType.GetRelevantConstructors()
-                        .Where(x => (method.SyncRoot.IsStatic && x.Name == ".cctor") || (!method.SyncRoot.IsStatic && x.Name == ".ctor")))
-                        ctors.NewCode().Assign(method.SyncRoot).NewObj(builder.GetType(typeof(object)).Import().ParameterlessContructor).Insert(InsertionPosition.Beginning);
+                    if (method.SyncRoot.IsStatic)
+                        targetedMethod.DeclaringType.CreateStaticConstructor().NewCode()
+                            .Assign(method.SyncRoot).NewObj(builder.GetType(typeof(object)).Import().ParameterlessContructor)
+                            .Insert(InsertionPosition.Beginning);
+                    else
+                        foreach (var ctors in targetedMethod.DeclaringType.GetRelevantConstructors().Where(x => x.Name == ".ctor"))
+                            ctors.NewCode().Assign(method.SyncRoot).NewObj(builder.GetType(typeof(object)).Import().ParameterlessContructor).Insert(InsertionPosition.Beginning);
                 }
 
                 targetedMethod

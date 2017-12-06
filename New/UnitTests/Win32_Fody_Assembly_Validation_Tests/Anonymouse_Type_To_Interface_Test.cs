@@ -124,7 +124,7 @@ namespace Win32_Fody_Assembly_Validation_Tests
         public void Anonymouse_With_GenericInterface()
         {
             var obj = new { AnyInt = 9 }.CreateType<IHasGenericInterfaces>();
-            Assert.Equals(9, obj.AnyInt);
+            Assert.AreEqual(9, obj.AnyInt);
         }
 
         [TestMethod]

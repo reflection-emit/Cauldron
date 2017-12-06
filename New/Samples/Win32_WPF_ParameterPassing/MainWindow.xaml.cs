@@ -1,5 +1,5 @@
 ﻿using Cauldron.Core.Reflection;
-using Cauldron.WPF.ParameterPassing;
+using Cauldron;
 using System.Diagnostics;
 using System.Windows;
 
@@ -24,7 +24,7 @@ namespace Win32_WPF_ParameterPassing
             // This can be also added via Behaviour / Action
             // As long as the Window is loaded and a Window handle exists,
             // then everything is fine.
-            this.Loaded += (s, e) => this.AddHook();
+            this.Loaded += (s, e) => this.AddHookParameterPassing();
         }
     }
 }

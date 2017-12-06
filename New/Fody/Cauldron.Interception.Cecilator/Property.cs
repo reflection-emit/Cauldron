@@ -120,7 +120,7 @@ namespace Cauldron.Interception.Cecilator
             this.type.typeDefinition.Methods.Add(this.propertyDefinition.SetMethod);
 
             this.Setter = new Method(this.type, this.propertyDefinition.SetMethod);
-            this.Setter.NewCode().Assign(this.BackingField).Set(this.Setter.NewCode().GetParameter(0)).Replace();
+            this.Setter.NewCode().Assign(this.BackingField).Set(Crumb.GetParameter(0)).Replace();
         }
 
         public Field CreateField(Type fieldType, string name)
