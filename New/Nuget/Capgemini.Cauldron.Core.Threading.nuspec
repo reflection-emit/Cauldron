@@ -14,9 +14,9 @@
     <tags>Toolkit Capgemini Cauldron Async Await Helper Threading Dspatcher</tags>
     <dependencies>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="Capgemini.Cauldron.Activator" version="2.0.15" />
-        <dependency id="Capgemini.Cauldron.Core.Disposable" version="2.0.15" />
-        <dependency id="Capgemini.Cauldron.Core.Reflection" version="2.0.15" />
+        <dependency id="Capgemini.Cauldron.Activator" version="2.0.16" />
+        <dependency id="Capgemini.Cauldron.Core.Disposable" version="2.0.16" />
+        <dependency id="Capgemini.Cauldron.Core.Reflection" version="2.0.16" />
         <dependency id="Fody" version="2.2.1" exclude="Build,Analyzers" />
       </group>
     </dependencies>
