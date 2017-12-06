@@ -69,6 +69,7 @@
     <Compile Include="BuilderCustomAttributeCollection.cs" />
     <Compile Include="BuilderTypeEqualityComparer.cs" />
     <Compile Include="CecilatorBase.cs" />
+    <Compile Include="CecilatorObject.cs" />
     <Compile Include="Crumb.cs" />
     <Compile Include="CustomAttributeEqualityComparer.cs" />
     <Compile Include="Extension.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="InstructionsSet.cs" />
     <Compile Include="ITry.cs" />
     <Compile Include="ITryCode.cs" />
+    <Compile Include="LogTypes.cs" />
     <Compile Include="TypeResolveException.cs" />
     <Compile Include="WeaverBase.cs" />
     <Compile Include="BuilderType.cs" />

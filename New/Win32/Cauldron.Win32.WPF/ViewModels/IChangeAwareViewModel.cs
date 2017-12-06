@@ -18,7 +18,7 @@ namespace Cauldron.XAML.ViewModels
         /// <summary>
         /// Gets or sets a value that indicates if any property value has been changed
         /// </summary>
-        bool IsChanged { get; }
+        bool IsChanged { get; set; }
 
         /// <summary>
         /// Invokes the <see cref="INotifyPropertyChanged.PropertyChanged"/> event

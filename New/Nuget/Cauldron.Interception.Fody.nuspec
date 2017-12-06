@@ -15,6 +15,10 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Interception interceptor interception AOP Fody Cecil CIL ILWeaving</tags>
     <releaseNotes>
+      2017.12.06 - [B] Fixed a bug that caused try-catches to be malformed if the modified method was empty.
+      2017.12.06 - [A] IPropertyInitializer added. This interface forces an interceptor to be loaded on type init instead of the first call.
+      2017.12.06 - [B] If PropertyChanged.Fody weaved before Cauldron then Cauldron has removed the implementation for the particular property. This is now fixed.
+      2017.12.05 - [A] Sequence points added.
       2017.12.05 - [B] Bug from yesterday regarding ComponentAttribute still occured on nested private classes. Now fixed.
       2017.12.04 - [B] Interceptors that uses ISyncRoot interface was not correctly weaved. This caused the object initialization to be weaved in the .cctor even though it is not static.
       2017.12.04 - [B] The weaving of the auto-ComponentAttribute attributed types caused an error in some cases if the type is not public.

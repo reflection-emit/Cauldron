@@ -107,6 +107,11 @@ namespace Cauldron.XAML
         public event EventHandler<BehaviourInvocationArgs> BehaviourInvoke;
 
         /// <summary>
+        /// Occures if the <see cref="IsLoading"/> property has changed.
+        /// </summary>
+        public event EventHandler IsLoadingChanged;
+
+        /// <summary>
         /// Occurs when a property value changes.
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
@@ -154,7 +159,9 @@ namespace Cauldron.XAML
             {
                 if (this._isLoading == value)
                     return;
+
                 this._isLoading = value;
+                this.IsLoadingChanged?.Invoke(this, EventArgs.Empty);
                 this.RaisePropertyChanged();
             }
         }

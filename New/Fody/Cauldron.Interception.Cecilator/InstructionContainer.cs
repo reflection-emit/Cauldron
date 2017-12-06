@@ -44,6 +44,8 @@ namespace Cauldron.Interception.Cecilator
 
         public static implicit operator Instruction[] (InstructionContainer a) => a.instruction.ToArray();
 
+        void ICollection<Instruction>.Add(Instruction item) => this.instruction.Add(item);
+
         public void Append(Instruction instruction) => this.instruction.Add(instruction);
 
         public void Append(IEnumerable<Instruction> instructions) => this.instruction.AddRange(instructions);
@@ -56,9 +58,15 @@ namespace Cauldron.Interception.Cecilator
 
         public InstructionContainer Clone() => new InstructionContainer();
 
-        public Instruction First() => this.instruction.Count == 0 ? null : this.instruction[0];
+        bool ICollection<Instruction>.Contains(Instruction item) => this.instruction.Contains(item);
+
+        void ICollection<Instruction>.CopyTo(Instruction[] array, int arrayIndex) => this.instruction.CopyTo(array, arrayIndex);
+
+        public Instruction FirstOrDefault() => this.instruction.Count == 0 ? null : this.instruction[0];
 
         public IEnumerator<Instruction> GetEnumerator() => this.instruction.GetEnumerator();
+
+        IEnumerator IEnumerable.GetEnumerator() => this.instruction.GetEnumerator();
 
         public int IndexOf(Instruction item) => this.instruction.IndexOf(item);
 
@@ -80,13 +88,17 @@ namespace Cauldron.Interception.Cecilator
                 this.instruction.Insert(index, instructionToInsert);
         }
 
-        public Instruction Last() => this.instruction.Count == 0 ? null : this.instruction[this.instruction.Count - 1];
+        public Instruction LastOrDefault() => this.instruction.Count == 0 ? null : this.instruction[this.instruction.Count - 1];
 
         public Instruction Next(Instruction instruction)
         {
             var index = this.instruction.IndexOf(instruction);
             return this.instruction[index + 1];
         }
+
+        bool ICollection<Instruction>.Remove(Instruction item) => this.instruction.Remove(item);
+
+        void IList<Instruction>.RemoveAt(int index) => this.instruction.RemoveAt(index);
 
         public void RemoveLast() => this.instruction.RemoveAt(this.instruction.Count - 1);
 
@@ -99,18 +111,6 @@ namespace Cauldron.Interception.Cecilator
 
             return sb.ToString();
         }
-
-        void ICollection<Instruction>.Add(Instruction item) => this.instruction.Add(item);
-
-        bool ICollection<Instruction>.Contains(Instruction item) => this.instruction.Contains(item);
-
-        void ICollection<Instruction>.CopyTo(Instruction[] array, int arrayIndex) => this.instruction.CopyTo(array, arrayIndex);
-
-        IEnumerator IEnumerable.GetEnumerator() => this.instruction.GetEnumerator();
-
-        bool ICollection<Instruction>.Remove(Instruction item) => this.instruction.Remove(item);
-
-        void IList<Instruction>.RemoveAt(int index) => this.instruction.RemoveAt(index);
 
         internal Instruction[] ToArray() => this.instruction.ToArray();
     }

@@ -144,7 +144,7 @@ namespace Cauldron.XAML
         /// </summary>
         /// <param name="e">The exception to show on the dialog</param>
         /// <returns>An object that represents the asynchronous operation.</returns>
-        public async Task ShowException(Exception e) => await this.ShowException(e, "{0}");
+        public async Task ShowExceptionAsync(Exception e) => await this.ShowExceptionAsync(e, "{0}");
 
         /// <summary>
         /// Begins an asynchronous operation showing a dialog with an OK and a copy button
@@ -154,7 +154,7 @@ namespace Cauldron.XAML
         /// Additional information to be displayed to the user. The exception is added in {0}
         /// </param>
         /// <returns>An object that represents the asynchronous operation.</returns>
-        public async Task ShowException(Exception e, string format)
+        public async Task ShowExceptionAsync(Exception e, string format)
         {
             string title = "Error";
             string OK = "OK";

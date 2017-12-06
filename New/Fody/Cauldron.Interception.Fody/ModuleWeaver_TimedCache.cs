@@ -22,11 +22,11 @@ namespace Cauldron.Interception.Fody
 
             foreach (var method in methods)
             {
-                this.LogInfo($"Implementing TimedCache in method {method.Method.Name}");
+                this.Log($"Implementing TimedCache in method {method.Method.Name}");
 
                 if (method.Method.ReturnType.Fullname == "System.Void")
                 {
-                    this.LogWarning("TimedCacheAttribute does not support void return types");
+                    this.Log(LogTypes.Warning, method.Method, "TimedCacheAttribute does not support void return types");
                     continue;
                 }
 
@@ -34,7 +34,7 @@ namespace Cauldron.Interception.Fody
                 var timecacheVarName = "<>timedcache";
 
                 if (method.AsyncMethod == null && method.Method.ReturnType.Inherits(task.Type.Fullname))
-                    this.LogError($"- TimedCacheAttribute for method {method.Method.Name} will not be implemented. Methods that returns 'Task' without async are not supported.");
+                    this.Log(LogTypes.Error, method.Method, $"- TimedCacheAttribute for method {method.Method.Name} will not be implemented. Methods that returns 'Task' without async are not supported.");
                 else if (method.AsyncMethod == null)
                     method.Method.NewCode()
                         .Context(x =>

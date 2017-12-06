@@ -19,7 +19,7 @@ namespace Cauldron.Interception.Fody
         {
             if (!this.Builder.IsReferenced("Cauldron.Interception"))
             {
-                this.LogWarning($"The assembly 'Cauldron.Interception' is not referenced or used in '{this.Builder.Name}'. Weaving will not continue.");
+                this.Log(LogTypes.Warning, type: null, arg: $"The assembly 'Cauldron.Interception' is not referenced or used in '{this.Builder.Name}'. Weaving will not continue.");
                 return;
             }
 
@@ -27,7 +27,7 @@ namespace Cauldron.Interception.Fody
                 .Assembly
                 .GetCustomAttributes(typeof(System.Reflection.AssemblyFileVersionAttribute), true)
                 .FirstOrDefault() as System.Reflection.AssemblyFileVersionAttribute;
-            this.LogInfo($"Cauldron Interception v" + versionAttribute.Version);
+            this.Log($"Cauldron Interception v" + versionAttribute.Version);
 
             var propertyInterceptingAttributes = this.Builder.FindAttributesByInterfaces(
                 "Cauldron.Interception.IPropertyInterceptor",
@@ -55,6 +55,9 @@ namespace Cauldron.Interception.Fody
 
             if (this.Builder.TypeExists("Cauldron.XAML.Validation.ValidatorGroup"))
                 this.AddValidatorInits(this.Builder);
+
+            // Checks
+            this.CheckAsyncMthodsNomenclature(this.Builder);
         }
 
         private void AddAttributeToXAMLResources(Builder builder)
@@ -191,7 +194,7 @@ namespace Cauldron.Interception.Fody
                 // UWP has to actually use any type from the Assembly, so that it is not thrown out
                 // while compiling to Nativ Code
 
-                this.LogInfo(builder.Name);
+                this.Log(builder.Name);
 
                 if (builder.Name != "Cauldron.dll" && builder.TypeExists("Cauldron.Core.Reflection.AssembliesCORE"))
                 {
@@ -246,7 +249,7 @@ namespace Cauldron.Interception.Fody
                     continue;
                 var addValidatorAttribute = item.Key.DeclaringType.GetMethod("AddValidator", false, typeof(string).FullName, "Cauldron.XAML.Validation.ValidatorAttributeBase");
 
-                this.LogInfo($"Adding initializer for validators ({item.Validators.Length}) of property '{item.Key.Name}' in type '{item.Key.DeclaringType.Fullname}'");
+                this.Log($"Adding initializer for validators ({item.Validators.Length}) of property '{item.Key.Name}' in type '{item.Key.DeclaringType.Fullname}'");
 
                 foreach (var ctors in item.Key.DeclaringType.GetRelevantConstructors())
                 {
@@ -333,14 +336,14 @@ namespace Cauldron.Interception.Fody
                             var targetProperty = anonTarget.GetProperty(property.Name);
                             if (property.ReturnType.Fullname != targetProperty.ReturnType.Fullname)
                             {
-                                this.LogError($"The property '{property.Name}' in '{method.Name}' in type '{method.DeclaringType.Name}' does not have the expected return type. Is: {property.ReturnType.Fullname} Expected: {targetProperty.ReturnType.Fullname}");
+                                this.Log(LogTypes.Error, property, $"The property '{property.Name}' does not have the expected return type. Is: {property.ReturnType.Fullname} Expected: {targetProperty.ReturnType.Fullname}");
                                 continue;
                             }
                             x.Load(resultVar).Callvirt(targetProperty.Setter, x.NewCode().Load(x.GetParameter(0)).Callvirt(property.Getter));
                         }
                         catch (MethodNotFoundException)
                         {
-                            this.LogWarning($"The property '{property.Name}' does not exist in '{anonTarget.Name}'");
+                            this.Log(LogTypes.Warning, anonTarget, $"The property '{property.Name}' does not exist in '{anonTarget.Name}'");
                         }
                     }
 
@@ -399,7 +402,7 @@ namespace Cauldron.Interception.Fody
             // Create types with the components properties
             foreach (var component in components)
             {
-                this.LogInfo("Hardcoding component factory .ctor: " + component.Type.Fullname);
+                this.Log("Hardcoding component factory .ctor: " + component.Type.Fullname);
 
                 var componentType = builder.CreateType("", TypeAttributes.Public | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit, $"<>f__IFactoryTypeInfo_{component.Type.Name}_{counter++}");
                 var componentAttributeField = componentType.CreateField(Modifiers.Private, componentAttribute.Type, "componentAttribute");
@@ -461,7 +464,7 @@ namespace Cauldron.Interception.Fody
 
                             for (int index = 0; index < ctors.Length; index++)
                             {
-                                this.LogInfo("- " + ctors[index].Fullname);
+                                this.Log("- " + ctors[index].Fullname);
 
                                 var ctor = ctors[index];
                                 // add a EditorBrowsable attribute
@@ -510,13 +513,13 @@ namespace Cauldron.Interception.Fody
                             // In case we don't have constructor with ComponentConstructor Attribute,
                             // then we should look for a parameterless Ctor
                             if (component.Type.ParameterlessContructor == null)
-                                this.LogError($"The component '{component.Type.Fullname}' has no ComponentConstructor attribute or the constructor is not public");
+                                this.Log(LogTypes.Error, component.Type, $"The component '{component.Type.Fullname}' has no ComponentConstructor attribute or the constructor is not public");
                             else if (component.Type.ParameterlessContructor.Modifiers.HasFlag(Modifiers.Public))
                             {
                                 x.Load(x.GetParameter(0)).IsNull().Then(y => y.NewObj(component.Type.ParameterlessContructor).StoreLocal(localVariable).Call(factory.OnObjectCreation, localVariable, x.This).Return());
                                 x.Load(x.GetParameter(0)).Call(arrayAvatar.Length).EqualTo(0).Then(y => y.NewObj(component.Type.ParameterlessContructor).StoreLocal(localVariable).Call(factory.OnObjectCreation, localVariable, x.This).Return());
 
-                                this.LogWarning($"The component '{component.Type.Fullname}' has no ComponentConstructor attribute. A parameterless ctor was found and will be used.");
+                                this.Log($"The component '{component.Type.Fullname}' has no ComponentConstructor attribute. A parameterless ctor was found and will be used.");
                             }
                         }
                     })
@@ -555,7 +558,7 @@ namespace Cauldron.Interception.Fody
                 component.Attribute.Remove();
             }
 
-            this.LogInfo("Adding component IFactoryCache Interface");
+            this.Log("Adding component IFactoryCache Interface");
             cauldron.AddInterface(factoryCacheInterface);
             var factoryCacheInterfaceAvatar = factoryCacheInterface.New(x => new
             {
@@ -587,7 +590,7 @@ namespace Cauldron.Interception.Fody
 
         private void CreateFactoryCache(Builder builder)
         {
-            this.LogInfo($"Creating Cauldron Cache");
+            this.Log($"Creating Cauldron Cache");
 
             var cauldron = builder.CreateType("", TypeAttributes.Public | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit, "<Cauldron>");
             cauldron.CreateConstructor().NewCode()
@@ -620,7 +623,7 @@ namespace Cauldron.Interception.Fody
 
             if (onLoadMethods.Count() > 1)
             {
-                this.LogError("There is more than one 'static OnLoad(string[])' in the program.");
+                this.Log(LogTypes.Error, onLoadMethods.FirstOrDefault(), "There is more than one 'static OnLoad(string[])' in the program.");
                 return;
             }
 
@@ -674,12 +677,12 @@ namespace Cauldron.Interception.Fody
 
             foreach (var item in createTypeMethod)
             {
-                this.LogInfo($"Implementing anonymous to interface {item}");
+                this.Log($"Implementing anonymous to interface {item}");
                 var interfaceToImplement = item.GetGenericArgument(0);
 
                 if (interfaceToImplement == null || !interfaceToImplement.IsInterface)
                 {
-                    this.LogError($"{interfaceToImplement.Fullname} is not an interface.");
+                    this.Log(LogTypes.Error, interfaceToImplement, $"{interfaceToImplement.Fullname} is not an interface.");
                     continue;
                 }
 
@@ -693,7 +696,7 @@ namespace Cauldron.Interception.Fody
 
                         if (type.Fullname.GetHashCode() == "System.Object".GetHashCode() && type.Fullname == "System.Object")
                         {
-                            this.LogError($"Error in CreateObject in method '{item.HostMethod}'. Unable to detect anonymous type.");
+                            this.Log(LogTypes.Error, item.HostMethod, $"Error in CreateObject in method '{item.HostMethod}'. Unable to detect anonymous type.");
                             continue;
                         }
                     }
@@ -705,7 +708,7 @@ namespace Cauldron.Interception.Fody
                     }
 
                     var anonymousTypeName = $"<>f__{interfaceToImplement.Name}_Cauldron_AnonymousType{counter++}";
-                    this.LogInfo($"- Creating new type: {type.Namespace}.{anonymousTypeName}");
+                    this.Log($"- Creating new type: {type.Namespace}.{anonymousTypeName}");
 
                     var newType = builder.CreateType(type.Namespace, TypeAttributes.Public | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit | TypeAttributes.Serializable, anonymousTypeName);
                     newType.AddInterface(interfaceToImplement);
@@ -738,14 +741,13 @@ namespace Cauldron.Interception.Fody
                 }
                 catch (Exception e)
                 {
-                    this.LogError(e.Message);
-                    this.LogInfo("\r\n" + item.ToHostMethodINstructionsString());
+                    this.Log(e, item.ToHostMethodInstructionsString());
 
                     throw;
                 }
             }
             stopwatch.Stop();
-            this.LogInfo($"Implementing anonymous type to interface took {stopwatch.Elapsed.TotalMilliseconds}ms");
+            this.Log($"Implementing anonymous type to interface took {stopwatch.Elapsed.TotalMilliseconds}ms");
         }
 
         private void ImplementPropertyChangedEvent(Builder builder)
@@ -802,7 +804,7 @@ namespace Cauldron.Interception.Fody
                 else
                     method = vm.GetMethod("<>RaisePropertyChangedEventRaise", true, typeof(string), typeof(object), typeof(object));
 
-                this.LogInfo($"Implementing RaisePropertyChanged Raise Event in '{vm.Fullname}'");
+                this.Log($"Implementing RaisePropertyChanged Raise Event in '{vm.Fullname}'");
                 var raisePropertyChanged = vm.GetMethod("RaisePropertyChanged", false, typeof(string), typeof(object), typeof(object));
 
                 if (raisePropertyChanged == null)
@@ -826,11 +828,11 @@ namespace Cauldron.Interception.Fody
 
             foreach (var field in fields)
             {
-                this.LogInfo($"Implementing interceptors in fields {field.Key}");
+                this.Log($"Implementing interceptors in fields {field.Key}");
 
                 if (!field.Key.Modifiers.HasFlag(Modifiers.Private))
                 {
-                    this.LogError($"The current version of the field interceptor only intercepts private fields. Field '{field.Key.Name}' in type '{field.Key.DeclaringType.Name}'");
+                    this.Log(LogTypes.Error, field.Key.DeclaringType, $"The current version of the field interceptor only intercepts private fields. Field '{field.Key.Name}' in type '{field.Key.DeclaringType.Name}'");
                     continue;
                 }
 
@@ -850,7 +852,7 @@ namespace Cauldron.Interception.Fody
             }
 
             stopwatch.Stop();
-            this.LogInfo($"Implementing field interceptors took {stopwatch.Elapsed.TotalMilliseconds}ms");
+            this.Log($"Implementing field interceptors took {stopwatch.Elapsed.TotalMilliseconds}ms");
         }
     }
 }

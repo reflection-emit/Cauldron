@@ -58,14 +58,14 @@ namespace Cauldron.XAML
         /// <param name="e">The exception to show on the dialog</param>
         /// <param name="format">Additional information to be displayed to the user. The exception is added in {0}</param>
         /// <returns>An object that represents the asynchronous operation.</returns>
-        Task ShowException(Exception e, string format);
+        Task ShowExceptionAsync(Exception e, string format);
 
         /// <summary>
         /// Begins an asynchronous operation showing a dialog with an OK and a copy button
         /// </summary>
         /// <param name="e">The exception to show on the dialog</param>
         /// <returns>An object that represents the asynchronous operation.</returns>
-        Task ShowException(Exception e);
+        Task ShowExceptionAsync(Exception e);
 
         /// <summary>
         /// Begins an asynchronous operation showing a dialog with an OK button.

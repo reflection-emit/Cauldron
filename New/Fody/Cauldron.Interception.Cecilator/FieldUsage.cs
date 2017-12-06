@@ -89,7 +89,7 @@ namespace Cauldron.Interception.Cecilator
             else if (this.instruction.OpCode == OpCodes.Ldflda || this.instruction.OpCode == OpCodes.Ldsflda)
             {
                 // We leave this alone for this version... We have to find out how to deal with this first
-                this.LogWarning($"OpCodes.Ldflda or OpCodes.Ldsflda found in {this.Method.Name}. This will not be replaced. Affected field: {this.Field}");
+                this.Log(LogTypes.Warning, this.instruction, this.Method?.methodDefinition, $"OpCodes.Ldflda or OpCodes.Ldsflda found in {this.Method.Name}. This will not be replaced. Affected field: {this.Field}");
             }
 
             return new PropertyUsage(property, this.Method, this.instruction);

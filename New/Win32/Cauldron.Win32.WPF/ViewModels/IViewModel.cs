@@ -1,5 +1,4 @@
-﻿using Cauldron.Core;
-using Cauldron.Core.Threading;
+﻿using Cauldron.Core.Threading;
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -11,6 +10,11 @@ namespace Cauldron.XAML.ViewModels
     /// </summary>
     public interface IViewModel : INotifyPropertyChanged, INotifyBehaviourInvocation
     {
+        /// <summary>
+        /// Occures if the <see cref="IsLoading"/> property has changed.
+        /// </summary>
+        event EventHandler IsLoadingChanged;
+
         /// <summary>
         /// Gets the <see cref="Dispatcher"/> this <see cref="IDispatcher"/> is associated with.
         /// </summary>

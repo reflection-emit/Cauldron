@@ -14,6 +14,9 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron XAML WPF MVVM Framework ViewModels</tags>
     <releaseNotes>
+      2017.12.05 - [A] Message unsubsribe added to dispose of ViewModelBase.
+      2017.12.05 - [A] OnIsLoadingChanged added to ViewModelBase.
+      2017.12.05 - [C] Renamed IMessageDialog.ShowException to IMessageDialog.ShowExceptionAsync
       2017.12.05 - [A] The ViewAttribute now accepts a string as view name/type.
       2017.12.04 - [A] IViewAware interface added.
       2017.12.04 - [B] Fixed a bug that caused the application to crash if there are no IMultiValueConverter in the application.

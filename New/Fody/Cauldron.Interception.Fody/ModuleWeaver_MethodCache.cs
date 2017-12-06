@@ -19,18 +19,18 @@ namespace Cauldron.Interception.Fody
 
             foreach (var method in methods)
             {
-                this.LogInfo($"Implementing Cache for method {method.Method.Name}");
+                this.Log($"Implementing Cache for method {method.Method.Name}");
 
                 if (method.Method.ReturnType.Fullname == "System.Void")
                 {
-                    this.LogWarning("CacheAttribute does not support void return types");
+                    this.Log(LogTypes.Warning, method.Method, "CacheAttribute does not support void return types");
                     continue;
                 }
 
                 var cacheField = $"<{method.Method.Name}>m__MethodCache_{method.Identification}";
 
                 if (method.AsyncMethod == null && method.Method.ReturnType.Inherits(task.Type.Fullname))
-                    this.LogWarning($"- CacheAttribute for method {method.Method.Name} will not be implemented. Methods that returns 'Task' without async are not supported.");
+                    this.Log(LogTypes.Warning, method.Method, $"- CacheAttribute for method {method.Method.Name} will not be implemented. Methods that returns 'Task' without async are not supported.");
                 else if (method.AsyncMethod == null)
                     method.Method.NewCode()
                         .Context(x =>

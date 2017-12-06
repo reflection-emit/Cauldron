@@ -34,5 +34,55 @@ namespace Cauldron
         /// <param name="file">The file to check.</param>
         /// <returns>A unique and valid path and filename.</returns>
         public static FileInfo GetUniqueFilename(this FileInfo file) => new FileInfo(Utils.GetUniqueFilename(file.FullName));
+
+        /// <summary>
+        /// Waits for a file to be accessable. The default waiting period is 1.5s.
+        /// </summary>
+        /// <param name="fileInfo">The path of the file</param>
+        /// <returns>true if successful, otherwise false</returns>
+        public static async Task<bool> WaitUntilFileIsAccessableAsync(this FileInfo fileInfo) =>
+            await WaitUntilFileIsAccessableAsync(fileInfo, 3, TimeSpan.FromSeconds(1.5));
+
+        /// <summary>
+        /// Waits for a file to be accessable. The default waiting period is 1.5s.
+        /// </summary>
+        /// <param name="fileInfo">The path of the file</param>
+        /// <param name="tries">The total count of attempts to access the file</param>
+        /// <returns>true if successful, otherwise false</returns>
+        public static async Task<bool> WaitUntilFileIsAccessableAsync(this FileInfo fileInfo, uint tries) =>
+            await WaitUntilFileIsAccessableAsync(fileInfo, tries, TimeSpan.FromSeconds(1.5));
+
+        /// <summary>
+        /// Waits for a file to be accessable.
+        /// </summary>
+        /// <param name="fileInfo">The path of the file</param>
+        /// <param name="tries">The total count of attempts to access the file</param>
+        /// <param name="timeBetweenTries">The amount of time to wait between attempts</param>
+        /// <returns>true if successful, otherwise false</returns>
+        public static async Task<bool> WaitUntilFileIsAccessableAsync(this FileInfo fileInfo, uint tries, TimeSpan timeBetweenTries)
+        {
+            var tryCounter = 0;
+
+            do
+            {
+                try
+                {
+                    using (var stream = new FileStream(fileInfo.FullName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                    {
+                    }
+
+                    break;
+                }
+                catch (IOException)
+                {
+                }
+
+                tryCounter++;
+
+                await Task.Delay(timeBetweenTries);
+            } while (tryCounter < tries);
+
+            return tryCounter < tries;
+        }
     }
 }

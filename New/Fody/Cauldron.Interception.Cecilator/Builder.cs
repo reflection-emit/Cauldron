@@ -294,7 +294,7 @@ namespace Cauldron.Interception.Cecilator
 
                 if (asyncTypeMethod == null)
                 {
-                    this.LogError("Unable to find the method MoveNext of async method " + method.Name);
+                    this.Log(LogTypes.Error, method, "Unable to find the method MoveNext of async method " + method.Name);
                     return null;
                 }
 
@@ -339,7 +339,7 @@ namespace Cauldron.Interception.Cecilator
                    .Select(x => new BuilderType(this, x.AttributeType));
 
             stopwatch.Stop();
-            this.LogInfo($"Finding attributes took {stopwatch.Elapsed.TotalMilliseconds}ms");
+            this.Log($"Finding attributes took {stopwatch.Elapsed.TotalMilliseconds}ms");
 
             return findAttributesInModuleCache;
         }

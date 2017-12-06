@@ -311,14 +311,6 @@ namespace Cauldron.Interception.Cecilator
 
         public static bool IsSubclassOf(this TypeReference child, TypeReference parent) => child != parent && child.GetBaseClasses().Any(x => x == parent);
 
-        public static T LogContent<T>(this T target) where T : IEnumerable<BuilderType>
-        {
-            foreach (var item in target)
-                item.LogInfo(item.Fullname);
-
-            return target;
-        }
-
         public static TNew New<TType, TNew>(this TType target, Func<TType, TNew> predicate) => predicate(target);
 
         public static GenericInstanceType ResolveGenericArguments(this GenericInstanceType self, GenericInstanceType inheritingOrImplementingType)

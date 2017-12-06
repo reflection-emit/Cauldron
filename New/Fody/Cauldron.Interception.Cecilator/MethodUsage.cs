@@ -142,7 +142,7 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
-        public string ToHostMethodINstructionsString()
+        public string ToHostMethodInstructionsString()
         {
             var sb = new StringBuilder();
 

@@ -43,9 +43,9 @@ namespace Cauldron.Interception.Cecilator
             get
             {
                 return this.instructions.Count > 0 &&
-                    this.instructions.Last().OpCode != OpCodes.Rethrow &&
-                    this.instructions.Last().OpCode != OpCodes.Throw &&
-                    this.instructions.Last().OpCode != OpCodes.Ret;
+                    this.instructions.LastOrDefault().OpCode != OpCodes.Rethrow &&
+                    this.instructions.LastOrDefault().OpCode != OpCodes.Throw &&
+                    this.instructions.LastOrDefault().OpCode != OpCodes.Ret;
             }
         }
 
@@ -281,7 +281,7 @@ namespace Cauldron.Interception.Cecilator
                     instructionPosition = last.Previous;
 
                     foreach (var item in jumpers)
-                        item.Operand = this.instructions.First();
+                        item.Operand = this.instructions.FirstOrDefault();
                 }
             }
 
@@ -500,7 +500,7 @@ namespace Cauldron.Interception.Cecilator
             processor.Remove(position.instruction);
             processor.InsertBefore(index, this.instructions);
 
-            return (new Position(this.method, this.instructions[0]), new Position(this.method, this.instructions.Last()));
+            return (new Position(this.method, this.instructions[0]), new Position(this.method, this.instructions.LastOrDefault()));
         }
 
         public void Replace()
@@ -554,13 +554,16 @@ namespace Cauldron.Interception.Cecilator
 
         public ITry Try(Action<ITryCode> body)
         {
-            var markerStart = this.instructions.Last();
+            if (this.instructions.Count == 0)
+                this.instructions.Append(processor.Create(OpCodes.Nop));
+
+            var markerStart = this.instructions.LastOrDefault();
             body(this);
 
             if (this.RequiresReturn)
                 this.instructions.Append(this.processor.Create(OpCodes.Ret));
 
-            return new MarkerInstructionSet(this, MarkerType.Try, markerStart ?? this.instructions.First(), this.instructions);
+            return new MarkerInstructionSet(this, MarkerType.Try, markerStart ?? this.instructions.FirstOrDefault(), this.instructions);
         }
 
         internal ParamResult AddParameter(ILProcessor processor, TypeReference targetType, object parameter)
@@ -1026,7 +1029,7 @@ namespace Cauldron.Interception.Cecilator
 
         protected virtual ILocalVariableCode CreateLocalVariableInstructionSet(LocalVariable localVariable, AssignInstructionType instructionType) => new LocalVariableInstructionSet(this, localVariable, this.instructions, instructionType);
 
-        protected void InstructionDebug() => this.LogInfo(this.instructions);
+        protected void InstructionDebug() => this.Log(this.instructions);
 
         protected ICode NewObj(CustomAttribute attribute)
         {
@@ -1046,7 +1049,7 @@ namespace Cauldron.Interception.Cecilator
             if (this.method.IsAbstract)
                 throw new NotSupportedException("Interceptors does not support abstract methods.");
 
-            if (this.method.IsVoid || this.instructions.Last().OpCode != OpCodes.Ret)
+            if (this.method.IsVoid || this.instructions.LastOrDefault().OpCode != OpCodes.Ret)
             {
                 var realReturn = this.method.methodDefinition.Body.Instructions.Last();
 

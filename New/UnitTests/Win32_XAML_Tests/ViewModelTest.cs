@@ -23,7 +23,7 @@ namespace Cauldron.Test
     {
         public event EventHandler<PropertyIsChangedEventArgs> Changed;
 
-        public bool IsChanged { get; private set; } /* This should be implemented by PropertyChanged.Fody */
+        public bool IsChanged { get; set; } /* This should be implemented by PropertyChanged.Fody */
 
         public string TestProperty { get; set; } /* This should be implemented by PropertyChanged.Fody */
 
@@ -49,7 +49,7 @@ namespace Cauldron.Test
     {
         public event EventHandler<PropertyIsChangedEventArgs> Changed;
 
-        public bool IsChanged { get; private set; } /* This should be implemented by PropertyChanged.Fody */
+        public bool IsChanged { get; set; } /* This should be implemented by PropertyChanged.Fody */
 
         public string TestProperty { get; set; } /* This should be implemented by PropertyChanged.Fody */
 
@@ -77,7 +77,7 @@ namespace Cauldron.Test
     {
         public event EventHandler<PropertyIsChangedEventArgs> Changed;
 
-        public bool IsChanged { get; private set; } /* This should be implemented by PropertyChanged.Fody */
+        public bool IsChanged { get; set; } /* This should be implemented by PropertyChanged.Fody */
 
         public string TestProperty { get; set; } /* This should be implemented by PropertyChanged.Fody */
 

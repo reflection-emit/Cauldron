@@ -67,6 +67,7 @@
     <Compile Include="HelperTypes\__IList.cs" />
     <Compile Include="HelperTypes\__IMethodInterceptor.cs" />
     <Compile Include="HelperTypes\__IPropertyGetterInterceptor.cs" />
+    <Compile Include="HelperTypes\__IPropertyInterceptorInitialize.cs" />
     <Compile Include="HelperTypes\__IPropertySetterInterceptor.cs" />
     <Compile Include="HelperTypes\__ISyncRoot.cs" />
     <Compile Include="HelperTypes\__PropertyInterceptionInfo.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="ModuleWeaver_BamlXamlInitializer.cs" />
     <Compile Include="ModuleWeaver_MethodCache.cs" />
     <Compile Include="ModuleWeaver_MethodInterception.cs" />
+    <Compile Include="ModuleWeaver_NomenclatureCheck_Async.cs" />
     <Compile Include="ModuleWeaver_PropertyInterception.cs" />
     <Compile Include="ModuleWeaver_TimedCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

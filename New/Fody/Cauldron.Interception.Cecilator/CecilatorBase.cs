@@ -1,7 +1,6 @@
 ﻿using Mono.Cecil;
 using Mono.Cecil.Cil;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -11,7 +10,7 @@ using System.Text;
 
 namespace Cauldron.Interception.Cecilator
 {
-    public abstract class CecilatorBase
+    public abstract class CecilatorBase : CecilatorObject
     {
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
         protected readonly IEnumerable<AssemblyDefinition> allAssemblies;
@@ -22,20 +21,10 @@ namespace Cauldron.Interception.Cecilator
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
         protected readonly ModuleDefinition moduleDefinition;
 
-        [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private readonly Action<string> logError;
-
-        [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private readonly Action<string> logInfo;
-
-        [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private readonly Action<string> logWarning;
-
         internal CecilatorBase(WeaverBase weaver)
         {
-            this.logError = weaver.LogError;
-            this.logInfo = weaver.LogInfo;
-            this.logWarning = weaver.LogWarning;
+            this.Initialize(weaver.LogInfo, weaver.LogWarning, weaver.LogWarningPoint, weaver.LogError, weaver.LogErrorPoint);
+
             this.moduleDefinition = weaver.ModuleDefinition;
 
             var assemblies = this.GetAllAssemblyDefinitions(this.moduleDefinition.AssemblyReferences)
@@ -51,12 +40,12 @@ namespace Cauldron.Interception.Cecilator
                     }
                     catch (BadImageFormatException e)
                     {
-                        this.LogInfo(e.Message + " " + x);
+                        this.Log(e, x);
                         return null;
                     }
                     catch (Exception e)
                     {
-                        this.LogWarning(e.Message);
+                        this.Log(e);
                         return null;
                     }
                 })
@@ -65,14 +54,14 @@ namespace Cauldron.Interception.Cecilator
 
             this.allAssemblies = assemblies.Concat(this.UnusedReference.Select(x => x.AssemblyDefinition)).ToArray();
 
-            this.logInfo("-----------------------------------------------------------------------------");
+            this.Log("-----------------------------------------------------------------------------");
 
             foreach (var item in allAssemblies)
-                this.logInfo("<<Assembly>> " + item.Name);
+                this.Log("<<Assembly>> " + item.Name);
 
             foreach (var item in this.moduleDefinition.Resources)
             {
-                this.LogInfo("<<Resource>> " + item.Name + " " + item.ResourceType);
+                this.Log("<<Resource>> " + item.Name + " " + item.ResourceType);
                 if (item.ResourceType == ResourceType.Embedded)
                 {
                     var embeddedResource = item as EmbeddedResource;
@@ -95,7 +84,7 @@ namespace Cauldron.Interception.Cecilator
                                     var data = Encoding.Unicode.GetString(bytes, startPoint + 1, length).Trim();
                                     startPoint += length + 5;
                                     resourceNames.Add(data);
-                                    this.LogInfo("             " + data);
+                                    this.Log("             " + data);
                                 }
                             }
                         }
@@ -104,7 +93,7 @@ namespace Cauldron.Interception.Cecilator
                 }
             }
             this.allTypes = this.allAssemblies.SelectMany(x => x.Modules).Where(x => x != null).SelectMany(x => x.Types).Where(x => x != null).Concat(this.moduleDefinition.Types).ToArray();
-            this.logInfo("-----------------------------------------------------------------------------");
+            this.Log("-----------------------------------------------------------------------------");
             WeaverBase.AllTypes = this.allTypes;
 
             this.Identification = GenerateName();
@@ -112,9 +101,8 @@ namespace Cauldron.Interception.Cecilator
 
         internal CecilatorBase(CecilatorBase builderBase)
         {
-            this.logError = builderBase.logError;
-            this.logInfo = builderBase.logInfo;
-            this.logWarning = builderBase.logWarning;
+            this.Initialize(builderBase);
+
             this.moduleDefinition = builderBase.moduleDefinition;
             this.allAssemblies = builderBase.allAssemblies;
             this.allTypes = builderBase.allTypes;
@@ -163,30 +151,6 @@ namespace Cauldron.Interception.Cecilator
                 throw new Exception($"Unable to proceed. The type '{type.FullName}' was not found.");
 
             return this.moduleDefinition.ImportReference(type).Resolve() ?? result;
-        }
-
-        internal void LogError(object value)
-        {
-            if (value is string)
-                this.logError(value as string);
-            else
-                this.logError(value.ToString());
-        }
-
-        internal void LogInfo(object value)
-        {
-            if (value is string)
-                this.logInfo(value as string);
-            else
-                this.logInfo(value.ToString());
-        }
-
-        internal void LogWarning(object value)
-        {
-            if (value is string)
-                this.logWarning(value as string);
-            else
-                this.logWarning(value.ToString());
         }
 
         protected IEnumerable<Instruction> TypeOf(ILProcessor processor, TypeReference type)

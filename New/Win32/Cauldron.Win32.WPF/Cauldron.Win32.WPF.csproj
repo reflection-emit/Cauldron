@@ -107,7 +107,7 @@
     <Compile Include="ValueConverters\ObjectToVisibilityConverter.cs" />
     <Compile Include="ValueConverters\VisibilityToBooleanConverter.cs" />
     <Compile Include="ViewAttribute.cs" />
-    <Compile Include="Extensions_Win32.cs" />
+    <Compile Include="ViewModels\Extensions_Win32.cs" />
     <Compile Include="ViewModels\IChangeAwareViewModel.cs" />
     <Compile Include="ViewModels\ICloseAwareViewModel.cs" />
     <Compile Include="ViewModels\IDialogViewModel.cs" />
@@ -119,6 +119,7 @@
     <Compile Include="ViewModels\IViewModel.cs" />
     <Compile Include="ViewModels\MessageDialogCommandViewModel.cs" />
     <Compile Include="ViewModels\MessageDialogViewModel.cs" />
+    <Compile Include="ViewModels\RegisterChildrenAttribute.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="WindowConfiguration.cs" />
     <Compile Include="WindowType.cs" />

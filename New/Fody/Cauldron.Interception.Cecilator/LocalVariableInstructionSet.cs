@@ -33,7 +33,7 @@ namespace Cauldron.Interception.Cecilator
 
             var last = this.target.Last();
 
-            if (this.instructions.Count > 0 && this.instructions.Last().OpCode == OpCodes.Ldnull && last.Type.IsNullable)
+            if (this.instructions.Count > 0 && this.instructions.LastOrDefault().OpCode == OpCodes.Ldnull && last.Type.IsNullable)
             {
                 this.instructions.RemoveLast();
                 this.instructions.Append(processor.Create(OpCodes.Ldloca, last.variable));

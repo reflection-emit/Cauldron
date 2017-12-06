@@ -41,6 +41,11 @@ namespace Cauldron.XAML.ViewModels
         public event EventHandler<BehaviourInvocationArgs> BehaviourInvoke;
 
         /// <summary>
+        /// Occures if the <see cref="IsLoading"/> property has changed.
+        /// </summary>
+        public event EventHandler IsLoadingChanged;
+
+        /// <summary>
         /// Occurs when a property value changes.
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
@@ -84,7 +89,11 @@ namespace Cauldron.XAML.ViewModels
             {
                 if (this._isLoading == value)
                     return;
+
                 this._isLoading = value;
+
+                this.OnIsLoadingChanged();
+                this.IsLoadingChanged?.Invoke(this, EventArgs.Empty);
                 this.RaisePropertyChanged();
             }
         }
@@ -168,6 +177,13 @@ namespace Cauldron.XAML.ViewModels
         /// <param name="disposeManaged">true if managed resources requires disposing</param>
         protected override void OnDispose(bool disposeManaged)
         {
+            if (disposeManaged)
+                MessageManager.Unsubscribe(this);
         }
+
+        /// <summary>
+        /// Occures when the value of the <see cref="IsLoading"/> property has changed.
+        /// </summary>
+        protected virtual void OnIsLoadingChanged() { }
     }
 }

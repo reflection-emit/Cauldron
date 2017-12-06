@@ -72,7 +72,7 @@ namespace Cauldron.Interception.Cecilator
 
             this.markers.Add(new InstructionMarker
             {
-                instruction = this.instructions.Last(),
+                instruction = this.instructions.LastOrDefault(),
                 markerType = MarkerType.EndTry
             });
 
@@ -102,7 +102,7 @@ namespace Cauldron.Interception.Cecilator
 
         public IFinally Finally(Action<ICatchCode> body)
         {
-            var markerStart = this.instructions.Last();
+            var markerStart = this.instructions.LastOrDefault();
             body(this);
             this.instructions.Append(this.processor.Create(OpCodes.Endfinally));
 
@@ -124,7 +124,7 @@ namespace Cauldron.Interception.Cecilator
         private ICatch Catch(TypeReference exceptionType, Action<ICatchCode> body)
         {
             this.exceptionType = exceptionType;
-            var markerStart = this.instructions.Last();
+            var markerStart = this.instructions.LastOrDefault();
 
             // save the exception object to a local variable if required
             // but... we will only do this if required... so we save the current position and

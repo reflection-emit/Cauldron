@@ -13,7 +13,7 @@ namespace Cauldron.Interception.Fody
     {
         public void ImplementBamlInitializer(Builder builder)
         {
-            this.LogInfo($"Checking for xaml/baml resources without initializers.");
+            this.Log($"Checking for xaml/baml resources without initializers.");
 
             var xamlList = builder.ResourceNames?.Where(x => x.EndsWith(".baml")).Select(x => x.Replace(".baml", ".xaml")).ToArray();
 
@@ -25,7 +25,7 @@ namespace Cauldron.Interception.Fody
             var resourceDictionary = new __ResourceDictionary(builder);
             var collection = new __ICollection_1(builder);
 
-            this.LogInfo($"Implementing XAML initializer for baml resources.");
+            this.Log($"Implementing XAML initializer for baml resources.");
 
             // First we have to find every InitializeComponent method so that we can remove bamls that are already initialized.
             var allInitializeComponentMethods = builder.FindMethodsByName(SearchContext.Module, "InitializeComponent", 0).Where(x => !x.IsAbstract);

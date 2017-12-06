@@ -29,7 +29,7 @@ namespace Cauldron.Interception.Fody
 
             foreach (var type in types)
             {
-                this.LogInfo($"Implementing interceptors in type {type.Key.Fullname}");
+                this.Log($"Implementing interceptors in type {type.Key.Fullname}");
 
                 foreach (var method in type.Key.Methods)
                 {
@@ -51,7 +51,7 @@ namespace Cauldron.Interception.Fody
             }
 
             stopwatch.Stop();
-            this.LogInfo($"Implementing class wide method interceptors took {stopwatch.Elapsed.TotalMilliseconds}ms");
+            this.Log($"Implementing class wide method interceptors took {stopwatch.Elapsed.TotalMilliseconds}ms");
         }
 
         private void InterceptMethods(Builder builder, IEnumerable<BuilderType> attributes)
@@ -76,7 +76,7 @@ namespace Cauldron.Interception.Fody
 
             foreach (var method in methods)
             {
-                this.LogInfo($"Implementing interceptors in method {method.Key.Method}");
+                this.Log($"Implementing interceptors in method {method.Key.Method}");
 
                 var targetedMethod = method.Key.AsyncMethod == null ? method.Key.Method : method.Key.AsyncMethod;
                 var attributedMethod = method.Key.Method;
@@ -172,7 +172,7 @@ namespace Cauldron.Interception.Fody
             };
 
             stopwatch.Stop();
-            this.LogInfo($"Implementing method interceptors took {stopwatch.Elapsed.TotalMilliseconds}ms");
+            this.Log($"Implementing method interceptors took {stopwatch.Elapsed.TotalMilliseconds}ms");
         }
     }
 }
