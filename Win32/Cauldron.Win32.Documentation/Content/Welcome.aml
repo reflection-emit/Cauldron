@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<topic id="2cfbe5dd-6343-46e4-a622-1e6023028555" revisionNumber="1">
+  <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+                               xmlns:xlink="http://www.w3.org/1999/xlink"
+                               xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5">
+    <introduction>
+      <para>
+        For coding examples and explainations visit the wiki:
+      </para>
+      <ddue:externalLink xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5">
+        <ddue:linkText>Cauldron Wiki</ddue:linkText>
+        <ddue:linkUri>https://github.com/Capgemini/Cauldron/wiki</ddue:linkUri>
+        <ddue:linkTarget>_blank</ddue:linkTarget>
+      </ddue:externalLink>
+    </introduction>
+    <relatedTopics>
+      <ddue:externalLink xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5">
+        <ddue:linkText>Cauldron NetStandard Documentation</ddue:linkText>
+        <ddue:linkUri>https://capgemini.github.io/Cauldron/netstandard/</ddue:linkUri>
+        <ddue:linkTarget>_blank</ddue:linkTarget>
+      </ddue:externalLink>
+    </relatedTopics>
+  </developerConceptualDocument>
+</topic>

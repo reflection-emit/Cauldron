@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Topics>
+  <Topic id="3a2ae902-1f9e-4ec2-ad23-bb7f9bdd42b5" visible="True" isDefault="true" isSelected="true" title="Welcome to the Cauldron NetStandard Library Documentation">
+    <HelpKeywords>
+      <HelpKeyword index="K" term="Welcome" />
+    </HelpKeywords>
+  </Topic>
+</Topics>
