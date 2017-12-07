@@ -11,10 +11,7 @@ namespace Cauldron.Core.Yaml
         /// Initializes a new instance of <see cref="YamlPropertyAttribute"/>
         /// </summary>
         /// <param name="name">Name of the property.</param>
-        public YamlPropertyAttribute(string name)
-        {
-            this.Name = name;
-        }
+        public YamlPropertyAttribute(string name) => this.Name = name;
 
         /// <summary>
         /// Gets the name of the property

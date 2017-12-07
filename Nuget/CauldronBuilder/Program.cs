@@ -18,7 +18,7 @@ namespace CauldronBuilder
 
         public static void Main(string[] args)
         {
-            var startingLocation = new DirectoryInfo(args == null || args.Length == 0 ? Path.GetDirectoryName(Path.GetFileName(typeof(Program).Assembly.Location)) : args[0]);
+            var startingLocation = new DirectoryInfo(args == null || args.Length == 0 ? Path.GetDirectoryName(typeof(Program).Assembly.Location) : args[0]);
             data = CauldronBuilderData.GetConfig(startingLocation);
 
             var version = data.IsBeta ? data.CurrentPackageVersion + "-beta" : data.CurrentPackageVersion;
@@ -40,7 +40,7 @@ namespace CauldronBuilder
 
                     var allProjectFiles = Directory.GetFiles(startingLocation.FullName, "*.csproj", SearchOption.AllDirectories)
                         .Select(x => new FileInfo(x))
-                        .Where(x => !x.Name.Contains(".Test") && x.Name.StartsWith("Cauldron"))
+                        .Where(x => !x.Name.Contains(".Test") && x.Name.StartsWith("Cauldron") && !x.FullName.Contains("\\Old\\"))
                         .Select(x => new { Index = x.Name.Contains("Fody") ? 0 : 1, File = x })
                         .OrderBy(x => x.Index)
                         .Select(x => x.File)

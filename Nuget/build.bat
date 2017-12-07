@@ -1,1 +1,1 @@
-dotnet CauldronBuilder\bin\Debug\netcoreapp2.0\CauldronBuilder.dll %~dp0\..\
+dotnet %~dp0\CauldronBuilder.dll %~dp0\..\

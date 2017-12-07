@@ -2,10 +2,7 @@
 {
     internal class Yaml
     {
-        public Yaml()
-        {
-            this.Children = new YamlCollection(this);
-        }
+        public Yaml() => this.Children = new YamlCollection(this);
 
         public YamlCollection Children { get; private set; }
 

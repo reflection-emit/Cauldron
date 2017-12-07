@@ -6,10 +6,7 @@ namespace Cauldron.Core.Yaml
     {
         private Yaml parent;
 
-        public YamlCollection(Yaml parent)
-        {
-            this.parent = parent;
-        }
+        public YamlCollection(Yaml parent) => this.parent = parent;
 
         protected override void InsertItem(int index, Yaml item)
         {
