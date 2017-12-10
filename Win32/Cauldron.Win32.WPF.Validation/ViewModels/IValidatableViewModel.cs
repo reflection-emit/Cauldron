@@ -1,11 +1,11 @@
 ﻿using Cauldron.Core;
-using Cauldron.XAML.ViewModels;
+using Cauldron.XAML.Validation;
 using System;
 using System.ComponentModel;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace Cauldron.XAML.Validation.ViewModels
+namespace Cauldron.XAML.ViewModels
 {
     /// <summary>
     /// Represents a viewmodel that is able to validate property values

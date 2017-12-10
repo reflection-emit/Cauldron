@@ -384,15 +384,6 @@ namespace Cauldron.Core.Reflection
             var assemblies = new List<Assembly>();
 #endif
 
-#if NETCORE
-            AssemblyLoadContext.Default.Resolving += ResolveAssembly;
-#elif ANDROID
-            AppDomain.CurrentDomain.AssemblyResolve += ResolveAssembly;
-#elif DESKTOP || NETSTANDARD2_0
-            AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += ResolveAssembly;
-            AppDomain.CurrentDomain.AssemblyResolve += ResolveAssembly;
-#endif
-
 #if DESKTOP || ANDROID || NETCORE || NETSTANDARD2_0
 #if NETCORE
             foreach (var assembly in GetAssemblies())
@@ -431,6 +422,13 @@ namespace Cauldron.Core.Reflection
 
 #endif
             _assemblies = new ConcurrentBag<Assembly>(assemblies.Where(x => !x.IsDynamic).Distinct());
+
+#if NETCORE
+            AssemblyLoadContext.Default.Resolving += ResolveAssembly;
+#elif DESKTOP || NETSTANDARD2_0
+            AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += ResolveAssembly;
+            AppDomain.CurrentDomain.AssemblyResolve += ResolveAssembly;
+#endif
         }
 
         private static void GetAllAssemblyAndResourceNameInfo()

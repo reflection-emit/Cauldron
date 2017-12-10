@@ -1,4 +1,4 @@
-﻿using Cauldron.XAML.ViewModels;
+﻿using Cauldron.XAML.Validation;
 using System;
 using System.Collections;
 using System.ComponentModel;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace Cauldron.XAML.Validation.ViewModels
+namespace Cauldron.XAML.ViewModels
 {
     /// <summary>
     /// Represents a base class with an implemented validation
