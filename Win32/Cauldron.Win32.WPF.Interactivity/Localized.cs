@@ -6,11 +6,13 @@ using System.Reflection;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
+using Windows.ApplicationModel;
 
 #else
 
 using System.Windows;
 using System.Windows.Controls;
+using System.ComponentModel;
 
 #endif
 
@@ -21,7 +23,13 @@ namespace Cauldron.XAML.Interactivity
     /// <para/>
     /// Existing text are overridden.
     /// <para/>
-    /// Supported controls: <see cref="FrameworkElement.ToolTip"/><see cref="TextBlock.Text"/>, <see cref="ContentControl.Content"/>
+    /// Supported controls:
+    /// <para/>
+    /// (UWP) TextBlock, TextBox, ComboBox, ButtonBase, ContentControl
+    /// <para/>
+    /// (WPF) TextBlock, HeaderedContentControl, HeaderedItemsControl, GridViewColumn, ContentControl
+    /// <para/>
+    /// (Both) All tooltips and also controls with a Title property.
     /// </summary>
     public static class Localized
     {
@@ -54,6 +62,9 @@ namespace Cauldron.XAML.Interactivity
 
         private static void OnTextChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
         {
+            if (XAMLHelper.GetIsInDesignMode(dependencyObject))
+                return;
+
             var newValue = args.NewValue as string;
 
             var text = string.IsNullOrEmpty(newValue) ?
@@ -136,6 +147,9 @@ namespace Cauldron.XAML.Interactivity
 
         private static void OnToolTipChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
         {
+            if (XAMLHelper.GetIsInDesignMode(dependencyObject))
+                return;
+
             var value = args.NewValue as string;
             var text = string.IsNullOrEmpty(value) ? string.Empty : Locale.Current[value];
             var frameworkElement = dependencyObject as FrameworkElement;

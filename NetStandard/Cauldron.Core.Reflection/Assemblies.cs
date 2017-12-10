@@ -370,6 +370,13 @@ namespace Cauldron.Core.Reflection
 
         private static void GetAllAssemblies()
         {
+#if NETCORE
+            AssemblyLoadContext.Default.Resolving += ResolveAssembly;
+#elif DESKTOP || NETSTANDARD2_0
+            AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += ResolveAssembly;
+            AppDomain.CurrentDomain.AssemblyResolve += ResolveAssembly;
+#endif
+
 #if WINDOWS_UWP || NETCORE
             var assemblies = new List<Assembly>();
             var cauldron = System.Activator.CreateInstance(AssembliesCORE.EntryAssembly.GetType("<Cauldron>")) as ILoadedAssemblies;
@@ -422,13 +429,6 @@ namespace Cauldron.Core.Reflection
 
 #endif
             _assemblies = new ConcurrentBag<Assembly>(assemblies.Where(x => !x.IsDynamic).Distinct());
-
-#if NETCORE
-            AssemblyLoadContext.Default.Resolving += ResolveAssembly;
-#elif DESKTOP || NETSTANDARD2_0
-            AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += ResolveAssembly;
-            AppDomain.CurrentDomain.AssemblyResolve += ResolveAssembly;
-#endif
         }
 
         private static void GetAllAssemblyAndResourceNameInfo()
@@ -594,7 +594,7 @@ namespace Cauldron.Core.Reflection
             else
                 Debug.WriteLine($"Assembly '{e.RequestingAssembly.FullName}' requesting for '{e.Name}'");
 
-            var assembly = _assemblies.FirstOrDefault(x => x.FullName.GetHashCode() == e.Name.GetHashCode() && x.FullName == e.Name);
+            var assembly = _assemblies?.FirstOrDefault(x => x.FullName.GetHashCode() == e.Name.GetHashCode() && x.FullName == e.Name);
 
             // The following resolve tries can only be successfull if the dll's name is the same as
             // the simple Assembly name

@@ -7,11 +7,15 @@ using Cauldron.Core.Collections;
 
 using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Markup;
+using Windows.UI.Xaml;
+using Windows.ApplicationModel;
 
 #else
 
 using System.Windows.Documents;
 using System.Windows.Markup;
+using System.Windows;
+using System.ComponentModel;
 
 #endif
 
@@ -22,6 +26,24 @@ namespace Cauldron.XAML
     /// </summary>
     public static class XAMLHelper
     {
+        /// <summary>
+        /// Determines whether the <see cref="DependencyObject"/> is in design mode or not.
+        /// <para/>
+        /// ATTENTION: This is only a wrapper for the DesignerProperties.GetIsInDesignMode(DependencyObject) method (WPF) and the DesignMode.DesignModeEnabled method (UWP).
+        /// </summary>
+        /// <param name="dependencyObject">The element from which the property value is read. In UWP this is ignored and can be null.</param>
+        /// <exception cref="InvalidOperationException"><paramref name="dependencyObject"/> is null.</exception>
+        /// <returns>true if the process is running in design mode; otherwise false.</returns>
+        public static bool GetIsInDesignMode(DependencyObject dependencyObject)
+        {
+#if WINDOWS_UWP
+            return DesignMode.DesignModeEnabled;
+#else
+            return DesignerProperties.GetIsInDesignMode(dependencyObject);
+
+#endif
+        }
+
         /// <summary>
         /// Returns the value of the property described by the path.
         /// </summary>
