@@ -295,7 +295,8 @@ namespace Cauldron.XAML
         }
 
         /// <summary>
-        /// Occures on preload. Will only occures if <see cref="IsSingleInstance"/> is true
+        /// Occures on preload. Will only occures if <see cref="IsSingleInstance"/> is true or if the inheriting class has a View.
+        /// The view can be added by the <see cref="ViewAttribute"/> or as a DataTemplate with the correct naming nomenclature.
         /// </summary>
         protected virtual Task OnPreload() => Task.FromResult(0);
 

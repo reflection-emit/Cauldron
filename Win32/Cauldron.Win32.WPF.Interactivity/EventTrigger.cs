@@ -29,7 +29,7 @@ namespace Cauldron.XAML.Interactivity
 
     [ContentProperty(nameof(Actions))]
 #endif
-    public sealed class EventTrigger : Behaviour<FrameworkElement>
+    public sealed class EventTrigger : Behaviour<FrameworkElement>, IBehaviour
     {
         #region Dependency Property EventName
 
