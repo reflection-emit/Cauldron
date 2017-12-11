@@ -5,7 +5,6 @@ using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
@@ -518,9 +517,7 @@ namespace Cauldron.Activator
                 return CreateInstance(factoryTypeInfo, parameters);
             else if (factoryTypeInfo.CreationPolicy == FactoryCreationPolicy.Singleton)
             {
-                FactoryInstancedObject existingInstance;
-
-                if (instances.TryGetValue(factoryTypeInfo.ContractName + factoryTypeInfo.Type.FullName, out existingInstance))
+                if (instances.TryGetValue(factoryTypeInfo.ContractName + factoryTypeInfo.Type.FullName, out FactoryInstancedObject existingInstance))
                     return existingInstance.Item;
                 else
                 {
@@ -531,8 +528,7 @@ namespace Cauldron.Activator
                     // every singleton that implements the idisposable interface has also to
                     // implement the IDisposableObject interface this is because we want to know if
                     // an instance was disposed (somehow)
-                    var disposable = newInstance as IDisposable;
-                    if (disposable != null)
+                    if (newInstance is IDisposable disposable)
                     {
                         var disposableObject = newInstance as IDisposableObject;
                         if (disposableObject == null)
@@ -540,15 +536,12 @@ namespace Cauldron.Activator
 
                         disposableObject.Disposed += (s, e) =>
                         {
-                            FactoryInstancedObject thisInstance;
-
-                            if (instances.ContainsKey(key) && instances.TryRemove(key, out thisInstance))
+                            if (instances.ContainsKey(key) && instances.TryRemove(key, out FactoryInstancedObject thisInstance))
                                 thisInstance?.Dispose();
                         };
                     }
 
                     instances.TryAdd(key, new FactoryInstancedObject { FactoryTypeInfo = factoryTypeInfo, Item = newInstance });
-
                     return newInstance;
                 }
             }
