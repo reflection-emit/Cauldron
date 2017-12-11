@@ -452,10 +452,10 @@ namespace Cauldron.XAML.Navigation
                 windows.Remove(x => x.window == s);
 
                 if (callback1 != null)
-                {
                     (viewModel as IDialogViewModel<TResult>).IsNotNull(async x => await callback1(x.Result));
+
+                if (callback2 != null)
                     (viewModel as IDialogViewModel).IsNotNull(async x => await callback2());
-                }
 
                 window.Content.As<FrameworkElement>()?.DataContext.TryDispose();
 

@@ -24,6 +24,7 @@ namespace Cauldron.Interception.Fody
             var extensions = new __Extensions(builder);
             var resourceDictionary = new __ResourceDictionary(builder);
             var collection = new __ICollection_1(builder);
+            var uri = new __Uri(builder);
 
             this.Log($"Implementing XAML initializer for baml resources.");
 
@@ -79,13 +80,16 @@ namespace Cauldron.Interception.Fody
                 {
                     this.Log($"- Adding XAML '{item.Item}' with index '{item.Index}' to the Application's MergeDictionary");
                     x.NewObj(resourceDictionary.Ctor).StoreLocal(resourceDictionaryInstance);
-                    x.Call(resourceDick, collection.Add.MakeGeneric(resourceDictionary.Type), resourceDictionaryInstance);
                     x.Call(resourceDictionaryInstance, resourceDictionary.SetSource,
-                        x.NewCode().Call(extensions.RelativeUri, $"/{Path.GetFileNameWithoutExtension(this.Builder.Name)};component/{item.Item}")); // TODO -Need modification for UWP)
+                         x.NewCode().NewObj(uri.Ctor, $"pack://application:,,,/{Path.GetFileNameWithoutExtension(this.Builder.Name)};component/{item.Item}")); // TODO -Need modification for UWP)
+                    x.Call(resourceDick, collection.Add.MakeGeneric(resourceDictionary.Type), resourceDictionaryInstance);
                 }
             })
             .Return()
             .Replace();
+
+            // Let us look for ResourceDictionaries without a InitializeComponent in their ctor
+            // TODO
 
             resourceDictionaryMergerClass.ParameterlessContructor.CustomAttributes.AddEditorBrowsableAttribute(EditorBrowsableState.Never);
             resourceDictionaryMergerClass.ParameterlessContructor.CustomAttributes.Add(builder.GetType("Cauldron.Activator.ComponentConstructorAttribute"));

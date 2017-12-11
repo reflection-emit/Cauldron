@@ -73,7 +73,7 @@ namespace Cauldron.XAML
                     if (!this.Resources.Contains(name))
                         this.Resources.Add(name, x.CreateInstance());
                     else
-                        Debug.WriteLine("ERROR: Multiple MultiValueConverters with the same name found: " + name);
+                        Debug.WriteLine("ERROR: Multiple ValueConverters with the same name found: " + name);
                 });
 
             // find all resourcedictionaries and add them to the existing resources

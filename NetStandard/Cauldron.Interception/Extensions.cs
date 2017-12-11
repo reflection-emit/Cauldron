@@ -59,10 +59,6 @@ namespace Cauldron.Interception
 
         /// <exclude/>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public static Uri RelativeUri(string uri) => new Uri(uri, UriKind.Relative);
-
-        /// <exclude/>
-        [EditorBrowsable(EditorBrowsableState.Never)]
         public static void TryDisposeInternal(this object context)
         {
             var disposable = context as IDisposable;

@@ -6,7 +6,7 @@ namespace Cauldron.Interception.Fody.HelperTypes
     {
         public __Uri(Builder builder) : base(builder, "System.Uri")
         {
-            this.Ctor = this.type.GetMethod(".ctor", true, "System.String", "System.UriKind");
+            this.Ctor = this.type.GetMethod(".ctor", true, "System.String");
         }
 
         public Method Ctor { get; private set; }
