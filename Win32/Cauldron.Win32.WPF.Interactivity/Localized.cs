@@ -45,20 +45,14 @@ namespace Cauldron.XAML.Interactivity
         /// </summary>
         /// <param name="obj"><see cref="DependencyObject"/> with the attached property</param>
         /// <returns>The value of the attached property</returns>
-        public static string GetText(DependencyObject obj)
-        {
-            return (string)obj.GetValue(TextProperty);
-        }
+        public static string GetText(DependencyObject obj) => (string)obj.GetValue(TextProperty);
 
         /// <summary>
         /// Sets the value of the Text attached property
         /// </summary>
         /// <param name="obj"><see cref="DependencyObject"/> with the attached property</param>
         /// <param name="value">The new value to set</param>
-        public static void SetText(DependencyObject obj, string value)
-        {
-            obj.SetValue(TextProperty, value);
-        }
+        public static void SetText(DependencyObject obj, string value) => obj.SetValue(TextProperty, value);
 
         private static void OnTextChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
         {
@@ -107,16 +101,34 @@ namespace Cauldron.XAML.Interactivity
 #endif
             else if (dependencyObject is ContentControl)
                 (dependencyObject as ContentControl).Content = text;
-            else
-            {
-                // We just try to get a title property - this will not work in UWP Native
-                var title = dependencyObject.GetType().GetProperty("Title", BindingFlags.Public | BindingFlags.Instance);
-                if (title != null)
-                    title.SetValue(dependencyObject, text);
-            }
+
+            Localized.SetLocalizedText(dependencyObject, text);
         }
 
         #endregion Dependency Attached Property Text
+
+        #region Dependency Attached Property LocalizedText
+
+        /// <summary>
+        /// Identifies the LocalizedText dependency property
+        /// </summary>
+        public static readonly DependencyProperty LocalizedTextProperty = DependencyProperty.RegisterAttached("LocalizedText", typeof(string), typeof(Localized), new PropertyMetadata(null));
+
+        /// <summary>
+        /// Gets the value of LocalizedText
+        /// </summary>
+        /// <param name="obj"><see cref="DependencyObject" /> with the attached property</param>
+        /// <returns>The value of the attached property</returns>
+        public static string GetLocalizedText(DependencyObject obj) => (string)obj.GetValue(LocalizedTextProperty);
+
+        /// <summary>
+        /// Sets the value of the LocalizedText attached property
+        /// </summary>
+        /// <param name="obj"><see cref="DependencyObject" /> with the attached property</param>
+        /// <param name="value">The new value to set</param>
+        public static void SetLocalizedText(DependencyObject obj, string value) => obj.SetValue(LocalizedTextProperty, value);
+
+        #endregion Dependency Attached Property LocalizedText
 
         #region Dependency Attached Property ToolTip
 

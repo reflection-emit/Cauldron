@@ -14,6 +14,7 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron XAML WPF Behaviours Actions MVVM</tags>
     <releaseNotes>
+      2017.12.12 - [A] New property added to 'Localized': 'LocalizedText'
       2017.12.10 - [B] The "Localized" attached property will not continue loading if in design mode to avoid those weird errors in the WPF editor
     </releaseNotes>
     <dependencies>
