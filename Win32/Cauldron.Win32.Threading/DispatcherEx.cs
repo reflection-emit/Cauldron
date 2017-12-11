@@ -64,7 +64,7 @@ namespace Cauldron.Core.Threading
             if (this.dispatcher == null)
                 return;
 
-            await this.dispatcher.BeginInvoke(action, System.Windows.Threading.DispatcherPriority.Normal);
+            await this.dispatcher.InvokeAsync(action, System.Windows.Threading.DispatcherPriority.Normal);
         }
 
         /// <summary>
@@ -91,19 +91,19 @@ namespace Cauldron.Core.Threading
             switch (priority)
             {
                 case DispatcherPriority.Idle:
-                    await this.dispatcher.BeginInvoke(action, System.Windows.Threading.DispatcherPriority.ContextIdle);
+                    await this.dispatcher.InvokeAsync(action, System.Windows.Threading.DispatcherPriority.ContextIdle);
                     break;
 
                 case DispatcherPriority.Low:
-                    await this.dispatcher.BeginInvoke(action, System.Windows.Threading.DispatcherPriority.Background);
+                    await this.dispatcher.InvokeAsync(action, System.Windows.Threading.DispatcherPriority.Background);
                     break;
 
                 case DispatcherPriority.High:
-                    await this.dispatcher.BeginInvoke(action, System.Windows.Threading.DispatcherPriority.Send);
+                    await this.dispatcher.InvokeAsync(action, System.Windows.Threading.DispatcherPriority.Send);
                     break;
 
                 default:
-                    await this.dispatcher.BeginInvoke(action, System.Windows.Threading.DispatcherPriority.Normal);
+                    await this.dispatcher.InvokeAsync(action, System.Windows.Threading.DispatcherPriority.Normal);
                     break;
             }
         }
