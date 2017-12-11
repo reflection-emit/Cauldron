@@ -18,9 +18,7 @@ namespace Cauldron.Core.Threading
         /// Initializes a new instance of <see cref="Dispatcher"/>
         /// </summary>
         [ComponentConstructor]
-        public DispatcherEx()
-        {
-        }
+        public DispatcherEx() => this.dispatcher = this.OnCreateDispatcher();
 
         /// <summary>
         /// Determines whether the calling thread has access to this <see cref="Dispatcher"/>

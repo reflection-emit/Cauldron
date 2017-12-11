@@ -16,6 +16,6 @@ namespace Cauldron.XAML
         }
 
         /// <exclude />
-        protected override Dispatcher OnCreateDispatcher() => Application.Current.Dispatcher;
+        protected override Dispatcher OnCreateDispatcher() => (Application.Current as Application).Dispatcher;
     }
 }
