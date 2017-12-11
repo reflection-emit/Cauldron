@@ -12,6 +12,9 @@
     <description>Provides useful helpers regarding threading</description>
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Async Await Helper Threading Dspatcher</tags>
+    <releaseNotes>
+      2017.12.11 - [B] BUG!!!! ... Dispatcher was using BeginInvoke instead of InvokeAsync
+    </releaseNotes>
     <dependencies>
       <group targetFramework=".NETStandard2.0">
         <dependency id="Capgemini.Cauldron.Activator" version="2.0.18" />

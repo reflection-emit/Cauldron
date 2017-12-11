@@ -292,8 +292,11 @@ namespace Cauldron.Interception.Fody
 
                 foreach (var property in type.Key.Properties)
                 {
-                    if (!property.IsAutoProperty)
+                    if (property.BackingField == null)
+                    {
+                        this.Log(LogTypes.Error, property, "Unable to detect the backing field of property: " + property);
                         continue;
+                    }
 
                     if (property.CustomAttributes.HasAttribute(doNotInterceptAttribute))
                     {
@@ -338,9 +341,9 @@ namespace Cauldron.Interception.Fody
             {
                 this.Log($"Implementing interceptors in property {member.Property}");
 
-                if (!member.Property.IsAutoProperty)
+                if (member.Property.BackingField == null)
                 {
-                    this.Log(LogTypes.Error, member.Property, $"{member.Property.Name}: The current version of the property interceptor only supports auto-properties.");
+                    this.Log(LogTypes.Error, member.Property, "Unable to detect the backing field of property: " + member.Property);
                     continue;
                 }
 

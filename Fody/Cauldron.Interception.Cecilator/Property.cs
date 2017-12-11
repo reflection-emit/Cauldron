@@ -32,10 +32,24 @@ namespace Cauldron.Interception.Cecilator
             {
                 if (this.backingField == null)
                 {
-                    var instruction =
-                        this.propertyDefinition.GetMethod?.Body.Instructions.LastOrDefault(x => x.OpCode == OpCodes.Ldfld || x.OpCode == OpCodes.Ldsfld) ??
-                        this.propertyDefinition.SetMethod?.Body.Instructions.FirstOrDefault(x => x.OpCode == OpCodes.Stfld || x.OpCode == OpCodes.Stsfld);
-                    var operand = instruction?.Operand;
+                    var fieldInGetter = this.propertyDefinition.GetMethod?.Body.Instructions.LastOrDefault(x => x.OpCode == OpCodes.Ldfld || x.OpCode == OpCodes.Ldsfld);
+                    var fieldInSetter = this.propertyDefinition.SetMethod?.Body.Instructions.LastOrDefault(x => x.OpCode == OpCodes.Stfld || x.OpCode == OpCodes.Stsfld);
+                    object operand = null;
+
+                    /*
+                     * This is a very basic detection of the backing field...
+                     * If there is a setter and a getter we will try to get the fields (by LdFld and Stfld) used in the getter and setter.
+                     * If both fields are the same then we will asume that this is the correct backing field...
+                     * In other cases we will be just having wild guesses.
+                     */
+
+                    if (this.Getter != null && this.Setter != null && fieldInGetter == fieldInSetter)
+                        operand = fieldInSetter?.Operand;
+                    else if (this.Getter != null && fieldInGetter != null)
+                        operand = fieldInGetter?.Operand;
+                    else if (this.Setter != null && fieldInSetter != null)
+                        operand = fieldInSetter?.Operand;
+
                     var field = operand as FieldDefinition ?? operand as FieldReference;
                     if (field != null)
                         this.backingField = new Field(this.type, field.Resolve(), field);
