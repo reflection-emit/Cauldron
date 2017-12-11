@@ -1,4 +1,4 @@
-﻿using Cauldron.XAML.Validation.ViewModels;
+﻿using Cauldron.XAML.ViewModels;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;

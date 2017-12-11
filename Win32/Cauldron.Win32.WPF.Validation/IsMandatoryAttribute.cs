@@ -1,5 +1,5 @@
 ﻿using Cauldron.Core.Collections;
-using Cauldron.XAML.Validation.ViewModels;
+using Cauldron.XAML.ViewModels;
 using System;
 using System.Collections;
 using System.Reflection;

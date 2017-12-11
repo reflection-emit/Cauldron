@@ -1,6 +1,6 @@
-﻿using Cauldron.XAML.Validation.ViewModels;
+﻿using Cauldron.Localization;
+using Cauldron.XAML.ViewModels;
 using System;
-using Cauldron.Localization;
 using System.Reflection;
 using System.Threading.Tasks;
 

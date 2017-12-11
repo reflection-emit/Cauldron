@@ -37,9 +37,9 @@ namespace Cauldron.XAML.ValueConverters
             var p = parameter?.ToString().ToBool();
 
             if (p.HasValue && p.Value)
-                return value == null ? Visibility.Collapsed : Visibility.Visible;
-            else
                 return value == null ? Visibility.Visible : Visibility.Collapsed;
+            else
+                return value == null ? Visibility.Collapsed : Visibility.Visible;
         }
 
         /// <summary>
@@ -58,9 +58,9 @@ namespace Cauldron.XAML.ValueConverters
             var p = parameter?.ToString().ToBool();
 
             if (p.HasValue && p.Value)
-                return (Visibility)value == Visibility.Collapsed ? null : Factory.Create(targetType);
-            else
                 return (Visibility)value == Visibility.Visible ? null : Factory.Create(targetType);
+            else
+                return (Visibility)value == Visibility.Collapsed ? null : Factory.Create(targetType);
         }
     }
 }

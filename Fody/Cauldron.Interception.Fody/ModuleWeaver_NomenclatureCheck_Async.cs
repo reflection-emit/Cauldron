@@ -17,7 +17,7 @@ namespace Cauldron.Interception.Fody
             var methods = builder
                 .GetTypes(SearchContext.Module)
                 .SelectMany(x => x.Methods)
-                .Where(x => (x.ReturnType == task.Type || x.ReturnType == taskGeneric.Type) && !x.Name.EndsWith("Async"));
+                .Where(x => (x.ReturnType == task.Type || x.ReturnType == taskGeneric.Type) && !x.Name.EndsWith("Async") && !x.Name.EndsWith("Action"));
 
             foreach (var item in methods)
                 this.Log(LogTypes.Warning, item, $"The method '{item.Name}' in '{item.DeclaringType.Fullname}' is async, but does not have an 'Async' suffix.");

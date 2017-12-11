@@ -60,6 +60,7 @@
     <Compile Include="HelperTypes\__AsyncTaskMethodBuilder`1.cs" />
     <Compile Include="HelperTypes\__AsyncTaskMethodBuilder.cs" />
     <Compile Include="HelperTypes\HelperTypeBase.cs" />
+    <Compile Include="HelperTypes\__ComponentAttribute.cs" />
     <Compile Include="HelperTypes\__EventArgs.cs" />
     <Compile Include="HelperTypes\__EventHandler.cs" />
     <Compile Include="HelperTypes\__EventHandler`1.cs" />

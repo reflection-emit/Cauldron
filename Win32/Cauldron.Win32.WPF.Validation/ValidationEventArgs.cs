@@ -1,4 +1,4 @@
-﻿using Cauldron.XAML.Validation.ViewModels;
+﻿using Cauldron.XAML.ViewModels;
 using System;
 
 namespace Cauldron.XAML.Validation

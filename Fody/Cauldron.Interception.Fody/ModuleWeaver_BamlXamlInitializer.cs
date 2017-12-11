@@ -17,7 +17,7 @@ namespace Cauldron.Interception.Fody
 
             var xamlList = builder.ResourceNames?.Where(x => x.EndsWith(".baml")).Select(x => x.Replace(".baml", ".xaml")).ToArray();
 
-            if (xamlList == null || xamlList.Length == 0 || !builder.TypeExists("System.Windows.Application"))
+            if (!this.IsActivatorReferenced || !this.IsXAML || xamlList == null || xamlList.Length == 0 || !builder.TypeExists("System.Windows.Application"))
                 return;
 
             var application = new __Application(builder);
@@ -38,7 +38,25 @@ namespace Cauldron.Interception.Fody
             });
 
             var xamlWithInitializers = ldStrs.Select(x => x.Substring(x.IndexOf("component/") + "component/".Length)).ToArray();
-            var xamlThatRequiredInitializers = xamlList.Where(x => !xamlWithInitializers.Contains(x));
+            var xamlThatRequiredInitializers = xamlList
+                .Where(x => !xamlWithInitializers.Contains(x))
+                .Select(x =>
+                {
+                    var index = uint.MaxValue;
+                    if (x.IndexOf('-') > 0)
+                    {
+                        var dashPosition = x.LastIndexOf('-') + 1;
+                        var pointPosition = x.IndexOf('.', dashPosition);
+
+                        if (uint.TryParse(x.Substring(dashPosition, pointPosition > dashPosition ? pointPosition - dashPosition : x.Length - dashPosition), out uint result))
+                            index = result;
+                    }
+
+                    return new { Index = index, Item = x };
+                })
+                .OrderBy(x => x.Index)
+                .ThenBy(x => x.Item)
+                .ToArray();
 
             var resourceDictionaryMergerClass = builder.CreateType("XamlGeneratedNamespace", TypeAttributes.Public | TypeAttributes.Class | TypeAttributes.Sealed, "<>_generated_resourceDictionary_Loader");
             resourceDictionaryMergerClass.CustomAttributes.Add(builder.GetType("Cauldron.Activator.ComponentAttribute"), resourceDictionary.Type.Fullname);
@@ -59,10 +77,11 @@ namespace Cauldron.Interception.Fody
 
                 foreach (var item in xamlThatRequiredInitializers)
                 {
+                    this.Log($"- Adding XAML '{item.Item}' with index '{item.Index}' to the Application's MergeDictionary");
                     x.NewObj(resourceDictionary.Ctor).StoreLocal(resourceDictionaryInstance);
                     x.Call(resourceDick, collection.Add.MakeGeneric(resourceDictionary.Type), resourceDictionaryInstance);
                     x.Call(resourceDictionaryInstance, resourceDictionary.SetSource,
-                        x.NewCode().Call(extensions.RelativeUri, $"/{Path.GetFileNameWithoutExtension(this.Builder.Name)};component/{item}")); // TODO -Need modification for UWP)
+                        x.NewCode().Call(extensions.RelativeUri, $"/{Path.GetFileNameWithoutExtension(this.Builder.Name)};component/{item.Item}")); // TODO -Need modification for UWP)
                 }
             })
             .Return()

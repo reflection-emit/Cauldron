@@ -283,27 +283,6 @@ namespace Cauldron.Interception.Cecilator
 
         public IEnumerable<Method> FindMethodsByName(SearchContext searchContext, string methodName) => this.GetTypes(searchContext).SelectMany(x => x.GetMethods(methodName, 0));
 
-        private Method GetAsyncMethod(MethodDefinition method)
-        {
-            var asyncStateMachine = method.CustomAttributes.Get("System.Runtime.CompilerServices.AsyncStateMachineAttribute");
-
-            if (asyncStateMachine != null)
-            {
-                var asyncType = asyncStateMachine.ConstructorArguments[0].Value as TypeReference;
-                var asyncTypeMethod = asyncType.Resolve().Methods.Get("MoveNext");
-
-                if (asyncTypeMethod == null)
-                {
-                    this.Log(LogTypes.Error, method, "Unable to find the method MoveNext of async method " + method.Name);
-                    return null;
-                }
-
-                return new Method(new BuilderType(this, asyncType), asyncTypeMethod);
-            }
-
-            return null;
-        }
-
         #endregion Method Finders
 
         #region Attribute Finders

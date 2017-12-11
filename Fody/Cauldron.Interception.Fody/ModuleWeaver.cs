@@ -15,6 +15,11 @@ namespace Cauldron.Interception.Fody
     {
         private int counter = 0;
 
+        private bool IsActivatorReferenced => this.Builder.TypeExists("Cauldron.Activator.Factory") && this.Builder.TypeExists("Cauldron.Activator.FactoryObjectCreatedEventArgs");
+
+        private bool IsXAML => (this.Builder.IsReferenced("Cauldron.XAML") || this.Builder.IsReferenced("System.Xaml") || this.Builder.IsReferenced("Windows.UI.Xaml")) &&
+                (this.Builder.TypeExists("Windows.UI.Xaml.Data.IValueConverter") || this.Builder.TypeExists("System.Windows.Data.IValueConverter") /* Fixes #39 */);
+
         public override void OnExecute()
         {
             if (!this.Builder.IsReferenced("Cauldron.Interception"))
@@ -598,9 +603,7 @@ namespace Cauldron.Interception.Fody
                 .Return()
                 .Replace();
 
-            if (builder.TypeExists("Cauldron.Activator.Factory") && builder.TypeExists("Cauldron.Activator.FactoryObjectCreatedEventArgs") &&
-                (builder.IsReferenced("Cauldron.XAML") || builder.IsReferenced("System.Xaml") || builder.IsReferenced("Windows.UI.Xaml")) &&
-                (builder.TypeExists("Windows.UI.Xaml.Data.IValueConverter") || builder.TypeExists("System.Windows.Data.IValueConverter") /* Fixes #39 */))
+            if (this.IsActivatorReferenced && this.IsXAML)
                 AddAttributeToXAMLResources(builder);
 
             if (builder.TypeExists("Cauldron.Activator.Factory"))

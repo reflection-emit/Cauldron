@@ -1,6 +1,6 @@
-﻿using Cauldron.XAML.Validation.ViewModels;
+﻿using Cauldron.Core;
+using Cauldron.XAML.ViewModels;
 using System;
-using Cauldron.Core;
 using System.Reflection;
 using System.Threading.Tasks;
 

@@ -1,5 +1,4 @@
-﻿using Cauldron.Core.Extensions;
-using Cauldron.XAML.Validation.ViewModels;
+﻿using Cauldron.XAML.ViewModels;
 using System;
 using System.Reflection;
 using System.Threading.Tasks;

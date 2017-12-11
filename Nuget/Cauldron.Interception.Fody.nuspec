@@ -15,6 +15,8 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Interception interceptor interception AOP Fody Cecil CIL ILWeaving</tags>
     <releaseNotes>
+      2017.12.11 - [B] Sort of fixed the issue that jumping to errors on async methods did not work.
+      2017.12.11 - [B] Fixed a bug that caused the weaver to weav types that does not exist and then throws exceptions.
       2017.12.11 - [B] A bug was in "cleaning" fixed that caused local variables to be removed although they were still in use.
       2017.12.11 - [A] Allowing non auto-properties to be intercepted.
       2017.12.06 - [B] Fixed the weaver for the IChangeAwareViewModel interface.

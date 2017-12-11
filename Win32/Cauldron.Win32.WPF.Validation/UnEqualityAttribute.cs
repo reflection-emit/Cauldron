@@ -1,5 +1,5 @@
 ﻿using Cauldron.Core;
-using Cauldron.XAML.Validation.ViewModels;
+using Cauldron.XAML.ViewModels;
 using System;
 using System.Reflection;
 using System.Security;

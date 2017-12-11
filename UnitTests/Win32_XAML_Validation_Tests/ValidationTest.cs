@@ -1,6 +1,6 @@
 ﻿using Cauldron.Activator;
 using Cauldron.XAML.Validation;
-using Cauldron.XAML.Validation.ViewModels;
+using Cauldron.XAML.ViewModels;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 using System.Threading.Tasks;

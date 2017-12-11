@@ -71,6 +71,16 @@ namespace Cauldron.Interception.Cecilator
             return null;
         }
 
+        public static Method GetAsyncMethod(this Builder builder, MethodDefinition method)
+        {
+            var result = (builder as CecilatorObject).GetAsyncMethod(method);
+
+            if (result.HasValue)
+                return new Method(new BuilderType(builder, result.Value.AsyncType), result.Value.MethodDefinition);
+
+            return null;
+        }
+
         public static IEnumerable<TypeReference> GetBaseClasses(this TypeReference type)
         {
             var typeDef = type.BetterResolve();
@@ -284,6 +294,23 @@ namespace Cauldron.Interception.Cecilator
             return new TypeReference[0];
         }
 
+        public static SequencePoint GetSequencePoint(this MethodDefinition methodDefinition)
+        {
+            if (methodDefinition == null || methodDefinition.Body == null || methodDefinition.Body.Instructions == null)
+                return null;
+
+            foreach (var instruction in methodDefinition.Body.Instructions)
+            {
+                var result = methodDefinition.DebugInformation.GetSequencePoint(instruction);
+                if (result == null)
+                    continue;
+
+                return result;
+            }
+
+            return null;
+        }
+
         public static bool Implements(this TypeReference type, string interfaceName) => type.GetInterfaces().Any(x => x.FullName == interfaceName);
 
         public static int IndexOf(this IList<Instruction> instructions, int offset)
@@ -310,6 +337,19 @@ namespace Cauldron.Interception.Cecilator
         public static bool IsSubclassOf(this BuilderType child, BuilderType parent) => child.typeDefinition != parent.typeDefinition && child.BaseClasses.Any(x => x.typeDefinition == parent.typeDefinition);
 
         public static bool IsSubclassOf(this TypeReference child, TypeReference parent) => child != parent && child.GetBaseClasses().Any(x => x == parent);
+
+        public static void Log(this CecilatorObject cecilatorObject, LogTypes logTypes, BuilderType type, object arg) => cecilatorObject.Log(logTypes, type.GetRelevantConstructors().FirstOrDefault() ?? type.Methods.FirstOrDefault(), arg);
+
+        public static void Log(this CecilatorObject cecilatorObject, LogTypes logTypes, Property property, object arg) => cecilatorObject.Log(logTypes, property.Getter ?? property.Setter, arg);
+
+        public static void Log(this CecilatorObject cecilatorObject, LogTypes logTypes, Method method, object arg)
+        {
+            var result = cecilatorObject.GetAsyncMethod(method.methodDefinition);
+            if (result.HasValue)
+                cecilatorObject.Log(logTypes, result.Value.MethodDefinition.GetSequencePoint(), arg);
+            else
+                cecilatorObject.Log(logTypes, method.methodDefinition.GetSequencePoint(), arg);
+        }
 
         public static TNew New<TType, TNew>(this TType target, Func<TType, TNew> predicate) => predicate(target);
 
@@ -726,6 +766,27 @@ namespace Cauldron.Interception.Cecilator
                 return type.ResolveType(ownerMethod);
             else
                 return type;
+        }
+
+        private static (MethodDefinition MethodDefinition, TypeReference AsyncType)? GetAsyncMethod(this CecilatorObject cecilatorObject, MethodDefinition method)
+        {
+            var asyncStateMachine = method.CustomAttributes.Get("System.Runtime.CompilerServices.AsyncStateMachineAttribute");
+
+            if (asyncStateMachine != null)
+            {
+                var asyncType = asyncStateMachine.ConstructorArguments[0].Value as TypeReference;
+                var asyncTypeMethod = asyncType.Resolve().Methods.Get("MoveNext");
+
+                if (asyncTypeMethod == null)
+                {
+                    cecilatorObject.Log(LogTypes.Error, method, "Unable to find the method MoveNext of async method " + method.Name);
+                    return null;
+                }
+
+                return (asyncTypeMethod, asyncType);
+            }
+
+            return null;
         }
 
         private static IEnumerable<TypeReference> GetGenericInstances(this GenericInstanceType type)
