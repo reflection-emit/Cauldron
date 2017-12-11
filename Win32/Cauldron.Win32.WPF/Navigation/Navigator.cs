@@ -211,14 +211,8 @@ namespace Cauldron.XAML.Navigation
                 else if (viewAttrib != null && !string.IsNullOrEmpty(viewAttrib.ViewName))
                     windowInfo = await CreateWindow(viewModel, callback1, callback2, viewAttrib.ViewName);
                 else // The viewmodel does not have a defined view... Maybe we have a data template instead
-                {
-                    // we always prefer our selector, because it rocks
-                    var templateSelector = Application.Current.Resources[typeof(CauldronTemplateSelector).Name] as DataTemplateSelector;
-                    var dataTemplate = templateSelector.SelectTemplate(viewModel, null);
-
                     // If we dont have a dataTemplate... we try to find a matching FrameworkElement
-                    windowInfo = await CreateWindow(viewModel, callback1, callback2, viewModelType.FullName);
-                }
+                    windowInfo = await CreateWindow(viewModel, callback1, callback2, viewModelType.Name);
 
                 var window = windowInfo.Item1;
                 (viewModel as IDisposableObject).IsNotNull(x => x.Disposed += async (s, e) => await viewModel.Dispatcher.RunAsync(() => window.Close()));

@@ -1,14 +1,11 @@
-﻿using Cauldron.Core.Extensions;
-using Cauldron.XAML.Interactivity;
-using Cauldron.XAML.Validation.ViewModels;
+﻿using Cauldron.XAML.Interactivity;
+using Cauldron.XAML.ViewModels;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 #if WINDOWS_UWP
 

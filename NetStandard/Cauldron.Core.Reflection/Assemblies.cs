@@ -599,25 +599,40 @@ namespace Cauldron.Core.Reflection
             // The following resolve tries can only be successfull if the dll's name is the same as
             // the simple Assembly name
 
-            // Try to load it from application directory
-            if (assembly == null)
+            try
             {
-                var file = Path.Combine(ApplicationInfo.ApplicationPath.FullName, $"{new AssemblyName(e.Name).Name}.dll");
-                if (File.Exists(file))
-                    return Assembly.LoadFile(file);
+                // Try to load it from application directory
+                if (assembly == null)
+                {
+                    var file = Path.Combine(ApplicationInfo.ApplicationPath.FullName, $"{new AssemblyName(e.Name).Name}.dll");
+                    if (File.Exists(file))
+                        return Assembly.LoadFile(file);
+                }
+
+                // Try to load it from current domain's base directory
+                var assemblyFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"{new AssemblyName(e.Name).Name}.dll");
+                if (File.Exists(assemblyFile))
+                    return Assembly.LoadFile(assemblyFile);
+
+                // As last resort try to load it from the Cauldron.Core.dlls directory
+                assemblyFile = Path.Combine(Path.GetDirectoryName(typeof(Assemblies).Assembly.Location), $"{new AssemblyName(e.Name).Name}.dll");
+                if (File.Exists(assemblyFile))
+                    return Assembly.LoadFile(assemblyFile);
+
+                return assembly;
             }
-
-            // Try to load it from current domain's base directory
-            var assemblyFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"{new AssemblyName(e.Name).Name}.dll");
-            if (File.Exists(assemblyFile))
-                return Assembly.LoadFile(assemblyFile);
-
-            // As last resort try to load it from the Cauldron.Core.dlls directory
-            assemblyFile = Path.Combine(Path.GetDirectoryName(typeof(Assemblies).Assembly.Location), $"{new AssemblyName(e.Name).Name}.dll");
-            if (File.Exists(assemblyFile))
-                return Assembly.LoadFile(assemblyFile);
-
-            return assembly;
+            catch (FileLoadException)
+            {
+                return null;
+            }
+            catch (ArgumentException)
+            {
+                return null;
+            }
+            catch
+            {
+                throw;
+            }
         }
 
 #endif

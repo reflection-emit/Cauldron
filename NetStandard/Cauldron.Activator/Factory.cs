@@ -273,7 +273,7 @@ namespace Cauldron.Activator
             if (components.TryGetValue(contractName, out IFactoryTypeInfo[] factoryInfos))
             {
                 if (factoryInfos.Length == 1)
-                    return new object[] { GetInstance(factoryInfos[0], parameters) };
+                    return GetInstance(factoryInfos[0], parameters);
 
                 if (factoryInfos.Length != 0)
                     return GetInstance(factoryInfos.MaxBy(x => x.Priority), parameters);

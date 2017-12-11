@@ -995,24 +995,34 @@ namespace Cauldron.Interception.Cecilator
                     variable = variables[3];
                     instructions[i].OpCode = OpCodes.Stloc;
                 }
-                else if (instructions[i].OpCode == OpCodes.Ldloc || instructions[i].OpCode == OpCodes.Ldloca || instructions[i].OpCode == OpCodes.Ldloca_S || instructions[i].OpCode == OpCodes.Ldloc_S || instructions[i].OpCode == OpCodes.Stloc)
+                else if (
+                    instructions[i].OpCode == OpCodes.Ldloca_S ||
+                    instructions[i].OpCode == OpCodes.Ldloc_S)
+                {
+                    variable = variables[(int)instructions[i].Operand];
+                    instructions[i].OpCode = OpCodes.Ldloc;
+                }
+                else if (
+                    instructions[i].OpCode == OpCodes.Stloc_S)
+                {
+                    variable = variables[(int)instructions[i].Operand];
+                    instructions[i].OpCode = OpCodes.Stloc;
+                }
+                else if (
+                    instructions[i].OpCode == OpCodes.Ldloc ||
+                    instructions[i].OpCode == OpCodes.Ldloca ||
+                    instructions[i].OpCode == OpCodes.Stloc)
                     variable = instructions[i].Operand as VariableDefinition;
 
                 if (variable != null)
+                {
                     instructions[i].Operand = variable;
-
-                if (variable != null && !usedVariables.Contains(variable))
                     usedVariables.Add(variable);
+                }
             }
 
-            for (int i = 0; i < variables.Count; i++)
-            {
-                if (usedVariables.Contains(variables[i]))
-                    continue;
-
-                variables.RemoveAt(i);
-                i--;
-            }
+            //foreach (var item in variables.Where(x => !usedVariables.Contains(x)).ToArray())
+            //    variables.Remove(item);
         }
 
         protected virtual IFieldCode CreateFieldInstructionSet(Field field, AssignInstructionType instructionType) => new FieldInstructionsSet(this, field, this.instructions, instructionType);

@@ -384,13 +384,16 @@ namespace Cauldron.XAML
                 }
                 else if (this.GetType().GetCustomAttribute<ViewAttribute>() != null || Application.Current.Resources.Contains($"View_{this.GetType().Name}"))
                 {
+                    var oldShutdownMode = Application.Current.ShutdownMode;
+                    Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
                     this.Navigator.As<Navigator>()?.NavigateInternal<ApplicationBase>(this, null, null);
                     await this.OnPreload();
                     Application.Current.MainWindow.Activate();
+                    this.Navigator.TryClose(this);
+                    Application.Current.ShutdownMode = oldShutdownMode;
                 }
 
                 await this.OnStartup(new LaunchActivatedEventArgs(e.Args));
-                this.Navigator.TryClose(this);
 
                 if (Application.Current.MainWindow != null)
                 {

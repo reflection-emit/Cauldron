@@ -8,6 +8,8 @@ namespace Win32_Fody_Assembly_Validation_Tests
     [TestClass]
     public class Property_Interceptor_Code_Validation_Tests
     {
+        private string _myCustomBackingField;
+
         [ExternalLockablePropertyInterceptor]
         public static string StaticLockableProperty { get; set; }
 
@@ -33,6 +35,25 @@ namespace Win32_Fody_Assembly_Validation_Tests
         [ExternalLockablePropertyInterceptor]
         [EnumPropertyInterceptor]
         public int PropertyWithMultipleInterceptors { get; set; }
+
+        [TestPropertyInterceptor]
+        public string ThisIsMyProperty
+        {
+            get
+            {
+                if (this._myCustomBackingField == null)
+                    this._myCustomBackingField = "NULL";
+
+                return this._myCustomBackingField;
+            }
+            set
+            {
+                if (this._myCustomBackingField == value)
+                    return;
+
+                this._myCustomBackingField = value;
+            }
+        }
 
         [TestPropertyInterceptor]
         public long ValueTypeProperty { get; set; }
@@ -94,6 +115,15 @@ namespace Win32_Fody_Assembly_Validation_Tests
             StaticLockableProperty = "Computer";
             Assert.AreEqual("Hello", this.LockableProperty);
             Assert.AreEqual("Computer", StaticLockableProperty);
+        }
+
+        [TestMethod]
+        public void Non_Auto_Property_Not_Broken_Test()
+        {
+            Assert.AreEqual("NULL", this.ThisIsMyProperty);
+
+            this.ThisIsMyProperty = "bla";
+            Assert.AreEqual("bla", this.ThisIsMyProperty);
         }
 
         [TestMethod]

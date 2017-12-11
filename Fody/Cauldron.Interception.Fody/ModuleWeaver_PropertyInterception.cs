@@ -55,6 +55,8 @@ namespace Cauldron.Interception.Fody
                             var field = interceptorFields[item.Attribute.Identification];
                             x.Load(field).As(item.InterfaceGetter.Type).Call(item.InterfaceGetter.OnGet, propertyField, member.Property.BackingField);
                         }
+
+                        x.OriginalBody();
                     })
                     .Catch(typeof(Exception), x =>
                     {
@@ -77,7 +79,6 @@ namespace Cauldron.Interception.Fody
                         }
                     })
                     .EndTry()
-                    .Load(member.Property.BackingField)
                     .Return()
                 .Replace();
         }

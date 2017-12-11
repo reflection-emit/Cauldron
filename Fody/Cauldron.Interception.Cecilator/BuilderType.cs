@@ -389,7 +389,7 @@ namespace Cauldron.Interception.Cecilator
 
         public Property CreateProperty(Field field, bool getterOnly = false)
         {
-            var name = $"{field.Name}";
+            var name = $"{field.Name[0].ToString().ToUpper()}{field.Name.Substring(1)}Property";
 
             var contain = this.GetProperties().Get(name);
 
