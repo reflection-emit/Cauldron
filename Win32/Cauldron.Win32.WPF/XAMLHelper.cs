@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Linq;
 using Cauldron.Core.Collections;
+using System.Collections.Generic;
 
 #if WINDOWS_UWP
 
@@ -26,6 +27,23 @@ namespace Cauldron.XAML
     /// </summary>
     public static class XAMLHelper
     {
+        private static Dictionary<string, string> xmlNamespaces = new Dictionary<string, string>();
+
+        /// <exclude/>
+        static XAMLHelper()
+        {
+#if WINDOWS_UWP
+#else
+            xmlNamespaces.Add("", "http://schemas.microsoft.com/winfx/2006/xaml/presentation");
+            xmlNamespaces.Add("cauldron", "clr-namespace:Cauldron.XAML;assembly=Cauldron.Win32.WPF");
+#endif
+        }
+
+        /// <summary>
+        /// Gets a collection of namespaces that is used by <see cref="XAMLHelper.ParseToInline(string)"/>.
+        /// </summary>
+        public static Dictionary<string, string> InlineNamespaces => xmlNamespaces;
+
         /// <summary>
         /// Determines whether the <see cref="DependencyObject"/> is in design mode or not.
         /// <para/>
@@ -141,10 +159,9 @@ namespace Cauldron.XAML
                         @"xmlns:controls=""using:Cauldron.XAML.Controls""",
               }.Join(" ");
 #else
-            var xmlns = new string[]
-              {
-                        "xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\""
-              }.Join(" ");
+            var xmlns = xmlNamespaces
+                .Select(x => (string.IsNullOrEmpty(x.Key) ? "xmlns" : $"xmlns:{x.Key}") + "=\"" + x.Value + "\"")
+                .Join(" ");
 #endif
 
             var xaml = xamlText.Replace("<Inline>\r\n", $"<Span {xmlns}>")
