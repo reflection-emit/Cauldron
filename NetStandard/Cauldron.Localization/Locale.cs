@@ -102,9 +102,7 @@ namespace Cauldron.Localization
                 if (string.IsNullOrEmpty(key))
                     return string.Empty;
 
-                ILocalizationKeyValue result;
-
-                if (this.source.TryGetValue(key, out result))
+                if (this.source.TryGetValue(key, out ILocalizationKeyValue result))
                     return result.GetValue(this.CultureInfo.TwoLetterISOLanguageName);
 
                 return key + " " + this.MissingLocalizationIndicator; // indicates that the localization was not provided. Someone has to do his homework
@@ -143,9 +141,8 @@ namespace Cauldron.Localization
 #endif
                 {
                     var value = Convert.ChangeType(key, Enum.GetUnderlyingType(type));
-                    long enumValue;
 
-                    if (long.TryParse(value?.ToString(), out enumValue) && enumValue < 0)
+                    if (long.TryParse(value?.ToString(), out long enumValue) && enumValue < 0)
                         return string.Empty; // We dont show values under zero
 
                     var text = this[key?.ToString()];
@@ -186,5 +183,12 @@ namespace Cauldron.Localization
             return CultureInfo.CurrentCulture;
 #endif
         }
+
+        /// <summary>
+        /// Determines whether the <see cref="Locale"/> contains a localized string defined by the <paramref name="key"/>.
+        /// </summary>
+        /// <param name="key">The key of the localized string</param>
+        /// <returns>true if <see cref="Locale"/> contains the string; otherwise false.</returns>
+        public bool Contains(string key) => this.source.ContainsKey(key);
     }
 }

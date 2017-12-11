@@ -33,15 +33,26 @@ namespace Cauldron.XAML.ViewModels
         private uint defaultCommandIndex;
 
         [ComponentConstructor]
-        public MessageDialogViewModel(string title, string message, int messageBoxImage /* The serializer can only serialize primitives */, uint defaultCommandIndex, uint cancelCommandIndex, CauldronUICommandCollection commands)
+        public MessageDialogViewModel(string title, string message, int messageBoxImage, uint defaultCommandIndex, uint cancelCommandIndex, CauldronUICommandCollection commands)
         {
             var locale = Locale.Current;
 
             this.defaultCommandIndex = defaultCommandIndex;
             this.cancelCommandIndex = cancelCommandIndex;
 
-            this.Title = string.IsNullOrEmpty(title) ? ApplicationInfo.ApplicationName : locale[title];
-            this.Message = locale[message];
+            if (string.IsNullOrEmpty(title))
+                this.Title = ApplicationInfo.ApplicationName;
+            else if (locale.Contains(title))
+                this.Title = locale[title];
+            else
+                this.Title = title;
+
+            if (string.IsNullOrEmpty(message))
+                this.Message = ApplicationInfo.ApplicationName;
+            else if (locale.Contains(message))
+                this.Message = locale[message];
+            else
+                this.Message = message;
 
             this.LoadIconAsync((MessageBoxImage)messageBoxImage);
 
