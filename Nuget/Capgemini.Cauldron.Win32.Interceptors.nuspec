@@ -17,7 +17,7 @@
       2017.12.04 - [C] TimedCacheAttribute namespace changed to Cauldron.Core.Interceptors.
     </releaseNotes>
     <dependencies>
-      <dependency id="Capgemini.Cauldron.Interceptors" version="2.0.19" />
+      <dependency id="Capgemini.Cauldron.Core.Interceptors" version="2.0.19" />
       <dependency id="Cauldron.Interception.Fody" version="2.0.19" />
       <dependency id="Fody" version="2.2.1" />
     </dependencies>

@@ -106,23 +106,36 @@ namespace Cauldron.Core.Interceptors
         }
     }
 
-    internal sealed class TimedCacheChangeMonitor : ChangeMonitor
+    /// <summary>
+    /// A custom type that monitors changes in the state of the data which a cache item depends on.
+    /// </summary>
+    public sealed class TimedCacheChangeMonitor : ChangeMonitor
     {
         private string uniqueId;
 
-        public TimedCacheChangeMonitor()
+        internal TimedCacheChangeMonitor()
         {
             this.uniqueId = Guid.NewGuid().ToString();
             ClearCache += TimedCacheChangeMonitor_ClearCache;
             base.InitializationComplete();
         }
 
+        /// <summary>
+        /// Occures if the cache is cleared
+        /// </summary>
         public static event EventHandler ClearCache;
 
-        public override string UniqueId { get { return this.uniqueId; } }
+        /// <summary>
+        /// Gets a unique id
+        /// </summary>
+        public override string UniqueId => this.uniqueId;
 
+        /// <summary>
+        /// Clears the timed cache.
+        /// </summary>
         public static void Clear() => ClearCache?.Invoke(null, EventArgs.Empty);
 
+        /// <exclude/>
         protected override void Dispose(bool disposing)
         {
             ClearCache -= TimedCacheChangeMonitor_ClearCache;
