@@ -34,12 +34,12 @@ namespace Cauldron.XAML.ValueConverters
         /// </exception>
         public override object OnConvert(object value, Type targetType, object parameter, string language)
         {
-            var p = parameter?.ToString().ToBool();
+            var arg = parameter?.ToString().ToBool() ?? false;
 
-            if (p.HasValue && p.Value)
-                return value == null ? false : true; // Leave it this way, so that it is easy to understand
-            else
+            if (arg)
                 return value == null ? true : false; // Leave it this way, so that it is easy to understand
+            else
+                return value == null ? false : true; // Leave it this way, so that it is easy to understand
         }
 
         /// <summary>
@@ -55,12 +55,12 @@ namespace Cauldron.XAML.ValueConverters
         /// </exception>
         public override object OnConvertBack(object value, Type targetType, object parameter, string language)
         {
-            var p = parameter?.ToString().ToBool();
+            var arg = parameter?.ToString().ToBool() ?? false;
 
-            if (p.HasValue && p.Value)
-                return (bool)value == false ? null : Factory.Create(targetType); // Leave it this way, so that it is easy to understand
-            else
+            if (arg)
                 return (bool)value == true ? null : Factory.Create(targetType); // Leave it this way, so that it is easy to understand
+            else
+                return (bool)value == false ? null : Factory.Create(targetType); // Leave it this way, so that it is easy to understand
         }
     }
 }

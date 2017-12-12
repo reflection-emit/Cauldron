@@ -108,6 +108,7 @@
     <Compile Include="ValueConverters\ObjectToVisibilityConverter.cs" />
     <Compile Include="ValueConverters\VisibilityToBooleanConverter.cs" />
     <Compile Include="ViewAttribute.cs" />
+    <Compile Include="ViewModels\RaisePropertyChangeAttribute.cs" />
     <Compile Include="ViewModels\Extensions_Win32.cs" />
     <Compile Include="ViewModels\IChangeAwareViewModel.cs" />
     <Compile Include="ViewModels\ICloseAwareViewModel.cs" />

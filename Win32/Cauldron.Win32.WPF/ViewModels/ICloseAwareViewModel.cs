@@ -1,11 +1,14 @@
 ﻿using System.Collections.ObjectModel;
-using System.Windows;
+using System.Threading.Tasks;
 
 #if NETFX_CORE
+
 using Windows.UI.Xaml;
+
 #else
 
 using System.Windows.Controls;
+using System.Windows;
 
 #endif
 
@@ -24,7 +27,7 @@ namespace Cauldron.XAML.ViewModels
         /// Occures if the window is closing. Returning a false will prevent the window from closing.
         /// </summary>
         /// <returns>Should return true if window can be closed.</returns>
-        bool CanClose();
+        Task<bool> CanClose();
 
 #endif
 
@@ -32,6 +35,6 @@ namespace Cauldron.XAML.ViewModels
         /// Occures if the control requests a closing. The viewmodel has to react to the requst by
         /// for example removing the tab from the <see cref="ObservableCollection{T}"/>.
         /// </summary>
-        void Close();
+        Task Close();
     }
 }

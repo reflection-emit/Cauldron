@@ -219,10 +219,8 @@ namespace Cauldron.XAML.Navigation
 
                 window.Closing += (s, e) =>
                 {
-                    var closeAware = viewModel as ICloseAwareViewModel;
-
-                    if (closeAware != null)
-                        e.Cancel = !closeAware.CanClose();
+                    if (viewModel is ICloseAwareViewModel closeAware)
+                        e.Cancel = !closeAware.CanClose().RunSync();
                 };
 
                 window.Closed += (s, e) => (viewModel as ICloseAwareViewModel).IsNotNull(x => x.Close());
@@ -440,12 +438,10 @@ namespace Cauldron.XAML.Navigation
                 if (WindowConfiguration.GetIsWindowPersistent(view))
                     PersistentWindowInformation.Save(window, viewModel.GetType());
 
-                var canClose = viewModel as IFrameAware;
-
-                if (canClose == null)
-                    e.Cancel |= !Close(window);
+                if (viewModel is IFrameAware closeAware)
+                    e.Cancel = !closeAware.CanClose().RunSync() | !Close(window);
                 else
-                    e.Cancel |= !canClose.CanClose() | !Close(window);
+                    e.Cancel |= !Close(window);
             };
             window.Closed += (s, e) =>
             {

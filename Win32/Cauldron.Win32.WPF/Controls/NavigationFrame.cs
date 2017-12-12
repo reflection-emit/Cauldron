@@ -494,7 +494,7 @@ namespace Cauldron.XAML.Controls
             var frameAware = this.ContentDataContext as IFrameAware;
 
             if (frameAware != null)
-                return frameAware.CanClose();
+                return await frameAware.CanClose();
 
             return true;
         }

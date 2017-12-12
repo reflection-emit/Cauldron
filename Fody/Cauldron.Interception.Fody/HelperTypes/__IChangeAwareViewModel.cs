@@ -8,8 +8,10 @@ namespace Cauldron.Interception.Fody.HelperTypes
         {
             this.RaisePropertyChanged = this.type.GetMethod("RaisePropertyChanged", 3);
             this.PropertyIsChangedEventArgs = new __PropertyIsChangedEventArgs(builder);
+            this.IsChanged = this.type.GetMethod("get_IsChanged");
         }
 
+        public Method IsChanged { get; private set; }
         public __PropertyIsChangedEventArgs PropertyIsChangedEventArgs { get; private set; }
 
         public Method RaisePropertyChanged { get; private set; }

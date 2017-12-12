@@ -16,10 +16,7 @@ namespace Cauldron.XAML.ValueConverters
         /// <param name="language">The language to use in the converter.</param>
         /// <returns>A converted value. If the method returns null, the valid null value is used.</returns>
         /// <exception cref="NotImplementedException">Always throws <see cref="NotImplementedException"/>. This method is not implemented.</exception>
-        public override object OnConvert(object value, Type targetType, object parameter, string language)
-        {
-            return !(bool)value;
-        }
+        public override object OnConvert(object value, Type targetType, object parameter, string language) => !(bool)value;
 
         /// <summary>
         /// Occures if a value is converted
@@ -30,9 +27,6 @@ namespace Cauldron.XAML.ValueConverters
         /// <param name="language">The language to use in the converter.</param>
         /// <returns>A converted value.If the method returns null, the valid null value is used.</returns>
         /// <exception cref="NotImplementedException">Always throws <see cref="NotImplementedException"/>. This method is not implemented.</exception>
-        public override object OnConvertBack(object value, Type targetType, object parameter, string language)
-        {
-            return !(bool)value;
-        }
+        public override object OnConvertBack(object value, Type targetType, object parameter, string language) => !(bool)value;
     }
 }

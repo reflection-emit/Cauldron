@@ -12,6 +12,7 @@ namespace Cauldron.Interception.Fody
             var changeAwareInterface = new __IChangeAwareViewModel(builder);
             var eventHandlerGeneric = new __EventHandler_1(builder);
             var eventHandler = new __EventHandler(builder);
+            var viewModelInterface = new __IViewModel(builder);
 
             // Get all viewmodels with implemented change aware interface
             var viewModels = builder.FindTypesByInterface(changeAwareInterface.Type)
@@ -40,12 +41,14 @@ namespace Cauldron.Interception.Fody
                             {
                                 x.Load(getIsChangeChangedEvent).IsNotNull().Then(y =>
                                     y.Callvirt(getIsChangeChangedEvent, eventHandler.Invoke, Crumb.This, y.NewCode().NewObj(eventHandler.EventArgs.Ctor)))
+                                        .Call(Crumb.This, viewModelInterface.RaisePropertyChanged, Crumb.GetParameter(0))
                                         .Return();
                             })
                             .Load(getIsChangeEvent)
                             .IsNotNull()
                             .Then(x =>
                             {
+                                x.Call(Crumb.This, viewModelInterface.RaisePropertyChanged, Crumb.GetParameter(0));
                                 x.Callvirt(eventHandlerGeneric.Invoke.MakeGeneric(changeAwareInterface.PropertyIsChangedEventArgs.Type),
                                     x.NewCode().Load(getIsChangeEvent), x.NewCode().NewObj(changeAwareInterface.PropertyIsChangedEventArgs.Ctor, Crumb.This, Crumb.GetParameter(0), Crumb.GetParameter(1), Crumb.GetParameter(2)));
                             })
@@ -68,6 +71,20 @@ namespace Cauldron.Interception.Fody
                         .NewCode()
                         .Context(x => x.Call(Crumb.This, method, Crumb.GetParameter(0), Crumb.GetParameter(1), Crumb.GetParameter(2)))
                         .Insert(InsertionPosition.Beginning);
+
+                // Repair IsChanged
+                if (!vm.Implements(changeAwareInterface.Type, false))
+                    continue;
+
+                var isChangedSetter = vm.GetMethod("set_IsChanged", 1, false);
+                if (isChangedSetter != null)
+                {
+                    isChangedSetter.NewCode()
+                        .Call(Crumb.This, viewModelInterface.IsLoading)
+                        .IsTrue()
+                        .Then(x => x.Return())
+                        .Insert(InsertionPosition.Beginning);
+                }
             }
         }
     }

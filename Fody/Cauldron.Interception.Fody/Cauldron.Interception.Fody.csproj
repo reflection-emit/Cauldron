@@ -75,6 +75,7 @@
     <Compile Include="HelperTypes\__IPropertyInterceptorInitialize.cs" />
     <Compile Include="HelperTypes\__IPropertySetterInterceptor.cs" />
     <Compile Include="HelperTypes\__ISyncRoot.cs" />
+    <Compile Include="HelperTypes\__IViewModel.cs" />
     <Compile Include="HelperTypes\__PropertyInterceptionInfo.cs" />
     <Compile Include="HelperTypes\__PropertyIsChangedEventArgs.cs" />
     <Compile Include="HelperTypes\__ResourceDictionary.cs" />

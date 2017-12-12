@@ -34,9 +34,9 @@ namespace Cauldron.XAML.ValueConverters
         /// </exception>
         public override object OnConvert(object value, Type targetType, object parameter, string language)
         {
-            var p = parameter?.ToString().ToBool();
+            var arg = parameter?.ToString().ToBool() ?? false;
 
-            if (p.HasValue && p.Value)
+            if (arg)
                 return value == null ? Visibility.Visible : Visibility.Collapsed;
             else
                 return value == null ? Visibility.Collapsed : Visibility.Visible;
@@ -55,9 +55,9 @@ namespace Cauldron.XAML.ValueConverters
         /// </exception>
         public override object OnConvertBack(object value, Type targetType, object parameter, string language)
         {
-            var p = parameter?.ToString().ToBool();
+            var arg = parameter?.ToString().ToBool() ?? false;
 
-            if (p.HasValue && p.Value)
+            if (arg)
                 return (Visibility)value == Visibility.Visible ? null : Factory.Create(targetType);
             else
                 return (Visibility)value == Visibility.Collapsed ? null : Factory.Create(targetType);

@@ -10,13 +10,13 @@ namespace Cauldron.XAML.Theme
     {
         protected override void OnAttach()
         {
-            if (this.DataContext is IChangeAwareViewModel)
+            if (this.AssociatedObject.DataContext is IChangeAwareViewModel)
                 this.AssociatedObject.SetBinding(TextBlock.VisibilityProperty, new Binding
                 {
-                    Source = this.DataContext,
+                    Source = this.AssociatedObject.DataContext,
                     Path = new PropertyPath(nameof(IChangeAwareViewModel.IsChanged)),
                     Mode = BindingMode.OneWay,
-                    Converter = new BooleanToVisibilityConverter()
+                    Converter = new Cauldron.XAML.ValueConverters.BooleanToVisibilityConverter()
                 });
             else
                 this.AssociatedObject.Visibility = Visibility.Collapsed;

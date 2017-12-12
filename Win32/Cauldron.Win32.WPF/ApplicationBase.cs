@@ -388,6 +388,14 @@ namespace Cauldron.XAML
                     Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
                     this.Navigator.As<Navigator>()?.NavigateInternal<ApplicationBase>(this, null, null);
                     await this.OnPreload();
+
+                    if (Application.Current.MainWindow == null)
+                    {
+                        Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+                        Application.Current.Shutdown();
+                        return;
+                    }
+
                     Application.Current.MainWindow.Activate();
                     this.Navigator.TryClose(this);
                     Application.Current.ShutdownMode = oldShutdownMode;

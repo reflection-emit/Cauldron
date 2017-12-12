@@ -191,6 +191,8 @@ namespace Cauldron.XAML.ViewModels
                     if (this.propagatesIsChange && item is IChangeAwareViewModel changeAware)
                         changeAware.IsChangedChanged -= ChildIsChangedChanged;
                 }
+
+           (this._context as IChangeAwareViewModel)?.IsNotNull(x => x.IsChanged = true);
         }
     }
 }

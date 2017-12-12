@@ -31,13 +31,13 @@ namespace Cauldron.XAML.ValueConverters
         /// <exception cref="NotImplementedException">Always throws <see cref="NotImplementedException"/>. This method is not implemented.</exception>
         public override object OnConvert(object value, Type targetType, object parameter, string language)
         {
-            var p = parameter?.ToString().ToBool();
-            var v = value?.ToString().ToBool();
+            var arg = parameter?.ToString().ToBool() ?? false;
+            var result = value?.ToString().ToBool() ?? false;
 
-            if (p.HasValue && p.Value)
-                return v.HasValue && v.Value ? Visibility.Collapsed : Visibility.Visible;
+            if (arg)
+                return result ? Visibility.Collapsed : Visibility.Visible;
             else
-                return v.HasValue && v.Value ? Visibility.Visible : Visibility.Collapsed;
+                return result ? Visibility.Visible : Visibility.Collapsed;
         }
 
         /// <summary>
@@ -51,9 +51,9 @@ namespace Cauldron.XAML.ValueConverters
         /// <exception cref="NotImplementedException">Always throws <see cref="NotImplementedException"/>. This method is not implemented.</exception>
         public override object OnConvertBack(object value, Type targetType, object parameter, string language)
         {
-            var p = parameter?.ToString().ToBool();
+            var arg = parameter?.ToString().ToBool() ?? false;
 
-            if (p.HasValue && p.Value)
+            if (arg)
                 return (Visibility)value == Visibility.Collapsed;
             else
                 return (Visibility)value == Visibility.Visible;
