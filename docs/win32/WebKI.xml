@@ -91,7 +91,7 @@
   <HelpKINode Title="Batch enumeration member" Url="html/T_Cauldron_LogonType.htm" />
   <HelpKINode Title="BeforeRaiseNotifyPropertyChanged method">
     <HelpKINode Title="ApplicationBase.BeforeRaiseNotifyPropertyChanged Method " Url="html/M_Cauldron_XAML_ApplicationBase_BeforeRaiseNotifyPropertyChanged.htm" />
-    <HelpKINode Title="ValidatableViewModelBase.BeforeRaiseNotifyPropertyChanged Method " Url="html/M_Cauldron_XAML_Validation_ViewModels_ValidatableViewModelBase_BeforeRaiseNotifyPropertyChanged.htm" />
+    <HelpKINode Title="ValidatableViewModelBase.BeforeRaiseNotifyPropertyChanged Method " Url="html/M_Cauldron_XAML_ViewModels_ValidatableViewModelBase_BeforeRaiseNotifyPropertyChanged.htm" />
     <HelpKINode Title="ViewModelBase.BeforeRaiseNotifyPropertyChanged Method " Url="html/M_Cauldron_XAML_ViewModels_ViewModelBase_BeforeRaiseNotifyPropertyChanged.htm" />
   </HelpKINode>
   <HelpKINode Title="Behaviour(Of T) class">
@@ -368,9 +368,6 @@
   <HelpKINode Title="Cauldron.XAML.Validation.ValidationHandler class" Url="html/T_Cauldron_XAML_Validation_ValidationHandler.htm" />
   <HelpKINode Title="Cauldron.XAML.Validation.ValidationProperties class" Url="html/T_Cauldron_XAML_Validation_ValidationProperties.htm" />
   <HelpKINode Title="Cauldron.XAML.Validation.ValidatorAttributeBase class" Url="html/T_Cauldron_XAML_Validation_ValidatorAttributeBase.htm" />
-  <HelpKINode Title="Cauldron.XAML.Validation.ViewModels namespace" Url="html/N_Cauldron_XAML_Validation_ViewModels.htm" />
-  <HelpKINode Title="Cauldron.XAML.Validation.ViewModels.IValidatableViewModel interface" Url="html/T_Cauldron_XAML_Validation_ViewModels_IValidatableViewModel.htm" />
-  <HelpKINode Title="Cauldron.XAML.Validation.ViewModels.ValidatableViewModelBase class" Url="html/T_Cauldron_XAML_Validation_ViewModels_ValidatableViewModelBase.htm" />
   <HelpKINode Title="Cauldron.XAML.ValueConverterBase class" Url="html/T_Cauldron_XAML_ValueConverterBase.htm" />
   <HelpKINode Title="Cauldron.XAML.ValueConverters namespace" Url="html/N_Cauldron_XAML_ValueConverters.htm" />
   <HelpKINode Title="Cauldron.XAML.ValueConverters.BooleanInvertConverter class" Url="html/T_Cauldron_XAML_ValueConverters_BooleanInvertConverter.htm" />
@@ -391,9 +388,12 @@
   <HelpKINode Title="Cauldron.XAML.ViewModels.INavigable interface" Url="html/T_Cauldron_XAML_ViewModels_INavigable.htm" />
   <HelpKINode Title="Cauldron.XAML.ViewModels.IPrelaunchAware interface" Url="html/T_Cauldron_XAML_ViewModels_IPrelaunchAware.htm" />
   <HelpKINode Title="Cauldron.XAML.ViewModels.ISizeAware interface" Url="html/T_Cauldron_XAML_ViewModels_ISizeAware.htm" />
+  <HelpKINode Title="Cauldron.XAML.ViewModels.IValidatableViewModel interface" Url="html/T_Cauldron_XAML_ViewModels_IValidatableViewModel.htm" />
   <HelpKINode Title="Cauldron.XAML.ViewModels.IViewAware interface" Url="html/T_Cauldron_XAML_ViewModels_IViewAware.htm" />
   <HelpKINode Title="Cauldron.XAML.ViewModels.IViewModel interface" Url="html/T_Cauldron_XAML_ViewModels_IViewModel.htm" />
+  <HelpKINode Title="Cauldron.XAML.ViewModels.RaisePropertyChangeAttribute class" Url="html/T_Cauldron_XAML_ViewModels_RaisePropertyChangeAttribute.htm" />
   <HelpKINode Title="Cauldron.XAML.ViewModels.RegisterChildrenAttribute class" Url="html/T_Cauldron_XAML_ViewModels_RegisterChildrenAttribute.htm" />
+  <HelpKINode Title="Cauldron.XAML.ViewModels.ValidatableViewModelBase class" Url="html/T_Cauldron_XAML_ViewModels_ValidatableViewModelBase.htm" />
   <HelpKINode Title="Cauldron.XAML.ViewModels.ViewModelBase class" Url="html/T_Cauldron_XAML_ViewModels_ViewModelBase.htm" />
   <HelpKINode Title="Cauldron.XAML.WindowConfiguration class" Url="html/T_Cauldron_XAML_WindowConfiguration.htm" />
   <HelpKINode Title="Cauldron.XAML.XAMLHelper class" Url="html/T_Cauldron_XAML_XAMLHelper.htm" />
@@ -535,8 +535,8 @@
   <HelpKINode Title="Error enumeration member" Url="html/T_Cauldron_XAML_MessageBoxImage.htm" />
   <HelpKINode Title="ErrorMessageKey property" Url="html/P_Cauldron_XAML_Validation_ValidatorAttributeBase_ErrorMessageKey.htm" />
   <HelpKINode Title="Errors attached property" Url="html/P_Cauldron_XAML_Validation_ValidationProperties_Errors.htm" />
-  <HelpKINode Title="Errors property" Url="html/P_Cauldron_XAML_Validation_ViewModels_ValidatableViewModelBase_Errors.htm" />
-  <HelpKINode Title="ErrorsChanged event" Url="html/E_Cauldron_XAML_Validation_ViewModels_ValidatableViewModelBase_ErrorsChanged.htm" />
+  <HelpKINode Title="Errors property" Url="html/P_Cauldron_XAML_ViewModels_ValidatableViewModelBase_Errors.htm" />
+  <HelpKINode Title="ErrorsChanged event" Url="html/E_Cauldron_XAML_ViewModels_ValidatableViewModelBase_ErrorsChanged.htm" />
   <HelpKINode Title="ErrorsProperty field" Url="html/F_Cauldron_XAML_Validation_ValidationProperties_ErrorsProperty.htm" />
   <HelpKINode Title="EventHandler property" Url="html/P_Cauldron_XAML_DynamicEventHandler_EventHandler.htm" />
   <HelpKINode Title="EventName property">
@@ -654,7 +654,7 @@
   <HelpKINode Title="GetDependencyProperties method" Url="html/M_Cauldron_XAML_Extensions_GetDependencyProperties.htm" />
   <HelpKINode Title="GetDpi method" Url="html/M_Cauldron_MonitorInfo_GetDpi.htm" />
   <HelpKINode Title="GetErrors method">
-    <HelpKINode Title="ValidatableViewModelBase.GetErrors Method " Url="html/M_Cauldron_XAML_Validation_ViewModels_ValidatableViewModelBase_GetErrors.htm" />
+    <HelpKINode Title="ValidatableViewModelBase.GetErrors Method " Url="html/M_Cauldron_XAML_ViewModels_ValidatableViewModelBase_GetErrors.htm" />
     <HelpKINode Title="ValidationProperties.GetErrors Method " Url="html/M_Cauldron_XAML_Validation_ValidationProperties_GetErrors.htm" />
   </HelpKINode>
   <HelpKINode Title="GetHasErrors method" Url="html/M_Cauldron_XAML_Validation_ValidationProperties_GetHasErrors.htm" />
@@ -669,10 +669,12 @@
   </HelpKINode>
   <HelpKINode Title="GetInheritanceContext method" Url="html/M_Cauldron_XAML_Extensions_GetInheritanceContext.htm" />
   <HelpKINode Title="GetIsDisabledByErrorInPropertyName method" Url="html/M_Cauldron_XAML_Validation_ValidationProperties_GetIsDisabledByErrorInPropertyName.htm" />
+  <HelpKINode Title="GetIsInDesignMode method" Url="html/M_Cauldron_XAML_XAMLHelper_GetIsInDesignMode.htm" />
   <HelpKINode Title="GetIsMandatory method" Url="html/M_Cauldron_XAML_Validation_ValidationProperties_GetIsMandatory.htm" />
   <HelpKINode Title="GetIsModal method" Url="html/M_Cauldron_XAML_WindowConfiguration_GetIsModal.htm" />
   <HelpKINode Title="GetIsWindowPersistent method" Url="html/M_Cauldron_XAML_WindowConfiguration_GetIsWindowPersistent.htm" />
   <HelpKINode Title="GetLanguage method" Url="html/M_Cauldron_XAML_ValueConverterBase_GetLanguage.htm" />
+  <HelpKINode Title="GetLocalizedText method" Url="html/M_Cauldron_XAML_Interactivity_Localized_GetLocalizedText.htm" />
   <HelpKINode Title="GetMaxHeight method" Url="html/M_Cauldron_XAML_WindowConfiguration_GetMaxHeight.htm" />
   <HelpKINode Title="GetMaxWidth method" Url="html/M_Cauldron_XAML_WindowConfiguration_GetMaxWidth.htm" />
   <HelpKINode Title="GetMinHeight method" Url="html/M_Cauldron_XAML_WindowConfiguration_GetMinHeight.htm" />
@@ -732,7 +734,7 @@
   <HelpKINode Title="GreaterThanOrEqualAttribute.OnValidateAsync method" Url="html/M_Cauldron_XAML_Validation_GreaterThanOrEqualAttribute_OnValidateAsync.htm" />
   <HelpKINode Title="GreaterThanOrEqualAttribute.ValidationMessage method" Url="html/M_Cauldron_XAML_Validation_GreaterThanOrEqualAttribute_ValidationMessage.htm" />
   <HelpKINode Title="HasErrors attached property" Url="html/P_Cauldron_XAML_Validation_ValidationProperties_HasErrors.htm" />
-  <HelpKINode Title="HasErrors property" Url="html/P_Cauldron_XAML_Validation_ViewModels_ValidatableViewModelBase_HasErrors.htm" />
+  <HelpKINode Title="HasErrors property" Url="html/P_Cauldron_XAML_ViewModels_ValidatableViewModelBase_HasErrors.htm" />
   <HelpKINode Title="HasErrorsProperty field" Url="html/F_Cauldron_XAML_Validation_ValidationProperties_HasErrorsProperty.htm" />
   <HelpKINode Title="HasOwner attached property" Url="html/P_Cauldron_XAML_WindowConfiguration_HasOwner.htm" />
   <HelpKINode Title="HasOwnerProperty field" Url="html/F_Cauldron_XAML_WindowConfiguration_HasOwnerProperty.htm" />
@@ -885,6 +887,7 @@
   <HelpKINode Title="INavigator.TryCloseFocusedWindow method" Url="html/M_Cauldron_XAML_Navigation_INavigator_TryCloseFocusedWindow.htm" />
   <HelpKINode Title="Information enumeration member" Url="html/T_Cauldron_XAML_MessageBoxImage.htm" />
   <HelpKINode Title="InitializeComponent method" Url="html/M_Cauldron_XAML_Resources_StylesAndTemplates_InitializeComponent.htm" />
+  <HelpKINode Title="InlineNamespaces property" Url="html/P_Cauldron_XAML_XAMLHelper_InlineNamespaces.htm" />
   <HelpKINode Title="INotifyBehaviourInvocation interface">
     <HelpKINode Title="INotifyBehaviourInvocation Interface" Url="html/T_Cauldron_XAML_INotifyBehaviourInvocation.htm" />
     <HelpKINode Title="about INotifyBehaviourInvocation interface" Url="html/T_Cauldron_XAML_INotifyBehaviourInvocation.htm" />
@@ -1036,21 +1039,21 @@
   </HelpKINode>
   <HelpKINode Title="IsSinglePage property" Url="html/P_Cauldron_XAML_ApplicationBase_IsSinglePage.htm" />
   <HelpKINode Title="IsValidating property">
-    <HelpKINode Title="IValidatableViewModel.IsValidating Property " Url="html/P_Cauldron_XAML_Validation_ViewModels_IValidatableViewModel_IsValidating.htm" />
-    <HelpKINode Title="ValidatableViewModelBase.IsValidating Property " Url="html/P_Cauldron_XAML_Validation_ViewModels_ValidatableViewModelBase_IsValidating.htm" />
+    <HelpKINode Title="IValidatableViewModel.IsValidating Property " Url="html/P_Cauldron_XAML_ViewModels_IValidatableViewModel_IsValidating.htm" />
+    <HelpKINode Title="ValidatableViewModelBase.IsValidating Property " Url="html/P_Cauldron_XAML_ViewModels_ValidatableViewModelBase_IsValidating.htm" />
   </HelpKINode>
   <HelpKINode Title="IsWindowPersistent attached property" Url="html/P_Cauldron_XAML_WindowConfiguration_IsWindowPersistent.htm" />
   <HelpKINode Title="IsWindowPersistentProperty field" Url="html/F_Cauldron_XAML_WindowConfiguration_IsWindowPersistentProperty.htm" />
   <HelpKINode Title="IValidatableViewModel interface">
-    <HelpKINode Title="IValidatableViewModel Interface" Url="html/T_Cauldron_XAML_Validation_ViewModels_IValidatableViewModel.htm" />
-    <HelpKINode Title="about IValidatableViewModel interface" Url="html/T_Cauldron_XAML_Validation_ViewModels_IValidatableViewModel.htm" />
-    <HelpKINode Title="events" Url="html/Events_T_Cauldron_XAML_Validation_ViewModels_IValidatableViewModel.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_XAML_Validation_ViewModels_IValidatableViewModel.htm" />
-    <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_XAML_Validation_ViewModels_IValidatableViewModel.htm" />
+    <HelpKINode Title="IValidatableViewModel Interface" Url="html/T_Cauldron_XAML_ViewModels_IValidatableViewModel.htm" />
+    <HelpKINode Title="about IValidatableViewModel interface" Url="html/T_Cauldron_XAML_ViewModels_IValidatableViewModel.htm" />
+    <HelpKINode Title="events" Url="html/Events_T_Cauldron_XAML_ViewModels_IValidatableViewModel.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_XAML_ViewModels_IValidatableViewModel.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_XAML_ViewModels_IValidatableViewModel.htm" />
   </HelpKINode>
-  <HelpKINode Title="IValidatableViewModel.IsValidating property" Url="html/P_Cauldron_XAML_Validation_ViewModels_IValidatableViewModel_IsValidating.htm" />
-  <HelpKINode Title="IValidatableViewModel.ValidateAsync method" Url="html/Overload_Cauldron_XAML_Validation_ViewModels_IValidatableViewModel_ValidateAsync.htm" />
-  <HelpKINode Title="IValidatableViewModel.Validating event" Url="html/E_Cauldron_XAML_Validation_ViewModels_IValidatableViewModel_Validating.htm" />
+  <HelpKINode Title="IValidatableViewModel.IsValidating property" Url="html/P_Cauldron_XAML_ViewModels_IValidatableViewModel_IsValidating.htm" />
+  <HelpKINode Title="IValidatableViewModel.ValidateAsync method" Url="html/Overload_Cauldron_XAML_ViewModels_IValidatableViewModel_ValidateAsync.htm" />
+  <HelpKINode Title="IValidatableViewModel.Validating event" Url="html/E_Cauldron_XAML_ViewModels_IValidatableViewModel_Validating.htm" />
   <HelpKINode Title="IViewAware interface">
     <HelpKINode Title="IViewAware Interface" Url="html/T_Cauldron_XAML_ViewModels_IViewAware.htm" />
     <HelpKINode Title="about IViewAware interface" Url="html/T_Cauldron_XAML_ViewModels_IViewAware.htm" />
@@ -1131,14 +1134,20 @@
     <HelpKINode Title="fields" Url="html/Fields_T_Cauldron_XAML_Interactivity_Localized.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_XAML_Interactivity_Localized.htm" />
   </HelpKINode>
+  <HelpKINode Title="Localized.GetLocalizedText method" Url="html/M_Cauldron_XAML_Interactivity_Localized_GetLocalizedText.htm" />
   <HelpKINode Title="Localized.GetText method" Url="html/M_Cauldron_XAML_Interactivity_Localized_GetText.htm" />
   <HelpKINode Title="Localized.GetToolTip method" Url="html/M_Cauldron_XAML_Interactivity_Localized_GetToolTip.htm" />
+  <HelpKINode Title="Localized.LocalizedText attached property" Url="html/P_Cauldron_XAML_Interactivity_Localized_LocalizedText.htm" />
+  <HelpKINode Title="Localized.LocalizedTextProperty field" Url="html/F_Cauldron_XAML_Interactivity_Localized_LocalizedTextProperty.htm" />
+  <HelpKINode Title="Localized.SetLocalizedText method" Url="html/M_Cauldron_XAML_Interactivity_Localized_SetLocalizedText.htm" />
   <HelpKINode Title="Localized.SetText method" Url="html/M_Cauldron_XAML_Interactivity_Localized_SetText.htm" />
   <HelpKINode Title="Localized.SetToolTip method" Url="html/M_Cauldron_XAML_Interactivity_Localized_SetToolTip.htm" />
   <HelpKINode Title="Localized.Text attached property" Url="html/P_Cauldron_XAML_Interactivity_Localized_Text.htm" />
   <HelpKINode Title="Localized.TextProperty field" Url="html/F_Cauldron_XAML_Interactivity_Localized_TextProperty.htm" />
   <HelpKINode Title="Localized.ToolTip attached property" Url="html/P_Cauldron_XAML_Interactivity_Localized_ToolTip.htm" />
   <HelpKINode Title="Localized.ToolTipProperty field" Url="html/F_Cauldron_XAML_Interactivity_Localized_ToolTipProperty.htm" />
+  <HelpKINode Title="LocalizedText attached property" Url="html/P_Cauldron_XAML_Interactivity_Localized_LocalizedText.htm" />
+  <HelpKINode Title="LocalizedTextProperty field" Url="html/F_Cauldron_XAML_Interactivity_Localized_LocalizedTextProperty.htm" />
   <HelpKINode Title="LogName property" Url="html/P_Cauldron_Core_Interceptors_ExceptionToEventLogAttribute_LogName.htm" />
   <HelpKINode Title="LogonType enumeration" Url="html/T_Cauldron_LogonType.htm" />
   <HelpKINode Title="MaxHeight attached property" Url="html/P_Cauldron_XAML_WindowConfiguration_MaxHeight.htm" />
@@ -1412,7 +1421,7 @@
   </HelpKINode>
   <HelpKINode Title="OnDispose method">
     <HelpKINode Title="DynamicEventHandler.OnDispose Method " Url="html/M_Cauldron_XAML_DynamicEventHandler_OnDispose.htm" />
-    <HelpKINode Title="ValidatableViewModelBase.OnDispose Method " Url="html/M_Cauldron_XAML_Validation_ViewModels_ValidatableViewModelBase_OnDispose.htm" />
+    <HelpKINode Title="ValidatableViewModelBase.OnDispose Method " Url="html/M_Cauldron_XAML_ViewModels_ValidatableViewModelBase_OnDispose.htm" />
     <HelpKINode Title="ViewModelBase.OnDispose Method " Url="html/M_Cauldron_XAML_ViewModels_ViewModelBase_OnDispose.htm" />
   </HelpKINode>
   <HelpKINode Title="OnException method">
@@ -1422,7 +1431,7 @@
   </HelpKINode>
   <HelpKINode Title="OnInitialize method" Url="html/M_Cauldron_XAML_ViewModels_RegisterChildrenAttribute_OnInitialize.htm" />
   <HelpKINode Title="OnIsLoadingChanged method" Url="html/M_Cauldron_XAML_ViewModels_ViewModelBase_OnIsLoadingChanged.htm" />
-  <HelpKINode Title="OnIsValidatingChanged method" Url="html/M_Cauldron_XAML_Validation_ViewModels_ValidatableViewModelBase_OnIsValidatingChanged.htm" />
+  <HelpKINode Title="OnIsValidatingChanged method" Url="html/M_Cauldron_XAML_ViewModels_ValidatableViewModelBase_OnIsValidatingChanged.htm" />
   <HelpKINode Title="OnNavigatedFrom method" Url="html/M_Cauldron_XAML_ViewModels_INavigable_OnNavigatedFrom.htm" />
   <HelpKINode Title="OnNavigatedTo method" Url="html/M_Cauldron_XAML_ViewModels_INavigable_OnNavigatedTo.htm" />
   <HelpKINode Title="OnNavigatingFrom method" Url="html/M_Cauldron_XAML_ViewModels_INavigable_OnNavigatingFrom.htm" />
@@ -1442,7 +1451,7 @@
     <HelpKINode Title="UnEqualityAttribute.OnValidateAsync Method " Url="html/M_Cauldron_XAML_Validation_UnEqualityAttribute_OnValidateAsync.htm" />
     <HelpKINode Title="ValidatorAttributeBase.OnValidateAsync Method " Url="html/M_Cauldron_XAML_Validation_ValidatorAttributeBase_OnValidateAsync.htm" />
   </HelpKINode>
-  <HelpKINode Title="OnValidation method" Url="html/M_Cauldron_XAML_Validation_ViewModels_ValidatableViewModelBase_OnValidation.htm" />
+  <HelpKINode Title="OnValidation method" Url="html/M_Cauldron_XAML_ViewModels_ValidatableViewModelBase_OnValidation.htm" />
   <HelpKINode Title="PageStackEntry class">
     <HelpKINode Title="PageStackEntry Class" Url="html/T_Cauldron_XAML_Navigation_PageStackEntry.htm" />
     <HelpKINode Title="about PageStackEntry class" Url="html/T_Cauldron_XAML_Navigation_PageStackEntry.htm" />
@@ -1564,6 +1573,12 @@
     <HelpKINode Title="IViewModel.RaiseNotifyBehaviourInvoke Method " Url="html/M_Cauldron_XAML_ViewModels_IViewModel_RaiseNotifyBehaviourInvoke.htm" />
     <HelpKINode Title="ViewModelBase.RaiseNotifyBehaviourInvoke Method " Url="html/M_Cauldron_XAML_ViewModels_ViewModelBase_RaiseNotifyBehaviourInvoke.htm" />
   </HelpKINode>
+  <HelpKINode Title="RaisePropertyChangeAttribute class">
+    <HelpKINode Title="RaisePropertyChangeAttribute Class" Url="html/T_Cauldron_XAML_ViewModels_RaisePropertyChangeAttribute.htm" />
+    <HelpKINode Title="about RaisePropertyChangeAttribute class" Url="html/T_Cauldron_XAML_ViewModels_RaisePropertyChangeAttribute.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Cauldron_XAML_ViewModels_RaisePropertyChangeAttribute__ctor.htm" />
+  </HelpKINode>
+  <HelpKINode Title="RaisePropertyChangeAttribute.RaisePropertyChangeAttribute constructor" Url="html/M_Cauldron_XAML_ViewModels_RaisePropertyChangeAttribute__ctor.htm" />
   <HelpKINode Title="RaisePropertyChanged method">
     <HelpKINode Title="ApplicationBase.RaisePropertyChanged Method " Url="html/M_Cauldron_XAML_ApplicationBase_RaisePropertyChanged.htm" />
     <HelpKINode Title="IChangeAwareViewModel.RaisePropertyChanged Method " Url="html/Overload_Cauldron_XAML_ViewModels_IChangeAwareViewModel_RaisePropertyChanged.htm" />
@@ -1713,6 +1728,7 @@
   <HelpKINode Title="SetIsMandatory method" Url="html/M_Cauldron_XAML_Validation_ValidationProperties_SetIsMandatory.htm" />
   <HelpKINode Title="SetIsModal method" Url="html/M_Cauldron_XAML_WindowConfiguration_SetIsModal.htm" />
   <HelpKINode Title="SetIsWindowPersistent method" Url="html/M_Cauldron_XAML_WindowConfiguration_SetIsWindowPersistent.htm" />
+  <HelpKINode Title="SetLocalizedText method" Url="html/M_Cauldron_XAML_Interactivity_Localized_SetLocalizedText.htm" />
   <HelpKINode Title="SetMaxHeight method" Url="html/M_Cauldron_XAML_WindowConfiguration_SetMaxHeight.htm" />
   <HelpKINode Title="SetMaxWidth method" Url="html/M_Cauldron_XAML_WindowConfiguration_SetMaxWidth.htm" />
   <HelpKINode Title="SetMinHeight method" Url="html/M_Cauldron_XAML_WindowConfiguration_SetMinHeight.htm" />
@@ -1904,32 +1920,32 @@
     <HelpKINode Title="WindowsServiceInstaller.UserName Property " Url="html/P_Cauldron_WindowsService_WindowsServiceInstaller_UserName.htm" />
   </HelpKINode>
   <HelpKINode Title="ValidatableViewModelBase class">
-    <HelpKINode Title="ValidatableViewModelBase Class" Url="html/T_Cauldron_XAML_Validation_ViewModels_ValidatableViewModelBase.htm" />
-    <HelpKINode Title="about ValidatableViewModelBase class" Url="html/T_Cauldron_XAML_Validation_ViewModels_ValidatableViewModelBase.htm" />
-    <HelpKINode Title="constructor" Url="html/Overload_Cauldron_XAML_Validation_ViewModels_ValidatableViewModelBase__ctor.htm" />
-    <HelpKINode Title="events" Url="html/Events_T_Cauldron_XAML_Validation_ViewModels_ValidatableViewModelBase.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_XAML_Validation_ViewModels_ValidatableViewModelBase.htm" />
-    <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_XAML_Validation_ViewModels_ValidatableViewModelBase.htm" />
+    <HelpKINode Title="ValidatableViewModelBase Class" Url="html/T_Cauldron_XAML_ViewModels_ValidatableViewModelBase.htm" />
+    <HelpKINode Title="about ValidatableViewModelBase class" Url="html/T_Cauldron_XAML_ViewModels_ValidatableViewModelBase.htm" />
+    <HelpKINode Title="constructor" Url="html/Overload_Cauldron_XAML_ViewModels_ValidatableViewModelBase__ctor.htm" />
+    <HelpKINode Title="events" Url="html/Events_T_Cauldron_XAML_ViewModels_ValidatableViewModelBase.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_XAML_ViewModels_ValidatableViewModelBase.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_XAML_ViewModels_ValidatableViewModelBase.htm" />
   </HelpKINode>
-  <HelpKINode Title="ValidatableViewModelBase.BeforeRaiseNotifyPropertyChanged method" Url="html/M_Cauldron_XAML_Validation_ViewModels_ValidatableViewModelBase_BeforeRaiseNotifyPropertyChanged.htm" />
-  <HelpKINode Title="ValidatableViewModelBase.Errors property" Url="html/P_Cauldron_XAML_Validation_ViewModels_ValidatableViewModelBase_Errors.htm" />
-  <HelpKINode Title="ValidatableViewModelBase.ErrorsChanged event" Url="html/E_Cauldron_XAML_Validation_ViewModels_ValidatableViewModelBase_ErrorsChanged.htm" />
-  <HelpKINode Title="ValidatableViewModelBase.GetErrors method" Url="html/M_Cauldron_XAML_Validation_ViewModels_ValidatableViewModelBase_GetErrors.htm" />
-  <HelpKINode Title="ValidatableViewModelBase.HasErrors property" Url="html/P_Cauldron_XAML_Validation_ViewModels_ValidatableViewModelBase_HasErrors.htm" />
-  <HelpKINode Title="ValidatableViewModelBase.IsValidating property" Url="html/P_Cauldron_XAML_Validation_ViewModels_ValidatableViewModelBase_IsValidating.htm" />
-  <HelpKINode Title="ValidatableViewModelBase.OnDispose method" Url="html/M_Cauldron_XAML_Validation_ViewModels_ValidatableViewModelBase_OnDispose.htm" />
-  <HelpKINode Title="ValidatableViewModelBase.OnIsValidatingChanged method" Url="html/M_Cauldron_XAML_Validation_ViewModels_ValidatableViewModelBase_OnIsValidatingChanged.htm" />
-  <HelpKINode Title="ValidatableViewModelBase.OnValidation method" Url="html/M_Cauldron_XAML_Validation_ViewModels_ValidatableViewModelBase_OnValidation.htm" />
-  <HelpKINode Title="ValidatableViewModelBase.ValidatableViewModelBase constructor" Url="html/Overload_Cauldron_XAML_Validation_ViewModels_ValidatableViewModelBase__ctor.htm" />
-  <HelpKINode Title="ValidatableViewModelBase.ValidateAsync method" Url="html/Overload_Cauldron_XAML_Validation_ViewModels_ValidatableViewModelBase_ValidateAsync.htm" />
-  <HelpKINode Title="ValidatableViewModelBase.Validating event" Url="html/E_Cauldron_XAML_Validation_ViewModels_ValidatableViewModelBase_Validating.htm" />
+  <HelpKINode Title="ValidatableViewModelBase.BeforeRaiseNotifyPropertyChanged method" Url="html/M_Cauldron_XAML_ViewModels_ValidatableViewModelBase_BeforeRaiseNotifyPropertyChanged.htm" />
+  <HelpKINode Title="ValidatableViewModelBase.Errors property" Url="html/P_Cauldron_XAML_ViewModels_ValidatableViewModelBase_Errors.htm" />
+  <HelpKINode Title="ValidatableViewModelBase.ErrorsChanged event" Url="html/E_Cauldron_XAML_ViewModels_ValidatableViewModelBase_ErrorsChanged.htm" />
+  <HelpKINode Title="ValidatableViewModelBase.GetErrors method" Url="html/M_Cauldron_XAML_ViewModels_ValidatableViewModelBase_GetErrors.htm" />
+  <HelpKINode Title="ValidatableViewModelBase.HasErrors property" Url="html/P_Cauldron_XAML_ViewModels_ValidatableViewModelBase_HasErrors.htm" />
+  <HelpKINode Title="ValidatableViewModelBase.IsValidating property" Url="html/P_Cauldron_XAML_ViewModels_ValidatableViewModelBase_IsValidating.htm" />
+  <HelpKINode Title="ValidatableViewModelBase.OnDispose method" Url="html/M_Cauldron_XAML_ViewModels_ValidatableViewModelBase_OnDispose.htm" />
+  <HelpKINode Title="ValidatableViewModelBase.OnIsValidatingChanged method" Url="html/M_Cauldron_XAML_ViewModels_ValidatableViewModelBase_OnIsValidatingChanged.htm" />
+  <HelpKINode Title="ValidatableViewModelBase.OnValidation method" Url="html/M_Cauldron_XAML_ViewModels_ValidatableViewModelBase_OnValidation.htm" />
+  <HelpKINode Title="ValidatableViewModelBase.ValidatableViewModelBase constructor" Url="html/Overload_Cauldron_XAML_ViewModels_ValidatableViewModelBase__ctor.htm" />
+  <HelpKINode Title="ValidatableViewModelBase.ValidateAsync method" Url="html/Overload_Cauldron_XAML_ViewModels_ValidatableViewModelBase_ValidateAsync.htm" />
+  <HelpKINode Title="ValidatableViewModelBase.Validating event" Url="html/E_Cauldron_XAML_ViewModels_ValidatableViewModelBase_Validating.htm" />
   <HelpKINode Title="ValidateAsync method">
-    <HelpKINode Title="IValidatableViewModel.ValidateAsync Method " Url="html/Overload_Cauldron_XAML_Validation_ViewModels_IValidatableViewModel_ValidateAsync.htm" />
-    <HelpKINode Title="ValidatableViewModelBase.ValidateAsync Method " Url="html/Overload_Cauldron_XAML_Validation_ViewModels_ValidatableViewModelBase_ValidateAsync.htm" />
+    <HelpKINode Title="IValidatableViewModel.ValidateAsync Method " Url="html/Overload_Cauldron_XAML_ViewModels_IValidatableViewModel_ValidateAsync.htm" />
+    <HelpKINode Title="ValidatableViewModelBase.ValidateAsync Method " Url="html/Overload_Cauldron_XAML_ViewModels_ValidatableViewModelBase_ValidateAsync.htm" />
   </HelpKINode>
   <HelpKINode Title="Validating event">
-    <HelpKINode Title="IValidatableViewModel.Validating Event" Url="html/E_Cauldron_XAML_Validation_ViewModels_IValidatableViewModel_Validating.htm" />
-    <HelpKINode Title="ValidatableViewModelBase.Validating Event" Url="html/E_Cauldron_XAML_Validation_ViewModels_ValidatableViewModelBase_Validating.htm" />
+    <HelpKINode Title="IValidatableViewModel.Validating Event" Url="html/E_Cauldron_XAML_ViewModels_IValidatableViewModel_Validating.htm" />
+    <HelpKINode Title="ValidatableViewModelBase.Validating Event" Url="html/E_Cauldron_XAML_ViewModels_ValidatableViewModelBase_Validating.htm" />
   </HelpKINode>
   <HelpKINode Title="ValidationBehaviour class">
     <HelpKINode Title="ValidationBehaviour Class" Url="html/T_Cauldron_XAML_Validation_ValidationBehaviour.htm" />
@@ -2178,9 +2194,12 @@
     <HelpKINode Title="XAMLHelper Class" Url="html/T_Cauldron_XAML_XAMLHelper.htm" />
     <HelpKINode Title="about XAMLHelper class" Url="html/T_Cauldron_XAML_XAMLHelper.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_XAML_XAMLHelper.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_XAML_XAMLHelper.htm" />
   </HelpKINode>
+  <HelpKINode Title="XAMLHelper.GetIsInDesignMode method" Url="html/M_Cauldron_XAML_XAMLHelper_GetIsInDesignMode.htm" />
   <HelpKINode Title="XAMLHelper.GetPropertyValueFromPath method" Url="html/M_Cauldron_XAML_XAMLHelper_GetPropertyValueFromPath.htm" />
   <HelpKINode Title="XAMLHelper.GetSourceFromPath method" Url="html/M_Cauldron_XAML_XAMLHelper_GetSourceFromPath.htm" />
+  <HelpKINode Title="XAMLHelper.InlineNamespaces property" Url="html/P_Cauldron_XAML_XAMLHelper_InlineNamespaces.htm" />
   <HelpKINode Title="XAMLHelper.ParseToInline method" Url="html/M_Cauldron_XAML_XAMLHelper_ParseToInline.htm" />
   <HelpKINode Title="y field" Url="html/F_Cauldron_MonitorDpi_y.htm" />
 </HelpKI>

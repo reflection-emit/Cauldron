@@ -461,6 +461,7 @@
   <HelpKINode Title="Contains method">
     <HelpKINode Title="ConcurrentList(T).Contains Method " Url="html/4fdf22fa-b136-895d-ca19-b388b1c79862.htm" />
     <HelpKINode Title="Extensions.Contains Method " Url="html/5d3264a4-b8b0-e376-c691-226a5ab58c62.htm" />
+    <HelpKINode Title="Locale.Contains Method " Url="html/89ccb89d-24e3-22b7-d36e-0db6facd0fdc.htm" />
   </HelpKINode>
   <HelpKINode Title="ContractName property">
     <HelpKINode Title="ComponentAttribute.ContractName Property " Url="html/0960be72-4418-9d3a-c421-4486af012fc3.htm" />
@@ -714,8 +715,8 @@
     <HelpKINode Title="about Extensions class" Url="html/4e840c06-97cf-6137-2175-2169254e6f7c.htm" />
     <HelpKINode Title="about Extensions class" Url="html/96191775-34da-2521-4188-65830c4db18a.htm" />
     <HelpKINode Title="methods" Url="html/c738cb4b-2bd0-c951-6f7c-937b96f42c6a.htm" />
-    <HelpKINode Title="methods" Url="html/4fd086ac-9f3e-5c0c-f1e7-66024063ce6e.htm" />
     <HelpKINode Title="methods" Url="html/4150876e-71fe-a4aa-3745-0600710249c3.htm" />
+    <HelpKINode Title="methods" Url="html/4fd086ac-9f3e-5c0c-f1e7-66024063ce6e.htm" />
   </HelpKINode>
   <HelpKINode Title="Extensions.Concat method" Url="html/c1e6be5e-1904-30e0-e485-54564993c010.htm" />
   <HelpKINode Title="Extensions.Contains method" Url="html/5d3264a4-b8b0-e376-c691-226a5ab58c62.htm" />
@@ -1342,6 +1343,7 @@
     <HelpKINode Title="methods" Url="html/fd2f36fa-3c8f-a1ea-3ba8-a13eba284bba.htm" />
     <HelpKINode Title="properties" Url="html/f36df876-27f2-3c43-9887-fb7d68fe8805.htm" />
   </HelpKINode>
+  <HelpKINode Title="Locale.Contains method" Url="html/89ccb89d-24e3-22b7-d36e-0db6facd0fdc.htm" />
   <HelpKINode Title="Locale.CultureInfo property" Url="html/916b1c8b-cd12-5031-b03c-b291a139f364.htm" />
   <HelpKINode Title="Locale.GetCurrentCultureInfo method" Url="html/bba04e9c-b18c-1fe6-5057-a7a9fea9ebdd.htm" />
   <HelpKINode Title="Locale.Item property" Url="html/98c2b587-2b65-96b6-45cd-106d439ae2b5.htm" />
