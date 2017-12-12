@@ -1,10 +1,7 @@
-﻿using Cauldron.Core;
-using Cauldron.Core.Reflection;
+﻿using Cauldron.Core.Reflection;
 using System.Reflection;
 using System.Windows;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 namespace Cauldron.XAML
 {

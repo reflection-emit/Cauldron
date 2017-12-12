@@ -17,6 +17,7 @@ using System.Windows.Media;
 namespace Cauldron.XAML.Navigation
 {
     using Cauldron.Core.Diagnostics;
+    using Cauldron.Core.Threading;
 
     /// <summary>
     /// Handles creation of a new <see cref="Window"/> and association of the viewmodel
@@ -27,7 +28,7 @@ namespace Cauldron.XAML.Navigation
         private static readonly object SplashScreenWindowTag = new object();
 
         // The navigator always knows every window that it has created
-        private ConcurrentList<WindowViewModelObject> windows = new ConcurrentList<WindowViewModelObject>();
+        private static ConcurrentList<WindowViewModelObject> windows = new ConcurrentList<WindowViewModelObject>();
 
         private WindowType windowType;
 
@@ -217,12 +218,7 @@ namespace Cauldron.XAML.Navigation
                 var window = windowInfo.Item1;
                 (viewModel as IDisposableObject).IsNotNull(x => x.Disposed += async (s, e) => await viewModel.Dispatcher.RunAsync(() => window.Close()));
 
-                window.Closing += (s, e) =>
-                {
-                    if (viewModel is ICloseAwareViewModel closeAware)
-                        e.Cancel = !closeAware.CanClose().RunSync();
-                };
-
+                window.Closing += Window_Closing;
                 window.Closed += (s, e) => (viewModel as ICloseAwareViewModel).IsNotNull(x => x.Close());
 
                 window.Activated += (s, e) =>
@@ -288,7 +284,7 @@ namespace Cauldron.XAML.Navigation
             }
         }
 
-        private bool Close(Window window)
+        private static bool Close(Window window)
         {
             if (window == Application.Current.MainWindow)
             {
@@ -305,6 +301,36 @@ namespace Cauldron.XAML.Navigation
                 return true;
 
             return false;
+        }
+
+        private static void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (e.Cancel)
+                return;
+
+            var window = sender as Window;
+            var view = window.Content as FrameworkElement;
+            var viewModel = view.DataContext as IViewModel;
+
+            if (WindowConfiguration.GetIsWindowPersistent(view))
+                PersistentWindowInformation.Save(window, viewModel.GetType());
+
+            if (viewModel is ICloseAwareViewModel closeAware)
+            {
+                e.Cancel = true;
+
+                Factory.Create<IDispatcher>().RunAsync(async () =>
+                 {
+                     if (await closeAware.CanClose())
+                     {
+                         window.Closing -= Window_Closing;
+                         window.Closing += (s, args) => e.Cancel |= !Close(window);
+                         window.Close();
+                     }
+                 });
+            }
+            else
+                e.Cancel |= !Close(window);
         }
 
         private async Task<Tuple<Window, bool>> CreateDefaultWindow<TResult>(Func<TResult, Task> callback1, Func<Task> callback2, FrameworkElement view, IViewModel viewModel) =>
@@ -433,16 +459,7 @@ namespace Cauldron.XAML.Navigation
                     PersistentWindowProperties.SetWidth(window, e.NewSize.Width);
                 }
             };
-            window.Closing += (s, e) =>
-            {
-                if (WindowConfiguration.GetIsWindowPersistent(view))
-                    PersistentWindowInformation.Save(window, viewModel.GetType());
-
-                if (viewModel is IFrameAware closeAware)
-                    e.Cancel = !closeAware.CanClose().RunSync() | !Close(window);
-                else
-                    e.Cancel |= !Close(window);
-            };
+            window.Closing += Window_Closing;
             window.Closed += (s, e) =>
             {
                 windows.Remove(x => x.window == s);

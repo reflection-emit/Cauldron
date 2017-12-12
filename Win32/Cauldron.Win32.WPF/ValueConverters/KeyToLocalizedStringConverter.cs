@@ -23,9 +23,9 @@ namespace Cauldron.XAML.ValueConverters
         {
             if (Factory.HasContract(typeof(ILocalizationSource)) && value != null)
             {
-                var key = parameter?.ToString() ?? value as string;
+                var key = parameter?.ToString() ?? value?.ToString();
 
-                if (key != null && Locale.Current.Contains(key))
+                if (!string.IsNullOrEmpty(key) && Locale.Current.Contains(key))
                     return parameter == null ? Locale.Current[key] :
                          string.Format(string.IsNullOrEmpty(language) ? Locale.GetCurrentCultureInfo() : new CultureInfo(language), Locale.Current[key], value);
             }
