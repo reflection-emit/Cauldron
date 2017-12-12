@@ -436,8 +436,8 @@ namespace Cauldron.XAML.Navigation
             if (window.Tag != SplashScreenWindowTag && WindowConfiguration.GetHasOwner(view) && Application.Current.MainWindow.Tag != SplashScreenWindowTag)
                 windows.FirstOrDefault(x => x.window.IsActive).IsNotNull(x => window.Owner = x?.window);
 
-            if (Application.Current.MainWindow != null && Application.Current.MainWindow.Tag == SplashScreenWindowTag)
-                Application.Current.MainWindow = window;
+            //if (Application.Current.MainWindow != null && Application.Current.MainWindow.Tag == SplashScreenWindowTag)
+            //    Application.Current.MainWindow = window;
 
             window.SetBinding(Window.IconProperty, new Binding { Path = new PropertyPath(WindowConfiguration.IconProperty), Source = view });
             window.SetBinding(Window.TitleProperty, new Binding { Path = new PropertyPath(WindowConfiguration.TitleProperty), Source = view });

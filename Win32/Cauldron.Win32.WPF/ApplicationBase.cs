@@ -401,6 +401,7 @@ namespace Cauldron.XAML
                     Application.Current.ShutdownMode = oldShutdownMode;
                 }
 
+                Application.Current.MainWindow = null;
                 await this.OnStartup(new LaunchActivatedEventArgs(e.Args));
 
                 if (Application.Current.MainWindow != null)
