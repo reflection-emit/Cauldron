@@ -19,6 +19,8 @@ namespace Cauldron.XAML.ViewModels
         private bool propagatesIsChange;
         private bool propagatesIsLoading;
 
+        private string propertyName;
+
         /// <summary>
         /// Initializes a new instance of <see cref="RegisterChildrenAttribute"/>.
         /// </summary>
@@ -89,6 +91,7 @@ namespace Cauldron.XAML.ViewModels
         /// <returns>If returns false, the backing field will be set to <paramref name="newValue"/></returns>
         public bool OnSet(PropertyInterceptionInfo propertyInterceptionInfo, object oldValue, object newValue)
         {
+            this.propertyName = propertyInterceptionInfo.PropertyName;
             this.Context = propertyInterceptionInfo.Instance as IViewModel;
             this.children = newValue;
 
@@ -192,7 +195,8 @@ namespace Cauldron.XAML.ViewModels
                         changeAware.IsChangedChanged -= ChildIsChangedChanged;
                 }
 
-           (this._context as IChangeAwareViewModel)?.IsNotNull(x => x.IsChanged = true);
+            if (!string.IsNullOrEmpty(this.propertyName))
+                this._context?.RaisePropertyChanged(this.propertyName);
         }
     }
 }
