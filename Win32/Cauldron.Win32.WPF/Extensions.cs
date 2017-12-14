@@ -430,21 +430,30 @@ namespace Cauldron.XAML
                 throw new ArgumentNullException(nameof(action));
 
             viewModel.IsLoading = true;
+            var awaiterTask = new Task(() => { });
+            var result = false;
 
-            try
+            await Task.Run(async () =>
             {
-                await action();
-                return true;
-            }
-            catch (Exception e)
-            {
-                viewModel.OnException(e);
-                return false;
-            }
-            finally
-            {
-                viewModel.IsLoading = false;
-            }
+                try
+                {
+                    await action();
+                    result = true;
+                }
+                catch (Exception e)
+                {
+                    viewModel.OnException(e);
+                    result = false;
+                }
+                finally
+                {
+                    viewModel.IsLoading = false;
+                    awaiterTask.Start();
+                }
+            });
+
+            Task.WaitAll(awaiterTask);
+            return result;
         }
 
         /// <summary>
@@ -468,10 +477,7 @@ namespace Cauldron.XAML
 
             try
             {
-                await viewModel.Dispatcher.RunAsync(DispatcherPriority.Low, async () =>
-                  {
-                      await action();
-                  });
+                await viewModel.Dispatcher.RunAsync(DispatcherPriority.Low, () => action());
             }
             catch (Exception e)
             {
