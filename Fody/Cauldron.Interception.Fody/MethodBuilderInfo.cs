@@ -6,17 +6,23 @@ using System.Linq;
 
 namespace Cauldron.Interception.Fody
 {
-    public sealed class MethodBuilderInfo
+    public interface IMethodBuilderInfoItem
+    {
+        AttributedMethod Attribute { get; }
+        bool HasSyncRootInterface { get; }
+    }
+
+    public sealed class MethodBuilderInfo<T> where T : IMethodBuilderInfoItem
     {
         private Field _syncRoot;
 
-        public MethodBuilderInfo(MethodKey key, IEnumerable<MethodBuilderInfoItem> items)
+        public MethodBuilderInfo(MethodKey key, IEnumerable<T> items)
         {
             this.Key = key;
             this.Item = items.ToArray();
         }
 
-        public MethodBuilderInfoItem[] Item { get; private set; }
+        public T[] Item { get; private set; }
 
         public MethodKey Key { get; private set; }
 
@@ -34,9 +40,9 @@ namespace Cauldron.Interception.Fody
         }
     }
 
-    public sealed class MethodBuilderInfoItem
+    public sealed class MethodBuilderInfoItem<T> : IMethodBuilderInfoItem
     {
-        public MethodBuilderInfoItem(AttributedMethod attribute, __IMethodInterceptor @interface)
+        public MethodBuilderInfoItem(AttributedMethod attribute, T @interface)
         {
             this.Attribute = attribute;
             this.Interface = @interface;
@@ -45,7 +51,7 @@ namespace Cauldron.Interception.Fody
 
         public AttributedMethod Attribute { get; private set; }
         public bool HasSyncRootInterface { get; private set; }
-        public __IMethodInterceptor Interface { get; private set; }
+        public T Interface { get; private set; }
     }
 
     public sealed class MethodKey

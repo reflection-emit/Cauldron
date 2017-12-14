@@ -6,8 +6,10 @@ namespace Cauldron.Interception
     /// <summary>
     /// Represents a contructor interceptor.
     /// <para/>
-    ///
+    /// Please note that <see cref="ISyncRoot"/> is NOT supported by this interceptor.
     /// </summary>
+    /// <example>
+    /// </example>
     public interface IConstructorInterceptor : IInterceptor
     {
         /// <summary>

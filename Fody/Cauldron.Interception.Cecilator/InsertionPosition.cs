@@ -3,6 +3,7 @@
     public enum InsertionPosition
     {
         Beginning,
-        End
+        End,
+        CtorBeforeInit
     }
 }

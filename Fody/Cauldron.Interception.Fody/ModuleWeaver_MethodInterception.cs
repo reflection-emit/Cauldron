@@ -71,7 +71,7 @@ namespace Cauldron.Interception.Fody
             var methods = builder
                 .FindMethodsByAttributes(attributes)
                 .GroupBy(x => new MethodKey(x.Method, x.AsyncMethod))
-                .Select(x => new MethodBuilderInfo(x.Key, x.Select(y => new MethodBuilderInfoItem(y, iMethodInterceptor))))
+                .Select(x => new MethodBuilderInfo<MethodBuilderInfoItem<__IMethodInterceptor>>(x.Key, x.Select(y => new MethodBuilderInfoItem<__IMethodInterceptor>(y, iMethodInterceptor))))
                 .ToArray();
 
             foreach (var method in methods)

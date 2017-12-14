@@ -69,6 +69,7 @@
     <Compile Include="HelperTypes\__Exception.cs" />
     <Compile Include="HelperTypes\__Extensions.cs" />
     <Compile Include="HelperTypes\__Factory.cs" />
+    <Compile Include="HelperTypes\__IConstructorInterceptor.cs" />
     <Compile Include="HelperTypes\__IList.cs" />
     <Compile Include="HelperTypes\__IMethodInterceptor.cs" />
     <Compile Include="HelperTypes\__IPropertyGetterInterceptor.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="ModuleWeaver.cs" />
     <Compile Include="ModuleWeaver_BamlXamlInitializer.cs" />
     <Compile Include="ModuleWeaver_ChangeAwareViewModel.cs" />
+    <Compile Include="ModuleWeaver_ConstructorInterception.cs" />
     <Compile Include="ModuleWeaver_MethodCache.cs" />
     <Compile Include="ModuleWeaver_MethodInterception.cs" />
     <Compile Include="ModuleWeaver_NomenclatureCheck_Async.cs" />

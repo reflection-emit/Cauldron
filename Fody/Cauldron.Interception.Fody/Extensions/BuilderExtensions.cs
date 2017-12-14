@@ -5,7 +5,7 @@ namespace Cauldron.Interception.Fody.Extensions
 {
     internal static class BuilderExtensions
     {
-        public static void AddThisReferenceToAsyncMethod(this MethodBuilderInfo method)
+        public static void AddThisReferenceToAsyncMethod<T>(this MethodBuilderInfo<T> method) where T : IMethodBuilderInfoItem
         {
             var attributedMethod = method.Key.Method;
             var targetedMethod = method.Key.AsyncMethod ?? method.Key.Method;
@@ -22,7 +22,7 @@ namespace Cauldron.Interception.Fody.Extensions
             }
         }
 
-        public static object GetAsyncMethodTypeInstace(this MethodBuilderInfo method)
+        public static object GetAsyncMethodTypeInstace<T>(this MethodBuilderInfo<T> method) where T : IMethodBuilderInfoItem
         {
             var targetedMethod = method.Key.AsyncMethod ?? method.Key.Method;
             return method.Key.AsyncMethod == null ? (object)Crumb.This : targetedMethod.DeclaringType.Fields.FirstOrDefault(x => x.Name == "<>4__this");

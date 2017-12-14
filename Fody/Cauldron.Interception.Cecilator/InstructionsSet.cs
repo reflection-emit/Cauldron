@@ -241,7 +241,11 @@ namespace Cauldron.Interception.Cecilator
             if (processor.Body == null || processor.Body.Instructions.Count == 0)
                 processor.Append(processor.Create(OpCodes.Ret));
 
-            if (position == InsertionPosition.Beginning)
+            if (position == InsertionPosition.CtorBeforeInit)
+            {
+                instructionPosition = processor.Body.Instructions[0];
+            }
+            else if (position == InsertionPosition.Beginning)
             {
                 if (this.method.IsCtor)
                     instructionPosition = this.GetCtorBaseOrThisCall(this.method.methodDefinition);
@@ -438,6 +442,22 @@ namespace Cauldron.Interception.Cecilator
         {
             var instructions = CopyMethodBody(this.method.methodDefinition, this.method.methodDefinition.Body.Variables);
 
+            // special case for .ctor
+            if (this.method.IsCtor)
+            {
+                var newBody = instructions.Instructions.ToList();
+
+                // remove everything until base call
+                var first = newBody.FirstOrDefault(x => x.OpCode == OpCodes.Call && (x.Operand as MethodReference).Name == ".ctor");
+                if (first == null)
+                    throw new NullReferenceException($"The constructor seems to have no call to base class.");
+
+                var firstIndex = newBody.IndexOf(first);
+                newBody = newBody.GetRange(firstIndex + 1, newBody.Count - firstIndex - 1);
+
+                instructions = (newBody, instructions.Exceptions);
+            }
+
             if (this.method.methodDefinition.ReturnType.FullName == "System.Void")
             {
                 // On void method we just simply remove the return and replace all other jumps to the
@@ -495,10 +515,30 @@ namespace Cauldron.Interception.Cecilator
 
         public void Replace()
         {
-            this.method.methodDefinition.Body.Instructions.Clear();
-            this.method.methodDefinition.Body.ExceptionHandlers.Clear();
+            // Special case for .ctors
+            if (this.method.IsCtor)
+            {
+                var first = this.method.methodDefinition.Body.Instructions.FirstOrDefault(x => x.OpCode == OpCodes.Call && (x.Operand as MethodReference).Name == ".ctor");
+                if (first == null)
+                    throw new NullReferenceException($"The constructor seems to have no call to base class.");
 
-            processor.Append(this.instructions);
+                // In ctors we only replace the instructions after base call
+                var callsBeforeBase = this.method.methodDefinition.Body.Instructions.TakeWhile(x => x != first).ToList();
+                callsBeforeBase.Add(first);
+
+                this.method.methodDefinition.Body.Instructions.Clear();
+                this.method.methodDefinition.Body.ExceptionHandlers.Clear();
+
+                processor.Append(callsBeforeBase);
+                processor.Append(this.instructions);
+            }
+            else
+            {
+                this.method.methodDefinition.Body.Instructions.Clear();
+                this.method.methodDefinition.Body.ExceptionHandlers.Clear();
+
+                processor.Append(this.instructions);
+            }
 
             foreach (var item in this.instructions.ExceptionHandlers)
                 processor.Body.ExceptionHandlers.Add(item);
