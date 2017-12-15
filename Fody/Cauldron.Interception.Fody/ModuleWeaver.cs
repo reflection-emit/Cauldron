@@ -42,6 +42,9 @@ namespace Cauldron.Interception.Fody
             var methodInterceptionAttributes = this.Builder.FindAttributesByInterfaces(
                 "Cauldron.Interception.IMethodInterceptor");
 
+            var constructorInterceptionHelperClass = new __IConstructorInterceptor(this.Builder);
+            var constructorInterceptionAttributes = this.Builder.FindAttributesByInterfaces(constructorInterceptionHelperClass.Type.Fullname);
+
             this.ImplementAnonymousTypeInterface(this.Builder);
             this.ImplementTimedCache(this.Builder);
             // this.ImplementMethodCache(this.Builder);
@@ -49,6 +52,7 @@ namespace Cauldron.Interception.Fody
             this.ImplementTypeWidePropertyInterception(this.Builder, propertyInterceptingAttributes);
             this.ImplementTypeWideMethodInterception(this.Builder, methodInterceptionAttributes);
             // These should be done last, because they replace methods
+            this.InterceptConstructors(this.Builder, constructorInterceptionAttributes);
             this.InterceptFields(this.Builder, propertyInterceptingAttributes);
             this.InterceptMethods(this.Builder, methodInterceptionAttributes);
             this.InterceptProperties(this.Builder, propertyInterceptingAttributes);

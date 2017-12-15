@@ -32,6 +32,7 @@
 
   <ItemGroup>
     <PackageReference Include="Fody" Version="2.2.1" />
+    <PackageReference Include="NLog" Version="5.0.0-beta11" />
   </ItemGroup>
 
   <ItemGroup>

@@ -450,7 +450,7 @@ namespace Cauldron.Interception.Cecilator
                 // remove everything until base call
                 var first = newBody.FirstOrDefault(x => x.OpCode == OpCodes.Call && (x.Operand as MethodReference).Name == ".ctor");
                 if (first == null)
-                    throw new NullReferenceException($"The constructor seems to have no call to base class.");
+                    throw new NullReferenceException($"The constructor of type '{this.method.DeclaringType}' seems to have no call to base class.");
 
                 var firstIndex = newBody.IndexOf(first);
                 newBody = newBody.GetRange(firstIndex + 1, newBody.Count - firstIndex - 1);
@@ -516,11 +516,11 @@ namespace Cauldron.Interception.Cecilator
         public void Replace()
         {
             // Special case for .ctors
-            if (this.method.IsCtor)
+            if (this.method.IsCtor && this.method.methodDefinition.Body?.Instructions != null && this.method.methodDefinition.Body.Instructions.Count > 0)
             {
                 var first = this.method.methodDefinition.Body.Instructions.FirstOrDefault(x => x.OpCode == OpCodes.Call && (x.Operand as MethodReference).Name == ".ctor");
                 if (first == null)
-                    throw new NullReferenceException($"The constructor seems to have no call to base class.");
+                    throw new NullReferenceException($"The constructor of type '{this.method.DeclaringType}' seems to have no call to base class.");
 
                 // In ctors we only replace the instructions after base call
                 var callsBeforeBase = this.method.methodDefinition.Body.Instructions.TakeWhile(x => x != first).ToList();

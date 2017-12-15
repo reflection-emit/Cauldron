@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Anonymouse_Type_To_Interface_Test.cs" />
+    <Compile Include="Constructor_Interceptor_Code_Validation.cs" />
     <Compile Include="Field_Interception_Code_Validation_Tests.cs" />
     <Compile Include="Interceptors\CreateATypeInterceptorAttribute.cs" />
     <Compile Include="Interceptors\EnumPropertyInterceptorAttribute.cs" />
