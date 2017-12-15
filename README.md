@@ -1,6 +1,17 @@
 ![Cauldron Logo](https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron2.png)
 
 # Cauldron C# Toolkit
+## Documentation
+### Wiki
+https://github.com/Capgemini/Cauldron/wiki
+### .NET 4.6.1
+https://Capgemini.github.io/Cauldron/win32/
+### .NET Standard 2.0
+https://Capgemini.github.io/Cauldron/netstandard/
+### UWP
+https://Capgemini.github.io/Cauldron/uwp/
+
+## Nuget Packages
 Assembly | Description   | NuGet
 -------- | ------------- | ----------------
 **Cauldron.Activator** | The activator is a simple and very fast dependency injection framework. It is based on attributes and does not require any configuration files for configuration. It also supports using static methods as component constructor. | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Activator.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Activator/)
@@ -38,15 +49,6 @@ Assembly | Description   | NuGet
 **Cauldron.Win32.WPF.ParameterPassing** | Handles passing of parameters to running instance(s) of an application. | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Win32.WPF.ParameterPassing.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Win32.WPF.ParameterPassing/)
 **Cauldron.Win32.WPF.Validation** | Validation Framework for Cauldron.Win32.WPF | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Win32.WPF.Validation.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Win32.WPF.Validation/)
 
-## Documentation
-### Wiki
-https://github.com/Capgemini/Cauldron/wiki
-### .NET 4.6.1
-https://Capgemini.github.io/Cauldron/win32/
-### .NET Standard 2.0
-https://Capgemini.github.io/Cauldron/netstandard/
-### UWP
-https://Capgemini.github.io/Cauldron/uwp/
 ## Required Visual Studio Extensions (For Contributors)
 - [Sandcastle Help File Builder](https://github.com/EWSoftware/SHFB/releases)
 - [CodeMaid](http://www.codemaid.net/)
