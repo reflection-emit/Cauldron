@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Cauldron.Activator;
+using Cauldron.Core.Reflection;
 using Cauldron.XAML;
 
 namespace Win32_WPF_Navigator
@@ -22,7 +23,7 @@ namespace Win32_WPF_Navigator
 
         protected override Task OnStartup(LaunchActivatedEventArgs e)
         {
-            return this.Navigator.NavigateAsync<MainViewModel>();
+            return this.Navigator.NavigateAsync<MainViewModel>("A parameter", 42);
         }
     }
 }
