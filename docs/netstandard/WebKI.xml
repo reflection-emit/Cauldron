@@ -259,6 +259,7 @@
   <HelpKINode Title="Cauldron.Interception.AssignMethodAttribute class" Url="html/28165181-e4d9-4288-323d-be75d01977f4.htm" />
   <HelpKINode Title="Cauldron.Interception.DoNotInterceptAttribute class" Url="html/a322fa64-72b5-8f3b-529f-8ac501e3bf54.htm" />
   <HelpKINode Title="Cauldron.Interception.Extensions class" Url="html/4e840c06-97cf-6137-2175-2169254e6f7c.htm" />
+  <HelpKINode Title="Cauldron.Interception.IConstructorInterceptor interface" Url="html/953318c2-bf50-a4a6-5c6c-32bc25377add.htm" />
   <HelpKINode Title="Cauldron.Interception.IMethodInterceptor interface" Url="html/2c72a710-f4ec-4a97-47c5-b73b98c0ae39.htm" />
   <HelpKINode Title="Cauldron.Interception.IPropertyGetterInterceptor interface" Url="html/e6ff19aa-45e3-f4b8-3983-05e3768fefce.htm" />
   <HelpKINode Title="Cauldron.Interception.IPropertyInterceptor interface" Url="html/f75b5d21-d475-8d35-f5b2-0ffe269dc39a.htm" />
@@ -708,15 +709,15 @@
   <HelpKINode Title="ExistsAsync method" Url="html/f588eaf0-e360-0b54-33c5-b7e8c95a3a52.htm" />
   <HelpKINode Title="ExportedTypes property" Url="html/1daf4133-1741-5485-35f5-21743bba0867.htm" />
   <HelpKINode Title="Extensions class">
+    <HelpKINode Title="Extensions Class" Url="html/7e30f679-b4cf-b5d3-e1a5-67ff8f20304a.htm" />
     <HelpKINode Title="Extensions Class" Url="html/96191775-34da-2521-4188-65830c4db18a.htm" />
     <HelpKINode Title="Extensions Class" Url="html/4e840c06-97cf-6137-2175-2169254e6f7c.htm" />
-    <HelpKINode Title="Extensions Class" Url="html/7e30f679-b4cf-b5d3-e1a5-67ff8f20304a.htm" />
-    <HelpKINode Title="about Extensions class" Url="html/7e30f679-b4cf-b5d3-e1a5-67ff8f20304a.htm" />
     <HelpKINode Title="about Extensions class" Url="html/4e840c06-97cf-6137-2175-2169254e6f7c.htm" />
+    <HelpKINode Title="about Extensions class" Url="html/7e30f679-b4cf-b5d3-e1a5-67ff8f20304a.htm" />
     <HelpKINode Title="about Extensions class" Url="html/96191775-34da-2521-4188-65830c4db18a.htm" />
     <HelpKINode Title="methods" Url="html/c738cb4b-2bd0-c951-6f7c-937b96f42c6a.htm" />
-    <HelpKINode Title="methods" Url="html/4150876e-71fe-a4aa-3745-0600710249c3.htm" />
     <HelpKINode Title="methods" Url="html/4fd086ac-9f3e-5c0c-f1e7-66024063ce6e.htm" />
+    <HelpKINode Title="methods" Url="html/4150876e-71fe-a4aa-3745-0600710249c3.htm" />
   </HelpKINode>
   <HelpKINode Title="Extensions.Concat method" Url="html/c1e6be5e-1904-30e0-e485-54564993c010.htm" />
   <HelpKINode Title="Extensions.Contains method" Url="html/5d3264a4-b8b0-e376-c691-226a5ab58c62.htm" />
@@ -1072,6 +1073,15 @@
   <HelpKINode Title="High enumeration member" Url="html/6c495b8e-0d3d-629e-9100-288f6720d232.htm" />
   <HelpKINode Title="ICollection(Of T).Remove explicitly implemented method" Url="html/ef956df4-a500-e8f6-a4f9-067616e7356b.htm" />
   <HelpKINode Title="ICollection&lt;T&gt;.Remove explicitly implemented method" Url="html/ef956df4-a500-e8f6-a4f9-067616e7356b.htm" />
+  <HelpKINode Title="IConstructorInterceptor interface">
+    <HelpKINode Title="IConstructorInterceptor Interface" Url="html/953318c2-bf50-a4a6-5c6c-32bc25377add.htm" />
+    <HelpKINode Title="about IConstructorInterceptor interface" Url="html/953318c2-bf50-a4a6-5c6c-32bc25377add.htm" />
+    <HelpKINode Title="methods" Url="html/e340ac3a-865c-fbf2-0d31-a78693276657.htm" />
+  </HelpKINode>
+  <HelpKINode Title="IConstructorInterceptor.OnBeforeInitialization method" Url="html/795f3cba-c59b-5087-5b8d-49ce32df708a.htm" />
+  <HelpKINode Title="IConstructorInterceptor.OnEnter method" Url="html/6becb407-c35c-4c23-e13b-102dcd392f85.htm" />
+  <HelpKINode Title="IConstructorInterceptor.OnException method" Url="html/7f5fdb6b-1b12-93ee-a139-cb004750ac20.htm" />
+  <HelpKINode Title="IConstructorInterceptor.OnExit method" Url="html/eadc9b9c-3746-d404-1699-87e112d826a7.htm" />
   <HelpKINode Title="IDispatcher interface">
     <HelpKINode Title="IDispatcher Interface" Url="html/6cfdf73d-50fa-1cab-cc51-049c8d24671e.htm" />
     <HelpKINode Title="about IDispatcher interface" Url="html/6cfdf73d-50fa-1cab-cc51-049c8d24671e.htm" />
@@ -1440,6 +1450,7 @@
   <HelpKINode Title="NullGuard method" Url="html/b82d6f2b-7d3d-23e9-0754-0c2d2bb3e5a3.htm" />
   <HelpKINode Title="ObjectCreated event" Url="html/391b64dc-ff53-fcd8-368f-3413208732c3.htm" />
   <HelpKINode Title="ObjectInstance property" Url="html/9f56ba54-7bae-5a1f-7f8e-573215c6f681.htm" />
+  <HelpKINode Title="OnBeforeInitialization method" Url="html/795f3cba-c59b-5087-5b8d-49ce32df708a.htm" />
   <HelpKINode Title="OnCallBack field" Url="html/7b8cc060-47b6-4bd0-56b1-fe0d7c66e4fc.htm" />
   <HelpKINode Title="OnDispose method">
     <HelpKINode Title="DisposableBase.OnDispose Method " Url="html/7eabd72e-1fa5-9fec-a493-a1ff070718d3.htm" />
@@ -1450,12 +1461,14 @@
   <HelpKINode Title="OnEnter method">
     <HelpKINode Title="ExceptionLoggerAttribute.OnEnter Method " Url="html/a99b7182-e2bc-2924-3a6d-7c22885e54aa.htm" />
     <HelpKINode Title="ExecutionTimeAttribute.OnEnter Method " Url="html/c0eb6b54-fada-b9b0-7298-df7c968dbe46.htm" />
+    <HelpKINode Title="IConstructorInterceptor.OnEnter Method " Url="html/6becb407-c35c-4c23-e13b-102dcd392f85.htm" />
     <HelpKINode Title="IMethodInterceptor.OnEnter Method " Url="html/8fcf4d61-8ab7-b86f-ee0a-d937054a79d2.htm" />
     <HelpKINode Title="PerformanceLoggerAttribute.OnEnter Method " Url="html/6c60a612-3d1d-ab1e-3728-1be53ed1d070.htm" />
   </HelpKINode>
   <HelpKINode Title="OnException method">
     <HelpKINode Title="ExceptionLoggerAttribute.OnException Method " Url="html/fe14d43f-1a32-9cf5-f984-19a6806ebcd2.htm" />
     <HelpKINode Title="ExecutionTimeAttribute.OnException Method " Url="html/3ca84899-98e0-d610-59d6-b167e408f3bd.htm" />
+    <HelpKINode Title="IConstructorInterceptor.OnException Method " Url="html/7f5fdb6b-1b12-93ee-a139-cb004750ac20.htm" />
     <HelpKINode Title="IMethodInterceptor.OnException Method " Url="html/fc5bfad9-63e0-5998-855f-2b89f1f53c51.htm" />
     <HelpKINode Title="InjectAttribute.OnException Method " Url="html/864a77e6-3d48-9476-b5eb-14b7825ba3b4.htm" />
     <HelpKINode Title="IPropertyGetterInterceptor.OnException Method " Url="html/4ce1914c-0609-d91e-0701-0fbddf69b095.htm" />
@@ -1465,6 +1478,7 @@
   <HelpKINode Title="OnExit method">
     <HelpKINode Title="ExceptionLoggerAttribute.OnExit Method " Url="html/8c3896f0-7704-84de-3027-e780c54fccb0.htm" />
     <HelpKINode Title="ExecutionTimeAttribute.OnExit Method " Url="html/2187a1da-f80f-95b6-4ccf-7dffa70d2bd4.htm" />
+    <HelpKINode Title="IConstructorInterceptor.OnExit Method " Url="html/eadc9b9c-3746-d404-1699-87e112d826a7.htm" />
     <HelpKINode Title="IMethodInterceptor.OnExit Method " Url="html/7b4a0bed-e6de-f423-6737-ecddaa963748.htm" />
     <HelpKINode Title="InjectAttribute.OnExit Method " Url="html/a8ee0f35-1afa-606e-5fac-6db7c06ae711.htm" />
     <HelpKINode Title="IPropertyGetterInterceptor.OnExit Method " Url="html/89e474aa-f666-c323-3d4d-e892f8bcbb5d.htm" />

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2002
+VisualStudioVersion = 15.0.27130.2003
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cauldron.Core", "NetStandard\Cauldron.Core\Cauldron.Core.csproj", "{A19F8E3A-657F-4123-85E8-AD4111D63E98}"
 EndProject
@@ -174,6 +174,8 @@ EndProject
 Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "Cauldron.Win32.Documentation", "Win32\Cauldron.Win32.Documentation\Cauldron.Win32.Documentation.shfbproj", "{9907D4A8-3D85-46E6-99B5-A7520E4BA839}"
 EndProject
 Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "Cauldron.NetStandard.Documentation", "NetStandard\Cauldron.NetStandard.Documentation\Cauldron.NetStandard.Documentation.shfbproj", "{0F5234BD-142D-4327-ABB4-B33FD471DB85}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Win32_WPF_Navigator", "Win32_WPF_Navigator\Win32_WPF_Navigator.csproj", "{C7DD1409-9909-4299-B97D-2011BB643D07}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1107,6 +1109,22 @@ Global
 		{0F5234BD-142D-4327-ABB4-B33FD471DB85}.Release|x64.Build.0 = Release|Any CPU
 		{0F5234BD-142D-4327-ABB4-B33FD471DB85}.Release|x86.ActiveCfg = Release|Any CPU
 		{0F5234BD-142D-4327-ABB4-B33FD471DB85}.Release|x86.Build.0 = Release|Any CPU
+		{C7DD1409-9909-4299-B97D-2011BB643D07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7DD1409-9909-4299-B97D-2011BB643D07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7DD1409-9909-4299-B97D-2011BB643D07}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{C7DD1409-9909-4299-B97D-2011BB643D07}.Debug|ARM.Build.0 = Debug|Any CPU
+		{C7DD1409-9909-4299-B97D-2011BB643D07}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C7DD1409-9909-4299-B97D-2011BB643D07}.Debug|x64.Build.0 = Debug|Any CPU
+		{C7DD1409-9909-4299-B97D-2011BB643D07}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C7DD1409-9909-4299-B97D-2011BB643D07}.Debug|x86.Build.0 = Debug|Any CPU
+		{C7DD1409-9909-4299-B97D-2011BB643D07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7DD1409-9909-4299-B97D-2011BB643D07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7DD1409-9909-4299-B97D-2011BB643D07}.Release|ARM.ActiveCfg = Release|Any CPU
+		{C7DD1409-9909-4299-B97D-2011BB643D07}.Release|ARM.Build.0 = Release|Any CPU
+		{C7DD1409-9909-4299-B97D-2011BB643D07}.Release|x64.ActiveCfg = Release|Any CPU
+		{C7DD1409-9909-4299-B97D-2011BB643D07}.Release|x64.Build.0 = Release|Any CPU
+		{C7DD1409-9909-4299-B97D-2011BB643D07}.Release|x86.ActiveCfg = Release|Any CPU
+		{C7DD1409-9909-4299-B97D-2011BB643D07}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1171,6 +1189,7 @@ Global
 		{0D6E5399-52B9-44EC-B8BB-430FED2795A6} = {E1A20339-CE10-4F28-BB52-AB7D56DB3F25}
 		{9907D4A8-3D85-46E6-99B5-A7520E4BA839} = {347CDC37-A275-4A72-A90F-BF8C8F235A3A}
 		{0F5234BD-142D-4327-ABB4-B33FD471DB85} = {347CDC37-A275-4A72-A90F-BF8C8F235A3A}
+		{C7DD1409-9909-4299-B97D-2011BB643D07} = {60164E6C-A924-451F-96C4-906492DA12E0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D1F2CDF5-23CA-42FF-B139-C74A73C3FA62}

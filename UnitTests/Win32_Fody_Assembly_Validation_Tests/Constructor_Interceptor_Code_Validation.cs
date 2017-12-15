@@ -14,10 +14,14 @@ namespace Win32_Fody_Assembly_Validation_Tests
             var obj = new ConstructorInterceptorTestClass_C();
             Assert.AreEqual("Yes", obj.Title);
         }
-
     }
 
     #region Resources
+
+    public interface IConstructorInterceptorInterface
+    {
+        string Title { get; set; }
+    }
 
     public class ConstructorInterceptorTestClass_A
     {
@@ -29,7 +33,19 @@ namespace Win32_Fody_Assembly_Validation_Tests
         [TestConstructorInterceptorA]
         public ConstructorInterceptorTestClass_A(string bla, int bla2, double bla3)
         {
+        }
+    }
 
+    public class ConstructorInterceptorTestClass_B : ConstructorInterceptorTestClass_A
+    {
+        [TestConstructorInterceptorA]
+        public ConstructorInterceptorTestClass_B(string bla, double bla3) : base(bla, 78, bla3)
+        {
+        }
+
+        [TestConstructorInterceptorA]
+        public ConstructorInterceptorTestClass_B(string bla) : this(bla, 0.6)
+        {
         }
     }
 
@@ -41,25 +57,6 @@ namespace Win32_Fody_Assembly_Validation_Tests
         }
 
         public string Title { get; set; }
-    }
-    public class ConstructorInterceptorTestClass_B : ConstructorInterceptorTestClass_A
-    {
-        [TestConstructorInterceptorA]
-        public ConstructorInterceptorTestClass_B(string  bla,double bla3) : base(bla, 78, bla3)
-        {
-
-        }
-
-        [TestConstructorInterceptorA]
-        public ConstructorInterceptorTestClass_B(string bla    ) : this(bla, 0.6)
-        {
-
-        }
-    }
-
-    public interface IConstructorInterceptorInterface
-    {
-        string Title { get; set; }
     }
 
     [AttributeUsage(AttributeTargets.Constructor, AllowMultiple = false, Inherited = false)]
@@ -103,7 +100,6 @@ namespace Win32_Fody_Assembly_Validation_Tests
         {
         }
     }
-
 
     #endregion Resources
 }
