@@ -1,8 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -99,7 +102,7 @@ namespace CauldronBuilder
                         UploadNugetPackage(package);
                 }
 
-                CreateReadmeFromNuspec(startingLocation);
+                CreateReadmeFromNuspec(startingLocation, version);
             }
             catch (Exception e)
             {
@@ -220,9 +223,10 @@ namespace CauldronBuilder
             }
         }
 
-        private static void CreateReadmeFromNuspec(DirectoryInfo startingLocation)
+        private static void CreateReadmeFromNuspec(DirectoryInfo startingLocation, string currentVersion)
         {
-            var bag = new ConcurrentBag<string>();
+            var nugetbag = new ConcurrentBag<string>();
+            var historybag = new ConcurrentBag<string[]>();
 
             Parallel.ForEach(Directory.GetFiles(Path.Combine(startingLocation.FullName, "Nuget"), "*.nuspec").Select(x => new FileInfo(x)), nuget =>
             {
@@ -241,11 +245,86 @@ namespace CauldronBuilder
 
                 nugetLink = $"[![NuGet](https://img.shields.io/nuget/v/{nugetLink}.svg)](https://www.nuget.org/packages/{nugetLink}/)";
 
-                bag.Add($"**{name}** | {description} | {nugetLink}");
+                nugetbag.Add($"**{name}** | {description} | {nugetLink}");
+
+                var historyNugetInfo = new List<string>();
+                var nugetInfos = GetNugetInfo(Path.GetFileNameWithoutExtension(nuget.Name)).Result;
+                var nugetInfo = nugetInfos.Items
+                    .SelectMany(x => x.Items)
+                    .Select(x => x.CatalogEntry)
+                    .Concat(new CatalogEntry[] { new CatalogEntry { Version = currentVersion, Published = DateTime.Now } })
+                    .OrderBy(x => x.Published)
+                    .ToArray();
+                var versionInfo = nuspec["package"]["metadata"]["releaseNotes"]?.InnerText?.Split("\r\n")
+                     .Select(x =>
+                     {
+                         if (string.IsNullOrEmpty(x))
+                             return null;
+
+                         var cleanLine = x.Trim();
+
+                         if (string.IsNullOrEmpty(cleanLine))
+                             return null;
+
+                         var itemDate = DateTime.TryParse(cleanLine.Substring(0, 10), out DateTime date) ? date : (DateTime?)null;
+                         var metaData = nugetInfo.FirstOrDefault(y => y.Published >= itemDate);
+                         return new
+                         {
+                             Date = itemDate,
+                             Type = cleanLine.EnclosedIn("[", "]"),
+                             Description = cleanLine.Substring(cleanLine.IndexOf(']') + 1)?.Trim() ?? "",
+                             Version = metaData.Version
+                         };
+                     })
+                     .Where(x => x != null)
+                     .GroupBy(x => x.Version)
+                     .Select(x => new { Version = x.Key, Types = x.GroupBy(y => y.Type).Select(y => new { Type = y.Key, Log = y.ToArray() }) })
+                     .OrderByDescending(x => x.Version)
+                     .ThenBy(x => x.Types)
+                     .ToArray();
+
+                if (versionInfo == null)
+                    return;
+
+                historyNugetInfo.Add("## " + Path.GetFileNameWithoutExtension(nuget.Name));
+
+                foreach (var version in versionInfo)
+                {
+                    historyNugetInfo.Add("### " + version.Version);
+
+                    foreach (var type in version.Types)
+                    {
+                        switch (type.Type)
+                        {
+                            case "[A]":
+                                historyNugetInfo.Add("#### Added");
+                                break;
+
+                            case "[B]":
+                                historyNugetInfo.Add("#### Bugfix");
+                                break;
+
+                            case "[C]":
+                                historyNugetInfo.Add("#### Change");
+                                break;
+                        }
+
+                        foreach (var text in type.Log)
+                            historyNugetInfo.Add("- " + text.Description);
+                    }
+                }
+
+                if (historyNugetInfo.Count > 0)
+                    historybag.Add(historyNugetInfo.ToArray());
             });
 
-            var content = string.Join("\r\n", bag.OrderBy(x => x));
-            File.WriteAllText(Path.Combine(startingLocation.FullName, "generated-list.txt"), content);
+            var template = File.ReadAllText(Path.Combine(startingLocation.FullName, "Nuget", "Readme-template-.md"));
+            var nugetPackages = string.Join("\r\n", nugetbag.OrderBy(x => x));
+
+            File.WriteAllText(Path.Combine(startingLocation.FullName, "README.md"),
+                template
+                    .Replace("<NUGET_PACKAGES>", nugetPackages)
+                    .Replace("<RELEASE_NOTES>", string.Join("\r\n", historybag.SelectMany(x => x))));
         }
 
         private static string EnclosedIn(this string target, string start, string end)
@@ -264,6 +343,22 @@ namespace CauldronBuilder
                 return null;
 
             return target.Substring(startPos, endPos - startPos + end.Length);
+        }
+
+        private static async Task<CatalogRoot> GetNugetInfo(string packageName)
+        {
+            using (var client = new HttpClient())
+            {
+                var response = await client.GetAsync($"https://api.nuget.org/v3/registration3/{packageName.ToLower()}/index.json");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var data = await response.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<CatalogRoot>(data);
+                }
+            }
+
+            return null;
         }
 
         private static string GetStackTrace(this Exception e)
