@@ -1,8 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
-using Cauldron.Activator;
-using Cauldron.Core.Reflection;
+﻿using Cauldron.Activator;
 using Cauldron.XAML;
+using System;
+using System.Threading.Tasks;
 
 namespace Win32_WPF_Navigator
 {

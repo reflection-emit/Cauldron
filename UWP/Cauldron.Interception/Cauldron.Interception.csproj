@@ -119,6 +119,9 @@
     <Compile Include="..\..\NetStandard\Cauldron.Interception\Extensions.cs">
       <Link>Extensions.cs</Link>
     </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Interception\IConstructorInterceptor.cs">
+      <Link>IConstructorInterceptor.cs</Link>
+    </Compile>
     <Compile Include="..\..\NetStandard\Cauldron.Interception\IInterceptor.cs">
       <Link>IInterceptor.cs</Link>
     </Compile>
