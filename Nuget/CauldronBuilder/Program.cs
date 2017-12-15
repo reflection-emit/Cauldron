@@ -226,10 +226,13 @@ namespace CauldronBuilder
         private static void CreateReadmeFromNuspec(DirectoryInfo startingLocation, string currentVersion)
         {
             var nugetbag = new ConcurrentBag<string>();
-            var historybag = new ConcurrentBag<string[]>();
+            var historybag = new ConcurrentBag<NuspecInfo>();
 
             Parallel.ForEach(Directory.GetFiles(Path.Combine(startingLocation.FullName, "Nuget"), "*.nuspec").Select(x => new FileInfo(x)), nuget =>
             {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("Getting Information for " + nuget);
+
                 var nuspec = new XmlDocument();
                 nuspec.Load(nuget.FullName);
 
@@ -247,7 +250,6 @@ namespace CauldronBuilder
 
                 nugetbag.Add($"**{name}** | {description} | {nugetLink}");
 
-                var historyNugetInfo = new List<string>();
                 var nugetInfos = GetNugetInfo(Path.GetFileNameWithoutExtension(nuget.Name)).Result;
                 var nugetInfo = nugetInfos.Items
                     .SelectMany(x => x.Items)
@@ -268,55 +270,56 @@ namespace CauldronBuilder
 
                          var itemDate = DateTime.TryParse(cleanLine.Substring(0, 10), out DateTime date) ? date : (DateTime?)null;
                          var metaData = nugetInfo.FirstOrDefault(y => y.Published >= itemDate);
-                         return new
+                         return new NuspecInfo
                          {
-                             Date = itemDate,
+                             Date = itemDate ?? DateTime.Now,
                              Type = cleanLine.EnclosedIn("[", "]"),
-                             Description = cleanLine.Substring(cleanLine.IndexOf(']') + 1)?.Trim() ?? "",
+                             Description = $"__{Path.GetFileNameWithoutExtension(nuget.Name)}:__ _{cleanLine.Substring(cleanLine.IndexOf(']') + 1)?.Trim() ?? ""}_",
                              Version = metaData.Version
                          };
-                     })
-                     .Where(x => x != null)
-                     .GroupBy(x => x.Version)
-                     .Select(x => new { Version = x.Key, Types = x.GroupBy(y => y.Type).Select(y => new { Type = y.Key, Log = y.ToArray() }) })
-                     .OrderByDescending(x => x.Version)
-                     .ThenBy(x => x.Types)
-                     .ToArray();
+                     });
 
                 if (versionInfo == null)
                     return;
 
-                historyNugetInfo.Add("## " + Path.GetFileNameWithoutExtension(nuget.Name));
-
-                foreach (var version in versionInfo)
-                {
-                    historyNugetInfo.Add("### " + version.Version);
-
-                    foreach (var type in version.Types)
-                    {
-                        switch (type.Type)
-                        {
-                            case "[A]":
-                                historyNugetInfo.Add("#### Added");
-                                break;
-
-                            case "[B]":
-                                historyNugetInfo.Add("#### Bugfix");
-                                break;
-
-                            case "[C]":
-                                historyNugetInfo.Add("#### Change");
-                                break;
-                        }
-
-                        foreach (var text in type.Log)
-                            historyNugetInfo.Add("- " + text.Description);
-                    }
-                }
-
-                if (historyNugetInfo.Count > 0)
-                    historybag.Add(historyNugetInfo.ToArray());
+                foreach (var item in versionInfo)
+                    historybag.Add(item);
             });
+
+            var versionHistory = historybag
+                .Where(x => x != null)
+                .GroupBy(x => x.Version)
+                .Select(x => new { Version = x.Key, Types = x.GroupBy(y => y.Type).Select(y => new { Type = y.Key, Log = y.ToArray() }) })
+                .OrderByDescending(x => x.Version)
+                .ThenBy(x => x.Types)
+                .ToArray();
+
+            var historyNugetInfo = new List<string>();
+            foreach (var version in versionHistory)
+            {
+                historyNugetInfo.Add($"### __{version.Version}__");
+
+                foreach (var type in version.Types)
+                {
+                    switch (type.Type)
+                    {
+                        case "[A]":
+                            historyNugetInfo.Add("#### Added");
+                            break;
+
+                        case "[B]":
+                            historyNugetInfo.Add("#### Bugfix");
+                            break;
+
+                        case "[C]":
+                            historyNugetInfo.Add("#### Change");
+                            break;
+                    }
+
+                    foreach (var text in type.Log)
+                        historyNugetInfo.Add($"- {text.Description}");
+                }
+            }
 
             var template = File.ReadAllText(Path.Combine(startingLocation.FullName, "Nuget", "Readme-template-.md"));
             var nugetPackages = string.Join("\r\n", nugetbag.OrderBy(x => x));
@@ -324,7 +327,7 @@ namespace CauldronBuilder
             File.WriteAllText(Path.Combine(startingLocation.FullName, "README.md"),
                 template
                     .Replace("<NUGET_PACKAGES>", nugetPackages)
-                    .Replace("<RELEASE_NOTES>", string.Join("\r\n", historybag.SelectMany(x => x))));
+                    .Replace("<RELEASE_NOTES>", string.Join("\r\n", historyNugetInfo)));
         }
 
         private static string EnclosedIn(this string target, string start, string end)

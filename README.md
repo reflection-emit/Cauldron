@@ -54,100 +54,66 @@ Assembly | Description   | NuGet
 **Cauldron.Win32.WPF.Validation** | Validation Framework for Cauldron.Win32.WPF | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Win32.WPF.Validation.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Win32.WPF.Validation/)
 
 ## Release Notes
-## Cauldron.Interception.Fody
-### 2.0.20
+### __2.0.20__
 #### Added
-- Constructor interceptor added.
-### 2.0.19
+- __Cauldron.Interception.Fody:__ _Constructor interceptor added._
+### __2.0.19__
 #### Bugfix
-- Sort of fixed the issue that jumping to errors on async methods did not work.
-- Fixed a bug that caused the weaver to weav types that does not exist and then throws exceptions.
-- A bug was in "cleaning" fixed that caused local variables to be removed although they were still in use.
-#### Added
-- Allowing non auto-properties to be intercepted.
-### 2.0.18
-#### Bugfix
-- Fixed the weaver for the IChangeAwareViewModel interface.
-- Fixed a bug that caused try-catches to be malformed if the modified method was empty.
-- If PropertyChanged.Fody weaved before Cauldron then Cauldron has removed the implementation for the particular property. This is now fixed.
-#### Added
-- IPropertyInitializer added. This interface forces an interceptor to be loaded on type init instead of the first call.
-### 2.0.16
-#### Added
-- Sequence points added.
-#### Bugfix
-- Bug from yesterday regarding ComponentAttribute still occured on nested private classes. Now fixed.
-### 2.0.13
-#### Bugfix
-- Interceptors that uses ISyncRoot interface was not correctly weaved. This caused the object initialization to be weaved in the .cctor even though it is not static.
-- The weaving of the auto-ComponentAttribute attributed types caused an error in some cases if the type is not public.
-#### Added
-- Weaves an initializer for xaml resources to be able to auto-load them.
+- __Capgemini.Cauldron.Win32.WPF:__ _Several issues with the dispatcher fixed._
+- __Capgemini.Cauldron.Win32.WPF:__ _Navigator was not able to find the correct view in some cases._
+- __Capgemini.Cauldron.Win32.WPF:__ _ObjectToVisibilityConverter logic was inverted._
+- __Capgemini.Cauldron.Win32.WPF:__ _Bugs in MessageDialog that caused the strings not to be localized correctly fixed_
+- __Capgemini.Cauldron.Win32.WPF:__ _Fixes an issue where the SplashScreen can be removed from MainView and causes the application to exit_
+- __Capgemini.Cauldron.Win32.WPF.Interactivity:__ _The "Localized" attached property will not continue loading if in design mode to avoid those weird errors in the WPF editor_
+- __Capgemini.Cauldron.Core.Reflection:__ _A bug in Assemblies that causes the Custom assembly resolution to be invoked before all assemblies are added to the collection fixed._
+- __Capgemini.Cauldron.Localization:__ _Added a Contains method to Locale._
+- __Capgemini.Cauldron.Core.Threading:__ _BUG!!!! ... Dispatcher was using BeginInvoke instead of InvokeAsync_
+- __Cauldron.Interception.Fody:__ _A bug was in "cleaning" fixed that caused local variables to be removed although they were still in use._
+- __Cauldron.Interception.Fody:__ _Fixed a bug that caused the weaver to weav types that does not exist and then throws exceptions._
+- __Cauldron.Interception.Fody:__ _Sort of fixed the issue that jumping to errors on async methods did not work._
+- __Capgemini.Cauldron.Activator:__ _CreateFirst always returned null in some cases... This is fixed._
 #### Change
-- TimedCacheAttribute namespace change also reflected to weaver.
-- Useless method cache removed from weaver.
-## Capgemini.Cauldron.Win32.WPF.Interactivity
-### 2.0.19
+- __Capgemini.Cauldron.Win32.WPF:__ _XAML resources loading order can now be changed by adding a dash and a numeric suffix to the file name. e.g. Style-01.xaml._
+- __Capgemini.Cauldron.Core.Reflection:__ _Now Costura compatible._
 #### Added
-- New property added to 'Localized': 'LocalizedText'
+- __Capgemini.Cauldron.Win32.WPF.Interactivity:__ _New property added to 'Localized': 'LocalizedText'_
+- __Cauldron.Interception.Fody:__ _Allowing non auto-properties to be intercepted._
+### __2.0.18__
 #### Bugfix
-- The "Localized" attached property will not continue loading if in design mode to avoid those weird errors in the WPF editor
-## Capgemini.Cauldron.Win32.WPF
-### 2.0.19
-#### Bugfix
-- Fixes an issue where the SplashScreen can be removed from MainView and causes the application to exit
-- Bugs in MessageDialog that caused the strings not to be localized correctly fixed
-- ObjectToVisibilityConverter logic was inverted.
-- Navigator was not able to find the correct view in some cases.
-- Several issues with the dispatcher fixed.
+- __Cauldron.Interception.Fody:__ _If PropertyChanged.Fody weaved before Cauldron then Cauldron has removed the implementation for the particular property. This is now fixed._
+- __Cauldron.Interception.Fody:__ _Fixed a bug that caused try-catches to be malformed if the modified method was empty._
+- __Cauldron.Interception.Fody:__ _Fixed the weaver for the IChangeAwareViewModel interface._
+#### Added
+- __Cauldron.Interception.Fody:__ _IPropertyInitializer added. This interface forces an interceptor to be loaded on type init instead of the first call._
+### __2.0.16__
+#### Added
+- __Capgemini.Cauldron.Win32.WPF:__ _The ViewAttribute now accepts a string as view name/type._
+- __Capgemini.Cauldron.Win32.WPF:__ _OnIsLoadingChanged added to ViewModelBase._
+- __Capgemini.Cauldron.Win32.WPF:__ _Message unsubsribe added to dispose of ViewModelBase._
+- __Capgemini.Cauldron.Win32.WPF:__ _RegisterChildren attribute added._
+- __Cauldron.Interception.Fody:__ _Sequence points added._
+- __Capgemini.Cauldron.Core.Extensions.IO:__ _GetUniqueDirectoryName and GetUniqueFilename added._
 #### Change
-- XAML resources loading order can now be changed by adding a dash and a numeric suffix to the file name. e.g. Style-01.xaml.
-### 2.0.16
+- __Capgemini.Cauldron.Win32.WPF:__ _Renamed IMessageDialog.ShowException to IMessageDialog.ShowExceptionAsync_
+#### Bugfix
+- __Cauldron.Interception.Fody:__ _Bug from yesterday regarding ComponentAttribute still occured on nested private classes. Now fixed._
+### __2.0.13__
 #### Added
-- RegisterChildren attribute added.
-- Message unsubsribe added to dispose of ViewModelBase.
-- OnIsLoadingChanged added to ViewModelBase.
-- The ViewAttribute now accepts a string as view name/type.
+- __Capgemini.Cauldron.Win32.WPF:__ _Several information from ApplicationInfo added as static resources._
+- __Capgemini.Cauldron.Win32.WPF:__ _IViewAware interface added._
+- __Cauldron.Interception.Fody:__ _Weaves an initializer for xaml resources to be able to auto-load them._
+- __Capgemini.Cauldron.Activator:__ _CreateFirst method added to the Factory. This will auto-pick the implementation with the highest priority if multiple implementations are available._
+#### Bugfix
+- __Capgemini.Cauldron.Win32.WPF:__ _Now picks the correct Window implementaion._
+- __Capgemini.Cauldron.Win32.WPF:__ _Bug regarding auto-selection of views in the navigator fixed._
+- __Capgemini.Cauldron.Win32.WPF:__ _Bug in CauldronTemplateSelector regarding view orientation fixed._
+- __Capgemini.Cauldron.Win32.WPF:__ _Fixed a bug that caused the application to crash if there are no IMultiValueConverter in the application._
+- __Cauldron.Interception.Fody:__ _The weaving of the auto-ComponentAttribute attributed types caused an error in some cases if the type is not public._
+- __Cauldron.Interception.Fody:__ _Interceptors that uses ISyncRoot interface was not correctly weaved. This caused the object initialization to be weaved in the .cctor even though it is not static._
+- __Cauldron.Interception.Fody:__ _Useless method cache removed from weaver._
 #### Change
-- Renamed IMessageDialog.ShowException to IMessageDialog.ShowExceptionAsync
-### 2.0.13
-#### Added
-- IViewAware interface added.
-- Several information from ApplicationInfo added as static resources.
-#### Bugfix
-- Fixed a bug that caused the application to crash if there are no IMultiValueConverter in the application.
-- Bug in CauldronTemplateSelector regarding view orientation fixed.
-- Bug regarding auto-selection of views in the navigator fixed.
-- Now picks the correct Window implementaion.
-## Capgemini.Cauldron.Win32.Interceptors
-### 2.0.13
-#### Change
-- TimedCacheAttribute namespace changed to Cauldron.Core.Interceptors.
-## Capgemini.Cauldron.Localization
-### 2.0.19
-#### Bugfix
-- Added a Contains method to Locale.
-## Capgemini.Cauldron.Core.Threading
-### 2.0.19
-#### Bugfix
-- BUG!!!! ... Dispatcher was using BeginInvoke instead of InvokeAsync
-## Capgemini.Cauldron.Core.Reflection
-### 2.0.19
-#### Change
-- Now Costura compatible.
-#### Bugfix
-- A bug in Assemblies that causes the Custom assembly resolution to be invoked before all assemblies are added to the collection fixed.
-## Capgemini.Cauldron.Core.Extensions.IO
-### 2.0.16
-#### Added
-- GetUniqueDirectoryName and GetUniqueFilename added.
-## Capgemini.Cauldron.Activator
-### 2.0.19
-#### Bugfix
-- CreateFirst always returned null in some cases... This is fixed.
-### 2.0.13
-#### Added
-- CreateFirst method added to the Factory. This will auto-pick the implementation with the highest priority if multiple implementations are available.
+- __Cauldron.Interception.Fody:__ _TimedCacheAttribute namespace change also reflected to weaver._
+- __Capgemini.Cauldron.Win32.Interceptors:__ _TimedCacheAttribute namespace changed to Cauldron.Core.Interceptors._
 
 ### Old Release Notes
 ### 2.0.0 betas
