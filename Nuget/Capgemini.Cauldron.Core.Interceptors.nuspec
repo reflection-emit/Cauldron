@@ -14,8 +14,8 @@
     <tags>Toolkit Capgemini Cauldron Interceptors Fody Interception</tags>
     <dependencies>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="2.0.20" />
-        <dependency id="Cauldron.Interception.Fody" version="2.0.20" />
+        <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="2.0.21" />
+        <dependency id="Cauldron.Interception.Fody" version="2.0.21" />
         <dependency id="Fody" version="2.2.1" />
         <dependency id="NLog" version="5.0.0-beta11" />
       </group>

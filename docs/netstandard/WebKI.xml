@@ -121,6 +121,7 @@
   <HelpKINode Title="Background property" Url="html/95126e86-b058-4171-fbe6-16c83aee6a69.htm" />
   <HelpKINode Title="BigEndianUnicode enumeration member" Url="html/3f64551c-fcd8-c071-b05a-73deab046b3d.htm" />
   <HelpKINode Title="Blank enumeration member" Url="html/898732ad-c525-5a10-71e5-9a0724309923.htm" />
+  <HelpKINode Title="Both enumeration member" Url="html/1ab9ed01-1ddd-6ed7-41e9-11d7948b2a5f.htm" />
   <HelpKINode Title="BrewPassword method" Url="html/63d69d7f-b4a5-b7f3-a710-e575ade9609a.htm" />
   <HelpKINode Title="ByteSizeFormatter class">
     <HelpKINode Title="ByteSizeFormatter Class" Url="html/1d3eaf89-66cd-a119-0111-f6cb553406b4.htm" />
@@ -277,6 +278,7 @@
   <HelpKINode Title="Cauldron.Localization.YamlLocalizationSourceBase(Of T) class" Url="html/1129da1b-f23c-77ef-887b-a2985e06dd67.htm" />
   <HelpKINode Title="Cauldron.Localization.YamlLocalizationSourceBase&lt;T&gt; class" Url="html/1129da1b-f23c-77ef-887b-a2985e06dd67.htm" />
   <HelpKINode Title="Cauldron.NameCollisionOption enumeration" Url="html/71574b07-c8af-fe68-0fbb-3f9e9fe6918a.htm" />
+  <HelpKINode Title="Cauldron.Position enumeration" Url="html/1ab9ed01-1ddd-6ed7-41e9-11d7948b2a5f.htm" />
   <HelpKINode Title="Cauldron.TypeIsInterfaceException class" Url="html/f44d5f1c-3313-5b45-8456-0d410adcbe96.htm" />
   <HelpKINode Title="CauldronObjects property" Url="html/46c7db15-b9d8-e76c-6c51-cdba0e82e205.htm" />
   <HelpKINode Title="Center enumeration member" Url="html/23b730e5-3ca5-2cb8-8d62-dbf1602ee947.htm" />
@@ -712,12 +714,12 @@
     <HelpKINode Title="Extensions Class" Url="html/7e30f679-b4cf-b5d3-e1a5-67ff8f20304a.htm" />
     <HelpKINode Title="Extensions Class" Url="html/96191775-34da-2521-4188-65830c4db18a.htm" />
     <HelpKINode Title="Extensions Class" Url="html/4e840c06-97cf-6137-2175-2169254e6f7c.htm" />
-    <HelpKINode Title="about Extensions class" Url="html/4e840c06-97cf-6137-2175-2169254e6f7c.htm" />
-    <HelpKINode Title="about Extensions class" Url="html/7e30f679-b4cf-b5d3-e1a5-67ff8f20304a.htm" />
     <HelpKINode Title="about Extensions class" Url="html/96191775-34da-2521-4188-65830c4db18a.htm" />
+    <HelpKINode Title="about Extensions class" Url="html/7e30f679-b4cf-b5d3-e1a5-67ff8f20304a.htm" />
+    <HelpKINode Title="about Extensions class" Url="html/4e840c06-97cf-6137-2175-2169254e6f7c.htm" />
+    <HelpKINode Title="methods" Url="html/4150876e-71fe-a4aa-3745-0600710249c3.htm" />
     <HelpKINode Title="methods" Url="html/c738cb4b-2bd0-c951-6f7c-937b96f42c6a.htm" />
     <HelpKINode Title="methods" Url="html/4fd086ac-9f3e-5c0c-f1e7-66024063ce6e.htm" />
-    <HelpKINode Title="methods" Url="html/4150876e-71fe-a4aa-3745-0600710249c3.htm" />
   </HelpKINode>
   <HelpKINode Title="Extensions.Concat method" Url="html/c1e6be5e-1904-30e0-e485-54564993c010.htm" />
   <HelpKINode Title="Extensions.Contains method" Url="html/5d3264a4-b8b0-e376-c691-226a5ab58c62.htm" />
@@ -753,6 +755,7 @@
   <HelpKINode Title="Extensions.Operations method" Url="html/df22cb55-e97f-b162-6350-be97c6e18e51.htm" />
   <HelpKINode Title="Extensions.OrderBy(Of TElements) method" Url="html/c567b651-9519-8b73-1c08-c40f10c774fa.htm" />
   <HelpKINode Title="Extensions.OrderBy&lt;TElements&gt; method" Url="html/c567b651-9519-8b73-1c08-c40f10c774fa.htm" />
+  <HelpKINode Title="Extensions.PadOrCut method" Url="html/d1ed9a7d-0e60-44bd-4a1f-c07462cdc72b.htm" />
   <HelpKINode Title="Extensions.ParseQueryString method" Url="html/06db6bfd-d8fa-3a48-eda7-1fb1bbadc7c1.htm" />
   <HelpKINode Title="Extensions.RandomPick(Of T) method" Url="html/a99b09db-bb8e-4311-3b08-df8d34d8da34.htm" />
   <HelpKINode Title="Extensions.RandomPick&lt;T&gt; method" Url="html/a99b09db-bb8e-4311-3b08-df8d34d8da34.htm" />
@@ -1341,7 +1344,10 @@
   <HelpKINode Title="KnownFolders.PictureLibrary property" Url="html/0e601301-3d9e-a9a7-9df5-13857d45840f.htm" />
   <HelpKINode Title="KnownFolders.VideosLibrary property" Url="html/a34d8a5a-baa9-147d-6ae0-4daf184b3271.htm" />
   <HelpKINode Title="LAN enumeration member" Url="html/d8ce281d-e1db-43ae-53c9-5a4ba779c4c8.htm" />
-  <HelpKINode Title="Left enumeration member" Url="html/23b730e5-3ca5-2cb8-8d62-dbf1602ee947.htm" />
+  <HelpKINode Title="Left enumeration member">
+    <HelpKINode Title="ColumnAlignment Enumeration" Url="html/23b730e5-3ca5-2cb8-8d62-dbf1602ee947.htm" />
+    <HelpKINode Title="Position Enumeration" Url="html/1ab9ed01-1ddd-6ed7-41e9-11d7948b2a5f.htm" />
+  </HelpKINode>
   <HelpKINode Title="Left method" Url="html/ece28e2f-3745-e174-9558-ceead13d502d.htm" />
   <HelpKINode Title="LessThan method" Url="html/3314a3a1-e0a6-29ab-4b53-16f4604c5b5a.htm" />
   <HelpKINode Title="LessThanOrEqual method" Url="html/9b820bad-a53d-1bd1-e99b-e1c081d3a6d4.htm" />
@@ -1507,6 +1513,7 @@
   <HelpKINode Title="Operations method" Url="html/df22cb55-e97f-b162-6350-be97c6e18e51.htm" />
   <HelpKINode Title="OrderBy(Of TElements) method" Url="html/c567b651-9519-8b73-1c08-c40f10c774fa.htm" />
   <HelpKINode Title="OrderBy&lt;TElements&gt; method" Url="html/c567b651-9519-8b73-1c08-c40f10c774fa.htm" />
+  <HelpKINode Title="PadOrCut method" Url="html/d1ed9a7d-0e60-44bd-4a1f-c07462cdc72b.htm" />
   <HelpKINode Title="Parameter property" Url="html/be8eb5fc-5952-9d3c-ab7a-c13273dff791.htm" />
   <HelpKINode Title="ParameterAttribute class">
     <HelpKINode Title="ParameterAttribute Class" Url="html/379e7461-3774-8c6e-7b13-b8738e64f8a4.htm" />
@@ -1569,6 +1576,7 @@
   <HelpKINode Title="PingResults.roundTripTimeMax field" Url="html/e7fd8a98-fcd2-4f4a-27eb-af130bf3abda.htm" />
   <HelpKINode Title="PingResults.roundTripTimeMin field" Url="html/56780965-c3a4-5be6-6d7b-3a89da11efcf.htm" />
   <HelpKINode Title="Policy property" Url="html/4cb99081-c3d9-b92b-392f-90d62662d38e.htm" />
+  <HelpKINode Title="Position enumeration" Url="html/1ab9ed01-1ddd-6ed7-41e9-11d7948b2a5f.htm" />
   <HelpKINode Title="Priority property">
     <HelpKINode Title="ComponentAttribute.Priority Property " Url="html/0c0b5b21-0ea1-d6e5-e674-3432221153cf.htm" />
     <HelpKINode Title="IFactoryTypeInfo.Priority Property " Url="html/2eca34c6-f64a-a163-a980-f475ec1e3456.htm" />
@@ -1668,7 +1676,10 @@
   </HelpKINode>
   <HelpKINode Title="RequiredValuesMissingException.MissingRequiredParameters property" Url="html/ea2aebfc-e94c-8bd1-3108-b321ae112f81.htm" />
   <HelpKINode Title="ResponseData property" Url="html/63e208df-7cef-d1f4-4fe4-5282b71d0fcd.htm" />
-  <HelpKINode Title="Right enumeration member" Url="html/23b730e5-3ca5-2cb8-8d62-dbf1602ee947.htm" />
+  <HelpKINode Title="Right enumeration member">
+    <HelpKINode Title="ColumnAlignment Enumeration" Url="html/23b730e5-3ca5-2cb8-8d62-dbf1602ee947.htm" />
+    <HelpKINode Title="Position Enumeration" Url="html/1ab9ed01-1ddd-6ed7-41e9-11d7948b2a5f.htm" />
+  </HelpKINode>
   <HelpKINode Title="Right method" Url="html/d7ecd970-1856-48f9-6be0-b10036ca5b0a.htm" />
   <HelpKINode Title="RoamingFolder property" Url="html/c3c03dd7-5a73-c532-eb3f-662f965735c3.htm" />
   <HelpKINode Title="roundTripTimeMax field" Url="html/e7fd8a98-fcd2-4f4a-27eb-af130bf3abda.htm" />
