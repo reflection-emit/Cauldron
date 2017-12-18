@@ -587,6 +587,98 @@ namespace Cauldron
             array.Cast<TElements>().OrderBy(keySelector);
 
         /// <summary>
+        /// Shortens or extends a string to a specific length. The default position is <see cref="Position.Right"/>.
+        /// </summary>
+        /// <param name="string">The string to shorten or extend.</param>
+        /// <param name="newlength">The new length of the string.</param>
+        /// <returns>
+        /// A new string that is equivalent to this instance, but aligned to the left and padded or cropped on the right
+        /// with as many spaces as needed to create a length of <paramref name="newlength"/>. However, if <paramref name="newlength"/>
+        /// is equal to the length of this instance, the method returns a reference to the existing instance. If totalWidth is
+        /// 0, the method returns <see cref="string.Empty"/>.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="string"/> is null.</exception>
+        public static string PadOrCut(this string @string, ushort newlength) =>
+            @string.PadOrCut(newlength, Position.Right, ' ');
+
+        /// <summary>
+        /// Shortens or extends a string to a specific length.
+        /// </summary>
+        /// <param name="string">The string to shorten or extend.</param>
+        /// <param name="newlength">The new length of the string.</param>
+        /// <param name="position">Indicates on which position to modify the string.</param>
+        /// <returns>
+        /// A new string that is equivalent to this instance, but aligned to the left, right or center, depending
+        /// on the <paramref name="position"/> and padded or cropped on the left, right or both with as many paddingChar
+        /// characters as needed to create a length of <paramref name="newlength"/>. However, if <paramref name="newlength"/>
+        /// is equal to the length of this instance, the method returns a reference to the existing instance. If totalWidth is
+        /// 0, the method returns <see cref="string.Empty"/>.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="string"/> is null.</exception>
+        public static string PadOrCut(this string @string, ushort newlength, Position position) =>
+            @string.PadOrCut(newlength, position, ' ');
+
+        /// <summary>
+        /// Shortens or extends a string to a specific length.
+        /// </summary>
+        /// <param name="string">The string to shorten or extend.</param>
+        /// <param name="newlength">The new length of the string.</param>
+        /// <param name="position">Indicates on which position to modify the string.</param>
+        /// <param name="paddingChar">A Unicode padding character.</param>
+        /// <returns>
+        /// A new string that is equivalent to this instance, but aligned to the left, right or center, depending
+        /// on the <paramref name="position"/> and padded or cropped on the left, right or both with as many paddingChar
+        /// characters as needed to create a length of <paramref name="newlength"/>. However, if <paramref name="newlength"/>
+        /// is equal to the length of this instance, the method returns a reference to the existing instance. If totalWidth is
+        /// 0, the method returns <see cref="string.Empty"/>.
+        /// </returns>
+        /// <exception cref="ArgumentNullException"><paramref name="string"/> is null.</exception>
+        public static string PadOrCut(this string @string, ushort newlength, Position position, char paddingChar)
+        {
+            if (@string == null)
+                throw new ArgumentNullException(nameof(@string));
+
+            if (newlength == 0)
+                return string.Empty;
+
+            if (@string.Length == newlength)
+                return @string;
+
+            if (@string.Length < newlength)
+            {
+                switch (position)
+                {
+                    case Position.Left:
+                        return @string.PadLeft(newlength, paddingChar);
+
+                    case Position.Right:
+                        return @string.PadRight(newlength, paddingChar);
+
+                    default:
+                        {
+                            var leftpad = (newlength - @string.Length) / 2;
+                            return @string.PadLeft(leftpad + @string.Length, paddingChar).PadRight(newlength, paddingChar);
+                        }
+                }
+            }
+
+            switch (position)
+            {
+                case Position.Left:
+                    return @string.Substring(@string.Length - newlength);
+
+                case Position.Right:
+                    return @string.Substring(0, newlength);
+
+                default:
+                    {
+                        var startposition = (@string.Length - newlength) / 2;
+                        return @string.Substring(startposition, newlength);
+                    }
+            }
+        }
+
+        /// <summary>
         /// Parses a query string into a NameValueCollection using UTF8 encoding.
         /// </summary>
         /// <param name="uri">The uri to parse.</param>

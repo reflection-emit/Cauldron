@@ -58,6 +58,7 @@
     <Compile Include="BehaviourCollection.cs" />
     <Compile Include="BehaviourInvocation\BehaviourInvokeAwareBehaviourBase.cs" />
     <Compile Include="BehaviourInvocation\InvocationTrigger.cs" />
+    <Compile Include="CustomCursor.cs" />
     <Compile Include="EnterKeyToCommand.cs" />
     <Compile Include="EventToCommand.cs" />
     <Compile Include="EventTrigger.cs" />

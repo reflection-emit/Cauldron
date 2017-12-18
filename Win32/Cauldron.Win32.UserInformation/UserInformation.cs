@@ -11,10 +11,7 @@ namespace Cauldron.Core
     {
         private static User currentUser;
 
-        static UserInformation()
-        {
-            currentUser = new User(WindowsIdentity.GetCurrent().Name);
-        }
+        static UserInformation() => currentUser = new User(WindowsIdentity.GetCurrent().Name);
 
         /// <summary>
         /// Gets the account picture for the user.
@@ -113,6 +110,11 @@ namespace Cauldron.Core
         /// </summary>
         /// <returns>A string that represents the user name of the user.</returns>
         public static string UserName => currentUser.UserName;
+
+        /// <summary>
+        /// Gets a the user's Windows Terminal Service's client name. The value will fallback to <see cref="Environment.MachineName"/> if there is no client name available.
+        /// </summary>
+        public static string WTSClientName => currentUser.WTSClientName;
 
         /// <summary>
         /// Gets the user information of the given user by its user name.

@@ -36,6 +36,42 @@ namespace Cauldron
         public static FileInfo GetUniqueFilename(this FileInfo file) => new FileInfo(Utils.GetUniqueFilename(file.FullName));
 
         /// <summary>
+        /// Renames a file.
+        /// </summary>
+        /// <param name="fileInfo">The file to rename.</param>
+        /// <param name="newName">The new name of the file.</param>
+        /// <returns>A new instance of <see cref="FileInfo"/> representing the renamed file.</returns>
+        /// <exception cref="FileNotFoundException"><paramref name="fileInfo"/> does not exist.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="newName"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="newName"/> is empty, contains only white spaces, or contains invalid characters.</exception>
+        /// <exception cref="IOException">An I/O error occurs, such as the destination file already exists or the destination device is not ready.</exception>
+        /// <exception cref="System.Security.SecurityException">The caller does not have the required permission.</exception>
+        /// <exception cref="UnauthorizedAccessException"><paramref name="newName"/> is read-only or is a directory.</exception>
+        /// <exception cref="DirectoryNotFoundException">The specified path is invalid, such as being on an unmapped drive.</exception>
+        /// <exception cref="NotSupportedException"><paramref name="newName"/> contains a colon (:) in the middle of the string.</exception>
+        /// <exception cref="PathTooLongException">
+        /// The specified path, file name, or both exceed the system-defined maximum length.
+        /// For example, on Windows-based platforms, paths must be less than 248 characters,
+        /// and file names must be less than 260 characters.
+        /// </exception>
+        public static FileInfo Rename(this FileInfo fileInfo, string newName)
+        {
+            if (!File.Exists(fileInfo.FullName))
+                throw new FileNotFoundException("fileInfo does not exist.");
+
+            if (newName == null)
+                throw new ArgumentNullException(nameof(newName));
+
+            if (newName == "")
+                throw new ArgumentException(nameof(newName));
+
+            var newFile = Path.Combine(fileInfo.DirectoryName, newName);
+            fileInfo.MoveTo(newFile);
+
+            return new FileInfo(newFile);
+        }
+
+        /// <summary>
         /// Waits for a file to be accessable. The default waiting period is 1.5s.
         /// </summary>
         /// <param name="fileInfo">The path of the file</param>

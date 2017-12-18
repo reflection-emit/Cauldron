@@ -12,6 +12,9 @@
     <description>Provides usefull extension methods</description>
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Extensions MaxBy MinBy Encode</tags>
+    <releaseNotes>
+      2017.12.19 - [A] PadOrCut extension method added. It allows to pad chars or cut the string to a specific length.
+    </releaseNotes>
     <dependencies>
       <group targetFramework=".NETStandard2.0" />
     </dependencies>

@@ -3,6 +3,7 @@ using System;
 using System.DirectoryServices;
 using System.DirectoryServices.AccountManagement;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace Cauldron.Core
@@ -22,6 +23,7 @@ namespace Cauldron.Core
         private string _principalName;
         private string _telephoneNumber;
         private string _username;
+        private string _wtsClientName;
         private bool isInitialized = false;
         private object lockObject = new object();
 
@@ -212,6 +214,43 @@ namespace Cauldron.Core
         /// </summary>
         /// <returns>A string that represents the user name of the user.</returns>
         public string UserName => _username;
+
+        /// <summary>
+        /// Gets a the user's Windows Terminal Service's client name. The value will fallback to <see cref="Environment.MachineName"/> if there is no client name available.
+        /// </summary>
+        public string WTSClientName
+        {
+            get
+            {
+                if (this._wtsClientName == null)
+                {
+                    var buffer = IntPtr.Zero;
+
+                    try
+                    {
+                        UnsafeNative.WTSQuerySessionInformation(IntPtr.Zero,
+                            UnsafeNative.WTS_CURRENT_SESSION,
+                            UnsafeNative.WTS_INFO_CLASS.WTSClientName,
+                            out buffer, out uint returnedBytes);
+
+                        this._wtsClientName = Marshal.PtrToStringAnsi(buffer, (int)returnedBytes - 1);
+                    }
+                    catch
+                    {
+                        this._wtsClientName = Environment.GetEnvironmentVariable("ClientName");
+
+                        if (string.IsNullOrEmpty(this._wtsClientName))
+                            this._wtsClientName = Environment.MachineName;
+                    }
+                    finally
+                    {
+                        UnsafeNative.WTSFreeMemory(buffer);
+                    }
+                }
+
+                return this._wtsClientName;
+            }
+        }
 
         /// <exclude/>
         public static bool operator !=(User a, User b)

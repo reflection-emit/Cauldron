@@ -209,6 +209,9 @@
     <Compile Include="..\..\NetStandard\Cauldron.Core.Extensions\Extensions.cs">
       <Link>Core\Extensions\Extensions.cs</Link>
     </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Extensions\Position.cs">
+      <Link>Core\Extensions\Position.cs</Link>
+    </Compile>
     <Compile Include="..\..\NetStandard\Cauldron.Core.Formatters\ByteSizeFormatter.cs">
       <Link>Core\Formatters\ByteSizeFormatter.cs</Link>
     </Compile>
