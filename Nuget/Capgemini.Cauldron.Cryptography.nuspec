@@ -14,12 +14,12 @@
     <tags>Toolkit Capgemini Cauldron Cryptography AES RSA SecureString</tags>
     <dependencies>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="Capgemini.Cauldron.Core.Comparing" version="2.0.21" />
-        <dependency id="Capgemini.Cauldron.Core.Extensions" version="2.0.21" />
-        <dependency id="Capgemini.Cauldron.Core.Extensions.Compression" version="2.0.21" />
-        <dependency id="Capgemini.Cauldron.Core.Extensions.Convertions" version="2.0.21" />
-        <dependency id="Capgemini.Cauldron.Core.MathExtensions" version="2.0.21" />
-        <dependency id="Capgemini.Cauldron.Core.Randomizer" version="2.0.21" />
+        <dependency id="Capgemini.Cauldron.Core.Comparing" version="2.0.22" />
+        <dependency id="Capgemini.Cauldron.Core.Extensions" version="2.0.22" />
+        <dependency id="Capgemini.Cauldron.Core.Extensions.Compression" version="2.0.22" />
+        <dependency id="Capgemini.Cauldron.Core.Extensions.Convertions" version="2.0.22" />
+        <dependency id="Capgemini.Cauldron.Core.MathExtensions" version="2.0.22" />
+        <dependency id="Capgemini.Cauldron.Core.Randomizer" version="2.0.22" />
       </group>
     </dependencies>
   </metadata>

@@ -14,13 +14,13 @@
     <tags>Toolkit Capgemini Cauldron Core</tags>
     <dependencies>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="Capgemini.Cauldron.Core.Collections" version="2.0.21" />
-        <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="2.0.21" />
-        <dependency id="Capgemini.Cauldron.Core.Disposable" version="2.0.21" />
-        <dependency id="Capgemini.Cauldron.Core.Extensions" version="2.0.21" />
-        <dependency id="Capgemini.Cauldron.Core.Extensions.Convertions" version="2.0.21" />
-        <dependency id="Capgemini.Cauldron.Core.Extensions.IO" version="2.0.21" />
-        <dependency id="Capgemini.Cauldron.Core.Reflection" version="2.0.21" />
+        <dependency id="Capgemini.Cauldron.Core.Collections" version="2.0.22" />
+        <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="2.0.22" />
+        <dependency id="Capgemini.Cauldron.Core.Disposable" version="2.0.22" />
+        <dependency id="Capgemini.Cauldron.Core.Extensions" version="2.0.22" />
+        <dependency id="Capgemini.Cauldron.Core.Extensions.Convertions" version="2.0.22" />
+        <dependency id="Capgemini.Cauldron.Core.Extensions.IO" version="2.0.22" />
+        <dependency id="Capgemini.Cauldron.Core.Reflection" version="2.0.22" />
         <dependency id="Newtonsoft.Json" version="10.0.3" />
       </group>
     </dependencies>

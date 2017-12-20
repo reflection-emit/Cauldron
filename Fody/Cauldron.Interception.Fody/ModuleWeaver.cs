@@ -22,9 +22,9 @@ namespace Cauldron.Interception.Fody
 
         public override void OnExecute()
         {
-            if (!this.Builder.IsReferenced("Cauldron.Interception"))
+            if (!(this.Builder.IsReferenced("Cauldron.Interception") || this.Builder.TypeExists("Cauldron.Interception.IMethodInterceptor")))
             {
-                this.Log(LogTypes.Warning, type: null, arg: $"The assembly 'Cauldron.Interception' is not referenced or used in '{this.Builder.Name}'. Weaving will not continue.");
+                this.Log(LogTypes.Warning, arg: $"The assembly 'Cauldron.Interception' is not referenced or used in '{this.Builder.Name}'. Weaving will not continue.");
                 return;
             }
 

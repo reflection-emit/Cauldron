@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>2.0.21</Version>
+    <Version>2.0.22</Version>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Authors>Alexander Schunk, Capgemini Deutschland GmbH</Authors>
@@ -19,8 +19,8 @@
 - Enum DisplayName attribute - addtional meta-data to an enum
 - Assemblies statis class - A "wrapper" for Assembly but applied on all loaded Assemblies</Description>
     <PackageId>Capgemini.Cauldron.Core.Reflection</PackageId>
-  <AssemblyVersion>2.0.0.21</AssemblyVersion>
-<FileVersion>2.0.0.21</FileVersion>
+  <AssemblyVersion>2.0.0.22</AssemblyVersion>
+<FileVersion>2.0.0.22</FileVersion>
 </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>Capgemini.Cauldron.Cryptography</PackageId>
-    <Version>2.0.21</Version>
+    <Version>2.0.22</Version>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Description>Contains typical implementations for AES, RSA and RSA-AES encryptions. It also contains extensions that helps working with SecureString.</Description>
@@ -14,8 +14,8 @@
     <PackageProjectUrl>https://github.com/Capgemini/Cauldron</PackageProjectUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</PackageIconUrl>
     <PackageTags>Toolkit Capgemini Cauldron Cryptography AES RSA SecureString</PackageTags>
-    <AssemblyVersion>2.0.0.21</AssemblyVersion>
-    <FileVersion>2.0.0.21</FileVersion>
+    <AssemblyVersion>2.0.0.22</AssemblyVersion>
+    <FileVersion>2.0.0.22</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

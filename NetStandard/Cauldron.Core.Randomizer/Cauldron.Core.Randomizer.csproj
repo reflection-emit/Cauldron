@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>2.0.21</Version>
+    <Version>2.0.22</Version>
     <Authors>Alexander Schunk, Capgemini Deutschland GmbH</Authors>
     <Company>Capgemini Deutschland GmbH</Company>
     <PackageProjectUrl>https://github.com/Capgemini/Cauldron</PackageProjectUrl>
@@ -12,10 +12,10 @@
     <Copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</Copyright>
     <PackageIconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</PackageIconUrl>
     <PackageTags>Toolkit Capgemini Cauldron Random Cryptographic</PackageTags>
-    <AssemblyVersion>2.0.0.21</AssemblyVersion>
+    <AssemblyVersion>2.0.0.22</AssemblyVersion>
     <Description>Provides a randomizer that is cryptographicly secure</Description>
     <PackageId>Capgemini.Cauldron.Core.Randomizer</PackageId>
-  <FileVersion>2.0.0.21</FileVersion>
+  <FileVersion>2.0.0.22</FileVersion>
 </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

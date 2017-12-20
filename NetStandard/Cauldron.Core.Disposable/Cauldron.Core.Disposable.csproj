@@ -4,10 +4,10 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <AssemblyVersion>2.0.0.21</AssemblyVersion>
-    <FileVersion>2.0.0.21</FileVersion>
+    <AssemblyVersion>2.0.0.22</AssemblyVersion>
+    <FileVersion>2.0.0.22</FileVersion>
     <PackageId>Capgemini.Cauldron.Core.Disposable</PackageId>
-    <Version>2.0.21</Version>
+    <Version>2.0.22</Version>
     <Authors>Alexander Schunk, Capgemini Deutschland GmbH</Authors>
     <Company>Capgemini Deutschland GmbH</Company>
     <Copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</Copyright>

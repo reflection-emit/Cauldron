@@ -14,9 +14,9 @@
     <tags>Toolkit Capgemini Console Parameter Parsing Argument Arguments Parameters Cauldron Command CommandLine Args</tags>
     <dependencies>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="Capgemini.Cauldron.Core.Extensions" version="2.0.21" />
-        <dependency id="Capgemini.Cauldron.Core.Randomizer" version="2.0.21" />
-        <dependency id="Capgemini.Cauldron.Localization" version="2.0.21" />
+        <dependency id="Capgemini.Cauldron.Core.Extensions" version="2.0.22" />
+        <dependency id="Capgemini.Cauldron.Core.Randomizer" version="2.0.22" />
+        <dependency id="Capgemini.Cauldron.Localization" version="2.0.22" />
       </group>
     </dependencies>
   </metadata>

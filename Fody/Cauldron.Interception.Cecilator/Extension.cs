@@ -351,6 +351,8 @@ namespace Cauldron.Interception.Cecilator
                 cecilatorObject.Log(logTypes, method.methodDefinition.GetSequencePoint(), arg);
         }
 
+        public static void Log(this CecilatorObject cecilatorObject, LogTypes logTypes, object arg) => cecilatorObject.Log(logTypes, sequencePoint: null, arg: arg);
+
         public static TNew New<TType, TNew>(this TType target, Func<TType, TNew> predicate) => predicate(target);
 
         public static GenericInstanceType ResolveGenericArguments(this GenericInstanceType self, GenericInstanceType inheritingOrImplementingType)

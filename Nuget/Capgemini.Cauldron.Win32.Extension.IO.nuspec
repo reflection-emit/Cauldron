@@ -14,7 +14,7 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron IO</tags>
     <dependencies>
-      <dependency id="Capgemini.Cauldron.Core.Extensions.IO" version="2.0.21" />
+      <dependency id="Capgemini.Cauldron.Core.Extensions.IO" version="2.0.22" />
     </dependencies>
   </metadata>
   <files>

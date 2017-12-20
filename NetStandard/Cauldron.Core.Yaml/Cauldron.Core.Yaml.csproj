@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>2.0.21</Version>
+    <Version>2.0.22</Version>
     <Authors>Alexander Schunk, Capgemini Deutschland GmbH</Authors>
     <Company>Capgemini Deutschland GmbH</Company>
     <Copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</Copyright>
@@ -14,8 +14,8 @@
     <PackageTags>Toolkit Capgemini Cauldron Yaml</PackageTags>
     <Description>A YAML deserializer</Description>
     <PackageId>Capgemini.Cauldron.Core.Yaml</PackageId>
-  <AssemblyVersion>2.0.0.21</AssemblyVersion>
-<FileVersion>2.0.0.21</FileVersion>
+  <AssemblyVersion>2.0.0.22</AssemblyVersion>
+<FileVersion>2.0.0.22</FileVersion>
 </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

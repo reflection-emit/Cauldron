@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C3CCC530-61EA-40C7-B4F9-42DB16EE1FA4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Cauldron.Win32.Net45.Interception</RootNamespace>
+    <AssemblyName>Cauldron.Interception.Net45</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\NetStandard\Cauldron.Interception\AssignMethodAttribute.cs">
+      <Link>AssignMethodAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\NetStandard\Cauldron.Interception\DoNotInterceptAttribute.cs">
+      <Link>DoNotInterceptAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\NetStandard\Cauldron.Interception\Extensions.cs">
+      <Link>Extensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\NetStandard\Cauldron.Interception\IConstructorInterceptor.cs">
+      <Link>IConstructorInterceptor.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\NetStandard\Cauldron.Interception\IInterceptor.cs">
+      <Link>IInterceptor.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\NetStandard\Cauldron.Interception\IMethodInterceptor.cs">
+      <Link>IMethodInterceptor.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\NetStandard\Cauldron.Interception\IPropertyGetterInterceptor.cs">
+      <Link>IPropertyGetterInterceptor.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\NetStandard\Cauldron.Interception\IPropertyInterceptor.cs">
+      <Link>IPropertyInterceptor.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\NetStandard\Cauldron.Interception\IPropertyInterceptorInitialize.cs">
+      <Link>IPropertyInterceptorInitialize.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\NetStandard\Cauldron.Interception\IPropertySetterInterceptor.cs">
+      <Link>IPropertySetterInterceptor.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\NetStandard\Cauldron.Interception\ISyncRoot.cs">
+      <Link>ISyncRoot.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\NetStandard\Cauldron.Interception\PropertyInterceptionInfo.cs">
+      <Link>PropertyInterceptionInfo.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

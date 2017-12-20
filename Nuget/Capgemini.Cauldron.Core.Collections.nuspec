@@ -14,8 +14,8 @@
     <tags>Toolkit Capgemini Collections ConcurrentList List</tags>
     <dependencies>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="Capgemini.Cauldron.Core.Comparing" version="2.0.21" />
-        <dependency id="Capgemini.Cauldron.Core.Extensions" version="2.0.21" />
+        <dependency id="Capgemini.Cauldron.Core.Comparing" version="2.0.22" />
+        <dependency id="Capgemini.Cauldron.Core.Extensions" version="2.0.22" />
       </group>
     </dependencies>
   </metadata>

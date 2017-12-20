@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>2.0.21</Version>
+    <Version>2.0.22</Version>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Authors>Alexander Schunk, Capgemini Deutschland GmbH</Authors>
@@ -14,8 +14,8 @@
     <PackageTags>Toolkit Capgemini Cauldron Net Ping Network</PackageTags>
     <Description>A collection of usefull methods regarding networks</Description>
     <PackageId>Capgemini.Cauldron.Core.Net</PackageId>
-  <AssemblyVersion>2.0.0.21</AssemblyVersion>
-<FileVersion>2.0.0.21</FileVersion>
+  <AssemblyVersion>2.0.0.22</AssemblyVersion>
+<FileVersion>2.0.0.22</FileVersion>
 </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

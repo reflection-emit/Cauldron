@@ -3,8 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>Capgemini.Cauldron.Interception</PackageId>
-  <AssemblyVersion>2.0.0.21</AssemblyVersion>
-<FileVersion>2.0.0.21</FileVersion>
+  <AssemblyVersion>2.0.0.22</AssemblyVersion>
+<FileVersion>2.0.0.22</FileVersion>
 <Authors>Alexander Schunk, Capgemini Deutschland GmbH</Authors>
 <Copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</Copyright>
 </PropertyGroup>
