@@ -19,10 +19,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Capgemini.Cauldron.Activator" Version="2.0.19" />
-    <PackageReference Include="Capgemini.Cauldron.Consoles" Version="2.0.19" />
-    <PackageReference Include="Capgemini.Cauldron.Core.Comparing" Version="2.0.19" />
-    <PackageReference Include="Capgemini.Cauldron.Core.Threading" Version="2.0.19" />
-    <PackageReference Include="Capgemini.Cauldron.Cryptography" Version="2.0.19" />
+    <PackageReference Include="Capgemini.Cauldron.Activator" Version="2.0.22" />
+    <PackageReference Include="Capgemini.Cauldron.Consoles" Version="2.0.22" />
+    <PackageReference Include="Capgemini.Cauldron.Core.Comparing" Version="2.0.22" />
+    <PackageReference Include="Capgemini.Cauldron.Core.Threading" Version="2.0.22" />
+    <PackageReference Include="Capgemini.Cauldron.Cryptography" Version="2.0.22" />
   </ItemGroup>
 </Project>

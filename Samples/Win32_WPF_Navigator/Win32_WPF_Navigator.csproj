@@ -36,80 +36,105 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Cauldron.Activator, Version=2.0.0.19, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Capgemini.Cauldron.Activator.2.0.19\lib\netstandard2.0\Cauldron.Activator.dll</HintPath>
+    <Reference Include="Cauldron.Activator">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Activator.2.0.22\lib\netstandard2.0\Cauldron.Activator.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Cauldron.Core, Version=2.0.0.19, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Capgemini.Cauldron.Core.2.0.19\lib\netstandard2.0\Cauldron.Core.dll</HintPath>
+    <Reference Include="Cauldron.Core">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Core.2.0.22\lib\netstandard2.0\Cauldron.Core.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Cauldron.Core.Collections, Version=2.0.0.19, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Capgemini.Cauldron.Core.Collections.2.0.19\lib\netstandard2.0\Cauldron.Core.Collections.dll</HintPath>
+    <Reference Include="Cauldron.Core.Collections">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Collections.2.0.22\lib\netstandard2.0\Cauldron.Core.Collections.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Cauldron.Core.Comparing, Version=2.0.0.19, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Capgemini.Cauldron.Core.Comparing.2.0.19\lib\netstandard2.0\Cauldron.Core.Comparing.dll</HintPath>
+    <Reference Include="Cauldron.Core.Comparing">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Comparing.2.0.22\lib\netstandard2.0\Cauldron.Core.Comparing.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Cauldron.Core.Diagnostics, Version=2.0.0.19, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Capgemini.Cauldron.Core.Diagnostics.2.0.19\lib\netstandard2.0\Cauldron.Core.Diagnostics.dll</HintPath>
+    <Reference Include="Cauldron.Core.Diagnostics">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Diagnostics.2.0.22\lib\netstandard2.0\Cauldron.Core.Diagnostics.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Cauldron.Core.Disposable, Version=2.0.0.19, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Capgemini.Cauldron.Core.Disposable.2.0.19\lib\netstandard2.0\Cauldron.Core.Disposable.dll</HintPath>
+    <Reference Include="Cauldron.Core.Disposable">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Disposable.2.0.22\lib\netstandard2.0\Cauldron.Core.Disposable.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Cauldron.Core.Extensions, Version=2.0.0.19, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Capgemini.Cauldron.Core.Extensions.2.0.19\lib\netstandard2.0\Cauldron.Core.Extensions.dll</HintPath>
+    <Reference Include="Cauldron.Core.Extensions">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Extensions.2.0.22\lib\netstandard2.0\Cauldron.Core.Extensions.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Cauldron.Core.Extensions.Compression, Version=2.0.0.19, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Capgemini.Cauldron.Core.Extensions.Compression.2.0.19\lib\netstandard2.0\Cauldron.Core.Extensions.Compression.dll</HintPath>
+    <Reference Include="Cauldron.Core.Extensions.Compression">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Extensions.Compression.2.0.22\lib\netstandard2.0\Cauldron.Core.Extensions.Compression.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Cauldron.Core.Extensions.Convertions, Version=2.0.0.19, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Capgemini.Cauldron.Core.Extensions.Convertions.2.0.19\lib\netstandard2.0\Cauldron.Core.Extensions.Convertions.dll</HintPath>
+    <Reference Include="Cauldron.Core.Extensions.Convertions">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Extensions.Convertions.2.0.22\lib\netstandard2.0\Cauldron.Core.Extensions.Convertions.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Cauldron.Core.Extensions.IO, Version=2.0.0.19, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Capgemini.Cauldron.Core.Extensions.IO.2.0.19\lib\netstandard2.0\Cauldron.Core.Extensions.IO.dll</HintPath>
+    <Reference Include="Cauldron.Core.Extensions.IO">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Extensions.IO.2.0.22\lib\netstandard2.0\Cauldron.Core.Extensions.IO.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Cauldron.Core.MathExtensions, Version=2.0.0.19, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Capgemini.Cauldron.Core.MathExtensions.2.0.19\lib\netstandard2.0\Cauldron.Core.MathExtensions.dll</HintPath>
+    <Reference Include="Cauldron.Core.MathExtensions">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Core.MathExtensions.2.0.22\lib\netstandard2.0\Cauldron.Core.MathExtensions.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Cauldron.Core.Net, Version=2.0.0.19, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Capgemini.Cauldron.Core.Net.2.0.19\lib\netstandard2.0\Cauldron.Core.Net.dll</HintPath>
+    <Reference Include="Cauldron.Core.Net">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Net.2.0.22\lib\netstandard2.0\Cauldron.Core.Net.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Cauldron.Core.Randomizer, Version=2.0.0.19, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Capgemini.Cauldron.Core.Randomizer.2.0.19\lib\netstandard2.0\Cauldron.Core.Randomizer.dll</HintPath>
+    <Reference Include="Cauldron.Core.Randomizer">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Randomizer.2.0.22\lib\netstandard2.0\Cauldron.Core.Randomizer.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Cauldron.Core.Reflection, Version=2.0.0.19, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Capgemini.Cauldron.Core.Reflection.2.0.19\lib\netstandard2.0\Cauldron.Core.Reflection.dll</HintPath>
+    <Reference Include="Cauldron.Core.Reflection">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Reflection.2.0.22\lib\netstandard2.0\Cauldron.Core.Reflection.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Cauldron.Core.Threading, Version=2.0.0.19, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Capgemini.Cauldron.Core.Threading.2.0.19\lib\netstandard2.0\Cauldron.Core.Threading.dll</HintPath>
+    <Reference Include="Cauldron.Core.Threading">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Threading.2.0.22\lib\netstandard2.0\Cauldron.Core.Threading.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Cauldron.Core.Yaml, Version=2.0.0.19, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Capgemini.Cauldron.Core.Yaml.2.0.19\lib\netstandard2.0\Cauldron.Core.Yaml.dll</HintPath>
+    <Reference Include="Cauldron.Core.Yaml">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Yaml.2.0.22\lib\netstandard2.0\Cauldron.Core.Yaml.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Cauldron.Cryptography, Version=2.0.0.19, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Capgemini.Cauldron.Cryptography.2.0.19\lib\netstandard2.0\Cauldron.Cryptography.dll</HintPath>
+    <Reference Include="Cauldron.Cryptography">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Cryptography.2.0.22\lib\netstandard2.0\Cauldron.Cryptography.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Cauldron.Interception, Version=2.0.0.19, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Cauldron.Interception.Fody.2.0.19\lib\net461\Cauldron.Interception.dll</HintPath>
+    <Reference Include="Cauldron.Interception">
+      <HintPath>..\..\packages\Cauldron.Interception.Fody.2.0.22\lib\net461\Cauldron.Interception.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Cauldron.Localization, Version=2.0.0.19, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Capgemini.Cauldron.Localization.2.0.19\lib\netstandard2.0\Cauldron.Localization.dll</HintPath>
+    <Reference Include="Cauldron.Localization">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Localization.2.0.22\lib\netstandard2.0\Cauldron.Localization.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Cauldron.Win32.MonitorInfo, Version=2.0.0.19, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Capgemini.Cauldron.Win32.MonitorInfo.2.0.19\lib\net461\Cauldron.Win32.MonitorInfo.dll</HintPath>
+    <Reference Include="Cauldron.Win32.MonitorInfo">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Win32.MonitorInfo.2.0.22\lib\net461\Cauldron.Win32.MonitorInfo.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Cauldron.Win32.Net, Version=2.0.0.19, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Capgemini.Cauldron.Win32.Net.2.0.19\lib\net461\Cauldron.Win32.Net.dll</HintPath>
+    <Reference Include="Cauldron.Win32.Net">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Win32.Net.2.0.22\lib\net461\Cauldron.Win32.Net.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Cauldron.Win32.Threading, Version=2.0.0.19, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Capgemini.Cauldron.Win32.Threading.2.0.19\lib\net461\Cauldron.Win32.Threading.dll</HintPath>
+    <Reference Include="Cauldron.Win32.Threading">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Win32.Threading.2.0.22\lib\net461\Cauldron.Win32.Threading.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Cauldron.Win32.UserInformation, Version=2.0.0.19, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Capgemini.Cauldron.Win32.UserInformation.2.0.19\lib\net461\Cauldron.Win32.UserInformation.dll</HintPath>
+    <Reference Include="Cauldron.Win32.UserInformation">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Win32.UserInformation.2.0.22\lib\net461\Cauldron.Win32.UserInformation.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Cauldron.Win32.WPF, Version=2.0.0.19, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Capgemini.Cauldron.Win32.WPF.2.0.19\lib\net461\Cauldron.Win32.WPF.dll</HintPath>
+    <Reference Include="Cauldron.Win32.WPF">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Win32.WPF.2.0.22\lib\net461\Cauldron.Win32.WPF.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Cauldron.Win32.WPF.ParameterPassing, Version=2.0.0.19, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Capgemini.Cauldron.Win32.WPF.ParameterPassing.2.0.19\lib\net461\Cauldron.Win32.WPF.ParameterPassing.dll</HintPath>
+    <Reference Include="Cauldron.Win32.WPF.ParameterPassing">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Win32.WPF.ParameterPassing.2.0.22\lib\net461\Cauldron.Win32.WPF.ParameterPassing.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -183,7 +208,7 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Fody.2.2.1.0\build\net452\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.2.2.1.0\build\net452\Fody.targets'))" />
-    <Error Condition="!Exists('..\..\packages\Fody.2.3.2\build\net452\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Fody.2.3.2\build\net452\Fody.targets'))" />
+    <Error Condition="!Exists('..\..\packages\Fody.2.3.3\build\net452\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Fody.2.3.3\build\net452\Fody.targets'))" />
   </Target>
-  <Import Project="..\..\packages\Fody.2.3.2\build\net452\Fody.targets" Condition="Exists('..\..\packages\Fody.2.3.2\build\net452\Fody.targets')" />
+  <Import Project="..\..\packages\Fody.2.3.3\build\net452\Fody.targets" Condition="Exists('..\..\packages\Fody.2.3.3\build\net452\Fody.targets')" />
 </Project>

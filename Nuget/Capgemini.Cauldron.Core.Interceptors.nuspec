@@ -16,7 +16,7 @@
       <group targetFramework=".NETStandard2.0">
         <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="2.0.22" />
         <dependency id="Cauldron.Interception.Fody" version="2.0.22" />
-        <dependency id="Fody" version="2.2.1" />
+        <dependency id="Fody" version="2.3.3" />
         <dependency id="NLog" version="5.0.0-beta11" />
       </group>
     </dependencies>

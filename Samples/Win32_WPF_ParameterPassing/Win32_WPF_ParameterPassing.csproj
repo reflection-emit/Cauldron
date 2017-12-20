@@ -37,17 +37,17 @@
     <StartupObject>Win32_WPF_ParameterPassing.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Cauldron.Core.Diagnostics, Version=2.0.0.19, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Diagnostics.2.0.19\lib\netstandard2.0\Cauldron.Core.Diagnostics.dll</HintPath>
+    <Reference Include="Cauldron.Core.Diagnostics, Version=2.0.0.22, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Diagnostics.2.0.22\lib\netstandard2.0\Cauldron.Core.Diagnostics.dll</HintPath>
     </Reference>
-    <Reference Include="Cauldron.Core.Randomizer, Version=2.0.0.19, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Randomizer.2.0.19\lib\netstandard2.0\Cauldron.Core.Randomizer.dll</HintPath>
+    <Reference Include="Cauldron.Core.Randomizer, Version=2.0.0.22, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Randomizer.2.0.22\lib\netstandard2.0\Cauldron.Core.Randomizer.dll</HintPath>
     </Reference>
-    <Reference Include="Cauldron.Core.Reflection, Version=2.0.0.19, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Reflection.2.0.19\lib\netstandard2.0\Cauldron.Core.Reflection.dll</HintPath>
+    <Reference Include="Cauldron.Core.Reflection, Version=2.0.0.22, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Reflection.2.0.22\lib\netstandard2.0\Cauldron.Core.Reflection.dll</HintPath>
     </Reference>
-    <Reference Include="Cauldron.Win32.WPF.ParameterPassing, Version=2.0.0.19, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Capgemini.Cauldron.Win32.WPF.ParameterPassing.2.0.19\lib\net461\Cauldron.Win32.WPF.ParameterPassing.dll</HintPath>
+    <Reference Include="Cauldron.Win32.WPF.ParameterPassing, Version=2.0.0.22, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Win32.WPF.ParameterPassing.2.0.22\lib\net461\Cauldron.Win32.WPF.ParameterPassing.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />

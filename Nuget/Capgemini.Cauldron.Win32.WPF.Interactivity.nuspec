@@ -18,9 +18,9 @@
       2017.12.10 - [B] The "Localized" attached property will not continue loading if in design mode to avoid those weird errors in the WPF editor
     </releaseNotes>
     <dependencies>
-      <dependency id="Fody" version="2.2.1" />
+      <dependency id="Fody" version="2.3.3" />
       <dependency id="Newtonsoft.Json" version="10.0.3" />
-      <dependency id="PropertyChanged.Fody" version="2.1.4" />
+      <dependency id="PropertyChanged.Fody" version="2.2.4" />
       <dependency id="Cauldron.Interception.Fody" version="2.0.22" />
       <dependency id="Capgemini.Cauldron.Activator" version="2.0.22" />
       <dependency id="Capgemini.Cauldron.Core.Collections" version="2.0.22" />
