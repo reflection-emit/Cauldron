@@ -170,20 +170,27 @@ namespace Cauldron.Interception.Cecilator
 
             foreach (var item in target)
             {
-                var assembly = this.moduleDefinition.AssemblyResolver.Resolve(item);
-
-                if (assembly == null)
-                    continue;
-
-                if (result.Contains(assembly))
-                    continue;
-
-                result.Add(assembly);
-
-                if (assembly.MainModule.HasAssemblyReferences)
+                try
                 {
-                    foreach (var a in assembly.Modules)
-                        GetAllAssemblyDefinitions(a.AssemblyReferences, result);
+                    var assembly = this.moduleDefinition.AssemblyResolver.Resolve(item);
+
+                    if (assembly == null)
+                        continue;
+
+                    if (result.Contains(assembly))
+                        continue;
+
+                    result.Add(assembly);
+
+                    if (assembly.MainModule.HasAssemblyReferences)
+                    {
+                        foreach (var a in assembly.Modules)
+                            GetAllAssemblyDefinitions(a.AssemblyReferences, result);
+                    }
+                }
+                catch (OutOfMemoryException)
+                {
+                    this.Log(LogTypes.Warning, $"Unable to load '{item.FullName}'. This may cause on the resulting assembly. Please make sure Fody's 'VerifyAssembly' switch is set to 'True'.");
                 }
             }
         }
