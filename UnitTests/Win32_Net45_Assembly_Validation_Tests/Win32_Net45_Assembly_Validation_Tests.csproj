@@ -29,6 +29,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -37,6 +38,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -47,24 +49,149 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interceptors\TestMethodInterceptorAttribute.cs" />
-    <Compile Include="Method_Interceptor_Code_Validation_Tests.cs" />
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Comparing\Comparer.cs">
+      <Link>Net45Special\Comparer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Comparing\DynamicEqualityComparer.cs">
+      <Link>Net45Special\DynamicEqualityComparer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Comparing\Extensions.cs">
+      <Link>Net45Special\1\Extensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Diagnostics\Debug.cs">
+      <Link>Net45Special\Debug.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Extensions.Convertions\Encodings.cs">
+      <Link>Net45Special\1\Encodings.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Extensions.Convertions\ExtensionsConvertions.cs">
+      <Link>Net45Special\1\ExtensionsConvertions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Extensions.Convertions\ImplicitExplicitConvertionCache.cs">
+      <Link>Net45Special\1\ImplicitExplicitConvertionCache.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Extensions\Extensions.cs">
+      <Link>Net45Special\Extensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Extensions\Position.cs">
+      <Link>Net45Special\Position.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Net\ConnectionGenerationTypes.cs">
+      <Link>Net45Special\ConnectionGenerationTypes.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Net\Network.cs">
+      <Link>Net45Special\Network.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Net\PingResults.cs">
+      <Link>Net45Special\PingResults.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Randomizer\Randomizer.cs">
+      <Link>Net45Special\Randomizer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Reflection\ActivatorCollection.cs">
+      <Link>Net45Special\ActivatorCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Reflection\DisplayNameAttribute.cs">
+      <Link>Net45Special\DisplayNameAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Reflection\Enum.cs">
+      <Link>Net45Special\Enum.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Reflection\ExtensionsReflection.cs">
+      <Link>Net45Special\ExtensionsReflection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Reflection\TypeIsInterfaceException.cs">
+      <Link>Net45Special\TypeIsInterfaceException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Threading\AsyncHelper.cs">
+      <Link>Net45Special\AsyncHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.UserInformation\UnsafeNative.cs">
+      <Link>Net45Special\UnsafeNative.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.UserInformation\User.cs">
+      <Link>Net45Special\User.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.UserInformation\UserInformation.cs">
+      <Link>Net45Special\UserInformation.cs</Link>
+    </Compile>
+    <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Anonymouse_Type_To_Interface_Test.cs">
+      <Link>Anonymouse_Type_To_Interface_Test.cs</Link>
+    </Compile>
+    <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Constructor_Interceptor_Code_Validation.cs">
+      <Link>Constructor_Interceptor_Code_Validation.cs</Link>
+    </Compile>
+    <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Field_Interception_Code_Validation_Tests.cs">
+      <Link>Field_Interception_Code_Validation_Tests.cs</Link>
+    </Compile>
+    <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Interceptors\CreateATypeInterceptorAttribute.cs">
+      <Link>Interceptors\CreateATypeInterceptorAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Interceptors\EnumPropertyInterceptorAttribute.cs">
+      <Link>Interceptors\EnumPropertyInterceptorAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Interceptors\ExceptionThrowingMethodInterceptorAttribute.cs">
+      <Link>Interceptors\ExceptionThrowingMethodInterceptorAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Interceptors\TestMethodInterceptorAttribute.cs">
+      <Link>Interceptors\TestMethodInterceptorAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Interceptors\TestMethodInterceptorWithParameter.cs">
+      <Link>Interceptors\TestMethodInterceptorWithParameter.cs</Link>
+    </Compile>
+    <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Interceptors\TestPropertyInterceptorAttribute.cs">
+      <Link>Interceptors\TestPropertyInterceptorAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\ITestInterface.cs">
+      <Link>ITestInterface.cs</Link>
+    </Compile>
+    <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Method_Interceptor_Code_Validation_Tests.cs">
+      <Link>Method_Interceptor_Code_Validation_Tests.cs</Link>
+    </Compile>
+    <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Method_Interceptor_TypeWide_Validation_Test.cs">
+      <Link>Method_Interceptor_TypeWide_Validation_Test.cs</Link>
+    </Compile>
+    <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Property_Interceptor_Code_Validation_Tests.cs">
+      <Link>Property_Interceptor_Code_Validation_Tests.cs</Link>
+    </Compile>
+    <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Property_Interceptor_TypeWide_Validation_Test.cs">
+      <Link>Property_Interceptor_TypeWide_Validation_Test.cs</Link>
+    </Compile>
+    <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\TestClass.cs">
+      <Link>TestClass.cs</Link>
+    </Compile>
+    <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\TestEnum.cs">
+      <Link>TestEnum.cs</Link>
+    </Compile>
+    <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\TestStruct.cs">
+      <Link>TestStruct.cs</Link>
+    </Compile>
+    <Compile Include="Method_Interceptor_Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Net45_Assembly_Validation_External_Resources\Net45_Assembly_Validation_External_Resources.csproj">
+      <Project>{38faa55a-97f0-403a-8431-7810a61a59b4}</Project>
+      <Name>Net45_Assembly_Validation_External_Resources</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Win32\Net45\Cauldron.Win32.Net45.Interception\Cauldron.Win32.Net45.Interception.csproj">
       <Project>{c3ccc530-61ea-40c7-b4f9-42db16ee1fa4}</Project>
       <Name>Cauldron.Win32.Net45.Interception</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="FodyWeavers.xml" />
+    <None Include="FodyWeavers.xml">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

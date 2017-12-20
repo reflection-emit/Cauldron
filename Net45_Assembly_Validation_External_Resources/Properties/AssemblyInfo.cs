@@ -1,16 +1,16 @@
-using System.Reflection;
+﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Cauldron.Win32.Net461.Interception")]
+[assembly: AssemblyTitle("Net45_Assembly_Validation_External_Resources")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Alexander Schunk, Capgemini Deutschland GmbH")]
-[assembly: AssemblyProduct("Cauldron.Win32.Net461.Interception")]
-[assembly: AssemblyCopyright("Copyright (c) 2016 Capgemini Deutschland GmbH")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("Net45_Assembly_Validation_External_Resources")]
+[assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("f7082ec9-ecae-4e25-b6b5-decd9b61a707")]
+[assembly: Guid("38faa55a-97f0-403a-8431-7810a61a59b4")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -31,6 +31,6 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
-// [assembly: AssemblyVersion("2.0.0.22")]
+// [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("2.0.0.22")]
+[assembly: AssemblyFileVersion("1.0.0.0")]
