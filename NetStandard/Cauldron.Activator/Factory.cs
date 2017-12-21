@@ -222,7 +222,7 @@ namespace Cauldron.Activator
         /// The parameter <paramref name="contractType"/> is null
         /// </exception>
         /// <exception cref="KeyNotFoundException">
-        /// The contract described by <paramref name="contractName"/> was not found
+        /// The contract described by <paramref name="contractType"/> was not found
         /// </exception>
         /// <exception cref="Exception">Unknown <see cref="FactoryCreationPolicy"/></exception>
         /// <exception cref="NotSupportedException">

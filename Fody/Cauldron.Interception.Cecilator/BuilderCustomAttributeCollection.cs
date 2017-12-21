@@ -110,10 +110,16 @@ namespace Cauldron.Interception.Cecilator
 
         public void AddEditorBrowsableAttribute(EditorBrowsableState state) => this.Add(this.builder.GetType("System.ComponentModel.EditorBrowsableAttribute"), state);
 
-        public void AddNonSerializedAttribute() => this.Add(
-            this.builder.TypeExists("System.NonSerializedAttribute") ?
-                this.builder.GetType("System.NonSerializedAttribute") :
-                this.builder.GetType("System.Runtime.Serialization.IgnoreDataMember"));
+        public void AddNonSerializedAttribute()
+        {
+            if (this.builder.IsUWP)
+                this.Add(this.builder.GetType("System.Runtime.Serialization.IgnoreDataMemberAttribute"));
+            else if (this.builder.TypeExists("System.NonSerializedAttribute"))
+                this.Add(this.builder.GetType("System.NonSerializedAttribute"));
+
+            if (this.builder.TypeExists("Newtonsoft.Json.JsonIgnoreAttribute"))
+                this.Add(this.builder.GetType("Newtonsoft.Json.JsonIgnoreAttribute"));
+        }
 
         public void Copy(BuilderCustomAttribute attribute)
         {

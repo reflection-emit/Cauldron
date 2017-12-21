@@ -7,7 +7,7 @@
     <ProjectGuid>{C3CCC530-61EA-40C7-B4F9-42DB16EE1FA4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Cauldron.Win32.Net45.Interception</RootNamespace>
+    <RootNamespace>Cauldron.Interception</RootNamespace>
     <AssemblyName>Cauldron.Interception.Net45</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

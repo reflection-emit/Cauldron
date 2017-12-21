@@ -17,6 +17,7 @@ namespace Cauldron.Interception.Cecilator
         }
 
         public BuilderCustomAttributeCollection CustomAttributes { get { return new BuilderCustomAttributeCollection(this, this.moduleDefinition); } }
+        public bool IsUWP => this.TypeExists("Windows.UI.Xaml.Controls.Page");
         public string Name { get { return this.moduleDefinition.Name; } }
 
         [EditorBrowsable(EditorBrowsableState.Never)]

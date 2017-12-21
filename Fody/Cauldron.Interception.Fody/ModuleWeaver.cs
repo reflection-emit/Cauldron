@@ -717,7 +717,7 @@ namespace Cauldron.Interception.Fody
                     var anonymousTypeName = $"<>f__{interfaceToImplement.Name}_Cauldron_AnonymousType{counter++}";
                     this.Log($"- Creating new type: {type.Namespace}.{anonymousTypeName}");
 
-                    var newType = builder.CreateType(type.Namespace, TypeAttributes.Public | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit | TypeAttributes.Serializable, anonymousTypeName);
+                    var newType = builder.CreateType("", TypeAttributes.Public | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit | TypeAttributes.Serializable, anonymousTypeName);
                     newType.AddInterface(interfaceToImplement);
 
                     // Implement the methods
