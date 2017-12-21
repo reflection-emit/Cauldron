@@ -3,6 +3,7 @@ using System;
 using System.DirectoryServices;
 using System.DirectoryServices.AccountManagement;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -321,12 +322,19 @@ namespace Cauldron.Core
             try
             {
                 var programData = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), @"Microsoft\User Account Pictures");
-                var filename = Path.Combine(programData, string.Format("{0}+{1}.dat", _domainName, _username));
+                var filename = string.Format("{0}+{1}.dat", _domainName, _username);
+                var filepath = Path.Combine(programData, filename);
 
-                if (!File.Exists(filename))
-                    return null;
+                if (!File.Exists(filepath))
+                {
+                    filepath = Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), filename, SearchOption.AllDirectories)
+                        .FirstOrDefault();
 
-                var data = File.ReadAllBytes(filename);
+                    if (!File.Exists(filepath))
+                        return null;
+                }
+
+                var data = File.ReadAllBytes(filepath);
                 var position = (int)data.IndexOf(new byte[] { 0x62, 0, 0x6d, 0, 0x70, 0 });
 
                 if (position == -1)

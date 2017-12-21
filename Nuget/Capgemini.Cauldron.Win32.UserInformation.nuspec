@@ -15,6 +15,7 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron User information UserInformation</tags>
     <releaseNotes>
+      2017.12.21 - [C] Added a fallback if the user's account picture file was not found.
       2017.12.19 - [A] WTSClientName added to User and CurrentUser. WTSClientName returns the Windows Terminal Session client name.
     </releaseNotes>
     <dependencies>

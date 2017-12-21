@@ -129,7 +129,7 @@ namespace Cauldron.Core
             }
             catch (Exception e)
             {
-                // This is of those evil silent errors... But in this case we can definetely ignore this...
+                // This is one of those evil silent errors... But in this case we can definetely ignore this...
                 // This should only used for saving application settings like window position and other non-critical stuff
                 Debug.WriteLine(e.Message);
                 return type.GetDefaultInstance();

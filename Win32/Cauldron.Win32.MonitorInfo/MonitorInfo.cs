@@ -20,7 +20,7 @@ namespace Cauldron
             {
                 int monitorCount = 0;
 
-                UnsafeNative.MonitorEnumProc callback = (IntPtr hDesktop, IntPtr hdc, ref Rect prect, int d) => ++monitorCount > 0;
+                bool callback(IntPtr hDesktop, IntPtr hdc, ref Rect prect, int d) => ++monitorCount > 0;
 
                 if (UnsafeNative.EnumDisplayMonitors(IntPtr.Zero, IntPtr.Zero, callback, 0))
                     return monitorCount;
@@ -83,15 +83,12 @@ namespace Cauldron
         {
             if ((Environment.OSVersion.Version.Major >= 6 && Environment.OSVersion.Version.Minor >= 2) || Environment.OSVersion.Version.Major >= 10)
             {
-                uint dpiX;
-                uint dpiY;
-
                 var monitor = UnsafeNative.MonitorFromWindow(windowHandle, MonitorOptions.MONITOR_DEFAULTTONULL);
 
                 if (monitor == IntPtr.Zero)
                     monitor = UnsafeNative.MonitorFromPoint(new UnsafeNative.POINT { x = 0, y = 0 }, MonitorOptions.MONITOR_DEFAULTTOPRIMARY);
 
-                UnsafeNative.GetDpiForMonitor(monitor, UnsafeNative.DpiType.Effective, out dpiX, out dpiY);
+                UnsafeNative.GetDpiForMonitor(monitor, UnsafeNative.DpiType.Effective, out uint dpiX, out uint dpiY);
 
                 return new MonitorDpi { x = dpiX, y = dpiY };
             }
@@ -149,10 +146,10 @@ namespace Cauldron
         /// <param name="lParam">Additional message-specific information</param>
         public static void WmGetMinMaxInfo(IntPtr windowHandle, IntPtr lParam)
         {
-            UnsafeNative.MINMAXINFO mmi = (UnsafeNative.MINMAXINFO)Marshal.PtrToStructure(lParam, typeof(UnsafeNative.MINMAXINFO));
+            var mmi = (UnsafeNative.MINMAXINFO)Marshal.PtrToStructure(lParam, typeof(UnsafeNative.MINMAXINFO));
 
             // Adjust the maximized size and position to fit the work area of the correct monitor
-            System.IntPtr monitor = UnsafeNative.MonitorFromWindow(windowHandle, MonitorOptions.MONITOR_DEFAULTTONEAREST);
+            var monitor = UnsafeNative.MonitorFromWindow(windowHandle, MonitorOptions.MONITOR_DEFAULTTONEAREST);
 
             if (monitor != System.IntPtr.Zero)
             {

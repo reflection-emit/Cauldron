@@ -43,7 +43,7 @@ namespace Cauldron.Core
         }
 
         /// <summary>
-        /// Returns the maximum of the week of teh given year
+        /// Returns the maximum of the week of the given year
         /// </summary>
         /// <param name="year">The year to get the maximum weeks</param>
         /// <returns>The maximum week of the given year</returns>
