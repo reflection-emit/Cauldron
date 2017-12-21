@@ -1,9 +1,9 @@
+docs/* linguist-vendored
+
 ###############################################################################
 # Set default behavior to automatically normalize line endings.
 ###############################################################################
 * text=auto
-
-docs/* linguist-vendored
 
 ###############################################################################
 # Set default behavior for command prompt diff.
