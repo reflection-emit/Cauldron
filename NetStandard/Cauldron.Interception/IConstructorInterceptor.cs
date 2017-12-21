@@ -9,6 +9,63 @@ namespace Cauldron.Interception
     /// Please note that <see cref="ISyncRoot"/> is NOT supported by this interceptor.
     /// </summary>
     /// <example>
+    /// Sample implementation:
+    /// <code>
+    /// [AttributeUsage(AttributeTargets.Constructor, AllowMultiple = false, Inherited = false)]
+    /// public sealed class TestConstructorInterceptorA : Attribute, IConstructorInterceptor
+    /// {
+    ///     public void OnBeforeInitialization(Type declaringType, MethodBase methodbase, object[] values)
+    ///     {
+    ///     }
+    ///
+    ///     public void OnEnter(Type declaringType, object instance, MethodBase methodbase, object[] values)
+    ///     {
+    ///     }
+    ///
+    ///     public void OnException(Exception e)
+    ///     {
+    ///     }
+    ///
+    ///     public void OnExit()
+    ///     {
+    ///     }
+    /// }
+    /// </code>
+    /// The interceptor is also capable of handling attributes with parameters.
+    /// <para/>
+    /// Your code:
+    /// <code>
+    /// public class ConstructorInterceptorTestClass
+    /// {
+    ///     [TestConstructorInterceptorA]
+    ///     public ConstructorInterceptorTestClass(string arg)
+    ///     {
+    ///     }
+    /// }
+    /// </code>
+    /// What gets compiled:
+    /// <code>
+    /// public ConstructorInterceptorTestClass(string arg)
+    /// {
+    ///     var values = new object[] { arg };
+    ///     var constructorInterceptor = new TestConstructorInterceptorA();
+    ///     constructorInterceptor.OnBeforeInitialization(typeof(ConstructorInterceptorTestClass), MethodBase.GetMethodFromHandle(methodof(ConstructorInterceptorTestClass..ctor()).MethodHandle, typeof(ConstructorInterceptorTestClass).TypeHandle), values);
+    ///     base..ctor();
+    ///     try
+    ///     {
+    ///	        constructorInterceptor.OnEnter(typeof(ConstructorInterceptorTestClass), this, MethodBase.GetMethodFromHandle(methodof(ConstructorInterceptorTestClass..ctor()).MethodHandle, typeof(ConstructorInterceptorTestClass).TypeHandle), values);
+    ///     }
+    ///     catch (Exception e)
+    ///     {
+    ///	        constructorInterceptor.OnException(e);
+    ///	        throw;
+    ///     }
+    ///     finally
+    ///     {
+    ///	        constructorInterceptor.OnExit();
+    ///     }
+    /// }
+    /// </code>
     /// </example>
     public interface IConstructorInterceptor : IInterceptor
     {

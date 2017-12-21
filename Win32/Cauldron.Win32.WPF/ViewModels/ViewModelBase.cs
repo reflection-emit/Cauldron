@@ -15,7 +15,7 @@ namespace Cauldron.XAML.ViewModels
     {
         private IDispatcher _dispatcher;
         private Guid? _id;
-        private bool _isLoading = true;
+        private bool _isLoading = false;
         private IMessageDialog _messageDialog;
         private INavigator _navigator;
 

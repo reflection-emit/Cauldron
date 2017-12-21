@@ -6,6 +6,68 @@ namespace Cauldron.Interception
     /// <summary>
     /// Represents a method interceptor
     /// </summary>
+    /// <example>
+    /// Sample implementation:
+    /// <code>
+    /// [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
+    /// public class MyInterceptorAttribute : Attribute, IMethodInterceptor
+    /// {
+    ///     public MyInterceptorAttribute()
+    ///     {
+    ///     }
+    ///
+    ///     public void OnEnter(Type declaringType, object instance, MethodBase methodbase, object[] values)
+    ///     {
+    ///     }
+    ///
+    ///     public void OnException(Exception e)
+    ///     {
+    ///     }
+    ///
+    ///     public void OnExit()
+    ///     {
+    ///     }
+    /// }
+    /// </code>
+    /// The interceptor is also capable of handling attributes with parameters.
+    /// <para/>
+    /// Your code:
+    /// <code>
+    /// public class SampleClass
+    /// {
+    ///     [MyInterceptor]
+    ///     public void SampleMethod()
+    ///     {
+    ///         Debug.WriteLine("Blablablablablabla");
+    ///     }
+    /// }
+    /// </code>
+    /// What gets compiled:
+    /// <code>
+    /// public class SampleClass
+    /// {
+    ///     public void SampleMethod()
+    ///     {
+    ///         var interceptorAttribute = new MyInterceptorAttribute("Any valid attribute parameter types");
+    ///
+    ///         try
+    ///         {
+    ///             interceptorAttribute.OnEnter(typeof(SampleClass), this, MethodBase.GetMethodFromHandle(methodof(SampleClass.SampleMethod()).MethodHandle, typeof(SampleClass).TypeHandle), new object[0]);
+    ///             Debug.WriteLine("Blablablablablabla");
+    ///         }
+    ///         catch (Exception e)
+    ///         {
+    ///             interceptorAttribute.OnException(e);
+    ///             throw;
+    ///         }
+    ///         finally
+    ///         {
+    ///             interceptorAttribute.OnExit();
+    ///         }
+    ///     }
+    /// }
+    /// </code>
+    /// </example>
     public interface IMethodInterceptor : IInterceptor
     {
         /// <summary>

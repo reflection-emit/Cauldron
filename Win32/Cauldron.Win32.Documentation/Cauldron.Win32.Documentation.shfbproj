@@ -83,106 +83,110 @@
     <VendorName>Capgemini Deutschland GmbH</VendorName>
     <ApiFilter>
       <Filter entryType="Namespace" fullName="" isExposed="False" xmlns="" />
-<Filter entryType="Namespace" fullName="Cauldron.Core" isExposed="True" xmlns="">
-  <Filter entryType="Class" fullName="Cauldron.Core.User" filterName="User" isExposed="True">
-    <Filter entryType="Operator" fullName="Cauldron.Core.User.op_Equality" filterName="op_Equality" isExposed="False" />
-    <Filter entryType="Operator" fullName="Cauldron.Core.User.op_Inequality" filterName="op_Inequality" isExposed="False" />
-  </Filter>
-</Filter>
-<Filter entryType="Namespace" fullName="Cauldron.Core.Interceptors" isExposed="True" xmlns="">
-  <Filter entryType="Class" fullName="Cauldron.Core.Interceptors.ExceptionToEventLogAttribute" filterName="ExceptionToEventLogAttribute" isExposed="True">
-    <Filter entryType="Method" fullName="Cauldron.Core.Interceptors.ExceptionToEventLogAttribute.OnEnter" filterName="OnEnter" isExposed="False" />
-    <Filter entryType="Method" fullName="Cauldron.Core.Interceptors.ExceptionToEventLogAttribute.OnException" filterName="OnException" isExposed="False" />
-    <Filter entryType="Method" fullName="Cauldron.Core.Interceptors.ExceptionToEventLogAttribute.OnExit" filterName="OnExit" isExposed="False" />
-    <Filter entryType="Method" fullName="Cauldron.Core.Interceptors.ExceptionToEventLogAttribute.OnGet" filterName="OnGet" isExposed="False" />
-    <Filter entryType="Method" fullName="Cauldron.Core.Interceptors.ExceptionToEventLogAttribute.OnSet" filterName="OnSet" isExposed="False" />
-  </Filter>
-  <Filter entryType="Class" fullName="Cauldron.Core.Interceptors.TimedCacheAttribute" filterName="TimedCacheAttribute" isExposed="True">
-    <Filter entryType="Method" fullName="Cauldron.Core.Interceptors.TimedCacheAttribute.CreateKey" filterName="CreateKey" isExposed="False" />
-    <Filter entryType="Method" fullName="Cauldron.Core.Interceptors.TimedCacheAttribute.GetCache" filterName="GetCache" isExposed="False" />
-    <Filter entryType="Method" fullName="Cauldron.Core.Interceptors.TimedCacheAttribute.HasCache" filterName="HasCache" isExposed="False" />
-    <Filter entryType="Method" fullName="Cauldron.Core.Interceptors.TimedCacheAttribute.SetCache" filterName="SetCache" isExposed="False" />
-  </Filter>
-</Filter>
-<Filter entryType="Namespace" fullName="Cauldron.XAML" isExposed="True" xmlns="">
-  <Filter entryType="Class" fullName="Cauldron.XAML.DispatcherWPF" filterName="DispatcherWPF" isExposed="False" />
-  <Filter entryType="Class" fullName="Cauldron.XAML.ImageManager" filterName="ImageManager" isExposed="True">
-    <Filter entryType="Constructor" fullName="Cauldron.XAML.ImageManager.#ctor" filterName=".ctor" isExposed="False" />
-  </Filter>
-  <Filter entryType="Class" fullName="Cauldron.XAML.MessageDialogEx" filterName="MessageDialogEx" isExposed="True">
-    <Filter entryType="Constructor" fullName="Cauldron.XAML.MessageDialogEx.#ctor" filterName=".ctor" isExposed="False" />
-  </Filter>
-  <Filter entryType="Class" fullName="Cauldron.XAML.PropertyIsChangedEventArgs" filterName="PropertyIsChangedEventArgs" isExposed="True">
-    <Filter entryType="Constructor" fullName="Cauldron.XAML.PropertyIsChangedEventArgs.#ctor" filterName=".ctor" isExposed="False" />
-  </Filter>
-</Filter>
-<Filter entryType="Namespace" fullName="Cauldron.XAML.Navigation" isExposed="True" xmlns="">
-  <Filter entryType="Class" fullName="Cauldron.XAML.Navigation.Navigator" filterName="Navigator" isExposed="True">
-    <Filter entryType="Constructor" fullName="Cauldron.XAML.Navigation.Navigator.#ctor" filterName=".ctor" isExposed="False" />
-  </Filter>
-  <Filter entryType="Class" fullName="Cauldron.XAML.Navigation.NavigatorSinglePage" filterName="NavigatorSinglePage" isExposed="True">
-    <Filter entryType="Constructor" fullName="Cauldron.XAML.Navigation.NavigatorSinglePage.#ctor" filterName=".ctor" isExposed="False" />
-  </Filter>
-</Filter>
-<Filter entryType="Namespace" fullName="Cauldron.XAML.Resources" isExposed="True" xmlns="">
-  <Filter entryType="Class" fullName="Cauldron.XAML.Resources.LocalizationSource" filterName="LocalizationSource" isExposed="True">
-    <Filter entryType="Constructor" fullName="Cauldron.XAML.Resources.LocalizationSource.#ctor" filterName=".ctor" isExposed="False" />
-  </Filter>
-  <Filter entryType="Class" fullName="Cauldron.XAML.Resources.StylesAndTemplates" filterName="StylesAndTemplates" isExposed="True">
-    <Filter entryType="Constructor" fullName="Cauldron.XAML.Resources.StylesAndTemplates.#ctor" filterName=".ctor" isExposed="False" />
-  </Filter>
-</Filter>
-<Filter entryType="Namespace" fullName="Cauldron.XAML.Validation" isExposed="True" xmlns="">
-  <Filter entryType="Class" fullName="Cauldron.XAML.Validation.ValidatorCollection" filterName="ValidatorCollection" isExposed="False" />
-  <Filter entryType="Class" fullName="Cauldron.XAML.Validation.ValidatorGroup" filterName="ValidatorGroup" isExposed="False" />
-</Filter>
-<Filter entryType="Namespace" fullName="Cauldron.XAML.Validation.ViewModels" isExposed="True" xmlns="">
-  <Filter entryType="Class" fullName="Cauldron.XAML.Validation.ViewModels.ValidatableViewModelBase" filterName="ValidatableViewModelBase" isExposed="True">
-    <Filter entryType="Method" fullName="Cauldron.XAML.Validation.ViewModels.ValidatableViewModelBase.AddValidator" filterName="AddValidator" isExposed="False" />
-    <Filter entryType="Method" fullName="Cauldron.XAML.Validation.ViewModels.ValidatableViewModelBase.AddValidatorGroup" filterName="AddValidatorGroup" isExposed="False" />
-  </Filter>
-</Filter>
-<Filter entryType="Namespace" fullName="Cauldron.XAML.ViewModels" isExposed="True" xmlns="">
-  <Filter entryType="Class" fullName="Cauldron.XAML.ViewModels.RegisterChildrenAttribute" filterName="RegisterChildrenAttribute" isExposed="True">
-    <Filter entryType="Method" fullName="Cauldron.XAML.ViewModels.RegisterChildrenAttribute.OnException" filterName="OnException" isExposed="False" />
-    <Filter entryType="Method" fullName="Cauldron.XAML.ViewModels.RegisterChildrenAttribute.OnExit" filterName="OnExit" isExposed="False" />
-  </Filter>
-</Filter>
-<Filter entryType="Namespace" fullName="XamlGeneratedNamespace" isExposed="False" xmlns="" /></ApiFilter>
+      <Filter entryType="Namespace" fullName="Cauldron.Core" isExposed="True" xmlns="">
+        <Filter entryType="Class" fullName="Cauldron.Core.User" filterName="User" isExposed="True">
+          <Filter entryType="Operator" fullName="Cauldron.Core.User.op_Equality" filterName="op_Equality" isExposed="False" />
+          <Filter entryType="Operator" fullName="Cauldron.Core.User.op_Inequality" filterName="op_Inequality" isExposed="False" />
+        </Filter>
+      </Filter>
+      <Filter entryType="Namespace" fullName="Cauldron.Core.Interceptors" isExposed="True" xmlns="">
+        <Filter entryType="Class" fullName="Cauldron.Core.Interceptors.ExceptionToEventLogAttribute" filterName="ExceptionToEventLogAttribute" isExposed="True">
+          <Filter entryType="Method" fullName="Cauldron.Core.Interceptors.ExceptionToEventLogAttribute.OnEnter" filterName="OnEnter" isExposed="False" />
+          <Filter entryType="Method" fullName="Cauldron.Core.Interceptors.ExceptionToEventLogAttribute.OnException" filterName="OnException" isExposed="False" />
+          <Filter entryType="Method" fullName="Cauldron.Core.Interceptors.ExceptionToEventLogAttribute.OnExit" filterName="OnExit" isExposed="False" />
+          <Filter entryType="Method" fullName="Cauldron.Core.Interceptors.ExceptionToEventLogAttribute.OnGet" filterName="OnGet" isExposed="False" />
+          <Filter entryType="Method" fullName="Cauldron.Core.Interceptors.ExceptionToEventLogAttribute.OnSet" filterName="OnSet" isExposed="False" />
+        </Filter>
+        <Filter entryType="Class" fullName="Cauldron.Core.Interceptors.TimedCacheAttribute" filterName="TimedCacheAttribute" isExposed="True">
+          <Filter entryType="Method" fullName="Cauldron.Core.Interceptors.TimedCacheAttribute.CreateKey" filterName="CreateKey" isExposed="False" />
+          <Filter entryType="Method" fullName="Cauldron.Core.Interceptors.TimedCacheAttribute.GetCache" filterName="GetCache" isExposed="False" />
+          <Filter entryType="Method" fullName="Cauldron.Core.Interceptors.TimedCacheAttribute.HasCache" filterName="HasCache" isExposed="False" />
+          <Filter entryType="Method" fullName="Cauldron.Core.Interceptors.TimedCacheAttribute.SetCache" filterName="SetCache" isExposed="False" />
+        </Filter>
+      </Filter>
+      <Filter entryType="Namespace" fullName="Cauldron.XAML" isExposed="True" xmlns="">
+        <Filter entryType="Class" fullName="Cauldron.XAML.DispatcherWPF" filterName="DispatcherWPF" isExposed="False" />
+        <Filter entryType="Class" fullName="Cauldron.XAML.ImageManager" filterName="ImageManager" isExposed="True">
+          <Filter entryType="Constructor" fullName="Cauldron.XAML.ImageManager.#ctor" filterName=".ctor" isExposed="False" />
+        </Filter>
+        <Filter entryType="Class" fullName="Cauldron.XAML.MessageDialogEx" filterName="MessageDialogEx" isExposed="True">
+          <Filter entryType="Constructor" fullName="Cauldron.XAML.MessageDialogEx.#ctor" filterName=".ctor" isExposed="False" />
+        </Filter>
+        <Filter entryType="Class" fullName="Cauldron.XAML.PropertyIsChangedEventArgs" filterName="PropertyIsChangedEventArgs" isExposed="True">
+          <Filter entryType="Constructor" fullName="Cauldron.XAML.PropertyIsChangedEventArgs.#ctor" filterName=".ctor" isExposed="False" />
+        </Filter>
+      </Filter>
+      <Filter entryType="Namespace" fullName="Cauldron.XAML.Navigation" isExposed="True" xmlns="">
+        <Filter entryType="Class" fullName="Cauldron.XAML.Navigation.Navigator" filterName="Navigator" isExposed="True">
+          <Filter entryType="Constructor" fullName="Cauldron.XAML.Navigation.Navigator.#ctor" filterName=".ctor" isExposed="False" />
+        </Filter>
+        <Filter entryType="Class" fullName="Cauldron.XAML.Navigation.NavigatorSinglePage" filterName="NavigatorSinglePage" isExposed="True">
+          <Filter entryType="Constructor" fullName="Cauldron.XAML.Navigation.NavigatorSinglePage.#ctor" filterName=".ctor" isExposed="False" />
+        </Filter>
+      </Filter>
+      <Filter entryType="Namespace" fullName="Cauldron.XAML.Resources" isExposed="True" xmlns="">
+        <Filter entryType="Class" fullName="Cauldron.XAML.Resources.LocalizationSource" filterName="LocalizationSource" isExposed="True">
+          <Filter entryType="Constructor" fullName="Cauldron.XAML.Resources.LocalizationSource.#ctor" filterName=".ctor" isExposed="False" />
+        </Filter>
+        <Filter entryType="Class" fullName="Cauldron.XAML.Resources.StylesAndTemplates" filterName="StylesAndTemplates" isExposed="True">
+          <Filter entryType="Constructor" fullName="Cauldron.XAML.Resources.StylesAndTemplates.#ctor" filterName=".ctor" isExposed="False" />
+        </Filter>
+      </Filter>
+      <Filter entryType="Namespace" fullName="Cauldron.XAML.Validation" isExposed="True" xmlns="">
+        <Filter entryType="Class" fullName="Cauldron.XAML.Validation.ValidatorCollection" filterName="ValidatorCollection" isExposed="False" />
+        <Filter entryType="Class" fullName="Cauldron.XAML.Validation.ValidatorGroup" filterName="ValidatorGroup" isExposed="False" />
+      </Filter>
+      <Filter entryType="Namespace" fullName="Cauldron.XAML.Validation.ViewModels" isExposed="True" xmlns="">
+        <Filter entryType="Class" fullName="Cauldron.XAML.Validation.ViewModels.ValidatableViewModelBase" filterName="ValidatableViewModelBase" isExposed="True">
+          <Filter entryType="Method" fullName="Cauldron.XAML.Validation.ViewModels.ValidatableViewModelBase.AddValidator" filterName="AddValidator" isExposed="False" />
+          <Filter entryType="Method" fullName="Cauldron.XAML.Validation.ViewModels.ValidatableViewModelBase.AddValidatorGroup" filterName="AddValidatorGroup" isExposed="False" />
+        </Filter>
+      </Filter>
+      <Filter entryType="Namespace" fullName="Cauldron.XAML.ViewModels" isExposed="True" xmlns="">
+        <Filter entryType="Class" fullName="Cauldron.XAML.ViewModels.RegisterChildrenAttribute" filterName="RegisterChildrenAttribute" isExposed="True">
+          <Filter entryType="Method" fullName="Cauldron.XAML.ViewModels.RegisterChildrenAttribute.OnException" filterName="OnException" isExposed="False" />
+          <Filter entryType="Method" fullName="Cauldron.XAML.ViewModels.RegisterChildrenAttribute.OnExit" filterName="OnExit" isExposed="False" />
+        </Filter>
+      </Filter>
+      <Filter entryType="Namespace" fullName="XamlGeneratedNamespace" isExposed="False" xmlns="" />
+    </ApiFilter>
     <ComponentConfigurations>
       <ComponentConfig id="Syntax Component" enabled="True" xmlns="">
         <component id="Syntax Component">
-  <syntax input="/document/reference" output="/document/syntax" renderReferenceLinks="true" />
-  <generators>
+          <syntax input="/document/reference" output="/document/syntax" renderReferenceLinks="true" />
+          <generators>
     {@SyntaxFilters}
 </generators>
-  <containerElement name="codeSnippetGroup" addNoExampleTabs="true" includeOnSingleSnippets="false" groupingEnabled="{@CodeSnippetGrouping}" />
-  <configurations>
-    <generator id="C#" />
-    <generator id="Visual Basic">
-      <includeLineContinuation value="false" />
-    </generator>
-    <generator id="Visual Basic Usage">
-      <includeLineContinuation value="false" />
-    </generator>
-    <generator id="Managed C++" />
-    <generator id="F#" />
-    <generator id="J#" />
-    <generator id="JScript" />
-    <generator id="JavaScript" />
-    <generator id="XAML Usage" />
-    <generator id="ASP.NET" />
-    <generator id="X#" />
-  </configurations>
-</component>
+          <containerElement name="codeSnippetGroup" addNoExampleTabs="true" includeOnSingleSnippets="false" groupingEnabled="{@CodeSnippetGrouping}" />
+          <configurations>
+            <generator id="C#" />
+            <generator id="Visual Basic">
+              <includeLineContinuation value="false" />
+            </generator>
+            <generator id="Visual Basic Usage">
+              <includeLineContinuation value="false" />
+            </generator>
+            <generator id="Managed C++" />
+            <generator id="F#" />
+            <generator id="J#" />
+            <generator id="JScript" />
+            <generator id="JavaScript" />
+            <generator id="XAML Usage" />
+            <generator id="ASP.NET" />
+            <generator id="X#" />
+          </configurations>
+        </component>
       </ComponentConfig>
-<ComponentConfig id="Code Block Component" enabled="True" xmlns=""><component id="Code Block Component">
-  <basePath value="{@HtmlEncProjectFolder}" />
-  <outputPaths>{@HelpFormatOutputPaths}</outputPaths>
-  <allowMissingSource value="true" />
-  <removeRegionMarkers value="false" />
-  <colorizer syntaxFile="{@SHFBFolder}PresentationStyles\Colorizer\highlight.xml" styleFile="{@SHFBFolder}PresentationStyles\Colorizer\highlight.xsl" stylesheet="{@SHFBFolder}PresentationStyles\Colorizer\highlight.css" scriptFile="{@SHFBFolder}PresentationStyles\Colorizer\highlight.js" disabled="{@DisableCodeBlockComponent}" language="cs" tabSize="0" numberLines="false" outlining="true" keepSeeTags="false" defaultTitle="true" />
-</component></ComponentConfig></ComponentConfigurations>
+      <ComponentConfig id="Code Block Component" enabled="True" xmlns="">
+        <component id="Code Block Component">
+          <basePath value="{@HtmlEncProjectFolder}" />
+          <outputPaths>{@HelpFormatOutputPaths}</outputPaths>
+          <allowMissingSource value="true" />
+          <removeRegionMarkers value="false" />
+          <colorizer syntaxFile="{@SHFBFolder}PresentationStyles\Colorizer\highlight.xml" styleFile="{@SHFBFolder}PresentationStyles\Colorizer\highlight.xsl" stylesheet="{@SHFBFolder}PresentationStyles\Colorizer\highlight.css" scriptFile="{@SHFBFolder}PresentationStyles\Colorizer\highlight.js" disabled="{@DisableCodeBlockComponent}" language="cs" tabSize="0" numberLines="false" outlining="true" keepSeeTags="false" defaultTitle="true" />
+        </component>
+      </ComponentConfig>
+    </ComponentConfigurations>
   </PropertyGroup>
   <!-- There are no properties for these groups.  AnyCPU needs to appear in order for Visual Studio to perform
 			 the build.  The others are optional common platform types that may appear. -->

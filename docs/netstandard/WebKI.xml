@@ -712,14 +712,14 @@
   <HelpKINode Title="ExportedTypes property" Url="html/1daf4133-1741-5485-35f5-21743bba0867.htm" />
   <HelpKINode Title="Extensions class">
     <HelpKINode Title="Extensions Class" Url="html/7e30f679-b4cf-b5d3-e1a5-67ff8f20304a.htm" />
-    <HelpKINode Title="Extensions Class" Url="html/96191775-34da-2521-4188-65830c4db18a.htm" />
     <HelpKINode Title="Extensions Class" Url="html/4e840c06-97cf-6137-2175-2169254e6f7c.htm" />
+    <HelpKINode Title="Extensions Class" Url="html/96191775-34da-2521-4188-65830c4db18a.htm" />
     <HelpKINode Title="about Extensions class" Url="html/96191775-34da-2521-4188-65830c4db18a.htm" />
     <HelpKINode Title="about Extensions class" Url="html/7e30f679-b4cf-b5d3-e1a5-67ff8f20304a.htm" />
     <HelpKINode Title="about Extensions class" Url="html/4e840c06-97cf-6137-2175-2169254e6f7c.htm" />
+    <HelpKINode Title="methods" Url="html/4fd086ac-9f3e-5c0c-f1e7-66024063ce6e.htm" />
     <HelpKINode Title="methods" Url="html/4150876e-71fe-a4aa-3745-0600710249c3.htm" />
     <HelpKINode Title="methods" Url="html/c738cb4b-2bd0-c951-6f7c-937b96f42c6a.htm" />
-    <HelpKINode Title="methods" Url="html/4fd086ac-9f3e-5c0c-f1e7-66024063ce6e.htm" />
   </HelpKINode>
   <HelpKINode Title="Extensions.Concat method" Url="html/c1e6be5e-1904-30e0-e485-54564993c010.htm" />
   <HelpKINode Title="Extensions.Contains method" Url="html/5d3264a4-b8b0-e376-c691-226a5ab58c62.htm" />
@@ -755,7 +755,7 @@
   <HelpKINode Title="Extensions.Operations method" Url="html/df22cb55-e97f-b162-6350-be97c6e18e51.htm" />
   <HelpKINode Title="Extensions.OrderBy(Of TElements) method" Url="html/c567b651-9519-8b73-1c08-c40f10c774fa.htm" />
   <HelpKINode Title="Extensions.OrderBy&lt;TElements&gt; method" Url="html/c567b651-9519-8b73-1c08-c40f10c774fa.htm" />
-  <HelpKINode Title="Extensions.PadOrCut method" Url="html/d1ed9a7d-0e60-44bd-4a1f-c07462cdc72b.htm" />
+  <HelpKINode Title="Extensions.PadOrCut method" Url="html/a613d0fc-a236-ab36-5a26-871fa7d1cbd9.htm" />
   <HelpKINode Title="Extensions.ParseQueryString method" Url="html/06db6bfd-d8fa-3a48-eda7-1fb1bbadc7c1.htm" />
   <HelpKINode Title="Extensions.RandomPick(Of T) method" Url="html/a99b09db-bb8e-4311-3b08-df8d34d8da34.htm" />
   <HelpKINode Title="Extensions.RandomPick&lt;T&gt; method" Url="html/a99b09db-bb8e-4311-3b08-df8d34d8da34.htm" />
@@ -861,6 +861,7 @@
   <HelpKINode Title="ExtensionsFileInfo.DeleteAsync method" Url="html/19be789a-9dfc-1020-5b2c-6c991637ac30.htm" />
   <HelpKINode Title="ExtensionsFileInfo.GetDateModifiedAsync method" Url="html/7b24b21d-33b6-2c8d-ccda-d09b51745c0b.htm" />
   <HelpKINode Title="ExtensionsFileInfo.GetUniqueFilename method" Url="html/fcbc3f28-7bef-566f-f261-fabc0938bbad.htm" />
+  <HelpKINode Title="ExtensionsFileInfo.Rename method" Url="html/3bd9d789-f197-0950-1c65-5e102bb37f7c.htm" />
   <HelpKINode Title="ExtensionsFileInfo.WaitUntilFileIsAccessableAsync method" Url="html/e8e74da5-e85d-8d9f-bda3-5a3b78b5a89b.htm" />
   <HelpKINode Title="ExtensionsFileIO class">
     <HelpKINode Title="ExtensionsFileIO Class" Url="html/7c716246-262b-4f6f-11e6-e9751fd57585.htm" />
@@ -1513,7 +1514,7 @@
   <HelpKINode Title="Operations method" Url="html/df22cb55-e97f-b162-6350-be97c6e18e51.htm" />
   <HelpKINode Title="OrderBy(Of TElements) method" Url="html/c567b651-9519-8b73-1c08-c40f10c774fa.htm" />
   <HelpKINode Title="OrderBy&lt;TElements&gt; method" Url="html/c567b651-9519-8b73-1c08-c40f10c774fa.htm" />
-  <HelpKINode Title="PadOrCut method" Url="html/d1ed9a7d-0e60-44bd-4a1f-c07462cdc72b.htm" />
+  <HelpKINode Title="PadOrCut method" Url="html/a613d0fc-a236-ab36-5a26-871fa7d1cbd9.htm" />
   <HelpKINode Title="Parameter property" Url="html/be8eb5fc-5952-9d3c-ab7a-c13273dff791.htm" />
   <HelpKINode Title="ParameterAttribute class">
     <HelpKINode Title="ParameterAttribute Class" Url="html/379e7461-3774-8c6e-7b13-b8738e64f8a4.htm" />
@@ -1655,6 +1656,7 @@
   <HelpKINode Title="RemoveNull(Of T) method" Url="html/eee6c5d3-2321-8b12-daa9-c440d0b627b3.htm" />
   <HelpKINode Title="RemoveNull&lt;T&gt; method" Url="html/eee6c5d3-2321-8b12-daa9-c440d0b627b3.htm" />
   <HelpKINode Title="RemoveType method" Url="html/86c052b4-08a8-e1da-c390-366cf67623ce.htm" />
+  <HelpKINode Title="Rename method" Url="html/3bd9d789-f197-0950-1c65-5e102bb37f7c.htm" />
   <HelpKINode Title="Replace method" Url="html/c3b9e2e5-da85-e894-b45e-9f5d4f16ce49.htm" />
   <HelpKINode Title="ReplaceExisting enumeration member">
     <HelpKINode Title="CreationCollisionOption Enumeration" Url="html/27a411dd-db09-a3ba-2f8d-2304676e6514.htm" />

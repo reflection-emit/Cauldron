@@ -320,6 +320,7 @@
   <HelpKINode Title="Cauldron.XAML.Interactivity.BehaviourInvocation.BehaviourInvokeAwareBehaviourBase&lt;T&gt; class" Url="html/T_Cauldron_XAML_Interactivity_BehaviourInvocation_BehaviourInvokeAwareBehaviourBase_1.htm" />
   <HelpKINode Title="Cauldron.XAML.Interactivity.BehaviourInvocation.InvocationTrigger class" Url="html/T_Cauldron_XAML_Interactivity_BehaviourInvocation_InvocationTrigger.htm" />
   <HelpKINode Title="Cauldron.XAML.Interactivity.BehaviourUsageAttribute class" Url="html/T_Cauldron_XAML_Interactivity_BehaviourUsageAttribute.htm" />
+  <HelpKINode Title="Cauldron.XAML.Interactivity.CustomCursor class" Url="html/T_Cauldron_XAML_Interactivity_CustomCursor.htm" />
   <HelpKINode Title="Cauldron.XAML.Interactivity.EnterKeyToCommand class" Url="html/T_Cauldron_XAML_Interactivity_EnterKeyToCommand.htm" />
   <HelpKINode Title="Cauldron.XAML.Interactivity.EventToCommand class" Url="html/T_Cauldron_XAML_Interactivity_EventToCommand.htm" />
   <HelpKINode Title="Cauldron.XAML.Interactivity.EventTrigger class" Url="html/T_Cauldron_XAML_Interactivity_EventTrigger.htm" />
@@ -448,6 +449,17 @@
   <HelpKINode Title="ConvertBack method" Url="html/M_Cauldron_XAML_ValueConverterBase_ConvertBack.htm" />
   <HelpKINode Title="Copy method" Url="html/M_Cauldron_XAML_Interactivity_IBehaviour_Copy.htm" />
   <HelpKINode Title="CurrentUser property" Url="html/P_Cauldron_Core_UserInformation_CurrentUser.htm" />
+  <HelpKINode Title="CustomCursor class">
+    <HelpKINode Title="CustomCursor Class" Url="html/T_Cauldron_XAML_Interactivity_CustomCursor.htm" />
+    <HelpKINode Title="about CustomCursor class" Url="html/T_Cauldron_XAML_Interactivity_CustomCursor.htm" />
+    <HelpKINode Title="attached properties" Url="html/AttachedProperties_T_Cauldron_XAML_Interactivity_CustomCursor.htm" />
+    <HelpKINode Title="fields" Url="html/Fields_T_Cauldron_XAML_Interactivity_CustomCursor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_XAML_Interactivity_CustomCursor.htm" />
+  </HelpKINode>
+  <HelpKINode Title="CustomCursor.GetResourceKey method" Url="html/M_Cauldron_XAML_Interactivity_CustomCursor_GetResourceKey.htm" />
+  <HelpKINode Title="CustomCursor.ResourceKey attached property" Url="html/P_Cauldron_XAML_Interactivity_CustomCursor_ResourceKey.htm" />
+  <HelpKINode Title="CustomCursor.ResourceKeyProperty field" Url="html/F_Cauldron_XAML_Interactivity_CustomCursor_ResourceKeyProperty.htm" />
+  <HelpKINode Title="CustomCursor.SetResourceKey method" Url="html/M_Cauldron_XAML_Interactivity_CustomCursor_SetResourceKey.htm" />
   <HelpKINode Title="DataContextChanged method" Url="html/M_Cauldron_XAML_Interactivity_IBehaviour_DataContextChanged.htm" />
   <HelpKINode Title="DataContextPropertyChanged method" Url="html/M_Cauldron_XAML_Interactivity_IBehaviour_DataContextPropertyChanged.htm" />
   <HelpKINode Title="DataSeparator property" Url="html/P_Cauldron_XAML_ParameterPassingConfig_DataSeparator.htm" />
@@ -599,12 +611,12 @@
   </HelpKINode>
   <HelpKINode Title="ExitDelegate property" Url="html/P_Cauldron_XAML_ParameterPassingConfig_ExitDelegate.htm" />
   <HelpKINode Title="Extensions class">
-    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_XAML_Extensions.htm" />
     <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Extensions.htm" />
+    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_XAML_Extensions.htm" />
     <HelpKINode Title="about Extensions class" Url="html/T_Cauldron_XAML_Extensions.htm" />
     <HelpKINode Title="about Extensions class" Url="html/T_Cauldron_Extensions.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_XAML_Extensions.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Extensions.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_XAML_Extensions.htm" />
   </HelpKINode>
   <HelpKINode Title="Extensions.AddHookParameterPassing method" Url="html/M_Cauldron_Extensions_AddHookParameterPassing.htm" />
   <HelpKINode Title="Extensions.AsBitmapImage method" Url="html/M_Cauldron_XAML_Extensions_AsBitmapImage.htm" />
@@ -685,6 +697,7 @@
   <HelpKINode Title="GetMonitorBounds method" Url="html/M_Cauldron_MonitorInfo_GetMonitorBounds.htm" />
   <HelpKINode Title="GetPropertyValueFromPath method" Url="html/M_Cauldron_XAML_XAMLHelper_GetPropertyValueFromPath.htm" />
   <HelpKINode Title="GetResizeMode method" Url="html/M_Cauldron_XAML_WindowConfiguration_GetResizeMode.htm" />
+  <HelpKINode Title="GetResourceKey method" Url="html/M_Cauldron_XAML_Interactivity_CustomCursor_GetResourceKey.htm" />
   <HelpKINode Title="GetShortPath method" Url="html/Overload_Cauldron_Extensions_GetShortPath.htm" />
   <HelpKINode Title="GetShowInTaskbar method" Url="html/M_Cauldron_XAML_WindowConfiguration_GetShowInTaskbar.htm" />
   <HelpKINode Title="GetSizeToContent method" Url="html/M_Cauldron_XAML_WindowConfiguration_GetSizeToContent.htm" />
@@ -1664,6 +1677,8 @@
   <HelpKINode Title="RequiresRegistration method" Url="html/M_Cauldron_Net_UrlProtocol_RequiresRegistration.htm" />
   <HelpKINode Title="ResizeMode attached property" Url="html/P_Cauldron_XAML_WindowConfiguration_ResizeMode.htm" />
   <HelpKINode Title="ResizeModeProperty field" Url="html/F_Cauldron_XAML_WindowConfiguration_ResizeModeProperty.htm" />
+  <HelpKINode Title="ResourceKey attached property" Url="html/P_Cauldron_XAML_Interactivity_CustomCursor_ResourceKey.htm" />
+  <HelpKINode Title="ResourceKeyProperty field" Url="html/F_Cauldron_XAML_Interactivity_CustomCursor_ResourceKeyProperty.htm" />
   <HelpKINode Title="Restart enumeration member" Url="html/T_Cauldron_WindowsService_RecoveryAction.htm" />
   <HelpKINode Title="Result property" Url="html/P_Cauldron_XAML_ViewModels_IDialogViewModel_1_Result.htm" />
   <HelpKINode Title="Run method" Url="html/M_Cauldron_XAML_Extensions_Run.htm" />
@@ -1737,6 +1752,7 @@
   <HelpKINode Title="SetMinHeight method" Url="html/M_Cauldron_XAML_WindowConfiguration_SetMinHeight.htm" />
   <HelpKINode Title="SetMinWidth method" Url="html/M_Cauldron_XAML_WindowConfiguration_SetMinWidth.htm" />
   <HelpKINode Title="SetResizeMode method" Url="html/M_Cauldron_XAML_WindowConfiguration_SetResizeMode.htm" />
+  <HelpKINode Title="SetResourceKey method" Url="html/M_Cauldron_XAML_Interactivity_CustomCursor_SetResourceKey.htm" />
   <HelpKINode Title="SetShowInTaskbar method" Url="html/M_Cauldron_XAML_WindowConfiguration_SetShowInTaskbar.htm" />
   <HelpKINode Title="SetSizeToContent method" Url="html/M_Cauldron_XAML_WindowConfiguration_SetSizeToContent.htm" />
   <HelpKINode Title="SetTemplate method" Url="html/M_Cauldron_XAML_Interactivity_StyleInteraction_SetTemplate.htm" />
@@ -1907,6 +1923,7 @@
   <HelpKINode Title="User.TelephoneNumber property" Url="html/P_Cauldron_Core_User_TelephoneNumber.htm" />
   <HelpKINode Title="User.ToString method" Url="html/M_Cauldron_Core_User_ToString.htm" />
   <HelpKINode Title="User.UserName property" Url="html/P_Cauldron_Core_User_UserName.htm" />
+  <HelpKINode Title="User.WTSClientName property" Url="html/P_Cauldron_Core_User_WTSClientName.htm" />
   <HelpKINode Title="UserInformation class">
     <HelpKINode Title="UserInformation Class" Url="html/T_Cauldron_Core_UserInformation.htm" />
     <HelpKINode Title="about UserInformation class" Url="html/T_Cauldron_Core_UserInformation.htm" />
@@ -1928,6 +1945,7 @@
   <HelpKINode Title="UserInformation.PrincipalName property" Url="html/P_Cauldron_Core_UserInformation_PrincipalName.htm" />
   <HelpKINode Title="UserInformation.TelephoneNumber property" Url="html/P_Cauldron_Core_UserInformation_TelephoneNumber.htm" />
   <HelpKINode Title="UserInformation.UserName property" Url="html/P_Cauldron_Core_UserInformation_UserName.htm" />
+  <HelpKINode Title="UserInformation.WTSClientName property" Url="html/P_Cauldron_Core_UserInformation_WTSClientName.htm" />
   <HelpKINode Title="UserName property">
     <HelpKINode Title="User.UserName Property " Url="html/P_Cauldron_Core_User_UserName.htm" />
     <HelpKINode Title="UserInformation.UserName Property " Url="html/P_Cauldron_Core_UserInformation_UserName.htm" />
@@ -2203,6 +2221,10 @@
   <HelpKINode Title="WindowStyle attached property" Url="html/P_Cauldron_XAML_WindowConfiguration_WindowStyle.htm" />
   <HelpKINode Title="WindowStyleProperty field" Url="html/F_Cauldron_XAML_WindowConfiguration_WindowStyleProperty.htm" />
   <HelpKINode Title="WmGetMinMaxInfo method" Url="html/M_Cauldron_MonitorInfo_WmGetMinMaxInfo.htm" />
+  <HelpKINode Title="WTSClientName property">
+    <HelpKINode Title="User.WTSClientName Property " Url="html/P_Cauldron_Core_User_WTSClientName.htm" />
+    <HelpKINode Title="UserInformation.WTSClientName Property " Url="html/P_Cauldron_Core_UserInformation_WTSClientName.htm" />
+  </HelpKINode>
   <HelpKINode Title="x field" Url="html/F_Cauldron_MonitorDpi_x.htm" />
   <HelpKINode Title="XAMLHelper class">
     <HelpKINode Title="XAMLHelper Class" Url="html/T_Cauldron_XAML_XAMLHelper.htm" />

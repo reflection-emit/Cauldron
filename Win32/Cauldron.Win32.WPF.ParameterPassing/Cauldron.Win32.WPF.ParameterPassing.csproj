@@ -52,9 +52,9 @@
     <Compile Include="UnsafeNative.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Randomizer\Cauldron.Core.Randomizer.csproj">
-      <Project>{e21e227e-b578-47ca-bb75-f38b4c872c38}</Project>
-      <Name>Cauldron.Core.Randomizer</Name>
+    <ProjectReference Include="..\Cauldron.Core.Win32.Randomizer\Cauldron.Core.Win32.Randomizer.csproj">
+      <Project>{5fa4c626-fb35-4dcb-9ac9-7dbbeaead68a}</Project>
+      <Name>Cauldron.Core.Win32.Randomizer</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
