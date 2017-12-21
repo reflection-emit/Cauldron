@@ -106,6 +106,7 @@ namespace Cauldron.Interception.Fody
                             var item = method.Item[i];
                             var name = $"<{targetedMethod.Name}>_attrib{i}_{item.Attribute.Identification}";
                             interceptorField[i] = targetedMethod.DeclaringType.CreateField(targetedMethod.Modifiers.GetPrivate(), item.Interface.Type, name);
+                            interceptorField[i].CustomAttributes.AddNonSerializedAttribute();
 
                             x.Load(interceptorField[i]).IsNull().Then(y =>
                             {

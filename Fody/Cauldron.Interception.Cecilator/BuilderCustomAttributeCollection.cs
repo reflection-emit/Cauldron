@@ -104,11 +104,16 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
-        public void AddCompilerGeneratedAttribute() => this.Add(typeof(CompilerGeneratedAttribute));
+        public void AddCompilerGeneratedAttribute() => this.Add(this.builder.GetType("System.Runtime.CompilerServices.CompilerGeneratedAttribute"));
 
-        public void AddDebuggerBrowsableAttribute(DebuggerBrowsableState state) => this.Add(typeof(DebuggerBrowsableAttribute), state);
+        public void AddDebuggerBrowsableAttribute(DebuggerBrowsableState state) => this.Add(this.builder.GetType("System.Diagnostics.DebuggerBrowsableAttribute"), state);
 
-        public void AddEditorBrowsableAttribute(EditorBrowsableState state) => this.Add(typeof(EditorBrowsableAttribute), state);
+        public void AddEditorBrowsableAttribute(EditorBrowsableState state) => this.Add(this.builder.GetType("System.ComponentModel.EditorBrowsableAttribute"), state);
+
+        public void AddNonSerializedAttribute() => this.Add(
+            this.builder.TypeExists("System.NonSerializedAttribute") ?
+                this.builder.GetType("System.NonSerializedAttribute") :
+                this.builder.GetType("System.Runtime.Serialization.IgnoreDataMember"));
 
         public void Copy(BuilderCustomAttribute attribute)
         {
@@ -121,6 +126,8 @@ namespace Cauldron.Interception.Cecilator
         }
 
         public IEnumerator<BuilderCustomAttribute> GetEnumerator() => this.innerCollection.GetEnumerator();
+
+        IEnumerator IEnumerable.GetEnumerator() => this.innerCollection.GetEnumerator();
 
         public bool HasAttribute(BuilderType type)
         {
@@ -161,8 +168,6 @@ namespace Cauldron.Interception.Cecilator
                 .ToArray();
             this.Remove(attributesToRemove);
         }
-
-        IEnumerator IEnumerable.GetEnumerator() => this.innerCollection.GetEnumerator();
 
         private void Remove(BuilderCustomAttribute[] attributesToRemove)
         {

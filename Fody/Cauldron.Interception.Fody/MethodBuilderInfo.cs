@@ -33,7 +33,10 @@ namespace Cauldron.Interception.Fody
             get
             {
                 if (_syncRoot == null)
+                {
                     _syncRoot = this.Key.Method.DeclaringType.CreateField(this.Key.Method.Modifiers.GetPrivate(), typeof(object), $"<{this.Key.Method.Name}>_syncObject_{this.Key.Method.Identification}");
+                    _syncRoot.CustomAttributes.AddNonSerializedAttribute();
+                }
 
                 return _syncRoot;
             }

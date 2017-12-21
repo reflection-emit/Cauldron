@@ -349,6 +349,7 @@ namespace Cauldron.Interception.Fody
                 }
 
                 var propertyField = member.Property.CreateField(propertyInterceptionInfo.Type, $"<{member.Property.Name}>p__propertyInfo");
+                propertyField.CustomAttributes.AddNonSerializedAttribute();
 
                 var actionObjectCtor = builder.Import(typeof(Action<object>).GetConstructor(new Type[] { typeof(object), typeof(IntPtr) }));
                 var propertySetter = member.Property.DeclaringType.CreateMethod(member.Property.Modifiers.GetPrivate(), $"<{member.Property.Name}>m__setterMethod", builder.GetType(typeof(object)));
@@ -357,8 +358,14 @@ namespace Cauldron.Interception.Fody
 
                 var indexer = 0;
                 var interceptorFields = member.InterceptorInfos.ToDictionary(x => x.Attribute.Identification,
-                    x => member.Property.DeclaringType.CreateField(x.Property.Modifiers.GetPrivate(), x.Attribute.Attribute.Type,
-                        $"<{x.Property.Name}>_attrib{indexer++}_{x.Attribute.Identification}"));
+                    x =>
+                    {
+                        var field = member.Property.DeclaringType.CreateField(x.Property.Modifiers.GetPrivate(), x.Attribute.Attribute.Type,
+                               $"<{x.Property.Name}>_attrib{indexer++}_{x.Attribute.Identification}");
+
+                        field.CustomAttributes.AddNonSerializedAttribute();
+                        return field;
+                    });
 
                 if (member.HasInitializer)
                     AddPropertyInitializeInterception(builder, propertyInterceptionInfo, member, propertyField, actionObjectCtor, propertySetter, interceptorFields);

@@ -26,6 +26,10 @@ namespace Cauldron.Interception.Cecilator
 
         public BuilderType Type { get; private set; }
 
+        public static implicit operator Instruction(MethodUsage methodUsage) => methodUsage.instruction;
+
+        public static implicit operator MethodDefinition(MethodUsage methodUsage) => methodUsage.HostMethod.methodDefinition;
+
         public BuilderType GetGenericArgument(int index)
         {
             var method = this.instruction.Operand as GenericInstanceMethod;

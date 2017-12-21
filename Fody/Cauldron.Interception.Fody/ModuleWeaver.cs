@@ -684,7 +684,7 @@ namespace Cauldron.Interception.Fody
 
             foreach (var item in createTypeMethod)
             {
-                this.Log($"Implementing anonymous to interface {item}");
+                this.Log(LogTypes.Info, $"Implementing anonymous to interface {item}");
                 var interfaceToImplement = item.GetGenericArgument(0);
 
                 if (interfaceToImplement == null || !interfaceToImplement.IsInterface)
@@ -781,6 +781,7 @@ namespace Cauldron.Interception.Fody
 
                 property.CustomAttributes.AddCompilerGeneratedAttribute();
                 property.CustomAttributes.AddDebuggerBrowsableAttribute(DebuggerBrowsableState.Never);
+                property.CustomAttributes.AddNonSerializedAttribute();
 
                 foreach (var attribute in field)
                     attribute.Attribute.MoveTo(property);

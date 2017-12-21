@@ -15,6 +15,9 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Interception interceptor interception AOP Fody Cecil CIL ILWeaving</tags>
     <releaseNotes>
+      2017.12.21 - [A] NonSerializedAttribute (Win32) or IgnoreDataMemberAttribute (UWP) added to all Cauldron created fields and properties.
+      2017.12.21 - [C] Some info and error messages changed to be more informative.
+      2017.12.21 - [B] In some cases if the weaver tries to retrieved information from referenced assemblies, a BadImageFormatException occures. Fixed.
       2017.12.20 - [A] Real support for Net45 added - The weaver itself still requires an installed Net461.
       2017.12.14 - [A] Constructor interceptor added.
       2017.12.11 - [B] Sort of fixed the issue that jumping to errors on async methods did not work.

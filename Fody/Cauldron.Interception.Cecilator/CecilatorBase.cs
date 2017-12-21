@@ -38,9 +38,9 @@ namespace Cauldron.Interception.Cecilator
                     {
                         return new AssemblyDefinitionEx(AssemblyDefinition.ReadAssembly(x), x);
                     }
-                    catch (BadImageFormatException e)
+                    catch (BadImageFormatException)
                     {
-                        this.Log(e, x);
+                        this.Log(LogTypes.Info, $"Info: a BadImageFormatException has occured while trying to retrieve information from '{x}'");
                         return null;
                     }
                     catch (Exception e)

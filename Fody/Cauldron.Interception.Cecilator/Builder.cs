@@ -299,9 +299,10 @@ namespace Cauldron.Interception.Cecilator
 
         public IEnumerable<BuilderType> FindAttributesInModule()
         {
-            var stopwatch = Stopwatch.StartNew();
-
             if (findAttributesInModuleCache == null)
+            {
+                var stopwatch = Stopwatch.StartNew();
+
                 findAttributesInModuleCache = this.GetTypesInternal(SearchContext.Module)
                    .SelectMany(x =>
                    {
@@ -317,8 +318,9 @@ namespace Cauldron.Interception.Cecilator
                    .Distinct(new CustomAttributeEqualityComparer())
                    .Select(x => new BuilderType(this, x.AttributeType));
 
-            stopwatch.Stop();
-            this.Log($"Finding attributes took {stopwatch.Elapsed.TotalMilliseconds}ms");
+                stopwatch.Stop();
+                this.Log($"Finding attributes took {stopwatch.Elapsed.TotalMilliseconds}ms");
+            }
 
             return findAttributesInModuleCache;
         }
