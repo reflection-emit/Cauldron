@@ -103,6 +103,13 @@ namespace CauldronBuilder
                 }
 
                 CreateReadmeFromNuspec(startingLocation, version);
+
+                foreach (var project in Directory.GetFiles(startingLocation.FullName, "*.shfbproj", SearchOption.AllDirectories))
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine($"Compiling {Path.GetFileName(project)}");
+                    BuildProject(new FileInfo(Path.Combine(startingLocation.FullName, "Cauldron.sln")), new FileInfo(project));
+                }
             }
             catch (Exception e)
             {

@@ -89,9 +89,6 @@
     <Compile Include="..\..\NetStandard\Cauldron.Core.Net\PingResults.cs">
       <Link>Net45Special\PingResults.cs</Link>
     </Compile>
-    <Compile Include="..\..\NetStandard\Cauldron.Core.Randomizer\Randomizer.cs">
-      <Link>Net45Special\Randomizer.cs</Link>
-    </Compile>
     <Compile Include="..\..\NetStandard\Cauldron.Core.Reflection\ActivatorCollection.cs">
       <Link>Net45Special\ActivatorCollection.cs</Link>
     </Compile>
@@ -177,13 +174,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Net45_Assembly_Validation_External_Resources\Net45_Assembly_Validation_External_Resources.csproj">
-      <Project>{38faa55a-97f0-403a-8431-7810a61a59b4}</Project>
-      <Name>Net45_Assembly_Validation_External_Resources</Name>
+    <ProjectReference Include="..\..\Win32\Net45\Cauldron.Core.Win32.Net45.Randomizer\Cauldron.Core.Win32.Net45.Randomizer.csproj">
+      <Project>{7847fa3d-2671-4e16-9ac6-10b64cb4de71}</Project>
+      <Name>Cauldron.Core.Win32.Net45.Randomizer</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Win32\Net45\Cauldron.Win32.Net45.Interception\Cauldron.Win32.Net45.Interception.csproj">
       <Project>{c3ccc530-61ea-40c7-b4f9-42db16ee1fa4}</Project>
       <Name>Cauldron.Win32.Net45.Interception</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Resources\Net45_Assembly_Validation_External_Resources\Net45_Assembly_Validation_External_Resources.csproj">
+      <Project>{38faa55a-97f0-403a-8431-7810a61a59b4}</Project>
+      <Name>Net45_Assembly_Validation_External_Resources</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
