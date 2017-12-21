@@ -81,8 +81,9 @@ Assembly | Description   | NuGet
 - __Cauldron.Interception.Fody:__ _A bug was in "cleaning" fixed that caused local variables to be removed although they were still in use._
 - __Cauldron.Interception.Fody:__ _Fixed a bug that caused the weaver to weav types that does not exist and then throws exceptions._
 - __Cauldron.Interception.Fody:__ _Sort of fixed the issue that jumping to errors on async methods did not work._
-- __Capgemini.Cauldron.Win32.WPF.Interactivity:__ _The "Localized" attached property will not continue loading if in design mode to avoid those weird errors in the WPF editor_
 - __Capgemini.Cauldron.Core.Threading:__ _BUG!!!! ... Dispatcher was using BeginInvoke instead of InvokeAsync_
+- __Capgemini.Cauldron.Win32.WPF.Interactivity:__ _The "Localized" attached property will not continue loading if in design mode to avoid those weird errors in the WPF editor_
+- __Capgemini.Cauldron.Localization:__ _Added a Contains method to Locale._
 - __Capgemini.Cauldron.Win32.WPF:__ _Several issues with the dispatcher fixed._
 - __Capgemini.Cauldron.Win32.WPF:__ _Navigator was not able to find the correct view in some cases._
 - __Capgemini.Cauldron.Win32.WPF:__ _ObjectToVisibilityConverter logic was inverted._
@@ -90,7 +91,6 @@ Assembly | Description   | NuGet
 - __Capgemini.Cauldron.Win32.WPF:__ _Fixes an issue where the SplashScreen can be removed from MainView and causes the application to exit_
 - __Capgemini.Cauldron.Core.Reflection:__ _A bug in Assemblies that causes the Custom assembly resolution to be invoked before all assemblies are added to the collection fixed._
 - __Capgemini.Cauldron.Activator:__ _CreateFirst always returned null in some cases... This is fixed._
-- __Capgemini.Cauldron.Localization:__ _Added a Contains method to Locale._
 #### Change
 - __Capgemini.Cauldron.Win32.WPF:__ _XAML resources loading order can now be changed by adding a dash and a numeric suffix to the file name. e.g. Style-01.xaml._
 - __Capgemini.Cauldron.Core.Reflection:__ _Now Costura compatible._
