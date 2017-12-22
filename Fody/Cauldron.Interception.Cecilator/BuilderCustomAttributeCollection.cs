@@ -125,8 +125,8 @@ namespace Cauldron.Interception.Cecilator
             {
                 if (this.propertyDefinition != null)
                 {
-                    if (this.builder.TypeExists("System.Xml.Serialization.XmlIgnore"))
-                        this.Add(this.builder.GetType("System.Xml.Serialization.XmlIgnore"));
+                    if (this.builder.TypeExists("System.Xml.Serialization.XmlIgnoreAttribute"))
+                        this.Add(this.builder.GetType("System.Xml.Serialization.XmlIgnoreAttribute"));
                 }
                 else if (this.customAttributeProvider is FieldDefinition fieldDefinition)
                     this.Add(this.builder.GetType("System.NonSerializedAttribute"));
