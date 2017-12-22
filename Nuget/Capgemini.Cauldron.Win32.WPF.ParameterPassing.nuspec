@@ -15,6 +15,7 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Dispatcher</tags>
     <releaseNotes>
+      2017.12.22 - [C] Will now also invoke the callback delegate if there are no instances of the program running.
       2017.12.21 - [C] Now uses the NET461 assembly version of the randomizer.
     </releaseNotes>
     <dependencies>

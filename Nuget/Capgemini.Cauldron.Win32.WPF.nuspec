@@ -14,6 +14,9 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron XAML WPF MVVM Framework ViewModels</tags>
     <releaseNotes>
+      2017.12.22 - [C] ParameterPassing in ApplicationBase now uses Environment.Exit(0) after passing the params to other instances.
+      2017.12.22 - [A] RegisterUrlProtocols added to ApplicationBase
+      2017.12.22 - [A] OnActivationProtocol added to ApplicationBase
       2017.12.12 - [B] Fixes an issue where the SplashScreen can be removed from MainView and causes the application to exit
       2017.12.11 - [B] Bugs in MessageDialog that caused the strings not to be localized correctly fixed
       2017.12.11 - [C] XAML resources loading order can now be changed by adding a dash and a numeric suffix to the file name. e.g. Style-01.xaml.

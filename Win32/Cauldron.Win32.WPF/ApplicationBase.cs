@@ -2,6 +2,8 @@
 using Cauldron.Activator;
 using Cauldron.Core.Reflection;
 using Cauldron.Core.Threading;
+using Cauldron.Cryptography;
+using Cauldron.XAML.Navigation;
 using Cauldron.XAML.ViewModels;
 using System;
 using System.ComponentModel;
@@ -13,13 +15,14 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
-using Cauldron.Cryptography;
-using Cauldron.XAML.Navigation;
 
 namespace Cauldron.XAML
 {
+    using Cauldron.Core;
     using Cauldron.Core.Diagnostics;
+    using Cauldron.Net;
     using Cauldron.XAML.Controls;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Encapsulates a Windows Presentation Foundation (WPF) application.
@@ -115,6 +118,13 @@ namespace Cauldron.XAML
         /// Occurs when a property value changes.
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
+
+        /// <summary>
+        /// Gets a list of application url protocolls.
+        /// <para/>
+        /// Please note that these protocols are not automatically registered. To register these protocols, invoke the method <see cref="RegisterUrlProtocols"/>.
+        /// </summary>
+        public static List<string> ApplicationUrlProtocols { get; private set; } = new List<string>();
 
         /// <summary>
         /// Gets or sets the application splash screen image. This is only neccessary if the property <see cref="IsSinglePage"/> is set to true
@@ -232,6 +242,26 @@ namespace Cauldron.XAML
         public bool ShouldBringToFront { get; set; } = true;
 
         /// <summary>
+        /// Registers all url protocols listed in <see cref="ApplicationUrlProtocols"/>.
+        /// </summary>
+        public static void RegisterUrlProtocols()
+        {
+            if (ApplicationUrlProtocols.Count == 0)
+                return;
+
+            try
+            {
+                foreach (var item in ApplicationUrlProtocols)
+                    UrlProtocol.Register(item);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                UrlProtocol.RegisterElevated(ApplicationUrlProtocols[0]);
+                return;
+            }
+        }
+
+        /// <summary>
         /// Centralized error handling
         /// </summary>
         /// <param name="e">The <see cref="Exception"/> that occured</param>
@@ -288,6 +318,17 @@ namespace Cauldron.XAML
         }
 
         /// <summary>
+        /// Occures if the application is activated by a URI whose scheme name this app is registered
+        /// to handle.
+        /// </summary>
+        /// <param name="uri">
+        /// Gets the Uniform Resource Identifier (URI) for which the app was activated.
+        /// </param>
+        protected virtual void OnActivationProtocol(Uri uri)
+        {
+        }
+
+        /// <summary>
         /// Occures on initialization of <see cref="ApplicationBase"/>
         /// </summary>
         protected virtual void OnConstruction()
@@ -315,7 +356,25 @@ namespace Cauldron.XAML
 
         private async void ApplicationBase_Startup(object sender, StartupEventArgs e)
         {
+            if (this.isInitialized)
+                return;
+
             this.isInitialized = true;
+
+            if (e.Args != null && e.Args.Length > 0 && e.Args[0] == "registerUriScheme")
+            {
+                try
+                {
+                    RegisterUrlProtocols();
+                }
+                catch
+                {
+                    // don't show anything... This will only annoy users
+                }
+
+                this.Shutdown();
+                return;
+            }
 
             ParamPassing.Configure(e.Args, x =>
             {
@@ -324,22 +383,36 @@ namespace Cauldron.XAML
                 x.RandomSelectInstance = true;
                 x.DataSeparator = '\n';
 
-                x.ParameterPassedCallback = new Action<string[]>(args => this.OnActivated(args));
+                x.ParameterPassedCallback = new Action<string[]>(args =>
+                {
+                    if (args != null && args.Length > 0 && args[0].IndexOf(':') > 0 &&
+                        ApplicationUrlProtocols.Contains(args[0].Split(':').First(),
+                            new DynamicEqualityComparer<string>((a, b) => string.Equals(a, b, StringComparison.CurrentCultureIgnoreCase))))
+                    {
+                        try
+                        {
+                            this.OnActivationProtocol(new Uri(args[0]));
+                        }
+                        catch
+                        {
+                            // if the application recieves malformed or bad urls... We should just ignore it here
+                        }
+                    }
+                    else
+                        this.OnActivated(args);
+                });
 
                 x.ExitDelegate = () =>
                 {
-                    this.ShutdownMode = ShutdownMode.OnExplicitShutdown;
                     this.Shutdown();
+                    Environment.Exit(0);
                 };
             });
 
             if (this.IsSingleInstance && ParamPassing.AreOtherInstanceActive)
             {
                 if (ParamPassing.BringToFront())
-                {
-                    this.ShutdownMode = ShutdownMode.OnExplicitShutdown;
                     this.Shutdown();
-                }
             }
             else
             {

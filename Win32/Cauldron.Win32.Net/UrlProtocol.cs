@@ -16,11 +16,11 @@ namespace Cauldron.Net
         /// <summary>
         /// Registers the application to a URI scheme.
         /// </summary>
-        /// <param name="name">The application uri e.g. exampleApplication://</param>
+        /// <param name="urlProtocol">The application uri e.g. exampleApplication://</param>
         /// <exception cref="UnauthorizedAccessException">Process elevation required</exception>
-        public static void Register(string name)
+        public static void Register(string urlProtocol)
         {
-            var key = name.Split(':').First();
+            var key = urlProtocol.Split(':').First();
             var location = Assembly.GetEntryAssembly().Location;
             var applicationPath = Path.Combine(Path.GetDirectoryName(location), Path.GetFileName(location).Replace(".vshost.exe", ".exe"));
 
@@ -82,13 +82,13 @@ namespace Cauldron.Net
         /// Registers the application to a URI scheme using runas to elevate the process if required.
         /// Not that this can still throw a <see cref="UnauthorizedAccessException"/> if the elevated process is also not authorized.
         /// </summary>
-        /// <param name="name">The application uri e.g. exampleApplication://</param>
+        /// <param name="urlProtocol">The application uri e.g. exampleApplication://</param>
         /// <exception cref="UnauthorizedAccessException">Process elevation required</exception>
-        public static void RegisterElevated(string name)
+        public static void RegisterElevated(string urlProtocol)
         {
             try
             {
-                UrlProtocol.Register(name);
+                UrlProtocol.Register(urlProtocol);
             }
             catch (UnauthorizedAccessException)
             {
@@ -97,7 +97,7 @@ namespace Cauldron.Net
                 var processInfo = new ProcessStartInfo();
                 processInfo.Verb = "runas";
                 processInfo.FileName = Path.Combine(Path.GetDirectoryName(location), Path.GetFileName(location).Replace(".vshost.exe", ".exe"));
-                processInfo.Arguments = "registerUriScheme";
+                processInfo.Arguments = "registerUriScheme " + urlProtocol;
                 Process.Start(processInfo);
             }
         }
@@ -105,11 +105,11 @@ namespace Cauldron.Net
         /// <summary>
         /// Returns true if the uri requires registration; otherwise false.
         /// </summary>
-        /// <param name="name">The application uri e.g. exampleApplication://</param>
+        /// <param name="urlProtocol">The application uri e.g. exampleApplication://</param>
         /// <returns>Returns true if the uri requires registration; otherwise false.</returns>
-        public static bool RequiresRegistration(string name)
+        public static bool RequiresRegistration(string urlProtocol)
         {
-            var key = name.Split(':').First();
+            var key = urlProtocol.Split(':').First();
             var location = Assembly.GetEntryAssembly().Location;
             var applicationPath = Path.Combine(Path.GetDirectoryName(location), Path.GetFileName(location).Replace(".vshost.exe", ".exe"));
 
@@ -141,7 +141,7 @@ namespace Cauldron.Net
             var command = subKey.CreateSubKey("shell").CreateSubKey("open").CreateSubKey("command");
             subKey.SetValue("", $"URL:{name}");
             subKey.SetValue("URL Protocol", "");
-            defaultIcon.SetValue("", $"{location},1");
+            defaultIcon.SetValue("", $"{location},0");
             command.SetValue("", $"\"{location}\" \"%1\"");
         }
     }

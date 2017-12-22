@@ -40,14 +40,8 @@ namespace Cauldron.XAML
         /// </summary>
         public Action ExitDelegate
         {
-            get { return this._ExitDelegate; }
-            set
-            {
-                if (value == null)
-                    throw new ArgumentException("value cannot be null");
-
-                this._ExitDelegate = value;
-            }
+            get => this._ExitDelegate;
+            set => this._ExitDelegate = value ?? throw new ArgumentException("value cannot be null");
         }
 
         /// <summary>

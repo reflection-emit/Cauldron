@@ -116,7 +116,10 @@ namespace Cauldron.XAML
             config(@params);
 
             if (@params.Instances.Length == 0)
+            {
+                @params.ParameterPassedCallback(args);
                 return; // In this case we just proceed on loading the program
+            }
 
             // Single instance true will overrule everything else
             if (@params.IsSingleInstance)
@@ -134,7 +137,10 @@ namespace Cauldron.XAML
 
             // Down here every empty args array will cause the to load regardless the config
             if (args.Length == 0)
+            {
+                @params.ParameterPassedCallback(args);
                 return;
+            }
 
             // If the process to prefer property is not null then we will only send the params to that certain process
             if (@params.ProcessToPrefer != null)

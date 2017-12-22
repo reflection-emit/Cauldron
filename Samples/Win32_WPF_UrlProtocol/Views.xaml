@@ -1,0 +1,19 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Win32_WPF_UrlProtocol"
+                    xmlns:w="clr-namespace:Cauldron.XAML;assembly=Cauldron.Win32.WPF">
+
+    <DataTemplate x:Key="View_MainViewModel">
+        <StackPanel w:WindowConfiguration.WindowStartupLocation="CenterScreen"
+                    w:WindowConfiguration.SizeToContent="WidthAndHeight"
+                    w:WindowConfiguration.ResizeMode="NoResize"
+                    Margin="10">
+
+            <TextBlock Text="1) Click 'register' to register this application to the 'cauldron://' url-protocol." />
+            <Button Content="Register" Command="{Binding RegisterCommand}" Margin="10" Padding="10" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            <TextBlock Text="2) Type in the following url in your browser." Margin="0,10" />
+            <TextBox Text="cauldron://message?message=This is a message&amp;title=The title" IsReadOnly="True" HorizontalAlignment="Center" />
+            <TextBlock Text="3) Close the program and enter the url in you browser again." Margin="0,10" />
+        </StackPanel>
+    </DataTemplate>
+</ResourceDictionary>

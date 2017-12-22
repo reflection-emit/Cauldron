@@ -193,6 +193,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.Core.Win32.Randomi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Net45_Assembly_Validation_External_Resources", "UnitTests\Resources\Net45_Assembly_Validation_External_Resources\Net45_Assembly_Validation_External_Resources.csproj", "{38FAA55A-97F0-403A-8431-7810A61A59B4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Win32_WPF_UrlProtocol", "Samples\Win32_WPF_UrlProtocol\Win32_WPF_UrlProtocol.csproj", "{97E0C4E5-FBD3-4573-9366-81894363EDF0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1237,6 +1239,22 @@ Global
 		{38FAA55A-97F0-403A-8431-7810A61A59B4}.Release|x64.Build.0 = Release|Any CPU
 		{38FAA55A-97F0-403A-8431-7810A61A59B4}.Release|x86.ActiveCfg = Release|Any CPU
 		{38FAA55A-97F0-403A-8431-7810A61A59B4}.Release|x86.Build.0 = Release|Any CPU
+		{97E0C4E5-FBD3-4573-9366-81894363EDF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97E0C4E5-FBD3-4573-9366-81894363EDF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97E0C4E5-FBD3-4573-9366-81894363EDF0}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{97E0C4E5-FBD3-4573-9366-81894363EDF0}.Debug|ARM.Build.0 = Debug|Any CPU
+		{97E0C4E5-FBD3-4573-9366-81894363EDF0}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{97E0C4E5-FBD3-4573-9366-81894363EDF0}.Debug|x64.Build.0 = Debug|Any CPU
+		{97E0C4E5-FBD3-4573-9366-81894363EDF0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{97E0C4E5-FBD3-4573-9366-81894363EDF0}.Debug|x86.Build.0 = Debug|Any CPU
+		{97E0C4E5-FBD3-4573-9366-81894363EDF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97E0C4E5-FBD3-4573-9366-81894363EDF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97E0C4E5-FBD3-4573-9366-81894363EDF0}.Release|ARM.ActiveCfg = Release|Any CPU
+		{97E0C4E5-FBD3-4573-9366-81894363EDF0}.Release|ARM.Build.0 = Release|Any CPU
+		{97E0C4E5-FBD3-4573-9366-81894363EDF0}.Release|x64.ActiveCfg = Release|Any CPU
+		{97E0C4E5-FBD3-4573-9366-81894363EDF0}.Release|x64.Build.0 = Release|Any CPU
+		{97E0C4E5-FBD3-4573-9366-81894363EDF0}.Release|x86.ActiveCfg = Release|Any CPU
+		{97E0C4E5-FBD3-4573-9366-81894363EDF0}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1310,6 +1328,7 @@ Global
 		{7847FA3D-2671-4E16-9AC6-10B64CB4DE71} = {DB355DEB-F4C8-4FEA-A84D-04D84CCD33B0}
 		{5FA4C626-FB35-4DCB-9AC9-7DBBEAEAD68A} = {E1A20339-CE10-4F28-BB52-AB7D56DB3F25}
 		{38FAA55A-97F0-403A-8431-7810A61A59B4} = {4115126C-0A51-4950-8921-2B6B8AEACD66}
+		{97E0C4E5-FBD3-4573-9366-81894363EDF0} = {60164E6C-A924-451F-96C4-906492DA12E0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D1F2CDF5-23CA-42FF-B139-C74A73C3FA62}
