@@ -49,6 +49,13 @@ namespace Cauldron.Interception.Cecilator
 
         public void Add(TypeReference customAttributeType, params object[] parameters)
         {
+            if (this.customAttributeProvider is FieldDefinition fieldDefinition &&
+                (customAttributeType.FullName == "System.NonSerializedAttribute" || customAttributeType.FullName == "System.Runtime.Serialization.IgnoreDataMemberAttribute"))
+            {
+                fieldDefinition.Attributes |= FieldAttributes.NotSerialized;
+                return;
+            }
+
             MethodReference ctor = null;
             var type = this.moduleDefinition.ImportReference(customAttributeType);
 
@@ -115,7 +122,15 @@ namespace Cauldron.Interception.Cecilator
             if (this.builder.IsUWP)
                 this.Add(this.builder.GetType("System.Runtime.Serialization.IgnoreDataMemberAttribute"));
             else if (this.builder.TypeExists("System.NonSerializedAttribute"))
-                this.Add(this.builder.GetType("System.NonSerializedAttribute"));
+            {
+                if (this.propertyDefinition != null)
+                {
+                    if (this.builder.TypeExists("System.Xml.Serialization.XmlIgnore"))
+                        this.Add(this.builder.GetType("System.Xml.Serialization.XmlIgnore"));
+                }
+                else if (this.customAttributeProvider is FieldDefinition fieldDefinition)
+                    this.Add(this.builder.GetType("System.NonSerializedAttribute"));
+            }
 
             if (this.builder.TypeExists("Newtonsoft.Json.JsonIgnoreAttribute"))
                 this.Add(this.builder.GetType("Newtonsoft.Json.JsonIgnoreAttribute"));
