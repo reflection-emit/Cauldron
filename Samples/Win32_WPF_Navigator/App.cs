@@ -22,7 +22,7 @@ namespace Win32_WPF_Navigator
 
         protected override Task OnStartup(LaunchActivatedEventArgs e)
         {
-            return this.Navigator.NavigateAsync<MainViewModel>("A parameter", 42);
+            return this.Navigator.NavigateAsync<MainViewModel>("This is a parameter", 42);
         }
     }
 }

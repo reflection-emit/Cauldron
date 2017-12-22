@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2003
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCore_Console_ParameterHandling", "Samples\NetCore_Console_ParameterHandling\NetCore_Console_ParameterHandling.csproj", "{C0FE8A34-D8E5-4A34-AA7A-A90CDB4FE0FA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Win32_Console_ParameterHandling", "Samples\Win32_Console_ParameterHandling\Win32_Console_ParameterHandling.csproj", "{6E707240-B601-4E9D-9938-4AD6326553F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Win32_WPF_Navigator", "Samples\Win32_WPF_Navigator\Win32_WPF_Navigator.csproj", "{C7DD1409-9909-4299-B97D-2011BB643D07}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Win32_WPF_ParameterPassing", "Samples\Win32_WPF_ParameterPassing\Win32_WPF_ParameterPassing.csproj", "{E095631A-7A44-4222-AC32-9EEFEEE45566}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Win32_WPF_UrlProtocol", "Samples\Win32_WPF_UrlProtocol\Win32_WPF_UrlProtocol.csproj", "{97E0C4E5-FBD3-4573-9366-81894363EDF0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C0FE8A34-D8E5-4A34-AA7A-A90CDB4FE0FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0FE8A34-D8E5-4A34-AA7A-A90CDB4FE0FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0FE8A34-D8E5-4A34-AA7A-A90CDB4FE0FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0FE8A34-D8E5-4A34-AA7A-A90CDB4FE0FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E707240-B601-4E9D-9938-4AD6326553F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E707240-B601-4E9D-9938-4AD6326553F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E707240-B601-4E9D-9938-4AD6326553F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E707240-B601-4E9D-9938-4AD6326553F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7DD1409-9909-4299-B97D-2011BB643D07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7DD1409-9909-4299-B97D-2011BB643D07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7DD1409-9909-4299-B97D-2011BB643D07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7DD1409-9909-4299-B97D-2011BB643D07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E095631A-7A44-4222-AC32-9EEFEEE45566}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E095631A-7A44-4222-AC32-9EEFEEE45566}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E095631A-7A44-4222-AC32-9EEFEEE45566}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E095631A-7A44-4222-AC32-9EEFEEE45566}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97E0C4E5-FBD3-4573-9366-81894363EDF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97E0C4E5-FBD3-4573-9366-81894363EDF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97E0C4E5-FBD3-4573-9366-81894363EDF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97E0C4E5-FBD3-4573-9366-81894363EDF0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {86F68A49-A71B-46F7-9E9F-B31CE619EB14}
+	EndGlobalSection
+EndGlobal
