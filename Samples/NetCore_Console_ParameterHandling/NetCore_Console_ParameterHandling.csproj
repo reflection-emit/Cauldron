@@ -23,6 +23,6 @@
     <PackageReference Include="Capgemini.Cauldron.Consoles" Version="2.0.24" />
     <PackageReference Include="Capgemini.Cauldron.Core.Comparing" Version="2.0.24" />
     <PackageReference Include="Capgemini.Cauldron.Core.Threading" Version="2.0.24" />
-    <PackageReference Include="Capgemini.Cauldron.Cryptography" Version="2.0.22" />
+    <PackageReference Include="Capgemini.Cauldron.Cryptography" Version="2.0.24" />
   </ItemGroup>
 </Project>
