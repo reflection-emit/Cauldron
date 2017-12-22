@@ -18,14 +18,14 @@ namespace Cauldron.Interception.Cecilator
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
         internal readonly TypeReference typeReference;
 
-        public AssemblyDefinition Assembly { get { return this.typeDefinition.Module.Assembly; } }
+        public AssemblyDefinition Assembly => this.typeDefinition.Module.Assembly;
         public Builder Builder { get; private set; }
 
-        public BuilderType ChildType { get { return new BuilderType(this.Builder, this.moduleDefinition.GetChildrenType(this.typeReference)); } }
+        public BuilderType ChildType => new BuilderType(this.Builder, this.moduleDefinition.GetChildrenType(this.typeReference));
 
-        public BuilderCustomAttributeCollection CustomAttributes { get { return new BuilderCustomAttributeCollection(this.Builder, this.typeDefinition); } }
+        public BuilderCustomAttributeCollection CustomAttributes => new BuilderCustomAttributeCollection(this.Builder, this.typeDefinition);
 
-        public string Fullname { get { return this.typeReference.FullName; } }
+        public string Fullname => this.typeReference.FullName;
 
         public bool HasUnresolvedGenericParameters
         {
@@ -44,6 +44,7 @@ namespace Cauldron.Interception.Cecilator
         public bool IsDelegate => this.typeDefinition.IsDelegate();
         public bool IsEnum => this.typeDefinition.IsEnum;
         public bool IsForeign => this.moduleDefinition.Assembly == this.typeDefinition.Module.Assembly;
+        public bool IsGenericInstance => this.typeReference.IsGenericInstance;
         public bool IsGenericType => this.typeDefinition == null || this.typeReference.Resolve() == null;
         public bool IsInterface => this.typeDefinition == null ? false : this.typeDefinition.Attributes.HasFlag(TypeAttributes.Interface);
         public bool IsInternal => this.typeDefinition.Attributes.HasFlag(TypeAttributes.NotPublic);
@@ -57,6 +58,16 @@ namespace Cauldron.Interception.Cecilator
         public bool IsVoid => this.typeDefinition.FullName == "System.Void";
         public string Name => this.typeDefinition.Name;
         public string Namespace => this.typeDefinition.Namespace;
+
+        public IEnumerable<AttributedField> GetAttributedFields()
+        {
+            foreach (var field in this.Fields)
+            {
+                if (field.fieldDef.HasCustomAttributes)
+                    foreach (var attrib in field.fieldDef.CustomAttributes)
+                        yield return new AttributedField(field, attrib);
+            }
+        }
 
         public BuilderType GetGenericArgument(int index)
         {

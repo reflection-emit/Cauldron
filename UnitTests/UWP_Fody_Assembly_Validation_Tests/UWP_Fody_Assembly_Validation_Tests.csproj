@@ -110,6 +110,9 @@
     <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Interceptors\ExceptionThrowingMethodInterceptorAttribute.cs">
       <Link>Interceptors\ExceptionThrowingMethodInterceptorAttribute.cs</Link>
     </Compile>
+    <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Interceptors\PropertyInterceptorWithAssignMethodAttribute.cs">
+      <Link>Interceptors\PropertyInterceptorWithAssignMethodAttribute.cs</Link>
+    </Compile>
     <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Interceptors\TestMethodInterceptorAttribute.cs">
       <Link>Interceptors\TestMethodInterceptorAttribute.cs</Link>
     </Compile>

@@ -55,8 +55,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssignMethodAttributeInfo.cs" />
     <Compile Include="Extensions\BuilderExtensions.cs" />
     <Compile Include="HelperTypes\__Application.cs" />
+    <Compile Include="HelperTypes\__AssignMethodAttribute.cs" />
     <Compile Include="HelperTypes\__AsyncTaskMethodBuilder`1.cs" />
     <Compile Include="HelperTypes\__AsyncTaskMethodBuilder.cs" />
     <Compile Include="HelperTypes\HelperTypeBase.cs" />
@@ -86,6 +88,7 @@
     <Compile Include="HelperTypes\__Uri.cs" />
     <Compile Include="MethodBuilderInfo.cs" />
     <Compile Include="ModuleWeaver.cs" />
+    <Compile Include="ModuleWeaver_AssignMethodAttribute.cs" />
     <Compile Include="ModuleWeaver_BamlXamlInitializer.cs" />
     <Compile Include="ModuleWeaver_ChangeAwareViewModel.cs" />
     <Compile Include="ModuleWeaver_ConstructorInterception.cs" />

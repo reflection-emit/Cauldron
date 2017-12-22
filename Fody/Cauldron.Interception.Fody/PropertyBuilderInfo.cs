@@ -41,7 +41,12 @@ namespace Cauldron.Interception.Fody
 
     public sealed class PropertyBuilderInfoItem
     {
-        public PropertyBuilderInfoItem(AttributedProperty attribute, Property property, __IPropertyGetterInterceptor interfaceGetter, __IPropertySetterInterceptor interfaceSetter, __IPropertyInterceptorInitialize interfaceInitializer)
+        public PropertyBuilderInfoItem(
+            AttributedProperty attribute,
+            Property property,
+            __IPropertyGetterInterceptor interfaceGetter,
+            __IPropertySetterInterceptor interfaceSetter,
+            __IPropertyInterceptorInitialize interfaceInitializer)
         {
             this.Attribute = attribute;
             this.InterfaceGetter = interfaceGetter;
@@ -49,9 +54,12 @@ namespace Cauldron.Interception.Fody
             this.InterfaceInitializer = interfaceInitializer;
             this.Property = property;
             this.HasSyncRootInterface = attribute.Attribute.Type.Implements(__ISyncRoot.TypeName);
+            this.AssignMethodAttributeInfos = AssignMethodAttributeInfo.GetAllAssignMethodAttributedFields(attribute);
         }
 
+        public AssignMethodAttributeInfo[] AssignMethodAttributeInfos { get; private set; }
         public AttributedProperty Attribute { get; private set; }
+        public bool HasAssignMethodAttribute { get; private set; }
         public bool HasSyncRootInterface { get; private set; }
         public __IPropertyGetterInterceptor InterfaceGetter { get; private set; }
         public __IPropertyInterceptorInitialize InterfaceInitializer { get; private set; }

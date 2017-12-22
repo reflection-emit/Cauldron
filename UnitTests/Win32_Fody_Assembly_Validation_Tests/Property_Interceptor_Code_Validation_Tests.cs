@@ -19,6 +19,9 @@ namespace Win32_Fody_Assembly_Validation_Tests
         [TestPropertyInterceptor]
         public long[] ArrayProperty { get; set; }
 
+        [PropertyInterceptorWithAssignMethod]
+        public string AssignMethodPropertyTester { get; set; }
+
         [TestPropertyInterceptor]
         public ITestInterface InterfaceProperty { get; set; }
 
@@ -150,6 +153,10 @@ namespace Win32_Fody_Assembly_Validation_Tests
 
             this.ValueTypeProperty = 30;
             Assert.AreEqual(9999, this.ValueTypeProperty);
+        }
+
+        private void OnAssignMethodPropertyTester()
+        {
         }
     }
 }

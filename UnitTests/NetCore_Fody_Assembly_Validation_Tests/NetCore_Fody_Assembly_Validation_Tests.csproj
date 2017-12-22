@@ -12,6 +12,7 @@
     <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Interceptors\CreateATypeInterceptorAttribute.cs" Link="Interceptors\CreateATypeInterceptorAttribute.cs" />
     <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Interceptors\EnumPropertyInterceptorAttribute.cs" Link="Interceptors\EnumPropertyInterceptorAttribute.cs" />
     <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Interceptors\ExceptionThrowingMethodInterceptorAttribute.cs" Link="Interceptors\ExceptionThrowingMethodInterceptorAttribute.cs" />
+    <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Interceptors\PropertyInterceptorWithAssignMethodAttribute.cs" Link="Interceptors\PropertyInterceptorWithAssignMethodAttribute.cs" />
     <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Interceptors\TestMethodInterceptorAttribute.cs" Link="Interceptors\TestMethodInterceptorAttribute.cs" />
     <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Interceptors\TestMethodInterceptorWithParameter.cs" Link="Interceptors\TestMethodInterceptorWithParameter.cs" />
     <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Interceptors\TestPropertyInterceptorAttribute.cs" Link="Interceptors\TestPropertyInterceptorAttribute.cs" />
@@ -30,10 +31,6 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="1.2.0" />
     <PackageReference Include="MSTest.TestFramework" Version="1.2.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Interceptors\" />
   </ItemGroup>
 
   <ItemGroup>

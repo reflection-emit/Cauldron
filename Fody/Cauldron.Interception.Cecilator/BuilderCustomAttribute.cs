@@ -20,6 +20,10 @@ namespace Cauldron.Interception.Cecilator
             this.Type = new BuilderType(builder, attribute.AttributeType);
         }
 
+        public CustomAttributeArgument[] ConstructorArguments => this.attribute.HasConstructorArguments ?
+            this.attribute.ConstructorArguments.ToArray() :
+            new CustomAttributeArgument[0];
+
         public string Fullname { get { return this.attribute.AttributeType.FullName; } }
 
         public BuilderType Type { get; private set; }

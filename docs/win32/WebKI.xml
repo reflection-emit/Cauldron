@@ -52,6 +52,7 @@
   <HelpKINode Title="ApplicationBase.AfterRaiseNotifyPropertyChanged method" Url="html/M_Cauldron_XAML_ApplicationBase_AfterRaiseNotifyPropertyChanged.htm" />
   <HelpKINode Title="ApplicationBase.ApplicationBase constructor" Url="html/M_Cauldron_XAML_ApplicationBase__ctor.htm" />
   <HelpKINode Title="ApplicationBase.ApplicationSplash property" Url="html/P_Cauldron_XAML_ApplicationBase_ApplicationSplash.htm" />
+  <HelpKINode Title="ApplicationBase.ApplicationUrlProtocols property" Url="html/P_Cauldron_XAML_ApplicationBase_ApplicationUrlProtocols.htm" />
   <HelpKINode Title="ApplicationBase.BeforeRaiseNotifyPropertyChanged method" Url="html/M_Cauldron_XAML_ApplicationBase_BeforeRaiseNotifyPropertyChanged.htm" />
   <HelpKINode Title="ApplicationBase.BehaviourInvoke event" Url="html/E_Cauldron_XAML_ApplicationBase_BehaviourInvoke.htm" />
   <HelpKINode Title="ApplicationBase.Dispatcher property" Url="html/P_Cauldron_XAML_ApplicationBase_Dispatcher.htm" />
@@ -63,6 +64,7 @@
   <HelpKINode Title="ApplicationBase.MessageDialog property" Url="html/P_Cauldron_XAML_ApplicationBase_MessageDialog.htm" />
   <HelpKINode Title="ApplicationBase.Navigator property" Url="html/P_Cauldron_XAML_ApplicationBase_Navigator.htm" />
   <HelpKINode Title="ApplicationBase.OnActivated method" Url="html/M_Cauldron_XAML_ApplicationBase_OnActivated.htm" />
+  <HelpKINode Title="ApplicationBase.OnActivationProtocol method" Url="html/M_Cauldron_XAML_ApplicationBase_OnActivationProtocol.htm" />
   <HelpKINode Title="ApplicationBase.OnConstruction method" Url="html/M_Cauldron_XAML_ApplicationBase_OnConstruction.htm" />
   <HelpKINode Title="ApplicationBase.OnException method" Url="html/M_Cauldron_XAML_ApplicationBase_OnException.htm" />
   <HelpKINode Title="ApplicationBase.OnPreload method" Url="html/M_Cauldron_XAML_ApplicationBase_OnPreload.htm" />
@@ -71,8 +73,10 @@
   <HelpKINode Title="ApplicationBase.PropertyChanged event" Url="html/E_Cauldron_XAML_ApplicationBase_PropertyChanged.htm" />
   <HelpKINode Title="ApplicationBase.RaiseNotifyBehaviourInvoke method" Url="html/M_Cauldron_XAML_ApplicationBase_RaiseNotifyBehaviourInvoke.htm" />
   <HelpKINode Title="ApplicationBase.RaisePropertyChanged method" Url="html/M_Cauldron_XAML_ApplicationBase_RaisePropertyChanged.htm" />
+  <HelpKINode Title="ApplicationBase.RegisterUrlProtocols method" Url="html/M_Cauldron_XAML_ApplicationBase_RegisterUrlProtocols.htm" />
   <HelpKINode Title="ApplicationBase.ShouldBringToFront property" Url="html/P_Cauldron_XAML_ApplicationBase_ShouldBringToFront.htm" />
   <HelpKINode Title="ApplicationSplash property" Url="html/P_Cauldron_XAML_ApplicationBase_ApplicationSplash.htm" />
+  <HelpKINode Title="ApplicationUrlProtocols property" Url="html/P_Cauldron_XAML_ApplicationBase_ApplicationUrlProtocols.htm" />
   <HelpKINode Title="AreOtherInstanceActive property" Url="html/P_Cauldron_XAML_ParamPassing_AreOtherInstanceActive.htm" />
   <HelpKINode Title="ArgumentConverter property" Url="html/P_Cauldron_XAML_Interactivity_EventToCommand_ArgumentConverter.htm" />
   <HelpKINode Title="ArgumentConverterProperty field" Url="html/F_Cauldron_XAML_Interactivity_EventToCommand_ArgumentConverterProperty.htm" />
@@ -1367,6 +1371,7 @@
   <HelpKINode Title="ObjectToVisibilityConverter.OnConvertBack method" Url="html/M_Cauldron_XAML_ValueConverters_ObjectToVisibilityConverter_OnConvertBack.htm" />
   <HelpKINode Title="OldValue property" Url="html/P_Cauldron_XAML_PropertyIsChangedEventArgs_OldValue.htm" />
   <HelpKINode Title="OnActivated method" Url="html/M_Cauldron_XAML_ApplicationBase_OnActivated.htm" />
+  <HelpKINode Title="OnActivationProtocol method" Url="html/M_Cauldron_XAML_ApplicationBase_OnActivationProtocol.htm" />
   <HelpKINode Title="OnAssignToDataContext method" Url="html/M_Cauldron_XAML_ViewModels_IViewAware_OnAssignToDataContext.htm" />
   <HelpKINode Title="OnAttach method">
     <HelpKINode Title="Behaviour(T).OnAttach Method " Url="html/M_Cauldron_XAML_Interactivity_Behaviour_1_OnAttach.htm" />
@@ -1623,6 +1628,7 @@
   <HelpKINode Title="RegisterChildrenAttribute.OnSet method" Url="html/M_Cauldron_XAML_ViewModels_RegisterChildrenAttribute_OnSet.htm" />
   <HelpKINode Title="RegisterChildrenAttribute.RegisterChildrenAttribute constructor" Url="html/M_Cauldron_XAML_ViewModels_RegisterChildrenAttribute__ctor.htm" />
   <HelpKINode Title="RegisterElevated method" Url="html/M_Cauldron_Net_UrlProtocol_RegisterElevated.htm" />
+  <HelpKINode Title="RegisterUrlProtocols method" Url="html/M_Cauldron_XAML_ApplicationBase_RegisterUrlProtocols.htm" />
   <HelpKINode Title="RelayCommand class">
     <HelpKINode Title="RelayCommand Class" Url="html/T_Cauldron_XAML_RelayCommand.htm" />
     <HelpKINode Title="about RelayCommand class" Url="html/T_Cauldron_XAML_RelayCommand.htm" />
