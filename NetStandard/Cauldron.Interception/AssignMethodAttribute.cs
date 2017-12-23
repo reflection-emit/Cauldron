@@ -47,7 +47,7 @@ namespace Cauldron.Interception
     /// {
     ///    // Your code that is executed if a value is assigned to the DispatchDate property.
     /// }
-    /// </code>    ///
+    /// </code>
     /// </example>
     [AttributeUsage(AttributeTargets.Field, AllowMultiple = false, Inherited = false)]
     public sealed class AssignMethodAttribute : Attribute, IInterceptor

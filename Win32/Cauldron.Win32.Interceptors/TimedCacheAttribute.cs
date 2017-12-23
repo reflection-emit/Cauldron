@@ -13,6 +13,8 @@ namespace Cauldron.Core.Interceptors
     /// <para/>
     /// The cache is dependent to the passed arguments. The arguments requires a proper
     /// implementation of <see cref="object.GetHashCode"/> and a unique <see cref="object.ToString"/> value.
+    /// <para/>
+    /// The cache of the <see cref="TimedCacheAttribute"/> can be forcefully cleared by <see cref="TimedCacheChangeMonitor.Clear"/>.
     /// </summary>
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
     public sealed class TimedCacheAttribute : Attribute, IInterceptor
