@@ -10,9 +10,9 @@ namespace Cauldron.Interception.Fody.Extensions
             var attributedMethod = method.Key.Method;
             var targetedMethod = method.Key.AsyncMethod ?? method.Key.Method;
 
-            if (method.Key.AsyncMethod != null && !targetedMethod.DeclaringType.Fields.Any(x => x.Name == "<>4__this"))
+            if (method.Key.AsyncMethod != null && !targetedMethod.OriginType.Fields.Any(x => x.Name == "<>4__this"))
             {
-                var thisField = targetedMethod.DeclaringType.CreateField(Modifiers.Public, attributedMethod.DeclaringType, "<>4__this");
+                var thisField = targetedMethod.OriginType.CreateField(Modifiers.Public, attributedMethod.OriginType, "<>4__this");
                 var position = attributedMethod.AsyncMethodHelper.GetAsyncTaskMethodBuilderInitialization();
 
                 if (position == null)
@@ -25,7 +25,7 @@ namespace Cauldron.Interception.Fody.Extensions
         public static object GetAsyncMethodTypeInstace<T>(this MethodBuilderInfo<T> method) where T : IMethodBuilderInfoItem
         {
             var targetedMethod = method.Key.AsyncMethod ?? method.Key.Method;
-            return method.Key.AsyncMethod == null ? (object)Crumb.This : targetedMethod.DeclaringType.Fields.FirstOrDefault(x => x.Name == "<>4__this");
+            return method.Key.AsyncMethod == null ? (object)Crumb.This : targetedMethod.OriginType.Fields.FirstOrDefault(x => x.Name == "<>4__this");
         }
 
         public static Modifiers GetPrivate(this Modifiers value) => value.HasFlag(Modifiers.Static) ? Modifiers.PrivateStatic : Modifiers.Private;

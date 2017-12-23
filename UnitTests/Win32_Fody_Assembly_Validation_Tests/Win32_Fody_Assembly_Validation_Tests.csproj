@@ -49,12 +49,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Anonymouse_Type_To_Interface_Test.cs" />
+    <Compile Include="AssignMethodAttribute_Tests.cs" />
     <Compile Include="Constructor_Interceptor_Code_Validation.cs" />
     <Compile Include="Field_Interception_Code_Validation_Tests.cs" />
     <Compile Include="Interceptors\CreateATypeInterceptorAttribute.cs" />
     <Compile Include="Interceptors\EnumPropertyInterceptorAttribute.cs" />
     <Compile Include="Interceptors\ExceptionThrowingMethodInterceptorAttribute.cs" />
-    <Compile Include="Interceptors\PropertyInterceptorWithAssignMethodAttribute.cs" />
     <Compile Include="Interceptors\TestMethodInterceptorAttribute.cs" />
     <Compile Include="Interceptors\TestMethodInterceptorWithParameter.cs" />
     <Compile Include="Interceptors\TestPropertyInterceptorAttribute.cs" />

@@ -15,6 +15,7 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Interception interceptor interception AOP Fody Cecil CIL ILWeaving</tags>
     <releaseNotes>
+      2017.12.23 - [A] New interceptor extension added - AssignMethodAttribute
       2017.12.22 - [A] System.Xml.Serialization.XmlIgnoreAttribute will be added to all Cauldron created properties if the type System.Xml.Serialization.XmlIgnoreAttribute exist.
       2017.12.22 - [B] NonSerializedAttribute was implemented as a custom attribute... Now correctly implemented.
       2017.12.21 - [A] NonSerializedAttribute or IgnoreDataMemberAttribute or JsonIgnoreAttribute added to all Cauldron created fields and properties (Only if these attributes are referenced in the project).

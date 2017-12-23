@@ -19,9 +19,6 @@ namespace Win32_Fody_Assembly_Validation_Tests
         [TestPropertyInterceptor]
         public long[] ArrayProperty { get; set; }
 
-        [PropertyInterceptorWithAssignMethod]
-        public string AssignMethodPropertyTester { get; set; }
-
         [TestPropertyInterceptor]
         public ITestInterface InterfaceProperty { get; set; }
 

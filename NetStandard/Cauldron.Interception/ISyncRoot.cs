@@ -1,7 +1,10 @@
 ﻿namespace Cauldron.Interception
 {
     /// <summary>
-    /// Represents an interceptor that can be locked.
+    /// Adds a sync-root to the interceptor. The sync-root object is the same for all interceptors applied to the property, field or method.
+    /// <para/>
+    /// This interceptor extension is available for <see cref="IPropertyGetterInterceptor"/>, <see cref="IPropertySetterInterceptor"/>,
+    /// <see cref="IPropertyInterceptor"/> and <see cref="IMethodInterceptor"/>.
     /// </summary>
     public interface ISyncRoot
     {

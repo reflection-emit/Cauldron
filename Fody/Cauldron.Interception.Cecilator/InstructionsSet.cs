@@ -29,7 +29,7 @@ namespace Cauldron.Interception.Cecilator
             this.method.methodDefinition.Body.SimplifyMacros();
         }
 
-        internal InstructionsSet(InstructionsSet instructionsSet, InstructionContainer instructions) : base(instructionsSet.method.DeclaringType)
+        internal InstructionsSet(InstructionsSet instructionsSet, InstructionContainer instructions) : base(instructionsSet.method.OriginType)
         {
             this.method = instructionsSet.method;
             this.processor = instructionsSet.processor;
@@ -55,11 +55,23 @@ namespace Cauldron.Interception.Cecilator
 
         public ILocalVariableCode Assign(LocalVariable localVariable) => new LocalVariableInstructionSet(this, localVariable, this.instructions, AssignInstructionType.Store);
 
+        public IFieldCode Assign(Field instance, Field field)
+        {
+            this.Load(instance);
+            return new FieldInstructionsSet(this, field, this.instructions, AssignInstructionType.Store);
+        }
+
+        public IFieldCode Assign(LocalVariable instance, Field field)
+        {
+            this.Load(instance);
+            return new FieldInstructionsSet(this, field, this.instructions, AssignInstructionType.Store);
+        }
+
         public IFieldCode Assign(Field field)
         {
             if (!field.IsStatic)
             {
-                if (field.DeclaringType == this.method.DeclaringType)
+                if (field.OriginType == this.method.OriginType)
                     this.instructions.Append(processor.Create(OpCodes.Ldarg_0));
             }
 
@@ -68,23 +80,23 @@ namespace Cauldron.Interception.Cecilator
 
         public IFieldCode AssignToField(string fieldName)
         {
-            if (!this.method.DeclaringType.Fields.Contains(fieldName))
-                throw new KeyNotFoundException($"The field with the name '{fieldName}' does not exist in '{method.DeclaringType}'");
+            if (!this.method.OriginType.Fields.Contains(fieldName))
+                throw new KeyNotFoundException($"The field with the name '{fieldName}' does not exist in '{method.OriginType}'");
 
-            var field = this.method.DeclaringType.Fields[fieldName];
+            var field = this.method.OriginType.Fields[fieldName];
             return this.Assign(field);
         }
 
-        public ILocalVariableCode AssignToLocalVariable(int localVariableIndex) => this.Assign(new LocalVariable(this.method.DeclaringType, this.method.methodDefinition.Body.Variables[localVariableIndex]));
+        public ILocalVariableCode AssignToLocalVariable(int localVariableIndex) => this.Assign(new LocalVariable(this.method.OriginType, this.method.methodDefinition.Body.Variables[localVariableIndex]));
 
         public ILocalVariableCode AssignToLocalVariable(string localVariableName)
         {
             var variable = this.method.GetLocalVariable(localVariableName);
 
             if (variable == null)
-                throw new KeyNotFoundException($"The local variable with the name '{localVariableName}' does not exist in '{method.DeclaringType}'");
+                throw new KeyNotFoundException($"The local variable with the name '{localVariableName}' does not exist in '{method.OriginType}'");
 
-            return this.Assign(new LocalVariable(this.method.DeclaringType, variable, localVariableName));
+            return this.Assign(new LocalVariable(this.method.OriginType, variable, localVariableName));
         }
 
         public ICode Call(Method method, params object[] parameters) => CallInternal(null, method, OpCodes.Call, parameters);
@@ -115,10 +127,10 @@ namespace Cauldron.Interception.Cecilator
 
         public Method Copy(Modifiers modifiers, string newName)
         {
-            var method = this.method.DeclaringType.typeDefinition.Methods.Get(newName);
+            var method = this.method.OriginType.typeDefinition.Methods.Get(newName);
 
             if (method != null)
-                return new Method(this.method.DeclaringType, method);
+                return new Method(this.method.OriginType, method);
 
             var attributes = MethodAttributes.CompilerControlled;
 
@@ -140,12 +152,12 @@ namespace Cauldron.Interception.Cecilator
 
             method.Body.InitLocals = this.method.methodDefinition.Body.InitLocals;
 
-            this.method.DeclaringType.typeDefinition.Methods.Add(method);
+            this.method.OriginType.typeDefinition.Methods.Add(method);
             CopyMethod(method);
 
             method.Body.OptimizeMacros();
 
-            return new Method(this.method.DeclaringType, method);
+            return new Method(this.method.OriginType, method);
         }
 
         public ICode Dup()
@@ -197,7 +209,7 @@ namespace Cauldron.Interception.Cecilator
             var variableName = "<>params_" + this.method.Identification;
             if (this.method.GetLocalVariable(variableName) == null)
             {
-                var objectArrayType = this.method.DeclaringType.Builder.GetType(typeof(object[]));
+                var objectArrayType = this.method.OriginType.Builder.GetType(typeof(object[]));
                 var variable = this.CreateVariable(variableName, objectArrayType);
                 var newInstructions = new List<Instruction>
                 {
@@ -292,6 +304,20 @@ namespace Cauldron.Interception.Cecilator
             this.instructions.Clear();
         }
 
+        public IFieldCode Load(Field instance, Field field)
+        {
+            this.Load(instance);
+            this.instructions.Append(processor.Create(OpCodes.Ldfld, field.fieldRef));
+            return this.CreateFieldInstructionSet(field, AssignInstructionType.Load);
+        }
+
+        public IFieldCode Load(LocalVariable instance, Field field)
+        {
+            this.Load(instance);
+            this.instructions.Append(processor.Create(OpCodes.Ldfld, field.fieldRef));
+            return this.CreateFieldInstructionSet(field, AssignInstructionType.Load);
+        }
+
         public IFieldCode Load(Field field)
         {
             if (!field.IsStatic)
@@ -339,10 +365,10 @@ namespace Cauldron.Interception.Cecilator
 
         public IFieldCode LoadField(string fieldName)
         {
-            if (!this.method.DeclaringType.Fields.Contains(fieldName))
-                throw new KeyNotFoundException($"The field with the name '{fieldName}' does not exist in '{method.DeclaringType}'");
+            if (!this.method.OriginType.Fields.Contains(fieldName))
+                throw new KeyNotFoundException($"The field with the name '{fieldName}' does not exist in '{method.OriginType}'");
 
-            var field = this.method.DeclaringType.Fields[fieldName];
+            var field = this.method.OriginType.Fields[fieldName];
             return this.Load(field);
         }
 
@@ -351,15 +377,15 @@ namespace Cauldron.Interception.Cecilator
             var variable = this.method.GetLocalVariable(variableName);
 
             if (variable == null)
-                throw new KeyNotFoundException($"The local variable with the name '{variableName}' does not exist in '{method.DeclaringType}'");
+                throw new KeyNotFoundException($"The local variable with the name '{variableName}' does not exist in '{method.OriginType}'");
 
-            return this.Load(new LocalVariable(this.method.DeclaringType, variable, variableName));
+            return this.Load(new LocalVariable(this.method.OriginType, variable, variableName));
         }
 
         public ILocalVariableCode LoadVariable(int variableIndex)
         {
             var localvariable = this.method.methodDefinition.Body.Variables[variableIndex];
-            return this.Load(new LocalVariable(this.method.DeclaringType, localvariable));
+            return this.Load(new LocalVariable(this.method.OriginType, localvariable));
         }
 
         public ICode Newarr(BuilderType type, int size)
@@ -450,7 +476,7 @@ namespace Cauldron.Interception.Cecilator
                 // remove everything until base call
                 var first = newBody.FirstOrDefault(x => x.OpCode == OpCodes.Call && (x.Operand as MethodReference).Name == ".ctor");
                 if (first == null)
-                    throw new NullReferenceException($"The constructor of type '{this.method.DeclaringType}' seems to have no call to base class.");
+                    throw new NullReferenceException($"The constructor of type '{this.method.OriginType}' seems to have no call to base class.");
 
                 var firstIndex = newBody.IndexOf(first);
                 newBody = newBody.GetRange(firstIndex + 1, newBody.Count - firstIndex - 1);
@@ -520,7 +546,7 @@ namespace Cauldron.Interception.Cecilator
             {
                 var first = this.method.methodDefinition.Body.Instructions.FirstOrDefault(x => x.OpCode == OpCodes.Call && (x.Operand as MethodReference).Name == ".ctor");
                 if (first == null)
-                    throw new NullReferenceException($"The constructor of type '{this.method.DeclaringType}' seems to have no call to base class.");
+                    throw new NullReferenceException($"The constructor of type '{this.method.OriginType}' seems to have no call to base class.");
 
                 // In ctors we only replace the instructions after base call
                 var callsBeforeBase = this.method.methodDefinition.Body.Instructions.TakeWhile(x => x != first).ToList();
@@ -768,7 +794,7 @@ namespace Cauldron.Interception.Cecilator
 
                     case CrumbTypes.This:
                         result.Instructions.Add(processor.Create(this.method.IsStatic ? OpCodes.Ldnull : OpCodes.Ldarg_0));
-                        result.Type = this.method.DeclaringType.typeReference;
+                        result.Type = this.method.OriginType.typeReference;
                         break;
 
                     default:
@@ -803,7 +829,7 @@ namespace Cauldron.Interception.Cecilator
                     var methodBaseRef = this.moduleDefinition.ImportReference(typeof(System.Reflection.MethodBase));
                     // methodof
                     result.Instructions.Add(processor.Create(OpCodes.Ldtoken, method.methodReference));
-                    result.Instructions.Add(processor.Create(OpCodes.Ldtoken, method.DeclaringType.typeReference));
+                    result.Instructions.Add(processor.Create(OpCodes.Ldtoken, method.OriginType.typeReference));
                     result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.ImportReference(methodBaseRef.BetterResolve().Methods.FirstOrDefault(x => x.Name == "GetMethodFromHandle" && x.Parameters.Count == 2))));
 
                     result.Type = methodBaseRef;
@@ -1224,13 +1250,13 @@ namespace Cauldron.Interception.Cecilator
                 //if (method.Parameters.Length != parameters.Length)
                 //    this.LogWarning($"Parameter count of method {method.Name} does not match with the passed parameters. Expected: {method.Parameters.Length}, is: {parameters.Length}");
 
-                if ((method.DeclaringType.IsInterface || method.IsAbstract) && opcode != OpCodes.Calli)
+                if ((method.OriginType.IsInterface || method.IsAbstract) && opcode != OpCodes.Calli)
                     opcode = OpCodes.Callvirt;
 
                 for (int i = 0; i < parameters.Length; i++)
                 {
                     var parameterType = method.methodDefinition.Parameters[i].ParameterType.IsGenericInstance || method.methodDefinition.Parameters[i].ParameterType.IsGenericParameter ?
-                        method.methodDefinition.Parameters[i].ParameterType.ResolveType(method.DeclaringType.typeReference, method.methodReference) :
+                        method.methodDefinition.Parameters[i].ParameterType.ResolveType(method.OriginType.typeReference, method.methodReference) :
                         method.methodDefinition.Parameters[i].ParameterType;
 
                     var inst = this.AddParameter(this.processor, this.moduleDefinition.ImportReference(parameterType), parameters[i]);
@@ -1486,7 +1512,7 @@ namespace Cauldron.Interception.Cecilator
         public LocalVariable CreateVariable(string name, Method method)
         {
             if (method.IsCtor)
-                return this.CreateVariable(name, method.DeclaringType);
+                return this.CreateVariable(name, method.OriginType);
 
             return this.CreateVariable(name, method.ReturnType);
         }
@@ -1515,7 +1541,7 @@ namespace Cauldron.Interception.Cecilator
         public LocalVariable CreateVariable(Method method)
         {
             if (method.IsCtor)
-                return this.CreateVariable(method.DeclaringType);
+                return this.CreateVariable(method.OriginType);
 
             return this.CreateVariable(method.ReturnType);
         }

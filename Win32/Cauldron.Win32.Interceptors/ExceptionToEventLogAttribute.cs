@@ -8,7 +8,7 @@ namespace Cauldron.Core.Interceptors
 {
     /// <summary>
     /// Provides an interceptor that logs an exception to the Windows Event Log.
-    /// </summary>C:\Users\evron\OneDrive\Minmatar\Source\Repos\Cauldron\New\Win32\Cauldron.Win32.Interceptors\ExceptionToEventLogAttribute.cs
+    /// </summary>
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Property | AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
     public sealed class ExceptionToEventLogAttribute : Attribute, IPropertyInterceptor, IMethodInterceptor
     {

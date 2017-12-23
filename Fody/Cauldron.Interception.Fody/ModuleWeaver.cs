@@ -253,14 +253,14 @@ namespace Cauldron.Interception.Fody
 
             foreach (var item in propertiesWithAttributes)
             {
-                var addValidatorGroup = item.Key.DeclaringType.GetMethod("AddValidatorGroup", false, typeof(string));
+                var addValidatorGroup = item.Key.OriginType.GetMethod("AddValidatorGroup", false, typeof(string));
                 if (addValidatorGroup == null)
                     continue;
-                var addValidatorAttribute = item.Key.DeclaringType.GetMethod("AddValidator", false, typeof(string).FullName, "Cauldron.XAML.Validation.ValidatorAttributeBase");
+                var addValidatorAttribute = item.Key.OriginType.GetMethod("AddValidator", false, typeof(string).FullName, "Cauldron.XAML.Validation.ValidatorAttributeBase");
 
-                this.Log($"Adding initializer for validators ({item.Validators.Length}) of property '{item.Key.Name}' in type '{item.Key.DeclaringType.Fullname}'");
+                this.Log($"Adding initializer for validators ({item.Validators.Length}) of property '{item.Key.Name}' in type '{item.Key.OriginType.Fullname}'");
 
-                foreach (var ctors in item.Key.DeclaringType.GetRelevantConstructors())
+                foreach (var ctors in item.Key.OriginType.GetRelevantConstructors())
                 {
                     ctors.NewCode().Context(x =>
                     {
@@ -331,7 +331,7 @@ namespace Cauldron.Interception.Fody
         private Method CreateAssigningMethod(BuilderType anonSource, BuilderType anonTarget, BuilderType anonTargetInterface, Method method)
         {
             var name = $"<{counter++}>f__Anon_Assign";
-            var assignMethod = method.DeclaringType.CreateMethod(Modifiers.PrivateStatic, anonTarget, name, anonSource);
+            var assignMethod = method.OriginType.CreateMethod(Modifiers.PrivateStatic, anonTarget, name, anonSource);
             assignMethod.NewCode()
                 .Context(x =>
                 {
@@ -771,11 +771,11 @@ namespace Cauldron.Interception.Fody
 
                 if (!field.Key.Modifiers.HasFlag(Modifiers.Private))
                 {
-                    this.Log(LogTypes.Error, field.Key.DeclaringType, $"The current version of the field interceptor only intercepts private fields. Field '{field.Key.Name}' in type '{field.Key.DeclaringType.Name}'");
+                    this.Log(LogTypes.Error, field.Key.OriginType, $"The current version of the field interceptor only intercepts private fields. Field '{field.Key.Name}' in type '{field.Key.OriginType.Name}'");
                     continue;
                 }
 
-                var type = field.Key.DeclaringType;
+                var type = field.Key.OriginType;
                 var usage = field.Key.FindUsages().ToArray();
                 var property = type.CreateProperty(field.Key);
 

@@ -34,7 +34,7 @@ namespace Cauldron.Interception.Fody
             {
                 if (_syncRoot == null)
                 {
-                    _syncRoot = this.Key.Method.DeclaringType.CreateField(this.Key.Method.Modifiers.GetPrivate(), typeof(object), $"<{this.Key.Method.Name}>_syncObject_{this.Key.Method.Identification}");
+                    _syncRoot = this.Key.Method.OriginType.CreateField(this.Key.Method.Modifiers.GetPrivate(), typeof(object), $"<{this.Key.Method.Name}>_syncObject_{this.Key.Method.Identification}");
                     _syncRoot.CustomAttributes.AddNonSerializedAttribute();
                 }
 
@@ -50,8 +50,10 @@ namespace Cauldron.Interception.Fody
             this.Attribute = attribute;
             this.Interface = @interface;
             this.HasSyncRootInterface = attribute.Attribute.Type.Implements(__ISyncRoot.TypeName);
+            this.AssignMethodAttributeInfos = AssignMethodAttributeInfo.GetAllAssignMethodAttributedFields(attribute);
         }
 
+        public AssignMethodAttributeInfo[] AssignMethodAttributeInfos { get; private set; }
         public AttributedMethod Attribute { get; private set; }
         public bool HasSyncRootInterface { get; private set; }
         public T Interface { get; private set; }

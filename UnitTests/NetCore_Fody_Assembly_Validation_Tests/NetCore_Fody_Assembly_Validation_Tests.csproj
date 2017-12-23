@@ -8,11 +8,11 @@
 
   <ItemGroup>
     <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Anonymouse_Type_To_Interface_Test.cs" Link="Anonymouse_Type_To_Interface_Test.cs" />
+    <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\AssignMethodAttribute_Tests.cs" Link="AssignMethodAttribute_Tests.cs" />
     <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Field_Interception_Code_Validation_Tests.cs" Link="Field_Interception_Code_Validation_Tests.cs" />
     <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Interceptors\CreateATypeInterceptorAttribute.cs" Link="Interceptors\CreateATypeInterceptorAttribute.cs" />
     <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Interceptors\EnumPropertyInterceptorAttribute.cs" Link="Interceptors\EnumPropertyInterceptorAttribute.cs" />
     <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Interceptors\ExceptionThrowingMethodInterceptorAttribute.cs" Link="Interceptors\ExceptionThrowingMethodInterceptorAttribute.cs" />
-    <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Interceptors\PropertyInterceptorWithAssignMethodAttribute.cs" Link="Interceptors\PropertyInterceptorWithAssignMethodAttribute.cs" />
     <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Interceptors\TestMethodInterceptorAttribute.cs" Link="Interceptors\TestMethodInterceptorAttribute.cs" />
     <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Interceptors\TestMethodInterceptorWithParameter.cs" Link="Interceptors\TestMethodInterceptorWithParameter.cs" />
     <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Interceptors\TestPropertyInterceptorAttribute.cs" Link="Interceptors\TestPropertyInterceptorAttribute.cs" />

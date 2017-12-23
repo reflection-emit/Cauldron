@@ -89,11 +89,11 @@ namespace Cauldron.Interception.Fody
                 if (method.RequiresSyncRootField)
                 {
                     if (method.SyncRoot.IsStatic)
-                        targetedMethod.DeclaringType.CreateStaticConstructor().NewCode()
+                        targetedMethod.OriginType.CreateStaticConstructor().NewCode()
                             .Assign(method.SyncRoot).NewObj(builder.GetType(typeof(object)).Import().ParameterlessContructor)
                             .Insert(InsertionPosition.Beginning);
                     else
-                        foreach (var ctors in targetedMethod.DeclaringType.GetRelevantConstructors().Where(x => x.Name == ".ctor"))
+                        foreach (var ctors in targetedMethod.OriginType.GetRelevantConstructors().Where(x => x.Name == ".ctor"))
                             ctors.NewCode().Assign(method.SyncRoot).NewObj(builder.GetType(typeof(object)).Import().ParameterlessContructor).Insert(InsertionPosition.Beginning);
                 }
 
@@ -105,7 +105,7 @@ namespace Cauldron.Interception.Fody
                         {
                             var item = method.Item[i];
                             var name = $"<{targetedMethod.Name}>_attrib{i}_{item.Attribute.Identification}";
-                            interceptorField[i] = targetedMethod.DeclaringType.CreateField(targetedMethod.Modifiers.GetPrivate(), item.Interface.Type, name);
+                            interceptorField[i] = targetedMethod.OriginType.CreateField(targetedMethod.Modifiers.GetPrivate(), item.Attribute.Attribute.Type, name);
                             interceptorField[i].CustomAttributes.AddNonSerializedAttribute();
 
                             x.Load(interceptorField[i]).IsNull().Then(y =>
@@ -113,6 +113,8 @@ namespace Cauldron.Interception.Fody
                                 y.Assign(interceptorField[i]).NewObj(item.Attribute);
                                 if (item.HasSyncRootInterface)
                                     y.Load(interceptorField[i]).As(syncRoot.Type).Call(syncRoot.SyncRoot, method.SyncRoot);
+
+                                ImplementAssignMethodAttribute(builder, method.Item[i].AssignMethodAttributeInfos, interceptorField[i], x);
                             });
                             item.Attribute.Remove();
                         }
@@ -122,7 +124,7 @@ namespace Cauldron.Interception.Fody
                         for (int i = 0; i < method.Item.Length; i++)
                         {
                             var item = method.Item[i];
-                            x.Load(interceptorField[i]).As(item.Interface.Type).Call(item.Interface.OnEnter, attributedMethod.DeclaringType, typeInstance, attributedMethod, x.GetParametersArray());
+                            x.Load(interceptorField[i]).As(item.Interface.Type).Call(item.Interface.OnEnter, attributedMethod.OriginType, typeInstance, attributedMethod, x.GetParametersArray());
                         }
 
                         x.OriginalBody();
@@ -133,7 +135,7 @@ namespace Cauldron.Interception.Fody
                             var exceptionVar = x.CreateVariable(exception.Type);
 
                             x.Assign(exceptionVar).Set(
-                                x.NewCode().Call(method.Key.AsyncMethod.DeclaringType.GetField("<>t__builder"), asyncTaskMethodBuilder.GetTask)
+                                x.NewCode().Call(method.Key.AsyncMethod.OriginType.GetField("<>t__builder"), asyncTaskMethodBuilder.GetTask)
                                 .Call(task.GetException));
 
                             x.Load(exceptionVar).IsNotNull().Then(y =>
@@ -148,7 +150,7 @@ namespace Cauldron.Interception.Fody
                             var taskArgument = method.Key.Method.ReturnType.GetGenericArgument(0);
 
                             x.Assign(exceptionVar).Set(
-                                x.NewCode().Call(method.Key.AsyncMethod.DeclaringType.GetField("<>t__builder"), asyncTaskMethodBuilderGeneric.GetTask.MakeGeneric(taskArgument))
+                                x.NewCode().Call(method.Key.AsyncMethod.OriginType.GetField("<>t__builder"), asyncTaskMethodBuilderGeneric.GetTask.MakeGeneric(taskArgument))
                                 .Call(task.GetException));
 
                             x.Load(exceptionVar).IsNotNull().Then(y =>

@@ -8,6 +8,8 @@ namespace Cauldron.Core.Interceptors
 {
     /// <summary>
     /// Intercepts the method and logs its execution time.
+    /// <para/>
+    /// This interceptor is using NLog. NLog configuration will affect this interceptor.
     /// </summary>
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
     public sealed class PerformanceLoggerAttribute : Attribute, IMethodInterceptor
@@ -16,30 +18,19 @@ namespace Cauldron.Core.Interceptors
         private string methodName;
         private Stopwatch stopwatch;
 
-        /// <summary>
-        /// Invoked if an intercepted method has been called
-        /// </summary>
-        /// <param name="declaringType">The type declaring the intercepted method</param>
-        /// <param name="instance">The instance of the class where the method is residing. will be null if the method is static</param>
-        /// <param name="methodbase">Contains information about the method</param>
-        /// <param name="values">The passed arguments of the method.</param>
+        /// <exclude/>
         public void OnEnter(Type declaringType, object instance, MethodBase methodbase, object[] values)
         {
             this.methodName = methodbase.Name;
             stopwatch = Stopwatch.StartNew();
         }
 
-        /// <summary>
-        /// Invoked if an intercepted method has raised an exception. The method will always rethrow the exception.
-        /// </summary>
-        /// <param name="e">The exception information.</param>
+        /// <exclude/>
         public void OnException(Exception e)
         {
         }
 
-        /// <summary>
-        /// Invoked if the intercepted method has finished executing.
-        /// </summary>
+        /// <exclude/>
         public void OnExit()
         {
             stopwatch.Stop();

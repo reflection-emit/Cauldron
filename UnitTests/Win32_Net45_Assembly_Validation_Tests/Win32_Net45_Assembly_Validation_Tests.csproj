@@ -119,6 +119,9 @@
     <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Anonymouse_Type_To_Interface_Test.cs">
       <Link>Anonymouse_Type_To_Interface_Test.cs</Link>
     </Compile>
+    <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\AssignMethodAttribute_Tests.cs">
+      <Link>AssignMethodAttribute_Tests.cs</Link>
+    </Compile>
     <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Constructor_Interceptor_Code_Validation.cs">
       <Link>Constructor_Interceptor_Code_Validation.cs</Link>
     </Compile>
@@ -133,9 +136,6 @@
     </Compile>
     <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Interceptors\ExceptionThrowingMethodInterceptorAttribute.cs">
       <Link>Interceptors\ExceptionThrowingMethodInterceptorAttribute.cs</Link>
-    </Compile>
-    <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Interceptors\PropertyInterceptorWithAssignMethodAttribute.cs">
-      <Link>Interceptors\PropertyInterceptorWithAssignMethodAttribute.cs</Link>
     </Compile>
     <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Interceptors\TestMethodInterceptorAttribute.cs">
       <Link>Interceptors\TestMethodInterceptorAttribute.cs</Link>

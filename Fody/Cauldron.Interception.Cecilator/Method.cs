@@ -44,17 +44,17 @@ namespace Cauldron.Interception.Cecilator
             this.methodReference = methodDefinition.CreateMethodReference();
         }
 
-        public AsyncMethodHelper AsyncMethodHelper { get { return new AsyncMethodHelper(this); } }
+        public AsyncMethodHelper AsyncMethodHelper => new AsyncMethodHelper(this);
+        public BuilderCustomAttributeCollection CustomAttributes => new BuilderCustomAttributeCollection(this.type.Builder, this.methodDefinition);
 
-        public BuilderCustomAttributeCollection CustomAttributes { get { return new BuilderCustomAttributeCollection(this.type.Builder, this.methodDefinition); } }
+        /// <summary>
+        /// Gets the type that contains the method.
+        /// </summary>
+        public BuilderType DeclaringType => new BuilderType(this.type.Builder, this.methodReference.DeclaringType);
 
-        public BuilderType DeclaringType { get { return this.type; } }
-
-        public string Fullname { get { return this.methodReference.FullName; } }
-
-        public bool IsAbstract { get { return this.methodDefinition.IsAbstract; } }
-
-        public bool IsCCtor { get { return this.methodDefinition.Name == ".cctor"; } }
+        public string Fullname => this.methodReference.FullName;
+        public bool IsAbstract => this.methodDefinition.IsAbstract;
+        public bool IsCCtor => this.methodDefinition.Name == ".cctor";
 
         public bool IsConstructorWithBaseCall
         {
@@ -77,13 +77,13 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
-        public bool IsCtor { get { return this.methodDefinition.Name == ".ctor"; } }
-
-        public bool IsPublic { get { return this.methodDefinition.Attributes.HasFlag(MethodAttributes.Public); } }
-
-        public bool IsStatic { get { return this.methodDefinition.IsStatic; } }
-
-        public bool IsVoid { get { return this.methodDefinition.ReturnType.FullName == "System.Void"; } }
+        public bool IsCtor => this.methodDefinition.Name == ".ctor";
+        public bool IsInternal => this.methodDefinition.Attributes.HasFlag(MethodAttributes.Assembly);
+        public bool IsPrivate => this.methodDefinition.IsPrivate;
+        public bool IsProtected => this.methodDefinition.Attributes.HasFlag(MethodAttributes.Family);
+        public bool IsPublic => this.methodDefinition.IsPublic;
+        public bool IsStatic => this.methodDefinition.IsStatic;
+        public bool IsVoid => this.methodDefinition.ReturnType.FullName == "System.Void";
 
         public Modifiers Modifiers
         {
@@ -99,12 +99,17 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
-        public string Name { get { return this.methodDefinition.Name; } }
+        public string Name => this.methodDefinition.Name;
+
+        /// <summary>
+        /// Gets the type that inherited the method.
+        /// </summary>
+        public BuilderType OriginType => this.type;
 
         public BuilderType[] Parameters =>
-            this.methodReference.Parameters.Select(x => new BuilderType(this.DeclaringType.Builder, x.ParameterType.ResolveType(this.type.typeReference, this.methodReference))).ToArray();
+            this.methodReference.Parameters.Select(x => new BuilderType(this.OriginType.Builder, x.ParameterType.ResolveType(this.type.typeReference, this.methodReference))).ToArray();
 
-        public BuilderType ReturnType { get { return new BuilderType(this.type, this.methodReference.ReturnType); } }
+        public BuilderType ReturnType => new BuilderType(this.type, this.methodReference.ReturnType);
 
         public VariableDefinition AddLocalVariable(string name, VariableDefinition variable)
         {
@@ -128,12 +133,12 @@ namespace Cauldron.Interception.Cecilator
         }
 
         public Field CreateField(Type fieldType, string name) =>
-            this.CreateField(this.moduleDefinition.ImportReference(this.GetTypeDefinition(fieldType).ResolveType(this.DeclaringType.typeReference)), name);
+            this.CreateField(this.moduleDefinition.ImportReference(this.GetTypeDefinition(fieldType).ResolveType(this.OriginType.typeReference)), name);
 
         public Field CreateField(Field field, string name) => this.CreateField(field.fieldRef.FieldType, name);
 
         public Field CreateField(TypeReference typeReference, string name) =>
-            this.IsStatic ? this.DeclaringType.CreateField(Modifiers.PrivateStatic, typeReference, name) : this.DeclaringType.CreateField(Modifiers.Private, typeReference, name);
+            this.IsStatic ? this.OriginType.CreateField(Modifiers.PrivateStatic, typeReference, name) : this.OriginType.CreateField(Modifiers.Private, typeReference, name);
 
         public IEnumerable<MethodUsage> FindUsages()
         {

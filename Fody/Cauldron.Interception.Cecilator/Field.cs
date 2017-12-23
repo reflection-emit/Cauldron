@@ -1,12 +1,10 @@
 ﻿using Mono.Cecil;
 using Mono.Cecil.Cil;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Cauldron.Interception.Cecilator
 {
@@ -35,17 +33,17 @@ namespace Cauldron.Interception.Cecilator
             this.type = type;
         }
 
-        public BuilderCustomAttributeCollection CustomAttributes { get { return new BuilderCustomAttributeCollection(this.type.Builder, this.fieldDef); } }
+        public BuilderCustomAttributeCollection CustomAttributes => new BuilderCustomAttributeCollection(this.type.Builder, this.fieldDef);
 
-        public BuilderType DeclaringType { get { return this.type; } }
+        /// <summary>
+        /// Gets the type that contains the field
+        /// </summary>
+        public BuilderType DeclaringType => new BuilderType(this.type.Builder, this.fieldRef.DeclaringType);
 
-        public BuilderType FieldType { get { return new BuilderType(this.type, this.fieldRef.FieldType); } }
-
-        public bool IsPrivate { get { return this.fieldDef.IsPrivate; } }
-
-        public bool IsPublic { get { return this.fieldDef.IsPublic; } }
-
-        public bool IsStatic { get { return this.fieldDef.IsStatic; } }
+        public BuilderType FieldType => new BuilderType(this.type, this.fieldRef.FieldType);
+        public bool IsPrivate => this.fieldDef.IsPrivate;
+        public bool IsPublic => this.fieldDef.IsPublic;
+        public bool IsStatic => this.fieldDef.IsStatic;
 
         public Modifiers Modifiers
         {
@@ -61,7 +59,12 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
-        public string Name { get { return this.fieldDef.Name; } }
+        public string Name => this.fieldDef.Name;
+
+        /// <summary>
+        /// Gets the type that inherited the field
+        /// </summary>
+        public BuilderType OriginType => this.type;
 
         public IEnumerable<FieldUsage> FindUsages()
         {

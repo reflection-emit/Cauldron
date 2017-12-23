@@ -31,11 +31,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Fody" Version="2.3.3" />
-    <PackageReference Include="NLog" Version="5.0.0-beta11" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Cauldron.Core.Diagnostics\Cauldron.Core.Diagnostics.csproj" />
     <ProjectReference Include="..\Cauldron.Interception\Cauldron.Interception.csproj" />
   </ItemGroup>

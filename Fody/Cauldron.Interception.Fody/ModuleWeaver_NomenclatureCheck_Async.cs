@@ -20,7 +20,7 @@ namespace Cauldron.Interception.Fody
                 .Where(x => (x.ReturnType == task.Type || x.ReturnType == taskGeneric.Type) && !x.Name.EndsWith("Async") && !x.Name.EndsWith("Action"));
 
             foreach (var item in methods)
-                this.Log(LogTypes.Warning, item, $"The method '{item.Name}' in '{item.DeclaringType.Fullname}' is async, but does not have an 'Async' suffix.");
+                this.Log(LogTypes.Warning, item, $"The method '{item.Name}' in '{item.OriginType.Fullname}' is async, but does not have an 'Async' suffix.");
         }
     }
 }

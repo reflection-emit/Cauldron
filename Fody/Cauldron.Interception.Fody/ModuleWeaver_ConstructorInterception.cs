@@ -22,7 +22,7 @@ namespace Cauldron.Interception.Fody
 
             var constructors = builder
                 .FindMethodsByAttributes(attributes)
-                .Where(x => !x.Method.DeclaringType.IsInterface)
+                .Where(x => !x.Method.OriginType.IsInterface)
                 .GroupBy(x => new MethodKey(x.Method, null))
                 .Select(x => new MethodBuilderInfo<MethodBuilderInfoItem<__IConstructorInterceptor>>(x.Key, x.Select(y => new MethodBuilderInfoItem<__IConstructorInterceptor>(y, iConstructorInterceptor))))
                 .ToArray();
@@ -37,7 +37,7 @@ namespace Cauldron.Interception.Fody
                     this.Log(LogTypes.Warning, targetedConstrutor, $"An interceptor applied to the constructor has implemented ISyncRoot. This is not supported. The interceptor may not work correctly.");
 
                 Crumb parametersArray = null;
-                LocalVariable[] localVariables = new LocalVariable[constructor.Item.Length];
+                var localVariables = new LocalVariable[constructor.Item.Length];
                 var interceptorInit = new Action<ICode>(x =>
                 {
                     parametersArray = x.GetParametersArray();
@@ -46,13 +46,14 @@ namespace Cauldron.Interception.Fody
                     {
                         var item = constructor.Item[i];
                         localVariables[i] = x.CreateVariable(item.Interface.Type);
-                        
-                            x.Assign(localVariables[i]).NewObj(item.Attribute);
+
+                        x.Assign(localVariables[i]).NewObj(item.Attribute);
                         x.Load(localVariables[i]).As(item.Interface.Type)
-                            .Call(item.Interface.OnBeforeInitialization, targetedConstrutor.DeclaringType, targetedConstrutor, parametersArray);
+                            .Call(item.Interface.OnBeforeInitialization, targetedConstrutor.OriginType, targetedConstrutor, parametersArray);
+
+                        ImplementAssignMethodAttribute(builder, constructor.Item[i].AssignMethodAttributeInfos, localVariables[i], x);
 
                         item.Attribute.Remove();
-
                     }
                 });
 
@@ -73,7 +74,7 @@ namespace Cauldron.Interception.Fody
                         {
                             var item = constructor.Item[i];
                             x.Load(localVariables[i]).As(item.Interface.Type)
-                                .Call(item.Interface.OnEnter, targetedConstrutor.DeclaringType, Crumb.This, targetedConstrutor, parametersArray);
+                                .Call(item.Interface.OnEnter, targetedConstrutor.OriginType, Crumb.This, targetedConstrutor, parametersArray);
                         }
 
                         x.OriginalBody();

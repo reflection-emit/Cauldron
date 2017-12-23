@@ -35,7 +35,7 @@ namespace Cauldron.Interception.Fody
                     method.Method.NewCode()
                         .Context(x =>
                         {
-                            var cache = method.Method.DeclaringType.CreateField(method.Method.Modifiers.GetPrivate(), method.Method.ReturnType, cacheField);
+                            var cache = method.Method.OriginType.CreateField(method.Method.Modifiers.GetPrivate(), method.Method.ReturnType, cacheField);
                             var returnVariable = x.GetReturnVariable();
 
                             x.Load(cache).IsNull().Then(y =>
@@ -51,7 +51,7 @@ namespace Cauldron.Interception.Fody
                         .Context(x =>
                         {
                             var taskReturnType = method.Method.ReturnType.GetGenericArgument(0);
-                            var cache = method.Method.DeclaringType.CreateField(method.Method.Modifiers.GetPrivate(), taskReturnType, cacheField);
+                            var cache = method.Method.OriginType.CreateField(method.Method.Modifiers.GetPrivate(), taskReturnType, cacheField);
 
                             x.Load(cache).IsNotNull().Then(y =>
                             {
@@ -63,7 +63,7 @@ namespace Cauldron.Interception.Fody
                         .Context(x =>
                         {
                             var taskReturnType = method.Method.ReturnType.GetGenericArgument(0);
-                            var cache = method.Method.DeclaringType.GetField(cacheField);
+                            var cache = method.Method.OriginType.GetField(cacheField);
                             var returnVariable = x.GetReturnVariable();
                             x.Assign(cache).Set(x.NewCode().Call(returnVariable, task_1.GetResult.MakeGeneric(taskReturnType)));
                         }).Insert(InsertionPosition.End);

@@ -80,7 +80,7 @@ namespace Cauldron.Interception.Cecilator
                 TypeReference parameter;
 
                 if (previousInstruction.OpCode == OpCodes.Ldarg_0)
-                    parameter = this.HostMethod.IsStatic ? this.HostMethod.methodReference.Parameters[0].ParameterType : this.HostMethod.DeclaringType.typeReference;
+                    parameter = this.HostMethod.IsStatic ? this.HostMethod.methodReference.Parameters[0].ParameterType : this.HostMethod.OriginType.typeReference;
                 else if (previousInstruction.OpCode == OpCodes.Ldarg_1)
                     parameter = this.HostMethod.methodReference.Parameters[this.HostMethod.IsStatic ? 1 : 0].ParameterType;
                 else if (previousInstruction.OpCode == OpCodes.Ldarg_2)

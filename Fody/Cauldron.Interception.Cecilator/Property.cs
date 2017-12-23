@@ -59,13 +59,15 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
-        public BuilderCustomAttributeCollection CustomAttributes { get { return new BuilderCustomAttributeCollection(this.type.Builder, this.propertyDefinition); } }
+        public BuilderCustomAttributeCollection CustomAttributes => new BuilderCustomAttributeCollection(this.type.Builder, this.propertyDefinition);
 
-        public BuilderType DeclaringType { get { return this.type; } }
+        /// <summary>
+        /// Gets the type that contains the property.
+        /// </summary>
+        public BuilderType DeclaringType => new BuilderType(this.type.Builder, this.propertyDefinition.DeclaringType);
 
         public Method Getter { get; private set; }
-
-        public bool IsAbstract { get { return this.propertyDefinition.GetMethod?.IsAbstract ?? false | this.propertyDefinition.SetMethod?.IsAbstract ?? false; } }
+        public bool IsAbstract => this.propertyDefinition.GetMethod?.IsAbstract ?? false | this.propertyDefinition.SetMethod?.IsAbstract ?? false;
 
         public bool IsAutoProperty
         {
@@ -75,9 +77,8 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
-        public bool IsPublic { get { return this.Getter?.IsPublic ?? false | this.Setter?.IsPublic ?? false; } }
-
-        public bool IsStatic { get { return this.propertyDefinition.GetMethod?.IsStatic ?? false | this.propertyDefinition.SetMethod?.IsStatic ?? false; } }
+        public bool IsPublic => this.Getter?.IsPublic ?? false | this.Setter?.IsPublic ?? false;
+        public bool IsStatic => this.propertyDefinition.GetMethod?.IsStatic ?? false | this.propertyDefinition.SetMethod?.IsStatic ?? false;
 
         public Modifiers Modifiers
         {
@@ -110,7 +111,12 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
-        public string Name { get { return this.propertyDefinition.Name; } }
+        public string Name => this.propertyDefinition.Name;
+
+        /// <summary>
+        /// Gets the type that inherited the property.
+        /// </summary>
+        public BuilderType OriginType => this.type;
 
         public BuilderType ReturnType
         {
@@ -139,12 +145,12 @@ namespace Cauldron.Interception.Cecilator
 
         public Field CreateField(Type fieldType, string name)
         {
-            var field = this.DeclaringType.typeDefinition.Fields.Get(name);
+            var field = this.OriginType.typeDefinition.Fields.Get(name);
 
             if (field != null)
                 return new Field(this.type, field);
 
-            return this.CreateField(this.moduleDefinition.ImportReference(this.GetTypeDefinition(fieldType).ResolveType(this.DeclaringType.typeReference)), name);
+            return this.CreateField(this.moduleDefinition.ImportReference(this.GetTypeDefinition(fieldType).ResolveType(this.OriginType.typeReference)), name);
         }
 
         public Field CreateField(Field field, string name) => this.CreateField(field.fieldRef.FieldType, name);
@@ -153,12 +159,12 @@ namespace Cauldron.Interception.Cecilator
 
         public Field CreateField(TypeReference typeReference, string name)
         {
-            var field = this.DeclaringType.typeDefinition.Fields.Get(name);
+            var field = this.OriginType.typeDefinition.Fields.Get(name);
 
             if (field != null)
                 return new Field(this.type, field);
 
-            return this.IsStatic ? this.DeclaringType.CreateField(Modifiers.PrivateStatic, typeReference, name) : this.DeclaringType.CreateField(Modifiers.Private, typeReference, name);
+            return this.IsStatic ? this.OriginType.CreateField(Modifiers.PrivateStatic, typeReference, name) : this.OriginType.CreateField(Modifiers.Private, typeReference, name);
         }
 
         public void Overrides(Property property)

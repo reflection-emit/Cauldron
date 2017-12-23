@@ -32,6 +32,8 @@ namespace Cauldron.Interception.Fody
                                 y.Assign(field).NewObj(item.Attribute);
                                 if (item.HasSyncRootInterface)
                                     y.Load(field).As(syncRoot.Type.Import()).Call(syncRoot.SyncRoot, member.SyncRoot);
+
+                                ImplementAssignMethodAttribute(builder, legalGetterInterceptors[i].AssignMethodAttributeInfos, field, y);
                             });
                             item.Attribute.Remove();
                         }
@@ -85,7 +87,7 @@ namespace Cauldron.Interception.Fody
 
         private static void AddPropertyInitializeInterception(Builder builder, __PropertyInterceptionInfo propertyInterceptionInfo, PropertyBuilderInfo member, Field propertyField, Method actionObjectCtor, Method propertySetter, Dictionary<string, Field> interceptorFields)
         {
-            var declaringType = member.Property.DeclaringType;
+            var declaringType = member.Property.OriginType;
             var syncRoot = new __ISyncRoot(builder);
             var legalInitInterceptors = member.InterceptorInfos.Where(x => x.InterfaceInitializer != null).ToArray();
             var relevantCtors = member.Property.IsStatic ? new Method[] { declaringType.StaticConstructor } : declaringType.GetRelevantConstructors().Where(x => x.Name != ".cctor");
@@ -103,6 +105,8 @@ namespace Cauldron.Interception.Fody
                             x.Assign(field).NewObj(item.Attribute);
                             if (item.HasSyncRootInterface)
                                 x.Load(field).As(syncRoot.Type.Import()).Call(syncRoot.SyncRoot, member.SyncRoot);
+
+                            ImplementAssignMethodAttribute(builder, legalInitInterceptors[i].AssignMethodAttributeInfos, field, x);
                         }
 
                         x.Assign(propertyField)
@@ -148,7 +152,7 @@ namespace Cauldron.Interception.Fody
                                 if (item.HasSyncRootInterface)
                                     y.Load(field).As(syncRoot.Type.Import()).Call(syncRoot.SyncRoot, member.SyncRoot);
 
-                                ImplementAssignMethodAttribute(builder, legalSetterInterceptors[i].AssignMethodAttributeInfos, y);
+                                ImplementAssignMethodAttribute(builder, legalSetterInterceptors[i].AssignMethodAttributeInfos, field, y);
                             });
                             item.Attribute.Remove();
                         }
@@ -354,7 +358,7 @@ namespace Cauldron.Interception.Fody
                 propertyField.CustomAttributes.AddNonSerializedAttribute();
 
                 var actionObjectCtor = builder.Import(typeof(Action<object>).GetConstructor(new Type[] { typeof(object), typeof(IntPtr) }));
-                var propertySetter = member.Property.DeclaringType.CreateMethod(member.Property.Modifiers.GetPrivate(), $"<{member.Property.Name}>m__setterMethod", builder.GetType(typeof(object)));
+                var propertySetter = member.Property.OriginType.CreateMethod(member.Property.Modifiers.GetPrivate(), $"<{member.Property.Name}>m__setterMethod", builder.GetType(typeof(object)));
 
                 CreatePropertySetterDelegate(builder, member, propertySetter);
 
@@ -362,7 +366,7 @@ namespace Cauldron.Interception.Fody
                 var interceptorFields = member.InterceptorInfos.ToDictionary(x => x.Attribute.Identification,
                     x =>
                     {
-                        var field = member.Property.DeclaringType.CreateField(x.Property.Modifiers.GetPrivate(), x.Attribute.Attribute.Type,
+                        var field = member.Property.OriginType.CreateField(x.Property.Modifiers.GetPrivate(), x.Attribute.Attribute.Type,
                                $"<{x.Property.Name}>_attrib{indexer++}_{x.Attribute.Identification}");
 
                         field.CustomAttributes.AddNonSerializedAttribute();
@@ -382,11 +386,11 @@ namespace Cauldron.Interception.Fody
                 if (member.RequiresSyncRootField)
                 {
                     if (member.SyncRoot.IsStatic)
-                        member.Property.DeclaringType.CreateStaticConstructor().NewCode()
+                        member.Property.OriginType.CreateStaticConstructor().NewCode()
                             .Assign(member.SyncRoot).NewObj(builder.GetType(typeof(object)).Import().ParameterlessContructor)
                             .Insert(InsertionPosition.Beginning);
                     else
-                        foreach (var ctors in member.Property.DeclaringType.GetRelevantConstructors().Where(x => x.Name == ".ctor"))
+                        foreach (var ctors in member.Property.OriginType.GetRelevantConstructors().Where(x => x.Name == ".ctor"))
                             ctors.NewCode().Assign(member.SyncRoot).NewObj(builder.GetType(typeof(object)).Import().ParameterlessContructor).Insert(InsertionPosition.Beginning);
                 }
 

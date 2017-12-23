@@ -9,6 +9,10 @@ namespace Cauldron.Interception.Cecilator
 
         IFieldCode Assign(Field field);
 
+        IFieldCode Assign(Field instance, Field field);
+
+        IFieldCode Assign(LocalVariable instance, Field field);
+
         ILocalVariableCode Assign(LocalVariable localVariable);
 
         IFieldCode AssignToField(string fieldName);
@@ -91,6 +95,10 @@ namespace Cauldron.Interception.Cecilator
 
         //IIfCode LesserThan(long value);
         IFieldCode Load(Field field);
+
+        IFieldCode Load(Field instance, Field field);
+
+        IFieldCode Load(LocalVariable instance, Field field);
 
         //IIfCode LesserThan(int value);
         ICode Load(Crumb crumb);
