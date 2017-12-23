@@ -104,11 +104,11 @@
   <HelpKINode Title="AssignMethodAttribute class">
     <HelpKINode Title="AssignMethodAttribute Class" Url="html/28165181-e4d9-4288-323d-be75d01977f4.htm" />
     <HelpKINode Title="about AssignMethodAttribute class" Url="html/28165181-e4d9-4288-323d-be75d01977f4.htm" />
-    <HelpKINode Title="constructor" Url="html/74e5cfe2-90a3-38e0-4b49-7b25d8b80877.htm" />
+    <HelpKINode Title="constructor" Url="html/ac329f9b-ea98-0f6f-fe8b-7d5c7443dd95.htm" />
     <HelpKINode Title="methods" Url="html/acb5c28d-7557-2382-32d1-e64b80741f4d.htm" />
     <HelpKINode Title="properties" Url="html/f617b4b8-0644-d92d-62be-e7b7cc547b90.htm" />
   </HelpKINode>
-  <HelpKINode Title="AssignMethodAttribute.AssignMethodAttribute constructor" Url="html/74e5cfe2-90a3-38e0-4b49-7b25d8b80877.htm" />
+  <HelpKINode Title="AssignMethodAttribute.AssignMethodAttribute constructor" Url="html/ac329f9b-ea98-0f6f-fe8b-7d5c7443dd95.htm" />
   <HelpKINode Title="AssignMethodAttribute.MethodName property" Url="html/856be74c-0a68-f063-06f1-98c5cc883601.htm" />
   <HelpKINode Title="AsyncHelper class">
     <HelpKINode Title="AsyncHelper Class" Url="html/f32093e0-efa0-b2a0-2408-2c3678d1fa0f.htm" />
@@ -202,9 +202,8 @@
   <HelpKINode Title="Cauldron.Core.Formatters.MetricUnitFormatter class" Url="html/0347d4b6-8402-4a50-77c5-73635e1fa36e.htm" />
   <HelpKINode Title="Cauldron.Core.IDisposableObject interface" Url="html/1e9e5694-0da9-f46b-1bf6-0c1bce4aae3b.htm" />
   <HelpKINode Title="Cauldron.Core.Interceptors namespace" Url="html/2061bb6c-d8d4-fae5-114c-f97fc5a995c7.htm" />
-  <HelpKINode Title="Cauldron.Core.Interceptors.ExceptionLoggerAttribute class" Url="html/16833da6-8bef-3d0b-d250-fe8212847284.htm" />
   <HelpKINode Title="Cauldron.Core.Interceptors.ExecutionTimeAttribute class" Url="html/4c04ea5a-99a5-72fb-b5da-bb0f93e019ad.htm" />
-  <HelpKINode Title="Cauldron.Core.Interceptors.PerformanceLoggerAttribute class" Url="html/d82ccde0-5db9-7a8d-417d-98fddb7873f0.htm" />
+  <HelpKINode Title="Cauldron.Core.Interceptors.PropertyOnSetAttribute class" Url="html/862b30a6-5271-fd42-e2b4-adc15e28c758.htm" />
   <HelpKINode Title="Cauldron.Core.Java namespace" Url="html/5d066639-2342-75d8-9b2c-bcf4e8cb6c7e.htm" />
   <HelpKINode Title="Cauldron.Core.Java.JavaProperties class" Url="html/8d2be6a5-903a-3c7e-077d-d0c47b95d739.htm" />
   <HelpKINode Title="Cauldron.Core.Java.PropertyLine class" Url="html/db7d3361-c987-f862-7ada-8de6a08a0226.htm" />
@@ -671,16 +670,6 @@
     <HelpKINode Title="RawValue.Equals Method " Url="html/df64d087-f85e-8d14-dedd-83108d39381e.htm" />
   </HelpKINode>
   <HelpKINode Title="Except method" Url="html/ce4f3aa7-ecdb-5dfb-9a8d-702724a5a49b.htm" />
-  <HelpKINode Title="ExceptionLoggerAttribute class">
-    <HelpKINode Title="ExceptionLoggerAttribute Class" Url="html/16833da6-8bef-3d0b-d250-fe8212847284.htm" />
-    <HelpKINode Title="about ExceptionLoggerAttribute class" Url="html/16833da6-8bef-3d0b-d250-fe8212847284.htm" />
-    <HelpKINode Title="constructor" Url="html/ddde9999-9e58-4fd4-9007-5a5588c0bde9.htm" />
-    <HelpKINode Title="methods" Url="html/55c84e2b-44d8-a062-9ab7-f1f45acd23b9.htm" />
-  </HelpKINode>
-  <HelpKINode Title="ExceptionLoggerAttribute.ExceptionLoggerAttribute constructor" Url="html/ddde9999-9e58-4fd4-9007-5a5588c0bde9.htm" />
-  <HelpKINode Title="ExceptionLoggerAttribute.OnEnter method" Url="html/a99b7182-e2bc-2924-3a6d-7c22885e54aa.htm" />
-  <HelpKINode Title="ExceptionLoggerAttribute.OnException method" Url="html/fe14d43f-1a32-9cf5-f984-19a6806ebcd2.htm" />
-  <HelpKINode Title="ExceptionLoggerAttribute.OnExit method" Url="html/8c3896f0-7704-84de-3027-e780c54fccb0.htm" />
   <HelpKINode Title="Execute method">
     <HelpKINode Title="IExecutionGroup.Execute Method " Url="html/54dc787c-fe2d-0c11-e9dc-5984cace2bc8.htm" />
     <HelpKINode Title="ParameterParser.Execute Method " Url="html/6ff72c2e-55c4-097b-40f5-c22037b31674.htm" />
@@ -703,23 +692,18 @@
     <HelpKINode Title="methods" Url="html/314b867b-4d67-ae49-3b3f-f4b73fcda3bf.htm" />
   </HelpKINode>
   <HelpKINode Title="ExecutionTimeAttribute.ExecutionTimeAttribute constructor" Url="html/ac53c400-c77f-7739-bf18-ad24f8f20b11.htm" />
-  <HelpKINode Title="ExecutionTimeAttribute.OnEnter method" Url="html/c0eb6b54-fada-b9b0-7298-df7c968dbe46.htm" />
-  <HelpKINode Title="ExecutionTimeAttribute.OnException method" Url="html/3ca84899-98e0-d610-59d6-b167e408f3bd.htm" />
-  <HelpKINode Title="ExecutionTimeAttribute.OnExit method" Url="html/2187a1da-f80f-95b6-4ccf-7dffa70d2bd4.htm" />
-  <HelpKINode Title="ExecutionTimeAttribute.OnGet method" Url="html/f7825535-e546-c0dc-796e-020b85188c06.htm" />
-  <HelpKINode Title="ExecutionTimeAttribute.OnSet method" Url="html/2e638d91-01c8-b428-0eeb-d286e85b9e59.htm" />
   <HelpKINode Title="ExistsAsync method" Url="html/f588eaf0-e360-0b54-33c5-b7e8c95a3a52.htm" />
   <HelpKINode Title="ExportedTypes property" Url="html/1daf4133-1741-5485-35f5-21743bba0867.htm" />
   <HelpKINode Title="Extensions class">
-    <HelpKINode Title="Extensions Class" Url="html/4e840c06-97cf-6137-2175-2169254e6f7c.htm" />
-    <HelpKINode Title="Extensions Class" Url="html/96191775-34da-2521-4188-65830c4db18a.htm" />
     <HelpKINode Title="Extensions Class" Url="html/7e30f679-b4cf-b5d3-e1a5-67ff8f20304a.htm" />
+    <HelpKINode Title="Extensions Class" Url="html/96191775-34da-2521-4188-65830c4db18a.htm" />
+    <HelpKINode Title="Extensions Class" Url="html/4e840c06-97cf-6137-2175-2169254e6f7c.htm" />
+    <HelpKINode Title="about Extensions class" Url="html/7e30f679-b4cf-b5d3-e1a5-67ff8f20304a.htm" />
     <HelpKINode Title="about Extensions class" Url="html/96191775-34da-2521-4188-65830c4db18a.htm" />
     <HelpKINode Title="about Extensions class" Url="html/4e840c06-97cf-6137-2175-2169254e6f7c.htm" />
-    <HelpKINode Title="about Extensions class" Url="html/7e30f679-b4cf-b5d3-e1a5-67ff8f20304a.htm" />
     <HelpKINode Title="methods" Url="html/4150876e-71fe-a4aa-3745-0600710249c3.htm" />
-    <HelpKINode Title="methods" Url="html/4fd086ac-9f3e-5c0c-f1e7-66024063ce6e.htm" />
     <HelpKINode Title="methods" Url="html/c738cb4b-2bd0-c951-6f7c-937b96f42c6a.htm" />
+    <HelpKINode Title="methods" Url="html/4fd086ac-9f3e-5c0c-f1e7-66024063ce6e.htm" />
   </HelpKINode>
   <HelpKINode Title="Extensions.Concat method" Url="html/c1e6be5e-1904-30e0-e485-54564993c010.htm" />
   <HelpKINode Title="Extensions.Contains method" Url="html/5d3264a4-b8b0-e376-c691-226a5ab58c62.htm" />
@@ -1466,31 +1450,22 @@
     <HelpKINode Title="KeyPair.OnDispose Method " Url="html/af6f4448-0653-29b1-4d1a-93a8a1850082.htm" />
   </HelpKINode>
   <HelpKINode Title="OnEnter method">
-    <HelpKINode Title="ExceptionLoggerAttribute.OnEnter Method " Url="html/a99b7182-e2bc-2924-3a6d-7c22885e54aa.htm" />
-    <HelpKINode Title="ExecutionTimeAttribute.OnEnter Method " Url="html/c0eb6b54-fada-b9b0-7298-df7c968dbe46.htm" />
     <HelpKINode Title="IConstructorInterceptor.OnEnter Method " Url="html/6becb407-c35c-4c23-e13b-102dcd392f85.htm" />
     <HelpKINode Title="IMethodInterceptor.OnEnter Method " Url="html/8fcf4d61-8ab7-b86f-ee0a-d937054a79d2.htm" />
-    <HelpKINode Title="PerformanceLoggerAttribute.OnEnter Method " Url="html/6c60a612-3d1d-ab1e-3728-1be53ed1d070.htm" />
   </HelpKINode>
   <HelpKINode Title="OnException method">
-    <HelpKINode Title="ExceptionLoggerAttribute.OnException Method " Url="html/fe14d43f-1a32-9cf5-f984-19a6806ebcd2.htm" />
-    <HelpKINode Title="ExecutionTimeAttribute.OnException Method " Url="html/3ca84899-98e0-d610-59d6-b167e408f3bd.htm" />
     <HelpKINode Title="IConstructorInterceptor.OnException Method " Url="html/7f5fdb6b-1b12-93ee-a139-cb004750ac20.htm" />
     <HelpKINode Title="IMethodInterceptor.OnException Method " Url="html/fc5bfad9-63e0-5998-855f-2b89f1f53c51.htm" />
     <HelpKINode Title="InjectAttribute.OnException Method " Url="html/864a77e6-3d48-9476-b5eb-14b7825ba3b4.htm" />
     <HelpKINode Title="IPropertyGetterInterceptor.OnException Method " Url="html/4ce1914c-0609-d91e-0701-0fbddf69b095.htm" />
     <HelpKINode Title="IPropertySetterInterceptor.OnException Method " Url="html/70ac68ad-029c-fe9d-1008-e4e17c1334d1.htm" />
-    <HelpKINode Title="PerformanceLoggerAttribute.OnException Method " Url="html/409c4475-7594-46ac-7e68-57207526fe93.htm" />
   </HelpKINode>
   <HelpKINode Title="OnExit method">
-    <HelpKINode Title="ExceptionLoggerAttribute.OnExit Method " Url="html/8c3896f0-7704-84de-3027-e780c54fccb0.htm" />
-    <HelpKINode Title="ExecutionTimeAttribute.OnExit Method " Url="html/2187a1da-f80f-95b6-4ccf-7dffa70d2bd4.htm" />
     <HelpKINode Title="IConstructorInterceptor.OnExit Method " Url="html/eadc9b9c-3746-d404-1699-87e112d826a7.htm" />
     <HelpKINode Title="IMethodInterceptor.OnExit Method " Url="html/7b4a0bed-e6de-f423-6737-ecddaa963748.htm" />
     <HelpKINode Title="InjectAttribute.OnExit Method " Url="html/a8ee0f35-1afa-606e-5fac-6db7c06ae711.htm" />
     <HelpKINode Title="IPropertyGetterInterceptor.OnExit Method " Url="html/89e474aa-f666-c323-3d4d-e892f8bcbb5d.htm" />
     <HelpKINode Title="IPropertySetterInterceptor.OnExit Method " Url="html/2867bc70-ba37-811d-fc04-1e8f975c0fd8.htm" />
-    <HelpKINode Title="PerformanceLoggerAttribute.OnExit Method " Url="html/6d435dad-e032-ee34-6893-25f8eb034b0f.htm" />
   </HelpKINode>
   <HelpKINode Title="OnFormat method">
     <HelpKINode Title="ByteSizeFormatter.OnFormat Method " Url="html/25086cef-1356-56d7-32f2-9d8ad862c991.htm" />
@@ -1499,17 +1474,13 @@
     <HelpKINode Title="MetricUnitFormatter.OnFormat Method " Url="html/0a6e9ec7-dcbd-72ab-6752-bb8c7743aaf6.htm" />
   </HelpKINode>
   <HelpKINode Title="OnGet method">
-    <HelpKINode Title="ExecutionTimeAttribute.OnGet Method " Url="html/f7825535-e546-c0dc-796e-020b85188c06.htm" />
     <HelpKINode Title="InjectAttribute.OnGet Method " Url="html/896fcbc8-0a5e-c4fd-a1ec-ea4e76fecf44.htm" />
     <HelpKINode Title="IPropertyGetterInterceptor.OnGet Method " Url="html/0c5d3ae9-686d-c18c-4d79-14e850b23d61.htm" />
   </HelpKINode>
   <HelpKINode Title="OnGetValue method" Url="html/fc7b7141-d611-9da1-778a-f717548067a3.htm" />
   <HelpKINode Title="OnInitialize method" Url="html/3fde6da6-3da3-2b08-f1b2-62d321a89e7b.htm" />
   <HelpKINode Title="OnSelectAmbiguousMatch method" Url="html/1e02650d-536e-5fa3-d125-0ad22ea86924.htm" />
-  <HelpKINode Title="OnSet method">
-    <HelpKINode Title="ExecutionTimeAttribute.OnSet Method " Url="html/2e638d91-01c8-b428-0eeb-d286e85b9e59.htm" />
-    <HelpKINode Title="IPropertySetterInterceptor.OnSet Method " Url="html/71d76779-afc8-3f98-847e-e5f92f70b321.htm" />
-  </HelpKINode>
+  <HelpKINode Title="OnSet method" Url="html/71d76779-afc8-3f98-847e-e5f92f70b321.htm" />
   <HelpKINode Title="OpenIfExists enumeration member" Url="html/27a411dd-db09-a3ba-2f8d-2304676e6514.htm" />
   <HelpKINode Title="Operations method" Url="html/df22cb55-e97f-b162-6350-be97c6e18e51.htm" />
   <HelpKINode Title="OrderBy(Of TElements) method" Url="html/c567b651-9519-8b73-1c08-c40f10c774fa.htm" />
@@ -1552,16 +1523,6 @@
   <HelpKINode Title="Parse method" Url="html/745601f1-18a8-da09-d017-23de466dcec1.htm" />
   <HelpKINode Title="ParseQueryString method" Url="html/06db6bfd-d8fa-3a48-eda7-1fb1bbadc7c1.htm" />
   <HelpKINode Title="PasswordScore enumeration" Url="html/898732ad-c525-5a10-71e5-9a0724309923.htm" />
-  <HelpKINode Title="PerformanceLoggerAttribute class">
-    <HelpKINode Title="PerformanceLoggerAttribute Class" Url="html/d82ccde0-5db9-7a8d-417d-98fddb7873f0.htm" />
-    <HelpKINode Title="about PerformanceLoggerAttribute class" Url="html/d82ccde0-5db9-7a8d-417d-98fddb7873f0.htm" />
-    <HelpKINode Title="constructor" Url="html/e5210f20-3255-3be8-4ee4-7650fce32bd4.htm" />
-    <HelpKINode Title="methods" Url="html/e500a92a-15a7-2a14-ac7f-f73d04cd280d.htm" />
-  </HelpKINode>
-  <HelpKINode Title="PerformanceLoggerAttribute.OnEnter method" Url="html/6c60a612-3d1d-ab1e-3728-1be53ed1d070.htm" />
-  <HelpKINode Title="PerformanceLoggerAttribute.OnException method" Url="html/409c4475-7594-46ac-7e68-57207526fe93.htm" />
-  <HelpKINode Title="PerformanceLoggerAttribute.OnExit method" Url="html/6d435dad-e032-ee34-6893-25f8eb034b0f.htm" />
-  <HelpKINode Title="PerformanceLoggerAttribute.PerformanceLoggerAttribute constructor" Url="html/e5210f20-3255-3be8-4ee4-7650fce32bd4.htm" />
   <HelpKINode Title="PictureLibrary property" Url="html/0e601301-3d9e-a9a7-9df5-13857d45840f.htm" />
   <HelpKINode Title="Ping method" Url="html/edf4e53e-db9a-8ca2-7be2-1fc032add5be.htm" />
   <HelpKINode Title="PingResults structure">
@@ -1613,6 +1574,13 @@
   <HelpKINode Title="PropertyLine.ToString method" Url="html/2fdafa59-7c0b-945e-c199-7dc9ca3409cc.htm" />
   <HelpKINode Title="PropertyLine.Value property" Url="html/9d7d083e-1f96-c0a5-5e92-e55709266710.htm" />
   <HelpKINode Title="PropertyName property" Url="html/9170cf28-afab-8c5e-024d-f02c48480ead.htm" />
+  <HelpKINode Title="PropertyOnSetAttribute class">
+    <HelpKINode Title="PropertyOnSetAttribute Class" Url="html/862b30a6-5271-fd42-e2b4-adc15e28c758.htm" />
+    <HelpKINode Title="about PropertyOnSetAttribute class" Url="html/862b30a6-5271-fd42-e2b4-adc15e28c758.htm" />
+    <HelpKINode Title="constructor" Url="html/9cbe2ced-1746-d499-d8d3-d7a17e5fcbe9.htm" />
+    <HelpKINode Title="methods" Url="html/18b5ef2b-6deb-7dbe-a2d8-25175c57b32a.htm" />
+  </HelpKINode>
+  <HelpKINode Title="PropertyOnSetAttribute.PropertyOnSetAttribute constructor" Url="html/9cbe2ced-1746-d499-d8d3-d7a17e5fcbe9.htm" />
   <HelpKINode Title="PropertyType property" Url="html/6eb97bb9-ab11-ccc0-2648-0d5a4be7176b.htm" />
   <HelpKINode Title="PublicKey property" Url="html/770da15e-ab9b-1b04-dd4a-578178e786e7.htm" />
   <HelpKINode Title="RadiansToDegrees method" Url="html/18ad45ee-f77b-692c-9487-574961325a69.htm" />

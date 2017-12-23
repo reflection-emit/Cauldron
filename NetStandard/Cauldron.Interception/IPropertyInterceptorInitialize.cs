@@ -1,7 +1,9 @@
 ﻿namespace Cauldron.Interception
 {
     /// <summary>
-    /// Represents an interceptor that is forced to initialize when the declaring type is initialized.
+    /// Moves the property interceptor's initialization from 'first use' to the constructor of the declaring type.
+    /// <para/>
+    /// This interceptor extension is available for <see cref="IPropertyGetterInterceptor"/>, <see cref="IPropertySetterInterceptor"/> and <see cref="IPropertyInterceptor"/>.
     /// </summary>
     public interface IPropertyInterceptorInitialize
     {
