@@ -225,6 +225,24 @@ namespace Win32_Fody_Assembly_Validation_Tests
 
         #endregion Property - Private, Protected, Internal, public
 
+        #region Property action with parameters
+
+        private string action_With_Parameters;
+
+        [AssignMethod_Action_WithArguments_PropertyInterceptor]
+        public bool PropertyWithSetterAction { get; set; }
+
+        [TestMethod]
+        public void AssignMethod_Property_Setter_Action_With_Parameters()
+        {
+            this.PropertyWithSetterAction = true;
+            Assert.AreEqual("Hello", this.action_With_Parameters);
+        }
+
+        private void OnPropertyWithSetterActionSet(string arg) => action_With_Parameters = arg;
+
+        #endregion Property action with parameters
+
         #region Field - Private, Protected, Internal, public
 
         [AssignMethod_Action_PropertyInterceptor]
@@ -454,6 +472,27 @@ namespace Win32_Fody_Assembly_Validation_Tests
         public bool OnSet(PropertyInterceptionInfo propertyInterceptionInfo, object oldValue, object newValue)
         {
             action?.Invoke();
+            return false;
+        }
+    }
+
+    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false, Inherited = false)]
+    public class AssignMethod_Action_WithArguments_PropertyInterceptorAttribute : Attribute, IPropertySetterInterceptor
+    {
+        [AssignMethod("On{Name}Set")]
+        public Action<string> action = null;
+
+        public void OnException(Exception e)
+        {
+        }
+
+        public void OnExit()
+        {
+        }
+
+        public bool OnSet(PropertyInterceptionInfo propertyInterceptionInfo, object oldValue, object newValue)
+        {
+            action?.Invoke("Hello");
             return false;
         }
     }

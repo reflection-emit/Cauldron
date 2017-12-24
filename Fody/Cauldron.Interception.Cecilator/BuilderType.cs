@@ -59,6 +59,16 @@ namespace Cauldron.Interception.Cecilator
         public string Name => this.typeDefinition.Name;
         public string Namespace => this.typeDefinition.Namespace;
 
+        public IEnumerable<BuilderType> GenericArguments()
+        {
+            if (this.typeReference.IsGenericInstance)
+            {
+                var genericInstanceType = this.typeReference as GenericInstanceType;
+                for (int i = 0; i < genericInstanceType.GenericArguments.Count; i++)
+                    yield return new BuilderType(this.Builder, genericInstanceType.GenericArguments[i]);
+            }
+        }
+
         public IEnumerable<AttributedField> GetAttributedFields()
         {
             foreach (var field in this.Fields)
@@ -570,6 +580,8 @@ namespace Cauldron.Interception.Cecilator
         }
 
         public Method GetMethod(string name, bool throwException = true, params Type[] parameters) => GetMethod(name, throwException, parameters.Select(x => x.FullName).ToArray());
+
+        public Method GetMethod(string name, bool throwException = true, params BuilderType[] parameters) => GetMethod(name, throwException, parameters.Select(x => x.Fullname).ToArray());
 
         public Method GetMethod(string name, bool throwException = true, params string[] parametersTypeNames)
         {

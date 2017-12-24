@@ -32,6 +32,12 @@ namespace Cauldron.Interception.Cecilator
             return new Method(new BuilderType(this, result.DeclaringType), result, result.Resolve());
         }
 
+        public Method Import(Method method)
+        {
+            var result = this.moduleDefinition.ImportReference(method.methodReference);
+            return new Method(new BuilderType(this, result.DeclaringType), result, result.Resolve());
+        }
+
         public bool IsReferenced(string assemblyName) => this.allAssemblies.Any(x => x.Name.Name == assemblyName);
 
         [EditorBrowsable(EditorBrowsableState.Never)]

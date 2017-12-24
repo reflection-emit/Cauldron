@@ -8,15 +8,19 @@ namespace Cauldron.Interception.Fody
     {
         public Field AttributeField { get; private set; }
 
-        public Method TargetMethod =>
-                                    this.Type
-                                        .GetMethods(this.TargetMethodName, 0, false)
+        public BuilderType[] ParameterTypes { get; private set; }
+
+        public Method TargetMethod => this.Type
+                                        .GetMethods(this.TargetMethodName, this.ParameterTypes.Length, false)
                                         .FirstOrDefault(x =>
                                         {
                                             if (x.IsPrivate && x.DeclaringType.Fullname != this.Type.Fullname)
                                                 return false;
 
                                             if (x.IsInternal && x.DeclaringType.Assembly.FullName != this.Type.Assembly.FullName)
+                                                return false;
+
+                                            if (!x.Parameters.Select(y => y.Fullname).SequenceEqual(this.ParameterTypes.Select(y => y.Fullname)))
                                                 return false;
 
                                             var returnType = GetDelegateType(this.AttributeField.FieldType);
@@ -49,16 +53,27 @@ namespace Cauldron.Interception.Fody
                     AttributeField = x.Field,
                     TargetMethodName = ReplacePlaceHolder(x.Attribute.ConstructorArguments[0].Value as string ?? "", name, returnTypeName),
                     TargetMethodReturnType = GetDelegateType(x.Field.FieldType),
-                    Type = targetType
+                    Type = targetType,
+                    ParameterTypes = GetParameters(x.Field.FieldType)
                 }).ToArray();
         }
 
         private static string GetDelegateType(BuilderType type)
         {
-            if (type != null && type.IsGenericInstance)
+            if (type != null && type.IsGenericInstance && type.Fullname.StartsWith("System.Func"))
                 return type.GetGenericArgument(0);
 
             return "System.Void";
+        }
+
+        private static BuilderType[] GetParameters(BuilderType type)
+        {
+            if (type != null && type.IsGenericInstance && type.Fullname.StartsWith("System.Func"))
+                return type.GenericArguments().Skip(1).ToArray();
+            else if (type != null && type.IsGenericInstance)
+                return type.GenericArguments().ToArray();
+
+            return new BuilderType[0];
         }
 
         private static string ReplacePlaceHolder(string argument, string propertyOrMethodName, string returnTypeName)

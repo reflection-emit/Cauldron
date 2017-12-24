@@ -1,5 +1,6 @@
 ﻿using Cauldron.Interception.Cecilator;
 using System;
+using System.Linq;
 
 namespace Cauldron.Interception.Fody
 {
@@ -7,26 +8,17 @@ namespace Cauldron.Interception.Fody
     {
         public static void ImplementAssignMethodAttribute(Builder builder, AssignMethodAttributeInfo[] assignMethodAttributeInfos, Field interceptorInstance, ICode coder) =>
             ImplementAssignMethodAttribute(builder, assignMethodAttributeInfos,
-                x => coder.Assign(interceptorInstance, x.assignMethodAttributeInfo.AttributeField).NewObj(x.delegateObjectCtor, x.method),
-                x => coder.Assign(interceptorInstance, x.assignMethodAttributeInfo.AttributeField).NewObj(x.delegateObjectCtor, x.method));
+                x => coder.Assign(interceptorInstance, x.assignMethodAttributeInfo.AttributeField).NewObj(x.delegateCtor, x.method));
 
         public static void ImplementAssignMethodAttribute(Builder builder, AssignMethodAttributeInfo[] assignMethodAttributeInfos, LocalVariable interceptorInstance, ICode coder) =>
             ImplementAssignMethodAttribute(builder, assignMethodAttributeInfos,
-                x => coder.Assign(interceptorInstance, x.assignMethodAttributeInfo.AttributeField).NewObj(x.delegateObjectCtor, x.method),
-                x => coder.Assign(interceptorInstance, x.assignMethodAttributeInfo.AttributeField).NewObj(x.delegateObjectCtor, x.method));
+                x => coder.Assign(interceptorInstance, x.assignMethodAttributeInfo.AttributeField).NewObj(x.delegateCtor, x.method));
 
         private static void ImplementAssignMethodAttribute(Builder builder, AssignMethodAttributeInfo[] assignMethodAttributeInfos,
-                    Action<(Method delegateObjectCtor, Method method, AssignMethodAttributeInfo assignMethodAttributeInfo)> action,
-                    Action<(Method delegateObjectCtor, Method method, AssignMethodAttributeInfo assignMethodAttributeInfo)> func)
+                    Action<(Method delegateCtor, Method method, AssignMethodAttributeInfo assignMethodAttributeInfo)> @delegate)
         {
-            if (action == null)
-                throw new ArgumentNullException(nameof(action));
-
-            if (func == null)
-                throw new ArgumentNullException(nameof(func));
-
-            var actionObjectCtor = builder.Import(typeof(Action).GetConstructor(new Type[] { typeof(object), typeof(IntPtr) }));
-            var funcObjectCtor = builder.Import(typeof(Func<>).GetConstructor(new Type[] { typeof(object), typeof(IntPtr) }));
+            if (@delegate == null)
+                throw new ArgumentNullException(nameof(@delegate));
 
             foreach (var item in assignMethodAttributeInfos)
             {
@@ -38,12 +30,12 @@ namespace Cauldron.Interception.Fody
                     continue;
                 }
 
-                builder.Log(LogTypes.Info, $"- Implementing AssignMethodAttribute for '{method.Name}'.");
+                var delegateCtor = item.AttributeField.FieldType.IsGenericInstance ?
+                    builder.Import(item.AttributeField.FieldType.GetMethod(".ctor", true, new Type[] { typeof(object), typeof(IntPtr) }).MakeGeneric(item.AttributeField.FieldType.GenericArguments().ToArray())) :
+                    builder.Import(item.AttributeField.FieldType.GetMethod(".ctor", true, new Type[] { typeof(object), typeof(IntPtr) }));
 
-                if (item.TargetMethodIsVoid)
-                    action((actionObjectCtor, method, item));
-                else
-                    func((funcObjectCtor.MakeGeneric(item.TargetMethodReturnType), method, item));
+                builder.Log(LogTypes.Info, $"- Implementing AssignMethodAttribute for '{method.Name}'.");
+                @delegate((delegateCtor, method, item));
             }
         }
     }
