@@ -498,12 +498,9 @@ namespace Cauldron.Interception.Cecilator
                         item.OpCode = OpCodes.Ret;
                     }
                 }
-
-                this.instructions.Append(instructions.Instructions.Take(instructions.Instructions.Count() - 1 /* Removes the ret instruction */));
             }
-            else
-                this.instructions.Append(instructions.Instructions.Take(instructions.Instructions.Count() - 1 /* Removes the ret instruction */));
 
+            this.instructions.Append(instructions.Instructions);
             this.instructions.ExceptionHandlers.AddRange(instructions.Exceptions);
 
             return this;
@@ -1170,11 +1167,7 @@ namespace Cauldron.Interception.Cecilator
                     instruction.OpCode = this.IsInclosedInHandlers(instruction) ? OpCodes.Leave : OpCodes.Br;
                     instruction.Operand = realReturn;
 
-                    if (instruction.Previous.IsCall() && instruction.Previous.Operand.New(x =>
-                     {
-                         var methodReference = x as MethodReference ?? x as MethodDefinition;
-                         return methodReference.ReturnType.FullName == "System.Void" || methodReference.ReturnType.FullName == "System.Threading.Tasks.Task";
-                     }))
+                    if (this.method.methodDefinition.ReturnType.FullName == "System.Void" || this.method.methodDefinition.ReturnType.FullName == "System.Threading.Task")
                         continue;
 
                     if (resultJump)

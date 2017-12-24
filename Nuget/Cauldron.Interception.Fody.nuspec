@@ -15,6 +15,7 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Interception interceptor interception AOP Fody Cecil CIL ILWeaving</tags>
     <releaseNotes>
+      2017.12.25 - [B] Fixed a bug that caused some methods to return null if Code-Optimization is on.
       2017.12.25 - [C] AssignMethodAttribute can now throw an error if the associated method is not found.
       2017.12.25 - [C] AssignMethodAttribute now allowing parameters.
       2017.12.23 - [A] New interceptor extension added - AssignMethodAttribute
