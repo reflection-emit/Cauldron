@@ -5,9 +5,9 @@ namespace Cauldron.Interception
     /// <summary>
     /// Indicates the weaver to find the matching method and assign it to the <see cref="Action"/> or <see cref="Func{TResult}"/><br/>
     /// This attribute can only be applied to public non-static fields of type <see cref="Action"/> and <see cref="Func{TResult}"/>; with or without arguments.<br/>
-    /// If the field's type is an <see cref="Action"/>, the weaver will search for a void method without arguments.
-    /// If the field's type is an <see cref="Action{T}"/>, the weaver will search for a void method with 1 argument.
-    /// If the field's type in a <see cref="Func{TResult}"/>, the weaver will search for a method with a return type that matches TResult and no argmuents.
+    /// If the field's type is an <see cref="Action"/>, the weaver will search for a void method without arguments.<br/>
+    /// If the field's type is an <see cref="Action{T}"/>, the weaver will search for a void method with 1 argument.<br/>
+    /// If the field's type in a <see cref="Func{TResult}"/>, the weaver will search for a method with a return type that matches TResult and no argmuents.<br/>
     /// If the field's type in a <see cref="Func{T, TResult}"/>, the weaver will search for a method with a return type that matches TResult and 1 argmuent.
     /// <para/>
     /// This interceptor extension is available for <see cref="IPropertyGetterInterceptor"/>, <see cref="IPropertySetterInterceptor"/>,
