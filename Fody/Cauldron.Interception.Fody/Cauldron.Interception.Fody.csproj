@@ -91,6 +91,7 @@
     <Compile Include="ModuleWeaver_AssignMethodAttribute.cs" />
     <Compile Include="ModuleWeaver_BamlXamlInitializer.cs" />
     <Compile Include="ModuleWeaver_ChangeAwareViewModel.cs" />
+    <Compile Include="ModuleWeaver_ComponentCache.cs" />
     <Compile Include="ModuleWeaver_ConstructorInterception.cs" />
     <Compile Include="ModuleWeaver_MethodCache.cs" />
     <Compile Include="ModuleWeaver_MethodInterception.cs" />

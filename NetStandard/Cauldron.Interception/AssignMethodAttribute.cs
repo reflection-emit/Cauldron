@@ -12,6 +12,10 @@ namespace Cauldron.Interception
     /// <para/>
     /// This interceptor extension is available for <see cref="IPropertyGetterInterceptor"/>, <see cref="IPropertySetterInterceptor"/>,
     /// <see cref="IPropertyInterceptor"/>, <see cref="IMethodInterceptor"/> and <see cref="IConstructorInterceptor"/>.
+    /// <para/>
+    /// Since properties are only methods, the <see cref="AssignMethodAttribute"/> can also search for the property's getter and setter.
+    /// The getter requires a 'get_' prefix and the setter a 'set_' prefix e.g. if the property is named 'DispatchDate' then the setter search pattern will be
+    /// 'set_DispatchDate' and the setter's search pattern will be 'get_DispatchDate'.
     /// </summary>
     /// <example>
     /// The following sample implementation will execute a method if a property setter is invoked.
