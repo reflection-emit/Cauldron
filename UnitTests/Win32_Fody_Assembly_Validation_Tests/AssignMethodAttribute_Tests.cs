@@ -453,7 +453,7 @@ namespace Win32_Fody_Assembly_Validation_Tests
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false, Inherited = false)]
     public class AssignMethod_Action_PropertyInterceptorAttribute : Attribute, IPropertyInterceptor
     {
-        [AssignMethod("On{Name}")]
+        [AssignMethod("On{Name}", true)]
         public Action action = null;
 
         public void OnException(Exception e)
@@ -505,7 +505,7 @@ namespace Win32_Fody_Assembly_Validation_Tests
 
         public void OnEnter(Type declaringType, object instance, MethodBase methodbase, object[] values)
         {
-            Debug.WriteLine(action?.Invoke());
+            action?.Invoke();
         }
 
         public void OnException(Exception e)

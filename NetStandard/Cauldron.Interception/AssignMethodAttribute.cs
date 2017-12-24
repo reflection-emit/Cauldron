@@ -59,13 +59,16 @@ namespace Cauldron.Interception
         /// <param name="methodName">
         /// The name of the method to find and assign to the field.
         /// <para/>
+        /// <paramref name="optional"/>
+        /// If false throws an error if the method decribed by <paramref name="methodName"/> is not found; otherwise no error is thrown.
+        /// </param>
         /// The <paramref name="methodName"/> can contain the following placeholders:
         /// <br/>
         /// {Name} - This will be replaced by the name of the property or method. A field requires a additional suffix 'Property'.
         /// <br/>
         /// {ReturnType} - This will be replaced by the return type of the property, method or field.
         /// </param>
-        public AssignMethodAttribute(string methodName) => this.MethodName = methodName;
+        public AssignMethodAttribute(string methodName, bool optional = false) => this.MethodName = methodName;
 
         /// <summary>
         /// Gets the name of the method to find.

@@ -34,11 +34,11 @@ namespace Cauldron.Core.Interceptors
     public sealed class PropertyOnSetAttribute : Attribute, IPropertySetterInterceptor
     {
         /// <exclude/>
-        [AssignMethod("On{Name}Set")]
+        [AssignMethod("On{Name}Set", true)]
         public Action onPropertySet;
 
         /// <exclude/>
-        [AssignMethod("On{Name}Set")]
+        [AssignMethod("On{Name}Set", true)]
         public Action<object, object> onPropertySetParametered;
 
         /// <exclude/>

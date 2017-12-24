@@ -6,8 +6,8 @@ namespace Cauldron.Interception.Fody
 {
     public sealed class AssignMethodAttributeInfo
     {
+        public Method AttributedMethod { get; private set; }
         public Field AttributeField { get; private set; }
-
         public BuilderType[] ParameterTypes { get; private set; }
 
         public Method TargetMethod => this.Type
@@ -30,18 +30,19 @@ namespace Cauldron.Interception.Fody
         public bool TargetMethodIsVoid => this.TargetMethodReturnType == "System.Void";
         public string TargetMethodName { get; private set; }
         public string TargetMethodReturnType { get; private set; }
+        public bool ThrowError { get; private set; }
         public BuilderType Type { get; private set; }
 
         public static AssignMethodAttributeInfo[] GetAllAssignMethodAttributedFields(AttributedProperty attributedProperty) =>
-            GetAllAssignMethodAttributedFields(attributedProperty.Attribute, attributedProperty.Property.OriginType, attributedProperty.Property.Name, GetDelegateType(attributedProperty.Property.ReturnType));
+            GetAllAssignMethodAttributedFields(attributedProperty.Property.Setter ?? attributedProperty.Property.Getter, attributedProperty.Attribute, attributedProperty.Property.OriginType, attributedProperty.Property.Name, GetDelegateType(attributedProperty.Property.ReturnType));
 
         public static AssignMethodAttributeInfo[] GetAllAssignMethodAttributedFields(AttributedField attributedField) =>
-            GetAllAssignMethodAttributedFields(attributedField.Attribute, attributedField.Field.OriginType, attributedField.Field.Name, GetDelegateType(attributedField.Field.FieldType));
+            GetAllAssignMethodAttributedFields(null, attributedField.Attribute, attributedField.Field.OriginType, attributedField.Field.Name, GetDelegateType(attributedField.Field.FieldType));
 
         public static AssignMethodAttributeInfo[] GetAllAssignMethodAttributedFields(AttributedMethod attributedMethod) =>
-            GetAllAssignMethodAttributedFields(attributedMethod.Attribute, attributedMethod.Method.OriginType, attributedMethod.Method.Name, GetDelegateType(attributedMethod.Method.ReturnType));
+            GetAllAssignMethodAttributedFields(attributedMethod.Method, attributedMethod.Attribute, attributedMethod.Method.OriginType, attributedMethod.Method.Name, GetDelegateType(attributedMethod.Method.ReturnType));
 
-        private static AssignMethodAttributeInfo[] GetAllAssignMethodAttributedFields(BuilderCustomAttribute builderCustomAttribute, BuilderType targetType, string name, string returnTypeName)
+        private static AssignMethodAttributeInfo[] GetAllAssignMethodAttributedFields(Method attributedMethod, BuilderCustomAttribute builderCustomAttribute, BuilderType targetType, string name, string returnTypeName)
         {
             var fields = builderCustomAttribute.Type
                 .GetAttributedFields()
@@ -53,8 +54,10 @@ namespace Cauldron.Interception.Fody
                     AttributeField = x.Field,
                     TargetMethodName = ReplacePlaceHolder(x.Attribute.ConstructorArguments[0].Value as string ?? "", name, returnTypeName),
                     TargetMethodReturnType = GetDelegateType(x.Field.FieldType),
+                    ThrowError = !(bool)x.Attribute.ConstructorArguments[1].Value,
                     Type = targetType,
-                    ParameterTypes = GetParameters(x.Field.FieldType)
+                    ParameterTypes = GetParameters(x.Field.FieldType),
+                    AttributedMethod = attributedMethod
                 }).ToArray();
         }
 

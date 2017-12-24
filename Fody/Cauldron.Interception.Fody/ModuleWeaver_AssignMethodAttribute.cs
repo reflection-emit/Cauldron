@@ -26,7 +26,9 @@ namespace Cauldron.Interception.Fody
 
                 if (method == null)
                 {
-                    builder.Log(LogTypes.Warning, $"Unable to find matching method for the interceptor '{item.AttributeField.OriginType.Fullname}'. The interceptor requires a method with the name '{item.TargetMethodName}' and a return type of '{item.TargetMethodReturnType}'.");
+                    builder.Log(item.ThrowError ? LogTypes.Error : LogTypes.Info,
+                        item.AttributedMethod,
+                        $"Unable to find matching method for the interceptor '{item.AttributeField.OriginType.Fullname}'. The interceptor requires a method with the name '{item.TargetMethodName}' and a return type of '{item.TargetMethodReturnType}'.");
                     continue;
                 }
 
