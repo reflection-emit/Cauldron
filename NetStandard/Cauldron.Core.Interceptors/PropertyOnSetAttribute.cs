@@ -4,9 +4,10 @@ using System;
 namespace Cauldron.Core.Interceptors
 {
     /// <summary>
-    /// Provides an interceptor that can invoke a method of the type instance.
-    /// The method must have the following name 'On_____Set' where the blanks is the property's name.
-    /// The method has to be void and parameterless.
+    /// Provides an interceptor that can invoke a method of the type instance.<br/>
+    /// The method must have the following name 'On_____Set' where the blanks is the property's name.<br/>
+    /// The method can be void and parameterless or void and with 2 arguments of type <see cref="object"/>.
+    /// The first argument is the old value and the second is the new value.
     /// </summary>
     /// <example>
     /// The following example shows the usage of the interceptor.
@@ -22,6 +23,12 @@ namespace Cauldron.Core.Interceptors
     /// {
     /// }
     /// </code>
+    /// or
+    /// <code>
+    /// private void OnTitleSet(object oldValue, object newValue)
+    /// {
+    /// }
+    /// </code>
     /// </example>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
     public sealed class PropertyOnSetAttribute : Attribute, IPropertySetterInterceptor
@@ -29,6 +36,10 @@ namespace Cauldron.Core.Interceptors
         /// <exclude/>
         [AssignMethod("On{Name}Set")]
         public Action onPropertySet;
+
+        /// <exclude/>
+        [AssignMethod("On{Name}Set")]
+        public Action<object, object> onPropertySetParametered;
 
         /// <exclude/>
         public void OnException(Exception e)
@@ -44,6 +55,7 @@ namespace Cauldron.Core.Interceptors
         public bool OnSet(PropertyInterceptionInfo propertyInterceptionInfo, object oldValue, object newValue)
         {
             this.onPropertySet?.Invoke();
+            this.onPropertySetParametered?.Invoke(oldValue, newValue);
             return false;
         }
     }
