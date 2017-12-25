@@ -114,7 +114,7 @@ namespace Cauldron.Interception.Fody
                                 if (item.HasSyncRootInterface)
                                     y.Load(interceptorField[i]).As(syncRoot.Type).Call(syncRoot.SyncRoot, method.SyncRoot);
 
-                                ImplementAssignMethodAttribute(builder, method.Item[i].AssignMethodAttributeInfos, interceptorField[i], x);
+                                ImplementAssignMethodAttribute(builder, method.Item[i].AssignMethodAttributeInfos, interceptorField[i], x, false);
                             });
                             item.Attribute.Remove();
                         }

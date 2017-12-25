@@ -6,22 +6,25 @@ namespace Cauldron.Interception.Fody
 {
     public sealed partial class ModuleWeaver
     {
-        public static void ImplementAssignMethodAttribute(Builder builder, AssignMethodAttributeInfo[] assignMethodAttributeInfos, Field interceptorInstance, ICode coder) =>
+        public static void ImplementAssignMethodAttribute(Builder builder, AssignMethodAttributeInfo[] assignMethodAttributeInfos, Field interceptorInstance, ICode coder, bool isCtor) =>
             ImplementAssignMethodAttribute(builder, assignMethodAttributeInfos,
-                x => coder.Assign(interceptorInstance, x.assignMethodAttributeInfo.AttributeField).NewObj(x.delegateCtor, x.method));
+                x => coder.Assign(interceptorInstance, x.assignMethodAttributeInfo.AttributeField).NewObj(x.delegateCtor, x.method), isCtor);
 
-        public static void ImplementAssignMethodAttribute(Builder builder, AssignMethodAttributeInfo[] assignMethodAttributeInfos, LocalVariable interceptorInstance, ICode coder) =>
+        public static void ImplementAssignMethodAttribute(Builder builder, AssignMethodAttributeInfo[] assignMethodAttributeInfos, LocalVariable interceptorInstance, ICode coder, bool isCtor) =>
             ImplementAssignMethodAttribute(builder, assignMethodAttributeInfos,
-                x => coder.Assign(interceptorInstance, x.assignMethodAttributeInfo.AttributeField).NewObj(x.delegateCtor, x.method));
+                x => coder.Assign(interceptorInstance, x.assignMethodAttributeInfo.AttributeField).NewObj(x.delegateCtor, x.method), isCtor);
 
         private static void ImplementAssignMethodAttribute(Builder builder, AssignMethodAttributeInfo[] assignMethodAttributeInfos,
-                    Action<(Method delegateCtor, Method method, AssignMethodAttributeInfo assignMethodAttributeInfo)> @delegate)
+                    Action<(Method delegateCtor, Method method, AssignMethodAttributeInfo assignMethodAttributeInfo)> @delegate, bool isCtor)
         {
             if (@delegate == null)
                 throw new ArgumentNullException(nameof(@delegate));
 
             foreach (var item in assignMethodAttributeInfos)
             {
+                if (item.IsCtor && !isCtor)
+                    continue;
+
                 var method = item.TargetMethod;
 
                 if (method == null)

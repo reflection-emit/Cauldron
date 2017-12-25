@@ -38,20 +38,21 @@ namespace Cauldron.Interception.Fody
 
                 Crumb parametersArray = null;
                 var localVariables = new LocalVariable[constructor.Item.Length];
-                var interceptorInit = new Action<ICode>(x =>
+                var interceptorInit = new Action<ICode, bool>((contextCoder, isBeforeInit) =>
                 {
-                    parametersArray = x.GetParametersArray();
+                    parametersArray = contextCoder.GetParametersArray();
 
                     for (int i = 0; i < constructor.Item.Length; i++)
                     {
                         var item = constructor.Item[i];
-                        localVariables[i] = x.CreateVariable(item.Interface.Type);
+                        localVariables[i] = contextCoder.CreateVariable(item.Attribute.Attribute.Type);
 
-                        x.Assign(localVariables[i]).NewObj(item.Attribute);
-                        x.Load(localVariables[i]).As(item.Interface.Type)
+                        contextCoder.Assign(localVariables[i]).NewObj(item.Attribute);
+
+                        ImplementAssignMethodAttribute(builder, item.AssignMethodAttributeInfos, localVariables[i], contextCoder, isBeforeInit);
+
+                        contextCoder.Load(localVariables[i]).As(item.Interface.Type)
                             .Call(item.Interface.OnBeforeInitialization, targetedConstrutor.OriginType, targetedConstrutor, parametersArray);
-
-                        ImplementAssignMethodAttribute(builder, constructor.Item[i].AssignMethodAttributeInfos, localVariables[i], x);
 
                         item.Attribute.Remove();
                     }
@@ -59,14 +60,14 @@ namespace Cauldron.Interception.Fody
 
                 if (targetedConstrutor.IsCtor)
                     targetedConstrutor.NewCode()
-                        .Context(x => interceptorInit(x))
+                        .Context(x => interceptorInit(x, true))
                         .Insert(InsertionPosition.CtorBeforeInit);
 
                 targetedConstrutor.NewCode()
                     .Context(x =>
                     {
                         if (targetedConstrutor.IsCCtor)
-                            interceptorInit(x);
+                            interceptorInit(x, false);
                     })
                     .Try(x =>
                     {

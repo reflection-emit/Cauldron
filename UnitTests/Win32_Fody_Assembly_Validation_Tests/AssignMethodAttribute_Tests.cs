@@ -406,12 +406,37 @@ namespace Win32_Fody_Assembly_Validation_Tests
 
         #endregion Method - Private, Protected, Internal, Public
 
+        #region Invoke method defined by constructor
+
+        private bool propertyActionInvokeDefinedByContructor = false;
+
+        [AssignMethod_Action_Constructor_PropertyInterceptor(nameof(RaiseMe))]
+        public bool Toast { get; set; }
+
+        [TestMethod]
+        public void AssignMethod_Property_Setter_Action_Defined_By_Contructor_Test()
+        {
+            this.Toast = true;
+            Assert.IsTrue(this.propertyActionInvokeDefinedByContructor);
+        }
+
+        private void RaiseMe(string propertyName, object oldValue, object newValue)
+        {
+            this.propertyActionInvokeDefinedByContructor = true;
+        }
+
+        #endregion Invoke method defined by constructor
+
         [TestCleanup]
         public void ResetVariables()
         {
             this.propertyActionInvoked = false;
             this.propertyActionBaseInvoked = false;
             this.fieldActionInvoked = false;
+            this.methodActionInvoked = false;
+            this.methodFuncInvoked = false;
+            this.action_With_Parameters = "";
+            this.propertyActionInvokeDefinedByContructor = false;
         }
     }
 
@@ -429,6 +454,31 @@ namespace Win32_Fody_Assembly_Validation_Tests
     }
 
     #region MyRegion
+
+    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false, Inherited = false)]
+    public class AssignMethod_Action_Constructor_PropertyInterceptorAttribute : Attribute, IPropertySetterInterceptor
+    {
+        [AssignMethod("{CtorArgument:0}", true)]
+        public Action<string, object, object> action = null;
+
+        public AssignMethod_Action_Constructor_PropertyInterceptorAttribute(string methodToInvokeName)
+        {
+        }
+
+        public void OnException(Exception e)
+        {
+        }
+
+        public void OnExit()
+        {
+        }
+
+        public bool OnSet(PropertyInterceptionInfo propertyInterceptionInfo, object oldValue, object newValue)
+        {
+            action?.Invoke(propertyInterceptionInfo.PropertyName, oldValue, newValue);
+            return false;
+        }
+    }
 
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
     public class AssignMethod_Action_MethodInterceptorAttribute : Attribute, IMethodInterceptor

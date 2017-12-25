@@ -1,6 +1,8 @@
 ﻿using Cauldron.Interception.Cecilator;
 using Cauldron.Interception.Fody.HelperTypes;
+using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Cauldron.Interception.Fody
 {
@@ -8,6 +10,7 @@ namespace Cauldron.Interception.Fody
     {
         public Method AttributedMethod { get; private set; }
         public Field AttributeField { get; private set; }
+        public bool IsCtor => this.TargetMethodName == ".ctor";
         public BuilderType[] ParameterTypes { get; private set; }
 
         public Method TargetMethod => this.Type
@@ -49,15 +52,19 @@ namespace Cauldron.Interception.Fody
                 .Where(x => x.Field.IsPublic && !x.Field.IsStatic && x.Attribute.Fullname == __AssignMethodAttribute.TypeName);
 
             return fields
-                .Select(x => new AssignMethodAttributeInfo
+                .Select(x =>
                 {
-                    AttributeField = x.Field,
-                    TargetMethodName = ReplacePlaceHolder(x.Attribute.ConstructorArguments[0].Value as string ?? "", name, returnTypeName),
-                    TargetMethodReturnType = GetDelegateType(x.Field.FieldType),
-                    ThrowError = !(bool)x.Attribute.ConstructorArguments[1].Value,
-                    Type = targetType,
-                    ParameterTypes = GetParameters(x.Field.FieldType),
-                    AttributedMethod = attributedMethod
+                    var throwError = !(bool)x.Attribute.ConstructorArguments[1].Value;
+                    return new AssignMethodAttributeInfo
+                    {
+                        AttributeField = x.Field,
+                        TargetMethodName = ReplacePlaceHolder(targetType.Builder, (x.Attribute.ConstructorArguments[0].Value as string ?? "", name, returnTypeName), builderCustomAttribute, throwError),
+                        TargetMethodReturnType = GetDelegateType(x.Field.FieldType),
+                        ThrowError = throwError,
+                        Type = targetType,
+                        ParameterTypes = GetParameters(x.Field.FieldType),
+                        AttributedMethod = attributedMethod
+                    };
                 }).ToArray();
         }
 
@@ -79,14 +86,39 @@ namespace Cauldron.Interception.Fody
             return new BuilderType[0];
         }
 
-        private static string ReplacePlaceHolder(string argument, string propertyOrMethodName, string returnTypeName)
+        private static string ReplacePlaceHolder(Builder builder, (string argument, string propertyOrMethodName, string returnTypeName) targetInfo, BuilderCustomAttribute builderCustomAttribute, bool throwError)
         {
-            if (string.IsNullOrEmpty(argument))
+            if (string.IsNullOrEmpty(targetInfo.argument))
                 return null;
 
-            return argument
-                .Replace("{Name}", propertyOrMethodName)
-                .Replace("{ReturnType}", returnTypeName ?? "void");
+            var result = Regex.Replace(targetInfo.argument, @"{CtorArgument:(.+?)}", x =>
+            {
+                var constructorPlaceholderSplit = x.Value.Split(':');
+                var definedIndex = constructorPlaceholderSplit.Length > 1 ? constructorPlaceholderSplit[1].Substring(0, constructorPlaceholderSplit[1].Length - 1) : "";
+
+                if (string.IsNullOrEmpty(definedIndex))
+                {
+                    builder.Log(throwError ? LogTypes.Error : LogTypes.Info, $"No name or index defined for '{builderCustomAttribute.Fullname}'.");
+                    return "";
+                }
+
+                if (uint.TryParse(definedIndex, out uint index))
+                {
+                    if (index >= builderCustomAttribute.ConstructorArguments.Length)
+                    {
+                        builder.Log(throwError ? LogTypes.Error : LogTypes.Info, $"The given constructor for '{builderCustomAttribute.Fullname}' does not have an argument index {index}");
+                        return "";
+                    }
+                    else
+                        return builderCustomAttribute.ConstructorArguments[index].Value as string;
+                }
+
+                return "";
+            });
+
+            return result
+                .Replace("{Name}", targetInfo.propertyOrMethodName)
+                .Replace("{ReturnType}", targetInfo.returnTypeName ?? "void");
         }
     }
 }

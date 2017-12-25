@@ -33,7 +33,7 @@ namespace Cauldron.Interception.Fody
                                 if (item.HasSyncRootInterface)
                                     y.Load(field).As(syncRoot.Type.Import()).Call(syncRoot.SyncRoot, member.SyncRoot);
 
-                                ImplementAssignMethodAttribute(builder, legalGetterInterceptors[i].AssignMethodAttributeInfos, field, y);
+                                ImplementAssignMethodAttribute(builder, legalGetterInterceptors[i].AssignMethodAttributeInfos, field, y, false);
                             });
                             item.Attribute.Remove();
                         }
@@ -106,7 +106,7 @@ namespace Cauldron.Interception.Fody
                             if (item.HasSyncRootInterface)
                                 x.Load(field).As(syncRoot.Type.Import()).Call(syncRoot.SyncRoot, member.SyncRoot);
 
-                            ImplementAssignMethodAttribute(builder, legalInitInterceptors[i].AssignMethodAttributeInfos, field, x);
+                            ImplementAssignMethodAttribute(builder, legalInitInterceptors[i].AssignMethodAttributeInfos, field, x, false);
                         }
 
                         x.Assign(propertyField)
@@ -152,7 +152,7 @@ namespace Cauldron.Interception.Fody
                                 if (item.HasSyncRootInterface)
                                     y.Load(field).As(syncRoot.Type.Import()).Call(syncRoot.SyncRoot, member.SyncRoot);
 
-                                ImplementAssignMethodAttribute(builder, legalSetterInterceptors[i].AssignMethodAttributeInfos, field, y);
+                                ImplementAssignMethodAttribute(builder, legalSetterInterceptors[i].AssignMethodAttributeInfos, field, y, false);
                             });
                             item.Attribute.Remove();
                         }

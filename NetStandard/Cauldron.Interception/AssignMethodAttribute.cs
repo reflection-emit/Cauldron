@@ -53,6 +53,47 @@ namespace Cauldron.Interception
     ///    // Your code that is executed if a value is assigned to the DispatchDate property.
     /// }
     /// </code>
+    /// <br/>
+    /// The following sample interceptor implementation accepts a custom method name.
+    /// <code>
+    /// [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = false)]
+    /// public sealed class PropertyOnSetAttribute : Attribute, IPropertySetterInterceptor
+    /// {
+    ///     [AssignMethod("{CtorArgument:0}")]
+    ///     public Action&gt;string, object, object&lt; onPropertySet;
+    ///
+    ///     public PropertyOnSetAttribute(string onSetPropertyMethod)
+    ///     {
+    ///     }
+    ///
+    ///     public void OnException(Exception e)
+    ///     {
+    ///     }
+    ///
+    ///     public void OnExit()
+    ///     {
+    ///     }
+    ///
+    ///     public bool OnSet(PropertyInterceptionInfo propertyInterceptionInfo, object oldValue, object newValue)
+    ///     {
+    ///         this.onPropertySet?.Invoke(propertyInterceptionInfo.PropertyName, oldValue, newValue);
+    ///         return false;
+    ///     }
+    /// }
+    /// </code>
+    /// The '{CtorArgument:0}' placeholder tells the weaver that the name (or part of the name) of the method to assign to the
+    /// 'onPropertySet' field is described by the the first constructor parameter of the 'PropertyOnSetAttribute'.
+    /// <br/>
+    /// The following is a sample usage of the interceptor above.
+    /// <code>
+    /// [PropertyOnSet(nameof(AnyMethodToExecute))]
+    /// public DateTime DispatchDate { get; set; }
+    ///
+    /// private void AnyMethodToExecute(string propertyName, object oldValue, object newValue)
+    /// {
+    ///    // Your code that is executed if a value is assigned to the DispatchDate property.
+    /// }
+    /// </code>
     /// </example>
     [AttributeUsage(AttributeTargets.Field, AllowMultiple = false, Inherited = false)]
     public sealed class AssignMethodAttribute : Attribute, IInterceptor
@@ -71,6 +112,9 @@ namespace Cauldron.Interception
         /// {Name} - This will be replaced by the name of the property or method. A field requires a additional suffix 'Property'.
         /// <br/>
         /// {ReturnType} - This will be replaced by the return type of the property, method or field.
+        /// <br/>
+        /// {CtorArgument:index} - This will be replaced by the string passed to the interceptor. The index is a 32-bit unsigned integer 0-based index of the constructor arguments.
+        /// For usage examples see <see cref="AssignMethodAttribute"/>.
         /// </param>
         public AssignMethodAttribute(string methodName, bool optional = false) => this.MethodName = methodName;
 
