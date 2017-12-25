@@ -29,6 +29,7 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
@@ -41,6 +42,7 @@
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <DebugSymbols>true</DebugSymbols>
@@ -95,6 +97,69 @@
     <SDKReference Include="TestPlatform.Universal, Version=$(UnitTestPlatformVersion)" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Comparing\Comparer.cs">
+      <Link>UWPSpecial\Comparer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Comparing\DynamicEqualityComparer.cs">
+      <Link>UWPSpecial\DynamicEqualityComparer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Comparing\Extensions.cs">
+      <Link>UWPSpecial\2\Extensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Diagnostics\Debug.cs">
+      <Link>UWPSpecial\Debug.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Extensions.Convertions\Encodings.cs">
+      <Link>UWPSpecial\2\Encodings.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Extensions.Convertions\ExtensionsConvertions.cs">
+      <Link>UWPSpecial\2\ExtensionsConvertions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Extensions.Convertions\ImplicitExplicitConvertionCache.cs">
+      <Link>UWPSpecial\2\ImplicitExplicitConvertionCache.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Extensions\Extensions.cs">
+      <Link>UWPSpecial\Extensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Extensions\Position.cs">
+      <Link>UWPSpecial\Position.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Net\ConnectionGenerationTypes.cs">
+      <Link>UWPSpecial\ConnectionGenerationTypes.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Net\Network.cs">
+      <Link>UWPSpecial\Network.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Net\PingResults.cs">
+      <Link>UWPSpecial\PingResults.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Randomizer\Randomizer.cs">
+      <Link>UWPSpecial\Randomizer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Reflection\ActivatorCollection.cs">
+      <Link>UWPSpecial\ActivatorCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Reflection\DisplayNameAttribute.cs">
+      <Link>UWPSpecial\DisplayNameAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Reflection\Enum.cs">
+      <Link>UWPSpecial\Enum.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Reflection\ExtensionsReflection.cs">
+      <Link>UWPSpecial\ExtensionsReflection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Reflection\TypeIsInterfaceException.cs">
+      <Link>UWPSpecial\TypeIsInterfaceException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Threading\AsyncHelper.cs">
+      <Link>UWPSpecial\AsyncHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron\Core\Extensions\Convertions\ExtensionsConvertions_UWP.cs">
+      <Link>UWPSpecial\ExtensionsConvertions_UWP.cs</Link>
+    </Compile>
+    <Compile Include="..\..\UWP\Cauldron\Core\UserInformation.cs">
+      <Link>UWPSpecial\UserInformation.cs</Link>
+    </Compile>
     <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Anonymouse_Type_To_Interface_Test.cs">
       <Link>Anonymouse_Type_To_Interface_Test.cs</Link>
     </Compile>
@@ -195,10 +260,6 @@
     <ProjectReference Include="..\..\UWP\Cauldron.Interception\Cauldron.Interception.csproj">
       <Project>{38abf85c-9322-4333-be30-a1b37fa5cc52}</Project>
       <Name>Cauldron.Interception</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\UWP\Cauldron\Cauldron.csproj">
-      <Project>{8d8583ab-71c6-48ae-aa68-a6ed48485bdb}</Project>
-      <Name>Cauldron</Name>
     </ProjectReference>
     <ProjectReference Include="..\Resources\UWP_Assembly_Validation_External_Resources\UWP_Assembly_Validation_External_Resources.csproj">
       <Project>{cee6fe03-53fd-4804-9818-9e0607b6227a}</Project>

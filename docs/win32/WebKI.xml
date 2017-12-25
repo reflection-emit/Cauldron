@@ -635,8 +635,8 @@
     <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_XAML_Extensions.htm" />
     <HelpKINode Title="about Extensions class" Url="html/T_Cauldron_XAML_Extensions.htm" />
     <HelpKINode Title="about Extensions class" Url="html/T_Cauldron_Extensions.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Extensions.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_XAML_Extensions.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Extensions.htm" />
   </HelpKINode>
   <HelpKINode Title="Extensions.AddHookParameterPassing method" Url="html/M_Cauldron_Extensions_AddHookParameterPassing.htm" />
   <HelpKINode Title="Extensions.AsBitmapImage method" Url="html/M_Cauldron_XAML_Extensions_AsBitmapImage.htm" />

@@ -61,7 +61,12 @@ namespace Win32_Fody_Assembly_Validation_Tests
 
         #region Resources
 
+#if NETFX_CORE
+
+        [DataContract]
+#else
         [Serializable]
+#endif
         public class SerializableClass_Fields
         {
             [TestPropertyInterceptor]
@@ -71,7 +76,12 @@ namespace Win32_Fody_Assembly_Validation_Tests
             private int data2;
         }
 
+#if NETFX_CORE
+
+        [DataContract]
+#else
         [Serializable]
+#endif
         public class SerializableClass_Fields_And_Methods
         {
             public string data1;
@@ -85,7 +95,12 @@ namespace Win32_Fody_Assembly_Validation_Tests
             }
         }
 
+#if NETFX_CORE
+
+        [DataContract]
+#else
         [Serializable]
+#endif
         public class SerializableClass_Properties
         {
             [TestPropertyInterceptor]

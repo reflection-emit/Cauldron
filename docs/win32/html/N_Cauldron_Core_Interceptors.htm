@@ -13,14 +13,17 @@
             <p />
             This interceptor is using NLog. NLog configuration will affect this interceptor.
             </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" alt="Public class" title="Public class" /><img src="../icons/CodeExample.png" alt="Code example" title="Code example" /></td><td><a href="T_Cauldron_Core_Interceptors_PropertyOnSetAttribute.htm">PropertyOnSetAttribute</a></td><td><div class="summary">
-            Provides an interceptor that can invoke a method of the type instance.
-            The method must have the following name 'On_____Set' where the blanks is the property's name.
-            The method has to be void and parameterless.
+            Provides an interceptor that can invoke a method of the type instance.<br />
+            The method must have the following name 'On_____Set' where the blanks is the property's name.<br />
+            The method can be void and parameterless or void and with 2 arguments of type <a href="http://msdn2.microsoft.com/en-us/library/e5kfa45b" target="_blank">Object</a>.
+            The first argument is the old value and the second is the new value.
             </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" alt="Public class" title="Public class" /></td><td><a href="T_Cauldron_Core_Interceptors_TimedCacheAttribute.htm">TimedCacheAttribute</a></td><td><div class="summary">
             Provides a timed global caching for the intercepted method. The caching is implemented using
             <a href="http://msdn2.microsoft.com/en-us/library/dd780718" target="_blank">Default</a><p />
             The cache is dependent to the passed arguments. The arguments requires a proper
             implementation of <a href="http://msdn2.microsoft.com/en-us/library/zdee4b3y" target="_blank">GetHashCode<span id="LST51581E99_0"></span><script type="text/javascript">AddLanguageSpecificTextSet("LST51581E99_0?cs=()|vb=|cpp=()|nu=()|fs=()");</script></a> and a unique <a href="http://msdn2.microsoft.com/en-us/library/7bxwbwt2" target="_blank">ToString<span id="LST51581E99_1"></span><script type="text/javascript">AddLanguageSpecificTextSet("LST51581E99_1?cs=()|vb=|cpp=()|nu=()|fs=()");</script></a> value.
+            <p />
+            The cache of the <a href="T_Cauldron_Core_Interceptors_TimedCacheAttribute.htm">TimedCacheAttribute</a> can be forcefully cleared by <a href="M_Cauldron_Core_Interceptors_TimedCacheChangeMonitor_Clear.htm">Clear<span id="LST51581E99_2"></span><script type="text/javascript">AddLanguageSpecificTextSet("LST51581E99_2?cs=()|vb=|cpp=()|nu=()|fs=()");</script></a>.
             </div></td></tr><tr data="class; public"><td><img src="../icons/pubclass.gif" alt="Public class" title="Public class" /></td><td><a href="T_Cauldron_Core_Interceptors_TimedCacheChangeMonitor.htm">TimedCacheChangeMonitor</a></td><td><div class="summary">
             A custom type that monitors changes in the state of the data which a cache item depends on.
             </div></td></tr></table></div></div></div><div id="pageFooter" class="pageFooter"><p><a href="https://raw.githubusercontent.com/Capgemini/Cauldron/master/LICENSE" target="_blank">https://raw.githubusercontent.com/Capgemini/Cauldron/master/LICENSE</a></p><div class="feedbackLink">Send comments on this topic to
