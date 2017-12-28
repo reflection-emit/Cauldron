@@ -80,6 +80,12 @@ namespace Cauldron.Interception.Cecilator
             return result;
         }
 
+        public Field Import()
+        {
+            var result = this.moduleDefinition.ImportReference(this.fieldRef);
+            return new Field(this.type, result.Resolve(), result);
+        }
+
         public void Remove() => this.type.typeDefinition.Fields.Remove(this.fieldDef);
 
         private IEnumerable<FieldUsage> GetFieldUsage(Method method)

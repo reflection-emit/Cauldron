@@ -12,10 +12,6 @@ namespace Cauldron.Interception
     /// [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
     /// public class MyInterceptorAttribute : Attribute, IMethodInterceptor
     /// {
-    ///     public MyInterceptorAttribute()
-    ///     {
-    ///     }
-    ///
     ///     public void OnEnter(Type declaringType, object instance, MethodBase methodbase, object[] values)
     ///     {
     ///     }
