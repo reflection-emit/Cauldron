@@ -583,6 +583,34 @@ namespace Cauldron.Interception.Cecilator
 
         public Method GetMethod(string name, bool throwException = true, params BuilderType[] parameters) => GetMethod(name, throwException, parameters.Select(x => x.Fullname).ToArray());
 
+        public Method GetMethod(Modifiers modifier, BuilderType returnType, string name, params BuilderType[] parameters)
+        {
+            MethodDefinition result = null;
+            var predicate = new Func<MethodDefinition, bool>(x =>
+                x.Name == name &&
+                x.Parameters.Count == parameters.Length &&
+                x.ReturnType.FullName == returnType.Fullname &&
+                x.Parameters.Select(y => y.ParameterType.FullName).SequenceEqual(parameters.Select(y => y.typeReference.FullName)));
+
+            if (modifier.HasFlag(Modifiers.Private))
+                result = this.typeDefinition.Methods.FirstOrDefault(x => predicate(x));
+            else
+                result = this.typeDefinition.Methods
+                    .Concat(this.BaseClasses.SelectMany(x => x.typeDefinition.Methods))
+                    .FirstOrDefault(x => predicate(x));
+
+            if (result == null)
+                return null;
+
+            var genericArguments = (this.typeReference as GenericInstanceType)?.GenericArguments.ToArray();
+            if (genericArguments == null)
+                return new Method(this, result);
+
+            return new Method(this, result.ContainsGenericParameter ?
+                result.MakeHostInstanceGeneric(genericArguments) :
+                result, result);
+        }
+
         public Method GetMethod(string name, bool throwException = true, params string[] parametersTypeNames)
         {
             var result = this.typeDefinition.Methods
@@ -618,6 +646,15 @@ namespace Cauldron.Interception.Cecilator
                 return null;
 
             return result;
+        }
+
+        public Method GetOrCreateMethod(Modifiers modifier, BuilderType returnType, string name, params BuilderType[] parameters)
+        {
+            var method = this.GetMethod(modifier, returnType, name, parameters);
+            if (method != null)
+                return method;
+
+            return CreateMethod(modifier, returnType, name, parameters);
         }
 
         #endregion Methods

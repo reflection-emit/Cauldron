@@ -13,26 +13,51 @@ namespace Cauldron.Interception.Fody
         public bool IsCtor => this.TargetMethodName == ".ctor";
         public BuilderType[] ParameterTypes { get; private set; }
 
-        public Method TargetMethod => this.Type
-                                        .GetMethods(this.TargetMethodName, this.ParameterTypes.Length, false)
-                                        .FirstOrDefault(x =>
-                                        {
-                                            if (x.IsPrivate && x.DeclaringType.Fullname != this.Type.Fullname)
-                                                return false;
+        public Method TargetMethod
+        {
+            get
+            {
+                var methodMatchDelegate = new Func<Func<BuilderType, BuilderType, bool>, Method>(predicate => this.Type
+                                           .GetMethods(this.TargetMethodName, this.ParameterTypes.Length, false)
+                                           .FirstOrDefault(x =>
+                                           {
+                                               if (x.IsPrivate && x.DeclaringType.Fullname != this.Type.Fullname)
+                                                   return false;
 
-                                            if (x.IsInternal && x.DeclaringType.Assembly.FullName != this.Type.Assembly.FullName)
-                                                return false;
+                                               if (x.IsInternal && x.DeclaringType.Assembly.FullName != this.Type.Assembly.FullName)
+                                                   return false;
 
-                                            if (!x.Parameters.Select(y => y.Fullname).SequenceEqual(this.ParameterTypes.Select(y => y.Fullname)))
-                                                return false;
+                                               if (!x.Parameters.Select(y => y.Fullname).SequenceEqual(this.ParameterTypes.Select(y => y.Fullname)))
+                                                   return false;
 
-                                            var returnType = GetDelegateType(this.AttributeField.FieldType);
-                                            return x.ReturnType.Fullname == returnType;
-                                        });
+                                               return predicate(x.ReturnType, this.TargetMethodReturnType);
+                                           }));
 
-        public bool TargetMethodIsVoid => this.TargetMethodReturnType == "System.Void";
+                var result = methodMatchDelegate((a, b) => a.Fullname == b.Fullname);
+                if (result != null)
+                    return result;
+
+                result = methodMatchDelegate((a, b) => b.IsAssignableFrom(a));
+                if (result == null)
+                    return null;
+
+                // Because it is not possible to assign this method directly to the delegate, we
+                // have to create a helper method that casts the return type.
+                var method = this.Type.GetOrCreateMethod(
+                    result.IsStatic ? Modifiers.PrivateStatic : Modifiers.Private,
+                    this.TargetMethodReturnType,
+                    $"<caster>_{result.Name}",
+                    this.ParameterTypes);
+
+                method.NewCode().Call(method.IsStatic ? null : Crumb.This, result, Crumb.GetParameter(-1)).As(this.TargetMethodReturnType).Return().Replace();
+
+                return method;
+            }
+        }
+
+        public bool TargetMethodIsVoid => this.TargetMethodReturnType.Fullname == "System.Void";
         public string TargetMethodName { get; private set; }
-        public string TargetMethodReturnType { get; private set; }
+        public BuilderType TargetMethodReturnType { get; private set; }
         public bool ThrowError { get; private set; }
         public BuilderType Type { get; private set; }
 
@@ -68,12 +93,12 @@ namespace Cauldron.Interception.Fody
                 }).ToArray();
         }
 
-        private static string GetDelegateType(BuilderType type)
+        private static BuilderType GetDelegateType(BuilderType type)
         {
             if (type != null && type.IsGenericInstance && type.Fullname.StartsWith("System.Func"))
                 return type.GetGenericArgument(0);
 
-            return "System.Void";
+            return type.Builder.GetType("System.Void");
         }
 
         private static BuilderType[] GetParameters(BuilderType type)
@@ -94,24 +119,31 @@ namespace Cauldron.Interception.Fody
             var result = Regex.Replace(targetInfo.argument, @"{CtorArgument:(.+?)}", x =>
             {
                 var constructorPlaceholderSplit = x.Value.Split(':');
-                var definedIndex = constructorPlaceholderSplit.Length > 1 ? constructorPlaceholderSplit[1].Substring(0, constructorPlaceholderSplit[1].Length - 1) : "";
+                var definedIndexOrName = constructorPlaceholderSplit.Length > 1 ? constructorPlaceholderSplit[1].Substring(0, constructorPlaceholderSplit[1].Length - 1) : "";
 
-                if (string.IsNullOrEmpty(definedIndex))
+                if (string.IsNullOrEmpty(definedIndexOrName))
                 {
                     builder.Log(throwError ? LogTypes.Error : LogTypes.Info, $"No name or index defined for '{builderCustomAttribute.Fullname}'.");
                     return "";
                 }
 
-                if (uint.TryParse(definedIndex, out uint index))
+                if (uint.TryParse(definedIndexOrName, out uint index))
                 {
                     if (index >= builderCustomAttribute.ConstructorArguments.Length)
                     {
-                        builder.Log(throwError ? LogTypes.Error : LogTypes.Info, $"The given constructor for '{builderCustomAttribute.Fullname}' does not have an argument index {index}");
+                        builder.Log(throwError ? LogTypes.Error : LogTypes.Info, $"The given constructor for '{builderCustomAttribute.Fullname}' does not have an argument index {index}.");
                         return "";
                     }
                     else
                         return builderCustomAttribute.ConstructorArguments[index].Value as string;
                 }
+
+                var argument = builderCustomAttribute.GetConstructorArgument(definedIndexOrName).Value as string;
+
+                if (argument == null)
+                    builder.Log(throwError ? LogTypes.Error : LogTypes.Info, $"The given constructor for '{builderCustomAttribute.Fullname}' does not have an argument named {definedIndexOrName}.");
+                else
+                    return argument;
 
                 return "";
             });

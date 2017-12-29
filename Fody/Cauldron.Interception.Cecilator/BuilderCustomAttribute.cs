@@ -2,6 +2,7 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 
 namespace Cauldron.Interception.Cecilator
 {
@@ -27,6 +28,17 @@ namespace Cauldron.Interception.Cecilator
         public string Fullname { get { return this.attribute.AttributeType.FullName; } }
 
         public BuilderType Type { get; private set; }
+
+        public CustomAttributeArgument GetConstructorArgument(int parameterIndex) => this.attribute.ConstructorArguments[parameterIndex];
+
+        public CustomAttributeArgument GetConstructorArgument(string parameterName)
+        {
+            var parameter = this.attribute.Constructor.Parameters.FirstOrDefault(x => x.Name == parameterName);
+            if (parameter == null)
+                return default(CustomAttributeArgument);
+
+            return this.attribute.ConstructorArguments[parameter.Index];
+        }
 
         public void MoveTo(Property property)
         {

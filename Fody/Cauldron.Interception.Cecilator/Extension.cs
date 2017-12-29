@@ -600,6 +600,46 @@ namespace Cauldron.Interception.Cecilator
                 opCode == OpCodes.Stloc_3;
         }
 
+        internal static bool IsValueOpCode(this Instruction instruction)
+        {
+            var opCode = instruction.OpCode;
+            return
+                IsCallOrNew(instruction) ||
+                IsLoadArgument(instruction) ||
+                IsLoadLocal(instruction) ||
+                IsLoadField(instruction) ||
+                opCode == OpCodes.Isinst ||
+                opCode == OpCodes.Dup ||
+                opCode == OpCodes.Sizeof ||
+                opCode == OpCodes.Xor ||
+                opCode == OpCodes.Shl ||
+                opCode == OpCodes.Shr ||
+                opCode == OpCodes.Shr_Un ||
+                opCode == OpCodes.Neg ||
+                opCode == OpCodes.Or ||
+                opCode == OpCodes.And ||
+                opCode == OpCodes.Mul ||
+                opCode == OpCodes.Mul_Ovf_Un ||
+                opCode == OpCodes.Mul_Ovf ||
+                opCode == OpCodes.Add ||
+                opCode == OpCodes.Add_Ovf ||
+                opCode == OpCodes.Add_Ovf_Un ||
+                opCode == OpCodes.Sub ||
+                opCode == OpCodes.Sub_Ovf ||
+                opCode == OpCodes.Sub_Ovf_Un ||
+                opCode == OpCodes.Castclass ||
+                opCode == OpCodes.Conv_I ||
+                opCode == OpCodes.Conv_I1 ||
+                opCode == OpCodes.Conv_I2 ||
+                opCode == OpCodes.Conv_I4 ||
+                opCode == OpCodes.Conv_I8 ||
+                opCode == OpCodes.Conv_Ovf_I4 ||
+                opCode == OpCodes.Conv_Ovf_I ||
+                opCode == OpCodes.Conv_Ovf_I1 ||
+                opCode == OpCodes.Conv_Ovf_I4_Un ||
+                opCode == OpCodes.Box;
+        }
+
         internal static MethodReference MakeGeneric(this MethodReference method, TypeReference returnType, params TypeReference[] args)
         {
             if (args.Length == 0)

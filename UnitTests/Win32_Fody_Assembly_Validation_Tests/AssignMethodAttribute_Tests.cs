@@ -11,20 +11,10 @@ namespace Win32_Fody_Assembly_Validation_Tests
     {
         public Func<object> ui;
 
-        public AssignMethodAttribute_Method_FallBack_Tester()
-        {
-            ui = new Func<object>(() => HUHU);
-        }
-
         public int Blabla { get; set; }
 
         [AssignMethod_Action_PropertyInterceptor_FallBack(nameof(Blabla))]
         public string MyProperty { get; set; }
-
-        private int HUHU()
-        {
-            return 9;
-        }
     }
 
     [TestClass]

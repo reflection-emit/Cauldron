@@ -49,6 +49,22 @@ namespace Cauldron.Interception.Cecilator
 
         public ICode As(BuilderType type)
         {
+            var lastInstruction = this.instructions.LastOrDefault();
+            if (lastInstruction.IsCallOrNew())
+            {
+                var lastType = (lastInstruction.Operand as MethodReference)?.ReturnType;
+                if (lastType != null && lastType.IsPrimitive)
+                {
+                    var paramResult = new ParamResult();
+                    paramResult.Type = lastType;
+
+                    this.CastOrBoxValues(this.processor, type.typeReference, paramResult, type.typeDefinition);
+                    this.instructions.Append(paramResult.Instructions);
+                    return this;
+                }
+            }
+            // Add parameter, field and variable if required later on
+
             this.instructions.Append(this.processor.Create(OpCodes.Isinst, this.moduleDefinition.ImportReference(type.typeReference)));
             return this;
         }
@@ -1011,6 +1027,11 @@ namespace Cauldron.Interception.Cecilator
 
         protected void CleanLocalVariableList()
         {
+            /*
+             Does not do anything now.... Removed because... Buggy
+
+             */
+
             var usedVariables = new List<VariableDefinition>();
             var instructions = this.method.methodDefinition.Body.Instructions;
             var variables = this.method.methodDefinition.Body.Variables;
@@ -1129,18 +1150,14 @@ namespace Cauldron.Interception.Cecilator
             }
             else
             {
-                var returnVariable = this.GetOrCreateReturnVariable();
                 var realReturn = this.method.methodDefinition.Body.Instructions.Last();
                 var resultJump = false;
 
-                if (!realReturn.Previous.IsLoadLocal() &&
-                    !realReturn.Previous.IsLoadField() &&
-                    !realReturn.Previous.IsCallOrNew() &&
-                    realReturn.Previous.OpCode != OpCodes.Ldnull)
+                if (!realReturn.Previous.IsValueOpCode() && realReturn.Previous.OpCode != OpCodes.Ldnull)
                 {
                     resultJump = true;
                     //this.processor.InsertBefore(realReturn, this.processor.Create(OpCodes.Ldloc, returnVariable));
-                    this.processor.InsertBefore(realReturn, this.AddParameter(this.processor, this.method.ReturnType.typeReference, returnVariable).Instructions);
+                    this.processor.InsertBefore(realReturn, this.AddParameter(this.processor, this.method.ReturnType.typeReference, this.GetOrCreateReturnVariable()).Instructions);
 
                     realReturn = realReturn.Previous;
                 }
@@ -1152,8 +1169,10 @@ namespace Cauldron.Interception.Cecilator
                     if (realReturn.OpCode == OpCodes.Ldfld || realReturn.OpCode == OpCodes.Ldflda)
                         realReturn = realReturn.Previous;
                 }
-                else if (realReturn.Previous.OpCode == OpCodes.Call || realReturn.Previous.OpCode == OpCodes.Callvirt || realReturn.Previous.OpCode == OpCodes.Calli)
+                else if (realReturn.Previous.IsValueOpCode())
+                {
                     realReturn = realReturn.Previous;
+                }
                 else
                     throw new NotImplementedException("Sorry... Not implemented.");
 
@@ -1171,7 +1190,7 @@ namespace Cauldron.Interception.Cecilator
                         continue;
 
                     if (resultJump)
-                        this.processor.InsertBefore(instruction, this.processor.Create(OpCodes.Stloc, returnVariable));
+                        this.processor.InsertBefore(instruction, this.processor.Create(OpCodes.Stloc, this.GetOrCreateReturnVariable()));
                 }
             }
         }
@@ -1238,11 +1257,23 @@ namespace Cauldron.Interception.Cecilator
                     this.instructions.Append(paramResult.Instructions);
                 }
             }
+            else if (parameters != null && parameters.Length > 0 && parameters[0] is Crumb && (parameters[0] as Crumb).Index < 0)
+            {
+                if ((method.OriginType.IsInterface || method.IsAbstract) && opcode != OpCodes.Calli)
+                    opcode = OpCodes.Callvirt;
+
+                for (int i = 0; i < this.method.methodReference.Parameters.Count; i++)
+                {
+                    var parameterType = method.methodDefinition.Parameters[i].ParameterType.IsGenericInstance || method.methodDefinition.Parameters[i].ParameterType.IsGenericParameter ?
+                        method.methodDefinition.Parameters[i].ParameterType.ResolveType(method.OriginType.typeReference, method.methodReference) :
+                        method.methodDefinition.Parameters[i].ParameterType;
+
+                    var inst = this.AddParameter(this.processor, this.moduleDefinition.ImportReference(parameterType), Crumb.GetParameter(i));
+                    this.instructions.Append(inst.Instructions);
+                }
+            }
             else
             {
-                //if (method.Parameters.Length != parameters.Length)
-                //    this.LogWarning($"Parameter count of method {method.Name} does not match with the passed parameters. Expected: {method.Parameters.Length}, is: {parameters.Length}");
-
                 if ((method.OriginType.IsInterface || method.IsAbstract) && opcode != OpCodes.Calli)
                     opcode = OpCodes.Callvirt;
 
