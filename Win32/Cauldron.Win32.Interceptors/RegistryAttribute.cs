@@ -118,9 +118,6 @@ namespace Cauldron.Core.Interceptors
                         this.defaultValue,
                         RegistryValueOptions.None), propertyInterceptionInfo.PropertyType);
 
-                    if (Comparer.Equals(value, result))
-                        return;
-
                     // If our property's value is not the same as the value in the registry... Let us update
                     // our property's value
                     propertyInterceptionInfo.SetValue(result);
@@ -139,10 +136,9 @@ namespace Cauldron.Core.Interceptors
                         this.defaultValue,
                         RegistryValueOptions.None), propertyInterceptionInfo.PropertyType);
 
-                    if (Comparer.UnEquals(result, newValue))
-                        subKey.SetValue(this.name ?? propertyInterceptionInfo.PropertyName,
-                            ConvertToRegistryValue(newValue, propertyInterceptionInfo.PropertyType),
-                            GetValueKind(propertyInterceptionInfo.PropertyType));
+                    subKey.SetValue(this.name ?? propertyInterceptionInfo.PropertyName,
+                        ConvertToRegistryValue(newValue, propertyInterceptionInfo.PropertyType),
+                        GetValueKind(propertyInterceptionInfo.PropertyType));
                 }
             }
 
