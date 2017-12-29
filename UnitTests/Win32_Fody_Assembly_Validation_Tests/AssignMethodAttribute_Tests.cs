@@ -7,6 +7,27 @@ using System.Reflection;
 namespace Win32_Fody_Assembly_Validation_Tests
 {
     [TestClass]
+    public class AssignMethodAttribute_Method_FallBack_Tester
+    {
+        public Func<object> ui;
+
+        public AssignMethodAttribute_Method_FallBack_Tester()
+        {
+            ui = new Func<object>(() => HUHU);
+        }
+
+        public int Blabla { get; set; }
+
+        [AssignMethod_Action_PropertyInterceptor_FallBack(nameof(Blabla))]
+        public string MyProperty { get; set; }
+
+        private int HUHU()
+        {
+            return 9;
+        }
+    }
+
+    [TestClass]
     public class AssignMethodAttribute_New_Tests : AssignMethodAttributeBase_Tests
     {
         [AssignMethod_Action_PropertyInterceptor]
@@ -413,6 +434,16 @@ namespace Win32_Fody_Assembly_Validation_Tests
         [AssignMethod_Action_Constructor_PropertyInterceptor(nameof(RaiseMe))]
         public bool Toast { get; set; }
 
+        [AssignMethod_Action_Constructor_Named_PropertyInterceptor(33, nameof(RaiseMe))]
+        public bool Toast2 { get; set; }
+
+        [TestMethod]
+        public void AssignMethod_Property_Setter_Action_Defined_By_Contructor_Named_Test()
+        {
+            this.Toast2 = true;
+            Assert.IsTrue(this.propertyActionInvokeDefinedByContructor);
+        }
+
         [TestMethod]
         public void AssignMethod_Property_Setter_Action_Defined_By_Contructor_Test()
         {
@@ -456,6 +487,31 @@ namespace Win32_Fody_Assembly_Validation_Tests
     #region MyRegion
 
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false, Inherited = false)]
+    public class AssignMethod_Action_Constructor_Named_PropertyInterceptorAttribute : Attribute, IPropertySetterInterceptor
+    {
+        [AssignMethod("{CtorArgument:methodToInvokeName}")]
+        public Action<string, object, object> action = null;
+
+        public AssignMethod_Action_Constructor_Named_PropertyInterceptorAttribute(int anyParam, string methodToInvokeName)
+        {
+        }
+
+        public void OnException(Exception e)
+        {
+        }
+
+        public void OnExit()
+        {
+        }
+
+        public bool OnSet(PropertyInterceptionInfo propertyInterceptionInfo, object oldValue, object newValue)
+        {
+            action?.Invoke(propertyInterceptionInfo.PropertyName, oldValue, newValue);
+            return false;
+        }
+    }
+
+    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false, Inherited = false)]
     public class AssignMethod_Action_Constructor_PropertyInterceptorAttribute : Attribute, IPropertySetterInterceptor
     {
         [AssignMethod("{CtorArgument:0}", true)]
@@ -497,6 +553,36 @@ namespace Win32_Fody_Assembly_Validation_Tests
 
         public void OnExit()
         {
+        }
+    }
+
+    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false, Inherited = false)]
+    public class AssignMethod_Action_PropertyInterceptor_FallBackAttribute : Attribute, IPropertyInterceptor
+    {
+        [AssignMethod("get_{CtorArgument:propertyName}")]
+        public Func<object> action = null;
+
+        public AssignMethod_Action_PropertyInterceptor_FallBackAttribute(string propertyName)
+        {
+        }
+
+        public void OnException(Exception e)
+        {
+        }
+
+        public void OnExit()
+        {
+        }
+
+        public void OnGet(PropertyInterceptionInfo propertyInterceptionInfo, object value)
+        {
+            action?.Invoke();
+        }
+
+        public bool OnSet(PropertyInterceptionInfo propertyInterceptionInfo, object oldValue, object newValue)
+        {
+            action?.Invoke();
+            return false;
         }
     }
 

@@ -15,6 +15,8 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Interception interceptor interception AOP Fody Cecil CIL ILWeaving</tags>
     <releaseNotes>
+      2017.12.29 - [C] AssignMethodAttribute now falls back to 'is assignable' if the return type of a method does not match.
+      2017.12.29 - [C] {CtorArgument:} placeholder now accepts parameter names besides index.
       2017.12.28 - [B] AssignMethodAttribute decorated field types were not imported.
       2017.12.25 - [C] AssignMethodAttribute now supports constructor defined placeholders.
       2017.12.25 - [B] Fixed a bug that caused some methods to return null if Code-Optimization is on.

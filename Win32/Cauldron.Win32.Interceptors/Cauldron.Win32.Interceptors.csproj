@@ -21,6 +21,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Debug\Cauldron.Win32.Interceptors.xml</DocumentationFile>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -30,6 +31,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\Cauldron.Win32.Interceptors.xml</DocumentationFile>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
@@ -55,9 +57,14 @@
     <Compile Include="ExceptionToEventLogAttribute.cs" />
     <Compile Include="PerformanceLoggerAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegistryAttribute.cs" />
     <Compile Include="TimedCacheAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Comparing\Cauldron.Core.Comparing.csproj">
+      <Project>{75a87a26-d167-4e61-84ba-5595ae475934}</Project>
+      <Name>Cauldron.Core.Comparing</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Diagnostics\Cauldron.Core.Diagnostics.csproj">
       <Project>{9631764e-e771-4d96-a7cf-757c257a0630}</Project>
       <Name>Cauldron.Core.Diagnostics</Name>
