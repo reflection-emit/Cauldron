@@ -96,7 +96,7 @@ namespace Cauldron.Interception.Fody
         private static BuilderType GetDelegateType(BuilderType type)
         {
             if (type != null && type.IsGenericInstance && type.Fullname.StartsWith("System.Func"))
-                return type.GetGenericArgument(0);
+                return type.GenericArguments().Last();
 
             return type.Builder.GetType("System.Void");
         }
@@ -104,7 +104,10 @@ namespace Cauldron.Interception.Fody
         private static BuilderType[] GetParameters(BuilderType type)
         {
             if (type != null && type.IsGenericInstance && type.Fullname.StartsWith("System.Func"))
-                return type.GenericArguments().Skip(1).ToArray();
+            {
+                var args = type.GenericArguments().ToArray();
+                return args.Take(args.Length - 1).ToArray();
+            }
             else if (type != null && type.IsGenericInstance)
                 return type.GenericArguments().ToArray();
 

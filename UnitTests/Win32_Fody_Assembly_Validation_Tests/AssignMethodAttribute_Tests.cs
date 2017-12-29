@@ -9,12 +9,30 @@ namespace Win32_Fody_Assembly_Validation_Tests
     [TestClass]
     public class AssignMethodAttribute_Method_FallBack_Tester
     {
-        public Func<object> ui;
-
         public int Blabla { get; set; }
 
         [AssignMethod_Action_PropertyInterceptor_FallBack(nameof(Blabla))]
         public string MyProperty { get; set; }
+
+        [AssignMethod_Func_MethodInterceptor_FallBack]
+        public static void FallBackWeave_Static_Test()
+        {
+        }
+
+        [AssignMethod_Func_MethodInterceptor_FallBack]
+        public void FallBackWeaveTest()
+        {
+        }
+
+        private static string OnFallBackWeave_Static_Test(string name, object something, object anything)
+        {
+            return name;
+        }
+
+        private string OnFallBackWeaveTest(string name, object something, object anything)
+        {
+            return name;
+        }
     }
 
     [TestClass]
@@ -620,6 +638,26 @@ namespace Win32_Fody_Assembly_Validation_Tests
         {
             action?.Invoke("Hello");
             return false;
+        }
+    }
+
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
+    public class AssignMethod_Func_MethodInterceptor_FallBackAttribute : Attribute, IMethodInterceptor
+    {
+        [AssignMethod("On{Name}")]
+        public Func<string, object, object, object> action = null;
+
+        public void OnEnter(Type declaringType, object instance, MethodBase methodbase, object[] values)
+        {
+            action?.Invoke(methodbase.Name, instance, values);
+        }
+
+        public void OnException(Exception e)
+        {
+        }
+
+        public void OnExit()
+        {
         }
     }
 
