@@ -276,6 +276,8 @@
   <HelpKINode Title="Cauldron.Core.Interceptors.ExecutionTimeAttribute class" Url="html/T_Cauldron_Core_Interceptors_ExecutionTimeAttribute.htm" />
   <HelpKINode Title="Cauldron.Core.Interceptors.PerformanceLoggerAttribute class" Url="html/T_Cauldron_Core_Interceptors_PerformanceLoggerAttribute.htm" />
   <HelpKINode Title="Cauldron.Core.Interceptors.PropertyOnSetAttribute class" Url="html/T_Cauldron_Core_Interceptors_PropertyOnSetAttribute.htm" />
+  <HelpKINode Title="Cauldron.Core.Interceptors.RegistryAttribute class" Url="html/T_Cauldron_Core_Interceptors_RegistryAttribute.htm" />
+  <HelpKINode Title="Cauldron.Core.Interceptors.RegistryClassAttribute class" Url="html/T_Cauldron_Core_Interceptors_RegistryClassAttribute.htm" />
   <HelpKINode Title="Cauldron.Core.Interceptors.TimedCacheAttribute class" Url="html/T_Cauldron_Core_Interceptors_TimedCacheAttribute.htm" />
   <HelpKINode Title="Cauldron.Core.Interceptors.TimedCacheChangeMonitor class" Url="html/T_Cauldron_Core_Interceptors_TimedCacheChangeMonitor.htm" />
   <HelpKINode Title="Cauldron.Core.Threading namespace" Url="html/N_Cauldron_Core_Threading.htm" />
@@ -631,10 +633,10 @@
   <HelpKINode Title="ExecutionTimeAttribute.ExecutionTimeAttribute constructor" Url="html/M_Cauldron_Core_Interceptors_ExecutionTimeAttribute__ctor.htm" />
   <HelpKINode Title="ExitDelegate property" Url="html/P_Cauldron_XAML_ParameterPassingConfig_ExitDelegate.htm" />
   <HelpKINode Title="Extensions class">
-    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_XAML_Extensions.htm" />
     <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Extensions.htm" />
-    <HelpKINode Title="about Extensions class" Url="html/T_Cauldron_XAML_Extensions.htm" />
+    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_XAML_Extensions.htm" />
     <HelpKINode Title="about Extensions class" Url="html/T_Cauldron_Extensions.htm" />
+    <HelpKINode Title="about Extensions class" Url="html/T_Cauldron_XAML_Extensions.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Extensions.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_XAML_Extensions.htm" />
   </HelpKINode>
@@ -1657,6 +1659,18 @@
   <HelpKINode Title="RegisterChildrenAttribute.RegisterChildrenAttribute constructor" Url="html/M_Cauldron_XAML_ViewModels_RegisterChildrenAttribute__ctor.htm" />
   <HelpKINode Title="RegisterElevated method" Url="html/M_Cauldron_Net_UrlProtocol_RegisterElevated.htm" />
   <HelpKINode Title="RegisterUrlProtocols method" Url="html/M_Cauldron_XAML_ApplicationBase_RegisterUrlProtocols.htm" />
+  <HelpKINode Title="RegistryAttribute class">
+    <HelpKINode Title="RegistryAttribute Class" Url="html/T_Cauldron_Core_Interceptors_RegistryAttribute.htm" />
+    <HelpKINode Title="about RegistryAttribute class" Url="html/T_Cauldron_Core_Interceptors_RegistryAttribute.htm" />
+    <HelpKINode Title="constructor" Url="html/Overload_Cauldron_Core_Interceptors_RegistryAttribute__ctor.htm" />
+  </HelpKINode>
+  <HelpKINode Title="RegistryAttribute.RegistryAttribute constructor" Url="html/Overload_Cauldron_Core_Interceptors_RegistryAttribute__ctor.htm" />
+  <HelpKINode Title="RegistryClassAttribute class">
+    <HelpKINode Title="RegistryClassAttribute Class" Url="html/T_Cauldron_Core_Interceptors_RegistryClassAttribute.htm" />
+    <HelpKINode Title="about RegistryClassAttribute class" Url="html/T_Cauldron_Core_Interceptors_RegistryClassAttribute.htm" />
+    <HelpKINode Title="constructor" Url="html/Overload_Cauldron_Core_Interceptors_RegistryClassAttribute__ctor.htm" />
+  </HelpKINode>
+  <HelpKINode Title="RegistryClassAttribute.RegistryClassAttribute constructor" Url="html/Overload_Cauldron_Core_Interceptors_RegistryClassAttribute__ctor.htm" />
   <HelpKINode Title="RelayCommand class">
     <HelpKINode Title="RelayCommand Class" Url="html/T_Cauldron_XAML_RelayCommand.htm" />
     <HelpKINode Title="about RelayCommand class" Url="html/T_Cauldron_XAML_RelayCommand.htm" />
