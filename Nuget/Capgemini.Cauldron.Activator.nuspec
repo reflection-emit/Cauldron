@@ -13,6 +13,7 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Activator Dependency Injection Factory Cauldron</tags>
     <releaseNotes>
+      2017.12.31 - [C] ComponentConstructorAttribute now accepts internal ctors
       2017.12.11 - [B] CreateFirst always returned null in some cases... This is fixed.
       2017.12.04 - [A] CreateFirst method added to the Factory. This will auto-pick the implementation with the highest priority if multiple implementations are available.
     </releaseNotes>

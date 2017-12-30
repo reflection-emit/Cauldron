@@ -80,7 +80,7 @@ namespace Cauldron.Interception.Fody
                             if (y.Name == ".cctor")
                                 return true;
 
-                            if (!y.Resolve().IsPublic)
+                            if (!y.Resolve().IsPublic || !y.Resolve().IsAssembly)
                                 return false;
 
                             if (y.Name == ".ctor" && y.DeclaringType.FullName.GetHashCode() != component.Type.Fullname.GetHashCode() && y.DeclaringType.FullName != component.Type.Fullname)
@@ -121,7 +121,7 @@ namespace Cauldron.Interception.Fody
                                 if (ctorParameters.Length > 0)
                                 {
                                     // In this case we have to find a parameterless constructor first
-                                    if (component.Type.ParameterlessContructor != null && !parameterlessCtorAlreadyHandled && component.Type.ParameterlessContructor.Modifiers.HasFlag(Modifiers.Public))
+                                    if (component.Type.ParameterlessContructor != null && !parameterlessCtorAlreadyHandled && component.Type.ParameterlessContructor.IsPublicOrInternal)
                                     {
                                         x.Load(Crumb.GetParameter(0)).IsNull().Then(y => y.NewObj(component.Type.ParameterlessContructor).Dup().Call(factory.OnObjectCreation, Crumb.This).Return());
                                         x.Load(Crumb.GetParameter(0)).Call(arrayAvatar.Length).EqualTo(0).Then(y => y.NewObj(component.Type.ParameterlessContructor).Dup().Call(factory.OnObjectCreation, Crumb.This).Return());
@@ -161,7 +161,7 @@ namespace Cauldron.Interception.Fody
                             // then we should look for a parameterless Ctor
                             if (component.Type.ParameterlessContructor == null)
                                 this.Log(LogTypes.Error, component.Type, $"The component '{component.Type.Fullname}' has no ComponentConstructor attribute or the constructor is not public");
-                            else if (component.Type.ParameterlessContructor.Modifiers.HasFlag(Modifiers.Public))
+                            else if (component.Type.ParameterlessContructor.IsPublicOrInternal)
                             {
                                 x.Load(Crumb.GetParameter(0)).IsNull().Then(y => y.NewObj(component.Type.ParameterlessContructor).Dup().Call(factory.OnObjectCreation, Crumb.This).Return());
                                 x.Load(Crumb.GetParameter(0)).Call(arrayAvatar.Length).EqualTo(0).Then(y => y.NewObj(component.Type.ParameterlessContructor).Dup().Call(factory.OnObjectCreation, Crumb.This).Return());

@@ -82,6 +82,7 @@ namespace Cauldron.Interception.Cecilator
         public bool IsPrivate => this.methodDefinition.IsPrivate;
         public bool IsProtected => this.methodDefinition.Attributes.HasFlag(MethodAttributes.Family);
         public bool IsPublic => this.methodDefinition.IsPublic;
+        public bool IsPublicOrInternal => this.IsPublic || this.IsInternal;
         public bool IsStatic => this.methodDefinition.IsStatic;
         public bool IsVoid => this.methodDefinition.ReturnType.FullName == "System.Void";
 
