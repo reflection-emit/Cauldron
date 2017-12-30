@@ -17,6 +17,19 @@ namespace Win32_Fody_Assembly_Validation_Tests
         public static double StaticProperty { get; set; }
 
         [TestPropertyInterceptor]
+        public double APropertyWithoutABackingField
+        {
+            get => StaticProperty;
+            set => StaticProperty = value;
+        }
+
+        [TestPropertyInterceptor]
+        public double APropertyWithoutGetter { set => StaticProperty = value; }
+
+        [TestPropertyInterceptor]
+        public double APropertyWithoutSetter => 40.0;
+
+        [TestPropertyInterceptor]
         public long[] ArrayProperty { get; set; }
 
         [TestPropertyInterceptor]

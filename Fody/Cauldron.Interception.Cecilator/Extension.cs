@@ -2,7 +2,6 @@
 using Mono.Cecil.Cil;
 using Mono.Cecil.Rocks;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -12,6 +11,8 @@ namespace Cauldron.Interception.Cecilator
 {
     public static class Extension
     {
+        private static Builder builder;
+
         public static TypeDefinition BetterResolve(this TypeReference value) => value.Resolve() ?? WeaverBase.AllTypes.Get(value.FullName);
 
         public static Builder CreateBuilder(this WeaverBase weaver)
@@ -19,7 +20,9 @@ namespace Cauldron.Interception.Cecilator
             if (weaver == null)
                 throw new ArgumentNullException(nameof(weaver), $"Argument '{nameof(weaver)}' cannot be null");
 
-            return new Builder(weaver);
+            builder = new Builder(weaver);
+
+            return builder;
         }
 
         public static CustomAttribute Get(this Mono.Collections.Generic.Collection<CustomAttribute> collection, string name)
@@ -368,6 +371,8 @@ namespace Cauldron.Interception.Cecilator
 
             return self.BetterResolve().MakeGenericInstanceType(genericArguments);
         }
+
+        public static BuilderType ToBuilderType(this Type type) => new BuilderType(builder, WeaverBase.AllTypes.Get(type.FullName));
 
         public static BuilderType ToBuilderType(this TypeDefinition value, Builder builder) => new BuilderType(builder, value);
 

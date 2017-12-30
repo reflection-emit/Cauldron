@@ -113,9 +113,7 @@ namespace Cauldron.Interception.Cecilator
 
         public VariableDefinition AddLocalVariable(string name, VariableDefinition variable)
         {
-            Dictionary<string, VariableDefinition> methodsDictionary;
-
-            if (variableDictionary.TryGetValue(this.methodDefinition.FullName, out methodsDictionary))
+            if (variableDictionary.TryGetValue(this.methodDefinition.FullName, out Dictionary<string, VariableDefinition> methodsDictionary))
             {
                 if (methodsDictionary.ContainsKey(name))
                     throw new ArgumentException($"The variable with the name '{name}' already exist in '{this.Name}'");
@@ -131,6 +129,8 @@ namespace Cauldron.Interception.Cecilator
 
             return variable;
         }
+
+        public Method Copy() => this.NewCode().Copy(Modifiers.Private, $"<{this.Name}>m__original");
 
         public Field CreateField(Type fieldType, string name) =>
             this.CreateField(this.moduleDefinition.ImportReference(this.GetTypeDefinition(fieldType).ResolveType(this.OriginType.typeReference)), name);

@@ -405,6 +405,7 @@ namespace Cauldron.Interception.Cecilator
             if (!getterOnly)
                 result.Setter.NewCode().Assign(backingField).Set(Crumb.GetParameter(0)).Return().Replace();
 
+            result.RefreshBackingField();
             return result;
         }
 
@@ -445,6 +446,7 @@ namespace Cauldron.Interception.Cecilator
             if (!getterOnly)
                 result.Setter.NewCode().Assign(field).Set(Crumb.GetParameter(0)).Return().Replace();
 
+            result.RefreshBackingField();
             return result;
         }
 

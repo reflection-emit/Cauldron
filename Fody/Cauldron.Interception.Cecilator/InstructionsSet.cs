@@ -53,6 +53,10 @@ namespace Cauldron.Interception.Cecilator
             if (lastInstruction.IsCallOrNew())
             {
                 var lastType = (lastInstruction.Operand as MethodReference)?.ReturnType;
+
+                if (lastType != null && lastType.FullName == type.Fullname)
+                    return this;
+
                 if (lastType != null && lastType.IsPrimitive)
                 {
                     var paramResult = new ParamResult();
@@ -345,7 +349,7 @@ namespace Cauldron.Interception.Cecilator
 
         public ILocalVariableCode Load(LocalVariable localVariable)
         {
-            if (localVariable.variable.VariableType.IsValueType)
+            if (localVariable.variable.VariableType.IsValueType && !localVariable.variable.VariableType.IsPrimitive)
                 this.instructions.Append(processor.Create(OpCodes.Ldloca, localVariable.variable));
             else
                 switch (localVariable.Index)
@@ -1169,12 +1173,8 @@ namespace Cauldron.Interception.Cecilator
                     if (realReturn.OpCode == OpCodes.Ldfld || realReturn.OpCode == OpCodes.Ldflda)
                         realReturn = realReturn.Previous;
                 }
-                else if (realReturn.Previous.IsValueOpCode())
-                {
-                    realReturn = realReturn.Previous;
-                }
                 else
-                    throw new NotImplementedException("Sorry... Not implemented.");
+                    realReturn = realReturn.Previous;
 
                 for (var i = 0; i < this.method.methodDefinition.Body.Instructions.Count - 1; i++)
                 {
@@ -1190,7 +1190,29 @@ namespace Cauldron.Interception.Cecilator
                         continue;
 
                     if (resultJump)
-                        this.processor.InsertBefore(instruction, this.processor.Create(OpCodes.Stloc, this.GetOrCreateReturnVariable()));
+                    {
+                        var returnVariable = this.GetOrCreateReturnVariable();
+                        var previousInstruction = instruction.Previous;
+
+                        if (previousInstruction != null && previousInstruction.IsLoadLocal())
+                        {
+                            if (
+                                (returnVariable.Index == 0 && previousInstruction.OpCode == OpCodes.Ldloc_0) ||
+                                (returnVariable.Index == 1 && previousInstruction.OpCode == OpCodes.Ldloc_1) ||
+                                (returnVariable.Index == 2 && previousInstruction.OpCode == OpCodes.Ldloc_2) ||
+                                (returnVariable.Index == 3 && previousInstruction.OpCode == OpCodes.Ldloc_3) ||
+                                (returnVariable == previousInstruction.Operand as VariableDefinition)
+                                )
+                            {
+                                // In this case also remove the redundant ldloc opcode
+                                i--;
+                                this.method.methodDefinition.Body.Instructions.Remove(previousInstruction);
+                                continue;
+                            }
+                        }
+
+                        this.processor.InsertBefore(instruction, this.processor.Create(OpCodes.Stloc, returnVariable));
+                    }
                 }
             }
         }

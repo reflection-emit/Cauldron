@@ -15,6 +15,7 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Interception interceptor interception AOP Fody Cecil CIL ILWeaving</tags>
     <releaseNotes>
+      2017.12.30 - [A] Support for properties without backing fields added.
       2017.12.29 - [C] AssignMethodAttribute now falls back to 'is assignable' if the return type of a method does not match.
       2017.12.29 - [C] {CtorArgument:} placeholder now accepts parameter names besides index.
       2017.12.28 - [B] AssignMethodAttribute decorated field types were not imported.

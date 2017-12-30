@@ -47,18 +47,35 @@ namespace Cauldron.Interception.Fody
                                     member.Property.ReturnType,
                                     Crumb.This,
                                     member.Property.ReturnType.IsArray || member.Property.ReturnType.Implements(typeof(IEnumerable)) ? member.Property.ReturnType.ChildType : null,
-                                    y.NewCode().NewObj(actionObjectCtor, propertySetter)));
+                                    propertySetter == null ? null : y.NewCode().NewObj(actionObjectCtor, propertySetter)));
                     })
                     .Try(x =>
                     {
-                        for (int i = 0; i < legalGetterInterceptors.Length; i++)
+                        if (member.Property.BackingField == null)
                         {
-                            var item = legalGetterInterceptors[i];
-                            var field = interceptorFields[item.Attribute.Identification];
-                            x.Load(field).As(item.InterfaceGetter.Type).Call(item.InterfaceGetter.OnGet, propertyField, member.Property.BackingField);
-                        }
+                            var returnValue = x.GetReturnVariable();
+                            x.OriginalBodyNewMethod().StoreLocal(returnValue);
 
-                        x.OriginalBody();
+                            for (int i = 0; i < legalGetterInterceptors.Length; i++)
+                            {
+                                var item = legalGetterInterceptors[i];
+                                var field = interceptorFields[item.Attribute.Identification];
+                                x.Load(field).As(item.InterfaceGetter.Type).Call(item.InterfaceGetter.OnGet, propertyField, returnValue);
+                            }
+
+                            x.Load(returnValue).Return();
+                        }
+                        else
+                        {
+                            for (int i = 0; i < legalGetterInterceptors.Length; i++)
+                            {
+                                var item = legalGetterInterceptors[i];
+                                var field = interceptorFields[item.Attribute.Identification];
+                                x.Load(field).As(item.InterfaceGetter.Type).Call(item.InterfaceGetter.OnGet, propertyField, member.Property.BackingField);
+                            }
+
+                            x.OriginalBody();
+                        }
                     })
                     .Catch(typeof(Exception), x =>
                     {
@@ -117,7 +134,7 @@ namespace Cauldron.Interception.Fody
                                     member.Property.ReturnType,
                                     Crumb.This,
                                     member.Property.ReturnType.IsArray || member.Property.ReturnType.Implements(typeof(IEnumerable)) ? member.Property.ReturnType.ChildType : null,
-                                    x.NewCode().NewObj(actionObjectCtor, propertySetter));
+                                    propertySetter == null ? null : x.NewCode().NewObj(actionObjectCtor, propertySetter));
 
                         for (int i = 0; i < legalInitInterceptors.Length; i++)
                         {
@@ -166,19 +183,38 @@ namespace Cauldron.Interception.Fody
                                     member.Property.ReturnType,
                                     Crumb.This,
                                     member.Property.ReturnType.IsArray || member.Property.ReturnType.Implements(typeof(IEnumerable)) ? member.Property.ReturnType.ChildType : null,
-                                    y.NewCode().NewObj(actionObjectCtor, propertySetter)));
+                                    propertySetter == null ? null : y.NewCode().NewObj(actionObjectCtor, propertySetter)));
                     })
                     .Try(x =>
                     {
-                        for (int i = 0; i < legalSetterInterceptors.Length; i++)
+                        if (member.Property.BackingField == null)
                         {
-                            var item = legalSetterInterceptors[i];
-                            var field = interceptorFields[item.Attribute.Identification];
-                            x.Load(field).As(legalSetterInterceptors[i].InterfaceSetter.Type).Call(item.InterfaceSetter.OnSet, propertyField, member.Property.BackingField, Crumb.GetParameter(0));
+                            var oldvalue = member.Property.Getter == null ? null : x.CreateVariable(member.Property.ReturnType);
 
-                            //x.IsFalse().Then(y => y.Assign(member.Property.BackingField).Set(member.Property.Setter.NewCode().GetParameter(0)));
-                            x.IsFalse().Then(y => y.OriginalBody());
+                            if (oldvalue != null)
+                            {
+                                var getter = member.Property.Getter.Copy();
+                                x.Call(getter.IsStatic ? null : Crumb.This, getter).StoreLocal(oldvalue);
+                            }
+
+                            for (int i = 0; i < legalSetterInterceptors.Length; i++)
+                            {
+                                var item = legalSetterInterceptors[i];
+                                var field = interceptorFields[item.Attribute.Identification];
+                                x.Load(field).As(legalSetterInterceptors[i].InterfaceSetter.Type).Call(item.InterfaceSetter.OnSet, propertyField, oldvalue, Crumb.GetParameter(0));
+
+                                x.IsFalse().Then(y => y.OriginalBodyNewMethod());
+                            }
                         }
+                        else
+                            for (int i = 0; i < legalSetterInterceptors.Length; i++)
+                            {
+                                var item = legalSetterInterceptors[i];
+                                var field = interceptorFields[item.Attribute.Identification];
+                                x.Load(field).As(legalSetterInterceptors[i].InterfaceSetter.Type).Call(item.InterfaceSetter.OnSet, propertyField, member.Property.BackingField, Crumb.GetParameter(0));
+
+                                x.IsFalse().Then(y => y.OriginalBody());
+                            }
                     })
                     .Catch(typeof(Exception), x =>
                     {
@@ -207,70 +243,98 @@ namespace Cauldron.Interception.Fody
 
         private static void CreatePropertySetterDelegate(Builder builder, PropertyBuilderInfo member, Method propertySetter)
         {
-            var iList = new __IList(builder);
-            var setterCode = propertySetter.NewCode();
+            // If we don't have a backing field and we don't have a setter and getter
+            // don't bother creating a setter delegate
+            if (member.Property.BackingField == null && propertySetter == null)
+                return;
 
-            if (!member.Property.BackingField.FieldType.IsGenericType)
+            if (member.Property.BackingField == null && member.Property.Getter != null && member.Property.Setter != null)
             {
-                var extensions = new __Extensions(builder);
+                var getter = member.Property.Getter.Copy();
+                var setter = member.Property.Setter.Copy();
 
-                if (member.Property.BackingField.FieldType.ParameterlessContructor != null && member.Property.BackingField.FieldType.ParameterlessContructor.IsPublic)
-                    setterCode.Load(member.Property.BackingField).IsNull().Then(y =>
-                        y.Assign(member.Property.BackingField).Set(propertySetter.NewCode()
-                            .NewObj(member.Property.BackingField.FieldType.ParameterlessContructor)));
-
-                // Only this if the property implements idisposable
-                if (member.Property.BackingField.FieldType.Implements(typeof(IDisposable)))
-                    setterCode.Call(extensions.TryDisposeInternal, member.Property.BackingField);
-
-                setterCode.Load(Crumb.GetParameter(0)).IsNull().Then(x =>
-                {
-                    // Just clear if its clearable
-                    if (member.Property.BackingField.FieldType.Implements(iList.Type.Fullname))
-                        x.Load(member.Property.BackingField).Callvirt(iList.Clear).Return();
-                    // Otherwise if the property is not a value type and nullable
-                    else if (!member.Property.BackingField.FieldType.IsValueType || member.Property.BackingField.FieldType.IsNullable || member.Property.BackingField.FieldType.IsArray)
-                        x.Assign(member.Property.BackingField).Set(null).Return();
-                    else // otherwise... throw an exception
-                        x.ThrowNew(typeof(NotSupportedException), "Value types does not accept null values.");
-                });
-
-                if (member.Property.BackingField.FieldType.IsArray)
-                    setterCode.Load(Crumb.GetParameter(0)).Is(typeof(IEnumerable))
-                        .Then(x => x.Assign(member.Property.BackingField).Set(Crumb.GetParameter(0)).Return())
-                        .ThrowNew(typeof(NotSupportedException), "Value does not inherits from IEnumerable");
-                else if (member.Property.BackingField.FieldType.Implements(iList.Type.Fullname) && member.Property.BackingField.FieldType.ParameterlessContructor != null)
-                {
-                    var addRange = member.Property.BackingField.FieldType.GetMethod("AddRange", 1, false);
-                    if (addRange == null)
-                    {
-                        var add = member.Property.BackingField.FieldType.GetMethod("Add", 1);
-                        var array = setterCode.CreateVariable(member.Property.BackingField.FieldType.ChildType.MakeArray());
-                        setterCode.Assign(array).Set(Crumb.GetParameter(0));
-                        setterCode.For(array, (x, item) => x.Load(member.Property.BackingField).Callvirt(add, item));
-                        if (!add.ReturnType.IsVoid)
-                            setterCode.Pop();
-                    }
-                    else
-                        setterCode.Load(member.Property.BackingField).Callvirt(addRange, Crumb.GetParameter(0));
-                }
-                else if (member.Property.BackingField.FieldType.IsEnum)
-                {
-                    // Enums requires special threatment
-                    setterCode.Load(Crumb.GetParameter(0)).Is(typeof(string)).Then(x =>
-                    {
-                        var stringVariable = setterCode.CreateVariable(typeof(string));
-                        setterCode.Assign(stringVariable).Set(Crumb.GetParameter(0));
-                        setterCode.Assign(member.Property.BackingField).Set(stringVariable).Return();
-                    });
-
-                    setterCode.Assign(member.Property.BackingField).Set(Crumb.GetParameter(0));
-                }
-                else
-                    setterCode.Assign(member.Property.BackingField).Set(Crumb.GetParameter(0));
+                CreateSetterDelegate(builder, propertySetter, member.Property.ReturnType,
+                    x => x.Call(getter.IsStatic ? null : Crumb.This, getter),
+                    (coder, value) => coder.Call(setter.IsStatic ? null : Crumb.This, setter, value()));
+            }
+            else if (member.Property.BackingField != null && !member.Property.BackingField.FieldType.IsGenericType)
+            {
+                CreateSetterDelegate(builder, propertySetter, member.Property.BackingField.FieldType,
+                    x => x.Load(member.Property.BackingField) as ICode,
+                    (coder, value) => coder.Assign(member.Property.BackingField).Set(value()));
+            }
+            else if (member.Property.BackingField == null && member.Property.Setter != null)
+            {
+                var methodSetter = member.Property.Setter.Copy();
+                propertySetter.NewCode().Call(methodSetter.IsStatic ? null : Crumb.This, methodSetter, Crumb.GetParameter(0)).Return().Replace();
+            }
+            else if (member.Property.BackingField == null && member.Property.Getter != null)
+            {
+                // This shouldn't be a thing
             }
             else
-                setterCode.Assign(member.Property.BackingField).Set(Crumb.GetParameter(0));
+                propertySetter.NewCode().Assign(member.Property.BackingField).Set(Crumb.GetParameter(0)).Return().Replace();
+        }
+
+        private static void CreateSetterDelegate(Builder builder, Method setterDelegateMethod, BuilderType propertyType,
+                    Func<ICode, ICode> loadValue, Func<ICode, Func<object>, ICode> setValue)
+        {
+            var extensions = new __Extensions(builder);
+            var iList = new __IList(builder);
+            var setterCode = setterDelegateMethod.NewCode();
+
+            if (propertyType.ParameterlessContructor != null && propertyType.ParameterlessContructor.IsPublic)
+                loadValue(setterCode).IsNull().Then(y => setValue(y, () => setterCode.NewCode().NewObj(propertyType.ParameterlessContructor)));
+
+            // Only this if the property implements idisposable
+            if (propertyType.Implements(typeof(IDisposable)))
+                setterCode.Call(extensions.TryDisposeInternal, loadValue(setterCode.NewCode()));
+
+            setterCode.Load(Crumb.GetParameter(0)).IsNull().Then(x =>
+            {
+                // Just clear if its clearable
+                if (propertyType.Implements(iList.Type.Fullname))
+                    loadValue(x).Callvirt(iList.Clear).Return();
+                // Otherwise if the property is not a value type and nullable
+                else if (!propertyType.IsValueType || propertyType.IsNullable || propertyType.IsArray)
+                    setValue(x, () => null).Return();
+                else // otherwise... throw an exception
+                    x.ThrowNew(typeof(NotSupportedException), "Value types does not accept null values.");
+            });
+
+            if (propertyType.IsArray)
+                setterCode.Load(Crumb.GetParameter(0)).Is(typeof(IEnumerable))
+                    .Then(x => setValue(x, () => Crumb.GetParameter(0)).Return())
+                    .ThrowNew(typeof(NotSupportedException), "Value does not inherits from IEnumerable");
+            else if (propertyType.Implements(iList.Type.Fullname) && propertyType.ParameterlessContructor != null)
+            {
+                var addRange = propertyType.GetMethod("AddRange", 1, false);
+                if (addRange == null)
+                {
+                    var add = propertyType.GetMethod("Add", 1);
+                    var array = setterCode.CreateVariable(propertyType.ChildType.MakeArray());
+                    setterCode.Assign(array).Set(Crumb.GetParameter(0));
+                    setterCode.For(array, (x, item) => loadValue(x).Callvirt(add, item));
+                    if (!add.ReturnType.IsVoid)
+                        setterCode.Pop();
+                }
+                else
+                    loadValue(setterCode).Callvirt(addRange, Crumb.GetParameter(0));
+            }
+            else if (propertyType.IsEnum)
+            {
+                // Enums requires special threatment
+                setterCode.Load(Crumb.GetParameter(0)).Is(typeof(string)).Then(x =>
+                {
+                    var stringVariable = setterCode.CreateVariable(typeof(string));
+                    setterCode.Assign(stringVariable).Set(Crumb.GetParameter(0));
+                    setValue(setterCode, () => stringVariable).Return();
+                });
+
+                setValue(setterCode, () => Crumb.GetParameter(0));
+            }
+            else
+                setValue(setterCode, () => Crumb.GetParameter(0));
 
             setterCode.Return().Replace();
         }
@@ -299,12 +363,6 @@ namespace Cauldron.Interception.Fody
 
                 foreach (var property in type.Key.Properties)
                 {
-                    if (property.BackingField == null)
-                    {
-                        this.Log(LogTypes.Error, property, "Unable to detect the backing field of property: " + property);
-                        continue;
-                    }
-
                     if (property.CustomAttributes.HasAttribute(doNotInterceptAttribute))
                     {
                         property.CustomAttributes.Remove(doNotInterceptAttribute);
@@ -348,17 +406,13 @@ namespace Cauldron.Interception.Fody
             {
                 this.Log($"Implementing interceptors in property {member.Property}");
 
-                if (member.Property.BackingField == null)
-                {
-                    this.Log(LogTypes.Error, member.Property, "Unable to detect the backing field of property: " + member.Property);
-                    continue;
-                }
-
                 var propertyField = member.Property.CreateField(propertyInterceptionInfo.Type, $"<{member.Property.Name}>p__propertyInfo");
                 propertyField.CustomAttributes.AddNonSerializedAttribute();
 
                 var actionObjectCtor = builder.Import(typeof(Action<object>).GetConstructor(new Type[] { typeof(object), typeof(IntPtr) }));
-                var propertySetter = member.Property.OriginType.CreateMethod(member.Property.Modifiers.GetPrivate(), $"<{member.Property.Name}>m__setterMethod", builder.GetType(typeof(object)));
+                var propertySetter = member.Property.Setter == null ?
+                    null :
+                    member.Property.OriginType.CreateMethod(member.Property.Modifiers.GetPrivate(), $"<{member.Property.Name}>m__setterMethod", builder.GetType(typeof(object)));
 
                 CreatePropertySetterDelegate(builder, member, propertySetter);
 
@@ -376,10 +430,10 @@ namespace Cauldron.Interception.Fody
                 if (member.HasInitializer)
                     AddPropertyInitializeInterception(builder, propertyInterceptionInfo, member, propertyField, actionObjectCtor, propertySetter, interceptorFields);
 
-                if (member.HasGetterInterception)
+                if (member.HasGetterInterception && member.Property.Getter != null)
                     AddPropertyGetterInterception(builder, propertyInterceptionInfo, member, propertyField, actionObjectCtor, propertySetter, interceptorFields);
 
-                if (member.HasSetterInterception)
+                if (member.HasSetterInterception && member.Property.Setter != null)
                     AddPropertySetterInterception(builder, propertyInterceptionInfo, member, propertyField, actionObjectCtor, propertySetter, interceptorFields);
 
                 // Do this at the end to ensure that syncroot init is always on the top

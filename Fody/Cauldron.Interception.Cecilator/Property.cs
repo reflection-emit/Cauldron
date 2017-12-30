@@ -15,49 +15,17 @@ namespace Cauldron.Interception.Cecilator
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
         internal readonly BuilderType type;
 
-        [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private Field backingField;
-
         internal Property(BuilderType type, PropertyDefinition propertyDefinition) : base(type)
         {
             this.type = type;
             this.propertyDefinition = propertyDefinition;
             this.Getter = propertyDefinition.GetMethod == null ? null : new Method(type, propertyDefinition.GetMethod.ResolveMethod(type.typeReference), propertyDefinition.GetMethod);
             this.Setter = propertyDefinition.SetMethod == null ? null : new Method(type, propertyDefinition.SetMethod.ResolveMethod(type.typeReference), propertyDefinition.SetMethod);
+
+            this.RefreshBackingField();
         }
 
-        public Field BackingField
-        {
-            get
-            {
-                if (this.backingField == null)
-                {
-                    var fieldInGetter = this.propertyDefinition.GetMethod?.Body.Instructions.LastOrDefault(x => x.OpCode == OpCodes.Ldfld || x.OpCode == OpCodes.Ldsfld);
-                    var fieldInSetter = this.propertyDefinition.SetMethod?.Body.Instructions.LastOrDefault(x => x.OpCode == OpCodes.Stfld || x.OpCode == OpCodes.Stsfld);
-                    object operand = null;
-
-                    /*
-                     * This is a very basic detection of the backing field...
-                     * If there is a setter and a getter we will try to get the fields (by LdFld and Stfld) used in the getter and setter.
-                     * If both fields are the same then we will asume that this is the correct backing field...
-                     * In other cases we will be just having wild guesses.
-                     */
-
-                    if (this.Getter != null && this.Setter != null && fieldInGetter == fieldInSetter)
-                        operand = fieldInSetter?.Operand;
-                    else if (this.Getter != null && fieldInGetter != null)
-                        operand = fieldInGetter?.Operand;
-                    else if (this.Setter != null && fieldInSetter != null)
-                        operand = fieldInSetter?.Operand;
-
-                    var field = operand as FieldDefinition ?? operand as FieldReference;
-                    if (field != null)
-                        this.backingField = new Field(this.type, field.Resolve(), field);
-                }
-
-                return this.backingField;
-            }
-        }
+        public Field BackingField { get; private set; }
 
         public BuilderCustomAttributeCollection CustomAttributes => new BuilderCustomAttributeCollection(this.type.Builder, this.propertyDefinition);
 
@@ -67,6 +35,7 @@ namespace Cauldron.Interception.Cecilator
         public BuilderType DeclaringType => new BuilderType(this.type.Builder, this.propertyDefinition.DeclaringType);
 
         public Method Getter { get; private set; }
+
         public bool IsAbstract => this.propertyDefinition.GetMethod?.IsAbstract ?? false | this.propertyDefinition.SetMethod?.IsAbstract ?? false;
 
         public bool IsAutoProperty
@@ -78,6 +47,7 @@ namespace Cauldron.Interception.Cecilator
         }
 
         public bool IsPublic => this.Getter?.IsPublic ?? false | this.Setter?.IsPublic ?? false;
+
         public bool IsStatic => this.propertyDefinition.GetMethod?.IsStatic ?? false | this.propertyDefinition.SetMethod?.IsStatic ?? false;
 
         public Modifiers Modifiers
@@ -171,6 +141,31 @@ namespace Cauldron.Interception.Cecilator
         {
             this.Getter?.methodDefinition.Overrides.Add(property.Getter.methodReference);
             this.Setter?.methodDefinition.Overrides.Add(property.Setter.methodReference);
+        }
+
+        internal void RefreshBackingField()
+        {
+            var fieldInGetter = this.propertyDefinition.GetMethod?.Body?.Instructions.LastOrDefault(x => x.OpCode == OpCodes.Ldfld || x.OpCode == OpCodes.Ldsfld);
+            var fieldInSetter = this.propertyDefinition.SetMethod?.Body?.Instructions.LastOrDefault(x => x.OpCode == OpCodes.Stfld || x.OpCode == OpCodes.Stsfld);
+            object operand = null;
+
+            /*
+             * This is a very basic detection of the backing field...
+             * If there is a setter and a getter we will try to get the fields (by LdFld and Stfld) used in the getter and setter.
+             * If both fields are the same then we will asume that this is the correct backing field...
+             * In other cases we will be just having wild guesses.
+             */
+
+            if (this.Getter != null && this.Setter != null && fieldInGetter == fieldInSetter)
+                operand = fieldInSetter?.Operand;
+            else if (this.Getter != null && fieldInGetter != null)
+                operand = fieldInGetter?.Operand;
+            else if (this.Setter != null && fieldInSetter != null)
+                operand = fieldInSetter?.Operand;
+
+            var field = operand as FieldDefinition ?? operand as FieldReference;
+            if (field != null)
+                this.BackingField = new Field(this.type, field.Resolve(), field);
         }
 
         #region Equitable stuff
