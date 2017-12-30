@@ -57,23 +57,30 @@
   <ItemGroup>
     <Compile Include="AssignMethodAttributeInfo.cs" />
     <Compile Include="Extensions\BuilderExtensions.cs" />
+    <Compile Include="HelperTypes\HelperTypeFieldAttribute.cs" />
+    <Compile Include="HelperTypes\HelperTypeMethodAttribute.cs" />
+    <Compile Include="HelperTypes\HelperTypeNameAttribute.cs" />
     <Compile Include="HelperTypes\__Application.cs" />
     <Compile Include="HelperTypes\__AssignMethodAttribute.cs" />
     <Compile Include="HelperTypes\__AsyncTaskMethodBuilder`1.cs" />
     <Compile Include="HelperTypes\__AsyncTaskMethodBuilder.cs" />
     <Compile Include="HelperTypes\HelperTypeBase.cs" />
     <Compile Include="HelperTypes\__ComponentAttribute.cs" />
+    <Compile Include="HelperTypes\__ComponentConstructorAttribute.cs" />
     <Compile Include="HelperTypes\__EventArgs.cs" />
     <Compile Include="HelperTypes\__EventHandler.cs" />
     <Compile Include="HelperTypes\__EventHandler`1.cs" />
+    <Compile Include="HelperTypes\__Factory`1.cs" />
     <Compile Include="HelperTypes\__IChangeAwareViewModel.cs" />
     <Compile Include="HelperTypes\__ICollection`1.cs" />
     <Compile Include="HelperTypes\__Exception.cs" />
     <Compile Include="HelperTypes\__Extensions.cs" />
     <Compile Include="HelperTypes\__Factory.cs" />
     <Compile Include="HelperTypes\__IConstructorInterceptor.cs" />
+    <Compile Include="HelperTypes\__IFactoryResolver.cs" />
     <Compile Include="HelperTypes\__IList.cs" />
     <Compile Include="HelperTypes\__IMethodInterceptor.cs" />
+    <Compile Include="HelperTypes\__InterceptionRuleAttribute.cs" />
     <Compile Include="HelperTypes\__IPropertyGetterInterceptor.cs" />
     <Compile Include="HelperTypes\__IPropertyInterceptorInitialize.cs" />
     <Compile Include="HelperTypes\__IPropertySetterInterceptor.cs" />
@@ -86,6 +93,7 @@
     <Compile Include="HelperTypes\__Task`1.cs" />
     <Compile Include="HelperTypes\__TimedCacheAttribute.cs" />
     <Compile Include="HelperTypes\__Uri.cs" />
+    <Compile Include="InterceptorInfo.cs" />
     <Compile Include="MethodBuilderInfo.cs" />
     <Compile Include="ModuleWeaver.cs" />
     <Compile Include="ModuleWeaver_AssignMethodAttribute.cs" />
@@ -100,6 +108,7 @@
     <Compile Include="ModuleWeaver_TimedCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyBuilderInfo.cs" />
+    <Compile Include="StopwatchLog.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Cauldron.Interception.Cecilator\Cauldron.Interception.Cecilator.csproj">

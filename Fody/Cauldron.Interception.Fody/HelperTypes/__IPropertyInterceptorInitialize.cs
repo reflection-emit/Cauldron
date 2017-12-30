@@ -2,13 +2,10 @@
 
 namespace Cauldron.Interception.Fody.HelperTypes
 {
-    public sealed class __IPropertyInterceptorInitialize : HelperTypeBase
+    [HelperTypeName("Cauldron.Interception.IPropertyInterceptorInitialize")]
+    public sealed class __IPropertyInterceptorInitialize : HelperTypeBase<__IPropertyInterceptorInitialize>
     {
-        public __IPropertyInterceptorInitialize(Builder builder) : base(builder, "Cauldron.Interception.IPropertyInterceptorInitialize")
-        {
-            this.OnInitialize = this.type.GetMethod("OnInitialize", 2);
-        }
-
+        [HelperTypeMethod("OnInitialize", 2)]
         public Method OnInitialize { get; private set; }
     }
 }

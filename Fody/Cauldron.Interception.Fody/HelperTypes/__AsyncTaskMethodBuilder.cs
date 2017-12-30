@@ -2,13 +2,10 @@
 
 namespace Cauldron.Interception.Fody.HelperTypes
 {
-    public sealed class __AsyncTaskMethodBuilder : HelperTypeBase
+    [HelperTypeName("System.Runtime.CompilerServices.AsyncTaskMethodBuilder")]
+    public sealed class __AsyncTaskMethodBuilder : HelperTypeBase<__AsyncTaskMethodBuilder>
     {
-        public __AsyncTaskMethodBuilder(Builder builder) : base(builder, "System.Runtime.CompilerServices.AsyncTaskMethodBuilder")
-        {
-            this.GetTask = this.type.GetMethod("get_Task");
-        }
-
+        [HelperTypeMethod("get_Task")]
         public Method GetTask { get; private set; }
     }
 }

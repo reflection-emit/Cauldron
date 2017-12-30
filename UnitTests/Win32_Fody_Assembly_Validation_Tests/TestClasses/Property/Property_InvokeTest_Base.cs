@@ -2,7 +2,6 @@
 using Cauldron.UnitTest.Interceptors.Property;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Linq.Expressions;
 
 namespace Cauldron.UnitTest.AssemblyValidation.TestClasses.Property
 {

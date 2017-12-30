@@ -14,8 +14,8 @@ namespace Cauldron.Interception.Fody
             if (!methods.Any())
                 return;
 
-            var task = new __Task(builder);
-            var task_1 = new __Task_1(builder);
+            var task = new __Task();
+            var task_1 = new __Task_1();
 
             foreach (var method in methods)
             {
@@ -29,7 +29,7 @@ namespace Cauldron.Interception.Fody
 
                 var cacheField = $"<{method.Method.Name}>m__MethodCache_{method.Identification}";
 
-                if (method.AsyncMethod == null && method.Method.ReturnType.Inherits(task.Type.Fullname))
+                if (method.AsyncMethod == null && method.Method.ReturnType.Inherits(__Task.Type.Fullname))
                     this.Log(LogTypes.Warning, method.Method, $"- CacheAttribute for method {method.Method.Name} will not be implemented. Methods that returns 'Task' without async are not supported.");
                 else if (method.AsyncMethod == null)
                     method.Method.NewCode()

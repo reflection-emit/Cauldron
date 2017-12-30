@@ -25,7 +25,7 @@ namespace Cauldron.Interception.Cecilator
             this.attribute.ConstructorArguments.ToArray() :
             new CustomAttributeArgument[0];
 
-        public string Fullname { get { return this.attribute.AttributeType.FullName; } }
+        public string Fullname => this.attribute.AttributeType.FullName;
 
         public BuilderType Type { get; private set; }
 
@@ -39,6 +39,8 @@ namespace Cauldron.Interception.Cecilator
 
             return this.attribute.ConstructorArguments[parameter.Index];
         }
+
+        public BuilderType GetConstructorArgumentType(int index) => new BuilderType(this.Type, this.attribute.Constructor.Parameters[index].ParameterType);
 
         public void MoveTo(Property property)
         {

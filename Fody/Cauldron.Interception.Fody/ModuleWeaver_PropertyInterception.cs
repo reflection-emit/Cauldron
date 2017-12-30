@@ -14,7 +14,7 @@ namespace Cauldron.Interception.Fody
     {
         private static void AddPropertyGetterInterception(Builder builder, __PropertyInterceptionInfo propertyInterceptionInfo, PropertyBuilderInfo member, Field propertyField, Method actionObjectCtor, Method propertySetter, Dictionary<string, Field> interceptorFields)
         {
-            var syncRoot = new __ISyncRoot(builder);
+            var syncRoot = new __ISyncRoot();
             var legalGetterInterceptors = member.InterceptorInfos.Where(x => x.InterfaceGetter != null).ToArray();
             member.Property.Getter
                 .NewCode()
@@ -31,7 +31,7 @@ namespace Cauldron.Interception.Fody
                             {
                                 y.Assign(field).NewObj(item.Attribute);
                                 if (item.HasSyncRootInterface)
-                                    y.Load(field).As(syncRoot.Type.Import()).Call(syncRoot.SyncRoot, member.SyncRoot);
+                                    y.Load(field).As(__ISyncRoot.Type.Import()).Call(syncRoot.SyncRoot, member.SyncRoot);
 
                                 ImplementAssignMethodAttribute(builder, legalGetterInterceptors[i].AssignMethodAttributeInfos, field, y, false);
                             });
@@ -60,7 +60,7 @@ namespace Cauldron.Interception.Fody
                             {
                                 var item = legalGetterInterceptors[i];
                                 var field = interceptorFields[item.Attribute.Identification];
-                                x.Load(field).As(item.InterfaceGetter.Type).Call(item.InterfaceGetter.OnGet, propertyField, returnValue);
+                                x.Load(field).As(item.InterfaceGetter.ToBuilderType).Call(item.InterfaceGetter.OnGet, propertyField, returnValue);
                             }
 
                             x.Load(returnValue).Return();
@@ -71,7 +71,7 @@ namespace Cauldron.Interception.Fody
                             {
                                 var item = legalGetterInterceptors[i];
                                 var field = interceptorFields[item.Attribute.Identification];
-                                x.Load(field).As(item.InterfaceGetter.Type).Call(item.InterfaceGetter.OnGet, propertyField, member.Property.BackingField);
+                                x.Load(field).As(item.InterfaceGetter.ToBuilderType).Call(item.InterfaceGetter.OnGet, propertyField, member.Property.BackingField);
                             }
 
                             x.OriginalBody();
@@ -83,7 +83,7 @@ namespace Cauldron.Interception.Fody
                         {
                             var item = legalGetterInterceptors[i];
                             var field = interceptorFields[item.Attribute.Identification];
-                            x.Load(field).As(legalGetterInterceptors[i].InterfaceGetter.Type).Call(legalGetterInterceptors[i].InterfaceGetter.OnException, x.Exception);
+                            x.Load(field).As(legalGetterInterceptors[i].InterfaceGetter.ToBuilderType).Call(legalGetterInterceptors[i].InterfaceGetter.OnException, x.Exception);
                         }
 
                         x.Rethrow();
@@ -94,7 +94,7 @@ namespace Cauldron.Interception.Fody
                         {
                             var item = legalGetterInterceptors[i];
                             var field = interceptorFields[item.Attribute.Identification];
-                            x.Load(field).As(legalGetterInterceptors[i].InterfaceGetter.Type).Call(legalGetterInterceptors[i].InterfaceGetter.OnExit);
+                            x.Load(field).As(legalGetterInterceptors[i].InterfaceGetter.ToBuilderType).Call(legalGetterInterceptors[i].InterfaceGetter.OnExit);
                         }
                     })
                     .EndTry()
@@ -105,7 +105,7 @@ namespace Cauldron.Interception.Fody
         private static void AddPropertyInitializeInterception(Builder builder, __PropertyInterceptionInfo propertyInterceptionInfo, PropertyBuilderInfo member, Field propertyField, Method actionObjectCtor, Method propertySetter, Dictionary<string, Field> interceptorFields)
         {
             var declaringType = member.Property.OriginType;
-            var syncRoot = new __ISyncRoot(builder);
+            var syncRoot = new __ISyncRoot();
             var legalInitInterceptors = member.InterceptorInfos.Where(x => x.InterfaceInitializer != null).ToArray();
             var relevantCtors = member.Property.IsStatic ? new Method[] { declaringType.StaticConstructor } : declaringType.GetRelevantConstructors().Where(x => x.Name != ".cctor");
 
@@ -121,7 +121,7 @@ namespace Cauldron.Interception.Fody
 
                             x.Assign(field).NewObj(item.Attribute);
                             if (item.HasSyncRootInterface)
-                                x.Load(field).As(syncRoot.Type.Import()).Call(syncRoot.SyncRoot, member.SyncRoot);
+                                x.Load(field).As(__ISyncRoot.Type.Import()).Call(syncRoot.SyncRoot, member.SyncRoot);
 
                             ImplementAssignMethodAttribute(builder, legalInitInterceptors[i].AssignMethodAttributeInfos, field, x, false);
                         }
@@ -149,7 +149,7 @@ namespace Cauldron.Interception.Fody
 
         private static void AddPropertySetterInterception(Builder builder, __PropertyInterceptionInfo propertyInterceptionInfo, PropertyBuilderInfo member, Field propertyField, Method actionObjectCtor, Method propertySetter, Dictionary<string, Field> interceptorFields)
         {
-            var syncRoot = new __ISyncRoot(builder);
+            var syncRoot = new __ISyncRoot();
             var legalSetterInterceptors = member.InterceptorInfos.Where(x => x.InterfaceSetter != null).ToArray();
             member.Property.Setter
                 .NewCode()
@@ -167,7 +167,7 @@ namespace Cauldron.Interception.Fody
                                 y.Assign(field).NewObj(item.Attribute);
 
                                 if (item.HasSyncRootInterface)
-                                    y.Load(field).As(syncRoot.Type.Import()).Call(syncRoot.SyncRoot, member.SyncRoot);
+                                    y.Load(field).As(syncRoot.ToBuilderType.Import()).Call(syncRoot.SyncRoot, member.SyncRoot);
 
                                 ImplementAssignMethodAttribute(builder, legalSetterInterceptors[i].AssignMethodAttributeInfos, field, y, false);
                             });
@@ -201,7 +201,7 @@ namespace Cauldron.Interception.Fody
                             {
                                 var item = legalSetterInterceptors[i];
                                 var field = interceptorFields[item.Attribute.Identification];
-                                x.Load(field).As(legalSetterInterceptors[i].InterfaceSetter.Type).Call(item.InterfaceSetter.OnSet, propertyField, oldvalue, Crumb.GetParameter(0));
+                                x.Load(field).As(legalSetterInterceptors[i].InterfaceSetter.ToBuilderType).Call(item.InterfaceSetter.OnSet, propertyField, oldvalue, Crumb.GetParameter(0));
 
                                 x.IsFalse().Then(y => y.OriginalBodyNewMethod());
                             }
@@ -211,7 +211,7 @@ namespace Cauldron.Interception.Fody
                             {
                                 var item = legalSetterInterceptors[i];
                                 var field = interceptorFields[item.Attribute.Identification];
-                                x.Load(field).As(legalSetterInterceptors[i].InterfaceSetter.Type).Call(item.InterfaceSetter.OnSet, propertyField, member.Property.BackingField, Crumb.GetParameter(0));
+                                x.Load(field).As(legalSetterInterceptors[i].InterfaceSetter.ToBuilderType).Call(item.InterfaceSetter.OnSet, propertyField, member.Property.BackingField, Crumb.GetParameter(0));
 
                                 x.IsFalse().Then(y => y.OriginalBody());
                             }
@@ -222,7 +222,7 @@ namespace Cauldron.Interception.Fody
                         {
                             var item = legalSetterInterceptors[i];
                             var field = interceptorFields[item.Attribute.Identification];
-                            x.Load(field).As(legalSetterInterceptors[i].InterfaceSetter.Type).Call(legalSetterInterceptors[i].InterfaceSetter.OnException, x.Exception);
+                            x.Load(field).As(legalSetterInterceptors[i].InterfaceSetter.ToBuilderType).Call(legalSetterInterceptors[i].InterfaceSetter.OnException, x.Exception);
                         }
 
                         x.Rethrow();
@@ -233,7 +233,7 @@ namespace Cauldron.Interception.Fody
                         {
                             var item = legalSetterInterceptors[i];
                             var field = interceptorFields[item.Attribute.Identification];
-                            x.Load(field).As(legalSetterInterceptors[i].InterfaceSetter.Type).Call(legalSetterInterceptors[i].InterfaceSetter.OnExit);
+                            x.Load(field).As(legalSetterInterceptors[i].InterfaceSetter.ToBuilderType).Call(legalSetterInterceptors[i].InterfaceSetter.OnExit);
                         }
                     })
                     .EndTry()
@@ -279,8 +279,8 @@ namespace Cauldron.Interception.Fody
         private static void CreateSetterDelegate(Builder builder, Method setterDelegateMethod, BuilderType propertyType,
                     Func<ICode, ICode> loadValue, Func<ICode, Func<object>, ICode> setValue)
         {
-            var extensions = new __Extensions(builder);
-            var iList = new __IList(builder);
+            var extensions = new __Extensions();
+            var iList = new __IList();
             var setterCode = setterDelegateMethod.NewCode();
 
             if (propertyType.ParameterlessContructor != null && propertyType.ParameterlessContructor.IsPublic)
@@ -293,7 +293,7 @@ namespace Cauldron.Interception.Fody
             setterCode.Load(Crumb.GetParameter(0)).IsNull().Then(x =>
             {
                 // Just clear if its clearable
-                if (propertyType.Implements(iList.Type.Fullname))
+                if (propertyType.Implements(__IList.Type.Fullname))
                     loadValue(x).Callvirt(iList.Clear).Return();
                 // Otherwise if the property is not a value type and nullable
                 else if (!propertyType.IsValueType || propertyType.IsNullable || propertyType.IsArray)
@@ -306,7 +306,7 @@ namespace Cauldron.Interception.Fody
                 setterCode.Load(Crumb.GetParameter(0)).Is(typeof(IEnumerable))
                     .Then(x => setValue(x, () => Crumb.GetParameter(0)).Return())
                     .ThrowNew(typeof(NotSupportedException), "Value does not inherits from IEnumerable");
-            else if (propertyType.Implements(iList.Type.Fullname) && propertyType.ParameterlessContructor != null)
+            else if (propertyType.Implements(__IList.Type.Fullname) && propertyType.ParameterlessContructor != null)
             {
                 var addRange = propertyType.GetMethod("AddRange", 1, false);
                 if (addRange == null)
@@ -344,41 +344,39 @@ namespace Cauldron.Interception.Fody
             if (!attributes.Any())
                 return;
 
-            var stopwatch = Stopwatch.StartNew();
-
-            var doNotInterceptAttribute = builder.GetType("DoNotInterceptAttribute");
-            var types = builder
-                .FindTypesByAttributes(attributes)
-                .GroupBy(x => x.Type)
-                .Select(x => new
-                {
-                    Key = x.Key,
-                    Item = x.ToArray()
-                })
-                .ToArray();
-
-            foreach (var type in types)
+            using (new StopwatchLog(this, "class wide property"))
             {
-                this.Log($"Implementing interceptors in type {type.Key.Fullname}");
-
-                foreach (var property in type.Key.Properties)
-                {
-                    if (property.CustomAttributes.HasAttribute(doNotInterceptAttribute))
+                var doNotInterceptAttribute = builder.GetType("DoNotInterceptAttribute");
+                var types = builder
+                    .FindTypesByAttributes(attributes)
+                    .GroupBy(x => x.Type)
+                    .Select(x => new
                     {
-                        property.CustomAttributes.Remove(doNotInterceptAttribute);
-                        continue;
+                        Key = x.Key,
+                        Item = x.ToArray()
+                    })
+                    .ToArray();
+
+                foreach (var type in types)
+                {
+                    this.Log($"Implementing interceptors in type {type.Key.Fullname}");
+
+                    foreach (var property in type.Key.Properties)
+                    {
+                        if (property.CustomAttributes.HasAttribute(doNotInterceptAttribute))
+                        {
+                            property.CustomAttributes.Remove(doNotInterceptAttribute);
+                            continue;
+                        }
+
+                        for (int i = 0; i < type.Item.Length; i++)
+                            property.CustomAttributes.Copy(type.Item[i].Attribute);
                     }
 
                     for (int i = 0; i < type.Item.Length; i++)
-                        property.CustomAttributes.Copy(type.Item[i].Attribute);
+                        type.Item[i].Remove();
                 }
-
-                for (int i = 0; i < type.Item.Length; i++)
-                    type.Item[i].Remove();
             }
-
-            stopwatch.Stop();
-            this.Log($"Implementing class wide property interceptors took {stopwatch.Elapsed.TotalMilliseconds}ms");
         }
 
         private void InterceptProperties(Builder builder, IEnumerable<BuilderType> attributes)
@@ -386,75 +384,70 @@ namespace Cauldron.Interception.Fody
             if (!attributes.Any())
                 return;
 
-            var stopwatch = Stopwatch.StartNew();
-
-            var iPropertyInterceptorInitialize = new __IPropertyInterceptorInitialize(builder);
-            var iPropertyGetterInterceptor = new __IPropertyGetterInterceptor(builder);
-            var iPropertySetterInterceptor = new __IPropertySetterInterceptor(builder);
-            var propertyInterceptionInfo = new __PropertyInterceptionInfo(builder);
-
-            var properties = builder
-                .FindPropertiesByAttributes(attributes)
-                .GroupBy(x => x.Property)
-                .Select(x => new PropertyBuilderInfo(x.Key, x.Select(y => new PropertyBuilderInfoItem(y, y.Property,
-                         y.Attribute.Type.Implements(iPropertyGetterInterceptor.Type.Fullname) ? iPropertyGetterInterceptor : null,
-                         y.Attribute.Type.Implements(iPropertySetterInterceptor.Type.Fullname) ? iPropertySetterInterceptor : null,
-                         y.Attribute.Type.Implements(iPropertyInterceptorInitialize.Type.Fullname) ? iPropertyInterceptorInitialize : null))))
-                .ToArray();
-
-            foreach (var member in properties)
+            using (new StopwatchLog(this, "property"))
             {
-                this.Log($"Implementing interceptors in property {member.Property}");
+                var propertyInterceptionInfo = __PropertyInterceptionInfo.Instance;
 
-                var propertyField = member.Property.CreateField(propertyInterceptionInfo.Type, $"<{member.Property.Name}>p__propertyInfo");
-                propertyField.CustomAttributes.AddNonSerializedAttribute();
+                var properties = builder
+                    .FindPropertiesByAttributes(attributes)
+                    .GroupBy(x => x.Property)
+                    .Select(x => new PropertyBuilderInfo(x.Key, x.Select(y => new PropertyBuilderInfoItem(y, y.Property,
+                             y.Attribute.Type.Implements(__IPropertyGetterInterceptor.Type.Fullname) ? __IPropertyGetterInterceptor.Instance : null,
+                             y.Attribute.Type.Implements(__IPropertySetterInterceptor.Type.Fullname) ? __IPropertySetterInterceptor.Instance : null,
+                             y.Attribute.Type.Implements(__IPropertyInterceptorInitialize.Type.Fullname) ? __IPropertyInterceptorInitialize.Instance : null))))
+                    .ToArray();
 
-                var actionObjectCtor = builder.Import(typeof(Action<object>).GetConstructor(new Type[] { typeof(object), typeof(IntPtr) }));
-                var propertySetter = member.Property.Setter == null ?
-                    null :
-                    member.Property.OriginType.CreateMethod(member.Property.Modifiers.GetPrivate(), $"<{member.Property.Name}>m__setterMethod", builder.GetType(typeof(object)));
-
-                CreatePropertySetterDelegate(builder, member, propertySetter);
-
-                var indexer = 0;
-                var interceptorFields = member.InterceptorInfos.ToDictionary(x => x.Attribute.Identification,
-                    x =>
-                    {
-                        var field = member.Property.OriginType.CreateField(x.Property.Modifiers.GetPrivate(), x.Attribute.Attribute.Type,
-                               $"<{x.Property.Name}>_attrib{indexer++}_{x.Attribute.Identification}");
-
-                        field.CustomAttributes.AddNonSerializedAttribute();
-                        return field;
-                    });
-
-                if (member.HasInitializer)
-                    AddPropertyInitializeInterception(builder, propertyInterceptionInfo, member, propertyField, actionObjectCtor, propertySetter, interceptorFields);
-
-                if (member.HasGetterInterception && member.Property.Getter != null)
-                    AddPropertyGetterInterception(builder, propertyInterceptionInfo, member, propertyField, actionObjectCtor, propertySetter, interceptorFields);
-
-                if (member.HasSetterInterception && member.Property.Setter != null)
-                    AddPropertySetterInterception(builder, propertyInterceptionInfo, member, propertyField, actionObjectCtor, propertySetter, interceptorFields);
-
-                // Do this at the end to ensure that syncroot init is always on the top
-                if (member.RequiresSyncRootField)
+                foreach (var member in properties)
                 {
-                    if (member.SyncRoot.IsStatic)
-                        member.Property.OriginType.CreateStaticConstructor().NewCode()
-                            .Assign(member.SyncRoot).NewObj(builder.GetType(typeof(object)).Import().ParameterlessContructor)
-                            .Insert(InsertionPosition.Beginning);
-                    else
-                        foreach (var ctors in member.Property.OriginType.GetRelevantConstructors().Where(x => x.Name == ".ctor"))
-                            ctors.NewCode().Assign(member.SyncRoot).NewObj(builder.GetType(typeof(object)).Import().ParameterlessContructor).Insert(InsertionPosition.Beginning);
+                    this.Log($"Implementing interceptors in property {member.Property}");
+
+                    var propertyField = member.Property.CreateField(__PropertyInterceptionInfo.Type, $"<{member.Property.Name}>p__propertyInfo");
+                    propertyField.CustomAttributes.AddNonSerializedAttribute();
+
+                    var actionObjectCtor = builder.Import(typeof(Action<object>).GetConstructor(new Type[] { typeof(object), typeof(IntPtr) }));
+                    var propertySetter = member.Property.Setter == null ?
+                        null :
+                        member.Property.OriginType.CreateMethod(member.Property.Modifiers.GetPrivate(), $"<{member.Property.Name}>m__setterMethod", builder.GetType(typeof(object)));
+
+                    CreatePropertySetterDelegate(builder, member, propertySetter);
+
+                    var indexer = 0;
+                    var interceptorFields = member.InterceptorInfos.ToDictionary(x => x.Attribute.Identification,
+                        x =>
+                        {
+                            var field = member.Property.OriginType.CreateField(x.Property.Modifiers.GetPrivate(), x.Attribute.Attribute.Type,
+                                   $"<{x.Property.Name}>_attrib{indexer++}_{x.Attribute.Identification}");
+
+                            field.CustomAttributes.AddNonSerializedAttribute();
+                            return field;
+                        });
+
+                    if (member.HasInitializer)
+                        AddPropertyInitializeInterception(builder, propertyInterceptionInfo, member, propertyField, actionObjectCtor, propertySetter, interceptorFields);
+
+                    if (member.HasGetterInterception && member.Property.Getter != null)
+                        AddPropertyGetterInterception(builder, propertyInterceptionInfo, member, propertyField, actionObjectCtor, propertySetter, interceptorFields);
+
+                    if (member.HasSetterInterception && member.Property.Setter != null)
+                        AddPropertySetterInterception(builder, propertyInterceptionInfo, member, propertyField, actionObjectCtor, propertySetter, interceptorFields);
+
+                    // Do this at the end to ensure that syncroot init is always on the top
+                    if (member.RequiresSyncRootField)
+                    {
+                        if (member.SyncRoot.IsStatic)
+                            member.Property.OriginType.CreateStaticConstructor().NewCode()
+                                .Assign(member.SyncRoot).NewObj(builder.GetType(typeof(object)).Import().ParameterlessContructor)
+                                .Insert(InsertionPosition.Beginning);
+                        else
+                            foreach (var ctors in member.Property.OriginType.GetRelevantConstructors().Where(x => x.Name == ".ctor"))
+                                ctors.NewCode().Assign(member.SyncRoot).NewObj(builder.GetType(typeof(object)).Import().ParameterlessContructor).Insert(InsertionPosition.Beginning);
+                    }
+
+                    // Also remove the compilergenerated attribute
+                    member.Property.Getter?.CustomAttributes.Remove(typeof(CompilerGeneratedAttribute));
+                    member.Property.Setter?.CustomAttributes.Remove(typeof(CompilerGeneratedAttribute));
                 }
-
-                // Also remove the compilergenerated attribute
-                member.Property.Getter?.CustomAttributes.Remove(typeof(CompilerGeneratedAttribute));
-                member.Property.Setter?.CustomAttributes.Remove(typeof(CompilerGeneratedAttribute));
             }
-
-            stopwatch.Stop();
-            this.Log($"Implementing property interceptors took {stopwatch.Elapsed.TotalMilliseconds}ms");
         }
     }
 }

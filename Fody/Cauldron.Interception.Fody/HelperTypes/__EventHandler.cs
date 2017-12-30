@@ -2,15 +2,12 @@
 
 namespace Cauldron.Interception.Fody.HelperTypes
 {
-    public sealed class __EventHandler : HelperTypeBase
+    [HelperTypeName("System.EventHandler")]
+    public sealed class __EventHandler : HelperTypeBase<__EventHandler>
     {
-        public __EventHandler(Builder builder) : base(builder, "System.EventHandler")
-        {
-            this.Invoke = this.type.GetMethod("Invoke", 2);
-            this.EventArgs = new __EventArgs(builder);
-        }
+        public __EventArgs EventArgs => new __EventArgs();
 
-        public __EventArgs EventArgs { get; private set; }
+        [HelperTypeMethod("Invoke", 2)]
         public Method Invoke { get; private set; }
     }
 }

@@ -1,13 +1,9 @@
 ﻿using Cauldron.Interception.Cecilator;
 using Cauldron.Interception.Fody.HelperTypes;
 using Mono.Cecil;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 
 namespace Cauldron.Interception.Fody
 {
@@ -15,21 +11,15 @@ namespace Cauldron.Interception.Fody
     {
         private void CreateComponentCache(Builder builder, BuilderType cauldron)
         {
-            var componentAttribute = builder.GetType("Cauldron.Activator.ComponentAttribute").New(x => new
-            {
-                Type = x,
-                ContractName = x.GetMethod("get_ContractName"),
-                Policy = x.GetMethod("get_Policy"),
-                Priority = x.GetMethod("get_Priority")
-            });
-            var componentConstructorAttribute = builder.GetType("Cauldron.Activator.ComponentConstructorAttribute");
-            var factory = new __Factory(builder);
+            var componentAttribute = __ComponentAttribute.Instance;
+            var componentConstructorAttribute = __ComponentConstructorAttribute.Type;
+            var factory = __Factory.Instance;
 
             // Before we start let us find all factoryextensions and add a component attribute to them
-            var factoryResolverInterface = builder.GetType("Cauldron.Activator.IFactoryResolver");
+            var factoryResolverInterface = __IFactoryResolver.Type;
             this.AddComponentAttribute(builder, builder.FindTypesByInterface(factoryResolverInterface), x => factoryResolverInterface.Fullname);
             // Also the same to all types that inherits from Factory<>
-            var factoryGeneric = builder.GetType("Cauldron.Activator.Factory`1");
+            var factoryGeneric = __Factory_1.Type;
             this.AddComponentAttribute(builder, builder.FindTypesByBaseClass(factoryGeneric), type =>
             {
                 var factoryBase = type.BaseClasses.FirstOrDefault(x => x.Fullname.StartsWith("Cauldron.Activator.Factory"));
@@ -53,7 +43,7 @@ namespace Cauldron.Interception.Fody
             var createInstanceInterfaceMethod = factoryTypeInfoInterface.GetMethod("CreateInstance", 1);
 
             // Get all Components
-            var components = builder.FindTypesByAttribute(componentAttribute.Type);
+            var components = builder.FindTypesByAttribute(componentAttribute.ToBuilderType);
             var componentTypes = new List<BuilderType>();
 
             // Create types with the components properties
@@ -62,7 +52,7 @@ namespace Cauldron.Interception.Fody
                 this.Log("Hardcoding component factory .ctor: " + component.Type.Fullname);
 
                 var componentType = builder.CreateType("", TypeAttributes.Public | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit, $"<>f__IFactoryTypeInfo_{component.Type.Name}_{counter++}");
-                var componentAttributeField = componentType.CreateField(Modifiers.Private, componentAttribute.Type, "componentAttribute");
+                var componentAttributeField = componentType.CreateField(Modifiers.Private, componentAttribute.ToBuilderType, "componentAttribute");
                 componentType.AddInterface(factoryTypeInfoInterface);
                 componentTypes.Add(componentType);
 

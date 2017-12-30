@@ -2,17 +2,16 @@
 
 namespace Cauldron.Interception.Fody.HelperTypes
 {
-    public sealed class __Application : HelperTypeBase
+    [HelperTypeName("System.Windows.Application")]
+    public sealed class __Application : HelperTypeBase<__Application>
     {
-        public __Application(Builder builder) : base(builder, "System.Windows.Application")
-        {
-            this.LoadComponent = this.type.GetMethod("LoadComponent", true, "System.Object", "System.Uri");
-            this.Current = this.type.GetMethod("get_Current", 0);
-            this.Resources = this.type.GetMethod("get_Resources", 0);
-        }
-
+        [HelperTypeMethod("get_Current")]
         public Method Current { get; private set; }
+
+        [HelperTypeMethod("LoadComponent", "System.Object", "System.Uri")]
         public Method LoadComponent { get; private set; }
+
+        [HelperTypeMethod("get_Resources")]
         public Method Resources { get; private set; }
     }
 }

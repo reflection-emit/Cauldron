@@ -2,13 +2,10 @@
 
 namespace Cauldron.Interception.Fody.HelperTypes
 {
-    public sealed class __Factory : HelperTypeBase
+    [HelperTypeName("Cauldron.Activator.Factory")]
+    public sealed class __Factory : HelperTypeBase<__Factory>
     {
-        public __Factory(Builder builder) : base(builder, "Cauldron.Activator.Factory")
-        {
-            this.OnObjectCreation = this.Type.GetMethod("OnObjectCreation", 2);
-        }
-
+        [HelperTypeMethod("OnObjectCreation", 2)]
         public Method OnObjectCreation { get; private set; }
     }
 }

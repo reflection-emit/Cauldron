@@ -1284,7 +1284,7 @@ namespace Cauldron.Interception.Cecilator
                 if ((method.OriginType.IsInterface || method.IsAbstract) && opcode != OpCodes.Calli)
                     opcode = OpCodes.Callvirt;
 
-                for (int i = 0; i < this.method.methodReference.Parameters.Count; i++)
+                for (int i = 0; i < method.methodReference.Parameters.Count; i++)
                 {
                     var parameterType = method.methodDefinition.Parameters[i].ParameterType.IsGenericInstance || method.methodDefinition.Parameters[i].ParameterType.IsGenericParameter ?
                         method.methodDefinition.Parameters[i].ParameterType.ResolveType(method.OriginType.typeReference, method.methodReference) :
@@ -1299,15 +1299,16 @@ namespace Cauldron.Interception.Cecilator
                 if ((method.OriginType.IsInterface || method.IsAbstract) && opcode != OpCodes.Calli)
                     opcode = OpCodes.Callvirt;
 
-                for (int i = 0; i < parameters.Length; i++)
-                {
-                    var parameterType = method.methodDefinition.Parameters[i].ParameterType.IsGenericInstance || method.methodDefinition.Parameters[i].ParameterType.IsGenericParameter ?
-                        method.methodDefinition.Parameters[i].ParameterType.ResolveType(method.OriginType.typeReference, method.methodReference) :
-                        method.methodDefinition.Parameters[i].ParameterType;
+                if (parameters != null)
+                    for (int i = 0; i < parameters.Length; i++)
+                    {
+                        var parameterType = method.methodDefinition.Parameters[i].ParameterType.IsGenericInstance || method.methodDefinition.Parameters[i].ParameterType.IsGenericParameter ?
+                            method.methodDefinition.Parameters[i].ParameterType.ResolveType(method.OriginType.typeReference, method.methodReference) :
+                            method.methodDefinition.Parameters[i].ParameterType;
 
-                    var inst = this.AddParameter(this.processor, this.moduleDefinition.ImportReference(parameterType), parameters[i]);
-                    this.instructions.Append(inst.Instructions);
-                }
+                        var inst = this.AddParameter(this.processor, this.moduleDefinition.ImportReference(parameterType), parameters[i]);
+                        this.instructions.Append(inst.Instructions);
+                    }
             }
 
             this.instructions.Append(processor.Create(opcode, this.moduleDefinition.ImportReference(method.methodReference)));

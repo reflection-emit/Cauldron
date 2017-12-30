@@ -113,8 +113,9 @@ namespace Cauldron.Interception
         /// {CtorArgument:index} - This will be replaced by the string passed to the interceptor. The index is a 32-bit unsigned integer 0-based index of the constructor arguments.
         /// For usage examples see <see cref="AssignMethodAttribute"/>.
         /// <para/>
+        /// </param>
         /// <param name="optional">
-        /// If false throws an error if the method decribed by <paramref name="methodName"/> is not found; otherwise no error is thrown.
+        /// If false, throws an error if the method decribed by <paramref name="methodName"/> is not found; otherwise no error is thrown.
         /// </param>
         public AssignMethodAttribute(string methodName, bool optional = false) => this.MethodName = methodName;
 

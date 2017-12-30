@@ -1,11 +1,7 @@
-﻿using Cauldron.Interception.Cecilator;
-
-namespace Cauldron.Interception.Fody.HelperTypes
+﻿namespace Cauldron.Interception.Fody.HelperTypes
 {
-    public sealed class __Exception : HelperTypeBase
+    [HelperTypeName("System.Exception")]
+    public sealed class __Exception : HelperTypeBase<__Exception>
     {
-        public __Exception(Builder builder) : base(builder, "System.Exception")
-        {
-        }
     }
 }

@@ -10,6 +10,7 @@ namespace Cauldron.Interception.Fody
     {
         AttributedMethod Attribute { get; }
         bool HasSyncRootInterface { get; }
+        bool IsSuppressed { get; }
     }
 
     public sealed class MethodBuilderInfo<T> where T : IMethodBuilderInfoItem
@@ -19,7 +20,7 @@ namespace Cauldron.Interception.Fody
         public MethodBuilderInfo(MethodKey key, IEnumerable<T> items)
         {
             this.Key = key;
-            this.Item = items.ToArray();
+            this.Item = items.Where(x => !x.IsSuppressed).ToArray();
         }
 
         public T[] Item { get; private set; }
@@ -49,14 +50,41 @@ namespace Cauldron.Interception.Fody
         {
             this.Attribute = attribute;
             this.Interface = @interface;
-            this.HasSyncRootInterface = attribute.Attribute.Type.Implements(__ISyncRoot.TypeName);
+            this.HasSyncRootInterface = attribute.Attribute.Type.Implements(__ISyncRoot.Type.Fullname);
             this.AssignMethodAttributeInfos = AssignMethodAttributeInfo.GetAllAssignMethodAttributedFields(attribute);
+            this.InterceptorInfo = new InterceptorInfo(this.Attribute.Attribute.Type);
         }
 
         public AssignMethodAttributeInfo[] AssignMethodAttributeInfos { get; private set; }
+
         public AttributedMethod Attribute { get; private set; }
+
         public bool HasSyncRootInterface { get; private set; }
+
+        public InterceptorInfo InterceptorInfo { get; private set; }
+
         public T Interface { get; private set; }
+
+        public bool IsSuppressed
+        {
+            get
+            {
+                if (!this.InterceptorInfo.HasSuppressRule)
+                    return false;
+
+                var attributes = this.Attribute.Method.CustomAttributes.Select(x => x.Fullname);
+                var result = this.InterceptorInfo.SuppressRuleAttributeTypes.Any(x => attributes.Contains(x.FullName));
+
+                if (result)
+                    this.Attribute.Method.Log(LogTypes.Info, $"- The method '{this.Attribute.Method.Name}' is not intercepted by '{this.Attribute.Attribute.Type.Name}' because of a rule.");
+
+                // Remove the attribute
+                if (result)
+                    this.Attribute.Remove();
+
+                return result;
+            }
+        }
     }
 
     public sealed class MethodKey

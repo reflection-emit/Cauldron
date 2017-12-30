@@ -2,17 +2,16 @@
 
 namespace Cauldron.Interception.Fody.HelperTypes
 {
-    public sealed class __IPropertySetterInterceptor : HelperTypeBase
+    [HelperTypeName("Cauldron.Interception.IPropertySetterInterceptor")]
+    public sealed class __IPropertySetterInterceptor : HelperTypeBase<__IPropertySetterInterceptor>
     {
-        public __IPropertySetterInterceptor(Builder builder) : base(builder, "Cauldron.Interception.IPropertySetterInterceptor")
-        {
-            this.OnSet = this.type.GetMethod("OnSet", 3);
-            this.OnException = this.type.GetMethod("OnException", 1);
-            this.OnExit = this.type.GetMethod("OnExit");
-        }
-
+        [HelperTypeMethod("OnException", 1)]
         public Method OnException { get; private set; }
+
+        [HelperTypeMethod("OnExit")]
         public Method OnExit { get; private set; }
+
+        [HelperTypeMethod("OnSet", 3)]
         public Method OnSet { get; private set; }
     }
 }

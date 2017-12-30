@@ -2,17 +2,16 @@
 
 namespace Cauldron.Interception.Fody.HelperTypes
 {
-    public sealed class __ResourceDictionary : HelperTypeBase
+    [HelperTypeName("Windows.UI.Xaml.ResourceDictionary", "System.Windows.ResourceDictionary")]
+    public sealed class __ResourceDictionary : HelperTypeBase<__ResourceDictionary>
     {
-        public __ResourceDictionary(Builder builder) : base(builder, "Windows.UI.Xaml.ResourceDictionary", "System.Windows.ResourceDictionary")
-        {
-            this.MergedDictionaries = this.type.GetMethod("get_MergedDictionaries", 0);
-            this.Ctor = this.type.GetMethod(".ctor", 0);
-            this.SetSource = this.type.GetMethod("set_Source", 1);
-        }
-
+        [HelperTypeMethod(".ctor")]
         public Method Ctor { get; private set; }
+
+        [HelperTypeMethod("get_MergedDictionaries")]
         public Method MergedDictionaries { get; private set; }
+
+        [HelperTypeMethod("set_Source", 1)]
         public Method SetSource { get; private set; }
     }
 }

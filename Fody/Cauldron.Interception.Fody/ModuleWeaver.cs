@@ -41,8 +41,7 @@ namespace Cauldron.Interception.Fody
             var methodInterceptionAttributes = this.Builder.FindAttributesByInterfaces(
                 "Cauldron.Interception.IMethodInterceptor");
 
-            var constructorInterceptionHelperClass = new __IConstructorInterceptor(this.Builder);
-            var constructorInterceptionAttributes = this.Builder.FindAttributesByInterfaces(constructorInterceptionHelperClass.Type.Fullname);
+            var constructorInterceptionAttributes = this.Builder.FindAttributesByInterfaces(__IConstructorInterceptor.Type.Fullname);
 
             this.ImplementAnonymousTypeInterface(this.Builder);
             this.ImplementTimedCache(this.Builder);
@@ -420,8 +419,6 @@ namespace Cauldron.Interception.Fody
 
         private void ImplementAnonymousTypeInterface(Builder builder)
         {
-            var stopwatch = Stopwatch.StartNew();
-
             var cauldronCoreExtension = builder.GetType("Cauldron.Interception.Extensions");
             var createTypeMethod = cauldronCoreExtension.GetMethod("CreateType", 1).FindUsages().ToArray();
             var createdTypes = new Dictionary<string, BuilderType>();
@@ -429,79 +426,80 @@ namespace Cauldron.Interception.Fody
             if (!createTypeMethod.Any())
                 return;
 
-            foreach (var item in createTypeMethod)
+            using (new StopwatchLog(this, "anonymous type to interface"))
             {
-                this.Log(LogTypes.Info, $"Implementing anonymous to interface {item}");
-                var interfaceToImplement = item.GetGenericArgument(0);
-
-                if (interfaceToImplement == null || !interfaceToImplement.IsInterface)
+                foreach (var item in createTypeMethod)
                 {
-                    this.Log(LogTypes.Error, interfaceToImplement, $"{interfaceToImplement.Fullname} is not an interface.");
-                    continue;
-                }
+                    this.Log(LogTypes.Info, $"Implementing anonymous to interface {item}");
+                    var interfaceToImplement = item.GetGenericArgument(0);
 
-                try
-                {
-                    var type = item.GetPreviousInstructionObjectType();
-
-                    if (type.Fullname.GetHashCode() == "System.Object".GetHashCode() && type.Fullname == "System.Object")
+                    if (interfaceToImplement == null || !interfaceToImplement.IsInterface)
                     {
-                        type = item.GetLastNewObjectType();
-
-                        if (type.Fullname.GetHashCode() == "System.Object".GetHashCode() && type.Fullname == "System.Object")
-                        {
-                            this.Log(LogTypes.Error, item.HostMethod, $"Error in CreateObject in method '{item.HostMethod}'. Unable to detect anonymous type.");
-                            continue;
-                        }
-                    }
-
-                    if (createdTypes.ContainsKey(interfaceToImplement.Fullname))
-                    {
-                        item.Replace(CreateAssigningMethod(type, createdTypes[interfaceToImplement.Fullname], interfaceToImplement, item.HostMethod));
+                        this.Log(LogTypes.Error, interfaceToImplement, $"{interfaceToImplement.Fullname} is not an interface.");
                         continue;
                     }
 
-                    var anonymousTypeName = $"<>f__{interfaceToImplement.Name}_Cauldron_AnonymousType{counter++}";
-                    this.Log($"- Creating new type: {type.Namespace}.{anonymousTypeName}");
+                    try
+                    {
+                        var type = item.GetPreviousInstructionObjectType();
 
-                    var newType = builder.CreateType("", TypeAttributes.Public | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit | TypeAttributes.Serializable, anonymousTypeName);
-                    newType.AddInterface(interfaceToImplement);
-
-                    // Implement the methods
-                    foreach (var method in interfaceToImplement.Methods.Where(x => !x.Name.StartsWith("get_") && !x.Name.StartsWith("set_")))
-                        newType.CreateMethod(Modifiers.Public | Modifiers.Overrrides, method.ReturnType, method.Name, method.Parameters)
-                            .NewCode()
-                            .ThrowNew(typeof(NotImplementedException), $"The method '{method.Name}' in type '{newType.Name}' is not implemented.")
-                            .Replace();
-                    // Implement the properties
-                    foreach (var property in interfaceToImplement.Properties)
-                        newType.CreateProperty(Modifiers.Public | Modifiers.Overrrides, property.ReturnType, property.Name);
-
-                    // Create ctor
-                    newType.CreateConstructor()
-                        .NewCode()
-                        .Context(x =>
+                        if (type.Fullname.GetHashCode() == "System.Object".GetHashCode() && type.Fullname == "System.Object")
                         {
-                            x.Load(Crumb.This).Call(builder.GetType(typeof(object)).Import().ParameterlessContructor.Import());
-                        })
-                        .Return()
-                        .Replace();
+                            type = item.GetLastNewObjectType();
 
-                    newType.CustomAttributes.AddEditorBrowsableAttribute(EditorBrowsableState.Never);
+                            if (type.Fullname.GetHashCode() == "System.Object".GetHashCode() && type.Fullname == "System.Object")
+                            {
+                                this.Log(LogTypes.Error, item.HostMethod, $"Error in CreateObject in method '{item.HostMethod}'. Unable to detect anonymous type.");
+                                continue;
+                            }
+                        }
 
-                    createdTypes.Add(interfaceToImplement.Fullname, newType);
+                        if (createdTypes.ContainsKey(interfaceToImplement.Fullname))
+                        {
+                            item.Replace(CreateAssigningMethod(type, createdTypes[interfaceToImplement.Fullname], interfaceToImplement, item.HostMethod));
+                            continue;
+                        }
 
-                    item.Replace(CreateAssigningMethod(type, newType, interfaceToImplement, item.HostMethod));
-                }
-                catch (Exception e)
-                {
-                    this.Log(e, item.ToHostMethodInstructionsString());
+                        var anonymousTypeName = $"<>f__{interfaceToImplement.Name}_Cauldron_AnonymousType{counter++}";
+                        this.Log($"- Creating new type: {type.Namespace}.{anonymousTypeName}");
 
-                    throw;
+                        var newType = builder.CreateType("", TypeAttributes.Public | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit | TypeAttributes.Serializable, anonymousTypeName);
+                        newType.AddInterface(interfaceToImplement);
+
+                        // Implement the methods
+                        foreach (var method in interfaceToImplement.Methods.Where(x => !x.Name.StartsWith("get_") && !x.Name.StartsWith("set_")))
+                            newType.CreateMethod(Modifiers.Public | Modifiers.Overrrides, method.ReturnType, method.Name, method.Parameters)
+                                .NewCode()
+                                .ThrowNew(typeof(NotImplementedException), $"The method '{method.Name}' in type '{newType.Name}' is not implemented.")
+                                .Replace();
+                        // Implement the properties
+                        foreach (var property in interfaceToImplement.Properties)
+                            newType.CreateProperty(Modifiers.Public | Modifiers.Overrrides, property.ReturnType, property.Name);
+
+                        // Create ctor
+                        newType.CreateConstructor()
+                            .NewCode()
+                            .Context(x =>
+                            {
+                                x.Load(Crumb.This).Call(builder.GetType(typeof(object)).Import().ParameterlessContructor.Import());
+                            })
+                            .Return()
+                            .Replace();
+
+                        newType.CustomAttributes.AddEditorBrowsableAttribute(EditorBrowsableState.Never);
+
+                        createdTypes.Add(interfaceToImplement.Fullname, newType);
+
+                        item.Replace(CreateAssigningMethod(type, newType, interfaceToImplement, item.HostMethod));
+                    }
+                    catch (Exception e)
+                    {
+                        this.Log(e, item.ToHostMethodInstructionsString());
+
+                        throw;
+                    }
                 }
             }
-            stopwatch.Stop();
-            this.Log($"Implementing anonymous type to interface took {stopwatch.Elapsed.TotalMilliseconds}ms");
         }
 
         private void InterceptFields(Builder builder, IEnumerable<BuilderType> attributes)
@@ -509,37 +507,36 @@ namespace Cauldron.Interception.Fody
             if (!attributes.Any())
                 return;
 
-            var stopwatch = Stopwatch.StartNew();
-            var fields = builder.FindFieldsByAttributes(attributes).GroupBy(x => x.Field).ToArray();
-
-            foreach (var field in fields)
+            using (new StopwatchLog(this, "field"))
             {
-                this.Log($"Implementing interceptors in fields {field.Key}");
+                var fields = builder.FindFieldsByAttributes(attributes).GroupBy(x => x.Field).ToArray();
 
-                if (!field.Key.Modifiers.HasFlag(Modifiers.Private))
+                foreach (var field in fields)
                 {
-                    this.Log(LogTypes.Error, field.Key.OriginType, $"The current version of the field interceptor only intercepts private fields. Field '{field.Key.Name}' in type '{field.Key.OriginType.Name}'");
-                    continue;
+                    this.Log($"Implementing interceptors in fields {field.Key}");
+
+                    if (!field.Key.Modifiers.HasFlag(Modifiers.Private))
+                    {
+                        this.Log(LogTypes.Error, field.Key.OriginType, $"The current version of the field interceptor only intercepts private fields. Field '{field.Key.Name}' in type '{field.Key.OriginType.Name}'");
+                        continue;
+                    }
+
+                    var type = field.Key.OriginType;
+                    var usage = field.Key.FindUsages().ToArray();
+                    var property = type.CreateProperty(field.Key);
+
+                    property.CustomAttributes.AddCompilerGeneratedAttribute();
+                    property.CustomAttributes.AddDebuggerBrowsableAttribute(DebuggerBrowsableState.Never);
+                    property.CustomAttributes.AddNonSerializedAttribute();
+
+                    foreach (var attribute in field)
+                        attribute.Attribute.MoveTo(property);
+
+                    foreach (var item in usage)
+                        if (item.Field.IsStatic || !item.IsBeforeBaseCall)
+                            item.Replace(property);
                 }
-
-                var type = field.Key.OriginType;
-                var usage = field.Key.FindUsages().ToArray();
-                var property = type.CreateProperty(field.Key);
-
-                property.CustomAttributes.AddCompilerGeneratedAttribute();
-                property.CustomAttributes.AddDebuggerBrowsableAttribute(DebuggerBrowsableState.Never);
-                property.CustomAttributes.AddNonSerializedAttribute();
-
-                foreach (var attribute in field)
-                    attribute.Attribute.MoveTo(property);
-
-                foreach (var item in usage)
-                    if (item.Field.IsStatic || !item.IsBeforeBaseCall)
-                        item.Replace(property);
             }
-
-            stopwatch.Stop();
-            this.Log($"Implementing field interceptors took {stopwatch.Elapsed.TotalMilliseconds}ms");
         }
     }
 }

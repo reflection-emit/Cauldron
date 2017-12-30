@@ -2,13 +2,10 @@
 
 namespace Cauldron.Interception.Fody.HelperTypes
 {
-    public sealed class __PropertyIsChangedEventArgs : HelperTypeBase
+    [HelperTypeName("Cauldron.XAML.PropertyIsChangedEventArgs")]
+    public sealed class __PropertyIsChangedEventArgs : HelperTypeBase<__PropertyIsChangedEventArgs>
     {
-        public __PropertyIsChangedEventArgs(Builder builder) : base(builder, "Cauldron.XAML.PropertyIsChangedEventArgs")
-        {
-            this.Ctor = this.type.GetMethod(".ctor", 3);
-        }
-
+        [HelperTypeMethod(".ctor", 3)]
         public Method Ctor { get; private set; }
     }
 }

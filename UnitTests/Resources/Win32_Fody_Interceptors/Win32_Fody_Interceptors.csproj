@@ -43,6 +43,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="InvokedException.cs" />
+    <Compile Include="Method\IMethod_Interceptor_Invoke.cs" />
+    <Compile Include="Method\Method_Invoke.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Property\IProperty_Interceptor_Invoke.cs" />
     <Compile Include="Property\Property_Getter.cs" />
@@ -50,6 +52,7 @@
     <Compile Include="Property\Property_Getter_Setter_Exception.cs" />
     <Compile Include="Property\Property_Getter_Setter.cs" />
     <Compile Include="Property\Property_Setter.cs" />
+    <Compile Include="RuleAttribute\SuppressInterceptorAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\NetStandard\Cauldron.Interception\Cauldron.Interception.csproj">
@@ -65,7 +68,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Constructor\" />
-    <Folder Include="Method\" />
     <Folder Include="Mixed\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

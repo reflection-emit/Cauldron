@@ -2,10 +2,16 @@
 
 namespace Cauldron.Interception.Fody.HelperTypes
 {
-    public class __ComponentAttribute : HelperTypeBase
+    [HelperTypeName("Cauldron.Activator.ComponentAttribute")]
+    public class __ComponentAttribute : HelperTypeBase<__ComponentAttribute>
     {
-        public __ComponentAttribute(Builder builder) : base(builder, "Cauldron.Activator.ComponentAttribute")
-        {
-        }
+        [HelperTypeMethod("get_ContractName")]
+        public Method ContractName { get; private set; }
+
+        [HelperTypeMethod("get_Policy")]
+        public Method Policy { get; private set; }
+
+        [HelperTypeMethod("get_Priority")]
+        public Method Priority { get; private set; }
     }
 }

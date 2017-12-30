@@ -2,16 +2,13 @@
 
 namespace Cauldron.Interception.Fody.HelperTypes
 {
-    public class __IViewModel : HelperTypeBase
+    [HelperTypeName("Cauldron.XAML.ViewModels.IViewModel")]
+    public class __IViewModel : HelperTypeBase<__IViewModel>
     {
-        public __IViewModel(Builder builder) : base(builder, "Cauldron.XAML.ViewModels.IViewModel")
-        {
-            this.IsLoading = this.type.GetMethod("get_IsLoading");
-            this.RaisePropertyChanged = this.type.GetMethod("RaisePropertyChanged", true, "System.String");
-        }
-
+        [HelperTypeMethod("get_IsLoading")]
         public Method IsLoading { get; private set; }
 
+        [HelperTypeMethod("RaisePropertyChanged", "System.String")]
         public Method RaisePropertyChanged { get; private set; }
     }
 }

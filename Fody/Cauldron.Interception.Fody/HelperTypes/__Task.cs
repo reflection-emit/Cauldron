@@ -2,13 +2,10 @@
 
 namespace Cauldron.Interception.Fody.HelperTypes
 {
-    public sealed class __Task : HelperTypeBase
+    [HelperTypeName("System.Threading.Tasks.Task")]
+    public sealed class __Task : HelperTypeBase<__Task>
     {
-        public __Task(Builder builder) : base(builder, "System.Threading.Tasks.Task")
-        {
-            this.GetException = this.type.GetMethod("get_Exception");
-        }
-
+        [HelperTypeMethod("get_Exception")]
         public Method GetException { get; private set; }
     }
 }

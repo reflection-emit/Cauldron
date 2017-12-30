@@ -14,92 +14,90 @@ namespace Cauldron.Interception.Fody
             if (!attributes.Any())
                 return;
 
-            var stopwatch = Stopwatch.StartNew();
-
-            var iConstructorInterceptor = new __IConstructorInterceptor(builder);
-            var syncRoot = new __ISyncRoot(builder);
-            var exception = new __Exception(builder);
-
-            var constructors = builder
-                .FindMethodsByAttributes(attributes)
-                .Where(x => !x.Method.OriginType.IsInterface)
-                .GroupBy(x => new MethodKey(x.Method, null))
-                .Select(x => new MethodBuilderInfo<MethodBuilderInfoItem<__IConstructorInterceptor>>(x.Key, x.Select(y => new MethodBuilderInfoItem<__IConstructorInterceptor>(y, iConstructorInterceptor))))
-                .ToArray();
-
-            foreach (var constructor in constructors)
+            using (new StopwatchLog(this, "constructor"))
             {
-                this.Log($"Implementing constructors in method {constructor.Key.Method}");
+                var iConstructorInterceptor = new __IConstructorInterceptor();
+                var syncRoot = new __ISyncRoot();
+                var exception = new __Exception();
 
-                var targetedConstrutor = constructor.Key.Method;
+                var constructors = builder
+                    .FindMethodsByAttributes(attributes)
+                    .Where(x => !x.Method.OriginType.IsInterface)
+                    .GroupBy(x => new MethodKey(x.Method, null))
+                    .Select(x => new MethodBuilderInfo<MethodBuilderInfoItem<__IConstructorInterceptor>>(x.Key, x.Select(y => new MethodBuilderInfoItem<__IConstructorInterceptor>(y, iConstructorInterceptor))))
+                    .ToArray();
 
-                if (constructor.RequiresSyncRootField)
-                    this.Log(LogTypes.Warning, targetedConstrutor, $"An interceptor applied to the constructor has implemented ISyncRoot. This is not supported. The interceptor may not work correctly.");
-
-                Crumb parametersArray = null;
-                var localVariables = new LocalVariable[constructor.Item.Length];
-                var interceptorInit = new Action<ICode, bool>((contextCoder, isBeforeInit) =>
+                foreach (var constructor in constructors)
                 {
-                    parametersArray = contextCoder.GetParametersArray();
+                    this.Log($"Implementing constructors in method {constructor.Key.Method}");
 
-                    for (int i = 0; i < constructor.Item.Length; i++)
+                    var targetedConstrutor = constructor.Key.Method;
+
+                    if (constructor.RequiresSyncRootField)
+                        this.Log(LogTypes.Warning, targetedConstrutor, $"An interceptor applied to the constructor has implemented ISyncRoot. This is not supported. The interceptor may not work correctly.");
+
+                    Crumb parametersArray = null;
+                    var localVariables = new LocalVariable[constructor.Item.Length];
+                    var interceptorInit = new Action<ICode, bool>((contextCoder, isBeforeInit) =>
                     {
-                        var item = constructor.Item[i];
-                        localVariables[i] = contextCoder.CreateVariable(item.Attribute.Attribute.Type);
+                        parametersArray = contextCoder.GetParametersArray();
 
-                        contextCoder.Assign(localVariables[i]).NewObj(item.Attribute);
-
-                        ImplementAssignMethodAttribute(builder, item.AssignMethodAttributeInfos, localVariables[i], contextCoder, isBeforeInit);
-
-                        contextCoder.Load(localVariables[i]).As(item.Interface.Type)
-                            .Call(item.Interface.OnBeforeInitialization, targetedConstrutor.OriginType, targetedConstrutor, parametersArray);
-
-                        item.Attribute.Remove();
-                    }
-                });
-
-                if (targetedConstrutor.IsCtor)
-                    targetedConstrutor.NewCode()
-                        .Context(x => interceptorInit(x, true))
-                        .Insert(InsertionPosition.CtorBeforeInit);
-
-                targetedConstrutor.NewCode()
-                    .Context(x =>
-                    {
-                        if (targetedConstrutor.IsCCtor)
-                            interceptorInit(x, false);
-                    })
-                    .Try(x =>
-                    {
                         for (int i = 0; i < constructor.Item.Length; i++)
                         {
                             var item = constructor.Item[i];
-                            x.Load(localVariables[i]).As(item.Interface.Type)
-                                .Call(item.Interface.OnEnter, targetedConstrutor.OriginType, Crumb.This, targetedConstrutor, parametersArray);
+                            localVariables[i] = contextCoder.CreateVariable(item.Attribute.Attribute.Type);
+
+                            contextCoder.Assign(localVariables[i]).NewObj(item.Attribute);
+
+                            ImplementAssignMethodAttribute(builder, item.AssignMethodAttributeInfos, localVariables[i], contextCoder, isBeforeInit);
+
+                            contextCoder.Load(localVariables[i]).As(item.Interface.ToBuilderType)
+                                .Call(item.Interface.OnBeforeInitialization, targetedConstrutor.OriginType, targetedConstrutor, parametersArray);
+
+                            item.Attribute.Remove();
                         }
+                    });
 
-                        x.OriginalBody();
-                    })
-                    .Catch(exception.Type, x =>
-                    {
-                        if (constructor.Key.AsyncMethod == null)
+                    if (targetedConstrutor.IsCtor)
+                        targetedConstrutor.NewCode()
+                            .Context(x => interceptorInit(x, true))
+                            .Insert(InsertionPosition.CtorBeforeInit);
+
+                    targetedConstrutor.NewCode()
+                        .Context(x =>
+                        {
+                            if (targetedConstrutor.IsCCtor)
+                                interceptorInit(x, false);
+                        })
+                        .Try(x =>
+                        {
                             for (int i = 0; i < constructor.Item.Length; i++)
-                                x.Load(localVariables[i]).As(constructor.Item[i].Interface.Type).Call(constructor.Item[i].Interface.OnException, x.Exception);
+                            {
+                                var item = constructor.Item[i];
+                                x.Load(localVariables[i]).As(item.Interface.ToBuilderType)
+                                    .Call(item.Interface.OnEnter, targetedConstrutor.OriginType, Crumb.This, targetedConstrutor, parametersArray);
+                            }
 
-                        x.Rethrow();
-                    })
-                    .Finally(x =>
-                    {
-                        for (int i = 0; i < constructor.Item.Length; i++)
-                            x.Load(localVariables[i]).As(constructor.Item[i].Interface.Type).Call(constructor.Item[i].Interface.OnExit);
-                    })
-                    .EndTry()
-                    .Return()
-                .Replace();
+                            x.OriginalBody();
+                        })
+                        .Catch(exception.ToBuilderType, x =>
+                        {
+                            if (constructor.Key.AsyncMethod == null)
+                                for (int i = 0; i < constructor.Item.Length; i++)
+                                    x.Load(localVariables[i]).As(constructor.Item[i].Interface.ToBuilderType).Call(constructor.Item[i].Interface.OnException, x.Exception);
+
+                            x.Rethrow();
+                        })
+                        .Finally(x =>
+                        {
+                            for (int i = 0; i < constructor.Item.Length; i++)
+                                x.Load(localVariables[i]).As(constructor.Item[i].Interface.ToBuilderType).Call(constructor.Item[i].Interface.OnExit);
+                        })
+                        .EndTry()
+                        .Return()
+                    .Replace();
+                }
             }
-
-            stopwatch.Stop();
-            this.Log($"Implementing constructor interceptors took {stopwatch.Elapsed.TotalMilliseconds}ms");
         }
     }
 }

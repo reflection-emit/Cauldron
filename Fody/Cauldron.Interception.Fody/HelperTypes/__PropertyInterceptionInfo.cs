@@ -2,13 +2,10 @@
 
 namespace Cauldron.Interception.Fody.HelperTypes
 {
-    public sealed class __PropertyInterceptionInfo : HelperTypeBase
+    [HelperTypeName("Cauldron.Interception.PropertyInterceptionInfo")]
+    public sealed class __PropertyInterceptionInfo : HelperTypeBase<__PropertyInterceptionInfo>
     {
-        public __PropertyInterceptionInfo(Builder builder) : base(builder, "Cauldron.Interception.PropertyInterceptionInfo")
-        {
-            this.Ctor = this.type.GetMethod(".ctor", 7);
-        }
-
+        [HelperTypeMethod(".ctor", 7)]
         public Method Ctor { get; private set; }
     }
 }

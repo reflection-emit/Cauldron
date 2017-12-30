@@ -4,7 +4,7 @@ namespace Cauldron.Interception.Cecilator
 {
     public sealed class TypeNotFoundException : Exception
     {
-        internal TypeNotFoundException(string message) : base(message)
+        public TypeNotFoundException(string message) : base(message)
         {
         }
     }

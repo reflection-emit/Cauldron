@@ -74,7 +74,7 @@ namespace Cauldron.Interception.Fody
         {
             var fields = builderCustomAttribute.Type
                 .GetAttributedFields()
-                .Where(x => x.Field.IsPublic && !x.Field.IsStatic && x.Attribute.Fullname == __AssignMethodAttribute.TypeName);
+                .Where(x => x.Field.IsPublic && !x.Field.IsStatic && x.Attribute.Fullname == __AssignMethodAttribute.Type.Fullname);
 
             return fields
                 .Select(x =>

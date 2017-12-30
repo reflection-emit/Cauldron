@@ -2,13 +2,10 @@
 
 namespace Cauldron.Interception.Fody.HelperTypes
 {
-    public sealed class __ICollection_1 : HelperTypeBase
+    [HelperTypeName("System.Collections.Generic.ICollection`1")]
+    public sealed class __ICollection_1 : HelperTypeBase<__ICollection_1>
     {
-        public __ICollection_1(Builder builder) : base(builder, "System.Collections.Generic.ICollection`1")
-        {
-            this.Add = this.type.GetMethod("Add", 1);
-        }
-
+        [HelperTypeMethod("Add", 1)]
         public Method Add { get; private set; }
     }
 }

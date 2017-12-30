@@ -12,12 +12,12 @@ namespace Cauldron.Interception.Fody
         /// <param name="builder"></param>
         public void CheckAsyncMthodsNomenclature(Builder builder)
         {
-            var task = new __Task(builder);
-            var taskGeneric = new __Task_1(builder);
+            var task = new __Task();
+            var taskGeneric = new __Task_1();
             var methods = builder
                 .GetTypes(SearchContext.Module)
                 .SelectMany(x => x.Methods)
-                .Where(x => (x.ReturnType == task.Type || x.ReturnType == taskGeneric.Type) && !x.Name.EndsWith("Async") && !x.Name.EndsWith("Action"));
+                .Where(x => (x.ReturnType == __Task.Type || x.ReturnType == __Task_1.Type) && !x.Name.EndsWith("Async") && !x.Name.EndsWith("Action"));
 
             foreach (var item in methods)
                 this.Log(LogTypes.Warning, item, $"The method '{item.Name}' in '{item.OriginType.Fullname}' is async, but does not have an 'Async' suffix.");

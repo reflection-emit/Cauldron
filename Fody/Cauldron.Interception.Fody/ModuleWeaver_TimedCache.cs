@@ -8,17 +8,17 @@ namespace Cauldron.Interception.Fody
     {
         private void ImplementTimedCache(Builder builder)
         {
-            if (!builder.TypeExists(__TimedCacheAttribute.TypeName))
+            if (__TimedCacheAttribute.Name == null)
                 return;
 
-            var timedCacheAttribute = new __TimedCacheAttribute(builder);
-            var methods = builder.FindMethodsByAttribute(timedCacheAttribute.Type.Fullname);
+            var timedCacheAttribute = __TimedCacheAttribute.Instance;
+            var methods = builder.FindMethodsByAttribute(__TimedCacheAttribute.Type.Fullname);
 
             if (!methods.Any())
                 return;
 
-            var task = new __Task(builder);
-            var task_1 = new __Task_1(builder);
+            var task = __Task.Instance;
+            var task_1 = __Task_1.Instance;
 
             foreach (var method in methods)
             {
@@ -33,7 +33,7 @@ namespace Cauldron.Interception.Fody
                 var keyName = "<>timedcache_key";
                 var timecacheVarName = "<>timedcache";
 
-                if (method.AsyncMethod == null && method.Method.ReturnType.Inherits(task.Type.Fullname))
+                if (method.AsyncMethod == null && method.Method.ReturnType.Inherits(__Task.Type.Fullname))
                     this.Log(LogTypes.Error, method.Method, $"- TimedCacheAttribute for method {method.Method.Name} will not be implemented. Methods that returns 'Task' without async are not supported.");
                 else if (method.AsyncMethod == null)
                     method.Method.NewCode()

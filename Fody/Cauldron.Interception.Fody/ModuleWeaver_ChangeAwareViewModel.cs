@@ -9,16 +9,16 @@ namespace Cauldron.Interception.Fody
     {
         private void ImplementPropertyChangedEvent(Builder builder)
         {
-            var changeAwareInterface = new __IChangeAwareViewModel(builder);
-            var eventHandlerGeneric = new __EventHandler_1(builder);
-            var eventHandler = new __EventHandler(builder);
-            var viewModelInterface = new __IViewModel(builder);
+            var changeAwareInterface = new __IChangeAwareViewModel();
+            var eventHandlerGeneric = new __EventHandler_1();
+            var eventHandler = new __EventHandler();
+            var viewModelInterface = new __IViewModel();
 
             // Get all viewmodels with implemented change aware interface
-            var viewModels = builder.FindTypesByInterface(changeAwareInterface.Type)
+            var viewModels = builder.FindTypesByInterface(__IChangeAwareViewModel.Type)
                 .OrderBy(x =>
                 {
-                    if (x.Implements(changeAwareInterface.Type, false))
+                    if (x.Implements(__IChangeAwareViewModel.Type, false))
                         return 0;
 
                     return 1;
@@ -30,8 +30,8 @@ namespace Cauldron.Interception.Fody
                     continue;
 
                 var method = vm.GetMethod("<>RaisePropertyChangedEventRaise", false, typeof(string), typeof(object), typeof(object));
-                var getIsChangeChangedEvent = changeAwareInterface.GetIsChangedChanged(vm);
-                var getIsChangeEvent = changeAwareInterface.GetChanged(vm);
+                var getIsChangeChangedEvent = __IChangeAwareViewModel.GetIsChangedChanged(vm);
+                var getIsChangeEvent = __IChangeAwareViewModel.GetChanged(vm);
 
                 if (method == null && getIsChangeChangedEvent != null && getIsChangeEvent != null)
                 {
@@ -49,7 +49,7 @@ namespace Cauldron.Interception.Fody
                             .Then(x =>
                             {
                                 x.Call(Crumb.This, viewModelInterface.RaisePropertyChanged, Crumb.GetParameter(0));
-                                x.Callvirt(eventHandlerGeneric.Invoke.MakeGeneric(changeAwareInterface.PropertyIsChangedEventArgs.Type),
+                                x.Callvirt(eventHandlerGeneric.Invoke.MakeGeneric(changeAwareInterface.PropertyIsChangedEventArgs.ToBuilderType),
                                     x.NewCode().Load(getIsChangeEvent), x.NewCode().NewObj(changeAwareInterface.PropertyIsChangedEventArgs.Ctor, Crumb.This, Crumb.GetParameter(0), Crumb.GetParameter(1), Crumb.GetParameter(2)));
                             })
                             .Return()
@@ -73,7 +73,7 @@ namespace Cauldron.Interception.Fody
                         .Insert(InsertionPosition.Beginning);
 
                 // Repair IsChanged
-                if (!vm.Implements(changeAwareInterface.Type, false))
+                if (!vm.Implements(changeAwareInterface.ToBuilderType, false))
                     continue;
 
                 var isChangedSetter = vm.GetMethod("set_IsChanged", 1, false);
