@@ -11,7 +11,6 @@
     <iconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Fody add-in that provides method, property, field and constructor interception. Supports Net45, NetStandard2.0 and UWP.</description>
-    <summary>Fody add-in that provides method, property and field interception.</summary>
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Interception interceptor interception AOP Fody Cecil CIL ILWeaving</tags>
     <releaseNotes>
