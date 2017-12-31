@@ -312,6 +312,7 @@ namespace Cauldron.Core.Interceptors
     /// <summary>
     /// Indicates that the method or property should not be intercepted by the <see cref="RegistryClassAttribute"/> interceptor.
     /// </summary>
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = false)]
     public sealed class RegistryClassDoNotInterceptAttribute : Attribute
     {
     }
