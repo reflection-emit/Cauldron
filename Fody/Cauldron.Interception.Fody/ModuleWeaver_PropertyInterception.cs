@@ -346,7 +346,6 @@ namespace Cauldron.Interception.Fody
 
             using (new StopwatchLog(this, "class wide property"))
             {
-                var doNotInterceptAttribute = builder.GetType("DoNotInterceptAttribute");
                 var types = builder
                     .FindTypesByAttributes(attributes)
                     .GroupBy(x => x.Type)
@@ -363,12 +362,6 @@ namespace Cauldron.Interception.Fody
 
                     foreach (var property in type.Key.Properties)
                     {
-                        if (property.CustomAttributes.HasAttribute(doNotInterceptAttribute))
-                        {
-                            property.CustomAttributes.Remove(doNotInterceptAttribute);
-                            continue;
-                        }
-
                         for (int i = 0; i < type.Item.Length; i++)
                             property.CustomAttributes.Copy(type.Item[i].Attribute);
                     }
@@ -400,6 +393,9 @@ namespace Cauldron.Interception.Fody
                 foreach (var member in properties)
                 {
                     this.Log($"Implementing interceptors in property {member.Property}");
+
+                    if (!member.HasGetterInterception && !member.HasSetterInterception && !member.HasInitializer)
+                        continue;
 
                     var propertyField = member.Property.CreateField(__PropertyInterceptionInfo.Type, $"<{member.Property.Name}>p__propertyInfo");
                     propertyField.CustomAttributes.AddNonSerializedAttribute();

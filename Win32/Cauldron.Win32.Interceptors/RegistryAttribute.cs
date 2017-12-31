@@ -282,8 +282,9 @@ namespace Cauldron.Core.Interceptors
     /// <see cref="FileInfo"/>.
     /// <para/>
     /// This interceptor can be applied to a class and will intercept all properties declared in the class.
-    /// If you do not wish to intercept a property decorate it with the <see cref="DoNotInterceptAttribute"/>.
+    /// If you do not wish to intercept a property decorate it with the <see cref="RegistryClassDoNotInterceptAttribute"/>.
     /// </summary>
+    [InterceptionRule(InterceptionRuleOptions.DoNotInterceptIfDecorated, typeof(RegistryClassDoNotInterceptAttribute))]
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
     public sealed class RegistryClassAttribute : RegistryAttribute
     {
@@ -306,5 +307,12 @@ namespace Cauldron.Core.Interceptors
             base(registryHive, registryView, subKey, null)
         {
         }
+    }
+
+    /// <summary>
+    /// Indicates that the method or property should not be intercepted by the <see cref="RegistryClassAttribute"/> interceptor.
+    /// </summary>
+    public sealed class RegistryClassDoNotInterceptAttribute : Attribute
+    {
     }
 }

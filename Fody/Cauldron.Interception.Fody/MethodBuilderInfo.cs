@@ -65,26 +65,7 @@ namespace Cauldron.Interception.Fody
 
         public T Interface { get; private set; }
 
-        public bool IsSuppressed
-        {
-            get
-            {
-                if (!this.InterceptorInfo.HasSuppressRule)
-                    return false;
-
-                var attributes = this.Attribute.Method.CustomAttributes.Select(x => x.Fullname);
-                var result = this.InterceptorInfo.SuppressRuleAttributeTypes.Any(x => attributes.Contains(x.FullName));
-
-                if (result)
-                    this.Attribute.Method.Log(LogTypes.Info, $"- The method '{this.Attribute.Method.Name}' is not intercepted by '{this.Attribute.Attribute.Type.Name}' because of a rule.");
-
-                // Remove the attribute
-                if (result)
-                    this.Attribute.Remove();
-
-                return result;
-            }
-        }
+        public bool IsSuppressed => InterceptorInfo.GetIsSupressed(this.InterceptorInfo, this.Attribute.Method.DeclaringType, this.Attribute.Method.CustomAttributes, this.Attribute.Attribute, this.Attribute.Method.Name, true);
     }
 
     public sealed class MethodKey

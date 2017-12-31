@@ -31,6 +31,9 @@ namespace Cauldron.Interception.Fody
                 {
                     this.Log($"Implementing constructors in method {constructor.Key.Method}");
 
+                    if (constructor.Item == null || constructor.Item.Length == 0)
+                        continue;
+
                     var targetedConstrutor = constructor.Key.Method;
 
                     if (constructor.RequiresSyncRootField)

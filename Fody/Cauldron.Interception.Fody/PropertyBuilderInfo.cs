@@ -13,7 +13,7 @@ namespace Cauldron.Interception.Fody
         public PropertyBuilderInfo(Property property, IEnumerable<PropertyBuilderInfoItem> item)
         {
             this.Property = property;
-            this.InterceptorInfos = item.ToArray();
+            this.InterceptorInfos = item.Where(x => !x.IsSuppressed).ToArray();
         }
 
         public bool HasGetterInterception => this.InterceptorInfos.Any(x => x.InterfaceGetter != null);
@@ -58,12 +58,23 @@ namespace Cauldron.Interception.Fody
         }
 
         public AssignMethodAttributeInfo[] AssignMethodAttributeInfos { get; private set; }
+
         public AttributedProperty Attribute { get; private set; }
+
         public bool HasAssignMethodAttribute { get; private set; }
+
         public bool HasSyncRootInterface { get; private set; }
+
+        public InterceptorInfo InterceptorInfo { get; private set; }
+
         public __IPropertyGetterInterceptor InterfaceGetter { get; private set; }
+
         public __IPropertyInterceptorInitialize InterfaceInitializer { get; private set; }
+
         public __IPropertySetterInterceptor InterfaceSetter { get; private set; }
+
+        public bool IsSuppressed => InterceptorInfo.GetIsSupressed(this.InterceptorInfo, this.Attribute.Property.DeclaringType, this.Attribute.Property.CustomAttributes, this.Attribute.Attribute, this.Attribute.Property.Name, false);
+
         public Property Property { get; private set; }
     }
 }
