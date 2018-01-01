@@ -257,15 +257,17 @@
   <HelpKINode Title="Cauldron.ExtensionsReflection class" Url="html/a61346d2-4a1f-769e-5a02-d16ffc665f87.htm" />
   <HelpKINode Title="Cauldron.Interception namespace" Url="html/d410258c-b9ce-c076-58e3-c0c31238bb3d.htm" />
   <HelpKINode Title="Cauldron.Interception.AssignMethodAttribute class" Url="html/28165181-e4d9-4288-323d-be75d01977f4.htm" />
-  <HelpKINode Title="Cauldron.Interception.DoNotInterceptAttribute class" Url="html/a322fa64-72b5-8f3b-529f-8ac501e3bf54.htm" />
   <HelpKINode Title="Cauldron.Interception.Extensions class" Url="html/4e840c06-97cf-6137-2175-2169254e6f7c.htm" />
   <HelpKINode Title="Cauldron.Interception.IConstructorInterceptor interface" Url="html/953318c2-bf50-a4a6-5c6c-32bc25377add.htm" />
   <HelpKINode Title="Cauldron.Interception.IMethodInterceptor interface" Url="html/2c72a710-f4ec-4a97-47c5-b73b98c0ae39.htm" />
+  <HelpKINode Title="Cauldron.Interception.InterceptionRuleAttribute class" Url="html/fb0cdc04-1908-30ec-9c97-87451ca8f510.htm" />
+  <HelpKINode Title="Cauldron.Interception.InterceptionRuleOptions enumeration" Url="html/ca4d6e67-96fa-7475-2e0d-e758cbdecec4.htm" />
   <HelpKINode Title="Cauldron.Interception.IPropertyGetterInterceptor interface" Url="html/e6ff19aa-45e3-f4b8-3983-05e3768fefce.htm" />
   <HelpKINode Title="Cauldron.Interception.IPropertyInterceptor interface" Url="html/f75b5d21-d475-8d35-f5b2-0ffe269dc39a.htm" />
   <HelpKINode Title="Cauldron.Interception.IPropertyInterceptorInitialize interface" Url="html/0aba377f-eaa7-da22-794b-d19b55568f11.htm" />
   <HelpKINode Title="Cauldron.Interception.IPropertySetterInterceptor interface" Url="html/dca3879b-58e5-e2bd-f932-e9af8364f3c4.htm" />
   <HelpKINode Title="Cauldron.Interception.ISyncRoot interface" Url="html/c486a210-4712-1bab-f62e-40d5ed30d93a.htm" />
+  <HelpKINode Title="Cauldron.Interception.Mode enumeration" Url="html/068c2923-d116-828e-40fa-4191de741801.htm" />
   <HelpKINode Title="Cauldron.Interception.PropertyInterceptionInfo class" Url="html/0e919b65-d6b9-2d03-dd29-d4404d1555d8.htm" />
   <HelpKINode Title="Cauldron.Localization namespace" Url="html/7a02e65d-d698-29ed-c206-b46a1131cbb7.htm" />
   <HelpKINode Title="Cauldron.Localization.ILocalizationKeyValue interface" Url="html/8b967a81-dff4-78f2-5705-6e099f4f6bdd.htm" />
@@ -619,13 +621,7 @@
   <HelpKINode Title="Distinct&lt;TSource&gt; method" Url="html/19dbc9a4-1597-0353-043e-a190bf9cb529.htm" />
   <HelpKINode Title="Divide method" Url="html/84dea1ff-0da4-4bc5-2c27-abd6c7d1ed11.htm" />
   <HelpKINode Title="DocumentsLibrary property" Url="html/0b7a0780-2313-a29a-90b7-9b82fa77129e.htm" />
-  <HelpKINode Title="DoNotInterceptAttribute class">
-    <HelpKINode Title="DoNotInterceptAttribute Class" Url="html/a322fa64-72b5-8f3b-529f-8ac501e3bf54.htm" />
-    <HelpKINode Title="about DoNotInterceptAttribute class" Url="html/a322fa64-72b5-8f3b-529f-8ac501e3bf54.htm" />
-    <HelpKINode Title="constructor" Url="html/e2186f5f-4f87-da43-3ecb-e3b4d5e335a3.htm" />
-    <HelpKINode Title="methods" Url="html/6dd0de4a-0358-9fd8-2bcf-6f67410a59d9.htm" />
-  </HelpKINode>
-  <HelpKINode Title="DoNotInterceptAttribute.DoNotInterceptAttribute constructor" Url="html/e2186f5f-4f87-da43-3ecb-e3b4d5e335a3.htm" />
+  <HelpKINode Title="DoNotInterceptIfDecorated enumeration member" Url="html/ca4d6e67-96fa-7475-2e0d-e758cbdecec4.htm" />
   <HelpKINode Title="DownloadFileAsync method" Url="html/fef81e56-8a9a-53ef-86b4-b9be0306dae6.htm" />
   <HelpKINode Title="DynamicEqualityComparer(Of T) class">
     <HelpKINode Title="DynamicEqualityComparer(T) Class" Url="html/e3bd9398-9b31-aa75-2013-41062b2a7a0f.htm" />
@@ -695,12 +691,12 @@
   <HelpKINode Title="ExistsAsync method" Url="html/f588eaf0-e360-0b54-33c5-b7e8c95a3a52.htm" />
   <HelpKINode Title="ExportedTypes property" Url="html/1daf4133-1741-5485-35f5-21743bba0867.htm" />
   <HelpKINode Title="Extensions class">
-    <HelpKINode Title="Extensions Class" Url="html/7e30f679-b4cf-b5d3-e1a5-67ff8f20304a.htm" />
-    <HelpKINode Title="Extensions Class" Url="html/96191775-34da-2521-4188-65830c4db18a.htm" />
     <HelpKINode Title="Extensions Class" Url="html/4e840c06-97cf-6137-2175-2169254e6f7c.htm" />
-    <HelpKINode Title="about Extensions class" Url="html/4e840c06-97cf-6137-2175-2169254e6f7c.htm" />
-    <HelpKINode Title="about Extensions class" Url="html/96191775-34da-2521-4188-65830c4db18a.htm" />
+    <HelpKINode Title="Extensions Class" Url="html/96191775-34da-2521-4188-65830c4db18a.htm" />
+    <HelpKINode Title="Extensions Class" Url="html/7e30f679-b4cf-b5d3-e1a5-67ff8f20304a.htm" />
     <HelpKINode Title="about Extensions class" Url="html/7e30f679-b4cf-b5d3-e1a5-67ff8f20304a.htm" />
+    <HelpKINode Title="about Extensions class" Url="html/96191775-34da-2521-4188-65830c4db18a.htm" />
+    <HelpKINode Title="about Extensions class" Url="html/4e840c06-97cf-6137-2175-2169254e6f7c.htm" />
     <HelpKINode Title="methods" Url="html/4150876e-71fe-a4aa-3745-0600710249c3.htm" />
     <HelpKINode Title="methods" Url="html/c738cb4b-2bd0-c951-6f7c-937b96f42c6a.htm" />
     <HelpKINode Title="methods" Url="html/4fd086ac-9f3e-5c0c-f1e7-66024063ce6e.htm" />
@@ -1175,6 +1171,14 @@
   <HelpKINode Title="InsertItem method" Url="html/47a234ce-4a28-f1c3-30f0-3d01ce3e6693.htm" />
   <HelpKINode Title="Instance property" Url="html/b7cac640-5f06-784a-69cd-da6148cc24ea.htm" />
   <HelpKINode Title="Instanced enumeration member" Url="html/7564baad-2cf6-ac71-90ac-746164ddae55.htm" />
+  <HelpKINode Title="InterceptionRuleAttribute class">
+    <HelpKINode Title="InterceptionRuleAttribute Class" Url="html/fb0cdc04-1908-30ec-9c97-87451ca8f510.htm" />
+    <HelpKINode Title="about InterceptionRuleAttribute class" Url="html/fb0cdc04-1908-30ec-9c97-87451ca8f510.htm" />
+    <HelpKINode Title="constructor" Url="html/eecb25bf-6fea-8a0d-b2b5-f2a8dca686ea.htm" />
+    <HelpKINode Title="methods" Url="html/ccd95866-5192-938f-47c5-20ce9154e3bb.htm" />
+  </HelpKINode>
+  <HelpKINode Title="InterceptionRuleAttribute.InterceptionRuleAttribute constructor" Url="html/eecb25bf-6fea-8a0d-b2b5-f2a8dca686ea.htm" />
+  <HelpKINode Title="InterceptionRuleOptions enumeration" Url="html/ca4d6e67-96fa-7475-2e0d-e758cbdecec4.htm" />
   <HelpKINode Title="Interfaces property" Url="html/c389da90-a431-091c-7b07-dea8ee40ff25.htm" />
   <HelpKINode Title="Interleave(Of T) method" Url="html/30fce7ac-c727-96c9-00c7-7b60e5f7ec10.htm" />
   <HelpKINode Title="Interleave&lt;T&gt; method" Url="html/30fce7ac-c727-96c9-00c7-7b60e5f7ec10.htm" />
@@ -1217,6 +1221,7 @@
   </HelpKINode>
   <HelpKINode Title="IsEqualTo method" Url="html/1949691c-5617-143a-02bb-84d2599db1bf.htm" />
   <HelpKINode Title="IsFixedSize property" Url="html/ffbe5fde-90aa-e915-84bb-7e679589f041.htm" />
+  <HelpKINode Title="IsImplementingInterfaceOrInheritBaseClass enumeration member" Url="html/ca4d6e67-96fa-7475-2e0d-e758cbdecec4.htm" />
   <HelpKINode Title="IsNetworkAvailable property" Url="html/88500825-95dc-9100-d73a-0b5219dd07b1.htm" />
   <HelpKINode Title="IsNotNull method" Url="html/a46b5d5d-e8c2-3cfe-aa0d-31e6b10a8036.htm" />
   <HelpKINode Title="IsNullable method" Url="html/fb7d8d25-ba22-c74c-c04a-e4a6523a040a.htm" />
@@ -1416,6 +1421,7 @@
     <HelpKINode Title="RequiredParametersMissingException.MissingRequiredParameters Property " Url="html/28ff51e6-d7f0-1b18-4f04-a54c9e5aa251.htm" />
     <HelpKINode Title="RequiredValuesMissingException.MissingRequiredParameters Property " Url="html/ea2aebfc-e94c-8bd1-3108-b321ae112f81.htm" />
   </HelpKINode>
+  <HelpKINode Title="Mode enumeration" Url="html/068c2923-d116-828e-40fa-4191de741801.htm" />
   <HelpKINode Title="Move(Of T) method" Url="html/3452b7f4-3536-b665-116f-405172d34742.htm" />
   <HelpKINode Title="Move&lt;T&gt; method" Url="html/3452b7f4-3536-b665-116f-405172d34742.htm" />
   <HelpKINode Title="Multiply method" Url="html/ad08f10d-8360-0762-3db2-d97e9cd4b558.htm" />
@@ -1436,7 +1442,10 @@
   <HelpKINode Title="NextBoolean method" Url="html/af3121ee-ba40-4e25-81eb-4513f0f24839.htm" />
   <HelpKINode Title="NextByte method" Url="html/7a129f3d-d01c-f95f-ce35-faf4040553b7.htm" />
   <HelpKINode Title="NextDouble method" Url="html/c3064d0d-6fa7-1809-4a19-02714b0e19de.htm" />
-  <HelpKINode Title="Normal enumeration member" Url="html/6c495b8e-0d3d-629e-9100-288f6720d232.htm" />
+  <HelpKINode Title="Normal enumeration member">
+    <HelpKINode Title="DispatcherPriority Enumeration" Url="html/6c495b8e-0d3d-629e-9100-288f6720d232.htm" />
+    <HelpKINode Title="Mode Enumeration" Url="html/068c2923-d116-828e-40fa-4191de741801.htm" />
+  </HelpKINode>
   <HelpKINode Title="NotConnected enumeration member" Url="html/d8ce281d-e1db-43ae-53c9-5a4ba779c4c8.htm" />
   <HelpKINode Title="NullGuard method" Url="html/b82d6f2b-7d3d-23e9-0754-0c2d2bb3e5a3.htm" />
   <HelpKINode Title="ObjectCreated event" Url="html/391b64dc-ff53-fcd8-368f-3413208732c3.htm" />
@@ -1631,6 +1640,7 @@
     <HelpKINode Title="NameCollisionOption Enumeration" Url="html/71574b07-c8af-fe68-0fbb-3f9e9fe6918a.htm" />
   </HelpKINode>
   <HelpKINode Title="ReplaceMe method" Url="html/0db20894-604f-9632-58ac-b9aab446449a.htm" />
+  <HelpKINode Title="Required enumeration member" Url="html/068c2923-d116-828e-40fa-4191de741801.htm" />
   <HelpKINode Title="RequiredParametersMissingException class">
     <HelpKINode Title="RequiredParametersMissingException Class" Url="html/b9eb4129-642f-c0f4-8e76-555374c56c5d.htm" />
     <HelpKINode Title="about RequiredParametersMissingException class" Url="html/b9eb4129-642f-c0f4-8e76-555374c56c5d.htm" />

@@ -278,6 +278,7 @@
   <HelpKINode Title="Cauldron.Core.Interceptors.PropertyOnSetAttribute class" Url="html/T_Cauldron_Core_Interceptors_PropertyOnSetAttribute.htm" />
   <HelpKINode Title="Cauldron.Core.Interceptors.RegistryAttribute class" Url="html/T_Cauldron_Core_Interceptors_RegistryAttribute.htm" />
   <HelpKINode Title="Cauldron.Core.Interceptors.RegistryClassAttribute class" Url="html/T_Cauldron_Core_Interceptors_RegistryClassAttribute.htm" />
+  <HelpKINode Title="Cauldron.Core.Interceptors.RegistryClassDoNotInterceptAttribute class" Url="html/T_Cauldron_Core_Interceptors_RegistryClassDoNotInterceptAttribute.htm" />
   <HelpKINode Title="Cauldron.Core.Interceptors.TimedCacheAttribute class" Url="html/T_Cauldron_Core_Interceptors_TimedCacheAttribute.htm" />
   <HelpKINode Title="Cauldron.Core.Interceptors.TimedCacheChangeMonitor class" Url="html/T_Cauldron_Core_Interceptors_TimedCacheChangeMonitor.htm" />
   <HelpKINode Title="Cauldron.Core.Threading namespace" Url="html/N_Cauldron_Core_Threading.htm" />
@@ -633,8 +634,8 @@
   <HelpKINode Title="ExecutionTimeAttribute.ExecutionTimeAttribute constructor" Url="html/M_Cauldron_Core_Interceptors_ExecutionTimeAttribute__ctor.htm" />
   <HelpKINode Title="ExitDelegate property" Url="html/P_Cauldron_XAML_ParameterPassingConfig_ExitDelegate.htm" />
   <HelpKINode Title="Extensions class">
-    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Extensions.htm" />
     <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_XAML_Extensions.htm" />
+    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Extensions.htm" />
     <HelpKINode Title="about Extensions class" Url="html/T_Cauldron_Extensions.htm" />
     <HelpKINode Title="about Extensions class" Url="html/T_Cauldron_XAML_Extensions.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Extensions.htm" />
@@ -1671,6 +1672,12 @@
     <HelpKINode Title="constructor" Url="html/Overload_Cauldron_Core_Interceptors_RegistryClassAttribute__ctor.htm" />
   </HelpKINode>
   <HelpKINode Title="RegistryClassAttribute.RegistryClassAttribute constructor" Url="html/Overload_Cauldron_Core_Interceptors_RegistryClassAttribute__ctor.htm" />
+  <HelpKINode Title="RegistryClassDoNotInterceptAttribute class">
+    <HelpKINode Title="RegistryClassDoNotInterceptAttribute Class" Url="html/T_Cauldron_Core_Interceptors_RegistryClassDoNotInterceptAttribute.htm" />
+    <HelpKINode Title="about RegistryClassDoNotInterceptAttribute class" Url="html/T_Cauldron_Core_Interceptors_RegistryClassDoNotInterceptAttribute.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Cauldron_Core_Interceptors_RegistryClassDoNotInterceptAttribute__ctor.htm" />
+  </HelpKINode>
+  <HelpKINode Title="RegistryClassDoNotInterceptAttribute.RegistryClassDoNotInterceptAttribute constructor" Url="html/M_Cauldron_Core_Interceptors_RegistryClassDoNotInterceptAttribute__ctor.htm" />
   <HelpKINode Title="RelayCommand class">
     <HelpKINode Title="RelayCommand Class" Url="html/T_Cauldron_XAML_RelayCommand.htm" />
     <HelpKINode Title="about RelayCommand class" Url="html/T_Cauldron_XAML_RelayCommand.htm" />

@@ -2,43 +2,43 @@
 <HelpTOC>
 
   <HelpTOCNode Title="Welcome to the Cauldron Win32 Library Documentation" Url="html/2cfbe5dd-6343-46e4-a622-1e6023028555.htm" />
-  <HelpTOCNode Id="1446ce06-40f1-4ee4-8aa8-67796faa75c0" Title="Cauldron" Url="html/N_Cauldron.htm">
-    <HelpTOCNode Id="84c82694-3a56-425a-9589-c342e0533cb8" Title="Extensions Class" Url="html/T_Cauldron_Extensions.htm">
-      <HelpTOCNode Id="10a121cf-0ffb-4290-a14a-68d3eb06895c" Title="Extensions Methods" Url="html/Methods_T_Cauldron_Extensions.htm">
+  <HelpTOCNode Id="6a07b2c2-9cb2-4931-82e1-effb54133930" Title="Cauldron" Url="html/N_Cauldron.htm">
+    <HelpTOCNode Id="54a2a0ad-a5b1-4059-ba06-4a86c370989e" Title="Extensions Class" Url="html/T_Cauldron_Extensions.htm">
+      <HelpTOCNode Id="1b9e833b-365d-4d1a-a5a3-2c23b55853fd" Title="Extensions Methods" Url="html/Methods_T_Cauldron_Extensions.htm">
         <HelpTOCNode Title="AddHookParameterPassing Method " Url="html/M_Cauldron_Extensions_AddHookParameterPassing.htm" />
-        <HelpTOCNode Id="0b5dd6d3-ad4c-412a-849b-19e7f1080476" Title="GetShortPath Method " Url="html/Overload_Cauldron_Extensions_GetShortPath.htm">
+        <HelpTOCNode Id="fea4dc5d-abb1-4bd7-8fb6-8581e30a3cae" Title="GetShortPath Method " Url="html/Overload_Cauldron_Extensions_GetShortPath.htm">
           <HelpTOCNode Title="GetShortPath Method (DirectoryInfo)" Url="html/M_Cauldron_Extensions_GetShortPath.htm" />
           <HelpTOCNode Title="GetShortPath Method (FileInfo)" Url="html/M_Cauldron_Extensions_GetShortPath_1.htm" />
         </HelpTOCNode>
         <HelpTOCNode Title="IsNetworkPath Method " Url="html/M_Cauldron_Extensions_IsNetworkPath.htm" />
-        <HelpTOCNode Id="94eeb4ce-9726-49a6-ad33-1a26e0d0b800" Title="TryStartService Method " Url="html/Overload_Cauldron_Extensions_TryStartService.htm">
+        <HelpTOCNode Id="f07eff44-fc53-4d5d-be45-beee6c81890e" Title="TryStartService Method " Url="html/Overload_Cauldron_Extensions_TryStartService.htm">
           <HelpTOCNode Title="TryStartService Method (ServiceController)" Url="html/M_Cauldron_Extensions_TryStartService.htm" />
           <HelpTOCNode Title="TryStartService Method (ServiceInstaller)" Url="html/M_Cauldron_Extensions_TryStartService_1.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="d36a42cf-c444-4067-8ba2-6ba220ef55ba" Title="TryStopService Method " Url="html/Overload_Cauldron_Extensions_TryStopService.htm">
+        <HelpTOCNode Id="87a40abc-d94f-4f88-9435-4fe2125f9a9c" Title="TryStopService Method " Url="html/Overload_Cauldron_Extensions_TryStopService.htm">
           <HelpTOCNode Title="TryStopService Method (ServiceController)" Url="html/M_Cauldron_Extensions_TryStopService.htm" />
           <HelpTOCNode Title="TryStopService Method (ServiceInstaller)" Url="html/M_Cauldron_Extensions_TryStopService_1.htm" />
         </HelpTOCNode>
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="4aa1347f-1d71-47f4-9c52-84726035dda4" Title="ExtensionsDirectoryServices Class" Url="html/T_Cauldron_ExtensionsDirectoryServices.htm">
-      <HelpTOCNode Id="11432b7f-f55c-4e96-b460-50c130a80728" Title="ExtensionsDirectoryServices Methods" Url="html/Methods_T_Cauldron_ExtensionsDirectoryServices.htm">
+    <HelpTOCNode Id="d9b6b96c-e2d9-44fc-b7b1-c1ea7681a4df" Title="ExtensionsDirectoryServices Class" Url="html/T_Cauldron_ExtensionsDirectoryServices.htm">
+      <HelpTOCNode Id="de359d8e-3d82-43ca-9507-52d57421c665" Title="ExtensionsDirectoryServices Methods" Url="html/Methods_T_Cauldron_ExtensionsDirectoryServices.htm">
         <HelpTOCNode Title="Impersonate Method " Url="html/M_Cauldron_ExtensionsDirectoryServices_Impersonate.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
     <HelpTOCNode Title="LogonType Enumeration" Url="html/T_Cauldron_LogonType.htm" />
-    <HelpTOCNode Id="a4c5a748-9216-44f5-9488-105456a9eae3" Title="MonitorDpi Structure" Url="html/T_Cauldron_MonitorDpi.htm">
-      <HelpTOCNode Id="2decd87e-ae37-43e8-a00f-668ff5e21b95" Title="MonitorDpi Fields" Url="html/Fields_T_Cauldron_MonitorDpi.htm">
+    <HelpTOCNode Id="fe775376-26b6-41cc-b112-399db487454c" Title="MonitorDpi Structure" Url="html/T_Cauldron_MonitorDpi.htm">
+      <HelpTOCNode Id="9ec41f0b-f4e0-4b0d-af6b-252165c3c4ab" Title="MonitorDpi Fields" Url="html/Fields_T_Cauldron_MonitorDpi.htm">
         <HelpTOCNode Title="x Field" Url="html/F_Cauldron_MonitorDpi_x.htm" />
         <HelpTOCNode Title="y Field" Url="html/F_Cauldron_MonitorDpi_y.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="34f8f05a-f39a-40e7-8283-ca223cd8d015" Title="MonitorInfo Class" Url="html/T_Cauldron_MonitorInfo.htm">
-      <HelpTOCNode Id="412940fd-a15e-42d3-be2b-1c65404be415" Title="MonitorInfo Properties" Url="html/Properties_T_Cauldron_MonitorInfo.htm">
+    <HelpTOCNode Id="7a9739ee-e343-4c05-bcc0-7878699407e7" Title="MonitorInfo Class" Url="html/T_Cauldron_MonitorInfo.htm">
+      <HelpTOCNode Id="7044841f-88ba-4276-ae8b-be57a9cf3905" Title="MonitorInfo Properties" Url="html/Properties_T_Cauldron_MonitorInfo.htm">
         <HelpTOCNode Title="MonitorCount Property " Url="html/P_Cauldron_MonitorInfo_MonitorCount.htm" />
         <HelpTOCNode Title="PrimaryMonitorBounds Property " Url="html/P_Cauldron_MonitorInfo_PrimaryMonitorBounds.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="4deee7af-d99b-4ddf-a567-c0a14957f511" Title="MonitorInfo Methods" Url="html/Methods_T_Cauldron_MonitorInfo.htm">
+      <HelpTOCNode Id="7b33f2f1-7470-43e1-b5dd-34d7c6412a62" Title="MonitorInfo Methods" Url="html/Methods_T_Cauldron_MonitorInfo.htm">
         <HelpTOCNode Title="GetCurrentOrientation Method " Url="html/M_Cauldron_MonitorInfo_GetCurrentOrientation.htm" />
         <HelpTOCNode Title="GetDpi Method " Url="html/M_Cauldron_MonitorInfo_GetDpi.htm" />
         <HelpTOCNode Title="GetMonitorBounds Method " Url="html/M_Cauldron_MonitorInfo_GetMonitorBounds.htm" />
@@ -48,9 +48,9 @@
     </HelpTOCNode>
     <HelpTOCNode Title="ViewOrientation Enumeration" Url="html/T_Cauldron_ViewOrientation.htm" />
   </HelpTOCNode>
-  <HelpTOCNode Id="bb2819ac-9b38-4296-80bb-9b4668c73d53" Title="Cauldron.Core" Url="html/N_Cauldron_Core.htm">
-    <HelpTOCNode Id="efa40e7e-ecc1-45e4-9c96-ddb4d90440f6" Title="User Class" Url="html/T_Cauldron_Core_User.htm">
-      <HelpTOCNode Id="7709d3e8-09f2-4774-9240-c9d7ff2ca99d" Title="User Properties" Url="html/Properties_T_Cauldron_Core_User.htm">
+  <HelpTOCNode Id="b2ea6500-95e5-4883-9213-5c0c89e38e0c" Title="Cauldron.Core" Url="html/N_Cauldron_Core.htm">
+    <HelpTOCNode Id="dc0426e7-dfe4-4ea8-8467-3e6674dbf537" Title="User Class" Url="html/T_Cauldron_Core_User.htm">
+      <HelpTOCNode Id="285eba43-a560-49d7-9228-6ba5b4bc5a57" Title="User Properties" Url="html/Properties_T_Cauldron_Core_User.htm">
         <HelpTOCNode Title="AccountPicture Property " Url="html/P_Cauldron_Core_User_AccountPicture.htm" />
         <HelpTOCNode Title="DisplayName Property " Url="html/P_Cauldron_Core_User_DisplayName.htm" />
         <HelpTOCNode Title="DomainName Property " Url="html/P_Cauldron_Core_User_DomainName.htm" />
@@ -65,8 +65,8 @@
         <HelpTOCNode Title="UserName Property " Url="html/P_Cauldron_Core_User_UserName.htm" />
         <HelpTOCNode Title="WTSClientName Property " Url="html/P_Cauldron_Core_User_WTSClientName.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="ad4d22a9-e8ad-4f88-a41b-46c13e9d22da" Title="User Methods" Url="html/Methods_T_Cauldron_Core_User.htm">
-        <HelpTOCNode Id="117423f4-57f9-494d-816d-26a1b2ef8b5c" Title="Equals Method " Url="html/Overload_Cauldron_Core_User_Equals.htm">
+      <HelpTOCNode Id="9c33994d-cea6-4a79-affd-92702ad665ef" Title="User Methods" Url="html/Methods_T_Cauldron_Core_User.htm">
+        <HelpTOCNode Id="a92ee353-5432-483b-aa35-73b04fd0d93b" Title="Equals Method " Url="html/Overload_Cauldron_Core_User_Equals.htm">
           <HelpTOCNode Title="Equals Method (Object)" Url="html/M_Cauldron_Core_User_Equals_1.htm" />
           <HelpTOCNode Title="Equals Method (User)" Url="html/M_Cauldron_Core_User_Equals.htm" />
         </HelpTOCNode>
@@ -74,8 +74,8 @@
         <HelpTOCNode Title="ToString Method " Url="html/M_Cauldron_Core_User_ToString.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="8dddc012-372a-4170-be9a-a82d27eec089" Title="UserInformation Class" Url="html/T_Cauldron_Core_UserInformation.htm">
-      <HelpTOCNode Id="12f09198-ac6d-41e0-a893-f4f8e9b9e6b1" Title="UserInformation Properties" Url="html/Properties_T_Cauldron_Core_UserInformation.htm">
+    <HelpTOCNode Id="4952044c-9ad9-4ce4-a9a6-086bc5023d4f" Title="UserInformation Class" Url="html/T_Cauldron_Core_UserInformation.htm">
+      <HelpTOCNode Id="7b6d2576-7331-4288-a10a-25c16f63dcdf" Title="UserInformation Properties" Url="html/Properties_T_Cauldron_Core_UserInformation.htm">
         <HelpTOCNode Title="AccountPicture Property " Url="html/P_Cauldron_Core_UserInformation_AccountPicture.htm" />
         <HelpTOCNode Title="CurrentUser Property " Url="html/P_Cauldron_Core_UserInformation_CurrentUser.htm" />
         <HelpTOCNode Title="DisplayName Property " Url="html/P_Cauldron_Core_UserInformation_DisplayName.htm" />
@@ -92,17 +92,17 @@
         <HelpTOCNode Title="UserName Property " Url="html/P_Cauldron_Core_UserInformation_UserName.htm" />
         <HelpTOCNode Title="WTSClientName Property " Url="html/P_Cauldron_Core_UserInformation_WTSClientName.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="3ba2065e-2128-42e4-a9dd-9e25a413c3bc" Title="UserInformation Methods" Url="html/Methods_T_Cauldron_Core_UserInformation.htm">
+      <HelpTOCNode Id="9e2ca062-5012-41f5-aa14-112dbc1b7d5d" Title="UserInformation Methods" Url="html/Methods_T_Cauldron_Core_UserInformation.htm">
         <HelpTOCNode Title="GetUserInformation Method " Url="html/M_Cauldron_Core_UserInformation_GetUserInformation.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
   </HelpTOCNode>
-  <HelpTOCNode Id="4ab5e446-c3f0-4c91-ae92-9233ae016512" Title="Cauldron.Core.Interceptors" Url="html/N_Cauldron_Core_Interceptors.htm">
-    <HelpTOCNode Id="b4680cb1-15b9-4b9c-bd6e-e20dfb1b5cfa" Title="ExceptionLoggerAttribute Class" Url="html/T_Cauldron_Core_Interceptors_ExceptionLoggerAttribute.htm">
+  <HelpTOCNode Id="c0e56520-b632-41dd-9862-d276429ed90b" Title="Cauldron.Core.Interceptors" Url="html/N_Cauldron_Core_Interceptors.htm">
+    <HelpTOCNode Id="c72afdf3-2f88-4dc9-bf46-72171539f602" Title="ExceptionLoggerAttribute Class" Url="html/T_Cauldron_Core_Interceptors_ExceptionLoggerAttribute.htm">
       <HelpTOCNode Title="ExceptionLoggerAttribute Constructor " Url="html/M_Cauldron_Core_Interceptors_ExceptionLoggerAttribute__ctor.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="53f19e17-1dea-44dd-96a1-0f392740ec14" Title="ExceptionToEventLogAttribute Class" Url="html/T_Cauldron_Core_Interceptors_ExceptionToEventLogAttribute.htm">
-      <HelpTOCNode Id="d303503c-7ec5-46da-84f1-5865b4c4141e" Title="ExceptionToEventLogAttribute Constructor " Url="html/Overload_Cauldron_Core_Interceptors_ExceptionToEventLogAttribute__ctor.htm">
+    <HelpTOCNode Id="ae7a80a2-9307-4c3b-b24b-db4618771485" Title="ExceptionToEventLogAttribute Class" Url="html/T_Cauldron_Core_Interceptors_ExceptionToEventLogAttribute.htm">
+      <HelpTOCNode Id="e6418d29-d945-4a8b-a048-6e6d6393dce6" Title="ExceptionToEventLogAttribute Constructor " Url="html/Overload_Cauldron_Core_Interceptors_ExceptionToEventLogAttribute__ctor.htm">
         <HelpTOCNode Title="ExceptionToEventLogAttribute Constructor " Url="html/M_Cauldron_Core_Interceptors_ExceptionToEventLogAttribute__ctor.htm" />
         <HelpTOCNode Title="ExceptionToEventLogAttribute Constructor (EventLogEntryType)" Url="html/M_Cauldron_Core_Interceptors_ExceptionToEventLogAttribute__ctor_1.htm" />
         <HelpTOCNode Title="ExceptionToEventLogAttribute Constructor (String)" Url="html/M_Cauldron_Core_Interceptors_ExceptionToEventLogAttribute__ctor_3.htm" />
@@ -110,21 +110,21 @@
         <HelpTOCNode Title="ExceptionToEventLogAttribute Constructor (EventLogEntryType, Int32, Int16)" Url="html/M_Cauldron_Core_Interceptors_ExceptionToEventLogAttribute__ctor_2.htm" />
         <HelpTOCNode Title="ExceptionToEventLogAttribute Constructor (String, EventLogEntryType, Int32, Int16)" Url="html/M_Cauldron_Core_Interceptors_ExceptionToEventLogAttribute__ctor_5.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="2bd94e15-b8ee-4631-af45-6d8b957e10c2" Title="ExceptionToEventLogAttribute Properties" Url="html/Properties_T_Cauldron_Core_Interceptors_ExceptionToEventLogAttribute.htm">
+      <HelpTOCNode Id="81234bad-33e5-4d37-979e-ae15bf3ac174" Title="ExceptionToEventLogAttribute Properties" Url="html/Properties_T_Cauldron_Core_Interceptors_ExceptionToEventLogAttribute.htm">
         <HelpTOCNode Title="LogName Property " Url="html/P_Cauldron_Core_Interceptors_ExceptionToEventLogAttribute_LogName.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="45809bcc-3e1b-4966-93b7-87f84cfb8e9d" Title="ExecutionTimeAttribute Class" Url="html/T_Cauldron_Core_Interceptors_ExecutionTimeAttribute.htm">
+    <HelpTOCNode Id="6c81fc61-dad9-4262-95c5-320893c32555" Title="ExecutionTimeAttribute Class" Url="html/T_Cauldron_Core_Interceptors_ExecutionTimeAttribute.htm">
       <HelpTOCNode Title="ExecutionTimeAttribute Constructor " Url="html/M_Cauldron_Core_Interceptors_ExecutionTimeAttribute__ctor.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="1fdbc578-2c61-4be2-a605-f161fcd229f3" Title="PerformanceLoggerAttribute Class" Url="html/T_Cauldron_Core_Interceptors_PerformanceLoggerAttribute.htm">
+    <HelpTOCNode Id="6f9b0832-e6de-4cd0-b778-1b7f5303cd66" Title="PerformanceLoggerAttribute Class" Url="html/T_Cauldron_Core_Interceptors_PerformanceLoggerAttribute.htm">
       <HelpTOCNode Title="PerformanceLoggerAttribute Constructor " Url="html/M_Cauldron_Core_Interceptors_PerformanceLoggerAttribute__ctor.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="5141a401-ef6d-498e-97da-159cf7942694" Title="PropertyOnSetAttribute Class" Url="html/T_Cauldron_Core_Interceptors_PropertyOnSetAttribute.htm">
+    <HelpTOCNode Id="e638a71d-9a27-497e-874b-28c2a2ce203b" Title="PropertyOnSetAttribute Class" Url="html/T_Cauldron_Core_Interceptors_PropertyOnSetAttribute.htm">
       <HelpTOCNode Title="PropertyOnSetAttribute Constructor " Url="html/M_Cauldron_Core_Interceptors_PropertyOnSetAttribute__ctor.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="cfbfd12e-77ee-4535-bb3c-228e45c914ee" Title="RegistryAttribute Class" Url="html/T_Cauldron_Core_Interceptors_RegistryAttribute.htm">
-      <HelpTOCNode Id="432964b2-56ff-486d-9a52-c0bad65dee57" Title="RegistryAttribute Constructor " Url="html/Overload_Cauldron_Core_Interceptors_RegistryAttribute__ctor.htm">
+    <HelpTOCNode Id="a3a2776b-e6d4-4b80-9313-8ebfcc5ed86b" Title="RegistryAttribute Class" Url="html/T_Cauldron_Core_Interceptors_RegistryAttribute.htm">
+      <HelpTOCNode Id="9fd1e464-1b13-4214-b9d3-368517d58384" Title="RegistryAttribute Constructor " Url="html/Overload_Cauldron_Core_Interceptors_RegistryAttribute__ctor.htm">
         <HelpTOCNode Title="RegistryAttribute Constructor (RegistryHive, String)" Url="html/M_Cauldron_Core_Interceptors_RegistryAttribute__ctor_2.htm" />
         <HelpTOCNode Title="RegistryAttribute Constructor (RegistryHive, String, Object)" Url="html/M_Cauldron_Core_Interceptors_RegistryAttribute__ctor_3.htm" />
         <HelpTOCNode Title="RegistryAttribute Constructor (RegistryHive, RegistryView, String, Object)" Url="html/M_Cauldron_Core_Interceptors_RegistryAttribute__ctor.htm" />
@@ -132,88 +132,91 @@
         <HelpTOCNode Title="RegistryAttribute Constructor (RegistryHive, RegistryView, String, String, Object)" Url="html/M_Cauldron_Core_Interceptors_RegistryAttribute__ctor_1.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="a86a9b57-ce55-4438-80b4-56a2842c7069" Title="RegistryClassAttribute Class" Url="html/T_Cauldron_Core_Interceptors_RegistryClassAttribute.htm">
-      <HelpTOCNode Id="c1b7cd26-24f0-49e9-9413-0df9b8e375d6" Title="RegistryClassAttribute Constructor " Url="html/Overload_Cauldron_Core_Interceptors_RegistryClassAttribute__ctor.htm">
+    <HelpTOCNode Id="95cc8cdd-92e4-4c60-b77b-80d67d46c228" Title="RegistryClassAttribute Class" Url="html/T_Cauldron_Core_Interceptors_RegistryClassAttribute.htm">
+      <HelpTOCNode Id="d797739c-5524-48c3-9e2f-47d9f9b9d6bd" Title="RegistryClassAttribute Constructor " Url="html/Overload_Cauldron_Core_Interceptors_RegistryClassAttribute__ctor.htm">
         <HelpTOCNode Title="RegistryClassAttribute Constructor (RegistryHive, String)" Url="html/M_Cauldron_Core_Interceptors_RegistryClassAttribute__ctor_1.htm" />
         <HelpTOCNode Title="RegistryClassAttribute Constructor (RegistryHive, RegistryView, String)" Url="html/M_Cauldron_Core_Interceptors_RegistryClassAttribute__ctor.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="60480403-de9c-459d-a5de-2c911cedda66" Title="TimedCacheAttribute Class" Url="html/T_Cauldron_Core_Interceptors_TimedCacheAttribute.htm">
-      <HelpTOCNode Id="a39bddcb-6eee-4b0c-877f-09cc0a20e65b" Title="TimedCacheAttribute Constructor " Url="html/Overload_Cauldron_Core_Interceptors_TimedCacheAttribute__ctor.htm">
+    <HelpTOCNode Id="3560f45c-1bf3-45ee-bef0-036de1cb98db" Title="RegistryClassDoNotInterceptAttribute Class" Url="html/T_Cauldron_Core_Interceptors_RegistryClassDoNotInterceptAttribute.htm">
+      <HelpTOCNode Title="RegistryClassDoNotInterceptAttribute Constructor " Url="html/M_Cauldron_Core_Interceptors_RegistryClassDoNotInterceptAttribute__ctor.htm" />
+    </HelpTOCNode>
+    <HelpTOCNode Id="724ffd92-5cce-4df8-91a7-9fc0aead4d7d" Title="TimedCacheAttribute Class" Url="html/T_Cauldron_Core_Interceptors_TimedCacheAttribute.htm">
+      <HelpTOCNode Id="f4343852-e124-4832-a5e4-74c8d7f2483b" Title="TimedCacheAttribute Constructor " Url="html/Overload_Cauldron_Core_Interceptors_TimedCacheAttribute__ctor.htm">
         <HelpTOCNode Title="TimedCacheAttribute Constructor " Url="html/M_Cauldron_Core_Interceptors_TimedCacheAttribute__ctor.htm" />
         <HelpTOCNode Title="TimedCacheAttribute Constructor (UInt32)" Url="html/M_Cauldron_Core_Interceptors_TimedCacheAttribute__ctor_1.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="83df8581-90b4-4829-b610-921f5fd83d37" Title="TimedCacheChangeMonitor Class" Url="html/T_Cauldron_Core_Interceptors_TimedCacheChangeMonitor.htm">
-      <HelpTOCNode Id="7c503790-d7c3-40bb-bd1e-bf741ad12bd1" Title="TimedCacheChangeMonitor Properties" Url="html/Properties_T_Cauldron_Core_Interceptors_TimedCacheChangeMonitor.htm">
+    <HelpTOCNode Id="dc3a4fa0-5c92-421a-b2a0-fd6792de2262" Title="TimedCacheChangeMonitor Class" Url="html/T_Cauldron_Core_Interceptors_TimedCacheChangeMonitor.htm">
+      <HelpTOCNode Id="4c160801-bf4f-4c33-a1b5-3ff17d3cbf80" Title="TimedCacheChangeMonitor Properties" Url="html/Properties_T_Cauldron_Core_Interceptors_TimedCacheChangeMonitor.htm">
         <HelpTOCNode Title="UniqueId Property " Url="html/P_Cauldron_Core_Interceptors_TimedCacheChangeMonitor_UniqueId.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="2d21ac65-da96-47d7-bb34-685c5dc62502" Title="TimedCacheChangeMonitor Methods" Url="html/Methods_T_Cauldron_Core_Interceptors_TimedCacheChangeMonitor.htm">
+      <HelpTOCNode Id="fdfd0242-f623-41fc-8ec5-a398f76cc970" Title="TimedCacheChangeMonitor Methods" Url="html/Methods_T_Cauldron_Core_Interceptors_TimedCacheChangeMonitor.htm">
         <HelpTOCNode Title="Clear Method " Url="html/M_Cauldron_Core_Interceptors_TimedCacheChangeMonitor_Clear.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="34795a99-b173-4e25-92f7-6f5a9b000bfc" Title="TimedCacheChangeMonitor Events" Url="html/Events_T_Cauldron_Core_Interceptors_TimedCacheChangeMonitor.htm">
+      <HelpTOCNode Id="7ea4dd66-7497-4f70-b4fb-fdb96892cc03" Title="TimedCacheChangeMonitor Events" Url="html/Events_T_Cauldron_Core_Interceptors_TimedCacheChangeMonitor.htm">
         <HelpTOCNode Title="ClearCache Event" Url="html/E_Cauldron_Core_Interceptors_TimedCacheChangeMonitor_ClearCache.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
   </HelpTOCNode>
-  <HelpTOCNode Id="91a6dbe7-9eef-427d-8c10-bf6e1897fead" Title="Cauldron.Core.Threading" Url="html/N_Cauldron_Core_Threading.htm">
-    <HelpTOCNode Id="d83ed706-6025-4f0a-b5d3-14f9c919a93f" Title="DispatcherEx Class" Url="html/T_Cauldron_Core_Threading_DispatcherEx.htm">
+  <HelpTOCNode Id="9152ff15-1b31-4184-be24-4b8344970ba2" Title="Cauldron.Core.Threading" Url="html/N_Cauldron_Core_Threading.htm">
+    <HelpTOCNode Id="bbd62fc0-8c6a-4424-b260-1ed40fee92d7" Title="DispatcherEx Class" Url="html/T_Cauldron_Core_Threading_DispatcherEx.htm">
       <HelpTOCNode Title="DispatcherEx Constructor " Url="html/M_Cauldron_Core_Threading_DispatcherEx__ctor.htm" />
-      <HelpTOCNode Id="10013012-44a5-49ce-9a30-11bbdb72863a" Title="DispatcherEx Properties" Url="html/Properties_T_Cauldron_Core_Threading_DispatcherEx.htm">
+      <HelpTOCNode Id="20933b0c-c08e-4b58-b0ed-0759644c56a3" Title="DispatcherEx Properties" Url="html/Properties_T_Cauldron_Core_Threading_DispatcherEx.htm">
         <HelpTOCNode Title="HasThreadAccess Property " Url="html/P_Cauldron_Core_Threading_DispatcherEx_HasThreadAccess.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="9b954064-9787-449e-bb41-798b3b2e92e5" Title="DispatcherEx Methods" Url="html/Methods_T_Cauldron_Core_Threading_DispatcherEx.htm">
+      <HelpTOCNode Id="db312713-97cf-49f3-a78a-78adcc1cf75e" Title="DispatcherEx Methods" Url="html/Methods_T_Cauldron_Core_Threading_DispatcherEx.htm">
         <HelpTOCNode Title="OnCreateDispatcher Method " Url="html/M_Cauldron_Core_Threading_DispatcherEx_OnCreateDispatcher.htm" />
         <HelpTOCNode Title="ProcessEvents Method " Url="html/M_Cauldron_Core_Threading_DispatcherEx_ProcessEvents.htm" />
-        <HelpTOCNode Id="6880ffe7-80cb-4331-9766-27f2b21c2fa7" Title="RunAsync Method " Url="html/Overload_Cauldron_Core_Threading_DispatcherEx_RunAsync.htm">
+        <HelpTOCNode Id="47276706-525d-4571-9444-b48627fad559" Title="RunAsync Method " Url="html/Overload_Cauldron_Core_Threading_DispatcherEx_RunAsync.htm">
           <HelpTOCNode Title="RunAsync Method (Action)" Url="html/M_Cauldron_Core_Threading_DispatcherEx_RunAsync_1.htm" />
           <HelpTOCNode Title="RunAsync Method (DispatcherPriority, Action)" Url="html/M_Cauldron_Core_Threading_DispatcherEx_RunAsync.htm" />
         </HelpTOCNode>
       </HelpTOCNode>
     </HelpTOCNode>
   </HelpTOCNode>
-  <HelpTOCNode Id="d03f58d5-7eba-431a-85ff-a03815b2cb42" Title="Cauldron.Net" Url="html/N_Cauldron_Net.htm">
-    <HelpTOCNode Id="c065796b-dee3-4a96-a0ae-744703298be3" Title="UrlProtocol Class" Url="html/T_Cauldron_Net_UrlProtocol.htm">
-      <HelpTOCNode Id="f1aaeba2-a600-4886-9be3-40e77cfb5336" Title="UrlProtocol Methods" Url="html/Methods_T_Cauldron_Net_UrlProtocol.htm">
+  <HelpTOCNode Id="c09a27a4-3a5f-43a3-9721-1152b80f506a" Title="Cauldron.Net" Url="html/N_Cauldron_Net.htm">
+    <HelpTOCNode Id="20901580-550a-4155-9fe8-f1e1e72e01e3" Title="UrlProtocol Class" Url="html/T_Cauldron_Net_UrlProtocol.htm">
+      <HelpTOCNode Id="e204ce54-feac-4a62-8e5d-48a22b9786d3" Title="UrlProtocol Methods" Url="html/Methods_T_Cauldron_Net_UrlProtocol.htm">
         <HelpTOCNode Title="Register Method " Url="html/M_Cauldron_Net_UrlProtocol_Register.htm" />
         <HelpTOCNode Title="RegisterElevated Method " Url="html/M_Cauldron_Net_UrlProtocol_RegisterElevated.htm" />
         <HelpTOCNode Title="RequiresRegistration Method " Url="html/M_Cauldron_Net_UrlProtocol_RequiresRegistration.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
   </HelpTOCNode>
-  <HelpTOCNode Id="bc11bcc6-edcc-41ea-ab46-035539142386" Title="Cauldron.WindowsService" Url="html/N_Cauldron_WindowsService.htm">
+  <HelpTOCNode Id="b919489b-1a09-4ebf-9228-01cf4c799dc1" Title="Cauldron.WindowsService" Url="html/N_Cauldron_WindowsService.htm">
     <HelpTOCNode Title="AccessTokenException Class" Url="html/T_Cauldron_WindowsService_AccessTokenException.htm" />
     <HelpTOCNode Title="RecoveryAction Enumeration" Url="html/T_Cauldron_WindowsService_RecoveryAction.htm" />
-    <HelpTOCNode Id="212d5a3d-bf2f-456a-a59c-5e919ec4e14a" Title="ServiceExecutionGroup(TInstaller) Class" Url="html/T_Cauldron_WindowsService_ServiceExecutionGroup_1.htm">
+    <HelpTOCNode Id="840af39f-1bfd-4c9c-b8c0-c39ffd3a7f7f" Title="ServiceExecutionGroup(TInstaller) Class" Url="html/T_Cauldron_WindowsService_ServiceExecutionGroup_1.htm">
       <HelpTOCNode Title="ServiceExecutionGroup(TInstaller) Constructor " Url="html/M_Cauldron_WindowsService_ServiceExecutionGroup_1__ctor.htm" />
-      <HelpTOCNode Id="7409b09f-d022-4d64-90f7-ba8014fba556" Title="ServiceExecutionGroup(TInstaller) Properties" Url="html/Properties_T_Cauldron_WindowsService_ServiceExecutionGroup_1.htm">
+      <HelpTOCNode Id="3a6b2446-d137-45cd-b16f-9e35bab65c3a" Title="ServiceExecutionGroup(TInstaller) Properties" Url="html/Properties_T_Cauldron_WindowsService_ServiceExecutionGroup_1.htm">
         <HelpTOCNode Title="Help Property " Url="html/P_Cauldron_WindowsService_ServiceExecutionGroup_1_Help.htm" />
         <HelpTOCNode Title="Install Property " Url="html/P_Cauldron_WindowsService_ServiceExecutionGroup_1_Install.htm" />
         <HelpTOCNode Title="ServiceInfo Property " Url="html/P_Cauldron_WindowsService_ServiceExecutionGroup_1_ServiceInfo.htm" />
         <HelpTOCNode Title="UnInstall Property " Url="html/P_Cauldron_WindowsService_ServiceExecutionGroup_1_UnInstall.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="425c9ff2-35f6-4eb5-a71c-03c4b9df2506" Title="ServiceExecutionGroup(TInstaller) Methods" Url="html/Methods_T_Cauldron_WindowsService_ServiceExecutionGroup_1.htm">
+      <HelpTOCNode Id="b5771ad8-934c-4862-ad26-1fc13a850605" Title="ServiceExecutionGroup(TInstaller) Methods" Url="html/Methods_T_Cauldron_WindowsService_ServiceExecutionGroup_1.htm">
         <HelpTOCNode Title="Execute Method " Url="html/M_Cauldron_WindowsService_ServiceExecutionGroup_1_Execute.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
     <HelpTOCNode Title="ServiceManagerException Class" Url="html/T_Cauldron_WindowsService_ServiceManagerException.htm" />
-    <HelpTOCNode Id="8fa2c154-f079-4e7e-9d9f-b38b2d775a60" Title="WindowsServiceInstaller Class" Url="html/T_Cauldron_WindowsService_WindowsServiceInstaller.htm">
+    <HelpTOCNode Id="2a8c3477-8300-457f-bb7f-b4b7515e5054" Title="WindowsServiceInstaller Class" Url="html/T_Cauldron_WindowsService_WindowsServiceInstaller.htm">
       <HelpTOCNode Title="WindowsServiceInstaller Constructor " Url="html/M_Cauldron_WindowsService_WindowsServiceInstaller__ctor.htm" />
-      <HelpTOCNode Id="ddc2d8ec-1465-4cd6-96b1-ef515c077fa1" Title="WindowsServiceInstaller Properties" Url="html/Properties_T_Cauldron_WindowsService_WindowsServiceInstaller.htm">
+      <HelpTOCNode Id="0c25bbcd-14ce-44c3-9095-c1b21ac2ea28" Title="WindowsServiceInstaller Properties" Url="html/Properties_T_Cauldron_WindowsService_WindowsServiceInstaller.htm">
         <HelpTOCNode Title="Password Property " Url="html/P_Cauldron_WindowsService_WindowsServiceInstaller_Password.htm" />
         <HelpTOCNode Title="UserName Property " Url="html/P_Cauldron_WindowsService_WindowsServiceInstaller_UserName.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="e1520176-fb32-4e35-a9fe-c4f6168abb61" Title="WindowsServiceInstaller Methods" Url="html/Methods_T_Cauldron_WindowsService_WindowsServiceInstaller.htm">
+      <HelpTOCNode Id="28f7559d-be15-432d-80d0-442cdee85287" Title="WindowsServiceInstaller Methods" Url="html/Methods_T_Cauldron_WindowsService_WindowsServiceInstaller.htm">
         <HelpTOCNode Title="Dispose Method " Url="html/M_Cauldron_WindowsService_WindowsServiceInstaller_Dispose.htm" />
         <HelpTOCNode Title="Install Method " Url="html/M_Cauldron_WindowsService_WindowsServiceInstaller_Install.htm" />
         <HelpTOCNode Title="Uninstall Method " Url="html/M_Cauldron_WindowsService_WindowsServiceInstaller_Uninstall.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
   </HelpTOCNode>
-  <HelpTOCNode Id="ae4d12a7-285d-46e0-a4d9-ab9fe7141832" Title="Cauldron.XAML" Url="html/N_Cauldron_XAML.htm">
-    <HelpTOCNode Id="c24eea92-2bb3-42e4-b562-14462b19d1d0" Title="ApplicationBase Class" Url="html/T_Cauldron_XAML_ApplicationBase.htm">
+  <HelpTOCNode Id="29dcdcf3-1c29-4ebd-a93f-24520ab483ef" Title="Cauldron.XAML" Url="html/N_Cauldron_XAML.htm">
+    <HelpTOCNode Id="a1a4c5db-3c20-44f0-99b9-5b3e42c78807" Title="ApplicationBase Class" Url="html/T_Cauldron_XAML_ApplicationBase.htm">
       <HelpTOCNode Title="ApplicationBase Constructor " Url="html/M_Cauldron_XAML_ApplicationBase__ctor.htm" />
-      <HelpTOCNode Id="53bbc31c-5d71-4ef4-bb9c-43fce3f2c9c5" Title="ApplicationBase Properties" Url="html/Properties_T_Cauldron_XAML_ApplicationBase.htm">
+      <HelpTOCNode Id="a7ddeb1d-aadb-4142-9c44-ed08de5ecb8a" Title="ApplicationBase Properties" Url="html/Properties_T_Cauldron_XAML_ApplicationBase.htm">
         <HelpTOCNode Title="ApplicationSplash Property " Url="html/P_Cauldron_XAML_ApplicationBase_ApplicationSplash.htm" />
         <HelpTOCNode Title="ApplicationUrlProtocols Property " Url="html/P_Cauldron_XAML_ApplicationBase_ApplicationUrlProtocols.htm" />
         <HelpTOCNode Title="Dispatcher Property " Url="html/P_Cauldron_XAML_ApplicationBase_Dispatcher.htm" />
@@ -225,7 +228,7 @@
         <HelpTOCNode Title="Navigator Property " Url="html/P_Cauldron_XAML_ApplicationBase_Navigator.htm" />
         <HelpTOCNode Title="ShouldBringToFront Property " Url="html/P_Cauldron_XAML_ApplicationBase_ShouldBringToFront.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="e00db33b-ac40-46ec-8498-9f65dcf2b8af" Title="ApplicationBase Methods" Url="html/Methods_T_Cauldron_XAML_ApplicationBase.htm">
+      <HelpTOCNode Id="ff01f04a-e232-4645-a0e0-a5b6134956a2" Title="ApplicationBase Methods" Url="html/Methods_T_Cauldron_XAML_ApplicationBase.htm">
         <HelpTOCNode Title="AfterRaiseNotifyPropertyChanged Method " Url="html/M_Cauldron_XAML_ApplicationBase_AfterRaiseNotifyPropertyChanged.htm" />
         <HelpTOCNode Title="BeforeRaiseNotifyPropertyChanged Method " Url="html/M_Cauldron_XAML_ApplicationBase_BeforeRaiseNotifyPropertyChanged.htm" />
         <HelpTOCNode Title="OnActivated Method " Url="html/M_Cauldron_XAML_ApplicationBase_OnActivated.htm" />
@@ -239,91 +242,91 @@
         <HelpTOCNode Title="RaisePropertyChanged Method " Url="html/M_Cauldron_XAML_ApplicationBase_RaisePropertyChanged.htm" />
         <HelpTOCNode Title="RegisterUrlProtocols Method " Url="html/M_Cauldron_XAML_ApplicationBase_RegisterUrlProtocols.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="6077f303-b2bd-4a71-9fb6-e3a7319a9761" Title="ApplicationBase Events" Url="html/Events_T_Cauldron_XAML_ApplicationBase.htm">
+      <HelpTOCNode Id="c9fbec7d-2fb9-404c-908b-0df9d1461435" Title="ApplicationBase Events" Url="html/Events_T_Cauldron_XAML_ApplicationBase.htm">
         <HelpTOCNode Title="BehaviourInvoke Event" Url="html/E_Cauldron_XAML_ApplicationBase_BehaviourInvoke.htm" />
         <HelpTOCNode Title="IsLoadingChanged Event" Url="html/E_Cauldron_XAML_ApplicationBase_IsLoadingChanged.htm" />
         <HelpTOCNode Title="PropertyChanged Event" Url="html/E_Cauldron_XAML_ApplicationBase_PropertyChanged.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="5df8b06b-1462-4b79-b52e-cf9f7693088e" Title="BehaviourInvocationArgs Class" Url="html/T_Cauldron_XAML_BehaviourInvocationArgs.htm">
+    <HelpTOCNode Id="0e1dc6f6-a4fb-436e-bd5b-c8e83a65a2f2" Title="BehaviourInvocationArgs Class" Url="html/T_Cauldron_XAML_BehaviourInvocationArgs.htm">
       <HelpTOCNode Title="BehaviourInvocationArgs Constructor " Url="html/M_Cauldron_XAML_BehaviourInvocationArgs__ctor.htm" />
-      <HelpTOCNode Id="499a0e52-10c3-4c41-b1e7-f7004aa84d3f" Title="BehaviourInvocationArgs Properties" Url="html/Properties_T_Cauldron_XAML_BehaviourInvocationArgs.htm">
+      <HelpTOCNode Id="2c9bbda3-02d6-4472-a429-b693e36e88a5" Title="BehaviourInvocationArgs Properties" Url="html/Properties_T_Cauldron_XAML_BehaviourInvocationArgs.htm">
         <HelpTOCNode Title="BehaviourName Property " Url="html/P_Cauldron_XAML_BehaviourInvocationArgs_BehaviourName.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="96982310-063a-4ad0-ab2d-e4a481460863" Title="BitmapImageEx Class" Url="html/T_Cauldron_XAML_BitmapImageEx.htm">
+    <HelpTOCNode Id="97b347ad-526c-4474-b535-725b3c3b80fd" Title="BitmapImageEx Class" Url="html/T_Cauldron_XAML_BitmapImageEx.htm">
       <HelpTOCNode Title="BitmapImageEx Constructor " Url="html/M_Cauldron_XAML_BitmapImageEx__ctor.htm" />
-      <HelpTOCNode Id="bbca4abb-f0c9-4cef-87b3-56c064a964af" Title="BitmapImageEx Properties" Url="html/Properties_T_Cauldron_XAML_BitmapImageEx.htm">
+      <HelpTOCNode Id="c6e7e2f1-f1a0-4836-8538-5354f378e353" Title="BitmapImageEx Properties" Url="html/Properties_T_Cauldron_XAML_BitmapImageEx.htm">
         <HelpTOCNode Title="Value Property " Url="html/P_Cauldron_XAML_BitmapImageEx_Value.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="80ab6f54-3259-42bc-98c3-3200080df68b" Title="BitmapImageEx Type Conversions" Url="html/Operators_T_Cauldron_XAML_BitmapImageEx.htm">
-        <HelpTOCNode Id="809f421f-900a-4b22-a6d0-5543ea86d64a" Title="Implicit Conversion Operators" Url="html/Overload_Cauldron_XAML_BitmapImageEx_op_Implicit.htm">
+      <HelpTOCNode Id="be03aa8d-e3e4-4207-926b-813c97522e26" Title="BitmapImageEx Type Conversions" Url="html/Operators_T_Cauldron_XAML_BitmapImageEx.htm">
+        <HelpTOCNode Id="23eee995-fde9-41bd-8bf7-74d3df154fcb" Title="Implicit Conversion Operators" Url="html/Overload_Cauldron_XAML_BitmapImageEx_op_Implicit.htm">
           <HelpTOCNode Title="Implicit Conversion (BitmapImage to BitmapImageEx)" Url="html/M_Cauldron_XAML_BitmapImageEx_op_Implicit_2.htm" />
           <HelpTOCNode Title="Implicit Conversion (BitmapImageEx to BitmapImage)" Url="html/M_Cauldron_XAML_BitmapImageEx_op_Implicit.htm" />
           <HelpTOCNode Title="Implicit Conversion (BitmapImageEx to ImageSource)" Url="html/M_Cauldron_XAML_BitmapImageEx_op_Implicit_1.htm" />
         </HelpTOCNode>
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="25f81ddf-7966-4788-b5f0-c9b5c7ba3067" Title="CauldronTemplateSelector Class" Url="html/T_Cauldron_XAML_CauldronTemplateSelector.htm">
+    <HelpTOCNode Id="f0d4cdbc-78d1-467b-b25e-f9ebe74d76c4" Title="CauldronTemplateSelector Class" Url="html/T_Cauldron_XAML_CauldronTemplateSelector.htm">
       <HelpTOCNode Title="CauldronTemplateSelector Constructor " Url="html/M_Cauldron_XAML_CauldronTemplateSelector__ctor.htm" />
-      <HelpTOCNode Id="0a49178e-c155-4e24-9777-848a937c69c4" Title="CauldronTemplateSelector Methods" Url="html/Methods_T_Cauldron_XAML_CauldronTemplateSelector.htm">
+      <HelpTOCNode Id="1496bb05-f0a2-44b9-9cbb-1bb0b520599a" Title="CauldronTemplateSelector Methods" Url="html/Methods_T_Cauldron_XAML_CauldronTemplateSelector.htm">
         <HelpTOCNode Title="SelectTemplate Method " Url="html/M_Cauldron_XAML_CauldronTemplateSelector_SelectTemplate.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="d82d4199-271e-48dd-8557-71bf6e9655a1" Title="CauldronUICommand Class" Url="html/T_Cauldron_XAML_CauldronUICommand.htm">
-      <HelpTOCNode Id="c715e573-e58f-410d-ab94-5e20044cb899" Title="CauldronUICommand Constructor " Url="html/Overload_Cauldron_XAML_CauldronUICommand__ctor.htm">
+    <HelpTOCNode Id="751bcd2e-ca7f-4feb-b126-8c5db43f1dab" Title="CauldronUICommand Class" Url="html/T_Cauldron_XAML_CauldronUICommand.htm">
+      <HelpTOCNode Id="4d5ac3d0-810a-4c28-ab31-242862da19a8" Title="CauldronUICommand Constructor " Url="html/Overload_Cauldron_XAML_CauldronUICommand__ctor.htm">
         <HelpTOCNode Title="CauldronUICommand Constructor (String)" Url="html/M_Cauldron_XAML_CauldronUICommand__ctor.htm" />
         <HelpTOCNode Title="CauldronUICommand Constructor (String, Action)" Url="html/M_Cauldron_XAML_CauldronUICommand__ctor_1.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="ac3cc55b-f299-49b3-b8f8-e9eece2bca27" Title="CauldronUICommand Properties" Url="html/Properties_T_Cauldron_XAML_CauldronUICommand.htm">
+      <HelpTOCNode Id="631c4e05-b29d-4a62-970b-06eabee63f46" Title="CauldronUICommand Properties" Url="html/Properties_T_Cauldron_XAML_CauldronUICommand.htm">
         <HelpTOCNode Title="Label Property " Url="html/P_Cauldron_XAML_CauldronUICommand_Label.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="941bf451-8bd1-4ef9-ada3-5d8722de13da" Title="CauldronUICommand Methods" Url="html/Methods_T_Cauldron_XAML_CauldronUICommand.htm">
+      <HelpTOCNode Id="53db33cf-b1b5-4462-a3b0-5e6b0b66458d" Title="CauldronUICommand Methods" Url="html/Methods_T_Cauldron_XAML_CauldronUICommand.htm">
         <HelpTOCNode Title="Invoke Method " Url="html/M_Cauldron_XAML_CauldronUICommand_Invoke.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="53d58144-ce37-4734-9ad1-45d9d3131ee8" Title="CauldronUICommandCollection Class" Url="html/T_Cauldron_XAML_CauldronUICommandCollection.htm">
+    <HelpTOCNode Id="48cd264a-a8d0-4294-bce9-e117e2289570" Title="CauldronUICommandCollection Class" Url="html/T_Cauldron_XAML_CauldronUICommandCollection.htm">
       <HelpTOCNode Title="CauldronUICommandCollection Constructor " Url="html/M_Cauldron_XAML_CauldronUICommandCollection__ctor.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="ee42b720-4954-466f-9f29-3894f36638a4" Title="DependencyPropertyInfo Class" Url="html/T_Cauldron_XAML_DependencyPropertyInfo.htm">
-      <HelpTOCNode Id="25fd31b9-5174-482e-99d3-7809018c5fdf" Title="DependencyPropertyInfo Properties" Url="html/Properties_T_Cauldron_XAML_DependencyPropertyInfo.htm">
+    <HelpTOCNode Id="fadfbf05-435e-4e8e-8f64-1a42d8ee4619" Title="DependencyPropertyInfo Class" Url="html/T_Cauldron_XAML_DependencyPropertyInfo.htm">
+      <HelpTOCNode Id="2e29cbe0-a5fe-44a1-8f85-b0cd0a417356" Title="DependencyPropertyInfo Properties" Url="html/Properties_T_Cauldron_XAML_DependencyPropertyInfo.htm">
         <HelpTOCNode Title="DependencyProperty Property " Url="html/P_Cauldron_XAML_DependencyPropertyInfo_DependencyProperty.htm" />
         <HelpTOCNode Title="Name Property " Url="html/P_Cauldron_XAML_DependencyPropertyInfo_Name.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="6aef6c0f-8c12-44a7-836e-0436925df42c" Title="DependencyPropertyInfo Type Conversions" Url="html/Operators_T_Cauldron_XAML_DependencyPropertyInfo.htm">
+      <HelpTOCNode Id="18a6e414-c43f-4bc9-b940-8a6bfa31f49c" Title="DependencyPropertyInfo Type Conversions" Url="html/Operators_T_Cauldron_XAML_DependencyPropertyInfo.htm">
         <HelpTOCNode Title="Implicit Conversion (DependencyPropertyInfo to DependencyProperty)" Url="html/M_Cauldron_XAML_DependencyPropertyInfo_op_Implicit.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="cb5fe579-38a1-48c3-bc8a-ef35f43326b3" Title="DynamicEventHandler Class" Url="html/T_Cauldron_XAML_DynamicEventHandler.htm">
+    <HelpTOCNode Id="f69ccfa2-56c6-4f26-b856-593cc4d67d73" Title="DynamicEventHandler Class" Url="html/T_Cauldron_XAML_DynamicEventHandler.htm">
       <HelpTOCNode Title="DynamicEventHandler Constructor " Url="html/M_Cauldron_XAML_DynamicEventHandler__ctor.htm" />
-      <HelpTOCNode Id="19ff979b-85ea-42e1-b447-10458d106ce5" Title="DynamicEventHandler Properties" Url="html/Properties_T_Cauldron_XAML_DynamicEventHandler.htm">
+      <HelpTOCNode Id="4d9366fd-2b45-4430-ab57-7bd69e24e60c" Title="DynamicEventHandler Properties" Url="html/Properties_T_Cauldron_XAML_DynamicEventHandler.htm">
         <HelpTOCNode Title="AssociatedObject Property " Url="html/P_Cauldron_XAML_DynamicEventHandler_AssociatedObject.htm" />
         <HelpTOCNode Title="EventHandler Property " Url="html/P_Cauldron_XAML_DynamicEventHandler_EventHandler.htm" />
         <HelpTOCNode Title="EventName Property " Url="html/P_Cauldron_XAML_DynamicEventHandler_EventName.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="12f1adc6-cfbe-4155-ac40-25c620321a16" Title="DynamicEventHandler Methods" Url="html/Methods_T_Cauldron_XAML_DynamicEventHandler.htm">
+      <HelpTOCNode Id="b06f550d-f32c-400a-8971-65ea4b2651da" Title="DynamicEventHandler Methods" Url="html/Methods_T_Cauldron_XAML_DynamicEventHandler.htm">
         <HelpTOCNode Title="OnDispose Method " Url="html/M_Cauldron_XAML_DynamicEventHandler_OnDispose.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="DynamicEventHandler Events" Url="html/Events_T_Cauldron_XAML_DynamicEventHandler.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="034c36dc-aaa5-460e-a636-868543c999db" Title="Extensions Class" Url="html/T_Cauldron_XAML_Extensions.htm">
-      <HelpTOCNode Id="540f431b-c770-426d-9518-c3a5221b05df" Title="Extensions Methods" Url="html/Methods_T_Cauldron_XAML_Extensions.htm">
+    <HelpTOCNode Id="d1645eb4-448c-4b3d-bcc8-cb09994d8199" Title="Extensions Class" Url="html/T_Cauldron_XAML_Extensions.htm">
+      <HelpTOCNode Id="2f0de58d-d839-46fa-96b3-48c5dcd7abd4" Title="Extensions Methods" Url="html/Methods_T_Cauldron_XAML_Extensions.htm">
         <HelpTOCNode Title="AsBitmapImage Method " Url="html/M_Cauldron_XAML_Extensions_AsBitmapImage.htm" />
         <HelpTOCNode Title="Clone(T) Method " Url="html/M_Cauldron_XAML_Extensions_Clone__1.htm" />
         <HelpTOCNode Title="FindVisualChildByName Method " Url="html/M_Cauldron_XAML_Extensions_FindVisualChildByName.htm" />
-        <HelpTOCNode Id="20906d93-149f-4451-aed5-ab3ac59f2813" Title="FindVisualChildren Method " Url="html/Overload_Cauldron_XAML_Extensions_FindVisualChildren.htm">
+        <HelpTOCNode Id="46281c5c-fce6-41d7-9f7d-ca9f6c92f554" Title="FindVisualChildren Method " Url="html/Overload_Cauldron_XAML_Extensions_FindVisualChildren.htm">
           <HelpTOCNode Title="FindVisualChildren(T) Method (DependencyObject)" Url="html/M_Cauldron_XAML_Extensions_FindVisualChildren__1.htm" />
           <HelpTOCNode Title="FindVisualChildren(T) Method (DependencyObject, Func(FrameworkElement, Boolean))" Url="html/M_Cauldron_XAML_Extensions_FindVisualChildren__1_1.htm" />
           <HelpTOCNode Title="FindVisualChildren Method (DependencyObject, Type)" Url="html/M_Cauldron_XAML_Extensions_FindVisualChildren.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="fbc881f7-5ab7-4cae-ad4b-ce05bc4bb97d" Title="FindVisualParent Method " Url="html/Overload_Cauldron_XAML_Extensions_FindVisualParent.htm">
+        <HelpTOCNode Id="ab0aaf57-4070-4d00-8b6e-cc128d3a3a22" Title="FindVisualParent Method " Url="html/Overload_Cauldron_XAML_Extensions_FindVisualParent.htm">
           <HelpTOCNode Title="FindVisualParent(T) Method (DependencyObject)" Url="html/M_Cauldron_XAML_Extensions_FindVisualParent__1.htm" />
           <HelpTOCNode Title="FindVisualParent Method (DependencyObject, Type)" Url="html/M_Cauldron_XAML_Extensions_FindVisualParent.htm" />
         </HelpTOCNode>
         <HelpTOCNode Title="FindVisualRootElement Method " Url="html/M_Cauldron_XAML_Extensions_FindVisualRootElement.htm" />
         <HelpTOCNode Title="GetDependencyProperties Method " Url="html/M_Cauldron_XAML_Extensions_GetDependencyProperties.htm" />
         <HelpTOCNode Title="GetInheritanceContext Method " Url="html/M_Cauldron_XAML_Extensions_GetInheritanceContext.htm" />
-        <HelpTOCNode Id="eceb4091-d3aa-42a3-aabd-fe6dc18a4bcf" Title="GetValue Method " Url="html/Overload_Cauldron_XAML_Extensions_GetValue.htm">
+        <HelpTOCNode Id="99d2ce4b-08ed-44df-bbb2-7b6d04837415" Title="GetValue Method " Url="html/Overload_Cauldron_XAML_Extensions_GetValue.htm">
           <HelpTOCNode Title="GetValue Method (Binding)" Url="html/M_Cauldron_XAML_Extensions_GetValue.htm" />
           <HelpTOCNode Title="GetValue Method (BindingExpression)" Url="html/M_Cauldron_XAML_Extensions_GetValue_1.htm" />
         </HelpTOCNode>
@@ -337,127 +340,127 @@
         <HelpTOCNode Title="SaveVisualAsPngAsync Method " Url="html/M_Cauldron_XAML_Extensions_SaveVisualAsPngAsync.htm" />
         <HelpTOCNode Title="SetBinding Method " Url="html/M_Cauldron_XAML_Extensions_SetBinding.htm" />
         <HelpTOCNode Title="SetInlinedText Method " Url="html/M_Cauldron_XAML_Extensions_SetInlinedText.htm" />
-        <HelpTOCNode Id="06d46795-bea8-4c85-a931-088a48a7e43c" Title="ToBitmapImageAsync Method " Url="html/Overload_Cauldron_XAML_Extensions_ToBitmapImageAsync.htm">
+        <HelpTOCNode Id="454668fc-14a0-466a-a427-3b152af837cb" Title="ToBitmapImageAsync Method " Url="html/Overload_Cauldron_XAML_Extensions_ToBitmapImageAsync.htm">
           <HelpTOCNode Title="ToBitmapImageAsync Method (Byte[])" Url="html/M_Cauldron_XAML_Extensions_ToBitmapImageAsync.htm" />
           <HelpTOCNode Title="ToBitmapImageAsync Method (Stream)" Url="html/M_Cauldron_XAML_Extensions_ToBitmapImageAsync_1.htm" />
         </HelpTOCNode>
         <HelpTOCNode Title="TryClose Method " Url="html/M_Cauldron_XAML_Extensions_TryClose.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="c4bdc1d1-1ca7-40be-ab3b-fe6ab69755ec" Title="IImageManager Interface" Url="html/T_Cauldron_XAML_IImageManager.htm">
-      <HelpTOCNode Id="50c50b76-4b95-46d6-aeab-81eb1310f405" Title="IImageManager Methods" Url="html/Methods_T_Cauldron_XAML_IImageManager.htm">
+    <HelpTOCNode Id="bfd07d29-ab4a-477a-acbc-9e2762ecfb0a" Title="IImageManager Interface" Url="html/T_Cauldron_XAML_IImageManager.htm">
+      <HelpTOCNode Id="62e2254d-1979-4443-b03d-fabe4a93a0f2" Title="IImageManager Methods" Url="html/Methods_T_Cauldron_XAML_IImageManager.htm">
         <HelpTOCNode Title="GetImageAsync Method " Url="html/M_Cauldron_XAML_IImageManager_GetImageAsync.htm" />
         <HelpTOCNode Title="LoadBitmapImageAsync Method " Url="html/M_Cauldron_XAML_IImageManager_LoadBitmapImageAsync.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="9b35efff-152b-41ac-b808-20667dedee12" Title="ImageManager Class" Url="html/T_Cauldron_XAML_ImageManager.htm">
-      <HelpTOCNode Id="58e0d769-e0b9-41c5-8d95-7bd7683dd5fd" Title="ImageManager Properties" Url="html/Properties_T_Cauldron_XAML_ImageManager.htm">
+    <HelpTOCNode Id="ee501a4c-f180-4053-b3d5-c934e6f44f0d" Title="ImageManager Class" Url="html/T_Cauldron_XAML_ImageManager.htm">
+      <HelpTOCNode Id="ae45c074-6c40-473f-a4e8-4ec6896dc194" Title="ImageManager Properties" Url="html/Properties_T_Cauldron_XAML_ImageManager.htm">
         <HelpTOCNode Title="IsDisposed Property " Url="html/P_Cauldron_XAML_ImageManager_IsDisposed.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="661b92a9-72ed-4c32-b26d-0ddcfcf28a20" Title="ImageManager Methods" Url="html/Methods_T_Cauldron_XAML_ImageManager.htm">
+      <HelpTOCNode Id="286185a5-b478-44c2-8231-878f6d86fd1c" Title="ImageManager Methods" Url="html/Methods_T_Cauldron_XAML_ImageManager.htm">
         <HelpTOCNode Title="Dispose Method " Url="html/M_Cauldron_XAML_ImageManager_Dispose.htm" />
         <HelpTOCNode Title="Finalize Method " Url="html/M_Cauldron_XAML_ImageManager_Finalize.htm" />
         <HelpTOCNode Title="GetImageAsync Method " Url="html/M_Cauldron_XAML_ImageManager_GetImageAsync.htm" />
         <HelpTOCNode Title="LoadBitmapImageAsync Method " Url="html/M_Cauldron_XAML_ImageManager_LoadBitmapImageAsync.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="416476cc-5bd2-4e70-b034-2b764f222f81" Title="ImageManager Events" Url="html/Events_T_Cauldron_XAML_ImageManager.htm">
+      <HelpTOCNode Id="567330c9-88a4-4bf9-8a93-9ce7dea6c13e" Title="ImageManager Events" Url="html/Events_T_Cauldron_XAML_ImageManager.htm">
         <HelpTOCNode Title="Disposed Event" Url="html/E_Cauldron_XAML_ImageManager_Disposed.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="fbb0e3ae-8088-4588-b80e-11780a4e4d19" Title="IMessageDialog Interface" Url="html/T_Cauldron_XAML_IMessageDialog.htm">
-      <HelpTOCNode Id="f99b18a7-3624-4832-9c2e-807dd7d1c33b" Title="IMessageDialog Methods" Url="html/Methods_T_Cauldron_XAML_IMessageDialog.htm">
-        <HelpTOCNode Id="c25b1de4-f2d7-4e58-bbea-b8b1adb0b19c" Title="ShowAsync Method " Url="html/Overload_Cauldron_XAML_IMessageDialog_ShowAsync.htm">
+    <HelpTOCNode Id="454dddf6-44c4-454c-972e-347f82921d55" Title="IMessageDialog Interface" Url="html/T_Cauldron_XAML_IMessageDialog.htm">
+      <HelpTOCNode Id="5f43af56-46c1-45a6-bc72-4e9db0872aa0" Title="IMessageDialog Methods" Url="html/Methods_T_Cauldron_XAML_IMessageDialog.htm">
+        <HelpTOCNode Id="e5858fbe-b987-465e-a749-5a873207161c" Title="ShowAsync Method " Url="html/Overload_Cauldron_XAML_IMessageDialog_ShowAsync.htm">
           <HelpTOCNode Title="ShowAsync Method (String, String, CauldronUICommand, CauldronUICommand)" Url="html/M_Cauldron_XAML_IMessageDialog_ShowAsync.htm" />
           <HelpTOCNode Title="ShowAsync Method (String, String, MessageBoxImage, CauldronUICommand, CauldronUICommand)" Url="html/M_Cauldron_XAML_IMessageDialog_ShowAsync_1.htm" />
           <HelpTOCNode Title="ShowAsync Method (String, String, UInt32, UInt32, CauldronUICommandCollection)" Url="html/M_Cauldron_XAML_IMessageDialog_ShowAsync_2.htm" />
           <HelpTOCNode Title="ShowAsync Method (String, String, UInt32, UInt32, MessageBoxImage, CauldronUICommandCollection)" Url="html/M_Cauldron_XAML_IMessageDialog_ShowAsync_3.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="e1c2ccec-5bfa-4a6d-883a-c4a31ff91169" Title="ShowExceptionAsync Method " Url="html/Overload_Cauldron_XAML_IMessageDialog_ShowExceptionAsync.htm">
+        <HelpTOCNode Id="2f6bde18-0675-4717-8338-0cb956aa2c81" Title="ShowExceptionAsync Method " Url="html/Overload_Cauldron_XAML_IMessageDialog_ShowExceptionAsync.htm">
           <HelpTOCNode Title="ShowExceptionAsync Method (Exception)" Url="html/M_Cauldron_XAML_IMessageDialog_ShowExceptionAsync.htm" />
           <HelpTOCNode Title="ShowExceptionAsync Method (Exception, String)" Url="html/M_Cauldron_XAML_IMessageDialog_ShowExceptionAsync_1.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="7dd8e01f-232f-43c6-ad19-e18605136dec" Title="ShowOKAsync Method " Url="html/Overload_Cauldron_XAML_IMessageDialog_ShowOKAsync.htm">
+        <HelpTOCNode Id="19bb9fef-7fe2-446d-9f11-cdbcba7c93be" Title="ShowOKAsync Method " Url="html/Overload_Cauldron_XAML_IMessageDialog_ShowOKAsync.htm">
           <HelpTOCNode Title="ShowOKAsync Method (String)" Url="html/M_Cauldron_XAML_IMessageDialog_ShowOKAsync.htm" />
           <HelpTOCNode Title="ShowOKAsync Method (String, String)" Url="html/M_Cauldron_XAML_IMessageDialog_ShowOKAsync_1.htm" />
           <HelpTOCNode Title="ShowOKAsync Method (String, String, MessageBoxImage)" Url="html/M_Cauldron_XAML_IMessageDialog_ShowOKAsync_2.htm" />
           <HelpTOCNode Title="ShowOKAsync Method (String, String, Action)" Url="html/M_Cauldron_XAML_IMessageDialog_ShowOKAsync_3.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="98f2ff9f-4d79-425b-b554-293f02bba1cf" Title="ShowOKCancelAsync Method " Url="html/Overload_Cauldron_XAML_IMessageDialog_ShowOKCancelAsync.htm">
+        <HelpTOCNode Id="b9bc3115-466e-44a7-9769-f5e8fcc32528" Title="ShowOKCancelAsync Method " Url="html/Overload_Cauldron_XAML_IMessageDialog_ShowOKCancelAsync.htm">
           <HelpTOCNode Title="ShowOKCancelAsync Method (String, String, Action)" Url="html/M_Cauldron_XAML_IMessageDialog_ShowOKCancelAsync.htm" />
           <HelpTOCNode Title="ShowOKCancelAsync Method (String, String, Action, Action)" Url="html/M_Cauldron_XAML_IMessageDialog_ShowOKCancelAsync_1.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="feb42c04-ad62-4d88-86f6-6897efb8594d" Title="ShowYesNoAsync Method " Url="html/Overload_Cauldron_XAML_IMessageDialog_ShowYesNoAsync.htm">
+        <HelpTOCNode Id="cf73ebc9-9e6e-4220-a4af-69d3617edf52" Title="ShowYesNoAsync Method " Url="html/Overload_Cauldron_XAML_IMessageDialog_ShowYesNoAsync.htm">
           <HelpTOCNode Title="ShowYesNoAsync Method (String, String)" Url="html/M_Cauldron_XAML_IMessageDialog_ShowYesNoAsync.htm" />
           <HelpTOCNode Title="ShowYesNoAsync Method (String, String, Action)" Url="html/M_Cauldron_XAML_IMessageDialog_ShowYesNoAsync_1.htm" />
           <HelpTOCNode Title="ShowYesNoAsync Method (String, String, Action, Action)" Url="html/M_Cauldron_XAML_IMessageDialog_ShowYesNoAsync_2.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="669ecadd-12d6-43a9-b6b5-0377fcc60f35" Title="ShowYesNoCancelAsync Method " Url="html/Overload_Cauldron_XAML_IMessageDialog_ShowYesNoCancelAsync.htm">
+        <HelpTOCNode Id="e9ffa848-707f-4b08-82bb-a7b631eedc5b" Title="ShowYesNoCancelAsync Method " Url="html/Overload_Cauldron_XAML_IMessageDialog_ShowYesNoCancelAsync.htm">
           <HelpTOCNode Title="ShowYesNoCancelAsync Method (String, String, Action, Action)" Url="html/M_Cauldron_XAML_IMessageDialog_ShowYesNoCancelAsync.htm" />
           <HelpTOCNode Title="ShowYesNoCancelAsync Method (String, String, Action, Action, Action)" Url="html/M_Cauldron_XAML_IMessageDialog_ShowYesNoCancelAsync_1.htm" />
         </HelpTOCNode>
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="65b44e13-973c-40d8-89df-0aab154ac837" Title="INotifyBehaviourInvocation Interface" Url="html/T_Cauldron_XAML_INotifyBehaviourInvocation.htm">
-      <HelpTOCNode Id="2c60b006-22ba-4542-9d84-bcc42dd77b6c" Title="INotifyBehaviourInvocation Events" Url="html/Events_T_Cauldron_XAML_INotifyBehaviourInvocation.htm">
+    <HelpTOCNode Id="1fc41d15-8e8f-4b64-805e-6b2937ab52c7" Title="INotifyBehaviourInvocation Interface" Url="html/T_Cauldron_XAML_INotifyBehaviourInvocation.htm">
+      <HelpTOCNode Id="198fb436-fc60-45ef-a823-b9ac43bf3a2b" Title="INotifyBehaviourInvocation Events" Url="html/Events_T_Cauldron_XAML_INotifyBehaviourInvocation.htm">
         <HelpTOCNode Title="BehaviourInvoke Event" Url="html/E_Cauldron_XAML_INotifyBehaviourInvocation_BehaviourInvoke.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="2f68e30d-6e0b-47e4-946a-9f8765c6c8a3" Title="IRelayCommand Interface" Url="html/T_Cauldron_XAML_IRelayCommand.htm">
-      <HelpTOCNode Id="fe350ad1-931a-45da-ab64-d0c832579466" Title="IRelayCommand Methods" Url="html/Methods_T_Cauldron_XAML_IRelayCommand.htm">
+    <HelpTOCNode Id="010ff46a-59b0-46da-a494-c7af434dcc08" Title="IRelayCommand Interface" Url="html/T_Cauldron_XAML_IRelayCommand.htm">
+      <HelpTOCNode Id="ef1c10f5-3faa-4449-8f67-cd3076730049" Title="IRelayCommand Methods" Url="html/Methods_T_Cauldron_XAML_IRelayCommand.htm">
         <HelpTOCNode Title="RefreshCanExecute Method " Url="html/M_Cauldron_XAML_IRelayCommand_RefreshCanExecute.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="64415b73-fabb-438d-ad6e-a951766617d0" Title="LaunchActivatedEventArgs Class" Url="html/T_Cauldron_XAML_LaunchActivatedEventArgs.htm">
-      <HelpTOCNode Id="447214f3-a0fe-4841-bc53-53b8226a2a23" Title="LaunchActivatedEventArgs Properties" Url="html/Properties_T_Cauldron_XAML_LaunchActivatedEventArgs.htm">
+    <HelpTOCNode Id="6e69afb7-bedf-4ed6-b49d-dd2c14a13ad6" Title="LaunchActivatedEventArgs Class" Url="html/T_Cauldron_XAML_LaunchActivatedEventArgs.htm">
+      <HelpTOCNode Id="16333b72-1bc8-4d5a-a1ab-118f5bdfaf53" Title="LaunchActivatedEventArgs Properties" Url="html/Properties_T_Cauldron_XAML_LaunchActivatedEventArgs.htm">
         <HelpTOCNode Title="Arguments Property " Url="html/P_Cauldron_XAML_LaunchActivatedEventArgs_Arguments.htm" />
         <HelpTOCNode Title="User Property " Url="html/P_Cauldron_XAML_LaunchActivatedEventArgs_User.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
     <HelpTOCNode Title="MessageBoxImage Enumeration" Url="html/T_Cauldron_XAML_MessageBoxImage.htm" />
-    <HelpTOCNode Id="12b15f00-da4a-43d0-b1b4-80260230e76f" Title="MessageDialogEx Class" Url="html/T_Cauldron_XAML_MessageDialogEx.htm">
-      <HelpTOCNode Id="4569f387-5593-44db-b86e-8efcc598d871" Title="MessageDialogEx Properties" Url="html/Properties_T_Cauldron_XAML_MessageDialogEx.htm">
+    <HelpTOCNode Id="1b2994dd-2c8a-4094-843c-93ada5f56317" Title="MessageDialogEx Class" Url="html/T_Cauldron_XAML_MessageDialogEx.htm">
+      <HelpTOCNode Id="1177c4c7-a0c0-4f5f-a578-cdafb77d2b51" Title="MessageDialogEx Properties" Url="html/Properties_T_Cauldron_XAML_MessageDialogEx.htm">
         <HelpTOCNode Title="Dispatcher Property " Url="html/P_Cauldron_XAML_MessageDialogEx_Dispatcher.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="90942a37-b434-475e-ab17-68c47c69d8fa" Title="MessageDialogEx Methods" Url="html/Methods_T_Cauldron_XAML_MessageDialogEx.htm">
-        <HelpTOCNode Id="b67dabbc-0d9e-4b06-90c0-3ae976756bc5" Title="ShowAsync Method " Url="html/Overload_Cauldron_XAML_MessageDialogEx_ShowAsync.htm">
+      <HelpTOCNode Id="02a0aece-d0ee-483c-9311-8b9a79e9ae42" Title="MessageDialogEx Methods" Url="html/Methods_T_Cauldron_XAML_MessageDialogEx.htm">
+        <HelpTOCNode Id="fc17a0f7-cc9f-40cb-8106-044004a3e201" Title="ShowAsync Method " Url="html/Overload_Cauldron_XAML_MessageDialogEx_ShowAsync.htm">
           <HelpTOCNode Title="ShowAsync Method (String, String, CauldronUICommand, CauldronUICommand)" Url="html/M_Cauldron_XAML_MessageDialogEx_ShowAsync.htm" />
           <HelpTOCNode Title="ShowAsync Method (String, String, MessageBoxImage, CauldronUICommand, CauldronUICommand)" Url="html/M_Cauldron_XAML_MessageDialogEx_ShowAsync_1.htm" />
           <HelpTOCNode Title="ShowAsync Method (String, String, UInt32, UInt32, CauldronUICommandCollection)" Url="html/M_Cauldron_XAML_MessageDialogEx_ShowAsync_2.htm" />
           <HelpTOCNode Title="ShowAsync Method (String, String, UInt32, UInt32, MessageBoxImage, CauldronUICommandCollection)" Url="html/M_Cauldron_XAML_MessageDialogEx_ShowAsync_3.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="3ee6d736-1688-4003-ad85-f0e43fa82559" Title="ShowExceptionAsync Method " Url="html/Overload_Cauldron_XAML_MessageDialogEx_ShowExceptionAsync.htm">
+        <HelpTOCNode Id="c51089bd-a03f-4ecd-a598-0d3282ec25ae" Title="ShowExceptionAsync Method " Url="html/Overload_Cauldron_XAML_MessageDialogEx_ShowExceptionAsync.htm">
           <HelpTOCNode Title="ShowExceptionAsync Method (Exception)" Url="html/M_Cauldron_XAML_MessageDialogEx_ShowExceptionAsync.htm" />
           <HelpTOCNode Title="ShowExceptionAsync Method (Exception, String)" Url="html/M_Cauldron_XAML_MessageDialogEx_ShowExceptionAsync_1.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="8859af7a-23b1-4ab9-a05e-5a0f27b45c61" Title="ShowOKAsync Method " Url="html/Overload_Cauldron_XAML_MessageDialogEx_ShowOKAsync.htm">
+        <HelpTOCNode Id="d90b4295-6b0a-409e-be9f-d3307fce2c88" Title="ShowOKAsync Method " Url="html/Overload_Cauldron_XAML_MessageDialogEx_ShowOKAsync.htm">
           <HelpTOCNode Title="ShowOKAsync Method (String)" Url="html/M_Cauldron_XAML_MessageDialogEx_ShowOKAsync.htm" />
           <HelpTOCNode Title="ShowOKAsync Method (String, String)" Url="html/M_Cauldron_XAML_MessageDialogEx_ShowOKAsync_1.htm" />
           <HelpTOCNode Title="ShowOKAsync Method (String, String, MessageBoxImage)" Url="html/M_Cauldron_XAML_MessageDialogEx_ShowOKAsync_2.htm" />
           <HelpTOCNode Title="ShowOKAsync Method (String, String, Action)" Url="html/M_Cauldron_XAML_MessageDialogEx_ShowOKAsync_3.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="3c08d4de-2875-480f-811b-14886ad9f709" Title="ShowOKCancelAsync Method " Url="html/Overload_Cauldron_XAML_MessageDialogEx_ShowOKCancelAsync.htm">
+        <HelpTOCNode Id="d574b016-7be5-4012-9148-651dde2f8ce8" Title="ShowOKCancelAsync Method " Url="html/Overload_Cauldron_XAML_MessageDialogEx_ShowOKCancelAsync.htm">
           <HelpTOCNode Title="ShowOKCancelAsync Method (String, String, Action)" Url="html/M_Cauldron_XAML_MessageDialogEx_ShowOKCancelAsync.htm" />
           <HelpTOCNode Title="ShowOKCancelAsync Method (String, String, Action, Action)" Url="html/M_Cauldron_XAML_MessageDialogEx_ShowOKCancelAsync_1.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="38be77cd-b69c-4dd6-887d-94f9697142b9" Title="ShowYesNoAsync Method " Url="html/Overload_Cauldron_XAML_MessageDialogEx_ShowYesNoAsync.htm">
+        <HelpTOCNode Id="f574a593-a258-4753-911d-951c2a7bed24" Title="ShowYesNoAsync Method " Url="html/Overload_Cauldron_XAML_MessageDialogEx_ShowYesNoAsync.htm">
           <HelpTOCNode Title="ShowYesNoAsync Method (String, String)" Url="html/M_Cauldron_XAML_MessageDialogEx_ShowYesNoAsync.htm" />
           <HelpTOCNode Title="ShowYesNoAsync Method (String, String, Action)" Url="html/M_Cauldron_XAML_MessageDialogEx_ShowYesNoAsync_1.htm" />
           <HelpTOCNode Title="ShowYesNoAsync Method (String, String, Action, Action)" Url="html/M_Cauldron_XAML_MessageDialogEx_ShowYesNoAsync_2.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="0908813e-e8c9-4ad8-b9bd-321e8e034926" Title="ShowYesNoCancelAsync Method " Url="html/Overload_Cauldron_XAML_MessageDialogEx_ShowYesNoCancelAsync.htm">
+        <HelpTOCNode Id="941eea62-d141-40ca-94eb-e13637329343" Title="ShowYesNoCancelAsync Method " Url="html/Overload_Cauldron_XAML_MessageDialogEx_ShowYesNoCancelAsync.htm">
           <HelpTOCNode Title="ShowYesNoCancelAsync Method (String, String, Action, Action)" Url="html/M_Cauldron_XAML_MessageDialogEx_ShowYesNoCancelAsync.htm" />
           <HelpTOCNode Title="ShowYesNoCancelAsync Method (String, String, Action, Action, Action)" Url="html/M_Cauldron_XAML_MessageDialogEx_ShowYesNoCancelAsync_1.htm" />
         </HelpTOCNode>
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="0b173aff-4568-4bc7-ad94-d797d2bd95b5" Title="NavigatorSelectorFactoryResolver Class" Url="html/T_Cauldron_XAML_NavigatorSelectorFactoryResolver.htm">
+    <HelpTOCNode Id="14d9e94a-0035-4a00-8f46-171ff4f8e351" Title="NavigatorSelectorFactoryResolver Class" Url="html/T_Cauldron_XAML_NavigatorSelectorFactoryResolver.htm">
       <HelpTOCNode Title="NavigatorSelectorFactoryResolver Constructor " Url="html/M_Cauldron_XAML_NavigatorSelectorFactoryResolver__ctor.htm" />
-      <HelpTOCNode Id="36878cb4-7ba1-43bb-812e-f6b9ea19dc43" Title="NavigatorSelectorFactoryResolver Methods" Url="html/Methods_T_Cauldron_XAML_NavigatorSelectorFactoryResolver.htm">
+      <HelpTOCNode Id="21d0253c-999b-4c29-8448-bb2de3c18a03" Title="NavigatorSelectorFactoryResolver Methods" Url="html/Methods_T_Cauldron_XAML_NavigatorSelectorFactoryResolver.htm">
         <HelpTOCNode Title="SelectAmbiguousMatch Method " Url="html/M_Cauldron_XAML_NavigatorSelectorFactoryResolver_SelectAmbiguousMatch.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="7c4d2fc0-68fb-433f-ba83-abda7f93fa00" Title="ParameterPassingConfig Class" Url="html/T_Cauldron_XAML_ParameterPassingConfig.htm">
-      <HelpTOCNode Id="bd764581-bb84-45b4-b371-7090be530f69" Title="ParameterPassingConfig Properties" Url="html/Properties_T_Cauldron_XAML_ParameterPassingConfig.htm">
+    <HelpTOCNode Id="c64046d2-5a5d-4aab-8ca6-72e11689f6cc" Title="ParameterPassingConfig Class" Url="html/T_Cauldron_XAML_ParameterPassingConfig.htm">
+      <HelpTOCNode Id="50ce6174-a0db-4a8c-b5d1-bcb5b68a95e5" Title="ParameterPassingConfig Properties" Url="html/Properties_T_Cauldron_XAML_ParameterPassingConfig.htm">
         <HelpTOCNode Title="BringToFront Property " Url="html/P_Cauldron_XAML_ParameterPassingConfig_BringToFront.htm" />
         <HelpTOCNode Title="DataSeparator Property " Url="html/P_Cauldron_XAML_ParameterPassingConfig_DataSeparator.htm" />
         <HelpTOCNode Title="ExitDelegate Property " Url="html/P_Cauldron_XAML_ParameterPassingConfig_ExitDelegate.htm" />
@@ -470,66 +473,66 @@
         <HelpTOCNode Title="ValidationDelegate Property " Url="html/P_Cauldron_XAML_ParameterPassingConfig_ValidationDelegate.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="165a78a9-89ab-480c-8c09-1eece7455f8f" Title="ParamPassing Class" Url="html/T_Cauldron_XAML_ParamPassing.htm">
-      <HelpTOCNode Id="52e62fad-09bd-4a96-823b-348b7b0bb26a" Title="ParamPassing Properties" Url="html/Properties_T_Cauldron_XAML_ParamPassing.htm">
+    <HelpTOCNode Id="7b0bebb6-657d-482c-9b08-d1bedc5347ae" Title="ParamPassing Class" Url="html/T_Cauldron_XAML_ParamPassing.htm">
+      <HelpTOCNode Id="1a8293b0-ed69-4fdd-ae5b-93c7c4c69387" Title="ParamPassing Properties" Url="html/Properties_T_Cauldron_XAML_ParamPassing.htm">
         <HelpTOCNode Title="AreOtherInstanceActive Property " Url="html/P_Cauldron_XAML_ParamPassing_AreOtherInstanceActive.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="03292156-e6d2-4705-9067-dc0d3ba61c9e" Title="ParamPassing Methods" Url="html/Methods_T_Cauldron_XAML_ParamPassing.htm">
-        <HelpTOCNode Id="4e6800be-2a83-4e31-833b-84ea3c52d302" Title="BringToFront Method " Url="html/Overload_Cauldron_XAML_ParamPassing_BringToFront.htm">
+      <HelpTOCNode Id="e7f5ed17-eec0-4c86-9b91-a9358cb6a820" Title="ParamPassing Methods" Url="html/Methods_T_Cauldron_XAML_ParamPassing.htm">
+        <HelpTOCNode Id="f05fdd26-6feb-4cfd-8fbd-c9aaaa32434b" Title="BringToFront Method " Url="html/Overload_Cauldron_XAML_ParamPassing_BringToFront.htm">
           <HelpTOCNode Title="BringToFront Method " Url="html/M_Cauldron_XAML_ParamPassing_BringToFront.htm" />
           <HelpTOCNode Title="BringToFront Method (Func(Process, Boolean))" Url="html/M_Cauldron_XAML_ParamPassing_BringToFront_1.htm" />
         </HelpTOCNode>
         <HelpTOCNode Title="Configure Method " Url="html/M_Cauldron_XAML_ParamPassing_Configure.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="1f38f594-2141-41e1-84bc-cef9ed613ee0" Title="PropertyIsChangedEventArgs Class" Url="html/T_Cauldron_XAML_PropertyIsChangedEventArgs.htm">
-      <HelpTOCNode Id="d25494d5-4577-4300-ba62-425188993a28" Title="PropertyIsChangedEventArgs Properties" Url="html/Properties_T_Cauldron_XAML_PropertyIsChangedEventArgs.htm">
+    <HelpTOCNode Id="5e2f76c6-ddf9-4e88-b1f0-c98a8717b7f7" Title="PropertyIsChangedEventArgs Class" Url="html/T_Cauldron_XAML_PropertyIsChangedEventArgs.htm">
+      <HelpTOCNode Id="7a0f340c-3efc-4713-a332-0f265e96e020" Title="PropertyIsChangedEventArgs Properties" Url="html/Properties_T_Cauldron_XAML_PropertyIsChangedEventArgs.htm">
         <HelpTOCNode Title="NewValue Property " Url="html/P_Cauldron_XAML_PropertyIsChangedEventArgs_NewValue.htm" />
         <HelpTOCNode Title="OldValue Property " Url="html/P_Cauldron_XAML_PropertyIsChangedEventArgs_OldValue.htm" />
         <HelpTOCNode Title="PropertyName Property " Url="html/P_Cauldron_XAML_PropertyIsChangedEventArgs_PropertyName.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="7cdbc6d1-2573-4be8-ad7d-51dad82583b1" Title="RelayCommand Class" Url="html/T_Cauldron_XAML_RelayCommand.htm">
-      <HelpTOCNode Id="5b8daa7d-2cc6-4dd2-97cf-58ecfd10b1fe" Title="RelayCommand Constructor " Url="html/Overload_Cauldron_XAML_RelayCommand__ctor.htm">
+    <HelpTOCNode Id="13930a21-9880-4fa9-a039-ad09ae1d500a" Title="RelayCommand Class" Url="html/T_Cauldron_XAML_RelayCommand.htm">
+      <HelpTOCNode Id="ec42e025-21b5-43b6-837f-f5e0d76eab9a" Title="RelayCommand Constructor " Url="html/Overload_Cauldron_XAML_RelayCommand__ctor.htm">
         <HelpTOCNode Title="RelayCommand Constructor (Action)" Url="html/M_Cauldron_XAML_RelayCommand__ctor.htm" />
         <HelpTOCNode Title="RelayCommand Constructor (Action, Func(Boolean))" Url="html/M_Cauldron_XAML_RelayCommand__ctor_1.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="cf7f5f3d-05fb-4de7-92b1-e4af80bab77c" Title="RelayCommand Properties" Url="html/Properties_T_Cauldron_XAML_RelayCommand.htm">
+      <HelpTOCNode Id="1b8af58f-0398-4e6e-8b67-a560cdbac77b" Title="RelayCommand Properties" Url="html/Properties_T_Cauldron_XAML_RelayCommand.htm">
         <HelpTOCNode Title="IsEnabled Property " Url="html/P_Cauldron_XAML_RelayCommand_IsEnabled.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="a402d5ae-2c62-47a0-881f-4863612626a0" Title="RelayCommand Methods" Url="html/Methods_T_Cauldron_XAML_RelayCommand.htm">
+      <HelpTOCNode Id="0201add1-afcf-408e-80c9-34c3ecdc2732" Title="RelayCommand Methods" Url="html/Methods_T_Cauldron_XAML_RelayCommand.htm">
         <HelpTOCNode Title="CanExecute Method " Url="html/M_Cauldron_XAML_RelayCommand_CanExecute.htm" />
         <HelpTOCNode Title="Execute Method " Url="html/M_Cauldron_XAML_RelayCommand_Execute.htm" />
         <HelpTOCNode Title="OnCanExecuteChanged Method " Url="html/M_Cauldron_XAML_RelayCommand_OnCanExecuteChanged.htm" />
         <HelpTOCNode Title="RefreshCanExecute Method " Url="html/M_Cauldron_XAML_RelayCommand_RefreshCanExecute.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="7454f695-f27a-4ebb-856b-13b4c81be631" Title="RelayCommand Events" Url="html/Events_T_Cauldron_XAML_RelayCommand.htm">
+      <HelpTOCNode Id="0f3d8d42-4b99-4715-a64b-9ed4b762ba32" Title="RelayCommand Events" Url="html/Events_T_Cauldron_XAML_RelayCommand.htm">
         <HelpTOCNode Title="CanExecuteChanged Event" Url="html/E_Cauldron_XAML_RelayCommand_CanExecuteChanged.htm" />
         <HelpTOCNode Title="PropertyChanged Event" Url="html/E_Cauldron_XAML_RelayCommand_PropertyChanged.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="8cfad47b-30c4-402f-a840-6562e91f56ef" Title="RelayCommand(T) Class" Url="html/T_Cauldron_XAML_RelayCommand_1.htm">
-      <HelpTOCNode Id="a74586f0-dc87-4e77-b9fa-37e8798dc138" Title="RelayCommand(T) Constructor " Url="html/Overload_Cauldron_XAML_RelayCommand_1__ctor.htm">
+    <HelpTOCNode Id="5dc357a3-6531-40cd-a4d4-6021f0da756b" Title="RelayCommand(T) Class" Url="html/T_Cauldron_XAML_RelayCommand_1.htm">
+      <HelpTOCNode Id="ada9cc5c-3c46-4de3-938d-09cfcd150eb0" Title="RelayCommand(T) Constructor " Url="html/Overload_Cauldron_XAML_RelayCommand_1__ctor.htm">
         <HelpTOCNode Title="RelayCommand(T) Constructor (Action(T))" Url="html/M_Cauldron_XAML_RelayCommand_1__ctor.htm" />
         <HelpTOCNode Title="RelayCommand(T) Constructor (Action(T), Predicate(T))" Url="html/M_Cauldron_XAML_RelayCommand_1__ctor_1.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="804e698a-10f3-48d1-b517-2a97ab598942" Title="RelayCommand(T) Properties" Url="html/Properties_T_Cauldron_XAML_RelayCommand_1.htm">
+      <HelpTOCNode Id="393cb837-80e4-402e-a65a-b75860c51df7" Title="RelayCommand(T) Properties" Url="html/Properties_T_Cauldron_XAML_RelayCommand_1.htm">
         <HelpTOCNode Title="IsEnabled Property " Url="html/P_Cauldron_XAML_RelayCommand_1_IsEnabled.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="8df37c1a-8489-49d1-8fd0-f2465c2897c1" Title="RelayCommand(T) Methods" Url="html/Methods_T_Cauldron_XAML_RelayCommand_1.htm">
+      <HelpTOCNode Id="9d2546db-accd-42af-aa0c-524eefcdcc1f" Title="RelayCommand(T) Methods" Url="html/Methods_T_Cauldron_XAML_RelayCommand_1.htm">
         <HelpTOCNode Title="CanExecute Method " Url="html/M_Cauldron_XAML_RelayCommand_1_CanExecute.htm" />
         <HelpTOCNode Title="Execute Method " Url="html/M_Cauldron_XAML_RelayCommand_1_Execute.htm" />
         <HelpTOCNode Title="OnCanExecuteChanged Method " Url="html/M_Cauldron_XAML_RelayCommand_1_OnCanExecuteChanged.htm" />
         <HelpTOCNode Title="RefreshCanExecute Method " Url="html/M_Cauldron_XAML_RelayCommand_1_RefreshCanExecute.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="143fd4c9-1799-4dfb-91ac-93f16e168544" Title="RelayCommand(T) Events" Url="html/Events_T_Cauldron_XAML_RelayCommand_1.htm">
+      <HelpTOCNode Id="e1e175c1-7e11-476f-a83b-81163ac2dcc6" Title="RelayCommand(T) Events" Url="html/Events_T_Cauldron_XAML_RelayCommand_1.htm">
         <HelpTOCNode Title="CanExecuteChanged Event" Url="html/E_Cauldron_XAML_RelayCommand_1_CanExecuteChanged.htm" />
         <HelpTOCNode Title="PropertyChanged Event" Url="html/E_Cauldron_XAML_RelayCommand_1_PropertyChanged.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="ffe7eba4-1a93-42e8-8e61-7ebec323499f" Title="ValueConverterBase Class" Url="html/T_Cauldron_XAML_ValueConverterBase.htm">
+    <HelpTOCNode Id="b2fdc8bf-b5bc-4205-813d-630e5be7d9f0" Title="ValueConverterBase Class" Url="html/T_Cauldron_XAML_ValueConverterBase.htm">
       <HelpTOCNode Title="ValueConverterBase Constructor " Url="html/M_Cauldron_XAML_ValueConverterBase__ctor.htm" />
-      <HelpTOCNode Id="4cc99152-09be-433d-a2a0-752bfe4aedf1" Title="ValueConverterBase Methods" Url="html/Methods_T_Cauldron_XAML_ValueConverterBase.htm">
+      <HelpTOCNode Id="079f7112-5b71-4ae6-adbb-258ca3376173" Title="ValueConverterBase Methods" Url="html/Methods_T_Cauldron_XAML_ValueConverterBase.htm">
         <HelpTOCNode Title="Convert Method " Url="html/M_Cauldron_XAML_ValueConverterBase_Convert.htm" />
         <HelpTOCNode Title="ConvertBack Method " Url="html/M_Cauldron_XAML_ValueConverterBase_ConvertBack.htm" />
         <HelpTOCNode Title="GetLanguage Method " Url="html/M_Cauldron_XAML_ValueConverterBase_GetLanguage.htm" />
@@ -537,18 +540,18 @@
         <HelpTOCNode Title="OnConvertBack Method " Url="html/M_Cauldron_XAML_ValueConverterBase_OnConvertBack.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="64e67c23-3164-4d7f-9314-df09ab5a3ce2" Title="ViewAttribute Class" Url="html/T_Cauldron_XAML_ViewAttribute.htm">
-      <HelpTOCNode Id="47238fe3-f21b-490a-80a0-f639f4ecbd72" Title="ViewAttribute Constructor " Url="html/Overload_Cauldron_XAML_ViewAttribute__ctor.htm">
+    <HelpTOCNode Id="5cb75900-d7ff-4d88-9630-34c87087914f" Title="ViewAttribute Class" Url="html/T_Cauldron_XAML_ViewAttribute.htm">
+      <HelpTOCNode Id="ec21499d-e57d-4715-9ca9-33225d005af5" Title="ViewAttribute Constructor " Url="html/Overload_Cauldron_XAML_ViewAttribute__ctor.htm">
         <HelpTOCNode Title="ViewAttribute Constructor (String)" Url="html/M_Cauldron_XAML_ViewAttribute__ctor.htm" />
         <HelpTOCNode Title="ViewAttribute Constructor (Type)" Url="html/M_Cauldron_XAML_ViewAttribute__ctor_1.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="f99a540a-3745-459f-866c-f3d06b438b7c" Title="ViewAttribute Properties" Url="html/Properties_T_Cauldron_XAML_ViewAttribute.htm">
+      <HelpTOCNode Id="ed1a3a34-9ac2-489f-b5d0-e6ffcd69d3ae" Title="ViewAttribute Properties" Url="html/Properties_T_Cauldron_XAML_ViewAttribute.htm">
         <HelpTOCNode Title="ViewName Property " Url="html/P_Cauldron_XAML_ViewAttribute_ViewName.htm" />
         <HelpTOCNode Title="ViewType Property " Url="html/P_Cauldron_XAML_ViewAttribute_ViewType.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="d1af9964-f7dd-4078-acac-8e58892d1990" Title="WindowConfiguration Class" Url="html/T_Cauldron_XAML_WindowConfiguration.htm">
-      <HelpTOCNode Id="9902a817-7e27-4ffd-a081-ca2b9a8b0393" Title="WindowConfiguration Methods" Url="html/Methods_T_Cauldron_XAML_WindowConfiguration.htm">
+    <HelpTOCNode Id="f1ca80fb-781a-43d1-94c8-8a0127514b91" Title="WindowConfiguration Class" Url="html/T_Cauldron_XAML_WindowConfiguration.htm">
+      <HelpTOCNode Id="a379844a-fb73-46e3-bb1e-0e53e035c201" Title="WindowConfiguration Methods" Url="html/Methods_T_Cauldron_XAML_WindowConfiguration.htm">
         <HelpTOCNode Title="GetHasOwner Method " Url="html/M_Cauldron_XAML_WindowConfiguration_GetHasOwner.htm" />
         <HelpTOCNode Title="GetHeight Method " Url="html/M_Cauldron_XAML_WindowConfiguration_GetHeight.htm" />
         <HelpTOCNode Title="GetIcon Method " Url="html/M_Cauldron_XAML_WindowConfiguration_GetIcon.htm" />
@@ -588,7 +591,7 @@
         <HelpTOCNode Title="SetWindowState Method " Url="html/M_Cauldron_XAML_WindowConfiguration_SetWindowState.htm" />
         <HelpTOCNode Title="SetWindowStyle Method " Url="html/M_Cauldron_XAML_WindowConfiguration_SetWindowStyle.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="3bd51d1f-b7a5-40ac-a737-5156a9c7d0d3" Title="WindowConfiguration Fields" Url="html/Fields_T_Cauldron_XAML_WindowConfiguration.htm">
+      <HelpTOCNode Id="7af78be9-7544-48af-a8c0-a413bee94efd" Title="WindowConfiguration Fields" Url="html/Fields_T_Cauldron_XAML_WindowConfiguration.htm">
         <HelpTOCNode Title="HasOwnerProperty Field" Url="html/F_Cauldron_XAML_WindowConfiguration_HasOwnerProperty.htm" />
         <HelpTOCNode Title="HeightProperty Field" Url="html/F_Cauldron_XAML_WindowConfiguration_HeightProperty.htm" />
         <HelpTOCNode Title="IconKeyProperty Field" Url="html/F_Cauldron_XAML_WindowConfiguration_IconKeyProperty.htm" />
@@ -609,7 +612,7 @@
         <HelpTOCNode Title="WindowStateProperty Field" Url="html/F_Cauldron_XAML_WindowConfiguration_WindowStateProperty.htm" />
         <HelpTOCNode Title="WindowStyleProperty Field" Url="html/F_Cauldron_XAML_WindowConfiguration_WindowStyleProperty.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="1ff4be97-f526-46a8-ab2c-ee8b7124248e" Title="WindowConfiguration Attached Properties" Url="html/AttachedProperties_T_Cauldron_XAML_WindowConfiguration.htm">
+      <HelpTOCNode Id="21659b62-5b4e-4a56-98c6-b2efcabfa684" Title="WindowConfiguration Attached Properties" Url="html/AttachedProperties_T_Cauldron_XAML_WindowConfiguration.htm">
         <HelpTOCNode Title="HasOwner Attached Property" Url="html/P_Cauldron_XAML_WindowConfiguration_HasOwner.htm" />
         <HelpTOCNode Title="Height Attached Property" Url="html/P_Cauldron_XAML_WindowConfiguration_Height.htm" />
         <HelpTOCNode Title="Icon Attached Property" Url="html/P_Cauldron_XAML_WindowConfiguration_Icon.htm" />
@@ -631,11 +634,11 @@
         <HelpTOCNode Title="WindowStyle Attached Property" Url="html/P_Cauldron_XAML_WindowConfiguration_WindowStyle.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="4440d65b-7401-442f-ae2c-89f22e3ca9c4" Title="XAMLHelper Class" Url="html/T_Cauldron_XAML_XAMLHelper.htm">
-      <HelpTOCNode Id="d53e2c9e-a6b3-4154-b0d2-00d405984566" Title="XAMLHelper Properties" Url="html/Properties_T_Cauldron_XAML_XAMLHelper.htm">
+    <HelpTOCNode Id="b69f3062-2efa-4dd9-a292-4abfe43e0c26" Title="XAMLHelper Class" Url="html/T_Cauldron_XAML_XAMLHelper.htm">
+      <HelpTOCNode Id="dd1927f9-4a90-43b7-b5bd-96fd1916c1f5" Title="XAMLHelper Properties" Url="html/Properties_T_Cauldron_XAML_XAMLHelper.htm">
         <HelpTOCNode Title="InlineNamespaces Property " Url="html/P_Cauldron_XAML_XAMLHelper_InlineNamespaces.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="db9760cf-eb0b-458d-a37b-156f026c6fdb" Title="XAMLHelper Methods" Url="html/Methods_T_Cauldron_XAML_XAMLHelper.htm">
+      <HelpTOCNode Id="f01e3455-e055-4840-8eab-c065c21aed7c" Title="XAMLHelper Methods" Url="html/Methods_T_Cauldron_XAML_XAMLHelper.htm">
         <HelpTOCNode Title="GetIsInDesignMode Method " Url="html/M_Cauldron_XAML_XAMLHelper_GetIsInDesignMode.htm" />
         <HelpTOCNode Title="GetPropertyValueFromPath Method " Url="html/M_Cauldron_XAML_XAMLHelper_GetPropertyValueFromPath.htm" />
         <HelpTOCNode Title="GetSourceFromPath Method " Url="html/M_Cauldron_XAML_XAMLHelper_GetSourceFromPath.htm" />
@@ -643,59 +646,59 @@
       </HelpTOCNode>
     </HelpTOCNode>
   </HelpTOCNode>
-  <HelpTOCNode Id="cb2bd1bc-83a8-468f-afcc-471f99d12926" Title="Cauldron.XAML.Controls" Url="html/N_Cauldron_XAML_Controls.htm">
-    <HelpTOCNode Id="8a7e5911-e35b-478c-9aa7-e1bb944bba7d" Title="NavigationFrame Class" Url="html/T_Cauldron_XAML_Controls_NavigationFrame.htm">
+  <HelpTOCNode Id="d4c5b1bb-cddd-4ae6-b3a6-a0aa87e76af4" Title="Cauldron.XAML.Controls" Url="html/N_Cauldron_XAML_Controls.htm">
+    <HelpTOCNode Id="9e8b188d-e8cf-4a8f-8410-0f603d5a68b0" Title="NavigationFrame Class" Url="html/T_Cauldron_XAML_Controls_NavigationFrame.htm">
       <HelpTOCNode Title="NavigationFrame Constructor " Url="html/M_Cauldron_XAML_Controls_NavigationFrame__ctor.htm" />
-      <HelpTOCNode Id="733008ce-dbd5-4e2e-93e0-003006489419" Title="NavigationFrame Properties" Url="html/Properties_T_Cauldron_XAML_Controls_NavigationFrame.htm">
+      <HelpTOCNode Id="bfbcb165-397f-411f-bd9c-e3746d630797" Title="NavigationFrame Properties" Url="html/Properties_T_Cauldron_XAML_Controls_NavigationFrame.htm">
         <HelpTOCNode Title="BackStack Property " Url="html/P_Cauldron_XAML_Controls_NavigationFrame_BackStack.htm" />
         <HelpTOCNode Title="CanGoBack Property " Url="html/P_Cauldron_XAML_Controls_NavigationFrame_CanGoBack.htm" />
         <HelpTOCNode Title="CanGoForward Property " Url="html/P_Cauldron_XAML_Controls_NavigationFrame_CanGoForward.htm" />
         <HelpTOCNode Title="ForwardStack Property " Url="html/P_Cauldron_XAML_Controls_NavigationFrame_ForwardStack.htm" />
         <HelpTOCNode Title="MaxStackSize Property " Url="html/P_Cauldron_XAML_Controls_NavigationFrame_MaxStackSize.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="e28ad813-2865-4d21-8689-60d7950cd22c" Title="NavigationFrame Methods" Url="html/Methods_T_Cauldron_XAML_Controls_NavigationFrame.htm">
+      <HelpTOCNode Id="e2404233-d041-4f4d-8050-7e3073d44c5e" Title="NavigationFrame Methods" Url="html/Methods_T_Cauldron_XAML_Controls_NavigationFrame.htm">
         <HelpTOCNode Title="ClearStack Method " Url="html/M_Cauldron_XAML_Controls_NavigationFrame_ClearStack.htm" />
-        <HelpTOCNode Id="88e2519f-3952-4a6e-87b3-f068c7ece70e" Title="GoBack Method " Url="html/Overload_Cauldron_XAML_Controls_NavigationFrame_GoBack.htm">
+        <HelpTOCNode Id="11e2e315-d545-4af3-b0e3-fab21361327f" Title="GoBack Method " Url="html/Overload_Cauldron_XAML_Controls_NavigationFrame_GoBack.htm">
           <HelpTOCNode Title="GoBack Method " Url="html/M_Cauldron_XAML_Controls_NavigationFrame_GoBack.htm" />
           <HelpTOCNode Title="GoBack Method (NavigationType)" Url="html/M_Cauldron_XAML_Controls_NavigationFrame_GoBack_1.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="06a99184-d4ab-44c8-b117-46274ae2f919" Title="GoForward Method " Url="html/Overload_Cauldron_XAML_Controls_NavigationFrame_GoForward.htm">
+        <HelpTOCNode Id="864e7db4-1914-43f9-b883-0eb2f15ca456" Title="GoForward Method " Url="html/Overload_Cauldron_XAML_Controls_NavigationFrame_GoForward.htm">
           <HelpTOCNode Title="GoForward Method " Url="html/M_Cauldron_XAML_Controls_NavigationFrame_GoForward.htm" />
           <HelpTOCNode Title="GoForward Method (NavigationType)" Url="html/M_Cauldron_XAML_Controls_NavigationFrame_GoForward_1.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="cf9ea7bd-4526-47b1-8721-623b2038b0a2" Title="Navigate Method " Url="html/Overload_Cauldron_XAML_Controls_NavigationFrame_Navigate.htm">
+        <HelpTOCNode Id="ae6adb70-e806-4910-ab54-ec9c5634b891" Title="Navigate Method " Url="html/Overload_Cauldron_XAML_Controls_NavigationFrame_Navigate.htm">
           <HelpTOCNode Title="Navigate Method (Type)" Url="html/M_Cauldron_XAML_Controls_NavigationFrame_Navigate.htm" />
           <HelpTOCNode Title="Navigate(TViewModel) Method (Object[], Func(Task))" Url="html/M_Cauldron_XAML_Controls_NavigationFrame_Navigate__1.htm" />
           <HelpTOCNode Title="Navigate(TViewModel, TResult) Method (Object[], Func(TResult, Task))" Url="html/M_Cauldron_XAML_Controls_NavigationFrame_Navigate__2.htm" />
           <HelpTOCNode Title="Navigate Method (Type, Object[])" Url="html/M_Cauldron_XAML_Controls_NavigationFrame_Navigate_1.htm" />
         </HelpTOCNode>
         <HelpTOCNode Title="Reload Method " Url="html/M_Cauldron_XAML_Controls_NavigationFrame_Reload.htm" />
-        <HelpTOCNode Id="cfdc1513-1be0-45ed-a720-2bbcbe0cbd9d" Title="TryClose Method " Url="html/Overload_Cauldron_XAML_Controls_NavigationFrame_TryClose.htm">
+        <HelpTOCNode Id="a1606892-9ea3-449d-95f4-d4103ad981e5" Title="TryClose Method " Url="html/Overload_Cauldron_XAML_Controls_NavigationFrame_TryClose.htm">
           <HelpTOCNode Title="TryClose Method " Url="html/M_Cauldron_XAML_Controls_NavigationFrame_TryClose.htm" />
           <HelpTOCNode Title="TryClose Method (IViewModel)" Url="html/M_Cauldron_XAML_Controls_NavigationFrame_TryClose_1.htm" />
         </HelpTOCNode>
       </HelpTOCNode>
-      <HelpTOCNode Id="9835b262-44ca-4674-9434-9671cf08cdb0" Title="NavigationFrame Events" Url="html/Events_T_Cauldron_XAML_Controls_NavigationFrame.htm">
+      <HelpTOCNode Id="3763fb50-07e7-4340-9cc1-22453714bb17" Title="NavigationFrame Events" Url="html/Events_T_Cauldron_XAML_Controls_NavigationFrame.htm">
         <HelpTOCNode Title="BackRequested Event" Url="html/E_Cauldron_XAML_Controls_NavigationFrame_BackRequested.htm" />
         <HelpTOCNode Title="Navigated Event" Url="html/E_Cauldron_XAML_Controls_NavigationFrame_Navigated.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="37b77190-cb95-4b1f-a441-fbba182e4a31" Title="NavigationFrame Fields" Url="html/Fields_T_Cauldron_XAML_Controls_NavigationFrame.htm">
+      <HelpTOCNode Id="52b87653-0f1e-4d07-b85b-2da0aa194720" Title="NavigationFrame Fields" Url="html/Fields_T_Cauldron_XAML_Controls_NavigationFrame.htm">
         <HelpTOCNode Title="CanGoBackProperty Field" Url="html/F_Cauldron_XAML_Controls_NavigationFrame_CanGoBackProperty.htm" />
         <HelpTOCNode Title="CanGoForwardProperty Field" Url="html/F_Cauldron_XAML_Controls_NavigationFrame_CanGoForwardProperty.htm" />
         <HelpTOCNode Title="MaxStackSizeProperty Field" Url="html/F_Cauldron_XAML_Controls_NavigationFrame_MaxStackSizeProperty.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
   </HelpTOCNode>
-  <HelpTOCNode Id="f0372cb7-330e-4f54-98ef-b5d22ccf6925" Title="Cauldron.XAML.Interactivity" Url="html/N_Cauldron_XAML_Interactivity.htm">
-    <HelpTOCNode Id="b2196e8f-d627-4ec0-ae2a-6a8f6734edee" Title="Behaviour(T) Class" Url="html/T_Cauldron_XAML_Interactivity_Behaviour_1.htm">
+  <HelpTOCNode Id="a89ee695-dea7-472b-9e5c-995a7e4c1884" Title="Cauldron.XAML.Interactivity" Url="html/N_Cauldron_XAML_Interactivity.htm">
+    <HelpTOCNode Id="58a44ea0-0568-4ff7-9318-97aa52b03d0b" Title="Behaviour(T) Class" Url="html/T_Cauldron_XAML_Interactivity_Behaviour_1.htm">
       <HelpTOCNode Title="Behaviour(T) Constructor " Url="html/M_Cauldron_XAML_Interactivity_Behaviour_1__ctor.htm" />
-      <HelpTOCNode Id="502e7b7d-0232-44a6-95d9-beac89ae4785" Title="Behaviour(T) Properties" Url="html/Properties_T_Cauldron_XAML_Interactivity_Behaviour_1.htm">
+      <HelpTOCNode Id="62164842-8639-4dfa-b7ba-f42e932d02fe" Title="Behaviour(T) Properties" Url="html/Properties_T_Cauldron_XAML_Interactivity_Behaviour_1.htm">
         <HelpTOCNode Title="AssociatedObject Property " Url="html/P_Cauldron_XAML_Interactivity_Behaviour_1_AssociatedObject.htm" />
         <HelpTOCNode Title="IBehaviour.AssociatedObject Property " Url="html/P_Cauldron_XAML_Interactivity_Behaviour_1_Cauldron_XAML_Interactivity_IBehaviour_AssociatedObject.htm" />
         <HelpTOCNode Title="IsAssignedFromTemplate Property " Url="html/P_Cauldron_XAML_Interactivity_Behaviour_1_IsAssignedFromTemplate.htm" />
         <HelpTOCNode Title="IsDetached Property " Url="html/P_Cauldron_XAML_Interactivity_Behaviour_1_IsDetached.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="a5d9db5a-159e-46d3-a852-1d54a6bb9066" Title="Behaviour(T) Methods" Url="html/Methods_T_Cauldron_XAML_Interactivity_Behaviour_1.htm">
+      <HelpTOCNode Id="0631c12d-672d-46d6-a11a-7b5e10a95417" Title="Behaviour(T) Methods" Url="html/Methods_T_Cauldron_XAML_Interactivity_Behaviour_1.htm">
         <HelpTOCNode Title="IBehaviour.Attach Method " Url="html/M_Cauldron_XAML_Interactivity_Behaviour_1_Cauldron_XAML_Interactivity_IBehaviour_Attach.htm" />
         <HelpTOCNode Title="IBehaviour.Copy Method " Url="html/M_Cauldron_XAML_Interactivity_Behaviour_1_Cauldron_XAML_Interactivity_IBehaviour_Copy.htm" />
         <HelpTOCNode Title="IBehaviour.DataContextChanged Method " Url="html/M_Cauldron_XAML_Interactivity_Behaviour_1_Cauldron_XAML_Interactivity_IBehaviour_DataContextChanged.htm" />
@@ -708,89 +711,89 @@
         <HelpTOCNode Title="OnDetach Method " Url="html/M_Cauldron_XAML_Interactivity_Behaviour_1_OnDetach.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="ce13c746-50a2-4693-8bb0-fdab6f0d0ab2" Title="BehaviourCollection Class" Url="html/T_Cauldron_XAML_Interactivity_BehaviourCollection.htm">
+    <HelpTOCNode Id="50546de1-9b8e-4e86-bc02-8b01277588a1" Title="BehaviourCollection Class" Url="html/T_Cauldron_XAML_Interactivity_BehaviourCollection.htm">
       <HelpTOCNode Title="BehaviourCollection Methods" Url="html/Methods_T_Cauldron_XAML_Interactivity_BehaviourCollection.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="69cb5669-52e3-4f8c-9cac-bef9321b7763" Title="BehaviourCollection(T) Class" Url="html/T_Cauldron_XAML_Interactivity_BehaviourCollection_1.htm">
-      <HelpTOCNode Id="86aa1305-2ce8-4bbd-adab-a8f886edb98b" Title="BehaviourCollection(T) Methods" Url="html/Methods_T_Cauldron_XAML_Interactivity_BehaviourCollection_1.htm">
+    <HelpTOCNode Id="ffcc744e-6660-4e5a-b8fe-cd7d94bd270c" Title="BehaviourCollection(T) Class" Url="html/T_Cauldron_XAML_Interactivity_BehaviourCollection_1.htm">
+      <HelpTOCNode Id="3f69d547-96d3-438d-a1d1-cf600e3d0cd6" Title="BehaviourCollection(T) Methods" Url="html/Methods_T_Cauldron_XAML_Interactivity_BehaviourCollection_1.htm">
         <HelpTOCNode Title="InsertItem Method " Url="html/M_Cauldron_XAML_Interactivity_BehaviourCollection_1_InsertItem.htm" />
         <HelpTOCNode Title="RemoveAllTemplateAssignedBehaviours Method " Url="html/M_Cauldron_XAML_Interactivity_BehaviourCollection_1_RemoveAllTemplateAssignedBehaviours.htm" />
         <HelpTOCNode Title="RemoveItem Method " Url="html/M_Cauldron_XAML_Interactivity_BehaviourCollection_1_RemoveItem.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="5d2777d6-9167-48a2-81c6-c7658ec24a7e" Title="BehaviourUsageAttribute Class" Url="html/T_Cauldron_XAML_Interactivity_BehaviourUsageAttribute.htm">
-      <HelpTOCNode Id="beea19d3-8927-4a30-84c4-61f8e93a0993" Title="BehaviourUsageAttribute Constructor " Url="html/Overload_Cauldron_XAML_Interactivity_BehaviourUsageAttribute__ctor.htm">
+    <HelpTOCNode Id="ef4f7f84-35be-4c50-a1e0-9bce6534f574" Title="BehaviourUsageAttribute Class" Url="html/T_Cauldron_XAML_Interactivity_BehaviourUsageAttribute.htm">
+      <HelpTOCNode Id="be94d20c-4e4f-4095-9f3c-a90278a85082" Title="BehaviourUsageAttribute Constructor " Url="html/Overload_Cauldron_XAML_Interactivity_BehaviourUsageAttribute__ctor.htm">
         <HelpTOCNode Title="BehaviourUsageAttribute Constructor " Url="html/M_Cauldron_XAML_Interactivity_BehaviourUsageAttribute__ctor.htm" />
         <HelpTOCNode Title="BehaviourUsageAttribute Constructor (Boolean)" Url="html/M_Cauldron_XAML_Interactivity_BehaviourUsageAttribute__ctor_1.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="66ed912f-71db-4a36-86d4-a9c112f28dc9" Title="BehaviourUsageAttribute Properties" Url="html/Properties_T_Cauldron_XAML_Interactivity_BehaviourUsageAttribute.htm">
+      <HelpTOCNode Id="3210e868-77bd-458b-a55c-b40f77e9010f" Title="BehaviourUsageAttribute Properties" Url="html/Properties_T_Cauldron_XAML_Interactivity_BehaviourUsageAttribute.htm">
         <HelpTOCNode Title="AllowMultiple Property " Url="html/P_Cauldron_XAML_Interactivity_BehaviourUsageAttribute_AllowMultiple.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="df5c5f74-f8f5-4003-8b8f-06d0fe19f9dc" Title="CustomCursor Class" Url="html/T_Cauldron_XAML_Interactivity_CustomCursor.htm">
-      <HelpTOCNode Id="e72e7d63-6a61-4fba-b5ab-cb661f95f04c" Title="CustomCursor Methods" Url="html/Methods_T_Cauldron_XAML_Interactivity_CustomCursor.htm">
+    <HelpTOCNode Id="66d91a98-00f1-4839-b50b-2afa7f54f6bf" Title="CustomCursor Class" Url="html/T_Cauldron_XAML_Interactivity_CustomCursor.htm">
+      <HelpTOCNode Id="04953ef2-37de-4e09-9d84-e3b113d60fcf" Title="CustomCursor Methods" Url="html/Methods_T_Cauldron_XAML_Interactivity_CustomCursor.htm">
         <HelpTOCNode Title="GetResourceKey Method " Url="html/M_Cauldron_XAML_Interactivity_CustomCursor_GetResourceKey.htm" />
         <HelpTOCNode Title="SetResourceKey Method " Url="html/M_Cauldron_XAML_Interactivity_CustomCursor_SetResourceKey.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="22b92a20-b6c9-409f-b052-acbd004da038" Title="CustomCursor Fields" Url="html/Fields_T_Cauldron_XAML_Interactivity_CustomCursor.htm">
+      <HelpTOCNode Id="02ad3967-e2f4-441f-b06f-1c2fef75ca34" Title="CustomCursor Fields" Url="html/Fields_T_Cauldron_XAML_Interactivity_CustomCursor.htm">
         <HelpTOCNode Title="ResourceKeyProperty Field" Url="html/F_Cauldron_XAML_Interactivity_CustomCursor_ResourceKeyProperty.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="2497d0f6-ca49-42e7-a34e-cef0d69a32c1" Title="CustomCursor Attached Properties" Url="html/AttachedProperties_T_Cauldron_XAML_Interactivity_CustomCursor.htm">
+      <HelpTOCNode Id="28b00726-cafc-4674-aadc-5f739fcbb363" Title="CustomCursor Attached Properties" Url="html/AttachedProperties_T_Cauldron_XAML_Interactivity_CustomCursor.htm">
         <HelpTOCNode Title="ResourceKey Attached Property" Url="html/P_Cauldron_XAML_Interactivity_CustomCursor_ResourceKey.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="e5712713-2ab6-4c89-9979-2280c84fc02d" Title="EnterKeyToCommand Class" Url="html/T_Cauldron_XAML_Interactivity_EnterKeyToCommand.htm">
+    <HelpTOCNode Id="3c06c103-a09a-4548-91cb-61b6b8f4a74f" Title="EnterKeyToCommand Class" Url="html/T_Cauldron_XAML_Interactivity_EnterKeyToCommand.htm">
       <HelpTOCNode Title="EnterKeyToCommand Constructor " Url="html/M_Cauldron_XAML_Interactivity_EnterKeyToCommand__ctor.htm" />
-      <HelpTOCNode Id="0a0ae54c-2a8a-4df2-a799-ee43ca5449f3" Title="EnterKeyToCommand Properties" Url="html/Properties_T_Cauldron_XAML_Interactivity_EnterKeyToCommand.htm">
+      <HelpTOCNode Id="4d469a84-f5ef-44b6-9496-19cee1c675d2" Title="EnterKeyToCommand Properties" Url="html/Properties_T_Cauldron_XAML_Interactivity_EnterKeyToCommand.htm">
         <HelpTOCNode Title="Command Property " Url="html/P_Cauldron_XAML_Interactivity_EnterKeyToCommand_Command.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="7f5cd93f-7956-4bd9-ad90-4a9337222248" Title="EnterKeyToCommand Methods" Url="html/Methods_T_Cauldron_XAML_Interactivity_EnterKeyToCommand.htm">
+      <HelpTOCNode Id="aa6b8070-3405-4912-b0ed-6f0bc1e79d09" Title="EnterKeyToCommand Methods" Url="html/Methods_T_Cauldron_XAML_Interactivity_EnterKeyToCommand.htm">
         <HelpTOCNode Title="OnAttach Method " Url="html/M_Cauldron_XAML_Interactivity_EnterKeyToCommand_OnAttach.htm" />
         <HelpTOCNode Title="OnDetach Method " Url="html/M_Cauldron_XAML_Interactivity_EnterKeyToCommand_OnDetach.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="995371d5-563d-4e87-ac40-68fc3286b1e9" Title="EnterKeyToCommand Fields" Url="html/Fields_T_Cauldron_XAML_Interactivity_EnterKeyToCommand.htm">
+      <HelpTOCNode Id="98ef3791-14be-46f6-acb3-6f0caa1d9757" Title="EnterKeyToCommand Fields" Url="html/Fields_T_Cauldron_XAML_Interactivity_EnterKeyToCommand.htm">
         <HelpTOCNode Title="MyPropertyProperty Field" Url="html/F_Cauldron_XAML_Interactivity_EnterKeyToCommand_MyPropertyProperty.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="91846b53-1c40-4c67-b267-842387a131f3" Title="EventToCommand Class" Url="html/T_Cauldron_XAML_Interactivity_EventToCommand.htm">
+    <HelpTOCNode Id="e62870a2-4ab1-49b9-b8d2-9913731faf02" Title="EventToCommand Class" Url="html/T_Cauldron_XAML_Interactivity_EventToCommand.htm">
       <HelpTOCNode Title="EventToCommand Constructor " Url="html/M_Cauldron_XAML_Interactivity_EventToCommand__ctor.htm" />
-      <HelpTOCNode Id="83d1e592-0ed8-4265-a5c9-aec6e989bc1c" Title="EventToCommand Properties" Url="html/Properties_T_Cauldron_XAML_Interactivity_EventToCommand.htm">
+      <HelpTOCNode Id="1b2f91c3-b4cd-4e83-9eb1-3cb2824983c8" Title="EventToCommand Properties" Url="html/Properties_T_Cauldron_XAML_Interactivity_EventToCommand.htm">
         <HelpTOCNode Title="ArgumentConverter Property " Url="html/P_Cauldron_XAML_Interactivity_EventToCommand_ArgumentConverter.htm" />
         <HelpTOCNode Title="Command Property " Url="html/P_Cauldron_XAML_Interactivity_EventToCommand_Command.htm" />
         <HelpTOCNode Title="EventName Property " Url="html/P_Cauldron_XAML_Interactivity_EventToCommand_EventName.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="e28caa96-6114-4098-a0d8-d92b3c9e748f" Title="EventToCommand Methods" Url="html/Methods_T_Cauldron_XAML_Interactivity_EventToCommand.htm">
+      <HelpTOCNode Id="cb2416e2-56e8-4e85-a690-60363ecfb0e7" Title="EventToCommand Methods" Url="html/Methods_T_Cauldron_XAML_Interactivity_EventToCommand.htm">
         <HelpTOCNode Title="OnAttach Method " Url="html/M_Cauldron_XAML_Interactivity_EventToCommand_OnAttach.htm" />
         <HelpTOCNode Title="OnDetach Method " Url="html/M_Cauldron_XAML_Interactivity_EventToCommand_OnDetach.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="b56209f5-bd62-465a-9257-9ffcff256fc4" Title="EventToCommand Fields" Url="html/Fields_T_Cauldron_XAML_Interactivity_EventToCommand.htm">
+      <HelpTOCNode Id="80e65e22-7e85-4fa6-91e5-0be4586f1ff6" Title="EventToCommand Fields" Url="html/Fields_T_Cauldron_XAML_Interactivity_EventToCommand.htm">
         <HelpTOCNode Title="ArgumentConverterProperty Field" Url="html/F_Cauldron_XAML_Interactivity_EventToCommand_ArgumentConverterProperty.htm" />
         <HelpTOCNode Title="CommandProperty Field" Url="html/F_Cauldron_XAML_Interactivity_EventToCommand_CommandProperty.htm" />
         <HelpTOCNode Title="EventNameProperty Field" Url="html/F_Cauldron_XAML_Interactivity_EventToCommand_EventNameProperty.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="ea3898fc-40e5-4f21-9252-adef2d9cb94b" Title="EventTrigger Class" Url="html/T_Cauldron_XAML_Interactivity_EventTrigger.htm">
+    <HelpTOCNode Id="720cb25c-dd98-4012-aabe-63cee0a44c66" Title="EventTrigger Class" Url="html/T_Cauldron_XAML_Interactivity_EventTrigger.htm">
       <HelpTOCNode Title="EventTrigger Constructor " Url="html/M_Cauldron_XAML_Interactivity_EventTrigger__ctor.htm" />
-      <HelpTOCNode Id="b68185de-83ce-47c7-bb74-50da3e352496" Title="EventTrigger Properties" Url="html/Properties_T_Cauldron_XAML_Interactivity_EventTrigger.htm">
+      <HelpTOCNode Id="2c10a6d2-5fd0-4a2a-b422-29bb7cf492ff" Title="EventTrigger Properties" Url="html/Properties_T_Cauldron_XAML_Interactivity_EventTrigger.htm">
         <HelpTOCNode Title="Actions Property " Url="html/P_Cauldron_XAML_Interactivity_EventTrigger_Actions.htm" />
         <HelpTOCNode Title="EventName Property " Url="html/P_Cauldron_XAML_Interactivity_EventTrigger_EventName.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="d4dc6a4d-f794-4669-b7ec-95dc55cf017a" Title="EventTrigger Methods" Url="html/Methods_T_Cauldron_XAML_Interactivity_EventTrigger.htm">
+      <HelpTOCNode Id="cb056394-a947-447d-a76e-9c85444455a5" Title="EventTrigger Methods" Url="html/Methods_T_Cauldron_XAML_Interactivity_EventTrigger.htm">
         <HelpTOCNode Title="OnAttach Method " Url="html/M_Cauldron_XAML_Interactivity_EventTrigger_OnAttach.htm" />
         <HelpTOCNode Title="OnCopy Method " Url="html/M_Cauldron_XAML_Interactivity_EventTrigger_OnCopy.htm" />
         <HelpTOCNode Title="OnDetach Method " Url="html/M_Cauldron_XAML_Interactivity_EventTrigger_OnDetach.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="4cf80d03-6fd3-4147-8555-19e764041e93" Title="EventTrigger Fields" Url="html/Fields_T_Cauldron_XAML_Interactivity_EventTrigger.htm">
+      <HelpTOCNode Id="cb10be2d-d00c-4892-93c5-0e58b7a7e838" Title="EventTrigger Fields" Url="html/Fields_T_Cauldron_XAML_Interactivity_EventTrigger.htm">
         <HelpTOCNode Title="EventNameProperty Field" Url="html/F_Cauldron_XAML_Interactivity_EventTrigger_EventNameProperty.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="3b7a7c9d-2872-4831-8fb5-b7e2a0e5eea6" Title="IBehaviour Interface" Url="html/T_Cauldron_XAML_Interactivity_IBehaviour.htm">
-      <HelpTOCNode Id="0c15a624-0b78-4dc4-b82b-4bab2f3ff527" Title="IBehaviour Properties" Url="html/Properties_T_Cauldron_XAML_Interactivity_IBehaviour.htm">
+    <HelpTOCNode Id="e87cca0e-d20f-4559-b5d6-71154f09043d" Title="IBehaviour Interface" Url="html/T_Cauldron_XAML_Interactivity_IBehaviour.htm">
+      <HelpTOCNode Id="0e9da573-cbb2-4c69-8990-4885a0982fbf" Title="IBehaviour Properties" Url="html/Properties_T_Cauldron_XAML_Interactivity_IBehaviour.htm">
         <HelpTOCNode Title="AssociatedObject Property " Url="html/P_Cauldron_XAML_Interactivity_IBehaviour_AssociatedObject.htm" />
         <HelpTOCNode Title="IsAssignedFromTemplate Property " Url="html/P_Cauldron_XAML_Interactivity_IBehaviour_IsAssignedFromTemplate.htm" />
         <HelpTOCNode Title="Name Property " Url="html/P_Cauldron_XAML_Interactivity_IBehaviour_Name.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="b08cf2b6-1101-496e-a626-0fbfa4567116" Title="IBehaviour Methods" Url="html/Methods_T_Cauldron_XAML_Interactivity_IBehaviour.htm">
+      <HelpTOCNode Id="027e0722-2599-4400-a762-1345fe3d796b" Title="IBehaviour Methods" Url="html/Methods_T_Cauldron_XAML_Interactivity_IBehaviour.htm">
         <HelpTOCNode Title="Attach Method " Url="html/M_Cauldron_XAML_Interactivity_IBehaviour_Attach.htm" />
         <HelpTOCNode Title="Copy Method " Url="html/M_Cauldron_XAML_Interactivity_IBehaviour_Copy.htm" />
         <HelpTOCNode Title="DataContextChanged Method " Url="html/M_Cauldron_XAML_Interactivity_IBehaviour_DataContextChanged.htm" />
@@ -798,24 +801,24 @@
         <HelpTOCNode Title="Detach Method " Url="html/M_Cauldron_XAML_Interactivity_IBehaviour_Detach.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="ee832ca1-aa88-4419-924d-2f34e00b6323" Title="Interaction Class" Url="html/T_Cauldron_XAML_Interactivity_Interaction.htm">
-      <HelpTOCNode Id="3d08dc9f-bda4-4bc4-bf5f-91e336b5a727" Title="Interaction Methods" Url="html/Methods_T_Cauldron_XAML_Interactivity_Interaction.htm">
+    <HelpTOCNode Id="43d6e9b2-e582-4fb5-b1ee-58c19d405c15" Title="Interaction Class" Url="html/T_Cauldron_XAML_Interactivity_Interaction.htm">
+      <HelpTOCNode Id="eca6f670-a4fb-4add-9412-644a9ad3dec1" Title="Interaction Methods" Url="html/Methods_T_Cauldron_XAML_Interactivity_Interaction.htm">
         <HelpTOCNode Title="GetBehaviour(T) Method " Url="html/M_Cauldron_XAML_Interactivity_Interaction_GetBehaviour__1.htm" />
         <HelpTOCNode Title="GetBehaviours Method " Url="html/M_Cauldron_XAML_Interactivity_Interaction_GetBehaviours.htm" />
         <HelpTOCNode Title="SetBehaviours Method " Url="html/M_Cauldron_XAML_Interactivity_Interaction_SetBehaviours.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="c3d46463-fb94-4429-b31c-5d3016bb58ef" Title="Interaction Fields" Url="html/Fields_T_Cauldron_XAML_Interactivity_Interaction.htm">
+      <HelpTOCNode Id="9b34fc2b-723d-4cbb-85b2-bf218da89661" Title="Interaction Fields" Url="html/Fields_T_Cauldron_XAML_Interactivity_Interaction.htm">
         <HelpTOCNode Title="BehavioursProperty Field" Url="html/F_Cauldron_XAML_Interactivity_Interaction_BehavioursProperty.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="58987b1d-d274-431c-bcc7-9e64b3373993" Title="Interaction Attached Properties" Url="html/AttachedProperties_T_Cauldron_XAML_Interactivity_Interaction.htm">
+      <HelpTOCNode Id="afc995e4-8ef4-4596-924f-6788d4ed05bd" Title="Interaction Attached Properties" Url="html/AttachedProperties_T_Cauldron_XAML_Interactivity_Interaction.htm">
         <HelpTOCNode Title="Behaviours Attached Property" Url="html/P_Cauldron_XAML_Interactivity_Interaction_Behaviours.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="aaa8974d-13b1-4ddf-b30c-c21ffd4dfc8d" Title="InteractionTemplate Class" Url="html/T_Cauldron_XAML_Interactivity_InteractionTemplate.htm">
+    <HelpTOCNode Id="79bdf232-d6ba-45f6-a6a3-cf7473cd5b82" Title="InteractionTemplate Class" Url="html/T_Cauldron_XAML_Interactivity_InteractionTemplate.htm">
       <HelpTOCNode Title="InteractionTemplate Constructor " Url="html/M_Cauldron_XAML_Interactivity_InteractionTemplate__ctor.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="5d77c5a0-0305-4819-a30b-097970341cd9" Title="Localized Class" Url="html/T_Cauldron_XAML_Interactivity_Localized.htm">
-      <HelpTOCNode Id="81d4f097-8ac6-4e3e-b510-d17758a932f4" Title="Localized Methods" Url="html/Methods_T_Cauldron_XAML_Interactivity_Localized.htm">
+    <HelpTOCNode Id="e0952042-7a93-4e58-928f-75ddff1b2910" Title="Localized Class" Url="html/T_Cauldron_XAML_Interactivity_Localized.htm">
+      <HelpTOCNode Id="40214fee-d3d7-4949-b4ff-319983848987" Title="Localized Methods" Url="html/Methods_T_Cauldron_XAML_Interactivity_Localized.htm">
         <HelpTOCNode Title="GetLocalizedText Method " Url="html/M_Cauldron_XAML_Interactivity_Localized_GetLocalizedText.htm" />
         <HelpTOCNode Title="GetText Method " Url="html/M_Cauldron_XAML_Interactivity_Localized_GetText.htm" />
         <HelpTOCNode Title="GetToolTip Method " Url="html/M_Cauldron_XAML_Interactivity_Localized_GetToolTip.htm" />
@@ -823,99 +826,99 @@
         <HelpTOCNode Title="SetText Method " Url="html/M_Cauldron_XAML_Interactivity_Localized_SetText.htm" />
         <HelpTOCNode Title="SetToolTip Method " Url="html/M_Cauldron_XAML_Interactivity_Localized_SetToolTip.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="1b5a0b5a-1213-49e5-a6fa-064e7ab83632" Title="Localized Fields" Url="html/Fields_T_Cauldron_XAML_Interactivity_Localized.htm">
+      <HelpTOCNode Id="0f08ddfd-29fc-4cae-9a0b-3054304cad73" Title="Localized Fields" Url="html/Fields_T_Cauldron_XAML_Interactivity_Localized.htm">
         <HelpTOCNode Title="LocalizedTextProperty Field" Url="html/F_Cauldron_XAML_Interactivity_Localized_LocalizedTextProperty.htm" />
         <HelpTOCNode Title="TextProperty Field" Url="html/F_Cauldron_XAML_Interactivity_Localized_TextProperty.htm" />
         <HelpTOCNode Title="ToolTipProperty Field" Url="html/F_Cauldron_XAML_Interactivity_Localized_ToolTipProperty.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="7d0819ed-08a6-4fa7-9fba-acc5ab8edc30" Title="Localized Attached Properties" Url="html/AttachedProperties_T_Cauldron_XAML_Interactivity_Localized.htm">
+      <HelpTOCNode Id="7c8ffcc9-bd49-495c-94f7-7c16a216f78d" Title="Localized Attached Properties" Url="html/AttachedProperties_T_Cauldron_XAML_Interactivity_Localized.htm">
         <HelpTOCNode Title="LocalizedText Attached Property" Url="html/P_Cauldron_XAML_Interactivity_Localized_LocalizedText.htm" />
         <HelpTOCNode Title="Text Attached Property" Url="html/P_Cauldron_XAML_Interactivity_Localized_Text.htm" />
         <HelpTOCNode Title="ToolTip Attached Property" Url="html/P_Cauldron_XAML_Interactivity_Localized_ToolTip.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="81e68c71-279b-4693-8176-b573a1a74ad2" Title="PasswordBoxBinding Class" Url="html/T_Cauldron_XAML_Interactivity_PasswordBoxBinding.htm">
+    <HelpTOCNode Id="a1f531ea-c769-4ff5-8631-3d7a87183d30" Title="PasswordBoxBinding Class" Url="html/T_Cauldron_XAML_Interactivity_PasswordBoxBinding.htm">
       <HelpTOCNode Title="PasswordBoxBinding Constructor " Url="html/M_Cauldron_XAML_Interactivity_PasswordBoxBinding__ctor.htm" />
-      <HelpTOCNode Id="da5aca90-4345-4b8c-9d12-791dc8428442" Title="PasswordBoxBinding Properties" Url="html/Properties_T_Cauldron_XAML_Interactivity_PasswordBoxBinding.htm">
+      <HelpTOCNode Id="a9c75160-6f45-4f3d-9558-b368aa799517" Title="PasswordBoxBinding Properties" Url="html/Properties_T_Cauldron_XAML_Interactivity_PasswordBoxBinding.htm">
         <HelpTOCNode Title="Password Property " Url="html/P_Cauldron_XAML_Interactivity_PasswordBoxBinding_Password.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="638a7589-6051-46e3-af7a-7ee4a1fcec3f" Title="PasswordBoxBinding Methods" Url="html/Methods_T_Cauldron_XAML_Interactivity_PasswordBoxBinding.htm">
+      <HelpTOCNode Id="fd88ed46-0927-435f-96b9-a5d379cbd931" Title="PasswordBoxBinding Methods" Url="html/Methods_T_Cauldron_XAML_Interactivity_PasswordBoxBinding.htm">
         <HelpTOCNode Title="OnAttach Method " Url="html/M_Cauldron_XAML_Interactivity_PasswordBoxBinding_OnAttach.htm" />
         <HelpTOCNode Title="OnDetach Method " Url="html/M_Cauldron_XAML_Interactivity_PasswordBoxBinding_OnDetach.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="004a8656-1ddb-497a-bb24-253194648f0c" Title="PasswordBoxBinding Fields" Url="html/Fields_T_Cauldron_XAML_Interactivity_PasswordBoxBinding.htm">
+      <HelpTOCNode Id="1801b3b3-589c-4f2a-834f-a7b2351c7afb" Title="PasswordBoxBinding Fields" Url="html/Fields_T_Cauldron_XAML_Interactivity_PasswordBoxBinding.htm">
         <HelpTOCNode Title="PasswordProperty Field" Url="html/F_Cauldron_XAML_Interactivity_PasswordBoxBinding_PasswordProperty.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="3a04354b-98f3-43c8-83e1-b9c86139e30d" Title="PropertyChangedTrigger Class" Url="html/T_Cauldron_XAML_Interactivity_PropertyChangedTrigger.htm">
+    <HelpTOCNode Id="82c8eeab-0346-4a9e-bb19-aafbfcba6727" Title="PropertyChangedTrigger Class" Url="html/T_Cauldron_XAML_Interactivity_PropertyChangedTrigger.htm">
       <HelpTOCNode Title="PropertyChangedTrigger Constructor " Url="html/M_Cauldron_XAML_Interactivity_PropertyChangedTrigger__ctor.htm" />
-      <HelpTOCNode Id="bdafd1d1-c31c-4de3-8b8e-37c7dcbef130" Title="PropertyChangedTrigger Properties" Url="html/Properties_T_Cauldron_XAML_Interactivity_PropertyChangedTrigger.htm">
+      <HelpTOCNode Id="dcc54ae9-5358-41a0-937a-082d10e5947e" Title="PropertyChangedTrigger Properties" Url="html/Properties_T_Cauldron_XAML_Interactivity_PropertyChangedTrigger.htm">
         <HelpTOCNode Title="Actions Property " Url="html/P_Cauldron_XAML_Interactivity_PropertyChangedTrigger_Actions.htm" />
         <HelpTOCNode Title="Property Property " Url="html/P_Cauldron_XAML_Interactivity_PropertyChangedTrigger_Property.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="c4cb5e9f-b90a-4a50-8314-f34fb9c496ba" Title="PropertyChangedTrigger Methods" Url="html/Methods_T_Cauldron_XAML_Interactivity_PropertyChangedTrigger.htm">
+      <HelpTOCNode Id="be5ef4a2-709f-4345-89cf-27b97bd43018" Title="PropertyChangedTrigger Methods" Url="html/Methods_T_Cauldron_XAML_Interactivity_PropertyChangedTrigger.htm">
         <HelpTOCNode Title="OnAttach Method " Url="html/M_Cauldron_XAML_Interactivity_PropertyChangedTrigger_OnAttach.htm" />
         <HelpTOCNode Title="OnCopy Method " Url="html/M_Cauldron_XAML_Interactivity_PropertyChangedTrigger_OnCopy.htm" />
         <HelpTOCNode Title="OnDataContextChanged Method " Url="html/M_Cauldron_XAML_Interactivity_PropertyChangedTrigger_OnDataContextChanged.htm" />
         <HelpTOCNode Title="OnDataContextPropertyChanged Method " Url="html/M_Cauldron_XAML_Interactivity_PropertyChangedTrigger_OnDataContextPropertyChanged.htm" />
         <HelpTOCNode Title="OnDetach Method " Url="html/M_Cauldron_XAML_Interactivity_PropertyChangedTrigger_OnDetach.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="383a995f-5e9f-4002-a41d-47af40371a3d" Title="PropertyChangedTrigger Fields" Url="html/Fields_T_Cauldron_XAML_Interactivity_PropertyChangedTrigger.htm">
+      <HelpTOCNode Id="623a0e23-87e0-4db3-9d39-1205f532079c" Title="PropertyChangedTrigger Fields" Url="html/Fields_T_Cauldron_XAML_Interactivity_PropertyChangedTrigger.htm">
         <HelpTOCNode Title="PropertyProperty Field" Url="html/F_Cauldron_XAML_Interactivity_PropertyChangedTrigger_PropertyProperty.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="96547d22-ed9a-462b-964e-d0b2f7a6b34a" Title="SetFocusOnLoad Class" Url="html/T_Cauldron_XAML_Interactivity_SetFocusOnLoad.htm">
+    <HelpTOCNode Id="caf82562-50b6-43ef-a1c3-000f562dea45" Title="SetFocusOnLoad Class" Url="html/T_Cauldron_XAML_Interactivity_SetFocusOnLoad.htm">
       <HelpTOCNode Title="SetFocusOnLoad Constructor " Url="html/M_Cauldron_XAML_Interactivity_SetFocusOnLoad__ctor.htm" />
       <HelpTOCNode Title="SetFocusOnLoad Properties" Url="html/Properties_T_Cauldron_XAML_Interactivity_SetFocusOnLoad.htm" />
-      <HelpTOCNode Id="61bee06e-cd67-4641-8092-3b2b2c0c5b51" Title="SetFocusOnLoad Methods" Url="html/Methods_T_Cauldron_XAML_Interactivity_SetFocusOnLoad.htm">
+      <HelpTOCNode Id="1ebf5a1e-f5e2-4394-b9dc-13d6abbefcd8" Title="SetFocusOnLoad Methods" Url="html/Methods_T_Cauldron_XAML_Interactivity_SetFocusOnLoad.htm">
         <HelpTOCNode Title="OnAttach Method " Url="html/M_Cauldron_XAML_Interactivity_SetFocusOnLoad_OnAttach.htm" />
         <HelpTOCNode Title="OnDetach Method " Url="html/M_Cauldron_XAML_Interactivity_SetFocusOnLoad_OnDetach.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="94b6a2f3-9351-433f-aa9e-fb266eccafe1" Title="StyleInteraction Class" Url="html/T_Cauldron_XAML_Interactivity_StyleInteraction.htm">
+    <HelpTOCNode Id="84308778-3bb5-4582-9f51-7c4ae0f43eca" Title="StyleInteraction Class" Url="html/T_Cauldron_XAML_Interactivity_StyleInteraction.htm">
       <HelpTOCNode Title="StyleInteraction Constructor " Url="html/M_Cauldron_XAML_Interactivity_StyleInteraction__ctor.htm" />
-      <HelpTOCNode Id="465e9be1-f74d-43c6-9776-97457db7949f" Title="StyleInteraction Properties" Url="html/Properties_T_Cauldron_XAML_Interactivity_StyleInteraction.htm">
+      <HelpTOCNode Id="bdf00769-c539-4820-965e-5996868a6f52" Title="StyleInteraction Properties" Url="html/Properties_T_Cauldron_XAML_Interactivity_StyleInteraction.htm">
         <HelpTOCNode Title="Behaviours Property " Url="html/P_Cauldron_XAML_Interactivity_StyleInteraction_Behaviours.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="764a83f3-55a0-419a-a203-30f8f8a339eb" Title="StyleInteraction Methods" Url="html/Methods_T_Cauldron_XAML_Interactivity_StyleInteraction.htm">
+      <HelpTOCNode Id="baa5b5b6-86b9-443f-949f-35e8faff6cda" Title="StyleInteraction Methods" Url="html/Methods_T_Cauldron_XAML_Interactivity_StyleInteraction.htm">
         <HelpTOCNode Title="GetTemplate Method " Url="html/M_Cauldron_XAML_Interactivity_StyleInteraction_GetTemplate.htm" />
         <HelpTOCNode Title="SetTemplate Method " Url="html/M_Cauldron_XAML_Interactivity_StyleInteraction_SetTemplate.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="3fae8855-c512-4162-9e61-97db916db869" Title="StyleInteraction Fields" Url="html/Fields_T_Cauldron_XAML_Interactivity_StyleInteraction.htm">
+      <HelpTOCNode Id="691cd701-d557-409a-a545-1cf7deb7653b" Title="StyleInteraction Fields" Url="html/Fields_T_Cauldron_XAML_Interactivity_StyleInteraction.htm">
         <HelpTOCNode Title="TemplateProperty Field" Url="html/F_Cauldron_XAML_Interactivity_StyleInteraction_TemplateProperty.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="883bd155-62cd-4716-b99d-1fe195fa8fcb" Title="StyleInteraction Attached Properties" Url="html/AttachedProperties_T_Cauldron_XAML_Interactivity_StyleInteraction.htm">
+      <HelpTOCNode Id="a52330b9-42f9-4db1-be79-055db76a84fd" Title="StyleInteraction Attached Properties" Url="html/AttachedProperties_T_Cauldron_XAML_Interactivity_StyleInteraction.htm">
         <HelpTOCNode Title="Template Attached Property" Url="html/P_Cauldron_XAML_Interactivity_StyleInteraction_Template.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
   </HelpTOCNode>
-  <HelpTOCNode Id="da3a4133-8609-47af-ac73-06cefd8eaed3" Title="Cauldron.XAML.Interactivity.Actions" Url="html/N_Cauldron_XAML_Interactivity_Actions.htm">
-    <HelpTOCNode Id="f05a3238-92a7-45fb-88ba-b2024b25f52b" Title="ActionBase Class" Url="html/T_Cauldron_XAML_Interactivity_Actions_ActionBase.htm">
+  <HelpTOCNode Id="db155d7f-f56d-4326-a201-7f7ad69ff63b" Title="Cauldron.XAML.Interactivity.Actions" Url="html/N_Cauldron_XAML_Interactivity_Actions.htm">
+    <HelpTOCNode Id="ecca1768-b811-46c8-b6b7-8b1b066482a7" Title="ActionBase Class" Url="html/T_Cauldron_XAML_Interactivity_Actions_ActionBase.htm">
       <HelpTOCNode Title="ActionBase Constructor " Url="html/M_Cauldron_XAML_Interactivity_Actions_ActionBase__ctor.htm" />
       <HelpTOCNode Title="ActionBase Properties" Url="html/Properties_T_Cauldron_XAML_Interactivity_Actions_ActionBase.htm" />
-      <HelpTOCNode Id="10e5ac5e-b0f5-4e5d-8db7-c560b6bbeffe" Title="ActionBase Methods" Url="html/Methods_T_Cauldron_XAML_Interactivity_Actions_ActionBase.htm">
+      <HelpTOCNode Id="32095bd6-b495-47ed-adc7-7801365a5ef4" Title="ActionBase Methods" Url="html/Methods_T_Cauldron_XAML_Interactivity_Actions_ActionBase.htm">
         <HelpTOCNode Title="Invoke Method " Url="html/M_Cauldron_XAML_Interactivity_Actions_ActionBase_Invoke.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="04b08b5d-503b-4b5f-84a8-cafc2d3853cf" Title="ActionCollection Class" Url="html/T_Cauldron_XAML_Interactivity_Actions_ActionCollection.htm">
+    <HelpTOCNode Id="dfe4267d-80a1-4814-92c7-ab2e1d49ca36" Title="ActionCollection Class" Url="html/T_Cauldron_XAML_Interactivity_Actions_ActionCollection.htm">
       <HelpTOCNode Title="ActionCollection Constructor " Url="html/M_Cauldron_XAML_Interactivity_Actions_ActionCollection__ctor.htm" />
       <HelpTOCNode Title="ActionCollection Methods" Url="html/Methods_T_Cauldron_XAML_Interactivity_Actions_ActionCollection.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="ecb0993d-1322-4d60-b164-d58e91ca076b" Title="InvokeMethodAction Class" Url="html/T_Cauldron_XAML_Interactivity_Actions_InvokeMethodAction.htm">
+    <HelpTOCNode Id="5a630c28-186f-4acb-a396-5fb7e43cea4f" Title="InvokeMethodAction Class" Url="html/T_Cauldron_XAML_Interactivity_Actions_InvokeMethodAction.htm">
       <HelpTOCNode Title="InvokeMethodAction Constructor " Url="html/M_Cauldron_XAML_Interactivity_Actions_InvokeMethodAction__ctor.htm" />
-      <HelpTOCNode Id="049afb69-6cca-41e2-9203-665cc963dcf5" Title="InvokeMethodAction Properties" Url="html/Properties_T_Cauldron_XAML_Interactivity_Actions_InvokeMethodAction.htm">
+      <HelpTOCNode Id="9ca04402-d54f-40da-8c19-ffb432306954" Title="InvokeMethodAction Properties" Url="html/Properties_T_Cauldron_XAML_Interactivity_Actions_InvokeMethodAction.htm">
         <HelpTOCNode Title="MethodName Property " Url="html/P_Cauldron_XAML_Interactivity_Actions_InvokeMethodAction_MethodName.htm" />
         <HelpTOCNode Title="MethodOwnerType Property " Url="html/P_Cauldron_XAML_Interactivity_Actions_InvokeMethodAction_MethodOwnerType.htm" />
         <HelpTOCNode Title="MethodParameters Property " Url="html/P_Cauldron_XAML_Interactivity_Actions_InvokeMethodAction_MethodParameters.htm" />
         <HelpTOCNode Title="ParametersFromTemplatedParent Property " Url="html/P_Cauldron_XAML_Interactivity_Actions_InvokeMethodAction_ParametersFromTemplatedParent.htm" />
         <HelpTOCNode Title="PriorityLow Property " Url="html/P_Cauldron_XAML_Interactivity_Actions_InvokeMethodAction_PriorityLow.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="5a2b42d0-b784-4bcb-8381-2f520d972b87" Title="InvokeMethodAction Methods" Url="html/Methods_T_Cauldron_XAML_Interactivity_Actions_InvokeMethodAction.htm">
+      <HelpTOCNode Id="f07202e4-717c-43a0-8a78-b1d9f6ceb576" Title="InvokeMethodAction Methods" Url="html/Methods_T_Cauldron_XAML_Interactivity_Actions_InvokeMethodAction.htm">
         <HelpTOCNode Title="Invoke Method " Url="html/M_Cauldron_XAML_Interactivity_Actions_InvokeMethodAction_Invoke.htm" />
         <HelpTOCNode Title="OnAttach Method " Url="html/M_Cauldron_XAML_Interactivity_Actions_InvokeMethodAction_OnAttach.htm" />
         <HelpTOCNode Title="OnDetach Method " Url="html/M_Cauldron_XAML_Interactivity_Actions_InvokeMethodAction_OnDetach.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="d9a34ce5-dd06-4a7a-81d3-e9e5ccd17a08" Title="InvokeMethodAction Fields" Url="html/Fields_T_Cauldron_XAML_Interactivity_Actions_InvokeMethodAction.htm">
+      <HelpTOCNode Id="dc3ed9c6-d64a-4706-8ecb-4a19566cc9a6" Title="InvokeMethodAction Fields" Url="html/Fields_T_Cauldron_XAML_Interactivity_Actions_InvokeMethodAction.htm">
         <HelpTOCNode Title="MethodNameProperty Field" Url="html/F_Cauldron_XAML_Interactivity_Actions_InvokeMethodAction_MethodNameProperty.htm" />
         <HelpTOCNode Title="MethodOwnerTypeProperty Field" Url="html/F_Cauldron_XAML_Interactivity_Actions_InvokeMethodAction_MethodOwnerTypeProperty.htm" />
         <HelpTOCNode Title="MethodParametersProperty Field" Url="html/F_Cauldron_XAML_Interactivity_Actions_InvokeMethodAction_MethodParametersProperty.htm" />
@@ -924,24 +927,24 @@
       </HelpTOCNode>
     </HelpTOCNode>
   </HelpTOCNode>
-  <HelpTOCNode Id="d124e93f-957c-4a83-85c0-8857af3a7f27" Title="Cauldron.XAML.Interactivity.BehaviourInvocation" Url="html/N_Cauldron_XAML_Interactivity_BehaviourInvocation.htm">
-    <HelpTOCNode Id="149979f0-0325-4054-8a1b-96212e0424e2" Title="BehaviourInvokeAwareBehaviourBase(T) Class" Url="html/T_Cauldron_XAML_Interactivity_BehaviourInvocation_BehaviourInvokeAwareBehaviourBase_1.htm">
+  <HelpTOCNode Id="4be1bef7-b698-4270-a1db-6c3ed0382866" Title="Cauldron.XAML.Interactivity.BehaviourInvocation" Url="html/N_Cauldron_XAML_Interactivity_BehaviourInvocation.htm">
+    <HelpTOCNode Id="1c357db4-287c-4899-b286-f67d46e01ae7" Title="BehaviourInvokeAwareBehaviourBase(T) Class" Url="html/T_Cauldron_XAML_Interactivity_BehaviourInvocation_BehaviourInvokeAwareBehaviourBase_1.htm">
       <HelpTOCNode Title="BehaviourInvokeAwareBehaviourBase(T) Constructor " Url="html/M_Cauldron_XAML_Interactivity_BehaviourInvocation_BehaviourInvokeAwareBehaviourBase_1__ctor.htm" />
-      <HelpTOCNode Id="6f66c54f-37a1-4197-8bf9-21ee45b539d6" Title="BehaviourInvokeAwareBehaviourBase(T) Properties" Url="html/Properties_T_Cauldron_XAML_Interactivity_BehaviourInvocation_BehaviourInvokeAwareBehaviourBase_1.htm">
+      <HelpTOCNode Id="e984652d-c90e-415e-be41-a22fa1dafe2f" Title="BehaviourInvokeAwareBehaviourBase(T) Properties" Url="html/Properties_T_Cauldron_XAML_Interactivity_BehaviourInvocation_BehaviourInvokeAwareBehaviourBase_1.htm">
         <HelpTOCNode Title="MethodName Property " Url="html/P_Cauldron_XAML_Interactivity_BehaviourInvocation_BehaviourInvokeAwareBehaviourBase_1_MethodName.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="d265274f-220d-4318-ae31-20627f4e7c6c" Title="BehaviourInvokeAwareBehaviourBase(T) Methods" Url="html/Methods_T_Cauldron_XAML_Interactivity_BehaviourInvocation_BehaviourInvokeAwareBehaviourBase_1.htm">
+      <HelpTOCNode Id="d77c4496-141b-4503-bd81-a404c8eefe00" Title="BehaviourInvokeAwareBehaviourBase(T) Methods" Url="html/Methods_T_Cauldron_XAML_Interactivity_BehaviourInvocation_BehaviourInvokeAwareBehaviourBase_1.htm">
         <HelpTOCNode Title="Invoke Method " Url="html/M_Cauldron_XAML_Interactivity_BehaviourInvocation_BehaviourInvokeAwareBehaviourBase_1_Invoke.htm" />
         <HelpTOCNode Title="OnDataContextChanged Method " Url="html/M_Cauldron_XAML_Interactivity_BehaviourInvocation_BehaviourInvokeAwareBehaviourBase_1_OnDataContextChanged.htm" />
         <HelpTOCNode Title="OnDetach Method " Url="html/M_Cauldron_XAML_Interactivity_BehaviourInvocation_BehaviourInvokeAwareBehaviourBase_1_OnDetach.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="a9428819-a0a1-4c32-af85-e3513318ceff" Title="InvocationTrigger Class" Url="html/T_Cauldron_XAML_Interactivity_BehaviourInvocation_InvocationTrigger.htm">
+    <HelpTOCNode Id="69fda0af-7965-47a0-a4d6-e27f6ee939d3" Title="InvocationTrigger Class" Url="html/T_Cauldron_XAML_Interactivity_BehaviourInvocation_InvocationTrigger.htm">
       <HelpTOCNode Title="InvocationTrigger Constructor " Url="html/M_Cauldron_XAML_Interactivity_BehaviourInvocation_InvocationTrigger__ctor.htm" />
-      <HelpTOCNode Id="3bc0916c-2dce-4280-bdb8-3b49aa4f8020" Title="InvocationTrigger Properties" Url="html/Properties_T_Cauldron_XAML_Interactivity_BehaviourInvocation_InvocationTrigger.htm">
+      <HelpTOCNode Id="47d0b239-78db-43e6-8676-d6aadf2fae3f" Title="InvocationTrigger Properties" Url="html/Properties_T_Cauldron_XAML_Interactivity_BehaviourInvocation_InvocationTrigger.htm">
         <HelpTOCNode Title="Actions Property " Url="html/P_Cauldron_XAML_Interactivity_BehaviourInvocation_InvocationTrigger_Actions.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="27e258ac-88bc-4bfd-8882-511d0c978af7" Title="InvocationTrigger Methods" Url="html/Methods_T_Cauldron_XAML_Interactivity_BehaviourInvocation_InvocationTrigger.htm">
+      <HelpTOCNode Id="5a01e8f8-7a3b-4710-b32c-b9c5b6250fd0" Title="InvocationTrigger Methods" Url="html/Methods_T_Cauldron_XAML_Interactivity_BehaviourInvocation_InvocationTrigger.htm">
         <HelpTOCNode Title="Invoke Method " Url="html/M_Cauldron_XAML_Interactivity_BehaviourInvocation_InvocationTrigger_Invoke.htm" />
         <HelpTOCNode Title="OnAttach Method " Url="html/M_Cauldron_XAML_Interactivity_BehaviourInvocation_InvocationTrigger_OnAttach.htm" />
         <HelpTOCNode Title="OnCopy Method " Url="html/M_Cauldron_XAML_Interactivity_BehaviourInvocation_InvocationTrigger_OnCopy.htm" />
@@ -949,21 +952,21 @@
       </HelpTOCNode>
     </HelpTOCNode>
   </HelpTOCNode>
-  <HelpTOCNode Id="1842327d-b0d2-43e0-82cb-54179c7e2618" Title="Cauldron.XAML.Navigation" Url="html/N_Cauldron_XAML_Navigation.htm">
-    <HelpTOCNode Id="ebfb7eeb-73be-4bed-b8d7-ad33bb2cc6cb" Title="CauldronBackRequestedEventArgs Class" Url="html/T_Cauldron_XAML_Navigation_CauldronBackRequestedEventArgs.htm">
-      <HelpTOCNode Id="38333b3d-0a21-4c6d-be95-bf940dc13af1" Title="CauldronBackRequestedEventArgs Properties" Url="html/Properties_T_Cauldron_XAML_Navigation_CauldronBackRequestedEventArgs.htm">
+  <HelpTOCNode Id="a5596d91-646a-42df-9028-69f3cc8742d2" Title="Cauldron.XAML.Navigation" Url="html/N_Cauldron_XAML_Navigation.htm">
+    <HelpTOCNode Id="9ac54243-e844-4009-a521-8521fe5fd9d2" Title="CauldronBackRequestedEventArgs Class" Url="html/T_Cauldron_XAML_Navigation_CauldronBackRequestedEventArgs.htm">
+      <HelpTOCNode Id="05be45f8-141f-4f3d-9c95-c595db0ea968" Title="CauldronBackRequestedEventArgs Properties" Url="html/Properties_T_Cauldron_XAML_Navigation_CauldronBackRequestedEventArgs.htm">
         <HelpTOCNode Title="IsHandled Property " Url="html/P_Cauldron_XAML_Navigation_CauldronBackRequestedEventArgs_IsHandled.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="8bd8f0d8-9ea7-436d-95ae-8fce5c9459a2" Title="INavigator Interface" Url="html/T_Cauldron_XAML_Navigation_INavigator.htm">
-      <HelpTOCNode Id="e2523865-a7bc-4a50-bf71-74af13314232" Title="INavigator Properties" Url="html/Properties_T_Cauldron_XAML_Navigation_INavigator.htm">
+    <HelpTOCNode Id="98909fb0-eaf8-447c-bf79-9b4a200abff1" Title="INavigator Interface" Url="html/T_Cauldron_XAML_Navigation_INavigator.htm">
+      <HelpTOCNode Id="36f54c7a-10df-4c62-a8c9-167cbee2543e" Title="INavigator Properties" Url="html/Properties_T_Cauldron_XAML_Navigation_INavigator.htm">
         <HelpTOCNode Title="CanGoBack Property " Url="html/P_Cauldron_XAML_Navigation_INavigator_CanGoBack.htm" />
         <HelpTOCNode Title="CanGoForward Property " Url="html/P_Cauldron_XAML_Navigation_INavigator_CanGoForward.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="4f0874ec-4258-47d9-9aa1-059f359379cc" Title="INavigator Methods" Url="html/Methods_T_Cauldron_XAML_Navigation_INavigator.htm">
+      <HelpTOCNode Id="8b50d4eb-eb09-4c23-a504-029331381745" Title="INavigator Methods" Url="html/Methods_T_Cauldron_XAML_Navigation_INavigator.htm">
         <HelpTOCNode Title="GoBack Method " Url="html/M_Cauldron_XAML_Navigation_INavigator_GoBack.htm" />
         <HelpTOCNode Title="GoForward Method " Url="html/M_Cauldron_XAML_Navigation_INavigator_GoForward.htm" />
-        <HelpTOCNode Id="a9954b8f-3ac3-46d6-aae3-d78a22a9f1fd" Title="NavigateAsync Method " Url="html/Overload_Cauldron_XAML_Navigation_INavigator_NavigateAsync.htm">
+        <HelpTOCNode Id="5b26a211-9347-498e-9ad7-5a3303450a13" Title="NavigateAsync Method " Url="html/Overload_Cauldron_XAML_Navigation_INavigator_NavigateAsync.htm">
           <HelpTOCNode Title="NavigateAsync(T) Method " Url="html/M_Cauldron_XAML_Navigation_INavigator_NavigateAsync__1.htm" />
           <HelpTOCNode Title="NavigateAsync(T) Method (Func(Task))" Url="html/M_Cauldron_XAML_Navigation_INavigator_NavigateAsync__1_1.htm" />
           <HelpTOCNode Title="NavigateAsync(T, TResult) Method (Func(TResult, Task))" Url="html/M_Cauldron_XAML_Navigation_INavigator_NavigateAsync__2.htm" />
@@ -977,31 +980,31 @@
         <HelpTOCNode Title="TryCloseFocusedWindow Method " Url="html/M_Cauldron_XAML_Navigation_INavigator_TryCloseFocusedWindow.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="b45a9874-098c-4ef0-ade6-ce638db9ed6e" Title="NavigatingInfo Class" Url="html/T_Cauldron_XAML_Navigation_NavigatingInfo.htm">
-      <HelpTOCNode Id="d02ce467-9aa6-49b7-a813-0742c1c02611" Title="NavigatingInfo Properties" Url="html/Properties_T_Cauldron_XAML_Navigation_NavigatingInfo.htm">
+    <HelpTOCNode Id="5a73ce94-703e-4aa2-a543-c4d09c2a563e" Title="NavigatingInfo Class" Url="html/T_Cauldron_XAML_Navigation_NavigatingInfo.htm">
+      <HelpTOCNode Id="fa6ca590-820e-459e-bfff-e4c7948dc59b" Title="NavigatingInfo Properties" Url="html/Properties_T_Cauldron_XAML_Navigation_NavigatingInfo.htm">
         <HelpTOCNode Title="Cancel Property " Url="html/P_Cauldron_XAML_Navigation_NavigatingInfo_Cancel.htm" />
         <HelpTOCNode Title="NavigationMode Property " Url="html/P_Cauldron_XAML_Navigation_NavigatingInfo_NavigationMode.htm" />
         <HelpTOCNode Title="NavigationType Property " Url="html/P_Cauldron_XAML_Navigation_NavigatingInfo_NavigationType.htm" />
         <HelpTOCNode Title="SourcePageType Property " Url="html/P_Cauldron_XAML_Navigation_NavigatingInfo_SourcePageType.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="2c3290eb-401f-48fa-9f83-267b45b2ad42" Title="NavigationInfo Class" Url="html/T_Cauldron_XAML_Navigation_NavigationInfo.htm">
-      <HelpTOCNode Id="2a797dd6-13ae-4bbc-8100-5fbf8a781213" Title="NavigationInfo Properties" Url="html/Properties_T_Cauldron_XAML_Navigation_NavigationInfo.htm">
+    <HelpTOCNode Id="2e9cceb1-5a41-4419-989d-7c9a691bea07" Title="NavigationInfo Class" Url="html/T_Cauldron_XAML_Navigation_NavigationInfo.htm">
+      <HelpTOCNode Id="ba95e65a-59de-476e-878d-99e471302310" Title="NavigationInfo Properties" Url="html/Properties_T_Cauldron_XAML_Navigation_NavigationInfo.htm">
         <HelpTOCNode Title="NavigationMode Property " Url="html/P_Cauldron_XAML_Navigation_NavigationInfo_NavigationMode.htm" />
         <HelpTOCNode Title="NavigationType Property " Url="html/P_Cauldron_XAML_Navigation_NavigationInfo_NavigationType.htm" />
         <HelpTOCNode Title="SourceViewModelType Property " Url="html/P_Cauldron_XAML_Navigation_NavigationInfo_SourceViewModelType.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
     <HelpTOCNode Title="NavigationType Enumeration" Url="html/T_Cauldron_XAML_Navigation_NavigationType.htm" />
-    <HelpTOCNode Id="09cfe691-564a-43c0-8577-1b698c41d94e" Title="Navigator Class" Url="html/T_Cauldron_XAML_Navigation_Navigator.htm">
-      <HelpTOCNode Id="1da78c88-8bef-4940-8003-971a2cdea748" Title="Navigator Properties" Url="html/Properties_T_Cauldron_XAML_Navigation_Navigator.htm">
+    <HelpTOCNode Id="a93d978a-67e8-41ca-b877-8216f0828ac7" Title="Navigator Class" Url="html/T_Cauldron_XAML_Navigation_Navigator.htm">
+      <HelpTOCNode Id="b5436038-67e1-4b53-9dcb-ded260a9a328" Title="Navigator Properties" Url="html/Properties_T_Cauldron_XAML_Navigation_Navigator.htm">
         <HelpTOCNode Title="CanGoBack Property " Url="html/P_Cauldron_XAML_Navigation_Navigator_CanGoBack.htm" />
         <HelpTOCNode Title="CanGoForward Property " Url="html/P_Cauldron_XAML_Navigation_Navigator_CanGoForward.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="e120140d-c526-4db3-8fb5-de61046145b2" Title="Navigator Methods" Url="html/Methods_T_Cauldron_XAML_Navigation_Navigator.htm">
+      <HelpTOCNode Id="61afd6d7-3a7a-4a0b-99fe-197c8c30e161" Title="Navigator Methods" Url="html/Methods_T_Cauldron_XAML_Navigation_Navigator.htm">
         <HelpTOCNode Title="GoBack Method " Url="html/M_Cauldron_XAML_Navigation_Navigator_GoBack.htm" />
         <HelpTOCNode Title="GoForward Method " Url="html/M_Cauldron_XAML_Navigation_Navigator_GoForward.htm" />
-        <HelpTOCNode Id="7812483b-91e5-4a6b-a237-c25f392899c1" Title="NavigateAsync Method " Url="html/Overload_Cauldron_XAML_Navigation_Navigator_NavigateAsync.htm">
+        <HelpTOCNode Id="ea05286a-dd1e-46a1-8cf4-a1a9e586321b" Title="NavigateAsync Method " Url="html/Overload_Cauldron_XAML_Navigation_Navigator_NavigateAsync.htm">
           <HelpTOCNode Title="NavigateAsync(T) Method " Url="html/M_Cauldron_XAML_Navigation_Navigator_NavigateAsync__1.htm" />
           <HelpTOCNode Title="NavigateAsync(T) Method (Func(Task))" Url="html/M_Cauldron_XAML_Navigation_Navigator_NavigateAsync__1_1.htm" />
           <HelpTOCNode Title="NavigateAsync(T, TResult) Method (Func(TResult, Task))" Url="html/M_Cauldron_XAML_Navigation_Navigator_NavigateAsync__2.htm" />
@@ -1015,15 +1018,15 @@
         <HelpTOCNode Title="TryCloseFocusedWindow Method " Url="html/M_Cauldron_XAML_Navigation_Navigator_TryCloseFocusedWindow.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="4f4dea19-9530-404e-a041-9ebf2a019be4" Title="NavigatorSinglePage Class" Url="html/T_Cauldron_XAML_Navigation_NavigatorSinglePage.htm">
-      <HelpTOCNode Id="f0432c83-736f-4b07-a767-a36fdeb6f9c5" Title="NavigatorSinglePage Properties" Url="html/Properties_T_Cauldron_XAML_Navigation_NavigatorSinglePage.htm">
+    <HelpTOCNode Id="f65a32c3-6cff-4cb1-a1a4-a3694643a31b" Title="NavigatorSinglePage Class" Url="html/T_Cauldron_XAML_Navigation_NavigatorSinglePage.htm">
+      <HelpTOCNode Id="4dc4f142-b2ab-44dc-876a-3e4417711f51" Title="NavigatorSinglePage Properties" Url="html/Properties_T_Cauldron_XAML_Navigation_NavigatorSinglePage.htm">
         <HelpTOCNode Title="CanGoBack Property " Url="html/P_Cauldron_XAML_Navigation_NavigatorSinglePage_CanGoBack.htm" />
         <HelpTOCNode Title="CanGoForward Property " Url="html/P_Cauldron_XAML_Navigation_NavigatorSinglePage_CanGoForward.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="ade5a588-78a6-49e5-a529-b0e2334fd821" Title="NavigatorSinglePage Methods" Url="html/Methods_T_Cauldron_XAML_Navigation_NavigatorSinglePage.htm">
+      <HelpTOCNode Id="bb65021a-3be9-494a-ba66-2f070e5a59f2" Title="NavigatorSinglePage Methods" Url="html/Methods_T_Cauldron_XAML_Navigation_NavigatorSinglePage.htm">
         <HelpTOCNode Title="GoBack Method " Url="html/M_Cauldron_XAML_Navigation_NavigatorSinglePage_GoBack.htm" />
         <HelpTOCNode Title="GoForward Method " Url="html/M_Cauldron_XAML_Navigation_NavigatorSinglePage_GoForward.htm" />
-        <HelpTOCNode Id="e513e796-4f0c-4a25-bf3d-a3a7a329e7d7" Title="NavigateAsync Method " Url="html/Overload_Cauldron_XAML_Navigation_NavigatorSinglePage_NavigateAsync.htm">
+        <HelpTOCNode Id="9bdaf527-6fa2-4044-be43-f0573c6f9994" Title="NavigateAsync Method " Url="html/Overload_Cauldron_XAML_Navigation_NavigatorSinglePage_NavigateAsync.htm">
           <HelpTOCNode Title="NavigateAsync(T) Method " Url="html/M_Cauldron_XAML_Navigation_NavigatorSinglePage_NavigateAsync__1.htm" />
           <HelpTOCNode Title="NavigateAsync(T) Method (Func(Task))" Url="html/M_Cauldron_XAML_Navigation_NavigatorSinglePage_NavigateAsync__1_1.htm" />
           <HelpTOCNode Title="NavigateAsync(T, TResult) Method (Func(TResult, Task))" Url="html/M_Cauldron_XAML_Navigation_NavigatorSinglePage_NavigateAsync__2.htm" />
@@ -1036,149 +1039,149 @@
         <HelpTOCNode Title="TryClose Method " Url="html/M_Cauldron_XAML_Navigation_NavigatorSinglePage_TryClose.htm" />
         <HelpTOCNode Title="TryCloseFocusedWindow Method " Url="html/M_Cauldron_XAML_Navigation_NavigatorSinglePage_TryCloseFocusedWindow.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="e0284c02-9cd2-46e9-99fb-f3bf9c933936" Title="NavigatorSinglePage Events" Url="html/Events_T_Cauldron_XAML_Navigation_NavigatorSinglePage.htm">
+      <HelpTOCNode Id="7b521f4a-b1ff-4930-b78a-d67360c1aa24" Title="NavigatorSinglePage Events" Url="html/Events_T_Cauldron_XAML_Navigation_NavigatorSinglePage.htm">
         <HelpTOCNode Title="PropertyChanged Event" Url="html/E_Cauldron_XAML_Navigation_NavigatorSinglePage_PropertyChanged.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="50e52af2-76f2-46d6-a273-5073f780334d" Title="PageStackEntry Class" Url="html/T_Cauldron_XAML_Navigation_PageStackEntry.htm">
-      <HelpTOCNode Id="f9541a9d-d345-4b05-9c23-c87175821149" Title="PageStackEntry Properties" Url="html/Properties_T_Cauldron_XAML_Navigation_PageStackEntry.htm">
+    <HelpTOCNode Id="7f0c0028-77e3-48a8-90af-31563b6f56f6" Title="PageStackEntry Class" Url="html/T_Cauldron_XAML_Navigation_PageStackEntry.htm">
+      <HelpTOCNode Id="9fdc583e-3d5d-40ed-bf3b-311987f277fd" Title="PageStackEntry Properties" Url="html/Properties_T_Cauldron_XAML_Navigation_PageStackEntry.htm">
         <HelpTOCNode Title="Parameters Property " Url="html/P_Cauldron_XAML_Navigation_PageStackEntry_Parameters.htm" />
         <HelpTOCNode Title="ViewModelType Property " Url="html/P_Cauldron_XAML_Navigation_PageStackEntry_ViewModelType.htm" />
         <HelpTOCNode Title="ViewModelTypeName Property " Url="html/P_Cauldron_XAML_Navigation_PageStackEntry_ViewModelTypeName.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="c94ee3ca-49aa-4c3b-b563-83be30d5040c" Title="PageStackEntry Methods" Url="html/Methods_T_Cauldron_XAML_Navigation_PageStackEntry.htm">
+      <HelpTOCNode Id="df8baed1-128e-4447-bf64-bed89a9a5daf" Title="PageStackEntry Methods" Url="html/Methods_T_Cauldron_XAML_Navigation_PageStackEntry.htm">
         <HelpTOCNode Title="ToString Method " Url="html/M_Cauldron_XAML_Navigation_PageStackEntry_ToString.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
   </HelpTOCNode>
-  <HelpTOCNode Id="19e9616f-275a-4bc7-8ddb-b5cd1a9f9218" Title="Cauldron.XAML.Resources" Url="html/N_Cauldron_XAML_Resources.htm">
-    <HelpTOCNode Id="d4a34b5f-9cd9-41ae-8228-f805686bbc68" Title="LocalizationSource Class" Url="html/T_Cauldron_XAML_Resources_LocalizationSource.htm">
+  <HelpTOCNode Id="455edb73-905f-479b-af04-9b49bd980d2d" Title="Cauldron.XAML.Resources" Url="html/N_Cauldron_XAML_Resources.htm">
+    <HelpTOCNode Id="f6b183bc-bbae-4749-b8f3-c98098b3fa4c" Title="LocalizationSource Class" Url="html/T_Cauldron_XAML_Resources_LocalizationSource.htm">
       <HelpTOCNode Title="LocalizationSource Methods" Url="html/Methods_T_Cauldron_XAML_Resources_LocalizationSource.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="8590e0a8-7504-4cd9-9abb-b651a67fa565" Title="StylesAndTemplates Class" Url="html/T_Cauldron_XAML_Resources_StylesAndTemplates.htm">
-      <HelpTOCNode Id="fb75221a-6710-41cf-b006-a59663aba94a" Title="StylesAndTemplates Methods" Url="html/Methods_T_Cauldron_XAML_Resources_StylesAndTemplates.htm">
+    <HelpTOCNode Id="13b1ee54-e83d-4ae0-9957-9750f0bd3ff5" Title="StylesAndTemplates Class" Url="html/T_Cauldron_XAML_Resources_StylesAndTemplates.htm">
+      <HelpTOCNode Id="effcf3f0-5189-4411-b92d-9812aa94ae70" Title="StylesAndTemplates Methods" Url="html/Methods_T_Cauldron_XAML_Resources_StylesAndTemplates.htm">
         <HelpTOCNode Title="IComponentConnector.Connect Method " Url="html/M_Cauldron_XAML_Resources_StylesAndTemplates_System_Windows_Markup_IComponentConnector_Connect.htm" />
         <HelpTOCNode Title="InitializeComponent Method " Url="html/M_Cauldron_XAML_Resources_StylesAndTemplates_InitializeComponent.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
   </HelpTOCNode>
-  <HelpTOCNode Id="cce8a7ee-0b4f-486d-883e-d8d5199830ed" Title="Cauldron.XAML.Validation" Url="html/N_Cauldron_XAML_Validation.htm">
-    <HelpTOCNode Id="bec0b1b1-5fb9-4506-afb5-85c196319628" Title="EqualityAttribute Class" Url="html/T_Cauldron_XAML_Validation_EqualityAttribute.htm">
+  <HelpTOCNode Id="c2c718e2-aab3-4d39-b84a-b9f7a8638e31" Title="Cauldron.XAML.Validation" Url="html/N_Cauldron_XAML_Validation.htm">
+    <HelpTOCNode Id="c57c0b23-c823-47ed-8556-48e036259040" Title="EqualityAttribute Class" Url="html/T_Cauldron_XAML_Validation_EqualityAttribute.htm">
       <HelpTOCNode Title="EqualityAttribute Constructor " Url="html/M_Cauldron_XAML_Validation_EqualityAttribute__ctor.htm" />
       <HelpTOCNode Title="EqualityAttribute Properties" Url="html/Properties_T_Cauldron_XAML_Validation_EqualityAttribute.htm" />
-      <HelpTOCNode Id="19b26aac-d7ba-4e7f-b4f2-4b51f640d296" Title="EqualityAttribute Methods" Url="html/Methods_T_Cauldron_XAML_Validation_EqualityAttribute.htm">
+      <HelpTOCNode Id="fb238c58-e1ee-437c-9d08-d80307cce19a" Title="EqualityAttribute Methods" Url="html/Methods_T_Cauldron_XAML_Validation_EqualityAttribute.htm">
         <HelpTOCNode Title="OnValidateAsync Method " Url="html/M_Cauldron_XAML_Validation_EqualityAttribute_OnValidateAsync.htm" />
         <HelpTOCNode Title="ValidationMessage Method " Url="html/M_Cauldron_XAML_Validation_EqualityAttribute_ValidationMessage.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="a5d3a389-01ba-4aac-bed3-779e58ab5b91" Title="GreaterThanAttribute Class" Url="html/T_Cauldron_XAML_Validation_GreaterThanAttribute.htm">
-      <HelpTOCNode Id="4ce4b730-71f9-47ca-b949-03a1a74e6dd6" Title="GreaterThanAttribute Constructor " Url="html/Overload_Cauldron_XAML_Validation_GreaterThanAttribute__ctor.htm">
+    <HelpTOCNode Id="2fd5e89e-62d0-40bc-9c64-711982e3152f" Title="GreaterThanAttribute Class" Url="html/T_Cauldron_XAML_Validation_GreaterThanAttribute.htm">
+      <HelpTOCNode Id="15919f4a-dc74-4a20-ae84-832c6593774d" Title="GreaterThanAttribute Constructor " Url="html/Overload_Cauldron_XAML_Validation_GreaterThanAttribute__ctor.htm">
         <HelpTOCNode Title="GreaterThanAttribute Constructor (Object, String)" Url="html/M_Cauldron_XAML_Validation_GreaterThanAttribute__ctor.htm" />
         <HelpTOCNode Title="GreaterThanAttribute Constructor (String, String)" Url="html/M_Cauldron_XAML_Validation_GreaterThanAttribute__ctor_1.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="GreaterThanAttribute Properties" Url="html/Properties_T_Cauldron_XAML_Validation_GreaterThanAttribute.htm" />
-      <HelpTOCNode Id="fbbd56a6-fde4-4cf8-936b-0fc464690bf6" Title="GreaterThanAttribute Methods" Url="html/Methods_T_Cauldron_XAML_Validation_GreaterThanAttribute.htm">
+      <HelpTOCNode Id="a316bde3-c970-475c-8c11-bab2f7cd15b1" Title="GreaterThanAttribute Methods" Url="html/Methods_T_Cauldron_XAML_Validation_GreaterThanAttribute.htm">
         <HelpTOCNode Title="OnValidateAsync Method " Url="html/M_Cauldron_XAML_Validation_GreaterThanAttribute_OnValidateAsync.htm" />
         <HelpTOCNode Title="ValidationMessage Method " Url="html/M_Cauldron_XAML_Validation_GreaterThanAttribute_ValidationMessage.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="e52ac71e-1d0d-4872-8ec3-8f73d1d43511" Title="GreaterThanOrEqualAttribute Class" Url="html/T_Cauldron_XAML_Validation_GreaterThanOrEqualAttribute.htm">
-      <HelpTOCNode Id="593f9a68-4c03-487f-89be-0f4b5f2c73ba" Title="GreaterThanOrEqualAttribute Constructor " Url="html/Overload_Cauldron_XAML_Validation_GreaterThanOrEqualAttribute__ctor.htm">
+    <HelpTOCNode Id="ca171130-1196-4206-9e2d-7560c62ad26f" Title="GreaterThanOrEqualAttribute Class" Url="html/T_Cauldron_XAML_Validation_GreaterThanOrEqualAttribute.htm">
+      <HelpTOCNode Id="6f5e2ab9-030e-4ff2-9e09-0e921925807b" Title="GreaterThanOrEqualAttribute Constructor " Url="html/Overload_Cauldron_XAML_Validation_GreaterThanOrEqualAttribute__ctor.htm">
         <HelpTOCNode Title="GreaterThanOrEqualAttribute Constructor (Object, String)" Url="html/M_Cauldron_XAML_Validation_GreaterThanOrEqualAttribute__ctor.htm" />
         <HelpTOCNode Title="GreaterThanOrEqualAttribute Constructor (String, String)" Url="html/M_Cauldron_XAML_Validation_GreaterThanOrEqualAttribute__ctor_1.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="GreaterThanOrEqualAttribute Properties" Url="html/Properties_T_Cauldron_XAML_Validation_GreaterThanOrEqualAttribute.htm" />
-      <HelpTOCNode Id="1474ac1f-75fb-4170-8f63-5cf11707ca20" Title="GreaterThanOrEqualAttribute Methods" Url="html/Methods_T_Cauldron_XAML_Validation_GreaterThanOrEqualAttribute.htm">
+      <HelpTOCNode Id="765156ba-f742-4cbb-af1f-fb57e056cc2c" Title="GreaterThanOrEqualAttribute Methods" Url="html/Methods_T_Cauldron_XAML_Validation_GreaterThanOrEqualAttribute.htm">
         <HelpTOCNode Title="OnValidateAsync Method " Url="html/M_Cauldron_XAML_Validation_GreaterThanOrEqualAttribute_OnValidateAsync.htm" />
         <HelpTOCNode Title="ValidationMessage Method " Url="html/M_Cauldron_XAML_Validation_GreaterThanOrEqualAttribute_ValidationMessage.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="b190b209-bdb9-4c02-ba93-4145c491a5d1" Title="IsMandatoryAttribute Class" Url="html/T_Cauldron_XAML_Validation_IsMandatoryAttribute.htm">
-      <HelpTOCNode Id="92d18fea-945e-4bc0-86bf-e0f1e059e24e" Title="IsMandatoryAttribute Constructor " Url="html/Overload_Cauldron_XAML_Validation_IsMandatoryAttribute__ctor.htm">
+    <HelpTOCNode Id="f5366f28-091b-4fd4-b638-df9cde51c586" Title="IsMandatoryAttribute Class" Url="html/T_Cauldron_XAML_Validation_IsMandatoryAttribute.htm">
+      <HelpTOCNode Id="2f6a69e0-8dfa-4aef-9129-1cba79dd72c0" Title="IsMandatoryAttribute Constructor " Url="html/Overload_Cauldron_XAML_Validation_IsMandatoryAttribute__ctor.htm">
         <HelpTOCNode Title="IsMandatoryAttribute Constructor (String)" Url="html/M_Cauldron_XAML_Validation_IsMandatoryAttribute__ctor.htm" />
         <HelpTOCNode Title="IsMandatoryAttribute Constructor (String, String)" Url="html/M_Cauldron_XAML_Validation_IsMandatoryAttribute__ctor_2.htm" />
         <HelpTOCNode Title="IsMandatoryAttribute Constructor (String, Boolean, String)" Url="html/M_Cauldron_XAML_Validation_IsMandatoryAttribute__ctor_1.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="c1e85f9f-3844-41b9-aa96-ed319a9cca8e" Title="IsMandatoryAttribute Properties" Url="html/Properties_T_Cauldron_XAML_Validation_IsMandatoryAttribute.htm">
+      <HelpTOCNode Id="7bd7807e-9961-49f5-90ed-4e23a40709ae" Title="IsMandatoryAttribute Properties" Url="html/Properties_T_Cauldron_XAML_Validation_IsMandatoryAttribute.htm">
         <HelpTOCNode Title="AlwaysValidate Property " Url="html/P_Cauldron_XAML_Validation_IsMandatoryAttribute_AlwaysValidate.htm" />
         <HelpTOCNode Title="IsDeactivatable Property " Url="html/P_Cauldron_XAML_Validation_IsMandatoryAttribute_IsDeactivatable.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="220ccb07-bfff-401f-803e-67fb52d0c4cf" Title="IsMandatoryAttribute Methods" Url="html/Methods_T_Cauldron_XAML_Validation_IsMandatoryAttribute.htm">
+      <HelpTOCNode Id="3cf7f59a-b9ab-4fbd-9fb0-59c4003873f1" Title="IsMandatoryAttribute Methods" Url="html/Methods_T_Cauldron_XAML_Validation_IsMandatoryAttribute.htm">
         <HelpTOCNode Title="OnValidateAsync Method " Url="html/M_Cauldron_XAML_Validation_IsMandatoryAttribute_OnValidateAsync.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="5c7ed147-3651-41f6-9f47-ad4b0cc04f34" Title="LessThanAttribute Class" Url="html/T_Cauldron_XAML_Validation_LessThanAttribute.htm">
-      <HelpTOCNode Id="08c94177-7c8a-407a-8b43-8db39cd08719" Title="LessThanAttribute Constructor " Url="html/Overload_Cauldron_XAML_Validation_LessThanAttribute__ctor.htm">
+    <HelpTOCNode Id="88312d83-a7e0-4657-99b9-ddf5e56e09ea" Title="LessThanAttribute Class" Url="html/T_Cauldron_XAML_Validation_LessThanAttribute.htm">
+      <HelpTOCNode Id="0efa8a6a-7651-49ac-81b8-e3e98d5d7af6" Title="LessThanAttribute Constructor " Url="html/Overload_Cauldron_XAML_Validation_LessThanAttribute__ctor.htm">
         <HelpTOCNode Title="LessThanAttribute Constructor (Object, String)" Url="html/M_Cauldron_XAML_Validation_LessThanAttribute__ctor.htm" />
         <HelpTOCNode Title="LessThanAttribute Constructor (String, String)" Url="html/M_Cauldron_XAML_Validation_LessThanAttribute__ctor_1.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="LessThanAttribute Properties" Url="html/Properties_T_Cauldron_XAML_Validation_LessThanAttribute.htm" />
-      <HelpTOCNode Id="842d8a0d-8093-4c18-9389-93762da5a9c6" Title="LessThanAttribute Methods" Url="html/Methods_T_Cauldron_XAML_Validation_LessThanAttribute.htm">
+      <HelpTOCNode Id="c93d0d97-a2b7-4e0a-8f00-b4b775b472ee" Title="LessThanAttribute Methods" Url="html/Methods_T_Cauldron_XAML_Validation_LessThanAttribute.htm">
         <HelpTOCNode Title="OnValidateAsync Method " Url="html/M_Cauldron_XAML_Validation_LessThanAttribute_OnValidateAsync.htm" />
         <HelpTOCNode Title="ValidationMessage Method " Url="html/M_Cauldron_XAML_Validation_LessThanAttribute_ValidationMessage.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="363b59d2-bdd7-4758-a083-a9459d43ee3b" Title="LessThanOrEqualAttribute Class" Url="html/T_Cauldron_XAML_Validation_LessThanOrEqualAttribute.htm">
-      <HelpTOCNode Id="2e88738b-3efd-4115-81cc-b5ce7c97dde2" Title="LessThanOrEqualAttribute Constructor " Url="html/Overload_Cauldron_XAML_Validation_LessThanOrEqualAttribute__ctor.htm">
+    <HelpTOCNode Id="5b687fa6-a7c6-4169-b406-05e4d34ae434" Title="LessThanOrEqualAttribute Class" Url="html/T_Cauldron_XAML_Validation_LessThanOrEqualAttribute.htm">
+      <HelpTOCNode Id="60fae364-a2fa-4670-b94b-4a228ee4d5db" Title="LessThanOrEqualAttribute Constructor " Url="html/Overload_Cauldron_XAML_Validation_LessThanOrEqualAttribute__ctor.htm">
         <HelpTOCNode Title="LessThanOrEqualAttribute Constructor (Object, String)" Url="html/M_Cauldron_XAML_Validation_LessThanOrEqualAttribute__ctor.htm" />
         <HelpTOCNode Title="LessThanOrEqualAttribute Constructor (String, String)" Url="html/M_Cauldron_XAML_Validation_LessThanOrEqualAttribute__ctor_1.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="LessThanOrEqualAttribute Properties" Url="html/Properties_T_Cauldron_XAML_Validation_LessThanOrEqualAttribute.htm" />
-      <HelpTOCNode Id="e9035d39-8827-4d46-a035-9f596bb19710" Title="LessThanOrEqualAttribute Methods" Url="html/Methods_T_Cauldron_XAML_Validation_LessThanOrEqualAttribute.htm">
+      <HelpTOCNode Id="1e3c652e-d3e1-47c3-9780-d4f3d8560a57" Title="LessThanOrEqualAttribute Methods" Url="html/Methods_T_Cauldron_XAML_Validation_LessThanOrEqualAttribute.htm">
         <HelpTOCNode Title="OnValidateAsync Method " Url="html/M_Cauldron_XAML_Validation_LessThanOrEqualAttribute_OnValidateAsync.htm" />
         <HelpTOCNode Title="ValidationMessage Method " Url="html/M_Cauldron_XAML_Validation_LessThanOrEqualAttribute_ValidationMessage.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="c1528a35-f6ce-43ae-a46e-00e81c2e4ff5" Title="PasswordStrengthAttribute Class" Url="html/T_Cauldron_XAML_Validation_PasswordStrengthAttribute.htm">
+    <HelpTOCNode Id="d8ac27ca-567b-496a-8759-ecdcacb5e6d0" Title="PasswordStrengthAttribute Class" Url="html/T_Cauldron_XAML_Validation_PasswordStrengthAttribute.htm">
       <HelpTOCNode Title="PasswordStrengthAttribute Constructor " Url="html/M_Cauldron_XAML_Validation_PasswordStrengthAttribute__ctor.htm" />
       <HelpTOCNode Title="PasswordStrengthAttribute Properties" Url="html/Properties_T_Cauldron_XAML_Validation_PasswordStrengthAttribute.htm" />
-      <HelpTOCNode Id="ed09c635-3756-4c71-8414-4db014a36d40" Title="PasswordStrengthAttribute Methods" Url="html/Methods_T_Cauldron_XAML_Validation_PasswordStrengthAttribute.htm">
+      <HelpTOCNode Id="4694d601-618e-4829-8c67-d89b68650746" Title="PasswordStrengthAttribute Methods" Url="html/Methods_T_Cauldron_XAML_Validation_PasswordStrengthAttribute.htm">
         <HelpTOCNode Title="OnValidateAsync Method " Url="html/M_Cauldron_XAML_Validation_PasswordStrengthAttribute_OnValidateAsync.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="fc1a72bc-b0b2-416f-bf4c-1c28a84ebd0b" Title="StringLengthAttribute Class" Url="html/T_Cauldron_XAML_Validation_StringLengthAttribute.htm">
-      <HelpTOCNode Id="f0b1547a-6308-48fb-be91-6bfee8f60923" Title="StringLengthAttribute Constructor " Url="html/Overload_Cauldron_XAML_Validation_StringLengthAttribute__ctor.htm">
+    <HelpTOCNode Id="07ecc8f5-b16c-4fd9-a0e8-27947af876c1" Title="StringLengthAttribute Class" Url="html/T_Cauldron_XAML_Validation_StringLengthAttribute.htm">
+      <HelpTOCNode Id="38dead1a-5e63-497a-8cd7-d3c5553b98a5" Title="StringLengthAttribute Constructor " Url="html/Overload_Cauldron_XAML_Validation_StringLengthAttribute__ctor.htm">
         <HelpTOCNode Title="StringLengthAttribute Constructor (Int32, String)" Url="html/M_Cauldron_XAML_Validation_StringLengthAttribute__ctor_1.htm" />
         <HelpTOCNode Title="StringLengthAttribute Constructor (Int32, Int32, String)" Url="html/M_Cauldron_XAML_Validation_StringLengthAttribute__ctor.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="StringLengthAttribute Properties" Url="html/Properties_T_Cauldron_XAML_Validation_StringLengthAttribute.htm" />
-      <HelpTOCNode Id="56eaa998-f2f0-41b5-ad30-819f0f85cc6f" Title="StringLengthAttribute Methods" Url="html/Methods_T_Cauldron_XAML_Validation_StringLengthAttribute.htm">
+      <HelpTOCNode Id="43369bbf-085d-4ffa-b643-773913e1487f" Title="StringLengthAttribute Methods" Url="html/Methods_T_Cauldron_XAML_Validation_StringLengthAttribute.htm">
         <HelpTOCNode Title="OnValidateAsync Method " Url="html/M_Cauldron_XAML_Validation_StringLengthAttribute_OnValidateAsync.htm" />
         <HelpTOCNode Title="ValidationMessage Method " Url="html/M_Cauldron_XAML_Validation_StringLengthAttribute_ValidationMessage.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="ebf09004-7fc4-4dd3-ba92-3690c8028138" Title="UnEqualityAttribute Class" Url="html/T_Cauldron_XAML_Validation_UnEqualityAttribute.htm">
+    <HelpTOCNode Id="dc4e0623-3d0d-458c-ae99-cbdc788946e3" Title="UnEqualityAttribute Class" Url="html/T_Cauldron_XAML_Validation_UnEqualityAttribute.htm">
       <HelpTOCNode Title="UnEqualityAttribute Constructor " Url="html/M_Cauldron_XAML_Validation_UnEqualityAttribute__ctor.htm" />
       <HelpTOCNode Title="UnEqualityAttribute Properties" Url="html/Properties_T_Cauldron_XAML_Validation_UnEqualityAttribute.htm" />
-      <HelpTOCNode Id="73bb60e0-86b8-4ad3-be85-83e5da03dde1" Title="UnEqualityAttribute Methods" Url="html/Methods_T_Cauldron_XAML_Validation_UnEqualityAttribute.htm">
+      <HelpTOCNode Id="7f3c5ff7-e232-4770-8951-ec9ef4b6fcab" Title="UnEqualityAttribute Methods" Url="html/Methods_T_Cauldron_XAML_Validation_UnEqualityAttribute.htm">
         <HelpTOCNode Title="OnValidateAsync Method " Url="html/M_Cauldron_XAML_Validation_UnEqualityAttribute_OnValidateAsync.htm" />
         <HelpTOCNode Title="ValidationMessage Method " Url="html/M_Cauldron_XAML_Validation_UnEqualityAttribute_ValidationMessage.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="9401626b-a8b3-42e6-a5bb-88636e62619c" Title="ValidationBehaviour Class" Url="html/T_Cauldron_XAML_Validation_ValidationBehaviour.htm">
+    <HelpTOCNode Id="4dfc7b86-6bd7-4e6e-98ae-9276a9512d03" Title="ValidationBehaviour Class" Url="html/T_Cauldron_XAML_Validation_ValidationBehaviour.htm">
       <HelpTOCNode Title="ValidationBehaviour Constructor " Url="html/M_Cauldron_XAML_Validation_ValidationBehaviour__ctor.htm" />
       <HelpTOCNode Title="ValidationBehaviour Properties" Url="html/Properties_T_Cauldron_XAML_Validation_ValidationBehaviour.htm" />
-      <HelpTOCNode Id="4bb16865-84cd-47b1-95bf-5187ea7efbf8" Title="ValidationBehaviour Methods" Url="html/Methods_T_Cauldron_XAML_Validation_ValidationBehaviour.htm">
+      <HelpTOCNode Id="d39dced3-7ce3-4673-9863-7c6a809c38c9" Title="ValidationBehaviour Methods" Url="html/Methods_T_Cauldron_XAML_Validation_ValidationBehaviour.htm">
         <HelpTOCNode Title="Clone Method " Url="html/M_Cauldron_XAML_Validation_ValidationBehaviour_Clone.htm" />
         <HelpTOCNode Title="OnAttach Method " Url="html/M_Cauldron_XAML_Validation_ValidationBehaviour_OnAttach.htm" />
         <HelpTOCNode Title="OnDataContextChanged Method " Url="html/M_Cauldron_XAML_Validation_ValidationBehaviour_OnDataContextChanged.htm" />
         <HelpTOCNode Title="OnDetach Method " Url="html/M_Cauldron_XAML_Validation_ValidationBehaviour_OnDetach.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="bfb146d4-2a15-49f8-8d17-0ee4d583a402" Title="ValidationEventArgs Class" Url="html/T_Cauldron_XAML_Validation_ValidationEventArgs.htm">
+    <HelpTOCNode Id="4a7fb060-9d0b-4ca5-8207-4145d5147a8a" Title="ValidationEventArgs Class" Url="html/T_Cauldron_XAML_Validation_ValidationEventArgs.htm">
       <HelpTOCNode Title="ValidationEventArgs Constructor " Url="html/M_Cauldron_XAML_Validation_ValidationEventArgs__ctor.htm" />
-      <HelpTOCNode Id="057b0fcb-5794-4406-86e9-587e66620af3" Title="ValidationEventArgs Properties" Url="html/Properties_T_Cauldron_XAML_Validation_ValidationEventArgs.htm">
+      <HelpTOCNode Id="d5b91138-c81e-46a4-8606-39e2ce786510" Title="ValidationEventArgs Properties" Url="html/Properties_T_Cauldron_XAML_Validation_ValidationEventArgs.htm">
         <HelpTOCNode Title="PropertyName Property " Url="html/P_Cauldron_XAML_Validation_ValidationEventArgs_PropertyName.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="4b81afec-447f-498b-9aed-8fe30ff0cb5d" Title="ValidationHandler Class" Url="html/T_Cauldron_XAML_Validation_ValidationHandler.htm">
-      <HelpTOCNode Id="eca21185-7ac1-42e9-b585-65086edb285f" Title="ValidationHandler Properties" Url="html/Properties_T_Cauldron_XAML_Validation_ValidationHandler.htm">
+    <HelpTOCNode Id="94961c3e-8235-4f43-9b21-caa63432edb0" Title="ValidationHandler Class" Url="html/T_Cauldron_XAML_Validation_ValidationHandler.htm">
+      <HelpTOCNode Id="0b739764-0890-4b21-85ba-3fd95595db29" Title="ValidationHandler Properties" Url="html/Properties_T_Cauldron_XAML_Validation_ValidationHandler.htm">
         <HelpTOCNode Title="IgnoreAlwaysValidate Property " Url="html/P_Cauldron_XAML_Validation_ValidationHandler_IgnoreAlwaysValidate.htm" />
         <HelpTOCNode Title="StopValidationOnError Property " Url="html/P_Cauldron_XAML_Validation_ValidationHandler_StopValidationOnError.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="43848482-67e4-469c-bb73-978cd93b8edf" Title="ValidationProperties Class" Url="html/T_Cauldron_XAML_Validation_ValidationProperties.htm">
-      <HelpTOCNode Id="8cb18e15-7fc7-457c-b5e6-5d5f2cc2178c" Title="ValidationProperties Methods" Url="html/Methods_T_Cauldron_XAML_Validation_ValidationProperties.htm">
+    <HelpTOCNode Id="d1091476-1d16-4521-89db-f549fd8b9fc2" Title="ValidationProperties Class" Url="html/T_Cauldron_XAML_Validation_ValidationProperties.htm">
+      <HelpTOCNode Id="6f60a113-82af-426c-bcf1-8dec690a3375" Title="ValidationProperties Methods" Url="html/Methods_T_Cauldron_XAML_Validation_ValidationProperties.htm">
         <HelpTOCNode Title="GetErrors Method " Url="html/M_Cauldron_XAML_Validation_ValidationProperties_GetErrors.htm" />
         <HelpTOCNode Title="GetHasErrors Method " Url="html/M_Cauldron_XAML_Validation_ValidationProperties_GetHasErrors.htm" />
         <HelpTOCNode Title="GetIsDisabledByErrorInPropertyName Method " Url="html/M_Cauldron_XAML_Validation_ValidationProperties_GetIsDisabledByErrorInPropertyName.htm" />
@@ -1188,240 +1191,240 @@
         <HelpTOCNode Title="SetIsDisabledByErrorInPropertyName Method " Url="html/M_Cauldron_XAML_Validation_ValidationProperties_SetIsDisabledByErrorInPropertyName.htm" />
         <HelpTOCNode Title="SetIsMandatory Method " Url="html/M_Cauldron_XAML_Validation_ValidationProperties_SetIsMandatory.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="7d880a7b-b2cc-4ca1-b3c5-9740d1b01eae" Title="ValidationProperties Fields" Url="html/Fields_T_Cauldron_XAML_Validation_ValidationProperties.htm">
+      <HelpTOCNode Id="b4700e93-30b1-4f1f-8556-06a222e38854" Title="ValidationProperties Fields" Url="html/Fields_T_Cauldron_XAML_Validation_ValidationProperties.htm">
         <HelpTOCNode Title="ErrorsProperty Field" Url="html/F_Cauldron_XAML_Validation_ValidationProperties_ErrorsProperty.htm" />
         <HelpTOCNode Title="HasErrorsProperty Field" Url="html/F_Cauldron_XAML_Validation_ValidationProperties_HasErrorsProperty.htm" />
         <HelpTOCNode Title="IsDisabledByErrorInPropertyNameProperty Field" Url="html/F_Cauldron_XAML_Validation_ValidationProperties_IsDisabledByErrorInPropertyNameProperty.htm" />
         <HelpTOCNode Title="IsMandatoryProperty Field" Url="html/F_Cauldron_XAML_Validation_ValidationProperties_IsMandatoryProperty.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="487bd231-d479-4ed8-95bb-ea971aaf8aeb" Title="ValidationProperties Attached Properties" Url="html/AttachedProperties_T_Cauldron_XAML_Validation_ValidationProperties.htm">
+      <HelpTOCNode Id="43ded068-5500-4ca3-a973-e4b0bbddaaaa" Title="ValidationProperties Attached Properties" Url="html/AttachedProperties_T_Cauldron_XAML_Validation_ValidationProperties.htm">
         <HelpTOCNode Title="Errors Attached Property" Url="html/P_Cauldron_XAML_Validation_ValidationProperties_Errors.htm" />
         <HelpTOCNode Title="HasErrors Attached Property" Url="html/P_Cauldron_XAML_Validation_ValidationProperties_HasErrors.htm" />
         <HelpTOCNode Title="IsDisabledByErrorInPropertyName Attached Property" Url="html/P_Cauldron_XAML_Validation_ValidationProperties_IsDisabledByErrorInPropertyName.htm" />
         <HelpTOCNode Title="IsMandatory Attached Property" Url="html/P_Cauldron_XAML_Validation_ValidationProperties_IsMandatory.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="4d1cc78c-ba76-48db-8ae5-78f165a7be97" Title="ValidatorAttributeBase Class" Url="html/T_Cauldron_XAML_Validation_ValidatorAttributeBase.htm">
+    <HelpTOCNode Id="9d02c2bf-0152-4e2d-b86d-2894aebe335d" Title="ValidatorAttributeBase Class" Url="html/T_Cauldron_XAML_Validation_ValidatorAttributeBase.htm">
       <HelpTOCNode Title="ValidatorAttributeBase Constructor " Url="html/M_Cauldron_XAML_Validation_ValidatorAttributeBase__ctor.htm" />
-      <HelpTOCNode Id="30584d22-a8fb-4e7d-ad05-c9823a2ddcee" Title="ValidatorAttributeBase Properties" Url="html/Properties_T_Cauldron_XAML_Validation_ValidatorAttributeBase.htm">
+      <HelpTOCNode Id="22539111-d52c-419d-a59d-d435a901ffe6" Title="ValidatorAttributeBase Properties" Url="html/Properties_T_Cauldron_XAML_Validation_ValidatorAttributeBase.htm">
         <HelpTOCNode Title="AlwaysValidate Property " Url="html/P_Cauldron_XAML_Validation_ValidatorAttributeBase_AlwaysValidate.htm" />
         <HelpTOCNode Title="ErrorMessageKey Property " Url="html/P_Cauldron_XAML_Validation_ValidatorAttributeBase_ErrorMessageKey.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="6ea882fc-3828-46d8-8481-e7875c4a8173" Title="ValidatorAttributeBase Methods" Url="html/Methods_T_Cauldron_XAML_Validation_ValidatorAttributeBase.htm">
+      <HelpTOCNode Id="94db89f7-48fb-4cee-9f4d-49971b7ab44b" Title="ValidatorAttributeBase Methods" Url="html/Methods_T_Cauldron_XAML_Validation_ValidatorAttributeBase.htm">
         <HelpTOCNode Title="OnValidateAsync Method " Url="html/M_Cauldron_XAML_Validation_ValidatorAttributeBase_OnValidateAsync.htm" />
         <HelpTOCNode Title="ValidationMessage Method " Url="html/M_Cauldron_XAML_Validation_ValidatorAttributeBase_ValidationMessage.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
   </HelpTOCNode>
-  <HelpTOCNode Id="45bb0538-1721-43d2-8de9-1a2567c52cc7" Title="Cauldron.XAML.ValueConverters" Url="html/N_Cauldron_XAML_ValueConverters.htm">
-    <HelpTOCNode Id="662bce10-fc6c-4663-8585-f9b2eb7359d6" Title="BooleanInvertConverter Class" Url="html/T_Cauldron_XAML_ValueConverters_BooleanInvertConverter.htm">
+  <HelpTOCNode Id="4ca6b950-6654-4651-bfb6-e00629d97e40" Title="Cauldron.XAML.ValueConverters" Url="html/N_Cauldron_XAML_ValueConverters.htm">
+    <HelpTOCNode Id="e93723e9-81e4-4526-ae46-7402e20f455a" Title="BooleanInvertConverter Class" Url="html/T_Cauldron_XAML_ValueConverters_BooleanInvertConverter.htm">
       <HelpTOCNode Title="BooleanInvertConverter Constructor " Url="html/M_Cauldron_XAML_ValueConverters_BooleanInvertConverter__ctor.htm" />
-      <HelpTOCNode Id="9e131b88-45b7-4f6e-84a4-32f9cf3b4eda" Title="BooleanInvertConverter Methods" Url="html/Methods_T_Cauldron_XAML_ValueConverters_BooleanInvertConverter.htm">
+      <HelpTOCNode Id="5a5e2590-1548-4b2c-ab59-d3bd6554a7f4" Title="BooleanInvertConverter Methods" Url="html/Methods_T_Cauldron_XAML_ValueConverters_BooleanInvertConverter.htm">
         <HelpTOCNode Title="OnConvert Method " Url="html/M_Cauldron_XAML_ValueConverters_BooleanInvertConverter_OnConvert.htm" />
         <HelpTOCNode Title="OnConvertBack Method " Url="html/M_Cauldron_XAML_ValueConverters_BooleanInvertConverter_OnConvertBack.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="173597ea-87bf-4123-9a6e-31af15192447" Title="BooleanToVisibilityConverter Class" Url="html/T_Cauldron_XAML_ValueConverters_BooleanToVisibilityConverter.htm">
+    <HelpTOCNode Id="bd7c5d1b-a8fb-46a6-9f9e-95095a0694cc" Title="BooleanToVisibilityConverter Class" Url="html/T_Cauldron_XAML_ValueConverters_BooleanToVisibilityConverter.htm">
       <HelpTOCNode Title="BooleanToVisibilityConverter Constructor " Url="html/M_Cauldron_XAML_ValueConverters_BooleanToVisibilityConverter__ctor.htm" />
-      <HelpTOCNode Id="8337ce7e-a11e-42ce-a542-a207383ab69d" Title="BooleanToVisibilityConverter Methods" Url="html/Methods_T_Cauldron_XAML_ValueConverters_BooleanToVisibilityConverter.htm">
+      <HelpTOCNode Id="b2fdba09-82c4-4f5f-a161-795c307373fe" Title="BooleanToVisibilityConverter Methods" Url="html/Methods_T_Cauldron_XAML_ValueConverters_BooleanToVisibilityConverter.htm">
         <HelpTOCNode Title="OnConvert Method " Url="html/M_Cauldron_XAML_ValueConverters_BooleanToVisibilityConverter_OnConvert.htm" />
         <HelpTOCNode Title="OnConvertBack Method " Url="html/M_Cauldron_XAML_ValueConverters_BooleanToVisibilityConverter_OnConvertBack.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="7544759c-b044-4686-914a-2dedd9e85520" Title="KeyToLocalizedStringConverter Class" Url="html/T_Cauldron_XAML_ValueConverters_KeyToLocalizedStringConverter.htm">
+    <HelpTOCNode Id="207a5733-b276-49d6-b6a0-0288430a303f" Title="KeyToLocalizedStringConverter Class" Url="html/T_Cauldron_XAML_ValueConverters_KeyToLocalizedStringConverter.htm">
       <HelpTOCNode Title="KeyToLocalizedStringConverter Constructor " Url="html/M_Cauldron_XAML_ValueConverters_KeyToLocalizedStringConverter__ctor.htm" />
-      <HelpTOCNode Id="92d7b300-8d44-48ed-bcd5-4efd1e3503f2" Title="KeyToLocalizedStringConverter Methods" Url="html/Methods_T_Cauldron_XAML_ValueConverters_KeyToLocalizedStringConverter.htm">
+      <HelpTOCNode Id="485fc716-2925-4acc-aa27-d49ea8fca710" Title="KeyToLocalizedStringConverter Methods" Url="html/Methods_T_Cauldron_XAML_ValueConverters_KeyToLocalizedStringConverter.htm">
         <HelpTOCNode Title="OnConvert Method " Url="html/M_Cauldron_XAML_ValueConverters_KeyToLocalizedStringConverter_OnConvert.htm" />
         <HelpTOCNode Title="OnConvertBack Method " Url="html/M_Cauldron_XAML_ValueConverters_KeyToLocalizedStringConverter_OnConvertBack.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="08b31c2e-f0c2-4db1-8309-3948ded6fc4d" Title="NullOrEmptyToVisibilityConverter Class" Url="html/T_Cauldron_XAML_ValueConverters_NullOrEmptyToVisibilityConverter.htm">
+    <HelpTOCNode Id="672d2816-0dac-4ff2-a248-02b5b119c928" Title="NullOrEmptyToVisibilityConverter Class" Url="html/T_Cauldron_XAML_ValueConverters_NullOrEmptyToVisibilityConverter.htm">
       <HelpTOCNode Title="NullOrEmptyToVisibilityConverter Constructor " Url="html/M_Cauldron_XAML_ValueConverters_NullOrEmptyToVisibilityConverter__ctor.htm" />
-      <HelpTOCNode Id="6d1abd77-31ba-4278-8ed3-190b0bd8a613" Title="NullOrEmptyToVisibilityConverter Methods" Url="html/Methods_T_Cauldron_XAML_ValueConverters_NullOrEmptyToVisibilityConverter.htm">
+      <HelpTOCNode Id="0315de3e-4ae4-4761-96ff-f9f2daaaa948" Title="NullOrEmptyToVisibilityConverter Methods" Url="html/Methods_T_Cauldron_XAML_ValueConverters_NullOrEmptyToVisibilityConverter.htm">
         <HelpTOCNode Title="OnConvert Method " Url="html/M_Cauldron_XAML_ValueConverters_NullOrEmptyToVisibilityConverter_OnConvert.htm" />
         <HelpTOCNode Title="OnConvertBack Method " Url="html/M_Cauldron_XAML_ValueConverters_NullOrEmptyToVisibilityConverter_OnConvertBack.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="dddf991d-9242-4a2e-878f-58691d43d5f1" Title="ObjectToBooleanConverter Class" Url="html/T_Cauldron_XAML_ValueConverters_ObjectToBooleanConverter.htm">
+    <HelpTOCNode Id="7886510b-bb55-4324-8529-38a8e2db72bb" Title="ObjectToBooleanConverter Class" Url="html/T_Cauldron_XAML_ValueConverters_ObjectToBooleanConverter.htm">
       <HelpTOCNode Title="ObjectToBooleanConverter Constructor " Url="html/M_Cauldron_XAML_ValueConverters_ObjectToBooleanConverter__ctor.htm" />
-      <HelpTOCNode Id="527acebe-831b-414a-8152-947b2024fee9" Title="ObjectToBooleanConverter Methods" Url="html/Methods_T_Cauldron_XAML_ValueConverters_ObjectToBooleanConverter.htm">
+      <HelpTOCNode Id="042c03b6-cdbe-4e39-868a-4ecea3a72945" Title="ObjectToBooleanConverter Methods" Url="html/Methods_T_Cauldron_XAML_ValueConverters_ObjectToBooleanConverter.htm">
         <HelpTOCNode Title="OnConvert Method " Url="html/M_Cauldron_XAML_ValueConverters_ObjectToBooleanConverter_OnConvert.htm" />
         <HelpTOCNode Title="OnConvertBack Method " Url="html/M_Cauldron_XAML_ValueConverters_ObjectToBooleanConverter_OnConvertBack.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="3b149cfb-3155-464e-8669-32f1e2aa0cb7" Title="ObjectToVisibilityConverter Class" Url="html/T_Cauldron_XAML_ValueConverters_ObjectToVisibilityConverter.htm">
+    <HelpTOCNode Id="912e8bb6-43ed-4e70-88a9-f6cdb4ef10e2" Title="ObjectToVisibilityConverter Class" Url="html/T_Cauldron_XAML_ValueConverters_ObjectToVisibilityConverter.htm">
       <HelpTOCNode Title="ObjectToVisibilityConverter Constructor " Url="html/M_Cauldron_XAML_ValueConverters_ObjectToVisibilityConverter__ctor.htm" />
-      <HelpTOCNode Id="142d70b3-2181-450f-a0f8-63ef54ff1966" Title="ObjectToVisibilityConverter Methods" Url="html/Methods_T_Cauldron_XAML_ValueConverters_ObjectToVisibilityConverter.htm">
+      <HelpTOCNode Id="294f2661-ce0f-4be1-a496-b163ddc08e95" Title="ObjectToVisibilityConverter Methods" Url="html/Methods_T_Cauldron_XAML_ValueConverters_ObjectToVisibilityConverter.htm">
         <HelpTOCNode Title="OnConvert Method " Url="html/M_Cauldron_XAML_ValueConverters_ObjectToVisibilityConverter_OnConvert.htm" />
         <HelpTOCNode Title="OnConvertBack Method " Url="html/M_Cauldron_XAML_ValueConverters_ObjectToVisibilityConverter_OnConvertBack.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="8824452a-213d-446d-992b-f4f2c8c7aef4" Title="VisibilityToBooleanConverter Class" Url="html/T_Cauldron_XAML_ValueConverters_VisibilityToBooleanConverter.htm">
+    <HelpTOCNode Id="c91e9356-d07f-4e60-96ab-62b361b59c6a" Title="VisibilityToBooleanConverter Class" Url="html/T_Cauldron_XAML_ValueConverters_VisibilityToBooleanConverter.htm">
       <HelpTOCNode Title="VisibilityToBooleanConverter Constructor " Url="html/M_Cauldron_XAML_ValueConverters_VisibilityToBooleanConverter__ctor.htm" />
-      <HelpTOCNode Id="1e80e4f7-73f2-46cd-a28b-81060373afd1" Title="VisibilityToBooleanConverter Methods" Url="html/Methods_T_Cauldron_XAML_ValueConverters_VisibilityToBooleanConverter.htm">
+      <HelpTOCNode Id="e2d7ad01-765b-48ab-81f2-3c32f5ffebf5" Title="VisibilityToBooleanConverter Methods" Url="html/Methods_T_Cauldron_XAML_ValueConverters_VisibilityToBooleanConverter.htm">
         <HelpTOCNode Title="OnConvert Method " Url="html/M_Cauldron_XAML_ValueConverters_VisibilityToBooleanConverter_OnConvert.htm" />
         <HelpTOCNode Title="OnConvertBack Method " Url="html/M_Cauldron_XAML_ValueConverters_VisibilityToBooleanConverter_OnConvertBack.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
   </HelpTOCNode>
-  <HelpTOCNode Id="b3673022-af6f-4db0-8193-b865473ee34d" Title="Cauldron.XAML.ViewModels" Url="html/N_Cauldron_XAML_ViewModels.htm">
-    <HelpTOCNode Id="828e2f07-50dc-49c4-b030-225443b46380" Title="IChangeAwareViewModel Interface" Url="html/T_Cauldron_XAML_ViewModels_IChangeAwareViewModel.htm">
-      <HelpTOCNode Id="4064d2be-3a88-4b48-b978-8d2247960d5d" Title="IChangeAwareViewModel Properties" Url="html/Properties_T_Cauldron_XAML_ViewModels_IChangeAwareViewModel.htm">
+  <HelpTOCNode Id="5cd92462-b3e7-4731-bd45-1b043b92bdfd" Title="Cauldron.XAML.ViewModels" Url="html/N_Cauldron_XAML_ViewModels.htm">
+    <HelpTOCNode Id="3ecbf6b2-8089-427b-80fe-ba2849f1ddf7" Title="IChangeAwareViewModel Interface" Url="html/T_Cauldron_XAML_ViewModels_IChangeAwareViewModel.htm">
+      <HelpTOCNode Id="7f688904-5edd-434f-aa22-44ba1b808435" Title="IChangeAwareViewModel Properties" Url="html/Properties_T_Cauldron_XAML_ViewModels_IChangeAwareViewModel.htm">
         <HelpTOCNode Title="IsChanged Property " Url="html/P_Cauldron_XAML_ViewModels_IChangeAwareViewModel_IsChanged.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="0b7a3eb5-37bd-4789-a653-b65710a0b2b4" Title="IChangeAwareViewModel Methods" Url="html/Methods_T_Cauldron_XAML_ViewModels_IChangeAwareViewModel.htm">
-        <HelpTOCNode Id="2a9a93bb-7347-4b76-afb1-f0df9513a90a" Title="RaisePropertyChanged Method " Url="html/Overload_Cauldron_XAML_ViewModels_IChangeAwareViewModel_RaisePropertyChanged.htm">
+      <HelpTOCNode Id="917d5fe6-cd63-4b30-8e92-63cf8cad95e0" Title="IChangeAwareViewModel Methods" Url="html/Methods_T_Cauldron_XAML_ViewModels_IChangeAwareViewModel.htm">
+        <HelpTOCNode Id="a5e053fe-0667-4c85-954c-19c3ad5583d2" Title="RaisePropertyChanged Method " Url="html/Overload_Cauldron_XAML_ViewModels_IChangeAwareViewModel_RaisePropertyChanged.htm">
           <HelpTOCNode Title="RaisePropertyChanged Method (String, Object, Object)" Url="html/M_Cauldron_XAML_ViewModels_IChangeAwareViewModel_RaisePropertyChanged.htm" />
         </HelpTOCNode>
       </HelpTOCNode>
-      <HelpTOCNode Id="2b1210ba-acea-4cd5-acf0-a0784272d886" Title="IChangeAwareViewModel Events" Url="html/Events_T_Cauldron_XAML_ViewModels_IChangeAwareViewModel.htm">
+      <HelpTOCNode Id="81191d87-b4f2-4792-b813-65f892debb49" Title="IChangeAwareViewModel Events" Url="html/Events_T_Cauldron_XAML_ViewModels_IChangeAwareViewModel.htm">
         <HelpTOCNode Title="Changed Event" Url="html/E_Cauldron_XAML_ViewModels_IChangeAwareViewModel_Changed.htm" />
         <HelpTOCNode Title="IsChangedChanged Event" Url="html/E_Cauldron_XAML_ViewModels_IChangeAwareViewModel_IsChangedChanged.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="03b03f2f-5200-4449-acc0-95b8c3d202ed" Title="ICloseAwareViewModel Interface" Url="html/T_Cauldron_XAML_ViewModels_ICloseAwareViewModel.htm">
+    <HelpTOCNode Id="73525556-701e-4daa-858d-d212f9c401f2" Title="ICloseAwareViewModel Interface" Url="html/T_Cauldron_XAML_ViewModels_ICloseAwareViewModel.htm">
       <HelpTOCNode Title="ICloseAwareViewModel Properties" Url="html/Properties_T_Cauldron_XAML_ViewModels_ICloseAwareViewModel.htm" />
-      <HelpTOCNode Id="f44422a9-4f28-44be-840e-63cf60ebd750" Title="ICloseAwareViewModel Methods" Url="html/Methods_T_Cauldron_XAML_ViewModels_ICloseAwareViewModel.htm">
+      <HelpTOCNode Id="99ff8066-7b4e-4980-8b8a-4320382ddcf7" Title="ICloseAwareViewModel Methods" Url="html/Methods_T_Cauldron_XAML_ViewModels_ICloseAwareViewModel.htm">
         <HelpTOCNode Title="CanClose Method " Url="html/M_Cauldron_XAML_ViewModels_ICloseAwareViewModel_CanClose.htm" />
         <HelpTOCNode Title="Close Method " Url="html/M_Cauldron_XAML_ViewModels_ICloseAwareViewModel_Close.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="ICloseAwareViewModel Events" Url="html/Events_T_Cauldron_XAML_ViewModels_ICloseAwareViewModel.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="b891fa25-6c0f-4491-b07b-de586502866f" Title="IDialogViewModel Interface" Url="html/T_Cauldron_XAML_ViewModels_IDialogViewModel.htm">
-      <HelpTOCNode Id="885d9c13-1530-4bae-9fbb-76a443f1162b" Title="IDialogViewModel Properties" Url="html/Properties_T_Cauldron_XAML_ViewModels_IDialogViewModel.htm">
+    <HelpTOCNode Id="ba718c57-4946-400f-9397-90c3468430a8" Title="IDialogViewModel Interface" Url="html/T_Cauldron_XAML_ViewModels_IDialogViewModel.htm">
+      <HelpTOCNode Id="90c81d3b-80ef-4916-a0ef-e9a2e45a2cd4" Title="IDialogViewModel Properties" Url="html/Properties_T_Cauldron_XAML_ViewModels_IDialogViewModel.htm">
         <HelpTOCNode Title="Title Property " Url="html/P_Cauldron_XAML_ViewModels_IDialogViewModel_Title.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="IDialogViewModel Methods" Url="html/Methods_T_Cauldron_XAML_ViewModels_IDialogViewModel.htm" />
       <HelpTOCNode Title="IDialogViewModel Events" Url="html/Events_T_Cauldron_XAML_ViewModels_IDialogViewModel.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="b4ff2460-8909-4ba7-b16d-f1f318009124" Title="IDialogViewModel(TResult) Interface" Url="html/T_Cauldron_XAML_ViewModels_IDialogViewModel_1.htm">
-      <HelpTOCNode Id="92c637e4-8b1b-469f-8968-1c2987514437" Title="IDialogViewModel(TResult) Properties" Url="html/Properties_T_Cauldron_XAML_ViewModels_IDialogViewModel_1.htm">
+    <HelpTOCNode Id="bb5ec134-6f95-4c12-875d-5191d1abc8a2" Title="IDialogViewModel(TResult) Interface" Url="html/T_Cauldron_XAML_ViewModels_IDialogViewModel_1.htm">
+      <HelpTOCNode Id="9edb5384-cd80-4386-bab5-76cf08172208" Title="IDialogViewModel(TResult) Properties" Url="html/Properties_T_Cauldron_XAML_ViewModels_IDialogViewModel_1.htm">
         <HelpTOCNode Title="Result Property " Url="html/P_Cauldron_XAML_ViewModels_IDialogViewModel_1_Result.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="IDialogViewModel(TResult) Methods" Url="html/Methods_T_Cauldron_XAML_ViewModels_IDialogViewModel_1.htm" />
       <HelpTOCNode Title="IDialogViewModel(TResult) Events" Url="html/Events_T_Cauldron_XAML_ViewModels_IDialogViewModel_1.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="cc3b2524-c4fa-458d-bac3-19dc7fc703f4" Title="IFrameAware Interface" Url="html/T_Cauldron_XAML_ViewModels_IFrameAware.htm">
+    <HelpTOCNode Id="0ed2cd17-98d1-443a-90c6-342e14a6996d" Title="IFrameAware Interface" Url="html/T_Cauldron_XAML_ViewModels_IFrameAware.htm">
       <HelpTOCNode Title="IFrameAware Properties" Url="html/Properties_T_Cauldron_XAML_ViewModels_IFrameAware.htm" />
-      <HelpTOCNode Id="bd0311bc-3852-4e3b-833e-7ddd6363d4fc" Title="IFrameAware Methods" Url="html/Methods_T_Cauldron_XAML_ViewModels_IFrameAware.htm">
+      <HelpTOCNode Id="4fe1d2dd-7f2d-4dcc-b0f5-07e1d1a744b2" Title="IFrameAware Methods" Url="html/Methods_T_Cauldron_XAML_ViewModels_IFrameAware.htm">
         <HelpTOCNode Title="Activated Method " Url="html/M_Cauldron_XAML_ViewModels_IFrameAware_Activated.htm" />
         <HelpTOCNode Title="Deactivated Method " Url="html/M_Cauldron_XAML_ViewModels_IFrameAware_Deactivated.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="IFrameAware Events" Url="html/Events_T_Cauldron_XAML_ViewModels_IFrameAware.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="20bd16b5-1187-4483-9eab-a6ad5636c548" Title="INavigable Interface" Url="html/T_Cauldron_XAML_ViewModels_INavigable.htm">
+    <HelpTOCNode Id="a2928b25-fcdb-4735-bf7d-4dd7e26bbd32" Title="INavigable Interface" Url="html/T_Cauldron_XAML_ViewModels_INavigable.htm">
       <HelpTOCNode Title="INavigable Properties" Url="html/Properties_T_Cauldron_XAML_ViewModels_INavigable.htm" />
-      <HelpTOCNode Id="20744cc6-22df-4533-8d32-1c5231e857c7" Title="INavigable Methods" Url="html/Methods_T_Cauldron_XAML_ViewModels_INavigable.htm">
+      <HelpTOCNode Id="8bc57d13-361a-4959-b456-6da22ed057ac" Title="INavigable Methods" Url="html/Methods_T_Cauldron_XAML_ViewModels_INavigable.htm">
         <HelpTOCNode Title="OnNavigatedFrom Method " Url="html/M_Cauldron_XAML_ViewModels_INavigable_OnNavigatedFrom.htm" />
         <HelpTOCNode Title="OnNavigatedTo Method " Url="html/M_Cauldron_XAML_ViewModels_INavigable_OnNavigatedTo.htm" />
         <HelpTOCNode Title="OnNavigatingFrom Method " Url="html/M_Cauldron_XAML_ViewModels_INavigable_OnNavigatingFrom.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="INavigable Events" Url="html/Events_T_Cauldron_XAML_ViewModels_INavigable.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="a4dcefef-bb77-479e-8d40-5f9cd4c03fb2" Title="IPrelaunchAware Interface" Url="html/T_Cauldron_XAML_ViewModels_IPrelaunchAware.htm">
+    <HelpTOCNode Id="0e024a03-cd5a-4fc6-911e-c4a14949e748" Title="IPrelaunchAware Interface" Url="html/T_Cauldron_XAML_ViewModels_IPrelaunchAware.htm">
       <HelpTOCNode Title="IPrelaunchAware Properties" Url="html/Properties_T_Cauldron_XAML_ViewModels_IPrelaunchAware.htm" />
-      <HelpTOCNode Id="0cc75b0b-52f6-4117-bd21-56d92c9cea22" Title="IPrelaunchAware Methods" Url="html/Methods_T_Cauldron_XAML_ViewModels_IPrelaunchAware.htm">
+      <HelpTOCNode Id="4e0dfdd1-cee5-453b-b737-94bdcaad77ea" Title="IPrelaunchAware Methods" Url="html/Methods_T_Cauldron_XAML_ViewModels_IPrelaunchAware.htm">
         <HelpTOCNode Title="AppIsVisible Method " Url="html/M_Cauldron_XAML_ViewModels_IPrelaunchAware_AppIsVisible.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="IPrelaunchAware Events" Url="html/Events_T_Cauldron_XAML_ViewModels_IPrelaunchAware.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="f072dc33-543e-4f29-b873-a9b533dab014" Title="ISizeAware Interface" Url="html/T_Cauldron_XAML_ViewModels_ISizeAware.htm">
+    <HelpTOCNode Id="ec3dba67-e804-4740-81fd-e2a1208f03bc" Title="ISizeAware Interface" Url="html/T_Cauldron_XAML_ViewModels_ISizeAware.htm">
       <HelpTOCNode Title="ISizeAware Properties" Url="html/Properties_T_Cauldron_XAML_ViewModels_ISizeAware.htm" />
-      <HelpTOCNode Id="72d2ff80-41fd-41f1-9c7a-91ae14fd5c09" Title="ISizeAware Methods" Url="html/Methods_T_Cauldron_XAML_ViewModels_ISizeAware.htm">
+      <HelpTOCNode Id="21fe9d9d-68a4-46cc-96b5-45eeee53ec62" Title="ISizeAware Methods" Url="html/Methods_T_Cauldron_XAML_ViewModels_ISizeAware.htm">
         <HelpTOCNode Title="SizeChanged Method " Url="html/M_Cauldron_XAML_ViewModels_ISizeAware_SizeChanged.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="ISizeAware Events" Url="html/Events_T_Cauldron_XAML_ViewModels_ISizeAware.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="76dcbfa9-2207-4382-b545-5023424bfaff" Title="IValidatableViewModel Interface" Url="html/T_Cauldron_XAML_ViewModels_IValidatableViewModel.htm">
-      <HelpTOCNode Id="d3a15374-a0b6-48b8-b196-89224a7cc7e8" Title="IValidatableViewModel Properties" Url="html/Properties_T_Cauldron_XAML_ViewModels_IValidatableViewModel.htm">
+    <HelpTOCNode Id="bc2a85ac-e470-4d06-84ac-507494d440e4" Title="IValidatableViewModel Interface" Url="html/T_Cauldron_XAML_ViewModels_IValidatableViewModel.htm">
+      <HelpTOCNode Id="f6ccb6bd-4b9c-4f8e-b670-f1b3fbc3482a" Title="IValidatableViewModel Properties" Url="html/Properties_T_Cauldron_XAML_ViewModels_IValidatableViewModel.htm">
         <HelpTOCNode Title="IsValidating Property " Url="html/P_Cauldron_XAML_ViewModels_IValidatableViewModel_IsValidating.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="0d02f7e4-206c-43ea-b0b3-cbc1343ef916" Title="IValidatableViewModel Methods" Url="html/Methods_T_Cauldron_XAML_ViewModels_IValidatableViewModel.htm">
-        <HelpTOCNode Id="cc378701-fab0-4bdb-aee2-8f6e2c8072d3" Title="ValidateAsync Method " Url="html/Overload_Cauldron_XAML_ViewModels_IValidatableViewModel_ValidateAsync.htm">
+      <HelpTOCNode Id="77a40c73-d9f3-4611-9496-4a9976757233" Title="IValidatableViewModel Methods" Url="html/Methods_T_Cauldron_XAML_ViewModels_IValidatableViewModel.htm">
+        <HelpTOCNode Id="f91cf908-0611-455f-885d-fce97afbabe8" Title="ValidateAsync Method " Url="html/Overload_Cauldron_XAML_ViewModels_IValidatableViewModel_ValidateAsync.htm">
           <HelpTOCNode Title="ValidateAsync Method " Url="html/M_Cauldron_XAML_ViewModels_IValidatableViewModel_ValidateAsync.htm" />
           <HelpTOCNode Title="ValidateAsync Method (String)" Url="html/M_Cauldron_XAML_ViewModels_IValidatableViewModel_ValidateAsync_2.htm" />
           <HelpTOCNode Title="ValidateAsync Method (PropertyInfo, String)" Url="html/M_Cauldron_XAML_ViewModels_IValidatableViewModel_ValidateAsync_1.htm" />
         </HelpTOCNode>
       </HelpTOCNode>
-      <HelpTOCNode Id="624417d9-6949-4caf-8561-e2345ceb4db9" Title="IValidatableViewModel Events" Url="html/Events_T_Cauldron_XAML_ViewModels_IValidatableViewModel.htm">
+      <HelpTOCNode Id="9f756671-7dba-466b-a0a1-9a559edfb8d3" Title="IValidatableViewModel Events" Url="html/Events_T_Cauldron_XAML_ViewModels_IValidatableViewModel.htm">
         <HelpTOCNode Title="Validating Event" Url="html/E_Cauldron_XAML_ViewModels_IValidatableViewModel_Validating.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="3ab1ef6a-96c0-4cc4-b3fe-a2e8761ce96b" Title="IViewAware Interface" Url="html/T_Cauldron_XAML_ViewModels_IViewAware.htm">
+    <HelpTOCNode Id="870a0264-f5de-445e-8600-bb8b1697928f" Title="IViewAware Interface" Url="html/T_Cauldron_XAML_ViewModels_IViewAware.htm">
       <HelpTOCNode Title="IViewAware Properties" Url="html/Properties_T_Cauldron_XAML_ViewModels_IViewAware.htm" />
-      <HelpTOCNode Id="df56551f-0ffb-41bc-8c5b-52fdc755f59d" Title="IViewAware Methods" Url="html/Methods_T_Cauldron_XAML_ViewModels_IViewAware.htm">
+      <HelpTOCNode Id="5cadacb4-f920-461e-bdd9-1afc3592fea1" Title="IViewAware Methods" Url="html/Methods_T_Cauldron_XAML_ViewModels_IViewAware.htm">
         <HelpTOCNode Title="OnAssignToDataContext Method " Url="html/M_Cauldron_XAML_ViewModels_IViewAware_OnAssignToDataContext.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="IViewAware Events" Url="html/Events_T_Cauldron_XAML_ViewModels_IViewAware.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="0844c6d6-39d0-4d81-80cf-5b5ae87f006c" Title="IViewModel Interface" Url="html/T_Cauldron_XAML_ViewModels_IViewModel.htm">
-      <HelpTOCNode Id="d06841ee-a180-4d4f-b1c2-d627c504c9f3" Title="IViewModel Properties" Url="html/Properties_T_Cauldron_XAML_ViewModels_IViewModel.htm">
+    <HelpTOCNode Id="2f2f3731-9516-4753-8e55-0b03a8319720" Title="IViewModel Interface" Url="html/T_Cauldron_XAML_ViewModels_IViewModel.htm">
+      <HelpTOCNode Id="d8434950-bc6c-4fd7-9aff-e8e1f453b053" Title="IViewModel Properties" Url="html/Properties_T_Cauldron_XAML_ViewModels_IViewModel.htm">
         <HelpTOCNode Title="Dispatcher Property " Url="html/P_Cauldron_XAML_ViewModels_IViewModel_Dispatcher.htm" />
         <HelpTOCNode Title="Id Property " Url="html/P_Cauldron_XAML_ViewModels_IViewModel_Id.htm" />
         <HelpTOCNode Title="IsLoading Property " Url="html/P_Cauldron_XAML_ViewModels_IViewModel_IsLoading.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="27367c2d-8349-4d0c-ae0c-34eab6527e5d" Title="IViewModel Methods" Url="html/Methods_T_Cauldron_XAML_ViewModels_IViewModel.htm">
+      <HelpTOCNode Id="cbc28b61-bfba-4648-aa57-665ee5e79577" Title="IViewModel Methods" Url="html/Methods_T_Cauldron_XAML_ViewModels_IViewModel.htm">
         <HelpTOCNode Title="OnException Method " Url="html/M_Cauldron_XAML_ViewModels_IViewModel_OnException.htm" />
         <HelpTOCNode Title="RaiseNotifyBehaviourInvoke Method " Url="html/M_Cauldron_XAML_ViewModels_IViewModel_RaiseNotifyBehaviourInvoke.htm" />
         <HelpTOCNode Title="RaisePropertyChanged Method " Url="html/M_Cauldron_XAML_ViewModels_IViewModel_RaisePropertyChanged.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="d42815d2-c7f1-4f05-aaeb-e19d9e7bfc2d" Title="IViewModel Events" Url="html/Events_T_Cauldron_XAML_ViewModels_IViewModel.htm">
+      <HelpTOCNode Id="2d65d134-68a9-42ab-a2ae-b90492e0cf37" Title="IViewModel Events" Url="html/Events_T_Cauldron_XAML_ViewModels_IViewModel.htm">
         <HelpTOCNode Title="IsLoadingChanged Event" Url="html/E_Cauldron_XAML_ViewModels_IViewModel_IsLoadingChanged.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="fc836cc4-b051-46a0-b8ad-08eb7cf58387" Title="RaisePropertyChangeAttribute Class" Url="html/T_Cauldron_XAML_ViewModels_RaisePropertyChangeAttribute.htm">
+    <HelpTOCNode Id="243fad4d-4612-4590-a084-9cdf98254606" Title="RaisePropertyChangeAttribute Class" Url="html/T_Cauldron_XAML_ViewModels_RaisePropertyChangeAttribute.htm">
       <HelpTOCNode Title="RaisePropertyChangeAttribute Constructor " Url="html/M_Cauldron_XAML_ViewModels_RaisePropertyChangeAttribute__ctor.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="852417c2-ac1b-4a56-9f31-15956e90a4d6" Title="RegisterChildrenAttribute Class" Url="html/T_Cauldron_XAML_ViewModels_RegisterChildrenAttribute.htm">
+    <HelpTOCNode Id="ec844a96-7ee8-47a5-a1b3-86f13e837929" Title="RegisterChildrenAttribute Class" Url="html/T_Cauldron_XAML_ViewModels_RegisterChildrenAttribute.htm">
       <HelpTOCNode Title="RegisterChildrenAttribute Constructor " Url="html/M_Cauldron_XAML_ViewModels_RegisterChildrenAttribute__ctor.htm" />
-      <HelpTOCNode Id="46970ea3-f2a0-414d-94cb-1c938c983846" Title="RegisterChildrenAttribute Properties" Url="html/Properties_T_Cauldron_XAML_ViewModels_RegisterChildrenAttribute.htm">
+      <HelpTOCNode Id="6863bbcd-5ef0-4922-a5a7-1a0e33c5b254" Title="RegisterChildrenAttribute Properties" Url="html/Properties_T_Cauldron_XAML_ViewModels_RegisterChildrenAttribute.htm">
         <HelpTOCNode Title="Context Property " Url="html/P_Cauldron_XAML_ViewModels_RegisterChildrenAttribute_Context.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="9657bb0f-89d6-4aad-be8d-71a40fb51651" Title="RegisterChildrenAttribute Methods" Url="html/Methods_T_Cauldron_XAML_ViewModels_RegisterChildrenAttribute.htm">
+      <HelpTOCNode Id="a1cc5166-f29b-4c90-bb77-601f43162942" Title="RegisterChildrenAttribute Methods" Url="html/Methods_T_Cauldron_XAML_ViewModels_RegisterChildrenAttribute.htm">
         <HelpTOCNode Title="OnInitialize Method " Url="html/M_Cauldron_XAML_ViewModels_RegisterChildrenAttribute_OnInitialize.htm" />
         <HelpTOCNode Title="OnSet Method " Url="html/M_Cauldron_XAML_ViewModels_RegisterChildrenAttribute_OnSet.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="e7e565b3-f8b4-4a69-bd0a-3c363d4482cc" Title="ValidatableViewModelBase Class" Url="html/T_Cauldron_XAML_ViewModels_ValidatableViewModelBase.htm">
-      <HelpTOCNode Id="3c032000-e65e-4450-91e4-022c2c74471f" Title="ValidatableViewModelBase Constructor " Url="html/Overload_Cauldron_XAML_ViewModels_ValidatableViewModelBase__ctor.htm">
+    <HelpTOCNode Id="8052cf9f-a983-41b3-9d13-c4c23ab31a7f" Title="ValidatableViewModelBase Class" Url="html/T_Cauldron_XAML_ViewModels_ValidatableViewModelBase.htm">
+      <HelpTOCNode Id="1a2be986-01f3-4660-999a-291ff8183060" Title="ValidatableViewModelBase Constructor " Url="html/Overload_Cauldron_XAML_ViewModels_ValidatableViewModelBase__ctor.htm">
         <HelpTOCNode Title="ValidatableViewModelBase Constructor " Url="html/M_Cauldron_XAML_ViewModels_ValidatableViewModelBase__ctor.htm" />
         <HelpTOCNode Title="ValidatableViewModelBase Constructor (Guid)" Url="html/M_Cauldron_XAML_ViewModels_ValidatableViewModelBase__ctor_1.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="d405c9e5-aefd-4ff8-9828-26d653614b90" Title="ValidatableViewModelBase Properties" Url="html/Properties_T_Cauldron_XAML_ViewModels_ValidatableViewModelBase.htm">
+      <HelpTOCNode Id="d3201870-b8d1-4d0f-80d3-4cdb152fadf7" Title="ValidatableViewModelBase Properties" Url="html/Properties_T_Cauldron_XAML_ViewModels_ValidatableViewModelBase.htm">
         <HelpTOCNode Title="Errors Property " Url="html/P_Cauldron_XAML_ViewModels_ValidatableViewModelBase_Errors.htm" />
         <HelpTOCNode Title="HasErrors Property " Url="html/P_Cauldron_XAML_ViewModels_ValidatableViewModelBase_HasErrors.htm" />
         <HelpTOCNode Title="IsValidating Property " Url="html/P_Cauldron_XAML_ViewModels_ValidatableViewModelBase_IsValidating.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="12fdffa9-95ac-437e-bf23-11993efbe764" Title="ValidatableViewModelBase Methods" Url="html/Methods_T_Cauldron_XAML_ViewModels_ValidatableViewModelBase.htm">
+      <HelpTOCNode Id="91adc55b-9467-43a5-b450-081f934d644c" Title="ValidatableViewModelBase Methods" Url="html/Methods_T_Cauldron_XAML_ViewModels_ValidatableViewModelBase.htm">
         <HelpTOCNode Title="BeforeRaiseNotifyPropertyChanged Method " Url="html/M_Cauldron_XAML_ViewModels_ValidatableViewModelBase_BeforeRaiseNotifyPropertyChanged.htm" />
         <HelpTOCNode Title="GetErrors Method " Url="html/M_Cauldron_XAML_ViewModels_ValidatableViewModelBase_GetErrors.htm" />
         <HelpTOCNode Title="OnDispose Method " Url="html/M_Cauldron_XAML_ViewModels_ValidatableViewModelBase_OnDispose.htm" />
         <HelpTOCNode Title="OnIsValidatingChanged Method " Url="html/M_Cauldron_XAML_ViewModels_ValidatableViewModelBase_OnIsValidatingChanged.htm" />
         <HelpTOCNode Title="OnValidation Method " Url="html/M_Cauldron_XAML_ViewModels_ValidatableViewModelBase_OnValidation.htm" />
-        <HelpTOCNode Id="d25c1eba-00a1-406c-9e9b-9c8b51abc436" Title="ValidateAsync Method " Url="html/Overload_Cauldron_XAML_ViewModels_ValidatableViewModelBase_ValidateAsync.htm">
+        <HelpTOCNode Id="f4bbb310-1909-4721-b3a5-9259a2f576da" Title="ValidateAsync Method " Url="html/Overload_Cauldron_XAML_ViewModels_ValidatableViewModelBase_ValidateAsync.htm">
           <HelpTOCNode Title="ValidateAsync Method " Url="html/M_Cauldron_XAML_ViewModels_ValidatableViewModelBase_ValidateAsync.htm" />
           <HelpTOCNode Title="ValidateAsync Method (String)" Url="html/M_Cauldron_XAML_ViewModels_ValidatableViewModelBase_ValidateAsync_2.htm" />
           <HelpTOCNode Title="ValidateAsync Method (PropertyInfo, String)" Url="html/M_Cauldron_XAML_ViewModels_ValidatableViewModelBase_ValidateAsync_1.htm" />
         </HelpTOCNode>
       </HelpTOCNode>
-      <HelpTOCNode Id="9efc52a6-3b6f-4fb1-a7ba-7a494181a67a" Title="ValidatableViewModelBase Events" Url="html/Events_T_Cauldron_XAML_ViewModels_ValidatableViewModelBase.htm">
+      <HelpTOCNode Id="99c79a82-f075-4a64-be01-80eb716b902e" Title="ValidatableViewModelBase Events" Url="html/Events_T_Cauldron_XAML_ViewModels_ValidatableViewModelBase.htm">
         <HelpTOCNode Title="ErrorsChanged Event" Url="html/E_Cauldron_XAML_ViewModels_ValidatableViewModelBase_ErrorsChanged.htm" />
         <HelpTOCNode Title="Validating Event" Url="html/E_Cauldron_XAML_ViewModels_ValidatableViewModelBase_Validating.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="59686a95-603f-4ad7-b0a9-20ef50a11122" Title="ViewModelBase Class" Url="html/T_Cauldron_XAML_ViewModels_ViewModelBase.htm">
-      <HelpTOCNode Id="0f6bc197-c2fb-4af9-9970-ed94ae404e8a" Title="ViewModelBase Constructor " Url="html/Overload_Cauldron_XAML_ViewModels_ViewModelBase__ctor.htm">
+    <HelpTOCNode Id="00e1fab8-2986-44dd-969f-1cf5a05814b8" Title="ViewModelBase Class" Url="html/T_Cauldron_XAML_ViewModels_ViewModelBase.htm">
+      <HelpTOCNode Id="5666fa56-f00c-4f55-9a91-a2772b5f0018" Title="ViewModelBase Constructor " Url="html/Overload_Cauldron_XAML_ViewModels_ViewModelBase__ctor.htm">
         <HelpTOCNode Title="ViewModelBase Constructor " Url="html/M_Cauldron_XAML_ViewModels_ViewModelBase__ctor.htm" />
         <HelpTOCNode Title="ViewModelBase Constructor (Guid)" Url="html/M_Cauldron_XAML_ViewModels_ViewModelBase__ctor_1.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="21b4e4c9-63ca-4945-8fa7-22d7b2c1942e" Title="ViewModelBase Properties" Url="html/Properties_T_Cauldron_XAML_ViewModels_ViewModelBase.htm">
+      <HelpTOCNode Id="1f838128-1b5d-4ee5-b272-43fcee2588a5" Title="ViewModelBase Properties" Url="html/Properties_T_Cauldron_XAML_ViewModels_ViewModelBase.htm">
         <HelpTOCNode Title="Dispatcher Property " Url="html/P_Cauldron_XAML_ViewModels_ViewModelBase_Dispatcher.htm" />
         <HelpTOCNode Title="Id Property " Url="html/P_Cauldron_XAML_ViewModels_ViewModelBase_Id.htm" />
         <HelpTOCNode Title="IsLoading Property " Url="html/P_Cauldron_XAML_ViewModels_ViewModelBase_IsLoading.htm" />
         <HelpTOCNode Title="MessageDialog Property " Url="html/P_Cauldron_XAML_ViewModels_ViewModelBase_MessageDialog.htm" />
         <HelpTOCNode Title="Navigator Property " Url="html/P_Cauldron_XAML_ViewModels_ViewModelBase_Navigator.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="27bcf2b6-05b3-4b51-8c58-bb678c659f6e" Title="ViewModelBase Methods" Url="html/Methods_T_Cauldron_XAML_ViewModels_ViewModelBase.htm">
+      <HelpTOCNode Id="c28fb85c-d00e-49b9-9908-fb97386d4bbd" Title="ViewModelBase Methods" Url="html/Methods_T_Cauldron_XAML_ViewModels_ViewModelBase.htm">
         <HelpTOCNode Title="AfterRaiseNotifyPropertyChanged Method " Url="html/M_Cauldron_XAML_ViewModels_ViewModelBase_AfterRaiseNotifyPropertyChanged.htm" />
         <HelpTOCNode Title="BeforeRaiseNotifyPropertyChanged Method " Url="html/M_Cauldron_XAML_ViewModels_ViewModelBase_BeforeRaiseNotifyPropertyChanged.htm" />
         <HelpTOCNode Title="OnDispose Method " Url="html/M_Cauldron_XAML_ViewModels_ViewModelBase_OnDispose.htm" />
@@ -1430,14 +1433,14 @@
         <HelpTOCNode Title="RaiseNotifyBehaviourInvoke Method " Url="html/M_Cauldron_XAML_ViewModels_ViewModelBase_RaiseNotifyBehaviourInvoke.htm" />
         <HelpTOCNode Title="RaisePropertyChanged Method " Url="html/M_Cauldron_XAML_ViewModels_ViewModelBase_RaisePropertyChanged.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="160b369f-3042-44fa-ba48-b362215dee23" Title="ViewModelBase Events" Url="html/Events_T_Cauldron_XAML_ViewModels_ViewModelBase.htm">
+      <HelpTOCNode Id="75b30a2e-8a47-4243-8df5-c52ce8b9d7e6" Title="ViewModelBase Events" Url="html/Events_T_Cauldron_XAML_ViewModels_ViewModelBase.htm">
         <HelpTOCNode Title="BehaviourInvoke Event" Url="html/E_Cauldron_XAML_ViewModels_ViewModelBase_BehaviourInvoke.htm" />
         <HelpTOCNode Title="IsLoadingChanged Event" Url="html/E_Cauldron_XAML_ViewModels_ViewModelBase_IsLoadingChanged.htm" />
         <HelpTOCNode Title="PropertyChanged Event" Url="html/E_Cauldron_XAML_ViewModels_ViewModelBase_PropertyChanged.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
   </HelpTOCNode>
-  <HelpTOCNode Id="b7336ca7-bfce-40ce-b5cf-cc77b9796b11" Title="Windows.UI.Xaml.Navigation" Url="html/N_Windows_UI_Xaml_Navigation.htm">
+  <HelpTOCNode Id="92225cc3-6640-4e64-ab2b-c4fadf33f733" Title="Windows.UI.Xaml.Navigation" Url="html/N_Windows_UI_Xaml_Navigation.htm">
     <HelpTOCNode Title="NavigationMode Enumeration" Url="html/T_Windows_UI_Xaml_Navigation_NavigationMode.htm" />
   </HelpTOCNode>
 </HelpTOC>
