@@ -18,16 +18,14 @@
     <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Interceptors\TestPropertyInterceptorAttribute.cs" Link="Interceptors\TestPropertyInterceptorAttribute.cs" />
     <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\ITestInterface.cs" Link="ITestInterface.cs" />
     <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Method_Interceptor_Code_Validation_Tests.cs" Link="Method_Interceptor_Code_Validation_Tests.cs" />
-    <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Method_Interceptor_TypeWide_Validation_Test.cs" Link="Method_Interceptor_TypeWide_Validation_Test.cs" />
     <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Property_Interceptor_Code_Validation_Tests.cs" Link="Property_Interceptor_Code_Validation_Tests.cs" />
-    <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Property_Interceptor_TypeWide_Validation_Test.cs" Link="Property_Interceptor_TypeWide_Validation_Test.cs" />
     <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\TestClass.cs" Link="TestClass.cs" />
     <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\TestEnum.cs" Link="TestEnum.cs" />
     <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\TestStruct.cs" Link="TestStruct.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Fody" Version="2.3.3" />
+    <PackageReference Include="Fody" Version="2.3.15" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="1.2.0" />
     <PackageReference Include="MSTest.TestFramework" Version="1.2.0" />
@@ -42,6 +40,9 @@
     <ProjectReference Include="..\..\NetStandard\Cauldron.Interception\Cauldron.Interception.csproj" />
     <ProjectReference Include="..\..\Win32\Cauldron.Win32.UserInformation\Cauldron.Win32.UserInformation.csproj" />
     <ProjectReference Include="..\Resources\Fody_Assembly_Validation_External_Resources\Fody_Assembly_Validation_External_Resources.csproj" />
+    <ProjectReference Include="..\Resources\NetCore_Fody_Interceptors\NetCore_Fody_Interceptors.csproj" />
   </ItemGroup>
+
+  <Import Project="..\Fody_Assembly_Validation_Tests\Fody_Assembly_Validation_Tests.projitems" Label="Shared" />
 
 </Project>

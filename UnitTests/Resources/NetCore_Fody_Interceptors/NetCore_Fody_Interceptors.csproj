@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Fody" Version="2.3.15" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\NetStandard\Cauldron.Interception\Cauldron.Interception.csproj" />
+  </ItemGroup>
+
+  <Import Project="..\Fody_Interceptors\Fody_Interceptors.projitems" Label="Shared" />
+
+</Project>

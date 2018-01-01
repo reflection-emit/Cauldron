@@ -46,9 +46,6 @@
     <Compile Include="..\..\..\NetStandard\Cauldron.Interception\AssignMethodAttribute.cs">
       <Link>AssignMethodAttribute.cs</Link>
     </Compile>
-    <Compile Include="..\..\..\NetStandard\Cauldron.Interception\DoNotInterceptAttribute.cs">
-      <Link>DoNotInterceptAttribute.cs</Link>
-    </Compile>
     <Compile Include="..\..\..\NetStandard\Cauldron.Interception\Extensions.cs">
       <Link>Extensions.cs</Link>
     </Compile>
@@ -60,6 +57,9 @@
     </Compile>
     <Compile Include="..\..\..\NetStandard\Cauldron.Interception\IMethodInterceptor.cs">
       <Link>IMethodInterceptor.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\NetStandard\Cauldron.Interception\InterceptionRuleAttribute.cs">
+      <Link>InterceptionRuleAttribute.cs</Link>
     </Compile>
     <Compile Include="..\..\..\NetStandard\Cauldron.Interception\IPropertyGetterInterceptor.cs">
       <Link>IPropertyGetterInterceptor.cs</Link>

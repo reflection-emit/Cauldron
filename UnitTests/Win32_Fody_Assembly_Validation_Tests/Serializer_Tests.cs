@@ -8,7 +8,6 @@ using System.IO;
 using System.Runtime.Serialization;
 
 #else
-using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 #endif
 

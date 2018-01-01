@@ -9,9 +9,18 @@ namespace Cauldron.Interception.Fody.HelperTypes
     {
         private BuilderType builderType;
 
-        public HelperTypeBase() => this.FindMethods();
+        public HelperTypeBase()
+        {
+            if (Type == null)
+                throw new TypeNotFoundException($"Unable to find type: '{Name}'");
+
+            this.FindMethods();
+            this.FindFields();
+        }
 
         public static T Instance => new T();
+
+        public static bool IsReferenced => Builder.Current.TypeExists(Name);
 
         public static string Name
         {
@@ -24,12 +33,10 @@ namespace Cauldron.Interception.Fody.HelperTypes
                 if (attrib == null)
                     throw new Exception("The helper needs a HelperTypeNameAttribute");
 
-                if (builder.TypeExists(attrib.Fullname1))
-                    return attrib.Fullname1;
-                else if (!string.IsNullOrEmpty(attrib.Fullname2) && builder.TypeExists(attrib.Fullname2))
-                    return attrib.Fullname2;
+                if (builder.IsUWP)
+                    return string.IsNullOrEmpty(attrib.UWPFullname) ? attrib.Fullname : attrib.UWPFullname;
                 else
-                    return null;
+                    return attrib.Fullname;
             }
         }
 
@@ -40,10 +47,21 @@ namespace Cauldron.Interception.Fody.HelperTypes
                 var builder = Builder.Current;
                 var result = Name;
 
-                if (result == null)
-                    return null;
+                if (builder.TypeExists(result))
+                    return builder.GetType(result);
 
-                return builder.GetType(result);
+                if (builder.IsUWP)
+                {
+                    var type = typeof(T);
+                    var attrib = type.GetCustomAttribute<HelperTypeNameAttribute>();
+                    builder.Log(LogTypes.Info, $"Adding reference to dll for type '{Name}'");
+                    builder.AddAssembly(attrib.ImportUWPAssembly);
+
+                    if (builder.TypeExists(result))
+                        return builder.GetType(result);
+                }
+
+                throw new TypeNotFoundException($"The type '{result}' does not exist.");
             }
         }
 
@@ -52,17 +70,7 @@ namespace Cauldron.Interception.Fody.HelperTypes
             get
             {
                 if (builderType == null)
-                {
-                    var attrib = this.GetType().GetCustomAttribute<HelperTypeNameAttribute>();
-
-                    if (attrib == null)
-                        throw new Exception("The helper needs a HelperTypeNameAttribute");
-
                     builderType = Type;
-
-                    if (builderType == null)
-                        throw new TypeNotFoundException($"The type '{attrib.Fullname1}' or '{attrib.Fullname2}' does not exist.");
-                }
 
                 return builderType;
             }

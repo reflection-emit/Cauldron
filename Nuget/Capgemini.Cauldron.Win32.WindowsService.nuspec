@@ -22,7 +22,7 @@
       <dependency id="Capgemini.Cauldron.Core.Reflection" version="2.0.29" />
       <dependency id="Capgemini.Cauldron.Cryptography" version="2.0.29" />
       <dependency id="Capgemini.Cauldron.Win32.Extension.IO" version="2.0.29" />
-      <dependency id="Fody" version="2.3.3" />
+      <dependency id="Fody" version="2.3.14" />
     </dependencies>
     <frameworkAssemblies>
       <frameworkAssembly assemblyName="System.Configuration.Install" />

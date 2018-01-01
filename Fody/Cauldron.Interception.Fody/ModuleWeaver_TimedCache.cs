@@ -8,7 +8,7 @@ namespace Cauldron.Interception.Fody
     {
         private void ImplementTimedCache(Builder builder)
         {
-            if (__TimedCacheAttribute.Name == null)
+            if (!__TimedCacheAttribute.IsReferenced)
                 return;
 
             var timedCacheAttribute = __TimedCacheAttribute.Instance;

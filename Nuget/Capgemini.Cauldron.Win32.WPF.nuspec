@@ -36,7 +36,7 @@
       2017.12.04 - [A] Several information from ApplicationInfo added as static resources.
     </releaseNotes>
     <dependencies>
-      <dependency id="Fody" version="2.3.3" />
+      <dependency id="Fody" version="2.3.14" />
       <dependency id="Newtonsoft.Json" version="10.0.3" />
       <dependency id="PropertyChanged.Fody" version="2.2.4" />
       <dependency id="Cauldron.Interception.Fody" version="2.0.29" />

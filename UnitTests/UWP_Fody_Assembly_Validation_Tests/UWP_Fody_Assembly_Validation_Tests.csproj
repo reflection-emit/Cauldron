@@ -193,14 +193,8 @@
     <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Method_Interceptor_Code_Validation_Tests.cs">
       <Link>Method_Interceptor_Code_Validation_Tests.cs</Link>
     </Compile>
-    <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Method_Interceptor_TypeWide_Validation_Test.cs">
-      <Link>Method_Interceptor_TypeWide_Validation_Test.cs</Link>
-    </Compile>
     <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Property_Interceptor_Code_Validation_Tests.cs">
       <Link>Property_Interceptor_Code_Validation_Tests.cs</Link>
-    </Compile>
-    <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Property_Interceptor_TypeWide_Validation_Test.cs">
-      <Link>Property_Interceptor_TypeWide_Validation_Test.cs</Link>
     </Compile>
     <Compile Include="..\Win32_Fody_Assembly_Validation_Tests\Serializer_Tests.cs">
       <Link>Serializer_Tests.cs</Link>
@@ -244,7 +238,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Fody">
-      <Version>2.3.3</Version>
+      <Version>2.3.15</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.0.5</Version>
@@ -265,10 +259,15 @@
       <Project>{cee6fe03-53fd-4804-9818-9e0607b6227a}</Project>
       <Name>UWP_Assembly_Validation_External_Resources</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Resources\UWP_Fody_Interceptors\UWP_Fody_Interceptors.csproj">
+      <Project>{f61e1fe7-5df3-491c-a377-f68adae8706c}</Project>
+      <Name>UWP_Fody_Interceptors</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
+  <Import Project="..\Fody_Assembly_Validation_Tests\Fody_Assembly_Validation_Tests.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

@@ -17,7 +17,7 @@
     <dependencies>
       <dependency id="Capgemini.Cauldron.Activator" version="2.0.29" />
       <dependency id="Capgemini.Cauldron.Core.Threading" version="2.0.29" />
-      <dependency id="Fody" version="2.3.3" />
+      <dependency id="Fody" version="2.3.14" />
       <dependency id="Cauldron.Interception.Fody" version="2.0.29" />
     </dependencies>
     <frameworkAssemblies>

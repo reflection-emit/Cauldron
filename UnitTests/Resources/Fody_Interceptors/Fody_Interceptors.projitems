@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>1cc529ea-669f-498a-89b2-f6ccddea0b62</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Cauldron.UnitTest.Interceptors</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Constructor\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Mixed\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)InvokedException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Method\IMethod_Interceptor_Invoke.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Method\Method_Invoke.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Property\IProperty_Interceptor_Invoke.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Property\Property_Getter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Property\Property_Getter_Setter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Property\Property_Getter_Setter_Exception.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Property\Property_Getter_Setter_NoSet.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Property\Property_Setter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RuleAttribute\SuppressInterceptorAttribute.cs" />
+  </ItemGroup>
+</Project>

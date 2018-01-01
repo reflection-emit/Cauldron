@@ -19,7 +19,6 @@ namespace Cauldron.Interception.Cecilator
         public static Builder Current { get; internal set; }
 
         public BuilderCustomAttributeCollection CustomAttributes => new BuilderCustomAttributeCollection(this, this.moduleDefinition);
-        public bool IsUWP => this.TypeExists("Windows.UI.Xaml.Controls.Page");
         public string Name => this.moduleDefinition.Name;
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -39,8 +38,6 @@ namespace Cauldron.Interception.Cecilator
             var result = this.moduleDefinition.ImportReference(method.methodReference);
             return new Method(new BuilderType(this, result.DeclaringType), result, result.Resolve());
         }
-
-        public bool IsReferenced(string assemblyName) => this.allAssemblies.Any(x => x.Name.Name == assemblyName);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override string ToString() => this.moduleDefinition.Assembly.FullName;
@@ -386,7 +383,7 @@ namespace Cauldron.Interception.Cecilator
 
         internal IEnumerable<TypeReference> GetTypesInternal(SearchContext searchContext)
         {
-            var types = searchContext == SearchContext.Module ? this.moduleDefinition.Types : this.allTypes;
+            var types = searchContext == SearchContext.Module ? (IEnumerable<TypeDefinition>)this.moduleDefinition.Types : this.allTypes.ToArray();
             var result = new ConcurrentBag<TypeReference>();
 
             Parallel.ForEach(types, type =>

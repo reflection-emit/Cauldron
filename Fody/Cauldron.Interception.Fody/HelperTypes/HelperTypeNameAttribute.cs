@@ -5,15 +5,23 @@ namespace Cauldron.Interception.Fody.HelperTypes
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
     public sealed class HelperTypeNameAttribute : Attribute
     {
-        public HelperTypeNameAttribute(string fullname) => this.Fullname1 = fullname;
+        public HelperTypeNameAttribute(string fullname) => this.Fullname = fullname;
 
-        public HelperTypeNameAttribute(string fullname1, string fullname2)
+        public HelperTypeNameAttribute(string fullname, string uwpFullname)
         {
-            this.Fullname1 = fullname1;
-            this.Fullname2 = fullname2;
+            this.Fullname = fullname;
+            this.UWPFullname = uwpFullname;
         }
 
-        public string Fullname1 { get; private set; }
-        public string Fullname2 { get; private set; }
+        public HelperTypeNameAttribute(string fullname, string uwpFullname, string importUWPAssembly)
+        {
+            this.ImportUWPAssembly = importUWPAssembly;
+            this.Fullname = fullname;
+            this.UWPFullname = uwpFullname;
+        }
+
+        public string Fullname { get; private set; }
+        public string ImportUWPAssembly { get; private set; }
+        public string UWPFullname { get; private set; }
     }
 }

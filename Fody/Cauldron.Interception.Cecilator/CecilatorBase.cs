@@ -13,10 +13,10 @@ namespace Cauldron.Interception.Cecilator
     public abstract class CecilatorBase : CecilatorObject
     {
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        protected readonly IEnumerable<AssemblyDefinition> allAssemblies;
+        protected readonly List<AssemblyDefinition> allAssemblies;
 
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        protected readonly IEnumerable<TypeDefinition> allTypes;
+        protected readonly List<TypeDefinition> allTypes;
 
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
         protected readonly ModuleDefinition moduleDefinition;
@@ -52,7 +52,7 @@ namespace Cauldron.Interception.Cecilator
                 .Where(x => x != null && !assemblies.Any(y => y.FullName.GetHashCode() == x.AssemblyDefinition.FullName.GetHashCode() && y.FullName == x.AssemblyDefinition.FullName))
                 .ToArray();
 
-            this.allAssemblies = assemblies.Concat(this.UnusedReference.Select(x => x.AssemblyDefinition)).ToArray();
+            this.allAssemblies = assemblies.Concat(this.UnusedReference.Select(x => x.AssemblyDefinition)).ToList();
 
             this.Log("-----------------------------------------------------------------------------");
 
@@ -92,7 +92,7 @@ namespace Cauldron.Interception.Cecilator
                     }
                 }
             }
-            this.allTypes = this.allAssemblies.SelectMany(x => x.Modules).Where(x => x != null).SelectMany(x => x.Types).Where(x => x != null).Concat(this.moduleDefinition.Types).ToArray();
+            this.allTypes = this.allAssemblies.SelectMany(x => x.Modules).Where(x => x != null).SelectMany(x => x.Types).Where(x => x != null).Concat(this.moduleDefinition.Types).ToList();
             this.Log("-----------------------------------------------------------------------------");
             WeaverBase.AllTypes = this.allTypes;
 
@@ -113,14 +113,39 @@ namespace Cauldron.Interception.Cecilator
 
         public string Identification { get; private set; }
 
+        public bool IsUWP => this.IsReferenced("Windows.Foundation.UniversalApiContract");
+
         public AssemblyDefinition[] ReferencedAssemblies =>
-            this.moduleDefinition.AssemblyReferences
+                    this.moduleDefinition.AssemblyReferences
                 .Select(x => this.moduleDefinition.AssemblyResolver.Resolve(x)).ToArray();
 
         public List<string> ResourceNames { get; private set; } = new List<string>();
         public AssemblyDefinitionEx[] UnusedReference { get; private set; }
 
         public static string GenerateName() => Path.GetRandomFileName().Replace(".", DateTime.Now.Second.ToString());
+
+        public void AddAssembly(string assemblyName)
+        {
+            if (this.IsUWP)
+            {
+                var runtime = this.allAssemblies.FirstOrDefault(x => x.Name.Name == "System.Runtime");
+                var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), $".nuget\\packages\\{assemblyName}");
+                var dlls = Directory.GetFiles(path, assemblyName + ".dll", SearchOption.AllDirectories);
+
+                var dll = dlls.FirstOrDefault(x =>
+                    x.IndexOf("\\netcore50", StringComparison.CurrentCultureIgnoreCase) > 0 &&
+                    x.IndexOf($"\\{runtime.Name.Version.Major}.{runtime.Name.Version.Minor}.", StringComparison.CurrentCultureIgnoreCase) > 0);
+
+                if (dll == null)
+                    dll = dlls.FirstOrDefault(x => x.IndexOf("\\netcore50", StringComparison.CurrentCultureIgnoreCase) > 0);
+
+                var assembly = AssemblyDefinition.ReadAssembly(dll);
+                this.allAssemblies.Add(assembly);
+                this.allTypes.AddRange(assembly.Modules.Where(x => x != null).SelectMany(x => x.Types).Where(x => x != null));
+            }
+        }
+
+        public bool IsReferenced(string assemblyName) => this.allAssemblies.Any(x => x.Name.Name == assemblyName);
 
         internal bool AreReferenceAssignable(BuilderType type, BuilderType toBeAssigned)
         {
