@@ -111,6 +111,8 @@ namespace Cauldron.Interception
         /// {ReturnType} - This will be replaced by the return type of the property, method or field.
         /// <br/>
         /// {CtorArgument:index} - This will be replaced by the string passed to the interceptor. The index is a 32-bit unsigned integer 0-based index of the constructor arguments.
+        /// <br/>
+        /// {CtorArgument:parameterName} - This will be replaced by the string passed to the interceptor.
         /// For usage examples see <see cref="AssignMethodAttribute"/>.
         /// <para/>
         /// </param>
