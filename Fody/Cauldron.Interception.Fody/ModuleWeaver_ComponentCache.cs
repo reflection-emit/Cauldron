@@ -80,7 +80,7 @@ namespace Cauldron.Interception.Fody
                             if (y.Name == ".cctor")
                                 return true;
 
-                            if (!y.Resolve().IsPublic || !y.Resolve().IsAssembly)
+                            if (!y.Resolve().IsPublic && !y.Resolve().IsAssembly)
                                 return false;
 
                             if (y.Name == ".ctor" && y.DeclaringType.FullName.GetHashCode() != component.Type.Fullname.GetHashCode() && y.DeclaringType.FullName != component.Type.Fullname)

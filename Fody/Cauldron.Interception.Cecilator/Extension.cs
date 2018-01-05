@@ -344,11 +344,13 @@ namespace Cauldron.Interception.Cecilator
 
         public static void Log(this CecilatorObject cecilatorObject, LogTypes logTypes, Method method, object arg)
         {
-            var result = cecilatorObject.GetAsyncMethod(method.methodDefinition);
-            if (result.HasValue)
-                cecilatorObject.Log(logTypes, result.Value.MethodDefinition.GetSequencePoint(), arg);
-            else
-                cecilatorObject.Log(logTypes, method.methodDefinition.GetSequencePoint(), arg);
+            //if (method.IsAsync)
+            //{
+            //    var result = cecilatorObject.GetAsyncMethod(method.methodDefinition);
+            //    cecilatorObject.Log(logTypes, result.Value.MethodDefinition.GetSequencePoint(), arg);
+            //}
+            //else
+            cecilatorObject.Log(logTypes, method.methodDefinition.GetSequencePoint(), arg);
         }
 
         public static void Log(this CecilatorObject cecilatorObject, LogTypes logTypes, object arg) => cecilatorObject.Log(logTypes, sequencePoint: null, arg: arg);

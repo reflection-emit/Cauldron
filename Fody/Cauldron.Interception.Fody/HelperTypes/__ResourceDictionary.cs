@@ -2,7 +2,7 @@
 
 namespace Cauldron.Interception.Fody.HelperTypes
 {
-    [HelperTypeName("Windows.UI.Xaml.ResourceDictionary", "System.Windows.ResourceDictionary")]
+    [HelperTypeName("System.Windows.ResourceDictionary", "Windows.UI.Xaml.ResourceDictionary")]
     public sealed class __ResourceDictionary : HelperTypeBase<__ResourceDictionary>
     {
         [HelperTypeMethod(".ctor")]

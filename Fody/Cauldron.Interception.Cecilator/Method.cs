@@ -54,6 +54,7 @@ namespace Cauldron.Interception.Cecilator
 
         public string Fullname => this.methodReference.FullName;
         public bool IsAbstract => this.methodDefinition.IsAbstract;
+        public bool IsAsync => this.methodDefinition.ReturnType.FullName == "System.Threading.Tasks.Task" || this.methodDefinition.ReturnType.FullName == "System.Threading.Tasks.Task`1";
         public bool IsCCtor => this.methodDefinition.Name == ".cctor";
 
         public bool IsConstructorWithBaseCall
