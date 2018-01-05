@@ -13,6 +13,7 @@ namespace Win32_WPF_ParameterPassing
 
             // This is only meant for Lazy people
             // So that they don't have to open the console separately
+            // This has nothing to do with the sample implementation
             var process = Process.Start(new ProcessStartInfo
             {
                 FileName = "cmd",
