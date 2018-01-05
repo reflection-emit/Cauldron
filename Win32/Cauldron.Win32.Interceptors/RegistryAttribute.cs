@@ -29,6 +29,7 @@ namespace Cauldron.Core.Interceptors
         private object defaultValue;
         private string name;
         private RegistryHive registryHive;
+        private RegistryValueKind? registryValueKind;
         private RegistryView registryView;
         private string subKey;
 
@@ -38,7 +39,18 @@ namespace Cauldron.Core.Interceptors
         /// <param name="registryHive">The HKEY to open.</param>
         /// <param name="subKey">The name or path of the subkey to create or open.</param>
         public RegistryAttribute(RegistryHive registryHive, string subKey) :
-            this(registryHive, RegistryView.Default, subKey, null, null)
+            this(registryHive, RegistryView.Default, subKey, null, null, null)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of <see cref="RegistryAttribute"/>. The name that is used is the property name.
+        /// </summary>
+        /// <param name="registryHive">The HKEY to open.</param>
+        /// <param name="subKey">The name or path of the subkey to create or open.</param>
+        /// <param name="registryValueKind">The registry data type to use when storing the data.</param>
+        public RegistryAttribute(RegistryHive registryHive, string subKey, RegistryValueKind? registryValueKind) :
+            this(registryHive, RegistryView.Default, subKey, null, null, null)
         {
         }
 
@@ -49,7 +61,19 @@ namespace Cauldron.Core.Interceptors
         /// <param name="subKey">The name or path of the subkey to create or open.</param>
         /// <param name="defaultValue">The value to return if name does not exist.</param>
         public RegistryAttribute(RegistryHive registryHive, string subKey, object defaultValue) :
-            this(registryHive, RegistryView.Default, subKey, null, defaultValue)
+            this(registryHive, RegistryView.Default, subKey, null, defaultValue, null)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of <see cref="RegistryAttribute"/>. The name that is used is the property name.
+        /// </summary>
+        /// <param name="registryHive">The HKEY to open.</param>
+        /// <param name="subKey">The name or path of the subkey to create or open.</param>
+        /// <param name="defaultValue">The value to return if name does not exist.</param>
+        /// <param name="registryValueKind">The registry data type to use when storing the data.</param>
+        public RegistryAttribute(RegistryHive registryHive, string subKey, object defaultValue, RegistryValueKind? registryValueKind) :
+            this(registryHive, RegistryView.Default, subKey, null, defaultValue, null)
         {
         }
 
@@ -61,7 +85,20 @@ namespace Cauldron.Core.Interceptors
         /// <param name="subKey">The name or path of the subkey to create or open.</param>
         /// <param name="defaultValue">The value to return if name does not exist.</param>
         public RegistryAttribute(RegistryHive registryHive, RegistryView registryView, string subKey, object defaultValue) :
-            this(registryHive, registryView, subKey, null, defaultValue)
+            this(registryHive, registryView, subKey, null, defaultValue, null)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of <see cref="RegistryAttribute"/>. The name that is used is the property name.
+        /// </summary>
+        /// <param name="registryHive">The HKEY to open.</param>
+        /// <param name="registryView">The registry view to use.</param>
+        /// <param name="subKey">The name or path of the subkey to create or open.</param>
+        /// <param name="defaultValue">The value to return if name does not exist.</param>
+        /// <param name="registryValueKind">The registry data type to use when storing the data.</param>
+        public RegistryAttribute(RegistryHive registryHive, RegistryView registryView, string subKey, object defaultValue, RegistryValueKind? registryValueKind) :
+            this(registryHive, registryView, subKey, null, defaultValue, null)
         {
         }
 
@@ -73,7 +110,20 @@ namespace Cauldron.Core.Interceptors
         /// <param name="name">The name of the value to retrieve. This string is not case-sensitive.</param>
         /// <param name="defaultValue">The value to return if <paramref name="name"/> does not exist.</param>
         public RegistryAttribute(RegistryHive registryHive, string subKey, string name, object defaultValue) :
-            this(registryHive, RegistryView.Default, subKey, name, defaultValue)
+            this(registryHive, RegistryView.Default, subKey, name, defaultValue, null)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of <see cref="RegistryAttribute"/>.
+        /// </summary>
+        /// <param name="registryHive">The HKEY to open.</param>
+        /// <param name="subKey">The name or path of the subkey to create or open.</param>
+        /// <param name="name">The name of the value to retrieve. This string is not case-sensitive.</param>
+        /// <param name="defaultValue">The value to return if <paramref name="name"/> does not exist.</param>
+        /// <param name="registryValueKind">The registry data type to use when storing the data.</param>
+        public RegistryAttribute(RegistryHive registryHive, string subKey, string name, object defaultValue, RegistryValueKind? registryValueKind) :
+            this(registryHive, RegistryView.Default, subKey, name, defaultValue, registryValueKind)
         {
         }
 
@@ -85,8 +135,23 @@ namespace Cauldron.Core.Interceptors
         /// <param name="subKey">The name or path of the subkey to create or open.</param>
         /// <param name="name">The name of the value to retrieve. This string is not case-sensitive.</param>
         /// <param name="defaultValue">The value to return if <paramref name="name"/> does not exist.</param>
-        public RegistryAttribute(RegistryHive registryHive, RegistryView registryView, string subKey, string name, object defaultValue)
+        public RegistryAttribute(RegistryHive registryHive, RegistryView registryView, string subKey, string name, object defaultValue) :
+            this(registryHive, registryView, subKey, name, defaultValue, null)
         {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of <see cref="RegistryAttribute"/>.
+        /// </summary>
+        /// <param name="registryHive">The HKEY to open.</param>
+        /// <param name="registryView">The registry view to use.</param>
+        /// <param name="subKey">The name or path of the subkey to create or open.</param>
+        /// <param name="name">The name of the value to retrieve. This string is not case-sensitive.</param>
+        /// <param name="defaultValue">The value to return if <paramref name="name"/> does not exist.</param>
+        /// <param name="registryValueKind">The registry data type to use when storing the data.</param>
+        public RegistryAttribute(RegistryHive registryHive, RegistryView registryView, string subKey, string name, object defaultValue, RegistryValueKind? registryValueKind)
+        {
+            this.registryValueKind = registryValueKind;
             this.registryHive = registryHive;
             this.registryView = registryView;
             this.name = name;
@@ -147,6 +212,20 @@ namespace Cauldron.Core.Interceptors
 
         private object ConvertToRegistryValue(object value, Type dataType)
         {
+            if (this.registryValueKind.HasValue)
+            {
+                switch (this.registryValueKind.Value)
+                {
+                    case RegistryValueKind.String: dataType = typeof(string); break;
+                    case RegistryValueKind.ExpandString: dataType = typeof(DirectoryInfo); break;
+                    case RegistryValueKind.Binary: dataType = typeof(byte[]); break;
+                    case RegistryValueKind.DWord: dataType = typeof(int); break;
+                    case RegistryValueKind.MultiString: dataType = typeof(string[]); break;
+                    case RegistryValueKind.QWord: dataType = typeof(long); break;
+                    default: dataType = typeof(string); break;
+                }
+            }
+
             if (dataType == typeof(string) && value == null)
                 return "";
 
@@ -173,6 +252,9 @@ namespace Cauldron.Core.Interceptors
 
         private object ConvertToSystemType(object value, Type dataType)
         {
+            if (this.registryValueKind.HasValue)
+                value = Convert.ChangeType(value, dataType);
+
             if (dataType == typeof(ulong))
                 return unchecked((ulong)((long)value - long.MinValue));
 
@@ -204,6 +286,9 @@ namespace Cauldron.Core.Interceptors
 
         private RegistryValueKind GetValueKind(Type type)
         {
+            if (this.registryValueKind.HasValue)
+                return registryValueKind.Value;
+
             if (type == typeof(string))
                 return RegistryValueKind.String;
 
