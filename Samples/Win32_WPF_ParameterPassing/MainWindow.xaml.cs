@@ -11,7 +11,7 @@ namespace Win32_WPF_ParameterPassing
         {
             InitializeComponent();
 
-            // This is online meant for Lazy people
+            // This is only meant for Lazy people
             // So that they don't have to open the console separately
             var process = Process.Start(new ProcessStartInfo
             {
