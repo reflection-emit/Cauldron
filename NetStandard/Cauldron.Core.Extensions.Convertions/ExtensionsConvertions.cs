@@ -38,6 +38,14 @@ namespace Cauldron
         }
 
         /// <summary>
+        /// Converts a <see cref="DateTime"/> to ordinal date.
+        /// An ordinal date is a calendar date typically consisting of a year and a day of year ranging between 1 and 366 (starting on January 1).
+        /// </summary>
+        /// <param name="date">The date to convert</param>
+        /// <returns>A ordinal formatted string representation of the date</returns>
+        public static string ToOrdinalDate(this DateTime date) => $"{date.ToString("yyyy")}{ date.DayOfYear.ToString("000")}";
+
+        /// <summary>
         /// Performs a cast between compatible reference types. If a convertion is not possible then
         /// null is returned. As a last resort it will use <see
         /// cref="System.Convert.ChangeType(object, Type)"/>.

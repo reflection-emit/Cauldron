@@ -97,7 +97,7 @@ namespace Cauldron.Core
                 result.Add(value);
             }
 
-            return result.ToArray().Concat();
+            return result.ToArray().Flatten();
         }
     }
 

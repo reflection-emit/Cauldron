@@ -28,12 +28,12 @@ namespace Cauldron
         private static readonly Regex _parseQueryRegex = new Regex(@"[?|&]([\w\.]+)=([^?|^&]+)", RegexOptions.Compiled);
 
         /// <summary>
-        /// Concatenates a jagged array to a one-dimensional array
+        /// Flattens a jagged array to a one-dimensional array
         /// </summary>
         /// <typeparam name="T">The element type of the array</typeparam>
         /// <param name="arrays">The jagged array</param>
         /// <returns>An one dimensional array</returns>
-        public static T[] Concat<T>(this T[][] arrays)
+        public static T[] Flatten<T>(this T[][] arrays)
         {
             var result = Array.CreateInstance(typeof(T), arrays.Sum(x => x.Length));
             int offset = 0;
