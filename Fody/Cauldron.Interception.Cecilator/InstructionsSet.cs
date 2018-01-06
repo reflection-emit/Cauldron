@@ -1384,9 +1384,9 @@ namespace Cauldron.Interception.Cecilator
             }
 
             SetCorrectJumpPoints(jumps, resultingInstructions.Select(x => x.Target).ToList());
-            var getInstruction = new Func<Instruction, Instruction>(instruction => instruction == null ? null : resultingInstructions.FirstOrDefault(x => x.Original.Offset == instruction.Offset).Target ?? null);
+            Instruction getInstruction(Instruction instruction) => instruction == null ? null : resultingInstructions.FirstOrDefault(x => x.Original.Offset == instruction.Offset).Target ?? null;
 
-            var copyHandler = new Func<ExceptionHandler, ExceptionHandler>(original => new ExceptionHandler(original.HandlerType)
+            ExceptionHandler copyHandler(ExceptionHandler original) => new ExceptionHandler(original.HandlerType)
             {
                 CatchType = original.CatchType,
                 FilterStart = getInstruction(original.FilterStart),
@@ -1394,7 +1394,7 @@ namespace Cauldron.Interception.Cecilator
                 HandlerStart = getInstruction(original.HandlerStart),
                 TryEnd = getInstruction(original.TryEnd),
                 TryStart = getInstruction(original.TryStart)
-            });
+            };
 
             foreach (var item in originalMethod.Body.ExceptionHandlers)
                 exceptionList.Add(copyHandler(item));

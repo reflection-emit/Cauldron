@@ -380,12 +380,12 @@ namespace Win32_Fody_Assembly_Validation_Tests
         [TestMethod]
         public void Void_Method_With_Single_Return_And_Function()
         {
-            var func = new Func<DateTime>(() =>
+            DateTime func()
             {
                 var i = 3 + 5;
                 var date = DateTime.Now.AddMonths(i);
                 return date;
-            });
+            }
 
             var tt = func();
 

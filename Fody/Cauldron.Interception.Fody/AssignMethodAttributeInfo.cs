@@ -17,7 +17,7 @@ namespace Cauldron.Interception.Fody
         {
             get
             {
-                var methodMatchDelegate = new Func<Func<BuilderType, BuilderType, bool>, Method>(predicate => this.Type
+                Method methodMatchDelegate(Func<BuilderType, BuilderType, bool> predicate) => this.Type
                                            .GetMethods(this.TargetMethodName, this.ParameterTypes.Length, false)
                                            .FirstOrDefault(x =>
                                            {
@@ -31,7 +31,7 @@ namespace Cauldron.Interception.Fody
                                                    return false;
 
                                                return predicate(x.ReturnType, this.TargetMethodReturnType);
-                                           }));
+                                           });
 
                 var result = methodMatchDelegate((a, b) => a.Fullname == b.Fullname);
                 if (result != null)

@@ -588,11 +588,11 @@ namespace Cauldron.Interception.Cecilator
         public Method GetMethod(Modifiers modifier, BuilderType returnType, string name, params BuilderType[] parameters)
         {
             MethodDefinition result = null;
-            var predicate = new Func<MethodDefinition, bool>(x =>
+            bool predicate(MethodDefinition x) =>
                 x.Name == name &&
                 x.Parameters.Count == parameters.Length &&
                 x.ReturnType.FullName == returnType.Fullname &&
-                x.Parameters.Select(y => y.ParameterType.FullName).SequenceEqual(parameters.Select(y => y.typeReference.FullName)));
+                x.Parameters.Select(y => y.ParameterType.FullName).SequenceEqual(parameters.Select(y => y.typeReference.FullName));
 
             if (modifier.HasFlag(Modifiers.Private))
                 result = this.typeDefinition.Methods.FirstOrDefault(x => predicate(x));

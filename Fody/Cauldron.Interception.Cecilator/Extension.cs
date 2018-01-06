@@ -98,7 +98,7 @@ namespace Cauldron.Interception.Cecilator
             if (type.IsArray)
                 return type.GetElementType();
 
-            var getIEnumerableInterfaceChild = new Func<TypeReference, TypeReference>(typeReference =>
+            TypeReference getIEnumerableInterfaceChild(TypeReference typeReference)
             {
                 if (typeReference.IsGenericInstance)
                 {
@@ -125,7 +125,7 @@ namespace Cauldron.Interception.Cecilator
                 }
 
                 return null;
-            });
+            }
 
             var result = getIEnumerableInterfaceChild(type);
 
@@ -730,7 +730,7 @@ namespace Cauldron.Interception.Cecilator
         {
             try
             {
-                var resolveType = new Func<IReadOnlyDictionary<string, TypeReference>, TypeReference, TypeReference>((genericParameters, ptype) =>
+                TypeReference resolveType(IReadOnlyDictionary<string, TypeReference> genericParameters, TypeReference ptype)
                 {
                     var genericType = genericParameters[ptype.FullName];
 
@@ -743,7 +743,7 @@ namespace Cauldron.Interception.Cecilator
                     }
 
                     return genericParameters[ptype.FullName];
-                });
+                }
 
                 if (type.IsGenericInstance && ownerMethod is GenericInstanceMethod)
                 {

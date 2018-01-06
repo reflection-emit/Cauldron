@@ -65,7 +65,8 @@ namespace Cauldron.Core
             int numSentences = Randomizer.Next(minSentences, maxSentences);
             int numWords = Randomizer.Next(minWords, maxWords);
             var result = new string[paragraphCount];
-            var creator = new Func<string>(() =>
+
+            string Creator()
             {
                 var sb = new StringBuilder();
 
@@ -81,10 +82,10 @@ namespace Cauldron.Core
                 }
 
                 return sb.ToString();
-            });
+            }
 
             for (int i = 0; i < paragraphCount; i++)
-                result[i] = creator();
+                result[i] = Creator();
 
             return string.Join("\r\n", result).TrimEnd();
         }
