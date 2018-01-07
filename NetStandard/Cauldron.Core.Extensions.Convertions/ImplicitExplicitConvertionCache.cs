@@ -15,9 +15,8 @@ namespace Cauldron.Core.Extensions.Convertions
         public static ImplicitExplicit Get(Type source, Type target)
         {
             var key = source.FullName + target.FullName;
-            ImplicitExplicit result;
 
-            if (cache.TryGetValue(key, out result))
+            if (cache.TryGetValue(key, out ImplicitExplicit result))
                 return result;
 
             var method = target.GetMethods(BindingFlags.Static | BindingFlags.Public)

@@ -12,9 +12,12 @@
     <description>Provides usefull extensions and methods regarding comparing</description>
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Comparing DynamicEqualityComparer</tags>
+    <releaseNotes>
+      2018.01.07 - [C] Reference to Cauldron.Core.Reflection removed.
+      2018.01.07 - [C] Comparer code replaced by patterns and also cache added.
+    </releaseNotes>
     <dependencies>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="Capgemini.Cauldron.Core.Reflection" version="2.0.29" />
       </group>
     </dependencies>
   </metadata>

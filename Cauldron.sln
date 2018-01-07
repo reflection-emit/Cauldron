@@ -199,9 +199,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Win32_Net45_Fody_Intercepto
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UWP_Fody_Interceptors", "UnitTests\Resources\UWP_Fody_Interceptors\UWP_Fody_Interceptors.csproj", "{F61E1FE7-5DF3-491C-A377-F68ADAE8706C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCore_Fody_Interceptors", "UnitTests\Resources\NetCore_Fody_Interceptors\NetCore_Fody_Interceptors.csproj", "{BA5EF929-99D8-4A82-B8BF-C8829B6E996C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCore_Fody_Interceptors", "UnitTests\Resources\NetCore_Fody_Interceptors\NetCore_Fody_Interceptors.csproj", "{BA5EF929-99D8-4A82-B8BF-C8829B6E996C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Old remove later", "Old remove later", "{F6286C56-FE9D-4BD6-B236-3C162935F2AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCore_Comparing_Tests", "UnitTests\NetCore_Comparing_Tests\NetCore_Comparing_Tests.csproj", "{F103A5CD-EB7D-4DFE-852E-5D833161A7E9}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -1305,6 +1307,22 @@ Global
 		{BA5EF929-99D8-4A82-B8BF-C8829B6E996C}.Release|x64.Build.0 = Release|Any CPU
 		{BA5EF929-99D8-4A82-B8BF-C8829B6E996C}.Release|x86.ActiveCfg = Release|Any CPU
 		{BA5EF929-99D8-4A82-B8BF-C8829B6E996C}.Release|x86.Build.0 = Release|Any CPU
+		{F103A5CD-EB7D-4DFE-852E-5D833161A7E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F103A5CD-EB7D-4DFE-852E-5D833161A7E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F103A5CD-EB7D-4DFE-852E-5D833161A7E9}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{F103A5CD-EB7D-4DFE-852E-5D833161A7E9}.Debug|ARM.Build.0 = Debug|Any CPU
+		{F103A5CD-EB7D-4DFE-852E-5D833161A7E9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F103A5CD-EB7D-4DFE-852E-5D833161A7E9}.Debug|x64.Build.0 = Debug|Any CPU
+		{F103A5CD-EB7D-4DFE-852E-5D833161A7E9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F103A5CD-EB7D-4DFE-852E-5D833161A7E9}.Debug|x86.Build.0 = Debug|Any CPU
+		{F103A5CD-EB7D-4DFE-852E-5D833161A7E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F103A5CD-EB7D-4DFE-852E-5D833161A7E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F103A5CD-EB7D-4DFE-852E-5D833161A7E9}.Release|ARM.ActiveCfg = Release|Any CPU
+		{F103A5CD-EB7D-4DFE-852E-5D833161A7E9}.Release|ARM.Build.0 = Release|Any CPU
+		{F103A5CD-EB7D-4DFE-852E-5D833161A7E9}.Release|x64.ActiveCfg = Release|Any CPU
+		{F103A5CD-EB7D-4DFE-852E-5D833161A7E9}.Release|x64.Build.0 = Release|Any CPU
+		{F103A5CD-EB7D-4DFE-852E-5D833161A7E9}.Release|x86.ActiveCfg = Release|Any CPU
+		{F103A5CD-EB7D-4DFE-852E-5D833161A7E9}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1384,6 +1402,7 @@ Global
 		{F61E1FE7-5DF3-491C-A377-F68ADAE8706C} = {4115126C-0A51-4950-8921-2B6B8AEACD66}
 		{BA5EF929-99D8-4A82-B8BF-C8829B6E996C} = {4115126C-0A51-4950-8921-2B6B8AEACD66}
 		{F6286C56-FE9D-4BD6-B236-3C162935F2AE} = {4115126C-0A51-4950-8921-2B6B8AEACD66}
+		{F103A5CD-EB7D-4DFE-852E-5D833161A7E9} = {E2046C41-0213-4CB9-A569-1458B080F9E7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D1F2CDF5-23CA-42FF-B139-C74A73C3FA62}

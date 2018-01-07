@@ -509,9 +509,7 @@ namespace Cauldron
         /// <returns>The byte value of the string</returns>
         public static byte ToByte(this string target)
         {
-            byte value;
-
-            if (byte.TryParse(target, out value))
+            if (byte.TryParse(target, out byte value))
                 return value;
 
             return 0;
@@ -596,9 +594,7 @@ namespace Cauldron
         /// <returns>The char value of the string</returns>
         public static char ToChar(this string target)
         {
-            char value;
-
-            if (char.TryParse(target, out value))
+            if (char.TryParse(target, out char value))
                 return value;
 
             return '\0';
@@ -622,9 +618,7 @@ namespace Cauldron
         /// </param>
         public static decimal ToDecimal(this string target, NumberFormatInfo numberformat)
         {
-            decimal result;
-
-            if (decimal.TryParse(target, NumberStyles.Any, numberformat, out result))
+            if (decimal.TryParse(target, NumberStyles.Any, numberformat, out decimal result))
                 return result;
 
             return decimal.MinusOne;
@@ -796,9 +790,7 @@ namespace Cauldron
         /// </param>
         public static int ToInteger(this string target, NumberFormatInfo numberformat)
         {
-            int result;
-
-            if (int.TryParse(target, NumberStyles.Any, numberformat, out result))
+            if (int.TryParse(target, NumberStyles.Any, numberformat, out int result))
                 return result;
 
             return int.MinValue;
@@ -892,9 +884,7 @@ namespace Cauldron
         /// </param>
         public static short ToShort(this string target, NumberFormatInfo numberformat)
         {
-            short result;
-
-            if (short.TryParse(target, NumberStyles.Any, numberformat, out result))
+            if (short.TryParse(target, NumberStyles.Any, numberformat, out short result))
                 return result;
 
             return short.MinValue;
@@ -971,9 +961,7 @@ namespace Cauldron
         /// </param>
         public static uint ToUInteger(this string target, NumberFormatInfo numberformat)
         {
-            uint result;
-
-            if (uint.TryParse(target, NumberStyles.Any, numberformat, out result))
+            if (uint.TryParse(target, NumberStyles.Any, numberformat, out uint result))
                 return result;
 
             return uint.MinValue;
@@ -1004,9 +992,7 @@ namespace Cauldron
         /// </param>
         public static ulong ToULong(this string target, NumberFormatInfo numberformat)
         {
-            ulong result;
-
-            if (ulong.TryParse(target, NumberStyles.Any, numberformat, out result))
+            if (ulong.TryParse(target, NumberStyles.Any, numberformat, out ulong result))
                 return result;
 
             return ulong.MinValue;
@@ -1046,9 +1032,7 @@ namespace Cauldron
         /// </param>
         public static ushort ToUShort(this string target, NumberFormatInfo numberformat)
         {
-            ushort result;
-
-            if (ushort.TryParse(target, NumberStyles.Any, numberformat, out result))
+            if (ushort.TryParse(target, NumberStyles.Any, numberformat, out ushort result))
                 return result;
 
             return ushort.MinValue;
