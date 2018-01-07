@@ -19,4 +19,3 @@ foreach (var dir in directories)
         File.Copy(file, target, true);
         Console.WriteLine("Copied to: " + target);
     }
-

@@ -203,6 +203,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Old remove later", "Old rem
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCore_Comparing_Tests", "UnitTests\NetCore_Comparing_Tests\NetCore_Comparing_Tests.csproj", "{F103A5CD-EB7D-4DFE-852E-5D833161A7E9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{551C7CB2-8257-4A24-910C-465E37E1B4B2}"
+	ProjectSection(SolutionItems) = preProject
+		Scripts\fodycopy.csx = Scripts\fodycopy.csx
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		UnitTests\Resources\Fody_Interceptors\Fody_Interceptors.projitems*{1cc529ea-669f-498a-89b2-f6ccddea0b62}*SharedItemsImports = 13
