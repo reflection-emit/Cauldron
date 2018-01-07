@@ -14,6 +14,7 @@ https://Capgemini.github.io/Cauldron/uwp/
 ## Required Visual Studio Extensions (For Contributors)
 - [Sandcastle Help File Builder](https://github.com/EWSoftware/SHFB/releases)
 - [CodeMaid](http://www.codemaid.net/)
+- [dotnet-script](https://github.com/filipw/dotnet-script)
 
 ## Nuget Packages
 Assembly | Description   | NuGet

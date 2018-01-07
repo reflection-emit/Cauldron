@@ -14,6 +14,7 @@ https://Capgemini.github.io/Cauldron/uwp/
 ## Required Visual Studio Extensions (For Contributors)
 - [Sandcastle Help File Builder](https://github.com/EWSoftware/SHFB/releases)
 - [CodeMaid](http://www.codemaid.net/)
+- [dotnet-script](https://github.com/filipw/dotnet-script)
 
 ## Nuget Packages
 Assembly | Description   | NuGet
@@ -54,6 +55,17 @@ Assembly | Description   | NuGet
 **Cauldron.Win32.WPF.Validation** | Validation Framework for Cauldron.Win32.WPF | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Win32.WPF.Validation.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Win32.WPF.Validation/)
 
 ## Release Notes
+### __2.0.30__
+#### Change
+- __Capgemini.Cauldron.Core.Extensions.Convertions:__ _Reference to Cauldron.Core.Reflection removed._
+- __Capgemini.Cauldron.Core.Comparing:__ _Comparer code replaced by patterns and also cache added._
+- __Capgemini.Cauldron.Core.Comparing:__ _Reference to Cauldron.Core.Reflection removed._
+- __Capgemini.Cauldron.Activator:__ _ComponentConstructorAttribute now accepts internal ctors_
+- __Capgemini.Cauldron.Win32.Interceptors:__ _InterceptorRule added to RegistryClassAttribute_
+- __Capgemini.Cauldron.Win32.WPF.ParameterPassing:__ _Change COPYDATASTRUCT data to unicode._
+- __Cauldron.Interception.Fody:__ _DoNotInterceptAttribute removed... Replaced by the InterceptionRuleAttribute instead. See documentation for more details._
+#### Added
+- __Cauldron.Interception.Fody:__ _Support for properties without backing fields added._
 ### __2.0.29__
 #### Added
 - __Capgemini.Cauldron.Win32.Interceptors:__ _RegistryAttribute added_
@@ -72,21 +84,13 @@ Assembly | Description   | NuGet
 - __Cauldron.Interception.Fody:__ _Fixed a bug that caused some methods to return null if Code-Optimization is on._
 ### __2.0.26__
 #### Added
+- __Capgemini.Cauldron.Core.Diagnostics:__ _Added assemblies for NET45 and NET461_
 - __Capgemini.Cauldron.Win32.Interceptors:__ _ExecutionTimeAttribute added_
 - __Capgemini.Cauldron.Win32.Interceptors:__ _PropertyOnSetAttribute added_
 - __Cauldron.Interception.Fody:__ _New interceptor extension added - AssignMethodAttribute_
-- __Capgemini.Cauldron.Core.Diagnostics:__ _Added assemblies for NET45 and NET461_
 #### Change
 - __Capgemini.Cauldron.Core.Interceptors:__ _PropertyOnSetAttribute added_
 ### __2.0.25__
-#### Change
-- __Capgemini.Cauldron.Win32.WPF.ParameterPassing:__ _Will now also invoke the callback delegate if there are no instances of the program running._
-- __Capgemini.Cauldron.Win32.WPF:__ _ParameterPassing in ApplicationBase now uses Environment.Exit(0) after passing the params to other instances._
-- __Capgemini.Cauldron.Win32.Net:__ _Elevated Urlprotocol now also passes the uri_
-- __Capgemini.Cauldron.Win32.Net:__ _Urlprotocol now registers url with icon 0 instead of 1_
-- __Capgemini.Cauldron.Core.Interceptors:__ _Dependency to NLog removed_
-- __Capgemini.Cauldron.Core.Interceptors:__ _PerformanceLoggerAttribute removed_
-- __Capgemini.Cauldron.Core.Interceptors:__ _ExceptionLoggerAttribute removed_
 #### Added
 - __Capgemini.Cauldron.Win32.WPF:__ _OnActivationProtocol added to ApplicationBase_
 - __Capgemini.Cauldron.Win32.WPF:__ _RegisterUrlProtocols added to ApplicationBase_
@@ -94,6 +98,14 @@ Assembly | Description   | NuGet
 - __Capgemini.Cauldron.Win32.Interceptors:__ _PerformanceLoggerAttribute added_
 - __Capgemini.Cauldron.Win32.Interceptors:__ _ExceptionLoggerAttribute added_
 - __Cauldron.Interception.Fody:__ _System.Xml.Serialization.XmlIgnoreAttribute will be added to all Cauldron created properties if the type System.Xml.Serialization.XmlIgnoreAttribute exist._
+#### Change
+- __Capgemini.Cauldron.Win32.WPF:__ _ParameterPassing in ApplicationBase now uses Environment.Exit(0) after passing the params to other instances._
+- __Capgemini.Cauldron.Win32.Net:__ _Elevated Urlprotocol now also passes the uri_
+- __Capgemini.Cauldron.Win32.Net:__ _Urlprotocol now registers url with icon 0 instead of 1_
+- __Capgemini.Cauldron.Core.Interceptors:__ _Dependency to NLog removed_
+- __Capgemini.Cauldron.Core.Interceptors:__ _PerformanceLoggerAttribute removed_
+- __Capgemini.Cauldron.Core.Interceptors:__ _ExceptionLoggerAttribute removed_
+- __Capgemini.Cauldron.Win32.WPF.ParameterPassing:__ _Will now also invoke the callback delegate if there are no instances of the program running._
 #### Bugfix
 - __Cauldron.Interception.Fody:__ _NonSerializedAttribute was implemented as a custom attribute... Now correctly implemented._
 ### __2.0.22__
@@ -110,26 +122,26 @@ Assembly | Description   | NuGet
 ### __2.0.21__
 #### Added
 - __Capgemini.Cauldron.Win32.UserInformation:__ _WTSClientName added to User and CurrentUser. WTSClientName returns the Windows Terminal Session client name._
-- __Capgemini.Cauldron.Core.Extensions.IO:__ _FileInfo extension - Rename added_
 - __Capgemini.Cauldron.Core.Extensions:__ _PadOrCut extension method added. It allows to pad chars or cut the string to a specific length._
+- __Capgemini.Cauldron.Core.Extensions.IO:__ _FileInfo extension - Rename added_
 ### __2.0.20__
 #### Added
 - __Cauldron.Interception.Fody:__ _Constructor interceptor added._
 ### __2.0.19__
 #### Bugfix
+- __Capgemini.Cauldron.Activator:__ _CreateFirst always returned null in some cases... This is fixed._
 - __Capgemini.Cauldron.Win32.WPF:__ _Several issues with the dispatcher fixed._
 - __Capgemini.Cauldron.Win32.WPF:__ _Navigator was not able to find the correct view in some cases._
 - __Capgemini.Cauldron.Win32.WPF:__ _ObjectToVisibilityConverter logic was inverted._
 - __Capgemini.Cauldron.Win32.WPF:__ _Bugs in MessageDialog that caused the strings not to be localized correctly fixed_
 - __Capgemini.Cauldron.Win32.WPF:__ _Fixes an issue where the SplashScreen can be removed from MainView and causes the application to exit_
 - __Capgemini.Cauldron.Win32.WPF.Interactivity:__ _The "Localized" attached property will not continue loading if in design mode to avoid those weird errors in the WPF editor_
-- __Capgemini.Cauldron.Core.Threading:__ _BUG!!!! ... Dispatcher was using BeginInvoke instead of InvokeAsync_
+- __Capgemini.Cauldron.Core.Reflection:__ _A bug in Assemblies that causes the Custom assembly resolution to be invoked before all assemblies are added to the collection fixed._
 - __Cauldron.Interception.Fody:__ _A bug was in "cleaning" fixed that caused local variables to be removed although they were still in use._
 - __Cauldron.Interception.Fody:__ _Fixed a bug that caused the weaver to weav types that does not exist and then throws exceptions._
 - __Cauldron.Interception.Fody:__ _Sort of fixed the issue that jumping to errors on async methods did not work._
 - __Capgemini.Cauldron.Localization:__ _Added a Contains method to Locale._
-- __Capgemini.Cauldron.Core.Reflection:__ _A bug in Assemblies that causes the Custom assembly resolution to be invoked before all assemblies are added to the collection fixed._
-- __Capgemini.Cauldron.Activator:__ _CreateFirst always returned null in some cases... This is fixed._
+- __Capgemini.Cauldron.Core.Threading:__ _BUG!!!! ... Dispatcher was using BeginInvoke instead of InvokeAsync_
 #### Change
 - __Capgemini.Cauldron.Win32.WPF:__ _XAML resources loading order can now be changed by adding a dash and a numeric suffix to the file name. e.g. Style-01.xaml._
 - __Capgemini.Cauldron.Core.Reflection:__ _Now Costura compatible._
@@ -157,10 +169,10 @@ Assembly | Description   | NuGet
 - __Cauldron.Interception.Fody:__ _Bug from yesterday regarding ComponentAttribute still occured on nested private classes. Now fixed._
 ### __2.0.13__
 #### Added
+- __Capgemini.Cauldron.Activator:__ _CreateFirst method added to the Factory. This will auto-pick the implementation with the highest priority if multiple implementations are available._
 - __Capgemini.Cauldron.Win32.WPF:__ _Several information from ApplicationInfo added as static resources._
 - __Capgemini.Cauldron.Win32.WPF:__ _IViewAware interface added._
 - __Cauldron.Interception.Fody:__ _Weaves an initializer for xaml resources to be able to auto-load them._
-- __Capgemini.Cauldron.Activator:__ _CreateFirst method added to the Factory. This will auto-pick the implementation with the highest priority if multiple implementations are available._
 #### Bugfix
 - __Capgemini.Cauldron.Win32.WPF:__ _Now picks the correct Window implementaion._
 - __Capgemini.Cauldron.Win32.WPF:__ _Bug regarding auto-selection of views in the navigator fixed._

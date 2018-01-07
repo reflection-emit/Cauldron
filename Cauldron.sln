@@ -107,8 +107,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.Interception.Cecil
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.Interception.Fody", "Fody\Cauldron.Interception.Fody\Cauldron.Interception.Fody.csproj", "{6A7E8B99-2542-4530-83EA-FC7355C9CBBD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CauldronBuilder", "Nuget\CauldronBuilder\CauldronBuilder.csproj", "{DBE8E4B9-5F95-4E4F-8786-D6FA7C1B7220}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{E2046C41-0213-4CB9-A569-1458B080F9E7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Win32_Fody_Assembly_Validation_Tests", "UnitTests\Win32_Fody_Assembly_Validation_Tests\Win32_Fody_Assembly_Validation_Tests.csproj", "{B9855158-A040-40E1-9A2F-20AD91772C77}"
@@ -203,7 +201,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCore_Comparing_Tests", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{551C7CB2-8257-4A24-910C-465E37E1B4B2}"
 	ProjectSection(SolutionItems) = preProject
+		Scripts\CauldronBuilder.csx = Scripts\CauldronBuilder.csx
+		Scripts\CauldronBuilderData.csx = Scripts\CauldronBuilderData.csx
 		Scripts\fodycopy.csx = Scripts\fodycopy.csx
+		Scripts\NugetMetaDataJson.csx = Scripts\NugetMetaDataJson.csx
+		Scripts\NuspecInfo.csx = Scripts\NuspecInfo.csx
 	EndProjectSection
 EndProject
 Global
@@ -676,22 +678,6 @@ Global
 		{6A7E8B99-2542-4530-83EA-FC7355C9CBBD}.Release|x64.Build.0 = Release|Any CPU
 		{6A7E8B99-2542-4530-83EA-FC7355C9CBBD}.Release|x86.ActiveCfg = Release|Any CPU
 		{6A7E8B99-2542-4530-83EA-FC7355C9CBBD}.Release|x86.Build.0 = Release|Any CPU
-		{DBE8E4B9-5F95-4E4F-8786-D6FA7C1B7220}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DBE8E4B9-5F95-4E4F-8786-D6FA7C1B7220}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DBE8E4B9-5F95-4E4F-8786-D6FA7C1B7220}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{DBE8E4B9-5F95-4E4F-8786-D6FA7C1B7220}.Debug|ARM.Build.0 = Debug|Any CPU
-		{DBE8E4B9-5F95-4E4F-8786-D6FA7C1B7220}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{DBE8E4B9-5F95-4E4F-8786-D6FA7C1B7220}.Debug|x64.Build.0 = Debug|Any CPU
-		{DBE8E4B9-5F95-4E4F-8786-D6FA7C1B7220}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{DBE8E4B9-5F95-4E4F-8786-D6FA7C1B7220}.Debug|x86.Build.0 = Debug|Any CPU
-		{DBE8E4B9-5F95-4E4F-8786-D6FA7C1B7220}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DBE8E4B9-5F95-4E4F-8786-D6FA7C1B7220}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DBE8E4B9-5F95-4E4F-8786-D6FA7C1B7220}.Release|ARM.ActiveCfg = Release|Any CPU
-		{DBE8E4B9-5F95-4E4F-8786-D6FA7C1B7220}.Release|ARM.Build.0 = Release|Any CPU
-		{DBE8E4B9-5F95-4E4F-8786-D6FA7C1B7220}.Release|x64.ActiveCfg = Release|Any CPU
-		{DBE8E4B9-5F95-4E4F-8786-D6FA7C1B7220}.Release|x64.Build.0 = Release|Any CPU
-		{DBE8E4B9-5F95-4E4F-8786-D6FA7C1B7220}.Release|x86.ActiveCfg = Release|Any CPU
-		{DBE8E4B9-5F95-4E4F-8786-D6FA7C1B7220}.Release|x86.Build.0 = Release|Any CPU
 		{B9855158-A040-40E1-9A2F-20AD91772C77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B9855158-A040-40E1-9A2F-20AD91772C77}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B9855158-A040-40E1-9A2F-20AD91772C77}.Debug|ARM.ActiveCfg = Debug|Any CPU
@@ -1342,7 +1328,6 @@ Global
 		{FEE69C60-3463-47E9-9A7C-735B4F967AAD} = {D61DB804-8031-458B-841A-B9F79F4E56E0}
 		{1645BDC0-C886-4F5C-BF14-7927356EFBD9} = {A96D9056-C178-4AB9-A5DE-1C7E03A64F80}
 		{6A7E8B99-2542-4530-83EA-FC7355C9CBBD} = {A96D9056-C178-4AB9-A5DE-1C7E03A64F80}
-		{DBE8E4B9-5F95-4E4F-8786-D6FA7C1B7220} = {8675B75E-1FCE-47AA-91EB-00710F88A1A5}
 		{B9855158-A040-40E1-9A2F-20AD91772C77} = {457821D6-7495-4CAE-81BC-A394541598E9}
 		{4115126C-0A51-4950-8921-2B6B8AEACD66} = {457821D6-7495-4CAE-81BC-A394541598E9}
 		{8DE4FCBB-6F52-4750-80B8-3F5448A8BA46} = {F6286C56-FE9D-4BD6-B236-3C162935F2AE}
