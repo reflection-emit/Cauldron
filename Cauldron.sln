@@ -143,8 +143,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UWP_Assembly_Validation_Ext
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UWP_Cauldron", "UnitTests\UWP_Cauldron\UWP_Cauldron.csproj", "{90B0ADC4-238B-43EA-B1BE-BC7CAA28569D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Helper", "Helper", "{805D81ED-CE66-45A8-86B4-A7F434B1AFCF}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Win32_XAML_Tests", "UnitTests\Win32_XAML_Tests\Win32_XAML_Tests.csproj", "{ABEAEB1A-DA11-48CE-9CCB-735CE551681A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.Win32.WPF.Interactivity", "Win32\Cauldron.Win32.WPF.Interactivity\Cauldron.Win32.WPF.Interactivity.csproj", "{7CE75511-7DCE-4162-936F-AD9031E8A987}"
