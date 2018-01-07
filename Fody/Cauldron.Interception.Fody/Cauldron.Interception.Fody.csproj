@@ -122,8 +122,9 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>$(ProjectDir)..\..\Helper\fodycopy.exe $(TargetDir) $(ProjectDir)..\..\Tools Cauldron.Interception.Fody
-$(ProjectDir)..\..\Helper\fodycopy.exe $(TargetDir) $(ProjectDir)..\..\packages Cauldron.Interception.Fody</PostBuildEvent>
+    <PostBuildEvent>"$(DevEnvDir)..\Tools\VsDevCmd.bat"
+csi "$(ProjectDir)..\..\Scripts\fodycopy.csx" "$(TargetDir)" "$(ProjectDir)..\..\Tools" Cauldron.Interception.Fody
+csi "$(ProjectDir)..\..\Scripts\fodycopy.csx" "$(TargetDir)" "$(ProjectDir)..\..\packages" Cauldron.Interception.Fody</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
