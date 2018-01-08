@@ -34,14 +34,15 @@ namespace Cauldron.Interception.Cecilator
         /// </summary>
         public BuilderType DeclaringType => new BuilderType(this.type.Builder, this.propertyDefinition.DeclaringType);
 
+        public string Fullname => this.propertyDefinition.FullName;
         public Method Getter { get; private set; }
 
         public bool IsAbstract => this.propertyDefinition.GetMethod?.IsAbstract ?? false | this.propertyDefinition.SetMethod?.IsAbstract ?? false;
-
         public bool IsAutoProperty => (this.propertyDefinition.GetMethod ?? this.propertyDefinition.SetMethod).CustomAttributes.Get("CompilerGeneratedAttribute") != null;
-
+        public bool IsInternal => GetAttributes().HasFlag(MethodAttributes.Assembly);
+        public bool IsPrivate => GetAttributes().HasFlag(MethodAttributes.Private);
+        public bool IsProtected => GetAttributes().HasFlag(MethodAttributes.Family);
         public bool IsPublic => this.Getter?.IsPublic ?? false | this.Setter?.IsPublic ?? false;
-
         public bool IsStatic => this.propertyDefinition.GetMethod?.IsStatic ?? false | this.propertyDefinition.SetMethod?.IsStatic ?? false;
 
         public Modifiers Modifiers
@@ -160,6 +161,19 @@ namespace Cauldron.Interception.Cecilator
             var field = operand as FieldDefinition ?? operand as FieldReference;
             if (field != null)
                 this.BackingField = new Field(this.type, field.Resolve(), field);
+        }
+
+        private MethodAttributes GetAttributes()
+        {
+            MethodAttributes result = 0;
+
+            if (this.propertyDefinition.GetMethod != null)
+                result |= this.propertyDefinition.GetMethod.Attributes;
+
+            if (this.propertyDefinition.SetMethod != null)
+                result |= this.propertyDefinition.SetMethod.Attributes;
+
+            return result;
         }
 
         #region Equitable stuff

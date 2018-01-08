@@ -43,6 +43,7 @@ namespace Cauldron.Interception.Fody
 
             var constructorInterceptionAttributes = this.Builder.FindAttributesByInterfaces(__IConstructorInterceptor.Type.Fullname);
 
+            this.AddAssemblyWideAttributes(this.Builder);
             this.ImplementAnonymousTypeInterface(this.Builder);
             this.ImplementTimedCache(this.Builder);
             // this.ImplementMethodCache(this.Builder);

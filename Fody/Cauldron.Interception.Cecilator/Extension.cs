@@ -322,15 +322,37 @@ namespace Cauldron.Interception.Cecilator
             return -1;
         }
 
+        public static bool IsAssignableFrom(this BuilderType[] target, BuilderType[] types)
+        {
+            if (target == null && types == null)
+                return true;
+
+            if (target == null || types == null)
+                return false;
+
+            if (target.Length != types.Length)
+                return false;
+
+            for (int i = 0; i < target.Length; i++)
+            {
+                if (!target[i].IsAssignableFrom(types[i]))
+                    return false;
+            }
+
+            return true;
+        }
+
         public static bool IsAssignableFrom(this BuilderType target, BuilderType source) =>
                                     target == source ||
                     target.typeDefinition == source.typeDefinition ||
+                    target.Fullname == "System.Object" ||
                     source.IsSubclassOf(target) ||
                     target.IsInterface && source.BaseClasses.Any(x => x.Implements(target));
 
         public static bool IsAssignableFrom(this TypeReference target, TypeReference source) =>
                             target == source ||
                     target == source ||
+                    target.FullName == "System.Object" ||
                     source.IsSubclassOf(target) ||
                     target.BetterResolve().IsInterface && source.GetBaseClasses().Any(x => x.Implements(target.FullName));
 

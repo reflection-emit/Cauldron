@@ -1,3 +1,5 @@
+Console.WriteLine("Starting copy");
+
 if (Args == null || Args.Count() != 3)
 {
     Environment.Exit(-1);

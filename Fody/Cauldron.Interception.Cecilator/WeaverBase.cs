@@ -1,11 +1,9 @@
 ﻿using Mono.Cecil;
 using Mono.Cecil.Cil;
-using Mono.Cecil.Pdb;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
 
 namespace Cauldron.Interception.Cecilator
 {
@@ -16,14 +14,16 @@ namespace Cauldron.Interception.Cecilator
 
         public string AssemblyFilePath { get; set; }
         public Builder Builder { get; private set; }
-
+        public List<string> DefineConstants { get; set; }
         public Action<string> LogError { get; set; }
         public Action<string, SequencePoint> LogErrorPoint { get; set; }
         public Action<string> LogInfo { get; set; }
         public Action<string> LogWarning { get; set; }
         public Action<string, SequencePoint> LogWarningPoint { get; set; }
         public ModuleDefinition ModuleDefinition { get; set; }
+        public string ProjectDirectoryPath { get; set; }
         public List<string> ReferenceCopyLocalPaths { get; set; }
+        public string SolutionDirectoryPath { get; set; }
 
         public void AfterWeaving()
         {
