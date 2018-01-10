@@ -22,6 +22,8 @@ namespace Cauldron.Interception.Cecilator
             return Builder.Current;
         }
 
+        public static bool EqualsEx(this string me, string other) => me.GetHashCode() == other.GetHashCode() && me == other;
+
         public static CustomAttribute Get(this Mono.Collections.Generic.Collection<CustomAttribute> collection, string name)
         {
             if (name.IndexOf('.') > 0)
@@ -67,16 +69,6 @@ namespace Cauldron.Interception.Cecilator
                         return collection[i];
                 }
             }
-
-            return null;
-        }
-
-        public static Method GetAsyncMethod(this Builder builder, MethodDefinition method)
-        {
-            var result = (builder as CecilatorObject).GetAsyncMethod(method);
-
-            if (result.HasValue)
-                return new Method(new BuilderType(builder, result.Value.AsyncType), result.Value.MethodDefinition);
 
             return null;
         }
@@ -444,6 +436,16 @@ namespace Cauldron.Interception.Cecilator
             }
 
             return method;
+        }
+
+        internal static Method GetAsyncMethod(this Builder builder, MethodDefinition method)
+        {
+            var result = (builder as CecilatorObject).GetAsyncMethod(method);
+
+            if (result.HasValue)
+                return new Method(new BuilderType(builder, result.Value.AsyncType), result.Value.MethodDefinition);
+
+            return null;
         }
 
         /// <summary>
@@ -848,7 +850,7 @@ namespace Cauldron.Interception.Cecilator
                 if (asyncTypeMethod == null)
                 {
                     cecilatorObject.Log(LogTypes.Error, method, "Unable to find the method MoveNext of async method " + method.Name);
-                    return null;
+                    throw new Exception("Unable to find the method MoveNext of async method " + method.Name);
                 }
 
                 return (asyncTypeMethod, asyncType);

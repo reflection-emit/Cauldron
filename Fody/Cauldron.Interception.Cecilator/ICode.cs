@@ -15,6 +15,8 @@ namespace Cauldron.Interception.Cecilator
 
         ILocalVariableCode Assign(LocalVariable localVariable);
 
+        IFieldCode Assign(ICode instance, Field field);
+
         IFieldCode AssignToField(string fieldName);
 
         ILocalVariableCode AssignToLocalVariable(string localVariableName);
@@ -89,6 +91,10 @@ namespace Cauldron.Interception.Cecilator
 
         IIfCode IsTrue();
 
+        ICode Jump(Position position);
+
+        ICode Leave(Position position);
+
         ICode Load(object parameter);
 
         ILocalVariableCode Load(LocalVariable localVariable);
@@ -125,6 +131,8 @@ namespace Cauldron.Interception.Cecilator
 
         ICode NewObj(AttributedField attribute);
 
+        ICode Or();
+
         ICode OriginalBody();
 
         ICode OriginalBodyNewMethod();
@@ -132,6 +140,8 @@ namespace Cauldron.Interception.Cecilator
         ICode Pop();
 
         ICode Return();
+
+        ICode ReturnDefault();
 
         ICode StoreElement(BuilderType arrayType, object element, int index);
 

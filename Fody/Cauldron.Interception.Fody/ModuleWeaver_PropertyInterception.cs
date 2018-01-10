@@ -4,7 +4,6 @@ using Cauldron.Interception.Fody.HelperTypes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
@@ -33,7 +32,7 @@ namespace Cauldron.Interception.Fody
                                 if (item.HasSyncRootInterface)
                                     y.Load(field).As(__ISyncRoot.Type.Import()).Call(syncRoot.SyncRoot, member.SyncRoot);
 
-                                ImplementAssignMethodAttribute(builder, legalGetterInterceptors[i].AssignMethodAttributeInfos, field, y, false);
+                                ImplementAssignMethodAttribute(builder, legalGetterInterceptors[i].AssignMethodAttributeInfos, field, item.Attribute.Attribute.Type, y);
                             });
                             item.Attribute.Remove();
                         }
@@ -84,9 +83,13 @@ namespace Cauldron.Interception.Fody
                             var item = legalGetterInterceptors[i];
                             var field = interceptorFields[item.Attribute.Identification];
                             x.Load(field).As(legalGetterInterceptors[i].InterfaceGetter.ToBuilderType).Call(legalGetterInterceptors[i].InterfaceGetter.OnException, x.Exception);
+
+                            if (legalGetterInterceptors.Length - 1 < i)
+                                x.Or();
                         }
 
-                        x.Rethrow();
+                        x.IsTrue().Then(y => x.Rethrow());
+                        x.ReturnDefault();
                     })
                     .Finally(x =>
                     {
@@ -123,7 +126,7 @@ namespace Cauldron.Interception.Fody
                             if (item.HasSyncRootInterface)
                                 x.Load(field).As(__ISyncRoot.Type.Import()).Call(syncRoot.SyncRoot, member.SyncRoot);
 
-                            ImplementAssignMethodAttribute(builder, legalInitInterceptors[i].AssignMethodAttributeInfos, field, x, false);
+                            ImplementAssignMethodAttribute(builder, legalInitInterceptors[i].AssignMethodAttributeInfos, field, item.Attribute.Attribute.Type, x);
                         }
 
                         x.Assign(propertyField)
@@ -169,7 +172,7 @@ namespace Cauldron.Interception.Fody
                                 if (item.HasSyncRootInterface)
                                     y.Load(field).As(syncRoot.ToBuilderType.Import()).Call(syncRoot.SyncRoot, member.SyncRoot);
 
-                                ImplementAssignMethodAttribute(builder, legalSetterInterceptors[i].AssignMethodAttributeInfos, field, y, false);
+                                ImplementAssignMethodAttribute(builder, legalSetterInterceptors[i].AssignMethodAttributeInfos, field, item.Attribute.Attribute.Type, y);
                             });
                             item.Attribute.Remove();
                         }
@@ -223,9 +226,13 @@ namespace Cauldron.Interception.Fody
                             var item = legalSetterInterceptors[i];
                             var field = interceptorFields[item.Attribute.Identification];
                             x.Load(field).As(legalSetterInterceptors[i].InterfaceSetter.ToBuilderType).Call(legalSetterInterceptors[i].InterfaceSetter.OnException, x.Exception);
+
+                            if (legalSetterInterceptors.Length - 1 < i)
+                                x.Or();
                         }
 
-                        x.Rethrow();
+                        x.IsTrue().Then(y => x.Rethrow());
+                        x.Return();
                     })
                     .Finally(x =>
                     {

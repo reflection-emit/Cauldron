@@ -12,7 +12,8 @@ namespace Cauldron.Interception
         /// the exception.
         /// </summary>
         /// <param name="e">The exception information.</param>
-        void OnException(Exception e);
+        /// <returns>Should return true if the exception should be rethrown; otherwise false</returns>
+        bool OnException(Exception e);
 
         /// <summary>
         /// Invoked if the intercepted method has finished executing.

@@ -25,6 +25,38 @@ namespace Cauldron.Interception.Cecilator
 
         public BuilderCustomAttributeCollection CustomAttributes => new BuilderCustomAttributeCollection(this.Builder, this.typeDefinition);
 
+        public object DefaultValue
+        {
+            get
+            {
+                switch (this.Fullname)
+                {
+                    case "System.Int16": return default(short);
+                    case "System.Int32": return default(int);
+                    case "System.Int64": return default(long);
+                    case "System.UInt16": return default(ushort);
+                    case "System.UInt32": return default(uint);
+                    case "System.UInt64": return default(ulong);
+                    case "System.Single": return default(float);
+                    case "System.Double": return default(double);
+                    case "System.Boolean": return default(bool);
+                    case "System.Byte": return default(byte);
+                    case "System.Char": return default(char);
+                    case "System.SByte": return default(sbyte);
+                    case "System.Decimal": return default(decimal);
+                    case "System.IntPtr": return default(IntPtr);
+                }
+
+                if (this.typeDefinition.IsValueType)
+                    return Crumb.DefaultOfStruct(this.typeReference);
+
+                if (this.typeDefinition.FullName == "System.Threading.Tasks.Task")
+                    return Crumb.DefaultOfTask(this.typeReference);
+
+                return null;
+            }
+        }
+
         public BuilderType EnumUnderlyingType => new BuilderType(this.Builder, this.typeDefinition.GetEnumUnderlyingType());
         public string Fullname => this.typeReference.FullName;
 
@@ -42,6 +74,7 @@ namespace Cauldron.Interception.Cecilator
 
         public bool IsAbstract => this.typeDefinition.Attributes.HasFlag(TypeAttributes.Abstract);
         public bool IsArray => this.typeDefinition != null && (this.typeDefinition.IsArray || this.typeReference.FullName.EndsWith("[]") || this.typeDefinition.FullName.EndsWith("[]"));
+        public bool IsAsyncStateMachine => this.Implements("System.Runtime.CompilerServices.IAsyncStateMachine", false);
         public bool IsDelegate => this.typeDefinition.IsDelegate();
         public bool IsEnum => this.typeDefinition.IsEnum;
         public bool IsForeign => this.moduleDefinition.Assembly == this.typeDefinition.Module.Assembly;
@@ -664,7 +697,7 @@ namespace Cauldron.Interception.Cecilator
 
         #region Equitable stuff
 
-        public static implicit operator string(BuilderType value) => value.ToString();
+        public static implicit operator string(BuilderType value) => value?.ToString();
 
         public static bool operator !=(BuilderType a, BuilderType b) => !(a == b);
 

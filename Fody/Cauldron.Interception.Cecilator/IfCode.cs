@@ -12,27 +12,16 @@ namespace Cauldron.Interception.Cecilator
             this.jumpTarget = jumpTarget;
         }
 
-        public IIfCode And
-        {
-            get { return this; }
-        }
+        public IIfCode And => this;
 
-        public ICode Else
-        {
-            get { return new InstructionsSet(this, this.instructions); }
-        }
+        public ICode Else => new InstructionsSet(this, this.instructions);
 
-        protected override Instruction JumpTarget
-        {
-            get
-            {
-                return this.jumpTarget;
-            }
-        }
+        protected override Instruction JumpTarget => this.jumpTarget;
 
         public ICode EndIf()
         {
-            throw new NotImplementedException();
+            this.instructions.Append(this.JumpTarget);
+            return this;
         }
 
         public IIfCode Then(Action<ICode> action)

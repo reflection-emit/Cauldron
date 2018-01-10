@@ -34,7 +34,7 @@ namespace Cauldron.Interception.Cecilator
 
         #region Equitable stuff
 
-        public static implicit operator string(LocalVariable value) => value.ToString();
+        public static implicit operator string(LocalVariable value) => value?.ToString();
 
         public static bool operator !=(LocalVariable a, LocalVariable b) => !(a == b);
 

@@ -23,6 +23,8 @@ namespace Cauldron.Interception.Cecilator
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
         internal readonly BuilderType type;
 
+        private Method _asyncMethod;
+
         internal Method(BuilderType type, MethodReference methodReference, MethodDefinition methodDefinition) : base(type)
         {
             this.type = type;
@@ -44,7 +46,30 @@ namespace Cauldron.Interception.Cecilator
             this.methodReference = methodDefinition.CreateMethodReference();
         }
 
+        public Method AsyncMethod
+        {
+            get
+            {
+                if (_asyncMethod == null)
+                    _asyncMethod = this.type.Builder.GetAsyncMethod(this.methodDefinition);
+
+                return _asyncMethod;
+            }
+        }
+
         public AsyncMethodHelper AsyncMethodHelper => new AsyncMethodHelper(this);
+
+        public BuilderType AsyncOriginType
+        {
+            get
+            {
+                if (this.IsAsync)
+                    return this.AsyncMethod == null ? this.type : this.AsyncMethod.type;
+                else
+                    return this.type;
+            }
+        }
+
         public BuilderCustomAttributeCollection CustomAttributes => new BuilderCustomAttributeCollection(this.type.Builder, this.methodDefinition);
 
         /// <summary>
@@ -54,7 +79,7 @@ namespace Cauldron.Interception.Cecilator
 
         public string Fullname => this.methodReference.FullName;
         public bool IsAbstract => this.methodDefinition.IsAbstract;
-        public bool IsAsync => this.methodDefinition.ReturnType.FullName == "System.Threading.Tasks.Task" || this.methodDefinition.ReturnType.FullName == "System.Threading.Tasks.Task`1";
+        public bool IsAsync => this.methodDefinition.ReturnType.FullName.EqualsEx("System.Threading.Tasks.Task") || this.methodDefinition.ReturnType.Resolve().FullName.EqualsEx("System.Threading.Tasks.Task`1");
         public bool IsCCtor => this.methodDefinition.Name == ".cctor";
 
         public bool IsConstructorWithBaseCall
@@ -266,7 +291,7 @@ namespace Cauldron.Interception.Cecilator
 
         #region Equitable stuff
 
-        public static implicit operator string(Method value) => value.ToString();
+        public static implicit operator string(Method value) => value?.ToString();
 
         public static bool operator !=(Method a, Method b) => !(a == b);
 

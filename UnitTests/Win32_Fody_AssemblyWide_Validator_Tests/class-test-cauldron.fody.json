@@ -1,0 +1,21 @@
+﻿[
+  {
+    "is-active": true,
+    "decorator": [
+      {
+        "type-name": "Cauldron.UnitTest.AssemblyValidation.Exception_Class_Interceptor",
+        "decorate-class": false,
+        "decorate-methods": true,
+        "decorate-properties": false,
+        "target-class-filter": {
+          "public": true,
+          "internal": true,
+          "private": true,
+          "static": true,
+          "instanced": true,
+          "name": "\\w*One\\w*"
+        }
+      }
+    ]
+  }
+]

@@ -19,22 +19,25 @@ namespace Cauldron.Interception.Fody
                  without bothering to edit the existing one.
             */
 
-            var inDebugMode = this.DefineConstants.Contains("DEBUG");
-            IEnumerable<AssemblyWideAttributeConfig> GetConfigs(string path) =>
-                Directory.GetFiles(path, "*cauldron.fody.json", SearchOption.TopDirectoryOnly)
-                    .Select(x => JsonConvert.DeserializeObject<IEnumerable<AssemblyWideAttributeConfig>>(File.ReadAllText(x)))
-                    .Where(x => x != null)
-                    .SelectMany(x => x)
-                    .Where(x => x.IsActive && ((x.DebugOnly && inDebugMode) || !x.DebugOnly));
-
-            var configurations = GetConfigs(this.ProjectDirectoryPath).Concat(GetConfigs(this.SolutionDirectoryPath));
-
-            foreach (var config in configurations)
+            using (new StopwatchLog(this, "decorator"))
             {
-                if (config.Decorator == null)
-                    continue;
+                var inDebugMode = this.DefineConstants.Contains("DEBUG");
+                IEnumerable<AssemblyWideAttributeConfig> GetConfigs(string path) =>
+                    Directory.GetFiles(path, "*cauldron.fody.json", SearchOption.TopDirectoryOnly)
+                        .Select(x => JsonConvert.DeserializeObject<IEnumerable<AssemblyWideAttributeConfig>>(File.ReadAllText(x)))
+                        .Where(x => x != null)
+                        .SelectMany(x => x)
+                        .Where(x => x.IsActive && ((x.DebugOnly && inDebugMode) || !x.DebugOnly));
 
-                ImplementDecorator(builder, config);
+                var configurations = GetConfigs(this.ProjectDirectoryPath).Concat(GetConfigs(this.SolutionDirectoryPath));
+
+                foreach (var config in configurations)
+                {
+                    if (config.Decorator == null)
+                        continue;
+
+                    ImplementDecorator(builder, config);
+                }
             }
         }
 
@@ -112,6 +115,9 @@ namespace Cauldron.Interception.Fody
                         return false;
                 }
 
+                if (x.Fullname.IndexOf('<') >= 0 || x.Fullname.IndexOf('>') >= 0)
+                    return false;
+
                 if (!string.IsNullOrEmpty(decorator.TargetMethodFilter.Name) && !Regex.IsMatch(x.Name, decorator.TargetMethodFilter.Name == "*" ? "\\w*" : decorator.TargetMethodFilter.Name, RegexOptions.Singleline))
                     return false;
 
@@ -137,6 +143,9 @@ namespace Cauldron.Interception.Fody
                     return false;
 
                 if (decorator.TargetPropertyFilter.ReturnTypeNames.Length > 0 && !decorator.TargetPropertyFilter.ReturnTypeNames.Any(y => y == x.ReturnType.Fullname))
+                    return false;
+
+                if (x.Fullname.IndexOf('<') >= 0 || x.Fullname.IndexOf('>') >= 0)
                     return false;
 
                 if (!string.IsNullOrEmpty(decorator.TargetPropertyFilter.Name) && !Regex.IsMatch(x.Name, decorator.TargetMethodFilter.Name == "*" ? "\\w*" : decorator.TargetPropertyFilter.Name, RegexOptions.Singleline))
@@ -178,9 +187,15 @@ namespace Cauldron.Interception.Fody
                     if (!string.IsNullOrEmpty(decorator.TargetClassFilter.Name) && !Regex.IsMatch(x.Fullname, decorator.TargetClassFilter.Name == "*" ? "\\w*" : decorator.TargetClassFilter.Name, RegexOptions.Singleline))
                         return false;
 
+                    if (x.Fullname.IndexOf('<') >= 0 || x.Fullname.IndexOf('>') >= 0)
+                        return false;
+
                     if (decorator.TargetClassFilter.ReguiresInterfaces.Length > 0)
                         if (!x.Interfaces.Any(y => decorator.TargetClassFilter.ReguiresInterfaces.Contains(y.Fullname)))
                             return false;
+
+                    if (x.Inherits("System.Attribute"))
+                        return false;
 
                     return true;
                 });

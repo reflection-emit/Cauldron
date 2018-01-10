@@ -30,6 +30,9 @@ namespace Cauldron.Interception.Fody
                                                if (!x.Parameters.Select(y => y.Fullname).SequenceEqual(this.ParameterTypes.Select(y => y.Fullname)))
                                                    return false;
 
+                                               if (this.AttributedMethod.IsStatic && !x.IsStatic)
+                                                   return false;
+
                                                return predicate(x.ReturnType, this.TargetMethodReturnType);
                                            });
 

@@ -19,6 +19,9 @@ namespace Cauldron.Interception.Fody
                 .SelectMany(x => x.Methods)
                 .Where(x =>
                 {
+                    if (x.Fullname.IndexOf('<') >= 0 || x.Fullname.IndexOf('>') >= 0)
+                        return false;
+
                     if (x.Name.EndsWith("Action"))
                         return false;
 
