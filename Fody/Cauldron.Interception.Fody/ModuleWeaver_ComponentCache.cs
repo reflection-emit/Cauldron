@@ -131,7 +131,7 @@ namespace Cauldron.Interception.Fody
                                     var code = x.Load(Crumb.GetParameter(0)).Call(arrayAvatar.Length).EqualTo(ctorParameters.Length);
 
                                     for (int i = 0; i < ctorParameters.Length; i++)
-                                        code.And.Load(Crumb.GetParameter(0).UnPacked(i)).Is(ctorParameters[i]);
+                                        code.AndAnd.Load(Crumb.GetParameter(0).UnPacked(i)).Is(ctorParameters[i]);
 
                                     if (ctor.Name == ".ctor")
                                         code.Then(y => y.NewObj(ctor, Crumb.GetParameter(0).UnPacked()).Dup().Call(factory.OnObjectCreation, Crumb.This).Return());

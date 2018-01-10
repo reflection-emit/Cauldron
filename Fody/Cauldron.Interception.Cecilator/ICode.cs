@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mono.Cecil.Cil;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
@@ -76,6 +77,8 @@ namespace Cauldron.Interception.Cecilator
         IIfCode EqualTo(bool value);
 
         ICode For(LocalVariable array, Action<ICode, LocalVariable> action);
+
+        Position GetFirstOrDefaultPosition(Func<Instruction, bool> predicate);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         new int GetHashCode();

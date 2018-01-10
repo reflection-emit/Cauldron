@@ -12,7 +12,7 @@ namespace Cauldron.Interception.Cecilator
             this.jumpTarget = jumpTarget;
         }
 
-        public IIfCode And => this;
+        public IIfCode AndAnd => this;
 
         public ICode Else => new InstructionsSet(this, this.instructions);
 

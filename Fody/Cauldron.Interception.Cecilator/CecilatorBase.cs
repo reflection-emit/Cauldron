@@ -111,7 +111,7 @@ namespace Cauldron.Interception.Cecilator
             this.Identification = GenerateName();
         }
 
-        public string Identification { get; private set; }
+        public virtual string Identification { get; private set; }
 
         public bool IsUWP => this.IsReferenced("Windows.Foundation.UniversalApiContract");
 

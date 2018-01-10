@@ -1,6 +1,7 @@
 ﻿using Cauldron.Interception.Cecilator;
 using Cauldron.Interception.Fody.Extensions;
 using Cauldron.Interception.Fody.HelperTypes;
+using Mono.Cecil.Cil;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -53,32 +54,38 @@ namespace Cauldron.Interception.Fody
                                 ctors.NewCode().Assign(method.SyncRoot).NewObj(builder.GetType(typeof(object)).Import().ParameterlessContructor).Insert(InsertionPosition.Beginning);
                     }
 
-                    targetedMethod
-                    .NewCode()
-                        .Context(x =>
-                        {
-                            for (int i = 0; i < method.Item.Length; i++)
-                            {
-                                var item = method.Item[i];
-                                var name = $"<{targetedMethod.Name}>_attrib{i}_{item.Attribute.Identification}";
-                                interceptorField[i] = targetedMethod.AsyncOriginType.CreateField(targetedMethod.Modifiers.GetPrivate(), item.Interface.ToBuilderType, name);
-                                interceptorField[i].CustomAttributes.AddNonSerializedAttribute();
+                    var coder = targetedMethod
+                     .NewCode()
+                         .Context(x =>
+                         {
+                             for (int i = 0; i < method.Item.Length; i++)
+                             {
+                                 var item = method.Item[i];
+                                 var name = $"<{targetedMethod.Name}>_attrib{i}_{item.Attribute.Identification}";
+                                 interceptorField[i] = targetedMethod.AsyncOriginType.CreateField(targetedMethod.Modifiers.GetPrivate(), item.Interface.ToBuilderType, name);
+                                 interceptorField[i].CustomAttributes.AddNonSerializedAttribute();
 
-                                x.Load(interceptorField[i]).IsNull().Then(y =>
-                                {
-                                    y.Assign(interceptorField[i]).NewObj(item.Attribute);
-                                    if (item.HasSyncRootInterface)
-                                        y.Load(interceptorField[i]).As(__ISyncRoot.Type).Call(syncRoot.SyncRoot, method.SyncRoot);
+                                 x.Load(interceptorField[i]).IsNull().Then(y =>
+                                 {
+                                     y.Assign(interceptorField[i]).NewObj(item.Attribute);
+                                     if (item.HasSyncRootInterface)
+                                         y.Load(interceptorField[i]).As(__ISyncRoot.Type).Call(syncRoot.SyncRoot, method.SyncRoot);
 
-                                    ImplementAssignMethodAttribute(builder, method.Item[i].AssignMethodAttributeInfos, interceptorField[i], item.Attribute.Attribute.Type, x);
-                                });
+                                     ImplementAssignMethodAttribute(builder, method.Item[i].AssignMethodAttributeInfos, interceptorField[i], item.Attribute.Attribute.Type, x);
+                                 });
 
-                                x.Load(interceptorField[i]).Call(item.Interface.OnEnter, attributedMethod.OriginType, typeInstance, attributedMethod, x.GetParametersArray());
+                                 x.Load(interceptorField[i]).Call(item.Interface.OnEnter, attributedMethod.OriginType, typeInstance, attributedMethod, x.GetParametersArray());
 
-                                item.Attribute.Remove();
-                            }
-                        })
-                        .Insert(InsertionPosition.Beginning);
+                                 item.Attribute.Remove();
+                             }
+                         });
+
+                    var position = coder.GetFirstOrDefaultPosition(x => x.OpCode == OpCodes.Stelem_Ref);
+
+                    if (position == null)
+                        coder.Insert(InsertionPosition.Beginning);
+                    else
+                        coder.Insert(InsertionAction.After, position);
                 };
             }
         }

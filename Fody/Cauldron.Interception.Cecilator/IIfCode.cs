@@ -5,7 +5,7 @@ namespace Cauldron.Interception.Cecilator
 {
     public interface IIfCode : ICode
     {
-        IIfCode And { get; }
+        IIfCode AndAnd { get; }
 
         ICode EndIf();
 

@@ -1,19 +1,15 @@
 ﻿using Mono.Cecil;
 using Mono.Cecil.Cil;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Cauldron.Interception.Cecilator
 {
     public class Method : CecilatorBase, IEquatable<Method>
     {
-        internal readonly static Dictionary<string, Dictionary<string, VariableDefinition>> variableDictionary = new Dictionary<string, Dictionary<string, VariableDefinition>>();
-
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
         internal readonly MethodDefinition methodDefinition;
 
@@ -78,6 +74,9 @@ namespace Cauldron.Interception.Cecilator
         public BuilderType DeclaringType => new BuilderType(this.type.Builder, this.methodReference.DeclaringType);
 
         public string Fullname => this.methodReference.FullName;
+
+        public override string Identification => $"{this.methodDefinition.DeclaringType.Name}-{this.methodDefinition.Name}-{this.methodDefinition.DeclaringType.MetadataToken.RID}-{this.methodDefinition.MetadataToken.RID}";
+
         public bool IsAbstract => this.methodDefinition.IsAbstract;
         public bool IsAsync => this.methodDefinition.ReturnType.FullName.EqualsEx("System.Threading.Tasks.Task") || this.methodDefinition.ReturnType.Resolve().FullName.EqualsEx("System.Threading.Tasks.Task`1");
         public bool IsCCtor => this.methodDefinition.Name == ".cctor";
@@ -153,18 +152,10 @@ namespace Cauldron.Interception.Cecilator
 
         public VariableDefinition AddLocalVariable(string name, VariableDefinition variable)
         {
-            if (variableDictionary.TryGetValue(this.methodDefinition.FullName, out Dictionary<string, VariableDefinition> methodsDictionary))
-            {
-                if (methodsDictionary.ContainsKey(name))
-                    throw new ArgumentException($"The variable with the name '{name}' already exist in '{this.Name}'");
-            }
-            else
-            {
-                methodsDictionary = new Dictionary<string, VariableDefinition>();
-                variableDictionary.Add(this.methodDefinition.FullName, methodsDictionary);
-            }
+            if (this.methodDefinition.DebugInformation.Scope.Variables.Any(x => x.Name == name))
+                throw new ArgumentException($"The variable with the name '{name}' already exist in '{this.Name}'");
 
-            methodsDictionary.Add(name, variable);
+            this.methodDefinition.DebugInformation.Scope.Variables.Add(new VariableDebugInformation(variable, name));
             this.methodDefinition.Body.Variables.Add(variable);
 
             return variable;
@@ -202,15 +193,10 @@ namespace Cauldron.Interception.Cecilator
 
         public VariableDefinition GetLocalVariable(string name)
         {
-            Dictionary<string, VariableDefinition> methodsDictionary;
+            var variableIndex = this.methodDefinition.DebugInformation.Scope.Variables.FirstOrDefault(x => x.Name == name)?.Index;
 
-            if (variableDictionary.TryGetValue(this.methodDefinition.FullName, out methodsDictionary))
-            {
-                VariableDefinition variableDefinition;
-
-                if (methodsDictionary.TryGetValue(name, out variableDefinition))
-                    return variableDefinition;
-            }
+            if (variableIndex.HasValue)
+                return this.methodDefinition.Body.Variables[variableIndex.Value];
 
             return null;
         }

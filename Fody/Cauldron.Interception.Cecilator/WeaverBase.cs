@@ -39,15 +39,10 @@ namespace Cauldron.Interception.Cecilator
             this.ModuleDefinition.Dispose();
             this.ModuleDefinition = null;
 
-            Method.variableDictionary.Clear();
             this.OnAfterWeaving();
         }
 
-        public void Cancel()
-        {
-            Method.variableDictionary.Clear();
-            this.OnCancel();
-        }
+        public void Cancel() => this.OnCancel();
 
         public void Execute()
         {

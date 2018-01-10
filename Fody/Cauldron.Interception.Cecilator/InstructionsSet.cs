@@ -255,6 +255,18 @@ namespace Cauldron.Interception.Cecilator
             return this;
         }
 
+        public Position GetFirstOrDefaultPosition(Func<Instruction, bool> predicate)
+        {
+            if (this.method.methodDefinition.Body == null || this.method.methodDefinition.Body.Instructions == null)
+                return null;
+
+            foreach (var item in this.method.methodDefinition.Body.Instructions)
+                if (predicate(item))
+                    return new Position(this.method, item);
+
+            return null;
+        }
+
         public Crumb GetParametersArray()
         {
             var variableName = "<>params_" + this.method.Identification;
