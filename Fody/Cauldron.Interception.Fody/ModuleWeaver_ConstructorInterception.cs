@@ -35,12 +35,7 @@ namespace Cauldron.Interception.Fody
                     var targetedConstrutor = constructor.Key.Method;
 
                     if (!targetedConstrutor.IsCtor && !targetedConstrutor.IsCCtor)
-                    {
-                        for (int i = 0; i < constructor.Item.Length; i++)
-                            constructor.Item[i].Attribute.Remove();
-
                         continue;
-                    }
 
                     this.Log($"Implementing constructors in method {constructor.Key.Method}");
 

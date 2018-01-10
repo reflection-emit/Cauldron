@@ -1,4 +1,5 @@
 ﻿using Cauldron.Interception.Cecilator;
+using Mono.Cecil;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -91,6 +92,9 @@ namespace Cauldron.Interception.Fody
         {
             return @class.Methods.Where(x =>
             {
+                if (x.IsPropertyGetterSetter)
+                    return false;
+
                 if (!decorator.TargetMethodFilter.Static && x.IsStatic)
                     return false;
 
@@ -234,27 +238,24 @@ namespace Cauldron.Interception.Fody
             if (attributeTarget != null)
                 Enum.TryParse(attributeTarget.ConstructorArguments[0].Value?.ToString(), out attributeTargets);
 
+            var allowMultiple = false;
+            if (attributeTarget.Properties.TryGetValue("AllowMultiple", out CustomAttributeArgument customAttributeArgument))
+                allowMultiple = (bool)customAttributeArgument.Value;
+
             foreach (var @class in classes)
             {
-                if (decorator.DecorateClass && attributeTargets.HasFlag(AttributeTargets.Class))
-                {
+                if (decorator.DecorateClass && @class.CustomAttributes.Add(attribute, parameterValues))
                     builder.Log(LogTypes.Info, "- Decorating Class " + @class);
-                    @class.CustomAttributes.Add(attribute, parameterValues);
-                }
 
-                if (decorator.DecorateMethod && (attributeTargets.HasFlag(AttributeTargets.Method) || attributeTargets.HasFlag(AttributeTargets.Constructor)))
+                if (decorator.DecorateMethod)
                     foreach (var method in GetValidMethods(decorator, methodParameters, @class))
-                    {
-                        builder.Log(LogTypes.Info, "- Decorating Method " + method.Name);
-                        method.CustomAttributes.Add(attribute, parameterValues);
-                    }
+                        if (method.CustomAttributes.Add(attribute, parameterValues))
+                            builder.Log(LogTypes.Info, "- Decorating Method " + method.Name);
 
-                if (decorator.DecorateProperty && attributeTargets.HasFlag(AttributeTargets.Property))
+                if (decorator.DecorateProperty)
                     foreach (var property in GetValidProperties(decorator, @class))
-                    {
-                        builder.Log(LogTypes.Info, "- Decorating Properties " + property.Name);
-                        property.CustomAttributes.Add(attribute, parameterValues);
-                    }
+                        if (property.CustomAttributes.Add(attribute, parameterValues))
+                            builder.Log(LogTypes.Info, "- Decorating Properties " + property.Name);
             }
         }
     }

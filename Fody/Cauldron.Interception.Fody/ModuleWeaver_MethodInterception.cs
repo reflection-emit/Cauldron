@@ -31,7 +31,7 @@ namespace Cauldron.Interception.Fody
 
                     foreach (var method in type.Key.Methods)
                     {
-                        if (method.Name == ".ctor" || method.Name == ".cctor" || method.Name.StartsWith("get_") || method.Name.StartsWith("set_"))
+                        if (method.IsConstructor || method.IsPropertyGetterSetter)
                             continue;
 
                         for (int i = 0; i < type.Item.Length; i++)
@@ -59,6 +59,7 @@ namespace Cauldron.Interception.Fody
 
                 var methods = builder
                     .FindMethodsByAttributes(attributes)
+                    .Where(x => !x.Method.IsPropertyGetterSetter)
                     .GroupBy(x => new MethodKey(x.Method, x.AsyncMethod))
                     .Select(x => new MethodBuilderInfo<MethodBuilderInfoItem<__IMethodInterceptor>>(x.Key, x.Select(y => new MethodBuilderInfoItem<__IMethodInterceptor>(y, __IMethodInterceptor.Instance))))
                     .OrderBy(x => x.Key.Method.DeclaringType.Fullname)

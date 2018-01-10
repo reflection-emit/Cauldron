@@ -44,7 +44,7 @@ namespace Cauldron.Interception
     /// {
     ///     public void SampleMethod()
     ///     {
-    ///         var interceptorAttribute = new MyInterceptorAttribute("Any valid attribute parameter types");
+    ///         var interceptorAttribute = new MyInterceptorAttribute();
     ///
     ///         try
     ///         {

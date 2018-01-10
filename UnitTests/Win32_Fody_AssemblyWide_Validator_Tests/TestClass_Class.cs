@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Cauldron.UnitTest.AssemblyValidation
 {
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Constructor | AttributeTargets.Method | AttributeTargets.Property)]
-    public sealed class Exception_Class_Interceptor : Attribute, IMethodInterceptor, ISyncRoot, IConstructorInterceptor, IPropertyInterceptor
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Constructor | AttributeTargets.Method | AttributeTargets.Property, AllowMultiple = false)]
+    public sealed class Exception_Class_Interceptor : Attribute, IMethodInterceptor, ISyncRoot, IConstructorInterceptor, IPropertyInterceptor, ISimpleMethodInterceptor
     {
         [AssignMethod("ACoolIntMethod", true)]
         public Func<int> func = null;
@@ -48,6 +48,14 @@ namespace Cauldron.UnitTest.AssemblyValidation
         }
     }
 
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Constructor | AttributeTargets.Method | AttributeTargets.Property)]
+    public sealed class Exception_Class_Interceptor2 : Attribute, ISimpleMethodInterceptor
+    {
+        public void OnEnter(Type declaringType, object instance, MethodBase methodbase, object[] values)
+        {
+        }
+    }
+
     public class TestClass_One_Class
     {
         [Exception_Class_Interceptor]
@@ -74,6 +82,7 @@ namespace Cauldron.UnitTest.AssemblyValidation
             return Blabla(ss);
         }
 
+        //[Exception_Class_Interceptor2]
         public int ACoolIntMethod(int p)
         {
             return 3;
@@ -127,6 +136,7 @@ namespace Cauldron.UnitTest.AssemblyValidation
             return 9;
         }
 
+        [Exception_Class_Interceptor2]
         public int ACoolIntMethod(int p)
         {
             return 3;

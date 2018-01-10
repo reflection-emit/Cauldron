@@ -41,6 +41,9 @@ namespace Cauldron.Interception.Fody
             var methodInterceptionAttributes = this.Builder.FindAttributesByInterfaces(
                 "Cauldron.Interception.IMethodInterceptor");
 
+            var simpleMethodInterceptionAttributes = this.Builder.FindAttributesByInterfaces(
+                "Cauldron.Interception.ISimpleMethodInterceptor");
+
             var constructorInterceptionAttributes = this.Builder.FindAttributesByInterfaces(__IConstructorInterceptor.Type.Fullname);
 
             this.AddAssemblyWideAttributes(this.Builder);
@@ -50,10 +53,12 @@ namespace Cauldron.Interception.Fody
             this.ImplementBamlInitializer(this.Builder);
             this.ImplementTypeWidePropertyInterception(this.Builder, propertyInterceptingAttributes);
             this.ImplementTypeWideMethodInterception(this.Builder, methodInterceptionAttributes);
+            this.ImplementTypeWideMethodInterception(this.Builder, simpleMethodInterceptionAttributes);
             // These should be done last, because they replace methods
             this.InterceptConstructors(this.Builder, constructorInterceptionAttributes);
             this.InterceptFields(this.Builder, propertyInterceptingAttributes);
             this.InterceptMethods(this.Builder, methodInterceptionAttributes);
+            this.InterceptSimpleMethods(this.Builder, simpleMethodInterceptionAttributes);
             this.InterceptProperties(this.Builder, propertyInterceptingAttributes);
 
             this.CreateFactoryCache(this.Builder);
@@ -468,7 +473,7 @@ namespace Cauldron.Interception.Fody
                         newType.AddInterface(interfaceToImplement);
 
                         // Implement the methods
-                        foreach (var method in interfaceToImplement.Methods.Where(x => !x.Name.StartsWith("get_") && !x.Name.StartsWith("set_")))
+                        foreach (var method in interfaceToImplement.Methods.Where(x => !x.IsPropertyGetterSetter))
                             newType.CreateMethod(Modifiers.Public | Modifiers.Overrrides, method.ReturnType, method.Name, method.Parameters)
                                 .NewCode()
                                 .ThrowNew(typeof(NotImplementedException), $"The method '{method.Name}' in type '{newType.Name}' is not implemented.")

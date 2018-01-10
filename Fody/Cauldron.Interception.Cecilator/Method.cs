@@ -82,6 +82,11 @@ namespace Cauldron.Interception.Cecilator
         public bool IsAsync => this.methodDefinition.ReturnType.FullName.EqualsEx("System.Threading.Tasks.Task") || this.methodDefinition.ReturnType.Resolve().FullName.EqualsEx("System.Threading.Tasks.Task`1");
         public bool IsCCtor => this.methodDefinition.Name == ".cctor";
 
+        /// <summary>
+        /// True if the method is a .ctor or .cctor
+        /// </summary>
+        public bool IsConstructor => this.IsCCtor || this.IsCtor;
+
         public bool IsConstructorWithBaseCall
         {
             get
@@ -106,9 +111,11 @@ namespace Cauldron.Interception.Cecilator
         public bool IsCtor => this.methodDefinition.Name == ".ctor";
         public bool IsInternal => this.methodDefinition.Attributes.HasFlag(MethodAttributes.Assembly);
         public bool IsPrivate => this.methodDefinition.IsPrivate;
+        public bool IsPropertyGetterSetter => (this.methodDefinition.Name == "get_" || this.methodDefinition.Name == "set_") && this.methodDefinition.IsSpecialName;
         public bool IsProtected => this.methodDefinition.Attributes.HasFlag(MethodAttributes.Family);
         public bool IsPublic => this.methodDefinition.IsPublic;
         public bool IsPublicOrInternal => this.IsPublic || this.IsInternal;
+        public bool IsSpecialName => this.methodDefinition.IsSpecialName;
         public bool IsStatic => this.methodDefinition.IsStatic;
         public bool IsVoid => this.methodDefinition.ReturnType.FullName == "System.Void";
 

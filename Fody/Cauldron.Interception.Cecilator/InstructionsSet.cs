@@ -894,7 +894,7 @@ namespace Cauldron.Interception.Cecilator
 
                 if (targetType.FullName == typeof(IntPtr).FullName)
                 {
-                    if (method.OriginType != this.method.OriginType && this.method.OriginType.IsAsyncStateMachine)
+                    if (!method.IsStatic && method.OriginType != this.method.OriginType && this.method.OriginType.IsAsyncStateMachine)
                     {
                         var instance = this.method.AsyncMethodHelper.Instance;
                         var inst = this.AddParameter(processor, targetType, instance);
