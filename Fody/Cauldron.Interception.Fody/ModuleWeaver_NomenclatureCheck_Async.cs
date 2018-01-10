@@ -10,7 +10,7 @@ namespace Cauldron.Interception.Fody
         /// Checks all Methods that returns Task or Task`1 if their naming is according to the convention.
         /// </summary>
         /// <param name="builder"></param>
-        public void CheckAsyncMthodsNomenclature(Builder builder)
+        public void CheckAsyncMethodsNomenclature(Builder builder)
         {
             var task = new __Task();
             var taskGeneric = new __Task_1();
@@ -19,7 +19,7 @@ namespace Cauldron.Interception.Fody
                 .SelectMany(x => x.Methods)
                 .Where(x =>
                 {
-                    if (x.Fullname.IndexOf('<') >= 0 || x.Fullname.IndexOf('>') >= 0)
+                    if (x.IsGenerated)
                         return false;
 
                     if (x.Name.EndsWith("Action"))

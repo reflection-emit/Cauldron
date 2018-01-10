@@ -78,16 +78,7 @@ namespace Cauldron.Interception.Fody
                     })
                     .Catch(typeof(Exception), x =>
                     {
-                        for (int i = 0; i < legalGetterInterceptors.Length; i++)
-                        {
-                            var item = legalGetterInterceptors[i];
-                            var field = interceptorFields[item.Attribute.Identification];
-                            x.Load(field).As(legalGetterInterceptors[i].InterfaceGetter.ToBuilderType).Call(legalGetterInterceptors[i].InterfaceGetter.OnException, x.Exception);
-
-                            if (legalGetterInterceptors.Length - 1 < i)
-                                x.Or();
-                        }
-
+                        x.Or(legalGetterInterceptors, (coder, y, i) => coder.Load(legalGetterInterceptors[i].Attribute.Identification).Call(legalGetterInterceptors[i].InterfaceGetter.OnException, x.Exception));
                         x.IsTrue().Then(y => x.Rethrow());
                         x.ReturnDefault();
                     })
@@ -210,27 +201,17 @@ namespace Cauldron.Interception.Fody
                             }
                         }
                         else
-                            for (int i = 0; i < legalSetterInterceptors.Length; i++)
-                            {
-                                var item = legalSetterInterceptors[i];
-                                var field = interceptorFields[item.Attribute.Identification];
-                                x.Load(field).As(legalSetterInterceptors[i].InterfaceSetter.ToBuilderType).Call(item.InterfaceSetter.OnSet, propertyField, member.Property.BackingField, Crumb.GetParameter(0));
-
-                                x.IsFalse().Then(y => y.OriginalBody());
-                            }
+                        {
+                            x.And(legalSetterInterceptors,
+                                (coder, item, i) => coder.Load(interceptorFields[item.Attribute.Identification])
+                                        .As(legalSetterInterceptors[i].InterfaceSetter.ToBuilderType)
+                                        .Call(item.InterfaceSetter.OnSet, propertyField, member.Property.BackingField, Crumb.GetParameter(0)));
+                            x.IsFalse().Then(y => y.OriginalBody());
+                        }
                     })
                     .Catch(typeof(Exception), x =>
                     {
-                        for (int i = 0; i < legalSetterInterceptors.Length; i++)
-                        {
-                            var item = legalSetterInterceptors[i];
-                            var field = interceptorFields[item.Attribute.Identification];
-                            x.Load(field).As(legalSetterInterceptors[i].InterfaceSetter.ToBuilderType).Call(legalSetterInterceptors[i].InterfaceSetter.OnException, x.Exception);
-
-                            if (legalSetterInterceptors.Length - 1 < i)
-                                x.Or();
-                        }
-
+                        x.Or(legalSetterInterceptors, (coder, y, i) => coder.Load(legalSetterInterceptors[i].Attribute.Identification).Call(legalSetterInterceptors[i].InterfaceGetter.OnException, x.Exception));
                         x.IsTrue().Then(y => x.Rethrow());
                         x.Return();
                     })

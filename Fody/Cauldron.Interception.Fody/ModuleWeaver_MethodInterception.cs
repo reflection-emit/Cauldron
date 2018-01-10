@@ -125,14 +125,7 @@ namespace Cauldron.Interception.Fody
                     if (method.Key.AsyncMethod == null)
                         code.Catch(__Exception.Type, x =>
                         {
-                            for (int i = 0; i < method.Item.Length; i++)
-                            {
-                                x.Load(interceptorField[i]).Call(method.Item[i].Interface.OnException, x.Exception);
-
-                                if (method.Item.Length - 1 < i)
-                                    x.Or();
-                            }
-
+                            x.Or(method.Item, (coder, y, i) => coder.Load(interceptorField[i]).Call(y.Interface.OnException, x.Exception));
                             x.IsTrue().Then(y => x.Rethrow());
                             x.ReturnDefault();
                         });

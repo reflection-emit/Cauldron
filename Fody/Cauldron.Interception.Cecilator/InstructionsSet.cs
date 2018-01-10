@@ -47,6 +47,31 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
+        public ICode And()
+        {
+            this.instructions.Append(this.processor.Create(OpCodes.And));
+            return this;
+        }
+
+        public ICode And<T>(T[] collection, Func<ICode, T, int, ICode> code)
+        {
+            if (collection == null || collection.Length == 0)
+                return this;
+
+            var coder = this.method.NewCode();
+            code(coder, collection[0], 0);
+
+            for (int i = 1; i < collection.Length; i++)
+            {
+                code(coder, collection[i], i);
+                coder.And();
+            }
+
+            this.instructions.Append((coder as InstructionsSet).instructions);
+
+            return this;
+        }
+
         public ICode As(BuilderType type)
         {
             var lastInstruction = this.instructions.LastOrDefault();
@@ -505,6 +530,25 @@ namespace Cauldron.Interception.Cecilator
         public ICode Or()
         {
             this.instructions.Append(this.processor.Create(OpCodes.Or));
+            return this;
+        }
+
+        public ICode Or<T>(T[] collection, Func<ICode, T, int, ICode> code)
+        {
+            if (collection == null || collection.Length == 0)
+                return this;
+
+            var coder = this.method.NewCode();
+            code(coder, collection[0], 0);
+
+            for (int i = 1; i < collection.Length; i++)
+            {
+                code(coder, collection[i], i);
+                coder.Or();
+            }
+
+            this.instructions.Append((coder as InstructionsSet).instructions);
+
             return this;
         }
 

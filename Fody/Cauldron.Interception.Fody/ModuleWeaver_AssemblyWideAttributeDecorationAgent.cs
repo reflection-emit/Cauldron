@@ -119,7 +119,7 @@ namespace Cauldron.Interception.Fody
                         return false;
                 }
 
-                if (x.Fullname.IndexOf('<') >= 0 || x.Fullname.IndexOf('>') >= 0)
+                if (x.IsGenerated)
                     return false;
 
                 if (!string.IsNullOrEmpty(decorator.TargetMethodFilter.Name) && !Regex.IsMatch(x.Name, decorator.TargetMethodFilter.Name == "*" ? "\\w*" : decorator.TargetMethodFilter.Name, RegexOptions.Singleline))
@@ -149,7 +149,7 @@ namespace Cauldron.Interception.Fody
                 if (decorator.TargetPropertyFilter.ReturnTypeNames.Length > 0 && !decorator.TargetPropertyFilter.ReturnTypeNames.Any(y => y == x.ReturnType.Fullname))
                     return false;
 
-                if (x.Fullname.IndexOf('<') >= 0 || x.Fullname.IndexOf('>') >= 0)
+                if (x.IsGenerated)
                     return false;
 
                 if (!string.IsNullOrEmpty(decorator.TargetPropertyFilter.Name) && !Regex.IsMatch(x.Name, decorator.TargetMethodFilter.Name == "*" ? "\\w*" : decorator.TargetPropertyFilter.Name, RegexOptions.Singleline))
@@ -191,7 +191,7 @@ namespace Cauldron.Interception.Fody
                     if (!string.IsNullOrEmpty(decorator.TargetClassFilter.Name) && !Regex.IsMatch(x.Fullname, decorator.TargetClassFilter.Name == "*" ? "\\w*" : decorator.TargetClassFilter.Name, RegexOptions.Singleline))
                         return false;
 
-                    if (x.Fullname.IndexOf('<') >= 0 || x.Fullname.IndexOf('>') >= 0)
+                    if (x.IsGenerated)
                         return false;
 
                     if (decorator.TargetClassFilter.ReguiresInterfaces.Length > 0)

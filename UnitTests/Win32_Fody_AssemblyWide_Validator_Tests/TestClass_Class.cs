@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cauldron.UnitTest.AssemblyValidation
 {
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Constructor | AttributeTargets.Method | AttributeTargets.Property, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Constructor | AttributeTargets.Method | AttributeTargets.Property, AllowMultiple = true)]
     public sealed class Exception_Class_Interceptor : Attribute, IMethodInterceptor, ISyncRoot, IConstructorInterceptor, IPropertyInterceptor, ISimpleMethodInterceptor
     {
         [AssignMethod("ACoolIntMethod", true)]
@@ -76,13 +76,15 @@ namespace Cauldron.UnitTest.AssemblyValidation
             return 9;
         }
 
+        [Exception_Class_Interceptor]
+        [Exception_Class_Interceptor]
         public int ACoolIntMethod()
         {
             var ss = "Jkj";
             return Blabla(ss);
         }
 
-        //[Exception_Class_Interceptor2]
+        [Exception_Class_Interceptor2]
         public int ACoolIntMethod(int p)
         {
             return 3;
@@ -146,6 +148,11 @@ namespace Cauldron.UnitTest.AssemblyValidation
         {
         }
 
+        public bool Bla(Exception e)
+        {
+            return true;
+        }
+
         public async Task BTaskAsync()
         {
             try
@@ -169,9 +176,12 @@ namespace Cauldron.UnitTest.AssemblyValidation
             {
                 return DTaskAsync();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw;
+                if (Bla(e) & Bla(e))
+                    throw;
+
+                return Task.FromResult(new TestClass_One_Class());
             }
         }
 

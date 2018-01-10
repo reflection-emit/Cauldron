@@ -109,9 +109,15 @@ namespace Cauldron.Interception.Cecilator
         }
 
         public bool IsCtor => this.methodDefinition.Name == ".ctor";
+
+        public bool IsGenerated => this.methodDefinition.Name.IndexOf('<') >= 0 ||
+            this.methodDefinition.Name.IndexOf('>') >= 0 ||
+            this.type.typeDefinition.FullName.IndexOf('<') >= 0 ||
+            this.type.typeDefinition.FullName.IndexOf('>') >= 0;
+
         public bool IsInternal => this.methodDefinition.Attributes.HasFlag(MethodAttributes.Assembly);
         public bool IsPrivate => this.methodDefinition.IsPrivate;
-        public bool IsPropertyGetterSetter => (this.methodDefinition.Name == "get_" || this.methodDefinition.Name == "set_") && this.methodDefinition.IsSpecialName;
+        public bool IsPropertyGetterSetter => (this.methodDefinition.Name.StartsWith("get_") || this.methodDefinition.Name.StartsWith("set_")) && this.methodDefinition.IsSpecialName;
         public bool IsProtected => this.methodDefinition.Attributes.HasFlag(MethodAttributes.Family);
         public bool IsPublic => this.methodDefinition.IsPublic;
         public bool IsPublicOrInternal => this.IsPublic || this.IsInternal;

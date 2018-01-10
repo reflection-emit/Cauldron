@@ -73,11 +73,19 @@ namespace Cauldron.Interception.Cecilator
         }
 
         public bool IsAbstract => this.typeDefinition.Attributes.HasFlag(TypeAttributes.Abstract);
+
         public bool IsArray => this.typeDefinition != null && (this.typeDefinition.IsArray || this.typeReference.FullName.EndsWith("[]") || this.typeDefinition.FullName.EndsWith("[]"));
+
         public bool IsAsyncStateMachine => this.Implements("System.Runtime.CompilerServices.IAsyncStateMachine", false);
+
         public bool IsDelegate => this.typeDefinition.IsDelegate();
+
         public bool IsEnum => this.typeDefinition.IsEnum;
+
         public bool IsForeign => this.moduleDefinition.Assembly == this.typeDefinition.Module.Assembly;
+
+        public bool IsGenerated => this.typeDefinition.FullName.IndexOf('<') >= 0 || this.typeDefinition.FullName.IndexOf('>') >= 0;
+
         public bool IsGenericInstance => this.typeReference.IsGenericInstance;
         public bool IsGenericType => this.typeDefinition == null || this.typeReference.Resolve() == null;
         public bool IsInterface => this.typeDefinition == null ? false : this.typeDefinition.Attributes.HasFlag(TypeAttributes.Interface);

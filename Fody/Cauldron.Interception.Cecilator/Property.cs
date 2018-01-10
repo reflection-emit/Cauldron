@@ -38,7 +38,14 @@ namespace Cauldron.Interception.Cecilator
         public Method Getter { get; private set; }
 
         public bool IsAbstract => this.propertyDefinition.GetMethod?.IsAbstract ?? false | this.propertyDefinition.SetMethod?.IsAbstract ?? false;
+
         public bool IsAutoProperty => (this.propertyDefinition.GetMethod ?? this.propertyDefinition.SetMethod).CustomAttributes.Get("CompilerGeneratedAttribute") != null;
+
+        public bool IsGenerated => this.propertyDefinition.Name.IndexOf('<') >= 0 ||
+                            this.propertyDefinition.Name.IndexOf('>') >= 0 ||
+                            this.type.typeDefinition.FullName.IndexOf('<') >= 0 ||
+                            this.type.typeDefinition.FullName.IndexOf('>') >= 0;
+
         public bool IsInternal => GetAttributes().HasFlag(MethodAttributes.Assembly);
         public bool IsPrivate => GetAttributes().HasFlag(MethodAttributes.Private);
         public bool IsProtected => GetAttributes().HasFlag(MethodAttributes.Family);

@@ -64,7 +64,7 @@ namespace Cauldron.Interception
     /// }
     /// </code>
     /// </example>
-    public interface IMethodInterceptor : ISimpleMethodInterceptor
+    public interface IMethodInterceptor : IInterceptor
     {
         /// <summary>
         /// Invoked if an intercepted method has been called

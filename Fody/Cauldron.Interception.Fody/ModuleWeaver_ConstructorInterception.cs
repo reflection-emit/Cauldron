@@ -1,8 +1,6 @@
 ﻿using Cauldron.Interception.Cecilator;
 using Cauldron.Interception.Fody.HelperTypes;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 namespace Cauldron.Interception.Fody
@@ -91,14 +89,7 @@ namespace Cauldron.Interception.Fody
                         })
                         .Catch(exception.ToBuilderType, x =>
                         {
-                            for (int i = 0; i < constructor.Item.Length; i++)
-                            {
-                                x.Load(localVariables[i]).Call(constructor.Item[i].Interface.OnException, x.Exception);
-
-                                if (constructor.Item.Length - 1 < i)
-                                    x.Or();
-                            }
-
+                            x.Or(constructor.Item, (coder, y, i) => coder.Load(localVariables[i]).Call(y.Interface.OnException, x.Exception));
                             x.IsTrue().Then(y => x.Rethrow());
                             x.ReturnDefault();
                         })

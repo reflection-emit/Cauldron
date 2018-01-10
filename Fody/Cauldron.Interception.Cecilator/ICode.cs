@@ -1,10 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace Cauldron.Interception.Cecilator
 {
     public interface ICode : IAction
     {
+        ICode And();
+
+        ICode And<T>(T[] collection, Func<ICode, T, int, ICode> code);
+
         ICode As(BuilderType type);
 
         IFieldCode Assign(Field field);
@@ -132,6 +137,8 @@ namespace Cauldron.Interception.Cecilator
         ICode NewObj(AttributedField attribute);
 
         ICode Or();
+
+        ICode Or<T>(T[] collection, Func<ICode, T, int, ICode> code);
 
         ICode OriginalBody();
 
