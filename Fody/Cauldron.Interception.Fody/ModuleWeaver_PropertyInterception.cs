@@ -78,7 +78,9 @@ namespace Cauldron.Interception.Fody
                     })
                     .Catch(typeof(Exception), x =>
                     {
-                        x.Or(legalGetterInterceptors, (coder, y, i) => coder.Load(legalGetterInterceptors[i].Attribute.Identification).Call(legalGetterInterceptors[i].InterfaceGetter.OnException, x.Exception));
+                        x.Or(legalGetterInterceptors, (coder, y, i) => coder.Load(interceptorFields[legalGetterInterceptors[i].Attribute.Identification])
+                            .As(legalGetterInterceptors[i].InterfaceGetter.ToBuilderType)
+                            .Call(legalGetterInterceptors[i].InterfaceGetter.OnException, x.Exception));
                         x.IsTrue().Then(y => x.Rethrow());
                         x.ReturnDefault();
                     })
@@ -134,7 +136,8 @@ namespace Cauldron.Interception.Fody
                         {
                             var item = legalInitInterceptors[i];
                             var field = interceptorFields[item.Attribute.Identification];
-                            x.Call(field, item.InterfaceInitializer.OnInitialize, propertyField, member.Property.BackingField);
+                            x.Load(field).As(item.InterfaceInitializer.ToBuilderType)
+                                .Call(item.InterfaceInitializer.OnInitialize, propertyField, member.Property.BackingField);
                         }
                     })
                     .Insert(InsertionPosition.Beginning);
@@ -211,7 +214,9 @@ namespace Cauldron.Interception.Fody
                     })
                     .Catch(typeof(Exception), x =>
                     {
-                        x.Or(legalSetterInterceptors, (coder, y, i) => coder.Load(legalSetterInterceptors[i].Attribute.Identification).Call(legalSetterInterceptors[i].InterfaceSetter.OnException, x.Exception));
+                        x.Or(legalSetterInterceptors, (coder, y, i) => coder.Load(interceptorFields[legalSetterInterceptors[i].Attribute.Identification])
+                            .As(legalSetterInterceptors[i].InterfaceSetter.ToBuilderType)
+                            .Call(legalSetterInterceptors[i].InterfaceSetter.OnException, x.Exception));
                         x.IsTrue().Then(y => x.Rethrow());
                         x.Return();
                     })

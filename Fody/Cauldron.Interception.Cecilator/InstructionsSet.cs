@@ -683,14 +683,15 @@ namespace Cauldron.Interception.Cecilator
 
         public ICode ReturnDefault()
         {
-            if (this.method.ReturnType.Fullname != "System.Void") // TODO
+            if (!this.method.IsVoid)
             {
                 var variable = this.GetOrCreateReturnVariable();
                 var defaultValue = this.method.ReturnType.DefaultValue;
-                var inst = this.AddParameter(this.processor, this.method.ReturnType.typeReference, defaultValue);
+                var inst = this.AddParameter(this.processor,
+                    this.method.ReturnType.GenericArguments().Any() ?
+                        this.method.ReturnType.GetGenericArgument(0).typeReference :
+                        this.method.ReturnType.typeReference, defaultValue);
 
-                if (defaultValue is Crumb)
-                    this.instructions.Append(this.processor.Create(OpCodes.Ldloca, variable));
                 this.instructions.Append(inst.Instructions);
             }
 
@@ -913,10 +914,14 @@ namespace Cauldron.Interception.Cecilator
                         break;
 
                     case CrumbTypes.InitObj:
-                        result.Instructions.Add(processor.Create(OpCodes.Initobj, this.method.ReturnType.typeReference));
-                        result.Type = this.method.ReturnType.typeReference;
-                        break;
-
+                        {
+                            var variable = this.CreateVariable(crumb.TypeReference);
+                            result.Instructions.Add(processor.Create(OpCodes.Ldloca, variable.variable));
+                            result.Instructions.Add(processor.Create(OpCodes.Initobj, crumb.TypeReference));
+                            result.Instructions.Add(processor.Create(OpCodes.Ldloc, variable.variable));
+                            result.Type = crumb.TypeReference;
+                            break;
+                        }
                     case CrumbTypes.DefaultTask:
                         {
                             var taskType = this.method.type.Builder.GetType("System.Threading.Tasks.Task");
@@ -932,11 +937,11 @@ namespace Cauldron.Interception.Cecilator
                         {
                             var returnType = this.method.ReturnType.GetGenericArgument(0);
                             var taskType = this.method.type.Builder.GetType("System.Threading.Tasks.Task");
-                            var resultFrom = taskType.GetMethod("FromResult", 1, true).MakeGeneric(returnType.typeReference);
+                            var resultFrom = taskType.GetMethod("FromResult", 1, true).MakeGeneric(returnType);
                             var code = this.NewCode().Call(resultFrom, returnType.DefaultValue);
 
                             result.Instructions.AddRange((code as InstructionsSet).instructions);
-                            result.Type = this.method.ReturnType.typeReference;
+                            result.Type = returnType.typeReference;
                             break;
                         }
 
@@ -1028,7 +1033,7 @@ namespace Cauldron.Interception.Cecilator
         internal void CastOrBoxValues(ILProcessor processor, TypeReference targetType, ParamResult result, TypeDefinition targetDef)
         {
             // TODO - adds additional checks for not resolved generics
-            if (targetDef == null) /* This happens if the target type is a generic */
+            if (targetDef == null && result.Type.Resolve() != null) /* This happens if the target type is a generic */
                 result.Instructions.Add(processor.Create(OpCodes.Unbox_Any, targetType));
             else if ((targetDef.FullName == typeof(string).FullName || result.Type.FullName == typeof(object).FullName || targetDef.IsInterface) && !targetType.IsValueType && !targetType.IsArray && !targetDef.FullName.StartsWith("System.Collections.Generic.IEnumerable`1"))
                 result.Instructions.Add(processor.Create(OpCodes.Isinst, this.moduleDefinition.ImportReference(targetType)));
@@ -1441,31 +1446,22 @@ namespace Cauldron.Interception.Cecilator
                 if (parameters != null)
                     for (int i = 0; i < parameters.Length; i++)
                     {
-                        try
-                        {
-                            var parameterType = method.methodDefinition.Parameters[i].ParameterType.IsGenericInstance || method.methodDefinition.Parameters[i].ParameterType.IsGenericParameter ?
-                                method.methodDefinition.Parameters[i].ParameterType.ResolveType(method.OriginType.typeReference, method.methodReference) :
-                                method.methodDefinition.Parameters[i].ParameterType;
+                        var parameterType = method.methodDefinition.Parameters[i].ParameterType.IsGenericInstance || method.methodDefinition.Parameters[i].ParameterType.IsGenericParameter ?
+                            method.methodDefinition.Parameters[i].ParameterType.ResolveType(method.OriginType.typeReference, method.methodReference) :
+                            method.methodDefinition.Parameters[i].ParameterType;
 
-                            var inst = this.AddParameter(this.processor, this.moduleDefinition.ImportReference(parameterType), parameters[i]);
-                            this.instructions.Append(inst.Instructions);
-                        }
-                        catch (TypeResolveException)
-                        {
-                            var inst = this.AddParameter(this.processor, method.methodDefinition.Parameters[i].ParameterType, parameters[i]);
-                            this.instructions.Append(inst.Instructions);
-                        }
+                        var inst = this.AddParameter(this.processor, this.moduleDefinition.ImportReference(parameterType), parameters[i]);
+                        this.instructions.Append(inst.Instructions);
                     }
             }
 
-            // Cecil throws a NullReferenceException on methods will unresolved generics... In thoses cases we import the definition.
             try
             {
                 this.instructions.Append(processor.Create(opcode, this.moduleDefinition.ImportReference(method.methodReference)));
             }
             catch (NullReferenceException)
             {
-                this.instructions.Append(processor.Create(opcode, this.moduleDefinition.ImportReference(method.methodDefinition)));
+                this.instructions.Append(processor.Create(opcode, this.moduleDefinition.ImportReference(method.methodReference, this.method.methodReference)));
             }
 
             if (!method.IsVoid)

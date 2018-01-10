@@ -244,7 +244,21 @@ namespace Cauldron.Interception.Cecilator
                  .Any(x => x.Operand == method.methodReference);
         }
 
-        public Method Import() => new Method(this.type, this.moduleDefinition.ImportReference(this.methodReference), this.methodDefinition);
+        public Method Import()
+        {
+            MethodReference result = null;
+
+            try
+            {
+                result = this.moduleDefinition.ImportReference(this.methodReference);
+            }
+            catch (NullReferenceException)
+            {
+                result = this.moduleDefinition.ImportReference(this.methodReference, this.type.typeReference);
+            }
+
+            return new Method(this.type, result, this.methodDefinition);
+        }
 
         public Method MakeGeneric(params Type[] types)
         {
@@ -252,11 +266,6 @@ namespace Cauldron.Interception.Cecilator
                 return new Method(this.type.Builder, this.methodDefinition.MakeHostInstanceGeneric(types.Select(x => this.moduleDefinition.ImportReference(x)).ToArray()), this.methodDefinition);
             else
                 return new Method(this.type.Builder, this.methodDefinition.MakeGeneric(null, types.Select(x => this.moduleDefinition.ImportReference(x)).ToArray()), this.methodDefinition);
-        }
-
-        public Method MakeGeneric(params TypeReference[] types)
-        {
-            return new Method(this.type.Builder, this.methodDefinition.MakeGeneric(null, types), this.methodDefinition);
         }
 
         public Method MakeGeneric(params BuilderType[] types)

@@ -94,7 +94,7 @@ namespace Cauldron.Interception.Cecilator
         {
             get
             {
-                var type = this.Getter?.ReturnType.typeReference ?? this.propertyDefinition.PropertyType;
+                var type = this.Getter?.methodReference.ReturnType ?? this.propertyDefinition.PropertyType;
 
                 if ((type.HasGenericParameters && !type.IsGenericInstance) || type.Resolve() == null)
                     return new BuilderType(this.type, type.ResolveType(this.type.typeReference));
