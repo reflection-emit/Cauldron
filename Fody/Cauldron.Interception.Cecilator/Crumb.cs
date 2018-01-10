@@ -47,5 +47,7 @@ namespace Cauldron.Interception.Cecilator
         internal static Crumb DefaultOfStruct(TypeReference typeReference) => new Crumb { TypeReference = typeReference, CrumbType = CrumbTypes.InitObj };
 
         internal static Crumb DefaultOfTask(TypeReference typeReference) => new Crumb { TypeReference = typeReference, CrumbType = CrumbTypes.DefaultTask };
+
+        internal static Crumb DefaultTaskOfT(TypeReference typeReference) => new Crumb { TypeReference = typeReference, CrumbType = CrumbTypes.DefaultTaskOfT };
     }
 }

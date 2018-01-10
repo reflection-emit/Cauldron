@@ -70,9 +70,7 @@ namespace Win32_Fody_Assembly_Validation_Tests
         {
         }
 
-        public void OnException(Exception e)
-        {
-        }
+        public bool OnException(Exception e) => true;
 
         public void OnExit()
         {
@@ -92,9 +90,7 @@ namespace Win32_Fody_Assembly_Validation_Tests
                 test.Title = "Yes";
         }
 
-        public void OnException(Exception e)
-        {
-        }
+        public bool OnException(Exception e) => true;
 
         public void OnExit()
         {

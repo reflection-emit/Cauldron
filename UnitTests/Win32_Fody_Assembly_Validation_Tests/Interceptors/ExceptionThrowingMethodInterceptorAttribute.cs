@@ -12,9 +12,7 @@ namespace Win32_Fody_Assembly_Validation_Tests
             throw new Exception();
         }
 
-        public void OnException(Exception e)
-        {
-        }
+        public bool OnException(Exception e) => true;
 
         public void OnExit()
         {

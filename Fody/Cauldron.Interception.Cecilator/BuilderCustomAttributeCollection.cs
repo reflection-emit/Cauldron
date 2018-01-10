@@ -197,7 +197,12 @@ namespace Cauldron.Interception.Cecilator
             if (attributeTarget != null)
             {
                 Enum.TryParse(attributeTarget.ConstructorArguments[0].Value?.ToString(), out attributeTargets);
-                allowMultiple = (bool)attributeTarget.Properties.First(x => x.Name == "AllowMultiple").Argument.Value;
+                for (int i = 0; i < attributeTarget.Properties.Count; i++)
+                    if (attributeTarget.Properties[i].Name == "AllowMultiple")
+                    {
+                        allowMultiple = (bool)attributeTarget.Properties[i].Argument.Value;
+                        break;
+                    }
             }
 
             bool DonotApply(AttributeTargets target)

@@ -928,6 +928,18 @@ namespace Cauldron.Interception.Cecilator
                             break;
                         }
 
+                    case CrumbTypes.DefaultTaskOfT:
+                        {
+                            var returnType = this.method.ReturnType.GetGenericArgument(0);
+                            var taskType = this.method.type.Builder.GetType("System.Threading.Tasks.Task");
+                            var resultFrom = taskType.GetMethod("FromResult", 1, true).MakeGeneric(returnType.typeReference);
+                            var code = this.NewCode().Call(resultFrom, returnType.DefaultValue);
+
+                            result.Instructions.AddRange((code as InstructionsSet).instructions);
+                            result.Type = this.method.ReturnType.typeReference;
+                            break;
+                        }
+
                     default:
                         throw new NotImplementedException();
                 }
@@ -1429,16 +1441,32 @@ namespace Cauldron.Interception.Cecilator
                 if (parameters != null)
                     for (int i = 0; i < parameters.Length; i++)
                     {
-                        var parameterType = method.methodDefinition.Parameters[i].ParameterType.IsGenericInstance || method.methodDefinition.Parameters[i].ParameterType.IsGenericParameter ?
-                            method.methodDefinition.Parameters[i].ParameterType.ResolveType(method.OriginType.typeReference, method.methodReference) :
-                            method.methodDefinition.Parameters[i].ParameterType;
+                        try
+                        {
+                            var parameterType = method.methodDefinition.Parameters[i].ParameterType.IsGenericInstance || method.methodDefinition.Parameters[i].ParameterType.IsGenericParameter ?
+                                method.methodDefinition.Parameters[i].ParameterType.ResolveType(method.OriginType.typeReference, method.methodReference) :
+                                method.methodDefinition.Parameters[i].ParameterType;
 
-                        var inst = this.AddParameter(this.processor, this.moduleDefinition.ImportReference(parameterType), parameters[i]);
-                        this.instructions.Append(inst.Instructions);
+                            var inst = this.AddParameter(this.processor, this.moduleDefinition.ImportReference(parameterType), parameters[i]);
+                            this.instructions.Append(inst.Instructions);
+                        }
+                        catch (TypeResolveException)
+                        {
+                            var inst = this.AddParameter(this.processor, method.methodDefinition.Parameters[i].ParameterType, parameters[i]);
+                            this.instructions.Append(inst.Instructions);
+                        }
                     }
             }
 
-            this.instructions.Append(processor.Create(opcode, this.moduleDefinition.ImportReference(method.methodReference)));
+            // Cecil throws a NullReferenceException on methods will unresolved generics... In thoses cases we import the definition.
+            try
+            {
+                this.instructions.Append(processor.Create(opcode, this.moduleDefinition.ImportReference(method.methodReference)));
+            }
+            catch (NullReferenceException)
+            {
+                this.instructions.Append(processor.Create(opcode, this.moduleDefinition.ImportReference(method.methodDefinition)));
+            }
 
             if (!method.IsVoid)
                 this.StoreCall();

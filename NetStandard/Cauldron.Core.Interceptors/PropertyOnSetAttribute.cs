@@ -42,9 +42,7 @@ namespace Cauldron.Core.Interceptors
         public Action<object, object> onPropertySetParametered;
 
         /// <exclude/>
-        public void OnException(Exception e)
-        {
-        }
+        public bool OnException(Exception e) => true;
 
         /// <exclude/>
         public void OnExit()

@@ -504,9 +504,7 @@ namespace Win32_Fody_Assembly_Validation_Tests
         {
         }
 
-        public void OnException(Exception e)
-        {
-        }
+        public bool OnException(Exception e) => true;
 
         public void OnExit()
         {
@@ -529,9 +527,7 @@ namespace Win32_Fody_Assembly_Validation_Tests
         {
         }
 
-        public void OnException(Exception e)
-        {
-        }
+        public bool OnException(Exception e) => true;
 
         public void OnExit()
         {
@@ -555,9 +551,7 @@ namespace Win32_Fody_Assembly_Validation_Tests
             action?.Invoke();
         }
 
-        public void OnException(Exception e)
-        {
-        }
+        public bool OnException(Exception e) => true;
 
         public void OnExit()
         {
@@ -574,9 +568,7 @@ namespace Win32_Fody_Assembly_Validation_Tests
         {
         }
 
-        public void OnException(Exception e)
-        {
-        }
+        public bool OnException(Exception e) => true;
 
         public void OnExit()
         {
@@ -600,9 +592,7 @@ namespace Win32_Fody_Assembly_Validation_Tests
         [AssignMethod("On{Name}", true)]
         public Action action = null;
 
-        public void OnException(Exception e)
-        {
-        }
+        public bool OnException(Exception e) => true;
 
         public void OnExit()
         {
@@ -626,9 +616,7 @@ namespace Win32_Fody_Assembly_Validation_Tests
         [AssignMethod("On{Name}Set")]
         public Action<string> action = null;
 
-        public void OnException(Exception e)
-        {
-        }
+        public bool OnException(Exception e) => true;
 
         public void OnExit()
         {
@@ -652,9 +640,7 @@ namespace Win32_Fody_Assembly_Validation_Tests
             action?.Invoke(methodbase.Name, instance, values);
         }
 
-        public void OnException(Exception e)
-        {
-        }
+        public bool OnException(Exception e) => true;
 
         public void OnExit()
         {
@@ -672,9 +658,7 @@ namespace Win32_Fody_Assembly_Validation_Tests
             action?.Invoke();
         }
 
-        public void OnException(Exception e)
-        {
-        }
+        public bool OnException(Exception e) => true;
 
         public void OnExit()
         {

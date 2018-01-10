@@ -78,7 +78,7 @@ namespace Cauldron.Interception.Cecilator
         public override string Identification => $"{this.methodDefinition.DeclaringType.Name}-{this.methodDefinition.Name}-{this.methodDefinition.DeclaringType.MetadataToken.RID}-{this.methodDefinition.MetadataToken.RID}";
 
         public bool IsAbstract => this.methodDefinition.IsAbstract;
-        public bool IsAsync => this.methodDefinition.ReturnType.FullName.EqualsEx("System.Threading.Tasks.Task") || this.methodDefinition.ReturnType.Resolve().FullName.EqualsEx("System.Threading.Tasks.Task`1");
+        public bool IsAsync => this.methodDefinition.ReturnType.FullName.EqualsEx("System.Threading.Tasks.Task") || (this.methodDefinition.ReturnType.Resolve()?.FullName.EqualsEx("System.Threading.Tasks.Task`1") ?? false);
         public bool IsCCtor => this.methodDefinition.Name == ".cctor";
 
         /// <summary>
@@ -193,7 +193,10 @@ namespace Cauldron.Interception.Cecilator
 
         public VariableDefinition GetLocalVariable(string name)
         {
-            var variableIndex = this.methodDefinition.DebugInformation.Scope.Variables.FirstOrDefault(x => x.Name == name)?.Index;
+            if (this.methodDefinition.DebugInformation.Scope == null)
+                this.methodDefinition.DebugInformation.Scope = new ScopeDebugInformation(this.methodDefinition.Body.Instructions.First(), this.methodDefinition.Body.Instructions.Last());
+
+            var variableIndex = this.methodDefinition.DebugInformation.Scope.Variables?.FirstOrDefault(x => x.Name == name)?.Index;
 
             if (variableIndex.HasValue)
                 return this.methodDefinition.Body.Variables[variableIndex.Value];
@@ -249,6 +252,11 @@ namespace Cauldron.Interception.Cecilator
                 return new Method(this.type.Builder, this.methodDefinition.MakeHostInstanceGeneric(types.Select(x => this.moduleDefinition.ImportReference(x)).ToArray()), this.methodDefinition);
             else
                 return new Method(this.type.Builder, this.methodDefinition.MakeGeneric(null, types.Select(x => this.moduleDefinition.ImportReference(x)).ToArray()), this.methodDefinition);
+        }
+
+        public Method MakeGeneric(params TypeReference[] types)
+        {
+            return new Method(this.type.Builder, this.methodDefinition.MakeGeneric(null, types), this.methodDefinition);
         }
 
         public Method MakeGeneric(params BuilderType[] types)

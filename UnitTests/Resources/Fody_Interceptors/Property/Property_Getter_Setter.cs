@@ -8,9 +8,10 @@ namespace Cauldron.UnitTest.Interceptors.Property
     {
         private IProperty_Interceptor_Invoke instance;
 
-        public void OnException(Exception e)
+        public bool OnException(Exception e)
         {
             this.instance?.OnException(e);
+            return true;
         }
 
         public void OnExit()

@@ -35,7 +35,7 @@ namespace Cauldron.Interception.Fody
                     if (!targetedConstrutor.IsCtor && !targetedConstrutor.IsCCtor)
                         continue;
 
-                    this.Log($"Implementing constructors in method {constructor.Key.Method}");
+                    this.Log($"Implementing constructors interceptors: {constructor.Key.Method.DeclaringType.Name.PadRight(40, ' ')} {constructor.Key.Method.Name}({string.Join(", ", constructor.Key.Method.Parameters.Select(x => x.Name))})");
 
                     if (constructor.RequiresSyncRootField)
                         this.Log(LogTypes.Warning, targetedConstrutor, $"An interceptor applied to the constructor has implemented ISyncRoot. This is not supported. The interceptor may not work correctly.");

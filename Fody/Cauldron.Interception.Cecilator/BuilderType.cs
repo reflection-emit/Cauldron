@@ -47,11 +47,17 @@ namespace Cauldron.Interception.Cecilator
                     case "System.IntPtr": return default(IntPtr);
                 }
 
+                if (this.typeDefinition == null /* This is probably a generic parameter */)
+                    return Crumb.DefaultOfStruct(this.typeReference);
+
                 if (this.typeDefinition.IsValueType)
                     return Crumb.DefaultOfStruct(this.typeReference);
 
                 if (this.typeDefinition.FullName == "System.Threading.Tasks.Task")
                     return Crumb.DefaultOfTask(this.typeReference);
+
+                if (this.typeDefinition.FullName == "System.Threading.Tasks.Task`1")
+                    return Crumb.DefaultTaskOfT(this.typeReference);
 
                 return null;
             }
@@ -98,7 +104,7 @@ namespace Cauldron.Interception.Cecilator
         public bool IsStatic => this.IsAbstract && this.IsSealed;
         public bool IsValueType => this.typeDefinition == null ? this.typeReference == null ? false : this.typeReference.IsValueType : this.typeDefinition.IsValueType;
         public bool IsVoid => this.typeDefinition.FullName == "System.Void";
-        public string Name => this.typeDefinition.Name;
+        public string Name => this.typeDefinition == null ? this.typeReference.Name : this.typeDefinition.Name;
         public string Namespace => this.typeDefinition.Namespace;
 
         public IEnumerable<BuilderType> GenericArguments()
@@ -548,8 +554,12 @@ namespace Cauldron.Interception.Cecilator
                 }
 
                 this.typeDefinition.Methods.Add(method);
+                var result = new Method(this, method);
 
-                return new Method(this, method);
+                if (!attributes.HasFlag(MethodAttributes.Abstract))
+                    result.NewCode().ThrowNew(typeof(NotImplementedException), "Not implemented").Replace();
+
+                return result;
             }
             catch (NullReferenceException e)
             {
@@ -587,7 +597,12 @@ namespace Cauldron.Interception.Cecilator
 
             this.typeDefinition.Methods.Add(method);
 
-            return new Method(this, method);
+            var result = new Method(this, method);
+
+            if (!attributes.HasFlag(MethodAttributes.Abstract))
+                result.NewCode().ThrowNew(typeof(NotImplementedException), "Not implemented").Replace();
+
+            return result;
         }
 
         public Method GetMethod(string name, bool throwException = true)

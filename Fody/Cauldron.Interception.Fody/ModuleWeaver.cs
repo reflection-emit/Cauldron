@@ -519,7 +519,7 @@ namespace Cauldron.Interception.Fody
 
                 foreach (var field in fields)
                 {
-                    this.Log($"Implementing interceptors in fields {field.Key}");
+                    this.Log($"Implementing field interceptors: {field.Key.DeclaringType.Name.PadRight(40, ' ')} {field.Key.Name}");
 
                     if (!field.Key.Modifiers.HasFlag(Modifiers.Private))
                     {

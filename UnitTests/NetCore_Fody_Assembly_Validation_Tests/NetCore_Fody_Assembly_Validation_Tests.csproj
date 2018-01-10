@@ -32,13 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Comparing\Cauldron.Core.Comparing.csproj" />
-    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Diagnostics\Cauldron.Core.Diagnostics.csproj" />
-    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Randomizer\Cauldron.Core.Randomizer.csproj" />
-    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Reflection\Cauldron.Core.Reflection.csproj" />
-    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Threading\Cauldron.Core.Threading.csproj" />
     <ProjectReference Include="..\..\NetStandard\Cauldron.Interception\Cauldron.Interception.csproj" />
-    <ProjectReference Include="..\..\Win32\Cauldron.Win32.UserInformation\Cauldron.Win32.UserInformation.csproj" />
     <ProjectReference Include="..\Resources\Fody_Assembly_Validation_External_Resources\Fody_Assembly_Validation_External_Resources.csproj" />
     <ProjectReference Include="..\Resources\NetCore_Fody_Interceptors\NetCore_Fody_Interceptors.csproj" />
   </ItemGroup>

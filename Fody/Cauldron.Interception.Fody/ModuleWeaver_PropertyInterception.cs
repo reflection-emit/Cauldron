@@ -211,7 +211,7 @@ namespace Cauldron.Interception.Fody
                     })
                     .Catch(typeof(Exception), x =>
                     {
-                        x.Or(legalSetterInterceptors, (coder, y, i) => coder.Load(legalSetterInterceptors[i].Attribute.Identification).Call(legalSetterInterceptors[i].InterfaceGetter.OnException, x.Exception));
+                        x.Or(legalSetterInterceptors, (coder, y, i) => coder.Load(legalSetterInterceptors[i].Attribute.Identification).Call(legalSetterInterceptors[i].InterfaceSetter.OnException, x.Exception));
                         x.IsTrue().Then(y => x.Rethrow());
                         x.Return();
                     })
@@ -380,7 +380,7 @@ namespace Cauldron.Interception.Fody
 
                 foreach (var member in properties)
                 {
-                    this.Log($"Implementing interceptors in property {member.Property}");
+                    this.Log($"Implementing property interceptors: {member.Property.DeclaringType.Name.PadRight(40, ' ')} {member.Property.Name} {member.Property.ReturnType.Name}");
 
                     if (!member.HasGetterInterception && !member.HasSetterInterception && !member.HasInitializer)
                         continue;

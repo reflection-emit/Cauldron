@@ -1,5 +1,4 @@
-﻿using Cauldron.Core;
-using Cauldron.Interception;
+﻿using Cauldron.Interception;
 using System;
 
 namespace Win32_Fody_Assembly_Validation_Tests
@@ -7,9 +6,7 @@ namespace Win32_Fody_Assembly_Validation_Tests
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = false)]
     public class EnumPropertyInterceptorAttribute : Attribute, IPropertyGetterInterceptor, IPropertySetterInterceptor
     {
-        public void OnException(Exception e)
-        {
-        }
+        public bool OnException(Exception e) => true;
 
         public void OnExit()
         {
@@ -29,7 +26,7 @@ namespace Win32_Fody_Assembly_Validation_Tests
 
         public bool OnSet(PropertyInterceptionInfo propertyInterceptionInfo, object oldValue, object newValue)
         {
-            if (Comparer.Equals(oldValue, newValue))
+            if (oldValue == newValue)
                 throw new Exception("");
 
             return false;

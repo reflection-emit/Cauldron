@@ -17,9 +17,10 @@ namespace Cauldron.UnitTest.Interceptors.Method
             this.instance?.OnEnter(methodbase.Name);
         }
 
-        public void OnException(Exception e)
+        public bool OnException(Exception e)
         {
             this.instance?.OnException(e);
+            return true;
         }
 
         public void OnExit()

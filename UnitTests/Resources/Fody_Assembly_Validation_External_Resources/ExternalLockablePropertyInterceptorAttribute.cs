@@ -7,9 +7,7 @@ namespace Fody_Assembly_Validation_External_Resources
     {
         public object SyncRoot { get; set; }
 
-        public void OnException(Exception e)
-        {
-        }
+        public bool OnException(Exception e) => true;
 
         public void OnExit()
         {

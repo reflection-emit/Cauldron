@@ -1,7 +1,4 @@
-﻿using Cauldron;
-using Cauldron.Core;
-using Cauldron.Core.Diagnostics;
-using Fody_Assembly_Validation_External_Resources;
+﻿using Fody_Assembly_Validation_External_Resources;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Threading.Tasks;
@@ -14,8 +11,7 @@ namespace Win32_Fody_Assembly_Validation_Tests
         [ExternalLockableMethod]
         public static void Static_Lockable_Method_()
         {
-            var uu = Randomizer.GenerateLoremIpsum(4, 8);
-            System.Diagnostics.Debug.WriteLine(uu);
+            System.Diagnostics.Debug.WriteLine("Any Text");
         }
 
         [TestMethod]
@@ -25,7 +21,7 @@ namespace Win32_Fody_Assembly_Validation_Tests
 
             try
             {
-                Method_1_Async().RunSync();
+                var t = Method_1_Async().Result;
             }
             catch (Exception e)
             {
@@ -92,8 +88,7 @@ namespace Win32_Fody_Assembly_Validation_Tests
             // If the unit test was successfully invoked, then we are sure that our weaver weaved the
             // whole thing correctly
 
-            var uu = Randomizer.GenerateLoremIpsum(4, 6);
-            System.Diagnostics.Debug.WriteLine(uu);
+            System.Diagnostics.Debug.WriteLine("Any Text");
         }
 
         [TestMethodInterceptor]
@@ -144,7 +139,7 @@ namespace Win32_Fody_Assembly_Validation_Tests
         {
             var test = "asdf";
             // TODO - Test does not preform correct tests
-            switch (UserInformation.UserName.GetHashCode())
+            switch ((new Random()).Next(int.MinValue, int.MaxValue))
             {
                 case 55:
                 case 1:
@@ -192,11 +187,11 @@ namespace Win32_Fody_Assembly_Validation_Tests
         [TestMethod]
         public void ValueType_Method_With_Multiple_Returns_Async()
         {
-            Assert.AreEqual(200, this.ValueType_Method_With_Multiple_Returns_Async_(0).RunSync());
-            Assert.AreEqual(-812209447, this.ValueType_Method_With_Multiple_Returns_Async_(1).RunSync());
-            Assert.AreEqual(99, this.ValueType_Method_With_Multiple_Returns_Async_(5).RunSync());
-            Assert.AreEqual(2429, this.ValueType_Method_With_Multiple_Returns_Async_(2).RunSync());
-            Assert.AreEqual(45, this.ValueType_Method_With_Multiple_Returns_Async_(1154).RunSync());
+            Assert.AreEqual(200, this.ValueType_Method_With_Multiple_Returns_Async_(0).Result);
+            Assert.AreEqual(-812209447, this.ValueType_Method_With_Multiple_Returns_Async_(1).Result);
+            Assert.AreEqual(99, this.ValueType_Method_With_Multiple_Returns_Async_(5).Result);
+            Assert.AreEqual(2429, this.ValueType_Method_With_Multiple_Returns_Async_(2).Result);
+            Assert.AreEqual(45, this.ValueType_Method_With_Multiple_Returns_Async_(1154).Result);
         }
 
         [TestMethod]
@@ -217,14 +212,14 @@ namespace Win32_Fody_Assembly_Validation_Tests
         [TestMethod]
         public void Void_Method_With_Multiple_Returns()
         {
-            var username = UserInformation.UserName;
+            var username = "bla";
 
             if (username == "batman")
                 return;
 
             if (username == "catwoman")
             {
-                var t = Debug.HardwareIdentifier;
+                var t = "hushfsdif sdifg uiaf";
                 username = t;
                 return;
             }
@@ -237,8 +232,7 @@ namespace Win32_Fody_Assembly_Validation_Tests
                     return;
                 }
 
-                var uu = Randomizer.GenerateLoremIpsum(4, 7);
-                System.Diagnostics.Debug.WriteLine(uu);
+                System.Diagnostics.Debug.WriteLine(username + "hhjk");
             }
 
             // If the unit test was successfully invoked, then we are sure that our weaver weaved the
@@ -252,14 +246,14 @@ namespace Win32_Fody_Assembly_Validation_Tests
         {
             var action = new Action(() =>
             {
-                var username = UserInformation.UserName;
+                var username = "kjhk";
 
                 if (username == "batman")
                     return;
 
                 if (username == "catwoman")
                 {
-                    var t = Debug.HardwareIdentifier;
+                    var t = "nkjsdfghf sds fuk";
                     username = t;
                     return;
                 }
@@ -272,8 +266,7 @@ namespace Win32_Fody_Assembly_Validation_Tests
                         return;
                     }
 
-                    var uu = Randomizer.GenerateLoremIpsum(4, 7);
-                    System.Diagnostics.Debug.WriteLine(uu);
+                    System.Diagnostics.Debug.WriteLine(username);
                 }
             });
 
@@ -290,14 +283,14 @@ namespace Win32_Fody_Assembly_Validation_Tests
         {
             var action = new Action(() =>
             {
-                var username = UserInformation.UserName;
+                var username = "bljhfdusfh isd";
 
                 if (username == "batman")
                     return;
 
                 if (username == "catwoman")
                 {
-                    var t = Debug.HardwareIdentifier;
+                    var t = "bljhdf  ";
                     username = t;
                     return;
                 }
@@ -310,8 +303,7 @@ namespace Win32_Fody_Assembly_Validation_Tests
                         return;
                     }
 
-                    var uu = Randomizer.GenerateLoremIpsum(4, 7);
-                    System.Diagnostics.Debug.WriteLine(uu);
+                    System.Diagnostics.Debug.WriteLine(username);
                 }
             });
 
@@ -328,14 +320,14 @@ namespace Win32_Fody_Assembly_Validation_Tests
         {
             try
             {
-                var username = UserInformation.UserName;
+                var username = "zudfgs fds ";
 
                 if (username == "batman")
                     return;
 
                 if (username == "catwoman")
                 {
-                    var t = Debug.HardwareIdentifier;
+                    var t = "iudfh i";
                     username = t;
                     return;
                 }
@@ -348,13 +340,13 @@ namespace Win32_Fody_Assembly_Validation_Tests
                         return;
                     }
 
-                    var uu = Randomizer.GenerateLoremIpsum(4, 6);
+                    var uu = username;
                     System.Diagnostics.Debug.WriteLine(uu);
                 }
             }
             catch (Exception)
             {
-                var uu = Randomizer.GenerateLoremIpsum(4, 6);
+                var uu = "kjfhl ri";
                 System.Diagnostics.Debug.WriteLine(uu);
                 throw;
             }
@@ -405,7 +397,7 @@ namespace Win32_Fody_Assembly_Validation_Tests
             }
             catch (Exception)
             {
-                var uu = Randomizer.GenerateLoremIpsum(4, 3);
+                var uu = "hdf h iu ";
                 System.Diagnostics.Debug.WriteLine(uu);
                 throw;
             }
@@ -460,10 +452,7 @@ namespace Win32_Fody_Assembly_Validation_Tests
 
         private async Task<bool> LongRunningTaskAsync()
         {
-            await Task.Run(() =>
-            {
-                Task.Delay(5000).RunSync();
-            });
+            await Task.Delay(5000);
             return true;
         }
 
@@ -533,7 +522,7 @@ namespace Win32_Fody_Assembly_Validation_Tests
             }
             catch (Exception)
             {
-                var uu = Randomizer.GenerateLoremIpsum(4, 3);
+                var uu = DateTime.Now.ToString();
                 System.Diagnostics.Debug.WriteLine(uu);
                 throw;
             }
