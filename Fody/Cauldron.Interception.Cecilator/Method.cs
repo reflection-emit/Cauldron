@@ -152,6 +152,9 @@ namespace Cauldron.Interception.Cecilator
 
         public VariableDefinition AddLocalVariable(string name, VariableDefinition variable)
         {
+            if (this.methodDefinition.DebugInformation.Scope == null)
+                this.methodDefinition.DebugInformation.Scope = new ScopeDebugInformation(this.methodDefinition.Body.Instructions.First(), this.methodDefinition.Body.Instructions.Last());
+
             if (this.methodDefinition.DebugInformation.Scope.Variables.Any(x => x.Name == name))
                 throw new ArgumentException($"The variable with the name '{name}' already exist in '{this.Name}'");
 

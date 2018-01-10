@@ -1734,6 +1734,26 @@ namespace Cauldron.Interception.Cecilator
                 if (instruction.Operand == tobeReplaced)
                     instruction.Operand = replacement;
             }
+
+            for (var i = 0; i < this.method.methodDefinition.Body.ExceptionHandlers.Count; i++)
+            {
+                var handler = this.method.methodDefinition.Body.ExceptionHandlers[i];
+
+                if (handler.FilterStart == tobeReplaced)
+                    handler.FilterStart = replacement;
+
+                if (handler.HandlerEnd == tobeReplaced)
+                    handler.HandlerEnd = replacement;
+
+                if (handler.HandlerStart == tobeReplaced)
+                    handler.HandlerStart = replacement;
+
+                if (handler.TryEnd == tobeReplaced)
+                    handler.TryEnd = replacement;
+
+                if (handler.TryStart == tobeReplaced)
+                    handler.TryStart = replacement;
+            }
         }
 
         #region Variable

@@ -43,7 +43,6 @@ namespace Cauldron.Interception.Cecilator
                     case "System.Byte": return default(byte);
                     case "System.Char": return default(char);
                     case "System.SByte": return default(sbyte);
-                    case "System.Decimal": return default(decimal);
                     case "System.IntPtr": return default(IntPtr);
                 }
 
