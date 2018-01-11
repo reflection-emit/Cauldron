@@ -14,6 +14,7 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Interception interceptor interception AOP Fody Cecil CIL ILWeaving</tags>
     <releaseNotes>
+      2018.01.11 - [B] ModuleMain entry point interceptor fixed. Waever throwed exception during weaving.
       2018.01.09 - [C] Getting rid of useless casts in created code.
       2018.01.09 - [B] MethodInterceptors in Async methods are now weaved correctly.
       2018.01.08 - [C] Interceptor OnException return type changed to bool to be able to create interceptors that swallow exceptions.

@@ -22,8 +22,10 @@ namespace Cauldron.Interception
     ///     {
     ///     }
     ///
-    ///     public void OnException(Exception e)
+    ///     public bool OnException(Exception e)
     ///     {
+    ///         // Returning false will swallow the exception
+    ///         return true;
     ///     }
     ///
     ///     public void OnExit()
@@ -57,8 +59,10 @@ namespace Cauldron.Interception
     ///     }
     ///     catch (Exception e)
     ///     {
-    ///	        constructorInterceptor.OnException(e);
-    ///	        throw;
+    ///	        if(constructorInterceptor.OnException(e))
+    ///	        {
+    ///	            throw;
+    ///	        }
     ///     }
     ///     finally
     ///     {
