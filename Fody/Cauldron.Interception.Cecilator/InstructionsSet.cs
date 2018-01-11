@@ -1325,37 +1325,40 @@ namespace Cauldron.Interception.Cecilator
                     if (instruction.OpCode != OpCodes.Ret)
                         continue;
 
-                    instruction.OpCode = this.IsInclosedInHandlers(instruction) ? OpCodes.Leave : OpCodes.Br;
-                    instruction.Operand = realReturn;
-
-                    if (this.method.methodDefinition.ReturnType.FullName == "System.Void" || this.method.methodDefinition.ReturnType.FullName == "System.Threading.Task")
-                        continue;
-
-                    if (resultJump)
+                    if (this.IsInclosedInHandlers(instruction))
                     {
-                        var returnVariable = this.GetOrCreateReturnVariable();
-                        var previousInstruction = instruction.Previous;
+                        instruction.OpCode = OpCodes.Leave;
+                        instruction.Operand = realReturn;
 
-                        if (previousInstruction != null && previousInstruction.IsLoadLocal())
+                        if (this.method.methodDefinition.ReturnType.FullName == "System.Void" || this.method.methodDefinition.ReturnType.FullName == "System.Threading.Task")
+                            continue;
+
+                        if (resultJump)
                         {
-                            if (
-                                (returnVariable.Index == 0 && previousInstruction.OpCode == OpCodes.Ldloc_0) ||
-                                (returnVariable.Index == 1 && previousInstruction.OpCode == OpCodes.Ldloc_1) ||
-                                (returnVariable.Index == 2 && previousInstruction.OpCode == OpCodes.Ldloc_2) ||
-                                (returnVariable.Index == 3 && previousInstruction.OpCode == OpCodes.Ldloc_3) ||
-                                (returnVariable == previousInstruction.Operand as VariableDefinition)
-                                )
+                            var returnVariable = this.GetOrCreateReturnVariable();
+                            var previousInstruction = instruction.Previous;
+
+                            if (previousInstruction != null && previousInstruction.IsLoadLocal())
                             {
-                                this.ReplaceJumps(previousInstruction, instruction);
+                                if (
+                                    (returnVariable.Index == 0 && previousInstruction.OpCode == OpCodes.Ldloc_0) ||
+                                    (returnVariable.Index == 1 && previousInstruction.OpCode == OpCodes.Ldloc_1) ||
+                                    (returnVariable.Index == 2 && previousInstruction.OpCode == OpCodes.Ldloc_2) ||
+                                    (returnVariable.Index == 3 && previousInstruction.OpCode == OpCodes.Ldloc_3) ||
+                                    (returnVariable == previousInstruction.Operand as VariableDefinition)
+                                    )
+                                {
+                                    this.ReplaceJumps(previousInstruction, instruction);
 
-                                // In this case also remove the redundant ldloc opcode
-                                i--;
-                                this.method.methodDefinition.Body.Instructions.Remove(previousInstruction);
-                                continue;
+                                    // In this case also remove the redundant ldloc opcode
+                                    i--;
+                                    this.method.methodDefinition.Body.Instructions.Remove(previousInstruction);
+                                    continue;
+                                }
                             }
-                        }
 
-                        this.processor.InsertBefore(instruction, this.processor.Create(OpCodes.Stloc, returnVariable));
+                            this.processor.InsertBefore(instruction, this.processor.Create(OpCodes.Stloc, returnVariable));
+                        }
                     }
                 }
             }

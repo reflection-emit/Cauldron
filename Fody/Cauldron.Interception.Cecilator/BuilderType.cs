@@ -285,7 +285,9 @@ namespace Cauldron.Interception.Cecilator
 
             this.typeDefinition.Methods.Add(method);
 
-            return new Method(this, method);
+            var result = new Method(this, method);
+            result.NewCode().Load(Crumb.This).Call(this.Builder.GetType(typeof(object)).Import().ParameterlessContructor.Import()).Return().Replace();
+            return result;
         }
 
         public Method CreateStaticConstructor()
@@ -301,7 +303,9 @@ namespace Cauldron.Interception.Cecilator
             processor.Append(processor.Create(OpCodes.Ret));
             this.typeDefinition.Methods.Add(method);
 
-            return new Method(this, method);
+            var result = new Method(this, method);
+            result.NewCode().Return().Replace();
+            return result;
         }
 
         /// <summary>
@@ -458,7 +462,7 @@ namespace Cauldron.Interception.Cecilator
 
         public Property CreateProperty(Field field, bool getterOnly = false)
         {
-            var name = $"{field.Name[0].ToString().ToUpper()}{field.Name.Substring(1)}Property";
+            var name = $"<{field.Name}>_fieldProperty";
 
             var contain = this.GetProperties().Get(name);
 

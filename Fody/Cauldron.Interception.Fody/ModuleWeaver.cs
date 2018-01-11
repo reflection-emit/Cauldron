@@ -469,7 +469,7 @@ namespace Cauldron.Interception.Fody
                         var anonymousTypeName = $"<>f__{interfaceToImplement.Name}_Cauldron_AnonymousType{counter++}";
                         this.Log($"- Creating new type: {type.Namespace}.{anonymousTypeName}");
 
-                        var newType = builder.CreateType("", TypeAttributes.Public | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit | TypeAttributes.Serializable, anonymousTypeName);
+                        var newType = builder.CreateType("", TypeAttributes.NotPublic | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit | TypeAttributes.Serializable, anonymousTypeName);
                         newType.AddInterface(interfaceToImplement);
 
                         // Implement the methods
@@ -483,15 +483,7 @@ namespace Cauldron.Interception.Fody
                             newType.CreateProperty(Modifiers.Public | Modifiers.Overrrides, property.ReturnType, property.Name);
 
                         // Create ctor
-                        newType.CreateConstructor()
-                            .NewCode()
-                            .Context(x =>
-                            {
-                                x.Load(Crumb.This).Call(builder.GetType(typeof(object)).Import().ParameterlessContructor.Import());
-                            })
-                            .Return()
-                            .Replace();
-
+                        newType.CreateConstructor();
                         newType.CustomAttributes.AddEditorBrowsableAttribute(EditorBrowsableState.Never);
 
                         createdTypes.Add(interfaceToImplement.Fullname, newType);

@@ -64,9 +64,7 @@ namespace Cauldron.Activator
         /// the exception.
         /// </summary>
         /// <param name="e">The exception information.</param>
-        public void OnException(Exception e)
-        {
-        }
+        public bool OnException(Exception e) => true;
 
         /// <summary>
         /// Invoked if the intercepted method has finished executing.
