@@ -371,47 +371,57 @@ namespace Cauldron.Interception.Fody
 
         private void ExecuteModuleAddition(Builder builder)
         {
-            var @string = builder.GetType(typeof(string));
-            var arrayType = @string.MakeArray();
-
-            // First find a type without namespace and with a static method called OnLoad
-            var onLoadMethods = builder.GetTypes(SearchContext.Module)
-                .Where(x => x.Namespace == null || x.Namespace == "")
-                .Select(x => x.GetMethod("OnLoad", false, arrayType))
-                .Where(x => x != null);
-
-            if (onLoadMethods.Count() > 1)
+            using (new StopwatchLog(this, "ModuleLoad"))
             {
-                this.Log(LogTypes.Error, onLoadMethods.FirstOrDefault(), "There is more than one 'static OnLoad(string[])' in the program.");
-                return;
+                var @string = builder.GetType(typeof(string));
+                var arrayType = @string.MakeArray();
+
+                // First find a type without namespace and with a static method called OnLoad
+                var onLoadMethods = builder.FindMethodsByName(SearchContext.Module_NoGenerated, "ModuleLoad", 1)
+                    .Where(x => x.IsStatic && x.ReturnType == "System.Void" && x.Parameters[0] == arrayType)
+                    .Where(x => x != null);
+
+                if (!onLoadMethods.Any())
+                    return;
+
+                if (onLoadMethods.Count() > 1)
+                {
+                    this.Log(LogTypes.Error, onLoadMethods.FirstOrDefault(), "There is more than one 'static ModuleLoad(string[])' in the program.");
+                    return;
+                }
+
+                var onLoadMethod = onLoadMethods.First();
+                var module = builder.GetType("<Module>", SearchContext.Module);
+
+                module.CreateStaticConstructor().NewCode().Context(x =>
+                {
+                    var indexer = 0;
+                    var array = x.CreateVariable(arrayType);
+                    x.Newarr(@string, builder.UnusedReference.Length + builder.ReferencedAssemblies.Length).StoreLocal(array);
+
+                    for (int i = 0; i < builder.UnusedReference.Length; i++)
+                    {
+                        var item = builder.UnusedReference[i]?.Filename;
+                        if (string.IsNullOrEmpty(item))
+                            continue;
+
+                        x.Load(array);
+                        x.StoreElement(@string, item, indexer++);
+                    }
+
+                    for (int i = 0; i < builder.ReferencedAssemblies.Length; i++)
+                    {
+                        var item = builder.ReferencedAssemblies[i]?.Name?.Name;
+                        if (string.IsNullOrEmpty(item))
+                            continue;
+
+                        x.Load(array);
+                        x.StoreElement(@string, item, indexer++);
+                    }
+
+                    x.Call(onLoadMethod, array);
+                }).Insert(InsertionPosition.End);
             }
-
-            var onLoadMethod = onLoadMethods.FirstOrDefault();
-            if (onLoadMethod == null)
-                return;
-
-            var module = builder.GetType("<Module>", SearchContext.Module);
-
-            module.CreateStaticConstructor().NewCode().Context(x =>
-            {
-                var indexer = 0;
-                var array = x.CreateVariable(arrayType);
-                x.Newarr(@string, builder.UnusedReference.Length + builder.ReferencedAssemblies.Length).StoreLocal(array);
-
-                for (int i = 0; i < builder.UnusedReference.Length; i++)
-                {
-                    x.Load(array);
-                    x.StoreElement(@string, builder.UnusedReference[i].Filename, indexer++);
-                }
-
-                for (int i = 0; i < builder.ReferencedAssemblies.Length; i++)
-                {
-                    x.Load(array);
-                    x.StoreElement(@string, builder.ReferencedAssemblies[i].Name.Name, indexer++);
-                }
-
-                x.Call(onLoadMethod, array);
-            }).Insert(InsertionPosition.End);
         }
 
         private TypeDefinition[] FilterAssemblyList(IEnumerable<AssemblyDefinition> assemblies) =>

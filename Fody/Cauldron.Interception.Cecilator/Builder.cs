@@ -396,8 +396,25 @@ namespace Cauldron.Interception.Cecilator
 
         internal IEnumerable<TypeReference> GetTypesInternal(SearchContext searchContext)
         {
-            var types = searchContext == SearchContext.Module ? (IEnumerable<TypeDefinition>)this.moduleDefinition.Types : this.allTypes.ToArray();
+            IEnumerable<TypeDefinition> types = null;
             var result = new ConcurrentBag<TypeReference>();
+
+            switch (searchContext)
+            {
+                case SearchContext.Module:
+                    types = this.moduleDefinition.Types;
+                    break;
+
+                case SearchContext.Module_NoGenerated:
+                    types = this.moduleDefinition.Types.Where(x =>
+                                x.FullName?.IndexOf('<') < 0 &&
+                                x.FullName?.IndexOf('>') < 0);
+                    break;
+
+                case SearchContext.AllReferencedModules:
+                    types = this.allTypes;
+                    break;
+            }
 
             Parallel.ForEach(types, type =>
             {

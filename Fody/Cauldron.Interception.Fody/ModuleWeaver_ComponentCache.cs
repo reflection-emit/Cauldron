@@ -195,7 +195,6 @@ namespace Cauldron.Interception.Fody
                     }
                 }
 
-                componentType.CustomAttributes.AddEditorBrowsableAttribute(EditorBrowsableState.Never);
                 // Also remove the component attribute
                 component.Attribute.Remove();
             }
@@ -237,8 +236,6 @@ namespace Cauldron.Interception.Fody
             var cauldron = builder.CreateType("", TypeAttributes.Public | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit, "<Cauldron>");
             cauldron.CreateConstructor();
             cauldron.CustomAttributes.AddCompilerGeneratedAttribute();
-            cauldron.CustomAttributes.AddDebuggerBrowsableAttribute(DebuggerBrowsableState.Never);
-            cauldron.CustomAttributes.AddEditorBrowsableAttribute(EditorBrowsableState.Never);
 
             if (this.IsActivatorReferenced && this.IsXAML)
                 AddAttributeToXAMLResources(builder);
