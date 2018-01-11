@@ -127,11 +127,11 @@ finally
     Console.ResetColor();
 }
 
-private string GetCurrentFileName([CallerFilePath] string fileName = null) => fileName;
+private static string GetCurrentFileName([CallerFilePath] string fileName = null) => fileName;
 
 private static void BuildNuGetPackage(string path, string targetDirectory, string version)
 {
-    var filename = new FileInfo(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "nuget.exe"));
+    var filename = new FileInfo(Path.Combine(Path.GetDirectoryName(GetCurrentFileName()), "..\\Nuget\\nuget.exe"));
 
     var startInfo = new ProcessStartInfo();
     startInfo.UseShellExecute = false;
@@ -472,7 +472,7 @@ private static void ModifyNuspec(FileInfo path, string version)
 
 private static void UploadNugetPackage(string path)
 {
-    var filename = new FileInfo(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "nuget.exe"));
+    var filename = new FileInfo(Path.Combine(Path.GetDirectoryName(GetCurrentFileName()), "..\\Nuget\\nuget.exe"));
 
     var startInfo = new ProcessStartInfo();
     startInfo.UseShellExecute = false;
