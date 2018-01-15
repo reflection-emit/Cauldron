@@ -72,13 +72,13 @@ namespace Win32_Fody_Assembly_Validation_Tests
         {
             var stopWatch = Stopwatch.StartNew();
 
-            var firstString = this.PerfectStringAsync(40).RunSync();
+            var firstString = this.PerfectStringAsync(40).Result;
             stopWatch.Stop();
 
             var firstResult = stopWatch.Elapsed.TotalMilliseconds;
 
             stopWatch = Stopwatch.StartNew();
-            var secondString = this.PerfectStringAsync(40).RunSync();
+            var secondString = this.PerfectStringAsync(40).Result;
             stopWatch.Stop();
 
             var secondResult = stopWatch.Elapsed.TotalMilliseconds;
@@ -93,22 +93,22 @@ namespace Win32_Fody_Assembly_Validation_Tests
         public void CacheTest_Async_2()
         {
             var stopWatch = Stopwatch.StartNew();
-            var firstString = this.PerfectStringAsync(80).RunSync();
+            var firstString = this.PerfectStringAsync(80).Result;
             stopWatch.Stop();
             var firstResult = stopWatch.Elapsed.TotalMilliseconds;
 
             stopWatch = Stopwatch.StartNew();
-            var secondString = this.PerfectStringAsync(80).RunSync();
+            var secondString = this.PerfectStringAsync(80).Result;
             stopWatch.Stop();
             var secondResult = stopWatch.Elapsed.TotalMilliseconds;
 
             stopWatch = Stopwatch.StartNew();
-            var thirdString = this.PerfectStringAsync(60).RunSync();
+            var thirdString = this.PerfectStringAsync(60).Result;
             stopWatch.Stop();
             var thirdResult = stopWatch.Elapsed.TotalMilliseconds;
 
             stopWatch = Stopwatch.StartNew();
-            var forthString = this.PerfectStringAsync(60).RunSync();
+            var forthString = this.PerfectStringAsync(60).Result;
             stopWatch.Stop();
             var forthResult = stopWatch.Elapsed.TotalMilliseconds;
 

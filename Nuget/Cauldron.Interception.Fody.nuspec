@@ -14,6 +14,12 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Interception interceptor interception AOP Fody Cecil CIL ILWeaving</tags>
     <releaseNotes>
+      2018.01.11 - [B] ModuleMain entry point interceptor fixed. Waever throwed exception during weaving.
+      2018.01.09 - [C] Getting rid of useless casts in created code.
+      2018.01.09 - [B] MethodInterceptors in Async methods are now weaved correctly.
+      2018.01.08 - [C] Interceptor OnException return type changed to bool to be able to create interceptors that swallow exceptions.
+      2018.01.08 - [A] Simple interceptors without try catch added.
+      2018.01.07 - [A] Support for assembly-wide attribute decorating added.
       2017.12.30 - [C] DoNotInterceptAttribute removed... Replaced by the InterceptionRuleAttribute instead. See documentation for more details.
       2017.12.30 - [A] Support for properties without backing fields added.
       2017.12.29 - [C] AssignMethodAttribute now falls back to 'is assignable' if the return type of a method does not match.

@@ -78,10 +78,6 @@
       <Project>{a3970375-c96b-443c-86b3-59bb32ce8cb1}</Project>
       <Name>Cauldron.Core.Collections</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Diagnostics\Cauldron.Core.Diagnostics.csproj">
-      <Project>{9631764e-e771-4d96-a7cf-757c257a0630}</Project>
-      <Name>Cauldron.Core.Diagnostics</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Disposable\Cauldron.Core.Disposable.csproj">
       <Project>{fee69c60-3463-47e9-9a7c-735b4f967aad}</Project>
       <Name>Cauldron.Core.Disposable</Name>
@@ -109,6 +105,10 @@
     <ProjectReference Include="..\..\NetStandard\Cauldron.Localization\Cauldron.Localization.csproj">
       <Project>{2729fd6d-0685-4fdf-a995-3eae4e5ae942}</Project>
       <Name>Cauldron.Localization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cauldron.Core.Win32.Diagnostics\Cauldron.Core.Win32.Diagnostics.csproj">
+      <Project>{b34eede6-74a8-4582-ab45-a46c5871f97e}</Project>
+      <Name>Cauldron.Core.Win32.Diagnostics</Name>
     </ProjectReference>
     <ProjectReference Include="..\Cauldron.Win32.Threading\Cauldron.Win32.Threading.csproj">
       <Project>{4aeb2c1e-1625-483d-ad8e-6dca3c28742e}</Project>

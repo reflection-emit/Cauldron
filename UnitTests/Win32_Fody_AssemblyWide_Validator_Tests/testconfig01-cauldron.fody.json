@@ -1,0 +1,52 @@
+﻿[
+  {
+    "debug-only": "false",
+    "is-active": "false",
+    "decorator": [
+      {
+        "type-name": "Guid",
+        "parameters": [
+          {
+            "type-name": "System.String",
+            "value": "08B13836-E085-4B10-A3E4-2AD81ECF4EBF"
+          }
+        ],
+        "decorate-class": true,
+        "decorate-methods": true,
+        "decorate-properties": true,
+        "target-class-filter": {
+          "public": true,
+          "internal": true,
+          "private": true,
+          "static": true,
+          "instanced": true,
+          "name": "*",
+          "requires-interfaces": [ "IEnumerable" ]
+        },
+        "target-method-filter": {
+          "public": true,
+          "internal": true,
+          "protected": true,
+          "private": true,
+          "static": true,
+          "instanced": true,
+          "name": "*", // Regex
+          "return-types-name": "",
+          "parameter-match": true,
+          "parameter-strict": false,
+          "parameters": [ "System.Int32" ]
+        },
+        "target-property-filter": {
+          "public": true,
+          "internal": true,
+          "protected": true,
+          "private": true,
+          "static": true,
+          "instanced": true,
+          "name": "*", // Regex
+          "return-types-name": ""
+        }
+      }
+    ]
+  }
+]

@@ -1,5 +1,6 @@
 ﻿using Mono.Cecil;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -25,8 +26,10 @@ namespace Cauldron.Interception.Cecilator
             this.attribute.ConstructorArguments.ToArray() :
             new CustomAttributeArgument[0];
 
+        public IReadOnlyDictionary<string, CustomAttributeArgument> Fields => this.attribute.HasFields ? this.attribute.Fields.ToDictionary(x => x.Name, x => x.Argument) : new Dictionary<string, CustomAttributeArgument>();
         public string Fullname => this.attribute.AttributeType.FullName;
 
+        public IReadOnlyDictionary<string, CustomAttributeArgument> Properties => this.attribute.HasProperties ? this.attribute.Properties.ToDictionary(x => x.Name, x => x.Argument) : new Dictionary<string, CustomAttributeArgument>();
         public BuilderType Type { get; private set; }
 
         public CustomAttributeArgument GetConstructorArgument(int parameterIndex) => this.attribute.ConstructorArguments[parameterIndex];

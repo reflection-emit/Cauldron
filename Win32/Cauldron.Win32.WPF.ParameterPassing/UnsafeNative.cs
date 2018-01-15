@@ -42,7 +42,6 @@ namespace Cauldron.XAML
                 {
                     var data = Marshal.PtrToStructure<UnsafeNative.COPYDATASTRUCT>(lParam);
                     var result = string.Copy(data.lpData);
-                    // Marshal.FreeCoTaskMem(lParam); Causes a crash in Release mode
                     return result;
                 }
                 catch
@@ -76,7 +75,7 @@ namespace Cauldron.XAML
             if (message == "")
                 throw new ArgumentException("The message cannot be empty");
 
-            var messageBytes = Encoding.Default.GetBytes(message); /* ANSII encoding */
+            var messageBytes = Encoding.Unicode.GetBytes(message);
             var data = new UnsafeNative.COPYDATASTRUCT
             {
                 dwData = (IntPtr)100,
@@ -101,7 +100,7 @@ namespace Cauldron.XAML
             public IntPtr dwData;  /* 1 */
             public int cbData;     /* 2 */
 
-            [MarshalAs(UnmanagedType.LPStr)]  /* 3 */
+            [MarshalAs(UnmanagedType.LPWStr)]  /* 3 */
             public string lpData; /* 4 */
         }
     }

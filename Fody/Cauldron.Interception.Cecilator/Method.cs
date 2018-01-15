@@ -1,19 +1,15 @@
 ﻿using Mono.Cecil;
 using Mono.Cecil.Cil;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Cauldron.Interception.Cecilator
 {
     public class Method : CecilatorBase, IEquatable<Method>
     {
-        internal readonly static Dictionary<string, Dictionary<string, VariableDefinition>> variableDictionary = new Dictionary<string, Dictionary<string, VariableDefinition>>();
-
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
         internal readonly MethodDefinition methodDefinition;
 
@@ -22,6 +18,8 @@ namespace Cauldron.Interception.Cecilator
 
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
         internal readonly BuilderType type;
+
+        private Method _asyncMethod;
 
         internal Method(BuilderType type, MethodReference methodReference, MethodDefinition methodDefinition) : base(type)
         {
@@ -44,7 +42,30 @@ namespace Cauldron.Interception.Cecilator
             this.methodReference = methodDefinition.CreateMethodReference();
         }
 
+        public Method AsyncMethod
+        {
+            get
+            {
+                if (_asyncMethod == null)
+                    _asyncMethod = this.type.Builder.GetAsyncMethod(this.methodDefinition);
+
+                return _asyncMethod;
+            }
+        }
+
         public AsyncMethodHelper AsyncMethodHelper => new AsyncMethodHelper(this);
+
+        public BuilderType AsyncOriginType
+        {
+            get
+            {
+                if (this.IsAsync)
+                    return this.AsyncMethod == null ? this.type : this.AsyncMethod.type;
+                else
+                    return this.type;
+            }
+        }
+
         public BuilderCustomAttributeCollection CustomAttributes => new BuilderCustomAttributeCollection(this.type.Builder, this.methodDefinition);
 
         /// <summary>
@@ -53,8 +74,17 @@ namespace Cauldron.Interception.Cecilator
         public BuilderType DeclaringType => new BuilderType(this.type.Builder, this.methodReference.DeclaringType);
 
         public string Fullname => this.methodReference.FullName;
+
+        public override string Identification => $"{this.methodDefinition.DeclaringType.Name}-{this.methodDefinition.Name}-{this.methodDefinition.DeclaringType.MetadataToken.RID}-{this.methodDefinition.MetadataToken.RID}";
+
         public bool IsAbstract => this.methodDefinition.IsAbstract;
+        public bool IsAsync => this.methodDefinition.ReturnType.FullName.EqualsEx("System.Threading.Tasks.Task") || (this.methodDefinition.ReturnType.Resolve()?.FullName.EqualsEx("System.Threading.Tasks.Task`1") ?? false);
         public bool IsCCtor => this.methodDefinition.Name == ".cctor";
+
+        /// <summary>
+        /// True if the method is a .ctor or .cctor
+        /// </summary>
+        public bool IsConstructor => this.IsCCtor || this.IsCtor;
 
         public bool IsConstructorWithBaseCall
         {
@@ -78,11 +108,19 @@ namespace Cauldron.Interception.Cecilator
         }
 
         public bool IsCtor => this.methodDefinition.Name == ".ctor";
+
+        public bool IsGenerated => this.methodDefinition.Name.IndexOf('<') >= 0 ||
+            this.methodDefinition.Name.IndexOf('>') >= 0 ||
+            this.type.typeDefinition.FullName.IndexOf('<') >= 0 ||
+            this.type.typeDefinition.FullName.IndexOf('>') >= 0;
+
         public bool IsInternal => this.methodDefinition.Attributes.HasFlag(MethodAttributes.Assembly);
         public bool IsPrivate => this.methodDefinition.IsPrivate;
+        public bool IsPropertyGetterSetter => (this.methodDefinition.Name.StartsWith("get_") || this.methodDefinition.Name.StartsWith("set_")) && this.methodDefinition.IsSpecialName;
         public bool IsProtected => this.methodDefinition.Attributes.HasFlag(MethodAttributes.Family);
         public bool IsPublic => this.methodDefinition.IsPublic;
         public bool IsPublicOrInternal => this.IsPublic || this.IsInternal;
+        public bool IsSpecialName => this.methodDefinition.IsSpecialName;
         public bool IsStatic => this.methodDefinition.IsStatic;
         public bool IsVoid => this.methodDefinition.ReturnType.FullName == "System.Void";
 
@@ -114,18 +152,13 @@ namespace Cauldron.Interception.Cecilator
 
         public VariableDefinition AddLocalVariable(string name, VariableDefinition variable)
         {
-            if (variableDictionary.TryGetValue(this.methodDefinition.FullName, out Dictionary<string, VariableDefinition> methodsDictionary))
-            {
-                if (methodsDictionary.ContainsKey(name))
-                    throw new ArgumentException($"The variable with the name '{name}' already exist in '{this.Name}'");
-            }
-            else
-            {
-                methodsDictionary = new Dictionary<string, VariableDefinition>();
-                variableDictionary.Add(this.methodDefinition.FullName, methodsDictionary);
-            }
+            if (this.methodDefinition.DebugInformation.Scope == null)
+                this.methodDefinition.DebugInformation.Scope = new ScopeDebugInformation(this.methodDefinition.Body.Instructions.First(), this.methodDefinition.Body.Instructions.Last());
 
-            methodsDictionary.Add(name, variable);
+            if (this.methodDefinition.DebugInformation.Scope.Variables.Any(x => x.Name == name))
+                throw new ArgumentException($"The variable with the name '{name}' already exist in '{this.Name}'");
+
+            this.methodDefinition.DebugInformation.Scope.Variables.Add(new VariableDebugInformation(variable, name));
             this.methodDefinition.Body.Variables.Add(variable);
 
             return variable;
@@ -163,15 +196,13 @@ namespace Cauldron.Interception.Cecilator
 
         public VariableDefinition GetLocalVariable(string name)
         {
-            Dictionary<string, VariableDefinition> methodsDictionary;
+            if (this.methodDefinition.DebugInformation.Scope == null)
+                this.methodDefinition.DebugInformation.Scope = new ScopeDebugInformation(this.methodDefinition.Body.Instructions.First(), this.methodDefinition.Body.Instructions.Last());
 
-            if (variableDictionary.TryGetValue(this.methodDefinition.FullName, out methodsDictionary))
-            {
-                VariableDefinition variableDefinition;
+            var variableIndex = this.methodDefinition.DebugInformation.Scope.Variables?.FirstOrDefault(x => x.Name == name)?.Index;
 
-                if (methodsDictionary.TryGetValue(name, out variableDefinition))
-                    return variableDefinition;
-            }
+            if (variableIndex.HasValue)
+                return this.methodDefinition.Body.Variables[variableIndex.Value];
 
             return null;
         }
@@ -216,7 +247,21 @@ namespace Cauldron.Interception.Cecilator
                  .Any(x => x.Operand == method.methodReference);
         }
 
-        public Method Import() => new Method(this.type, this.moduleDefinition.ImportReference(this.methodReference), this.methodDefinition);
+        public Method Import()
+        {
+            MethodReference result = null;
+
+            try
+            {
+                result = this.moduleDefinition.ImportReference(this.methodReference);
+            }
+            catch (NullReferenceException)
+            {
+                result = this.moduleDefinition.ImportReference(this.methodReference, this.type.typeReference);
+            }
+
+            return new Method(this.type, result, this.methodDefinition);
+        }
 
         public Method MakeGeneric(params Type[] types)
         {
@@ -265,7 +310,7 @@ namespace Cauldron.Interception.Cecilator
 
         #region Equitable stuff
 
-        public static implicit operator string(Method value) => value.ToString();
+        public static implicit operator string(Method value) => value?.ToString();
 
         public static bool operator !=(Method a, Method b) => !(a == b);
 

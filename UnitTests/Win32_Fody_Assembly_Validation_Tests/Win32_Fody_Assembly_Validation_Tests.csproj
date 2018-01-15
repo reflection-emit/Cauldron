@@ -60,49 +60,21 @@
     <Compile Include="Interceptors\TestPropertyInterceptorAttribute.cs" />
     <Compile Include="ITestInterface.cs" />
     <Compile Include="Method_Interceptor_Code_Validation_Tests.cs" />
+    <Compile Include="Module.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Property_Interceptor_Code_Validation_Tests.cs" />
     <Compile Include="Serializer_Tests.cs" />
     <Compile Include="TestClass.cs" />
     <Compile Include="TestEnum.cs" />
     <Compile Include="TestStruct.cs" />
-    <Compile Include="TimedCachedAttributeTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Comparing\Cauldron.Core.Comparing.csproj">
-      <Project>{75A87A26-D167-4E61-84BA-5595AE475934}</Project>
-      <Name>Cauldron.Core.Comparing</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Diagnostics\Cauldron.Core.Diagnostics.csproj">
-      <Project>{9631764E-E771-4D96-A7CF-757C257A0630}</Project>
-      <Name>Cauldron.Core.Diagnostics</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Randomizer\Cauldron.Core.Randomizer.csproj">
-      <Project>{E21E227E-B578-47CA-BB75-F38B4C872C38}</Project>
-      <Name>Cauldron.Core.Randomizer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Reflection\Cauldron.Core.Reflection.csproj">
-      <Project>{9bc69306-6188-403e-bce3-0c85fe049a9b}</Project>
-      <Name>Cauldron.Core.Reflection</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Threading\Cauldron.Core.Threading.csproj">
-      <Project>{a6137484-c3c9-4808-b4b4-76e27420025d}</Project>
-      <Name>Cauldron.Core.Threading</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\NetStandard\Cauldron.Interception\Cauldron.Interception.csproj">
       <Project>{54d84f50-0b4b-40cb-a27d-5ccd84f5b1ee}</Project>
       <Name>Cauldron.Interception</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Win32\Cauldron.Win32.Interceptors\Cauldron.Win32.Interceptors.csproj">
-      <Project>{99CDFACA-8BFD-42E7-85D5-AB181DF96656}</Project>
-      <Name>Cauldron.Win32.Interceptors</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Win32\Cauldron.Win32.UserInformation\Cauldron.Win32.UserInformation.csproj">
-      <Project>{bc37d605-f19e-4093-bfe5-347054fd8895}</Project>
-      <Name>Cauldron.Win32.UserInformation</Name>
     </ProjectReference>
     <ProjectReference Include="..\Resources\Fody_Assembly_Validation_External_Resources\Fody_Assembly_Validation_External_Resources.csproj">
       <Project>{8de4fcbb-6f52-4750-80b8-3f5448a8ba46}</Project>

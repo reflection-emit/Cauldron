@@ -198,13 +198,26 @@ namespace Cauldron.Interception.Cecilator
 
             Parallel.ForEach(this.GetTypes(searchContext), type =>
             {
-                foreach (var property in type.Properties.Where(x => x.propertyDefinition.HasCustomAttributes))
+                PropertyDefinition propertyDefinition = null;
+                CustomAttribute customAttribute = null;
+
+                try
                 {
-                    for (int i = 0; i < property.propertyDefinition.CustomAttributes.Count; i++)
+                    foreach (var property in type.Properties.Where(x => x.propertyDefinition.HasCustomAttributes))
                     {
-                        if (attributes.Contains(property.propertyDefinition.CustomAttributes[i].AttributeType.Resolve().FullName))
-                            result.Add(new AttributedProperty(property, property.propertyDefinition.CustomAttributes[i]));
+                        propertyDefinition = property.propertyDefinition;
+                        for (int i = 0; i < propertyDefinition.CustomAttributes.Count; i++)
+                        {
+                            customAttribute = propertyDefinition.CustomAttributes[i];
+
+                            if (attributes.Contains((customAttribute.AttributeType.Resolve() ?? customAttribute.AttributeType).FullName))
+                                result.Add(new AttributedProperty(property, customAttribute));
+                        }
                     }
+                }
+                catch (Exception e)
+                {
+                    throw new Exception($"An error has occured while searching for attributes: {e.Message}\r\nProperty: {propertyDefinition?.FullName}\r\nAttribute: {customAttribute?.AttributeType.FullName}", e);
                 }
             });
 
@@ -383,8 +396,25 @@ namespace Cauldron.Interception.Cecilator
 
         internal IEnumerable<TypeReference> GetTypesInternal(SearchContext searchContext)
         {
-            var types = searchContext == SearchContext.Module ? (IEnumerable<TypeDefinition>)this.moduleDefinition.Types : this.allTypes.ToArray();
+            IEnumerable<TypeDefinition> types = null;
             var result = new ConcurrentBag<TypeReference>();
+
+            switch (searchContext)
+            {
+                case SearchContext.Module:
+                    types = this.moduleDefinition.Types;
+                    break;
+
+                case SearchContext.Module_NoGenerated:
+                    types = this.moduleDefinition.Types.Where(x =>
+                                x.FullName?.IndexOf('<') < 0 &&
+                                x.FullName?.IndexOf('>') < 0);
+                    break;
+
+                case SearchContext.AllReferencedModules:
+                    types = this.allTypes;
+                    break;
+            }
 
             Parallel.ForEach(types, type =>
             {

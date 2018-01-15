@@ -70,11 +70,7 @@ namespace Cauldron.Consoles
             // We will only check the instances once
             // This way we create some sort of a queue
 
-            var getCurrentWithTheSameName = new Func<IEnumerable<Process>>(() =>
-                    Process.GetProcessesByName(process.ProcessName)
-                        .Where(x => x.Id != process.Id));
-
-            var instancesOfItself = getCurrentWithTheSameName();
+            var instancesOfItself = Process.GetProcessesByName(process.ProcessName).Where(x => x.Id != process.Id);
 
             if (instancesOfItself.Any())
                 foreach (var otherProcess in instancesOfItself)
@@ -100,11 +96,9 @@ namespace Cauldron.Consoles
         {
             var currentProcess = Process.GetCurrentProcess();
 
-            var getProcess = new Func<Process>(() =>
-                    Process.GetProcessesByName(processName)
-                        .FirstOrDefault(x => x.Id != currentProcess.Id));
+            Process GetProcess() => Process.GetProcessesByName(processName).FirstOrDefault(x => x.Id != currentProcess.Id);
 
-            var process = getProcess();
+            var process = GetProcess();
 
             while (process != null)
             {
@@ -120,7 +114,7 @@ namespace Cauldron.Consoles
                     // the process has exited
                 }
 
-                process = getProcess();
+                process = GetProcess();
             };
         }
 

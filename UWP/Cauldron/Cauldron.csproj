@@ -173,11 +173,17 @@
     <Compile Include="..\..\NetStandard\Cauldron.Core.Comparing\Comparer.cs">
       <Link>Core\Comparing\Comparer.cs</Link>
     </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Comparing\ComparingOperatorCache.cs">
+      <Link>Core\Comparing\ComparingOperatorCache.cs</Link>
+    </Compile>
     <Compile Include="..\..\NetStandard\Cauldron.Core.Comparing\DynamicEqualityComparer.cs">
       <Link>Core\Comparing\DynamicEqualityComparer.cs</Link>
     </Compile>
     <Compile Include="..\..\NetStandard\Cauldron.Core.Comparing\Extensions.cs">
       <Link>Core\Comparing\Extensions.cs</Link>
+    </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Comparing\IEquatableCache.cs">
+      <Link>Core\Comparing\IEquatableCache.cs</Link>
     </Compile>
     <Compile Include="..\..\NetStandard\Cauldron.Core.Diagnostics\Debug.cs">
       <Link>Core\Diagnostics\Debug.cs</Link>

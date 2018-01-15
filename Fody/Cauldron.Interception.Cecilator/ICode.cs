@@ -1,10 +1,16 @@
-﻿using System;
+﻿using Mono.Cecil.Cil;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace Cauldron.Interception.Cecilator
 {
     public interface ICode : IAction
     {
+        ICode And();
+
+        ICode And<T>(T[] collection, Func<ICode, T, int, ICode> code);
+
         ICode As(BuilderType type);
 
         IFieldCode Assign(Field field);
@@ -14,6 +20,8 @@ namespace Cauldron.Interception.Cecilator
         IFieldCode Assign(LocalVariable instance, Field field);
 
         ILocalVariableCode Assign(LocalVariable localVariable);
+
+        IFieldCode Assign(ICode instance, Field field);
 
         IFieldCode AssignToField(string fieldName);
 
@@ -70,6 +78,8 @@ namespace Cauldron.Interception.Cecilator
 
         ICode For(LocalVariable array, Action<ICode, LocalVariable> action);
 
+        Position GetFirstOrDefaultPosition(Func<Instruction, bool> predicate);
+
         [EditorBrowsable(EditorBrowsableState.Never)]
         new int GetHashCode();
 
@@ -88,6 +98,10 @@ namespace Cauldron.Interception.Cecilator
         IIfCode IsNull();
 
         IIfCode IsTrue();
+
+        ICode Jump(Position position);
+
+        ICode Leave(Position position);
 
         ICode Load(object parameter);
 
@@ -125,6 +139,10 @@ namespace Cauldron.Interception.Cecilator
 
         ICode NewObj(AttributedField attribute);
 
+        ICode Or();
+
+        ICode Or<T>(T[] collection, Func<ICode, T, int, ICode> code);
+
         ICode OriginalBody();
 
         ICode OriginalBodyNewMethod();
@@ -132,6 +150,8 @@ namespace Cauldron.Interception.Cecilator
         ICode Pop();
 
         ICode Return();
+
+        ICode ReturnDefault();
 
         ICode StoreElement(BuilderType arrayType, object element, int index);
 

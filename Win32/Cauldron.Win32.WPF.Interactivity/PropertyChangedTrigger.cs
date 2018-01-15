@@ -103,7 +103,7 @@ namespace Cauldron.XAML.Interactivity
         }
 
         /// <summary>
-        /// Occures if the <see cref="FrameworkElement.DataContext"/> has invoked the <see cref="INotifyPropertyChanged.PropertyChanged"/> event
+        /// Occures if the <see cref="FrameworkElement.DataContext"/> has invoked the INotifyPropertyChanged.PropertyChanged event
         /// </summary>
         /// <param name="propertyName"></param>
         protected override void OnDataContextPropertyChanged(string propertyName)

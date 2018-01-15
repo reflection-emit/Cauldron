@@ -140,6 +140,9 @@
     <Compile Include="..\..\NetStandard\Cauldron.Interception\IPropertySetterInterceptor.cs">
       <Link>IPropertySetterInterceptor.cs</Link>
     </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Interception\ISimpleMethodInterceptor.cs">
+      <Link>ISimpleMethodInterceptor.cs</Link>
+    </Compile>
     <Compile Include="..\..\NetStandard\Cauldron.Interception\ISyncRoot.cs">
       <Link>ISyncRoot.cs</Link>
     </Compile>

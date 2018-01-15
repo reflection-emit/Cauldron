@@ -25,6 +25,44 @@ namespace Cauldron.Interception.Cecilator
 
         public BuilderCustomAttributeCollection CustomAttributes => new BuilderCustomAttributeCollection(this.Builder, this.typeDefinition);
 
+        public object DefaultValue
+        {
+            get
+            {
+                switch (this.Fullname)
+                {
+                    case "System.Int16": return default(short);
+                    case "System.Int32": return default(int);
+                    case "System.Int64": return default(long);
+                    case "System.UInt16": return default(ushort);
+                    case "System.UInt32": return default(uint);
+                    case "System.UInt64": return default(ulong);
+                    case "System.Single": return default(float);
+                    case "System.Double": return default(double);
+                    case "System.Boolean": return default(bool);
+                    case "System.Byte": return default(byte);
+                    case "System.Char": return default(char);
+                    case "System.SByte": return default(sbyte);
+                    case "System.IntPtr": return default(IntPtr);
+                }
+
+                if (this.typeDefinition == null /* This is probably a generic parameter */)
+                    return Crumb.DefaultOfStruct(this.typeReference);
+
+                if (this.typeDefinition.IsValueType)
+                    return Crumb.DefaultOfStruct(this.typeReference);
+
+                if (this.typeDefinition.FullName == "System.Threading.Tasks.Task")
+                    return Crumb.DefaultOfTask(this.typeReference);
+
+                if (this.typeDefinition.FullName == "System.Threading.Tasks.Task`1")
+                    return Crumb.DefaultTaskOfT(this.typeReference);
+
+                return null;
+            }
+        }
+
+        public BuilderType EnumUnderlyingType => new BuilderType(this.Builder, this.typeDefinition.GetEnumUnderlyingType());
         public string Fullname => this.typeReference.FullName;
 
         public bool HasUnresolvedGenericParameters
@@ -40,10 +78,19 @@ namespace Cauldron.Interception.Cecilator
         }
 
         public bool IsAbstract => this.typeDefinition.Attributes.HasFlag(TypeAttributes.Abstract);
+
         public bool IsArray => this.typeDefinition != null && (this.typeDefinition.IsArray || this.typeReference.FullName.EndsWith("[]") || this.typeDefinition.FullName.EndsWith("[]"));
+
+        public bool IsAsyncStateMachine => this.Implements("System.Runtime.CompilerServices.IAsyncStateMachine", false);
+
         public bool IsDelegate => this.typeDefinition.IsDelegate();
+
         public bool IsEnum => this.typeDefinition.IsEnum;
+
         public bool IsForeign => this.moduleDefinition.Assembly == this.typeDefinition.Module.Assembly;
+
+        public bool IsGenerated => this.typeDefinition.FullName.IndexOf('<') >= 0 || this.typeDefinition.FullName.IndexOf('>') >= 0;
+
         public bool IsGenericInstance => this.typeReference.IsGenericInstance;
         public bool IsGenericType => this.typeDefinition == null || this.typeReference.Resolve() == null;
         public bool IsInterface => this.typeDefinition == null ? false : this.typeDefinition.Attributes.HasFlag(TypeAttributes.Interface);
@@ -56,7 +103,7 @@ namespace Cauldron.Interception.Cecilator
         public bool IsStatic => this.IsAbstract && this.IsSealed;
         public bool IsValueType => this.typeDefinition == null ? this.typeReference == null ? false : this.typeReference.IsValueType : this.typeDefinition.IsValueType;
         public bool IsVoid => this.typeDefinition.FullName == "System.Void";
-        public string Name => this.typeDefinition.Name;
+        public string Name => this.typeDefinition == null ? this.typeReference.Name : this.typeDefinition.Name;
         public string Namespace => this.typeDefinition.Namespace;
 
         public IEnumerable<BuilderType> GenericArguments()
@@ -238,7 +285,9 @@ namespace Cauldron.Interception.Cecilator
 
             this.typeDefinition.Methods.Add(method);
 
-            return new Method(this, method);
+            var result = new Method(this, method);
+            result.NewCode().Load(Crumb.This).Call(this.Builder.GetType(typeof(object)).Import().ParameterlessContructor.Import()).Return().Replace();
+            return result;
         }
 
         public Method CreateStaticConstructor()
@@ -254,7 +303,9 @@ namespace Cauldron.Interception.Cecilator
             processor.Append(processor.Create(OpCodes.Ret));
             this.typeDefinition.Methods.Add(method);
 
-            return new Method(this, method);
+            var result = new Method(this, method);
+            result.NewCode().Return().Replace();
+            return result;
         }
 
         /// <summary>
@@ -411,7 +462,7 @@ namespace Cauldron.Interception.Cecilator
 
         public Property CreateProperty(Field field, bool getterOnly = false)
         {
-            var name = $"{field.Name[0].ToString().ToUpper()}{field.Name.Substring(1)}Property";
+            var name = $"<{field.Name}>_fieldProperty";
 
             var contain = this.GetProperties().Get(name);
 
@@ -506,8 +557,12 @@ namespace Cauldron.Interception.Cecilator
                 }
 
                 this.typeDefinition.Methods.Add(method);
+                var result = new Method(this, method);
 
-                return new Method(this, method);
+                if (!attributes.HasFlag(MethodAttributes.Abstract))
+                    result.NewCode().ThrowNew(typeof(NotImplementedException), "Not implemented").Replace();
+
+                return result;
             }
             catch (NullReferenceException e)
             {
@@ -545,7 +600,12 @@ namespace Cauldron.Interception.Cecilator
 
             this.typeDefinition.Methods.Add(method);
 
-            return new Method(this, method);
+            var result = new Method(this, method);
+
+            if (!attributes.HasFlag(MethodAttributes.Abstract))
+                result.NewCode().ThrowNew(typeof(NotImplementedException), "Not implemented").Replace();
+
+            return result;
         }
 
         public Method GetMethod(string name, bool throwException = true)
@@ -588,11 +648,11 @@ namespace Cauldron.Interception.Cecilator
         public Method GetMethod(Modifiers modifier, BuilderType returnType, string name, params BuilderType[] parameters)
         {
             MethodDefinition result = null;
-            var predicate = new Func<MethodDefinition, bool>(x =>
+            bool predicate(MethodDefinition x) =>
                 x.Name == name &&
                 x.Parameters.Count == parameters.Length &&
                 x.ReturnType.FullName == returnType.Fullname &&
-                x.Parameters.Select(y => y.ParameterType.FullName).SequenceEqual(parameters.Select(y => y.typeReference.FullName)));
+                x.Parameters.Select(y => y.ParameterType.FullName).SequenceEqual(parameters.Select(y => y.typeReference.FullName));
 
             if (modifier.HasFlag(Modifiers.Private))
                 result = this.typeDefinition.Methods.FirstOrDefault(x => predicate(x));
@@ -663,7 +723,7 @@ namespace Cauldron.Interception.Cecilator
 
         #region Equitable stuff
 
-        public static implicit operator string(BuilderType value) => value.ToString();
+        public static implicit operator string(BuilderType value) => value?.ToString();
 
         public static bool operator !=(BuilderType a, BuilderType b) => !(a == b);
 

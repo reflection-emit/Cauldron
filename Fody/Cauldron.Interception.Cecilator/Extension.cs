@@ -22,6 +22,8 @@ namespace Cauldron.Interception.Cecilator
             return Builder.Current;
         }
 
+        public static bool EqualsEx(this string me, string other) => me.GetHashCode() == other.GetHashCode() && me == other;
+
         public static CustomAttribute Get(this Mono.Collections.Generic.Collection<CustomAttribute> collection, string name)
         {
             if (name.IndexOf('.') > 0)
@@ -71,16 +73,6 @@ namespace Cauldron.Interception.Cecilator
             return null;
         }
 
-        public static Method GetAsyncMethod(this Builder builder, MethodDefinition method)
-        {
-            var result = (builder as CecilatorObject).GetAsyncMethod(method);
-
-            if (result.HasValue)
-                return new Method(new BuilderType(builder, result.Value.AsyncType), result.Value.MethodDefinition);
-
-            return null;
-        }
-
         public static IEnumerable<TypeReference> GetBaseClasses(this TypeReference type)
         {
             var typeDef = type.BetterResolve();
@@ -98,7 +90,7 @@ namespace Cauldron.Interception.Cecilator
             if (type.IsArray)
                 return type.GetElementType();
 
-            var getIEnumerableInterfaceChild = new Func<TypeReference, TypeReference>(typeReference =>
+            TypeReference getIEnumerableInterfaceChild(TypeReference typeReference)
             {
                 if (typeReference.IsGenericInstance)
                 {
@@ -125,7 +117,7 @@ namespace Cauldron.Interception.Cecilator
                 }
 
                 return null;
-            });
+            }
 
             var result = getIEnumerableInterfaceChild(type);
 
@@ -322,15 +314,37 @@ namespace Cauldron.Interception.Cecilator
             return -1;
         }
 
+        public static bool IsAssignableFrom(this BuilderType[] target, BuilderType[] types)
+        {
+            if (target == null && types == null)
+                return true;
+
+            if (target == null || types == null)
+                return false;
+
+            if (target.Length != types.Length)
+                return false;
+
+            for (int i = 0; i < target.Length; i++)
+            {
+                if (!target[i].IsAssignableFrom(types[i]))
+                    return false;
+            }
+
+            return true;
+        }
+
         public static bool IsAssignableFrom(this BuilderType target, BuilderType source) =>
                                     target == source ||
                     target.typeDefinition == source.typeDefinition ||
+                    target.Fullname == "System.Object" ||
                     source.IsSubclassOf(target) ||
                     target.IsInterface && source.BaseClasses.Any(x => x.Implements(target));
 
         public static bool IsAssignableFrom(this TypeReference target, TypeReference source) =>
                             target == source ||
                     target == source ||
+                    target.FullName == "System.Object" ||
                     source.IsSubclassOf(target) ||
                     target.BetterResolve().IsInterface && source.GetBaseClasses().Any(x => x.Implements(target.FullName));
 
@@ -344,11 +358,13 @@ namespace Cauldron.Interception.Cecilator
 
         public static void Log(this CecilatorObject cecilatorObject, LogTypes logTypes, Method method, object arg)
         {
-            var result = cecilatorObject.GetAsyncMethod(method.methodDefinition);
-            if (result.HasValue)
-                cecilatorObject.Log(logTypes, result.Value.MethodDefinition.GetSequencePoint(), arg);
-            else
-                cecilatorObject.Log(logTypes, method.methodDefinition.GetSequencePoint(), arg);
+            //if (method.IsAsync)
+            //{
+            //    var result = cecilatorObject.GetAsyncMethod(method.methodDefinition);
+            //    cecilatorObject.Log(logTypes, result.Value.MethodDefinition.GetSequencePoint(), arg);
+            //}
+            //else
+            cecilatorObject.Log(logTypes, method.methodDefinition.GetSequencePoint(), arg);
         }
 
         public static void Log(this CecilatorObject cecilatorObject, LogTypes logTypes, object arg) => cecilatorObject.Log(logTypes, sequencePoint: null, arg: arg);
@@ -420,6 +436,16 @@ namespace Cauldron.Interception.Cecilator
             }
 
             return method;
+        }
+
+        internal static Method GetAsyncMethod(this Builder builder, MethodDefinition method)
+        {
+            var result = (builder as CecilatorObject).GetAsyncMethod(method);
+
+            if (result.HasValue)
+                return new Method(new BuilderType(builder, result.Value.AsyncType), result.Value.MethodDefinition);
+
+            return null;
         }
 
         /// <summary>
@@ -726,47 +752,48 @@ namespace Cauldron.Interception.Cecilator
 
         internal static TypeReference ResolveType(this TypeReference type, MethodReference ownerMethod = null)
         {
-            try
+            //try
+            //{
+            TypeReference resolveType(IReadOnlyDictionary<string, TypeReference> genericParameters, TypeReference ptype)
             {
-                var resolveType = new Func<IReadOnlyDictionary<string, TypeReference>, TypeReference, TypeReference>((genericParameters, ptype) =>
+                var genericType = genericParameters[ptype.FullName];
+
+                while (genericType.IsGenericParameter)
                 {
-                    var genericType = genericParameters[ptype.FullName];
+                    if (!genericParameters.TryGetValue(genericType.FullName, out genericType))
+                        break;
 
-                    while (genericType.IsGenericParameter)
-                    {
-                        genericType = genericParameters[genericType.FullName];
-
-                        if (!genericType.IsGenericParameter)
-                            return genericType;
-                    }
-
-                    return genericParameters[ptype.FullName];
-                });
-
-                if (type.IsGenericInstance && ownerMethod is GenericInstanceMethod)
-                {
-                    var genericParameters = (ownerMethod as GenericInstanceMethod).GetGenericResolvedTypeNames();
-                    var genericTypeInstance = type as GenericInstanceType;
-
-                    var result = new GenericInstanceType(genericTypeInstance.BetterResolve());
-
-                    foreach (var item in genericTypeInstance.GenericArguments)
-                        result.GenericArguments.Add(resolveType(genericParameters, item));
-
-                    return result;
+                    if (!genericType.IsGenericParameter)
+                        return genericType;
                 }
-                else if (ownerMethod is GenericInstanceMethod)
-                {
-                    var genericParameters = (ownerMethod as GenericInstanceMethod).GetGenericResolvedTypeNames();
-                    return resolveType(genericParameters, type);
-                }
-                else
-                    return type;
+
+                return genericParameters[ptype.FullName];
             }
-            catch (Exception e)
+
+            if (type.IsGenericInstance && ownerMethod is GenericInstanceMethod)
             {
-                throw new TypeResolveException($"Unable to resolve type '{type?.FullName ?? "Unknown"}'", e);
+                var genericParameters = (ownerMethod as GenericInstanceMethod).GetGenericResolvedTypeNames();
+                var genericTypeInstance = type as GenericInstanceType;
+
+                var result = new GenericInstanceType(genericTypeInstance.BetterResolve());
+
+                foreach (var item in genericTypeInstance.GenericArguments)
+                    result.GenericArguments.Add(resolveType(genericParameters, item));
+
+                return result;
             }
+            else if (ownerMethod is GenericInstanceMethod)
+            {
+                var genericParameters = (ownerMethod as GenericInstanceMethod).GetGenericResolvedTypeNames();
+                return resolveType(genericParameters, type);
+            }
+            else
+                return type;
+            ////}
+            ////catch (Exception e)
+            ////{
+            ////    throw new TypeResolveException($"Unable to resolve type '{type?.FullName ?? "Unknown"}'", e);
+            ////}
         }
 
         internal static TypeReference ResolveType(this TypeReference type, TypeReference inheritingOrImplementingType, MethodReference ownerMethod = null)
@@ -824,7 +851,7 @@ namespace Cauldron.Interception.Cecilator
                 if (asyncTypeMethod == null)
                 {
                     cecilatorObject.Log(LogTypes.Error, method, "Unable to find the method MoveNext of async method " + method.Name);
-                    return null;
+                    throw new Exception("Unable to find the method MoveNext of async method " + method.Name);
                 }
 
                 return (asyncTypeMethod, asyncType);

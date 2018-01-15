@@ -23,9 +23,7 @@ namespace Cauldron.XAML.ViewModels
         public RaisePropertyChangeAttribute(bool alsoTryChangeIsChangeProperty = false) => this.canIsChanged = alsoTryChangeIsChangeProperty;
 
         /// <exclude />
-        public void OnException(Exception e)
-        {
-        }
+        public bool OnException(Exception e) => true;
 
         /// <exclude />
         public void OnExit()

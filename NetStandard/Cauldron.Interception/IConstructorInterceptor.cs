@@ -22,8 +22,10 @@ namespace Cauldron.Interception
     ///     {
     ///     }
     ///
-    ///     public void OnException(Exception e)
+    ///     public bool OnException(Exception e)
     ///     {
+    ///         // Returning false will swallow the exception
+    ///         return true;
     ///     }
     ///
     ///     public void OnExit()
@@ -57,8 +59,10 @@ namespace Cauldron.Interception
     ///     }
     ///     catch (Exception e)
     ///     {
-    ///	        constructorInterceptor.OnException(e);
-    ///	        throw;
+    ///	        if(constructorInterceptor.OnException(e))
+    ///	        {
+    ///	            throw;
+    ///	        }
     ///     }
     ///     finally
     ///     {
@@ -95,7 +99,8 @@ namespace Cauldron.Interception
         /// the exception.
         /// </summary>
         /// <param name="e">The exception information.</param>
-        void OnException(Exception e);
+        /// <returns>Should return true if the exception should be rethrown; otherwise false</returns>
+        bool OnException(Exception e);
 
         /// <summary>
         /// Invoked if the intercepted constructor has finished executing.

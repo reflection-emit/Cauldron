@@ -3,6 +3,7 @@ using Cauldron.Interception.Fody.HelperTypes;
 using Mono.Cecil;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Cauldron.Interception.Fody
@@ -51,7 +52,7 @@ namespace Cauldron.Interception.Fody
             {
                 this.Log("Hardcoding component factory .ctor: " + component.Type.Fullname);
 
-                var componentType = builder.CreateType("", TypeAttributes.Public | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit, $"<>f__IFactoryTypeInfo_{component.Type.Name}_{counter++}");
+                var componentType = builder.CreateType("", TypeAttributes.NotPublic | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit, $"<>f__IFactoryTypeInfo_{component.Type.Name}_{counter++}");
                 var componentAttributeField = componentType.CreateField(Modifiers.Private, componentAttribute.ToBuilderType, "componentAttribute");
                 componentType.AddInterface(factoryTypeInfoInterface);
                 componentTypes.Add(componentType);
@@ -60,11 +61,7 @@ namespace Cauldron.Interception.Fody
                 componentType
                    .CreateConstructor()
                    .NewCode()
-                   .Context(x =>
-                   {
-                       x.Load(Crumb.This).Call(builder.GetType(typeof(object)).Import().ParameterlessContructor.Import());
-                       x.Assign(componentAttributeField).NewObj(component);
-                   })
+                   .Assign(componentAttributeField).NewObj(component)
                    .Return()
                    .Replace();
 
@@ -73,14 +70,13 @@ namespace Cauldron.Interception.Fody
                     .NewCode()
                     .Context(x =>
                     {
-                        var localVariable = x.GetReturnVariable();
                         // Find any method with a componentcontructor attribute
                         var ctors = component.Type.GetMethods(y =>
                         {
                             if (y.Name == ".cctor")
                                 return true;
 
-                            if (!y.Resolve().IsPublic || !y.Resolve().IsAssembly)
+                            if (!y.Resolve().IsPublic && !y.Resolve().IsAssembly)
                                 return false;
 
                             if (y.Name == ".ctor" && y.DeclaringType.FullName.GetHashCode() != component.Type.Fullname.GetHashCode() && y.DeclaringType.FullName != component.Type.Fullname)
@@ -131,7 +127,7 @@ namespace Cauldron.Interception.Fody
                                     var code = x.Load(Crumb.GetParameter(0)).Call(arrayAvatar.Length).EqualTo(ctorParameters.Length);
 
                                     for (int i = 0; i < ctorParameters.Length; i++)
-                                        code.And.Load(Crumb.GetParameter(0).UnPacked(i)).Is(ctorParameters[i]);
+                                        code.AndAnd.Load(Crumb.GetParameter(0).UnPacked(i)).Is(ctorParameters[i]);
 
                                     if (ctor.Name == ".ctor")
                                         code.Then(y => y.NewObj(ctor, Crumb.GetParameter(0).UnPacked()).Dup().Call(factory.OnObjectCreation, Crumb.This).Return());
@@ -171,7 +167,6 @@ namespace Cauldron.Interception.Fody
                         }
                     })
                     .Context(x => x.Call(extensionAvatar.CreateInstance, component.Type, Crumb.GetParameter(0)).Dup().Call(factory.OnObjectCreation, Crumb.This).Return())
-                    .Return()
                     .Replace();
 
                 // Implement the properties
@@ -200,7 +195,6 @@ namespace Cauldron.Interception.Fody
                     }
                 }
 
-                componentType.CustomAttributes.AddEditorBrowsableAttribute(EditorBrowsableState.Never);
                 // Also remove the component attribute
                 component.Attribute.Remove();
             }
@@ -240,10 +234,8 @@ namespace Cauldron.Interception.Fody
             this.Log($"Creating Cauldron Cache");
 
             var cauldron = builder.CreateType("", TypeAttributes.Public | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit, "<Cauldron>");
-            cauldron.CreateConstructor().NewCode()
-                .Context(x => x.Call(Crumb.This, builder.GetType(typeof(object)).Import().ParameterlessContructor.Import()))
-                .Return()
-                .Replace();
+            cauldron.CreateConstructor();
+            cauldron.CustomAttributes.AddCompilerGeneratedAttribute();
 
             if (this.IsActivatorReferenced && this.IsXAML)
                 AddAttributeToXAMLResources(builder);

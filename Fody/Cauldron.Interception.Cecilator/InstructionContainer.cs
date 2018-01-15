@@ -28,13 +28,13 @@ namespace Cauldron.Interception.Cecilator
             this.instruction.AddRange(b);
         }
 
-        public int Count { get { return this.instruction.Count; } }
+        public int Count => this.instruction.Count;
 
-        public List<ExceptionHandler> ExceptionHandlers { get { return this.exceptionHandlers; } }
+        public List<ExceptionHandler> ExceptionHandlers => this.exceptionHandlers;
 
         bool ICollection<Instruction>.IsReadOnly => false;
 
-        public Instruction this[int index] { get { return this.instruction[index]; } }
+        public Instruction this[int index] => this.instruction[index];
 
         Instruction IList<Instruction>.this[int index]
         {

@@ -77,8 +77,7 @@ namespace Cauldron
         /// The object to locate in the <see cref="Array"/>. The value can be null for reference types.
         /// </param>
         /// <returns>
-        /// The zero-based index of the first occurrence of item within the entire <see
-        /// cref="Array"/>, if found; otherwise, –1.
+        /// The zero-based index of the first occurrence of item within the entire <see cref="Array"/>, if found; otherwise, –1.
         /// </returns>
         public static long IndexOf(this byte[] data, byte[] value)
         {

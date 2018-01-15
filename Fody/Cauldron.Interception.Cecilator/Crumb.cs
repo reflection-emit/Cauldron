@@ -6,7 +6,10 @@ namespace Cauldron.Interception.Cecilator
     {
         Exception,
         This,
-        Parameters
+        Parameters,
+        InitObj,
+        DefaultTask,
+        DefaultTaskOfT
     }
 
     public class Crumb
@@ -16,15 +19,11 @@ namespace Cauldron.Interception.Cecilator
         }
 
         public static Crumb This => new Crumb { CrumbType = CrumbTypes.This };
-
         internal CrumbTypes CrumbType { get; set; }
-
         internal TypeReference ExceptionType { get; set; }
-
         internal int? Index { get; set; }
-
         internal string Name { get; set; }
-
+        internal TypeReference TypeReference { get; set; }
         internal bool UnPackArray { get; set; }
 
         internal int UnPackArrayIndex { get; set; }
@@ -44,5 +43,11 @@ namespace Cauldron.Interception.Cecilator
             Name = this.Name,
             UnPackArrayIndex = arrayIndex
         };
+
+        internal static Crumb DefaultOfStruct(TypeReference typeReference) => new Crumb { TypeReference = typeReference, CrumbType = CrumbTypes.InitObj };
+
+        internal static Crumb DefaultOfTask(TypeReference typeReference) => new Crumb { TypeReference = typeReference, CrumbType = CrumbTypes.DefaultTask };
+
+        internal static Crumb DefaultTaskOfT(TypeReference typeReference) => new Crumb { TypeReference = typeReference, CrumbType = CrumbTypes.DefaultTaskOfT };
     }
 }

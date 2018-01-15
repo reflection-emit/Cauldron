@@ -1,1 +1,1 @@
-dotnet %~dp0\CauldronBuilder.dll %~dp0\..\
+dotnet script ..\Scripts\CauldronBuilder.csx %~dp0\..\

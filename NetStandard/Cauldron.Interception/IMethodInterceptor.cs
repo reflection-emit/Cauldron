@@ -16,8 +16,10 @@ namespace Cauldron.Interception
     ///     {
     ///     }
     ///
-    ///     public void OnException(Exception e)
+    ///     public bool OnException(Exception e)
     ///     {
+    ///         // Returning false will swallow the exception
+    ///         return true;
     ///     }
     ///
     ///     public void OnExit()
@@ -44,7 +46,7 @@ namespace Cauldron.Interception
     /// {
     ///     public void SampleMethod()
     ///     {
-    ///         var interceptorAttribute = new MyInterceptorAttribute("Any valid attribute parameter types");
+    ///         var interceptorAttribute = new MyInterceptorAttribute();
     ///
     ///         try
     ///         {
@@ -53,8 +55,10 @@ namespace Cauldron.Interception
     ///         }
     ///         catch (Exception e)
     ///         {
-    ///             interceptorAttribute.OnException(e);
-    ///             throw;
+    ///             if(interceptorAttribute.OnException(e))
+    ///             {
+    ///                 throw;
+    ///             }
     ///         }
     ///         finally
     ///         {
@@ -82,7 +86,8 @@ namespace Cauldron.Interception
         /// the exception.
         /// </summary>
         /// <param name="e">The exception information.</param>
-        void OnException(Exception e);
+        /// <returns>Should return true if the exception should be rethrown; otherwise false</returns>
+        bool OnException(Exception e);
 
         /// <summary>
         /// Invoked if the intercepted method has finished executing.

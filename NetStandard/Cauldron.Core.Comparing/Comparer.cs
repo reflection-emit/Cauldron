@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Reflection;
+using static Cauldron.Core.ComparingOperatorCache;
+using static Cauldron.Core.IEquatableCache;
 
 namespace Cauldron.Core
 {
@@ -45,10 +46,6 @@ namespace Cauldron.Core
         /// </returns>
         public new static bool Equals(object a, object b)
         {
-            // TODO - Dariusz - Numeric types needs to be able to compared to each other long -> int
-            // -> byte -> short -> double ... As long as the ranges are ok ... First check ranges,
-            // then do converts, then compare
-
             if (a == null && b == null)
                 return true;
 
@@ -58,49 +55,51 @@ namespace Cauldron.Core
             if (object.ReferenceEquals(a, b))
                 return true;
 
-            var aType = a.GetType();
-
-            if (aType == b.GetType())
+            switch (a)
             {
-                if (aType == typeof(string)) return a as string == b as string;
-                if (aType == typeof(int)) return (int)a == (int)b;
-                if (aType == typeof(uint)) return (uint)a == (uint)b;
-                if (aType == typeof(long)) return (long)a == (long)b;
-                if (aType == typeof(ulong)) return (ulong)a == (ulong)b;
-                if (aType == typeof(byte)) return (byte)a == (byte)b;
-                if (aType == typeof(sbyte)) return (sbyte)a == (sbyte)b;
-                if (aType == typeof(float)) return (float)a == (float)b;
-                if (aType == typeof(double)) return (double)a == (double)b;
-                if (aType == typeof(decimal)) return (decimal)a == (decimal)b;
-                if (aType == typeof(bool)) return (bool)a == (bool)b;
-                if (aType == typeof(char)) return (char)a == (char)b;
-                if (aType == typeof(short)) return (short)a == (short)b;
-                if (aType == typeof(ushort)) return (ushort)a == (ushort)b;
-                if (aType == typeof(IntPtr)) return (IntPtr)a == (IntPtr)b;
-                if (aType == typeof(UIntPtr)) return (UIntPtr)a == (UIntPtr)b;
-                if (aType == typeof(DateTime)) return (DateTime)a == (DateTime)b;
-                if (aType == typeof(DateTimeOffset)) return (DateTimeOffset)a == (DateTimeOffset)b;
-                if (aType == typeof(TimeSpan)) return (TimeSpan)a == (TimeSpan)b;
-                if (aType == typeof(Guid)) return (Guid)a == (Guid)b;
-
-                // If object a implements the IEquatable<> interface... Lets handle it in here
-                var method = aType.GetMethod("Equals", new Type[] { aType });
-                if (method != null)
-                    return (bool)method.Invoke(a, new object[] { b });
+                case string a_ when b is string b_: /**/                 return a_ == b_;
+                case int a_ when b is int b_: /**/                       return a_ == b_;
+                case int a_ when b is long b_: /**/                      return a_ == b_;
+                case long a_ when b is int b_: /**/                      return a_ == b_;
+                case uint a_ when b is uint b_: /**/                     return a_ == b_;
+                case long a_ when b is long b_: /**/                     return a_ == b_;
+                case ulong a_ when b is ulong b_: /**/                   return a_ == b_;
+                case byte a_ when b is byte b_: /**/                     return a_ == b_;
+                case sbyte a_ when b is sbyte b_: /**/                   return a_ == b_;
+                case float a_ when b is float b_: /**/                   return a_ == b_;
+                case float a_ when b is double b_: /**/                  return a_ == b_;
+                case double a_ when b is double b_: /**/                 return a_ == b_;
+                case double a_ when b is float b_: /**/                  return a_ == b_;
+                case decimal a_ when b is decimal b_: /**/               return a_ == b_;
+                case char a_ when b is char b_: /**/                     return a_ == b_;
+                case int a_ when b is char b_: /**/                      return a_ == b_;
+                case char a_ when b is int b_: /**/                      return a_ == b_;
+                case byte a_ when b is char b_: /**/                     return a_ == b_;
+                case char a_ when b is byte b_: /**/                     return a_ == b_;
+                case short a_ when b is short b_: /**/                   return a_ == b_;
+                case ushort a_ when b is ushort b_: /**/                 return a_ == b_;
+                case DateTime a_ when b is DateTime b_: /**/             return a_ == b_;
+                case DateTimeOffset a_ when b is DateTimeOffset b_: /**/ return a_ == b_;
+                case TimeSpan a_ when b is TimeSpan b_: /**/             return a_ == b_;
+                case IntPtr a_ when b is IntPtr b_: /**/                 return a_ == b_;
+                case UIntPtr a_ when b is UIntPtr b_: /**/               return a_ == b_;
+                case Guid a_ when b is Guid b_: /**/                     return a_ == b_;
             }
 
-            var op = aType.GetMethod("op_Equality", new Type[] { aType, b.GetType() }, BindingFlags.Static | BindingFlags.Public);
+            var aType = a.GetType();
+            var bType = b.GetType();
 
-            if (op != null)
-                return (bool)op.Invoke(null, new object[] { a, b });
+            if (ComparingOperatorCache.Get(ComparingOperatorCache.Operator.Equal, aType, bType) is ComparerOperator op1)
+                return op1(a, b);
 
-            // if this is null try to exchange the position of the parameters... Maybe its the other
-            // way around
-            if (op == null)
-                op = aType.GetMethod("op_Equality", new Type[] { b.GetType(), aType }, BindingFlags.Static | BindingFlags.Public);
+            if (ComparingOperatorCache.Get(ComparingOperatorCache.Operator.Equal, bType, aType) is ComparerOperator op2)
+                return op2(b, a);
 
-            if (op != null)
-                return (bool)op.Invoke(null, new object[] { b, a });
+            if (IEquatableCache.Get(aType, bType) is EqualsMethod op3)
+                return op3(a, b);
+
+            if (IEquatableCache.Get(bType, aType) is EqualsMethod op4)
+                return op4(b, a);
 
             return a.Equals(b);
         }
@@ -129,33 +128,32 @@ namespace Cauldron.Core
             if (object.ReferenceEquals(a, b)) // They are also equal here
                 return false;
 
-            var aType = a.GetType();
-
-            if (aType == b.GetType())
+            switch (a)
             {
-                if (aType == typeof(int)) return (int)a > (int)b;
-                if (aType == typeof(uint)) return (uint)a > (uint)b;
-                if (aType == typeof(long)) return (long)a > (long)b;
-                if (aType == typeof(ulong)) return (ulong)a > (ulong)b;
-                if (aType == typeof(byte)) return (byte)a > (byte)b;
-                if (aType == typeof(sbyte)) return (sbyte)a > (sbyte)b;
-                if (aType == typeof(float)) return (float)a > (float)b;
-                if (aType == typeof(double)) return (double)a > (double)b;
-                if (aType == typeof(decimal)) return (decimal)a > (decimal)b;
-                if (aType == typeof(char)) return (char)a > (char)b;
-                if (aType == typeof(short)) return (short)a > (short)b;
-                if (aType == typeof(ushort)) return (ushort)a > (ushort)b;
-                if (aType == typeof(DateTime)) return (DateTime)a > (DateTime)b;
-                if (aType == typeof(DateTimeOffset)) return (DateTimeOffset)a > (DateTimeOffset)b;
-                if (aType == typeof(TimeSpan)) return (TimeSpan)a > (TimeSpan)b;
+                case int a_ when b is int b_: /**/                       return a_ > b_;
+                case uint a_ when b is uint b_: /**/                     return a_ > b_;
+                case long a_ when b is long b_: /**/                     return a_ > b_;
+                case ulong a_ when b is ulong b_: /**/                   return a_ > b_;
+                case byte a_ when b is byte b_: /**/                     return a_ > b_;
+                case sbyte a_ when b is sbyte b_: /**/                   return a_ > b_;
+                case float a_ when b is float b_: /**/                   return a_ > b_;
+                case double a_ when b is double b_: /**/                 return a_ > b_;
+                case decimal a_ when b is decimal b_: /**/               return a_ > b_;
+                case char a_ when b is char b_: /**/                     return a_ > b_;
+                case short a_ when b is short b_: /**/                   return a_ > b_;
+                case ushort a_ when b is ushort b_: /**/                 return a_ > b_;
+                case DateTime a_ when b is DateTime b_: /**/             return a_ > b_;
+                case DateTimeOffset a_ when b is DateTimeOffset b_: /**/ return a_ > b_;
+                case TimeSpan a_ when b is TimeSpan b_: /**/             return a_ > b_;
             }
 
-            var op = aType.GetMethod("op_GreaterThan", new Type[] { aType, b.GetType() }, BindingFlags.Static | BindingFlags.Public);
+            var aType = a.GetType();
+            var bType = b.GetType();
 
-            if (op != null)
-                return (bool)op.Invoke(null, new object[] { a, b });
+            var op = ComparingOperatorCache.Get(ComparingOperatorCache.Operator.GreaterThan, aType, bType) ??
+                throw new ArgumentException("The > operator cannot be applied to: " + aType.FullName);
 
-            throw new ArgumentException("The > operator cannot be applied to: " + aType.FullName);
+            return op(a, b);
         }
 
         /// <summary>
@@ -182,33 +180,32 @@ namespace Cauldron.Core
             if (object.ReferenceEquals(a, b)) // They are also equal here
                 return true;
 
-            var aType = a.GetType();
-
-            if (aType == b.GetType())
+            switch (a)
             {
-                if (aType == typeof(int)) return (int)a >= (int)b;
-                if (aType == typeof(uint)) return (uint)a >= (uint)b;
-                if (aType == typeof(long)) return (long)a >= (long)b;
-                if (aType == typeof(ulong)) return (ulong)a >= (ulong)b;
-                if (aType == typeof(byte)) return (byte)a >= (byte)b;
-                if (aType == typeof(sbyte)) return (sbyte)a >= (sbyte)b;
-                if (aType == typeof(float)) return (float)a >= (float)b;
-                if (aType == typeof(double)) return (double)a >= (double)b;
-                if (aType == typeof(decimal)) return (decimal)a >= (decimal)b;
-                if (aType == typeof(char)) return (char)a >= (char)b;
-                if (aType == typeof(short)) return (short)a >= (short)b;
-                if (aType == typeof(ushort)) return (ushort)a >= (ushort)b;
-                if (aType == typeof(DateTime)) return (DateTime)a >= (DateTime)b;
-                if (aType == typeof(DateTimeOffset)) return (DateTimeOffset)a >= (DateTimeOffset)b;
-                if (aType == typeof(TimeSpan)) return (TimeSpan)a >= (TimeSpan)b;
+                case int a_ when b is int b_: /**/                       return a_ >= b_;
+                case uint a_ when b is uint b_: /**/                     return a_ >= b_;
+                case long a_ when b is long b_: /**/                     return a_ >= b_;
+                case ulong a_ when b is ulong b_: /**/                   return a_ >= b_;
+                case byte a_ when b is byte b_: /**/                     return a_ >= b_;
+                case sbyte a_ when b is sbyte b_: /**/                   return a_ >= b_;
+                case float a_ when b is float b_: /**/                   return a_ >= b_;
+                case double a_ when b is double b_: /**/                 return a_ >= b_;
+                case decimal a_ when b is decimal b_: /**/               return a_ >= b_;
+                case char a_ when b is char b_: /**/                     return a_ >= b_;
+                case short a_ when b is short b_: /**/                   return a_ >= b_;
+                case ushort a_ when b is ushort b_: /**/                 return a_ >= b_;
+                case DateTime a_ when b is DateTime b_: /**/             return a_ >= b_;
+                case DateTimeOffset a_ when b is DateTimeOffset b_: /**/ return a_ >= b_;
+                case TimeSpan a_ when b is TimeSpan b_: /**/             return a_ >= b_;
             }
 
-            var op = aType.GetMethod("op_GreaterThanOrEqual", new Type[] { aType, b.GetType() }, BindingFlags.Static | BindingFlags.Public);
+            var aType = a.GetType();
+            var bType = b.GetType();
 
-            if (op != null)
-                return (bool)op.Invoke(null, new object[] { a, b });
+            var op = ComparingOperatorCache.Get(ComparingOperatorCache.Operator.GreaterThanOrEqual, aType, bType) ??
+                throw new ArgumentException("The >= operator cannot be applied to: " + aType.FullName);
 
-            throw new ArgumentException("The >= operator cannot be applied to: " + aType.FullName);
+            return op(a, b);
         }
 
         /// <summary>
@@ -235,33 +232,32 @@ namespace Cauldron.Core
             if (object.ReferenceEquals(a, b)) // They are also equal here
                 return false;
 
-            var aType = a.GetType();
-
-            if (aType == b.GetType())
+            switch (a)
             {
-                if (aType == typeof(int)) return (int)a < (int)b;
-                if (aType == typeof(uint)) return (uint)a < (uint)b;
-                if (aType == typeof(long)) return (long)a < (long)b;
-                if (aType == typeof(ulong)) return (ulong)a < (ulong)b;
-                if (aType == typeof(byte)) return (byte)a < (byte)b;
-                if (aType == typeof(sbyte)) return (sbyte)a < (sbyte)b;
-                if (aType == typeof(float)) return (float)a < (float)b;
-                if (aType == typeof(double)) return (double)a < (double)b;
-                if (aType == typeof(decimal)) return (decimal)a < (decimal)b;
-                if (aType == typeof(char)) return (char)a < (char)b;
-                if (aType == typeof(short)) return (short)a < (short)b;
-                if (aType == typeof(ushort)) return (ushort)a < (ushort)b;
-                if (aType == typeof(DateTime)) return (DateTime)a < (DateTime)b;
-                if (aType == typeof(DateTimeOffset)) return (DateTimeOffset)a < (DateTimeOffset)b;
-                if (aType == typeof(TimeSpan)) return (TimeSpan)a < (TimeSpan)b;
+                case int a_ when b is int b_: /**/                       return a_ < b_;
+                case uint a_ when b is uint b_: /**/                     return a_ < b_;
+                case long a_ when b is long b_: /**/                     return a_ < b_;
+                case ulong a_ when b is ulong b_: /**/                   return a_ < b_;
+                case byte a_ when b is byte b_: /**/                     return a_ < b_;
+                case sbyte a_ when b is sbyte b_: /**/                   return a_ < b_;
+                case float a_ when b is float b_: /**/                   return a_ < b_;
+                case double a_ when b is double b_: /**/                 return a_ < b_;
+                case decimal a_ when b is decimal b_: /**/               return a_ < b_;
+                case char a_ when b is char b_: /**/                     return a_ < b_;
+                case short a_ when b is short b_: /**/                   return a_ < b_;
+                case ushort a_ when b is ushort b_: /**/                 return a_ < b_;
+                case DateTime a_ when b is DateTime b_: /**/             return a_ < b_;
+                case DateTimeOffset a_ when b is DateTimeOffset b_: /**/ return a_ < b_;
+                case TimeSpan a_ when b is TimeSpan b_: /**/             return a_ < b_;
             }
 
-            var op = aType.GetMethod("op_LessThan", new Type[] { aType, b.GetType() }, BindingFlags.Static | BindingFlags.Public);
+            var aType = a.GetType();
+            var bType = b.GetType();
 
-            if (op != null)
-                return (bool)op.Invoke(null, new object[] { a, b });
+            var op = ComparingOperatorCache.Get(ComparingOperatorCache.Operator.LessThan, aType, bType) ??
+                throw new ArgumentException("The < operator cannot be applied to: " + aType.FullName);
 
-            throw new ArgumentException("The < operator cannot be applied to: " + aType.FullName);
+            return op(a, b);
         }
 
         /// <summary>
@@ -288,33 +284,32 @@ namespace Cauldron.Core
             if (object.ReferenceEquals(a, b)) // They are also equal here
                 return true;
 
-            var aType = a.GetType();
-
-            if (aType == b.GetType())
+            switch (a)
             {
-                if (aType == typeof(int)) return (int)a <= (int)b;
-                if (aType == typeof(uint)) return (uint)a <= (uint)b;
-                if (aType == typeof(long)) return (long)a <= (long)b;
-                if (aType == typeof(ulong)) return (ulong)a <= (ulong)b;
-                if (aType == typeof(byte)) return (byte)a <= (byte)b;
-                if (aType == typeof(sbyte)) return (sbyte)a <= (sbyte)b;
-                if (aType == typeof(float)) return (float)a <= (float)b;
-                if (aType == typeof(double)) return (double)a <= (double)b;
-                if (aType == typeof(decimal)) return (decimal)a <= (decimal)b;
-                if (aType == typeof(char)) return (char)a <= (char)b;
-                if (aType == typeof(short)) return (short)a <= (short)b;
-                if (aType == typeof(ushort)) return (ushort)a <= (ushort)b;
-                if (aType == typeof(DateTime)) return (DateTime)a <= (DateTime)b;
-                if (aType == typeof(DateTimeOffset)) return (DateTimeOffset)a <= (DateTimeOffset)b;
-                if (aType == typeof(TimeSpan)) return (TimeSpan)a <= (TimeSpan)b;
+                case int a_ when b is int b_: /**/                       return a_ <= b_;
+                case uint a_ when b is uint b_: /**/                     return a_ <= b_;
+                case long a_ when b is long b_: /**/                     return a_ <= b_;
+                case ulong a_ when b is ulong b_: /**/                   return a_ <= b_;
+                case byte a_ when b is byte b_: /**/                     return a_ <= b_;
+                case sbyte a_ when b is sbyte b_: /**/                   return a_ <= b_;
+                case float a_ when b is float b_: /**/                   return a_ <= b_;
+                case double a_ when b is double b_: /**/                 return a_ <= b_;
+                case decimal a_ when b is decimal b_: /**/               return a_ <= b_;
+                case char a_ when b is char b_: /**/                     return a_ <= b_;
+                case short a_ when b is short b_: /**/                   return a_ <= b_;
+                case ushort a_ when b is ushort b_: /**/                 return a_ <= b_;
+                case DateTime a_ when b is DateTime b_: /**/             return a_ <= b_;
+                case DateTimeOffset a_ when b is DateTimeOffset b_: /**/ return a_ <= b_;
+                case TimeSpan a_ when b is TimeSpan b_: /**/             return a_ <= b_;
             }
 
-            var op = aType.GetMethod("op_LessThanOrEqual", new Type[] { aType, b.GetType() }, BindingFlags.Static | BindingFlags.Public);
+            var aType = a.GetType();
+            var bType = b.GetType();
 
-            if (op != null)
-                return (bool)op.Invoke(null, new object[] { a, b });
+            var op = ComparingOperatorCache.Get(ComparingOperatorCache.Operator.LessThanOrEqual, aType, bType) ??
+                throw new ArgumentException("The <= operator cannot be applied to: " + aType.FullName);
 
-            throw new ArgumentException("The <= operator cannot be applied to: " + aType.FullName);
+            return op(a, b);
         }
 
         /// <summary>
@@ -363,49 +358,51 @@ namespace Cauldron.Core
             if (object.ReferenceEquals(a, b))
                 return false;
 
-            var aType = a.GetType();
-
-            if (aType == b.GetType())
+            switch (a)
             {
-                if (aType == typeof(string)) return a as string != b as string;
-                if (aType == typeof(int)) return (int)a != (int)b;
-                if (aType == typeof(uint)) return (uint)a != (uint)b;
-                if (aType == typeof(long)) return (long)a != (long)b;
-                if (aType == typeof(ulong)) return (ulong)a != (ulong)b;
-                if (aType == typeof(byte)) return (byte)a != (byte)b;
-                if (aType == typeof(sbyte)) return (sbyte)a != (sbyte)b;
-                if (aType == typeof(float)) return (float)a != (float)b;
-                if (aType == typeof(double)) return (double)a != (double)b;
-                if (aType == typeof(decimal)) return (decimal)a != (decimal)b;
-                if (aType == typeof(bool)) return (bool)a != (bool)b;
-                if (aType == typeof(char)) return (char)a != (char)b;
-                if (aType == typeof(short)) return (short)a != (short)b;
-                if (aType == typeof(ushort)) return (ushort)a != (ushort)b;
-                if (aType == typeof(IntPtr)) return (IntPtr)a != (IntPtr)b;
-                if (aType == typeof(UIntPtr)) return (UIntPtr)a != (UIntPtr)b;
-                if (aType == typeof(DateTime)) return (DateTime)a != (DateTime)b;
-                if (aType == typeof(DateTimeOffset)) return (DateTimeOffset)a != (DateTimeOffset)b;
-                if (aType == typeof(TimeSpan)) return (TimeSpan)a != (TimeSpan)b;
-                if (aType == typeof(Guid)) return (Guid)a != (Guid)b;
-
-                // If object a implements the IEquatable<> interface... Lets handle it in here
-                var method = aType.GetMethod("Equals", new Type[] { aType });
-                if (method != null)
-                    return !(bool)method.Invoke(a, new object[] { b });
+                case string a_ when b is string b_: /**/                 return a_ != b_;
+                case int a_ when b is int b_: /**/                       return a_ != b_;
+                case int a_ when b is long b_: /**/                      return a_ != b_;
+                case int a_ when b is char b_: /**/                      return a_ != b_;
+                case uint a_ when b is uint b_: /**/                     return a_ != b_;
+                case long a_ when b is long b_: /**/                     return a_ != b_;
+                case long a_ when b is int b_: /**/                      return a_ != b_;
+                case ulong a_ when b is ulong b_: /**/                   return a_ != b_;
+                case byte a_ when b is byte b_: /**/                     return a_ != b_;
+                case byte a_ when b is char b_: /**/                     return a_ != b_;
+                case sbyte a_ when b is sbyte b_: /**/                   return a_ != b_;
+                case float a_ when b is float b_: /**/                   return a_ != b_;
+                case float a_ when b is double b_: /**/                  return a_ != b_;
+                case double a_ when b is double b_: /**/                 return a_ != b_;
+                case double a_ when b is float b_: /**/                  return a_ != b_;
+                case decimal a_ when b is decimal b_: /**/               return a_ != b_;
+                case char a_ when b is char b_: /**/                     return a_ != b_;
+                case char a_ when b is int b_: /**/                      return a_ != b_;
+                case char a_ when b is byte b_: /**/                     return a_ != b_;
+                case short a_ when b is short b_: /**/                   return a_ != b_;
+                case ushort a_ when b is ushort b_: /**/                 return a_ != b_;
+                case DateTime a_ when b is DateTime b_: /**/             return a_ != b_;
+                case DateTimeOffset a_ when b is DateTimeOffset b_: /**/ return a_ != b_;
+                case TimeSpan a_ when b is TimeSpan b_: /**/             return a_ != b_;
+                case IntPtr a_ when b is IntPtr b_: /**/                 return a_ != b_;
+                case UIntPtr a_ when b is UIntPtr b_: /**/               return a_ != b_;
+                case Guid a_ when b is Guid b_: /**/                     return a_ != b_;
             }
 
-            var op = aType.GetMethod("op_Inequality", new Type[] { aType, b.GetType() }, BindingFlags.Static | BindingFlags.Public);
+            var aType = a.GetType();
+            var bType = b.GetType();
 
-            if (op != null)
-                return (bool)op.Invoke(null, new object[] { a, b });
+            if (ComparingOperatorCache.Get(ComparingOperatorCache.Operator.Inequality, aType, bType) is ComparerOperator op1)
+                return op1(a, b);
 
-            // if this is null try to exchange the position of the parameters... Maybe its the other
-            // way around
-            if (op == null)
-                op = aType.GetMethod("op_Inequality", new Type[] { b.GetType(), aType }, BindingFlags.Static | BindingFlags.Public);
+            if (ComparingOperatorCache.Get(ComparingOperatorCache.Operator.Inequality, bType, aType) is ComparerOperator op2)
+                return op2(b, a);
 
-            if (op != null)
-                return (bool)op.Invoke(null, new object[] { b, a });
+            if (IEquatableCache.Get(aType, bType) is EqualsMethod op3)
+                return !op3(a, b);
+
+            if (IEquatableCache.Get(bType, aType) is EqualsMethod op4)
+                return !op4(b, a);
 
             return !a.Equals(b);
         }

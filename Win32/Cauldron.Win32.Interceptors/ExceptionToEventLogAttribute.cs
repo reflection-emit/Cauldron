@@ -95,7 +95,7 @@ namespace Cauldron.Core.Interceptors
         }
 
         /// <exclude/>
-        public void OnException(Exception e)
+        public bool OnException(Exception e)
         {
             using (var eventLog = new EventLog(this.logName, Environment.MachineName))
             {
@@ -106,6 +106,8 @@ namespace Cauldron.Core.Interceptors
                 else
                     eventLog.WriteEntry(e.GetStackTrace(), this.eventLogEntryType);
             }
+
+            return true;
         }
 
         /// <exclude/>

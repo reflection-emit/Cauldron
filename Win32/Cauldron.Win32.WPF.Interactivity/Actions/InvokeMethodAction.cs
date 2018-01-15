@@ -119,7 +119,7 @@ namespace Cauldron.XAML.Interactivity.Actions
         #endregion Dependency Property PriorityLow
 
         [Inject]
-        private IDispatcher dispatcher = null;
+        private IDispatcher Dispatcher { get; set; }
 
         /// <summary>
         /// Occures when the action is invoked by an event
@@ -222,7 +222,7 @@ namespace Cauldron.XAML.Interactivity.Actions
         private async void Invoke(MethodInfo method, object obj, object[] parameters)
         {
             if (this.PriorityLow)
-                await dispatcher.RunAsync(DispatcherPriority.Low, () => method.Invoke(obj, parameters));
+                await this.Dispatcher.RunAsync(DispatcherPriority.Low, () => method.Invoke(obj, parameters));
             else
                 method.Invoke(obj, parameters);
         }

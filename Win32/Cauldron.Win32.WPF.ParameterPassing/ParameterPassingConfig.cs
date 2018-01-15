@@ -31,9 +31,9 @@ namespace Cauldron.XAML
         public bool BringToFront { get; set; } = true;
 
         /// <summary>
-        /// Gets or sets a char that is used as data separator. Default value is space.
+        /// Gets or sets a char that is used as data separator. Default value is \r.
         /// </summary>
-        public char DataSeparator { get; set; } = ' ';
+        public char DataSeparator { get; set; } = '\r';
 
         /// <summary>
         /// Gets or sets a delegate that is executed to exit the application. The default value is <see cref="Environment.Exit(int)"/> with the value of 0.

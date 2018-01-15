@@ -160,9 +160,7 @@ namespace Cauldron.Core.Interceptors
         }
 
         /// <exclude/>
-        public void OnException(Exception e)
-        {
-        }
+        public bool OnException(Exception e) => true;
 
         /// <exclude/>
         public void OnExit()

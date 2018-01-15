@@ -1,11 +1,10 @@
 ﻿using Mono.Cecil;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Collections;
 
 namespace Cauldron.Interception.Cecilator
 {
@@ -35,6 +34,9 @@ namespace Cauldron.Interception.Cecilator
         {
             this.builder = builder;
             this.propertyDefinition = propertyDefinition;
+            this.customAttributeProvider = propertyDefinition;
+
+            this.innerCollection.AddRange(customAttributeProvider.CustomAttributes.Select(x => new BuilderCustomAttribute(builder, customAttributeProvider, x)));
 
             if (propertyDefinition.GetMethod != null)
                 this.innerCollection.AddRange(propertyDefinition.GetMethod.CustomAttributes.Select(x => new BuilderCustomAttribute(builder, propertyDefinition.GetMethod, x)));
@@ -43,18 +45,21 @@ namespace Cauldron.Interception.Cecilator
                 this.innerCollection.AddRange(propertyDefinition.SetMethod.CustomAttributes.Select(x => new BuilderCustomAttribute(builder, propertyDefinition.SetMethod, x)));
         }
 
-        public void Add(Type customAttributeType, params object[] parameters) => this.Add(this.moduleDefinition.ImportReference(customAttributeType), parameters);
+        public bool Add(Type customAttributeType, params object[] parameters) => this.Add(this.moduleDefinition.ImportReference(customAttributeType), parameters);
 
-        public void Add(BuilderType customAttributeType, params object[] parameters) => this.Add(customAttributeType.typeReference, parameters);
+        public bool Add(BuilderType customAttributeType, params object[] parameters) => this.Add(customAttributeType.typeReference, parameters);
 
-        public void Add(TypeReference customAttributeType, params object[] parameters)
+        public bool Add(TypeReference customAttributeType, params object[] parameters)
         {
             if (this.customAttributeProvider is FieldDefinition fieldDefinition &&
                 (customAttributeType.FullName == "System.NonSerializedAttribute" || customAttributeType.FullName == "System.Runtime.Serialization.IgnoreDataMemberAttribute"))
             {
                 fieldDefinition.Attributes |= FieldAttributes.NotSerialized;
-                return;
+                return true;
             }
+
+            if (this.DonotApply(customAttributeType))
+                return false;
 
             MethodReference ctor = null;
             var type = this.moduleDefinition.ImportReference(customAttributeType);
@@ -92,23 +97,13 @@ namespace Cauldron.Interception.Cecilator
                 for (int i = 0; i < ctor.Parameters.Count; i++)
                     attrib.ConstructorArguments.Add(new CustomAttributeArgument(ctor.Parameters[i].ParameterType, parameters[i]));
 
-            if (this.propertyDefinition != null && this.propertyDefinition.GetMethod != null)
-            {
-                this.propertyDefinition.GetMethod.CustomAttributes.Add(attrib);
-                this.innerCollection.Add(new BuilderCustomAttribute(this.builder, this.propertyDefinition.GetMethod, attrib));
-            }
-
-            if (this.propertyDefinition != null && this.propertyDefinition.SetMethod != null)
-            {
-                this.propertyDefinition.SetMethod.CustomAttributes.Add(attrib);
-                this.innerCollection.Add(new BuilderCustomAttribute(this.builder, this.propertyDefinition.SetMethod, attrib));
-            }
-
             if (this.customAttributeProvider != null)
             {
                 this.customAttributeProvider.CustomAttributes.Add(attrib);
                 this.innerCollection.Add(new BuilderCustomAttribute(this.builder, this.customAttributeProvider, attrib));
             }
+
+            return true;
         }
 
         public void AddCompilerGeneratedAttribute() => this.Add(this.builder.GetType("System.Runtime.CompilerServices.CompilerGeneratedAttribute"));
@@ -138,6 +133,9 @@ namespace Cauldron.Interception.Cecilator
 
         public void Copy(BuilderCustomAttribute attribute)
         {
+            if (this.DonotApply(attribute.attribute.AttributeType))
+                return;
+
             if (this.customAttributeProvider != null)
                 this.customAttributeProvider.CustomAttributes.Add(attribute.attribute);
             else if (this.propertyDefinition != null)
@@ -188,6 +186,57 @@ namespace Cauldron.Interception.Cecilator
                 .Where(x => x.Fullname.GetHashCode() == type.typeReference.FullName.GetHashCode() && x.Fullname == type.typeReference.FullName)
                 .ToArray();
             this.Remove(attributesToRemove);
+        }
+
+        private bool DonotApply(TypeReference customAttributeType)
+        {
+            var attributeTarget = customAttributeType.Resolve().CustomAttributes.FirstOrDefault(x => x.AttributeType.FullName == "System.AttributeUsageAttribute");
+            var attributeTargets = AttributeTargets.All;
+            var allowMultiple = false;
+
+            if (attributeTarget != null)
+            {
+                Enum.TryParse(attributeTarget.ConstructorArguments[0].Value?.ToString(), out attributeTargets);
+                for (int i = 0; i < attributeTarget.Properties.Count; i++)
+                    if (attributeTarget.Properties[i].Name == "AllowMultiple")
+                    {
+                        allowMultiple = (bool)attributeTarget.Properties[i].Argument.Value;
+                        break;
+                    }
+            }
+
+            bool DonotApply(AttributeTargets target)
+            {
+                if (!attributeTargets.HasFlag(target))
+                    return true;
+
+                if (allowMultiple)
+                    return false;
+
+                return this.customAttributeProvider.CustomAttributes?.Any(x => x.AttributeType.FullName == customAttributeType.FullName) ?? false;
+            }
+
+            switch (this.customAttributeProvider)
+            {
+                case PropertyDefinition propertyDefinition when (propertyDefinition.GetMethod ?? propertyDefinition.SetMethod).IsAbstract || DonotApply(AttributeTargets.Property):
+                case ModuleDefinition moduleDefinition when DonotApply(AttributeTargets.Module):
+                case TypeDefinition typeDefinition when typeDefinition.IsInterface /* We don't have any implementation for interfaces */ || DonotApply(AttributeTargets.Class):
+                case FieldDefinition fieldDefinition when DonotApply(AttributeTargets.Field):
+                    return true;
+
+                case MethodDefinition methodDefinition:
+                    {
+                        if (methodDefinition.IsAbstract)
+                            return true;
+
+                        if ((methodDefinition.Name == ".ctor" || methodDefinition.Name == ".cctor") /* constructor */)
+                            return DonotApply(AttributeTargets.Constructor);
+
+                        return DonotApply(AttributeTargets.Method);
+                    }
+            }
+
+            return false;
         }
 
         private void Remove(BuilderCustomAttribute[] attributesToRemove)

@@ -5,7 +5,9 @@ namespace Cauldron.Interception.Cecilator
 {
     public interface IIfCode : ICode
     {
-        IIfCode And { get; }
+        IIfCode AndAnd { get; }
+
+        ICode EndIf();
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         new bool Equals(object obj);

@@ -21,7 +21,11 @@ namespace Cauldron.Core.Interceptors
         }
 
         /// <exclude/>
-        public void OnException(Exception e) => logger.Log(LogLevel.Error, e);
+        public bool OnException(Exception e)
+        {
+            logger.Log(LogLevel.Error, e);
+            return true;
+        }
 
         /// <exclude/>
         public void OnExit()
