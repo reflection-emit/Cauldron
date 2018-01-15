@@ -22,7 +22,7 @@ namespace Cauldron.Interception.Fody
 
             foreach (var item in assignMethodAttributeInfos)
             {
-                var method = item.TargetMethod;
+                var method = item.TargetMethod.Import();
 
                 if (method == null)
                 {
