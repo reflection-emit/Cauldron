@@ -22,8 +22,10 @@
 <span class="highlight-spacerShort"></span>    {
 <span class="highlight-spacerShort"></span>    }
 <span class="highlight-spacerShort"></span>
-<span class="highlight-spacerShort"></span>    <span class="highlight-keyword">public</span> <span class="highlight-keyword">void</span> OnException(Exception e)
+<span class="highlight-spacerShort"></span>    <span class="highlight-keyword">public</span> <span class="highlight-keyword">bool</span> OnException(Exception e)
 <span class="highlight-spacerShort"></span>    {
+<span class="highlight-spacerShort"></span>        <span class="highlight-comment">// Returning false will swallow the exception</span>
+<span class="highlight-spacerShort"></span>        <span class="highlight-keyword">return</span> <span class="highlight-keyword">true</span>;
 <span class="highlight-spacerShort"></span>    }
 <span class="highlight-spacerShort"></span>
 <span class="highlight-spacerShort"></span>    <span class="highlight-keyword">public</span> <span class="highlight-keyword">void</span> OnExit()
@@ -55,8 +57,10 @@
 <span class="highlight-spacerShort"></span>        }
 <span class="highlight-spacerShort"></span>        <span class="highlight-keyword">catch</span> (Exception e)
 <span class="highlight-spacerShort"></span>        {
-<span class="highlight-spacerShort"></span>            interceptorAttribute.OnException(e);
-<span class="highlight-spacerShort"></span>            <span class="highlight-keyword">throw</span>;
+<span class="highlight-spacerShort"></span>            <span class="highlight-keyword">if</span>(interceptorAttribute.OnException(e))
+<span class="highlight-spacerShort"></span>            {
+<span class="highlight-spacerShort"></span>                <span class="highlight-keyword">throw</span>;
+<span class="highlight-spacerShort"></span>            }
 <span class="highlight-spacerShort"></span>        }
 <span class="highlight-spacerShort"></span>        <span class="highlight-keyword">finally</span>
 <span class="highlight-spacerShort"></span>        {
