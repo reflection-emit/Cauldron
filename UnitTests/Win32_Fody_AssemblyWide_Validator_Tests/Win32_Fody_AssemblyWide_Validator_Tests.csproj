@@ -55,6 +55,7 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="class-test-cauldron.fody.json" />
+    <None Include="test-script-cauldron.fody.csx" />
     <None Include="testconfig01-cauldron.fody.json" />
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,9 @@
+using System.IO;
+using System;
+
 Console.WriteLine("Starting copy");
 
-if (Args == null || Args.Count() != 3)
+if (Args == null || Args.Length != 3)
 {
     Environment.Exit(-1);
     return;
@@ -8,7 +11,7 @@ if (Args == null || Args.Count() != 3)
 
 var directories = Directory.GetDirectories(Args[1], Args[2] + "*");
 
-if (directories.Count() == 0)
+if (directories.Length == 0)
 {
     Directory.CreateDirectory(Path.Combine(Args[1], Args[2] + ".99.9.9"));
     directories = Directory.GetDirectories(Args[1], Args[2] + "*");

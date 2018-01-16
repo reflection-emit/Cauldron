@@ -61,6 +61,8 @@ namespace Cauldron.Interception.Fody
             this.InterceptSimpleMethods(this.Builder, simpleMethodInterceptionAttributes);
             this.InterceptProperties(this.Builder, propertyInterceptingAttributes);
 
+            this.ExecuteInterceptionScripts(this.Builder);
+
             this.CreateFactoryCache(this.Builder);
 
             if (this.Builder.TypeExists("Cauldron.XAML.ApplicationBase") && this.Builder.IsReferenced("PropertyChanged"))
