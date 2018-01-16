@@ -12,10 +12,7 @@ namespace Cauldron.Consoles
         /// </summary>
         /// <param name="message">The message that describes the error.</param>
         /// <param name="parameter">The parameter that caused the error</param>
-        public UnknownParameterException(string message, string parameter) : base(message)
-        {
-            this.Parameter = parameter;
-        }
+        public UnknownParameterException(string message, string parameter) : base(message) => this.Parameter = parameter;
 
         /// <summary>
         /// Gets the parameter that caused the error

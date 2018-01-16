@@ -1,6 +1,4 @@
 ﻿using Cauldron.Activator;
-using Cauldron.Core;
-using Cauldron.Core.Extensions;
 using Cauldron.Core.Reflection;
 using Cauldron.Localization;
 using System;
@@ -20,7 +18,6 @@ namespace Cauldron.Consoles
         private Dictionary<IExecutionGroup, List<PropertyInfo>> activatedParameters = new Dictionary<IExecutionGroup, List<PropertyInfo>>();
         private List<ExecutionGroupProperties> executionGroups;
         private bool isInitialized = false;
-
         private Locale locale;
 
         /// <summary>

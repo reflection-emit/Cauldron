@@ -15,19 +15,13 @@ namespace Cauldron.Consoles
         /// Initializes a new instance of the <see cref="ConsoleTableColumn"/> class
         /// </summary>
         /// <param name="values">A collection of values</param>
-        public ConsoleTableColumn(IEnumerable<string> values) : this()
-        {
-            this.Values.AddRange(values);
-        }
+        public ConsoleTableColumn(IEnumerable<string> values) : this() => this.Values.AddRange(values);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ConsoleTableColumn"/> class
         /// </summary>
         /// <param name="values">A collection of values</param>
-        public ConsoleTableColumn(params string[] values) : this()
-        {
-            this.Values.AddRange(values);
-        }
+        public ConsoleTableColumn(params string[] values) : this() => this.Values.AddRange(values);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ConsoleTableColumn"/> class

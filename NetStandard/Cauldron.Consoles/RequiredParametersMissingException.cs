@@ -7,10 +7,7 @@ namespace Cauldron.Consoles
     /// </summary>
     public sealed class RequiredParametersMissingException : Exception
     {
-        internal RequiredParametersMissingException(string message, string[] missingRequiredParameters) : base(message)
-        {
-            this.MissingRequiredParameters = missingRequiredParameters;
-        }
+        internal RequiredParametersMissingException(string message, string[] missingRequiredParameters) : base(message) => this.MissingRequiredParameters = missingRequiredParameters;
 
         /// <summary>
         /// Gets the required parameters without value
