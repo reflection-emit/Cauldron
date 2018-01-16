@@ -58,10 +58,7 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="..\Fody\Cauldron.Interception.Fody\bin\Release\Cauldron.Interception.Fody.dll" target="Cauldron.Interception.Fody.dll" />
-    <file src="..\Fody\Cauldron.Interception.Cecilator\bin\Release\Cauldron.Interception.Cecilator.dll" target="Cauldron.Interception.Cecilator.dll" />
-    <file src="..\Fody\Cauldron.Interception.Cecilator\bin\Release\Cauldron.Interception.Cecilator.pdb" target="Cauldron.Interception.Cecilator.pdb" />
-    <file src="..\Fody\Cauldron.Interception.Cecilator\bin\Release\System.ValueTuple.dll" target="System.ValueTuple.dll" />
+    <file src="..\Fody\Cauldron.Interception.Fody\bin\Release\**" target="" />
     <!-- Desktop Net461 -->
     <file src="..\NetStandard\Cauldron.Interception\bin\Release\netstandard2.0\Cauldron.Interception**" target="lib\net461" />
     <!-- Desktop Net45 -->

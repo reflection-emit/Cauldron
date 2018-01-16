@@ -9,8 +9,11 @@ namespace Cauldron.Interception.Fody
     public sealed class AssignMethodAttributeInfo
     {
         public Method AttributedMethod { get; private set; }
+
         public Field AttributeField { get; private set; }
+
         public bool IsCtor => this.TargetMethodName == ".ctor";
+
         public BuilderType[] ParameterTypes { get; private set; }
 
         public Method TargetMethod
@@ -59,9 +62,13 @@ namespace Cauldron.Interception.Fody
         }
 
         public bool TargetMethodIsVoid => this.TargetMethodReturnType.Fullname == "System.Void";
+
         public string TargetMethodName { get; private set; }
+
         public BuilderType TargetMethodReturnType { get; private set; }
+
         public bool ThrowError { get; private set; }
+
         public BuilderType Type { get; private set; }
 
         public static AssignMethodAttributeInfo[] GetAllAssignMethodAttributedFields(AttributedProperty attributedProperty) =>
@@ -78,6 +85,9 @@ namespace Cauldron.Interception.Fody
             var fields = builderCustomAttribute.Type
                 .GetAttributedFields()
                 .Where(x => x.Field.IsPublic && !x.Field.IsStatic && x.Attribute.Fullname == __AssignMethodAttribute.Type.Fullname);
+
+            if (!fields.Any())
+                return new AssignMethodAttributeInfo[0];
 
             return fields
                 .Select(x =>

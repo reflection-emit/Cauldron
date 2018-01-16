@@ -9,7 +9,9 @@ namespace Cauldron.Interception.Fody
     public interface IMethodBuilderInfoItem
     {
         AttributedMethod Attribute { get; }
+
         bool HasSyncRootInterface { get; }
+
         bool IsSuppressed { get; }
     }
 
@@ -50,9 +52,9 @@ namespace Cauldron.Interception.Fody
         {
             this.Attribute = attribute;
             this.Interface = @interface;
-            this.HasSyncRootInterface = attribute.Attribute.Type.Implements(__ISyncRoot.Type.Fullname);
             this.AssignMethodAttributeInfos = AssignMethodAttributeInfo.GetAllAssignMethodAttributedFields(attribute);
             this.InterceptorInfo = new InterceptorInfo(this.Attribute.Attribute.Type);
+            this.HasSyncRootInterface = attribute.Attribute.Type.Implements(__ISyncRoot.Type.Fullname);
         }
 
         public AssignMethodAttributeInfo[] AssignMethodAttributeInfos { get; private set; }
@@ -77,6 +79,7 @@ namespace Cauldron.Interception.Fody
         }
 
         public Method AsyncMethod { get; private set; }
+
         public Method Method { get; private set; }
 
         public override bool Equals(object obj) => (obj as MethodKey)?.Method.Equals(this.Method) ?? false;
