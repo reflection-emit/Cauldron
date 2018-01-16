@@ -1397,7 +1397,7 @@ namespace Cauldron.Interception.Cecilator
             if (instance != null)
                 this.instructions.Append(this.AddParameter(this.processor, null, instance).Instructions);
 
-            if (parameters != null && parameters.Length > 0 && parameters[0] is Crumb && (parameters[0] as Crumb).UnPackArray)
+            if (parameters != null && parameters.Length > 0 && parameters[0] is Crumb crumb && crumb.UnPackArray)
             {
                 var methodParameters = method.methodDefinition.Parameters;
                 for (int i = 0; i < methodParameters.Count; i++)
@@ -1410,7 +1410,7 @@ namespace Cauldron.Interception.Cecilator
                     this.instructions.Append(paramResult.Instructions);
                 }
             }
-            else if (parameters != null && parameters.Length > 0 && parameters[0] is Crumb && (parameters[0] as Crumb).Index < 0)
+            else if (parameters != null && parameters.Length > 0 && parameters[0] is Crumb crumb && crumb.Index < 0)
             {
                 if ((method.OriginType.IsInterface || method.IsAbstract) && opcode != OpCodes.Calli)
                     opcode = OpCodes.Callvirt;
