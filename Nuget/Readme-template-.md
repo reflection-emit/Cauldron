@@ -11,7 +11,7 @@ https://Capgemini.github.io/Cauldron/netstandard/
 ### UWP
 https://Capgemini.github.io/Cauldron/uwp/
 
-## What you require to run this project in Visual Studio Extensions
+## What you require to run this project in Visual Studio
 - [Sandcastle Help File Builder](https://github.com/EWSoftware/SHFB/releases) (documentation)
 - [CodeMaid](http://www.codemaid.net/) (only if you want to contribute)
 - [dotnet-script](https://github.com/filipw/dotnet-script) (building and deployment)
