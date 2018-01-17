@@ -392,6 +392,8 @@ namespace Cauldron.Interception.Cecilator
 
         public bool TypeExists(string typeName) => this.allTypes.Get(typeName) != null;
 
+        public bool TypeExists(string typeName, SearchContext searchContext) => searchContext == SearchContext.AllReferencedModules ? this.allTypes.Get(typeName) != null : this.moduleDefinition.Types.Get(typeName) != null;
+
         internal IEnumerable<TypeReference> GetTypesInternal() => GetTypesInternal(SearchContext.Module);
 
         internal IEnumerable<TypeReference> GetTypesInternal(SearchContext searchContext)

@@ -1,29 +1,59 @@
 ﻿using Cauldron.Interception.Cecilator;
-using Microsoft.CodeAnalysis.CSharp.Scripting;
-using Microsoft.CodeAnalysis.Scripting;
+using CSScriptLibrary;
 using System.IO;
+using System.IO.Compression;
+using System.Linq;
+using System.Text;
 
 namespace Cauldron.Interception.Fody
 {
+    public interface IInterceptionScript
+    {
+        string Name { get; }
+        int Priority { get; }
+
+        void Implement(Builder builder);
+    }
+
     public sealed partial class ModuleWeaver
     {
         public void ExecuteInterceptionScripts(Builder builder)
         {
-            using (new StopwatchLog(this, "scripts"))
+            string Unzip(string path)
             {
-                foreach (var script in Directory.GetFiles(this.ProjectDirectoryPath, "*cauldron.fody.csx", SearchOption.TopDirectoryOnly))
-                    this.Log(LogTypes.Info, CSharpScript.Create(
-                        File.ReadAllText(script),
-                        ScriptOptions.Default.AddImports(new string[] {
-                            "System",
-                            "System.IO",
-                            "Cauldron.Interception.Cecilator",
-                            "Cauldron.Interception.Fody",
-                            "Mono.Cecil",
-                            "System.Linq"
-                        }), globalsType: typeof(Globals))
-                        .RunAsync(new Globals { Builder = builder })
-                        .Result);
+                var target = new MemoryStream();
+
+                using (var stream = File.OpenRead(path))
+                using (var decompressionStream = new GZipStream(stream, CompressionMode.Decompress, true))
+                    decompressionStream.CopyTo(target);
+
+                target.Seek(0, SeekOrigin.Begin);
+                return Encoding.UTF8.GetString(target.ToArray());
+            }
+
+            using (new StopwatchLog(this, "scripted"))
+            {
+                CSScript.EvaluatorConfig.Engine = EvaluatorEngine.Mono;
+
+                var evaluator = CSScript.Evaluator;
+                evaluator.Reset(false);
+                evaluator.ReferenceDomainAssemblies()
+                    .ReferenceAssemblyOf<ModuleWeaver>()
+                    .ReferenceAssemblyOf<CecilatorObject>();
+
+                foreach (var script in Directory.GetFiles(this.ProjectDirectoryPath, "*cauldron.fody.csx", SearchOption.TopDirectoryOnly)
+                    .Select(x => evaluator.LoadFile(x).AlignToInterface<IInterceptionScript>())
+                    .Concat(
+                        Directory.GetFiles(this.ProjectDirectoryPath, "*cauldron.fody.csxgz", SearchOption.TopDirectoryOnly)
+                            .Select(x => Unzip(x))
+                            .Select(x => evaluator.LoadFile(x).AlignToInterface<IInterceptionScript>())
+                    )
+                    .OrderBy(x => x.Priority)
+                    .ToArray())
+                {
+                    this.Log(LogTypes.Info, "Executing script: " + script.Name);
+                    script.Implement(builder);
+                }
             }
         }
     }

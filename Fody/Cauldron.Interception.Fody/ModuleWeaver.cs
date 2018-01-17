@@ -63,7 +63,7 @@ namespace Cauldron.Interception.Fody
 
             this.ExecuteInterceptionScripts(this.Builder);
 
-            this.CreateFactoryCache(this.Builder);
+            //this.CreateFactoryCache(this.Builder);
 
             if (this.Builder.TypeExists("Cauldron.XAML.ApplicationBase") && this.Builder.IsReferenced("PropertyChanged"))
                 this.ImplementPropertyChangedEvent(this.Builder);
@@ -253,7 +253,7 @@ namespace Cauldron.Interception.Fody
                 .GroupBy(x => x.Property)
                 .Select(x => new
                 {
-                    Key = x.Key,
+                    x.Key,
                     Validators = x.ToArray()
                 });
 

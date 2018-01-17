@@ -3,7 +3,7 @@ using System;
 
 Console.WriteLine("Starting copy");
 
-if (Args == null || Args.Length != 3)
+if (Args == null || Args.Count() != 3)
 {
     Environment.Exit(-1);
     return;

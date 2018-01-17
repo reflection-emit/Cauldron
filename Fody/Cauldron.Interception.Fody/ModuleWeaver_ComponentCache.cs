@@ -233,9 +233,16 @@ namespace Cauldron.Interception.Fody
         {
             this.Log($"Creating Cauldron Cache");
 
-            var cauldron = builder.CreateType("", TypeAttributes.Public | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit, "<Cauldron>");
-            cauldron.CreateConstructor();
-            cauldron.CustomAttributes.AddCompilerGeneratedAttribute();
+            BuilderType cauldron = null;
+
+            if (builder.TypeExists("<Cauldron>", SearchContext.Module))
+                cauldron = builder.GetType("<Cauldron>", SearchContext.Module);
+            else
+            {
+                builder.CreateType("", TypeAttributes.Public | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit, "<Cauldron>");
+                cauldron.CreateConstructor();
+                cauldron.CustomAttributes.AddCompilerGeneratedAttribute();
+            }
 
             if (this.IsActivatorReferenced && this.IsXAML)
                 AddAttributeToXAMLResources(builder);

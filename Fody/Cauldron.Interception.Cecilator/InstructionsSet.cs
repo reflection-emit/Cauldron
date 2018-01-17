@@ -84,8 +84,10 @@ namespace Cauldron.Interception.Cecilator
 
                 if (lastType != null && lastType.IsPrimitive)
                 {
-                    var paramResult = new ParamResult();
-                    paramResult.Type = lastType;
+                    var paramResult = new ParamResult
+                    {
+                        Type = lastType
+                    };
 
                     this.CastOrBoxValues(this.processor, type.typeReference, paramResult, type.typeDefinition);
                     this.instructions.Append(paramResult.Instructions);
@@ -1382,8 +1384,8 @@ namespace Cauldron.Interception.Cecilator
                 {
                     var instructions = new List<Instruction>();
 
-                    foreach (var switches in j)
-                        instructions.Add(methodInstructions[switches.Index]);
+                    foreach (var (_, Index) in j)
+                        instructions.Add(methodInstructions[Index]);
 
                     methodInstructions[j.Key].Operand = instructions.ToArray();
                 }
@@ -1470,10 +1472,10 @@ namespace Cauldron.Interception.Cecilator
         private void CopyMethod(MethodDefinition method)
         {
             var methodProcessor = method.Body.GetILProcessor();
-            var instructions = CopyMethodBody(this.method.methodDefinition, this.method.methodDefinition.Body.Variables);
-            methodProcessor.Append(instructions.Instructions);
+            var (Instructions, Exceptions) = CopyMethodBody(this.method.methodDefinition, this.method.methodDefinition.Body.Variables);
+            methodProcessor.Append(Instructions);
 
-            foreach (var item in instructions.Exceptions)
+            foreach (var item in Exceptions)
                 method.Body.ExceptionHandlers.Add(item);
         }
 

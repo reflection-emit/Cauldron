@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="activator-cauldron.fody.csx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\NetStandard\Cauldron.Activator\Cauldron.Activator.csproj">
