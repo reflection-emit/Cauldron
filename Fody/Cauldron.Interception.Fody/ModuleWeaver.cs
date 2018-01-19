@@ -50,7 +50,7 @@ namespace Cauldron.Interception.Fody
             this.ImplementAnonymousTypeInterface(this.Builder);
             this.ImplementTimedCache(this.Builder);
             // this.ImplementMethodCache(this.Builder);
-            this.ImplementBamlInitializer(this.Builder);
+            //this.ImplementBamlInitializer(this.Builder);
             this.ImplementTypeWidePropertyInterception(this.Builder, propertyInterceptingAttributes);
             this.ImplementTypeWideMethodInterception(this.Builder, methodInterceptionAttributes);
             this.ImplementTypeWideMethodInterception(this.Builder, simpleMethodInterceptionAttributes);
@@ -61,6 +61,7 @@ namespace Cauldron.Interception.Fody
             this.InterceptSimpleMethods(this.Builder, simpleMethodInterceptionAttributes);
             this.InterceptProperties(this.Builder, propertyInterceptingAttributes);
 
+            this.ExecuteModuleAddition(this.Builder);
             this.ExecuteInterceptionScripts(this.Builder);
 
             //this.CreateFactoryCache(this.Builder);
@@ -72,7 +73,7 @@ namespace Cauldron.Interception.Fody
                 this.AddValidatorInits(this.Builder);
 
             // Checks
-            this.CheckAsyncMethodsNomenclature(this.Builder);
+            // this.CheckAsyncMethodsNomenclature(this.Builder);
         }
 
         private void AddAttributeToXAMLResources(Builder builder)

@@ -231,27 +231,26 @@ namespace Cauldron.Interception.Fody
 
         private void CreateFactoryCache(Builder builder)
         {
-            this.Log($"Creating Cauldron Cache");
+            //this.Log($"Creating Cauldron Cache");
 
-            BuilderType cauldron = null;
+            //BuilderType cauldron = null;
 
-            if (builder.TypeExists("<Cauldron>", SearchContext.Module))
-                cauldron = builder.GetType("<Cauldron>", SearchContext.Module);
-            else
-            {
-                builder.CreateType("", TypeAttributes.Public | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit, "<Cauldron>");
-                cauldron.CreateConstructor();
-                cauldron.CustomAttributes.AddCompilerGeneratedAttribute();
-            }
+            //if (builder.TypeExists("<Cauldron>", SearchContext.Module))
+            //    cauldron = builder.GetType("<Cauldron>", SearchContext.Module);
+            //else
+            //{
+            //    builder.CreateType("", TypeAttributes.Public | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit, "<Cauldron>");
+            //    cauldron.CreateConstructor();
+            //    cauldron.CustomAttributes.AddCompilerGeneratedAttribute();
+            //}
 
-            if (this.IsActivatorReferenced && this.IsXAML)
-                AddAttributeToXAMLResources(builder);
+            //if (this.IsActivatorReferenced && this.IsXAML)
+            //    AddAttributeToXAMLResources(builder);
 
-            if (builder.TypeExists("Cauldron.Activator.Factory"))
-                CreateComponentCache(builder, cauldron);
+            //if (builder.TypeExists("Cauldron.Activator.Factory"))
+            //    CreateComponentCache(builder, cauldron);
 
-            this.ExecuteModuleAddition(builder);
-            this.AddEntranceAssemblyHACK(builder);
+            //this.AddEntranceAssemblyHACK(builder);
         }
     }
 }
