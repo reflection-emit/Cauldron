@@ -146,7 +146,6 @@
   <Import Project="..\..\packages\MSTest.TestAdapter.1.2.0\build\net45\MSTest.TestAdapter.targets" Condition="Exists('..\..\packages\MSTest.TestAdapter.1.2.0\build\net45\MSTest.TestAdapter.targets')" />
   <Import Project="..\..\packages\Fody.2.3.15\build\net452\Fody.targets" Condition="Exists('..\..\packages\Fody.2.3.15\build\net452\Fody.targets')" />
   <PropertyGroup>
-    <PreBuildEvent>copy /Y $(SolutionDir)Win32\Cauldron.Win32.WPF\Interceptor-Scripts\*.csxgz $(ProjectDir)
-copy /Y $(SolutionDir)NetStandard\Cauldron.Activator\Interceptor-Scripts\*.csxgz $(ProjectDir)</PreBuildEvent>
+    <PreBuildEvent>dotnet script $(SolutionDir)Scripts\copy-script.csx $(ProjectPath)</PreBuildEvent>
   </PropertyGroup>
 </Project>

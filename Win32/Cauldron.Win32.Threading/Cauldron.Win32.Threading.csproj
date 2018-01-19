@@ -60,4 +60,7 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>dotnet script $(SolutionDir)Scripts\copy-script.csx $(ProjectPath)</PreBuildEvent>
+  </PropertyGroup>
 </Project>

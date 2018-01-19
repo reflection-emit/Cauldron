@@ -33,4 +33,8 @@
     <ProjectReference Include="..\..\NetStandard\Cauldron.Interception\Cauldron.Interception.csproj" />
   </ItemGroup>
 
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="dotnet script $(SolutionDir)Scripts\copy-script.csx $(ProjectPath)" />
+  </Target>
+
 </Project>

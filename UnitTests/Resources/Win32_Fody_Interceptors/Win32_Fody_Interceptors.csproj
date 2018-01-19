@@ -63,4 +63,7 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\..\..\packages\Fody.2.3.15\build\net452\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Fody.2.3.15\build\net452\Fody.targets'))" />
   </Target>
+  <PropertyGroup>
+    <PreBuildEvent>dotnet script $(SolutionDir)Scripts\copy-script.csx $(ProjectPath)</PreBuildEvent>
+  </PropertyGroup>
 </Project>
