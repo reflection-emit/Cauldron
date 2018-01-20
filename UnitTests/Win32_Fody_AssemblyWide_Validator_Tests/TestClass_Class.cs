@@ -1,5 +1,6 @@
 ﻿using Cauldron.Interception;
 using System;
+using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -10,8 +11,10 @@ namespace Cauldron.UnitTest.AssemblyValidation
     }
 
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Property)]
-    public sealed class Exception_Class_Interceptor : Attribute, IMethodInterceptor, IPropertyInterceptor, IPropertyInterceptorInitialize
+    public sealed class Exception_Class_Interceptor : Attribute, IMethodInterceptor, IPropertyInterceptor, IPropertyInterceptorInitialize, IPropertyInterceptorComparer
     {
+        public Func<object, object, bool> AreEqual { get; set; }
+
         public void OnEnter(Type declaringType, object instance, MethodBase methodbase, object[] values)
         {
         }
@@ -56,6 +59,27 @@ namespace Cauldron.UnitTest.AssemblyValidation
 
         [Exception_Class_Interceptor]
         public Task<int> Task2 { get; set; }
+
+        [Exception_Class_Interceptor]
+        public int Toast1 { get; set; }
+
+        [Exception_Class_Interceptor]
+        public string Toast2 { get; set; }
+
+        [Exception_Class_Interceptor]
+        public double Toast3 { get; set; }
+
+        [Exception_Class_Interceptor]
+        public Guid Toast4 { get; set; }
+
+        [Exception_Class_Interceptor]
+        public DateTime? Toast5 { get; set; }
+
+        [Exception_Class_Interceptor]
+        public DateTime Toast6 { get; set; }
+
+        [Exception_Class_Interceptor]
+        public Type Toast7 { get; set; }
 
         public Task<T> Bla<T>()
         {

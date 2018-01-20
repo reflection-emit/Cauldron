@@ -11,10 +11,23 @@ namespace Cauldron.Interception.Fody
 {
     public sealed partial class ModuleWeaver
     {
-        private static void AddPropertyGetterInterception(Builder builder, __PropertyInterceptionInfo propertyInterceptionInfo, PropertyBuilderInfo member, Field propertyField, Method actionObjectCtor, Method propertySetter, Dictionary<string, Field> interceptorFields)
+        private static void AddPropertyGetterInterception(
+            Builder builder,
+            __PropertyInterceptionInfo propertyInterceptionInfo,
+            PropertyBuilderInfo member,
+            Field propertyField,
+            Method actionObjectCtor,
+            Method propertySetter,
+            Method propertyComparer,
+            Dictionary<string, Field> interceptorFields)
         {
             var syncRoot = new __ISyncRoot();
+            var propertyInterceptorComparer = new __IPropertyInterceptorComparer();
             var legalGetterInterceptors = member.InterceptorInfos.Where(x => x.InterfaceGetter != null).ToArray();
+            var propertyInterceptorFunc = propertyInterceptorComparer.GetAreEqual.ReturnType.GetMethod(".ctor", true, new Type[] { typeof(object), typeof(IntPtr) })
+                        .MakeGeneric(propertyInterceptorComparer.GetAreEqual.ReturnType.GenericArguments().ToArray())
+                        .Import();
+
             member.Property.Getter
                 .NewCode()
                     .Context(x =>
@@ -29,8 +42,14 @@ namespace Cauldron.Interception.Fody
                             x.Load(field).IsNull().Then(y =>
                             {
                                 y.Assign(field).NewObj(item.Attribute);
+
                                 if (item.HasSyncRootInterface)
                                     y.Load(field).As(__ISyncRoot.Type.Import()).Call(syncRoot.SyncRoot, member.SyncRoot);
+
+                                if (item.HasComparer)
+                                    x.Load(field).As(__IPropertyInterceptorComparer.Type.Import())
+                                        .Call(propertyInterceptorComparer.SetAreEqual,
+                                            x.NewCode().NewObj(propertyInterceptorFunc, propertyComparer));
 
                                 ImplementAssignMethodAttribute(builder, legalGetterInterceptors[i].AssignMethodAttributeInfos, field, item.Attribute.Attribute.Type, y);
                             });
@@ -98,12 +117,24 @@ namespace Cauldron.Interception.Fody
                 .Replace();
         }
 
-        private static void AddPropertyInitializeInterception(Builder builder, __PropertyInterceptionInfo propertyInterceptionInfo, PropertyBuilderInfo member, Field propertyField, Method actionObjectCtor, Method propertySetter, Dictionary<string, Field> interceptorFields)
+        private static void AddPropertyInitializeInterception(
+            Builder builder,
+            __PropertyInterceptionInfo propertyInterceptionInfo,
+            PropertyBuilderInfo member,
+            Field propertyField,
+            Method actionObjectCtor,
+            Method propertySetter,
+            Method propertyComparer,
+            Dictionary<string, Field> interceptorFields)
         {
             var declaringType = member.Property.OriginType;
             var syncRoot = new __ISyncRoot();
+            var propertyInterceptorComparer = new __IPropertyInterceptorComparer();
             var legalInitInterceptors = member.InterceptorInfos.Where(x => x.InterfaceInitializer != null).ToArray();
             var relevantCtors = member.Property.IsStatic ? new Method[] { declaringType.StaticConstructor } : declaringType.GetRelevantConstructors().Where(x => x.Name != ".cctor");
+            var propertyInterceptorFunc = propertyInterceptorComparer.GetAreEqual.ReturnType.GetMethod(".ctor", true, new Type[] { typeof(object), typeof(IntPtr) })
+                        .MakeGeneric(propertyInterceptorComparer.GetAreEqual.ReturnType.GenericArguments().ToArray())
+                        .Import();
 
             foreach (var ctor in relevantCtors)
             {
@@ -116,8 +147,14 @@ namespace Cauldron.Interception.Fody
                             var field = interceptorFields[item.Attribute.Identification];
 
                             x.Assign(field).NewObj(item.Attribute);
+
                             if (item.HasSyncRootInterface)
                                 x.Load(field).As(__ISyncRoot.Type.Import()).Call(syncRoot.SyncRoot, member.SyncRoot);
+
+                            if (item.HasComparer)
+                                x.Load(field).As(__IPropertyInterceptorComparer.Type.Import())
+                                    .Call(propertyInterceptorComparer.SetAreEqual,
+                                        x.NewCode().NewObj(propertyInterceptorFunc, propertyComparer));
 
                             ImplementAssignMethodAttribute(builder, legalInitInterceptors[i].AssignMethodAttributeInfos, field, item.Attribute.Attribute.Type, x);
                         }
@@ -144,10 +181,23 @@ namespace Cauldron.Interception.Fody
             }
         }
 
-        private static void AddPropertySetterInterception(Builder builder, __PropertyInterceptionInfo propertyInterceptionInfo, PropertyBuilderInfo member, Field propertyField, Method actionObjectCtor, Method propertySetter, Dictionary<string, Field> interceptorFields)
+        private static void AddPropertySetterInterception(
+            Builder builder,
+            __PropertyInterceptionInfo propertyInterceptionInfo,
+            PropertyBuilderInfo member,
+            Field propertyField,
+            Method actionObjectCtor,
+            Method propertySetter,
+            Method propertyComparer,
+            Dictionary<string, Field> interceptorFields)
         {
             var syncRoot = new __ISyncRoot();
+            var propertyInterceptorComparer = new __IPropertyInterceptorComparer();
             var legalSetterInterceptors = member.InterceptorInfos.Where(x => x.InterfaceSetter != null).ToArray();
+            var propertyInterceptorFunc = propertyInterceptorComparer.GetAreEqual.ReturnType.GetMethod(".ctor", true, new Type[] { typeof(object), typeof(IntPtr) })
+                    .MakeGeneric(propertyInterceptorComparer.GetAreEqual.ReturnType.GenericArguments().ToArray())
+                    .Import();
+
             member.Property.Setter
                 .NewCode()
                     .Context(x =>
@@ -165,6 +215,11 @@ namespace Cauldron.Interception.Fody
 
                                 if (item.HasSyncRootInterface)
                                     y.Load(field).As(syncRoot.ToBuilderType.Import()).Call(syncRoot.SyncRoot, member.SyncRoot);
+
+                                if (item.HasComparer)
+                                    x.Load(field).As(__IPropertyInterceptorComparer.Type.Import())
+                                        .Call(propertyInterceptorComparer.SetAreEqual,
+                                            x.NewCode().NewObj(propertyInterceptorFunc, propertyComparer));
 
                                 ImplementAssignMethodAttribute(builder, legalSetterInterceptors[i].AssignMethodAttributeInfos, field, item.Attribute.Attribute.Type, y);
                             });
@@ -232,6 +287,22 @@ namespace Cauldron.Interception.Fody
                     .EndTry()
                     .Return()
                 .Replace();
+        }
+
+        private static void CreateEqualityComparerDelegate(Builder builder, Method equalityComparerMethod, BuilderType propertyType)
+        {
+            var coder = equalityComparerMethod.NewCode();
+
+            if (propertyType.IsValueType || propertyType.IsPrimitive)
+                coder.AreEqual(propertyType, Crumb.GetParameter(0), Crumb.GetParameter(1)).Return();
+            else
+            {
+                var methodReferenceEqual = builder.GetType("System.Object").GetMethod("ReferenceEquals", false, "System.Object", "System.Object").Import();
+                coder.Call(methodReferenceEqual, Crumb.GetParameter(0), Crumb.GetParameter(1)).IsTrue().Then(x => x.Load(true).Return());
+                coder.AreEqual(propertyType, Crumb.GetParameter(0), Crumb.GetParameter(1)).Return();
+            }
+
+            coder.Replace();
         }
 
         private static void CreatePropertySetterDelegate(Builder builder, PropertyBuilderInfo member, Method propertySetter)
@@ -393,12 +464,35 @@ namespace Cauldron.Interception.Fody
                     var propertyField = member.Property.CreateField(__PropertyInterceptionInfo.Type, $"<{member.Property.Name}>p__propertyInfo");
                     propertyField.CustomAttributes.AddNonSerializedAttribute();
 
+                    Method GetOrCreatePropertyValueComparerDelegate()
+                    {
+                        if (!member.HasComparer)
+                            return null;
+
+                        var methodName = $"<{member.Property.ReturnType.Fullname.Replace('.', '_').Replace('`', '_')}>__comparerMethod";
+                        var originType = member.Property.OriginType;
+
+                        if (originType.GetMethod(methodName, 2, false) is Method result)
+                            return result;
+
+                        return originType.CreateMethod(
+                            member.Property.Modifiers.GetPrivate(),
+                            this.Builder.GetType(typeof(bool)),
+                            methodName,
+                            builder.GetType(typeof(object)), builder.GetType(typeof(object)));
+                    }
+
                     var actionObjectCtor = builder.Import(typeof(Action<object>).GetConstructor(new Type[] { typeof(object), typeof(IntPtr) }));
                     var propertySetter = member.Property.Setter == null ?
                         null :
                         member.Property.OriginType.CreateMethod(member.Property.Modifiers.GetPrivate(), $"<{member.Property.Name}>m__setterMethod", builder.GetType(typeof(object)));
+                    var propertyValueComparer = GetOrCreatePropertyValueComparerDelegate();
 
-                    CreatePropertySetterDelegate(builder, member, propertySetter);
+                    if (propertySetter != null)
+                        CreatePropertySetterDelegate(builder, member, propertySetter);
+
+                    if (propertyValueComparer != null)
+                        CreateEqualityComparerDelegate(builder, propertyValueComparer, member.Property.ReturnType);
 
                     var indexer = 0;
                     var interceptorFields = member.InterceptorInfos.ToDictionary(x => x.Attribute.Identification,
@@ -412,13 +506,13 @@ namespace Cauldron.Interception.Fody
                         });
 
                     if (member.HasInitializer)
-                        AddPropertyInitializeInterception(builder, propertyInterceptionInfo, member, propertyField, actionObjectCtor, propertySetter, interceptorFields);
+                        AddPropertyInitializeInterception(builder, propertyInterceptionInfo, member, propertyField, actionObjectCtor, propertySetter, propertyValueComparer, interceptorFields);
 
                     if (member.HasGetterInterception && member.Property.Getter != null)
-                        AddPropertyGetterInterception(builder, propertyInterceptionInfo, member, propertyField, actionObjectCtor, propertySetter, interceptorFields);
+                        AddPropertyGetterInterception(builder, propertyInterceptionInfo, member, propertyField, actionObjectCtor, propertySetter, propertyValueComparer, interceptorFields);
 
                     if (member.HasSetterInterception && member.Property.Setter != null)
-                        AddPropertySetterInterception(builder, propertyInterceptionInfo, member, propertyField, actionObjectCtor, propertySetter, interceptorFields);
+                        AddPropertySetterInterception(builder, propertyInterceptionInfo, member, propertyField, actionObjectCtor, propertySetter, propertyValueComparer, interceptorFields);
 
                     // Do this at the end to ensure that syncroot init is always on the top
                     if (member.RequiresSyncRootField)

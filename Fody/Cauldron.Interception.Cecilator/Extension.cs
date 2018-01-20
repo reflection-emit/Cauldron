@@ -639,6 +639,7 @@ namespace Cauldron.Interception.Cecilator
                 opCode == OpCodes.Isinst ||
                 opCode == OpCodes.Dup ||
                 opCode == OpCodes.Sizeof ||
+                opCode == OpCodes.Ceq ||
                 opCode == OpCodes.Xor ||
                 opCode == OpCodes.Shl ||
                 opCode == OpCodes.Shr ||

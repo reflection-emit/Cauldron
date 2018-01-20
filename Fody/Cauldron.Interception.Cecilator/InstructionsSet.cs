@@ -1819,6 +1819,47 @@ namespace Cauldron.Interception.Cecilator
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
         protected virtual Instruction JumpTarget { get; }
 
+        public IIfCode AreEqual(LocalVariable a, LocalVariable b) => this.AreEqual(a.Type, b.Type, a, b);
+
+        public IIfCode AreEqual(Field a, Field b) => this.AreEqual(a.type, b.type, a, b);
+
+        public IIfCode AreEqual(BuilderType type, object a, object b) => this.AreEqual(type, type, a, b);
+
+        public IIfCode AreEqual(BuilderType a, BuilderType b, object valueA, object valueB)
+        {
+            var jumpTarget = this.JumpTarget ?? this.processor.Create(OpCodes.Nop);
+
+            if (a == b && a.IsPrimitive)
+            {
+                this.instructions.Append(this.AddParameter(this.processor, a.typeReference, valueA).Instructions);
+                this.instructions.Append(this.AddParameter(this.processor, b.typeReference, valueB).Instructions);
+                this.instructions.Append(this.processor.Create(OpCodes.Ceq));
+
+                return new IfCode(this, this.instructions, jumpTarget);
+            }
+
+            var equalityOperator = a.GetMethod("op_Equality", false, a, b)?.Import();
+
+            if (equalityOperator != null)
+            {
+                this.Call(equalityOperator.Import(), valueA, valueB);
+                return new IfCode(this, this.instructions, jumpTarget);
+            }
+
+            equalityOperator = b.GetMethod("op_Equality", false, b, a)?.Import();
+
+            if (equalityOperator != null)
+            {
+                this.Call(equalityOperator.Import(), valueB, valueA);
+                return new IfCode(this, this.instructions, jumpTarget);
+            }
+
+            equalityOperator = Builder.Current.GetType(typeof(object)).GetMethod("Equals", false, "System.Object", "System.Object").Import();
+
+            this.Call(equalityOperator.Import(), valueA, valueB);
+            return new IfCode(this, this.instructions, jumpTarget);
+        }
+
         public IIfCode EqualTo(string value) => this.EqualTo(this.AddParameter(this.processor, this.moduleDefinition.TypeSystem.Int64, value).Instructions);
 
         public IIfCode EqualTo(long value) => this.EqualTo(this.AddParameter(this.processor, this.moduleDefinition.TypeSystem.Int64, value).Instructions);

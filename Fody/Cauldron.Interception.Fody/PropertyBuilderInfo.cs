@@ -16,6 +16,7 @@ namespace Cauldron.Interception.Fody
             this.InterceptorInfos = item.Where(x => !x.IsSuppressed).ToArray();
         }
 
+        public bool HasComparer => this.InterceptorInfos.Any(x => x.HasComparer);
         public bool HasGetterInterception => this.InterceptorInfos.Any(x => x.InterfaceGetter != null);
         public bool HasInitializer => this.InterceptorInfos.Any(x => x.InterfaceInitializer != null);
         public bool HasSetterInterception => this.InterceptorInfos.Any(x => x.InterfaceSetter != null);
@@ -56,14 +57,14 @@ namespace Cauldron.Interception.Fody
             this.HasSyncRootInterface = attribute.Attribute.Type.Implements(__ISyncRoot.Type.Fullname);
             this.AssignMethodAttributeInfos = AssignMethodAttributeInfo.GetAllAssignMethodAttributedFields(attribute);
             this.InterceptorInfo = new InterceptorInfo(this.Attribute.Attribute.Type);
+            this.HasComparer = attribute.Attribute.Type.Implements(__IPropertyInterceptorComparer.Type.Fullname);
         }
 
         public AssignMethodAttributeInfo[] AssignMethodAttributeInfos { get; private set; }
 
         public AttributedProperty Attribute { get; private set; }
-
         public bool HasAssignMethodAttribute { get; private set; }
-
+        public bool HasComparer { get; private set; }
         public bool HasSyncRootInterface { get; private set; }
 
         public InterceptorInfo InterceptorInfo { get; private set; }

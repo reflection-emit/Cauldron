@@ -97,6 +97,7 @@ namespace Cauldron.Interception.Cecilator
         public bool IsInternal => this.typeDefinition.Attributes.HasFlag(TypeAttributes.NotPublic);
         public bool IsNestedPrivate => this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedPrivate);
         public bool IsNullable => this.typeDefinition.FullName == this.moduleDefinition.ImportReference(typeof(Nullable<>)).BetterResolve().FullName;
+        public bool IsPrimitive => this.typeDefinition.IsPrimitive;
         public bool IsPrivate => !this.IsPublic && this.IsNestedPrivate;
         public bool IsPublic => this.typeDefinition.Attributes.HasFlag(TypeAttributes.Public) && !this.IsNestedPrivate;
         public bool IsSealed => this.typeDefinition.Attributes.HasFlag(TypeAttributes.Sealed);
