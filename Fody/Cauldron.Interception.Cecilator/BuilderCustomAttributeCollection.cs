@@ -1,4 +1,5 @@
-﻿using Mono.Cecil;
+﻿using Cauldron.Interception.Cecilator.Extensions;
+using Mono.Cecil;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -80,7 +81,7 @@ namespace Cauldron.Interception.Cecilator
                     {
                         var parameterType = parameters[i] == null ? null : this.moduleDefinition.ImportReference(parameters[i].GetType());
 
-                        if (!this.AreReferenceAssignable(x.Parameters[i].ParameterType, parameterType))
+                        if (!x.Parameters[i].ParameterType.AreReferenceAssignable(parameterType))
                             return false;
                     }
 

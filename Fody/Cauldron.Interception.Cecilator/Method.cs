@@ -1,4 +1,5 @@
-﻿using Mono.Cecil;
+﻿using Cauldron.Interception.Cecilator.Extensions;
+using Mono.Cecil;
 using Mono.Cecil.Cil;
 using System;
 using System.Collections.Generic;
@@ -167,7 +168,7 @@ namespace Cauldron.Interception.Cecilator
         public Method Copy() => this.NewCode().Copy(Modifiers.Private, $"<{this.Name}>m__original");
 
         public Field CreateField(Type fieldType, string name) =>
-            this.CreateField(this.moduleDefinition.ImportReference(this.GetTypeDefinition(fieldType).ResolveType(this.OriginType.typeReference)), name);
+            this.CreateField(this.moduleDefinition.ImportReference(fieldType.GetTypeDefinition().ResolveType(this.OriginType.typeReference)), name);
 
         public Field CreateField(Field field, string name) => this.CreateField(field.fieldRef.FieldType, name);
 

@@ -2,6 +2,7 @@
 using Cauldron.Interception.Fody.Extensions;
 using Cauldron.Interception.Fody.HelperTypes;
 using System.Linq;
+using Cauldron.Interception.Cecilator.Extensions;
 
 namespace Cauldron.Interception.Fody
 {

@@ -1,9 +1,7 @@
 ﻿using Mono.Cecil.Cil;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
 using System.Collections;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Cauldron.Interception.Cecilator
 {
@@ -16,13 +14,13 @@ namespace Cauldron.Interception.Cecilator
         {
         }
 
-        private InstructionContainer(InstructionContainer a, InstructionContainer b, Mono.Collections.Generic.Collection<VariableDefinition> variables)
+        private InstructionContainer(InstructionContainer a, InstructionContainer b)
         {
             this.instruction.AddRange(a.instruction);
             this.instruction.AddRange(b.instruction);
         }
 
-        private InstructionContainer(InstructionContainer a, IEnumerable<Instruction> b, Mono.Collections.Generic.Collection<VariableDefinition> variables)
+        private InstructionContainer(InstructionContainer a, IEnumerable<Instruction> b)
         {
             this.instruction.AddRange(a.instruction);
             this.instruction.AddRange(b);
@@ -67,6 +65,8 @@ namespace Cauldron.Interception.Cecilator
         public IEnumerator<Instruction> GetEnumerator() => this.instruction.GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() => this.instruction.GetEnumerator();
+
+        public override int GetHashCode() => this.exceptionHandlers.GetHashCode() ^ this.exceptionHandlers.Count ^ this.instruction.GetHashCode() ^ this.instruction.Count;
 
         public int IndexOf(Instruction item) => this.instruction.IndexOf(item);
 

@@ -1,4 +1,5 @@
-﻿using Mono.Cecil;
+﻿using Cauldron.Interception.Cecilator.Extensions;
+using Mono.Cecil;
 using Mono.Cecil.Cil;
 using Mono.Cecil.Rocks;
 using System;
@@ -363,7 +364,7 @@ namespace Cauldron.Interception.Cecilator
 
         public FieldCollection Fields { get { return new FieldCollection(this, this.typeDefinition.Fields); } }
 
-        public Field CreateField(Modifiers modifier, Type fieldType, string name) => this.CreateField(modifier, this.moduleDefinition.ImportReference(this.GetTypeDefinition(fieldType).ResolveType(this.typeReference)), name);
+        public Field CreateField(Modifiers modifier, Type fieldType, string name) => this.CreateField(modifier, this.moduleDefinition.ImportReference(fieldType.GetTypeDefinition().ResolveType(this.typeReference)), name);
 
         public Field CreateField(Modifiers modifier, Field field, string name) => this.CreateField(modifier, field.fieldRef.FieldType, name);
 
@@ -478,9 +479,10 @@ namespace Cauldron.Interception.Cecilator
             if (field.Modifiers.HasFlag(Modifiers.Protected)) attributes |= MethodAttributes.Family;
             if (field.Modifiers.HasFlag(Modifiers.Overrrides)) attributes |= MethodAttributes.Final | MethodAttributes.Virtual | MethodAttributes.NewSlot;
 
-            var property = new PropertyDefinition(name, PropertyAttributes.None, field.FieldType.typeReference);
-
-            property.GetMethod = new MethodDefinition("get_" + name, attributes, field.FieldType.typeReference);
+            var property = new PropertyDefinition(name, PropertyAttributes.None, field.FieldType.typeReference)
+            {
+                GetMethod = new MethodDefinition("get_" + name, attributes, field.FieldType.typeReference)
+            };
             this.typeDefinition.Properties.Add(property);
             this.typeDefinition.Methods.Add(property.GetMethod);
 

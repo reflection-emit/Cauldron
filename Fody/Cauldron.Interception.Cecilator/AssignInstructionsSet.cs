@@ -1,19 +1,10 @@
 ﻿using Mono.Cecil;
-using Mono.Cecil.Cil;
-using Mono.Cecil.Rocks;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 
 namespace Cauldron.Interception.Cecilator
 {
-    public enum AssignInstructionType
-    {
-        Load,
-        Store
-    }
-
     public abstract class AssignInstructionsSet<T> : InstructionsSet
     {
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]

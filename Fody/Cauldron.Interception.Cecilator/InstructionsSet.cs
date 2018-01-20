@@ -1,4 +1,5 @@
-﻿using Mono.Cecil;
+﻿using Cauldron.Interception.Cecilator.Extensions;
+using Mono.Cecil;
 using Mono.Cecil.Cil;
 using Mono.Cecil.Rocks;
 using System;
@@ -938,13 +939,13 @@ namespace Cauldron.Interception.Cecilator
             else if (type == typeof(TypeReference) || type == typeof(TypeDefinition))
             {
                 var bt = parameter as TypeReference;
-                result.Instructions.AddRange(this.TypeOf(processor, bt));
+                result.Instructions.AddRange(processor.TypeOf(bt));
                 result.Type = this.moduleDefinition.ImportReference(typeof(Type));
             }
             else if (type == typeof(BuilderType))
             {
                 var bt = parameter as BuilderType;
-                result.Instructions.AddRange(this.TypeOf(processor, bt.typeReference));
+                result.Instructions.AddRange(processor.TypeOf(bt.typeReference));
                 result.Type = this.moduleDefinition.ImportReference(typeof(Type));
             }
             else if (type == typeof(Method))
@@ -1027,9 +1028,9 @@ namespace Cauldron.Interception.Cecilator
             {
                 if (result.Type.FullName == typeof(string).FullName)
                 {
-                    result.Instructions.InsertRange(0, this.TypeOf(processor, targetType));
+                    result.Instructions.InsertRange(0, processor.TypeOf(targetType));
 
-                    result.Instructions.AddRange(this.TypeOf(processor, this.moduleDefinition.ImportReference(targetType)));
+                    result.Instructions.AddRange(processor.TypeOf(this.moduleDefinition.ImportReference(targetType)));
                     result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.ImportReference(this.moduleDefinition.ImportReference(typeof(Enum)).GetMethodReference("GetUnderlyingType", new Type[] { typeof(Type) }))));
                     result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.ImportReference(this.moduleDefinition.ImportReference(typeof(Convert)).GetMethodReference("ChangeType", new Type[] { typeof(object), typeof(Type) }))));
                     result.Instructions.Add(processor.Create(OpCodes.Call, this.moduleDefinition.ImportReference(this.moduleDefinition.ImportReference(typeof(Enum)).GetMethodReference("ToObject", new Type[] { typeof(Type), typeof(object) }))));
@@ -1082,7 +1083,7 @@ namespace Cauldron.Interception.Cecilator
             {
                 // Nope nothing....
             }
-            else if (result.Instructions.Last().OpCode != OpCodes.Ldnull && targetType.FullName != result.Type.FullName && this.AreReferenceAssignable(targetType, this.moduleDefinition.ImportReference(result.Type)))
+            else if (result.Instructions.Last().OpCode != OpCodes.Ldnull && targetType.FullName != result.Type.FullName && targetType.AreReferenceAssignable(this.moduleDefinition.ImportReference(result.Type)))
                 result.Instructions.Add(processor.Create(OpCodes.Castclass, this.moduleDefinition.ImportReference(result.Type)));
         }
 
@@ -1276,7 +1277,7 @@ namespace Cauldron.Interception.Cecilator
                     if (instruction.OpCode != OpCodes.Ret)
                         continue;
 
-                    instruction.OpCode = this.IsInclosedInHandlers(instruction) ? OpCodes.Leave : OpCodes.Br;
+                    instruction.OpCode = this.method.IsInclosedInHandlers(instruction) ? OpCodes.Leave : OpCodes.Br;
                     instruction.Operand = realReturn;
                 }
             }
@@ -1311,7 +1312,7 @@ namespace Cauldron.Interception.Cecilator
                     if (instruction.OpCode != OpCodes.Ret)
                         continue;
 
-                    if (this.IsInclosedInHandlers(instruction))
+                    if (this.method.IsInclosedInHandlers(instruction))
                     {
                         instruction.OpCode = OpCodes.Leave;
                         instruction.Operand = realReturn;
@@ -1564,7 +1565,7 @@ namespace Cauldron.Interception.Cecilator
                 return new Instruction[] { processor.Create(OpCodes.Ldstr, value.ToString()) };
 
             if (type == typeof(TypeReference) || type == typeof(TypeDefinition))
-                return this.TypeOf(processor, value as TypeReference);
+                return processor.TypeOf(value as TypeReference);
 
             var createInstructionsResult = new List<Instruction>();
 
@@ -1584,7 +1585,7 @@ namespace Cauldron.Interception.Cecilator
 
             if (type.IsValueType && !targetType.IsValueType)
                 createInstructionsResult.Add(processor.Create(OpCodes.Box, type.IsEnum ?
-                   this.moduleDefinition.ImportReference(Enum.GetUnderlyingType(type)) : this.moduleDefinition.ImportReference(this.GetTypeDefinition(type))));
+                   this.moduleDefinition.ImportReference(Enum.GetUnderlyingType(type)) : this.moduleDefinition.ImportReference(type.GetTypeDefinition())));
 
             return createInstructionsResult;
         }
@@ -1700,20 +1701,6 @@ namespace Cauldron.Interception.Cecilator
             return this.method.AddLocalVariable("<>returnValue", new VariableDefinition(this.method.ReturnType.typeReference));
         }
 
-        private bool IsInclosedInHandlers(Instruction instruction)
-        {
-            foreach (var item in this.method.methodDefinition.Body.ExceptionHandlers)
-            {
-                if (item.TryStart.Offset >= instruction.Offset && item.TryStart.Offset <= instruction.Offset)
-                    return true;
-
-                if (item.HandlerStart != null && item.HandlerStart.Offset >= instruction.Offset && item.HandlerEnd.Offset <= instruction.Offset)
-                    return true;
-            }
-
-            return false;
-        }
-
         private void ReplaceJumps(Instruction tobeReplaced, Instruction replacement)
         {
             for (var i = 0; i < this.method.methodDefinition.Body.Instructions.Count - 1; i++)
@@ -1770,8 +1757,8 @@ namespace Cauldron.Interception.Cecilator
 
         public LocalVariable CreateVariable(Type type)
         {
-            var newVariable = new VariableDefinition(this.moduleDefinition.ImportReference(GetTypeDefinition(type)));
-            var name = "<>var_" + CecilatorBase.GenerateName();
+            var newVariable = new VariableDefinition(this.moduleDefinition.ImportReference(type.GetTypeDefinition()));
+            var name = "<>var_" + Coder.GenerateName();
             this.method.AddLocalVariable(name, newVariable);
             return new LocalVariable(this.method.type, newVariable, name);
         }
@@ -1787,7 +1774,7 @@ namespace Cauldron.Interception.Cecilator
         public LocalVariable CreateVariable(TypeReference type)
         {
             var newVariable = new VariableDefinition(this.moduleDefinition.ImportReference(type));
-            var name = "<>var_" + CecilatorBase.GenerateName();
+            var name = "<>var_" + Coder.GenerateName();
             this.method.AddLocalVariable(name, newVariable);
             return new LocalVariable(this.method.type, newVariable, name);
         }
@@ -1795,7 +1782,7 @@ namespace Cauldron.Interception.Cecilator
         public LocalVariable CreateVariable(BuilderType type)
         {
             var newVariable = new VariableDefinition(this.moduleDefinition.ImportReference(type.typeReference));
-            var name = "<>var_" + CecilatorBase.GenerateName();
+            var name = "<>var_" + Coder.GenerateName();
             this.method.AddLocalVariable(name, newVariable);
             return new LocalVariable(this.method.type, newVariable, name);
         }

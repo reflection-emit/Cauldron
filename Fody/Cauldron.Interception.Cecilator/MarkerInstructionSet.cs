@@ -1,4 +1,5 @@
-﻿using Mono.Cecil;
+﻿using Cauldron.Interception.Cecilator.Extensions;
+using Mono.Cecil;
 using Mono.Cecil.Cil;
 using System;
 using System.Collections.Generic;
@@ -61,7 +62,7 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
-        public ICatch Catch(Type exceptionType, Action<ICatchCode> body) => this.Catch(this.moduleDefinition.ImportReference(GetTypeDefinition(exceptionType)), body);
+        public ICatch Catch(Type exceptionType, Action<ICatchCode> body) => this.Catch(this.moduleDefinition.ImportReference(exceptionType.GetTypeDefinition()), body);
 
         public ICatch Catch(BuilderType exceptionType, Action<ICatchCode> body) => this.Catch(exceptionType.typeReference, body);
 

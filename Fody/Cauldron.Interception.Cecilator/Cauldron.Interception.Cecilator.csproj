@@ -64,6 +64,7 @@
     <Compile Include="AssemblyDefinitionEqualityComparer.cs" />
     <Compile Include="AssemblyDefinitionEx.cs" />
     <Compile Include="AssignInstructionsSet.cs" />
+    <Compile Include="AssignInstructionType.cs" />
     <Compile Include="AsyncMethodHelper.cs" />
     <Compile Include="AttributedField.cs" />
     <Compile Include="AttributedMethod.cs" />
@@ -78,6 +79,17 @@
     <Compile Include="Crumb.cs" />
     <Compile Include="CustomAttributeEqualityComparer.cs" />
     <Compile Include="Extension.cs" />
+    <Compile Include="Extensions\AssignCoder.cs" />
+    <Compile Include="Extensions\BuildCoderExtensions.cs" />
+    <Compile Include="Extensions\Coder.cs" />
+    <Compile Include="Extensions\Extensions.cs" />
+    <Compile Include="Extensions\FieldAssignCoder.cs" />
+    <Compile Include="Extensions\FieldCoderExtensions.cs" />
+    <Compile Include="Extensions\LocalVariableAssignCoder.cs" />
+    <Compile Include="Extensions\LocalVariableCoderExtensions.cs" />
+    <Compile Include="Extensions\MethodBodyCoderExtensions.cs" />
+    <Compile Include="Extensions\CallNewObjCoderExtensions.cs" />
+    <Compile Include="Extensions\ParameterCoderExtensions.cs" />
     <Compile Include="Field.cs" />
     <Compile Include="FieldCollection.cs" />
     <Compile Include="FieldInstructionsSet.cs" />

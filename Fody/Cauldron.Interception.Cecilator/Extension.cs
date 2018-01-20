@@ -369,8 +369,6 @@ namespace Cauldron.Interception.Cecilator
 
         public static void Log(this CecilatorObject cecilatorObject, LogTypes logTypes, object arg) => cecilatorObject.Log(logTypes, sequencePoint: null, arg: arg);
 
-        public static TNew New<TType, TNew>(this TType target, Func<TType, TNew> predicate) => predicate(target);
-
         public static GenericInstanceType ResolveGenericArguments(this GenericInstanceType self, GenericInstanceType inheritingOrImplementingType)
         {
             if (self.FullName == inheritingOrImplementingType.FullName)
@@ -388,6 +386,8 @@ namespace Cauldron.Interception.Cecilator
         public static BuilderType ToBuilderType(this Type type) => new BuilderType(Builder.Current, WeaverBase.AllTypes.Get(type.FullName));
 
         public static BuilderType ToBuilderType(this TypeDefinition value, Builder builder) => new BuilderType(builder, value);
+
+        public static TNew With<TType, TNew>(this TType target, Func<TType, TNew> predicate) => predicate(target);
 
         internal static void Append(this ILProcessor processor, Instruction[] instructions) => processor.Append(instructions as IEnumerable<Instruction>);
 

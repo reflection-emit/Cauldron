@@ -1,4 +1,5 @@
-﻿using Mono.Cecil;
+﻿using Cauldron.Interception.Cecilator.Extensions;
+using Mono.Cecil;
 using Mono.Cecil.Cil;
 using System;
 using System.Collections.Generic;
@@ -96,7 +97,7 @@ namespace Cauldron.Interception.Cecilator
             this.Log("-----------------------------------------------------------------------------");
             WeaverBase.AllTypes = this.allTypes;
 
-            this.Identification = GenerateName();
+            this.Identification = Extensions.Coder.GenerateName();
         }
 
         internal CecilatorBase(CecilatorBase builderBase)
@@ -108,7 +109,7 @@ namespace Cauldron.Interception.Cecilator
             this.allTypes = builderBase.allTypes;
             this.ResourceNames = builderBase.ResourceNames;
 
-            this.Identification = GenerateName();
+            this.Identification = Extensions.Coder.GenerateName();
         }
 
         public virtual string Identification { get; private set; }
@@ -121,8 +122,6 @@ namespace Cauldron.Interception.Cecilator
 
         public List<string> ResourceNames { get; private set; } = new List<string>();
         public AssemblyDefinitionEx[] UnusedReference { get; private set; }
-
-        public static string GenerateName() => Path.GetRandomFileName().Replace(".", DateTime.Now.Second.ToString());
 
         public void AddAssembly(string assemblyName)
         {
@@ -146,48 +145,6 @@ namespace Cauldron.Interception.Cecilator
         }
 
         public bool IsReferenced(string assemblyName) => this.allAssemblies.Any(x => x.Name.Name == assemblyName);
-
-        internal bool AreReferenceAssignable(BuilderType type, BuilderType toBeAssigned)
-        {
-            if ((toBeAssigned == null && !type.IsValueType) || type == toBeAssigned || (!type.typeDefinition.IsValueType && !toBeAssigned.typeDefinition.IsValueType && type.IsAssignableFrom(toBeAssigned)) || (type.IsInterface && toBeAssigned.typeReference == this.moduleDefinition.TypeSystem.Object))
-                return true;
-
-            return false;
-        }
-
-        internal bool AreReferenceAssignable(TypeReference type, TypeReference toBeAssigned)
-        {
-            if (
-                (toBeAssigned == null && !type.IsValueType) ||
-                type == toBeAssigned ||
-                (!type.IsValueType && !toBeAssigned.IsValueType && type.IsAssignableFrom(toBeAssigned)) ||
-                (type.Resolve().IsInterface && toBeAssigned == this.moduleDefinition.TypeSystem.Object) ||
-                type.FullName == toBeAssigned.FullName)
-                return true;
-
-            return false;
-        }
-
-        internal TypeDefinition GetTypeDefinition(Type type)
-        {
-            var result = this.allTypes.Get(type.FullName);
-
-            if (result == null)
-                throw new Exception($"Unable to proceed. The type '{type.FullName}' was not found.");
-
-            return this.moduleDefinition.ImportReference(type).Resolve() ?? result;
-        }
-
-        protected IEnumerable<Instruction> TypeOf(ILProcessor processor, TypeReference type)
-        {
-            return new Instruction[] {
-                processor.Create(OpCodes.Ldtoken, type),
-                processor.Create(OpCodes.Call,
-                    this.moduleDefinition.ImportReference(
-                        this.GetTypeDefinition(typeof(Type))
-                            .Methods.FirstOrDefault(x=>x.Name == "GetTypeFromHandle" && x.Parameters.Count == 1)))
-            };
-        }
 
         private void GetAllAssemblyDefinitions(IEnumerable<AssemblyNameReference> target, List<AssemblyDefinition> result)
         {

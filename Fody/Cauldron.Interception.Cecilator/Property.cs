@@ -1,4 +1,5 @@
-﻿using Mono.Cecil;
+﻿using Cauldron.Interception.Cecilator.Extensions;
+using Mono.Cecil;
 using Mono.Cecil.Cil;
 using System;
 using System.ComponentModel;
@@ -122,7 +123,7 @@ namespace Cauldron.Interception.Cecilator
             if (field != null)
                 return new Field(this.type, field);
 
-            return this.CreateField(this.moduleDefinition.ImportReference(this.GetTypeDefinition(fieldType).ResolveType(this.OriginType.typeReference)), name);
+            return this.CreateField(this.moduleDefinition.ImportReference(fieldType.GetTypeDefinition().ResolveType(this.OriginType.typeReference)), name);
         }
 
         public Field CreateField(Field field, string name) => this.CreateField(field.fieldRef.FieldType, name);

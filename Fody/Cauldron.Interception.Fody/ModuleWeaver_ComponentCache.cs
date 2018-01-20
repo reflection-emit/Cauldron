@@ -31,11 +31,11 @@ namespace Cauldron.Interception.Fody
             });
 
             int counter = 0;
-            var arrayAvatar = builder.GetType("System.Array").New(x => new
+            var arrayAvatar = builder.GetType("System.Array").With(x => new
             {
                 Length = x.GetMethod("get_Length")
             });
-            var extensionAvatar = builder.GetType("Cauldron.ExtensionsReflection").New(x => new
+            var extensionAvatar = builder.GetType("Cauldron.ExtensionsReflection").With(x => new
             {
                 CreateInstance = x.GetMethod("CreateInstance", 2)
             });
@@ -201,7 +201,7 @@ namespace Cauldron.Interception.Fody
 
             this.Log("Adding component IFactoryCache Interface");
             cauldron.AddInterface(factoryCacheInterface);
-            var factoryCacheInterfaceAvatar = factoryCacheInterface.New(x => new
+            var factoryCacheInterfaceAvatar = factoryCacheInterface.With(x => new
             {
                 Components = x.GetMethod("GetComponents")
             });

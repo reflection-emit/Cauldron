@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -21,10 +20,12 @@ namespace Cauldron.Interception.Cecilator
         public BuilderCustomAttributeCollection CustomAttributes => new BuilderCustomAttributeCollection(this, this.moduleDefinition);
         public string Name => this.moduleDefinition.Name;
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public override bool Equals(object obj) => this.ToString().Equals(obj.ToString());
+        public TypeSystem TypeSystem => this.moduleDefinition.TypeSystem;
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override bool Equals(object obj) => this.moduleDefinition.Assembly.FullName.Equals(obj?.ToString());
+
+        public TypeReference GetChildrenType(TypeReference type) => this.moduleDefinition.GetChildrenType(type);
+
         public override int GetHashCode() => this.moduleDefinition.Assembly.FullName.GetHashCode();
 
         public Method Import(System.Reflection.MethodBase value)
@@ -33,13 +34,20 @@ namespace Cauldron.Interception.Cecilator
             return new Method(new BuilderType(this, result.DeclaringType), result, result.Resolve());
         }
 
+        public MethodReference Import(MethodReference methodReference) => this.moduleDefinition.ImportReference(methodReference);
+
+        public MethodReference Import(MethodReference method, IGenericParameterProvider context) => this.moduleDefinition.ImportReference(method, context);
+
+        public TypeReference Import(Type type) => this.moduleDefinition.ImportReference(type);
+
+        public TypeReference Import(TypeReference typeReference) => this.moduleDefinition.ImportReference(typeReference);
+
         public Method Import(Method method)
         {
             var result = this.moduleDefinition.ImportReference(method.methodReference);
             return new Method(new BuilderType(this, result.DeclaringType), result, result.Resolve());
         }
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
         public override string ToString() => this.moduleDefinition.Assembly.FullName;
 
         #region Type Finders

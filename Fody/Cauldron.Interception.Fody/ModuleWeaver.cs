@@ -174,7 +174,7 @@ namespace Cauldron.Interception.Fody
         private void AddComponentAttribute(Builder builder, IEnumerable<BuilderType> builderTypes, Func<BuilderType, string> contractNameDelegate = null)
         {
             var componentConstructorAttribute = builder.GetType("Cauldron.Activator.ComponentConstructorAttribute");
-            var componentAttribute = builder.GetType("Cauldron.Activator.ComponentAttribute").New(x => new
+            var componentAttribute = builder.GetType("Cauldron.Activator.ComponentAttribute").With(x => new
             {
                 Type = x,
                 ContractName = x.GetMethod("get_ContractName"),
@@ -205,7 +205,7 @@ namespace Cauldron.Interception.Fody
             {
                 var module = builder.GetType("<Module>", SearchContext.Module);
                 var cauldron = builder.GetType("<Cauldron>", SearchContext.Module);
-                var assembly = builder.GetType("System.Reflection.Assembly").New(x => new { Type = x, Load = x.GetMethod("Load", 1) });
+                var assembly = builder.GetType("System.Reflection.Assembly").With(x => new { Type = x, Load = x.GetMethod("Load", 1) });
 
                 // UWP has to actually use any type from the Assembly, so that it is not thrown out
                 // while compiling to Nativ Code
@@ -216,9 +216,9 @@ namespace Cauldron.Interception.Fody
                 {
                     module.CreateStaticConstructor().NewCode().Context(x =>
                     {
-                        var introspectionExtensions = builder.GetType("System.Reflection.IntrospectionExtensions").New(y => new { Type = y, GetTypeInfo = y.GetMethod("GetTypeInfo", 1) });
-                        var typeInfo = builder.GetType("System.Reflection.TypeInfo").New(y => new { Type = y, Assembly = y.GetMethod("get_Assembly") });
-                        var assemblies = builder.GetType("Cauldron.Core.Reflection.AssembliesCORE").New(y => new { Type = y, EntryAssembly = y.GetMethod("set_EntryAssembly", 1) });
+                        var introspectionExtensions = builder.GetType("System.Reflection.IntrospectionExtensions").With(y => new { Type = y, GetTypeInfo = y.GetMethod("GetTypeInfo", 1) });
+                        var typeInfo = builder.GetType("System.Reflection.TypeInfo").With(y => new { Type = y, Assembly = y.GetMethod("get_Assembly") });
+                        var assemblies = builder.GetType("Cauldron.Core.Reflection.AssembliesCORE").With(y => new { Type = y, EntryAssembly = y.GetMethod("set_EntryAssembly", 1) });
                         x.Call(assemblies.EntryAssembly, x.NewCode().Callvirt(x.NewCode().Call(introspectionExtensions.GetTypeInfo, module), typeInfo.Assembly));
                     })
                     .Insert(InsertionPosition.End);
@@ -236,7 +236,7 @@ namespace Cauldron.Interception.Fody
                         .Where(x => x != null)
                         .Select(x => x.Module.Assembly);
 
-                    var loadedAssembliesInterface = builder.GetType("Cauldron.Core.ILoadedAssemblies").New(x => new { Type = x, ReferencedAssemblies = x.GetMethod("ReferencedAssemblies") });
+                    var loadedAssembliesInterface = builder.GetType("Cauldron.Core.ILoadedAssemblies").With(x => new { Type = x, ReferencedAssemblies = x.GetMethod("ReferencedAssemblies") });
                     cauldron.AddInterface(loadedAssembliesInterface.Type);
 
                     CreateAssemblyListingArray(builder,
@@ -283,8 +283,8 @@ namespace Cauldron.Interception.Fody
 
         private void CreateAssemblyListingArray(Builder builder, Method method, BuilderType assemblyType, IEnumerable<AssemblyDefinition> assembliesToList)
         {
-            var introspectionExtensions = builder.GetType("System.Reflection.IntrospectionExtensions").New(y => new { Type = y, GetTypeInfo = y.GetMethod("GetTypeInfo", 1) });
-            var typeInfo = builder.GetType("System.Reflection.TypeInfo").New(y => new { Type = y, Assembly = y.GetMethod("get_Assembly") });
+            var introspectionExtensions = builder.GetType("System.Reflection.IntrospectionExtensions").With(y => new { Type = y, GetTypeInfo = y.GetMethod("GetTypeInfo", 1) });
+            var typeInfo = builder.GetType("System.Reflection.TypeInfo").With(y => new { Type = y, Assembly = y.GetMethod("get_Assembly") });
 
             method.NewCode().Context(x =>
             {
@@ -308,8 +308,8 @@ namespace Cauldron.Interception.Fody
 
         private void CreateAssemblyLoadDummy(Builder builder, Method method, BuilderType assemblyType, AssemblyDefinition[] assembliesToList)
         {
-            var introspectionExtensions = builder.GetType("System.Reflection.IntrospectionExtensions").New(y => new { Type = y, GetTypeInfo = y.GetMethod("GetTypeInfo", 1) });
-            var typeInfo = builder.GetType("System.Reflection.TypeInfo").New(y => new { Type = y, Assembly = y.GetMethod("get_Assembly") });
+            var introspectionExtensions = builder.GetType("System.Reflection.IntrospectionExtensions").With(y => new { Type = y, GetTypeInfo = y.GetMethod("GetTypeInfo", 1) });
+            var typeInfo = builder.GetType("System.Reflection.TypeInfo").With(y => new { Type = y, Assembly = y.GetMethod("get_Assembly") });
 
             method.NewCode().Context(x =>
             {
