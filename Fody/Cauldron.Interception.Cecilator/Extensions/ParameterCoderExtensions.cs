@@ -71,6 +71,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
                     result.Instructions.Add(processor.Create(value.IsStatic ? OpCodes.Ldsflda : OpCodes.Ldflda, value.fieldRef));
                 else
                     result.Instructions.Add(processor.Create(value.IsStatic ? OpCodes.Ldsfld : OpCodes.Ldfld, value.fieldRef));
+
                 result.Type = value.fieldRef.FieldType;
             }
             else if (type == typeof(int))
@@ -153,62 +154,71 @@ namespace Cauldron.Interception.Cecilator.Extensions
                 var value = AddVariableDefinitionToInstruction(processor, result.Instructions, targetType, parameter);
                 result.Type = value.VariableType;
             }
-            else if (type == typeof(Crumb))
+            else if (type == typeof(CodeSet))
             {
-                var crumb = parameter as Crumb;
-
-                switch (crumb.CrumbType)
+                switch (parameter)
                 {
-                    case CrumbTypes.Exception:
-                    case CrumbTypes.Parameters:
-                        if (crumb.Index.HasValue)
+                    case ExceptionCodeSet exceptionCodeSet:
+                        {
+                            var variable = char.IsNumber(exceptionCodeSet.name, 0) ?
+                                coder.method.methodDefinition.Body.Variables[int.Parse(exceptionCodeSet.name)] :
+                                coder.method.GetLocalVariable(exceptionCodeSet.name);
+
+                            result.Instructions.Add(processor.Create(OpCodes.Ldloc, variable));
+                            result.Type = Builder.Current.Import(variable.VariableType);
+                            break;
+                        }
+                    case ParametersCodeSet parametersCodeSet:
+                        if (parametersCodeSet.index.HasValue)
                         {
                             if (coder.method.methodDefinition.Parameters.Count == 0)
                                 throw new ArgumentException($"The method {coder.method.Name} does not have any parameters");
 
-                            result.Instructions.Add(processor.Create(OpCodes.Ldarg, coder.method.IsStatic ? crumb.Index.Value : crumb.Index.Value + 1));
-                            result.Type = Builder.Current.Import(coder.method.methodDefinition.Parameters[crumb.Index.Value].ParameterType);
+                            result.Instructions.Add(processor.Create(OpCodes.Ldarg, coder.method.IsStatic ? parametersCodeSet.index.Value : parametersCodeSet.index.Value + 1));
+                            result.Type = Builder.Current.Import(coder.method.methodDefinition.Parameters[parametersCodeSet.index.Value].ParameterType);
                         }
                         else
                         {
-                            var variable = char.IsNumber(crumb.Name, 0) ? coder.method.methodDefinition.Body.Variables[int.Parse(crumb.Name)] : coder.method.GetLocalVariable(crumb.Name);
+                            var variable = char.IsNumber(parametersCodeSet.name, 0) ?
+                                coder.method.methodDefinition.Body.Variables[int.Parse(parametersCodeSet.name)] :
+                                coder.method.GetLocalVariable(parametersCodeSet.name);
 
                             result.Instructions.Add(processor.Create(OpCodes.Ldloc, variable));
                             result.Type = Builder.Current.Import(variable.VariableType);
                         }
                         break;
 
-                    case CrumbTypes.This:
+                    case ThisCodeSet thisCodeSet:
                         result.Instructions.Add(processor.Create(coder.method.IsStatic ? OpCodes.Ldnull : OpCodes.Ldarg_0));
                         result.Type = coder.method.OriginType.typeReference;
                         break;
 
-                    case CrumbTypes.InitObj:
+                    case InitObjCodeSet initObjCodeSet:
                         {
-                            var variable = coder.CreateVariable(crumb.TypeReference);
+                            var variable = coder.CreateVariable(initObjCodeSet.typeReference);
                             result.Instructions.Add(processor.Create(OpCodes.Ldloca, variable.variable));
-                            result.Instructions.Add(processor.Create(OpCodes.Initobj, crumb.TypeReference));
+                            result.Instructions.Add(processor.Create(OpCodes.Initobj, initObjCodeSet.typeReference));
                             result.Instructions.Add(processor.Create(OpCodes.Ldloc, variable.variable));
-                            result.Type = crumb.TypeReference;
+                            result.Type = initObjCodeSet.typeReference;
                             break;
                         }
-                    case CrumbTypes.DefaultTask:
+                    case DefaultTaskCodeSet defaultTaskCodeSet:
                         {
                             var taskType = coder.method.type.Builder.GetType("System.Threading.Tasks.Task");
                             var resultFrom = taskType.GetMethod("FromResult", 1, true).MakeGeneric(typeof(int));
-                            var code = coder.Body().Call(resultFrom, 0);
+                            var code = coder.NewCoder().Call(resultFrom, 0);
 
                             result.Instructions.AddRange(code.instructions);
                             result.Type = coder.method.ReturnType.typeReference;
                             break;
                         }
 
-                    case CrumbTypes.DefaultTaskOfT:
+                    case DefaultTaskOfTCodeSet defaultTaskOfTCodeSet:
                         {
                             var returnType = coder.method.ReturnType.GetGenericArgument(0);
                             var taskType = coder.method.type.Builder.GetType("System.Threading.Tasks.Task");
                             var resultFrom = taskType.GetMethod("FromResult", 1, true).MakeGeneric(returnType);
-                            var code = coder.Body().Call(resultFrom, returnType.DefaultValue);
+                            var code = coder.NewCoder().Call(resultFrom, returnType.DefaultValue);
 
                             result.Instructions.AddRange(code.instructions);
                             result.Type = returnType.typeReference;
@@ -272,14 +282,12 @@ namespace Cauldron.Interception.Cecilator.Extensions
                 result.Instructions.Add(processor.Create(OpCodes.Ldarg, value.Index));
                 result.Type = value.ParameterType;
             }
-            else if (parameter is Coder)
+            else if (parameter is Coder parameterCoder)
             {
-                var instruction = parameter as Coder;
+                if (object.ReferenceEquals(parameterCoder, coder))
+                    throw new NotSupportedException("Nope... Not gonna work... Use NewCoder() if you want to pass an instructions set as parameters.");
 
-                if (object.ReferenceEquals(instruction, coder))
-                    throw new NotSupportedException("Nope... Not gonna work... Use Body() if you want to pass an instructions set as parameters.");
-
-                result.Instructions.AddRange(instruction.instructions.ToArray());
+                result.Instructions.AddRange(parameterCoder.instructions.ToArray());
             }
             else if (parameter is Position)
             {
@@ -291,6 +299,9 @@ namespace Cauldron.Interception.Cecilator.Extensions
                 foreach (var item in parameter as IEnumerable<Instruction>)
                     result.Instructions.Add(item);
             }
+
+            if (result.Type == null)
+                result.Type = GetTypeOfValueInStack(result.Instructions);
 
             if (result.Type == null || targetType == null || result.Type.FullName == targetType.FullName)
                 return result;
@@ -383,6 +394,42 @@ namespace Cauldron.Interception.Cecilator.Extensions
             }
             else if (result.Instructions.Last().OpCode != OpCodes.Ldnull && targetType.FullName != result.Type.FullName && targetType.AreReferenceAssignable(Builder.Current.Import(result.Type)))
                 result.Instructions.Add(processor.Create(OpCodes.Castclass, Builder.Current.Import(result.Type)));
+        }
+
+        internal static TypeReference GetTypeOfValueInStack(this List<Instruction> instructions)
+        {
+            TypeReference GetTypeOfValueInStack(Instruction ins)
+            {
+                if (ins.IsCallOrNew())
+                    return (ins.Operand as MethodReference).ReturnType.With(x => x == Builder.Current.TypeSystem.Void ? null : x);
+
+                if (ins.IsLoadField())
+                    return (ins.Operand as FieldReference).FieldType;
+
+                if (ins.IsLoadLocal())
+                    return (ins.Operand as VariableReference).VariableType;
+
+                return null;
+            }
+
+            var instruction = instructions.Last();
+            var result = GetTypeOfValueInStack(instruction);
+
+            if (result == null && instruction.IsValueOpCode())
+            {
+                for (int i = instructions.Count - 2; i >= 0; i--)
+                {
+                    if (!instructions[i].IsValueOpCode())
+                        break;
+
+                    result = GetTypeOfValueInStack(instructions[i]);
+
+                    if (result != null)
+                        return result;
+                }
+            }
+
+            return result;
         }
 
         private static VariableDefinition AddVariableDefinitionToInstruction(ILProcessor processor, List<Instruction> instructions, TypeReference targetType, object parameter)

@@ -104,5 +104,20 @@ namespace Cauldron.Interception.Cecilator.Extensions
 
             return coder.method.AddLocalVariable(Coder.ReturnVariableName, new VariableDefinition(coder.method.ReturnType.typeReference));
         }
+
+        public static Coder ThrowNew(this Coder coder, Type exception)
+        {
+            coder.instructions.Append(coder.processor.Create(OpCodes.Newobj, Builder.Current.Import(Builder.Current.Import(exception).GetMethodReference(".ctor", 0))));
+            coder.instructions.Append(coder.processor.Create(OpCodes.Throw));
+            return coder;
+        }
+
+        public static Coder ThrowNew(this Coder coder, Type exception, string message)
+        {
+            coder.instructions.Append(coder.processor.Create(OpCodes.Ldstr, message));
+            coder.instructions.Append(coder.processor.Create(OpCodes.Newobj, Builder.Current.Import(Builder.Current.Import(exception).GetMethodReference(".ctor", new Type[] { typeof(string) }))));
+            coder.instructions.Append(coder.processor.Create(OpCodes.Throw));
+            return coder;
+        }
     }
 }

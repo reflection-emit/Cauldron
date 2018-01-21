@@ -31,20 +31,6 @@ namespace Cauldron.Interception.Cecilator.Extensions
             return false;
         }
 
-        /// <summary>
-        /// Creates a coder.
-        /// </summary>
-        /// <param name="method">The coder.</param>
-        /// <returns></returns>
-        public static Coder Body(this Method method) => new Coder(method);
-
-        /// <summary>
-        /// Creates a new coder.
-        /// </summary>
-        /// <param name="coder">The coder.</param>
-        /// <returns></returns>
-        public static Coder Body(this Coder coder) => new Coder(coder.method);
-
         public static TypeDefinition GetTypeDefinition(this Type type)
         {
             var result = WeaverBase.AllTypes.Get(type.FullName);
@@ -74,6 +60,20 @@ namespace Cauldron.Interception.Cecilator.Extensions
 
             return false;
         }
+
+        /// <summary>
+        /// Creates a new coder.
+        /// </summary>
+        /// <param name="method">The coder.</param>
+        /// <returns></returns>
+        public static Coder NewCoder(this Method method) => new Coder(method);
+
+        /// <summary>
+        /// Creates a new coder.
+        /// </summary>
+        /// <param name="coder">The coder.</param>
+        /// <returns></returns>
+        public static Coder NewCoder(this Coder coder) => new Coder(coder.method);
 
         /// <summary>
         /// Creates a typeof() implementation for the given type <paramref name="type"/>

@@ -6,7 +6,7 @@ using System.IO;
 
 namespace Cauldron.Interception.Cecilator.Extensions
 {
-    public class Coder
+    public sealed class Coder
     {
         public const string ReturnVariableName = "<>returnValue";
         public const string VariablePrefix = "<>var_";
@@ -65,8 +65,10 @@ namespace Cauldron.Interception.Cecilator.Extensions
 
         public override int GetHashCode() => this.GetType().GetHashCode() ^ this.method.GetHashCode() ^ this.instructions.GetHashCode();
 
-        public override string ToString() => this.method.Fullname;
+        public void InstructionDebug() => this.method.Log(LogTypes.Info, this.instructions);
 
-        protected void InstructionDebug() => this.method.Log(LogTypes.Info, this.instructions);
+        public CodeSet ToCodeSet() => new CoderCodeSet(this);
+
+        public override string ToString() => this.method.Fullname;
     }
 }
