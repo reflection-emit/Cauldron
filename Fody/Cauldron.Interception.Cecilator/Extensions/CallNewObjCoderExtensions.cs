@@ -39,7 +39,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
                         method.methodDefinition.Parameters[i].ParameterType.ResolveType(method.OriginType.typeReference, method.methodReference) :
                         method.methodDefinition.Parameters[i].ParameterType;
 
-                    var inst = coder.AddParameter(coder.processor, Builder.Current.Import(parameterType), CodeSet.GetParameter(i));
+                    var inst = coder.AddParameter(coder.processor, Builder.Current.Import(parameterType), CodeBlock.GetParameter(i));
                     coder.instructions.Append(inst.Instructions);
                 }
             }

@@ -29,45 +29,15 @@ namespace Cauldron.Interception.Cecilator.Extensions
         /// <returns></returns>
         public static string GenerateName() => Path.GetRandomFileName().Replace(".", DateTime.Now.Second.ToString());
 
-        public static bool operator !=(Coder a, Coder b) => !(a == b);
-
-        public static bool operator ==(Coder a, Coder b)
-        {
-            if (object.Equals(a, null) && object.Equals(b, null))
-                return true;
-
-            if (object.Equals(a, null))
-                return false;
-
-            return a.Equals(b);
-        }
-
         public Coder Append(IEnumerable<Instruction> instructions)
         {
             this.instructions.Append(instructions);
             return this;
         }
 
-        public override bool Equals(object obj)
-        {
-            switch (obj)
-            {
-                case null: return false;
-                case Coder coder:
-                    if (this.GetHashCode() != coder.GetHashCode())
-                        return false;
-
-                    return this.instructions.Count == coder.instructions.Count && this.method == coder.method;
-
-                default: return false;
-            }
-        }
-
-        public override int GetHashCode() => this.GetType().GetHashCode() ^ this.method.GetHashCode() ^ this.instructions.GetHashCode();
-
         public void InstructionDebug() => this.method.Log(LogTypes.Info, this.instructions);
 
-        public CodeSet ToCodeSet() => new CoderCodeSet(this);
+        public CodeBlock ToCodeBlock() => new InstructionsCodeSet(this);
 
         public override string ToString() => this.method.Fullname;
     }

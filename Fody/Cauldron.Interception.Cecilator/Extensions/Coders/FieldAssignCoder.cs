@@ -17,12 +17,6 @@ namespace Cauldron.Interception.Cecilator.Extensions
 
         public override TypeReference TargetType => this.target?.fieldRef.FieldType;
 
-        public static explicit operator Coder(FieldAssignCoder coder) => coder.coder;
-
-        public Coder ToCoder() => this.coder;
-
-        public CodeSet ToCodeSet() => new FieldAssignCoderCodeSet(this);
-
         internal override void StoreCall()
         {
             var field = this.target;

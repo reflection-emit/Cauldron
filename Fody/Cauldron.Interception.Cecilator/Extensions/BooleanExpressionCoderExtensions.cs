@@ -9,6 +9,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
         {
             var x = coder.coder;
             var otherCoder = new BooleanExpressionCoder(coder.coder);
+            coder.RemoveJump();
             other(otherCoder);
             x.instructions.Append(x.processor.Create(OpCodes.And));
             return coder;
@@ -18,6 +19,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
         {
             var x = coder.coder;
             var otherCoder = new BooleanExpressionCoder(coder.coder);
+            coder.RemoveJump();
             x.instructions.Append(x.AddParameter(x.processor, Builder.Current.TypeSystem.Boolean, field).Instructions);
             x.instructions.Append(x.processor.Create(OpCodes.And));
             return coder;
@@ -27,10 +29,13 @@ namespace Cauldron.Interception.Cecilator.Extensions
         {
             var x = coder.coder;
             var otherCoder = new BooleanExpressionCoder(coder.coder);
+            coder.RemoveJump();
             x.instructions.Append(x.AddParameter(x.processor, Builder.Current.TypeSystem.Boolean, variable).Instructions);
             x.instructions.Append(x.processor.Create(OpCodes.And));
             return coder;
         }
+
+        public static BooleanExpressionCoder AndAnd(this BooleanExpressionResultCoder coder) => new BooleanExpressionCoder(coder.coder, coder.jumpTarget);
 
         /// <summary>
         /// Calls a instanced or static <see cref="Method"/> that exists in the loaded field.
@@ -42,7 +47,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
         public static BooleanExpressionCoder Call(this BooleanExpressionFieldInstancCoder coder, Method method, params object[] parameters)
         {
             coder.coder.CallInternal(coder.target, method, OpCodes.Call, parameters);
-            return new BooleanExpressionCoder(coder.coder);
+            return new BooleanExpressionCoder(coder.coder, coder.jumpTarget);
         }
 
         /// <summary>
@@ -55,7 +60,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
         public static BooleanExpressionCoder Call(this BooleanExpressionCoder coder, Method method, params object[] parameters)
         {
             coder.coder.CallInternal(Crumb.This, method, OpCodes.Call, parameters);
-            return new BooleanExpressionCoder(coder.coder);
+            return new BooleanExpressionCoder(coder.coder, coder.jumpTarget);
         }
 
         public static BooleanExpressionResultCoder EqualsTo(this BooleanExpressionFieldInstancCoder coder, Field field)
@@ -68,7 +73,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
         public static BooleanExpressionResultCoder Is(this BooleanExpressionCoder coder, BuilderType type)
         {
             var x = coder.coder;
-            var result = new BooleanExpressionResultCoder(x);
+            var result = new BooleanExpressionResultCoder(x, coder.jumpTarget);
 
             x.instructions.Append(x.processor.Create(OpCodes.Isinst, type.Import().typeReference));
             x.instructions.Append(x.processor.Create(OpCodes.Ldnull));
@@ -81,7 +86,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
         public static BooleanExpressionResultCoder Is(this BooleanExpressionCoder coder, Type type)
         {
             var x = coder.coder;
-            var result = new BooleanExpressionResultCoder(x);
+            var result = new BooleanExpressionResultCoder(x, coder.jumpTarget);
 
             x.instructions.Append(x.processor.Create(OpCodes.Isinst, Builder.Current.Import(type)));
             x.instructions.Append(x.processor.Create(OpCodes.Ldnull));
@@ -94,7 +99,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
         public static BooleanExpressionResultCoder IsFalse(this BooleanExpressionCoder coder)
         {
             var x = coder.coder;
-            var result = new BooleanExpressionResultCoder(x);
+            var result = new BooleanExpressionResultCoder(x, coder.jumpTarget, true);
 
             x.instructions.Append(x.processor.Create(OpCodes.Ldc_I4_1));
             x.instructions.Append(x.processor.Create(OpCodes.Ceq));
@@ -106,7 +111,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
         public static BooleanExpressionResultCoder IsNotNull(this BooleanExpressionCoder coder)
         {
             var x = coder.coder;
-            var result = new BooleanExpressionResultCoder(x);
+            var result = new BooleanExpressionResultCoder(x, coder.jumpTarget, true);
 
             x.instructions.Append(x.processor.Create(OpCodes.Ldnull));
             x.instructions.Append(x.processor.Create(OpCodes.Ceq));
@@ -118,7 +123,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
         public static BooleanExpressionResultCoder IsNull(this BooleanExpressionCoder coder)
         {
             var x = coder.coder;
-            var result = new BooleanExpressionResultCoder(x);
+            var result = new BooleanExpressionResultCoder(x, coder.jumpTarget);
 
             x.instructions.Append(x.processor.Create(OpCodes.Ldnull));
             x.instructions.Append(x.processor.Create(OpCodes.Ceq));
@@ -130,7 +135,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
         public static BooleanExpressionResultCoder IsTrue(this BooleanExpressionCoder coder)
         {
             var x = coder.coder;
-            var result = new BooleanExpressionResultCoder(x);
+            var result = new BooleanExpressionResultCoder(x, coder.jumpTarget);
 
             x.instructions.Append(x.processor.Create(OpCodes.Ldc_I4_1));
             x.instructions.Append(x.processor.Create(OpCodes.Ceq));
@@ -157,13 +162,14 @@ namespace Cauldron.Interception.Cecilator.Extensions
         {
             var result = coder.AreEqualInternalWithoutJump(coder.target.FieldType, field.FieldType, coder.target, field);
             result.coder.instructions.Append(result.coder.processor.Create(OpCodes.Brtrue, result.jumpTarget));
-            return result;
+            return new BooleanExpressionResultCoder(result.coder, coder.jumpTarget, true);
         }
 
         public static BooleanExpressionResultCoder Or(this BooleanExpressionResultCoder coder, Field field)
         {
             var x = coder.coder;
             var otherCoder = new BooleanExpressionCoder(coder.coder);
+            coder.RemoveJump();
             x.instructions.Append(x.AddParameter(x.processor, Builder.Current.TypeSystem.Boolean, field).Instructions);
             x.instructions.Append(x.processor.Create(OpCodes.Or));
             return coder;
@@ -173,6 +179,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
         {
             var x = coder.coder;
             var otherCoder = new BooleanExpressionCoder(coder.coder);
+            coder.RemoveJump();
             x.instructions.Append(x.AddParameter(x.processor, Builder.Current.TypeSystem.Boolean, variable).Instructions);
             x.instructions.Append(x.processor.Create(OpCodes.Or));
             return coder;
@@ -182,6 +189,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
         {
             var x = coder.coder;
             var otherCoder = new BooleanExpressionCoder(coder.coder);
+            coder.RemoveJump();
             other(otherCoder);
             x.instructions.Append(x.processor.Create(OpCodes.Or));
             return coder;
@@ -192,7 +200,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
             // TODO - needs to handle Nullables
 
             var x = coder.coder;
-            var result = new BooleanExpressionResultCoder(x);
+            var result = new BooleanExpressionResultCoder(x, coder.jumpTarget);
 
             if (a == b && a.IsPrimitive)
             {

@@ -17,8 +17,6 @@ namespace Cauldron.Interception.Cecilator.Extensions
 
         public override TypeReference TargetType => this.target?.variable.VariableType;
 
-        public static explicit operator Coder(LocalVariableAssignCoder coder) => coder.coder;
-
         internal override void StoreCall()
         {
             var last = this.target;

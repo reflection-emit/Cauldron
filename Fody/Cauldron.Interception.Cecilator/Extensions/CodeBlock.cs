@@ -2,7 +2,7 @@
 
 namespace Cauldron.Interception.Cecilator.Extensions
 {
-    public class ArrayCodeSet : CodeSet
+    public class ArrayCodeSet : CodeBlock
     {
         internal int index;
 
@@ -11,29 +11,19 @@ namespace Cauldron.Interception.Cecilator.Extensions
         }
     }
 
-    public class CoderCodeSet : CodeSet
+    public class CodeBlock
     {
-        internal readonly Coder coder;
+        public static CodeBlock This => new ThisCodeSet();
 
-        internal CoderCodeSet(Coder coder)
-        {
-            this.coder = coder;
-        }
-    }
+        public static CodeBlock CreateException(TypeReference typeReference, string name) => new ExceptionCodeSet { name = name, typeReference = typeReference };
 
-    public class CodeSet
-    {
-        public static CodeSet This => new ThisCodeSet();
+        public static CodeBlock CreateException(BuilderType builderType, string name) => new ExceptionCodeSet { name = name, typeReference = builderType.typeReference };
 
-        public static CodeSet CreateException(TypeReference typeReference, string name) => new ExceptionCodeSet { name = name, typeReference = typeReference };
+        public static CodeBlock DefaultOfStruct(TypeReference typeReference) => new InitObjCodeSet { typeReference = typeReference };
 
-        public static CodeSet CreateException(BuilderType builderType, string name) => new ExceptionCodeSet { name = name, typeReference = builderType.typeReference };
+        public static CodeBlock DefaultOfTask(TypeReference typeReference) => new DefaultTaskCodeSet { typeReference = typeReference };
 
-        public static CodeSet DefaultOfStruct(TypeReference typeReference) => new InitObjCodeSet { typeReference = typeReference };
-
-        public static CodeSet DefaultOfTask(TypeReference typeReference) => new DefaultTaskCodeSet { typeReference = typeReference };
-
-        public static CodeSet DefaultTaskOfT(TypeReference typeReference) => new DefaultTaskOfTCodeSet { typeReference = typeReference };
+        public static CodeBlock DefaultTaskOfT(TypeReference typeReference) => new DefaultTaskOfTCodeSet { typeReference = typeReference };
 
         public static ParametersCodeSet GetParameter(int index) => new ParametersCodeSet { index = index };
 
@@ -42,7 +32,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
         public static ParametersCodeSet GetParameter() => new ParametersCodeSet();
     }
 
-    public class DefaultTaskCodeSet : CodeSet
+    public class DefaultTaskCodeSet : CodeBlock
     {
         internal TypeReference typeReference;
 
@@ -51,7 +41,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
         }
     }
 
-    public class DefaultTaskOfTCodeSet : CodeSet
+    public class DefaultTaskOfTCodeSet : CodeBlock
     {
         internal TypeReference typeReference;
 
@@ -60,7 +50,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
         }
     }
 
-    public class ExceptionCodeSet : CodeSet
+    public class ExceptionCodeSet : CodeBlock
     {
         internal string name;
 
@@ -71,7 +61,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
         }
     }
 
-    public class FieldAssignCoderCodeSet : CodeSet
+    public class FieldAssignCoderCodeSet : CodeBlock
     {
         internal readonly Coder coder;
         internal readonly FieldAssignCoder fieldAssignCoder;
@@ -83,7 +73,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
         }
     }
 
-    public class InitObjCodeSet : CodeSet
+    public class InitObjCodeSet : CodeBlock
     {
         internal TypeReference typeReference;
 
@@ -92,7 +82,17 @@ namespace Cauldron.Interception.Cecilator.Extensions
         }
     }
 
-    public class ParametersCodeSet : CodeSet
+    public class InstructionsCodeSet : CodeBlock
+    {
+        internal readonly InstructionContainer instructions;
+
+        internal InstructionsCodeSet(Coder coder)
+        {
+            this.instructions = coder.instructions;
+        }
+    }
+
+    public class ParametersCodeSet : CodeBlock
     {
         internal int? index;
 
@@ -104,10 +104,10 @@ namespace Cauldron.Interception.Cecilator.Extensions
 
         public bool IsAllParameters => !this.index.HasValue && string.IsNullOrEmpty(this.name);
 
-        public CodeSet UnPacked(int arrayIndex = 0) => new ArrayCodeSet { index = arrayIndex };
+        public CodeBlock UnPacked(int arrayIndex = 0) => new ArrayCodeSet { index = arrayIndex };
     }
 
-    public class ThisCodeSet : CodeSet
+    public class ThisCodeSet : CodeBlock
     {
         internal ThisCodeSet()
         {

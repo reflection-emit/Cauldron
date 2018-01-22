@@ -1,18 +1,15 @@
-﻿namespace Cauldron.Interception.Cecilator.Extensions
-{
-    public class BooleanExpressionCoder
-    {
-        internal readonly Coder coder;
+﻿using Mono.Cecil.Cil;
 
-        internal BooleanExpressionCoder(Coder coder)
+namespace Cauldron.Interception.Cecilator.Extensions
+{
+    public class BooleanExpressionCoder : ContextCoder
+    {
+        internal BooleanExpressionCoder(Coder coder) : base(coder)
         {
-            this.coder = coder;
         }
 
-        public static explicit operator Coder(BooleanExpressionCoder coder) => coder.coder;
-
-        public override int GetHashCode() => this.coder.GetHashCode();
-
-        public Coder ToCoder() => this.coder;
+        internal BooleanExpressionCoder(Coder coder, Instruction jumpTarget) : base(coder, jumpTarget)
+        {
+        }
     }
 }

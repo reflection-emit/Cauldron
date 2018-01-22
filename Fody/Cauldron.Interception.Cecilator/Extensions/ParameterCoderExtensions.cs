@@ -154,7 +154,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
                 var value = AddVariableDefinitionToInstruction(processor, result.Instructions, targetType, parameter);
                 result.Type = value.VariableType;
             }
-            else if (type == typeof(CodeSet))
+            else if (type == typeof(CodeBlock))
             {
                 switch (parameter)
                 {
@@ -225,6 +225,15 @@ namespace Cauldron.Interception.Cecilator.Extensions
                             break;
                         }
 
+                    case InstructionsCodeSet instructionsCodeSet:
+                        {
+                            if (object.ReferenceEquals(instructionsCodeSet.instructions, coder.instructions))
+                                throw new NotSupportedException("Nope... Not gonna work... Use NewCoder() if you want to pass an instructions set as parameters.");
+
+                            result.Instructions.AddRange(instructionsCodeSet.instructions.ToArray());
+                            break;
+                        }
+
                     default:
                         throw new NotImplementedException();
                 }
@@ -281,13 +290,6 @@ namespace Cauldron.Interception.Cecilator.Extensions
                 var value = parameter as ParameterReference;
                 result.Instructions.Add(processor.Create(OpCodes.Ldarg, value.Index));
                 result.Type = value.ParameterType;
-            }
-            else if (parameter is Coder parameterCoder)
-            {
-                if (object.ReferenceEquals(parameterCoder, coder))
-                    throw new NotSupportedException("Nope... Not gonna work... Use NewCoder() if you want to pass an instructions set as parameters.");
-
-                result.Instructions.AddRange(parameterCoder.instructions.ToArray());
             }
             else if (parameter is Position)
             {

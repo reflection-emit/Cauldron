@@ -105,6 +105,8 @@ namespace Cauldron.Interception.Cecilator.Extensions
             return coder.method.AddLocalVariable(Coder.ReturnVariableName, new VariableDefinition(coder.method.ReturnType.typeReference));
         }
 
+        public static bool HasReturnVariable(this Coder coder) => coder.method.GetLocalVariable(Coder.ReturnVariableName) != null;
+
         public static Coder ThrowNew(this Coder coder, Type exception)
         {
             coder.instructions.Append(coder.processor.Create(OpCodes.Newobj, Builder.Current.Import(Builder.Current.Import(exception).GetMethodReference(".ctor", 0))));
