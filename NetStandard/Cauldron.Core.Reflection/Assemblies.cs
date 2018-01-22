@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 
 #if NETFX_CORE
 
@@ -29,9 +30,9 @@ namespace Cauldron.Core.Reflection
     {
         private const string CauldronClassName = "<Cauldron>";
 
-        private static ConcurrentBag<Assembly> _assemblies;
-        private static ConcurrentBag<AssemblyResource> _assemblyAndResourceNamesInfo = new ConcurrentBag<AssemblyResource>();
-        private static ConcurrentBag<object> _cauldron = new ConcurrentBag<object>();
+        private static List<Assembly> _assemblies;
+        private static List<AssemblyResource> _assemblyAndResourceNamesInfo = new List<AssemblyResource>();
+        private static List<object> _cauldron = new List<object>();
 
         static Assemblies()
         {
@@ -66,12 +67,12 @@ namespace Cauldron.Core.Reflection
         /// Gets an array of <see cref="AssemblyResource"/> that contains all fully qualified
         /// filename of embedded resources and thier corresponding <see cref="Assembly"/>
         /// </summary>
-        public static AssemblyResource[] AssemblyAndResourceNamesInfo { get { return _assemblyAndResourceNamesInfo.ToArray(); } }
+        public static AssemblyResource[] AssemblyAndResourceNamesInfo => _assemblyAndResourceNamesInfo.ToArray();
 
         /// <summary>
         /// Gets an array of cauldron cache objects
         /// </summary>
-        public static object[] CauldronObjects { get { return _cauldron.ToArray(); } }
+        public static object[] CauldronObjects => _cauldron.ToArray();
 
         /// <summary>
         /// Gets a collection of classes loaded to the AppDomain
@@ -91,7 +92,7 @@ namespace Cauldron.Core.Reflection
         /// <summary>
         /// Gets a collection of exported types found in the AppDomain
         /// </summary>
-        public static IEnumerable<Type> ExportedTypes { get { return _assemblies.SelectMany(x => x.ExportedTypes); } }
+        public static IEnumerable<Type> ExportedTypes => _assemblies.SelectMany(x => x.ExportedTypes);
 
         /// <summary>
         /// Gets a colleciton of Interfaces found in the AppDomain
@@ -111,7 +112,7 @@ namespace Cauldron.Core.Reflection
         /// <summary>
         /// Gets an array of <see cref="Assembly"/> that is loaded to the AppDomain
         /// </summary>
-        public static Assembly[] Known { get { return _assemblies.ToArray(); } }
+        public static Assembly[] Known => _assemblies.ToArray();
 
         /// <summary>
         /// Adds a new Assembly to the assembly collection
@@ -389,17 +390,20 @@ namespace Cauldron.Core.Reflection
             // Get all assemblies in AppDomain and add them to our list TODO - This will not work in
             // UWP and Core if compiled to native code
             var assemblies = new List<Assembly>();
+            Assembly[] allAssemblies;
 #endif
 
 #if DESKTOP || ANDROID || NETCORE || NETSTANDARD2_0
 #if NETCORE
-            foreach (var assembly in GetAssemblies())
+            allAssemblies = GetAssemblies();
 #else
-            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+            allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
 #endif
+            for (int i = 0; i < allAssemblies.Length; i++)
             {
                 try
                 {
+                    var assembly = allAssemblies[i];
                     assemblies.Add(assembly);
 
                     // Get all referenced Assembly
@@ -428,7 +432,7 @@ namespace Cauldron.Core.Reflection
             }
 
 #endif
-            _assemblies = new ConcurrentBag<Assembly>(assemblies.Where(x => !x.IsDynamic).Distinct());
+            _assemblies = new List<Assembly>(assemblies.Where(x => !x.IsDynamic).Distinct());
         }
 
         private static void GetAllAssemblyAndResourceNameInfo()
@@ -443,20 +447,31 @@ namespace Cauldron.Core.Reflection
                     list.AddRange(resources);
             }
 
-            _assemblyAndResourceNamesInfo = new ConcurrentBag<AssemblyResource>(list.OrderBy(x => x.Filename));
+            _assemblyAndResourceNamesInfo = new List<AssemblyResource>(list.OrderBy(x => x.Filename));
         }
 
         private static void GetAllCauldronCache()
         {
-            foreach (var assembly in _assemblies)
+            var assemblies = _assemblies.ToArray();
+
+            for (int i = 0; i < assemblies.Length; i++)
             {
-                foreach (var item in assembly.DefinedTypes)
-                    if (item.FullName != null && item.FullName.GetHashCode() == CauldronClassName.GetHashCode() && item.FullName == CauldronClassName)
+                try
+                {
+                    foreach (var item in assemblies[i].DefinedTypes)
+                        if (item.FullName != null && item.FullName.GetHashCode() == CauldronClassName.GetHashCode() && item.FullName == CauldronClassName)
 #if NETFX_CORE || NETCORE
-                        _cauldron.Add(System.Activator.CreateInstance(item.AsType()));
+                            _cauldron.Add(System.Activator.CreateInstance(item.AsType()));
 #else
-                        _cauldron.Add(Activator.CreateInstance(item));
+                            _cauldron.Add(Activator.CreateInstance(item));
 #endif
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e.Message);
+                    // Remove this assembly from the assembly list
+                    _assemblies.Remove(assemblies[i]);
+                }
             }
         }
     }
@@ -470,7 +485,7 @@ namespace Cauldron.Core.Reflection
          * NETCore using Desktop dlls
          */
 
-#if  NETFX_CORE || NETCORE
+#if NETFX_CORE || NETCORE
         private static Assembly _entryAssembly;
 #endif
 
@@ -478,7 +493,7 @@ namespace Cauldron.Core.Reflection
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static Assembly EntryAssembly
         {
-#if  NETFX_CORE || NETCORE
+#if NETFX_CORE || NETCORE
             get { return _entryAssembly; }
             set
             {
@@ -646,7 +661,7 @@ namespace Cauldron.Core.Reflection
 #if NETCORE
         // http://www.michael-whelan.net/replacing-appdomain-in-dotnet-core/
 
-        private static IEnumerable<Assembly> GetAssemblies()
+        private static Assembly[] GetAssemblies()
         {
             var entryAssemblyName = Assembly.GetEntryAssembly().GetName();
             var assemblies = new List<Assembly>();
@@ -659,7 +674,7 @@ namespace Cauldron.Core.Reflection
                     assemblies.Add(assembly);
                 }
 
-            return assemblies;
+            return assemblies.ToArray();
         }
 
         private static bool IsCandidateLibrary(RuntimeLibrary library, string assemblyName) => library.Name == assemblyName || library.Dependencies.Any(x => x.Name.StartsWith(assemblyName));
