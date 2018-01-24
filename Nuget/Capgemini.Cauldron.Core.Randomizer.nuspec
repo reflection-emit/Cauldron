@@ -23,6 +23,10 @@
     <file src="..\NetStandard\Cauldron.Core.Randomizer\bin\Release\netstandard2.0\Cauldron.Core.Randomizer.dll" target="lib\netstandard2.0\Cauldron.Core.Randomizer.dll" />
     <file src="..\NetStandard\Cauldron.Core.Randomizer\bin\Release\netstandard2.0\Cauldron.Core.Randomizer.xml" target="lib\netstandard2.0\Cauldron.Core.Randomizer.xml" />
     <file src="..\NetStandard\Cauldron.Core.Randomizer\bin\Release\netstandard2.0\Cauldron.Core.Randomizer.pdb" target="lib\netstandard2.0\Cauldron.Core.Randomizer.pdb" />
+    <!-- Desktop Net471 -->
+    <file src="..\NetStandard\Cauldron.Core.Randomizer\bin\Release\netstandard2.0\Cauldron.Core.Randomizer.dll" target="lib\net471" />
+    <file src="..\NetStandard\Cauldron.Core.Randomizer\bin\Release\netstandard2.0\Cauldron.Core.Randomizer.xml" target="lib\net471" />
+    <file src="..\NetStandard\Cauldron.Core.Randomizer\bin\Release\netstandard2.0\Cauldron.Core.Randomizer.pdb" target="lib\net471" />
     <!-- Desktop Net461 -->
     <file src="..\Win32\Cauldron.Core.Win32.Randomizer\bin\Release\Cauldron.Core.Randomizer.Net461.dll" target="lib\net461" />
     <file src="..\Win32\Cauldron.Core.Win32.Randomizer\bin\Release\Cauldron.Core.Randomizer.Net461.xml" target="lib\net461" />

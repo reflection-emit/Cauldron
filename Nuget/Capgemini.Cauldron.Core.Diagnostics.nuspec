@@ -23,6 +23,9 @@
     <file src="..\NetStandard\Cauldron.Core.Diagnostics\bin\Release\netstandard2.0\Cauldron.Core.Diagnostics.dll" target="lib\netstandard2.0\Cauldron.Core.Diagnostics.dll" />
     <file src="..\NetStandard\Cauldron.Core.Diagnostics\bin\Release\netstandard2.0\Cauldron.Core.Diagnostics.xml" target="lib\netstandard2.0\Cauldron.Core.Diagnostics.xml" />
     <file src="..\NetStandard\Cauldron.Core.Diagnostics\bin\Release\netstandard2.0\Cauldron.Core.Diagnostics.pdb" target="lib\netstandard2.0\Cauldron.Core.Diagnostics.pdb" />
+    <file src="..\NetStandard\Cauldron.Core.Diagnostics\bin\Release\netstandard2.0\Cauldron.Core.Diagnostics.dll" target="lib\net471" />
+    <file src="..\NetStandard\Cauldron.Core.Diagnostics\bin\Release\netstandard2.0\Cauldron.Core.Diagnostics.xml" target="lib\net471" />
+    <file src="..\NetStandard\Cauldron.Core.Diagnostics\bin\Release\netstandard2.0\Cauldron.Core.Diagnostics.pdb" target="lib\net471" />
     <file src="..\Win32\Cauldron.Core.Win32.Diagnostics\bin\Release\Cauldron.Core.Diagnostics.Net461.dll" target="lib\net461" />
     <file src="..\Win32\Cauldron.Core.Win32.Diagnostics\bin\Release\Cauldron.Core.Diagnostics.Net461.xml" target="lib\net461" />
     <file src="..\Win32\Cauldron.Core.Win32.Diagnostics\bin\Release\Cauldron.Core.Diagnostics.Net461.pdb" target="lib\net461" />
