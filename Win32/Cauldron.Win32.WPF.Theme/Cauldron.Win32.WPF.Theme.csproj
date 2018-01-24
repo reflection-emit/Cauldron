@@ -93,50 +93,50 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Content Include="Styles\ButtonStyle.xaml">
+    <Page Include="Styles\ButtonStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Styles\ComboBoxStyle.xaml">
+    </Page>
+    <Page Include="Styles\ComboBoxStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Styles\ExpanderStyle.xaml">
+    </Page>
+    <Page Include="Styles\ExpanderStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Styles\ListBoxStyle.xaml">
+    </Page>
+    <Page Include="Styles\ListBoxStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Styles\ListViewStyle.xaml">
+    </Page>
+    <Page Include="Styles\ListViewStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Styles\MiscStyle.xaml">
+    </Page>
+    <Page Include="Styles\MiscStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Styles\PasswordBoxStyle.xaml">
+    </Page>
+    <Page Include="Styles\PasswordBoxStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Styles\ScrollBarStyle.xaml">
+    </Page>
+    <Page Include="Styles\ScrollBarStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Styles\StatusBarStyle.xaml">
+    </Page>
+    <Page Include="Styles\StatusBarStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Styles\TabControlStyle.xaml">
+    </Page>
+    <Page Include="Styles\TabControlStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Styles\TextBoxStyle.xaml">
+    </Page>
+    <Page Include="Styles\TextBoxStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Content>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
