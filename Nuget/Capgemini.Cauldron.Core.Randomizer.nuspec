@@ -13,6 +13,7 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Random Cryptographic</tags>
     <releaseNotes>
+      2017.12.24 - [C] Net461 DLLs removed because it causes a lot of issues on mixed solutions (NetCore and Net461)
       2017.12.21 - [A] Added assemblies for NET45 and NET461
     </releaseNotes>
     <dependencies>
@@ -28,9 +29,9 @@
     <file src="..\NetStandard\Cauldron.Core.Randomizer\bin\Release\netstandard2.0\Cauldron.Core.Randomizer.xml" target="lib\net471" />
     <file src="..\NetStandard\Cauldron.Core.Randomizer\bin\Release\netstandard2.0\Cauldron.Core.Randomizer.pdb" target="lib\net471" />
     <!-- Desktop Net461 -->
-    <file src="..\Win32\Cauldron.Core.Win32.Randomizer\bin\Release\Cauldron.Core.Randomizer.Net461.dll" target="lib\net461" />
-    <file src="..\Win32\Cauldron.Core.Win32.Randomizer\bin\Release\Cauldron.Core.Randomizer.Net461.xml" target="lib\net461" />
-    <file src="..\Win32\Cauldron.Core.Win32.Randomizer\bin\Release\Cauldron.Core.Randomizer.Net461.pdb" target="lib\net461" />
+    <file src="..\NetStandard\Cauldron.Core.Randomizer\bin\Release\netstandard2.0\Cauldron.Core.Randomizer.dll" target="lib\net461" />
+    <file src="..\NetStandard\Cauldron.Core.Randomizer\bin\Release\netstandard2.0\Cauldron.Core.Randomizer.xml" target="lib\net461" />
+    <file src="..\NetStandard\Cauldron.Core.Randomizer\bin\Release\netstandard2.0\Cauldron.Core.Randomizer.pdb" target="lib\net461" />
     <!-- Desktop Net45-->
     <file src="..\Win32\Net45\Cauldron.Core.Win32.Net45.Randomizer\bin\Release\Cauldron.Core.Randomizer.Net45.dll" target="lib\net45" />
     <file src="..\Win32\Net45\Cauldron.Core.Win32.Net45.Randomizer\bin\Release\Cauldron.Core.Randomizer.Net45.xml" target="lib\net45" />
