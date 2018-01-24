@@ -28,26 +28,6 @@ namespace Cauldron
         private static readonly Regex _parseQueryRegex = new Regex(@"[?|&]([\w\.]+)=([^?|^&]+)", RegexOptions.Compiled);
 
         /// <summary>
-        /// Flattens a jagged array to a one-dimensional array
-        /// </summary>
-        /// <typeparam name="T">The element type of the array</typeparam>
-        /// <param name="arrays">The jagged array</param>
-        /// <returns>An one dimensional array</returns>
-        public static T[] Flatten<T>(this T[][] arrays)
-        {
-            var result = Array.CreateInstance(typeof(T), arrays.Sum(x => x.Length));
-            int offset = 0;
-
-            for (int i = 0; i <= arrays.Length - 1; i++)
-            {
-                System.Buffer.BlockCopy(arrays[i], 0, result, offset, arrays[i].Length);
-                offset += arrays[i].Length;
-            }
-
-            return (T[])result;
-        }
-
-        /// <summary>
         /// Concats an item to an array creating a new array containing the original array and the item.
         /// </summary>
         /// <typeparam name="T">The element type of the array</typeparam>
@@ -137,6 +117,26 @@ namespace Cauldron
 #else
             return string.Copy(value);
 #endif
+        }
+
+        /// <summary>
+        /// Flattens a jagged array to a one-dimensional array
+        /// </summary>
+        /// <typeparam name="T">The element type of the array</typeparam>
+        /// <param name="arrays">The jagged array</param>
+        /// <returns>An one dimensional array</returns>
+        public static T[] Flatten<T>(this T[][] arrays)
+        {
+            var result = Array.CreateInstance(typeof(T), arrays.Sum(x => x.Length));
+            int offset = 0;
+
+            for (int i = 0; i <= arrays.Length - 1; i++)
+            {
+                System.Buffer.BlockCopy(arrays[i], 0, result, offset, arrays[i].Length);
+                offset += arrays[i].Length;
+            }
+
+            return (T[])result;
         }
 
         /// <summary>
@@ -714,7 +714,7 @@ namespace Cauldron
         /// <exception cref="IOException">An I/O error occurs.</exception>
         public static string ReadToEnd(this Stream stream, Encoding encoding)
         {
-            using (StreamReader reader = new StreamReader(stream, encoding))
+            using (var reader = new StreamReader(stream, encoding))
                 return reader.ReadToEnd();
         }
 
@@ -732,7 +732,7 @@ namespace Cauldron
         /// <exception cref="IOException">An I/O error occurs.</exception>
         public static string ReadToEnd(this Stream stream)
         {
-            using (StreamReader reader = new StreamReader(stream))
+            using (var reader = new StreamReader(stream))
                 return reader.ReadToEnd();
         }
 

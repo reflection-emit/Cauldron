@@ -1,5 +1,4 @@
-﻿using Cauldron.Core.Extensions;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
@@ -61,7 +60,7 @@ namespace Cauldron.Core.Java
         /// </summary>
         /// <param name="stream">The stream</param>
         /// <returns>A new instance of <see cref="JavaProperties"/></returns>
-        public static JavaProperties Read(Stream stream) => Read(stream.ReadToEnd().Convert(Encodings.ANSI, Encodings.UTF8));
+        public static JavaProperties Read(Stream stream) => Read(stream.ReadToEnd().ConvertAnsiToUTF8());
 
 #if WINDOWS_UWP
 
@@ -86,14 +85,14 @@ namespace Cauldron.Core.Java
         /// </summary>
         /// <param name="file">The property file</param>
         /// <returns>A new instance of <see cref="JavaProperties"/></returns>
-        public static async Task<JavaProperties> ReadAsync(FileInfo file) => Read((await file.ReadTextAsync()).Convert(Encodings.ANSI, Encodings.UTF8));
+        public static async Task<JavaProperties> ReadAsync(FileInfo file) => Read((await file.ReadTextAsync()).ConvertAnsiToUTF8());
 
         /// <summary>
         /// Saves the <see cref="JavaProperties"/> instance to a file
         /// </summary>
         /// <param name="file">The property file</param>
         /// <returns>An awaitable task</returns>
-        public async Task SaveAsync(FileInfo file) => await file.WriteTextAsync(this.ToString().Convert(Encodings.UTF8, Encodings.ANSI));
+        public async Task SaveAsync(FileInfo file) => await file.WriteTextAsync(this.ToString().ConvertUTF8ToAnsi());
 
 #endif
 

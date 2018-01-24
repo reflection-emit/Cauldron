@@ -132,7 +132,12 @@ namespace Cauldron
         /// </summary>
         /// <param name="file">The file to read.</param>
         /// <returns>When this method completes successfully, it returns the contents of the file as a text string.</returns>
-        public static Task<string> ReadTextAsync(this FileInfo file) => Task.FromResult(File.ReadAllText(file.FullName));
+        public static async Task<string> ReadTextAsync(this FileInfo file)
+        {
+            var result = default(string);
+            await Task.Run(() => result = File.ReadAllText(file.FullName));
+            return result;
+        }
 
         /// <summary>
         /// Reads the contents of the specified file and returns text.
@@ -140,7 +145,12 @@ namespace Cauldron
         /// <param name="file">The file to read.</param>
         /// <param name="encoding">The encoding applied to the contents of the file.</param>
         /// <returns>When this method completes successfully, it returns the contents of the file as a text string.</returns>
-        public static Task<string> ReadTextAsync(this FileInfo file, Encoding encoding) => Task.FromResult(File.ReadAllText(file.FullName, encoding));
+        public static async Task<string> ReadTextAsync(this FileInfo file, Encoding encoding)
+        {
+            var result = default(string);
+            await Task.Run(() => result = File.ReadAllText(file.FullName, encoding));
+            return result;
+        }
 
         /// <summary>
         /// Reads the contents of the specified file and returns text.
@@ -170,7 +180,7 @@ namespace Cauldron
         /// <param name="filename">The name of the file to read.</param>
         /// <param name="encoding">The encoding applied to the contents of the file.</param>
         /// <returns>When this method completes successfully, it returns the contents of the file as a text string.</returns>
-        public static Task<string> ReadTextAsync(this DirectoryInfo folder, string filename, Encoding encoding)
+        public static async Task<string> ReadTextAsync(this DirectoryInfo folder, string filename, Encoding encoding)
         {
             try
             {
@@ -179,7 +189,9 @@ namespace Cauldron
                 if (!File.Exists(file))
                     return null;
 
-                return Task.FromResult(File.ReadAllText(file, encoding));
+                var result = default(string);
+                await Task.Run(() => result = File.ReadAllText(file, encoding));
+                return result;
             }
             catch
             {
@@ -195,15 +207,11 @@ namespace Cauldron
         /// <returns>No object or value is returned when this method completes.</returns>
         public static async Task WriteBytesAsync(this FileInfo file, byte[] content)
         {
-            var task = Task.Run(() =>
-             {
-                 using (var stream = file.OpenWrite())
-                 {
-                     stream.Write(content, 0, content.Length);
-                     stream.Flush();
-                 }
-             });
-            await task.ConfigureAwait(false);
+            using (var stream = file.OpenWrite())
+            {
+                await stream.WriteAsync(content, 0, content.Length);
+                stream.Flush();
+            }
         }
 
         /// <summary>

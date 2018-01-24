@@ -63,6 +63,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nuget", "Nuget", "{8675B75E
 		Nuget\Capgemini.Cauldron.Core.Extensions.nuspec = Nuget\Capgemini.Cauldron.Core.Extensions.nuspec
 		Nuget\Capgemini.Cauldron.Core.Formatters.nuspec = Nuget\Capgemini.Cauldron.Core.Formatters.nuspec
 		Nuget\Capgemini.Cauldron.Core.Interceptors.nuspec = Nuget\Capgemini.Cauldron.Core.Interceptors.nuspec
+		Nuget\Capgemini.Cauldron.Core.JavaProperties.nuspec = Nuget\Capgemini.Cauldron.Core.JavaProperties.nuspec
 		Nuget\Capgemini.Cauldron.Core.MathExtensions.nuspec = Nuget\Capgemini.Cauldron.Core.MathExtensions.nuspec
 		Nuget\Capgemini.Cauldron.Core.Net.nuspec = Nuget\Capgemini.Cauldron.Core.Net.nuspec
 		Nuget\Capgemini.Cauldron.Core.nuspec = Nuget\Capgemini.Cauldron.Core.nuspec
@@ -205,6 +206,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{551C
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Win32_Fody_AssemblyWide_Validator_Tests", "UnitTests\Win32_Fody_AssemblyWide_Validator_Tests\Win32_Fody_AssemblyWide_Validator_Tests.csproj", "{CC42EA68-F664-4342-8746-5EAD2F87820C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.Core.JavaProperties", "NetStandard\Cauldron.Core.JavaProperties\Cauldron.Core.JavaProperties.csproj", "{2BCDEEF4-65B1-45EA-8222-C7FBC77E8D9D}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -1276,6 +1279,22 @@ Global
 		{CC42EA68-F664-4342-8746-5EAD2F87820C}.Release|x64.Build.0 = Release|Any CPU
 		{CC42EA68-F664-4342-8746-5EAD2F87820C}.Release|x86.ActiveCfg = Release|Any CPU
 		{CC42EA68-F664-4342-8746-5EAD2F87820C}.Release|x86.Build.0 = Release|Any CPU
+		{2BCDEEF4-65B1-45EA-8222-C7FBC77E8D9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BCDEEF4-65B1-45EA-8222-C7FBC77E8D9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BCDEEF4-65B1-45EA-8222-C7FBC77E8D9D}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{2BCDEEF4-65B1-45EA-8222-C7FBC77E8D9D}.Debug|ARM.Build.0 = Debug|Any CPU
+		{2BCDEEF4-65B1-45EA-8222-C7FBC77E8D9D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2BCDEEF4-65B1-45EA-8222-C7FBC77E8D9D}.Debug|x64.Build.0 = Debug|Any CPU
+		{2BCDEEF4-65B1-45EA-8222-C7FBC77E8D9D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2BCDEEF4-65B1-45EA-8222-C7FBC77E8D9D}.Debug|x86.Build.0 = Debug|Any CPU
+		{2BCDEEF4-65B1-45EA-8222-C7FBC77E8D9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BCDEEF4-65B1-45EA-8222-C7FBC77E8D9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BCDEEF4-65B1-45EA-8222-C7FBC77E8D9D}.Release|ARM.ActiveCfg = Release|Any CPU
+		{2BCDEEF4-65B1-45EA-8222-C7FBC77E8D9D}.Release|ARM.Build.0 = Release|Any CPU
+		{2BCDEEF4-65B1-45EA-8222-C7FBC77E8D9D}.Release|x64.ActiveCfg = Release|Any CPU
+		{2BCDEEF4-65B1-45EA-8222-C7FBC77E8D9D}.Release|x64.Build.0 = Release|Any CPU
+		{2BCDEEF4-65B1-45EA-8222-C7FBC77E8D9D}.Release|x86.ActiveCfg = Release|Any CPU
+		{2BCDEEF4-65B1-45EA-8222-C7FBC77E8D9D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1353,6 +1372,7 @@ Global
 		{F6286C56-FE9D-4BD6-B236-3C162935F2AE} = {4115126C-0A51-4950-8921-2B6B8AEACD66}
 		{F103A5CD-EB7D-4DFE-852E-5D833161A7E9} = {E2046C41-0213-4CB9-A569-1458B080F9E7}
 		{CC42EA68-F664-4342-8746-5EAD2F87820C} = {457821D6-7495-4CAE-81BC-A394541598E9}
+		{2BCDEEF4-65B1-45EA-8222-C7FBC77E8D9D} = {D61DB804-8031-458B-841A-B9F79F4E56E0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D1F2CDF5-23CA-42FF-B139-C74A73C3FA62}
