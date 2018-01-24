@@ -119,7 +119,7 @@ namespace Cauldron.XAML.Interactivity.Actions
         #endregion Dependency Property PriorityLow
 
         [Inject]
-        private IDispatcher Dispatcher { get; set; }
+        private new IDispatcher Dispatcher { get; set; }
 
         /// <summary>
         /// Occures when the action is invoked by an event

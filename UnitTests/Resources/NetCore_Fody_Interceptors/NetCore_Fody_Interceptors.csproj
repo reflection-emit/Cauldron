@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Fody" Version="2.3.15" />
+    <PackageReference Include="Fody" Version="2.3.22" />
   </ItemGroup>
 
   <ItemGroup>

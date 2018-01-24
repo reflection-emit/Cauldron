@@ -1,10 +1,9 @@
-﻿using Cauldron.Core.Extensions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Cauldron.Core
+namespace Cauldron.Core.Collections
 {
     /// <summary>
     /// Represents a collection of key and <see cref="RawValue"/>.

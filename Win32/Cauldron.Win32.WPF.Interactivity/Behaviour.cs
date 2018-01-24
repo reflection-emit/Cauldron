@@ -32,7 +32,7 @@ namespace Cauldron.XAML.Interactivity
         /// <summary>
         /// Gets the associated object instance of <typeparamref name="T"/>
         /// </summary>
-        public T AssociatedObject { get { return (this as IBehaviour).AssociatedObject as T; } }
+        public T AssociatedObject => (this as IBehaviour).AssociatedObject as T;
 
         object IBehaviour.AssociatedObject { get; set; }
 

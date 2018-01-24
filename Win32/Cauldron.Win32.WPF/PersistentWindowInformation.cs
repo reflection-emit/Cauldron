@@ -1,4 +1,5 @@
 ﻿using Cauldron.Core;
+using Cauldron.Core.Collections;
 using System;
 using System.IO;
 using System.Windows;
@@ -42,12 +43,14 @@ namespace Cauldron.XAML
         {
             var filename = Path.Combine(ApplicationData.Current.LocalFolder.FullName, viewModelType.FullName.GetHash() + "_Navigator");
 
-            var dictionary = new KeyRawValueDictionary();
-            dictionary.Add("Width", MathEx.Clamp(PersistentWindowProperties.GetWidth(window), window.MinWidth, window.MaxWidth));
-            dictionary.Add("Height", MathEx.Clamp(PersistentWindowProperties.GetHeight(window), window.MinHeight, window.MaxHeight));
-            dictionary.Add("Top", window.Top);
-            dictionary.Add("Left", window.Left);
-            dictionary.Add("WindowState", (int)window.WindowState);
+            var dictionary = new KeyRawValueDictionary
+            {
+                { "Width", MathEx.Clamp(PersistentWindowProperties.GetWidth(window), window.MinWidth, window.MaxWidth) },
+                { "Height", MathEx.Clamp(PersistentWindowProperties.GetHeight(window), window.MinHeight, window.MaxHeight) },
+                { "Top", window.Top },
+                { "Left", window.Left },
+                { "WindowState", (int)window.WindowState }
+            };
 
             File.WriteAllBytes(filename, dictionary.Serialize());
         }

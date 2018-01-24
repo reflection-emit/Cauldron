@@ -12,13 +12,16 @@
     <description>Cauldron Core is the core toolkit assembly that the Cauldron Toolkit builds upon</description>
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Core</tags>
+    <releaseNotes>
+      2018.01.24 - [C] KeyRawValueDictionary moved to Cauldron.Core.Collections
+      2018.01.24 - [C] Reference to Cauldron.Core.Extensions.Convertions removed
+    </releaseNotes>
     <dependencies>
       <group targetFramework=".NETStandard2.0">
         <dependency id="Capgemini.Cauldron.Core.Collections" version="2.0.33-beta" />
         <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="2.0.33-beta" />
         <dependency id="Capgemini.Cauldron.Core.Disposable" version="2.0.33-beta" />
         <dependency id="Capgemini.Cauldron.Core.Extensions" version="2.0.33-beta" />
-        <dependency id="Capgemini.Cauldron.Core.Extensions.Convertions" version="2.0.33-beta" />
         <dependency id="Capgemini.Cauldron.Core.Extensions.IO" version="2.0.33-beta" />
         <dependency id="Capgemini.Cauldron.Core.Reflection" version="2.0.33-beta" />
         <dependency id="Newtonsoft.Json" version="10.0.3" />
