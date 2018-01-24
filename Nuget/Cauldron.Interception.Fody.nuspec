@@ -14,6 +14,7 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Interception interceptor interception AOP Fody Cecil CIL ILWeaving</tags>
     <releaseNotes>
+      2018.01.24 - [B] Missing Assemblies added to the Nuget package.
       2018.01.15 - [B] AssignMethodAttribute assigned methods lack of import and failed during weaving.
       2018.01.11 - [B] ModuleMain entry point interceptor fixed. Waever throwed exception during weaving.
       2018.01.09 - [C] Getting rid of useless casts in created code.
@@ -59,10 +60,7 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="..\Fody\Cauldron.Interception.Fody\bin\Release\Cauldron.Interception.Fody.dll" target="Cauldron.Interception.Fody.dll" />
-    <file src="..\Fody\Cauldron.Interception.Cecilator\bin\Release\Cauldron.Interception.Cecilator.dll" target="Cauldron.Interception.Cecilator.dll" />
-    <file src="..\Fody\Cauldron.Interception.Cecilator\bin\Release\Cauldron.Interception.Cecilator.pdb" target="Cauldron.Interception.Cecilator.pdb" />
-    <file src="..\Fody\Cauldron.Interception.Cecilator\bin\Release\System.ValueTuple.dll" target="System.ValueTuple.dll" />
+    <file src="..\Fody\Cauldron.Interception.Fody\bin\Release\**" target="*" />
     <!-- Desktop Net461 -->
     <file src="..\NetStandard\Cauldron.Interception\bin\Release\netstandard2.0\Cauldron.Interception**" target="lib\net461" />
     <!-- Desktop Net45 -->
