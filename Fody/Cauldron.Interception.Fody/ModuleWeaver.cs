@@ -70,7 +70,7 @@ namespace Cauldron.Interception.Fody
                 this.AddValidatorInits(this.Builder);
 
             // Checks
-            this.CheckAsyncMethodsNomenclature(this.Builder);
+            //this.CheckAsyncMethodsNomenclature(this.Builder);
         }
 
         private void AddAttributeToXAMLResources(Builder builder)

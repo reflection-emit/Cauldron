@@ -22,7 +22,7 @@
         <dependency id="Capgemini.Cauldron.Core.Reflection" version="2.0.33-beta" />
         <dependency id="Capgemini.Cauldron.Core.Yaml" version="2.0.33-beta" />
         <dependency id="Newtonsoft.Json" version="10.0.3" />
-        <dependency id="Fody" version="2.3.14" />
+        <dependency id="Fody" id="Fody" version="2.3.22" />
       </group>
     </dependencies>
   </metadata>

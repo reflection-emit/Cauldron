@@ -26,7 +26,7 @@
     <dependencies>
       <dependency id="Cauldron.Interception.Fody" version="2.0.33-beta" />
       <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="2.0.33-beta" />
-      <dependency id="Fody" version="2.3.14" />
+      <dependency id="Fody" id="Fody" version="2.3.22" />
       <dependency id="NLog" version="4.4.12" />
     </dependencies>
     <frameworkAssemblies>
