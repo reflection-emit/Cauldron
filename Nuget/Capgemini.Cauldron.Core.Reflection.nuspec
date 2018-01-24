@@ -21,12 +21,13 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Reflection</tags>
     <releaseNotes>
+      2018.01.22 - [B] Issues with loading some assemblies... They are skiped now.
       2017.12.11 - [C] Now Costura compatible.
       2017.12.10 - [B] A bug in Assemblies that causes the Custom assembly resolution to be invoked before all assemblies are added to the collection fixed.
     </releaseNotes>
     <dependencies>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="2.0.31-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="2.0.32-beta" />
       </group>
     </dependencies>
   </metadata>

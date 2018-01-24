@@ -692,14 +692,14 @@
   <HelpKINode Title="ExistsAsync method" Url="html/f588eaf0-e360-0b54-33c5-b7e8c95a3a52.htm" />
   <HelpKINode Title="ExportedTypes property" Url="html/1daf4133-1741-5485-35f5-21743bba0867.htm" />
   <HelpKINode Title="Extensions class">
-    <HelpKINode Title="Extensions Class" Url="html/4e840c06-97cf-6137-2175-2169254e6f7c.htm" />
     <HelpKINode Title="Extensions Class" Url="html/7e30f679-b4cf-b5d3-e1a5-67ff8f20304a.htm" />
     <HelpKINode Title="Extensions Class" Url="html/96191775-34da-2521-4188-65830c4db18a.htm" />
+    <HelpKINode Title="Extensions Class" Url="html/4e840c06-97cf-6137-2175-2169254e6f7c.htm" />
     <HelpKINode Title="about Extensions class" Url="html/7e30f679-b4cf-b5d3-e1a5-67ff8f20304a.htm" />
     <HelpKINode Title="about Extensions class" Url="html/96191775-34da-2521-4188-65830c4db18a.htm" />
     <HelpKINode Title="about Extensions class" Url="html/4e840c06-97cf-6137-2175-2169254e6f7c.htm" />
-    <HelpKINode Title="methods" Url="html/4fd086ac-9f3e-5c0c-f1e7-66024063ce6e.htm" />
     <HelpKINode Title="methods" Url="html/4150876e-71fe-a4aa-3745-0600710249c3.htm" />
+    <HelpKINode Title="methods" Url="html/4fd086ac-9f3e-5c0c-f1e7-66024063ce6e.htm" />
     <HelpKINode Title="methods" Url="html/c738cb4b-2bd0-c951-6f7c-937b96f42c6a.htm" />
   </HelpKINode>
   <HelpKINode Title="Extensions.Concat method" Url="html/c1e6be5e-1904-30e0-e485-54564993c010.htm" />
@@ -711,6 +711,8 @@
   <HelpKINode Title="Extensions.Distinct&lt;TSource&gt; method" Url="html/19dbc9a4-1597-0353-043e-a190bf9cb529.htm" />
   <HelpKINode Title="Extensions.EnclosedIn method" Url="html/e350d471-7840-3d37-029d-83ea5ef12d95.htm" />
   <HelpKINode Title="Extensions.FillWithRandomValues method" Url="html/0e2a890c-c30f-629d-1076-3022b587e1c9.htm" />
+  <HelpKINode Title="Extensions.Flatten(Of T) method" Url="html/53cdb9ee-8af8-703d-29ff-519b8465f561.htm" />
+  <HelpKINode Title="Extensions.Flatten&lt;T&gt; method" Url="html/53cdb9ee-8af8-703d-29ff-519b8465f561.htm" />
   <HelpKINode Title="Extensions.Foreach(Of T) method" Url="html/23560017-60ae-9981-e0b9-e3dcb6e0b130.htm" />
   <HelpKINode Title="Extensions.Foreach&lt;T&gt; method" Url="html/23560017-60ae-9981-e0b9-e3dcb6e0b130.htm" />
   <HelpKINode Title="Extensions.GetBytes method" Url="html/68c9b970-a3ee-344f-59f3-9024ca68e3e8.htm" />
@@ -812,6 +814,7 @@
   <HelpKINode Title="ExtensionsConvertions.ToIntegerUS method" Url="html/08bd55fd-8dff-3e9b-8fd2-65fec5f83608.htm" />
   <HelpKINode Title="ExtensionsConvertions.ToLong method" Url="html/30a34e1a-17c5-b41d-39c9-d1923ee82712.htm" />
   <HelpKINode Title="ExtensionsConvertions.ToLongUS method" Url="html/3bd8afd8-22d5-cc66-7b74-b44796b1e922.htm" />
+  <HelpKINode Title="ExtensionsConvertions.ToOrdinalDate method" Url="html/f0463b04-4852-84c2-bf8d-b98f8aa06351.htm" />
   <HelpKINode Title="ExtensionsConvertions.ToShort method" Url="html/7cdb2f19-544f-0d0c-a18e-92483ed162d9.htm" />
   <HelpKINode Title="ExtensionsConvertions.ToShortUS method" Url="html/0d252902-421e-2801-7cf2-49dd62182f5f.htm" />
   <HelpKINode Title="ExtensionsConvertions.ToString method" Url="html/b7e41d6c-cae2-a23d-cef8-a42911289b4e.htm" />
@@ -947,6 +950,8 @@
   </HelpKINode>
   <HelpKINode Title="FirstDateOfWeekISO8601 method" Url="html/a88ebaf7-20d5-7032-d77b-2d22098b1ac8.htm" />
   <HelpKINode Title="FirstOrDefault method" Url="html/38bc011f-cdd6-2db5-226b-33d2184cbc9e.htm" />
+  <HelpKINode Title="Flatten(Of T) method" Url="html/53cdb9ee-8af8-703d-29ff-519b8465f561.htm" />
+  <HelpKINode Title="Flatten&lt;T&gt; method" Url="html/53cdb9ee-8af8-703d-29ff-519b8465f561.htm" />
   <HelpKINode Title="Foreach(Of T) method" Url="html/23560017-60ae-9981-e0b9-e3dcb6e0b130.htm" />
   <HelpKINode Title="Foreach&lt;T&gt; method" Url="html/23560017-60ae-9981-e0b9-e3dcb6e0b130.htm" />
   <HelpKINode Title="Foreground property" Url="html/47aa66f2-cdf3-33b5-d798-5d266ddd892c.htm" />
@@ -1787,6 +1792,7 @@
     <HelpKINode Title="RawValue.ToLong Method " Url="html/d78695bb-acfe-c5c0-4807-29c939f30f21.htm" />
   </HelpKINode>
   <HelpKINode Title="ToLongUS method" Url="html/3bd8afd8-22d5-cc66-7b74-b44796b1e922.htm" />
+  <HelpKINode Title="ToOrdinalDate method" Url="html/f0463b04-4852-84c2-bf8d-b98f8aa06351.htm" />
   <HelpKINode Title="ToPropertyInfo method" Url="html/1184d720-f74d-93de-234b-547954954d78.htm" />
   <HelpKINode Title="ToSecureString method" Url="html/009a5130-e254-0a38-7e39-64d2728e7bb6.htm" />
   <HelpKINode Title="ToShort method" Url="html/7cdb2f19-544f-0d0c-a18e-92483ed162d9.htm" />

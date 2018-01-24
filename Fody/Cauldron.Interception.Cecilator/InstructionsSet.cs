@@ -1410,7 +1410,7 @@ namespace Cauldron.Interception.Cecilator
                     this.instructions.Append(paramResult.Instructions);
                 }
             }
-            else if (parameters != null && parameters.Length > 0 && parameters[0] is Crumb crumb && crumb.Index < 0)
+            else if (parameters != null && parameters.Length > 0 && parameters[0] is Crumb crumb2 && crumb2.Index < 0)
             {
                 if ((method.OriginType.IsInterface || method.IsAbstract) && opcode != OpCodes.Calli)
                     opcode = OpCodes.Callvirt;
