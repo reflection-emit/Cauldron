@@ -56,11 +56,11 @@
       2017.12.04 - [R] Useless method cache removed from weaver.
     </releaseNotes>
     <dependencies>
-      <dependency id="Fody" id="Fody" version="2.3.22" />
+      <dependency id="Fody" version="2.3.22" />
     </dependencies>
   </metadata>
   <files>
-    <file src="..\Fody\Cauldron.Interception.Fody\bin\Release\**" target="*" />
+    <file src="..\Fody\Cauldron.Interception.Fody\bin\Release\**" target="" />
     <!-- Desktop Net461 -->
     <file src="..\NetStandard\Cauldron.Interception\bin\Release\netstandard2.0\Cauldron.Interception**" target="lib\net461" />
     <!-- Desktop Net45 -->

@@ -23,7 +23,6 @@
     <file src="..\NetStandard\Cauldron.Core.JavaProperties\bin\Release\netstandard2.0\Cauldron.Core.JavaProperties.dll" target="lib\netstandard2.0\Cauldron.Core.JavaProperties.dll" />
     <file src="..\NetStandard\Cauldron.Core.JavaProperties\bin\Release\netstandard2.0\Cauldron.Core.JavaProperties.xml" target="lib\netstandard2.0\Cauldron.Core.JavaProperties.xml" />
     <file src="..\NetStandard\Cauldron.Core.JavaProperties\bin\Release\netstandard2.0\Cauldron.Core.JavaProperties.pdb" target="lib\netstandard2.0\Cauldron.Core.JavaProperties.pdb" />
-
     <file src="..\NetStandard\Cauldron.Core.JavaProperties\**\*.cs" target="src" />
   </files>
 </package>

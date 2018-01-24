@@ -87,8 +87,19 @@ try
         // Build nugets of non NetStandard2.0 projects
         Parallel.ForEach(Directory.GetFiles(Path.Combine(startingLocation.FullName, "Nuget"), "*.nuspec").Select(x => new FileInfo(x)), nuget =>
            {
-               ModifyNuspec(nuget, version);
-               BuildNuGetPackage(nuget.FullName, packages.FullName, version);
+               try
+               {
+                   Console.WriteLine($"{nuget.FullName}");
+                   ModifyNuspec(nuget, version);
+                   BuildNuGetPackage(nuget.FullName, packages.FullName, version);
+               }
+               catch (Exception e)
+               {
+                   Console.ForegroundColor = ConsoleColor.Red;
+                   Console.WriteLine($"{nuget.FullName} " + e.Message);
+                   Console.ResetColor();
+                   throw;
+               }
            });
     }
 
@@ -163,9 +174,9 @@ private static void BuildProject(FileInfo solutionPath, FileInfo path)
 
     var startInfo = new ProcessStartInfo();
     startInfo.UseShellExecute = false;
-    startInfo.WorkingDirectory = path.DirectoryName;
+    startInfo.WorkingDirectory = solutionPath.DirectoryName;
     startInfo.FileName = filename.FullName;
-    startInfo.Arguments = string.Format("\"{1}\" /target:Clean;Rebuild /p:Configuration=Release", solutionPath.FullName, path.FullName);
+    startInfo.Arguments = string.Format("\"{0}\" /target:Clean;Rebuild /p:Configuration=Release", path.FullName);
     startInfo.CreateNoWindow = true;
     startInfo.RedirectStandardOutput = true;
 

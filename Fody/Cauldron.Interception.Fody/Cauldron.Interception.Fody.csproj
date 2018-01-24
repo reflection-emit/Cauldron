@@ -130,6 +130,9 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>dotnet script "$(ProjectDir)..\..\Scripts\fodycopy.csx" "$(TargetDir)" "$(ProjectDir)..\..\Tools" $(ProjectName)
+dotnet script "$(ProjectDir)..\..\Scripts\fodycopy.csx" "$(TargetDir)" "$(ProjectDir)..\..\NetStandard\Tools" $(ProjectName)
+dotnet script "$(ProjectDir)..\..\Scripts\fodycopy.csx" "$(TargetDir)" "$(ProjectDir)..\..\Win32\Tools" $(ProjectName)
+dotnet script "$(ProjectDir)..\..\Scripts\fodycopy.csx" "$(TargetDir)" "$(ProjectDir)..\..\UWP\Tools" $(ProjectName)
 dotnet script "$(ProjectDir)..\..\Scripts\fodycopy.csx" "$(TargetDir)" "$(ProjectDir)..\..\packages" $(ProjectName)</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

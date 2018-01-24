@@ -17,24 +17,24 @@
       2018.01.24 - [A] Beta release.
     </releaseNotes>
     <dependencies>
-      <dependency id="Fody" id="Fody" version="2.3.22" />
-      <dependency id="Cauldron.Interception.Fody" version="2.0.33-beta" />
-      <dependency id="Capgemini.Cauldron.Activator" version="2.0.33-beta" />
-      <dependency id="Capgemini.Cauldron.Core" version="2.0.33-beta" />
-      <dependency id="Capgemini.Cauldron.Core.Collections" version="2.0.33-beta" />
-      <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="2.0.33-beta" />
-      <dependency id="Capgemini.Cauldron.Core.Disposable" version="2.0.33-beta" />
-      <dependency id="Capgemini.Cauldron.Core.Extensions" version="2.0.33-beta" />
-      <dependency id="Capgemini.Cauldron.Core.Extensions.Convertions" version="2.0.33-beta" />
-      <dependency id="Capgemini.Cauldron.Core.MathExtensions" version="2.0.33-beta" />
-      <dependency id="Capgemini.Cauldron.Core.Reflection" version="2.0.33-beta" />
-      <dependency id="Capgemini.Cauldron.Core.Threading" version="2.0.33-beta" />
-      <dependency id="Capgemini.Cauldron.Cryptography" version="2.0.33-beta" />
-      <dependency id="Capgemini.Cauldron.Localization" version="2.0.33-beta" />
-      <dependency id="Capgemini.Cauldron.Win32.MonitorInfo" version="2.0.33-beta" />
-      <dependency id="Capgemini.Cauldron.Win32.WPF" version="2.0.33-beta" />
-      <dependency id="Capgemini.Cauldron.Win32.WPF.Interactivity" version="2.0.33-beta" />
-      <dependency id="Capgemini.Cauldron.Win32.WPF.Validation" version="2.0.33-beta" />
+      <dependency id="Fody" version="2.3.22" />
+      <dependency id="Cauldron.Interception.Fody" version="2.0.35-beta" />
+      <dependency id="Capgemini.Cauldron.Activator" version="2.0.35-beta" />
+      <dependency id="Capgemini.Cauldron.Core" version="2.0.35-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Collections" version="2.0.35-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="2.0.35-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Disposable" version="2.0.35-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Extensions" version="2.0.35-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Extensions.Convertions" version="2.0.35-beta" />
+      <dependency id="Capgemini.Cauldron.Core.MathExtensions" version="2.0.35-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Reflection" version="2.0.35-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Threading" version="2.0.35-beta" />
+      <dependency id="Capgemini.Cauldron.Cryptography" version="2.0.35-beta" />
+      <dependency id="Capgemini.Cauldron.Localization" version="2.0.35-beta" />
+      <dependency id="Capgemini.Cauldron.Win32.MonitorInfo" version="2.0.35-beta" />
+      <dependency id="Capgemini.Cauldron.Win32.WPF" version="2.0.35-beta" />
+      <dependency id="Capgemini.Cauldron.Win32.WPF.Interactivity" version="2.0.35-beta" />
+      <dependency id="Capgemini.Cauldron.Win32.WPF.Validation" version="2.0.35-beta" />
     </dependencies>
     <frameworkAssemblies>
       <frameworkAssembly assemblyName="PresentationCore" />
@@ -48,11 +48,8 @@
     <file src="..\Win32\Cauldron.Win32.WPF.Theme.VSLight\bin\Release\Cauldron.Win32.WPF.Theme.dll" target="lib\net461" />
     <file src="..\Win32\Cauldron.Win32.WPF.Theme.VSLight\bin\Release\Cauldron.Win32.WPF.Theme.xml" target="lib\net461" />
     <file src="..\Win32\Cauldron.Win32.WPF.Theme.VSLight\bin\Release\Cauldron.Win32.WPF.Theme.pdb" target="lib\net461" />
-
     <file src="..\Win32\Cauldron.Win32.WPF.Theme.VSLight\bin\Release\Cauldron.Win32.WPF.Theme.VSLight.dll" target="lib\net461" />
-    <file src="..\Win32\Cauldron.Win32.WPF.Theme.VSLight\bin\Release\Cauldron.Win32.WPF.Theme.VSLight.xml" target="lib\net461" />
     <file src="..\Win32\Cauldron.Win32.WPF.Theme.VSLight\bin\Release\Cauldron.Win32.WPF.Theme.VSLight.pdb" target="lib\net461" />
-
     <file src="..\Win32\Cauldron.Win32.WPF.Theme.VSLight\**\*.cs" target="src" />
     <file src="..\Win32\Cauldron.Win32.WPF.Theme\**\*.cs" target="src" />
   </files>

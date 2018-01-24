@@ -247,3 +247,6 @@ ModelManifest.xml
 /Binaries/UWP
 /Interception/Cauldron.Interception.Fody/Tools/Cauldron.Interception.Fody.99.9.9
 /Tools/Cauldron.Interception.Fody.99.9.9
+/NetStandard/Tools/Cauldron.Interception.Fody.99.9.9
+/UWP/Tools/Cauldron.Interception.Fody.99.9.9
+/Win32/Tools/Cauldron.Interception.Fody.99.9.9
