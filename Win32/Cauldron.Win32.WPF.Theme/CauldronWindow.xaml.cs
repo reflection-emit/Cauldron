@@ -1,4 +1,5 @@
-﻿using Cauldron.XAML.Controls;
+﻿using Cauldron.Activator;
+using Cauldron.XAML.Controls;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
@@ -23,6 +24,7 @@ namespace Cauldron.XAML.Theme
     }
 
     /// <exclude />
+    [Component(typeof(Window))]
     public partial class CauldronWindow : Window, IDisposable
     {
         private Border border;
@@ -38,6 +40,7 @@ namespace Cauldron.XAML.Theme
         /// <summary>
         /// Initializes a new instance of <see cref="CauldronWindow"/>
         /// </summary>
+        [ComponentConstructor]
         public CauldronWindow()
         {
             this.InitializeComponent();
