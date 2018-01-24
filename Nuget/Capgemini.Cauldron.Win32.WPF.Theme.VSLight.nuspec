@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Capgemini.Cauldron.Win32.WPF.Theme.VSLight</id>
+    <version>2.0.0</version>
+    <title>Cauldron.Win32.WPF</title>
+    <authors>Alexander Schunk, Capgemini Deutschland GmbH</authors>
+    <owners>Alexander Schunk, Capgemini Deutschland GmbH</owners>
+    <licenseUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/Capgemini/Cauldron</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>Visual Studio dark theme for Cauldron WPF</description>
+    <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
+    <tags>Toolkit Capgemini Cauldron XAML WPF MVVM Framework Theme Visual Studio Dark</tags>
+    <releaseNotes>
+      2018.01.24 - [A] Beta release.
+    </releaseNotes>
+    <dependencies>
+      <dependency id="Fody" version="2.3.14" />
+      <dependency id="Cauldron.Interception.Fody" version="2.0.33-beta" />
+      <dependency id="Capgemini.Cauldron.Activator" version="2.0.33-beta" />
+      <dependency id="Capgemini.Cauldron.Core" version="2.0.33-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Collections" version="2.0.33-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="2.0.33-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Disposable" version="2.0.33-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Extensions" version="2.0.33-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Extensions.Convertions" version="2.0.33-beta" />
+      <dependency id="Capgemini.Cauldron.Core.MathExtensions" version="2.0.33-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Reflection" version="2.0.33-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Threading" version="2.0.33-beta" />
+      <dependency id="Capgemini.Cauldron.Cryptography" version="2.0.33-beta" />
+      <dependency id="Capgemini.Cauldron.Localization" version="2.0.33-beta" />
+      <dependency id="Capgemini.Cauldron.Win32.MonitorInfo" version="2.0.33-beta" />
+      <dependency id="Capgemini.Cauldron.Win32.WPF" version="2.0.33-beta" />
+      <dependency id="Capgemini.Cauldron.Win32.WPF.Interactivity" version="2.0.33-beta" />
+      <dependency id="Capgemini.Cauldron.Win32.WPF.Validation" version="2.0.33-beta" />
+    </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="PresentationCore" />
+      <frameworkAssembly assemblyName="PresentationFramework" />
+      <frameworkAssembly assemblyName="System.Xaml" />
+      <frameworkAssembly assemblyName="WindowsBase" />
+    </frameworkAssemblies>
+  </metadata>
+  <files>
+    <!-- Desktop -->
+    <file src="..\Win32\Cauldron.Win32.WPF.Theme.VSLight\bin\Release\Cauldron.Win32.WPF.Theme.dll" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Win32.WPF.Theme.VSLight\bin\Release\Cauldron.Win32.WPF.Theme.xml" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Win32.WPF.Theme.VSLight\bin\Release\Cauldron.Win32.WPF.Theme.pdb" target="lib\net461" />
+
+    <file src="..\Win32\Cauldron.Win32.WPF.Theme.VSLight\bin\Release\Cauldron.Win32.WPF.Theme.VSLight.dll" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Win32.WPF.Theme.VSLight\bin\Release\Cauldron.Win32.WPF.Theme.VSLight.xml" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Win32.WPF.Theme.VSLight\bin\Release\Cauldron.Win32.WPF.Theme.VSLight.pdb" target="lib\net461" />
+
+    <file src="..\Win32\Cauldron.Win32.WPF.Theme.VSLight\**\*.cs" target="src" />
+    <file src="..\Win32\Cauldron.Win32.WPF.Theme\**\*.cs" target="src" />
+  </files>
+</package>
