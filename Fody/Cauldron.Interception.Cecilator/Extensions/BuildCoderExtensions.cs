@@ -157,7 +157,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
                                     (returnVariable.Index == 2 && previousInstruction.OpCode == OpCodes.Ldloc_2) ||
                                     (returnVariable.Index == 3 && previousInstruction.OpCode == OpCodes.Ldloc_3) ||
                                     (returnVariable.Index == 3 && previousInstruction.OpCode == OpCodes.Ldloc_S) ||
-                                    (returnVariable.Index == (int)previousInstruction.Operand) ||
+                                    (previousInstruction.OpCode == OpCodes.Ldloc_S && returnVariable.Index == (int)previousInstruction.Operand) ||
                                     (returnVariable == previousInstruction.Operand as VariableDefinition)
                                     )
                                 {
@@ -177,7 +177,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
                                     (returnVariable.Index == 1 && previousInstruction.OpCode == OpCodes.Stloc_1) ||
                                     (returnVariable.Index == 2 && previousInstruction.OpCode == OpCodes.Stloc_2) ||
                                     (returnVariable.Index == 3 && previousInstruction.OpCode == OpCodes.Stloc_3) ||
-                                    (returnVariable.Index == (int)previousInstruction.Operand) ||
+                                    (previousInstruction.OpCode == OpCodes.Stloc_S && returnVariable.Index == (int)previousInstruction.Operand) ||
                                     (returnVariable == previousInstruction.Operand as VariableDefinition)
                                     )
                                     continue; // Just continue and do not add an additional store opcode
