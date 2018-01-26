@@ -17,9 +17,9 @@
     </releaseNotes>
     <dependencies>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="Capgemini.Cauldron.Activator" version="2.0.35-beta" />
-        <dependency id="Capgemini.Cauldron.Core.Disposable" version="2.0.35-beta" />
-        <dependency id="Capgemini.Cauldron.Core.Reflection" version="2.0.35-beta" />
+        <dependency id="Capgemini.Cauldron.Activator" version="2.0.36-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Disposable" version="2.0.36-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Reflection" version="2.0.36-beta" />
         <dependency id="Fody" version="2.3.22" exclude="Build,Analyzers" />
       </group>
     </dependencies>
