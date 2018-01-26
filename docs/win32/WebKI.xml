@@ -634,10 +634,10 @@
   <HelpKINode Title="ExecutionTimeAttribute.ExecutionTimeAttribute constructor" Url="html/M_Cauldron_Core_Interceptors_ExecutionTimeAttribute__ctor.htm" />
   <HelpKINode Title="ExitDelegate property" Url="html/P_Cauldron_XAML_ParameterPassingConfig_ExitDelegate.htm" />
   <HelpKINode Title="Extensions class">
-    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Extensions.htm" />
     <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_XAML_Extensions.htm" />
-    <HelpKINode Title="about Extensions class" Url="html/T_Cauldron_Extensions.htm" />
+    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Extensions.htm" />
     <HelpKINode Title="about Extensions class" Url="html/T_Cauldron_XAML_Extensions.htm" />
+    <HelpKINode Title="about Extensions class" Url="html/T_Cauldron_Extensions.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_XAML_Extensions.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Extensions.htm" />
   </HelpKINode>
