@@ -21,8 +21,6 @@ namespace Cauldron.Interception.Cecilator.Extensions
             this.method.methodDefinition.Body.SimplifyMacros();
         }
 
-        internal Coder(Method method, InstructionContainer instructions) : this(method) => this.instructions.Append(instructions);
-
         /// <summary>
         /// Generates a random name that can be used to name variables and methods.
         /// </summary>

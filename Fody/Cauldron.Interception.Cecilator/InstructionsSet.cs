@@ -1332,6 +1332,7 @@ namespace Cauldron.Interception.Cecilator
                                     (returnVariable.Index == 1 && previousInstruction.OpCode == OpCodes.Ldloc_1) ||
                                     (returnVariable.Index == 2 && previousInstruction.OpCode == OpCodes.Ldloc_2) ||
                                     (returnVariable.Index == 3 && previousInstruction.OpCode == OpCodes.Ldloc_3) ||
+                                    (returnVariable.Index == (int)previousInstruction.Operand) ||
                                     (returnVariable == previousInstruction.Operand as VariableDefinition)
                                     )
                                 {
@@ -1342,6 +1343,19 @@ namespace Cauldron.Interception.Cecilator
                                     this.method.methodDefinition.Body.Instructions.Remove(previousInstruction);
                                     continue;
                                 }
+                            }
+
+                            if (previousInstruction != null && previousInstruction.IsStoreLocal())
+                            {
+                                if (
+                                    (returnVariable.Index == 0 && previousInstruction.OpCode == OpCodes.Stloc_0) ||
+                                    (returnVariable.Index == 1 && previousInstruction.OpCode == OpCodes.Stloc_1) ||
+                                    (returnVariable.Index == 2 && previousInstruction.OpCode == OpCodes.Stloc_2) ||
+                                    (returnVariable.Index == 3 && previousInstruction.OpCode == OpCodes.Stloc_3) ||
+                                    (returnVariable.Index == (int)previousInstruction.Operand) ||
+                                    (returnVariable == previousInstruction.Operand as VariableDefinition)
+                                    )
+                                    continue; // Just continue and do not add an additional store opcode
                             }
 
                             this.processor.InsertBefore(instruction, this.processor.Create(OpCodes.Stloc, returnVariable));

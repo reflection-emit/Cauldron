@@ -52,6 +52,15 @@ namespace Cauldron.Interception.Cecilator.Extensions
             return new FieldAssignCoder(coder, field);
         }
 
+        public static Coder Return(this FieldAssignCoder fieldAssignCoder)
+        {
+            var coder = fieldAssignCoder.coder;
+            // Instance
+            if (coder.method.ReturnType.typeReference != Builder.Current.TypeSystem.Void)
+                coder.instructions.Append(coder.AddParameter(coder.processor, coder.method.ReturnType.typeReference, fieldAssignCoder.target).Instructions);
+            return coder.Return();
+        }
+
         public static Coder Set(this FieldAssignCoder fieldAssignCoder, Action<Coder> valueToAssignToField)
         {
             var coder = fieldAssignCoder.coder;
@@ -65,7 +74,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
             coder.instructions.Append(coder.AddParameter(coder.processor, null, fieldAssignCoder.target).Instructions);
             // Store
             fieldAssignCoder.StoreCall();
-            return new Coder(coder.method, coder.instructions);
+            return coder;
         }
 
         public static Coder Set(this FieldAssignCoder fieldAssignCoder, object value)
@@ -79,7 +88,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
             coder.instructions.Append(coder.AddParameter(coder.processor, null, fieldAssignCoder.target).Instructions);
             // Store
             fieldAssignCoder.StoreCall();
-            return new Coder(coder.method, coder.instructions);
+            return coder;
         }
     }
 }

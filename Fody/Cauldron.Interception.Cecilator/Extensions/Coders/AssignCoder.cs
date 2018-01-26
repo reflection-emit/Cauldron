@@ -9,7 +9,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
 
         internal AssignCoder(Coder coder, T target)
         {
-            this.coder = new Coder(coder.method, coder.instructions);
+            this.coder = coder;
             this.target = target;
         }
 

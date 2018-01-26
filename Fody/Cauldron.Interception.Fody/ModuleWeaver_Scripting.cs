@@ -17,7 +17,8 @@ namespace Cauldron.Interception.Fody
                         Directory.Exists(Path.Combine(this.ProjectDirectoryPath, "Interceptors")) ?
                         Directory.GetFiles(Path.Combine(this.ProjectDirectoryPath, "Interceptors"), "*.cauldron", SearchOption.TopDirectoryOnly) : new string[0])
                         .Select(x => AppDomain.CurrentDomain.Load(File.ReadAllBytes(x)))
-                        .Select(x => x.GetType("Interceptor"))
+                        .SelectMany(x => x.DefinedTypes)
+                        .Where(x => x.GetMethods(BindingFlags.Public | BindingFlags.Static).Length > 0)
                         .Select(x => new
                         {
                             Type = x,

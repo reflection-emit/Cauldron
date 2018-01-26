@@ -44,10 +44,10 @@ namespace Cauldron.Interception.Cecilator.Extensions
         /// <param name="method"></param>
         /// <param name="parameters"></param>
         /// <returns></returns>
-        public static BooleanExpressionCoder Call(this BooleanExpressionFieldInstancCoder coder, Method method, params object[] parameters)
+        public static BooleanExpressionCallCoder Call(this BooleanExpressionFieldInstancCoder coder, Method method, params object[] parameters)
         {
             coder.coder.CallInternal(coder.target, method, OpCodes.Call, parameters);
-            return new BooleanExpressionCoder(coder.coder, coder.jumpTarget);
+            return new BooleanExpressionCallCoder(coder.coder, coder.jumpTarget, coder.target, method, parameters);
         }
 
         /// <summary>
@@ -57,15 +57,36 @@ namespace Cauldron.Interception.Cecilator.Extensions
         /// <param name="method"></param>
         /// <param name="parameters"></param>
         /// <returns></returns>
-        public static BooleanExpressionCoder Call(this BooleanExpressionCoder coder, Method method, params object[] parameters)
+        public static BooleanExpressionCallCoder Call(this BooleanExpressionCoder coder, Method method, params object[] parameters)
         {
-            coder.coder.CallInternal(Crumb.This, method, OpCodes.Call, parameters);
-            return new BooleanExpressionCoder(coder.coder, coder.jumpTarget);
+            if (method.ReturnType.typeDefinition == Builder.Current.TypeSystem.Void)
+                throw new InvalidOperationException("Void method are not supported by this call.");
+
+            return new BooleanExpressionCallCoder(coder.coder, coder.jumpTarget, CodeBlock.This, method, parameters);
         }
 
         public static BooleanExpressionResultCoder EqualsTo(this BooleanExpressionFieldInstancCoder coder, Field field)
         {
             var result = coder.AreEqualInternalWithoutJump(coder.target.FieldType, field.FieldType, coder.target, field);
+            result.coder.instructions.Append(result.coder.processor.Create(OpCodes.Brfalse, result.jumpTarget));
+            return result;
+        }
+
+        public static BooleanExpressionResultCoder EqualsTo(this BooleanExpressionCallCoder coder, object value)
+        {
+            if (value == null)
+                throw new ArgumentNullException(nameof(value));
+
+            var method = coder.coder.NewCoder().CallInternal(coder.instance, coder.calledMethod, OpCodes.Call, coder.parameters).ToCodeBlock();
+            var result = coder.AreEqualInternalWithoutJump(coder.calledMethod.ReturnType, value.GetType().ToBuilderType(), method, value);
+            result.coder.instructions.Append(result.coder.processor.Create(OpCodes.Brfalse, result.jumpTarget));
+            return result;
+        }
+
+        public static BooleanExpressionResultCoder EqualsTo(this BooleanExpressionCallCoder coder, Field field)
+        {
+            var method = coder.coder.NewCoder().CallInternal(coder.instance, coder.calledMethod, OpCodes.Call, coder.parameters).ToCodeBlock();
+            var result = coder.AreEqualInternalWithoutJump(coder.calledMethod.ReturnType, field.FieldType, method, field);
             result.coder.instructions.Append(result.coder.processor.Create(OpCodes.Brfalse, result.jumpTarget));
             return result;
         }
@@ -195,7 +216,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
             return coder;
         }
 
-        private static BooleanExpressionResultCoder AreEqualInternalWithoutJump(this BooleanExpressionCoder coder, BuilderType a, BuilderType b, object valueA, object valueB)
+        private static BooleanExpressionResultCoder AreEqualInternalWithoutJump(this ContextCoder coder, BuilderType a, BuilderType b, object valueA, object valueB)
         {
             // TODO - needs to handle Nullables
 

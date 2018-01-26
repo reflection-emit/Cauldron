@@ -14,16 +14,12 @@ namespace Cauldron.Interception.Cecilator
         {
         }
 
-        private InstructionContainer(InstructionContainer a, InstructionContainer b)
-        {
-            this.instruction.AddRange(a.instruction);
-            this.instruction.AddRange(b.instruction);
-        }
+        public InstructionContainer(IEnumerable<Instruction> instructions) => this.instruction.AddRange(instructions);
 
-        private InstructionContainer(InstructionContainer a, IEnumerable<Instruction> b)
+        public InstructionContainer(InstructionContainer container)
         {
-            this.instruction.AddRange(a.instruction);
-            this.instruction.AddRange(b);
+            this.exceptionHandlers.AddRange(container.exceptionHandlers);
+            this.instruction.AddRange(container.instruction);
         }
 
         public int Count => this.instruction.Count;

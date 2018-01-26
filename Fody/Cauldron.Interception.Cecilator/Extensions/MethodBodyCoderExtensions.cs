@@ -107,6 +107,45 @@ namespace Cauldron.Interception.Cecilator.Extensions
 
         public static bool HasReturnVariable(this Coder coder) => coder.method.GetLocalVariable(Coder.ReturnVariableName) != null;
 
+        public static Coder Load(this Coder coder, object value)
+        {
+            var inst = coder.AddParameter(coder.processor, null, value);
+            coder.instructions.Append(inst.Instructions);
+
+            if (value != null && value is ArrayCodeSet arrayCodeSet)
+            {
+                coder.instructions.Append(coder.AddParameter(coder.processor, null, arrayCodeSet.index).Instructions);
+                coder.instructions.Append(coder.processor.Create(OpCodes.Ldelem_Ref));
+            }
+
+            return coder;
+        }
+
+        public static Coder Return(this Coder coder)
+        {
+            coder.instructions.Append(coder.processor.Create(OpCodes.Ret));
+            return coder;
+        }
+
+        public static Coder ReturnDefault(this Coder coder)
+        {
+            if (!coder.method.IsVoid)
+            {
+                var variable = coder.GetOrCreateReturnVariable();
+                var defaultValue = coder.method.ReturnType.DefaultValue;
+                var inst = coder.AddParameter(coder.processor,
+                    coder.method.ReturnType.GenericArguments().Any() ?
+                        coder.method.ReturnType.GetGenericArgument(0).typeReference :
+                        coder.method.ReturnType.typeReference, defaultValue);
+
+                coder.instructions.Append(inst.Instructions);
+            }
+
+            coder.Return();
+
+            return coder;
+        }
+
         public static Coder ThrowNew(this Coder coder, Type exception)
         {
             coder.instructions.Append(coder.processor.Create(OpCodes.Newobj, Builder.Current.Import(Builder.Current.Import(exception).GetMethodReference(".ctor", 0))));

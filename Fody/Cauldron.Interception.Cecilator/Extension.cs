@@ -94,9 +94,7 @@ namespace Cauldron.Interception.Cecilator
             {
                 if (typeReference.IsGenericInstance)
                 {
-                    var genericType = typeReference as GenericInstanceType;
-
-                    if (genericType != null)
+                    if (typeReference is GenericInstanceType genericType)
                     {
                         var genericInstances = genericType.GetGenericInstances();
 
@@ -169,8 +167,7 @@ namespace Cauldron.Interception.Cecilator
             {
                 if (baseType.IsGenericInstance)
                 {
-                    var genericType = baseType as GenericInstanceType;
-                    if (genericType != null)
+                    if (baseType is GenericInstanceType genericType)
                     {
                         genericArgumentNames = genericType.BetterResolve().GenericParameters.Select(x => x.FullName).ToArray();
                         genericArgumentsOfCurrentType = genericType.GenericArguments.ToArray();
@@ -475,9 +472,7 @@ namespace Cauldron.Interception.Cecilator
         {
             foreach (var item in body)
             {
-                var target = item.Operand as Instruction;
-
-                if (target != null && target.Offset == jumpTarget.Offset)
+                if (item.Operand is Instruction target && target.Offset == jumpTarget.Offset)
                     yield return item;
             }
         }
@@ -666,6 +661,21 @@ namespace Cauldron.Interception.Cecilator
                 opCode == OpCodes.Conv_Ovf_I ||
                 opCode == OpCodes.Conv_Ovf_I1 ||
                 opCode == OpCodes.Conv_Ovf_I4_Un ||
+                opCode == OpCodes.Ldc_I4 ||
+                opCode == OpCodes.Ldc_I4_0 ||
+                opCode == OpCodes.Ldc_I4_1 ||
+                opCode == OpCodes.Ldc_I4_2 ||
+                opCode == OpCodes.Ldc_I4_3 ||
+                opCode == OpCodes.Ldc_I4_4 ||
+                opCode == OpCodes.Ldc_I4_5 ||
+                opCode == OpCodes.Ldc_I4_6 ||
+                opCode == OpCodes.Ldc_I4_7 ||
+                opCode == OpCodes.Ldc_I4_8 ||
+                opCode == OpCodes.Ldc_I4_S ||
+                opCode == OpCodes.Ldc_I4_M1 ||
+                opCode == OpCodes.Ldc_I8 ||
+                opCode == OpCodes.Ldc_R4 ||
+                opCode == OpCodes.Ldc_R8 ||
                 opCode == OpCodes.Box;
         }
 
@@ -863,8 +873,10 @@ namespace Cauldron.Interception.Cecilator
 
         private static IEnumerable<TypeReference> GetGenericInstances(this GenericInstanceType type)
         {
-            var result = new List<TypeReference>();
-            result.Add(type);
+            var result = new List<TypeReference>
+            {
+                type
+            };
 
             var resolved = type.BetterResolve();
             var genericArgumentsNames = resolved.GenericParameters.Select(x => x.FullName).ToArray();
@@ -935,8 +947,7 @@ namespace Cauldron.Interception.Cecilator
 
             if (typeToInspect.IsGenericInstance)
             {
-                var genericType = typeToInspect as GenericInstanceType;
-                if (genericType != null)
+                if (typeToInspect is GenericInstanceType genericType)
                 {
                     var instances = genericType.GetGenericInstances().Where(x => (!x.BetterResolve().IsInterface || byInterfaces));
                     foreach (var item in instances)

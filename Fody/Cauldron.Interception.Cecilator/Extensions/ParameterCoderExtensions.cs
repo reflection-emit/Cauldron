@@ -28,278 +28,272 @@ namespace Cauldron.Interception.Cecilator.Extensions
                 parameter = Convert.ChangeType(parameter, type);
             }
 
-            if (type == typeof(string))
+            switch (parameter)
             {
-                result.Instructions.Add(processor.Create(OpCodes.Ldstr, parameter.ToString()));
-                result.Type = Builder.Current.TypeSystem.String;
-            }
-            else if (type == typeof(FieldDefinition))
-            {
-                var value = parameter as FieldDefinition;
+                case string value:
+                    result.Instructions.Add(processor.Create(OpCodes.Ldstr, parameter.ToString()));
+                    result.Type = Builder.Current.TypeSystem.String;
+                    break;
 
-                if (!value.IsStatic)
-                    result.Instructions.Add(processor.Create(OpCodes.Ldarg_0));
+                case FieldDefinition value:
+                    if (!value.IsStatic)
+                        result.Instructions.Add(processor.Create(OpCodes.Ldarg_0));
 
-                if (value.FieldType.IsValueType && targetType == null)
-                    result.Instructions.Add(processor.Create(value.IsStatic ? OpCodes.Ldsflda : OpCodes.Ldflda, value.CreateFieldReference()));
-                else
-                    result.Instructions.Add(processor.Create(value.IsStatic ? OpCodes.Ldsfld : OpCodes.Ldfld, value.CreateFieldReference()));
-                result.Type = value.FieldType;
-            }
-            else if (type == typeof(FieldReference))
-            {
-                var value = parameter as FieldReference;
-                var fieldDef = value.Resolve();
+                    if (value.FieldType.IsValueType && targetType == null)
+                        result.Instructions.Add(processor.Create(value.IsStatic ?
+                            OpCodes.Ldsflda :
+                            OpCodes.Ldflda, value.CreateFieldReference()));
+                    else
+                        result.Instructions.Add(processor.Create(value.IsStatic ?
+                            OpCodes.Ldsfld :
+                            OpCodes.Ldfld, value.CreateFieldReference()));
+                    result.Type = value.FieldType;
+                    break;
 
-                if (!fieldDef.IsStatic)
-                    result.Instructions.Add(processor.Create(OpCodes.Ldarg_0));
+                case FieldReference value:
+                    var fieldDef = value.Resolve();
 
-                if (value.FieldType.IsValueType && targetType == null)
-                    result.Instructions.Add(processor.Create(fieldDef.IsStatic ? OpCodes.Ldsflda : OpCodes.Ldflda, value));
-                else
-                    result.Instructions.Add(processor.Create(fieldDef.IsStatic ? OpCodes.Ldsfld : OpCodes.Ldfld, value));
-                result.Type = value.FieldType;
-            }
-            else if (type == typeof(Field))
-            {
-                var value = parameter as Field;
+                    if (!fieldDef.IsStatic)
+                        result.Instructions.Add(processor.Create(OpCodes.Ldarg_0));
 
-                if (!value.IsStatic)
-                    result.Instructions.Add(processor.Create(OpCodes.Ldarg_0));
+                    if (value.FieldType.IsValueType && targetType == null)
+                        result.Instructions.Add(processor.Create(fieldDef.IsStatic ?
+                            OpCodes.Ldsflda :
+                            OpCodes.Ldflda, value));
+                    else
+                        result.Instructions.Add(processor.Create(fieldDef.IsStatic ?
+                            OpCodes.Ldsfld :
+                            OpCodes.Ldfld, value));
+                    result.Type = value.FieldType;
+                    break;
 
-                if (value.FieldType.IsValueType && targetType == null)
-                    result.Instructions.Add(processor.Create(value.IsStatic ? OpCodes.Ldsflda : OpCodes.Ldflda, value.fieldRef));
-                else
-                    result.Instructions.Add(processor.Create(value.IsStatic ? OpCodes.Ldsfld : OpCodes.Ldfld, value.fieldRef));
+                case Field value:
+                    if (!value.IsStatic)
+                        result.Instructions.Add(processor.Create(OpCodes.Ldarg_0));
 
-                result.Type = value.fieldRef.FieldType;
-            }
-            else if (type == typeof(int))
-            {
-                result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, (int)parameter));
-                result.Type = Builder.Current.TypeSystem.Int32;
-            }
-            else if (type == typeof(uint))
-            {
-                result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, (int)(uint)parameter));
-                result.Type = Builder.Current.TypeSystem.UInt32;
-            }
-            else if (type == typeof(bool))
-            {
-                result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, (bool)parameter ? 1 : 0));
-                result.Type = Builder.Current.TypeSystem.Boolean;
-            }
-            else if (type == typeof(char))
-            {
-                result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, (char)parameter));
-                result.Type = Builder.Current.TypeSystem.Char;
-            }
-            else if (type == typeof(short))
-            {
-                result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, (short)parameter));
-                result.Type = Builder.Current.TypeSystem.Int16;
-            }
-            else if (type == typeof(ushort))
-            {
-                result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, (ushort)parameter));
-                result.Type = Builder.Current.TypeSystem.UInt16;
-            }
-            else if (type == typeof(byte))
-            {
-                result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, (int)(byte)parameter));
-                result.Type = Builder.Current.TypeSystem.Byte;
-            }
-            else if (type == typeof(sbyte))
-            {
-                result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, (int)(sbyte)parameter));
-                result.Type = Builder.Current.TypeSystem.SByte;
-            }
-            else if (type == typeof(long))
-            {
-                result.Instructions.Add(processor.Create(OpCodes.Ldc_I8, (long)parameter));
-                result.Type = Builder.Current.TypeSystem.Int64;
-            }
-            else if (type == typeof(ulong))
-            {
-                result.Instructions.Add(processor.Create(OpCodes.Ldc_I8, (long)(ulong)parameter));
-                result.Type = Builder.Current.TypeSystem.UInt64;
-            }
-            else if (type == typeof(double))
-            {
-                result.Instructions.Add(processor.Create(OpCodes.Ldc_R8, (double)parameter));
-                result.Type = Builder.Current.TypeSystem.Double;
-            }
-            else if (type == typeof(float))
-            {
-                result.Instructions.Add(processor.Create(OpCodes.Ldc_R4, (float)parameter));
-                result.Type = Builder.Current.TypeSystem.Single;
-            }
-            else if (type == typeof(IntPtr))
-            {
-                result.Instructions.Add(processor.Create(OpCodes.Ldc_R4, (int)parameter));
-                result.Type = Builder.Current.TypeSystem.IntPtr;
-            }
-            else if (type == typeof(UIntPtr))
-            {
-                result.Instructions.Add(processor.Create(OpCodes.Ldc_R4, (int)parameter));
-                result.Type = Builder.Current.TypeSystem.UIntPtr;
-            }
-            else if (type == typeof(LocalVariable))
-            {
-                var value = AddVariableDefinitionToInstruction(processor, result.Instructions, targetType, (parameter as LocalVariable).variable);
-                result.Type = value.VariableType;
-            }
-            else if (type == typeof(VariableDefinition))
-            {
-                var value = AddVariableDefinitionToInstruction(processor, result.Instructions, targetType, parameter);
-                result.Type = value.VariableType;
-            }
-            else if (type == typeof(CodeBlock))
-            {
-                switch (parameter)
-                {
-                    case ExceptionCodeSet exceptionCodeSet:
-                        {
-                            var variable = char.IsNumber(exceptionCodeSet.name, 0) ?
-                                coder.method.methodDefinition.Body.Variables[int.Parse(exceptionCodeSet.name)] :
-                                coder.method.GetLocalVariable(exceptionCodeSet.name);
+                    if (value.FieldType.IsValueType && targetType == null)
+                        result.Instructions.Add(processor.Create(value.IsStatic ?
+                            OpCodes.Ldsflda :
+                            OpCodes.Ldflda, value.fieldRef));
+                    else
+                        result.Instructions.Add(processor.Create(value.IsStatic ?
+                            OpCodes.Ldsfld :
+                            OpCodes.Ldfld, value.fieldRef));
 
-                            result.Instructions.Add(processor.Create(OpCodes.Ldloc, variable));
-                            result.Type = Builder.Current.Import(variable.VariableType);
-                            break;
-                        }
-                    case ParametersCodeSet parametersCodeSet:
-                        if (parametersCodeSet.index.HasValue)
-                        {
-                            if (coder.method.methodDefinition.Parameters.Count == 0)
-                                throw new ArgumentException($"The method {coder.method.Name} does not have any parameters");
+                    result.Type = value.fieldRef.FieldType;
+                    break;
 
-                            result.Instructions.Add(processor.Create(OpCodes.Ldarg, coder.method.IsStatic ? parametersCodeSet.index.Value : parametersCodeSet.index.Value + 1));
-                            result.Type = Builder.Current.Import(coder.method.methodDefinition.Parameters[parametersCodeSet.index.Value].ParameterType);
-                        }
-                        else
-                        {
-                            var variable = char.IsNumber(parametersCodeSet.name, 0) ?
-                                coder.method.methodDefinition.Body.Variables[int.Parse(parametersCodeSet.name)] :
-                                coder.method.GetLocalVariable(parametersCodeSet.name);
+                case int value:
+                    result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, value));
+                    result.Type = Builder.Current.TypeSystem.Int32;
+                    break;
 
-                            result.Instructions.Add(processor.Create(OpCodes.Ldloc, variable));
-                            result.Type = Builder.Current.Import(variable.VariableType);
-                        }
-                        break;
+                case uint value:
+                    result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, value /* TODO: This could cause a bug */));
+                    result.Type = Builder.Current.TypeSystem.UInt32;
+                    break;
 
-                    case ThisCodeSet thisCodeSet:
-                        result.Instructions.Add(processor.Create(coder.method.IsStatic ? OpCodes.Ldnull : OpCodes.Ldarg_0));
-                        result.Type = coder.method.OriginType.typeReference;
-                        break;
+                case bool value:
+                    result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, value ? 1 : 0));
+                    result.Type = Builder.Current.TypeSystem.Boolean;
+                    break;
 
-                    case InitObjCodeSet initObjCodeSet:
-                        {
-                            var variable = coder.CreateVariable(initObjCodeSet.typeReference);
-                            result.Instructions.Add(processor.Create(OpCodes.Ldloca, variable.variable));
-                            result.Instructions.Add(processor.Create(OpCodes.Initobj, initObjCodeSet.typeReference));
-                            result.Instructions.Add(processor.Create(OpCodes.Ldloc, variable.variable));
-                            result.Type = initObjCodeSet.typeReference;
-                            break;
-                        }
-                    case DefaultTaskCodeSet defaultTaskCodeSet:
-                        {
-                            var taskType = coder.method.type.Builder.GetType("System.Threading.Tasks.Task");
-                            var resultFrom = taskType.GetMethod("FromResult", 1, true).MakeGeneric(typeof(int));
-                            var code = coder.NewCoder().Call(resultFrom, 0);
+                case char value:
+                    result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, value));
+                    result.Type = Builder.Current.TypeSystem.Char;
+                    break;
 
-                            result.Instructions.AddRange(code.instructions);
-                            result.Type = coder.method.ReturnType.typeReference;
-                            break;
-                        }
+                case short value:
+                    result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, value));
+                    result.Type = Builder.Current.TypeSystem.Int16;
+                    break;
 
-                    case DefaultTaskOfTCodeSet defaultTaskOfTCodeSet:
-                        {
-                            var returnType = coder.method.ReturnType.GetGenericArgument(0);
-                            var taskType = coder.method.type.Builder.GetType("System.Threading.Tasks.Task");
-                            var resultFrom = taskType.GetMethod("FromResult", 1, true).MakeGeneric(returnType);
-                            var code = coder.NewCoder().Call(resultFrom, returnType.DefaultValue);
+                case ushort value:
+                    result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, value));
+                    result.Type = Builder.Current.TypeSystem.UInt16;
+                    break;
 
-                            result.Instructions.AddRange(code.instructions);
-                            result.Type = returnType.typeReference;
-                            break;
-                        }
+                case byte value:
+                    result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, value));
+                    result.Type = Builder.Current.TypeSystem.Byte;
+                    break;
 
-                    case InstructionsCodeSet instructionsCodeSet:
-                        {
-                            if (object.ReferenceEquals(instructionsCodeSet.instructions, coder.instructions))
-                                throw new NotSupportedException("Nope... Not gonna work... Use NewCoder() if you want to pass an instructions set as parameters.");
+                case sbyte value:
+                    result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, value));
+                    result.Type = Builder.Current.TypeSystem.SByte;
+                    break;
 
-                            result.Instructions.AddRange(instructionsCodeSet.instructions.ToArray());
-                            break;
-                        }
+                case long value:
+                    result.Instructions.Add(processor.Create(OpCodes.Ldc_I8, value));
+                    result.Type = Builder.Current.TypeSystem.Int64;
+                    break;
 
-                    default:
-                        throw new NotImplementedException();
-                }
-            }
-            else if (type == typeof(TypeReference) || type == typeof(TypeDefinition))
-            {
-                var bt = parameter as TypeReference;
-                result.Instructions.AddRange(processor.TypeOf(bt));
-                result.Type = Builder.Current.Import(typeof(Type));
-            }
-            else if (type == typeof(BuilderType))
-            {
-                var bt = parameter as BuilderType;
-                result.Instructions.AddRange(processor.TypeOf(bt.typeReference));
-                result.Type = Builder.Current.Import(typeof(Type));
-            }
-            else if (type == typeof(Method))
-            {
-                var method = parameter as Method;
+                case ulong value:
+                    result.Instructions.Add(processor.Create(OpCodes.Ldc_I8, value));
+                    result.Type = Builder.Current.TypeSystem.UInt64;
+                    break;
 
-                if (targetType.FullName == typeof(IntPtr).FullName)
-                {
-                    if (!method.IsStatic && method.OriginType != coder.method.OriginType && coder.method.OriginType.IsAsyncStateMachine)
+                case double value:
+                    result.Instructions.Add(processor.Create(OpCodes.Ldc_R8, value));
+                    result.Type = Builder.Current.TypeSystem.Double;
+                    break;
+
+                case float value:
+                    result.Instructions.Add(processor.Create(OpCodes.Ldc_R4, value));
+                    result.Type = Builder.Current.TypeSystem.Single;
+                    break;
+
+                case IntPtr value:
+                    result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, (int)value));
+                    result.Type = Builder.Current.TypeSystem.IntPtr;
+                    break;
+
+                case UIntPtr value:
+                    result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, (uint)value));
+                    result.Type = Builder.Current.TypeSystem.UIntPtr;
+                    break;
+
+                case LocalVariable value:
+                    result.Type = AddVariableDefinitionToInstruction(processor, result.Instructions, targetType, value.variable).VariableType;
+                    break;
+
+                case VariableDefinition value:
+                    result.Type = AddVariableDefinitionToInstruction(processor, result.Instructions, targetType, value).VariableType;
+                    break;
+
+                case ExceptionCodeSet exceptionCodeSet:
                     {
-                        var instance = coder.method.AsyncMethodHelper.Instance;
-                        var inst = coder.AddParameter(processor, targetType, instance);
-                        result.Instructions.AddRange(inst.Instructions);
+                        var variable = char.IsNumber(exceptionCodeSet.name, 0) ?
+                            coder.method.methodDefinition.Body.Variables[int.Parse(exceptionCodeSet.name)] :
+                            coder.method.GetLocalVariable(exceptionCodeSet.name);
+
+                        result.Instructions.Add(processor.Create(OpCodes.Ldloc, variable));
+                        result.Type = Builder.Current.Import(variable.VariableType);
+                        break;
+                    }
+                case ParametersCodeSet parametersCodeSet:
+                    if (parametersCodeSet.index.HasValue)
+                    {
+                        if (coder.method.methodDefinition.Parameters.Count == 0)
+                            throw new ArgumentException($"The method {coder.method.Name} does not have any parameters");
+
+                        result.Instructions.Add(processor.Create(OpCodes.Ldarg, coder.method.IsStatic ? parametersCodeSet.index.Value : parametersCodeSet.index.Value + 1));
+                        result.Type = Builder.Current.Import(coder.method.methodDefinition.Parameters[parametersCodeSet.index.Value].ParameterType);
                     }
                     else
-                        result.Instructions.Add(processor.Create(method.IsStatic ? OpCodes.Ldnull : OpCodes.Ldarg_0));
+                    {
+                        var variable = char.IsNumber(parametersCodeSet.name, 0) ?
+                            coder.method.methodDefinition.Body.Variables[int.Parse(parametersCodeSet.name)] :
+                            coder.method.GetLocalVariable(parametersCodeSet.name);
 
-                    result.Instructions.Add(processor.Create(OpCodes.Ldftn, method.methodReference));
-                    result.Type = Builder.Current.TypeSystem.IntPtr;
-                }
-                else
-                {
-                    var methodBaseRef = Builder.Current.Import(typeof(System.Reflection.MethodBase));
-                    // methodof
-                    result.Instructions.Add(processor.Create(OpCodes.Ldtoken, method.methodReference));
-                    result.Instructions.Add(processor.Create(OpCodes.Ldtoken, method.OriginType.typeReference));
-                    result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(methodBaseRef.BetterResolve().Methods.FirstOrDefault(x => x.Name == "GetMethodFromHandle" && x.Parameters.Count == 2))));
+                        result.Instructions.Add(processor.Create(OpCodes.Ldloc, variable));
+                        result.Type = Builder.Current.Import(variable.VariableType);
+                    }
+                    break;
 
-                    result.Type = methodBaseRef;
-                }
-            }
-            else if (type == typeof(ParameterDefinition))
-            {
-                var value = parameter as ParameterDefinition;
-                result.Instructions.Add(processor.Create(OpCodes.Ldarg, value));
-                result.Type = value.ParameterType;
-            }
-            else if (type == typeof(ParameterReference))
-            {
-                var value = parameter as ParameterReference;
-                result.Instructions.Add(processor.Create(OpCodes.Ldarg, value.Index));
-                result.Type = value.ParameterType;
-            }
-            else if (parameter is Position)
-            {
-                var instruction = (parameter as Position).instruction;
-                result.Instructions.Add(instruction);
-            }
-            else if (parameter is IEnumerable<Instruction>)
-            {
-                foreach (var item in parameter as IEnumerable<Instruction>)
-                    result.Instructions.Add(item);
+                case ThisCodeSet thisCodeSet:
+                    result.Instructions.Add(processor.Create(coder.method.IsStatic ? OpCodes.Ldnull : OpCodes.Ldarg_0));
+                    result.Type = coder.method.OriginType.typeReference;
+                    break;
+
+                case InitObjCodeSet initObjCodeSet:
+                    {
+                        var variable = coder.CreateVariable(initObjCodeSet.typeReference);
+                        result.Instructions.Add(processor.Create(OpCodes.Ldloca, variable.variable));
+                        result.Instructions.Add(processor.Create(OpCodes.Initobj, initObjCodeSet.typeReference));
+                        result.Instructions.Add(processor.Create(OpCodes.Ldloc, variable.variable));
+                        result.Type = initObjCodeSet.typeReference;
+                        break;
+                    }
+                case DefaultTaskCodeSet defaultTaskCodeSet:
+                    {
+                        var taskType = coder.method.type.Builder.GetType("System.Threading.Tasks.Task");
+                        var resultFrom = taskType.GetMethod("FromResult", 1, true).MakeGeneric(typeof(int));
+                        var code = coder.NewCoder().Call(resultFrom, 0);
+
+                        result.Instructions.AddRange(code.instructions);
+                        result.Type = coder.method.ReturnType.typeReference;
+                        break;
+                    }
+
+                case DefaultTaskOfTCodeSet defaultTaskOfTCodeSet:
+                    {
+                        var returnType = coder.method.ReturnType.GetGenericArgument(0);
+                        var taskType = coder.method.type.Builder.GetType("System.Threading.Tasks.Task");
+                        var resultFrom = taskType.GetMethod("FromResult", 1, true).MakeGeneric(returnType);
+                        var code = coder.NewCoder().Call(resultFrom, returnType.DefaultValue);
+
+                        result.Instructions.AddRange(code.instructions);
+                        result.Type = returnType.typeReference;
+                        break;
+                    }
+
+                case InstructionsCodeSet instructionsCodeSet:
+                    {
+                        if (object.ReferenceEquals(instructionsCodeSet.instructions, coder.instructions))
+                            throw new NotSupportedException("Nope... Not gonna work... Use NewCoder() if you want to pass an instructions set as parameters.");
+
+                        result.Instructions.AddRange(instructionsCodeSet.instructions);
+                        break;
+                    }
+
+                case TypeReference value:
+                    result.Instructions.AddRange(processor.TypeOf(value));
+                    result.Type = Builder.Current.Import(typeof(Type));
+                    break;
+
+                case BuilderType value:
+                    result.Instructions.AddRange(processor.TypeOf(value.typeReference));
+                    result.Type = Builder.Current.Import(typeof(Type));
+                    break;
+
+                case Method method:
+                    if (targetType.FullName == typeof(IntPtr).FullName)
+                    {
+                        if (!method.IsStatic && method.OriginType != coder.method.OriginType && coder.method.OriginType.IsAsyncStateMachine)
+                        {
+                            var instance = coder.method.AsyncMethodHelper.Instance;
+                            var inst = coder.AddParameter(processor, targetType, instance);
+                            result.Instructions.AddRange(inst.Instructions);
+                        }
+                        else
+                            result.Instructions.Add(processor.Create(method.IsStatic ? OpCodes.Ldnull : OpCodes.Ldarg_0));
+
+                        result.Instructions.Add(processor.Create(OpCodes.Ldftn, method.methodReference));
+                        result.Type = Builder.Current.TypeSystem.IntPtr;
+                    }
+                    else
+                    {
+                        var methodBaseRef = Builder.Current.Import(typeof(System.Reflection.MethodBase));
+                        // methodof
+                        result.Instructions.Add(processor.Create(OpCodes.Ldtoken, method.methodReference));
+                        result.Instructions.Add(processor.Create(OpCodes.Ldtoken, method.OriginType.typeReference));
+                        result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(methodBaseRef.BetterResolve().Methods.FirstOrDefault(x => x.Name == "GetMethodFromHandle" && x.Parameters.Count == 2))));
+
+                        result.Type = methodBaseRef;
+                    }
+                    break;
+
+                case ParameterDefinition value:
+                    result.Instructions.Add(processor.Create(OpCodes.Ldarg, value));
+                    result.Type = value.ParameterType;
+                    break;
+
+                case ParameterReference value:
+                    result.Instructions.Add(processor.Create(OpCodes.Ldarg, value.Index));
+                    result.Type = value.ParameterType;
+                    break;
+
+                case Position value:
+                    result.Instructions.Add(value.instruction);
+                    break;
+
+                case IEnumerable<Instruction> value:
+                    result.Instructions.AddRange(value);
+                    break;
+
+                default:
+                    throw new NotImplementedException();
             }
 
             if (result.Type == null)
@@ -413,6 +407,9 @@ namespace Cauldron.Interception.Cecilator.Extensions
 
                 return null;
             }
+
+            if (instructions == null || instructions.Count == 0)
+                return null;
 
             var instruction = instructions.Last();
             var result = GetTypeOfValueInStack(instruction);

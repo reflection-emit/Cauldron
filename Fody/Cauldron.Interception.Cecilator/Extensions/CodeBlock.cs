@@ -1,4 +1,5 @@
 ﻿using Mono.Cecil;
+using Mono.Cecil.Cil;
 
 namespace Cauldron.Interception.Cecilator.Extensions
 {
@@ -84,12 +85,9 @@ namespace Cauldron.Interception.Cecilator.Extensions
 
     public class InstructionsCodeSet : CodeBlock
     {
-        internal readonly InstructionContainer instructions;
+        internal readonly Instruction[] instructions;
 
-        internal InstructionsCodeSet(Coder coder)
-        {
-            this.instructions = coder.instructions;
-        }
+        internal InstructionsCodeSet(Coder coder) => this.instructions = coder.instructions.ToArray();
     }
 
     public class ParametersCodeSet : CodeBlock
