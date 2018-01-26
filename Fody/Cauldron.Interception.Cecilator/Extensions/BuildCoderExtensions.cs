@@ -156,7 +156,6 @@ namespace Cauldron.Interception.Cecilator.Extensions
                                     (returnVariable.Index == 1 && previousInstruction.OpCode == OpCodes.Ldloc_1) ||
                                     (returnVariable.Index == 2 && previousInstruction.OpCode == OpCodes.Ldloc_2) ||
                                     (returnVariable.Index == 3 && previousInstruction.OpCode == OpCodes.Ldloc_3) ||
-                                    (returnVariable.Index == 3 && previousInstruction.OpCode == OpCodes.Ldloc_S) ||
                                     (previousInstruction.OpCode == OpCodes.Ldloc_S && returnVariable.Index == (int)previousInstruction.Operand) ||
                                     (returnVariable == previousInstruction.Operand as VariableDefinition)
                                     )
