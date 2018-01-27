@@ -1,9 +1,10 @@
-﻿using Mono.Cecil.Cil;
+﻿using Mono.Cecil;
+using Mono.Cecil.Cil;
 using System;
 
 namespace Cauldron.Interception.Cecilator.Extensions
 {
-    public static class BooleanExpressionCoderExtensions
+    public static partial class BooleanExpressionCoderExtensions
     {
         public static BooleanExpressionResultCoder And(this BooleanExpressionResultCoder coder, Func<BooleanExpressionCoder, BooleanExpressionResultCoder> other)
         {
@@ -38,19 +39,6 @@ namespace Cauldron.Interception.Cecilator.Extensions
         public static BooleanExpressionCoder AndAnd(this BooleanExpressionResultCoder coder) => new BooleanExpressionCoder(coder.coder, coder.jumpTarget);
 
         /// <summary>
-        /// Calls a instanced or static <see cref="Method"/> that exists in the loaded field.
-        /// </summary>
-        /// <param name="coder"></param>
-        /// <param name="method"></param>
-        /// <param name="parameters"></param>
-        /// <returns></returns>
-        public static BooleanExpressionCallCoder Call(this BooleanExpressionFieldInstancCoder coder, Method method, params object[] parameters)
-        {
-            coder.coder.CallInternal(coder.target, method, OpCodes.Call, parameters);
-            return new BooleanExpressionCallCoder(coder.coder, coder.jumpTarget, coder.target, method, parameters);
-        }
-
-        /// <summary>
         /// Calls a instanced or static <see cref="Method"/> that exists in the declaring type.
         /// </summary>
         /// <param name="coder"></param>
@@ -63,32 +51,6 @@ namespace Cauldron.Interception.Cecilator.Extensions
                 throw new InvalidOperationException("Void method are not supported by this call.");
 
             return new BooleanExpressionCallCoder(coder.coder, coder.jumpTarget, CodeBlock.This, method, parameters);
-        }
-
-        public static BooleanExpressionResultCoder EqualsTo(this BooleanExpressionFieldInstancCoder coder, Field field)
-        {
-            var result = coder.AreEqualInternalWithoutJump(coder.target.FieldType, field.FieldType, coder.target, field);
-            result.coder.instructions.Append(result.coder.processor.Create(OpCodes.Brfalse, result.jumpTarget));
-            return result;
-        }
-
-        public static BooleanExpressionResultCoder EqualsTo(this BooleanExpressionCallCoder coder, object value)
-        {
-            if (value == null)
-                throw new ArgumentNullException(nameof(value));
-
-            var method = coder.coder.NewCoder().CallInternal(coder.instance, coder.calledMethod, OpCodes.Call, coder.parameters).ToCodeBlock();
-            var result = coder.AreEqualInternalWithoutJump(coder.calledMethod.ReturnType, value.GetType().ToBuilderType(), method, value);
-            result.coder.instructions.Append(result.coder.processor.Create(OpCodes.Brfalse, result.jumpTarget));
-            return result;
-        }
-
-        public static BooleanExpressionResultCoder EqualsTo(this BooleanExpressionCallCoder coder, Field field)
-        {
-            var method = coder.coder.NewCoder().CallInternal(coder.instance, coder.calledMethod, OpCodes.Call, coder.parameters).ToCodeBlock();
-            var result = coder.AreEqualInternalWithoutJump(coder.calledMethod.ReturnType, field.FieldType, method, field);
-            result.coder.instructions.Append(result.coder.processor.Create(OpCodes.Brfalse, result.jumpTarget));
-            return result;
         }
 
         public static BooleanExpressionResultCoder Is(this BooleanExpressionCoder coder, BuilderType type)
@@ -179,13 +141,6 @@ namespace Cauldron.Interception.Cecilator.Extensions
             return coder;
         }
 
-        public static BooleanExpressionResultCoder NotEqualsTo(this BooleanExpressionFieldInstancCoder coder, Field field)
-        {
-            var result = coder.AreEqualInternalWithoutJump(coder.target.FieldType, field.FieldType, coder.target, field);
-            result.coder.instructions.Append(result.coder.processor.Create(OpCodes.Brtrue, result.jumpTarget));
-            return new BooleanExpressionResultCoder(result.coder, coder.jumpTarget, true);
-        }
-
         public static BooleanExpressionResultCoder Or(this BooleanExpressionResultCoder coder, Field field)
         {
             var x = coder.coder;
@@ -248,10 +203,67 @@ namespace Cauldron.Interception.Cecilator.Extensions
                 return result;
             }
 
+            // This is a special case for stuff we surely know how to convert
+            // It is almost like the first block, but with forced target types
+            if (a.IsPrimitive && b.IsPrimitive)
+            {
+                var typeToUse = GetTypeWithMoreCapacity(a.typeReference, b.typeReference);
+                x.instructions.Append(x.AddParameter(x.processor, typeToUse, valueA).Instructions);
+                x.instructions.Append(x.AddParameter(x.processor, typeToUse, valueB).Instructions);
+                x.instructions.Append(x.processor.Create(OpCodes.Ceq));
+
+                return result;
+            }
+
             equalityOperator = Builder.Current.GetType(typeof(object)).GetMethod("Equals", false, "System.Object", "System.Object").Import();
 
             coder.coder.Call(equalityOperator.Import(), valueA, valueB);
             return result;
+        }
+
+        private static TypeReference GetTypeWithMoreCapacity(TypeReference a, TypeReference b)
+        {
+            // Bool makes a big exception here
+            if (a.FullName == typeof(bool).FullName) return a;
+            if (b.FullName == typeof(bool).FullName) return b;
+
+            if (a.FullName == typeof(decimal).FullName) return a;
+            if (b.FullName == typeof(decimal).FullName) return b;
+
+            if (a.FullName == typeof(double).FullName) return a;
+            if (b.FullName == typeof(double).FullName) return b;
+
+            if (a.FullName == typeof(float).FullName) return a;
+            if (b.FullName == typeof(float).FullName) return b;
+
+            if (a.FullName == typeof(ulong).FullName) return a;
+            if (b.FullName == typeof(ulong).FullName) return b;
+
+            if (a.FullName == typeof(long).FullName) return a;
+            if (b.FullName == typeof(long).FullName) return b;
+
+            if (a.FullName == typeof(uint).FullName) return a;
+            if (b.FullName == typeof(uint).FullName) return b;
+
+            if (a.FullName == typeof(int).FullName) return a;
+            if (b.FullName == typeof(int).FullName) return b;
+
+            if (a.FullName == typeof(char).FullName) return a;
+            if (b.FullName == typeof(char).FullName) return b;
+
+            if (a.FullName == typeof(ushort).FullName) return a;
+            if (b.FullName == typeof(ushort).FullName) return b;
+
+            if (a.FullName == typeof(short).FullName) return a;
+            if (b.FullName == typeof(short).FullName) return b;
+
+            if (a.FullName == typeof(byte).FullName) return a;
+            if (b.FullName == typeof(byte).FullName) return b;
+
+            if (a.FullName == typeof(sbyte).FullName) return a;
+            if (b.FullName == typeof(sbyte).FullName) return b;
+
+            return a;
         }
     }
 }

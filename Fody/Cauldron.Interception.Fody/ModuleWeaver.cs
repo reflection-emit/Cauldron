@@ -298,7 +298,7 @@ namespace Cauldron.Interception.Fody
                     for (int i = 0; i < referencedTypes.Length; i++)
                     {
                         x.Load(returnValue);
-                        x.StoreElement(assemblyType, x.NewCode().Callvirt(x.NewCode().Call(introspectionExtensions.GetTypeInfo, referencedTypes[i].ToBuilderType(this.Builder).Import()), typeInfo.Assembly), i);
+                        x.StoreElement(assemblyType, x.NewCode().Callvirt(x.NewCode().Call(introspectionExtensions.GetTypeInfo, referencedTypes[i].ToBuilderType().Import()), typeInfo.Assembly), i);
                     }
                 }
 
@@ -324,7 +324,7 @@ namespace Cauldron.Interception.Fody
                     var type = assembliesToList[i].Modules
                         .SelectMany(y => y.Types)
                         .FirstOrDefault(y => y.IsPublic && y.FullName.Contains('.') && !y.HasCustomAttributes && !y.IsGenericParameter && !y.ContainsGenericParameter && !y.FullName.Contains('`'))?
-                        .ToBuilderType(this.Builder)?
+                        .ToBuilderType()?
                         .Import();
 
                     if (type == null)

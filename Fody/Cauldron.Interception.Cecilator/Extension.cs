@@ -263,6 +263,19 @@ namespace Cauldron.Interception.Cecilator
             throw new Exception($"Unable to proceed. The type '{type.FullName}' does not contain a method '{methodName}'");
         }
 
+        public static MethodReference GetMethodReference(this TypeReference type, string methodName, TypeReference[] parameterTypes)
+        {
+            var definition = type.BetterResolve();
+            var result = definition
+                .Methods
+                .FirstOrDefault(x => x.Name == methodName && parameterTypes.Select(y => y.FullName).SequenceEqual(x.Parameters.Select(y => y.ParameterType.FullName)));
+
+            if (result != null)
+                return result;
+
+            throw new Exception($"Unable to proceed. The type '{type.FullName}' does not contain a method '{methodName}'");
+        }
+
         public static IEnumerable<MethodReference> GetMethodReferences(this TypeReference type) => GetMethodReferences(type, false);
 
         public static IEnumerable<MethodReference> GetMethodReferencesByInterfaces(this TypeReference type) => GetMethodReferences(type, true);
@@ -382,7 +395,11 @@ namespace Cauldron.Interception.Cecilator
 
         public static BuilderType ToBuilderType(this Type type) => new BuilderType(Builder.Current, WeaverBase.AllTypes.Get(type.FullName));
 
-        public static BuilderType ToBuilderType(this TypeDefinition value, Builder builder) => new BuilderType(builder, value);
+        public static BuilderType ToBuilderType(this TypeDefinition value) => new BuilderType(Builder.Current, value);
+
+        public static BuilderType ToBuilderType(this TypeReference value) => new BuilderType(Builder.Current, value);
+
+        public static Type ToType(this TypeReference typeReference) => Type.GetType(typeReference.FullName + ", " + typeReference.Module.Assembly.FullName);
 
         public static TNew With<TType, TNew>(this TType target, Func<TType, TNew> predicate) => predicate(target);
 

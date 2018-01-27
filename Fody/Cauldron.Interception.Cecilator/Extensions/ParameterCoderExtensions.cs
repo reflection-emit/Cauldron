@@ -89,7 +89,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
                     break;
 
                 case uint value:
-                    result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, value /* TODO: This could cause a bug */));
+                    result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, unchecked((int)value)));
                     result.Type = Builder.Current.TypeSystem.UInt32;
                     break;
 
@@ -109,7 +109,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
                     break;
 
                 case ushort value:
-                    result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, value));
+                    result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, unchecked((short)value)));
                     result.Type = Builder.Current.TypeSystem.UInt16;
                     break;
 
@@ -129,7 +129,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
                     break;
 
                 case ulong value:
-                    result.Instructions.Add(processor.Create(OpCodes.Ldc_I8, value));
+                    result.Instructions.Add(processor.Create(OpCodes.Ldc_I8, unchecked((long)value)));
                     result.Type = Builder.Current.TypeSystem.UInt64;
                     break;
 
@@ -149,7 +149,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
                     break;
 
                 case UIntPtr value:
-                    result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, (uint)value));
+                    result.Instructions.Add(processor.Create(OpCodes.Ldc_I4, unchecked((int)(uint)value)));
                     result.Type = Builder.Current.TypeSystem.UIntPtr;
                     break;
 
@@ -364,22 +364,22 @@ namespace Cauldron.Interception.Cecilator.Extensions
                 if (targetType.IsArray)
                     result.Instructions.Add(processor.Create(OpCodes.Call, toArrayMethod));
             }
-            else if (result.Type.FullName == typeof(object).FullName && targetDef.IsValueType)
+            else if ((result.Type.FullName == typeof(object).FullName && targetDef.IsValueType) || (result.Type != targetType && result.Type.IsPrimitive && targetType.IsPrimitive))
             {
-                if (targetDef.FullName == typeof(int).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Convert)).GetMethodReference("ToInt32", new Type[] { typeof(object) }))));
-                else if (targetDef.FullName == typeof(uint).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Convert)).GetMethodReference("ToUInt32", new Type[] { typeof(object) }))));
-                else if (targetDef.FullName == typeof(bool).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Convert)).GetMethodReference("ToBoolean", new Type[] { typeof(object) }))));
-                else if (targetDef.FullName == typeof(byte).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Convert)).GetMethodReference("ToByte", new Type[] { typeof(object) }))));
-                else if (targetDef.FullName == typeof(char).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Convert)).GetMethodReference("ToChar", new Type[] { typeof(object) }))));
-                else if (targetDef.FullName == typeof(DateTime).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Convert)).GetMethodReference("ToDateTime", new Type[] { typeof(object) }))));
-                else if (targetDef.FullName == typeof(decimal).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Convert)).GetMethodReference("ToDecimal", new Type[] { typeof(object) }))));
-                else if (targetDef.FullName == typeof(double).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Convert)).GetMethodReference("ToDouble", new Type[] { typeof(object) }))));
-                else if (targetDef.FullName == typeof(short).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Convert)).GetMethodReference("ToInt16", new Type[] { typeof(object) }))));
-                else if (targetDef.FullName == typeof(long).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Convert)).GetMethodReference("ToInt64", new Type[] { typeof(object) }))));
-                else if (targetDef.FullName == typeof(sbyte).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Convert)).GetMethodReference("ToSByte", new Type[] { typeof(object) }))));
-                else if (targetDef.FullName == typeof(float).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Convert)).GetMethodReference("ToSingle", new Type[] { typeof(object) }))));
-                else if (targetDef.FullName == typeof(ushort).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Convert)).GetMethodReference("ToUInt16", new Type[] { typeof(object) }))));
-                else if (targetDef.FullName == typeof(ulong).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Convert)).GetMethodReference("ToUInt64", new Type[] { typeof(object) }))));
+                if (targetDef.FullName == typeof(int).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Convert)).GetMethodReference("ToInt32", new TypeReference[] { result.Type }))));
+                else if (targetDef.FullName == typeof(uint).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Convert)).GetMethodReference("ToUInt32", new TypeReference[] { result.Type }))));
+                else if (targetDef.FullName == typeof(bool).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Convert)).GetMethodReference("ToBoolean", new TypeReference[] { result.Type }))));
+                else if (targetDef.FullName == typeof(byte).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Convert)).GetMethodReference("ToByte", new TypeReference[] { result.Type }))));
+                else if (targetDef.FullName == typeof(char).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Convert)).GetMethodReference("ToChar", new TypeReference[] { result.Type }))));
+                else if (targetDef.FullName == typeof(DateTime).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Convert)).GetMethodReference("ToDateTime", new TypeReference[] { result.Type }))));
+                else if (targetDef.FullName == typeof(decimal).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Convert)).GetMethodReference("ToDecimal", new TypeReference[] { result.Type }))));
+                else if (targetDef.FullName == typeof(double).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Convert)).GetMethodReference("ToDouble", new TypeReference[] { result.Type }))));
+                else if (targetDef.FullName == typeof(short).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Convert)).GetMethodReference("ToInt16", new TypeReference[] { result.Type }))));
+                else if (targetDef.FullName == typeof(long).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Convert)).GetMethodReference("ToInt64", new TypeReference[] { result.Type }))));
+                else if (targetDef.FullName == typeof(sbyte).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Convert)).GetMethodReference("ToSByte", new TypeReference[] { result.Type }))));
+                else if (targetDef.FullName == typeof(float).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Convert)).GetMethodReference("ToSingle", new TypeReference[] { result.Type }))));
+                else if (targetDef.FullName == typeof(ushort).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Convert)).GetMethodReference("ToUInt16", new TypeReference[] { result.Type }))));
+                else if (targetDef.FullName == typeof(ulong).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Convert)).GetMethodReference("ToUInt64", new TypeReference[] { result.Type }))));
                 else result.Instructions.Add(processor.Create(OpCodes.Unbox_Any, targetType));
             }
             else if ((result.Type.Resolve() == null || result.Type.IsValueType) && !targetType.IsValueType)
@@ -392,7 +392,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
                 result.Instructions.Add(processor.Create(OpCodes.Castclass, Builder.Current.Import(result.Type)));
         }
 
-        internal static TypeReference GetTypeOfValueInStack(this List<Instruction> instructions)
+        internal static TypeReference GetTypeOfValueInStack(this IEnumerable<Instruction> instructions)
         {
             TypeReference GetTypeOfValueInStack(Instruction ins)
             {
@@ -408,20 +408,21 @@ namespace Cauldron.Interception.Cecilator.Extensions
                 return null;
             }
 
-            if (instructions == null || instructions.Count == 0)
+            if (instructions == null || !instructions.Any())
                 return null;
 
             var instruction = instructions.Last();
             var result = GetTypeOfValueInStack(instruction);
+            var array = instructions.ToArray();
 
             if (result == null && instruction.IsValueOpCode())
             {
-                for (int i = instructions.Count - 2; i >= 0; i--)
+                for (int i = array.Length - 2; i >= 0; i--)
                 {
-                    if (!instructions[i].IsValueOpCode())
+                    if (!array[i].IsValueOpCode())
                         break;
 
-                    result = GetTypeOfValueInStack(instructions[i]);
+                    result = GetTypeOfValueInStack(array[i]);
 
                     if (result != null)
                         return result;
