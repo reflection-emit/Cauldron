@@ -50,7 +50,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
             if (method.ReturnType.typeDefinition == Builder.Current.TypeSystem.Void)
                 throw new InvalidOperationException("Void method are not supported by this call.");
 
-            return new BooleanExpressionCallCoder(coder.coder, coder.jumpTarget, CodeBlock.This, method, parameters);
+            return new BooleanExpressionCallCoder(coder.coder, coder.jumpTarget, CodeBlocks.This, method, parameters);
         }
 
         public static BooleanExpressionResultCoder Is(this BooleanExpressionCoder coder, BuilderType type)

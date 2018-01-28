@@ -12,7 +12,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
         {
         }
 
-        public CodeBlock ToCodeBlock() => new InstructionsCodeSet(this.coder);
+        public CodeBlock ToCodeBlock() => new InstructionsCodeBlock(this.coder);
 
         internal void RemoveJump()
         {

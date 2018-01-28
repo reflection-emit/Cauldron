@@ -112,7 +112,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
             var inst = coder.AddParameter(coder.processor, null, value);
             coder.instructions.Append(inst.Instructions);
 
-            if (value != null && value is ArrayCodeSet arrayCodeSet)
+            if (value != null && value is ArrayCodeBlock arrayCodeSet)
             {
                 coder.instructions.Append(coder.AddParameter(coder.processor, null, arrayCodeSet.index).Instructions);
                 coder.instructions.Append(coder.processor.Create(OpCodes.Ldelem_Ref));

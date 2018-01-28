@@ -25,7 +25,7 @@ namespace Win32_Cecilator_Scriptable
             .Load(42).Return()
             .Replace();
 
-            var method3 = type.CreateMethod(Modifiers.Private, typeof(object), "ReturnsObject");
+            var method3 = type.CreateMethod(Modifiers.Private, type, "ReturnsObject");
             method3.NewCoder().ReturnDefault().Replace();
 
             var method4 = type.CreateMethod(Modifiers.Private, typeof(bool), "ReturnsBoolean");
@@ -49,6 +49,7 @@ namespace Win32_Cecilator_Scriptable
                     .If(x => x.Call(method4).IsFalse(), x => x.Return())
                     .If(x => x.Call(method4).Invert().IsTrue(), x => x.Return())
                     .If(x => x.Call(method4).IsTrue(), x => x.Return())
+                    .If(x => x.Call(method3).Call(method4).IsTrue(), x => x.Return())
                     .Return()
                     .Replace();
         }

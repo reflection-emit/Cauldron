@@ -35,7 +35,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
 
         public void InstructionDebug() => this.method.Log(LogTypes.Info, this.instructions);
 
-        public CodeBlock ToCodeBlock() => new InstructionsCodeSet(this);
+        public CodeBlock ToCodeBlock() => new InstructionsCodeBlock(this);
 
         public override string ToString() => this.method.Fullname;
     }

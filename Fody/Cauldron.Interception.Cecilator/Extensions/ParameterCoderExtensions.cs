@@ -161,51 +161,51 @@ namespace Cauldron.Interception.Cecilator.Extensions
                     result.Type = AddVariableDefinitionToInstruction(processor, result.Instructions, targetType, value).VariableType;
                     break;
 
-                case ExceptionCodeSet exceptionCodeSet:
+                case ExceptionCodeBlock exceptionCodeBlock:
                     {
-                        var variable = char.IsNumber(exceptionCodeSet.name, 0) ?
-                            coder.method.methodDefinition.Body.Variables[int.Parse(exceptionCodeSet.name)] :
-                            coder.method.GetLocalVariable(exceptionCodeSet.name);
+                        var variable = char.IsNumber(exceptionCodeBlock.name, 0) ?
+                            coder.method.methodDefinition.Body.Variables[int.Parse(exceptionCodeBlock.name)] :
+                            coder.method.GetLocalVariable(exceptionCodeBlock.name);
 
                         result.Instructions.Add(processor.Create(OpCodes.Ldloc, variable));
                         result.Type = Builder.Current.Import(variable.VariableType);
                         break;
                     }
-                case ParametersCodeSet parametersCodeSet:
-                    if (parametersCodeSet.index.HasValue)
+                case ParametersCodeBlock parametersCodeBlock:
+                    if (parametersCodeBlock.index.HasValue)
                     {
                         if (coder.method.methodDefinition.Parameters.Count == 0)
                             throw new ArgumentException($"The method {coder.method.Name} does not have any parameters");
 
-                        result.Instructions.Add(processor.Create(OpCodes.Ldarg, coder.method.IsStatic ? parametersCodeSet.index.Value : parametersCodeSet.index.Value + 1));
-                        result.Type = Builder.Current.Import(coder.method.methodDefinition.Parameters[parametersCodeSet.index.Value].ParameterType);
+                        result.Instructions.Add(processor.Create(OpCodes.Ldarg, coder.method.IsStatic ? parametersCodeBlock.index.Value : parametersCodeBlock.index.Value + 1));
+                        result.Type = Builder.Current.Import(coder.method.methodDefinition.Parameters[parametersCodeBlock.index.Value].ParameterType);
                     }
                     else
                     {
-                        var variable = char.IsNumber(parametersCodeSet.name, 0) ?
-                            coder.method.methodDefinition.Body.Variables[int.Parse(parametersCodeSet.name)] :
-                            coder.method.GetLocalVariable(parametersCodeSet.name);
+                        var variable = char.IsNumber(parametersCodeBlock.name, 0) ?
+                            coder.method.methodDefinition.Body.Variables[int.Parse(parametersCodeBlock.name)] :
+                            coder.method.GetLocalVariable(parametersCodeBlock.name);
 
                         result.Instructions.Add(processor.Create(OpCodes.Ldloc, variable));
                         result.Type = Builder.Current.Import(variable.VariableType);
                     }
                     break;
 
-                case ThisCodeSet thisCodeSet:
+                case ThisCodeBlock thisCodeBlock:
                     result.Instructions.Add(processor.Create(coder.method.IsStatic ? OpCodes.Ldnull : OpCodes.Ldarg_0));
                     result.Type = coder.method.OriginType.typeReference;
                     break;
 
-                case InitObjCodeSet initObjCodeSet:
+                case InitObjCodeBlock initObjCodeBlock:
                     {
-                        var variable = coder.CreateVariable(initObjCodeSet.typeReference);
+                        var variable = coder.CreateVariable(initObjCodeBlock.typeReference);
                         result.Instructions.Add(processor.Create(OpCodes.Ldloca, variable.variable));
-                        result.Instructions.Add(processor.Create(OpCodes.Initobj, initObjCodeSet.typeReference));
+                        result.Instructions.Add(processor.Create(OpCodes.Initobj, initObjCodeBlock.typeReference));
                         result.Instructions.Add(processor.Create(OpCodes.Ldloc, variable.variable));
-                        result.Type = initObjCodeSet.typeReference;
+                        result.Type = initObjCodeBlock.typeReference;
                         break;
                     }
-                case DefaultTaskCodeSet defaultTaskCodeSet:
+                case DefaultTaskCodeBlock defaultTaskCodeBlock:
                     {
                         var taskType = coder.method.type.Builder.GetType("System.Threading.Tasks.Task");
                         var resultFrom = taskType.GetMethod("FromResult", 1, true).MakeGeneric(typeof(int));
@@ -216,7 +216,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
                         break;
                     }
 
-                case DefaultTaskOfTCodeSet defaultTaskOfTCodeSet:
+                case DefaultTaskOfTCodeBlock defaultTaskOfTCodeBlock:
                     {
                         var returnType = coder.method.ReturnType.GetGenericArgument(0);
                         var taskType = coder.method.type.Builder.GetType("System.Threading.Tasks.Task");
@@ -228,12 +228,12 @@ namespace Cauldron.Interception.Cecilator.Extensions
                         break;
                     }
 
-                case InstructionsCodeSet instructionsCodeSet:
+                case InstructionsCodeBlock instructionsCodeBlock:
                     {
-                        if (object.ReferenceEquals(instructionsCodeSet.instructions, coder.instructions))
+                        if (object.ReferenceEquals(instructionsCodeBlock.instructions, coder.instructions))
                             throw new NotSupportedException("Nope... Not gonna work... Use NewCoder() if you want to pass an instructions set as parameters.");
 
-                        result.Instructions.AddRange(instructionsCodeSet.instructions);
+                        result.Instructions.AddRange(instructionsCodeBlock.instructions);
                         break;
                     }
 

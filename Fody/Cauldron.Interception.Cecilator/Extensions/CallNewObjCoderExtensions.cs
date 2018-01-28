@@ -14,7 +14,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
             if (instance != null)
                 coder.instructions.Append(coder.AddParameter(coder.processor, null, instance).Instructions);
 
-            if (parameters != null && parameters.Length > 0 && parameters[0] is ArrayCodeSet arrayCodeSet)
+            if (parameters != null && parameters.Length > 0 && parameters[0] is ArrayCodeBlock arrayCodeSet)
             {
                 var methodParameters = method.methodDefinition.Parameters;
                 for (int i = 0; i < methodParameters.Count; i++)
@@ -28,7 +28,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
                     coder.instructions.Append(paramResult.Instructions);
                 }
             }
-            else if (parameters != null && parameters.Length > 0 && parameters[0] is ParametersCodeSet parameterCodeSet && parameterCodeSet.IsAllParameters)
+            else if (parameters != null && parameters.Length > 0 && parameters[0] is ParametersCodeBlock parameterCodeSet && parameterCodeSet.IsAllParameters)
             {
                 if ((method.OriginType.IsInterface || method.IsAbstract) && opcode != OpCodes.Calli && opcode != OpCodes.Newobj)
                     opcode = OpCodes.Callvirt;
@@ -39,7 +39,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
                         method.methodDefinition.Parameters[i].ParameterType.ResolveType(method.OriginType.typeReference, method.methodReference) :
                         method.methodDefinition.Parameters[i].ParameterType;
 
-                    var inst = coder.AddParameter(coder.processor, Builder.Current.Import(parameterType), CodeBlock.GetParameter(i));
+                    var inst = coder.AddParameter(coder.processor, Builder.Current.Import(parameterType), CodeBlocks.GetParameter(i));
                     coder.instructions.Append(inst.Instructions);
                 }
             }

@@ -3,111 +3,115 @@ using Mono.Cecil.Cil;
 
 namespace Cauldron.Interception.Cecilator.Extensions
 {
-    public class ArrayCodeSet : CodeBlock
+    public static class CodeBlocks
+    {
+        public static CodeBlock This => new ThisCodeBlock();
+
+        public static CodeBlock CreateException(TypeReference typeReference, string name) => new ExceptionCodeBlock { name = name, typeReference = typeReference };
+
+        public static CodeBlock CreateException(BuilderType builderType, string name) => new ExceptionCodeBlock { name = name, typeReference = builderType.typeReference };
+
+        public static CodeBlock DefaultOfStruct(TypeReference typeReference) => new InitObjCodeBlock { typeReference = typeReference };
+
+        public static CodeBlock DefaultOfTask(TypeReference typeReference) => new DefaultTaskCodeBlock { typeReference = typeReference };
+
+        public static CodeBlock DefaultTaskOfT(TypeReference typeReference) => new DefaultTaskOfTCodeBlock { typeReference = typeReference };
+
+        public static ParametersCodeBlock GetParameter(int index) => new ParametersCodeBlock { index = index };
+
+        public static ParametersCodeBlock GetParameter(string name) => new ParametersCodeBlock { name = name };
+
+        public static ParametersCodeBlock GetParameter() => new ParametersCodeBlock();
+    }
+
+    public class ArrayCodeBlock : CodeBlock
     {
         internal int index;
 
-        internal ArrayCodeSet()
+        internal ArrayCodeBlock()
         {
         }
     }
 
     public class CodeBlock
     {
-        public static CodeBlock This => new ThisCodeSet();
-
-        public static CodeBlock CreateException(TypeReference typeReference, string name) => new ExceptionCodeSet { name = name, typeReference = typeReference };
-
-        public static CodeBlock CreateException(BuilderType builderType, string name) => new ExceptionCodeSet { name = name, typeReference = builderType.typeReference };
-
-        public static CodeBlock DefaultOfStruct(TypeReference typeReference) => new InitObjCodeSet { typeReference = typeReference };
-
-        public static CodeBlock DefaultOfTask(TypeReference typeReference) => new DefaultTaskCodeSet { typeReference = typeReference };
-
-        public static CodeBlock DefaultTaskOfT(TypeReference typeReference) => new DefaultTaskOfTCodeSet { typeReference = typeReference };
-
-        public static ParametersCodeSet GetParameter(int index) => new ParametersCodeSet { index = index };
-
-        public static ParametersCodeSet GetParameter(string name) => new ParametersCodeSet { name = name };
-
-        public static ParametersCodeSet GetParameter() => new ParametersCodeSet();
     }
 
-    public class DefaultTaskCodeSet : CodeBlock
+    public class DefaultTaskCodeBlock : CodeBlock
     {
         internal TypeReference typeReference;
 
-        internal DefaultTaskCodeSet()
+        internal DefaultTaskCodeBlock()
         {
         }
     }
 
-    public class DefaultTaskOfTCodeSet : CodeBlock
+    public class DefaultTaskOfTCodeBlock : CodeBlock
     {
         internal TypeReference typeReference;
 
-        internal DefaultTaskOfTCodeSet()
+        internal DefaultTaskOfTCodeBlock()
         {
         }
     }
 
-    public class ExceptionCodeSet : CodeBlock
+    public class ExceptionCodeBlock : CodeBlock
     {
         internal string name;
 
         internal TypeReference typeReference;
 
-        internal ExceptionCodeSet()
+        internal ExceptionCodeBlock()
         {
         }
     }
 
-    public class FieldAssignCoderCodeSet : CodeBlock
+    public class FieldAssignCoderCodeBlock : CodeBlock
     {
         internal readonly Coder coder;
         internal readonly FieldAssignCoder fieldAssignCoder;
 
-        internal FieldAssignCoderCodeSet(FieldAssignCoder fieldAssignCoder)
+        internal FieldAssignCoderCodeBlock(FieldAssignCoder fieldAssignCoder)
         {
             this.fieldAssignCoder = fieldAssignCoder;
             this.coder = fieldAssignCoder.coder;
         }
     }
 
-    public class InitObjCodeSet : CodeBlock
+    public class InitObjCodeBlock : CodeBlock
     {
         internal TypeReference typeReference;
 
-        internal InitObjCodeSet()
+        internal InitObjCodeBlock()
         {
         }
     }
 
-    public class InstructionsCodeSet : CodeBlock
+    public class InstructionsCodeBlock : CodeBlock
     {
         internal readonly Instruction[] instructions;
 
-        internal InstructionsCodeSet(Coder coder) => this.instructions = coder.instructions.ToArray();
+        internal InstructionsCodeBlock(Coder coder) => this.instructions = coder.instructions.ToArray();
     }
 
-    public class ParametersCodeSet : CodeBlock
+    public class ParametersCodeBlock : CodeBlock
     {
         internal int? index;
 
         internal string name;
 
-        internal ParametersCodeSet()
+        internal ParametersCodeBlock()
         {
         }
 
         public bool IsAllParameters => !this.index.HasValue && string.IsNullOrEmpty(this.name);
 
-        public CodeBlock UnPacked(int arrayIndex = 0) => new ArrayCodeSet { index = arrayIndex };
+        public CodeBlock UnPacked(int arrayIndex = 0) => new ArrayCodeBlock { index = arrayIndex };
     }
 
-    public class ThisCodeSet : CodeBlock
+    public class ThisCodeBlock : CodeBlock
     {
-        internal ThisCodeSet()
+        internal ThisCodeBlock()
         {
         }
     }

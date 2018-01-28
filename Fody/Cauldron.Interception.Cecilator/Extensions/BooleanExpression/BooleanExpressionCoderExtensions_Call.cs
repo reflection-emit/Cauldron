@@ -5,6 +5,12 @@ namespace Cauldron.Interception.Cecilator.Extensions
 {
     public static partial class BooleanExpressionCoderExtensions
     {
+        public static BooleanExpressionCallCoder Call(this BooleanExpressionCallCoder coder, Method method, params object[] parameters)
+        {
+            var instance = coder.coder.NewCoder().CallInternal(coder.instance, coder.calledMethod, OpCodes.Call, coder.parameters).ToCodeBlock();
+            return new BooleanExpressionCallCoder(coder.coder, coder.jumpTarget, instance, method, parameters);
+        }
+
         public static BooleanExpressionResultCoder EqualsTo(this BooleanExpressionCallCoder coder, object value)
         {
             if (value == null)
