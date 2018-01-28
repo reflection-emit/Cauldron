@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Win32_Cecilator_Tests
 {
-    internal class Clasnss1dou4s9ed
+    internal class Clasnss1ou4s9ssed
     {
         public void jjj()
         {

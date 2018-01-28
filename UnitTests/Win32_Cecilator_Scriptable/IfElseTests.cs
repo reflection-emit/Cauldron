@@ -1,6 +1,7 @@
 ﻿using Cauldron.Interception.Cecilator;
 using Cauldron.Interception.Cecilator.Extensions;
 using System;
+using System.Collections;
 
 namespace Win32_Cecilator_Scriptable
 {

@@ -5,9 +5,15 @@ namespace Cauldron.Interception.Cecilator.Extensions
 {
     public static partial class BooleanExpressionCoderExtensions
     {
+        public static BooleanExpressionCallCoder As(this BooleanExpressionCallCoder coder, BuilderType type)
+        {
+            coder.castToType = type;
+            return coder;
+        }
+
         public static BooleanExpressionCallCoder Call(this BooleanExpressionCallCoder coder, Method method, params object[] parameters)
         {
-            var instance = coder.coder.NewCoder().CallInternal(coder.instance, coder.calledMethod, OpCodes.Call, coder.parameters).ToCodeBlock();
+            var instance = coder.coder.NewCoder().CallInternal(coder.instance, coder.calledMethod, OpCodes.Call, coder.parameters).ToCodeBlock(coder.castToType);
             return new BooleanExpressionCallCoder(coder.coder, coder.jumpTarget, instance, method, parameters);
         }
 
@@ -84,7 +90,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
             Func<BooleanExpressionCoder, BooleanExpressionCallCoder> call,
             bool isBrTrue)
         {
-            var method1 = coder.coder.NewCoder().CallInternal(coder.instance, coder.calledMethod, OpCodes.Call, coder.parameters).ToCodeBlock();
+            var method1 = coder.coder.NewCoder().CallInternal(coder.instance, coder.calledMethod, OpCodes.Call, coder.parameters).ToCodeBlock(coder.castToType);
             var otherCoder = new BooleanExpressionCoder(coder.coder.NewCoder());
             var callCoder = call(otherCoder);
             var method2 = callCoder.coder.NewCoder().CallInternal(callCoder.instance, callCoder.calledMethod, OpCodes.Call, callCoder.parameters).ToCodeBlock();
@@ -102,7 +108,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
 
         private static BooleanExpressionResultCoder EqualsToInternal(BooleanExpressionCallCoder coder, Field field, bool isBrTrue)
         {
-            var method = coder.coder.NewCoder().CallInternal(coder.instance, coder.calledMethod, OpCodes.Call, coder.parameters).ToCodeBlock();
+            var method = coder.coder.NewCoder().CallInternal(coder.instance, coder.calledMethod, OpCodes.Call, coder.parameters).ToCodeBlock(coder.castToType);
             var result = coder.AreEqualInternalWithoutJump(coder.calledMethod.ReturnType, field.FieldType, method, field);
             result.coder.instructions.Append(result.coder.processor.Create(isBrTrue ? OpCodes.Brtrue : OpCodes.Brfalse, result.jumpTarget));
             result.isBrTrue = isBrTrue;
@@ -112,7 +118,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
 
         private static BooleanExpressionResultCoder EqualsToInternal(BooleanExpressionCallCoder coder, object value, bool isBrTrue)
         {
-            var method = coder.coder.NewCoder().CallInternal(coder.instance, coder.calledMethod, OpCodes.Call, coder.parameters).ToCodeBlock();
+            var method = coder.coder.NewCoder().CallInternal(coder.instance, coder.calledMethod, OpCodes.Call, coder.parameters).ToCodeBlock(coder.castToType);
             var result = coder.AreEqualInternalWithoutJump(coder.calledMethod.ReturnType, value.GetType().ToBuilderType(), method, value);
             result.coder.instructions.Append(result.coder.processor.Create(isBrTrue ? OpCodes.Brtrue : OpCodes.Brfalse, result.jumpTarget));
             result.isBrTrue = isBrTrue;

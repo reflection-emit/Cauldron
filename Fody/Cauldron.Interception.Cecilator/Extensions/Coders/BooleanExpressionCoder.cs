@@ -7,6 +7,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
         internal readonly Method calledMethod;
         internal readonly object instance;
         internal readonly object[] parameters;
+        internal BuilderType castToType = null;
 
         internal BooleanExpressionCallCoder(Coder coder, object instance, Method calledMethod, object[] parameters) : base(coder)
         {
