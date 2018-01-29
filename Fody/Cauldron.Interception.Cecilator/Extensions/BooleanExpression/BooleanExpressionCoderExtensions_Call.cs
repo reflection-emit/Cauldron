@@ -98,8 +98,8 @@ namespace Cauldron.Interception.Cecilator.Extensions
             var result = coder.AreEqualInternalWithoutJump(
                 coder.calledMethod.ReturnType,
                 callCoder.calledMethod.ReturnType,
-                method1,
-                method2);
+                new BooleanExpressionParameter(method1, coder.calledMethod.ReturnType.typeReference, false, false),
+                new BooleanExpressionParameter(method2, callCoder.calledMethod.ReturnType.typeReference, false, false));
             result.coder.instructions.Append(result.coder.processor.Create(isBrTrue ? OpCodes.Brtrue : OpCodes.Brfalse, result.jumpTarget));
             result.isBrTrue = isBrTrue;
 
@@ -109,7 +109,9 @@ namespace Cauldron.Interception.Cecilator.Extensions
         private static BooleanExpressionResultCoder EqualsToInternal(BooleanExpressionCallCoder coder, Field field, bool isBrTrue)
         {
             var method = coder.coder.NewCoder().CallInternal(coder.instance, coder.calledMethod, OpCodes.Call, coder.parameters).ToCodeBlock(coder.castToType);
-            var result = coder.AreEqualInternalWithoutJump(coder.calledMethod.ReturnType, field.FieldType, method, field);
+            var result = coder.AreEqualInternalWithoutJump(coder.calledMethod.ReturnType, field.FieldType,
+                new BooleanExpressionParameter(method, coder.calledMethod.ReturnType.typeReference, false, false),
+                new BooleanExpressionParameter(field, field.FieldType.typeReference, false, false));
             result.coder.instructions.Append(result.coder.processor.Create(isBrTrue ? OpCodes.Brtrue : OpCodes.Brfalse, result.jumpTarget));
             result.isBrTrue = isBrTrue;
 
@@ -119,7 +121,9 @@ namespace Cauldron.Interception.Cecilator.Extensions
         private static BooleanExpressionResultCoder EqualsToInternal(BooleanExpressionCallCoder coder, object value, bool isBrTrue)
         {
             var method = coder.coder.NewCoder().CallInternal(coder.instance, coder.calledMethod, OpCodes.Call, coder.parameters).ToCodeBlock(coder.castToType);
-            var result = coder.AreEqualInternalWithoutJump(coder.calledMethod.ReturnType, value.GetType().ToBuilderType(), method, value);
+            var result = coder.AreEqualInternalWithoutJump(coder.calledMethod.ReturnType, value.GetType().ToBuilderType(),
+                new BooleanExpressionParameter(method, coder.calledMethod.ReturnType.typeReference, false, false),
+                new BooleanExpressionParameter(value, null, false, false));
             result.coder.instructions.Append(result.coder.processor.Create(isBrTrue ? OpCodes.Brtrue : OpCodes.Brfalse, result.jumpTarget));
             result.isBrTrue = isBrTrue;
 

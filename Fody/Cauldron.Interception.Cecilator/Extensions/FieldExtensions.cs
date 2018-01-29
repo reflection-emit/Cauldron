@@ -1,5 +1,4 @@
-﻿using Mono.Cecil;
-using Mono.Cecil.Cil;
+﻿using Mono.Cecil.Cil;
 using System;
 
 namespace Cauldron.Interception.Cecilator.Extensions
@@ -8,31 +7,13 @@ namespace Cauldron.Interception.Cecilator.Extensions
     {
         public static FieldAssignCoder As(this FieldAssignCoder fieldAssignCoder, BuilderType type)
         {
+            fieldAssignCoder.castToType = type;
             var coder = fieldAssignCoder.coder;
+            // Instance
+            if (!fieldAssignCoder.target.IsStatic)
+                coder.instructions.Append(coder.processor.Create(OpCodes.Ldarg_0));
 
-            var lastInstruction = coder.instructions.LastOrDefault();
-            if (lastInstruction.IsCallOrNew())
-            {
-                var lastType = (lastInstruction.Operand as MethodReference)?.ReturnType;
-
-                if (lastType != null && lastType.FullName == type.Fullname)
-                    return fieldAssignCoder;
-
-                if (lastType != null && lastType.IsPrimitive)
-                {
-                    var paramResult = new ParamResult
-                    {
-                        Type = lastType
-                    };
-
-                    coder.processor.CastOrBoxValues(type.typeReference, paramResult, type.typeDefinition);
-                    coder.instructions.Append(paramResult.Instructions);
-                    return fieldAssignCoder;
-                }
-            }
-            // Add parameter, field and variable if required later on
-
-            coder.instructions.Append(coder.processor.Create(OpCodes.Isinst, Builder.Current.Import(type.typeReference)));
+            coder.instructions.Append(coder.processor.Create(OpCodes.Ldfld, fieldAssignCoder.target.fieldRef));
             return fieldAssignCoder;
         }
 
@@ -67,11 +48,12 @@ namespace Cauldron.Interception.Cecilator.Extensions
             var newCoder = coder.NewCoder();
             valueToAssignToField(newCoder);
 
+            // Instance
+            if (!fieldAssignCoder.target.IsStatic)
+                coder.instructions.Append(coder.processor.Create(OpCodes.Ldarg_0));
             // value to assign
             var inst = coder.AddParameter(coder.processor, fieldAssignCoder.TargetType, newCoder); /* This will take care of casting */
             coder.instructions.Append(inst.Instructions);
-            // Instance
-            coder.instructions.Append(coder.AddParameter(coder.processor, null, fieldAssignCoder.target).Instructions);
             // Store
             fieldAssignCoder.StoreCall();
             return coder;
@@ -81,11 +63,12 @@ namespace Cauldron.Interception.Cecilator.Extensions
         {
             var coder = fieldAssignCoder.coder;
 
+            // Instance
+            if (!fieldAssignCoder.target.IsStatic)
+                coder.instructions.Append(coder.processor.Create(OpCodes.Ldarg_0));
             // value to assign
             var inst = coder.AddParameter(coder.processor, fieldAssignCoder.TargetType, value);
             coder.instructions.Append(inst.Instructions);
-            // Instance
-            coder.instructions.Append(coder.AddParameter(coder.processor, null, fieldAssignCoder.target).Instructions);
             // Store
             fieldAssignCoder.StoreCall();
             return coder;

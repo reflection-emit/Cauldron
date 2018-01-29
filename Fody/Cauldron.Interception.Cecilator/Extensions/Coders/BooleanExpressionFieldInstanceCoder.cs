@@ -2,9 +2,9 @@
 
 namespace Cauldron.Interception.Cecilator.Extensions
 {
-    public class BooleanExpressionFieldInstancCoder : BooleanExpressionInstanceCoder<Field>
+    public class BooleanExpressionFieldInstancedCoder : BooleanExpressionInstanceCoder<Field>
     {
-        internal BooleanExpressionFieldInstancCoder(BooleanExpressionCoder coder, Field target) :
+        internal BooleanExpressionFieldInstancedCoder(BooleanExpressionCoder coder, Field target) :
             base(coder.coder, target)
         {
         }

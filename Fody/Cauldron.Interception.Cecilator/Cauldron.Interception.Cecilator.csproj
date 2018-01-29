@@ -81,6 +81,7 @@
     <Compile Include="Extension.cs" />
     <Compile Include="Extensions\BooleanExpression\BooleanExpressionCoderExtensions_Call.cs" />
     <Compile Include="Extensions\BooleanExpression\BooleanExpressionCoderExtensions_Field.cs" />
+    <Compile Include="Extensions\BooleanExpression\BooleanExpressionParameter.cs" />
     <Compile Include="Extensions\Coders\AssignCoder.cs" />
     <Compile Include="Extensions\Coders\BooleanExpressionInstanceCoder.cs" />
     <Compile Include="Extensions\Coders\BooleanExpressionCoder.cs" />

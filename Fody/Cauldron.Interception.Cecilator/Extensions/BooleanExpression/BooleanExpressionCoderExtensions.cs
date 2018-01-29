@@ -127,7 +127,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
             return result;
         }
 
-        public static BooleanExpressionFieldInstancCoder Load(this BooleanExpressionCoder coder, Field value) => new BooleanExpressionFieldInstancCoder(coder, value);
+        public static BooleanExpressionFieldInstancedCoder Load(this BooleanExpressionCoder coder, Field value) => new BooleanExpressionFieldInstancedCoder(coder, value);
 
         public static BooleanExpressionCoder Negate(this BooleanExpressionCoder coder)
         {
@@ -171,7 +171,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
             return coder;
         }
 
-        private static BooleanExpressionResultCoder AreEqualInternalWithoutJump(this ContextCoder coder, BuilderType a, BuilderType b, object valueA, object valueB)
+        private static BooleanExpressionResultCoder AreEqualInternalWithoutJump(this ContextCoder coder, BuilderType a, BuilderType b, BooleanExpressionParameter valueA, BooleanExpressionParameter valueB)
         {
             // TODO - needs to handle Nullables
 

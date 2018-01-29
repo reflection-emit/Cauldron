@@ -37,5 +37,9 @@ namespace Cauldron.Interception.Cecilator.Extensions
         internal BooleanExpressionCoder(BooleanExpressionCallCoder coder) : base(coder.coder, coder.jumpTarget)
         {
         }
+
+        internal BooleanExpressionCoder(BooleanExpressionFieldInstancedCoder coder) : base(coder.coder, coder.jumpTarget)
+        {
+        }
     }
 }

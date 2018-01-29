@@ -237,6 +237,24 @@ namespace Cauldron.Interception.Cecilator.Extensions
                         break;
                     }
 
+                case BooleanExpressionParameter booleanExpressionParameter:
+                    {
+                        var instructions = coder.AddParameter(processor, booleanExpressionParameter.targetType, booleanExpressionParameter.value);
+                        result.Instructions.AddRange(instructions.Instructions);
+
+                        if (booleanExpressionParameter.negate)
+                            result.Instructions.Add(processor.Create(OpCodes.Neg));
+
+                        if (booleanExpressionParameter.invert)
+                        {
+                            result.Instructions.Add(processor.Create(OpCodes.Ldc_I4_0));
+                            result.Instructions.Add(processor.Create(OpCodes.Ceq));
+                        }
+
+                        result.Type = result.Type;
+                    }
+                    break;
+
                 case TypeReference value:
                     result.Instructions.AddRange(processor.TypeOf(value));
                     result.Type = Builder.Current.Import(typeof(Type));
@@ -297,7 +315,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
             }
 
             if (result.Type == null)
-                result.Type = GetTypeOfValueInStack(result.Instructions);
+                result.Type = GetTypeOfValueInStack(result.Instructions, coder.method);
 
             if (result.Type == null || targetType == null || result.Type.FullName == targetType.FullName)
                 return result;
@@ -309,6 +327,8 @@ namespace Cauldron.Interception.Cecilator.Extensions
 
         internal static void CastOrBoxValues(this ILProcessor processor, TypeReference targetType, ParamResult result, TypeDefinition targetDef)
         {
+            // TODO - Support for nullable types required
+
             bool IsInstRequired()
             {
                 if (targetDef.FullName == typeof(string).FullName || result.Type.FullName == typeof(object).FullName || targetDef.IsInterface)
@@ -392,7 +412,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
                 result.Instructions.Add(processor.Create(OpCodes.Castclass, Builder.Current.Import(result.Type)));
         }
 
-        internal static TypeReference GetTypeOfValueInStack(this IEnumerable<Instruction> instructions)
+        internal static TypeReference GetTypeOfValueInStack(this IEnumerable<Instruction> instructions, Method method)
         {
             TypeReference GetTypeOfValueInStack(Instruction ins)
             {
@@ -403,7 +423,10 @@ namespace Cauldron.Interception.Cecilator.Extensions
                     return (ins.Operand as FieldReference).FieldType;
 
                 if (ins.IsLoadLocal())
-                    return (ins.Operand as VariableReference).VariableType;
+                    return method.methodDefinition.GetVariable(ins)?.VariableType;
+
+                if (ins.OpCode == OpCodes.Isinst)
+                    return ins.Operand as TypeReference;
 
                 return null;
             }
@@ -415,7 +438,13 @@ namespace Cauldron.Interception.Cecilator.Extensions
             var result = GetTypeOfValueInStack(instruction);
             var array = instructions.ToArray();
 
-            if (result == null && instruction.IsValueOpCode())
+            if (
+                result == null &&
+                instruction.OpCode != OpCodes.Unbox_Any &&
+                instruction.OpCode != OpCodes.Unbox &&
+                instruction.OpCode != OpCodes.Isinst &&
+                instruction.OpCode != OpCodes.Castclass &&
+                instruction.IsValueOpCode())
             {
                 for (int i = array.Length - 2; i >= 0; i--)
                 {

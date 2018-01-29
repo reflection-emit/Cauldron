@@ -42,31 +42,48 @@ namespace Cauldron.Interception.Cecilator.Extensions
 
         internal CodeBlock ToCodeBlock(BuilderType castToType)
         {
+            if (this.instructions.Count == 0)
+                throw new Exception("Cannot convert to CodeBlock, since this Coder has no instructions in its list.");
+
             if (castToType == null)
                 return new InstructionsCodeBlock(this);
 
-            var lastInstruction = this.instructions.LastOrDefault();
-            if (lastInstruction.IsCallOrNew())
+            InstructionsCodeBlock GetCodeBlockFromLastType(TypeReference typeReference)
             {
-                var lastType = (lastInstruction.Operand as MethodReference)?.ReturnType;
+                if (typeReference == null)
+                    return null;
 
-                if (lastType != null && lastType.FullName == castToType.Fullname)
+                if (typeReference.FullName == castToType.Fullname)
                     return new InstructionsCodeBlock(this);
 
-                if (lastType != null && lastType.IsPrimitive)
+                if (castToType.typeReference.IsPrimitive)
                 {
-                    var paramResult = new ParamResult
-                    {
-                        Type = lastType
-                    };
-
-                    this.processor.CastOrBoxValues(castToType.typeReference, paramResult, castToType.typeDefinition);
-                    this.instructions.Append(paramResult.Instructions);
+                    this.instructions.Append(this.processor.Create(OpCodes.Unbox_Any, Builder.Current.Import(castToType.typeReference)));
                     return new InstructionsCodeBlock(this);
                 }
+
+                if (castToType.typeReference.Resolve().With(x => x.IsInterface || x.IsClass))
+                {
+                    this.instructions.Append(this.processor.Create(OpCodes.Isinst, Builder.Current.Import(castToType.typeReference)));
+                    return new InstructionsCodeBlock(this);
+                }
+
+                var paramResult = new ParamResult
+                {
+                    Type = typeReference
+                };
+
+                this.processor.CastOrBoxValues(castToType.typeReference, paramResult, castToType.typeDefinition);
+                this.instructions.Append(paramResult.Instructions);
+                return new InstructionsCodeBlock(this);
             }
 
-            // Add parameter, field and variable if required later on
+            var result = GetCodeBlockFromLastType(this.instructions.GetTypeOfValueInStack(this.method));
+
+            if (result != null)
+                return result;
+
+            // This can cause exceptions in some cases
             this.instructions.Append(this.processor.Create(OpCodes.Isinst, Builder.Current.Import(castToType.typeReference)));
             return new InstructionsCodeBlock(this);
         }

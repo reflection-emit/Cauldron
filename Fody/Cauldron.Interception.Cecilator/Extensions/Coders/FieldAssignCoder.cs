@@ -5,8 +5,10 @@ namespace Cauldron.Interception.Cecilator.Extensions
 {
     public sealed class FieldAssignCoder : AssignCoder<Field>
     {
+        internal BuilderType castToType = null;
+
         internal FieldAssignCoder(Coder coder, Field target) :
-            base(coder, target)
+                    base(coder, target)
         {
         }
 
@@ -16,6 +18,8 @@ namespace Cauldron.Interception.Cecilator.Extensions
         }
 
         public override TypeReference TargetType => this.target?.fieldRef.FieldType;
+
+        public CodeBlock ToCodeBlock() => this.coder.ToCodeBlock(this.castToType);
 
         internal override void StoreCall()
         {

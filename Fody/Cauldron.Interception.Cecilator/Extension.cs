@@ -494,6 +494,25 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
+        internal static ParameterReference GetParameter(this Method method, Instruction instruction)
+            => method.methodReference.GetParameter(instruction);
+
+        internal static ParameterReference GetParameter(this MethodReference methodReference, Instruction instruction)
+        {
+            var isStatic = methodReference.Resolve().IsStatic;
+
+            if (instruction.OpCode == OpCodes.Ldarg_0)
+                return isStatic ? methodReference.Parameters[0] : null;
+            else if (instruction.OpCode == OpCodes.Ldarg_1)
+                return methodReference.Parameters[isStatic ? 1 : 0];
+            else if (instruction.OpCode == OpCodes.Ldarg_2)
+                return methodReference.Parameters[isStatic ? 2 : 1];
+            else if (instruction.OpCode == OpCodes.Ldarg_3)
+                return methodReference.Parameters[isStatic ? 3 : 2];
+            else
+                return methodReference.Parameters[(int)instruction.Operand];
+        }
+
         internal static string GetStackTrace(this Exception e)
         {
             var sb = new StringBuilder();
@@ -512,6 +531,23 @@ namespace Cauldron.Interception.Cecilator
             } while (ex != null);
 
             return sb.ToString();
+        }
+
+        internal static VariableReference GetVariable(this Method method, Instruction instruction)
+            => method.methodDefinition.GetVariable(instruction);
+
+        internal static VariableReference GetVariable(this MethodDefinition methodDefinition, Instruction instruction)
+        {
+            if (instruction.OpCode == OpCodes.Ldloc_0)
+                return methodDefinition.Body.Variables[0];
+            else if (instruction.OpCode == OpCodes.Ldloc_1)
+                return methodDefinition.Body.Variables[1];
+            else if (instruction.OpCode == OpCodes.Ldloc_2)
+                return methodDefinition.Body.Variables[2];
+            else if (instruction.OpCode == OpCodes.Ldloc_3)
+                return methodDefinition.Body.Variables[3];
+            else
+                return instruction.Operand as VariableReference;
         }
 
         internal static void InsertAfter(this ILProcessor processor, Instruction target, Instruction[] instructions) => processor.InsertAfter(target, instructions as IEnumerable<Instruction>);
@@ -693,6 +729,8 @@ namespace Cauldron.Interception.Cecilator
                 opCode == OpCodes.Ldc_I8 ||
                 opCode == OpCodes.Ldc_R4 ||
                 opCode == OpCodes.Ldc_R8 ||
+                opCode == OpCodes.Unbox_Any ||
+                opCode == OpCodes.Unbox ||
                 opCode == OpCodes.Box;
         }
 

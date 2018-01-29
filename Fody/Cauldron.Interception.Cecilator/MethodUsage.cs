@@ -76,43 +76,13 @@ namespace Cauldron.Interception.Cecilator
               previousInstruction.OpCode == OpCodes.Ldarg_2 ||
               previousInstruction.OpCode == OpCodes.Ldarg_3 ||
               previousInstruction.OpCode == OpCodes.Ldarg_S)
-            {
-                TypeReference parameter;
-
-                if (previousInstruction.OpCode == OpCodes.Ldarg_0)
-                    parameter = this.HostMethod.IsStatic ? this.HostMethod.methodReference.Parameters[0].ParameterType : this.HostMethod.OriginType.typeReference;
-                else if (previousInstruction.OpCode == OpCodes.Ldarg_1)
-                    parameter = this.HostMethod.methodReference.Parameters[this.HostMethod.IsStatic ? 1 : 0].ParameterType;
-                else if (previousInstruction.OpCode == OpCodes.Ldarg_2)
-                    parameter = this.HostMethod.methodReference.Parameters[this.HostMethod.IsStatic ? 2 : 1].ParameterType;
-                else if (previousInstruction.OpCode == OpCodes.Ldarg_3)
-                    parameter = this.HostMethod.methodReference.Parameters[this.HostMethod.IsStatic ? 3 : 2].ParameterType;
-                else
-                    parameter = this.HostMethod.methodReference.Parameters[(int)previousInstruction.Operand].ParameterType;
-
-                declaringType = parameter;
-            }
+                declaringType = this.HostMethod.methodReference.GetParameter(previousInstruction)?.ParameterType ?? this.HostMethod.OriginType.typeReference;
             else if (previousInstruction.OpCode == OpCodes.Ldloc_0 ||
                 previousInstruction.OpCode == OpCodes.Ldloc_1 ||
                 previousInstruction.OpCode == OpCodes.Ldloc_2 ||
                 previousInstruction.OpCode == OpCodes.Ldloc_3 ||
                 previousInstruction.OpCode == OpCodes.Ldloc_S)
-            {
-                VariableReference local;
-
-                if (previousInstruction.OpCode == OpCodes.Ldloc_0)
-                    local = this.HostMethod.methodDefinition.Body.Variables[0];
-                else if (previousInstruction.OpCode == OpCodes.Ldloc_1)
-                    local = this.HostMethod.methodDefinition.Body.Variables[1];
-                else if (previousInstruction.OpCode == OpCodes.Ldloc_2)
-                    local = this.HostMethod.methodDefinition.Body.Variables[2];
-                else if (previousInstruction.OpCode == OpCodes.Ldloc_3)
-                    local = this.HostMethod.methodDefinition.Body.Variables[3];
-                else
-                    local = previousInstruction.Operand as VariableReference;
-
-                declaringType = local.VariableType;
-            }
+                declaringType = this.HostMethod.methodDefinition.GetVariable(previousInstruction)?.VariableType;
             else if (previousInstruction.OpCode == OpCodes.Ldfld || previousInstruction.OpCode == OpCodes.Ldsfld)
             {
                 var field = previousInstruction.Operand as FieldReference;

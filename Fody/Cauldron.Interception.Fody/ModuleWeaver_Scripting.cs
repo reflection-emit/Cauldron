@@ -25,14 +25,20 @@ namespace Cauldron.Interception.Fody
                             Priority = (int)(x.GetField("Priority", BindingFlags.Public | BindingFlags.Static)?.GetValue(null) ?? 0),
                             Name = x.GetField("Name", BindingFlags.Public | BindingFlags.Static)?.GetValue(null) as string ?? x.Name,
                             Implement = x.GetMethods(BindingFlags.Public | BindingFlags.Static)
-                                .FirstOrDefault(y => y.GetParameters().Length == 1 && y.GetParameters()[0].ParameterType == typeof(Builder))
+                                .Where(y => y.GetParameters().Length == 1 && y.GetParameters()[0].ParameterType == typeof(Builder))
+                                .ToArray()
                         })
                         .OrderBy(x => x.Priority))
                 {
                     using (new StopwatchLog(this, script.Name))
                     {
                         this.Log(LogTypes.Info, "++++++ Executing script: " + script.Name + " ++++++");
-                        script.Implement.Invoke(null, new object[] { builder });
+
+                        foreach (var method in script.Implement)
+                        {
+                            this.Log(LogTypes.Info, "-----> Executing method: " + method.Name);
+                            method.Invoke(null, new object[] { builder });
+                        }
                     }
                 }
             }
