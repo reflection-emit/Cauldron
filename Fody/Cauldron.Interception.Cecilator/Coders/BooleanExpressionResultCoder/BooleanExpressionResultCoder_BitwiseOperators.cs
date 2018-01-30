@@ -3,7 +3,7 @@ using System;
 
 namespace Cauldron.Interception.Cecilator.Coders
 {
-    public sealed partial class BooleanExpressionResultCoder
+    public sealed partial class BooleanExpressionResultCoder : IBitwiseOperators<BooleanExpressionResultCoder, BooleanExpressionCoder>
     {
         public BooleanExpressionResultCoder And(Func<BooleanExpressionCoder, BooleanExpressionResultCoder> other)
         {
@@ -32,6 +32,16 @@ namespace Cauldron.Interception.Cecilator.Coders
             this.RemoveJump();
             x.instructions.Append(x.AddParameter(x.processor, Builder.Current.TypeSystem.Boolean, variable).Instructions);
             x.instructions.Append(x.processor.Create(OpCodes.And));
+            return this;
+        }
+
+        public BooleanExpressionResultCoder Invert()
+        {
+            var x = this.coder;
+            var otherCoder = new BooleanExpressionCoder(this.coder);
+            this.RemoveJump();
+            this.coder.instructions.Append(this.coder.processor.Create(OpCodes.Ldc_I4_0));
+            this.coder.instructions.Append(this.coder.processor.Create(OpCodes.Ceq));
             return this;
         }
 

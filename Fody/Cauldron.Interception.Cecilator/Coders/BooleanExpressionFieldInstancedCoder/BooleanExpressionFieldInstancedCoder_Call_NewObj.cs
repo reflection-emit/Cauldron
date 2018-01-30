@@ -9,7 +9,7 @@
         /// <param name="method"></param>
         /// <param name="parameters"></param>
         /// <returns></returns>
-        public new BooleanExpressionCallCoder Call(Method method, params object[] parameters)
-            => new BooleanExpressionCallCoder(this.coder, this.jumpTarget, this.target, method, parameters);
+        public new BooleanExpressionInstanceCallCoder Call(Method method, params object[] parameters)
+            => new BooleanExpressionInstanceCallCoder(this.coder, this.jumpTarget, this.target, method, parameters);
     }
 }

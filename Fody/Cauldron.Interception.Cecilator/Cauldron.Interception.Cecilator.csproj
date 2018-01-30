@@ -88,11 +88,12 @@
     <Compile Include="Coders\BooleanExpressionFieldInstancedCoder\BooleanExpressionFieldInstancedCoder_BitwiseOperators.cs" />
     <Compile Include="Coders\BooleanExpressionFieldInstancedCoder\BooleanExpressionFieldInstancedCoder_Call_NewObj.cs" />
     <Compile Include="Coders\BooleanExpressionFieldInstancedCoder\BooleanExpressionFieldInstancedCoder_RelationalOperators.cs" />
+    <Compile Include="Coders\BooleanExpressionInstanceCallCoder.cs" />
     <Compile Include="Coders\Coder\Coder_Field.cs" />
+    <Compile Include="Coders\IBitwiseOperators.cs" />
     <Compile Include="Coders\IRelationalOperators.cs" />
     <Compile Include="Coders\BooleanExpressionResultCoder\BooleanExpressionResultCoder_BitwiseOperators.cs" />
     <Compile Include="Coders\BooleanExpressionResultCoder\BooleanExpressionResultCoder_LogicalOperators.cs" />
-    <Compile Include="Coders\BooleanExpressionResultCoder\BooleanExpressionResultCoder_Math.cs" />
     <Compile Include="Crumb.cs" />
     <Compile Include="CustomAttributeEqualityComparer.cs" />
     <Compile Include="Extension.cs" />
