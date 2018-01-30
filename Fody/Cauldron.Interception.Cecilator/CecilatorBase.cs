@@ -1,4 +1,5 @@
-﻿using Cauldron.Interception.Cecilator.Extensions;
+﻿using Cauldron.Interception.Cecilator.Coders;
+using Cauldron.Interception.Cecilator.Extensions;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
 using System;
@@ -97,7 +98,7 @@ namespace Cauldron.Interception.Cecilator
             this.Log("-----------------------------------------------------------------------------");
             WeaverBase.AllTypes = this.allTypes;
 
-            this.Identification = Extensions.Coder.GenerateName();
+            this.Identification = Coder.GenerateName();
         }
 
         internal CecilatorBase(CecilatorBase builderBase)
@@ -109,7 +110,7 @@ namespace Cauldron.Interception.Cecilator
             this.allTypes = builderBase.allTypes;
             this.ResourceNames = builderBase.ResourceNames;
 
-            this.Identification = Extensions.Coder.GenerateName();
+            this.Identification = Coder.GenerateName();
         }
 
         public virtual string Identification { get; private set; }

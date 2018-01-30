@@ -1,6 +1,6 @@
 ﻿using Mono.Cecil;
 
-namespace Cauldron.Interception.Cecilator.Extensions
+namespace Cauldron.Interception.Cecilator.Coders
 {
     internal class BooleanExpressionParameter
     {

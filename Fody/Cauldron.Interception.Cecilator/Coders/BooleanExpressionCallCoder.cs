@@ -1,8 +1,10 @@
-﻿using Mono.Cecil.Cil;
+﻿using Cauldron.Interception.Cecilator.Extensions;
+using Mono.Cecil.Cil;
+using System;
 
-namespace Cauldron.Interception.Cecilator.Extensions
+namespace Cauldron.Interception.Cecilator.Coders
 {
-    public class BooleanExpressionCallCoder : ContextCoder
+    public partial class BooleanExpressionCallCoder : ContextCoder
     {
         internal readonly Method calledMethod;
         internal readonly object instance;
@@ -21,25 +23,6 @@ namespace Cauldron.Interception.Cecilator.Extensions
             this.parameters = parameters;
             this.calledMethod = calledMethod;
             this.instance = instance;
-        }
-    }
-
-    public class BooleanExpressionCoder : ContextCoder
-    {
-        internal BooleanExpressionCoder(Coder coder) : base(coder)
-        {
-        }
-
-        internal BooleanExpressionCoder(Coder coder, Instruction jumpTarget) : base(coder, jumpTarget)
-        {
-        }
-
-        internal BooleanExpressionCoder(BooleanExpressionCallCoder coder) : base(coder.coder, coder.jumpTarget)
-        {
-        }
-
-        internal BooleanExpressionCoder(BooleanExpressionFieldInstancedCoder coder) : base(coder.coder, coder.jumpTarget)
-        {
         }
     }
 }

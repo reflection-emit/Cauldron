@@ -1,8 +1,8 @@
 ﻿using Mono.Cecil;
 
-namespace Cauldron.Interception.Cecilator.Extensions
+namespace Cauldron.Interception.Cecilator.Coders
 {
-    public class BooleanExpressionFieldInstancedCoder : BooleanExpressionInstanceCoder<Field>
+    public partial class BooleanExpressionFieldInstancedCoder : BooleanExpressionInstanceCoder<Field>
     {
         internal BooleanExpressionFieldInstancedCoder(BooleanExpressionCoder coder, Field target) :
             base(coder.coder, target)

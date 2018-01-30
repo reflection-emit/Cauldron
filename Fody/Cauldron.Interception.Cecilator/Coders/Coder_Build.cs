@@ -1,54 +1,55 @@
-﻿using Mono.Cecil;
+﻿using Cauldron.Interception.Cecilator.Extensions;
+using Mono.Cecil;
 using Mono.Cecil.Cil;
 using Mono.Cecil.Rocks;
 using System;
 using System.Linq;
 
-namespace Cauldron.Interception.Cecilator.Extensions
+namespace Cauldron.Interception.Cecilator.Coders
 {
-    public static class BuildCoderExtensions
+    public partial class Coder
     {
         /// <summary>
         /// Replaces the current methods body with the <see cref="Instruction"/>s in the <see cref="Coder"/>'s instruction set.
         /// </summary>
         /// <param name="coder"></param>
-        public static void Replace(this Coder coder)
+        public void Replace()
         {
             // Special case for .ctors
-            if (coder.method.IsCtor && coder.method.methodDefinition.Body?.Instructions != null && coder.method.methodDefinition.Body.Instructions.Count > 0)
+            if (this.method.IsCtor && this.method.methodDefinition.Body?.Instructions != null && this.method.methodDefinition.Body.Instructions.Count > 0)
             {
-                var first = coder.method.methodDefinition.Body.Instructions.FirstOrDefault(x => x.OpCode == OpCodes.Call && (x.Operand as MethodReference).Name == ".ctor");
+                var first = this.method.methodDefinition.Body.Instructions.FirstOrDefault(x => x.OpCode == OpCodes.Call && (x.Operand as MethodReference).Name == ".ctor");
                 if (first == null)
-                    throw new NullReferenceException($"The constructor of type '{coder.method.OriginType}' seems to have no call to base class.");
+                    throw new NullReferenceException($"The constructor of type '{this.method.OriginType}' seems to have no call to base class.");
 
                 // In ctors we only replace the instructions after base call
-                var callsBeforeBase = coder.method.methodDefinition.Body.Instructions.TakeWhile(x => x != first).ToList();
+                var callsBeforeBase = this.method.methodDefinition.Body.Instructions.TakeWhile(x => x != first).ToList();
                 callsBeforeBase.Add(first);
 
-                coder.method.methodDefinition.Body.Instructions.Clear();
-                coder.method.methodDefinition.Body.ExceptionHandlers.Clear();
+                this.method.methodDefinition.Body.Instructions.Clear();
+                this.method.methodDefinition.Body.ExceptionHandlers.Clear();
 
-                coder.processor.Append(callsBeforeBase);
-                coder.processor.Append(coder.instructions);
+                this.processor.Append(callsBeforeBase);
+                this.processor.Append(this.instructions);
             }
             else
             {
-                coder.method.methodDefinition.Body.Instructions.Clear();
-                coder.method.methodDefinition.Body.ExceptionHandlers.Clear();
+                this.method.methodDefinition.Body.Instructions.Clear();
+                this.method.methodDefinition.Body.ExceptionHandlers.Clear();
 
-                coder.processor.Append(coder.instructions);
+                this.processor.Append(this.instructions);
             }
 
-            foreach (var item in coder.instructions.ExceptionHandlers)
-                coder.processor.Body.ExceptionHandlers.Add(item);
+            foreach (var item in this.instructions.ExceptionHandlers)
+                this.processor.Body.ExceptionHandlers.Add(item);
 
-            ReplaceReturns(coder);
+            ReplaceReturns(this);
 
-            // TODO: Add a method that removes unused variables coder.CleanLocalVariableList();
-            coder.method.methodDefinition.Body.InitLocals = coder.method.methodDefinition.Body.Variables.Count > 0;
+            // TODO: Add a method that removes unused variables this.CleanLocalVariableList();
+            this.method.methodDefinition.Body.InitLocals = this.method.methodDefinition.Body.Variables.Count > 0;
 
-            coder.method.methodDefinition.Body.OptimizeMacros();
-            coder.instructions.Clear();
+            this.method.methodDefinition.Body.OptimizeMacros();
+            this.instructions.Clear();
         }
 
         private static void ReplaceJumps(Method method, Instruction tobeReplaced, Instruction replacement)

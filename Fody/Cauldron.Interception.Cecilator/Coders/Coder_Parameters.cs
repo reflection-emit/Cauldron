@@ -1,15 +1,15 @@
-﻿using Mono.Cecil;
+﻿using Cauldron.Interception.Cecilator.Extensions;
+using Mono.Cecil;
 using Mono.Cecil.Cil;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Cauldron.Interception.Cecilator.Extensions
+namespace Cauldron.Interception.Cecilator.Coders
 {
-    public static class ParameterCoderExtensions
+    public partial class Coder
     {
-        internal static ParamResult AddParameter(this Coder coder, ILProcessor processor, TypeReference targetType, object parameter)
+        internal ParamResult AddParameter(ILProcessor processor, TypeReference targetType, object parameter)
         {
             var result = new ParamResult();
             var targetDef = targetType?.Resolve();
@@ -164,8 +164,8 @@ namespace Cauldron.Interception.Cecilator.Extensions
                 case ExceptionCodeBlock exceptionCodeBlock:
                     {
                         var variable = char.IsNumber(exceptionCodeBlock.name, 0) ?
-                            coder.method.methodDefinition.Body.Variables[int.Parse(exceptionCodeBlock.name)] :
-                            coder.method.GetLocalVariable(exceptionCodeBlock.name);
+                            this.method.methodDefinition.Body.Variables[int.Parse(exceptionCodeBlock.name)] :
+                            this.method.GetLocalVariable(exceptionCodeBlock.name);
 
                         result.Instructions.Add(processor.Create(OpCodes.Ldloc, variable));
                         result.Type = Builder.Current.Import(variable.VariableType);
@@ -174,17 +174,17 @@ namespace Cauldron.Interception.Cecilator.Extensions
                 case ParametersCodeBlock parametersCodeBlock:
                     if (parametersCodeBlock.index.HasValue)
                     {
-                        if (coder.method.methodDefinition.Parameters.Count == 0)
-                            throw new ArgumentException($"The method {coder.method.Name} does not have any parameters");
+                        if (this.method.methodDefinition.Parameters.Count == 0)
+                            throw new ArgumentException($"The method {this.method.Name} does not have any parameters");
 
-                        result.Instructions.Add(processor.Create(OpCodes.Ldarg, coder.method.IsStatic ? parametersCodeBlock.index.Value : parametersCodeBlock.index.Value + 1));
-                        result.Type = Builder.Current.Import(coder.method.methodDefinition.Parameters[parametersCodeBlock.index.Value].ParameterType);
+                        result.Instructions.Add(processor.Create(OpCodes.Ldarg, this.method.IsStatic ? parametersCodeBlock.index.Value : parametersCodeBlock.index.Value + 1));
+                        result.Type = Builder.Current.Import(this.method.methodDefinition.Parameters[parametersCodeBlock.index.Value].ParameterType);
                     }
                     else
                     {
                         var variable = char.IsNumber(parametersCodeBlock.name, 0) ?
-                            coder.method.methodDefinition.Body.Variables[int.Parse(parametersCodeBlock.name)] :
-                            coder.method.GetLocalVariable(parametersCodeBlock.name);
+                            this.method.methodDefinition.Body.Variables[int.Parse(parametersCodeBlock.name)] :
+                            this.method.GetLocalVariable(parametersCodeBlock.name);
 
                         result.Instructions.Add(processor.Create(OpCodes.Ldloc, variable));
                         result.Type = Builder.Current.Import(variable.VariableType);
@@ -192,13 +192,13 @@ namespace Cauldron.Interception.Cecilator.Extensions
                     break;
 
                 case ThisCodeBlock thisCodeBlock:
-                    result.Instructions.Add(processor.Create(coder.method.IsStatic ? OpCodes.Ldnull : OpCodes.Ldarg_0));
-                    result.Type = coder.method.OriginType.typeReference;
+                    result.Instructions.Add(processor.Create(this.method.IsStatic ? OpCodes.Ldnull : OpCodes.Ldarg_0));
+                    result.Type = this.method.OriginType.typeReference;
                     break;
 
                 case InitObjCodeBlock initObjCodeBlock:
                     {
-                        var variable = coder.CreateVariable(initObjCodeBlock.typeReference);
+                        var variable = this.CreateVariable(initObjCodeBlock.typeReference);
                         result.Instructions.Add(processor.Create(OpCodes.Ldloca, variable.variable));
                         result.Instructions.Add(processor.Create(OpCodes.Initobj, initObjCodeBlock.typeReference));
                         result.Instructions.Add(processor.Create(OpCodes.Ldloc, variable.variable));
@@ -207,21 +207,21 @@ namespace Cauldron.Interception.Cecilator.Extensions
                     }
                 case DefaultTaskCodeBlock defaultTaskCodeBlock:
                     {
-                        var taskType = coder.method.type.Builder.GetType("System.Threading.Tasks.Task");
+                        var taskType = this.method.type.Builder.GetType("System.Threading.Tasks.Task");
                         var resultFrom = taskType.GetMethod("FromResult", 1, true).MakeGeneric(typeof(int));
-                        var code = coder.NewCoder().Call(resultFrom, 0);
+                        var code = this.NewCoder().Call(resultFrom, 0);
 
                         result.Instructions.AddRange(code.instructions);
-                        result.Type = coder.method.ReturnType.typeReference;
+                        result.Type = this.method.ReturnType.typeReference;
                         break;
                     }
 
                 case DefaultTaskOfTCodeBlock defaultTaskOfTCodeBlock:
                     {
-                        var returnType = coder.method.ReturnType.GetGenericArgument(0);
-                        var taskType = coder.method.type.Builder.GetType("System.Threading.Tasks.Task");
+                        var returnType = this.method.ReturnType.GetGenericArgument(0);
+                        var taskType = this.method.type.Builder.GetType("System.Threading.Tasks.Task");
                         var resultFrom = taskType.GetMethod("FromResult", 1, true).MakeGeneric(returnType);
-                        var code = coder.NewCoder().Call(resultFrom, returnType.DefaultValue);
+                        var code = this.NewCoder().Call(resultFrom, returnType.DefaultValue);
 
                         result.Instructions.AddRange(code.instructions);
                         result.Type = returnType.typeReference;
@@ -230,7 +230,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
 
                 case InstructionsCodeBlock instructionsCodeBlock:
                     {
-                        if (object.ReferenceEquals(instructionsCodeBlock.instructions, coder.instructions))
+                        if (object.ReferenceEquals(instructionsCodeBlock.instructions, this.instructions))
                             throw new NotSupportedException("Nope... Not gonna work... Use NewCoder() if you want to pass an instructions set as parameters.");
 
                         result.Instructions.AddRange(instructionsCodeBlock.instructions);
@@ -239,7 +239,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
 
                 case BooleanExpressionParameter booleanExpressionParameter:
                     {
-                        var instructions = coder.AddParameter(processor, booleanExpressionParameter.targetType, booleanExpressionParameter.value);
+                        var instructions = this.AddParameter(processor, booleanExpressionParameter.targetType, booleanExpressionParameter.value);
                         result.Instructions.AddRange(instructions.Instructions);
 
                         if (booleanExpressionParameter.negate)
@@ -268,10 +268,10 @@ namespace Cauldron.Interception.Cecilator.Extensions
                 case Method method:
                     if (targetType.FullName == typeof(IntPtr).FullName)
                     {
-                        if (!method.IsStatic && method.OriginType != coder.method.OriginType && coder.method.OriginType.IsAsyncStateMachine)
+                        if (!method.IsStatic && method.OriginType != this.method.OriginType && this.method.OriginType.IsAsyncStateMachine)
                         {
-                            var instance = coder.method.AsyncMethodHelper.Instance;
-                            var inst = coder.AddParameter(processor, targetType, instance);
+                            var instance = this.method.AsyncMethodHelper.Instance;
+                            var inst = this.AddParameter(processor, targetType, instance);
                             result.Instructions.AddRange(inst.Instructions);
                         }
                         else
@@ -311,152 +311,16 @@ namespace Cauldron.Interception.Cecilator.Extensions
                     break;
 
                 default:
-                    throw new NotImplementedException();
+                    throw new NotImplementedException($"Unknown type: {parameter.GetType().FullName}");
             }
 
             if (result.Type == null)
-                result.Type = GetTypeOfValueInStack(result.Instructions, coder.method);
+                result.Type = result.Instructions.GetTypeOfValueInStack(this.method);
 
             if (result.Type == null || targetType == null || result.Type.FullName == targetType.FullName)
                 return result;
 
             processor.CastOrBoxValues(targetType, result, targetDef);
-
-            return result;
-        }
-
-        internal static void CastOrBoxValues(this ILProcessor processor, TypeReference targetType, ParamResult result, TypeDefinition targetDef)
-        {
-            // TODO - Support for nullable types required
-
-            bool IsInstRequired()
-            {
-                if (targetDef.FullName == typeof(string).FullName || result.Type.FullName == typeof(object).FullName || targetDef.IsInterface)
-                    return true;
-
-                if (targetType.IsValueType)
-                    return false;
-
-                if (targetType.IsArray)
-                    return false;
-
-                if (targetDef.FullName.StartsWith("System.Collections.Generic.IEnumerable`1"))
-                    return false;
-
-                return false;
-            }
-
-            // TODO - adds additional checks for not resolved generics
-            if (targetDef == null && result.Type.Resolve() != null) /* This happens if the target type is a generic */ result.Instructions.Add(processor.Create(OpCodes.Unbox_Any, targetType));
-            else if (IsInstRequired()) result.Instructions.Add(processor.Create(OpCodes.Isinst, Builder.Current.Import(targetType)));
-            else if (targetDef.IsEnum)
-            {
-                if (result.Type.FullName == typeof(string).FullName)
-                {
-                    result.Instructions.InsertRange(0, processor.TypeOf(targetType));
-
-                    result.Instructions.AddRange(processor.TypeOf(Builder.Current.Import(targetType)));
-                    result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Enum)).GetMethodReference("GetUnderlyingType", new Type[] { typeof(Type) }))));
-                    result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Convert)).GetMethodReference("ChangeType", new Type[] { typeof(object), typeof(Type) }))));
-                    result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Enum)).GetMethodReference("ToObject", new Type[] { typeof(Type), typeof(object) }))));
-                    result.Instructions.Add(processor.Create(OpCodes.Unbox_Any, targetType));
-                }
-                else
-                    result.Instructions.Add(processor.Create(OpCodes.Unbox_Any, targetType));
-
-                // Bug #23
-                //result.Instructions.InsertRange(0, this.TypeOf(processor, targetType));
-
-                //result.Instructions.AddRange(this.TypeOf(processor, Builder.Current.Import(targetType)));
-                //result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Enum)).GetMethodReference("GetUnderlyingType", new Type[] { typeof(Type) }))));
-                //result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Convert)).GetMethodReference("ChangeType", new Type[] { typeof(object), typeof(Type) }))));
-                //result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Enum)).GetMethodReference("ToObject", new Type[] { typeof(Type), typeof(object) }))));
-            }
-            else if (result.Type.FullName == typeof(object).FullName && (targetType.IsArray || targetDef.FullName.StartsWith("System.Collections.Generic.IEnumerable`1")))
-            {
-                var childType = Builder.Current.GetChildrenType(targetType);
-                var castMethod = Builder.Current.Import(Builder.Current.Import(typeof(System.Linq.Enumerable)).GetMethodReference("Cast", new Type[] { typeof(IEnumerable) }).MakeGeneric(null, childType));
-                var toArrayMethod = Builder.Current.Import(Builder.Current.Import(typeof(System.Linq.Enumerable)).GetMethodReference("ToArray", 1).MakeGeneric(null, childType));
-
-                result.Instructions.Add(processor.Create(OpCodes.Isinst, Builder.Current.Import(typeof(IEnumerable))));
-                result.Instructions.Add(processor.Create(OpCodes.Call, castMethod));
-
-                if (targetType.IsArray)
-                    result.Instructions.Add(processor.Create(OpCodes.Call, toArrayMethod));
-            }
-            else if ((result.Type.FullName == typeof(object).FullName && targetDef.IsValueType) || (result.Type != targetType && result.Type.IsPrimitive && targetType.IsPrimitive))
-            {
-                if (targetDef.FullName == typeof(int).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Convert)).GetMethodReference("ToInt32", new TypeReference[] { result.Type }))));
-                else if (targetDef.FullName == typeof(uint).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Convert)).GetMethodReference("ToUInt32", new TypeReference[] { result.Type }))));
-                else if (targetDef.FullName == typeof(bool).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Convert)).GetMethodReference("ToBoolean", new TypeReference[] { result.Type }))));
-                else if (targetDef.FullName == typeof(byte).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Convert)).GetMethodReference("ToByte", new TypeReference[] { result.Type }))));
-                else if (targetDef.FullName == typeof(char).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Convert)).GetMethodReference("ToChar", new TypeReference[] { result.Type }))));
-                else if (targetDef.FullName == typeof(DateTime).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Convert)).GetMethodReference("ToDateTime", new TypeReference[] { result.Type }))));
-                else if (targetDef.FullName == typeof(decimal).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Convert)).GetMethodReference("ToDecimal", new TypeReference[] { result.Type }))));
-                else if (targetDef.FullName == typeof(double).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Convert)).GetMethodReference("ToDouble", new TypeReference[] { result.Type }))));
-                else if (targetDef.FullName == typeof(short).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Convert)).GetMethodReference("ToInt16", new TypeReference[] { result.Type }))));
-                else if (targetDef.FullName == typeof(long).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Convert)).GetMethodReference("ToInt64", new TypeReference[] { result.Type }))));
-                else if (targetDef.FullName == typeof(sbyte).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Convert)).GetMethodReference("ToSByte", new TypeReference[] { result.Type }))));
-                else if (targetDef.FullName == typeof(float).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Convert)).GetMethodReference("ToSingle", new TypeReference[] { result.Type }))));
-                else if (targetDef.FullName == typeof(ushort).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Convert)).GetMethodReference("ToUInt16", new TypeReference[] { result.Type }))));
-                else if (targetDef.FullName == typeof(ulong).FullName) result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Convert)).GetMethodReference("ToUInt64", new TypeReference[] { result.Type }))));
-                else result.Instructions.Add(processor.Create(OpCodes.Unbox_Any, targetType));
-            }
-            else if ((result.Type.Resolve() == null || result.Type.IsValueType) && !targetType.IsValueType)
-                result.Instructions.Add(processor.Create(OpCodes.Box, result.Type));
-            else if (result.Instructions.Last().OpCode != OpCodes.Ldnull && targetType.FullName == "System.Object")
-            {
-                // Nope nothing....
-            }
-            else if (result.Instructions.Last().OpCode != OpCodes.Ldnull && targetType.FullName != result.Type.FullName && targetType.AreReferenceAssignable(Builder.Current.Import(result.Type)))
-                result.Instructions.Add(processor.Create(OpCodes.Castclass, Builder.Current.Import(result.Type)));
-        }
-
-        internal static TypeReference GetTypeOfValueInStack(this IEnumerable<Instruction> instructions, Method method)
-        {
-            TypeReference GetTypeOfValueInStack(Instruction ins)
-            {
-                if (ins.IsCallOrNew())
-                    return (ins.Operand as MethodReference).ReturnType.With(x => x == Builder.Current.TypeSystem.Void ? null : x);
-
-                if (ins.IsLoadField())
-                    return (ins.Operand as FieldReference).FieldType;
-
-                if (ins.IsLoadLocal())
-                    return method.methodDefinition.GetVariable(ins)?.VariableType;
-
-                if (ins.OpCode == OpCodes.Isinst)
-                    return ins.Operand as TypeReference;
-
-                return null;
-            }
-
-            if (instructions == null || !instructions.Any())
-                return null;
-
-            var instruction = instructions.Last();
-            var result = GetTypeOfValueInStack(instruction);
-            var array = instructions.ToArray();
-
-            if (
-                result == null &&
-                instruction.OpCode != OpCodes.Unbox_Any &&
-                instruction.OpCode != OpCodes.Unbox &&
-                instruction.OpCode != OpCodes.Isinst &&
-                instruction.OpCode != OpCodes.Castclass &&
-                instruction.IsValueOpCode())
-            {
-                for (int i = array.Length - 2; i >= 0; i--)
-                {
-                    if (!array[i].IsValueOpCode())
-                        break;
-
-                    result = GetTypeOfValueInStack(array[i]);
-
-                    if (result != null)
-                        return result;
-                }
-            }
 
             return result;
         }

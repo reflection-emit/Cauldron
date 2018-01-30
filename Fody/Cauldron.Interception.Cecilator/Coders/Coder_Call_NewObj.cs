@@ -1,31 +1,32 @@
-﻿using Mono.Cecil.Cil;
+﻿using Cauldron.Interception.Cecilator.Extensions;
+using Mono.Cecil.Cil;
 using System;
 
-namespace Cauldron.Interception.Cecilator.Extensions
+namespace Cauldron.Interception.Cecilator.Coders
 {
-    public static class CallNewObjCoderExtensions
+    public partial class Coder
     {
-        public static Coder Call(this Coder coder, Method method, params object[] parameters) => CallInternal(coder, null, method, OpCodes.Call, parameters);
+        public Coder Call(Method method, params object[] parameters) => CallInternal(null, method, OpCodes.Call, parameters);
 
-        public static Coder NewObj(this Coder coder, Method method, params object[] parameters) => CallInternal(coder, null, method, OpCodes.Newobj, parameters);
+        public Coder NewObj(Method method, params object[] parameters) => CallInternal(null, method, OpCodes.Newobj, parameters);
 
-        internal static Coder CallInternal(this Coder coder, object instance, Method method, OpCode opcode, params object[] parameters)
+        internal Coder CallInternal(object instance, Method method, OpCode opcode, params object[] parameters)
         {
             if (instance != null)
-                coder.instructions.Append(coder.AddParameter(coder.processor, null, instance).Instructions);
+                this.instructions.Append(this.AddParameter(this.processor, null, instance).Instructions);
 
             if (parameters != null && parameters.Length > 0 && parameters[0] is ArrayCodeBlock arrayCodeSet)
             {
                 var methodParameters = method.methodDefinition.Parameters;
                 for (int i = 0; i < methodParameters.Count; i++)
                 {
-                    coder.instructions.Append(coder.AddParameter(coder.processor, null, arrayCodeSet).Instructions);
-                    coder.instructions.Append(coder.AddParameter(coder.processor, null, i).Instructions);
-                    coder.instructions.Append(coder.processor.Create(OpCodes.Ldelem_Ref));
+                    this.instructions.Append(this.AddParameter(this.processor, null, arrayCodeSet).Instructions);
+                    this.instructions.Append(this.AddParameter(this.processor, null, i).Instructions);
+                    this.instructions.Append(this.processor.Create(OpCodes.Ldelem_Ref));
 
                     var paramResult = new ParamResult { Type = Builder.Current.TypeSystem.Object };
-                    coder.processor.CastOrBoxValues(methodParameters[i].ParameterType, paramResult, methodParameters[i].ParameterType.Resolve());
-                    coder.instructions.Append(paramResult.Instructions);
+                    this.processor.CastOrBoxValues(methodParameters[i].ParameterType, paramResult, methodParameters[i].ParameterType.Resolve());
+                    this.instructions.Append(paramResult.Instructions);
                 }
             }
             else if (parameters != null && parameters.Length > 0 && parameters[0] is ParametersCodeBlock parameterCodeSet && parameterCodeSet.IsAllParameters)
@@ -39,8 +40,8 @@ namespace Cauldron.Interception.Cecilator.Extensions
                         method.methodDefinition.Parameters[i].ParameterType.ResolveType(method.OriginType.typeReference, method.methodReference) :
                         method.methodDefinition.Parameters[i].ParameterType;
 
-                    var inst = coder.AddParameter(coder.processor, Builder.Current.Import(parameterType), CodeBlocks.GetParameter(i));
-                    coder.instructions.Append(inst.Instructions);
+                    var inst = this.AddParameter(this.processor, Builder.Current.Import(parameterType), CodeBlocks.GetParameter(i));
+                    this.instructions.Append(inst.Instructions);
                 }
             }
             else
@@ -55,21 +56,21 @@ namespace Cauldron.Interception.Cecilator.Extensions
                             method.methodDefinition.Parameters[i].ParameterType.ResolveType(method.OriginType.typeReference, method.methodReference) :
                             method.methodDefinition.Parameters[i].ParameterType;
 
-                        var inst = coder.AddParameter(coder.processor, Builder.Current.Import(parameterType), parameters[i]);
-                        coder.instructions.Append(inst.Instructions);
+                        var inst = this.AddParameter(this.processor, Builder.Current.Import(parameterType), parameters[i]);
+                        this.instructions.Append(inst.Instructions);
                     }
             }
 
             try
             {
-                coder.instructions.Append(coder.processor.Create(opcode, Builder.Current.Import(method.methodReference)));
+                this.instructions.Append(this.processor.Create(opcode, Builder.Current.Import(method.methodReference)));
             }
             catch (NullReferenceException)
             {
-                coder.instructions.Append(coder.processor.Create(opcode, Builder.Current.Import(method.methodReference, coder.method.methodReference)));
+                this.instructions.Append(this.processor.Create(opcode, Builder.Current.Import(method.methodReference, this.method.methodReference)));
             }
 
-            return coder;
+            return this;
         }
     }
 }

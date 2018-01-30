@@ -1,13 +1,14 @@
-﻿using Mono.Cecil;
+﻿using Cauldron.Interception.Cecilator.Extensions;
+using Mono.Cecil;
 using Mono.Cecil.Cil;
 using Mono.Cecil.Rocks;
 using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace Cauldron.Interception.Cecilator.Extensions
+namespace Cauldron.Interception.Cecilator.Coders
 {
-    public sealed class Coder
+    public sealed partial class Coder
     {
         public const string ReturnVariableName = "<>returnValue";
         public const string VariablePrefix = "<>var_";

@@ -16,6 +16,7 @@ namespace Win32_Cecilator_Scriptable
         private static Field testField2 = null;
         private static Field testField3 = null;
         private static Field testField4 = null;
+        private static Field testField5 = null;
         private static BuilderType testType = null;
 
         static IfElseTests()
@@ -30,6 +31,51 @@ namespace Win32_Cecilator_Scriptable
             testField2 = testType.CreateField(Modifiers.Internal, typeof(int), "testIntField_2");
             testField3 = testType.CreateField(Modifiers.Internal, typeof(object), "testIntField_3");
             testField4 = testType.CreateField(Modifiers.Internal, typeof(bool), "testIntField_4");
+            testField5 = testType.CreateField(Modifiers.Internal, testType, "testIntField_5");
+        }
+
+        public static void If_Field_Call_Bool(Builder builder)
+        {
+            var name = nameof(If_Field_Call_Bool);
+
+            var method = testType.CreateMethod(Modifiers.Public, name, Type.EmptyTypes);
+            method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
+
+            var methodToBeCalled = testType.CreateMethod(Modifiers.Internal, typeof(int), name + "_TestMethod", Type.EmptyTypes);
+            methodToBeCalled.NewCoder()
+                .Load(33)
+                .Return()
+                .Replace();
+
+            method.NewCoder()
+                .Load(testField5).Set(x => x.NewObj(testType.ParameterlessContructor))
+                .If(x => x.Load(testField5).Call(methodToBeCalled).EqualsTo(33),
+                    x => x.Call(assertIsTrue, true),
+                    x => x.Call(assertIsTrue, false))
+                .Return()
+                .Replace();
+        }
+
+        public static void If_Field_Call_Int(Builder builder)
+        {
+            var name = nameof(If_Field_Call_Int);
+
+            var method = testType.CreateMethod(Modifiers.Public, name, Type.EmptyTypes);
+            method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
+
+            var methodToBeCalled = testType.CreateMethod(Modifiers.Internal, typeof(bool), name + "_TestMethod", Type.EmptyTypes);
+            methodToBeCalled.NewCoder()
+                .Load(true)
+                .Return()
+                .Replace();
+
+            method.NewCoder()
+                .Load(testField5).Set(x => x.NewObj(testType.ParameterlessContructor))
+                .If(x => x.Load(testField5).Call(methodToBeCalled).IsTrue(),
+                    x => x.Call(assertIsTrue, true),
+                    x => x.Call(assertIsTrue, false))
+                .Return()
+                .Replace();
         }
 
         public static void If_Field_Equal_Not_Equal(Builder builder)

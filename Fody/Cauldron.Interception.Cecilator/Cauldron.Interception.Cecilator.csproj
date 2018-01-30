@@ -76,31 +76,47 @@
     <Compile Include="BuilderTypeEqualityComparer.cs" />
     <Compile Include="CecilatorBase.cs" />
     <Compile Include="CecilatorObject.cs" />
+    <Compile Include="Coders\BooleanExpressionCallCoder.cs" />
+    <Compile Include="Coders\BooleanExpressionCallCoder_BitwiseOperators.cs" />
+    <Compile Include="Coders\BooleanExpressionCallCoder_Call_NewObj.cs" />
+    <Compile Include="Coders\BooleanExpressionCallCoder_Casting.cs" />
+    <Compile Include="Coders\BooleanExpressionCallCoder_Math.cs" />
+    <Compile Include="Coders\BooleanExpressionCallCoder_RelationalOperators.cs" />
+    <Compile Include="Coders\BooleanExpressionCoder_Call_NewObj.cs" />
+    <Compile Include="Coders\BooleanExpressionCoder_Field.cs" />
+    <Compile Include="Coders\BooleanExpressionCoder_Math.cs" />
+    <Compile Include="Coders\BooleanExpressionFieldInstancedCoder_BitwiseOperators.cs" />
+    <Compile Include="Coders\BooleanExpressionFieldInstancedCoder_Call_NewObj.cs" />
+    <Compile Include="Coders\BooleanExpressionFieldInstancedCoder_RelationalOperators.cs" />
+    <Compile Include="Coders\Coder_Field.cs" />
+    <Compile Include="Coders\IRelationalOperators.cs" />
+    <Compile Include="Coders\Results\BooleanExpressionResultCoder_BitwiseOperators.cs" />
+    <Compile Include="Coders\Results\BooleanExpressionResultCoder_LogicalOperators.cs" />
+    <Compile Include="Coders\Results\BooleanExpressionResultCoder_Math.cs" />
     <Compile Include="Crumb.cs" />
     <Compile Include="CustomAttributeEqualityComparer.cs" />
     <Compile Include="Extension.cs" />
-    <Compile Include="Extensions\BooleanExpression\BooleanExpressionCoderExtensions_Call.cs" />
-    <Compile Include="Extensions\BooleanExpression\BooleanExpressionCoderExtensions_Field.cs" />
-    <Compile Include="Extensions\BooleanExpression\BooleanExpressionParameter.cs" />
-    <Compile Include="Extensions\Coders\AssignCoder.cs" />
-    <Compile Include="Extensions\Coders\BooleanExpressionInstanceCoder.cs" />
-    <Compile Include="Extensions\Coders\BooleanExpressionCoder.cs" />
-    <Compile Include="Extensions\BooleanExpression\BooleanExpressionCoderExtensions.cs" />
-    <Compile Include="Extensions\Coders\BooleanExpressionResultCoder.cs" />
-    <Compile Include="Extensions\BuildCoderExtensions.cs" />
-    <Compile Include="Extensions\Coders\BooleanExpressionFieldInstanceCoder.cs" />
-    <Compile Include="Extensions\Coders\Coder.cs" />
-    <Compile Include="Extensions\CodeBlock.cs" />
-    <Compile Include="Extensions\Coders\ContextCoder.cs" />
+    <Compile Include="Coders\BooleanExpressionFieldInstancedCoder_Math.cs" />
+    <Compile Include="Coders\BooleanExpressionParameter.cs" />
+    <Compile Include="Coders\AssignCoder.cs" />
+    <Compile Include="Coders\BooleanExpressionInstanceCoder.cs" />
+    <Compile Include="Coders\BooleanExpressionCoder.cs" />
+    <Compile Include="Coders\BooleanExpressionCoder_RelationalOperators.cs" />
+    <Compile Include="Coders\Results\BooleanExpressionResultCoder.cs" />
+    <Compile Include="Coders\Coder_Build.cs" />
+    <Compile Include="Coders\BooleanExpressionFieldInstancedCoder.cs" />
+    <Compile Include="Coders\Coder.cs" />
+    <Compile Include="Coders\CodeBlock.cs" />
+    <Compile Include="Coders\ContextCoder.cs" />
+    <Compile Include="Extensions\CastingExtensions.cs" />
     <Compile Include="Extensions\Extensions.cs" />
-    <Compile Include="Extensions\Coders\FieldAssignCoder.cs" />
-    <Compile Include="Extensions\FieldExtensions.cs" />
-    <Compile Include="Extensions\Coders\LocalVariableAssignCoder.cs" />
-    <Compile Include="Extensions\LocalVariableCoderExtensions.cs" />
-    <Compile Include="Extensions\MethodBodyCoderExtensions.cs" />
-    <Compile Include="Extensions\CallNewObjCoderExtensions.cs" />
-    <Compile Include="Extensions\ParameterCoderExtensions.cs" />
-    <Compile Include="Extensions\StatementCoderExtensions.cs" />
+    <Compile Include="Coders\FieldAssignCoder.cs" />
+    <Compile Include="Coders\FieldAssignCoder_Field.cs" />
+    <Compile Include="Coders\LocalVariableAssignCoder.cs" />
+    <Compile Include="Coders\Coder_MethodBody.cs" />
+    <Compile Include="Coders\Coder_Call_NewObj.cs" />
+    <Compile Include="Coders\Coder_Parameters.cs" />
+    <Compile Include="Coders\Coder_Statement.cs" />
     <Compile Include="Field.cs" />
     <Compile Include="FieldCollection.cs" />
     <Compile Include="FieldInstructionsSet.cs" />
@@ -146,6 +162,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

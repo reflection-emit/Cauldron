@@ -1,4 +1,5 @@
-﻿using Cauldron.Interception.Cecilator.Extensions;
+﻿using Cauldron.Interception.Cecilator.Coders;
+using Cauldron.Interception.Cecilator.Extensions;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
 using Mono.Cecil.Rocks;

@@ -1,88 +1,68 @@
-﻿using Mono.Cecil.Cil;
+﻿using Cauldron.Interception.Cecilator.Extensions;
+using Mono.Cecil.Cil;
 using System;
 
-namespace Cauldron.Interception.Cecilator.Extensions
+namespace Cauldron.Interception.Cecilator.Coders
 {
-    public static partial class BooleanExpressionCoderExtensions
+    public partial class BooleanExpressionCallCoder : IRelationalOperators<BooleanExpressionResultCoder, BooleanExpressionCoder, BooleanExpressionCallCoder>
     {
-        public static BooleanExpressionCallCoder As(this BooleanExpressionCallCoder coder, BuilderType type)
-        {
-            coder.castToType = type;
-            return coder;
-        }
-
-        public static BooleanExpressionCallCoder Call(this BooleanExpressionCallCoder coder, Method method, params object[] parameters)
-        {
-            var instance = coder.coder.NewCoder().CallInternal(coder.instance, coder.calledMethod, OpCodes.Call, coder.parameters).ToCodeBlock(coder.castToType);
-            return new BooleanExpressionCallCoder(coder.coder, coder.jumpTarget, instance, method, parameters);
-        }
-
-        public static BooleanExpressionResultCoder EqualsTo(this BooleanExpressionCallCoder coder, object value)
+        public BooleanExpressionResultCoder EqualsTo(object value)
         {
             if (value == null)
                 throw new ArgumentNullException(nameof(value));
 
-            return EqualsToInternal(coder, value, false);
+            return EqualsToInternal(this, value, false);
         }
 
-        public static BooleanExpressionResultCoder EqualsTo(this BooleanExpressionCallCoder coder, Func<BooleanExpressionCoder, BooleanExpressionCallCoder> call)
-            => EqualsToInternal(coder, call, false);
+        public BooleanExpressionResultCoder EqualsTo(Func<BooleanExpressionCoder, BooleanExpressionCallCoder> call)
+            => EqualsToInternal(this, call, false);
 
-        public static BooleanExpressionResultCoder EqualsTo(this BooleanExpressionCallCoder coder, Field field) => EqualsToInternal(coder, field, false);
+        public BooleanExpressionResultCoder EqualsTo(Field field) => EqualsToInternal(this, field, false);
 
-        public static BooleanExpressionCoder Invert(this BooleanExpressionCallCoder coder)
+        public BooleanExpressionResultCoder Is(Type type)
         {
-            coder.coder.CallInternal(coder.instance, coder.calledMethod, OpCodes.Call, coder.parameters);
-            coder.coder.instructions.Append(coder.coder.processor.Create(OpCodes.Ldc_I4_0));
-            coder.coder.instructions.Append(coder.coder.processor.Create(OpCodes.Ceq));
-            return new BooleanExpressionCoder(coder);
-        }
-
-        public static BooleanExpressionResultCoder Is(this BooleanExpressionCallCoder coder, Type type)
-        {
-            coder.coder.CallInternal(coder.instance, coder.calledMethod, OpCodes.Call, coder.parameters);
+            this.coder.CallInternal(this.instance, this.calledMethod, OpCodes.Call, this.parameters);
             return new BooleanExpressionCoder(coder).Is(type);
         }
 
-        public static BooleanExpressionResultCoder IsFalse(this BooleanExpressionCallCoder coder)
+        public BooleanExpressionResultCoder Is(BuilderType type)
         {
-            coder.coder.CallInternal(coder.instance, coder.calledMethod, OpCodes.Call, coder.parameters);
+            this.coder.CallInternal(this.instance, this.calledMethod, OpCodes.Call, this.parameters);
+            return new BooleanExpressionCoder(coder).Is(type);
+        }
+
+        public BooleanExpressionResultCoder IsFalse()
+        {
+            this.coder.CallInternal(this.instance, this.calledMethod, OpCodes.Call, this.parameters);
             return new BooleanExpressionCoder(coder).IsFalse();
         }
 
-        public static BooleanExpressionResultCoder IsNotNull(this BooleanExpressionCallCoder coder)
+        public BooleanExpressionResultCoder IsNotNull()
         {
-            coder.coder.CallInternal(coder.instance, coder.calledMethod, OpCodes.Call, coder.parameters);
+            this.coder.CallInternal(this.instance, this.calledMethod, OpCodes.Call, this.parameters);
             return new BooleanExpressionCoder(coder).IsNotNull();
         }
 
-        public static BooleanExpressionResultCoder IsNull(this BooleanExpressionCallCoder coder)
+        public BooleanExpressionResultCoder IsNull()
         {
-            coder.coder.CallInternal(coder.instance, coder.calledMethod, OpCodes.Call, coder.parameters);
+            this.coder.CallInternal(this.instance, this.calledMethod, OpCodes.Call, this.parameters);
             return new BooleanExpressionCoder(coder).IsNull();
         }
 
-        public static BooleanExpressionResultCoder IsTrue(this BooleanExpressionCallCoder coder)
+        public BooleanExpressionResultCoder IsTrue()
         {
-            coder.coder.CallInternal(coder.instance, coder.calledMethod, OpCodes.Call, coder.parameters);
+            this.coder.CallInternal(this.instance, this.calledMethod, OpCodes.Call, this.parameters);
             return new BooleanExpressionCoder(coder).IsTrue();
         }
 
-        public static BooleanExpressionCoder Negate(this BooleanExpressionCallCoder coder)
-        {
-            coder.coder.CallInternal(coder.instance, coder.calledMethod, OpCodes.Call, coder.parameters);
-            coder.coder.instructions.Append(coder.coder.processor.Create(OpCodes.Neg));
-            return new BooleanExpressionCoder(coder);
-        }
+        public BooleanExpressionResultCoder NotEqualsTo(Field field) => EqualsToInternal(this, field, true);
 
-        public static BooleanExpressionResultCoder NotEqualsTo(this BooleanExpressionCallCoder coder, Field field) => EqualsToInternal(coder, field, true);
-
-        public static BooleanExpressionResultCoder NotEqualsTo(this BooleanExpressionCallCoder coder, object value)
+        public BooleanExpressionResultCoder NotEqualsTo(object value)
         {
             if (value == null)
                 throw new ArgumentNullException(nameof(value));
 
-            return EqualsToInternal(coder, value, true);
+            return EqualsToInternal(this, value, true);
         }
 
         private static BooleanExpressionResultCoder EqualsToInternal(

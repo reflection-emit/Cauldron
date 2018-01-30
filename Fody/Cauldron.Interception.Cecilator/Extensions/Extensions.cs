@@ -1,4 +1,5 @@
-﻿using Mono.Cecil;
+﻿using Cauldron.Interception.Cecilator.Coders;
+using Mono.Cecil;
 using Mono.Cecil.Cil;
 using System;
 using System.Collections.Generic;
@@ -90,6 +91,55 @@ namespace Cauldron.Interception.Cecilator.Extensions
                         typeof(Type).GetTypeDefinition()
                             .Methods.FirstOrDefault(x=>x.Name == "GetTypeFromHandle" && x.Parameters.Count == 1)))
             };
+        }
+
+        internal static TypeReference GetTypeOfValueInStack(this IEnumerable<Instruction> instructions, Method method)
+        {
+            TypeReference GetTypeOfValueInStack(Instruction ins)
+            {
+                if (ins.IsCallOrNew())
+                    return (ins.Operand as MethodReference).ReturnType.With(x => x == Builder.Current.TypeSystem.Void ? null : x);
+
+                if (ins.IsLoadField())
+                    return (ins.Operand as FieldReference).FieldType;
+
+                if (ins.IsLoadLocal())
+                    return method.methodDefinition.GetVariable(ins)?.VariableType;
+
+                if (ins.OpCode == OpCodes.Isinst)
+                    return ins.Operand as TypeReference;
+
+                return null;
+            }
+
+            if (instructions == null || !instructions.Any())
+                return null;
+
+            var instruction = instructions.Last();
+            var result = GetTypeOfValueInStack(instruction);
+            var array = instructions.ToArray();
+
+            if (
+                result == null &&
+                instruction.OpCode != OpCodes.Unbox_Any &&
+                instruction.OpCode != OpCodes.Unbox &&
+                instruction.OpCode != OpCodes.Isinst &&
+                instruction.OpCode != OpCodes.Castclass &&
+                instruction.IsValueOpCode())
+            {
+                for (int i = array.Length - 2; i >= 0; i--)
+                {
+                    if (!array[i].IsValueOpCode())
+                        break;
+
+                    result = GetTypeOfValueInStack(array[i]);
+
+                    if (result != null)
+                        return result;
+                }
+            }
+
+            return result;
         }
     }
 }
