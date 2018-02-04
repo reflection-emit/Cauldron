@@ -6,6 +6,10 @@
 
         public LocalVariableAssignCoder Load(LocalVariable localVariable) => new LocalVariableAssignCoder(this, localVariable);
 
+        public ArgAssignCoder LoadArg(string argname) => new ArgAssignCoder(this, CodeBlocks.GetParameter(argname));
+
+        public ArgAssignCoder LoadArg(int argIndex) => new ArgAssignCoder(this, CodeBlocks.GetParameter(argIndex));
+
         public FieldAssignCoder LoadField(string fieldname) => this.Load(this.instructions.associatedMethod.DeclaringType.GetField(fieldname));
 
         public LocalVariableAssignCoder LoadVariable(BuilderType variableType, string variableName) =>

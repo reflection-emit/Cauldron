@@ -90,6 +90,8 @@
     <None Include="Coders\BooleanExpressionFieldInstancedCoder\BooleanExpressionFieldInstancedCoder_RelationalOperators.cs" />
     <None Include="Coders\BooleanExpressionFieldInstancedCoder\BooleanExpressionFieldInstancedCoder_Casting.cs" />
     <None Include="Coders\BooleanExpressionInstanceCallCoder.cs" />
+    <Compile Include="Coders\ArgCoder\ArgAssignCoder.cs" />
+    <Compile Include="Coders\ArgCoder\ArgContextCoder.cs" />
     <Compile Include="Coders\CallCoder\CallContextCoder.cs" />
     <Compile Include="Coders\Coder\Coder_FieldVariableArgs.cs" />
     <Compile Include="Coders\ContextCoder.cs" />
@@ -101,7 +103,7 @@
     <None Include="Coders\IRelationalOperators.cs" />
     <None Include="Coders\BooleanExpressionResultCoder\BooleanExpressionResultCoder_BitwiseOperators.cs" />
     <None Include="Coders\BooleanExpressionResultCoder\BooleanExpressionResultCoder_LogicalOperators.cs" />
-    <Compile Include="Coders\LocalVariableAssignCoder\LocalVariableContextCoder.cs" />
+    <Compile Include="Coders\LocalVariableCoder\LocalVariableContextCoder.cs" />
     <Compile Include="Crumb.cs" />
     <Compile Include="CustomAttributeEqualityComparer.cs" />
     <Compile Include="Extension.cs" />
@@ -118,7 +120,7 @@
     <None Include="Coders\BooleanExpressionContextCoder.cs" />
     <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="Coders\FieldCoder\FieldAssignCoder.cs" />
-    <Compile Include="Coders\LocalVariableAssignCoder\LocalVariableAssignCoder.cs" />
+    <Compile Include="Coders\LocalVariableCoder\LocalVariableAssignCoder.cs" />
     <Compile Include="Coders\Coder\Coder_MethodBody.cs" />
     <Compile Include="Coders\Coder\Coder_Call_NewObj.cs" />
     <Compile Include="Coders\Coder\Coder_Parameters.cs" />

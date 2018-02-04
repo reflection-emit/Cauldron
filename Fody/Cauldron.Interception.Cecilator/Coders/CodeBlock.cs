@@ -1,4 +1,6 @@
 ﻿using Mono.Cecil;
+using System;
+using System.Linq;
 
 namespace Cauldron.Interception.Cecilator.Coders
 {
@@ -104,6 +106,35 @@ namespace Cauldron.Interception.Cecilator.Coders
         }
 
         public bool IsAllParameters => !this.index.HasValue && string.IsNullOrEmpty(this.name);
+
+        public Tuple<BuilderType, int> GetTargetType(Coder coder) => this.GetTargetType(coder.instructions.associatedMethod);
+
+        public Tuple<BuilderType, int> GetTargetType(Method method)
+        {
+            if (this.IsAllParameters || method == null)
+                return null;
+
+            if (method.methodDefinition.Parameters.Count == 0)
+                throw new ArgumentException($"The method {method.Name} does not have any parameters");
+
+            if (this.index.HasValue)
+
+                return new Tuple<BuilderType, int>(
+                    method.methodDefinition.Parameters[this.index.Value].ParameterType.ToBuilderType().Import(),
+                    method.IsStatic ? this.index.Value : this.index.Value + 1
+                    );
+            else
+            {
+                for (int i = 0; i < method.Parameters.Length; i++)
+                    if (method.Parameters[i].Name == name)
+                        return new Tuple<BuilderType, int>(
+                            method.methodReference.Parameters[i].ParameterType.ToBuilderType().Import(),
+                            method.IsStatic ? i : i + 1
+                            );
+            }
+
+            return null;
+        }
 
         public CodeBlock UnPacked(int arrayIndex = 0) => new ArrayCodeBlock { index = arrayIndex };
     }

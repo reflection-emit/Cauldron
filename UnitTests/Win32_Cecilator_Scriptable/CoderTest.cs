@@ -34,6 +34,34 @@ namespace Win32_Cecilator_Scriptable
             testField5 = testType.CreateField(Modifiers.Internal, testType, "testIntField_5");
         }
 
+        public static void Arg_NewObj(Builder builder)
+        {
+            var name = nameof(Arg_NewObj);
+
+            var method = testType.CreateMethod(Modifiers.Public, name, Type.EmptyTypes);
+            method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
+
+            var otherMethod = testType.CreateMethod(Modifiers.Private, typeof(int), name + "_TestMethod", Type.EmptyTypes);
+            otherMethod.NewCoder()
+                .Load(10)
+                    .Return()
+                    .Replace();
+
+            var fieldMethod = testType.CreateMethod(Modifiers.Private, typeof(int), name + "_TestMethod", typeof(object));
+            fieldMethod.NewCoder()
+                .LoadArg(0).Set(x => x.NewObj(testType.ParameterlessContructor))
+                .Load(testField3).Set(x => x.LoadArg(0))
+                .Call(assertAreEqual.MakeGeneric(testType), x => x.LoadArg(0), x => x.Load(testField3))
+                .LoadArg(0).As(testType).Call(otherMethod)
+                    .Return()
+                    .Replace();
+
+            method.NewCoder()
+                .Call(assertAreEqual.MakeGeneric(typeof(int)), x => 10, x => x.Call(fieldMethod, y => y.NewObj(testType.ParameterlessContructor)))
+                    .Return()
+                    .Replace();
+        }
+
         public static void Field_As_Call(Builder builder)
         {
             var name = nameof(Field_As_Call);

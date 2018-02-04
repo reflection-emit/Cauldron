@@ -8,9 +8,7 @@ namespace Cauldron.Interception.Cecilator.Coders
     {
         internal readonly LocalVariable target;
 
-        internal LocalVariableContextCoder(Coder coder, LocalVariable variable) : base(coder, true) => this.target = variable;
-
-        internal LocalVariableContextCoder(Coder coder, bool autoAddThisInstance, LocalVariable variable) : base(coder, autoAddThisInstance) => this.target = variable;
+        internal LocalVariableContextCoder(Coder coder, LocalVariable variable) : base(coder, false) => this.target = variable;
 
         public CallContextCoder Call(Method method) => this.Call(method, new object[0]);
 

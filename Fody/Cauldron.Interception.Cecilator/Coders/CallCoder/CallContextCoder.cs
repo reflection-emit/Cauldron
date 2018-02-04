@@ -29,5 +29,11 @@
             this.coder.instructions.Append(InstructionBlock.Call(this.coder, null, this.methodToCall, this.parameters));
             return new FieldAssignCoder(this.coder, field);
         }
+
+        public Coder Return()
+        {
+            this.coder.instructions.Append(InstructionBlock.Call(this.coder, null, this.methodToCall, this.parameters));
+            return coder.Return();
+        }
     }
 }

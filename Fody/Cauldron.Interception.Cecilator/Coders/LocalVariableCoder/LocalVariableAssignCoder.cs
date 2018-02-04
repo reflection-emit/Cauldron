@@ -10,11 +10,7 @@ namespace Cauldron.Interception.Cecilator.Coders
         {
         }
 
-        internal LocalVariableAssignCoder(LocalVariableAssignCoder coder, LocalVariable target) : base(coder.coder, coder.autoAddThisInstance, target)
-        {
-        }
-
-        internal LocalVariableAssignCoder(Coder coder, bool autoAddThisInstance, LocalVariable target) : base(coder, autoAddThisInstance, target)
+        internal LocalVariableAssignCoder(LocalVariableAssignCoder coder, LocalVariable target) : base(coder.coder, target)
         {
         }
 
@@ -23,7 +19,7 @@ namespace Cauldron.Interception.Cecilator.Coders
         public LocalVariableContextCoder As(BuilderType type)
         {
             this.coder.instructions.Append(InstructionBlock.CreateCode(this.coder, type, this.target));
-            return new LocalVariableContextCoder(this.coder, false, null);
+            return new LocalVariableContextCoder(this.coder, null);
         }
 
         public Coder Set(object value)

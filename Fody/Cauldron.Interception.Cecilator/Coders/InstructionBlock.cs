@@ -257,24 +257,20 @@ namespace Cauldron.Interception.Cecilator.Coders
                         break;
                     }
                 case ParametersCodeBlock parametersCodeBlock:
-                    if (parametersCodeBlock.index.HasValue)
                     {
-                        if (instructionBlock.associatedMethod.methodDefinition.Parameters.Count == 0)
-                            throw new ArgumentException($"The method {instructionBlock.associatedMethod.Name} does not have any parameters");
-
-                        result.Emit(OpCodes.Ldarg, instructionBlock.associatedMethod.IsStatic ? parametersCodeBlock.index.Value : parametersCodeBlock.index.Value + 1);
-                        result.ResultingType = instructionBlock.builder.Import(instructionBlock.associatedMethod.methodDefinition.Parameters[parametersCodeBlock.index.Value].ParameterType);
+                        var parameterInfos = parametersCodeBlock.GetTargetType(instructionBlock.associatedMethod);
+                        result.Emit(OpCodes.Ldarg, parameterInfos.Item2);
+                        result.ResultingType = parameterInfos.Item1.typeReference;
+                        break;
                     }
-                    else
+
+                case ArgAssignCoder argAssignCoder:
                     {
-                        var variable = char.IsNumber(parametersCodeBlock.name, 0) ?
-                            instructionBlock.associatedMethod.methodDefinition.Body.Variables[int.Parse(parametersCodeBlock.name)] :
-                            instructionBlock.associatedMethod.GetVariable(parametersCodeBlock.name);
-
-                        result.Emit(OpCodes.Ldloc, variable);
-                        result.ResultingType = instructionBlock.builder.Import(variable.VariableType);
+                        var parameterInfos = argAssignCoder.target.GetTargetType(instructionBlock.associatedMethod);
+                        result.Emit(OpCodes.Ldarg, parameterInfos.Item2);
+                        result.ResultingType = parameterInfos.Item1.typeReference;
+                        break;
                     }
-                    break;
 
                 case ThisCodeBlock thisCodeBlock:
                     result.Emit(instructionBlock.associatedMethod.IsStatic ? OpCodes.Ldnull : OpCodes.Ldarg_0);
