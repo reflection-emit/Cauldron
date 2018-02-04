@@ -16,39 +16,41 @@ namespace Cauldron.Interception.Cecilator.Coders
         public void Replace()
         {
             // Special case for .ctors
-            if (this.method.IsCtor && this.method.methodDefinition.Body?.Instructions != null && this.method.methodDefinition.Body.Instructions.Count > 0)
+            if (this.instructions.associatedMethod.IsCtor &&
+                this.instructions.associatedMethod.methodDefinition.Body?.Instructions != null &&
+                this.instructions.associatedMethod.methodDefinition.Body.Instructions.Count > 0)
             {
-                var first = this.method.methodDefinition.Body.Instructions.FirstOrDefault(x => x.OpCode == OpCodes.Call && (x.Operand as MethodReference).Name == ".ctor");
+                var first = this.instructions.associatedMethod.methodDefinition.Body.Instructions.FirstOrDefault(x => x.OpCode == OpCodes.Call && (x.Operand as MethodReference).Name == ".ctor");
                 if (first == null)
-                    throw new NullReferenceException($"The constructor of type '{this.method.OriginType}' seems to have no call to base class.");
+                    throw new NullReferenceException($"The constructor of type '{this.instructions.associatedMethod.OriginType}' seems to have no call to base class.");
 
                 // In ctors we only replace the instructions after base call
-                var callsBeforeBase = this.method.methodDefinition.Body.Instructions.TakeWhile(x => x != first).ToList();
+                var callsBeforeBase = this.instructions.associatedMethod.methodDefinition.Body.Instructions.TakeWhile(x => x != first).ToList();
                 callsBeforeBase.Add(first);
 
-                this.method.methodDefinition.Body.Instructions.Clear();
-                this.method.methodDefinition.Body.ExceptionHandlers.Clear();
+                this.instructions.associatedMethod.methodDefinition.Body.Instructions.Clear();
+                this.instructions.associatedMethod.methodDefinition.Body.ExceptionHandlers.Clear();
 
-                this.processor.Append(callsBeforeBase);
-                this.processor.Append(this.instructions);
+                this.instructions.ilprocessor.Append(callsBeforeBase);
+                this.instructions.ilprocessor.Append(this.instructions.instructions);
             }
             else
             {
-                this.method.methodDefinition.Body.Instructions.Clear();
-                this.method.methodDefinition.Body.ExceptionHandlers.Clear();
+                this.instructions.associatedMethod.methodDefinition.Body.Instructions.Clear();
+                this.instructions.associatedMethod.methodDefinition.Body.ExceptionHandlers.Clear();
 
-                this.processor.Append(this.instructions);
+                this.instructions.ilprocessor.Append(this.instructions.instructions);
             }
 
-            foreach (var item in this.instructions.ExceptionHandlers)
-                this.processor.Body.ExceptionHandlers.Add(item);
+            foreach (var item in this.instructions.exceptionHandlers)
+                this.instructions.ilprocessor.Body.ExceptionHandlers.Add(item);
 
             ReplaceReturns(this);
 
             // TODO: Add a method that removes unused variables this.CleanLocalVariableList();
-            this.method.methodDefinition.Body.InitLocals = this.method.methodDefinition.Body.Variables.Count > 0;
+            this.instructions.associatedMethod.methodDefinition.Body.InitLocals = this.instructions.associatedMethod.methodDefinition.Body.Variables.Count > 0;
 
-            this.method.methodDefinition.Body.OptimizeMacros();
+            this.instructions.associatedMethod.methodDefinition.Body.OptimizeMacros();
             this.instructions.Clear();
         }
 
@@ -88,34 +90,36 @@ namespace Cauldron.Interception.Cecilator.Coders
             if (coder.instructions.Count == 0)
                 return;
 
-            if (coder.method.IsAbstract)
+            if (coder.instructions.associatedMethod.IsAbstract)
                 throw new NotSupportedException("Interceptors does not support abstract methods.");
 
-            if (coder.method.IsVoid || coder.instructions.LastOrDefault().OpCode != OpCodes.Ret)
+            if (coder.instructions.associatedMethod.IsVoid || coder.instructions.instructions.LastOrDefault().OpCode != OpCodes.Ret)
             {
-                var realReturn = coder.method.methodDefinition.Body.Instructions.Last();
+                var realReturn = coder.instructions.associatedMethod.methodDefinition.Body.Instructions.Last();
 
-                for (var i = 0; i < coder.method.methodDefinition.Body.Instructions.Count - 1; i++)
+                for (var i = 0; i < coder.instructions.associatedMethod.methodDefinition.Body.Instructions.Count - 1; i++)
                 {
-                    var instruction = coder.method.methodDefinition.Body.Instructions[i];
+                    var instruction = coder.instructions.associatedMethod.methodDefinition.Body.Instructions[i];
 
                     if (instruction.OpCode != OpCodes.Ret)
                         continue;
 
-                    instruction.OpCode = coder.method.IsInclosedInHandlers(instruction) ? OpCodes.Leave : OpCodes.Br;
+                    instruction.OpCode = coder.instructions.associatedMethod.IsInclosedInHandlers(instruction) ? OpCodes.Leave : OpCodes.Br;
                     instruction.Operand = realReturn;
                 }
             }
             else
             {
-                var realReturn = coder.method.methodDefinition.Body.Instructions.Last();
+                var realReturn = coder.instructions.associatedMethod.methodDefinition.Body.Instructions.Last();
                 var resultJump = false;
 
                 if (!realReturn.Previous.IsValueOpCode() && realReturn.Previous.OpCode != OpCodes.Ldnull)
                 {
                     resultJump = true;
                     //this.processor.InsertBefore(realReturn, this.processor.Create(OpCodes.Ldloc, returnVariable));
-                    coder.processor.InsertBefore(realReturn, coder.AddParameter(coder.processor, coder.method.ReturnType.typeReference, coder.GetOrCreateReturnVariable()).Instructions);
+                    coder.instructions.ilprocessor.InsertBefore(realReturn,
+                        InstructionBlock.CreateCode(coder.instructions, coder.instructions.associatedMethod.ReturnType, coder.GetOrCreateReturnVariable())
+                            .instructions);
 
                     realReturn = realReturn.Previous;
                 }
@@ -130,19 +134,20 @@ namespace Cauldron.Interception.Cecilator.Coders
                 else
                     realReturn = realReturn.Previous;
 
-                for (var i = 0; i < coder.method.methodDefinition.Body.Instructions.Count - 1; i++)
+                for (var i = 0; i < coder.instructions.associatedMethod.methodDefinition.Body.Instructions.Count - 1; i++)
                 {
-                    var instruction = coder.method.methodDefinition.Body.Instructions[i];
+                    var instruction = coder.instructions.associatedMethod.methodDefinition.Body.Instructions[i];
 
                     if (instruction.OpCode != OpCodes.Ret)
                         continue;
 
-                    if (coder.method.IsInclosedInHandlers(instruction))
+                    if (coder.instructions.associatedMethod.IsInclosedInHandlers(instruction))
                     {
                         instruction.OpCode = OpCodes.Leave;
                         instruction.Operand = realReturn;
 
-                        if (coder.method.methodDefinition.ReturnType.FullName == "System.Void" || coder.method.methodDefinition.ReturnType.FullName == "System.Threading.Task")
+                        if (coder.instructions.associatedMethod.methodDefinition.ReturnType.FullName == "System.Void" ||
+                            coder.instructions.associatedMethod.methodDefinition.ReturnType.FullName == "System.Threading.Task")
                             continue;
 
                         if (resultJump)
@@ -161,11 +166,11 @@ namespace Cauldron.Interception.Cecilator.Coders
                                     (returnVariable == previousInstruction.Operand as VariableDefinition)
                                     )
                                 {
-                                    ReplaceJumps(coder.method, previousInstruction, instruction);
+                                    ReplaceJumps(coder.instructions.associatedMethod, previousInstruction, instruction);
 
                                     // In this case also remove the redundant ldloc opcode
                                     i--;
-                                    coder.method.methodDefinition.Body.Instructions.Remove(previousInstruction);
+                                    coder.instructions.associatedMethod.methodDefinition.Body.Instructions.Remove(previousInstruction);
                                     continue;
                                 }
                             }
@@ -183,7 +188,7 @@ namespace Cauldron.Interception.Cecilator.Coders
                                     continue; // Just continue and do not add an additional store opcode
                             }
 
-                            coder.processor.InsertBefore(instruction, coder.processor.Create(OpCodes.Stloc, returnVariable));
+                            coder.instructions.ilprocessor.InsertBefore(instruction, coder.instructions.ilprocessor.Create(OpCodes.Stloc, returnVariable));
                         }
                     }
                 }

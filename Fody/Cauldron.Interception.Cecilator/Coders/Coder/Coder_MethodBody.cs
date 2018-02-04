@@ -18,15 +18,15 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         public LocalVariable CreateVariable(string name, BuilderType type)
         {
-            var existingVariable = this.method.GetLocalVariable(name);
+            var existingVariable = this.instructions.associatedMethod.GetVariable(name);
 
             if (existingVariable != null)
-                return new LocalVariable(this.method.type, existingVariable, name);
+                return new LocalVariable(this.instructions.associatedMethod.type, existingVariable, name);
 
             var newVariable = new VariableDefinition(Builder.Current.Import(type.typeReference));
-            this.method.AddLocalVariable(name, newVariable);
+            this.instructions.associatedMethod.AddLocalVariable(name, newVariable);
 
-            return new LocalVariable(this.method.type, newVariable, name);
+            return new LocalVariable(this.instructions.associatedMethod.type, newVariable, name);
         }
 
         public LocalVariable CreateVariable(Type type)
@@ -34,8 +34,8 @@ namespace Cauldron.Interception.Cecilator.Coders
             var newVariable = new VariableDefinition(Builder.Current.Import(type.GetTypeDefinition()));
             var name = Coder.VariablePrefix + Coder.GenerateName();
 
-            this.method.AddLocalVariable(name, newVariable);
-            return new LocalVariable(this.method.type, newVariable, name);
+            this.instructions.associatedMethod.AddLocalVariable(name, newVariable);
+            return new LocalVariable(this.instructions.associatedMethod.type, newVariable, name);
         }
 
         public LocalVariable CreateVariable(Method method)
@@ -51,8 +51,8 @@ namespace Cauldron.Interception.Cecilator.Coders
             var newVariable = new VariableDefinition(Builder.Current.Import(type));
             var name = Coder.VariablePrefix + Coder.GenerateName();
 
-            this.method.AddLocalVariable(name, newVariable);
-            return new LocalVariable(this.method.type, newVariable, name);
+            this.instructions.associatedMethod.AddLocalVariable(name, newVariable);
+            return new LocalVariable(this.instructions.associatedMethod.type, newVariable, name);
         }
 
         public LocalVariable CreateVariable(BuilderType type)
@@ -60,8 +60,8 @@ namespace Cauldron.Interception.Cecilator.Coders
             var newVariable = new VariableDefinition(Builder.Current.Import(type.typeReference));
             var name = Coder.VariablePrefix + Coder.GenerateName();
 
-            this.method.AddLocalVariable(name, newVariable);
-            return new LocalVariable(this.method.type, newVariable, name);
+            this.instructions.associatedMethod.AddLocalVariable(name, newVariable);
+            return new LocalVariable(this.instructions.associatedMethod.type, newVariable, name);
         }
 
         /// <summary>
@@ -72,51 +72,50 @@ namespace Cauldron.Interception.Cecilator.Coders
         /// <returns>A return variable.</returns>
         public VariableDefinition GetOrCreateReturnVariable()
         {
-            var variable = this.method.GetLocalVariable(Coder.ReturnVariableName);
+            var variable = this.instructions.associatedMethod.GetVariable(Coder.ReturnVariableName);
 
             if (variable != null)
                 return variable;
 
-            if (this.method.methodDefinition.Body.Instructions.Count > 1)
+            if (this.instructions.associatedMethod.methodDefinition.Body.Instructions.Count > 1)
             {
-                var lastOpCode = this.method.methodDefinition.Body.Instructions.Last().Previous;
+                var lastOpCode = this.instructions.associatedMethod.methodDefinition.Body.Instructions.Last().Previous;
 
                 if (lastOpCode.IsLoadLocal())
                 {
-                    if (lastOpCode.Operand is int index && this.method.methodDefinition.Body.Variables.Count > index)
-                        variable = this.method.methodDefinition.Body.Variables[index];
+                    if (lastOpCode.Operand is int index && this.instructions.associatedMethod.methodDefinition.Body.Variables.Count > index)
+                        variable = this.instructions.associatedMethod.methodDefinition.Body.Variables[index];
 
                     if (variable == null && lastOpCode.Operand is VariableDefinition variableReference)
                         variable = variableReference;
 
                     if (variable == null)
-                        if (lastOpCode.OpCode == OpCodes.Ldloc_0) variable = this.method.methodDefinition.Body.Variables[0];
-                        else if (lastOpCode.OpCode == OpCodes.Ldloc_1) variable = this.method.methodDefinition.Body.Variables[1];
-                        else if (lastOpCode.OpCode == OpCodes.Ldloc_2) variable = this.method.methodDefinition.Body.Variables[2];
-                        else if (lastOpCode.OpCode == OpCodes.Ldloc_3) variable = this.method.methodDefinition.Body.Variables[3];
+                        if (lastOpCode.OpCode == OpCodes.Ldloc_0) variable = this.instructions.associatedMethod.methodDefinition.Body.Variables[0];
+                        else if (lastOpCode.OpCode == OpCodes.Ldloc_1) variable = this.instructions.associatedMethod.methodDefinition.Body.Variables[1];
+                        else if (lastOpCode.OpCode == OpCodes.Ldloc_2) variable = this.instructions.associatedMethod.methodDefinition.Body.Variables[2];
+                        else if (lastOpCode.OpCode == OpCodes.Ldloc_3) variable = this.instructions.associatedMethod.methodDefinition.Body.Variables[3];
 
                     if (variable != null)
                     {
-                        this.method.AddLocalVariable(Coder.ReturnVariableName, variable);
+                        this.instructions.associatedMethod.AddLocalVariable(Coder.ReturnVariableName, variable);
                         return variable;
                     }
                 }
             }
 
-            return this.method.AddLocalVariable(Coder.ReturnVariableName, new VariableDefinition(this.method.ReturnType.typeReference));
+            return this.instructions.associatedMethod.AddLocalVariable(Coder.ReturnVariableName, new VariableDefinition(this.instructions.associatedMethod.ReturnType.typeReference));
         }
 
-        public bool HasReturnVariable() => this.method.GetLocalVariable(Coder.ReturnVariableName) != null;
+        public bool HasReturnVariable() => this.instructions.associatedMethod.GetVariable(Coder.ReturnVariableName) != null;
 
         public Coder Load(object value)
         {
-            var inst = this.AddParameter(this.processor, null, value);
-            this.instructions.Append(inst.Instructions);
+            this.instructions.Append(InstructionBlock.CreateCode(this.instructions, null, value));
 
             if (value != null && value is ArrayCodeBlock arrayCodeSet)
             {
-                this.instructions.Append(this.AddParameter(this.processor, null, arrayCodeSet.index).Instructions);
-                this.instructions.Append(this.processor.Create(OpCodes.Ldelem_Ref));
+                this.instructions.Append(InstructionBlock.CreateCode(this.instructions, null, arrayCodeSet.index));
+                this.instructions.Emit(OpCodes.Ldelem_Ref);
             }
 
             return this;
@@ -124,22 +123,21 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         public Coder Return()
         {
-            this.instructions.Append(this.processor.Create(OpCodes.Ret));
+            this.instructions.Emit(OpCodes.Ret);
             return this;
         }
 
         public Coder ReturnDefault()
         {
-            if (!this.method.IsVoid)
+            if (!this.instructions.associatedMethod.IsVoid)
             {
                 var variable = this.GetOrCreateReturnVariable();
-                var defaultValue = this.method.ReturnType.DefaultValue;
-                var inst = this.AddParameter(this.processor,
-                    this.method.ReturnType.GenericArguments().Any() ?
-                       this.method.ReturnType.GetGenericArgument(0).typeReference :
-                       this.method.ReturnType.typeReference, defaultValue);
+                var defaultValue = this.instructions.associatedMethod.ReturnType.DefaultValue;
 
-                this.instructions.Append(inst.Instructions);
+                this.instructions.Append(InstructionBlock.CreateCode(this.instructions,
+                    this.instructions.associatedMethod.ReturnType.GenericArguments().Any() ?
+                       this.instructions.associatedMethod.ReturnType.GetGenericArgument(0) :
+                       this.instructions.associatedMethod.ReturnType, defaultValue));
             }
 
             this.Return();
@@ -149,16 +147,16 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         public Coder ThrowNew(Type exception)
         {
-            this.instructions.Append(this.processor.Create(OpCodes.Newobj, Builder.Current.Import(Builder.Current.Import(exception).GetMethodReference(".ctor", 0))));
-            this.instructions.Append(this.processor.Create(OpCodes.Throw));
+            this.instructions.Emit(OpCodes.Newobj, Builder.Current.Import(Builder.Current.Import(exception).GetMethodReference(".ctor", 0)));
+            this.instructions.Emit(OpCodes.Throw);
             return this;
         }
 
         public Coder ThrowNew(Type exception, string message)
         {
-            this.instructions.Append(this.processor.Create(OpCodes.Ldstr, message));
-            this.instructions.Append(this.processor.Create(OpCodes.Newobj, Builder.Current.Import(Builder.Current.Import(exception).GetMethodReference(".ctor", new Type[] { typeof(string) }))));
-            this.instructions.Append(this.processor.Create(OpCodes.Throw));
+            this.instructions.Emit(OpCodes.Ldstr, message);
+            this.instructions.Emit(OpCodes.Newobj, Builder.Current.Import(Builder.Current.Import(exception).GetMethodReference(".ctor", new Type[] { typeof(string) })));
+            this.instructions.Emit(OpCodes.Throw);
             return this;
         }
 
@@ -166,7 +164,7 @@ namespace Cauldron.Interception.Cecilator.Coders
         {
             // TODO
 
-            this.instructions.Append(this.processor.Create(OpCodes.Throw));
+            this.instructions.Emit(OpCodes.Throw);
             return this;
         }
     }

@@ -78,6 +78,28 @@ namespace Win32_Cecilator_Scriptable
                 .Replace();
         }
 
+        public static void If_Field_Call_Object(Builder builder)
+        {
+            var name = nameof(If_Field_Call_Object);
+
+            var method = testType.CreateMethod(Modifiers.Public, name, Type.EmptyTypes);
+            method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
+
+            var methodToBeCalled = testType.CreateMethod(Modifiers.Internal, typeof(int), name + "_TestMethod", Type.EmptyTypes);
+            methodToBeCalled.NewCoder()
+                .NewObj(testType.ParameterlessContructor)
+                .Return()
+                .Replace();
+
+            method.NewCoder()
+                .Load(testField3).Set(x => x.NewObj(testType.ParameterlessContructor))
+                .If(x => x.Load(testField3).As(testType).Call(methodToBeCalled).Is(testType),
+                    x => x.Call(assertIsTrue, true),
+                    x => x.Call(assertIsTrue, false))
+                .Return()
+                .Replace();
+        }
+
         public static void If_Field_Equal_Not_Equal(Builder builder)
         {
             var method = testType.CreateMethod(Modifiers.Public, nameof(If_Field_Equal_Not_Equal), Type.EmptyTypes);

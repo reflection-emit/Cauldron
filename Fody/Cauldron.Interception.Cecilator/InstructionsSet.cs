@@ -146,7 +146,7 @@ namespace Cauldron.Interception.Cecilator
 
         public ILocalVariableCode AssignToLocalVariable(string localVariableName)
         {
-            var variable = this.method.GetLocalVariable(localVariableName);
+            var variable = this.method.GetVariable(localVariableName);
 
             if (variable == null)
                 throw new KeyNotFoundException($"The local variable with the name '{localVariableName}' does not exist in '{method.OriginType}'");
@@ -274,7 +274,7 @@ namespace Cauldron.Interception.Cecilator
         public Crumb GetParametersArray()
         {
             var variableName = "<>params_" + this.method.Identification;
-            if (this.method.GetLocalVariable(variableName) == null)
+            if (this.method.GetVariable(variableName) == null)
             {
                 var objectArrayType = this.method.OriginType.Builder.GetType(typeof(object[]));
                 var variable = this.CreateVariable(variableName, objectArrayType);
@@ -453,7 +453,7 @@ namespace Cauldron.Interception.Cecilator
 
         public ILocalVariableCode LoadVariable(string variableName)
         {
-            var variable = this.method.GetLocalVariable(variableName);
+            var variable = this.method.GetVariable(variableName);
 
             if (variable == null)
                 throw new KeyNotFoundException($"The local variable with the name '{variableName}' does not exist in '{method.OriginType}'");
@@ -889,7 +889,7 @@ namespace Cauldron.Interception.Cecilator
                         }
                         else
                         {
-                            var variable = char.IsNumber(crumb.Name, 0) ? this.method.methodDefinition.Body.Variables[int.Parse(crumb.Name)] : this.method.GetLocalVariable(crumb.Name);
+                            var variable = char.IsNumber(crumb.Name, 0) ? this.method.methodDefinition.Body.Variables[int.Parse(crumb.Name)] : this.method.GetVariable(crumb.Name);
 
                             result.Instructions.Add(processor.Create(OpCodes.Ldloc, variable));
                             result.Type = this.moduleDefinition.ImportReference(variable.VariableType);
@@ -1682,7 +1682,7 @@ namespace Cauldron.Interception.Cecilator
 
         private VariableDefinition GetOrCreateReturnVariable()
         {
-            var variable = this.method.GetLocalVariable("<>returnValue");
+            var variable = this.method.GetVariable("<>returnValue");
 
             if (variable != null)
                 return variable;
@@ -1759,7 +1759,7 @@ namespace Cauldron.Interception.Cecilator
 
         public LocalVariable CreateVariable(string name, BuilderType type)
         {
-            var existingVariable = this.method.GetLocalVariable(name);
+            var existingVariable = this.method.GetVariable(name);
 
             if (existingVariable != null)
                 return new LocalVariable(this.method.type, existingVariable, name);

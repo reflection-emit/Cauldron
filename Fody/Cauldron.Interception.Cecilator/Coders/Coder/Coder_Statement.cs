@@ -24,10 +24,10 @@ namespace Cauldron.Interception.Cecilator.Coders
             Action<Coder> @else)
         {
             var result = booleanExpression(new BooleanExpressionCoder(this.NewCoder()));
-            var endOfIf = this.processor.Create(OpCodes.Nop);
+            var endOfIf = this.instructions.ilprocessor.Create(OpCodes.Nop);
             this.instructions.Append(result.coder.instructions);
             then(this);
-            this.instructions.Append(this.processor.Create(OpCodes.Br, endOfIf));
+            this.instructions.Append(this.instructions.ilprocessor.Create(OpCodes.Br, endOfIf));
             this.instructions.Append(result.jumpTarget);
             @else(this);
             this.instructions.Append(endOfIf);

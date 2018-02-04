@@ -1,13 +1,13 @@
-﻿using Mono.Cecil.Cil;
+﻿using Cauldron.Interception.Cecilator.Extensions;
+using Mono.Cecil.Cil;
 
 namespace Cauldron.Interception.Cecilator.Coders
 {
-    public partial class BooleanExpressionCallCoder : ContextCoder
+    public partial class BooleanExpressionCallCoder : BooleanExpressionContextCoder
     {
         internal readonly Method calledMethod;
         internal readonly object instance;
         internal readonly object[] parameters;
-        internal BuilderType castToType = null;
 
         internal BooleanExpressionCallCoder(Coder coder, object instance, Method calledMethod, object[] parameters) : base(coder)
         {
@@ -21,6 +21,16 @@ namespace Cauldron.Interception.Cecilator.Coders
             this.parameters = parameters;
             this.calledMethod = calledMethod;
             this.instance = instance;
+        }
+
+        public CodeBlock ToCodeBlock()
+        {
+            var coder = this.coder.NewCoder();
+
+            coder.CallInternal(this.instance, this.calledMethod, OpCodes.Call, this.parameters);
+            coder.instructions.Append(coder.AddParameter(coder.processor, null, this).Instructions);
+
+            return new InstructionsCodeBlock(coder);
         }
     }
 }

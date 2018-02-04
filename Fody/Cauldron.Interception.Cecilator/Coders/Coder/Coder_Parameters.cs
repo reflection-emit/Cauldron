@@ -9,6 +9,7 @@ namespace Cauldron.Interception.Cecilator.Coders
 {
     public partial class Coder
     {
+        /*
         internal ParamResult AddParameter(ILProcessor processor, TypeReference targetType, object parameter)
         {
             var result = new ParamResult();
@@ -51,24 +52,27 @@ namespace Cauldron.Interception.Cecilator.Coders
                     break;
 
                 case FieldReference value:
-                    var fieldDef = value.Resolve();
-
-                    if (!fieldDef.IsStatic)
-                        result.Instructions.Add(processor.Create(OpCodes.Ldarg_0));
-
-                    if (value.FieldType.IsValueType && targetType == null)
-                        result.Instructions.Add(processor.Create(fieldDef.IsStatic ?
-                            OpCodes.Ldsflda :
-                            OpCodes.Ldflda, value));
-                    else
-                        result.Instructions.Add(processor.Create(fieldDef.IsStatic ?
-                            OpCodes.Ldsfld :
-                            OpCodes.Ldfld, value));
-                    result.Type = value.FieldType;
+                    CreateCodeForFieldReference(processor, targetType, result, value);
                     break;
 
                 case Field value:
                     if (!value.IsStatic)
+                        result.Instructions.Add(processor.Create(OpCodes.Ldarg_0));
+
+                    if (value.FieldType.IsValueType && targetType == null)
+                        result.Instructions.Add(processor.Create(value.IsStatic ?
+                            OpCodes.Ldsflda :
+                            OpCodes.Ldflda, value.fieldRef));
+                    else
+                        result.Instructions.Add(processor.Create(value.IsStatic ?
+                            OpCodes.Ldsfld :
+                            OpCodes.Ldfld, value.fieldRef));
+
+                    result.Type = value.fieldRef.FieldType;
+                    break;
+
+                case FieldContextCoder value:
+                    if (!value.target.IsStatic && value.context != null)
                         result.Instructions.Add(processor.Create(OpCodes.Ldarg_0));
 
                     if (value.FieldType.IsValueType && targetType == null)
@@ -241,16 +245,14 @@ namespace Cauldron.Interception.Cecilator.Coders
                     {
                         var instructions = this.AddParameter(processor, booleanExpressionParameter.targetType, booleanExpressionParameter.value);
                         result.Instructions.AddRange(instructions.Instructions);
+                        result.Instructions.AddRange(booleanExpressionParameter.ImplementOperations());
+                        result.Type = result.Type;
+                    }
+                    break;
 
-                        if (booleanExpressionParameter.negate)
-                            result.Instructions.Add(processor.Create(OpCodes.Neg));
-
-                        if (booleanExpressionParameter.invert)
-                        {
-                            result.Instructions.Add(processor.Create(OpCodes.Ldc_I4_0));
-                            result.Instructions.Add(processor.Create(OpCodes.Ceq));
-                        }
-
+                case BooleanExpressionContextCoder contextCoder:
+                    {
+                        result.Instructions.AddRange(contextCoder.ImplementOperations());
                         result.Type = result.Type;
                     }
                     break;
@@ -346,5 +348,23 @@ namespace Cauldron.Interception.Cecilator.Coders
 
             return value;
         }
+
+        private static void CreateCodeForFieldReference(ILProcessor processor, TypeReference targetType, ParamResult result, FieldReference value)
+        {
+            var fieldDef = value.Resolve();
+
+            if (!fieldDef.IsStatic)
+                result.Instructions.Add(processor.Create(OpCodes.Ldarg_0));
+
+            if (value.FieldType.IsValueType && targetType == null)
+                result.Instructions.Add(processor.Create(fieldDef.IsStatic ?
+                    OpCodes.Ldsflda :
+                    OpCodes.Ldflda, value));
+            else
+                result.Instructions.Add(processor.Create(fieldDef.IsStatic ?
+                    OpCodes.Ldsfld :
+                    OpCodes.Ldfld, value));
+            result.Type = value.FieldType;
+        }*/
     }
 }

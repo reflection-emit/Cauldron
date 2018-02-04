@@ -3,7 +3,7 @@
 namespace Cauldron.Interception.Cecilator.Coders
 {
     public interface IBitwiseOperators<TResult, TBooleanExpressionCoder>
-        where TBooleanExpressionCoder : ContextCoder
+        where TBooleanExpressionCoder : BooleanExpressionContextCoder
     {
         TResult And(Func<TBooleanExpressionCoder, TResult> other);
 

@@ -10,6 +10,6 @@
         /// <param name="parameters"></param>
         /// <returns></returns>
         public new BooleanExpressionInstanceCallCoder Call(Method method, params object[] parameters)
-            => new BooleanExpressionInstanceCallCoder(this.coder, this.jumpTarget, this.target, method, parameters);
+            => new BooleanExpressionInstanceCallCoder(this, method, parameters);
     }
 }

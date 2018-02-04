@@ -1,75 +1,38 @@
 ﻿using Cauldron.Interception.Cecilator.Extensions;
-using Mono.Cecil.Cil;
 using System;
+using System.Linq;
 
 namespace Cauldron.Interception.Cecilator.Coders
 {
-    public partial class Coder
+    public partial class Coder : ICallMethod<Coder>
     {
-        public Coder Call(Method method, params object[] parameters) => CallInternal(null, method, OpCodes.Call, parameters);
-
-        public Coder NewObj(Method method, params object[] parameters) => CallInternal(null, method, OpCodes.Newobj, parameters);
-
-        internal Coder CallInternal(object instance, Method method, OpCode opcode, params object[] parameters)
+        public Coder Call(Method method)
         {
-            if (instance != null)
-                this.instructions.Append(this.AddParameter(this.processor, null, instance).Instructions);
+            this.instructions.Append(InstructionBlock.Call(this.instructions, CodeBlocks.This, method, new object[0]));
+            return this;
+        }
 
-            if (parameters != null && parameters.Length > 0 && parameters[0] is ArrayCodeBlock arrayCodeSet)
-            {
-                var methodParameters = method.methodDefinition.Parameters;
-                for (int i = 0; i < methodParameters.Count; i++)
-                {
-                    this.instructions.Append(this.AddParameter(this.processor, null, arrayCodeSet).Instructions);
-                    this.instructions.Append(this.AddParameter(this.processor, null, i).Instructions);
-                    this.instructions.Append(this.processor.Create(OpCodes.Ldelem_Ref));
+        public Coder Call(Method method, params object[] parameters)
+        {
+            this.instructions.Append(InstructionBlock.Call(this.instructions, CodeBlocks.This, method, parameters));
+            return this;
+        }
 
-                    var paramResult = new ParamResult { Type = Builder.Current.TypeSystem.Object };
-                    this.processor.CastOrBoxValues(methodParameters[i].ParameterType, paramResult, methodParameters[i].ParameterType.Resolve());
-                    this.instructions.Append(paramResult.Instructions);
-                }
-            }
-            else if (parameters != null && parameters.Length > 0 && parameters[0] is ParametersCodeBlock parameterCodeSet && parameterCodeSet.IsAllParameters)
-            {
-                if ((method.OriginType.IsInterface || method.IsAbstract) && opcode != OpCodes.Calli && opcode != OpCodes.Newobj)
-                    opcode = OpCodes.Callvirt;
+        public Coder Call(Method method, params Func<Coder, object>[] parameters)
+        {
+            if (parameters == null)
+                throw new ArgumentNullException(nameof(parameters));
 
-                for (int i = 0; i < method.methodReference.Parameters.Count; i++)
-                {
-                    var parameterType = method.methodDefinition.Parameters[i].ParameterType.IsGenericInstance || method.methodDefinition.Parameters[i].ParameterType.IsGenericParameter ?
-                        method.methodDefinition.Parameters[i].ParameterType.ResolveType(method.OriginType.typeReference, method.methodReference) :
-                        method.methodDefinition.Parameters[i].ParameterType;
+            var @params = parameters
+                .Select(x => x(this.NewCoder()));
 
-                    var inst = this.AddParameter(this.processor, Builder.Current.Import(parameterType), CodeBlocks.GetParameter(i));
-                    this.instructions.Append(inst.Instructions);
-                }
-            }
-            else
-            {
-                if ((method.OriginType.IsInterface || method.IsAbstract) && opcode != OpCodes.Calli && opcode != OpCodes.Newobj)
-                    opcode = OpCodes.Callvirt;
+            this.instructions.Append(InstructionBlock.Call(this.instructions, CodeBlocks.This, method, @params.ToArray()));
+            return this;
+        }
 
-                if (parameters != null)
-                    for (int i = 0; i < parameters.Length; i++)
-                    {
-                        var parameterType = method.methodDefinition.Parameters[i].ParameterType.IsGenericInstance || method.methodDefinition.Parameters[i].ParameterType.IsGenericParameter ?
-                            method.methodDefinition.Parameters[i].ParameterType.ResolveType(method.OriginType.typeReference, method.methodReference) :
-                            method.methodDefinition.Parameters[i].ParameterType;
-
-                        var inst = this.AddParameter(this.processor, Builder.Current.Import(parameterType), parameters[i]);
-                        this.instructions.Append(inst.Instructions);
-                    }
-            }
-
-            try
-            {
-                this.instructions.Append(this.processor.Create(opcode, Builder.Current.Import(method.methodReference)));
-            }
-            catch (NullReferenceException)
-            {
-                this.instructions.Append(this.processor.Create(opcode, Builder.Current.Import(method.methodReference, this.method.methodReference)));
-            }
-
+        public Coder NewObj(Method method, params object[] parameters)
+        {
+            this.instructions.Append(InstructionBlock.NewObj(this.instructions, null, method, parameters));
             return this;
         }
     }

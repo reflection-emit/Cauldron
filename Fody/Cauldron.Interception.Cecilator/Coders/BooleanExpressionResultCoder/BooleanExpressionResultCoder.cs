@@ -2,7 +2,7 @@
 
 namespace Cauldron.Interception.Cecilator.Coders
 {
-    public sealed partial class BooleanExpressionResultCoder : ContextCoder
+    public sealed partial class BooleanExpressionResultCoder : BooleanExpressionContextCoder
     {
         internal bool isBrTrue = false;
 

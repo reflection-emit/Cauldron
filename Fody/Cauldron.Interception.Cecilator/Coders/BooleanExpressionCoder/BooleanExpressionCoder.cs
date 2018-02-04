@@ -2,7 +2,7 @@
 
 namespace Cauldron.Interception.Cecilator.Coders
 {
-    public partial class BooleanExpressionCoder : ContextCoder
+    public partial class BooleanExpressionCoder : BooleanExpressionContextCoder
     {
         internal BooleanExpressionCoder(Coder coder) : base(coder)
         {

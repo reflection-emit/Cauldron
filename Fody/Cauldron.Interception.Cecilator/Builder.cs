@@ -1,4 +1,5 @@
 ﻿using Mono.Cecil;
+using Mono.Cecil.Cil;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -20,8 +21,6 @@ namespace Cauldron.Interception.Cecilator
         public BuilderCustomAttributeCollection CustomAttributes => new BuilderCustomAttributeCollection(this, this.moduleDefinition);
         public string Name => this.moduleDefinition.Name;
 
-        public TypeSystem TypeSystem => this.moduleDefinition.TypeSystem;
-
         public override bool Equals(object obj) => this.moduleDefinition.Assembly.FullName.Equals(obj?.ToString());
 
         public TypeReference GetChildrenType(TypeReference type) => this.moduleDefinition.GetChildrenType(type);
@@ -35,6 +34,8 @@ namespace Cauldron.Interception.Cecilator
         }
 
         public MethodReference Import(MethodReference methodReference) => this.moduleDefinition.ImportReference(methodReference);
+
+        public FieldReference Import(FieldReference fieldReference) => this.moduleDefinition.ImportReference(fieldReference);
 
         public MethodReference Import(MethodReference method, IGenericParameterProvider context) => this.moduleDefinition.ImportReference(method, context);
 

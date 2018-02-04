@@ -1,14 +1,13 @@
-﻿using Mono.Cecil.Cil;
-using System;
+﻿using System;
 
 namespace Cauldron.Interception.Cecilator.Coders
 {
-    public sealed class BooleanExpressionInstanceCallCoder : ContextCoder, IRelationalOperators<BooleanExpressionResultCoder, BooleanExpressionCoder, BooleanExpressionInstanceCallCoder>
+    public sealed class BooleanExpressionInstanceCallCoder : BooleanExpressionContextCoder,
+        IRelationalOperators<BooleanExpressionResultCoder, BooleanExpressionCoder, BooleanExpressionInstanceCallCoder>
     {
         internal readonly Method calledMethod;
         internal readonly object instance;
         internal readonly object[] parameters;
-        internal BuilderType castToType = null;
 
         internal BooleanExpressionInstanceCallCoder(Coder coder, object instance, Method calledMethod, object[] parameters) : base(coder)
         {
@@ -17,41 +16,55 @@ namespace Cauldron.Interception.Cecilator.Coders
             this.instance = instance;
         }
 
-        internal BooleanExpressionInstanceCallCoder(Coder coder, Instruction jumpTarget, object instance, Method calledMethod, object[] parameters) : base(coder, jumpTarget)
+        internal BooleanExpressionInstanceCallCoder(BooleanExpressionFieldInstancedCoder coder, Method calledMethod, object[] parameters) : base(coder.coder, coder.jumpTarget)
         {
             this.parameters = parameters;
             this.calledMethod = calledMethod;
-            this.instance = instance;
+            this.instance = coder.target;
+            this.invert = coder.invert;
+            this.negate = coder.negate;
+            this.castToType = coder.castToType;
         }
 
-        public static implicit operator BooleanExpressionCallCoder(BooleanExpressionInstanceCallCoder value)
-            => new BooleanExpressionCallCoder(value.coder, value.jumpTarget, value.instance, value.calledMethod, value.parameters)
-            {
-                castToType = value.castToType
-            };
+        internal BooleanExpressionInstanceCallCoder(BooleanExpressionInstanceCallCoder coder, Method calledMethod, object[] parameters) : base(coder.coder, coder.jumpTarget)
+        {
+            this.parameters = parameters;
+            this.calledMethod = calledMethod;
+            this.instance = coder.instance;
+            this.invert = coder.invert;
+            this.negate = coder.negate;
+            this.castToType = coder.castToType;
+        }
 
-        public BooleanExpressionResultCoder EqualsTo(object value) => ((BooleanExpressionCallCoder)this).EqualsTo(value);
+        public BooleanExpressionResultCoder EqualsTo(object value) => this.Convert().EqualsTo(value);
 
         public BooleanExpressionResultCoder EqualsTo(Func<BooleanExpressionCoder, BooleanExpressionInstanceCallCoder> call)
-            => BooleanExpressionCallCoder.EqualsToInternal(this,
-                new Func<BooleanExpressionCoder, BooleanExpressionCallCoder>(x => call(x)), false);
+            => BooleanExpressionCallCoder.EqualsToInternal(this.Convert(),
+                new Func<BooleanExpressionCoder, BooleanExpressionCallCoder>(x => call(x).Convert()), false);
 
-        public BooleanExpressionResultCoder EqualsTo(Field field) => ((BooleanExpressionCallCoder)this).EqualsTo(field);
+        public BooleanExpressionResultCoder EqualsTo(Field field) => this.Convert().EqualsTo(field);
 
-        public BooleanExpressionResultCoder Is(Type type) => ((BooleanExpressionCallCoder)this).Is(type);
+        public BooleanExpressionResultCoder Is(Type type) => this.Convert().Is(type);
 
-        public BooleanExpressionResultCoder Is(BuilderType type) => ((BooleanExpressionCallCoder)this).Is(type);
+        public BooleanExpressionResultCoder Is(BuilderType type) => this.Convert().Is(type);
 
-        public BooleanExpressionResultCoder IsFalse() => ((BooleanExpressionCallCoder)this).IsFalse();
+        public BooleanExpressionResultCoder IsFalse() => this.Convert().IsFalse();
 
-        public BooleanExpressionResultCoder IsNotNull() => ((BooleanExpressionCallCoder)this).IsNotNull();
+        public BooleanExpressionResultCoder IsNotNull() => this.Convert().IsNotNull();
 
-        public BooleanExpressionResultCoder IsNull() => ((BooleanExpressionCallCoder)this).IsNull();
+        public BooleanExpressionResultCoder IsNull() => this.Convert().IsNull();
 
-        public BooleanExpressionResultCoder IsTrue() => ((BooleanExpressionCallCoder)this).IsTrue();
+        public BooleanExpressionResultCoder IsTrue() => this.Convert().IsTrue();
 
-        public BooleanExpressionResultCoder NotEqualsTo(Field field) => ((BooleanExpressionCallCoder)this).NotEqualsTo(field);
+        public BooleanExpressionResultCoder NotEqualsTo(Field field) => this.Convert().NotEqualsTo(field);
 
-        public BooleanExpressionResultCoder NotEqualsTo(object value) => ((BooleanExpressionCallCoder)this).NotEqualsTo(value);
+        public BooleanExpressionResultCoder NotEqualsTo(object value) => this.Convert().NotEqualsTo(value);
+
+        internal BooleanExpressionCallCoder Convert() => new BooleanExpressionCallCoder(this.coder, this.jumpTarget, this.instance, this.calledMethod, this.parameters)
+        {
+            castToType = this.castToType,
+            invert = this.invert,
+            negate = this.negate,
+        };
     }
 }

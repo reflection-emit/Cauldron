@@ -9,23 +9,49 @@ namespace Cauldron.Interception.Cecilator.Extensions
 {
     public static class Extensions
     {
+        public static bool AreEqual(this TypeDefinition a, TypeDefinition b) =>
+            a.Module.Assembly.Name.GetHashCode() == b.Module.Assembly.Name.GetHashCode() &&
+            a.Module.Assembly.Name == b.Module.Assembly.Name &&
+            a.FullName.GetHashCode() == b.FullName.GetHashCode() &&
+            a.FullName == b.FullName;
+
+        public static bool AreEqual(this TypeReference a, TypeReference b) =>
+            a.Module.Assembly.Name.GetHashCode() == b.Module.Assembly.Name.GetHashCode() &&
+            a.Module.Assembly.Name == b.Module.Assembly.Name &&
+            a.FullName.GetHashCode() == b.FullName.GetHashCode() &&
+            a.FullName == b.FullName;
+
+        public static bool AreEqual(this TypeReference a, BuilderType b) => a.AreEqual(b.typeReference) || a.AreEqual(b.typeDefinition);
+
+        /// <summary>
+        /// Checks if <paramref name="toBeAssigned"/> is assignable to <paramref name="type"/>.
+        /// </summary>
+        /// <param name="type">The type to assign to.</param>
+        /// <param name="toBeAssigned">The type that will be assigned to <paramref name="type"/>.</param>
+        /// <returns>Returns true if <paramref name="toBeAssigned"/> is assignable to <paramref name="type"/>; otherwise false.</returns>
         public static bool AreReferenceAssignable(this BuilderType type, BuilderType toBeAssigned)
         {
             if ((toBeAssigned == null && !type.IsValueType) || type == toBeAssigned ||
                     (!type.typeDefinition.IsValueType && !toBeAssigned.typeDefinition.IsValueType && type.IsAssignableFrom(toBeAssigned)) ||
-                    (type.IsInterface && toBeAssigned.typeReference == Builder.Current.TypeSystem.Object))
+                    (type.IsInterface && toBeAssigned == BuilderType.Object))
                 return true;
 
             return false;
         }
 
+        /// <summary>
+        /// Checks if <paramref name="toBeAssigned"/> is assignable to <paramref name="type"/>.
+        /// </summary>
+        /// <param name="type">The type to assign to.</param>
+        /// <param name="toBeAssigned">The type that will be assigned to <paramref name="type"/>.</param>
+        /// <returns>Returns true if <paramref name="toBeAssigned"/> is assignable to <paramref name="type"/>; otherwise false.</returns>
         public static bool AreReferenceAssignable(this TypeReference type, TypeReference toBeAssigned)
         {
             if (
                 (toBeAssigned == null && !type.IsValueType) ||
                 type == toBeAssigned ||
                 (!type.IsValueType && !toBeAssigned.IsValueType && type.IsAssignableFrom(toBeAssigned)) ||
-                (type.Resolve().IsInterface && toBeAssigned == Builder.Current.TypeSystem.Object) ||
+                (type.Resolve().IsInterface && toBeAssigned.AreEqual(BuilderType.Object)) ||
                 type.FullName == toBeAssigned.FullName)
                 return true;
 
@@ -74,7 +100,16 @@ namespace Cauldron.Interception.Cecilator.Extensions
         /// </summary>
         /// <param name="coder">The coder.</param>
         /// <returns></returns>
-        public static Coder NewCoder(this Coder coder) => new Coder(coder.method);
+        public static Coder NewCoder(this Coder coder) => new Coder(coder.instructions.associatedMethod);
+
+        /// <summary>
+        /// Creates a typeof() implementation for the given type <paramref name="type"/>
+        /// </summary>
+        /// <param name="processor">The processor to use.</param>
+        /// <param name="type">The type to get the type from.</param>
+        /// <returns>A collection of instructions that canbe added to the coder's instruction set.</returns>
+        public static IEnumerable<Instruction> TypeOf(this ILProcessor processor, BuilderType type) =>
+            processor.TypeOf(type.typeReference);
 
         /// <summary>
         /// Creates a typeof() implementation for the given type <paramref name="type"/>
@@ -98,7 +133,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
             TypeReference GetTypeOfValueInStack(Instruction ins)
             {
                 if (ins.IsCallOrNew())
-                    return (ins.Operand as MethodReference).ReturnType.With(x => x == Builder.Current.TypeSystem.Void ? null : x);
+                    return (ins.Operand as MethodReference).ReturnType.With(x => x.AreEqual(BuilderType.Void.typeReference) ? null : x);
 
                 if (ins.IsLoadField())
                     return (ins.Operand as FieldReference).FieldType;

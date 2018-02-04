@@ -3,8 +3,8 @@
 namespace Cauldron.Interception.Cecilator.Coders
 {
     public interface IRelationalOperators<TResult, TExpressionCoder, TCallCoder> : IRelationalOperators<TResult>
-        where TExpressionCoder : ContextCoder
-        where TCallCoder : ContextCoder
+        where TExpressionCoder : BooleanExpressionContextCoder
+        where TCallCoder : BooleanExpressionContextCoder
     {
         TResult EqualsTo(object value);
 

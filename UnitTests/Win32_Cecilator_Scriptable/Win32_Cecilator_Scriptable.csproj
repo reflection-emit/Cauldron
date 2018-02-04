@@ -52,7 +52,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IfElseTests.cs" />
+    <Compile Include="CoderTest.cs" />
+    <None Include="IfElseTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

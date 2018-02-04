@@ -1,4 +1,5 @@
-﻿using Cauldron.Interception.Cecilator.Extensions;
+﻿using Cauldron.Interception.Cecilator.Coders;
+using Cauldron.Interception.Cecilator.Extensions;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
 using System;
@@ -151,20 +152,6 @@ namespace Cauldron.Interception.Cecilator
 
         public BuilderType ReturnType => new BuilderType(this.type, this.methodReference.ReturnType);
 
-        public VariableDefinition AddLocalVariable(string name, VariableDefinition variable)
-        {
-            if (this.methodDefinition.DebugInformation.Scope == null)
-                this.methodDefinition.DebugInformation.Scope = new ScopeDebugInformation(this.methodDefinition.Body.Instructions.First(), this.methodDefinition.Body.Instructions.Last());
-
-            if (this.methodDefinition.DebugInformation.Scope.Variables.Any(x => x.Name == name))
-                throw new ArgumentException($"The variable with the name '{name}' already exist in '{this.Name}'");
-
-            this.methodDefinition.DebugInformation.Scope.Variables.Add(new VariableDebugInformation(variable, name));
-            this.methodDefinition.Body.Variables.Add(variable);
-
-            return variable;
-        }
-
         public Method Copy() => this.NewCode().Copy(Modifiers.Private, $"<{this.Name}>m__original");
 
         public Field CreateField(Type fieldType, string name) =>
@@ -172,8 +159,52 @@ namespace Cauldron.Interception.Cecilator
 
         public Field CreateField(Field field, string name) => this.CreateField(field.fieldRef.FieldType, name);
 
+        public Field CreateField(BuilderType type, string name) => this.CreateField(type.typeReference, name);
+
         public Field CreateField(TypeReference typeReference, string name) =>
             this.IsStatic ? this.OriginType.CreateField(Modifiers.PrivateStatic, typeReference, name) : this.OriginType.CreateField(Modifiers.Private, typeReference, name);
+
+        /// <summary>
+        /// Gets or creates a local variable
+        /// </summary>
+        /// <param name="type">The type of the variable to create</param>
+        /// <param name="name">The name of the variable</param>
+        /// <returns></returns>
+        public LocalVariable CreateVariable(Type type, string name = null) =>
+            this.CreateVariable(this.moduleDefinition.ImportReference(type.GetTypeDefinition().ResolveType(this.OriginType.typeReference)), name);
+
+        /// <summary>
+        /// Gets or creates a local variable
+        /// </summary>
+        /// <param name="type">The type of the variable to create</param>
+        /// <param name="name">The name of the variable</param>
+        /// <returns></returns>
+        public LocalVariable CreateVariable(BuilderType type, string name = null) =>
+            this.CreateVariable(type.typeReference, name);
+
+        /// <summary>
+        /// Gets or creates a local variable
+        /// </summary>
+        /// <param name="type">The type of the variable to create</param>
+        /// <param name="name">The name of the variable</param>
+        /// <returns></returns>
+        public LocalVariable CreateVariable(TypeReference type, string name = null)
+        {
+            if (string.IsNullOrEmpty(name))
+                name = Coder.VariablePrefix + Coder.GenerateName();
+            else
+            {
+                var existingVariable = this.GetVariable(name);
+
+                if (existingVariable != null)
+                    return new LocalVariable(this.type, existingVariable, name);
+            }
+
+            var newVariable = new VariableDefinition(this.moduleDefinition.ImportReference(type));
+            this.AddLocalVariable(name, newVariable);
+
+            return new LocalVariable(this.type, newVariable, name);
+        }
 
         public IEnumerable<MethodUsage> FindUsages()
         {
@@ -184,6 +215,10 @@ namespace Cauldron.Interception.Cecilator
             return result;
         }
 
+        /// <summary>
+        /// Returns all constant strings in the instruction body
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<string> GetLoadStrings()
         {
             foreach (var items in this.methodDefinition.Body.Instructions)
@@ -195,7 +230,18 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
-        public VariableDefinition GetLocalVariable(string name)
+        public IEnumerable<TypeReference> GetTokens()
+        {
+            foreach (var items in this.methodDefinition.Body.Instructions)
+            {
+                if (items.OpCode != OpCodes.Ldtoken)
+                    continue;
+
+                yield return items.Operand as TypeReference;
+            }
+        }
+
+        public VariableDefinition GetVariable(string name)
         {
             if (this.methodDefinition.DebugInformation.Scope == null)
                 this.methodDefinition.DebugInformation.Scope = new ScopeDebugInformation(this.methodDefinition.Body.Instructions.First(), this.methodDefinition.Body.Instructions.Last());
@@ -206,17 +252,6 @@ namespace Cauldron.Interception.Cecilator
                 return this.methodDefinition.Body.Variables[variableIndex.Value];
 
             return null;
-        }
-
-        public IEnumerable<TypeReference> GetTokens()
-        {
-            foreach (var items in this.methodDefinition.Body.Instructions)
-            {
-                if (items.OpCode != OpCodes.Ldtoken)
-                    continue;
-
-                yield return items.Operand as TypeReference;
-            }
         }
 
         public bool HasMethodBaseCall()
@@ -272,15 +307,17 @@ namespace Cauldron.Interception.Cecilator
                 return new Method(this.type.Builder, this.methodDefinition.MakeGeneric(null, types.Select(x => this.moduleDefinition.ImportReference(x)).ToArray()), this.methodDefinition);
         }
 
-        public Method MakeGeneric(params BuilderType[] types)
+        public Method MakeGeneric(params TypeReference[] types)
         {
             if (this.methodDefinition.GenericParameters.Count == 0)
-                return new Method(this.type.Builder, this.methodDefinition.MakeHostInstanceGeneric(types.Select(x => this.moduleDefinition.ImportReference(x.typeReference)).ToArray()), this.methodDefinition);
+                return new Method(this.type.Builder, this.methodDefinition.MakeHostInstanceGeneric(types.Select(x => this.moduleDefinition.ImportReference(x)).ToArray()), this.methodDefinition);
             else if (this.methodDefinition.ContainsGenericParameter)
-                return new Method(this.type.Builder, this.methodDefinition.MakeGeneric(null, types.Select(x => this.moduleDefinition.ImportReference(x.typeReference)).ToArray()), this.methodDefinition);
+                return new Method(this.type.Builder, this.methodDefinition.MakeGeneric(null, types.Select(x => this.moduleDefinition.ImportReference(x)).ToArray()), this.methodDefinition);
             else
-                return new Method(this.type.Builder, this.methodDefinition.MakeGeneric(null, types.Select(x => this.moduleDefinition.ImportReference(x.typeReference)).ToArray()), this.methodDefinition);
+                return new Method(this.type.Builder, this.methodDefinition.MakeGeneric(null, types.Select(x => this.moduleDefinition.ImportReference(x)).ToArray()), this.methodDefinition);
         }
+
+        public Method MakeGeneric(params BuilderType[] types) => this.MakeGeneric(types.Select(x => x.typeReference).ToArray());
 
         public Method MakeGeneric(params string[] types)
         {
@@ -293,6 +330,20 @@ namespace Cauldron.Interception.Cecilator
         public ICode NewCode() => new InstructionsSet(this.type, this);
 
         public void Overrides(Method method) => this.methodDefinition.Overrides.Add(method.methodReference);
+
+        internal VariableDefinition AddLocalVariable(string name, VariableDefinition variable)
+        {
+            if (this.methodDefinition.DebugInformation.Scope == null)
+                this.methodDefinition.DebugInformation.Scope = new ScopeDebugInformation(this.methodDefinition.Body.Instructions.First(), this.methodDefinition.Body.Instructions.Last());
+
+            if (this.methodDefinition.DebugInformation.Scope.Variables.Any(x => x.Name == name))
+                throw new ArgumentException($"The variable with the name '{name}' already exist in '{this.Name}'");
+
+            this.methodDefinition.DebugInformation.Scope.Variables.Add(new VariableDebugInformation(variable, name));
+            this.methodDefinition.Body.Variables.Add(variable);
+
+            return variable;
+        }
 
         internal ILProcessor GetILProcessor() => this.methodDefinition.Body.GetILProcessor();
 

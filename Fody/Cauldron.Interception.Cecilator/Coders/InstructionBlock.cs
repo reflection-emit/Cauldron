@@ -1,0 +1,759 @@
+﻿using Cauldron.Interception.Cecilator.Extensions;
+using Mono.Cecil;
+using Mono.Cecil.Cil;
+using Mono.Cecil.Rocks;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace Cauldron.Interception.Cecilator.Coders
+{
+    public sealed class InstructionBlock
+    {
+        internal readonly Method associatedMethod;
+        internal readonly Builder builder;
+        internal readonly List<ExceptionHandler> exceptionHandlers = new List<ExceptionHandler>();
+        internal readonly ILProcessor ilprocessor;
+        internal readonly List<Instruction> instructions = new List<Instruction>();
+        private TypeReference resultingType;
+
+        private InstructionBlock(Method method)
+        {
+            this.builder = Builder.Current;
+            this.associatedMethod = method;
+            this.ilprocessor = this.associatedMethod.GetILProcessor();
+            this.associatedMethod.methodDefinition.Body.SimplifyMacros();
+        }
+
+        public int Count => this.instructions.Count;
+
+        /// <summary>
+        /// Gets or sets the resulting type of the instruction block. This is only relevant for casting and relational operations
+        /// </summary>
+        public TypeReference ResultingType
+        {
+            get
+            {
+                if (this.resultingType != null)
+                    return this.resultingType;
+
+                return this.instructions.GetTypeOfValueInStack(this.associatedMethod);
+            }
+            set
+            {
+                if (value != null && !value.IsGenericInstance && value.HasGenericParameters)
+                    this.resultingType = value.ResolveType(value);
+                else
+                    this.resultingType = value;
+            }
+        }
+
+        public static InstructionBlock Call(
+                    InstructionBlock instructionBlock,
+                    object instance,
+                    Method method,
+                    params object[] parameters) => CallInternal(instructionBlock, instance, method, OpCodes.Call, parameters);
+
+        /// <summary>
+        /// Adds a cast or boxing or unboxing to the <see cref="InstructionBlock"/>.
+        /// </summary>
+        /// <param name="instructionBlock">The <see cref="InstructionBlock"/> to be modified.</param>
+        /// <param name="castToType">The type to cast to.</param>
+        public static void CastOrBoxValues(InstructionBlock instructionBlock, BuilderType castToType)
+        {
+            if (instructionBlock.instructions.Count == 0)
+                throw new Exception("Cannot convert to CodeBlock, since this Coder has no instructions in its list.");
+
+            if (castToType == null)
+                return;
+
+            bool GetCodeBlockFromLastType(TypeReference typeReference)
+            {
+                if (typeReference == null)
+                    return false;
+
+                if (typeReference.FullName == castToType.Fullname)
+                    return true;
+
+                if (castToType.typeReference.IsPrimitive)
+                {
+                    instructionBlock.Emit(OpCodes.Unbox_Any, Builder.Current.Import(castToType.typeReference));
+                    return true;
+                }
+
+                if (castToType.typeReference.Resolve().With(x => x.IsInterface || x.IsClass))
+                {
+                    instructionBlock.Emit(OpCodes.Isinst, Builder.Current.Import(castToType.typeReference));
+                    return true;
+                }
+
+                var paramResult = new ParamResult
+                {
+                    Type = typeReference
+                };
+
+                CastOrBoxValuesInternal(instructionBlock, castToType);
+                return true;
+            }
+
+            if (!GetCodeBlockFromLastType(instructionBlock.ResultingType))
+                // This can cause exceptions in some cases
+                instructionBlock.Emit(OpCodes.Isinst, Builder.Current.Import(castToType.typeReference));
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="InstructionBlock"/> with code that is automatically generated using the <paramref name="codingInfo"/>.
+        /// </summary>
+        /// <param name="instructionBlock">The <see cref="InstructionBlock"/> to use as reference.</param>
+        /// <param name="targetType">
+        /// The target type of the <paramref name="codingInfo"/>.
+        /// If the <paramref name="codingInfo"/>'s type does not match the <paramref name="targetType"/>, code for casting will be automatically added.
+        /// If the <paramref name="targetType"/> is null, then no casting code is added.
+        /// </param>
+        /// <param name="codingInfo">
+        /// The value used to generate the code.
+        /// The value can be null. In this case a null will be added to the code.
+        /// </param>
+        /// <returns>A new instance of <see cref="InstructionBlock"/>. This code is not added to the <paramref name="instructionBlock"/> argument.</returns>
+        public static InstructionBlock CreateCode(InstructionBlock instructionBlock, BuilderType targetType, object codingInfo)
+        {
+            var result = instructionBlock.Spawn();
+
+            if (codingInfo == null)
+            {
+                result.Emit_LdNull();
+                return result;
+            }
+
+            var type = codingInfo.GetType();
+
+            if (type.IsEnum)
+            {
+                type = Enum.GetUnderlyingType(type);
+                codingInfo = Convert.ChangeType(codingInfo, type);
+            }
+
+            switch (codingInfo)
+            {
+                case string value:
+                    result.Emit(OpCodes.Ldstr, value);
+                    result.ResultingType = BuilderType.String.typeReference;
+                    break;
+
+                case FieldDefinition value:
+                    CreateCodeForFieldReference(result, targetType, new Field(value.DeclaringType.ToBuilderType(), value), true);
+                    break;
+
+                case FieldReference value:
+                    CreateCodeForFieldReference(result, targetType, new Field(value.DeclaringType.ToBuilderType(), value.Resolve(), value), true);
+                    break;
+
+                case Field value:
+                    CreateCodeForFieldReference(result, targetType, value, true);
+                    break;
+
+                case FieldAssignCoder value:
+                    result.Append(value.coder);
+                    CreateCodeForFieldReference(result, targetType, value.target, value.autoAddThisInstance);
+                    break;
+
+                case FieldContextCoder value:
+                    result.Append(value.coder);
+                    CreateCodeForFieldReference(result, targetType, value.target, value.autoAddThisInstance);
+                    break;
+
+                case int value:
+                    result.Emit(OpCodes.Ldc_I4, value);
+                    result.ResultingType = BuilderType.Int32.typeReference;
+                    break;
+
+                case uint value:
+                    result.Emit(OpCodes.Ldc_I4, value);
+                    result.ResultingType = BuilderType.UInt32.typeReference;
+                    break;
+
+                case bool value:
+                    result.Emit(OpCodes.Ldc_I4, value ? 1 : 0);
+                    result.ResultingType = BuilderType.Boolean.typeReference;
+                    break;
+
+                case char value:
+                    result.Emit(OpCodes.Ldc_I4, value);
+                    result.ResultingType = BuilderType.Char.typeReference;
+                    break;
+
+                case short value:
+                    result.Emit(OpCodes.Ldc_I4, value);
+                    result.ResultingType = BuilderType.Int16.typeReference;
+                    break;
+
+                case ushort value:
+                    result.Emit(OpCodes.Ldc_I4, value);
+                    result.ResultingType = BuilderType.UInt16.typeReference;
+                    break;
+
+                case byte value:
+                    result.Emit(OpCodes.Ldc_I4, value);
+                    result.ResultingType = BuilderType.Byte.typeReference;
+                    break;
+
+                case sbyte value:
+                    result.Emit(OpCodes.Ldc_I4, value);
+                    result.ResultingType = BuilderType.SByte.typeReference;
+                    break;
+
+                case long value:
+                    result.Emit(OpCodes.Ldc_I8, value);
+                    result.ResultingType = BuilderType.Int64.typeReference;
+                    break;
+
+                case ulong value:
+                    result.Emit(OpCodes.Ldc_I8, value);
+                    result.ResultingType = BuilderType.UInt64.typeReference;
+                    break;
+
+                case double value:
+                    result.Emit(OpCodes.Ldc_R8, value);
+                    result.ResultingType = BuilderType.Double.typeReference;
+                    break;
+
+                case float value:
+                    result.Emit(OpCodes.Ldc_R4, value);
+                    result.ResultingType = BuilderType.Single.typeReference;
+                    break;
+
+                case IntPtr value:
+                    result.Emit(OpCodes.Ldc_I4, (int)value);
+                    result.ResultingType = BuilderType.IntPtr.typeReference;
+                    break;
+
+                case UIntPtr value:
+                    result.Emit(OpCodes.Ldc_I4, (uint)value);
+                    result.ResultingType = BuilderType.UIntPtr.typeReference;
+                    break;
+
+                case LocalVariable value:
+                    AddVariableDefinitionToInstruction(result, targetType, value.variable);
+                    break;
+
+                case VariableDefinition value:
+                    AddVariableDefinitionToInstruction(result, targetType, value);
+                    break;
+
+                case LocalVariableAssignCoder value:
+                    CreateCodeForVariableDefinition(result, targetType, value.target);
+                    break;
+
+                case ExceptionCodeBlock exceptionCodeBlock:
+                    {
+                        var variable = char.IsNumber(exceptionCodeBlock.name, 0) ?
+                            instructionBlock.associatedMethod.methodDefinition.Body.Variables[int.Parse(exceptionCodeBlock.name)] :
+                            instructionBlock.associatedMethod.GetVariable(exceptionCodeBlock.name);
+
+                        result.Emit(OpCodes.Ldloc, variable);
+                        result.ResultingType = instructionBlock.builder.Import(variable.VariableType);
+                        break;
+                    }
+                case ParametersCodeBlock parametersCodeBlock:
+                    if (parametersCodeBlock.index.HasValue)
+                    {
+                        if (instructionBlock.associatedMethod.methodDefinition.Parameters.Count == 0)
+                            throw new ArgumentException($"The method {instructionBlock.associatedMethod.Name} does not have any parameters");
+
+                        result.Emit(OpCodes.Ldarg, instructionBlock.associatedMethod.IsStatic ? parametersCodeBlock.index.Value : parametersCodeBlock.index.Value + 1);
+                        result.ResultingType = instructionBlock.builder.Import(instructionBlock.associatedMethod.methodDefinition.Parameters[parametersCodeBlock.index.Value].ParameterType);
+                    }
+                    else
+                    {
+                        var variable = char.IsNumber(parametersCodeBlock.name, 0) ?
+                            instructionBlock.associatedMethod.methodDefinition.Body.Variables[int.Parse(parametersCodeBlock.name)] :
+                            instructionBlock.associatedMethod.GetVariable(parametersCodeBlock.name);
+
+                        result.Emit(OpCodes.Ldloc, variable);
+                        result.ResultingType = instructionBlock.builder.Import(variable.VariableType);
+                    }
+                    break;
+
+                case ThisCodeBlock thisCodeBlock:
+                    result.Emit(instructionBlock.associatedMethod.IsStatic ? OpCodes.Ldnull : OpCodes.Ldarg_0);
+                    result.ResultingType = instructionBlock.associatedMethod.OriginType.typeReference;
+                    break;
+
+                case InitObjCodeBlock initObjCodeBlock:
+                    {
+                        var variable = instructionBlock.associatedMethod.CreateVariable(initObjCodeBlock.typeReference);
+                        result.Emit(OpCodes.Ldloca, variable.variable);
+                        result.Emit(OpCodes.Initobj, initObjCodeBlock.typeReference);
+                        result.Emit(OpCodes.Ldloc, variable.variable);
+                        result.ResultingType = initObjCodeBlock.typeReference;
+                        break;
+                    }
+                case DefaultTaskCodeBlock defaultTaskCodeBlock:
+                    {
+                        var taskType = instructionBlock.associatedMethod.type.Builder.GetType("System.Threading.Tasks.Task");
+                        var resultFrom = taskType.GetMethod("FromResult", 1, true).MakeGeneric(typeof(int));
+
+                        result.Append(Call(result, null, resultFrom, 0));
+                        result.ResultingType = result.associatedMethod.ReturnType.typeReference;
+                        break;
+                    }
+
+                case DefaultTaskOfTCodeBlock defaultTaskOfTCodeBlock:
+                    {
+                        var returnType = instructionBlock.associatedMethod.ReturnType.GetGenericArgument(0);
+                        var taskType = instructionBlock.associatedMethod.type.Builder.GetType("System.Threading.Tasks.Task");
+                        var resultFrom = taskType.GetMethod("FromResult", 1, true).MakeGeneric(returnType);
+
+                        result.Append(Call(result, null, resultFrom, returnType.DefaultValue));
+                        result.ResultingType = returnType.typeReference;
+                        break;
+                    }
+
+                case Coder coder:
+                    {
+                        result.Append(coder.instructions);
+                        break;
+                    }
+
+                case CallContextCoder coder:
+                    {
+                        result.Append(coder.coder.instructions);
+                        result.Append(InstructionBlock.Call(coder.coder, null, coder.methodToCall, coder.parameters));
+                        break;
+                    }
+
+                case InstructionsCodeBlock instructionsCodeBlock:
+                    {
+                        result.Append(instructionsCodeBlock.instructions);
+                        break;
+                    }
+
+                /*
+            case BooleanExpressionParameter booleanExpressionParameter:
+                {
+                    var instructions = InstructionBlock.CreateCode(instructionBlock, booleanExpressionParameter.targetType, booleanExpressionParameter.value);
+                    result.Append(instructions);
+                    result.Append(booleanExpressionParameter.ImplementOperations());
+                    result.ResultingType = result.ResultingType; // This will set the backing field
+                }
+                break;
+
+            case BooleanExpressionContextCoder contextCoder:
+                {
+                    result.Append(contextCoder.ImplementOperations());
+                    result.ResultingType = result.ResultingType; // This will set the backing field
+                }
+                break;
+                */
+
+                case TypeReference value:
+                    result.Append(instructionBlock.ilprocessor.TypeOf(value), instructionBlock.builder.Import(typeof(Type)));
+                    break;
+
+                case BuilderType value:
+                    result.Append(instructionBlock.ilprocessor.TypeOf(value.typeReference), instructionBlock.builder.Import(typeof(Type)));
+                    break;
+
+                case Method method:
+                    if (targetType == BuilderType.IntPtr)
+                    {
+                        if (!method.IsStatic && method.OriginType != instructionBlock.associatedMethod.OriginType && instructionBlock.associatedMethod.OriginType.IsAsyncStateMachine)
+                        {
+                            var instance = instructionBlock.associatedMethod.AsyncMethodHelper.Instance;
+                            result.Append(InstructionBlock.CreateCode(result, targetType, instance));
+                        }
+                        else
+                            result.Emit(method.IsStatic ? OpCodes.Ldnull : OpCodes.Ldarg_0);
+
+                        result.Emit(OpCodes.Ldftn, method.methodReference);
+                        result.ResultingType = BuilderType.IntPtr.typeReference;
+                    }
+                    else
+                    {
+                        var methodBaseRef = instructionBlock.builder.Import(typeof(System.Reflection.MethodBase));
+                        // methodof
+                        result.Emit(OpCodes.Ldtoken, method.methodReference);
+                        result.Emit(OpCodes.Ldtoken, method.OriginType.typeReference);
+                        result.Emit(OpCodes.Call, instructionBlock.builder.Import(methodBaseRef.BetterResolve().Methods.FirstOrDefault(x => x.Name == "GetMethodFromHandle" && x.Parameters.Count == 2)));
+
+                        result.ResultingType = methodBaseRef;
+                    }
+                    break;
+
+                case InstructionBlock value:
+                    result.Append(value);
+                    break;
+
+                case ParameterDefinition value:
+                    result.Emit(OpCodes.Ldarg, value);
+                    result.ResultingType = value.ParameterType;
+                    break;
+
+                case ParameterReference value:
+                    result.Emit(OpCodes.Ldarg, value.Index);
+                    result.ResultingType = value.ParameterType;
+                    break;
+
+                case Position value:
+                    result.Append(value.instruction);
+                    break;
+
+                case IEnumerable<Instruction> value:
+                    result.Append(value);
+                    break;
+
+                default:
+                    throw new NotImplementedException($"Unknown type: {codingInfo.GetType().FullName}");
+            }
+
+            if (result.ResultingType == null || targetType == null || result.ResultingType.AreEqual(targetType))
+                return result;
+
+            CastOrBoxValuesInternal(result, targetType);
+
+            return result;
+        }
+
+        public static implicit operator InstructionBlock(Method method) => new InstructionBlock(method);
+
+        public static InstructionBlock Invert(InstructionBlock instructionBlock)
+        {
+            var result = instructionBlock.Spawn();
+
+            result.Emit(OpCodes.Ldc_I4_0);
+            result.Emit(OpCodes.Ceq);
+
+            return result;
+        }
+
+        public static InstructionBlock Negate(InstructionBlock instructionBlock)
+        {
+            var result = instructionBlock.Spawn();
+            result.Emit(OpCodes.Neg);
+            return result;
+        }
+
+        public static InstructionBlock NewObj(
+                    InstructionBlock instructionBlock,
+            object instance,
+            Method method,
+            params object[] parameters) => CallInternal(instructionBlock, instance, method, OpCodes.Newobj, parameters);
+
+        public void Append(InstructionBlock instructionBlock)
+        {
+            this.exceptionHandlers.AddRange(instructionBlock.exceptionHandlers);
+            this.instructions.AddRange(instructionBlock.instructions);
+            this.ResultingType = instructionBlock.ResultingType;
+        }
+
+        public void Append(Instruction instruction) => this.instructions.Add(instruction);
+
+        public void Append(IEnumerable<Instruction> instructions) => this.instructions.AddRange(instructions);
+
+        public void Append(IEnumerable<Instruction> instructions, TypeReference resultingType)
+        {
+            this.instructions.AddRange(instructions);
+            this.ResultingType = resultingType;
+        }
+
+        public void Clear()
+        {
+            exceptionHandlers.Clear();
+            instructions.Clear();
+            resultingType = null;
+        }
+
+        public void Emit(OpCode opcode, ParameterDefinition parameter) => this.instructions.Add(ilprocessor.Create(opcode, parameter));
+
+        public void Emit(OpCode opcode, VariableDefinition variable) => this.instructions.Add(ilprocessor.Create(opcode, variable));
+
+        public void Emit(OpCode opcode, LocalVariable variable) => this.instructions.Add(ilprocessor.Create(opcode, variable.variable));
+
+        public void Emit(OpCode opcode, Instruction[] targets) => this.instructions.Add(ilprocessor.Create(opcode, targets));
+
+        public void Emit(OpCode opcode, Instruction target) => this.instructions.Add(ilprocessor.Create(opcode, target));
+
+        public void Emit(OpCode opcode, double value) => this.instructions.Add(ilprocessor.Create(opcode, value));
+
+        public void Emit(OpCode opcode, float value) => this.instructions.Add(ilprocessor.Create(opcode, value));
+
+        public void Emit(OpCode opcode, long value) => this.instructions.Add(ilprocessor.Create(opcode, value));
+
+        public void Emit(OpCode opcode, ulong value) => this.instructions.Add(ilprocessor.Create(opcode, unchecked((long)value)));
+
+        public void Emit(OpCode opcode) => this.instructions.Add(ilprocessor.Create(opcode));
+
+        public void Emit(OpCode opcode, byte value) => this.instructions.Add(ilprocessor.Create(opcode, value));
+
+        public void Emit(OpCode opcode, sbyte value) => this.instructions.Add(ilprocessor.Create(opcode, value));
+
+        public void Emit(OpCode opcode, string value) => this.instructions.Add(ilprocessor.Create(opcode, value));
+
+        public void Emit(OpCode opcode, FieldReference field) => this.instructions.Add(ilprocessor.Create(opcode, field));
+
+        public void Emit(OpCode opcode, Field field) => this.instructions.Add(ilprocessor.Create(opcode, field.fieldRef));
+
+        public void Emit(OpCode opcode, MethodReference method) => this.instructions.Add(ilprocessor.Create(opcode, method));
+
+        public void Emit(OpCode opcode, Method method) => this.instructions.Add(ilprocessor.Create(opcode, method.methodReference));
+
+        public void Emit(OpCode opcode, CallSite site) => this.instructions.Add(ilprocessor.Create(opcode, site));
+
+        public void Emit(OpCode opcode, TypeReference type) => this.instructions.Add(ilprocessor.Create(opcode, type));
+
+        public void Emit(OpCode opcode, BuilderType type) => this.instructions.Add(ilprocessor.Create(opcode, type.typeReference));
+
+        public void Emit(OpCode opcode, short value) => this.instructions.Add(ilprocessor.Create(opcode, value));
+
+        public void Emit(OpCode opcode, ushort value) => this.instructions.Add(ilprocessor.Create(opcode, unchecked((short)value)));
+
+        public void Emit(OpCode opcode, int value) => this.instructions.Add(ilprocessor.Create(opcode, value));
+
+        public void Emit(OpCode opcode, uint value) => this.instructions.Add(ilprocessor.Create(opcode, unchecked((int)value)));
+
+        public void Emit_LdNull() => this.Emit(OpCodes.Ldnull);
+
+        public void Emit_Nop() => this.Emit(OpCodes.Nop);
+
+        public void Prepend(IEnumerable<Instruction> instructions) => this.instructions.InsertRange(0, instructions);
+
+        public InstructionBlock Spawn() => new InstructionBlock(this.associatedMethod);
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+
+            foreach (var item in this.instructions)
+                sb.AppendLine($"IL_{item.Offset.ToString("X4")}: {item.OpCode.ToString()} { (item.Operand is Instruction ? "IL_" + (item.Operand as Instruction).Offset.ToString("X4") : item.Operand?.ToString())} ");
+
+            return sb.ToString();
+        }
+
+        private static void AddVariableDefinitionToInstruction(InstructionBlock instructionBlock, BuilderType targetType, VariableDefinition variableDefinition)
+        {
+            var value = variableDefinition as VariableDefinition;
+            var index = value.Index;
+
+            if (value.VariableType.IsValueType && targetType == null)
+                instructionBlock.Emit(OpCodes.Ldloca, value);
+            else
+                switch (index)
+                {
+                    case 0: instructionBlock.Emit(OpCodes.Ldloc_0); break;
+                    case 1: instructionBlock.Emit(OpCodes.Ldloc_1); break;
+                    case 2: instructionBlock.Emit(OpCodes.Ldloc_2); break;
+                    case 3: instructionBlock.Emit(OpCodes.Ldloc_3); break;
+                    default:
+                        instructionBlock.Emit(OpCodes.Ldloc, value);
+                        break;
+                }
+
+            instructionBlock.ResultingType = value.VariableType;
+        }
+
+        private static InstructionBlock CallInternal(InstructionBlock instructionBlock, object instance, Method method, OpCode opcode, params object[] parameters)
+        {
+            var result = instructionBlock.Spawn();
+
+            if (instance != null && !method.IsStatic)
+                result.Append(InstructionBlock.CreateCode(instructionBlock, null, instance));
+
+            if (parameters != null && parameters.Length > 0 && parameters[0] is ArrayCodeBlock arrayCodeSet)
+            {
+                var methodParameters = method.methodDefinition.Parameters;
+                for (int i = 0; i < methodParameters.Count; i++)
+                {
+                    result.Append(InstructionBlock.CreateCode(instructionBlock, null, arrayCodeSet));
+                    result.Append(InstructionBlock.CreateCode(instructionBlock, null, i));
+                    result.Emit(OpCodes.Ldelem_Ref);
+
+                    CastOrBoxValues(result, methodParameters[i].ParameterType.ToBuilderType());
+                }
+            }
+            else if (parameters != null && parameters.Length > 0 && parameters[0] is ParametersCodeBlock parameterCodeSet && parameterCodeSet.IsAllParameters)
+            {
+                if ((method.OriginType.IsInterface || method.IsAbstract) && opcode != OpCodes.Calli && opcode != OpCodes.Newobj)
+                    opcode = OpCodes.Callvirt;
+
+                for (int i = 0; i < method.methodReference.Parameters.Count; i++)
+                {
+                    var parameterType = method.methodDefinition.Parameters[i].ParameterType.IsGenericInstance || method.methodDefinition.Parameters[i].ParameterType.IsGenericParameter ?
+                        method.methodDefinition.Parameters[i].ParameterType.ResolveType(method.OriginType.typeReference, method.methodReference) :
+                        method.methodDefinition.Parameters[i].ParameterType;
+
+                    result.Append(InstructionBlock.CreateCode(result, parameterType.ToBuilderType().Import(), CodeBlocks.GetParameter(i)));
+                }
+            }
+            else
+            {
+                if ((method.OriginType.IsInterface || method.IsAbstract) && opcode != OpCodes.Calli && opcode != OpCodes.Newobj)
+                    opcode = OpCodes.Callvirt;
+
+                if (parameters != null)
+                    for (int i = 0; i < parameters.Length; i++)
+                    {
+                        var parameterType = method.methodDefinition.Parameters[i].ParameterType.IsGenericInstance || method.methodDefinition.Parameters[i].ParameterType.IsGenericParameter ?
+                            method.methodDefinition.Parameters[i].ParameterType.ResolveType(method.OriginType.typeReference, method.methodReference) :
+                            method.methodDefinition.Parameters[i].ParameterType;
+
+                        result.Append(InstructionBlock.CreateCode(result, parameterType.ToBuilderType().Import(), parameters[i]));
+                    }
+            }
+
+            try
+            {
+                result.Emit(opcode, Builder.Current.Import(method.methodReference));
+            }
+            catch (NullReferenceException)
+            {
+                result.Emit(opcode, Builder.Current.Import(method.methodReference, result.associatedMethod.methodReference));
+            }
+
+            return result;
+        }
+
+        private static void CastOrBoxValuesInternal(InstructionBlock instructionBlock, BuilderType targetType)
+        {
+            // TODO - Support for nullable types required
+
+            if (targetType == null)
+                return;
+
+            bool IsInstRequired()
+            {
+                if (targetType == BuilderType.String ||
+                    instructionBlock.ResultingType.AreReferenceAssignable(targetType.typeReference) ||
+                    targetType.IsInterface)
+                    return true;
+
+                if (targetType.IsValueType)
+                    return false;
+
+                if (targetType.IsArray)
+                    return false;
+
+                if (targetType == BuilderType.IEnumerable1)
+                    return false;
+
+                return false;
+            }
+
+            // TODO - adds additional checks for not resolved generics
+            if (targetType.IsGenericType && instructionBlock.ResultingType.Resolve() != null) /* This happens if the target type is a generic */ instructionBlock.Emit(OpCodes.Unbox_Any, targetType);
+            else if (IsInstRequired()) instructionBlock.Emit(OpCodes.Isinst, targetType.Import());
+            else if (targetType.IsEnum)
+            {
+                if (instructionBlock.ResultingType.AreEqual(BuilderType.String.typeReference))
+                {
+                    instructionBlock.Prepend(instructionBlock.ilprocessor.TypeOf(targetType));
+
+                    instructionBlock.Append(instructionBlock.ilprocessor.TypeOf(targetType.Import()));
+                    instructionBlock.Emit(OpCodes.Call, BuilderType.Enum.GetMethod("GetUnderlyingType", true, typeof(Type)).Import());
+                    instructionBlock.Emit(OpCodes.Call, BuilderType.Convert.GetMethod("ChangeType", true, typeof(object), typeof(Type)).Import());
+                    instructionBlock.Emit(OpCodes.Call, BuilderType.Enum.GetMethod("ToObject", true, typeof(Type), typeof(object)).Import());
+                    instructionBlock.Emit(OpCodes.Unbox_Any, targetType);
+                }
+                else
+                    instructionBlock.Emit(OpCodes.Unbox_Any, targetType);
+
+                // Bug #23
+                //result.Instructions.InsertRange(0, this.TypeOf(processor, targetType));
+
+                //result.Instructions.AddRange(this.TypeOf(processor, Builder.Current.Import(targetType)));
+                //result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Enum)).GetMethodReference("GetUnderlyingType", new Type[] { typeof(Type) }))));
+                //result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Convert)).GetMethodReference("ChangeType", new Type[] { typeof(object), typeof(Type) }))));
+                //result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Enum)).GetMethodReference("ToObject", new Type[] { typeof(Type), typeof(object) }))));
+            }
+            else if (instructionBlock.ResultingType.AreEqual(BuilderType.Object) && (targetType.IsArray || targetType == BuilderType.IEnumerable1))
+            {
+                var childType = Builder.Current.GetChildrenType(targetType.typeReference);
+                var castMethod = BuilderType.Enumerable.GetMethod("Cast", true, BuilderType.IEnumerable).MakeGeneric(childType).Import();
+                var toArrayMethod = BuilderType.Enumerable.GetMethod("ToArray", 1).MakeGeneric(childType).Import();
+
+                instructionBlock.Emit(OpCodes.Isinst, BuilderType.IEnumerable);
+                instructionBlock.Emit(OpCodes.Call, castMethod);
+
+                if (targetType.IsArray)
+                    instructionBlock.Emit(OpCodes.Call, toArrayMethod);
+            }
+            else if
+                (
+                    (instructionBlock.ResultingType.AreEqual(BuilderType.Object) && targetType.IsValueType) ||
+                    (instructionBlock.ResultingType.AreEqual(targetType) && instructionBlock.ResultingType.IsPrimitive && targetType.IsPrimitive)
+                )
+            {
+                if (targetType == BuilderType.Int32) instructionBlock.Emit(OpCodes.Call, BuilderType.Convert.GetMethod("ToInt32", true, instructionBlock.ResultingType).Import());
+                else if (targetType == BuilderType.UInt32) instructionBlock.Emit(OpCodes.Call, BuilderType.Convert.GetMethod("ToUInt32", true, instructionBlock.ResultingType).Import());
+                else if (targetType == BuilderType.Boolean) instructionBlock.Emit(OpCodes.Call, BuilderType.Convert.GetMethod("ToBoolean", true, instructionBlock.ResultingType).Import());
+                else if (targetType == BuilderType.Byte) instructionBlock.Emit(OpCodes.Call, BuilderType.Convert.GetMethod("ToByte", true, instructionBlock.ResultingType).Import());
+                else if (targetType == BuilderType.Char) instructionBlock.Emit(OpCodes.Call, BuilderType.Convert.GetMethod("ToChar", true, instructionBlock.ResultingType).Import());
+                else if (targetType == BuilderType.DateTime) instructionBlock.Emit(OpCodes.Call, BuilderType.Convert.GetMethod("ToDateTime", true, instructionBlock.ResultingType).Import());
+                else if (targetType == BuilderType.Decimal) instructionBlock.Emit(OpCodes.Call, BuilderType.Convert.GetMethod("ToDecimal", true, instructionBlock.ResultingType).Import());
+                else if (targetType == BuilderType.Double) instructionBlock.Emit(OpCodes.Call, BuilderType.Convert.GetMethod("ToDouble", true, instructionBlock.ResultingType).Import());
+                else if (targetType == BuilderType.Int16) instructionBlock.Emit(OpCodes.Call, BuilderType.Convert.GetMethod("ToInt16", true, instructionBlock.ResultingType).Import());
+                else if (targetType == BuilderType.Int64) instructionBlock.Emit(OpCodes.Call, BuilderType.Convert.GetMethod("ToInt64", true, instructionBlock.ResultingType).Import());
+                else if (targetType == BuilderType.SByte) instructionBlock.Emit(OpCodes.Call, BuilderType.Convert.GetMethod("ToSByte", true, instructionBlock.ResultingType).Import());
+                else if (targetType == BuilderType.Single) instructionBlock.Emit(OpCodes.Call, BuilderType.Convert.GetMethod("ToSingle", true, instructionBlock.ResultingType).Import());
+                else if (targetType == BuilderType.UInt16) instructionBlock.Emit(OpCodes.Call, BuilderType.Convert.GetMethod("ToUInt16", true, instructionBlock.ResultingType).Import());
+                else if (targetType == BuilderType.UInt64) instructionBlock.Emit(OpCodes.Call, BuilderType.Convert.GetMethod("ToUInt64", true, instructionBlock.ResultingType).Import());
+                else instructionBlock.Emit(OpCodes.Unbox_Any, targetType);
+            }
+            else if ((instructionBlock.ResultingType.Resolve() == null || instructionBlock.ResultingType.IsValueType) && !targetType.IsValueType)
+                instructionBlock.Emit(OpCodes.Box, instructionBlock.ResultingType);
+            else if (instructionBlock.instructions.Last().OpCode != OpCodes.Ldnull && targetType == BuilderType.Object)
+            {
+                // Nope nothing....
+            }
+            else if (
+                    instructionBlock.instructions.Last().OpCode != OpCodes.Ldnull &&
+                    !instructionBlock.ResultingType.AreEqual(targetType) &&
+                    targetType.typeReference.AreReferenceAssignable(instructionBlock.ResultingType))
+                instructionBlock.Emit(OpCodes.Castclass, Builder.Current.Import(instructionBlock.ResultingType));
+        }
+
+        private static void CreateCodeForFieldReference(
+            InstructionBlock result,
+            BuilderType targetType,
+            Field valueField,
+            bool autoAddThisInstance)
+        {
+            if (!valueField.IsStatic && autoAddThisInstance)
+                result.Emit(OpCodes.Ldarg_0);
+
+            if (valueField.FieldType.IsValueType && targetType == null)
+                result.Emit(valueField.IsStatic ?
+                    OpCodes.Ldsflda :
+                    OpCodes.Ldflda, valueField);
+            else
+                result.Emit(valueField.IsStatic ?
+                    OpCodes.Ldsfld :
+                    OpCodes.Ldfld, valueField);
+
+            result.ResultingType = valueField.FieldType.typeReference;
+        }
+
+        private static void CreateCodeForVariableDefinition(
+            InstructionBlock result,
+            BuilderType targetType,
+            LocalVariable localVariable)
+        {
+            if (localVariable.variable.VariableType.IsValueType && !localVariable.variable.VariableType.IsPrimitive)
+                result.Emit(OpCodes.Ldloca, localVariable.variable);
+            else
+                switch (localVariable.Index)
+                {
+                    case 0: result.Emit(OpCodes.Ldloc_0); break;
+                    case 1: result.Emit(OpCodes.Ldloc_1); break;
+                    case 2: result.Emit(OpCodes.Ldloc_2); break;
+                    case 3: result.Emit(OpCodes.Ldloc_3); break;
+                    default:
+                        result.Emit(OpCodes.Ldloc, localVariable.variable);
+                        break;
+                }
+
+            result.ResultingType = localVariable.Type.typeReference ?? localVariable.Type.typeDefinition;
+        }
+    }
+}

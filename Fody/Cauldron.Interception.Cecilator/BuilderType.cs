@@ -6,12 +6,11 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 
 namespace Cauldron.Interception.Cecilator
 {
-    public sealed class BuilderType : CecilatorBase, IEquatable<BuilderType>
+    public sealed partial class BuilderType : CecilatorBase, IEquatable<BuilderType>
     {
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
         internal readonly TypeDefinition typeDefinition;
@@ -648,6 +647,8 @@ namespace Cauldron.Interception.Cecilator
 
         public Method GetMethod(string name, bool throwException = true, params BuilderType[] parameters) => GetMethod(name, throwException, parameters.Select(x => x.Fullname).ToArray());
 
+        public Method GetMethod(string name, bool throwException = true, params TypeReference[] parameters) => GetMethod(name, throwException, parameters.Select(x => x.FullName).ToArray());
+
         public Method GetMethod(Modifiers modifier, BuilderType returnType, string name, params BuilderType[] parameters)
         {
             MethodDefinition result = null;
@@ -750,14 +751,17 @@ namespace Cauldron.Interception.Cecilator
             if (object.ReferenceEquals(obj, this))
                 return true;
 
-            if (obj is BuilderType)
-                return this.Equals(obj as BuilderType);
+            switch (obj)
+            {
+                case BuilderType builderType:
+                    return this.Equals(builderType);
 
-            if (obj is TypeDefinition)
-                return this.typeDefinition == obj as TypeDefinition;
+                case TypeDefinition typeDefinition:
+                    return this.typeDefinition.AreEqual(typeDefinition);
 
-            if (obj is TypeReference)
-                return this.typeReference == obj as TypeReference;
+                case TypeReference typeReference:
+                    return this.typeReference.AreEqual(typeReference);
+            }
 
             return false;
         }
@@ -771,7 +775,13 @@ namespace Cauldron.Interception.Cecilator
             if (object.ReferenceEquals(other, this))
                 return true;
 
-            return this.typeDefinition == other.typeDefinition;
+            if (this.IsGenericInstance)
+                return this.typeDefinition.AreEqual(other.typeDefinition) && this.typeReference.AreEqual(other.typeReference);
+
+            if (this.IsGenericType)
+                return this.typeReference.AreEqual(other.typeReference);
+
+            return this.typeDefinition.AreEqual(other.typeDefinition);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
