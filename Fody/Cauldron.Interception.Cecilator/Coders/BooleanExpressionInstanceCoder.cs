@@ -8,12 +8,11 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         internal BooleanExpressionInstanceCoder(Coder coder, T target) : base(coder) => this.target = target;
 
-        public abstract TypeReference TargetType { get; }
+        public abstract BuilderType TargetType { get; }
 
         internal BooleanExpressionCoder ToBooleanExpressionCoder()
         {
-            this.coder.Append(this.coder.AddParameter(this.coder.processor, this.TargetType, this.target).Instructions);
-            this.coder.Append(this.ImplementOperations());
+            this.coder.instructions.Append(InstructionBlock.CreateCode(this.coder.instructions, this.TargetType, this.target));
             return this as BooleanExpressionCoder;
         }
     }

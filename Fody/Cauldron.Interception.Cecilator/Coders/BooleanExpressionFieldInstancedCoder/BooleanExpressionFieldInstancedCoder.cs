@@ -1,6 +1,4 @@
-﻿using Mono.Cecil;
-
-namespace Cauldron.Interception.Cecilator.Coders
+﻿namespace Cauldron.Interception.Cecilator.Coders
 {
     public partial class BooleanExpressionFieldInstancedCoder : BooleanExpressionInstanceCoder<Field>
     {
@@ -9,6 +7,6 @@ namespace Cauldron.Interception.Cecilator.Coders
         {
         }
 
-        public override TypeReference TargetType => this.target?.fieldRef.FieldType;
+        public override BuilderType TargetType => this.target?.FieldType;
     }
 }

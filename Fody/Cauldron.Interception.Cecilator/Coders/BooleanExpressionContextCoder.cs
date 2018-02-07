@@ -7,20 +7,11 @@ namespace Cauldron.Interception.Cecilator.Coders
     {
         internal readonly Instruction jumpTarget;
 
-        internal BooleanExpressionContextCoder(BooleanExpressionContextCoder coder) :
-            base(coder.coder, true) => this.jumpTarget = coder.jumpTarget;
-
         internal BooleanExpressionContextCoder(BooleanExpressionContextCoder coder, bool autoAddThisInstance) :
             base(coder.coder, autoAddThisInstance) => this.jumpTarget = coder.jumpTarget;
 
-        internal BooleanExpressionContextCoder(Coder coder) :
-            base(coder, true) => this.jumpTarget = coder.instructions.ilprocessor.Create(OpCodes.Nop);
-
         internal BooleanExpressionContextCoder(Coder coder, bool autoAddThisInstance) :
             base(coder, autoAddThisInstance) => this.jumpTarget = coder.instructions.ilprocessor.Create(OpCodes.Nop);
-
-        internal BooleanExpressionContextCoder(Coder coder, Instruction jumpTarget) :
-            base(coder, true) => this.jumpTarget = jumpTarget;
 
         internal BooleanExpressionContextCoder(Coder coder, Instruction jumpTarget, bool autoAddThisInstance) :
             base(coder, autoAddThisInstance) => this.jumpTarget = jumpTarget;
@@ -36,8 +27,8 @@ namespace Cauldron.Interception.Cecilator.Coders
 
             if (a == b && a.IsPrimitive)
             {
-                x.instructions.Append(InstructionBlock.CreateCode(x.instructions, a.typeReference, valueA));
-                x.instructions.Append(InstructionBlock.CreateCode(x.instructions, b.typeReference, valueB));
+                x.instructions.Append(InstructionBlock.CreateCode(x.instructions, a, valueA));
+                x.instructions.Append(InstructionBlock.CreateCode(x.instructions, b, valueB));
                 x.instructions.Emit(OpCodes.Ceq);
 
                 return result;
@@ -63,7 +54,7 @@ namespace Cauldron.Interception.Cecilator.Coders
             // It is almost like the first block, but with forced target types
             if (a.IsPrimitive && b.IsPrimitive)
             {
-                var typeToUse = GetTypeWithMoreCapacity(a.typeReference, b.typeReference);
+                var typeToUse = GetTypeWithMoreCapacity(a.typeReference, b.typeReference).ToBuilderType();
                 x.instructions.Append(InstructionBlock.CreateCode(x.instructions, typeToUse, valueA));
                 x.instructions.Append(InstructionBlock.CreateCode(x.instructions, typeToUse, valueB));
                 x.instructions.Emit(OpCodes.Ceq);
@@ -71,7 +62,10 @@ namespace Cauldron.Interception.Cecilator.Coders
                 return result;
             }
 
-            equalityOperator = Builder.Current.GetType(typeof(object)).GetMethod("Equals", false, "System.Object", "System.Object").Import();
+            equalityOperator = Builder
+                .Current
+                .GetType(typeof(object))
+                .GetMethod("Equals", false, BuilderType.Object, BuilderType.Object).Import();
 
             this.coder.Call(equalityOperator.Import(), valueA, valueB);
             return result;

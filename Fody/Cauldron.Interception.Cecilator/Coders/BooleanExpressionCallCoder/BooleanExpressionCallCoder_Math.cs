@@ -6,7 +6,7 @@ namespace Cauldron.Interception.Cecilator.Coders
     {
         public BooleanExpressionCoder Negate()
         {
-            this.coder.CallInternal(this.instance, this.calledMethod, OpCodes.Call, this.parameters);
+            this.coder.CallInternal(this.instance, this.methodToCall, OpCodes.Call, this.parameters);
             this.coder.instructions.Append(this.coder.processor.Create(OpCodes.Neg));
             return new BooleanExpressionCoder(coder);
         }

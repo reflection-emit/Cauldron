@@ -70,17 +70,12 @@ namespace Cauldron.Interception.Cecilator
 
         public BuilderCustomAttributeCollection CustomAttributes => new BuilderCustomAttributeCollection(this.type.Builder, this.methodDefinition);
 
-        /// <summary>
-        /// Gets the type that contains the method.
-        /// </summary>
-        public BuilderType DeclaringType => new BuilderType(this.type.Builder, this.methodReference.DeclaringType);
-
         public string Fullname => this.methodReference.FullName;
 
         public override string Identification => $"{this.methodDefinition.DeclaringType.Name}-{this.methodDefinition.Name}-{this.methodDefinition.DeclaringType.MetadataToken.RID}-{this.methodDefinition.MetadataToken.RID}";
 
-        public bool IsAbstract => this.methodDefinition.IsAbstract;
         public bool IsAsync => this.methodDefinition.ReturnType.FullName.EqualsEx("System.Threading.Tasks.Task") || (this.methodDefinition.ReturnType.Resolve()?.FullName.EqualsEx("System.Threading.Tasks.Task`1") ?? false);
+
         public bool IsCCtor => this.methodDefinition.Name == ".cctor";
 
         /// <summary>
@@ -112,18 +107,14 @@ namespace Cauldron.Interception.Cecilator
         public bool IsCtor => this.methodDefinition.Name == ".ctor";
 
         public bool IsGenerated => this.methodDefinition.Name.IndexOf('<') >= 0 ||
-            this.methodDefinition.Name.IndexOf('>') >= 0 ||
-            this.type.typeDefinition.FullName.IndexOf('<') >= 0 ||
-            this.type.typeDefinition.FullName.IndexOf('>') >= 0;
+                    this.methodDefinition.Name.IndexOf('>') >= 0 ||
+                    this.type.typeDefinition.FullName.IndexOf('<') >= 0 ||
+                    this.type.typeDefinition.FullName.IndexOf('>') >= 0;
 
         public bool IsInternal => this.methodDefinition.Attributes.HasFlag(MethodAttributes.Assembly);
-        public bool IsPrivate => this.methodDefinition.IsPrivate;
         public bool IsPropertyGetterSetter => (this.methodDefinition.Name.StartsWith("get_") || this.methodDefinition.Name.StartsWith("set_")) && this.methodDefinition.IsSpecialName;
         public bool IsProtected => this.methodDefinition.Attributes.HasFlag(MethodAttributes.Family);
-        public bool IsPublic => this.methodDefinition.IsPublic;
         public bool IsPublicOrInternal => this.IsPublic || this.IsInternal;
-        public bool IsSpecialName => this.methodDefinition.IsSpecialName;
-        public bool IsStatic => this.methodDefinition.IsStatic;
         public bool IsVoid => this.methodDefinition.ReturnType.FullName == "System.Void";
 
         public Modifiers Modifiers
@@ -140,6 +131,16 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
+        /// <summary>
+        /// Gets the type that contains the method.
+        /// </summary>
+        public BuilderType DeclaringType => new BuilderType(this.type.Builder, this.methodReference.DeclaringType);
+
+        public bool IsAbstract => this.methodDefinition.IsAbstract;
+        public bool IsPrivate => this.methodDefinition.IsPrivate;
+        public bool IsPublic => this.methodDefinition.IsPublic;
+        public bool IsSpecialName => this.methodDefinition.IsSpecialName;
+        public bool IsStatic => this.methodDefinition.IsStatic;
         public string Name => this.methodDefinition.Name;
 
         /// <summary>
@@ -164,48 +165,6 @@ namespace Cauldron.Interception.Cecilator
         public Field CreateField(TypeReference typeReference, string name) =>
             this.IsStatic ? this.OriginType.CreateField(Modifiers.PrivateStatic, typeReference, name) : this.OriginType.CreateField(Modifiers.Private, typeReference, name);
 
-        /// <summary>
-        /// Gets or creates a local variable
-        /// </summary>
-        /// <param name="type">The type of the variable to create</param>
-        /// <param name="name">The name of the variable</param>
-        /// <returns></returns>
-        public LocalVariable CreateVariable(Type type, string name = null) =>
-            this.CreateVariable(this.moduleDefinition.ImportReference(type.GetTypeDefinition().ResolveType(this.OriginType.typeReference)), name);
-
-        /// <summary>
-        /// Gets or creates a local variable
-        /// </summary>
-        /// <param name="type">The type of the variable to create</param>
-        /// <param name="name">The name of the variable</param>
-        /// <returns></returns>
-        public LocalVariable CreateVariable(BuilderType type, string name = null) =>
-            this.CreateVariable(type.typeReference, name);
-
-        /// <summary>
-        /// Gets or creates a local variable
-        /// </summary>
-        /// <param name="type">The type of the variable to create</param>
-        /// <param name="name">The name of the variable</param>
-        /// <returns></returns>
-        public LocalVariable CreateVariable(TypeReference type, string name = null)
-        {
-            if (string.IsNullOrEmpty(name))
-                name = Coder.VariablePrefix + Coder.GenerateName();
-            else
-            {
-                var existingVariable = this.GetVariable(name);
-
-                if (existingVariable != null)
-                    return new LocalVariable(this.type, existingVariable, name);
-            }
-
-            var newVariable = new VariableDefinition(this.moduleDefinition.ImportReference(type));
-            this.AddLocalVariable(name, newVariable);
-
-            return new LocalVariable(this.type, newVariable, name);
-        }
-
         public IEnumerable<MethodUsage> FindUsages()
         {
             var result = this.type.Builder.GetTypes()
@@ -228,6 +187,48 @@ namespace Cauldron.Interception.Cecilator
 
                 yield return items.Operand as string;
             }
+        }
+
+        /// <summary>
+        /// Gets or creates a local variable
+        /// </summary>
+        /// <param name="type">The type of the variable to create</param>
+        /// <param name="name">The name of the variable</param>
+        /// <returns></returns>
+        public LocalVariable GetOrCreateVariable(Type type, string name = null) =>
+            this.GetOrCreateVariable(this.moduleDefinition.ImportReference(type.GetTypeDefinition().ResolveType(this.OriginType.typeReference)), name);
+
+        /// <summary>
+        /// Gets or creates a local variable
+        /// </summary>
+        /// <param name="type">The type of the variable to create</param>
+        /// <param name="name">The name of the variable</param>
+        /// <returns></returns>
+        public LocalVariable GetOrCreateVariable(BuilderType type, string name = null) =>
+            this.GetOrCreateVariable(type.typeReference, name);
+
+        /// <summary>
+        /// Gets or creates a local variable
+        /// </summary>
+        /// <param name="type">The type of the variable to create</param>
+        /// <param name="name">The name of the variable</param>
+        /// <returns></returns>
+        public LocalVariable GetOrCreateVariable(TypeReference type, string name = null)
+        {
+            if (string.IsNullOrEmpty(name))
+                name = CodeBlocks.VariablePrefix + CodeBlocks.GenerateName();
+            else
+            {
+                var existingVariable = this.GetVariable(name);
+
+                if (existingVariable != null)
+                    return new LocalVariable(this.type, existingVariable, name);
+            }
+
+            var newVariable = new VariableDefinition(this.moduleDefinition.ImportReference(type));
+            this.AddLocalVariable(name, newVariable);
+
+            return new LocalVariable(this.type, newVariable, name);
         }
 
         public IEnumerable<TypeReference> GetTokens()

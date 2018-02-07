@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Cauldron.Interception.Cecilator
 {
@@ -22,10 +23,12 @@ namespace Cauldron.Interception.Cecilator
         private static BuilderType _int32;
         private static BuilderType _int64;
         private static BuilderType _intPtr;
+        private static BuilderType _nullable;
         private static BuilderType _object;
         private static BuilderType _sByte;
         private static BuilderType _single;
         private static BuilderType _string;
+        private static BuilderType _task;
         private static BuilderType _uInt16;
         private static BuilderType _uInt32;
         private static BuilderType _uInt64;
@@ -170,6 +173,15 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
+        public static BuilderType Nullable
+        {
+            get
+            {
+                if (_nullable == null) _nullable = Builder.Current.GetType(typeof(Nullable<>)).Import();
+                return _nullable;
+            }
+        }
+
         public static BuilderType Object
         {
             get
@@ -203,6 +215,15 @@ namespace Cauldron.Interception.Cecilator
             {
                 if (_string == null) _string = Builder.Current.GetType(typeof(string)).Import();
                 return _string;
+            }
+        }
+
+        public static BuilderType Task
+        {
+            get
+            {
+                if (_task == null) _task = Builder.Current.GetType(typeof(Task)).Import();
+                return _task;
             }
         }
 

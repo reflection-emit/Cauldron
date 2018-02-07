@@ -21,9 +21,6 @@ namespace Cauldron.Interception.Cecilator.Coders
             this.parameters = parameters;
             this.calledMethod = calledMethod;
             this.instance = coder.target;
-            this.invert = coder.invert;
-            this.negate = coder.negate;
-            this.castToType = coder.castToType;
         }
 
         internal BooleanExpressionInstanceCallCoder(BooleanExpressionInstanceCallCoder coder, Method calledMethod, object[] parameters) : base(coder.coder, coder.jumpTarget)
@@ -31,9 +28,6 @@ namespace Cauldron.Interception.Cecilator.Coders
             this.parameters = parameters;
             this.calledMethod = calledMethod;
             this.instance = coder.instance;
-            this.invert = coder.invert;
-            this.negate = coder.negate;
-            this.castToType = coder.castToType;
         }
 
         public BooleanExpressionResultCoder EqualsTo(object value) => this.Convert().EqualsTo(value);
@@ -60,11 +54,6 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         public BooleanExpressionResultCoder NotEqualsTo(object value) => this.Convert().NotEqualsTo(value);
 
-        internal BooleanExpressionCallCoder Convert() => new BooleanExpressionCallCoder(this.coder, this.jumpTarget, this.instance, this.calledMethod, this.parameters)
-        {
-            castToType = this.castToType,
-            invert = this.invert,
-            negate = this.negate,
-        };
+        internal BooleanExpressionCallCoder Convert() => new BooleanExpressionCallCoder(this.coder, this.jumpTarget, this.instance, this.calledMethod, this.parameters);
     }
 }

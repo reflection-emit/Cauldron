@@ -121,12 +121,6 @@ namespace Cauldron.Interception.Cecilator.Coders
             return this;
         }
 
-        public Coder Return()
-        {
-            this.instructions.Emit(OpCodes.Ret);
-            return this;
-        }
-
         public Coder ReturnDefault()
         {
             if (!this.instructions.associatedMethod.IsVoid)

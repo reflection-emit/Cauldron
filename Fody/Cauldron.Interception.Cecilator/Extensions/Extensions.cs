@@ -100,7 +100,7 @@ namespace Cauldron.Interception.Cecilator.Extensions
         /// </summary>
         /// <param name="coder">The coder.</param>
         /// <returns></returns>
-        public static Coder NewCoder(this Coder coder) => new Coder(coder.instructions.associatedMethod);
+        public static Coder NewCoder(this CoderBase coder) => new Coder(coder.instructions.associatedMethod);
 
         /// <summary>
         /// Creates a typeof() implementation for the given type <paramref name="type"/>

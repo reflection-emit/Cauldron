@@ -3,7 +3,6 @@ using Mono.Cecil;
 using Mono.Cecil.Cil;
 using Mono.Cecil.Rocks;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,10 +12,15 @@ namespace Cauldron.Interception.Cecilator.Coders
     public sealed class InstructionBlock
     {
         internal readonly Method associatedMethod;
+
         internal readonly Builder builder;
+
         internal readonly List<ExceptionHandler> exceptionHandlers = new List<ExceptionHandler>();
+
         internal readonly ILProcessor ilprocessor;
+
         internal readonly List<Instruction> instructions = new List<Instruction>();
+
         private TypeReference resultingType;
 
         private InstructionBlock(Method method)
@@ -26,8 +30,6 @@ namespace Cauldron.Interception.Cecilator.Coders
             this.ilprocessor = this.associatedMethod.GetILProcessor();
             this.associatedMethod.methodDefinition.Body.SimplifyMacros();
         }
-
-        public int Count => this.instructions.Count;
 
         /// <summary>
         /// Gets or sets the resulting type of the instruction block. This is only relevant for casting and relational operations
@@ -49,6 +51,8 @@ namespace Cauldron.Interception.Cecilator.Coders
                     this.resultingType = value;
             }
         }
+
+        public int Count => this.instructions.Count;
 
         public static InstructionBlock Call(
                     InstructionBlock instructionBlock,
@@ -154,16 +158,6 @@ namespace Cauldron.Interception.Cecilator.Coders
                     CreateCodeForFieldReference(result, targetType, value, true);
                     break;
 
-                case FieldAssignCoder value:
-                    result.Append(value.coder);
-                    CreateCodeForFieldReference(result, targetType, value.target, value.autoAddThisInstance);
-                    break;
-
-                case FieldContextCoder value:
-                    result.Append(value.coder);
-                    CreateCodeForFieldReference(result, targetType, value.target, value.autoAddThisInstance);
-                    break;
-
                 case int value:
                     result.Emit(OpCodes.Ldc_I4, value);
                     result.ResultingType = BuilderType.Int32.typeReference;
@@ -242,10 +236,6 @@ namespace Cauldron.Interception.Cecilator.Coders
                     AddVariableDefinitionToInstruction(result, targetType, value);
                     break;
 
-                case LocalVariableAssignCoder value:
-                    CreateCodeForVariableDefinition(result, targetType, value.target);
-                    break;
-
                 case ExceptionCodeBlock exceptionCodeBlock:
                     {
                         var variable = char.IsNumber(exceptionCodeBlock.name, 0) ?
@@ -264,14 +254,6 @@ namespace Cauldron.Interception.Cecilator.Coders
                         break;
                     }
 
-                case ArgAssignCoder argAssignCoder:
-                    {
-                        var parameterInfos = argAssignCoder.target.GetTargetType(instructionBlock.associatedMethod);
-                        result.Emit(OpCodes.Ldarg, parameterInfos.Item2);
-                        result.ResultingType = parameterInfos.Item1.typeReference;
-                        break;
-                    }
-
                 case ThisCodeBlock thisCodeBlock:
                     result.Emit(instructionBlock.associatedMethod.IsStatic ? OpCodes.Ldnull : OpCodes.Ldarg_0);
                     result.ResultingType = instructionBlock.associatedMethod.OriginType.typeReference;
@@ -279,7 +261,7 @@ namespace Cauldron.Interception.Cecilator.Coders
 
                 case InitObjCodeBlock initObjCodeBlock:
                     {
-                        var variable = instructionBlock.associatedMethod.CreateVariable(initObjCodeBlock.typeReference);
+                        var variable = instructionBlock.associatedMethod.GetOrCreateVariable(initObjCodeBlock.typeReference);
                         result.Emit(OpCodes.Ldloca, variable.variable);
                         result.Emit(OpCodes.Initobj, initObjCodeBlock.typeReference);
                         result.Emit(OpCodes.Ldloc, variable.variable);
@@ -307,16 +289,9 @@ namespace Cauldron.Interception.Cecilator.Coders
                         break;
                     }
 
-                case Coder coder:
+                case CoderBase coder:
                     {
                         result.Append(coder.instructions);
-                        break;
-                    }
-
-                case CallContextCoder coder:
-                    {
-                        result.Append(coder.coder.instructions);
-                        result.Append(InstructionBlock.Call(coder.coder, null, coder.methodToCall, coder.parameters));
                         break;
                     }
 
@@ -437,6 +412,105 @@ namespace Cauldron.Interception.Cecilator.Coders
             Method method,
             params object[] parameters) => CallInternal(instructionBlock, instance, method, OpCodes.Newobj, parameters);
 
+        public static InstructionBlock SetValue(InstructionBlock instructionBlock, LocalVariable localVariable, object value)
+        {
+            var result = instructionBlock.Spawn();
+
+            // value to assign
+            if (localVariable.Type.IsNullable && value == null)
+            {
+                // If the nullable is assigned a null
+                result.Emit(OpCodes.Ldloca, localVariable);
+                result.Emit(OpCodes.Initobj, localVariable.Type);
+            }
+            else if (localVariable.Type.IsNullable && value.GetType().With(x => x.IsValueType && !x.IsGenericType && Nullable.GetUnderlyingType(x) == null))
+            {
+                // If the nullable is assigned a value
+                result.Append(InstructionBlock.CreateCode(instructionBlock, localVariable.Type.ChildType, value));
+                result.Emit(OpCodes.Newobj, BuilderType.Nullable.MakeGeneric(localVariable.Type.ChildType));
+            }
+            else
+                // Other types
+                result.Append(InstructionBlock.CreateCode(instructionBlock, localVariable.Type, value));
+
+            // Save to local variable
+            switch (localVariable.Index)
+            {
+                case 0: result.Emit(OpCodes.Stloc_0); break;
+                case 1: result.Emit(OpCodes.Stloc_1); break;
+                case 2: result.Emit(OpCodes.Stloc_2); break;
+                case 3: result.Emit(OpCodes.Stloc_3); break;
+                default: result.Emit(OpCodes.Stloc, localVariable); break;
+            }
+
+            return result;
+        }
+
+        public static InstructionBlock SetValue(InstructionBlock instructionBlock, ParametersCodeBlock parametersCodeBlock, object value)
+        {
+            var result = instructionBlock.Spawn();
+            var argInfo = parametersCodeBlock.GetTargetType(instructionBlock.associatedMethod);
+
+            // value to assign
+            if (argInfo.Item1.IsNullable && value == null)
+            {
+                // If the nullable is assigned a null
+                result.Emit(OpCodes.Ldarga, argInfo.Item2);
+                result.Emit(OpCodes.Initobj, argInfo.Item1);
+            }
+            else if (argInfo.Item1.IsNullable && value.GetType().With(x => x.IsValueType && !x.IsGenericType && Nullable.GetUnderlyingType(x) == null))
+            {
+                // If the nullable is assigned a value
+                result.Append(InstructionBlock.CreateCode(instructionBlock, argInfo.Item1.ChildType, value));
+                result.Emit(OpCodes.Newobj, BuilderType.Nullable.MakeGeneric(argInfo.Item1.ChildType));
+            }
+            else
+                // Other types
+                result.Append(InstructionBlock.CreateCode(instructionBlock, argInfo.Item1, value));
+
+            // Save to local variable
+            switch (argInfo.Item2)
+            {
+                case 0: result.Emit(OpCodes.Ldarg_0); break;
+                case 1: result.Emit(OpCodes.Ldarg_1); break;
+                case 2: result.Emit(OpCodes.Ldarg_2); break;
+                case 3: result.Emit(OpCodes.Ldarg_3); break;
+                default: result.Emit(OpCodes.Ldarg, argInfo.Item2); break;
+            }
+
+            return result;
+        }
+
+        public static InstructionBlock SetValue(InstructionBlock instructionBlock, object instance, Field field, object value)
+        {
+            var result = instructionBlock.Spawn();
+
+            // Instance
+            if (!field.IsStatic && instance != null)
+                result.Append(InstructionBlock.CreateCode(instructionBlock, null, instance));
+
+            // value to assign
+            if (field.FieldType.IsNullable && value == null)
+            {
+                // If the nullable is assigned a null
+                result.Emit(field.IsStatic ? OpCodes.Ldsflda : OpCodes.Ldflda, field.fieldRef);
+                result.Emit(OpCodes.Initobj, field.fieldRef.FieldType);
+            }
+            else if (field.FieldType.IsNullable && value.GetType().With(x => x.IsValueType && !x.IsGenericType && Nullable.GetUnderlyingType(x) == null))
+            {
+                // If the nullable is assigned a value
+                result.Append(InstructionBlock.CreateCode(instructionBlock, field.FieldType.ChildType, value));
+                result.Emit(OpCodes.Newobj, BuilderType.Nullable.MakeGeneric(field.FieldType.ChildType));
+            }
+            else
+                // Other types
+                result.Append(InstructionBlock.CreateCode(instructionBlock, field.FieldType, value));
+            // Save to field
+            result.Emit(field.IsStatic ? OpCodes.Stsfld : OpCodes.Stfld, field.fieldRef);
+
+            return result;
+        }
+
         public void Append(InstructionBlock instructionBlock)
         {
             this.exceptionHandlers.AddRange(instructionBlock.exceptionHandlers);
@@ -462,6 +536,8 @@ namespace Cauldron.Interception.Cecilator.Coders
         }
 
         public void Emit(OpCode opcode, ParameterDefinition parameter) => this.instructions.Add(ilprocessor.Create(opcode, parameter));
+
+        public void Emit(OpCode opcode, ParametersCodeBlock parameter) => this.instructions.Add(ilprocessor.Create(opcode, parameter.GetTargetType(this.associatedMethod).Item3));
 
         public void Emit(OpCode opcode, VariableDefinition variable) => this.instructions.Add(ilprocessor.Create(opcode, variable));
 
@@ -515,6 +591,8 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         public void Prepend(IEnumerable<Instruction> instructions) => this.instructions.InsertRange(0, instructions);
 
+        public void Remove(int index) => this.instructions.RemoveAt(index);
+
         public InstructionBlock Spawn() => new InstructionBlock(this.associatedMethod);
 
         public override string ToString()
@@ -525,6 +603,100 @@ namespace Cauldron.Interception.Cecilator.Coders
                 sb.AppendLine($"IL_{item.Offset.ToString("X4")}: {item.OpCode.ToString()} { (item.Operand is Instruction ? "IL_" + (item.Operand as Instruction).Offset.ToString("X4") : item.Operand?.ToString())} ");
 
             return sb.ToString();
+        }
+
+        internal static InstructionBlock AreEqualInternalWithoutJump(InstructionBlock instructionBlock, BuilderType a, BuilderType b, BooleanExpressionParameter valueA, BooleanExpressionParameter valueB)
+        {
+            // TODO - needs to handle Nullables
+
+            var result = instructionBlock.Spawn();
+
+            if (a == b && a.IsPrimitive)
+            {
+                result.Append(InstructionBlock.CreateCode(result, a, valueA));
+                result.Append(InstructionBlock.CreateCode(result, b, valueB));
+                result.Emit(OpCodes.Ceq);
+
+                return result;
+            }
+
+            var equalityOperator = a.GetMethod("op_Equality", false, a, b)?.Import();
+
+            if (equalityOperator != null)
+            {
+                result.Append(InstructionBlock.Call(instructionBlock, null, equalityOperator.Import(), valueA, valueB));
+                return result;
+            }
+
+            equalityOperator = b.GetMethod("op_Equality", false, b, a)?.Import();
+
+            if (equalityOperator != null)
+            {
+                result.Append(InstructionBlock.Call(instructionBlock, null, equalityOperator.Import(), valueB, valueA));
+                return result;
+            }
+
+            // This is a special case for stuff we surely know how to convert
+            // It is almost like the first block, but with forced target types
+            if (a.IsPrimitive && b.IsPrimitive)
+            {
+                var typeToUse = GetTypeWithMoreCapacity(a.typeReference, b.typeReference).ToBuilderType();
+                result.Append(InstructionBlock.CreateCode(result, typeToUse, valueA));
+                result.Append(InstructionBlock.CreateCode(result, typeToUse, valueB));
+                result.Emit(OpCodes.Ceq);
+
+                return result;
+            }
+
+            equalityOperator = BuilderType
+                .Object
+                .GetMethod("Equals", false, BuilderType.Object, BuilderType.Object).Import();
+
+            result.Append(InstructionBlock.Call(instructionBlock, null, equalityOperator.Import(), valueA, valueB));
+            return result;
+        }
+
+        internal static void CreateCodeForFieldReference(
+            InstructionBlock result,
+            BuilderType targetType,
+            Field valueField,
+            bool autoAddThisInstance)
+        {
+            if (!valueField.IsStatic && autoAddThisInstance)
+                result.Emit(OpCodes.Ldarg_0);
+
+            if (valueField.FieldType.IsValueType && targetType == null)
+                result.Emit(valueField.IsStatic ?
+                    OpCodes.Ldsflda :
+                    OpCodes.Ldflda, valueField);
+            else
+                result.Emit(valueField.IsStatic ?
+                    OpCodes.Ldsfld :
+                    OpCodes.Ldfld, valueField);
+
+            result.ResultingType = valueField.FieldType.typeReference;
+        }
+
+        internal static void CreateCodeForVariableDefinition(
+            InstructionBlock result,
+            BuilderType targetType,
+            LocalVariable localVariable)
+        {
+            if (localVariable.variable.VariableType.IsValueType && !localVariable.variable.VariableType.IsPrimitive)
+                result.Emit(OpCodes.Ldloca, localVariable.variable);
+            else
+                switch (localVariable.Index)
+                {
+                    case 0: result.Emit(OpCodes.Ldloc_0); break;
+                    case 1: result.Emit(OpCodes.Ldloc_1); break;
+                    case 2: result.Emit(OpCodes.Ldloc_2); break;
+                    case 3: result.Emit(OpCodes.Ldloc_3); break;
+                    default:
+                        result.Emit(OpCodes.Ldloc, localVariable.variable);
+                        break;
+                }
+
+            result.ResultingType = localVariable.Type.typeReference ?? localVariable.Type.typeDefinition;
         }
 
         private static void AddVariableDefinitionToInstruction(InstructionBlock instructionBlock, BuilderType targetType, VariableDefinition variableDefinition)
@@ -709,47 +881,49 @@ namespace Cauldron.Interception.Cecilator.Coders
                 instructionBlock.Emit(OpCodes.Castclass, Builder.Current.Import(instructionBlock.ResultingType));
         }
 
-        private static void CreateCodeForFieldReference(
-            InstructionBlock result,
-            BuilderType targetType,
-            Field valueField,
-            bool autoAddThisInstance)
+        private static TypeReference GetTypeWithMoreCapacity(TypeReference a, TypeReference b)
         {
-            if (!valueField.IsStatic && autoAddThisInstance)
-                result.Emit(OpCodes.Ldarg_0);
+            // Bool makes a big exception here
+            if (a.FullName == typeof(bool).FullName) return a;
+            if (b.FullName == typeof(bool).FullName) return b;
 
-            if (valueField.FieldType.IsValueType && targetType == null)
-                result.Emit(valueField.IsStatic ?
-                    OpCodes.Ldsflda :
-                    OpCodes.Ldflda, valueField);
-            else
-                result.Emit(valueField.IsStatic ?
-                    OpCodes.Ldsfld :
-                    OpCodes.Ldfld, valueField);
+            if (a.FullName == typeof(decimal).FullName) return a;
+            if (b.FullName == typeof(decimal).FullName) return b;
 
-            result.ResultingType = valueField.FieldType.typeReference;
-        }
+            if (a.FullName == typeof(double).FullName) return a;
+            if (b.FullName == typeof(double).FullName) return b;
 
-        private static void CreateCodeForVariableDefinition(
-            InstructionBlock result,
-            BuilderType targetType,
-            LocalVariable localVariable)
-        {
-            if (localVariable.variable.VariableType.IsValueType && !localVariable.variable.VariableType.IsPrimitive)
-                result.Emit(OpCodes.Ldloca, localVariable.variable);
-            else
-                switch (localVariable.Index)
-                {
-                    case 0: result.Emit(OpCodes.Ldloc_0); break;
-                    case 1: result.Emit(OpCodes.Ldloc_1); break;
-                    case 2: result.Emit(OpCodes.Ldloc_2); break;
-                    case 3: result.Emit(OpCodes.Ldloc_3); break;
-                    default:
-                        result.Emit(OpCodes.Ldloc, localVariable.variable);
-                        break;
-                }
+            if (a.FullName == typeof(float).FullName) return a;
+            if (b.FullName == typeof(float).FullName) return b;
 
-            result.ResultingType = localVariable.Type.typeReference ?? localVariable.Type.typeDefinition;
+            if (a.FullName == typeof(ulong).FullName) return a;
+            if (b.FullName == typeof(ulong).FullName) return b;
+
+            if (a.FullName == typeof(long).FullName) return a;
+            if (b.FullName == typeof(long).FullName) return b;
+
+            if (a.FullName == typeof(uint).FullName) return a;
+            if (b.FullName == typeof(uint).FullName) return b;
+
+            if (a.FullName == typeof(int).FullName) return a;
+            if (b.FullName == typeof(int).FullName) return b;
+
+            if (a.FullName == typeof(char).FullName) return a;
+            if (b.FullName == typeof(char).FullName) return b;
+
+            if (a.FullName == typeof(ushort).FullName) return a;
+            if (b.FullName == typeof(ushort).FullName) return b;
+
+            if (a.FullName == typeof(short).FullName) return a;
+            if (b.FullName == typeof(short).FullName) return b;
+
+            if (a.FullName == typeof(byte).FullName) return a;
+            if (b.FullName == typeof(byte).FullName) return b;
+
+            if (a.FullName == typeof(sbyte).FullName) return a;
+            if (b.FullName == typeof(sbyte).FullName) return b;
+
+            return a;
         }
     }
 }

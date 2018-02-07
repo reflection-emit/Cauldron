@@ -10,7 +10,7 @@ namespace Cauldron.Interception.Cecilator.Coders
             Func<BooleanExpressionCoder, BooleanExpressionResultCoder> booleanExpression,
             Action<Coder> then)
         {
-            var result = booleanExpression(new BooleanExpressionCoder(this.NewCoder()));
+            var result = booleanExpression(new BooleanExpressionCoder(this.NewCoder(), true));
             this.instructions.Append(result.coder.instructions);
             then(this);
             this.instructions.Append(result.jumpTarget);
@@ -23,7 +23,7 @@ namespace Cauldron.Interception.Cecilator.Coders
             Action<Coder> then,
             Action<Coder> @else)
         {
-            var result = booleanExpression(new BooleanExpressionCoder(this.NewCoder()));
+            var result = booleanExpression(new BooleanExpressionCoder(this.NewCoder(), true));
             var endOfIf = this.instructions.ilprocessor.Create(OpCodes.Nop);
             this.instructions.Append(result.coder.instructions);
             then(this);

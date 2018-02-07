@@ -1,4 +1,5 @@
 ﻿using Cauldron.Interception.Cecilator;
+using Cauldron.Interception.Cecilator.Coders;
 using Cauldron.Interception.Cecilator.Extensions;
 using System;
 
@@ -49,10 +50,11 @@ namespace Win32_Cecilator_Scriptable
 
             var fieldMethod = testType.CreateMethod(Modifiers.Private, typeof(int), name + "_TestMethod", typeof(object));
             fieldMethod.NewCoder()
-                .LoadArg(0).Set(x => x.NewObj(testType.ParameterlessContructor))
-                .Load(testField3).Set(x => x.LoadArg(0))
-                .Call(assertAreEqual.MakeGeneric(testType), x => x.LoadArg(0), x => x.Load(testField3))
-                .LoadArg(0).As(testType).Call(otherMethod)
+                .SetValue(CodeBlocks.GetParameter(0), x => x.NewObj(testType.ParameterlessContructor))
+                .SetValue(testField3, x => x.Load(CodeBlocks.GetParameter(0)))
+                .Call(assertAreEqual.MakeGeneric(testType), x => x.Load(CodeBlocks.GetParameter(0)), x => x.Load(testField3))
+                .End
+                .Load(CodeBlocks.GetParameter(0)).As(testType).Call(otherMethod)
                     .Return()
                     .Replace();
 
@@ -76,7 +78,7 @@ namespace Win32_Cecilator_Scriptable
                     .Replace();
 
             method.NewCoder()
-                .Load(testField3).Set(x => x.NewObj(testType.ParameterlessContructor))
+                .SetValue(testField3, x => x.NewObj(testType.ParameterlessContructor))
                 .Call(assertAreEqual.MakeGeneric(typeof(int)), x => 10, x => x.Load(testField3).As(testType).Call(fieldMethod))
                     .Return()
                     .Replace();
@@ -88,8 +90,8 @@ namespace Win32_Cecilator_Scriptable
             method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
 
             method.NewCoder()
-                .Load(testField3).Set(x => x.NewObj(testType.ParameterlessContructor))
-                .Load(testField3).As(testType).Load(testField1).Set(466)
+                .SetValue(testField3, x => x.NewObj(testType.ParameterlessContructor))
+                .Load(testField3).As(testType).SetValue(testField1, 466)
                 .Call(assertAreEqual.MakeGeneric(typeof(int)), x => 466, x => x.Load(testField3).As(testType).Load(testField1))
                     .Return()
                     .Replace();
@@ -101,8 +103,7 @@ namespace Win32_Cecilator_Scriptable
             method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
 
             method.NewCoder()
-                .Load(testField1)
-                    .Set(34)
+                .SetValue(testField1, 34)
                     .Call(assertAreEqual.MakeGeneric(typeof(int)), 34, testField1)
                     .Return()
                     .Replace();
@@ -114,10 +115,8 @@ namespace Win32_Cecilator_Scriptable
             method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
 
             method.NewCoder()
-                .Load(testField5)
-                    .Set(x => x.NewObj(testType.ParameterlessContructor))
-                .Load(testField3)
-                    .Set(testField5)
+                .SetValue(testField5, x => x.NewObj(testType.ParameterlessContructor))
+                .SetValue(testField3, testField5)
                 .Call(assertAreEqual.MakeGeneric(testType), testField3, testField5)
                     .Return()
                     .Replace();
@@ -134,11 +133,9 @@ namespace Win32_Cecilator_Scriptable
             method.CreateField(BuilderType.Object, field2Name);
 
             method.NewCoder()
-                .LoadField(field1Name)
-                    .Set(x => x.NewObj(testType.ParameterlessContructor))
-                .LoadField(field2Name)
-                    .Set(x => x.LoadField(field1Name))
-                .Call(assertAreEqual.MakeGeneric(testType), x => x.LoadField(field1Name), x => x.LoadField(field2Name))
+                .SetValue(x => x.GetField(field1Name), x => x.NewObj(testType.ParameterlessContructor))
+                .SetValue(x => x.GetField(field2Name), x => x.Load(y => y.GetField(field1Name)))
+                .Call(assertAreEqual.MakeGeneric(testType), x => x.Load(y => y.GetField(field1Name)), x => x.Load(y => y.GetField(field2Name)))
                     .Return()
                     .Replace();
         }
@@ -152,8 +149,7 @@ namespace Win32_Cecilator_Scriptable
 
             var fieldMethod = testType.CreateMethod(Modifiers.Private, typeof(int), name + "_TestMethod", Type.EmptyTypes);
             fieldMethod.NewCoder()
-                .Load(testField1)
-                    .Set(55)
+                .SetValue(testField1, 55)
                 .Load(testField1)
                     .Return()
                     .Replace();
@@ -178,7 +174,7 @@ namespace Win32_Cecilator_Scriptable
                     .Replace();
 
             method.NewCoder()
-                .Load(testField1).Set(x => x.Call(fieldMethod))
+                .SetValue(testField1, x => x.Call(fieldMethod))
                 .Call(assertAreEqual.MakeGeneric(typeof(int)), x => 987, x => x.Load(testField1))
                     .Return()
                     .Replace();
@@ -197,10 +193,10 @@ namespace Win32_Cecilator_Scriptable
                     .Return()
                     .Replace();
 
-            var var1 = method.CreateVariable(typeof(object));
+            var var1 = method.GetOrCreateVariable(typeof(object));
 
             method.NewCoder()
-                .Load(var1).Set(x => x.NewObj(testType.ParameterlessContructor))
+                .SetValue(var1, x => x.NewObj(testType.ParameterlessContructor))
                 .Call(assertAreEqual.MakeGeneric(typeof(int)), x => 234, x => x.Load(var1).As(testType).Call(fieldMethod))
                     .Return()
                     .Replace();
@@ -211,11 +207,11 @@ namespace Win32_Cecilator_Scriptable
             var method = testType.CreateMethod(Modifiers.Public, nameof(LocalVariable_As_Load), Type.EmptyTypes);
             method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
 
-            var var1 = method.CreateVariable(typeof(object));
+            var var1 = method.GetOrCreateVariable(typeof(object));
 
             method.NewCoder()
-                .Load(var1).Set(x => x.NewObj(testType.ParameterlessContructor))
-                .Load(var1).As(testType).Load(testField1).Set(466)
+                .SetValue(var1, x => x.NewObj(testType.ParameterlessContructor))
+                .Load(var1).As(testType).SetValue(testField1, 466)
                 .Call(assertAreEqual.MakeGeneric(typeof(int)), x => 466, x => x.Load(var1).As(testType).Load(testField1))
                     .Return()
                     .Replace();
@@ -227,11 +223,9 @@ namespace Win32_Cecilator_Scriptable
             method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
 
             method.NewCoder()
-                .LoadVariable(testType, "local_test_1")
-                    .Set(x => x.NewObj(testType.ParameterlessContructor))
-                .LoadVariable("local_test_2")
-                    .Set(x => x.LoadVariable("local_test_1"))
-                .Call(assertAreEqual.MakeGeneric(testType), x => x.LoadVariable("local_test_1"), x => x.LoadVariable("local_test_2"))
+                .SetValue(variable: x => x.GetOrCreateVariable(testType, "local_test_1"), value: x => x.NewObj(testType.ParameterlessContructor))
+                .SetValue(variable: x => x.GetOrCreateVariable(testType, "local_test_2"), value: x => method.GetVariable("local_test_1"))
+                .Call(assertAreEqual.MakeGeneric(testType), x => method.GetVariable("local_test_1"), x => method.GetVariable("local_test_2"))
                     .Return()
                     .Replace();
         }

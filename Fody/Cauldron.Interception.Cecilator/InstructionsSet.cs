@@ -1773,7 +1773,7 @@ namespace Cauldron.Interception.Cecilator
         public LocalVariable CreateVariable(Type type)
         {
             var newVariable = new VariableDefinition(this.moduleDefinition.ImportReference(type.GetTypeDefinition()));
-            var name = "<>var_" + Coder.GenerateName();
+            var name = "<>var_" + CodeBlocks.GenerateName();
             this.method.AddLocalVariable(name, newVariable);
             return new LocalVariable(this.method.type, newVariable, name);
         }
@@ -1789,7 +1789,7 @@ namespace Cauldron.Interception.Cecilator
         public LocalVariable CreateVariable(TypeReference type)
         {
             var newVariable = new VariableDefinition(this.moduleDefinition.ImportReference(type));
-            var name = "<>var_" + Coder.GenerateName();
+            var name = "<>var_" + CodeBlocks.GenerateName();
             this.method.AddLocalVariable(name, newVariable);
             return new LocalVariable(this.method.type, newVariable, name);
         }
@@ -1797,7 +1797,7 @@ namespace Cauldron.Interception.Cecilator
         public LocalVariable CreateVariable(BuilderType type)
         {
             var newVariable = new VariableDefinition(this.moduleDefinition.ImportReference(type.typeReference));
-            var name = "<>var_" + Coder.GenerateName();
+            var name = "<>var_" + CodeBlocks.GenerateName();
             this.method.AddLocalVariable(name, newVariable);
             return new LocalVariable(this.method.type, newVariable, name);
         }

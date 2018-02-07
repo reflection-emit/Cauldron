@@ -27,10 +27,10 @@ namespace Cauldron.Interception.Cecilator
             this.Name = name;
         }
 
-        public int Index { get { return this.variable.Index; } }
-        public bool IsPinned { get { return this.variable.IsPinned; } }
-        public string Name { get; private set; }
-        public BuilderType Type { get { return new BuilderType(this.type, this.variable.VariableType); } }
+        public string Name { get; }
+        public BuilderType Type => new BuilderType(this.type, this.variable.VariableType);
+        public int Index => this.variable.Index;
+        public bool IsPinned => this.variable.IsPinned;
 
         #region Equitable stuff
 

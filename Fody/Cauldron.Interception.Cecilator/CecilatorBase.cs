@@ -98,7 +98,7 @@ namespace Cauldron.Interception.Cecilator
             this.Log("-----------------------------------------------------------------------------");
             WeaverBase.AllTypes = this.allTypes;
 
-            this.Identification = Coder.GenerateName();
+            this.Identification = CodeBlocks.GenerateName();
         }
 
         internal CecilatorBase(CecilatorBase builderBase)
@@ -110,7 +110,7 @@ namespace Cauldron.Interception.Cecilator
             this.allTypes = builderBase.allTypes;
             this.ResourceNames = builderBase.ResourceNames;
 
-            this.Identification = Coder.GenerateName();
+            this.Identification = CodeBlocks.GenerateName();
         }
 
         public virtual string Identification { get; private set; }

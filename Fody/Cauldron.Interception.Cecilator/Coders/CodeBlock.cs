@@ -1,11 +1,13 @@
 ﻿using Mono.Cecil;
 using System;
-using System.Linq;
+using System.IO;
 
 namespace Cauldron.Interception.Cecilator.Coders
 {
     public static class CodeBlocks
     {
+        public const string ReturnVariableName = "<>returnValue";
+        public const string VariablePrefix = "<>var_";
         public static CodeBlock This => new ThisCodeBlock();
 
         public static CodeBlock CreateException(TypeReference typeReference, string name) => new ExceptionCodeBlock { name = name, typeReference = typeReference };
@@ -17,6 +19,12 @@ namespace Cauldron.Interception.Cecilator.Coders
         public static CodeBlock DefaultOfTask(TypeReference typeReference) => new DefaultTaskCodeBlock { typeReference = typeReference };
 
         public static CodeBlock DefaultTaskOfT(TypeReference typeReference) => new DefaultTaskOfTCodeBlock { typeReference = typeReference };
+
+        /// <summary>
+        /// Generates a random name that can be used to name variables and methods.
+        /// </summary>
+        /// <returns></returns>
+        public static string GenerateName() => Path.GetRandomFileName().Replace(".", DateTime.Now.Second.ToString());
 
         public static ParametersCodeBlock GetParameter(int index) => new ParametersCodeBlock { index = index };
 
@@ -67,18 +75,6 @@ namespace Cauldron.Interception.Cecilator.Coders
         }
     }
 
-    public class FieldAssignCoderCodeBlock : CodeBlock
-    {
-        internal readonly Coder coder;
-        internal readonly FieldAssignCoder fieldAssignCoder;
-
-        internal FieldAssignCoderCodeBlock(FieldAssignCoder fieldAssignCoder)
-        {
-            this.fieldAssignCoder = fieldAssignCoder;
-            this.coder = fieldAssignCoder.coder;
-        }
-    }
-
     public class InitObjCodeBlock : CodeBlock
     {
         internal TypeReference typeReference;
@@ -107,9 +103,9 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         public bool IsAllParameters => !this.index.HasValue && string.IsNullOrEmpty(this.name);
 
-        public Tuple<BuilderType, int> GetTargetType(Coder coder) => this.GetTargetType(coder.instructions.associatedMethod);
+        public Tuple<BuilderType, int, ParameterDefinition> GetTargetType(Coder coder) => this.GetTargetType(coder.instructions.associatedMethod);
 
-        public Tuple<BuilderType, int> GetTargetType(Method method)
+        public Tuple<BuilderType, int, ParameterDefinition> GetTargetType(Method method)
         {
             if (this.IsAllParameters || method == null)
                 return null;
@@ -119,18 +115,18 @@ namespace Cauldron.Interception.Cecilator.Coders
 
             if (this.index.HasValue)
 
-                return new Tuple<BuilderType, int>(
+                return new Tuple<BuilderType, int, ParameterDefinition>(
                     method.methodDefinition.Parameters[this.index.Value].ParameterType.ToBuilderType().Import(),
-                    method.IsStatic ? this.index.Value : this.index.Value + 1
-                    );
+                    method.IsStatic ? this.index.Value : this.index.Value + 1,
+                    method.methodDefinition.Parameters[this.index.Value]);
             else
             {
                 for (int i = 0; i < method.Parameters.Length; i++)
                     if (method.Parameters[i].Name == name)
-                        return new Tuple<BuilderType, int>(
+                        return new Tuple<BuilderType, int, ParameterDefinition>(
                             method.methodReference.Parameters[i].ParameterType.ToBuilderType().Import(),
-                            method.IsStatic ? i : i + 1
-                            );
+                            method.IsStatic ? i : i + 1,
+                            method.methodReference.Parameters[i]);
             }
 
             return null;

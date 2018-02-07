@@ -1,36 +1,14 @@
-﻿using Mono.Cecil;
-
-namespace Cauldron.Interception.Cecilator.Coders
+﻿namespace Cauldron.Interception.Cecilator.Coders
 {
-    internal class BooleanExpressionParameter : BooleanExpressionContextCoder
+    internal class BooleanExpressionParameter
     {
-        public readonly TypeReference targetType;
+        public readonly BuilderType targetType;
         public readonly object value;
 
-        public BooleanExpressionParameter(BooleanExpressionContextCoder contextCoder, object value, TypeReference targetType) : base(contextCoder)
+        public BooleanExpressionParameter(object value, BuilderType targetType)
         {
-            this.targetType = targetType ?? value.GetType().ToBuilderType().typeReference;
+            this.targetType = targetType ?? value.GetType().ToBuilderType();
             this.value = value;
-        }
-
-        public BooleanExpressionParameter(BooleanExpressionContextCoder contextCoder, object value) : base(contextCoder)
-        {
-            this.targetType = contextCoder.castToType.typeReference;
-            this.value = value;
-        }
-
-        public BooleanExpressionParameter(BooleanExpressionFieldInstancedCoder coder) : base(coder)
-        {
-            this.targetType = coder.TargetType;
-            this.value = coder.target;
-        }
-
-        public object GetValue()
-        {
-            if (!this.invert && !this.negate)
-                return this.value;
-
-            return null;
         }
     }
 }

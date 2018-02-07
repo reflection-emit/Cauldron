@@ -2,6 +2,7 @@
 
 namespace Cauldron.Interception.Cecilator.Coders
 {
+    /*
     public interface IRelationalOperators<TResult, TExpressionCoder, TCallCoder> : IRelationalOperators<TResult>
         where TExpressionCoder : BooleanExpressionContextCoder
         where TCallCoder : BooleanExpressionContextCoder
@@ -31,4 +32,5 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         TResult IsTrue();
     }
+    */
 }
