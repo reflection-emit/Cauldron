@@ -15,6 +15,8 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         internal CallCoder(InstructionBlock instructionBlock, BuilderType builderType) : base(instructionBlock) => this.builderType = builderType;
 
+        public override Coder End => new Coder(this);
+
         #region Call Methods
 
         public CallCoder Call(Method method)

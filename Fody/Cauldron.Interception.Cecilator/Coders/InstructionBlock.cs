@@ -407,10 +407,9 @@ namespace Cauldron.Interception.Cecilator.Coders
         }
 
         public static InstructionBlock NewObj(
-                    InstructionBlock instructionBlock,
-            object instance,
+            InstructionBlock instructionBlock,
             Method method,
-            params object[] parameters) => CallInternal(instructionBlock, instance, method, OpCodes.Newobj, parameters);
+            params object[] parameters) => CallInternal(instructionBlock, null, method, OpCodes.Newobj, parameters);
 
         public static InstructionBlock SetValue(InstructionBlock instructionBlock, LocalVariable localVariable, object value)
         {

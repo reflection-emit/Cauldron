@@ -78,8 +78,8 @@ namespace Win32_Cecilator_Scriptable
                     .Replace();
 
             method.NewCoder()
-                .SetValue(testField3, x => x.NewObj(testType.ParameterlessContructor))
-                .Call(assertAreEqual.MakeGeneric(typeof(int)), x => 10, x => x.Load(testField3).As(testType).Call(fieldMethod))
+                    .SetValue(testField3, x => x.NewObj(testType.ParameterlessContructor))
+                    .Call(assertAreEqual.MakeGeneric(typeof(int)), x => 10, x => x.Load(testField3).As(testType).Call(fieldMethod))
                     .Return()
                     .Replace();
         }

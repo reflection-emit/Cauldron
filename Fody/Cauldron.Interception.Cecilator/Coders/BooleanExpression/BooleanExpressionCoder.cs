@@ -21,6 +21,8 @@ namespace Cauldron.Interception.Cecilator.Coders
         internal BooleanExpressionCoder(InstructionBlock instructionBlock) : base(instructionBlock)
             => this.jumpTarget = instructionBlock.ilprocessor.Create(OpCodes.Nop);
 
+        public override BooleanExpressionCoder End => new BooleanExpressionCoder(this);
+
         public static implicit operator InstructionBlock(BooleanExpressionCoder coder) => coder.instructions;
 
         #region Call Methods
@@ -62,23 +64,15 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         #region NewObj Methods
 
-        public BooleanExpressionCallCoder NewObj(Method method)
-        {
-            this.NewObj(method);
-            return new BooleanExpressionCallCoder(this, method.ReturnType);
-        }
+        public BooleanExpressionCallCoder NewObj(Method method) => this.NewObj(method, new object[0]);
 
         public BooleanExpressionCallCoder NewObj(Method method, params object[] parameters)
         {
-            this.NewObj(method, parameters);
+            this.instructions.Append(InstructionBlock.NewObj(this.instructions, method, parameters));
             return new BooleanExpressionCallCoder(this, method.ReturnType);
         }
 
-        public BooleanExpressionCallCoder NewObj(Method method, params Func<Coder, object>[] parameters)
-        {
-            this.NewObj(method, this.CreateParameters(parameters));
-            return new BooleanExpressionCallCoder(this, method.ReturnType);
-        }
+        public BooleanExpressionCallCoder NewObj(Method method, params Func<Coder, object>[] parameters) => this.NewObj(method, this.CreateParameters(parameters));
 
         #endregion NewObj Methods
 
@@ -99,7 +93,9 @@ namespace Cauldron.Interception.Cecilator.Coders
             if (arg.IsAllParameters)
                 throw new NotSupportedException("Setting value to all parameters at once is not supported");
 
-            this.instructions.Emit(OpCodes.Starg, arg);
+            var argInfo = arg.GetTargetType(this.instructions.associatedMethod);
+            this.instructions.Append(InstructionBlock.CreateCode(this, argInfo.Item1, value));
+            this.instructions.Emit(OpCodes.Starg, argInfo.Item3);
             return new Coder(this);
         }
 

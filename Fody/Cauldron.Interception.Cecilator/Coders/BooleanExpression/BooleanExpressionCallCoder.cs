@@ -10,6 +10,8 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         internal BooleanExpressionCallCoder(InstructionBlock instructionBlock, BuilderType builderType) : base(instructionBlock) => this.builderType = builderType;
 
+        public override BooleanExpressionCoder End => new BooleanExpressionCoder(this);
+
         #region Call Methods
 
         public BooleanExpressionCallCoder Call(Method method)

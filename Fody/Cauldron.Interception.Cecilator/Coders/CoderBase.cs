@@ -19,7 +19,7 @@ namespace Cauldron.Interception.Cecilator.Coders
         {
         }
 
-        public TMaster End => Activator.CreateInstance(typeof(TMaster), this.instructions) as TMaster;
+        public abstract TMaster End { get; }
 
         public TSelf Append(TSelf coder)
         {

@@ -2,10 +2,9 @@
 
 namespace Cauldron.Interception.Cecilator.Coders
 {
-    public interface IBitwiseOperators<TResult, TBooleanExpressionCoder>
-        where TBooleanExpressionCoder : BooleanExpressionContextCoder
+    public interface IBitwiseOperators<TResult>
     {
-        TResult And(Func<TBooleanExpressionCoder, TResult> other);
+        TResult And(Func<BooleanExpressionCoder, TResult> other);
 
         TResult And(Field field);
 
@@ -17,6 +16,6 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         TResult Or(LocalVariable variable);
 
-        TResult Or(Func<TBooleanExpressionCoder, TResult> other);
+        TResult Or(Func<BooleanExpressionCoder, TResult> other);
     }
 }
