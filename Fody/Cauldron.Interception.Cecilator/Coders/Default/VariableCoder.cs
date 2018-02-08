@@ -8,6 +8,7 @@ namespace Cauldron.Interception.Cecilator.Coders
         CoderBase<VariableCoder, Coder>,
         ICallMethod<CallCoder>,
         IFieldOperationsExtended<FieldCoder>,
+        IBinaryOperators<VariableCoder>,
         ICasting<VariableCoder>,
         IExitOperators
     {
@@ -84,5 +85,78 @@ namespace Cauldron.Interception.Cecilator.Coders
         }
 
         #endregion Casting Operations
+
+        #region Binary Operators
+
+        public VariableCoder And(Func<Coder, object> other)
+        {
+            if (other == null)
+                throw new ArgumentNullException(nameof(other));
+
+            this.instructions.Append(InstructionBlock.CreateCode(this, this.builderType, other(this.NewCoder())));
+            this.instructions.Emit(OpCodes.And);
+            return this;
+        }
+
+        public VariableCoder And(Field field)
+        {
+            this.instructions.Append(InstructionBlock.CreateCode(this, this.builderType, field));
+            this.instructions.Emit(OpCodes.And);
+            return this;
+        }
+
+        public VariableCoder And(LocalVariable variable)
+        {
+            this.instructions.Append(InstructionBlock.CreateCode(this, this.builderType, variable));
+            this.instructions.Emit(OpCodes.And);
+            return this;
+        }
+
+        public VariableCoder And(ParametersCodeBlock arg)
+        {
+            this.instructions.Append(InstructionBlock.CreateCode(this, this.builderType, arg));
+            this.instructions.Emit(OpCodes.And);
+            return this;
+        }
+
+        public VariableCoder Invert()
+        {
+            this.instructions.Emit(OpCodes.Ldc_I4_0);
+            this.instructions.Emit(OpCodes.Ceq);
+            return this;
+        }
+
+        public VariableCoder Or(Field field)
+        {
+            this.instructions.Append(InstructionBlock.CreateCode(this, this.builderType, field));
+            this.instructions.Emit(OpCodes.And);
+            return this;
+        }
+
+        public VariableCoder Or(LocalVariable variable)
+        {
+            this.instructions.Append(InstructionBlock.CreateCode(this, this.builderType, variable));
+            this.instructions.Emit(OpCodes.And);
+            return this;
+        }
+
+        public VariableCoder Or(Func<Coder, object> other)
+        {
+            if (other == null)
+                throw new ArgumentNullException(nameof(other));
+
+            this.instructions.Append(InstructionBlock.CreateCode(this, this.builderType, other(this.NewCoder())));
+            this.instructions.Emit(OpCodes.Or);
+            return this;
+        }
+
+        public VariableCoder Or(ParametersCodeBlock arg)
+        {
+            this.instructions.Append(InstructionBlock.CreateCode(this, this.builderType, arg));
+            this.instructions.Emit(OpCodes.And);
+            return this;
+        }
+
+        #endregion Binary Operators
     }
 }

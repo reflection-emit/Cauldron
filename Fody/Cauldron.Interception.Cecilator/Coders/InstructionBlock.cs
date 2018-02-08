@@ -292,6 +292,7 @@ namespace Cauldron.Interception.Cecilator.Coders
                 case CoderBase coder:
                     {
                         result.Append(coder.instructions);
+                        result.ResultingType = result.instructions.GetTypeOfValueInStack(result.associatedMethod);
                         break;
                     }
 
@@ -300,24 +301,6 @@ namespace Cauldron.Interception.Cecilator.Coders
                         result.Append(instructionsCodeBlock.instructions);
                         break;
                     }
-
-                /*
-            case BooleanExpressionParameter booleanExpressionParameter:
-                {
-                    var instructions = InstructionBlock.CreateCode(instructionBlock, booleanExpressionParameter.targetType, booleanExpressionParameter.value);
-                    result.Append(instructions);
-                    result.Append(booleanExpressionParameter.ImplementOperations());
-                    result.ResultingType = result.ResultingType; // This will set the backing field
-                }
-                break;
-
-            case BooleanExpressionContextCoder contextCoder:
-                {
-                    result.Append(contextCoder.ImplementOperations());
-                    result.ResultingType = result.ResultingType; // This will set the backing field
-                }
-                break;
-                */
 
                 case TypeReference value:
                     result.Append(instructionBlock.ilprocessor.TypeOf(value), instructionBlock.builder.Import(typeof(Type)));
@@ -848,7 +831,7 @@ namespace Cauldron.Interception.Cecilator.Coders
             else if
                 (
                     (instructionBlock.ResultingType.AreEqual(BuilderType.Object) && targetType.IsValueType) ||
-                    (instructionBlock.ResultingType.AreEqual(targetType) && instructionBlock.ResultingType.IsPrimitive && targetType.IsPrimitive)
+                    (!instructionBlock.ResultingType.AreEqual(targetType) && instructionBlock.ResultingType.IsPrimitive && targetType.IsPrimitive)
                 )
             {
                 if (targetType == BuilderType.Int32) instructionBlock.Emit(OpCodes.Call, BuilderType.Convert.GetMethod("ToInt32", true, instructionBlock.ResultingType).Import());

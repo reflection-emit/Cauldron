@@ -35,6 +35,27 @@ namespace Win32_Cecilator_Scriptable
             testField5 = testType.CreateField(Modifiers.Internal, testType, "testIntField_5");
         }
 
+        public static void Arg_BinaryOperations(Builder builder)
+        {
+            var name = nameof(Arg_BinaryOperations);
+
+            var method = testType.CreateMethod(Modifiers.Public, name, Type.EmptyTypes);
+            method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
+
+            var method2 = testType.CreateMethod(Modifiers.Private, name + "_TestMethod", typeof(int), typeof(bool));
+
+            method2.NewCoder()
+                .SetValue(CodeBlocks.GetParameter(0), 3)
+                .SetValue(CodeBlocks.GetParameter(1), true)
+                .Call(assertAreEqual.MakeGeneric(typeof(int)), x => 15, x => x.Load(CodeBlocks.GetParameter(0)).Or(y => 4).Or(y => 9))
+                .Call(assertAreEqual.MakeGeneric(typeof(int)), x => 2, x => x.Load(CodeBlocks.GetParameter(0)).And(y => 2))
+                .Call(assertAreEqual.MakeGeneric(typeof(bool)), x => true, x => x.Load(CodeBlocks.GetParameter(1)).Or(y => 2))
+                    .Return()
+                    .Replace();
+
+            method.NewCoder().Call(method2, 2000, true).Return().Replace();
+        }
+
         public static void Arg_NewObj(Builder builder)
         {
             var name = nameof(Arg_NewObj);
@@ -93,6 +114,21 @@ namespace Win32_Cecilator_Scriptable
                 .SetValue(testField3, x => x.NewObj(testType.ParameterlessContructor))
                 .Load(testField3).As(testType).SetValue(testField1, 466)
                 .Call(assertAreEqual.MakeGeneric(typeof(int)), x => 466, x => x.Load(testField3).As(testType).Load(testField1))
+                    .Return()
+                    .Replace();
+        }
+
+        public static void Field_BinaryOperations(Builder builder)
+        {
+            var method = testType.CreateMethod(Modifiers.Public, nameof(Field_BinaryOperations), Type.EmptyTypes);
+            method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
+
+            method.NewCoder()
+                .SetValue(testField1, 3)
+                .SetValue(testField4, true)
+                .Call(assertAreEqual.MakeGeneric(typeof(int)), x => 15, x => x.Load(testField1).Or(y => 4).Or(y => 9))
+                .Call(assertAreEqual.MakeGeneric(typeof(int)), x => 2, x => x.Load(testField1).And(y => 2))
+                .Call(assertAreEqual.MakeGeneric(typeof(bool)), x => true, x => x.Load(testField4).Or(y => 2))
                     .Return()
                     .Replace();
         }
@@ -213,6 +249,24 @@ namespace Win32_Cecilator_Scriptable
                 .SetValue(var1, x => x.NewObj(testType.ParameterlessContructor))
                 .Load(var1).As(testType).SetValue(testField1, 466)
                 .Call(assertAreEqual.MakeGeneric(typeof(int)), x => 466, x => x.Load(var1).As(testType).Load(testField1))
+                    .Return()
+                    .Replace();
+        }
+
+        public static void LocalVariable_BinaryOperations(Builder builder)
+        {
+            var method = testType.CreateMethod(Modifiers.Public, nameof(LocalVariable_BinaryOperations), Type.EmptyTypes);
+            method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
+
+            var var1 = method.GetOrCreateVariable(typeof(int));
+            var var2 = method.GetOrCreateVariable(typeof(bool));
+
+            method.NewCoder()
+                .SetValue(var1, 3)
+                .SetValue(var2, true)
+                .Call(assertAreEqual.MakeGeneric(typeof(int)), x => 15, x => x.Load(var1).Or(y => 4).Or(y => 9))
+                .Call(assertAreEqual.MakeGeneric(typeof(int)), x => 2, x => x.Load(var1).And(y => 2))
+                .Call(assertAreEqual.MakeGeneric(typeof(bool)), x => true, x => x.Load(var2).Or(y => 2))
                     .Return()
                     .Replace();
         }

@@ -9,6 +9,7 @@ namespace Cauldron.Interception.Cecilator.Coders
         ICallMethod<CallCoder>,
         IFieldOperationsExtended<FieldCoder>,
         ICasting<CallCoder>,
+        IBinaryOperators<CallCoder>,
         IExitOperators
     {
         private readonly BuilderType builderType;
@@ -16,6 +17,8 @@ namespace Cauldron.Interception.Cecilator.Coders
         internal CallCoder(InstructionBlock instructionBlock, BuilderType builderType) : base(instructionBlock) => this.builderType = builderType;
 
         public override Coder End => new Coder(this);
+
+        public static implicit operator InstructionBlock(CallCoder coder) => coder.instructions;
 
         #region Call Methods
 
@@ -86,6 +89,77 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         #endregion Casting Operations
 
-        public static implicit operator InstructionBlock(CallCoder coder) => coder.instructions;
+        #region Binary Operators
+
+        public CallCoder And(Func<Coder, object> other)
+        {
+            if (other == null)
+                throw new ArgumentNullException(nameof(other));
+
+            this.instructions.Append(InstructionBlock.CreateCode(this, this.builderType, other(this.NewCoder())));
+            this.instructions.Emit(OpCodes.And);
+            return this;
+        }
+
+        public CallCoder And(Field field)
+        {
+            this.instructions.Append(InstructionBlock.CreateCode(this, this.builderType, field));
+            this.instructions.Emit(OpCodes.And);
+            return this;
+        }
+
+        public CallCoder And(LocalVariable variable)
+        {
+            this.instructions.Append(InstructionBlock.CreateCode(this, this.builderType, variable));
+            this.instructions.Emit(OpCodes.And);
+            return this;
+        }
+
+        public CallCoder And(ParametersCodeBlock arg)
+        {
+            this.instructions.Append(InstructionBlock.CreateCode(this, this.builderType, arg));
+            this.instructions.Emit(OpCodes.And);
+            return this;
+        }
+
+        public CallCoder Invert()
+        {
+            this.instructions.Emit(OpCodes.Ldc_I4_0);
+            this.instructions.Emit(OpCodes.Ceq);
+            return this;
+        }
+
+        public CallCoder Or(Field field)
+        {
+            this.instructions.Append(InstructionBlock.CreateCode(this, this.builderType, field));
+            this.instructions.Emit(OpCodes.And);
+            return this;
+        }
+
+        public CallCoder Or(LocalVariable variable)
+        {
+            this.instructions.Append(InstructionBlock.CreateCode(this, this.builderType, variable));
+            this.instructions.Emit(OpCodes.And);
+            return this;
+        }
+
+        public CallCoder Or(Func<Coder, object> other)
+        {
+            if (other == null)
+                throw new ArgumentNullException(nameof(other));
+
+            this.instructions.Append(InstructionBlock.CreateCode(this, this.builderType, other(this.NewCoder())));
+            this.instructions.Emit(OpCodes.Or);
+            return this;
+        }
+
+        public CallCoder Or(ParametersCodeBlock arg)
+        {
+            this.instructions.Append(InstructionBlock.CreateCode(this, this.builderType, arg));
+            this.instructions.Emit(OpCodes.And);
+            return this;
+        }
+
+        #endregion Binary Operators
     }
 }

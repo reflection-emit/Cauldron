@@ -133,13 +133,26 @@ namespace Cauldron.Interception.Cecilator.Extensions
             TypeReference GetTypeOfValueInStack(Instruction ins)
             {
                 if (ins.IsCallOrNew())
-                    return (ins.Operand as MethodReference).ReturnType.With(x => x.AreEqual(BuilderType.Void.typeReference) ? null : x);
+                    return (ins.Operand as MethodReference).ReturnType.With(x => x.AreEqual(BuilderType.Void) ? null : x);
 
                 if (ins.IsLoadField())
                     return (ins.Operand as FieldReference).FieldType;
 
                 if (ins.IsLoadLocal())
                     return method.methodDefinition.GetVariable(ins)?.VariableType;
+
+                if (ins.OpCode == OpCodes.Ldarg || ins.OpCode == OpCodes.Ldarga || ins.OpCode == OpCodes.Ldarga_S)
+                    switch (ins.Operand)
+                    {
+                        case ParameterDefinition value: return CodeBlocks.GetParameter(value.Index).GetTargetType(method)?.Item1?.typeReference;
+                        case ParameterReference value: return CodeBlocks.GetParameter(value.Index).GetTargetType(method)?.Item1?.typeReference;
+                        case int value: return CodeBlocks.GetParameter(value).GetTargetType(method)?.Item1?.typeReference;
+                    }
+
+                if (ins.OpCode == OpCodes.Ldarg_0) return CodeBlocks.GetParameter(0).GetTargetType(method)?.Item1?.typeReference;
+                if (ins.OpCode == OpCodes.Ldarg_1) return CodeBlocks.GetParameter(1).GetTargetType(method)?.Item1?.typeReference;
+                if (ins.OpCode == OpCodes.Ldarg_2) return CodeBlocks.GetParameter(2).GetTargetType(method)?.Item1?.typeReference;
+                if (ins.OpCode == OpCodes.Ldarg_3) return CodeBlocks.GetParameter(3).GetTargetType(method)?.Item1?.typeReference;
 
                 if (ins.OpCode == OpCodes.Isinst)
                     return ins.Operand as TypeReference;

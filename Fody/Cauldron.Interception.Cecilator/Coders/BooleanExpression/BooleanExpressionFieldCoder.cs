@@ -1,4 +1,5 @@
 ﻿using Cauldron.Interception.Cecilator.Extensions;
+using Mono.Cecil.Cil;
 using System;
 
 namespace Cauldron.Interception.Cecilator.Coders
@@ -6,6 +7,7 @@ namespace Cauldron.Interception.Cecilator.Coders
     public class BooleanExpressionFieldCoder :
         CoderBase<BooleanExpressionFieldCoder, BooleanExpressionCoder>,
         ICallMethod<BooleanExpressionCallCoder>,
+        IBinaryOperators<BooleanExpressionFieldCoder>,
         IFieldOperations<BooleanExpressionFieldCoder>,
         ICasting<BooleanExpressionFieldCoder>
     {
@@ -72,5 +74,78 @@ namespace Cauldron.Interception.Cecilator.Coders
         }
 
         #endregion Casting Operations
+
+        #region Binary Operators
+
+        public BooleanExpressionFieldCoder And(Func<Coder, object> other)
+        {
+            if (other == null)
+                throw new ArgumentNullException(nameof(other));
+
+            this.instructions.Append(InstructionBlock.CreateCode(this, this.builderType, other(this.NewCoder())));
+            this.instructions.Emit(OpCodes.And);
+            return this;
+        }
+
+        public BooleanExpressionFieldCoder And(Field field)
+        {
+            this.instructions.Append(InstructionBlock.CreateCode(this, this.builderType, field));
+            this.instructions.Emit(OpCodes.And);
+            return this;
+        }
+
+        public BooleanExpressionFieldCoder And(LocalVariable variable)
+        {
+            this.instructions.Append(InstructionBlock.CreateCode(this, this.builderType, variable));
+            this.instructions.Emit(OpCodes.And);
+            return this;
+        }
+
+        public BooleanExpressionFieldCoder And(ParametersCodeBlock arg)
+        {
+            this.instructions.Append(InstructionBlock.CreateCode(this, this.builderType, arg));
+            this.instructions.Emit(OpCodes.And);
+            return this;
+        }
+
+        public BooleanExpressionFieldCoder Invert()
+        {
+            this.instructions.Emit(OpCodes.Ldc_I4_0);
+            this.instructions.Emit(OpCodes.Ceq);
+            return this;
+        }
+
+        public BooleanExpressionFieldCoder Or(Field field)
+        {
+            this.instructions.Append(InstructionBlock.CreateCode(this, this.builderType, field));
+            this.instructions.Emit(OpCodes.And);
+            return this;
+        }
+
+        public BooleanExpressionFieldCoder Or(LocalVariable variable)
+        {
+            this.instructions.Append(InstructionBlock.CreateCode(this, this.builderType, variable));
+            this.instructions.Emit(OpCodes.And);
+            return this;
+        }
+
+        public BooleanExpressionFieldCoder Or(Func<Coder, object> other)
+        {
+            if (other == null)
+                throw new ArgumentNullException(nameof(other));
+
+            this.instructions.Append(InstructionBlock.CreateCode(this, this.builderType, other(this.NewCoder())));
+            this.instructions.Emit(OpCodes.Or);
+            return this;
+        }
+
+        public BooleanExpressionFieldCoder Or(ParametersCodeBlock arg)
+        {
+            this.instructions.Append(InstructionBlock.CreateCode(this, this.builderType, arg));
+            this.instructions.Emit(OpCodes.And);
+            return this;
+        }
+
+        #endregion Binary Operators
     }
 }

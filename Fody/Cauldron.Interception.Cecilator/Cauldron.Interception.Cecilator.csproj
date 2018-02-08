@@ -86,10 +86,11 @@
     <None Include="Coders\Coder\Coder_FieldVariableArgs.cs" />
     <Compile Include="Coders\BooleanExpression\BooleanExpressionFieldCoder.cs" />
     <Compile Include="Coders\Default\FieldCoder.cs" />
-    <None Include="Coders\IBitwiseOperators.cs" />
+    <Compile Include="Coders\IBinaryOperators.cs" />
     <Compile Include="Coders\IArgOperations.cs" />
     <Compile Include="Coders\ICallMethod.cs" />
     <Compile Include="Coders\ICasting.cs" />
+    <Compile Include="Coders\IConditionalLogicalOperators.cs" />
     <Compile Include="Coders\IExitOperators.cs" />
     <Compile Include="Coders\IFieldOperations.cs" />
     <Compile Include="Coders\ILoadValue.cs" />
