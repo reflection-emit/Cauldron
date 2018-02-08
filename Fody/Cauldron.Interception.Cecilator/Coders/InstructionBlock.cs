@@ -587,6 +587,39 @@ namespace Cauldron.Interception.Cecilator.Coders
             return sb.ToString();
         }
 
+        internal static bool AddBinaryOperation(InstructionBlock instructionBlock, OpCode opCode, BuilderType a, BuilderType b, object valueB)
+        {
+            var methodName = "";
+
+            if (opCode == OpCodes.And) methodName = "op_BitwiseAnd";
+            else if (opCode == OpCodes.Or) methodName = "op_BitwiseOr";
+
+            if (b == null)
+            {
+                if (valueB is CoderBase value)
+                    b = value.instructions.instructions.GetTypeOfValueInStack(value.instructions.associatedMethod)?.ToBuilderType();
+                else
+                    b = valueB?.GetType().ToBuilderType();
+            }
+
+            if (b == null)
+                return false;
+
+            var @operator = a.GetMethod(methodName, false, a, b)?.Import();
+
+            if (@operator == null)
+                @operator = b.GetMethod(methodName, false, a, b)?.Import();
+
+            if (@operator != null)
+            {
+                instructionBlock.Append(InstructionBlock.CreateCode(instructionBlock, b, valueB));
+                instructionBlock.Emit(OpCodes.Call, @operator);
+                return true;
+            }
+
+            return false;
+        }
+
         internal static InstructionBlock AreEqualInternalWithoutJump(InstructionBlock instructionBlock, BuilderType a, BuilderType b, BooleanExpressionParameter valueA, BooleanExpressionParameter valueB)
         {
             // TODO - needs to handle Nullables
@@ -790,8 +823,16 @@ namespace Cauldron.Interception.Cecilator.Coders
                 return false;
             }
 
+            // Special case - If the values has implcit or explicit converters
+            var resultingTypeBuilderType = instructionBlock.ResultingType.ToBuilderType();
+            var @operator = resultingTypeBuilderType.GetMethod(Modifiers.PublicStatic, targetType, "op_Implicit", resultingTypeBuilderType)?.Import();
+            if (@operator == null) @operator = targetType.GetMethod(Modifiers.PublicStatic, targetType, "op_Implicit", resultingTypeBuilderType)?.Import();
+            if (@operator == null) @operator = resultingTypeBuilderType.GetMethod(Modifiers.PublicStatic, targetType, "op_Explicit", resultingTypeBuilderType)?.Import();
+            if (@operator == null) @operator = targetType.GetMethod(Modifiers.PublicStatic, targetType, "op_Explicit", resultingTypeBuilderType)?.Import();
+
+            if (@operator != null) instructionBlock.Emit(OpCodes.Call, @operator);
             // TODO - adds additional checks for not resolved generics
-            if (targetType.IsGenericType && instructionBlock.ResultingType.Resolve() != null) /* This happens if the target type is a generic */ instructionBlock.Emit(OpCodes.Unbox_Any, targetType);
+            else if (targetType.IsGenericType && instructionBlock.ResultingType.Resolve() != null) /* This happens if the target type is a generic */ instructionBlock.Emit(OpCodes.Unbox_Any, targetType);
             else if (IsInstRequired()) instructionBlock.Emit(OpCodes.Isinst, targetType.Import());
             else if (targetType.IsEnum)
             {

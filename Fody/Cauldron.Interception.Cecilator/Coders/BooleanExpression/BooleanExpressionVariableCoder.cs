@@ -79,70 +79,55 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         public BooleanExpressionVariableCoder And(Func<Coder, object> other)
         {
-            if (other == null)
-                throw new ArgumentNullException(nameof(other));
-
-            this.instructions.Append(InstructionBlock.CreateCode(this, this.builderType, other(this.NewCoder())));
-            this.instructions.Emit(OpCodes.And);
+            this.And(this.builderType, other);
             return this;
         }
 
         public BooleanExpressionVariableCoder And(Field field)
         {
-            this.instructions.Append(InstructionBlock.CreateCode(this, this.builderType, field));
-            this.instructions.Emit(OpCodes.And);
+            this.And(this.builderType, field);
             return this;
         }
 
         public BooleanExpressionVariableCoder And(LocalVariable variable)
         {
-            this.instructions.Append(InstructionBlock.CreateCode(this, this.builderType, variable));
-            this.instructions.Emit(OpCodes.And);
+            this.And(this.builderType, variable);
             return this;
         }
 
         public BooleanExpressionVariableCoder And(ParametersCodeBlock arg)
         {
-            this.instructions.Append(InstructionBlock.CreateCode(this, this.builderType, arg));
-            this.instructions.Emit(OpCodes.And);
+            this.And(this.builderType, arg);
             return this;
         }
 
         public BooleanExpressionVariableCoder Invert()
         {
-            this.instructions.Emit(OpCodes.Ldc_I4_0);
-            this.instructions.Emit(OpCodes.Ceq);
+            this.InvertInternal();
             return this;
         }
 
         public BooleanExpressionVariableCoder Or(Field field)
         {
-            this.instructions.Append(InstructionBlock.CreateCode(this, this.builderType, field));
-            this.instructions.Emit(OpCodes.And);
+            this.Or(this.builderType, field);
             return this;
         }
 
         public BooleanExpressionVariableCoder Or(LocalVariable variable)
         {
-            this.instructions.Append(InstructionBlock.CreateCode(this, this.builderType, variable));
-            this.instructions.Emit(OpCodes.And);
+            this.Or(this.builderType, variable);
             return this;
         }
 
         public BooleanExpressionVariableCoder Or(Func<Coder, object> other)
         {
-            if (other == null)
-                throw new ArgumentNullException(nameof(other));
-
-            this.instructions.Append(InstructionBlock.CreateCode(this, this.builderType, other(this.NewCoder())));
-            this.instructions.Emit(OpCodes.Or);
+            this.Or(this.builderType, other);
             return this;
         }
 
         public BooleanExpressionVariableCoder Or(ParametersCodeBlock arg)
         {
-            this.instructions.Append(InstructionBlock.CreateCode(this, this.builderType, arg));
-            this.instructions.Emit(OpCodes.And);
+            this.Or(this.builderType, arg);
             return this;
         }
 

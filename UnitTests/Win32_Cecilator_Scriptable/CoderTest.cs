@@ -271,6 +271,23 @@ namespace Win32_Cecilator_Scriptable
                     .Replace();
         }
 
+        public static void LocalVariable_BinaryOperations_Implicit_Overriden_And(Builder builder)
+        {
+            var method = testType.CreateMethod(Modifiers.Public, nameof(LocalVariable_BinaryOperations_Implicit_Overriden_And), Type.EmptyTypes);
+            method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
+
+            var testClassType = builder.GetType("Win32_Cecilator_Tests.TestClass");
+            var var1 = method.GetOrCreateVariable(testClassType);
+            var var2 = method.GetOrCreateVariable(BuilderType.Int32);
+
+            method.NewCoder()
+                .SetValue(var1, 14)
+                .SetValue(var2, 9)
+                .Call(assertAreEqual.MakeGeneric(typeof(int)), x => 15, x => x.Load(var1).Or(var2))
+                    .Return()
+                    .Replace();
+        }
+
         public static void LocalVariable_NewObj(Builder builder)
         {
             var method = testType.CreateMethod(Modifiers.Public, nameof(LocalVariable_NewObj), Type.EmptyTypes);
