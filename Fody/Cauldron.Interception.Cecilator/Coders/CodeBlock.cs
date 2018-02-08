@@ -20,6 +20,8 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         public static CodeBlock DefaultTaskOfT(TypeReference typeReference) => new DefaultTaskOfTCodeBlock { typeReference = typeReference };
 
+        public static DefaultValueCodeBlock DefaultValueOf(BuilderType builderType) => new DefaultValueCodeBlock { builderType = builderType };
+
         /// <summary>
         /// Generates a random name that can be used to name variables and methods.
         /// </summary>
@@ -30,7 +32,7 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         public static ParametersCodeBlock GetParameter(string name) => new ParametersCodeBlock { name = name };
 
-        public static ParametersCodeBlock GetParameter() => new ParametersCodeBlock();
+        public static ParametersCodeBlock GetParameters() => new ParametersCodeBlock();
     }
 
     public class ArrayCodeBlock : CodeBlock
@@ -60,6 +62,15 @@ namespace Cauldron.Interception.Cecilator.Coders
         internal TypeReference typeReference;
 
         internal DefaultTaskOfTCodeBlock()
+        {
+        }
+    }
+
+    public class DefaultValueCodeBlock : CodeBlock
+    {
+        internal BuilderType builderType;
+
+        internal DefaultValueCodeBlock()
         {
         }
     }

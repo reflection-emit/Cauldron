@@ -85,6 +85,19 @@ namespace Win32_Cecilator_Scriptable
                     .Replace();
         }
 
+        public static void Default_Type_Value(Builder builder)
+        {
+            var method = testType.CreateMethod(Modifiers.Public, nameof(Default_Type_Value), Type.EmptyTypes);
+            method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
+
+            method.NewCoder()
+                .Call(assertAreEqual.MakeGeneric(typeof(int)), x => 0, x => x.Load(CodeBlocks.DefaultValueOf(BuilderType.Int32)))
+                .Call(assertAreEqual.MakeGeneric(typeof(bool)), x => false, x => x.Load(CodeBlocks.DefaultValueOf(BuilderType.Boolean)))
+                .Call(assertAreEqual.MakeGeneric(testType), x => null, x => x.Load(CodeBlocks.DefaultValueOf(testType)))
+                    .Return()
+                    .Replace();
+        }
+
         public static void Field_As_Call(Builder builder)
         {
             var name = nameof(Field_As_Call);

@@ -83,7 +83,6 @@
     <Compile Include="Coders\Default\ArgCoder.cs" />
     <Compile Include="Coders\Default\CallCoder.cs" />
     <Compile Include="Coders\CoderBase.cs" />
-    <None Include="Coders\Coder\Coder_FieldVariableArgs.cs" />
     <Compile Include="Coders\BooleanExpression\BooleanExpressionFieldCoder.cs" />
     <Compile Include="Coders\Default\FieldCoder.cs" />
     <Compile Include="Coders\IBinaryOperators.cs" />
@@ -111,7 +110,6 @@
     <None Include="Coders\BooleanExpressionContextCoder.cs" />
     <Compile Include="Extensions\Extensions.cs" />
     <None Include="Coders\Coder\Coder_MethodBody.cs" />
-    <None Include="Coders\Coder\Coder_Call_NewObj.cs" />
     <None Include="Coders\Coder\Coder_Statement.cs" />
     <Compile Include="Field.cs" />
     <Compile Include="FieldCollection.cs" />

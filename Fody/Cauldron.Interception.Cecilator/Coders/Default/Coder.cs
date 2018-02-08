@@ -30,6 +30,46 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         public static implicit operator InstructionBlock(Coder coder) => coder.instructions;
 
+        public Coder DefaultValue()
+        {
+            if (!this.instructions.associatedMethod.IsVoid)
+            {
+                var variable = this.GetOrCreateReturnVariable();
+                var defaultValue = this.instructions.associatedMethod.ReturnType.DefaultValue;
+
+                this.instructions.Append(InstructionBlock.CreateCode(this.instructions,
+                    this.instructions.associatedMethod.ReturnType.GenericArguments().Any() ?
+                       this.instructions.associatedMethod.ReturnType.GetGenericArgument(0) :
+                       this.instructions.associatedMethod.ReturnType, defaultValue));
+            }
+
+            return this;
+        }
+
+        public bool HasReturnVariable() => this.instructions.associatedMethod.GetVariable(CodeBlocks.ReturnVariableName) != null;
+
+        public Coder ThrowNew(Type exception)
+        {
+            this.instructions.Emit(OpCodes.Newobj, Builder.Current.Import(Builder.Current.Import(exception).GetMethodReference(".ctor", 0)));
+            this.instructions.Emit(OpCodes.Throw);
+            return this;
+        }
+
+        public Coder ThrowNew(Type exception, string message)
+        {
+            this.instructions.Emit(OpCodes.Ldstr, message);
+            this.instructions.Emit(OpCodes.Newobj, Builder.Current.Import(Builder.Current.Import(exception).GetMethodReference(".ctor", new Type[] { typeof(string) })));
+            this.instructions.Emit(OpCodes.Throw);
+            return this;
+        }
+
+        public Coder ThrowNew(Method ctor, params object[] parameters)
+        {
+            this.Append(InstructionBlock.NewObj(this, ctor, parameters));
+            this.instructions.Emit(OpCodes.Throw);
+            return this;
+        }
+
         #region Exit Operators
 
         public Coder Return()
@@ -156,6 +196,13 @@ namespace Cauldron.Interception.Cecilator.Coders
         public Coder Load(object value)
         {
             this.instructions.Append(InstructionBlock.CreateCode(this, null, value));
+
+            if (value != null && value is ArrayCodeBlock arrayCodeSet)
+            {
+                this.instructions.Append(InstructionBlock.CreateCode(this.instructions, null, arrayCodeSet.index));
+                this.instructions.Emit(OpCodes.Ldelem_Ref);
+            }
+
             return this;
         }
 

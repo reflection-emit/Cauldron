@@ -288,6 +288,12 @@ namespace Cauldron.Interception.Cecilator.Coders
                         result.ResultingType = returnType.typeReference;
                         break;
                     }
+                case DefaultValueCodeBlock value:
+                    var defaultValue = value.builderType.DefaultValue;
+
+                    result.Append(InstructionBlock.CreateCode(result,
+                        value.builderType.GenericArguments().Any() ? value.builderType.GetGenericArgument(0) : value.builderType, defaultValue));
+                    break;
 
                 case CoderBase coder:
                     {
