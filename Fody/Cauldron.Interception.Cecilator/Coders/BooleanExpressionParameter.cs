@@ -5,7 +5,7 @@
         public readonly BuilderType targetType;
         public readonly object value;
 
-        public BooleanExpressionParameter(object value, BuilderType targetType)
+        public BooleanExpressionParameter(object value, BuilderType targetType = null)
         {
             this.targetType = targetType ?? value.GetType().ToBuilderType();
             this.value = value;

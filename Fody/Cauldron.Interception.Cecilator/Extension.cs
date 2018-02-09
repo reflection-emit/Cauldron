@@ -393,7 +393,20 @@ namespace Cauldron.Interception.Cecilator
             return self.BetterResolve().MakeGenericInstanceType(genericArguments);
         }
 
-        public static BuilderType ToBuilderType(this Type type) => new BuilderType(Builder.Current, WeaverBase.AllTypes.Get(type.FullName));
+        public static BuilderType ToBuilderType(this Type type)
+        {
+            if (type.IsGenericType && type.GetGenericTypeDefinition() != type)
+            {
+                var builder = Builder.Current;
+                var definition = type.GetGenericTypeDefinition();
+                var typeDefinition = WeaverBase.AllTypes.Get(definition.FullName);
+                var typeReference = typeDefinition.MakeGenericInstanceType(type.GetGenericArguments().Select(x => x.ToBuilderType().typeReference).ToArray());
+
+                return new BuilderType(Builder.Current, typeReference);
+            }
+
+            return new BuilderType(Builder.Current, WeaverBase.AllTypes.Get(type.FullName));
+        }
 
         public static BuilderType ToBuilderType(this TypeDefinition value) => new BuilderType(Builder.Current, value);
 

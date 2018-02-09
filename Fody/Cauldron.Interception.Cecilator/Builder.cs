@@ -1,5 +1,6 @@
 ﻿using Mono.Cecil;
 using Mono.Cecil.Cil;
+using Mono.Cecil.Rocks;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -364,6 +365,15 @@ namespace Cauldron.Interception.Cecilator
                 var child = type.GetElementType();
                 var bt = this.GetType(child.FullName);
                 return new BuilderType(this, new ArrayType(this.moduleDefinition.ImportReference(bt.typeReference)));
+            }
+
+            if (type.IsGenericType && type.GetGenericTypeDefinition() != type)
+            {
+                var builder = Builder.Current;
+                var definition = type.GetGenericTypeDefinition();
+                var typeDefinition = this.GetType(definition.FullName);
+
+                return typeDefinition.MakeGeneric(type.GetGenericArguments().Select(x => x.ToBuilderType()).ToArray());
             }
 
             return this.GetType(type.FullName);

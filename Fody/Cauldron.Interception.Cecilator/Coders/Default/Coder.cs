@@ -268,6 +268,40 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         #endregion Special coder stuff
 
+        #region if Statements
+
+        public Coder If(
+            Func<BooleanExpressionCoder, BooleanExpressionResultCoder> booleanExpression,
+            Func<Coder, object> then)
+        {
+            var result = booleanExpression(new BooleanExpressionCoder(this.NewCoder()));
+            this.instructions.Append(result);
+            this.instructions.Append(InstructionBlock.CreateCode(this, null, then(this.NewCoder())));
+            this.instructions.Append(result.jumpTarget);
+
+            return this;
+        }
+
+        public Coder If(
+            Func<BooleanExpressionCoder, BooleanExpressionResultCoder> booleanExpression,
+            Func<Coder, object> then,
+            Func<Coder, object> @else)
+        {
+            var endOfIf = this.instructions.ilprocessor.Create(OpCodes.Nop);
+            var result = booleanExpression(new BooleanExpressionCoder(this.NewCoder()));
+
+            this.instructions.Append(result);
+            this.instructions.Append(InstructionBlock.CreateCode(this, null, then(this.NewCoder())));
+            this.instructions.Append(this.instructions.ilprocessor.Create(OpCodes.Br, endOfIf));
+            this.instructions.Append(result.jumpTarget);
+            this.instructions.Append(InstructionBlock.CreateCode(this, null, @else(this.NewCoder())));
+            this.instructions.Append(endOfIf);
+
+            return this;
+        }
+
+        #endregion if Statements
+
         #region Builder
 
         /// <summary>

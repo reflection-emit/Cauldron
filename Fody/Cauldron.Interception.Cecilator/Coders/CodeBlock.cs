@@ -1,4 +1,5 @@
 ﻿using Mono.Cecil;
+using Mono.Cecil.Cil;
 using System;
 using System.IO;
 
@@ -114,6 +115,17 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         public bool IsAllParameters => !this.index.HasValue && string.IsNullOrEmpty(this.name);
 
+        public static BuilderType GetTargetType(Method method, int parameterIndex)
+        {
+            if (method == null)
+                throw new ArgumentNullException(nameof(method));
+
+            if (parameterIndex < 0)
+                return method.OriginType;
+
+            return method.methodDefinition.Parameters[parameterIndex].ParameterType.ToBuilderType().Import();
+        }
+
         public Tuple<BuilderType, int, ParameterDefinition> GetTargetType(Coder coder) => this.GetTargetType(coder.instructions.associatedMethod);
 
         public Tuple<BuilderType, int, ParameterDefinition> GetTargetType(Method method)
@@ -125,11 +137,15 @@ namespace Cauldron.Interception.Cecilator.Coders
                 throw new ArgumentException($"The method {method.Name} does not have any parameters");
 
             if (this.index.HasValue)
+            {
+                if (!method.IsStatic && this.index.Value < 0)
+                    return new Tuple<BuilderType, int, ParameterDefinition>(method.OriginType, -1, null);
 
                 return new Tuple<BuilderType, int, ParameterDefinition>(
                     method.methodDefinition.Parameters[this.index.Value].ParameterType.ToBuilderType().Import(),
                     method.IsStatic ? this.index.Value : this.index.Value + 1,
                     method.methodDefinition.Parameters[this.index.Value]);
+            }
             else
             {
                 for (int i = 0; i < method.Parameters.Length; i++)
@@ -144,6 +160,26 @@ namespace Cauldron.Interception.Cecilator.Coders
         }
 
         public CodeBlock UnPacked(int arrayIndex = 0) => new ArrayCodeBlock { index = arrayIndex };
+
+        internal static BuilderType GetTargetTypeFromOpCode(Method method, Instruction instruction)
+        {
+            var argOffset = method.IsStatic ? 0 : 1;
+
+            if (instruction.OpCode == OpCodes.Ldarg || instruction.OpCode == OpCodes.Ldarga || instruction.OpCode == OpCodes.Ldarga_S)
+                switch (instruction.Operand)
+                {
+                    case ParameterDefinition value: return GetTargetType(method, value.Index);
+                    case ParameterReference value: return GetTargetType(method, value.Index);
+                    case int value: return GetTargetType(method, value - argOffset);
+                }
+
+            if (instruction.OpCode == OpCodes.Ldarg_0) return GetTargetType(method, 0 - argOffset);
+            if (instruction.OpCode == OpCodes.Ldarg_1) return GetTargetType(method, 1 - argOffset);
+            if (instruction.OpCode == OpCodes.Ldarg_2) return GetTargetType(method, 2 - argOffset);
+            if (instruction.OpCode == OpCodes.Ldarg_3) return GetTargetType(method, 3 - argOffset);
+
+            return null;
+        }
     }
 
     public class ThisCodeBlock : CodeBlock

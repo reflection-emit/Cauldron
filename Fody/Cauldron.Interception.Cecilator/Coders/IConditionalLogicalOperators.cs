@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Cauldron.Interception.Cecilator.Coders
 {
     public interface IConditionalLogicalOperators
     {
+        BooleanExpressionResultCoder AndAnd(Func<BooleanExpressionCoder, BooleanExpressionResultCoder> other);
+
+        BooleanExpressionResultCoder OrOr(Func<BooleanExpressionCoder, BooleanExpressionResultCoder> other);
     }
 }

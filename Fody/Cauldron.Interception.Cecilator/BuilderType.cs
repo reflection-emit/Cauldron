@@ -75,28 +75,26 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
+        public bool IsAbstract => this.typeDefinition.Attributes.HasFlag(TypeAttributes.Abstract);
         public bool IsAsyncStateMachine => this.Implements("System.Runtime.CompilerServices.IAsyncStateMachine", false);
         public bool IsForeign => this.moduleDefinition.Assembly == this.typeDefinition.Module.Assembly;
         public bool IsGenerated => this.typeDefinition.FullName.IndexOf('<') >= 0 || this.typeDefinition.FullName.IndexOf('>') >= 0;
         public bool IsGenericType => this.typeDefinition == null || this.typeReference.Resolve() == null;
         public bool IsInterface => this.typeDefinition == null ? false : this.typeDefinition.Attributes.HasFlag(TypeAttributes.Interface);
         public bool IsInternal => this.typeDefinition.Attributes.HasFlag(TypeAttributes.NotPublic);
+        public bool IsNestedPrivate => this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedPrivate);
         public bool IsNullable => this == BuilderType.Nullable;
         public bool IsPrivate => !this.IsPublic && this.IsNestedPrivate;
         public bool IsPublic => this.typeDefinition.Attributes.HasFlag(TypeAttributes.Public) && !this.IsNestedPrivate;
+        public bool IsSealed => this.typeDefinition.Attributes.HasFlag(TypeAttributes.Sealed);
         public bool IsStatic => this.IsAbstract && this.IsSealed;
         public bool IsVoid => this.typeDefinition.FullName == "System.Void";
         public AssemblyDefinition Assembly => this.typeDefinition.Module.Assembly;
-        public bool IsAbstract => this.typeDefinition.Attributes.HasFlag(TypeAttributes.Abstract);
-
         public bool IsArray => this.typeDefinition != null && (this.typeDefinition.IsArray || this.typeReference.FullName.EndsWith("[]") || this.typeDefinition.FullName.EndsWith("[]"));
         public bool IsDelegate => this.typeDefinition.IsDelegate();
-
         public bool IsEnum => this.typeDefinition.IsEnum;
         public bool IsGenericInstance => this.typeReference.IsGenericInstance;
-        public bool IsNestedPrivate => this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedPrivate);
         public bool IsPrimitive => this.typeDefinition.IsPrimitive;
-        public bool IsSealed => this.typeDefinition.Attributes.HasFlag(TypeAttributes.Sealed);
         public bool IsValueType => this.typeDefinition == null ? this.typeReference == null ? false : this.typeReference.IsValueType : this.typeDefinition.IsValueType;
         public string Name => this.typeDefinition == null ? this.typeReference.Name : this.typeDefinition.Name;
         public string Namespace => this.typeDefinition.Namespace;
@@ -355,13 +353,13 @@ namespace Cauldron.Interception.Cecilator
 
         #region Fields
 
-        public FieldCollection Fields { get { return new FieldCollection(this, this.typeDefinition.Fields); } }
+        public FieldCollection Fields => new FieldCollection(this, this.typeDefinition.Fields);
 
-        public Field CreateField(Modifiers modifier, Type fieldType, string name) => this.CreateField(modifier, this.moduleDefinition.ImportReference(fieldType.GetTypeDefinition().ResolveType(this.typeReference)), name);
+        public Field CreateField(Modifiers modifier, Type fieldType, string name) => this.CreateField(modifier, fieldType.ToBuilderType(), name);
 
         public Field CreateField(Modifiers modifier, Field field, string name) => this.CreateField(modifier, field.fieldRef.FieldType, name);
 
-        public Field CreateField(Modifiers modifier, BuilderType fieldType, string name) => this.CreateField(modifier, fieldType.typeDefinition, name);
+        public Field CreateField(Modifiers modifier, BuilderType fieldType, string name) => this.CreateField(modifier, fieldType.typeReference, name);
 
         public Field CreateField(Modifiers modifier, TypeReference typeReference, string name)
         {
@@ -577,7 +575,7 @@ namespace Cauldron.Interception.Cecilator
         }
 
         public Method CreateMethod(Modifiers modifier, string name, params Type[] parameters) =>
-            this.CreateMethod(modifier, name, parameters.Select(x => this.Builder.GetType(x)).ToArray());
+            this.CreateMethod(modifier, name, parameters.Select(x => x.ToBuilderType()).ToArray());
 
         public Method CreateMethod(Modifiers modifier, string name, params BuilderType[] parameters)
         {
@@ -770,7 +768,7 @@ namespace Cauldron.Interception.Cecilator
                 return true;
 
             if (this.IsGenericInstance)
-                return this.typeDefinition.AreEqual(other.typeDefinition) && this.typeReference.AreEqual(other.typeReference);
+                return this.typeDefinition.AreEqual(other.typeDefinition) || this.typeReference.AreEqual(other.typeReference);
 
             if (this.IsGenericType)
                 return this.typeReference.AreEqual(other.typeReference);

@@ -10,29 +10,6 @@ namespace Cauldron.Interception.Cecilator.Coders
         internal readonly InstructionBlock instructions;
 
         protected CoderBase(InstructionBlock instructionBlock) => this.instructions = instructionBlock;
-    }
-
-    public abstract class CoderBase<TSelf, TMaster> : CoderBase
-        where TSelf : CoderBase<TSelf, TMaster>
-        where TMaster : CoderBase
-    {
-        protected CoderBase(InstructionBlock instructionBlock) : base(instructionBlock)
-        {
-        }
-
-        public abstract TMaster End { get; }
-
-        public TSelf Append(TSelf coder)
-        {
-            this.instructions.Append(instructions.instructions);
-            return this as TSelf;
-        }
-
-        public TSelf Append(InstructionBlock instructionBlock)
-        {
-            this.instructions.Append(instructionBlock);
-            return this as TSelf;
-        }
 
         public void InstructionDebug() => this.instructions.associatedMethod.Log(LogTypes.Info, this.instructions);
 
@@ -147,5 +124,38 @@ namespace Cauldron.Interception.Cecilator.Coders
         }
 
         #endregion Binary Operators
+    }
+
+    public abstract class CoderBase<TSelf, TMaster> : CoderBase
+        where TSelf : CoderBase<TSelf, TMaster>
+        where TMaster : CoderBase
+    {
+        protected CoderBase(InstructionBlock instructionBlock) : base(instructionBlock)
+        {
+        }
+
+        public abstract TMaster End { get; }
+
+        public TSelf Append(TSelf coder)
+        {
+            this.instructions.Append(instructions.instructions);
+            return this as TSelf;
+        }
+
+        public TSelf Append(InstructionBlock instructionBlock)
+        {
+            this.instructions.Append(instructionBlock);
+            return this as TSelf;
+        }
+
+        /// <summary>
+        /// Duplicates the last value in the stack
+        /// </summary>
+        /// <returns></returns>
+        public TSelf Duplicate()
+        {
+            this.instructions.Emit(OpCodes.Dup);
+            return (TSelf)this;
+        }
     }
 }

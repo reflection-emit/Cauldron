@@ -2,35 +2,26 @@
 
 namespace Cauldron.Interception.Cecilator.Coders
 {
-    /*
-    public interface IRelationalOperators<TResult, TExpressionCoder, TCallCoder> : IRelationalOperators<TResult>
-        where TExpressionCoder : BooleanExpressionContextCoder
-        where TCallCoder : BooleanExpressionContextCoder
+    public interface IRelationalOperators
     {
-        TResult EqualsTo(object value);
+        BooleanExpressionResultCoder Is(Func<Coder, object> value);
 
-        TResult EqualsTo(Func<TExpressionCoder, TCallCoder> call);
+        BooleanExpressionResultCoder Is(Type type);
 
-        TResult EqualsTo(Field field);
+        BooleanExpressionResultCoder Is(BuilderType type);
 
-        TResult NotEqualsTo(Field field);
+        BooleanExpressionResultCoder Is(object value);
 
-        TResult NotEqualsTo(object value);
+        BooleanExpressionResultCoder IsNot(object value);
+
+        BooleanExpressionResultCoder IsNot(Type type);
+
+        BooleanExpressionResultCoder IsNot(BuilderType type);
+
+        BooleanExpressionResultCoder IsNot(Func<Coder, object> value);
+
+        BooleanExpressionResultCoder IsNotNull();
+
+        BooleanExpressionResultCoder IsNull();
     }
-
-    public interface IRelationalOperators<TResult>
-    {
-        TResult Is(Type type);
-
-        TResult Is(BuilderType type);
-
-        TResult IsFalse();
-
-        TResult IsNotNull();
-
-        TResult IsNull();
-
-        TResult IsTrue();
-    }
-    */
 }

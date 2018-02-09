@@ -5,7 +5,7 @@ using System;
 namespace Cauldron.Interception.Cecilator.Coders
 {
     public sealed class BooleanExpressionCoder :
-        CoderBase<BooleanExpressionCoder, BooleanExpressionCoder>,
+        BooleanExpressionCoderBase<BooleanExpressionCoder, BooleanExpressionCoder>,
         ICallMethod<BooleanExpressionCallCoder>,
         IFieldOperations<BooleanExpressionFieldCoder>,
         IVariableOperations<BooleanExpressionVariableCoder>,
@@ -13,13 +13,13 @@ namespace Cauldron.Interception.Cecilator.Coders
         ICasting<BooleanExpressionCoder>,
         INewObj<BooleanExpressionCallCoder>
     {
-        internal readonly Instruction jumpTarget;
-
-        internal BooleanExpressionCoder(InstructionBlock instructionBlock, Instruction jumpTarget) : base(instructionBlock)
-            => this.jumpTarget = jumpTarget;
+        internal BooleanExpressionCoder(InstructionBlock instructionBlock, Instruction jumpTarget) : base(instructionBlock, jumpTarget)
+        {
+        }
 
         internal BooleanExpressionCoder(InstructionBlock instructionBlock) : base(instructionBlock)
-            => this.jumpTarget = instructionBlock.ilprocessor.Create(OpCodes.Nop);
+        {
+        }
 
         public override BooleanExpressionCoder End => new BooleanExpressionCoder(this);
 

@@ -85,6 +85,28 @@ namespace Win32_Cecilator_Scriptable
                     .Replace();
         }
 
+        public static void Arg_Nullable(Builder builder)
+        {
+            var name = nameof(Arg_Nullable);
+
+            var method = testType.CreateMethod(Modifiers.Public, name, Type.EmptyTypes);
+            method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
+
+            var method2 = testType.CreateMethod(Modifiers.Internal, name + "_Test_Method", typeof(int?));
+            var nullableField = testType.CreateField(Modifiers.Internal, BuilderType.Nullable.MakeGeneric(BuilderType.Int32), "nullable_field");
+
+            method2.NewCoder()
+                .SetValue(CodeBlocks.GetParameter(0), x => 88)
+                .Call(assertAreEqual.MakeGeneric(typeof(int?)), x => 88, x => x.Load(CodeBlocks.GetParameter(0)))
+                    .Return()
+                    .Replace();
+
+            method.NewCoder()
+                .Call(method2, 77)
+                .Return()
+                .Replace();
+        }
+
         public static void Default_Type_Value(Builder builder)
         {
             var method = testType.CreateMethod(Modifiers.Public, nameof(Default_Type_Value), Type.EmptyTypes);
@@ -185,6 +207,20 @@ namespace Win32_Cecilator_Scriptable
                 .SetValue(x => x.GetField(field1Name), x => x.NewObj(testType.ParameterlessContructor))
                 .SetValue(x => x.GetField(field2Name), x => x.Load(y => y.GetField(field1Name)))
                 .Call(assertAreEqual.MakeGeneric(testType), x => x.Load(y => y.GetField(field1Name)), x => x.Load(y => y.GetField(field2Name)))
+                    .Return()
+                    .Replace();
+        }
+
+        public static void Field_Nullable(Builder builder)
+        {
+            var method = testType.CreateMethod(Modifiers.Public, nameof(Field_Nullable), Type.EmptyTypes);
+            method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
+
+            var nullableField = testType.CreateField(Modifiers.Internal, BuilderType.Nullable.MakeGeneric(BuilderType.Int32), "nullable_field");
+
+            method.NewCoder()
+                .SetValue(nullableField, x => 88)
+                .Call(assertAreEqual.MakeGeneric(typeof(int?)), x => 88, x => x.Load(nullableField))
                     .Return()
                     .Replace();
         }
@@ -310,6 +346,20 @@ namespace Win32_Cecilator_Scriptable
                 .SetValue(variable: x => x.GetOrCreateVariable(testType, "local_test_1"), value: x => x.NewObj(testType.ParameterlessContructor))
                 .SetValue(variable: x => x.GetOrCreateVariable(testType, "local_test_2"), value: x => method.GetVariable("local_test_1"))
                 .Call(assertAreEqual.MakeGeneric(testType), x => method.GetVariable("local_test_1"), x => method.GetVariable("local_test_2"))
+                    .Return()
+                    .Replace();
+        }
+
+        public static void LocalVariable_Nullable(Builder builder)
+        {
+            var method = testType.CreateMethod(Modifiers.Public, nameof(LocalVariable_Nullable), Type.EmptyTypes);
+            method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
+
+            var var1 = method.GetOrCreateVariable(BuilderType.Nullable.MakeGeneric(BuilderType.Int32));
+
+            method.NewCoder()
+                .SetValue(var1, x => 88)
+                .Call(assertAreEqual.MakeGeneric(typeof(int?)), x => 88, x => x.Load(var1))
                     .Return()
                     .Replace();
         }

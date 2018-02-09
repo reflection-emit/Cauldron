@@ -81,22 +81,17 @@ namespace Cauldron.Interception.Cecilator.Coders
                 if (typeReference.FullName == castToType.Fullname)
                     return true;
 
-                if (castToType.typeReference.IsPrimitive)
+                if (castToType.typeReference.IsPrimitive && !typeReference.IsPrimitive)
                 {
                     instructionBlock.Emit(OpCodes.Unbox_Any, Builder.Current.Import(castToType.typeReference));
                     return true;
                 }
 
-                if (castToType.typeReference.Resolve().With(x => x.IsInterface || x.IsClass))
+                if (!castToType.typeReference.IsPrimitive && castToType.typeReference.Resolve().With(x => x.IsInterface || x.IsClass))
                 {
                     instructionBlock.Emit(OpCodes.Isinst, Builder.Current.Import(castToType.typeReference));
                     return true;
                 }
-
-                var paramResult = new ParamResult
-                {
-                    Type = typeReference
-                };
 
                 CastOrBoxValuesInternal(instructionBlock, castToType);
                 return true;
@@ -249,6 +244,13 @@ namespace Cauldron.Interception.Cecilator.Coders
                 case ParametersCodeBlock parametersCodeBlock:
                     {
                         var parameterInfos = parametersCodeBlock.GetTargetType(instructionBlock.associatedMethod);
+                        if (parameterInfos.Item2 < 0)
+                        {
+                            result.Emit(OpCodes.Ldarg_0);
+                            result.ResultingType = parameterInfos.Item1.typeReference;
+                            break;
+                        }
+
                         result.Emit(OpCodes.Ldarg, parameterInfos.Item2);
                         result.ResultingType = parameterInfos.Item1.typeReference;
                         break;
@@ -308,6 +310,10 @@ namespace Cauldron.Interception.Cecilator.Coders
                         break;
                     }
 
+                case BooleanExpressionParameter booleanExpressionParameter:
+                    result.Append(InstructionBlock.CreateCode(result, booleanExpressionParameter.targetType, booleanExpressionParameter.value));
+                    break;
+
                 case TypeReference value:
                     result.Append(instructionBlock.ilprocessor.TypeOf(value), instructionBlock.builder.Import(typeof(Type)));
                     break;
@@ -332,13 +338,12 @@ namespace Cauldron.Interception.Cecilator.Coders
                     }
                     else
                     {
-                        var methodBaseRef = instructionBlock.builder.Import(typeof(System.Reflection.MethodBase));
                         // methodof
                         result.Emit(OpCodes.Ldtoken, method.methodReference);
                         result.Emit(OpCodes.Ldtoken, method.OriginType.typeReference);
-                        result.Emit(OpCodes.Call, instructionBlock.builder.Import(methodBaseRef.BetterResolve().Methods.FirstOrDefault(x => x.Name == "GetMethodFromHandle" && x.Parameters.Count == 2)));
+                        result.Emit(OpCodes.Call, instructionBlock.builder.Import(BuilderType.MethodBase.GetMethod("GetMethodFromHandle", 2, true)));
 
-                        result.ResultingType = methodBaseRef;
+                        result.ResultingType = BuilderType.MethodBase.typeReference;
                     }
                     break;
 
@@ -414,21 +419,24 @@ namespace Cauldron.Interception.Cecilator.Coders
             else if (localVariable.Type.IsNullable && value.GetType().With(x => x.IsValueType && !x.IsGenericType && Nullable.GetUnderlyingType(x) == null))
             {
                 // If the nullable is assigned a value
-                result.Append(InstructionBlock.CreateCode(instructionBlock, localVariable.Type.ChildType, value));
-                result.Emit(OpCodes.Newobj, BuilderType.Nullable.MakeGeneric(localVariable.Type.ChildType));
+                result.Emit(OpCodes.Ldloca, localVariable);
+                result.Append(InstructionBlock.CreateCode(instructionBlock, null, value));
+                result.Emit(OpCodes.Call, localVariable.Type.GetMethod(".ctor", 1).Import());
             }
             else
+            {
                 // Other types
                 result.Append(InstructionBlock.CreateCode(instructionBlock, localVariable.Type, value));
 
-            // Save to local variable
-            switch (localVariable.Index)
-            {
-                case 0: result.Emit(OpCodes.Stloc_0); break;
-                case 1: result.Emit(OpCodes.Stloc_1); break;
-                case 2: result.Emit(OpCodes.Stloc_2); break;
-                case 3: result.Emit(OpCodes.Stloc_3); break;
-                default: result.Emit(OpCodes.Stloc, localVariable); break;
+                // Save to local variable
+                switch (localVariable.Index)
+                {
+                    case 0: result.Emit(OpCodes.Stloc_0); break;
+                    case 1: result.Emit(OpCodes.Stloc_1); break;
+                    case 2: result.Emit(OpCodes.Stloc_2); break;
+                    case 3: result.Emit(OpCodes.Stloc_3); break;
+                    default: result.Emit(OpCodes.Stloc, localVariable); break;
+                }
             }
 
             return result;
@@ -449,8 +457,9 @@ namespace Cauldron.Interception.Cecilator.Coders
             else if (argInfo.Item1.IsNullable && value.GetType().With(x => x.IsValueType && !x.IsGenericType && Nullable.GetUnderlyingType(x) == null))
             {
                 // If the nullable is assigned a value
-                result.Append(InstructionBlock.CreateCode(instructionBlock, argInfo.Item1.ChildType, value));
-                result.Emit(OpCodes.Newobj, BuilderType.Nullable.MakeGeneric(argInfo.Item1.ChildType));
+                result.Emit(OpCodes.Ldarga, argInfo.Item3);
+                result.Append(InstructionBlock.CreateCode(instructionBlock, null, value));
+                result.Emit(OpCodes.Call, argInfo.Item1.GetMethod(".ctor", 1).Import());
             }
             else
                 // Other types
@@ -487,8 +496,8 @@ namespace Cauldron.Interception.Cecilator.Coders
             else if (field.FieldType.IsNullable && value.GetType().With(x => x.IsValueType && !x.IsGenericType && Nullable.GetUnderlyingType(x) == null))
             {
                 // If the nullable is assigned a value
-                result.Append(InstructionBlock.CreateCode(instructionBlock, field.FieldType.ChildType, value));
-                result.Emit(OpCodes.Newobj, BuilderType.Nullable.MakeGeneric(field.FieldType.ChildType));
+                result.Append(InstructionBlock.CreateCode(instructionBlock, null, value));
+                result.Emit(OpCodes.Newobj, field.FieldType.GetMethod(".ctor", 1).Import());
             }
             else
                 // Other types
@@ -626,44 +635,46 @@ namespace Cauldron.Interception.Cecilator.Coders
             return false;
         }
 
-        internal static InstructionBlock AreEqualInternalWithoutJump(InstructionBlock instructionBlock, BuilderType a, BuilderType b, BooleanExpressionParameter valueA, BooleanExpressionParameter valueB)
+        internal static InstructionBlock AreEqualInternalWithoutJump(InstructionBlock instructionBlock, BuilderType secondType, BooleanExpressionParameter secondValue)
         {
             // TODO - needs to handle Nullables
 
-            var result = instructionBlock.Spawn();
+            if (instructionBlock.Count == 0 && instructionBlock.associatedMethod.IsStatic)
+                throw new NotSupportedException($"The method {instructionBlock.associatedMethod.Name} is static. Load a value before using a relational operator.");
 
-            if (a == b && a.IsPrimitive)
+            var result = instructionBlock.Spawn();
+            var firstType = instructionBlock.ResultingType?.ToBuilderType();
+
+            if (instructionBlock.Count == 0)
             {
-                result.Append(InstructionBlock.CreateCode(result, a, valueA));
-                result.Append(InstructionBlock.CreateCode(result, b, valueB));
+                result.Emit(OpCodes.Ldarg_0);
+                firstType = result.ResultingType?.ToBuilderType();
+            }
+
+            if (firstType == secondType && firstType.IsPrimitive)
+            {
+                result.Append(InstructionBlock.CreateCode(result, null, secondValue));
                 result.Emit(OpCodes.Ceq);
 
                 return result;
             }
 
-            var equalityOperator = a.GetMethod("op_Equality", false, a, b)?.Import();
+            var equalityOperator = firstType.GetMethod("op_Equality", false, firstType, secondType)?.Import() ?? secondType.GetMethod("op_Equality", false, firstType, secondType)?.Import();
 
             if (equalityOperator != null)
             {
-                result.Append(InstructionBlock.Call(instructionBlock, null, equalityOperator.Import(), valueA, valueB));
-                return result;
-            }
-
-            equalityOperator = b.GetMethod("op_Equality", false, b, a)?.Import();
-
-            if (equalityOperator != null)
-            {
-                result.Append(InstructionBlock.Call(instructionBlock, null, equalityOperator.Import(), valueB, valueA));
+                result.Append(InstructionBlock.CreateCode(result, null, secondValue));
+                result.Emit(OpCodes.Call, equalityOperator);
                 return result;
             }
 
             // This is a special case for stuff we surely know how to convert
             // It is almost like the first block, but with forced target types
-            if (a.IsPrimitive && b.IsPrimitive)
+            if (firstType.IsPrimitive && secondType.IsPrimitive)
             {
-                var typeToUse = GetTypeWithMoreCapacity(a.typeReference, b.typeReference).ToBuilderType();
-                result.Append(InstructionBlock.CreateCode(result, typeToUse, valueA));
-                result.Append(InstructionBlock.CreateCode(result, typeToUse, valueB));
+                var typeToUse = GetTypeWithMoreCapacity(firstType.typeReference, secondType.typeReference).ToBuilderType();
+                InstructionBlock.CastOrBoxValues(result, typeToUse);
+                result.Append(InstructionBlock.CreateCode(result, typeToUse, secondValue));
                 result.Emit(OpCodes.Ceq);
 
                 return result;
@@ -673,7 +684,9 @@ namespace Cauldron.Interception.Cecilator.Coders
                 .Object
                 .GetMethod("Equals", false, BuilderType.Object, BuilderType.Object).Import();
 
-            result.Append(InstructionBlock.Call(instructionBlock, null, equalityOperator.Import(), valueA, valueB));
+            InstructionBlock.CastOrBoxValues(result, BuilderType.Object);
+            result.Append(InstructionBlock.CreateCode(result, BuilderType.Object, secondValue));
+            result.Emit(OpCodes.Call, equalityOperator);
             return result;
         }
 
@@ -703,9 +716,12 @@ namespace Cauldron.Interception.Cecilator.Coders
             BuilderType targetType,
             LocalVariable localVariable)
         {
-            if (localVariable.variable.VariableType.IsValueType && !localVariable.variable.VariableType.IsPrimitive)
+            if (localVariable.variable.VariableType.IsValueType &&
+                !localVariable.variable.VariableType.IsPrimitive &&
+                !localVariable.Type.IsNullable)
                 result.Emit(OpCodes.Ldloca, localVariable.variable);
             else
+            {
                 switch (localVariable.Index)
                 {
                     case 0: result.Emit(OpCodes.Ldloc_0); break;
@@ -716,13 +732,13 @@ namespace Cauldron.Interception.Cecilator.Coders
                         result.Emit(OpCodes.Ldloc, localVariable.variable);
                         break;
                 }
+            }
 
             result.ResultingType = localVariable.Type.typeReference ?? localVariable.Type.typeDefinition;
         }
 
-        private static void AddVariableDefinitionToInstruction(InstructionBlock instructionBlock, BuilderType targetType, VariableDefinition variableDefinition)
+        private static void AddVariableDefinitionToInstruction(InstructionBlock instructionBlock, BuilderType targetType, VariableDefinition value)
         {
-            var value = variableDefinition as VariableDefinition;
             var index = value.Index;
 
             if (value.VariableType.IsValueType && targetType == null)
@@ -837,6 +853,7 @@ namespace Cauldron.Interception.Cecilator.Coders
             if (@operator == null) @operator = targetType.GetMethod(Modifiers.PublicStatic, targetType, "op_Explicit", resultingTypeBuilderType)?.Import();
 
             if (@operator != null) instructionBlock.Emit(OpCodes.Call, @operator);
+            else if (targetType.IsNullable) instructionBlock.Emit(OpCodes.Newobj, targetType.GetMethod(".ctor", 1).Import());
             // TODO - adds additional checks for not resolved generics
             else if (targetType.IsGenericType && instructionBlock.ResultingType.Resolve() != null) /* This happens if the target type is a generic */ instructionBlock.Emit(OpCodes.Unbox_Any, targetType);
             else if (IsInstRequired()) instructionBlock.Emit(OpCodes.Isinst, targetType.Import());

@@ -1,19 +1,18 @@
 ﻿using Cauldron.Interception.Cecilator.Extensions;
-using Mono.Cecil.Cil;
 using System;
 
 namespace Cauldron.Interception.Cecilator.Coders
 {
     public class BooleanExpressionFieldCoder :
-        CoderBase<BooleanExpressionFieldCoder, BooleanExpressionCoder>,
+        BooleanExpressionCoderBase<BooleanExpressionFieldCoder, BooleanExpressionCoder>,
         ICallMethod<BooleanExpressionCallCoder>,
         IBinaryOperators<BooleanExpressionFieldCoder>,
         IFieldOperations<BooleanExpressionFieldCoder>,
         ICasting<BooleanExpressionFieldCoder>
     {
-        private readonly BuilderType builderType;
-
-        internal BooleanExpressionFieldCoder(InstructionBlock instructionBlock, BuilderType builderType) : base(instructionBlock) => this.builderType = builderType;
+        internal BooleanExpressionFieldCoder(BooleanExpressionCoderBase coder, BuilderType builderType) : base(coder, builderType)
+        {
+        }
 
         public override BooleanExpressionCoder End => new BooleanExpressionCoder(this);
 

@@ -76,9 +76,10 @@
     <Compile Include="BuilderTypeEqualityComparer.cs" />
     <Compile Include="CecilatorBase.cs" />
     <Compile Include="CecilatorObject.cs" />
+    <Compile Include="Coders\BooleanExpression\BooleanExpressionCoderBase.cs" />
     <Compile Include="Coders\BooleanExpression\BooleanExpressionArgCoder.cs" />
     <Compile Include="Coders\BooleanExpression\BooleanExpressionCallCoder.cs" />
-    <None Include="Coders\BooleanExpressionInstanceCallCoder.cs" />
+    <Compile Include="Coders\BooleanExpression\BooleanExpressionResultCoder.cs" />
     <Compile Include="Coders\BooleanExpression\BooleanExpressionVariableCoder.cs" />
     <Compile Include="Coders\Default\ArgCoder.cs" />
     <Compile Include="Coders\Default\CallCoder.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="Coders\IExitOperators.cs" />
     <Compile Include="Coders\IFieldOperations.cs" />
     <Compile Include="Coders\ILoadValue.cs" />
+    <Compile Include="Coders\IMathOperators.cs" />
     <Compile Include="Coders\INewObj.cs" />
     <Compile Include="Coders\IVariableOperations.cs" />
     <Compile Include="Coders\InstructionBlock.cs" />
@@ -102,15 +104,10 @@
     <Compile Include="CustomAttributeEqualityComparer.cs" />
     <Compile Include="Extension.cs" />
     <Compile Include="Coders\BooleanExpressionParameter.cs" />
-    <None Include="Coders\BooleanExpressionInstanceCoder.cs" />
     <Compile Include="Coders\BooleanExpression\BooleanExpressionCoder.cs" />
-    <None Include="Coders\Coder\Coder_Build.cs" />
     <Compile Include="Coders\Default\Coder.cs" />
     <Compile Include="Coders\CodeBlock.cs" />
-    <None Include="Coders\BooleanExpressionContextCoder.cs" />
     <Compile Include="Extensions\Extensions.cs" />
-    <None Include="Coders\Coder\Coder_MethodBody.cs" />
-    <None Include="Coders\Coder\Coder_Statement.cs" />
     <Compile Include="Field.cs" />
     <Compile Include="FieldCollection.cs" />
     <Compile Include="FieldInstructionsSet.cs" />
