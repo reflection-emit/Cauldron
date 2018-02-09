@@ -218,6 +218,22 @@ namespace Win32_Cecilator_Scriptable
                 .Replace();
         }
 
+        public static void If_Field_OrOr_Field(Builder builder)
+        {
+            var method = testType.CreateMethod(Modifiers.Public, nameof(If_Field_OrOr_Field), Type.EmptyTypes);
+            method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
+
+            method.NewCoder()
+                .SetValue(testField4, true)
+                .SetValue(testField1, 22)
+                .SetValue(testField3, null)
+                .If(x => x.Load(testField4).Is(true).OrOr(testField1).OrOr(y => y.Load(testField3).IsNull()),
+                    x => x.Call(assertIsTrue, true),
+                    @else => @else.Call(assertIsTrue, false))
+                .Return()
+                .Replace();
+        }
+
         /*
         public static void If_Field_Negated(Builder builder)
         {

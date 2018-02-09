@@ -13,7 +13,7 @@ namespace Cauldron.Interception.Cecilator.Coders
         ICasting<BooleanExpressionCoder>,
         INewObj<BooleanExpressionCallCoder>
     {
-        internal BooleanExpressionCoder(InstructionBlock instructionBlock, Instruction jumpTarget) : base(instructionBlock, jumpTarget)
+        internal BooleanExpressionCoder(InstructionBlock instructionBlock, (Instruction beginning, Instruction ending)? jumpTargets) : base(instructionBlock, jumpTargets)
         {
         }
 
@@ -136,7 +136,7 @@ namespace Cauldron.Interception.Cecilator.Coders
 
             this.instructions.Emit(OpCodes.Ldarg_0);
             InstructionBlock.CastOrBoxValues(this, type);
-            return new BooleanExpressionCoder(this, this.jumpTarget);
+            return new BooleanExpressionCoder(this, this.jumpTargets);
         }
 
         #endregion Casting Operations

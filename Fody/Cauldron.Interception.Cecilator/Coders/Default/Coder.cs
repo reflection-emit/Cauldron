@@ -132,7 +132,13 @@ namespace Cauldron.Interception.Cecilator.Coders
             return this;
         }
 
-        public Coder SetValue(Field field, Func<Coder, object> value) => SetValue(field, value(this.NewCoder()));
+        public Coder SetValue(Field field, Func<Coder, object> value)
+        {
+            if (value == null)
+                return SetValue(field, (object)null);
+
+            return SetValue(field, value(this.NewCoder()));
+        }
 
         public Coder SetValue(Func<BuilderType, Field> field, object value) => this.SetValue(field(this.instructions.associatedMethod.type), value);
 
@@ -163,7 +169,13 @@ namespace Cauldron.Interception.Cecilator.Coders
             return new Coder(this);
         }
 
-        public Coder SetValue(ParametersCodeBlock arg, Func<Coder, object> value) => this.SetValue(arg, value(this.NewCoder()));
+        public Coder SetValue(ParametersCodeBlock arg, Func<Coder, object> value)
+        {
+            if (value == null)
+                return this.SetValue(arg, (object)value);
+
+            return this.SetValue(arg, value(this.NewCoder()));
+        }
 
         #endregion Arg Operations
 
@@ -183,7 +195,13 @@ namespace Cauldron.Interception.Cecilator.Coders
             return this;
         }
 
-        public Coder SetValue(LocalVariable variable, Func<Coder, object> value) => SetValue(variable, value(this.NewCoder()));
+        public Coder SetValue(LocalVariable variable, Func<Coder, object> value)
+        {
+            if (value == null)
+                return this.SetValue(variable, (object)value);
+
+            return SetValue(variable, value(this.NewCoder()));
+        }
 
         public Coder SetValue(Func<Method, LocalVariable> variable, object value) => this.SetValue(variable(this.instructions.associatedMethod), value);
 
@@ -276,8 +294,9 @@ namespace Cauldron.Interception.Cecilator.Coders
         {
             var result = booleanExpression(new BooleanExpressionCoder(this.NewCoder()));
             this.instructions.Append(result);
+            this.instructions.Append(result.jumpTargets.beginning);
             this.instructions.Append(InstructionBlock.CreateCode(this, null, then(this.NewCoder())));
-            this.instructions.Append(result.jumpTarget);
+            this.instructions.Append(result.jumpTargets.ending);
 
             return this;
         }
@@ -291,9 +310,10 @@ namespace Cauldron.Interception.Cecilator.Coders
             var result = booleanExpression(new BooleanExpressionCoder(this.NewCoder()));
 
             this.instructions.Append(result);
+            this.instructions.Append(result.jumpTargets.beginning);
             this.instructions.Append(InstructionBlock.CreateCode(this, null, then(this.NewCoder())));
             this.instructions.Append(this.instructions.ilprocessor.Create(OpCodes.Br, endOfIf));
-            this.instructions.Append(result.jumpTarget);
+            this.instructions.Append(result.jumpTargets.ending);
             this.instructions.Append(InstructionBlock.CreateCode(this, null, @else(this.NewCoder())));
             this.instructions.Append(endOfIf);
 

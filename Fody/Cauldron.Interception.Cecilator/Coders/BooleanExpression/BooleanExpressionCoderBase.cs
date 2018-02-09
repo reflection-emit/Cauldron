@@ -1,7 +1,7 @@
-﻿using System;
-using Cauldron.Interception.Cecilator.Extensions;
+﻿using Cauldron.Interception.Cecilator.Extensions;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
+using System;
 
 namespace Cauldron.Interception.Cecilator.Coders
 {
@@ -12,12 +12,15 @@ namespace Cauldron.Interception.Cecilator.Coders
         where TMaster : BooleanExpressionCoderBase
 
     {
-        protected BooleanExpressionCoderBase(InstructionBlock instructionBlock, Instruction jumpTarget = null, BuilderType builderType = null) :
-            base(instructionBlock, jumpTarget, builderType)
+        protected BooleanExpressionCoderBase(
+            InstructionBlock instructionBlock,
+            (Instruction beginning, Instruction ending)? jumpTargets = null,
+            BuilderType builderType = null) :
+            base(instructionBlock, jumpTargets, builderType)
         {
         }
 
-        protected BooleanExpressionCoderBase(BooleanExpressionCoderBase self, BuilderType builderType) : base(self.instructions, self.jumpTarget, builderType)
+        protected BooleanExpressionCoderBase(BooleanExpressionCoderBase self, BuilderType builderType) : base(self.instructions, self.jumpTargets, builderType)
         {
         }
 
@@ -56,7 +59,7 @@ namespace Cauldron.Interception.Cecilator.Coders
             this.instructions.Emit(OpCodes.Isinst, type.Import().typeReference);
             this.instructions.Emit(OpCodes.Ldnull);
             this.instructions.Emit(OpCodes.Cgt_Un);
-            this.instructions.Emit(OpCodes.Brfalse, this.jumpTarget);
+            this.instructions.Emit(OpCodes.Brfalse, this.jumpTargets.ending);
 
             return new BooleanExpressionResultCoder(this);
         }
@@ -64,7 +67,7 @@ namespace Cauldron.Interception.Cecilator.Coders
         public BooleanExpressionResultCoder Is(object value)
         {
             this.IsIsInternal(value);
-            this.instructions.Emit(OpCodes.Brfalse, this.jumpTarget);
+            this.instructions.Emit(OpCodes.Brfalse, this.jumpTargets.ending);
 
             return new BooleanExpressionResultCoder(this);
         }
@@ -72,7 +75,7 @@ namespace Cauldron.Interception.Cecilator.Coders
         public BooleanExpressionResultCoder IsNot(object value)
         {
             this.IsIsInternal(value);
-            this.instructions.Emit(OpCodes.Brtrue, this.jumpTarget);
+            this.instructions.Emit(OpCodes.Brtrue, this.jumpTargets.ending);
 
             return new BooleanExpressionResultCoder(this);
         }
@@ -84,7 +87,7 @@ namespace Cauldron.Interception.Cecilator.Coders
             this.instructions.Emit(OpCodes.Isinst, type.Import().typeReference);
             this.instructions.Emit(OpCodes.Ldnull);
             this.instructions.Emit(OpCodes.Cgt_Un);
-            this.instructions.Emit(OpCodes.Brtrue, this.jumpTarget);
+            this.instructions.Emit(OpCodes.Brtrue, this.jumpTargets.ending);
 
             return new BooleanExpressionResultCoder(this);
         }
@@ -130,11 +133,11 @@ namespace Cauldron.Interception.Cecilator.Coders
     public abstract class BooleanExpressionCoderBase : CoderBase
     {
         internal readonly BuilderType builderType;
-        internal readonly Instruction jumpTarget;
+        internal readonly (Instruction beginning, Instruction ending) jumpTargets;
 
-        protected BooleanExpressionCoderBase(InstructionBlock instructionBlock, Instruction jumpTarget = null, BuilderType builderType = null) : base(instructionBlock)
+        protected BooleanExpressionCoderBase(InstructionBlock instructionBlock, (Instruction beginning, Instruction ending)? jumpTargets = null, BuilderType builderType = null) : base(instructionBlock)
         {
-            this.jumpTarget = jumpTarget ?? instructionBlock.ilprocessor.Create(OpCodes.Nop);
+            this.jumpTargets = jumpTargets ?? (instructionBlock.ilprocessor.Create(OpCodes.Nop), instructionBlock.ilprocessor.Create(OpCodes.Nop));
             this.builderType = builderType?.Import() ?? instructionBlock.associatedMethod.OriginType;
         }
     }
