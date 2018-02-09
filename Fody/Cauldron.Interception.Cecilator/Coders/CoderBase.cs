@@ -126,7 +126,8 @@ namespace Cauldron.Interception.Cecilator.Coders
         #endregion Binary Operators
     }
 
-    public abstract class CoderBase<TSelf, TMaster> : CoderBase
+    public abstract class CoderBase<TSelf, TMaster> : CoderBase,
+        IMathOperators<TSelf>
         where TSelf : CoderBase<TSelf, TMaster>
         where TMaster : CoderBase
     {
@@ -155,6 +156,16 @@ namespace Cauldron.Interception.Cecilator.Coders
         public TSelf Duplicate()
         {
             this.instructions.Emit(OpCodes.Dup);
+            return (TSelf)this;
+        }
+
+        /// <summary>
+        /// Negates a value e.g. 1 to -1
+        /// </summary>
+        /// <returns></returns>
+        public TSelf Negate()
+        {
+            this.instructions.Emit(OpCodes.Neg);
             return (TSelf)this;
         }
     }

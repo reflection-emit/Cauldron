@@ -7,7 +7,8 @@ namespace Cauldron.Interception.Cecilator.Coders
 {
     public abstract class BooleanExpressionCoderBase<TSelf, TMaster> :
         BooleanExpressionCoderBase,
-        IRelationalOperators
+        IRelationalOperators,
+        IMathOperators<TSelf>
         where TSelf : BooleanExpressionCoderBase<TSelf, TMaster>
         where TMaster : BooleanExpressionCoderBase
 
@@ -45,6 +46,16 @@ namespace Cauldron.Interception.Cecilator.Coders
         public TSelf Duplicate()
         {
             this.instructions.Emit(OpCodes.Dup);
+            return (TSelf)this;
+        }
+
+        /// <summary>
+        /// Negates a value e.g. 1 to -1
+        /// </summary>
+        /// <returns></returns>
+        public TSelf Negate()
+        {
+            this.instructions.Emit(OpCodes.Neg);
             return (TSelf)this;
         }
 

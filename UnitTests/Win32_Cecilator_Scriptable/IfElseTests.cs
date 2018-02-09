@@ -218,6 +218,20 @@ namespace Win32_Cecilator_Scriptable
                 .Replace();
         }
 
+        public static void If_Field_Negated(Builder builder)
+        {
+            var method = testType.CreateMethod(Modifiers.Public, nameof(If_Field_Negated), Type.EmptyTypes);
+            method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
+
+            method.NewCoder()
+                .SetValue(testField1, 20)
+                .If(x => x.Load(testField1).Negate().Is(-20),
+                    x => x.Call(assertIsTrue, true),
+                    @else => @else.Call(assertIsTrue, false))
+                .Return()
+                .Replace();
+        }
+
         public static void If_Field_OrOr_Field(Builder builder)
         {
             var method = testType.CreateMethod(Modifiers.Public, nameof(If_Field_OrOr_Field), Type.EmptyTypes);
@@ -233,21 +247,6 @@ namespace Win32_Cecilator_Scriptable
                 .Return()
                 .Replace();
         }
-
-        /*
-        public static void If_Field_Negated(Builder builder)
-        {
-            var method = testType.CreateMethod(Modifiers.Public, nameof(If_Field_Negated), Type.EmptyTypes);
-            method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
-
-            method.NewCoder()
-                .SetValue(testField1, 20)
-                .If(x => x.Load(testField1).Negate().EqualsTo(-20),
-                    x => x.Call(assertIsTrue, true),
-                    @else => @else.Call(assertIsTrue, false))
-                .Return()
-                .Replace();
-        }*/
 
         private static void Implement2(Builder builder)
         {
