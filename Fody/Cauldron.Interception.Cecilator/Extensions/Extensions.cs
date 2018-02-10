@@ -10,14 +10,12 @@ namespace Cauldron.Interception.Cecilator.Extensions
     public static class Extensions
     {
         public static bool AreEqual(this TypeDefinition a, TypeDefinition b) =>
-            a.Module.Assembly.Name.GetHashCode() == b.Module.Assembly.Name.GetHashCode() &&
-            a.Module.Assembly.Name == b.Module.Assembly.Name &&
+            a.Resolve().Module.Assembly.Name == b.Resolve().Module.Assembly.Name &&
             a.FullName.GetHashCode() == b.FullName.GetHashCode() &&
             a.FullName == b.FullName;
 
         public static bool AreEqual(this TypeReference a, TypeReference b) =>
-            a.Module.Assembly.Name.GetHashCode() == b.Module.Assembly.Name.GetHashCode() &&
-            a.Module.Assembly.Name == b.Module.Assembly.Name &&
+            a.Resolve().Module.Assembly.Name == b.Resolve().Module.Assembly.Name &&
             a.FullName.GetHashCode() == b.FullName.GetHashCode() &&
             a.FullName == b.FullName;
 
@@ -128,6 +126,12 @@ namespace Cauldron.Interception.Cecilator.Extensions
             };
         }
 
+        internal static void Display(this TypeReference type)
+        {
+            Builder.Current.Log(LogTypes.Info, $"{type?.Module.Assembly.FullName} {type?.FullName}");
+            Builder.Current.Log(LogTypes.Info, $"{type?.Resolve()?.Module.Assembly.FullName} {type?.Resolve()?.FullName}");
+        }
+
         internal static TypeReference GetTypeOfValueInStack(this IEnumerable<Instruction> instructions, Method method)
         {
             TypeReference GetTypeOfValueInStack(Instruction ins)
@@ -140,6 +144,9 @@ namespace Cauldron.Interception.Cecilator.Extensions
 
                 if (ins.IsLoadLocal())
                     return method.methodDefinition.GetVariable(ins)?.VariableType;
+
+                if (ins.IsComparer())
+                    return BuilderType.Boolean.typeReference;
 
                 if (ins.OpCode == OpCodes.Isinst)
                     return ins.Operand as TypeReference;

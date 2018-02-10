@@ -30,7 +30,7 @@ namespace Cauldron.Interception.Cecilator.Coders
             if (this.instructions.Count == 0)
                 throw new NotSupportedException();
 
-            var lastIntructions = this.instructions.instructions[this.instructions.Count - 1];
+            var lastIntructions = this.instructions.Last;
 
             if (lastIntructions.OpCode == OpCodes.Brtrue)
             {

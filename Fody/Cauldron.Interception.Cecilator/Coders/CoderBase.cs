@@ -139,7 +139,7 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         public TSelf Append(TSelf coder)
         {
-            this.instructions.Append(instructions.instructions);
+            this.instructions.Append(instructions);
             return this as TSelf;
         }
 

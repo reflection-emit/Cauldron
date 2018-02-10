@@ -248,7 +248,7 @@ namespace Win32_Cecilator_Scriptable
                 .Replace();
         }
 
-        private static void Implement2(Builder builder)
+        public static void Implement2(Builder builder)
         {
             var type = builder.CreateType("Test", "IfElse");
             var field1 = type.CreateField(Modifiers.Public, typeof(int), "testField1");

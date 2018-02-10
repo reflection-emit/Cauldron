@@ -103,7 +103,6 @@
     <Compile Include="Crumb.cs" />
     <Compile Include="CustomAttributeEqualityComparer.cs" />
     <Compile Include="Extension.cs" />
-    <Compile Include="Coders\BooleanExpressionParameter.cs" />
     <Compile Include="Coders\BooleanExpression\BooleanExpressionCoder.cs" />
     <Compile Include="Coders\Default\Coder.cs" />
     <Compile Include="Coders\CodeBlock.cs" />
@@ -129,6 +128,7 @@
     <Compile Include="InstructionsSet.cs" />
     <Compile Include="ITry.cs" />
     <Compile Include="ITryCode.cs" />
+    <Compile Include="ListEx.cs" />
     <Compile Include="LogTypes.cs" />
     <Compile Include="TypeResolveException.cs" />
     <Compile Include="CecilatorTypeSystem.cs" />

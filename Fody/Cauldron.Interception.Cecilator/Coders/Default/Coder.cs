@@ -347,14 +347,14 @@ namespace Cauldron.Interception.Cecilator.Coders
                 this.instructions.associatedMethod.methodDefinition.Body.ExceptionHandlers.Clear();
 
                 this.instructions.ilprocessor.Append(callsBeforeBase);
-                this.instructions.ilprocessor.Append(this.instructions.instructions);
+                this.instructions.ilprocessor.Append(this.instructions);
             }
             else
             {
                 this.instructions.associatedMethod.methodDefinition.Body.Instructions.Clear();
                 this.instructions.associatedMethod.methodDefinition.Body.ExceptionHandlers.Clear();
 
-                this.instructions.ilprocessor.Append(this.instructions.instructions);
+                this.instructions.ilprocessor.Append(this.instructions);
             }
 
             foreach (var item in this.instructions.exceptionHandlers)
@@ -408,7 +408,7 @@ namespace Cauldron.Interception.Cecilator.Coders
             if (coder.instructions.associatedMethod.IsAbstract)
                 throw new NotSupportedException("Interceptors does not support abstract methods.");
 
-            if (coder.instructions.associatedMethod.IsVoid || coder.instructions.instructions.LastOrDefault().OpCode != OpCodes.Ret)
+            if (coder.instructions.associatedMethod.IsVoid || coder.instructions.Last?.OpCode != OpCodes.Ret)
             {
                 var realReturn = coder.instructions.associatedMethod.methodDefinition.Body.Instructions.Last();
 
@@ -433,8 +433,7 @@ namespace Cauldron.Interception.Cecilator.Coders
                     resultJump = true;
                     //this.processor.InsertBefore(realReturn, this.processor.Create(OpCodes.Ldloc, returnVariable));
                     coder.instructions.ilprocessor.InsertBefore(realReturn,
-                        InstructionBlock.CreateCode(coder.instructions, coder.instructions.associatedMethod.ReturnType, coder.GetOrCreateReturnVariable())
-                            .instructions);
+                        InstructionBlock.CreateCode(coder.instructions, coder.instructions.associatedMethod.ReturnType, coder.GetOrCreateReturnVariable()));
 
                     realReturn = realReturn.Previous;
                 }

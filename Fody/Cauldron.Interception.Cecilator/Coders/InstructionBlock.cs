@@ -3,13 +3,16 @@ using Mono.Cecil;
 using Mono.Cecil.Cil;
 using Mono.Cecil.Rocks;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 
 namespace Cauldron.Interception.Cecilator.Coders
 {
-    public sealed class InstructionBlock
+    public sealed class InstructionBlock : IEnumerable<Instruction>
     {
         internal readonly Method associatedMethod;
 
@@ -19,7 +22,7 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         internal readonly ILProcessor ilprocessor;
 
-        internal readonly List<Instruction> instructions = new List<Instruction>();
+        private readonly ListEx<Instruction> instructions = new ListEx<Instruction>();
 
         private TypeReference resultingType;
 
@@ -29,7 +32,11 @@ namespace Cauldron.Interception.Cecilator.Coders
             this.associatedMethod = method;
             this.ilprocessor = this.associatedMethod.GetILProcessor();
             this.associatedMethod.methodDefinition.Body.SimplifyMacros();
+
+            this.instructions.Changed += Changed;
         }
+
+        public Instruction Last => this.instructions.Count == 0 ? null : this.instructions[this.instructions.Count - 1];
 
         /// <summary>
         /// Gets or sets the resulting type of the instruction block. This is only relevant for casting and relational operations
@@ -68,7 +75,7 @@ namespace Cauldron.Interception.Cecilator.Coders
         public static void CastOrBoxValues(InstructionBlock instructionBlock, BuilderType castToType)
         {
             if (instructionBlock.instructions.Count == 0)
-                throw new Exception("Cannot convert to CodeBlock, since this Coder has no instructions in its list.");
+                throw new Exception("Cannot cast or box the last value, since this Coder has no instructions in its list.");
 
             if (castToType == null)
                 return;
@@ -78,7 +85,7 @@ namespace Cauldron.Interception.Cecilator.Coders
                 if (typeReference == null)
                     return false;
 
-                if (typeReference.FullName == castToType.Fullname)
+                if (typeReference.AreEqual(castToType))
                     return true;
 
                 if (castToType.typeReference.IsPrimitive && !typeReference.IsPrimitive)
@@ -300,7 +307,7 @@ namespace Cauldron.Interception.Cecilator.Coders
                 case CoderBase coder:
                     {
                         result.Append(coder.instructions);
-                        result.ResultingType = result.instructions.GetTypeOfValueInStack(result.associatedMethod);
+                        result.ResultingType = result.ResultingType;
                         break;
                     }
 
@@ -309,10 +316,6 @@ namespace Cauldron.Interception.Cecilator.Coders
                         result.Append(instructionsCodeBlock.instructions);
                         break;
                     }
-
-                case BooleanExpressionParameter booleanExpressionParameter:
-                    result.Append(InstructionBlock.CreateCode(result, booleanExpressionParameter.targetType, booleanExpressionParameter.value));
-                    break;
 
                 case TypeReference value:
                     result.Append(instructionBlock.ilprocessor.TypeOf(value), instructionBlock.builder.Import(typeof(Type)));
@@ -532,6 +535,14 @@ namespace Cauldron.Interception.Cecilator.Coders
             resultingType = null;
         }
 
+        public void Display()
+        {
+            var builder = Builder.Current;
+            builder.Log(LogTypes.Info, $"-- {this.associatedMethod} --");
+            foreach (var item in this.instructions)
+                builder.Log(LogTypes.Info, $"IL_{item.Offset.ToString("X4")}: {item.OpCode.ToString()} { (item.Operand is Instruction ? "IL_" + (item.Operand as Instruction).Offset.ToString("X4") : item.Operand?.ToString())} ");
+        }
+
         public void Emit(OpCode opcode, ParameterDefinition parameter) => this.instructions.Add(ilprocessor.Create(opcode, parameter));
 
         public void Emit(OpCode opcode, ParametersCodeBlock parameter) => this.instructions.Add(ilprocessor.Create(opcode, parameter.GetTargetType(this.associatedMethod).Item3));
@@ -586,6 +597,22 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         public void Emit_Nop() => this.Emit(OpCodes.Nop);
 
+        public IEnumerator<Instruction> GetEnumerator() => this.instructions.GetEnumerator();
+
+        public Instruction[] LastElements(int count)
+        {
+            if (this.instructions.Count < count)
+                count = this.instructions.Count;
+
+            var result = new Instruction[count];
+            int counter = 0;
+
+            for (int i = this.instructions.Count - count; i < this.instructions.Count; i++)
+                result[counter++] = this.instructions[i];
+
+            return result;
+        }
+
         public void Prepend(IEnumerable<Instruction> instructions) => this.instructions.InsertRange(0, instructions);
 
         public void Remove(int index) => this.instructions.RemoveAt(index);
@@ -595,12 +622,12 @@ namespace Cauldron.Interception.Cecilator.Coders
         public override string ToString()
         {
             var sb = new StringBuilder();
-
             foreach (var item in this.instructions)
                 sb.AppendLine($"IL_{item.Offset.ToString("X4")}: {item.OpCode.ToString()} { (item.Operand is Instruction ? "IL_" + (item.Operand as Instruction).Offset.ToString("X4") : item.Operand?.ToString())} ");
-
             return sb.ToString();
         }
+
+        IEnumerator IEnumerable.GetEnumerator() => this.instructions.GetEnumerator();
 
         internal static bool AddBinaryOperation(InstructionBlock instructionBlock, OpCode opCode, BuilderType a, BuilderType b, object valueB)
         {
@@ -612,7 +639,7 @@ namespace Cauldron.Interception.Cecilator.Coders
             if (b == null)
             {
                 if (valueB is CoderBase value)
-                    b = value.instructions.instructions.GetTypeOfValueInStack(value.instructions.associatedMethod)?.ToBuilderType();
+                    b = value.instructions.ResultingType?.ToBuilderType();
                 else
                     b = valueB?.GetType().ToBuilderType();
             }
@@ -635,37 +662,39 @@ namespace Cauldron.Interception.Cecilator.Coders
             return false;
         }
 
-        internal static InstructionBlock AreEqualInternalWithoutJump(InstructionBlock instructionBlock, BuilderType secondType, BooleanExpressionParameter secondValue)
+        internal static void AreEqualInternalWithoutJump(InstructionBlock instructionBlock, BuilderType secondType, object secondValue)
         {
             // TODO - needs to handle Nullables
 
             if (instructionBlock.Count == 0 && instructionBlock.associatedMethod.IsStatic)
                 throw new NotSupportedException($"The method {instructionBlock.associatedMethod.Name} is static. Load a value before using a relational operator.");
 
-            var result = instructionBlock.Spawn();
             var firstType = instructionBlock.ResultingType?.ToBuilderType();
+
+            if (secondType == null && secondValue is CoderBase coderBase)
+                secondType = coderBase.instructions.ResultingType?.ToBuilderType() ?? secondValue?.GetType()?.ToBuilderType();
 
             if (instructionBlock.Count == 0)
             {
-                result.Emit(OpCodes.Ldarg_0);
-                firstType = result.ResultingType?.ToBuilderType();
+                instructionBlock.Emit(OpCodes.Ldarg_0);
+                firstType = instructionBlock.ResultingType?.ToBuilderType();
             }
 
             if (firstType == secondType && firstType.IsPrimitive)
             {
-                result.Append(InstructionBlock.CreateCode(result, null, secondValue));
-                result.Emit(OpCodes.Ceq);
+                instructionBlock.Append(InstructionBlock.CreateCode(instructionBlock, secondType, secondValue));
+                instructionBlock.Emit(OpCodes.Ceq);
 
-                return result;
+                return;
             }
 
             var equalityOperator = firstType.GetMethod("op_Equality", false, firstType, secondType)?.Import() ?? secondType.GetMethod("op_Equality", false, firstType, secondType)?.Import();
 
             if (equalityOperator != null)
             {
-                result.Append(InstructionBlock.CreateCode(result, null, secondValue));
-                result.Emit(OpCodes.Call, equalityOperator);
-                return result;
+                instructionBlock.Append(InstructionBlock.CreateCode(instructionBlock, secondType, secondValue));
+                instructionBlock.Emit(OpCodes.Call, equalityOperator);
+                return;
             }
 
             // This is a special case for stuff we surely know how to convert
@@ -673,21 +702,20 @@ namespace Cauldron.Interception.Cecilator.Coders
             if (firstType.IsPrimitive && secondType.IsPrimitive)
             {
                 var typeToUse = GetTypeWithMoreCapacity(firstType.typeReference, secondType.typeReference).ToBuilderType();
-                InstructionBlock.CastOrBoxValues(result, typeToUse);
-                result.Append(InstructionBlock.CreateCode(result, typeToUse, secondValue));
-                result.Emit(OpCodes.Ceq);
+                InstructionBlock.CastOrBoxValues(instructionBlock, typeToUse);
+                instructionBlock.Append(InstructionBlock.CreateCode(instructionBlock, typeToUse, secondValue));
+                instructionBlock.Emit(OpCodes.Ceq);
 
-                return result;
+                return;
             }
 
             equalityOperator = BuilderType
                 .Object
                 .GetMethod("Equals", false, BuilderType.Object, BuilderType.Object).Import();
 
-            InstructionBlock.CastOrBoxValues(result, BuilderType.Object);
-            result.Append(InstructionBlock.CreateCode(result, BuilderType.Object, secondValue));
-            result.Emit(OpCodes.Call, equalityOperator);
-            return result;
+            InstructionBlock.CastOrBoxValues(instructionBlock, BuilderType.Object);
+            instructionBlock.Append(InstructionBlock.CreateCode(instructionBlock, BuilderType.Object, secondValue));
+            instructionBlock.Emit(OpCodes.Call, equalityOperator);
         }
 
         internal static void CreateCodeForFieldReference(
@@ -828,6 +856,9 @@ namespace Cauldron.Interception.Cecilator.Coders
 
             bool IsInstRequired()
             {
+                if (targetType.IsPrimitive)
+                    return false;
+
                 if (targetType == BuilderType.String ||
                     instructionBlock.ResultingType.AreReferenceAssignable(targetType.typeReference) ||
                     targetType.IsInterface)
@@ -971,5 +1002,7 @@ namespace Cauldron.Interception.Cecilator.Coders
 
             return a;
         }
+
+        private void Changed(object sender, EventArgs e) => this.resultingType = null;
     }
 }

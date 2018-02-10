@@ -622,6 +622,17 @@ namespace Cauldron.Interception.Cecilator
                 opCode == OpCodes.Newobj;
         }
 
+        internal static bool IsComparer(this Instruction instruction)
+        {
+            var opCode = instruction.OpCode;
+            return
+                opCode == OpCodes.Ceq ||
+                opCode == OpCodes.Cgt ||
+                opCode == OpCodes.Cgt_Un ||
+                opCode == OpCodes.Clt_Un ||
+                opCode == OpCodes.Clt;
+        }
+
         internal static bool IsDelegate(this TypeDefinition typeDefinition)
         {
             if (typeDefinition == null || typeDefinition.BaseType == null)
@@ -697,6 +708,7 @@ namespace Cauldron.Interception.Cecilator
                 IsLoadArgument(instruction) ||
                 IsLoadLocal(instruction) ||
                 IsLoadField(instruction) ||
+                IsComparer(instruction) ||
                 opCode == OpCodes.Isinst ||
                 opCode == OpCodes.Dup ||
                 opCode == OpCodes.Sizeof ||

@@ -29,7 +29,7 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         public TSelf Append(TSelf coder)
         {
-            this.instructions.Append(instructions.instructions);
+            this.instructions.Append(instructions);
             return this as TSelf;
         }
 
@@ -115,26 +115,36 @@ namespace Cauldron.Interception.Cecilator.Coders
             {
                 case null: this.instructions.Emit(OpCodes.Ldnull); this.instructions.Emit(OpCodes.Ceq); break;
                 case bool o:
-                    InstructionBlock.CastOrBoxValues(this.instructions, BuilderType.Boolean);
-                    this.instructions.Emit(o ? OpCodes.Ldc_I4_1 : OpCodes.Ldc_I4_0);
-                    this.instructions.Emit(OpCodes.Ceq);
+                    if (this.instructions.Count > 1 && this.instructions.LastElements(2).With(x => x[0].OpCode == OpCodes.Ldc_I4_0 && x[1].OpCode == OpCodes.Ceq))
+                    {
+                        // We are inverting the compare to optimize the code :)
+                        var lastElements = this.instructions.LastElements(2);
+                        lastElements[0].OpCode = o ? OpCodes.Ldc_I4_0 : OpCodes.Ldc_I4_1;
+                    }
+                    else
+                    {
+                        InstructionBlock.CastOrBoxValues(this.instructions, BuilderType.Boolean);
+                        this.instructions.Emit(o ? OpCodes.Ldc_I4_1 : OpCodes.Ldc_I4_0);
+                        this.instructions.Emit(OpCodes.Ceq);
+                    }
                     break;
 
-                case Field field: this.instructions.Append(InstructionBlock.AreEqualInternalWithoutJump(this.instructions, field.FieldType, new BooleanExpressionParameter(value, this.builderType))); break;
-                case FieldDefinition field: this.instructions.Append(InstructionBlock.AreEqualInternalWithoutJump(this.instructions, field.FieldType.ToBuilderType(), new BooleanExpressionParameter(value, this.builderType))); break;
-                case FieldReference field: this.instructions.Append(InstructionBlock.AreEqualInternalWithoutJump(this.instructions, field.FieldType.ToBuilderType(), new BooleanExpressionParameter(value, this.builderType))); break;
-                case ParameterDefinition arg: this.instructions.Append(InstructionBlock.AreEqualInternalWithoutJump(this.instructions, arg.ParameterType.ToBuilderType(), new BooleanExpressionParameter(value, this.builderType))); break;
-                case ParameterReference arg: this.instructions.Append(InstructionBlock.AreEqualInternalWithoutJump(this.instructions, arg.ParameterType.ToBuilderType(), new BooleanExpressionParameter(value, this.builderType))); break;
-                case ParametersCodeBlock arg: this.instructions.Append(InstructionBlock.AreEqualInternalWithoutJump(this.instructions, arg.GetTargetType(this.instructions.associatedMethod).Item1, new BooleanExpressionParameter(value, this.builderType))); break;
-                case LocalVariable var: this.instructions.Append(InstructionBlock.AreEqualInternalWithoutJump(this.instructions, var.Type, new BooleanExpressionParameter(value, this.builderType))); break;
-                case VariableDefinition var: this.instructions.Append(InstructionBlock.AreEqualInternalWithoutJump(this.instructions, var.VariableType.ToBuilderType(), new BooleanExpressionParameter(value, this.builderType))); break;
-                case VariableReference var: this.instructions.Append(InstructionBlock.AreEqualInternalWithoutJump(this.instructions, var.VariableType.ToBuilderType(), new BooleanExpressionParameter(value, this.builderType))); break;
-                case BuilderType o: this.instructions.Append(InstructionBlock.AreEqualInternalWithoutJump(this.instructions, BuilderType.Type, new BooleanExpressionParameter(value, this.builderType))); break;
-                case TypeDefinition o: this.instructions.Append(InstructionBlock.AreEqualInternalWithoutJump(this.instructions, BuilderType.Type, new BooleanExpressionParameter(value, this.builderType))); break;
-                case TypeReference o: this.instructions.Append(InstructionBlock.AreEqualInternalWithoutJump(this.instructions, BuilderType.Type, new BooleanExpressionParameter(value, this.builderType))); break;
-                case Method o: this.instructions.Append(InstructionBlock.AreEqualInternalWithoutJump(this.instructions, BuilderType.MethodBase, new BooleanExpressionParameter(value, this.builderType))); break;
+                case Field field: InstructionBlock.AreEqualInternalWithoutJump(this.instructions, field.FieldType, value); break;
+                case FieldDefinition field: InstructionBlock.AreEqualInternalWithoutJump(this.instructions, field.FieldType.ToBuilderType(), value); break;
+                case FieldReference field: InstructionBlock.AreEqualInternalWithoutJump(this.instructions, field.FieldType.ToBuilderType(), value); break;
+                case ParameterDefinition arg: InstructionBlock.AreEqualInternalWithoutJump(this.instructions, arg.ParameterType.ToBuilderType(), value); break;
+                case ParameterReference arg: InstructionBlock.AreEqualInternalWithoutJump(this.instructions, arg.ParameterType.ToBuilderType(), value); break;
+                case ParametersCodeBlock arg: InstructionBlock.AreEqualInternalWithoutJump(this.instructions, arg.GetTargetType(this.instructions.associatedMethod).Item1, value); break;
+                case LocalVariable var: InstructionBlock.AreEqualInternalWithoutJump(this.instructions, var.Type, value); break;
+                case VariableDefinition var: InstructionBlock.AreEqualInternalWithoutJump(this.instructions, var.VariableType.ToBuilderType(), value); break;
+                case VariableReference var: InstructionBlock.AreEqualInternalWithoutJump(this.instructions, var.VariableType.ToBuilderType(), value); break;
+                case BuilderType o: InstructionBlock.AreEqualInternalWithoutJump(this.instructions, BuilderType.Type, value); break;
+                case TypeDefinition o: InstructionBlock.AreEqualInternalWithoutJump(this.instructions, BuilderType.Type, value); break;
+                case TypeReference o: InstructionBlock.AreEqualInternalWithoutJump(this.instructions, BuilderType.Type, value); break;
+                case Method o: InstructionBlock.AreEqualInternalWithoutJump(this.instructions, BuilderType.MethodBase, value); break;
+                case CoderBase o: InstructionBlock.AreEqualInternalWithoutJump(this.instructions, null, value); break;
 
-                default: this.instructions.Append(InstructionBlock.AreEqualInternalWithoutJump(this.instructions, value.GetType().ToBuilderType(), new BooleanExpressionParameter(value, this.builderType))); break;
+                default: InstructionBlock.AreEqualInternalWithoutJump(this.instructions, value.GetType().ToBuilderType(), value); break;
             }
         }
 
