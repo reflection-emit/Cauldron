@@ -10,12 +10,17 @@ namespace Cauldron.Interception.Cecilator.Extensions
     public static class Extensions
     {
         public static bool AreEqual(this TypeDefinition a, TypeDefinition b) =>
-            a.Resolve().Module.Assembly.Name == b.Resolve().Module.Assembly.Name &&
+            a.Resolve().Module.Assembly.Name.Name == b.Resolve().Module.Assembly.Name.Name &&
             a.FullName.GetHashCode() == b.FullName.GetHashCode() &&
             a.FullName == b.FullName;
 
         public static bool AreEqual(this TypeReference a, TypeReference b) =>
-            a.Resolve().Module.Assembly.Name == b.Resolve().Module.Assembly.Name &&
+            a.Resolve()?.Module.Assembly.Name.Name == b.Resolve()?.Module.Assembly.Name.Name &&
+            a.FullName.GetHashCode() == b.FullName.GetHashCode() &&
+            a.FullName == b.FullName;
+
+        public static bool AreEqual(this TypeReference a, TypeDefinition b) =>
+            a.Resolve()?.Module.Assembly.Name.Name == b.Resolve()?.Module.Assembly.Name.Name &&
             a.FullName.GetHashCode() == b.FullName.GetHashCode() &&
             a.FullName == b.FullName;
 
@@ -126,32 +131,60 @@ namespace Cauldron.Interception.Cecilator.Extensions
             };
         }
 
+        internal static void Display(this Type type)
+        {
+            Builder.Current.Log(LogTypes.Info, $"{type?.Module.Assembly.FullName} {type?.FullName}");
+            Builder.Current.Log(LogTypes.Info, $"{type?.Module.Assembly.FullName} {type?.FullName}");
+        }
+
+        internal static void Display(this BuilderType type) => type.typeReference.Display();
+
         internal static void Display(this TypeReference type)
         {
             Builder.Current.Log(LogTypes.Info, $"{type?.Module.Assembly.FullName} {type?.FullName}");
             Builder.Current.Log(LogTypes.Info, $"{type?.Resolve()?.Module.Assembly.FullName} {type?.Resolve()?.FullName}");
         }
 
+        internal static void Display(this Instruction instruction) =>
+                Builder.Current.Log(LogTypes.Info, $"IL_{instruction.Offset.ToString("X4")}: {instruction.OpCode.ToString()} { (instruction.Operand is Instruction ? "IL_" + (instruction.Operand as Instruction).Offset.ToString("X4") : instruction.Operand?.ToString())} ");
+
         internal static TypeReference GetTypeOfValueInStack(this IEnumerable<Instruction> instructions, Method method)
         {
             TypeReference GetTypeOfValueInStack(Instruction ins)
             {
                 if (ins.IsCallOrNew())
-                    return (ins.Operand as MethodReference).ReturnType.With(x => x.AreEqual(BuilderType.Void) ? null : x);
+                    return (ins.Operand as MethodReference).With(x =>
+                    {
+                        return x.ReturnType.AreEqual(BuilderType.Void) ?
+                            null :
+                            x.ReturnType.ResolveType(x.DeclaringType, x);
+                    });
 
                 if (ins.IsLoadField())
-                    return (ins.Operand as FieldReference).FieldType;
+                    return (ins.Operand as FieldReference).With(x => x.FieldType.ResolveType(x.DeclaringType));
 
                 if (ins.IsLoadLocal())
-                    return method.methodDefinition.GetVariable(ins)?.VariableType;
+                    return method.methodDefinition.GetVariable(ins).With(x =>
+                    {
+                        if (x == null)
+                            return null;
+
+                        return x.VariableType.ResolveType(method.DeclaringType.typeReference, method.methodReference);
+                    });
 
                 if (ins.IsComparer())
                     return BuilderType.Boolean.typeReference;
 
                 if (ins.OpCode == OpCodes.Isinst)
-                    return ins.Operand as TypeReference;
+                    return (ins.Operand as TypeReference).With(x => x.ResolveType(method.DeclaringType.typeReference, method.methodReference));
 
-                return ParametersCodeBlock.GetTargetTypeFromOpCode(method, ins)?.typeReference;
+                return ParametersCodeBlock.GetTargetTypeFromOpCode(method, ins).With(x =>
+                {
+                    if (x == null)
+                        return null;
+
+                    return x.typeReference.ResolveType(method.DeclaringType.typeReference, method.methodReference);
+                });
             }
 
             if (instructions == null || !instructions.Any())

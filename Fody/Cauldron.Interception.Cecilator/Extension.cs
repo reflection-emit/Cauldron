@@ -1,4 +1,5 @@
-﻿using Mono.Cecil;
+﻿using Cauldron.Interception.Cecilator.Extensions;
+using Mono.Cecil;
 using Mono.Cecil.Cil;
 using Mono.Cecil.Rocks;
 using System;
@@ -105,6 +106,10 @@ namespace Cauldron.Interception.Cecilator
                         // interface otherwise we just return the last argument in the list
                         if (ienumerableInterface == null)
                             ienumerableInterface = genericInstances.FirstOrDefault(x => x.FullName.StartsWith("System.Collections.Generic.IEnumerable`1<"));
+
+                        // A Nullable special
+                        if (ienumerableInterface == null && genericType.AreEqual(BuilderType.Nullable))
+                            return genericType.GenericArguments[0];
 
                         // We just don't know :(
                         if (ienumerableInterface == null)
@@ -276,9 +281,9 @@ namespace Cauldron.Interception.Cecilator
             throw new Exception($"Unable to proceed. The type '{type.FullName}' does not contain a method '{methodName}'");
         }
 
-        public static IEnumerable<MethodReference> GetMethodReferences(this TypeReference type) => GetMethodReferences(type, false);
+        public static IEnumerable<(MethodReference reference, MethodDefinition definition)> GetMethodReferences(this TypeReference type) => GetMethodReferences(type, false);
 
-        public static IEnumerable<MethodReference> GetMethodReferencesByInterfaces(this TypeReference type) => GetMethodReferences(type, true);
+        public static IEnumerable<(MethodReference reference, MethodDefinition definition)> GetMethodReferencesByInterfaces(this TypeReference type) => GetMethodReferences(type, true);
 
         public static IEnumerable<TypeReference> GetNestedTypes(this TypeReference type)
         {
@@ -452,6 +457,17 @@ namespace Cauldron.Interception.Cecilator
             }
 
             return field;
+        }
+
+        internal static MethodReference CreateMethodReference(this MethodDefinition method, TypeReference originType)
+        {
+            if (method.DeclaringType.HasGenericParameters)
+            {
+                var declaringType = new GenericInstanceType(method.DeclaringType);
+                return method.MakeHostInstanceGeneric(originType.GenericParameters.ToArray());
+            }
+
+            return method;
         }
 
         internal static MethodReference CreateMethodReference(this MethodDefinition method)
@@ -999,17 +1015,17 @@ namespace Cauldron.Interception.Cecilator
             return new TypeReference[0];
         }
 
-        private static IEnumerable<MethodReference> GetMethodReferences(this TypeReference type, bool byInterfaces)
+        private static IEnumerable<(MethodReference reference, MethodDefinition definition)> GetMethodReferences(this TypeReference type, bool byInterfaces)
         {
-            var result = new List<MethodReference>();
+            var result = new List<(MethodReference reference, MethodDefinition definition)>();
             GetMethodReferences(type, result, byInterfaces);
 
             return result.Where(x =>
             {
-                if (!x.DeclaringType.IsGenericInstance)
+                if (!x.reference.DeclaringType.IsGenericInstance)
                     return true;
 
-                var genericArgument = (x.DeclaringType as GenericInstanceType).GenericArguments;
+                var genericArgument = (x.reference.DeclaringType as GenericInstanceType).GenericArguments;
                 for (int i = 0; i < genericArgument.Count; i++)
                 {
                     if (genericArgument[i].IsGenericParameter)
@@ -1020,7 +1036,7 @@ namespace Cauldron.Interception.Cecilator
             });
         }
 
-        private static void GetMethodReferences(TypeReference typeToInspect, List<MethodReference> result, bool byInterfaces)
+        private static void GetMethodReferences(TypeReference typeToInspect, List<(MethodReference, MethodDefinition)> result, bool byInterfaces)
         {
             if (typeToInspect == null)
                 return;
@@ -1032,21 +1048,37 @@ namespace Cauldron.Interception.Cecilator
                     var instances = genericType.GetGenericInstances().Where(x => (!x.BetterResolve().IsInterface || byInterfaces));
                     foreach (var item in instances)
                     {
-                        var methods = item.BetterResolve().Methods.Select(x => x.MakeHostInstanceGeneric((item as GenericInstanceType).GenericArguments.ToArray()));
+                        var methods = item
+                            .BetterResolve()
+                            .Methods
+                            .Select(x => (
+                                            x.MakeHostInstanceGeneric((item as GenericInstanceType).GenericArguments.ToArray()),
+                                            x
+                                          ));
 
-                        if (methods != null || methods.Any())
+                        if (methods.Any())
                             result.AddRange(methods);
                     }
                 }
             }
+            else if (typeToInspect.IsGenericParameter)
+            {
+                // Do nothing
+            }
             else
             {
-                var methods = typeToInspect.BetterResolve().Methods;
-                if (methods != null || methods.Count > 0)
+                var methods = typeToInspect
+                    .BetterResolve()
+                    .Methods
+                    .Select(x => (x.CreateMethodReference(), x));
+                if (methods.Any())
                     result.AddRange(methods);
             }
 
             var typeReference = typeToInspect.BetterResolve();
+
+            if (typeToInspect.IsGenericParameter || typeReference == null)
+                return;
 
             if (byInterfaces)
             {

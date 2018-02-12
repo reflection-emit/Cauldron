@@ -5,8 +5,6 @@ using Mono.Cecil.Rocks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 
@@ -260,6 +258,21 @@ namespace Cauldron.Interception.Cecilator.Coders
 
                         result.Emit(OpCodes.Ldarg, parameterInfos.Item2);
                         result.ResultingType = parameterInfos.Item1.typeReference;
+                        break;
+                    }
+
+                case NullableCodeBlock nullableCodeBlock:
+                    {
+                        if (nullableCodeBlock.variable == null)
+                        {
+                            instructionBlock.Append(InstructionBlock.CreateCode(instructionBlock, null, nullableCodeBlock.value));
+                            ModifyValueTypeInstance(instructionBlock);
+                        }
+                        else
+                            instructionBlock.Emit(OpCodes.Ldloca, nullableCodeBlock.variable);
+
+                        instructionBlock.Emit(OpCodes.Call, nullableCodeBlock.builderType.GetMethod("GetValueOrDefault").Import());
+                        result.ResultingType = nullableCodeBlock.builderType.GetGenericArgument(0)?.typeReference;
                         break;
                     }
 
@@ -664,12 +677,13 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         internal static void AreEqualInternalWithoutJump(InstructionBlock instructionBlock, BuilderType secondType, object secondValue)
         {
-            // TODO - needs to handle Nullables
-
             if (instructionBlock.Count == 0 && instructionBlock.associatedMethod.IsStatic)
                 throw new NotSupportedException($"The method {instructionBlock.associatedMethod.Name} is static. Load a value before using a relational operator.");
 
             var firstType = instructionBlock.ResultingType?.ToBuilderType();
+            Instruction nullableJumpTarget = null;
+            VariableDefinition nullableVar1 = null;
+            VariableDefinition nullableVar2 = null;
 
             if (secondType == null && secondValue is CoderBase coderBase)
                 secondType = coderBase.instructions.ResultingType?.ToBuilderType() ?? secondValue?.GetType()?.ToBuilderType();
@@ -680,11 +694,71 @@ namespace Cauldron.Interception.Cecilator.Coders
                 firstType = instructionBlock.ResultingType?.ToBuilderType();
             }
 
+            if (firstType.IsNullable || secondType.IsNullable)
+            {
+                nullableJumpTarget = instructionBlock.ilprocessor.Create(OpCodes.Nop);
+
+                if (firstType.IsNullable)
+                {
+                    nullableVar1 = instructionBlock.associatedMethod.GetOrCreateVariable(firstType).variable;
+
+                    instructionBlock.Emit(OpCodes.Stloc, nullableVar1);
+                    instructionBlock.Emit(OpCodes.Ldloca, nullableVar1);
+                    instructionBlock.Emit(OpCodes.Call, firstType.GetMethod("get_HasValue").Import());
+                    instructionBlock.Emit(OpCodes.Ldc_I4_1);
+                    instructionBlock.Emit(OpCodes.Ceq);
+                    instructionBlock.Emit(OpCodes.Dup);
+                    instructionBlock.Emit(OpCodes.Brfalse, nullableJumpTarget);
+                    instructionBlock.Emit(OpCodes.Pop);
+                }
+
+                if (secondType.IsNullable)
+                {
+                    nullableVar2 = instructionBlock.associatedMethod.GetOrCreateVariable(secondType).variable;
+
+                    instructionBlock.Append(InstructionBlock.CreateCode(instructionBlock, secondType, secondValue));
+                    instructionBlock.Emit(OpCodes.Stloc, nullableVar2);
+                    instructionBlock.Emit(OpCodes.Ldloca, nullableVar2);
+                    instructionBlock.Emit(OpCodes.Call, firstType.GetMethod("get_HasValue").Import());
+                    instructionBlock.Emit(OpCodes.Ldc_I4_1);
+                    instructionBlock.Emit(OpCodes.Ceq);
+                    instructionBlock.Emit(OpCodes.Dup);
+                    instructionBlock.Emit(OpCodes.Brfalse, nullableJumpTarget);
+                    instructionBlock.Emit(OpCodes.Pop);
+
+                    secondValue = new NullableCodeBlock(nullableVar2, secondType);
+                }
+            }
+
+            if (firstType.IsNullable)
+            {
+                if (nullableVar1 == null)
+                    ModifyValueTypeInstance(instructionBlock);
+                else
+                    instructionBlock.Emit(OpCodes.Ldloca, nullableVar1);
+
+                instructionBlock.Emit(OpCodes.Call, firstType.GetMethod("GetValueOrDefault").Import());
+                firstType = instructionBlock.ResultingType.ToBuilderType();
+            }
+
+            void NullableJumpTargetSpecial()
+            {
+                if (nullableJumpTarget != null) instructionBlock.Append(nullableJumpTarget);
+            }
+
+            if (secondType.IsNullable)
+            {
+                if (nullableVar2 == null)
+                    secondValue = new NullableCodeBlock(secondValue, secondType);
+                secondType = secondType.GetGenericArgument(0);
+            }
+
             if (firstType == secondType && firstType.IsPrimitive)
             {
                 instructionBlock.Append(InstructionBlock.CreateCode(instructionBlock, secondType, secondValue));
                 instructionBlock.Emit(OpCodes.Ceq);
 
+                NullableJumpTargetSpecial();
                 return;
             }
 
@@ -694,6 +768,8 @@ namespace Cauldron.Interception.Cecilator.Coders
             {
                 instructionBlock.Append(InstructionBlock.CreateCode(instructionBlock, secondType, secondValue));
                 instructionBlock.Emit(OpCodes.Call, equalityOperator);
+
+                NullableJumpTargetSpecial();
                 return;
             }
 
@@ -706,6 +782,7 @@ namespace Cauldron.Interception.Cecilator.Coders
                 instructionBlock.Append(InstructionBlock.CreateCode(instructionBlock, typeToUse, secondValue));
                 instructionBlock.Emit(OpCodes.Ceq);
 
+                NullableJumpTargetSpecial();
                 return;
             }
 
@@ -716,6 +793,8 @@ namespace Cauldron.Interception.Cecilator.Coders
             InstructionBlock.CastOrBoxValues(instructionBlock, BuilderType.Object);
             instructionBlock.Append(InstructionBlock.CreateCode(instructionBlock, BuilderType.Object, secondValue));
             instructionBlock.Emit(OpCodes.Call, equalityOperator);
+
+            NullableJumpTargetSpecial();
         }
 
         internal static void CreateCodeForFieldReference(
@@ -744,9 +823,7 @@ namespace Cauldron.Interception.Cecilator.Coders
             BuilderType targetType,
             LocalVariable localVariable)
         {
-            if (localVariable.variable.VariableType.IsValueType &&
-                !localVariable.variable.VariableType.IsPrimitive &&
-                !localVariable.Type.IsNullable)
+            if (localVariable.variable.VariableType.IsValueType && targetType == null)
                 result.Emit(OpCodes.Ldloca, localVariable.variable);
             else
             {
@@ -763,6 +840,52 @@ namespace Cauldron.Interception.Cecilator.Coders
             }
 
             result.ResultingType = localVariable.Type.typeReference ?? localVariable.Type.typeDefinition;
+        }
+
+        internal static void ModifyValueTypeInstance(InstructionBlock instructionBlock)
+        {
+            if (!instructionBlock.ResultingType?.IsValueType ?? true)
+                return;
+
+            var last = instructionBlock.Last;
+
+            if (
+                last.OpCode == OpCodes.Ldloc ||
+                last.OpCode == OpCodes.Ldloc_0 ||
+                last.OpCode == OpCodes.Ldloc_1 ||
+                last.OpCode == OpCodes.Ldloc_2 ||
+                last.OpCode == OpCodes.Ldloc_3 ||
+                last.OpCode == OpCodes.Ldloc_S)
+            {
+                var local = instructionBlock.associatedMethod.GetVariable(last);
+                if (local.VariableType.IsValueType)
+                {
+                    last.OpCode = OpCodes.Ldloca;
+                    last.Operand = local;
+                }
+            }
+
+            if (
+                last.OpCode == OpCodes.Ldarg ||
+                last.OpCode == OpCodes.Ldarg_0 ||
+                last.OpCode == OpCodes.Ldarg_1 ||
+                last.OpCode == OpCodes.Ldarg_2 ||
+                last.OpCode == OpCodes.Ldarg_3 ||
+                last.OpCode == OpCodes.Ldarg_S)
+            {
+                var argument = ParametersCodeBlock.GetParameter(instructionBlock.associatedMethod, last);
+                if (argument != null && argument.ParameterType.IsValueType)
+                {
+                    last.OpCode = OpCodes.Ldarga;
+                    last.Operand = argument;
+                }
+            }
+
+            if (last.OpCode == OpCodes.Ldfld)
+            {
+                if ((last.Operand as FieldReference).FieldType.IsValueType)
+                    last.OpCode = OpCodes.Ldflda;
+            }
         }
 
         private static void AddVariableDefinitionToInstruction(InstructionBlock instructionBlock, BuilderType targetType, VariableDefinition value)
@@ -791,7 +914,12 @@ namespace Cauldron.Interception.Cecilator.Coders
             var result = instructionBlock.Spawn();
 
             if (instance != null && !method.IsStatic)
+            {
                 result.Append(InstructionBlock.CreateCode(instructionBlock, null, instance));
+                ModifyValueTypeInstance(result);
+            }
+            else if (instance == null && !method.IsStatic)
+                ModifyValueTypeInstance(instructionBlock);
 
             if (parameters != null && parameters.Length > 0 && parameters[0] is ArrayCodeBlock arrayCodeSet)
             {

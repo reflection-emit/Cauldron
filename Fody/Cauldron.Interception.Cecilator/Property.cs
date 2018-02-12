@@ -65,7 +65,7 @@ namespace Cauldron.Interception.Cecilator
                     if (this.Getter.methodDefinition.Attributes.HasFlag(MethodAttributes.Static)) modifiers |= Modifiers.Static;
                     if (this.Getter.methodDefinition.Attributes.HasFlag(MethodAttributes.Public)) modifiers |= Modifiers.Public;
                     if (this.Getter.methodDefinition.Attributes.HasFlag(MethodAttributes.Virtual) &&
-                        this.Getter.methodDefinition.Attributes.HasFlag(MethodAttributes.NewSlot)) modifiers |= Modifiers.Overrrides;
+                        this.Getter.methodDefinition.Attributes.HasFlag(MethodAttributes.NewSlot)) modifiers |= Modifiers.Overrides;
                 }
 
                 if (this.Setter != null)
@@ -74,7 +74,7 @@ namespace Cauldron.Interception.Cecilator
                     if (this.Setter.methodDefinition.Attributes.HasFlag(MethodAttributes.Static)) modifiers |= Modifiers.Static;
                     if (this.Setter.methodDefinition.Attributes.HasFlag(MethodAttributes.Public)) modifiers |= Modifiers.Public;
                     if (this.Setter.methodDefinition.Attributes.HasFlag(MethodAttributes.Virtual) &&
-                        this.Setter.methodDefinition.Attributes.HasFlag(MethodAttributes.NewSlot)) modifiers |= Modifiers.Overrrides;
+                        this.Setter.methodDefinition.Attributes.HasFlag(MethodAttributes.NewSlot)) modifiers |= Modifiers.Overrides;
                 }
 
                 if (modifiers.HasFlag(Modifiers.Public) && modifiers.HasFlag(Modifiers.Private))

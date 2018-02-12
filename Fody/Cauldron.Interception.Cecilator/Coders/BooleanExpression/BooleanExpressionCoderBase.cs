@@ -143,7 +143,6 @@ namespace Cauldron.Interception.Cecilator.Coders
                 case TypeReference o: InstructionBlock.AreEqualInternalWithoutJump(this.instructions, BuilderType.Type, value); break;
                 case Method o: InstructionBlock.AreEqualInternalWithoutJump(this.instructions, BuilderType.MethodBase, value); break;
                 case CoderBase o: InstructionBlock.AreEqualInternalWithoutJump(this.instructions, null, value); break;
-
                 default: InstructionBlock.AreEqualInternalWithoutJump(this.instructions, value.GetType().ToBuilderType(), value); break;
             }
         }

@@ -1,4 +1,5 @@
 ﻿using Cauldron.Interception.Cecilator;
+using Cauldron.Interception.Cecilator.Coders;
 using Cauldron.Interception.Cecilator.Extensions;
 using System;
 
@@ -242,6 +243,134 @@ namespace Win32_Cecilator_Scriptable
                 .SetValue(testField1, 22)
                 .SetValue(testField3, null)
                 .If(x => x.Load(testField4).Is(true).OrOr(testField1).OrOr(y => y.Load(testField3).IsNull()),
+                    x => x.Call(assertIsTrue, true),
+                    @else => @else.Call(assertIsTrue, false))
+                .Return()
+                .Replace();
+        }
+
+        public static void If_NullableArg_AndAnd_NullableArg(Builder builder)
+        {
+            var method = testType.CreateMethod(Modifiers.Public, nameof(If_NullableArg_AndAnd_NullableArg), Type.EmptyTypes);
+            method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
+
+            var method2 = testType.CreateMethod(Modifiers.Private, nameof(If_NullableArg_AndAnd_NullableArg) + "_toast", BuilderType.Nullable.MakeGeneric(BuilderType.Int32), BuilderType.Nullable.MakeGeneric(BuilderType.Int32));
+            method2
+                .NewCoder()
+                .If(x => x.Load(CodeBlocks.GetParameter(0)).Is(CodeBlocks.GetParameter(1)),
+                    x => x.Call(assertIsTrue, true),
+                    @else => @else.Call(assertIsTrue, false))
+                .Return()
+                .Replace();
+
+            method
+                .NewCoder()
+                .Call(method2, 44, 44)
+                .Return()
+                .Replace();
+        }
+
+        public static void If_NullableArg_AndAnd_Primitv(Builder builder)
+        {
+            var method = testType.CreateMethod(Modifiers.Public, nameof(If_NullableArg_AndAnd_Primitv), Type.EmptyTypes);
+            method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
+
+            var method2 = testType.CreateMethod(Modifiers.Private, nameof(If_NullableArg_AndAnd_Primitv) + "_toast", BuilderType.Nullable.MakeGeneric(BuilderType.Int32));
+            method2
+                .NewCoder()
+                .If(x => x.Load(CodeBlocks.GetParameter(0)).Is(22),
+                    x => x.Call(assertIsTrue, true),
+                    @else => @else.Call(assertIsTrue, false))
+                .Return()
+                .Replace();
+
+            method
+                .NewCoder()
+                .Call(method2, 22)
+                .Return()
+                .Replace();
+        }
+
+        public static void If_NullableField_AndAnd_NullableField(Builder builder)
+        {
+            var method = testType.CreateMethod(Modifiers.Public, nameof(If_NullableField_AndAnd_NullableField), Type.EmptyTypes);
+            method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
+
+            var field1 = testType.CreateField(Modifiers.Private, BuilderType.Nullable.MakeGeneric(BuilderType.Int32), nameof(If_NullableField_AndAnd_NullableField) + "__1");
+            var field2 = testType.CreateField(Modifiers.Private, BuilderType.Nullable.MakeGeneric(BuilderType.Int32), nameof(If_NullableField_AndAnd_NullableField) + "__2");
+
+            method.NewCoder()
+                .SetValue(field1, 22)
+                .SetValue(field2, 22)
+                .If(x => x.Load(field1).Is(field2),
+                    x => x.Call(assertIsTrue, true),
+                    @else => @else.Call(assertIsTrue, false))
+                .Return()
+                .Replace();
+        }
+
+        public static void If_NullableField_AndAnd_Primitiv(Builder builder)
+        {
+            var method = testType.CreateMethod(Modifiers.Public, nameof(If_NullableField_AndAnd_Primitiv), Type.EmptyTypes);
+            method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
+
+            var field1 = testType.CreateField(Modifiers.Private, BuilderType.Nullable.MakeGeneric(BuilderType.Int32), nameof(If_NullableField_AndAnd_Primitiv) + "__1");
+
+            method.NewCoder()
+                .SetValue(field1, 22)
+                .If(x => x.Load(field1).Is(22),
+                    x => x.Call(assertIsTrue, true),
+                    @else => @else.Call(assertIsTrue, false))
+                .Return()
+                .Replace();
+        }
+
+        public static void If_NullableVariable_AndAnd_NullableVariable(Builder builder)
+        {
+            var method = testType.CreateMethod(Modifiers.Public, nameof(If_NullableVariable_AndAnd_NullableVariable), Type.EmptyTypes);
+            method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
+
+            var var1 = method.GetOrCreateVariable(BuilderType.Nullable.MakeGeneric(BuilderType.Int32));
+            var var2 = method.GetOrCreateVariable(BuilderType.Nullable.MakeGeneric(BuilderType.Int32));
+
+            method.NewCoder()
+                .SetValue(var1, 22)
+                .SetValue(var2, 22)
+                .If(x => x.Load(var1).Is(var2),
+                    x => x.Call(assertIsTrue, true),
+                    @else => @else.Call(assertIsTrue, false))
+                .Return()
+                .Replace();
+        }
+
+        public static void If_NullableVariable_AndAnd_Primitiv(Builder builder)
+        {
+            var method = testType.CreateMethod(Modifiers.Public, nameof(If_NullableVariable_AndAnd_Primitiv), Type.EmptyTypes);
+            method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
+
+            var var1 = method.GetOrCreateVariable(BuilderType.Nullable.MakeGeneric(BuilderType.Int32));
+
+            method.NewCoder()
+                .SetValue(var1, 22)
+                .If(x => x.Load(var1).Is(22),
+                    x => x.Call(assertIsTrue, true),
+                    @else => @else.Call(assertIsTrue, false))
+                .Return()
+                .Replace();
+        }
+
+        public static void If_Variable_AndAnd_Variable(Builder builder)
+        {
+            var method = testType.CreateMethod(Modifiers.Public, nameof(If_Variable_AndAnd_Variable), Type.EmptyTypes);
+            method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
+
+            var var1 = method.GetOrCreateVariable(BuilderType.Boolean);
+            var var2 = method.GetOrCreateVariable(BuilderType.Int32);
+
+            method.NewCoder()
+                .SetValue(var1, true)
+                .SetValue(var2, 22)
+                .If(x => x.Load(var1).Is(true).AndAnd(y => y.Load(var2).Is(true)),
                     x => x.Call(assertIsTrue, true),
                     @else => @else.Call(assertIsTrue, false))
                 .Return()

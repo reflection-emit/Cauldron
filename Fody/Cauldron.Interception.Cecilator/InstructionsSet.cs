@@ -192,7 +192,7 @@ namespace Cauldron.Interception.Cecilator
             if (modifiers.HasFlag(Modifiers.Private)) attributes |= MethodAttributes.Private;
             if (this.method.IsStatic) attributes |= MethodAttributes.Static;
             if (modifiers.HasFlag(Modifiers.Public)) attributes |= MethodAttributes.Public;
-            if (modifiers.HasFlag(Modifiers.Overrrides)) attributes |= MethodAttributes.Final | MethodAttributes.Virtual | MethodAttributes.NewSlot;
+            if (modifiers.HasFlag(Modifiers.Overrides)) attributes |= MethodAttributes.Final | MethodAttributes.Virtual | MethodAttributes.NewSlot;
 
             method = new MethodDefinition(newName, attributes, this.method.methodReference.ReturnType);
 

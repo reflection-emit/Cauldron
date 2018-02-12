@@ -9,7 +9,7 @@ namespace Win32_Cecilator_Tests
 {
     internal class Clasnss1ou4s9ssed
     {
-        public void D9Fseeru3()
+        public void D9Feru3()
         {
         }
     }

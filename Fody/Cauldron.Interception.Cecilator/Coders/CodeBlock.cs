@@ -103,6 +103,28 @@ namespace Cauldron.Interception.Cecilator.Coders
         internal InstructionsCodeBlock(Coder coder) => this.instructions = coder.instructions;
     }
 
+    public class NullableCodeBlock : CodeBlock
+    {
+        internal readonly BuilderType builderType;
+        internal readonly object value;
+        internal readonly VariableDefinition variable;
+
+        internal NullableCodeBlock(VariableDefinition variable, BuilderType builderType) : this(null, builderType, variable)
+        {
+        }
+
+        internal NullableCodeBlock(object value, BuilderType builderType) : this(value, builderType, null)
+        {
+        }
+
+        private NullableCodeBlock(object value, BuilderType builderType, VariableDefinition variable)
+        {
+            this.variable = variable;
+            this.value = value;
+            this.builderType = builderType;
+        }
+    }
+
     public class ParametersCodeBlock : CodeBlock
     {
         internal int? index;
@@ -115,15 +137,45 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         public bool IsAllParameters => !this.index.HasValue && string.IsNullOrEmpty(this.name);
 
-        public static BuilderType GetTargetType(Method method, int parameterIndex)
+        public static ParameterReference GetParameter(Method method, Instruction instruction)
+        {
+            var argOffset = method.IsStatic ? 0 : 1;
+
+            if (instruction.OpCode == OpCodes.Ldarg || instruction.OpCode == OpCodes.Ldarga || instruction.OpCode == OpCodes.Ldarga_S)
+                switch (instruction.Operand)
+                {
+                    case ParameterDefinition value: return value;
+                    case ParameterReference value: return value;
+                    case int value: return GetParameterReference(method, value - argOffset);
+                }
+
+            if (instruction.OpCode == OpCodes.Ldarg_0) return GetParameterReference(method, 0 - argOffset);
+            if (instruction.OpCode == OpCodes.Ldarg_1) return GetParameterReference(method, 1 - argOffset);
+            if (instruction.OpCode == OpCodes.Ldarg_2) return GetParameterReference(method, 2 - argOffset);
+            if (instruction.OpCode == OpCodes.Ldarg_3) return GetParameterReference(method, 3 - argOffset);
+
+            return null;
+        }
+
+        public static ParameterReference GetParameterReference(Method method, int parameterIndex)
         {
             if (method == null)
                 throw new ArgumentNullException(nameof(method));
 
             if (parameterIndex < 0)
+                return null;
+
+            return method.methodDefinition.Parameters[parameterIndex];
+        }
+
+        public static BuilderType GetTargetType(Method method, int parameterIndex)
+        {
+            var result = GetParameterReference(method, parameterIndex);
+
+            if (result == null)
                 return method.OriginType;
 
-            return method.methodDefinition.Parameters[parameterIndex].ParameterType.ToBuilderType().Import();
+            return result.ParameterType.ToBuilderType().Import();
         }
 
         public Tuple<BuilderType, int, ParameterDefinition> GetTargetType(Coder coder) => this.GetTargetType(coder.instructions.associatedMethod);

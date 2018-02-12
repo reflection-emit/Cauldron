@@ -66,7 +66,7 @@ namespace Cauldron.Interception.Fody
                    .Replace();
 
                 // Implement the methods
-                componentType.CreateMethod(Modifiers.Public | Modifiers.Overrrides, createInstanceInterfaceMethod.ReturnType, createInstanceInterfaceMethod.Name, createInstanceInterfaceMethod.Parameters)
+                componentType.CreateMethod(Modifiers.Public | Modifiers.Overrides, createInstanceInterfaceMethod.ReturnType, createInstanceInterfaceMethod.Name, createInstanceInterfaceMethod.Parameters)
                     .NewCode()
                     .Context(x =>
                     {
@@ -172,7 +172,7 @@ namespace Cauldron.Interception.Fody
                 // Implement the properties
                 foreach (var property in factoryTypeInfoInterface.Properties)
                 {
-                    var propertyResult = componentType.CreateProperty(Modifiers.Public | Modifiers.Overrrides, property.ReturnType, property.Name, true);
+                    var propertyResult = componentType.CreateProperty(Modifiers.Public | Modifiers.Overrides, property.ReturnType, property.Name, true);
                     propertyResult.BackingField.Remove();
 
                     switch (property.Name)
@@ -206,7 +206,7 @@ namespace Cauldron.Interception.Fody
                 Components = x.GetMethod("GetComponents")
             });
             var ctorCoder = cauldron.ParameterlessContructor.NewCode();
-            cauldron.CreateMethod(Modifiers.Public | Modifiers.Overrrides, factoryCacheInterfaceAvatar.Components.ReturnType, factoryCacheInterfaceAvatar.Components.Name)
+            cauldron.CreateMethod(Modifiers.Public | Modifiers.Overrides, factoryCacheInterfaceAvatar.Components.ReturnType, factoryCacheInterfaceAvatar.Components.Name)
                 .NewCode()
                 .Context(x =>
                 {

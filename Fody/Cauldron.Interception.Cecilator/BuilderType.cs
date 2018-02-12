@@ -94,7 +94,7 @@ namespace Cauldron.Interception.Cecilator
         public bool IsDelegate => this.typeDefinition.IsDelegate();
         public bool IsEnum => this.typeDefinition.IsEnum;
         public bool IsGenericInstance => this.typeReference.IsGenericInstance;
-        public bool IsPrimitive => this.typeDefinition.IsPrimitive;
+        public bool IsPrimitive => this.typeDefinition?.IsPrimitive ?? this.typeReference?.IsPrimitive ?? false;
         public bool IsValueType => this.typeDefinition == null ? this.typeReference == null ? false : this.typeReference.IsValueType : this.typeDefinition.IsValueType;
         public string Name => this.typeDefinition == null ? this.typeReference.Name : this.typeDefinition.Name;
         public string Namespace => this.typeDefinition.Namespace;
@@ -425,7 +425,7 @@ namespace Cauldron.Interception.Cecilator
             if (modifier.HasFlag(Modifiers.Static)) attributes |= MethodAttributes.Static;
             if (modifier.HasFlag(Modifiers.Public)) attributes |= MethodAttributes.Public;
             if (modifier.HasFlag(Modifiers.Protected)) attributes |= MethodAttributes.Family;
-            if (modifier.HasFlag(Modifiers.Overrrides)) attributes |= MethodAttributes.Final | MethodAttributes.Virtual | MethodAttributes.NewSlot;
+            if (modifier.HasFlag(Modifiers.Overrides)) attributes |= MethodAttributes.Final | MethodAttributes.Virtual | MethodAttributes.NewSlot;
 
             var returnType = this.moduleDefinition.ImportReference(propertyType.typeReference);
             var property = new PropertyDefinition(name, PropertyAttributes.None, returnType);
@@ -468,7 +468,7 @@ namespace Cauldron.Interception.Cecilator
             if (field.Modifiers.HasFlag(Modifiers.Static)) attributes |= MethodAttributes.Static;
             if (field.Modifiers.HasFlag(Modifiers.Public)) attributes |= MethodAttributes.Public;
             if (field.Modifiers.HasFlag(Modifiers.Protected)) attributes |= MethodAttributes.Family;
-            if (field.Modifiers.HasFlag(Modifiers.Overrrides)) attributes |= MethodAttributes.Final | MethodAttributes.Virtual | MethodAttributes.NewSlot;
+            if (field.Modifiers.HasFlag(Modifiers.Overrides)) attributes |= MethodAttributes.Final | MethodAttributes.Virtual | MethodAttributes.NewSlot;
 
             var property = new PropertyDefinition(name, PropertyAttributes.None, field.FieldType.typeReference)
             {
@@ -519,7 +519,7 @@ namespace Cauldron.Interception.Cecilator
             {
                 return
                     this.typeDefinition.IsInterface ?
-                    this.typeReference.GetMethodReferencesByInterfaces().Select(x => new Method(new BuilderType(this.Builder, x.DeclaringType), x, x.Resolve())) :
+                    this.typeReference.GetMethodReferencesByInterfaces().Select(x => new Method(this, x.reference, x.definition)) :
                     this.typeDefinition.Methods.Where(x => x.Body != null).Select(x => new Method(this, x));
             }
         }
@@ -537,7 +537,7 @@ namespace Cauldron.Interception.Cecilator
                 if (modifier.HasFlag(Modifiers.Static)) attributes |= MethodAttributes.Static;
                 if (modifier.HasFlag(Modifiers.Public)) attributes |= MethodAttributes.Public;
                 if (modifier.HasFlag(Modifiers.Protected)) attributes |= MethodAttributes.Family;
-                if (modifier.HasFlag(Modifiers.Overrrides)) attributes |= MethodAttributes.Final | MethodAttributes.Virtual | MethodAttributes.NewSlot;
+                if (modifier.HasFlag(Modifiers.Overrides)) attributes |= MethodAttributes.Final | MethodAttributes.Virtual | MethodAttributes.NewSlot;
 
                 var method = new MethodDefinition(name, attributes, this.moduleDefinition.ImportReference(returnType.typeReference));
 
@@ -585,7 +585,7 @@ namespace Cauldron.Interception.Cecilator
             if (modifier.HasFlag(Modifiers.Static)) attributes |= MethodAttributes.Static;
             if (modifier.HasFlag(Modifiers.Public)) attributes |= MethodAttributes.Public;
             if (modifier.HasFlag(Modifiers.Protected)) attributes |= MethodAttributes.Family;
-            if (modifier.HasFlag(Modifiers.Overrrides)) attributes |= MethodAttributes.Final | MethodAttributes.NewSlot | MethodAttributes.Virtual;
+            if (modifier.HasFlag(Modifiers.Overrides)) attributes |= MethodAttributes.Final | MethodAttributes.NewSlot | MethodAttributes.Virtual;
 
             var method = new MethodDefinition(name, attributes, this.moduleDefinition.TypeSystem.Void);
 
@@ -603,108 +603,39 @@ namespace Cauldron.Interception.Cecilator
         }
 
         public Method GetMethod(string name, bool throwException = true)
-        {
-            var result = this.typeDefinition.Methods
-                .Concat(this.BaseClasses.SelectMany(x => x.typeDefinition.Methods))
-                .FirstOrDefault(x => x.Name == name && x.Parameters.Count == 0);
-
-            if (result == null && throwException)
-                throw new MethodNotFoundException($"Unable to proceed. The type '{this.typeDefinition.FullName}' does not contain a method '{name}'");
-            else if (result == null)
-                return null;
-
-            return new Method(this, result);
-        }
+            => this.GetMethodInternal(Modifiers.All, null, name, throwException, 0, null);
 
         public Method GetMethod(string name, int parameterCount, bool throwException = true)
-        {
-            var result = this.typeDefinition.Methods
-                .Concat(this.BaseClasses.SelectMany(x => x.typeDefinition.Methods))
-                .FirstOrDefault(x => x.Name.GetHashCode() == name.GetHashCode() && x.Name == name && x.Parameters.Count == parameterCount);
+            => this.GetMethodInternal(Modifiers.All, null, name, throwException, parameterCount, null);
 
-            if (result == null && throwException)
-                throw new MethodNotFoundException($"Unable to proceed. The type '{this.typeDefinition.FullName}' does not contain a method '{name}'");
-            else if (result == null)
-                return null;
+        public Method GetMethod(string name, bool throwException = true, params Type[] parameters)
+            => this.GetMethodInternal(Modifiers.All, null, name, throwException, parameters.Length, parameters.Select(x => x.ToBuilderType().typeReference).ToArray());
 
-            if (this.typeReference.IsGenericInstance && (this.typeReference as GenericInstanceType).GenericArguments.Count == result.DeclaringType.GenericParameters.Count)
-                return new Method(this, result.MakeHostInstanceGeneric((this.typeReference as GenericInstanceType).GenericArguments.ToArray()), result);
-            else if (this.typeReference.IsGenericInstance)
-                return new Method(this, this.typeReference.GetMethodReferences().FirstOrDefault(x => x.Name.GetHashCode() == result.Name.GetHashCode() && x.Name == result.Name), result);
+        public Method GetMethod(string name, bool throwException = true, params BuilderType[] parameters)
+            => this.GetMethodInternal(Modifiers.All, null, name, throwException, parameters.Length, parameters.Select(x => x.typeReference).ToArray());
 
-            return new Method(this, result.ResolveMethod(this.typeReference), result);
-        }
-
-        public Method GetMethod(string name, bool throwException = true, params Type[] parameters) => GetMethod(name, throwException, parameters.Select(x => x.FullName).ToArray());
-
-        public Method GetMethod(string name, bool throwException = true, params BuilderType[] parameters) => GetMethod(name, throwException, parameters.Select(x => x.Fullname).ToArray());
-
-        public Method GetMethod(string name, bool throwException = true, params TypeReference[] parameters) => GetMethod(name, throwException, parameters.Select(x => x.FullName).ToArray());
+        public Method GetMethod(string name, bool throwException = true, params TypeReference[] parameters)
+            => this.GetMethodInternal(Modifiers.All, null, name, throwException, parameters.Length, parameters);
 
         public Method GetMethod(Modifiers modifier, BuilderType returnType, string name, params BuilderType[] parameters)
-        {
-            MethodDefinition result = null;
-            bool predicate(MethodDefinition x) =>
-                x.Name == name &&
-                x.Parameters.Count == parameters.Length &&
-                x.ReturnType.FullName == returnType.Fullname &&
-                x.Parameters.Select(y => y.ParameterType.FullName).SequenceEqual(parameters.Select(y => y.typeReference.FullName));
-
-            if (modifier.HasFlag(Modifiers.Private))
-                result = this.typeDefinition.Methods.FirstOrDefault(x => predicate(x));
-            else
-                result = this.typeDefinition.Methods
-                    .Concat(this.BaseClasses.SelectMany(x => x.typeDefinition.Methods))
-                    .FirstOrDefault(x => predicate(x));
-
-            if (result == null)
-                return null;
-
-            var genericArguments = (this.typeReference as GenericInstanceType)?.GenericArguments.ToArray();
-            if (genericArguments == null)
-                return new Method(this, result);
-
-            return new Method(this, result.ContainsGenericParameter ?
-                result.MakeHostInstanceGeneric(genericArguments) :
-                result, result);
-        }
+            => this.GetMethodInternal(modifier, returnType, name, false, parameters.Length, parameters.Select(x => x.typeReference).ToArray());
 
         public Method GetMethod(string name, bool throwException = true, params string[] parametersTypeNames)
         {
-            var result = this.typeDefinition.Methods
-                .Concat(this.BaseClasses.SelectMany(x => x.typeDefinition.Methods))
-                .Where(x => x.Name == name && x.Parameters.Count == parametersTypeNames.Length)
-                .FirstOrDefault(x => x.Parameters.Select(y => y.ParameterType.FullName).ToArray().SequenceEqual(parametersTypeNames));
+            var result = this.GetMethodsInternal(Modifiers.All, null, name, parametersTypeNames.Length, null)
+                .FirstOrDefault(x => x.methodReference.Parameters.Select(y => y.ParameterType.FullName).SequenceEqual(parametersTypeNames));
 
             if (result == null && throwException)
                 throw new MethodNotFoundException($"Unable to proceed. The type '{this.typeDefinition.FullName}' does not contain a method '{name}'");
-            else if (result == null)
-                return null;
-
-            var genericArguments = (this.typeReference as GenericInstanceType)?.GenericArguments.ToArray();
-            if (genericArguments == null)
-                return new Method(this, result);
-
-            return new Method(this, result.ContainsGenericParameter ?
-                result.MakeHostInstanceGeneric(genericArguments) :
-                result, result);
-        }
-
-        public IEnumerable<Method> GetMethods(Func<MethodReference, bool> predicate) => this.typeReference.GetMethodReferences().Where(predicate).Select(x => new Method(this, x, x.Resolve()));
-
-        public IEnumerable<Method> GetMethods(string name, int parameterCount, bool throwException = true)
-        {
-            var result = this.typeDefinition.Methods
-                .Concat(this.BaseClasses.SelectMany(x => x.typeDefinition.Methods))
-                .Where(x => x.Name == name && x.Parameters.Count == parameterCount).Select(x => new Method(this, x));
-
-            if (!result.Any() && throwException)
-                throw new MethodNotFoundException($"Unable to proceed. The type '{this.typeDefinition.FullName}' does not contain a method '{name}'");
-            else if (result == null)
-                return null;
 
             return result;
         }
+
+        public IEnumerable<Method> GetMethods(Func<MethodReference, bool> predicate)
+            => this.GetMethodsInternal(Modifiers.All, null, null, null, null).Where(x => predicate(x.methodReference));
+
+        public IEnumerable<Method> GetMethods(string name, int parameterCount, bool throwException = true)
+            => this.GetMethodsInternal(Modifiers.All, null, name, parameterCount, null);
 
         public Method GetOrCreateMethod(Modifiers modifier, BuilderType returnType, string name, params BuilderType[] parameters)
         {
@@ -713,6 +644,95 @@ namespace Cauldron.Interception.Cecilator
                 return method;
 
             return CreateMethod(modifier, returnType, name, parameters);
+        }
+
+        private Method GetMethodInternal(
+            Modifiers modifier,
+            BuilderType returnType,
+            string name,
+            bool throwException,
+            int? parameterCount,
+            TypeReference[] parameterTypes)
+        {
+            foreach (var method in this.typeReference.GetMethodReferences())
+            {
+                var result = this.TryFilterMethod(method, modifier, returnType, name, parameterCount, parameterTypes);
+
+                if (result != null)
+                    return new Method(this, result.Value.reference, result.Value.definition);
+            }
+
+            if (throwException)
+                throw new MethodNotFoundException($"Unable to proceed. The type '{this.typeDefinition.FullName}' does not contain a method '{name}'");
+
+            return null;
+        }
+
+        private IEnumerable<Method> GetMethodsInternal(
+            Modifiers modifier,
+            BuilderType returnType,
+            string name,
+            int? parameterCount,
+            TypeReference[] parameterTypes)
+        {
+            foreach (var method in this.typeReference.GetMethodReferences())
+            {
+                var result = this.TryFilterMethod(method, modifier, returnType, name, parameterCount, parameterTypes);
+
+                if (result != null)
+                    yield return new Method(this, result.Value.reference, result.Value.definition);
+            }
+        }
+
+        private (MethodReference reference, MethodDefinition definition)? TryFilterMethod(
+            (MethodReference reference, MethodDefinition definition) method,
+            Modifiers modifier,
+            BuilderType returnType,
+            string name,
+            int? parameterCount,
+            TypeReference[] parameterTypes)
+        {
+            if (returnType != null && !method.reference.ReturnType.AreEqual(returnType))
+                return null;
+
+            if (modifier != Modifiers.All)
+            {
+                if (modifier.HasFlag(Modifiers.Private) && !method.definition.Attributes.HasFlag(MethodAttributes.Private))
+                    return null;
+
+                if (modifier.HasFlag(Modifiers.Public) && !method.definition.Attributes.HasFlag(MethodAttributes.Public))
+                    return null;
+
+                if (modifier.HasFlag(Modifiers.Protected) && !method.definition.Attributes.HasFlag(MethodAttributes.Family))
+                    return null;
+
+                if (modifier.HasFlag(Modifiers.Static) && !method.definition.Attributes.HasFlag(MethodAttributes.Static))
+                    return null;
+
+                if (modifier.HasFlag(Modifiers.Internal) && !(!method.definition.Attributes.HasFlag(MethodAttributes.Private) & !method.definition.Attributes.HasFlag(MethodAttributes.Public) & !method.definition.Attributes.HasFlag(MethodAttributes.Family)))
+                    return null;
+
+                if (modifier.HasFlag(Modifiers.Overrides) && !(method.definition.Attributes.HasFlag(MethodAttributes.Final) & method.definition.Attributes.HasFlag(MethodAttributes.Virtual) & method.definition.Attributes.HasFlag(MethodAttributes.NewSlot)))
+                    return null;
+            }
+
+            if (parameterCount != null && method.definition.Parameters != null && parameterCount != method.definition.Parameters.Count)
+                return null;
+
+            if (parameterTypes != null && parameterTypes.Length > 0 && method.reference.Parameters != null)
+            {
+                if (parameterTypes.Length != method.reference.Parameters.Count)
+                    return null;
+
+                for (int i = 0; i < parameterTypes.Length; i++)
+                    if (!parameterTypes[i].AreEqual(method.definition.Parameters[i].ParameterType))
+                        return null;
+            }
+
+            if (string.IsNullOrEmpty(name) || method.definition.Name == name || method.reference.Name == name)
+                return (method.reference, method.definition);
+
+            return null;
         }
 
         #endregion Methods

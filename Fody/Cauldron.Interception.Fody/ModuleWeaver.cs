@@ -240,7 +240,7 @@ namespace Cauldron.Interception.Fody
                     cauldron.AddInterface(loadedAssembliesInterface.Type);
 
                     CreateAssemblyListingArray(builder,
-                        cauldron.CreateMethod(Modifiers.Overrrides | Modifiers.Public, builder.MakeArray(assembly.Type), "ReferencedAssemblies"),
+                        cauldron.CreateMethod(Modifiers.Overrides | Modifiers.Public, builder.MakeArray(assembly.Type), "ReferencedAssemblies"),
                         assembly.Type, builder.ReferencedAssemblies.Concat(referencedAssembliesFromOtherAssemblies).Distinct());
                 }
             }
@@ -487,13 +487,13 @@ namespace Cauldron.Interception.Fody
 
                         // Implement the methods
                         foreach (var method in interfaceToImplement.Methods.Where(x => !x.IsPropertyGetterSetter))
-                            newType.CreateMethod(Modifiers.Public | Modifiers.Overrrides, method.ReturnType, method.Name, method.Parameters)
+                            newType.CreateMethod(Modifiers.Public | Modifiers.Overrides, method.ReturnType, method.Name, method.Parameters)
                                 .NewCode()
                                 .ThrowNew(typeof(NotImplementedException), $"The method '{method.Name}' in type '{newType.Name}' is not implemented.")
                                 .Replace();
                         // Implement the properties
                         foreach (var property in interfaceToImplement.Properties)
-                            newType.CreateProperty(Modifiers.Public | Modifiers.Overrrides, property.ReturnType, property.Name);
+                            newType.CreateProperty(Modifiers.Public | Modifiers.Overrides, property.ReturnType, property.Name);
 
                         // Create ctor
                         newType.CreateConstructor();
