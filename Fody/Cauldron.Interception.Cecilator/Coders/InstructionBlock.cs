@@ -684,6 +684,7 @@ namespace Cauldron.Interception.Cecilator.Coders
             Instruction nullableJumpTarget = null;
             VariableDefinition nullableVar1 = null;
             VariableDefinition nullableVar2 = null;
+            LocalVariable firstValueVariable = null;
 
             if (secondType == null && secondValue is CoderBase coderBase)
                 secondType = coderBase.instructions.ResultingType?.ToBuilderType() ?? secondValue?.GetType()?.ToBuilderType();
@@ -711,20 +712,28 @@ namespace Cauldron.Interception.Cecilator.Coders
                     instructionBlock.Emit(OpCodes.Brfalse, nullableJumpTarget);
                     instructionBlock.Emit(OpCodes.Pop);
                 }
+                else
+                    firstValueVariable = instructionBlock.associatedMethod.GetOrCreateVariable(firstType);
 
                 if (secondType.IsNullable)
                 {
+                    if (firstValueVariable != null)
+                        instructionBlock.Emit(OpCodes.Stloc, firstValueVariable);
+
                     nullableVar2 = instructionBlock.associatedMethod.GetOrCreateVariable(secondType).variable;
 
                     instructionBlock.Append(InstructionBlock.CreateCode(instructionBlock, secondType, secondValue));
                     instructionBlock.Emit(OpCodes.Stloc, nullableVar2);
                     instructionBlock.Emit(OpCodes.Ldloca, nullableVar2);
-                    instructionBlock.Emit(OpCodes.Call, firstType.GetMethod("get_HasValue").Import());
+                    instructionBlock.Emit(OpCodes.Call, secondType.GetMethod("get_HasValue").Import());
                     instructionBlock.Emit(OpCodes.Ldc_I4_1);
                     instructionBlock.Emit(OpCodes.Ceq);
                     instructionBlock.Emit(OpCodes.Dup);
                     instructionBlock.Emit(OpCodes.Brfalse, nullableJumpTarget);
                     instructionBlock.Emit(OpCodes.Pop);
+
+                    if (firstValueVariable != null)
+                        instructionBlock.Emit(OpCodes.Ldloc, firstValueVariable);
 
                     secondValue = new NullableCodeBlock(nullableVar2, secondType);
                 }
