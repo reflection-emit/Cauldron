@@ -363,5 +363,52 @@ namespace Win32_Cecilator_Scriptable
                     .Return()
                     .Replace();
         }
+
+        public static void Rethrow_Try_Catch(Builder builder)
+        {
+            var name = nameof(Rethrow_Try_Catch);
+
+            var method = testType.CreateMethod(Modifiers.Public, name, Type.EmptyTypes);
+            method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
+            method.CustomAttributes.Add(builder.GetType("Microsoft.VisualStudio.TestTools.UnitTesting.ExpectedExceptionAttribute"), typeof(NotImplementedException));
+
+            method.NewCoder()
+                .Try(x => x.ThrowNew(typeof(NotImplementedException)))
+                .Catch((x, e) => x.Rethrow())
+                .EndTry()
+                .Return()
+                .Replace();
+        }
+
+        public static void Simple_Try_Catch(Builder builder)
+        {
+            var name = nameof(Simple_Try_Catch);
+
+            var method = testType.CreateMethod(Modifiers.Public, name, Type.EmptyTypes);
+            method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
+
+            method.NewCoder()
+                .Try(x => x.ThrowNew(typeof(NotImplementedException)))
+                .Catch((x, e) => x.Call(assertIsTrue, true).Return())
+                .EndTry()
+                .Return()
+                .Replace();
+        }
+
+        public static void ThrowNew_Try_Catch(Builder builder)
+        {
+            var name = nameof(ThrowNew_Try_Catch);
+
+            var method = testType.CreateMethod(Modifiers.Public, name, Type.EmptyTypes);
+            method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
+            method.CustomAttributes.Add(builder.GetType("Microsoft.VisualStudio.TestTools.UnitTesting.ExpectedExceptionAttribute"), typeof(Exception));
+
+            method.NewCoder()
+                .Try(x => x.ThrowNew(typeof(NotImplementedException)))
+                .Catch((x, e) => x.ThrowNew(typeof(Exception).ToBuilderType().GetMethod(".ctor", true, typeof(string), typeof(Exception)), "", e()))
+                .EndTry()
+                .Return()
+                .Replace();
+        }
     }
 }

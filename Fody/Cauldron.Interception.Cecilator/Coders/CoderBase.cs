@@ -168,5 +168,11 @@ namespace Cauldron.Interception.Cecilator.Coders
             this.instructions.Emit(OpCodes.Neg);
             return (TSelf)this;
         }
+
+        public TSelf Pop()
+        {
+            this.instructions.Emit(OpCodes.Pop);
+            return (TSelf)this;
+        }
     }
 }

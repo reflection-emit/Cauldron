@@ -1,4 +1,5 @@
-﻿using Cauldron.Interception.Cecilator.Extensions;
+﻿using Cauldron.Interception.Cecilator.Coders;
+using Cauldron.Interception.Cecilator.Extensions;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
 using System;
@@ -30,7 +31,7 @@ namespace Cauldron.Interception.Cecilator
         internal MarkerInstructionSet(MarkerInstructionSet instructionsSet, MarkerType markerType, Instruction mark, TypeReference exceptionType) : base(instructionsSet, instructionsSet.instructions)
         {
             this.markers.AddRange(instructionsSet.markers);
-            this.markers.Add(new InstructionMarker { instruction = mark, markerType = markerType, exceptionType = exceptionType });
+            this.markers.Add(new InstructionMarker { instruction = mark, markerType = markerType, exceptionType = exceptionType.ToBuilderType() });
         }
 
         internal MarkerInstructionSet(InstructionsSet instructionsSet, InstructionContainer instructions) : base(instructionsSet, instructions)
@@ -92,7 +93,7 @@ namespace Cauldron.Interception.Cecilator
                     TryEnd = this.instructions.Next(this.markers[i].instruction),
                     HandlerStart = handlerStart,
                     HandlerEnd = handlerEnd,
-                    CatchType = handlerType == ExceptionHandlerType.Finally ? null : this.moduleDefinition.ImportReference(this.markers[i].exceptionType)
+                    CatchType = handlerType == ExceptionHandlerType.Finally ? null : this.markers[i].exceptionType.Import().typeReference
                 };
 
                 this.instructions.ExceptionHandlers.Add(handler);
@@ -138,19 +139,12 @@ namespace Cauldron.Interception.Cecilator
 
             this.markers.Add(new InstructionMarker
             {
-                exceptionType = this.moduleDefinition.ImportReference(exceptionType),
+                exceptionType = exceptionType.ToBuilderType().Import(),
                 instruction = markerStart,
                 markerType = MarkerType.Catch
             });
 
             return this;
         }
-    }
-
-    internal class InstructionMarker
-    {
-        public TypeReference exceptionType;
-        public Instruction instruction;
-        public MarkerType markerType;
     }
 }

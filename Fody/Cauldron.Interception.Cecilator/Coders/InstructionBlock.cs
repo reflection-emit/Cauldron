@@ -34,6 +34,7 @@ namespace Cauldron.Interception.Cecilator.Coders
             this.instructions.Changed += Changed;
         }
 
+        public Instruction First => this.instructions.Count == 0 ? null : this.instructions[0];
         public Instruction Last => this.instructions.Count == 0 ? null : this.instructions[this.instructions.Count - 1];
 
         /// <summary>
@@ -58,6 +59,12 @@ namespace Cauldron.Interception.Cecilator.Coders
         }
 
         public int Count => this.instructions.Count;
+
+        public Instruction this[int index]
+        {
+            get => this.instructions[index];
+            set => this.instructions[index] = value;
+        }
 
         public static InstructionBlock Call(
                     InstructionBlock instructionBlock,
@@ -612,6 +619,16 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         public IEnumerator<Instruction> GetEnumerator() => this.instructions.GetEnumerator();
 
+        public void InsertAfter(Instruction position, Instruction instructionToInsert)
+        {
+            var index = this.instructions.IndexOf(position) + 1;
+
+            if (index == this.instructions.Count)
+                this.instructions.Add(instructionToInsert);
+            else
+                this.instructions.Insert(index, instructionToInsert);
+        }
+
         public Instruction[] LastElements(int count)
         {
             if (this.instructions.Count < count)
@@ -624,6 +641,12 @@ namespace Cauldron.Interception.Cecilator.Coders
                 result[counter++] = this.instructions[i];
 
             return result;
+        }
+
+        public Instruction Next(Instruction instruction)
+        {
+            var index = this.instructions.IndexOf(instruction);
+            return this.instructions[index + 1];
         }
 
         public void Prepend(IEnumerable<Instruction> instructions) => this.instructions.InsertRange(0, instructions);
@@ -849,6 +872,52 @@ namespace Cauldron.Interception.Cecilator.Coders
             }
 
             result.ResultingType = localVariable.Type.typeReference ?? localVariable.Type.typeDefinition;
+        }
+
+        internal static Instruction GetCtorBaseOrThisCall(MethodDefinition methodDefinition)
+        {
+            // public MyClass() : base()
+            var ctorCall = methodDefinition.Body.Instructions.FirstOrDefault(inst =>
+            {
+                if (inst.OpCode != OpCodes.Call)
+                    return false;
+
+                if (!(inst.Operand is MethodReference))
+                    return false;
+
+                var methodRef = inst.Operand as MethodReference;
+
+                if (methodRef.Name != ".ctor")
+                    return false;
+
+                if (methodRef.DeclaringType.FullName == methodDefinition.DeclaringType.BaseType.FullName)
+                    return true;
+
+                return false;
+            });
+
+            if (ctorCall != null)
+                return ctorCall.Next;
+
+            // public MyClass() : this()
+            return methodDefinition.Body.Instructions.FirstOrDefault(inst =>
+            {
+                if (inst.OpCode != OpCodes.Call)
+                    return false;
+
+                if (!(inst.Operand is MethodReference))
+                    return false;
+
+                var methodRef = inst.Operand as MethodReference;
+
+                if (methodRef.Name != ".ctor")
+                    return false;
+
+                if (methodRef.DeclaringType.FullName == methodDefinition.DeclaringType.FullName)
+                    return true;
+
+                return false;
+            })?.Next;
         }
 
         internal static void ModifyValueTypeInstance(InstructionBlock instructionBlock)

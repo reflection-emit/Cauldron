@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Cauldron.Interception.Cecilator.Coders
 {
-    public sealed class Coder :
+    public class Coder :
         CoderBase<Coder, Coder>,
         ICallMethod<CallCoder>,
         IExitOperators,
@@ -324,6 +324,92 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         #region Builder
 
+        public void Insert(InsertionAction action, Position position)
+        {
+            if (action == InsertionAction.After)
+                this.instructions.ilprocessor.InsertAfter(position.instruction, this.instructions);
+            else if (action == InsertionAction.Before)
+                this.instructions.ilprocessor.InsertBefore(position.instruction, this.instructions);
+
+            foreach (var item in this.instructions.exceptionHandlers)
+                this.instructions.ilprocessor.Body.ExceptionHandlers.Add(item);
+
+            ReplaceReturns(this);
+            // Add removal of unused variables here
+            this.instructions.associatedMethod.methodDefinition.Body.InitLocals = this.instructions.associatedMethod.methodDefinition.Body.Variables.Count > 0;
+
+            this.instructions.associatedMethod.methodDefinition.Body.OptimizeMacros();
+            this.instructions.Clear();
+        }
+
+        public void Insert(InsertionPosition position)
+        {
+            Instruction instructionPosition = null;
+            if (this.instructions.ilprocessor.Body == null || this.instructions.ilprocessor.Body.Instructions.Count == 0)
+                this.instructions.Emit(OpCodes.Ret);
+
+            if (position == InsertionPosition.CtorBeforeInit)
+            {
+                instructionPosition = this.instructions.ilprocessor.Body.Instructions[0];
+            }
+            else if (position == InsertionPosition.Beginning)
+            {
+                if (this.instructions.associatedMethod.IsCtor)
+                    instructionPosition = InstructionBlock.GetCtorBaseOrThisCall(this.instructions.associatedMethod.methodDefinition);
+                else
+                    instructionPosition = this.instructions.ilprocessor.Body.Instructions[0];
+            }
+            else
+            {
+                if (this.instructions.associatedMethod.IsCCtor) instructionPosition = this.instructions.ilprocessor.Body.Instructions.Last();
+                else if (this.instructions.associatedMethod.IsCtor) instructionPosition = InstructionBlock.GetCtorBaseOrThisCall(this.instructions.associatedMethod.methodDefinition);
+                else
+                {
+                    var last = this.instructions.ilprocessor.Body.Instructions.Last();
+                    var jumpers = this.instructions.ilprocessor.Body.Instructions.GetJumpSources(last.Previous);
+
+                    if (!last.Previous.IsLoadLocal() && this.instructions.associatedMethod.methodDefinition.ReturnType.AreEqual(BuilderType.Void))
+                    {
+                        var isInitialized = this.instructions.associatedMethod.methodDefinition.Body.InitLocals;
+                        var localVariable = this.GetOrCreateReturnVariable();
+
+                        this.instructions.ilprocessor.InsertBefore(last, this.instructions.ilprocessor.Create(OpCodes.Stloc, localVariable));
+                        this.instructions.ilprocessor.InsertBefore(last, this.instructions.ilprocessor.Create(OpCodes.Ldloc, localVariable));
+                    }
+
+                    instructionPosition = last.Previous;
+
+                    foreach (var item in jumpers)
+                        item.Operand = this.instructions.FirstOrDefault();
+                }
+            }
+
+            this.instructions.ilprocessor.InsertBefore(instructionPosition, this.instructions);
+
+            foreach (var item in this.instructions.exceptionHandlers)
+                this.instructions.ilprocessor.Body.ExceptionHandlers.Add(item);
+
+            ReplaceReturns(this);
+
+            // Add removal of unused variables here
+
+            this.instructions.associatedMethod.methodDefinition.Body.InitLocals = this.instructions.associatedMethod.methodDefinition.Body.Variables.Count > 0;
+            this.instructions.associatedMethod.methodDefinition.Body.OptimizeMacros();
+            this.instructions.Clear();
+        }
+
+        public (Position Beginning, Position End) Replace(Position position)
+        {
+            if (position.instruction == null)
+                throw new ArgumentNullException(nameof(position.instruction));
+
+            var index = this.instructions.associatedMethod.methodDefinition.Body.Instructions.IndexOf(position.instruction);
+            this.instructions.ilprocessor.Remove(position.instruction);
+            this.instructions.ilprocessor.InsertBefore(index, this.instructions);
+
+            return (new Position(this.instructions.associatedMethod, this.instructions[0]), new Position(this.instructions.associatedMethod, this.instructions.LastOrDefault()));
+        }
+
         /// <summary>
         /// Replaces the current methods body with the <see cref="Instruction"/>s in the <see cref="Coder"/>'s instruction set.
         /// </summary>
@@ -510,5 +596,24 @@ namespace Cauldron.Interception.Cecilator.Coders
         }
 
         #endregion Builder
+
+        #region Try Catch Finally
+
+        public TryCoder Try(Func<Coder, Coder> code)
+        {
+            if (this.instructions.Count == 0)
+                this.instructions.Emit(OpCodes.Nop);
+
+            var result = new TryCoder(this);
+
+            this.instructions.Append(code(this.NewCoder()));
+
+            if (result.RequiresReturn)
+                this.instructions.Emit(OpCodes.Ret);
+
+            return result;
+        }
+
+        #endregion Try Catch Finally
     }
 }

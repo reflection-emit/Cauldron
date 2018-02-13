@@ -363,9 +363,9 @@ namespace Cauldron.Interception.Cecilator
                     source.IsSubclassOf(target) ||
                     target.BetterResolve().IsInterface && source.GetBaseClasses().Any(x => x.Implements(target.FullName));
 
-        public static bool IsSubclassOf(this BuilderType child, BuilderType parent) => child.typeDefinition != parent.typeDefinition && child.BaseClasses.Any(x => x.typeDefinition == parent.typeDefinition);
+        public static bool IsSubclassOf(this BuilderType child, BuilderType parent) => !child.typeDefinition.AreEqual(parent.typeDefinition) && child.BaseClasses.Any(x => x.typeDefinition.AreEqual(parent.typeDefinition));
 
-        public static bool IsSubclassOf(this TypeReference child, TypeReference parent) => child != parent && child.GetBaseClasses().Any(x => x == parent);
+        public static bool IsSubclassOf(this TypeReference child, TypeReference parent) => !child.AreEqual(parent) && child.GetBaseClasses().Any(x => x.AreEqual(parent));
 
         public static void Log(this CecilatorObject cecilatorObject, LogTypes logTypes, BuilderType type, object arg) => cecilatorObject.Log(logTypes, type.GetRelevantConstructors().FirstOrDefault() ?? type.Methods.FirstOrDefault(), arg);
 
