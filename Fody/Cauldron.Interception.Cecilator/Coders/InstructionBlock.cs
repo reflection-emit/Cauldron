@@ -538,6 +538,12 @@ namespace Cauldron.Interception.Cecilator.Coders
             this.ResultingType = instructionBlock.ResultingType;
         }
 
+        public void Append(IEnumerable<Instruction> instructions, IEnumerable<ExceptionHandler> exceptionHandler)
+        {
+            this.Append(instructions);
+            this.exceptionHandlers.AddRange(exceptionHandler);
+        }
+
         public void Append(Instruction instruction) => this.instructions.Add(instruction);
 
         public void Append(IEnumerable<Instruction> instructions) => this.instructions.AddRange(instructions);
@@ -619,6 +625,16 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         public IEnumerator<Instruction> GetEnumerator() => this.instructions.GetEnumerator();
 
+        public int IndexOf(Instruction instruction) => this.instructions.IndexOf(instruction);
+
+        public void Insert(int index, Instruction item) => this.instructions.Insert(index, item);
+
+        public void Insert(int index, IEnumerable<Instruction> items)
+        {
+            foreach (var item in items)
+                this.instructions.Insert(index++, item);
+        }
+
         public void InsertAfter(Instruction position, Instruction instructionToInsert)
         {
             var index = this.instructions.IndexOf(position) + 1;
@@ -652,6 +668,8 @@ namespace Cauldron.Interception.Cecilator.Coders
         public void Prepend(IEnumerable<Instruction> instructions) => this.instructions.InsertRange(0, instructions);
 
         public void Remove(int index) => this.instructions.RemoveAt(index);
+
+        public void RemoveRange(int index, int count) => this.instructions.RemoveRange(index, count);
 
         public InstructionBlock Spawn() => new InstructionBlock(this.associatedMethod);
 
@@ -829,8 +847,86 @@ namespace Cauldron.Interception.Cecilator.Coders
             NullableJumpTargetSpecial();
         }
 
+        internal static InstructionBlock AttributeParameterToOpCode(InstructionBlock instructionBlock, CustomAttributeArgument attributeArgument)
+        {
+            /*
+				- One of the following types: bool, byte, char, double, float, int, long, short, string, sbyte, ushort, uint, ulong.
+				- The type object.
+				- The type System.Type.
+				- An enum type, provided it has public accessibility and the types in which it is nested (if any) also have public accessibility (Section 17.2).
+				- Single-dimensional arrays of the above types.
+			 */
+            var result = instructionBlock.Spawn();
+
+            if (attributeArgument.Value == null)
+            {
+                result.Emit_LdNull();
+                return result;
+            }
+
+            var valueType = attributeArgument.Value.GetType();
+
+            if (valueType.IsArray)
+            {
+                var array = (attributeArgument.Value as IEnumerable).Cast<CustomAttributeArgument>().ToArray();
+
+                result.Emit(OpCodes.Ldc_I4, array.Length);
+                result.Emit(OpCodes.Newarr, attributeArgument.Type.GetElementType().ToBuilderType());
+
+                if (array.Length > 0)
+                    result.Emit(OpCodes.Dup);
+
+                for (int i = 0; i < array.Length; i++)
+                {
+                    if (array[i].Value == null)
+                    {
+                        result.Emit_LdNull();
+                        result.Emit(OpCodes.Stelem_Ref);
+                        return result;
+                    }
+                    else
+                    {
+                        var arrayType = array[i].Value.GetType();
+                        result.Emit(OpCodes.Ldc_I4, i);
+                        CreateInstructionsFromAttributeTypes(result, array[i].Type, arrayType, array[i].Value);
+
+                        if (arrayType.IsValueType && attributeArgument.Type.GetElementType().IsValueType)
+                        {
+                            if (arrayType == typeof(int) ||
+                                arrayType == typeof(uint) ||
+                                arrayType.IsEnum)
+                                result.Emit(OpCodes.Stelem_I4);
+                            else if (arrayType == typeof(bool) ||
+                                arrayType == typeof(byte) ||
+                                arrayType == typeof(sbyte))
+                                result.Emit(OpCodes.Stelem_I1);
+                            else if (arrayType == typeof(short) ||
+                                arrayType == typeof(ushort) ||
+                                arrayType == typeof(char))
+                                result.Emit(OpCodes.Stelem_I2);
+                            else if (arrayType == typeof(long) ||
+                                arrayType == typeof(ulong))
+                                result.Emit(OpCodes.Stelem_I8);
+                            else if (arrayType == typeof(float))
+                                result.Emit(OpCodes.Stelem_R4);
+                            else if (arrayType == typeof(double))
+                                result.Emit(OpCodes.Stelem_R8);
+                        }
+                        else
+                            result.Emit(OpCodes.Stelem_Ref);
+                    }
+                    if (i < array.Length - 1)
+                        result.Emit(OpCodes.Dup);
+                }
+            }
+            else
+                CreateInstructionsFromAttributeTypes(result, attributeArgument.Type, valueType, attributeArgument.Value);
+
+            return result;
+        }
+
         internal static void CreateCodeForFieldReference(
-            InstructionBlock result,
+                    InstructionBlock result,
             BuilderType targetType,
             Field valueField,
             bool autoAddThisInstance)
@@ -1162,6 +1258,45 @@ namespace Cauldron.Interception.Cecilator.Coders
                     !instructionBlock.ResultingType.AreEqual(targetType) &&
                     targetType.typeReference.AreReferenceAssignable(instructionBlock.ResultingType))
                 instructionBlock.Emit(OpCodes.Castclass, Builder.Current.Import(instructionBlock.ResultingType));
+        }
+
+        private static void CreateInstructionsFromAttributeTypes(InstructionBlock instructionBlock, TypeReference targetType, Type type, object value)
+        {
+            if (type == typeof(CustomAttributeArgument))
+            {
+                var attrib = (CustomAttributeArgument)value;
+                type = attrib.Value.GetType();
+                value = attrib.Value;
+            }
+
+            if (type == typeof(string))
+            {
+                instructionBlock.Emit(OpCodes.Ldstr, value.ToString());
+            }
+
+            if (type == typeof(TypeReference) || type == typeof(TypeDefinition))
+            {
+                instructionBlock.Append(instructionBlock.ilprocessor.TypeOf(value as TypeReference));
+                return;
+            }
+
+            if (type.IsEnum) instructionBlock.Emit(OpCodes.Ldc_I4, (int)value);
+            else if (type == typeof(int)) instructionBlock.Emit(OpCodes.Ldc_I4, (int)value);
+            else if (type == typeof(uint)) instructionBlock.Emit(OpCodes.Ldc_I4, (int)(uint)value);
+            else if (type == typeof(bool)) instructionBlock.Emit(OpCodes.Ldc_I4, (bool)value ? 1 : 0);
+            else if (type == typeof(char)) instructionBlock.Emit(OpCodes.Ldc_I4, (char)value);
+            else if (type == typeof(short)) instructionBlock.Emit(OpCodes.Ldc_I4, (short)value);
+            else if (type == typeof(ushort)) instructionBlock.Emit(OpCodes.Ldc_I4, (ushort)value);
+            else if (type == typeof(byte)) instructionBlock.Emit(OpCodes.Ldc_I4, (int)(byte)value);
+            else if (type == typeof(sbyte)) instructionBlock.Emit(OpCodes.Ldc_I4, (int)(sbyte)value);
+            else if (type == typeof(long)) instructionBlock.Emit(OpCodes.Ldc_I8, (long)value);
+            else if (type == typeof(ulong)) instructionBlock.Emit(OpCodes.Ldc_I8, (long)(ulong)value);
+            else if (type == typeof(double)) instructionBlock.Emit(OpCodes.Ldc_R8, (double)value);
+            else if (type == typeof(float)) instructionBlock.Emit(OpCodes.Ldc_R4, (float)value);
+
+            if (type.IsValueType && !targetType.IsValueType)
+                instructionBlock.Emit(OpCodes.Box, type.IsEnum ?
+                    Enum.GetUnderlyingType(type).ToBuilderType().Import() : type.ToBuilderType().Import());
         }
 
         private static TypeReference GetTypeWithMoreCapacity(TypeReference a, TypeReference b)

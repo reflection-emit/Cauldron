@@ -1,4 +1,5 @@
 ﻿using Cauldron.Interception.Cecilator;
+using Cauldron.Interception.Cecilator.Extensions;
 using Cauldron.Interception.Fody.Extensions;
 using Cauldron.Interception.Fody.HelperTypes;
 using System.Collections.Generic;
@@ -89,6 +90,44 @@ namespace Cauldron.Interception.Fody
                                 ctors.NewCode().Assign(method.SyncRoot).NewObj(builder.GetType(typeof(object)).Import().ParameterlessContructor).Insert(InsertionPosition.Beginning);
                     }
 
+                    var coder = targetedMethod
+                        .NewCoder()
+                        .Context(x =>
+                        {
+                            for (int i = 0; i < method.Item.Length; i++)
+                            {
+                                var item = method.Item[i];
+                                var name = $"<{targetedMethod.Name}>_attrib{i}_{item.Attribute.Identification}";
+                                interceptorField[i] = targetedMethod.AsyncOriginType.CreateField(targetedMethod.Modifiers.GetPrivate(), item.Interface.ToBuilderType, name);
+                                interceptorField[i].CustomAttributes.AddNonSerializedAttribute();
+
+                                x.If(y => y.Load(interceptorField[i]).IsNull(), y =>
+                                {
+                                    y.SetValue(interceptorField[i], z => z.NewObj(item.Attribute));
+                                    if (item.HasSyncRootInterface)
+                                        y.Load(interceptorField[i]).As(__ISyncRoot.Type).Call(syncRoot.SyncRoot, method.SyncRoot);
+
+                                    ImplementAssignMethodAttribute(builder, method.Item[i].AssignMethodAttributeInfos, interceptorField[i], item.Attribute.Attribute.Type, y);
+
+                                    return y;
+                                });
+                                item.Attribute.Remove();
+                            }
+
+                            return x;
+                        })
+                        .Try(x =>
+                        {
+                            for (int i = 0; i < method.Item.Length; i++)
+                            {
+                                var item = method.Item[i];
+                                x.Load(interceptorField[i]).Call(item.Interface.OnEnter, attributedMethod.OriginType, typeInstance, attributedMethod, x.GetParametersArray());
+                            }
+
+                            return x.OriginalBody();
+                        });
+
+                    /*
                     var code = targetedMethod
                     .NewCode()
                         .Context(x =>
@@ -120,7 +159,7 @@ namespace Cauldron.Interception.Fody
                             }
 
                             x.OriginalBody();
-                        });
+                        });*/
 
                     if (method.Key.AsyncMethod == null)
                         code.Catch(__Exception.Type, x =>
