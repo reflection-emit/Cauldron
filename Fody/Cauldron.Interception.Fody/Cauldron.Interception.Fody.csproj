@@ -35,16 +35,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Cecil, Version=0.10.0.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\FodyCecil.2.3.17\lib\net46\Mono.Cecil.dll</HintPath>
+      <HintPath>..\..\packages\FodyCecil.2.3.22\lib\net46\Mono.Cecil.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Cecil.Mdb, Version=0.10.0.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\FodyCecil.2.3.17\lib\net46\Mono.Cecil.Mdb.dll</HintPath>
+      <HintPath>..\..\packages\FodyCecil.2.3.22\lib\net46\Mono.Cecil.Mdb.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Cecil.Pdb, Version=0.10.0.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\FodyCecil.2.3.17\lib\net46\Mono.Cecil.Pdb.dll</HintPath>
+      <HintPath>..\..\packages\FodyCecil.2.3.22\lib\net46\Mono.Cecil.Pdb.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Cecil.Rocks, Version=0.10.0.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\FodyCecil.2.3.17\lib\net46\Mono.Cecil.Rocks.dll</HintPath>
+      <HintPath>..\..\packages\FodyCecil.2.3.22\lib\net46\Mono.Cecil.Rocks.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -130,6 +130,9 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>dotnet script "$(ProjectDir)..\..\Scripts\fodycopy.csx" "$(TargetDir)" "$(ProjectDir)..\..\Tools" $(ProjectName)
+dotnet script "$(ProjectDir)..\..\Scripts\fodycopy.csx" "$(TargetDir)" "$(ProjectDir)..\..\NetStandard\Tools" $(ProjectName)
+dotnet script "$(ProjectDir)..\..\Scripts\fodycopy.csx" "$(TargetDir)" "$(ProjectDir)..\..\Win32\Tools" $(ProjectName)
+dotnet script "$(ProjectDir)..\..\Scripts\fodycopy.csx" "$(TargetDir)" "$(ProjectDir)..\..\UWP\Tools" $(ProjectName)
 dotnet script "$(ProjectDir)..\..\Scripts\fodycopy.csx" "$(TargetDir)" "$(ProjectDir)..\..\packages" $(ProjectName)</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

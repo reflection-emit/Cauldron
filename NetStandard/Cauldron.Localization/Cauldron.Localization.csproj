@@ -5,7 +5,7 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageId>Capgemini.Cauldron.Localization</PackageId>
-    <Version>2.0.33-beta</Version>
+    <Version>2.0.37-beta</Version>
     <Authors>Alexander Schunk, Capgemini Deutschland GmbH</Authors>
     <Company>Capgemini Deutschland GmbH</Company>
     <Product>Cauldron.Consoles</Product>
@@ -16,8 +16,8 @@
     <Description>A simple localization implementation that can work with different sources.</Description>
     <PackageReleaseNotes></PackageReleaseNotes>
     <PackageTags>Toolkit Capgemini Cauldron Multisource Localization Language</PackageTags>
-  <AssemblyVersion>2.0.0.33</AssemblyVersion>
-<FileVersion>2.0.0.33</FileVersion>
+  <AssemblyVersion>2.0.0.37</AssemblyVersion>
+<FileVersion>2.0.0.37</FileVersion>
 </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -29,7 +29,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Fody" Version="2.3.15" />
+    <PackageReference Include="Fody" Version="2.3.22" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
   </ItemGroup>
 
