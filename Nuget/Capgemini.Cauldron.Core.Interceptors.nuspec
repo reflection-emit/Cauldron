@@ -20,8 +20,8 @@
     </releaseNotes>
     <dependencies>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="2.0.36-beta" />
-        <dependency id="Cauldron.Interception.Fody" version="2.0.36-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="2.0.37-beta" />
+        <dependency id="Cauldron.Interception.Fody" version="2.0.37-beta" />
         <dependency id="Fody" version="2.3.22" />
       </group>
     </dependencies>

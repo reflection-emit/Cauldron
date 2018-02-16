@@ -59,11 +59,11 @@ Assembly | Description   | NuGet
 
 ## Release Notes
 ### __2.0.35-beta__
-#### Added
-- __Capgemini.Cauldron.Win32.WPF.Theme.VSDark:__ _Beta release._
-- __Capgemini.Cauldron.Win32.WPF.Theme.VSLight:__ _Beta release._
 #### Change
 - __Capgemini.Cauldron.Core.JavaProperties:__ _Moved from Cauldron.Core to it own assembly / package_
+#### Added
+- __Capgemini.Cauldron.Win32.WPF.Theme.VSLight:__ _Beta release._
+- __Capgemini.Cauldron.Win32.WPF.Theme.VSDark:__ _Beta release._
 ### __2.0.32-beta__
 #### Bugfix
 - __Cauldron.Interception.Fody:__ _Missing Assemblies added to the Nuget package._
@@ -85,13 +85,13 @@ Assembly | Description   | NuGet
 - __Cauldron.Interception.Fody:__ _DoNotInterceptAttribute removed... Replaced by the InterceptionRuleAttribute instead. See documentation for more details._
 - __Cauldron.Interception.Fody:__ _Interceptor OnException return type changed to bool to be able to create interceptors that swallow exceptions._
 - __Cauldron.Interception.Fody:__ _Getting rid of useless casts in created code._
-- __Capgemini.Cauldron.Core.Extensions.Convertions:__ _Reference to Cauldron.Core.Reflection removed._
 - __Capgemini.Cauldron.Win32.Interceptors:__ _InterceptorRule added to RegistryClassAttribute_
 - __Capgemini.Cauldron.Win32.WPF.ParameterPassing:__ _Change COPYDATASTRUCT data to unicode._
-- __Capgemini.Cauldron.Activator:__ _ComponentConstructorAttribute now accepts internal ctors_
-- __Capgemini.Cauldron.Core.Extensions:__ _Concat<T%gt;(this T[][] arrays) renamed to Flatten<T%gt;(this T[][] arrays)_
+- __Capgemini.Cauldron.Core.Extensions.Convertions:__ _Reference to Cauldron.Core.Reflection removed._
 - __Capgemini.Cauldron.Core.Comparing:__ _Comparer code replaced by patterns and also cache added._
 - __Capgemini.Cauldron.Core.Comparing:__ _Reference to Cauldron.Core.Reflection removed._
+- __Capgemini.Cauldron.Core.Extensions:__ _Concat<T%gt;(this T[][] arrays) renamed to Flatten<T%gt;(this T[][] arrays)_
+- __Capgemini.Cauldron.Activator:__ _ComponentConstructorAttribute now accepts internal ctors_
 #### Bugfix
 - __Cauldron.Interception.Fody:__ _MethodInterceptors in Async methods are now weaved correctly._
 - __Cauldron.Interception.Fody:__ _ModuleMain entry point interceptor fixed. Waever throwed exception during weaving._
@@ -119,8 +119,8 @@ Assembly | Description   | NuGet
 - __Capgemini.Cauldron.Win32.Interceptors:__ _PropertyOnSetAttribute added_
 - __Capgemini.Cauldron.Core.Diagnostics:__ _Added assemblies for NET45 and NET461_
 #### Change
-- __Capgemini.Cauldron.Core.Randomizer:__ _Net461 DLLs removed because it causes a lot of issues on mixed solutions (NetCore and Net461)_
 - __Capgemini.Cauldron.Core.Interceptors:__ _PropertyOnSetAttribute added_
+- __Capgemini.Cauldron.Core.Randomizer:__ _Net461 DLLs removed because it causes a lot of issues on mixed solutions (NetCore and Net461)_
 ### __2.0.25__
 #### Added
 - __Capgemini.Cauldron.Win32.WPF:__ _OnActivationProtocol added to ApplicationBase_
@@ -131,9 +131,9 @@ Assembly | Description   | NuGet
 - __Capgemini.Cauldron.Win32.Interceptors:__ _ExceptionLoggerAttribute added_
 #### Change
 - __Capgemini.Cauldron.Win32.WPF:__ _ParameterPassing in ApplicationBase now uses Environment.Exit(0) after passing the params to other instances._
-- __Capgemini.Cauldron.Win32.WPF.ParameterPassing:__ _Will now also invoke the callback delegate if there are no instances of the program running._
 - __Capgemini.Cauldron.Win32.Net:__ _Elevated Urlprotocol now also passes the uri_
 - __Capgemini.Cauldron.Win32.Net:__ _Urlprotocol now registers url with icon 0 instead of 1_
+- __Capgemini.Cauldron.Win32.WPF.ParameterPassing:__ _Will now also invoke the callback delegate if there are no instances of the program running._
 - __Capgemini.Cauldron.Core.Interceptors:__ _Dependency to NLog removed_
 - __Capgemini.Cauldron.Core.Interceptors:__ _PerformanceLoggerAttribute removed_
 - __Capgemini.Cauldron.Core.Interceptors:__ _ExceptionLoggerAttribute removed_
@@ -148,19 +148,18 @@ Assembly | Description   | NuGet
 - __Cauldron.Interception.Fody:__ _In some cases if the weaver tries to retrieved information from referenced assemblies, a BadImageFormatException occures. Fixed._
 #### Change
 - __Cauldron.Interception.Fody:__ _Some info and error messages changed to be more informative._
-- __Capgemini.Cauldron.Win32.UserInformation:__ _Added a fallback if the user's account picture file was not found._
 - __Capgemini.Cauldron.Win32.WPF.ParameterPassing:__ _Now uses the NET461 assembly version of the randomizer._
+- __Capgemini.Cauldron.Win32.UserInformation:__ _Added a fallback if the user's account picture file was not found._
 ### __2.0.21__
 #### Added
+- __Capgemini.Cauldron.Core.Extensions.IO:__ _FileInfo extension - Rename added_
 - __Capgemini.Cauldron.Win32.UserInformation:__ _WTSClientName added to User and CurrentUser. WTSClientName returns the Windows Terminal Session client name._
 - __Capgemini.Cauldron.Core.Extensions:__ _PadOrCut extension method added. It allows to pad chars or cut the string to a specific length._
-- __Capgemini.Cauldron.Core.Extensions.IO:__ _FileInfo extension - Rename added_
 ### __2.0.20__
 #### Added
 - __Cauldron.Interception.Fody:__ _Constructor interceptor added._
 ### __2.0.19__
 #### Bugfix
-- __Capgemini.Cauldron.Win32.WPF.Interactivity:__ _The "Localized" attached property will not continue loading if in design mode to avoid those weird errors in the WPF editor_
 - __Capgemini.Cauldron.Win32.WPF:__ _Several issues with the dispatcher fixed._
 - __Capgemini.Cauldron.Win32.WPF:__ _Navigator was not able to find the correct view in some cases._
 - __Capgemini.Cauldron.Win32.WPF:__ _ObjectToVisibilityConverter logic was inverted._
@@ -169,16 +168,17 @@ Assembly | Description   | NuGet
 - __Cauldron.Interception.Fody:__ _A bug was in "cleaning" fixed that caused local variables to be removed although they were still in use._
 - __Cauldron.Interception.Fody:__ _Fixed a bug that caused the weaver to weav types that does not exist and then throws exceptions._
 - __Cauldron.Interception.Fody:__ _Sort of fixed the issue that jumping to errors on async methods did not work._
-- __Capgemini.Cauldron.Core.Reflection:__ _A bug in Assemblies that causes the Custom assembly resolution to be invoked before all assemblies are added to the collection fixed._
 - __Capgemini.Cauldron.Core.Threading:__ _BUG!!!! ... Dispatcher was using BeginInvoke instead of InvokeAsync_
+- __Capgemini.Cauldron.Win32.WPF.Interactivity:__ _The "Localized" attached property will not continue loading if in design mode to avoid those weird errors in the WPF editor_
+- __Capgemini.Cauldron.Core.Reflection:__ _A bug in Assemblies that causes the Custom assembly resolution to be invoked before all assemblies are added to the collection fixed._
 - __Capgemini.Cauldron.Activator:__ _CreateFirst always returned null in some cases... This is fixed._
 - __Capgemini.Cauldron.Localization:__ _Added a Contains method to Locale._
-#### Added
-- __Capgemini.Cauldron.Win32.WPF.Interactivity:__ _New property added to 'Localized': 'LocalizedText'_
-- __Cauldron.Interception.Fody:__ _Allowing non auto-properties to be intercepted._
 #### Change
 - __Capgemini.Cauldron.Win32.WPF:__ _XAML resources loading order can now be changed by adding a dash and a numeric suffix to the file name. e.g. Style-01.xaml._
 - __Capgemini.Cauldron.Core.Reflection:__ _Now Costura compatible._
+#### Added
+- __Cauldron.Interception.Fody:__ _Allowing non auto-properties to be intercepted._
+- __Capgemini.Cauldron.Win32.WPF.Interactivity:__ _New property added to 'Localized': 'LocalizedText'_
 ### __2.0.18__
 #### Bugfix
 - __Cauldron.Interception.Fody:__ _If PropertyChanged.Fody weaved before Cauldron then Cauldron has removed the implementation for the particular property. This is now fixed._

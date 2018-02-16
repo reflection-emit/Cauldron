@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>2.0.36-beta</Version>
+    <Version>2.0.37-beta</Version>
     <Authors>Alexander Schunk, Capgemini Deutschland GmbH</Authors>
     <Company>Capgemini Deutschland GmbH</Company>
     <Copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</Copyright>
@@ -16,8 +16,8 @@
 </Description>
     <PackageId>Capgemini.Cauldron.Core.Extensions.Convertions</PackageId>
     <RootNamespace>Cauldron</RootNamespace>
-  <AssemblyVersion>2.0.0.36</AssemblyVersion>
-<FileVersion>2.0.0.36</FileVersion>
+  <AssemblyVersion>2.0.0.37</AssemblyVersion>
+<FileVersion>2.0.0.37</FileVersion>
 </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
