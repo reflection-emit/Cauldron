@@ -49,8 +49,9 @@ namespace Cauldron.Interception.Fody
                             .Then(x =>
                             {
                                 x.Call(Crumb.This, viewModelInterface.RaisePropertyChanged, Crumb.GetParameter(0));
+                                x.Load(getIsChangeEvent);
                                 x.Callvirt(eventHandlerGeneric.Invoke.MakeGeneric(changeAwareInterface.PropertyIsChangedEventArgs.ToBuilderType),
-                                    x.NewCode().Load(getIsChangeEvent), x.NewCode().NewObj(changeAwareInterface.PropertyIsChangedEventArgs.Ctor, Crumb.This, Crumb.GetParameter(0), Crumb.GetParameter(1), Crumb.GetParameter(2)));
+                                    Crumb.This, x.NewCode().NewObj(changeAwareInterface.PropertyIsChangedEventArgs.Ctor, Crumb.GetParameter(0), Crumb.GetParameter(1), Crumb.GetParameter(2)));
                             })
                             .Return()
                             .Replace();
