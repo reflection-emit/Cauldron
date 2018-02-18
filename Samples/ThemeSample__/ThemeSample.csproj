@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{09541FE4-BBA6-4158-8EBB-DFA17E93222B}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>ThemeSample</RootNamespace>
+    <AssemblyName>ThemeSample</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PropertyChanged">
+      <HintPath>..\..\packages\PropertyChanged.Fody.2.2.5\lib\net452\PropertyChanged.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App.cs" />
+    <Compile Include="CreateNewTabMessageArgs.cs" />
+    <Compile Include="LocaleSource.cs" />
+    <Compile Include="Module.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="ViewModels\DummyItemViewModel.cs" />
+    <Compile Include="ViewModels\TestViewModel.cs" />
+    <Compile Include="ViewModels\ListBoxTestViewModel.cs" />
+    <Compile Include="ViewModels\ListViewTestViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\TestListViewViewModel.cs" />
+    <Compile Include="Views\DataTemplateResourceDictionary.xaml.cs">
+      <DependentUpon>DataTemplateResourceDictionary.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <EmbeddedResource Include="strings.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="FodyWeavers.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Views\DataTemplateResourceDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="hey.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Fody\Cauldron.Interception.Fody\Cauldron.Interception.Fody.csproj">
+      <Project>{6a7e8b99-2542-4530-83ea-fc7355c9cbbd}</Project>
+      <Name>Cauldron.Interception.Fody</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Threading\Cauldron.Core.Threading.csproj">
+      <Project>{a6137484-c3c9-4808-b4b4-76e27420025d}</Project>
+      <Name>Cauldron.Core.Threading</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Win32\Cauldron.Win32.Threading\Cauldron.Win32.Threading.csproj">
+      <Project>{4aeb2c1e-1625-483d-ad8e-6dca3c28742e}</Project>
+      <Name>Cauldron.Win32.Threading</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Win32\Cauldron.Win32.WPF.Interactivity\Cauldron.Win32.WPF.Interactivity.csproj">
+      <Project>{7ce75511-7dce-4162-936f-ad9031e8a987}</Project>
+      <Name>Cauldron.Win32.WPF.Interactivity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Win32\Cauldron.Win32.WPF.Theme.VSDark\Cauldron.Win32.WPF.Theme.VSDark.csproj">
+      <Project>{ca0e51c3-1991-4196-bb65-8e1b6027e388}</Project>
+      <Name>Cauldron.Win32.WPF.Theme.VSDark</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Win32\Cauldron.Win32.WPF.Theme\Cauldron.Win32.WPF.Theme.csproj">
+      <Project>{6b057c59-d15c-4fad-a760-c1191781ae47}</Project>
+      <Name>Cauldron.Win32.WPF.Theme</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Win32\Cauldron.Win32.WPF.Validation\Cauldron.Win32.WPF.Validation.csproj">
+      <Project>{3bc85368-b2c4-48d0-9877-86c9a59dd161}</Project>
+      <Name>Cauldron.Win32.WPF.Validation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Win32\Cauldron.Win32.WPF\Cauldron.Win32.WPF.csproj">
+      <Project>{9607b822-ba0f-46fd-b487-c431f3fd9eed}</Project>
+      <Name>Cauldron.Win32.WPF</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\..\..\packages\Fody.2.1.2\build\netstandard1.0\Fody.targets" Condition="Exists('..\..\..\packages\Fody.2.1.2\build\netstandard1.0\Fody.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\..\packages\Fody.2.1.2\build\netstandard1.0\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Fody.2.1.2\build\netstandard1.0\Fody.targets'))" />
+    <Error Condition="!Exists('..\..\packages\Fody.2.4.1\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Fody.2.4.1\build\Fody.targets'))" />
+  </Target>
+  <Import Project="..\..\packages\Fody.2.4.1\build\Fody.targets" Condition="Exists('..\..\packages\Fody.2.4.1\build\Fody.targets')" />
+</Project>

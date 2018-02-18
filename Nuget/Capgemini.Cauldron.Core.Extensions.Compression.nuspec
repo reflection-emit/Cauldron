@@ -14,7 +14,7 @@
     <tags>Toolkit Capgemini Cauldron Extensions Compression GZipStream GZip</tags>
     <dependencies>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="Capgemini.Cauldron.Core.Comparing" version="2.0.37-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Comparing" version="2.0.39-beta" />
       </group>
     </dependencies>
   </metadata>
