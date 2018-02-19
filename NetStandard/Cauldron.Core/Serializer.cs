@@ -218,10 +218,10 @@ namespace Cauldron.Core
             byte[] bytes;
 
             CryptographicBuffer.CopyToByteArray(hashed, out bytes);
-            return Convert.ToBase64String(Encoding.UTF8.GetBytes(value));
+            return Convert.ToBase64String(Encoding.UTF8.GetBytes(value)).Replace(Path.GetInvalidFileNameChars(), '_');
 #else
             using (var sha = SHA256.Create())
-                return Convert.ToBase64String(sha.ComputeHash(Encoding.UTF8.GetBytes(value)));
+                return Convert.ToBase64String(sha.ComputeHash(Encoding.UTF8.GetBytes(value))).Replace(Path.GetInvalidFileNameChars(), '_');
 
 #endif
         }
