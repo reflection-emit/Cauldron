@@ -103,7 +103,6 @@
     <Compile Include="Coders\TryCatchCoder\CatchCoder.cs" />
     <Compile Include="Coders\TryCatchCoder\FinallyCoder.cs" />
     <Compile Include="Coders\TryCatchCoder\InstructionMarker.cs" />
-    <Compile Include="Coders\TryCatchCoder\TryCatchEndCoder.cs" />
     <Compile Include="Coders\TryCatchCoder\TryCatchFinallyCoderBase.cs" />
     <Compile Include="Coders\TryCatchCoder\TryCoder.cs" />
     <Compile Include="Crumb.cs" />

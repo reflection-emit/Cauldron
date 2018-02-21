@@ -1,4 +1,5 @@
 ﻿using Cauldron.Interception.Cecilator;
+using Cauldron.Interception.Cecilator.Coders;
 using System;
 using System.Linq;
 
@@ -6,6 +7,14 @@ namespace Cauldron.Interception.Fody
 {
     public sealed partial class ModuleWeaver
     {
+        public static void ImplementAssignMethodAttribute(Builder builder, AssignMethodAttributeInfo[] assignMethodAttributeInfos, Field interceptorInstance, BuilderType contentType, Coder coder) =>
+            ImplementAssignMethodAttribute(builder, assignMethodAttributeInfos,
+                x => coder.Load(interceptorInstance).As(contentType).SetValue(x.assignMethodAttributeInfo.AttributeField, y => y.NewObj(x.delegateCtor, x.method)));
+
+        public static void ImplementAssignMethodAttribute(Builder builder, AssignMethodAttributeInfo[] assignMethodAttributeInfos, LocalVariable interceptorInstance, BuilderType contentType, Coder coder) =>
+            ImplementAssignMethodAttribute(builder, assignMethodAttributeInfos,
+                x => coder.Load(interceptorInstance).As(contentType).SetValue(x.assignMethodAttributeInfo.AttributeField, y => y.NewObj(x.delegateCtor, x.method)));
+
         public static void ImplementAssignMethodAttribute(Builder builder, AssignMethodAttributeInfo[] assignMethodAttributeInfos, Field interceptorInstance, BuilderType contentType, ICode coder) =>
             ImplementAssignMethodAttribute(builder, assignMethodAttributeInfos,
                 x => coder.Assign(coder.NewCode().Load(interceptorInstance).As(contentType), x.assignMethodAttributeInfo.AttributeField.Import()).NewObj(x.delegateCtor, x.method));

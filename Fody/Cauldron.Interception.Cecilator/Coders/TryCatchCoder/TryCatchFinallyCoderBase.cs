@@ -78,9 +78,9 @@ namespace Cauldron.Interception.Cecilator.Coders
             return new Coder(this.instructions);
         }
 
-        protected TryCatchEndCoder FinallyInternal(Func<Coder, Coder> code)
+        protected T FinallyInternal<T>(Func<Coder, Coder> code, Func<TryCatchFinallyCoderBase, T> instanceCreator)
         {
-            var result = new TryCatchEndCoder(this);
+            var result = instanceCreator(this);
 
             this.instructions.Append(code(this.NewCoder()));
 

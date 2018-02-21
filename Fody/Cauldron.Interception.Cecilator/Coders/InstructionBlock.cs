@@ -256,6 +256,13 @@ namespace Cauldron.Interception.Cecilator.Coders
                 case ParametersCodeBlock parametersCodeBlock:
                     {
                         var parameterInfos = parametersCodeBlock.GetTargetType(instructionBlock.associatedMethod);
+                        if (parameterInfos == null)
+                        {
+                            result.Emit_LdNull();
+                            result.ResultingType = null;
+                            break;
+                        }
+
                         if (parameterInfos.Item2 < 0)
                         {
                             result.Emit(OpCodes.Ldarg_0);
@@ -267,7 +274,12 @@ namespace Cauldron.Interception.Cecilator.Coders
                         result.ResultingType = parameterInfos.Item1.typeReference;
                         break;
                     }
-
+                case ParametersVariableCodeBlock parametersVariableCodeBlock:
+                    {
+                        AddVariableDefinitionToInstruction(result, targetType, parametersVariableCodeBlock.variable);
+                        result.ResultingType = parametersVariableCodeBlock.variable.VariableType;
+                        break;
+                    }
                 case NullableCodeBlock nullableCodeBlock:
                     {
                         if (nullableCodeBlock.variable == null)
@@ -428,6 +440,28 @@ namespace Cauldron.Interception.Cecilator.Coders
             Method method,
             params object[] parameters) => CallInternal(instructionBlock, null, method, OpCodes.Newobj, parameters);
 
+        public static bool operator !=(InstructionBlock a, Instruction b)
+        {
+            if (!object.ReferenceEquals(a, b))
+                return true;
+
+            if (!object.Equals(a, b))
+                return true;
+
+            return true;
+        }
+
+        public static bool operator ==(InstructionBlock a, Instruction b)
+        {
+            if (object.ReferenceEquals(a, b))
+                return true;
+
+            if (object.Equals(a, b))
+                return true;
+
+            return false;
+        }
+
         public static InstructionBlock SetValue(InstructionBlock instructionBlock, LocalVariable localVariable, object value)
         {
             var result = instructionBlock.Spawn();
@@ -533,6 +567,9 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         public void Append(InstructionBlock instructionBlock)
         {
+            if (instructionBlock == this)
+                return;
+
             this.exceptionHandlers.AddRange(instructionBlock.exceptionHandlers);
             this.instructions.AddRange(instructionBlock.instructions);
             this.ResultingType = instructionBlock.ResultingType;
@@ -623,7 +660,20 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         public void Emit_Nop() => this.Emit(OpCodes.Nop);
 
+        public override bool Equals(object obj)
+        {
+            if (object.ReferenceEquals(this, obj))
+                return true;
+
+            if (object.Equals(this, obj))
+                return true;
+
+            return true;
+        }
+
         public IEnumerator<Instruction> GetEnumerator() => this.instructions.GetEnumerator();
+
+        public override int GetHashCode() => this.associatedMethod.GetHashCode() ^ this.ilprocessor.GetHashCode();
 
         public int IndexOf(Instruction instruction) => this.instructions.IndexOf(instruction);
 

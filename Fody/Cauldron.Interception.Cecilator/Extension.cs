@@ -318,6 +318,17 @@ namespace Cauldron.Interception.Cecilator
             return null;
         }
 
+        public static bool HasAttribute(this IEnumerable<CustomAttribute> collection, TypeDefinition typeDefinition)
+        {
+            foreach (var item in collection)
+            {
+                if (item.AttributeType.AreEqual(typeDefinition))
+                    return true;
+            }
+
+            return false;
+        }
+
         public static bool Implements(this TypeReference type, string interfaceName) => type.GetInterfaces().Any(x => x.FullName == interfaceName);
 
         public static int IndexOf(this IList<Instruction> instructions, int offset)
@@ -1025,12 +1036,12 @@ namespace Cauldron.Interception.Cecilator
                 if (!x.reference.DeclaringType.IsGenericInstance)
                     return true;
 
-                var genericArgument = (x.reference.DeclaringType as GenericInstanceType).GenericArguments;
-                for (int i = 0; i < genericArgument.Count; i++)
-                {
-                    if (genericArgument[i].IsGenericParameter)
-                        return false;
-                }
+                //var genericArgument = (x.reference.DeclaringType as GenericInstanceType).GenericArguments;
+                //for (int i = 0; i < genericArgument.Count; i++)
+                //{
+                //    if (genericArgument[i].IsGenericParameter)
+                //        return false;
+                //}
 
                 return true;
             });

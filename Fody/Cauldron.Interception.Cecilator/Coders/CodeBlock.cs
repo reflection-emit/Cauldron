@@ -234,6 +234,13 @@ namespace Cauldron.Interception.Cecilator.Coders
         }
     }
 
+    public class ParametersVariableCodeBlock : CodeBlock
+    {
+        internal readonly VariableDefinition variable;
+
+        internal ParametersVariableCodeBlock(VariableDefinition variable) => this.variable = variable;
+    }
+
     public class ThisCodeBlock : CodeBlock
     {
         internal ThisCodeBlock()

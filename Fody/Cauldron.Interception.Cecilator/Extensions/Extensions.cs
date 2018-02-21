@@ -92,11 +92,39 @@ namespace Cauldron.Interception.Cecilator.Extensions
         }
 
         /// <summary>
+        /// Returns true if the instruction defined by <paramref name="instruction"/> is enclosed by a try-catch-finally.
+        /// </summary>
+        /// <param name="method"></param>
+        /// <param name="instruction">The instruction to check</param>
+        /// <param name="exceptionHandlerType">The type of handler that encloses the instruction.</param>
+        /// <returns>True if enclosed; otherwise false.</returns>
+        public static bool IsInclosedInHandlers(this Method method, Instruction instruction, ExceptionHandlerType exceptionHandlerType)
+        {
+            foreach (var item in method.methodDefinition.Body.ExceptionHandlers)
+            {
+                if (item.TryStart.Offset >= instruction.Offset && item.TryStart.Offset <= instruction.Offset && item.HandlerType == exceptionHandlerType)
+                    return true;
+
+                if (item.HandlerStart != null && item.HandlerStart.Offset >= instruction.Offset && item.HandlerEnd.Offset <= instruction.Offset && item.HandlerType == exceptionHandlerType)
+                    return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
         /// Creates a new coder.
         /// </summary>
         /// <param name="method">The coder.</param>
         /// <returns></returns>
         public static Coder NewCoder(this Method method) => new Coder(method);
+
+        /// <summary>
+        /// Creates a new coder.
+        /// </summary>
+        /// <param name="method">The coder.</param>
+        /// <returns></returns>
+        public static CatchThrowerCoder NewCoder(this CatchThrowerCoder coder) => new CatchThrowerCoder(coder.instructions.associatedMethod);
 
         /// <summary>
         /// Creates a new coder.

@@ -62,7 +62,7 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         public Coder EndTry() => base.EndTryInternal();
 
-        public TryCatchEndCoder Finally(Func<Coder, Coder> code) => FinallyInternal(code);
+        public FinallyCoder Finally(Func<Coder, Coder> code) => base.FinallyInternal<FinallyCoder>(code, x => new FinallyCoder(x));
     }
 
     public sealed class CatchThrowerCoder : Coder

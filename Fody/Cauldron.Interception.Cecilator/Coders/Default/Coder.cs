@@ -53,27 +53,66 @@ namespace Cauldron.Interception.Cecilator.Coders
             return this;
         }
 
-        public ParametersCodeBlock GetParametersArray()
+        public ParametersVariableCodeBlock GetParametersArray()
         {
-            var variableName = "<>params_" + this.instructions.associatedMethod.Identification;
-            if (this.instructions.associatedMethod.GetVariable(variableName) == null)
+            Method targetMethod;
+            Method originMethod;
+
+            if (this.instructions.associatedMethod.IsAsync)
             {
-                var objectArrayType = this.instructions.associatedMethod.OriginType.Builder.GetType(typeof(object[]));
-                var variable = this.instructions.associatedMethod.GetOrCreateVariable(objectArrayType, variableName);
-
-                var newInstructions = this.instructions.Spawn();
-
-                newInstructions.Emit(OpCodes.Ldc_I4, this.instructions.associatedMethod.methodReference.Parameters.Count);
-                newInstructions.Emit(OpCodes.Newarr, (objectArrayType.typeReference as ArrayType).ElementType);
-                newInstructions.Emit(OpCodes.Stloc, variable.variable);
-
-                foreach (var parameter in this.instructions.associatedMethod.methodReference.Parameters)
-                    newInstructions.Append(IlHelper.ProcessParam(parameter, variable.variable));
-                // Insert the call in the beginning of the instruction list
-                this.instructions.Insert(0, newInstructions);
+                targetMethod = this.instructions.associatedMethod.AsyncMethod;
+                originMethod = this.instructions.associatedMethod;
+            }
+            else if (this.instructions.associatedMethod.AsyncOriginType.IsAsyncStateMachine)
+            {
+                targetMethod = this.instructions.associatedMethod;
+                originMethod = this.instructions.associatedMethod.AsyncMethodHelper.Method;
+            }
+            else
+            {
+                targetMethod = this.instructions.associatedMethod;
+                originMethod = this.instructions.associatedMethod;
             }
 
-            return new ParametersCodeBlock { name = variableName };
+            var variableName = "<>params_" + targetMethod.Identification;
+            var variableDef = targetMethod.GetVariable(variableName);
+
+            if (variableDef == null)
+            {
+                var objectArrayType = Builder.Current.GetType(typeof(object[]));
+                var variable = targetMethod.GetOrCreateVariable(objectArrayType, variableName);
+                var newBlock = this.instructions.Spawn();
+
+                newBlock.Emit(OpCodes.Ldc_I4, originMethod.methodReference.Parameters.Count);
+                newBlock.Emit(OpCodes.Newarr, (objectArrayType.typeReference as ArrayType).ElementType);
+                newBlock.Emit(OpCodes.Stloc, variable.variable);
+
+                if (originMethod.IsAsync)
+                {
+                    int counter = 0;
+                    foreach (var parameter in originMethod.methodReference.Parameters)
+                    {
+                        newBlock.Emit(OpCodes.Ldloc, variable.variable);
+                        newBlock.Append(InstructionBlock.CreateCode(newBlock, null, counter++));
+                        newBlock.Append(InstructionBlock.CreateCode(newBlock, BuilderType.Object, targetMethod.OriginType.GetField(parameter.Name)));
+                        newBlock.Emit(OpCodes.Stelem_Ref);
+                    }
+                }
+                else
+                {
+                    foreach (var parameter in originMethod.methodReference.Parameters)
+                        newBlock.Append(IlHelper.ProcessParam(parameter, variable.variable));
+                }
+
+                // Insert the call in the beginning of the instruction list
+                this.instructions.Insert(0, newBlock);
+
+                return new ParametersVariableCodeBlock(variable.variable);
+            }
+            else
+            {
+                return new ParametersVariableCodeBlock(variableDef);
+            }
         }
 
         public bool HasReturnVariable() => this.instructions.associatedMethod.GetVariable(CodeBlocks.ReturnVariableName) != null;
@@ -286,7 +325,8 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         public CallCoder NewObj(AttributedMethod attributedMethod)
         {
-            throw new NotImplementedException();
+            this.NewObj(attributedMethod.customAttribute);
+            return new CallCoder(this, attributedMethod.Attribute.Type);
         }
 
         public CallCoder NewObj(Method method) => this.NewObj(method, new object[0]);
@@ -773,7 +813,8 @@ namespace Cauldron.Interception.Cecilator.Coders
                                     continue; // Just continue and do not add an additional store opcode
                             }
 
-                            coder.instructions.ilprocessor.InsertBefore(instruction, coder.instructions.ilprocessor.Create(OpCodes.Stloc, returnVariable));
+                            if (!coder.instructions.associatedMethod.IsInclosedInHandlers(instruction, ExceptionHandlerType.Finally))
+                                coder.instructions.ilprocessor.InsertBefore(instruction, coder.instructions.ilprocessor.Create(OpCodes.Stloc, returnVariable));
                         }
                     }
                 }

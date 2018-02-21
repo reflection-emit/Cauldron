@@ -1,4 +1,6 @@
-﻿using Mono.Cecil;
+﻿using Cauldron.Interception.Cecilator.Coders;
+using Cauldron.Interception.Cecilator.Extensions;
+using Mono.Cecil;
 using Mono.Cecil.Cil;
 using System;
 using System.Linq;
@@ -32,7 +34,53 @@ namespace Cauldron.Interception.Cecilator
                     return result;
                 }
 
-                return (object)Crumb.This;
+                return (object)CodeBlocks.This;
+            }
+        }
+
+        public Method Method
+        {
+            get
+            {
+                var originType = this.OriginType;
+                if (originType == this.method.OriginType)
+                    return this.method;
+                var asyncMachine = Builder.Current.GetType("System.Runtime.CompilerServices.AsyncStateMachineAttribute").typeDefinition;
+                return originType
+                      .GetMethods()
+                      .Where(x => x.methodDefinition.HasCustomAttributes && x.methodDefinition.CustomAttributes.HasAttribute(asyncMachine))
+                      .Select(x => new
+                      {
+                          Attribute = x.CustomAttributes.FirstOrDefault(y => y.attribute.AttributeType.AreEqual(asyncMachine)),
+                          Method = x
+                      })
+                      .FirstOrDefault(x => (x.Attribute.ConstructorArguments[0].Value as TypeReference).AreEqual(this.method.OriginType))
+                      ?.Method;
+            }
+        }
+
+        public BuilderType OriginType
+        {
+            get
+            {
+                if (this.method.AsyncMethod == null && this.method.OriginType.IsAsyncStateMachine)
+                {
+                    var result = this.method.OriginType.Fields.FirstOrDefault(x => x.Name == "<>4__this");
+                    if (result == null)
+                        throw new Exception("This is not possible.");
+
+                    return result.FieldType;
+                }
+                else if (this.method.AsyncMethod != null)
+                {
+                    var result = this.method.AsyncMethod.OriginType.Fields.FirstOrDefault(x => x.Name == "<>4__this");
+                    if (result == null)
+                        return this.AddThisReference()?.FieldType;
+
+                    return result.FieldType;
+                }
+
+                return this.method.OriginType;
             }
         }
 

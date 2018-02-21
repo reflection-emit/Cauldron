@@ -121,62 +121,34 @@ namespace Cauldron.Interception.Fody
                             for (int i = 0; i < method.Item.Length; i++)
                             {
                                 var item = method.Item[i];
-                                x.Load(interceptorField[i]).Call(item.Interface.OnEnter, attributedMethod.OriginType, typeInstance, attributedMethod, x.GetParametersArray());
+                                x.Load(interceptorField[i]).Call(item.Interface.OnEnter, attributedMethod.OriginType, typeInstance, attributedMethod,
+                                    method.Key.Method.Parameters.Length > 0 ? x.GetParametersArray() : null);
                             }
 
                             return x.OriginalBody();
                         });
 
-                    /*
-                    var code = targetedMethod
-                    .NewCode()
-                        .Context(x =>
-                        {
-                            for (int i = 0; i < method.Item.Length; i++)
-                            {
-                                var item = method.Item[i];
-                                var name = $"<{targetedMethod.Name}>_attrib{i}_{item.Attribute.Identification}";
-                                interceptorField[i] = targetedMethod.AsyncOriginType.CreateField(targetedMethod.Modifiers.GetPrivate(), item.Interface.ToBuilderType, name);
-                                interceptorField[i].CustomAttributes.AddNonSerializedAttribute();
-
-                                x.Load(interceptorField[i]).IsNull().Then(y =>
-                                {
-                                    y.Assign(interceptorField[i]).NewObj(item.Attribute);
-                                    if (item.HasSyncRootInterface)
-                                        y.Load(interceptorField[i]).As(__ISyncRoot.Type).Call(syncRoot.SyncRoot, method.SyncRoot);
-
-                                    ImplementAssignMethodAttribute(builder, method.Item[i].AssignMethodAttributeInfos, interceptorField[i], item.Attribute.Attribute.Type, x);
-                                });
-                                item.Attribute.Remove();
-                            }
-                        })
-                        .Try(x =>
-                        {
-                            for (int i = 0; i < method.Item.Length; i++)
-                            {
-                                var item = method.Item[i];
-                                x.Load(interceptorField[i]).Call(item.Interface.OnEnter, attributedMethod.OriginType, typeInstance, attributedMethod, x.GetParametersArray());
-                            }
-
-                            x.OriginalBody();
-                        });*/
-
                     if (method.Key.AsyncMethod == null)
-                        code.Catch(__Exception.Type, x =>
-                        {
-                            x.Or(method.Item, (coder, y, i) => coder.Load(interceptorField[i]).Call(y.Interface.OnException, x.Exception));
-                            x.IsTrue().Then(y => x.Rethrow());
-                            x.ReturnDefault();
-                        });
+                        coder.Catch(__Exception.Type, (eCoder, e) => eCoder.If(x =>
+                            {
+                                var or = x.Load(interceptorField[0]).Call(method.Item[0].Interface.OnException, e());
+                                for (int i = 1; i < method.Item.Length; i++)
+                                    or.Or(y => y.Load(interceptorField[i]).Call(method.Item[i].Interface.OnException, e()));
 
-                    code.Finally(x =>
+                                return or.Is(true);
+                            }, then => eCoder.NewCoder().Rethrow())
+                                .DefaultValue().Return());
+
+                    coder.Finally(x =>
                     {
                         for (int i = 0; i < method.Item.Length; i++)
                             x.Load(interceptorField[i]).Call(method.Item[i].Interface.OnExit);
+
+                        return x;
                     })
-                      .EndTry()
-                      .Return()
-                  .Replace();
+                    .EndTry()
+                    .Return()
+                    .Replace();
 
                     if (method.Key.AsyncMethod != null)
                     {

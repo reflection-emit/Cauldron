@@ -72,6 +72,12 @@ namespace Cauldron.Interception.Cecilator.Coders
             return new BooleanExpressionCallCoder(this, method.ReturnType);
         }
 
+        public BooleanExpressionCallCoder NewObj(AttributedMethod attributedMethod)
+        {
+            this.NewObj(attributedMethod.customAttribute);
+            return new BooleanExpressionCallCoder(this, attributedMethod.Attribute.Type);
+        }
+
         public BooleanExpressionCallCoder NewObj(Method method, params Func<Coder, object>[] parameters) => this.NewObj(method, this.CreateParameters(parameters));
 
         #endregion NewObj Methods

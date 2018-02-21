@@ -631,6 +631,8 @@ namespace Cauldron.Interception.Cecilator
             return result;
         }
 
+        public IEnumerable<Method> GetMethods() => this.GetMethodsInternal(Modifiers.All, null, null, null, null);
+
         public IEnumerable<Method> GetMethods(Func<MethodReference, bool> predicate)
             => this.GetMethodsInternal(Modifiers.All, null, null, null, null).Where(x => predicate(x.methodReference));
 
@@ -658,7 +660,15 @@ namespace Cauldron.Interception.Cecilator
             {
                 var result = this.TryFilterMethod(method, modifier, returnType, name, parameterCount, parameterTypes);
 
-                if (result != null)
+                if (result.HasValue)
+                    return new Method(this, result.Value.reference, result.Value.definition);
+            }
+
+            foreach (var method in this.typeReference.GetMethodReferences())
+            {
+                var result = this.TryFilterMethod(method, modifier, returnType, name, parameterCount, parameterTypes);
+
+                if (result.HasValue)
                     return new Method(this, result.Value.reference, result.Value.definition);
             }
 
@@ -679,7 +689,7 @@ namespace Cauldron.Interception.Cecilator
             {
                 var result = this.TryFilterMethod(method, modifier, returnType, name, parameterCount, parameterTypes);
 
-                if (result != null)
+                if (result.HasValue)
                     yield return new Method(this, result.Value.reference, result.Value.definition);
             }
         }

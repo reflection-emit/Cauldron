@@ -1,4 +1,5 @@
 ﻿using Cauldron.Interception.Cecilator.Extensions;
+using Mono.Cecil;
 using Mono.Cecil.Cil;
 using System;
 using System.Linq;
@@ -28,6 +29,14 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         protected void InternalCall(object instance, Method method, object[] parameters) =>
             this.instructions.Append(InstructionBlock.Call(this.instructions, instance, method, parameters));
+
+        protected void NewObj(CustomAttribute attribute)
+        {
+            foreach (var arg in attribute.ConstructorArguments)
+                this.instructions.Append(InstructionBlock.AttributeParameterToOpCode(this.instructions, arg));
+
+            this.instructions.Emit(OpCodes.Newobj, attribute.Constructor);
+        }
 
         #region Binary Operators
 
