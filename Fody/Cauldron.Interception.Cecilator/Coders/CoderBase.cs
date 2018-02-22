@@ -168,6 +168,16 @@ namespace Cauldron.Interception.Cecilator.Coders
             return (TSelf)this;
         }
 
+        public TSelf Jump(Position position)
+        {
+            if (this.instructions.associatedMethod.IsInclosedInHandlers(position.instruction))
+                this.instructions.Emit(OpCodes.Leave, position.instruction);
+            else
+                this.instructions.Emit(OpCodes.Br, position.instruction);
+
+            return (TSelf)this;
+        }
+
         /// <summary>
         /// Negates a value e.g. 1 to -1
         /// </summary>

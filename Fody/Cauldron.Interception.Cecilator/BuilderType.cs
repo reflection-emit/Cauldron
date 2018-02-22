@@ -444,10 +444,10 @@ namespace Cauldron.Interception.Cecilator
 
             var result = new Property(this, property);
 
-            result.Getter.NewCode().Load(backingField).Return().Replace();
+            result.Getter.NewCoder().Load(backingField).Return().Replace();
 
             if (!getterOnly)
-                result.Setter.NewCode().Assign(backingField).Set(Crumb.GetParameter(0)).Return().Replace();
+                result.Setter.NewCoder().SetValue(backingField, CodeBlocks.GetParameter(0)).Return().Replace();
 
             result.RefreshBackingField();
             return result;
@@ -486,10 +486,10 @@ namespace Cauldron.Interception.Cecilator
 
             var result = new Property(this, property);
 
-            result.Getter.NewCode().Load(field).Return().Replace();
+            result.Getter.NewCoder().Load(field).Return().Replace();
 
             if (!getterOnly)
-                result.Setter.NewCode().Assign(field).Set(Crumb.GetParameter(0)).Return().Replace();
+                result.Setter.NewCoder().SetValue(field, CodeBlocks.GetParameter(0)).Return().Replace();
 
             result.RefreshBackingField();
             return result;
@@ -527,7 +527,55 @@ namespace Cauldron.Interception.Cecilator
         public Method CreateMethod(Modifiers modifier, Type returnType, string name, params Type[] parameters) =>
             this.CreateMethod(modifier, this.Builder.GetType(returnType), name, parameters.Select(x => this.Builder.GetType(x)).ToArray());
 
-        public Method CreateMethod(Modifiers modifier, BuilderType returnType, string name, params BuilderType[] parameters)
+        public Method CreateMethod(Modifiers modifier, BuilderType returnType, string name, params BuilderType[] parameters) =>
+            CreateMethodInternal(modifier, returnType, name, parameters);
+
+        public Method CreateMethod(Modifiers modifier, string name, params Type[] parameters) =>
+            this.CreateMethod(modifier, name, parameters.Select(x => x.ToBuilderType()).ToArray());
+
+        public Method CreateMethod(Modifiers modifier, string name, params BuilderType[] parameters) =>
+            CreateMethodInternal(modifier, null, name, parameters);
+
+        public Method CreateMethodImplicitInterface(Method methodToOverride)
+        {
+            if (!methodToOverride.OriginType.IsInterface)
+                throw new Exception("CreateMethodImplicitInterface requires a method from an interface.");
+
+            var method = new MethodDefinition(
+                $"{methodToOverride.DeclaringType.typeReference.FullName}.{methodToOverride.Name}",
+                MethodAttributes.Final | MethodAttributes.Virtual | MethodAttributes.NewSlot | MethodAttributes.HideBySig | MethodAttributes.Private,
+                this.moduleDefinition.ImportReference(methodToOverride.methodReference.ReturnType));
+
+            method.Overrides.Add(this.moduleDefinition.ImportReference(methodToOverride.methodReference));
+
+            if (methodToOverride.methodReference.HasGenericParameters)
+                foreach (var item in methodToOverride.methodReference.GenericParameters)
+                    method.GenericParameters.Add(item);
+
+            foreach (var item in methodToOverride.Parameters)
+            {
+                var parameterType = item.typeReference.ResolveType(methodToOverride.methodReference.DeclaringType, methodToOverride.methodReference);
+                method.Parameters.Add(new ParameterDefinition(parameterType.IsGenericParameter ? parameterType : this.moduleDefinition.ImportReference(parameterType)));
+            }
+
+            if (methodToOverride.methodReference is GenericInstanceMethod genericInstanceMethod && genericInstanceMethod.HasGenericArguments)
+            {
+                var instancedMethod = new GenericInstanceMethod(method);
+                foreach (var item in genericInstanceMethod.GenericArguments)
+                    instancedMethod.GenericArguments.Add(item);
+            }
+
+            this.typeDefinition.Methods.Add(method);
+
+            var result = new Method(this, method);
+
+            if (!result.IsAbstract)
+                result.NewCoder().ThrowNew(typeof(NotImplementedException), $"The method '{method.Name}' in type '{this.typeReference}' is not implemented.").Return().Replace();
+
+            return result;
+        }
+
+        public Method CreateMethodInternal(Modifiers modifier, BuilderType returnType, string name, params BuilderType[] parameters)
         {
             try
             {
@@ -538,23 +586,23 @@ namespace Cauldron.Interception.Cecilator
                 if (modifier.HasFlag(Modifiers.Public)) attributes |= MethodAttributes.Public;
                 if (modifier.HasFlag(Modifiers.Protected)) attributes |= MethodAttributes.Family;
                 if (modifier.HasFlag(Modifiers.Overrides)) attributes |= MethodAttributes.Final | MethodAttributes.Virtual | MethodAttributes.NewSlot;
+                if (modifier.HasFlag(Modifiers.Explicit)) attributes |= MethodAttributes.Final | MethodAttributes.Virtual | MethodAttributes.NewSlot | MethodAttributes.HideBySig | MethodAttributes.Private;
 
-                var method = new MethodDefinition(name, attributes, this.moduleDefinition.ImportReference(returnType.typeReference));
+                var method = returnType == null ?
+                    new MethodDefinition(name, attributes, this.moduleDefinition.TypeSystem.Void) :
+                    new MethodDefinition(name, attributes, this.moduleDefinition.ImportReference(returnType.typeReference));
 
                 foreach (var item in parameters)
                 {
                     var parameterType = item.typeReference.ResolveType(this.typeReference) ?? item.typeDefinition.ResolveType(this.typeReference);
-                    if (parameterType.IsGenericParameter)
-                        parameterType = this.moduleDefinition.TypeSystem.Object;
-
-                    method.Parameters.Add(new ParameterDefinition(this.moduleDefinition.ImportReference(parameterType)));
+                    method.Parameters.Add(new ParameterDefinition(parameterType.IsGenericParameter ? parameterType : this.moduleDefinition.ImportReference(parameterType)));
                 }
 
                 this.typeDefinition.Methods.Add(method);
                 var result = new Method(this, method);
 
                 if (!attributes.HasFlag(MethodAttributes.Abstract))
-                    result.NewCode().ThrowNew(typeof(NotImplementedException), "Not implemented").Replace();
+                    result.NewCoder().ThrowNew(typeof(NotImplementedException), $"The method '{method.Name}' in type '{this.typeReference}' is not implemented.").Return().Replace();
 
                 return result;
             }
@@ -572,34 +620,6 @@ namespace Cauldron.Interception.Cecilator
             {
                 throw;
             }
-        }
-
-        public Method CreateMethod(Modifiers modifier, string name, params Type[] parameters) =>
-            this.CreateMethod(modifier, name, parameters.Select(x => x.ToBuilderType()).ToArray());
-
-        public Method CreateMethod(Modifiers modifier, string name, params BuilderType[] parameters)
-        {
-            var attributes = MethodAttributes.CompilerControlled;
-
-            if (modifier.HasFlag(Modifiers.Private)) attributes |= MethodAttributes.Private;
-            if (modifier.HasFlag(Modifiers.Static)) attributes |= MethodAttributes.Static;
-            if (modifier.HasFlag(Modifiers.Public)) attributes |= MethodAttributes.Public;
-            if (modifier.HasFlag(Modifiers.Protected)) attributes |= MethodAttributes.Family;
-            if (modifier.HasFlag(Modifiers.Overrides)) attributes |= MethodAttributes.Final | MethodAttributes.NewSlot | MethodAttributes.Virtual;
-
-            var method = new MethodDefinition(name, attributes, this.moduleDefinition.TypeSystem.Void);
-
-            foreach (var item in parameters)
-                method.Parameters.Add(new ParameterDefinition(this.moduleDefinition.ImportReference(item.typeReference)));
-
-            this.typeDefinition.Methods.Add(method);
-
-            var result = new Method(this, method);
-
-            if (!attributes.HasFlag(MethodAttributes.Abstract))
-                result.NewCode().ThrowNew(typeof(NotImplementedException), "Not implemented").Replace();
-
-            return result;
         }
 
         public Method GetMethod(string name, bool throwException = true)

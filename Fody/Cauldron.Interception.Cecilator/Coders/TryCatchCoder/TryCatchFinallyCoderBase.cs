@@ -29,6 +29,7 @@ namespace Cauldron.Interception.Cecilator.Coders
             this.instructions.Count > 0 &&
             this.instructions.Last.OpCode != OpCodes.Rethrow &&
             this.instructions.Last.OpCode != OpCodes.Throw &&
+            this.instructions.Last.OpCode != OpCodes.Endfinally &&
             this.instructions.Last.OpCode != OpCodes.Ret;
 
         protected CatchCoder CatchInternal(BuilderType exceptionType, Func<CatchThrowerCoder, Func<ExceptionCodeBlock>, Coder> code)
@@ -85,7 +86,7 @@ namespace Cauldron.Interception.Cecilator.Coders
             this.instructions.Append(code(this.NewCoder()));
 
             if (this.RequiresReturn)
-                this.instructions.Emit(OpCodes.Ret);
+                this.instructions.Emit(OpCodes.Endfinally);
 
             return result;
         }

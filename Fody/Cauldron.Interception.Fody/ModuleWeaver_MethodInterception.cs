@@ -153,22 +153,25 @@ namespace Cauldron.Interception.Fody
                     if (method.Key.AsyncMethod != null)
                     {
                         // Special case for async methods
+                        var exceptionBlock = method.Key.Method.AsyncMethodHelper.GetAsyncStateMachineExceptionBlock();
                         targetedMethod
-                            .NewCode().Context(x =>
+                            .NewCoder().Context(context =>
                             {
                                 var exceptionVariable = method.Key.Method.AsyncMethodHelper.GetAsyncStateMachineExceptionVariable();
-                                var exceptionBlock = method.Key.Method.AsyncMethodHelper.GetAsyncStateMachineExceptionBlock();
 
-                                for (int i = 0; i < method.Item.Length; i++)
-                                {
-                                    x.Load(interceptorField[i]).Call(method.Item[i].Interface.OnException, exceptionVariable);
+                                return context.If(x =>
+                                 {
+                                     var or = x.Load(interceptorField[0]).Call(method.Item[0].Interface.OnException, exceptionVariable);
 
-                                    if (method.Item.Length - 1 < i)
-                                        x.Or();
-                                }
+                                     for (int i = 1; i < method.Item.Length; i++)
+                                     {
+                                         if (method.Item.Length - 1 < i)
+                                             or.Or(y => y.Load(interceptorField[0]).Call(method.Item[i].Interface.OnException, exceptionVariable));
+                                     }
 
-                                x.IsFalse().Then(y => y.Leave(exceptionBlock.End)).Insert(InsertionAction.After, exceptionBlock.Start);
-                            });
+                                     return or.Is(false);
+                                 }, x => x.Jump(exceptionBlock.End));
+                            }).Insert(InsertionAction.After, exceptionBlock.Start);
                     }
                 };
             }

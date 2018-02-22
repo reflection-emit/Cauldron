@@ -1359,7 +1359,8 @@ namespace Cauldron.Interception.Cecilator
                                     continue; // Just continue and do not add an additional store opcode
                             }
 
-                            this.processor.InsertBefore(instruction, this.processor.Create(OpCodes.Stloc, returnVariable));
+                            if (!this.method.IsInclosedInHandlers(instruction, ExceptionHandlerType.Finally))
+                                this.processor.InsertBefore(instruction, this.processor.Create(OpCodes.Stloc, returnVariable));
                         }
                     }
                 }
