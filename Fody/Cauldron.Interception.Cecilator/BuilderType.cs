@@ -279,7 +279,7 @@ namespace Cauldron.Interception.Cecilator
             this.typeDefinition.Methods.Add(method);
 
             var result = new Method(this, method);
-            result.NewCode().Load(Crumb.This).Call(this.Builder.GetType(typeof(object)).Import().ParameterlessContructor.Import()).Return().Replace();
+            result.NewCoder().Call(BuilderType.Object.ParameterlessContructor.Import()).Return().Replace();
             return result;
         }
 
@@ -297,7 +297,7 @@ namespace Cauldron.Interception.Cecilator
             this.typeDefinition.Methods.Add(method);
 
             var result = new Method(this, method);
-            result.NewCode().Return().Replace();
+            result.NewCoder().Return().Replace();
             return result;
         }
 
@@ -579,14 +579,7 @@ namespace Cauldron.Interception.Cecilator
         {
             try
             {
-                var attributes = MethodAttributes.CompilerControlled;
-
-                if (modifier.HasFlag(Modifiers.Private)) attributes |= MethodAttributes.Private;
-                if (modifier.HasFlag(Modifiers.Static)) attributes |= MethodAttributes.Static;
-                if (modifier.HasFlag(Modifiers.Public)) attributes |= MethodAttributes.Public;
-                if (modifier.HasFlag(Modifiers.Protected)) attributes |= MethodAttributes.Family;
-                if (modifier.HasFlag(Modifiers.Overrides)) attributes |= MethodAttributes.Final | MethodAttributes.Virtual | MethodAttributes.NewSlot;
-                if (modifier.HasFlag(Modifiers.Explicit)) attributes |= MethodAttributes.Final | MethodAttributes.Virtual | MethodAttributes.NewSlot | MethodAttributes.HideBySig | MethodAttributes.Private;
+                var attributes = modifier.ToMethodAttributes();
 
                 var method = returnType == null ?
                     new MethodDefinition(name, attributes, this.moduleDefinition.TypeSystem.Void) :

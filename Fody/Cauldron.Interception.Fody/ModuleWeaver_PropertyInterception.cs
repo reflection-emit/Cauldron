@@ -1,4 +1,6 @@
 ﻿using Cauldron.Interception.Cecilator;
+using Cauldron.Interception.Cecilator.Coders;
+using Cauldron.Interception.Cecilator.Extensions;
 using Cauldron.Interception.Fody.Extensions;
 using Cauldron.Interception.Fody.HelperTypes;
 using System;
@@ -29,59 +31,61 @@ namespace Cauldron.Interception.Fody
                         .Import();
 
             member.Property.Getter
-                .NewCode()
-                    .Context(x =>
+                .NewCoder()
+                    .Context(context =>
                     {
                         if (member.HasInitializer)
-                            return;
+                            return context;
 
                         for (int i = 0; i < legalGetterInterceptors.Length; i++)
                         {
                             var item = legalGetterInterceptors[i];
                             var field = interceptorFields[item.Attribute.Identification];
-                            x.Load(field).IsNull().Then(y =>
+
+                            context.If(x => x.Load(field).IsNull(), then =>
                             {
-                                y.Assign(field).NewObj(item.Attribute);
+                                then.SetValue(field, x => x.NewObj(item.Attribute));
 
                                 if (item.HasSyncRootInterface)
-                                    y.Load(field).As(__ISyncRoot.Type.Import()).Call(syncRoot.SyncRoot, member.SyncRoot);
+                                    then.Load(field).As(__ISyncRoot.Type.Import()).Call(syncRoot.SyncRoot, member.SyncRoot);
 
                                 if (item.HasComparer)
-                                    x.Load(field).As(__IPropertyInterceptorComparer.Type.Import())
+                                    context.Load(field).As(__IPropertyInterceptorComparer.Type.Import())
                                         .Call(propertyInterceptorComparer.SetAreEqual,
-                                            x.NewCode().NewObj(propertyInterceptorFunc, propertyComparer));
+                                            x => x.NewObj(propertyInterceptorFunc, propertyComparer));
 
-                                ImplementAssignMethodAttribute(builder, legalGetterInterceptors[i].AssignMethodAttributeInfos, field, item.Attribute.Attribute.Type, y);
+                                ImplementAssignMethodAttribute(builder, legalGetterInterceptors[i].AssignMethodAttributeInfos, field, item.Attribute.Attribute.Type, then);
+                                return then;
                             });
                             item.Attribute.Remove();
                         }
 
-                        x.Load(propertyField).IsNull().Then(y =>
-                            y.Assign(propertyField)
-                                .NewObj(propertyInterceptionInfo.Ctor,
-                                    member.Property.Getter,
-                                    member.Property.Setter,
-                                    member.Property.Name,
-                                    member.Property.ReturnType,
-                                    Crumb.This,
-                                    member.Property.ReturnType.IsArray || member.Property.ReturnType.Implements(typeof(IEnumerable)) ? member.Property.ReturnType.ChildType : null,
-                                    propertySetter == null ? null : y.NewCode().NewObj(actionObjectCtor, propertySetter)));
+                        return context.If(x => x.Load(propertyField).IsNull(), then =>
+                              then.SetValue(propertyField, x =>
+                                  x.NewObj(propertyInterceptionInfo.Ctor,
+                                      member.Property.Getter,
+                                      member.Property.Setter,
+                                      member.Property.Name,
+                                      member.Property.ReturnType,
+                                      CodeBlocks.This,
+                                      member.Property.ReturnType.IsArray || member.Property.ReturnType.Implements(typeof(IEnumerable)) ? member.Property.ReturnType.ChildType : null,
+                                      propertySetter == null ? null : then.NewCoder().NewObj(actionObjectCtor, propertySetter))));
                     })
-                    .Try(x =>
+                    .Try(@try =>
                     {
                         if (member.Property.BackingField == null)
                         {
-                            var returnValue = x.GetReturnVariable();
-                            x.OriginalBodyNewMethod().StoreLocal(returnValue);
+                            var returnValue = @try.GetOrCreateReturnVariable();
+                            @try.SetValue(returnValue, x => x.OriginalBody(true));
 
                             for (int i = 0; i < legalGetterInterceptors.Length; i++)
                             {
                                 var item = legalGetterInterceptors[i];
                                 var field = interceptorFields[item.Attribute.Identification];
-                                x.Load(field).As(item.InterfaceGetter.ToBuilderType).Call(item.InterfaceGetter.OnGet, propertyField, returnValue);
+                                @try.Load(field).As(item.InterfaceGetter.ToBuilderType).Call(item.InterfaceGetter.OnGet, propertyField, returnValue);
                             }
 
-                            x.Load(returnValue).Return();
+                            @try.Load(returnValue).Return();
                         }
                         else
                         {
@@ -89,19 +93,22 @@ namespace Cauldron.Interception.Fody
                             {
                                 var item = legalGetterInterceptors[i];
                                 var field = interceptorFields[item.Attribute.Identification];
-                                x.Load(field).As(item.InterfaceGetter.ToBuilderType).Call(item.InterfaceGetter.OnGet, propertyField, member.Property.BackingField);
+                                @try.Load(field).As(item.InterfaceGetter.ToBuilderType).Call(item.InterfaceGetter.OnGet, propertyField, member.Property.BackingField);
                             }
 
-                            x.OriginalBody();
+                            @try.OriginalBody();
                         }
+
+                        return @try;
                     })
-                    .Catch(typeof(Exception), x =>
+                    .Catch(typeof(Exception), (ex, e) =>
                     {
-                        x.Or(legalGetterInterceptors, (coder, y, i) => coder.Load(interceptorFields[legalGetterInterceptors[i].Attribute.Identification])
-                            .As(legalGetterInterceptors[i].InterfaceGetter.ToBuilderType)
-                            .Call(legalGetterInterceptors[i].InterfaceGetter.OnException, x.Exception));
-                        x.IsTrue().Then(y => x.Rethrow());
-                        x.ReturnDefault();
+                        return ex.If(x => x.Or(legalGetterInterceptors, (coder, y, i) => coder.Load(interceptorFields[legalGetterInterceptors[i].Attribute.Identification])
+                              .As(legalGetterInterceptors[i].InterfaceGetter.ToBuilderType)
+                              .Call(legalGetterInterceptors[i].InterfaceGetter.OnException, e())).Is(true),
+                              then => ex.NewCoder().Rethrow())
+                          .DefaultValue()
+                          .Return();
                     })
                     .Finally(x =>
                     {
@@ -111,6 +118,8 @@ namespace Cauldron.Interception.Fody
                             var field = interceptorFields[item.Attribute.Identification];
                             x.Load(field).As(legalGetterInterceptors[i].InterfaceGetter.ToBuilderType).Call(legalGetterInterceptors[i].InterfaceGetter.OnExit);
                         }
+
+                        return x;
                     })
                     .EndTry()
                     .Return()
@@ -138,44 +147,45 @@ namespace Cauldron.Interception.Fody
 
             foreach (var ctor in relevantCtors)
             {
-                ctor.NewCode()
-                    .Context(x =>
+                ctor.NewCoder()
+                    .Context(context =>
                     {
                         for (int i = 0; i < legalInitInterceptors.Length; i++)
                         {
                             var item = legalInitInterceptors[i];
                             var field = interceptorFields[item.Attribute.Identification];
 
-                            x.Assign(field).NewObj(item.Attribute);
+                            context.SetValue(field, x => x.NewObj(item.Attribute));
 
                             if (item.HasSyncRootInterface)
-                                x.Load(field).As(__ISyncRoot.Type.Import()).Call(syncRoot.SyncRoot, member.SyncRoot);
+                                context.Load(field).As(__ISyncRoot.Type.Import()).Call(syncRoot.SyncRoot, member.SyncRoot);
 
                             if (item.HasComparer)
-                                x.Load(field).As(__IPropertyInterceptorComparer.Type.Import())
-                                    .Call(propertyInterceptorComparer.SetAreEqual,
-                                        x.NewCode().NewObj(propertyInterceptorFunc, propertyComparer));
+                                context.Load(field).As(__IPropertyInterceptorComparer.Type.Import())
+                                    .Call(propertyInterceptorComparer.SetAreEqual, x => x.NewObj(propertyInterceptorFunc, propertyComparer));
 
-                            ImplementAssignMethodAttribute(builder, legalInitInterceptors[i].AssignMethodAttributeInfos, field, item.Attribute.Attribute.Type, x);
+                            ImplementAssignMethodAttribute(builder, legalInitInterceptors[i].AssignMethodAttributeInfos, field, item.Attribute.Attribute.Type, context);
                         }
 
-                        x.Assign(propertyField)
-                                .NewObj(propertyInterceptionInfo.Ctor,
+                        context.SetValue(propertyField, x =>
+                                x.NewObj(propertyInterceptionInfo.Ctor,
                                     member.Property.Getter,
                                     member.Property.Setter,
                                     member.Property.Name,
                                     member.Property.ReturnType,
-                                    Crumb.This,
+                                    CodeBlocks.This,
                                     member.Property.ReturnType.IsArray || member.Property.ReturnType.Implements(typeof(IEnumerable)) ? member.Property.ReturnType.ChildType : null,
-                                    propertySetter == null ? null : x.NewCode().NewObj(actionObjectCtor, propertySetter));
+                                    propertySetter == null ? null : x.NewCoder().NewObj(actionObjectCtor, propertySetter)));
 
                         for (int i = 0; i < legalInitInterceptors.Length; i++)
                         {
                             var item = legalInitInterceptors[i];
                             var field = interceptorFields[item.Attribute.Identification];
-                            x.Load(field).As(item.InterfaceInitializer.ToBuilderType)
+                            context.Load(field).As(item.InterfaceInitializer.ToBuilderType)
                                 .Call(item.InterfaceInitializer.OnInitialize, propertyField, member.Property.BackingField);
                         }
+
+                        return context;
                     })
                     .Insert(InsertionPosition.Beginning);
             }
@@ -199,81 +209,94 @@ namespace Cauldron.Interception.Fody
                     .Import();
 
             member.Property.Setter
-                .NewCode()
-                    .Context(x =>
+                .NewCoder()
+                    .Context(context =>
                     {
                         if (member.HasInitializer)
-                            return;
+                            return context;
 
                         for (int i = 0; i < legalSetterInterceptors.Length; i++)
                         {
                             var item = legalSetterInterceptors[i];
                             var field = interceptorFields[item.Attribute.Identification];
-                            x.Load(field).IsNull().Then(y =>
-                            {
-                                y.Assign(field).NewObj(item.Attribute);
+                            context.If(x => x.Load(field).IsNull(), then =>
+                             {
+                                 then.SetValue(field, x => x.NewObj(item.Attribute));
 
-                                if (item.HasSyncRootInterface)
-                                    y.Load(field).As(syncRoot.ToBuilderType.Import()).Call(syncRoot.SyncRoot, member.SyncRoot);
+                                 if (item.HasSyncRootInterface)
+                                     then.Load(field).As(syncRoot.ToBuilderType.Import()).Call(syncRoot.SyncRoot, member.SyncRoot);
 
-                                if (item.HasComparer)
-                                    x.Load(field).As(__IPropertyInterceptorComparer.Type.Import())
-                                        .Call(propertyInterceptorComparer.SetAreEqual,
-                                            x.NewCode().NewObj(propertyInterceptorFunc, propertyComparer));
+                                 if (item.HasComparer)
+                                     then.Load(field).As(__IPropertyInterceptorComparer.Type.Import())
+                                         .Call(propertyInterceptorComparer.SetAreEqual,
+                                             x => x.NewObj(propertyInterceptorFunc, propertyComparer));
 
-                                ImplementAssignMethodAttribute(builder, legalSetterInterceptors[i].AssignMethodAttributeInfos, field, item.Attribute.Attribute.Type, y);
-                            });
+                                 ImplementAssignMethodAttribute(builder, legalSetterInterceptors[i].AssignMethodAttributeInfos, field, item.Attribute.Attribute.Type, then);
+
+                                 return then;
+                             });
                             item.Attribute.Remove();
                         }
 
-                        x.Load(propertyField).IsNull().Then(y =>
-                            y.Assign(propertyField)
-                                .NewObj(propertyInterceptionInfo.Ctor,
-                                    member.Property.Getter,
-                                    member.Property.Setter,
-                                    member.Property.Name,
-                                    member.Property.ReturnType,
-                                    Crumb.This,
-                                    member.Property.ReturnType.IsArray || member.Property.ReturnType.Implements(typeof(IEnumerable)) ? member.Property.ReturnType.ChildType : null,
-                                    propertySetter == null ? null : y.NewCode().NewObj(actionObjectCtor, propertySetter)));
+                        return context.If(x => x.Load(propertyField).IsNull(), then =>
+                             then.SetValue(propertyField, x =>
+                                 x.NewObj(propertyInterceptionInfo.Ctor,
+                                     member.Property.Getter,
+                                     member.Property.Setter,
+                                     member.Property.Name,
+                                     member.Property.ReturnType,
+                                     CodeBlocks.This,
+                                     member.Property.ReturnType.IsArray || member.Property.ReturnType.Implements(typeof(IEnumerable)) ? member.Property.ReturnType.ChildType : null,
+                                     propertySetter == null ? null : x.NewCoder().NewObj(actionObjectCtor, propertySetter))));
                     })
-                    .Try(x =>
+                    .Try(@try =>
                     {
                         if (member.Property.BackingField == null)
                         {
-                            var oldvalue = member.Property.Getter == null ? null : x.CreateVariable(member.Property.ReturnType);
+                            // If we don't have a backing field, we will try getting the value from the
+                            // getter itself... But in this case we have to watch out that we don't accidentally code a
+                            // StackOverFlow
+                            var oldvalue = member.Property.Getter == null ? null : member.Property.Setter.GetOrCreateVariable(member.Property.ReturnType);
 
                             if (oldvalue != null)
                             {
                                 var getter = member.Property.Getter.Copy();
-                                x.Call(getter.IsStatic ? null : Crumb.This, getter).StoreLocal(oldvalue);
+                                @try.SetValue(oldvalue, y => y.Call(getter));
                             }
 
                             for (int i = 0; i < legalSetterInterceptors.Length; i++)
                             {
                                 var item = legalSetterInterceptors[i];
                                 var field = interceptorFields[item.Attribute.Identification];
-                                x.Load(field).As(legalSetterInterceptors[i].InterfaceSetter.ToBuilderType).Call(item.InterfaceSetter.OnSet, propertyField, oldvalue, Crumb.GetParameter(0));
-
-                                x.IsFalse().Then(y => y.OriginalBodyNewMethod());
+                                @try.If(x =>
+                                   x.Load(field)
+                                       .As(legalSetterInterceptors[i].InterfaceSetter.ToBuilderType)
+                                       .Call(item.InterfaceSetter.OnSet, propertyField, oldvalue, CodeBlocks.GetParameter(0))
+                                       .Is(false), then => then.OriginalBody(true));
                             }
                         }
                         else
                         {
-                            x.And(legalSetterInterceptors,
+                            @try.If(x => x.And(legalSetterInterceptors,
                                 (coder, item, i) => coder.Load(interceptorFields[item.Attribute.Identification])
                                         .As(legalSetterInterceptors[i].InterfaceSetter.ToBuilderType)
-                                        .Call(item.InterfaceSetter.OnSet, propertyField, member.Property.BackingField, Crumb.GetParameter(0)));
-                            x.IsFalse().Then(y => y.OriginalBody());
+                                        .Call(item.InterfaceSetter.OnSet, propertyField, member.Property.BackingField, CodeBlocks.GetParameter(0)))
+                                            .Is(false),
+                                        then => then.OriginalBody());
                         }
+
+                        return @try;
                     })
-                    .Catch(typeof(Exception), x =>
+                    .Catch(typeof(Exception), (ex, e) =>
                     {
-                        x.Or(legalSetterInterceptors, (coder, y, i) => coder.Load(interceptorFields[legalSetterInterceptors[i].Attribute.Identification])
-                            .As(legalSetterInterceptors[i].InterfaceSetter.ToBuilderType)
-                            .Call(legalSetterInterceptors[i].InterfaceSetter.OnException, x.Exception));
-                        x.IsTrue().Then(y => x.Rethrow());
-                        x.Return();
+                        return ex.If(x => x.Or(legalSetterInterceptors,
+                            (coder, y, i) => coder.Load(interceptorFields[legalSetterInterceptors[i].Attribute.Identification])
+                                .As(legalSetterInterceptors[i].InterfaceSetter.ToBuilderType)
+                                .Call(legalSetterInterceptors[i].InterfaceSetter.OnException, e()))
+                                    .Is(true),
+                                then => ex.NewCoder().Rethrow())
+                        .DefaultValue()
+                        .Return();
                     })
                     .Finally(x =>
                     {
@@ -283,6 +306,8 @@ namespace Cauldron.Interception.Fody
                             var field = interceptorFields[item.Attribute.Identification];
                             x.Load(field).As(legalSetterInterceptors[i].InterfaceSetter.ToBuilderType).Call(legalSetterInterceptors[i].InterfaceSetter.OnExit);
                         }
+
+                        return x;
                     })
                     .EndTry()
                     .Return()
@@ -291,15 +316,15 @@ namespace Cauldron.Interception.Fody
 
         private static void CreateEqualityComparerDelegate(Builder builder, Method equalityComparerMethod, BuilderType propertyType)
         {
-            var coder = equalityComparerMethod.NewCode();
+            var coder = equalityComparerMethod.NewCoder();
 
             if (propertyType.IsValueType || propertyType.IsPrimitive)
-                coder.AreEqual(propertyType, Crumb.GetParameter(0), Crumb.GetParameter(1)).Return();
+                coder.If(x => x.Load(CodeBlocks.GetParameter(0)).Is(CodeBlocks.GetParameter(1)), then => then.Return());
             else
             {
                 var methodReferenceEqual = builder.GetType("System.Object").GetMethod("ReferenceEquals", false, "System.Object", "System.Object").Import();
-                coder.Call(methodReferenceEqual, Crumb.GetParameter(0), Crumb.GetParameter(1)).IsTrue().Then(x => x.Load(true).Return());
-                coder.AreEqual(propertyType, Crumb.GetParameter(0), Crumb.GetParameter(1)).Return();
+                coder.If(x => x.Call(methodReferenceEqual, CodeBlocks.GetParameter(0), CodeBlocks.GetParameter(1)).Is(true), then => then.Load(true).Return());
+                coder.If(x => x.Load(CodeBlocks.GetParameter(0)).Is(CodeBlocks.GetParameter(1)), then => then.Return());
             }
 
             coder.Replace();
@@ -317,88 +342,119 @@ namespace Cauldron.Interception.Fody
                 var getter = member.Property.Getter.Copy();
                 var setter = member.Property.Setter.Copy();
 
-                CreateSetterDelegate(builder, propertySetter, member.Property.ReturnType,
-                    x => x.Call(getter.IsStatic ? null : Crumb.This, getter),
-                    (coder, value) => coder.Call(setter.IsStatic ? null : Crumb.This, setter, value()));
+                CreateSetterDelegate(builder, propertySetter, member.Property.ReturnType, member.Property);
             }
             else if (member.Property.BackingField != null && !member.Property.BackingField.FieldType.IsGenericType)
             {
-                CreateSetterDelegate(builder, propertySetter, member.Property.BackingField.FieldType,
-                    x => x.Load(member.Property.BackingField) as ICode,
-                    (coder, value) => coder.Assign(member.Property.BackingField).Set(value()));
+                CreateSetterDelegate(builder, propertySetter, member.Property.BackingField.FieldType, member.Property.BackingField);
             }
             else if (member.Property.BackingField == null && member.Property.Setter != null)
             {
                 var methodSetter = member.Property.Setter.Copy();
-                propertySetter.NewCode().Call(methodSetter.IsStatic ? null : Crumb.This, methodSetter, Crumb.GetParameter(0)).Return().Replace();
+                propertySetter.NewCoder().Call(methodSetter, CodeBlocks.GetParameter(0)).Return().Replace();
             }
             else if (member.Property.BackingField == null && member.Property.Getter != null)
             {
                 // This shouldn't be a thing
             }
             else
-                propertySetter.NewCode().Assign(member.Property.BackingField).Set(Crumb.GetParameter(0)).Return().Replace();
+                propertySetter.NewCoder().SetValue(member.Property.BackingField, CodeBlocks.GetParameter(0)).Return().Replace();
         }
 
-        private static void CreateSetterDelegate(Builder builder, Method setterDelegateMethod, BuilderType propertyType,
-                    Func<ICode, ICode> loadValue, Func<ICode, Func<object>, ICode> setValue)
+        private static void CreateSetterDelegate(Builder builder, Method setterDelegateMethod, BuilderType propertyType, object value)
         {
             var extensions = new __Extensions();
             var iList = new __IList();
-            var setterCode = setterDelegateMethod.NewCode();
+            var setterCode = setterDelegateMethod.NewCoder();
+
+            T CodeMe<T>(Func<Field, T> fieldCode, Func<Property, T> propertyCode) where T : class
+            {
+                switch (value)
+                {
+                    case Field field: return fieldCode(field);
+                    case Property property: return propertyCode(property);
+                    default: return null;
+                }
+            }
 
             if (propertyType.ParameterlessContructor != null && propertyType.ParameterlessContructor.IsPublic)
-                loadValue(setterCode).IsNull().Then(y => setValue(y, () => setterCode.NewCode().NewObj(propertyType.ParameterlessContructor)));
+                CodeMe(
+                    field => setterCode.If(x => x.Load(field).IsNull(), then => then.SetValue(field, x => x.NewObj(propertyType.ParameterlessContructor))),
+                    property => setterCode.If(x => x.Call(property.Getter).IsNull(), then => then.Call(property.Setter, x => x.NewObj(propertyType.ParameterlessContructor))));
 
             // Only this if the property implements idisposable
             if (propertyType.Implements(typeof(IDisposable)))
-                setterCode.Call(extensions.TryDisposeInternal, loadValue(setterCode.NewCode()));
+                CodeMe(
+                    field => setterCode.Call(extensions.TryDisposeInternal, x => x.Load(field)),
+                    property => setterCode.Call(extensions.TryDisposeInternal, x => x.Call(property.Getter)));
 
-            setterCode.Load(Crumb.GetParameter(0)).IsNull().Then(x =>
+            setterCode.If(x => x.Load(CodeBlocks.GetParameter(0)).IsNull(), then =>
             {
                 // Just clear if its clearable
                 if (propertyType.Implements(__IList.Type.Fullname))
-                    loadValue(x).Callvirt(iList.Clear).Return();
+                    CodeMe(
+                        field => setterCode.Load(field).Call(iList.Clear).Return(),
+                        property => setterCode.Call(property.Getter).Call(iList.Clear).Return());
                 // Otherwise if the property is not a value type and nullable
                 else if (!propertyType.IsValueType || propertyType.IsNullable || propertyType.IsArray)
-                    setValue(x, () => null).Return();
+                    CodeMe<CoderBase>(
+                        field => setterCode.SetValue(field, null),
+                        property => setterCode.Call(property.Setter, null));
                 else // otherwise... throw an exception
-                    x.ThrowNew(typeof(NotSupportedException), "Value types does not accept null values.");
+                    then.ThrowNew(typeof(NotSupportedException), "Value types does not accept null values.");
+
+                return then;
             });
 
             if (propertyType.IsArray)
-                setterCode.Load(Crumb.GetParameter(0)).Is(typeof(IEnumerable))
-                    .Then(x => setValue(x, () => Crumb.GetParameter(0)).Return())
-                    .ThrowNew(typeof(NotSupportedException), "Value does not inherits from IEnumerable");
+                setterCode.If(x => x.Load(CodeBlocks.GetParameter(0)).Is(typeof(IEnumerable)), then =>
+                   CodeMe(
+                       field => then.SetValue(field, CodeBlocks.GetParameter(0)).Return(),
+                       property => then.Call(property.Setter, CodeBlocks.GetParameter(0)).Return()))
+                   .ThrowNew(typeof(NotSupportedException), "Value does not inherits from IEnumerable");
             else if (propertyType.Implements(__IList.Type.Fullname) && propertyType.ParameterlessContructor != null)
             {
                 var addRange = propertyType.GetMethod("AddRange", 1, false);
                 if (addRange == null)
                 {
                     var add = propertyType.GetMethod("Add", 1);
-                    var array = setterCode.CreateVariable(propertyType.ChildType.MakeArray());
-                    setterCode.Assign(array).Set(Crumb.GetParameter(0));
-                    setterCode.For(array, (x, item) => loadValue(x).Callvirt(add, item));
+                    var array = setterDelegateMethod.GetOrCreateVariable(propertyType.ChildType.MakeArray());
+                    setterCode.SetValue(array, CodeBlocks.GetParameter(0));
+                    setterCode.For(array, (x, item) => CodeMe(
+                        field => x.Load(field).Call(add, item),
+                        property => x.Call(property.Getter).Call(add, item)));
                     if (!add.ReturnType.IsVoid)
                         setterCode.Pop();
                 }
                 else
-                    loadValue(setterCode).Callvirt(addRange, Crumb.GetParameter(0));
+                    CodeMe(
+                        field => setterCode.Load(field).Call(addRange, CodeBlocks.GetParameter(0)),
+                        property => setterCode.Call(property.Getter).Call(addRange, CodeBlocks.GetParameter(0)));
             }
             else if (propertyType.IsEnum)
             {
                 // Enums requires special threatment
-                setterCode.Load(Crumb.GetParameter(0)).Is(typeof(string)).Then(x =>
-                {
-                    var stringVariable = setterCode.CreateVariable(typeof(string));
-                    setterCode.Assign(stringVariable).Set(Crumb.GetParameter(0));
-                    setValue(setterCode, () => stringVariable).Return();
-                });
+                setterCode.If(x => CodeMe(
+                    field => x.Load(field).Is(typeof(string)),
+                    property => x.Call(property.Getter).Is(typeof(string))),
+                    then =>
+                    {
+                        var stringVariable = setterDelegateMethod.GetOrCreateVariable(typeof(string));
+                        then.SetValue(stringVariable, CodeBlocks.GetParameter(0));
+                        CodeMe( // Cecilator automagically implements a convertion for this
+                            field => then.SetValue(field, stringVariable).Return(),
+                            property => then.Call(property.Setter, stringVariable).Return());
+                        return then;
+                    });
 
-                setValue(setterCode, () => Crumb.GetParameter(0));
+                CodeMe<CoderBase>(
+                    field => setterCode.SetValue(field, CodeBlocks.GetParameter(0)),
+                    property => setterCode.Call(property.Setter, CodeBlocks.GetParameter(0)));
             }
             else
-                setValue(setterCode, () => Crumb.GetParameter(0));
+                CodeMe<CoderBase>(
+                    field => setterCode.SetValue(field, CodeBlocks.GetParameter(0)),
+                    property => setterCode.Call(property.Setter, CodeBlocks.GetParameter(0)));
 
             setterCode.Return().Replace();
         }
@@ -415,7 +471,7 @@ namespace Cauldron.Interception.Fody
                     .GroupBy(x => x.Type)
                     .Select(x => new
                     {
-                        Key = x.Key,
+                        x.Key,
                         Item = x.ToArray()
                     })
                     .ToArray();
@@ -518,12 +574,12 @@ namespace Cauldron.Interception.Fody
                     if (member.RequiresSyncRootField)
                     {
                         if (member.SyncRoot.IsStatic)
-                            member.Property.OriginType.CreateStaticConstructor().NewCode()
-                                .Assign(member.SyncRoot).NewObj(builder.GetType(typeof(object)).Import().ParameterlessContructor)
+                            member.Property.OriginType.CreateStaticConstructor().NewCoder()
+                                .SetValue(member.SyncRoot, x => x.NewObj(builder.GetType(typeof(object)).Import().ParameterlessContructor))
                                 .Insert(InsertionPosition.Beginning);
                         else
                             foreach (var ctors in member.Property.OriginType.GetRelevantConstructors().Where(x => x.Name == ".ctor"))
-                                ctors.NewCode().Assign(member.SyncRoot).NewObj(builder.GetType(typeof(object)).Import().ParameterlessContructor).Insert(InsertionPosition.Beginning);
+                                ctors.NewCoder().SetValue(member.SyncRoot, x => x.NewObj(builder.GetType(typeof(object)).Import().ParameterlessContructor)).Insert(InsertionPosition.Beginning);
                     }
 
                     // Also remove the compilergenerated attribute

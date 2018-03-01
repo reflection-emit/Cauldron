@@ -76,8 +76,6 @@ namespace Cauldron.Interception.Cecilator
 
         public bool IsAsync => this.methodDefinition.ReturnType.FullName.EqualsEx("System.Threading.Tasks.Task") || (this.methodDefinition.ReturnType.Resolve()?.FullName.EqualsEx("System.Threading.Tasks.Task`1") ?? false);
 
-        public bool IsCCtor => this.methodDefinition.Name == ".cctor";
-
         /// <summary>
         /// True if the method is a .ctor or .cctor
         /// </summary>
@@ -111,7 +109,6 @@ namespace Cauldron.Interception.Cecilator
                     this.type.typeDefinition.FullName.IndexOf('<') >= 0 ||
                     this.type.typeDefinition.FullName.IndexOf('>') >= 0;
 
-        public bool IsInternal => this.methodDefinition.Attributes.HasFlag(MethodAttributes.Assembly);
         public bool IsPropertyGetterSetter => (this.methodDefinition.Name.StartsWith("get_") || this.methodDefinition.Name.StartsWith("set_")) && this.methodDefinition.IsSpecialName;
         public bool IsProtected => this.methodDefinition.Attributes.HasFlag(MethodAttributes.Family);
         public bool IsPublicOrInternal => this.IsPublic || this.IsInternal;
@@ -137,6 +134,8 @@ namespace Cauldron.Interception.Cecilator
         public BuilderType DeclaringType => new BuilderType(this.type.Builder, this.methodReference.DeclaringType);
 
         public bool IsAbstract => this.methodDefinition.IsAbstract;
+        public bool IsCCtor => this.methodDefinition.Name == ".cctor";
+        public bool IsInternal => this.methodDefinition.Attributes.HasFlag(MethodAttributes.Assembly);
         public bool IsPrivate => this.methodDefinition.IsPrivate;
         public bool IsPublic => this.methodDefinition.IsPublic;
         public bool IsSpecialName => this.methodDefinition.IsSpecialName;
@@ -153,7 +152,7 @@ namespace Cauldron.Interception.Cecilator
 
         public BuilderType ReturnType => new BuilderType(this.type, this.methodReference.ReturnType);
 
-        public Method Copy() => this.NewCode().Copy(Modifiers.Private, $"<{this.Name}>m__original");
+        public Method Copy() => this.NewCoder().Copy(Modifiers.Private, $"<{this.Name}>m__original");
 
         public Field CreateField(Type fieldType, string name) =>
             this.CreateField(this.moduleDefinition.ImportReference(fieldType.GetTypeDefinition().ResolveType(this.OriginType.typeReference)), name);
@@ -222,7 +221,7 @@ namespace Cauldron.Interception.Cecilator
                 var existingVariable = this.GetVariable(name);
 
                 if (existingVariable != null)
-                    return new LocalVariable(this.type, existingVariable, name);
+                    return new LocalVariable(this.type, existingVariable.variable, name);
             }
 
             var newVariable = new VariableDefinition(this.moduleDefinition.ImportReference(type));
@@ -242,7 +241,16 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
-        public VariableDefinition GetVariable(string name)
+        public LocalVariable GetVariable(int index)
+        {
+            if (this.methodDefinition.Body.Variables.Count < index)
+                throw new ArgumentException($"Variable with the index {index} does not exist.");
+
+            var variable = this.methodDefinition.Body.Variables[index];
+            return new LocalVariable(variable.VariableType.ToBuilderType(), variable);
+        }
+
+        public LocalVariable GetVariable(string name)
         {
             if (this.methodDefinition.DebugInformation.Scope == null)
                 this.methodDefinition.DebugInformation.Scope = new ScopeDebugInformation(this.methodDefinition.Body.Instructions.First(), this.methodDefinition.Body.Instructions.Last());
@@ -250,7 +258,10 @@ namespace Cauldron.Interception.Cecilator
             var variableIndex = this.methodDefinition.DebugInformation.Scope.Variables?.FirstOrDefault(x => x.Name == name)?.Index;
 
             if (variableIndex.HasValue)
-                return this.methodDefinition.Body.Variables[variableIndex.Value];
+            {
+                var result = this.methodDefinition.Body.Variables[variableIndex.Value];
+                return new LocalVariable(result.VariableType.ToBuilderType(), result);
+            }
 
             return null;
         }
@@ -328,7 +339,7 @@ namespace Cauldron.Interception.Cecilator
                 return new Method(this.type.Builder, this.methodDefinition.MakeGeneric(null, types.Select(x => this.moduleDefinition.ImportReference(this.type.Builder.GetType(x).typeReference)).ToArray()), this.methodDefinition);
         }
 
-        public ICode NewCode() => new InstructionsSet(this.type, this);
+        //public ICode NewCode() => new InstructionsSet(this.type, this);
 
         public void Overrides(Method method) => this.methodDefinition.Overrides.Add(method.methodReference);
 

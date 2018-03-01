@@ -15,14 +15,6 @@ namespace Cauldron.Interception.Fody
             ImplementAssignMethodAttribute(builder, assignMethodAttributeInfos,
                 x => coder.Load(interceptorInstance).As(contentType).SetValue(x.assignMethodAttributeInfo.AttributeField, y => y.NewObj(x.delegateCtor, x.method)));
 
-        public static void ImplementAssignMethodAttribute(Builder builder, AssignMethodAttributeInfo[] assignMethodAttributeInfos, Field interceptorInstance, BuilderType contentType, ICode coder) =>
-            ImplementAssignMethodAttribute(builder, assignMethodAttributeInfos,
-                x => coder.Assign(coder.NewCode().Load(interceptorInstance).As(contentType), x.assignMethodAttributeInfo.AttributeField.Import()).NewObj(x.delegateCtor, x.method));
-
-        public static void ImplementAssignMethodAttribute(Builder builder, AssignMethodAttributeInfo[] assignMethodAttributeInfos, LocalVariable interceptorInstance, BuilderType contentType, ICode coder) =>
-            ImplementAssignMethodAttribute(builder, assignMethodAttributeInfos,
-                x => coder.Assign(coder.NewCode().Load(interceptorInstance).As(contentType), x.assignMethodAttributeInfo.AttributeField.Import()).NewObj(x.delegateCtor, x.method));
-
         private static void ImplementAssignMethodAttribute(Builder builder, AssignMethodAttributeInfo[] assignMethodAttributeInfos,
                     Action<(Method delegateCtor, Method method, AssignMethodAttributeInfo assignMethodAttributeInfo)> @delegate)
         {

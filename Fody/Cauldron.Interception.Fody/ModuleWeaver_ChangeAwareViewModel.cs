@@ -1,4 +1,6 @@
 ﻿using Cauldron.Interception.Cecilator;
+using Cauldron.Interception.Cecilator.Coders;
+using Cauldron.Interception.Cecilator.Extensions;
 using Cauldron.Interception.Fody.HelperTypes;
 using System.Diagnostics;
 using System.Linq;
@@ -36,22 +38,22 @@ namespace Cauldron.Interception.Fody
                 if (method == null && getIsChangeChangedEvent != null && getIsChangeEvent != null)
                 {
                     method = vm.CreateMethod(Modifiers.Protected, "<>RaisePropertyChangedEventRaise", typeof(string), typeof(object), typeof(object));
-                    method.NewCode()
-                            .Load(Crumb.GetParameter(0)).EqualTo("IsChanged").Then(x =>
-                            {
-                                x.Load(getIsChangeChangedEvent).IsNotNull().Then(y =>
-                                    y.Callvirt(getIsChangeChangedEvent, eventHandler.Invoke, Crumb.This, y.NewCode().NewObj(eventHandler.EventArgs.Ctor)))
-                                        .Call(Crumb.This, viewModelInterface.RaisePropertyChanged, Crumb.GetParameter(0))
-                                        .Return();
-                            })
-                            .Load(getIsChangeEvent)
-                            .IsNotNull()
-                            .Then(x =>
-                            {
-                                x.Call(Crumb.This, viewModelInterface.RaisePropertyChanged, Crumb.GetParameter(0));
-                                x.Callvirt(eventHandlerGeneric.Invoke.MakeGeneric(changeAwareInterface.PropertyIsChangedEventArgs.ToBuilderType),
-                                    x.NewCode().Load(getIsChangeEvent), x.NewCode().NewObj(changeAwareInterface.PropertyIsChangedEventArgs.Ctor, Crumb.This, Crumb.GetParameter(0), Crumb.GetParameter(1), Crumb.GetParameter(2)));
-                            })
+                    method.NewCoder()
+                        .If(x => x.Load(CodeBlocks.GetParameter(0)).Is("IsChanged"), then =>
+
+                                  then.If(z => z.Load(getIsChangeChangedEvent).IsNotNull(), thenInner =>
+                                      thenInner.Load(getIsChangeChangedEvent).Call(eventHandler.Invoke, CodeBlocks.This, thenInner.NewCoder().NewObj(eventHandler.EventArgs.Ctor)))
+                                          .Call(viewModelInterface.RaisePropertyChanged, CodeBlocks.GetParameter(0))
+                                          .Return()
+                             )
+                        .If(x => x.Load(getIsChangeEvent).IsNotNull(), then =>
+
+                                 then.Call(viewModelInterface.RaisePropertyChanged, CodeBlocks.GetParameter(0))
+                                     .Call(eventHandlerGeneric.Invoke.MakeGeneric(changeAwareInterface.PropertyIsChangedEventArgs.ToBuilderType),
+                                     x => x.Load(getIsChangeEvent),
+                                     x => x.NewObj(changeAwareInterface.PropertyIsChangedEventArgs.Ctor, CodeBlocks.This, CodeBlocks.GetParameter(0), CodeBlocks.GetParameter(1), CodeBlocks.GetParameter(2)))
+
+                            )
                             .Return()
                             .Replace();
                     method.CustomAttributes.AddDebuggerBrowsableAttribute(DebuggerBrowsableState.Never);
@@ -68,8 +70,9 @@ namespace Cauldron.Interception.Fody
 
                 if (!raisePropertyChanged.IsAbstract && !raisePropertyChanged.HasMethodBaseCall())
                     raisePropertyChanged
-                        .NewCode()
-                        .Context(x => x.Call(Crumb.This, method, Crumb.GetParameter(0), Crumb.GetParameter(1), Crumb.GetParameter(2)))
+                        .NewCoder()
+                        .Call(method, CodeBlocks.GetParameter(0), CodeBlocks.GetParameter(1), CodeBlocks.GetParameter(2))
+                        .End
                         .Insert(InsertionPosition.Beginning);
 
                 // Repair IsChanged
@@ -79,10 +82,9 @@ namespace Cauldron.Interception.Fody
                 var isChangedSetter = vm.GetMethod("set_IsChanged", 1, false);
                 if (isChangedSetter != null)
                 {
-                    isChangedSetter.NewCode()
-                        .Call(Crumb.This, viewModelInterface.IsLoading)
-                        .IsTrue()
-                        .Then(x => x.Return())
+                    isChangedSetter.NewCoder()
+                        .If(x => x.Call(viewModelInterface.IsLoading).Is(true),
+                            then => then.Return())
                         .Insert(InsertionPosition.Beginning);
                 }
             }

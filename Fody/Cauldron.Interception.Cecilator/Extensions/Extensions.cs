@@ -244,5 +244,19 @@ namespace Cauldron.Interception.Cecilator.Extensions
 
             return result;
         }
+
+        internal static MethodAttributes ToMethodAttributes(this Modifiers modifier)
+        {
+            var attributes = MethodAttributes.CompilerControlled;
+
+            if (modifier.HasFlag(Modifiers.Private)) attributes |= MethodAttributes.Private;
+            if (modifier.HasFlag(Modifiers.Static)) attributes |= MethodAttributes.Static;
+            if (modifier.HasFlag(Modifiers.Public)) attributes |= MethodAttributes.Public;
+            if (modifier.HasFlag(Modifiers.Protected)) attributes |= MethodAttributes.Family;
+            if (modifier.HasFlag(Modifiers.Overrides)) attributes |= MethodAttributes.Final | MethodAttributes.Virtual | MethodAttributes.NewSlot;
+            if (modifier.HasFlag(Modifiers.Explicit)) attributes |= MethodAttributes.Final | MethodAttributes.Virtual | MethodAttributes.NewSlot | MethodAttributes.HideBySig | MethodAttributes.Private;
+
+            return attributes;
+        }
     }
 }

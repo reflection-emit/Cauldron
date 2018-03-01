@@ -37,6 +37,35 @@ namespace Cauldron.Interception.Cecilator.Coders
             return this;
         }
 
+        public Method Copy(Modifiers modifiers, string newName)
+        {
+            var method = this.instructions.associatedMethod.OriginType.typeDefinition.Methods.Get(newName);
+
+            if (method != null)
+                return new Method(this.instructions.associatedMethod.OriginType, method);
+
+            var attributes = modifiers.ToMethodAttributes();
+            method = new MethodDefinition(newName, attributes, this.instructions.associatedMethod.methodReference.ReturnType);
+
+            foreach (var item in this.instructions.associatedMethod.methodReference.Parameters)
+                method.Parameters.Add(item);
+
+            foreach (var item in this.instructions.associatedMethod.methodReference.GenericParameters)
+                method.GenericParameters.Add(item);
+
+            foreach (var item in this.instructions.associatedMethod.methodDefinition.Body.Variables)
+                method.Body.Variables.Add(new VariableDefinition(item.VariableType));
+
+            method.Body.InitLocals = this.instructions.associatedMethod.methodDefinition.Body.InitLocals;
+
+            this.instructions.associatedMethod.OriginType.typeDefinition.Methods.Add(method);
+            CopyMethod(method);
+
+            method.Body.OptimizeMacros();
+
+            return new Method(this.instructions.associatedMethod.OriginType, method);
+        }
+
         public Coder DefaultValue()
         {
             if (!this.instructions.associatedMethod.IsVoid)
@@ -49,6 +78,44 @@ namespace Cauldron.Interception.Cecilator.Coders
                        this.instructions.associatedMethod.ReturnType.GetGenericArgument(0) :
                        this.instructions.associatedMethod.ReturnType, defaultValue));
             }
+
+            return this;
+        }
+
+        public Coder For(LocalVariable array, Action<Coder, LocalVariable> action)
+        {
+            var item = this.instructions.associatedMethod.GetOrCreateVariable(array.Type.ChildType);
+            var indexer = this.instructions.associatedMethod.GetOrCreateVariable(typeof(int));
+            var lengthCheck = this.instructions.ilprocessor.Create(OpCodes.Ldloc, indexer.variable);
+
+            // var i = 0;
+            this.instructions.Emit(OpCodes.Ldc_I4_0);
+            this.instructions.Emit(OpCodes.Stloc, indexer.variable);
+            this.instructions.Emit(OpCodes.Br, lengthCheck);
+
+            var start = this.instructions.ilprocessor.Create(OpCodes.Nop);
+            this.instructions.Append(start);
+
+            this.instructions.Emit(OpCodes.Ldloc, array.variable);
+            this.instructions.Emit(OpCodes.Ldloc, indexer.variable);
+            this.instructions.Emit(OpCodes.Ldelem_Ref); // TODO - cases for primitiv types
+            this.instructions.Emit(OpCodes.Stloc, item.variable);
+
+            action(this, item);
+
+            // i++
+            this.instructions.Emit(OpCodes.Ldloc, indexer.variable);
+            this.instructions.Emit(OpCodes.Ldc_I4_1);
+            this.instructions.Emit(OpCodes.Add);
+            this.instructions.Emit(OpCodes.Stloc, indexer.variable);
+
+            // i < array.Length
+            this.instructions.Append(lengthCheck);
+            this.instructions.Emit(OpCodes.Ldloc, array.variable);
+            this.instructions.Emit(OpCodes.Ldlen);
+            this.instructions.Emit(OpCodes.Conv_I4);
+            this.instructions.Emit(OpCodes.Clt);
+            this.instructions.Emit(OpCodes.Brtrue, start);
 
             return this;
         }
@@ -75,13 +142,13 @@ namespace Cauldron.Interception.Cecilator.Coders
             }
 
             var variableName = "<>params_" + targetMethod.Identification;
-            var variableDef = targetMethod.GetVariable(variableName);
+            var variable = targetMethod.GetVariable(variableName);
 
-            if (variableDef == null)
+            if (variable == null)
             {
                 var objectArrayType = Builder.Current.GetType(typeof(object[]));
-                var variable = targetMethod.GetOrCreateVariable(objectArrayType, variableName);
                 var newBlock = this.instructions.Spawn();
+                variable = targetMethod.GetOrCreateVariable(objectArrayType, variableName);
 
                 newBlock.Emit(OpCodes.Ldc_I4, originMethod.methodReference.Parameters.Count);
                 newBlock.Emit(OpCodes.Newarr, (objectArrayType.typeReference as ArrayType).ElementType);
@@ -111,14 +178,17 @@ namespace Cauldron.Interception.Cecilator.Coders
             }
             else
             {
-                return new ParametersVariableCodeBlock(variableDef);
+                return new ParametersVariableCodeBlock(variable.variable);
             }
         }
 
         public bool HasReturnVariable() => this.instructions.associatedMethod.GetVariable(CodeBlocks.ReturnVariableName) != null;
 
-        public Coder OriginalBody()
+        public Coder OriginalBody(bool createNewMethod = false)
         {
+            if (createNewMethod)
+                return this.OriginalBodyNewMethod();
+
             var copiedInstructions = CopyMethodBody(this.instructions.associatedMethod.methodDefinition);
 
             // special case for .ctor
@@ -192,6 +262,79 @@ namespace Cauldron.Interception.Cecilator.Coders
                 else
                     methodInstructions[j.Key].Operand = methodInstructions[j.First().Index];
             }
+        }
+
+        private void CopyMethod(MethodDefinition method)
+        {
+            var methodProcessor = method.Body.GetILProcessor();
+            var (Instructions, Exceptions) = CopyMethodBody(this.instructions.associatedMethod.methodDefinition, this.instructions.associatedMethod.methodDefinition.Body.Variables);
+            methodProcessor.Append(Instructions);
+
+            foreach (var item in Exceptions)
+                method.Body.ExceptionHandlers.Add(item);
+        }
+
+        private (IEnumerable<Instruction> Instructions, IEnumerable<ExceptionHandler> Exceptions) CopyMethodBody(MethodDefinition originalMethod, IList<VariableDefinition> variableDefinition)
+        {
+            if (this.instructions.associatedMethod.IsAbstract)
+                throw new NotSupportedException("Interceptors does not support abstract methods.");
+
+            var methodProcessor = originalMethod.Body.GetILProcessor();
+            var resultingInstructions = new List<(Instruction Original, Instruction Target)>();
+            var exceptionList = new List<ExceptionHandler>();
+            var jumps = new List<(int CurrentIndex, int Index)>();
+
+            for (int i = 0; i < (originalMethod.Body?.Instructions.Count ?? 0); i++)
+            {
+                var item = originalMethod.Body.Instructions[i];
+
+                if (item.Operand is Instruction)
+                    resultingInstructions.Add((item, CreateInstruction(originalMethod.Body.Instructions, item, i, methodProcessor, ref jumps)));
+                else if (item.Operand is Instruction[])
+                {
+                    var instructions = item.Operand as Instruction[];
+                    var newInstructions = new Instruction[instructions.Length];
+                    for (int x = 0; x < instructions.Length; x++)
+                        newInstructions[x] = CreateInstruction(originalMethod.Body.Instructions, instructions[x], i, methodProcessor, ref jumps);
+
+                    var instruction = methodProcessor.Create(OpCodes.Nop);
+                    instruction.OpCode = item.OpCode;
+                    instruction.Operand = newInstructions;
+
+                    resultingInstructions.Add((item, instruction));
+                }
+                //else if (item.Operand is CallSite )
+                //    throw new NotImplementedException($"Unknown operand '{item.OpCode.ToString()}' '{item.Operand.GetType().FullName}'");
+                else
+                {
+                    var instruction = methodProcessor.Create(OpCodes.Nop);
+                    instruction.OpCode = item.OpCode;
+                    instruction.Operand = item.Operand;
+                    resultingInstructions.Add((item, instruction));
+
+                    // Set the correct variable def if required
+                    if (instruction.Operand is VariableDefinition variable)
+                        instruction.Operand = variableDefinition[variable.Index];
+                }
+            }
+
+            SetCorrectJumpPoints(jumps, resultingInstructions.Select(x => x.Target).ToList());
+            Instruction getInstruction(Instruction instruction) => instruction == null ? null : resultingInstructions.FirstOrDefault(x => x.Original.Offset == instruction.Offset).Target ?? null;
+
+            ExceptionHandler copyHandler(ExceptionHandler original) => new ExceptionHandler(original.HandlerType)
+            {
+                CatchType = original.CatchType,
+                FilterStart = getInstruction(original.FilterStart),
+                HandlerEnd = getInstruction(original.HandlerEnd),
+                HandlerStart = getInstruction(original.HandlerStart),
+                TryEnd = getInstruction(original.TryEnd),
+                TryStart = getInstruction(original.TryStart)
+            };
+
+            foreach (var item in originalMethod.Body.ExceptionHandlers)
+                exceptionList.Add(copyHandler(item));
+
+            return (resultingInstructions.Select(x => x.Target), exceptionList);
         }
 
         private InstructionBlock CopyMethodBody(MethodDefinition originalMethod)
@@ -289,6 +432,18 @@ namespace Cauldron.Interception.Cecilator.Coders
             }
         }
 
+        private Coder OriginalBodyNewMethod()
+        {
+            var newMethod = this.Copy(Modifiers.Private, $"<{this.instructions.associatedMethod.Name}>m__original");
+
+            for (int i = 0; i < this.instructions.associatedMethod.Parameters.Length + (this.instructions.associatedMethod.IsStatic ? 0 : 1); i++)
+                this.instructions.Append(this.instructions.ilprocessor.Create(OpCodes.Ldarg, i));
+
+            this.instructions.Emit(OpCodes.Call, newMethod.Import());
+
+            return this;
+        }
+
         #region Exit Operators
 
         public Coder Return()
@@ -327,6 +482,12 @@ namespace Cauldron.Interception.Cecilator.Coders
         {
             this.NewObj(attributedMethod.customAttribute);
             return new CallCoder(this, attributedMethod.Attribute.Type);
+        }
+
+        public CallCoder NewObj(AttributedProperty attributedProperty)
+        {
+            this.NewObj(attributedProperty.customAttribute);
+            return new CallCoder(this, attributedProperty.Attribute.Type);
         }
 
         public CallCoder NewObj(Method method) => this.NewObj(method, new object[0]);
@@ -473,12 +634,12 @@ namespace Cauldron.Interception.Cecilator.Coders
         /// </summary>
         /// <param name="coder">The coder to use.</param>
         /// <returns>A return variable.</returns>
-        public VariableDefinition GetOrCreateReturnVariable()
+        public LocalVariable GetOrCreateReturnVariable()
         {
-            var variable = this.instructions.associatedMethod.GetVariable(CodeBlocks.ReturnVariableName);
+            var result = this.instructions.associatedMethod.GetVariable(CodeBlocks.ReturnVariableName);
 
-            if (variable != null)
-                return variable;
+            if (result != null)
+                return result;
 
             if (this.instructions.associatedMethod.methodDefinition.Body.Instructions.Count > 1)
             {
@@ -486,10 +647,12 @@ namespace Cauldron.Interception.Cecilator.Coders
 
                 if (lastOpCode.IsLoadLocal())
                 {
+                    VariableDefinition variable = null;
+
                     if (lastOpCode.Operand is int index && this.instructions.associatedMethod.methodDefinition.Body.Variables.Count > index)
                         variable = this.instructions.associatedMethod.methodDefinition.Body.Variables[index];
 
-                    if (variable == null && lastOpCode.Operand is VariableDefinition variableReference)
+                    if (result == null && lastOpCode.Operand is VariableDefinition variableReference)
                         variable = variableReference;
 
                     if (variable == null)
@@ -501,12 +664,13 @@ namespace Cauldron.Interception.Cecilator.Coders
                     if (variable != null)
                     {
                         this.instructions.associatedMethod.AddLocalVariable(CodeBlocks.ReturnVariableName, variable);
-                        return variable;
+                        return new LocalVariable(variable.VariableType.ToBuilderType(), variable);
                     }
                 }
             }
 
-            return this.instructions.associatedMethod.AddLocalVariable(CodeBlocks.ReturnVariableName, new VariableDefinition(this.instructions.associatedMethod.ReturnType.typeReference));
+            return this.instructions.associatedMethod.AddLocalVariable(CodeBlocks.ReturnVariableName, new VariableDefinition(this.instructions.associatedMethod.ReturnType.typeReference))
+                .With(x => new LocalVariable(x.VariableType.ToBuilderType(), x));
         }
 
         #endregion Special coder stuff
@@ -788,7 +952,7 @@ namespace Cauldron.Interception.Cecilator.Coders
                                     (returnVariable.Index == 2 && previousInstruction.OpCode == OpCodes.Ldloc_2) ||
                                     (returnVariable.Index == 3 && previousInstruction.OpCode == OpCodes.Ldloc_3) ||
                                     (previousInstruction.OpCode == OpCodes.Ldloc_S && returnVariable.Index == (int)previousInstruction.Operand) ||
-                                    (returnVariable == previousInstruction.Operand as VariableDefinition)
+                                    (returnVariable.variable == previousInstruction.Operand as VariableDefinition)
                                     )
                                 {
                                     ReplaceJumps(coder.instructions.associatedMethod, previousInstruction, instruction);
@@ -808,7 +972,7 @@ namespace Cauldron.Interception.Cecilator.Coders
                                     (returnVariable.Index == 2 && previousInstruction.OpCode == OpCodes.Stloc_2) ||
                                     (returnVariable.Index == 3 && previousInstruction.OpCode == OpCodes.Stloc_3) ||
                                     (previousInstruction.OpCode == OpCodes.Stloc_S && returnVariable.Index == (int)previousInstruction.Operand) ||
-                                    (returnVariable == previousInstruction.Operand as VariableDefinition)
+                                    (returnVariable.variable == previousInstruction.Operand as VariableDefinition)
                                     )
                                     continue; // Just continue and do not add an additional store opcode
                             }

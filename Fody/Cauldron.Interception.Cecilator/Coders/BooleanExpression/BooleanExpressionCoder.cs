@@ -78,6 +78,12 @@ namespace Cauldron.Interception.Cecilator.Coders
             return new BooleanExpressionCallCoder(this, attributedMethod.Attribute.Type);
         }
 
+        public BooleanExpressionCallCoder NewObj(AttributedProperty attributedProperty)
+        {
+            this.NewObj(attributedProperty.customAttribute);
+            return new BooleanExpressionCallCoder(this, attributedProperty.Attribute.Type);
+        }
+
         public BooleanExpressionCallCoder NewObj(Method method, params Func<Coder, object>[] parameters) => this.NewObj(method, this.CreateParameters(parameters));
 
         #endregion NewObj Methods
@@ -146,5 +152,41 @@ namespace Cauldron.Interception.Cecilator.Coders
         }
 
         #endregion Casting Operations
+
+        public BooleanExpressionCoder And<T>(T[] collection, Func<BooleanExpressionCoder, T, int, object> code)
+        {
+            if (collection == null || collection.Length == 0)
+                return this;
+
+            code(this, collection[0], 0);
+            InstructionBlock.CastOrBoxValues(this.instructions, BuilderType.Boolean);
+
+            for (int i = 1; i < collection.Length; i++)
+            {
+                code(this, collection[i], i);
+                InstructionBlock.CastOrBoxValues(this.instructions, BuilderType.Boolean);
+                this.instructions.Emit(OpCodes.And);
+            }
+
+            return this;
+        }
+
+        public BooleanExpressionCoder Or<T>(T[] collection, Func<BooleanExpressionCoder, T, int, object> code)
+        {
+            if (collection == null || collection.Length == 0)
+                return this;
+
+            code(this, collection[0], 0);
+            InstructionBlock.CastOrBoxValues(this.instructions, BuilderType.Boolean);
+
+            for (int i = 1; i < collection.Length; i++)
+            {
+                code(this, collection[i], i);
+                InstructionBlock.CastOrBoxValues(this.instructions, BuilderType.Boolean);
+                this.instructions.Emit(OpCodes.Or);
+            }
+
+            return this;
+        }
     }
 }

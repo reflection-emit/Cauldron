@@ -1,4 +1,5 @@
-﻿using Cauldron.Interception.Cecilator.Extensions;
+﻿using Cauldron.Interception.Cecilator.Coders;
+using Cauldron.Interception.Cecilator.Extensions;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
 using System;
@@ -30,28 +31,22 @@ namespace Cauldron.Interception.Cecilator
 
         public BuilderCustomAttributeCollection CustomAttributes => new BuilderCustomAttributeCollection(this.type.Builder, this.propertyDefinition);
 
-        /// <summary>
-        /// Gets the type that contains the property.
-        /// </summary>
-        public BuilderType DeclaringType => new BuilderType(this.type.Builder, this.propertyDefinition.DeclaringType);
-
         public string Fullname => this.propertyDefinition.FullName;
-        public Method Getter { get; private set; }
 
-        public bool IsAbstract => this.propertyDefinition.GetMethod?.IsAbstract ?? false | this.propertyDefinition.SetMethod?.IsAbstract ?? false;
+        public Method Getter { get; private set; }
 
         public bool IsAutoProperty => (this.propertyDefinition.GetMethod ?? this.propertyDefinition.SetMethod).CustomAttributes.Get("CompilerGeneratedAttribute") != null;
 
         public bool IsGenerated => this.propertyDefinition.Name.IndexOf('<') >= 0 ||
-                            this.propertyDefinition.Name.IndexOf('>') >= 0 ||
-                            this.type.typeDefinition.FullName.IndexOf('<') >= 0 ||
-                            this.type.typeDefinition.FullName.IndexOf('>') >= 0;
+                                    this.propertyDefinition.Name.IndexOf('>') >= 0 ||
+                                    this.type.typeDefinition.FullName.IndexOf('<') >= 0 ||
+                                    this.type.typeDefinition.FullName.IndexOf('>') >= 0;
 
         public bool IsInternal => GetAttributes().HasFlag(MethodAttributes.Assembly);
+
         public bool IsPrivate => GetAttributes().HasFlag(MethodAttributes.Private);
+
         public bool IsProtected => GetAttributes().HasFlag(MethodAttributes.Family);
-        public bool IsPublic => this.Getter?.IsPublic ?? false | this.Setter?.IsPublic ?? false;
-        public bool IsStatic => this.propertyDefinition.GetMethod?.IsStatic ?? false | this.propertyDefinition.SetMethod?.IsStatic ?? false;
 
         public Modifiers Modifiers
         {
@@ -84,8 +79,6 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
-        public string Name => this.propertyDefinition.Name;
-
         /// <summary>
         /// Gets the type that inherited the property.
         /// </summary>
@@ -106,6 +99,16 @@ namespace Cauldron.Interception.Cecilator
 
         public Method Setter { get; private set; }
 
+        /// <summary>
+        /// Gets the type that contains the property.
+        /// </summary>
+        public BuilderType DeclaringType => new BuilderType(this.type.Builder, this.propertyDefinition.DeclaringType);
+
+        public bool IsAbstract => this.propertyDefinition.GetMethod?.IsAbstract ?? false | this.propertyDefinition.SetMethod?.IsAbstract ?? false;
+        public bool IsPublic => this.Getter?.IsPublic ?? false | this.Setter?.IsPublic ?? false;
+        public bool IsStatic => this.propertyDefinition.GetMethod?.IsStatic ?? false | this.propertyDefinition.SetMethod?.IsStatic ?? false;
+        public string Name => this.propertyDefinition.Name;
+
         public void AddSetter()
         {
             this.propertyDefinition.SetMethod = new MethodDefinition("set_" + this.Name, this.propertyDefinition.GetMethod.Attributes, this.moduleDefinition.TypeSystem.Void);
@@ -113,7 +116,7 @@ namespace Cauldron.Interception.Cecilator
             this.type.typeDefinition.Methods.Add(this.propertyDefinition.SetMethod);
 
             this.Setter = new Method(this.type, this.propertyDefinition.SetMethod);
-            this.Setter.NewCode().Assign(this.BackingField).Set(Crumb.GetParameter(0)).Replace();
+            this.Setter.NewCoder().SetValue(this.BackingField, CodeBlocks.GetParameter(0)).Return().Replace();
         }
 
         public Field CreateField(Type fieldType, string name)

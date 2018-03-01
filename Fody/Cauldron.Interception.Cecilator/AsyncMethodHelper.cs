@@ -139,9 +139,9 @@ namespace Cauldron.Interception.Cecilator
             var position = this.GetAsyncTaskMethodBuilderInitialization();
 
             if (position == null)
-                this.method.NewCode().LoadVariable(0).Assign(thisField).Set(Crumb.This).Insert(InsertionPosition.Beginning);
+                this.method.NewCoder().Load(variable: x => x.GetVariable(0)).SetValue(thisField, CodeBlocks.This).Insert(InsertionPosition.Beginning);
             else
-                this.method.NewCode().LoadVariable(0).Assign(thisField).Set(Crumb.This).Insert(InsertionAction.After, position);
+                this.method.NewCoder().Load(variable: x => x.GetVariable(0)).SetValue(thisField, CodeBlocks.This).Insert(InsertionAction.After, position);
 
             return thisField;
         }

@@ -247,7 +247,7 @@ namespace Cauldron.Interception.Cecilator.Coders
                     {
                         var variable = char.IsNumber(exceptionCodeBlock.name, 0) ?
                             instructionBlock.associatedMethod.methodDefinition.Body.Variables[int.Parse(exceptionCodeBlock.name)] :
-                            instructionBlock.associatedMethod.GetVariable(exceptionCodeBlock.name);
+                            instructionBlock.associatedMethod.GetVariable(exceptionCodeBlock.name)?.variable;
 
                         result.Emit(OpCodes.Ldloc, variable);
                         result.ResultingType = instructionBlock.builder.Import(variable.VariableType);

@@ -1,4 +1,6 @@
-﻿using Mono.Cecil;
+﻿using Cauldron.Interception.Cecilator.Coders;
+using Cauldron.Interception.Cecilator.Extensions;
+using Mono.Cecil;
 using Mono.Cecil.Cil;
 using System;
 using System.ComponentModel;
@@ -111,7 +113,8 @@ namespace Cauldron.Interception.Cecilator
                 var paramResult = new ParamResult();
                 var processor = this.HostMethod.GetILProcessor();
                 paramResult.Type = previousType.typeReference;
-                (method.NewCode() as InstructionsSet).CastOrBoxValues(processor, parameters[0].typeReference, paramResult, parameters[0].typeDefinition);
+                var coder = method.NewCoder();
+                InstructionBlock.CastOrBoxValues(coder.instructions, parameters[0]);
                 processor.InsertBefore(this.instruction, paramResult.Instructions);
             }
         }
