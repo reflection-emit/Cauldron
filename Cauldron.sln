@@ -84,6 +84,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nuget", "Nuget", "{8675B75E
 		Nuget\Capgemini.Cauldron.Win32.WPF.nuspec = Nuget\Capgemini.Cauldron.Win32.WPF.nuspec
 		Nuget\Capgemini.Cauldron.Win32.WPF.ParameterPassing.nuspec = Nuget\Capgemini.Cauldron.Win32.WPF.ParameterPassing.nuspec
 		Nuget\Capgemini.Cauldron.Win32.WPF.Validation.nuspec = Nuget\Capgemini.Cauldron.Win32.WPF.Validation.nuspec
+		Nuget\Cauldron.BasicInterceptors.nuspec = Nuget\Cauldron.BasicInterceptors.nuspec
+		Nuget\Cauldron.Cecilator.nuspec = Nuget\Cauldron.Cecilator.nuspec
 		Nuget\Cauldron.Interception.Fody.nuspec = Nuget\Cauldron.Interception.Fody.nuspec
 	EndProjectSection
 EndProject

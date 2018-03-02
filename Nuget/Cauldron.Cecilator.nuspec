@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Cauldron.Interception.Fody</id>
+    <version>2.0.0</version>
+    <title>Capgemini Cauldron Interception for Fody</title>
+    <authors>Alexander Schunk, Capgemini Deutschland GmbH</authors>
+    <owners>Alexander Schunk, Capgemini Deutschland GmbH</owners>
+    <licenseUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/Capgemini/Cauldron</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>
+      A Fody/Mono.Cecil wrapper that provides most basic IL code weaving helpers.<br />
+      INFO: If someone out there that is interested in implementing a FetLang scripting support for this, you are very welcome in doing so.
+    </description>
+    <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
+    <tags>Toolkit Cauldron Interception interceptor interception AOP Fody Cecil CIL ILWeaving</tags>
+    <releaseNotes>
+    </releaseNotes>
+    <dependencies>
+      <dependency id="Fody" version="2.3.14" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="..\Fody\Cauldron.Interception.Cecilator\bin\Release\**" target="" />
+    <file src="..\Fody\Cauldron.Interception.Cecilator\**\*.cs" target="src" />
+  </files>
+</package>
