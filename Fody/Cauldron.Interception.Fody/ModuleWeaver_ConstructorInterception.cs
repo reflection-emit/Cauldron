@@ -1,4 +1,6 @@
 ﻿using Cauldron.Interception.Cecilator;
+using Cauldron.Interception.Cecilator.Coders;
+using Cauldron.Interception.Cecilator.Extensions;
 using Cauldron.Interception.Fody.HelperTypes;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,30 +42,32 @@ namespace Cauldron.Interception.Fody
                     if (constructor.RequiresSyncRootField)
                         this.Log(LogTypes.Warning, targetedConstrutor, $"An interceptor applied to the constructor has implemented ISyncRoot. This is not supported. The interceptor may not work correctly.");
 
-                    Crumb parametersArray = null;
+                    CodeBlock parametersArray = null;
                     var localVariables = new LocalVariable[constructor.Item.Length];
-                    void InterceptorInit(ICode contextCoder, bool isBeforeInit)
+                    Coder InterceptorInit(Coder contextCoder, bool isBeforeInit)
                     {
                         parametersArray = contextCoder.GetParametersArray();
 
                         for (int i = 0; i < constructor.Item.Length; i++)
                         {
                             var item = constructor.Item[i];
-                            localVariables[i] = contextCoder.CreateVariable(item.Interface.ToBuilderType);
+                            localVariables[i] = contextCoder.AssociatedMethod.GetOrCreateVariable(item.Interface.ToBuilderType);
 
-                            contextCoder.Assign(localVariables[i]).NewObj(item.Attribute);
+                            contextCoder.SetValue(localVariables[i], x => x.NewObj(item.Attribute));
                             contextCoder.Load(localVariables[i]).Call(item.Interface.OnBeforeInitialization, targetedConstrutor.OriginType, targetedConstrutor, parametersArray);
 
                             item.Attribute.Remove();
                         }
+
+                        return contextCoder;
                     }
 
                     if (targetedConstrutor.IsCtor)
-                        targetedConstrutor.NewCode()
+                        targetedConstrutor.NewCoder()
                             .Context(x => InterceptorInit(x, true))
                             .Insert(InsertionPosition.CtorBeforeInit);
 
-                    targetedConstrutor.NewCode()
+                    targetedConstrutor.NewCoder()
                         .Context(x =>
                         {
                             if (targetedConstrutor.IsCCtor)
@@ -76,27 +80,31 @@ namespace Cauldron.Interception.Fody
 
                                 item.Attribute.Remove();
                             }
+
+                            return x;
                         })
                         .Try(x =>
                         {
                             for (int i = 0; i < constructor.Item.Length; i++)
                             {
                                 var item = constructor.Item[i];
-                                x.Load(localVariables[i]).Call(item.Interface.OnEnter, targetedConstrutor.OriginType, Crumb.This, targetedConstrutor, parametersArray);
+                                x.Load(localVariables[i]).Call(item.Interface.OnEnter, targetedConstrutor.OriginType, CodeBlocks.This, targetedConstrutor, parametersArray);
                             }
 
-                            x.OriginalBody();
+                            return x.OriginalBody();
                         })
-                        .Catch(exception.ToBuilderType, x =>
+                        .Catch(exception.ToBuilderType, (ex, e) =>
                         {
-                            x.Or(constructor.Item, (coder, y, i) => coder.Load(localVariables[i]).Call(y.Interface.OnException, x.Exception));
-                            x.IsTrue().Then(y => x.Rethrow());
-                            x.ReturnDefault();
+                            return ex.If(x => x.Or(constructor.Item, (coder, y, i) => coder.Load(localVariables[i]).Call(y.Interface.OnException, e())).Is(true),
+                                    then => ex.NewCoder().Rethrow())
+                                .DefaultValue()
+                                .Return();
                         })
                         .Finally(x =>
                         {
                             for (int i = 0; i < constructor.Item.Length; i++)
                                 x.Load(localVariables[i]).Call(constructor.Item[i].Interface.OnExit);
+                            return x;
                         })
                         .EndTry()
                         .Return()

@@ -143,5 +143,11 @@ namespace Cauldron.Interception.Cecilator.Coders
         }
 
         #endregion Binary Operators
+
+        public Coder StoreElement(object element, int index)
+        {
+            this.StoreElementInternal(this.builderType, element, index);
+            return new Coder(this.instructions);
+        }
     }
 }

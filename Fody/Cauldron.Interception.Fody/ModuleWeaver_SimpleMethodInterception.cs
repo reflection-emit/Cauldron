@@ -1,4 +1,5 @@
 ﻿using Cauldron.Interception.Cecilator;
+using Cauldron.Interception.Cecilator.Extensions;
 using Cauldron.Interception.Fody.Extensions;
 using Cauldron.Interception.Fody.HelperTypes;
 using Mono.Cecil.Cil;
@@ -46,17 +47,17 @@ namespace Cauldron.Interception.Fody
                     if (method.RequiresSyncRootField)
                     {
                         if (method.SyncRoot.IsStatic)
-                            targetedMethod.AsyncOriginType.CreateStaticConstructor().NewCode()
-                                .Assign(method.SyncRoot).NewObj(builder.GetType(typeof(object)).Import().ParameterlessContructor)
+                            targetedMethod.AsyncOriginType.CreateStaticConstructor().NewCoder()
+                                .SetValue(method.SyncRoot, x => x.NewObj(builder.GetType(typeof(object)).Import().ParameterlessContructor))
                                 .Insert(InsertionPosition.Beginning);
                         else
                             foreach (var ctors in targetedMethod.AsyncOriginType.GetRelevantConstructors().Where(x => x.Name == ".ctor"))
-                                ctors.NewCode().Assign(method.SyncRoot).NewObj(builder.GetType(typeof(object)).Import().ParameterlessContructor).Insert(InsertionPosition.Beginning);
+                                ctors.NewCoder().SetValue(method.SyncRoot, x => x.NewObj(builder.GetType(typeof(object)).Import().ParameterlessContructor)).Insert(InsertionPosition.Beginning);
                     }
 
                     var coder = targetedMethod
-                     .NewCode()
-                         .Context(x =>
+                     .NewCoder()
+                         .Context(context =>
                          {
                              for (int i = 0; i < method.Item.Length; i++)
                              {
@@ -65,19 +66,22 @@ namespace Cauldron.Interception.Fody
                                  interceptorField[i] = targetedMethod.AsyncOriginType.CreateField(targetedMethod.Modifiers.GetPrivate(), item.Interface.ToBuilderType, name);
                                  interceptorField[i].CustomAttributes.AddNonSerializedAttribute();
 
-                                 x.Load(interceptorField[i]).IsNull().Then(y =>
+                                 context.If(x => x.Load(interceptorField[i]).IsNull(), then =>
                                  {
-                                     y.Assign(interceptorField[i]).NewObj(item.Attribute);
+                                     then.SetValue(interceptorField[i], x => x.NewObj(item.Attribute));
                                      if (item.HasSyncRootInterface)
-                                         y.Load(interceptorField[i]).As(__ISyncRoot.Type).Call(syncRoot.SyncRoot, method.SyncRoot);
+                                         then.Load(interceptorField[i]).As(__ISyncRoot.Type).Call(syncRoot.SyncRoot, method.SyncRoot);
 
-                                     ImplementAssignMethodAttribute(builder, method.Item[i].AssignMethodAttributeInfos, interceptorField[i], item.Attribute.Attribute.Type, x);
+                                     ImplementAssignMethodAttribute(builder, method.Item[i].AssignMethodAttributeInfos, interceptorField[i], item.Attribute.Attribute.Type, context);
+                                     return then;
                                  });
 
-                                 x.Load(interceptorField[i]).Call(item.Interface.OnEnter, attributedMethod.OriginType, typeInstance, attributedMethod, x.GetParametersArray());
+                                 context.Load(interceptorField[i]).Call(item.Interface.OnEnter, attributedMethod.OriginType, typeInstance, attributedMethod, context.GetParametersArray());
 
                                  item.Attribute.Remove();
                              }
+
+                             return context;
                          });
 
                     var position = coder.GetFirstOrDefaultPosition(x => x.OpCode == OpCodes.Stelem_Ref);

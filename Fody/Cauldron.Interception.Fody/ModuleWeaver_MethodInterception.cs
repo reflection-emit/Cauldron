@@ -82,12 +82,12 @@ namespace Cauldron.Interception.Fody
                     if (method.RequiresSyncRootField)
                     {
                         if (method.SyncRoot.IsStatic)
-                            targetedMethod.AsyncOriginType.CreateStaticConstructor().NewCode()
-                                .Assign(method.SyncRoot).NewObj(builder.GetType(typeof(object)).Import().ParameterlessContructor)
+                            targetedMethod.AsyncOriginType.CreateStaticConstructor().NewCoder()
+                                .SetValue(method.SyncRoot, x => x.NewObj(builder.GetType(typeof(object)).Import().ParameterlessContructor))
                                 .Insert(InsertionPosition.Beginning);
                         else
                             foreach (var ctors in targetedMethod.AsyncOriginType.GetRelevantConstructors().Where(x => x.Name == ".ctor"))
-                                ctors.NewCode().Assign(method.SyncRoot).NewObj(builder.GetType(typeof(object)).Import().ParameterlessContructor).Insert(InsertionPosition.Beginning);
+                                ctors.NewCoder().SetValue(method.SyncRoot, x => x.NewObj(builder.GetType(typeof(object)).Import().ParameterlessContructor)).Insert(InsertionPosition.Beginning);
                     }
 
                     var coder = targetedMethod

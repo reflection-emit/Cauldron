@@ -39,6 +39,14 @@ namespace Cauldron.Interception.Cecilator.Coders
             return this as TSelf;
         }
 
+        public TSelf ArrayElement(int index)
+        {
+            this.instructions.Append(InstructionBlock.CreateCode(this.instructions, null, index));
+            this.instructions.Emit(OpCodes.Ldelem_Ref);
+
+            return this as TSelf;
+        }
+
         /// <summary>
         /// Duplicates the last value in the stack
         /// </summary>

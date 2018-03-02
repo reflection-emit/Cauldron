@@ -1,4 +1,6 @@
 ﻿using Cauldron.Interception.Cecilator;
+using Cauldron.Interception.Cecilator.Coders;
+using Cauldron.Interception.Cecilator.Extensions;
 using Cauldron.Interception.Fody.HelperTypes;
 using Mono.Cecil;
 using System.Collections.Generic;
@@ -60,15 +62,15 @@ namespace Cauldron.Interception.Fody
                 // Create ctor
                 componentType
                    .CreateConstructor()
-                   .NewCode()
-                   .Assign(componentAttributeField).NewObj(component)
+                   .NewCoder()
+                   .SetValue(componentAttributeField, x => x.NewObj(component))
                    .Return()
                    .Replace();
 
                 // Implement the methods
                 componentType.CreateMethod(Modifiers.Public | Modifiers.Overrides, createInstanceInterfaceMethod.ReturnType, createInstanceInterfaceMethod.Name, createInstanceInterfaceMethod.Parameters)
-                    .NewCode()
-                    .Context(x =>
+                    .NewCoder()
+                    .Context(context =>
                     {
                         // Find any method with a componentcontructor attribute
                         var ctors = component.Type.GetMethods(y =>
@@ -119,32 +121,39 @@ namespace Cauldron.Interception.Fody
                                     // In this case we have to find a parameterless constructor first
                                     if (component.Type.ParameterlessContructor != null && !parameterlessCtorAlreadyHandled && component.Type.ParameterlessContructor.IsPublicOrInternal)
                                     {
-                                        x.Load(Crumb.GetParameter(0)).IsNull().Then(y => y.NewObj(component.Type.ParameterlessContructor).Dup().Call(factory.OnObjectCreation, Crumb.This).Return());
-                                        x.Load(Crumb.GetParameter(0)).Call(arrayAvatar.Length).EqualTo(0).Then(y => y.NewObj(component.Type.ParameterlessContructor).Dup().Call(factory.OnObjectCreation, Crumb.This).Return());
+                                        context.If(x => x.Load(CodeBlocks.GetParameter(0)).IsNull(), then => then.NewObj(component.Type.ParameterlessContructor).Duplicate().Call(factory.OnObjectCreation, CodeBlocks.This).Return());
+                                        context.If(x => x.Load(CodeBlocks.GetParameter(0)).Call(arrayAvatar.Length).Is(0), then => then.NewObj(component.Type.ParameterlessContructor).Duplicate().Call(factory.OnObjectCreation, CodeBlocks.This).Return());
                                         parameterlessCtorAlreadyHandled = true;
                                     }
 
-                                    var code = x.Load(Crumb.GetParameter(0)).Call(arrayAvatar.Length).EqualTo(ctorParameters.Length);
+                                    context.If(@if =>
+                                    {
+                                        var resultCoder = @if.Load(CodeBlocks.GetParameter(0)).Call(arrayAvatar.Length).Is(ctorParameters.Length);
+                                        for (int i = 0; i < ctorParameters.Length; i++)
+                                            resultCoder = resultCoder.AndAnd(x => x.Load(CodeBlocks.GetParameter(0)).ArrayElement(i).Is(ctorParameters.Length));
 
-                                    for (int i = 0; i < ctorParameters.Length; i++)
-                                        code.AndAnd.Load(Crumb.GetParameter(0).UnPacked(i)).Is(ctorParameters[i]);
+                                        return resultCoder;
+                                    }, @then =>
+                                    {
+                                        if (ctor.Name == ".ctor")
+                                            then.NewObj(ctor, CodeBlocks.GetParameter(0).ArrayElements()).Duplicate().Call(factory.OnObjectCreation, CodeBlocks.This).Return();
+                                        else
+                                            then.Call(ctor, CodeBlocks.GetParameter(0).ArrayElements()).Duplicate().Call(factory.OnObjectCreation, CodeBlocks.This).Return();
 
-                                    if (ctor.Name == ".ctor")
-                                        code.Then(y => y.NewObj(ctor, Crumb.GetParameter(0).UnPacked()).Dup().Call(factory.OnObjectCreation, Crumb.This).Return());
-                                    else
-                                        code.Then(y => y.Call(ctor, Crumb.GetParameter(0).UnPacked()).Dup().Call(factory.OnObjectCreation, Crumb.This).Return());
+                                        return then;
+                                    });
                                 }
                                 else
                                 {
                                     if (ctor.Name == ".ctor")
                                     {
-                                        x.Load(Crumb.GetParameter(0)).IsNull().Then(y => y.NewObj(ctor).Dup().Call(factory.OnObjectCreation, Crumb.This).Return());
-                                        x.Load(Crumb.GetParameter(0)).Call(arrayAvatar.Length).EqualTo(0).Then(y => y.NewObj(ctor).Dup().Call(factory.OnObjectCreation, Crumb.This).Return());
+                                        context.If(x => x.Load(CodeBlocks.GetParameter(0)).IsNull(), then => then.NewObj(ctor).Duplicate().Call(factory.OnObjectCreation, CodeBlocks.This).Return());
+                                        context.If(x => x.Load(CodeBlocks.GetParameter(0)).Call(arrayAvatar.Length).Is(0), then => then.NewObj(ctor).Duplicate().Call(factory.OnObjectCreation, CodeBlocks.This).Return());
                                     }
                                     else
                                     {
-                                        x.Load(Crumb.GetParameter(0)).IsNull().Then(y => y.Call(ctor).Dup().Call(factory.OnObjectCreation, Crumb.This).Return());
-                                        x.Load(Crumb.GetParameter(0)).Call(arrayAvatar.Length).EqualTo(0).Then(y => y.Call(ctor).Dup().Call(factory.OnObjectCreation, Crumb.This).Return());
+                                        context.If(x => x.Load(CodeBlocks.GetParameter(0)).IsNull(), then => then.Call(ctor).Duplicate().Call(factory.OnObjectCreation, CodeBlocks.This).Return());
+                                        context.If(x => x.Load(CodeBlocks.GetParameter(0)).Call(arrayAvatar.Length).Is(0), then => then.Call(ctor).Duplicate().Call(factory.OnObjectCreation, CodeBlocks.This).Return());
                                     }
 
                                     parameterlessCtorAlreadyHandled = true;
@@ -159,14 +168,16 @@ namespace Cauldron.Interception.Fody
                                 this.Log(LogTypes.Error, component.Type, $"The component '{component.Type.Fullname}' has no ComponentConstructor attribute or the constructor is not public");
                             else if (component.Type.ParameterlessContructor.IsPublicOrInternal)
                             {
-                                x.Load(Crumb.GetParameter(0)).IsNull().Then(y => y.NewObj(component.Type.ParameterlessContructor).Dup().Call(factory.OnObjectCreation, Crumb.This).Return());
-                                x.Load(Crumb.GetParameter(0)).Call(arrayAvatar.Length).EqualTo(0).Then(y => y.NewObj(component.Type.ParameterlessContructor).Dup().Call(factory.OnObjectCreation, Crumb.This).Return());
+                                context.If(x => x.Load(CodeBlocks.GetParameter(0)).IsNull(), then => then.NewObj(component.Type.ParameterlessContructor).Duplicate().Call(factory.OnObjectCreation, CodeBlocks.This).Return());
+                                context.If(x => x.Load(CodeBlocks.GetParameter(0)).Call(arrayAvatar.Length).Is(0), then => then.NewObj(component.Type.ParameterlessContructor).Duplicate().Call(factory.OnObjectCreation, CodeBlocks.This).Return());
 
                                 this.Log($"The component '{component.Type.Fullname}' has no ComponentConstructor attribute. A parameterless ctor was found and will be used.");
                             }
                         }
+
+                        return context;
                     })
-                    .Context(x => x.Call(extensionAvatar.CreateInstance, component.Type, Crumb.GetParameter(0)).Dup().Call(factory.OnObjectCreation, Crumb.This).Return())
+                    .Context(x => x.Call(extensionAvatar.CreateInstance, component.Type, CodeBlocks.GetParameter(0)).Duplicate().Call(factory.OnObjectCreation, CodeBlocks.This).Return())
                     .Replace();
 
                 // Implement the properties
@@ -178,19 +189,19 @@ namespace Cauldron.Interception.Fody
                     switch (property.Name)
                     {
                         case "ContractName":
-                            propertyResult.Getter.NewCode().Call(componentAttributeField, componentAttribute.ContractName).Return().Replace();
+                            propertyResult.Getter.NewCoder().Load(componentAttributeField).Call(componentAttribute.ContractName).Return().Replace();
                             break;
 
                         case "CreationPolicy":
-                            propertyResult.Getter.NewCode().Call(componentAttributeField, componentAttribute.Policy).Return().Replace();
+                            propertyResult.Getter.NewCoder().Load(componentAttributeField).Call(componentAttribute.Policy).Return().Replace();
                             break;
 
                         case "Priority":
-                            propertyResult.Getter.NewCode().Call(componentAttributeField, componentAttribute.Priority).Return().Replace();
+                            propertyResult.Getter.NewCoder().Load(componentAttributeField).Call(componentAttribute.Priority).Return().Replace();
                             break;
 
                         case "Type":
-                            propertyResult.Getter.NewCode().Load(component.Type).Return().Replace();
+                            propertyResult.Getter.NewCoder().Load(component.Type).Return().Replace();
                             break;
                     }
                 }
@@ -205,23 +216,26 @@ namespace Cauldron.Interception.Fody
             {
                 Components = x.GetMethod("GetComponents")
             });
-            var ctorCoder = cauldron.ParameterlessContructor.NewCode();
+            var ctorCoder = cauldron.ParameterlessContructor.NewCoder();
             cauldron.CreateMethod(Modifiers.Public | Modifiers.Overrides, factoryCacheInterfaceAvatar.Components.ReturnType, factoryCacheInterfaceAvatar.Components.Name)
-                .NewCode()
-                .Context(x =>
+                .NewCoder()
+                .Context(context =>
                 {
-                    var resultValue = x.GetReturnVariable();
-                    x.Newarr(factoryTypeInfoInterface, componentTypes.Count).StoreLocal(resultValue);
+                    var resultValue = context.GetOrCreateReturnVariable();
+                    context.SetValue(resultValue, x => x.Newarr(factoryTypeInfoInterface, componentTypes.Count));
 
                     for (int i = 0; i < componentTypes.Count; i++)
                     {
                         var field = cauldron.CreateField(Modifiers.Private, factoryTypeInfoInterface, "<FactoryType>f__" + i);
-                        x.Load(resultValue);
-                        x.StoreElement(factoryTypeInfoInterface, field, i);
+                        context
+                            .Load(resultValue)
+                            .StoreElement(field, i);
                         // x.StoreElement(factoryTypeInfoInterface,
                         // x.NewCode().NewObj(componentTypes[i].ParameterlessContructor), i);
-                        ctorCoder.Assign(field).NewObj(componentTypes[i].ParameterlessContructor);
+                        ctorCoder.SetValue(field, x => x.NewObj(componentTypes[i].ParameterlessContructor));
                     }
+
+                    return context;
                 })
                 .Return()
                 .Replace();

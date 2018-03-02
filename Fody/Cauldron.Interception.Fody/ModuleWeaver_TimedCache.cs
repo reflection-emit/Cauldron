@@ -1,4 +1,5 @@
 ﻿using Cauldron.Interception.Cecilator;
+using Cauldron.Interception.Cecilator.Extensions;
 using Cauldron.Interception.Fody.HelperTypes;
 using System.Linq;
 
@@ -36,62 +37,62 @@ namespace Cauldron.Interception.Fody
                 if (method.AsyncMethod == null && method.Method.ReturnType.Inherits(__Task.Type.Fullname))
                     this.Log(LogTypes.Error, method.Method, $"- TimedCacheAttribute for method {method.Method.Name} will not be implemented. Methods that returns 'Task' without async are not supported.");
                 else if (method.AsyncMethod == null)
-                    method.Method.NewCode()
-                        .Context(x =>
+                    method.Method.NewCoder()
+                        .Context(context =>
                         {
-                            var timedCache = x.CreateVariable(timecacheVarName, method.Attribute.Type);
-                            var key = x.CreateVariable(keyName, timedCacheAttribute.CreateKey);
-                            var returnVariable = x.GetReturnVariable();
+                            var timedCache = context.AssociatedMethod.GetOrCreateVariable(method.Attribute.Type, timecacheVarName);
+                            var key = context.AssociatedMethod.GetOrCreateVariable(timedCacheAttribute.CreateKey.ReturnType, keyName);
+                            var returnVariable = context.GetOrCreateReturnVariable();
 
-                            x.Assign(timedCache).NewObj(method);
+                            context.SetValue(timedCache, x => x.NewObj(method));
 
                             // Create a cache key
-                            x.Call(timedCacheAttribute.CreateKey, method.Method.Fullname, x.GetParametersArray())
-                                    .StoreLocal(key);
+                            context.SetValue(key, x => x.Call(timedCacheAttribute.CreateKey, method.Method.Fullname, context.GetParametersArray()));
 
                             // check
-                            x.Load(timedCache).Call(timedCacheAttribute.HasCache, key)
-                                    .IsTrue().Then(y =>
-                                    {
-                                        y.Load(timedCache).Call(timedCacheAttribute.GetCache, key)
-                                            .As(method.Method.ReturnType)
-                                            .StoreLocal(returnVariable)
-                                            .Return();
-                                    });
+                            context.If(x => x.Load(timedCache).Call(timedCacheAttribute.HasCache, key).Is(true), then =>
+                                      {
+                                          return then.SetValue(returnVariable, x => x.Load(timedCache).Call(timedCacheAttribute.GetCache, key).As(method.Method.ReturnType))
+                                              .Return();
+                                      });
 
-                            x.OriginalBodyNewMethod().StoreLocal(returnVariable);
+                            context.SetValue(returnVariable, x => x.OriginalBody(true));
 
                             // Set the cache
-                            x.Load(timedCache).Call(timedCacheAttribute.SetCache, key, returnVariable);
+                            context.Load(timedCache).Call(timedCacheAttribute.SetCache, key, returnVariable);
 
-                            x.Load(returnVariable).Return();
+                            return context.Load(returnVariable).Return();
                         })
                         .Replace();
                 else if (method.AsyncMethod != null)
                 {
-                    method.Method.NewCode()
-                        .Context(x =>
+                    method.Method.NewCoder()
+                        .Context(context =>
                         {
                             var taskReturnType = method.Method.ReturnType.GetGenericArgument(0);
-                            var timedCache = x.CreateVariable(timecacheVarName, method.Attribute.Type);
-                            var cacheKey = x.CreateVariable(typeof(string));
+                            var timedCache = context.AssociatedMethod.GetOrCreateVariable(method.Attribute.Type, timecacheVarName);
+                            var cacheKey = context.AssociatedMethod.GetOrCreateVariable(typeof(string));
 
-                            x.Assign(cacheKey).Set(x.NewCode().Call(timedCacheAttribute.CreateKey, method.Method.Fullname, x.GetParametersArray()));
-                            x.Assign(timedCache).NewObj(method);
-                            x.Load(timedCache).Call(timedCacheAttribute.HasCache, cacheKey)
-                                .IsTrue().Then(y =>
-                                {
-                                    y.Call(task_1.FromResult.MakeGeneric(taskReturnType), y.NewCode().Call(timedCache, timedCacheAttribute.GetCache, cacheKey).As(taskReturnType))
-                                        .Return();
-                                });
+                            context.SetValue(cacheKey, x => x.Call(timedCacheAttribute.CreateKey, method.Method.Fullname, context.GetParametersArray()));
+                            context.SetValue(timedCache, x => x.NewObj(method));
+                            context.If(x => x.Load(timedCache).Call(timedCacheAttribute.HasCache, cacheKey).Is(true), then =>
+                                  {
+                                      return then.Call(task_1.FromResult.MakeGeneric(taskReturnType), x => x.Load(timedCache).Call(timedCacheAttribute.GetCache, cacheKey).As(taskReturnType))
+                                         .Return();
+                                  });
+
+                            return context;
                         }).Insert(InsertionPosition.Beginning);
 
-                    method.Method.NewCode()
-                        .Context(x =>
+                    method.Method.NewCoder()
+                        .Context(context =>
                         {
                             var taskReturnType = method.Method.ReturnType.GetGenericArgument(0);
-                            var returnVariable = x.GetReturnVariable();
-                            x.LoadVariable(2).Call(timedCacheAttribute.SetCache, x.NewCode().LoadVariable(3), x.NewCode().Call(returnVariable, task_1.GetResult.MakeGeneric(taskReturnType)));
+                            var returnVariable = context.GetOrCreateReturnVariable();
+                            return context
+                                .Load(variable: x => x.GetVariable(2))
+                                    .Call(timedCacheAttribute.SetCache, x => x.AssociatedMethod.GetVariable(3), x => x.Load(returnVariable).Call(task_1.GetResult.MakeGeneric(taskReturnType)))
+                                    .End;
                         }).Insert(InsertionPosition.End);
                 }
 

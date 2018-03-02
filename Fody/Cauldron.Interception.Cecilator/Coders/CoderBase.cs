@@ -144,6 +144,7 @@ namespace Cauldron.Interception.Cecilator.Coders
         {
         }
 
+        public Method AssociatedMethod => this.instructions.associatedMethod;
         public abstract TMaster End { get; }
 
         public TSelf Append(TSelf coder)
@@ -155,6 +156,14 @@ namespace Cauldron.Interception.Cecilator.Coders
         public TSelf Append(InstructionBlock instructionBlock)
         {
             this.instructions.Append(instructionBlock);
+            return this as TSelf;
+        }
+
+        public TSelf ArrayElement(int index)
+        {
+            this.instructions.Append(InstructionBlock.CreateCode(this.instructions, null, index));
+            this.instructions.Emit(OpCodes.Ldelem_Ref);
+
             return this as TSelf;
         }
 
@@ -192,6 +201,13 @@ namespace Cauldron.Interception.Cecilator.Coders
         {
             this.instructions.Emit(OpCodes.Pop);
             return (TSelf)this;
+        }
+
+        protected void StoreElementInternal(BuilderType arrayType, object element, int index)
+        {
+            this.instructions.Append(InstructionBlock.CreateCode(this.instructions, null, index));
+            this.instructions.Append(InstructionBlock.CreateCode(this.instructions, arrayType, element));
+            this.instructions.Emit(OpCodes.Stelem_Ref);
         }
     }
 }

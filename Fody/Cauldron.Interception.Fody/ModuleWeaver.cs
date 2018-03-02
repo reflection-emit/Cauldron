@@ -1,4 +1,6 @@
 ﻿using Cauldron.Interception.Cecilator;
+using Cauldron.Interception.Cecilator.Coders;
+using Cauldron.Interception.Cecilator.Extensions;
 using Cauldron.Interception.Fody.HelperTypes;
 using Mono.Cecil;
 using System;
@@ -214,12 +216,14 @@ namespace Cauldron.Interception.Fody
 
                 if (builder.Name != "Cauldron.dll" && builder.TypeExists("Cauldron.Core.Reflection.AssembliesCORE"))
                 {
-                    module.CreateStaticConstructor().NewCode().Context(x =>
+                    module.CreateStaticConstructor().NewCoder().Context(context =>
                     {
                         var introspectionExtensions = builder.GetType("System.Reflection.IntrospectionExtensions").With(y => new { Type = y, GetTypeInfo = y.GetMethod("GetTypeInfo", 1) });
                         var typeInfo = builder.GetType("System.Reflection.TypeInfo").With(y => new { Type = y, Assembly = y.GetMethod("get_Assembly") });
                         var assemblies = builder.GetType("Cauldron.Core.Reflection.AssembliesCORE").With(y => new { Type = y, EntryAssembly = y.GetMethod("set_EntryAssembly", 1) });
-                        x.Call(assemblies.EntryAssembly, x.NewCode().Callvirt(x.NewCode().Call(introspectionExtensions.GetTypeInfo, module), typeInfo.Assembly));
+                        return context.Call(assemblies.EntryAssembly, x =>
+                            x.Call(introspectionExtensions.GetTypeInfo, module)
+                                .Call(typeInfo.Assembly)).End;
                     })
                     .Insert(InsertionPosition.End);
 
@@ -269,12 +273,14 @@ namespace Cauldron.Interception.Fody
 
                 foreach (var ctors in item.Key.OriginType.GetRelevantConstructors())
                 {
-                    ctors.NewCode().Context(x =>
+                    ctors.NewCoder().Context(context =>
                     {
-                        x.Call(Crumb.This, addValidatorGroup, item.Key.Name);
+                        context.Call(addValidatorGroup, item.Key.Name);
 
                         for (int i = 0; i < item.Validators.Length; i++)
-                            x.Call(Crumb.This, addValidatorAttribute, item.Key.Name, x.NewCode().NewObj(item.Validators[i]));
+                            context.Call(addValidatorAttribute, x => item.Key.Name, x => x.NewObj(item.Validators[i]));
+
+                        return context;
                     })
                     .Insert(InsertionPosition.Beginning);
                 }
@@ -286,23 +292,25 @@ namespace Cauldron.Interception.Fody
             var introspectionExtensions = builder.GetType("System.Reflection.IntrospectionExtensions").With(y => new { Type = y, GetTypeInfo = y.GetMethod("GetTypeInfo", 1) });
             var typeInfo = builder.GetType("System.Reflection.TypeInfo").With(y => new { Type = y, Assembly = y.GetMethod("get_Assembly") });
 
-            method.NewCode().Context(x =>
+            method.NewCoder().Context(context =>
             {
-                var returnValue = x.GetReturnVariable();
+                var returnValue = context.GetOrCreateReturnVariable();
                 var referencedTypes = this.FilterAssemblyList(assembliesToList);
 
                 if (referencedTypes.Length > 0)
                 {
-                    x.Newarr(assemblyType, referencedTypes.Length).StoreLocal(returnValue);
+                    context.SetValue(returnValue, x => x.Newarr(assemblyType, referencedTypes.Length));
 
                     for (int i = 0; i < referencedTypes.Length; i++)
                     {
-                        x.Load(returnValue);
-                        x.StoreElement(assemblyType, x.NewCode().Callvirt(x.NewCode().Call(introspectionExtensions.GetTypeInfo, referencedTypes[i].ToBuilderType().Import()), typeInfo.Assembly), i);
+                        context.Load(returnValue)
+                            .Call(introspectionExtensions.GetTypeInfo, referencedTypes[i].ToBuilderType().Import())
+                            .Call(typeInfo.Assembly)
+                            .StoreElement(assemblyType, i);
                     }
                 }
 
-                x.Return();
+                return context.Return();
             }).Replace();
         }
 
@@ -311,7 +319,7 @@ namespace Cauldron.Interception.Fody
             var introspectionExtensions = builder.GetType("System.Reflection.IntrospectionExtensions").With(y => new { Type = y, GetTypeInfo = y.GetMethod("GetTypeInfo", 1) });
             var typeInfo = builder.GetType("System.Reflection.TypeInfo").With(y => new { Type = y, Assembly = y.GetMethod("get_Assembly") });
 
-            method.NewCode().Context(x =>
+            method.NewCoder().Context(context =>
             {
                 for (int i = 0; i < assembliesToList.Length; i++)
                 {
@@ -330,8 +338,12 @@ namespace Cauldron.Interception.Fody
                     if (type == null)
                         continue;
 
-                    x.Callvirt(x.NewCode().Call(introspectionExtensions.GetTypeInfo, type), typeInfo.Assembly).Pop();
+                    context.Call(introspectionExtensions.GetTypeInfo, type)
+                        .Call(typeInfo.Assembly)
+                        .Pop();
                 }
+
+                return context;
             }).Insert(InsertionPosition.Beginning);
         }
 
@@ -339,11 +351,11 @@ namespace Cauldron.Interception.Fody
         {
             var name = $"<{counter++}>f__Anon_Assign";
             var assignMethod = method.OriginType.CreateMethod(Modifiers.PrivateStatic, anonTarget, name, anonSource);
-            assignMethod.NewCode()
-                .Context(x =>
+            assignMethod.NewCoder()
+                .Context(context =>
                 {
-                    var resultVar = x.GetReturnVariable();
-                    x.Assign(resultVar).Set(x.NewCode().NewObj(anonTarget.ParameterlessContructor));
+                    var resultVar = context.GetOrCreateReturnVariable();
+                    context.SetValue(resultVar, x => x.NewObj(anonTarget.ParameterlessContructor));
 
                     foreach (var property in anonSource.Properties)
                     {
@@ -355,7 +367,7 @@ namespace Cauldron.Interception.Fody
                                 this.Log(LogTypes.Error, property, $"The property '{property.Name}' does not have the expected return type. Is: {property.ReturnType.Fullname} Expected: {targetProperty.ReturnType.Fullname}");
                                 continue;
                             }
-                            x.Load(resultVar).Callvirt(targetProperty.Setter, x.NewCode().Load(Crumb.GetParameter(0)).Callvirt(property.Getter));
+                            context.Load(resultVar).Call(targetProperty.Setter, x => x.Load(CodeBlocks.GetParameter(0)).Call(property.Getter));
                         }
                         catch (MethodNotFoundException)
                         {
@@ -363,7 +375,7 @@ namespace Cauldron.Interception.Fody
                         }
                     }
 
-                    x.Load(resultVar).Return();
+                    return context.Load(resultVar).Return();
                 })
                 .Replace();
 
@@ -396,11 +408,11 @@ namespace Cauldron.Interception.Fody
                 var onLoadMethod = onLoadMethods.First();
                 var module = builder.GetType("<Module>", SearchContext.Module);
 
-                module.CreateStaticConstructor().NewCode().Context(x =>
+                module.CreateStaticConstructor().NewCoder().Context(context =>
                 {
                     var indexer = 0;
-                    var array = x.CreateVariable(arrayType);
-                    x.Newarr(@string, builder.UnusedReference.Length + builder.ReferencedAssemblies.Length).StoreLocal(array);
+                    var array = context.AssociatedMethod.GetOrCreateVariable(arrayType);
+                    context.SetValue(array, x => x.Newarr(@string, builder.UnusedReference.Length + builder.ReferencedAssemblies.Length));
 
                     for (int i = 0; i < builder.UnusedReference.Length; i++)
                     {
@@ -408,8 +420,9 @@ namespace Cauldron.Interception.Fody
                         if (string.IsNullOrEmpty(item))
                             continue;
 
-                        x.Load(array);
-                        x.StoreElement(@string, item, indexer++);
+                        context
+                            .Load(array)
+                            .StoreElement(item, indexer++);
                     }
 
                     for (int i = 0; i < builder.ReferencedAssemblies.Length; i++)
@@ -418,11 +431,11 @@ namespace Cauldron.Interception.Fody
                         if (string.IsNullOrEmpty(item))
                             continue;
 
-                        x.Load(array);
-                        x.StoreElement(@string, item, indexer++);
+                        context.Load(array)
+                            .StoreElement(item, indexer++);
                     }
 
-                    x.Call(onLoadMethod, array);
+                    return context.Call(onLoadMethod, array).End;
                 }).Insert(InsertionPosition.End);
             }
         }

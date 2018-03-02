@@ -38,8 +38,6 @@ namespace Cauldron.Interception.Cecilator.Coders
 
     public class ArrayCodeBlock : CodeBlock
     {
-        internal int index;
-
         internal ArrayCodeBlock()
         {
         }
@@ -178,6 +176,12 @@ namespace Cauldron.Interception.Cecilator.Coders
             return result.ParameterType.ToBuilderType().Import();
         }
 
+        /// <summary>
+        /// Loads all elements of an array one by one to the stack.
+        /// </summary>
+        /// <returns></returns>
+        public ArrayCodeBlock ArrayElements() => new ArrayCodeBlock();
+
         public Tuple<BuilderType, int, ParameterDefinition> GetTargetType(Coder coder) => this.GetTargetType(coder.instructions.associatedMethod);
 
         public Tuple<BuilderType, int, ParameterDefinition> GetTargetType(Method method)
@@ -210,8 +214,6 @@ namespace Cauldron.Interception.Cecilator.Coders
 
             return null;
         }
-
-        public CodeBlock UnPacked(int arrayIndex = 0) => new ArrayCodeBlock { index = arrayIndex };
 
         internal static BuilderType GetTargetTypeFromOpCode(Method method, Instruction instruction)
         {

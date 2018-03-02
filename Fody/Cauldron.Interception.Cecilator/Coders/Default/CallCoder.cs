@@ -16,6 +16,9 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         internal CallCoder(InstructionBlock instructionBlock, BuilderType builderType) : base(instructionBlock) => this.builderType = builderType;
 
+        /// <summary>
+        /// Used to end a current sequence of instructions and go back to the main <see cref="Coder"/>. It does not affect the code in any way; it is only a "cast".
+        /// </summary>
         public override Coder End => new Coder(this);
 
         public static implicit operator InstructionBlock(CallCoder coder) => coder.instructions;
@@ -146,5 +149,11 @@ namespace Cauldron.Interception.Cecilator.Coders
         }
 
         #endregion Binary Operators
+
+        public Coder StoreElement(object element, int index)
+        {
+            this.StoreElementInternal(this.builderType, element, index);
+            return new Coder(this.instructions);
+        }
     }
 }

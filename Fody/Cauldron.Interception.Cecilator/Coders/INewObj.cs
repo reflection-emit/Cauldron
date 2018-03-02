@@ -13,5 +13,7 @@ namespace Cauldron.Interception.Cecilator.Coders
         T NewObj(AttributedMethod attributedMethod);
 
         T NewObj(AttributedProperty attributedProperty);
+
+        T NewObj(AttributedType attributedType);
     }
 }

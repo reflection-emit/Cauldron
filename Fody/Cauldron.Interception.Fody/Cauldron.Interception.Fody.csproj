@@ -119,7 +119,6 @@
     <Compile Include="ModuleWeaver_ComponentCache.cs" />
     <Compile Include="ModuleWeaver_ConstructorInterception.cs" />
     <Compile Include="ModuleWeaver_ImplementAnonymousTypeInterface.cs" />
-    <Compile Include="ModuleWeaver_MethodCache.cs" />
     <Compile Include="ModuleWeaver_Scripting.cs" />
     <Compile Include="ModuleWeaver_SimpleMethodInterception.cs" />
     <Compile Include="ModuleWeaver_MethodInterception.cs" />

@@ -1,4 +1,5 @@
 ﻿using Cauldron.Interception.Cecilator;
+using Cauldron.Interception.Cecilator.Extensions;
 using Cauldron.Interception.Fody.HelperTypes;
 using Mono.Cecil;
 using System.Collections.Concurrent;
@@ -67,23 +68,29 @@ namespace Cauldron.Interception.Fody
                 resourceDictionaryMergerClass.CustomAttributes.AddCompilerGeneratedAttribute();
 
                 //var method = resourceDictionaryMergerClass.CreateMethod(Modifiers.Private, "AddToDictionary", typeof(string));
-                resourceDictionaryMergerClass.CreateConstructor().NewCode().Context(x =>
+                resourceDictionaryMergerClass.CreateConstructor().NewCoder().Context(context =>
                 {
-                    var resourceDick = x.CreateVariable(__ICollection_1.Type.MakeGeneric(__ResourceDictionary.Type));
-                    x.Call(
-                            x.NewCode().Call(x.NewCode().Call(application.Current) /* Instance */, application.Resources) /* Instance */, resourceDictionary.MergedDictionaries)
-                                        .StoreLocal(resourceDick);
+                    var resourceDick = context.AssociatedMethod.GetOrCreateVariable(__ICollection_1.Type.MakeGeneric(__ResourceDictionary.Type));
+                    context
+                        .SetValue(resourceDick, x =>
+                            x.Call(application.Current)
+                            .Call(application.Resources)
+                            .Call(resourceDictionary.MergedDictionaries));
 
-                    var resourceDictionaryInstance = x.CreateVariable(__ResourceDictionary.Type);
+                    var resourceDictionaryInstance = context.AssociatedMethod.GetOrCreateVariable(__ResourceDictionary.Type);
 
                     foreach (var item in xamlThatRequiredInitializers)
                     {
                         this.Log($"- Adding XAML '{item.Item}' with index '{item.Index}' to the Application's MergeDictionary");
-                        x.NewObj(resourceDictionary.Ctor).StoreLocal(resourceDictionaryInstance);
-                        x.Call(resourceDictionaryInstance, resourceDictionary.SetSource,
-                             x.NewCode().NewObj(uri.Ctor, $"pack://application:,,,/{Path.GetFileNameWithoutExtension(this.Builder.Name)};component/{item.Item}")); // TODO -Need modification for UWP)
-                        x.Call(resourceDick, collection.Add.MakeGeneric(__ResourceDictionary.Type), resourceDictionaryInstance);
+                        context.SetValue(resourceDictionaryInstance, x => x.NewObj(resourceDictionary.Ctor));
+                        context.Load(resourceDictionaryInstance)
+                            .Call(resourceDictionary.SetSource,
+                                x => x.NewObj(uri.Ctor, $"pack://application:,,,/{Path.GetFileNameWithoutExtension(this.Builder.Name)};component/{item.Item}"));
+                        context.Load(resourceDick)
+                            .Call(collection.Add.MakeGeneric(__ResourceDictionary.Type), resourceDictionaryInstance);
                     }
+
+                    return context;
                 })
                 .Return()
                 .Replace();

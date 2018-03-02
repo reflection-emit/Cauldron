@@ -120,6 +120,18 @@ namespace Cauldron.Interception.Cecilator.Coders
             return this;
         }
 
+        public Position GetFirstOrDefaultPosition(Func<Instruction, bool> predicate)
+        {
+            if (this.instructions.associatedMethod.methodDefinition.Body == null || this.instructions.associatedMethod.methodDefinition.Body.Instructions == null)
+                return null;
+
+            foreach (var item in this.instructions.associatedMethod.methodDefinition.Body.Instructions)
+                if (predicate(item))
+                    return new Position(this.instructions.associatedMethod, item);
+
+            return null;
+        }
+
         public ParametersVariableCodeBlock GetParametersArray()
         {
             Method targetMethod;
@@ -183,6 +195,14 @@ namespace Cauldron.Interception.Cecilator.Coders
         }
 
         public bool HasReturnVariable() => this.instructions.associatedMethod.GetVariable(CodeBlocks.ReturnVariableName) != null;
+
+        public Coder Newarr(BuilderType type, int size)
+        {
+            this.instructions.Append(InstructionBlock.CreateCode(this.instructions, null, size));
+            this.instructions.Emit(OpCodes.Newarr, type.Import().typeReference);
+
+            return this;
+        }
 
         public Coder OriginalBody(bool createNewMethod = false)
         {
@@ -484,6 +504,12 @@ namespace Cauldron.Interception.Cecilator.Coders
             return new CallCoder(this, attributedMethod.Attribute.Type);
         }
 
+        public CallCoder NewObj(AttributedType attributedType)
+        {
+            this.NewObj(attributedType.customAttribute);
+            return new CallCoder(this, attributedType.Attribute.Type);
+        }
+
         public CallCoder NewObj(AttributedProperty attributedProperty)
         {
             this.NewObj(attributedProperty.customAttribute);
@@ -600,13 +626,6 @@ namespace Cauldron.Interception.Cecilator.Coders
         public Coder Load(object value)
         {
             this.instructions.Append(InstructionBlock.CreateCode(this, null, value));
-
-            if (value != null && value is ArrayCodeBlock arrayCodeSet)
-            {
-                this.instructions.Append(InstructionBlock.CreateCode(this.instructions, null, arrayCodeSet.index));
-                this.instructions.Emit(OpCodes.Ldelem_Ref);
-            }
-
             return this;
         }
 
