@@ -1,4 +1,4 @@
-﻿using Cauldron.Interception.Cecilator.Extensions;
+﻿
 using System;
 
 namespace Cauldron.Interception.Cecilator.Coders

@@ -1,4 +1,4 @@
-﻿using Cauldron.Interception.Cecilator.Extensions;
+﻿
 using Mono.Cecil.Cil;
 using System;
 

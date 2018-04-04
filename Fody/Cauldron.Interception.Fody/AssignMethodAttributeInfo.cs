@@ -1,6 +1,5 @@
 ﻿using Cauldron.Interception.Cecilator;
 using Cauldron.Interception.Cecilator.Coders;
-using Cauldron.Interception.Cecilator.Extensions;
 using Cauldron.Interception.Fody.HelperTypes;
 using System;
 using System.Linq;
@@ -57,7 +56,7 @@ namespace Cauldron.Interception.Fody
                     $"<caster>_{result.Name}",
                     this.ParameterTypes);
 
-                method.NewCoder().Call(result, CodeBlocks.GetParameter(-1)).As(this.TargetMethodReturnType).Return().Replace();
+                method.NewCoder().Call(result, CodeBlocks.GetParameters()).As(this.TargetMethodReturnType).Return().Replace();
 
                 return method;
             }

@@ -112,7 +112,6 @@
     <Compile Include="Coders\BooleanExpression\BooleanExpressionCoder.cs" />
     <Compile Include="Coders\Default\Coder.cs" />
     <Compile Include="Coders\CodeBlock.cs" />
-    <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="Field.cs" />
     <Compile Include="FieldCollection.cs" />
     <None Include="FieldInstructionsSet.cs" />

@@ -1,5 +1,4 @@
 ﻿using Cauldron.Interception.Cecilator;
-using Cauldron.Interception.Cecilator.Extensions;
 using Cauldron.Interception.Fody.Extensions;
 using Cauldron.Interception.Fody.HelperTypes;
 using Mono.Cecil.Cil;

@@ -1,5 +1,4 @@
 ﻿using Cauldron.Interception.Cecilator.Coders;
-using Cauldron.Interception.Cecilator.Extensions;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
 using System;
@@ -76,6 +75,8 @@ namespace Cauldron.Interception.Cecilator
 
         public bool IsAsync => this.methodDefinition.ReturnType.FullName.EqualsEx("System.Threading.Tasks.Task") || (this.methodDefinition.ReturnType.Resolve()?.FullName.EqualsEx("System.Threading.Tasks.Task`1") ?? false);
 
+        public bool IsCCtor => this.methodDefinition.Name == ".cctor";
+
         /// <summary>
         /// True if the method is a .ctor or .cctor
         /// </summary>
@@ -109,6 +110,7 @@ namespace Cauldron.Interception.Cecilator
                     this.type.typeDefinition.FullName.IndexOf('<') >= 0 ||
                     this.type.typeDefinition.FullName.IndexOf('>') >= 0;
 
+        public bool IsInternal => this.methodDefinition.Attributes.HasFlag(MethodAttributes.Assembly);
         public bool IsPropertyGetterSetter => (this.methodDefinition.Name.StartsWith("get_") || this.methodDefinition.Name.StartsWith("set_")) && this.methodDefinition.IsSpecialName;
         public bool IsProtected => this.methodDefinition.Attributes.HasFlag(MethodAttributes.Family);
         public bool IsPublicOrInternal => this.IsPublic || this.IsInternal;
@@ -134,8 +136,6 @@ namespace Cauldron.Interception.Cecilator
         public BuilderType DeclaringType => new BuilderType(this.type.Builder, this.methodReference.DeclaringType);
 
         public bool IsAbstract => this.methodDefinition.IsAbstract;
-        public bool IsCCtor => this.methodDefinition.Name == ".cctor";
-        public bool IsInternal => this.methodDefinition.Attributes.HasFlag(MethodAttributes.Assembly);
         public bool IsPrivate => this.methodDefinition.IsPrivate;
         public bool IsPublic => this.methodDefinition.IsPublic;
         public bool IsSpecialName => this.methodDefinition.IsSpecialName;

@@ -1,5 +1,4 @@
-﻿using Cauldron.Interception.Cecilator.Extensions;
-using Mono.Cecil.Cil;
+﻿using Mono.Cecil.Cil;
 using System;
 
 namespace Cauldron.Interception.Cecilator.Coders
