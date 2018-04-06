@@ -14,6 +14,9 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Interception interceptor interception AOP Fody Cecil CIL ILWeaving</tags>
     <releaseNotes>
+      2018.04.06 - [B] A bug that caused void methods to jump directly to the end of the method before executing the last OpCodes fixed.
+      2018.04.06 - [B] A bug in AssignMethod that causes methods that are assigned to filed not being recognized fixed.
+      2018.04.06 - [B] A bug in AssignMethod that causes methods that are assigned and are in the base class not being recognized fixed.
       2018.02.16 - [B] Bug in the auto implementation of RaiseIsChanged event.
       2018.01.24 - [B] Missing Assemblies added to the Nuget package.
       2018.01.15 - [B] AssignMethodAttribute assigned methods lack of import and failed during weaving.

@@ -344,13 +344,13 @@ namespace Win32_Fody_Assembly_Validation_Tests
             Assert.IsTrue(this.fieldActionInvoked);
         }
 
-        public void OnField_Action_PublicProperty() => this.fieldActionInvoked = true;
+        public void OnField_Action_Public() => this.fieldActionInvoked = true;
 
-        internal void OnField_Action_InternalProperty() => this.fieldActionInvoked = true;
+        internal void OnField_Action_Internal() => this.fieldActionInvoked = true;
 
-        protected void OnField_Action_ProtectedProperty() => this.fieldActionInvoked = true;
+        protected void OnField_Action_Protected() => this.fieldActionInvoked = true;
 
-        private void OnField_Action_PrivateProperty() => this.fieldActionInvoked = true;
+        private void OnField_Action_Private() => this.fieldActionInvoked = true;
 
         #endregion Field - Private, Protected, Internal, public
 

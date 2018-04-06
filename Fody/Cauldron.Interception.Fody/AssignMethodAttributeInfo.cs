@@ -1,4 +1,5 @@
 ﻿using Cauldron.Interception.Cecilator;
+using Cauldron.Interception.Fody.Extensions;
 using Cauldron.Interception.Fody.HelperTypes;
 using System;
 using System.Linq;
@@ -155,7 +156,7 @@ namespace Cauldron.Interception.Fody
             });
 
             return result
-                .Replace("{Name}", targetInfo.propertyOrMethodName)
+                .Replace("{Name}", targetInfo.propertyOrMethodName.EnclosedIn().UpperCaseFirstLetter())
                 .Replace("{ReturnType}", targetInfo.returnTypeName ?? "void");
         }
     }

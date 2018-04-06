@@ -32,6 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Comparing\Cauldron.Core.Comparing.csproj" />
     <ProjectReference Include="..\..\NetStandard\Cauldron.Interception\Cauldron.Interception.csproj" />
     <ProjectReference Include="..\Resources\Fody_Assembly_Validation_External_Resources\Fody_Assembly_Validation_External_Resources.csproj" />
     <ProjectReference Include="..\Resources\NetCore_Fody_Interceptors\NetCore_Fody_Interceptors.csproj" />

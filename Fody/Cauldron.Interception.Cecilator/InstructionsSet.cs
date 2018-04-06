@@ -568,22 +568,6 @@ namespace Cauldron.Interception.Cecilator
                 instructions = (newBody, instructions.Exceptions);
             }
 
-            if (this.method.methodDefinition.ReturnType.FullName == "System.Void")
-            {
-                // On void method we just simply remove the return and replace all other jumps to the
-                // ret instruction with a ret instruction
-                var returnInstruction = instructions.Instructions.Last();
-
-                foreach (var item in instructions.Instructions)
-                {
-                    if (item.Operand == returnInstruction)
-                    {
-                        item.Operand = null;
-                        item.OpCode = OpCodes.Ret;
-                    }
-                }
-            }
-
             this.instructions.Append(instructions.Instructions);
             this.instructions.ExceptionHandlers.AddRange(instructions.Exceptions);
 

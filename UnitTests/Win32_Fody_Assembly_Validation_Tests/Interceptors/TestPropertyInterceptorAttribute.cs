@@ -2,6 +2,7 @@
 using System;
 using Cauldron;
 using System.Collections.Generic;
+using Cauldron.Core;
 
 namespace Win32_Fody_Assembly_Validation_Tests
 {
@@ -16,25 +17,25 @@ namespace Win32_Fody_Assembly_Validation_Tests
 
         public void OnGet(PropertyInterceptionInfo propertyInterceptionInfo, object value)
         {
-            //if (Comparer.Equals(value, (long)30))
-            //    propertyInterceptionInfo.SetValue(9999);
+            if (Comparer.Equals(value, (long)30))
+                propertyInterceptionInfo.SetValue(9999);
 
-            //if (Comparer.Equals(value, (double)66))
-            //    propertyInterceptionInfo.SetValue(78344.8f);
+            if (Comparer.Equals(value, (double)66))
+                propertyInterceptionInfo.SetValue(78344.8f);
         }
 
         public bool OnSet(PropertyInterceptionInfo propertyInterceptionInfo, object oldValue, object newValue)
         {
-            //if (propertyInterceptionInfo.PropertyType.IsArray || propertyInterceptionInfo.PropertyType.AreReferenceAssignable(typeof(List<long>)))
-            //{
-            //    var passed = new List<long>();
-            //    passed.Add(2);
-            //    passed.Add(232);
-            //    passed.Add(5643);
-            //    passed.Add(52435);
-            //    propertyInterceptionInfo.SetValue(passed);
-            //    return true;
-            //}
+            if (propertyInterceptionInfo.PropertyType.IsArray || propertyInterceptionInfo.PropertyType.AreReferenceAssignable(typeof(List<long>)))
+            {
+                var passed = new List<long>();
+                passed.Add(2);
+                passed.Add(232);
+                passed.Add(5643);
+                passed.Add(52435);
+                propertyInterceptionInfo.SetValue(passed);
+                return true;
+            }
 
             if (propertyInterceptionInfo.PropertyType == typeof(long) && Convert.ToInt64(newValue) == 66L)
             {

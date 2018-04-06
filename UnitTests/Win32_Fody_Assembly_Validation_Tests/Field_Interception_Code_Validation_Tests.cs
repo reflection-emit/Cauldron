@@ -68,7 +68,7 @@ namespace Win32_Fody_Assembly_Validation_Tests
             Assert.AreEqual(50, this.nullableValueType);
 
             this.nullableValueType = 30;
-            Assert.AreEqual(30, this.nullableValueType);
+            Assert.AreEqual(9999, this.nullableValueType);
         }
 
         [TestMethod]
