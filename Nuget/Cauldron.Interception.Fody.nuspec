@@ -60,7 +60,7 @@
       2017.12.04 - [R] Useless method cache removed from weaver.
     </releaseNotes>
     <dependencies>
-      <dependency id="Fody" version="2.3.22" />
+      <dependency id="Fody" version="2.5.0" />
     </dependencies>
   </metadata>
   <files>

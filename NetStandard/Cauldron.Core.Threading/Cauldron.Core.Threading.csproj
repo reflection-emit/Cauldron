@@ -4,10 +4,10 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <AssemblyVersion>2.0.0.38</AssemblyVersion>
-    <FileVersion>2.0.0.38</FileVersion>
+    <AssemblyVersion>2.0.0.39</AssemblyVersion>
+    <FileVersion>2.0.0.39</FileVersion>
     <PackageId>Capgemini.Cauldron.Core.Threading</PackageId>
-    <Version>2.0.38-beta</Version>
+    <Version>2.0.39-beta</Version>
     <Authors>Alexander Schunk, Capgemini Deutschland GmbH</Authors>
     <Company>Capgemini Deutschland GmbH</Company>
     <Product>Cauldron.Core.Threading</Product>
@@ -32,7 +32,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Fody" Version="3.0.1" />
+    <PackageReference Include="Fody" Version="2.5.0" />
   </ItemGroup>
 
   <ItemGroup>

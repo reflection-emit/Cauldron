@@ -18,9 +18,9 @@
     </releaseNotes>
     <dependencies>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="Capgemini.Cauldron.Core.Comparing" version="2.0.39-beta" />
-        <dependency id="Capgemini.Cauldron.Core.Extensions" version="2.0.39-beta" />
-        <dependency id="Capgemini.Cauldron.Core.Extensions.Convertions" version="2.0.39-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Comparing" version="2.1.0" />
+        <dependency id="Capgemini.Cauldron.Core.Extensions" version="2.1.0" />
+        <dependency id="Capgemini.Cauldron.Core.Extensions.Convertions" version="2.1.0" />
       </group>
     </dependencies>
   </metadata>
