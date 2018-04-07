@@ -90,7 +90,7 @@ namespace Cauldron.Interception.Fody
                                 x.Load(localVariables[i]).Call(item.Interface.OnEnter, targetedConstrutor.OriginType, CodeBlocks.This, targetedConstrutor, parametersArray);
                             }
 
-                            return x.OriginalBody();
+                            return x;
                         })
                         .Catch(exception.ToBuilderType, (ex, e) =>
                         {

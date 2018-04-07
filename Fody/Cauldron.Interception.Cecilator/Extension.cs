@@ -27,7 +27,24 @@ namespace Cauldron.Interception.Cecilator
                a.FullName.GetHashCode() == b.FullName.GetHashCode() &&
                a.FullName == b.FullName;
 
-        public static bool AreEqual(this TypeReference a, BuilderType b) => a.AreEqual(b.typeReference) || a.AreEqual(b.typeDefinition ?? b.typeReference);
+        public static bool AreEqual(this Type a, TypeDefinition b) =>
+               a.Assembly.FullName == b.Resolve()?.Module.Assembly.Name.Name &&
+               a.FullName.GetHashCode() == b.FullName.GetHashCode() &&
+               a.FullName == b.FullName;
+
+        public static bool AreEqual(this Type a, BuilderType b) =>
+            a.AreEqual(b.typeReference) ||
+            a.AreEqual(b.typeDefinition ?? b.typeReference);
+
+        public static bool AreEqual(this Type a, TypeReference b) =>
+               a.Assembly.FullName == b.Resolve()?.Module.Assembly.Name.Name &&
+               a.FullName.GetHashCode() == b.FullName.GetHashCode() &&
+               a.FullName == b.FullName;
+
+        public static bool AreEqual(this TypeReference a, BuilderType b) =>
+            a.AreEqual(b.typeReference) ||
+            a.AreEqual(b.typeDefinition ?? b.typeReference) ||
+            (a.Resolve()?.AreEqual(b.typeDefinition ?? b.typeReference) ?? false);
 
         /// <summary>
         /// Checks if <paramref name="toBeAssigned"/> is assignable to <paramref name="type"/>.

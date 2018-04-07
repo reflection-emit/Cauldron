@@ -4,15 +4,17 @@ namespace Cauldron.UnitTest.AssemblyValidation
 {
     public class Module
     {
-        private static Action<object> blub;
+        private int? hi;
+
+        private int Bla { get; set; }
 
         public static void ModuleLoad(string[] array)
         {
-            blub = new Action<object>(bla);
         }
 
-        private static void bla(object b)
+        private object Buhuh(object io)
         {
+            return Bla;
         }
     }
 }

@@ -33,6 +33,7 @@ namespace Cauldron.Interception.Cecilator.Coders
             this.instructions.Changed += Changed;
         }
 
+        public int Count => this.instructions.Count;
         public Instruction First => this.instructions.Count == 0 ? null : this.instructions[0];
         public Instruction Last => this.instructions.Count == 0 ? null : this.instructions[this.instructions.Count - 1];
 
@@ -56,8 +57,6 @@ namespace Cauldron.Interception.Cecilator.Coders
                     this.resultingType = value;
             }
         }
-
-        public int Count => this.instructions.Count;
 
         public Instruction this[int index]
         {
@@ -98,9 +97,17 @@ namespace Cauldron.Interception.Cecilator.Coders
                     return true;
                 }
 
+                if (!castToType.typeReference.IsPrimitive && typeReference.IsPrimitive)
+                {
+                    instructionBlock.Emit(OpCodes.Box, Builder.Current.Import(typeReference));
+                    return true;
+                }
+
                 if (!castToType.typeReference.IsPrimitive && castToType.typeReference.Resolve().With(x => x.IsInterface || x.IsClass))
                 {
-                    instructionBlock.Emit(OpCodes.Isinst, Builder.Current.Import(castToType.typeReference));
+                    if (!castToType.typeReference.AreEqual(BuilderType.Object))
+                        instructionBlock.Emit(OpCodes.Isinst, Builder.Current.Import(castToType.typeReference));
+
                     return true;
                 }
 
@@ -108,7 +115,7 @@ namespace Cauldron.Interception.Cecilator.Coders
                 return true;
             }
 
-            if (!GetCodeBlockFromLastType(instructionBlock.ResultingType))
+            if (!GetCodeBlockFromLastType(instructionBlock.ResultingType) && !instructionBlock.ResultingType.AreEqual(BuilderType.Object))
                 // This can cause exceptions in some cases
                 instructionBlock.Emit(OpCodes.Isinst, Builder.Current.Import(castToType.typeReference));
         }
@@ -464,7 +471,23 @@ namespace Cauldron.Interception.Cecilator.Coders
                 result.Emit(OpCodes.Ldloca, localVariable);
                 result.Emit(OpCodes.Initobj, localVariable.Type);
             }
-            else if (localVariable.Type.IsNullable && value.GetType().With(x => x.IsValueType && !x.IsGenericType && Nullable.GetUnderlyingType(x) == null))
+            else if (localVariable.Type.IsNullable && value.With(x =>
+            {
+                if (x is ParametersCodeBlock parametersCodeBlock && parametersCodeBlock.index.HasValue &&
+                    ParametersCodeBlock.GetTargetType(instructionBlock.associatedMethod, parametersCodeBlock.index.Value).typeReference.AreEqual(localVariable.Type))
+                    return false;
+
+                if (x.GetType().AreEqual(localVariable.Type))
+                    return false;
+
+                if (x.GetType().With(y => y.IsValueType && !y.IsGenericType && Nullable.GetUnderlyingType(y) == null))
+                    return true;
+
+                if (x is CodeBlock)
+                    return true;
+
+                return false;
+            }))
             {
                 // If the nullable is assigned a value
                 result.Emit(OpCodes.Ldloca, localVariable);
@@ -502,11 +525,27 @@ namespace Cauldron.Interception.Cecilator.Coders
                 result.Emit(OpCodes.Ldarga, argInfo.Item2);
                 result.Emit(OpCodes.Initobj, argInfo.Item1);
             }
-            else if (argInfo.Item1.IsNullable && value.GetType().With(x => x.IsValueType && !x.IsGenericType && Nullable.GetUnderlyingType(x) == null))
+            else if (argInfo.Item1.IsNullable && value.With(x =>
+            {
+                if (x is ParametersCodeBlock parametersCodeBlockValue && parametersCodeBlockValue.index.HasValue &&
+                    ParametersCodeBlock.GetTargetType(instructionBlock.associatedMethod, parametersCodeBlockValue.index.Value).typeReference.AreEqual(argInfo.Item1))
+                    return false;
+
+                if (x.GetType().AreEqual(argInfo.Item1))
+                    return false;
+
+                if (x.GetType().With(y => y.IsValueType && !y.IsGenericType && Nullable.GetUnderlyingType(y) == null))
+                    return true;
+
+                if (x is CodeBlock)
+                    return true;
+
+                return false;
+            }))
             {
                 // If the nullable is assigned a value
                 result.Emit(OpCodes.Ldarga, argInfo.Item3);
-                result.Append(InstructionBlock.CreateCode(instructionBlock, null, value));
+                result.Append(InstructionBlock.CreateCode(instructionBlock, argInfo.Item1.ChildType, value));
                 result.Emit(OpCodes.Call, argInfo.Item1.GetMethod(".ctor", 1).Import());
             }
             else
@@ -541,17 +580,38 @@ namespace Cauldron.Interception.Cecilator.Coders
                 result.Emit(field.IsStatic ? OpCodes.Ldsflda : OpCodes.Ldflda, field.fieldRef);
                 result.Emit(OpCodes.Initobj, field.fieldRef.FieldType);
             }
-            else if (field.FieldType.IsNullable && value.GetType().With(x => x.IsValueType && !x.IsGenericType && Nullable.GetUnderlyingType(x) == null))
+            else if (field.FieldType.IsNullable && value.With(x =>
+            {
+                if (x is ParametersCodeBlock parametersCodeBlock && parametersCodeBlock.index.HasValue &&
+                    ParametersCodeBlock.GetTargetType(instructionBlock.associatedMethod, parametersCodeBlock.index.Value).typeReference.AreEqual(field.FieldType))
+                    return false;
+
+                if (x.GetType().AreEqual(field.FieldType))
+                    return false;
+
+                if (x.GetType().With(y => y.IsValueType && !y.IsGenericType && Nullable.GetUnderlyingType(y) == null))
+                    return true;
+
+                if (x is CodeBlock)
+                    return true;
+
+                return false;
+            }))
             {
                 // If the nullable is assigned a value
-                result.Append(InstructionBlock.CreateCode(instructionBlock, null, value));
+                result.Append(InstructionBlock.CreateCode(instructionBlock, field.FieldType.ChildType, value));
                 result.Emit(OpCodes.Newobj, field.FieldType.GetMethod(".ctor", 1).Import());
+
+                // Save to field
+                result.Emit(field.IsStatic ? OpCodes.Stsfld : OpCodes.Stfld, field.fieldRef);
             }
             else
+            {
                 // Other types
                 result.Append(InstructionBlock.CreateCode(instructionBlock, field.FieldType, value));
-            // Save to field
-            result.Emit(field.IsStatic ? OpCodes.Stsfld : OpCodes.Stfld, field.fieldRef);
+                // Save to field
+                result.Emit(field.IsStatic ? OpCodes.Stsfld : OpCodes.Stfld, field.fieldRef);
+            }
 
             return result;
         }
@@ -664,6 +724,8 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         public IEnumerator<Instruction> GetEnumerator() => this.instructions.GetEnumerator();
 
+        IEnumerator IEnumerable.GetEnumerator() => this.instructions.GetEnumerator();
+
         public override int GetHashCode() => this.associatedMethod.GetHashCode() ^ this.ilprocessor.GetHashCode();
 
         public int IndexOf(Instruction instruction) => this.instructions.IndexOf(instruction);
@@ -721,8 +783,6 @@ namespace Cauldron.Interception.Cecilator.Coders
                 sb.AppendLine($"IL_{item.Offset.ToString("X4")}: {item.OpCode.ToString()} { (item.Operand is Instruction ? "IL_" + (item.Operand as Instruction).Offset.ToString("X4") : item.Operand?.ToString())} ");
             return sb.ToString();
         }
-
-        IEnumerator IEnumerable.GetEnumerator() => this.instructions.GetEnumerator();
 
         internal static bool AddBinaryOperation(InstructionBlock instructionBlock, OpCode opCode, BuilderType a, BuilderType b, object valueB)
         {
@@ -1214,6 +1274,9 @@ namespace Cauldron.Interception.Cecilator.Coders
                     return false;
 
                 if (targetType == BuilderType.IEnumerable1)
+                    return false;
+
+                if (targetType.typeReference.AreEqual(BuilderType.Object))
                     return false;
 
                 return false;
