@@ -359,14 +359,6 @@ namespace Cauldron.Interception.Cecilator.Coders
                 case Method method:
                     if (targetType == BuilderType.IntPtr)
                     {
-                        if (!method.IsStatic && method.OriginType != instructionBlock.associatedMethod.OriginType && instructionBlock.associatedMethod.OriginType.IsAsyncStateMachine)
-                        {
-                            var instance = instructionBlock.associatedMethod.AsyncMethodHelper.Instance;
-                            result.Append(InstructionBlock.CreateCode(result, targetType, instance));
-                        }
-                        else
-                            result.Emit(method.IsStatic ? OpCodes.Ldnull : OpCodes.Ldarg_0);
-
                         result.Emit(OpCodes.Ldftn, method.methodReference);
                         result.ResultingType = BuilderType.IntPtr.typeReference;
                     }

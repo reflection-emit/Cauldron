@@ -23,7 +23,7 @@ namespace Cauldron.Interception.Cecilator
             a.FullName == b.FullName;
 
         public static bool AreEqual(this TypeReference a, TypeDefinition b) =>
-            a.Resolve()?.Module.Assembly.Name.Name == b.Resolve()?.Module.Assembly.Name.Name &&
+               a.Resolve()?.Module.Assembly.Name.Name == b.Resolve()?.Module.Assembly.Name.Name &&
                a.FullName.GetHashCode() == b.FullName.GetHashCode() &&
                a.FullName == b.FullName;
 
@@ -431,9 +431,6 @@ namespace Cauldron.Interception.Cecilator
 
         public static bool IsAssignableFrom(this TypeReference target, TypeReference source)
         {
-            Builder.Current.Log(LogTypes.Info, $"######### t-> {target.IsGenericParameter} {target.IsGenericInstance}");
-            Builder.Current.Log(LogTypes.Info, $"######### s-> {(source == null ? "null" : source.FullName)}");
-
             return target == source ||
                 target == source ||
                 target.FullName == "System.Object" ||
@@ -538,6 +535,8 @@ namespace Cauldron.Interception.Cecilator
 
             return self.BetterResolve().MakeGenericInstanceType(genericArguments);
         }
+
+        public static object ThisOrNull(this Method method) => method.IsStatic ? null : CodeBlocks.This;
 
         public static BuilderType ToBuilderType(this Type type)
         {
@@ -650,17 +649,19 @@ namespace Cauldron.Interception.Cecilator
 
         internal static void Display(this Type type)
         {
-            Builder.Current.Log(LogTypes.Info, $"{type?.Module.Assembly.FullName} {type?.FullName}");
-            Builder.Current.Log(LogTypes.Info, $"{type?.Module.Assembly.FullName} {type?.FullName}");
+            Builder.Current.Log(LogTypes.Info, $"### {type?.Module.Assembly.FullName} {type?.FullName}");
+            Builder.Current.Log(LogTypes.Info, $"### {type?.Module.Assembly.FullName} {type?.FullName}");
         }
 
         internal static void Display(this BuilderType type) => type.typeReference.Display();
 
         internal static void Display(this TypeReference type)
         {
-            Builder.Current.Log(LogTypes.Info, $"{type?.Module.Assembly.FullName} {type?.FullName}");
-            Builder.Current.Log(LogTypes.Info, $"{type?.Resolve()?.Module.Assembly.FullName} {type?.Resolve()?.FullName}");
+            Builder.Current.Log(LogTypes.Info, $"### {type?.Module.Assembly.FullName} {type?.FullName}");
+            Builder.Current.Log(LogTypes.Info, $"### {type?.Resolve()?.Module.Assembly.FullName} {type?.Resolve()?.FullName}");
         }
+
+        internal static void Display(this Method method) => Builder.Current.Log(LogTypes.Info, $"### {method}");
 
         internal static void Display(this Instruction instruction) =>
                 Builder.Current.Log(LogTypes.Info, $"IL_{instruction.Offset.ToString("X4")}: {instruction.OpCode.ToString()} { (instruction.Operand is Instruction ? "IL_" + (instruction.Operand as Instruction).Offset.ToString("X4") : instruction.Operand?.ToString())} ");

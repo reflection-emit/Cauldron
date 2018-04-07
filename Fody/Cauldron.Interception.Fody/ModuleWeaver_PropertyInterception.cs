@@ -68,7 +68,7 @@ namespace Cauldron.Interception.Fody
                                       member.Property.ReturnType,
                                       CodeBlocks.This,
                                       member.Property.ReturnType.IsArray || member.Property.ReturnType.Implements(typeof(IEnumerable)) ? member.Property.ReturnType.ChildType : null,
-                                      propertySetter == null ? null : then.NewCoder().NewObj(actionObjectCtor, propertySetter))));
+                                      propertySetter == null ? null : then.NewCoder().NewObj(actionObjectCtor, propertySetter.ThisOrNull(), propertySetter))));
                     })
                     .Try(@try =>
                     {
@@ -174,7 +174,7 @@ namespace Cauldron.Interception.Fody
                                     member.Property.ReturnType,
                                     CodeBlocks.This,
                                     member.Property.ReturnType.IsArray || member.Property.ReturnType.Implements(typeof(IEnumerable)) ? member.Property.ReturnType.ChildType : null,
-                                    propertySetter == null ? null : x.NewCoder().NewObj(actionObjectCtor, propertySetter)));
+                                    propertySetter == null ? null : x.NewCoder().NewObj(actionObjectCtor, propertySetter.ThisOrNull(), propertySetter)));
 
                         for (int i = 0; i < legalInitInterceptors.Length; i++)
                         {
@@ -246,7 +246,7 @@ namespace Cauldron.Interception.Fody
                                      member.Property.ReturnType,
                                      CodeBlocks.This,
                                      member.Property.ReturnType.IsArray || member.Property.ReturnType.Implements(typeof(IEnumerable)) ? member.Property.ReturnType.ChildType : null,
-                                     propertySetter == null ? null : x.NewCoder().NewObj(actionObjectCtor, propertySetter))));
+                                     propertySetter == null ? null : x.NewCoder().NewObj(actionObjectCtor, propertySetter.ThisOrNull(), propertySetter))));
                     })
                     .Try(@try =>
                     {
