@@ -726,10 +726,9 @@ namespace Cauldron.Interception.Cecilator.Coders
                 this.instructions.ilprocessor.Body.ExceptionHandlers.Add(item);
 
             // Add removal of unused variables here
-            this.instructions.associatedMethod.methodDefinition.Body.InitLocals = this.instructions.associatedMethod.methodDefinition.Body.Variables.Count > 0;
             this.instructions.associatedMethod.methodDefinition.Body.OptimizeMacros();
-
             ReplaceReturns(this);
+            this.instructions.associatedMethod.methodDefinition.Body.InitLocals = this.instructions.associatedMethod.methodDefinition.Body.Variables.Count > 0;
             this.instructions.Clear();
         }
 
@@ -782,10 +781,9 @@ namespace Cauldron.Interception.Cecilator.Coders
 
             // Add removal of unused variables here
 
-            this.instructions.associatedMethod.methodDefinition.Body.InitLocals = this.instructions.associatedMethod.methodDefinition.Body.Variables.Count > 0;
             this.instructions.associatedMethod.methodDefinition.Body.OptimizeMacros();
-
             ReplaceReturns(this);
+            this.instructions.associatedMethod.methodDefinition.Body.InitLocals = this.instructions.associatedMethod.methodDefinition.Body.Variables.Count > 0;
 
             this.instructions.Clear();
         }
@@ -839,10 +837,9 @@ namespace Cauldron.Interception.Cecilator.Coders
                 this.instructions.ilprocessor.Body.ExceptionHandlers.Add(item);
 
             // TODO: Add a method that removes unused variables this.CleanLocalVariableList();
-            this.instructions.associatedMethod.methodDefinition.Body.InitLocals = this.instructions.associatedMethod.methodDefinition.Body.Variables.Count > 0;
             this.instructions.associatedMethod.methodDefinition.Body.OptimizeMacros();
-
             ReplaceReturns(this);
+            this.instructions.associatedMethod.methodDefinition.Body.InitLocals = this.instructions.associatedMethod.methodDefinition.Body.Variables.Count > 0;
             this.instructions.Clear();
         }
 

@@ -433,9 +433,7 @@ namespace Cauldron.Interception.Fody
             else if (propertyType.IsEnum)
             {
                 // Enums requires special threatment
-                setterCode.If(x => CodeMe(
-                    field => x.Load(field).Is(typeof(string)),
-                    property => x.Call(property.Getter).Is(typeof(string))),
+                setterCode.If(x => x.Load(CodeBlocks.GetParameter(0)).Is(typeof(string)),
                     then =>
                     {
                         var stringVariable = setterDelegateMethod.GetOrCreateVariable(typeof(string));
