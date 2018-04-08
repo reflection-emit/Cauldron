@@ -118,6 +118,9 @@ namespace Cauldron.Interception.Cecilator
                 else if (lastOpCode.OpCode == OpCodes.Stloc_2) variable = asyncMethod.methodDefinition.Body.Variables[2];
                 else if (lastOpCode.OpCode == OpCodes.Stloc_3) variable = asyncMethod.methodDefinition.Body.Variables[3];
 
+            if (variable == null)
+                throw new NullReferenceException("Unable to find the state machines exception variable.");
+
             return new LocalVariable(asyncMethod.type, variable);
         }
 

@@ -466,10 +466,10 @@ namespace Cauldron.Interception.Cecilator
         {
             foreach (var item in method.methodDefinition.Body.ExceptionHandlers)
             {
-                if (item.TryStart.Offset >= instruction.Offset && item.TryStart.Offset <= instruction.Offset)
+                if (item.TryStart.Offset <= instruction.Offset && item.TryEnd.Offset >= instruction.Offset)
                     return true;
 
-                if (item.HandlerStart != null && item.HandlerStart.Offset >= instruction.Offset && item.HandlerEnd.Offset <= instruction.Offset)
+                if (item.HandlerStart != null && item.HandlerStart.Offset <= instruction.Offset && item.HandlerEnd.Offset >= instruction.Offset)
                     return true;
             }
 
@@ -664,6 +664,17 @@ namespace Cauldron.Interception.Cecilator
             return method;
         }
 
+        internal static void Display(this IEnumerable<ExceptionHandler> handlers)
+        {
+            foreach (var item in handlers)
+            {
+                Builder.Current.Log(LogTypes.Info, $"IL_{item.TryStart.Offset.ToString("X4")} <-> IL_{item.TryEnd.Offset.ToString("X4")} : {item.HandlerType}");
+
+                if (item.HandlerStart != null)
+                    Builder.Current.Log(LogTypes.Info, $"IL_{item.HandlerStart.Offset.ToString("X4")} <-> IL_{item.HandlerEnd.Offset.ToString("X4")}");
+            }
+        }
+
         internal static void Display(this Type type)
         {
             Builder.Current.Log(LogTypes.Info, $"### {type?.Module.Assembly.FullName} {type?.FullName}");
@@ -682,6 +693,15 @@ namespace Cauldron.Interception.Cecilator
 
         internal static void Display(this Instruction instruction) =>
                 Builder.Current.Log(LogTypes.Info, $"IL_{instruction.Offset.ToString("X4")}: {instruction.OpCode.ToString()} { (instruction.Operand is Instruction ? "IL_" + (instruction.Operand as Instruction).Offset.ToString("X4") : instruction.Operand?.ToString())} ");
+
+        internal static void Display(this MethodBody body)
+        {
+            Builder.Current.Log(LogTypes.Info, $"### {body.Method.FullName}");
+            body.ExceptionHandlers.Display();
+
+            foreach (var item in body.Instructions)
+                item.Display();
+        }
 
         internal static Method GetAsyncMethod(this Builder builder, MethodDefinition method)
         {

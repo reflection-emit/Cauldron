@@ -222,22 +222,6 @@ namespace Cauldron.Interception.Cecilator.Coders
                 copiedInstructions.RemoveRange(0, firstIndex);
             }
 
-            if (this.instructions.associatedMethod.methodDefinition.ReturnType.FullName == "System.Void")
-            {
-                // On void method we just simply remove the return and replace all other jumps to the
-                // ret instruction with a ret instruction
-                var returnInstruction = copiedInstructions.Last;
-
-                foreach (var item in copiedInstructions)
-                {
-                    if (item.Operand == returnInstruction)
-                    {
-                        item.Operand = null;
-                        item.OpCode = OpCodes.Ret;
-                    }
-                }
-            }
-
             this.instructions.Append(copiedInstructions);
 
             return this;
@@ -741,11 +725,11 @@ namespace Cauldron.Interception.Cecilator.Coders
             foreach (var item in this.instructions.exceptionHandlers)
                 this.instructions.ilprocessor.Body.ExceptionHandlers.Add(item);
 
-            ReplaceReturns(this);
             // Add removal of unused variables here
             this.instructions.associatedMethod.methodDefinition.Body.InitLocals = this.instructions.associatedMethod.methodDefinition.Body.Variables.Count > 0;
-
             this.instructions.associatedMethod.methodDefinition.Body.OptimizeMacros();
+
+            ReplaceReturns(this);
             this.instructions.Clear();
         }
 
@@ -796,12 +780,13 @@ namespace Cauldron.Interception.Cecilator.Coders
             foreach (var item in this.instructions.exceptionHandlers)
                 this.instructions.ilprocessor.Body.ExceptionHandlers.Add(item);
 
-            ReplaceReturns(this);
-
             // Add removal of unused variables here
 
             this.instructions.associatedMethod.methodDefinition.Body.InitLocals = this.instructions.associatedMethod.methodDefinition.Body.Variables.Count > 0;
             this.instructions.associatedMethod.methodDefinition.Body.OptimizeMacros();
+
+            ReplaceReturns(this);
+
             this.instructions.Clear();
         }
 
@@ -853,12 +838,11 @@ namespace Cauldron.Interception.Cecilator.Coders
             foreach (var item in this.instructions.exceptionHandlers)
                 this.instructions.ilprocessor.Body.ExceptionHandlers.Add(item);
 
-            ReplaceReturns(this);
-
             // TODO: Add a method that removes unused variables this.CleanLocalVariableList();
             this.instructions.associatedMethod.methodDefinition.Body.InitLocals = this.instructions.associatedMethod.methodDefinition.Body.Variables.Count > 0;
-
             this.instructions.associatedMethod.methodDefinition.Body.OptimizeMacros();
+
+            ReplaceReturns(this);
             this.instructions.Clear();
         }
 
@@ -901,6 +885,26 @@ namespace Cauldron.Interception.Cecilator.Coders
             if (coder.instructions.associatedMethod.IsAbstract)
                 throw new NotSupportedException("Interceptors does not support abstract methods.");
 
+            bool ReplaceWithLeave(Instruction instruction)
+            {
+                if (!coder.instructions.associatedMethod.IsInclosedInHandlers(instruction))
+                    return false;
+
+                if (instruction.OpCode == OpCodes.Br || instruction.OpCode == OpCodes.Br_S)
+                {
+                    // A break that jumps to an address in the handler is ok
+                    if (coder.instructions.associatedMethod.IsInclosedInHandlers(instruction.Operand as Instruction))
+                        return false;
+
+                    return true;
+                }
+
+                if (instruction.OpCode == OpCodes.Ret)
+                    return true;
+
+                return false;
+            }
+
             if (coder.instructions.associatedMethod.IsVoid || coder.instructions.Last?.OpCode != OpCodes.Ret)
             {
                 var realReturn = coder.instructions.associatedMethod.methodDefinition.Body.Instructions.Last();
@@ -909,11 +913,11 @@ namespace Cauldron.Interception.Cecilator.Coders
                 {
                     var instruction = coder.instructions.associatedMethod.methodDefinition.Body.Instructions[i];
 
-                    if (instruction.OpCode != OpCodes.Ret)
-                        continue;
-
-                    instruction.OpCode = coder.instructions.associatedMethod.IsInclosedInHandlers(instruction) ? OpCodes.Leave : OpCodes.Br;
-                    instruction.Operand = realReturn;
+                    if (ReplaceWithLeave(instruction))
+                    {
+                        instruction.OpCode = OpCodes.Leave;
+                        instruction.Operand = realReturn;
+                    }
                 }
             }
             else
@@ -945,10 +949,7 @@ namespace Cauldron.Interception.Cecilator.Coders
                 {
                     var instruction = coder.instructions.associatedMethod.methodDefinition.Body.Instructions[i];
 
-                    if (instruction.OpCode != OpCodes.Ret)
-                        continue;
-
-                    if (coder.instructions.associatedMethod.IsInclosedInHandlers(instruction))
+                    if (ReplaceWithLeave(instruction))
                     {
                         instruction.OpCode = OpCodes.Leave;
                         instruction.Operand = realReturn;
@@ -996,7 +997,7 @@ namespace Cauldron.Interception.Cecilator.Coders
                             }
 
                             if (!coder.instructions.associatedMethod.IsInclosedInHandlers(instruction, ExceptionHandlerType.Finally))
-                                coder.instructions.ilprocessor.InsertBefore(instruction, coder.instructions.ilprocessor.Create(OpCodes.Stloc, returnVariable));
+                                coder.instructions.ilprocessor.InsertBefore(instruction, coder.instructions.ilprocessor.Create(OpCodes.Stloc, returnVariable.variable));
                         }
                     }
                 }
