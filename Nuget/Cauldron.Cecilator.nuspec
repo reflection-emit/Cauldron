@@ -17,9 +17,10 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Cauldron Interception interceptor interception AOP Fody Cecil CIL ILWeaving</tags>
     <releaseNotes>
+      2018.04.11 - [C] Fody version 3.0.0 update and minor bug fixes.
     </releaseNotes>
     <dependencies>
-      <dependency id="Fody" version="2.3.14" />
+      <dependency id="Fody" version="3.0.3" />
     </dependencies>
   </metadata>
   <files>

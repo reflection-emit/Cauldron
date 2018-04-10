@@ -726,8 +726,9 @@ namespace Cauldron.Interception.Cecilator.Coders
                 this.instructions.ilprocessor.Body.ExceptionHandlers.Add(item);
 
             // Add removal of unused variables here
-            this.instructions.associatedMethod.methodDefinition.Body.OptimizeMacros();
             ReplaceReturns(this);
+            CleanLocalVariableList(this);
+            this.instructions.associatedMethod.methodDefinition.Body.OptimizeMacros();
             this.instructions.associatedMethod.methodDefinition.Body.InitLocals = this.instructions.associatedMethod.methodDefinition.Body.Variables.Count > 0;
             this.instructions.Clear();
         }
@@ -781,8 +782,9 @@ namespace Cauldron.Interception.Cecilator.Coders
 
             // Add removal of unused variables here
 
-            this.instructions.associatedMethod.methodDefinition.Body.OptimizeMacros();
             ReplaceReturns(this);
+            CleanLocalVariableList(this);
+            this.instructions.associatedMethod.methodDefinition.Body.OptimizeMacros();
             this.instructions.associatedMethod.methodDefinition.Body.InitLocals = this.instructions.associatedMethod.methodDefinition.Body.Variables.Count > 0;
 
             this.instructions.Clear();
@@ -836,11 +838,51 @@ namespace Cauldron.Interception.Cecilator.Coders
             foreach (var item in this.instructions.exceptionHandlers)
                 this.instructions.ilprocessor.Body.ExceptionHandlers.Add(item);
 
-            // TODO: Add a method that removes unused variables this.CleanLocalVariableList();
-            this.instructions.associatedMethod.methodDefinition.Body.OptimizeMacros();
             ReplaceReturns(this);
+            CleanLocalVariableList(this);
+            this.instructions.associatedMethod.methodDefinition.Body.OptimizeMacros();
             this.instructions.associatedMethod.methodDefinition.Body.InitLocals = this.instructions.associatedMethod.methodDefinition.Body.Variables.Count > 0;
             this.instructions.Clear();
+        }
+
+        private static void CleanLocalVariableList(Coder coder)
+        {
+            // TODO
+            //var variables = new List<(int index, VariableDefinition variable, bool required)>();
+            //var varCollection = coder.AssociatedMethod.methodDefinition.Body.Variables;
+
+            //for (int i = 0; i < varCollection.Count; i++)
+            //    variables.Add((i, varCollection[i], false));
+
+            //// Expand all ldloc
+            //foreach (var instruction in coder.AssociatedMethod.methodDefinition.Body.Instructions)
+            //{
+            //    if (instruction.OpCode == OpCodes.Ldloc_0)
+            //    {
+            //        instruction.OpCode = OpCodes.Ldloc;
+            //        instruction.Operand = varCollection[0];
+            //    }
+            //    else if (instruction.OpCode == OpCodes.Ldloc_1)
+            //    {
+            //        instruction.OpCode = OpCodes.Ldloc;
+            //        instruction.Operand = varCollection[1];
+            //    }
+            //    else if (instruction.OpCode == OpCodes.Ldloc_2)
+            //    {
+            //        instruction.OpCode = OpCodes.Ldloc;
+            //        instruction.Operand = varCollection[2];
+            //    }
+            //    else if (instruction.OpCode == OpCodes.Ldloc_3)
+            //    {
+            //        instruction.OpCode = OpCodes.Ldloc;
+            //        instruction.Operand = varCollection[3];
+            //    }
+            //    else if (instruction.OpCode == OpCodes.ldlo)
+            //    {
+            //        instruction.OpCode = OpCodes.Ldloc;
+            //        instruction.Operand = varCollection[4];
+            //    }
+            //}
         }
 
         private static void ReplaceJumps(Method method, Instruction tobeReplaced, Instruction replacement)

@@ -20,7 +20,7 @@ namespace Cauldron.Interception.Fody
         private bool IsXAML => (this.Builder.IsReferenced("Cauldron.XAML") || this.Builder.IsReferenced("System.Xaml") || this.Builder.IsReferenced("Windows.UI.Xaml")) &&
                 (this.Builder.TypeExists("Windows.UI.Xaml.Data.IValueConverter") || this.Builder.TypeExists("System.Windows.Data.IValueConverter") /* Fixes #39 */);
 
-        public override void OnExecute()
+        protected override void OnExecute()
         {
             if (!(this.Builder.IsReferenced("Cauldron.Interception") || this.Builder.TypeExists("Cauldron.Interception.IMethodInterceptor")))
             {

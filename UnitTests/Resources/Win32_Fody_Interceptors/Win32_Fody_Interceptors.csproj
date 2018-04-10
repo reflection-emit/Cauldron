@@ -56,14 +56,14 @@
   </ItemGroup>
   <Import Project="..\Fody_Interceptors\Fody_Interceptors.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\..\..\packages\Fody.2.3.15\build\net452\Fody.targets" Condition="Exists('..\..\..\packages\Fody.2.3.15\build\net452\Fody.targets')" />
+  <PropertyGroup>
+    <PreBuildEvent>dotnet script $(SolutionDir)Scripts\copy-script.csx $(ProjectPath)</PreBuildEvent>
+  </PropertyGroup>
+  <Import Project="..\..\..\packages\Fody.3.0.3\build\Fody.targets" Condition="Exists('..\..\..\packages\Fody.3.0.3\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\..\packages\Fody.2.3.15\build\net452\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Fody.2.3.15\build\net452\Fody.targets'))" />
+    <Error Condition="!Exists('..\..\..\packages\Fody.3.0.3\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Fody.3.0.3\build\Fody.targets'))" />
   </Target>
-  <PropertyGroup>
-    <PreBuildEvent>dotnet script $(SolutionDir)Scripts\copy-script.csx $(ProjectPath)</PreBuildEvent>
-  </PropertyGroup>
 </Project>

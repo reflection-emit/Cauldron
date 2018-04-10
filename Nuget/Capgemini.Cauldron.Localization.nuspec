@@ -13,6 +13,7 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Multisource Localization Language</tags>
     <releaseNotes>
+      2018.04.11 - [C] Fody version 3.0.0 update and minor bug fixes.
       2017.12.11 - [B] Added a Contains method to Locale.
     </releaseNotes>
     <dependencies>
@@ -21,8 +22,8 @@
         <dependency id="Capgemini.Cauldron.Core.Extensions" version="2.0.30-beta" />
         <dependency id="Capgemini.Cauldron.Core.Reflection" version="2.0.30-beta" />
         <dependency id="Capgemini.Cauldron.Core.Yaml" version="2.0.30-beta" />
-        <dependency id="Newtonsoft.Json" version="10.0.3" />
-        <dependency id="Fody" version="2.3.14" />
+        <dependency id="Newtonsoft.Json" version="11.0.2" />
+        <dependency id="Fody" version="3.0.3" />
       </group>
     </dependencies>
   </metadata>

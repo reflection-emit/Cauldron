@@ -501,11 +501,11 @@ namespace Cauldron.Interception.Cecilator
 
         public static bool IsSubclassOf(this TypeReference child, TypeReference parent) => !child.AreEqual(parent) && child.GetBaseClasses().Any(x => x.AreEqual(parent));
 
-        public static void Log(this CecilatorObject cecilatorObject, LogTypes logTypes, BuilderType type, object arg) => cecilatorObject.Log(logTypes, type.GetRelevantConstructors().FirstOrDefault() ?? type.Methods.FirstOrDefault(), arg);
+        public static void Log(this ICecilatorObject cecilatorObject, LogTypes logTypes, BuilderType type, object arg) => cecilatorObject.Log(logTypes, type.GetRelevantConstructors().FirstOrDefault() ?? type.Methods.FirstOrDefault(), arg);
 
-        public static void Log(this CecilatorObject cecilatorObject, LogTypes logTypes, Property property, object arg) => cecilatorObject.Log(logTypes, property.Getter ?? property.Setter, arg);
+        public static void Log(this ICecilatorObject cecilatorObject, LogTypes logTypes, Property property, object arg) => cecilatorObject.Log(logTypes, property.Getter ?? property.Setter, arg);
 
-        public static void Log(this CecilatorObject cecilatorObject, LogTypes logTypes, Method method, object arg)
+        public static void Log(this ICecilatorObject cecilatorObject, LogTypes logTypes, Method method, object arg)
         {
             //if (method.IsAsync)
             //{
@@ -516,7 +516,7 @@ namespace Cauldron.Interception.Cecilator
             cecilatorObject.Log(logTypes, method.methodDefinition.GetSequencePoint(), arg);
         }
 
-        public static void Log(this CecilatorObject cecilatorObject, LogTypes logTypes, object arg) => cecilatorObject.Log(logTypes, sequencePoint: null, arg: arg);
+        public static void Log(this ICecilatorObject cecilatorObject, LogTypes logTypes, object arg) => cecilatorObject.Log(logTypes, sequencePoint: null, arg: arg);
 
         /// <summary>
         /// Creates a new coder.
