@@ -20,11 +20,11 @@
     </releaseNotes>
     <dependencies>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="2.0.30-beta" />
-        <dependency id="Capgemini.Cauldron.Core.Disposable" version="2.0.30-beta" />
-        <dependency id="Capgemini.Cauldron.Core.Extensions" version="2.0.30-beta" />
-        <dependency id="Capgemini.Cauldron.Core.Reflection" version="2.0.30-beta" />
-        <dependency id="Cauldron.Interception.Fody" version="2.0.30-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="3.0.0-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Disposable" version="3.0.0-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Extensions" version="3.0.0-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Reflection" version="3.0.0-beta" />
+        <dependency id="Cauldron.Interception.Fody" version="3.0.0-beta" />
         <dependency id="Fody" version="3.0.3" />
       </group>
     </dependencies>
