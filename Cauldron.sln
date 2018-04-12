@@ -205,6 +205,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{551C
 		Scripts\CauldronBuilderData.csx = Scripts\CauldronBuilderData.csx
 		Scripts\copy-script.csx = Scripts\copy-script.csx
 		Scripts\fodycopy.csx = Scripts\fodycopy.csx
+		Scripts\MsBuildKiller.csx = Scripts\MsBuildKiller.csx
 		Scripts\NugetMetaDataJson.csx = Scripts\NugetMetaDataJson.csx
 		Scripts\NuspecInfo.csx = Scripts\NuspecInfo.csx
 	EndProjectSection

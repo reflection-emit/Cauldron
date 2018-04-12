@@ -1150,104 +1150,116 @@ namespace Cauldron.Interception.Cecilator
 
         internal static TypeReference ResolveType(this TypeReference type, MethodReference ownerMethod = null)
         {
-            Builder.Current.Log(LogTypes.Info, $"--->  {(ownerMethod == null ? "null" : ownerMethod.FullName)}");
-
-            //try
-            //{
-            TypeReference resolveType(IReadOnlyDictionary<string, TypeReference> genericParameters, TypeReference ptype)
+            try
             {
-                Builder.Current.Log(LogTypes.Info, $"---> {ptype.FullName}");
-                var genericType = !genericParameters.ContainsKey(ptype.FullName) ? ptype.ResolveType(ownerMethod) : genericParameters[ptype.FullName];
-
-                while (genericType.IsGenericParameter)
+                TypeReference resolveType(IReadOnlyDictionary<string, TypeReference> genericParameters, TypeReference ptype)
                 {
-                    if (!genericParameters.TryGetValue(genericType.FullName, out genericType))
-                        break;
+                    Builder.Current.Log(LogTypes.Info, $"---> {ptype.FullName}");
+                    var genericType = !genericParameters.ContainsKey(ptype.FullName) ? ptype.ResolveType(ownerMethod) : genericParameters[ptype.FullName];
 
-                    if (!genericType.IsGenericParameter)
-                        return genericType;
+                    while (genericType.IsGenericParameter)
+                    {
+                        if (!genericParameters.TryGetValue(genericType.FullName, out genericType))
+                            break;
+
+                        if (!genericType.IsGenericParameter)
+                            return genericType;
+                    }
+
+                    return genericParameters[ptype.FullName];
                 }
 
-                return genericParameters[ptype.FullName];
-            }
+                if (ownerMethod is GenericInstanceMethod genericInstanceMethod)
+                {
+                    if (type.IsGenericInstance)
+                    {
+                        var genericParameters = genericInstanceMethod.GetGenericResolvedTypeNames();
+                        var genericTypeInstance = type as GenericInstanceType;
 
-            if (type.IsGenericInstance && ownerMethod is GenericInstanceMethod)
-            {
-                var genericParameters = (ownerMethod as GenericInstanceMethod).GetGenericResolvedTypeNames();
-                var genericTypeInstance = type as GenericInstanceType;
+                        var result = new GenericInstanceType(genericTypeInstance.BetterResolve());
 
-                var result = new GenericInstanceType(genericTypeInstance.BetterResolve());
+                        foreach (var item in genericTypeInstance.GenericArguments)
+                            result.GenericArguments.Add(resolveType(genericParameters, item));
 
-                foreach (var item in genericTypeInstance.GenericArguments)
-                    result.GenericArguments.Add(resolveType(genericParameters, item));
+                        return result;
+                    }
 
-                return result;
-            }
-            if (type.ContainsGenericParameter && ownerMethod is GenericInstanceMethod)
-            {
-                var result = new GenericInstanceType(type);
-                var genericParameters = (ownerMethod as GenericInstanceMethod).GetGenericResolvedTypeNames();
+                    if (type.ContainsGenericParameter)
+                    {
+                        Builder.Current.Log(LogTypes.Info, $"--->  '{ownerMethod}' resolving '{type.FullName}'");
+                        var genericParameters = genericInstanceMethod.GetGenericResolvedTypeNames();
 
-                foreach (var item in type.GenericParameters)
-                    result.GenericArguments.Add(resolveType(genericParameters, item));
+                        if (type.GenericParameters.Count == 0 && type.IsGenericParameter)
+                            return genericParameters[type.FullName];
+                        else
+                        {
+                            var result = new GenericInstanceType(type);
 
-                return result;
-            }
-            else if (ownerMethod is GenericInstanceMethod)
-            {
-                var genericParameters = (ownerMethod as GenericInstanceMethod).GetGenericResolvedTypeNames();
-                return resolveType(genericParameters, type);
-            }
-            else
+                            foreach (var item in type.GenericParameters)
+                                result.GenericArguments.Add(resolveType(genericParameters, item));
+
+                            return result;
+                        }
+                    }
+
+                    {
+                        var genericParameters = genericInstanceMethod.GetGenericResolvedTypeNames();
+                        return resolveType(genericParameters, type);
+                    }
+                }
+
                 return type;
-            ////}
-            ////catch (Exception e)
-            ////{
-            ////    throw new TypeResolveException($"Unable to resolve type '{type?.FullName ?? "Unknown"}'", e);
-            ////}
+            }
+            catch (Exception e)
+            {
+                throw new TypeResolveException($"Unable to resolve type '{type?.FullName ?? "Unknown"}'", e);
+            }
         }
 
         internal static TypeReference ResolveType(this TypeReference type, TypeReference inheritingOrImplementingType, MethodReference ownerMethod = null)
         {
-            if (type.IsGenericParameter && inheritingOrImplementingType is GenericInstanceType)
+            if (inheritingOrImplementingType is GenericInstanceType castedInheritingOrImplementingType)
             {
-                var genericParameters = (inheritingOrImplementingType as GenericInstanceType).GetGenericResolvedTypeName();
-
-                if (genericParameters.ContainsKey(type.FullName))
-                    return genericParameters[type.FullName];
-
-                genericParameters = (inheritingOrImplementingType as GenericInstanceType).GetGenericResolvedTypeNames();
-                var genericType = genericParameters[type.FullName];
-
-                while (genericType.IsGenericParameter)
+                if (type.IsGenericParameter)
                 {
-                    genericType = genericParameters[genericType.FullName];
+                    var genericParameters = castedInheritingOrImplementingType.GetGenericResolvedTypeName();
 
-                    if (!genericType.IsGenericParameter)
-                        return genericType;
+                    if (genericParameters.ContainsKey(type.FullName))
+                        return genericParameters[type.FullName];
+
+                    genericParameters = castedInheritingOrImplementingType.GetGenericResolvedTypeNames();
+                    var genericType = genericParameters[type.FullName];
+
+                    while (genericType.IsGenericParameter)
+                    {
+                        genericType = genericParameters[genericType.FullName];
+
+                        if (!genericType.IsGenericParameter)
+                            return genericType;
+                    }
+
+                    return genericParameters[type.FullName];
                 }
 
-                return genericParameters[type.FullName];
-            }
-            else if (type.HasGenericParameters && inheritingOrImplementingType is GenericInstanceType)
-            {
-                var genericInstanceType = type as GenericInstanceType ?? type.MakeGenericInstanceType(type.GenericParameters.ToArray());
-                return genericInstanceType.ResolveGenericArguments(inheritingOrImplementingType as GenericInstanceType);
-            }
-            else if (type.ContainsGenericParameter && inheritingOrImplementingType is GenericInstanceType)
-            {
-                if (!type.IsGenericInstance)
-                    return type;
+                if (type.HasGenericParameters)
+                    return castedInheritingOrImplementingType.ResolveGenericArguments(castedInheritingOrImplementingType);
 
-                var genericInstanceType = type as GenericInstanceType;
-                return genericInstanceType.ResolveGenericArguments(inheritingOrImplementingType as GenericInstanceType);
+                if (type.ContainsGenericParameter)
+                {
+                    if (!type.IsGenericInstance)
+                        return type;
+
+                    return castedInheritingOrImplementingType.ResolveGenericArguments(castedInheritingOrImplementingType);
+                }
             }
-            else if (type.HasGenericParameters)
+
+            if (type.HasGenericParameters)
                 return type.MakeGenericInstanceType(type.GenericParameters.ToArray());
-            else if (ownerMethod != null)
+
+            if (ownerMethod != null)
                 return type.ResolveType(ownerMethod);
-            else
-                return type;
+
+            return type;
         }
 
         internal static MethodAttributes ToMethodAttributes(this Modifiers modifier)

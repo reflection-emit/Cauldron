@@ -33,7 +33,6 @@ namespace Cauldron.Interception.Cecilator.Coders
             this.instructions.Changed += Changed;
         }
 
-        public int Count => this.instructions.Count;
         public Instruction First => this.instructions.Count == 0 ? null : this.instructions[0];
         public Instruction Last => this.instructions.Count == 0 ? null : this.instructions[this.instructions.Count - 1];
 
@@ -57,6 +56,8 @@ namespace Cauldron.Interception.Cecilator.Coders
                     this.resultingType = value;
             }
         }
+
+        public int Count => this.instructions.Count;
 
         public Instruction this[int index]
         {
@@ -462,6 +463,7 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         public static InstructionBlock SetValue(InstructionBlock instructionBlock, LocalVariable localVariable, object value)
         {
+            ModifyValueTypeInstance(instructionBlock);
             var result = instructionBlock.Spawn();
 
             // value to assign
@@ -515,6 +517,7 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         public static InstructionBlock SetValue(InstructionBlock instructionBlock, ParametersCodeBlock parametersCodeBlock, object value)
         {
+            ModifyValueTypeInstance(instructionBlock);
             var result = instructionBlock.Spawn();
             var argInfo = parametersCodeBlock.GetTargetType(instructionBlock.associatedMethod);
 
@@ -567,6 +570,7 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         public static InstructionBlock SetValue(InstructionBlock instructionBlock, object instance, Field field, object value)
         {
+            ModifyValueTypeInstance(instructionBlock);
             var result = instructionBlock.Spawn();
 
             // Instance
@@ -724,8 +728,6 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         public IEnumerator<Instruction> GetEnumerator() => this.instructions.GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator() => this.instructions.GetEnumerator();
-
         public override int GetHashCode() => this.associatedMethod.GetHashCode() ^ this.ilprocessor.GetHashCode();
 
         public int IndexOf(Instruction instruction) => this.instructions.IndexOf(instruction);
@@ -783,6 +785,8 @@ namespace Cauldron.Interception.Cecilator.Coders
                 sb.AppendLine($"IL_{item.Offset.ToString("X4")}: {item.OpCode.ToString()} { (item.Operand is Instruction ? "IL_" + (item.Operand as Instruction).Offset.ToString("X4") : item.Operand?.ToString())} ");
             return sb.ToString();
         }
+
+        IEnumerator IEnumerable.GetEnumerator() => this.instructions.GetEnumerator();
 
         internal static bool AddBinaryOperation(InstructionBlock instructionBlock, OpCode opCode, BuilderType a, BuilderType b, object valueB)
         {
@@ -1052,7 +1056,7 @@ namespace Cauldron.Interception.Cecilator.Coders
             BuilderType targetType,
             LocalVariable localVariable)
         {
-            if (localVariable.variable.VariableType.IsValueType)
+            if (localVariable.variable.VariableType.IsValueType && targetType == null)
                 result.Emit(OpCodes.Ldloca, localVariable.variable);
             else
             {
@@ -1251,6 +1255,8 @@ namespace Cauldron.Interception.Cecilator.Coders
                     Builder.Current.Log(LogTypes.Info, $"ERROR:       Method IsGenericInstance: {method.methodReference.IsGenericInstance}");
                     Builder.Current.Log(LogTypes.Info, $"ERROR:       Param IsGenericInstance: {method.methodReference.Parameters[i].ParameterType.IsGenericInstance}");
                     Builder.Current.Log(LogTypes.Info, $"ERROR:       Param IsGenericParameter: {method.methodReference.Parameters[i].ParameterType.IsGenericParameter}");
+                    Builder.Current.Log(LogTypes.Info, $"ERROR:       Param HasGenericParameters: {method.methodReference.Parameters[i].ParameterType.HasGenericParameters}");
+                    Builder.Current.Log(LogTypes.Info, $"ERROR:       Param ContainsGenericParameter: {method.methodReference.Parameters[i].ParameterType.ContainsGenericParameter}");
                     if (method.methodDefinition.Parameters[i].ParameterType.IsGenericInstance || method.methodDefinition.Parameters[i].ParameterType.IsGenericParameter)
                         Builder.Current.Log(LogTypes.Info, $"ERROR: Resolves to '{method.methodDefinition.Parameters[i].ParameterType.ResolveType(method.OriginType.typeReference, method.methodReference)}'");
                 }
