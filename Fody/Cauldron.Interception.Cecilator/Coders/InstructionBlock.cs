@@ -1027,7 +1027,7 @@ namespace Cauldron.Interception.Cecilator.Coders
         }
 
         internal static void CreateCodeForFieldReference(
-                    InstructionBlock result,
+            InstructionBlock result,
             BuilderType targetType,
             Field valueField,
             bool autoAddThisInstance)
@@ -1052,7 +1052,7 @@ namespace Cauldron.Interception.Cecilator.Coders
             BuilderType targetType,
             LocalVariable localVariable)
         {
-            if (localVariable.variable.VariableType.IsValueType && targetType == null)
+            if (localVariable.variable.VariableType.IsValueType)
                 result.Emit(OpCodes.Ldloca, localVariable.variable);
             else
             {
@@ -1187,55 +1187,75 @@ namespace Cauldron.Interception.Cecilator.Coders
         private static InstructionBlock CallInternal(InstructionBlock instructionBlock, object instance, Method method, OpCode opcode, params object[] parameters)
         {
             var result = instructionBlock.Spawn();
-
-            if (instance != null && !method.IsStatic)
+            try
             {
-                result.Append(InstructionBlock.CreateCode(instructionBlock, null, instance));
-                ModifyValueTypeInstance(result);
-            }
-            else if (instance == null && !method.IsStatic)
-                ModifyValueTypeInstance(instructionBlock);
-
-            if (parameters != null && parameters.Length > 0 && parameters[0] is ArrayCodeBlock arrayCodeSet)
-            {
-                var methodParameters = method.methodDefinition.Parameters;
-                for (int i = 0; i < methodParameters.Count; i++)
+                if (instance != null && !method.IsStatic)
                 {
-                    result.Append(InstructionBlock.CreateCode(instructionBlock, null, arrayCodeSet));
-                    result.Append(InstructionBlock.CreateCode(instructionBlock, null, i));
-                    result.Emit(OpCodes.Ldelem_Ref);
+                    result.Append(InstructionBlock.CreateCode(instructionBlock, null, instance));
+                    ModifyValueTypeInstance(result);
+                }
+                else if (instance == null && !method.IsStatic)
+                    ModifyValueTypeInstance(instructionBlock);
 
-                    CastOrBoxValues(result, methodParameters[i].ParameterType.ToBuilderType());
+                if (parameters != null && parameters.Length > 0 && parameters[0] is ArrayCodeBlock arrayCodeSet)
+                {
+                    var methodParameters = method.methodDefinition.Parameters;
+                    for (int i = 0; i < methodParameters.Count; i++)
+                    {
+                        result.Append(InstructionBlock.CreateCode(instructionBlock, null, arrayCodeSet));
+                        result.Append(InstructionBlock.CreateCode(instructionBlock, null, i));
+                        result.Emit(OpCodes.Ldelem_Ref);
+
+                        CastOrBoxValues(result, methodParameters[i].ParameterType.ToBuilderType());
+                    }
+                }
+                else if (parameters != null && parameters.Length > 0 && parameters[0] is ParametersCodeBlock parameterCodeSet && parameterCodeSet.IsAllParameters)
+                {
+                    if ((method.OriginType.IsInterface || method.IsAbstract) && opcode != OpCodes.Calli && opcode != OpCodes.Newobj)
+                        opcode = OpCodes.Callvirt;
+
+                    for (int i = 0; i < method.methodReference.Parameters.Count; i++)
+                    {
+                        var parameterType = method.methodDefinition.Parameters[i].ParameterType.IsGenericInstance || method.methodDefinition.Parameters[i].ParameterType.IsGenericParameter ?
+                            method.methodDefinition.Parameters[i].ParameterType.ResolveType(method.OriginType.typeReference, method.methodReference) :
+                            method.methodDefinition.Parameters[i].ParameterType;
+
+                        result.Append(InstructionBlock.CreateCode(result, parameterType.ToBuilderType().Import(), CodeBlocks.GetParameter(i)));
+                    }
+                }
+                else
+                {
+                    if ((method.OriginType.IsInterface || method.IsAbstract) && opcode != OpCodes.Calli && opcode != OpCodes.Newobj)
+                        opcode = OpCodes.Callvirt;
+
+                    if (parameters != null)
+                        for (int i = 0; i < parameters.Length; i++)
+                        {
+                            var parameterType = method.methodDefinition.Parameters[i].ParameterType.IsGenericInstance || method.methodDefinition.Parameters[i].ParameterType.IsGenericParameter ?
+                                method.methodDefinition.Parameters[i].ParameterType.ResolveType(method.OriginType.typeReference, method.methodReference) :
+                                method.methodDefinition.Parameters[i].ParameterType;
+
+                            result.Append(InstructionBlock.CreateCode(result, parameterType.ToBuilderType().Import(), parameters[i]));
+                        }
                 }
             }
-            else if (parameters != null && parameters.Length > 0 && parameters[0] is ParametersCodeBlock parameterCodeSet && parameterCodeSet.IsAllParameters)
+            catch (Exception e)
             {
-                if ((method.OriginType.IsInterface || method.IsAbstract) && opcode != OpCodes.Calli && opcode != OpCodes.Newobj)
-                    opcode = OpCodes.Callvirt;
-
                 for (int i = 0; i < method.methodReference.Parameters.Count; i++)
                 {
                     var parameterType = method.methodDefinition.Parameters[i].ParameterType.IsGenericInstance || method.methodDefinition.Parameters[i].ParameterType.IsGenericParameter ?
                         method.methodDefinition.Parameters[i].ParameterType.ResolveType(method.OriginType.typeReference, method.methodReference) :
                         method.methodDefinition.Parameters[i].ParameterType;
 
-                    result.Append(InstructionBlock.CreateCode(result, parameterType.ToBuilderType().Import(), CodeBlocks.GetParameter(i)));
+                    Builder.Current.Log(LogTypes.Info, $"ERROR: {i} - {method.methodReference.Parameters[i].ParameterType.FullName}");
+                    Builder.Current.Log(LogTypes.Info, $"ERROR:       Method IsGenericInstance: {method.methodReference.IsGenericInstance}");
+                    Builder.Current.Log(LogTypes.Info, $"ERROR:       Param IsGenericInstance: {method.methodReference.Parameters[i].ParameterType.IsGenericInstance}");
+                    Builder.Current.Log(LogTypes.Info, $"ERROR:       Param IsGenericParameter: {method.methodReference.Parameters[i].ParameterType.IsGenericParameter}");
+                    if (method.methodDefinition.Parameters[i].ParameterType.IsGenericInstance || method.methodDefinition.Parameters[i].ParameterType.IsGenericParameter)
+                        Builder.Current.Log(LogTypes.Info, $"ERROR: Resolves to '{method.methodDefinition.Parameters[i].ParameterType.ResolveType(method.OriginType.typeReference, method.methodReference)}'");
                 }
-            }
-            else
-            {
-                if ((method.OriginType.IsInterface || method.IsAbstract) && opcode != OpCodes.Calli && opcode != OpCodes.Newobj)
-                    opcode = OpCodes.Callvirt;
 
-                if (parameters != null)
-                    for (int i = 0; i < parameters.Length; i++)
-                    {
-                        var parameterType = method.methodDefinition.Parameters[i].ParameterType.IsGenericInstance || method.methodDefinition.Parameters[i].ParameterType.IsGenericParameter ?
-                            method.methodDefinition.Parameters[i].ParameterType.ResolveType(method.OriginType.typeReference, method.methodReference) :
-                            method.methodDefinition.Parameters[i].ParameterType;
-
-                        result.Append(InstructionBlock.CreateCode(result, parameterType.ToBuilderType().Import(), parameters[i]));
-                    }
+                throw new Exception($"An error has occured while trying to weave a call. '{method}'", e);
             }
 
             try

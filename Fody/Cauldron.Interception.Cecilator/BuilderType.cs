@@ -140,7 +140,17 @@ namespace Cauldron.Interception.Cecilator
                     (x.InterfaceType.FullName.GetHashCode() == interfaceName.GetHashCode() && x.InterfaceType.FullName == interfaceName));
         }
 
-        public BuilderType Import() => new BuilderType(this.Builder, this.moduleDefinition.ImportReference(this.typeReference ?? this.typeDefinition));
+        public BuilderType Import()
+        {
+            try
+            {
+                return new BuilderType(this.Builder, this.moduleDefinition.ImportReference(this.typeReference ?? this.typeDefinition));
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"An error has occured while trying to import the type '{this.Fullname}'", e);
+            }
+        }
 
         public bool Inherits(Type type) => this.Inherits(typeDefinition.FullName);
 

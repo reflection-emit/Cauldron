@@ -58,7 +58,6 @@
     </releaseNotes>
     <dependencies>
       <dependency id="Fody" version="3.0.3" />
-      <dependency id="Cauldron.Cecilator" version="3.0.0" />
     </dependencies>
   </metadata>
   <files>
