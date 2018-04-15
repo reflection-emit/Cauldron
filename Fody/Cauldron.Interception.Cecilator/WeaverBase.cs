@@ -34,16 +34,8 @@ namespace Cauldron.Interception.Cecilator
         {
             this.Initialize(this.LogInfo, this.LogWarning, this.LogWarningPoint, this.LogError, this.LogErrorPoint);
 
-            try
-            {
-                this.Builder = this.CreateBuilder();
-                this.OnExecute();
-            }
-            catch (Exception e)
-            {
-                this.LogError(e.GetStackTrace());
-                throw;
-            }
+            this.Builder = this.CreateBuilder();
+            this.OnExecute();
         }
 
         public override IEnumerable<string> GetAssembliesForScanning()

@@ -49,6 +49,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <None Include="Interceptors\CoderTest.csx" />
+    <None Include="Interceptors\IfElseTests.csx" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestClass.cs" />
   </ItemGroup>
@@ -80,7 +82,8 @@
     </PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>copy /Y $(ProjectDir)..\Win32_Cecilator_Scriptable\$(OutDir)\Win32_Cecilator_Scriptable.dll $(ProjectDir)win32_cecilator.cauldron</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <Import Project="..\..\packages\Fody.3.0.3\build\Fody.targets" Condition="Exists('..\..\packages\Fody.3.0.3\build\Fody.targets')" />
 </Project>
