@@ -36,7 +36,7 @@ namespace Cauldron.Interception.Fody
                             .Select(x => new
                             {
                                 Type = x,
-                                Priority = (int)(x.GetField("Priority", BindingFlags.Public | BindingFlags.Static)?.GetValue(null) ?? 0),
+                                Priority = (int)(x.GetField("Priority", BindingFlags.Public | BindingFlags.Static)?.GetValue(null) ?? int.MaxValue),
                                 Name = x.GetField("Name", BindingFlags.Public | BindingFlags.Static)?.GetValue(null) as string ?? x.Name,
                                 Implement = x.GetMethods(BindingFlags.Public | BindingFlags.Static)
                                     .Where(y => y.GetParameters().Length == 1 && y.GetParameters()[0].ParameterType == typeof(Builder))
