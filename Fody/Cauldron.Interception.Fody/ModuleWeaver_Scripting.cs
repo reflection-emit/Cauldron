@@ -40,6 +40,7 @@ namespace Cauldron.Interception.Fody
                                 Name = x.GetField("Name", BindingFlags.Public | BindingFlags.Static)?.GetValue(null) as string ?? x.Name,
                                 Implement = x.GetMethods(BindingFlags.Public | BindingFlags.Static)
                                     .Where(y => y.GetParameters().Length == 1 && y.GetParameters()[0].ParameterType == typeof(Builder))
+                                    .OrderBy(y => y.Name)
                                     .ToArray()
                             })
                             .OrderBy(x => x.Priority))

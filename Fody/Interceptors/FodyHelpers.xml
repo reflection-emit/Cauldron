@@ -1,0 +1,180 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FodyHelpers</name>
+    </assembly>
+    <members>
+        <member name="T:Fody.BaseModuleWeaver">
+            <summary>
+            Base class for module weavers.
+            </summary>
+        </member>
+        <member name="P:Fody.BaseModuleWeaver.Config">
+            <summary>
+            The full element XML from FodyWeavers.xml.
+            </summary>
+        </member>
+        <member name="P:Fody.BaseModuleWeaver.LogDebug">
+            <summary>
+            Handler for writing a log entry at the <see cref="F:Fody.MessageImportance.Low"/> level.
+            </summary>
+        </member>
+        <member name="P:Fody.BaseModuleWeaver.LogInfo">
+            <summary>
+            Handler for writing a log entry at the <see cref="F:Fody.MessageImportance.Normal"/> level.
+            </summary>
+        </member>
+        <member name="P:Fody.BaseModuleWeaver.LogMessage">
+            <summary>
+            Handler for writing a log entry at a specific <see cref="T:Fody.MessageImportance"/> level.
+            </summary>
+        </member>
+        <member name="P:Fody.BaseModuleWeaver.LogWarning">
+            <summary>
+            Handler for writing a warning.
+            </summary>
+        </member>
+        <member name="P:Fody.BaseModuleWeaver.LogWarningPoint">
+            <summary>
+            Handler for writing a warning at a specific point in the code
+            </summary>
+        </member>
+        <member name="P:Fody.BaseModuleWeaver.LogError">
+            <summary>
+            Handler for writing an error.
+            </summary>
+        </member>
+        <member name="P:Fody.BaseModuleWeaver.LogErrorPoint">
+            <summary>
+            Handler for writing an error at a specific point in the code.
+            </summary>
+        </member>
+        <member name="P:Fody.BaseModuleWeaver.ResolveAssembly">
+            <summary>
+            Handler for resolving <see cref="T:Mono.Cecil.AssemblyDefinition"/>s.
+            </summary>
+        </member>
+        <member name="P:Fody.BaseModuleWeaver.ModuleDefinition">
+            <summary>
+            An instance of <see cref="P:Fody.BaseModuleWeaver.ModuleDefinition"/> for processing.
+            </summary>
+        </member>
+        <member name="P:Fody.BaseModuleWeaver.AssemblyFilePath">
+            <summary>
+            The full path of the target assembly.
+            </summary>
+        </member>
+        <member name="P:Fody.BaseModuleWeaver.ProjectDirectoryPath">
+            <summary>
+            The full directory path of the target project.
+            A copy of $(ProjectDir).
+            </summary>
+        </member>
+        <member name="P:Fody.BaseModuleWeaver.DocumentationFilePath">
+            <summary>
+            The full directory path of the XML documentation file,
+            if generating the documentation file is enabled in the project.
+            A copy of @(DocFileItem->'%(FullPath)').
+            </summary>
+        </member>
+        <member name="P:Fody.BaseModuleWeaver.AddinDirectoryPath">
+            <summary>
+            The full directory path of the current weaver.
+            </summary>
+        </member>
+        <member name="P:Fody.BaseModuleWeaver.SolutionDirectoryPath">
+            <summary>
+            The full directory path of the current solution.
+            A copy of `$(SolutionDir)` or, if it does not exist, a copy of `$(MSBuildProjectDirectory)..\..\..\`. OPTIONAL
+            </summary>
+        </member>
+        <member name="P:Fody.BaseModuleWeaver.References">
+            <summary>
+            A semicolon delimited string that contains
+            all the references for the target project.
+            A copy of the contents of the @(ReferencePath).
+            </summary>
+        </member>
+        <member name="P:Fody.BaseModuleWeaver.ReferenceCopyLocalPaths">
+            <summary>
+            A list of all the references marked as copy-local.
+            A copy of the contents of the @(ReferenceCopyLocalPaths).
+            </summary>
+        </member>
+        <member name="P:Fody.BaseModuleWeaver.DefineConstants">
+            <summary>
+            A list of all the msbuild constants.
+            A copy of the contents of the $(DefineConstants).
+            </summary>
+        </member>
+        <member name="M:Fody.BaseModuleWeaver.Execute">
+            <summary>
+            Called when the weaver is executed.
+            </summary>
+        </member>
+        <member name="M:Fody.BaseModuleWeaver.Cancel">
+            <summary>
+            Called when a request to cancel the build occurs.
+            </summary>
+        </member>
+        <member name="M:Fody.BaseModuleWeaver.GetAssembliesForScanning">
+            <summary>
+            Return a list of assembly names for scanning.
+            Used as a list for <see cref="P:Fody.BaseModuleWeaver.FindType"/>.
+            </summary>
+        </member>
+        <member name="P:Fody.BaseModuleWeaver.FindType">
+            <summary>
+            Handler for searching for a type.
+            Uses all assemblies listed from calling <see cref="M:Fody.BaseModuleWeaver.GetAssembliesForScanning"/> on all weavers.
+            </summary>
+        </member>
+        <member name="P:Fody.BaseModuleWeaver.TryFindType">
+            <summary>
+            Handler for searching for a type.
+            Uses all assemblies listed from calling <see cref="M:Fody.BaseModuleWeaver.GetAssembliesForScanning"/> on all weavers.
+            </summary>
+        </member>
+        <member name="M:Fody.BaseModuleWeaver.AfterWeaving">
+            <summary>
+            Called after all weaving has occurred and the module has been saved.
+            </summary>
+        </member>
+        <member name="P:Fody.BaseModuleWeaver.ShouldCleanReference">
+            <summary>
+            Set to true if the reference to an equally named library (same name as this fody addin with the ending ".Fody" trimmed)
+            should be removed by Fody after a successful execution
+            </summary>
+        </member>
+        <member name="T:Fody.MessageImportance">
+            <summary>
+            Abstraction for the MSBuild MessageImportance.
+            </summary>
+        </member>
+        <member name="T:Fody.MessageImportanceDefaults">
+            <summary>
+            Defaults for <see cref="T:Fody.MessageImportance"/> when writing to <see cref="P:Fody.BaseModuleWeaver.LogDebug"/> and <see cref="P:Fody.BaseModuleWeaver.LogInfo"/>.
+            </summary>
+        </member>
+        <member name="T:Fody.CodeBaseLocation">
+            <summary>
+            Uses <see cref="P:System.Reflection.Assembly.CodeBase"/> to derive the current directory.
+            </summary>
+        </member>
+        <member name="T:Fody.Ildasm">
+            <summary>
+            Decompile assemblies using ildasm.exe.
+            </summary>
+        </member>
+        <member name="T:Fody.PeVerifier">
+            <summary>
+            Verifies assemblies using peverify.exe.
+            </summary>
+        </member>
+        <member name="T:Fody.WeaverTestHelper">
+            <summary>
+            Uses <see cref="P:System.Reflection.Assembly.CodeBase"/> to derive the current directory.
+            </summary>
+        </member>
+    </members>
+</doc>

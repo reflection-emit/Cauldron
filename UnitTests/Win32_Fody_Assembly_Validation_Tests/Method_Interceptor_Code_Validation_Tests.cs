@@ -1,6 +1,8 @@
 ﻿using Fody_Assembly_Validation_External_Resources;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Win32_Fody_Assembly_Validation_Tests
@@ -8,6 +10,13 @@ namespace Win32_Fody_Assembly_Validation_Tests
     [TestClass]
     public class Method_Interceptor_Code_Validation_Tests
     {
+        [TestMethod]
+        [TestMethodInterceptor]
+        public static async Task<ICollection<TestClass>> GenericWeavingTest()
+        {
+            return new List<TestClass>(await Task.Run(() => new List<TestClass>()));
+        }
+
         [ExternalLockableMethod]
         public static void Static_Lockable_Method_()
         {

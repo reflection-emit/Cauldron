@@ -1,5 +1,4 @@
 ﻿using Cauldron.Interception.Cecilator;
-using Cauldron.Interception.Fody.Extensions;
 using Cauldron.Interception.Fody.HelperTypes;
 using System.Collections.Generic;
 using System.Linq;
