@@ -10,9 +10,12 @@ namespace Cauldron.Interception.Fody
 {
     public sealed partial class ModuleWeaver
     {
+        public List<string> CustomInterceptors { get; } = new List<string>();
+
         public void ExecuteInterceptionScripts(Builder builder)
         {
             var csc = Path.Combine(this.AddinDirectoryPath, "csc\\csc.exe");
+            this.GetCustomInterceptorList();
 
             using (new StopwatchLog(this, "custom interceptors"))
             {
@@ -30,6 +33,8 @@ namespace Cauldron.Interception.Fody
                 foreach (var script in Directory.GetFiles(interceptorDirectory, "*.dll", SearchOption.AllDirectories))
                     scriptBinaries.Add(AppDomain.CurrentDomain.Load(File.ReadAllBytes(script)));
 
+                scriptBinaries.AddRange(this.CustomInterceptors.Select(x => AppDomain.CurrentDomain.Load(File.ReadAllBytes(x))));
+
                 foreach (var scriptBinary in scriptBinaries
                             .SelectMany(x => x.DefinedTypes)
                             .Where(x => x.GetMethods(BindingFlags.Public | BindingFlags.Static).Length > 0)
@@ -39,7 +44,13 @@ namespace Cauldron.Interception.Fody
                                 Priority = (int)(x.GetField("Priority", BindingFlags.Public | BindingFlags.Static)?.GetValue(null) ?? int.MaxValue),
                                 Name = x.GetField("Name", BindingFlags.Public | BindingFlags.Static)?.GetValue(null) as string ?? x.Name,
                                 Implement = x.GetMethods(BindingFlags.Public | BindingFlags.Static)
-                                    .Where(y => y.GetParameters().Length == 1 && y.GetParameters()[0].ParameterType == typeof(Builder))
+                                    .Select(y => new
+                                    {
+                                        MethodInfo = y,
+                                        Parameters = y.GetParameters(),
+                                        Name = y.GetCustomAttribute<DisplayAttribute>()?.Name ?? y.Name
+                                    })
+                                    .Where(y => y.Parameters.Length == 1 && y.Parameters[0].ParameterType == typeof(Builder))
                                     .OrderBy(y => y.Name)
                                     .ToArray()
                             })
@@ -47,12 +58,12 @@ namespace Cauldron.Interception.Fody
                 {
                     using (new StopwatchLog(this, scriptBinary.Name))
                     {
-                        this.Log(LogTypes.Info, "++++++ Executing custom interceptor: " + scriptBinary.Name + " ++++++");
+                        this.Log(LogTypes.Info, ">> Executing custom interceptors in: " + scriptBinary.Name);
 
                         foreach (var method in scriptBinary.Implement)
                         {
-                            this.Log(LogTypes.Info, "-----> Executing method: " + method.Name);
-                            method.Invoke(null, new object[] { builder });
+                            this.Log(LogTypes.Info, "   Executing custom interceptor: " + method.Name);
+                            method.MethodInfo.Invoke(null, new object[] { builder });
                         }
                     }
                 }
@@ -97,6 +108,30 @@ namespace Cauldron.Interception.Fody
                 throw new Exception($"An error has occured while compiling '{script}'");
 
             return output;
+        }
+
+        private void GetCustomInterceptorList()
+        {
+            var element = this.Config.Element(nameof(CustomInterceptors));
+
+            if (element == null)
+                return;
+
+            foreach (var item in element.Value.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                var path = item
+                    .Trim()
+                    .Replace("$(SolutionPath)", this.SolutionDirectoryPath)
+                    .Replace("$(ProjectDir)", this.ProjectDirectoryPath);
+
+                if (string.IsNullOrEmpty(path))
+                    continue;
+
+                if (!File.Exists(path))
+                    throw new FileNotFoundException("File not found: " + path);
+
+                this.CustomInterceptors.Add(path);
+            }
         }
     }
 }

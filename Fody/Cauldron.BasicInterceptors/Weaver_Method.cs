@@ -1,11 +1,13 @@
 ﻿using Cauldron.Interception.Cecilator;
+using Cauldron.Interception.Fody;
 using Cauldron.Interception.Fody.HelperTypes;
 using System.Collections.Generic;
 using System.Linq;
 
-public sealed partial class Weaver_Method
+public sealed class Weaver_Method
 {
     public static string Name = "Method Interceptors";
+    public static int Priority = 0;
     private static IEnumerable<BuilderType> methodInterceptionAttributes;
 
     static Weaver_Method()
@@ -14,39 +16,10 @@ public sealed partial class Weaver_Method
            "Cauldron.Interception.IMethodInterceptor");
     }
 
-    public static void ImplementTypeWideMethodInterception(Builder builder)
-    {
-        if (!methodInterceptionAttributes.Any())
-            return;
+    [Display("Type-Wide Method Interception")]
+    public static void ImplementTypeWideMethodInterception(Builder builder) => ImplementTypeWideMethodInterception(builder, methodInterceptionAttributes);
 
-        var types = builder
-            .FindTypesByAttributes(methodInterceptionAttributes)
-            .GroupBy(x => x.Type)
-            .Select(x => new
-            {
-                x.Key,
-                Item = x.ToArray()
-            })
-            .ToArray();
-
-        foreach (var type in types)
-        {
-            builder.Log(LogTypes.Info, $"Implementing interceptors in type {type.Key.Fullname}");
-
-            foreach (var method in type.Key.Methods)
-            {
-                if (method.IsConstructor || method.IsPropertyGetterSetter)
-                    continue;
-
-                for (int i = 0; i < type.Item.Length; i++)
-                    method.CustomAttributes.Copy(type.Item[i].Attribute);
-            }
-
-            for (int i = 0; i < type.Item.Length; i++)
-                type.Item[i].Remove();
-        }
-    }
-
+    [Display("Method Interception")]
     public static void InterceptMethods(Builder builder)
     {
         if (!methodInterceptionAttributes.Any())
@@ -174,5 +147,38 @@ public sealed partial class Weaver_Method
                     }).Insert(InsertionAction.After, exceptionBlock.Start);
             }
         };
+    }
+
+    internal static void ImplementTypeWideMethodInterception(Builder builder, IEnumerable<BuilderType> attributes)
+    {
+        if (!methodInterceptionAttributes.Any())
+            return;
+
+        var types = builder
+            .FindTypesByAttributes(methodInterceptionAttributes)
+            .GroupBy(x => x.Type)
+            .Select(x => new
+            {
+                x.Key,
+                Item = x.ToArray()
+            })
+            .ToArray();
+
+        foreach (var type in types)
+        {
+            builder.Log(LogTypes.Info, $"Implementing interceptors in type {type.Key.Fullname}");
+
+            foreach (var method in type.Key.Methods)
+            {
+                if (method.IsConstructor || method.IsPropertyGetterSetter)
+                    continue;
+
+                for (int i = 0; i < type.Item.Length; i++)
+                    method.CustomAttributes.Copy(type.Item[i].Attribute);
+            }
+
+            for (int i = 0; i < type.Item.Length; i++)
+                type.Item[i].Remove();
+        }
     }
 }
