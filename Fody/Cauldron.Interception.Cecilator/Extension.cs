@@ -387,6 +387,26 @@ namespace Cauldron.Interception.Cecilator
             return null;
         }
 
+        public static string GetStackTrace(this Exception e)
+        {
+            var sb = new StringBuilder();
+            var ex = e;
+
+            do
+            {
+                sb.AppendLine("Exception Type: " + ex.GetType().Name);
+                sb.AppendLine("Source: " + ex.Source);
+                sb.AppendLine(ex.Message);
+                sb.AppendLine("------------------------");
+                sb.AppendLine(ex.StackTrace);
+                sb.AppendLine("------------------------");
+
+                ex = ex.InnerException;
+            } while (ex != null);
+
+            return sb.ToString();
+        }
+
         public static TypeDefinition GetTypeDefinition(this Type type)
         {
             var result = WeaverBase.AllTypes.Get(type.FullName);
@@ -762,26 +782,6 @@ namespace Cauldron.Interception.Cecilator
                 return methodReference.Parameters[isStatic ? 3 : 2];
             else
                 return methodReference.Parameters[(int)instruction.Operand];
-        }
-
-        internal static string GetStackTrace(this Exception e)
-        {
-            var sb = new StringBuilder();
-            var ex = e;
-
-            do
-            {
-                sb.AppendLine("Exception Type: " + ex.GetType().Name);
-                sb.AppendLine("Source: " + ex.Source);
-                sb.AppendLine(ex.Message);
-                sb.AppendLine("------------------------");
-                sb.AppendLine(ex.StackTrace);
-                sb.AppendLine("------------------------");
-
-                ex = ex.InnerException;
-            } while (ex != null);
-
-            return sb.ToString();
         }
 
         internal static TypeReference GetTypeOfValueInStack(this IEnumerable<Instruction> instructions, Method method)

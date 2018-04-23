@@ -10,10 +10,14 @@
     <projectUrl>https://github.com/Capgemini/Cauldron</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
-    <description>Fody add-in that provides method, property, field and constructor interception. Supports Net45, NetStandard2.0 and UWP.</description>
+    <description>
+      Fody add-in that provides custom interception. Supports Net45, NetStandard2.0 and UWP.
+      Method, Property, Constructor and Field interceptors can be found in the package Cauldron.BasicInterceptors (https://www.nuget.org/packages/Cauldron.Interception.Fody/)
+    </description>
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Interception interceptor interception AOP Fody Cecil CIL ILWeaving</tags>
     <releaseNotes>
+      2018.04.23 - [C] Basic interceptors moved to Cauldron.BasicInterceptors package
       2018.04.15 - [B] Custom interceptors now works correctly.
       2018.04.14 - [B] Resolving of generics throws an exception on certain cases.
       2018.04.11 - [C] First version of the new Cecilator.
@@ -63,19 +67,18 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="..\Fody\Cauldron.Interception.Fody\bin\Release\**" target="" />
-    <file src="..\Fody\Cauldron.Interception.Fody\csc\**" target="csc" />
+    <file src="..\Fody\Cauldron.Interception.Fody\bin\Release\Cauldron.Interception.Cecilator.dll" target="netclassicweaver" />
+    <file src="..\Fody\Cauldron.Interception.Fody\bin\Release\Cauldron.Interception.Cecilator.pdb" target="netclassicweaver" />
 
-    <!-- Desktop Net461 -->
-    <file src="..\NetStandard\Cauldron.Interception\bin\Release\netstandard2.0\Cauldron.Interception**" target="lib\net461" />
-    <!-- Desktop Net45 -->
-    <file src="..\Win32\Net45\Cauldron.Win32.Net45.Interception\bin\Release\Cauldron.Interception**" target="lib\net45" />
-    <!-- UWP -->
-    <file src="..\UWP\Cauldron.Interception\bin\Release\Cauldron.Interception**" target="lib\uap10.0" />
-    <!-- Net Standard 2.0 -->
-    <file src="..\NetStandard\Cauldron.Interception\bin\Release\netstandard2.0\Cauldron.Interception**" target="lib\netstandard2.0" />
+    <file src="..\Fody\Cauldron.Interception.Fody\bin\Release\Cauldron.Interception.Fody.dll" target="netclassicweaver" />
+    <file src="..\Fody\Cauldron.Interception.Fody\bin\Release\Cauldron.Interception.Fody.pdb" target="netclassicweaver" />
 
-    <file src="Fody\**" target="tools" />
+    <file src="..\Fody\Cauldron.Interception.Fody\bin\Release\Newtonsoft.Json.dll" target="netclassicweaver" />
+    <file src="..\Fody\Cauldron.Interception.Fody\bin\Release\System.ValueTuple.dll" target="netclassicweaver" />
+
+    <file src="..\Fody\Cauldron.Interception.Fody\csc\**" target="netclassicweaver\csc" />
+    <file src="Fody\FodyWeavers.xml" target="Content" />
+
     <file src="..\NetStandard\Cauldron.Interception\**\*.cs" target="src" />
   </files>
 </package>

@@ -21,7 +21,10 @@ namespace Cauldron.Interception.Fody
             {
                 var scriptBinaries = new List<Assembly>();
                 var interceptorDirectory = Path.Combine(this.ProjectDirectoryPath, "Interceptors");
-                var dlls = Directory.GetFiles(this.AddinDirectoryPath, "*.dll");
+                var dlls = new List<string>();
+
+                dlls.AddRange(Directory.GetFiles(this.AddinDirectoryPath, "*.dll"));
+                dlls.AddRange(typeof(ModuleWeaver).Assembly.GetReferencedAssemblies().Select(x => Assembly.Load(x).Location?.Trim()).Where(x => !string.IsNullOrEmpty(x)));
 
                 if (!Directory.Exists(interceptorDirectory))
                     return;
@@ -47,11 +50,10 @@ namespace Cauldron.Interception.Fody
                                     .Select(y => new
                                     {
                                         MethodInfo = y,
-                                        Parameters = y.GetParameters(),
-                                        Name = y.GetCustomAttribute<DisplayAttribute>()?.Name ?? y.Name
+                                        Parameters = y.GetParameters()
                                     })
                                     .Where(y => y.Parameters.Length == 1 && y.Parameters[0].ParameterType == typeof(Builder))
-                                    .OrderBy(y => y.Name)
+                                    .OrderBy(y => y.MethodInfo.Name)
                                     .ToArray()
                             })
                             .OrderBy(x => x.Priority))
@@ -62,7 +64,10 @@ namespace Cauldron.Interception.Fody
 
                         foreach (var method in scriptBinary.Implement)
                         {
-                            this.Log(LogTypes.Info, "   Executing custom interceptor: " + method.Name);
+                            var display = method.MethodInfo.GetCustomAttributes().FirstOrDefault(x => x.GetType().FullName == typeof(DisplayAttribute).FullName);
+                            var name = display?.GetType()?.GetProperty("Name")?.GetValue(display) as string ?? method.MethodInfo.Name;
+
+                            this.Log(LogTypes.Info, "   Executing custom interceptor: " + name);
                             method.MethodInfo.Invoke(null, new object[] { builder });
                         }
                     }
@@ -70,7 +75,7 @@ namespace Cauldron.Interception.Fody
             }
         }
 
-        private string CompileScript(string compiler, string script, string[] references)
+        private string CompileScript(string compiler, string script, IEnumerable<string> references)
         {
             this.Log(LogTypes.Info, "       Compiling custom interceptor: " + Path.GetFileName(script));
 
