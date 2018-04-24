@@ -248,6 +248,7 @@ EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Fody\Cauldron.Interception\Cauldron.Interception.projitems*{104f0649-8cc6-4ec2-9471-6bf1b3241f78}*SharedItemsImports = 4
+		Fody\Cauldron.Interception\Cauldron.Interception.projitems*{12798d81-1a71-44ea-b0c3-6720db04231e}*SharedItemsImports = 4
 		UnitTests\Resources\Fody_Interceptors\Fody_Interceptors.projitems*{1cc529ea-669f-498a-89b2-f6ccddea0b62}*SharedItemsImports = 13
 		Fody\Cauldron.Interception\Cauldron.Interception.projitems*{38abf85c-9322-4333-be30-a1b37fa5cc52}*SharedItemsImports = 4
 		UnitTests\Fody_Assembly_Validation_Tests\Fody_Assembly_Validation_Tests.projitems*{4d5f3595-c9bd-4b9d-bcb3-93aa26dfc282}*SharedItemsImports = 4

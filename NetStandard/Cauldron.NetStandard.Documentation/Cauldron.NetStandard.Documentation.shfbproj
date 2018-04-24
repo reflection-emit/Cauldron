@@ -37,7 +37,7 @@
     <KeepLogFile>True</KeepLogFile>
     <DisableCodeBlockComponent>False</DisableCodeBlockComponent>
     <CleanIntermediates>True</CleanIntermediates>
-    <HelpFileVersion>1.0.0.0</HelpFileVersion>
+    <HelpFileVersion>3.0.0.0</HelpFileVersion>
     <MaximumGroupParts>2</MaximumGroupParts>
     <NamespaceGrouping>False</NamespaceGrouping>
     <SyntaxFilters>C#, Visual Basic, Managed C++</SyntaxFilters>
@@ -45,7 +45,7 @@
     <RootNamespaceContainer>False</RootNamespaceContainer>
     <PresentationStyle>VS2013</PresentationStyle>
     <Preliminary>False</Preliminary>
-    <NamingMethod>Guid</NamingMethod>
+    <NamingMethod>MemberName</NamingMethod>
     <HelpTitle>Cauldron NetStandard Libraries</HelpTitle>
     <ContentPlacement>AboveNamespaces</ContentPlacement>
     <FeedbackEMailAddress>alexander.schunk%40capgemini.com</FeedbackEMailAddress>
