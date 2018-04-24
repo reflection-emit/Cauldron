@@ -83,7 +83,8 @@ public sealed class AssignMethodAttributeInfo
     {
         var fields = builderCustomAttribute.Type
             .GetAttributedFields()
-            .Where(x => x.Field.IsPublic && !x.Field.IsStatic && x.Attribute.Fullname == __AssignMethodAttribute.Type.Fullname);
+            .Where(x => x.Field.IsPublic && !x.Field.IsStatic && x.Attribute.Fullname == __AssignMethodAttribute.Type.Fullname)
+            .Select(x => x.Import());
 
         if (!fields.Any())
             return new AssignMethodAttributeInfo[0];

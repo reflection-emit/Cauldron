@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2003
+VisualStudioVersion = 15.0.27130.2020
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cauldron.Core", "NetStandard\Cauldron.Core\Cauldron.Core.csproj", "{A19F8E3A-657F-4123-85E8-AD4111D63E98}"
 EndProject
@@ -203,7 +203,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{551C
 	ProjectSection(SolutionItems) = preProject
 		Scripts\CauldronBuilder.csx = Scripts\CauldronBuilder.csx
 		Scripts\CauldronBuilderData.csx = Scripts\CauldronBuilderData.csx
-		Scripts\copy-script.csx = Scripts\copy-script.csx
 		Scripts\fodycopy.csx = Scripts\fodycopy.csx
 		Scripts\MsBuildKiller.csx = Scripts\MsBuildKiller.csx
 		Scripts\NugetMetaDataJson.csx = Scripts\NugetMetaDataJson.csx
@@ -242,10 +241,13 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Cauldron.Interception", "Fo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.ActivatorInterceptors", "Fody\Cauldron.ActivatorInterceptors\Cauldron.ActivatorInterceptors.csproj", "{8372504D-9E36-4203-AACA-0D6859D486C8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.WPF.Interceptors", "Fody\Cauldron.WPF.Interceptors\Cauldron.WPF.Interceptors.csproj", "{96E5EFDC-DA6A-485E-A42E-96CE0122F3F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.WPF.ValidatorInterceptors", "Fody\Cauldron.WPF.ValidatorInterceptors\Cauldron.WPF.ValidatorInterceptors.csproj", "{E3EEF746-B9D3-4B89-960B-CD3532673EB4}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Fody\Cauldron.Interception\Cauldron.Interception.projitems*{104f0649-8cc6-4ec2-9471-6bf1b3241f78}*SharedItemsImports = 4
-		Fody\Cauldron.Interception\Cauldron.Interception.projitems*{12798d81-1a71-44ea-b0c3-6720db04231e}*SharedItemsImports = 4
 		UnitTests\Resources\Fody_Interceptors\Fody_Interceptors.projitems*{1cc529ea-669f-498a-89b2-f6ccddea0b62}*SharedItemsImports = 13
 		Fody\Cauldron.Interception\Cauldron.Interception.projitems*{38abf85c-9322-4333-be30-a1b37fa5cc52}*SharedItemsImports = 4
 		UnitTests\Fody_Assembly_Validation_Tests\Fody_Assembly_Validation_Tests.projitems*{4d5f3595-c9bd-4b9d-bcb3-93aa26dfc282}*SharedItemsImports = 4
@@ -1479,6 +1481,38 @@ Global
 		{8372504D-9E36-4203-AACA-0D6859D486C8}.Release|x64.Build.0 = Release|Any CPU
 		{8372504D-9E36-4203-AACA-0D6859D486C8}.Release|x86.ActiveCfg = Release|Any CPU
 		{8372504D-9E36-4203-AACA-0D6859D486C8}.Release|x86.Build.0 = Release|Any CPU
+		{96E5EFDC-DA6A-485E-A42E-96CE0122F3F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96E5EFDC-DA6A-485E-A42E-96CE0122F3F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96E5EFDC-DA6A-485E-A42E-96CE0122F3F5}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{96E5EFDC-DA6A-485E-A42E-96CE0122F3F5}.Debug|ARM.Build.0 = Debug|Any CPU
+		{96E5EFDC-DA6A-485E-A42E-96CE0122F3F5}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{96E5EFDC-DA6A-485E-A42E-96CE0122F3F5}.Debug|x64.Build.0 = Debug|Any CPU
+		{96E5EFDC-DA6A-485E-A42E-96CE0122F3F5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{96E5EFDC-DA6A-485E-A42E-96CE0122F3F5}.Debug|x86.Build.0 = Debug|Any CPU
+		{96E5EFDC-DA6A-485E-A42E-96CE0122F3F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96E5EFDC-DA6A-485E-A42E-96CE0122F3F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96E5EFDC-DA6A-485E-A42E-96CE0122F3F5}.Release|ARM.ActiveCfg = Release|Any CPU
+		{96E5EFDC-DA6A-485E-A42E-96CE0122F3F5}.Release|ARM.Build.0 = Release|Any CPU
+		{96E5EFDC-DA6A-485E-A42E-96CE0122F3F5}.Release|x64.ActiveCfg = Release|Any CPU
+		{96E5EFDC-DA6A-485E-A42E-96CE0122F3F5}.Release|x64.Build.0 = Release|Any CPU
+		{96E5EFDC-DA6A-485E-A42E-96CE0122F3F5}.Release|x86.ActiveCfg = Release|Any CPU
+		{96E5EFDC-DA6A-485E-A42E-96CE0122F3F5}.Release|x86.Build.0 = Release|Any CPU
+		{E3EEF746-B9D3-4B89-960B-CD3532673EB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3EEF746-B9D3-4B89-960B-CD3532673EB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3EEF746-B9D3-4B89-960B-CD3532673EB4}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{E3EEF746-B9D3-4B89-960B-CD3532673EB4}.Debug|ARM.Build.0 = Debug|Any CPU
+		{E3EEF746-B9D3-4B89-960B-CD3532673EB4}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{E3EEF746-B9D3-4B89-960B-CD3532673EB4}.Debug|x64.Build.0 = Debug|Any CPU
+		{E3EEF746-B9D3-4B89-960B-CD3532673EB4}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E3EEF746-B9D3-4B89-960B-CD3532673EB4}.Debug|x86.Build.0 = Debug|Any CPU
+		{E3EEF746-B9D3-4B89-960B-CD3532673EB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3EEF746-B9D3-4B89-960B-CD3532673EB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3EEF746-B9D3-4B89-960B-CD3532673EB4}.Release|ARM.ActiveCfg = Release|Any CPU
+		{E3EEF746-B9D3-4B89-960B-CD3532673EB4}.Release|ARM.Build.0 = Release|Any CPU
+		{E3EEF746-B9D3-4B89-960B-CD3532673EB4}.Release|x64.ActiveCfg = Release|Any CPU
+		{E3EEF746-B9D3-4B89-960B-CD3532673EB4}.Release|x64.Build.0 = Release|Any CPU
+		{E3EEF746-B9D3-4B89-960B-CD3532673EB4}.Release|x86.ActiveCfg = Release|Any CPU
+		{E3EEF746-B9D3-4B89-960B-CD3532673EB4}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1571,6 +1605,8 @@ Global
 		{104F0649-8CC6-4EC2-9471-6BF1B3241F78} = {4F29A7F8-8AD4-4CFB-AC30-0C6F330F96C8}
 		{FD24DE00-CC4D-492E-8BE3-5249B130AD2E} = {A96D9056-C178-4AB9-A5DE-1C7E03A64F80}
 		{8372504D-9E36-4203-AACA-0D6859D486C8} = {A96D9056-C178-4AB9-A5DE-1C7E03A64F80}
+		{96E5EFDC-DA6A-485E-A42E-96CE0122F3F5} = {A96D9056-C178-4AB9-A5DE-1C7E03A64F80}
+		{E3EEF746-B9D3-4B89-960B-CD3532673EB4} = {A96D9056-C178-4AB9-A5DE-1C7E03A64F80}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D1F2CDF5-23CA-42FF-B139-C74A73C3FA62}

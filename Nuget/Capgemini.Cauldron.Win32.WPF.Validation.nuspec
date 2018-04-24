@@ -14,6 +14,7 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron XAML WPF Validation MVVM</tags>
     <releaseNotes>
+      2018.04.24 - [C] Now bringing its own interceptor
       2018.04.11 - [C] Fody version 3.0.0 update and minor bug fixes.
     </releaseNotes>
     <dependencies>
@@ -41,5 +42,8 @@
     <file src="..\Win32\Cauldron.Win32.WPF.Validation\bin\Release\Cauldron.Win32.WPF.Validation.xml" target="lib\net461" />
     <file src="..\Win32\Cauldron.Win32.WPF.Validation\bin\Release\Cauldron.Win32.WPF.Validation.pdb" target="lib\net461" />
     <file src="..\Win32\Cauldron.Win32.WPF.Validation\**\*.cs" target="src" />
+
+    <file src="..\Fody\Interceptors\Cauldron.WPF.ValidatorInterceptors.dll" target="Content\Interceptors" />
+    <file src="..\Fody\Interceptors\Cauldron.WPF.ValidatorInterceptors.pdb" target="Content\Interceptors" />
   </files>
 </package>

@@ -61,7 +61,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssignMethodAttributeInfo.cs" />
-    <Compile Include="Extensions.cs" />
     <Compile Include="InterceptorInfo.cs" />
     <Compile Include="MethodBuilderInfo.cs" />
     <Compile Include="ModuleWeaver.cs" />

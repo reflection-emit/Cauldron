@@ -1,5 +1,4 @@
 ﻿using Cauldron.Interception.Cecilator;
-using Cauldron.Interception.Fody.Extensions;
 using Cauldron.Interception.Fody.HelperTypes;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,10 +16,15 @@ namespace Cauldron.Interception.Fody
         }
 
         public bool HasGetterInterception => this.InterceptorInfos.Any(x => x.InterfaceGetter != null);
+
         public bool HasInitializer => this.InterceptorInfos.Any(x => x.InterfaceInitializer != null);
+
         public bool HasSetterInterception => this.InterceptorInfos.Any(x => x.InterfaceSetter != null);
+
         public PropertyBuilderInfoItem[] InterceptorInfos { get; private set; }
+
         public Property Property { get; private set; }
+
         public bool RequiresSyncRootField => this.InterceptorInfos?.Any(x => x.HasSyncRootInterface) ?? false;
 
         public Field SyncRoot
@@ -63,8 +67,11 @@ namespace Cauldron.Interception.Fody
         public AssignMethodAttributeInfo[] AssignMethodAttributeInfos { get; private set; }
 
         public AttributedProperty Attribute { get; private set; }
+
         public bool HasAssignMethodAttribute { get; private set; }
+
         public bool HasComparer { get; private set; }
+
         public bool HasSyncRootInterface { get; private set; }
 
         public InterceptorInfo InterceptorInfo { get; private set; }

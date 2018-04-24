@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <RunPostBuildEvent>Always</RunPostBuildEvent>
+    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FodyHelpers, Version=3.0.3.0, Culture=neutral, PublicKeyToken=1ca091877d12ca03, processorArchitecture=MSIL">
@@ -63,10 +63,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyWideAttributeConfig.cs" />
-    <None Include="AssignMethodAttributeInfo.cs" />
     <Compile Include="DisplayAttribute.cs" />
-    <Compile Include="Extensions\BuilderExtensions.cs" />
-    <Compile Include="Extensions\Extensions.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="HelperTypes\HelperTypeFieldAttribute.cs" />
     <Compile Include="HelperTypes\HelperTypeMethodAttribute.cs" />
     <Compile Include="HelperTypes\HelperTypeNameAttribute.cs" />
@@ -106,24 +104,10 @@
     <Compile Include="HelperTypes\__Task`1.cs" />
     <Compile Include="HelperTypes\__TimedCacheAttribute.cs" />
     <Compile Include="HelperTypes\__Uri.cs" />
-    <None Include="InterceptorInfo.cs" />
-    <None Include="MethodBuilderInfo.cs" />
     <Compile Include="ModuleWeaver.cs" />
     <Compile Include="ModuleWeaver_AssemblyWideAttributeDecorationAgent.cs" />
-    <None Include="ModuleWeaver_AssignMethodAttribute.cs" />
-    <Compile Include="ModuleWeaver_BamlXamlInitializer.cs" />
-    <Compile Include="ModuleWeaver_ChangeAwareViewModel.cs" />
-    <Compile Include="ModuleWeaver_ComponentCache.cs" />
-    <None Include="ModuleWeaver_ConstructorInterception.cs" />
-    <None Include="ModuleWeaver_ImplementAnonymousTypeInterface.cs" />
     <Compile Include="ModuleWeaver_Scripting.cs" />
-    <None Include="ModuleWeaver_SimpleMethodInterception.cs" />
-    <None Include="ModuleWeaver_MethodInterception.cs" />
-    <Compile Include="ModuleWeaver_NomenclatureCheck_Async.cs" />
-    <None Include="ModuleWeaver_PropertyInterception.cs" />
-    <Compile Include="ModuleWeaver_TimedCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <None Include="PropertyBuilderInfo.cs" />
     <Compile Include="StopwatchLog.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -136,33 +120,6 @@
     <None Include="app.config" />
     <None Include="csc\csc.exe.config" />
     <None Include="packages.config" />
-    <None Include="Scripts\activator-cauldron.fody.cauldron">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>activator-cauldron.fody.csx</DependentUpon>
-    </None>
-    <None Include="Scripts\activator-cauldron.fody.csx">
-      <Generator>CSXPacker</Generator>
-      <LastGenOutput>activator-cauldron.fody.cauldron</LastGenOutput>
-    </None>
-    <None Include="Scripts\wpf-baml-init.cauldron.fody.cauldron">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>wpf-baml-init.cauldron.fody.csx</DependentUpon>
-    </None>
-    <None Include="Scripts\wpf-baml-init.cauldron.fody.csx">
-      <Generator>CSXPacker</Generator>
-      <LastGenOutput>wpf-baml-init.cauldron.fody.cauldron</LastGenOutput>
-    </None>
-    <None Include="Scripts\wpf-interception.cauldron.fody.cauldron">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>wpf-interception.cauldron.fody.csx</DependentUpon>
-    </None>
-    <None Include="Scripts\wpf-interception.cauldron.fody.csx">
-      <Generator>CSXPacker</Generator>
-      <LastGenOutput>wpf-interception.cauldron.fody.cauldron</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="csc\csc.exe" />
@@ -183,10 +140,9 @@
   </ItemGroup>-->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>
-      dotnet script "$(ProjectDir)..\..\Scripts\fodycopy.csx" "$(TargetDir)" "$(ProjectDir)..\..\Tools" $(ProjectName)
-      dotnet script "$(ProjectDir)..\..\Scripts\fodycopy.csx" "$(TargetDir)" "$(ProjectDir)..\..\packages" $(ProjectName)
-    </PostBuildEvent>
+    <PostBuildEvent>dotnet script "$(ProjectDir)..\..\Scripts\fodycopy.csx" "$(TargetDir)" "$(ProjectDir)..\..\Tools" $(ProjectName)
+dotnet script "$(ProjectDir)..\..\Scripts\fodycopy.csx" "$(TargetDir)" "$(ProjectDir)..\..\packages" $(ProjectName)
+</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

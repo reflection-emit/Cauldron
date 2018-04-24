@@ -60,6 +60,7 @@
     </Compile>
     <Compile Include="ExceptionLoggerAttribute.cs" />
     <Compile Include="ExceptionToEventLogAttribute.cs" />
+    <None Include="InterceptorScripts\TimedCacheInterceptorWeaver.csx" />
     <Compile Include="PerformanceLoggerAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegistryAttribute.cs" />
@@ -78,5 +79,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -13,6 +13,7 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Activator Dependency Injection Factory Cauldron</tags>
     <releaseNotes>
+      2018.04.24 - [C] Now bringing its own interceptor
       2018.04.11 - [C] Fody version 3.0.0 update and minor bug fixes.
       2017.12.31 - [C] ComponentConstructorAttribute now accepts internal ctors
       2017.12.11 - [B] CreateFirst always returned null in some cases... This is fixed.
@@ -35,5 +36,8 @@
     <file src="..\NetStandard\Cauldron.Activator\bin\Release\netstandard2.0\Cauldron.Activator.xml" target="lib\netstandard2.0\Cauldron.Activator.xml" />
     <file src="..\NetStandard\Cauldron.Activator\bin\Release\netstandard2.0\Cauldron.Activator.pdb" target="lib\netstandard2.0\Cauldron.Activator.pdb" />
     <file src="..\NetStandard\Cauldron.Activator\**\*.cs" target="src" />
+
+    <file src="..\Fody\Interceptors\Cauldron.ActivatorInterceptors.dll" target="Content\Interceptors" />
+    <file src="..\Fody\Interceptors\Cauldron.ActivatorInterceptors.pdb" target="Content\Interceptors" />
   </files>
 </package>
