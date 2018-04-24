@@ -1,5 +1,6 @@
 ﻿using Cauldron.Interception.Cecilator;
 using Cauldron.Interception.Cecilator.Coders;
+using Cauldron.Interception.Fody;
 using Cauldron.Interception.Fody.HelperTypes;
 using System;
 using System.Linq;
@@ -165,7 +166,7 @@ public sealed class AssignMethodAttributeInfo
         });
 
         return result
-            .Replace("{Name}", targetInfo.propertyOrMethodName)
+            .Replace("{Name}", targetInfo.propertyOrMethodName.EnclosedIn().UpperCaseFirstLetter())
             .Replace("{ReturnType}", targetInfo.returnTypeName ?? "void");
     }
 }
