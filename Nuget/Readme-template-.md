@@ -1,6 +1,10 @@
 ![Cauldron Logo](https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron2.png)
 
 # Cauldron C# Toolkit
+## ATTENTION Breaking change
+The interceptors (method, property, fields, constructor ...) from Cauldron.Interception.Fody were moved to Cauldron.BasicInterceptors and now treated as custom interceptors.
+Custom interceptors are "scripts" that are compiled and run by Cauldron during the build of your project. For more information check the wiki.
+
 ## Documentation
 ### Wiki
 https://github.com/Capgemini/Cauldron/wiki
