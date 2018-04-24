@@ -1,8 +1,9 @@
 ﻿using Mono.Cecil;
+using Mono.Cecil.Cil;
+using Mono.Cecil.Rocks;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -21,10 +22,10 @@ namespace Cauldron.Interception.Cecilator
         public BuilderCustomAttributeCollection CustomAttributes => new BuilderCustomAttributeCollection(this, this.moduleDefinition);
         public string Name => this.moduleDefinition.Name;
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public override bool Equals(object obj) => this.ToString().Equals(obj.ToString());
+        public override bool Equals(object obj) => this.moduleDefinition.Assembly.FullName.Equals(obj?.ToString());
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
+        public TypeReference GetChildrenType(TypeReference type) => this.moduleDefinition.GetChildrenType(type);
+
         public override int GetHashCode() => this.moduleDefinition.Assembly.FullName.GetHashCode();
 
         public Method Import(System.Reflection.MethodBase value)
@@ -33,13 +34,22 @@ namespace Cauldron.Interception.Cecilator
             return new Method(new BuilderType(this, result.DeclaringType), result, result.Resolve());
         }
 
+        public MethodReference Import(MethodReference methodReference) => this.moduleDefinition.ImportReference(methodReference);
+
+        public FieldReference Import(FieldReference fieldReference) => this.moduleDefinition.ImportReference(fieldReference);
+
+        public MethodReference Import(MethodReference method, IGenericParameterProvider context) => this.moduleDefinition.ImportReference(method, context);
+
+        public TypeReference Import(Type type) => this.moduleDefinition.ImportReference(type);
+
+        public TypeReference Import(TypeReference typeReference) => this.moduleDefinition.ImportReference(typeReference);
+
         public Method Import(Method method)
         {
             var result = this.moduleDefinition.ImportReference(method.methodReference);
             return new Method(new BuilderType(this, result.DeclaringType), result, result.Resolve());
         }
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
         public override string ToString() => this.moduleDefinition.Assembly.FullName;
 
         #region Type Finders
@@ -357,6 +367,15 @@ namespace Cauldron.Interception.Cecilator
                 return new BuilderType(this, new ArrayType(this.moduleDefinition.ImportReference(bt.typeReference)));
             }
 
+            if (type.IsGenericType && type.GetGenericTypeDefinition() != type)
+            {
+                var builder = Builder.Current;
+                var definition = type.GetGenericTypeDefinition();
+                var typeDefinition = this.GetType(definition.FullName);
+
+                return typeDefinition.MakeGeneric(type.GetGenericArguments().Select(x => x.ToBuilderType()).ToArray());
+            }
+
             return this.GetType(type.FullName);
         }
 
@@ -391,6 +410,8 @@ namespace Cauldron.Interception.Cecilator
         public BuilderType MakeArray(BuilderType type) => new BuilderType(this, new ArrayType(this.moduleDefinition.ImportReference(type.typeReference)));
 
         public bool TypeExists(string typeName) => this.allTypes.Get(typeName) != null;
+
+        public bool TypeExists(string typeName, SearchContext searchContext) => searchContext == SearchContext.AllReferencedModules ? this.allTypes.Get(typeName) != null : this.moduleDefinition.Types.Get(typeName) != null;
 
         internal IEnumerable<TypeReference> GetTypesInternal() => GetTypesInternal(SearchContext.Module);
 

@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Cauldron.BasicInterceptors</id>
+    <version>2.0.0</version>
+    <title>Capgemini Cauldron Interception for Fody</title>
+    <authors>Alexander Schunk, Capgemini Deutschland GmbH</authors>
+    <owners>Alexander Schunk, Capgemini Deutschland GmbH</owners>
+    <licenseUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/Capgemini/Cauldron</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>Custom interceptors for Cauldron.Interception.Fody that provides method, property, field and constructor interception.</description>
+    <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
+    <tags>Toolkit Capgemini Cauldron Interception interceptor interception AOP Fody Cecil CIL ILWeaving</tags>
+    <releaseNotes>
+      2018.04.23 - [A] First version
+      2018.04.23 - [A] Dlls added for Net451, Net452, Net461 and Net462
+    </releaseNotes>
+    <dependencies>
+      <dependency id="Cauldron.Interception.Fody" version="3.0.3-beta" />
+    </dependencies>
+  </metadata>
+  <files>
+    <!-- Desktop Net461 -->
+    <file src="..\Win32\Net461\Cauldron.Win32.Net461.Interception\bin\Release\Cauldron.Interception**" target="lib\net461" />
+    <!-- Desktop Net462 -->
+    <file src="..\Win32\Net462\Cauldron.Win32.Net462.Interception\bin\Release\Cauldron.Interception**" target="lib\net462" />
+    <!-- Desktop Net45 -->
+    <file src="..\Win32\Net45\Cauldron.Win32.Net45.Interception\bin\Release\Cauldron.Interception**" target="lib\net45" />
+    <!-- Desktop Net451 -->
+    <file src="..\Win32\Net451\Cauldron.Win32.Net451.Interception\bin\Release\Cauldron.Interception**" target="lib\net451" />
+    <!-- Desktop Net452 -->
+    <file src="..\Win32\Net452\Cauldron.Win32.Net452.Interception\bin\Release\Cauldron.Interception**" target="lib\net452" />
+    <!-- UWP -->
+    <file src="..\UWP\Cauldron.Interception\bin\Release\Cauldron.Interception**" target="lib\uap10.0" />
+    <!-- Net Standard 2.0 -->
+    <file src="..\NetStandard\Cauldron.Interception\bin\Release\netstandard2.0\Cauldron.Interception**" target="lib\netstandard2.0" />
+
+    <file src="..\Fody\Interceptors\Cauldron.BasicInterceptors.dll" target="Content\Interceptors" />
+    <file src="..\Fody\Interceptors\Cauldron.BasicInterceptors.pdb" target="Content\Interceptors" />
+  </files>
+</package>

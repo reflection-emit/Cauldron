@@ -14,6 +14,8 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron XAML WPF MVVM Framework ViewModels</tags>
     <releaseNotes>
+      2018.04.24 - [C] Now bringing its own interceptor
+      2018.04.11 - [C] Fody version 3.0.0 update and minor bug fixes.
       2017.12.22 - [C] ParameterPassing in ApplicationBase now uses Environment.Exit(0) after passing the params to other instances.
       2017.12.22 - [A] RegisterUrlProtocols added to ApplicationBase
       2017.12.22 - [A] OnActivationProtocol added to ApplicationBase
@@ -36,28 +38,28 @@
       2017.12.04 - [A] Several information from ApplicationInfo added as static resources.
     </releaseNotes>
     <dependencies>
-      <dependency id="Fody" version="2.5.0" />
-      <dependency id="Newtonsoft.Json" version="10.0.3" />
-      <dependency id="PropertyChanged.Fody" version="2.2.10" />
-      <dependency id="Cauldron.Interception.Fody" version="2.1.0" />
-      <dependency id="Capgemini.Cauldron.Activator" version="2.1.0" />
-      <dependency id="Capgemini.Cauldron.Core" version="2.1.0" />
-      <dependency id="Capgemini.Cauldron.Core.Collections" version="2.1.0" />
-      <dependency id="Capgemini.Cauldron.Core.MathExtensions" version="2.1.0" />
-      <dependency id="Capgemini.Cauldron.Core.Comparing" version="2.1.0" />
-      <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="2.1.0" />
-      <dependency id="Capgemini.Cauldron.Core.Disposable" version="2.1.0" />
-      <dependency id="Capgemini.Cauldron.Core.Extensions" version="2.1.0" />
-      <dependency id="Capgemini.Cauldron.Core.Extensions.Convertions" version="2.1.0" />
-      <dependency id="Capgemini.Cauldron.Core.Reflection" version="2.1.0" />
-      <dependency id="Capgemini.Cauldron.Core.Threading" version="2.1.0" />
-      <dependency id="Capgemini.Cauldron.Cryptography" version="2.1.0" />
-      <dependency id="Capgemini.Cauldron.Localization" version="2.1.0" />
-      <dependency id="Capgemini.Cauldron.Win32.MonitorInfo" version="2.1.0" />
-      <dependency id="Capgemini.Cauldron.Win32.Net" version="2.1.0" />
-      <dependency id="Capgemini.Cauldron.Win32.Threading" version="2.1.0" />
-      <dependency id="Capgemini.Cauldron.Win32.UserInformation" version="2.1.0" />
-      <dependency id="Capgemini.Cauldron.Win32.WPF.ParameterPassing" version="2.1.0" />
+      <dependency id="Fody" version="3.0.3" />
+      <dependency id="Newtonsoft.Json" version="11.0.2" />
+      <dependency id="PropertyChanged.Fody" version="2.5.3" />
+      <dependency id="Cauldron.Interception.Fody" version="2.0.30-beta" />
+      <dependency id="Capgemini.Cauldron.Activator" version="2.0.30-beta" />
+      <dependency id="Capgemini.Cauldron.Core" version="2.0.30-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Collections" version="2.0.30-beta" />
+      <dependency id="Capgemini.Cauldron.Core.MathExtensions" version="2.0.30-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Comparing" version="2.0.30-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="2.0.30-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Disposable" version="2.0.30-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Extensions" version="2.0.30-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Extensions.Convertions" version="2.0.30-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Reflection" version="2.0.30-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Threading" version="2.0.30-beta" />
+      <dependency id="Capgemini.Cauldron.Cryptography" version="2.0.30-beta" />
+      <dependency id="Capgemini.Cauldron.Localization" version="2.0.30-beta" />
+      <dependency id="Capgemini.Cauldron.Win32.MonitorInfo" version="2.0.30-beta" />
+      <dependency id="Capgemini.Cauldron.Win32.Net" version="2.0.30-beta" />
+      <dependency id="Capgemini.Cauldron.Win32.Threading" version="2.0.30-beta" />
+      <dependency id="Capgemini.Cauldron.Win32.UserInformation" version="2.0.30-beta" />
+      <dependency id="Capgemini.Cauldron.Win32.WPF.ParameterPassing" version="2.0.30-beta" />
     </dependencies>
     <frameworkAssemblies>
       <frameworkAssembly assemblyName="PresentationCore" />
@@ -73,5 +75,8 @@
     <file src="..\Win32\Cauldron.Win32.WPF\bin\Release\Cauldron.Win32.WPF.xml" target="lib\net461" />
     <file src="..\Win32\Cauldron.Win32.WPF\bin\Release\Cauldron.Win32.WPF.pdb" target="lib\net461" />
     <file src="..\Win32\Cauldron.Win32.WPF\**\*.cs" target="src" />
+
+    <file src="..\Fody\Interceptors\Cauldron.WPF.Interceptors.dll" target="Content\Interceptors" />
+    <file src="..\Fody\Interceptors\Cauldron.WPF.Interceptors.pdb" target="Content\Interceptors" />
   </files>
 </package>

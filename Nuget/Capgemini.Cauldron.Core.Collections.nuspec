@@ -12,15 +12,10 @@
     <description>Contains usefull collections and collection extensions.</description>
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Collections ConcurrentList List</tags>
-    <releaseNotes>
-      2018.01.24 - [C] KeyRawValueDictionary moved to Cauldron.Core.Collections
-      2018.01.24 - [C] Reference to Cauldron.Core.Extensions.Convertions added
-    </releaseNotes>
     <dependencies>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="Capgemini.Cauldron.Core.Comparing" version="2.1.0" />
-        <dependency id="Capgemini.Cauldron.Core.Extensions" version="2.1.0" />
-        <dependency id="Capgemini.Cauldron.Core.Extensions.Convertions" version="2.1.0" />
+        <dependency id="Capgemini.Cauldron.Core.Comparing" version="3.0.0-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Extensions" version="3.0.0-beta" />
       </group>
     </dependencies>
   </metadata>

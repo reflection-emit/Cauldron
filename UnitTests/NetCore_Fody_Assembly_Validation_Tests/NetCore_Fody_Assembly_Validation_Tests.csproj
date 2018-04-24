@@ -25,14 +25,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Fody" Version="2.5.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0" />
+    <PackageReference Include="Fody" Version="3.0.3" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.6.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="1.2.0" />
     <PackageReference Include="MSTest.TestFramework" Version="1.2.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Comparing\Cauldron.Core.Comparing.csproj" />
     <ProjectReference Include="..\..\NetStandard\Cauldron.Interception\Cauldron.Interception.csproj" />
     <ProjectReference Include="..\Resources\Fody_Assembly_Validation_External_Resources\Fody_Assembly_Validation_External_Resources.csproj" />
     <ProjectReference Include="..\Resources\NetCore_Fody_Interceptors\NetCore_Fody_Interceptors.csproj" />

@@ -10,10 +10,12 @@ namespace Cauldron.Interception.Cecilator
         Internal = 4,
         Static = 8,
         Protected = 32,
-        Overrrides = 16,
+        Overrides = 16,
         PublicStatic = Public | Static,
         ProtectedStatic = Protected | Static,
         PrivateStatic = Private | Static,
-        InternalStatic = Internal | Static
+        InternalStatic = Internal | Static,
+        Explicit = 64,
+        All = Public | Private | Internal | Static | Protected | Overrides | Explicit
     }
 }

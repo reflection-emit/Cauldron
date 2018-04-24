@@ -438,8 +438,6 @@ namespace Cauldron
         /// <returns>The compressed stream.</returns>
         public static Stream ZipAsStream(this string value, Encoding encoding)
         {
-            var target = new MemoryStream();
-
             using (var source = new MemoryStream(encoding.GetBytes(value)))
                 return GZip.Zip(source);
         }

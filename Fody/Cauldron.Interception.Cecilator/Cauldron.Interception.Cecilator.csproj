@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\Cauldron.Interception.Cecilator.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,24 +30,28 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Cauldron.Interception.Cecilator.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Mono.Cecil, Version=0.10.0.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\FodyCecil.2.5.0\lib\net46\Mono.Cecil.dll</HintPath>
+    <Reference Include="FodyHelpers, Version=3.0.3.0, Culture=neutral, PublicKeyToken=1ca091877d12ca03, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FodyHelpers.3.0.3\lib\net46\FodyHelpers.dll</HintPath>
     </Reference>
-    <Reference Include="Mono.Cecil.Mdb, Version=0.10.0.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\FodyCecil.2.5.0\lib\net46\Mono.Cecil.Mdb.dll</HintPath>
+    <Reference Include="Mono.Cecil, Version=0.10.0.0, Culture=neutral, PublicKeyToken=1ca091877d12ca03, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FodyHelpers.3.0.3\lib\net46\Mono.Cecil.dll</HintPath>
     </Reference>
-    <Reference Include="Mono.Cecil.Pdb, Version=0.10.0.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\FodyCecil.2.5.0\lib\net46\Mono.Cecil.Pdb.dll</HintPath>
+    <Reference Include="Mono.Cecil.Mdb, Version=0.10.0.0, Culture=neutral, PublicKeyToken=1ca091877d12ca03, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FodyHelpers.3.0.3\lib\net46\Mono.Cecil.Mdb.dll</HintPath>
     </Reference>
-    <Reference Include="Mono.Cecil.Rocks, Version=0.10.0.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\FodyCecil.2.5.0\lib\net46\Mono.Cecil.Rocks.dll</HintPath>
+    <Reference Include="Mono.Cecil.Pdb, Version=0.10.0.0, Culture=neutral, PublicKeyToken=1ca091877d12ca03, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FodyHelpers.3.0.3\lib\net46\Mono.Cecil.Pdb.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Rocks, Version=0.10.0.0, Culture=neutral, PublicKeyToken=1ca091877d12ca03, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FodyHelpers.3.0.3\lib\net46\Mono.Cecil.Rocks.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.ValueTuple.4.5.0-preview2-26406-04\lib\net461\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -58,7 +63,8 @@
   <ItemGroup>
     <Compile Include="AssemblyDefinitionEqualityComparer.cs" />
     <Compile Include="AssemblyDefinitionEx.cs" />
-    <Compile Include="AssignInstructionsSet.cs" />
+    <None Include="AssignInstructionsSet.cs" />
+    <Compile Include="AssignInstructionType.cs" />
     <Compile Include="AsyncMethodHelper.cs" />
     <Compile Include="AttributedField.cs" />
     <Compile Include="AttributedMethod.cs" />
@@ -70,37 +76,73 @@
     <Compile Include="BuilderTypeEqualityComparer.cs" />
     <Compile Include="CecilatorBase.cs" />
     <Compile Include="CecilatorObject.cs" />
-    <Compile Include="Crumb.cs" />
+    <Compile Include="Coders\BooleanExpression\BooleanExpressionCoderBase.cs" />
+    <Compile Include="Coders\BooleanExpression\BooleanExpressionArgCoder.cs" />
+    <Compile Include="Coders\BooleanExpression\BooleanExpressionCallCoder.cs" />
+    <Compile Include="Coders\BooleanExpression\BooleanExpressionResultCoder.cs" />
+    <Compile Include="Coders\BooleanExpression\BooleanExpressionVariableCoder.cs" />
+    <Compile Include="Coders\Default\ArgCoder.cs" />
+    <Compile Include="Coders\Default\CallCoder.cs" />
+    <Compile Include="Coders\CoderBase.cs" />
+    <Compile Include="Coders\BooleanExpression\BooleanExpressionFieldCoder.cs" />
+    <Compile Include="Coders\Default\FieldCoder.cs" />
+    <Compile Include="Coders\IBinaryOperators.cs" />
+    <Compile Include="Coders\IArgOperations.cs" />
+    <Compile Include="Coders\ICallMethod.cs" />
+    <Compile Include="Coders\ICasting.cs" />
+    <Compile Include="Coders\IConditionalLogicalOperators.cs" />
+    <Compile Include="Coders\IExitOperators.cs" />
+    <Compile Include="Coders\IFieldOperations.cs" />
+    <Compile Include="Coders\ILoadValue.cs" />
+    <Compile Include="Coders\IMathOperators.cs" />
+    <Compile Include="Coders\INewObj.cs" />
+    <Compile Include="Coders\IVariableOperations.cs" />
+    <Compile Include="Coders\InstructionBlock.cs" />
+    <Compile Include="Coders\IRelationalOperators.cs" />
+    <Compile Include="Coders\Default\VariableCoder.cs" />
+    <Compile Include="Coders\TryCatchCoder\CatchCoder.cs" />
+    <Compile Include="Coders\TryCatchCoder\FinallyCoder.cs" />
+    <Compile Include="Coders\TryCatchCoder\InstructionMarker.cs" />
+    <Compile Include="Coders\TryCatchCoder\MarkerType.cs" />
+    <Compile Include="Coders\TryCatchCoder\TryCatchFinallyCoderBase.cs" />
+    <Compile Include="Coders\TryCatchCoder\TryCoder.cs" />
+    <None Include="Crumb.cs" />
     <Compile Include="CustomAttributeEqualityComparer.cs" />
     <Compile Include="Extension.cs" />
+    <Compile Include="Coders\BooleanExpression\BooleanExpressionCoder.cs" />
+    <Compile Include="Coders\Default\Coder.cs" />
+    <Compile Include="Coders\CodeBlock.cs" />
     <Compile Include="Field.cs" />
     <Compile Include="FieldCollection.cs" />
-    <Compile Include="FieldInstructionsSet.cs" />
+    <None Include="FieldInstructionsSet.cs" />
     <Compile Include="FieldInUseException.cs" />
     <Compile Include="FieldUsage.cs" />
     <Compile Include="IAction.cs" />
-    <Compile Include="ICatch.cs" />
-    <Compile Include="ICatchCode.cs" />
-    <Compile Include="ICode.cs" />
-    <Compile Include="IfCode.cs" />
-    <Compile Include="IFieldCode.cs" />
-    <Compile Include="IFinally.cs" />
-    <Compile Include="IIfCode.cs" />
+    <None Include="ICatch.cs" />
+    <None Include="ICatchCode.cs" />
+    <None Include="ICode.cs" />
+    <None Include="IfCode.cs" />
+    <None Include="IFieldCode.cs" />
+    <None Include="IFinally.cs" />
+    <None Include="IIfCode.cs" />
+    <Compile Include="ICecilatorObject.cs" />
     <Compile Include="IlHelper.cs" />
-    <Compile Include="ILocalVariableCode.cs" />
+    <None Include="ILocalVariableCode.cs" />
     <Compile Include="InsertionAction.cs" />
     <Compile Include="InsertionPosition.cs" />
-    <Compile Include="InstructionContainer.cs" />
-    <Compile Include="InstructionsSet.cs" />
-    <Compile Include="ITry.cs" />
-    <Compile Include="ITryCode.cs" />
+    <None Include="InstructionContainer.cs" />
+    <None Include="InstructionsSet.cs" />
+    <None Include="ITry.cs" />
+    <None Include="ITryCode.cs" />
+    <Compile Include="ListEx.cs" />
     <Compile Include="LogTypes.cs" />
     <Compile Include="TypeResolveException.cs" />
+    <Compile Include="CecilatorTypeSystem.cs" />
     <Compile Include="WeaverBase.cs" />
     <Compile Include="BuilderType.cs" />
     <Compile Include="LocalVariable.cs" />
-    <Compile Include="LocalVariableInstructionSet.cs" />
-    <Compile Include="MarkerType.cs" />
+    <None Include="LocalVariableInstructionSet.cs" />
+    <None Include="MarkerType.cs" />
     <Compile Include="Method.cs" />
     <Compile Include="MethodNotFoundException.cs" />
     <Compile Include="MethodUsage.cs" />
@@ -108,7 +150,7 @@
     <Compile Include="ParamResult.cs" />
     <Compile Include="Position.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MarkerInstructionSet.cs" />
+    <None Include="MarkerInstructionSet.cs" />
     <Compile Include="Property.cs" />
     <Compile Include="PropertyUsage.cs" />
     <Compile Include="SearchContext.cs" />
@@ -118,6 +160,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

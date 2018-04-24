@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Fody" Version="2.5.0" />
+    <PackageReference Include="Fody" Version="3.0.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -13,5 +13,9 @@
   </ItemGroup>
 
   <Import Project="..\Fody_Interceptors\Fody_Interceptors.projitems" Label="Shared" />
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="dotnet script $(SolutionDir)Scripts\copy-script.csx $(ProjectPath)" />
+  </Target>
 
 </Project>

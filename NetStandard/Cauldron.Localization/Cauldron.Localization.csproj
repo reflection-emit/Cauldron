@@ -5,7 +5,7 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageId>Capgemini.Cauldron.Localization</PackageId>
-    <Version>2.0.39-beta</Version>
+    <Version>3.0.0-beta</Version>
     <Authors>Alexander Schunk, Capgemini Deutschland GmbH</Authors>
     <Company>Capgemini Deutschland GmbH</Company>
     <Product>Cauldron.Consoles</Product>
@@ -16,8 +16,8 @@
     <Description>A simple localization implementation that can work with different sources.</Description>
     <PackageReleaseNotes></PackageReleaseNotes>
     <PackageTags>Toolkit Capgemini Cauldron Multisource Localization Language</PackageTags>
-  <AssemblyVersion>2.0.0.39</AssemblyVersion>
-<FileVersion>2.0.0.39</FileVersion>
+  <AssemblyVersion>3.0.0.0</AssemblyVersion>
+<FileVersion>3.0.0.0</FileVersion>
 </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -29,7 +29,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Fody" Version="2.5.0" />
+    <PackageReference Include="Fody" Version="3.0.3" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
 
@@ -39,5 +39,9 @@
     <ProjectReference Include="..\Cauldron.Core.Reflection\Cauldron.Core.Reflection.csproj" />
     <ProjectReference Include="..\Cauldron.Core.Yaml\Cauldron.Core.Yaml.csproj" />
   </ItemGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="dotnet script $(SolutionDir)Scripts\copy-script.csx $(ProjectPath)" />
+  </Target>
 
 </Project>

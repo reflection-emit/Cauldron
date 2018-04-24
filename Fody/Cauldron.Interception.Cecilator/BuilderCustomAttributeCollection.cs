@@ -1,4 +1,5 @@
-﻿using Mono.Cecil;
+﻿
+using Mono.Cecil;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -80,7 +81,7 @@ namespace Cauldron.Interception.Cecilator
                     {
                         var parameterType = parameters[i] == null ? null : this.moduleDefinition.ImportReference(parameters[i].GetType());
 
-                        if (!this.AreReferenceAssignable(x.Parameters[i].ParameterType, parameterType))
+                        if (!x.Parameters[i].ParameterType.AreReferenceAssignable(parameterType))
                             return false;
                     }
 
@@ -95,7 +96,7 @@ namespace Cauldron.Interception.Cecilator
 
             if (ctor.Parameters.Count > 0)
                 for (int i = 0; i < ctor.Parameters.Count; i++)
-                    attrib.ConstructorArguments.Add(new CustomAttributeArgument(ctor.Parameters[i].ParameterType, parameters[i]));
+                    attrib.ConstructorArguments.Add(new CustomAttributeArgument(ctor.Parameters[i].ParameterType, ConvertToAttributeParameter(parameters[i])));
 
             if (this.customAttributeProvider != null)
             {
@@ -146,8 +147,6 @@ namespace Cauldron.Interception.Cecilator
 
         public IEnumerator<BuilderCustomAttribute> GetEnumerator() => this.innerCollection.GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator() => this.innerCollection.GetEnumerator();
-
         public bool HasAttribute(BuilderType type)
         {
             if (this.customAttributeProvider != null)
@@ -186,6 +185,17 @@ namespace Cauldron.Interception.Cecilator
                 .Where(x => x.Fullname.GetHashCode() == type.typeReference.FullName.GetHashCode() && x.Fullname == type.typeReference.FullName)
                 .ToArray();
             this.Remove(attributesToRemove);
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() => this.innerCollection.GetEnumerator();
+
+        private object ConvertToAttributeParameter(object value)
+        {
+            switch (value)
+            {
+                case Type type: return type.ToBuilderType().typeReference;
+                default: return value;
+            }
         }
 
         private bool DonotApply(TypeReference customAttributeType)

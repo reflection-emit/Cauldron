@@ -18,8 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Fody" Version="2.5.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0" />
+    <PackageReference Include="Fody" Version="3.0.3" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.6.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="1.2.0" />
     <PackageReference Include="MSTest.TestFramework" Version="1.2.0" />
   </ItemGroup>
@@ -32,5 +32,9 @@
     <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Reflection\Cauldron.Core.Reflection.csproj" />
     <ProjectReference Include="..\..\NetStandard\Cauldron.Interception\Cauldron.Interception.csproj" />
   </ItemGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="dotnet script $(SolutionDir)Scripts\copy-script.csx $(ProjectPath)" />
+  </Target>
 
 </Project>

@@ -1,6 +1,8 @@
 ﻿using Fody_Assembly_Validation_External_Resources;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Win32_Fody_Assembly_Validation_Tests
@@ -8,6 +10,13 @@ namespace Win32_Fody_Assembly_Validation_Tests
     [TestClass]
     public class Method_Interceptor_Code_Validation_Tests
     {
+        [TestMethod]
+        [TestMethodInterceptor]
+        public static async Task<ICollection<TestClass>> GenericWeavingTest()
+        {
+            return new List<TestClass>(await Task.Run(() => new List<TestClass>()));
+        }
+
         [ExternalLockableMethod]
         public static void Static_Lockable_Method_()
         {
@@ -529,22 +538,22 @@ namespace Win32_Fody_Assembly_Validation_Tests
         }
 
         [TestMethodInterceptor]
-        private async Task<int> ValueType_Method_With_Multiple_Returns_Async_(int index)
+        private async Task<int> ValueType_Method_With_Multiple_Returns_Async_(int indexWithWeird_NAme)
         {
             return await Task.Run(() =>
            {
-               if (index == 0)
+               if (indexWithWeird_NAme == 0)
                    return 200;
 
-               if (index == 1)
+               if (indexWithWeird_NAme == 1)
                {
                    var test = 3482757849;
                    return test.GetHashCode();
                }
 
-               if (index == 2 || index == 5)
+               if (indexWithWeird_NAme == 2 || indexWithWeird_NAme == 5)
                {
-                   if (index * 2 == ((int)index / 2) * 4)
+                   if (indexWithWeird_NAme * 2 == ((int)indexWithWeird_NAme / 2) * 4)
                    {
                        var zu = 643 + 8934 / 5;
                        return zu;

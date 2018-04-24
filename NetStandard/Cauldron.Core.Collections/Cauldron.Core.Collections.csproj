@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyVersion>2.0.0.39</AssemblyVersion>
-    <FileVersion>2.0.0.39</FileVersion>
+    <AssemblyVersion>3.0.0.0</AssemblyVersion>
+    <FileVersion>3.0.0.0</FileVersion>
   <Authors>Alexander Schunk, Capgemini Deutschland GmbH</Authors>
 <Copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</Copyright>
 </PropertyGroup>
@@ -22,7 +22,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Cauldron.Core.Comparing\Cauldron.Core.Comparing.csproj" />
-    <ProjectReference Include="..\Cauldron.Core.Extensions.Convertions\Cauldron.Core.Extensions.Convertions.csproj" />
     <ProjectReference Include="..\Cauldron.Core.Extensions\Cauldron.Core.Extensions.csproj" />
   </ItemGroup>
 

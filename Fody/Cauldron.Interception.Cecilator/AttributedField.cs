@@ -17,10 +17,22 @@ namespace Cauldron.Interception.Cecilator
             this.Attribute = new BuilderCustomAttribute(field.type.Builder, field.fieldDef, customAttribute);
         }
 
+        private AttributedField(Field field, CustomAttribute customAttribute, BuilderCustomAttribute attribute) : base(field)
+        {
+            this.customAttribute = customAttribute;
+            this.Field = field;
+            this.Attribute = attribute;
+        }
+
         public BuilderCustomAttribute Attribute { get; private set; }
 
         public Field Field { get; private set; }
 
+        public AttributedField Import() => new AttributedField(this.Field.Import(), this.customAttribute, this.Attribute);
+
+        /// <summary>
+        /// Removes the attribute from the field
+        /// </summary>
         public void Remove() => this.Field.fieldDef.CustomAttributes.Remove(this.customAttribute);
 
         #region Equitable stuff

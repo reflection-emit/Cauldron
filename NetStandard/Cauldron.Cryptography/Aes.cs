@@ -115,6 +115,7 @@ namespace Cauldron.Cryptography
             }
 #endif
 
+            // TODO - has to be optimized... Get rid of resizing
             Array.Resize(ref result, result.Length + 16);
             Array.Copy(keyMaterial.Salt, 0, result, result.Length - 16, 16);
 
@@ -157,9 +158,9 @@ namespace Cauldron.Cryptography
             if (iterations < 1000)
                 throw new SecurityException("The KDF iterations should not be lower than 1000");
 
-            byte[] uncompressedData = data.UnzipAsBytes();
-            byte[] salt = new byte[16];
-            byte[] encrypted = new byte[uncompressedData.Length - 16];
+            var uncompressedData = data.UnzipAsBytes();
+            var salt = new byte[16];
+            var encrypted = new byte[uncompressedData.Length - 16];
 
             Array.Copy(uncompressedData, uncompressedData.Length - 16, salt, 0, 16);
             Array.Copy(uncompressedData, 0, encrypted, 0, encrypted.Length);

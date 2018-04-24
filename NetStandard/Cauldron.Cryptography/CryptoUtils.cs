@@ -36,7 +36,7 @@ namespace Cauldron.Cryptography
         /// <returns>The generated password</returns>
         public static string BrewPassword(string characterSet, uint length)
         {
-            char[] result = new char[length];
+            var result = new char[length];
 
             for (int i = 0; i < length; i++)
                 result[i] = Randomizer.Next<char>(characterSet.ToArray<char>());

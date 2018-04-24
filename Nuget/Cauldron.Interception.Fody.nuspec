@@ -10,17 +10,20 @@
     <projectUrl>https://github.com/Capgemini/Cauldron</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
-    <description>Fody add-in that provides method, property, field and constructor interception. Supports Net45, NetStandard2.0 and UWP.</description>
+    <description>
+      Fody add-in that provides custom interception. Supports Net45, NetStandard2.0 and UWP.
+      Method, Property, Constructor and Field interceptors can be found in the package Cauldron.BasicInterceptors (https://www.nuget.org/packages/Cauldron.Interception.Fody/)
+    </description>
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Interception interceptor interception AOP Fody Cecil CIL ILWeaving</tags>
     <releaseNotes>
-      2018.04.06 - [B] A bug that caused void methods to jump directly to the end of the method before executing the last OpCodes fixed.
-      2018.04.06 - [B] A bug in AssignMethod that causes methods that are assigned to filed not being recognized fixed.
-      2018.04.06 - [B] A bug in AssignMethod that causes methods that are assigned and are in the base class not being recognized fixed.
-      2018.02.16 - [B] Bug in the auto implementation of RaiseIsChanged event.
-      2018.01.24 - [B] Missing Assemblies added to the Nuget package.
-      2018.01.15 - [B] AssignMethodAttribute assigned methods lack of import and failed during weaving.
-      2018.01.11 - [B] ModuleMain entry point interceptor fixed. Waever throwed exception during weaving.
+      2018.04.23 - [C] Basic interceptors moved to Cauldron.BasicInterceptors package
+      2018.04.15 - [B] Custom interceptors now works correctly.
+      2018.04.14 - [B] Resolving of generics throws an exception on certain cases.
+      2018.04.11 - [C] First version of the new Cecilator.
+      2018.04.11 - [C] Fody version 3.0.0 update and minor bug fixes.
+      2018.03.02 - [C] All interceptor interfaces that were part of this package were moved to Cauldron.BasicInterceptors
+      2018.01.11 - [B] ModuleMain entry point interceptor fixed. Weaver throwed exception during weaving.
       2018.01.09 - [C] Getting rid of useless casts in created code.
       2018.01.09 - [B] MethodInterceptors in Async methods are now weaved correctly.
       2018.01.08 - [C] Interceptor OnException return type changed to bool to be able to create interceptors that swallow exceptions.
@@ -60,20 +63,22 @@
       2017.12.04 - [R] Useless method cache removed from weaver.
     </releaseNotes>
     <dependencies>
-      <dependency id="Fody" version="2.5.0" />
+      <dependency id="Fody" version="3.0.3" />
     </dependencies>
   </metadata>
   <files>
-    <file src="..\Fody\Cauldron.Interception.Fody\bin\Release\**" target="" />
-    <!-- Desktop Net461 -->
-    <file src="..\NetStandard\Cauldron.Interception\bin\Release\netstandard2.0\Cauldron.Interception**" target="lib\net461" />
-    <!-- Desktop Net45 -->
-    <file src="..\Win32\Net45\Cauldron.Win32.Net45.Interception\bin\Release\Cauldron.Interception**" target="lib\net45" />
-    <!-- UWP -->
-    <file src="..\UWP\Cauldron.Interception\bin\Release\Cauldron.Interception**" target="lib\uap10.0" />
-    <!-- Net Standard 2.0 -->
-    <file src="..\NetStandard\Cauldron.Interception\bin\Release\netstandard2.0\Cauldron.Interception**" target="lib\netstandard2.0" />
-    <file src="Fody\**" target="tools" />
+    <file src="..\Fody\Cauldron.Interception.Fody\bin\Release\Cauldron.Interception.Cecilator.dll" target="netclassicweaver" />
+    <file src="..\Fody\Cauldron.Interception.Fody\bin\Release\Cauldron.Interception.Cecilator.pdb" target="netclassicweaver" />
+
+    <file src="..\Fody\Cauldron.Interception.Fody\bin\Release\Cauldron.Interception.Fody.dll" target="netclassicweaver" />
+    <file src="..\Fody\Cauldron.Interception.Fody\bin\Release\Cauldron.Interception.Fody.pdb" target="netclassicweaver" />
+
+    <file src="..\Fody\Cauldron.Interception.Fody\bin\Release\Newtonsoft.Json.dll" target="netclassicweaver" />
+    <file src="..\Fody\Cauldron.Interception.Fody\bin\Release\System.ValueTuple.dll" target="netclassicweaver" />
+
+    <file src="..\Fody\Cauldron.Interception.Fody\csc\**" target="netclassicweaver\csc" />
+    <file src="Fody\FodyWeavers.xml" target="Content" />
+
     <file src="..\NetStandard\Cauldron.Interception\**\*.cs" target="src" />
   </files>
 </package>

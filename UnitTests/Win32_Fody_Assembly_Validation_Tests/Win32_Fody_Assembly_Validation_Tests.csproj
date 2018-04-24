@@ -72,13 +72,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Comparing\Cauldron.Core.Comparing.csproj">
-      <Project>{75a87a26-d167-4e61-84ba-5595ae475934}</Project>
-      <Name>Cauldron.Core.Comparing</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Reflection\Cauldron.Core.Reflection.csproj">
-      <Project>{9bc69306-6188-403e-bce3-0c85fe049a9b}</Project>
-      <Name>Cauldron.Core.Reflection</Name>
+    <ProjectReference Include="..\..\Fody\Cauldron.BasicInterceptors\Cauldron.BasicInterceptors.csproj">
+      <Project>{e25cff59-ab9c-4b8f-b8e6-226cbc7ee4c2}</Project>
+      <Name>Cauldron.BasicInterceptors</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\NetStandard\Cauldron.Interception\Cauldron.Interception.csproj">
       <Project>{54d84f50-0b4b-40cb-a27d-5ccd84f5b1ee}</Project>
@@ -106,8 +102,12 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\..\packages\MSTest.TestAdapter.1.2.0\build\net45\MSTest.TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\MSTest.TestAdapter.1.2.0\build\net45\MSTest.TestAdapter.props'))" />
     <Error Condition="!Exists('..\..\packages\MSTest.TestAdapter.1.2.0\build\net45\MSTest.TestAdapter.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\MSTest.TestAdapter.1.2.0\build\net45\MSTest.TestAdapter.targets'))" />
-    <Error Condition="!Exists('..\..\packages\Fody.2.5.0\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Fody.2.5.0\build\Fody.targets'))" />
+    <Error Condition="!Exists('..\..\packages\Fody.3.0.3\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Fody.3.0.3\build\Fody.targets'))" />
   </Target>
   <Import Project="..\..\packages\MSTest.TestAdapter.1.2.0\build\net45\MSTest.TestAdapter.targets" Condition="Exists('..\..\packages\MSTest.TestAdapter.1.2.0\build\net45\MSTest.TestAdapter.targets')" />
-  <Import Project="..\..\packages\Fody.2.5.0\build\Fody.targets" Condition="Exists('..\..\packages\Fody.2.5.0\build\Fody.targets')" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <Import Project="..\..\packages\Fody.3.0.3\build\Fody.targets" Condition="Exists('..\..\packages\Fody.3.0.3\build\Fody.targets')" />
 </Project>

@@ -106,6 +106,10 @@
       <Project>{2729fd6d-0685-4fdf-a995-3eae4e5ae942}</Project>
       <Name>Cauldron.Localization</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Cauldron.Core.Win32.Diagnostics\Cauldron.Core.Win32.Diagnostics.csproj">
+      <Project>{b34eede6-74a8-4582-ab45-a46c5871f97e}</Project>
+      <Name>Cauldron.Core.Win32.Diagnostics</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Cauldron.Win32.Threading\Cauldron.Win32.Threading.csproj">
       <Project>{4aeb2c1e-1625-483d-ad8e-6dca3c28742e}</Project>
       <Name>Cauldron.Win32.Threading</Name>
@@ -120,11 +124,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\..\packages\Fody.2.5.0\build\Fody.targets" Condition="Exists('..\..\packages\Fody.2.5.0\build\Fody.targets')" />
+  <PropertyGroup>
+    <PreBuildEvent>dotnet script $(SolutionDir)Scripts\copy-script.csx $(ProjectPath)</PreBuildEvent>
+  </PropertyGroup>
+  <Import Project="..\..\packages\Fody.3.0.3\build\Fody.targets" Condition="Exists('..\..\packages\Fody.3.0.3\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\Fody.2.5.0\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Fody.2.5.0\build\Fody.targets'))" />
+    <Error Condition="!Exists('..\..\packages\Fody.3.0.3\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Fody.3.0.3\build\Fody.targets'))" />
   </Target>
 </Project>

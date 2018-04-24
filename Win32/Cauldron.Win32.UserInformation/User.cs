@@ -423,12 +423,12 @@ namespace Cauldron.Core
                     var domainDN = rootDSE.Properties["DefaultNamingContext"].Value;
                     using (var adEntry = new DirectoryEntry("LDAP://" + domainDN))
                     {
-                        using (DirectorySearcher dsSearcher = new DirectorySearcher(adEntry))
+                        using (var dsSearcher = new DirectorySearcher(adEntry))
                         {
                             dsSearcher.Filter = "(&(objectCategory=user)(|(CN={0})(sAMAccountName={0})))".ToString(_username);
-                            SearchResult result = dsSearcher.FindOne();
+                            var result = dsSearcher.FindOne();
 
-                            using (DirectoryEntry user = new DirectoryEntry(result.Path))
+                            using (var user = new DirectoryEntry(result.Path))
                             {
                                 var data = user.Properties["thumbnailPhoto"].Value as byte[];
 

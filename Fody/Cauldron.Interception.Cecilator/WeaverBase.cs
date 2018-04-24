@@ -1,4 +1,5 @@
-﻿using Mono.Cecil;
+﻿using Fody;
+using Mono.Cecil;
 using Mono.Cecil.Cil;
 using System;
 using System.Collections.Generic;
@@ -7,25 +8,14 @@ using System.Diagnostics;
 
 namespace Cauldron.Interception.Cecilator
 {
-    public abstract class WeaverBase : CecilatorObject
+    public abstract class WeaverBase : BaseModuleWeaver, ICecilatorObject
     {
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public static IEnumerable<TypeDefinition> AllTypes { get; internal set; }
 
-        public string AssemblyFilePath { get; set; }
         public Builder Builder { get; private set; }
-        public List<string> DefineConstants { get; set; }
-        public Action<string> LogError { get; set; }
-        public Action<string, SequencePoint> LogErrorPoint { get; set; }
-        public Action<string> LogInfo { get; set; }
-        public Action<string> LogWarning { get; set; }
-        public Action<string, SequencePoint> LogWarningPoint { get; set; }
-        public ModuleDefinition ModuleDefinition { get; set; }
-        public string ProjectDirectoryPath { get; set; }
-        public List<string> ReferenceCopyLocalPaths { get; set; }
-        public string SolutionDirectoryPath { get; set; }
 
-        public void AfterWeaving()
+        public override void AfterWeaving()
         {
             AllTypes = null;
 
@@ -38,38 +28,120 @@ namespace Cauldron.Interception.Cecilator
             this.ReferenceCopyLocalPaths.Clear();
             this.ModuleDefinition.Dispose();
             this.ModuleDefinition = null;
-
-            this.OnAfterWeaving();
         }
 
-        public void Cancel() => this.OnCancel();
-
-        public void Execute()
+        public override void Execute()
         {
             this.Initialize(this.LogInfo, this.LogWarning, this.LogWarningPoint, this.LogError, this.LogErrorPoint);
 
-            try
+            this.Builder = this.CreateBuilder();
+            this.OnExecute();
+        }
+
+        public override IEnumerable<string> GetAssembliesForScanning()
+        {
+            yield return "mscorlib";
+            yield return "System";
+        }
+
+        protected abstract void OnExecute();
+
+        #region Implementation from CecilatorObject due to breaking changes in FOdy 3.0.0
+
+        [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private Action<string> logError;
+
+        [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private Action<string, SequencePoint> logErrorPoint;
+
+        [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private Action<string> logInfo;
+
+        [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private Action<string> logWarning;
+
+        [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private Action<string, SequencePoint> logWarningPoint;
+
+        public void Log(LogTypes logTypes, Instruction instruction, MethodDefinition methodDefinition, object arg)
+        {
+            var next = instruction;
+            while (next != null)
             {
-                this.Builder = this.CreateBuilder();
-                this.OnExecute();
+                var result = methodDefinition.DebugInformation.GetSequencePoint(next);
+                if (result != null)
+                {
+                    this.Log(logTypes, result, arg);
+                    return;
+                }
+
+                next = next.Next;
             }
-            catch (Exception e)
+
+            var previous = instruction;
+            while (previous != null)
             {
-                this.LogError(e.GetStackTrace());
-                throw;
+                var result = methodDefinition.DebugInformation.GetSequencePoint(previous);
+                if (result != null)
+                {
+                    this.Log(logTypes, result, arg);
+                    return;
+                }
+
+                previous = previous.Previous;
+            }
+
+            this.Log(logTypes, methodDefinition, arg);
+        }
+
+        public void Log(LogTypes logTypes, MethodDefinition method, object arg) => Log(logTypes, method.GetSequencePoint(), arg);
+
+        public void Log(LogTypes logTypes, SequencePoint sequencePoint, object arg)
+        {
+            switch (logTypes)
+            {
+                case LogTypes.Error:
+                    if (sequencePoint == null)
+                        this.logError(arg as string ?? arg?.ToString() ?? "");
+                    else
+                        this.logErrorPoint(arg as string ?? arg?.ToString() ?? "", sequencePoint);
+
+                    break;
+
+                case LogTypes.Warning:
+                    if (sequencePoint == null)
+                        this.logWarning(arg as string ?? arg?.ToString() ?? "");
+                    else
+                        this.logWarningPoint(arg as string ?? arg?.ToString() ?? "", sequencePoint);
+
+                    break;
+
+                case LogTypes.Info:
+                    this.logInfo(arg as string ?? arg?.ToString() ?? "");
+                    break;
             }
         }
 
-        public virtual void OnAfterWeaving()
+        protected void Initialize(
+            Action<string> logInfo,
+            Action<string> logWarning,
+            Action<string, SequencePoint> logWarningPoint,
+            Action<string> logError,
+            Action<string, SequencePoint> logErrorPoint)
         {
+            this.logError = logError;
+            this.logErrorPoint = logErrorPoint;
+            this.logInfo = logInfo;
+            this.logWarning = logWarning;
+            this.logWarningPoint = logWarningPoint;
         }
 
-        public virtual void OnCancel()
-        {
-        }
+        protected void Log(object arg) => this.logInfo(arg as string ?? arg?.ToString() ?? "");
 
-        public virtual void OnExecute()
-        {
-        }
+        protected void Log(Exception e) => this.logError(e.GetStackTrace());
+
+        protected void Log(Exception e, string message) => this.logError(e.GetStackTrace() + "\r\n" + message);
+
+        #endregion Implementation from CecilatorObject due to breaking changes in FOdy 3.0.0
     }
 }

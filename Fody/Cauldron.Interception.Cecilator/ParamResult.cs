@@ -14,7 +14,7 @@ namespace Cauldron.Interception.Cecilator
             get { return this._type; }
             set
             {
-                if (!value.IsGenericInstance && value.HasGenericParameters)
+                if (value != null && !value.IsGenericInstance && value.HasGenericParameters)
                     this._type = value.ResolveType(value);
                 else
                     this._type = value;

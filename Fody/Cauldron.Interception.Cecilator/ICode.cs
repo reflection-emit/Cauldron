@@ -1,6 +1,5 @@
 ﻿using Mono.Cecil.Cil;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace Cauldron.Interception.Cecilator
@@ -10,6 +9,14 @@ namespace Cauldron.Interception.Cecilator
         ICode And();
 
         ICode And<T>(T[] collection, Func<ICode, T, int, ICode> code);
+
+        IIfCode AreEqual(BuilderType a, BuilderType b, object valueA, object valueB);
+
+        IIfCode AreEqual(BuilderType type, object a, object b);
+
+        IIfCode AreEqual(Field a, Field b);
+
+        IIfCode AreEqual(LocalVariable a, LocalVariable b);
 
         ICode As(BuilderType type);
 

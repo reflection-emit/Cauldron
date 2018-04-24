@@ -1,4 +1,5 @@
-﻿using Mono.Cecil;
+﻿using Cauldron.Interception.Cecilator.Coders;
+using Mono.Cecil;
 using Mono.Cecil.Cil;
 using System;
 using System.Linq;
@@ -32,7 +33,53 @@ namespace Cauldron.Interception.Cecilator
                     return result;
                 }
 
-                return (object)Crumb.This;
+                return (object)CodeBlocks.This;
+            }
+        }
+
+        public Method Method
+        {
+            get
+            {
+                var originType = this.OriginType;
+                if (originType == this.method.OriginType)
+                    return this.method;
+                var asyncMachine = Builder.Current.GetType("System.Runtime.CompilerServices.AsyncStateMachineAttribute").typeDefinition;
+                return originType
+                      .GetMethods()
+                      .Where(x => x.methodDefinition.HasCustomAttributes && x.methodDefinition.CustomAttributes.HasAttribute(asyncMachine))
+                      .Select(x => new
+                      {
+                          Attribute = x.CustomAttributes.FirstOrDefault(y => y.attribute.AttributeType.AreEqual(asyncMachine)),
+                          Method = x
+                      })
+                      .FirstOrDefault(x => (x.Attribute.ConstructorArguments[0].Value as TypeReference).AreEqual(this.method.OriginType))
+                      ?.Method;
+            }
+        }
+
+        public BuilderType OriginType
+        {
+            get
+            {
+                if (this.method.AsyncMethod == null && this.method.OriginType.IsAsyncStateMachine)
+                {
+                    var result = this.method.OriginType.Fields.FirstOrDefault(x => x.Name == "<>4__this");
+                    if (result == null)
+                        throw new Exception("This is not possible.");
+
+                    return result.FieldType;
+                }
+                else if (this.method.AsyncMethod != null)
+                {
+                    var result = this.method.AsyncMethod.OriginType.Fields.FirstOrDefault(x => x.Name == "<>4__this");
+                    if (result == null)
+                        return this.AddThisReference()?.FieldType;
+
+                    return result.FieldType;
+                }
+
+                return this.method.OriginType;
             }
         }
 
@@ -71,6 +118,9 @@ namespace Cauldron.Interception.Cecilator
                 else if (lastOpCode.OpCode == OpCodes.Stloc_2) variable = asyncMethod.methodDefinition.Body.Variables[2];
                 else if (lastOpCode.OpCode == OpCodes.Stloc_3) variable = asyncMethod.methodDefinition.Body.Variables[3];
 
+            if (variable == null)
+                throw new NullReferenceException("Unable to find the state machines exception variable.");
+
             return new LocalVariable(asyncMethod.type, variable);
         }
 
@@ -91,9 +141,9 @@ namespace Cauldron.Interception.Cecilator
             var position = this.GetAsyncTaskMethodBuilderInitialization();
 
             if (position == null)
-                this.method.NewCode().LoadVariable(0).Assign(thisField).Set(Crumb.This).Insert(InsertionPosition.Beginning);
+                this.method.NewCoder().Load(variable: x => x.GetVariable(0)).SetValue(thisField, CodeBlocks.This).Insert(InsertionPosition.Beginning);
             else
-                this.method.NewCode().LoadVariable(0).Assign(thisField).Set(Crumb.This).Insert(InsertionAction.After, position);
+                this.method.NewCoder().Load(variable: x => x.GetVariable(0)).SetValue(thisField, CodeBlocks.This).Insert(InsertionAction.After, position);
 
             return thisField;
         }

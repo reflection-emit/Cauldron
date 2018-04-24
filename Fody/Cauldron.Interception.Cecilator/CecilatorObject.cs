@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Cauldron.Interception.Cecilator
 {
-    public abstract class CecilatorObject
+    public abstract class CecilatorObject : ICecilatorObject
     {
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private Action<string> logError;

@@ -1,4 +1,5 @@
-﻿using Mono.Cecil;
+﻿using Cauldron.Interception.Cecilator.Coders;
+using Mono.Cecil;
 using Mono.Cecil.Cil;
 using Mono.Cecil.Rocks;
 using System;
@@ -11,6 +12,75 @@ namespace Cauldron.Interception.Cecilator
 {
     public static class Extension
     {
+        public static bool AreEqual(this TypeDefinition a, TypeDefinition b) =>
+            a.Resolve().Module.Assembly.Name.Name == b.Resolve().Module.Assembly.Name.Name &&
+            a.FullName.GetHashCode() == b.FullName.GetHashCode() &&
+            a.FullName == b.FullName;
+
+        public static bool AreEqual(this TypeReference a, TypeReference b) =>
+            a.Resolve()?.Module.Assembly.Name.Name == b.Resolve()?.Module.Assembly.Name.Name &&
+            a.FullName.GetHashCode() == b.FullName.GetHashCode() &&
+            a.FullName == b.FullName;
+
+        public static bool AreEqual(this TypeReference a, TypeDefinition b) =>
+               a.Resolve()?.Module.Assembly.Name.Name == b.Resolve()?.Module.Assembly.Name.Name &&
+               a.FullName.GetHashCode() == b.FullName.GetHashCode() &&
+               a.FullName == b.FullName;
+
+        public static bool AreEqual(this Type a, TypeDefinition b) =>
+               a.Assembly.FullName == b.Resolve()?.Module.Assembly.Name.Name &&
+               a.FullName.GetHashCode() == b.FullName.GetHashCode() &&
+               a.FullName == b.FullName;
+
+        public static bool AreEqual(this Type a, BuilderType b) =>
+            a.AreEqual(b.typeReference) ||
+            a.AreEqual(b.typeDefinition ?? b.typeReference);
+
+        public static bool AreEqual(this Type a, TypeReference b) =>
+               a.Assembly.FullName == b.Resolve()?.Module.Assembly.Name.Name &&
+               a.FullName.GetHashCode() == b.FullName.GetHashCode() &&
+               a.FullName == b.FullName;
+
+        public static bool AreEqual(this TypeReference a, BuilderType b) =>
+            a.AreEqual(b.typeReference) ||
+            a.AreEqual(b.typeDefinition ?? b.typeReference) ||
+            (a.Resolve()?.AreEqual(b.typeDefinition ?? b.typeReference) ?? false);
+
+        /// <summary>
+        /// Checks if <paramref name="toBeAssigned"/> is assignable to <paramref name="type"/>.
+        /// </summary>
+        /// <param name="type">The type to assign to.</param>
+        /// <param name="toBeAssigned">The type that will be assigned to <paramref name="type"/>.</param>
+        /// <returns>Returns true if <paramref name="toBeAssigned"/> is assignable to <paramref name="type"/>; otherwise false.</returns>
+        public static bool AreReferenceAssignable(this BuilderType type, BuilderType toBeAssigned)
+        {
+            if ((toBeAssigned == null && !type.IsValueType) || type == toBeAssigned ||
+                    (!type.typeDefinition.IsValueType && !toBeAssigned.typeDefinition.IsValueType && type.IsAssignableFrom(toBeAssigned)) ||
+                    (type.IsInterface && toBeAssigned == BuilderType.Object))
+                return true;
+
+            return false;
+        }
+
+        /// <summary>
+        /// Checks if <paramref name="toBeAssigned"/> is assignable to <paramref name="type"/>.
+        /// </summary>
+        /// <param name="type">The type to assign to.</param>
+        /// <param name="toBeAssigned">The type that will be assigned to <paramref name="type"/>.</param>
+        /// <returns>Returns true if <paramref name="toBeAssigned"/> is assignable to <paramref name="type"/>; otherwise false.</returns>
+        public static bool AreReferenceAssignable(this TypeReference type, TypeReference toBeAssigned)
+        {
+            if (
+                (toBeAssigned == null && !type.IsValueType) ||
+                type == toBeAssigned ||
+                (!type.IsValueType && !toBeAssigned.IsValueType && type.IsAssignableFrom(toBeAssigned)) ||
+                (type.Resolve()?.IsInterface ?? false && toBeAssigned.AreEqual(BuilderType.Object)) ||
+                type.FullName == toBeAssigned.FullName)
+                return true;
+
+            return false;
+        }
+
         public static TypeDefinition BetterResolve(this TypeReference value) => value.Resolve() ?? WeaverBase.AllTypes.Get(value.FullName);
 
         public static Builder CreateBuilder(this WeaverBase weaver)
@@ -94,9 +164,7 @@ namespace Cauldron.Interception.Cecilator
             {
                 if (typeReference.IsGenericInstance)
                 {
-                    var genericType = typeReference as GenericInstanceType;
-
-                    if (genericType != null)
+                    if (typeReference is GenericInstanceType genericType)
                     {
                         var genericInstances = genericType.GetGenericInstances();
 
@@ -107,6 +175,10 @@ namespace Cauldron.Interception.Cecilator
                         // interface otherwise we just return the last argument in the list
                         if (ienumerableInterface == null)
                             ienumerableInterface = genericInstances.FirstOrDefault(x => x.FullName.StartsWith("System.Collections.Generic.IEnumerable`1<"));
+
+                        // A Nullable special
+                        if (ienumerableInterface == null && genericType.AreEqual(BuilderType.Nullable))
+                            return genericType.GenericArguments[0];
 
                         // We just don't know :(
                         if (ienumerableInterface == null)
@@ -169,8 +241,7 @@ namespace Cauldron.Interception.Cecilator
             {
                 if (baseType.IsGenericInstance)
                 {
-                    var genericType = baseType as GenericInstanceType;
-                    if (genericType != null)
+                    if (baseType is GenericInstanceType genericType)
                     {
                         genericArgumentNames = genericType.BetterResolve().GenericParameters.Select(x => x.FullName).ToArray();
                         genericArgumentsOfCurrentType = genericType.GenericArguments.ToArray();
@@ -266,9 +337,22 @@ namespace Cauldron.Interception.Cecilator
             throw new Exception($"Unable to proceed. The type '{type.FullName}' does not contain a method '{methodName}'");
         }
 
-        public static IEnumerable<MethodReference> GetMethodReferences(this TypeReference type) => GetMethodReferences(type, false);
+        public static MethodReference GetMethodReference(this TypeReference type, string methodName, TypeReference[] parameterTypes)
+        {
+            var definition = type.BetterResolve();
+            var result = definition
+                .Methods
+                .FirstOrDefault(x => x.Name == methodName && parameterTypes.Select(y => y.FullName).SequenceEqual(x.Parameters.Select(y => y.ParameterType.FullName)));
 
-        public static IEnumerable<MethodReference> GetMethodReferencesByInterfaces(this TypeReference type) => GetMethodReferences(type, true);
+            if (result != null)
+                return result;
+
+            throw new Exception($"Unable to proceed. The type '{type.FullName}' does not contain a method '{methodName}'");
+        }
+
+        public static IEnumerable<(MethodReference reference, MethodDefinition definition)> GetMethodReferences(this TypeReference type) => GetMethodReferences(type, false);
+
+        public static IEnumerable<(MethodReference reference, MethodDefinition definition)> GetMethodReferencesByInterfaces(this TypeReference type) => GetMethodReferences(type, true);
 
         public static IEnumerable<TypeReference> GetNestedTypes(this TypeReference type)
         {
@@ -303,7 +387,48 @@ namespace Cauldron.Interception.Cecilator
             return null;
         }
 
-        public static bool Implements(this TypeReference type, string interfaceName) => type.GetInterfaces().Any(x => x.FullName == interfaceName);
+        public static string GetStackTrace(this Exception e)
+        {
+            var sb = new StringBuilder();
+            var ex = e;
+
+            do
+            {
+                sb.AppendLine("Exception Type: " + ex.GetType().Name);
+                sb.AppendLine("Source: " + ex.Source);
+                sb.AppendLine(ex.Message);
+                sb.AppendLine("------------------------");
+                sb.AppendLine(ex.StackTrace);
+                sb.AppendLine("------------------------");
+
+                ex = ex.InnerException;
+            } while (ex != null);
+
+            return sb.ToString();
+        }
+
+        public static TypeDefinition GetTypeDefinition(this Type type)
+        {
+            var result = WeaverBase.AllTypes.Get(type.FullName);
+
+            if (result == null)
+                throw new Exception($"Unable to proceed. The type '{type.FullName}' was not found.");
+
+            return Builder.Current.Import(type).Resolve() ?? result;
+        }
+
+        public static bool HasAttribute(this IEnumerable<CustomAttribute> collection, TypeDefinition typeDefinition)
+        {
+            foreach (var item in collection)
+            {
+                if (item.AttributeType.AreEqual(typeDefinition))
+                    return true;
+            }
+
+            return false;
+        }
+
+        public static bool Implements(this TypeReference type, TypeReference @interface) => type.GetInterfaces().Any(x => x.AreEqual(@interface));
 
         public static int IndexOf(this IList<Instruction> instructions, int offset)
         {
@@ -335,28 +460,72 @@ namespace Cauldron.Interception.Cecilator
         }
 
         public static bool IsAssignableFrom(this BuilderType target, BuilderType source) =>
-                                    target == source ||
-                    target.typeDefinition == source.typeDefinition ||
-                    target.Fullname == "System.Object" ||
-                    source.IsSubclassOf(target) ||
-                    target.IsInterface && source.BaseClasses.Any(x => x.Implements(target));
-
-        public static bool IsAssignableFrom(this TypeReference target, TypeReference source) =>
                             target == source ||
-                    target == source ||
-                    target.FullName == "System.Object" ||
-                    source.IsSubclassOf(target) ||
-                    target.BetterResolve().IsInterface && source.GetBaseClasses().Any(x => x.Implements(target.FullName));
+                            target.typeDefinition == source.typeDefinition ||
+                            target.Fullname == "System.Object" ||
+                            source.IsSubclassOf(target) ||
+                            target.IsInterface && source.BaseClasses.Any(x => x.Implements(target));
 
-        public static bool IsSubclassOf(this BuilderType child, BuilderType parent) => child.typeDefinition != parent.typeDefinition && child.BaseClasses.Any(x => x.typeDefinition == parent.typeDefinition);
+        public static bool IsAssignableFrom(this TypeReference target, TypeReference source)
+        {
+            return target == source ||
+                target == source ||
+                target.FullName == "System.Object" ||
+                source.IsSubclassOf(target) ||
+                (target.BetterResolve()?.IsInterface ?? false && source.GetInterfaces().Any(x => x.Implements(target)))
+                /* TODO */ ;
+        }
 
-        public static bool IsSubclassOf(this TypeReference child, TypeReference parent) => child != parent && child.GetBaseClasses().Any(x => x == parent);
+        /// <summary>
+        /// Returns true if the instruction defined by <paramref name="instruction"/> is enclosed by a try-catch-finally.
+        /// </summary>
+        /// <param name="method"></param>
+        /// <param name="instruction">The instruction to check</param>
+        /// <returns>True if enclosed; otherwise false.</returns>
+        public static bool IsInclosedInHandlers(this Method method, Instruction instruction)
+        {
+            foreach (var item in method.methodDefinition.Body.ExceptionHandlers)
+            {
+                if (item.TryStart.Offset <= instruction.Offset && item.TryEnd.Offset >= instruction.Offset)
+                    return true;
 
-        public static void Log(this CecilatorObject cecilatorObject, LogTypes logTypes, BuilderType type, object arg) => cecilatorObject.Log(logTypes, type.GetRelevantConstructors().FirstOrDefault() ?? type.Methods.FirstOrDefault(), arg);
+                if (item.HandlerStart != null && item.HandlerStart.Offset <= instruction.Offset && item.HandlerEnd.Offset >= instruction.Offset)
+                    return true;
+            }
 
-        public static void Log(this CecilatorObject cecilatorObject, LogTypes logTypes, Property property, object arg) => cecilatorObject.Log(logTypes, property.Getter ?? property.Setter, arg);
+            return false;
+        }
 
-        public static void Log(this CecilatorObject cecilatorObject, LogTypes logTypes, Method method, object arg)
+        /// <summary>
+        /// Returns true if the instruction defined by <paramref name="instruction"/> is enclosed by a try-catch-finally.
+        /// </summary>
+        /// <param name="method"></param>
+        /// <param name="instruction">The instruction to check</param>
+        /// <param name="exceptionHandlerType">The type of handler that encloses the instruction.</param>
+        /// <returns>True if enclosed; otherwise false.</returns>
+        public static bool IsInclosedInHandlers(this Method method, Instruction instruction, ExceptionHandlerType exceptionHandlerType)
+        {
+            foreach (var item in method.methodDefinition.Body.ExceptionHandlers)
+            {
+                if (item.TryStart.Offset >= instruction.Offset && item.TryStart.Offset <= instruction.Offset && item.HandlerType == exceptionHandlerType)
+                    return true;
+
+                if (item.HandlerStart != null && item.HandlerStart.Offset >= instruction.Offset && item.HandlerEnd.Offset <= instruction.Offset && item.HandlerType == exceptionHandlerType)
+                    return true;
+            }
+
+            return false;
+        }
+
+        public static bool IsSubclassOf(this BuilderType child, BuilderType parent) => !child.typeDefinition.AreEqual(parent.typeDefinition) && child.BaseClasses.Any(x => x.typeDefinition.AreEqual(parent.typeDefinition));
+
+        public static bool IsSubclassOf(this TypeReference child, TypeReference parent) => !child.AreEqual(parent) && child.GetBaseClasses().Any(x => x.AreEqual(parent));
+
+        public static void Log(this ICecilatorObject cecilatorObject, LogTypes logTypes, BuilderType type, object arg) => cecilatorObject.Log(logTypes, type.GetRelevantConstructors().FirstOrDefault() ?? type.Methods.FirstOrDefault(), arg);
+
+        public static void Log(this ICecilatorObject cecilatorObject, LogTypes logTypes, Property property, object arg) => cecilatorObject.Log(logTypes, property.Getter ?? property.Setter, arg);
+
+        public static void Log(this ICecilatorObject cecilatorObject, LogTypes logTypes, Method method, object arg)
         {
             //if (method.IsAsync)
             //{
@@ -367,9 +536,28 @@ namespace Cauldron.Interception.Cecilator
             cecilatorObject.Log(logTypes, method.methodDefinition.GetSequencePoint(), arg);
         }
 
-        public static void Log(this CecilatorObject cecilatorObject, LogTypes logTypes, object arg) => cecilatorObject.Log(logTypes, sequencePoint: null, arg: arg);
+        public static void Log(this ICecilatorObject cecilatorObject, LogTypes logTypes, object arg) => cecilatorObject.Log(logTypes, sequencePoint: null, arg: arg);
 
-        public static TNew New<TType, TNew>(this TType target, Func<TType, TNew> predicate) => predicate(target);
+        /// <summary>
+        /// Creates a new coder.
+        /// </summary>
+        /// <param name="method">The coder.</param>
+        /// <returns></returns>
+        public static Coder NewCoder(this Method method) => new Coder(method);
+
+        /// <summary>
+        /// Creates a new coder.
+        /// </summary>
+        /// <param name="coder">The coder.</param>
+        /// <returns></returns>
+        public static CatchThrowerCoder NewCoder(this CatchThrowerCoder coder) => new CatchThrowerCoder(coder.instructions.associatedMethod);
+
+        /// <summary>
+        /// Creates a new coder.
+        /// </summary>
+        /// <param name="coder">The coder.</param>
+        /// <returns></returns>
+        public static Coder NewCoder(this CoderBase coder) => new Coder(coder.instructions.associatedMethod);
 
         public static GenericInstanceType ResolveGenericArguments(this GenericInstanceType self, GenericInstanceType inheritingOrImplementingType)
         {
@@ -385,9 +573,56 @@ namespace Cauldron.Interception.Cecilator
             return self.BetterResolve().MakeGenericInstanceType(genericArguments);
         }
 
-        public static BuilderType ToBuilderType(this Type type) => new BuilderType(Builder.Current, WeaverBase.AllTypes.Get(type.FullName));
+        public static object ThisOrNull(this Method method) => method.IsStatic ? null : CodeBlocks.This;
 
-        public static BuilderType ToBuilderType(this TypeDefinition value, Builder builder) => new BuilderType(builder, value);
+        public static BuilderType ToBuilderType(this Type type)
+        {
+            if (type.IsGenericType && type.GetGenericTypeDefinition() != type)
+            {
+                var builder = Builder.Current;
+                var definition = type.GetGenericTypeDefinition();
+                var typeDefinition = WeaverBase.AllTypes.Get(definition.FullName);
+                var typeReference = typeDefinition.MakeGenericInstanceType(type.GetGenericArguments().Select(x => x.ToBuilderType().typeReference).ToArray());
+
+                return new BuilderType(Builder.Current, typeReference);
+            }
+
+            return new BuilderType(Builder.Current, WeaverBase.AllTypes.Get(type.FullName));
+        }
+
+        public static BuilderType ToBuilderType(this TypeDefinition value) => new BuilderType(Builder.Current, value);
+
+        public static BuilderType ToBuilderType(this TypeReference value) => new BuilderType(Builder.Current, value);
+
+        public static Type ToType(this TypeReference typeReference) => Type.GetType(typeReference.FullName + ", " + typeReference.Module.Assembly.FullName);
+
+        /// <summary>
+        /// Creates a typeof() implementation for the given type <paramref name="type"/>
+        /// </summary>
+        /// <param name="processor">The processor to use.</param>
+        /// <param name="type">The type to get the type from.</param>
+        /// <returns>A collection of instructions that canbe added to the coder's instruction set.</returns>
+        public static IEnumerable<Instruction> TypeOf(this ILProcessor processor, BuilderType type) =>
+            processor.TypeOf(type.typeReference);
+
+        /// <summary>
+        /// Creates a typeof() implementation for the given type <paramref name="type"/>
+        /// </summary>
+        /// <param name="processor">The processor to use.</param>
+        /// <param name="type">The type to get the type from.</param>
+        /// <returns>A collection of instructions that canbe added to the coder's instruction set.</returns>
+        public static IEnumerable<Instruction> TypeOf(this ILProcessor processor, TypeReference type)
+        {
+            return new Instruction[] {
+                processor.Create(OpCodes.Ldtoken, type),
+                processor.Create(OpCodes.Call,
+                    Builder.Current.Import(
+                        typeof(Type).GetTypeDefinition()
+                            .Methods.FirstOrDefault(x=>x.Name == "GetTypeFromHandle" && x.Parameters.Count == 1)))
+            };
+        }
+
+        public static TNew With<TType, TNew>(this TType target, Func<TType, TNew> predicate) => predicate(target);
 
         internal static void Append(this ILProcessor processor, Instruction[] instructions) => processor.Append(instructions as IEnumerable<Instruction>);
 
@@ -427,6 +662,17 @@ namespace Cauldron.Interception.Cecilator
             return field;
         }
 
+        internal static MethodReference CreateMethodReference(this MethodDefinition method, TypeReference originType)
+        {
+            if (method.DeclaringType.HasGenericParameters)
+            {
+                var declaringType = new GenericInstanceType(method.DeclaringType);
+                return method.MakeHostInstanceGeneric(originType.GenericParameters.ToArray());
+            }
+
+            return method;
+        }
+
         internal static MethodReference CreateMethodReference(this MethodDefinition method)
         {
             if (method.DeclaringType.HasGenericParameters)
@@ -436,6 +682,45 @@ namespace Cauldron.Interception.Cecilator
             }
 
             return method;
+        }
+
+        internal static void Display(this IEnumerable<ExceptionHandler> handlers)
+        {
+            foreach (var item in handlers)
+            {
+                Builder.Current.Log(LogTypes.Info, $"IL_{item.TryStart.Offset.ToString("X4")} <-> IL_{item.TryEnd.Offset.ToString("X4")} : {item.HandlerType}");
+
+                if (item.HandlerStart != null)
+                    Builder.Current.Log(LogTypes.Info, $"IL_{item.HandlerStart.Offset.ToString("X4")} <-> IL_{item.HandlerEnd.Offset.ToString("X4")}");
+            }
+        }
+
+        internal static void Display(this Type type)
+        {
+            Builder.Current.Log(LogTypes.Info, $"### {type?.Module.Assembly.FullName} {type?.FullName}");
+            Builder.Current.Log(LogTypes.Info, $"### {type?.Module.Assembly.FullName} {type?.FullName}");
+        }
+
+        internal static void Display(this BuilderType type) => type.typeReference.Display();
+
+        internal static void Display(this TypeReference type)
+        {
+            Builder.Current.Log(LogTypes.Info, $"### {type?.Module.Assembly.FullName} {type?.FullName}");
+            Builder.Current.Log(LogTypes.Info, $"### {type?.Resolve()?.Module.Assembly.FullName} {type?.Resolve()?.FullName}");
+        }
+
+        internal static void Display(this Method method) => Builder.Current.Log(LogTypes.Info, $"### {method}");
+
+        internal static void Display(this Instruction instruction) =>
+                Builder.Current.Log(LogTypes.Info, $"IL_{instruction.Offset.ToString("X4")}: {instruction.OpCode.ToString()} { (instruction.Operand is Instruction ? "IL_" + (instruction.Operand as Instruction).Offset.ToString("X4") : instruction.Operand?.ToString())} ");
+
+        internal static void Display(this MethodBody body)
+        {
+            Builder.Current.Log(LogTypes.Info, $"### {body.Method.FullName}");
+            body.ExceptionHandlers.Display();
+
+            foreach (var item in body.Instructions)
+                item.Display();
         }
 
         internal static Method GetAsyncMethod(this Builder builder, MethodDefinition method)
@@ -475,31 +760,114 @@ namespace Cauldron.Interception.Cecilator
         {
             foreach (var item in body)
             {
-                var target = item.Operand as Instruction;
-
-                if (target != null && target.Offset == jumpTarget.Offset)
+                if (item.Operand is Instruction target && target.Offset == jumpTarget.Offset)
                     yield return item;
             }
         }
 
-        internal static string GetStackTrace(this Exception e)
+        internal static ParameterReference GetParameter(this Method method, Instruction instruction)
+            => method.methodReference.GetParameter(instruction);
+
+        internal static ParameterReference GetParameter(this MethodReference methodReference, Instruction instruction)
         {
-            var sb = new StringBuilder();
-            var ex = e;
+            var isStatic = methodReference.Resolve().IsStatic;
 
-            do
+            if (instruction.OpCode == OpCodes.Ldarg_0)
+                return isStatic ? methodReference.Parameters[0] : null;
+            else if (instruction.OpCode == OpCodes.Ldarg_1)
+                return methodReference.Parameters[isStatic ? 1 : 0];
+            else if (instruction.OpCode == OpCodes.Ldarg_2)
+                return methodReference.Parameters[isStatic ? 2 : 1];
+            else if (instruction.OpCode == OpCodes.Ldarg_3)
+                return methodReference.Parameters[isStatic ? 3 : 2];
+            else
+                return methodReference.Parameters[(int)instruction.Operand];
+        }
+
+        internal static TypeReference GetTypeOfValueInStack(this IEnumerable<Instruction> instructions, Method method)
+        {
+            TypeReference GetTypeOfValueInStack(Instruction ins)
             {
-                sb.AppendLine("Exception Type: " + ex.GetType().Name);
-                sb.AppendLine("Source: " + ex.Source);
-                sb.AppendLine(ex.Message);
-                sb.AppendLine("------------------------");
-                sb.AppendLine(ex.StackTrace);
-                sb.AppendLine("------------------------");
+                if (ins.IsCallOrNew())
+                    return (ins.Operand as MethodReference).With(x =>
+                    {
+                        return x.ReturnType.AreEqual(BuilderType.Void) ?
+                            null :
+                            x.ReturnType.ResolveType(x.DeclaringType, x);
+                    });
 
-                ex = ex.InnerException;
-            } while (ex != null);
+                if (ins.IsLoadField())
+                    return (ins.Operand as FieldReference).With(x => x.FieldType.ResolveType(x.DeclaringType));
 
-            return sb.ToString();
+                if (ins.IsLoadLocal())
+                    return method.methodDefinition.GetVariable(ins).With(x =>
+                    {
+                        if (x == null)
+                            return null;
+
+                        return x.VariableType.ResolveType(method.DeclaringType.typeReference, method.methodReference);
+                    });
+
+                if (ins.IsComparer())
+                    return BuilderType.Boolean.typeReference;
+
+                if (ins.OpCode == OpCodes.Isinst)
+                    return (ins.Operand as TypeReference).With(x => x.ResolveType(method.DeclaringType.typeReference, method.methodReference));
+
+                return ParametersCodeBlock.GetTargetTypeFromOpCode(method, ins).With(x =>
+                {
+                    if (x == null)
+                        return null;
+
+                    return x.typeReference.ResolveType(method.DeclaringType.typeReference, method.methodReference);
+                });
+            }
+
+            if (instructions == null || !instructions.Any())
+                return null;
+
+            var instruction = instructions.Last();
+            var result = GetTypeOfValueInStack(instruction);
+            var array = instructions.ToArray();
+
+            if (
+                result == null &&
+                instruction.OpCode != OpCodes.Unbox_Any &&
+                instruction.OpCode != OpCodes.Unbox &&
+                instruction.OpCode != OpCodes.Isinst &&
+                instruction.OpCode != OpCodes.Castclass &&
+                instruction.IsValueOpCode())
+            {
+                for (int i = array.Length - 2; i >= 0; i--)
+                {
+                    if (!array[i].IsValueOpCode())
+                        break;
+
+                    result = GetTypeOfValueInStack(array[i]);
+
+                    if (result != null)
+                        return result;
+                }
+            }
+
+            return result;
+        }
+
+        internal static VariableReference GetVariable(this Method method, Instruction instruction)
+            => method.methodDefinition.GetVariable(instruction);
+
+        internal static VariableReference GetVariable(this MethodDefinition methodDefinition, Instruction instruction)
+        {
+            if (instruction.OpCode == OpCodes.Ldloc_0)
+                return methodDefinition.Body.Variables[0];
+            else if (instruction.OpCode == OpCodes.Ldloc_1)
+                return methodDefinition.Body.Variables[1];
+            else if (instruction.OpCode == OpCodes.Ldloc_2)
+                return methodDefinition.Body.Variables[2];
+            else if (instruction.OpCode == OpCodes.Ldloc_3)
+                return methodDefinition.Body.Variables[3];
+            else
+                return instruction.Operand as VariableReference;
         }
 
         internal static void InsertAfter(this ILProcessor processor, Instruction target, Instruction[] instructions) => processor.InsertAfter(target, instructions as IEnumerable<Instruction>);
@@ -559,6 +927,17 @@ namespace Cauldron.Interception.Cecilator
                 opCode == OpCodes.Calli ||
                 opCode == OpCodes.Callvirt ||
                 opCode == OpCodes.Newobj;
+        }
+
+        internal static bool IsComparer(this Instruction instruction)
+        {
+            var opCode = instruction.OpCode;
+            return
+                opCode == OpCodes.Ceq ||
+                opCode == OpCodes.Cgt ||
+                opCode == OpCodes.Cgt_Un ||
+                opCode == OpCodes.Clt_Un ||
+                opCode == OpCodes.Clt;
         }
 
         internal static bool IsDelegate(this TypeDefinition typeDefinition)
@@ -636,9 +1015,11 @@ namespace Cauldron.Interception.Cecilator
                 IsLoadArgument(instruction) ||
                 IsLoadLocal(instruction) ||
                 IsLoadField(instruction) ||
+                IsComparer(instruction) ||
                 opCode == OpCodes.Isinst ||
                 opCode == OpCodes.Dup ||
                 opCode == OpCodes.Sizeof ||
+                opCode == OpCodes.Ceq ||
                 opCode == OpCodes.Xor ||
                 opCode == OpCodes.Shl ||
                 opCode == OpCodes.Shr ||
@@ -665,6 +1046,23 @@ namespace Cauldron.Interception.Cecilator
                 opCode == OpCodes.Conv_Ovf_I ||
                 opCode == OpCodes.Conv_Ovf_I1 ||
                 opCode == OpCodes.Conv_Ovf_I4_Un ||
+                opCode == OpCodes.Ldc_I4 ||
+                opCode == OpCodes.Ldc_I4_0 ||
+                opCode == OpCodes.Ldc_I4_1 ||
+                opCode == OpCodes.Ldc_I4_2 ||
+                opCode == OpCodes.Ldc_I4_3 ||
+                opCode == OpCodes.Ldc_I4_4 ||
+                opCode == OpCodes.Ldc_I4_5 ||
+                opCode == OpCodes.Ldc_I4_6 ||
+                opCode == OpCodes.Ldc_I4_7 ||
+                opCode == OpCodes.Ldc_I4_8 ||
+                opCode == OpCodes.Ldc_I4_S ||
+                opCode == OpCodes.Ldc_I4_M1 ||
+                opCode == OpCodes.Ldc_I8 ||
+                opCode == OpCodes.Ldc_R4 ||
+                opCode == OpCodes.Ldc_R8 ||
+                opCode == OpCodes.Unbox_Any ||
+                opCode == OpCodes.Unbox ||
                 opCode == OpCodes.Box;
         }
 
@@ -752,91 +1150,130 @@ namespace Cauldron.Interception.Cecilator
 
         internal static TypeReference ResolveType(this TypeReference type, MethodReference ownerMethod = null)
         {
-            //try
-            //{
-            TypeReference resolveType(IReadOnlyDictionary<string, TypeReference> genericParameters, TypeReference ptype)
+            try
             {
-                var genericType = genericParameters[ptype.FullName];
-
-                while (genericType.IsGenericParameter)
+                TypeReference resolveType(IReadOnlyDictionary<string, TypeReference> genericParameters, TypeReference ptype)
                 {
-                    if (!genericParameters.TryGetValue(genericType.FullName, out genericType))
-                        break;
+                    Builder.Current.Log(LogTypes.Info, $"---> {ptype.FullName}");
+                    var genericType = !genericParameters.ContainsKey(ptype.FullName) ? ptype.ResolveType(ownerMethod) : genericParameters[ptype.FullName];
 
-                    if (!genericType.IsGenericParameter)
-                        return genericType;
+                    while (genericType.IsGenericParameter)
+                    {
+                        if (!genericParameters.TryGetValue(genericType.FullName, out genericType))
+                            break;
+
+                        if (!genericType.IsGenericParameter)
+                            return genericType;
+                    }
+
+                    return genericParameters[ptype.FullName];
                 }
 
-                return genericParameters[ptype.FullName];
-            }
+                if (ownerMethod is GenericInstanceMethod genericInstanceMethod)
+                {
+                    if (type.IsGenericInstance)
+                    {
+                        var genericParameters = genericInstanceMethod.GetGenericResolvedTypeNames();
+                        var genericTypeInstance = type as GenericInstanceType;
 
-            if (type.IsGenericInstance && ownerMethod is GenericInstanceMethod)
-            {
-                var genericParameters = (ownerMethod as GenericInstanceMethod).GetGenericResolvedTypeNames();
-                var genericTypeInstance = type as GenericInstanceType;
+                        var result = new GenericInstanceType(genericTypeInstance.BetterResolve());
 
-                var result = new GenericInstanceType(genericTypeInstance.BetterResolve());
+                        foreach (var item in genericTypeInstance.GenericArguments)
+                            result.GenericArguments.Add(resolveType(genericParameters, item));
 
-                foreach (var item in genericTypeInstance.GenericArguments)
-                    result.GenericArguments.Add(resolveType(genericParameters, item));
+                        return result;
+                    }
 
-                return result;
-            }
-            else if (ownerMethod is GenericInstanceMethod)
-            {
-                var genericParameters = (ownerMethod as GenericInstanceMethod).GetGenericResolvedTypeNames();
-                return resolveType(genericParameters, type);
-            }
-            else
+                    if (type.ContainsGenericParameter)
+                    {
+                        Builder.Current.Log(LogTypes.Info, $"--->  '{ownerMethod}' resolving '{type.FullName}'");
+                        var genericParameters = genericInstanceMethod.GetGenericResolvedTypeNames();
+
+                        if (type.GenericParameters.Count == 0 && type.IsGenericParameter)
+                            return genericParameters[type.FullName];
+                        else
+                        {
+                            var result = new GenericInstanceType(type);
+
+                            foreach (var item in type.GenericParameters)
+                                result.GenericArguments.Add(resolveType(genericParameters, item));
+
+                            return result;
+                        }
+                    }
+
+                    {
+                        var genericParameters = genericInstanceMethod.GetGenericResolvedTypeNames();
+                        return resolveType(genericParameters, type);
+                    }
+                }
+
                 return type;
-            ////}
-            ////catch (Exception e)
-            ////{
-            ////    throw new TypeResolveException($"Unable to resolve type '{type?.FullName ?? "Unknown"}'", e);
-            ////}
+            }
+            catch (Exception e)
+            {
+                throw new TypeResolveException($"Unable to resolve type '{type?.FullName ?? "Unknown"}'", e);
+            }
         }
 
         internal static TypeReference ResolveType(this TypeReference type, TypeReference inheritingOrImplementingType, MethodReference ownerMethod = null)
         {
-            if (type.IsGenericParameter && inheritingOrImplementingType is GenericInstanceType)
+            if (inheritingOrImplementingType is GenericInstanceType castedInheritingOrImplementingType)
             {
-                var genericParameters = (inheritingOrImplementingType as GenericInstanceType).GetGenericResolvedTypeName();
-
-                if (genericParameters.ContainsKey(type.FullName))
-                    return genericParameters[type.FullName];
-
-                genericParameters = (inheritingOrImplementingType as GenericInstanceType).GetGenericResolvedTypeNames();
-                var genericType = genericParameters[type.FullName];
-
-                while (genericType.IsGenericParameter)
+                if (type.IsGenericParameter)
                 {
-                    genericType = genericParameters[genericType.FullName];
+                    var genericParameters = castedInheritingOrImplementingType.GetGenericResolvedTypeName();
 
-                    if (!genericType.IsGenericParameter)
-                        return genericType;
+                    if (genericParameters.ContainsKey(type.FullName))
+                        return genericParameters[type.FullName];
+
+                    genericParameters = castedInheritingOrImplementingType.GetGenericResolvedTypeNames();
+                    var genericType = genericParameters[type.FullName];
+
+                    while (genericType.IsGenericParameter)
+                    {
+                        genericType = genericParameters[genericType.FullName];
+
+                        if (!genericType.IsGenericParameter)
+                            return genericType;
+                    }
+
+                    return genericParameters[type.FullName];
                 }
 
-                return genericParameters[type.FullName];
-            }
-            else if (type.HasGenericParameters && inheritingOrImplementingType is GenericInstanceType)
-            {
-                var genericInstanceType = type as GenericInstanceType ?? type.MakeGenericInstanceType(type.GenericParameters.ToArray());
-                return genericInstanceType.ResolveGenericArguments(inheritingOrImplementingType as GenericInstanceType);
-            }
-            else if (type.ContainsGenericParameter && inheritingOrImplementingType is GenericInstanceType)
-            {
-                if (!type.IsGenericInstance)
-                    return type;
+                if (type.HasGenericParameters)
+                    return castedInheritingOrImplementingType.ResolveGenericArguments(castedInheritingOrImplementingType);
 
-                var genericInstanceType = type as GenericInstanceType;
-                return genericInstanceType.ResolveGenericArguments(inheritingOrImplementingType as GenericInstanceType);
+                if (type.ContainsGenericParameter)
+                {
+                    if (!type.IsGenericInstance)
+                        return type;
+
+                    return castedInheritingOrImplementingType.ResolveGenericArguments(castedInheritingOrImplementingType);
+                }
             }
-            else if (type.HasGenericParameters)
+
+            if (type.HasGenericParameters)
                 return type.MakeGenericInstanceType(type.GenericParameters.ToArray());
-            else if (ownerMethod != null)
+
+            if (ownerMethod != null)
                 return type.ResolveType(ownerMethod);
-            else
-                return type;
+
+            return type;
+        }
+
+        internal static MethodAttributes ToMethodAttributes(this Modifiers modifier)
+        {
+            var attributes = MethodAttributes.CompilerControlled;
+
+            if (modifier.HasFlag(Modifiers.Private)) attributes |= MethodAttributes.Private;
+            if (modifier.HasFlag(Modifiers.Static)) attributes |= MethodAttributes.Static;
+            if (modifier.HasFlag(Modifiers.Public)) attributes |= MethodAttributes.Public;
+            if (modifier.HasFlag(Modifiers.Protected)) attributes |= MethodAttributes.Family;
+            if (modifier.HasFlag(Modifiers.Overrides)) attributes |= MethodAttributes.Final | MethodAttributes.Virtual | MethodAttributes.NewSlot;
+            if (modifier.HasFlag(Modifiers.Explicit)) attributes |= MethodAttributes.Final | MethodAttributes.Virtual | MethodAttributes.NewSlot | MethodAttributes.HideBySig | MethodAttributes.Private;
+
+            return attributes;
         }
 
         private static (MethodDefinition MethodDefinition, TypeReference AsyncType)? GetAsyncMethod(this CecilatorObject cecilatorObject, MethodDefinition method)
@@ -862,8 +1299,10 @@ namespace Cauldron.Interception.Cecilator
 
         private static IEnumerable<TypeReference> GetGenericInstances(this GenericInstanceType type)
         {
-            var result = new List<TypeReference>();
-            result.Add(type);
+            var result = new List<TypeReference>
+            {
+                type
+            };
 
             var resolved = type.BetterResolve();
             var genericArgumentsNames = resolved.GenericParameters.Select(x => x.FullName).ToArray();
@@ -906,55 +1345,70 @@ namespace Cauldron.Interception.Cecilator
             return new TypeReference[0];
         }
 
-        private static IEnumerable<MethodReference> GetMethodReferences(this TypeReference type, bool byInterfaces)
+        private static IEnumerable<(MethodReference reference, MethodDefinition definition)> GetMethodReferences(this TypeReference type, bool byInterfaces)
         {
-            var result = new List<MethodReference>();
+            var result = new List<(MethodReference reference, MethodDefinition definition)>();
             GetMethodReferences(type, result, byInterfaces);
 
             return result.Where(x =>
             {
-                if (!x.DeclaringType.IsGenericInstance)
+                if (!x.reference.DeclaringType.IsGenericInstance)
                     return true;
 
-                var genericArgument = (x.DeclaringType as GenericInstanceType).GenericArguments;
-                for (int i = 0; i < genericArgument.Count; i++)
-                {
-                    if (genericArgument[i].IsGenericParameter)
-                        return false;
-                }
+                //var genericArgument = (x.reference.DeclaringType as GenericInstanceType).GenericArguments;
+                //for (int i = 0; i < genericArgument.Count; i++)
+                //{
+                //    if (genericArgument[i].IsGenericParameter)
+                //        return false;
+                //}
 
                 return true;
             });
         }
 
-        private static void GetMethodReferences(TypeReference typeToInspect, List<MethodReference> result, bool byInterfaces)
+        private static void GetMethodReferences(TypeReference typeToInspect, List<(MethodReference, MethodDefinition)> result, bool byInterfaces)
         {
             if (typeToInspect == null)
                 return;
 
             if (typeToInspect.IsGenericInstance)
             {
-                var genericType = typeToInspect as GenericInstanceType;
-                if (genericType != null)
+                if (typeToInspect is GenericInstanceType genericType)
                 {
                     var instances = genericType.GetGenericInstances().Where(x => (!x.BetterResolve().IsInterface || byInterfaces));
                     foreach (var item in instances)
                     {
-                        var methods = item.BetterResolve().Methods.Select(x => x.MakeHostInstanceGeneric((item as GenericInstanceType).GenericArguments.ToArray()));
+                        var methods = item
+                            .BetterResolve()
+                            .Methods
+                            .Select(x => (
+                                            x.MakeHostInstanceGeneric((item as GenericInstanceType).GenericArguments.ToArray()),
+                                            x
+                                          ));
 
-                        if (methods != null || methods.Any())
+                        if (methods.Any())
                             result.AddRange(methods);
                     }
                 }
             }
+            else if (typeToInspect.IsGenericParameter)
+            {
+                // Do nothing
+            }
             else
             {
-                var methods = typeToInspect.BetterResolve().Methods;
-                if (methods != null || methods.Count > 0)
+                var methods = typeToInspect
+                    .BetterResolve()
+                    .Methods
+                    .Select(x => (x.CreateMethodReference(), x));
+                if (methods.Any())
                     result.AddRange(methods);
             }
 
             var typeReference = typeToInspect.BetterResolve();
+
+            if (typeToInspect.IsGenericParameter || typeReference == null)
+                return;
 
             if (byInterfaces)
             {
