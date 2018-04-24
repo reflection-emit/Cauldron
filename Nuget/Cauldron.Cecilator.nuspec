@@ -21,10 +21,16 @@
     </releaseNotes>
     <dependencies>
       <dependency id="Fody" version="3.0.3" />
+      <dependency id="FodyHelpers" version="3.0.3" />
+      <dependency id="Mono.Cecil" version="0.10.0" />
+      <dependency id="System.ValueTuple" version="4.5.0-preview2-26406-04" />
     </dependencies>
   </metadata>
   <files>
-    <file src="..\Fody\Cauldron.Interception.Cecilator\bin\Release\**" target="" />
+    <file src="..\Fody\Cauldron.Interception.Cecilator\bin\Release\Cauldron.Interception.Cecilator.dll" target="lib\net461" />
+    <file src="..\Fody\Cauldron.Interception.Cecilator\bin\Release\Cauldron.Interception.Cecilator.pdb" target="lib\net461" />
+    <file src="..\Fody\Cauldron.Interception.Cecilator\bin\Release\Cauldron.Interception.Cecilator.xml" target="lib\net461" />
+
     <file src="..\Fody\Cauldron.Interception.Cecilator\**\*.cs" target="src" />
   </files>
 </package>
