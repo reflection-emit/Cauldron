@@ -240,6 +240,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.Win32.Net452.Inter
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Cauldron.Interception", "Fody\Cauldron.Interception\Cauldron.Interception.shproj", "{FD24DE00-CC4D-492E-8BE3-5249B130AD2E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.ActivatorInterceptors", "Fody\Cauldron.ActivatorInterceptors\Cauldron.ActivatorInterceptors.csproj", "{8372504D-9E36-4203-AACA-0D6859D486C8}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Fody\Cauldron.Interception\Cauldron.Interception.projitems*{104f0649-8cc6-4ec2-9471-6bf1b3241f78}*SharedItemsImports = 4
@@ -1461,6 +1463,22 @@ Global
 		{104F0649-8CC6-4EC2-9471-6BF1B3241F78}.Release|x64.Build.0 = Release|Any CPU
 		{104F0649-8CC6-4EC2-9471-6BF1B3241F78}.Release|x86.ActiveCfg = Release|Any CPU
 		{104F0649-8CC6-4EC2-9471-6BF1B3241F78}.Release|x86.Build.0 = Release|Any CPU
+		{8372504D-9E36-4203-AACA-0D6859D486C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8372504D-9E36-4203-AACA-0D6859D486C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8372504D-9E36-4203-AACA-0D6859D486C8}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{8372504D-9E36-4203-AACA-0D6859D486C8}.Debug|ARM.Build.0 = Debug|Any CPU
+		{8372504D-9E36-4203-AACA-0D6859D486C8}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8372504D-9E36-4203-AACA-0D6859D486C8}.Debug|x64.Build.0 = Debug|Any CPU
+		{8372504D-9E36-4203-AACA-0D6859D486C8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8372504D-9E36-4203-AACA-0D6859D486C8}.Debug|x86.Build.0 = Debug|Any CPU
+		{8372504D-9E36-4203-AACA-0D6859D486C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8372504D-9E36-4203-AACA-0D6859D486C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8372504D-9E36-4203-AACA-0D6859D486C8}.Release|ARM.ActiveCfg = Release|Any CPU
+		{8372504D-9E36-4203-AACA-0D6859D486C8}.Release|ARM.Build.0 = Release|Any CPU
+		{8372504D-9E36-4203-AACA-0D6859D486C8}.Release|x64.ActiveCfg = Release|Any CPU
+		{8372504D-9E36-4203-AACA-0D6859D486C8}.Release|x64.Build.0 = Release|Any CPU
+		{8372504D-9E36-4203-AACA-0D6859D486C8}.Release|x86.ActiveCfg = Release|Any CPU
+		{8372504D-9E36-4203-AACA-0D6859D486C8}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1552,6 +1570,7 @@ Global
 		{AAA5E768-A4A9-418B-9BF8-B085589F8CD8} = {F986DE16-3051-4A35-B8BC-906BA7110758}
 		{104F0649-8CC6-4EC2-9471-6BF1B3241F78} = {4F29A7F8-8AD4-4CFB-AC30-0C6F330F96C8}
 		{FD24DE00-CC4D-492E-8BE3-5249B130AD2E} = {A96D9056-C178-4AB9-A5DE-1C7E03A64F80}
+		{8372504D-9E36-4203-AACA-0D6859D486C8} = {A96D9056-C178-4AB9-A5DE-1C7E03A64F80}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D1F2CDF5-23CA-42FF-B139-C74A73C3FA62}

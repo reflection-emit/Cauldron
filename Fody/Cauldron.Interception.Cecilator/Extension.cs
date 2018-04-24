@@ -548,7 +548,7 @@ namespace Cauldron.Interception.Cecilator
         /// <summary>
         /// Creates a new coder.
         /// </summary>
-        /// <param name="method">The coder.</param>
+        /// <param name="coder">The coder.</param>
         /// <returns></returns>
         public static CatchThrowerCoder NewCoder(this CatchThrowerCoder coder) => new CatchThrowerCoder(coder.instructions.associatedMethod);
 

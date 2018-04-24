@@ -65,7 +65,10 @@
     <Compile Include="InterceptorInfo.cs" />
     <Compile Include="MethodBuilderInfo.cs" />
     <Compile Include="ModuleWeaver.cs" />
+    <Compile Include="PropertyBuilderInfo.cs" />
+    <Compile Include="Weaver_Property.cs" />
     <Compile Include="Weaver_Constructor.cs" />
+    <Compile Include="Weaver_Field.cs" />
     <Compile Include="Weaver_ImplementAnonymousTypeInterface.cs" />
     <Compile Include="Weaver_SimpleMethod.cs" />
     <Compile Include="Weaver_Method.cs" />
