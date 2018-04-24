@@ -56,7 +56,7 @@ namespace Cauldron.Interception.Fody
             //this.ImplementTypeWideMethodInterception(this.Builder, methodInterceptionAttributes);
             // this.ImplementTypeWideMethodInterception(this.Builder, simpleMethodInterceptionAttributes);
             // These should be done last, because they replace methods
-            this.InterceptConstructors(this.Builder, constructorInterceptionAttributes);
+            //this.InterceptConstructors(this.Builder, constructorInterceptionAttributes);
             this.InterceptFields(this.Builder, propertyInterceptingAttributes);
             //this.InterceptMethods(this.Builder, methodInterceptionAttributes);
             // this.InterceptSimpleMethods(this.Builder, simpleMethodInterceptionAttributes);
