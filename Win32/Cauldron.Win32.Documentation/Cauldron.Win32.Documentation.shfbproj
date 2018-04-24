@@ -43,6 +43,8 @@
       <DocumentationSource sourceFile="..\Cauldron.Win32.WPF.Interactivity\Cauldron.Win32.WPF.Interactivity.csproj" />
       <DocumentationSource sourceFile="..\Cauldron.Win32.WPF.ParameterPassing\Cauldron.Win32.WPF.ParameterPassing.csproj" />
       <DocumentationSource sourceFile="..\Cauldron.Win32.WPF.Validation\Cauldron.Win32.WPF.Validation.csproj" />
+      <DocumentationSource sourceFile="..\..\Fody\Cauldron.Interception.Cecilator\Cauldron.Interception.Cecilator.csproj" />
+      <DocumentationSource sourceFile="..\Net45\Cauldron.Win32.Net45.Interception\Cauldron.Win32.Net45.Interception.csproj" />
     </DocumentationSources>
     <SaveComponentCacheCapacity>100</SaveComponentCacheCapacity>
     <BuildAssemblerVerbosity>OnlyWarningsAndErrors</BuildAssemblerVerbosity>
