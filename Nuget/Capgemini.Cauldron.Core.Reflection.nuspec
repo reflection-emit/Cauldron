@@ -27,7 +27,7 @@
     </releaseNotes>
     <dependencies>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="2.1.0" />
+        <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="3.0.3-beta" />
       </group>
     </dependencies>
   </metadata>

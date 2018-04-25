@@ -22,18 +22,18 @@
       <dependency id="Fody" version="3.0.3" />
       <dependency id="Newtonsoft.Json" version="11.0.2" />
       <dependency id="PropertyChanged.Fody" version="2.5.3" />
-      <dependency id="Cauldron.Interception.Fody" version="2.0.30-beta" />
-      <dependency id="Capgemini.Cauldron.Activator" version="2.0.30-beta" />
-      <dependency id="Capgemini.Cauldron.Core.Collections" version="2.0.30-beta" />
-      <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="2.0.30-beta" />
-      <dependency id="Capgemini.Cauldron.Core.Disposable" version="2.0.30-beta" />
-      <dependency id="Capgemini.Cauldron.Core.Extensions" version="2.0.30-beta" />
-      <dependency id="Capgemini.Cauldron.Core.Reflection" version="2.0.30-beta" />
-      <dependency id="Capgemini.Cauldron.Core.Threading" version="2.0.30-beta" />
-      <dependency id="Capgemini.Cauldron.Cryptography" version="2.0.30-beta" />
-      <dependency id="Capgemini.Cauldron.Localization" version="2.0.30-beta" />
-      <dependency id="Capgemini.Cauldron.Win32.Threading" version="2.0.30-beta" />
-      <dependency id="Capgemini.Cauldron.Win32.WPF" version="2.0.30-beta" />
+      <dependency id="Cauldron.Interception.Fody" version="3.0.3-beta" />
+      <dependency id="Capgemini.Cauldron.Activator" version="3.0.3-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Collections" version="3.0.3-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="3.0.3-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Disposable" version="3.0.3-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Extensions" version="3.0.3-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Reflection" version="3.0.3-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Threading" version="3.0.3-beta" />
+      <dependency id="Capgemini.Cauldron.Cryptography" version="3.0.3-beta" />
+      <dependency id="Capgemini.Cauldron.Localization" version="3.0.3-beta" />
+      <dependency id="Capgemini.Cauldron.Win32.Threading" version="3.0.3-beta" />
+      <dependency id="Capgemini.Cauldron.Win32.WPF" version="3.0.3-beta" />
     </dependencies>
   </metadata>
   <files>

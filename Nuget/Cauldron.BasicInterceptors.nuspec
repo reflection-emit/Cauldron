@@ -36,7 +36,6 @@
     <file src="..\UWP\Cauldron.Interception\bin\Release\Cauldron.Interception**" target="lib\uap10.0" />
     <!-- Net Standard 2.0 -->
     <file src="..\NetStandard\Cauldron.Interception\bin\Release\netstandard2.0\Cauldron.Interception**" target="lib\netstandard2.0" />
-
     <file src="..\Fody\Interceptors\Cauldron.BasicInterceptors.dll" target="Content\Interceptors" />
     <file src="..\Fody\Interceptors\Cauldron.BasicInterceptors.pdb" target="Content\Interceptors" />
   </files>

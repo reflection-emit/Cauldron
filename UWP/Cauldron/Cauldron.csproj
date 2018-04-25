@@ -170,6 +170,9 @@
     <Compile Include="..\..\NetStandard\Cauldron.Core.Collections\KeyedCollectionEx.cs">
       <Link>Core\Collections\KeyedCollectionEx.cs</Link>
     </Compile>
+    <Compile Include="..\..\NetStandard\Cauldron.Core.Collections\KeyRawValueDictionary.cs">
+      <Link>Core\Collections\KeyRawValueDictionary.cs</Link>
+    </Compile>
     <Compile Include="..\..\NetStandard\Cauldron.Core.Comparing\Comparer.cs">
       <Link>Core\Comparing\Comparer.cs</Link>
     </Compile>
@@ -319,9 +322,6 @@
     </Compile>
     <Compile Include="..\..\NetStandard\Cauldron.Core\DeviceFamilies.cs">
       <Link>Core\DeviceFamilies.cs</Link>
-    </Compile>
-    <Compile Include="..\..\NetStandard\Cauldron.Core\KeyRawValueDictionary.cs">
-      <Link>Core\KeyRawValueDictionary.cs</Link>
     </Compile>
     <Compile Include="..\..\NetStandard\Cauldron.Core\MessageManager.cs">
       <Link>Core\MessageManager.cs</Link>

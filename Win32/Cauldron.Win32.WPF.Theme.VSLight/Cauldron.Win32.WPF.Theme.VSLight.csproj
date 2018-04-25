@@ -59,10 +59,6 @@
       <Project>{e5a31648-dac2-4c60-a1b8-2fc291c2bf9e}</Project>
       <Name>Cauldron.Activator</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\NetStandard\Cauldron.Interception\Cauldron.Interception.csproj">
-      <Project>{54d84f50-0b4b-40cb-a27d-5ccd84f5b1ee}</Project>
-      <Name>Cauldron.Interception</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Cauldron.Win32.WPF.Theme\Cauldron.Win32.WPF.Theme.csproj">
       <Project>{6b057c59-d15c-4fad-a760-c1191781ae47}</Project>
       <Name>Cauldron.Win32.WPF.Theme</Name>
@@ -82,11 +78,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\..\packages\Fody.2.5.0\build\Fody.targets" Condition="Exists('..\..\packages\Fody.2.5.0\build\Fody.targets')" />
+  <Import Project="..\..\packages\Fody.3.0.3\build\Fody.targets" Condition="Exists('..\..\packages\Fody.3.0.3\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\Fody.2.5.0\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Fody.2.5.0\build\Fody.targets'))" />
+    <Error Condition="!Exists('..\..\packages\Fody.3.0.3\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Fody.3.0.3\build\Fody.targets'))" />
   </Target>
 </Project>
