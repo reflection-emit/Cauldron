@@ -274,12 +274,16 @@ private static void CreateReadmeFromNuspec(DirectoryInfo startingLocation, strin
         nugetbag.Add($"**{name}** | {description} | {nugetLink}");
 
         var nugetInfos = GetNugetInfo(Path.GetFileNameWithoutExtension(nuget.Name)).Result;
-        var nugetInfo = nugetInfos.Items
+        var nugetInfo = nugetInfos?.Items
             .SelectMany(x => x.Items)
             .Select(x => x.CatalogEntry)
             .Concat(new CatalogEntry[] { new CatalogEntry { Version = currentVersion, Published = DateTime.Now } })
             .OrderBy(x => x.Published)
             .ToArray();
+
+        if (nugetInfo == null)
+            return;
+
         var versionInfo = nuspec["package"]["metadata"]["releaseNotes"]?.InnerText?.Split("\r\n")
              .Select(x =>
              {

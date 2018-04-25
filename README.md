@@ -1,8 +1,8 @@
 ![Cauldron Logo](https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron2.png)
 
 # Cauldron C# Toolkit
-## ATTENTION Breaking change
-The interceptors (method, property, fields, constructor ...) from Cauldron.Interception.Fody were moved to Cauldron.BasicInterceptors and now treated as custom interceptors.
+## ATTENTION Breaking change in version 3.0.0
+The interceptors (method, property, fields, constructor ...) from Cauldron.Interception.Fody were moved to Cauldron.BasicInterceptors and are now implemented as custom interceptors.
 Custom interceptors are "scripts" that are compiled and run by Cauldron during the build of your project. For more information check the wiki.
 
 ## Documentation
@@ -24,6 +24,8 @@ https://Capgemini.github.io/Cauldron/uwp/
 Assembly | Description   | NuGet
 -------- | ------------- | ----------------
 **Cauldron.Activator** | The activator is a simple and very fast dependency injection framework. It is based on attributes and does not require any configuration files for configuration. It also supports using static methods as component constructor. | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Activator.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Activator/)
+**Cauldron.BasicInterceptors** | Custom interceptors for Cauldron.Interception.Fody that provides method, property, field and constructor interception. | [![NuGet](https://img.shields.io/nuget/v/Cauldron.BasicInterceptors.svg)](https://www.nuget.org/packages/Cauldron.BasicInterceptors/)
+**Cauldron.Cecilator** | A Fody/Mono.Cecil wrapper that provides most basic IL code weaving helpers.<br/>      INFO: If someone out there that is interested in implementing a FetLang scripting support for this, you are very welcome in doing so.<br/> | [![NuGet](https://img.shields.io/nuget/v/Cauldron.Cecilator.svg)](https://www.nuget.org/packages/Cauldron.Cecilator/)
 **Cauldron.Consoles** | Cauldron.Consoles is a Cauldron.Core based parameter parser which supports grouping of parameters in execution groups. It is also supports localization and has a nice parameter table :) | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Consoles.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Consoles/)
 **Cauldron.Core** | Cauldron Core is the core toolkit assembly that the Cauldron Toolkit builds upon | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Core.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Core/)
 **Cauldron.Core.Collections** | Contains usefull collections and collection extensions. | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Core.Collections.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Core.Collections/)
@@ -44,7 +46,7 @@ Assembly | Description   | NuGet
 **Cauldron.Core.Threading** | Provides useful helpers regarding threading | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Core.Threading.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Core.Threading/)
 **Cauldron.Core.Yaml** | A YAML deserializer | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Core.Yaml.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Core.Yaml/)
 **Cauldron.Cryptography** | Contains typical implementations for AES, RSA and RSA-AES encryptions. It also contains extensions that helps working with SecureString. | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Cryptography.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Cryptography/)
-**Cauldron.Interception.Fody** | Fody add-in that provides method, property, field and constructor interception. Supports Net45, NetStandard2.0 and UWP. | [![NuGet](https://img.shields.io/nuget/v/Cauldron.Interception.Fody.svg)](https://www.nuget.org/packages/Cauldron.Interception.Fody/)
+**Cauldron.Interception.Fody** | Fody add-in that provides custom interception. Supports Net45, NetStandard2.0 and UWP.<br/>      Method, Property, Constructor and Field interceptors can be found in the package Cauldron.BasicInterceptors (https://www.nuget.org/packages/Cauldron.Interception.Fody/)<br/> | [![NuGet](https://img.shields.io/nuget/v/Cauldron.Interception.Fody.svg)](https://www.nuget.org/packages/Cauldron.Interception.Fody/)
 **Cauldron.Localization** | A simple localization implementation that can work with different sources. | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Localization.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Localization/)
 **Cauldron.Win32.Extension.Impersonation** | Provides an extension for PrincipalContext to impersonate a user. | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Win32.Extension.Impersonation.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Win32.Extension.Impersonation/)
 **Cauldron.Win32.Extension.IO** | Provides extension methods with Windows specific functionalities like GetShortPath and IsNetworkPath | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Win32.Extension.IO.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Win32.Extension.IO/)
@@ -62,53 +64,65 @@ Assembly | Description   | NuGet
 **Cauldron.Win32.WPF.Validation** | Validation Framework for Cauldron.Win32.WPF | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Win32.WPF.Validation.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Win32.WPF.Validation/)
 
 ## Release Notes
+### __3.0.3-beta__
+#### Change
+- __Capgemini.Cauldron.Win32.WindowsService:__ _Fody version 3.0.0 update and minor bug fixes._
+- __Capgemini.Cauldron.Win32.Interceptors:__ _Fody version 3.0.0 update and minor bug fixes._
+- __Capgemini.Cauldron.Win32.Interceptors:__ _Now bringing its own interceptor_
+- __Capgemini.Cauldron.Win32.WPF.Validation:__ _Fody version 3.0.0 update and minor bug fixes._
+- __Capgemini.Cauldron.Win32.WPF.Validation:__ _Now bringing its own interceptor_
+- __Capgemini.Cauldron.Win32.Threading:__ _Fody version 3.0.0 update and minor bug fixes._
+- __Capgemini.Cauldron.Win32.WPF:__ _Fody version 3.0.0 update and minor bug fixes._
+- __Capgemini.Cauldron.Win32.WPF:__ _Now bringing its own interceptor_
+- __Capgemini.Cauldron.Core.Threading:__ _Fody version 3.0.0 update and minor bug fixes._
+- __Cauldron.Interception.Fody:__ _Basic interceptors moved to Cauldron.BasicInterceptors package_
+- __Capgemini.Cauldron.Localization:__ _Fody version 3.0.0 update and minor bug fixes._
+- __Capgemini.Cauldron.Core.Interceptors:__ _Fody version 3.0.0 update and minor bug fixes._
+- __Capgemini.Cauldron.Core:__ _Fody version 3.0.0 update and minor bug fixes._
+- __Capgemini.Cauldron.Win32.WPF.Interactivity:__ _Fody version 3.0.0 update and minor bug fixes._
+- __Capgemini.Cauldron.Activator:__ _Fody version 3.0.0 update and minor bug fixes._
+- __Capgemini.Cauldron.Activator:__ _Now bringing its own interceptor_
+### __3.0.2-beta__
+#### Bugfix
+- __Cauldron.Interception.Fody:__ _Resolving of generics throws an exception on certain cases._
+- __Cauldron.Interception.Fody:__ _Custom interceptors now works correctly._
+### __3.0.0-beta__
+#### Change
+- __Cauldron.Interception.Fody:__ _Fody version 3.0.0 update and minor bug fixes._
+- __Cauldron.Interception.Fody:__ _First version of the new Cecilator._
 ### __2.1.0__
 #### Bugfix
-- __Capgemini.Cauldron.Core:__ _Invalid chars in filenames generated by the serializer fixed._
-- __Cauldron.Interception.Fody:__ _A bug in AssignMethod that causes methods that are assigned and are in the base class not being recognized fixed._
-- __Cauldron.Interception.Fody:__ _A bug in AssignMethod that causes methods that are assigned to filed not being recognized fixed._
-- __Cauldron.Interception.Fody:__ _A bug that caused void methods to jump directly to the end of the method before executing the last OpCodes fixed._
 - __Capgemini.Cauldron.Core.Comparing:__ _EnclosedIn extension bug solved_
-### __2.0.37-beta__
-#### Bugfix
-- __Cauldron.Interception.Fody:__ _Bug in the auto implementation of RaiseIsChanged event._
+#### Change
+- __Cauldron.Interception.Fody:__ _All interceptor interfaces that were part of this package were moved to Cauldron.BasicInterceptors_
 ### __2.0.35-beta__
 #### Added
-- __Capgemini.Cauldron.Win32.WPF.Theme.VSLight:__ _Beta release._
 - __Capgemini.Cauldron.Win32.WPF.Theme.VSDark:__ _Beta release._
+- __Capgemini.Cauldron.Win32.WPF.Theme.VSLight:__ _Beta release._
 #### Change
 - __Capgemini.Cauldron.Core.JavaProperties:__ _Moved from Cauldron.Core to it own assembly / package_
 ### __2.0.32-beta__
-#### Change
-- __Capgemini.Cauldron.Core:__ _Reference to Cauldron.Core.Extensions.Convertions removed_
-- __Capgemini.Cauldron.Core:__ _KeyRawValueDictionary moved to Cauldron.Core.Collections_
-- __Capgemini.Cauldron.Core.Collections:__ _Reference to Cauldron.Core.Extensions.Convertions added_
-- __Capgemini.Cauldron.Core.Collections:__ _KeyRawValueDictionary moved to Cauldron.Core.Collections_
 #### Bugfix
-- __Cauldron.Interception.Fody:__ _Missing Assemblies added to the Nuget package._
 - __Capgemini.Cauldron.Core.Reflection:__ _Issues with loading some assemblies... They are skiped now._
-### __2.0.31-beta__
-#### Bugfix
-- __Cauldron.Interception.Fody:__ _AssignMethodAttribute assigned methods lack of import and failed during weaving._
 ### __2.0.30-beta__
 #### Change
 - __Capgemini.Cauldron.Win32.WPF.ParameterPassing:__ _Change COPYDATASTRUCT data to unicode._
-- __Capgemini.Cauldron.Activator:__ _ComponentConstructorAttribute now accepts internal ctors_
-- __Capgemini.Cauldron.Core.Extensions:__ _Concat<T%gt;(this T[][] arrays) renamed to Flatten<T%gt;(this T[][] arrays)_
+- __Capgemini.Cauldron.Win32.Interceptors:__ _InterceptorRule added to RegistryClassAttribute_
+- __Capgemini.Cauldron.Core.Extensions:__ _Concat<T>(this T[][] arrays) renamed to Flatten<T>(this T[][] arrays)_
+- __Capgemini.Cauldron.Core.Comparing:__ _Comparer code replaced by patterns and also cache added._
+- __Capgemini.Cauldron.Core.Comparing:__ _Reference to Cauldron.Core.Reflection removed._
 - __Cauldron.Interception.Fody:__ _DoNotInterceptAttribute removed... Replaced by the InterceptionRuleAttribute instead. See documentation for more details._
 - __Cauldron.Interception.Fody:__ _Interceptor OnException return type changed to bool to be able to create interceptors that swallow exceptions._
 - __Cauldron.Interception.Fody:__ _Getting rid of useless casts in created code._
-- __Capgemini.Cauldron.Win32.Interceptors:__ _InterceptorRule added to RegistryClassAttribute_
 - __Capgemini.Cauldron.Core.Extensions.Convertions:__ _Reference to Cauldron.Core.Reflection removed._
-- __Capgemini.Cauldron.Core.Comparing:__ _Comparer code replaced by patterns and also cache added._
-- __Capgemini.Cauldron.Core.Comparing:__ _Reference to Cauldron.Core.Reflection removed._
+- __Capgemini.Cauldron.Activator:__ _ComponentConstructorAttribute now accepts internal ctors_
 #### Added
 - __Cauldron.Interception.Fody:__ _Support for properties without backing fields added._
 - __Cauldron.Interception.Fody:__ _Support for assembly-wide attribute decorating added._
 - __Cauldron.Interception.Fody:__ _Simple interceptors without try catch added._
 #### Bugfix
 - __Cauldron.Interception.Fody:__ _MethodInterceptors in Async methods are now weaved correctly._
-- __Cauldron.Interception.Fody:__ _ModuleMain entry point interceptor fixed. Waever throwed exception during weaving._
+- __Cauldron.Interception.Fody:__ _ModuleMain entry point interceptor fixed. Weaver throwed exception during weaving._
 ### __2.0.29__
 #### Added
 - __Capgemini.Cauldron.Win32.Interceptors:__ _RegistryAttribute added_
@@ -120,37 +134,37 @@ Assembly | Description   | NuGet
 - __Cauldron.Interception.Fody:__ _AssignMethodAttribute now falls back to 'is assignable' if the return type of a method does not match._
 ### __2.0.27__
 #### Change
-- __Capgemini.Cauldron.Core.Diagnostics:__ _Net461 DLLs removed because it causes a lot of issues on mixed solutions (NetCore and Net461)_
 - __Cauldron.Interception.Fody:__ _AssignMethodAttribute now allowing parameters._
 - __Cauldron.Interception.Fody:__ _AssignMethodAttribute can now throw an error if the associated method is not found._
 - __Cauldron.Interception.Fody:__ _AssignMethodAttribute now supports constructor defined placeholders._
+- __Capgemini.Cauldron.Core.Diagnostics:__ _Net461 DLLs removed because it causes a lot of issues on mixed solutions (NetCore and Net461)_
 #### Bugfix
 - __Cauldron.Interception.Fody:__ _Fixed a bug that caused some methods to return null if Code-Optimization is on._
 ### __2.0.26__
+#### Added
+- __Capgemini.Cauldron.Win32.Interceptors:__ _ExecutionTimeAttribute added_
+- __Capgemini.Cauldron.Win32.Interceptors:__ _PropertyOnSetAttribute added_
+- __Cauldron.Interception.Fody:__ _New interceptor extension added - AssignMethodAttribute_
+- __Capgemini.Cauldron.Core.Diagnostics:__ _Added assemblies for NET45 and NET461_
 #### Change
 - __Capgemini.Cauldron.Core.Randomizer:__ _Net461 DLLs removed because it causes a lot of issues on mixed solutions (NetCore and Net461)_
 - __Capgemini.Cauldron.Core.Interceptors:__ _PropertyOnSetAttribute added_
-#### Added
-- __Capgemini.Cauldron.Core.Diagnostics:__ _Added assemblies for NET45 and NET461_
-- __Cauldron.Interception.Fody:__ _New interceptor extension added - AssignMethodAttribute_
-- __Capgemini.Cauldron.Win32.Interceptors:__ _ExecutionTimeAttribute added_
-- __Capgemini.Cauldron.Win32.Interceptors:__ _PropertyOnSetAttribute added_
 ### __2.0.25__
-#### Added
-- __Capgemini.Cauldron.Win32.WPF:__ _OnActivationProtocol added to ApplicationBase_
-- __Capgemini.Cauldron.Win32.WPF:__ _RegisterUrlProtocols added to ApplicationBase_
-- __Cauldron.Interception.Fody:__ _System.Xml.Serialization.XmlIgnoreAttribute will be added to all Cauldron created properties if the type System.Xml.Serialization.XmlIgnoreAttribute exist._
-- __Capgemini.Cauldron.Win32.Interceptors:__ _Dependency to NLog added_
-- __Capgemini.Cauldron.Win32.Interceptors:__ _PerformanceLoggerAttribute added_
-- __Capgemini.Cauldron.Win32.Interceptors:__ _ExceptionLoggerAttribute added_
 #### Change
+- __Capgemini.Cauldron.Win32.Net:__ _Elevated Urlprotocol now also passes the uri_
+- __Capgemini.Cauldron.Win32.Net:__ _Urlprotocol now registers url with icon 0 instead of 1_
+- __Capgemini.Cauldron.Win32.WPF.ParameterPassing:__ _Will now also invoke the callback delegate if there are no instances of the program running._
 - __Capgemini.Cauldron.Win32.WPF:__ _ParameterPassing in ApplicationBase now uses Environment.Exit(0) after passing the params to other instances._
 - __Capgemini.Cauldron.Core.Interceptors:__ _Dependency to NLog removed_
 - __Capgemini.Cauldron.Core.Interceptors:__ _PerformanceLoggerAttribute removed_
 - __Capgemini.Cauldron.Core.Interceptors:__ _ExceptionLoggerAttribute removed_
-- __Capgemini.Cauldron.Win32.WPF.ParameterPassing:__ _Will now also invoke the callback delegate if there are no instances of the program running._
-- __Capgemini.Cauldron.Win32.Net:__ _Elevated Urlprotocol now also passes the uri_
-- __Capgemini.Cauldron.Win32.Net:__ _Urlprotocol now registers url with icon 0 instead of 1_
+#### Added
+- __Capgemini.Cauldron.Win32.Interceptors:__ _Dependency to NLog added_
+- __Capgemini.Cauldron.Win32.Interceptors:__ _PerformanceLoggerAttribute added_
+- __Capgemini.Cauldron.Win32.Interceptors:__ _ExceptionLoggerAttribute added_
+- __Capgemini.Cauldron.Win32.WPF:__ _OnActivationProtocol added to ApplicationBase_
+- __Capgemini.Cauldron.Win32.WPF:__ _RegisterUrlProtocols added to ApplicationBase_
+- __Cauldron.Interception.Fody:__ _System.Xml.Serialization.XmlIgnoreAttribute will be added to all Cauldron created properties if the type System.Xml.Serialization.XmlIgnoreAttribute exist._
 #### Bugfix
 - __Cauldron.Interception.Fody:__ _NonSerializedAttribute was implemented as a custom attribute... Now correctly implemented._
 ### __2.0.22__
@@ -159,9 +173,9 @@ Assembly | Description   | NuGet
 - __Capgemini.Cauldron.Win32.WPF.ParameterPassing:__ _Now uses the NET461 assembly version of the randomizer._
 - __Cauldron.Interception.Fody:__ _Some info and error messages changed to be more informative._
 #### Added
-- __Capgemini.Cauldron.Core.Randomizer:__ _Added assemblies for NET45 and NET461_
 - __Cauldron.Interception.Fody:__ _Real support for Net45 added - The weaver itself still requires an installed Net461._
 - __Cauldron.Interception.Fody:__ _NonSerializedAttribute or IgnoreDataMemberAttribute or JsonIgnoreAttribute added to all Cauldron created fields and properties (Only if these attributes are referenced in the project)._
+- __Capgemini.Cauldron.Core.Randomizer:__ _Added assemblies for NET45 and NET461_
 #### Bugfix
 - __Cauldron.Interception.Fody:__ _In some cases if the weaver tries to retrieved information from referenced assemblies, a BadImageFormatException occures. Fixed._
 ### __2.0.21__
@@ -180,19 +194,19 @@ Assembly | Description   | NuGet
 - __Capgemini.Cauldron.Win32.WPF:__ _Bugs in MessageDialog that caused the strings not to be localized correctly fixed_
 - __Capgemini.Cauldron.Win32.WPF:__ _Fixes an issue where the SplashScreen can be removed from MainView and causes the application to exit_
 - __Capgemini.Cauldron.Core.Threading:__ _BUG!!!! ... Dispatcher was using BeginInvoke instead of InvokeAsync_
-- __Capgemini.Cauldron.Win32.WPF.Interactivity:__ _The "Localized" attached property will not continue loading if in design mode to avoid those weird errors in the WPF editor_
-- __Capgemini.Cauldron.Localization:__ _Added a Contains method to Locale._
-- __Capgemini.Cauldron.Activator:__ _CreateFirst always returned null in some cases... This is fixed._
+- __Capgemini.Cauldron.Core.Reflection:__ _A bug in Assemblies that causes the Custom assembly resolution to be invoked before all assemblies are added to the collection fixed._
 - __Cauldron.Interception.Fody:__ _A bug was in "cleaning" fixed that caused local variables to be removed although they were still in use._
 - __Cauldron.Interception.Fody:__ _Fixed a bug that caused the weaver to weav types that does not exist and then throws exceptions._
 - __Cauldron.Interception.Fody:__ _Sort of fixed the issue that jumping to errors on async methods did not work._
-- __Capgemini.Cauldron.Core.Reflection:__ _A bug in Assemblies that causes the Custom assembly resolution to be invoked before all assemblies are added to the collection fixed._
+- __Capgemini.Cauldron.Localization:__ _Added a Contains method to Locale._
+- __Capgemini.Cauldron.Win32.WPF.Interactivity:__ _The "Localized" attached property will not continue loading if in design mode to avoid those weird errors in the WPF editor_
+- __Capgemini.Cauldron.Activator:__ _CreateFirst always returned null in some cases... This is fixed._
 #### Change
 - __Capgemini.Cauldron.Win32.WPF:__ _XAML resources loading order can now be changed by adding a dash and a numeric suffix to the file name. e.g. Style-01.xaml._
 - __Capgemini.Cauldron.Core.Reflection:__ _Now Costura compatible._
 #### Added
-- __Capgemini.Cauldron.Win32.WPF.Interactivity:__ _New property added to 'Localized': 'LocalizedText'_
 - __Cauldron.Interception.Fody:__ _Allowing non auto-properties to be intercepted._
+- __Capgemini.Cauldron.Win32.WPF.Interactivity:__ _New property added to 'Localized': 'LocalizedText'_
 ### __2.0.18__
 #### Bugfix
 - __Cauldron.Interception.Fody:__ _If PropertyChanged.Fody weaved before Cauldron then Cauldron has removed the implementation for the particular property. This is now fixed._
@@ -206,18 +220,21 @@ Assembly | Description   | NuGet
 - __Capgemini.Cauldron.Win32.WPF:__ _OnIsLoadingChanged added to ViewModelBase._
 - __Capgemini.Cauldron.Win32.WPF:__ _Message unsubsribe added to dispose of ViewModelBase._
 - __Capgemini.Cauldron.Win32.WPF:__ _RegisterChildren attribute added._
-- __Cauldron.Interception.Fody:__ _Sequence points added._
 - __Capgemini.Cauldron.Core.Extensions.IO:__ _GetUniqueDirectoryName and GetUniqueFilename added._
+- __Cauldron.Interception.Fody:__ _Sequence points added._
 #### Change
 - __Capgemini.Cauldron.Win32.WPF:__ _Renamed IMessageDialog.ShowException to IMessageDialog.ShowExceptionAsync_
 #### Bugfix
 - __Cauldron.Interception.Fody:__ _Bug from yesterday regarding ComponentAttribute still occured on nested private classes. Now fixed._
 ### __2.0.13__
+#### Change
+- __Capgemini.Cauldron.Win32.Interceptors:__ _TimedCacheAttribute namespace changed to Cauldron.Core.Interceptors._
+- __Cauldron.Interception.Fody:__ _TimedCacheAttribute namespace change also reflected to weaver._
 #### Added
 - __Capgemini.Cauldron.Win32.WPF:__ _Several information from ApplicationInfo added as static resources._
 - __Capgemini.Cauldron.Win32.WPF:__ _IViewAware interface added._
-- __Capgemini.Cauldron.Activator:__ _CreateFirst method added to the Factory. This will auto-pick the implementation with the highest priority if multiple implementations are available._
 - __Cauldron.Interception.Fody:__ _Weaves an initializer for xaml resources to be able to auto-load them._
+- __Capgemini.Cauldron.Activator:__ _CreateFirst method added to the Factory. This will auto-pick the implementation with the highest priority if multiple implementations are available._
 #### Bugfix
 - __Capgemini.Cauldron.Win32.WPF:__ _Now picks the correct Window implementaion._
 - __Capgemini.Cauldron.Win32.WPF:__ _Bug regarding auto-selection of views in the navigator fixed._
@@ -226,9 +243,6 @@ Assembly | Description   | NuGet
 - __Cauldron.Interception.Fody:__ _The weaving of the auto-ComponentAttribute attributed types caused an error in some cases if the type is not public._
 - __Cauldron.Interception.Fody:__ _Interceptors that uses ISyncRoot interface was not correctly weaved. This caused the object initialization to be weaved in the .cctor even though it is not static._
 - __Cauldron.Interception.Fody:__ _Useless method cache removed from weaver._
-#### Change
-- __Cauldron.Interception.Fody:__ _TimedCacheAttribute namespace change also reflected to weaver._
-- __Capgemini.Cauldron.Win32.Interceptors:__ _TimedCacheAttribute namespace changed to Cauldron.Core.Interceptors._
 
 ### Old Release Notes
 ### 2.0.0 betas
