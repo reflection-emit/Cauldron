@@ -24,6 +24,7 @@
         <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="3.0.0-beta" />
         <dependency id="Cauldron.Interception.Fody" version="3.0.0-beta" />
         <dependency id="Fody" version="3.0.3" />
+        <dependency id="Cauldron.BasicInterceptors" version="2.0.30-beta" />
       </group>
     </dependencies>
   </metadata>

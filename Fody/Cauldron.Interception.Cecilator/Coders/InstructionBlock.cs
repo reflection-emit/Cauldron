@@ -33,6 +33,7 @@ namespace Cauldron.Interception.Cecilator.Coders
             this.instructions.Changed += Changed;
         }
 
+        public int Count => this.instructions.Count;
         public Instruction First => this.instructions.Count == 0 ? null : this.instructions[0];
         public Instruction Last => this.instructions.Count == 0 ? null : this.instructions[this.instructions.Count - 1];
 
@@ -56,8 +57,6 @@ namespace Cauldron.Interception.Cecilator.Coders
                     this.resultingType = value;
             }
         }
-
-        public int Count => this.instructions.Count;
 
         public Instruction this[int index]
         {
@@ -728,6 +727,8 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         public IEnumerator<Instruction> GetEnumerator() => this.instructions.GetEnumerator();
 
+        IEnumerator IEnumerable.GetEnumerator() => this.instructions.GetEnumerator();
+
         public override int GetHashCode() => this.associatedMethod.GetHashCode() ^ this.ilprocessor.GetHashCode();
 
         public int IndexOf(Instruction instruction) => this.instructions.IndexOf(instruction);
@@ -786,8 +787,6 @@ namespace Cauldron.Interception.Cecilator.Coders
             return sb.ToString();
         }
 
-        IEnumerator IEnumerable.GetEnumerator() => this.instructions.GetEnumerator();
-
         internal static bool AddBinaryOperation(InstructionBlock instructionBlock, OpCode opCode, BuilderType a, BuilderType b, object valueB)
         {
             var methodName = "";
@@ -834,6 +833,9 @@ namespace Cauldron.Interception.Cecilator.Coders
 
             if (secondType == null && secondValue is CoderBase coderBase)
                 secondType = coderBase.instructions.ResultingType?.ToBuilderType() ?? secondValue?.GetType()?.ToBuilderType();
+
+            if (firstType == null)
+                firstType = secondType;
 
             if (instructionBlock.Count == 0)
             {

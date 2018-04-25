@@ -111,7 +111,7 @@ namespace Cauldron.Test
             var vm = Factory.Create<SparrowViewModel>();
             vm.Name = "";
             vm.ValidateAsync().RunSync();
-            var errorMessage = vm.GetErrors(nameof(SparrowViewModel.Name)).Cast<string>().ToArray().Join("\n");
+            var errorMessage = vm.GetErrors(nameof(SparrowViewModel.Name))?.Cast<string>()?.ToArray().Join("\n");
 
             Assert.IsFalse(string.IsNullOrEmpty(errorMessage));
         }

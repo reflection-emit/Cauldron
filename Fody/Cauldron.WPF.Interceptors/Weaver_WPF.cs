@@ -30,7 +30,7 @@ public static class Weaver_WPF
         var resourceDictionaries = builder.FindTypesByBaseClass(resourceDictionaryBaseClass).Where(x => x.IsPublic);
         var multiBindingConverters = multiBindingValueConverterInterface == null ? null : builder.FindTypesByInterface(multiBindingValueConverterInterface).Where(x => x.IsPublic);
 
-        builder.Log(LogTypes.Info, "Adding ComponenAttribute to Views");
+        builder.Log(LogTypes.Info, "Adding ComponentAttribute to Views");
         foreach (var item in views)
         {
             if (item.IsAbstract || item.IsInterface || item.HasUnresolvedGenericParameters)
@@ -54,7 +54,7 @@ public static class Weaver_WPF
                 ctor.CustomAttributes.Add(componentConstructorAttribute);
         }
 
-        builder.Log(LogTypes.Info, "Adding ComponenAttribute to ViewModels");
+        builder.Log(LogTypes.Info, "Adding ComponentAttribute to ViewModels");
         foreach (var item in viewModels)
         {
             if (item.IsAbstract || item.IsInterface || item.HasUnresolvedGenericParameters || item.IsNestedPrivate)
@@ -71,7 +71,7 @@ public static class Weaver_WPF
                 ctor.CustomAttributes.Add(componentConstructorAttribute);
         }
 
-        builder.Log(LogTypes.Info, "Adding ComponenAttribute to ValueConverters");
+        builder.Log(LogTypes.Info, "Adding ComponentAttribute to ValueConverters");
         foreach (var item in valueConverters)
         {
             if (item.IsAbstract || item.IsInterface || item.HasUnresolvedGenericParameters || item.IsNestedPrivate)
@@ -87,7 +87,7 @@ public static class Weaver_WPF
                 ctor.CustomAttributes.Add(componentConstructorAttribute);
         }
 
-        builder.Log(LogTypes.Info, "Adding ComponenAttribute to MultiBindingConverters");
+        builder.Log(LogTypes.Info, "Adding ComponentAttribute to MultiBindingConverters");
         if (multiBindingConverters != null)
             foreach (var item in multiBindingConverters)
             {
@@ -104,7 +104,7 @@ public static class Weaver_WPF
                     ctor.CustomAttributes.Add(componentConstructorAttribute);
             }
 
-        builder.Log(LogTypes.Info, "Adding ComponenAttribute to ResourceDictionaries");
+        builder.Log(LogTypes.Info, "Adding ComponentAttribute to ResourceDictionaries");
         foreach (var item in resourceDictionaries)
         {
             if (item.IsAbstract || item.IsInterface || item.HasUnresolvedGenericParameters || item.IsNestedPrivate)

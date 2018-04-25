@@ -62,7 +62,7 @@ namespace Cauldron.XAML.ViewModels
         /// <summary>
         /// Gets a value that indicates if the ViewModel has errors after validation
         /// </summary>
-        public bool HasErrors { get { return this.validators.Any(x => x.Error.Count > 0); } }
+        public bool HasErrors => this.validators.Any(x => x.Error.Count > 0);
 
         /// <summary>
         /// Gets a value that indicates that the properties are currently being validated.

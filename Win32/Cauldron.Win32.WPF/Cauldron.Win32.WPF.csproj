@@ -144,6 +144,10 @@
       <Project>{75a87a26-d167-4e61-84ba-5595ae475934}</Project>
       <Name>Cauldron.Core.Comparing</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Diagnostics\Cauldron.Core.Diagnostics.csproj">
+      <Project>{9631764e-e771-4d96-a7cf-757c257a0630}</Project>
+      <Name>Cauldron.Core.Diagnostics</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Disposable\Cauldron.Core.Disposable.csproj">
       <Project>{fee69c60-3463-47e9-9a7c-735b4f967aad}</Project>
       <Name>Cauldron.Core.Disposable</Name>
@@ -176,10 +180,6 @@
       <Project>{fe7bd804-a339-486c-8d28-b58e11d8d676}</Project>
       <Name>Cauldron.Cryptography</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\NetStandard\Cauldron.Interception\Cauldron.Interception.csproj">
-      <Project>{54d84f50-0b4b-40cb-a27d-5ccd84f5b1ee}</Project>
-      <Name>Cauldron.Interception</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\NetStandard\Cauldron.Localization\Cauldron.Localization.csproj">
       <Project>{2729fd6d-0685-4fdf-a995-3eae4e5ae942}</Project>
       <Name>Cauldron.Localization</Name>
@@ -204,6 +204,10 @@
       <Project>{3b7c0640-5d31-46aa-97d2-689787409853}</Project>
       <Name>Cauldron.Win32.WPF.ParameterPassing</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Net461\Cauldron.Win32.Net461.Interception\Cauldron.Win32.Net461.Interception.csproj">
+      <Project>{cb1469b2-7963-491b-8a99-82edce3b8442}</Project>
+      <Name>Cauldron.Win32.Net461.Interception</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Images\error_red_32x32.png" />
@@ -224,7 +228,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>dotnet script $(SolutionDir)Scripts\copy-script.csx $(ProjectPath)</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <Import Project="..\..\packages\Fody.3.0.3\build\Fody.targets" Condition="Exists('..\..\packages\Fody.3.0.3\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

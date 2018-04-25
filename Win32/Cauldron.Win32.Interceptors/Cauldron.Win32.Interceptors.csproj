@@ -71,9 +71,9 @@
       <Project>{9631764e-e771-4d96-a7cf-757c257a0630}</Project>
       <Name>Cauldron.Core.Diagnostics</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\NetStandard\Cauldron.Interception\Cauldron.Interception.csproj">
-      <Project>{54d84f50-0b4b-40cb-a27d-5ccd84f5b1ee}</Project>
-      <Name>Cauldron.Interception</Name>
+    <ProjectReference Include="..\Net461\Cauldron.Win32.Net461.Interception\Cauldron.Win32.Net461.Interception.csproj">
+      <Project>{cb1469b2-7963-491b-8a99-82edce3b8442}</Project>
+      <Name>Cauldron.Win32.Net461.Interception</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Weavers>
-  <Cauldron.Interception />
+<Weavers VerifyAssembly="True">
+  <Cauldron.Interception>
+    <CustomInterceptors>
+      $(ProjectDir)..\..\Fody\Interceptors\Cauldron.ActivatorInterceptors.dll
+      $(ProjectDir)..\..\Fody\Interceptors\Cauldron.WPF.Interceptors.dll
+      $(ProjectDir)..\..\Fody\Interceptors\Cauldron.WPF.ValidatorInterceptors.dll
+    </CustomInterceptors>
+  </Cauldron.Interception>
 </Weavers>
