@@ -7,14 +7,18 @@ internal static class ModuleWeaver
 {
     public static void ImplementAssignMethodAttribute(Builder builder, AssignMethodAttributeInfo[] assignMethodAttributeInfos, Field interceptorInstance, BuilderType contentType, Coder coder) =>
         ImplementAssignMethodAttribute(builder, assignMethodAttributeInfos,
-            x => coder.Load(interceptorInstance).As(contentType).SetValue(x.assignMethodAttributeInfo.AttributeField, y => y.NewObj(x.delegateCtor, x.method.ThisOrNull(), x.method)));
+            (delegateCtor, method, assignMethodAttributeInfo) => coder.Load(interceptorInstance)
+                .As(contentType)
+                .SetValue(assignMethodAttributeInfo.AttributeField, y => y.NewObj(delegateCtor, method.ThisOrNull(), method)));
 
     public static void ImplementAssignMethodAttribute(Builder builder, AssignMethodAttributeInfo[] assignMethodAttributeInfos, LocalVariable interceptorInstance, BuilderType contentType, Coder coder) =>
         ImplementAssignMethodAttribute(builder, assignMethodAttributeInfos,
-            x => coder.Load(interceptorInstance).As(contentType).SetValue(x.assignMethodAttributeInfo.AttributeField, y => y.NewObj(x.delegateCtor, x.method.ThisOrNull(), x.method)));
+            (delegateCtor, method, assignMethodAttributeInfo) => coder.Load(interceptorInstance)
+                .As(contentType)
+                .SetValue(assignMethodAttributeInfo.AttributeField, y => y.NewObj(delegateCtor, method.ThisOrNull(), method)));
 
     private static void ImplementAssignMethodAttribute(Builder builder, AssignMethodAttributeInfo[] assignMethodAttributeInfos,
-                Action<(Method delegateCtor, Method method, AssignMethodAttributeInfo assignMethodAttributeInfo)> @delegate)
+                Action<Method, Method, AssignMethodAttributeInfo> @delegate)
     {
         if (@delegate == null)
             throw new ArgumentNullException(nameof(@delegate));
@@ -41,7 +45,7 @@ internal static class ModuleWeaver
                     .Import();
 
             builder.Log(LogTypes.Info, $"- Implementing AssignMethodAttribute for '{method.Name}'.");
-            @delegate((delegateCtor, method, item));
+            @delegate(delegateCtor, method, item);
         }
     }
 }

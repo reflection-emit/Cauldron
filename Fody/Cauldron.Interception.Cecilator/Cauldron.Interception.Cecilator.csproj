@@ -50,9 +50,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.ValueTuple.4.5.0-preview2-26406-04\lib\net461\System.ValueTuple.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -63,8 +60,6 @@
   <ItemGroup>
     <Compile Include="AssemblyDefinitionEqualityComparer.cs" />
     <Compile Include="AssemblyDefinitionEx.cs" />
-    <None Include="AssignInstructionsSet.cs" />
-    <Compile Include="AssignInstructionType.cs" />
     <Compile Include="AsyncMethodHelper.cs" />
     <Compile Include="AttributedField.cs" />
     <Compile Include="AttributedMethod.cs" />
@@ -96,6 +91,7 @@
     <Compile Include="Coders\ILoadValue.cs" />
     <Compile Include="Coders\IMathOperators.cs" />
     <Compile Include="Coders\INewObj.cs" />
+    <Compile Include="Coders\InstructionPoints.cs" />
     <Compile Include="Coders\IVariableOperations.cs" />
     <Compile Include="Coders\InstructionBlock.cs" />
     <Compile Include="Coders\IRelationalOperators.cs" />
@@ -106,7 +102,6 @@
     <Compile Include="Coders\TryCatchCoder\MarkerType.cs" />
     <Compile Include="Coders\TryCatchCoder\TryCatchFinallyCoderBase.cs" />
     <Compile Include="Coders\TryCatchCoder\TryCoder.cs" />
-    <None Include="Crumb.cs" />
     <Compile Include="CustomAttributeEqualityComparer.cs" />
     <Compile Include="Extension.cs" />
     <Compile Include="Coders\BooleanExpression\BooleanExpressionCoder.cs" />
@@ -114,35 +109,20 @@
     <Compile Include="Coders\CodeBlock.cs" />
     <Compile Include="Field.cs" />
     <Compile Include="FieldCollection.cs" />
-    <None Include="FieldInstructionsSet.cs" />
-    <Compile Include="FieldInUseException.cs" />
     <Compile Include="FieldUsage.cs" />
-    <Compile Include="IAction.cs" />
-    <None Include="ICatch.cs" />
-    <None Include="ICatchCode.cs" />
-    <None Include="ICode.cs" />
-    <None Include="IfCode.cs" />
-    <None Include="IFieldCode.cs" />
-    <None Include="IFinally.cs" />
-    <None Include="IIfCode.cs" />
     <Compile Include="ICecilatorObject.cs" />
     <Compile Include="IlHelper.cs" />
-    <None Include="ILocalVariableCode.cs" />
     <Compile Include="InsertionAction.cs" />
     <Compile Include="InsertionPosition.cs" />
-    <None Include="InstructionContainer.cs" />
-    <None Include="InstructionsSet.cs" />
-    <None Include="ITry.cs" />
-    <None Include="ITryCode.cs" />
     <Compile Include="ListEx.cs" />
     <Compile Include="LogTypes.cs" />
+    <Compile Include="MethodDefinitionAndReference.cs" />
+    <Compile Include="Positions.cs" />
     <Compile Include="TypeResolveException.cs" />
     <Compile Include="CecilatorTypeSystem.cs" />
     <Compile Include="WeaverBase.cs" />
     <Compile Include="BuilderType.cs" />
     <Compile Include="LocalVariable.cs" />
-    <None Include="LocalVariableInstructionSet.cs" />
-    <None Include="MarkerType.cs" />
     <Compile Include="Method.cs" />
     <Compile Include="MethodNotFoundException.cs" />
     <Compile Include="MethodUsage.cs" />
@@ -150,7 +130,6 @@
     <Compile Include="ParamResult.cs" />
     <Compile Include="Position.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <None Include="MarkerInstructionSet.cs" />
     <Compile Include="Property.cs" />
     <Compile Include="PropertyUsage.cs" />
     <Compile Include="SearchContext.cs" />

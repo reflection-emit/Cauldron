@@ -83,16 +83,20 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
-        public (Position Start, Position End) GetAsyncStateMachineExceptionBlock()
+        public Positions GetAsyncStateMachineExceptionBlock()
         {
             var asyncMethod = this.method.AsyncMethod;
 
             if (asyncMethod == null)
-                return (null, null);
+                return new Positions { Beginning = null, End = null };
 
             var lastException = asyncMethod.methodDefinition.Body.ExceptionHandlers.Last(x => x.HandlerType == ExceptionHandlerType.Catch);
 
-            return (new Position(asyncMethod, lastException.HandlerStart), new Position(asyncMethod, lastException.HandlerEnd));
+            return new Positions
+            {
+                Beginning = new Position(asyncMethod, lastException.HandlerStart),
+                End = new Position(asyncMethod, lastException.HandlerEnd)
+            };
         }
 
         public LocalVariable GetAsyncStateMachineExceptionVariable()

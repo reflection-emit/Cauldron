@@ -1,5 +1,4 @@
-﻿
-using Mono.Cecil.Cil;
+﻿using Mono.Cecil.Cil;
 using System;
 
 namespace Cauldron.Interception.Cecilator.Coders
@@ -13,7 +12,7 @@ namespace Cauldron.Interception.Cecilator.Coders
         ICasting<BooleanExpressionCoder>,
         INewObj<BooleanExpressionCallCoder>
     {
-        internal BooleanExpressionCoder(InstructionBlock instructionBlock, (Instruction beginning, Instruction ending)? jumpTargets) : base(instructionBlock, jumpTargets)
+        internal BooleanExpressionCoder(InstructionBlock instructionBlock, InstructionPoints? jumpTargets) : base(instructionBlock, jumpTargets)
         {
         }
 

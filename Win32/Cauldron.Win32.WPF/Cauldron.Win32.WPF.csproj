@@ -184,10 +184,6 @@
       <Project>{2729fd6d-0685-4fdf-a995-3eae4e5ae942}</Project>
       <Name>Cauldron.Localization</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Cauldron.Core.Win32.Diagnostics\Cauldron.Core.Win32.Diagnostics.csproj">
-      <Project>{b34eede6-74a8-4582-ab45-a46c5871f97e}</Project>
-      <Name>Cauldron.Core.Win32.Diagnostics</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Cauldron.Win32.MonitorInfo\Cauldron.Win32.MonitorInfo.csproj">
       <Project>{e8fded13-93e7-4120-95b6-c829d8220850}</Project>
       <Name>Cauldron.Win32.MonitorInfo</Name>

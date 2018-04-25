@@ -144,7 +144,7 @@ public sealed class Weaver_Method
 
                              return or.Is(false);
                          }, x => x.Jump(exceptionBlock.End));
-                    }).Insert(InsertionAction.After, exceptionBlock.Start);
+                    }).Insert(InsertionAction.After, exceptionBlock.Beginning);
             }
         };
     }

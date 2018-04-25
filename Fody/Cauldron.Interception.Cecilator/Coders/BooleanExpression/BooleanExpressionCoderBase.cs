@@ -1,5 +1,4 @@
-﻿
-using Mono.Cecil;
+﻿using Mono.Cecil;
 using Mono.Cecil.Cil;
 using System;
 
@@ -15,7 +14,7 @@ namespace Cauldron.Interception.Cecilator.Coders
     {
         protected BooleanExpressionCoderBase(
             InstructionBlock instructionBlock,
-            (Instruction beginning, Instruction ending)? jumpTargets = null,
+            InstructionPoints? jumpTargets = null,
             BuilderType builderType = null) :
             base(instructionBlock, jumpTargets, builderType)
         {
@@ -161,11 +160,15 @@ namespace Cauldron.Interception.Cecilator.Coders
     public abstract class BooleanExpressionCoderBase : CoderBase
     {
         internal readonly BuilderType builderType;
-        internal readonly (Instruction beginning, Instruction ending) jumpTargets;
+        internal readonly InstructionPoints jumpTargets;
 
-        protected BooleanExpressionCoderBase(InstructionBlock instructionBlock, (Instruction beginning, Instruction ending)? jumpTargets = null, BuilderType builderType = null) : base(instructionBlock)
+        protected BooleanExpressionCoderBase(InstructionBlock instructionBlock, InstructionPoints? jumpTargets = null, BuilderType builderType = null) : base(instructionBlock)
         {
-            this.jumpTargets = jumpTargets ?? (instructionBlock.ilprocessor.Create(OpCodes.Nop), instructionBlock.ilprocessor.Create(OpCodes.Nop));
+            this.jumpTargets = jumpTargets ?? new InstructionPoints
+            {
+                beginning = instructionBlock.ilprocessor.Create(OpCodes.Nop),
+                ending = instructionBlock.ilprocessor.Create(OpCodes.Nop)
+            };
             this.builderType = builderType?.Import() ?? instructionBlock.associatedMethod.OriginType;
         }
     }

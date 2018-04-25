@@ -117,7 +117,7 @@ namespace Cauldron.Core.Collections
 
         internal byte[] Raw { get { return this.raw; } }
 
-        /// <exclude/>
+        /// <exclude/>m
         public static implicit operator RawValue(int value) => new RawValue(value.ToBytes());
 
         /// <exclude/>

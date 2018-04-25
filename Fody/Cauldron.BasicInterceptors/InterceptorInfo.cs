@@ -33,10 +33,10 @@ public class InterceptorInfo
             .Select(x =>
             {
                 if (x.ConstructorArguments.Length == 2)
-                    return (x.ConstructorArguments[1].Value as TypeReference, (byte)0);
+                    return new Tuple<TypeReference, byte>(x.ConstructorArguments[1].Value as TypeReference, (byte)0);
 
                 if (x.ConstructorArguments.Length > 2)
-                    return (x.ConstructorArguments[1].Value as TypeReference, (byte)x.ConstructorArguments[2].Value);
+                    return new Tuple<TypeReference, byte>(x.ConstructorArguments[1].Value as TypeReference, (byte)x.ConstructorArguments[2].Value);
 
                 throw new Exception(" OMG ");
             })
@@ -49,7 +49,7 @@ public class InterceptorInfo
 
     public bool HasSuppressRule { get; private set; }
 
-    public (TypeReference Type, byte Mode)[] InterfaceOrBaseClassRequirement { get; private set; }
+    public Tuple<TypeReference, byte>[] InterfaceOrBaseClassRequirement { get; private set; }
 
     public TypeReference[] SuppressRuleAttributeTypes { get; private set; }
 
@@ -76,9 +76,9 @@ public class InterceptorInfo
         if (interceptorInfo.HasInterfaceOrBaseClassRequirement)
         {
             var interfacesAndBaseClasses = declaringType.Interfaces.Concat(declaringType.BaseClasses).Select(x => x.Fullname);
-            var hasRequired = interceptorInfo.InterfaceOrBaseClassRequirement.Any(x => x.Mode == 1);
-            var requiredInterfacesAndBaseClasses = interceptorInfo.InterfaceOrBaseClassRequirement.Any(x => x.Mode == 1 && interfacesAndBaseClasses.Any(y => y.StartsWith(x.Type.FullName)));
-            var optionalInterfacesAnsBaseClasses = interceptorInfo.InterfaceOrBaseClassRequirement.Any(x => x.Mode == 0 && interfacesAndBaseClasses.Any(y => y.StartsWith(x.Type.FullName)));
+            var hasRequired = interceptorInfo.InterfaceOrBaseClassRequirement.Any(x => x.Item2 == 1);
+            var requiredInterfacesAndBaseClasses = interceptorInfo.InterfaceOrBaseClassRequirement.Any(x => x.Item2 == 1 && interfacesAndBaseClasses.Any(y => y.StartsWith(x.Item1.FullName)));
+            var optionalInterfacesAnsBaseClasses = interceptorInfo.InterfaceOrBaseClassRequirement.Any(x => x.Item2 == 0 && interfacesAndBaseClasses.Any(y => y.StartsWith(x.Item1.FullName)));
 
             if (hasRequired && !requiredInterfacesAndBaseClasses)
             {

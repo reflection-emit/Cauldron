@@ -16,6 +16,7 @@
       <group targetFramework=".NETStandard2.0">
         <dependency id="Capgemini.Cauldron.Core.Comparing" version="3.0.0-beta" />
         <dependency id="Capgemini.Cauldron.Core.Extensions" version="3.0.0-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Extensions.Convertions" version="3.0.0-beta" />
       </group>
     </dependencies>
   </metadata>

@@ -716,8 +716,8 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
-        private (MethodReference reference, MethodDefinition definition)? TryFilterMethod(
-            (MethodReference reference, MethodDefinition definition) method,
+        private MethodDefinitionAndReference? TryFilterMethod(
+            MethodDefinitionAndReference method,
             Modifiers modifier,
             BuilderType returnType,
             string name,
@@ -762,7 +762,11 @@ namespace Cauldron.Interception.Cecilator
             }
 
             if (string.IsNullOrEmpty(name) || method.definition.Name == name || method.reference.Name == name)
-                return (method.reference, method.definition);
+                return new MethodDefinitionAndReference
+                {
+                    reference = method.reference,
+                    definition = method.definition
+                };
 
             return null;
         }

@@ -26,15 +26,15 @@ namespace Cauldron.Interception.Fody
                 dlls.AddRange(Directory.GetFiles(this.AddinDirectoryPath, "*.dll"));
                 dlls.AddRange(typeof(ModuleWeaver).Assembly.GetReferencedAssemblies().Select(x => Assembly.Load(x).Location?.Trim()).Where(x => !string.IsNullOrEmpty(x)));
 
-                if (!Directory.Exists(interceptorDirectory))
-                    return;
+                if (Directory.Exists(interceptorDirectory))
+                {
+                    // Find all uncompiled scripts and compile them
+                    foreach (var script in Directory.GetFiles(interceptorDirectory, "*.csx", SearchOption.AllDirectories))
+                        scriptBinaries.Add(AppDomain.CurrentDomain.Load(File.ReadAllBytes(CompileScript(csc, script, dlls))));
 
-                // Find all uncompiled scripts and compile them
-                foreach (var script in Directory.GetFiles(interceptorDirectory, "*.csx", SearchOption.AllDirectories))
-                    scriptBinaries.Add(AppDomain.CurrentDomain.Load(File.ReadAllBytes(CompileScript(csc, script, dlls))));
-
-                foreach (var script in Directory.GetFiles(interceptorDirectory, "*.dll", SearchOption.AllDirectories))
-                    scriptBinaries.Add(AppDomain.CurrentDomain.Load(File.ReadAllBytes(script)));
+                    foreach (var script in Directory.GetFiles(interceptorDirectory, "*.dll", SearchOption.AllDirectories))
+                        scriptBinaries.Add(AppDomain.CurrentDomain.Load(File.ReadAllBytes(script)));
+                }
 
                 scriptBinaries.AddRange(this.CustomInterceptors.Select(x => AppDomain.CurrentDomain.Load(File.ReadAllBytes(x))));
 

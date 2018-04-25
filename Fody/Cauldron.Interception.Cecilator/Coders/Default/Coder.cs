@@ -249,50 +249,50 @@ namespace Cauldron.Interception.Cecilator.Coders
             return this;
         }
 
-        private static void SetCorrectJumpPoints(List<(int CurrentIndex, int Index)> jumps, IList<Instruction> methodInstructions)
+        private static void SetCorrectJumpPoints(List<Index> jumps, IList<Instruction> methodInstructions)
         {
-            foreach (var j in jumps.GroupBy(x => x.CurrentIndex))
+            foreach (var j in jumps.GroupBy(x => x.currentIndex))
             {
                 if (methodInstructions[j.Key].OpCode == OpCodes.Switch)
                 {
                     var instructions = new List<Instruction>();
 
-                    foreach (var (_, Index) in j)
-                        instructions.Add(methodInstructions[Index]);
+                    foreach (var item in j)
+                        instructions.Add(methodInstructions[item.index]);
 
                     methodInstructions[j.Key].Operand = instructions.ToArray();
                 }
                 else
-                    methodInstructions[j.Key].Operand = methodInstructions[j.First().Index];
+                    methodInstructions[j.Key].Operand = methodInstructions[j.First().index];
             }
         }
 
         private void CopyMethod(MethodDefinition method)
         {
             var methodProcessor = method.Body.GetILProcessor();
-            var (Instructions, Exceptions) = CopyMethodBody(this.instructions.associatedMethod.methodDefinition, this.instructions.associatedMethod.methodDefinition.Body.Variables);
-            methodProcessor.Append(Instructions);
+            var instructions = CopyMethodBody(this.instructions.associatedMethod.methodDefinition, this.instructions.associatedMethod.methodDefinition.Body.Variables);
+            methodProcessor.Append(instructions.Instructions);
 
-            foreach (var item in Exceptions)
+            foreach (var item in instructions.Exceptions)
                 method.Body.ExceptionHandlers.Add(item);
         }
 
-        private (IEnumerable<Instruction> Instructions, IEnumerable<ExceptionHandler> Exceptions) CopyMethodBody(MethodDefinition originalMethod, IList<VariableDefinition> variableDefinition)
+        private InstructionCollection CopyMethodBody(MethodDefinition originalMethod, IList<VariableDefinition> variableDefinition)
         {
             if (this.instructions.associatedMethod.IsAbstract)
                 throw new NotSupportedException("Interceptors does not support abstract methods.");
 
             var methodProcessor = originalMethod.Body.GetILProcessor();
-            var resultingInstructions = new List<(Instruction Original, Instruction Target)>();
+            var resultingInstructions = new List<InstructionOriginalTarget>();
             var exceptionList = new List<ExceptionHandler>();
-            var jumps = new List<(int CurrentIndex, int Index)>();
+            var jumps = new List<Index>();
 
             for (int i = 0; i < (originalMethod.Body?.Instructions.Count ?? 0); i++)
             {
                 var item = originalMethod.Body.Instructions[i];
 
                 if (item.Operand is Instruction)
-                    resultingInstructions.Add((item, CreateInstruction(originalMethod.Body.Instructions, item, i, methodProcessor, ref jumps)));
+                    resultingInstructions.Add(new InstructionOriginalTarget(item, CreateInstruction(originalMethod.Body.Instructions, item, i, methodProcessor, ref jumps)));
                 else if (item.Operand is Instruction[])
                 {
                     var instructions = item.Operand as Instruction[];
@@ -304,7 +304,7 @@ namespace Cauldron.Interception.Cecilator.Coders
                     instruction.OpCode = item.OpCode;
                     instruction.Operand = newInstructions;
 
-                    resultingInstructions.Add((item, instruction));
+                    resultingInstructions.Add(new InstructionOriginalTarget(item, instruction));
                 }
                 //else if (item.Operand is CallSite )
                 //    throw new NotImplementedException($"Unknown operand '{item.OpCode.ToString()}' '{item.Operand.GetType().FullName}'");
@@ -313,7 +313,7 @@ namespace Cauldron.Interception.Cecilator.Coders
                     var instruction = methodProcessor.Create(OpCodes.Nop);
                     instruction.OpCode = item.OpCode;
                     instruction.Operand = item.Operand;
-                    resultingInstructions.Add((item, instruction));
+                    resultingInstructions.Add(new InstructionOriginalTarget(item, instruction));
 
                     // Set the correct variable def if required
                     if (instruction.Operand is VariableDefinition variable)
@@ -337,7 +337,11 @@ namespace Cauldron.Interception.Cecilator.Coders
             foreach (var item in originalMethod.Body.ExceptionHandlers)
                 exceptionList.Add(copyHandler(item));
 
-            return (resultingInstructions.Select(x => x.Target), exceptionList);
+            return new InstructionCollection
+            {
+                Instructions = resultingInstructions.Select(x => x.Target),
+                Exceptions = exceptionList
+            };
         }
 
         private InstructionBlock CopyMethodBody(MethodDefinition originalMethod)
@@ -347,16 +351,16 @@ namespace Cauldron.Interception.Cecilator.Coders
 
             var variableDefinition = originalMethod.Body.Variables;
             var methodProcessor = originalMethod.Body.GetILProcessor();
-            var resultingInstructions = new List<(Instruction Original, Instruction Target)>();
+            var resultingInstructions = new List<InstructionOriginalTarget>();
             var exceptionList = new List<ExceptionHandler>();
-            var jumps = new List<(int CurrentIndex, int Index)>();
+            var jumps = new List<Index>();
 
             for (int i = 0; i < (originalMethod.Body?.Instructions.Count ?? 0); i++)
             {
                 var item = originalMethod.Body.Instructions[i];
 
                 if (item.Operand is Instruction)
-                    resultingInstructions.Add((item, CreateInstruction(originalMethod.Body.Instructions, item, i, methodProcessor, ref jumps)));
+                    resultingInstructions.Add(new InstructionOriginalTarget(item, CreateInstruction(originalMethod.Body.Instructions, item, i, methodProcessor, ref jumps)));
                 else if (item.Operand is Instruction[])
                 {
                     var instructions = item.Operand as Instruction[];
@@ -368,7 +372,7 @@ namespace Cauldron.Interception.Cecilator.Coders
                     instruction.OpCode = item.OpCode;
                     instruction.Operand = newInstructions;
 
-                    resultingInstructions.Add((item, instruction));
+                    resultingInstructions.Add(new InstructionOriginalTarget(item, instruction));
                 }
                 //else if (item.Operand is CallSite )
                 //    throw new NotImplementedException($"Unknown operand '{item.OpCode.ToString()}' '{item.Operand.GetType().FullName}'");
@@ -377,7 +381,7 @@ namespace Cauldron.Interception.Cecilator.Coders
                     var instruction = methodProcessor.Create(OpCodes.Nop);
                     instruction.OpCode = item.OpCode;
                     instruction.Operand = item.Operand;
-                    resultingInstructions.Add((item, instruction));
+                    resultingInstructions.Add(new InstructionOriginalTarget(item, instruction));
 
                     // Set the correct variable def if required
                     if (instruction.Operand is VariableDefinition variable)
@@ -406,7 +410,7 @@ namespace Cauldron.Interception.Cecilator.Coders
             return result;
         }
 
-        private Instruction CreateInstruction(IList<Instruction> instructions, Instruction instructionTarget, int currentIndex, ILProcessor processor, ref List<(int, int)> jumps)
+        private Instruction CreateInstruction(IList<Instruction> instructions, Instruction instructionTarget, int currentIndex, ILProcessor processor, ref List<Index> jumps)
         {
             GetJumpPoints(instructions, instructionTarget, currentIndex, ref jumps);
 
@@ -415,7 +419,7 @@ namespace Cauldron.Interception.Cecilator.Coders
             return instructionResult;
         }
 
-        private void GetJumpPoints(IList<Instruction> instructions, Instruction instructionTarget, int currentIndex, ref List<(int, int)> jumps)
+        private void GetJumpPoints(IList<Instruction> instructions, Instruction instructionTarget, int currentIndex, ref List<Index> jumps)
         {
             var operand = instructionTarget.Operand as Instruction;
 
@@ -425,13 +429,13 @@ namespace Cauldron.Interception.Cecilator.Coders
             var index = instructions.IndexOf(operand);
 
             if (index >= 0)
-                jumps.Add((currentIndex, index));
+                jumps.Add(new Index(currentIndex, index));
             else
             {
                 index = instructions.IndexOf(operand.Offset);
 
                 if (index >= 0)
-                    jumps.Add((currentIndex, index));
+                    jumps.Add(new Index(currentIndex, index));
             }
         }
 
@@ -445,6 +449,38 @@ namespace Cauldron.Interception.Cecilator.Coders
             this.instructions.Emit(OpCodes.Call, newMethod.Import());
 
             return this;
+        }
+
+        private struct Index
+        {
+            public int currentIndex;
+
+            public int index;
+
+            public Index(int currentIndex, int index)
+            {
+                this.currentIndex = currentIndex;
+                this.index = index;
+            }
+        }
+
+        private struct InstructionCollection
+        {
+            public IEnumerable<ExceptionHandler> Exceptions;
+            public IEnumerable<Instruction> Instructions;
+        }
+
+        private struct InstructionOriginalTarget
+        {
+            public Instruction Original;
+
+            public Instruction Target;
+
+            public InstructionOriginalTarget(Instruction original, Instruction target)
+            {
+                this.Original = original;
+                this.Target = target;
+            }
         }
 
         #region Exit Operators
@@ -790,7 +826,7 @@ namespace Cauldron.Interception.Cecilator.Coders
             this.instructions.Clear();
         }
 
-        public (Position Beginning, Position End) Replace(Position position)
+        public Positions Replace(Position position)
         {
             if (position.instruction == null)
                 throw new ArgumentNullException(nameof(position.instruction));
@@ -799,7 +835,7 @@ namespace Cauldron.Interception.Cecilator.Coders
             this.instructions.ilprocessor.Remove(position.instruction);
             this.instructions.ilprocessor.InsertBefore(index, this.instructions);
 
-            return (new Position(this.instructions.associatedMethod, this.instructions[0]), new Position(this.instructions.associatedMethod, this.instructions.LastOrDefault()));
+            return new Positions(new Position(this.instructions.associatedMethod, this.instructions[0]), new Position(this.instructions.associatedMethod, this.instructions.LastOrDefault()));
         }
 
         /// <summary>
@@ -1035,8 +1071,8 @@ namespace Cauldron.Interception.Cecilator.Coders
                                     continue; // Just continue and do not add an additional store opcode
                             }
 
-                            if (!coder.instructions.associatedMethod.IsInclosedInHandlers(instruction, ExceptionHandlerType.Finally))
-                                coder.instructions.ilprocessor.InsertBefore(instruction, coder.instructions.ilprocessor.Create(OpCodes.Stloc, returnVariable.variable));
+                            //if (!coder.instructions.associatedMethod.IsInclosedInHandlers(instruction, ExceptionHandlerType.Finally))
+                            coder.instructions.ilprocessor.InsertBefore(instruction, coder.instructions.ilprocessor.Create(OpCodes.Stloc, returnVariable.variable));
                         }
                     }
                 }

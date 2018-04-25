@@ -40,8 +40,4 @@
     <ProjectReference Include="..\Cauldron.Core.Yaml\Cauldron.Core.Yaml.csproj" />
   </ItemGroup>
 
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="dotnet script $(SolutionDir)Scripts\copy-script.csx $(ProjectPath)" />
-  </Target>
-
 </Project>

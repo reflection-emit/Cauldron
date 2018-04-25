@@ -97,7 +97,7 @@ public sealed class AssignMethodAttributeInfo
                 return new AssignMethodAttributeInfo
                 {
                     AttributeField = x.Field,
-                    TargetMethodName = ReplacePlaceHolder(targetType.Builder, (x.Attribute.ConstructorArguments[0].Value as string ?? "", name, returnTypeName), builderCustomAttribute, throwError),
+                    TargetMethodName = ReplacePlaceHolder(targetType.Builder, x.Attribute.ConstructorArguments[0].Value as string ?? "", name, returnTypeName, builderCustomAttribute, throwError),
                     TargetMethodReturnType = GetDelegateType(x.Field.FieldType),
                     ThrowError = throwError,
                     Type = targetType,
@@ -128,12 +128,18 @@ public sealed class AssignMethodAttributeInfo
         return new BuilderType[0];
     }
 
-    private static string ReplacePlaceHolder(Builder builder, (string argument, string propertyOrMethodName, string returnTypeName) targetInfo, BuilderCustomAttribute builderCustomAttribute, bool throwError)
+    private static string ReplacePlaceHolder(
+        Builder builder,
+        string targetInfoArgument,
+        string targetInfoPropertyOrMethodName,
+        string targetInfoReturnTypeName,
+        BuilderCustomAttribute builderCustomAttribute,
+        bool throwError)
     {
-        if (string.IsNullOrEmpty(targetInfo.argument))
+        if (string.IsNullOrEmpty(targetInfoArgument))
             return null;
 
-        var result = Regex.Replace(targetInfo.argument, @"{CtorArgument:(.+?)}", x =>
+        var result = Regex.Replace(targetInfoArgument, @"{CtorArgument:(.+?)}", x =>
         {
             var constructorPlaceholderSplit = x.Value.Split(':');
             var definedIndexOrName = constructorPlaceholderSplit.Length > 1 ? constructorPlaceholderSplit[1].Substring(0, constructorPlaceholderSplit[1].Length - 1) : "";
@@ -166,7 +172,7 @@ public sealed class AssignMethodAttributeInfo
         });
 
         return result
-            .Replace("{Name}", targetInfo.propertyOrMethodName.EnclosedIn().UpperCaseFirstLetter())
-            .Replace("{ReturnType}", targetInfo.returnTypeName ?? "void");
+            .Replace("{Name}", targetInfoPropertyOrMethodName.EnclosedIn().UpperCaseFirstLetter())
+            .Replace("{ReturnType}", targetInfoReturnTypeName ?? "void");
     }
 }

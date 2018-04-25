@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Cauldron.Core.Comparing\Cauldron.Core.Comparing.csproj" />
+    <ProjectReference Include="..\Cauldron.Core.Extensions.Convertions\Cauldron.Core.Extensions.Convertions.csproj" />
     <ProjectReference Include="..\Cauldron.Core.Extensions\Cauldron.Core.Extensions.csproj" />
   </ItemGroup>
 

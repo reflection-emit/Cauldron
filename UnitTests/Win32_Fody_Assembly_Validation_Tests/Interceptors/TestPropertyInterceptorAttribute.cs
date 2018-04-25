@@ -1,8 +1,8 @@
 ﻿using Cauldron.Interception;
 using System;
 using Cauldron;
-using System.Collections.Generic;
 using Cauldron.Core;
+using System.Collections.Generic;
 
 namespace Win32_Fody_Assembly_Validation_Tests
 {

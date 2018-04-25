@@ -76,6 +76,14 @@
       <Project>{e25cff59-ab9c-4b8f-b8e6-226cbc7ee4c2}</Project>
       <Name>Cauldron.BasicInterceptors</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Comparing\Cauldron.Core.Comparing.csproj">
+      <Project>{75a87a26-d167-4e61-84ba-5595ae475934}</Project>
+      <Name>Cauldron.Core.Comparing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Reflection\Cauldron.Core.Reflection.csproj">
+      <Project>{9bc69306-6188-403e-bce3-0c85fe049a9b}</Project>
+      <Name>Cauldron.Core.Reflection</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\NetStandard\Cauldron.Interception\Cauldron.Interception.csproj">
       <Project>{54d84f50-0b4b-40cb-a27d-5ccd84f5b1ee}</Project>
       <Name>Cauldron.Interception</Name>

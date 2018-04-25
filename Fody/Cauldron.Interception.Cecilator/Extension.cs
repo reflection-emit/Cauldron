@@ -350,9 +350,9 @@ namespace Cauldron.Interception.Cecilator
             throw new Exception($"Unable to proceed. The type '{type.FullName}' does not contain a method '{methodName}'");
         }
 
-        public static IEnumerable<(MethodReference reference, MethodDefinition definition)> GetMethodReferences(this TypeReference type) => GetMethodReferences(type, false);
+        public static IEnumerable<MethodDefinitionAndReference> GetMethodReferences(this TypeReference type) => GetMethodReferences(type, false);
 
-        public static IEnumerable<(MethodReference reference, MethodDefinition definition)> GetMethodReferencesByInterfaces(this TypeReference type) => GetMethodReferences(type, true);
+        public static IEnumerable<MethodDefinitionAndReference> GetMethodReferencesByInterfaces(this TypeReference type) => GetMethodReferences(type, true);
 
         public static IEnumerable<TypeReference> GetNestedTypes(this TypeReference type)
         {
@@ -727,10 +727,10 @@ namespace Cauldron.Interception.Cecilator
         {
             var result = (builder as CecilatorObject).GetAsyncMethod(method);
 
-            if (result.HasValue)
-                return new Method(new BuilderType(builder, result.Value.AsyncType), result.Value.MethodDefinition);
+            if (result == null)
+                return null;
 
-            return null;
+            return new Method(new BuilderType(builder, result.Item2), result.Item1);
         }
 
         /// <summary>
@@ -1276,7 +1276,7 @@ namespace Cauldron.Interception.Cecilator
             return attributes;
         }
 
-        private static (MethodDefinition MethodDefinition, TypeReference AsyncType)? GetAsyncMethod(this CecilatorObject cecilatorObject, MethodDefinition method)
+        private static Tuple<MethodDefinition, TypeReference> GetAsyncMethod(this CecilatorObject cecilatorObject, MethodDefinition method)
         {
             var asyncStateMachine = method.CustomAttributes.Get("System.Runtime.CompilerServices.AsyncStateMachineAttribute");
 
@@ -1291,7 +1291,7 @@ namespace Cauldron.Interception.Cecilator
                     throw new Exception("Unable to find the method MoveNext of async method " + method.Name);
                 }
 
-                return (asyncTypeMethod, asyncType);
+                return new Tuple<MethodDefinition, TypeReference>(asyncTypeMethod, asyncType);
             }
 
             return null;
@@ -1345,9 +1345,9 @@ namespace Cauldron.Interception.Cecilator
             return new TypeReference[0];
         }
 
-        private static IEnumerable<(MethodReference reference, MethodDefinition definition)> GetMethodReferences(this TypeReference type, bool byInterfaces)
+        private static IEnumerable<MethodDefinitionAndReference> GetMethodReferences(this TypeReference type, bool byInterfaces)
         {
-            var result = new List<(MethodReference reference, MethodDefinition definition)>();
+            var result = new List<MethodDefinitionAndReference>();
             GetMethodReferences(type, result, byInterfaces);
 
             return result.Where(x =>
@@ -1366,7 +1366,7 @@ namespace Cauldron.Interception.Cecilator
             });
         }
 
-        private static void GetMethodReferences(TypeReference typeToInspect, List<(MethodReference, MethodDefinition)> result, bool byInterfaces)
+        private static void GetMethodReferences(TypeReference typeToInspect, List<MethodDefinitionAndReference> result, bool byInterfaces)
         {
             if (typeToInspect == null)
                 return;
@@ -1381,10 +1381,11 @@ namespace Cauldron.Interception.Cecilator
                         var methods = item
                             .BetterResolve()
                             .Methods
-                            .Select(x => (
-                                            x.MakeHostInstanceGeneric((item as GenericInstanceType).GenericArguments.ToArray()),
-                                            x
-                                          ));
+                            .Select(x => new MethodDefinitionAndReference
+                            {
+                                reference = x.MakeHostInstanceGeneric((item as GenericInstanceType).GenericArguments.ToArray()),
+                                definition = x
+                            });
 
                         if (methods.Any())
                             result.AddRange(methods);
@@ -1400,7 +1401,11 @@ namespace Cauldron.Interception.Cecilator
                 var methods = typeToInspect
                     .BetterResolve()
                     .Methods
-                    .Select(x => (x.CreateMethodReference(), x));
+                    .Select(x => new MethodDefinitionAndReference
+                    {
+                        reference = x.CreateMethodReference(),
+                        definition = x
+                    });
                 if (methods.Any())
                     result.AddRange(methods);
             }
