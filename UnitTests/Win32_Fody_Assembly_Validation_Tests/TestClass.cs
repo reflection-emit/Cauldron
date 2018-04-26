@@ -1,6 +1,16 @@
-﻿namespace Win32_Fody_Assembly_Validation_Tests
+﻿using System;
+
+namespace Win32_Fody_Assembly_Validation_Tests
 {
-    public sealed class TestClass : ITestInterface
+    public class DisposableTestClass : IDisposable
+    {
+        public void Dispose()
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class TestClass : ITestInterface
     {
         public byte ByteProperty { get; set; }
 

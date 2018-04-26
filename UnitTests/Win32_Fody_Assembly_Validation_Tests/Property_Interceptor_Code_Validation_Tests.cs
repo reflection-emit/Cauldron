@@ -8,6 +8,7 @@ namespace Win32_Fody_Assembly_Validation_Tests
     [TestClass]
     public class Property_Interceptor_Code_Validation_Tests
     {
+        private string _APropertyWithoutGetter;
         private string _myCustomBackingField;
 
         [ExternalLockablePropertyInterceptor]
@@ -24,13 +25,32 @@ namespace Win32_Fody_Assembly_Validation_Tests
         }
 
         [TestPropertyInterceptor]
+        public List<long> APropertyWithoutBackingField { get => this.Blub(); }
+
+        [TestPropertyInterceptor]
+        public List<long> APropertyWithoutBackingFieldAndGetter { set { } }
+
+        [TestPropertyInterceptor]
         public double APropertyWithoutGetter { set => StaticProperty = value; }
+
+        [TestPropertyInterceptor]
+        public String APropertyWithoutGetter2 { set { this._APropertyWithoutGetter = value; } }
 
         [TestPropertyInterceptor]
         public double APropertyWithoutSetter => 40.0;
 
         [TestPropertyInterceptor]
+        public String APropertyWithoutSetter2 { get; }
+
+        [TestPropertyInterceptor]
         public long[] ArrayProperty { get; set; }
+
+        [TestPropertyInterceptor]
+        public DisposableTestClass DisposablePropertyWithoutBackingField
+        {
+            set { }
+            get { return null; }
+        }
 
         [TestPropertyInterceptor]
         public ITestInterface InterfaceProperty { get; set; }
@@ -163,6 +183,11 @@ namespace Win32_Fody_Assembly_Validation_Tests
 
             this.ValueTypeProperty = 30;
             Assert.AreEqual(9999, this.ValueTypeProperty);
+        }
+
+        private List<long> Blub()
+        {
+            return new List<long>();
         }
 
         private void OnAssignMethodPropertyTester()

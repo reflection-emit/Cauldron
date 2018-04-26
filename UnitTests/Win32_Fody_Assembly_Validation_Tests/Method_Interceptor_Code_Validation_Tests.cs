@@ -10,6 +10,13 @@ namespace Win32_Fody_Assembly_Validation_Tests
     [TestClass]
     public class Method_Interceptor_Code_Validation_Tests
     {
+        [TestMethodInterceptor]
+        public static async Task<TWrapper> ApplyDefaultAsync<TWrapper, TDataObject>(TWrapper dataObject) where TWrapper :
+            TestClass where TDataObject : DisposableTestClass
+        {
+            return await Task.Run(() => new TestClass() as TWrapper);
+        }
+
         [TestMethod]
         [TestMethodInterceptor]
         public static async Task<ICollection<TestClass>> GenericWeavingTest()

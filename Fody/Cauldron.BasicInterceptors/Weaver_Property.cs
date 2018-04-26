@@ -476,8 +476,10 @@ public static class Weaver_Property
 
         if (member.Property.BackingField == null && member.Property.Getter != null && member.Property.Setter != null)
         {
-            var getter = member.Property.Getter.Copy();
-            var setter = member.Property.Setter.Copy();
+            // The copies are used to access the property as fake backing fields to avoid
+            // stack overflows by getter and setter calling each other until ethernity
+            member.Property.Getter.Copy();
+            member.Property.Setter.Copy();
 
             CreateSetterDelegate(builder, propertySetter, member.Property.ReturnType, member.Property);
         }

@@ -509,6 +509,12 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         public CallCoder Call(Method method, params Func<Coder, object>[] parameters)
         {
+            if (parameters == null)
+            {
+                this.InternalCall(CodeBlocks.This, method, parameters);
+                return new CallCoder(this, method.ReturnType);
+            }
+
             this.InternalCall(CodeBlocks.This, method, this.CreateParameters(parameters));
             return new CallCoder(this, method.ReturnType);
         }
