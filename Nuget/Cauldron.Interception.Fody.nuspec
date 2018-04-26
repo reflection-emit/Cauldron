@@ -17,6 +17,7 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Interception interceptor interception AOP Fody Cecil CIL ILWeaving</tags>
     <releaseNotes>
+      2018.04.26 - [B] Properties with getter and setter but without backing field caused an Exception during weaving.
       2018.04.23 - [C] Basic interceptors moved to Cauldron.BasicInterceptors package
       2018.04.15 - [B] Custom interceptors now works correctly.
       2018.04.14 - [B] Resolving of generics throws an exception on certain cases.
