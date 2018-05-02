@@ -52,8 +52,14 @@ public sealed class Weaver_SimpleMethod
             var targetedMethod = method.Key.AsyncMethod ?? method.Key.Method;
             var attributedMethod = method.Key.Method;
 
-            var typeInstance = method.Key.Method.AsyncMethodHelper.Instance;
             var interceptorField = new Field[method.Item.Length];
+            var typeInstance = method.Key.Method.AsyncMethodHelper.Instance.With(x =>
+            {
+                if (x is Field field)
+                    return field.Resolve(method.Key.Method.AsyncMethod.DeclaringType);
+
+                return x;
+            });
 
             if (method.RequiresSyncRootField)
             {

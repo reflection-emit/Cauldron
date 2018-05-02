@@ -559,6 +559,20 @@ namespace Cauldron.Interception.Cecilator
         /// <returns></returns>
         public static Coder NewCoder(this CoderBase coder) => new Coder(coder.instructions.associatedMethod);
 
+        public static Field Resolve(this Field field) => new Field(field.DeclaringType, field.fieldDef, field.fieldRef.CreateFieldReference());
+
+        public static Field Resolve(this Field field, BuilderType type)
+        {
+            var result = field.CreateFieldReference(type);
+            return new Field(field.DeclaringType, field.fieldDef, result);
+        }
+
+        public static Field Resolve(this Field field, Method method)
+        {
+            var result = field.CreateFieldReference(method);
+            return new Field(field.DeclaringType, field.fieldDef, result);
+        }
+
         public static GenericInstanceType ResolveGenericArguments(this GenericInstanceType self, GenericInstanceType inheritingOrImplementingType)
         {
             if (self.FullName == inheritingOrImplementingType.FullName)
@@ -630,6 +644,29 @@ namespace Cauldron.Interception.Cecilator
         {
             foreach (var instruction in instructions)
                 processor.Append(instruction);
+        }
+
+        internal static FieldReference CreateFieldReference(this Field field, BuilderType type)
+        {
+            if (type.typeReference.IsGenericInstance && type.typeReference is GenericInstanceType genericInstanceType)
+                return new FieldReference(field.Name, field.FieldType.typeReference, genericInstanceType);
+
+            return field.fieldRef.CreateFieldReference();
+        }
+
+        internal static FieldReference CreateFieldReference(this Field field, Method method)
+        {
+            if (method.methodReference.ContainsGenericParameter)
+            {
+                var declaringType = new GenericInstanceType(field.DeclaringType.typeDefinition);
+
+                foreach (var parameter in method.methodReference.GenericParameters)
+                    declaringType.GenericArguments.Add(parameter);
+
+                return new FieldReference(field.Name, field.FieldType.typeReference, declaringType);
+            }
+
+            return field.fieldRef.CreateFieldReference();
         }
 
         internal static FieldReference CreateFieldReference(this FieldDefinition field)

@@ -156,6 +156,9 @@ namespace Cauldron.Interception.Cecilator.Coders
             var variable = targetMethod.GetVariable(variableName);
 
             if (variable == null)
+                variable = targetMethod.GetVariable(targetMethod.Identification);
+
+            if (variable == null)
             {
                 var objectArrayType = Builder.Current.GetType(typeof(object[]));
                 var newBlock = this.instructions.Spawn();
@@ -511,7 +514,7 @@ namespace Cauldron.Interception.Cecilator.Coders
         {
             if (parameters == null)
             {
-                this.InternalCall(CodeBlocks.This, method, parameters);
+                this.InternalCall(CodeBlocks.This, method, new object[] { null });
                 return new CallCoder(this, method.ReturnType);
             }
 

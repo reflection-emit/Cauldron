@@ -891,6 +891,7 @@
   <HelpKINode Title="Cauldron.Interception.Cecilator.Coders.IVariableOperationsExtended(Of T) interface" Url="html/T_Cauldron_Interception_Cecilator_Coders_IVariableOperationsExtended_1.htm" />
   <HelpKINode Title="Cauldron.Interception.Cecilator.Coders.IVariableOperationsExtended&lt;T&gt; interface" Url="html/T_Cauldron_Interception_Cecilator_Coders_IVariableOperationsExtended_1.htm" />
   <HelpKINode Title="Cauldron.Interception.Cecilator.Coders.NullableCodeBlock class" Url="html/T_Cauldron_Interception_Cecilator_Coders_NullableCodeBlock.htm" />
+  <HelpKINode Title="Cauldron.Interception.Cecilator.Coders.ParameterArrayCodeBlock class" Url="html/T_Cauldron_Interception_Cecilator_Coders_ParameterArrayCodeBlock.htm" />
   <HelpKINode Title="Cauldron.Interception.Cecilator.Coders.ParametersCodeBlock class" Url="html/T_Cauldron_Interception_Cecilator_Coders_ParametersCodeBlock.htm" />
   <HelpKINode Title="Cauldron.Interception.Cecilator.Coders.ParametersVariableCodeBlock class" Url="html/T_Cauldron_Interception_Cecilator_Coders_ParametersVariableCodeBlock.htm" />
   <HelpKINode Title="Cauldron.Interception.Cecilator.Coders.ThisCodeBlock class" Url="html/T_Cauldron_Interception_Cecilator_Coders_ThisCodeBlock.htm" />
@@ -1569,12 +1570,12 @@
   <HelpKINode Title="Extension.With(Of TType, TNew) method" Url="html/M_Cauldron_Interception_Cecilator_Extension_With__2.htm" />
   <HelpKINode Title="Extension.With&lt;TType, TNew&gt; method" Url="html/M_Cauldron_Interception_Cecilator_Extension_With__2.htm" />
   <HelpKINode Title="Extensions class">
-    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Extensions.htm" />
-    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Interception_Extensions.htm" />
     <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_XAML_Extensions.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Extensions.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_XAML_Extensions.htm" />
+    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Interception_Extensions.htm" />
+    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Extensions.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Interception_Extensions.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_XAML_Extensions.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Extensions.htm" />
   </HelpKINode>
   <HelpKINode Title="Extensions.AddHookParameterPassing method" Url="html/M_Cauldron_Extensions_AddHookParameterPassing.htm" />
   <HelpKINode Title="Extensions.AsBitmapImage method" Url="html/M_Cauldron_XAML_Extensions_AsBitmapImage.htm" />
@@ -1838,9 +1839,8 @@
   <HelpKINode Title="GetOrCreateVariable method" Url="html/Overload_Cauldron_Interception_Cecilator_Method_GetOrCreateVariable.htm" />
   <HelpKINode Title="GetParameter method">
     <HelpKINode Title="CodeBlocks.GetParameter Method " Url="html/Overload_Cauldron_Interception_Cecilator_Coders_CodeBlocks_GetParameter.htm" />
-    <HelpKINode Title="ParametersCodeBlock.GetParameter Method " Url="html/M_Cauldron_Interception_Cecilator_Coders_ParametersCodeBlock_GetParameter.htm" />
+    <HelpKINode Title="ParametersCodeBlock.GetParameter Method " Url="html/Overload_Cauldron_Interception_Cecilator_Coders_ParametersCodeBlock_GetParameter.htm" />
   </HelpKINode>
-  <HelpKINode Title="GetParameterReference method" Url="html/M_Cauldron_Interception_Cecilator_Coders_ParametersCodeBlock_GetParameterReference.htm" />
   <HelpKINode Title="GetParameters method" Url="html/M_Cauldron_Interception_Cecilator_Coders_CodeBlocks_GetParameters.htm" />
   <HelpKINode Title="GetParametersArray method" Url="html/M_Cauldron_Interception_Cecilator_Coders_Coder_GetParametersArray.htm" />
   <HelpKINode Title="GetPreviousInstructionObjectType method" Url="html/M_Cauldron_Interception_Cecilator_MethodUsage_GetPreviousInstructionObjectType.htm" />
@@ -3285,6 +3285,7 @@
   <HelpKINode Title="PageStackEntry.ToString method" Url="html/M_Cauldron_XAML_Navigation_PageStackEntry_ToString.htm" />
   <HelpKINode Title="PageStackEntry.ViewModelType property" Url="html/P_Cauldron_XAML_Navigation_PageStackEntry_ViewModelType.htm" />
   <HelpKINode Title="PageStackEntry.ViewModelTypeName property" Url="html/P_Cauldron_XAML_Navigation_PageStackEntry_ViewModelTypeName.htm" />
+  <HelpKINode Title="ParameterArrayCodeBlock class" Url="html/T_Cauldron_Interception_Cecilator_Coders_ParameterArrayCodeBlock.htm" />
   <HelpKINode Title="ParameterlessContructor property" Url="html/P_Cauldron_Interception_Cecilator_BuilderType_ParameterlessContructor.htm" />
   <HelpKINode Title="ParameterPassedCallback property" Url="html/P_Cauldron_XAML_ParameterPassingConfig_ParameterPassedCallback.htm" />
   <HelpKINode Title="ParameterPassingConfig class">
@@ -3312,8 +3313,7 @@
     <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_Interception_Cecilator_Coders_ParametersCodeBlock.htm" />
   </HelpKINode>
   <HelpKINode Title="ParametersCodeBlock.ArrayElements method" Url="html/M_Cauldron_Interception_Cecilator_Coders_ParametersCodeBlock_ArrayElements.htm" />
-  <HelpKINode Title="ParametersCodeBlock.GetParameter method" Url="html/M_Cauldron_Interception_Cecilator_Coders_ParametersCodeBlock_GetParameter.htm" />
-  <HelpKINode Title="ParametersCodeBlock.GetParameterReference method" Url="html/M_Cauldron_Interception_Cecilator_Coders_ParametersCodeBlock_GetParameterReference.htm" />
+  <HelpKINode Title="ParametersCodeBlock.GetParameter method" Url="html/Overload_Cauldron_Interception_Cecilator_Coders_ParametersCodeBlock_GetParameter.htm" />
   <HelpKINode Title="ParametersCodeBlock.GetTargetType method" Url="html/Overload_Cauldron_Interception_Cecilator_Coders_ParametersCodeBlock_GetTargetType.htm" />
   <HelpKINode Title="ParametersCodeBlock.IsAllParameters property" Url="html/P_Cauldron_Interception_Cecilator_Coders_ParametersCodeBlock_IsAllParameters.htm" />
   <HelpKINode Title="ParametersFromTemplatedParent property" Url="html/P_Cauldron_XAML_Interactivity_Actions_InvokeMethodAction_ParametersFromTemplatedParent.htm" />

@@ -130,7 +130,8 @@ namespace Cauldron.Interception.Cecilator
 
         public Position GetAsyncTaskMethodBuilderInitialization()
         {
-            var result = this.method.methodDefinition.Body.Instructions.FirstOrDefault(x => x.OpCode == OpCodes.Newobj && (x.Operand as MethodDefinition ?? x.Operand as MethodReference).Name == ".ctor");
+            var result = this.method.methodDefinition.Body.Instructions
+                .FirstOrDefault(x => x.OpCode == OpCodes.Stfld && (x.Operand as FieldDefinition ?? x.Operand as FieldReference).Name == "<>1__state");
 
             // If the result is null then probably the helper class is a struct
             if (result == null)
@@ -141,7 +142,7 @@ namespace Cauldron.Interception.Cecilator
 
         private Field AddThisReference()
         {
-            var thisField = this.method.AsyncMethod.OriginType.CreateField(Modifiers.Public, this.method.OriginType, "<>4__this");
+            var thisField = this.method.AsyncMethod.OriginType.CreateField(Modifiers.Public, this.method.OriginType, "<>4__this").Resolve(this.method);
             var position = this.GetAsyncTaskMethodBuilderInitialization();
 
             if (position == null)
