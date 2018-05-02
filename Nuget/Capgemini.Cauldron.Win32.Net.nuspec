@@ -19,7 +19,7 @@
       2017.12.22 - [C] Elevated Urlprotocol now also passes the uri
     </releaseNotes>
     <dependencies>
-      <dependency id="Capgemini.Cauldron.Core.Net" version="3.0.4-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Net" version="3.0.5-beta" />
     </dependencies>
   </metadata>
   <files>
