@@ -788,6 +788,15 @@ namespace Cauldron.Interception.Cecilator
         {
             TypeReference GetTypeOfValueInStack(Instruction ins)
             {
+                //if (ins.OpCode == OpCodes.Ldelem_Ref)
+                //    return ParametersCodeBlock.GetTargetTypeFromOpCode(method, ins.Previous.Previous).With(x =>
+                //    {
+                //        if (x == null)
+                //            return null;
+
+                //        return x.typeReference.ResolveType(method.DeclaringType.typeReference, method.methodReference);
+                //    });
+
                 if (ins.IsCallOrNew())
                     return (ins.Operand as MethodReference).With(x =>
                     {

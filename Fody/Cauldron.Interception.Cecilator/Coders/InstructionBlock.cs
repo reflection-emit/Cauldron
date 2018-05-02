@@ -91,19 +91,19 @@ namespace Cauldron.Interception.Cecilator.Coders
                 if (typeReference.AreEqual(castToType))
                     return true;
 
-                if (castToType.typeReference.IsPrimitive && !typeReference.IsPrimitive)
+                if (castToType.typeReference.IsValueType && !typeReference.IsValueType)
                 {
                     instructionBlock.Emit(OpCodes.Unbox_Any, Builder.Current.Import(castToType.typeReference));
                     return true;
                 }
 
-                if (!castToType.typeReference.IsPrimitive && typeReference.IsPrimitive)
+                if (!castToType.typeReference.IsValueType && typeReference.IsValueType)
                 {
                     instructionBlock.Emit(OpCodes.Box, Builder.Current.Import(typeReference));
                     return true;
                 }
 
-                if (!castToType.typeReference.IsPrimitive && castToType.typeReference.Resolve().With(x => x.IsInterface || x.IsClass))
+                if (!castToType.typeReference.IsValueType && castToType.typeReference.Resolve().With(x => x.IsInterface || x.IsClass))
                 {
                     if (!castToType.typeReference.AreEqual(BuilderType.Object))
                         instructionBlock.Emit(OpCodes.Isinst, Builder.Current.Import(castToType.typeReference));
@@ -115,7 +115,10 @@ namespace Cauldron.Interception.Cecilator.Coders
                 return true;
             }
 
-            if (!GetCodeBlockFromLastType(instructionBlock.ResultingType) && !instructionBlock.ResultingType.AreEqual(BuilderType.Object))
+            if (!GetCodeBlockFromLastType(instructionBlock.ResultingType) &&
+                !GetCodeBlockFromLastType(BuilderType.Object.typeReference) &&
+                instructionBlock.ResultingType != null &&
+                !instructionBlock.ResultingType.AreEqual(BuilderType.Object))
                 // This can cause exceptions in some cases
                 instructionBlock.Emit(OpCodes.Isinst, Builder.Current.Import(castToType.typeReference));
         }
@@ -384,6 +387,13 @@ namespace Cauldron.Interception.Cecilator.Coders
                     result.Append(value);
                     break;
 
+                case ParameterArrayCodeBlock value:
+                    {
+                        var param = ParametersCodeBlock.GetParameter(instructionBlock.associatedMethod, value.index);
+                        result.Emit(OpCodes.Ldarg, param.Index + (instructionBlock.associatedMethod.IsStatic ? 0 : 1));
+                        result.ResultingType = param.ParameterType;
+                        break;
+                    }
                 case ParameterDefinition value:
                     result.Emit(OpCodes.Ldarg, value);
                     result.ResultingType = value.ParameterType;

@@ -184,7 +184,7 @@ public static class Weaver_ComponentCache
         var ctors = component.Type.GetMethods(y =>
         {
             if (y.Name == ".cctor")
-                return true;
+                return false;
 
             if (!y.Resolve().IsPublic && !y.Resolve().IsAssembly)
                 return false;
@@ -240,7 +240,7 @@ public static class Weaver_ComponentCache
                     {
                         var resultCoder = @if.Load(CodeBlocks.GetParameter(0)).Call(arrayAvatar.Length).Is(ctorParameters.Length);
                         for (int i = 0; i < ctorParameters.Length; i++)
-                            resultCoder = resultCoder.AndAnd(x => x.Load(CodeBlocks.GetParameter(0)).ArrayElement(i).Is(ctorParameters.Length));
+                            resultCoder = resultCoder.AndAnd(x => x.Load(CodeBlocks.GetParameter(0)).ArrayElement(i).Is(ctorParameters[i]));
 
                         return resultCoder;
                     }, @then =>

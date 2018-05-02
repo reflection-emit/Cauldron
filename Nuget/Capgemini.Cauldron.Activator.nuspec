@@ -13,6 +13,7 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Activator Dependency Injection Factory Cauldron</tags>
     <releaseNotes>
+      2018.05.02 - [B] A bug in cecilator that causes arrays parameter to be not correctly weaved fixed
       2018.04.24 - [C] Now bringing its own interceptor
       2018.04.11 - [C] Fody version 3.0.0 update and minor bug fixes.
       2017.12.31 - [C] ComponentConstructorAttribute now accepts internal ctors

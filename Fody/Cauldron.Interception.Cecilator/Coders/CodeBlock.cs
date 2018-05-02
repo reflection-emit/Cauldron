@@ -123,6 +123,15 @@ namespace Cauldron.Interception.Cecilator.Coders
         }
     }
 
+    public class ParameterArrayCodeBlock : ArrayCodeBlock
+    {
+        internal int index;
+
+        internal ParameterArrayCodeBlock()
+        {
+        }
+    }
+
     public class ParametersCodeBlock : CodeBlock
     {
         internal int? index;
@@ -134,6 +143,8 @@ namespace Cauldron.Interception.Cecilator.Coders
         }
 
         public bool IsAllParameters => !this.index.HasValue && string.IsNullOrEmpty(this.name);
+
+        public static ParameterReference GetParameter(Method method, int parameterIndex) => GetParameterReference(method, parameterIndex);
 
         public static ParameterReference GetParameter(Method method, Instruction instruction)
         {
@@ -155,32 +166,14 @@ namespace Cauldron.Interception.Cecilator.Coders
             return null;
         }
 
-        public static ParameterReference GetParameterReference(Method method, int parameterIndex)
-        {
-            if (method == null)
-                throw new ArgumentNullException(nameof(method));
-
-            if (parameterIndex < 0)
-                return null;
-
-            return method.methodDefinition.Parameters[parameterIndex];
-        }
-
-        public static BuilderType GetTargetType(Method method, int parameterIndex)
-        {
-            var result = GetParameterReference(method, parameterIndex);
-
-            if (result == null)
-                return method.OriginType;
-
-            return result.ParameterType.ToBuilderType().Import();
-        }
-
         /// <summary>
         /// Loads all elements of an array one by one to the stack.
         /// </summary>
         /// <returns></returns>
-        public ArrayCodeBlock ArrayElements() => new ArrayCodeBlock();
+        public ArrayCodeBlock ArrayElements() => new ParameterArrayCodeBlock
+        {
+            index = this.index.Value
+        };
 
         public Tuple<BuilderType, int, ParameterDefinition> GetTargetType(Coder coder) => this.GetTargetType(coder.instructions.associatedMethod);
 
@@ -213,6 +206,27 @@ namespace Cauldron.Interception.Cecilator.Coders
             }
 
             return null;
+        }
+
+        internal static ParameterReference GetParameterReference(Method method, int parameterIndex)
+        {
+            if (method == null)
+                throw new ArgumentNullException(nameof(method));
+
+            if (parameterIndex < 0)
+                return null;
+
+            return method.methodDefinition.Parameters[parameterIndex];
+        }
+
+        internal static BuilderType GetTargetType(Method method, int parameterIndex)
+        {
+            var result = GetParameterReference(method, parameterIndex);
+
+            if (result == null)
+                return method.OriginType;
+
+            return result.ParameterType.ToBuilderType().Import();
         }
 
         internal static BuilderType GetTargetTypeFromOpCode(Method method, Instruction instruction)
