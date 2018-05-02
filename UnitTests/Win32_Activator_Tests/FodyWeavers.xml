@@ -2,7 +2,8 @@
 <Weavers VerifyAssembly="True">
   <Cauldron.Interception>
     <CustomInterceptors>
-      $(ProjectDir)..\..\Fody\Interceptors\Cauldron.ActivatorInterceptors.dll
+      $(SolutionPath)Fody\Interceptors\Cauldron.BasicInterceptors*.dll
+      $(SolutionPath)Fody\Interceptors\Cauldron.ActivatorInterceptors*.dll
     </CustomInterceptors>
   </Cauldron.Interception>
 </Weavers>

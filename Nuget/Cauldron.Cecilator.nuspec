@@ -17,6 +17,8 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Cauldron Interception interceptor interception AOP Fody Cecil CIL ILWeaving</tags>
     <releaseNotes>
+      2018.05.02 - [B] Fixed bugs in weaving methods with generic parameters
+      2018.05.02 - [B] Fixed bugs in weaving async methods
       2018.05.02 - [B] A bug in cecilator that causes arrays parameter to be not correctly weaved fixed
       2018.04.11 - [C] Fody version 3.0.0 update and minor bug fixes.
     </releaseNotes>

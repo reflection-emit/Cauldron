@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<Weavers VerifyAssembly="True"
-         VerifyIgnoreCodes="0x8013185D,0x80131854,0x801318DE">
-  <Cauldron.Interception />
+<Weavers VerifyAssembly="True">
+  <Cauldron.Interception>
+    <CustomInterceptors>
+      $(SolutionPath)Fody\Interceptors\Cauldron.BasicInterceptors*.dll
+    </CustomInterceptors>
+  </Cauldron.Interception>
 </Weavers>

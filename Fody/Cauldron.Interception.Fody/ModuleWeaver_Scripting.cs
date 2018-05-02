@@ -132,10 +132,13 @@ namespace Cauldron.Interception.Fody
                 if (string.IsNullOrEmpty(path))
                     continue;
 
-                if (!File.Exists(path))
+                var dlls = Directory.GetFiles(Path.GetDirectoryName(path), Path.GetFileName(path));
+
+                if (dlls == null || dlls.Length == 0)
                     throw new FileNotFoundException("File not found: " + path);
 
-                this.CustomInterceptors.Add(path);
+                for (int i = 0; i < dlls.Length; i++)
+                    this.CustomInterceptors.Add(dlls[i]);
             }
         }
     }

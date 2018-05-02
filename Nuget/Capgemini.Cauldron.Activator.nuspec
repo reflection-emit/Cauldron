@@ -37,7 +37,6 @@
     <file src="..\NetStandard\Cauldron.Activator\bin\Release\netstandard2.0\Cauldron.Activator.xml" target="lib\netstandard2.0\Cauldron.Activator.xml" />
     <file src="..\NetStandard\Cauldron.Activator\bin\Release\netstandard2.0\Cauldron.Activator.pdb" target="lib\netstandard2.0\Cauldron.Activator.pdb" />
     <file src="..\NetStandard\Cauldron.Activator\**\*.cs" target="src" />
-    <file src="..\Fody\Interceptors\Cauldron.ActivatorInterceptors.dll" target="Content\Interceptors" />
-    <file src="..\Fody\Interceptors\Cauldron.ActivatorInterceptors.pdb" target="Content\Interceptors" />
+    <file src="..\Fody\Interceptors\Cauldron.ActivatorInterceptors*.dll" target="Content\Interceptors" />
   </files>
 </package>

@@ -205,6 +205,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{551C
 		Scripts\MsBuildKiller.csx = Scripts\MsBuildKiller.csx
 		Scripts\NugetMetaDataJson.csx = Scripts\NugetMetaDataJson.csx
 		Scripts\NuspecInfo.csx = Scripts\NuspecInfo.csx
+		Scripts\version-to-interceptor.csx = Scripts\version-to-interceptor.csx
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Win32_Fody_AssemblyWide_Validator_Tests", "UnitTests\Win32_Fody_AssemblyWide_Validator_Tests\Win32_Fody_AssemblyWide_Validator_Tests.csproj", "{CC42EA68-F664-4342-8746-5EAD2F87820C}"

@@ -42,7 +42,6 @@
     <file src="..\Win32\Cauldron.Win32.WPF.Validation\bin\Release\Cauldron.Win32.WPF.Validation.xml" target="lib\net461" />
     <file src="..\Win32\Cauldron.Win32.WPF.Validation\bin\Release\Cauldron.Win32.WPF.Validation.pdb" target="lib\net461" />
     <file src="..\Win32\Cauldron.Win32.WPF.Validation\**\*.cs" target="src" />
-    <file src="..\Fody\Interceptors\Cauldron.WPF.ValidatorInterceptors.dll" target="Content\Interceptors" />
-    <file src="..\Fody\Interceptors\Cauldron.WPF.ValidatorInterceptors.pdb" target="Content\Interceptors" />
+    <file src="..\Fody\Interceptors\Cauldron.WPF.ValidatorInterceptors*.dll" target="Content\Interceptors" />
   </files>
 </package>

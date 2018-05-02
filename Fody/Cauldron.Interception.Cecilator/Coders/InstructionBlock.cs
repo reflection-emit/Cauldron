@@ -103,7 +103,7 @@ namespace Cauldron.Interception.Cecilator.Coders
                     return true;
                 }
 
-                if (!castToType.typeReference.IsValueType && castToType.typeReference.Resolve().With(x => x.IsInterface || x.IsClass))
+                if (!castToType.typeReference.IsValueType && castToType.typeReference.Resolve().With(x => x.IsInterface || x.IsClass) && !castToType.typeReference.IsArray)
                 {
                     if (!castToType.typeReference.AreEqual(BuilderType.Object))
                         instructionBlock.Emit(OpCodes.Isinst, Builder.Current.Import(castToType.typeReference));

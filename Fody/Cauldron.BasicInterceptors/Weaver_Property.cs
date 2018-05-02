@@ -545,7 +545,7 @@ public static class Weaver_Property
             return then;
         });
 
-        if (propertyType.IsArray)
+        if (propertyType.Implements(typeof(IEnumerable)) || propertyType.IsArray)
             setterCode.If(x => x.Load(CodeBlocks.GetParameter(0)).Is(typeof(IEnumerable)), then =>
                CodeMe(
                    field => then.SetValue(field, CodeBlocks.GetParameter(0)).Return(),

@@ -79,4 +79,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>dotnet script $(ProjectDir)..\..\Scripts\version-to-interceptor.csx $(TargetPath)</PostBuildEvent>
+  </PropertyGroup>
 </Project>

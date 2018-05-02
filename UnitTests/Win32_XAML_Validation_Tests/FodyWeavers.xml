@@ -3,10 +3,10 @@
   <PropertyChanged />
   <Cauldron.Interception>
     <CustomInterceptors>
-      $(SolutionPath)Fody\Interceptors\Cauldron.BasicInterceptors.dll
-      $(SolutionPath)Fody\Interceptors\Cauldron.ActivatorInterceptors.dll
-      $(SolutionPath)Fody\Interceptors\Cauldron.WPF.Interceptors.dll
-      $(SolutionPath)Fody\Interceptors\Cauldron.WPF.ValidatorInterceptors.dll
+      $(SolutionPath)Fody\Interceptors\Cauldron.BasicInterceptors*.dll
+      $(SolutionPath)Fody\Interceptors\Cauldron.ActivatorInterceptors*.dll
+      $(SolutionPath)Fody\Interceptors\Cauldron.WPF.Interceptors*.dll
+      $(SolutionPath)Fody\Interceptors\Cauldron.WPF.ValidatorInterceptors*.dll
     </CustomInterceptors>
   </Cauldron.Interception>
 </Weavers>

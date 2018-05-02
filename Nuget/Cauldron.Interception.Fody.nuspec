@@ -17,6 +17,8 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Interception interceptor interception AOP Fody Cecil CIL ILWeaving</tags>
     <releaseNotes>
+      2018.05.02 - [B] Fixed bugs in weaving methods with generic parameters
+      2018.05.02 - [B] Fixed bugs in weaving async methods
       2018.04.26 - [B] Properties with getter and setter but without backing field caused an Exception during weaving.
       2018.04.23 - [C] Basic interceptors moved to Cauldron.BasicInterceptors package
       2018.04.15 - [B] Custom interceptors now works correctly.
@@ -74,7 +76,8 @@
     <file src="..\Fody\Cauldron.Interception.Fody\bin\Release\Cauldron.Interception.Fody.pdb" target="netclassicweaver" />
     <file src="..\Fody\Cauldron.Interception.Fody\bin\Release\Newtonsoft.Json.dll" target="netclassicweaver" />
     <file src="..\Fody\Cauldron.Interception.Fody\csc\**" target="netclassicweaver\csc" />
-    <file src="Fody\FodyWeavers.xml" target="Content" />
     <file src="..\NetStandard\Cauldron.Interception\**\*.cs" target="src" />
+
+    <file src="Fody\**" target="tools" />
   </files>
 </package>
