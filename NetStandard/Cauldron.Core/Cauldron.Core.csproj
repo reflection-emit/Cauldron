@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>Capgemini.Cauldron.Core</PackageId>
-    <Version>3.0.4-beta</Version>
+    <Version>3.0.5-beta</Version>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Authors>Alexander Schunk, Capgemini Deutschland GmbH</Authors>
@@ -14,8 +14,8 @@
     <PackageIconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</PackageIconUrl>
     <PackageTags>Toolkit Capgemini Cauldron Core</PackageTags>
     <Description>Cauldron Core is the core toolkit assembly that the Cauldron Toolkit builds upon</Description>
-  <AssemblyVersion>3.0.0.4</AssemblyVersion>
-<FileVersion>3.0.0.4</FileVersion>
+  <AssemblyVersion>3.0.0.5</AssemblyVersion>
+<FileVersion>3.0.0.5</FileVersion>
 </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

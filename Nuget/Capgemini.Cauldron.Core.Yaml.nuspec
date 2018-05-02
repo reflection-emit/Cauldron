@@ -14,8 +14,8 @@
     <tags>Toolkit Capgemini Cauldron Yaml</tags>
     <dependencies>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="Capgemini.Cauldron.Core.Extensions.Convertions" version="3.0.5-beta" />
-        <dependency id="Capgemini.Cauldron.Core.Reflection" version="3.0.5-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Extensions.Convertions" version="3.0.6-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Reflection" version="3.0.6-beta" />
       </group>
     </dependencies>
   </metadata>

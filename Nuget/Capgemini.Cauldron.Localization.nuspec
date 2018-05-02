@@ -18,10 +18,10 @@
     </releaseNotes>
     <dependencies>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="Capgemini.Cauldron.Activator" version="3.0.5-beta" />
-        <dependency id="Capgemini.Cauldron.Core.Extensions" version="3.0.5-beta" />
-        <dependency id="Capgemini.Cauldron.Core.Reflection" version="3.0.5-beta" />
-        <dependency id="Capgemini.Cauldron.Core.Yaml" version="3.0.5-beta" />
+        <dependency id="Capgemini.Cauldron.Activator" version="3.0.6-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Extensions" version="3.0.6-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Reflection" version="3.0.6-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Yaml" version="3.0.6-beta" />
         <dependency id="Newtonsoft.Json" version="11.0.2" />
         <dependency id="Fody" version="3.0.3" />
       </group>

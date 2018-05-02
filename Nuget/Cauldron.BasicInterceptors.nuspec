@@ -18,7 +18,7 @@
       2018.04.23 - [A] Dlls added for Net451, Net452, Net461 and Net462
     </releaseNotes>
     <dependencies>
-      <dependency id="Cauldron.Interception.Fody" version="3.0.5-beta" />
+      <dependency id="Cauldron.Interception.Fody" version="3.0.6-beta" />
     </dependencies>
   </metadata>
   <files>
