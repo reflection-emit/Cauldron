@@ -20,6 +20,7 @@ namespace Cauldron.Interception.Cecilator
         public static Builder Current { get; internal set; }
 
         public BuilderCustomAttributeCollection CustomAttributes => new BuilderCustomAttributeCollection(this, this.moduleDefinition);
+
         public string Name => this.moduleDefinition.Name;
 
         public override bool Equals(object obj) => this.moduleDefinition.Assembly.FullName.Equals(obj?.ToString());
@@ -324,7 +325,7 @@ namespace Cauldron.Interception.Cecilator
 
         public IEnumerable<BuilderType> FindAttributesByInterfaces(IEnumerable<BuilderType> interfaceTypes) => this.FindAttributesInModule().Where(x => interfaceTypes.Any(y => x.Implements(y)));
 
-        public IEnumerable<BuilderType> FindAttributesByInterfaces(params string[] interfaceName) => this.FindAttributesInModule().Where(x => interfaceName.Any(y => x.Implements(y)));
+        public IEnumerable<BuilderType> FindAttributesByInterfaces(params string[] interfaceName) => this.FindAttributesInModule().Where(x => x != null && interfaceName.Any(y => x.Implements(y)));
 
         public IEnumerable<BuilderType> FindAttributesInModule()
         {

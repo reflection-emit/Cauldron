@@ -3,6 +3,7 @@ using Mono.Cecil;
 using Mono.Cecil.Cil;
 using Mono.Cecil.Rocks;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -81,7 +82,27 @@ namespace Cauldron.Interception.Cecilator
             return false;
         }
 
-        public static TypeDefinition BetterResolve(this TypeReference value) => value.Resolve() ?? WeaverBase.AllTypes.Get(value.FullName);
+        /// <summary>
+        /// Tries to resolve the <see cref="TypeReference"/> to its <see cref="TypeDefinition"/> using <see cref="TypeDefinition.Resolve"/>.
+        /// If <see cref="TypeDefinition.Resolve"/> returns null it will try to resolve it using a list of types.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static TypeDefinition BetterResolve(this TypeReference value)
+        {
+            TypeDefinition resolve()
+            {
+                var name = value.FullName.Substring(0, value.FullName.IndexOf('<').With(x => x < 0 ? value.FullName.Length : x));
+                var types = WeaverBase.AllTypes.Where(x => x.FullName.StartsWith(name)).ToArray();
+
+                if (types.Length == 1)
+                    return types[0];
+
+                return null;
+            }
+
+            return value.Resolve() ?? resolve();
+        }
 
         public static Builder CreateBuilder(this WeaverBase weaver)
         {
@@ -283,7 +304,7 @@ namespace Cauldron.Interception.Cecilator
         public static IEnumerable<TypeReference> GetInterfaces(this TypeReference type)
         {
             var typeDef = type.BetterResolve();
-            var result = new List<TypeReference>();
+            var result = new Dictionary<string, TypeReference>();
 
             while (true)
             {
@@ -296,10 +317,16 @@ namespace Cauldron.Interception.Cecilator
                         break;
 
                     if (typeDef.Interfaces != null && typeDef.Interfaces.Count > 0)
-                        result.AddRange(type.Recursive(x => x.BetterResolve().Interfaces.Select(y => y.InterfaceType)).Select(x => x.ResolveType(type)));
+                    {
+                        foreach (var item in type.Recursive(x => x.BetterResolve().Interfaces.Select(y => y.InterfaceType)).Select(x => x.ResolveType(type)))
+                        {
+                            var name = item.FullName;
+                            if (!result.ContainsKey(name))
+                                result.Add(name, item);
+                        }
+                    }
 
                     type = typeDef.BaseType;
-
                     typeDef = type?.BetterResolve();
                 }
                 catch
@@ -308,7 +335,7 @@ namespace Cauldron.Interception.Cecilator
                 }
             };
 
-            return result;
+            return result.Values;
         }
 
         public static MethodReference GetMethodReference(this TypeReference type, string methodName, int parameterCount)
@@ -719,6 +746,28 @@ namespace Cauldron.Interception.Cecilator
             }
 
             return method;
+        }
+
+        internal static T Display<T>(this T obj) where T : class
+        {
+            switch (obj)
+            {
+                case null: return obj;
+                case IEnumerable enumerable:
+                    foreach (var item in enumerable)
+                    {
+                        if (item is BuilderType builderType)
+                            builderType.Display();
+                        else
+                            Builder.Current.Log(LogTypes.Info, $"Display: {item}");
+                    }
+
+                    return obj;
+
+                default:
+                    Builder.Current.Log(LogTypes.Info, $"Display: {obj}");
+                    return obj;
+            }
         }
 
         internal static void Display(this IEnumerable<ExceptionHandler> handlers)
@@ -1360,7 +1409,7 @@ namespace Cauldron.Interception.Cecilator
             if (resolved.Interfaces != null && resolved.Interfaces.Count > 0)
             {
                 foreach (var item in resolved.Interfaces)
-                    result.AddRange(item.InterfaceType.GetGenericInstances(genericArgumentsNames, genericArguments));
+                    result.AddRange(item.InterfaceType.GetGenericInstances(genericArgumentsNames, genericArguments).Display());
             }
 
             return result;
