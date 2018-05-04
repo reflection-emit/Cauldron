@@ -33,9 +33,9 @@
     <file src="..\NetStandard\Cauldron.Core.Diagnostics\bin\Release\netstandard2.0\Cauldron.Core.Diagnostics.xml" target="lib\net461" />
     <file src="..\NetStandard\Cauldron.Core.Diagnostics\bin\Release\netstandard2.0\Cauldron.Core.Diagnostics.pdb" target="lib\net461" />
     <!-- Desktop Net45-->
-    <file src="..\Win32\Net45\Cauldron.Core.Win32.Net45.Diagnostics\bin\Release\Cauldron.Core.Diagnostics.Net45.dll" target="lib\net45" />
-    <file src="..\Win32\Net45\Cauldron.Core.Win32.Net45.Diagnostics\bin\Release\Cauldron.Core.Diagnostics.Net45.xml" target="lib\net45" />
-    <file src="..\Win32\Net45\Cauldron.Core.Win32.Net45.Diagnostics\bin\Release\Cauldron.Core.Diagnostics.Net45.pdb" target="lib\net45" />
+    <file src="..\Win32\Net45\Cauldron.Core.Win32.Net45.Diagnostics\bin\Release\Cauldron.Core.Diagnostics.dll" target="lib\net45" />
+    <file src="..\Win32\Net45\Cauldron.Core.Win32.Net45.Diagnostics\bin\Release\Cauldron.Core.Diagnostics.xml" target="lib\net45" />
+    <file src="..\Win32\Net45\Cauldron.Core.Win32.Net45.Diagnostics\bin\Release\Cauldron.Core.Diagnostics.pdb" target="lib\net45" />
     <file src="..\NetStandard\Cauldron.Core.Diagnostics\**\*.cs" target="src" />
   </files>
 </package>

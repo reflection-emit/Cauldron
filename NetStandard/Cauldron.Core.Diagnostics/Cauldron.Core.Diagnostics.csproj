@@ -14,9 +14,10 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Description>Provides a set of methods that help debug code or output errors in compiled dlls.</Description>
     <PackageId>Capgemini.Cauldron.Core.Diagnostics</PackageId>
-  <AssemblyVersion>3.0.0.5</AssemblyVersion>
-<FileVersion>3.0.0.5</FileVersion>
-</PropertyGroup>
+    <AssemblyVersion>3.0.0.5</AssemblyVersion>
+    <FileVersion>3.0.0.5</FileVersion>
+    <Configurations>Debug;Release;Release.Net45;Release.451</Configurations>
+  </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -30,4 +31,5 @@
     <DocumentationFile>bin\Debug\netstandard2.0\Cauldron.Core.Diagnostics.xml</DocumentationFile>
   </PropertyGroup>
 
+  <Import Project="..\..\Shared\Cauldron.Core.Diagnostics\Cauldron.Core.Diagnostics.projitems" Label="Shared" />
 </Project>

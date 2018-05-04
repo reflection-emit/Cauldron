@@ -17,9 +17,9 @@ public static class Weaver_Property
     static Weaver_Property()
     {
         PropertyInterceptingAttributes = Builder.Current.FindAttributesByInterfaces(
-        "Cauldron.Interception.IPropertyInterceptor",
-        "Cauldron.Interception.IPropertyGetterInterceptor",
-        "Cauldron.Interception.IPropertySetterInterceptor");
+            "Cauldron.Interception.IPropertyInterceptor",
+            "Cauldron.Interception.IPropertyGetterInterceptor",
+            "Cauldron.Interception.IPropertySetterInterceptor");
     }
 
     internal static IEnumerable<BuilderType> PropertyInterceptingAttributes { get; private set; }
@@ -545,31 +545,30 @@ public static class Weaver_Property
             return then;
         });
 
-        if (propertyType.Implements(typeof(IEnumerable)) || propertyType.IsArray)
+        setterCode.If(x => CodeMe(
+            field => x.Load(CodeBlocks.GetParameter(0)).Is(field.FieldType),
+            property => x.Load(CodeBlocks.GetParameter(0)).Is(property.ReturnType)), then =>
+            CodeMe(
+                   field => then.SetValue(field, CodeBlocks.GetParameter(0)).Return(),
+                   property => then.Call(property.Setter, CodeBlocks.GetParameter(0)).Return()));
+
+        if (propertyType.Implements(__IList.Type.Fullname))
+        {
+            var add = propertyType.GetMethod("Add", 1);
+            var array = setterDelegateMethod.GetOrCreateVariable(propertyType.ChildType.MakeArray());
+            setterCode.SetValue(array, CodeBlocks.GetParameter(0));
+            setterCode.For(array, (x, item) => CodeMe(
+                field => x.Load(field).Call(add, item),
+                property => x.Call(property.Getter).Call(add, item)));
+            if (!add.ReturnType.IsVoid)
+                setterCode.Pop();
+        }
+        else if (propertyType.Implements(typeof(IEnumerable)) || propertyType.IsArray)
             setterCode.If(x => x.Load(CodeBlocks.GetParameter(0)).Is(typeof(IEnumerable)), then =>
                CodeMe(
                    field => then.SetValue(field, CodeBlocks.GetParameter(0)).Return(),
                    property => then.Call(property.Setter, CodeBlocks.GetParameter(0)).Return()))
                .ThrowNew(typeof(NotSupportedException), "Value does not inherits from IEnumerable");
-        else if (propertyType.Implements(__IList.Type.Fullname) && propertyType.ParameterlessContructor != null)
-        {
-            var addRange = propertyType.GetMethod("AddRange", 1, false);
-            if (addRange == null)
-            {
-                var add = propertyType.GetMethod("Add", 1);
-                var array = setterDelegateMethod.GetOrCreateVariable(propertyType.ChildType.MakeArray());
-                setterCode.SetValue(array, CodeBlocks.GetParameter(0));
-                setterCode.For(array, (x, item) => CodeMe(
-                    field => x.Load(field).Call(add, item),
-                    property => x.Call(property.Getter).Call(add, item)));
-                if (!add.ReturnType.IsVoid)
-                    setterCode.Pop();
-            }
-            else
-                CodeMe(
-                    field => setterCode.Load(field).Call(addRange, CodeBlocks.GetParameter(0)),
-                    property => setterCode.Call(property.Getter).Call(addRange, CodeBlocks.GetParameter(0)));
-        }
         else if (propertyType.IsEnum)
         {
             // Enums requires special threatment

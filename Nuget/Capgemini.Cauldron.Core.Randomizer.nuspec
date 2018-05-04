@@ -33,9 +33,9 @@
     <file src="..\NetStandard\Cauldron.Core.Randomizer\bin\Release\netstandard2.0\Cauldron.Core.Randomizer.xml" target="lib\net461" />
     <file src="..\NetStandard\Cauldron.Core.Randomizer\bin\Release\netstandard2.0\Cauldron.Core.Randomizer.pdb" target="lib\net461" />
     <!-- Desktop Net45-->
-    <file src="..\Win32\Net45\Cauldron.Core.Win32.Net45.Randomizer\bin\Release\Cauldron.Core.Randomizer.Net45.dll" target="lib\net45" />
-    <file src="..\Win32\Net45\Cauldron.Core.Win32.Net45.Randomizer\bin\Release\Cauldron.Core.Randomizer.Net45.xml" target="lib\net45" />
-    <file src="..\Win32\Net45\Cauldron.Core.Win32.Net45.Randomizer\bin\Release\Cauldron.Core.Randomizer.Net45.pdb" target="lib\net45" />
+    <file src="..\Win32\Net45\Cauldron.Core.Win32.Net45.Randomizer\bin\Release\Cauldron.Core.Randomizer.dll" target="lib\net45" />
+    <file src="..\Win32\Net45\Cauldron.Core.Win32.Net45.Randomizer\bin\Release\Cauldron.Core.Randomizer.xml" target="lib\net45" />
+    <file src="..\Win32\Net45\Cauldron.Core.Win32.Net45.Randomizer\bin\Release\Cauldron.Core.Randomizer.pdb" target="lib\net45" />
     <file src="..\NetStandard\Cauldron.Core.Randomizer\**\*.cs" target="src" />
   </files>
 </package>

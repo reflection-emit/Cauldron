@@ -14,9 +14,10 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Description>Provices usefull extensions and methods regarding comparing</Description>
     <PackageId>Capgemini.Cauldron.Core.Comparing</PackageId>
-  <AssemblyVersion>3.0.0.5</AssemblyVersion>
-<FileVersion>3.0.0.5</FileVersion>
-</PropertyGroup>
+    <AssemblyVersion>3.0.0.5</AssemblyVersion>
+    <FileVersion>3.0.0.5</FileVersion>
+    <Configurations>Debug;Release;Release.Net45;Release.451</Configurations>
+  </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -32,4 +33,5 @@
     <WarningsAsErrors />
   </PropertyGroup>
 
+  <Import Project="..\..\Shared\Cauldron.Core.Comparing\Cauldron.Core.Comparing.projitems" Label="Shared" />
 </Project>

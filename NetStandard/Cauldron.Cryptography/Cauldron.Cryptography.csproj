@@ -16,6 +16,7 @@
     <PackageTags>Toolkit Capgemini Cauldron Cryptography AES RSA SecureString</PackageTags>
     <AssemblyVersion>3.0.0.5</AssemblyVersion>
     <FileVersion>3.0.0.5</FileVersion>
+    <Configurations>Debug;Release;Release.Net45;Release.451</Configurations>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -41,4 +42,5 @@
     <ProjectReference Include="..\Cauldron.Core.Randomizer\Cauldron.Core.Randomizer.csproj" />
   </ItemGroup>
 
+  <Import Project="..\..\Shared\Cauldron.Cryptography\Cauldron.Cryptography.projitems" Label="Shared" />
 </Project>

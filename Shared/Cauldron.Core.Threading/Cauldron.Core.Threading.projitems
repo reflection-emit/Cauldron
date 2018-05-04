@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>d72c3274-b06f-45c8-bae7-77106aeb4094</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Cauldron.Core.Threading</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)AsyncHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CallOnce.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DispatcherDummy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DispatcherFactoryResolver.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DispatcherPriority.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IDispatcher.cs" />
+  </ItemGroup>
+</Project>

@@ -14,9 +14,10 @@
     <PackageIconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</PackageIconUrl>
     <PackageTags>Toolkit Capgemini Cauldron Core</PackageTags>
     <Description>Cauldron Core is the core toolkit assembly that the Cauldron Toolkit builds upon</Description>
-  <AssemblyVersion>3.0.0.5</AssemblyVersion>
-<FileVersion>3.0.0.5</FileVersion>
-</PropertyGroup>
+    <AssemblyVersion>3.0.0.5</AssemblyVersion>
+    <FileVersion>3.0.0.5</FileVersion>
+    <Configurations>Debug;Release;Release.Net45;Release.451</Configurations>
+  </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -42,4 +43,5 @@
     <ProjectReference Include="..\Cauldron.Core.Reflection\Cauldron.Core.Reflection.csproj" />
   </ItemGroup>
 
+  <Import Project="..\..\Shared\Cauldron.Core\Cauldron.Core.projitems" Label="Shared" />
 </Project>

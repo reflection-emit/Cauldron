@@ -94,7 +94,14 @@ namespace Cauldron.Interception.Cecilator
                     }
                 }
             }
-            this.allTypes = this.allAssemblies.SelectMany(x => x.Modules).Where(x => x != null).SelectMany(x => x.Types).Where(x => x != null).Concat(this.moduleDefinition.Types).ToList();
+            this.allTypes = this.allAssemblies
+                .SelectMany(x => x.Modules)
+                .Where(x => x != null)
+                .SelectMany(x => x.Types)
+                .Where(x => x != null)
+                .Concat(this.moduleDefinition.Types)
+                .Distinct(new TypeDefinitionEqualityComparer())
+                .ToList();
             this.Log("-----------------------------------------------------------------------------");
             WeaverBase.AllTypes = this.allTypes;
 

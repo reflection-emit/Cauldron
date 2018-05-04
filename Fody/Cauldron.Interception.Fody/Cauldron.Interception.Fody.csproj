@@ -137,11 +137,13 @@
   </ItemGroup>-->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>dotnet script "$(ProjectDir)..\..\Scripts\fodycopy.csx" "$(TargetDir)" "$(ProjectDir)..\..\Tools" $(ProjectName) "$(ProjectDir)"
-dotnet script "$(ProjectDir)..\..\Scripts\fodycopy.csx" "$(TargetDir)" "$(ProjectDir)..\..\packages" $(ProjectName) "$(ProjectDir)"
-dotnet script "$(ProjectDir)..\..\Scripts\fodycopy.csx" "$(TargetDir)" "$(ProjectDir)..\..\NetStandard\Tools" $(ProjectName) "$(ProjectDir)"
-dotnet script "$(ProjectDir)..\..\Scripts\fodycopy.csx" "$(TargetDir)" "$(ProjectDir)..\..\Win32\Tools" $(ProjectName) "$(ProjectDir)"
-dotnet script "$(ProjectDir)..\..\Scripts\fodycopy.csx" "$(TargetDir)" "$(ProjectDir)..\..\UWP\Tools" $(ProjectName) "$(ProjectDir)"</PostBuildEvent>
+    <PostBuildEvent>
+      dotnet script "$(ProjectDir)..\..\Scripts\fodycopy.csx" "$(TargetDir)" "$(ProjectDir)..\..\Tools" $(ProjectName) "$(ProjectDir)"
+      dotnet script "$(ProjectDir)..\..\Scripts\fodycopy.csx" "$(TargetDir)" "$(ProjectDir)..\..\packages" $(ProjectName) "$(ProjectDir)"
+      dotnet script "$(ProjectDir)..\..\Scripts\fodycopy.csx" "$(TargetDir)" "$(ProjectDir)..\..\NetStandard\Tools" $(ProjectName) "$(ProjectDir)"
+      dotnet script "$(ProjectDir)..\..\Scripts\fodycopy.csx" "$(TargetDir)" "$(ProjectDir)..\..\Win32\Tools" $(ProjectName) "$(ProjectDir)"
+      dotnet script "$(ProjectDir)..\..\Scripts\fodycopy.csx" "$(TargetDir)" "$(ProjectDir)..\..\UWP\Tools" $(ProjectName) "$(ProjectDir)"
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

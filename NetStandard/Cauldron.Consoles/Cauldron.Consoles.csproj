@@ -16,6 +16,7 @@
     <Description>Cauldron.Consoles is a Cauldron.Core based parameter parser which supports grouping of parameters in execution groups. It is also supports localization and has a nice parameter table :)</Description>
     <PackageTags>Toolkit Capgemini Console Parameter Parsing Argument Arguments Parameters Cauldron Command CommandLine Args</PackageTags>
     <PackageId>Capgemini.Cauldron.Consoles</PackageId>
+    <Configurations>Debug;Release;Release.Net45;Release.451</Configurations>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -32,4 +33,5 @@
     <ProjectReference Include="..\Cauldron.Localization\Cauldron.Localization.csproj" />
   </ItemGroup>
 
+  <Import Project="..\..\Shared\Cauldron.Consoles\Cauldron.Consoles.projitems" Label="Shared" />
 </Project>

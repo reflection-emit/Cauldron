@@ -118,6 +118,7 @@
     <Compile Include="LogTypes.cs" />
     <Compile Include="MethodDefinitionAndReference.cs" />
     <Compile Include="Positions.cs" />
+    <Compile Include="TypeDefinitionEqualityComparer.cs" />
     <Compile Include="TypeResolveException.cs" />
     <Compile Include="CecilatorTypeSystem.cs" />
     <Compile Include="WeaverBase.cs" />
@@ -141,7 +142,7 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>

@@ -33,6 +33,26 @@
     <DocumentationFile>bin\Release\Cauldron.Win32.Interceptors.xml</DocumentationFile>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release.Net45|AnyCPU'">
+    <OutputPath>bin\Release.Net45\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>bin\Release\Cauldron.Win32.Interceptors.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release.451|AnyCPU'">
+    <OutputPath>bin\Release.451\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>bin\Release\Cauldron.Win32.Interceptors.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\..\packages\NLog.4.5.3\lib\net45\NLog.dll</HintPath>
@@ -70,10 +90,6 @@
     <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Diagnostics\Cauldron.Core.Diagnostics.csproj">
       <Project>{9631764e-e771-4d96-a7cf-757c257a0630}</Project>
       <Name>Cauldron.Core.Diagnostics</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Net461\Cauldron.Win32.Net461.Interception\Cauldron.Win32.Net461.Interception.csproj">
-      <Project>{cb1469b2-7963-491b-8a99-82edce3b8442}</Project>
-      <Name>Cauldron.Win32.Net461.Interception</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

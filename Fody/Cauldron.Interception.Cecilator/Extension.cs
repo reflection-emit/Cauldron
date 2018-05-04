@@ -90,15 +90,13 @@ namespace Cauldron.Interception.Cecilator
         /// <returns></returns>
         public static TypeDefinition BetterResolve(this TypeReference value)
         {
+            if (value is TypeDefinition typeDefinition)
+                return typeDefinition;
+
             TypeDefinition resolve()
             {
                 var name = value.FullName.Substring(0, value.FullName.IndexOf('<').With(x => x < 0 ? value.FullName.Length : x));
-                var types = WeaverBase.AllTypes.Where(x => x.FullName.StartsWith(name)).ToArray();
-
-                if (types.Length == 1)
-                    return types[0];
-
-                return null;
+                return WeaverBase.AllTypes.FirstOrDefault(x => x.FullName.StartsWith(name));
             }
 
             return value.Resolve() ?? resolve();
@@ -304,7 +302,7 @@ namespace Cauldron.Interception.Cecilator
         public static IEnumerable<TypeReference> GetInterfaces(this TypeReference type)
         {
             var typeDef = type.BetterResolve();
-            var result = new Dictionary<string, TypeReference>();
+            var result = new List<TypeReference>();
 
             while (true)
             {
@@ -317,25 +315,25 @@ namespace Cauldron.Interception.Cecilator
                         break;
 
                     if (typeDef.Interfaces != null && typeDef.Interfaces.Count > 0)
-                    {
-                        foreach (var item in type.Recursive(x => x.BetterResolve().Interfaces.Select(y => y.InterfaceType)).Select(x => x.ResolveType(type)))
-                        {
-                            var name = item.FullName;
-                            if (!result.ContainsKey(name))
-                                result.Add(name, item);
-                        }
-                    }
+                        result.AddRange(
+                            type
+                                .Recursive(x =>
+                                    x.BetterResolve()
+                                        .Interfaces
+                                        .Select(y => y.InterfaceType))
+                                    .Select(x => x.ResolveType(type)));
 
                     type = typeDef.BaseType;
                     typeDef = type?.BetterResolve();
                 }
-                catch
+                catch (Exception e)
                 {
+                    Builder.Current.Log(LogTypes.Info, e.GetStackTrace());
                     break;
                 }
             };
 
-            return result.Values;
+            return result.Where(x => x.Resolve()?.IsInterface ?? true);
         }
 
         public static MethodReference GetMethodReference(this TypeReference type, string methodName, int parameterCount)

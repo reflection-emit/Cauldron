@@ -12,13 +12,15 @@
     <PackageProjectUrl>https://github.com/Capgemini/Cauldron</PackageProjectUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</PackageIconUrl>
     <PackageTags>Toolkit Capgemini Cauldron Convertion</PackageTags>
-    <Description>Provides extension methods regarding common convertions.
-</Description>
+    <Description>
+      Provides extension methods regarding common convertions.
+    </Description>
     <PackageId>Capgemini.Cauldron.Core.Extensions.Convertions</PackageId>
     <RootNamespace>Cauldron</RootNamespace>
-  <AssemblyVersion>3.0.0.5</AssemblyVersion>
-<FileVersion>3.0.0.5</FileVersion>
-</PropertyGroup>
+    <AssemblyVersion>3.0.0.5</AssemblyVersion>
+    <FileVersion>3.0.0.5</FileVersion>
+    <Configurations>Debug;Release;Release.Net45;Release.451</Configurations>
+  </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>bin\Release\netstandard2.0\Cauldron.Core.Extensions.Convertions.xml</DocumentationFile>
@@ -32,4 +34,5 @@
     <WarningsAsErrors />
   </PropertyGroup>
 
+  <Import Project="..\..\Shared\Cauldron.Core.Extensions.Convertions\Cauldron.Core.Extensions.Convertions.projitems" Label="Shared" />
 </Project>

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>3014e506-954a-4601-97a2-797e6306fdc4</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Cauldron.Consoles</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)ColumnAlignment.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ConsoleTableColumn.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ConsoleUtils.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExecutionGroupAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExecutionGroupParameter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExecutionGroupProperties.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IExecutionGroup.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ParameterAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ParameterParser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RequiredParametersMissingException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RequiredValuesMissingException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnknownParameterException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnsafeNative.cs" />
+  </ItemGroup>
+</Project>

@@ -16,9 +16,10 @@
     <PackageIconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</PackageIconUrl>
     <PackageTags>Toolkit Capgemini Cauldron Extensions Compression GZipStream GZip</PackageTags>
     <RootNamespace>Cauldron</RootNamespace>
-  <AssemblyVersion>3.0.0.5</AssemblyVersion>
-<FileVersion>3.0.0.5</FileVersion>
-</PropertyGroup>
+    <AssemblyVersion>3.0.0.5</AssemblyVersion>
+    <FileVersion>3.0.0.5</FileVersion>
+    <Configurations>Debug;Release;Release.Net45;Release.451</Configurations>
+  </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -35,4 +36,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Cauldron.Core.Comparing\Cauldron.Core.Comparing.csproj" />
   </ItemGroup>
+
+  <Import Project="..\..\Shared\Cauldron.Core.Extensions.Compression\Cauldron.Core.Extensions.Compression.projitems" Label="Shared" />
 </Project>

@@ -350,6 +350,8 @@ namespace Cauldron.Interception.Cecilator
 
                 stopwatch.Stop();
                 this.Log($"Finding attributes took {stopwatch.Elapsed.TotalMilliseconds}ms");
+
+                findAttributesInModuleCache = findAttributesInModuleCache.OrderBy(x => x.ToString()).Distinct(new BuilderTypeEqualityComparer()).ToArray();
             }
 
             return findAttributesInModuleCache;

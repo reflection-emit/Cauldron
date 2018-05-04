@@ -40,6 +40,26 @@
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release.Net45|AnyCPU'">
+    <OutputPath>bin\Release.Net45\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release.451|AnyCPU'">
+    <OutputPath>bin\Release.451\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\MSTest.TestFramework.1.2.0\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.dll</HintPath>
@@ -171,14 +191,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Win32\Net45\Cauldron.Core.Win32.Net45.Randomizer\Cauldron.Core.Win32.Net45.Randomizer.csproj">
-      <Project>{7847fa3d-2671-4e16-9ac6-10b64cb4de71}</Project>
-      <Name>Cauldron.Core.Win32.Net45.Randomizer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Win32\Net45\Cauldron.Win32.Net45.Interception\Cauldron.Win32.Net45.Interception.csproj">
-      <Project>{c3ccc530-61ea-40c7-b4f9-42db16ee1fa4}</Project>
-      <Name>Cauldron.Win32.Net45.Interception</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Resources\Net45_Assembly_Validation_External_Resources\Net45_Assembly_Validation_External_Resources.csproj">
       <Project>{38faa55a-97f0-403a-8431-7810a61a59b4}</Project>
       <Name>Net45_Assembly_Validation_External_Resources</Name>

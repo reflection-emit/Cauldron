@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>3b240903-36ce-4abe-aeb6-fedde9dc0565</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Cauldron.Activator</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)CloneIgnoreAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ComponentAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ComponentConstructorAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExtensionsCloning.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Factory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FactoryCreationPolicy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FactoryGeneric.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FactoryObjectCreatedEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FactoryTypeInfoInternal.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IFactoryCache.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IFactoryResolver.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IFactoryTypeInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)InjectAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnitTestAwareFactoryResolverBase.cs" />
+  </ItemGroup>
+</Project>

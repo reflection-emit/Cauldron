@@ -18,6 +18,7 @@ namespace Cauldron.Interception.Cecilator
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
         internal readonly TypeReference typeReference;
 
+        public AssemblyDefinition Assembly => this.typeDefinition.Module.Assembly;
         public Builder Builder { get; private set; }
 
         public BuilderType ChildType => new BuilderType(this.Builder, this.moduleDefinition.GetChildrenType(this.typeReference));
@@ -79,12 +80,16 @@ namespace Cauldron.Interception.Cecilator
 
         public bool IsAbstract => this.typeDefinition.Attributes.HasFlag(TypeAttributes.Abstract);
 
+        public bool IsArray => this.typeDefinition != null && (this.typeDefinition.IsArray || this.typeReference.FullName.EndsWith("[]") || this.typeDefinition.FullName.EndsWith("[]"));
         public bool IsAsyncStateMachine => this.Implements("System.Runtime.CompilerServices.IAsyncStateMachine", false);
 
+        public bool IsDelegate => this.typeDefinition.IsDelegate();
+        public bool IsEnum => this.typeDefinition.IsEnum;
         public bool IsForeign => this.moduleDefinition.Assembly == this.typeDefinition.Module.Assembly;
 
         public bool IsGenerated => this.typeDefinition.FullName.IndexOf('<') >= 0 || this.typeDefinition.FullName.IndexOf('>') >= 0;
 
+        public bool IsGenericInstance => this.typeReference.IsGenericInstance;
         public bool IsGenericType => this.typeDefinition == null || this.typeReference.Resolve() == null;
 
         public bool IsInterface => this.typeDefinition == null ? false : this.typeDefinition.Attributes.HasFlag(TypeAttributes.Interface);
@@ -95,6 +100,7 @@ namespace Cauldron.Interception.Cecilator
 
         public bool IsNullable => this == BuilderType.Nullable;
 
+        public bool IsPrimitive => this.typeDefinition?.IsPrimitive ?? this.typeReference?.IsPrimitive ?? false;
         public bool IsPrivate => !this.IsPublic && this.IsNestedPrivate;
 
         public bool IsPublic => this.typeDefinition.Attributes.HasFlag(TypeAttributes.Public) && !this.IsNestedPrivate;
@@ -103,22 +109,8 @@ namespace Cauldron.Interception.Cecilator
 
         public bool IsStatic => this.IsAbstract && this.IsSealed;
 
-        public bool IsVoid => this.typeDefinition.FullName == "System.Void";
-
-        public AssemblyDefinition Assembly => this.typeDefinition.Module.Assembly;
-
-        public bool IsArray => this.typeDefinition != null && (this.typeDefinition.IsArray || this.typeReference.FullName.EndsWith("[]") || this.typeDefinition.FullName.EndsWith("[]"));
-
-        public bool IsDelegate => this.typeDefinition.IsDelegate();
-
-        public bool IsEnum => this.typeDefinition.IsEnum;
-
-        public bool IsGenericInstance => this.typeReference.IsGenericInstance;
-
-        public bool IsPrimitive => this.typeDefinition?.IsPrimitive ?? this.typeReference?.IsPrimitive ?? false;
-
         public bool IsValueType => this.typeDefinition == null ? this.typeReference == null ? false : this.typeReference.IsValueType : this.typeDefinition.IsValueType;
-
+        public bool IsVoid => this.typeDefinition.FullName == "System.Void";
         public string Name => this.typeDefinition == null ? this.typeReference.Name : this.typeDefinition.Name;
 
         public string Namespace => this.typeDefinition.Namespace;

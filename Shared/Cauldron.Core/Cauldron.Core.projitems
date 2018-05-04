@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>b5864929-a6da-473c-9023-df2c67053d22</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Cauldron.Core</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)ApplicationData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DeviceFamilies.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)KnownFolders.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MessageManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MessageObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MessagingArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Serializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities.cs" />
+  </ItemGroup>
+</Project>

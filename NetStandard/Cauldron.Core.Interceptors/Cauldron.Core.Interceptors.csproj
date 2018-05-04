@@ -3,20 +3,21 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>Capgemini.Cauldron.Core.Interceptors</PackageId>
-  <AssemblyVersion>3.0.0.5</AssemblyVersion>
-<FileVersion>3.0.0.5</FileVersion>
-<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-<Version>3.0.5-beta</Version>
-<Authors>Alexander Schunk, Capgemini Deutschland GmbH</Authors>
-<Copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</Copyright>
-<PackageLicenseUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/LICENSE</PackageLicenseUrl>
-<PackageProjectUrl>https://github.com/Capgemini/Cauldron</PackageProjectUrl>
-<PackageIconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</PackageIconUrl>
-<PackageTags>Toolkit Capgemini Cauldron Interceptors Fody Interception</PackageTags>
-<Description>A collection a interceptor implementations.</Description>
-<Company>Capgemini Deutschland GmbH</Company>
-</PropertyGroup>
+    <AssemblyVersion>3.0.0.5</AssemblyVersion>
+    <FileVersion>3.0.0.5</FileVersion>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Version>3.0.5-beta</Version>
+    <Authors>Alexander Schunk, Capgemini Deutschland GmbH</Authors>
+    <Copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</Copyright>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/Capgemini/Cauldron</PackageProjectUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</PackageIconUrl>
+    <PackageTags>Toolkit Capgemini Cauldron Interceptors Fody Interception</PackageTags>
+    <Description>A collection a interceptor implementations.</Description>
+    <Company>Capgemini Deutschland GmbH</Company>
+    <Configurations>Debug;Release;Release.Net45;Release.451</Configurations>
+  </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>bin\Release\netstandard2.0\Cauldron.Core.Interceptors.xml</DocumentationFile>
@@ -35,4 +36,5 @@
     <ProjectReference Include="..\Cauldron.Interception\Cauldron.Interception.csproj" />
   </ItemGroup>
 
+  <Import Project="..\..\Shared\Cauldron.Core.Interceptors\Cauldron.Core.Interceptors.projitems" Label="Shared" />
 </Project>

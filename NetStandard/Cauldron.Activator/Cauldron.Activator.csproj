@@ -14,9 +14,10 @@
     <PackageId>Capgemini.Cauldron.Activator</PackageId>
     <Description>The activator is a simple and very fast dependency injection framework. It is based on attributes and does not require any configuration files for configuration. It also supports using static methods as component constructor.</Description>
     <PackageTags>Toolkit Capgemini Activator Dependency Injection Factory Cauldron</PackageTags>
-  <AssemblyVersion>3.0.0.5</AssemblyVersion>
-<FileVersion>3.0.0.5</FileVersion>
-</PropertyGroup>
+    <AssemblyVersion>3.0.0.5</AssemblyVersion>
+    <FileVersion>3.0.0.5</FileVersion>
+    <Configurations>Debug;Release;Release.Net45;Release.451</Configurations>
+  </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>bin\Release\netstandard2.0\Cauldron.Activator.xml</DocumentationFile>
@@ -34,8 +35,9 @@
     <ProjectReference Include="..\Cauldron.Core.Diagnostics\Cauldron.Core.Diagnostics.csproj" />
     <ProjectReference Include="..\Cauldron.Core.Disposable\Cauldron.Core.Disposable.csproj" />
     <ProjectReference Include="..\Cauldron.Core.Extensions\Cauldron.Core.Extensions.csproj" />
-    <ProjectReference Include="..\Cauldron.Core.Interceptors\Cauldron.Core.Interceptors.csproj" />
     <ProjectReference Include="..\Cauldron.Core.Reflection\Cauldron.Core.Reflection.csproj" />
+    <ProjectReference Include="..\Cauldron.Interception\Cauldron.Interception.csproj" />
   </ItemGroup>
 
+  <Import Project="..\..\Shared\Cauldron.Activator\Cauldron.Activator.projitems" Label="Shared" />
 </Project>

@@ -8,20 +8,4 @@
   <PropertyGroup Label="Configuration">
     <Import_RootNamespace>Cauldron.Interception</Import_RootNamespace>
   </PropertyGroup>
-  <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)AssignMethodAttribute.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Extensions.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IConstructorInterceptor.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IInterceptor.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IMethodInterceptor.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)InterceptionRuleAttribute.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IPropertyGetterInterceptor.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IPropertyInterceptor.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IPropertyInterceptorComparer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IPropertyInterceptorInitialize.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IPropertySetterInterceptor.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ISimpleMethodInterceptor.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ISyncRoot.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)PropertyInterceptionInfo.cs" />
-  </ItemGroup>
 </Project>

@@ -16,9 +16,10 @@
     <Description>A simple localization implementation that can work with different sources.</Description>
     <PackageReleaseNotes></PackageReleaseNotes>
     <PackageTags>Toolkit Capgemini Cauldron Multisource Localization Language</PackageTags>
-  <AssemblyVersion>3.0.0.5</AssemblyVersion>
-<FileVersion>3.0.0.5</FileVersion>
-</PropertyGroup>
+    <AssemblyVersion>3.0.0.5</AssemblyVersion>
+    <FileVersion>3.0.0.5</FileVersion>
+    <Configurations>Debug;Release;Release.Net45;Release.451</Configurations>
+  </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>bin\Release\netstandard2.0\Cauldron.Localization.xml</DocumentationFile>
@@ -40,4 +41,5 @@
     <ProjectReference Include="..\Cauldron.Core.Yaml\Cauldron.Core.Yaml.csproj" />
   </ItemGroup>
 
+  <Import Project="..\..\Shared\Cauldron.Localization\Cauldron.Localization.projitems" Label="Shared" />
 </Project>

@@ -14,9 +14,10 @@
     <PackageTags>Toolkit Capgemini Cauldron Yaml</PackageTags>
     <Description>A YAML deserializer</Description>
     <PackageId>Capgemini.Cauldron.Core.Yaml</PackageId>
-  <AssemblyVersion>3.0.0.5</AssemblyVersion>
-<FileVersion>3.0.0.5</FileVersion>
-</PropertyGroup>
+    <AssemblyVersion>3.0.0.5</AssemblyVersion>
+    <FileVersion>3.0.0.5</FileVersion>
+    <Configurations>Debug;Release;Release.Net45;Release.451</Configurations>
+  </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>bin\Release\netstandard2.0\Cauldron.Core.Yaml.xml</DocumentationFile>
@@ -31,4 +32,5 @@
     <ProjectReference Include="..\Cauldron.Core.Reflection\Cauldron.Core.Reflection.csproj" />
   </ItemGroup>
 
+  <Import Project="..\..\Shared\Cauldron.Core.Yaml\Cauldron.Core.Yaml.projitems" Label="Shared" />
 </Project>

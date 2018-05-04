@@ -1297,6 +1297,12 @@ namespace Cauldron.Interception.Cecilator.Coders
 
             bool IsInstRequired()
             {
+                if (targetType.IsArray)
+                    return false;
+
+                if (targetType == BuilderType.IEnumerable1)
+                    return false;
+
                 if (targetType.IsPrimitive)
                     return false;
 
@@ -1306,12 +1312,6 @@ namespace Cauldron.Interception.Cecilator.Coders
                     return true;
 
                 if (targetType.IsValueType)
-                    return false;
-
-                if (targetType.IsArray)
-                    return false;
-
-                if (targetType == BuilderType.IEnumerable1)
                     return false;
 
                 if (targetType.typeReference.AreEqual(BuilderType.Object))

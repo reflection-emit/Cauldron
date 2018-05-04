@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>53427ba0-3122-4ea3-8042-3a450bfc4fc7</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Cauldron.Core.Collections</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)ConcurrentKeyedCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ConcurrentKeyedCollectionEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ConcurrentList.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IEnumerableExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)KeyedCollectionEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)KeyRawValueDictionary.cs" />
+  </ItemGroup>
+</Project>

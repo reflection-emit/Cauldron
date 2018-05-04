@@ -13,12 +13,15 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageId>Capgemini.Cauldron.Core.Formatters</PackageId>
-    <Description>Contains the following formatter implementations:
-- ByteSizeFormatter
-- MetricUnitFormatter</Description>
-  <AssemblyVersion>3.0.0.5</AssemblyVersion>
-<FileVersion>3.0.0.5</FileVersion>
-</PropertyGroup>
+    <Description>
+      Contains the following formatter implementations:
+      - ByteSizeFormatter
+      - MetricUnitFormatter
+    </Description>
+    <AssemblyVersion>3.0.0.5</AssemblyVersion>
+    <FileVersion>3.0.0.5</FileVersion>
+    <Configurations>Debug;Release;Release.Net45;Release.451</Configurations>
+  </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>bin\Release\netstandard2.0\Cauldron.Core.Formatters.xml</DocumentationFile>
@@ -28,4 +31,5 @@
     <DocumentationFile>bin\Debug\netstandard2.0\Cauldron.Core.Formatters.xml</DocumentationFile>
   </PropertyGroup>
 
+  <Import Project="..\..\Shared\Cauldron.Core.Formatters\Cauldron.Core.Formatters.projitems" Label="Shared" />
 </Project>

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>7cdfc895-265f-4cf1-8018-c24e1127225d</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Cauldron.Interception</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)AssignMethodAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IConstructorInterceptor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IInterceptor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IMethodInterceptor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)InterceptionRuleAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IPropertyGetterInterceptor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IPropertyInterceptor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IPropertyInterceptorComparer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IPropertyInterceptorInitialize.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IPropertySetterInterceptor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ISimpleMethodInterceptor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ISyncRoot.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PropertyInterceptionInfo.cs" />
+  </ItemGroup>
+</Project>

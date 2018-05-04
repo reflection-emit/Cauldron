@@ -14,9 +14,10 @@
     <PackageTags>Toolkit Capgemini Cauldron Net Ping Network</PackageTags>
     <Description>A collection of usefull methods regarding networks</Description>
     <PackageId>Capgemini.Cauldron.Core.Net</PackageId>
-  <AssemblyVersion>3.0.0.5</AssemblyVersion>
-<FileVersion>3.0.0.5</FileVersion>
-</PropertyGroup>
+    <AssemblyVersion>3.0.0.5</AssemblyVersion>
+    <FileVersion>3.0.0.5</FileVersion>
+    <Configurations>Debug;Release;Release.Net45;Release.451</Configurations>
+  </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -30,4 +31,5 @@
     <DocumentationFile>bin\Debug\netstandard2.0\Cauldron.Core.Net.xml</DocumentationFile>
   </PropertyGroup>
 
+  <Import Project="..\..\Shared\Cauldron.Core.Net\Cauldron.Core.Net.projitems" Label="Shared" />
 </Project>

@@ -15,8 +15,9 @@
     <AssemblyVersion>3.0.0.5</AssemblyVersion>
     <Description>Provides a randomizer that is cryptographicly secure</Description>
     <PackageId>Capgemini.Cauldron.Core.Randomizer</PackageId>
-  <FileVersion>3.0.0.5</FileVersion>
-</PropertyGroup>
+    <FileVersion>3.0.0.5</FileVersion>
+    <Configurations>Debug;Release;Release.Net45;Release.451</Configurations>
+  </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>bin\Release\netstandard2.0\Cauldron.Core.Randomizer.xml</DocumentationFile>
@@ -32,4 +33,5 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
+  <Import Project="..\..\Shared\Cauldron.Core.Randomizer\Cauldron.Core.Randomizer.projitems" Label="Shared" />
 </Project>

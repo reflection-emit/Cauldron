@@ -16,6 +16,7 @@
     <PackageIconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</PackageIconUrl>
     <PackageTags>Toolkit Capgemini Cauldron Disposable</PackageTags>
     <Description>Implementation of IDisposable</Description>
+    <Configurations>Debug;Release;Release.Net45;Release.451</Configurations>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -26,4 +27,5 @@
     <DocumentationFile>bin\Debug\netstandard2.0\Cauldron.Core.Disposable.xml</DocumentationFile>
   </PropertyGroup>
 
+  <Import Project="..\..\Shared\Cauldron.Core.Disposable\Cauldron.Core.Disposable.projitems" Label="Shared" />
 </Project>
