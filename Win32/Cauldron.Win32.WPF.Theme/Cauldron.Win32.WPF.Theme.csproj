@@ -9,10 +9,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Cauldron.XAML.Theme</RootNamespace>
     <AssemblyName>Cauldron.XAML.Theme</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -33,25 +34,59 @@
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\Cauldron.XAML.Theme.xml</DocumentationFile>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release.Net45|AnyCPU'">
-    <OutputPath>bin\Release.Net45\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <DocumentationFile>bin\Release\Cauldron.XAML.Theme.xml</DocumentationFile>
-    <Optimize>true</Optimize>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-Net45|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\Net45\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <WarningLevel>4</WarningLevel>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release.451|AnyCPU'">
-    <OutputPath>bin\Release.451\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <DocumentationFile>bin\Release\Cauldron.XAML.Theme.xml</DocumentationFile>
-    <Optimize>true</Optimize>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-Net451|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\Net451\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <WarningLevel>4</WarningLevel>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-Net452|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\Net452\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-Net46|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\Net46\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-Net461|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\Net461\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-Net462|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\Net462\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
@@ -162,57 +197,57 @@
     <Content Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\NetStandard\Cauldron.Activator\Cauldron.Activator.csproj">
-      <Project>{e5a31648-dac2-4c60-a1b8-2fc291c2bf9e}</Project>
+    <ProjectReference Include="..\Cauldron.Activator\Cauldron.Activator.csproj">
+      <Project>{13701490-ecb2-4f70-80c8-32897748ef05}</Project>
       <Name>Cauldron.Activator</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Collections\Cauldron.Core.Collections.csproj">
-      <Project>{A3970375-C96B-443C-86B3-59BB32CE8CB1}</Project>
+    <ProjectReference Include="..\Cauldron.Core.Collections\Cauldron.Core.Collections.csproj">
+      <Project>{0584e5fa-bdf8-42e2-a20e-051dc4bee540}</Project>
       <Name>Cauldron.Core.Collections</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Diagnostics\Cauldron.Core.Diagnostics.csproj">
-      <Project>{9631764e-e771-4d96-a7cf-757c257a0630}</Project>
+    <ProjectReference Include="..\Cauldron.Core.Diagnostics\Cauldron.Core.Diagnostics.csproj">
+      <Project>{637c0bb9-9915-4e38-9be6-4bfa1feca39f}</Project>
       <Name>Cauldron.Core.Diagnostics</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Disposable\Cauldron.Core.Disposable.csproj">
-      <Project>{FEE69C60-3463-47E9-9A7C-735B4F967AAD}</Project>
+    <ProjectReference Include="..\Cauldron.Core.Disposable\Cauldron.Core.Disposable.csproj">
+      <Project>{667bfa3c-10b8-4e75-befd-9256543f0857}</Project>
       <Name>Cauldron.Core.Disposable</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Extensions.Convertions\Cauldron.Core.Extensions.Convertions.csproj">
-      <Project>{aeca1669-9742-4ac6-ab32-2b8be1c5dac0}</Project>
+    <ProjectReference Include="..\Cauldron.Core.Extensions.Convertions\Cauldron.Core.Extensions.Convertions.csproj">
+      <Project>{be180ed2-42f6-4341-b33a-25a9d081f706}</Project>
       <Name>Cauldron.Core.Extensions.Convertions</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Extensions\Cauldron.Core.Extensions.csproj">
-      <Project>{80d83040-3340-4b2b-8c62-b0ce6b069a34}</Project>
+    <ProjectReference Include="..\Cauldron.Core.Extensions\Cauldron.Core.Extensions.csproj">
+      <Project>{d1be1727-87d4-4ca6-a537-7983cf7b2e4a}</Project>
       <Name>Cauldron.Core.Extensions</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.MathExtensions\Cauldron.Core.MathExtensions.csproj">
-      <Project>{1C4D93D9-20AF-4E93-BEE4-9E9799C1D088}</Project>
+    <ProjectReference Include="..\Cauldron.Core.MathExtensions\Cauldron.Core.MathExtensions.csproj">
+      <Project>{13413838-92d4-4211-9454-532661371a51}</Project>
       <Name>Cauldron.Core.MathExtensions</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Reflection\Cauldron.Core.Reflection.csproj">
-      <Project>{9BC69306-6188-403E-BCE3-0C85FE049A9B}</Project>
+    <ProjectReference Include="..\Cauldron.Core.Reflection\Cauldron.Core.Reflection.csproj">
+      <Project>{485cd56e-9fc6-4392-8b4f-5aebdddd3d1b}</Project>
       <Name>Cauldron.Core.Reflection</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\NetStandard\Cauldron.Core.Threading\Cauldron.Core.Threading.csproj">
-      <Project>{a6137484-c3c9-4808-b4b4-76e27420025d}</Project>
+    <ProjectReference Include="..\Cauldron.Core.Threading\Cauldron.Core.Threading.csproj">
+      <Project>{53fa379e-c047-406e-acdf-88d65fb22646}</Project>
       <Name>Cauldron.Core.Threading</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\NetStandard\Cauldron.Core\Cauldron.Core.csproj">
-      <Project>{a19f8e3a-657f-4123-85e8-ad4111d63e98}</Project>
+    <ProjectReference Include="..\Cauldron.Core\Cauldron.Core.csproj">
+      <Project>{22b1eda6-f216-4dd3-b524-7421e25f9cc9}</Project>
       <Name>Cauldron.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\NetStandard\Cauldron.Cryptography\Cauldron.Cryptography.csproj">
-      <Project>{fe7bd804-a339-486c-8d28-b58e11d8d676}</Project>
+    <ProjectReference Include="..\Cauldron.Cryptography\Cauldron.Cryptography.csproj">
+      <Project>{97d924b8-8fb2-4720-84e1-28502c2bae51}</Project>
       <Name>Cauldron.Cryptography</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\NetStandard\Cauldron.Localization\Cauldron.Localization.csproj">
-      <Project>{2729fd6d-0685-4fdf-a995-3eae4e5ae942}</Project>
+    <ProjectReference Include="..\Cauldron.Localization\Cauldron.Localization.csproj">
+      <Project>{74759c69-9dd6-4096-96b9-4c38d2cfb4e6}</Project>
       <Name>Cauldron.Localization</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Cauldron.Win32.MonitorInfo\Cauldron.Win32.MonitorInfo.csproj">
-      <Project>{e8fded13-93e7-4120-95b6-c829d8220850}</Project>
-      <Name>Cauldron.Win32.MonitorInfo</Name>
+    <ProjectReference Include="..\Cauldron.Win32.UserInformation\Cauldron.Win32.UserInformation.csproj">
+      <Project>{bc37d605-f19e-4093-bfe5-347054fd8895}</Project>
+      <Name>Cauldron.Win32.UserInformation</Name>
     </ProjectReference>
     <ProjectReference Include="..\Cauldron.Win32.WPF.Interactivity\Cauldron.Win32.WPF.Interactivity.csproj">
       <Project>{7ce75511-7dce-4162-936f-ad9031e8a987}</Project>

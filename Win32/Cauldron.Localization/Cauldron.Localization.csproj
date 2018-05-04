@@ -30,7 +30,8 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-  </PropertyGroup>  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-Net45|AnyCPU' ">
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-Net45|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\Net45\</OutputPath>
@@ -116,6 +117,10 @@
     <ProjectReference Include="..\Cauldron.Core.Yaml\Cauldron.Core.Yaml.csproj">
       <Project>{0b37ec23-4e90-49d0-9298-d7a7a4b405f4}</Project>
       <Name>Cauldron.Core.Yaml</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cauldron.Interception\Cauldron.Interception.csproj">
+      <Project>{cfc811eb-c500-4d1f-adf1-ecaf4433af2d}</Project>
+      <Name>Cauldron.Interception</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
