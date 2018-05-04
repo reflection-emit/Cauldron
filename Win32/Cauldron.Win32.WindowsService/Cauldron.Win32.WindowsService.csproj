@@ -123,10 +123,6 @@
       <Project>{2729fd6d-0685-4fdf-a995-3eae4e5ae942}</Project>
       <Name>Cauldron.Localization</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Cauldron.Win32.Extension.IO\Cauldron.Win32.Extension.IO.csproj">
-      <Project>{2d763abc-3f00-42a4-8bcf-d5543e54bd97}</Project>
-      <Name>Cauldron.Win32.Extension.IO</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="FodyWeavers.xml" />

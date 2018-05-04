@@ -210,14 +210,6 @@
       <Project>{e8fded13-93e7-4120-95b6-c829d8220850}</Project>
       <Name>Cauldron.Win32.MonitorInfo</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Cauldron.Win32.Net\Cauldron.Win32.Net.csproj">
-      <Project>{01317cbc-76f0-4c39-a8da-5c93be7c8c41}</Project>
-      <Name>Cauldron.Win32.Net</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Cauldron.Win32.Threading\Cauldron.Win32.Threading.csproj">
-      <Project>{4aeb2c1e-1625-483d-ad8e-6dca3c28742e}</Project>
-      <Name>Cauldron.Win32.Threading</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Cauldron.Win32.UserInformation\Cauldron.Win32.UserInformation.csproj">
       <Project>{bc37d605-f19e-4093-bfe5-347054fd8895}</Project>
       <Name>Cauldron.Win32.UserInformation</Name>

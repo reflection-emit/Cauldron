@@ -16,6 +16,7 @@ namespace Cauldron.Interception.Fody
                 .FirstOrDefault() as System.Reflection.AssemblyFileVersionAttribute;
 
             this.Log($"Cauldron Interception v" + versionAttribute.Version);
+            this.CreateCauldronEntry(this.Builder);
             this.AddAssemblyWideAttributes(this.Builder);
             this.ExecuteModuleAddition(this.Builder);
             this.ExecuteInterceptionScripts(this.Builder);
@@ -139,6 +140,22 @@ namespace Cauldron.Interception.Fody
 
                 return context;
             }).Insert(InsertionPosition.Beginning);
+        }
+
+        private void CreateCauldronEntry(Builder builder)
+        {
+            BuilderType cauldron = null;
+
+            if (builder.TypeExists("<Cauldron>", SearchContext.Module))
+                cauldron = builder.GetType("<Cauldron>", SearchContext.Module);
+            else
+            {
+                cauldron = builder.CreateType("", TypeAttributes.Public | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit, "<Cauldron>");
+                cauldron.CreateConstructor();
+                cauldron.CustomAttributes.AddCompilerGeneratedAttribute();
+            }
+
+            cauldron.CustomAttributes.AddDebuggerDisplayAttribute(cauldron.Assembly.Name.Name);
         }
 
         private void ExecuteModuleAddition(Builder builder)

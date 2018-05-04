@@ -468,7 +468,7 @@ namespace Cauldron.Core.Reflection
                 }
                 catch (Exception e)
                 {
-                    Debug.WriteLine(e.Message);
+                    Debug.WriteLine("Error Loading <Cauldron>: " + e.Message);
                     // Remove this assembly from the assembly list
                     _assemblies.Remove(assemblies[i]);
                 }

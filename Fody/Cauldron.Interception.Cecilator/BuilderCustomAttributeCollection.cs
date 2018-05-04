@@ -1,5 +1,4 @@
-﻿
-using Mono.Cecil;
+﻿using Mono.Cecil;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -111,6 +110,8 @@ namespace Cauldron.Interception.Cecilator
 
         public void AddDebuggerBrowsableAttribute(DebuggerBrowsableState state) => this.Add(this.builder.GetType("System.Diagnostics.DebuggerBrowsableAttribute"), state);
 
+        public void AddDebuggerDisplayAttribute(string value) => this.Add(this.builder.GetType("System.Diagnostics.DebuggerDisplayAttribute"), value);
+
         public void AddEditorBrowsableAttribute(EditorBrowsableState state) => this.Add(this.builder.GetType("System.ComponentModel.EditorBrowsableAttribute"), state);
 
         public void AddNonSerializedAttribute()
@@ -146,6 +147,8 @@ namespace Cauldron.Interception.Cecilator
         }
 
         public IEnumerator<BuilderCustomAttribute> GetEnumerator() => this.innerCollection.GetEnumerator();
+
+        IEnumerator IEnumerable.GetEnumerator() => this.innerCollection.GetEnumerator();
 
         public bool HasAttribute(BuilderType type)
         {
@@ -186,8 +189,6 @@ namespace Cauldron.Interception.Cecilator
                 .ToArray();
             this.Remove(attributesToRemove);
         }
-
-        IEnumerator IEnumerable.GetEnumerator() => this.innerCollection.GetEnumerator();
 
         private object ConvertToAttributeParameter(object value)
         {

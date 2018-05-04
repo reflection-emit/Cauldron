@@ -72,12 +72,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\NetStandard\Cauldron.Core.Interceptors\ExecutionTimeAttribute.cs">
-      <Link>ExecutionTimeAttribute.cs</Link>
-    </Compile>
-    <Compile Include="..\..\NetStandard\Cauldron.Core.Interceptors\PropertyOnSetAttribute.cs">
-      <Link>PropertyOnSetAttribute.cs</Link>
-    </Compile>
     <Compile Include="ExceptionLoggerAttribute.cs" />
     <Compile Include="ExceptionToEventLogAttribute.cs" />
     <None Include="InterceptorScripts\TimedCacheInterceptorWeaver.csx" />
