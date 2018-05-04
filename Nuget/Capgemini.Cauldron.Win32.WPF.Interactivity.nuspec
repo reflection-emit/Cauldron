@@ -33,7 +33,6 @@
       <dependency id="Capgemini.Cauldron.Core.Threading" version="3.0.7-beta" />
       <dependency id="Capgemini.Cauldron.Cryptography" version="3.0.7-beta" />
       <dependency id="Capgemini.Cauldron.Localization" version="3.0.7-beta" />
-      <dependency id="Capgemini.Cauldron.Win32.Threading" version="3.0.7-beta" />
       <dependency id="Capgemini.Cauldron.Win32.WPF" version="3.0.7-beta" />
     </dependencies>
   </metadata>

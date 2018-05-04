@@ -25,7 +25,7 @@
       <dependency id="Capgemini.Cauldron.Core.Extensions" version="3.0.7-beta" />
       <dependency id="Capgemini.Cauldron.Core.Reflection" version="3.0.7-beta" />
       <dependency id="Capgemini.Cauldron.Cryptography" version="3.0.7-beta" />
-      <dependency id="Capgemini.Cauldron.Win32.Extension.IO" version="3.0.7-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Extension.IO" version="3.0.7-beta" />
       <dependency id="Fody" version="3.0.3" />
     </dependencies>
     <frameworkAssemblies>
