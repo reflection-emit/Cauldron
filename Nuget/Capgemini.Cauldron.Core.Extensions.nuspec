@@ -18,7 +18,8 @@
       2017.12.19 - [A] PadOrCut extension method added. It allows to pad chars or cut the string to a specific length.
     </releaseNotes>
     <dependencies>
-      <group targetFramework=".NETStandard2.0" />
+      <group>
+      </group>
     </dependencies>
   </metadata>
   <files>

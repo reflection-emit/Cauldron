@@ -18,7 +18,8 @@
       2017.12.23 - [A] Added assemblies for NET45 and NET461
     </releaseNotes>
     <dependencies>
-      <group targetFramework=".NETStandard2.0" />
+      <group>
+      </group>
     </dependencies>
   </metadata>
   <files>

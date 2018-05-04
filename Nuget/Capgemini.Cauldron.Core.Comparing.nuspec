@@ -19,7 +19,7 @@
       2018.01.07 - [C] Comparer code replaced by patterns and also cache added.
     </releaseNotes>
     <dependencies>
-      <group targetFramework=".NETStandard2.0">
+      <group>
       </group>
     </dependencies>
   </metadata>

@@ -16,7 +16,7 @@
       2018.05.04 - [C] Assemblies for Net45, Net451, Net452, Net46, Net461 and Net462 added
     </releaseNotes>
     <dependencies>
-      <group targetFramework=".NETStandard2.0">
+      <group>
         <dependency id="Capgemini.Cauldron.Core.Comparing" version="3.0.7-beta" />
         <dependency id="Capgemini.Cauldron.Core.Extensions" version="3.0.7-beta" />
         <dependency id="Capgemini.Cauldron.Core.Extensions.Compression" version="3.0.7-beta" />

@@ -18,7 +18,8 @@
       2017.12.05 - [A] GetUniqueDirectoryName and GetUniqueFilename added.
     </releaseNotes>
     <dependencies>
-      <group targetFramework=".NETStandard2.0" />
+      <group>
+      </group>
     </dependencies>
   </metadata>
   <files>

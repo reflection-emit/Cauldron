@@ -18,7 +18,7 @@
       2017.12.11 - [B] Added a Contains method to Locale.
     </releaseNotes>
     <dependencies>
-      <group targetFramework=".NETStandard2.0">
+      <group>
         <dependency id="Capgemini.Cauldron.Activator" version="3.0.7-beta" />
         <dependency id="Capgemini.Cauldron.Core.Extensions" version="3.0.7-beta" />
         <dependency id="Capgemini.Cauldron.Core.Reflection" version="3.0.7-beta" />

@@ -27,7 +27,7 @@
       2017.12.10 - [B] A bug in Assemblies that causes the Custom assembly resolution to be invoked before all assemblies are added to the collection fixed.
     </releaseNotes>
     <dependencies>
-      <group targetFramework=".NETStandard2.0">
+      <group>
         <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="3.0.7-beta" />
       </group>
     </dependencies>
