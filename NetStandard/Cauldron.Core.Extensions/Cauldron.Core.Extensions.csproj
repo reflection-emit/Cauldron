@@ -29,17 +29,19 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release.Net45|AnyCPU'">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <DocumentationFile>bin\Release\netstandard2.0\Cauldron.Core.Extensions.xml</DocumentationFile>
+    <DocumentationFile>bin\Release.Net45\netstandard2.0\Cauldron.Core.Extensions.xml</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DocumentationFile>bin\Release\netstandard2.0\Cauldron.Core.Extensions.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release.451|AnyCPU'">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DocumentationFile>bin\Release.451\netstandard2.0\Cauldron.Core.Extensions.xml</DocumentationFile>
   </PropertyGroup>
 
   <Import Project="..\..\Shared\Cauldron.Core.Extensions\Cauldron.Core.Extensions.projitems" Label="Shared" />

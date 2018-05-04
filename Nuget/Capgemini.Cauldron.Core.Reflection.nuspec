@@ -21,20 +21,39 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Reflection</tags>
     <releaseNotes>
+      2018.05.04 - [C] Assemblies for Net45, Net451, Net452, Net46, Net461 and Net462 added
       2018.01.22 - [B] Issues with loading some assemblies... They are skiped now.
       2017.12.11 - [C] Now Costura compatible.
       2017.12.10 - [B] A bug in Assemblies that causes the Custom assembly resolution to be invoked before all assemblies are added to the collection fixed.
     </releaseNotes>
     <dependencies>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="3.0.6-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="3.0.7-beta" />
       </group>
     </dependencies>
   </metadata>
   <files>
-    <file src="..\NetStandard\Cauldron.Core.Reflection\bin\Release\netstandard2.0\Cauldron.Core.Reflection.dll" target="lib\netstandard2.0\Cauldron.Core.Reflection.dll" />
-    <file src="..\NetStandard\Cauldron.Core.Reflection\bin\Release\netstandard2.0\Cauldron.Core.Reflection.xml" target="lib\netstandard2.0\Cauldron.Core.Reflection.xml" />
-    <file src="..\NetStandard\Cauldron.Core.Reflection\bin\Release\netstandard2.0\Cauldron.Core.Reflection.pdb" target="lib\netstandard2.0\Cauldron.Core.Reflection.pdb" />
-    <file src="..\NetStandard\Cauldron.Core.Reflection\**\*.cs" target="src" />
+    <file src="..\NetStandard\Cauldron.Core.Reflection\bin\Release\netstandard2.0\Cauldron.Core.Reflection.dll" target="lib\netstandard2.0" />
+    <file src="..\NetStandard\Cauldron.Core.Reflection\bin\Release\netstandard2.0\Cauldron.Core.Reflection.xml" target="lib\netstandard2.0" />
+    <file src="..\NetStandard\Cauldron.Core.Reflection\bin\Release\netstandard2.0\Cauldron.Core.Reflection.pdb" target="lib\netstandard2.0" />
+    <file src="..\Win32\Cauldron.Core.Reflection\bin\Release\Net45\Cauldron.Core.Reflection.dll" target="lib\net45" />
+    <file src="..\Win32\Cauldron.Core.Reflection\bin\Release\Net45\Cauldron.Core.Reflection.xml" target="lib\net45" />
+    <file src="..\Win32\Cauldron.Core.Reflection\bin\Release\Net45\Cauldron.Core.Reflection.pdb" target="lib\net45" />
+    <file src="..\Win32\Cauldron.Core.Reflection\bin\Release\Net451\Cauldron.Core.Reflection.dll" target="lib\net451" />
+    <file src="..\Win32\Cauldron.Core.Reflection\bin\Release\Net451\Cauldron.Core.Reflection.xml" target="lib\net451" />
+    <file src="..\Win32\Cauldron.Core.Reflection\bin\Release\Net451\Cauldron.Core.Reflection.pdb" target="lib\net451" />
+    <file src="..\Win32\Cauldron.Core.Reflection\bin\Release\Net452\Cauldron.Core.Reflection.dll" target="lib\net452" />
+    <file src="..\Win32\Cauldron.Core.Reflection\bin\Release\Net452\Cauldron.Core.Reflection.xml" target="lib\net452" />
+    <file src="..\Win32\Cauldron.Core.Reflection\bin\Release\Net452\Cauldron.Core.Reflection.pdb" target="lib\net452" />
+    <file src="..\Win32\Cauldron.Core.Reflection\bin\Release\Net46\Cauldron.Core.Reflection.dll" target="lib\net46" />
+    <file src="..\Win32\Cauldron.Core.Reflection\bin\Release\Net46\Cauldron.Core.Reflection.xml" target="lib\net46" />
+    <file src="..\Win32\Cauldron.Core.Reflection\bin\Release\Net46\Cauldron.Core.Reflection.pdb" target="lib\net46" />
+    <file src="..\Win32\Cauldron.Core.Reflection\bin\Release\Net461\Cauldron.Core.Reflection.dll" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Core.Reflection\bin\Release\Net461\Cauldron.Core.Reflection.xml" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Core.Reflection\bin\Release\Net461\Cauldron.Core.Reflection.pdb" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Core.Reflection\bin\Release\Net462\Cauldron.Core.Reflection.dll" target="lib\net462" />
+    <file src="..\Win32\Cauldron.Core.Reflection\bin\Release\Net462\Cauldron.Core.Reflection.xml" target="lib\net462" />
+    <file src="..\Win32\Cauldron.Core.Reflection\bin\Release\Net462\Cauldron.Core.Reflection.pdb" target="lib\net462" />
+    <file src="..\Shared\Cauldron.Core.Reflection\**\*.cs" target="src" />
   </files>
 </package>

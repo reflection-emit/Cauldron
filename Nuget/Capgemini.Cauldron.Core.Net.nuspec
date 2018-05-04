@@ -12,14 +12,36 @@
     <description>A collection of usefull methods regarding networks</description>
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Net Ping Network</tags>
+    <releaseNotes>
+      2018.05.04 - [C] Assemblies for Net45, Net451, Net452, Net46, Net461 and Net462 added
+    </releaseNotes>
     <dependencies>
       <group targetFramework=".NETStandard2.0" />
     </dependencies>
   </metadata>
   <files>
-    <file src="..\NetStandard\Cauldron.Core.Net\bin\Release\netstandard2.0\Cauldron.Core.Net.dll" target="lib\netstandard2.0\Cauldron.Core.Net.dll" />
-    <file src="..\NetStandard\Cauldron.Core.Net\bin\Release\netstandard2.0\Cauldron.Core.Net.xml" target="lib\netstandard2.0\Cauldron.Core.Net.xml" />
-    <file src="..\NetStandard\Cauldron.Core.Net\bin\Release\netstandard2.0\Cauldron.Core.Net.pdb" target="lib\netstandard2.0\Cauldron.Core.Net.pdb" />
-    <file src="..\NetStandard\Cauldron.Core.Net\**\*.cs" target="src" />
+    <file src="..\NetStandard\Cauldron.Core.Net\bin\Release\netstandard2.0\Cauldron.Core.Net.dll" target="lib\netstandard2.0" />
+    <file src="..\NetStandard\Cauldron.Core.Net\bin\Release\netstandard2.0\Cauldron.Core.Net.xml" target="lib\netstandard2.0" />
+    <file src="..\NetStandard\Cauldron.Core.Net\bin\Release\netstandard2.0\Cauldron.Core.Net.pdb" target="lib\netstandard2.0" />
+    <file src="..\Win32\Cauldron.Core.Net\bin\Release\Net45\Cauldron.Core.Net.dll" target="lib\net45" />
+    <file src="..\Win32\Cauldron.Core.Net\bin\Release\Net45\Cauldron.Core.Net.xml" target="lib\net45" />
+    <file src="..\Win32\Cauldron.Core.Net\bin\Release\Net45\Cauldron.Core.Net.pdb" target="lib\net45" />
+    <file src="..\Win32\Cauldron.Core.Net\bin\Release\Net451\Cauldron.Core.Net.dll" target="lib\net451" />
+    <file src="..\Win32\Cauldron.Core.Net\bin\Release\Net451\Cauldron.Core.Net.xml" target="lib\net451" />
+    <file src="..\Win32\Cauldron.Core.Net\bin\Release\Net451\Cauldron.Core.Net.pdb" target="lib\net451" />
+    <file src="..\Win32\Cauldron.Core.Net\bin\Release\Net452\Cauldron.Core.Net.dll" target="lib\net452" />
+    <file src="..\Win32\Cauldron.Core.Net\bin\Release\Net452\Cauldron.Core.Net.xml" target="lib\net452" />
+    <file src="..\Win32\Cauldron.Core.Net\bin\Release\Net452\Cauldron.Core.Net.pdb" target="lib\net452" />
+    <file src="..\Win32\Cauldron.Core.Net\bin\Release\Net46\Cauldron.Core.Net.dll" target="lib\net46" />
+    <file src="..\Win32\Cauldron.Core.Net\bin\Release\Net46\Cauldron.Core.Net.xml" target="lib\net46" />
+    <file src="..\Win32\Cauldron.Core.Net\bin\Release\Net46\Cauldron.Core.Net.pdb" target="lib\net46" />
+    <file src="..\Win32\Cauldron.Core.Net\bin\Release\Net461\Cauldron.Core.Net.dll" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Core.Net\bin\Release\Net461\Cauldron.Core.Net.xml" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Core.Net\bin\Release\Net461\Cauldron.Core.Net.pdb" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Core.Net\bin\Release\Net462\Cauldron.Core.Net.dll" target="lib\net462" />
+    <file src="..\Win32\Cauldron.Core.Net\bin\Release\Net462\Cauldron.Core.Net.xml" target="lib\net462" />
+    <file src="..\Win32\Cauldron.Core.Net\bin\Release\Net462\Cauldron.Core.Net.pdb" target="lib\net462" />
+    <file src="..\Shared\Cauldron.Core.Net\**\*.cs" target="src" />
+    <file src="..\Win32\Cauldron.Core.Net\**\*.cs" target="src" />
   </files>
 </package>

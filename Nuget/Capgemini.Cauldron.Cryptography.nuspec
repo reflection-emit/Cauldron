@@ -12,21 +12,42 @@
     <description>Contains typical implementations for AES, RSA and RSA-AES encryptions. It also contains extensions that helps working with SecureString.</description>
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Cryptography AES RSA SecureString</tags>
+    <releaseNotes>
+      2018.05.04 - [C] Assemblies for Net45, Net451, Net452, Net46, Net461 and Net462 added
+    </releaseNotes>
     <dependencies>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="Capgemini.Cauldron.Core.Comparing" version="3.0.6-beta" />
-        <dependency id="Capgemini.Cauldron.Core.Extensions" version="3.0.6-beta" />
-        <dependency id="Capgemini.Cauldron.Core.Extensions.Compression" version="3.0.6-beta" />
-        <dependency id="Capgemini.Cauldron.Core.Extensions.Convertions" version="3.0.6-beta" />
-        <dependency id="Capgemini.Cauldron.Core.MathExtensions" version="3.0.6-beta" />
-        <dependency id="Capgemini.Cauldron.Core.Randomizer" version="3.0.6-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Comparing" version="3.0.7-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Extensions" version="3.0.7-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Extensions.Compression" version="3.0.7-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Extensions.Convertions" version="3.0.7-beta" />
+        <dependency id="Capgemini.Cauldron.Core.MathExtensions" version="3.0.7-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Randomizer" version="3.0.7-beta" />
       </group>
     </dependencies>
   </metadata>
   <files>
-    <file src="..\NetStandard\Cauldron.Cryptography\bin\Release\netstandard2.0\Cauldron.Cryptography.dll" target="lib\netstandard2.0\Cauldron.Cryptography.dll" />
-    <file src="..\NetStandard\Cauldron.Cryptography\bin\Release\netstandard2.0\Cauldron.Cryptography.xml" target="lib\netstandard2.0\Cauldron.Cryptography.xml" />
-    <file src="..\NetStandard\Cauldron.Cryptography\bin\Release\netstandard2.0\Cauldron.Cryptography.pdb" target="lib\netstandard2.0\Cauldron.Cryptography.pdb" />
-    <file src="..\NetStandard\Cauldron.Cryptography\**\*.cs" target="src" />
+    <file src="..\NetStandard\Cauldron.Cryptography\bin\Release\netstandard2.0\Cauldron.Cryptography.dll" target="lib\netstandard2.0" />
+    <file src="..\NetStandard\Cauldron.Cryptography\bin\Release\netstandard2.0\Cauldron.Cryptography.xml" target="lib\netstandard2.0" />
+    <file src="..\NetStandard\Cauldron.Cryptography\bin\Release\netstandard2.0\Cauldron.Cryptography.pdb" target="lib\netstandard2.0" />
+    <file src="..\Win32\Cauldron.Cryptography\bin\Release\Net45\Cauldron.Cryptography.dll" target="lib\net45" />
+    <file src="..\Win32\Cauldron.Cryptography\bin\Release\Net45\Cauldron.Cryptography.xml" target="lib\net45" />
+    <file src="..\Win32\Cauldron.Cryptography\bin\Release\Net45\Cauldron.Cryptography.pdb" target="lib\net45" />
+    <file src="..\Win32\Cauldron.Cryptography\bin\Release\Net451\Cauldron.Cryptography.dll" target="lib\net451" />
+    <file src="..\Win32\Cauldron.Cryptography\bin\Release\Net451\Cauldron.Cryptography.xml" target="lib\net451" />
+    <file src="..\Win32\Cauldron.Cryptography\bin\Release\Net451\Cauldron.Cryptography.pdb" target="lib\net451" />
+    <file src="..\Win32\Cauldron.Cryptography\bin\Release\Net452\Cauldron.Cryptography.dll" target="lib\net452" />
+    <file src="..\Win32\Cauldron.Cryptography\bin\Release\Net452\Cauldron.Cryptography.xml" target="lib\net452" />
+    <file src="..\Win32\Cauldron.Cryptography\bin\Release\Net452\Cauldron.Cryptography.pdb" target="lib\net452" />
+    <file src="..\Win32\Cauldron.Cryptography\bin\Release\Net46\Cauldron.Cryptography.dll" target="lib\net46" />
+    <file src="..\Win32\Cauldron.Cryptography\bin\Release\Net46\Cauldron.Cryptography.xml" target="lib\net46" />
+    <file src="..\Win32\Cauldron.Cryptography\bin\Release\Net46\Cauldron.Cryptography.pdb" target="lib\net46" />
+    <file src="..\Win32\Cauldron.Cryptography\bin\Release\Net461\Cauldron.Cryptography.dll" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Cryptography\bin\Release\Net461\Cauldron.Cryptography.xml" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Cryptography\bin\Release\Net461\Cauldron.Cryptography.pdb" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Cryptography\bin\Release\Net462\Cauldron.Cryptography.dll" target="lib\net462" />
+    <file src="..\Win32\Cauldron.Cryptography\bin\Release\Net462\Cauldron.Cryptography.xml" target="lib\net462" />
+    <file src="..\Win32\Cauldron.Cryptography\bin\Release\Net462\Cauldron.Cryptography.pdb" target="lib\net462" />
+    <file src="..\Shared\Cauldron.Cryptography\**\*.cs" target="src" />
   </files>
 </package>

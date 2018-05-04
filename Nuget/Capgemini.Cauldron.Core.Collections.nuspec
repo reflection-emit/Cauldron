@@ -17,9 +17,9 @@
     </releaseNotes>
     <dependencies>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="Capgemini.Cauldron.Core.Comparing" version="3.0.6-beta" />
-        <dependency id="Capgemini.Cauldron.Core.Extensions" version="3.0.6-beta" />
-        <dependency id="Capgemini.Cauldron.Core.Extensions.Convertions" version="3.0.6-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Comparing" version="3.0.7-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Extensions" version="3.0.7-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Extensions.Convertions" version="3.0.7-beta" />
       </group>
     </dependencies>
   </metadata>
@@ -27,31 +27,24 @@
     <file src="..\NetStandard\Cauldron.Core.Collections\bin\Release\netstandard2.0\Cauldron.Core.Collections.dll" target="lib\netstandard2.0" />
     <file src="..\NetStandard\Cauldron.Core.Collections\bin\Release\netstandard2.0\Cauldron.Core.Collections.xml" target="lib\netstandard2.0" />
     <file src="..\NetStandard\Cauldron.Core.Collections\bin\Release\netstandard2.0\Cauldron.Core.Collections.pdb" target="lib\netstandard2.0" />
-
     <file src="..\Win32\Cauldron.Core.Collections\bin\Release\Net45\Cauldron.Core.Collections.dll" target="lib\net45" />
     <file src="..\Win32\Cauldron.Core.Collections\bin\Release\Net45\Cauldron.Core.Collections.xml" target="lib\net45" />
     <file src="..\Win32\Cauldron.Core.Collections\bin\Release\Net45\Cauldron.Core.Collections.pdb" target="lib\net45" />
-
     <file src="..\Win32\Cauldron.Core.Collections\bin\Release\Net451\Cauldron.Core.Collections.dll" target="lib\net451" />
     <file src="..\Win32\Cauldron.Core.Collections\bin\Release\Net451\Cauldron.Core.Collections.xml" target="lib\net451" />
     <file src="..\Win32\Cauldron.Core.Collections\bin\Release\Net451\Cauldron.Core.Collections.pdb" target="lib\net451" />
-
     <file src="..\Win32\Cauldron.Core.Collections\bin\Release\Net452\Cauldron.Core.Collections.dll" target="lib\net452" />
     <file src="..\Win32\Cauldron.Core.Collections\bin\Release\Net452\Cauldron.Core.Collections.xml" target="lib\net452" />
     <file src="..\Win32\Cauldron.Core.Collections\bin\Release\Net452\Cauldron.Core.Collections.pdb" target="lib\net452" />
-
     <file src="..\Win32\Cauldron.Core.Collections\bin\Release\Net46\Cauldron.Core.Collections.dll" target="lib\net46" />
     <file src="..\Win32\Cauldron.Core.Collections\bin\Release\Net46\Cauldron.Core.Collections.xml" target="lib\net46" />
     <file src="..\Win32\Cauldron.Core.Collections\bin\Release\Net46\Cauldron.Core.Collections.pdb" target="lib\net46" />
-
     <file src="..\Win32\Cauldron.Core.Collections\bin\Release\Net461\Cauldron.Core.Collections.dll" target="lib\net461" />
     <file src="..\Win32\Cauldron.Core.Collections\bin\Release\Net461\Cauldron.Core.Collections.xml" target="lib\net461" />
     <file src="..\Win32\Cauldron.Core.Collections\bin\Release\Net461\Cauldron.Core.Collections.pdb" target="lib\net461" />
-
     <file src="..\Win32\Cauldron.Core.Collections\bin\Release\Net462\Cauldron.Core.Collections.dll" target="lib\net462" />
     <file src="..\Win32\Cauldron.Core.Collections\bin\Release\Net462\Cauldron.Core.Collections.xml" target="lib\net462" />
     <file src="..\Win32\Cauldron.Core.Collections\bin\Release\Net462\Cauldron.Core.Collections.pdb" target="lib\net462" />
-
     <file src="..\Shared\Cauldron.Core.Collections\**\*.cs" target="src" />
   </files>
 </package>

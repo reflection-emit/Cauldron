@@ -185,7 +185,7 @@ private static void BuildNuGetPackage(string path, string targetDirectory, strin
     var error = process.StandardError.ReadToEnd();
     var output = process.StandardOutput.ReadToEnd();
 
-    process.WaitForExit();
+    process.WaitForExit(10000);
 
     Console.WriteLine(output);
 

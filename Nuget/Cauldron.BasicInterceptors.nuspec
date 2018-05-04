@@ -19,42 +19,34 @@
       2018.04.23 - [A] First version
     </releaseNotes>
     <dependencies>
-      <dependency id="Cauldron.Interception.Fody" version="3.0.6-beta" />
+      <dependency id="Cauldron.Interception.Fody" version="3.0.7-beta" />
     </dependencies>
   </metadata>
   <files>
     <file src="..\NetStandard\Cauldron.Interception\bin\Release\netstandard2.0\Cauldron.Interception.dll" target="lib\netstandard2.0" />
     <file src="..\NetStandard\Cauldron.Interception\bin\Release\netstandard2.0\Cauldron.Interception.xml" target="lib\netstandard2.0" />
     <file src="..\NetStandard\Cauldron.Interception\bin\Release\netstandard2.0\Cauldron.Interception.pdb" target="lib\netstandard2.0" />
-
     <file src="..\UWP\Cauldron.Interception\bin\Release\Cauldron.Interception.dll" target="lib\uap10.0" />
     <file src="..\UWP\Cauldron.Interception\bin\Release\Cauldron.Interception.xml" target="lib\uap10.0" />
     <file src="..\UWP\Cauldron.Interception\bin\Release\Cauldron.Interception.pdb" target="lib\uap10.0" />
-
     <file src="..\Win32\Cauldron.Interception\bin\Release\Net45\Cauldron.Interception.dll" target="lib\net45" />
     <file src="..\Win32\Cauldron.Interception\bin\Release\Net45\Cauldron.Interception.xml" target="lib\net45" />
     <file src="..\Win32\Cauldron.Interception\bin\Release\Net45\Cauldron.Interception.pdb" target="lib\net45" />
-
     <file src="..\Win32\Cauldron.Interception\bin\Release\Net451\Cauldron.Interception.dll" target="lib\net451" />
     <file src="..\Win32\Cauldron.Interception\bin\Release\Net451\Cauldron.Interception.xml" target="lib\net451" />
     <file src="..\Win32\Cauldron.Interception\bin\Release\Net451\Cauldron.Interception.pdb" target="lib\net451" />
-
     <file src="..\Win32\Cauldron.Interception\bin\Release\Net452\Cauldron.Interception.dll" target="lib\net452" />
     <file src="..\Win32\Cauldron.Interception\bin\Release\Net452\Cauldron.Interception.xml" target="lib\net452" />
     <file src="..\Win32\Cauldron.Interception\bin\Release\Net452\Cauldron.Interception.pdb" target="lib\net452" />
-
     <file src="..\Win32\Cauldron.Interception\bin\Release\Net46\Cauldron.Interception.dll" target="lib\net46" />
     <file src="..\Win32\Cauldron.Interception\bin\Release\Net46\Cauldron.Interception.xml" target="lib\net46" />
     <file src="..\Win32\Cauldron.Interception\bin\Release\Net46\Cauldron.Interception.pdb" target="lib\net46" />
-
     <file src="..\Win32\Cauldron.Interception\bin\Release\Net461\Cauldron.Interception.dll" target="lib\net461" />
     <file src="..\Win32\Cauldron.Interception\bin\Release\Net461\Cauldron.Interception.xml" target="lib\net461" />
     <file src="..\Win32\Cauldron.Interception\bin\Release\Net461\Cauldron.Interception.pdb" target="lib\net461" />
-
     <file src="..\Win32\Cauldron.Interception\bin\Release\Net462\Cauldron.Interception.dll" target="lib\net462" />
     <file src="..\Win32\Cauldron.Interception\bin\Release\Net462\Cauldron.Interception.xml" target="lib\net462" />
     <file src="..\Win32\Cauldron.Interception\bin\Release\Net462\Cauldron.Interception.pdb" target="lib\net462" />
-
     <file src="..\Fody\Interceptors\Cauldron.BasicInterceptors*.dll" target="Content\Interceptors" />
     <file src="..\Shared\Cauldron.Interception\**\*.cs" target="src" />
   </files>

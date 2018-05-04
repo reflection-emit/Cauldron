@@ -14,6 +14,9 @@
     <summary>Provides properties and methods for getting information about the monitor</summary>
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Monitor Information Info</tags>
+    <releaseNotes>
+      2018.05.04 - [C] Assemblies for Net45, Net451, Net452, Net46, Net461 and Net462 added
+    </releaseNotes>
     <dependencies>
     </dependencies>
     <frameworkAssemblies>
@@ -22,10 +25,24 @@
     </frameworkAssemblies>
   </metadata>
   <files>
-    <!-- Desktop -->
-    <file src="..\Win32\Cauldron.Win32.MonitorInfo\bin\Release\Cauldron.Win32.MonitorInfo.dll" target="lib\net461" />
-    <file src="..\Win32\Cauldron.Win32.MonitorInfo\bin\Release\Cauldron.Win32.MonitorInfo.xml" target="lib\net461" />
-    <file src="..\Win32\Cauldron.Win32.MonitorInfo\bin\Release\Cauldron.Win32.MonitorInfo.pdb" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Win32.MonitorInfo\bin\Release\Net45\Cauldron.Win32.MonitorInfo.dll" target="lib\net45" />
+    <file src="..\Win32\Cauldron.Win32.MonitorInfo\bin\Release\Net45\Cauldron.Win32.MonitorInfo.xml" target="lib\net45" />
+    <file src="..\Win32\Cauldron.Win32.MonitorInfo\bin\Release\Net45\Cauldron.Win32.MonitorInfo.pdb" target="lib\net45" />
+    <file src="..\Win32\Cauldron.Win32.MonitorInfo\bin\Release\Net451\Cauldron.Win32.MonitorInfo.dll" target="lib\net451" />
+    <file src="..\Win32\Cauldron.Win32.MonitorInfo\bin\Release\Net451\Cauldron.Win32.MonitorInfo.xml" target="lib\net451" />
+    <file src="..\Win32\Cauldron.Win32.MonitorInfo\bin\Release\Net451\Cauldron.Win32.MonitorInfo.pdb" target="lib\net451" />
+    <file src="..\Win32\Cauldron.Win32.MonitorInfo\bin\Release\Net452\Cauldron.Win32.MonitorInfo.dll" target="lib\net452" />
+    <file src="..\Win32\Cauldron.Win32.MonitorInfo\bin\Release\Net452\Cauldron.Win32.MonitorInfo.xml" target="lib\net452" />
+    <file src="..\Win32\Cauldron.Win32.MonitorInfo\bin\Release\Net452\Cauldron.Win32.MonitorInfo.pdb" target="lib\net452" />
+    <file src="..\Win32\Cauldron.Win32.MonitorInfo\bin\Release\Net46\Cauldron.Win32.MonitorInfo.dll" target="lib\net46" />
+    <file src="..\Win32\Cauldron.Win32.MonitorInfo\bin\Release\Net46\Cauldron.Win32.MonitorInfo.xml" target="lib\net46" />
+    <file src="..\Win32\Cauldron.Win32.MonitorInfo\bin\Release\Net46\Cauldron.Win32.MonitorInfo.pdb" target="lib\net46" />
+    <file src="..\Win32\Cauldron.Win32.MonitorInfo\bin\Release\Net461\Cauldron.Win32.MonitorInfo.dll" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Win32.MonitorInfo\bin\Release\Net461\Cauldron.Win32.MonitorInfo.xml" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Win32.MonitorInfo\bin\Release\Net461\Cauldron.Win32.MonitorInfo.pdb" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Win32.MonitorInfo\bin\Release\Net462\Cauldron.Win32.MonitorInfo.dll" target="lib\net462" />
+    <file src="..\Win32\Cauldron.Win32.MonitorInfo\bin\Release\Net462\Cauldron.Win32.MonitorInfo.xml" target="lib\net462" />
+    <file src="..\Win32\Cauldron.Win32.MonitorInfo\bin\Release\Net462\Cauldron.Win32.MonitorInfo.pdb" target="lib\net462" />
     <file src="..\Win32\Cauldron.Win32.MonitorInfo\**\*.cs" target="src" />
   </files>
 </package>

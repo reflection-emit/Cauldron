@@ -656,12 +656,12 @@
   <HelpKINode Title="ExistsAsync method" Url="html/M_Cauldron_ExtensionsFileIO_ExistsAsync.htm" />
   <HelpKINode Title="ExportedTypes property" Url="html/P_Cauldron_Core_Reflection_Assemblies_ExportedTypes.htm" />
   <HelpKINode Title="Extensions class">
+    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Interception_Extensions.htm" />
     <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Core_Collections_Extensions.htm" />
     <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Extensions.htm" />
-    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Interception_Extensions.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Collections_Extensions.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Interception_Extensions.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Extensions.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Collections_Extensions.htm" />
   </HelpKINode>
   <HelpKINode Title="Extensions.Concat method" Url="html/Overload_Cauldron_Extensions_Concat.htm" />
   <HelpKINode Title="Extensions.Contains method" Url="html/M_Cauldron_Extensions_Contains.htm" />

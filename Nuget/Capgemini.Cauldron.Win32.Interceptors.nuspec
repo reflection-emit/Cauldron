@@ -14,6 +14,7 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Interceptors Fody Interception</tags>
     <releaseNotes>
+      2018.05.04 - [C] Assemblies for Net45, Net451, Net452, Net46, Net461 and Net462 added
       2018.04.24 - [C] Now bringing its own interceptor
       2018.04.11 - [C] Fody version 3.0.0 update and minor bug fixes.
       2017.12.31 - [C] InterceptorRule added to RegistryClassAttribute
@@ -26,21 +27,35 @@
       2017.12.04 - [C] TimedCacheAttribute namespace changed to Cauldron.Core.Interceptors.
     </releaseNotes>
     <dependencies>
-      <dependency id="Cauldron.Interception.Fody" version="3.0.6-beta" />
-      <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="3.0.6-beta" />
+      <dependency id="Cauldron.Interception.Fody" version="3.0.7-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="3.0.7-beta" />
       <dependency id="Fody" version="3.0.3" />
       <dependency id="NLog" version="4.4.12" />
-      <dependency id="Cauldron.BasicInterceptors" version="3.0.6-beta" />
+      <dependency id="Cauldron.BasicInterceptors" version="3.0.7-beta" />
     </dependencies>
     <frameworkAssemblies>
       <frameworkAssembly assemblyName="System.Runtime.Caching" />
     </frameworkAssemblies>
   </metadata>
   <files>
-    <!-- Desktop -->
-    <file src="..\Win32\Cauldron.Win32.Interceptors\bin\Release\Cauldron.Win32.Interceptors.dll" target="lib\net461" />
-    <file src="..\Win32\Cauldron.Win32.Interceptors\bin\Release\Cauldron.Win32.Interceptors.xml" target="lib\net461" />
-    <file src="..\Win32\Cauldron.Win32.Interceptors\bin\Release\Cauldron.Win32.Interceptors.pdb" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Win32.Interceptors\bin\Release\Net45\Cauldron.Win32.Interceptors.dll" target="lib\net45" />
+    <file src="..\Win32\Cauldron.Win32.Interceptors\bin\Release\Net45\Cauldron.Win32.Interceptors.xml" target="lib\net45" />
+    <file src="..\Win32\Cauldron.Win32.Interceptors\bin\Release\Net45\Cauldron.Win32.Interceptors.pdb" target="lib\net45" />
+    <file src="..\Win32\Cauldron.Win32.Interceptors\bin\Release\Net451\Cauldron.Win32.Interceptors.dll" target="lib\net451" />
+    <file src="..\Win32\Cauldron.Win32.Interceptors\bin\Release\Net451\Cauldron.Win32.Interceptors.xml" target="lib\net451" />
+    <file src="..\Win32\Cauldron.Win32.Interceptors\bin\Release\Net451\Cauldron.Win32.Interceptors.pdb" target="lib\net451" />
+    <file src="..\Win32\Cauldron.Win32.Interceptors\bin\Release\Net452\Cauldron.Win32.Interceptors.dll" target="lib\net452" />
+    <file src="..\Win32\Cauldron.Win32.Interceptors\bin\Release\Net452\Cauldron.Win32.Interceptors.xml" target="lib\net452" />
+    <file src="..\Win32\Cauldron.Win32.Interceptors\bin\Release\Net452\Cauldron.Win32.Interceptors.pdb" target="lib\net452" />
+    <file src="..\Win32\Cauldron.Win32.Interceptors\bin\Release\Net46\Cauldron.Win32.Interceptors.dll" target="lib\net46" />
+    <file src="..\Win32\Cauldron.Win32.Interceptors\bin\Release\Net46\Cauldron.Win32.Interceptors.xml" target="lib\net46" />
+    <file src="..\Win32\Cauldron.Win32.Interceptors\bin\Release\Net46\Cauldron.Win32.Interceptors.pdb" target="lib\net46" />
+    <file src="..\Win32\Cauldron.Win32.Interceptors\bin\Release\Net461\Cauldron.Win32.Interceptors.dll" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Win32.Interceptors\bin\Release\Net461\Cauldron.Win32.Interceptors.xml" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Win32.Interceptors\bin\Release\Net461\Cauldron.Win32.Interceptors.pdb" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Win32.Interceptors\bin\Release\Net462\Cauldron.Win32.Interceptors.dll" target="lib\net462" />
+    <file src="..\Win32\Cauldron.Win32.Interceptors\bin\Release\Net462\Cauldron.Win32.Interceptors.xml" target="lib\net462" />
+    <file src="..\Win32\Cauldron.Win32.Interceptors\bin\Release\Net462\Cauldron.Win32.Interceptors.pdb" target="lib\net462" />
     <file src="..\Win32\Cauldron.Win32.Interceptors\**\*.cs" target="src" />
     <file src="..\Win32\Cauldron.Win32.Interceptors\InterceptorScripts\TimedCacheInterceptorWeaver.csx" target="Content\Interceptors" />
   </files>

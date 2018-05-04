@@ -2,52 +2,52 @@
 <HelpTOC>
 
   <HelpTOCNode Title="Welcome to the Cauldron NetStandard Library Documentation" Url="html/3a2ae902-1f9e-4ec2-ad23-bb7f9bdd42b5.htm" />
-  <HelpTOCNode Id="3d11040e-f479-41f4-a368-4cba5eba7ea2" Title="Cauldron" Url="html/N_Cauldron.htm">
-    <HelpTOCNode Id="240b6ec8-a059-4be4-8301-8a826f483dd2" Title="AsyncHelper Class" Url="html/T_Cauldron_AsyncHelper.htm">
-      <HelpTOCNode Id="fca81b85-f775-498e-aceb-84cd9497731f" Title="AsyncHelper Methods" Url="html/Methods_T_Cauldron_AsyncHelper.htm">
-        <HelpTOCNode Id="ee987db3-58f3-49d6-969d-2ad7ed2ea247" Title="NullGuard Method " Url="html/Overload_Cauldron_AsyncHelper_NullGuard.htm">
+  <HelpTOCNode Id="b16f9028-00b6-4cfe-bf9b-7f2e4dd2bbde" Title="Cauldron" Url="html/N_Cauldron.htm">
+    <HelpTOCNode Id="9bd94617-a463-4d40-a97e-7670873d008b" Title="AsyncHelper Class" Url="html/T_Cauldron_AsyncHelper.htm">
+      <HelpTOCNode Id="160139e8-4ec1-40b7-88f2-437a7dd46a82" Title="AsyncHelper Methods" Url="html/Methods_T_Cauldron_AsyncHelper.htm">
+        <HelpTOCNode Id="57c0122b-a6f1-4252-aea5-2d8588413b55" Title="NullGuard Method " Url="html/Overload_Cauldron_AsyncHelper_NullGuard.htm">
           <HelpTOCNode Title="NullGuard Method (Task)" Url="html/M_Cauldron_AsyncHelper_NullGuard.htm" />
           <HelpTOCNode Title="NullGuard(TResult) Method (Task(TResult))" Url="html/M_Cauldron_AsyncHelper_NullGuard__1.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="771510d2-f103-4879-a224-2691a0631007" Title="RunSync Method " Url="html/Overload_Cauldron_AsyncHelper_RunSync.htm">
+        <HelpTOCNode Id="e6a7fcbb-17f7-4630-8a2c-ee3681934373" Title="RunSync Method " Url="html/Overload_Cauldron_AsyncHelper_RunSync.htm">
           <HelpTOCNode Title="RunSync Method (Task)" Url="html/M_Cauldron_AsyncHelper_RunSync.htm" />
           <HelpTOCNode Title="RunSync(TResult) Method (Task(TResult))" Url="html/M_Cauldron_AsyncHelper_RunSync__1.htm" />
         </HelpTOCNode>
       </HelpTOCNode>
     </HelpTOCNode>
     <HelpTOCNode Title="CreationCollisionOption Enumeration" Url="html/T_Cauldron_CreationCollisionOption.htm" />
-    <HelpTOCNode Id="93f9b6f0-064e-49e9-99c0-cdf120dc4fc1" Title="DisplayNameAttribute Class" Url="html/T_Cauldron_DisplayNameAttribute.htm">
+    <HelpTOCNode Id="10b1ad28-1ead-4c32-9241-51caf7fbd763" Title="DisplayNameAttribute Class" Url="html/T_Cauldron_DisplayNameAttribute.htm">
       <HelpTOCNode Title="DisplayNameAttribute Constructor " Url="html/M_Cauldron_DisplayNameAttribute__ctor.htm" />
-      <HelpTOCNode Id="451da0ca-9f9f-44d1-845a-b5094b6e4e88" Title="DisplayNameAttribute Properties" Url="html/Properties_T_Cauldron_DisplayNameAttribute.htm">
+      <HelpTOCNode Id="e01ea92a-ce32-4218-985d-812df33580be" Title="DisplayNameAttribute Properties" Url="html/Properties_T_Cauldron_DisplayNameAttribute.htm">
         <HelpTOCNode Title="DisplayName Property " Url="html/P_Cauldron_DisplayNameAttribute_DisplayName.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="DisplayNameAttribute Methods" Url="html/Methods_T_Cauldron_DisplayNameAttribute.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="da9c8e31-f4eb-49d9-a8f2-a65d59a1f322" Title="Extensions Class" Url="html/T_Cauldron_Extensions.htm">
-      <HelpTOCNode Id="b2742a05-05cd-4cf8-b631-cc16931d3448" Title="Extensions Methods" Url="html/Methods_T_Cauldron_Extensions.htm">
-        <HelpTOCNode Id="881744e6-f310-49e4-9d8c-88b70a3ede60" Title="Concat Method " Url="html/Overload_Cauldron_Extensions_Concat.htm">
+    <HelpTOCNode Id="ce1107f1-d181-4770-9af8-0739d34d4485" Title="Extensions Class" Url="html/T_Cauldron_Extensions.htm">
+      <HelpTOCNode Id="e48199f4-b32e-4e33-8e4b-c1b6a49aa4af" Title="Extensions Methods" Url="html/Methods_T_Cauldron_Extensions.htm">
+        <HelpTOCNode Id="695e867d-1dba-42c7-b01c-c17d265203ab" Title="Concat Method " Url="html/Overload_Cauldron_Extensions_Concat.htm">
           <HelpTOCNode Title="Concat(T) Method (T[], T)" Url="html/M_Cauldron_Extensions_Concat__1.htm" />
           <HelpTOCNode Title="Concat(T) Method (T[], T[])" Url="html/M_Cauldron_Extensions_Concat__1_1.htm" />
         </HelpTOCNode>
         <HelpTOCNode Title="Contains Method " Url="html/M_Cauldron_Extensions_Contains.htm" />
-        <HelpTOCNode Id="d9968d52-b643-4d81-b182-e6201e4669cf" Title="Copy Method " Url="html/Overload_Cauldron_Extensions_Copy.htm">
+        <HelpTOCNode Id="45b181b5-65b0-4293-b66a-9fd8bc055f53" Title="Copy Method " Url="html/Overload_Cauldron_Extensions_Copy.htm">
           <HelpTOCNode Title="Copy Method (String)" Url="html/M_Cauldron_Extensions_Copy.htm" />
           <HelpTOCNode Title="Copy(T) Method (T[])" Url="html/M_Cauldron_Extensions_Copy__1.htm" />
         </HelpTOCNode>
         <HelpTOCNode Title="Distinct(TSource) Method " Url="html/M_Cauldron_Extensions_Distinct__1.htm" />
         <HelpTOCNode Title="EnclosedIn Method " Url="html/M_Cauldron_Extensions_EnclosedIn.htm" />
-        <HelpTOCNode Id="9f8aee72-0fe5-43bb-9acc-da675580e3e2" Title="FillWithRandomValues Method " Url="html/Overload_Cauldron_Extensions_FillWithRandomValues.htm">
+        <HelpTOCNode Id="467ace7b-b68a-49fa-ae0e-61a51f44e99c" Title="FillWithRandomValues Method " Url="html/Overload_Cauldron_Extensions_FillWithRandomValues.htm">
           <HelpTOCNode Title="FillWithRandomValues Method (GCHandle, Int32)" Url="html/M_Cauldron_Extensions_FillWithRandomValues.htm" />
           <HelpTOCNode Title="FillWithRandomValues Method (GCHandle, Int32, Boolean)" Url="html/M_Cauldron_Extensions_FillWithRandomValues_1.htm" />
         </HelpTOCNode>
         <HelpTOCNode Title="Flatten(T) Method " Url="html/M_Cauldron_Extensions_Flatten__1.htm" />
         <HelpTOCNode Title="Foreach(T) Method " Url="html/M_Cauldron_Extensions_Foreach__1.htm" />
-        <HelpTOCNode Id="f13738c4-70be-427d-902d-f47e2087d7be" Title="GetBytes Method " Url="html/Overload_Cauldron_Extensions_GetBytes.htm">
+        <HelpTOCNode Id="3396138f-272a-4b58-8c3a-72b767034a4c" Title="GetBytes Method " Url="html/Overload_Cauldron_Extensions_GetBytes.htm">
           <HelpTOCNode Title="GetBytes Method (SecureString)" Url="html/M_Cauldron_Extensions_GetBytes_2.htm" />
           <HelpTOCNode Title="GetBytes Method (Byte[], UInt32)" Url="html/M_Cauldron_Extensions_GetBytes_1.htm" />
           <HelpTOCNode Title="GetBytes Method (Byte[], Int32, Int32)" Url="html/M_Cauldron_Extensions_GetBytes.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="60a26ede-93c3-4d96-b7c6-e97c2f389340" Title="GetHash Method " Url="html/Overload_Cauldron_Extensions_GetHash.htm">
+        <HelpTOCNode Id="3acfd2ae-c44e-4cd4-917d-d1c298ad79f0" Title="GetHash Method " Url="html/Overload_Cauldron_Extensions_GetHash.htm">
           <HelpTOCNode Title="GetHash Method (String)" Url="html/M_Cauldron_Extensions_GetHash_1.htm" />
           <HelpTOCNode Title="GetHash Method (Byte[], HashAlgorithms)" Url="html/M_Cauldron_Extensions_GetHash.htm" />
           <HelpTOCNode Title="GetHash Method (String, HashAlgorithms)" Url="html/M_Cauldron_Extensions_GetHash_2.htm" />
@@ -56,18 +56,18 @@
         <HelpTOCNode Title="GetString Method " Url="html/M_Cauldron_Extensions_GetString.htm" />
         <HelpTOCNode Title="GetTarget(T) Method " Url="html/M_Cauldron_Extensions_GetTarget__1.htm" />
         <HelpTOCNode Title="GetTypes Method " Url="html/M_Cauldron_Extensions_GetTypes.htm" />
-        <HelpTOCNode Id="4e911cc7-e98a-44e1-94f7-8c2ec067abbd" Title="IndexOf Method " Url="html/Overload_Cauldron_Extensions_IndexOf.htm">
+        <HelpTOCNode Id="922b38df-995a-494c-9366-87df5ae06189" Title="IndexOf Method " Url="html/Overload_Cauldron_Extensions_IndexOf.htm">
           <HelpTOCNode Title="IndexOf Method (Byte[], Byte[])" Url="html/M_Cauldron_Extensions_IndexOf.htm" />
           <HelpTOCNode Title="IndexOf(T) Method (T[], T)" Url="html/M_Cauldron_Extensions_IndexOf__1.htm" />
         </HelpTOCNode>
         <HelpTOCNode Title="Interleave(T) Method " Url="html/M_Cauldron_Extensions_Interleave__1.htm" />
         <HelpTOCNode Title="IsBase64String Method " Url="html/M_Cauldron_Extensions_IsBase64String.htm" />
         <HelpTOCNode Title="IsEqualTo Method " Url="html/M_Cauldron_Extensions_IsEqualTo.htm" />
-        <HelpTOCNode Id="dfeee13c-457f-4fcb-814c-183d0f78ffad" Title="IsNotNull Method " Url="html/Overload_Cauldron_Extensions_IsNotNull.htm">
+        <HelpTOCNode Id="f309e103-188e-451d-a9b6-0b6226d59294" Title="IsNotNull Method " Url="html/Overload_Cauldron_Extensions_IsNotNull.htm">
           <HelpTOCNode Title="IsNotNull(T) Method (T, Action(T))" Url="html/M_Cauldron_Extensions_IsNotNull__1.htm" />
           <HelpTOCNode Title="IsNotNull(T, TResult) Method (T, Func(T, TResult))" Url="html/M_Cauldron_Extensions_IsNotNull__2.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="63392882-d61d-4c56-a4da-1cf80a5edda2" Title="Join Method " Url="html/Overload_Cauldron_Extensions_Join.htm">
+        <HelpTOCNode Id="2c072784-aed8-4b90-9ac0-80be4864fc82" Title="Join Method " Url="html/Overload_Cauldron_Extensions_Join.htm">
           <HelpTOCNode Title="Join Method (IEnumerable(String), String)" Url="html/M_Cauldron_Extensions_Join.htm" />
           <HelpTOCNode Title="Join(T) Method (IEnumerable(T), String)" Url="html/M_Cauldron_Extensions_Join__1.htm" />
           <HelpTOCNode Title="Join Method (Object[], String)" Url="html/M_Cauldron_Extensions_Join_1.htm" />
@@ -75,29 +75,29 @@
         </HelpTOCNode>
         <HelpTOCNode Title="Left Method " Url="html/M_Cauldron_Extensions_Left.htm" />
         <HelpTOCNode Title="LowerFirstCharacter Method " Url="html/M_Cauldron_Extensions_LowerFirstCharacter.htm" />
-        <HelpTOCNode Id="6d5e0de1-c13e-4582-b33b-06b693dae165" Title="MaxBy Method " Url="html/Overload_Cauldron_Extensions_MaxBy.htm">
+        <HelpTOCNode Id="c348feff-6b2c-4ff8-b20a-0f06aa265c52" Title="MaxBy Method " Url="html/Overload_Cauldron_Extensions_MaxBy.htm">
           <HelpTOCNode Title="MaxBy(TSource, TKey) Method (IEnumerable(TSource), Func(TSource, TKey))" Url="html/M_Cauldron_Extensions_MaxBy__2.htm" />
           <HelpTOCNode Title="MaxBy(TSource, TKey) Method (IEnumerable(TSource), Func(TSource, TKey), IComparer(TKey))" Url="html/M_Cauldron_Extensions_MaxBy__2_1.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="6f1b3de1-bd3a-42fe-a35c-d8925d444e08" Title="MinBy Method " Url="html/Overload_Cauldron_Extensions_MinBy.htm">
+        <HelpTOCNode Id="b0b0eb26-41ec-476e-bc47-dc7a5fdca008" Title="MinBy Method " Url="html/Overload_Cauldron_Extensions_MinBy.htm">
           <HelpTOCNode Title="MinBy(TSource, TKey) Method (IEnumerable(TSource), Func(TSource, TKey))" Url="html/M_Cauldron_Extensions_MinBy__2.htm" />
           <HelpTOCNode Title="MinBy(TSource, TKey) Method (IEnumerable(TSource), Func(TSource, TKey), IComparer(TKey))" Url="html/M_Cauldron_Extensions_MinBy__2_1.htm" />
         </HelpTOCNode>
         <HelpTOCNode Title="Move(T) Method " Url="html/M_Cauldron_Extensions_Move__1.htm" />
         <HelpTOCNode Title="OrderBy(TElements) Method " Url="html/M_Cauldron_Extensions_OrderBy__1.htm" />
-        <HelpTOCNode Id="6cc71d46-679e-42f9-a1a3-2830b1f77e8d" Title="PadOrCut Method " Url="html/Overload_Cauldron_Extensions_PadOrCut.htm">
+        <HelpTOCNode Id="2de485d2-2a01-4d75-92b3-cea70087cf42" Title="PadOrCut Method " Url="html/Overload_Cauldron_Extensions_PadOrCut.htm">
           <HelpTOCNode Title="PadOrCut Method (String, UInt16)" Url="html/M_Cauldron_Extensions_PadOrCut.htm" />
           <HelpTOCNode Title="PadOrCut Method (String, UInt16, Position)" Url="html/M_Cauldron_Extensions_PadOrCut_1.htm" />
           <HelpTOCNode Title="PadOrCut Method (String, UInt16, Position, Char)" Url="html/M_Cauldron_Extensions_PadOrCut_2.htm" />
         </HelpTOCNode>
         <HelpTOCNode Title="ParseQueryString Method " Url="html/M_Cauldron_Extensions_ParseQueryString.htm" />
         <HelpTOCNode Title="RandomPick(T) Method " Url="html/M_Cauldron_Extensions_RandomPick__1.htm" />
-        <HelpTOCNode Id="88ec60c2-5e61-41fb-91a7-e50dba2ce485" Title="ReadToEnd Method " Url="html/Overload_Cauldron_Extensions_ReadToEnd.htm">
+        <HelpTOCNode Id="9b4d8884-3ab7-4da3-8c74-656f2492e8b0" Title="ReadToEnd Method " Url="html/Overload_Cauldron_Extensions_ReadToEnd.htm">
           <HelpTOCNode Title="ReadToEnd Method (Stream)" Url="html/M_Cauldron_Extensions_ReadToEnd.htm" />
           <HelpTOCNode Title="ReadToEnd Method (Stream, Encoding)" Url="html/M_Cauldron_Extensions_ReadToEnd_1.htm" />
         </HelpTOCNode>
         <HelpTOCNode Title="RemoveNull(T) Method " Url="html/M_Cauldron_Extensions_RemoveNull__1.htm" />
-        <HelpTOCNode Id="1123a1c0-c482-40ec-8c69-0e203426b74d" Title="Replace Method " Url="html/Overload_Cauldron_Extensions_Replace.htm">
+        <HelpTOCNode Id="32810cff-b909-4568-a7ed-6198946914a4" Title="Replace Method " Url="html/Overload_Cauldron_Extensions_Replace.htm">
           <HelpTOCNode Title="Replace Method (String, UInt32, Char)" Url="html/M_Cauldron_Extensions_Replace_1.htm" />
           <HelpTOCNode Title="Replace Method (String, Char[], Char, Int32)" Url="html/M_Cauldron_Extensions_Replace.htm" />
         </HelpTOCNode>
@@ -107,27 +107,27 @@
         <HelpTOCNode Title="SliceRow(T) Method " Url="html/M_Cauldron_Extensions_SliceRow__1.htm" />
         <HelpTOCNode Title="Swap(T) Method " Url="html/M_Cauldron_Extensions_Swap__1.htm" />
         <HelpTOCNode Title="ToKeyedCollection(TKey, TSource) Method " Url="html/M_Cauldron_Extensions_ToKeyedCollection__2.htm" />
-        <HelpTOCNode Id="29db5024-7d95-4093-92e9-6b6709c10785" Title="ToSecureString Method " Url="html/Overload_Cauldron_Extensions_ToSecureString.htm">
+        <HelpTOCNode Id="69b236a0-9b24-46f7-a728-56f32bc94011" Title="ToSecureString Method " Url="html/Overload_Cauldron_Extensions_ToSecureString.htm">
           <HelpTOCNode Title="ToSecureString Method (Byte[])" Url="html/M_Cauldron_Extensions_ToSecureString.htm" />
           <HelpTOCNode Title="ToSecureString Method (String)" Url="html/M_Cauldron_Extensions_ToSecureString_1.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="27f40a9e-05ee-40ba-90c9-638b8c358f58" Title="ToStringEx Method " Url="html/Overload_Cauldron_Extensions_ToStringEx.htm">
+        <HelpTOCNode Id="968ef4b0-77b7-4281-a6a5-2b3e8349b3a4" Title="ToStringEx Method " Url="html/Overload_Cauldron_Extensions_ToStringEx.htm">
           <HelpTOCNode Title="ToStringEx Method (Object, String)" Url="html/M_Cauldron_Extensions_ToStringEx.htm" />
           <HelpTOCNode Title="ToStringEx Method (Object, String, CultureInfo)" Url="html/M_Cauldron_Extensions_ToStringEx_1.htm" />
         </HelpTOCNode>
         <HelpTOCNode Title="TryDispose Method " Url="html/M_Cauldron_Extensions_TryDispose.htm" />
         <HelpTOCNode Title="TryEncode Method " Url="html/M_Cauldron_Extensions_TryEncode.htm" />
-        <HelpTOCNode Id="cf2c342b-0728-430b-8acf-c976177d1a13" Title="UnzipAsBytes Method " Url="html/Overload_Cauldron_Extensions_UnzipAsBytes.htm">
+        <HelpTOCNode Id="95bb117a-c066-4375-a2c0-a75f298b9cfb" Title="UnzipAsBytes Method " Url="html/Overload_Cauldron_Extensions_UnzipAsBytes.htm">
           <HelpTOCNode Title="UnzipAsBytes Method (Byte[])" Url="html/M_Cauldron_Extensions_UnzipAsBytes.htm" />
           <HelpTOCNode Title="UnzipAsBytes Method (FileInfo)" Url="html/M_Cauldron_Extensions_UnzipAsBytes_1.htm" />
           <HelpTOCNode Title="UnzipAsBytes Method (Stream)" Url="html/M_Cauldron_Extensions_UnzipAsBytes_2.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="4f7a8f6f-bcce-443c-a38f-98b234541762" Title="UnzipAsBytesAsync Method " Url="html/Overload_Cauldron_Extensions_UnzipAsBytesAsync.htm">
+        <HelpTOCNode Id="1a69e5c9-dc09-4b97-b6fc-7990a632f5f7" Title="UnzipAsBytesAsync Method " Url="html/Overload_Cauldron_Extensions_UnzipAsBytesAsync.htm">
           <HelpTOCNode Title="UnzipAsBytesAsync Method (Byte[])" Url="html/M_Cauldron_Extensions_UnzipAsBytesAsync.htm" />
           <HelpTOCNode Title="UnzipAsBytesAsync Method (FileInfo)" Url="html/M_Cauldron_Extensions_UnzipAsBytesAsync_1.htm" />
           <HelpTOCNode Title="UnzipAsBytesAsync Method (Stream)" Url="html/M_Cauldron_Extensions_UnzipAsBytesAsync_2.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="f2dcedec-de9d-4bc2-a703-0c6138960869" Title="UnzipAsFile Method " Url="html/Overload_Cauldron_Extensions_UnzipAsFile.htm">
+        <HelpTOCNode Id="e9d91b98-6bcd-4dba-a580-9e04109fe14a" Title="UnzipAsFile Method " Url="html/Overload_Cauldron_Extensions_UnzipAsFile.htm">
           <HelpTOCNode Title="UnzipAsFile Method (Byte[], FileInfo, Boolean)" Url="html/M_Cauldron_Extensions_UnzipAsFile.htm" />
           <HelpTOCNode Title="UnzipAsFile Method (Byte[], String, Boolean)" Url="html/M_Cauldron_Extensions_UnzipAsFile_1.htm" />
           <HelpTOCNode Title="UnzipAsFile Method (FileInfo, FileInfo, Boolean)" Url="html/M_Cauldron_Extensions_UnzipAsFile_2.htm" />
@@ -135,7 +135,7 @@
           <HelpTOCNode Title="UnzipAsFile Method (Stream, FileInfo, Boolean)" Url="html/M_Cauldron_Extensions_UnzipAsFile_4.htm" />
           <HelpTOCNode Title="UnzipAsFile Method (Stream, String, Boolean)" Url="html/M_Cauldron_Extensions_UnzipAsFile_5.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="5cce816e-5f4f-4c27-b26d-ffcbcb6afd9d" Title="UnzipAsFileAsync Method " Url="html/Overload_Cauldron_Extensions_UnzipAsFileAsync.htm">
+        <HelpTOCNode Id="3aef979a-2ab2-42eb-82f6-2e0180775e2b" Title="UnzipAsFileAsync Method " Url="html/Overload_Cauldron_Extensions_UnzipAsFileAsync.htm">
           <HelpTOCNode Title="UnzipAsFileAsync Method (Byte[], FileInfo, Boolean)" Url="html/M_Cauldron_Extensions_UnzipAsFileAsync.htm" />
           <HelpTOCNode Title="UnzipAsFileAsync Method (Byte[], String, Boolean)" Url="html/M_Cauldron_Extensions_UnzipAsFileAsync_1.htm" />
           <HelpTOCNode Title="UnzipAsFileAsync Method (FileInfo, FileInfo, Boolean)" Url="html/M_Cauldron_Extensions_UnzipAsFileAsync_2.htm" />
@@ -143,24 +143,24 @@
           <HelpTOCNode Title="UnzipAsFileAsync Method (Stream, FileInfo, Boolean)" Url="html/M_Cauldron_Extensions_UnzipAsFileAsync_4.htm" />
           <HelpTOCNode Title="UnzipAsFileAsync Method (Stream, String, Boolean)" Url="html/M_Cauldron_Extensions_UnzipAsFileAsync_5.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="b3ebe78a-25c2-4458-91b4-c1a5e17cf611" Title="UnzipAsStream Method " Url="html/Overload_Cauldron_Extensions_UnzipAsStream.htm">
+        <HelpTOCNode Id="b50ebe67-e21d-4fcc-85d6-7cc20f534cc9" Title="UnzipAsStream Method " Url="html/Overload_Cauldron_Extensions_UnzipAsStream.htm">
           <HelpTOCNode Title="UnzipAsStream Method (Byte[])" Url="html/M_Cauldron_Extensions_UnzipAsStream.htm" />
           <HelpTOCNode Title="UnzipAsStream Method (FileInfo)" Url="html/M_Cauldron_Extensions_UnzipAsStream_1.htm" />
           <HelpTOCNode Title="UnzipAsStream Method (Stream)" Url="html/M_Cauldron_Extensions_UnzipAsStream_2.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="e334da69-82f9-4851-a5d6-acafbcafdd97" Title="UnzipAsStreamAsync Method " Url="html/Overload_Cauldron_Extensions_UnzipAsStreamAsync.htm">
+        <HelpTOCNode Id="3b890bc3-c328-40e7-9329-9c8be25369cd" Title="UnzipAsStreamAsync Method " Url="html/Overload_Cauldron_Extensions_UnzipAsStreamAsync.htm">
           <HelpTOCNode Title="UnzipAsStreamAsync Method (Byte[])" Url="html/M_Cauldron_Extensions_UnzipAsStreamAsync.htm" />
           <HelpTOCNode Title="UnzipAsStreamAsync Method (FileInfo)" Url="html/M_Cauldron_Extensions_UnzipAsStreamAsync_1.htm" />
           <HelpTOCNode Title="UnzipAsStreamAsync Method (Stream)" Url="html/M_Cauldron_Extensions_UnzipAsStreamAsync_2.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="a4faf8ee-9770-48af-943e-326f01d59ed8" Title="UnzipAsString Method " Url="html/Overload_Cauldron_Extensions_UnzipAsString.htm">
+        <HelpTOCNode Id="09c45e8b-b4ae-484b-9eb0-ad21160fc18d" Title="UnzipAsString Method " Url="html/Overload_Cauldron_Extensions_UnzipAsString.htm">
           <HelpTOCNode Title="UnzipAsString Method (Byte[])" Url="html/M_Cauldron_Extensions_UnzipAsString.htm" />
           <HelpTOCNode Title="UnzipAsString Method (Stream)" Url="html/M_Cauldron_Extensions_UnzipAsString_2.htm" />
           <HelpTOCNode Title="UnzipAsString Method (Byte[], Encoding)" Url="html/M_Cauldron_Extensions_UnzipAsString_1.htm" />
           <HelpTOCNode Title="UnzipAsString Method (Stream, Encoding)" Url="html/M_Cauldron_Extensions_UnzipAsString_3.htm" />
           <HelpTOCNode Title="UnzipAsString Method (String, Encoding)" Url="html/M_Cauldron_Extensions_UnzipAsString_4.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="f30fa519-f2ea-4e2f-b0c4-55bd2c9fb267" Title="UnzipAsStringAsync Method " Url="html/Overload_Cauldron_Extensions_UnzipAsStringAsync.htm">
+        <HelpTOCNode Id="a2e44d3e-ca2f-4be7-8cb9-79479c5b3880" Title="UnzipAsStringAsync Method " Url="html/Overload_Cauldron_Extensions_UnzipAsStringAsync.htm">
           <HelpTOCNode Title="UnzipAsStringAsync Method (Byte[])" Url="html/M_Cauldron_Extensions_UnzipAsStringAsync.htm" />
           <HelpTOCNode Title="UnzipAsStringAsync Method (Stream)" Url="html/M_Cauldron_Extensions_UnzipAsStringAsync_2.htm" />
           <HelpTOCNode Title="UnzipAsStringAsync Method (Byte[], Encoding)" Url="html/M_Cauldron_Extensions_UnzipAsStringAsync_1.htm" />
@@ -168,29 +168,29 @@
           <HelpTOCNode Title="UnzipAsStringAsync Method (String, Encoding)" Url="html/M_Cauldron_Extensions_UnzipAsStringAsync_4.htm" />
         </HelpTOCNode>
         <HelpTOCNode Title="With(TType, TNew) Method " Url="html/M_Cauldron_Extensions_With__2.htm" />
-        <HelpTOCNode Id="0e7211b3-4d0e-4fa0-a7ac-f0972f252d85" Title="ZipAsBase64String Method " Url="html/Overload_Cauldron_Extensions_ZipAsBase64String.htm">
+        <HelpTOCNode Id="975162c3-1e29-4fd4-afc6-eea0ac6a5668" Title="ZipAsBase64String Method " Url="html/Overload_Cauldron_Extensions_ZipAsBase64String.htm">
           <HelpTOCNode Title="ZipAsBase64String Method (String)" Url="html/M_Cauldron_Extensions_ZipAsBase64String.htm" />
           <HelpTOCNode Title="ZipAsBase64String Method (String, Encoding)" Url="html/M_Cauldron_Extensions_ZipAsBase64String_1.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="d95f0985-f694-416a-b6e1-a256e6269a00" Title="ZipAsBase64StringAsync Method " Url="html/Overload_Cauldron_Extensions_ZipAsBase64StringAsync.htm">
+        <HelpTOCNode Id="50671190-fb2a-4a3f-9a6a-b87fbb7941b6" Title="ZipAsBase64StringAsync Method " Url="html/Overload_Cauldron_Extensions_ZipAsBase64StringAsync.htm">
           <HelpTOCNode Title="ZipAsBase64StringAsync Method (String)" Url="html/M_Cauldron_Extensions_ZipAsBase64StringAsync.htm" />
           <HelpTOCNode Title="ZipAsBase64StringAsync Method (String, Encoding)" Url="html/M_Cauldron_Extensions_ZipAsBase64StringAsync_1.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="a22e22e3-2c2a-4306-a4a6-436bdc835d4c" Title="ZipAsBytes Method " Url="html/Overload_Cauldron_Extensions_ZipAsBytes.htm">
+        <HelpTOCNode Id="6b933a80-09a9-4d58-bca9-e09234639584" Title="ZipAsBytes Method " Url="html/Overload_Cauldron_Extensions_ZipAsBytes.htm">
           <HelpTOCNode Title="ZipAsBytes Method (Byte[])" Url="html/M_Cauldron_Extensions_ZipAsBytes.htm" />
           <HelpTOCNode Title="ZipAsBytes Method (FileInfo)" Url="html/M_Cauldron_Extensions_ZipAsBytes_1.htm" />
           <HelpTOCNode Title="ZipAsBytes Method (Stream)" Url="html/M_Cauldron_Extensions_ZipAsBytes_2.htm" />
           <HelpTOCNode Title="ZipAsBytes Method (String)" Url="html/M_Cauldron_Extensions_ZipAsBytes_3.htm" />
           <HelpTOCNode Title="ZipAsBytes Method (String, Encoding)" Url="html/M_Cauldron_Extensions_ZipAsBytes_4.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="40fe0a4a-e9aa-4bf0-b022-e6ac77884079" Title="ZipAsBytesAsync Method " Url="html/Overload_Cauldron_Extensions_ZipAsBytesAsync.htm">
+        <HelpTOCNode Id="d401682a-b50b-4be7-a79b-95d9e68cdaed" Title="ZipAsBytesAsync Method " Url="html/Overload_Cauldron_Extensions_ZipAsBytesAsync.htm">
           <HelpTOCNode Title="ZipAsBytesAsync Method (Byte[])" Url="html/M_Cauldron_Extensions_ZipAsBytesAsync.htm" />
           <HelpTOCNode Title="ZipAsBytesAsync Method (FileInfo)" Url="html/M_Cauldron_Extensions_ZipAsBytesAsync_1.htm" />
           <HelpTOCNode Title="ZipAsBytesAsync Method (Stream)" Url="html/M_Cauldron_Extensions_ZipAsBytesAsync_2.htm" />
           <HelpTOCNode Title="ZipAsBytesAsync Method (String)" Url="html/M_Cauldron_Extensions_ZipAsBytesAsync_3.htm" />
           <HelpTOCNode Title="ZipAsBytesAsync Method (String, Encoding)" Url="html/M_Cauldron_Extensions_ZipAsBytesAsync_4.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="abd122aa-97d4-4b9b-b63f-2455398a546f" Title="ZipAsFile Method " Url="html/Overload_Cauldron_Extensions_ZipAsFile.htm">
+        <HelpTOCNode Id="f7dc9193-8352-4f5f-ae51-e1c180ab69db" Title="ZipAsFile Method " Url="html/Overload_Cauldron_Extensions_ZipAsFile.htm">
           <HelpTOCNode Title="ZipAsFile Method (Byte[], FileInfo, Boolean)" Url="html/M_Cauldron_Extensions_ZipAsFile.htm" />
           <HelpTOCNode Title="ZipAsFile Method (Byte[], String, Boolean)" Url="html/M_Cauldron_Extensions_ZipAsFile_1.htm" />
           <HelpTOCNode Title="ZipAsFile Method (FileInfo, FileInfo, Boolean)" Url="html/M_Cauldron_Extensions_ZipAsFile_2.htm" />
@@ -198,7 +198,7 @@
           <HelpTOCNode Title="ZipAsFile Method (Stream, FileInfo, Boolean)" Url="html/M_Cauldron_Extensions_ZipAsFile_4.htm" />
           <HelpTOCNode Title="ZipAsFile Method (Stream, String, Boolean)" Url="html/M_Cauldron_Extensions_ZipAsFile_5.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="d744fe55-63f0-4b36-996f-300f2dcd6fb9" Title="ZipAsFileAsync Method " Url="html/Overload_Cauldron_Extensions_ZipAsFileAsync.htm">
+        <HelpTOCNode Id="699c6dd6-c0d2-4d35-9a20-1bf3b9005007" Title="ZipAsFileAsync Method " Url="html/Overload_Cauldron_Extensions_ZipAsFileAsync.htm">
           <HelpTOCNode Title="ZipAsFileAsync Method (Byte[], FileInfo, Boolean)" Url="html/M_Cauldron_Extensions_ZipAsFileAsync.htm" />
           <HelpTOCNode Title="ZipAsFileAsync Method (Byte[], String, Boolean)" Url="html/M_Cauldron_Extensions_ZipAsFileAsync_1.htm" />
           <HelpTOCNode Title="ZipAsFileAsync Method (FileInfo, FileInfo, Boolean)" Url="html/M_Cauldron_Extensions_ZipAsFileAsync_2.htm" />
@@ -206,14 +206,14 @@
           <HelpTOCNode Title="ZipAsFileAsync Method (Stream, FileInfo, Boolean)" Url="html/M_Cauldron_Extensions_ZipAsFileAsync_4.htm" />
           <HelpTOCNode Title="ZipAsFileAsync Method (Stream, String, Boolean)" Url="html/M_Cauldron_Extensions_ZipAsFileAsync_5.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="2fac6a6e-ebfd-4a4f-95a4-0ceb3c1aae41" Title="ZipAsStream Method " Url="html/Overload_Cauldron_Extensions_ZipAsStream.htm">
+        <HelpTOCNode Id="7b4a2962-6ffc-440c-ad11-902aa0c3cbcf" Title="ZipAsStream Method " Url="html/Overload_Cauldron_Extensions_ZipAsStream.htm">
           <HelpTOCNode Title="ZipAsStream Method (Byte[])" Url="html/M_Cauldron_Extensions_ZipAsStream.htm" />
           <HelpTOCNode Title="ZipAsStream Method (FileInfo)" Url="html/M_Cauldron_Extensions_ZipAsStream_1.htm" />
           <HelpTOCNode Title="ZipAsStream Method (Stream)" Url="html/M_Cauldron_Extensions_ZipAsStream_2.htm" />
           <HelpTOCNode Title="ZipAsStream Method (String)" Url="html/M_Cauldron_Extensions_ZipAsStream_3.htm" />
           <HelpTOCNode Title="ZipAsStream Method (String, Encoding)" Url="html/M_Cauldron_Extensions_ZipAsStream_4.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="4168c135-8ff1-412e-8c4c-ce10f9abe610" Title="ZipAsStreamAsync Method " Url="html/Overload_Cauldron_Extensions_ZipAsStreamAsync.htm">
+        <HelpTOCNode Id="3f756a68-4bd6-4563-95f6-852748d5d379" Title="ZipAsStreamAsync Method " Url="html/Overload_Cauldron_Extensions_ZipAsStreamAsync.htm">
           <HelpTOCNode Title="ZipAsStreamAsync Method (Byte[])" Url="html/M_Cauldron_Extensions_ZipAsStreamAsync.htm" />
           <HelpTOCNode Title="ZipAsStreamAsync Method (FileInfo)" Url="html/M_Cauldron_Extensions_ZipAsStreamAsync_1.htm" />
           <HelpTOCNode Title="ZipAsStreamAsync Method (Stream)" Url="html/M_Cauldron_Extensions_ZipAsStreamAsync_2.htm" />
@@ -222,15 +222,15 @@
         </HelpTOCNode>
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="52c7c34b-fe0c-49da-bf24-b3a80760c78e" Title="ExtensionsConvertions Class" Url="html/T_Cauldron_ExtensionsConvertions.htm">
-      <HelpTOCNode Id="99171a56-5962-46f9-897d-f8c097fb33fa" Title="ExtensionsConvertions Methods" Url="html/Methods_T_Cauldron_ExtensionsConvertions.htm">
-        <HelpTOCNode Id="aef5e8d5-a105-4989-8bab-f7c404de5958" Title="As Method " Url="html/Overload_Cauldron_ExtensionsConvertions_As.htm">
+    <HelpTOCNode Id="7f4f4cd2-250b-489f-a060-438f3c6e914d" Title="ExtensionsConvertions Class" Url="html/T_Cauldron_ExtensionsConvertions.htm">
+      <HelpTOCNode Id="c6e739b4-8e80-465d-af51-33037726ded8" Title="ExtensionsConvertions Methods" Url="html/Methods_T_Cauldron_ExtensionsConvertions.htm">
+        <HelpTOCNode Id="54491fd8-bc85-4c32-80e6-1507a34bbf52" Title="As Method " Url="html/Overload_Cauldron_ExtensionsConvertions_As.htm">
           <HelpTOCNode Title="As(T) Method (Object)" Url="html/M_Cauldron_ExtensionsConvertions_As__1.htm" />
           <HelpTOCNode Title="As Method (Object, Type)" Url="html/M_Cauldron_ExtensionsConvertions_As.htm" />
           <HelpTOCNode Title="As Method (Object, Type, Type)" Url="html/M_Cauldron_ExtensionsConvertions_As_1.htm" />
         </HelpTOCNode>
         <HelpTOCNode Title="AsReadOnly(TKey, TValue) Method " Url="html/M_Cauldron_ExtensionsConvertions_AsReadOnly__2.htm" />
-        <HelpTOCNode Id="eb43e135-b1ac-4bbf-a184-ee31788d9b41" Title="Convert Method " Url="html/Overload_Cauldron_ExtensionsConvertions_Convert.htm">
+        <HelpTOCNode Id="dbaeb9c6-9abc-49e2-a840-5115ea1294c5" Title="Convert Method " Url="html/Overload_Cauldron_ExtensionsConvertions_Convert.htm">
           <HelpTOCNode Title="Convert(T) Method (String)" Url="html/M_Cauldron_ExtensionsConvertions_Convert__1.htm" />
           <HelpTOCNode Title="Convert(T) Method (String, NumberFormatInfo)" Url="html/M_Cauldron_ExtensionsConvertions_Convert__1_1.htm" />
           <HelpTOCNode Title="Convert Method (String, Type)" Url="html/M_Cauldron_ExtensionsConvertions_Convert_2.htm" />
@@ -244,7 +244,7 @@
         <HelpTOCNode Title="ToBase64String Method " Url="html/M_Cauldron_ExtensionsConvertions_ToBase64String.htm" />
         <HelpTOCNode Title="ToBool Method " Url="html/M_Cauldron_ExtensionsConvertions_ToBool.htm" />
         <HelpTOCNode Title="ToByte Method " Url="html/M_Cauldron_ExtensionsConvertions_ToByte.htm" />
-        <HelpTOCNode Id="2dc1a23e-1688-47a9-848c-67996afc02cf" Title="ToBytes Method " Url="html/Overload_Cauldron_ExtensionsConvertions_ToBytes.htm">
+        <HelpTOCNode Id="c0e79733-3c02-46b6-b029-9a37920db360" Title="ToBytes Method " Url="html/Overload_Cauldron_ExtensionsConvertions_ToBytes.htm">
           <HelpTOCNode Title="ToBytes Method (Double)" Url="html/M_Cauldron_ExtensionsConvertions_ToBytes.htm" />
           <HelpTOCNode Title="ToBytes Method (Int32)" Url="html/M_Cauldron_ExtensionsConvertions_ToBytes_1.htm" />
           <HelpTOCNode Title="ToBytes Method (Int64)" Url="html/M_Cauldron_ExtensionsConvertions_ToBytes_2.htm" />
@@ -253,30 +253,30 @@
         </HelpTOCNode>
         <HelpTOCNode Title="ToBytesAsync Method " Url="html/M_Cauldron_ExtensionsConvertions_ToBytesAsync.htm" />
         <HelpTOCNode Title="ToChar Method " Url="html/M_Cauldron_ExtensionsConvertions_ToChar.htm" />
-        <HelpTOCNode Id="4a8a25e4-97dd-4073-bf39-8615c2427416" Title="ToDecimal Method " Url="html/Overload_Cauldron_ExtensionsConvertions_ToDecimal.htm">
+        <HelpTOCNode Id="765278df-9c40-4339-a311-550171cd23d3" Title="ToDecimal Method " Url="html/Overload_Cauldron_ExtensionsConvertions_ToDecimal.htm">
           <HelpTOCNode Title="ToDecimal Method (String)" Url="html/M_Cauldron_ExtensionsConvertions_ToDecimal.htm" />
           <HelpTOCNode Title="ToDecimal Method (String, NumberFormatInfo)" Url="html/M_Cauldron_ExtensionsConvertions_ToDecimal_1.htm" />
         </HelpTOCNode>
         <HelpTOCNode Title="ToDecimalUS Method " Url="html/M_Cauldron_ExtensionsConvertions_ToDecimalUS.htm" />
-        <HelpTOCNode Id="a34712bb-1478-41c1-87e4-7bbca89aaeaa" Title="ToDouble Method " Url="html/Overload_Cauldron_ExtensionsConvertions_ToDouble.htm">
+        <HelpTOCNode Id="bd912f51-79e8-4b31-9abb-9ababfec7235" Title="ToDouble Method " Url="html/Overload_Cauldron_ExtensionsConvertions_ToDouble.htm">
           <HelpTOCNode Title="ToDouble Method (Byte[])" Url="html/M_Cauldron_ExtensionsConvertions_ToDouble.htm" />
           <HelpTOCNode Title="ToDouble Method (String)" Url="html/M_Cauldron_ExtensionsConvertions_ToDouble_1.htm" />
           <HelpTOCNode Title="ToDouble Method (String, NumberFormatInfo)" Url="html/M_Cauldron_ExtensionsConvertions_ToDouble_2.htm" />
         </HelpTOCNode>
         <HelpTOCNode Title="ToDoubleUS Method " Url="html/M_Cauldron_ExtensionsConvertions_ToDoubleUS.htm" />
-        <HelpTOCNode Id="43272161-5f29-4714-b612-4647cc5d577a" Title="ToFloat Method " Url="html/Overload_Cauldron_ExtensionsConvertions_ToFloat.htm">
+        <HelpTOCNode Id="eadad58f-e7b0-4e3e-bef6-40b14c452d1c" Title="ToFloat Method " Url="html/Overload_Cauldron_ExtensionsConvertions_ToFloat.htm">
           <HelpTOCNode Title="ToFloat Method (Byte[])" Url="html/M_Cauldron_ExtensionsConvertions_ToFloat.htm" />
           <HelpTOCNode Title="ToFloat Method (String)" Url="html/M_Cauldron_ExtensionsConvertions_ToFloat_1.htm" />
           <HelpTOCNode Title="ToFloat Method (String, NumberFormatInfo)" Url="html/M_Cauldron_ExtensionsConvertions_ToFloat_2.htm" />
         </HelpTOCNode>
         <HelpTOCNode Title="ToFloatUS Method " Url="html/M_Cauldron_ExtensionsConvertions_ToFloatUS.htm" />
-        <HelpTOCNode Id="bab6a28d-2f91-4e2f-bd0a-1c34e46f19b7" Title="ToInteger Method " Url="html/Overload_Cauldron_ExtensionsConvertions_ToInteger.htm">
+        <HelpTOCNode Id="0eeae347-a29e-43ed-9189-53d8bf27b36e" Title="ToInteger Method " Url="html/Overload_Cauldron_ExtensionsConvertions_ToInteger.htm">
           <HelpTOCNode Title="ToInteger Method (Byte[])" Url="html/M_Cauldron_ExtensionsConvertions_ToInteger.htm" />
           <HelpTOCNode Title="ToInteger Method (String)" Url="html/M_Cauldron_ExtensionsConvertions_ToInteger_1.htm" />
           <HelpTOCNode Title="ToInteger Method (String, NumberFormatInfo)" Url="html/M_Cauldron_ExtensionsConvertions_ToInteger_2.htm" />
         </HelpTOCNode>
         <HelpTOCNode Title="ToIntegerUS Method " Url="html/M_Cauldron_ExtensionsConvertions_ToIntegerUS.htm" />
-        <HelpTOCNode Id="7fd94859-cc6c-4d61-a717-341edf0007c9" Title="ToLong Method " Url="html/Overload_Cauldron_ExtensionsConvertions_ToLong.htm">
+        <HelpTOCNode Id="2e04c91d-f979-4ccb-9156-b6fb86974e4d" Title="ToLong Method " Url="html/Overload_Cauldron_ExtensionsConvertions_ToLong.htm">
           <HelpTOCNode Title="ToLong Method (Byte[])" Url="html/M_Cauldron_ExtensionsConvertions_ToLong.htm" />
           <HelpTOCNode Title="ToLong Method (Object)" Url="html/M_Cauldron_ExtensionsConvertions_ToLong_1.htm" />
           <HelpTOCNode Title="ToLong Method (String)" Url="html/M_Cauldron_ExtensionsConvertions_ToLong_2.htm" />
@@ -284,26 +284,26 @@
         </HelpTOCNode>
         <HelpTOCNode Title="ToLongUS Method " Url="html/M_Cauldron_ExtensionsConvertions_ToLongUS.htm" />
         <HelpTOCNode Title="ToOrdinalDate Method " Url="html/M_Cauldron_ExtensionsConvertions_ToOrdinalDate.htm" />
-        <HelpTOCNode Id="cc045cd6-c64f-416d-811c-f9efed3935ed" Title="ToShort Method " Url="html/Overload_Cauldron_ExtensionsConvertions_ToShort.htm">
+        <HelpTOCNode Id="22d2fd74-6cf8-47b8-ade7-c1b0580319a9" Title="ToShort Method " Url="html/Overload_Cauldron_ExtensionsConvertions_ToShort.htm">
           <HelpTOCNode Title="ToShort Method (String)" Url="html/M_Cauldron_ExtensionsConvertions_ToShort.htm" />
           <HelpTOCNode Title="ToShort Method (String, NumberFormatInfo)" Url="html/M_Cauldron_ExtensionsConvertions_ToShort_1.htm" />
         </HelpTOCNode>
         <HelpTOCNode Title="ToShortUS Method " Url="html/M_Cauldron_ExtensionsConvertions_ToShortUS.htm" />
-        <HelpTOCNode Id="5153c23a-6764-4047-8a54-631058b6ccd2" Title="ToString Method " Url="html/Overload_Cauldron_ExtensionsConvertions_ToString.htm">
+        <HelpTOCNode Id="5d17df4a-3d12-45b1-9200-72d462159f9d" Title="ToString Method " Url="html/Overload_Cauldron_ExtensionsConvertions_ToString.htm">
           <HelpTOCNode Title="ToString Method (String, Object[])" Url="html/M_Cauldron_ExtensionsConvertions_ToString_1.htm" />
           <HelpTOCNode Title="ToString Method (String, IFormatProvider, Object[])" Url="html/M_Cauldron_ExtensionsConvertions_ToString.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="6d516875-8a60-4f73-86b4-f2d3588de4ba" Title="ToUInteger Method " Url="html/Overload_Cauldron_ExtensionsConvertions_ToUInteger.htm">
+        <HelpTOCNode Id="fb74a92d-65d7-4b9c-9a85-a52a671a6591" Title="ToUInteger Method " Url="html/Overload_Cauldron_ExtensionsConvertions_ToUInteger.htm">
           <HelpTOCNode Title="ToUInteger Method (String)" Url="html/M_Cauldron_ExtensionsConvertions_ToUInteger.htm" />
           <HelpTOCNode Title="ToUInteger Method (String, NumberFormatInfo)" Url="html/M_Cauldron_ExtensionsConvertions_ToUInteger_1.htm" />
         </HelpTOCNode>
         <HelpTOCNode Title="ToUIntegerUS Method " Url="html/M_Cauldron_ExtensionsConvertions_ToUIntegerUS.htm" />
-        <HelpTOCNode Id="ca3cbe43-21be-4f85-947a-2300ec2a1f2c" Title="ToULong Method " Url="html/Overload_Cauldron_ExtensionsConvertions_ToULong.htm">
+        <HelpTOCNode Id="7a85a099-5d4e-4b08-8fac-84843e874463" Title="ToULong Method " Url="html/Overload_Cauldron_ExtensionsConvertions_ToULong.htm">
           <HelpTOCNode Title="ToULong Method (String)" Url="html/M_Cauldron_ExtensionsConvertions_ToULong.htm" />
           <HelpTOCNode Title="ToULong Method (String, NumberFormatInfo)" Url="html/M_Cauldron_ExtensionsConvertions_ToULong_1.htm" />
         </HelpTOCNode>
         <HelpTOCNode Title="ToULongUS Method " Url="html/M_Cauldron_ExtensionsConvertions_ToULongUS.htm" />
-        <HelpTOCNode Id="0202fce2-4945-4cd5-b053-b0a7cb7f0946" Title="ToUShort Method " Url="html/Overload_Cauldron_ExtensionsConvertions_ToUShort.htm">
+        <HelpTOCNode Id="7984f78a-f721-4299-bcf4-fe4dab1dbfe1" Title="ToUShort Method " Url="html/Overload_Cauldron_ExtensionsConvertions_ToUShort.htm">
           <HelpTOCNode Title="ToUShort Method (Byte[])" Url="html/M_Cauldron_ExtensionsConvertions_ToUShort.htm" />
           <HelpTOCNode Title="ToUShort Method (String)" Url="html/M_Cauldron_ExtensionsConvertions_ToUShort_1.htm" />
           <HelpTOCNode Title="ToUShort Method (String, NumberFormatInfo)" Url="html/M_Cauldron_ExtensionsConvertions_ToUShort_2.htm" />
@@ -311,24 +311,24 @@
         <HelpTOCNode Title="ToUShortUS Method " Url="html/M_Cauldron_ExtensionsConvertions_ToUShortUS.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="7da602c2-3214-41d5-aa92-96613759277c" Title="ExtensionsDirectoryInfo Class" Url="html/T_Cauldron_ExtensionsDirectoryInfo.htm">
-      <HelpTOCNode Id="d3b58248-dd71-4a32-9445-54d96d0c0773" Title="ExtensionsDirectoryInfo Methods" Url="html/Methods_T_Cauldron_ExtensionsDirectoryInfo.htm">
-        <HelpTOCNode Id="2f26d751-a10b-4ba5-9760-b101747cbeaf" Title="Combine Method " Url="html/Overload_Cauldron_ExtensionsDirectoryInfo_Combine.htm">
+    <HelpTOCNode Id="3e3b9dd1-bbe2-4023-a594-b522e498f0ba" Title="ExtensionsDirectoryInfo Class" Url="html/T_Cauldron_ExtensionsDirectoryInfo.htm">
+      <HelpTOCNode Id="4b10d179-8ff1-4385-9137-60269fff0db0" Title="ExtensionsDirectoryInfo Methods" Url="html/Methods_T_Cauldron_ExtensionsDirectoryInfo.htm">
+        <HelpTOCNode Id="4ff1967d-3b7d-4486-89ac-d7685cad5615" Title="Combine Method " Url="html/Overload_Cauldron_ExtensionsDirectoryInfo_Combine.htm">
           <HelpTOCNode Title="Combine Method (DirectoryInfo, String)" Url="html/M_Cauldron_ExtensionsDirectoryInfo_Combine.htm" />
           <HelpTOCNode Title="Combine Method (DirectoryInfo, String, String)" Url="html/M_Cauldron_ExtensionsDirectoryInfo_Combine_1.htm" />
           <HelpTOCNode Title="Combine Method (DirectoryInfo, String, String, String)" Url="html/M_Cauldron_ExtensionsDirectoryInfo_Combine_2.htm" />
           <HelpTOCNode Title="Combine Method (DirectoryInfo, String, String, String, String)" Url="html/M_Cauldron_ExtensionsDirectoryInfo_Combine_3.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="15b8740c-2d4b-4cf1-9c25-92b693625e06" Title="CopyAsync Method " Url="html/Overload_Cauldron_ExtensionsDirectoryInfo_CopyAsync.htm">
+        <HelpTOCNode Id="fbc90725-221f-4c28-813a-e3aa2009625f" Title="CopyAsync Method " Url="html/Overload_Cauldron_ExtensionsDirectoryInfo_CopyAsync.htm">
           <HelpTOCNode Title="CopyAsync Method (FileInfo, DirectoryInfo)" Url="html/M_Cauldron_ExtensionsDirectoryInfo_CopyAsync.htm" />
           <HelpTOCNode Title="CopyAsync Method (FileInfo, DirectoryInfo, String)" Url="html/M_Cauldron_ExtensionsDirectoryInfo_CopyAsync_1.htm" />
           <HelpTOCNode Title="CopyAsync Method (FileInfo, DirectoryInfo, String, NameCollisionOption)" Url="html/M_Cauldron_ExtensionsDirectoryInfo_CopyAsync_2.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="ab947b78-954d-4bbd-8aef-93edcadf0999" Title="CreateFileAsync Method " Url="html/Overload_Cauldron_ExtensionsDirectoryInfo_CreateFileAsync.htm">
+        <HelpTOCNode Id="315e4ca6-f6a0-421f-83f7-772af9f3da3b" Title="CreateFileAsync Method " Url="html/Overload_Cauldron_ExtensionsDirectoryInfo_CreateFileAsync.htm">
           <HelpTOCNode Title="CreateFileAsync Method (DirectoryInfo, String)" Url="html/M_Cauldron_ExtensionsDirectoryInfo_CreateFileAsync.htm" />
           <HelpTOCNode Title="CreateFileAsync Method (DirectoryInfo, String, CreationCollisionOption)" Url="html/M_Cauldron_ExtensionsDirectoryInfo_CreateFileAsync_1.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="e84fe800-19c2-412d-b17e-657a12767d35" Title="CreateFolderAsync Method " Url="html/Overload_Cauldron_ExtensionsDirectoryInfo_CreateFolderAsync.htm">
+        <HelpTOCNode Id="e0a7ea11-a2c1-46bc-8aec-ee9746f1cab1" Title="CreateFolderAsync Method " Url="html/Overload_Cauldron_ExtensionsDirectoryInfo_CreateFolderAsync.htm">
           <HelpTOCNode Title="CreateFolderAsync Method (DirectoryInfo, String)" Url="html/M_Cauldron_ExtensionsDirectoryInfo_CreateFolderAsync.htm" />
           <HelpTOCNode Title="CreateFolderAsync Method (DirectoryInfo, String, CreationCollisionOption)" Url="html/M_Cauldron_ExtensionsDirectoryInfo_CreateFolderAsync_1.htm" />
         </HelpTOCNode>
@@ -338,40 +338,40 @@
         <HelpTOCNode Title="ToFileInfo Method " Url="html/M_Cauldron_ExtensionsDirectoryInfo_ToFileInfo.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="8bdd606e-af13-4866-94d2-ed30e49c29df" Title="ExtensionsFileInfo Class" Url="html/T_Cauldron_ExtensionsFileInfo.htm">
-      <HelpTOCNode Id="c8f15a0c-da13-4be8-97e5-0c07f7cc561b" Title="ExtensionsFileInfo Methods" Url="html/Methods_T_Cauldron_ExtensionsFileInfo.htm">
+    <HelpTOCNode Id="5b5fc339-95f1-4eeb-ae8c-610b644dd2c5" Title="ExtensionsFileInfo Class" Url="html/T_Cauldron_ExtensionsFileInfo.htm">
+      <HelpTOCNode Id="af8a8dac-f22d-4d71-861b-36e8391544db" Title="ExtensionsFileInfo Methods" Url="html/Methods_T_Cauldron_ExtensionsFileInfo.htm">
         <HelpTOCNode Title="DeleteAsync Method " Url="html/M_Cauldron_ExtensionsFileInfo_DeleteAsync.htm" />
         <HelpTOCNode Title="GetDateModifiedAsync Method " Url="html/M_Cauldron_ExtensionsFileInfo_GetDateModifiedAsync.htm" />
         <HelpTOCNode Title="GetUniqueFilename Method " Url="html/M_Cauldron_ExtensionsFileInfo_GetUniqueFilename.htm" />
         <HelpTOCNode Title="Rename Method " Url="html/M_Cauldron_ExtensionsFileInfo_Rename.htm" />
-        <HelpTOCNode Id="5363e705-565e-4148-82e0-deb1ff21d645" Title="WaitUntilFileIsAccessableAsync Method " Url="html/Overload_Cauldron_ExtensionsFileInfo_WaitUntilFileIsAccessableAsync.htm">
+        <HelpTOCNode Id="2b04d3b1-f719-47b1-8bc8-61934b29eb77" Title="WaitUntilFileIsAccessableAsync Method " Url="html/Overload_Cauldron_ExtensionsFileInfo_WaitUntilFileIsAccessableAsync.htm">
           <HelpTOCNode Title="WaitUntilFileIsAccessableAsync Method (FileInfo)" Url="html/M_Cauldron_ExtensionsFileInfo_WaitUntilFileIsAccessableAsync.htm" />
           <HelpTOCNode Title="WaitUntilFileIsAccessableAsync Method (FileInfo, UInt32)" Url="html/M_Cauldron_ExtensionsFileInfo_WaitUntilFileIsAccessableAsync_1.htm" />
           <HelpTOCNode Title="WaitUntilFileIsAccessableAsync Method (FileInfo, UInt32, TimeSpan)" Url="html/M_Cauldron_ExtensionsFileInfo_WaitUntilFileIsAccessableAsync_2.htm" />
         </HelpTOCNode>
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="af29e54a-a1d9-4c3c-b6d2-2e8781504e37" Title="ExtensionsFileIO Class" Url="html/T_Cauldron_ExtensionsFileIO.htm">
-      <HelpTOCNode Id="128645bf-c5a4-443c-8144-d538ed9ff268" Title="ExtensionsFileIO Methods" Url="html/Methods_T_Cauldron_ExtensionsFileIO.htm">
+    <HelpTOCNode Id="c6c61860-098b-48ea-9a33-76e580533944" Title="ExtensionsFileIO Class" Url="html/T_Cauldron_ExtensionsFileIO.htm">
+      <HelpTOCNode Id="c420b70b-d907-49b4-ab5e-c3d2258c5fd1" Title="ExtensionsFileIO Methods" Url="html/Methods_T_Cauldron_ExtensionsFileIO.htm">
         <HelpTOCNode Title="ExistsAsync Method " Url="html/M_Cauldron_ExtensionsFileIO_ExistsAsync.htm" />
         <HelpTOCNode Title="ReadBytesAsync Method " Url="html/M_Cauldron_ExtensionsFileIO_ReadBytesAsync.htm" />
-        <HelpTOCNode Id="1e130ac9-96db-4e8d-bc7a-d5f787c9d94a" Title="ReadTextAsync Method " Url="html/Overload_Cauldron_ExtensionsFileIO_ReadTextAsync.htm">
+        <HelpTOCNode Id="e128aa5d-781e-4627-9b99-a6f290012e19" Title="ReadTextAsync Method " Url="html/Overload_Cauldron_ExtensionsFileIO_ReadTextAsync.htm">
           <HelpTOCNode Title="ReadTextAsync Method (FileInfo)" Url="html/M_Cauldron_ExtensionsFileIO_ReadTextAsync_2.htm" />
           <HelpTOCNode Title="ReadTextAsync Method (DirectoryInfo, String)" Url="html/M_Cauldron_ExtensionsFileIO_ReadTextAsync.htm" />
           <HelpTOCNode Title="ReadTextAsync Method (FileInfo, Encoding)" Url="html/M_Cauldron_ExtensionsFileIO_ReadTextAsync_3.htm" />
           <HelpTOCNode Title="ReadTextAsync Method (DirectoryInfo, String, Encoding)" Url="html/M_Cauldron_ExtensionsFileIO_ReadTextAsync_1.htm" />
         </HelpTOCNode>
         <HelpTOCNode Title="WriteBytesAsync Method " Url="html/M_Cauldron_ExtensionsFileIO_WriteBytesAsync.htm" />
-        <HelpTOCNode Id="3f47b342-10f2-4fea-9b30-2e75c20eba4b" Title="WriteTextAsync Method " Url="html/Overload_Cauldron_ExtensionsFileIO_WriteTextAsync.htm">
+        <HelpTOCNode Id="d2d43145-c16f-442c-b1be-80b393c24cff" Title="WriteTextAsync Method " Url="html/Overload_Cauldron_ExtensionsFileIO_WriteTextAsync.htm">
           <HelpTOCNode Title="WriteTextAsync Method (FileInfo, String)" Url="html/M_Cauldron_ExtensionsFileIO_WriteTextAsync.htm" />
           <HelpTOCNode Title="WriteTextAsync Method (FileInfo, String, Encoding)" Url="html/M_Cauldron_ExtensionsFileIO_WriteTextAsync_1.htm" />
         </HelpTOCNode>
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="fa7577c8-f246-410f-84b4-92c4da620722" Title="ExtensionsReflection Class" Url="html/T_Cauldron_ExtensionsReflection.htm">
-      <HelpTOCNode Id="60d40cc8-07ef-4e9a-9e1c-60fd7b3f75ce" Title="ExtensionsReflection Methods" Url="html/Methods_T_Cauldron_ExtensionsReflection.htm">
+    <HelpTOCNode Id="317f3e09-90e6-4706-859e-3435438a6fb0" Title="ExtensionsReflection Class" Url="html/T_Cauldron_ExtensionsReflection.htm">
+      <HelpTOCNode Id="a742a26b-a139-4f93-9800-e3c70f8c0922" Title="ExtensionsReflection Methods" Url="html/Methods_T_Cauldron_ExtensionsReflection.htm">
         <HelpTOCNode Title="AreReferenceAssignable Method " Url="html/M_Cauldron_ExtensionsReflection_AreReferenceAssignable.htm" />
-        <HelpTOCNode Id="ad80eff3-b88d-491a-86b1-3cd2d90ed94a" Title="CreateInstance Method " Url="html/Overload_Cauldron_ExtensionsReflection_CreateInstance.htm">
+        <HelpTOCNode Id="dd947058-5b6e-4c04-a677-533080fff10f" Title="CreateInstance Method " Url="html/Overload_Cauldron_ExtensionsReflection_CreateInstance.htm">
           <HelpTOCNode Title="CreateInstance Method (ConstructorInfo, Object[])" Url="html/M_Cauldron_ExtensionsReflection_CreateInstance.htm" />
           <HelpTOCNode Title="CreateInstance Method (Type, Object[])" Url="html/M_Cauldron_ExtensionsReflection_CreateInstance_1.htm" />
         </HelpTOCNode>
@@ -388,13 +388,13 @@
         <HelpTOCNode Title="GetPropertyEx Method " Url="html/M_Cauldron_ExtensionsReflection_GetPropertyEx.htm" />
         <HelpTOCNode Title="GetPropertyFromPath Method " Url="html/M_Cauldron_ExtensionsReflection_GetPropertyFromPath.htm" />
         <HelpTOCNode Title="GetPropertyNonPublicValue(T) Method " Url="html/M_Cauldron_ExtensionsReflection_GetPropertyNonPublicValue__1.htm" />
-        <HelpTOCNode Id="68d5e231-d0f4-456d-9587-3b83ab0d20c6" Title="GetPropertyValue Method " Url="html/Overload_Cauldron_ExtensionsReflection_GetPropertyValue.htm">
+        <HelpTOCNode Id="5077ce9f-60f5-4508-97ae-be88509df684" Title="GetPropertyValue Method " Url="html/Overload_Cauldron_ExtensionsReflection_GetPropertyValue.htm">
           <HelpTOCNode Title="GetPropertyValue(T) Method (Object, String)" Url="html/M_Cauldron_ExtensionsReflection_GetPropertyValue__1.htm" />
           <HelpTOCNode Title="GetPropertyValue(T) Method (Object, String, BindingFlags)" Url="html/M_Cauldron_ExtensionsReflection_GetPropertyValue__1_1.htm" />
           <HelpTOCNode Title="GetPropertyValue Method (Object, String, BindingFlags)" Url="html/M_Cauldron_ExtensionsReflection_GetPropertyValue.htm" />
         </HelpTOCNode>
         <HelpTOCNode Title="GetValue(TEnum) Method " Url="html/M_Cauldron_ExtensionsReflection_GetValue__1.htm" />
-        <HelpTOCNode Id="d11cafa2-9dab-429a-a0d9-085426a1b437" Title="ImplementsInterface Method " Url="html/Overload_Cauldron_ExtensionsReflection_ImplementsInterface.htm">
+        <HelpTOCNode Id="629f5552-0306-48ed-a927-12e40415f4e5" Title="ImplementsInterface Method " Url="html/Overload_Cauldron_ExtensionsReflection_ImplementsInterface.htm">
           <HelpTOCNode Title="ImplementsInterface(T) Method (TypeInfo)" Url="html/M_Cauldron_ExtensionsReflection_ImplementsInterface__1.htm" />
           <HelpTOCNode Title="ImplementsInterface(T) Method (Type)" Url="html/M_Cauldron_ExtensionsReflection_ImplementsInterface__1_1.htm" />
           <HelpTOCNode Title="ImplementsInterface Method (TypeInfo, Type)" Url="html/M_Cauldron_ExtensionsReflection_ImplementsInterface.htm" />
@@ -402,7 +402,7 @@
         </HelpTOCNode>
         <HelpTOCNode Title="IsCollectionOrList Method " Url="html/M_Cauldron_ExtensionsReflection_IsCollectionOrList.htm" />
         <HelpTOCNode Title="IsNullable Method " Url="html/M_Cauldron_ExtensionsReflection_IsNullable.htm" />
-        <HelpTOCNode Id="b3476725-f9a1-4349-a92c-80a1e8cc04e0" Title="MatchesArgumentTypes Method " Url="html/Overload_Cauldron_ExtensionsReflection_MatchesArgumentTypes.htm">
+        <HelpTOCNode Id="04a4b4d4-6685-4b2a-839b-253b7ac05f58" Title="MatchesArgumentTypes Method " Url="html/Overload_Cauldron_ExtensionsReflection_MatchesArgumentTypes.htm">
           <HelpTOCNode Title="MatchesArgumentTypes Method (MethodBase, Type[])" Url="html/M_Cauldron_ExtensionsReflection_MatchesArgumentTypes.htm" />
           <HelpTOCNode Title="MatchesArgumentTypes Method (ParameterInfo[], Type[])" Url="html/M_Cauldron_ExtensionsReflection_MatchesArgumentTypes_1.htm" />
         </HelpTOCNode>
@@ -410,18 +410,18 @@
     </HelpTOCNode>
     <HelpTOCNode Title="NameCollisionOption Enumeration" Url="html/T_Cauldron_NameCollisionOption.htm" />
     <HelpTOCNode Title="Position Enumeration" Url="html/T_Cauldron_Position.htm" />
-    <HelpTOCNode Id="5e86a87c-cf0d-4529-8cbb-37bb5324a26f" Title="TypeIsInterfaceException Class" Url="html/T_Cauldron_TypeIsInterfaceException.htm">
+    <HelpTOCNode Id="46addb44-aa49-42ec-9dd9-32cdf14a9ce6" Title="TypeIsInterfaceException Class" Url="html/T_Cauldron_TypeIsInterfaceException.htm">
       <HelpTOCNode Title="TypeIsInterfaceException Constructor " Url="html/M_Cauldron_TypeIsInterfaceException__ctor.htm" />
       <HelpTOCNode Title="TypeIsInterfaceException Methods" Url="html/Methods_T_Cauldron_TypeIsInterfaceException.htm" />
     </HelpTOCNode>
   </HelpTOCNode>
-  <HelpTOCNode Id="e55ea113-16b4-46eb-bb5a-48c7d945eaf3" Title="Cauldron.Activator" Url="html/N_Cauldron_Activator.htm">
-    <HelpTOCNode Id="10e9cba2-a745-4d55-a003-48db69adb809" Title="CloneIgnoreAttribute Class" Url="html/T_Cauldron_Activator_CloneIgnoreAttribute.htm">
+  <HelpTOCNode Id="302db1d1-2c28-4ef6-87c0-c54661d4f533" Title="Cauldron.Activator" Url="html/N_Cauldron_Activator.htm">
+    <HelpTOCNode Id="006e0c96-4d11-4a64-a020-d0524198bd67" Title="CloneIgnoreAttribute Class" Url="html/T_Cauldron_Activator_CloneIgnoreAttribute.htm">
       <HelpTOCNode Title="CloneIgnoreAttribute Constructor " Url="html/M_Cauldron_Activator_CloneIgnoreAttribute__ctor.htm" />
       <HelpTOCNode Title="CloneIgnoreAttribute Methods" Url="html/Methods_T_Cauldron_Activator_CloneIgnoreAttribute.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="920cb760-e19b-4a98-9e6e-ab1a08011560" Title="ComponentAttribute Class" Url="html/T_Cauldron_Activator_ComponentAttribute.htm">
-      <HelpTOCNode Id="c1753375-e20d-4bfa-a221-5b88f0c3822d" Title="ComponentAttribute Constructor " Url="html/Overload_Cauldron_Activator_ComponentAttribute__ctor.htm">
+    <HelpTOCNode Id="c6f44711-adf5-4855-812a-0f25d2410b0e" Title="ComponentAttribute Class" Url="html/T_Cauldron_Activator_ComponentAttribute.htm">
+      <HelpTOCNode Id="3bd4f200-3a6c-4796-8e38-4509f382cdc3" Title="ComponentAttribute Constructor " Url="html/Overload_Cauldron_Activator_ComponentAttribute__ctor.htm">
         <HelpTOCNode Title="ComponentAttribute Constructor (String)" Url="html/M_Cauldron_Activator_ComponentAttribute__ctor.htm" />
         <HelpTOCNode Title="ComponentAttribute Constructor (Type)" Url="html/M_Cauldron_Activator_ComponentAttribute__ctor_3.htm" />
         <HelpTOCNode Title="ComponentAttribute Constructor (String, UInt32)" Url="html/M_Cauldron_Activator_ComponentAttribute__ctor_2.htm" />
@@ -430,137 +430,137 @@
         <HelpTOCNode Title="ComponentAttribute Constructor (String, FactoryCreationPolicy, UInt32)" Url="html/M_Cauldron_Activator_ComponentAttribute__ctor_1.htm" />
         <HelpTOCNode Title="ComponentAttribute Constructor (Type, FactoryCreationPolicy, UInt32)" Url="html/M_Cauldron_Activator_ComponentAttribute__ctor_5.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="b49b7353-40f0-4e60-995f-d54d3cdde66b" Title="ComponentAttribute Properties" Url="html/Properties_T_Cauldron_Activator_ComponentAttribute.htm">
+      <HelpTOCNode Id="1c4fd0b9-3b2b-4c71-a784-f7ca1799a0e7" Title="ComponentAttribute Properties" Url="html/Properties_T_Cauldron_Activator_ComponentAttribute.htm">
         <HelpTOCNode Title="ContractName Property " Url="html/P_Cauldron_Activator_ComponentAttribute_ContractName.htm" />
         <HelpTOCNode Title="Policy Property " Url="html/P_Cauldron_Activator_ComponentAttribute_Policy.htm" />
         <HelpTOCNode Title="Priority Property " Url="html/P_Cauldron_Activator_ComponentAttribute_Priority.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="ComponentAttribute Methods" Url="html/Methods_T_Cauldron_Activator_ComponentAttribute.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="f5365375-e6f1-4aa0-8cea-52a867acf8cd" Title="ComponentConstructorAttribute Class" Url="html/T_Cauldron_Activator_ComponentConstructorAttribute.htm">
+    <HelpTOCNode Id="95d0f9fe-c6ad-43b6-9df8-3b0de30b7923" Title="ComponentConstructorAttribute Class" Url="html/T_Cauldron_Activator_ComponentConstructorAttribute.htm">
       <HelpTOCNode Title="ComponentConstructorAttribute Constructor " Url="html/M_Cauldron_Activator_ComponentConstructorAttribute__ctor.htm" />
       <HelpTOCNode Title="ComponentConstructorAttribute Methods" Url="html/Methods_T_Cauldron_Activator_ComponentConstructorAttribute.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="2c18260a-2acc-4269-9d4e-9e50ea3921bf" Title="ExtensionsCloning Class" Url="html/T_Cauldron_Activator_ExtensionsCloning.htm">
-      <HelpTOCNode Id="ef5f8b4a-9a4c-483c-975e-fbb352339932" Title="ExtensionsCloning Methods" Url="html/Methods_T_Cauldron_Activator_ExtensionsCloning.htm">
+    <HelpTOCNode Id="45bf60ce-5e54-47d6-80ee-7af3d837e451" Title="ExtensionsCloning Class" Url="html/T_Cauldron_Activator_ExtensionsCloning.htm">
+      <HelpTOCNode Id="16cbf348-0d05-42ff-b68d-05e073c70121" Title="ExtensionsCloning Methods" Url="html/Methods_T_Cauldron_Activator_ExtensionsCloning.htm">
         <HelpTOCNode Title="DeepClone(T) Method " Url="html/M_Cauldron_Activator_ExtensionsCloning_DeepClone__1.htm" />
-        <HelpTOCNode Id="43d1e2ff-c48f-46a2-a73a-c6d3ff875e66" Title="MapTo Method " Url="html/Overload_Cauldron_Activator_ExtensionsCloning_MapTo.htm">
+        <HelpTOCNode Id="0a12a2dd-8d76-4af7-b822-9791c8f11310" Title="MapTo Method " Url="html/Overload_Cauldron_Activator_ExtensionsCloning_MapTo.htm">
           <HelpTOCNode Title="MapTo(T) Method (Object)" Url="html/M_Cauldron_Activator_ExtensionsCloning_MapTo__1.htm" />
           <HelpTOCNode Title="MapTo(T, TTarget) Method (T, TTarget)" Url="html/M_Cauldron_Activator_ExtensionsCloning_MapTo__2.htm" />
         </HelpTOCNode>
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="983b92d0-64fd-4b4d-a0dd-208eaec05c32" Title="Factory Class" Url="html/T_Cauldron_Activator_Factory.htm">
+    <HelpTOCNode Id="9e16157e-2e5b-449d-9f95-bb6158ddf749" Title="Factory Class" Url="html/T_Cauldron_Activator_Factory.htm">
       <HelpTOCNode Title="Factory Constructor " Url="html/M_Cauldron_Activator_Factory__ctor.htm" />
-      <HelpTOCNode Id="ec30400c-56da-4e8a-8cee-eb6470ed1d41" Title="Factory Properties" Url="html/Properties_T_Cauldron_Activator_Factory.htm">
+      <HelpTOCNode Id="5cb2ec6c-1808-4209-b92a-83a0603d557e" Title="Factory Properties" Url="html/Properties_T_Cauldron_Activator_Factory.htm">
         <HelpTOCNode Title="CanRaiseExceptions Property " Url="html/P_Cauldron_Activator_Factory_CanRaiseExceptions.htm" />
         <HelpTOCNode Title="RegisteredTypes Property " Url="html/P_Cauldron_Activator_Factory_RegisteredTypes.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="66fff09e-c842-4d66-9bed-125415dd6b0a" Title="Factory Methods" Url="html/Methods_T_Cauldron_Activator_Factory.htm">
+      <HelpTOCNode Id="59bbb4c1-095c-465e-bbb0-e255aeca10d3" Title="Factory Methods" Url="html/Methods_T_Cauldron_Activator_Factory.htm">
         <HelpTOCNode Title="AddType Method " Url="html/M_Cauldron_Activator_Factory_AddType.htm" />
-        <HelpTOCNode Id="0ec8ea02-2e80-4b80-9d9c-23d37b2571c2" Title="Create Method " Url="html/Overload_Cauldron_Activator_Factory_Create.htm">
+        <HelpTOCNode Id="2d3abf89-d170-44ee-897f-f1a53d2d10df" Title="Create Method " Url="html/Overload_Cauldron_Activator_Factory_Create.htm">
           <HelpTOCNode Title="Create(T) Method (Object[])" Url="html/M_Cauldron_Activator_Factory_Create__1.htm" />
           <HelpTOCNode Title="Create Method (String, Object[])" Url="html/M_Cauldron_Activator_Factory_Create.htm" />
           <HelpTOCNode Title="Create Method (Type, Object[])" Url="html/M_Cauldron_Activator_Factory_Create_1.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="94761dba-dd2a-4fb9-854f-0181f1a5b320" Title="CreateFirst Method " Url="html/Overload_Cauldron_Activator_Factory_CreateFirst.htm">
+        <HelpTOCNode Id="8f7f5ca8-0ea9-44fa-bf4d-809a045e41cd" Title="CreateFirst Method " Url="html/Overload_Cauldron_Activator_Factory_CreateFirst.htm">
           <HelpTOCNode Title="CreateFirst(T) Method (Object[])" Url="html/M_Cauldron_Activator_Factory_CreateFirst__1.htm" />
           <HelpTOCNode Title="CreateFirst Method (String, Object[])" Url="html/M_Cauldron_Activator_Factory_CreateFirst.htm" />
           <HelpTOCNode Title="CreateFirst Method (Type, Object[])" Url="html/M_Cauldron_Activator_Factory_CreateFirst_1.htm" />
         </HelpTOCNode>
         <HelpTOCNode Title="CreateInstance Method " Url="html/M_Cauldron_Activator_Factory_CreateInstance.htm" />
-        <HelpTOCNode Id="1415303a-e1ad-42bb-905d-a078f922ebbd" Title="CreateMany Method " Url="html/Overload_Cauldron_Activator_Factory_CreateMany.htm">
+        <HelpTOCNode Id="23cea4db-8cbd-4ba8-ace7-f7fd1d5008cb" Title="CreateMany Method " Url="html/Overload_Cauldron_Activator_Factory_CreateMany.htm">
           <HelpTOCNode Title="CreateMany(T) Method (Object[])" Url="html/M_Cauldron_Activator_Factory_CreateMany__1.htm" />
           <HelpTOCNode Title="CreateMany Method (String, Object[])" Url="html/M_Cauldron_Activator_Factory_CreateMany.htm" />
           <HelpTOCNode Title="CreateMany Method (Type, Object[])" Url="html/M_Cauldron_Activator_Factory_CreateMany_1.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="4f715d0b-1861-4c12-a0f6-b5d4d49574bc" Title="Destroy Method " Url="html/Overload_Cauldron_Activator_Factory_Destroy.htm">
+        <HelpTOCNode Id="6029ea4f-7bcd-4185-b332-40f519e6b5f4" Title="Destroy Method " Url="html/Overload_Cauldron_Activator_Factory_Destroy.htm">
           <HelpTOCNode Title="Destroy(T) Method " Url="html/M_Cauldron_Activator_Factory_Destroy__1.htm" />
           <HelpTOCNode Title="Destroy Method " Url="html/M_Cauldron_Activator_Factory_Destroy.htm" />
           <HelpTOCNode Title="Destroy Method (String)" Url="html/M_Cauldron_Activator_Factory_Destroy_1.htm" />
           <HelpTOCNode Title="Destroy Method (Type)" Url="html/M_Cauldron_Activator_Factory_Destroy_2.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="be04638a-e21a-4a09-9fee-c7dbb64bb665" Title="HasContract Method " Url="html/Overload_Cauldron_Activator_Factory_HasContract.htm">
+        <HelpTOCNode Id="341773f9-3b21-418b-a93c-b3d0068fc42b" Title="HasContract Method " Url="html/Overload_Cauldron_Activator_Factory_HasContract.htm">
           <HelpTOCNode Title="HasContract(T) Method " Url="html/M_Cauldron_Activator_Factory_HasContract__1.htm" />
           <HelpTOCNode Title="HasContract Method (String)" Url="html/M_Cauldron_Activator_Factory_HasContract.htm" />
           <HelpTOCNode Title="HasContract Method (Type)" Url="html/M_Cauldron_Activator_Factory_HasContract_1.htm" />
         </HelpTOCNode>
         <HelpTOCNode Title="RemoveType Method " Url="html/M_Cauldron_Activator_Factory_RemoveType.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="851a6d93-7f32-4f1d-96b2-fdf79a4dab8e" Title="Factory Events" Url="html/Events_T_Cauldron_Activator_Factory.htm">
+      <HelpTOCNode Id="b7081f8f-3939-41dc-b230-3aaf5ff6027b" Title="Factory Events" Url="html/Events_T_Cauldron_Activator_Factory.htm">
         <HelpTOCNode Title="ObjectCreated Event" Url="html/E_Cauldron_Activator_Factory_ObjectCreated.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="1199cc93-43d2-47a0-bab7-4800e8b97c07" Title="Factory(T) Class" Url="html/T_Cauldron_Activator_Factory_1.htm">
+    <HelpTOCNode Id="6976b717-bb23-4700-8d66-3e46e3e03721" Title="Factory(T) Class" Url="html/T_Cauldron_Activator_Factory_1.htm">
       <HelpTOCNode Title="Factory(T) Constructor " Url="html/M_Cauldron_Activator_Factory_1__ctor.htm" />
-      <HelpTOCNode Id="480709e7-7adb-4431-bfa4-159cd083885d" Title="Factory(T) Properties" Url="html/Properties_T_Cauldron_Activator_Factory_1.htm">
+      <HelpTOCNode Id="6d0cf0d6-5aaf-4abc-8290-a734d578e480" Title="Factory(T) Properties" Url="html/Properties_T_Cauldron_Activator_Factory_1.htm">
         <HelpTOCNode Title="Current Property " Url="html/P_Cauldron_Activator_Factory_1_Current.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="9337e06a-c648-4112-8061-de9f6fd9a19e" Title="Factory(T) Methods" Url="html/Methods_T_Cauldron_Activator_Factory_1.htm">
+      <HelpTOCNode Id="3e18f5d9-6cab-4bb4-b657-5f0c8cb43a2f" Title="Factory(T) Methods" Url="html/Methods_T_Cauldron_Activator_Factory_1.htm">
         <HelpTOCNode Title="Free Method " Url="html/M_Cauldron_Activator_Factory_1_Free.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
     <HelpTOCNode Title="FactoryCreationPolicy Enumeration" Url="html/T_Cauldron_Activator_FactoryCreationPolicy.htm" />
-    <HelpTOCNode Id="5a06702f-1922-407e-935f-788f6f7dc9f0" Title="FactoryObjectCreatedEventArgs Class" Url="html/T_Cauldron_Activator_FactoryObjectCreatedEventArgs.htm">
-      <HelpTOCNode Id="e7bbd5ed-6539-4078-ac0a-7248b7e49a9b" Title="FactoryObjectCreatedEventArgs Properties" Url="html/Properties_T_Cauldron_Activator_FactoryObjectCreatedEventArgs.htm">
+    <HelpTOCNode Id="206769f2-0dff-42a8-8d98-5a47b6af112b" Title="FactoryObjectCreatedEventArgs Class" Url="html/T_Cauldron_Activator_FactoryObjectCreatedEventArgs.htm">
+      <HelpTOCNode Id="146d8f61-af96-45b3-b352-55856f3f72c3" Title="FactoryObjectCreatedEventArgs Properties" Url="html/Properties_T_Cauldron_Activator_FactoryObjectCreatedEventArgs.htm">
         <HelpTOCNode Title="FactoryTypeInfo Property " Url="html/P_Cauldron_Activator_FactoryObjectCreatedEventArgs_FactoryTypeInfo.htm" />
         <HelpTOCNode Title="ObjectInstance Property " Url="html/P_Cauldron_Activator_FactoryObjectCreatedEventArgs_ObjectInstance.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="FactoryObjectCreatedEventArgs Methods" Url="html/Methods_T_Cauldron_Activator_FactoryObjectCreatedEventArgs.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="ebbe9aa2-9b83-4164-8406-0f5780ad64bb" Title="IFactoryResolver Interface" Url="html/T_Cauldron_Activator_IFactoryResolver.htm">
-      <HelpTOCNode Id="4cebccc7-1f9d-42b2-9608-50ffa7e3aa79" Title="IFactoryResolver Methods" Url="html/Methods_T_Cauldron_Activator_IFactoryResolver.htm">
+    <HelpTOCNode Id="0b49fa10-7f85-4193-8117-c22c83f3cc2e" Title="IFactoryResolver Interface" Url="html/T_Cauldron_Activator_IFactoryResolver.htm">
+      <HelpTOCNode Id="bb36f208-121d-4c77-a7bd-beca57cb58a4" Title="IFactoryResolver Methods" Url="html/Methods_T_Cauldron_Activator_IFactoryResolver.htm">
         <HelpTOCNode Title="SelectAmbiguousMatch Method " Url="html/M_Cauldron_Activator_IFactoryResolver_SelectAmbiguousMatch.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="f826cbbc-ce38-4ce8-81ff-510b23cd060f" Title="IFactoryTypeInfo Interface" Url="html/T_Cauldron_Activator_IFactoryTypeInfo.htm">
-      <HelpTOCNode Id="15ddc121-2a4e-4f74-8caa-efc933427829" Title="IFactoryTypeInfo Properties" Url="html/Properties_T_Cauldron_Activator_IFactoryTypeInfo.htm">
+    <HelpTOCNode Id="f81a7cc2-9c81-47d5-a4c6-fd1ab2bac8ac" Title="IFactoryTypeInfo Interface" Url="html/T_Cauldron_Activator_IFactoryTypeInfo.htm">
+      <HelpTOCNode Id="872eaf87-5cb7-4d7d-b414-16a66e695942" Title="IFactoryTypeInfo Properties" Url="html/Properties_T_Cauldron_Activator_IFactoryTypeInfo.htm">
         <HelpTOCNode Title="ContractName Property " Url="html/P_Cauldron_Activator_IFactoryTypeInfo_ContractName.htm" />
         <HelpTOCNode Title="CreationPolicy Property " Url="html/P_Cauldron_Activator_IFactoryTypeInfo_CreationPolicy.htm" />
         <HelpTOCNode Title="Priority Property " Url="html/P_Cauldron_Activator_IFactoryTypeInfo_Priority.htm" />
         <HelpTOCNode Title="Type Property " Url="html/P_Cauldron_Activator_IFactoryTypeInfo_Type.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="9e06b45d-95aa-439e-8bf8-6bf4b3511dec" Title="IFactoryTypeInfo Methods" Url="html/Methods_T_Cauldron_Activator_IFactoryTypeInfo.htm">
+      <HelpTOCNode Id="8dbba5d0-b8f8-49a8-be18-a271232070f7" Title="IFactoryTypeInfo Methods" Url="html/Methods_T_Cauldron_Activator_IFactoryTypeInfo.htm">
         <HelpTOCNode Title="CreateInstance Method " Url="html/M_Cauldron_Activator_IFactoryTypeInfo_CreateInstance.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="90a6206f-9ee4-407c-be82-33f58641b019" Title="InjectAttribute Class" Url="html/T_Cauldron_Activator_InjectAttribute.htm">
-      <HelpTOCNode Id="a52bcaae-fec7-4e69-8ea6-39ed8d35e9c1" Title="InjectAttribute Constructor " Url="html/Overload_Cauldron_Activator_InjectAttribute__ctor.htm">
+    <HelpTOCNode Id="ef3647e2-3cd5-4e86-a237-251be89917f4" Title="InjectAttribute Class" Url="html/T_Cauldron_Activator_InjectAttribute.htm">
+      <HelpTOCNode Id="b1c7e026-aa81-4fd7-9e4e-70a44a2c37ab" Title="InjectAttribute Constructor " Url="html/Overload_Cauldron_Activator_InjectAttribute__ctor.htm">
         <HelpTOCNode Title="InjectAttribute Constructor " Url="html/M_Cauldron_Activator_InjectAttribute__ctor.htm" />
         <HelpTOCNode Title="InjectAttribute Constructor (Object[])" Url="html/M_Cauldron_Activator_InjectAttribute__ctor_1.htm" />
         <HelpTOCNode Title="InjectAttribute Constructor (String, Object[])" Url="html/M_Cauldron_Activator_InjectAttribute__ctor_2.htm" />
         <HelpTOCNode Title="InjectAttribute Constructor (Type, Object[])" Url="html/M_Cauldron_Activator_InjectAttribute__ctor_3.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="dcdd7d20-1da1-44ba-b9d3-28bd36665fcf" Title="InjectAttribute Properties" Url="html/Properties_T_Cauldron_Activator_InjectAttribute.htm">
+      <HelpTOCNode Id="dd6a0edb-ff85-498d-b73f-c5ccbac3a7c8" Title="InjectAttribute Properties" Url="html/Properties_T_Cauldron_Activator_InjectAttribute.htm">
         <HelpTOCNode Title="SyncRoot Property " Url="html/P_Cauldron_Activator_InjectAttribute_SyncRoot.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="aa4b75a7-3206-4335-bf76-05115f0c5e24" Title="InjectAttribute Methods" Url="html/Methods_T_Cauldron_Activator_InjectAttribute.htm">
+      <HelpTOCNode Id="9b73742f-0f3d-4408-b8e9-5fb49d1871e9" Title="InjectAttribute Methods" Url="html/Methods_T_Cauldron_Activator_InjectAttribute.htm">
         <HelpTOCNode Title="OnException Method " Url="html/M_Cauldron_Activator_InjectAttribute_OnException.htm" />
         <HelpTOCNode Title="OnExit Method " Url="html/M_Cauldron_Activator_InjectAttribute_OnExit.htm" />
         <HelpTOCNode Title="OnGet Method " Url="html/M_Cauldron_Activator_InjectAttribute_OnGet.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="b05e0911-39be-411d-a1c6-15f652ea57e8" Title="UnitTestAwareFactoryResolverBase Class" Url="html/T_Cauldron_Activator_UnitTestAwareFactoryResolverBase.htm">
+    <HelpTOCNode Id="2ee6fc85-47e7-44fd-9252-dff399c71fdf" Title="UnitTestAwareFactoryResolverBase Class" Url="html/T_Cauldron_Activator_UnitTestAwareFactoryResolverBase.htm">
       <HelpTOCNode Title="UnitTestAwareFactoryResolverBase Constructor " Url="html/M_Cauldron_Activator_UnitTestAwareFactoryResolverBase__ctor.htm" />
-      <HelpTOCNode Id="2b3b36ed-27a9-4c75-8519-5b9c524b5d01" Title="UnitTestAwareFactoryResolverBase Properties" Url="html/Properties_T_Cauldron_Activator_UnitTestAwareFactoryResolverBase.htm">
+      <HelpTOCNode Id="e5c87228-5199-4299-b11f-3c741e9fb0bd" Title="UnitTestAwareFactoryResolverBase Properties" Url="html/Properties_T_Cauldron_Activator_UnitTestAwareFactoryResolverBase.htm">
         <HelpTOCNode Title="IsUnitTest Property " Url="html/P_Cauldron_Activator_UnitTestAwareFactoryResolverBase_IsUnitTest.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="0feb1fe2-c3d7-4e5b-b5b4-57e3f8f1fbd7" Title="UnitTestAwareFactoryResolverBase Methods" Url="html/Methods_T_Cauldron_Activator_UnitTestAwareFactoryResolverBase.htm">
+      <HelpTOCNode Id="8b55bc84-daab-437a-88c1-6b7c3a7b294b" Title="UnitTestAwareFactoryResolverBase Methods" Url="html/Methods_T_Cauldron_Activator_UnitTestAwareFactoryResolverBase.htm">
         <HelpTOCNode Title="IsApplicable Method " Url="html/M_Cauldron_Activator_UnitTestAwareFactoryResolverBase_IsApplicable.htm" />
         <HelpTOCNode Title="OnSelectAmbiguousMatch Method " Url="html/M_Cauldron_Activator_UnitTestAwareFactoryResolverBase_OnSelectAmbiguousMatch.htm" />
         <HelpTOCNode Title="SelectAmbiguousMatch Method " Url="html/M_Cauldron_Activator_UnitTestAwareFactoryResolverBase_SelectAmbiguousMatch.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
   </HelpTOCNode>
-  <HelpTOCNode Id="f4eff801-0cec-4279-b808-830c849b48c2" Title="Cauldron.Consoles" Url="html/N_Cauldron_Consoles.htm">
+  <HelpTOCNode Id="166dd959-145e-4c16-babb-dde01b47ef1d" Title="Cauldron.Consoles" Url="html/N_Cauldron_Consoles.htm">
     <HelpTOCNode Title="ColumnAlignment Enumeration" Url="html/T_Cauldron_Consoles_ColumnAlignment.htm" />
-    <HelpTOCNode Id="a58bf73c-4af4-42cd-b318-0376a5e6726d" Title="ConsoleTableColumn Class" Url="html/T_Cauldron_Consoles_ConsoleTableColumn.htm">
-      <HelpTOCNode Id="ca914518-3065-4088-a437-500923e9cf18" Title="ConsoleTableColumn Constructor " Url="html/Overload_Cauldron_Consoles_ConsoleTableColumn__ctor.htm">
+    <HelpTOCNode Id="03f246f3-f2ed-4e56-862d-cbac8dfd5cde" Title="ConsoleTableColumn Class" Url="html/T_Cauldron_Consoles_ConsoleTableColumn.htm">
+      <HelpTOCNode Id="a4665d9c-0cc6-4c0c-a75a-6045f6462e0f" Title="ConsoleTableColumn Constructor " Url="html/Overload_Cauldron_Consoles_ConsoleTableColumn__ctor.htm">
         <HelpTOCNode Title="ConsoleTableColumn Constructor " Url="html/M_Cauldron_Consoles_ConsoleTableColumn__ctor.htm" />
         <HelpTOCNode Title="ConsoleTableColumn Constructor (IEnumerable(String))" Url="html/M_Cauldron_Consoles_ConsoleTableColumn__ctor_1.htm" />
         <HelpTOCNode Title="ConsoleTableColumn Constructor (String[])" Url="html/M_Cauldron_Consoles_ConsoleTableColumn__ctor_2.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="cbf7bd10-992b-43aa-b662-7f2a1080954f" Title="ConsoleTableColumn Properties" Url="html/Properties_T_Cauldron_Consoles_ConsoleTableColumn.htm">
+      <HelpTOCNode Id="37726856-a2f5-4898-b532-65d2fc9878ff" Title="ConsoleTableColumn Properties" Url="html/Properties_T_Cauldron_Consoles_ConsoleTableColumn.htm">
         <HelpTOCNode Title="Alignment Property " Url="html/P_Cauldron_Consoles_ConsoleTableColumn_Alignment.htm" />
         <HelpTOCNode Title="AlternativeForeground Property " Url="html/P_Cauldron_Consoles_ConsoleTableColumn_AlternativeForeground.htm" />
         <HelpTOCNode Title="Background Property " Url="html/P_Cauldron_Consoles_ConsoleTableColumn_Background.htm" />
@@ -572,8 +572,8 @@
       </HelpTOCNode>
       <HelpTOCNode Title="ConsoleTableColumn Methods" Url="html/Methods_T_Cauldron_Consoles_ConsoleTableColumn.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="f51d16e9-97ac-499a-9b7a-3a876e7b8527" Title="ConsoleUtils Class" Url="html/T_Cauldron_Consoles_ConsoleUtils.htm">
-      <HelpTOCNode Id="6e15e30e-9936-4bd0-997c-acf78edf8067" Title="ConsoleUtils Methods" Url="html/Methods_T_Cauldron_Consoles_ConsoleUtils.htm">
+    <HelpTOCNode Id="abc405e7-ad18-49eb-a213-7d8791d95391" Title="ConsoleUtils Class" Url="html/T_Cauldron_Consoles_ConsoleUtils.htm">
+      <HelpTOCNode Id="52c9f892-67aa-4755-91a0-22f344553417" Title="ConsoleUtils Methods" Url="html/Methods_T_Cauldron_Consoles_ConsoleUtils.htm">
         <HelpTOCNode Title="GetConsoleWindowHandle Method " Url="html/M_Cauldron_Consoles_ConsoleUtils_GetConsoleWindowHandle.htm" />
         <HelpTOCNode Title="HideConsole Method " Url="html/M_Cauldron_Consoles_ConsoleUtils_HideConsole.htm" />
         <HelpTOCNode Title="ShowConsole Method " Url="html/M_Cauldron_Consoles_ConsoleUtils_ShowConsole.htm" />
@@ -582,30 +582,30 @@
         <HelpTOCNode Title="WriteTable Method " Url="html/M_Cauldron_Consoles_ConsoleUtils_WriteTable.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="e4522bc6-03b8-45a3-98dc-b6c3c34e7070" Title="ExecutionGroupAttribute Class" Url="html/T_Cauldron_Consoles_ExecutionGroupAttribute.htm">
-      <HelpTOCNode Id="61dd436e-db4c-4a27-a241-d0591458a77f" Title="ExecutionGroupAttribute Constructor " Url="html/Overload_Cauldron_Consoles_ExecutionGroupAttribute__ctor.htm">
+    <HelpTOCNode Id="a1b06319-34c0-430d-973e-c97b860d577d" Title="ExecutionGroupAttribute Class" Url="html/T_Cauldron_Consoles_ExecutionGroupAttribute.htm">
+      <HelpTOCNode Id="2998eba1-4541-420d-bc7f-b9c5d140335e" Title="ExecutionGroupAttribute Constructor " Url="html/Overload_Cauldron_Consoles_ExecutionGroupAttribute__ctor.htm">
         <HelpTOCNode Title="ExecutionGroupAttribute Constructor (String, UInt32)" Url="html/M_Cauldron_Consoles_ExecutionGroupAttribute__ctor_1.htm" />
         <HelpTOCNode Title="ExecutionGroupAttribute Constructor (String, String, UInt32)" Url="html/M_Cauldron_Consoles_ExecutionGroupAttribute__ctor.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="e7a10134-d213-4a26-a5da-74ede6b64d89" Title="ExecutionGroupAttribute Properties" Url="html/Properties_T_Cauldron_Consoles_ExecutionGroupAttribute.htm">
+      <HelpTOCNode Id="b8ccd0ae-1f14-4bc0-b711-d451d1017d82" Title="ExecutionGroupAttribute Properties" Url="html/Properties_T_Cauldron_Consoles_ExecutionGroupAttribute.htm">
         <HelpTOCNode Title="GroupIndex Property " Url="html/P_Cauldron_Consoles_ExecutionGroupAttribute_GroupIndex.htm" />
         <HelpTOCNode Title="GroupName Property " Url="html/P_Cauldron_Consoles_ExecutionGroupAttribute_GroupName.htm" />
         <HelpTOCNode Title="UsageExample Property " Url="html/P_Cauldron_Consoles_ExecutionGroupAttribute_UsageExample.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="ExecutionGroupAttribute Methods" Url="html/Methods_T_Cauldron_Consoles_ExecutionGroupAttribute.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="9a8ff17b-b5fe-4f47-8e09-9e9da6d1ad52" Title="IExecutionGroup Interface" Url="html/T_Cauldron_Consoles_IExecutionGroup.htm">
-      <HelpTOCNode Id="faedcc64-fb50-423c-8c80-19234f9a7a9c" Title="IExecutionGroup Methods" Url="html/Methods_T_Cauldron_Consoles_IExecutionGroup.htm">
+    <HelpTOCNode Id="6d44d6a5-ee50-45ab-8b93-4e4adced292c" Title="IExecutionGroup Interface" Url="html/T_Cauldron_Consoles_IExecutionGroup.htm">
+      <HelpTOCNode Id="4eeca9bf-758b-4ba5-a552-a81c52746d7f" Title="IExecutionGroup Methods" Url="html/Methods_T_Cauldron_Consoles_IExecutionGroup.htm">
         <HelpTOCNode Title="Execute Method " Url="html/M_Cauldron_Consoles_IExecutionGroup_Execute.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="1165cb4f-cad8-48e9-8374-012461a4c03f" Title="ParameterAttribute Class" Url="html/T_Cauldron_Consoles_ParameterAttribute.htm">
-      <HelpTOCNode Id="219df7fa-bce4-4d91-933a-265c67cb8448" Title="ParameterAttribute Constructor " Url="html/Overload_Cauldron_Consoles_ParameterAttribute__ctor.htm">
+    <HelpTOCNode Id="d00d81a2-fd7e-47ad-9d7e-c4226b62ea65" Title="ParameterAttribute Class" Url="html/T_Cauldron_Consoles_ParameterAttribute.htm">
+      <HelpTOCNode Id="9516835e-5958-406a-8f0d-2c1aa3dd8700" Title="ParameterAttribute Constructor " Url="html/Overload_Cauldron_Consoles_ParameterAttribute__ctor.htm">
         <HelpTOCNode Title="ParameterAttribute Constructor (String, String[])" Url="html/M_Cauldron_Consoles_ParameterAttribute__ctor_2.htm" />
         <HelpTOCNode Title="ParameterAttribute Constructor (String, Boolean, String[])" Url="html/M_Cauldron_Consoles_ParameterAttribute__ctor_1.htm" />
         <HelpTOCNode Title="ParameterAttribute Constructor (String, Boolean, Boolean, String[])" Url="html/M_Cauldron_Consoles_ParameterAttribute__ctor.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="bc3e9859-368d-4574-9ce0-dc8b6cd722fe" Title="ParameterAttribute Properties" Url="html/Properties_T_Cauldron_Consoles_ParameterAttribute.htm">
+      <HelpTOCNode Id="277ed4c3-4963-432e-87ba-f84b12fa68ff" Title="ParameterAttribute Properties" Url="html/Properties_T_Cauldron_Consoles_ParameterAttribute.htm">
         <HelpTOCNode Title="Description Property " Url="html/P_Cauldron_Consoles_ParameterAttribute_Description.htm" />
         <HelpTOCNode Title="IsRequired Property " Url="html/P_Cauldron_Consoles_ParameterAttribute_IsRequired.htm" />
         <HelpTOCNode Title="Parameters Property " Url="html/P_Cauldron_Consoles_ParameterAttribute_Parameters.htm" />
@@ -613,46 +613,46 @@
       </HelpTOCNode>
       <HelpTOCNode Title="ParameterAttribute Methods" Url="html/Methods_T_Cauldron_Consoles_ParameterAttribute.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="25c17e68-f9a8-4172-a0dc-0e156324231c" Title="ParameterParser Class" Url="html/T_Cauldron_Consoles_ParameterParser.htm">
+    <HelpTOCNode Id="94fcf0c7-d412-420c-9e2c-6521ce1fd7f7" Title="ParameterParser Class" Url="html/T_Cauldron_Consoles_ParameterParser.htm">
       <HelpTOCNode Title="ParameterParser Constructor " Url="html/M_Cauldron_Consoles_ParameterParser__ctor.htm" />
-      <HelpTOCNode Id="e8c00d21-3e33-4e12-a83c-a3087a46120c" Title="ParameterParser Properties" Url="html/Properties_T_Cauldron_Consoles_ParameterParser.htm">
+      <HelpTOCNode Id="950d2284-2a5f-49de-9ee5-a22db1fb63b8" Title="ParameterParser Properties" Url="html/Properties_T_Cauldron_Consoles_ParameterParser.htm">
         <HelpTOCNode Title="DescriptionColor Property " Url="html/P_Cauldron_Consoles_ParameterParser_DescriptionColor.htm" />
         <HelpTOCNode Title="GroupColor Property " Url="html/P_Cauldron_Consoles_ParameterParser_GroupColor.htm" />
         <HelpTOCNode Title="KeyColor Property " Url="html/P_Cauldron_Consoles_ParameterParser_KeyColor.htm" />
         <HelpTOCNode Title="Parameters Property " Url="html/P_Cauldron_Consoles_ParameterParser_Parameters.htm" />
         <HelpTOCNode Title="UsageExampleColor Property " Url="html/P_Cauldron_Consoles_ParameterParser_UsageExampleColor.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="3bc520ea-490f-4be4-ac80-87a9256ce4b2" Title="ParameterParser Methods" Url="html/Methods_T_Cauldron_Consoles_ParameterParser.htm">
+      <HelpTOCNode Id="13e05805-28d7-4c91-9397-3c963e1c9e75" Title="ParameterParser Methods" Url="html/Methods_T_Cauldron_Consoles_ParameterParser.htm">
         <HelpTOCNode Title="Execute Method " Url="html/M_Cauldron_Consoles_ParameterParser_Execute.htm" />
         <HelpTOCNode Title="GetActiveParameters Method " Url="html/M_Cauldron_Consoles_ParameterParser_GetActiveParameters.htm" />
         <HelpTOCNode Title="Parse Method " Url="html/M_Cauldron_Consoles_ParameterParser_Parse.htm" />
         <HelpTOCNode Title="ShowHelp Method " Url="html/M_Cauldron_Consoles_ParameterParser_ShowHelp.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="ba4ffc50-dcc9-410a-8ba4-a3dae48dedb5" Title="RequiredParametersMissingException Class" Url="html/T_Cauldron_Consoles_RequiredParametersMissingException.htm">
-      <HelpTOCNode Id="045abd5d-dc3b-4c0a-91e9-14be76abea21" Title="RequiredParametersMissingException Properties" Url="html/Properties_T_Cauldron_Consoles_RequiredParametersMissingException.htm">
+    <HelpTOCNode Id="26640256-ca49-49d2-91f1-b83e501af17e" Title="RequiredParametersMissingException Class" Url="html/T_Cauldron_Consoles_RequiredParametersMissingException.htm">
+      <HelpTOCNode Id="ec38fbbf-3b96-453e-9fca-1b08cb97c486" Title="RequiredParametersMissingException Properties" Url="html/Properties_T_Cauldron_Consoles_RequiredParametersMissingException.htm">
         <HelpTOCNode Title="MissingRequiredParameters Property " Url="html/P_Cauldron_Consoles_RequiredParametersMissingException_MissingRequiredParameters.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="RequiredParametersMissingException Methods" Url="html/Methods_T_Cauldron_Consoles_RequiredParametersMissingException.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="8089b5c6-5948-43dc-ac39-6a0e1492b4a8" Title="RequiredValuesMissingException Class" Url="html/T_Cauldron_Consoles_RequiredValuesMissingException.htm">
-      <HelpTOCNode Id="b2642022-01e7-4d3f-a4f5-817ff67aac0c" Title="RequiredValuesMissingException Properties" Url="html/Properties_T_Cauldron_Consoles_RequiredValuesMissingException.htm">
+    <HelpTOCNode Id="c3de1d85-da0e-4475-a754-1d45037dc67f" Title="RequiredValuesMissingException Class" Url="html/T_Cauldron_Consoles_RequiredValuesMissingException.htm">
+      <HelpTOCNode Id="38182673-062e-4d46-aea9-deddd05d7e5d" Title="RequiredValuesMissingException Properties" Url="html/Properties_T_Cauldron_Consoles_RequiredValuesMissingException.htm">
         <HelpTOCNode Title="MissingRequiredParameters Property " Url="html/P_Cauldron_Consoles_RequiredValuesMissingException_MissingRequiredParameters.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="RequiredValuesMissingException Methods" Url="html/Methods_T_Cauldron_Consoles_RequiredValuesMissingException.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="6c040048-8f86-4525-8bb7-3451c3d69585" Title="UnknownParameterException Class" Url="html/T_Cauldron_Consoles_UnknownParameterException.htm">
+    <HelpTOCNode Id="d4d5e7ca-8774-48a4-9d26-d0582eaa018b" Title="UnknownParameterException Class" Url="html/T_Cauldron_Consoles_UnknownParameterException.htm">
       <HelpTOCNode Title="UnknownParameterException Constructor " Url="html/M_Cauldron_Consoles_UnknownParameterException__ctor.htm" />
-      <HelpTOCNode Id="47613c1f-88b4-466f-8269-a4f04dce391a" Title="UnknownParameterException Properties" Url="html/Properties_T_Cauldron_Consoles_UnknownParameterException.htm">
+      <HelpTOCNode Id="48e54a0c-d616-495e-ba6f-ff85ca48f801" Title="UnknownParameterException Properties" Url="html/Properties_T_Cauldron_Consoles_UnknownParameterException.htm">
         <HelpTOCNode Title="Parameter Property " Url="html/P_Cauldron_Consoles_UnknownParameterException_Parameter.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="UnknownParameterException Methods" Url="html/Methods_T_Cauldron_Consoles_UnknownParameterException.htm" />
     </HelpTOCNode>
   </HelpTOCNode>
-  <HelpTOCNode Id="e625e15c-4299-401c-be6e-59f41bb5bb07" Title="Cauldron.Core" Url="html/N_Cauldron_Core.htm">
-    <HelpTOCNode Id="565d0efc-dc51-4519-8d0e-883c792ae559" Title="ApplicationData Class" Url="html/T_Cauldron_Core_ApplicationData.htm">
+  <HelpTOCNode Id="4e2480d4-6d0a-4cca-bb9a-c4a16fc55d7b" Title="Cauldron.Core" Url="html/N_Cauldron_Core.htm">
+    <HelpTOCNode Id="c681f192-ed06-4553-ae41-db60808827c2" Title="ApplicationData Class" Url="html/T_Cauldron_Core_ApplicationData.htm">
       <HelpTOCNode Title="ApplicationData Constructor " Url="html/M_Cauldron_Core_ApplicationData__ctor.htm" />
-      <HelpTOCNode Id="34611959-5238-48a5-9af5-927e2a271f47" Title="ApplicationData Properties" Url="html/Properties_T_Cauldron_Core_ApplicationData.htm">
+      <HelpTOCNode Id="fb1021f1-0139-4711-a101-ea8e9225e849" Title="ApplicationData Properties" Url="html/Properties_T_Cauldron_Core_ApplicationData.htm">
         <HelpTOCNode Title="Current Property " Url="html/P_Cauldron_Core_ApplicationData_Current.htm" />
         <HelpTOCNode Title="LocalFolder Property " Url="html/P_Cauldron_Core_ApplicationData_LocalFolder.htm" />
         <HelpTOCNode Title="RoamingFolder Property " Url="html/P_Cauldron_Core_ApplicationData_RoamingFolder.htm" />
@@ -660,9 +660,9 @@
       </HelpTOCNode>
       <HelpTOCNode Title="ApplicationData Methods" Url="html/Methods_T_Cauldron_Core_ApplicationData.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="12e67559-c2c6-4695-9a85-1f7b77a98f0d" Title="Comparer Class" Url="html/T_Cauldron_Core_Comparer.htm">
-      <HelpTOCNode Id="0471630a-0d68-4b58-8322-332acca9280b" Title="Comparer Methods" Url="html/Methods_T_Cauldron_Core_Comparer.htm">
-        <HelpTOCNode Id="e65b50e6-e34f-4e3c-ab59-b613f9394830" Title="Equals Method " Url="html/Overload_Cauldron_Core_Comparer_Equals.htm">
+    <HelpTOCNode Id="13e91af1-6556-4a1b-8505-bb55a36b75bb" Title="Comparer Class" Url="html/T_Cauldron_Core_Comparer.htm">
+      <HelpTOCNode Id="a07b8f59-3c3b-4489-82c4-50a72b87b4ec" Title="Comparer Methods" Url="html/Methods_T_Cauldron_Core_Comparer.htm">
+        <HelpTOCNode Id="ba0b85a0-d191-4162-aba3-77edfd932c17" Title="Equals Method " Url="html/Overload_Cauldron_Core_Comparer_Equals.htm">
           <HelpTOCNode Title="Equals Method (Object, Object)" Url="html/M_Cauldron_Core_Comparer_Equals.htm" />
           <HelpTOCNode Title="Equals(T, TValue) Method (T, T, Func(T, TValue))" Url="html/M_Cauldron_Core_Comparer_Equals__2.htm" />
         </HelpTOCNode>
@@ -670,40 +670,40 @@
         <HelpTOCNode Title="GreaterThanOrEqual Method " Url="html/M_Cauldron_Core_Comparer_GreaterThanOrEqual.htm" />
         <HelpTOCNode Title="LessThan Method " Url="html/M_Cauldron_Core_Comparer_LessThan.htm" />
         <HelpTOCNode Title="LessThanOrEqual Method " Url="html/M_Cauldron_Core_Comparer_LessThanOrEqual.htm" />
-        <HelpTOCNode Id="83b7c410-92d6-4837-8b36-d15857f597de" Title="UnEquals Method " Url="html/Overload_Cauldron_Core_Comparer_UnEquals.htm">
+        <HelpTOCNode Id="f3819179-1f1b-406f-a983-c4c6b9af71da" Title="UnEquals Method " Url="html/Overload_Cauldron_Core_Comparer_UnEquals.htm">
           <HelpTOCNode Title="UnEquals Method (Object, Object)" Url="html/M_Cauldron_Core_Comparer_UnEquals.htm" />
           <HelpTOCNode Title="UnEquals(T, TValue) Method (T, T, Func(T, TValue))" Url="html/M_Cauldron_Core_Comparer_UnEquals__2.htm" />
         </HelpTOCNode>
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="ac716788-886b-4009-ab65-19929960c192" Title="DeviceFamilies Class" Url="html/T_Cauldron_Core_DeviceFamilies.htm">
-      <HelpTOCNode Id="053337fa-30ff-4981-88f9-47693537a634" Title="DeviceFamilies Fields" Url="html/Fields_T_Cauldron_Core_DeviceFamilies.htm">
+    <HelpTOCNode Id="3be3488b-fad6-4b98-9e31-e796335e29e2" Title="DeviceFamilies Class" Url="html/T_Cauldron_Core_DeviceFamilies.htm">
+      <HelpTOCNode Id="4cae7600-e3d2-49ab-9e30-70f162c05ae7" Title="DeviceFamilies Fields" Url="html/Fields_T_Cauldron_Core_DeviceFamilies.htm">
         <HelpTOCNode Title="DeviceFamily_WindowsDesktop Field" Url="html/F_Cauldron_Core_DeviceFamilies_DeviceFamily_WindowsDesktop.htm" />
         <HelpTOCNode Title="DeviceFamily_WindowsIoT Field" Url="html/F_Cauldron_Core_DeviceFamilies_DeviceFamily_WindowsIoT.htm" />
         <HelpTOCNode Title="DeviceFamily_WindowsMobile Field" Url="html/F_Cauldron_Core_DeviceFamilies_DeviceFamily_WindowsMobile.htm" />
         <HelpTOCNode Title="DeviceFamily_WindowsXbox Field" Url="html/F_Cauldron_Core_DeviceFamilies_DeviceFamily_WindowsXbox.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="925f68c0-1ba6-427d-a160-9c0a5546f86f" Title="DisposableBase Class" Url="html/T_Cauldron_Core_DisposableBase.htm">
+    <HelpTOCNode Id="3e8d02c6-6106-45ac-911e-8f17ec86940b" Title="DisposableBase Class" Url="html/T_Cauldron_Core_DisposableBase.htm">
       <HelpTOCNode Title="DisposableBase Constructor " Url="html/M_Cauldron_Core_DisposableBase__ctor.htm" />
-      <HelpTOCNode Id="d5c7be64-87f8-4ada-9f07-f83d7bdb36da" Title="DisposableBase Properties" Url="html/Properties_T_Cauldron_Core_DisposableBase.htm">
+      <HelpTOCNode Id="07f43e90-e667-4992-be1f-c9ebf28aaec5" Title="DisposableBase Properties" Url="html/Properties_T_Cauldron_Core_DisposableBase.htm">
         <HelpTOCNode Title="IsDisposed Property " Url="html/P_Cauldron_Core_DisposableBase_IsDisposed.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="ab8d908f-af50-4218-b074-afb7de0a5c85" Title="DisposableBase Methods" Url="html/Methods_T_Cauldron_Core_DisposableBase.htm">
-        <HelpTOCNode Id="0262a3b4-06db-4f60-a63f-5bda111154b5" Title="Dispose Method " Url="html/Overload_Cauldron_Core_DisposableBase_Dispose.htm">
+      <HelpTOCNode Id="91ea5343-173e-4b3a-a5b9-4f84367376fd" Title="DisposableBase Methods" Url="html/Methods_T_Cauldron_Core_DisposableBase.htm">
+        <HelpTOCNode Id="4d70da5a-aa4e-4cf8-9177-fb717027f086" Title="Dispose Method " Url="html/Overload_Cauldron_Core_DisposableBase_Dispose.htm">
           <HelpTOCNode Title="Dispose Method " Url="html/M_Cauldron_Core_DisposableBase_Dispose.htm" />
           <HelpTOCNode Title="Dispose Method (Boolean)" Url="html/M_Cauldron_Core_DisposableBase_Dispose_1.htm" />
         </HelpTOCNode>
         <HelpTOCNode Title="Finalize Method " Url="html/M_Cauldron_Core_DisposableBase_Finalize.htm" />
         <HelpTOCNode Title="OnDispose Method " Url="html/M_Cauldron_Core_DisposableBase_OnDispose.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="f3916d02-c180-4956-9977-728872a7270d" Title="DisposableBase Events" Url="html/Events_T_Cauldron_Core_DisposableBase.htm">
+      <HelpTOCNode Id="43817da5-7b9d-4da1-b998-df0ad89a3f5a" Title="DisposableBase Events" Url="html/Events_T_Cauldron_Core_DisposableBase.htm">
         <HelpTOCNode Title="Disposed Event" Url="html/E_Cauldron_Core_DisposableBase_Disposed.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="9789b288-7987-4654-b62d-831c7988fbb6" Title="DisposableObject Class" Url="html/T_Cauldron_Core_DisposableObject.htm">
-      <HelpTOCNode Id="57e05df9-9590-4a9b-af79-c6f8dbec1538" Title="DisposableObject Methods" Url="html/Methods_T_Cauldron_Core_DisposableObject.htm">
-        <HelpTOCNode Id="c41088e9-e53b-49a6-a180-56bc13f0bdcd" Title="Dispose Method " Url="html/Overload_Cauldron_Core_DisposableObject_Dispose.htm">
+    <HelpTOCNode Id="bd194918-0417-4c23-8436-03c143473747" Title="DisposableObject Class" Url="html/T_Cauldron_Core_DisposableObject.htm">
+      <HelpTOCNode Id="d720c479-4a1f-487b-a343-0bf10cb66945" Title="DisposableObject Methods" Url="html/Methods_T_Cauldron_Core_DisposableObject.htm">
+        <HelpTOCNode Id="81be0f48-4941-4a82-9538-27853ab64dc3" Title="Dispose Method " Url="html/Overload_Cauldron_Core_DisposableObject_Dispose.htm">
           <HelpTOCNode Title="Dispose Method " Url="html/M_Cauldron_Core_DisposableObject_Dispose.htm" />
           <HelpTOCNode Title="Dispose Method (Boolean)" Url="html/M_Cauldron_Core_DisposableObject_Dispose_1.htm" />
         </HelpTOCNode>
@@ -711,55 +711,55 @@
         <HelpTOCNode Title="OnDispose Method " Url="html/M_Cauldron_Core_DisposableObject_OnDispose.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="a5791534-cba8-408d-98ed-649aac02f260" Title="DynamicEqualityComparer(T) Class" Url="html/T_Cauldron_Core_DynamicEqualityComparer_1.htm">
-      <HelpTOCNode Id="9d3315c9-4b98-4f39-b148-75bb063f6c7c" Title="DynamicEqualityComparer(T) Constructor " Url="html/Overload_Cauldron_Core_DynamicEqualityComparer_1__ctor.htm">
+    <HelpTOCNode Id="ee2394a0-14db-4a44-b61b-61ef3d7bb232" Title="DynamicEqualityComparer(T) Class" Url="html/T_Cauldron_Core_DynamicEqualityComparer_1.htm">
+      <HelpTOCNode Id="c697274e-d546-4ce3-a97e-e03890f28de2" Title="DynamicEqualityComparer(T) Constructor " Url="html/Overload_Cauldron_Core_DynamicEqualityComparer_1__ctor.htm">
         <HelpTOCNode Title="DynamicEqualityComparer(T) Constructor (Func(T, T, Boolean))" Url="html/M_Cauldron_Core_DynamicEqualityComparer_1__ctor.htm" />
         <HelpTOCNode Title="DynamicEqualityComparer(T) Constructor (Func(T, T, Boolean), Func(T, Int32))" Url="html/M_Cauldron_Core_DynamicEqualityComparer_1__ctor_1.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="2e3cd192-975f-44d7-a6b4-a733c0bb861c" Title="DynamicEqualityComparer(T) Methods" Url="html/Methods_T_Cauldron_Core_DynamicEqualityComparer_1.htm">
+      <HelpTOCNode Id="68ccf05b-9428-4f42-9fc6-732f78e09b1d" Title="DynamicEqualityComparer(T) Methods" Url="html/Methods_T_Cauldron_Core_DynamicEqualityComparer_1.htm">
         <HelpTOCNode Title="Equals Method " Url="html/M_Cauldron_Core_DynamicEqualityComparer_1_Equals.htm" />
         <HelpTOCNode Title="GetHashCode Method " Url="html/M_Cauldron_Core_DynamicEqualityComparer_1_GetHashCode.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
     <HelpTOCNode Title="Encodings Enumeration" Url="html/T_Cauldron_Core_Encodings.htm" />
-    <HelpTOCNode Id="b271a0ce-a9b5-4feb-ba36-0cfa5db009da" Title="IDisposableObject Interface" Url="html/T_Cauldron_Core_IDisposableObject.htm">
-      <HelpTOCNode Id="2816e05b-b5da-45c9-afe0-740f4b75e39d" Title="IDisposableObject Properties" Url="html/Properties_T_Cauldron_Core_IDisposableObject.htm">
+    <HelpTOCNode Id="6852da8a-3efd-40a2-8934-002e7dd0e43f" Title="IDisposableObject Interface" Url="html/T_Cauldron_Core_IDisposableObject.htm">
+      <HelpTOCNode Id="12222598-87d2-413a-8180-fd240a4d0284" Title="IDisposableObject Properties" Url="html/Properties_T_Cauldron_Core_IDisposableObject.htm">
         <HelpTOCNode Title="IsDisposed Property " Url="html/P_Cauldron_Core_IDisposableObject_IsDisposed.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="3022bcde-07f9-4875-94b3-3cc113ff1298" Title="IDisposableObject Events" Url="html/Events_T_Cauldron_Core_IDisposableObject.htm">
+      <HelpTOCNode Id="538065b4-3676-445a-ac89-6116185efd89" Title="IDisposableObject Events" Url="html/Events_T_Cauldron_Core_IDisposableObject.htm">
         <HelpTOCNode Title="Disposed Event" Url="html/E_Cauldron_Core_IDisposableObject_Disposed.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="f78ae80d-e142-47bc-a122-d39c3664646b" Title="KnownFolders Class" Url="html/T_Cauldron_Core_KnownFolders.htm">
-      <HelpTOCNode Id="38353a2c-5cb0-47f3-aa5a-64ee41da97e2" Title="KnownFolders Properties" Url="html/Properties_T_Cauldron_Core_KnownFolders.htm">
+    <HelpTOCNode Id="4fe8dca1-545a-4f2a-918f-dc095e715f46" Title="KnownFolders Class" Url="html/T_Cauldron_Core_KnownFolders.htm">
+      <HelpTOCNode Id="8e778b6d-b38e-471b-a6f7-da4b1d67948e" Title="KnownFolders Properties" Url="html/Properties_T_Cauldron_Core_KnownFolders.htm">
         <HelpTOCNode Title="DocumentsLibrary Property " Url="html/P_Cauldron_Core_KnownFolders_DocumentsLibrary.htm" />
         <HelpTOCNode Title="MusicLibrary Property " Url="html/P_Cauldron_Core_KnownFolders_MusicLibrary.htm" />
         <HelpTOCNode Title="PictureLibrary Property " Url="html/P_Cauldron_Core_KnownFolders_PictureLibrary.htm" />
         <HelpTOCNode Title="VideosLibrary Property " Url="html/P_Cauldron_Core_KnownFolders_VideosLibrary.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="94e1e144-2833-47e1-8cbe-d6d23549deda" Title="MessageManager Class" Url="html/T_Cauldron_Core_MessageManager.htm">
-      <HelpTOCNode Id="b6e752c4-e7da-40b3-9743-437c935ffa61" Title="MessageManager Methods" Url="html/Methods_T_Cauldron_Core_MessageManager.htm">
+    <HelpTOCNode Id="3bfef80d-ccbb-493b-83d2-aef608b86ebc" Title="MessageManager Class" Url="html/T_Cauldron_Core_MessageManager.htm">
+      <HelpTOCNode Id="4ce23091-e31c-423b-8b7b-71765478de2c" Title="MessageManager Methods" Url="html/Methods_T_Cauldron_Core_MessageManager.htm">
         <HelpTOCNode Title="Send Method " Url="html/M_Cauldron_Core_MessageManager_Send.htm" />
         <HelpTOCNode Title="Subscribe(T) Method " Url="html/M_Cauldron_Core_MessageManager_Subscribe__1.htm" />
-        <HelpTOCNode Id="e60d02a4-9069-4c86-b778-c49bf163d9f7" Title="Unsubscribe Method " Url="html/Overload_Cauldron_Core_MessageManager_Unsubscribe.htm">
+        <HelpTOCNode Id="ff337a2a-29ec-48cc-957e-c9d57cd319c4" Title="Unsubscribe Method " Url="html/Overload_Cauldron_Core_MessageManager_Unsubscribe.htm">
           <HelpTOCNode Title="Unsubscribe Method " Url="html/M_Cauldron_Core_MessageManager_Unsubscribe.htm" />
           <HelpTOCNode Title="Unsubscribe Method (Object)" Url="html/M_Cauldron_Core_MessageManager_Unsubscribe_1.htm" />
           <HelpTOCNode Title="Unsubscribe(T) Method (Object)" Url="html/M_Cauldron_Core_MessageManager_Unsubscribe__1.htm" />
         </HelpTOCNode>
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="808900bb-a6af-4b00-b7c5-b3c77427d428" Title="MessagingArgs Class" Url="html/T_Cauldron_Core_MessagingArgs.htm">
+    <HelpTOCNode Id="5e86adf3-e5fe-4a1b-ae72-c027fe30c784" Title="MessagingArgs Class" Url="html/T_Cauldron_Core_MessagingArgs.htm">
       <HelpTOCNode Title="MessagingArgs Constructor " Url="html/M_Cauldron_Core_MessagingArgs__ctor.htm" />
-      <HelpTOCNode Id="25577308-85ab-4792-a64b-c61057dca3c0" Title="MessagingArgs Properties" Url="html/Properties_T_Cauldron_Core_MessagingArgs.htm">
+      <HelpTOCNode Id="f19539d9-9c12-42c7-b2ee-0e85e8376f85" Title="MessagingArgs Properties" Url="html/Properties_T_Cauldron_Core_MessagingArgs.htm">
         <HelpTOCNode Title="Sender Property " Url="html/P_Cauldron_Core_MessagingArgs_Sender.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="MessagingArgs Methods" Url="html/Methods_T_Cauldron_Core_MessagingArgs.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="1e54aa1c-d9d8-4476-9dae-700028727b5b" Title="Randomizer Class" Url="html/T_Cauldron_Core_Randomizer.htm">
-      <HelpTOCNode Id="2f2053cc-6e1b-4087-9400-23f31cde6b02" Title="Randomizer Methods" Url="html/Methods_T_Cauldron_Core_Randomizer.htm">
+    <HelpTOCNode Id="fe0bba47-6dec-4f8b-bfd4-67f04573b905" Title="Randomizer Class" Url="html/T_Cauldron_Core_Randomizer.htm">
+      <HelpTOCNode Id="8d12fb25-fafb-4c06-a421-4f9aa78ccc44" Title="Randomizer Methods" Url="html/Methods_T_Cauldron_Core_Randomizer.htm">
         <HelpTOCNode Title="GenerateLoremIpsum Method " Url="html/M_Cauldron_Core_Randomizer_GenerateLoremIpsum.htm" />
-        <HelpTOCNode Id="98f674cd-4703-4798-8abc-cbc857945369" Title="Next Method " Url="html/Overload_Cauldron_Core_Randomizer_Next.htm">
+        <HelpTOCNode Id="18803260-f464-45d0-ae83-b641c0233b9e" Title="Next Method " Url="html/Overload_Cauldron_Core_Randomizer_Next.htm">
           <HelpTOCNode Title="Next Method " Url="html/M_Cauldron_Core_Randomizer_Next.htm" />
           <HelpTOCNode Title="Next(T) Method (T[])" Url="html/M_Cauldron_Core_Randomizer_Next__1.htm" />
           <HelpTOCNode Title="Next Method (DateTime, DateTime)" Url="html/M_Cauldron_Core_Randomizer_Next_1.htm" />
@@ -767,41 +767,41 @@
         </HelpTOCNode>
         <HelpTOCNode Title="NextBoolean Method " Url="html/M_Cauldron_Core_Randomizer_NextBoolean.htm" />
         <HelpTOCNode Title="NextByte Method " Url="html/M_Cauldron_Core_Randomizer_NextByte.htm" />
-        <HelpTOCNode Id="3eb59530-3108-4c68-afda-7d7904016a8d" Title="NextDouble Method " Url="html/Overload_Cauldron_Core_Randomizer_NextDouble.htm">
+        <HelpTOCNode Id="38461197-c481-4ea6-9efb-25de0a106111" Title="NextDouble Method " Url="html/Overload_Cauldron_Core_Randomizer_NextDouble.htm">
           <HelpTOCNode Title="NextDouble Method " Url="html/M_Cauldron_Core_Randomizer_NextDouble.htm" />
           <HelpTOCNode Title="NextDouble Method (Double, Double)" Url="html/M_Cauldron_Core_Randomizer_NextDouble_1.htm" />
         </HelpTOCNode>
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="413e03aa-caa9-4d9e-b012-0809210dfe89" Title="Serializer Class" Url="html/T_Cauldron_Core_Serializer.htm">
-      <HelpTOCNode Id="7ec5d4f8-564b-42ff-ad9e-723bfe2fbcdd" Title="Serializer Methods" Url="html/Methods_T_Cauldron_Core_Serializer.htm">
-        <HelpTOCNode Id="25f43fe0-b1fb-4b86-8aa9-efaeaa7b4209" Title="DeserializeAsync Method " Url="html/Overload_Cauldron_Core_Serializer_DeserializeAsync.htm">
+    <HelpTOCNode Id="1055c529-fdaa-4f9b-b764-6250752ce1ff" Title="Serializer Class" Url="html/T_Cauldron_Core_Serializer.htm">
+      <HelpTOCNode Id="84569aa5-8056-42ee-b4e3-73be0eeabb97" Title="Serializer Methods" Url="html/Methods_T_Cauldron_Core_Serializer.htm">
+        <HelpTOCNode Id="e913bb05-6811-4b89-94b8-3fbba1e13306" Title="DeserializeAsync Method " Url="html/Overload_Cauldron_Core_Serializer_DeserializeAsync.htm">
           <HelpTOCNode Title="DeserializeAsync(T) Method (String)" Url="html/M_Cauldron_Core_Serializer_DeserializeAsync__1_1.htm" />
           <HelpTOCNode Title="DeserializeAsync(T) Method (DirectoryInfo, String)" Url="html/M_Cauldron_Core_Serializer_DeserializeAsync__1.htm" />
           <HelpTOCNode Title="DeserializeAsync Method (Type, String)" Url="html/M_Cauldron_Core_Serializer_DeserializeAsync_1.htm" />
           <HelpTOCNode Title="DeserializeAsync Method (Type, DirectoryInfo, String)" Url="html/M_Cauldron_Core_Serializer_DeserializeAsync.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="ea7f84fd-fa78-4869-8670-713fa30ae8ae" Title="SerializeAsync Method " Url="html/Overload_Cauldron_Core_Serializer_SerializeAsync.htm">
+        <HelpTOCNode Id="76c0c89f-e689-481e-8105-fea7167bdb3b" Title="SerializeAsync Method " Url="html/Overload_Cauldron_Core_Serializer_SerializeAsync.htm">
           <HelpTOCNode Title="SerializeAsync Method (Object, String)" Url="html/M_Cauldron_Core_Serializer_SerializeAsync_1.htm" />
           <HelpTOCNode Title="SerializeAsync Method (Object, DirectoryInfo, String)" Url="html/M_Cauldron_Core_Serializer_SerializeAsync.htm" />
         </HelpTOCNode>
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="6ecc4ba1-76a3-40fe-b0f2-77f8b58a34dc" Title="Utilities Class" Url="html/T_Cauldron_Core_Utilities.htm">
-      <HelpTOCNode Id="56b975b4-c3af-401b-a347-deb9eb240ed6" Title="Utilities Methods" Url="html/Methods_T_Cauldron_Core_Utilities.htm">
+    <HelpTOCNode Id="cf33ea2b-4ba7-4220-86ac-d920428af1a8" Title="Utilities Class" Url="html/T_Cauldron_Core_Utilities.htm">
+      <HelpTOCNode Id="a63ab9f2-a670-40cb-a40f-f081fafaa3fb" Title="Utilities Methods" Url="html/Methods_T_Cauldron_Core_Utilities.htm">
         <HelpTOCNode Title="FirstDateOfWeekISO8601 Method " Url="html/M_Cauldron_Core_Utilities_FirstDateOfWeekISO8601.htm" />
         <HelpTOCNode Title="GetWeeksInYear Method " Url="html/M_Cauldron_Core_Utilities_GetWeeksInYear.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
   </HelpTOCNode>
-  <HelpTOCNode Id="f2dc771e-2568-454d-b56e-7cdea9b6275f" Title="Cauldron.Core.Collections" Url="html/N_Cauldron_Core_Collections.htm">
-    <HelpTOCNode Id="4fa61861-c9ad-459a-ac5d-d63a15b44331" Title="ConcurrentKeyedCollection(TKey, TItem) Class" Url="html/T_Cauldron_Core_Collections_ConcurrentKeyedCollection_2.htm">
-      <HelpTOCNode Id="09adf6fb-3d23-4eb5-b81d-0428d5b8d0d9" Title="ConcurrentKeyedCollection(TKey, TItem) Constructor " Url="html/Overload_Cauldron_Core_Collections_ConcurrentKeyedCollection_2__ctor.htm">
+  <HelpTOCNode Id="c626f68c-ee7d-4f2d-b460-6e755f748407" Title="Cauldron.Core.Collections" Url="html/N_Cauldron_Core_Collections.htm">
+    <HelpTOCNode Id="c5af5a07-78e5-448b-90a1-58523bce47ea" Title="ConcurrentKeyedCollection(TKey, TItem) Class" Url="html/T_Cauldron_Core_Collections_ConcurrentKeyedCollection_2.htm">
+      <HelpTOCNode Id="71c596a8-cc64-4c8b-8a38-4560f081be61" Title="ConcurrentKeyedCollection(TKey, TItem) Constructor " Url="html/Overload_Cauldron_Core_Collections_ConcurrentKeyedCollection_2__ctor.htm">
         <HelpTOCNode Title="ConcurrentKeyedCollection(TKey, TItem) Constructor " Url="html/M_Cauldron_Core_Collections_ConcurrentKeyedCollection_2__ctor.htm" />
         <HelpTOCNode Title="ConcurrentKeyedCollection(TKey, TItem) Constructor (IEqualityComparer(TKey))" Url="html/M_Cauldron_Core_Collections_ConcurrentKeyedCollection_2__ctor_1.htm" />
         <HelpTOCNode Title="ConcurrentKeyedCollection(TKey, TItem) Constructor (IEqualityComparer(TKey), Int32)" Url="html/M_Cauldron_Core_Collections_ConcurrentKeyedCollection_2__ctor_2.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="10fb7663-ad84-45cd-9c71-7cb4fb6bc4a7" Title="ConcurrentKeyedCollection(TKey, TItem) Methods" Url="html/Methods_T_Cauldron_Core_Collections_ConcurrentKeyedCollection_2.htm">
+      <HelpTOCNode Id="3a992ba6-1b22-4967-ace0-df3e7b77287d" Title="ConcurrentKeyedCollection(TKey, TItem) Methods" Url="html/Methods_T_Cauldron_Core_Collections_ConcurrentKeyedCollection_2.htm">
         <HelpTOCNode Title="AddRange Method " Url="html/M_Cauldron_Core_Collections_ConcurrentKeyedCollection_2_AddRange.htm" />
         <HelpTOCNode Title="ClearItems Method " Url="html/M_Cauldron_Core_Collections_ConcurrentKeyedCollection_2_ClearItems.htm" />
         <HelpTOCNode Title="InsertItem Method " Url="html/M_Cauldron_Core_Collections_ConcurrentKeyedCollection_2_InsertItem.htm" />
@@ -809,22 +809,22 @@
         <HelpTOCNode Title="SetItem Method " Url="html/M_Cauldron_Core_Collections_ConcurrentKeyedCollection_2_SetItem.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="ca169bc7-7fb8-45d5-8a67-3f91ca40f7bc" Title="ConcurrentKeyedCollectionEx(TKey, TItem) Class" Url="html/T_Cauldron_Core_Collections_ConcurrentKeyedCollectionEx_2.htm">
-      <HelpTOCNode Id="1d11c438-eeba-44b0-8d6f-54fb3709bb46" Title="ConcurrentKeyedCollectionEx(TKey, TItem) Constructor " Url="html/Overload_Cauldron_Core_Collections_ConcurrentKeyedCollectionEx_2__ctor.htm">
+    <HelpTOCNode Id="648fffd1-b3ef-4e89-9e89-99142716fd03" Title="ConcurrentKeyedCollectionEx(TKey, TItem) Class" Url="html/T_Cauldron_Core_Collections_ConcurrentKeyedCollectionEx_2.htm">
+      <HelpTOCNode Id="16922500-3f1f-4f79-86a8-714dfe69c410" Title="ConcurrentKeyedCollectionEx(TKey, TItem) Constructor " Url="html/Overload_Cauldron_Core_Collections_ConcurrentKeyedCollectionEx_2__ctor.htm">
         <HelpTOCNode Title="ConcurrentKeyedCollectionEx(TKey, TItem) Constructor (Func(TItem, TKey))" Url="html/M_Cauldron_Core_Collections_ConcurrentKeyedCollectionEx_2__ctor.htm" />
         <HelpTOCNode Title="ConcurrentKeyedCollectionEx(TKey, TItem) Constructor (Func(TItem, TKey), IEqualityComparer(TKey))" Url="html/M_Cauldron_Core_Collections_ConcurrentKeyedCollectionEx_2__ctor_1.htm" />
         <HelpTOCNode Title="ConcurrentKeyedCollectionEx(TKey, TItem) Constructor (Func(TItem, TKey), IEqualityComparer(TKey), Int32)" Url="html/M_Cauldron_Core_Collections_ConcurrentKeyedCollectionEx_2__ctor_2.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="bd52b49c-d353-4c9a-81e9-e8a6e32d5313" Title="ConcurrentKeyedCollectionEx(TKey, TItem) Methods" Url="html/Methods_T_Cauldron_Core_Collections_ConcurrentKeyedCollectionEx_2.htm">
+      <HelpTOCNode Id="4ec0b855-f41a-470c-813a-25c504b01437" Title="ConcurrentKeyedCollectionEx(TKey, TItem) Methods" Url="html/Methods_T_Cauldron_Core_Collections_ConcurrentKeyedCollectionEx_2.htm">
         <HelpTOCNode Title="GetKeyForItem Method " Url="html/M_Cauldron_Core_Collections_ConcurrentKeyedCollectionEx_2_GetKeyForItem.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="41cecf40-8190-4287-b504-92014fb70c8f" Title="ConcurrentList(T) Class" Url="html/T_Cauldron_Core_Collections_ConcurrentList_1.htm">
-      <HelpTOCNode Id="8ea8edd0-d2d2-400f-8f31-b813954399dc" Title="ConcurrentList(T) Constructor " Url="html/Overload_Cauldron_Core_Collections_ConcurrentList_1__ctor.htm">
+    <HelpTOCNode Id="d50cda9e-cdca-4df6-a40d-7e2fd499b8ae" Title="ConcurrentList(T) Class" Url="html/T_Cauldron_Core_Collections_ConcurrentList_1.htm">
+      <HelpTOCNode Id="ac88d87c-8402-4db5-ba20-e83aa4ed4ad9" Title="ConcurrentList(T) Constructor " Url="html/Overload_Cauldron_Core_Collections_ConcurrentList_1__ctor.htm">
         <HelpTOCNode Title="ConcurrentList(T) Constructor " Url="html/M_Cauldron_Core_Collections_ConcurrentList_1__ctor.htm" />
         <HelpTOCNode Title="ConcurrentList(T) Constructor (IEnumerable(T))" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1__ctor_1.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="0fcdd00a-4095-45da-acbc-5a7ec104d4f5" Title="ConcurrentList(T) Properties" Url="html/Properties_T_Cauldron_Core_Collections_ConcurrentList_1.htm">
+      <HelpTOCNode Id="c2e0f183-7d1e-4321-844d-3e41e8d0247a" Title="ConcurrentList(T) Properties" Url="html/Properties_T_Cauldron_Core_Collections_ConcurrentList_1.htm">
         <HelpTOCNode Title="IList(T).Item Property " Url="html/P_Cauldron_Core_Collections_ConcurrentList_1_System_Collections_Generic_IList{T}_Item.htm" />
         <HelpTOCNode Title="IList.Item Property " Url="html/P_Cauldron_Core_Collections_ConcurrentList_1_System_Collections_IList_Item.htm" />
         <HelpTOCNode Title="Count Property " Url="html/P_Cauldron_Core_Collections_ConcurrentList_1_Count.htm" />
@@ -834,7 +834,7 @@
         <HelpTOCNode Title="Item Property " Url="html/P_Cauldron_Core_Collections_ConcurrentList_1_Item.htm" />
         <HelpTOCNode Title="SyncRoot Property " Url="html/P_Cauldron_Core_Collections_ConcurrentList_1_SyncRoot.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="226712da-dd53-4797-bc68-defd79394fd7" Title="ConcurrentList(T) Methods" Url="html/Methods_T_Cauldron_Core_Collections_ConcurrentList_1.htm">
+      <HelpTOCNode Id="37ec2137-d495-4882-8ed6-d3e9d7bebfb0" Title="ConcurrentList(T) Methods" Url="html/Methods_T_Cauldron_Core_Collections_ConcurrentList_1.htm">
         <HelpTOCNode Title="IList.Add Method " Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_System_Collections_IList_Add.htm" />
         <HelpTOCNode Title="IEnumerable.GetEnumerator Method " Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_System_Collections_IEnumerable_GetEnumerator.htm" />
         <HelpTOCNode Title="ICollection(T).Remove Method " Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_System_Collections_Generic_ICollection{T}_Remove.htm" />
@@ -842,25 +842,25 @@
         <HelpTOCNode Title="Add Method " Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_Add.htm" />
         <HelpTOCNode Title="AddRange Method " Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_AddRange.htm" />
         <HelpTOCNode Title="Clear Method " Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_Clear.htm" />
-        <HelpTOCNode Id="9ecc7929-c947-4227-b7bc-cd2a49815aa3" Title="Contains Method " Url="html/Overload_Cauldron_Core_Collections_ConcurrentList_1_Contains.htm">
+        <HelpTOCNode Id="0b51782d-56bd-47aa-9ef4-94ef9e99393f" Title="Contains Method " Url="html/Overload_Cauldron_Core_Collections_ConcurrentList_1_Contains.htm">
           <HelpTOCNode Title="Contains Method (Func(T, Boolean))" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_Contains.htm" />
           <HelpTOCNode Title="Contains Method (Object)" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_Contains_1.htm" />
           <HelpTOCNode Title="Contains Method (T)" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_Contains_2.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="62d0992e-6b42-40cf-9920-46354e168f0d" Title="CopyTo Method " Url="html/Overload_Cauldron_Core_Collections_ConcurrentList_1_CopyTo.htm">
+        <HelpTOCNode Id="ac0adde6-dcfc-4f52-8c59-1ea9ba916cb5" Title="CopyTo Method " Url="html/Overload_Cauldron_Core_Collections_ConcurrentList_1_CopyTo.htm">
           <HelpTOCNode Title="CopyTo Method (Array, Int32)" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_CopyTo.htm" />
           <HelpTOCNode Title="CopyTo Method (T[], Int32)" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_CopyTo_1.htm" />
         </HelpTOCNode>
         <HelpTOCNode Title="GetEnumerator Method " Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_GetEnumerator.htm" />
-        <HelpTOCNode Id="eb9740de-3cfb-4aa4-8795-3b30705e17d3" Title="IndexOf Method " Url="html/Overload_Cauldron_Core_Collections_ConcurrentList_1_IndexOf.htm">
+        <HelpTOCNode Id="78b14003-1091-495c-9eab-28c8a6243510" Title="IndexOf Method " Url="html/Overload_Cauldron_Core_Collections_ConcurrentList_1_IndexOf.htm">
           <HelpTOCNode Title="IndexOf Method (Object)" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_IndexOf.htm" />
           <HelpTOCNode Title="IndexOf Method (T)" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_IndexOf_1.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="14438cd7-5c9d-4f1c-b5f2-7b936ec5af67" Title="Insert Method " Url="html/Overload_Cauldron_Core_Collections_ConcurrentList_1_Insert.htm">
+        <HelpTOCNode Id="bd791cce-8262-4ea3-b016-5b654d8e0a4d" Title="Insert Method " Url="html/Overload_Cauldron_Core_Collections_ConcurrentList_1_Insert.htm">
           <HelpTOCNode Title="Insert Method (Int32, Object)" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_Insert.htm" />
           <HelpTOCNode Title="Insert Method (Int32, T)" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_Insert_1.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="c66e8ba5-6b05-42ac-bd22-45edffd1e0db" Title="Remove Method " Url="html/Overload_Cauldron_Core_Collections_ConcurrentList_1_Remove.htm">
+        <HelpTOCNode Id="1241dcff-1847-4fde-a958-5ac72125c751" Title="Remove Method " Url="html/Overload_Cauldron_Core_Collections_ConcurrentList_1_Remove.htm">
           <HelpTOCNode Title="Remove Method (Func(T, Boolean))" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_Remove.htm" />
           <HelpTOCNode Title="Remove Method (T)" Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_Remove_1.htm" />
         </HelpTOCNode>
@@ -870,14 +870,14 @@
         <HelpTOCNode Title="ToList Method " Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_ToList.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="ab7d439f-44e4-4736-9c6e-515a0b6d092e" Title="Extensions Class" Url="html/T_Cauldron_Core_Collections_Extensions.htm">
-      <HelpTOCNode Id="baa9b56a-5961-4ce1-b3cb-dfc3b28a2bde" Title="Extensions Methods" Url="html/Methods_T_Cauldron_Core_Collections_Extensions.htm">
+    <HelpTOCNode Id="441340cd-3a8b-45d0-a5ca-e7c991fb264f" Title="Extensions Class" Url="html/T_Cauldron_Core_Collections_Extensions.htm">
+      <HelpTOCNode Id="8c1b6c80-c96e-4f46-87fa-9c946f322948" Title="Extensions Methods" Url="html/Methods_T_Cauldron_Core_Collections_Extensions.htm">
         <HelpTOCNode Title="Operations Method " Url="html/M_Cauldron_Core_Collections_Extensions_Operations.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="79e5cbbd-3724-48cc-800e-146dafc49d3a" Title="IEnumerableExtensions Class" Url="html/T_Cauldron_Core_Collections_IEnumerableExtensions.htm">
-      <HelpTOCNode Id="be117d0c-282b-4823-9568-54092d42b074" Title="IEnumerableExtensions Methods" Url="html/Methods_T_Cauldron_Core_Collections_IEnumerableExtensions.htm">
-        <HelpTOCNode Id="f8af341e-436f-49ba-9a03-a1ee209a4e27" Title="Any Method " Url="html/Overload_Cauldron_Core_Collections_IEnumerableExtensions_Any.htm">
+    <HelpTOCNode Id="9a967349-dbbf-4208-a7c5-b3f14d083949" Title="IEnumerableExtensions Class" Url="html/T_Cauldron_Core_Collections_IEnumerableExtensions.htm">
+      <HelpTOCNode Id="6778d713-5de3-4edf-9fa8-fe1fdb2b7e36" Title="IEnumerableExtensions Methods" Url="html/Methods_T_Cauldron_Core_Collections_IEnumerableExtensions.htm">
+        <HelpTOCNode Id="1367b6a2-350e-4bd9-a67a-9c6b28e36b4a" Title="Any Method " Url="html/Overload_Cauldron_Core_Collections_IEnumerableExtensions_Any.htm">
           <HelpTOCNode Title="Any Method " Url="html/M_Cauldron_Core_Collections_IEnumerableExtensions_Any.htm" />
           <HelpTOCNode Title="Any Method (Func(Object, Boolean))" Url="html/M_Cauldron_Core_Collections_IEnumerableExtensions_Any_1.htm" />
         </HelpTOCNode>
@@ -890,20 +890,20 @@
         <HelpTOCNode Title="ToList(T) Method " Url="html/M_Cauldron_Core_Collections_IEnumerableExtensions_ToList__1.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="f1b95548-c79e-456b-9966-1d70c23efd95" Title="KeyedCollectionEx(TKey, TItem) Class" Url="html/T_Cauldron_Core_Collections_KeyedCollectionEx_2.htm">
-      <HelpTOCNode Id="4b4dc614-67f2-4f64-81c7-2c04d8728c03" Title="KeyedCollectionEx(TKey, TItem) Constructor " Url="html/Overload_Cauldron_Core_Collections_KeyedCollectionEx_2__ctor.htm">
+    <HelpTOCNode Id="2fc9c2c6-ea56-4a6b-99f3-b6f2a6f920cb" Title="KeyedCollectionEx(TKey, TItem) Class" Url="html/T_Cauldron_Core_Collections_KeyedCollectionEx_2.htm">
+      <HelpTOCNode Id="1541575e-a3b1-43ba-89c5-634b2d213196" Title="KeyedCollectionEx(TKey, TItem) Constructor " Url="html/Overload_Cauldron_Core_Collections_KeyedCollectionEx_2__ctor.htm">
         <HelpTOCNode Title="KeyedCollectionEx(TKey, TItem) Constructor (Func(TItem, TKey))" Url="html/M_Cauldron_Core_Collections_KeyedCollectionEx_2__ctor.htm" />
         <HelpTOCNode Title="KeyedCollectionEx(TKey, TItem) Constructor (Func(TItem, TKey), IEqualityComparer(TKey))" Url="html/M_Cauldron_Core_Collections_KeyedCollectionEx_2__ctor_1.htm" />
         <HelpTOCNode Title="KeyedCollectionEx(TKey, TItem) Constructor (Func(TItem, TKey), IEqualityComparer(TKey), Int32)" Url="html/M_Cauldron_Core_Collections_KeyedCollectionEx_2__ctor_2.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="33879139-6739-4668-bdae-7e095748c7b5" Title="KeyedCollectionEx(TKey, TItem) Methods" Url="html/Methods_T_Cauldron_Core_Collections_KeyedCollectionEx_2.htm">
+      <HelpTOCNode Id="8a793b58-2c18-4ac2-b1e8-1b2c13087e50" Title="KeyedCollectionEx(TKey, TItem) Methods" Url="html/Methods_T_Cauldron_Core_Collections_KeyedCollectionEx_2.htm">
         <HelpTOCNode Title="GetKeyForItem Method " Url="html/M_Cauldron_Core_Collections_KeyedCollectionEx_2_GetKeyForItem.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="1831e606-87e9-447b-8013-ca94898bbf00" Title="KeyRawValueDictionary Class" Url="html/T_Cauldron_Core_Collections_KeyRawValueDictionary.htm">
+    <HelpTOCNode Id="79f4f732-5512-4e7b-9b53-fb507598759f" Title="KeyRawValueDictionary Class" Url="html/T_Cauldron_Core_Collections_KeyRawValueDictionary.htm">
       <HelpTOCNode Title="KeyRawValueDictionary Constructor " Url="html/M_Cauldron_Core_Collections_KeyRawValueDictionary__ctor.htm" />
-      <HelpTOCNode Id="fddd7b94-cf0e-4ad5-b300-beb6f7ee2253" Title="KeyRawValueDictionary Methods" Url="html/Methods_T_Cauldron_Core_Collections_KeyRawValueDictionary.htm">
-        <HelpTOCNode Id="6f80d57c-ed77-46cf-8734-0507d6be7e3e" Title="Add Method " Url="html/Overload_Cauldron_Core_Collections_KeyRawValueDictionary_Add.htm">
+      <HelpTOCNode Id="7d65e8dc-4263-4c43-a738-4df20f939258" Title="KeyRawValueDictionary Methods" Url="html/Methods_T_Cauldron_Core_Collections_KeyRawValueDictionary.htm">
+        <HelpTOCNode Id="be06f33f-585c-4b6b-861b-0d6cf2f9819e" Title="Add Method " Url="html/Overload_Cauldron_Core_Collections_KeyRawValueDictionary_Add.htm">
           <HelpTOCNode Title="Add Method (String, Boolean)" Url="html/M_Cauldron_Core_Collections_KeyRawValueDictionary_Add.htm" />
           <HelpTOCNode Title="Add Method (String, Double)" Url="html/M_Cauldron_Core_Collections_KeyRawValueDictionary_Add_1.htm" />
           <HelpTOCNode Title="Add Method (String, Int32)" Url="html/M_Cauldron_Core_Collections_KeyRawValueDictionary_Add_2.htm" />
@@ -915,13 +915,13 @@
         <HelpTOCNode Title="Serialize Method " Url="html/M_Cauldron_Core_Collections_KeyRawValueDictionary_Serialize.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="eac7d8a2-accb-4ec9-be1f-54ca30a4cc81" Title="RawValue Class" Url="html/T_Cauldron_Core_Collections_RawValue.htm">
-      <HelpTOCNode Id="2a501997-7848-42fd-af3f-0aa0def006b3" Title="RawValue Methods" Url="html/Methods_T_Cauldron_Core_Collections_RawValue.htm">
-        <HelpTOCNode Id="5ca07396-2a9d-450d-9b48-26bef867bd00" Title="Equals Method " Url="html/Overload_Cauldron_Core_Collections_RawValue_Equals.htm">
+    <HelpTOCNode Id="0a31925f-6835-4cd6-8b4a-2d357aa4aef9" Title="RawValue Class" Url="html/T_Cauldron_Core_Collections_RawValue.htm">
+      <HelpTOCNode Id="71ac755a-b704-467a-9c72-3f9bc144b89a" Title="RawValue Methods" Url="html/Methods_T_Cauldron_Core_Collections_RawValue.htm">
+        <HelpTOCNode Id="8c7c5eb0-64da-4363-83bc-be88d89160d1" Title="Equals Method " Url="html/Overload_Cauldron_Core_Collections_RawValue_Equals.htm">
           <HelpTOCNode Title="Equals Method (Object)" Url="html/M_Cauldron_Core_Collections_RawValue_Equals_1.htm" />
           <HelpTOCNode Title="Equals Method (RawValue, RawValue)" Url="html/M_Cauldron_Core_Collections_RawValue_Equals.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="a37502c1-fac2-4b63-a9b2-04dfd780e4cc" Title="GetHashCode Method " Url="html/Overload_Cauldron_Core_Collections_RawValue_GetHashCode.htm">
+        <HelpTOCNode Id="dc05f059-8590-4138-a73c-723dd0849477" Title="GetHashCode Method " Url="html/Overload_Cauldron_Core_Collections_RawValue_GetHashCode.htm">
           <HelpTOCNode Title="GetHashCode Method " Url="html/M_Cauldron_Core_Collections_RawValue_GetHashCode.htm" />
           <HelpTOCNode Title="GetHashCode Method (RawValue)" Url="html/M_Cauldron_Core_Collections_RawValue_GetHashCode_1.htm" />
         </HelpTOCNode>
@@ -934,14 +934,14 @@
       </HelpTOCNode>
     </HelpTOCNode>
   </HelpTOCNode>
-  <HelpTOCNode Id="a6da6740-cf15-4a0e-9c26-9fe1f744c7f3" Title="Cauldron.Core.Diagnostics" Url="html/N_Cauldron_Core_Diagnostics.htm">
-    <HelpTOCNode Id="8db72b6b-0053-4b62-9372-775a6ef3ede6" Title="Debug Class" Url="html/T_Cauldron_Core_Diagnostics_Debug.htm">
-      <HelpTOCNode Id="33dfcd09-e5e7-4cd4-ac21-22d733b33873" Title="Debug Properties" Url="html/Properties_T_Cauldron_Core_Diagnostics_Debug.htm">
+  <HelpTOCNode Id="af728326-6897-4663-8997-c60b06cd2dcd" Title="Cauldron.Core.Diagnostics" Url="html/N_Cauldron_Core_Diagnostics.htm">
+    <HelpTOCNode Id="e4585bd4-e95e-44e5-b426-fc2efb3c004e" Title="Debug Class" Url="html/T_Cauldron_Core_Diagnostics_Debug.htm">
+      <HelpTOCNode Id="75b09cc5-2ac6-4d11-b7fa-abb0e16a571c" Title="Debug Properties" Url="html/Properties_T_Cauldron_Core_Diagnostics_Debug.htm">
         <HelpTOCNode Title="HardwareIdentifier Property " Url="html/P_Cauldron_Core_Diagnostics_Debug_HardwareIdentifier.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="6dfff363-19fc-4497-ae26-511f066e17d7" Title="Debug Methods" Url="html/Methods_T_Cauldron_Core_Diagnostics_Debug.htm">
+      <HelpTOCNode Id="0e4b63ce-191a-4805-b699-4d031586129d" Title="Debug Methods" Url="html/Methods_T_Cauldron_Core_Diagnostics_Debug.htm">
         <HelpTOCNode Title="GetStackTrace Method " Url="html/M_Cauldron_Core_Diagnostics_Debug_GetStackTrace.htm" />
-        <HelpTOCNode Id="43c84dbc-e02b-45b0-9520-328fc54914e0" Title="WriteLine Method " Url="html/Overload_Cauldron_Core_Diagnostics_Debug_WriteLine.htm">
+        <HelpTOCNode Id="7b549b16-ccef-4657-8ac9-9f7b83d0e51b" Title="WriteLine Method " Url="html/Overload_Cauldron_Core_Diagnostics_Debug_WriteLine.htm">
           <HelpTOCNode Title="WriteLine Method (Exception)" Url="html/M_Cauldron_Core_Diagnostics_Debug_WriteLine.htm" />
           <HelpTOCNode Title="WriteLine Method (String)" Url="html/M_Cauldron_Core_Diagnostics_Debug_WriteLine_1.htm" />
           <HelpTOCNode Title="WriteLine Method (String, Object[])" Url="html/M_Cauldron_Core_Diagnostics_Debug_WriteLine_2.htm" />
@@ -949,69 +949,69 @@
       </HelpTOCNode>
     </HelpTOCNode>
   </HelpTOCNode>
-  <HelpTOCNode Id="14c3747c-2522-4b37-82cd-5f7084359746" Title="Cauldron.Core.Formatters" Url="html/N_Cauldron_Core_Formatters.htm">
-    <HelpTOCNode Id="c2a290d5-e676-4a45-927e-d63aaddce0d1" Title="ByteSizeFormatter Class" Url="html/T_Cauldron_Core_Formatters_ByteSizeFormatter.htm">
-      <HelpTOCNode Id="07551f46-d300-46b9-a3bb-4c3954c1be65" Title="ByteSizeFormatter Constructor " Url="html/Overload_Cauldron_Core_Formatters_ByteSizeFormatter__ctor.htm">
+  <HelpTOCNode Id="8341f1e7-db2d-4abe-bc6a-46e79db53e5d" Title="Cauldron.Core.Formatters" Url="html/N_Cauldron_Core_Formatters.htm">
+    <HelpTOCNode Id="3a80c831-8b4b-4282-9a79-9074a05c9930" Title="ByteSizeFormatter Class" Url="html/T_Cauldron_Core_Formatters_ByteSizeFormatter.htm">
+      <HelpTOCNode Id="0128c479-79b7-45d6-9c43-706f2ccbb5a0" Title="ByteSizeFormatter Constructor " Url="html/Overload_Cauldron_Core_Formatters_ByteSizeFormatter__ctor.htm">
         <HelpTOCNode Title="ByteSizeFormatter Constructor " Url="html/M_Cauldron_Core_Formatters_ByteSizeFormatter__ctor.htm" />
         <HelpTOCNode Title="ByteSizeFormatter Constructor (CultureInfo)" Url="html/M_Cauldron_Core_Formatters_ByteSizeFormatter__ctor_1.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="16adfe23-f946-4aa4-bd21-0c784cd53f4e" Title="ByteSizeFormatter Methods" Url="html/Methods_T_Cauldron_Core_Formatters_ByteSizeFormatter.htm">
+      <HelpTOCNode Id="4c50be05-a7cc-45cb-a43d-f3afb69df487" Title="ByteSizeFormatter Methods" Url="html/Methods_T_Cauldron_Core_Formatters_ByteSizeFormatter.htm">
         <HelpTOCNode Title="OnFormat Method " Url="html/M_Cauldron_Core_Formatters_ByteSizeFormatter_OnFormat.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="0ce0636d-dae5-49bf-a22a-ae22852211cf" Title="Formatter Class" Url="html/T_Cauldron_Core_Formatters_Formatter.htm">
-      <HelpTOCNode Id="8d5267ab-747b-48d0-a2fa-0ad4f253b881" Title="Formatter Constructor " Url="html/Overload_Cauldron_Core_Formatters_Formatter__ctor.htm">
+    <HelpTOCNode Id="ad9f259a-29d2-446d-aa9b-7e9cee433477" Title="Formatter Class" Url="html/T_Cauldron_Core_Formatters_Formatter.htm">
+      <HelpTOCNode Id="f1150942-fd51-46b9-85da-bc9710c34d7b" Title="Formatter Constructor " Url="html/Overload_Cauldron_Core_Formatters_Formatter__ctor.htm">
         <HelpTOCNode Title="Formatter Constructor " Url="html/M_Cauldron_Core_Formatters_Formatter__ctor.htm" />
         <HelpTOCNode Title="Formatter Constructor (CultureInfo)" Url="html/M_Cauldron_Core_Formatters_Formatter__ctor_1.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="fe2969bd-3a50-4e4c-adf2-c51749d7b6f3" Title="Formatter Methods" Url="html/Methods_T_Cauldron_Core_Formatters_Formatter.htm">
+      <HelpTOCNode Id="6c0a0bce-7cdb-4046-8646-852f222009dc" Title="Formatter Methods" Url="html/Methods_T_Cauldron_Core_Formatters_Formatter.htm">
         <HelpTOCNode Title="Add Method " Url="html/M_Cauldron_Core_Formatters_Formatter_Add.htm" />
         <HelpTOCNode Title="OnFormat Method " Url="html/M_Cauldron_Core_Formatters_Formatter_OnFormat.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="f863185a-f763-450b-b039-7a6f2e2fff66" Title="FormatterBase Class" Url="html/T_Cauldron_Core_Formatters_FormatterBase.htm">
+    <HelpTOCNode Id="5ec51cc3-3dff-48e5-a256-a56b509d00c1" Title="FormatterBase Class" Url="html/T_Cauldron_Core_Formatters_FormatterBase.htm">
       <HelpTOCNode Title="FormatterBase Constructor " Url="html/M_Cauldron_Core_Formatters_FormatterBase__ctor.htm" />
-      <HelpTOCNode Id="129ea77c-0453-4c6d-af6c-f6e735a521d3" Title="FormatterBase Methods" Url="html/Methods_T_Cauldron_Core_Formatters_FormatterBase.htm">
+      <HelpTOCNode Id="f52b4534-cf5b-46a1-8dc3-09bfcb846523" Title="FormatterBase Methods" Url="html/Methods_T_Cauldron_Core_Formatters_FormatterBase.htm">
         <HelpTOCNode Title="Format Method " Url="html/M_Cauldron_Core_Formatters_FormatterBase_Format.htm" />
         <HelpTOCNode Title="GetFormat Method " Url="html/M_Cauldron_Core_Formatters_FormatterBase_GetFormat.htm" />
         <HelpTOCNode Title="OnFormat Method " Url="html/M_Cauldron_Core_Formatters_FormatterBase_OnFormat.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="f61bd70f-e9d9-4de9-b9ee-1f1f05204fd9" Title="MetricUnitFormatter Class" Url="html/T_Cauldron_Core_Formatters_MetricUnitFormatter.htm">
-      <HelpTOCNode Id="750eebb1-f423-4d63-8b6a-f2351b5fff30" Title="MetricUnitFormatter Constructor " Url="html/Overload_Cauldron_Core_Formatters_MetricUnitFormatter__ctor.htm">
+    <HelpTOCNode Id="1a5d9787-2324-47c1-abb3-708015279b94" Title="MetricUnitFormatter Class" Url="html/T_Cauldron_Core_Formatters_MetricUnitFormatter.htm">
+      <HelpTOCNode Id="8ee1b5d0-989c-4c44-b330-e564aa23f611" Title="MetricUnitFormatter Constructor " Url="html/Overload_Cauldron_Core_Formatters_MetricUnitFormatter__ctor.htm">
         <HelpTOCNode Title="MetricUnitFormatter Constructor " Url="html/M_Cauldron_Core_Formatters_MetricUnitFormatter__ctor.htm" />
         <HelpTOCNode Title="MetricUnitFormatter Constructor (CultureInfo)" Url="html/M_Cauldron_Core_Formatters_MetricUnitFormatter__ctor_1.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="5e313125-1b8c-49ed-ba3e-0eb40fcdd4fb" Title="MetricUnitFormatter Methods" Url="html/Methods_T_Cauldron_Core_Formatters_MetricUnitFormatter.htm">
+      <HelpTOCNode Id="955d9e78-a56a-4bc4-a022-efaf114133bb" Title="MetricUnitFormatter Methods" Url="html/Methods_T_Cauldron_Core_Formatters_MetricUnitFormatter.htm">
         <HelpTOCNode Title="OnFormat Method " Url="html/M_Cauldron_Core_Formatters_MetricUnitFormatter_OnFormat.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
   </HelpTOCNode>
-  <HelpTOCNode Id="63df046c-3f13-4090-9c4c-268b708cbd36" Title="Cauldron.Core.Interceptors" Url="html/N_Cauldron_Core_Interceptors.htm">
-    <HelpTOCNode Id="2cc7eb57-8d79-4883-9b04-8d8fef128160" Title="ExecutionTimeAttribute Class" Url="html/T_Cauldron_Core_Interceptors_ExecutionTimeAttribute.htm">
+  <HelpTOCNode Id="7b81de9e-4613-4d05-8a2d-1632ec0f2920" Title="Cauldron.Core.Interceptors" Url="html/N_Cauldron_Core_Interceptors.htm">
+    <HelpTOCNode Id="bd6f4587-0fe5-4c88-90af-7b5d12dc7bbc" Title="ExecutionTimeAttribute Class" Url="html/T_Cauldron_Core_Interceptors_ExecutionTimeAttribute.htm">
       <HelpTOCNode Title="ExecutionTimeAttribute Constructor " Url="html/M_Cauldron_Core_Interceptors_ExecutionTimeAttribute__ctor.htm" />
       <HelpTOCNode Title="ExecutionTimeAttribute Methods" Url="html/Methods_T_Cauldron_Core_Interceptors_ExecutionTimeAttribute.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="fbf15841-75b6-4ea1-b845-94815d129ef6" Title="PropertyOnSetAttribute Class" Url="html/T_Cauldron_Core_Interceptors_PropertyOnSetAttribute.htm">
+    <HelpTOCNode Id="24d3a104-6e76-41c1-9854-c21c13c1861b" Title="PropertyOnSetAttribute Class" Url="html/T_Cauldron_Core_Interceptors_PropertyOnSetAttribute.htm">
       <HelpTOCNode Title="PropertyOnSetAttribute Constructor " Url="html/M_Cauldron_Core_Interceptors_PropertyOnSetAttribute__ctor.htm" />
       <HelpTOCNode Title="PropertyOnSetAttribute Methods" Url="html/Methods_T_Cauldron_Core_Interceptors_PropertyOnSetAttribute.htm" />
     </HelpTOCNode>
   </HelpTOCNode>
-  <HelpTOCNode Id="5bdad9ff-712a-47f3-bc3d-e115cee71369" Title="Cauldron.Core.Net" Url="html/N_Cauldron_Core_Net.htm">
+  <HelpTOCNode Id="06c224e1-d384-4da5-8bbc-aa3e398e8d20" Title="Cauldron.Core.Net" Url="html/N_Cauldron_Core_Net.htm">
     <HelpTOCNode Title="ConnectionGenerationTypes Enumeration" Url="html/T_Cauldron_Core_Net_ConnectionGenerationTypes.htm" />
-    <HelpTOCNode Id="12b8db37-5318-46d7-b05f-bfb72b045ac3" Title="Network Class" Url="html/T_Cauldron_Core_Net_Network.htm">
-      <HelpTOCNode Id="95d29cc4-dbf2-4c55-a4c1-dc0ecd09b531" Title="Network Properties" Url="html/Properties_T_Cauldron_Core_Net_Network.htm">
+    <HelpTOCNode Id="41e90c7e-cd13-4c83-8c70-82a740366746" Title="Network Class" Url="html/T_Cauldron_Core_Net_Network.htm">
+      <HelpTOCNode Id="0cd854c7-74be-4c36-b2ea-19d3d14bb6d1" Title="Network Properties" Url="html/Properties_T_Cauldron_Core_Net_Network.htm">
         <HelpTOCNode Title="ConnectionType Property " Url="html/P_Cauldron_Core_Net_Network_ConnectionType.htm" />
         <HelpTOCNode Title="HasInternetConnection Property " Url="html/P_Cauldron_Core_Net_Network_HasInternetConnection.htm" />
         <HelpTOCNode Title="IsNetworkAvailable Property " Url="html/P_Cauldron_Core_Net_Network_IsNetworkAvailable.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="f0300958-5bbb-49f4-a97b-445306f4cd6a" Title="Network Methods" Url="html/Methods_T_Cauldron_Core_Net_Network.htm">
+      <HelpTOCNode Id="2ad7b5f3-3229-493d-a86c-b9e34ef2bd57" Title="Network Methods" Url="html/Methods_T_Cauldron_Core_Net_Network.htm">
         <HelpTOCNode Title="Ping Method " Url="html/M_Cauldron_Core_Net_Network_Ping.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="34e6815c-7b6e-4263-9379-36f7547346e5" Title="PingResults Structure" Url="html/T_Cauldron_Core_Net_PingResults.htm">
+    <HelpTOCNode Id="0e732d30-776f-49f8-87c8-6d19d0a4108d" Title="PingResults Structure" Url="html/T_Cauldron_Core_Net_PingResults.htm">
       <HelpTOCNode Title="PingResults Methods" Url="html/Methods_T_Cauldron_Core_Net_PingResults.htm" />
-      <HelpTOCNode Id="b7ef67d5-57d3-4efb-be0e-6b55fcd5b009" Title="PingResults Fields" Url="html/Fields_T_Cauldron_Core_Net_PingResults.htm">
+      <HelpTOCNode Id="bfd05fdb-27d3-4143-9fb1-6ad8f30a1b35" Title="PingResults Fields" Url="html/Fields_T_Cauldron_Core_Net_PingResults.htm">
         <HelpTOCNode Title="localIpAddress Field" Url="html/F_Cauldron_Core_Net_PingResults_localIpAddress.htm" />
         <HelpTOCNode Title="localPort Field" Url="html/F_Cauldron_Core_Net_PingResults_localPort.htm" />
         <HelpTOCNode Title="remoteIpAddress Field" Url="html/F_Cauldron_Core_Net_PingResults_remoteIpAddress.htm" />
@@ -1020,37 +1020,37 @@
         <HelpTOCNode Title="roundTripTimeMin Field" Url="html/F_Cauldron_Core_Net_PingResults_roundTripTimeMin.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="19c7d4fb-5465-4264-ae19-272fa1f2308a" Title="Web Class" Url="html/T_Cauldron_Core_Net_Web.htm">
-      <HelpTOCNode Id="5ab34475-4540-4507-8c77-13547be5875b" Title="Web Methods" Url="html/Methods_T_Cauldron_Core_Net_Web.htm">
+    <HelpTOCNode Id="421b3bdc-e6b1-4edf-84ac-56ac1f2d1438" Title="Web Class" Url="html/T_Cauldron_Core_Net_Web.htm">
+      <HelpTOCNode Id="fbaeb30c-f1ad-48de-b03d-dc609c933320" Title="Web Methods" Url="html/Methods_T_Cauldron_Core_Net_Web.htm">
         <HelpTOCNode Title="DownloadFileAsync Method " Url="html/M_Cauldron_Core_Net_Web_DownloadFileAsync.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="bacb3959-7bda-44db-839e-ed13deb1f79a" Title="WebAuthenticationBrokerCallbackEventArgs Class" Url="html/T_Cauldron_Core_Net_WebAuthenticationBrokerCallbackEventArgs.htm">
-      <HelpTOCNode Id="c1c5310f-1e4f-4a02-a0b3-afe4225d5fbc" Title="WebAuthenticationBrokerCallbackEventArgs Properties" Url="html/Properties_T_Cauldron_Core_Net_WebAuthenticationBrokerCallbackEventArgs.htm">
+    <HelpTOCNode Id="0d0eec91-9fe8-4444-8ae5-a1ecc1eaa3ea" Title="WebAuthenticationBrokerCallbackEventArgs Class" Url="html/T_Cauldron_Core_Net_WebAuthenticationBrokerCallbackEventArgs.htm">
+      <HelpTOCNode Id="e8b8cb33-ff5d-4b62-88fc-3f1177814fec" Title="WebAuthenticationBrokerCallbackEventArgs Properties" Url="html/Properties_T_Cauldron_Core_Net_WebAuthenticationBrokerCallbackEventArgs.htm">
         <HelpTOCNode Title="Handled Property " Url="html/P_Cauldron_Core_Net_WebAuthenticationBrokerCallbackEventArgs_Handled.htm" />
         <HelpTOCNode Title="ResponseData Property " Url="html/P_Cauldron_Core_Net_WebAuthenticationBrokerCallbackEventArgs_ResponseData.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="WebAuthenticationBrokerCallbackEventArgs Methods" Url="html/Methods_T_Cauldron_Core_Net_WebAuthenticationBrokerCallbackEventArgs.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="fc0ee1c2-60e1-47e1-8ccf-1943199fe962" Title="WebAuthenticationBrokerWrapper Class" Url="html/T_Cauldron_Core_Net_WebAuthenticationBrokerWrapper.htm">
-      <HelpTOCNode Id="b55ec60b-1caf-4d29-8f1e-8a4f410635d5" Title="WebAuthenticationBrokerWrapper Methods" Url="html/Methods_T_Cauldron_Core_Net_WebAuthenticationBrokerWrapper.htm">
+    <HelpTOCNode Id="dd5a4660-919e-4501-8b4c-0e853ebb9062" Title="WebAuthenticationBrokerWrapper Class" Url="html/T_Cauldron_Core_Net_WebAuthenticationBrokerWrapper.htm">
+      <HelpTOCNode Id="de7cb841-5ae6-48f3-a28d-7406aa04b7ad" Title="WebAuthenticationBrokerWrapper Methods" Url="html/Methods_T_Cauldron_Core_Net_WebAuthenticationBrokerWrapper.htm">
         <HelpTOCNode Title="AuthenticateAsync Method " Url="html/M_Cauldron_Core_Net_WebAuthenticationBrokerWrapper_AuthenticateAsync.htm" />
         <HelpTOCNode Title="CallBack Method " Url="html/M_Cauldron_Core_Net_WebAuthenticationBrokerWrapper_CallBack.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="27a9d995-ae0e-4ba7-abf6-6baeeffb177e" Title="WebAuthenticationBrokerWrapper Fields" Url="html/Fields_T_Cauldron_Core_Net_WebAuthenticationBrokerWrapper.htm">
+      <HelpTOCNode Id="aee5f7f0-e24b-461a-9511-92d6cb0124a5" Title="WebAuthenticationBrokerWrapper Fields" Url="html/Fields_T_Cauldron_Core_Net_WebAuthenticationBrokerWrapper.htm">
         <HelpTOCNode Title="OnCallBack Field" Url="html/F_Cauldron_Core_Net_WebAuthenticationBrokerWrapper_OnCallBack.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="54400064-8964-4949-9fa7-eae11e320161" Title="WebException Class" Url="html/T_Cauldron_Core_Net_WebException.htm">
-      <HelpTOCNode Id="574b3367-cdda-4a20-8ba7-02d3ce2868a1" Title="WebException Properties" Url="html/Properties_T_Cauldron_Core_Net_WebException.htm">
+    <HelpTOCNode Id="b4bdb540-9888-4a1c-921d-bb938f12887d" Title="WebException Class" Url="html/T_Cauldron_Core_Net_WebException.htm">
+      <HelpTOCNode Id="0f69cfed-41de-4cd4-9fb8-c2f9bf14d137" Title="WebException Properties" Url="html/Properties_T_Cauldron_Core_Net_WebException.htm">
         <HelpTOCNode Title="StatusCode Property " Url="html/P_Cauldron_Core_Net_WebException_StatusCode.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="WebException Methods" Url="html/Methods_T_Cauldron_Core_Net_WebException.htm" />
     </HelpTOCNode>
   </HelpTOCNode>
-  <HelpTOCNode Id="d8fcca45-1db8-474c-bc9d-c56fc30fe677" Title="Cauldron.Core.Reflection" Url="html/N_Cauldron_Core_Reflection.htm">
-    <HelpTOCNode Id="a8286add-2bab-4745-be7d-7d63c9a0a73d" Title="ApplicationInfo Class" Url="html/T_Cauldron_Core_Reflection_ApplicationInfo.htm">
-      <HelpTOCNode Id="10ca749d-c02f-4999-9e48-1996b36923f6" Title="ApplicationInfo Properties" Url="html/Properties_T_Cauldron_Core_Reflection_ApplicationInfo.htm">
+  <HelpTOCNode Id="26317b4e-811d-455d-8257-0f8b09c19700" Title="Cauldron.Core.Reflection" Url="html/N_Cauldron_Core_Reflection.htm">
+    <HelpTOCNode Id="155f011f-aa4c-448e-af1c-37896b3148c1" Title="ApplicationInfo Class" Url="html/T_Cauldron_Core_Reflection_ApplicationInfo.htm">
+      <HelpTOCNode Id="e633d27f-283f-4a35-bd96-0b9051c0cdc9" Title="ApplicationInfo Properties" Url="html/Properties_T_Cauldron_Core_Reflection_ApplicationInfo.htm">
         <HelpTOCNode Title="ApplicationName Property " Url="html/P_Cauldron_Core_Reflection_ApplicationInfo_ApplicationName.htm" />
         <HelpTOCNode Title="ApplicationPath Property " Url="html/P_Cauldron_Core_Reflection_ApplicationInfo_ApplicationPath.htm" />
         <HelpTOCNode Title="ApplicationPublisher Property " Url="html/P_Cauldron_Core_Reflection_ApplicationInfo_ApplicationPublisher.htm" />
@@ -1060,8 +1060,8 @@
         <HelpTOCNode Title="TargetFramework Property " Url="html/P_Cauldron_Core_Reflection_ApplicationInfo_TargetFramework.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="6dcd5706-5948-410c-8841-c9a763c35810" Title="Assemblies Class" Url="html/T_Cauldron_Core_Reflection_Assemblies.htm">
-      <HelpTOCNode Id="c5484284-8db3-43c3-af15-51208ae92301" Title="Assemblies Properties" Url="html/Properties_T_Cauldron_Core_Reflection_Assemblies.htm">
+    <HelpTOCNode Id="b6478618-0c5f-4fe3-9fc4-5f214f9b5030" Title="Assemblies Class" Url="html/T_Cauldron_Core_Reflection_Assemblies.htm">
+      <HelpTOCNode Id="9fdb0f76-1bc2-4d0a-aaa0-ffab22402f8d" Title="Assemblies Properties" Url="html/Properties_T_Cauldron_Core_Reflection_Assemblies.htm">
         <HelpTOCNode Title="AssemblyAndResourceNamesInfo Property " Url="html/P_Cauldron_Core_Reflection_Assemblies_AssemblyAndResourceNamesInfo.htm" />
         <HelpTOCNode Title="CauldronObjects Property " Url="html/P_Cauldron_Core_Reflection_Assemblies_CauldronObjects.htm" />
         <HelpTOCNode Title="Classes Property " Url="html/P_Cauldron_Core_Reflection_Assemblies_Classes.htm" />
@@ -1070,48 +1070,48 @@
         <HelpTOCNode Title="IsDebugging Property " Url="html/P_Cauldron_Core_Reflection_Assemblies_IsDebugging.htm" />
         <HelpTOCNode Title="Known Property " Url="html/P_Cauldron_Core_Reflection_Assemblies_Known.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="86b0f134-52e7-4259-aeaa-956ae4e3de33" Title="Assemblies Methods" Url="html/Methods_T_Cauldron_Core_Reflection_Assemblies.htm">
+      <HelpTOCNode Id="f98097d8-e808-4400-b3c7-31869d721a1c" Title="Assemblies Methods" Url="html/Methods_T_Cauldron_Core_Reflection_Assemblies.htm">
         <HelpTOCNode Title="AddAssembly Method " Url="html/M_Cauldron_Core_Reflection_Assemblies_AddAssembly.htm" />
         <HelpTOCNode Title="GetFirstAssemblyWithResourceName Method " Url="html/M_Cauldron_Core_Reflection_Assemblies_GetFirstAssemblyWithResourceName.htm" />
-        <HelpTOCNode Id="926c0bd7-e367-433d-b32a-a33d337cf2d6" Title="GetManifestResource Method " Url="html/Overload_Cauldron_Core_Reflection_Assemblies_GetManifestResource.htm">
+        <HelpTOCNode Id="906eece7-772f-4509-ae7a-78add57258c5" Title="GetManifestResource Method " Url="html/Overload_Cauldron_Core_Reflection_Assemblies_GetManifestResource.htm">
           <HelpTOCNode Title="GetManifestResource Method (String)" Url="html/M_Cauldron_Core_Reflection_Assemblies_GetManifestResource_1.htm" />
           <HelpTOCNode Title="GetManifestResource Method (Func(AssemblyResource, Boolean))" Url="html/M_Cauldron_Core_Reflection_Assemblies_GetManifestResource.htm" />
         </HelpTOCNode>
         <HelpTOCNode Title="GetManifestResourceInfo Method " Url="html/M_Cauldron_Core_Reflection_Assemblies_GetManifestResourceInfo.htm" />
         <HelpTOCNode Title="GetManifestResources Method " Url="html/M_Cauldron_Core_Reflection_Assemblies_GetManifestResources.htm" />
         <HelpTOCNode Title="GetTypeFromName Method " Url="html/M_Cauldron_Core_Reflection_Assemblies_GetTypeFromName.htm" />
-        <HelpTOCNode Id="3d5ed07e-9dd6-4813-b613-f580669578e4" Title="LoadAssembly Method " Url="html/Overload_Cauldron_Core_Reflection_Assemblies_LoadAssembly.htm">
+        <HelpTOCNode Id="c609106e-255c-43d6-ae16-5bc67d8d6ef1" Title="LoadAssembly Method " Url="html/Overload_Cauldron_Core_Reflection_Assemblies_LoadAssembly.htm">
           <HelpTOCNode Title="LoadAssembly Method (FileInfo)" Url="html/M_Cauldron_Core_Reflection_Assemblies_LoadAssembly_1.htm" />
           <HelpTOCNode Title="LoadAssembly Method (DirectoryInfo, String)" Url="html/M_Cauldron_Core_Reflection_Assemblies_LoadAssembly.htm" />
         </HelpTOCNode>
       </HelpTOCNode>
-      <HelpTOCNode Id="d539027a-deb2-42d4-b4f1-2f3185f0aafe" Title="Assemblies Events" Url="html/Events_T_Cauldron_Core_Reflection_Assemblies.htm">
+      <HelpTOCNode Id="ab669d92-a622-465c-85cd-e4f908e43bc4" Title="Assemblies Events" Url="html/Events_T_Cauldron_Core_Reflection_Assemblies.htm">
         <HelpTOCNode Title="LoadedAssemblyChanged Event" Url="html/E_Cauldron_Core_Reflection_Assemblies_LoadedAssemblyChanged.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="ef1a84df-bf90-487a-901c-1423cfc0a63b" Title="AssemblyAddedEventArgs Class" Url="html/T_Cauldron_Core_Reflection_AssemblyAddedEventArgs.htm">
-      <HelpTOCNode Id="35306867-f2d5-4e5b-b898-a98f2dcb3e98" Title="AssemblyAddedEventArgs Properties" Url="html/Properties_T_Cauldron_Core_Reflection_AssemblyAddedEventArgs.htm">
+    <HelpTOCNode Id="1bf97356-b35a-47b0-97ec-7bb7b96f4fe8" Title="AssemblyAddedEventArgs Class" Url="html/T_Cauldron_Core_Reflection_AssemblyAddedEventArgs.htm">
+      <HelpTOCNode Id="f44db7b6-24fa-4f09-8cee-ec4e24bdb543" Title="AssemblyAddedEventArgs Properties" Url="html/Properties_T_Cauldron_Core_Reflection_AssemblyAddedEventArgs.htm">
         <HelpTOCNode Title="Assembly Property " Url="html/P_Cauldron_Core_Reflection_AssemblyAddedEventArgs_Assembly.htm" />
         <HelpTOCNode Title="Cauldron Property " Url="html/P_Cauldron_Core_Reflection_AssemblyAddedEventArgs_Cauldron.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="AssemblyAddedEventArgs Methods" Url="html/Methods_T_Cauldron_Core_Reflection_AssemblyAddedEventArgs.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="d261898f-5f86-4429-aa34-660ebee15a04" Title="AssemblyResource Class" Url="html/T_Cauldron_Core_Reflection_AssemblyResource.htm">
-      <HelpTOCNode Id="344b20be-4518-45a6-822c-515f962e27c2" Title="AssemblyResource Properties" Url="html/Properties_T_Cauldron_Core_Reflection_AssemblyResource.htm">
+    <HelpTOCNode Id="7fa283fc-f02e-4e14-8aae-7a0089b6bf6f" Title="AssemblyResource Class" Url="html/T_Cauldron_Core_Reflection_AssemblyResource.htm">
+      <HelpTOCNode Id="46cd6705-2c6f-40b0-a329-9578dcd89d20" Title="AssemblyResource Properties" Url="html/Properties_T_Cauldron_Core_Reflection_AssemblyResource.htm">
         <HelpTOCNode Title="Assembly Property " Url="html/P_Cauldron_Core_Reflection_AssemblyResource_Assembly.htm" />
         <HelpTOCNode Title="Filename Property " Url="html/P_Cauldron_Core_Reflection_AssemblyResource_Filename.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="AssemblyResource Methods" Url="html/Methods_T_Cauldron_Core_Reflection_AssemblyResource.htm" />
     </HelpTOCNode>
   </HelpTOCNode>
-  <HelpTOCNode Id="9b303d85-df39-48ab-8103-f449321e3152" Title="Cauldron.Core.Threading" Url="html/N_Cauldron_Core_Threading.htm">
-    <HelpTOCNode Id="f1598485-5081-4dc3-9d0f-f0ef8a4394fb" Title="CallOnce Class" Url="html/T_Cauldron_Core_Threading_CallOnce.htm">
-      <HelpTOCNode Id="e82d1d23-d1b7-4b0f-b97f-89e5d73c7fe1" Title="CallOnce Properties" Url="html/Properties_T_Cauldron_Core_Threading_CallOnce.htm">
+  <HelpTOCNode Id="6ac1883d-8a95-491e-8763-0a0f959047e0" Title="Cauldron.Core.Threading" Url="html/N_Cauldron_Core_Threading.htm">
+    <HelpTOCNode Id="2a707309-b3ab-480e-9a18-9872165ed3a0" Title="CallOnce Class" Url="html/T_Cauldron_Core_Threading_CallOnce.htm">
+      <HelpTOCNode Id="02b11200-7a62-4f3a-8094-2e8245d0fb29" Title="CallOnce Properties" Url="html/Properties_T_Cauldron_Core_Threading_CallOnce.htm">
         <HelpTOCNode Title="CurrentTask Property " Url="html/P_Cauldron_Core_Threading_CallOnce_CurrentTask.htm" />
         <HelpTOCNode Title="IsWaiting Property " Url="html/P_Cauldron_Core_Threading_CallOnce_IsWaiting.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="5098d654-03e1-40fb-b582-c8fd74ea34d4" Title="CallOnce Methods" Url="html/Methods_T_Cauldron_Core_Threading_CallOnce.htm">
-        <HelpTOCNode Id="c2fdd599-bc09-4e8f-8755-931edacd1b13" Title="Create Method " Url="html/Overload_Cauldron_Core_Threading_CallOnce_Create.htm">
+      <HelpTOCNode Id="ea9cec4c-1d9e-43a9-8e6b-5a01e10beb56" Title="CallOnce Methods" Url="html/Methods_T_Cauldron_Core_Threading_CallOnce.htm">
+        <HelpTOCNode Id="fb76b070-1290-4109-ab0d-4cc1c0aafbb4" Title="Create Method " Url="html/Overload_Cauldron_Core_Threading_CallOnce_Create.htm">
           <HelpTOCNode Title="Create Method (Action)" Url="html/M_Cauldron_Core_Threading_CallOnce_Create.htm" />
           <HelpTOCNode Title="Create Method (Func(Task))" Url="html/M_Cauldron_Core_Threading_CallOnce_Create_1.htm" />
           <HelpTOCNode Title="Create Method (Object, Action)" Url="html/M_Cauldron_Core_Threading_CallOnce_Create_2.htm" />
@@ -1119,123 +1119,123 @@
         </HelpTOCNode>
         <HelpTOCNode Title="Invoke Method " Url="html/M_Cauldron_Core_Threading_CallOnce_Invoke.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="0e7d3221-831d-4822-8f9c-b957219b01e5" Title="CallOnce Events" Url="html/Events_T_Cauldron_Core_Threading_CallOnce.htm">
+      <HelpTOCNode Id="d60eda94-740b-46a5-8ecb-e8af95a4e064" Title="CallOnce Events" Url="html/Events_T_Cauldron_Core_Threading_CallOnce.htm">
         <HelpTOCNode Title="Invoked Event" Url="html/E_Cauldron_Core_Threading_CallOnce_Invoked.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="93bdd416-6575-4b0b-a043-3c121f61c5cd" Title="DispatcherDummy Class" Url="html/T_Cauldron_Core_Threading_DispatcherDummy.htm">
+    <HelpTOCNode Id="cf62d755-29bd-4392-b555-31b47bb6081d" Title="DispatcherDummy Class" Url="html/T_Cauldron_Core_Threading_DispatcherDummy.htm">
       <HelpTOCNode Title="DispatcherDummy Constructor " Url="html/M_Cauldron_Core_Threading_DispatcherDummy__ctor.htm" />
-      <HelpTOCNode Id="b4418b3c-a90c-4458-a3a7-e2d9ba72ab93" Title="DispatcherDummy Properties" Url="html/Properties_T_Cauldron_Core_Threading_DispatcherDummy.htm">
+      <HelpTOCNode Id="cd81d661-7723-4754-aacd-b6741cd0eb73" Title="DispatcherDummy Properties" Url="html/Properties_T_Cauldron_Core_Threading_DispatcherDummy.htm">
         <HelpTOCNode Title="HasThreadAccess Property " Url="html/P_Cauldron_Core_Threading_DispatcherDummy_HasThreadAccess.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="3a28997b-f2d1-421a-adaf-975522e6864d" Title="DispatcherDummy Methods" Url="html/Methods_T_Cauldron_Core_Threading_DispatcherDummy.htm">
-        <HelpTOCNode Id="41985760-aa74-47f0-a37c-e40d88fffdcb" Title="RunAsync Method " Url="html/Overload_Cauldron_Core_Threading_DispatcherDummy_RunAsync.htm">
+      <HelpTOCNode Id="821a07e5-72f8-4303-a610-edba0b7d5ee8" Title="DispatcherDummy Methods" Url="html/Methods_T_Cauldron_Core_Threading_DispatcherDummy.htm">
+        <HelpTOCNode Id="959e713a-ac16-4108-b314-e960a11b971b" Title="RunAsync Method " Url="html/Overload_Cauldron_Core_Threading_DispatcherDummy_RunAsync.htm">
           <HelpTOCNode Title="RunAsync Method (Action)" Url="html/M_Cauldron_Core_Threading_DispatcherDummy_RunAsync_1.htm" />
           <HelpTOCNode Title="RunAsync Method (DispatcherPriority, Action)" Url="html/M_Cauldron_Core_Threading_DispatcherDummy_RunAsync.htm" />
         </HelpTOCNode>
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="3932c0c7-627d-4df6-9109-330a5ca6c4fa" Title="DispatcherFactoryResolver Class" Url="html/T_Cauldron_Core_Threading_DispatcherFactoryResolver.htm">
+    <HelpTOCNode Id="7c2b7a97-3698-4702-9917-9b6eb70072fb" Title="DispatcherFactoryResolver Class" Url="html/T_Cauldron_Core_Threading_DispatcherFactoryResolver.htm">
       <HelpTOCNode Title="DispatcherFactoryResolver Constructor " Url="html/M_Cauldron_Core_Threading_DispatcherFactoryResolver__ctor.htm" />
       <HelpTOCNode Title="DispatcherFactoryResolver Properties" Url="html/Properties_T_Cauldron_Core_Threading_DispatcherFactoryResolver.htm" />
       <HelpTOCNode Title="DispatcherFactoryResolver Methods" Url="html/Methods_T_Cauldron_Core_Threading_DispatcherFactoryResolver.htm" />
     </HelpTOCNode>
     <HelpTOCNode Title="DispatcherPriority Enumeration" Url="html/T_Cauldron_Core_Threading_DispatcherPriority.htm" />
-    <HelpTOCNode Id="862ee4ba-7cbe-4704-9ea0-ed787ade774d" Title="IDispatcher Interface" Url="html/T_Cauldron_Core_Threading_IDispatcher.htm">
-      <HelpTOCNode Id="44bb46b9-c80d-4dc6-97e7-7d452d44c998" Title="IDispatcher Properties" Url="html/Properties_T_Cauldron_Core_Threading_IDispatcher.htm">
+    <HelpTOCNode Id="070a4756-8c63-4a9b-b843-8246c5693e3f" Title="IDispatcher Interface" Url="html/T_Cauldron_Core_Threading_IDispatcher.htm">
+      <HelpTOCNode Id="d7c52642-f851-49f1-a976-5bba43dedddf" Title="IDispatcher Properties" Url="html/Properties_T_Cauldron_Core_Threading_IDispatcher.htm">
         <HelpTOCNode Title="HasThreadAccess Property " Url="html/P_Cauldron_Core_Threading_IDispatcher_HasThreadAccess.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="52e6defa-08e9-4532-9367-babbb5c1053f" Title="IDispatcher Methods" Url="html/Methods_T_Cauldron_Core_Threading_IDispatcher.htm">
-        <HelpTOCNode Id="b6fe8988-2932-4355-b5be-97af8aaeedce" Title="RunAsync Method " Url="html/Overload_Cauldron_Core_Threading_IDispatcher_RunAsync.htm">
+      <HelpTOCNode Id="50a2ca3f-c772-4d45-80fa-acac3b7e96fb" Title="IDispatcher Methods" Url="html/Methods_T_Cauldron_Core_Threading_IDispatcher.htm">
+        <HelpTOCNode Id="f3de5d4f-b78f-4dcd-806b-4086c5b6dd35" Title="RunAsync Method " Url="html/Overload_Cauldron_Core_Threading_IDispatcher_RunAsync.htm">
           <HelpTOCNode Title="RunAsync Method (Action)" Url="html/M_Cauldron_Core_Threading_IDispatcher_RunAsync_1.htm" />
           <HelpTOCNode Title="RunAsync Method (DispatcherPriority, Action)" Url="html/M_Cauldron_Core_Threading_IDispatcher_RunAsync.htm" />
         </HelpTOCNode>
       </HelpTOCNode>
     </HelpTOCNode>
   </HelpTOCNode>
-  <HelpTOCNode Id="64621e53-6728-44a0-b034-f861e56ea799" Title="Cauldron.Core.Yaml" Url="html/N_Cauldron_Core_Yaml.htm">
-    <HelpTOCNode Id="1ce78915-6cec-4268-8b59-aabe4145ee61" Title="YamlConvert Class" Url="html/T_Cauldron_Core_Yaml_YamlConvert.htm">
-      <HelpTOCNode Id="e6587e16-d646-48d8-ae07-baeb246878ca" Title="YamlConvert Methods" Url="html/Methods_T_Cauldron_Core_Yaml_YamlConvert.htm">
+  <HelpTOCNode Id="efe231de-0841-4b8e-ae12-601c822af1d3" Title="Cauldron.Core.Yaml" Url="html/N_Cauldron_Core_Yaml.htm">
+    <HelpTOCNode Id="04650ac6-7a9f-4cfe-8bd6-b7f8d0924fdc" Title="YamlConvert Class" Url="html/T_Cauldron_Core_Yaml_YamlConvert.htm">
+      <HelpTOCNode Id="a3033af9-46cc-4cfd-b54e-876190398a57" Title="YamlConvert Methods" Url="html/Methods_T_Cauldron_Core_Yaml_YamlConvert.htm">
         <HelpTOCNode Title="DeserializeObject(T) Method " Url="html/M_Cauldron_Core_Yaml_YamlConvert_DeserializeObject__1.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="58442b38-7c9c-4ecc-a118-7d9fc7787132" Title="YamlPropertyAttribute Class" Url="html/T_Cauldron_Core_Yaml_YamlPropertyAttribute.htm">
+    <HelpTOCNode Id="700008c9-a6bb-48ff-aeed-0876bd86b8ad" Title="YamlPropertyAttribute Class" Url="html/T_Cauldron_Core_Yaml_YamlPropertyAttribute.htm">
       <HelpTOCNode Title="YamlPropertyAttribute Constructor " Url="html/M_Cauldron_Core_Yaml_YamlPropertyAttribute__ctor.htm" />
-      <HelpTOCNode Id="5e1612b4-6c42-4a0f-af3e-03415faf314b" Title="YamlPropertyAttribute Properties" Url="html/Properties_T_Cauldron_Core_Yaml_YamlPropertyAttribute.htm">
+      <HelpTOCNode Id="04087401-c670-47ba-9eb2-2cc293d8f175" Title="YamlPropertyAttribute Properties" Url="html/Properties_T_Cauldron_Core_Yaml_YamlPropertyAttribute.htm">
         <HelpTOCNode Title="Name Property " Url="html/P_Cauldron_Core_Yaml_YamlPropertyAttribute_Name.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="YamlPropertyAttribute Methods" Url="html/Methods_T_Cauldron_Core_Yaml_YamlPropertyAttribute.htm" />
     </HelpTOCNode>
   </HelpTOCNode>
-  <HelpTOCNode Id="c05df156-dd7f-4c11-a56c-e547b84cab5f" Title="Cauldron.Cryptography" Url="html/N_Cauldron_Cryptography.htm">
-    <HelpTOCNode Id="f133f00f-f04b-4b6e-a2a3-ea9348859a9d" Title="Aes Class" Url="html/T_Cauldron_Cryptography_Aes.htm">
-      <HelpTOCNode Id="b9d998d8-b483-4cb5-a948-14a8b0d13c62" Title="Aes Methods" Url="html/Methods_T_Cauldron_Cryptography_Aes.htm">
-        <HelpTOCNode Id="1c0ce5aa-1535-4ebd-a494-523b9458e7d8" Title="Decrypt Method " Url="html/Overload_Cauldron_Cryptography_Aes_Decrypt.htm">
+  <HelpTOCNode Id="98ca8c41-5ca0-48c4-97d9-476118947e96" Title="Cauldron.Cryptography" Url="html/N_Cauldron_Cryptography.htm">
+    <HelpTOCNode Id="351050b1-670b-414a-a620-314faa6b1bb5" Title="Aes Class" Url="html/T_Cauldron_Cryptography_Aes.htm">
+      <HelpTOCNode Id="bf02d777-3bf5-48a2-9261-e54b37bde532" Title="Aes Methods" Url="html/Methods_T_Cauldron_Cryptography_Aes.htm">
+        <HelpTOCNode Id="de41b647-2d87-4014-b2b7-c9f6e0b55f70" Title="Decrypt Method " Url="html/Overload_Cauldron_Cryptography_Aes_Decrypt.htm">
           <HelpTOCNode Title="Decrypt Method (SecureString, Byte[])" Url="html/M_Cauldron_Cryptography_Aes_Decrypt.htm" />
           <HelpTOCNode Title="Decrypt Method (SecureString, Int32, Byte[])" Url="html/M_Cauldron_Cryptography_Aes_Decrypt_1.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="6161f890-cdf8-4d01-9238-dfc80e75b9c9" Title="Encrypt Method " Url="html/Overload_Cauldron_Cryptography_Aes_Encrypt.htm">
+        <HelpTOCNode Id="8dca4150-d70b-4548-9fb7-5deae5c350a9" Title="Encrypt Method " Url="html/Overload_Cauldron_Cryptography_Aes_Encrypt.htm">
           <HelpTOCNode Title="Encrypt Method (SecureString, Byte[])" Url="html/M_Cauldron_Cryptography_Aes_Encrypt_1.htm" />
           <HelpTOCNode Title="Encrypt Method (SecureString, String)" Url="html/M_Cauldron_Cryptography_Aes_Encrypt_2.htm" />
           <HelpTOCNode Title="Encrypt Method (KeyMaterial, Byte[])" Url="html/M_Cauldron_Cryptography_Aes_Encrypt.htm" />
         </HelpTOCNode>
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="86cd8ff1-cf52-4063-84e5-da22e10b1970" Title="CryptoUtils Class" Url="html/T_Cauldron_Cryptography_CryptoUtils.htm">
-      <HelpTOCNode Id="2ef31593-870e-47e7-98e6-73906c63ae60" Title="CryptoUtils Methods" Url="html/Methods_T_Cauldron_Cryptography_CryptoUtils.htm">
-        <HelpTOCNode Id="7755be35-9f30-4b66-b57d-70c1d8c5ebe1" Title="BrewPassword Method " Url="html/Overload_Cauldron_Cryptography_CryptoUtils_BrewPassword.htm">
+    <HelpTOCNode Id="3c7891d8-630e-4eb3-a579-11507023f180" Title="CryptoUtils Class" Url="html/T_Cauldron_Cryptography_CryptoUtils.htm">
+      <HelpTOCNode Id="c351cf2b-64a6-4c0d-a411-4a5afd1e7ad9" Title="CryptoUtils Methods" Url="html/Methods_T_Cauldron_Cryptography_CryptoUtils.htm">
+        <HelpTOCNode Id="a5082aa5-53a5-4f0c-9f15-145875d214b6" Title="BrewPassword Method " Url="html/Overload_Cauldron_Cryptography_CryptoUtils_BrewPassword.htm">
           <HelpTOCNode Title="BrewPassword Method (UInt32)" Url="html/M_Cauldron_Cryptography_CryptoUtils_BrewPassword_1.htm" />
           <HelpTOCNode Title="BrewPassword Method (String, UInt32)" Url="html/M_Cauldron_Cryptography_CryptoUtils_BrewPassword.htm" />
         </HelpTOCNode>
         <HelpTOCNode Title="GetPasswordScore Method " Url="html/M_Cauldron_Cryptography_CryptoUtils_GetPasswordScore.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="3958921f-bf63-4fa1-901e-d901327caa85" Title="CryptoUtils Fields" Url="html/Fields_T_Cauldron_Cryptography_CryptoUtils.htm">
+      <HelpTOCNode Id="339e808f-e384-4cd1-a2a0-9433f1df090c" Title="CryptoUtils Fields" Url="html/Fields_T_Cauldron_Cryptography_CryptoUtils.htm">
         <HelpTOCNode Title="AlphaNumericAndSpecialCharactersSet Field" Url="html/F_Cauldron_Cryptography_CryptoUtils_AlphaNumericAndSpecialCharactersSet.htm" />
         <HelpTOCNode Title="AlphaNumericCharactersSet Field" Url="html/F_Cauldron_Cryptography_CryptoUtils_AlphaNumericCharactersSet.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
     <HelpTOCNode Title="HashAlgorithms Enumeration" Url="html/T_Cauldron_Cryptography_HashAlgorithms.htm" />
-    <HelpTOCNode Id="b4ae3b08-dbe4-4e8d-b6cd-780d1156d799" Title="KeyMaterial Class" Url="html/T_Cauldron_Cryptography_KeyMaterial.htm">
-      <HelpTOCNode Id="e3131865-edbf-43b5-8f98-56bcbc06d097" Title="KeyMaterial Properties" Url="html/Properties_T_Cauldron_Cryptography_KeyMaterial.htm">
+    <HelpTOCNode Id="14f0be9e-620e-46f1-afb5-4dafa707356b" Title="KeyMaterial Class" Url="html/T_Cauldron_Cryptography_KeyMaterial.htm">
+      <HelpTOCNode Id="d1f5d2b4-7823-437c-80c5-1c21b9c0b834" Title="KeyMaterial Properties" Url="html/Properties_T_Cauldron_Cryptography_KeyMaterial.htm">
         <HelpTOCNode Title="InitializationVector Property " Url="html/P_Cauldron_Cryptography_KeyMaterial_InitializationVector.htm" />
         <HelpTOCNode Title="Key Property " Url="html/P_Cauldron_Cryptography_KeyMaterial_Key.htm" />
         <HelpTOCNode Title="Salt Property " Url="html/P_Cauldron_Cryptography_KeyMaterial_Salt.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="13986da1-6069-4850-938f-95094f7676aa" Title="KeyMaterial Methods" Url="html/Methods_T_Cauldron_Cryptography_KeyMaterial.htm">
-        <HelpTOCNode Id="07d2604a-d8d1-4db0-9e58-10a2dd677997" Title="CreateKeyMaterial Method " Url="html/Overload_Cauldron_Cryptography_KeyMaterial_CreateKeyMaterial.htm">
+      <HelpTOCNode Id="af75f3e6-8576-4935-97e2-50f39b22aa60" Title="KeyMaterial Methods" Url="html/Methods_T_Cauldron_Cryptography_KeyMaterial.htm">
+        <HelpTOCNode Id="a98b2e15-1dbc-4fda-9ee0-417e4270e43b" Title="CreateKeyMaterial Method " Url="html/Overload_Cauldron_Cryptography_KeyMaterial_CreateKeyMaterial.htm">
           <HelpTOCNode Title="CreateKeyMaterial Method (SecureString, Int32)" Url="html/M_Cauldron_Cryptography_KeyMaterial_CreateKeyMaterial_1.htm" />
           <HelpTOCNode Title="CreateKeyMaterial Method (SecureString, Byte[], Int32)" Url="html/M_Cauldron_Cryptography_KeyMaterial_CreateKeyMaterial.htm" />
         </HelpTOCNode>
         <HelpTOCNode Title="OnDispose Method " Url="html/M_Cauldron_Cryptography_KeyMaterial_OnDispose.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="c7a25434-3793-46d5-bf3f-6b46c2a127e6" Title="KeyMaterial Fields" Url="html/Fields_T_Cauldron_Cryptography_KeyMaterial.htm">
+      <HelpTOCNode Id="16867f39-d760-4a8c-9c3e-548ebf8b5a23" Title="KeyMaterial Fields" Url="html/Fields_T_Cauldron_Cryptography_KeyMaterial.htm">
         <HelpTOCNode Title="DefaultIterations Field" Url="html/F_Cauldron_Cryptography_KeyMaterial_DefaultIterations.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="a1273700-8e2d-452a-8cf0-246423d89ce7" Title="KeyPair Class" Url="html/T_Cauldron_Cryptography_KeyPair.htm">
-      <HelpTOCNode Id="ac078924-a525-49bb-8380-5d564dfd1bbc" Title="KeyPair Properties" Url="html/Properties_T_Cauldron_Cryptography_KeyPair.htm">
+    <HelpTOCNode Id="89f4ff6c-cda0-4464-b17c-3f90a0f3346e" Title="KeyPair Class" Url="html/T_Cauldron_Cryptography_KeyPair.htm">
+      <HelpTOCNode Id="8d55b20f-b0e4-4cbf-a05f-fa95e1bb9147" Title="KeyPair Properties" Url="html/Properties_T_Cauldron_Cryptography_KeyPair.htm">
         <HelpTOCNode Title="PrivateKey Property " Url="html/P_Cauldron_Cryptography_KeyPair_PrivateKey.htm" />
         <HelpTOCNode Title="PublicKey Property " Url="html/P_Cauldron_Cryptography_KeyPair_PublicKey.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="1d41f4cc-c2ab-4955-a28a-8edcece61284" Title="KeyPair Methods" Url="html/Methods_T_Cauldron_Cryptography_KeyPair.htm">
+      <HelpTOCNode Id="1404741d-b8bd-407f-a6e6-21acf86f3403" Title="KeyPair Methods" Url="html/Methods_T_Cauldron_Cryptography_KeyPair.htm">
         <HelpTOCNode Title="OnDispose Method " Url="html/M_Cauldron_Cryptography_KeyPair_OnDispose.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
     <HelpTOCNode Title="PasswordScore Enumeration" Url="html/T_Cauldron_Cryptography_PasswordScore.htm" />
-    <HelpTOCNode Id="4c87d971-ccce-4f6b-a569-8c2f68d48738" Title="Rsa Class" Url="html/T_Cauldron_Cryptography_Rsa.htm">
-      <HelpTOCNode Id="b5b7388a-8846-438f-b2aa-ff661f12d01b" Title="Rsa Methods" Url="html/Methods_T_Cauldron_Cryptography_Rsa.htm">
+    <HelpTOCNode Id="61046bfb-ca6f-4416-ac92-6a7c3f57627f" Title="Rsa Class" Url="html/T_Cauldron_Cryptography_Rsa.htm">
+      <HelpTOCNode Id="3983dca1-f5b5-459b-9cc7-dc3e3f5672a8" Title="Rsa Methods" Url="html/Methods_T_Cauldron_Cryptography_Rsa.htm">
         <HelpTOCNode Title="CreateKeyPair Method " Url="html/M_Cauldron_Cryptography_Rsa_CreateKeyPair.htm" />
         <HelpTOCNode Title="Decrypt Method " Url="html/M_Cauldron_Cryptography_Rsa_Decrypt.htm" />
-        <HelpTOCNode Id="c3964bc5-2a53-471e-a3b8-bd85c28def46" Title="Encrypt Method " Url="html/Overload_Cauldron_Cryptography_Rsa_Encrypt.htm">
+        <HelpTOCNode Id="ee18c088-8f88-4e31-801a-9018341e6a63" Title="Encrypt Method " Url="html/Overload_Cauldron_Cryptography_Rsa_Encrypt.htm">
           <HelpTOCNode Title="Encrypt Method (String, Byte[])" Url="html/M_Cauldron_Cryptography_Rsa_Encrypt.htm" />
           <HelpTOCNode Title="Encrypt Method (String, String)" Url="html/M_Cauldron_Cryptography_Rsa_Encrypt_1.htm" />
         </HelpTOCNode>
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="6cc43999-d978-48e4-9b32-9d51fd2fcd65" Title="RsaAes Class" Url="html/T_Cauldron_Cryptography_RsaAes.htm">
-      <HelpTOCNode Id="4cdb6dcb-757b-4268-9f89-94e30f934348" Title="RsaAes Methods" Url="html/Methods_T_Cauldron_Cryptography_RsaAes.htm">
+    <HelpTOCNode Id="77601234-e300-4280-9cd6-5d110044d058" Title="RsaAes Class" Url="html/T_Cauldron_Cryptography_RsaAes.htm">
+      <HelpTOCNode Id="0804f282-ace3-4cae-ac66-5c4887a485cc" Title="RsaAes Methods" Url="html/Methods_T_Cauldron_Cryptography_RsaAes.htm">
         <HelpTOCNode Title="Decrypt Method " Url="html/M_Cauldron_Cryptography_RsaAes_Decrypt.htm" />
-        <HelpTOCNode Id="a97f9f6f-5e93-4f7f-b4d2-a674d1c702e2" Title="Encrypt Method " Url="html/Overload_Cauldron_Cryptography_RsaAes_Encrypt.htm">
+        <HelpTOCNode Id="9b0a74c3-bfbc-47c8-8a4d-b60e59a5a75e" Title="Encrypt Method " Url="html/Overload_Cauldron_Cryptography_RsaAes_Encrypt.htm">
           <HelpTOCNode Title="Encrypt Method (String, Byte[])" Url="html/M_Cauldron_Cryptography_RsaAes_Encrypt.htm" />
           <HelpTOCNode Title="Encrypt Method (String, String)" Url="html/M_Cauldron_Cryptography_RsaAes_Encrypt_1.htm" />
         </HelpTOCNode>
@@ -1243,83 +1243,83 @@
     </HelpTOCNode>
     <HelpTOCNode Title="RSAKeySizes Enumeration" Url="html/T_Cauldron_Cryptography_RSAKeySizes.htm" />
   </HelpTOCNode>
-  <HelpTOCNode Id="83320fb4-3c32-4a91-a8e4-35a040caf184" Title="Cauldron.Interception" Url="html/N_Cauldron_Interception.htm">
-    <HelpTOCNode Id="82cb0070-16e3-4e5d-ade0-3c377704bb9a" Title="AssignMethodAttribute Class" Url="html/T_Cauldron_Interception_AssignMethodAttribute.htm">
+  <HelpTOCNode Id="485a7b68-e4dd-4540-a500-64cf930b4e5e" Title="Cauldron.Interception" Url="html/N_Cauldron_Interception.htm">
+    <HelpTOCNode Id="5e51193d-8e5e-4b64-af99-6981a8d13230" Title="AssignMethodAttribute Class" Url="html/T_Cauldron_Interception_AssignMethodAttribute.htm">
       <HelpTOCNode Title="AssignMethodAttribute Constructor " Url="html/M_Cauldron_Interception_AssignMethodAttribute__ctor.htm" />
-      <HelpTOCNode Id="8e6c602f-f49c-4131-9012-85ad859cc910" Title="AssignMethodAttribute Properties" Url="html/Properties_T_Cauldron_Interception_AssignMethodAttribute.htm">
+      <HelpTOCNode Id="da9f660d-8658-44bb-a703-ff81d516b7d0" Title="AssignMethodAttribute Properties" Url="html/Properties_T_Cauldron_Interception_AssignMethodAttribute.htm">
         <HelpTOCNode Title="MethodName Property " Url="html/P_Cauldron_Interception_AssignMethodAttribute_MethodName.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="AssignMethodAttribute Methods" Url="html/Methods_T_Cauldron_Interception_AssignMethodAttribute.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="e3a8dcf8-80c6-4d27-95b4-3567701a0688" Title="Extensions Class" Url="html/T_Cauldron_Interception_Extensions.htm">
-      <HelpTOCNode Id="9eaf6533-b541-4320-b596-5ca2e6951952" Title="Extensions Methods" Url="html/Methods_T_Cauldron_Interception_Extensions.htm">
+    <HelpTOCNode Id="1b4ac3ac-bcf6-4d42-9ba8-957e4354d9c8" Title="Extensions Class" Url="html/T_Cauldron_Interception_Extensions.htm">
+      <HelpTOCNode Id="6451a11e-1031-4dc4-9527-243e1bcb1543" Title="Extensions Methods" Url="html/Methods_T_Cauldron_Interception_Extensions.htm">
         <HelpTOCNode Title="CreateType(T) Method " Url="html/M_Cauldron_Interception_Extensions_CreateType__1.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="1fee7623-5a27-40ea-a96d-949dfa43c306" Title="IConstructorInterceptor Interface" Url="html/T_Cauldron_Interception_IConstructorInterceptor.htm">
-      <HelpTOCNode Id="c5493742-e1ef-4ed0-a119-b41343a3158d" Title="IConstructorInterceptor Methods" Url="html/Methods_T_Cauldron_Interception_IConstructorInterceptor.htm">
+    <HelpTOCNode Id="951c8637-4e76-435e-bfc9-23bf51a4e59e" Title="IConstructorInterceptor Interface" Url="html/T_Cauldron_Interception_IConstructorInterceptor.htm">
+      <HelpTOCNode Id="10d6a00d-81fe-4059-8241-8e3a426cd56a" Title="IConstructorInterceptor Methods" Url="html/Methods_T_Cauldron_Interception_IConstructorInterceptor.htm">
         <HelpTOCNode Title="OnBeforeInitialization Method " Url="html/M_Cauldron_Interception_IConstructorInterceptor_OnBeforeInitialization.htm" />
         <HelpTOCNode Title="OnEnter Method " Url="html/M_Cauldron_Interception_IConstructorInterceptor_OnEnter.htm" />
         <HelpTOCNode Title="OnException Method " Url="html/M_Cauldron_Interception_IConstructorInterceptor_OnException.htm" />
         <HelpTOCNode Title="OnExit Method " Url="html/M_Cauldron_Interception_IConstructorInterceptor_OnExit.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="0e679fb3-f609-49c7-af56-d7b01cee7bf9" Title="IMethodInterceptor Interface" Url="html/T_Cauldron_Interception_IMethodInterceptor.htm">
-      <HelpTOCNode Id="c410c6dd-039a-4932-a7e4-4b0554d98b3d" Title="IMethodInterceptor Methods" Url="html/Methods_T_Cauldron_Interception_IMethodInterceptor.htm">
+    <HelpTOCNode Id="4fbde359-98fb-411c-9fe5-50d0d1fe703f" Title="IMethodInterceptor Interface" Url="html/T_Cauldron_Interception_IMethodInterceptor.htm">
+      <HelpTOCNode Id="f6afad4b-0048-46aa-bd58-98dd5eed8f09" Title="IMethodInterceptor Methods" Url="html/Methods_T_Cauldron_Interception_IMethodInterceptor.htm">
         <HelpTOCNode Title="OnEnter Method " Url="html/M_Cauldron_Interception_IMethodInterceptor_OnEnter.htm" />
         <HelpTOCNode Title="OnException Method " Url="html/M_Cauldron_Interception_IMethodInterceptor_OnException.htm" />
         <HelpTOCNode Title="OnExit Method " Url="html/M_Cauldron_Interception_IMethodInterceptor_OnExit.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="ffa86720-6147-42b2-86a4-871fe47a96af" Title="InterceptionRuleAttribute Class" Url="html/T_Cauldron_Interception_InterceptionRuleAttribute.htm">
-      <HelpTOCNode Id="cd3bf3e0-15b4-4deb-a09e-7189119ff4ae" Title="InterceptionRuleAttribute Constructor " Url="html/Overload_Cauldron_Interception_InterceptionRuleAttribute__ctor.htm">
+    <HelpTOCNode Id="e16bd2d8-1eb1-4207-b592-f14dbd2cd440" Title="InterceptionRuleAttribute Class" Url="html/T_Cauldron_Interception_InterceptionRuleAttribute.htm">
+      <HelpTOCNode Id="34451438-5a8b-4c61-8763-b79c14c432d7" Title="InterceptionRuleAttribute Constructor " Url="html/Overload_Cauldron_Interception_InterceptionRuleAttribute__ctor.htm">
         <HelpTOCNode Title="InterceptionRuleAttribute Constructor (InterceptionRuleOptions, Type)" Url="html/M_Cauldron_Interception_InterceptionRuleAttribute__ctor.htm" />
         <HelpTOCNode Title="InterceptionRuleAttribute Constructor (InterceptionRuleOptions, Type, Mode)" Url="html/M_Cauldron_Interception_InterceptionRuleAttribute__ctor_1.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="InterceptionRuleAttribute Methods" Url="html/Methods_T_Cauldron_Interception_InterceptionRuleAttribute.htm" />
     </HelpTOCNode>
     <HelpTOCNode Title="InterceptionRuleOptions Enumeration" Url="html/T_Cauldron_Interception_InterceptionRuleOptions.htm" />
-    <HelpTOCNode Id="64077768-7e66-45f8-902a-454bc7959d03" Title="IPropertyGetterInterceptor Interface" Url="html/T_Cauldron_Interception_IPropertyGetterInterceptor.htm">
-      <HelpTOCNode Id="c4aed10b-f315-40f6-a6f0-2e5171b7e5ff" Title="IPropertyGetterInterceptor Methods" Url="html/Methods_T_Cauldron_Interception_IPropertyGetterInterceptor.htm">
+    <HelpTOCNode Id="a73c3eaa-e443-4146-9a71-44f58f584f6e" Title="IPropertyGetterInterceptor Interface" Url="html/T_Cauldron_Interception_IPropertyGetterInterceptor.htm">
+      <HelpTOCNode Id="1b5cb383-24e0-4f29-b7a5-ffa9d87c9595" Title="IPropertyGetterInterceptor Methods" Url="html/Methods_T_Cauldron_Interception_IPropertyGetterInterceptor.htm">
         <HelpTOCNode Title="OnException Method " Url="html/M_Cauldron_Interception_IPropertyGetterInterceptor_OnException.htm" />
         <HelpTOCNode Title="OnExit Method " Url="html/M_Cauldron_Interception_IPropertyGetterInterceptor_OnExit.htm" />
         <HelpTOCNode Title="OnGet Method " Url="html/M_Cauldron_Interception_IPropertyGetterInterceptor_OnGet.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="7056a275-ec59-42a3-b991-5f343407cc21" Title="IPropertyInterceptor Interface" Url="html/T_Cauldron_Interception_IPropertyInterceptor.htm">
+    <HelpTOCNode Id="824d9759-04b3-400c-b499-07e7622e5e80" Title="IPropertyInterceptor Interface" Url="html/T_Cauldron_Interception_IPropertyInterceptor.htm">
       <HelpTOCNode Title="IPropertyInterceptor Methods" Url="html/Methods_T_Cauldron_Interception_IPropertyInterceptor.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="778d274b-d35b-486d-9536-17cc3af966e0" Title="IPropertyInterceptorComparer Interface" Url="html/T_Cauldron_Interception_IPropertyInterceptorComparer.htm">
-      <HelpTOCNode Id="96f72f7c-c3ef-4911-aaac-e8782d56c4d8" Title="IPropertyInterceptorComparer Properties" Url="html/Properties_T_Cauldron_Interception_IPropertyInterceptorComparer.htm">
+    <HelpTOCNode Id="0cc48470-610a-4001-8467-74afb80a4151" Title="IPropertyInterceptorComparer Interface" Url="html/T_Cauldron_Interception_IPropertyInterceptorComparer.htm">
+      <HelpTOCNode Id="caeb7cd7-71e7-445c-8935-002e487cf3a9" Title="IPropertyInterceptorComparer Properties" Url="html/Properties_T_Cauldron_Interception_IPropertyInterceptorComparer.htm">
         <HelpTOCNode Title="AreEqual Property " Url="html/P_Cauldron_Interception_IPropertyInterceptorComparer_AreEqual.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="d230d3f0-e937-4d90-bfa2-97ea3d2d3d9f" Title="IPropertyInterceptorInitialize Interface" Url="html/T_Cauldron_Interception_IPropertyInterceptorInitialize.htm">
-      <HelpTOCNode Id="b7d1bf69-ab8e-4ddf-a68d-e63b38a459ca" Title="IPropertyInterceptorInitialize Methods" Url="html/Methods_T_Cauldron_Interception_IPropertyInterceptorInitialize.htm">
+    <HelpTOCNode Id="30b077fd-74cd-4434-b6b1-61c987393d9e" Title="IPropertyInterceptorInitialize Interface" Url="html/T_Cauldron_Interception_IPropertyInterceptorInitialize.htm">
+      <HelpTOCNode Id="e604ada2-3cac-4c96-9234-f87fa19fdec6" Title="IPropertyInterceptorInitialize Methods" Url="html/Methods_T_Cauldron_Interception_IPropertyInterceptorInitialize.htm">
         <HelpTOCNode Title="OnInitialize Method " Url="html/M_Cauldron_Interception_IPropertyInterceptorInitialize_OnInitialize.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="9e68ea7f-95fc-45a0-8581-7525ac6c8df3" Title="IPropertySetterInterceptor Interface" Url="html/T_Cauldron_Interception_IPropertySetterInterceptor.htm">
-      <HelpTOCNode Id="d2308c4b-62fc-4601-9b76-29004399a2e0" Title="IPropertySetterInterceptor Methods" Url="html/Methods_T_Cauldron_Interception_IPropertySetterInterceptor.htm">
+    <HelpTOCNode Id="372c0e34-5a57-4f0d-8c8f-934e6f1f1740" Title="IPropertySetterInterceptor Interface" Url="html/T_Cauldron_Interception_IPropertySetterInterceptor.htm">
+      <HelpTOCNode Id="72472529-4583-431d-a968-01038cc57a2c" Title="IPropertySetterInterceptor Methods" Url="html/Methods_T_Cauldron_Interception_IPropertySetterInterceptor.htm">
         <HelpTOCNode Title="OnException Method " Url="html/M_Cauldron_Interception_IPropertySetterInterceptor_OnException.htm" />
         <HelpTOCNode Title="OnExit Method " Url="html/M_Cauldron_Interception_IPropertySetterInterceptor_OnExit.htm" />
         <HelpTOCNode Title="OnSet Method " Url="html/M_Cauldron_Interception_IPropertySetterInterceptor_OnSet.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="c22365d5-eb7e-476f-bf0e-6a901aeeb5d8" Title="ISimpleMethodInterceptor Interface" Url="html/T_Cauldron_Interception_ISimpleMethodInterceptor.htm">
-      <HelpTOCNode Id="7e61f21d-dd55-4786-a919-ffd46665fa18" Title="ISimpleMethodInterceptor Methods" Url="html/Methods_T_Cauldron_Interception_ISimpleMethodInterceptor.htm">
+    <HelpTOCNode Id="852b194d-6938-459d-ba42-dc7c359e63e8" Title="ISimpleMethodInterceptor Interface" Url="html/T_Cauldron_Interception_ISimpleMethodInterceptor.htm">
+      <HelpTOCNode Id="3ed75b5b-cb68-4194-b035-abea05ce36eb" Title="ISimpleMethodInterceptor Methods" Url="html/Methods_T_Cauldron_Interception_ISimpleMethodInterceptor.htm">
         <HelpTOCNode Title="OnEnter Method " Url="html/M_Cauldron_Interception_ISimpleMethodInterceptor_OnEnter.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="c5d4bdb0-4bcf-4106-bc7a-ba7a83bd3023" Title="ISyncRoot Interface" Url="html/T_Cauldron_Interception_ISyncRoot.htm">
-      <HelpTOCNode Id="dd6c788f-2e25-4002-8779-29ee7a1f0cdc" Title="ISyncRoot Properties" Url="html/Properties_T_Cauldron_Interception_ISyncRoot.htm">
+    <HelpTOCNode Id="0f3e89f0-80f9-4ebd-a6d6-76b68c72b2f6" Title="ISyncRoot Interface" Url="html/T_Cauldron_Interception_ISyncRoot.htm">
+      <HelpTOCNode Id="bed4549f-6ed6-4421-aae9-4a27906ea1ec" Title="ISyncRoot Properties" Url="html/Properties_T_Cauldron_Interception_ISyncRoot.htm">
         <HelpTOCNode Title="SyncRoot Property " Url="html/P_Cauldron_Interception_ISyncRoot_SyncRoot.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
     <HelpTOCNode Title="Mode Enumeration" Url="html/T_Cauldron_Interception_Mode.htm" />
-    <HelpTOCNode Id="83db0686-293f-44b5-80ad-79095f439b2e" Title="PropertyInterceptionInfo Class" Url="html/T_Cauldron_Interception_PropertyInterceptionInfo.htm">
+    <HelpTOCNode Id="3847dcf2-1255-40be-8d8e-f0bcb3664e80" Title="PropertyInterceptionInfo Class" Url="html/T_Cauldron_Interception_PropertyInterceptionInfo.htm">
       <HelpTOCNode Title="PropertyInterceptionInfo Constructor " Url="html/M_Cauldron_Interception_PropertyInterceptionInfo__ctor.htm" />
-      <HelpTOCNode Id="c5d75d57-fc23-4957-a878-586f8a2b72fe" Title="PropertyInterceptionInfo Properties" Url="html/Properties_T_Cauldron_Interception_PropertyInterceptionInfo.htm">
+      <HelpTOCNode Id="8a6c9072-f9a6-450b-950e-c2b4e03f6351" Title="PropertyInterceptionInfo Properties" Url="html/Properties_T_Cauldron_Interception_PropertyInterceptionInfo.htm">
         <HelpTOCNode Title="ChildType Property " Url="html/P_Cauldron_Interception_PropertyInterceptionInfo_ChildType.htm" />
         <HelpTOCNode Title="DeclaringType Property " Url="html/P_Cauldron_Interception_PropertyInterceptionInfo_DeclaringType.htm" />
         <HelpTOCNode Title="GetMethod Property " Url="html/P_Cauldron_Interception_PropertyInterceptionInfo_GetMethod.htm" />
@@ -1328,73 +1328,73 @@
         <HelpTOCNode Title="PropertyType Property " Url="html/P_Cauldron_Interception_PropertyInterceptionInfo_PropertyType.htm" />
         <HelpTOCNode Title="SetMethod Property " Url="html/P_Cauldron_Interception_PropertyInterceptionInfo_SetMethod.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="a2d67912-2825-45cf-8c3d-028203e53060" Title="PropertyInterceptionInfo Methods" Url="html/Methods_T_Cauldron_Interception_PropertyInterceptionInfo.htm">
+      <HelpTOCNode Id="18683c8f-0741-44ca-8bdd-8d66eb967efd" Title="PropertyInterceptionInfo Methods" Url="html/Methods_T_Cauldron_Interception_PropertyInterceptionInfo.htm">
         <HelpTOCNode Title="SetValue Method " Url="html/M_Cauldron_Interception_PropertyInterceptionInfo_SetValue.htm" />
         <HelpTOCNode Title="ToPropertyInfo Method " Url="html/M_Cauldron_Interception_PropertyInterceptionInfo_ToPropertyInfo.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
   </HelpTOCNode>
-  <HelpTOCNode Id="5e4ae076-55a1-40b2-92d0-63f9cc98e83d" Title="Cauldron.Localization" Url="html/N_Cauldron_Localization.htm">
-    <HelpTOCNode Id="507921b9-f9af-423a-b6c2-45674f1a49ae" Title="ILocalizationKeyValue Interface" Url="html/T_Cauldron_Localization_ILocalizationKeyValue.htm">
-      <HelpTOCNode Id="3781f266-9797-4518-9043-f5bb876beac7" Title="ILocalizationKeyValue Properties" Url="html/Properties_T_Cauldron_Localization_ILocalizationKeyValue.htm">
+  <HelpTOCNode Id="80fb86c6-f8cf-4b2f-8bd2-f927ca8b6640" Title="Cauldron.Localization" Url="html/N_Cauldron_Localization.htm">
+    <HelpTOCNode Id="5d0d2306-b902-4467-be94-102a1492cd7f" Title="ILocalizationKeyValue Interface" Url="html/T_Cauldron_Localization_ILocalizationKeyValue.htm">
+      <HelpTOCNode Id="55d14b18-8030-43e7-ab03-752eda113934" Title="ILocalizationKeyValue Properties" Url="html/Properties_T_Cauldron_Localization_ILocalizationKeyValue.htm">
         <HelpTOCNode Title="Key Property " Url="html/P_Cauldron_Localization_ILocalizationKeyValue_Key.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="41c27081-0629-4229-8836-b9d93d79798c" Title="ILocalizationKeyValue Methods" Url="html/Methods_T_Cauldron_Localization_ILocalizationKeyValue.htm">
+      <HelpTOCNode Id="6667bc7c-cf8d-4e66-bb18-66041496a3b7" Title="ILocalizationKeyValue Methods" Url="html/Methods_T_Cauldron_Localization_ILocalizationKeyValue.htm">
         <HelpTOCNode Title="GetValue Method " Url="html/M_Cauldron_Localization_ILocalizationKeyValue_GetValue.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="e71318ed-5450-4310-bd59-17b905bcb9fa" Title="ILocalizationSource Interface" Url="html/T_Cauldron_Localization_ILocalizationSource.htm">
-      <HelpTOCNode Id="ad9a9521-a939-40c2-b75f-5ff02942102e" Title="ILocalizationSource Methods" Url="html/Methods_T_Cauldron_Localization_ILocalizationSource.htm">
+    <HelpTOCNode Id="76dcdd33-1cf7-437f-a82d-ccc69924948d" Title="ILocalizationSource Interface" Url="html/T_Cauldron_Localization_ILocalizationSource.htm">
+      <HelpTOCNode Id="59a75f0d-b3ec-462e-b6ec-2d312d5dd832" Title="ILocalizationSource Methods" Url="html/Methods_T_Cauldron_Localization_ILocalizationSource.htm">
         <HelpTOCNode Title="GetValues Method " Url="html/M_Cauldron_Localization_ILocalizationSource_GetValues.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="e7a87207-eef0-49c6-aaa8-6e362496c58e" Title="JsonLocalizationSourceBase(T) Class" Url="html/T_Cauldron_Localization_JsonLocalizationSourceBase_1.htm">
+    <HelpTOCNode Id="e3b7e881-b1aa-44db-9da3-cdc08ffb6a41" Title="JsonLocalizationSourceBase(T) Class" Url="html/T_Cauldron_Localization_JsonLocalizationSourceBase_1.htm">
       <HelpTOCNode Title="JsonLocalizationSourceBase(T) Constructor " Url="html/M_Cauldron_Localization_JsonLocalizationSourceBase_1__ctor.htm" />
-      <HelpTOCNode Id="6ba7b507-e6d6-4726-aee3-20636d868e01" Title="JsonLocalizationSourceBase(T) Methods" Url="html/Methods_T_Cauldron_Localization_JsonLocalizationSourceBase_1.htm">
+      <HelpTOCNode Id="a2d4fccc-c8d5-4502-965c-2a5aa13c756e" Title="JsonLocalizationSourceBase(T) Methods" Url="html/Methods_T_Cauldron_Localization_JsonLocalizationSourceBase_1.htm">
         <HelpTOCNode Title="GetValues Method " Url="html/M_Cauldron_Localization_JsonLocalizationSourceBase_1_GetValues.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="89f4309a-dabf-4415-a5ea-2e846b9bd4ff" Title="Locale Class" Url="html/T_Cauldron_Localization_Locale.htm">
-      <HelpTOCNode Id="3d8829bb-70ff-4a3b-bb3e-b8e828746e00" Title="Locale Properties" Url="html/Properties_T_Cauldron_Localization_Locale.htm">
+    <HelpTOCNode Id="7308157d-aced-4bae-9945-42ae59e5427a" Title="Locale Class" Url="html/T_Cauldron_Localization_Locale.htm">
+      <HelpTOCNode Id="0234c640-057b-4a43-a3aa-230d3db7dcca" Title="Locale Properties" Url="html/Properties_T_Cauldron_Localization_Locale.htm">
         <HelpTOCNode Title="CultureInfo Property " Url="html/P_Cauldron_Localization_Locale_CultureInfo.htm" />
-        <HelpTOCNode Id="5eada8fb-e8e9-4f69-a37c-2688add1d15b" Title="Item Property " Url="html/Overload_Cauldron_Localization_Locale_Item.htm">
+        <HelpTOCNode Id="2ea69f44-55fc-42fb-847d-412dc9b7ba39" Title="Item Property " Url="html/Overload_Cauldron_Localization_Locale_Item.htm">
           <HelpTOCNode Title="Item Property (Object)" Url="html/P_Cauldron_Localization_Locale_Item.htm" />
           <HelpTOCNode Title="Item Property (String)" Url="html/P_Cauldron_Localization_Locale_Item_1.htm" />
         </HelpTOCNode>
         <HelpTOCNode Title="MissingLocalizationIndicator Property " Url="html/P_Cauldron_Localization_Locale_MissingLocalizationIndicator.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="af6d71a3-00f0-44a6-a746-66e527d91726" Title="Locale Methods" Url="html/Methods_T_Cauldron_Localization_Locale.htm">
+      <HelpTOCNode Id="94cd0146-f929-43b6-ae60-15e883f119dd" Title="Locale Methods" Url="html/Methods_T_Cauldron_Localization_Locale.htm">
         <HelpTOCNode Title="Contains Method " Url="html/M_Cauldron_Localization_Locale_Contains.htm" />
         <HelpTOCNode Title="GetCurrentCultureInfo Method " Url="html/M_Cauldron_Localization_Locale_GetCurrentCultureInfo.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="527d6924-b1cb-460c-992e-fedbef2750be" Title="LocalizationKeyValue Class" Url="html/T_Cauldron_Localization_LocalizationKeyValue.htm">
+    <HelpTOCNode Id="03824804-7ae2-4d69-b3a8-84f01065bd22" Title="LocalizationKeyValue Class" Url="html/T_Cauldron_Localization_LocalizationKeyValue.htm">
       <HelpTOCNode Title="LocalizationKeyValue Constructor " Url="html/M_Cauldron_Localization_LocalizationKeyValue__ctor.htm" />
-      <HelpTOCNode Id="6de31607-5358-4280-a8d3-47354d9a42de" Title="LocalizationKeyValue Properties" Url="html/Properties_T_Cauldron_Localization_LocalizationKeyValue.htm">
+      <HelpTOCNode Id="048a31a5-f541-4e1d-a41b-edad689cecac" Title="LocalizationKeyValue Properties" Url="html/Properties_T_Cauldron_Localization_LocalizationKeyValue.htm">
         <HelpTOCNode Title="Default Property " Url="html/P_Cauldron_Localization_LocalizationKeyValue_Default.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="38ca69d9-8d13-403d-8391-87f94434063d" Title="LocalizationKeyValue Methods" Url="html/Methods_T_Cauldron_Localization_LocalizationKeyValue.htm">
+      <HelpTOCNode Id="61c991c0-ab22-43bc-8255-d0600425e6c1" Title="LocalizationKeyValue Methods" Url="html/Methods_T_Cauldron_Localization_LocalizationKeyValue.htm">
         <HelpTOCNode Title="GetValue Method " Url="html/M_Cauldron_Localization_LocalizationKeyValue_GetValue.htm" />
         <HelpTOCNode Title="OnGetValue Method " Url="html/M_Cauldron_Localization_LocalizationKeyValue_OnGetValue.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="87fa57ce-49a2-435e-9b5d-7ccb96fd4423" Title="YamlLocalizationSourceBase(T) Class" Url="html/T_Cauldron_Localization_YamlLocalizationSourceBase_1.htm">
+    <HelpTOCNode Id="4ef8e95f-ce81-44cb-8d1a-41141b15c2b0" Title="YamlLocalizationSourceBase(T) Class" Url="html/T_Cauldron_Localization_YamlLocalizationSourceBase_1.htm">
       <HelpTOCNode Title="YamlLocalizationSourceBase(T) Constructor " Url="html/M_Cauldron_Localization_YamlLocalizationSourceBase_1__ctor.htm" />
-      <HelpTOCNode Id="bbf55803-9569-4194-bdef-95d9ba36e5f6" Title="YamlLocalizationSourceBase(T) Methods" Url="html/Methods_T_Cauldron_Localization_YamlLocalizationSourceBase_1.htm">
+      <HelpTOCNode Id="5d9170bd-6cde-4213-94b5-640aa17a82d1" Title="YamlLocalizationSourceBase(T) Methods" Url="html/Methods_T_Cauldron_Localization_YamlLocalizationSourceBase_1.htm">
         <HelpTOCNode Title="GetValues Method " Url="html/M_Cauldron_Localization_YamlLocalizationSourceBase_1_GetValues.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
   </HelpTOCNode>
-  <HelpTOCNode Id="aaf3203b-597b-4ea3-bf6e-8eca633de647" Title="System" Url="html/N_System.htm">
-    <HelpTOCNode Id="0f348ddb-0b94-4396-aa9e-4573d01d462f" Title="EnumEx Class" Url="html/T_System_EnumEx.htm">
-      <HelpTOCNode Id="1af2f3f1-c83d-4925-9035-e7b04c6c814d" Title="EnumEx Methods" Url="html/Methods_T_System_EnumEx.htm">
+  <HelpTOCNode Id="975c2765-6efe-43ce-9908-ddf4d51aa22a" Title="System" Url="html/N_System.htm">
+    <HelpTOCNode Id="9e25b3f3-52b8-404f-ada7-0c175a4caf48" Title="EnumEx Class" Url="html/T_System_EnumEx.htm">
+      <HelpTOCNode Id="1a2c6da4-1327-4d65-986b-f045bb47c91a" Title="EnumEx Methods" Url="html/Methods_T_System_EnumEx.htm">
         <HelpTOCNode Title="GetDisplayNames(TEnum) Method " Url="html/M_System_EnumEx_GetDisplayNames__1.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="4f21eb14-3d08-4f06-b4fb-988e41fc52af" Title="MathEx Class" Url="html/T_System_MathEx.htm">
-      <HelpTOCNode Id="7ad66b5b-d5ce-4cd0-8fe3-6d1d3dcf3864" Title="MathEx Methods" Url="html/Methods_T_System_MathEx.htm">
+    <HelpTOCNode Id="f50bd2b8-c5f5-43b3-b5cf-d962be07a2d2" Title="MathEx Class" Url="html/T_System_MathEx.htm">
+      <HelpTOCNode Id="b403f045-4c8d-4ce6-b6a7-92b91fc03c2c" Title="MathEx Methods" Url="html/Methods_T_System_MathEx.htm">
         <HelpTOCNode Title="Add Method " Url="html/M_System_MathEx_Add.htm" />
-        <HelpTOCNode Id="a9187ba8-eb7c-40cb-98be-dd1fd670e340" Title="Clamp Method " Url="html/Overload_System_MathEx_Clamp.htm">
+        <HelpTOCNode Id="52ddf82f-6193-404a-92c0-109548e50a0d" Title="Clamp Method " Url="html/Overload_System_MathEx_Clamp.htm">
           <HelpTOCNode Title="Clamp Method (Double, Double, Double)" Url="html/M_System_MathEx_Clamp.htm" />
           <HelpTOCNode Title="Clamp Method (Int32, Int32, Int32)" Url="html/M_System_MathEx_Clamp_1.htm" />
         </HelpTOCNode>
@@ -1403,7 +1403,7 @@
         <HelpTOCNode Title="Multiply Method " Url="html/M_System_MathEx_Multiply.htm" />
         <HelpTOCNode Title="RadiansToDegrees Method " Url="html/M_System_MathEx_RadiansToDegrees.htm" />
         <HelpTOCNode Title="Substract Method " Url="html/M_System_MathEx_Substract.htm" />
-        <HelpTOCNode Id="36598f50-dd90-4758-8d76-c573ce589937" Title="ValueOf Method " Url="html/Overload_System_MathEx_ValueOf.htm">
+        <HelpTOCNode Id="f0591564-c935-4165-b79b-4f295d022b05" Title="ValueOf Method " Url="html/Overload_System_MathEx_ValueOf.htm">
           <HelpTOCNode Title="ValueOf Method (Double, Double, Double)" Url="html/M_System_MathEx_ValueOf.htm" />
           <HelpTOCNode Title="ValueOf Method (Double, Double, Double, Double, Double)" Url="html/M_System_MathEx_ValueOf_1.htm" />
         </HelpTOCNode>

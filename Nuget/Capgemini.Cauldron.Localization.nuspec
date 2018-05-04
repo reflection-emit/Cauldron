@@ -13,24 +13,43 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Multisource Localization Language</tags>
     <releaseNotes>
+      2018.05.04 - [C] Assemblies for Net45, Net451, Net452, Net46, Net461 and Net462 added
       2018.04.11 - [C] Fody version 3.0.0 update and minor bug fixes.
       2017.12.11 - [B] Added a Contains method to Locale.
     </releaseNotes>
     <dependencies>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="Capgemini.Cauldron.Activator" version="3.0.6-beta" />
-        <dependency id="Capgemini.Cauldron.Core.Extensions" version="3.0.6-beta" />
-        <dependency id="Capgemini.Cauldron.Core.Reflection" version="3.0.6-beta" />
-        <dependency id="Capgemini.Cauldron.Core.Yaml" version="3.0.6-beta" />
+        <dependency id="Capgemini.Cauldron.Activator" version="3.0.7-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Extensions" version="3.0.7-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Reflection" version="3.0.7-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Yaml" version="3.0.7-beta" />
         <dependency id="Newtonsoft.Json" version="11.0.2" />
         <dependency id="Fody" version="3.0.3" />
       </group>
     </dependencies>
   </metadata>
   <files>
-    <file src="..\NetStandard\Cauldron.Localization\bin\Release\netstandard2.0\Cauldron.Localization.dll" target="lib\netstandard2.0\Cauldron.Localization.dll" />
-    <file src="..\NetStandard\Cauldron.Localization\bin\Release\netstandard2.0\Cauldron.Localization.xml" target="lib\netstandard2.0\Cauldron.Localization.xml" />
-    <file src="..\NetStandard\Cauldron.Localization\bin\Release\netstandard2.0\Cauldron.Localization.pdb" target="lib\netstandard2.0\Cauldron.Localization.pdb" />
-    <file src="..\NetStandard\Cauldron.Localization\**\*.cs" target="src" />
+    <file src="..\NetStandard\Cauldron.Localization\bin\Release\netstandard2.0\Cauldron.Localization.dll" target="lib\netstandard2.0" />
+    <file src="..\NetStandard\Cauldron.Localization\bin\Release\netstandard2.0\Cauldron.Localization.xml" target="lib\netstandard2.0" />
+    <file src="..\NetStandard\Cauldron.Localization\bin\Release\netstandard2.0\Cauldron.Localization.pdb" target="lib\netstandard2.0" />
+    <file src="..\Win32\Cauldron.Localization\bin\Release\Net45\Cauldron.Localization.dll" target="lib\net45" />
+    <file src="..\Win32\Cauldron.Localization\bin\Release\Net45\Cauldron.Localization.xml" target="lib\net45" />
+    <file src="..\Win32\Cauldron.Localization\bin\Release\Net45\Cauldron.Localization.pdb" target="lib\net45" />
+    <file src="..\Win32\Cauldron.Localization\bin\Release\Net451\Cauldron.Localization.dll" target="lib\net451" />
+    <file src="..\Win32\Cauldron.Localization\bin\Release\Net451\Cauldron.Localization.xml" target="lib\net451" />
+    <file src="..\Win32\Cauldron.Localization\bin\Release\Net451\Cauldron.Localization.pdb" target="lib\net451" />
+    <file src="..\Win32\Cauldron.Localization\bin\Release\Net452\Cauldron.Localization.dll" target="lib\net452" />
+    <file src="..\Win32\Cauldron.Localization\bin\Release\Net452\Cauldron.Localization.xml" target="lib\net452" />
+    <file src="..\Win32\Cauldron.Localization\bin\Release\Net452\Cauldron.Localization.pdb" target="lib\net452" />
+    <file src="..\Win32\Cauldron.Localization\bin\Release\Net46\Cauldron.Localization.dll" target="lib\net46" />
+    <file src="..\Win32\Cauldron.Localization\bin\Release\Net46\Cauldron.Localization.xml" target="lib\net46" />
+    <file src="..\Win32\Cauldron.Localization\bin\Release\Net46\Cauldron.Localization.pdb" target="lib\net46" />
+    <file src="..\Win32\Cauldron.Localization\bin\Release\Net461\Cauldron.Localization.dll" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Localization\bin\Release\Net461\Cauldron.Localization.xml" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Localization\bin\Release\Net461\Cauldron.Localization.pdb" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Localization\bin\Release\Net452\Cauldron.Localization.dll" target="lib\net452" />
+    <file src="..\Win32\Cauldron.Localization\bin\Release\Net452\Cauldron.Localization.xml" target="lib\net452" />
+    <file src="..\Win32\Cauldron.Localization\bin\Release\Net452\Cauldron.Localization.pdb" target="lib\net452" />
+    <file src="..\Shared\Cauldron.Localization\**\*.cs" target="src" />
   </files>
 </package>

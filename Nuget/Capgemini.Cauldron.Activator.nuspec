@@ -23,12 +23,12 @@
     </releaseNotes>
     <dependencies>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="3.0.6-beta" />
-        <dependency id="Capgemini.Cauldron.Core.Disposable" version="3.0.6-beta" />
-        <dependency id="Capgemini.Cauldron.Core.Extensions" version="3.0.6-beta" />
-        <dependency id="Capgemini.Cauldron.Core.Reflection" version="3.0.6-beta" />
-        <dependency id="Cauldron.Interception.Fody" version="3.0.6-beta" />
-        <dependency id="Cauldron.BasicInterceptors" version="3.0.6-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="3.0.7-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Disposable" version="3.0.7-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Extensions" version="3.0.7-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Reflection" version="3.0.7-beta" />
+        <dependency id="Cauldron.Interception.Fody" version="3.0.7-beta" />
+        <dependency id="Cauldron.BasicInterceptors" version="3.0.7-beta" />
         <dependency id="Fody" version="3.0.3" />
       </group>
     </dependencies>
@@ -37,31 +37,24 @@
     <file src="..\NetStandard\Cauldron.Activator\bin\Release\netstandard2.0\Cauldron.Activator.dll" target="lib\netstandard2.0" />
     <file src="..\NetStandard\Cauldron.Activator\bin\Release\netstandard2.0\Cauldron.Activator.xml" target="lib\netstandard2.0" />
     <file src="..\NetStandard\Cauldron.Activator\bin\Release\netstandard2.0\Cauldron.Activator.pdb" target="lib\netstandard2.0" />
-
     <file src="..\Win32\Cauldron.Activator\bin\Release\Net45\Cauldron.Activator.dll" target="lib\net45" />
     <file src="..\Win32\Cauldron.Activator\bin\Release\Net45\Cauldron.Activator.xml" target="lib\net45" />
     <file src="..\Win32\Cauldron.Activator\bin\Release\Net45\Cauldron.Activator.pdb" target="lib\net45" />
-
     <file src="..\Win32\Cauldron.Activator\bin\Release\Net451\Cauldron.Activator.dll" target="lib\net451" />
     <file src="..\Win32\Cauldron.Activator\bin\Release\Net451\Cauldron.Activator.xml" target="lib\net451" />
     <file src="..\Win32\Cauldron.Activator\bin\Release\Net451\Cauldron.Activator.pdb" target="lib\net451" />
-
     <file src="..\Win32\Cauldron.Activator\bin\Release\Net452\Cauldron.Activator.dll" target="lib\net452" />
     <file src="..\Win32\Cauldron.Activator\bin\Release\Net452\Cauldron.Activator.xml" target="lib\net452" />
     <file src="..\Win32\Cauldron.Activator\bin\Release\Net452\Cauldron.Activator.pdb" target="lib\net452" />
-
     <file src="..\Win32\Cauldron.Activator\bin\Release\Net46\Cauldron.Activator.dll" target="lib\net46" />
     <file src="..\Win32\Cauldron.Activator\bin\Release\Net46\Cauldron.Activator.xml" target="lib\net46" />
     <file src="..\Win32\Cauldron.Activator\bin\Release\Net46\Cauldron.Activator.pdb" target="lib\net46" />
-
     <file src="..\Win32\Cauldron.Activator\bin\Release\Net461\Cauldron.Activator.dll" target="lib\net461" />
     <file src="..\Win32\Cauldron.Activator\bin\Release\Net461\Cauldron.Activator.xml" target="lib\net461" />
     <file src="..\Win32\Cauldron.Activator\bin\Release\Net461\Cauldron.Activator.pdb" target="lib\net461" />
-
     <file src="..\Win32\Cauldron.Activator\bin\Release\Net462\Cauldron.Activator.dll" target="lib\net462" />
     <file src="..\Win32\Cauldron.Activator\bin\Release\Net462\Cauldron.Activator.xml" target="lib\net462" />
     <file src="..\Win32\Cauldron.Activator\bin\Release\Net462\Cauldron.Activator.pdb" target="lib\net462" />
-
     <file src="..\Shared\Cauldron.Activator\**\*.cs" target="src" />
     <file src="..\Fody\Interceptors\Cauldron.ActivatorInterceptors*.dll" target="Content\Interceptors" />
   </files>

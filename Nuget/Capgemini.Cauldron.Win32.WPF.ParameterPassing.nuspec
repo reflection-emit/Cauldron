@@ -15,12 +15,13 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Dispatcher</tags>
     <releaseNotes>
+      2018.05.04 - [C] Assemblies for Net45, Net451, Net452, Net46, Net461 and Net462 added
       2018.01.04 - [C] Change COPYDATASTRUCT data to unicode.
       2017.12.22 - [C] Will now also invoke the callback delegate if there are no instances of the program running.
       2017.12.21 - [C] Now uses the NET461 assembly version of the randomizer.
     </releaseNotes>
     <dependencies>
-      <dependency id="Capgemini.Cauldron.Core.Randomizer" version="3.0.6-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Randomizer" version="3.0.7-beta" />
     </dependencies>
     <frameworkAssemblies>
       <frameworkAssembly assemblyName="PresentationCore" />
@@ -30,10 +31,24 @@
     </frameworkAssemblies>
   </metadata>
   <files>
-    <!-- Desktop -->
-    <file src="..\Win32\Cauldron.Win32.WPF.ParameterPassing\bin\Release\Cauldron.Win32.WPF.ParameterPassing.dll" target="lib\net461" />
-    <file src="..\Win32\Cauldron.Win32.WPF.ParameterPassing\bin\Release\Cauldron.Win32.WPF.ParameterPassing.xml" target="lib\net461" />
-    <file src="..\Win32\Cauldron.Win32.WPF.ParameterPassing\bin\Release\Cauldron.Win32.WPF.ParameterPassing.pdb" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Win32.WPF.ParameterPassing\bin\Release\Net45\Cauldron.Win32.WPF.ParameterPassing.dll" target="lib\net45" />
+    <file src="..\Win32\Cauldron.Win32.WPF.ParameterPassing\bin\Release\Net45\Cauldron.Win32.WPF.ParameterPassing.xml" target="lib\net45" />
+    <file src="..\Win32\Cauldron.Win32.WPF.ParameterPassing\bin\Release\Net45\Cauldron.Win32.WPF.ParameterPassing.pdb" target="lib\net45" />
+    <file src="..\Win32\Cauldron.Win32.WPF.ParameterPassing\bin\Release\Net451\Cauldron.Win32.WPF.ParameterPassing.dll" target="lib\net451" />
+    <file src="..\Win32\Cauldron.Win32.WPF.ParameterPassing\bin\Release\Net451\Cauldron.Win32.WPF.ParameterPassing.xml" target="lib\net451" />
+    <file src="..\Win32\Cauldron.Win32.WPF.ParameterPassing\bin\Release\Net451\Cauldron.Win32.WPF.ParameterPassing.pdb" target="lib\net451" />
+    <file src="..\Win32\Cauldron.Win32.WPF.ParameterPassing\bin\Release\Net452\Cauldron.Win32.WPF.ParameterPassing.dll" target="lib\net452" />
+    <file src="..\Win32\Cauldron.Win32.WPF.ParameterPassing\bin\Release\Net452\Cauldron.Win32.WPF.ParameterPassing.xml" target="lib\net452" />
+    <file src="..\Win32\Cauldron.Win32.WPF.ParameterPassing\bin\Release\Net452\Cauldron.Win32.WPF.ParameterPassing.pdb" target="lib\net452" />
+    <file src="..\Win32\Cauldron.Win32.WPF.ParameterPassing\bin\Release\Net46\Cauldron.Win32.WPF.ParameterPassing.dll" target="lib\net46" />
+    <file src="..\Win32\Cauldron.Win32.WPF.ParameterPassing\bin\Release\Net46\Cauldron.Win32.WPF.ParameterPassing.xml" target="lib\net46" />
+    <file src="..\Win32\Cauldron.Win32.WPF.ParameterPassing\bin\Release\Net46\Cauldron.Win32.WPF.ParameterPassing.pdb" target="lib\net46" />
+    <file src="..\Win32\Cauldron.Win32.WPF.ParameterPassing\bin\Release\Net461\Cauldron.Win32.WPF.ParameterPassing.dll" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Win32.WPF.ParameterPassing\bin\Release\Net461\Cauldron.Win32.WPF.ParameterPassing.xml" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Win32.WPF.ParameterPassing\bin\Release\Net461\Cauldron.Win32.WPF.ParameterPassing.pdb" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Win32.WPF.ParameterPassing\bin\Release\Net462\Cauldron.Win32.WPF.ParameterPassing.dll" target="lib\net462" />
+    <file src="..\Win32\Cauldron.Win32.WPF.ParameterPassing\bin\Release\Net462\Cauldron.Win32.WPF.ParameterPassing.xml" target="lib\net462" />
+    <file src="..\Win32\Cauldron.Win32.WPF.ParameterPassing\bin\Release\Net462\Cauldron.Win32.WPF.ParameterPassing.pdb" target="lib\net462" />
     <file src="..\Win32\Cauldron.Win32.WPF.ParameterPassing\**\*.cs" target="src" />
   </files>
 </package>

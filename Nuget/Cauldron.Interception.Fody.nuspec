@@ -77,7 +77,6 @@
     <file src="..\Fody\Cauldron.Interception.Fody\bin\Release\Newtonsoft.Json.dll" target="netclassicweaver" />
     <file src="..\Fody\Cauldron.Interception.Fody\csc\**" target="netclassicweaver\csc" />
     <file src="..\NetStandard\Cauldron.Interception\**\*.cs" target="src" />
-
     <file src="Fody\**" target="tools" />
   </files>
 </package>
