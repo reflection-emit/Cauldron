@@ -13,6 +13,7 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Diagnostics DEBUG</tags>
     <releaseNotes>
+      2018.05.04 - [C] Assemblies for Net45, Net451, Net452, Net46, Net461 and Net462 added
       2017.12.24 - [C] Net461 DLLs removed because it causes a lot of issues on mixed solutions (NetCore and Net461)
       2017.12.23 - [A] Added assemblies for NET45 and NET461
     </releaseNotes>
@@ -21,21 +22,34 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="..\NetStandard\Cauldron.Core.Diagnostics\bin\Release\netstandard2.0\Cauldron.Core.Diagnostics.dll" target="lib\netstandard2.0\Cauldron.Core.Diagnostics.dll" />
-    <file src="..\NetStandard\Cauldron.Core.Diagnostics\bin\Release\netstandard2.0\Cauldron.Core.Diagnostics.xml" target="lib\netstandard2.0\Cauldron.Core.Diagnostics.xml" />
-    <file src="..\NetStandard\Cauldron.Core.Diagnostics\bin\Release\netstandard2.0\Cauldron.Core.Diagnostics.pdb" target="lib\netstandard2.0\Cauldron.Core.Diagnostics.pdb" />
-    <!-- Desktop Net471 -->
-    <file src="..\NetStandard\Cauldron.Core.Diagnostics\bin\Release\netstandard2.0\Cauldron.Core.Diagnostics.dll" target="lib\net471" />
-    <file src="..\NetStandard\Cauldron.Core.Diagnostics\bin\Release\netstandard2.0\Cauldron.Core.Diagnostics.xml" target="lib\net471" />
-    <file src="..\NetStandard\Cauldron.Core.Diagnostics\bin\Release\netstandard2.0\Cauldron.Core.Diagnostics.pdb" target="lib\net471" />
-    <!-- Desktop Net461 -->
-    <file src="..\NetStandard\Cauldron.Core.Diagnostics\bin\Release\netstandard2.0\Cauldron.Core.Diagnostics.dll" target="lib\net461" />
-    <file src="..\NetStandard\Cauldron.Core.Diagnostics\bin\Release\netstandard2.0\Cauldron.Core.Diagnostics.xml" target="lib\net461" />
-    <file src="..\NetStandard\Cauldron.Core.Diagnostics\bin\Release\netstandard2.0\Cauldron.Core.Diagnostics.pdb" target="lib\net461" />
-    <!-- Desktop Net45-->
-    <file src="..\Win32\Net45\Cauldron.Core.Win32.Net45.Diagnostics\bin\Release\Cauldron.Core.Diagnostics.dll" target="lib\net45" />
-    <file src="..\Win32\Net45\Cauldron.Core.Win32.Net45.Diagnostics\bin\Release\Cauldron.Core.Diagnostics.xml" target="lib\net45" />
-    <file src="..\Win32\Net45\Cauldron.Core.Win32.Net45.Diagnostics\bin\Release\Cauldron.Core.Diagnostics.pdb" target="lib\net45" />
-    <file src="..\NetStandard\Cauldron.Core.Diagnostics\**\*.cs" target="src" />
+    <file src="..\NetStandard\Cauldron.Core.Diagnostics\bin\Release\netstandard2.0\Cauldron.Core.Diagnostics.dll" target="lib\netstandard2.0" />
+    <file src="..\NetStandard\Cauldron.Core.Diagnostics\bin\Release\netstandard2.0\Cauldron.Core.Diagnostics.xml" target="lib\netstandard2.0" />
+    <file src="..\NetStandard\Cauldron.Core.Diagnostics\bin\Release\netstandard2.0\Cauldron.Core.Diagnostics.pdb" target="lib\netstandard2.0" />
+
+    <file src="..\Win32\Cauldron.Core.Diagnostics\bin\Release\Net45\Cauldron.Core.Diagnostics.dll" target="lib\net45" />
+    <file src="..\Win32\Cauldron.Core.Diagnostics\bin\Release\Net45\Cauldron.Core.Diagnostics.xml" target="lib\net45" />
+    <file src="..\Win32\Cauldron.Core.Diagnostics\bin\Release\Net45\Cauldron.Core.Diagnostics.pdb" target="lib\net45" />
+
+    <file src="..\Win32\Cauldron.Core.Diagnostics\bin\Release\Net451\Cauldron.Core.Diagnostics.dll" target="lib\net451" />
+    <file src="..\Win32\Cauldron.Core.Diagnostics\bin\Release\Net451\Cauldron.Core.Diagnostics.xml" target="lib\net451" />
+    <file src="..\Win32\Cauldron.Core.Diagnostics\bin\Release\Net451\Cauldron.Core.Diagnostics.pdb" target="lib\net451" />
+
+    <file src="..\Win32\Cauldron.Core.Diagnostics\bin\Release\Net452\Cauldron.Core.Diagnostics.dll" target="lib\net452" />
+    <file src="..\Win32\Cauldron.Core.Diagnostics\bin\Release\Net452\Cauldron.Core.Diagnostics.xml" target="lib\net452" />
+    <file src="..\Win32\Cauldron.Core.Diagnostics\bin\Release\Net452\Cauldron.Core.Diagnostics.pdb" target="lib\net452" />
+
+    <file src="..\Win32\Cauldron.Core.Diagnostics\bin\Release\Net46\Cauldron.Core.Diagnostics.dll" target="lib\net46" />
+    <file src="..\Win32\Cauldron.Core.Diagnostics\bin\Release\Net46\Cauldron.Core.Diagnostics.xml" target="lib\net46" />
+    <file src="..\Win32\Cauldron.Core.Diagnostics\bin\Release\Net46\Cauldron.Core.Diagnostics.pdb" target="lib\net46" />
+
+    <file src="..\Win32\Cauldron.Core.Diagnostics\bin\Release\Net461\Cauldron.Core.Diagnostics.dll" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Core.Diagnostics\bin\Release\Net461\Cauldron.Core.Diagnostics.xml" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Core.Diagnostics\bin\Release\Net461\Cauldron.Core.Diagnostics.pdb" target="lib\net461" />
+
+    <file src="..\Win32\Cauldron.Core.Diagnostics\bin\Release\Net462\Cauldron.Core.Diagnostics.dll" target="lib\net462" />
+    <file src="..\Win32\Cauldron.Core.Diagnostics\bin\Release\Net462\Cauldron.Core.Diagnostics.xml" target="lib\net462" />
+    <file src="..\Win32\Cauldron.Core.Diagnostics\bin\Release\Net462\Cauldron.Core.Diagnostics.pdb" target="lib\net462" />
+
+    <file src="..\Shared\Cauldron.Core.Diagnostics\**\*.cs" target="src" />
   </files>
 </package>

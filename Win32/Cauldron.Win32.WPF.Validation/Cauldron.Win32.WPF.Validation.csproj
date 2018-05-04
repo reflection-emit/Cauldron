@@ -42,6 +42,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <DocumentationFile>bin\Release\Net45\Cauldron.Win32.WPF.Validation.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-Net451|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -51,6 +52,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <DocumentationFile>bin\Release\Net451\Cauldron.Win32.WPF.Validation.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-Net452|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -60,6 +62,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <DocumentationFile>bin\Release\Net452\Cauldron.Win32.WPF.Validation.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-Net46|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -69,6 +72,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <DocumentationFile>bin\Release\Net46\Cauldron.Win32.WPF.Validation.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-Net461|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -78,6 +82,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <DocumentationFile>bin\Release\Net461\Cauldron.Win32.WPF.Validation.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-Net462|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -87,6 +92,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <DocumentationFile>bin\Release\Net462\Cauldron.Win32.WPF.Validation.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
@@ -123,10 +129,6 @@
     <Compile Include="ViewModels\ValidatableViewModelBase.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\NetStandard\Cauldron.Localization\Cauldron.Localization.csproj">
-      <Project>{2729fd6d-0685-4fdf-a995-3eae4e5ae942}</Project>
-      <Name>Cauldron.Localization</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Cauldron.Activator\Cauldron.Activator.csproj">
       <Project>{13701490-ecb2-4f70-80c8-32897748ef05}</Project>
       <Name>Cauldron.Activator</Name>
@@ -162,6 +164,10 @@
     <ProjectReference Include="..\Cauldron.Cryptography\Cauldron.Cryptography.csproj">
       <Project>{97d924b8-8fb2-4720-84e1-28502c2bae51}</Project>
       <Name>Cauldron.Cryptography</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cauldron.Localization\Cauldron.Localization.csproj">
+      <Project>{74759c69-9dd6-4096-96b9-4c38d2cfb4e6}</Project>
+      <Name>Cauldron.Localization</Name>
     </ProjectReference>
     <ProjectReference Include="..\Cauldron.Win32.WPF.Interactivity\Cauldron.Win32.WPF.Interactivity.csproj">
       <Project>{7ce75511-7dce-4162-936f-ad9031e8a987}</Project>

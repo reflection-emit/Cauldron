@@ -187,10 +187,6 @@
       <Project>{38abf85c-9322-4333-be30-a1b37fa5cc52}</Project>
       <Name>Cauldron.Interception</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\UWP\Cauldron\Cauldron.csproj">
-      <Project>{8d8583ab-71c6-48ae-aa68-a6ed48485bdb}</Project>
-      <Name>Cauldron</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />

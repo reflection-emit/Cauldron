@@ -313,9 +313,9 @@ namespace Cauldron.Core.Interceptors
             if (string.IsNullOrEmpty(path))
                 return "";
 
-            var list = new List<(string, string)>();
+            var list = new List<Tuple<string, string>>();
             foreach (DictionaryEntry item in Environment.GetEnvironmentVariables())
-                list.Add((item.Key as string, item.Value as string));
+                list.Add(new Tuple<string, string>(item.Key as string, item.Value as string));
 
             foreach (var item in list.OrderByDescending(x => x.Item2.Length).ThenBy(x => x.Item2).ThenBy(x => x.Item1))
             {

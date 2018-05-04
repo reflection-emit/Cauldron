@@ -20,7 +20,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;WIN32_45</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Debug\Cauldron.Win32.WPF.xml</DocumentationFile>
@@ -30,7 +30,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;WIN32_45</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\Cauldron.Win32.WPF.xml</DocumentationFile>
@@ -40,10 +40,12 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\Net45\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;WIN32_45</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DocumentationFile>bin\Release\Net45\Cauldron.Win32.WPF.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-Net451|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -53,6 +55,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DocumentationFile>bin\Release\Net451\Cauldron.Win32.WPF.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-Net452|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -62,6 +66,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DocumentationFile>bin\Release\Net452\Cauldron.Win32.WPF.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-Net46|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -71,6 +77,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DocumentationFile>bin\Release\Net46\Cauldron.Win32.WPF.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-Net461|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -80,6 +88,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DocumentationFile>bin\Release\Net461\Cauldron.Win32.WPF.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-Net462|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -89,6 +99,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DocumentationFile>bin\Release\Net462\Cauldron.Win32.WPF.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -219,6 +231,10 @@
       <Project>{13413838-92d4-4211-9454-532661371a51}</Project>
       <Name>Cauldron.Core.MathExtensions</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Cauldron.Core.Net\Cauldron.Core.Net.csproj">
+      <Project>{dbc9abb4-746a-4e9f-9ea8-6a52823470c0}</Project>
+      <Name>Cauldron.Core.Net</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Cauldron.Core.Reflection\Cauldron.Core.Reflection.csproj">
       <Project>{485cd56e-9fc6-4392-8b4f-5aebdddd3d1b}</Project>
       <Name>Cauldron.Core.Reflection</Name>
@@ -234,6 +250,10 @@
     <ProjectReference Include="..\Cauldron.Cryptography\Cauldron.Cryptography.csproj">
       <Project>{97d924b8-8fb2-4720-84e1-28502c2bae51}</Project>
       <Name>Cauldron.Cryptography</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cauldron.Interception\Cauldron.Interception.csproj">
+      <Project>{cfc811eb-c500-4d1f-adf1-ecaf4433af2d}</Project>
+      <Name>Cauldron.Interception</Name>
     </ProjectReference>
     <ProjectReference Include="..\Cauldron.Localization\Cauldron.Localization.csproj">
       <Project>{74759c69-9dd6-4096-96b9-4c38d2cfb4e6}</Project>

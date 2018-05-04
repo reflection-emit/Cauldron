@@ -12,7 +12,7 @@
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>
       Fody add-in that provides custom interception. Supports Net45, NetStandard2.0 and UWP.
-      Method, Property, Constructor and Field interceptors can be found in the package Cauldron.BasicInterceptors (https://www.nuget.org/packages/Cauldron.Interception.Fody/)
+      Method, Property, Constructor and Field interceptors can be found in the package Cauldron.BasicInterceptors (https://www.nuget.org/packages/Cauldron.BasicInterceptors/)
     </description>
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Interception interceptor interception AOP Fody Cecil CIL ILWeaving</tags>

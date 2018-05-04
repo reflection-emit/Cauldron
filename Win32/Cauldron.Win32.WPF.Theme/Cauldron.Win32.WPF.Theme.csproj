@@ -42,6 +42,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <DocumentationFile>bin\Release\Net45\Cauldron.XAML.Theme.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-Net451|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -51,6 +52,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <DocumentationFile>bin\Release\Net451\Cauldron.XAML.Theme.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-Net452|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -60,6 +62,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <DocumentationFile>bin\Release\Net452\Cauldron.XAML.Theme.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-Net46|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -69,6 +72,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <DocumentationFile>bin\Release\Net46\Cauldron.XAML.Theme.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-Net461|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -78,6 +82,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <DocumentationFile>bin\Release\Net461\Cauldron.XAML.Theme.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-Net462|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -87,6 +92,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <DocumentationFile>bin\Release\Net462\Cauldron.XAML.Theme.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
@@ -244,6 +250,10 @@
     <ProjectReference Include="..\Cauldron.Localization\Cauldron.Localization.csproj">
       <Project>{74759c69-9dd6-4096-96b9-4c38d2cfb4e6}</Project>
       <Name>Cauldron.Localization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cauldron.Win32.MonitorInfo\Cauldron.Win32.MonitorInfo.csproj">
+      <Project>{e8fded13-93e7-4120-95b6-c829d8220850}</Project>
+      <Name>Cauldron.Win32.MonitorInfo</Name>
     </ProjectReference>
     <ProjectReference Include="..\Cauldron.Win32.UserInformation\Cauldron.Win32.UserInformation.csproj">
       <Project>{bc37d605-f19e-4093-bfe5-347054fd8895}</Project>

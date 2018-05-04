@@ -1,0 +1,395 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8D8583AB-71C6-48AE-AA68-A6ED48485BDB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Cauldron</RootNamespace>
+    <AssemblyName>Cauldron</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.16299.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.10586.0</TargetPlatformMinVersion>
+    <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DocumentationFile>bin\Debug\Cauldron.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DocumentationFile>bin\Release\Cauldron.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <PlatformTarget>ARM</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <PlatformTarget>ARM</PlatformTarget>
+    <OutputPath>bin\ARM\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Interactivity\Actions\ActionBase.cs">
+      <Link>XAML\Interactivity\Actions\ActionBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Interactivity\Actions\ActionCollection.cs">
+      <Link>XAML\Interactivity\Actions\ActionCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Interactivity\Actions\InvokeMethodAction.cs">
+      <Link>XAML\Interactivity\Actions\InvokeMethodAction.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Interactivity\Attributes\BehaviourUsageAttribute.cs">
+      <Link>XAML\Interactivity\Attributes\BehaviourUsageAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Interactivity\Behaviour.cs">
+      <Link>XAML\Interactivity\Behaviour.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Interactivity\BehaviourCollection.cs">
+      <Link>XAML\Interactivity\BehaviourCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Interactivity\BehaviourInvocation\BehaviourInvokeAwareBehaviourBase.cs">
+      <Link>XAML\Interactivity\BehaviourInvocation\BehaviourInvokeAwareBehaviourBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Interactivity\BehaviourInvocation\InvocationTrigger.cs">
+      <Link>XAML\Interactivity\BehaviourInvocation\InvocationTrigger.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Interactivity\EnterKeyToCommand.cs">
+      <Link>XAML\Interactivity\EnterKeyToCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Interactivity\EventToCommand.cs">
+      <Link>XAML\Interactivity\EventToCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Interactivity\EventTrigger.cs">
+      <Link>XAML\Interactivity\EventTrigger.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Interactivity\IBehaviour.cs">
+      <Link>XAML\Interactivity\IBehaviour.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Interactivity\Interaction.cs">
+      <Link>XAML\Interactivity\Interaction.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Interactivity\InteractionTemplate.cs">
+      <Link>XAML\Interactivity\InteractionTemplate.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Interactivity\Localized.cs">
+      <Link>XAML\Interactivity\Localized.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Interactivity\PasswordBoxBinding.cs">
+      <Link>XAML\Interactivity\PasswordBoxBinding.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Interactivity\PropertyChangedTrigger.cs">
+      <Link>XAML\Interactivity\PropertyChangedTrigger.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Interactivity\SetFocusOnLoad.cs">
+      <Link>XAML\Interactivity\SetFocusOnLoad.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF.Interactivity\StyleInteraction.cs">
+      <Link>XAML\Interactivity\StyleInteraction.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\Navigation\CauldronBackRequestedEventArgs.cs">
+      <Link>XAML\Navigation\CauldronBackRequestedEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\Navigation\INavigator.cs">
+      <Link>XAML\Navigation\INavigator.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\Navigation\NavigatingInfo.cs">
+      <Link>XAML\Navigation\NavigatingInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\Navigation\NavigationInfo.cs">
+      <Link>XAML\Navigation\NavigationInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\Navigation\NavigationType.cs">
+      <Link>XAML\Navigation\NavigationType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\Navigation\PageStackEntry.cs">
+      <Link>XAML\Navigation\PageStackEntry.cs</Link>
+    </Compile>
+    <Compile Include="..\..\Win32\Cauldron.Win32.WPF\Resources\LocalizationSource.cs">
+      <Link>XAML\Resources\LocalizationSource.cs</Link>
+    </Compile>
+    <Compile Include="Core\Extensions\IO\ExtensionsStorageItem.cs" />
+    <Compile Include="Core\Extensions\ExtensionsXmlDocument.cs" />
+    <Compile Include="Core\Threading\DispatcherUWP.cs" />
+    <Compile Include="Cryptography\Extensions.cs" />
+    <Compile Include="Cryptography\SecureString.cs" />
+    <Compile Include="ICloneable.cs" />
+    <Compile Include="Core\Extensions\Convertions\ExtensionsConvertions_UWP.cs" />
+    <Compile Include="Core\ILoadedAssemblies.cs" />
+    <Compile Include="Core\UserInformation.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="XAML\ApplicationBase.cs" />
+    <Compile Include="XAML\CauldronTemplateSelector.cs" />
+    <Compile Include="XAML\Controls\NavigationFrame.cs" />
+    <Compile Include="XAML\Navigation\Navigator.cs" />
+    <Compile Include="XAML\Resources\MessageDialogView.xaml.cs">
+      <DependentUpon>MessageDialogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XAML\Resources\StylesAndTemplates.xaml.cs">
+      <DependentUpon>StylesAndTemplates.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XAML\ValueConverters\ItemClickEventArgsToViewModelConverter.cs" />
+    <EmbeddedResource Include="Properties\Cauldron.rd.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Fody">
+      <Version>3.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
+      <Version>6.0.5</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>11.0.2</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\Win32\Cauldron.Win32.WPF\Resources\Text\7B5BE4E7E11D87C4E23B68589848BB2A.yaml">
+      <Link>XAML\Resources\Text\7B5BE4E7E11D87C4E23B68589848BB2A.yaml</Link>
+    </EmbeddedResource>
+    <None Include="FodyWeavers.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cauldron.Interception\Cauldron.Interception.csproj">
+      <Project>{38abf85c-9322-4333-be30-a1b37fa5cc52}</Project>
+      <Name>Cauldron.Interception</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="XAML\Resources\MessageDialogView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="XAML\Resources\StylesAndTemplates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\Win32\Cauldron.Win32.WPF\Resources\Images\error_red_32x32.png">
+      <Link>XAML\Resources\Images\error_red_32x32.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\Win32\Cauldron.Win32.WPF\Resources\Images\Information%28Help%29_7833.png">
+      <Link>XAML\Resources\Images\Information%28Help%29_7833.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\Win32\Cauldron.Win32.WPF\Resources\Images\Information_6227_32x.png">
+      <Link>XAML\Resources\Images\Information_6227_32x.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\Win32\Cauldron.Win32.WPF\Resources\Images\Readme.txt">
+      <Link>XAML\Resources\Images\Readme.txt</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\Win32\Cauldron.Win32.WPF\Resources\Images\Warning_yellow_7231_31x32.png">
+      <Link>XAML\Resources\Images\Warning_yellow_7231_31x32.png</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="..\..\Shared\Cauldron.Activator\Cauldron.Activator.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.Core\Cauldron.Core.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.Core.Collections\Cauldron.Core.Collections.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.Core.Comparing\Cauldron.Core.Comparing.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.Core.Diagnostics\Cauldron.Core.Diagnostics.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.Core.Disposable\Cauldron.Core.Disposable.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.Core.Extensions\Cauldron.Core.Extensions.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.Core.Extensions.Compression\Cauldron.Core.Extensions.Compression.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.Core.Extensions.Convertions\Cauldron.Core.Extensions.Convertions.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.Core.Extensions.IO\Cauldron.Core.Extensions.IO.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.Core.Formatters\Cauldron.Core.Formatters.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.Core.Interceptors\Cauldron.Core.Interceptors.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.Core.MathExtensions\Cauldron.Core.MathExtensions.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.Core.Net\Cauldron.Core.Net.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.Core.Randomizer\Cauldron.Core.Randomizer.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.Core.Reflection\Cauldron.Core.Reflection.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.Core.Threading\Cauldron.Core.Threading.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.Core.Yaml\Cauldron.Core.Yaml.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.Cryptography\Cauldron.Cryptography.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.Interception\Cauldron.Interception.projitems" Label="Shared" />
+  <Import Project="..\..\Shared\Cauldron.Localization\Cauldron.Localization.projitems" Label="Shared" />
+  <Import Project="..\..\UnitTests\Resources\Fody_Interceptors\Fody_Interceptors.projitems" Label="Shared" />
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
+    <VisualStudioVersion>14.0</VisualStudioVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release.Net45|AnyCPU'">
+    <OutputPath>bin\Release.Net45\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DocumentationFile>bin\Release\Cauldron.XML</DocumentationFile>
+    <Optimize>true</Optimize>
+    <NoStdLib>true</NoStdLib>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release.Net45|x86'">
+    <OutputPath>bin\x86\Release.Net45\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <NoStdLib>true</NoStdLib>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release.Net45|ARM'">
+    <OutputPath>bin\ARM\Release.Net45\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <NoStdLib>true</NoStdLib>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release.Net45|x64'">
+    <OutputPath>bin\x64\Release.Net45\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <NoStdLib>true</NoStdLib>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release.451|AnyCPU'">
+    <OutputPath>bin\Release.451\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DocumentationFile>bin\Release\Cauldron.XML</DocumentationFile>
+    <Optimize>true</Optimize>
+    <NoStdLib>true</NoStdLib>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release.451|x86'">
+    <OutputPath>bin\x86\Release.451\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <NoStdLib>true</NoStdLib>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release.451|ARM'">
+    <OutputPath>bin\ARM\Release.451\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <NoStdLib>true</NoStdLib>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release.451|x64'">
+    <OutputPath>bin\x64\Release.451\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <NoStdLib>true</NoStdLib>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

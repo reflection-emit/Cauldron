@@ -13,6 +13,7 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Activator Dependency Injection Factory Cauldron</tags>
     <releaseNotes>
+      2018.05.04 - [C] Assemblies for Net45, Net451, Net452, Net46, Net461 and Net462 added
       2018.05.02 - [B] A bug in cecilator that causes arrays parameter to be not correctly weaved fixed
       2018.04.24 - [C] Now bringing its own interceptor
       2018.04.11 - [C] Fody version 3.0.0 update and minor bug fixes.
@@ -33,10 +34,35 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="..\NetStandard\Cauldron.Activator\bin\Release\netstandard2.0\Cauldron.Activator.dll" target="lib\netstandard2.0\Cauldron.Activator.dll" />
-    <file src="..\NetStandard\Cauldron.Activator\bin\Release\netstandard2.0\Cauldron.Activator.xml" target="lib\netstandard2.0\Cauldron.Activator.xml" />
-    <file src="..\NetStandard\Cauldron.Activator\bin\Release\netstandard2.0\Cauldron.Activator.pdb" target="lib\netstandard2.0\Cauldron.Activator.pdb" />
-    <file src="..\NetStandard\Cauldron.Activator\**\*.cs" target="src" />
+    <file src="..\NetStandard\Cauldron.Activator\bin\Release\netstandard2.0\Cauldron.Activator.dll" target="lib\netstandard2.0" />
+    <file src="..\NetStandard\Cauldron.Activator\bin\Release\netstandard2.0\Cauldron.Activator.xml" target="lib\netstandard2.0" />
+    <file src="..\NetStandard\Cauldron.Activator\bin\Release\netstandard2.0\Cauldron.Activator.pdb" target="lib\netstandard2.0" />
+
+    <file src="..\Win32\Cauldron.Activator\bin\Release\Net45\Cauldron.Activator.dll" target="lib\net45" />
+    <file src="..\Win32\Cauldron.Activator\bin\Release\Net45\Cauldron.Activator.xml" target="lib\net45" />
+    <file src="..\Win32\Cauldron.Activator\bin\Release\Net45\Cauldron.Activator.pdb" target="lib\net45" />
+
+    <file src="..\Win32\Cauldron.Activator\bin\Release\Net451\Cauldron.Activator.dll" target="lib\net451" />
+    <file src="..\Win32\Cauldron.Activator\bin\Release\Net451\Cauldron.Activator.xml" target="lib\net451" />
+    <file src="..\Win32\Cauldron.Activator\bin\Release\Net451\Cauldron.Activator.pdb" target="lib\net451" />
+
+    <file src="..\Win32\Cauldron.Activator\bin\Release\Net452\Cauldron.Activator.dll" target="lib\net452" />
+    <file src="..\Win32\Cauldron.Activator\bin\Release\Net452\Cauldron.Activator.xml" target="lib\net452" />
+    <file src="..\Win32\Cauldron.Activator\bin\Release\Net452\Cauldron.Activator.pdb" target="lib\net452" />
+
+    <file src="..\Win32\Cauldron.Activator\bin\Release\Net46\Cauldron.Activator.dll" target="lib\net46" />
+    <file src="..\Win32\Cauldron.Activator\bin\Release\Net46\Cauldron.Activator.xml" target="lib\net46" />
+    <file src="..\Win32\Cauldron.Activator\bin\Release\Net46\Cauldron.Activator.pdb" target="lib\net46" />
+
+    <file src="..\Win32\Cauldron.Activator\bin\Release\Net461\Cauldron.Activator.dll" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Activator\bin\Release\Net461\Cauldron.Activator.xml" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Activator\bin\Release\Net461\Cauldron.Activator.pdb" target="lib\net461" />
+
+    <file src="..\Win32\Cauldron.Activator\bin\Release\Net462\Cauldron.Activator.dll" target="lib\net462" />
+    <file src="..\Win32\Cauldron.Activator\bin\Release\Net462\Cauldron.Activator.xml" target="lib\net462" />
+    <file src="..\Win32\Cauldron.Activator\bin\Release\Net462\Cauldron.Activator.pdb" target="lib\net462" />
+
+    <file src="..\Shared\Cauldron.Activator\**\*.cs" target="src" />
     <file src="..\Fody\Interceptors\Cauldron.ActivatorInterceptors*.dll" target="Content\Interceptors" />
   </files>
 </package>

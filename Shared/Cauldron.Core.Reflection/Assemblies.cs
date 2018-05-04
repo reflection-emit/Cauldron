@@ -90,11 +90,6 @@ namespace Cauldron.Core.Reflection
         }
 
         /// <summary>
-        /// Gets a collection of exported types found in the AppDomain
-        /// </summary>
-        public static IEnumerable<Type> ExportedTypes => _assemblies.SelectMany(x => x.ExportedTypes);
-
-        /// <summary>
         /// Gets a colleciton of Interfaces found in the AppDomain
         /// </summary>
         public static IEnumerable<Type> Interfaces
@@ -113,6 +108,11 @@ namespace Cauldron.Core.Reflection
         /// Gets an array of <see cref="Assembly"/> that is loaded to the AppDomain
         /// </summary>
         public static Assembly[] Known => _assemblies.ToArray();
+
+        /// <summary>
+        /// Gets a collection of exported types found in the AppDomain
+        /// </summary>
+        public static IEnumerable<Type> ExportedTypes => _assemblies.SelectMany(x => x.ExportedTypes);
 
         /// <summary>
         /// Adds a new Assembly to the assembly collection
@@ -393,7 +393,7 @@ namespace Cauldron.Core.Reflection
             Assembly[] allAssemblies;
 #endif
 
-#if DESKTOP || ANDROID || NETCORE || NETSTANDARD2_0
+#if !NETFX_CORE
 #if NETCORE
             allAssemblies = GetAssemblies();
 #else

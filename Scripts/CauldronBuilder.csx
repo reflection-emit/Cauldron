@@ -42,27 +42,52 @@ try
     {
         Console.WriteLine("");
 
-        var allProjectFiles = Directory.GetFiles(startingLocation.FullName, "*.csproj", SearchOption.AllDirectories)
-            .Select(x => new FileInfo(x))
-            .Where(x => !x.Name.Contains(".Test") && x.Name.StartsWith("Cauldron") && !x.FullName.Contains("\\Old\\"))
-            .Select(x => new { Index = x.Name.Contains("Fody") ? 0 : 1, File = x })
-            .OrderBy(x => x.Index)
-            .Select(x => x.File)
-            .ToArray();
+        var fodyProjects = Directory.GetFiles(Path.Combine(startingLocation.FullName, "Fody"), "*.csproj", SearchOption.AllDirectories).Select(x => new FileInfo(x)).ToArray();
+        var netStandardProjects = Directory.GetFiles(Path.Combine(startingLocation.FullName, "NetStandard"), "*.csproj", SearchOption.AllDirectories).Select(x => new FileInfo(x)).ToArray();
+        var uwpProjects = Directory.GetFiles(Path.Combine(startingLocation.FullName, "UWP"), "*.csproj", SearchOption.AllDirectories).Select(x => new FileInfo(x)).ToArray();
+        var win32Projects = Directory.GetFiles(Path.Combine(startingLocation.FullName, "Win32"), "*.csproj", SearchOption.AllDirectories).Select(x => new FileInfo(x)).ToArray();
         var solutionPath = new FileInfo(Path.Combine(startingLocation.FullName, "Cauldron.sln"));
 
-        foreach (var project in allProjectFiles)
+        foreach (var project in fodyProjects.Concat(netStandardProjects).Concat(uwpProjects).Concat(win32Projects))
         {
             ModifyAssemblyInfo(project);
             ChangeVersion(project, version);
         }
 
-        for (int i = 0; i < allProjectFiles.Length; i++)
+        // Build the Fody stuff first
+        Console.WriteLine("Compiling Fody Add-in");
+        for (int i = 0; i < fodyProjects.Length; i++)
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine($"Compiling [{i + 1}/{allProjectFiles.Length}] " + allProjectFiles[i].Name);
-            BuildProject(solutionPath, allProjectFiles[i]);
+            Console.WriteLine($"Compiling [{i + 1}/{fodyProjects.Length}] " + fodyProjects[i].Name);
+            BuildProject(solutionPath, fodyProjects[i], "Release");
         }
+
+        Console.WriteLine("Compiling NetStandard and UWP projects");
+        Parallel.ForEach(new List<FileInfo[]> {
+            netStandardProjects,
+            uwpProjects
+        }, projects =>
+        {
+            for (int i = 0; i < projects.Length; i++)
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine($"Compiling [{i + 1}/{projects.Length}] " + projects[i].Name);
+                BuildProject(solutionPath, projects[i], "Release");
+            }
+        });
+
+        // We have to build the win32 projects for all NET Framework targets
+        Parallel.ForEach(new string[] { "Net45", "Net451", "Net452", "Net46", "Net461", "Net462" }, target =>
+        {
+            Console.WriteLine("Compiling Net Classic projects - " + target);
+            for (int i = 0; i < win32Projects.Length; i++)
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine($"Compiling [{i + 1}/{win32Projects.Length}] {target} {win32Projects[i].Name}");
+                BuildProject(solutionPath, win32Projects[i], "Release-" + target);
+            }
+        });
 
         // Clean the package directory
         foreach (var file in Directory.GetFiles(packages.FullName, "*.nupkg"))
@@ -123,7 +148,7 @@ try
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine($"Compiling {Path.GetFileName(project)}");
-            BuildProject(new FileInfo(Path.Combine(startingLocation.FullName, "Cauldron.sln")), new FileInfo(project));
+            BuildProject(new FileInfo(Path.Combine(startingLocation.FullName, "Cauldron.sln")), new FileInfo(project), "Release");
         }
 }
 catch (Exception e)
@@ -168,7 +193,7 @@ private static void BuildNuGetPackage(string path, string targetDirectory, strin
         throw new Exception(error);
 }
 
-private static void BuildProject(FileInfo solutionPath, FileInfo path)
+private static void BuildProject(FileInfo solutionPath, FileInfo path, string configuration)
 {
     var filename = new FileInfo(@"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\msbuild.exe");
 
@@ -176,7 +201,7 @@ private static void BuildProject(FileInfo solutionPath, FileInfo path)
     startInfo.UseShellExecute = false;
     startInfo.WorkingDirectory = solutionPath.DirectoryName;
     startInfo.FileName = filename.FullName;
-    startInfo.Arguments = string.Format("\"{0}\" /target:Clean;Rebuild /p:Configuration=Release", path.FullName);
+    startInfo.Arguments = string.Format("\"{0}\" /target:Clean;Rebuild /p:Configuration=" + configuration, path.FullName);
     startInfo.CreateNoWindow = true;
     startInfo.RedirectStandardOutput = true;
 

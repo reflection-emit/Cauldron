@@ -4,9 +4,9 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <AssemblyVersion>3.0.0.5</AssemblyVersion>
-    <FileVersion>3.0.0.5</FileVersion>
-    <Version>3.0.5-beta</Version>
+    <AssemblyVersion>3.0.0.7</AssemblyVersion>
+    <FileVersion>3.0.0.7</FileVersion>
+    <Version>3.0.7-beta</Version>
     <Authors>Alexander Schunk, Capgemini Deutschland GmbH</Authors>
     <Company>Capgemini Deutschland GmbH</Company>
     <Copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</Copyright>

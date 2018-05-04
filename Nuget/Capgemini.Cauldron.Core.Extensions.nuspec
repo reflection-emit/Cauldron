@@ -13,6 +13,7 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Extensions MaxBy MinBy Encode</tags>
     <releaseNotes>
+      2018.05.04 - [C] Assemblies for Net45, Net451, Net452, Net46, Net461 and Net462 added
       2018.01.05 - [C] Concat&lt;T&gt;(this T[][] arrays) renamed to Flatten&lt;T&gt;(this T[][] arrays)
       2017.12.19 - [A] PadOrCut extension method added. It allows to pad chars or cut the string to a specific length.
     </releaseNotes>
@@ -21,9 +22,34 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="..\NetStandard\Cauldron.Core.Extensions\bin\Release\netstandard2.0\Cauldron.Core.Extensions.dll" target="lib\netstandard2.0\Cauldron.Core.Extensions.dll" />
-    <file src="..\NetStandard\Cauldron.Core.Extensions\bin\Release\netstandard2.0\Cauldron.Core.Extensions.xml" target="lib\netstandard2.0\Cauldron.Core.Extensions.xml" />
-    <file src="..\NetStandard\Cauldron.Core.Extensions\bin\Release\netstandard2.0\Cauldron.Core.Extensions.pdb" target="lib\netstandard2.0\Cauldron.Core.Extensions.pdb" />
-    <file src="..\NetStandard\Cauldron.Core.Extensions\**\*.cs" target="src" />
+    <file src="..\NetStandard\Cauldron.Core.Extensions\bin\Release\netstandard2.0\Cauldron.Core.Extensions.dll" target="lib\netstandard2.0" />
+    <file src="..\NetStandard\Cauldron.Core.Extensions\bin\Release\netstandard2.0\Cauldron.Core.Extensions.xml" target="lib\netstandard2.0" />
+    <file src="..\NetStandard\Cauldron.Core.Extensions\bin\Release\netstandard2.0\Cauldron.Core.Extensions.pdb" target="lib\netstandard2.0" />
+
+    <file src="..\Win32\Cauldron.Core.Extensions\bin\Release\Net45\Cauldron.Core.Extensions.dll" target="lib\net45" />
+    <file src="..\Win32\Cauldron.Core.Extensions\bin\Release\Net45\Cauldron.Core.Extensions.xml" target="lib\net45" />
+    <file src="..\Win32\Cauldron.Core.Extensions\bin\Release\Net45\Cauldron.Core.Extensions.pdb" target="lib\net45" />
+
+    <file src="..\Win32\Cauldron.Core.Extensions\bin\Release\Net451\Cauldron.Core.Extensions.dll" target="lib\net451" />
+    <file src="..\Win32\Cauldron.Core.Extensions\bin\Release\Net451\Cauldron.Core.Extensions.xml" target="lib\net451" />
+    <file src="..\Win32\Cauldron.Core.Extensions\bin\Release\Net451\Cauldron.Core.Extensions.pdb" target="lib\net451" />
+
+    <file src="..\Win32\Cauldron.Core.Extensions\bin\Release\Net452\Cauldron.Core.Extensions.dll" target="lib\net452" />
+    <file src="..\Win32\Cauldron.Core.Extensions\bin\Release\Net452\Cauldron.Core.Extensions.xml" target="lib\net452" />
+    <file src="..\Win32\Cauldron.Core.Extensions\bin\Release\Net452\Cauldron.Core.Extensions.pdb" target="lib\net452" />
+
+    <file src="..\Win32\Cauldron.Core.Extensions\bin\Release\Net46\Cauldron.Core.Extensions.dll" target="lib\net46" />
+    <file src="..\Win32\Cauldron.Core.Extensions\bin\Release\Net46\Cauldron.Core.Extensions.xml" target="lib\net46" />
+    <file src="..\Win32\Cauldron.Core.Extensions\bin\Release\Net46\Cauldron.Core.Extensions.pdb" target="lib\net46" />
+
+    <file src="..\Win32\Cauldron.Core.Extensions\bin\Release\Net461\Cauldron.Core.Extensions.dll" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Core.Extensions\bin\Release\Net461\Cauldron.Core.Extensions.xml" target="lib\net461" />
+    <file src="..\Win32\Cauldron.Core.Extensions\bin\Release\Net461\Cauldron.Core.Extensions.pdb" target="lib\net461" />
+
+    <file src="..\Win32\Cauldron.Core.Extensions\bin\Release\Net462\Cauldron.Core.Extensions.dll" target="lib\net462" />
+    <file src="..\Win32\Cauldron.Core.Extensions\bin\Release\Net462\Cauldron.Core.Extensions.xml" target="lib\net462" />
+    <file src="..\Win32\Cauldron.Core.Extensions\bin\Release\Net462\Cauldron.Core.Extensions.pdb" target="lib\net462" />
+
+    <file src="..\Shared\Cauldron.Core.Extensions\**\*.cs" target="src" />
   </files>
 </package>

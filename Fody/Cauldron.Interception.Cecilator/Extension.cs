@@ -1407,7 +1407,7 @@ namespace Cauldron.Interception.Cecilator
             if (resolved.Interfaces != null && resolved.Interfaces.Count > 0)
             {
                 foreach (var item in resolved.Interfaces)
-                    result.AddRange(item.InterfaceType.GetGenericInstances(genericArgumentsNames, genericArguments).Display());
+                    result.AddRange(item.InterfaceType.GetGenericInstances(genericArgumentsNames, genericArguments));
             }
 
             return result;

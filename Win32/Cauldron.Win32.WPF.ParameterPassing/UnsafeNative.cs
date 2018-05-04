@@ -40,7 +40,11 @@ namespace Cauldron.XAML
             {
                 try
                 {
+#if WIN32_45
+                    var data = (UnsafeNative.COPYDATASTRUCT)Marshal.PtrToStructure(lParam, typeof(UnsafeNative.COPYDATASTRUCT));
+#else
                     var data = Marshal.PtrToStructure<UnsafeNative.COPYDATASTRUCT>(lParam);
+#endif
                     var result = string.Copy(data.lpData);
                     return result;
                 }

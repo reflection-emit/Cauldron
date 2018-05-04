@@ -28,10 +28,10 @@ namespace Cauldron.Core.Net
         /// <param name="resultFile">The file that the response will be written to.</param>
         /// <exception cref="WebException">Response status code does not indicate success</exception>
         public static async Task DownloadFileAsync(Uri uri,
-#if NETSTANDARD2_0 || WIN32
+#if !NETFX_CORE
 
             FileInfo resultFile)
-#elif NETFX_CORE
+#else
             StorageFile resultFile)
 #endif
         {
