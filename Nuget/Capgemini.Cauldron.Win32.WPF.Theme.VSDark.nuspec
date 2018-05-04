@@ -77,5 +77,6 @@
     <file src="..\Win32\Cauldron.Win32.WPF.Theme.VSDark\bin\Release\Net462\Cauldron.Win32.WPF.Theme.VSDark.pdb" target="lib\net462" />
     <file src="..\Win32\Cauldron.Win32.WPF.Theme.VSDark\**\*.cs" target="src" />
     <file src="..\Win32\Cauldron.Win32.WPF.Theme\**\*.cs" target="src" />
+    <file src="..\Win32\Cauldron.Win32.WPF.Theme.VSDark\InterceptorScripts\CauldronWPFThemeDark.csx" target="Content\Interceptors" />
   </files>
 </package>
