@@ -78,14 +78,14 @@ try
         });
 
         // We have to build the win32 projects for all NET Framework targets
-        Parallel.ForEach(new string[] { "Net45", "Net451", "Net452", "Net46", "Net461", "Net462" }, target =>
+        Parallel.ForEach(new string[] { "-Net45", "-Net451", "-Net452", "-Net46", "-Net461", "-Net462", "" }, target =>
         {
             Console.WriteLine("Compiling Net Classic projects - " + target);
             for (int i = 0; i < win32Projects.Length; i++)
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine($"Compiling [{i + 1}/{win32Projects.Length}] {target} {win32Projects[i].Name}");
-                BuildProject(solutionPath, win32Projects[i], "Release-" + target);
+                BuildProject(solutionPath, win32Projects[i], "Release" + target);
             }
         });
 

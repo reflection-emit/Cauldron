@@ -8,7 +8,7 @@ Custom interceptors are "scripts" that are compiled and run by Cauldron during t
 ## Documentation
 ### Wiki
 https://github.com/Capgemini/Cauldron/wiki
-### .NET 4.6.1
+### .NET Classic
 https://Capgemini.github.io/Cauldron/win32/
 ### .NET Standard 2.0
 https://Capgemini.github.io/Cauldron/netstandard/
