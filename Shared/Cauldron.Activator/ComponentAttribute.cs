@@ -5,7 +5,7 @@ namespace Cauldron.Activator
     /// <summary>
     /// Specifies that <see cref="Type"/> provide a particular export
     /// </summary>
-    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = true, Inherited = false)]
     public sealed class ComponentAttribute : Attribute
     {
         /// <summary>

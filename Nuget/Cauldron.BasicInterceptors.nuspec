@@ -19,7 +19,7 @@
       2018.04.23 - [A] First version
     </releaseNotes>
     <dependencies>
-      <dependency id="Cauldron.Interception.Fody" version="3.0.8-beta" />
+      <dependency id="Cauldron.Interception.Fody" version="3.0.9-beta" />
     </dependencies>
   </metadata>
   <files>

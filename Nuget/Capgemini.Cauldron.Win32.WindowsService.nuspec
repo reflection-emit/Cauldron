@@ -19,13 +19,13 @@
     </releaseNotes>
     <dependencies>
       <dependency id="Newtonsoft.Json" version="11.0.2" />
-      <dependency id="Capgemini.Cauldron.Activator" version="3.0.8-beta" />
-      <dependency id="Capgemini.Cauldron.Consoles" version="3.0.8-beta" />
-      <dependency id="Capgemini.Cauldron.Localization" version="3.0.8-beta" />
-      <dependency id="Capgemini.Cauldron.Core.Extensions" version="3.0.8-beta" />
-      <dependency id="Capgemini.Cauldron.Core.Reflection" version="3.0.8-beta" />
-      <dependency id="Capgemini.Cauldron.Cryptography" version="3.0.8-beta" />
-      <dependency id="Capgemini.Cauldron.Core.Extension.IO" version="3.0.8-beta" />
+      <dependency id="Capgemini.Cauldron.Activator" version="3.0.9-beta" />
+      <dependency id="Capgemini.Cauldron.Consoles" version="3.0.9-beta" />
+      <dependency id="Capgemini.Cauldron.Localization" version="3.0.9-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Extensions" version="3.0.9-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Reflection" version="3.0.9-beta" />
+      <dependency id="Capgemini.Cauldron.Cryptography" version="3.0.9-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Extension.IO" version="3.0.9-beta" />
       <dependency id="Fody" version="3.0.3" />
     </dependencies>
     <frameworkAssemblies>

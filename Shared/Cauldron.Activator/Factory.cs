@@ -63,7 +63,7 @@ namespace Cauldron.Activator
         /// <summary>
         /// Gets a collection types that is known to the <see cref="Factory"/>
         /// </summary>
-        public static IEnumerable<IFactoryTypeInfo> RegisteredTypes { get { return components.Values.SelectMany(x => x); } }
+        public static IEnumerable<IFactoryTypeInfo> RegisteredTypes => components.Values.SelectMany(x => x);
 
         /// <summary>
         /// Adds a new <see cref="Type"/> to list of known types. Should only be used for unit-tests
@@ -441,7 +441,7 @@ namespace Cauldron.Activator
 
             for (int i = 0; i < content.Length; i++)
             {
-                var key = contractName + content[i].Type.FullName;
+                var key = content[i].Type.FullName;
                 FactoryInstancedObject instance;
 
                 if (instances.ContainsKey(key) && instances.TryRemove(key, out instance))
@@ -517,13 +517,13 @@ namespace Cauldron.Activator
                 return CreateInstance(factoryTypeInfo, parameters);
             else if (factoryTypeInfo.CreationPolicy == FactoryCreationPolicy.Singleton)
             {
-                if (instances.TryGetValue(factoryTypeInfo.ContractName + factoryTypeInfo.Type.FullName, out FactoryInstancedObject existingInstance))
+                if (instances.TryGetValue(factoryTypeInfo.Type.FullName, out FactoryInstancedObject existingInstance))
                     return existingInstance.Item;
                 else
                 {
                     // Create the instance and return the object
                     var newInstance = CreateInstance(factoryTypeInfo, parameters);
-                    var key = factoryTypeInfo.ContractName + factoryTypeInfo.Type.FullName;
+                    var key = factoryTypeInfo.Type.FullName;
 
                     // every singleton that implements the idisposable interface has also to
                     // implement the IDisposableObject interface this is because we want to know if

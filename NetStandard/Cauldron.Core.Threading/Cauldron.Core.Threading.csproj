@@ -4,10 +4,10 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <AssemblyVersion>3.0.0.8</AssemblyVersion>
-    <FileVersion>3.0.0.8</FileVersion>
+    <AssemblyVersion>3.0.0.9</AssemblyVersion>
+    <FileVersion>3.0.0.9</FileVersion>
     <PackageId>Capgemini.Cauldron.Core.Threading</PackageId>
-    <Version>3.0.8-beta</Version>
+    <Version>3.0.9-beta</Version>
     <Authors>Alexander Schunk, Capgemini Deutschland GmbH</Authors>
     <Company>Capgemini Deutschland GmbH</Company>
     <Product>Cauldron.Core.Threading</Product>
