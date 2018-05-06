@@ -143,19 +143,17 @@ namespace Cauldron.Interception.Cecilator
             throw new IndexOutOfRangeException("There is generic argument with index " + index);
         }
 
-        public bool Implements(Type interfaceType, bool getAll = true) => this.Implements(interfaceType.FullName, getAll);
+        public bool Implements(Type interfaceType, bool getAll = true) => this.Implements(this.moduleDefinition.ImportReference(interfaceType).ToBuilderType(), getAll);
 
-        public bool Implements(string interfaceName, bool getAll = true)
+        public bool Implements(BuilderType builderType, bool getAll = true)
         {
             if (getAll)
-                return this.Interfaces.ToArray().Any(x =>
-                    (x.typeReference != null && x.typeReference.FullName.GetHashCode() == interfaceName.GetHashCode() && x.typeReference.FullName == interfaceName) ||
-                    (x.typeDefinition != null && x.typeDefinition.FullName.GetHashCode() == interfaceName.GetHashCode() && x.typeDefinition.FullName == interfaceName));
+                return this.Interfaces.ToArray().Any(x => x.typeReference != null && x.typeReference.AreEqual(builderType.typeReference));
             else
-                return this.typeDefinition.Interfaces.Any(x =>
-                    (x.InterfaceType.FullName.GetHashCode() == interfaceName.GetHashCode() && x.InterfaceType.FullName == interfaceName) ||
-                    (x.InterfaceType.FullName.GetHashCode() == interfaceName.GetHashCode() && x.InterfaceType.FullName == interfaceName));
+                return this.typeDefinition.Interfaces.Any(x => (x.InterfaceType.AreEqual(builderType.typeReference)));
         }
+
+        public bool Implements(string interfaceName, bool getAll = true) => this.Implements(this.Builder.GetType(interfaceName));
 
         public BuilderType Import()
         {
@@ -813,7 +811,7 @@ namespace Cauldron.Interception.Cecilator
                 case BuilderType builderType:
                     return this.Equals(builderType);
 
-                case TypeDefinition typeDefinition:
+                case TypeDefinition typeDefinition when this.typeDefinition != null:
                     return this.typeDefinition.AreEqual(typeDefinition);
 
                 case TypeReference typeReference:

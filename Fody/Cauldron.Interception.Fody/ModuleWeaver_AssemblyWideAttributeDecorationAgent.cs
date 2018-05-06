@@ -113,7 +113,7 @@ namespace Cauldron.Interception.Fody
 
                 if (decorator.TargetMethodFilter.ParameterMatch)
                 {
-                    if (!decorator.TargetMethodFilter.ParameterStrict && decorator.TargetMethodFilter.Parameters.Length > 0 && !x.Parameters.IsAssignableFrom(methodParameters))
+                    if (!decorator.TargetMethodFilter.ParameterStrict && decorator.TargetMethodFilter.Parameters.Length > 0 && !x.Parameters.AreReferenceAssignable(methodParameters))
                         return false;
                     else if (decorator.TargetMethodFilter.ParameterStrict && decorator.TargetMethodFilter.Parameters.Length > 0 && !x.Parameters.SequenceEqual(methodParameters))
                         return false;

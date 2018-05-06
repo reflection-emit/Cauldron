@@ -13,48 +13,40 @@ namespace Cauldron.Interception.Cecilator
 {
     public static class Extension
     {
-        public static bool AreEqual(this ModuleDefinition a, ModuleDefinition b)
-        {
-            if (a == null || b == null)
-                return false;
+        public static bool AreEqual(this Type a, ModuleDefinition b) => a?.Assembly.FullName.AreEqual(b?.Assembly.Name.Name) ?? false;
 
-            var assemblyA = a.Assembly.Name.Name;
-            var assemblyB = b.Assembly.Name.Name;
+        public static bool AreEqual(this Type a, Type b) => a?.Assembly.FullName.AreEqual(b?.Assembly.FullName) ?? false;
 
-            if (assemblyA == assemblyB)
-                return true;
+        public static bool AreEqual(this ModuleDefinition a, Type b) => a?.Assembly.Name.Name.AreEqual(b?.Assembly.FullName) ?? false;
 
-            if ((assemblyA == "System.Runtime" || assemblyA == "mscorlib") && (assemblyB == "System.Runtime" || assemblyB == "mscorlib"))
-                return true;
-
-            return false;
-        }
+        public static bool AreEqual(this ModuleDefinition a, ModuleDefinition b) => a?.Assembly.Name.Name.AreEqual(b?.Assembly.Name.Name) ?? false;
 
         public static bool AreEqual(this TypeDefinition a, TypeDefinition b) =>
-            a.Resolve().Module.Assembly.Name.Name == b.Resolve().Module.Assembly.Name.Name &&
+            AreEqual(a.Resolve()?.Module, b.Resolve()?.Module) &&
             a.FullName.GetHashCode() == b.FullName.GetHashCode() &&
             a.FullName == b.FullName;
 
-        public static bool AreEqual(this TypeReference a, TypeReference b) => AreEqual(a.Resolve()?.Module, b.Resolve()?.Module) &&
+        public static bool AreEqual(this TypeReference a, TypeReference b) =>
+            AreEqual(a.Resolve()?.Module, b.Resolve()?.Module) &&
             a.FullName.GetHashCode() == b.FullName.GetHashCode() &&
             a.FullName == b.FullName;
 
         public static bool AreEqual(this TypeReference a, TypeDefinition b) =>
-               a.Resolve()?.Module.Assembly.Name.Name == b.Resolve()?.Module.Assembly.Name.Name &&
-               a.FullName.GetHashCode() == b.FullName.GetHashCode() &&
-               a.FullName == b.FullName;
+            AreEqual(a.Resolve()?.Module, b.Resolve()?.Module) &&
+            a.FullName.GetHashCode() == b.FullName.GetHashCode() &&
+            a.FullName == b.FullName;
 
         public static bool AreEqual(this Type a, TypeDefinition b) =>
-               a.Assembly.FullName == b.Resolve()?.Module.Assembly.Name.Name &&
-               a.FullName.GetHashCode() == b.FullName.GetHashCode() &&
-               a.FullName == b.FullName;
+            AreEqual(a, b.Resolve()?.Module) &&
+            a.FullName.GetHashCode() == b.FullName.GetHashCode() &&
+            a.FullName == b.FullName;
 
         public static bool AreEqual(this Type a, BuilderType b) =>
             a.AreEqual(b.typeReference) ||
             a.AreEqual(b.typeDefinition ?? b.typeReference);
 
         public static bool AreEqual(this Type a, TypeReference b) =>
-               a.Assembly.FullName == b.Resolve()?.Module.Assembly.Name.Name &&
+            AreEqual(a, b.Resolve()?.Module) &&
                a.FullName.GetHashCode() == b.FullName.GetHashCode() &&
                a.FullName == b.FullName;
 
@@ -69,11 +61,62 @@ namespace Cauldron.Interception.Cecilator
         /// <param name="type">The type to assign to.</param>
         /// <param name="toBeAssigned">The type that will be assigned to <paramref name="type"/>.</param>
         /// <returns>Returns true if <paramref name="toBeAssigned"/> is assignable to <paramref name="type"/>; otherwise false.</returns>
+        public static bool AreReferenceAssignable(this BuilderType[] type, BuilderType[] toBeAssigned)
+        {
+            if (type == null && toBeAssigned == null)
+                return true;
+
+            if (type == null || toBeAssigned == null)
+                return false;
+
+            if (type.Length != toBeAssigned.Length)
+                return false;
+
+            for (int i = 0; i < type.Length; i++)
+            {
+                if (!type[i].AreReferenceAssignable(toBeAssigned[i]))
+                    return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Checks if <paramref name="toBeAssigned"/> is assignable to <paramref name="type"/>.
+        /// </summary>
+        /// <param name="type">The type to assign to.</param>
+        /// <param name="toBeAssigned">The type that will be assigned to <paramref name="type"/>.</param>
+        /// <returns>Returns true if <paramref name="toBeAssigned"/> is assignable to <paramref name="type"/>; otherwise false.</returns>
         public static bool AreReferenceAssignable(this BuilderType type, BuilderType toBeAssigned)
         {
-            if ((toBeAssigned == null && !type.IsValueType) || type == toBeAssigned ||
-                    (!type.typeDefinition.IsValueType && !toBeAssigned.typeDefinition.IsValueType && type.IsAssignableFrom(toBeAssigned)) ||
-                    (type.IsInterface && toBeAssigned == BuilderType.Object))
+            if (type == null) throw new ArgumentNullException(nameof(type));
+
+            // If the target type is an object... Everything goes into an object
+            if (type == BuilderType.Object)
+                return true;
+
+            // If the type or value to be assigned is null and we are sure that the target type
+            // is not a value type then it is safe to say that it is indeed assignable
+            if (toBeAssigned == null && !type.IsValueType)
+                return true;
+
+            // From this point the value that has to be assigned has to be non null
+            if (toBeAssigned == null) throw new ArgumentNullException(nameof(toBeAssigned));
+
+            // If both are of the same type
+            if (type == toBeAssigned)
+                return true;
+
+            // If the type to be assigened inherited from the target type then go for it
+            if (!type.IsInterface && toBeAssigned.IsSubclassOf(type))
+                return true;
+
+            // If the target type is an interface lets check if the type to be assigned has it implemented.
+            if (type.IsInterface && toBeAssigned.Implements(type))
+                return true;
+
+            // Special case for RuntimeType and Type in NetCore
+            if (toBeAssigned.Fullname == "System.RuntimeType" && type.Fullname == "System.Type")
                 return true;
 
             return false;
@@ -87,14 +130,36 @@ namespace Cauldron.Interception.Cecilator
         /// <returns>Returns true if <paramref name="toBeAssigned"/> is assignable to <paramref name="type"/>; otherwise false.</returns>
         public static bool AreReferenceAssignable(this TypeReference type, TypeReference toBeAssigned)
         {
-            Builder.Current.Log(LogTypes.Info, $"-------> {string.Join(", ", toBeAssigned.GetBaseClasses().Select(x => x.FullName))}");
+            if (type == null) throw new ArgumentNullException(nameof(type));
 
-            if (
-                (toBeAssigned == null && !type.IsValueType) ||
-                type == toBeAssigned ||
-                (!type.IsValueType && !toBeAssigned.IsValueType && type.IsAssignableFrom(toBeAssigned)) ||
-                (type.Resolve()?.IsInterface ?? false && toBeAssigned.AreEqual(BuilderType.Object)) ||
-                type.FullName == toBeAssigned.FullName)
+            // If the target type is an object... Everything goes into an object
+            if (type.AreEqual(BuilderType.Object.typeReference))
+                return true;
+
+            // If the type or value to be assigned is null and we are sure that the target type
+            // is not a value type then it is safe to say that it is indeed assignable
+            if (toBeAssigned == null && !type.IsValueType)
+                return true;
+
+            // From this point the value that has to be assigned has to be non null
+            if (toBeAssigned == null) throw new ArgumentNullException(nameof(toBeAssigned));
+
+            // If both are of the same type
+            if (type.AreEqual(toBeAssigned))
+                return true;
+
+            var isInterface = type.BetterResolve()?.IsInterface ?? false;
+
+            // If the type to be assigened inherited from the target type then go for it
+            if (!isInterface && toBeAssigned.IsSubclassOf(type))
+                return true;
+
+            // If the target type is an interface lets check if the type to be assigned has it implemented.
+            if (isInterface && toBeAssigned.Implements(type))
+                return true;
+
+            // Special case for RuntimeType and Type in NetCore
+            if (toBeAssigned.FullName == "System.RuntimeType" && type.FullName == "System.Type")
                 return true;
 
             return false;
@@ -480,43 +545,6 @@ namespace Cauldron.Interception.Cecilator
                     return i;
 
             return -1;
-        }
-
-        public static bool IsAssignableFrom(this BuilderType[] target, BuilderType[] types)
-        {
-            if (target == null && types == null)
-                return true;
-
-            if (target == null || types == null)
-                return false;
-
-            if (target.Length != types.Length)
-                return false;
-
-            for (int i = 0; i < target.Length; i++)
-            {
-                if (!target[i].IsAssignableFrom(types[i]))
-                    return false;
-            }
-
-            return true;
-        }
-
-        public static bool IsAssignableFrom(this BuilderType target, BuilderType source) =>
-                            target == source ||
-                            target.typeDefinition == source.typeDefinition ||
-                            target.Fullname == "System.Object" ||
-                            source.IsSubclassOf(target) ||
-                            target.IsInterface && source.BaseClasses.Any(x => x.Implements(target));
-
-        public static bool IsAssignableFrom(this TypeReference target, TypeReference source)
-        {
-            return target == source ||
-                target == source ||
-                target.FullName == "System.Object" ||
-                source.IsSubclassOf(target) ||
-                (target.BetterResolve()?.IsInterface ?? false && source.GetInterfaces().Any(x => x.Implements(target)))
-                /* TODO */ ;
         }
 
         /// <summary>
@@ -1385,6 +1413,20 @@ namespace Cauldron.Interception.Cecilator
             if (modifier.HasFlag(Modifiers.Explicit)) attributes |= MethodAttributes.Final | MethodAttributes.Virtual | MethodAttributes.NewSlot | MethodAttributes.HideBySig | MethodAttributes.Private;
 
             return attributes;
+        }
+
+        private static bool AreEqual(this string assemblyA, string assemblyB)
+        {
+            if (assemblyA == null || assemblyB == null)
+                return false;
+
+            if (assemblyA == assemblyB)
+                return true;
+
+            if ((assemblyA == "System.Runtime" || assemblyA == "mscorlib") && (assemblyB == "System.Runtime" || assemblyB == "mscorlib"))
+                return true;
+
+            return false;
         }
 
         private static Tuple<MethodDefinition, TypeReference> GetAsyncMethod(this CecilatorObject cecilatorObject, MethodDefinition method)
