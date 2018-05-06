@@ -13,13 +13,29 @@ namespace Cauldron.Interception.Cecilator
 {
     public static class Extension
     {
+        public static bool AreEqual(this ModuleDefinition a, ModuleDefinition b)
+        {
+            if (a == null || b == null)
+                return false;
+
+            var assemblyA = a.Assembly.Name.Name;
+            var assemblyB = b.Assembly.Name.Name;
+
+            if (assemblyA == assemblyB)
+                return true;
+
+            if ((assemblyA == "System.Runtime" || assemblyA == "mscorlib") && (assemblyB == "System.Runtime" || assemblyB == "mscorlib"))
+                return true;
+
+            return false;
+        }
+
         public static bool AreEqual(this TypeDefinition a, TypeDefinition b) =>
             a.Resolve().Module.Assembly.Name.Name == b.Resolve().Module.Assembly.Name.Name &&
             a.FullName.GetHashCode() == b.FullName.GetHashCode() &&
             a.FullName == b.FullName;
 
-        public static bool AreEqual(this TypeReference a, TypeReference b) =>
-            a.Resolve()?.Module.Assembly.Name.Name == b.Resolve()?.Module.Assembly.Name.Name &&
+        public static bool AreEqual(this TypeReference a, TypeReference b) => AreEqual(a.Resolve()?.Module, b.Resolve()?.Module) &&
             a.FullName.GetHashCode() == b.FullName.GetHashCode() &&
             a.FullName == b.FullName;
 
@@ -71,6 +87,8 @@ namespace Cauldron.Interception.Cecilator
         /// <returns>Returns true if <paramref name="toBeAssigned"/> is assignable to <paramref name="type"/>; otherwise false.</returns>
         public static bool AreReferenceAssignable(this TypeReference type, TypeReference toBeAssigned)
         {
+            Builder.Current.Log(LogTypes.Info, $"-------> {string.Join(", ", toBeAssigned.GetBaseClasses().Select(x => x.FullName))}");
+
             if (
                 (toBeAssigned == null && !type.IsValueType) ||
                 type == toBeAssigned ||

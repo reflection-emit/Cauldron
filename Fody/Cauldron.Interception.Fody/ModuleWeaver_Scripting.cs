@@ -10,33 +10,29 @@ namespace Cauldron.Interception.Fody
 {
     public sealed partial class ModuleWeaver
     {
-        public List<string> CustomInterceptors { get; } = new List<string>();
+        private string cscPath;
+        private List<string> referencedDlls = new List<string>();
 
         public void ExecuteInterceptionScripts(Builder builder)
         {
-            var csc = Path.Combine(this.AddinDirectoryPath, "csc\\csc.exe");
             this.GetCustomInterceptorList();
 
             using (new StopwatchLog(this, "custom interceptors"))
             {
                 var scriptBinaries = new List<Assembly>();
                 var interceptorDirectory = Path.Combine(this.ProjectDirectoryPath, "Interceptors");
-                var dlls = new List<string>();
+                var scripts = GetCustomInterceptorList();
 
-                dlls.AddRange(Directory.GetFiles(this.AddinDirectoryPath, "*.dll"));
-                dlls.AddRange(typeof(ModuleWeaver).Assembly.GetReferencedAssemblies().Select(x => Assembly.Load(x).Location?.Trim()).Where(x => !string.IsNullOrEmpty(x)));
+                cscPath = Path.Combine(this.AddinDirectoryPath, "csc\\csc.exe");
+                referencedDlls.AddRange(Directory.GetFiles(this.AddinDirectoryPath, "*.dll"));
+                referencedDlls.AddRange(typeof(ModuleWeaver).Assembly.GetReferencedAssemblies().Select(x => Assembly.Load(x).Location?.Trim()).Where(x => !string.IsNullOrEmpty(x)));
 
                 if (Directory.Exists(interceptorDirectory))
-                {
-                    // Find all uncompiled scripts and compile them
-                    foreach (var script in Directory.GetFiles(interceptorDirectory, "*.csx", SearchOption.AllDirectories))
-                        scriptBinaries.Add(AppDomain.CurrentDomain.Load(File.ReadAllBytes(CompileScript(csc, script, dlls))));
+                    scripts = scripts
+                        .Concat(Directory.GetFiles(interceptorDirectory, "*.csx", SearchOption.AllDirectories))
+                        .Concat(Directory.GetFiles(interceptorDirectory, "*.dll", SearchOption.AllDirectories));
 
-                    foreach (var script in Directory.GetFiles(interceptorDirectory, "*.dll", SearchOption.AllDirectories))
-                        scriptBinaries.Add(AppDomain.CurrentDomain.Load(File.ReadAllBytes(script)));
-                }
-
-                scriptBinaries.AddRange(this.CustomInterceptors.Select(x => AppDomain.CurrentDomain.Load(File.ReadAllBytes(x))));
+                scriptBinaries.AddRange(scripts.Select(x => LoadScript(x)));
 
                 foreach (var scriptBinary in scriptBinaries
                             .SelectMany(x => x.DefinedTypes)
@@ -115,12 +111,12 @@ namespace Cauldron.Interception.Fody
             return output;
         }
 
-        private void GetCustomInterceptorList()
+        private IEnumerable<string> GetCustomInterceptorList()
         {
-            var element = this.Config.Element(nameof(CustomInterceptors));
+            var element = this.Config.Element("CustomInterceptors");
 
             if (element == null)
-                return;
+                yield break;
 
             foreach (var item in element.Value.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries))
             {
@@ -138,8 +134,21 @@ namespace Cauldron.Interception.Fody
                     throw new FileNotFoundException("File not found: " + path);
 
                 for (int i = 0; i < dlls.Length; i++)
-                    this.CustomInterceptors.Add(dlls[i]);
+                    yield return dlls[i];
             }
+        }
+
+        private Assembly LoadScript(string path)
+        {
+            switch (Path.GetExtension(path))
+            {
+                case ".csx":
+                case ".CSX": return AppDomain.CurrentDomain.Load(File.ReadAllBytes(CompileScript(cscPath, path, referencedDlls)));
+                case ".dll":
+                case ".DLL": return AppDomain.CurrentDomain.Load(File.ReadAllBytes(path));
+            }
+
+            throw new NotSupportedException("Unsupported file type");
         }
     }
 }

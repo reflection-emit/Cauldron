@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>6a4dabdf-533d-4208-9777-8fa116030a79</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>CryptographyTests</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)EncryptionDecryptionTest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)KeyMaterialTest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SecureStringTest.cs" />
+  </ItemGroup>
+</Project>

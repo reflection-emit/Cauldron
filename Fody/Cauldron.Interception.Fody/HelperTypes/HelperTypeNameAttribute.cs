@@ -13,15 +13,7 @@ namespace Cauldron.Interception.Fody.HelperTypes
             this.UWPFullname = uwpFullname;
         }
 
-        public HelperTypeNameAttribute(string fullname, string uwpFullname, string importUWPAssembly)
-        {
-            this.ImportUWPAssembly = importUWPAssembly;
-            this.Fullname = fullname;
-            this.UWPFullname = uwpFullname;
-        }
-
         public string Fullname { get; private set; }
-        public string ImportUWPAssembly { get; private set; }
         public string UWPFullname { get; private set; }
     }
 }

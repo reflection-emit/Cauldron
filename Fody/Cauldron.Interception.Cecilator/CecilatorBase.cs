@@ -1,12 +1,9 @@
 ﻿using Cauldron.Interception.Cecilator.Coders;
-
 using Mono.Cecil;
-using Mono.Cecil.Cil;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -30,31 +27,18 @@ namespace Cauldron.Interception.Cecilator
             this.moduleDefinition = weaver.ModuleDefinition;
 
             var assemblies = this.GetAllAssemblyDefinitions(this.moduleDefinition.AssemblyReferences)
+                  .Concat(weaver.References.Split(';').Select(x => LoadAssembly(x)))
                   .Concat(new AssemblyDefinition[] { this.moduleDefinition.Assembly });
 
-            this.UnusedReference = weaver.ReferenceCopyLocalPaths
+            this.ReferenceCopyLocal = weaver.ReferenceCopyLocalPaths
                 .Where(x => x.EndsWith(".dll"))
-                .Select(x =>
-                {
-                    try
-                    {
-                        return new AssemblyDefinitionEx(AssemblyDefinition.ReadAssembly(x), x);
-                    }
-                    catch (BadImageFormatException)
-                    {
-                        this.Log(LogTypes.Info, $"Info: a BadImageFormatException has occured while trying to retrieve information from '{x}'");
-                        return null;
-                    }
-                    catch (Exception e)
-                    {
-                        this.Log(e);
-                        return null;
-                    }
-                })
+                .Select(x => new AssemblyDefinitionEx(LoadAssembly(x), x))
                 .Where(x => x != null && !assemblies.Any(y => y.FullName.GetHashCode() == x.AssemblyDefinition.FullName.GetHashCode() && y.FullName == x.AssemblyDefinition.FullName))
                 .ToArray();
 
-            this.allAssemblies = assemblies.Concat(this.UnusedReference.Select(x => x.AssemblyDefinition)).ToList();
+            this.allAssemblies = assemblies
+                .Concat(this.ReferenceCopyLocal.Select(x => x.AssemblyDefinition))
+                .ToList();
 
             this.Log("-----------------------------------------------------------------------------");
 
@@ -124,33 +108,13 @@ namespace Cauldron.Interception.Cecilator
 
         public bool IsUWP => this.IsReferenced("Windows.Foundation.UniversalApiContract");
 
+        public AssemblyDefinitionEx[] ReferenceCopyLocal { get; private set; }
+
         public AssemblyDefinition[] ReferencedAssemblies =>
-                    this.moduleDefinition.AssemblyReferences
+                            this.moduleDefinition.AssemblyReferences
                 .Select(x => this.moduleDefinition.AssemblyResolver.Resolve(x)).ToArray();
 
         public List<string> ResourceNames { get; private set; } = new List<string>();
-        public AssemblyDefinitionEx[] UnusedReference { get; private set; }
-
-        public void AddAssembly(string assemblyName)
-        {
-            if (this.IsUWP)
-            {
-                var runtime = this.allAssemblies.FirstOrDefault(x => x.Name.Name == "System.Runtime");
-                var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), $".nuget\\packages\\{assemblyName}");
-                var dlls = Directory.GetFiles(path, assemblyName + ".dll", SearchOption.AllDirectories);
-
-                var dll = dlls.FirstOrDefault(x =>
-                    x.IndexOf("\\netcore50", StringComparison.CurrentCultureIgnoreCase) > 0 &&
-                    x.IndexOf($"\\{runtime.Name.Version.Major}.{runtime.Name.Version.Minor}.", StringComparison.CurrentCultureIgnoreCase) > 0);
-
-                if (dll == null)
-                    dll = dlls.FirstOrDefault(x => x.IndexOf("\\netcore50", StringComparison.CurrentCultureIgnoreCase) > 0);
-
-                var assembly = AssemblyDefinition.ReadAssembly(dll);
-                this.allAssemblies.Add(assembly);
-                this.allTypes.AddRange(assembly.Modules.Where(x => x != null).SelectMany(x => x.Types).Where(x => x != null));
-            }
-        }
 
         public bool IsReferenced(string assemblyName) => this.allAssemblies.Any(x => x.Name.Name == assemblyName);
 
@@ -207,6 +171,24 @@ namespace Cauldron.Interception.Cecilator
             }
 
             return result.Distinct(new AssemblyDefinitionEqualityComparer());
+        }
+
+        private AssemblyDefinition LoadAssembly(string path)
+        {
+            try
+            {
+                return AssemblyDefinition.ReadAssembly(path);
+            }
+            catch (BadImageFormatException)
+            {
+                this.Log(LogTypes.Info, $"Info: a BadImageFormatException has occured while trying to retrieve information from '{path}'");
+                return null;
+            }
+            catch (Exception e)
+            {
+                this.Log(e);
+                return null;
+            }
         }
     }
 }

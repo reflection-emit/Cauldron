@@ -111,7 +111,7 @@ namespace Cauldron
             if (value == "")
                 return "";
 
-            char[] result = new char[value.Length];
+            var result = new char[value.Length];
             value.CopyTo(0, result, 0, value.Length);
             return new string(result);
 #else
@@ -819,6 +819,21 @@ namespace Cauldron
             fixed (char* chr = value)
                 *(chr + index) = newChar;
         }
+
+        /// <summary>
+        /// Replaces a char <paramref name="oldChar"/> with the char <paramref name="newChar"/>.
+        /// <para/>
+        /// ATTENTION: The original string is the target of the manipulation.
+        /// </summary>
+        /// <param name="value">The string with the chars to replace</param>
+        /// <param name="oldChar">The old char to be replaced by <paramref name="newChar"/></param>
+        /// <param name="newChar">The new char that replaces the old chars</param>
+        /// <param name="startingIndex">The index where to start replacing chars</param>
+        /// <exception cref="ArgumentNullException">value is null</exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// <paramref name="startingIndex"/> is higher than <paramref name="value"/> length
+        /// </exception>
+        public unsafe static void ReplaceMe(this string value, char oldChar, char newChar, int startingIndex = 0) => value.ReplaceMe(new char[] { oldChar }, newChar, startingIndex);
 
         /// <summary>
         /// Replaces a series of chars <paramref name="oldChars"/> with a single char <paramref name="newChar"/>.

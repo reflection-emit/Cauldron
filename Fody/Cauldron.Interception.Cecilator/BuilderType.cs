@@ -703,14 +703,6 @@ namespace Cauldron.Interception.Cecilator
                     return new Method(this, result.Value.reference, result.Value.definition);
             }
 
-            foreach (var method in this.typeReference.GetMethodReferences())
-            {
-                var result = this.TryFilterMethod(method, modifier, returnType, name, parameterCount, parameterTypes);
-
-                if (result.HasValue)
-                    return new Method(this, result.Value.reference, result.Value.definition);
-            }
-
             if (throwException)
                 throw new MethodNotFoundException($"Unable to proceed. The type '{this.typeDefinition.FullName}' does not contain a method '{name}'");
 

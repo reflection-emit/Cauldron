@@ -21,6 +21,7 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Reflection</tags>
     <releaseNotes>
+      2018.05.06 - [C] Assembly for UWP added
       2018.05.04 - [C] Assemblies for Net45, Net451, Net452, Net46, Net461 and Net462 added
       2018.01.22 - [B] Issues with loading some assemblies... They are skiped now.
       2017.12.11 - [C] Now Costura compatible.
@@ -33,6 +34,10 @@
     </dependencies>
   </metadata>
   <files>
+    <file src="..\UWP\Cauldron.Core.Reflection\bin\Release\Cauldron.Core.Reflection.dll" target="lib\uap10.0" />
+    <file src="..\UWP\Cauldron.Core.Reflection\bin\Release\Cauldron.Core.Reflection.xml" target="lib\uap10.0" />
+    <file src="..\UWP\Cauldron.Core.Reflection\bin\Release\Cauldron.Core.Reflection.pdb" target="lib\uap10.0" />
+    <file src="..\UWP\Cauldron.Core.Reflection\bin\Release\Cauldron.Core.Reflection.pri" target="lib\uap10.0" />
     <file src="..\NetStandard\Cauldron.Core.Reflection\bin\Release\netstandard2.0\Cauldron.Core.Reflection.dll" target="lib\netstandard2.0" />
     <file src="..\NetStandard\Cauldron.Core.Reflection\bin\Release\netstandard2.0\Cauldron.Core.Reflection.xml" target="lib\netstandard2.0" />
     <file src="..\NetStandard\Cauldron.Core.Reflection\bin\Release\netstandard2.0\Cauldron.Core.Reflection.pdb" target="lib\netstandard2.0" />

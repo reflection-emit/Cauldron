@@ -1,0 +1,1 @@
+﻿This test uses cecilator to generate test code that can be tested for validity.

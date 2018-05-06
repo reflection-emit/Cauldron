@@ -79,7 +79,6 @@ namespace Cauldron.Interception.Cecilator
                     for (int i = 0; i < x.Parameters.Count; i++)
                     {
                         var parameterType = parameters[i] == null ? null : this.moduleDefinition.ImportReference(parameters[i].GetType());
-
                         if (!x.Parameters[i].ParameterType.AreReferenceAssignable(parameterType))
                             return false;
                     }
@@ -89,7 +88,7 @@ namespace Cauldron.Interception.Cecilator
             }
 
             if (ctor == null)
-                throw new ArgumentException("Unable to find matching ctor.");
+                throw new ArgumentException($"Unable to find matching ctor in '{customAttributeType.FullName}' for parameters: '{ string.Join(", ", parameters.Select(x => x?.GetType().FullName ?? "null"))}'.");
 
             var attrib = new CustomAttribute(this.moduleDefinition.ImportReference(ctor));
 

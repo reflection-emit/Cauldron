@@ -186,11 +186,11 @@ namespace Cauldron.Interception.Fody
                 {
                     var indexer = 0;
                     var array = context.AssociatedMethod.GetOrCreateVariable(arrayType);
-                    context.SetValue(array, x => x.Newarr(@string, builder.UnusedReference.Length + builder.ReferencedAssemblies.Length));
+                    context.SetValue(array, x => x.Newarr(@string, builder.ReferenceCopyLocal.Length + builder.ReferencedAssemblies.Length));
 
-                    for (int i = 0; i < builder.UnusedReference.Length; i++)
+                    for (int i = 0; i < builder.ReferenceCopyLocal.Length; i++)
                     {
-                        var item = builder.UnusedReference[i]?.Filename;
+                        var item = builder.ReferenceCopyLocal[i]?.Filename;
                         if (string.IsNullOrEmpty(item))
                             continue;
 

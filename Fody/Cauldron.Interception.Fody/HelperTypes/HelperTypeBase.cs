@@ -50,17 +50,6 @@ namespace Cauldron.Interception.Fody.HelperTypes
                 if (builder.TypeExists(result))
                     return builder.GetType(result);
 
-                if (builder.IsUWP)
-                {
-                    var type = typeof(T);
-                    var attrib = type.GetCustomAttribute<HelperTypeNameAttribute>();
-                    builder.Log(LogTypes.Info, $"Adding reference to dll for type '{Name}'");
-                    builder.AddAssembly(attrib.ImportUWPAssembly);
-
-                    if (builder.TypeExists(result))
-                        return builder.GetType(result);
-                }
-
                 throw new TypeNotFoundException($"The type '{result}' does not exist.");
             }
         }
