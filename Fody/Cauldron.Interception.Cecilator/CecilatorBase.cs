@@ -28,16 +28,17 @@ namespace Cauldron.Interception.Cecilator
 
             var assemblies = this.GetAllAssemblyDefinitions(this.moduleDefinition.AssemblyReferences)
                   .Concat(weaver.References.Split(';').Select(x => LoadAssembly(x)))
+                  .Where(x => x != null)
                   .Concat(new AssemblyDefinition[] { this.moduleDefinition.Assembly });
 
             this.ReferenceCopyLocal = weaver.ReferenceCopyLocalPaths
                 .Where(x => x.EndsWith(".dll"))
-                .Select(x => new AssemblyDefinitionEx(LoadAssembly(x), x))
-                .Where(x => x != null && !assemblies.Any(y => y.FullName.GetHashCode() == x.AssemblyDefinition.FullName.GetHashCode() && y.FullName == x.AssemblyDefinition.FullName))
+                .Select(x => LoadAssembly(x))
+                .Where(x => x != null)
                 .ToArray();
 
             this.allAssemblies = assemblies
-                .Concat(this.ReferenceCopyLocal.Select(x => x.AssemblyDefinition))
+                .Concat(this.ReferenceCopyLocal)
                 .ToList();
 
             this.Log("-----------------------------------------------------------------------------");
@@ -108,7 +109,7 @@ namespace Cauldron.Interception.Cecilator
 
         public bool IsUWP => this.IsReferenced("Windows.Foundation.UniversalApiContract");
 
-        public AssemblyDefinitionEx[] ReferenceCopyLocal { get; private set; }
+        public AssemblyDefinition[] ReferenceCopyLocal { get; private set; }
 
         public AssemblyDefinition[] ReferencedAssemblies =>
                             this.moduleDefinition.AssemblyReferences

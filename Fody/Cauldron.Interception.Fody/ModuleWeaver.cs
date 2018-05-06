@@ -190,7 +190,7 @@ namespace Cauldron.Interception.Fody
 
                     for (int i = 0; i < builder.ReferenceCopyLocal.Length; i++)
                     {
-                        var item = builder.ReferenceCopyLocal[i]?.Filename;
+                        var item = System.IO.Path.GetFileName(builder.ReferenceCopyLocal[i].MainModule.FileName);
                         if (string.IsNullOrEmpty(item))
                             continue;
 
