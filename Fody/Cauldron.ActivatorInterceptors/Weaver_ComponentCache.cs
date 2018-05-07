@@ -18,17 +18,7 @@ public static class Weaver_ComponentCache
     {
         builder.Log(LogTypes.Info, "Creating Cauldron Cache");
 
-        BuilderType cauldron = null;
-
-        if (builder.TypeExists("<Cauldron>", SearchContext.Module))
-            cauldron = builder.GetType("<Cauldron>", SearchContext.Module);
-        else
-        {
-            cauldron = builder.CreateType("", TypeAttributes.Public | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit, "<Cauldron>");
-            cauldron.CreateConstructor();
-            cauldron.CustomAttributes.AddCompilerGeneratedAttribute();
-        }
-
+        var cauldron = builder.GetType("<Cauldron>", SearchContext.Module);
         var componentAttribute = __ComponentAttribute.Instance;
         var factory = __Factory.Instance;
 

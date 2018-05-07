@@ -90,6 +90,17 @@ namespace Cauldron.Core.Reflection
         }
 
         /// <summary>
+        /// Gets the process executable in the default application domain. In other application
+        /// domains, this is the first executable that was executed.
+        /// </summary>
+        public static Assembly EntryAssembly => AssembliesCORE.EntryAssembly;
+
+        /// <summary>
+        /// Gets a collection of exported types found in the AppDomain
+        /// </summary>
+        public static IEnumerable<Type> ExportedTypes => _assemblies.SelectMany(x => x.ExportedTypes);
+
+        /// <summary>
         /// Gets a colleciton of Interfaces found in the AppDomain
         /// </summary>
         public static IEnumerable<Type> Interfaces
@@ -108,11 +119,6 @@ namespace Cauldron.Core.Reflection
         /// Gets an array of <see cref="Assembly"/> that is loaded to the AppDomain
         /// </summary>
         public static Assembly[] Known => _assemblies.ToArray();
-
-        /// <summary>
-        /// Gets a collection of exported types found in the AppDomain
-        /// </summary>
-        public static IEnumerable<Type> ExportedTypes => _assemblies.SelectMany(x => x.ExportedTypes);
 
         /// <summary>
         /// Adds a new Assembly to the assembly collection
@@ -493,16 +499,32 @@ namespace Cauldron.Core.Reflection
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static Assembly EntryAssembly
         {
-#if NETFX_CORE || NETCORE
-            get { return _entryAssembly; }
-            set
+            get
             {
-                if (_entryAssembly == null)
-                    _entryAssembly = value;
-            }
+#if WINDOWS_UWP || NETCORE
+            return _entryAssembly;
 #else
-            get { return Assembly.GetEntryAssembly(); }
-            set { }
+
+                var assembly = Assembly.GetEntryAssembly();
+
+                if (assembly == null)
+                    assembly = Assembly.GetCallingAssembly();
+
+                if (assembly == null)
+                    assembly = Assembly.GetExecutingAssembly();
+
+                return assembly;
+#endif
+            }
+        }
+
+        /// <exclude/>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static void SetEntryAssembly(Assembly assembly)
+        {
+#if NETFX_CORE || NETCORE
+            if (_entryAssembly == null)
+                _entryAssembly = assembly;
 #endif
         }
     }

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Weavers VerifyAssembly="True" VerifyIgnoreCodes="0x80131869">
+  <Cauldron.Interception />
+</Weavers>

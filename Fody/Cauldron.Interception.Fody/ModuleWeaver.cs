@@ -18,68 +18,53 @@ namespace Cauldron.Interception.Fody
             this.Log($"Cauldron Interception v" + versionAttribute.Version);
             this.CreateCauldronEntry(this.Builder);
             this.AddAssemblyWideAttributes(this.Builder);
-            this.ExecuteModuleAddition(this.Builder);
             this.ExecuteInterceptionScripts(this.Builder);
             this.AddEntranceAssemblyHACK(this.Builder);
+            this.ExecuteModuleAddition(this.Builder);
         }
 
         private void AddEntranceAssemblyHACK(Builder builder)
         {
-            if (builder.TypeExists("Cauldron.Core.ILoadedAssemblies"))
+            var assembly = builder.GetType("System.Reflection.Assembly").Import().With(x => new { Type = x, Load = x.GetMethod("Load", 1).Import() });
+
+            // Add the Entrance Assembly hack for UWP
+            if (builder.IsUWP)
             {
-                BuilderType cauldron = null;
-
-                if (builder.TypeExists("<Cauldron>", SearchContext.Module))
-                    cauldron = builder.GetType("<Cauldron>", SearchContext.Module);
-                else
-                {
-                    cauldron = builder.CreateType("", TypeAttributes.Public | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit, "<Cauldron>");
-                    cauldron.CreateConstructor();
-                    cauldron.CustomAttributes.AddCompilerGeneratedAttribute();
-                }
-
-                var module = builder.GetType("<Module>", SearchContext.Module);
-                var assembly = builder.GetType("System.Reflection.Assembly").Import().With(x => new { Type = x, Load = x.GetMethod("Load", 1).Import() });
-
-                // UWP has to actually use any type from the Assembly, so that it is not thrown out
-                // while compiling to Nativ Code
-
-                this.Log(builder.Name);
+                var voidMain = builder.FindMethodsByName(SearchContext.Module_NoGenerated, "Main", 1)
+                    .FirstOrDefault(x => x.ReturnType == BuilderType.Void && x.Parameters[0].ChildType == BuilderType.String);
 
                 if (builder.Name != "Cauldron.dll" && builder.TypeExists("Cauldron.Core.Reflection.AssembliesCORE"))
                 {
-                    module.CreateStaticConstructor().NewCoder().Context(context =>
+                    voidMain.NewCoder().Context(context =>
                     {
                         var introspectionExtensions = builder.GetType("System.Reflection.IntrospectionExtensions").Import().With(y => new { Type = y, GetTypeInfo = y.GetMethod("GetTypeInfo", 1).Import() });
                         var typeInfo = builder.GetType("System.Reflection.TypeInfo").Import().With(y => new { Type = y, Assembly = y.GetMethod("get_Assembly").Import() });
-                        var assemblies = builder.GetType("Cauldron.Core.Reflection.AssembliesCORE").Import().With(y => new { Type = y, EntryAssembly = y.GetMethod("set_EntryAssembly", 1).Import() });
+                        var assemblies = builder.GetType("Cauldron.Core.Reflection.AssembliesCORE").Import().With(y => new { Type = y, EntryAssembly = y.GetMethod("SetEntryAssembly", 1).Import() });
                         return context.Call(assemblies.EntryAssembly, x =>
-                            x.Call(introspectionExtensions.GetTypeInfo, module)
+                            x.Call(introspectionExtensions.GetTypeInfo, voidMain.DeclaringType)
                                 .Call(typeInfo.Assembly)).End;
                     })
-                    .Insert(InsertionPosition.End);
-
-                    module.StaticConstructor.CustomAttributes.Add(typeof(MethodImplAttribute), MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization);
-                }
-
-                // Add a new interface to <Cauldron> type
-                if (builder.TypeExists("Cauldron.Core.ILoadedAssemblies"))
-                {
-                    var referencedAssembliesFromOtherAssemblies = builder
-                        .FindTypesByInterface(SearchContext.AllReferencedModules, "Cauldron.Core.ILoadedAssemblies")
-                        .Select(x => x.GetMethod("ReferencedAssemblies").Import())
-                        .SelectMany(x => x.GetTokens())
-                        .Where(x => x != null)
-                        .Select(x => x.Module.Assembly);
-
-                    var loadedAssembliesInterface = builder.GetType("Cauldron.Core.ILoadedAssemblies").Import().With(x => new { Type = x, ReferencedAssemblies = x.GetMethod("ReferencedAssemblies").Import() });
-                    cauldron.AddInterface(loadedAssembliesInterface.Type);
-
-                    CreateAssemblyListingArray(builder,
-                        cauldron.CreateMethod(Modifiers.Overrides | Modifiers.Public, builder.MakeArray(assembly.Type), "ReferencedAssemblies"),
-                        assembly.Type, builder.ReferencedAssemblies.Concat(referencedAssembliesFromOtherAssemblies).Distinct());
+                    .Insert(InsertionPosition.Beginning);
                 }
             }
+
+            var cauldron = builder.GetType("<Cauldron>", SearchContext.Module);
+            var referencedAssembliesMethod = cauldron.CreateMethod(Modifiers.InternalStatic, builder.MakeArray(assembly.Type), "ReferencedAssembliesInternal");
+
+            // Add a new interface to <Cauldron> type
+            if (builder.TypeExists("Cauldron.Core.ILoadedAssemblies"))
+            {
+                var loadedAssembliesInterface = builder.GetType("Cauldron.Core.ILoadedAssemblies").Import().With(x => new { Type = x, ReferencedAssemblies = x.GetMethod("ReferencedAssemblies").Import() });
+                cauldron.AddInterface(loadedAssembliesInterface.Type);
+                cauldron.CreateMethod(Modifiers.Overrides | Modifiers.Public, builder.MakeArray(assembly.Type), "ReferencedAssemblies")
+                    .NewCoder()
+                    .Call(referencedAssembliesMethod)
+                    .Return()
+                    .Replace();
+            }
+
+            CreateAssemblyListingArray(builder, referencedAssembliesMethod,
+                assembly.Type, builder.ReferencedAssemblies.Concat(builder.ReferenceCopyLocal).Distinct());
         }
 
         private void CreateAssemblyListingArray(Builder builder, Method method, BuilderType assemblyType, IEnumerable<AssemblyDefinition> assembliesToList)
@@ -99,9 +84,9 @@ namespace Cauldron.Interception.Fody
                     for (int i = 0; i < referencedTypes.Length; i++)
                     {
                         context.Load(returnValue)
-                            .Call(introspectionExtensions.GetTypeInfo, referencedTypes[i].ToBuilderType().Import())
-                            .Call(typeInfo.Assembly)
-                            .StoreElement(assemblyType, i);
+                            .StoreElement(context.NewCoder()
+                                .Call(introspectionExtensions.GetTypeInfo, referencedTypes[i].ToBuilderType().Import())
+                                .Call(typeInfo.Assembly), i);
                     }
                 }
 
@@ -162,12 +147,14 @@ namespace Cauldron.Interception.Fody
         {
             using (new StopwatchLog(this, "ModuleLoad"))
             {
-                var @string = builder.GetType(typeof(string));
-                var arrayType = @string.MakeArray();
+                var assembly = builder.GetType(typeof(System.Reflection.Assembly));
+                var cauldron = builder.GetType("<Cauldron>", SearchContext.Module);
+                var arrayType = assembly.MakeArray();
+                var referencedAssembliesMethod = cauldron.GetMethod("ReferencedAssembliesInternal");
 
-                // First find a type without namespace and with a static method called OnLoad
+                // First find a type without namespace and with a static method called ModuleLoad
                 var onLoadMethods = builder.FindMethodsByName(SearchContext.Module_NoGenerated, "ModuleLoad", 1)
-                    .Where(x => x.IsStatic && x.ReturnType == "System.Void" && x.Parameters[0] == arrayType)
+                    .Where(x => x.IsStatic && x.ReturnType == BuilderType.Void && x.Parameters[0] == arrayType)
                     .Where(x => x != null);
 
                 if (!onLoadMethods.Any())
@@ -175,42 +162,18 @@ namespace Cauldron.Interception.Fody
 
                 if (onLoadMethods.Count() > 1)
                 {
-                    this.Log(LogTypes.Error, onLoadMethods.FirstOrDefault(), "There is more than one 'static ModuleLoad(string[])' in the program.");
+                    this.Log(LogTypes.Error, onLoadMethods.FirstOrDefault(), "There is more than one 'static ModuleLoad(Assembly[])' in the program.");
                     return;
                 }
 
                 var onLoadMethod = onLoadMethods.First();
                 var module = builder.GetType("<Module>", SearchContext.Module);
 
-                module.CreateStaticConstructor().NewCoder().Context(context =>
-                {
-                    var indexer = 0;
-                    var array = context.AssociatedMethod.GetOrCreateVariable(arrayType);
-                    context.SetValue(array, x => x.Newarr(@string, builder.ReferenceCopyLocal.Length + builder.ReferencedAssemblies.Length));
-
-                    for (int i = 0; i < builder.ReferenceCopyLocal.Length; i++)
-                    {
-                        var item = System.IO.Path.GetFileName(builder.ReferenceCopyLocal[i].MainModule.FileName);
-                        if (string.IsNullOrEmpty(item))
-                            continue;
-
-                        context
-                            .Load(array)
-                            .StoreElement(item, indexer++);
-                    }
-
-                    for (int i = 0; i < builder.ReferencedAssemblies.Length; i++)
-                    {
-                        var item = builder.ReferencedAssemblies[i]?.Name?.Name;
-                        if (string.IsNullOrEmpty(item))
-                            continue;
-
-                        context.Load(array)
-                            .StoreElement(item, indexer++);
-                    }
-
-                    return context.Call(onLoadMethod, array).End;
-                }).Insert(InsertionPosition.End);
+                module
+                    .CreateStaticConstructor().NewCoder()
+                    .Call(onLoadMethod, x => x.Call(referencedAssembliesMethod))
+                    .End
+                    .Insert(InsertionPosition.End);
             }
         }
 

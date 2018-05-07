@@ -345,6 +345,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CecilatorTestUWP", "UnitTes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtensionsTestsUWP", "UnitTests\UWP\ExtensionsTestsUWP\ExtensionsTestsUWP.csproj", "{8C5F7679-ED42-44A5-94E8-1A09AF61E6B1}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "UnitTest_ReflectionTests", "UnitTests\Shared\UnitTest_ReflectionTests\UnitTest_ReflectionTests.shproj", "{9CADD080-BD8E-4B26-99EE-967EDBBCB14A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReflectionTestsUWP", "UnitTests\UWP\ReflectionTestsUWP\ReflectionTestsUWP.csproj", "{D6FDB523-B4F8-43BA-810E-184820DF6A99}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		UnitTests\Shared\CecilatorTestClasses\CecilatorTestClasses.projitems*{0222072e-af2b-400e-a5c2-a448fdd693c3}*SharedItemsImports = 4
@@ -382,6 +386,7 @@ Global
 		UnitTests\Shared\ExtensionsTests\ExtensionsTests.projitems*{8c5f7679-ed42-44a5-94e8-1a09af61e6b1}*SharedItemsImports = 4
 		Shared\Cauldron.Cryptography\Cauldron.Cryptography.projitems*{97d924b8-8fb2-4720-84e1-28502c2bae51}*SharedItemsImports = 4
 		Shared\Cauldron.Core.Comparing\Cauldron.Core.Comparing.projitems*{9868bf2a-c532-47e1-9525-c9bd8e256a4c}*SharedItemsImports = 13
+		UnitTests\Shared\UnitTest_ReflectionTests\UnitTest_ReflectionTests.projitems*{9cadd080-bd8e-4b26-99ee-967edbbcb14a}*SharedItemsImports = 13
 		Shared\Cauldron.Core.Extensions\Cauldron.Core.Extensions.projitems*{9d2559da-62d9-4472-8e2f-9c8fe1c2b9cf}*SharedItemsImports = 4
 		Shared\Cauldron.Core.Extensions\Cauldron.Core.Extensions.projitems*{9e5b571c-92f7-431d-a2c8-5e94a1b1744b}*SharedItemsImports = 13
 		Shared\Cauldron.Core.Randomizer\Cauldron.Core.Randomizer.projitems*{ad85b816-7080-4b07-9ad5-7dd4e9ba1750}*SharedItemsImports = 4
@@ -401,6 +406,7 @@ Global
 		UnitTests\Shared\CecilatorTestClasses\CecilatorTestClasses.projitems*{d24ed6ba-2465-4636-a8bf-19babf86f68a}*SharedItemsImports = 4
 		UnitTests\Resources\Fody_Interceptors\Fody_Interceptors.projitems*{d35a9e6b-93f6-4bdf-9823-e9b9bec6ab92}*SharedItemsImports = 4
 		Shared\Cauldron.Core.Diagnostics\Cauldron.Core.Diagnostics.projitems*{d55caa79-858d-4daa-998b-88d7d77a411e}*SharedItemsImports = 4
+		UnitTests\Shared\UnitTest_ReflectionTests\UnitTest_ReflectionTests.projitems*{d6fdb523-b4f8-43ba-810e-184820df6a99}*SharedItemsImports = 4
 		Shared\Cauldron.Core.Threading\Cauldron.Core.Threading.projitems*{d72c3274-b06f-45c8-bae7-77106aeb4094}*SharedItemsImports = 13
 		Shared\Cauldron.Core.Net\Cauldron.Core.Net.projitems*{dbc9abb4-746a-4e9f-9ea8-6a52823470c0}*SharedItemsImports = 4
 		Shared\Cauldron.Core.Extensions.Convertions\Cauldron.Core.Extensions.Convertions.projitems*{decff6f1-961c-4d98-95bd-02ea985f1e1a}*SharedItemsImports = 13
@@ -3609,6 +3615,50 @@ Global
 		{8C5F7679-ED42-44A5-94E8-1A09AF61E6B1}.Release-Net451|x86.ActiveCfg = Release|x86
 		{8C5F7679-ED42-44A5-94E8-1A09AF61E6B1}.Release-Net451|x86.Build.0 = Release|x86
 		{8C5F7679-ED42-44A5-94E8-1A09AF61E6B1}.Release-Net451|x86.Deploy.0 = Release|x86
+		{D6FDB523-B4F8-43BA-810E-184820DF6A99}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{D6FDB523-B4F8-43BA-810E-184820DF6A99}.Debug|ARM.ActiveCfg = Debug|ARM
+		{D6FDB523-B4F8-43BA-810E-184820DF6A99}.Debug|ARM.Build.0 = Debug|ARM
+		{D6FDB523-B4F8-43BA-810E-184820DF6A99}.Debug|ARM.Deploy.0 = Debug|ARM
+		{D6FDB523-B4F8-43BA-810E-184820DF6A99}.Debug|x64.ActiveCfg = Debug|x64
+		{D6FDB523-B4F8-43BA-810E-184820DF6A99}.Debug|x64.Build.0 = Debug|x64
+		{D6FDB523-B4F8-43BA-810E-184820DF6A99}.Debug|x64.Deploy.0 = Debug|x64
+		{D6FDB523-B4F8-43BA-810E-184820DF6A99}.Debug|x86.ActiveCfg = Debug|x86
+		{D6FDB523-B4F8-43BA-810E-184820DF6A99}.Debug|x86.Build.0 = Debug|x86
+		{D6FDB523-B4F8-43BA-810E-184820DF6A99}.Debug|x86.Deploy.0 = Debug|x86
+		{D6FDB523-B4F8-43BA-810E-184820DF6A99}.Release|Any CPU.ActiveCfg = Release|x86
+		{D6FDB523-B4F8-43BA-810E-184820DF6A99}.Release|ARM.ActiveCfg = Release|ARM
+		{D6FDB523-B4F8-43BA-810E-184820DF6A99}.Release|ARM.Build.0 = Release|ARM
+		{D6FDB523-B4F8-43BA-810E-184820DF6A99}.Release|ARM.Deploy.0 = Release|ARM
+		{D6FDB523-B4F8-43BA-810E-184820DF6A99}.Release|x64.ActiveCfg = Release|x64
+		{D6FDB523-B4F8-43BA-810E-184820DF6A99}.Release|x64.Build.0 = Release|x64
+		{D6FDB523-B4F8-43BA-810E-184820DF6A99}.Release|x64.Deploy.0 = Release|x64
+		{D6FDB523-B4F8-43BA-810E-184820DF6A99}.Release|x86.ActiveCfg = Release|x86
+		{D6FDB523-B4F8-43BA-810E-184820DF6A99}.Release|x86.Build.0 = Release|x86
+		{D6FDB523-B4F8-43BA-810E-184820DF6A99}.Release|x86.Deploy.0 = Release|x86
+		{D6FDB523-B4F8-43BA-810E-184820DF6A99}.Release-Net45|Any CPU.ActiveCfg = Release|x64
+		{D6FDB523-B4F8-43BA-810E-184820DF6A99}.Release-Net45|Any CPU.Build.0 = Release|x64
+		{D6FDB523-B4F8-43BA-810E-184820DF6A99}.Release-Net45|Any CPU.Deploy.0 = Release|x64
+		{D6FDB523-B4F8-43BA-810E-184820DF6A99}.Release-Net45|ARM.ActiveCfg = Release|ARM
+		{D6FDB523-B4F8-43BA-810E-184820DF6A99}.Release-Net45|ARM.Build.0 = Release|ARM
+		{D6FDB523-B4F8-43BA-810E-184820DF6A99}.Release-Net45|ARM.Deploy.0 = Release|ARM
+		{D6FDB523-B4F8-43BA-810E-184820DF6A99}.Release-Net45|x64.ActiveCfg = Release|x64
+		{D6FDB523-B4F8-43BA-810E-184820DF6A99}.Release-Net45|x64.Build.0 = Release|x64
+		{D6FDB523-B4F8-43BA-810E-184820DF6A99}.Release-Net45|x64.Deploy.0 = Release|x64
+		{D6FDB523-B4F8-43BA-810E-184820DF6A99}.Release-Net45|x86.ActiveCfg = Release|x86
+		{D6FDB523-B4F8-43BA-810E-184820DF6A99}.Release-Net45|x86.Build.0 = Release|x86
+		{D6FDB523-B4F8-43BA-810E-184820DF6A99}.Release-Net45|x86.Deploy.0 = Release|x86
+		{D6FDB523-B4F8-43BA-810E-184820DF6A99}.Release-Net451|Any CPU.ActiveCfg = Release|x64
+		{D6FDB523-B4F8-43BA-810E-184820DF6A99}.Release-Net451|Any CPU.Build.0 = Release|x64
+		{D6FDB523-B4F8-43BA-810E-184820DF6A99}.Release-Net451|Any CPU.Deploy.0 = Release|x64
+		{D6FDB523-B4F8-43BA-810E-184820DF6A99}.Release-Net451|ARM.ActiveCfg = Release|ARM
+		{D6FDB523-B4F8-43BA-810E-184820DF6A99}.Release-Net451|ARM.Build.0 = Release|ARM
+		{D6FDB523-B4F8-43BA-810E-184820DF6A99}.Release-Net451|ARM.Deploy.0 = Release|ARM
+		{D6FDB523-B4F8-43BA-810E-184820DF6A99}.Release-Net451|x64.ActiveCfg = Release|x64
+		{D6FDB523-B4F8-43BA-810E-184820DF6A99}.Release-Net451|x64.Build.0 = Release|x64
+		{D6FDB523-B4F8-43BA-810E-184820DF6A99}.Release-Net451|x64.Deploy.0 = Release|x64
+		{D6FDB523-B4F8-43BA-810E-184820DF6A99}.Release-Net451|x86.ActiveCfg = Release|x86
+		{D6FDB523-B4F8-43BA-810E-184820DF6A99}.Release-Net451|x86.Build.0 = Release|x86
+		{D6FDB523-B4F8-43BA-810E-184820DF6A99}.Release-Net451|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -3749,6 +3799,8 @@ Global
 		{0FBDB2DF-DA44-435A-AFDD-0BD88D3425A2} = {56EE1D10-C9FA-4E21-8846-81EB29AE67FA}
 		{D24ED6BA-2465-4636-A8BF-19BABF86F68A} = {F9F2C37F-DE62-4154-BB12-79025DBBC483}
 		{8C5F7679-ED42-44A5-94E8-1A09AF61E6B1} = {F9F2C37F-DE62-4154-BB12-79025DBBC483}
+		{9CADD080-BD8E-4B26-99EE-967EDBBCB14A} = {B18F1BA5-210C-472C-9394-213692C268F1}
+		{D6FDB523-B4F8-43BA-810E-184820DF6A99} = {F9F2C37F-DE62-4154-BB12-79025DBBC483}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D1F2CDF5-23CA-42FF-B139-C74A73C3FA62}
