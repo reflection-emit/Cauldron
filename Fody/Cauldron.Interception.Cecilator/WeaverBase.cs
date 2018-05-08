@@ -38,11 +38,64 @@ namespace Cauldron.Interception.Cecilator
             this.OnExecute();
         }
 
+        /// <summary>
+        /// Returns all assemblies that is referenced by the defined assembly <paramref name="assemblyDefinition"/> and its reference assemblies recursively.
+        /// </summary>
+        /// <returns>A collection of <see cref="AssemblyDefinition"/>.</returns>
+        public IEnumerable<AssemblyDefinition> GetAllReferencedAssemblies(AssemblyDefinition assemblyDefinition)
+        {
+            IEnumerable<AssemblyDefinition> getAssemblyDefinition(IEnumerable<AssemblyNameReference> assemblyNameReferences)
+            {
+                if (assemblyNameReferences == null)
+                    yield break;
+
+                foreach (var assemblyNameReference in assemblyNameReferences)
+                {
+                    AssemblyDefinition result = null;
+
+                    try
+                    {
+                        result = this.Resolve(assemblyNameReference);
+                    }
+                    catch (Exception)
+                    {
+                        continue;
+                    }
+
+                    yield return result;
+                }
+            }
+
+            yield return assemblyDefinition;
+
+            foreach (var item in assemblyDefinition.Recursive(x => getAssemblyDefinition(x?.MainModule?.AssemblyReferences)))
+                yield return item;
+        }
+
+        /// <summary>
+        /// Returns all assemblies that is referenced by the defined assemblies <paramref name="assemblyDefinitions"/> and its reference assemblies recursively.
+        /// </summary>
+        /// <returns>A collection of <see cref="AssemblyDefinition"/>.</returns>
+        public IEnumerable<AssemblyDefinition> GetAllReferencedAssemblies(IEnumerable<AssemblyDefinition> assemblyDefinitions)
+        {
+            foreach (var item in assemblyDefinitions)
+                foreach (var result in GetAllReferencedAssemblies(item))
+                    yield return result;
+        }
+
         public override IEnumerable<string> GetAssembliesForScanning()
         {
             yield return "mscorlib";
             yield return "System";
         }
+
+        /// <summary>
+        /// Loads the assembly using the Mono.Cecil default resolver.
+        /// </summary>
+        /// <param name="assemblyNameReference">The assembly name of the assembly to be resolved</param>
+        /// <returns>The <see cref="AssemblyDefinition"/> of the assembly.</returns>
+        public AssemblyDefinition Resolve(AssemblyNameReference assemblyNameReference) =>
+            this.ModuleDefinition.AssemblyResolver.Resolve(assemblyNameReference);
 
         protected abstract void OnExecute();
 

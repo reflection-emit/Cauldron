@@ -31,13 +31,13 @@ namespace Cauldron.Core.Reflection
             if (EntryAssembly == null)
                 return;
 
-            AddAssembly(EntryAssembly);
+            AddAssembly(EntryAssembly, false);
 
             if (AssembliesCore._referencedAssemblies == null)
                 return;
 
             for (int i = 0; i < AssembliesCore._referencedAssemblies.Length; i++)
-                AddAssembly(AssembliesCore._referencedAssemblies[i]);
+                AddAssembly(AssembliesCore._referencedAssemblies[i], false);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Cauldron.Interception.Cecilator;
 using Mono.Cecil;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -25,7 +26,7 @@ namespace Cauldron.Interception.Fody
             this.AddAssemblyWideAttributes(this.Builder);
             this.ExecuteInterceptionScripts(this.Builder);
             this.AddEntranceAssemblyHACK(this.Builder);
-            //this.ExecuteModuleAddition(this.Builder);
+            this.ExecuteModuleAddition(this.Builder);
         }
 
         private void AddEntranceAssemblyHACK(Builder builder)
@@ -62,8 +63,12 @@ namespace Cauldron.Interception.Fody
                 }
             }
 
-            CreateAssemblyListingArray(builder, referencedAssembliesMethod,
-                assembly.Type, builder.ReferencedAssemblies.Concat(builder.ReferenceCopyLocal));
+            IEnumerable<AssemblyDefinition> referencedAssemblies = builder.ReferencedAssemblies;
+
+            if (this.Config.Attribute("ReferenceCopyLocal").With(x => x == null ? true : (bool)x))
+                referencedAssemblies = referencedAssemblies.Concat(builder.ReferenceCopyLocal);
+
+            CreateAssemblyListingArray(builder, referencedAssembliesMethod, assembly.Type, this.GetAllReferencedAssemblies(referencedAssemblies));
         }
 
         private void CreateAssemblyListingArray(Builder builder, Method method, BuilderType assemblyType, IEnumerable<AssemblyDefinition> assembliesToList)
@@ -149,7 +154,7 @@ namespace Cauldron.Interception.Fody
                 var assembly = builder.GetType(typeof(System.Reflection.Assembly));
                 var cauldron = builder.GetType("CauldronInterceptionHelper", SearchContext.Module);
                 var arrayType = assembly.MakeArray();
-                var referencedAssembliesMethod = cauldron.GetMethod("ReferencedAssembliesInternal");
+                var referencedAssembliesMethod = cauldron.GetMethod("GetReferencedAssemblies");
 
                 // First find a type without namespace and with a static method called ModuleLoad
                 var onLoadMethods = builder.FindMethodsByName(SearchContext.Module_NoGenerated, "ModuleLoad", 1)
@@ -192,6 +197,9 @@ namespace Cauldron.Interception.Fody
                 if (item.FullName.StartsWith("System."))
                     continue;
 
+                if (item.FullName.StartsWith("Windows."))
+                    continue;
+
                 if (item.FullName == "testhost")
                     continue;
 
@@ -201,12 +209,6 @@ namespace Cauldron.Interception.Fody
                         continue;
 
                     if (type.IsGenericParameter)
-                        continue;
-
-                    if (type.IsGenericInstance)
-                        continue;
-
-                    if (type.HasCustomAttributes)
                         continue;
 
                     if (type.ContainsGenericParameter)
@@ -231,6 +233,9 @@ namespace Cauldron.Interception.Fody
                         continue;
 
                     if (type.Namespace.StartsWith("System."))
+                        continue;
+
+                    if (type.Name == "mscorlib")
                         continue;
 
                     yield return type;

@@ -112,7 +112,7 @@ namespace Cauldron.Interception.Cecilator
         public AssemblyDefinition[] ReferenceCopyLocal { get; private set; }
 
         public AssemblyDefinition[] ReferencedAssemblies =>
-                            this.moduleDefinition.AssemblyReferences
+                this.moduleDefinition.AssemblyReferences
                 .Select(x => this.moduleDefinition.AssemblyResolver.Resolve(x)).ToArray();
 
         public List<string> ResourceNames { get; private set; } = new List<string>();
