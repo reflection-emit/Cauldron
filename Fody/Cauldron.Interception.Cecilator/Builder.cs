@@ -29,6 +29,14 @@ namespace Cauldron.Interception.Cecilator
 
         public override int GetHashCode() => this.moduleDefinition.Assembly.FullName.GetHashCode();
 
+        /// <summary>
+        /// Returns the void Main method of a program. Returns null if there is non.
+        /// </summary>
+        /// <returns>Retruns an instance of <see cref="Method"/> representing the static void Main of the program; otherwise null</returns>
+        public Method GetMain() =>
+            this.FindMethodsByName(SearchContext.Module_NoGenerated, "Main", 1)
+                    .FirstOrDefault(x => x.ReturnType == BuilderType.Void && x.Parameters[0].ChildType == BuilderType.String);
+
         public Method Import(System.Reflection.MethodBase value)
         {
             var result = this.moduleDefinition.ImportReference(value);

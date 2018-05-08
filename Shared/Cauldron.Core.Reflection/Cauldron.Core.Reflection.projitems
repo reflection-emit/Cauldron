@@ -12,6 +12,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)ActivatorCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ApplicationInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Assemblies.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AssembliesCore.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AssemblyAddedEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AssemblyResource.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DisplayNameAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enum.cs" />

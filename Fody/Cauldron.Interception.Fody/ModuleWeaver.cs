@@ -1,6 +1,7 @@
 ﻿using Cauldron.Interception.Cecilator;
 using Mono.Cecil;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
@@ -20,7 +21,7 @@ namespace Cauldron.Interception.Fody
             this.AddAssemblyWideAttributes(this.Builder);
             this.ExecuteInterceptionScripts(this.Builder);
             this.AddEntranceAssemblyHACK(this.Builder);
-            this.ExecuteModuleAddition(this.Builder);
+            //this.ExecuteModuleAddition(this.Builder);
         }
 
         private void AddEntranceAssemblyHACK(Builder builder)
@@ -30,16 +31,14 @@ namespace Cauldron.Interception.Fody
             // Add the Entrance Assembly hack for UWP
             if (builder.IsUWP)
             {
-                var voidMain = builder.FindMethodsByName(SearchContext.Module_NoGenerated, "Main", 1)
-                    .FirstOrDefault(x => x.ReturnType == BuilderType.Void && x.Parameters[0].ChildType == BuilderType.String);
-
-                if (builder.Name != "Cauldron.dll" && builder.TypeExists("Cauldron.Core.Reflection.AssembliesCORE"))
+                var voidMain = builder.GetMain();
+                if (builder.Name != "Cauldron.dll" && builder.TypeExists("Cauldron.Core.Reflection.AssembliesCore"))
                 {
                     voidMain.NewCoder().Context(context =>
                     {
                         var introspectionExtensions = builder.GetType("System.Reflection.IntrospectionExtensions").Import().With(y => new { Type = y, GetTypeInfo = y.GetMethod("GetTypeInfo", 1).Import() });
                         var typeInfo = builder.GetType("System.Reflection.TypeInfo").Import().With(y => new { Type = y, Assembly = y.GetMethod("get_Assembly").Import() });
-                        var assemblies = builder.GetType("Cauldron.Core.Reflection.AssembliesCORE").Import().With(y => new { Type = y, EntryAssembly = y.GetMethod("SetEntryAssembly", 1).Import() });
+                        var assemblies = builder.GetType("Cauldron.Core.Reflection.AssembliesCore").Import().With(y => new { Type = y, EntryAssembly = y.GetMethod("SetEntryAssembly", 1).Import() });
                         return context.Call(assemblies.EntryAssembly, x =>
                             x.Call(introspectionExtensions.GetTypeInfo, voidMain.DeclaringType)
                                 .Call(typeInfo.Assembly)).End;
@@ -49,22 +48,26 @@ namespace Cauldron.Interception.Fody
             }
 
             var cauldron = builder.GetType("<Cauldron>", SearchContext.Module);
-            var referencedAssembliesMethod = cauldron.CreateMethod(Modifiers.InternalStatic, builder.MakeArray(assembly.Type), "ReferencedAssembliesInternal");
+            var referencedAssembliesMethod = cauldron.CreateMethod(Modifiers.PublicStatic, builder.MakeArray(assembly.Type), "GetReferencedAssemblies");
 
-            // Add a new interface to <Cauldron> type
-            if (builder.TypeExists("Cauldron.Core.ILoadedAssemblies"))
-            {
-                var loadedAssembliesInterface = builder.GetType("Cauldron.Core.ILoadedAssemblies").Import().With(x => new { Type = x, ReferencedAssemblies = x.GetMethod("ReferencedAssemblies").Import() });
-                cauldron.AddInterface(loadedAssembliesInterface.Type);
-                cauldron.CreateMethod(Modifiers.Overrides | Modifiers.Public, builder.MakeArray(assembly.Type), "ReferencedAssemblies")
-                    .NewCoder()
-                    .Call(referencedAssembliesMethod)
-                    .Return()
-                    .Replace();
-            }
+            //// Add a new interface to <Cauldron> type
+            //if (builder.TypeExists("Cauldron.Core.ILoadedAssemblies"))
+            //{
+            //    var loadedAssembliesInterface = builder.GetType("Cauldron.Core.ILoadedAssemblies").Import().With(x => new { Type = x, ReferencedAssemblies = x.GetMethod("ReferencedAssemblies").Import() });
+            //    cauldron.AddInterface(loadedAssembliesInterface.Type);
+            //    cauldron.CreateMethod(Modifiers.Overrides | Modifiers.Public, builder.MakeArray(assembly.Type), "ReferencedAssemblies")
+            //        .NewCoder()
+            //        .Call(referencedAssembliesMethod)
+            //        .Return()
+            //        .Replace();
+            //}
 
             CreateAssemblyListingArray(builder, referencedAssembliesMethod,
-                assembly.Type, builder.ReferencedAssemblies.Concat(builder.ReferenceCopyLocal).Distinct());
+                assembly.Type, builder.ReferencedAssemblies.Concat(builder.ReferenceCopyLocal));
+
+            if (builder.IsUWP)
+            {
+            }
         }
 
         private void CreateAssemblyListingArray(Builder builder, Method method, BuilderType assemblyType, IEnumerable<AssemblyDefinition> assembliesToList)
@@ -75,7 +78,7 @@ namespace Cauldron.Interception.Fody
             method.NewCoder().Context(context =>
             {
                 var returnValue = context.GetOrCreateReturnVariable();
-                var referencedTypes = this.FilterAssemblyList(assembliesToList);
+                var referencedTypes = this.FilterAssemblyList(assembliesToList.Distinct(new AssemblyDefinitionEqualityComparer())).ToArray();
 
                 if (referencedTypes.Length > 0)
                 {
@@ -177,13 +180,67 @@ namespace Cauldron.Interception.Fody
             }
         }
 
-        private TypeDefinition[] FilterAssemblyList(IEnumerable<AssemblyDefinition> assemblies) =>
-            assemblies
-            .Where(x => x != null && x.FullName != null && !x.FullName.StartsWith("Microsoft.VisualStudio.TestTools.UnitTesting") && !x.FullName.StartsWith("System."))
-            .Select(x => x.MainModule.Types
-                    .FirstOrDefault(y => y.IsPublic && !y.IsGenericParameter && !y.HasCustomAttributes && !y.ContainsGenericParameter && !y.FullName.Contains('`') && y.FullName.Contains('.'))
-            )
-            .Where(x => x != null)
-            .ToArray();
+        private IEnumerable<TypeDefinition> FilterAssemblyList(IEnumerable<AssemblyDefinition> assemblies)
+        {
+            foreach (var item in assemblies)
+            {
+                if (item == null)
+                    continue;
+
+                if (item.FullName == null)
+                    continue;
+
+                if (item.FullName.StartsWith("Microsoft."))
+                    continue;
+
+                if (item.FullName.StartsWith("System."))
+                    continue;
+
+                if (item.FullName == "testhost")
+                    continue;
+
+                foreach (var type in item.MainModule.Types)
+                {
+                    if (!type.IsPublic)
+                        continue;
+
+                    if (type.IsGenericParameter)
+                        continue;
+
+                    if (type.IsGenericInstance)
+                        continue;
+
+                    if (type.HasCustomAttributes)
+                        continue;
+
+                    if (type.ContainsGenericParameter)
+                        continue;
+
+                    if (type.IsEnum)
+                        continue;
+
+                    if (type.IsInterface)
+                        continue;
+
+                    if (type.FullName.IndexOf('.') < 0)
+                        continue;
+
+                    if (type.FullName.IndexOf('<') >= 0)
+                        continue;
+
+                    if (type.FullName.IndexOf('>') >= 0)
+                        continue;
+
+                    if (type.FullName.IndexOf('`') >= 0)
+                        continue;
+
+                    if (type.Namespace.StartsWith("System."))
+                        continue;
+
+                    yield return type;
+                    break;
+                }
+            }
+        }
     }
 }

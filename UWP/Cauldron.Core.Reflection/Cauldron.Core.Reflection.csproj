@@ -110,7 +110,7 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ILoadedAssemblies.cs" />
+    <Compile Include="Assemblies.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Cauldron.Core.Reflection.rd.xml" />
   </ItemGroup>

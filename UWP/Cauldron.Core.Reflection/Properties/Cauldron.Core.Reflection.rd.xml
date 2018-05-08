@@ -27,10 +27,10 @@
 <Directives xmlns="http://schemas.microsoft.com/netfx/2013/01/metadata">
   <Library Name="Cauldron.Core.Reflection">
 
-    <!-- add directives for your library here -->
+    <!-- add directives for your library here
 
     <Type Name="Cauldron.Core.ILoadedAssemblies">
       <Subtypes Dynamic="Required Public" />
-    </Type>
+    </Type> -->
   </Library>
 </Directives>

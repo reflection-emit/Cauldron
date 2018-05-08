@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netcoreapp2.0\Cauldron.Core.Reflection.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netcoreapp2.0\Cauldron.Core.Reflection.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <Import Project="..\..\Shared\Cauldron.Core.Reflection\Cauldron.Core.Reflection.projitems" Label="Shared" />
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cauldron.Core.Diagnostics\Cauldron.Core.Diagnostics.csproj" />
+  </ItemGroup>
+
+</Project>
