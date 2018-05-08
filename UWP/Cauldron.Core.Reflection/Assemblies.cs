@@ -31,21 +31,13 @@ namespace Cauldron.Core.Reflection
             if (EntryAssembly == null)
                 return;
 
-            var cauldron = EntryAssembly
-                .GetType("<Cauldron>", false, false)?
-                .GetMethod("GetReferencedAssemblies", BindingFlags.Public | BindingFlags.Static);
+            AddAssembly(EntryAssembly);
 
-            _assemblies.Add(EntryAssembly);
+            if (AssembliesCore._referencedAssemblies == null)
+                return;
 
-            if (cauldron != null)
-            {
-                var assemblies = cauldron.Invoke(null, null) as Assembly[];
-                if (assemblies == null)
-                    return;
-
-                for (int i = 0; i < assemblies.Length; i++)
-                    AddAssembly(assemblies[i]);
-            }
+            for (int i = 0; i < AssembliesCore._referencedAssemblies.Length; i++)
+                AddAssembly(AssembliesCore._referencedAssemblies[i]);
         }
     }
 }

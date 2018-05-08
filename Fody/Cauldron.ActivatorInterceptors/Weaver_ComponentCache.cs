@@ -18,7 +18,7 @@ public static class Weaver_ComponentCache
     {
         builder.Log(LogTypes.Info, "Creating Cauldron Cache");
 
-        var cauldron = builder.GetType("<Cauldron>", SearchContext.Module);
+        var cauldron = builder.GetType("CauldronInterceptionHelper", SearchContext.Module);
         var componentAttribute = __ComponentAttribute.Instance;
         var factory = __Factory.Instance;
 

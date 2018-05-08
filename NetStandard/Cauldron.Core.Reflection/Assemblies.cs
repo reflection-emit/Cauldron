@@ -28,7 +28,7 @@ namespace Cauldron.Core.Reflection
     /// </summary>
     public static partial class Assemblies
     {
-        private const string CauldronClassName = "<Cauldron>";
+        private const string CauldronClassName = "CauldronInterceptionHelper";
 
         private static List<Assembly> _assemblies;
         private static List<AssemblyResource> _assemblyAndResourceNamesInfo = new List<AssemblyResource>();
@@ -380,7 +380,7 @@ namespace Cauldron.Core.Reflection
 
 #if WINDOWS_UWP || NETCORE
             var assemblies = new List<Assembly>();
-            var cauldron = AssembliesCORE.EntryAssembly.GetType("<Cauldron>").GetMethod("GetReferencedAssemblies", BindingFlags.Public | BindingFlags.Static);
+            var cauldron = AssembliesCORE.EntryAssembly.GetType("CauldronInterceptionHelper").GetMethod("GetReferencedAssemblies", BindingFlags.Public | BindingFlags.Static);
             assemblies.Add(AssembliesCORE.EntryAssembly);
 
             if (cauldron != null)
@@ -468,7 +468,7 @@ namespace Cauldron.Core.Reflection
                 }
                 catch (Exception e)
                 {
-                    Debug.WriteLine("Error Loading <Cauldron>: " + e.Message);
+                    Debug.WriteLine("Error Loading CauldronInterceptionHelper: " + e.Message);
                     // Remove this assembly from the assembly list
                     _assemblies.Remove(assemblies[i]);
                 }

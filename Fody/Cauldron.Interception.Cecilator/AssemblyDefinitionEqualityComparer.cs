@@ -22,6 +22,6 @@ namespace Cauldron.Interception.Cecilator
             return false;
         }
 
-        public int GetHashCode(AssemblyDefinition obj) => obj.GetHashCode();
+        public int GetHashCode(AssemblyDefinition obj) => obj?.FullName.GetHashCode() ?? 0;
     }
 }

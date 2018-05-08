@@ -17,6 +17,10 @@ namespace Cauldron.Interception.Fody
                 .FirstOrDefault() as System.Reflection.AssemblyFileVersionAttribute;
 
             this.Log($"Cauldron Interception v" + versionAttribute.Version);
+
+            if (this.Builder.TypeExists("CauldronInterceptionHelper"))
+                return;
+
             this.CreateCauldronEntry(this.Builder);
             this.AddAssemblyWideAttributes(this.Builder);
             this.ExecuteInterceptionScripts(this.Builder);
@@ -27,47 +31,39 @@ namespace Cauldron.Interception.Fody
         private void AddEntranceAssemblyHACK(Builder builder)
         {
             var assembly = builder.GetType("System.Reflection.Assembly").Import().With(x => new { Type = x, Load = x.GetMethod("Load", 1).Import() });
+            var cauldron = builder.GetType("CauldronInterceptionHelper", SearchContext.Module);
+            var referencedAssembliesMethod = cauldron.CreateMethod(Modifiers.PublicStatic, builder.MakeArray(assembly.Type), "GetReferencedAssemblies");
+            var voidMain = builder.GetMain();
 
-            // Add the Entrance Assembly hack for UWP
-            if (builder.IsUWP)
+            // Add the Entrance Assembly and referenced assemblies hack for UWP
+            if (builder.IsUWP && voidMain != null)
             {
-                var voidMain = builder.GetMain();
                 if (builder.Name != "Cauldron.dll" && builder.TypeExists("Cauldron.Core.Reflection.AssembliesCore"))
                 {
                     voidMain.NewCoder().Context(context =>
                     {
                         var introspectionExtensions = builder.GetType("System.Reflection.IntrospectionExtensions").Import().With(y => new { Type = y, GetTypeInfo = y.GetMethod("GetTypeInfo", 1).Import() });
                         var typeInfo = builder.GetType("System.Reflection.TypeInfo").Import().With(y => new { Type = y, Assembly = y.GetMethod("get_Assembly").Import() });
-                        var assemblies = builder.GetType("Cauldron.Core.Reflection.AssembliesCore").Import().With(y => new { Type = y, EntryAssembly = y.GetMethod("SetEntryAssembly", 1).Import() });
-                        return context.Call(assemblies.EntryAssembly, x =>
+                        var assemblies = builder.GetType("Cauldron.Core.Reflection.AssembliesCore").Import().With(y => new
+                        {
+                            Type = y,
+                            SetEntryAssembly = y.GetMethod("SetEntryAssembly", 1).Import(),
+                            SetReferenceAssemblies = y.GetMethod("SetReferenceAssemblies", 1).Import()
+                        });
+
+                        return context.Call(assemblies.SetEntryAssembly, x =>
                             x.Call(introspectionExtensions.GetTypeInfo, voidMain.DeclaringType)
-                                .Call(typeInfo.Assembly)).End;
+                                .Call(typeInfo.Assembly))
+                            .End
+                            .Call(assemblies.SetReferenceAssemblies, x => x.Call(referencedAssembliesMethod))
+                            .End;
                     })
                     .Insert(InsertionPosition.Beginning);
                 }
             }
 
-            var cauldron = builder.GetType("<Cauldron>", SearchContext.Module);
-            var referencedAssembliesMethod = cauldron.CreateMethod(Modifiers.PublicStatic, builder.MakeArray(assembly.Type), "GetReferencedAssemblies");
-
-            //// Add a new interface to <Cauldron> type
-            //if (builder.TypeExists("Cauldron.Core.ILoadedAssemblies"))
-            //{
-            //    var loadedAssembliesInterface = builder.GetType("Cauldron.Core.ILoadedAssemblies").Import().With(x => new { Type = x, ReferencedAssemblies = x.GetMethod("ReferencedAssemblies").Import() });
-            //    cauldron.AddInterface(loadedAssembliesInterface.Type);
-            //    cauldron.CreateMethod(Modifiers.Overrides | Modifiers.Public, builder.MakeArray(assembly.Type), "ReferencedAssemblies")
-            //        .NewCoder()
-            //        .Call(referencedAssembliesMethod)
-            //        .Return()
-            //        .Replace();
-            //}
-
             CreateAssemblyListingArray(builder, referencedAssembliesMethod,
                 assembly.Type, builder.ReferencedAssemblies.Concat(builder.ReferenceCopyLocal));
-
-            if (builder.IsUWP)
-            {
-            }
         }
 
         private void CreateAssemblyListingArray(Builder builder, Method method, BuilderType assemblyType, IEnumerable<AssemblyDefinition> assembliesToList)
@@ -134,11 +130,11 @@ namespace Cauldron.Interception.Fody
         {
             BuilderType cauldron = null;
 
-            if (builder.TypeExists("<Cauldron>", SearchContext.Module))
-                cauldron = builder.GetType("<Cauldron>", SearchContext.Module);
+            if (builder.TypeExists("CauldronInterceptionHelper", SearchContext.Module))
+                cauldron = builder.GetType("CauldronInterceptionHelper", SearchContext.Module);
             else
             {
-                cauldron = builder.CreateType("", TypeAttributes.Public | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit, "<Cauldron>");
+                cauldron = builder.CreateType("", TypeAttributes.Public | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit, "CauldronInterceptionHelper");
                 cauldron.CreateConstructor();
                 cauldron.CustomAttributes.AddCompilerGeneratedAttribute();
             }
@@ -151,7 +147,7 @@ namespace Cauldron.Interception.Fody
             using (new StopwatchLog(this, "ModuleLoad"))
             {
                 var assembly = builder.GetType(typeof(System.Reflection.Assembly));
-                var cauldron = builder.GetType("<Cauldron>", SearchContext.Module);
+                var cauldron = builder.GetType("CauldronInterceptionHelper", SearchContext.Module);
                 var arrayType = assembly.MakeArray();
                 var referencedAssembliesMethod = cauldron.GetMethod("ReferencedAssembliesInternal");
 

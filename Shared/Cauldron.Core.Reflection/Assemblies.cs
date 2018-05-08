@@ -14,7 +14,7 @@ namespace Cauldron.Core.Reflection
     /// </summary>
     public static partial class Assemblies
     {
-        private const string CauldronClassName = "<Cauldron>";
+        private const string CauldronClassName = "CauldronInterceptionHelper";
 
         private static ConcurrentBag<Assembly> _assemblies = new ConcurrentBag<Assembly>();
         private static ConcurrentBag<AssemblyResource> _assemblyAndResourceNamesInfo = new ConcurrentBag<AssemblyResource>();

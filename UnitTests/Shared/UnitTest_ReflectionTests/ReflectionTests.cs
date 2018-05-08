@@ -1,6 +1,6 @@
 ﻿using Cauldron.Core.Reflection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Diagnostics;
+using System.Linq;
 using System.Reflection;
 
 namespace UnitTest_ReflectionTests
@@ -17,7 +17,8 @@ namespace UnitTest_ReflectionTests
         [TestMethod]
         public void ReferencedAssemblies_UWP_Hack()
         {
-            Assert.IsTrue(Assemblies.Known.Length == 4);
+            Assert.IsTrue(Assemblies.Known.Length > 1);
+            Assert.IsTrue(Assemblies.Known.Contains(typeof(ReflectionTests).GetTypeInfo().Assembly));
         }
     }
 }
