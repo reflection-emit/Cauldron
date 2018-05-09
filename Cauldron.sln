@@ -372,6 +372,7 @@ Global
 		Shared\Cauldron.Core.Reflection\Cauldron.Core.Reflection.projitems*{18007fdf-64a8-4844-a01d-34f7d1d87e39}*SharedItemsImports = 4
 		UnitTests\Resources\Fody_Interceptors\Fody_Interceptors.projitems*{1cc529ea-669f-498a-89b2-f6ccddea0b62}*SharedItemsImports = 13
 		Shared\Cauldron.Core\Cauldron.Core.projitems*{22b1eda6-f216-4dd3-b524-7421e25f9cc9}*SharedItemsImports = 4
+		UnitTests\Shared\UnitTest_ActivatorTests\UnitTest_ActivatorTests.projitems*{260cbe4f-c401-4538-b8c7-356f654e11f1}*SharedItemsImports = 4
 		Shared\Cauldron.Core.MathExtensions\Cauldron.Core.MathExtensions.projitems*{2f0da0a6-49a2-43c4-8018-8fe9c0b51e0f}*SharedItemsImports = 4
 		Shared\Cauldron.Consoles\Cauldron.Consoles.projitems*{3014e506-954a-4601-97a2-797e6306fdc4}*SharedItemsImports = 13
 		Shared\Cauldron.Core.Reflection\Cauldron.Core.Reflection.projitems*{3653a4cc-4953-4aec-a68e-f46ef135cc7c}*SharedItemsImports = 13
