@@ -1300,7 +1300,6 @@ namespace Cauldron.Interception.Cecilator
             {
                 TypeReference resolveType(IReadOnlyDictionary<string, TypeReference> genericParameters, TypeReference ptype)
                 {
-                    Builder.Current.Log(LogTypes.Info, $"---> {ptype.FullName}");
                     var genericType = !genericParameters.ContainsKey(ptype.FullName) ? ptype.ResolveType(ownerMethod) : genericParameters[ptype.FullName];
 
                     while (genericType.IsGenericParameter)
