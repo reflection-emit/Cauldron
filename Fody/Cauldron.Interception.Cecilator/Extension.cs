@@ -182,7 +182,14 @@ namespace Cauldron.Interception.Cecilator
                 return WeaverBase.AllTypes.FirstOrDefault(x => x.FullName.StartsWith(name));
             }
 
-            return value.Resolve() ?? resolve();
+            try
+            {
+                return value.Resolve() ?? resolve();
+            }
+            catch
+            {
+                return resolve();
+            }
         }
 
         public static Builder CreateBuilder(this WeaverBase weaver)

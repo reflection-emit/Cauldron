@@ -1,10 +1,7 @@
 ﻿using Cauldron.Interception.Cecilator;
 using Mono.Cecil;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Runtime.CompilerServices;
 
 namespace Cauldron.Interception.Fody
 {
@@ -18,9 +15,6 @@ namespace Cauldron.Interception.Fody
                 .FirstOrDefault() as System.Reflection.AssemblyFileVersionAttribute;
 
             this.Log($"Cauldron Interception v" + versionAttribute.Version);
-
-            if (this.Builder.TypeExists("CauldronInterceptionHelper"))
-                return;
 
             this.CreateCauldronEntry(this.Builder);
             this.AddAssemblyWideAttributes(this.Builder);
@@ -37,9 +31,9 @@ namespace Cauldron.Interception.Fody
             var voidMain = builder.GetMain();
 
             // Add the Entrance Assembly and referenced assemblies hack for UWP
-            if (builder.IsUWP && voidMain != null)
+            if (voidMain != null)
             {
-                if (builder.Name != "Cauldron.dll" && builder.TypeExists("Cauldron.Core.Reflection.AssembliesCore"))
+                if (builder.TypeExists("Cauldron.Core.Reflection.AssembliesCore"))
                 {
                     voidMain.NewCoder().Context(context =>
                     {
@@ -63,12 +57,7 @@ namespace Cauldron.Interception.Fody
                 }
             }
 
-            IEnumerable<AssemblyDefinition> referencedAssemblies = builder.ReferencedAssemblies;
-
-            if (this.Config.Attribute("ReferenceCopyLocal").With(x => x == null ? true : (bool)x))
-                referencedAssemblies = referencedAssemblies.Concat(builder.ReferenceCopyLocal);
-
-            CreateAssemblyListingArray(builder, referencedAssembliesMethod, assembly.Type, this.GetAllReferencedAssemblies(referencedAssemblies));
+            CreateAssemblyListingArray(builder, referencedAssembliesMethod, assembly.Type, builder.ReferencedAssemblies);
         }
 
         private void CreateAssemblyListingArray(Builder builder, Method method, BuilderType assemblyType, IEnumerable<AssemblyDefinition> assembliesToList)
@@ -139,8 +128,7 @@ namespace Cauldron.Interception.Fody
                 cauldron = builder.GetType("CauldronInterceptionHelper", SearchContext.Module);
             else
             {
-                cauldron = builder.CreateType("", TypeAttributes.Public | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit, "CauldronInterceptionHelper");
-                cauldron.CreateConstructor();
+                cauldron = builder.CreateType("", TypeAttributes.Public | TypeAttributes.Abstract | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit, "CauldronInterceptionHelper");
                 cauldron.CustomAttributes.AddCompilerGeneratedAttribute();
             }
 
@@ -203,6 +191,9 @@ namespace Cauldron.Interception.Fody
                 if (item.FullName == "testhost")
                     continue;
 
+                if (item.FullName == "mscorlib")
+                    continue;
+
                 foreach (var type in item.MainModule.Types)
                 {
                     if (!type.IsPublic)
@@ -233,9 +224,6 @@ namespace Cauldron.Interception.Fody
                         continue;
 
                     if (type.Namespace.StartsWith("System."))
-                        continue;
-
-                    if (type.Name == "mscorlib")
                         continue;
 
                     yield return type;

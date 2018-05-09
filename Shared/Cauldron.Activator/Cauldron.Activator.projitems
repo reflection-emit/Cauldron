@@ -14,11 +14,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)ComponentConstructorAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExtensionsCloning.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Factory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FactoryCore.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FactoryCreationPolicy.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FactoryGeneric.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FactoryObjectCreatedEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FactoryTypeInfoComparer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FactoryTypeInfoInternal.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IFactoryCache.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IFactoryResolver.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IFactoryTypeInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)InjectAttribute.cs" />

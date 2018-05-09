@@ -8,9 +8,9 @@ namespace Cauldron.Core.Reflection
     /// </summary>
     public sealed class AssemblyAddedEventArgs : EventArgs
     {
-        internal AssemblyAddedEventArgs(Assembly assembly, object cauldron)
+        internal AssemblyAddedEventArgs(Assembly assembly, MethodInfo cauldronGetComponentsMethod)
         {
-            this.Cauldron = cauldron;
+            this.CauldronGetComponents = cauldronGetComponentsMethod;
             this.Assembly = assembly;
         }
 
@@ -22,6 +22,6 @@ namespace Cauldron.Core.Reflection
         /// <summary>
         /// Gets the auto-generated cauldron object.
         /// </summary>
-        public object Cauldron { get; private set; }
+        public MethodInfo CauldronGetComponents { get; private set; }
     }
 }

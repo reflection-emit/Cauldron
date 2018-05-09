@@ -115,6 +115,15 @@ namespace Cauldron.Interception.Cecilator
 
         public string Namespace => this.typeDefinition.Namespace;
 
+        /// <summary>
+        /// Writes the names of the methods in the current type to the build output.
+        /// </summary>
+        public void DisplayMethodNames()
+        {
+            foreach (var item in this.Methods)
+                this.Log(LogTypes.Info, $"           {item.Fullname}");
+        }
+
         public IEnumerable<BuilderType> GenericArguments()
         {
             if (this.typeReference.IsGenericInstance)
@@ -184,7 +193,7 @@ namespace Cauldron.Interception.Cecilator
         internal BuilderType(Builder builder, ArrayType arrayType) : base(builder)
         {
             this.typeReference = arrayType;
-            this.typeDefinition = this.typeReference.Resolve();
+            this.typeDefinition = this.typeReference.BetterResolve();
             this.Builder = builder;
         }
 
@@ -197,7 +206,7 @@ namespace Cauldron.Interception.Cecilator
 
         internal BuilderType(Builder builder, TypeReference typeReference) : base(builder)
         {
-            this.typeDefinition = typeReference.Resolve();
+            this.typeDefinition = typeReference.BetterResolve();
             this.typeReference = typeReference;
             this.Builder = builder;
         }
@@ -212,7 +221,7 @@ namespace Cauldron.Interception.Cecilator
         internal BuilderType(BuilderType builderType, TypeReference typeReference) : base(builderType)
         {
             this.typeReference = typeReference;
-            this.typeDefinition = typeReference.Resolve();
+            this.typeDefinition = typeReference.BetterResolve();
             this.Builder = builderType.Builder;
         }
 

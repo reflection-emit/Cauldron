@@ -42,7 +42,7 @@ public static class Weaver_ComponentCache
         {
             CreateInstance = x.GetMethod("CreateInstance", 2)
         });
-        var factoryCacheInterface = builder.GetType("Cauldron.Activator.IFactoryCache");
+        //var factoryCacheInterface = builder.GetType("Cauldron.Activator.IFactoryCache");
         var factoryTypeInfoInterface = builder.GetType("Cauldron.Activator.IFactoryTypeInfo");
         var createInstanceInterfaceMethod = factoryTypeInfoInterface.GetMethod("CreateInstance", 1);
 
@@ -57,6 +57,7 @@ public static class Weaver_ComponentCache
             var componentType = builder.CreateType("", TypeAttributes.NotPublic | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit, "<>f__IFactoryTypeInfo_" + component.Type.Name + "_" + counter++);
             var componentAttributeField = componentType.CreateField(Modifiers.Private, componentAttribute.ToBuilderType, "componentAttribute");
             componentType.AddInterface(factoryTypeInfoInterface);
+            componentType.CustomAttributes.AddDebuggerDisplayAttribute(component.Type.Name + " ({ContractName})");
             componentTypes.Add(componentType);
 
             // Create ctor
@@ -105,37 +106,62 @@ public static class Weaver_ComponentCache
         }
 
         builder.Log(LogTypes.Info, "Adding component IFactoryCache Interface");
-        cauldron.AddInterface(factoryCacheInterface);
-        var factoryCacheInterfaceAvatar = factoryCacheInterface.With(x => new
-        {
-            Components = x.GetMethod("GetComponents")
-        });
-        var ctorCoder = cauldron.ParameterlessContructor.NewCoder();
-        cauldron.CreateMethod(Modifiers.Public | Modifiers.Overrides, factoryCacheInterfaceAvatar.Components.ReturnType, factoryCacheInterfaceAvatar.Components.Name)
-        .NewCoder()
+
+        var linqEnumerable = builder.GetType("System.Linq.Enumerable", SearchContext.AllReferencedModules);
+        var ifactoryTypeInfo = factoryTypeInfoInterface.MakeArray();
+        var ctorCoder = cauldron.CreateStaticConstructor().NewCoder();
+        var concat = linqEnumerable.GetMethod("Concat", 2, true).MakeGeneric(factoryTypeInfoInterface);
+        var toArray = linqEnumerable.GetMethod("ToArray", 1, true).MakeGeneric(factoryTypeInfoInterface);
+        var getComponentsFromOtherAssemblies = builder.ReferencedAssemblies
+            .Select(x => x.MainModule.GetType("CauldronInterceptionHelper"))
+            .Where(x => x != null)
+            .Select(x => x.ToBuilderType())
+            .Select(x => x.GetMethod("GetComponents", false)?.Import())
+            .Where(x => x != null)
+            .ToArray();
+
+        var getComponentsMethod = cauldron.CreateMethod(Modifiers.Public | Modifiers.Static, ifactoryTypeInfo, "GetComponents");
+        getComponentsMethod
             .NewCoder()
-            .Context(context =>
-            {
-                var resultValue = context.GetOrCreateReturnVariable();
-                context.SetValue(resultValue, x => x.Newarr(factoryTypeInfoInterface, componentTypes.Count));
-
-                for (int i = 0; i < componentTypes.Count; i++)
+                .NewCoder()
+                .Context(context =>
                 {
-                    var field = cauldron.CreateField(Modifiers.Private, factoryTypeInfoInterface, "<FactoryType>f__" + i);
-                    context
-                        .Load(resultValue)
-                        .StoreElement(field, i);
-                    // x.StoreElement(factoryTypeInfoInterface,
-                    // x.NewCode().NewObj(componentTypes[i].ParameterlessContructor), i);
-                    ctorCoder.SetValue(field, x => x.NewObj(componentTypes[i].ParameterlessContructor));
-                }
+                    var resultValue = context.GetOrCreateReturnVariable();
+                    context.SetValue(resultValue, x => x.Newarr(factoryTypeInfoInterface, componentTypes.Count));
 
-                return context;
-            })
-            .Return()
-            .Replace();
+                    for (int i = 0; i < componentTypes.Count; i++)
+                    {
+                        var field = cauldron.CreateField(Modifiers.PrivateStatic, factoryTypeInfoInterface, "<FactoryType>f__" + i);
+                        context
+                            .Load(resultValue)
+                            .StoreElement(field, i);
+                        ctorCoder.SetValue(field, x => x.NewObj(componentTypes[i].ParameterlessContructor));
+                    }
+
+                    if (getComponentsFromOtherAssemblies.Length > 0)
+                    {
+                        context.Load(resultValue);
+
+                        foreach (var item in getComponentsFromOtherAssemblies)
+                            context.Call(concat, x => x.Call(item));
+
+                        context.Call(toArray);
+                    }
+                    return context;
+                })
+                .Return()
+                .Replace();
 
         ctorCoder.Insert(InsertionPosition.End);
+
+        var voidMain = builder.GetMain();
+        if (voidMain != null)
+        {
+            voidMain.NewCoder()
+                .Call(builder.GetType("Cauldron.Activator.FactoryCore").GetMethod("SetComponents", 1, true), x => x.Call(getComponentsMethod))
+                .End
+                .Insert(InsertionPosition.Beginning);
+        }
     }
 
     private static void AddComponentAttribute(Builder builder, IEnumerable<BuilderType> builderTypes, Func<BuilderType, string> contractNameDelegate = null)

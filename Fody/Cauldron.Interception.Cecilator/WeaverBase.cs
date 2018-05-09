@@ -3,8 +3,10 @@ using Mono.Cecil;
 using Mono.Cecil.Cil;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 
 namespace Cauldron.Interception.Cecilator
 {
@@ -44,32 +46,38 @@ namespace Cauldron.Interception.Cecilator
         /// <returns>A collection of <see cref="AssemblyDefinition"/>.</returns>
         public IEnumerable<AssemblyDefinition> GetAllReferencedAssemblies(AssemblyDefinition assemblyDefinition)
         {
-            IEnumerable<AssemblyDefinition> getAssemblyDefinition(IEnumerable<AssemblyNameReference> assemblyNameReferences)
+            var result = new Collection<AssemblyDefinition>();
+
+            void getAssemblyDefinition(IEnumerable<AssemblyNameReference> assemblyNameReferences)
             {
                 if (assemblyNameReferences == null)
-                    yield break;
+                    return;
 
                 foreach (var assemblyNameReference in assemblyNameReferences)
+                    addAssemblyDefinition(assemblyNameReference);
+            }
+
+            void addAssemblyDefinition(AssemblyNameReference assemblyNameReference)
+            {
+                var resolvedAssembly = this.Resolve(assemblyNameReference);
+                if (resolvedAssembly != null && !result.Contains(resolvedAssembly, new AssemblyDefinitionEqualityComparer()))
                 {
-                    AssemblyDefinition result = null;
+                    result.Add(resolvedAssembly);
 
-                    try
-                    {
-                        result = this.Resolve(assemblyNameReference);
-                    }
-                    catch (Exception)
-                    {
-                        continue;
-                    }
-
-                    yield return result;
+                    if (resolvedAssembly.MainModule != null)
+                        getAssemblyDefinition(resolvedAssembly.MainModule.AssemblyReferences);
                 }
             }
 
-            yield return assemblyDefinition;
+            if (assemblyDefinition != null && !result.Contains(assemblyDefinition, new AssemblyDefinitionEqualityComparer()))
+            {
+                result.Add(assemblyDefinition);
 
-            foreach (var item in assemblyDefinition.Recursive(x => getAssemblyDefinition(x?.MainModule?.AssemblyReferences)))
-                yield return item;
+                if (assemblyDefinition.MainModule != null)
+                    getAssemblyDefinition(assemblyDefinition.MainModule.AssemblyReferences);
+            }
+
+            return result;
         }
 
         /// <summary>
@@ -92,10 +100,34 @@ namespace Cauldron.Interception.Cecilator
         /// <summary>
         /// Loads the assembly using the Mono.Cecil default resolver.
         /// </summary>
+        /// <param name="assemblyNameReferences">The assembly names of the assemblies to be resolved</param>
+        /// <returns>The <see cref="AssemblyDefinition"/> of the assembly.</returns>
+        public IEnumerable<AssemblyDefinition> Resolve(IEnumerable<AssemblyNameReference> assemblyNameReferences)
+        {
+            foreach (var item in assemblyNameReferences)
+            {
+                var result = this.Resolve(item);
+                if (result != null)
+                    yield return result;
+            }
+        }
+
+        /// <summary>
+        /// Loads the assembly using the Mono.Cecil default resolver.
+        /// </summary>
         /// <param name="assemblyNameReference">The assembly name of the assembly to be resolved</param>
         /// <returns>The <see cref="AssemblyDefinition"/> of the assembly.</returns>
-        public AssemblyDefinition Resolve(AssemblyNameReference assemblyNameReference) =>
-            this.ModuleDefinition.AssemblyResolver.Resolve(assemblyNameReference);
+        public AssemblyDefinition Resolve(AssemblyNameReference assemblyNameReference)
+        {
+            try
+            {
+                return this.ModuleDefinition.AssemblyResolver.Resolve(assemblyNameReference);
+            }
+            catch
+            {
+                return null;
+            }
+        }
 
         protected abstract void OnExecute();
 

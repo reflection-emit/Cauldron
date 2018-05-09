@@ -9,14 +9,14 @@ using System.Text;
 
 namespace Cauldron.Interception.Cecilator
 {
+    /// <exclude/>
     public abstract class CecilatorBase : CecilatorObject
     {
-        [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        protected readonly List<AssemblyDefinition> allAssemblies;
-
+        /// <exclude/>
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
         protected readonly List<TypeDefinition> allTypes;
 
+        /// <exclude/>
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
         protected readonly ModuleDefinition moduleDefinition;
 
@@ -26,26 +26,28 @@ namespace Cauldron.Interception.Cecilator
 
             this.moduleDefinition = weaver.ModuleDefinition;
 
-            var assemblies = this.GetAllAssemblyDefinitions(this.moduleDefinition.AssemblyReferences)
-                  .Concat(weaver.References.Split(';').Select(x => LoadAssembly(x)))
-                  .Where(x => x != null)
-                  .Concat(new AssemblyDefinition[] { this.moduleDefinition.Assembly });
-
             this.ReferenceCopyLocal = weaver.ReferenceCopyLocalPaths
                 .Where(x => x.EndsWith(".dll"))
                 .Select(x => LoadAssembly(x))
                 .Where(x => x != null)
                 .ToArray();
 
-            this.allAssemblies = assemblies
-                .Concat(this.ReferenceCopyLocal)
-                .ToList();
+            var referencedAssemblies = weaver
+                .GetAllReferencedAssemblies(weaver.Resolve(this.moduleDefinition.AssemblyReferences))
+                .Concat(weaver.References.Split(';').Select(x => LoadAssembly(x)))
+                .Where(x => x != null).ToArray() as IEnumerable<AssemblyDefinition>;
+
+            if (weaver.Config.Attribute("ReferenceCopyLocal").With(x => x == null ? true : (bool)x))
+                referencedAssemblies = referencedAssemblies.Concat(this.ReferenceCopyLocal);
+
+            this.ReferencedAssemblies = referencedAssemblies.Distinct(new AssemblyDefinitionEqualityComparer()).ToArray();
 
             this.Log("-----------------------------------------------------------------------------");
 
-            foreach (var item in allAssemblies)
+            foreach (var item in this.ReferencedAssemblies)
                 this.Log("<<Assembly>> " + item.Name);
 
+            var resourceNames = new List<string>();
             foreach (var item in this.moduleDefinition.Resources)
             {
                 this.Log("<<Resource>> " + item.Name + " " + item.ResourceType);
@@ -54,7 +56,6 @@ namespace Cauldron.Interception.Cecilator
                     var embeddedResource = item as EmbeddedResource;
                     using (var stream = embeddedResource.GetResourceStream())
                     {
-                        var resourceNames = new List<string>();
                         var bytes = new byte[stream.Length];
                         stream.Read(bytes, 0, bytes.Length);
                         if (bytes[0] == 0xce && bytes[1] == 0xca && bytes[2] == 0xef && bytes[3] == 0xbe)
@@ -75,11 +76,13 @@ namespace Cauldron.Interception.Cecilator
                                 }
                             }
                         }
-                        this.ResourceNames.AddRange(resourceNames);
                     }
                 }
             }
-            this.allTypes = this.allAssemblies
+
+            this.ResourceNames = resourceNames.ToArray();
+
+            this.allTypes = this.ReferencedAssemblies
                 .SelectMany(x => x.Modules)
                 .Where(x => x != null)
                 .SelectMany(x => x.Types)
@@ -98,81 +101,46 @@ namespace Cauldron.Interception.Cecilator
             this.Initialize(builderBase);
 
             this.moduleDefinition = builderBase.moduleDefinition;
-            this.allAssemblies = builderBase.allAssemblies;
+            this.ReferencedAssemblies = builderBase.ReferencedAssemblies;
             this.allTypes = builderBase.allTypes;
             this.ResourceNames = builderBase.ResourceNames;
 
             this.Identification = CodeBlocks.GenerateName();
         }
 
+        /// <summary>
+        /// Gets a unique identification string for this object.
+        /// </summary>
         public virtual string Identification { get; private set; }
 
+        /// <summary>
+        /// Gets a value that indicates if the weaved assembly is an UWP assembly or not.
+        /// </summary>
         public bool IsUWP => this.IsReferenced("Windows.Foundation.UniversalApiContract");
 
+        /// <summary>
+        /// Gets an array of all the references marked as copy-local.
+        /// </summary>
         public AssemblyDefinition[] ReferenceCopyLocal { get; private set; }
 
-        public AssemblyDefinition[] ReferencedAssemblies =>
-                this.moduleDefinition.AssemblyReferences
-                .Select(x => this.moduleDefinition.AssemblyResolver.Resolve(x)).ToArray();
+        /// <summary>
+        /// Gets an array of referenced assemblies including the assemblies referenced by it's references.
+        /// The array will include <see cref="CecilatorBase.ReferenceCopyLocal"/> assemblies as default.
+        /// To deactivate this the attribute "ReferenceCopyLocal" in FodyWeaver.xml can be set to false.
+        /// </summary>
+        public AssemblyDefinition[] ReferencedAssemblies { get; private set; }
 
-        public List<string> ResourceNames { get; private set; } = new List<string>();
+        /// <summary>
+        /// Gets a list of names of all resources embedded in the assembly.
+        /// </summary>
+        public string[] ResourceNames { get; private set; }
 
-        public bool IsReferenced(string assemblyName) => this.allAssemblies.Any(x => x.Name.Name == assemblyName);
-
-        private void GetAllAssemblyDefinitions(IEnumerable<AssemblyNameReference> target, List<AssemblyDefinition> result)
-        {
-            result.AddRange(target.Select(x => this.moduleDefinition.AssemblyResolver.Resolve(x)).Where(x => x != null));
-
-            foreach (var item in target)
-            {
-                try
-                {
-                    var assembly = this.moduleDefinition.AssemblyResolver.Resolve(item);
-
-                    if (assembly == null)
-                        continue;
-
-                    if (result.Contains(assembly))
-                        continue;
-
-                    result.Add(assembly);
-
-                    if (assembly.MainModule.HasAssemblyReferences)
-                    {
-                        foreach (var a in assembly.Modules)
-                            GetAllAssemblyDefinitions(a.AssemblyReferences, result);
-                    }
-                }
-                catch (OutOfMemoryException)
-                {
-                    this.Log(LogTypes.Warning, $"Unable to load '{item.FullName}'. This may cause on the resulting assembly. Please make sure Fody's 'VerifyAssembly' switch is set to 'True'.");
-                }
-            }
-        }
-
-        private IEnumerable<AssemblyDefinition> GetAllAssemblyDefinitions(IEnumerable<AssemblyNameReference> target)
-        {
-            var result = new List<AssemblyDefinition>();
-            result.AddRange(target.Select(x => this.moduleDefinition.AssemblyResolver.Resolve(x)).Where(x => x != null));
-
-            foreach (var item in target)
-            {
-                var assembly = this.moduleDefinition.AssemblyResolver.Resolve(item);
-
-                if (assembly == null)
-                    continue;
-
-                result.Add(assembly);
-
-                if (assembly.MainModule.HasAssemblyReferences)
-                {
-                    foreach (var a in assembly.Modules)
-                        this.GetAllAssemblyDefinitions(a.AssemblyReferences, result);
-                }
-            }
-
-            return result.Distinct(new AssemblyDefinitionEqualityComparer());
-        }
+        /// <summary>
+        /// Checks if the assembly described by <paramref name="assemblyName"/> is referenced or not.
+        /// </summary>
+        /// <param name="assemblyName">The name of the assembly to check.</param>
+        /// <returns>Return true if the assembly is referenced; otherwise false.</returns>
+        public bool IsReferenced(string assemblyName) => this.ReferencedAssemblies.Any(x => x.Name.Name == assemblyName);
 
         private AssemblyDefinition LoadAssembly(string path)
         {

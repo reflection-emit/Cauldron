@@ -62,10 +62,7 @@ namespace Cauldron.XAML
             this.Resources.Add(nameof(ApplicationInfo.Description), ApplicationInfo.Description);
 
             // Add all Value converters to the dictionary
-            Assemblies.CauldronObjects
-                .Select(x => x as IFactoryCache)
-                .Where(x => x != null)
-                .SelectMany(x => x.GetComponents())
+            Factory.FactoryTypes
                 .Where(x => x.ContractName == typeof(IValueConverter).FullName || x.ContractName == typeof(IMultiValueConverter).FullName)
                 .OrderBy(x => x.Priority)
                 .ThenBy(x => x.Type.FullName)
@@ -80,10 +77,7 @@ namespace Cauldron.XAML
                 });
 
             // find all resourcedictionaries and add them to the existing resources
-            Assemblies.CauldronObjects
-                .Select(x => x as IFactoryCache)
-                .Where(x => x != null)
-                .SelectMany(x => x.GetComponents())
+            Factory.FactoryTypes
                 .Where(x => x.ContractName == typeof(ResourceDictionary).FullName).Select(x =>
                 {
                     var type = x.Type;

@@ -72,7 +72,7 @@ namespace Cauldron.Core.Reflection
 
             if (AssembliesCore._referencedAssemblies == null)
             {
-                var cauldronHelper = EntryAssembly.GetType(CauldronClassName)?.GetMethod("GetReferencedAssemblies", BindingFlags.Public | BindingFlags.Static);
+                var cauldronHelper = EntryAssembly.GetType("CauldronInterceptionHelper")?.GetMethod("GetReferencedAssemblies", BindingFlags.Public | BindingFlags.Static);
 
                 if (cauldronHelper != null)
                 {

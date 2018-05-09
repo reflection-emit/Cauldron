@@ -26,25 +26,37 @@ namespace Cauldron.Activator
 
         static Factory()
         {
-            factoryInfoTypes = Assemblies.CauldronObjects
-                .Select(x => x as IFactoryCache)
-                .Where(x => x != null)
-                .SelectMany(x => x.GetComponents())
-                .ToArray();
+            if (FactoryCore._components != null)
+                factoryInfoTypes = FactoryCore._components;
+            else
+            {
+                var componentList = new List<IFactoryTypeInfo>();
+                var getComponents = Assemblies.EntryAssembly?
+                    .GetType("CauldronInterceptionHelper")?
+                    .GetMethod("GetComponents", BindingFlags.Public | BindingFlags.Static);
+
+                if (getComponents == null)
+                {
+                    var getComponentsMany = Assemblies.Known
+                        .Select(x => x?
+                            .GetType("CauldronInterceptionHelper")?
+                            .GetMethod("GetComponents", BindingFlags.Public | BindingFlags.Static));
+
+                    foreach (var item in getComponentsMany)
+                        componentList.AddRange(item.Invoke(null, null) as IFactoryTypeInfo[]);
+                }
+                else
+                    componentList.AddRange(getComponents.Invoke(null, null) as IFactoryTypeInfo[]);
+
+                factoryInfoTypes = componentList.Distinct(new FactoryTypeInfoComparer()).ToArray();
+            }
 
             InitializeFactory(factoryInfoTypes);
 
             Assemblies.LoadedAssemblyChanged += (s, e) =>
             {
-                if (e.Cauldron == null)
-                    return;
-
-                var factoryCache = e.Cauldron as IFactoryCache;
-
-                if (factoryCache == null)
-                    return;
-
-                factoryInfoTypes = factoryInfoTypes.Concat(factoryCache.GetComponents());
+                var components = e.CauldronGetComponents.Invoke(null, null) as IFactoryTypeInfo[];
+                factoryInfoTypes = factoryInfoTypes.Concat(components).Distinct(new FactoryTypeInfoComparer()).ToArray();
                 InitializeFactory(factoryInfoTypes);
             };
         }
@@ -59,6 +71,11 @@ namespace Cauldron.Activator
         /// exception or not.
         /// </summary>
         public static bool CanRaiseExceptions { get; set; } = true;
+
+        /// <summary>
+        /// Gets a collection of <see cref="IFactoryTypeInfo"/> that was found on the entrance assembly and its referencing assemblies.
+        /// </summary>
+        public static IEnumerable<IFactoryTypeInfo> FactoryTypes => factoryInfoTypes;
 
         /// <summary>
         /// Gets a collection types that is known to the <see cref="Factory"/>
@@ -621,7 +638,7 @@ namespace Cauldron.Activator
             return new object[0];
         }
 
-        private static void InitializeFactory(IFactoryTypeInfo[] factoryInfoTypes)
+        private static void InitializeFactory(IEnumerable<IFactoryTypeInfo> factoryInfoTypes)
         {
             // Get all known components
             components = factoryInfoTypes

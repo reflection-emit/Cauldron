@@ -43,7 +43,7 @@ public sealed class AssignMethodAttributeInfo
             if (result != null)
                 return result;
 
-            result = methodMatchDelegate((a, b) => b.IsAssignableFrom(a));
+            result = methodMatchDelegate((a, b) => b.AreReferenceAssignable(a));
             if (result == null)
                 return null;
 

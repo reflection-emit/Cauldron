@@ -14,11 +14,8 @@ namespace Cauldron.Core.Reflection
     /// </summary>
     public static partial class Assemblies
     {
-        private const string CauldronClassName = "CauldronInterceptionHelper";
-
         private static ConcurrentBag<Assembly> _assemblies = new ConcurrentBag<Assembly>();
         private static ConcurrentBag<AssemblyResource> _assemblyAndResourceNamesInfo = new ConcurrentBag<AssemblyResource>();
-        private static ConcurrentBag<object> _cauldron = new ConcurrentBag<object>();
 
         static Assemblies()
         {
@@ -52,11 +49,6 @@ namespace Cauldron.Core.Reflection
         /// filename of embedded resources and thier corresponding <see cref="Assembly"/>
         /// </summary>
         public static AssemblyResource[] AssemblyAndResourceNamesInfo => _assemblyAndResourceNamesInfo.ToArray();
-
-        /// <summary>
-        /// Gets an array of cauldron cache objects
-        /// </summary>
-        public static object[] CauldronObjects => _cauldron.ToArray();
 
         /// <summary>
         /// Gets the process executable in the default application domain. In other application
@@ -347,15 +339,9 @@ namespace Cauldron.Core.Reflection
                     _assemblyAndResourceNamesInfo.Add(resource);
                 }
 
-                var cauldronClass = assembly.GetType(CauldronClassName, false, false);
-                if (cauldronClass != null)
-                {
-                    var cauldronObject = Activator.CreateInstance(cauldronClass);
-                    _cauldron.Add(cauldronObject);
-
-                    if (triggerEvent)
-                        LoadedAssemblyChanged?.Invoke(null, new AssemblyAddedEventArgs(assembly, cauldronObject));
-                }
+                var cauldronHelper = assembly.GetType("CauldronInterceptionHelper")?.GetMethod("GetComponents", BindingFlags.Public | BindingFlags.Static);
+                if (triggerEvent && cauldronHelper != null)
+                    LoadedAssemblyChanged?.Invoke(null, new AssemblyAddedEventArgs(assembly, cauldronHelper));
 
                 return assembly;
             }

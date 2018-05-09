@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
-using System.Reflection;
 
 namespace Cauldron.Localization
 {
@@ -27,16 +26,9 @@ namespace Cauldron.Localization
         {
             Assemblies.LoadedAssemblyChanged += (s, e) =>
             {
-                if (e.Cauldron == null)
-                    return;
+                var components = e.CauldronGetComponents.Invoke(null, null) as IFactoryTypeInfo[];
 
-                var factoryCache = e.Cauldron as IFactoryCache;
-
-                if (factoryCache == null)
-                    return;
-
-                var newLocalizationSources = factoryCache
-                      .GetComponents()
+                var newLocalizationSources = components
                       .Where(x => x.ContractName.GetHashCode() == LocalizationSource.GetHashCode() && x.ContractName == LocalizationSource).Select(x => x.CreateInstance() as ILocalizationSource)
                       .ToArray();
 
