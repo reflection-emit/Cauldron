@@ -21,6 +21,10 @@
     </dependencies>
   </metadata>
   <files>
+    <file src="..\UWP\Cauldron.Core.Disposable\bin\Release\Cauldron.Core.Disposable.dll" target="lib\uap10.0" />
+    <file src="..\UWP\Cauldron.Core.Disposable\bin\Release\Cauldron.Core.Disposable.xml" target="lib\uap10.0" />
+    <file src="..\UWP\Cauldron.Core.Disposable\bin\Release\Cauldron.Core.Disposable.pdb" target="lib\uap10.0" />
+    <file src="..\UWP\Cauldron.Core.Disposable\bin\Release\Cauldron.Core.Disposable.pri" target="lib\uap10.0" />
     <file src="..\NetStandard\Cauldron.Core.Disposable\bin\Release\netstandard2.0\Cauldron.Core.Disposable.dll" target="lib\netstandard2.0" />
     <file src="..\NetStandard\Cauldron.Core.Disposable\bin\Release\netstandard2.0\Cauldron.Core.Disposable.xml" target="lib\netstandard2.0" />
     <file src="..\NetStandard\Cauldron.Core.Disposable\bin\Release\netstandard2.0\Cauldron.Core.Disposable.pdb" target="lib\netstandard2.0" />
