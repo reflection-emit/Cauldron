@@ -161,7 +161,7 @@ namespace Cauldron.Activator
 
             if (!valueType.IsArray) // Dont do this with array... Array Clone returns the same reference types
             {
-#if !NETCORE
+#if !WINDOWS_UWP
                 // let us check first if the clonable interface is implemented... Casting is faster than reflection so let us prefer this
                 var clonableInterface = value as ICloneable;
 

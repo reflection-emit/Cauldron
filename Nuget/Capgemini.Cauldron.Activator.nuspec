@@ -32,6 +32,10 @@
     </dependencies>
   </metadata>
   <files>
+    <file src="..\UWP\Cauldron.Activator\bin\Release\Cauldron.Activator.dll" target="lib\uap10.0" />
+    <file src="..\UWP\Cauldron.Activator\bin\Release\Cauldron.Activator.xml" target="lib\uap10.0" />
+    <file src="..\UWP\Cauldron.Activator\bin\Release\Cauldron.Activator.pdb" target="lib\uap10.0" />
+    <file src="..\UWP\Cauldron.Activator\bin\Release\Cauldron.Activator.pri" target="lib\uap10.0" />
     <file src="..\NetStandard\Cauldron.Activator\bin\Release\netstandard2.0\Cauldron.Activator.dll" target="lib\netstandard2.0" />
     <file src="..\NetStandard\Cauldron.Activator\bin\Release\netstandard2.0\Cauldron.Activator.xml" target="lib\netstandard2.0" />
     <file src="..\NetStandard\Cauldron.Activator\bin\Release\netstandard2.0\Cauldron.Activator.pdb" target="lib\netstandard2.0" />
