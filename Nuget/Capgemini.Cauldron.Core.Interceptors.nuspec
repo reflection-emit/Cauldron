@@ -21,10 +21,10 @@
       2017.12.22 - [C] Dependency to NLog removed
     </releaseNotes>
     <dependencies>
-      <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="3.0.9-beta" />
-      <dependency id="Cauldron.Interception.Fody" version="3.0.9-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="3.0.10-beta" />
+      <dependency id="Cauldron.Interception.Fody" version="3.0.10-beta" />
       <dependency id="Fody" version="3.0.3" />
-      <dependency id="Cauldron.BasicInterceptors" version="3.0.9-beta" />
+      <dependency id="Cauldron.BasicInterceptors" version="3.0.10-beta" />
     </dependencies>
   </metadata>
   <files>

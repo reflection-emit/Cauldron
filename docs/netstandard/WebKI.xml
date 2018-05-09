@@ -64,8 +64,8 @@
   </HelpKINode>
   <HelpKINode Title="Assemblies.AddAssembly method" Url="html/M_Cauldron_Core_Reflection_Assemblies_AddAssembly.htm" />
   <HelpKINode Title="Assemblies.AssemblyAndResourceNamesInfo property" Url="html/P_Cauldron_Core_Reflection_Assemblies_AssemblyAndResourceNamesInfo.htm" />
-  <HelpKINode Title="Assemblies.CauldronObjects property" Url="html/P_Cauldron_Core_Reflection_Assemblies_CauldronObjects.htm" />
   <HelpKINode Title="Assemblies.Classes property" Url="html/P_Cauldron_Core_Reflection_Assemblies_Classes.htm" />
+  <HelpKINode Title="Assemblies.EntryAssembly property" Url="html/P_Cauldron_Core_Reflection_Assemblies_EntryAssembly.htm" />
   <HelpKINode Title="Assemblies.ExportedTypes property" Url="html/P_Cauldron_Core_Reflection_Assemblies_ExportedTypes.htm" />
   <HelpKINode Title="Assemblies.GetFirstAssemblyWithResourceName method" Url="html/M_Cauldron_Core_Reflection_Assemblies_GetFirstAssemblyWithResourceName.htm" />
   <HelpKINode Title="Assemblies.GetManifestResource method" Url="html/Overload_Cauldron_Core_Reflection_Assemblies_GetManifestResource.htm" />
@@ -75,7 +75,7 @@
   <HelpKINode Title="Assemblies.Interfaces property" Url="html/P_Cauldron_Core_Reflection_Assemblies_Interfaces.htm" />
   <HelpKINode Title="Assemblies.IsDebugging property" Url="html/P_Cauldron_Core_Reflection_Assemblies_IsDebugging.htm" />
   <HelpKINode Title="Assemblies.Known property" Url="html/P_Cauldron_Core_Reflection_Assemblies_Known.htm" />
-  <HelpKINode Title="Assemblies.LoadAssembly method" Url="html/Overload_Cauldron_Core_Reflection_Assemblies_LoadAssembly.htm" />
+  <HelpKINode Title="Assemblies.LoadAssembly method" Url="html/M_Cauldron_Core_Reflection_Assemblies_LoadAssembly.htm" />
   <HelpKINode Title="Assemblies.LoadedAssemblyChanged event" Url="html/E_Cauldron_Core_Reflection_Assemblies_LoadedAssemblyChanged.htm" />
   <HelpKINode Title="Assembly property">
     <HelpKINode Title="AssemblyAddedEventArgs.Assembly Property " Url="html/P_Cauldron_Core_Reflection_AssemblyAddedEventArgs_Assembly.htm" />
@@ -87,7 +87,7 @@
     <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_Core_Reflection_AssemblyAddedEventArgs.htm" />
   </HelpKINode>
   <HelpKINode Title="AssemblyAddedEventArgs.Assembly property" Url="html/P_Cauldron_Core_Reflection_AssemblyAddedEventArgs_Assembly.htm" />
-  <HelpKINode Title="AssemblyAddedEventArgs.Cauldron property" Url="html/P_Cauldron_Core_Reflection_AssemblyAddedEventArgs_Cauldron.htm" />
+  <HelpKINode Title="AssemblyAddedEventArgs.CauldronGetComponents property" Url="html/P_Cauldron_Core_Reflection_AssemblyAddedEventArgs_CauldronGetComponents.htm" />
   <HelpKINode Title="AssemblyAndResourceNamesInfo property" Url="html/P_Cauldron_Core_Reflection_Assemblies_AssemblyAndResourceNamesInfo.htm" />
   <HelpKINode Title="AssemblyResource class">
     <HelpKINode Title="AssemblyResource Class" Url="html/T_Cauldron_Core_Reflection_AssemblyResource.htm" />
@@ -137,7 +137,6 @@
   <HelpKINode Title="CallOnce.IsWaiting property" Url="html/P_Cauldron_Core_Threading_CallOnce_IsWaiting.htm" />
   <HelpKINode Title="CanRaiseExceptions property" Url="html/P_Cauldron_Activator_Factory_CanRaiseExceptions.htm" />
   <HelpKINode Title="Cauldron namespace" Url="html/N_Cauldron.htm" />
-  <HelpKINode Title="Cauldron property" Url="html/P_Cauldron_Core_Reflection_AssemblyAddedEventArgs_Cauldron.htm" />
   <HelpKINode Title="Cauldron.Activator namespace" Url="html/N_Cauldron_Activator.htm" />
   <HelpKINode Title="Cauldron.Activator.CloneIgnoreAttribute class" Url="html/T_Cauldron_Activator_CloneIgnoreAttribute.htm" />
   <HelpKINode Title="Cauldron.Activator.ComponentAttribute class" Url="html/T_Cauldron_Activator_ComponentAttribute.htm" />
@@ -271,7 +270,7 @@
   <HelpKINode Title="Cauldron.NameCollisionOption enumeration" Url="html/T_Cauldron_NameCollisionOption.htm" />
   <HelpKINode Title="Cauldron.Position enumeration" Url="html/T_Cauldron_Position.htm" />
   <HelpKINode Title="Cauldron.TypeIsInterfaceException class" Url="html/T_Cauldron_TypeIsInterfaceException.htm" />
-  <HelpKINode Title="CauldronObjects property" Url="html/P_Cauldron_Core_Reflection_Assemblies_CauldronObjects.htm" />
+  <HelpKINode Title="CauldronGetComponents property" Url="html/P_Cauldron_Core_Reflection_AssemblyAddedEventArgs_CauldronGetComponents.htm" />
   <HelpKINode Title="Center enumeration member" Url="html/T_Cauldron_Consoles_ColumnAlignment.htm" />
   <HelpKINode Title="ChildType property" Url="html/P_Cauldron_Interception_PropertyInterceptionInfo_ChildType.htm" />
   <HelpKINode Title="Clamp method" Url="html/Overload_System_MathEx_Clamp.htm" />
@@ -621,6 +620,7 @@
     <HelpKINode Title="Rsa.Encrypt Method " Url="html/Overload_Cauldron_Cryptography_Rsa_Encrypt.htm" />
     <HelpKINode Title="RsaAes.Encrypt Method " Url="html/Overload_Cauldron_Cryptography_RsaAes_Encrypt.htm" />
   </HelpKINode>
+  <HelpKINode Title="EntryAssembly property" Url="html/P_Cauldron_Core_Reflection_Assemblies_EntryAssembly.htm" />
   <HelpKINode Title="EnumEx class">
     <HelpKINode Title="EnumEx Class" Url="html/T_System_EnumEx.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_System_EnumEx.htm" />
@@ -656,9 +656,9 @@
   <HelpKINode Title="ExistsAsync method" Url="html/M_Cauldron_ExtensionsFileIO_ExistsAsync.htm" />
   <HelpKINode Title="ExportedTypes property" Url="html/P_Cauldron_Core_Reflection_Assemblies_ExportedTypes.htm" />
   <HelpKINode Title="Extensions class">
+    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Core_Collections_Extensions.htm" />
     <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Interception_Extensions.htm" />
     <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Extensions.htm" />
-    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Core_Collections_Extensions.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Extensions.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Collections_Extensions.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Interception_Extensions.htm" />
@@ -707,7 +707,7 @@
   <HelpKINode Title="Extensions.RemoveNull(Of T) method" Url="html/M_Cauldron_Extensions_RemoveNull__1.htm" />
   <HelpKINode Title="Extensions.RemoveNull&lt;T&gt; method" Url="html/M_Cauldron_Extensions_RemoveNull__1.htm" />
   <HelpKINode Title="Extensions.Replace method" Url="html/Overload_Cauldron_Extensions_Replace.htm" />
-  <HelpKINode Title="Extensions.ReplaceMe method" Url="html/M_Cauldron_Extensions_ReplaceMe.htm" />
+  <HelpKINode Title="Extensions.ReplaceMe method" Url="html/Overload_Cauldron_Extensions_ReplaceMe.htm" />
   <HelpKINode Title="Extensions.Right method" Url="html/M_Cauldron_Extensions_Right.htm" />
   <HelpKINode Title="Extensions.SliceColumn(Of T) method" Url="html/M_Cauldron_Extensions_SliceColumn__1.htm" />
   <HelpKINode Title="Extensions.SliceColumn&lt;T&gt; method" Url="html/M_Cauldron_Extensions_SliceColumn__1.htm" />
@@ -866,6 +866,7 @@
   <HelpKINode Title="Factory.CreateMany method" Url="html/Overload_Cauldron_Activator_Factory_CreateMany.htm" />
   <HelpKINode Title="Factory.Destroy method" Url="html/Overload_Cauldron_Activator_Factory_Destroy.htm" />
   <HelpKINode Title="Factory.Factory constructor" Url="html/M_Cauldron_Activator_Factory__ctor.htm" />
+  <HelpKINode Title="Factory.FactoryTypes property" Url="html/P_Cauldron_Activator_Factory_FactoryTypes.htm" />
   <HelpKINode Title="Factory.HasContract method" Url="html/Overload_Cauldron_Activator_Factory_HasContract.htm" />
   <HelpKINode Title="Factory.ObjectCreated event" Url="html/E_Cauldron_Activator_Factory_ObjectCreated.htm" />
   <HelpKINode Title="Factory.RegisteredTypes property" Url="html/P_Cauldron_Activator_Factory_RegisteredTypes.htm" />
@@ -888,6 +889,7 @@
   <HelpKINode Title="FactoryObjectCreatedEventArgs.FactoryTypeInfo property" Url="html/P_Cauldron_Activator_FactoryObjectCreatedEventArgs_FactoryTypeInfo.htm" />
   <HelpKINode Title="FactoryObjectCreatedEventArgs.ObjectInstance property" Url="html/P_Cauldron_Activator_FactoryObjectCreatedEventArgs_ObjectInstance.htm" />
   <HelpKINode Title="FactoryTypeInfo property" Url="html/P_Cauldron_Activator_FactoryObjectCreatedEventArgs_FactoryTypeInfo.htm" />
+  <HelpKINode Title="FactoryTypes property" Url="html/P_Cauldron_Activator_Factory_FactoryTypes.htm" />
   <HelpKINode Title="FailIfExists enumeration member">
     <HelpKINode Title="CreationCollisionOption Enumeration" Url="html/T_Cauldron_CreationCollisionOption.htm" />
     <HelpKINode Title="NameCollisionOption Enumeration" Url="html/T_Cauldron_NameCollisionOption.htm" />
@@ -1267,7 +1269,7 @@
   <HelpKINode Title="Left method" Url="html/M_Cauldron_Extensions_Left.htm" />
   <HelpKINode Title="LessThan method" Url="html/M_Cauldron_Core_Comparer_LessThan.htm" />
   <HelpKINode Title="LessThanOrEqual method" Url="html/M_Cauldron_Core_Comparer_LessThanOrEqual.htm" />
-  <HelpKINode Title="LoadAssembly method" Url="html/Overload_Cauldron_Core_Reflection_Assemblies_LoadAssembly.htm" />
+  <HelpKINode Title="LoadAssembly method" Url="html/M_Cauldron_Core_Reflection_Assemblies_LoadAssembly.htm" />
   <HelpKINode Title="LoadedAssemblyChanged event" Url="html/E_Cauldron_Core_Reflection_Assemblies_LoadedAssemblyChanged.htm" />
   <HelpKINode Title="Locale class">
     <HelpKINode Title="Locale Class" Url="html/T_Cauldron_Localization_Locale.htm" />
@@ -1539,7 +1541,7 @@
     <HelpKINode Title="CreationCollisionOption Enumeration" Url="html/T_Cauldron_CreationCollisionOption.htm" />
     <HelpKINode Title="NameCollisionOption Enumeration" Url="html/T_Cauldron_NameCollisionOption.htm" />
   </HelpKINode>
-  <HelpKINode Title="ReplaceMe method" Url="html/M_Cauldron_Extensions_ReplaceMe.htm" />
+  <HelpKINode Title="ReplaceMe method" Url="html/Overload_Cauldron_Extensions_ReplaceMe.htm" />
   <HelpKINode Title="Required enumeration member" Url="html/T_Cauldron_Interception_Mode.htm" />
   <HelpKINode Title="RequiredParametersMissingException class">
     <HelpKINode Title="RequiredParametersMissingException Class" Url="html/T_Cauldron_Consoles_RequiredParametersMissingException.htm" />

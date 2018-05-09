@@ -24,13 +24,13 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="..\NetStandard\Cauldron.Core.Randomizer\bin\Release\Cauldron.Core.Randomizer.dll" target="lib\uap10.0" />
-    <file src="..\NetStandard\Cauldron.Core.Randomizer\bin\Release\Cauldron.Core.Randomizer.xml" target="lib\uap10.0" />
-    <file src="..\NetStandard\Cauldron.Core.Randomizer\bin\Release\Cauldron.Core.Randomizer.pdb" target="lib\uap10.0" />
-    <file src="..\NetStandard\Cauldron.Core.Randomizer\bin\Release\Cauldron.Core.Randomizer.pri" target="lib\uap10.0" />
-    <file src="..\UWP\Cauldron.Core.Randomizer\bin\Release\netstandard2.0\Cauldron.Core.Randomizer.dll" target="lib\netstandard2.0" />
-    <file src="..\UWP\Cauldron.Core.Randomizer\bin\Release\netstandard2.0\Cauldron.Core.Randomizer.xml" target="lib\netstandard2.0" />
-    <file src="..\UWP\Cauldron.Core.Randomizer\bin\Release\netstandard2.0\Cauldron.Core.Randomizer.pdb" target="lib\netstandard2.0" />
+    <file src="..\UWP\Cauldron.Core.Randomizer\bin\Release\Cauldron.Core.Randomizer.dll" target="lib\uap10.0" />
+    <file src="..\UWP\Cauldron.Core.Randomizer\bin\Release\Cauldron.Core.Randomizer.xml" target="lib\uap10.0" />
+    <file src="..\UWP\Cauldron.Core.Randomizer\bin\Release\Cauldron.Core.Randomizer.pdb" target="lib\uap10.0" />
+    <file src="..\UWP\Cauldron.Core.Randomizer\bin\Release\Cauldron.Core.Randomizer.pri" target="lib\uap10.0" />
+    <file src="..\NetStandard\Cauldron.Core.Randomizer\bin\Release\netstandard2.0\Cauldron.Core.Randomizer.dll" target="lib\netstandard2.0" />
+    <file src="..\NetStandard\Cauldron.Core.Randomizer\bin\Release\netstandard2.0\Cauldron.Core.Randomizer.xml" target="lib\netstandard2.0" />
+    <file src="..\NetStandard\Cauldron.Core.Randomizer\bin\Release\netstandard2.0\Cauldron.Core.Randomizer.pdb" target="lib\netstandard2.0" />
     <file src="..\Win32\Cauldron.Core.Randomizer\bin\Release\Net45\Cauldron.Core.Randomizer.dll" target="lib\net45" />
     <file src="..\Win32\Cauldron.Core.Randomizer\bin\Release\Net45\Cauldron.Core.Randomizer.xml" target="lib\net45" />
     <file src="..\Win32\Cauldron.Core.Randomizer\bin\Release\Net45\Cauldron.Core.Randomizer.pdb" target="lib\net45" />

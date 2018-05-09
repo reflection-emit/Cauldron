@@ -28,11 +28,9 @@
       2017.12.10 - [B] A bug in Assemblies that causes the Custom assembly resolution to be invoked before all assemblies are added to the collection fixed.
     </releaseNotes>
     <dependencies>
-      <group targetFramework="uap10.0">
-        <dependency id="Fody" version="3.0.3" />
-        <dependency id="Cauldron.Interception.Fody" version="3.0.9-beta" />
-      </group>
-      <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="3.0.9-beta" />
+      <dependency id="Fody" version="3.0.3" />
+      <dependency id="Cauldron.Interception.Fody" version="3.0.10-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="3.0.10-beta" />
     </dependencies>
   </metadata>
   <files>
