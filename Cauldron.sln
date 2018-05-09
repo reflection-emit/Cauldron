@@ -361,6 +361,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.Core.Disposable", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cauldron.Activator", "UWP\Cauldron.Activator\Cauldron.Activator.csproj", "{A0E73415-C2C1-421E-B551-0AEB9181CEAC}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "UnitTest_BasicInterceptorTests", "UnitTests\Shared\UnitTest_BasicInterceptorTests\UnitTest_BasicInterceptorTests.shproj", "{B7271DF9-BC50-48BA-B602-BE45309A3456}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicInterceptorTests", "UnitTests\Win32\BasicInterceptorTests\BasicInterceptorTests.csproj", "{488F436D-39FD-483C-B988-37FC06F313A9}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		UnitTests\Shared\CecilatorTestClasses\CecilatorTestClasses.projitems*{0222072e-af2b-400e-a5c2-a448fdd693c3}*SharedItemsImports = 4
@@ -409,6 +413,7 @@ Global
 		Shared\Cauldron.Core.Interceptors\Cauldron.Core.Interceptors.projitems*{b148f2a0-5bb6-4d9a-b9b8-915971b25bfe}*SharedItemsImports = 4
 		Shared\Cauldron.Core\Cauldron.Core.projitems*{b5864929-a6da-473c-9023-df2c67053d22}*SharedItemsImports = 13
 		Shared\Cauldron.Core.Disposable\Cauldron.Core.Disposable.projitems*{b70640d8-0f69-4165-af81-555fd40fa1a3}*SharedItemsImports = 4
+		UnitTests\Shared\UnitTest_BasicInterceptorTests\UnitTest_BasicInterceptorTests.projitems*{b7271df9-bc50-48ba-b602-be45309a3456}*SharedItemsImports = 13
 		UnitTests\Shared\ExtensionsTests\ExtensionsTests.projitems*{b9380aca-435f-48da-9da6-f6ae232ec3c5}*SharedItemsImports = 4
 		UnitTests\Fody_Assembly_Validation_Tests\Fody_Assembly_Validation_Tests.projitems*{b9855158-a040-40e1-9a2f-20ad91772c77}*SharedItemsImports = 4
 		Shared\Cauldron.Cryptography\Cauldron.Cryptography.projitems*{bae48bb4-5261-4bcb-b26f-048d2be75a32}*SharedItemsImports = 13
@@ -3837,6 +3842,38 @@ Global
 		{A0E73415-C2C1-421E-B551-0AEB9181CEAC}.Release-Net451|x64.Build.0 = Release|x64
 		{A0E73415-C2C1-421E-B551-0AEB9181CEAC}.Release-Net451|x86.ActiveCfg = Release|x86
 		{A0E73415-C2C1-421E-B551-0AEB9181CEAC}.Release-Net451|x86.Build.0 = Release|x86
+		{488F436D-39FD-483C-B988-37FC06F313A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{488F436D-39FD-483C-B988-37FC06F313A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{488F436D-39FD-483C-B988-37FC06F313A9}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{488F436D-39FD-483C-B988-37FC06F313A9}.Debug|ARM.Build.0 = Debug|Any CPU
+		{488F436D-39FD-483C-B988-37FC06F313A9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{488F436D-39FD-483C-B988-37FC06F313A9}.Debug|x64.Build.0 = Debug|Any CPU
+		{488F436D-39FD-483C-B988-37FC06F313A9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{488F436D-39FD-483C-B988-37FC06F313A9}.Debug|x86.Build.0 = Debug|Any CPU
+		{488F436D-39FD-483C-B988-37FC06F313A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{488F436D-39FD-483C-B988-37FC06F313A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{488F436D-39FD-483C-B988-37FC06F313A9}.Release|ARM.ActiveCfg = Release|Any CPU
+		{488F436D-39FD-483C-B988-37FC06F313A9}.Release|ARM.Build.0 = Release|Any CPU
+		{488F436D-39FD-483C-B988-37FC06F313A9}.Release|x64.ActiveCfg = Release|Any CPU
+		{488F436D-39FD-483C-B988-37FC06F313A9}.Release|x64.Build.0 = Release|Any CPU
+		{488F436D-39FD-483C-B988-37FC06F313A9}.Release|x86.ActiveCfg = Release|Any CPU
+		{488F436D-39FD-483C-B988-37FC06F313A9}.Release|x86.Build.0 = Release|Any CPU
+		{488F436D-39FD-483C-B988-37FC06F313A9}.Release-Net45|Any CPU.ActiveCfg = Release|Any CPU
+		{488F436D-39FD-483C-B988-37FC06F313A9}.Release-Net45|Any CPU.Build.0 = Release|Any CPU
+		{488F436D-39FD-483C-B988-37FC06F313A9}.Release-Net45|ARM.ActiveCfg = Release|Any CPU
+		{488F436D-39FD-483C-B988-37FC06F313A9}.Release-Net45|ARM.Build.0 = Release|Any CPU
+		{488F436D-39FD-483C-B988-37FC06F313A9}.Release-Net45|x64.ActiveCfg = Release|Any CPU
+		{488F436D-39FD-483C-B988-37FC06F313A9}.Release-Net45|x64.Build.0 = Release|Any CPU
+		{488F436D-39FD-483C-B988-37FC06F313A9}.Release-Net45|x86.ActiveCfg = Release|Any CPU
+		{488F436D-39FD-483C-B988-37FC06F313A9}.Release-Net45|x86.Build.0 = Release|Any CPU
+		{488F436D-39FD-483C-B988-37FC06F313A9}.Release-Net451|Any CPU.ActiveCfg = Release|Any CPU
+		{488F436D-39FD-483C-B988-37FC06F313A9}.Release-Net451|Any CPU.Build.0 = Release|Any CPU
+		{488F436D-39FD-483C-B988-37FC06F313A9}.Release-Net451|ARM.ActiveCfg = Release|Any CPU
+		{488F436D-39FD-483C-B988-37FC06F313A9}.Release-Net451|ARM.Build.0 = Release|Any CPU
+		{488F436D-39FD-483C-B988-37FC06F313A9}.Release-Net451|x64.ActiveCfg = Release|Any CPU
+		{488F436D-39FD-483C-B988-37FC06F313A9}.Release-Net451|x64.Build.0 = Release|Any CPU
+		{488F436D-39FD-483C-B988-37FC06F313A9}.Release-Net451|x86.ActiveCfg = Release|Any CPU
+		{488F436D-39FD-483C-B988-37FC06F313A9}.Release-Net451|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -3985,6 +4022,8 @@ Global
 		{C7ACF943-4BA9-42AC-9EFA-D5E28828E4E2} = {8AFD68A5-8194-474B-B460-CEC100734E5A}
 		{B70640D8-0F69-4165-AF81-555FD40FA1A3} = {819B7C72-B9E8-4FA9-865A-8EA6C728AC92}
 		{A0E73415-C2C1-421E-B551-0AEB9181CEAC} = {819B7C72-B9E8-4FA9-865A-8EA6C728AC92}
+		{B7271DF9-BC50-48BA-B602-BE45309A3456} = {B18F1BA5-210C-472C-9394-213692C268F1}
+		{488F436D-39FD-483C-B988-37FC06F313A9} = {8AFD68A5-8194-474B-B460-CEC100734E5A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D1F2CDF5-23CA-42FF-B139-C74A73C3FA62}

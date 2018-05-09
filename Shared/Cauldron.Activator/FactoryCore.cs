@@ -18,6 +18,8 @@ namespace Cauldron.Activator
         public static void SetComponents(IFactoryTypeInfo[] assembly)
         {
             if (_components == null)
+                _components = assembly;
+            else
                 _components = _components.Concat(assembly).Distinct(new FactoryTypeInfoComparer()).ToArray();
         }
     }
