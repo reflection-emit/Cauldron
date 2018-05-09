@@ -31,22 +31,14 @@ namespace Cauldron.Activator
             else
             {
                 var componentList = new List<IFactoryTypeInfo>();
-                var getComponents = Assemblies.EntryAssembly?
-                    .GetType("CauldronInterceptionHelper")?
-                    .GetMethod("GetComponents", BindingFlags.Public | BindingFlags.Static);
-
-                if (getComponents == null)
-                {
-                    var getComponentsMany = Assemblies.Known
+                var getComponents = Assemblies.Known
                         .Select(x => x?
                             .GetType("CauldronInterceptionHelper")?
-                            .GetMethod("GetComponents", BindingFlags.Public | BindingFlags.Static));
+                            .GetMethod("GetComponents", BindingFlags.Public | BindingFlags.Static))
+                            .Where(x => x != null);
 
-                    foreach (var item in getComponentsMany)
-                        componentList.AddRange(item.Invoke(null, null) as IFactoryTypeInfo[]);
-                }
-                else
-                    componentList.AddRange(getComponents.Invoke(null, null) as IFactoryTypeInfo[]);
+                foreach (var item in getComponents)
+                    componentList.AddRange(item.Invoke(null, null) as IFactoryTypeInfo[]);
 
                 factoryInfoTypes = componentList.Distinct(new FactoryTypeInfoComparer()).ToArray();
             }

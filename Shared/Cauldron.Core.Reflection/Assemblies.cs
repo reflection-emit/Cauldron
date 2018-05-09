@@ -14,8 +14,8 @@ namespace Cauldron.Core.Reflection
     /// </summary>
     public static partial class Assemblies
     {
-        private static ConcurrentBag<Assembly> _assemblies = new ConcurrentBag<Assembly>();
-        private static ConcurrentBag<AssemblyResource> _assemblyAndResourceNamesInfo = new ConcurrentBag<AssemblyResource>();
+        private static List<Assembly> _assemblies = new List<Assembly>();
+        private static List<AssemblyResource> _assemblyAndResourceNamesInfo = new List<AssemblyResource>();
 
         static Assemblies()
         {

@@ -9,6 +9,14 @@
     <Import_RootNamespace>UnitTest_ActivatorTests</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)FactoryGenericSingletonTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FactoryTests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Factory_ParallelCreation_Test.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Factory_ParallelCreation_Test_Resource.generated.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Inject_Test.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ITestInterface.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MappingTest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TestClasses.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TestComponent.cs" />
   </ItemGroup>
 </Project>

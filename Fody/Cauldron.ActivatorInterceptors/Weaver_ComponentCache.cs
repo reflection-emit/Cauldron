@@ -110,8 +110,8 @@ public static class Weaver_ComponentCache
         var linqEnumerable = builder.GetType("System.Linq.Enumerable", SearchContext.AllReferencedModules);
         var ifactoryTypeInfo = factoryTypeInfoInterface.MakeArray();
         var ctorCoder = cauldron.CreateStaticConstructor().NewCoder();
-        var concat = linqEnumerable.GetMethod("Concat", 2, true).MakeGeneric(factoryTypeInfoInterface);
-        var toArray = linqEnumerable.GetMethod("ToArray", 1, true).MakeGeneric(factoryTypeInfoInterface);
+        //var concat = linqEnumerable.GetMethod("Concat", 2, true).MakeGeneric(factoryTypeInfoInterface);
+        //var toArray = linqEnumerable.GetMethod("ToArray", 1, true).MakeGeneric(factoryTypeInfoInterface);
         var getComponentsFromOtherAssemblies = builder.ReferencedAssemblies
             .Select(x => x.MainModule.GetType("CauldronInterceptionHelper"))
             .Where(x => x != null)
@@ -137,16 +137,6 @@ public static class Weaver_ComponentCache
                             .StoreElement(field, i);
                         ctorCoder.SetValue(field, x => x.NewObj(componentTypes[i].ParameterlessContructor));
                     }
-
-                    if (getComponentsFromOtherAssemblies.Length > 0)
-                    {
-                        context.Load(resultValue);
-
-                        foreach (var item in getComponentsFromOtherAssemblies)
-                            context.Call(concat, x => x.Call(item));
-
-                        context.Call(toArray);
-                    }
                     return context;
                 })
                 .Return()
@@ -158,7 +148,16 @@ public static class Weaver_ComponentCache
         if (voidMain != null)
         {
             voidMain.NewCoder()
-                .Call(builder.GetType("Cauldron.Activator.FactoryCore").GetMethod("SetComponents", 1, true), x => x.Call(getComponentsMethod))
+                .Context(context =>
+                {
+                    context.Call(builder.GetType("Cauldron.Activator.FactoryCore").GetMethod("SetComponents", 1, true), x => x.Call(getComponentsMethod));
+                    if (getComponentsFromOtherAssemblies.Length > 0)
+
+                        foreach (var item in getComponentsFromOtherAssemblies)
+                            context.Call(builder.GetType("Cauldron.Activator.FactoryCore").GetMethod("SetComponents", 1, true), x => x.Call(item));
+
+                    return context;
+                })
                 .End
                 .Insert(InsertionPosition.Beginning);
         }

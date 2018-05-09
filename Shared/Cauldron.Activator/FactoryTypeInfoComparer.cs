@@ -9,7 +9,7 @@ namespace Cauldron.Activator
             if (x == null || y == null)
                 return false;
 
-            return x.ContractName == y.ContractName;
+            return x.ContractName == y.ContractName && x.Type.FullName == y.Type.FullName;
         }
 
         public int GetHashCode(IFactoryTypeInfo obj)
@@ -17,7 +17,7 @@ namespace Cauldron.Activator
             if (obj == null)
                 return 0;
 
-            return obj.ContractName.GetHashCode();
+            return obj.ContractName.GetHashCode() ^ obj.Type.FullName.GetHashCode();
         }
     }
 }

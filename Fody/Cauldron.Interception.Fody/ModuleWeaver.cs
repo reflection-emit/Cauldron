@@ -29,23 +29,24 @@ namespace Cauldron.Interception.Fody
             var cauldron = builder.GetType("CauldronInterceptionHelper", SearchContext.Module);
             var referencedAssembliesMethod = cauldron.CreateMethod(Modifiers.PublicStatic, builder.MakeArray(assembly.Type), "GetReferencedAssemblies");
             var voidMain = builder.GetMain();
+            var introspectionExtensions = builder.GetType("System.Reflection.IntrospectionExtensions").Import().With(y => new { Type = y, GetTypeInfo = y.GetMethod("GetTypeInfo", 1).Import() });
+            var typeInfo = builder.GetType("System.Reflection.TypeInfo").Import().With(y => new { Type = y, Assembly = y.GetMethod("get_Assembly").Import() });
 
             // Add the Entrance Assembly and referenced assemblies hack for UWP
-            if (voidMain != null)
+
+            if (builder.TypeExists("Cauldron.Core.Reflection.AssembliesCore"))
             {
-                if (builder.TypeExists("Cauldron.Core.Reflection.AssembliesCore"))
+                var assemblies = builder.GetType("Cauldron.Core.Reflection.AssembliesCore").Import().With(y => new
+                {
+                    Type = y,
+                    SetEntryAssembly = y.GetMethod("SetEntryAssembly", 1).Import(),
+                    SetReferenceAssemblies = y.GetMethod("SetReferenceAssemblies", 1).Import()
+                });
+
+                if (voidMain != null && builder.IsUWP)
                 {
                     voidMain.NewCoder().Context(context =>
                     {
-                        var introspectionExtensions = builder.GetType("System.Reflection.IntrospectionExtensions").Import().With(y => new { Type = y, GetTypeInfo = y.GetMethod("GetTypeInfo", 1).Import() });
-                        var typeInfo = builder.GetType("System.Reflection.TypeInfo").Import().With(y => new { Type = y, Assembly = y.GetMethod("get_Assembly").Import() });
-                        var assemblies = builder.GetType("Cauldron.Core.Reflection.AssembliesCore").Import().With(y => new
-                        {
-                            Type = y,
-                            SetEntryAssembly = y.GetMethod("SetEntryAssembly", 1).Import(),
-                            SetReferenceAssemblies = y.GetMethod("SetReferenceAssemblies", 1).Import()
-                        });
-
                         return context.Call(assemblies.SetEntryAssembly, x =>
                             x.Call(introspectionExtensions.GetTypeInfo, voidMain.DeclaringType)
                                 .Call(typeInfo.Assembly))
@@ -54,6 +55,18 @@ namespace Cauldron.Interception.Fody
                             .End;
                     })
                     .Insert(InsertionPosition.Beginning);
+                }
+                else
+                {
+                    var module = builder.GetType("<Module>", SearchContext.Module);
+                    module
+                        .CreateStaticConstructor()
+                        .NewCoder()
+                        .Call(assemblies.SetEntryAssembly, x =>
+                            x.Call(introspectionExtensions.GetTypeInfo, module)
+                                .Call(typeInfo.Assembly))
+                            .End
+                        .Insert(InsertionPosition.Beginning);
                 }
             }
 

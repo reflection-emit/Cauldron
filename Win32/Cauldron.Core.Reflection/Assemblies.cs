@@ -87,7 +87,7 @@ namespace Cauldron.Core.Reflection
                 var assemblies = new List<Assembly>();
                 var allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
 
-                Parallel.For(0, allAssemblies.Length, i =>
+                for (int i = 0; i < allAssemblies.Length; i++)
                 {
                     var assembly = allAssemblies[i];
                     if (AddAssembly(assembly, false) != null)
@@ -96,7 +96,7 @@ namespace Cauldron.Core.Reflection
                         for (int c = 0; c < referencedAssemblies.Length; c++)
                             LoadAssembly(referencedAssemblies[c]);
                     }
-                });
+                };
 
                 return;
             }
