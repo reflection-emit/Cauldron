@@ -2,5 +2,4 @@
 <Weavers>
   <Cauldron.Interception />
   <PropertyChanged />
-  <Costura />
 </Weavers>

@@ -36,90 +36,89 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Cauldron.Activator, Version=2.0.0.27, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Capgemini.Cauldron.Activator.2.0.27\lib\netstandard2.0\Cauldron.Activator.dll</HintPath>
+    <Reference Include="Cauldron.Activator, Version=3.0.0.13, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Activator.3.0.13-beta\lib\net461\Cauldron.Activator.dll</HintPath>
     </Reference>
-    <Reference Include="Cauldron.Core, Version=2.0.0.27, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Capgemini.Cauldron.Core.2.0.27\lib\netstandard2.0\Cauldron.Core.dll</HintPath>
+    <Reference Include="Cauldron.Core, Version=3.0.0.13, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Core.3.0.13-beta\lib\net461\Cauldron.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Cauldron.Core.Collections, Version=2.0.0.27, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Collections.2.0.27\lib\netstandard2.0\Cauldron.Core.Collections.dll</HintPath>
+    <Reference Include="Cauldron.Core.Collections, Version=3.0.0.13, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Collections.3.0.13-beta\lib\net461\Cauldron.Core.Collections.dll</HintPath>
     </Reference>
-    <Reference Include="Cauldron.Core.Comparing, Version=2.0.0.27, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Comparing.2.0.27\lib\netstandard2.0\Cauldron.Core.Comparing.dll</HintPath>
+    <Reference Include="Cauldron.Core.Comparing, Version=3.0.0.13, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Comparing.3.0.13-beta\lib\net461\Cauldron.Core.Comparing.dll</HintPath>
     </Reference>
-    <Reference Include="Cauldron.Core.Diagnostics.Net461, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Diagnostics.2.0.27\lib\net461\Cauldron.Core.Diagnostics.Net461.dll</HintPath>
+    <Reference Include="Cauldron.Core.Diagnostics, Version=3.0.0.13, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Diagnostics.3.0.13-beta\lib\net461\Cauldron.Core.Diagnostics.dll</HintPath>
     </Reference>
-    <Reference Include="Cauldron.Core.Disposable, Version=2.0.0.27, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Disposable.2.0.27\lib\netstandard2.0\Cauldron.Core.Disposable.dll</HintPath>
+    <Reference Include="Cauldron.Core.Disposable, Version=3.0.0.13, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Disposable.3.0.13-beta\lib\net461\Cauldron.Core.Disposable.dll</HintPath>
     </Reference>
-    <Reference Include="Cauldron.Core.Extensions, Version=2.0.0.27, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Extensions.2.0.27\lib\netstandard2.0\Cauldron.Core.Extensions.dll</HintPath>
+    <Reference Include="Cauldron.Core.Extensions, Version=3.0.0.13, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Extensions.3.0.13-beta\lib\net461\Cauldron.Core.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="Cauldron.Core.Extensions.Compression, Version=2.0.0.27, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Extensions.Compression.2.0.27\lib\netstandard2.0\Cauldron.Core.Extensions.Compression.dll</HintPath>
+    <Reference Include="Cauldron.Core.Extensions.Compression, Version=3.0.0.13, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Extensions.Compression.3.0.13-beta\lib\net461\Cauldron.Core.Extensions.Compression.dll</HintPath>
     </Reference>
-    <Reference Include="Cauldron.Core.Extensions.Convertions, Version=2.0.0.27, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Extensions.Convertions.2.0.27\lib\netstandard2.0\Cauldron.Core.Extensions.Convertions.dll</HintPath>
+    <Reference Include="Cauldron.Core.Extensions.Convertions, Version=3.0.0.13, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Extensions.Convertions.3.0.13-beta\lib\net461\Cauldron.Core.Extensions.Convertions.dll</HintPath>
     </Reference>
-    <Reference Include="Cauldron.Core.Extensions.IO, Version=2.0.0.27, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Extensions.IO.2.0.27\lib\netstandard2.0\Cauldron.Core.Extensions.IO.dll</HintPath>
+    <Reference Include="Cauldron.Core.Extensions.IO, Version=3.0.0.13, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Extensions.IO.3.0.13-beta\lib\net461\Cauldron.Core.Extensions.IO.dll</HintPath>
     </Reference>
-    <Reference Include="Cauldron.Core.MathExtensions, Version=2.0.0.27, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Capgemini.Cauldron.Core.MathExtensions.2.0.27\lib\netstandard2.0\Cauldron.Core.MathExtensions.dll</HintPath>
+    <Reference Include="Cauldron.Core.MathExtensions, Version=3.0.0.13, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Core.MathExtensions.3.0.13-beta\lib\net461\Cauldron.Core.MathExtensions.dll</HintPath>
     </Reference>
-    <Reference Include="Cauldron.Core.Net, Version=2.0.0.27, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Net.2.0.27\lib\netstandard2.0\Cauldron.Core.Net.dll</HintPath>
+    <Reference Include="Cauldron.Core.Net, Version=3.0.0.13, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Net.3.0.13-beta\lib\net461\Cauldron.Core.Net.dll</HintPath>
     </Reference>
-    <Reference Include="Cauldron.Core.Randomizer.Net461, Version=2.0.0.27, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Randomizer.2.0.27\lib\net461\Cauldron.Core.Randomizer.Net461.dll</HintPath>
+    <Reference Include="Cauldron.Core.Randomizer, Version=3.0.0.13, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Randomizer.3.0.13-beta\lib\net461\Cauldron.Core.Randomizer.dll</HintPath>
     </Reference>
-    <Reference Include="Cauldron.Core.Reflection, Version=2.0.0.27, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Reflection.2.0.27\lib\netstandard2.0\Cauldron.Core.Reflection.dll</HintPath>
+    <Reference Include="Cauldron.Core.Reflection, Version=3.0.0.13, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Reflection.3.0.13-beta\lib\net461\Cauldron.Core.Reflection.dll</HintPath>
     </Reference>
-    <Reference Include="Cauldron.Core.Threading, Version=2.0.0.27, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Threading.2.0.27\lib\netstandard2.0\Cauldron.Core.Threading.dll</HintPath>
+    <Reference Include="Cauldron.Core.Threading, Version=3.0.0.13, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Threading.3.0.13-beta\lib\net461\Cauldron.Core.Threading.dll</HintPath>
     </Reference>
-    <Reference Include="Cauldron.Core.Yaml, Version=2.0.0.27, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Yaml.2.0.27\lib\netstandard2.0\Cauldron.Core.Yaml.dll</HintPath>
+    <Reference Include="Cauldron.Core.Yaml, Version=3.0.0.13, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Yaml.3.0.13-beta\lib\net461\Cauldron.Core.Yaml.dll</HintPath>
     </Reference>
-    <Reference Include="Cauldron.Cryptography, Version=2.0.0.27, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Capgemini.Cauldron.Cryptography.2.0.27\lib\netstandard2.0\Cauldron.Cryptography.dll</HintPath>
+    <Reference Include="Cauldron.Cryptography, Version=3.0.0.13, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Cryptography.3.0.13-beta\lib\net461\Cauldron.Cryptography.dll</HintPath>
     </Reference>
-    <Reference Include="Cauldron.Interception, Version=2.0.0.27, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Cauldron.Interception.Fody.2.0.27\lib\net461\Cauldron.Interception.dll</HintPath>
+    <Reference Include="Cauldron.Interception, Version=3.0.0.13, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Cauldron.BasicInterceptors.3.0.13-beta\lib\net461\Cauldron.Interception.dll</HintPath>
     </Reference>
-    <Reference Include="Cauldron.Localization, Version=2.0.0.27, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Capgemini.Cauldron.Localization.2.0.27\lib\netstandard2.0\Cauldron.Localization.dll</HintPath>
+    <Reference Include="Cauldron.Localization, Version=3.0.0.13, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Localization.3.0.13-beta\lib\net461\Cauldron.Localization.dll</HintPath>
     </Reference>
-    <Reference Include="Cauldron.Win32.MonitorInfo, Version=2.0.0.27, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Capgemini.Cauldron.Win32.MonitorInfo.2.0.27\lib\net461\Cauldron.Win32.MonitorInfo.dll</HintPath>
+    <Reference Include="Cauldron.Win32.MonitorInfo, Version=3.0.0.13, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Win32.MonitorInfo.3.0.13-beta\lib\net461\Cauldron.Win32.MonitorInfo.dll</HintPath>
     </Reference>
-    <Reference Include="Cauldron.Win32.Net, Version=2.0.0.27, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Capgemini.Cauldron.Win32.Net.2.0.27\lib\net461\Cauldron.Win32.Net.dll</HintPath>
+    <Reference Include="Cauldron.Win32.Net, Version=2.0.0.39, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Win32.Net.2.1.0\lib\net461\Cauldron.Win32.Net.dll</HintPath>
     </Reference>
-    <Reference Include="Cauldron.Win32.Threading, Version=2.0.0.27, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Capgemini.Cauldron.Win32.Threading.2.0.27\lib\net461\Cauldron.Win32.Threading.dll</HintPath>
+    <Reference Include="Cauldron.Win32.Threading, Version=2.0.0.39, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Win32.Threading.2.1.0\lib\net461\Cauldron.Win32.Threading.dll</HintPath>
     </Reference>
-    <Reference Include="Cauldron.Win32.UserInformation, Version=2.0.0.27, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Capgemini.Cauldron.Win32.UserInformation.2.0.27\lib\net461\Cauldron.Win32.UserInformation.dll</HintPath>
+    <Reference Include="Cauldron.Win32.UserInformation, Version=3.0.0.13, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Win32.UserInformation.3.0.13-beta\lib\net461\Cauldron.Win32.UserInformation.dll</HintPath>
     </Reference>
-    <Reference Include="Cauldron.Win32.WPF, Version=2.0.0.27, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Capgemini.Cauldron.Win32.WPF.2.0.27\lib\net461\Cauldron.Win32.WPF.dll</HintPath>
+    <Reference Include="Cauldron.Win32.WPF, Version=3.0.0.13, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Win32.WPF.3.0.13-beta\lib\net461\Cauldron.Win32.WPF.dll</HintPath>
     </Reference>
-    <Reference Include="Cauldron.Win32.WPF.ParameterPassing, Version=2.0.0.27, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Capgemini.Cauldron.Win32.WPF.ParameterPassing.2.0.27\lib\net461\Cauldron.Win32.WPF.ParameterPassing.dll</HintPath>
+    <Reference Include="Cauldron.Win32.WPF.ParameterPassing, Version=3.0.0.13, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Win32.WPF.ParameterPassing.3.0.13-beta\lib\net461\Cauldron.Win32.WPF.ParameterPassing.dll</HintPath>
     </Reference>
-    <Reference Include="Costura, Version=1.6.2.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Costura.Fody.1.6.2\lib\dotnet\Costura.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Costura, Version=2.0.0.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Costura.Fody.2.0.0\lib\net452\Costura.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="PropertyChanged, Version=2.2.4.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\PropertyChanged.Fody.2.2.4.0\lib\net452\PropertyChanged.dll</HintPath>
+    <Reference Include="PropertyChanged, Version=2.5.6.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\PropertyChanged.Fody.2.5.6\lib\net452\PropertyChanged.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -129,7 +128,6 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Net.Http" />
@@ -178,14 +176,19 @@
   <ItemGroup>
     <Resource Include="FodyWeavers.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Interceptors\Cauldron.ActivatorInterceptors-3.0.0.13.dll" />
+    <Content Include="Interceptors\Cauldron.BasicInterceptors-3.0.0.13.dll" />
+    <Content Include="Interceptors\Cauldron.WPF.Interceptors-3.0.0.13.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\..\packages\Fody.3.0.3\build\Fody.targets" Condition="Exists('..\..\packages\Fody.3.0.3\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\Costura.Fody.1.6.2\build\dotnet\Costura.Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Costura.Fody.1.6.2\build\dotnet\Costura.Fody.targets'))" />
-    <Error Condition="!Exists('..\..\packages\Fody.2.3.6\build\net452\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Fody.2.3.6\build\net452\Fody.targets'))" />
+    <Error Condition="!Exists('..\..\packages\Fody.3.0.3\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Fody.3.0.3\build\Fody.targets'))" />
+    <Error Condition="!Exists('..\..\packages\Costura.Fody.2.0.0\build\Costura.Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Costura.Fody.2.0.0\build\Costura.Fody.targets'))" />
   </Target>
-  <Import Project="..\..\packages\Costura.Fody.1.6.2\build\dotnet\Costura.Fody.targets" Condition="Exists('..\..\packages\Costura.Fody.1.6.2\build\dotnet\Costura.Fody.targets')" />
-  <Import Project="..\..\packages\Fody.2.3.6\build\net452\Fody.targets" Condition="Exists('..\..\packages\Fody.2.3.6\build\net452\Fody.targets')" />
+  <Import Project="..\..\packages\Costura.Fody.2.0.0\build\Costura.Fody.targets" Condition="Exists('..\..\packages\Costura.Fody.2.0.0\build\Costura.Fody.targets')" />
 </Project>

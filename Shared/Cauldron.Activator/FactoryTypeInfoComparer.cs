@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Reflection;
 
 namespace Cauldron.Activator
 {
@@ -9,7 +10,10 @@ namespace Cauldron.Activator
             if (x == null || y == null)
                 return false;
 
-            return x.ContractName == y.ContractName && x.Type.FullName == y.Type.FullName;
+            return
+                x.Type.GetTypeInfo().Assembly.FullName == y.Type.GetTypeInfo().Assembly.FullName &&
+                x.ContractName == y.ContractName &&
+                x.Type.FullName == y.Type.FullName;
         }
 
         public int GetHashCode(IFactoryTypeInfo obj)

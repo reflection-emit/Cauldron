@@ -13,6 +13,8 @@
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -37,23 +39,22 @@
     <StartupObject>Win32_WPF_ParameterPassing.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Cauldron.Core.Diagnostics.Net461, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Diagnostics.2.0.27\lib\net461\Cauldron.Core.Diagnostics.Net461.dll</HintPath>
+    <Reference Include="Cauldron.Core.Diagnostics, Version=3.0.0.13, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Diagnostics.3.0.13-beta\lib\net461\Cauldron.Core.Diagnostics.dll</HintPath>
     </Reference>
-    <Reference Include="Cauldron.Core.Randomizer.Net461, Version=2.0.0.27, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Randomizer.2.0.27\lib\net461\Cauldron.Core.Randomizer.Net461.dll</HintPath>
+    <Reference Include="Cauldron.Core.Randomizer, Version=3.0.0.13, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Randomizer.3.0.13-beta\lib\net461\Cauldron.Core.Randomizer.dll</HintPath>
     </Reference>
-    <Reference Include="Cauldron.Core.Reflection, Version=2.0.0.27, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Reflection.2.0.27\lib\netstandard2.0\Cauldron.Core.Reflection.dll</HintPath>
+    <Reference Include="Cauldron.Core.Reflection, Version=3.0.0.13, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Core.Reflection.3.0.13-beta\lib\net461\Cauldron.Core.Reflection.dll</HintPath>
     </Reference>
-    <Reference Include="Cauldron.Win32.WPF.ParameterPassing, Version=2.0.0.27, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Capgemini.Cauldron.Win32.WPF.ParameterPassing.2.0.27\lib\net461\Cauldron.Win32.WPF.ParameterPassing.dll</HintPath>
+    <Reference Include="Cauldron.Win32.WPF.ParameterPassing, Version=3.0.0.13, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Capgemini.Cauldron.Win32.WPF.ParameterPassing.3.0.13-beta\lib\net461\Cauldron.Win32.WPF.ParameterPassing.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Xaml">
@@ -109,5 +110,15 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="FodyWeavers.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\..\packages\Fody.3.0.3\build\Fody.targets" Condition="Exists('..\..\packages\Fody.3.0.3\build\Fody.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\Fody.3.0.3\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Fody.3.0.3\build\Fody.targets'))" />
+  </Target>
 </Project>
