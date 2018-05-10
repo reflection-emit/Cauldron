@@ -11,7 +11,7 @@ using System.Linq;
 public static class Weaver_ComponentCache
 {
     public static string Name = "Activator Component Cache (Dependency Injection)";
-    public static int Priority = 10;
+    public static int Priority = int.MaxValue;
 
     [Display("Creating Component Cache")]
     public static void Implement(Builder builder)

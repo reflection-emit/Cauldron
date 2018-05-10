@@ -138,7 +138,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <None Include="InterceptorScripts\CauldronWPFThemeLight.csx" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />

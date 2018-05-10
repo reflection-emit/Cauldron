@@ -31,8 +31,8 @@
     </releaseNotes>
     <dependencies>
       <dependency id="Fody" version="3.0.3" />
-      <dependency id="Cauldron.Interception.Fody" version="3.0.11-beta" />
-      <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="3.0.11-beta" />
+      <dependency id="Cauldron.Interception.Fody" version="3.0.12-beta" />
+      <dependency id="Capgemini.Cauldron.Core.Diagnostics" version="3.0.12-beta" />
     </dependencies>
   </metadata>
   <files>

@@ -160,20 +160,14 @@ namespace Cauldron.XAML
         /// </summary>
         /// <param name="obj"><see cref="DependencyObject" /> with the attached property</param>
         /// <returns>The value of the attached property</returns>
-        public static ResizeMode GetResizeMode(DependencyObject obj)
-        {
-            return (ResizeMode)obj.GetValue(ResizeModeProperty);
-        }
+        public static ResizeMode GetResizeMode(DependencyObject obj) => (ResizeMode)(obj?.GetValue(ResizeModeProperty) ?? ResizeMode.CanResizeWithGrip);
 
         /// <summary>
         /// Sets the value of the ResizeMode attached property
         /// </summary>
         /// <param name="obj"><see cref="DependencyObject" /> with the attached property</param>
         /// <param name="value">The new value to set</param>
-        public static void SetResizeMode(DependencyObject obj, ResizeMode value)
-        {
-            obj.SetValue(ResizeModeProperty, value);
-        }
+        public static void SetResizeMode(DependencyObject obj, ResizeMode value) => obj.SetValue(ResizeModeProperty, value);
 
         #endregion Dependency Attached Property ResizeMode
 
