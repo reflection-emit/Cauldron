@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>3.0.10-beta</Version>
+    <Version>3.0.11-beta</Version>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Authors>Alexander Schunk, Capgemini Deutschland GmbH</Authors>
@@ -21,8 +21,8 @@
       - Assemblies statis class - A "wrapper" for Assembly but applied on all loaded Assemblies
     </Description>
     <PackageId>Capgemini.Cauldron.Core.Reflection</PackageId>
-    <AssemblyVersion>3.0.0.10</AssemblyVersion>
-    <FileVersion>3.0.0.10</FileVersion>
+    <AssemblyVersion>3.0.0.11</AssemblyVersion>
+    <FileVersion>3.0.0.11</FileVersion>
     <Configurations>Debug;Release;Release.Net45;Release.451</Configurations>
   </PropertyGroup>
 
