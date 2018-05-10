@@ -1,6 +1,11 @@
-﻿using Cauldron.Interception.Cecilator;
+﻿#r "System.Security"
+
+using System;
+using System.Text;
+using Cauldron.Interception.Cecilator;
 using Cauldron.Interception.Fody;
 using Cauldron.Interception.Fody.HelperTypes;
+using System.Security.Cryptography;
 using System.Linq;
 
 public static class TimedCacheInterceptorWeaver
@@ -49,12 +54,12 @@ public static class TimedCacheInterceptorWeaver
                         context.SetValue(timedCache, x => x.NewObj(method));
 
                         // Create a cache key
-                        context.SetValue(key, x => x.Call(timedCacheAttribute.CreateKey, method.Method.Fullname, context.GetParametersArray()));
+                        context.SetValue(key, x => x.Call(timedCacheAttribute.CreateKey, GetHash(method.Method.Fullname), context.GetParametersArray()));
 
                         // check
                         context.If(x => x.Load(timedCache).Call(timedCacheAttribute.HasCache, key).Is(true), then =>
                               {
-                                  return then.SetValue(returnVariable, x => x.Load(timedCache).Call(timedCacheAttribute.GetCache, key).As(method.Method.ReturnType))
+                                  return then.Load(timedCache).Call(timedCacheAttribute.GetCache, key).As(method.Method.ReturnType)
                                       .Return();
                               });
 
@@ -100,5 +105,11 @@ public static class TimedCacheInterceptorWeaver
 
             method.Attribute.Remove();
         }
+    }
+
+    private static string GetHash(this string target)
+    {
+        using (var md5 = new MD5CryptoServiceProvider())
+            return BitConverter.ToString(md5.ComputeHash(UTF8Encoding.UTF8.GetBytes(target))).Replace("-", "");
     }
 }

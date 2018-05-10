@@ -97,7 +97,7 @@ namespace Cauldron.Interception.Cecilator.Coders
 
             this.instructions.Emit(OpCodes.Ldloc, array.variable);
             this.instructions.Emit(OpCodes.Ldloc, indexer.variable);
-            this.instructions.Emit(OpCodes.Ldelem_Ref); // TODO - cases for primitiv types
+            this.instructions.Emit(LoadElement(array.variable.VariableType));
             this.instructions.Emit(OpCodes.Stloc, item.variable);
 
             action(this, item);
@@ -138,7 +138,7 @@ namespace Cauldron.Interception.Cecilator.Coders
 
             if (this.instructions.associatedMethod.IsAsync)
             {
-                targetMethod = this.instructions.associatedMethod.AsyncMethod;
+                targetMethod = this.instructions.associatedMethod;
                 originMethod = this.instructions.associatedMethod;
             }
             else if (this.instructions.associatedMethod.AsyncOriginType.IsAsyncStateMachine)
@@ -163,6 +163,9 @@ namespace Cauldron.Interception.Cecilator.Coders
                 var objectArrayType = Builder.Current.GetType(typeof(object[]));
                 var newBlock = this.instructions.Spawn();
                 variable = targetMethod.GetOrCreateVariable(objectArrayType, variableName);
+
+                if (variable?.variable == null)
+                    throw new NullReferenceException("Unable to create a local variable");
 
                 newBlock.Emit(OpCodes.Ldc_I4, originMethod.methodReference.Parameters.Count);
                 newBlock.Emit(OpCodes.Newarr, (objectArrayType.typeReference as ArrayType).ElementType);
@@ -440,6 +443,24 @@ namespace Cauldron.Interception.Cecilator.Coders
                 if (index >= 0)
                     jumps.Add(new Index(currentIndex, index));
             }
+        }
+
+        private OpCode LoadElement(TypeReference typeReference)
+        {
+            if (typeReference.AreEqual(BuilderType.Byte)) return OpCodes.Ldelem_U1;
+            if (typeReference.AreEqual(BuilderType.SByte)) return OpCodes.Ldelem_I1;
+            if (typeReference.AreEqual(BuilderType.Int16)) return OpCodes.Ldelem_I2;
+            if (typeReference.AreEqual(BuilderType.UInt16)) return OpCodes.Ldelem_U2;
+            if (typeReference.AreEqual(BuilderType.Int32)) return OpCodes.Ldelem_I4;
+            if (typeReference.AreEqual(BuilderType.UInt32)) return OpCodes.Ldelem_U4;
+            if (typeReference.AreEqual(BuilderType.Int64)) return OpCodes.Ldelem_I8;
+            if (typeReference.AreEqual(BuilderType.UInt64)) return OpCodes.Ldelem_I8;
+            if (typeReference.AreEqual(BuilderType.Single)) return OpCodes.Ldelem_R4;
+            if (typeReference.AreEqual(BuilderType.Double)) return OpCodes.Ldelem_R8;
+            if (typeReference.AreEqual(BuilderType.IntPtr)) return OpCodes.Ldelem_I;
+            if (typeReference.AreEqual(BuilderType.UIntPtr)) return OpCodes.Ldelem_I;
+
+            return OpCodes.Ldelem_Ref;
         }
 
         private Coder OriginalBodyNewMethod()

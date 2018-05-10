@@ -192,19 +192,25 @@ namespace Cauldron.Interception.Fody
                 if (item.FullName == null)
                     continue;
 
-                if (item.FullName.StartsWith("Microsoft."))
+                if (item.Name.Name.StartsWith("Microsoft."))
                     continue;
 
-                if (item.FullName.StartsWith("System."))
+                if (item.Name.Name.StartsWith("System."))
                     continue;
 
-                if (item.FullName.StartsWith("Windows."))
+                if (item.Name.Name.StartsWith("Windows."))
                     continue;
 
-                if (item.FullName == "testhost")
+                if (item.Name.Name == "testhost")
                     continue;
 
-                if (item.FullName == "mscorlib")
+                if (item.Name.Name == "mscorlib")
+                    continue;
+
+                if (item.Name.Name == "System")
+                    continue;
+
+                if (item.Name.Name == "netstandard")
                     continue;
 
                 foreach (var type in item.MainModule.Types)

@@ -9,5 +9,10 @@
     <Import_RootNamespace>UnitTest_BasicInterceptorTests</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)ITestInterface.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Method_Interceptor_Code_Validation_Tests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Property_Interceptor_Code_Validation_Tests.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TestClass.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TestStruct.cs" />
   </ItemGroup>
 </Project>

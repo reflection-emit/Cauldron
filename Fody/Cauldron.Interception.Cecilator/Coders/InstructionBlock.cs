@@ -1300,6 +1300,9 @@ namespace Cauldron.Interception.Cecilator.Coders
                 if (targetType.IsArray)
                     return false;
 
+                if (targetType.IsEnum)
+                    return false;
+
                 if (targetType == BuilderType.IEnumerable1)
                     return false;
 
@@ -1336,6 +1339,7 @@ namespace Cauldron.Interception.Cecilator.Coders
             {
                 if (instructionBlock.ResultingType.AreEqual(BuilderType.String.typeReference))
                 {
+                    // Bug #23
                     instructionBlock.Prepend(instructionBlock.ilprocessor.TypeOf(targetType));
 
                     instructionBlock.Append(instructionBlock.ilprocessor.TypeOf(targetType.Import()));
@@ -1346,14 +1350,6 @@ namespace Cauldron.Interception.Cecilator.Coders
                 }
                 else
                     instructionBlock.Emit(OpCodes.Unbox_Any, targetType);
-
-                // Bug #23
-                //result.Instructions.InsertRange(0, this.TypeOf(processor, targetType));
-
-                //result.Instructions.AddRange(this.TypeOf(processor, Builder.Current.Import(targetType)));
-                //result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Enum)).GetMethodReference("GetUnderlyingType", new Type[] { typeof(Type) }))));
-                //result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Convert)).GetMethodReference("ChangeType", new Type[] { typeof(object), typeof(Type) }))));
-                //result.Instructions.Add(processor.Create(OpCodes.Call, Builder.Current.Import(Builder.Current.Import(typeof(Enum)).GetMethodReference("ToObject", new Type[] { typeof(Type), typeof(object) }))));
             }
             else if (instructionBlock.ResultingType.AreEqual(BuilderType.Object) && (targetType.IsArray || targetType == BuilderType.IEnumerable1))
             {

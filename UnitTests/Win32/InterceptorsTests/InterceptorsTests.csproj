@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{488F436D-39FD-483C-B988-37FC06F313A9}</ProjectGuid>
+    <ProjectGuid>{85587D7D-A682-4EF5-B489-EDF751BA0B1B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BasicInterceptorTests</RootNamespace>
-    <AssemblyName>BasicInterceptorTests</AssemblyName>
+    <RootNamespace>InterceptorsTests</RootNamespace>
+    <AssemblyName>InterceptorsTests</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -49,16 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\Win32\Cauldron.Interception\Cauldron.Interception.csproj">
-      <Project>{cfc811eb-c500-4d1f-adf1-ecaf4433af2d}</Project>
-      <Name>Cauldron.Interception</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Shared\UnitTest_InterceptorsForTest\UnitTest_InterceptorsForTest.csproj">
-      <Project>{5d44f97a-60bb-42a7-a616-19772ce1fd3c}</Project>
-      <Name>UnitTest_InterceptorsForTest</Name>
-    </ProjectReference>
+    <Compile Include="TimedCacheTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -66,7 +57,12 @@
   <ItemGroup>
     <None Include="FodyWeavers.xml" />
   </ItemGroup>
-  <Import Project="..\..\Shared\UnitTest_BasicInterceptorTests\UnitTest_BasicInterceptorTests.projitems" Label="Shared" />
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Win32\Cauldron.Win32.Interceptors\Cauldron.Win32.Interceptors.csproj">
+      <Project>{99cdfaca-8bfd-42e7-85d5-ab181df96656}</Project>
+      <Name>Cauldron.Win32.Interceptors</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

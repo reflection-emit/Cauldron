@@ -71,19 +71,20 @@ namespace Cauldron.Interception.Fody
             }
         }
 
-        private string CompileScript(string compiler, string script, IEnumerable<string> references)
+        private string CompileScript(string compiler, string path, IEnumerable<string> references)
         {
-            this.Log(LogTypes.Info, "       Compiling custom interceptor: " + Path.GetFileName(script));
+            this.Log(LogTypes.Info, "       Compiling custom interceptor: " + Path.GetFileName(path));
 
-            var tempDirectory = Path.Combine(Path.GetTempPath(), Path.GetFileNameWithoutExtension(script));
-            var output = Path.Combine(tempDirectory, Path.GetFileNameWithoutExtension(script) + ".dll");
+            var tempDirectory = Path.Combine(Path.GetTempPath(), Path.GetFileNameWithoutExtension(path));
+            var output = Path.Combine(tempDirectory, Path.GetFileNameWithoutExtension(path) + ".dll");
+            var additionalReferences = GetReferences(path);
 
             Directory.CreateDirectory(tempDirectory);
 
             var processStartInfo = new ProcessStartInfo
             {
                 FileName = compiler,
-                Arguments = $"/t:library /out:\"{output}\" /optimize+  \"{script}\" /r:{string.Join(",", references.Select(x => "\"" + x + "\""))}",
+                Arguments = $"/t:library /out:\"{output}\" /optimize+  \"{additionalReferences.Item2}\" /r:{string.Join(",", references.Concat(additionalReferences.Item1).Select(x => "\"" + x + "\""))}",
                 CreateNoWindow = true,
                 UseShellExecute = false,
                 WindowStyle = ProcessWindowStyle.Hidden,
@@ -106,7 +107,7 @@ namespace Cauldron.Interception.Fody
             process.WaitForExit();
 
             if (process.ExitCode != 0)
-                throw new Exception($"An error has occured while compiling '{script}'");
+                throw new Exception($"An error has occured while compiling '{additionalReferences.Item2}'");
 
             return output;
         }
@@ -136,6 +137,42 @@ namespace Cauldron.Interception.Fody
                 for (int i = 0; i < dlls.Length; i++)
                     yield return dlls[i];
             }
+        }
+
+        private Tuple<IEnumerable<string>, string> GetReferences(string path)
+        {
+            var assemblyDomain = AppDomain.CreateDomain(friendlyName: "spider-man");
+
+            var references = new List<string>();
+            var lines = File.ReadAllLines(path);
+
+            foreach (var @ref in lines.Where(x => x?.Trim().StartsWith("#r ") ?? false))
+            {
+                try
+                {
+                    var assembly = assemblyDomain.Load(@ref.EnclosedIn("\"", "\""));
+                    references.Add(assembly.Location);
+                }
+                catch
+                {
+                }
+            }
+
+            var tempDirectory = Path.Combine(Path.GetTempPath(), Path.GetFileNameWithoutExtension(path));
+            var output = Path.Combine(tempDirectory, Path.GetFileNameWithoutExtension(path) + ".cs");
+
+            File.WriteAllLines(output, lines.Where(x =>
+            {
+                if (x == null)
+                    return false;
+
+                if (x.Trim().StartsWith("#r "))
+                    return false;
+
+                return true;
+            }).ToArray());
+
+            return new Tuple<IEnumerable<string>, string>(references, output);
         }
 
         private Assembly LoadScript(string path)
