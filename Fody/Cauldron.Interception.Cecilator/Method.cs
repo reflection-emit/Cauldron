@@ -69,10 +69,16 @@ namespace Cauldron.Interception.Cecilator
 
         public BuilderCustomAttributeCollection CustomAttributes => new BuilderCustomAttributeCollection(this.type.Builder, this.methodDefinition);
 
+        /// <summary>
+        /// Gets the type that contains the method.
+        /// </summary>
+        public BuilderType DeclaringType => new BuilderType(this.type.Builder, this.methodReference.DeclaringType);
+
         public string Fullname => this.methodReference.FullName;
 
         public override string Identification => $"{this.methodDefinition.DeclaringType.Name}-{this.methodDefinition.Name}-{this.methodDefinition.DeclaringType.MetadataToken.RID}-{this.methodDefinition.MetadataToken.RID}";
 
+        public bool IsAbstract => this.methodDefinition.IsAbstract;
         public bool IsAsync => this.methodDefinition.ReturnType.FullName.EqualsEx("System.Threading.Tasks.Task") || (this.methodDefinition.ReturnType.Resolve()?.FullName.EqualsEx("System.Threading.Tasks.Task`1") ?? false);
 
         public bool IsCCtor => this.methodDefinition.Name == ".cctor";
@@ -111,9 +117,13 @@ namespace Cauldron.Interception.Cecilator
                     this.type.typeDefinition.FullName.IndexOf('>') >= 0;
 
         public bool IsInternal => this.methodDefinition.Attributes.HasFlag(MethodAttributes.Assembly);
+        public bool IsPrivate => this.methodDefinition.IsPrivate;
         public bool IsPropertyGetterSetter => (this.methodDefinition.Name.StartsWith("get_") || this.methodDefinition.Name.StartsWith("set_")) && this.methodDefinition.IsSpecialName;
         public bool IsProtected => this.methodDefinition.Attributes.HasFlag(MethodAttributes.Family);
+        public bool IsPublic => this.methodDefinition.IsPublic;
         public bool IsPublicOrInternal => this.IsPublic || this.IsInternal;
+        public bool IsSpecialName => this.methodDefinition.IsSpecialName;
+        public bool IsStatic => this.methodDefinition.IsStatic;
         public bool IsVoid => this.methodDefinition.ReturnType.FullName == "System.Void";
 
         public Modifiers Modifiers
@@ -130,16 +140,6 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
-        /// <summary>
-        /// Gets the type that contains the method.
-        /// </summary>
-        public BuilderType DeclaringType => new BuilderType(this.type.Builder, this.methodReference.DeclaringType);
-
-        public bool IsAbstract => this.methodDefinition.IsAbstract;
-        public bool IsPrivate => this.methodDefinition.IsPrivate;
-        public bool IsPublic => this.methodDefinition.IsPublic;
-        public bool IsSpecialName => this.methodDefinition.IsSpecialName;
-        public bool IsStatic => this.methodDefinition.IsStatic;
         public string Name => this.methodDefinition.Name;
 
         /// <summary>
@@ -151,6 +151,24 @@ namespace Cauldron.Interception.Cecilator
             this.methodReference.Parameters.Select(x => new BuilderType(this.OriginType.Builder, x.ParameterType.ResolveType(this.type.typeReference, this.methodReference))).ToArray();
 
         public BuilderType ReturnType => new BuilderType(this.type, this.methodReference.ReturnType);
+
+        /// <summary>
+        /// Gets a collection of local variables in the method.
+        /// </summary>
+        public IEnumerable<LocalVariable> Variables
+        {
+            get
+            {
+                if (this.methodDefinition.Body.Variables == null)
+                    return new LocalVariable[0];
+
+                var result = new List<LocalVariable>();
+                for (int i = 0; i < this.methodDefinition.DebugInformation.Scope.Variables.Count; i++)
+                    result.Add(new LocalVariable(this.type, this.methodDefinition.Body.Variables[i], this.methodDefinition.DebugInformation.Scope.Variables[i].Name));
+
+                return result;
+            }
+        }
 
         public Method Copy() => this.NewCoder().Copy(Modifiers.Private, $"<{this.Name}>m__original");
 

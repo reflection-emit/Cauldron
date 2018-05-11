@@ -7,6 +7,7 @@ using Cauldron.Interception.Fody;
 using Cauldron.Interception.Fody.HelperTypes;
 using System.Security.Cryptography;
 using System.Linq;
+using Cauldron.Interception.Cecilator.Coders;
 
 public static class TimedCacheInterceptorWeaver
 {
@@ -78,9 +79,9 @@ public static class TimedCacheInterceptorWeaver
                     {
                         var taskReturnType = method.Method.ReturnType.GetGenericArgument(0);
                         var timedCache = context.AssociatedMethod.GetOrCreateVariable(method.Attribute.Type, timecacheVarName);
-                        var cacheKey = context.AssociatedMethod.GetOrCreateVariable(typeof(string));
+                        var cacheKey = context.AssociatedMethod.GetOrCreateVariable(timedCacheAttribute.CreateKey.ReturnType, keyName);
 
-                        context.SetValue(cacheKey, x => x.Call(timedCacheAttribute.CreateKey, method.Method.Fullname, context.GetParametersArray()));
+                        context.SetValue(cacheKey, x => x.Call(timedCacheAttribute.CreateKey, GetHash(method.Method.Fullname), context.GetParametersArray()));
                         context.SetValue(timedCache, x => x.NewObj(method));
                         context.If(x => x.Load(timedCache).Call(timedCacheAttribute.HasCache, cacheKey).Is(true), then =>
                               {
@@ -91,16 +92,29 @@ public static class TimedCacheInterceptorWeaver
                         return context;
                     }).Insert(InsertionPosition.Beginning);
 
+                var position = method.Method.AsyncMethodHelper.GetAsyncTaskMethodBuilderStart();
                 method.Method.NewCoder()
                     .Context(context =>
                     {
+                        var key = context.AssociatedMethod.GetOrCreateVariable(timedCacheAttribute.CreateKey.ReturnType, keyName);
+                        var timedCache = context.AssociatedMethod.GetOrCreateVariable(method.Attribute.Type, timecacheVarName);
                         var taskReturnType = method.Method.ReturnType.GetGenericArgument(0);
-                        var returnVariable = context.GetOrCreateReturnVariable();
+                        var asyncTaskMethodBuilder = builder
+                            .GetType("System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1")
+                            .MakeGeneric(taskReturnType);
+                        var resultVariable = context.AssociatedMethod.Variables.FirstOrDefault(x => x.Type == asyncTaskMethodBuilder);
+                        var asyncTaskMethodBuilderTask = asyncTaskMethodBuilder
+                            .GetMethod("get_Task")
+                            .MakeGeneric(taskReturnType);
+
                         return context
-                            .Load(variable: x => x.GetVariable(2))
-                                .Call(timedCacheAttribute.SetCache, x => x.AssociatedMethod.GetVariable(3), x => x.Load(returnVariable).Call(task_1.GetResult.MakeGeneric(taskReturnType)))
-                                .End;
-                    }).Insert(InsertionPosition.End);
+                            .Load(timedCache)
+                            .Call(timedCacheAttribute.SetCache, x => key, x =>
+                                x.Load(resultVariable)
+                                    .Call(asyncTaskMethodBuilderTask)
+                                    .Call(task_1.GetResult.MakeGeneric(taskReturnType)))
+                            .End;
+                    }).Insert(InsertionAction.After, position);
             }
 
             method.Attribute.Remove();

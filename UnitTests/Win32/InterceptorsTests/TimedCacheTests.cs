@@ -11,6 +11,48 @@ namespace InterceptorsTests
     public class TimedCacheTests
     {
         [TestMethod]
+        public void Async_Method_Test()
+        {
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            var result = TestMethodAsync().Result;
+
+            stopwatch.Stop();
+            Assert.AreEqual("Hello", result);
+            Assert.IsTrue(stopwatch.ElapsedMilliseconds > 4000);
+
+            stopwatch.Restart();
+
+            result = TestMethodAsync().Result;
+
+            stopwatch.Stop();
+            Assert.AreEqual("Hello", result);
+            Assert.IsTrue(stopwatch.ElapsedMilliseconds < 2000);
+        }
+
+        [TestMethod]
+        public void Async_Method_With_TryCatch_Test()
+        {
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            var result = TestMethod_With_Try_Catch_Async().Result;
+
+            stopwatch.Stop();
+            Assert.AreEqual("Hello", result);
+            Assert.IsTrue(stopwatch.ElapsedMilliseconds > 4000);
+
+            stopwatch.Restart();
+
+            result = TestMethod_With_Try_Catch_Async().Result;
+
+            stopwatch.Stop();
+            Assert.AreEqual("Hello", result);
+            Assert.IsTrue(stopwatch.ElapsedMilliseconds < 2000);
+        }
+
+        [TestMethod]
         public void Method_Test()
         {
             var stopwatch = new Stopwatch();

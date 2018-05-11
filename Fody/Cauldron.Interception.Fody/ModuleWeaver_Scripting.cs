@@ -77,14 +77,24 @@ namespace Cauldron.Interception.Fody
 
             var tempDirectory = Path.Combine(Path.GetTempPath(), Path.GetFileNameWithoutExtension(path));
             var output = Path.Combine(tempDirectory, Path.GetFileNameWithoutExtension(path) + ".dll");
+            var pdb = Path.Combine(tempDirectory, Path.GetFileNameWithoutExtension(path) + ".pdb");
             var additionalReferences = GetReferences(path);
+            var arguments = new string[]
+            {
+                $"/t:library",
+                $"/out:\"{output}\"",
+                $"/optimize+",
+                $"\"{additionalReferences.Item2}\"",
+                $"/pdb:\"{pdb}\"",
+                $"/r:{string.Join(",", references.Concat(additionalReferences.Item1).Select(x => "\"" + x + "\""))}"
+            };
 
             Directory.CreateDirectory(tempDirectory);
 
             var processStartInfo = new ProcessStartInfo
             {
                 FileName = compiler,
-                Arguments = $"/t:library /out:\"{output}\" /optimize+  \"{additionalReferences.Item2}\" /r:{string.Join(",", references.Concat(additionalReferences.Item1).Select(x => "\"" + x + "\""))}",
+                Arguments = string.Join(" ", arguments),
                 CreateNoWindow = true,
                 UseShellExecute = false,
                 WindowStyle = ProcessWindowStyle.Hidden,

@@ -140,6 +140,18 @@ namespace Cauldron.Interception.Cecilator
             return new Position(this.method, result);
         }
 
+        public Position GetAsyncTaskMethodBuilderStart()
+        {
+            var result = this.method.methodDefinition.Body.Instructions
+                .FirstOrDefault(x => x.OpCode == OpCodes.Call && (x.Operand as MethodDefinition ?? x.Operand as MethodReference).Name == "Start");
+
+            // If the result is null then probably the helper class is a struct
+            if (result == null)
+                return null;
+
+            return new Position(this.method, result);
+        }
+
         private Field AddThisReference()
         {
             var thisField = this.method.AsyncMethod.OriginType.CreateField(Modifiers.Public, this.method.OriginType, "<>4__this").Resolve(this.method);
