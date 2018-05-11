@@ -29,6 +29,9 @@ namespace Cauldron.Interception.Cecilator
         {
             get
             {
+                if (this.typeReference.IsGenericParameter || this.typeDefinition == null /* This is probably a generic parameter */)
+                    return CodeBlocks.DefaultValueOf(this);
+
                 switch (this.Fullname)
                 {
                     case "System.Int16": return default(short);
@@ -45,9 +48,6 @@ namespace Cauldron.Interception.Cecilator
                     case "System.SByte": return default(sbyte);
                     case "System.IntPtr": return default(IntPtr);
                 }
-
-                if (this.typeDefinition == null /* This is probably a generic parameter */)
-                    return CodeBlocks.DefaultOfStruct(this.typeReference);
 
                 if (this.typeDefinition.IsValueType)
                     return CodeBlocks.DefaultOfStruct(this.typeReference);
@@ -86,10 +86,10 @@ namespace Cauldron.Interception.Cecilator
         public bool IsDelegate => this.typeDefinition.IsDelegate();
         public bool IsEnum => this.typeDefinition.IsEnum;
         public bool IsForeign => this.moduleDefinition.Assembly == this.typeDefinition.Module.Assembly;
-
         public bool IsGenerated => this.typeDefinition.FullName.IndexOf('<') >= 0 || this.typeDefinition.FullName.IndexOf('>') >= 0;
-
         public bool IsGenericInstance => this.typeReference.IsGenericInstance;
+        public bool IsGenericParameter => this.typeReference.IsGenericParameter;
+
         public bool IsGenericType => this.typeDefinition == null || this.typeReference.Resolve() == null;
 
         public bool IsInterface => this.typeDefinition == null ? false : this.typeDefinition.Attributes.HasFlag(TypeAttributes.Interface);
@@ -101,6 +101,7 @@ namespace Cauldron.Interception.Cecilator
         public bool IsNullable => this == BuilderType.Nullable;
 
         public bool IsPrimitive => this.typeDefinition?.IsPrimitive ?? this.typeReference?.IsPrimitive ?? false;
+
         public bool IsPrivate => !this.IsPublic && this.IsNestedPrivate;
 
         public bool IsPublic => this.typeDefinition.Attributes.HasFlag(TypeAttributes.Public) && !this.IsNestedPrivate;
@@ -110,7 +111,9 @@ namespace Cauldron.Interception.Cecilator
         public bool IsStatic => this.IsAbstract && this.IsSealed;
 
         public bool IsValueType => this.typeDefinition == null ? this.typeReference == null ? false : this.typeReference.IsValueType : this.typeDefinition.IsValueType;
+
         public bool IsVoid => this.typeDefinition.FullName == "System.Void";
+
         public string Name => this.typeDefinition == null ? this.typeReference.Name : this.typeDefinition.Name;
 
         public string Namespace => this.typeDefinition.Namespace;
@@ -181,6 +184,8 @@ namespace Cauldron.Interception.Cecilator
         public bool Inherits(string typename) => this.BaseClasses.Any(x =>
             (x.typeReference != null && x.typeReference.FullName.GetHashCode() == typename.GetHashCode() && x.typeReference.FullName == typename) ||
             (x.typeDefinition != null && x.typeDefinition.FullName.GetHashCode() == typename.GetHashCode() && x.typeDefinition.FullName == typename));
+
+        public GenericParameter ToGenericParameter() => this.typeReference as GenericParameter;
 
         #region Constructors
 

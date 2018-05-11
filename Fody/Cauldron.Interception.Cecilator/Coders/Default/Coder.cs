@@ -1032,12 +1032,12 @@ namespace Cauldron.Interception.Cecilator.Coders
 
                 if (!realReturn.Previous.IsValueOpCode() && realReturn.Previous.OpCode != OpCodes.Ldnull)
                 {
+                    var previousReturn = realReturn.Previous;
                     resultJump = true;
                     //this.processor.InsertBefore(realReturn, this.processor.Create(OpCodes.Ldloc, returnVariable));
                     coder.instructions.ilprocessor.InsertBefore(realReturn,
                         InstructionBlock.CreateCode(coder.instructions, coder.instructions.associatedMethod.ReturnType, coder.GetOrCreateReturnVariable()));
-
-                    realReturn = realReturn.Previous;
+                    realReturn = previousReturn;
                 }
                 else if (realReturn.Previous.IsLoadField() || realReturn.Previous.IsLoadLocal() || realReturn.Previous.OpCode == OpCodes.Ldnull)
                 {

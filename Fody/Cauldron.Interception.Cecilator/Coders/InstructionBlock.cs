@@ -341,8 +341,19 @@ namespace Cauldron.Interception.Cecilator.Coders
                 case DefaultValueCodeBlock value:
                     var defaultValue = value.builderType.DefaultValue;
 
-                    result.Append(InstructionBlock.CreateCode(result,
-                        value.builderType.GenericArguments().Any() ? value.builderType.GetGenericArgument(0) : value.builderType, defaultValue));
+                    if (targetType.IsGenericParameter)
+                    {
+                        var variable = instructionBlock.associatedMethod.GetOrCreateVariable(targetType);
+                        result.Emit(OpCodes.Ldloca, variable.variable);
+                        result.Emit(OpCodes.Initobj, targetType);
+                        result.Emit(OpCodes.Ldloc, variable.variable);
+                        result.ResultingType = targetType.typeReference;
+                        break;
+                    }
+                    else
+                        result.Append(InstructionBlock.CreateCode(result,
+                            value.builderType.GenericArguments().Any() ? value.builderType.GetGenericArgument(0) : value.builderType, defaultValue));
+
                     break;
 
                 case CoderBase coder:
@@ -1288,12 +1299,39 @@ namespace Cauldron.Interception.Cecilator.Coders
             return result;
         }
 
+        private static void CastOrBoxValuesInternal(InstructionBlock instructionBlock, GenericParameter genericParameter)
+        {
+            var genericParameterResulting = instructionBlock.resultingType as GenericParameter;
+
+            if (genericParameterResulting == null && instructionBlock.resultingType != null)
+            {
+                if (genericParameter.HasReferenceTypeConstraint)
+                {
+                    instructionBlock.Emit(OpCodes.Isinst, genericParameter);
+                    instructionBlock.Emit(OpCodes.Unbox_Any, genericParameter);
+                }
+                else
+                    instructionBlock.Emit(OpCodes.Unbox_Any, genericParameter);
+            }
+            else if (genericParameter.FullName == genericParameterResulting.FullName && genericParameter.Owner == genericParameterResulting.Owner)
+                // No casting or convertions required here
+                return;
+            else
+                instructionBlock.Emit(OpCodes.Unbox_Any, genericParameter);
+        }
+
         private static void CastOrBoxValuesInternal(InstructionBlock instructionBlock, BuilderType targetType)
         {
             // TODO - Support for nullable types required
 
             if (targetType == null)
                 return;
+
+            if (targetType.typeReference is GenericParameter genericParameter)
+            {
+                CastOrBoxValuesInternal(instructionBlock, genericParameter);
+                return;
+            }
 
             bool IsInstRequired()
             {

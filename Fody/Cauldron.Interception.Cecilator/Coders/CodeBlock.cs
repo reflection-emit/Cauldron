@@ -21,7 +21,7 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         public static CodeBlock DefaultTaskOfT(TypeReference typeReference) => new DefaultTaskOfTCodeBlock { typeReference = typeReference };
 
-        public static DefaultValueCodeBlock DefaultValueOf(BuilderType builderType) => new DefaultValueCodeBlock { builderType = builderType };
+        public static CodeBlock DefaultValueOf(BuilderType builderType) => new DefaultValueCodeBlock { builderType = builderType };
 
         /// <summary>
         /// Generates a random name that can be used to name variables and methods.
