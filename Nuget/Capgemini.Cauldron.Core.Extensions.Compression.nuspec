@@ -17,7 +17,7 @@
     </releaseNotes>
     <dependencies>
       <group>
-        <dependency id="Capgemini.Cauldron.Core.Comparing" version="3.0.13-beta" />
+        <dependency id="Capgemini.Cauldron.Core.Comparing" version="3.0.14" />
       </group>
     </dependencies>
   </metadata>

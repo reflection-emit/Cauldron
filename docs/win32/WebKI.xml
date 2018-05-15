@@ -297,11 +297,25 @@
   <HelpKINode Title="AsyncMethodHelper property" Url="html/P_Cauldron_Interception_Cecilator_Method_AsyncMethodHelper.htm" />
   <HelpKINode Title="AsyncMethodHelper.GetAsyncStateMachineExceptionBlock method" Url="html/M_Cauldron_Interception_Cecilator_AsyncMethodHelper_GetAsyncStateMachineExceptionBlock.htm" />
   <HelpKINode Title="AsyncMethodHelper.GetAsyncStateMachineExceptionVariable method" Url="html/M_Cauldron_Interception_Cecilator_AsyncMethodHelper_GetAsyncStateMachineExceptionVariable.htm" />
+  <HelpKINode Title="AsyncMethodHelper.GetAsyncStateMachineLastGetResult method" Url="html/M_Cauldron_Interception_Cecilator_AsyncMethodHelper_GetAsyncStateMachineLastGetResult.htm" />
+  <HelpKINode Title="AsyncMethodHelper.GetAsyncStateMachineTryBlock method" Url="html/M_Cauldron_Interception_Cecilator_AsyncMethodHelper_GetAsyncStateMachineTryBlock.htm" />
   <HelpKINode Title="AsyncMethodHelper.GetAsyncTaskMethodBuilderInitialization method" Url="html/M_Cauldron_Interception_Cecilator_AsyncMethodHelper_GetAsyncTaskMethodBuilderInitialization.htm" />
+  <HelpKINode Title="AsyncMethodHelper.GetAsyncTaskMethodBuilderStart method" Url="html/M_Cauldron_Interception_Cecilator_AsyncMethodHelper_GetAsyncTaskMethodBuilderStart.htm" />
   <HelpKINode Title="AsyncMethodHelper.Instance property" Url="html/P_Cauldron_Interception_Cecilator_AsyncMethodHelper_Instance.htm" />
   <HelpKINode Title="AsyncMethodHelper.Method property" Url="html/P_Cauldron_Interception_Cecilator_AsyncMethodHelper_Method.htm" />
   <HelpKINode Title="AsyncMethodHelper.OriginType property" Url="html/P_Cauldron_Interception_Cecilator_AsyncMethodHelper_OriginType.htm" />
-  <HelpKINode Title="AsyncOriginType property" Url="html/P_Cauldron_Interception_Cecilator_Method_AsyncOriginType.htm" />
+  <HelpKINode Title="AsyncOriginType property">
+    <HelpKINode Title="AsyncStateMachineMoveNextMethod.AsyncOriginType Property " Url="html/P_Cauldron_Interception_Cecilator_AsyncStateMachineMoveNextMethod_AsyncOriginType.htm" />
+    <HelpKINode Title="Method.AsyncOriginType Property " Url="html/P_Cauldron_Interception_Cecilator_Method_AsyncOriginType.htm" />
+  </HelpKINode>
+  <HelpKINode Title="AsyncStateMachineMoveNextMethod class">
+    <HelpKINode Title="AsyncStateMachineMoveNextMethod Class" Url="html/T_Cauldron_Interception_Cecilator_AsyncStateMachineMoveNextMethod.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Interception_Cecilator_AsyncStateMachineMoveNextMethod.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_Interception_Cecilator_AsyncStateMachineMoveNextMethod.htm" />
+  </HelpKINode>
+  <HelpKINode Title="AsyncStateMachineMoveNextMethod.AsyncOriginType property" Url="html/P_Cauldron_Interception_Cecilator_AsyncStateMachineMoveNextMethod_AsyncOriginType.htm" />
+  <HelpKINode Title="AsyncStateMachineMoveNextMethod.OriginMethod property" Url="html/P_Cauldron_Interception_Cecilator_AsyncStateMachineMoveNextMethod_OriginMethod.htm" />
+  <HelpKINode Title="AsyncStateMachinePositions class" Url="html/T_Cauldron_Interception_Cecilator_AsyncStateMachinePositions.htm" />
   <HelpKINode Title="Attach method" Url="html/M_Cauldron_XAML_Interactivity_IBehaviour_Attach.htm" />
   <HelpKINode Title="Attribute property">
     <HelpKINode Title="AttributedField.Attribute Property " Url="html/P_Cauldron_Interception_Cecilator_AttributedField_Attribute.htm" />
@@ -387,8 +401,8 @@
     <HelpKINode Title="ViewModelBase.BeforeRaiseNotifyPropertyChanged Method " Url="html/M_Cauldron_XAML_ViewModels_ViewModelBase_BeforeRaiseNotifyPropertyChanged.htm" />
   </HelpKINode>
   <HelpKINode Title="Beginning enumeration member" Url="html/T_Cauldron_Interception_Cecilator_InsertionPosition.htm" />
-  <HelpKINode Title="beginning field" Url="html/F_Cauldron_Interception_Cecilator_Coders_InstructionPoints_beginning.htm" />
   <HelpKINode Title="Beginning field" Url="html/F_Cauldron_Interception_Cecilator_Positions_Beginning.htm" />
+  <HelpKINode Title="beginning field" Url="html/F_Cauldron_Interception_Cecilator_Coders_InstructionPoints_beginning.htm" />
   <HelpKINode Title="Behaviour(Of T) class">
     <HelpKINode Title="Behaviour(T) Class" Url="html/T_Cauldron_XAML_Interactivity_Behaviour_1.htm" />
     <HelpKINode Title="constructor" Url="html/M_Cauldron_XAML_Interactivity_Behaviour_1__ctor.htm" />
@@ -797,6 +811,7 @@
   <HelpKINode Title="BuilderType.IsForeign property" Url="html/P_Cauldron_Interception_Cecilator_BuilderType_IsForeign.htm" />
   <HelpKINode Title="BuilderType.IsGenerated property" Url="html/P_Cauldron_Interception_Cecilator_BuilderType_IsGenerated.htm" />
   <HelpKINode Title="BuilderType.IsGenericInstance property" Url="html/P_Cauldron_Interception_Cecilator_BuilderType_IsGenericInstance.htm" />
+  <HelpKINode Title="BuilderType.IsGenericParameter property" Url="html/P_Cauldron_Interception_Cecilator_BuilderType_IsGenericParameter.htm" />
   <HelpKINode Title="BuilderType.IsGenericType property" Url="html/P_Cauldron_Interception_Cecilator_BuilderType_IsGenericType.htm" />
   <HelpKINode Title="BuilderType.IsInterface property" Url="html/P_Cauldron_Interception_Cecilator_BuilderType_IsInterface.htm" />
   <HelpKINode Title="BuilderType.IsInternal property" Url="html/P_Cauldron_Interception_Cecilator_BuilderType_IsInternal.htm" />
@@ -826,6 +841,7 @@
   <HelpKINode Title="BuilderType.StaticConstructor property" Url="html/P_Cauldron_Interception_Cecilator_BuilderType_StaticConstructor.htm" />
   <HelpKINode Title="BuilderType.String property" Url="html/P_Cauldron_Interception_Cecilator_BuilderType_String.htm" />
   <HelpKINode Title="BuilderType.Task property" Url="html/P_Cauldron_Interception_Cecilator_BuilderType_Task.htm" />
+  <HelpKINode Title="BuilderType.ToGenericParameter method" Url="html/M_Cauldron_Interception_Cecilator_BuilderType_ToGenericParameter.htm" />
   <HelpKINode Title="BuilderType.ToString method" Url="html/M_Cauldron_Interception_Cecilator_BuilderType_ToString.htm" />
   <HelpKINode Title="BuilderType.Type property" Url="html/P_Cauldron_Interception_Cecilator_BuilderType_Type.htm" />
   <HelpKINode Title="BuilderType.UInt16 property" Url="html/P_Cauldron_Interception_Cecilator_BuilderType_UInt16.htm" />
@@ -1074,6 +1090,8 @@
   <HelpKINode Title="Cauldron.Interception.Cecilator namespace" Url="html/N_Cauldron_Interception_Cecilator.htm" />
   <HelpKINode Title="Cauldron.Interception.Cecilator.AssemblyDefinitionEqualityComparer class" Url="html/T_Cauldron_Interception_Cecilator_AssemblyDefinitionEqualityComparer.htm" />
   <HelpKINode Title="Cauldron.Interception.Cecilator.AsyncMethodHelper class" Url="html/T_Cauldron_Interception_Cecilator_AsyncMethodHelper.htm" />
+  <HelpKINode Title="Cauldron.Interception.Cecilator.AsyncStateMachineMoveNextMethod class" Url="html/T_Cauldron_Interception_Cecilator_AsyncStateMachineMoveNextMethod.htm" />
+  <HelpKINode Title="Cauldron.Interception.Cecilator.AsyncStateMachinePositions class" Url="html/T_Cauldron_Interception_Cecilator_AsyncStateMachinePositions.htm" />
   <HelpKINode Title="Cauldron.Interception.Cecilator.AttributedField class" Url="html/T_Cauldron_Interception_Cecilator_AttributedField.htm" />
   <HelpKINode Title="Cauldron.Interception.Cecilator.AttributedMethod class" Url="html/T_Cauldron_Interception_Cecilator_AttributedMethod.htm" />
   <HelpKINode Title="Cauldron.Interception.Cecilator.AttributedProperty class" Url="html/T_Cauldron_Interception_Cecilator_AttributedProperty.htm" />
@@ -1446,7 +1464,6 @@
   <HelpKINode Title="Coder.End property" Url="html/P_Cauldron_Interception_Cecilator_Coders_Coder_End.htm" />
   <HelpKINode Title="Coder.For method" Url="html/M_Cauldron_Interception_Cecilator_Coders_Coder_For.htm" />
   <HelpKINode Title="Coder.GetFirstOrDefaultPosition method" Url="html/M_Cauldron_Interception_Cecilator_Coders_Coder_GetFirstOrDefaultPosition.htm" />
-  <HelpKINode Title="Coder.GetOrCreateReturnVariable method" Url="html/M_Cauldron_Interception_Cecilator_Coders_Coder_GetOrCreateReturnVariable.htm" />
   <HelpKINode Title="Coder.GetParametersArray method" Url="html/M_Cauldron_Interception_Cecilator_Coders_Coder_GetParametersArray.htm" />
   <HelpKINode Title="Coder.HasReturnVariable method" Url="html/M_Cauldron_Interception_Cecilator_Coders_Coder_HasReturnVariable.htm" />
   <HelpKINode Title="Coder.If method" Url="html/Overload_Cauldron_Interception_Cecilator_Coders_Coder_If.htm" />
@@ -1477,6 +1494,8 @@
   <HelpKINode Title="CoderBase(Of TSelf, TMaster).CoderBase constructor" Url="html/M_Cauldron_Interception_Cecilator_Coders_CoderBase_2__ctor.htm" />
   <HelpKINode Title="CoderBase(Of TSelf, TMaster).Duplicate method" Url="html/M_Cauldron_Interception_Cecilator_Coders_CoderBase_2_Duplicate.htm" />
   <HelpKINode Title="CoderBase(Of TSelf, TMaster).End property" Url="html/P_Cauldron_Interception_Cecilator_Coders_CoderBase_2_End.htm" />
+  <HelpKINode Title="CoderBase(Of TSelf, TMaster).GetOrCreateReturnVariable method" Url="html/M_Cauldron_Interception_Cecilator_Coders_CoderBase_2_GetOrCreateReturnVariable.htm" />
+  <HelpKINode Title="CoderBase(Of TSelf, TMaster).ImplementReturn method" Url="html/M_Cauldron_Interception_Cecilator_Coders_CoderBase_2_ImplementReturn.htm" />
   <HelpKINode Title="CoderBase(Of TSelf, TMaster).Jump method" Url="html/M_Cauldron_Interception_Cecilator_Coders_CoderBase_2_Jump.htm" />
   <HelpKINode Title="CoderBase(Of TSelf, TMaster).Negate method" Url="html/M_Cauldron_Interception_Cecilator_Coders_CoderBase_2_Negate.htm" />
   <HelpKINode Title="CoderBase(Of TSelf, TMaster).Pop method" Url="html/M_Cauldron_Interception_Cecilator_Coders_CoderBase_2_Pop.htm" />
@@ -1502,6 +1521,8 @@
   <HelpKINode Title="CoderBase&lt;TSelf, TMaster&gt;.CoderBase constructor" Url="html/M_Cauldron_Interception_Cecilator_Coders_CoderBase_2__ctor.htm" />
   <HelpKINode Title="CoderBase&lt;TSelf, TMaster&gt;.Duplicate method" Url="html/M_Cauldron_Interception_Cecilator_Coders_CoderBase_2_Duplicate.htm" />
   <HelpKINode Title="CoderBase&lt;TSelf, TMaster&gt;.End property" Url="html/P_Cauldron_Interception_Cecilator_Coders_CoderBase_2_End.htm" />
+  <HelpKINode Title="CoderBase&lt;TSelf, TMaster&gt;.GetOrCreateReturnVariable method" Url="html/M_Cauldron_Interception_Cecilator_Coders_CoderBase_2_GetOrCreateReturnVariable.htm" />
+  <HelpKINode Title="CoderBase&lt;TSelf, TMaster&gt;.ImplementReturn method" Url="html/M_Cauldron_Interception_Cecilator_Coders_CoderBase_2_ImplementReturn.htm" />
   <HelpKINode Title="CoderBase&lt;TSelf, TMaster&gt;.Jump method" Url="html/M_Cauldron_Interception_Cecilator_Coders_CoderBase_2_Jump.htm" />
   <HelpKINode Title="CoderBase&lt;TSelf, TMaster&gt;.Negate method" Url="html/M_Cauldron_Interception_Cecilator_Coders_CoderBase_2_Negate.htm" />
   <HelpKINode Title="CoderBase&lt;TSelf, TMaster&gt;.Pop method" Url="html/M_Cauldron_Interception_Cecilator_Coders_CoderBase_2_Pop.htm" />
@@ -2248,13 +2269,13 @@
   <HelpKINode Title="Extension.With(Of TType, TNew) method" Url="html/M_Cauldron_Interception_Cecilator_Extension_With__2.htm" />
   <HelpKINode Title="Extension.With&lt;TType, TNew&gt; method" Url="html/M_Cauldron_Interception_Cecilator_Extension_With__2.htm" />
   <HelpKINode Title="Extensions class">
-    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Interception_Extensions.htm" />
-    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_XAML_Extensions.htm" />
-    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Core_Collections_Extensions.htm" />
     <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Extensions.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Interception_Extensions.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Collections_Extensions.htm" />
+    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Core_Collections_Extensions.htm" />
+    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_XAML_Extensions.htm" />
+    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Interception_Extensions.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_XAML_Extensions.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Collections_Extensions.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Interception_Extensions.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Extensions.htm" />
   </HelpKINode>
   <HelpKINode Title="Extensions.AddHookParameterPassing method" Url="html/M_Cauldron_Extensions_AddHookParameterPassing.htm" />
@@ -2693,7 +2714,10 @@
     <HelpKINode Title="NameCollisionOption Enumeration" Url="html/T_Cauldron_NameCollisionOption.htm" />
   </HelpKINode>
   <HelpKINode Title="GenericArguments method" Url="html/M_Cauldron_Interception_Cecilator_BuilderType_GenericArguments.htm" />
-  <HelpKINode Title="Get method" Url="html/Overload_Cauldron_Interception_Cecilator_Extension_Get.htm" />
+  <HelpKINode Title="Get method">
+    <HelpKINode Title="Extension.Get Method " Url="html/Overload_Cauldron_Interception_Cecilator_Extension_Get.htm" />
+    <HelpKINode Title="InstructionBlock.Get Method " Url="html/M_Cauldron_Interception_Cecilator_Coders_InstructionBlock_Get.htm" />
+  </HelpKINode>
   <HelpKINode Title="GetActiveParameters method" Url="html/M_Cauldron_Consoles_ParameterParser_GetActiveParameters.htm" />
   <HelpKINode Title="GetAllProperties method" Url="html/M_Cauldron_Interception_Cecilator_BuilderType_GetAllProperties.htm" />
   <HelpKINode Title="GetAllReferencedAssemblies method" Url="html/Overload_Cauldron_Interception_Cecilator_WeaverBase_GetAllReferencedAssemblies.htm" />
@@ -2705,7 +2729,10 @@
   <HelpKINode Title="GetAssembliesForScanning method" Url="html/M_Cauldron_Interception_Cecilator_WeaverBase_GetAssembliesForScanning.htm" />
   <HelpKINode Title="GetAsyncStateMachineExceptionBlock method" Url="html/M_Cauldron_Interception_Cecilator_AsyncMethodHelper_GetAsyncStateMachineExceptionBlock.htm" />
   <HelpKINode Title="GetAsyncStateMachineExceptionVariable method" Url="html/M_Cauldron_Interception_Cecilator_AsyncMethodHelper_GetAsyncStateMachineExceptionVariable.htm" />
+  <HelpKINode Title="GetAsyncStateMachineLastGetResult method" Url="html/M_Cauldron_Interception_Cecilator_AsyncMethodHelper_GetAsyncStateMachineLastGetResult.htm" />
+  <HelpKINode Title="GetAsyncStateMachineTryBlock method" Url="html/M_Cauldron_Interception_Cecilator_AsyncMethodHelper_GetAsyncStateMachineTryBlock.htm" />
   <HelpKINode Title="GetAsyncTaskMethodBuilderInitialization method" Url="html/M_Cauldron_Interception_Cecilator_AsyncMethodHelper_GetAsyncTaskMethodBuilderInitialization.htm" />
+  <HelpKINode Title="GetAsyncTaskMethodBuilderStart method" Url="html/M_Cauldron_Interception_Cecilator_AsyncMethodHelper_GetAsyncTaskMethodBuilderStart.htm" />
   <HelpKINode Title="GetAttributedFields method" Url="html/M_Cauldron_Interception_Cecilator_BuilderType_GetAttributedFields.htm" />
   <HelpKINode Title="GetBaseClasses method" Url="html/M_Cauldron_Interception_Cecilator_Extension_GetBaseClasses.htm" />
   <HelpKINode Title="GetBehaviour(Of T) method" Url="html/M_Cauldron_XAML_Interactivity_Interaction_GetBehaviour__1.htm" />
@@ -2845,7 +2872,7 @@
   <HelpKINode Title="GetNavigateUri method" Url="html/M_Cauldron_XAML_Theme_HyperlinkProperties_GetNavigateUri.htm" />
   <HelpKINode Title="GetNestedTypes method" Url="html/M_Cauldron_Interception_Cecilator_Extension_GetNestedTypes.htm" />
   <HelpKINode Title="GetOrCreateMethod method" Url="html/M_Cauldron_Interception_Cecilator_BuilderType_GetOrCreateMethod.htm" />
-  <HelpKINode Title="GetOrCreateReturnVariable method" Url="html/M_Cauldron_Interception_Cecilator_Coders_Coder_GetOrCreateReturnVariable.htm" />
+  <HelpKINode Title="GetOrCreateReturnVariable method" Url="html/M_Cauldron_Interception_Cecilator_Coders_CoderBase_2_GetOrCreateReturnVariable.htm" />
   <HelpKINode Title="GetOrCreateVariable method" Url="html/Overload_Cauldron_Interception_Cecilator_Method_GetOrCreateVariable.htm" />
   <HelpKINode Title="GetParameter method">
     <HelpKINode Title="CodeBlocks.GetParameter Method " Url="html/Overload_Cauldron_Interception_Cecilator_Coders_CodeBlocks_GetParameter.htm" />
@@ -3377,6 +3404,7 @@
   <HelpKINode Title="IMethodInterceptor.OnException method" Url="html/M_Cauldron_Interception_IMethodInterceptor_OnException.htm" />
   <HelpKINode Title="IMethodInterceptor.OnExit method" Url="html/M_Cauldron_Interception_IMethodInterceptor_OnExit.htm" />
   <HelpKINode Title="Impersonate method" Url="html/M_Cauldron_ExtensionsDirectoryServices_Impersonate.htm" />
+  <HelpKINode Title="ImplementReturn method" Url="html/M_Cauldron_Interception_Cecilator_Coders_CoderBase_2_ImplementReturn.htm" />
   <HelpKINode Title="Implements method">
     <HelpKINode Title="BuilderType.Implements Method " Url="html/Overload_Cauldron_Interception_Cecilator_BuilderType_Implements.htm" />
     <HelpKINode Title="Extension.Implements Method " Url="html/M_Cauldron_Interception_Cecilator_Extension_Implements.htm" />
@@ -3410,7 +3438,10 @@
   <HelpKINode Title="INavigator.NavigateAsync method" Url="html/Overload_Cauldron_XAML_Navigation_INavigator_NavigateAsync.htm" />
   <HelpKINode Title="INavigator.TryClose method" Url="html/M_Cauldron_XAML_Navigation_INavigator_TryClose.htm" />
   <HelpKINode Title="INavigator.TryCloseFocusedWindow method" Url="html/M_Cauldron_XAML_Navigation_INavigator_TryCloseFocusedWindow.htm" />
-  <HelpKINode Title="Index property" Url="html/P_Cauldron_Interception_Cecilator_LocalVariable_Index.htm" />
+  <HelpKINode Title="Index property">
+    <HelpKINode Title="LocalVariable.Index Property " Url="html/P_Cauldron_Interception_Cecilator_LocalVariable_Index.htm" />
+    <HelpKINode Title="Position.Index Property " Url="html/P_Cauldron_Interception_Cecilator_Position_Index.htm" />
+  </HelpKINode>
   <HelpKINode Title="IndexOf method">
     <HelpKINode Title="ConcurrentList(T).IndexOf Method " Url="html/Overload_Cauldron_Core_Collections_ConcurrentList_1_IndexOf.htm" />
     <HelpKINode Title="Extension.IndexOf Method " Url="html/M_Cauldron_Interception_Cecilator_Extension_IndexOf.htm" />
@@ -3477,7 +3508,7 @@
     <HelpKINode Title="ConcurrentList(T).Insert Method " Url="html/Overload_Cauldron_Core_Collections_ConcurrentList_1_Insert.htm" />
     <HelpKINode Title="InstructionBlock.Insert Method " Url="html/Overload_Cauldron_Interception_Cecilator_Coders_InstructionBlock_Insert.htm" />
   </HelpKINode>
-  <HelpKINode Title="InsertAfter method" Url="html/M_Cauldron_Interception_Cecilator_Coders_InstructionBlock_InsertAfter.htm" />
+  <HelpKINode Title="InsertAfter method" Url="html/Overload_Cauldron_Interception_Cecilator_Coders_InstructionBlock_InsertAfter.htm" />
   <HelpKINode Title="InsertionAction enumeration" Url="html/T_Cauldron_Interception_Cecilator_InsertionAction.htm" />
   <HelpKINode Title="InsertionPosition enumeration" Url="html/T_Cauldron_Interception_Cecilator_InsertionPosition.htm" />
   <HelpKINode Title="InsertItem method">
@@ -3511,13 +3542,14 @@
   <HelpKINode Title="InstructionBlock.Equality operator" Url="html/M_Cauldron_Interception_Cecilator_Coders_InstructionBlock_op_Equality.htm" />
   <HelpKINode Title="InstructionBlock.Equals method" Url="html/M_Cauldron_Interception_Cecilator_Coders_InstructionBlock_Equals.htm" />
   <HelpKINode Title="InstructionBlock.First property" Url="html/P_Cauldron_Interception_Cecilator_Coders_InstructionBlock_First.htm" />
+  <HelpKINode Title="InstructionBlock.Get method" Url="html/M_Cauldron_Interception_Cecilator_Coders_InstructionBlock_Get.htm" />
   <HelpKINode Title="InstructionBlock.GetEnumerator method" Url="html/M_Cauldron_Interception_Cecilator_Coders_InstructionBlock_GetEnumerator.htm" />
   <HelpKINode Title="InstructionBlock.GetHashCode method" Url="html/M_Cauldron_Interception_Cecilator_Coders_InstructionBlock_GetHashCode.htm" />
   <HelpKINode Title="InstructionBlock.IEnumerable.GetEnumerator explicitly implemented method" Url="html/M_Cauldron_Interception_Cecilator_Coders_InstructionBlock_System_Collections_IEnumerable_GetEnumerator.htm" />
   <HelpKINode Title="InstructionBlock.IndexOf method" Url="html/M_Cauldron_Interception_Cecilator_Coders_InstructionBlock_IndexOf.htm" />
   <HelpKINode Title="InstructionBlock.Inequality operator" Url="html/M_Cauldron_Interception_Cecilator_Coders_InstructionBlock_op_Inequality.htm" />
   <HelpKINode Title="InstructionBlock.Insert method" Url="html/Overload_Cauldron_Interception_Cecilator_Coders_InstructionBlock_Insert.htm" />
-  <HelpKINode Title="InstructionBlock.InsertAfter method" Url="html/M_Cauldron_Interception_Cecilator_Coders_InstructionBlock_InsertAfter.htm" />
+  <HelpKINode Title="InstructionBlock.InsertAfter method" Url="html/Overload_Cauldron_Interception_Cecilator_Coders_InstructionBlock_InsertAfter.htm" />
   <HelpKINode Title="InstructionBlock.Invert method" Url="html/M_Cauldron_Interception_Cecilator_Coders_InstructionBlock_Invert.htm" />
   <HelpKINode Title="InstructionBlock.Item property" Url="html/P_Cauldron_Interception_Cecilator_Coders_InstructionBlock_Item.htm" />
   <HelpKINode Title="InstructionBlock.Last property" Url="html/P_Cauldron_Interception_Cecilator_Coders_InstructionBlock_Last.htm" />
@@ -3737,6 +3769,7 @@
     <HelpKINode Title="Property.IsGenerated Property " Url="html/P_Cauldron_Interception_Cecilator_Property_IsGenerated.htm" />
   </HelpKINode>
   <HelpKINode Title="IsGenericInstance property" Url="html/P_Cauldron_Interception_Cecilator_BuilderType_IsGenericInstance.htm" />
+  <HelpKINode Title="IsGenericParameter property" Url="html/P_Cauldron_Interception_Cecilator_BuilderType_IsGenericParameter.htm" />
   <HelpKINode Title="IsGenericType property" Url="html/P_Cauldron_Interception_Cecilator_BuilderType_IsGenericType.htm" />
   <HelpKINode Title="IsHandled property" Url="html/P_Cauldron_XAML_Navigation_CauldronBackRequestedEventArgs_IsHandled.htm" />
   <HelpKINode Title="IsImplementingInterfaceOrInheritBaseClass enumeration member" Url="html/T_Cauldron_Interception_InterceptionRuleOptions.htm" />
@@ -4296,6 +4329,7 @@
   <HelpKINode Title="Method.Parameters property" Url="html/P_Cauldron_Interception_Cecilator_Method_Parameters.htm" />
   <HelpKINode Title="Method.ReturnType property" Url="html/P_Cauldron_Interception_Cecilator_Method_ReturnType.htm" />
   <HelpKINode Title="Method.ToString method" Url="html/M_Cauldron_Interception_Cecilator_Method_ToString.htm" />
+  <HelpKINode Title="Method.Variables property" Url="html/P_Cauldron_Interception_Cecilator_Method_Variables.htm" />
   <HelpKINode Title="MethodBase property" Url="html/P_Cauldron_Interception_Cecilator_BuilderType_MethodBase.htm" />
   <HelpKINode Title="MethodDefinitionAndReference structure">
     <HelpKINode Title="MethodDefinitionAndReference Structure" Url="html/T_Cauldron_Interception_Cecilator_MethodDefinitionAndReference.htm" />
@@ -4744,6 +4778,7 @@
   <HelpKINode Title="OrderBy(Of TElements) method" Url="html/M_Cauldron_Extensions_OrderBy__1.htm" />
   <HelpKINode Title="OrderBy&lt;TElements&gt; method" Url="html/M_Cauldron_Extensions_OrderBy__1.htm" />
   <HelpKINode Title="OriginalBody method" Url="html/M_Cauldron_Interception_Cecilator_Coders_Coder_OriginalBody.htm" />
+  <HelpKINode Title="OriginMethod property" Url="html/P_Cauldron_Interception_Cecilator_AsyncStateMachineMoveNextMethod_OriginMethod.htm" />
   <HelpKINode Title="OriginType property">
     <HelpKINode Title="AsyncMethodHelper.OriginType Property " Url="html/P_Cauldron_Interception_Cecilator_AsyncMethodHelper_OriginType.htm" />
     <HelpKINode Title="Field.OriginType Property " Url="html/P_Cauldron_Interception_Cecilator_Field_OriginType.htm" />
@@ -4909,6 +4944,7 @@
     <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_Interception_Cecilator_Position.htm" />
   </HelpKINode>
   <HelpKINode Title="Position enumeration" Url="html/T_Cauldron_Position.htm" />
+  <HelpKINode Title="Position.Index property" Url="html/P_Cauldron_Interception_Cecilator_Position_Index.htm" />
   <HelpKINode Title="Position.IsOpCode method" Url="html/M_Cauldron_Interception_Cecilator_Position_IsOpCode.htm" />
   <HelpKINode Title="Position.Method property" Url="html/P_Cauldron_Interception_Cecilator_Position_Method.htm" />
   <HelpKINode Title="Position.Next property" Url="html/P_Cauldron_Interception_Cecilator_Position_Next.htm" />
@@ -5676,6 +5712,7 @@
     <HelpKINode Title="RawValue.ToFloat Method " Url="html/M_Cauldron_Core_Collections_RawValue_ToFloat.htm" />
   </HelpKINode>
   <HelpKINode Title="ToFloatUS method" Url="html/M_Cauldron_ExtensionsConvertions_ToFloatUS.htm" />
+  <HelpKINode Title="ToGenericParameter method" Url="html/M_Cauldron_Interception_Cecilator_BuilderType_ToGenericParameter.htm" />
   <HelpKINode Title="ToHostMethodInstructionsString method" Url="html/M_Cauldron_Interception_Cecilator_MethodUsage_ToHostMethodInstructionsString.htm" />
   <HelpKINode Title="ToInteger method">
     <HelpKINode Title="ExtensionsConvertions.ToInteger Method " Url="html/Overload_Cauldron_ExtensionsConvertions_ToInteger.htm" />
@@ -6047,6 +6084,7 @@
   <HelpKINode Title="VariableCoder.SetValue method" Url="html/Overload_Cauldron_Interception_Cecilator_Coders_VariableCoder_SetValue.htm" />
   <HelpKINode Title="VariableCoder.StoreElement method" Url="html/M_Cauldron_Interception_Cecilator_Coders_VariableCoder_StoreElement.htm" />
   <HelpKINode Title="VariablePrefix field" Url="html/F_Cauldron_Interception_Cecilator_Coders_CodeBlocks_VariablePrefix.htm" />
+  <HelpKINode Title="Variables property" Url="html/P_Cauldron_Interception_Cecilator_Method_Variables.htm" />
   <HelpKINode Title="VeryStrong enumeration member" Url="html/T_Cauldron_Cryptography_PasswordScore.htm" />
   <HelpKINode Title="VeryWeak enumeration member" Url="html/T_Cauldron_Cryptography_PasswordScore.htm" />
   <HelpKINode Title="VideosLibrary property" Url="html/P_Cauldron_Core_KnownFolders_VideosLibrary.htm" />
