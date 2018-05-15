@@ -41,7 +41,7 @@ public sealed class Weaver_Method
 
         foreach (var method in methods)
         {
-            if (method.Item == null || method.Item.Length == 0)
+            if (method.Item == null || method.Item.Length == 0 || method.Key.Method.IsAbstract)
                 continue;
 
             builder.Log(LogTypes.Info, $"Implementing method interceptors: {method.Key.Method.DeclaringType.Name.PadRight(40, ' ')} {method.Key.Method.Name}({string.Join(", ", method.Key.Method.Parameters.Select(x => x.Name))})");

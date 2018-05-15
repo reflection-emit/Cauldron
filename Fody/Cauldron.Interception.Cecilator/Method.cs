@@ -78,10 +78,9 @@ namespace Cauldron.Interception.Cecilator
 
         public override string Identification => $"{this.methodDefinition.DeclaringType.Name}-{this.methodDefinition.Name}-{this.methodDefinition.DeclaringType.MetadataToken.RID}-{this.methodDefinition.MetadataToken.RID}";
 
-        public bool IsAbstract => this.methodDefinition.IsAbstract;
+        public bool IsAbstract => this.methodDefinition.IsAbstract && this.methodDefinition.IsHideBySig && this.methodDefinition.IsNewSlot && this.methodDefinition.IsVirtual;
 
         public bool IsAsync => this.methodDefinition.ReturnType.FullName.EqualsEx("System.Threading.Tasks.Task") || (this.methodDefinition.ReturnType.Resolve()?.FullName.EqualsEx("System.Threading.Tasks.Task`1") ?? false);
-
         public bool IsCCtor => this.methodDefinition.Name == ".cctor";
 
         /// <summary>
@@ -118,6 +117,7 @@ namespace Cauldron.Interception.Cecilator
                     this.type.typeDefinition.FullName.IndexOf('>') >= 0;
 
         public bool IsInternal => this.methodDefinition.Attributes.HasFlag(MethodAttributes.Assembly);
+        public bool IsOverride => this.methodDefinition.IsVirtual && this.methodDefinition.IsHideBySig && !this.methodDefinition.IsStatic;
         public bool IsPrivate => this.methodDefinition.IsPrivate;
         public bool IsPropertyGetterSetter => (this.methodDefinition.Name.StartsWith("get_") || this.methodDefinition.Name.StartsWith("set_")) && this.methodDefinition.IsSpecialName;
         public bool IsProtected => this.methodDefinition.Attributes.HasFlag(MethodAttributes.Family);

@@ -214,33 +214,49 @@ namespace Cauldron.Interception.Cecilator
         {
             var result = new ConcurrentBag<AttributedProperty>();
             var attributes = types.Select(x => x.Fullname).ToList();
+            IEnumerable<AttributedProperty> getRelevantAttributes(Property property, Property owningProperty)
+            {
+                var propertyDefinition = property.propertyDefinition;
+                for (int i = 0; i < propertyDefinition.CustomAttributes.Count; i++)
+                {
+                    var customAttribute = propertyDefinition.CustomAttributes[i];
+                    if (attributes.Contains((customAttribute.AttributeType.Resolve() ?? customAttribute.AttributeType).FullName))
+                        yield return new AttributedProperty(owningProperty, customAttribute);
+                }
+            }
 
             Parallel.ForEach(this.GetTypes(searchContext), type =>
             {
-                PropertyDefinition propertyDefinition = null;
-                CustomAttribute customAttribute = null;
+                var abstractProperties = GetAbtractPropertiesWithCustomAttributes(type).ToArray();
 
-                try
+                foreach (var property in type.Properties)
                 {
-                    foreach (var property in type.Properties.Where(x => x.propertyDefinition.HasCustomAttributes))
+                    if (property.IsOverride)
                     {
-                        propertyDefinition = property.propertyDefinition;
-                        for (int i = 0; i < propertyDefinition.CustomAttributes.Count; i++)
-                        {
-                            customAttribute = propertyDefinition.CustomAttributes[i];
+                        var abstractProperty = abstractProperties.FirstOrDefault(x => x.Name == property.Name);
 
-                            if (attributes.Contains((customAttribute.AttributeType.Resolve() ?? customAttribute.AttributeType).FullName))
-                                result.Add(new AttributedProperty(property, customAttribute));
-                        }
+                        if (abstractProperty != null)
+                            foreach (var item in getRelevantAttributes(abstractProperty, property))
+                                result.Add(item);
                     }
-                }
-                catch (Exception e)
-                {
-                    throw new Exception($"An error has occured while searching for attributes: {e.Message}\r\nProperty: {propertyDefinition?.FullName}\r\nAttribute: {customAttribute?.AttributeType.FullName}", e);
+
+                    if (!property.propertyDefinition.HasCustomAttributes)
+                        continue;
+
+                    foreach (var item in getRelevantAttributes(property, property))
+                        result.Add(item);
                 }
             });
 
             return result;
+        }
+
+        private IEnumerable<Property> GetAbtractPropertiesWithCustomAttributes(BuilderType builderType)
+        {
+            foreach (var baseClass in builderType.BaseClasses)
+                foreach (var item in baseClass.typeDefinition.Properties)
+                    if ((item.GetMethod ?? item.SetMethod).With(x => x.IsAbstract && x.IsVirtual) && item.HasCustomAttributes)
+                        yield return new Property(baseClass, item);
         }
 
         #endregion Property Finders
@@ -261,23 +277,42 @@ namespace Cauldron.Interception.Cecilator
         {
             var result = new ConcurrentBag<AttributedMethod>();
 
+            IEnumerable<AttributedMethod> getRelevantAttributes(Method method, Method owningMethod)
+            {
+                var asyncResult = this.GetAsyncMethod(method);
+                for (int i = 0; i < method.methodDefinition.CustomAttributes.Count; i++)
+                {
+                    var fullname = method.methodDefinition.CustomAttributes[i].AttributeType.Resolve().FullName;
+                    if (attributeName.GetHashCode() == fullname.GetHashCode() && fullname == attributeName)
+                    {
+                        if (asyncResult == null)
+                            yield return new AttributedMethod(owningMethod, method.methodDefinition.CustomAttributes[i], asyncResult);
+                        else
+                            yield return new AttributedMethod(owningMethod, method.methodDefinition.CustomAttributes[i], asyncResult);
+                    }
+                }
+            }
+
             Parallel.ForEach(this.GetTypes(searchContext), type =>
             {
-                foreach (var method in type.Methods.Where(x => x.methodDefinition.HasCustomAttributes))
+                var abstractMethods = GetAbtractMethodsWithCustomAttributes(type).ToArray();
+                foreach (var method in type.Methods)
                 {
-                    var asyncResult = this.GetAsyncMethod(method);
-
-                    for (int i = 0; i < method.methodDefinition.CustomAttributes.Count; i++)
+                    if (method.IsOverride)
                     {
-                        var fullname = method.methodDefinition.CustomAttributes[i].AttributeType.Resolve().FullName;
-                        if (attributeName.GetHashCode() == fullname.GetHashCode() && fullname == attributeName)
-                        {
-                            if (asyncResult == null)
-                                result.Add(new AttributedMethod(method, method.methodDefinition.CustomAttributes[i], asyncResult));
-                            else
-                                result.Add(new AttributedMethod(method, method.methodDefinition.CustomAttributes[i], asyncResult));
-                        }
+                        var parameters = method.Parameters;
+                        var abstractMethod = abstractMethods.FirstOrDefault(x => x.Name == method.Name && method.Parameters.SequenceEqual(parameters));
+
+                        if (abstractMethod != null)
+                            foreach (var item in getRelevantAttributes(abstractMethod, method))
+                                result.Add(item);
                     }
+
+                    if (!method.methodDefinition.HasCustomAttributes)
+                        continue;
+
+                    foreach (var item in getRelevantAttributes(method, method))
+                        result.Add(item);
                 }
             });
 
@@ -291,22 +326,42 @@ namespace Cauldron.Interception.Cecilator
             var result = new ConcurrentBag<AttributedMethod>();
             var attributes = types.Select(x => x.Fullname).ToList();
 
+            IEnumerable<AttributedMethod> getRelevantAttributes(Method method, Method owningMethod)
+            {
+                var asyncResult = this.GetAsyncMethod(owningMethod);
+                for (int i = 0; i < method.methodDefinition.CustomAttributes.Count; i++)
+                {
+                    if (attributes.Contains(method.methodDefinition.CustomAttributes[i].AttributeType.Resolve().FullName))
+                    {
+                        if (asyncResult == null)
+                            yield return new AttributedMethod(owningMethod, method.methodDefinition.CustomAttributes[i], asyncResult);
+                        else
+                            yield return new AttributedMethod(owningMethod, method.methodDefinition.CustomAttributes[i], asyncResult);
+                    }
+                }
+            }
+
             Parallel.ForEach(this.GetTypes(searchContext), type =>
             {
-                foreach (var method in type.Methods.Where(x => x.methodDefinition.HasCustomAttributes))
-                {
-                    var asyncResult = this.GetAsyncMethod(method);
+                var abstractMethods = GetAbtractMethodsWithCustomAttributes(type).ToArray();
 
-                    for (int i = 0; i < method.methodDefinition.CustomAttributes.Count; i++)
+                foreach (var method in type.Methods)
+                {
+                    if (method.IsOverride)
                     {
-                        if (attributes.Contains(method.methodDefinition.CustomAttributes[i].AttributeType.Resolve().FullName))
-                        {
-                            if (asyncResult == null)
-                                result.Add(new AttributedMethod(method, method.methodDefinition.CustomAttributes[i], asyncResult));
-                            else
-                                result.Add(new AttributedMethod(method, method.methodDefinition.CustomAttributes[i], asyncResult));
-                        }
+                        var parameters = method.Parameters;
+                        var abstractMethod = abstractMethods.FirstOrDefault(x => x.Name == method.Name && method.Parameters.SequenceEqual(parameters));
+
+                        if (abstractMethod != null)
+                            foreach (var item in getRelevantAttributes(abstractMethod, method))
+                                result.Add(item);
                     }
+
+                    if (!method.methodDefinition.HasCustomAttributes)
+                        continue;
+
+                    foreach (var item in getRelevantAttributes(method, method))
+                        result.Add(item);
                 }
             });
 
@@ -320,6 +375,14 @@ namespace Cauldron.Interception.Cecilator
         public IEnumerable<Method> FindMethodsByName(string methodName) => this.FindMethodsByName(SearchContext.Module, methodName);
 
         public IEnumerable<Method> FindMethodsByName(SearchContext searchContext, string methodName) => this.GetTypes(searchContext).SelectMany(x => x.GetMethods(methodName, 0));
+
+        private IEnumerable<Method> GetAbtractMethodsWithCustomAttributes(BuilderType builderType)
+        {
+            foreach (var baseClass in builderType.BaseClasses)
+                foreach (var item in baseClass.typeDefinition.Methods)
+                    if (item.IsAbstract && item.IsVirtual && item.HasCustomAttributes && item.Body == null)
+                        yield return new Method(baseClass, item);
+        }
 
         #endregion Method Finders
 

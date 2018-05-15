@@ -234,32 +234,14 @@ namespace Cauldron.Interception.Cecilator
 
         #region Interfaces Base classes and nested types
 
-        public IEnumerable<BuilderType> BaseClasses
-        {
-            get
-            {
-                return this.typeReference.GetBaseClasses().Select(x => new BuilderType(this, x)).Distinct(new BuilderTypeEqualityComparer());
-            }
-        }
+        public IEnumerable<BuilderType> BaseClasses =>
+            this.typeReference.GetBaseClasses().Select(x => new BuilderType(this, x)).Distinct(new BuilderTypeEqualityComparer());
 
-        public IEnumerable<BuilderType> Interfaces
-        {
-            get
-            {
-                if (this.IsInterface)
-                    return this.typeReference.GetInterfaces().Select(x => new BuilderType(this, x)).Distinct(new BuilderTypeEqualityComparer());
-                else
-                    return this.typeReference.GetInterfaces().Select(x => new BuilderType(this, x)).Distinct(new BuilderTypeEqualityComparer());
-            }
-        }
+        public IEnumerable<BuilderType> Interfaces =>
+            this.typeReference.GetInterfaces().Select(x => new BuilderType(this, x)).Distinct(new BuilderTypeEqualityComparer());
 
-        public IEnumerable<BuilderType> NestedTypes
-        {
-            get
-            {
-                return this.typeReference.GetNestedTypes().Select(x => new BuilderType(this, x)).Distinct(new BuilderTypeEqualityComparer());
-            }
-        }
+        public IEnumerable<BuilderType> NestedTypes =>
+            this.typeReference.GetNestedTypes().Select(x => new BuilderType(this, x)).Distinct(new BuilderTypeEqualityComparer());
 
         #endregion Interfaces Base classes and nested types
 

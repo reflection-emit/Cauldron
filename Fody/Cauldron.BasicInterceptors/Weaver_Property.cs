@@ -74,6 +74,9 @@ public static class Weaver_Property
 
         foreach (var member in properties)
         {
+            if (member.Property.IsAbstract)
+                continue;
+
             builder.Log(LogTypes.Info, $"Implementing property interceptors: {member.Property.DeclaringType.Name.PadRight(40, ' ')} {member.Property.Name} {member.Property.ReturnType.Name}");
 
             if (!member.HasGetterInterception && !member.HasSetterInterception && !member.HasInitializer)
