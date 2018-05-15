@@ -60,6 +60,8 @@
   <ItemGroup>
     <Compile Include="AssemblyDefinitionEqualityComparer.cs" />
     <Compile Include="AsyncMethodHelper.cs" />
+    <Compile Include="AsyncStateMachineMoveNextMethod.cs" />
+    <Compile Include="AsyncStateMachinePositions.cs" />
     <Compile Include="AttributedField.cs" />
     <Compile Include="AttributedMethod.cs" />
     <Compile Include="AttributedProperty.cs" />

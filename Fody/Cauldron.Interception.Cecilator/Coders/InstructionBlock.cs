@@ -677,8 +677,11 @@ namespace Cauldron.Interception.Cecilator.Coders
         {
             var builder = Builder.Current;
             builder.Log(LogTypes.Info, $"-- {this.associatedMethod} --");
-            foreach (var item in this.instructions)
-                builder.Log(LogTypes.Info, $"IL_{item.Offset.ToString("X4")}: {item.OpCode.ToString()} { (item.Operand is Instruction ? "IL_" + (item.Operand as Instruction).Offset.ToString("X4") : item.Operand?.ToString())} ");
+            for (int i = 0; i < this.instructions.Count; i++)
+            {
+                var item = this.instructions[i];
+                builder.Log(LogTypes.Info, $"{i.ToString("0000")} IL_{item.Offset.ToString("X4")}: {item.OpCode.ToString()} { (item.Operand is Instruction ? "IL_" + (item.Operand as Instruction).Offset.ToString("X4") : item.Operand?.ToString())} ");
+            }
         }
 
         public void Emit(OpCode opcode, ParameterDefinition parameter) => this.instructions.Add(ilprocessor.Create(opcode, parameter));
@@ -746,22 +749,115 @@ namespace Cauldron.Interception.Cecilator.Coders
             return true;
         }
 
+        public InstructionBlock Get(Position startInclusive, Position endExclusive)
+        {
+            var result = new InstructionBlock(this.associatedMethod);
+
+            for (int i = startInclusive.Index; i < endExclusive.Index; i++)
+                result.instructions.Add(this.instructions[i]);
+
+            result.Emit_Nop();
+
+            bool IsOutOfBound(Instruction instruction)
+            {
+                if (instruction == null)
+                    return false;
+
+                var index = this.instructions.IndexOf(instruction);
+                return index < startInclusive.Index || index > endExclusive.Index;
+            }
+
+            Instruction GetCorrectInstruction(Instruction instruction)
+            {
+                if (instruction == null)
+                    return null;
+
+                if (this.instructions.IndexOf(instruction) == endExclusive.Index)
+                    return result.instructions[result.instructions.Count - 1];
+
+                return instruction;
+            }
+
+            foreach (var item in this.exceptionHandlers)
+            {
+                if (IsOutOfBound(item.FilterStart)) continue;
+                if (IsOutOfBound(item.HandlerEnd)) continue;
+                if (IsOutOfBound(item.HandlerStart)) continue;
+                if (IsOutOfBound(item.TryEnd)) continue;
+                if (IsOutOfBound(item.TryStart)) continue;
+
+                result.exceptionHandlers.Add(new ExceptionHandler(item.HandlerType)
+                {
+                    FilterStart = item.FilterStart,
+                    CatchType = item.CatchType,
+                    HandlerStart = item.HandlerStart,
+                    TryEnd = GetCorrectInstruction(item.TryEnd),
+                    TryStart = item.TryStart,
+                    HandlerEnd = GetCorrectInstruction(item.HandlerEnd),
+                });
+            }
+
+            return result;
+        }
+
         public IEnumerator<Instruction> GetEnumerator() => this.instructions.GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() => this.instructions.GetEnumerator();
 
         public override int GetHashCode() => this.associatedMethod.GetHashCode() ^ this.ilprocessor.GetHashCode();
 
+        /// <summary>
+        /// Searches for the specified object and returns the zero-based index of the first
+        /// occurrence within the range of elements in the <see cref="InstructionBlock"/>
+        /// that starts at the specified index and contains the specified number of elements.
+        /// </summary>
+        /// <param name="instruction">The object to locate in the <see cref="InstructionBlock"/>. The value can be null for reference types.</param>
+        /// <returns>
+        /// The zero-based index of the first occurrence of item within the range of elements
+        /// in the <see cref="InstructionBlock"/> that starts at index and contains count
+        /// number of elements, if found; otherwise, –1.
+        /// </returns>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// index is outside the range of valid indexes for the <see cref="InstructionBlock"/>.-or-count
+        /// is less than 0.-or-index and count do not specify a valid section in the <see cref="InstructionBlock"/>.
+        /// </exception>
         public int IndexOf(Instruction instruction) => this.instructions.IndexOf(instruction);
 
+        /// <summary>
+        /// Inserts an instruction at the specified index.
+        /// </summary>
+        /// <param name="index">The zero-based index at which item should be inserted.</param>
+        /// <param name="item">The object to insert. The value can be null for reference types.</param>
         public void Insert(int index, Instruction item) => this.instructions.Insert(index, item);
 
+        /// <summary>
+        /// Inserts an instruction at the specified index.
+        /// </summary>
+        /// <param name="index">The zero-based index at which item should be inserted.</param>
+        /// <param name="items">The object to insert. The value can be null for reference types.</param>
         public void Insert(int index, IEnumerable<Instruction> items)
         {
             foreach (var item in items)
                 this.instructions.Insert(index++, item);
         }
 
+        /// <summary>
+        /// Inserts an instruction at the specified index.
+        /// </summary>
+        /// <param name="position">The posistion to insert the instruction after.</param>
+        /// <param name="items">The object to insert. The value can be null for reference types.</param>
+        public void Insert(Instruction position, IEnumerable<Instruction> items)
+        {
+            var index = this.instructions.IndexOf(position);
+            foreach (var item in items)
+                this.instructions.Insert(index++, item);
+        }
+
+        /// <summary>
+        /// Inserts an instruction after the defined position
+        /// </summary>
+        /// <param name="position">The posistion to insert the instruction after.</param>
+        /// <param name="instructionToInsert">The instruction to insert into.</param>
         public void InsertAfter(Instruction position, Instruction instructionToInsert)
         {
             var index = this.instructions.IndexOf(position) + 1;
@@ -770,6 +866,22 @@ namespace Cauldron.Interception.Cecilator.Coders
                 this.instructions.Add(instructionToInsert);
             else
                 this.instructions.Insert(index, instructionToInsert);
+        }
+
+        /// <summary>
+        /// Inserts an instruction after the defined position
+        /// </summary>
+        /// <param name="position">The posistion to insert the instruction after.</param>
+        /// <param name="instructionsToInsert">A collection of instructions to insert into.</param>
+        public void InsertAfter(Instruction position, IEnumerable<Instruction> instructionsToInsert)
+        {
+            var index = this.instructions.IndexOf(position) + 1;
+
+            if (index == this.instructions.Count)
+                this.instructions.AddRange(instructionsToInsert);
+            else
+                foreach (var item in instructionsToInsert)
+                    this.instructions.Insert(index++, item);
         }
 
         public Instruction[] LastElements(int count)

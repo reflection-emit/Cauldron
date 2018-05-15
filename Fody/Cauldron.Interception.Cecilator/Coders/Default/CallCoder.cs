@@ -1,5 +1,4 @@
-﻿
-using Mono.Cecil.Cil;
+﻿using Mono.Cecil.Cil;
 using System;
 
 namespace Cauldron.Interception.Cecilator.Coders
@@ -49,7 +48,7 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         public Coder Return()
         {
-            this.instructions.Emit(OpCodes.Ret);
+            this.ImplementReturn();
             return new Coder(this);
         }
 

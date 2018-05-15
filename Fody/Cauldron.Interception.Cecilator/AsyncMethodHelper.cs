@@ -83,25 +83,28 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
-        public Positions GetAsyncStateMachineExceptionBlock()
+        public Tuple<Positions, ExceptionHandler> GetAsyncStateMachineExceptionBlock()
         {
-            var asyncMethod = this.method.AsyncMethod;
+            var asyncMethod = this.method.AsyncMethod ?? this.method;
 
             if (asyncMethod == null)
-                return new Positions { Beginning = null, End = null };
+                return new Tuple<Positions, ExceptionHandler>(new Positions { Beginning = null, End = null }, null);
 
             var lastException = asyncMethod.methodDefinition.Body.ExceptionHandlers.Last(x => x.HandlerType == ExceptionHandlerType.Catch);
 
-            return new Positions
-            {
-                Beginning = new Position(asyncMethod, lastException.HandlerStart),
-                End = new Position(asyncMethod, lastException.HandlerEnd)
-            };
+            return
+                new Tuple<Positions, ExceptionHandler>(
+                new Positions
+                {
+                    Beginning = new Position(asyncMethod, lastException.HandlerStart),
+                    End = new Position(asyncMethod, lastException.HandlerEnd)
+                },
+                lastException);
         }
 
         public LocalVariable GetAsyncStateMachineExceptionVariable()
         {
-            var asyncMethod = this.method.AsyncMethod;
+            var asyncMethod = this.method.AsyncMethod ?? this.method;
 
             if (asyncMethod == null)
                 return null;
@@ -128,9 +131,55 @@ namespace Cauldron.Interception.Cecilator
             return new LocalVariable(asyncMethod.type, variable);
         }
 
+        /// <summary>
+        /// The position of the last GetResult method call starting from the first parameter in the AsyncStateMachine MoveNext method.
+        /// </summary>
+        /// <returns></returns>
+        public Position GetAsyncStateMachineLastGetResult()
+        {
+            var asyncMethod = this.method.AsyncMethod ?? this.method;
+
+            if (asyncMethod == null)
+                return null;
+
+            var lastException = asyncMethod.methodDefinition.Body.Instructions.Last(x =>
+            {
+                if (x.OpCode == OpCodes.Call)
+                {
+                    var method = x.Operand as MethodDefinition ?? x.Operand as MethodReference;
+                    if (method != null && method.Name == "GetResult")
+                        return true;
+                }
+
+                return false;
+            });
+
+            if (lastException == null)
+                return null;
+
+            return new Position(asyncMethod, lastException.Previous.Previous);
+        }
+
+        public Positions GetAsyncStateMachineTryBlock()
+        {
+            var asyncMethod = this.method.AsyncMethod ?? this.method;
+
+            if (asyncMethod == null)
+                return new Positions { Beginning = null, End = null };
+
+            var lastException = asyncMethod.methodDefinition.Body.ExceptionHandlers.Last(x => x.HandlerType == ExceptionHandlerType.Catch);
+
+            return new Positions
+            {
+                Beginning = new Position(asyncMethod, lastException.TryStart),
+                End = new Position(asyncMethod, lastException.TryEnd)
+            };
+        }
+
         public Position GetAsyncTaskMethodBuilderInitialization()
         {
-            var result = this.method.methodDefinition.Body.Instructions
+            var asyncMethod = this.Method;
+            var result = asyncMethod.methodDefinition.Body.Instructions
                 .FirstOrDefault(x => x.OpCode == OpCodes.Stfld && (x.Operand as FieldDefinition ?? x.Operand as FieldReference).Name == "<>1__state");
 
             // If the result is null then probably the helper class is a struct
@@ -142,7 +191,8 @@ namespace Cauldron.Interception.Cecilator
 
         public Position GetAsyncTaskMethodBuilderStart()
         {
-            var result = this.method.methodDefinition.Body.Instructions
+            var asyncMethod = this.method.AsyncMethod ?? this.method;
+            var result = asyncMethod.methodDefinition.Body.Instructions
                 .FirstOrDefault(x => x.OpCode == OpCodes.Call && (x.Operand as MethodDefinition ?? x.Operand as MethodReference).Name == "Start");
 
             // If the result is null then probably the helper class is a struct

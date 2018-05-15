@@ -571,6 +571,44 @@ namespace UnitTest_BasicInterceptorTests
         }
 
         [TestMethodInterceptor]
+        private async Task<int> ValueType_Method_With_Multiple_Returns_And_TryCatch_Async(int index)
+        {
+            try
+            {
+                return await Task.Run(() =>
+                {
+                    if (index == 0)
+                        return 200;
+
+                    if (index == 1)
+                    {
+                        var test = 3482757849;
+                        return test.GetHashCode();
+                    }
+
+                    if (index == 2 || index == 5)
+                    {
+                        if (index * 2 == ((int)index / 2) * 4)
+                        {
+                            var zu = 643 + 8934 / 5;
+                            return zu;
+                        }
+
+                        return 99;
+                    }
+
+                    return 45;
+                });
+            }
+            catch (Exception)
+            {
+                var uu = DateTime.Now.ToString();
+                System.Diagnostics.Debug.WriteLine(uu);
+                throw;
+            }
+        }
+
+        [TestMethodInterceptor]
         private async Task<int> ValueType_Method_With_Multiple_Returns_Async_(int indexWithWeird_NAme)
         {
             return await Task.Run(() =>

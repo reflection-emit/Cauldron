@@ -1,5 +1,4 @@
-﻿
-using Mono.Cecil;
+﻿using Mono.Cecil;
 using Mono.Cecil.Cil;
 using System;
 using System.Linq;
@@ -145,6 +144,7 @@ namespace Cauldron.Interception.Cecilator.Coders
         }
 
         public Method AssociatedMethod => this.instructions.associatedMethod;
+
         public abstract TMaster End { get; }
 
         public TSelf Append(TSelf coder)
@@ -177,6 +177,56 @@ namespace Cauldron.Interception.Cecilator.Coders
             return (TSelf)this;
         }
 
+        /// <summary>
+        /// Gets or creates a return variable.
+        /// This will try to detect the existing return variable and create a new return variable if not found.
+        /// </summary>
+        /// <returns>A return variable.</returns>
+        public LocalVariable GetOrCreateReturnVariable()
+        {
+            var result = this.instructions.associatedMethod.GetVariable(CodeBlocks.ReturnVariableName);
+
+            if (result == null)
+                result = this.instructions.associatedMethod.GetVariable("result");
+
+            if (result == null && this.AssociatedMethod is AsyncStateMachineMoveNextMethod)
+                result = this.instructions.associatedMethod.GetVariable(1);
+
+            if (result != null)
+                return result;
+
+            if (this.instructions.associatedMethod.methodDefinition.Body.Instructions.Count > 1)
+            {
+                var lastOpCode = this.instructions.associatedMethod.methodDefinition.Body.Instructions.Last().Previous;
+
+                if (lastOpCode.IsLoadLocal())
+                {
+                    VariableDefinition variable = null;
+
+                    if (lastOpCode.Operand is int index && this.instructions.associatedMethod.methodDefinition.Body.Variables.Count > index)
+                        variable = this.instructions.associatedMethod.methodDefinition.Body.Variables[index];
+
+                    if (result == null && lastOpCode.Operand is VariableDefinition variableReference)
+                        variable = variableReference;
+
+                    if (variable == null)
+                        if (lastOpCode.OpCode == OpCodes.Ldloc_0) variable = this.instructions.associatedMethod.methodDefinition.Body.Variables[0];
+                        else if (lastOpCode.OpCode == OpCodes.Ldloc_1) variable = this.instructions.associatedMethod.methodDefinition.Body.Variables[1];
+                        else if (lastOpCode.OpCode == OpCodes.Ldloc_2) variable = this.instructions.associatedMethod.methodDefinition.Body.Variables[2];
+                        else if (lastOpCode.OpCode == OpCodes.Ldloc_3) variable = this.instructions.associatedMethod.methodDefinition.Body.Variables[3];
+
+                    if (variable != null)
+                    {
+                        this.instructions.associatedMethod.AddLocalVariable(CodeBlocks.ReturnVariableName, variable);
+                        return new LocalVariable(variable.VariableType.ToBuilderType(), variable);
+                    }
+                }
+            }
+
+            return this.instructions.associatedMethod.AddLocalVariable(CodeBlocks.ReturnVariableName, new VariableDefinition(this.instructions.associatedMethod.ReturnType.typeReference))
+                .With(x => new LocalVariable(x.VariableType.ToBuilderType(), x));
+        }
+
         public TSelf Jump(Position position)
         {
             if (this.instructions.associatedMethod.IsInclosedInHandlers(position.instruction))
@@ -201,6 +251,17 @@ namespace Cauldron.Interception.Cecilator.Coders
         {
             this.instructions.Emit(OpCodes.Pop);
             return (TSelf)this;
+        }
+
+        protected void ImplementReturn()
+        {
+            if (this.AssociatedMethod is AsyncStateMachineMoveNextMethod moveNextMethod)
+            {
+                var result = moveNextMethod.AsyncMethodHelper.GetAsyncStateMachineExceptionBlock();
+                this.instructions.Emit(OpCodes.Leave, result.Item1.End.instruction);
+            }
+            else
+                this.instructions.Emit(OpCodes.Ret);
         }
 
         protected void StoreElementInternal(BuilderType arrayType, object element, int index)

@@ -78,6 +78,9 @@ namespace Cauldron.Interception.Fody
             var tempDirectory = Path.Combine(Path.GetTempPath(), Path.GetFileNameWithoutExtension(path));
             var output = Path.Combine(tempDirectory, Path.GetFileNameWithoutExtension(path) + ".dll");
             var pdb = Path.Combine(tempDirectory, Path.GetFileNameWithoutExtension(path) + ".pdb");
+
+            Directory.CreateDirectory(tempDirectory);
+
             var additionalReferences = GetReferences(path);
             var arguments = new string[]
             {
@@ -88,8 +91,6 @@ namespace Cauldron.Interception.Fody
                 $"/pdb:\"{pdb}\"",
                 $"/r:{string.Join(",", references.Concat(additionalReferences.Item1).Select(x => "\"" + x + "\""))}"
             };
-
-            Directory.CreateDirectory(tempDirectory);
 
             var processStartInfo = new ProcessStartInfo
             {
@@ -153,36 +154,43 @@ namespace Cauldron.Interception.Fody
         {
             var assemblyDomain = AppDomain.CreateDomain(friendlyName: "spider-man");
 
-            var references = new List<string>();
-            var lines = File.ReadAllLines(path);
-
-            foreach (var @ref in lines.Where(x => x?.Trim().StartsWith("#r ") ?? false))
+            try
             {
-                try
+                var references = new List<string>();
+                var lines = File.ReadAllLines(path);
+
+                foreach (var @ref in lines.Where(x => x?.Trim().StartsWith("#r ") ?? false))
                 {
-                    var assembly = assemblyDomain.Load(@ref.EnclosedIn("\"", "\""));
-                    references.Add(assembly.Location);
+                    try
+                    {
+                        var assembly = assemblyDomain.Load(@ref.EnclosedIn("\"", "\""));
+                        references.Add(assembly.Location);
+                    }
+                    catch
+                    {
+                    }
                 }
-                catch
+
+                var tempDirectory = Path.Combine(Path.GetTempPath(), Path.GetFileNameWithoutExtension(path));
+                var output = Path.Combine(tempDirectory, Path.GetFileNameWithoutExtension(path) + ".cs");
+
+                File.WriteAllLines(output, lines.Where(x =>
                 {
-                }
+                    if (x == null)
+                        return false;
+
+                    if (x.Trim().StartsWith("#r "))
+                        return false;
+
+                    return true;
+                }).ToArray());
+
+                return new Tuple<IEnumerable<string>, string>(references, output);
             }
-
-            var tempDirectory = Path.Combine(Path.GetTempPath(), Path.GetFileNameWithoutExtension(path));
-            var output = Path.Combine(tempDirectory, Path.GetFileNameWithoutExtension(path) + ".cs");
-
-            File.WriteAllLines(output, lines.Where(x =>
+            finally
             {
-                if (x == null)
-                    return false;
-
-                if (x.Trim().StartsWith("#r "))
-                    return false;
-
-                return true;
-            }).ToArray());
-
-            return new Tuple<IEnumerable<string>, string>(references, output);
+                AppDomain.Unload(assemblyDomain);
+            }
         }
 
         private Assembly LoadScript(string path)

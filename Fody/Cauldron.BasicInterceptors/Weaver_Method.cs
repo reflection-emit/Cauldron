@@ -61,12 +61,13 @@ public sealed class Weaver_Method
             if (method.RequiresSyncRootField)
             {
                 if (method.SyncRoot.IsStatic)
-                    targetedMethod.AsyncOriginType.CreateStaticConstructor().NewCoder()
+                    targetedMethod.DeclaringType.CreateStaticConstructor().NewCoder()
                         .SetValue(method.SyncRoot, x => x.NewObj(builder.GetType(typeof(object)).Import().ParameterlessContructor))
                         .Insert(InsertionPosition.Beginning);
                 else
-                    foreach (var ctors in targetedMethod.AsyncOriginType.GetRelevantConstructors().Where(x => x.Name == ".ctor"))
-                        ctors.NewCoder().SetValue(method.SyncRoot, x => x.NewObj(builder.GetType(typeof(object)).Import().ParameterlessContructor)).Insert(InsertionPosition.Beginning);
+                    foreach (var ctors in targetedMethod.DeclaringType.GetRelevantConstructors().Where(x => x.Name == ".ctor"))
+                        ctors.NewCoder().SetValue(method.SyncRoot, x => x.NewObj(builder.GetType(typeof(object)).Import().ParameterlessContructor))
+                            .Insert(InsertionPosition.Beginning);
             }
 
             var coder = targetedMethod
@@ -77,7 +78,7 @@ public sealed class Weaver_Method
                     {
                         var item = method.Item[i];
                         var name = $"<{targetedMethod.Name}>_attrib{i}_{item.Attribute.Identification}";
-                        interceptorField[i] = targetedMethod.AsyncOriginType.CreateField(targetedMethod.Modifiers.GetPrivate(), item.Interface.ToBuilderType, name);
+                        interceptorField[i] = targetedMethod.DeclaringType.CreateField(targetedMethod.Modifiers.GetPrivate(), item.Interface.ToBuilderType, name);
                         interceptorField[i].CustomAttributes.AddNonSerializedAttribute();
 
                         x.If(y => y.Load(interceptorField[i]).IsNull(), y =>
@@ -149,8 +150,8 @@ public sealed class Weaver_Method
                              }
 
                              return or.Is(false);
-                         }, x => x.Jump(exceptionBlock.End));
-                    }).Insert(InsertionAction.After, exceptionBlock.Beginning);
+                         }, x => x.Jump(exceptionBlock.Item1.End));
+                    }).Insert(InsertionAction.After, exceptionBlock.Item1.Beginning);
             }
         };
     }

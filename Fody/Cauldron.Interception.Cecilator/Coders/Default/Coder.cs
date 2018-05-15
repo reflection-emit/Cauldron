@@ -38,31 +38,31 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         public Method Copy(Modifiers modifiers, string newName)
         {
-            var method = this.instructions.associatedMethod.OriginType.typeDefinition.Methods.Get(newName);
+            var method = this.instructions.associatedMethod.OriginType.GetMethod(newName, false, this.AssociatedMethod.Parameters);
 
             if (method != null)
-                return new Method(this.instructions.associatedMethod.OriginType, method);
+                return method;
 
             var attributes = modifiers.ToMethodAttributes();
-            method = new MethodDefinition(newName, attributes, this.instructions.associatedMethod.methodReference.ReturnType);
+            var methodDefinition = new MethodDefinition(newName, attributes, this.instructions.associatedMethod.methodReference.ReturnType);
 
             foreach (var item in this.instructions.associatedMethod.methodReference.Parameters)
-                method.Parameters.Add(item);
+                methodDefinition.Parameters.Add(item);
 
             foreach (var item in this.instructions.associatedMethod.methodReference.GenericParameters)
-                method.GenericParameters.Add(item);
+                methodDefinition.GenericParameters.Add(item);
 
             foreach (var item in this.instructions.associatedMethod.methodDefinition.Body.Variables)
-                method.Body.Variables.Add(new VariableDefinition(item.VariableType));
+                methodDefinition.Body.Variables.Add(new VariableDefinition(item.VariableType));
 
-            method.Body.InitLocals = this.instructions.associatedMethod.methodDefinition.Body.InitLocals;
+            methodDefinition.Body.InitLocals = this.instructions.associatedMethod.methodDefinition.Body.InitLocals;
 
-            this.instructions.associatedMethod.OriginType.typeDefinition.Methods.Add(method);
-            CopyMethod(method);
+            this.instructions.associatedMethod.OriginType.typeDefinition.Methods.Add(methodDefinition);
+            CopyMethod(methodDefinition);
 
-            method.Body.OptimizeMacros();
+            methodDefinition.Body.OptimizeMacros();
 
-            return new Method(this.instructions.associatedMethod.OriginType, method);
+            return new Method(this.instructions.associatedMethod.OriginType, methodDefinition);
         }
 
         public Coder DefaultValue()
@@ -158,6 +158,9 @@ namespace Cauldron.Interception.Cecilator.Coders
             if (variable == null)
                 variable = targetMethod.GetVariable(targetMethod.Identification);
 
+            if (this.AssociatedMethod is AsyncStateMachineMoveNextMethod moveNextMethod)
+                moveNextMethod.BeginOfCode = this.instructions[0];
+
             if (variable == null)
             {
                 var objectArrayType = Builder.Current.GetType(typeof(object[]));
@@ -199,7 +202,16 @@ namespace Cauldron.Interception.Cecilator.Coders
             }
         }
 
-        public bool HasReturnVariable() => this.instructions.associatedMethod.GetVariable(CodeBlocks.ReturnVariableName) != null;
+        public bool HasReturnVariable()
+        {
+            if (this.instructions.associatedMethod.GetVariable(CodeBlocks.ReturnVariableName) != null)
+                return true;
+
+            if (this.instructions.associatedMethod.GetVariable("result") != null)
+                return true;
+
+            return false;
+        }
 
         public Coder Newarr(BuilderType type, int size)
         {
@@ -209,26 +221,87 @@ namespace Cauldron.Interception.Cecilator.Coders
             return this;
         }
 
+        /// <summary>
+        /// Copies the original body of the method to the <see cref="Coder"/> stack.
+        /// </summary>
+        /// <param name="createNewMethod">If true, creates a new method containing the original method's body; otherwise it will only weaved into the current <see cref="Coder"/> stack. Default is false.</param>
+        /// <returns></returns>
         public Coder OriginalBody(bool createNewMethod = false)
         {
-            if (createNewMethod)
-                return this.OriginalBodyNewMethod();
-
-            var copiedInstructions = CopyMethodBody(this.instructions.associatedMethod.methodDefinition);
-
-            // special case for .ctor
-            if (this.instructions.associatedMethod.IsCtor)
+            if (this.AssociatedMethod is AsyncStateMachineMoveNextMethod moveNextMethod)
             {
-                // remove everything until base call
-                var first = copiedInstructions.FirstOrDefault(x => x.OpCode == OpCodes.Call && (x.Operand as MethodReference).Name == ".ctor");
-                if (first == null)
-                    throw new NullReferenceException($"The constructor of type '{this.instructions.associatedMethod.OriginType}' seems to have no call to base class.");
+                if (createNewMethod)
+                    throw new NotSupportedException("Creating a new method is not supported for asyncronous methods.");
 
-                var firstIndex = copiedInstructions.IndexOf(first);
-                copiedInstructions.RemoveRange(0, firstIndex);
+                this.instructions.Emit_Nop();
+
+                var ldLocRequired = false;
+                var firstInstruction = moveNextMethod.BeginOfCode ?? (this.instructions.Count == 0 ? null : this.instructions[0]);
+
+                if (firstInstruction != null && firstInstruction.OpCode != OpCodes.Ldloc_0)
+                {
+                    var instructionToInsert = new Instruction[]
+                        {
+                            this.instructions.ilprocessor.Create(OpCodes.Ldloc_0),
+                            this.instructions.ilprocessor.Create(OpCodes.Brfalse, this.instructions.Last),
+                        };
+
+                    this.instructions.Insert(firstInstruction, instructionToInsert);
+                    ldLocRequired = true;
+                }
+
+                var originalInstructions = this.instructions.associatedMethod.methodDefinition.Body.Instructions;
+                var asyncPositions = new AsyncStateMachinePositions(moveNextMethod.OriginMethod);
+                var copiedInstructions = CopyMethodBody(this.instructions.associatedMethod.methodDefinition);
+                this.instructions.Append(copiedInstructions.Get(asyncPositions.tryBegin, asyncPositions.tryEnd));
+                this.instructions.Emit_Nop();
+
+                for (int i = asyncPositions.tryBegin.Index; i < asyncPositions.tryEnd.Index; i++)
+                {
+                    if (originalInstructions[i].Operand is Instruction instruction &&
+                        (instruction.Offset >= asyncPositions.tryEnd.instruction.Offset || instruction.Offset < asyncPositions.tryBegin.instruction.Offset))
+                    {
+                        if (instruction == asyncPositions.catchEnd.instruction)
+                            copiedInstructions[i].Operand = this.instructions.Last;
+                        else
+                            moveNextMethod.OutOfBoundJumpIndex.Add(new Tuple<Instruction, int>(copiedInstructions[i], originalInstructions.IndexOf(instruction)));
+                    }
+                }
+
+                if (ldLocRequired)
+                {
+                    var nop = this.instructions.ilprocessor.Create(OpCodes.Nop);
+                    this.instructions.Append(new Instruction[]
+                    {
+                        this.instructions.ilprocessor.Create(OpCodes.Ldloc_0),
+                        this.instructions.ilprocessor.Create(OpCodes.Brtrue, nop),
+                        this.instructions.ilprocessor.Create(OpCodes.Leave, asyncPositions.catchEnd.instruction),
+                        nop
+                    });
+                    moveNextMethod.OutOfBoundJumpIndex.Add(new Tuple<Instruction, int>(this.instructions[this.instructions.Count - 2], originalInstructions.IndexOf(asyncPositions.catchEnd.instruction)));
+                }
             }
+            else
+            {
+                if (createNewMethod)
+                    return this.OriginalBodyNewMethod();
 
-            this.instructions.Append(copiedInstructions);
+                var copiedInstructions = CopyMethodBody(this.instructions.associatedMethod.methodDefinition);
+
+                // special case for .ctor
+                if (this.instructions.associatedMethod.IsCtor)
+                {
+                    // remove everything until base call
+                    var first = copiedInstructions.FirstOrDefault(x => x.OpCode == OpCodes.Call && (x.Operand as MethodReference).Name == ".ctor");
+                    if (first == null)
+                        throw new NullReferenceException($"The constructor of type '{this.instructions.associatedMethod.OriginType}' seems to have no call to base class.");
+
+                    var firstIndex = copiedInstructions.IndexOf(first);
+                    copiedInstructions.RemoveRange(0, firstIndex);
+                }
+
+                this.instructions.Append(copiedInstructions);
+            }
 
             return this;
         }
@@ -269,7 +342,10 @@ namespace Cauldron.Interception.Cecilator.Coders
                     methodInstructions[j.Key].Operand = instructions.ToArray();
                 }
                 else
-                    methodInstructions[j.Key].Operand = methodInstructions[j.First().index];
+                {
+                    var index = j.First().index;
+                    methodInstructions[j.Key].Operand = methodInstructions[index];
+                }
             }
         }
 
@@ -293,7 +369,7 @@ namespace Cauldron.Interception.Cecilator.Coders
             var exceptionList = new List<ExceptionHandler>();
             var jumps = new List<Index>();
 
-            for (int i = 0; i < (originalMethod.Body?.Instructions.Count ?? 0); i++)
+            for (int i = 0; i < originalMethod.Body.Instructions.Count; i++)
             {
                 var item = originalMethod.Body.Instructions[i];
 
@@ -361,7 +437,7 @@ namespace Cauldron.Interception.Cecilator.Coders
             var exceptionList = new List<ExceptionHandler>();
             var jumps = new List<Index>();
 
-            for (int i = 0; i < (originalMethod.Body?.Instructions.Count ?? 0); i++)
+            for (int i = 0; i < originalMethod.Body.Instructions.Count; i++)
             {
                 var item = originalMethod.Body.Instructions[i];
 
@@ -409,7 +485,18 @@ namespace Cauldron.Interception.Cecilator.Coders
             };
 
             foreach (var item in originalMethod.Body.ExceptionHandlers)
-                exceptionList.Add(copyHandler(item));
+            {
+                var handler = copyHandler(item);
+
+                if (handler.FilterStart == null &&
+                    handler.HandlerEnd == null &&
+                    handler.HandlerStart == null &&
+                    handler.TryEnd == null &&
+                    handler.TryStart == null)
+                    continue;
+
+                exceptionList.Add(handler);
+            }
 
             var result = this.instructions.Spawn();
             result.Append(resultingInstructions.Select(x => x.Target), exceptionList);
@@ -511,7 +598,7 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         public Coder Return()
         {
-            this.instructions.Emit(OpCodes.Ret);
+            this.ImplementReturn();
             return this;
         }
 
@@ -694,55 +781,6 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         #endregion Casting Operations
 
-        #region Special coder stuff
-
-        /// <summary>
-        /// Gets or creates a return variable.
-        /// This will try to detect the existing return variable and create a new return variable if not found.
-        /// </summary>
-        /// <param name="coder">The coder to use.</param>
-        /// <returns>A return variable.</returns>
-        public LocalVariable GetOrCreateReturnVariable()
-        {
-            var result = this.instructions.associatedMethod.GetVariable(CodeBlocks.ReturnVariableName);
-
-            if (result != null)
-                return result;
-
-            if (this.instructions.associatedMethod.methodDefinition.Body.Instructions.Count > 1)
-            {
-                var lastOpCode = this.instructions.associatedMethod.methodDefinition.Body.Instructions.Last().Previous;
-
-                if (lastOpCode.IsLoadLocal())
-                {
-                    VariableDefinition variable = null;
-
-                    if (lastOpCode.Operand is int index && this.instructions.associatedMethod.methodDefinition.Body.Variables.Count > index)
-                        variable = this.instructions.associatedMethod.methodDefinition.Body.Variables[index];
-
-                    if (result == null && lastOpCode.Operand is VariableDefinition variableReference)
-                        variable = variableReference;
-
-                    if (variable == null)
-                        if (lastOpCode.OpCode == OpCodes.Ldloc_0) variable = this.instructions.associatedMethod.methodDefinition.Body.Variables[0];
-                        else if (lastOpCode.OpCode == OpCodes.Ldloc_1) variable = this.instructions.associatedMethod.methodDefinition.Body.Variables[1];
-                        else if (lastOpCode.OpCode == OpCodes.Ldloc_2) variable = this.instructions.associatedMethod.methodDefinition.Body.Variables[2];
-                        else if (lastOpCode.OpCode == OpCodes.Ldloc_3) variable = this.instructions.associatedMethod.methodDefinition.Body.Variables[3];
-
-                    if (variable != null)
-                    {
-                        this.instructions.associatedMethod.AddLocalVariable(CodeBlocks.ReturnVariableName, variable);
-                        return new LocalVariable(variable.VariableType.ToBuilderType(), variable);
-                    }
-                }
-            }
-
-            return this.instructions.associatedMethod.AddLocalVariable(CodeBlocks.ReturnVariableName, new VariableDefinition(this.instructions.associatedMethod.ReturnType.typeReference))
-                .With(x => new LocalVariable(x.VariableType.ToBuilderType(), x));
-        }
-
-        #endregion Special coder stuff
-
         #region if Statements
 
         public Coder If(
@@ -793,6 +831,7 @@ namespace Cauldron.Interception.Cecilator.Coders
 
             // Add removal of unused variables here
             ReplaceReturns(this);
+            RemoveNops(this.AssociatedMethod);
             CleanLocalVariableList(this);
             this.instructions.associatedMethod.methodDefinition.Body.OptimizeMacros();
             this.instructions.associatedMethod.methodDefinition.Body.InitLocals = this.instructions.associatedMethod.methodDefinition.Body.Variables.Count > 0;
@@ -849,6 +888,7 @@ namespace Cauldron.Interception.Cecilator.Coders
             // Add removal of unused variables here
 
             ReplaceReturns(this);
+            RemoveNops(this.AssociatedMethod);
             CleanLocalVariableList(this);
             this.instructions.associatedMethod.methodDefinition.Body.OptimizeMacros();
             this.instructions.associatedMethod.methodDefinition.Body.InitLocals = this.instructions.associatedMethod.methodDefinition.Body.Variables.Count > 0;
@@ -858,6 +898,9 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         public Positions Replace(Position position)
         {
+            if (this.AssociatedMethod is AsyncStateMachineMoveNextMethod)
+                throw new NotSupportedException("Replace at position is not supported for async methods.");
+
             if (position.instruction == null)
                 throw new ArgumentNullException(nameof(position.instruction));
 
@@ -871,13 +914,47 @@ namespace Cauldron.Interception.Cecilator.Coders
         /// <summary>
         /// Replaces the current methods body with the <see cref="Instruction"/>s in the <see cref="Coder"/>'s instruction set.
         /// </summary>
-        /// <param name="coder"></param>
         public void Replace()
         {
-            // Special case for .ctors
-            if (this.instructions.associatedMethod.IsCtor &&
-                this.instructions.associatedMethod.methodDefinition.Body?.Instructions != null &&
-                this.instructions.associatedMethod.methodDefinition.Body.Instructions.Count > 0)
+            // A very special case for async methods
+            if (this.instructions.associatedMethod is AsyncStateMachineMoveNextMethod moveNextMethod)
+            {
+                var positions = new AsyncStateMachinePositions(moveNextMethod.OriginMethod);
+
+                this.instructions.exceptionHandlers.Add(positions.exceptionHandler);
+
+                var instruction = positions.exceptionHandler.TryStart;
+                do
+                {
+                    this.instructions.Insert(0, instruction);
+                    instruction = instruction.Previous;
+                }
+                while (instruction != null);
+                instruction = positions.tryEnd.instruction;
+                do
+                {
+                    this.instructions.Append(instruction);
+                    instruction = instruction.Next;
+                } while (instruction != null);
+                positions.exceptionHandler.TryStart.OpCode = OpCodes.Nop;
+                positions.exceptionHandler.TryStart.Operand = null;
+
+                // Replace all out of bound jumps with its proper jump targets
+                foreach (var item in moveNextMethod.OutOfBoundJumpIndex)
+                {
+                    var targetInstruction = this.instructions.associatedMethod.methodDefinition.Body.Instructions[item.Item2];
+                    item.Item1.Operand = targetInstruction;
+                }
+
+                this.instructions.associatedMethod.methodDefinition.Body.Instructions.Clear();
+                this.instructions.associatedMethod.methodDefinition.Body.ExceptionHandlers.Clear();
+
+                this.instructions.ilprocessor.Append(this.instructions);
+            }
+            else /* Special case for .ctors */
+                if (this.instructions.associatedMethod.IsCtor &&
+                    this.instructions.associatedMethod.methodDefinition.Body?.Instructions != null &&
+                    this.instructions.associatedMethod.methodDefinition.Body.Instructions.Count > 0)
             {
                 var first = this.instructions.associatedMethod.methodDefinition.Body.Instructions.FirstOrDefault(x => x.OpCode == OpCodes.Call && (x.Operand as MethodReference).Name == ".ctor");
                 if (first == null)
@@ -905,6 +982,7 @@ namespace Cauldron.Interception.Cecilator.Coders
                 this.instructions.ilprocessor.Body.ExceptionHandlers.Add(item);
 
             ReplaceReturns(this);
+            RemoveNops(this.AssociatedMethod);
             CleanLocalVariableList(this);
             this.instructions.associatedMethod.methodDefinition.Body.OptimizeMacros();
             this.instructions.associatedMethod.methodDefinition.Body.InitLocals = this.instructions.associatedMethod.methodDefinition.Body.Variables.Count > 0;
@@ -949,6 +1027,65 @@ namespace Cauldron.Interception.Cecilator.Coders
             //        instruction.Operand = varCollection[4];
             //    }
             //}
+        }
+
+        private static void RemoveNops(Method method)
+        {
+            if (method.IsAbstract)
+                return;
+
+            var instructions = method.methodDefinition.Body.Instructions;
+
+            Instruction GetNextNonNop(Instruction instruction)
+            {
+                if (instruction == null)
+                    return null;
+
+                if (instruction.OpCode != OpCodes.Nop)
+                    return instruction;
+
+                var temp = instruction;
+                do
+                {
+                    if (temp.OpCode != OpCodes.Nop)
+                        return temp;
+
+                    temp = temp.Next;
+                } while (temp != null);
+
+                temp = instruction;
+                do
+                {
+                    if (temp.OpCode != OpCodes.Nop)
+                        return temp;
+
+                    temp = temp.Previous;
+                } while (temp != null);
+
+                return instruction;
+            }
+
+            foreach (var item in method.methodDefinition.Body.ExceptionHandlers)
+            {
+                item.FilterStart = GetNextNonNop(item.FilterStart);
+                item.HandlerEnd = GetNextNonNop(item.HandlerEnd);
+                item.HandlerStart = GetNextNonNop(item.HandlerStart);
+                item.TryEnd = GetNextNonNop(item.TryEnd);
+                item.TryStart = GetNextNonNop(item.TryStart);
+            }
+
+            foreach (var item in instructions)
+                if (item.Operand is Instruction o && o.OpCode == OpCodes.Nop)
+                    item.Operand = GetNextNonNop(o);
+
+            for (int i = 0; i < instructions.Count; i++)
+            {
+                if (instructions[i].OpCode != OpCodes.Nop)
+                    continue;
+
+                instructions.RemoveAt(i);
+                i--;
+            }
         }
 
         private static void ReplaceJumps(Method method, Instruction tobeReplaced, Instruction replacement)
@@ -1123,7 +1260,19 @@ namespace Cauldron.Interception.Cecilator.Coders
             this.instructions.Append(code(this.NewCoder()));
 
             if (result.RequiresReturn)
-                this.instructions.Emit(OpCodes.Ret);
+            {
+                if (this.AssociatedMethod is AsyncStateMachineMoveNextMethod moveNextMethod)
+                {
+                    var asyncPositions = new AsyncStateMachinePositions(moveNextMethod.OriginMethod);
+                    this.instructions.Emit(OpCodes.Leave, asyncPositions.catchEnd.instruction);
+                    moveNextMethod.OutOfBoundJumpIndex.Add(
+                        new Tuple<Instruction, int>(
+                            this.instructions[this.instructions.Count - 2],
+                            this.AssociatedMethod.methodDefinition.Body.Instructions.IndexOf(asyncPositions.catchEnd.instruction)));
+                }
+                else
+                    this.instructions.Emit(OpCodes.Ret);
+            }
 
             return result;
         }

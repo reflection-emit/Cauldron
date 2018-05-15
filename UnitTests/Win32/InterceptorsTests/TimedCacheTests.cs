@@ -102,6 +102,13 @@ namespace InterceptorsTests
         }
 
         [TimedCache(10)]
+        private string TestMethod(string arg1, int arg2, Guid guid, TestContext testContext)
+        {
+            Thread.Sleep(5000);
+            return "TestMethod With 5";
+        }
+
+        [TimedCache(10)]
         private string TestMethod_With_Try_Catch()
         {
             try
@@ -127,6 +134,13 @@ namespace InterceptorsTests
             {
                 throw new Exception();
             }
+        }
+
+        [TimedCache(10)]
+        private async Task<string> TestMethodAsync(string arg1, int arg2, Guid guid, TestContext testContext)
+        {
+            Thread.Sleep(5000);
+            return await Task.Run(() => "TestMethod With 5");
         }
 
         [TimedCache(10)]

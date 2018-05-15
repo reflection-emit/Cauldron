@@ -265,7 +265,7 @@ namespace Cauldron.Interception.Cecilator
             {
                 foreach (var method in type.Methods.Where(x => x.methodDefinition.HasCustomAttributes))
                 {
-                    var asyncResult = this.GetAsyncMethod(method.methodDefinition);
+                    var asyncResult = this.GetAsyncMethod(method);
 
                     for (int i = 0; i < method.methodDefinition.CustomAttributes.Count; i++)
                     {
@@ -295,7 +295,7 @@ namespace Cauldron.Interception.Cecilator
             {
                 foreach (var method in type.Methods.Where(x => x.methodDefinition.HasCustomAttributes))
                 {
-                    var asyncResult = this.GetAsyncMethod(method.methodDefinition);
+                    var asyncResult = this.GetAsyncMethod(method);
 
                     for (int i = 0; i < method.methodDefinition.CustomAttributes.Count; i++)
                     {

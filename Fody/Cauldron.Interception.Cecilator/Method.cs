@@ -48,7 +48,7 @@ namespace Cauldron.Interception.Cecilator
             get
             {
                 if (_asyncMethod == null)
-                    _asyncMethod = this.type.Builder.GetAsyncMethod(this.methodDefinition);
+                    _asyncMethod = this.type.Builder.GetAsyncMethod(this);
 
                 return _asyncMethod;
             }
@@ -56,7 +56,7 @@ namespace Cauldron.Interception.Cecilator
 
         public AsyncMethodHelper AsyncMethodHelper => new AsyncMethodHelper(this);
 
-        public BuilderType AsyncOriginType
+        public virtual BuilderType AsyncOriginType
         {
             get
             {
@@ -79,6 +79,7 @@ namespace Cauldron.Interception.Cecilator
         public override string Identification => $"{this.methodDefinition.DeclaringType.Name}-{this.methodDefinition.Name}-{this.methodDefinition.DeclaringType.MetadataToken.RID}-{this.methodDefinition.MetadataToken.RID}";
 
         public bool IsAbstract => this.methodDefinition.IsAbstract;
+
         public bool IsAsync => this.methodDefinition.ReturnType.FullName.EqualsEx("System.Threading.Tasks.Task") || (this.methodDefinition.ReturnType.Resolve()?.FullName.EqualsEx("System.Threading.Tasks.Task`1") ?? false);
 
         public bool IsCCtor => this.methodDefinition.Name == ".cctor";

@@ -13,8 +13,8 @@ namespace Cauldron.Interception.Cecilator
             this.instruction = instruction;
         }
 
+        public int Index => this.method.methodDefinition.Body.Instructions.IndexOf(this.instruction);
         public Method Method => this.method;
-
         public Position Next => new Position(this.method, this.instruction.Next);
         public Position Previous => new Position(this.method, this.instruction.Previous);
 

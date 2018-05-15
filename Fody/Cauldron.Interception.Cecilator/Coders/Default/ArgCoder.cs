@@ -45,7 +45,7 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         public Coder Return()
         {
-            this.instructions.Emit(OpCodes.Ret);
+            this.ImplementReturn();
             return new Coder(this);
         }
 

@@ -603,16 +603,7 @@ namespace Cauldron.Interception.Cecilator
 
         public static void Log(this ICecilatorObject cecilatorObject, LogTypes logTypes, Property property, object arg) => cecilatorObject.Log(logTypes, property.Getter ?? property.Setter, arg);
 
-        public static void Log(this ICecilatorObject cecilatorObject, LogTypes logTypes, Method method, object arg)
-        {
-            //if (method.IsAsync)
-            //{
-            //    var result = cecilatorObject.GetAsyncMethod(method.methodDefinition);
-            //    cecilatorObject.Log(logTypes, result.Value.MethodDefinition.GetSequencePoint(), arg);
-            //}
-            //else
-            cecilatorObject.Log(logTypes, method.methodDefinition.GetSequencePoint(), arg);
-        }
+        public static void Log(this ICecilatorObject cecilatorObject, LogTypes logTypes, Method method, object arg) => cecilatorObject.Log(logTypes, method.methodDefinition.GetSequencePoint(), arg);
 
         public static void Log(this ICecilatorObject cecilatorObject, LogTypes logTypes, object arg) => cecilatorObject.Log(logTypes, sequencePoint: null, arg: arg);
 
@@ -860,14 +851,14 @@ namespace Cauldron.Interception.Cecilator
                 item.Display();
         }
 
-        internal static Method GetAsyncMethod(this Builder builder, MethodDefinition method)
+        internal static Method GetAsyncMethod(this Builder builder, Method method)
         {
-            var result = (builder as CecilatorObject).GetAsyncMethod(method);
+            var result = (builder as CecilatorObject).GetAsyncMethod(method.methodDefinition);
 
             if (result == null)
                 return null;
 
-            return new Method(new BuilderType(builder, result.Item2), result.Item1);
+            return new AsyncStateMachineMoveNextMethod(new BuilderType(builder, result.Item2), result.Item1, method);
         }
 
         /// <summary>
@@ -1117,6 +1108,21 @@ namespace Cauldron.Interception.Cecilator
                 opCode == OpCodes.Ldsflda ||
                 opCode == OpCodes.Ldfld ||
                 opCode == OpCodes.Ldflda;
+        }
+
+        internal static bool IsLoadLocal(this Instruction instruction, VariableReference variableReference)
+        {
+            var opCode = instruction.OpCode;
+
+            if (instruction.OpCode == OpCodes.Ldloc_0 ||
+                instruction.OpCode == OpCodes.Ldloc_1 ||
+                instruction.OpCode == OpCodes.Ldloc_2 ||
+                instruction.OpCode == OpCodes.Ldloc_3 ||
+                instruction.OpCode == OpCodes.Ldloc_S ||
+                instruction.OpCode == OpCodes.Ldloca_S)
+                return (int)instruction.Operand == variableReference.Index;
+
+            return instruction.Operand as VariableReference == variableReference;
         }
 
         internal static bool IsLoadLocal(this Instruction instruction)
