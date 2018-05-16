@@ -420,7 +420,7 @@ namespace Cauldron.Interception.Cecilator
                    .Select(x => new BuilderType(this, x.AttributeType));
 
                 stopwatch.Stop();
-                this.Log($"Finding attributes took {stopwatch.Elapsed.TotalMilliseconds}ms");
+                this.Log(LogTypes.Info, $"Finding attributes took {stopwatch.Elapsed.TotalMilliseconds}ms");
 
                 findAttributesInModuleCache = findAttributesInModuleCache.OrderBy(x => x.ToString()).Distinct(new BuilderTypeEqualityComparer()).ToArray();
             }

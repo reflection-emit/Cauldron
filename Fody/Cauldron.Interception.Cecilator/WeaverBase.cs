@@ -34,6 +34,11 @@ namespace Cauldron.Interception.Cecilator
 
         public override void Execute()
         {
+            if (bool.TryParse(this.Config.Attribute("Verbose")?.Value?.ToString() ?? "true", out bool result))
+                IsVerbose = result;
+            else
+                IsVerbose = true;
+
             this.Initialize(this.LogInfo, this.LogWarning, this.LogWarningPoint, this.LogError, this.LogErrorPoint);
 
             this.Builder = this.CreateBuilder();
@@ -148,8 +153,13 @@ namespace Cauldron.Interception.Cecilator
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private Action<string, SequencePoint> logWarningPoint;
 
+        public static bool IsVerbose { get; private set; }
+
         public void Log(LogTypes logTypes, Instruction instruction, MethodDefinition methodDefinition, object arg)
         {
+            if (!IsVerbose && logTypes != LogTypes.Error)
+                return;
+
             var next = instruction;
             while (next != null)
             {
@@ -183,6 +193,9 @@ namespace Cauldron.Interception.Cecilator
 
         public void Log(LogTypes logTypes, SequencePoint sequencePoint, object arg)
         {
+            if (!IsVerbose && logTypes != LogTypes.Error)
+                return;
+
             switch (logTypes)
             {
                 case LogTypes.Error:

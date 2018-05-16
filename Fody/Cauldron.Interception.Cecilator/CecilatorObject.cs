@@ -27,6 +27,9 @@ namespace Cauldron.Interception.Cecilator
 
         public void Log(LogTypes logTypes, Instruction instruction, MethodDefinition methodDefinition, object arg)
         {
+            if (!WeaverBase.IsVerbose && logTypes != LogTypes.Error)
+                return;
+
             var next = instruction;
             while (next != null)
             {
@@ -60,6 +63,9 @@ namespace Cauldron.Interception.Cecilator
 
         public void Log(LogTypes logTypes, SequencePoint sequencePoint, object arg)
         {
+            if (!WeaverBase.IsVerbose && logTypes != LogTypes.Error)
+                return;
+
             switch (logTypes)
             {
                 case LogTypes.Error:

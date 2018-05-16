@@ -37,7 +37,7 @@ namespace Cauldron.Interception.Cecilator
                 .Concat(weaver.References.Split(';').Select(x => LoadAssembly(x)))
                 .Where(x => x != null).ToArray() as IEnumerable<AssemblyDefinition>;
 
-            if (weaver.Config.Attribute("ReferenceCopyLocal").With(x => x == null ? true : (bool)x))
+            if (weaver.Config.Attribute("ReferenceCopyLocal").With(x => x == null ? true : bool.Parse(x.Value)))
                 referencedAssemblies = referencedAssemblies.Concat(this.ReferenceCopyLocal);
 
             this.ReferencedAssemblies = referencedAssemblies.Distinct(new AssemblyDefinitionEqualityComparer()).ToArray();
@@ -45,12 +45,12 @@ namespace Cauldron.Interception.Cecilator
             this.Log("-----------------------------------------------------------------------------");
 
             foreach (var item in this.ReferencedAssemblies)
-                this.Log("<<Assembly>> " + item.Name);
+                this.Log(LogTypes.Info, "<<Assembly>> " + item.Name);
 
             var resourceNames = new List<string>();
             foreach (var item in this.moduleDefinition.Resources)
             {
-                this.Log("<<Resource>> " + item.Name + " " + item.ResourceType);
+                this.Log(LogTypes.Info, "<<Resource>> " + item.Name + " " + item.ResourceType);
                 if (item.ResourceType == ResourceType.Embedded)
                 {
                     var embeddedResource = item as EmbeddedResource;
