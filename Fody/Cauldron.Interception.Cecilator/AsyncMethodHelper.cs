@@ -202,17 +202,20 @@ namespace Cauldron.Interception.Cecilator
             return new Position(this.method, result);
         }
 
-        private Field AddThisReference()
+        public Field InsertFieldToAsyncStateMachine(string fieldName, BuilderType fieldType, Func<Coder, object> setCoder)
         {
-            var thisField = this.method.AsyncMethod.OriginType.CreateField(Modifiers.Public, this.method.OriginType, "<>4__this").Resolve(this.method);
+            var newField = this.method.AsyncMethod.OriginType.CreateField(Modifiers.Public, fieldType, fieldName);
+            var resolvedField = newField.Resolve(this.method);
             var position = this.GetAsyncTaskMethodBuilderInitialization();
 
             if (position == null)
-                this.method.NewCoder().Load(variable: x => x.GetVariable(0)).SetValue(thisField, CodeBlocks.This).Insert(InsertionPosition.Beginning);
+                this.method.NewCoder().Load(variable: x => x.GetVariable(0)).SetValue(resolvedField, setCoder).Insert(InsertionPosition.Beginning);
             else
-                this.method.NewCoder().Load(variable: x => x.GetVariable(0)).SetValue(thisField, CodeBlocks.This).Insert(InsertionAction.After, position);
+                this.method.NewCoder().Load(variable: x => x.GetVariable(0)).SetValue(resolvedField, setCoder).Insert(InsertionAction.After, position);
 
-            return thisField;
+            return newField.Resolve(this.method.AsyncMethod.DeclaringType);
         }
+
+        private Field AddThisReference() => this.InsertFieldToAsyncStateMachine("<>4__this", this.method.OriginType, x => CodeBlocks.This);
     }
 }

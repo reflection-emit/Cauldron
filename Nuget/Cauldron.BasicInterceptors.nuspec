@@ -14,6 +14,7 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Interception interceptor interception AOP Fody Cecil CIL ILWeaving</tags>
     <releaseNotes>
+      2018.05.18 - [A] InterceptorOptionAttribute added.
       2018.05.15 - [A] Interceptors in abstract class for methods and properties are now possible.
       2018.05.15 - [B] Due to changes in cecilator the method weaver has to be fixed also
       2018.05.04 - [C] Assemblies for Net45, Net451, Net452, Net46, Net461 and Net462 added

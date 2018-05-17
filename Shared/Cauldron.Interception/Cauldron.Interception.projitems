@@ -15,6 +15,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)IInterceptor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IMethodInterceptor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)InterceptionRuleAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)InterceptorOptionsAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IPropertyGetterInterceptor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IPropertyInterceptor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IPropertyInterceptorComparer.cs" />

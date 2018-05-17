@@ -6,7 +6,6 @@ namespace Cauldron.Interception.Cecilator.Coders
 {
     public abstract class BooleanExpressionCoderBase<TSelf, TMaster> :
         BooleanExpressionCoderBase,
-        IRelationalOperators,
         IMathOperators<TSelf>
         where TSelf : BooleanExpressionCoderBase<TSelf, TMaster>
         where TMaster : BooleanExpressionCoderBase
@@ -64,6 +63,22 @@ namespace Cauldron.Interception.Cecilator.Coders
         {
             this.instructions.Emit(OpCodes.Neg);
             return (TSelf)this;
+        }
+    }
+
+    public abstract class BooleanExpressionCoderBase : CoderBase, IRelationalOperators
+    {
+        internal readonly BuilderType builderType;
+        internal readonly InstructionPoints jumpTargets;
+
+        protected BooleanExpressionCoderBase(InstructionBlock instructionBlock, InstructionPoints? jumpTargets = null, BuilderType builderType = null) : base(instructionBlock)
+        {
+            this.jumpTargets = jumpTargets ?? new InstructionPoints
+            {
+                beginning = instructionBlock.ilprocessor.Create(OpCodes.Nop),
+                ending = instructionBlock.ilprocessor.Create(OpCodes.Nop)
+            };
+            this.builderType = builderType?.Import() ?? instructionBlock.associatedMethod.OriginType;
         }
 
         #region Relational Operations
@@ -155,21 +170,5 @@ namespace Cauldron.Interception.Cecilator.Coders
         }
 
         #endregion Relational Operations
-    }
-
-    public abstract class BooleanExpressionCoderBase : CoderBase
-    {
-        internal readonly BuilderType builderType;
-        internal readonly InstructionPoints jumpTargets;
-
-        protected BooleanExpressionCoderBase(InstructionBlock instructionBlock, InstructionPoints? jumpTargets = null, BuilderType builderType = null) : base(instructionBlock)
-        {
-            this.jumpTargets = jumpTargets ?? new InstructionPoints
-            {
-                beginning = instructionBlock.ilprocessor.Create(OpCodes.Nop),
-                ending = instructionBlock.ilprocessor.Create(OpCodes.Nop)
-            };
-            this.builderType = builderType?.Import() ?? instructionBlock.associatedMethod.OriginType;
-        }
     }
 }

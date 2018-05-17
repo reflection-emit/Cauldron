@@ -9,9 +9,13 @@ public class InterceptorInfo
     public InterceptorInfo(BuilderType attributedType)
     {
         var interceptorRule = __InterceptionRuleAttribute.Type;
+        var interceptorOption = __InterceptorOptionsAttribute.Type;
 
         this.CustomAttributes = attributedType.CustomAttributes.ToArray();
         var interceptorRules = this.CustomAttributes.Where(x => x.Fullname == interceptorRule.Fullname);
+        var interceptorOptions = this.CustomAttributes.Where(x => x.Fullname == interceptorOption.Fullname);
+
+        this.AlwaysCreateNewInstance = interceptorOptions.Any(x => (bool)x.Properties["AlwaysCreateNewInstance"].Value);
 
         this.HasSuppressRule = interceptorRules.Any(x =>
                 x.ConstructorArguments.Length > 0 &&
@@ -42,6 +46,8 @@ public class InterceptorInfo
             })
             .ToArray();
     }
+
+    public bool AlwaysCreateNewInstance { get; private set; }
 
     public BuilderCustomAttribute[] CustomAttributes { get; private set; }
 

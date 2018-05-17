@@ -83,6 +83,8 @@ namespace Cauldron.Interception.Cecilator.Coders
             return new FieldCoder(this, type);
         }
 
+        CoderBase ICasting.As(BuilderType type) => this.As(type);
+
         #endregion Casting Operations
 
         #region Binary Operators

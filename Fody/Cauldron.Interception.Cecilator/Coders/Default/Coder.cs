@@ -213,6 +213,13 @@ namespace Cauldron.Interception.Cecilator.Coders
             return false;
         }
 
+        public T Load<T>(CecilatorBase cecilatorBase) where T : class
+        {
+            if (cecilatorBase is Field field) return this.Load(field) as T ?? throw new InvalidCastException($"Can't be casted to {typeof(T).FullName}");
+            if (cecilatorBase is LocalVariable variable) return this.Load(variable) as T ?? throw new InvalidCastException($"Can't be casted to {typeof(T).FullName}");
+            throw new NotImplementedException("This is only available for Field and LocalVariable");
+        }
+
         public Coder Newarr(BuilderType type, int size)
         {
             this.instructions.Append(InstructionBlock.CreateCode(this.instructions, null, size));
@@ -304,6 +311,13 @@ namespace Cauldron.Interception.Cecilator.Coders
             }
 
             return this;
+        }
+
+        public Coder SetValue(CecilatorBase cecilatorBase, Func<Coder, object> value)
+        {
+            if (cecilatorBase is Field field) return this.SetValue(field, value);
+            if (cecilatorBase is LocalVariable variable) return this.SetValue(variable, value);
+            throw new NotImplementedException("This is only available for Field and LocalVariable");
         }
 
         public Coder ThrowNew(Type exception)
@@ -778,6 +792,8 @@ namespace Cauldron.Interception.Cecilator.Coders
             InstructionBlock.CastOrBoxValues(this, type);
             return this;
         }
+
+        CoderBase ICasting.As(BuilderType type) => this.As(type);
 
         #endregion Casting Operations
 

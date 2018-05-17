@@ -16,6 +16,40 @@ namespace UnitTest_BasicInterceptorTests
             return await Task.Run(() => new TestClass() as TWrapper);
         }
 
+        [InterceptorWithSyncRoot]
+        public static async Task<int> Static_Async_Method_With_SyncRoot()
+        {
+            return await Task.Run(() => 2);
+        }
+
+        [InterceptorWithoutInstance]
+        public int Method_With_Local_Interceptor()
+        {
+            return 55;
+        }
+
+        [InterceptorWithoutInstance]
+        public async Task<int> Async_Method_With_Local_Interceptor()
+        {
+            return await Task.Run(() => 55);
+        }
+        [InterceptorWithSyncRoot]
+        public static int Static_Method_With_SyncRoot()
+        {
+            return 2;
+        }
+        [InterceptorWithSyncRoot]
+        public async Task<int> Async_Method_With_SyncRoot()
+        {
+            return await Task.Run(() => 2);
+        }
+
+        [InterceptorWithSyncRoot]
+        public int Method_With_SyncRoot()
+        {
+            return 2;
+        }
+
         [TestMethod]
         [TestMethodInterceptor]
         public static async Task<ICollection<TestClass>> GenericWeavingTest()

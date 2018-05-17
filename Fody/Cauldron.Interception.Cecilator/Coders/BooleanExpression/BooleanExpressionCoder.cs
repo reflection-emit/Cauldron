@@ -132,6 +132,31 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         #endregion Field Operations
 
+        public BooleanExpressionCoder And<T>(T[] collection, Func<BooleanExpressionCoder, T, int, object> code)
+        {
+            if (collection == null || collection.Length == 0)
+                return this;
+
+            code(this, collection[0], 0);
+            InstructionBlock.CastOrBoxValues(this.instructions, BuilderType.Boolean);
+
+            for (int i = 1; i < collection.Length; i++)
+            {
+                code(this, collection[i], i);
+                InstructionBlock.CastOrBoxValues(this.instructions, BuilderType.Boolean);
+                this.instructions.Emit(OpCodes.And);
+            }
+
+            return this;
+        }
+
+        public T Load<T>(CecilatorBase cecilatorBase) where T : class
+        {
+            if (cecilatorBase is Field field) return this.Load(field) as T ?? throw new InvalidCastException($"Can't be casted to {typeof(T).FullName}");
+            if (cecilatorBase is LocalVariable variable) return this.Load(variable) as T ?? throw new InvalidCastException($"Can't be casted to {typeof(T).FullName}");
+            throw new NotImplementedException("This is only available for Field and LocalVariable");
+        }
+
         #region Local Variable Operations
 
         public BooleanExpressionVariableCoder Load(LocalVariable variable)
@@ -156,25 +181,9 @@ namespace Cauldron.Interception.Cecilator.Coders
             return new BooleanExpressionCoder(this, this.jumpTargets);
         }
 
+        CoderBase ICasting.As(BuilderType type) => this.As(type);
+
         #endregion Casting Operations
-
-        public BooleanExpressionCoder And<T>(T[] collection, Func<BooleanExpressionCoder, T, int, object> code)
-        {
-            if (collection == null || collection.Length == 0)
-                return this;
-
-            code(this, collection[0], 0);
-            InstructionBlock.CastOrBoxValues(this.instructions, BuilderType.Boolean);
-
-            for (int i = 1; i < collection.Length; i++)
-            {
-                code(this, collection[i], i);
-                InstructionBlock.CastOrBoxValues(this.instructions, BuilderType.Boolean);
-                this.instructions.Emit(OpCodes.And);
-            }
-
-            return this;
-        }
 
         public BooleanExpressionCoder Or<T>(T[] collection, Func<BooleanExpressionCoder, T, int, object> code)
         {

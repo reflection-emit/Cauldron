@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 
 namespace Cauldron.Interception.Cecilator.Coders
 {
@@ -71,6 +70,8 @@ namespace Cauldron.Interception.Cecilator.Coders
             InstructionBlock.CastOrBoxValues(this, type);
             return new BooleanExpressionArgCoder(this, type);
         }
+
+        CoderBase ICasting.As(BuilderType type) => this.As(type);
 
         #endregion Casting Operations
 

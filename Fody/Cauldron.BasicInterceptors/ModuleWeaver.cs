@@ -17,6 +17,23 @@ internal static class ModuleWeaver
                 .As(contentType)
                 .SetValue(assignMethodAttributeInfo.AttributeField, y => y.NewObj(delegateCtor, method.ThisOrNull(), method)));
 
+    public static void ImplementAssignMethodAttribute(Builder builder, AssignMethodAttributeInfo[] assignMethodAttributeInfos, CecilatorBase cecilatorBase, BuilderType contentType, Coder coder)
+    {
+        switch (cecilatorBase)
+        {
+            case Field field:
+                ImplementAssignMethodAttribute(builder, assignMethodAttributeInfos, field, contentType, coder);
+                break;
+
+            case LocalVariable variable:
+                ImplementAssignMethodAttribute(builder, assignMethodAttributeInfos, variable, contentType, coder);
+                break;
+
+            default:
+                throw new NotImplementedException("This is only available for Field and LocalVariable");
+        }
+    }
+
     private static void ImplementAssignMethodAttribute(Builder builder, AssignMethodAttributeInfo[] assignMethodAttributeInfos,
                 Action<Method, Method, AssignMethodAttributeInfo> @delegate)
     {
