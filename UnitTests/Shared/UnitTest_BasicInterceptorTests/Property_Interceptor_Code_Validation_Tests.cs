@@ -24,8 +24,16 @@ namespace UnitTest_BasicInterceptorTests
             set => StaticProperty = value;
         }
 
+        [InterceptorWithSyncRoot]
+        public int Property_With_SyncRoot { get; set; }
+
+        [InterceptorWithoutInstance]
+        [InterceptorWithSyncRoot]
+        public int Property_With_SyncRoot_And_Local_Intercptor { get; set; }
+
         [InterceptorWithoutInstance]
         public int Property_With_Local_Interceptor { get; set; }
+
         [InterceptorWithoutInstance]
         public static int Static_Property_With_Local_Interceptor { get; set; }
 
