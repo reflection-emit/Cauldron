@@ -41,14 +41,6 @@ public sealed class Weaver_Method
             .OrderBy(x => x.Key.Method.DeclaringType.Fullname)
             .ToArray();
 
-        Coder codeMe(Coder coder, MethodBuilderInfoItem<__IMethodInterceptor> attribute, Field field, LocalVariable localVariable, Func<FieldCoder, Coder> funcA, Func<VariableCoder, Coder> funcB)
-        {
-            if (attribute.InterceptorInfo.AlwaysCreateNewInstance)
-                return funcA(coder.Load(field));
-            else
-                return funcB(coder.Load(localVariable));
-        }
-
         foreach (var method in methods)
         {
             if (method.Item == null || method.Item.Length == 0 || method.Key.Method.IsAbstract)
@@ -90,7 +82,7 @@ public sealed class Weaver_Method
                         {
                             interceptorInstanceCoder.SetValue(newInterceptor, z => z.NewObj(item.Attribute));
                             if (item.HasSyncRootInterface)
-                                (interceptorInstanceCoder.Load<ICasting>(newInterceptor).As(__ISyncRoot.Type) as ICallMethod<CallCoder>).Call(syncRoot.SyncRoot, method.SyncRoot);
+                                interceptorInstanceCoder.Load<ICasting>(newInterceptor).As(__ISyncRoot.Type).To<ICallMethod<CallCoder>>().Call(syncRoot.SyncRoot, method.SyncRoot);
 
                             ModuleWeaver.ImplementAssignMethodAttribute(builder, method.Item[i].AssignMethodAttributeInfos, newInterceptor, item.Attribute.Attribute.Type, interceptorInstanceCoder);
                             return interceptorInstanceCoder;

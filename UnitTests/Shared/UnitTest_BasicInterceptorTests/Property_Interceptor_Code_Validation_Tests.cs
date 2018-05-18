@@ -24,6 +24,11 @@ namespace UnitTest_BasicInterceptorTests
             set => StaticProperty = value;
         }
 
+        [InterceptorWithoutInstance]
+        public int Property_With_Local_Interceptor { get; set; }
+        [InterceptorWithoutInstance]
+        public static int Static_Property_With_Local_Interceptor { get; set; }
+
         [TestPropertyInterceptor]
         public List<long> APropertyWithoutBackingField { get => this.Blub(); }
 

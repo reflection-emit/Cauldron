@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)AbstractTestClass.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AssignMethodAttribute_Tests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Field_Interception_Code_Validation_Tests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ITestInterface.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Method_Interceptor_Code_Validation_Tests.cs" />

@@ -658,6 +658,8 @@ namespace Cauldron.Interception.Cecilator
 
         public static object ThisOrNull(this Method method) => method.IsStatic ? null : CodeBlocks.This;
 
+        public static T To<T>(this object o) where T : class => o as T ?? throw new InvalidCastException($"Unable to cast '{o?.GetType()}' to '{typeof(T).FullName}'");
+
         public static BuilderType ToBuilderType(this Type type)
         {
             if (type.IsGenericType && type.GetGenericTypeDefinition() != type)
