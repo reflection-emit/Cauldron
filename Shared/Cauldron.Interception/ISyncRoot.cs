@@ -4,7 +4,7 @@
     /// Adds a sync-root to the interceptor. The sync-root object is the same for all interceptors applied to the property, field or method.
     /// <para/>
     /// This interceptor extension is available for <see cref="IPropertyGetterInterceptor"/>, <see cref="IPropertySetterInterceptor"/>,
-    /// <see cref="IPropertyInterceptor"/> and <see cref="IMethodInterceptor"/>.
+    /// <see cref="IPropertyInterceptor"/>, <see cref="IMethodInterceptor"/> and <see cref="ISimpleMethodInterceptor"/>.
     /// </summary>
     public interface ISyncRoot
     {

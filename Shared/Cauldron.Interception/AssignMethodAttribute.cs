@@ -11,7 +11,7 @@ namespace Cauldron.Interception
     /// If the field's type in a <see cref="Func{T, TResult}"/>, the weaver will search for a method with a return type that matches TResult and 1 argmuent.
     /// <para/>
     /// This interceptor extension is available for <see cref="IPropertyGetterInterceptor"/>, <see cref="IPropertySetterInterceptor"/>,
-    /// <see cref="IPropertyInterceptor"/>, <see cref="IMethodInterceptor"/> and <see cref="IConstructorInterceptor"/>.
+    /// <see cref="IPropertyInterceptor"/>, <see cref="IMethodInterceptor"/>, <see cref="ISimpleMethodInterceptor"/> and <see cref="IConstructorInterceptor"/>.
     /// <para/>
     /// Since properties are only methods, the <see cref="AssignMethodAttribute"/> can also search for the property's getter and setter.
     /// The getter requires a 'get_' prefix and the setter a 'set_' prefix e.g. if the property is named 'DispatchDate' then the setter search pattern will be

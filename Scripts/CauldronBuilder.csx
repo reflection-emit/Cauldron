@@ -327,7 +327,8 @@ private static void CreateReadmeFromNuspec(DirectoryInfo startingLocation, strin
                      Date = itemDate ?? DateTime.Now,
                      Type = cleanLine.EnclosedIn("[", "]"),
                      Description = $"__{Path.GetFileNameWithoutExtension(nuget.Name)}:__ _{cleanLine.Substring(cleanLine.IndexOf(']') + 1)?.Trim() ?? ""}_",
-                     Version = metaData.Version
+                     Version = new Version(metaData.Version.Split('-')[0]),
+                     IsBeta = metaData.Version.IndexOf("beta") > 0
                  };
              });
 
@@ -341,7 +342,7 @@ private static void CreateReadmeFromNuspec(DirectoryInfo startingLocation, strin
     var versionHistory = historybag
         .Where(x => x != null)
         .GroupBy(x => x.Version)
-        .Select(x => new { Version = x.Key, Types = x.GroupBy(y => y.Type).Select(y => new { Type = y.Key, Log = y.ToArray() }) })
+        .Select(x => new { Version = x.Key, IsBeta = x.Any(y => y.IsBeta), Types = x.GroupBy(y => y.Type).Select(y => new { Type = y.Key, Log = y.ToArray() }) })
         .OrderByDescending(x => x.Version)
         .ThenBy(x => x.Types)
         .ToArray();
@@ -349,7 +350,8 @@ private static void CreateReadmeFromNuspec(DirectoryInfo startingLocation, strin
     var historyNugetInfo = new List<string>();
     foreach (var version in versionHistory)
     {
-        historyNugetInfo.Add($"### __{version.Version}__");
+        if (version.IsBeta) historyNugetInfo.Add($"### __{version.Version} BETA__");
+        else historyNugetInfo.Add($"### __{version.Version}__");
 
         foreach (var type in version.Types)
         {

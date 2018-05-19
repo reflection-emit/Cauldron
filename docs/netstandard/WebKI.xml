@@ -22,6 +22,7 @@
   <HelpKINode Title="AlphaNumericAndSpecialCharactersSet field" Url="html/F_Cauldron_Cryptography_CryptoUtils_AlphaNumericAndSpecialCharactersSet.htm" />
   <HelpKINode Title="AlphaNumericCharactersSet field" Url="html/F_Cauldron_Cryptography_CryptoUtils_AlphaNumericCharactersSet.htm" />
   <HelpKINode Title="AlternativeForeground property" Url="html/P_Cauldron_Consoles_ConsoleTableColumn_AlternativeForeground.htm" />
+  <HelpKINode Title="AlwaysCreateNewInstance property" Url="html/P_Cauldron_Interception_InterceptorOptionsAttribute_AlwaysCreateNewInstance.htm" />
   <HelpKINode Title="ANSI enumeration member" Url="html/T_Cauldron_Core_Encodings.htm" />
   <HelpKINode Title="Any method" Url="html/Overload_Cauldron_Core_Collections_IEnumerableExtensions_Any.htm" />
   <HelpKINode Title="ApplicationData class">
@@ -249,6 +250,7 @@
   <HelpKINode Title="Cauldron.Interception.IMethodInterceptor interface" Url="html/T_Cauldron_Interception_IMethodInterceptor.htm" />
   <HelpKINode Title="Cauldron.Interception.InterceptionRuleAttribute class" Url="html/T_Cauldron_Interception_InterceptionRuleAttribute.htm" />
   <HelpKINode Title="Cauldron.Interception.InterceptionRuleOptions enumeration" Url="html/T_Cauldron_Interception_InterceptionRuleOptions.htm" />
+  <HelpKINode Title="Cauldron.Interception.InterceptorOptionsAttribute class" Url="html/T_Cauldron_Interception_InterceptorOptionsAttribute.htm" />
   <HelpKINode Title="Cauldron.Interception.IPropertyGetterInterceptor interface" Url="html/T_Cauldron_Interception_IPropertyGetterInterceptor.htm" />
   <HelpKINode Title="Cauldron.Interception.IPropertyInterceptor interface" Url="html/T_Cauldron_Interception_IPropertyInterceptor.htm" />
   <HelpKINode Title="Cauldron.Interception.IPropertyInterceptorComparer interface" Url="html/T_Cauldron_Interception_IPropertyInterceptorComparer.htm" />
@@ -656,9 +658,9 @@
   <HelpKINode Title="ExistsAsync method" Url="html/M_Cauldron_ExtensionsFileIO_ExistsAsync.htm" />
   <HelpKINode Title="ExportedTypes property" Url="html/P_Cauldron_Core_Reflection_Assemblies_ExportedTypes.htm" />
   <HelpKINode Title="Extensions class">
-    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Interception_Extensions.htm" />
-    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Extensions.htm" />
     <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Core_Collections_Extensions.htm" />
+    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Extensions.htm" />
+    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Interception_Extensions.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Extensions.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Interception_Extensions.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Collections_Extensions.htm" />
@@ -1123,6 +1125,14 @@
   </HelpKINode>
   <HelpKINode Title="InterceptionRuleAttribute.InterceptionRuleAttribute constructor" Url="html/Overload_Cauldron_Interception_InterceptionRuleAttribute__ctor.htm" />
   <HelpKINode Title="InterceptionRuleOptions enumeration" Url="html/T_Cauldron_Interception_InterceptionRuleOptions.htm" />
+  <HelpKINode Title="InterceptorOptionsAttribute class">
+    <HelpKINode Title="InterceptorOptionsAttribute Class" Url="html/T_Cauldron_Interception_InterceptorOptionsAttribute.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Cauldron_Interception_InterceptorOptionsAttribute__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Interception_InterceptorOptionsAttribute.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_Interception_InterceptorOptionsAttribute.htm" />
+  </HelpKINode>
+  <HelpKINode Title="InterceptorOptionsAttribute.AlwaysCreateNewInstance property" Url="html/P_Cauldron_Interception_InterceptorOptionsAttribute_AlwaysCreateNewInstance.htm" />
+  <HelpKINode Title="InterceptorOptionsAttribute.InterceptorOptionsAttribute constructor" Url="html/M_Cauldron_Interception_InterceptorOptionsAttribute__ctor.htm" />
   <HelpKINode Title="Interfaces property" Url="html/P_Cauldron_Core_Reflection_Assemblies_Interfaces.htm" />
   <HelpKINode Title="Interleave(Of T) method" Url="html/M_Cauldron_Extensions_Interleave__1.htm" />
   <HelpKINode Title="Interleave&lt;T&gt; method" Url="html/M_Cauldron_Extensions_Interleave__1.htm" />
