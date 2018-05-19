@@ -8,9 +8,31 @@ namespace Cauldron.Interception.Cecilator
 {
     public class AsyncMethodHelper : CecilatorBase
     {
+        private static BuilderType asyncStateMachineAttribute;
+        private static BuilderType iAsyncStateMachine;
         private readonly Method method;
 
+        static AsyncMethodHelper()
+        {
+            asyncStateMachineAttribute = Builder.Current.GetType("System.Runtime.CompilerServices.AsyncStateMachineAttribute");
+            iAsyncStateMachine = Builder.Current.GetType("System.Runtime.CompilerServices.IAsyncStateMachine");
+        }
+
         internal AsyncMethodHelper(Method method) : base(method) => this.method = method;
+
+        public bool HasAsyncStateMachineAttribute
+        {
+            get
+            {
+                if (this.method.CustomAttributes.Any(x => x.Type == asyncStateMachineAttribute))
+                    return true;
+
+                if (this.method.OriginType.Implements(iAsyncStateMachine))
+                    return true;
+
+                return false;
+            }
+        }
 
         public object Instance
         {
@@ -44,7 +66,8 @@ namespace Cauldron.Interception.Cecilator
                 var originType = this.OriginType;
                 if (originType == this.method.OriginType)
                     return this.method;
-                var asyncMachine = Builder.Current.GetType("System.Runtime.CompilerServices.AsyncStateMachineAttribute").typeDefinition;
+
+                var asyncMachine = asyncStateMachineAttribute.typeDefinition;
                 return originType
                       .GetMethods()
                       .Where(x => x.methodDefinition.HasCustomAttributes && x.methodDefinition.CustomAttributes.HasAttribute(asyncMachine))

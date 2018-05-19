@@ -35,7 +35,7 @@ public static class Weaver_Constructor
 
         foreach (var constructor in constructors)
         {
-            if (constructor.Item == null || constructor.Item.Length == 0)
+            if (constructor.Items == null || constructor.Items.Length == 0)
                 continue;
 
             var targetedConstrutor = constructor.Key.Method;
@@ -49,14 +49,14 @@ public static class Weaver_Constructor
                 builder.Log(LogTypes.Warning, targetedConstrutor, $"An interceptor applied to the constructor has implemented ISyncRoot. This is not supported. The interceptor may not work correctly.");
 
             CodeBlock parametersArray = null;
-            var localVariables = new LocalVariable[constructor.Item.Length];
+            var localVariables = new LocalVariable[constructor.Items.Length];
             Coder InterceptorInit(Coder contextCoder, bool isBeforeInit)
             {
                 parametersArray = contextCoder.GetParametersArray();
 
-                for (int i = 0; i < constructor.Item.Length; i++)
+                for (int i = 0; i < constructor.Items.Length; i++)
                 {
-                    var item = constructor.Item[i];
+                    var item = constructor.Items[i];
                     localVariables[i] = contextCoder.AssociatedMethod.GetOrCreateVariable(item.Interface.ToBuilderType);
 
                     contextCoder.SetValue(localVariables[i], x => x.NewObj(item.Attribute));
@@ -79,9 +79,9 @@ public static class Weaver_Constructor
                     if (targetedConstrutor.IsCCtor)
                         InterceptorInit(x, false);
 
-                    for (int i = 0; i < constructor.Item.Length; i++)
+                    for (int i = 0; i < constructor.Items.Length; i++)
                     {
-                        var item = constructor.Item[i];
+                        var item = constructor.Items[i];
                         ModuleWeaver.ImplementAssignMethodAttribute(builder, item.AssignMethodAttributeInfos, localVariables[i], item.Attribute.Attribute.Type, x);
 
                         item.Attribute.Remove();
@@ -91,9 +91,9 @@ public static class Weaver_Constructor
                 })
                 .Try(x =>
                 {
-                    for (int i = 0; i < constructor.Item.Length; i++)
+                    for (int i = 0; i < constructor.Items.Length; i++)
                     {
-                        var item = constructor.Item[i];
+                        var item = constructor.Items[i];
                         x.Load(localVariables[i]).Call(item.Interface.OnEnter, targetedConstrutor.OriginType, CodeBlocks.This, targetedConstrutor, parametersArray);
                     }
 
@@ -101,15 +101,15 @@ public static class Weaver_Constructor
                 })
                 .Catch(exception.ToBuilderType, (ex, e) =>
                 {
-                    return ex.If(x => x.Or(constructor.Item, (coder, y, i) => coder.Load(localVariables[i]).Call(y.Interface.OnException, e())).Is(true),
+                    return ex.If(x => x.Or(constructor.Items, (coder, y, i) => coder.Load(localVariables[i]).Call(y.Interface.OnException, e())).Is(true),
                             then => ex.NewCoder().Rethrow())
                         .DefaultValue()
                         .Return();
                 })
                 .Finally(x =>
                 {
-                    for (int i = 0; i < constructor.Item.Length; i++)
-                        x.Load(localVariables[i]).Call(constructor.Item[i].Interface.OnExit);
+                    for (int i = 0; i < constructor.Items.Length; i++)
+                        x.Load(localVariables[i]).Call(constructor.Items[i].Interface.OnExit);
                     return x;
                 })
                 .EndTry()

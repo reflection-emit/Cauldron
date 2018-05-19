@@ -1,7 +1,8 @@
 ﻿using Cauldron.Interception.Cecilator;
+using Cauldron.Interception.Cecilator.Coders;
 using Cauldron.Interception.Fody;
 using Cauldron.Interception.Fody.HelperTypes;
-using Mono.Cecil.Cil;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -23,7 +24,7 @@ public sealed class Weaver_SimpleMethod
     public static void ImplementTypeWideMethodInterception(Builder builder) => Weaver_Method.ImplementTypeWideMethodInterception(builder, simpleMethodInterceptionAttributes);
 
     [Display("Simple Method Interception")]
-    public static void InterceptSimpleMethods(Builder builder)
+    public static void InterceptSimpleMethods(Builder builder, int o)
     {
         if (!simpleMethodInterceptionAttributes.Any())
             return;
@@ -44,69 +45,78 @@ public sealed class Weaver_SimpleMethod
 
         foreach (var method in methods)
         {
-            if (method.Item == null || method.Item.Length == 0 || method.Key.Method.IsAbstract)
+            if (method.Items == null || method.Items.Length == 0 || method.Key.Method.IsAbstract)
                 continue;
 
             builder.Log(LogTypes.Info, $"Implementing method interceptors: {method.Key.Method.DeclaringType.Name.PadRight(40, ' ')} {method.Key.Method.Name}({string.Join(", ", method.Key.Method.Parameters.Select(x => x.Name))})");
 
             var targetedMethod = method.Key.AsyncMethod ?? method.Key.Method;
             var attributedMethod = method.Key.Method;
-
-            var interceptorField = new Field[method.Item.Length];
-            var typeInstance = method.Key.Method.AsyncMethodHelper.Instance.With(x =>
-            {
-                if (x is Field field)
-                    return field.Resolve(method.Key.Method.AsyncMethod.DeclaringType);
-
-                return x;
-            });
+            var interceptor = new CecilatorBase[method.Items.Length];
 
             if (method.RequiresSyncRootField)
             {
                 if (method.SyncRoot.IsStatic)
-                    targetedMethod.AsyncOriginType.CreateStaticConstructor().NewCoder()
+                    method.Key.Method.DeclaringType.CreateStaticConstructor().NewCoder()
                         .SetValue(method.SyncRoot, x => x.NewObj(builder.GetType(typeof(object)).Import().ParameterlessContructor))
                         .Insert(InsertionPosition.Beginning);
                 else
-                    foreach (var ctors in targetedMethod.AsyncOriginType.GetRelevantConstructors().Where(x => x.Name == ".ctor"))
-                        ctors.NewCoder().SetValue(method.SyncRoot, x => x.NewObj(builder.GetType(typeof(object)).Import().ParameterlessContructor)).Insert(InsertionPosition.Beginning);
+                    foreach (var ctors in method.Key.Method.DeclaringType.GetRelevantConstructors().Where(x => x.Name == ".ctor"))
+                        ctors.NewCoder().SetValue(method.SyncRoot, x => x.NewObj(builder.GetType(typeof(object)).Import().ParameterlessContructor))
+                            .Insert(InsertionPosition.Beginning);
             }
 
-            var coder = targetedMethod
-             .NewCoder()
-                 .Context(context =>
-                 {
-                     for (int i = 0; i < method.Item.Length; i++)
-                     {
-                         var item = method.Item[i];
-                         var name = $"<{targetedMethod.Name}>_attrib{i}_{item.Attribute.Identification}";
-                         interceptorField[i] = targetedMethod.AsyncOriginType.CreateField(targetedMethod.Modifiers.GetPrivate(), item.Interface.ToBuilderType, name);
-                         interceptorField[i].CustomAttributes.AddNonSerializedAttribute();
+            targetedMethod
+                .NewCoder()
+                .Context(x =>
+                {
+                    for (int i = 0; i < method.Items.Length; i++)
+                    {
+                        var item = method.Items[i];
+                        var alwaysCreateNewInstance = item.InterceptorInfo.AlwaysCreateNewInstance;
+                        var name = $"<{targetedMethod.Name}>_attrib{i}_{item.Attribute.Identification}";
+                        var methodCoder = method.Key.Method.IsAsync ? method.Key.Method.NewCoder() : x;
+                        var newInterceptor = alwaysCreateNewInstance ?
+                            method.Key.Method.GetOrCreateVariable(item.Interface.ToBuilderType) as CecilatorBase :
+                            method.Key.Method.DeclaringType.CreateField(method.Key.Method.Modifiers.GetPrivate(), item.Interface.ToBuilderType, name);
 
-                         context.If(x => x.Load(interceptorField[i]).IsNull(), then =>
-                         {
-                             then.SetValue(interceptorField[i], x => x.NewObj(item.Attribute));
-                             if (item.HasSyncRootInterface)
-                                 then.Load(interceptorField[i]).As(__ISyncRoot.Type).Call(syncRoot.SyncRoot, method.SyncRoot);
+                        Coder codeInterceptorInstance(Coder interceptorInstanceCoder)
+                        {
+                            interceptorInstanceCoder.SetValue(newInterceptor, z => z.NewObj(item.Attribute));
+                            if (item.HasSyncRootInterface)
+                                interceptorInstanceCoder.Load<ICasting>(newInterceptor).As(__ISyncRoot.Type).To<ICallMethod<CallCoder>>().Call(syncRoot.SyncRoot, method.SyncRoot);
 
-                             ModuleWeaver.ImplementAssignMethodAttribute(builder, method.Item[i].AssignMethodAttributeInfos, interceptorField[i], item.Attribute.Attribute.Type, context);
-                             return then;
-                         });
+                            ModuleWeaver.ImplementAssignMethodAttribute(builder, method.Items[i].AssignMethodAttributeInfos, newInterceptor, item.Attribute.Attribute.Type, interceptorInstanceCoder);
+                            return interceptorInstanceCoder;
+                        }
 
-                         context.Load(interceptorField[i]).Call(item.Interface.OnEnter, attributedMethod.OriginType, typeInstance, attributedMethod, context.GetParametersArray());
+                        if (alwaysCreateNewInstance)
+                            codeInterceptorInstance(methodCoder);
+                        else
+                            methodCoder.If(y => y.Load<IRelationalOperators>(newInterceptor).IsNull(), y => codeInterceptorInstance(y));
 
-                         item.Attribute.Remove();
-                     }
+                        if (method.Key.Method.IsAsync)
+                            methodCoder.Insert(InsertionPosition.Beginning);
 
-                     return context;
-                 });
+                        interceptor[i] = method.Key.Method.IsAsync ?
+                            method.Key.Method.AsyncMethodHelper.InsertFieldToAsyncStateMachine(name, item.Interface.ToBuilderType, z => newInterceptor) :
+                            newInterceptor;
+                        (interceptor[i] as Field)?.CustomAttributes.AddNonSerializedAttribute();
+                        item.Attribute.Remove();
+                    }
 
-            var position = coder.GetFirstOrDefaultPosition(x => x.OpCode == OpCodes.Stelem_Ref);
+                    return x;
+                })
+                .Context(x =>
+                {
+                    for (int i = 0; i < method.Items.Length; i++)
+                        x.Load<ICallMethod<CallCoder>>(interceptor[i]).Call(method.Items[i].Interface.OnEnter, attributedMethod.OriginType, CodeBlocks.This, attributedMethod,
+                            method.Key.Method.Parameters.Length > 0 ? x.GetParametersArray() : null);
 
-            if (position == null)
-                coder.Insert(InsertionPosition.Beginning);
-            else
-                coder.Insert(InsertionAction.After, position);
+                    return x.OriginalBody();
+                })
+            .Return()
+            .Replace();
         };
     }
 }

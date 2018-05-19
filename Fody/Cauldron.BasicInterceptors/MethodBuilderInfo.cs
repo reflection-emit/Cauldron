@@ -1,4 +1,5 @@
 ﻿using Cauldron.Interception.Cecilator;
+using Cauldron.Interception.Cecilator.Coders;
 using Cauldron.Interception.Fody;
 using Cauldron.Interception.Fody.HelperTypes;
 using System.Collections.Generic;
@@ -20,14 +21,14 @@ public sealed class MethodBuilderInfo<T> where T : IMethodBuilderInfoItem
     public MethodBuilderInfo(MethodKey key, IEnumerable<T> items)
     {
         this.Key = key;
-        this.Item = items.Where(x => !x.IsSuppressed).ToArray();
+        this.Items = items.Where(x => !x.IsSuppressed).ToArray();
     }
 
-    public T[] Item { get; private set; }
+    public T[] Items { get; private set; }
 
     public MethodKey Key { get; private set; }
 
-    public bool RequiresSyncRootField => this.Item?.Any(x => x.HasSyncRootInterface) ?? false;
+    public bool RequiresSyncRootField => this.Items?.Any(x => x.HasSyncRootInterface) ?? false;
 
     public Field SyncRoot
     {
@@ -35,13 +36,62 @@ public sealed class MethodBuilderInfo<T> where T : IMethodBuilderInfoItem
         {
             if (_syncRoot == null)
             {
-                _syncRoot = this.Key.Method.DeclaringType.CreateField(this.Key.Method.Modifiers.GetPrivate(), typeof(object), $"<{this.Key.Method.Name}>_syncObject_{this.Key.Method.Identification}");
-                _syncRoot.CustomAttributes.AddNonSerializedAttribute();
+                var name = $"<{this.Key.Method.Name}>_syncObject_{this.Key.Method.Identification}";
+                _syncRoot = this.Key.Method.DeclaringType.GetField(name, false);
+
+                if (_syncRoot == null)
+                {
+                    _syncRoot = this.Key.Method.DeclaringType.CreateField(this.Key.Method.Modifiers.GetPrivate(), typeof(object), name);
+                    _syncRoot.CustomAttributes.AddNonSerializedAttribute();
+                }
             }
 
             return _syncRoot;
         }
     }
+}
+
+public sealed class MethodBuilderInfoItem<T1, T2> : IMethodBuilderInfoItem
+    where T1 : HelperTypeBase<T1>, new()
+    where T2 : HelperTypeBase<T2>, new()
+{
+    public MethodBuilderInfoItem(AttributedMethod attribute, T1 interfaceA, T2 interfaceB)
+    {
+        this.Attribute = attribute;
+        this.InterfaceA = interfaceA;
+        this.InterfaceB = interfaceB;
+        this.AssignMethodAttributeInfos = AssignMethodAttributeInfo.GetAllAssignMethodAttributedFields(attribute);
+        this.InterceptorInfo = new InterceptorInfo(this.Attribute.Attribute.Type);
+        this.HasSyncRootInterface = attribute.Attribute.Type.Implements(__ISyncRoot.Type.Fullname);
+        this.HasInterfaceA = this.Attribute.Attribute.Type.Implements(this.InterfaceA.ToBuilderType);
+        this.HasInterfaceB = this.Attribute.Attribute.Type.Implements(this.InterfaceB.ToBuilderType);
+
+        var name = $"<{attribute.Method.Name}>_{attribute.Identification}";
+        var newInterceptor = this.InterceptorInfo.AlwaysCreateNewInstance ?
+            attribute.Method.GetOrCreateVariable(this.InterfaceType) as CecilatorBase :
+            attribute.Method.DeclaringType.CreateField(attribute.Method.Modifiers.GetPrivate(), this.InterfaceType, name);
+
+        this.Interceptor = newInterceptor;
+        this.FieldOrVariable = attribute.Method.IsAsync ? attribute.Method.AsyncMethodHelper.InsertFieldToAsyncStateMachine(name, this.InterfaceType, z => newInterceptor) : newInterceptor;
+        (newInterceptor as Field)?.CustomAttributes.AddNonSerializedAttribute();
+    }
+
+    public AssignMethodAttributeInfo[] AssignMethodAttributeInfos { get; }
+
+    public AttributedMethod Attribute { get; }
+
+    public CecilatorBase FieldOrVariable { get; }
+    public bool HasInterfaceA { get; }
+    public bool HasInterfaceB { get; }
+    public bool HasSyncRootInterface { get; }
+    public CecilatorBase Interceptor { get; }
+    public InterceptorInfo InterceptorInfo { get; }
+
+    public T1 InterfaceA { get; }
+    public T2 InterfaceB { get; }
+    public BuilderType InterfaceType => this.HasInterfaceB ? this.InterfaceB.ToBuilderType : this.InterfaceA.ToBuilderType;
+
+    public bool IsSuppressed => InterceptorInfo.GetIsSupressed(this.InterceptorInfo, this.Attribute.Method.DeclaringType, this.Attribute.Method.CustomAttributes, this.Attribute.Attribute, this.Attribute.Method.Name, true);
 }
 
 public sealed class MethodBuilderInfoItem<T> : IMethodBuilderInfoItem

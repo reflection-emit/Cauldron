@@ -14,8 +14,9 @@ public sealed class Weaver_Method
 
     static Weaver_Method()
     {
-        methodInterceptionAttributes = Builder.Current.FindAttributesByInterfaces(
-           "Cauldron.Interception.IMethodInterceptor");
+        methodInterceptionAttributes =
+            Builder.Current.FindAttributesByInterfaces("Cauldron.Interception.IMethodInterceptor")
+            .Concat(Builder.Current.FindAttributesByInterfaces("Cauldron.Interception.ISimpleMethodInterceptor"));
     }
 
     [Display("Type-Wide Method Interception")]
@@ -37,20 +38,22 @@ public sealed class Weaver_Method
             .FindMethodsByAttributes(methodInterceptionAttributes)
             .Where(x => !x.Method.IsPropertyGetterSetter)
             .GroupBy(x => new MethodKey(x.Method, x.AsyncMethod))
-            .Select(x => new MethodBuilderInfo<MethodBuilderInfoItem<__IMethodInterceptor>>(x.Key, x.Select(y => new MethodBuilderInfoItem<__IMethodInterceptor>(y, __IMethodInterceptor.Instance))))
+            .Select(x => new MethodBuilderInfo<MethodBuilderInfoItem<__IMethodInterceptor, __ISimpleMethodInterceptor>>(x.Key,
+                x.Select(y => new MethodBuilderInfoItem<__IMethodInterceptor, __ISimpleMethodInterceptor>(y, __IMethodInterceptor.Instance, __ISimpleMethodInterceptor.Instance))))
             .OrderBy(x => x.Key.Method.DeclaringType.Fullname)
             .ToArray();
 
         foreach (var method in methods)
         {
-            if (method.Item == null || method.Item.Length == 0 || method.Key.Method.IsAbstract)
+            if (method.Items == null || method.Items.Length == 0 || method.Key.Method.IsAbstract)
                 continue;
 
             builder.Log(LogTypes.Info, $"Implementing method interceptors: {method.Key.Method.DeclaringType.Name.PadRight(40, ' ')} {method.Key.Method.Name}({string.Join(", ", method.Key.Method.Parameters.Select(x => x.Name))})");
 
             var targetedMethod = method.Key.AsyncMethod ?? method.Key.Method;
             var attributedMethod = method.Key.Method;
-            var interceptor = new CecilatorBase[method.Item.Length];
+            var hasSimpleMethodInterceptors = method.Items.Any(x => x.HasInterfaceB);
+            var hasFullMethodInterceptors = method.Items.Any(x => x.HasInterfaceA);
 
             if (method.RequiresSyncRootField)
             {
@@ -68,75 +71,86 @@ public sealed class Weaver_Method
                 .NewCoder()
                 .Context(x =>
                 {
-                    for (int i = 0; i < method.Item.Length; i++)
+                    for (int i = 0; i < method.Items.Length; i++)
                     {
-                        var item = method.Item[i];
+                        var item = method.Items[i];
                         var alwaysCreateNewInstance = item.InterceptorInfo.AlwaysCreateNewInstance;
-                        var name = $"<{targetedMethod.Name}>_attrib{i}_{item.Attribute.Identification}";
                         var methodCoder = method.Key.Method.IsAsync ? method.Key.Method.NewCoder() : x;
-                        var newInterceptor = alwaysCreateNewInstance ?
-                            method.Key.Method.GetOrCreateVariable(item.Interface.ToBuilderType) as CecilatorBase :
-                            method.Key.Method.DeclaringType.CreateField(method.Key.Method.Modifiers.GetPrivate(), item.Interface.ToBuilderType, name);
 
                         Coder codeInterceptorInstance(Coder interceptorInstanceCoder)
                         {
-                            interceptorInstanceCoder.SetValue(newInterceptor, z => z.NewObj(item.Attribute));
+                            interceptorInstanceCoder.SetValue(item.Interceptor, z => z.NewObj(item.Attribute));
                             if (item.HasSyncRootInterface)
-                                interceptorInstanceCoder.Load<ICasting>(newInterceptor).As(__ISyncRoot.Type).To<ICallMethod<CallCoder>>().Call(syncRoot.SyncRoot, method.SyncRoot);
+                                interceptorInstanceCoder.Load<ICasting>(item.Interceptor).As(__ISyncRoot.Type).To<ICallMethod<CallCoder>>().Call(syncRoot.SyncRoot, method.SyncRoot);
 
-                            ModuleWeaver.ImplementAssignMethodAttribute(builder, method.Item[i].AssignMethodAttributeInfos, newInterceptor, item.Attribute.Attribute.Type, interceptorInstanceCoder);
+                            ModuleWeaver.ImplementAssignMethodAttribute(builder, method.Items[i].AssignMethodAttributeInfos, item.FieldOrVariable, item.Attribute.Attribute.Type, interceptorInstanceCoder);
                             return interceptorInstanceCoder;
                         }
 
                         if (alwaysCreateNewInstance)
                             codeInterceptorInstance(methodCoder);
                         else
-                            methodCoder.If(y => y.Load<IRelationalOperators>(newInterceptor).IsNull(), y => codeInterceptorInstance(y));
+                            methodCoder.If(y => y.Load<IRelationalOperators>(item.Interceptor).IsNull(), y => codeInterceptorInstance(y));
 
-                        if (method.Key.Method.IsAsync)
-                            methodCoder.Insert(InsertionPosition.Beginning);
-
-                        interceptor[i] = method.Key.Method.IsAsync ?
-                            method.Key.Method.AsyncMethodHelper.InsertFieldToAsyncStateMachine(name, item.Interface.ToBuilderType, z => newInterceptor) :
-                            newInterceptor;
-                        (interceptor[i] as Field)?.CustomAttributes.AddNonSerializedAttribute();
+                        if (method.Key.Method.IsAsync) methodCoder.Insert(InsertionPosition.Beginning);
                         item.Attribute.Remove();
                     }
 
                     return x;
-                })
-                .Try(x =>
-                {
-                    for (int i = 0; i < method.Item.Length; i++)
-                        x.Load<ICallMethod<CallCoder>>(interceptor[i]).Call(method.Item[i].Interface.OnEnter, attributedMethod.OriginType, CodeBlocks.This, attributedMethod,
-                            method.Key.Method.Parameters.Length > 0 ? x.GetParametersArray() : null);
-
-                    return x.OriginalBody();
                 });
 
-            if (method.Key.AsyncMethod == null)
-                coder.Catch(__Exception.Type, (eCoder, e) => eCoder.If(x =>
-                    {
-                        var or = x.Load<ICallMethod<BooleanExpressionCallCoder>>(interceptor[0]).Call(method.Item[0].Interface.OnException, e());
-                        for (int i = 1; i < method.Item.Length; i++)
-                            or.Or(y => y.Load<ICallMethod<CallCoder>>(interceptor[i]).Call(method.Item[i].Interface.OnException, e()));
-
-                        return or.Is(true);
-                    }, then => eCoder.NewCoder().Rethrow())
-                        .DefaultValue().Return());
-
-            coder.Finally(x =>
+            if (hasSimpleMethodInterceptors)
             {
-                for (int i = 0; i < method.Item.Length; i++)
-                    x.Load<ICallMethod<CallCoder>>(interceptor[i]).Call(method.Item[i].Interface.OnExit);
+                var simpleMethodInterceptors = method.Items.Where(x => x.HasInterfaceB).ToArray();
+                coder.Context(x =>
+                {
+                    for (int i = 0; i < simpleMethodInterceptors.Length; i++)
+                        x.Load<ICallMethod<CallCoder>>(simpleMethodInterceptors[i].FieldOrVariable).Call(simpleMethodInterceptors[i].InterfaceB.OnEnter, attributedMethod.OriginType, CodeBlocks.This, attributedMethod,
+                            method.Key.Method.Parameters.Length > 0 ? x.GetParametersArray() : null);
 
-                return x;
-            })
-            .EndTry()
-            .Return()
-            .Replace();
+                    if (!hasFullMethodInterceptors)
+                        return x.OriginalBody();
 
-            if (method.Key.AsyncMethod != null)
+                    return x;
+                });
+            }
+
+            var fullMethodInterceptors = method.Items.Where(x => x.HasInterfaceA).ToArray();
+            if (hasFullMethodInterceptors)
+            {
+                var tryCoder = coder.Try(x =>
+                    {
+                        for (int i = 0; i < fullMethodInterceptors.Length; i++)
+                            x.Load<ICallMethod<CallCoder>>(fullMethodInterceptors[i].FieldOrVariable).Call(fullMethodInterceptors[i].InterfaceA.OnEnter, attributedMethod.OriginType, CodeBlocks.This, attributedMethod,
+                                method.Key.Method.Parameters.Length > 0 ? x.GetParametersArray() : null);
+
+                        return x.OriginalBody();
+                    });
+
+                if (method.Key.AsyncMethod == null)
+                    tryCoder.Catch(__Exception.Type, (eCoder, e) => eCoder.If(x =>
+                        {
+                            var or = x.Load<ICallMethod<BooleanExpressionCallCoder>>(fullMethodInterceptors[0].FieldOrVariable).Call(fullMethodInterceptors[0].InterfaceA.OnException, e());
+                            for (int i = 1; i < fullMethodInterceptors.Length; i++)
+                                or.Or(y => y.Load<ICallMethod<CallCoder>>(fullMethodInterceptors[i].FieldOrVariable).Call(fullMethodInterceptors[i].InterfaceA.OnException, e()));
+
+                            return or.Is(true);
+                        }, then => eCoder.NewCoder().Rethrow())
+                            .DefaultValue().Return());
+
+                tryCoder.Finally(x =>
+                {
+                    for (int i = 0; i < fullMethodInterceptors.Length; i++)
+                        x.Load<ICallMethod<CallCoder>>(fullMethodInterceptors[i].FieldOrVariable).Call(fullMethodInterceptors[i].InterfaceA.OnExit);
+
+                    return x;
+                })
+                .EndTry();
+            }
+
+            coder.Return().Replace();
+
+            if (method.Key.AsyncMethod != null && hasFullMethodInterceptors)
             {
                 // Special case for async methods
                 var exceptionBlock = method.Key.Method.AsyncMethodHelper.GetAsyncStateMachineExceptionBlock();
@@ -147,10 +161,10 @@ public sealed class Weaver_Method
 
                         return context.If(x =>
                          {
-                             var or = x.Load(interceptor[0] as Field).Call(method.Item[0].Interface.OnException, exceptionVariable);
+                             var or = x.Load(fullMethodInterceptors[0].FieldOrVariable as Field).Call(fullMethodInterceptors[0].InterfaceA.OnException, exceptionVariable);
 
-                             for (int i = 1; i < method.Item.Length; i++)
-                                 or.Or(y => y.Load(interceptor[i] as Field).Call(method.Item[i].Interface.OnException, exceptionVariable));
+                             for (int i = 1; i < fullMethodInterceptors.Length; i++)
+                                 or.Or(y => y.Load(fullMethodInterceptors[i].FieldOrVariable as Field).Call(fullMethodInterceptors[i].InterfaceA.OnException, exceptionVariable));
 
                              return or.Is(false);
                          }, x => x.Jump(exceptionBlock.Item1.End));
