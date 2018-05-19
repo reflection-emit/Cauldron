@@ -9,6 +9,7 @@ namespace Cauldron.Core.Interceptors
     /// <summary>
     /// Provides an interceptor that logs an exception to the Windows Event Log.
     /// </summary>
+    [InterceptorOptions(AlwaysCreateNewInstance = true)]
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Property | AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
     public sealed class ExceptionToEventLogAttribute : Attribute, IPropertyInterceptor, IMethodInterceptor
     {

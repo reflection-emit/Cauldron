@@ -11,6 +11,7 @@ namespace Cauldron.Core.Interceptors
     /// Provides a simple performance measurement of a code block
     /// </summary>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Method | AttributeTargets.Field, AllowMultiple = false, Inherited = false)]
+    [InterceptorOptions(AlwaysCreateNewInstance = true)]
     public sealed class ExecutionTimeAttribute : Attribute, IMethodInterceptor, IPropertyInterceptor
     {
         private string memberName;

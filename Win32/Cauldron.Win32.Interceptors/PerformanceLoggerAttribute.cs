@@ -11,6 +11,7 @@ namespace Cauldron.Core.Interceptors
     /// <para/>
     /// This interceptor is using NLog. NLog configuration will affect this interceptor.
     /// </summary>
+    [InterceptorOptions(AlwaysCreateNewInstance = true)]
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
     public sealed class PerformanceLoggerAttribute : Attribute, IMethodInterceptor
     {
