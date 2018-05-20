@@ -9,6 +9,7 @@ namespace Cauldron.Interception
     /// <example>
     /// Sample implementation:
     /// <code>
+    /// [InterceptorOptions(AlwaysCreateNewInstance = true)]
     /// [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
     /// public class MyInterceptorAttribute : Attribute, IMethodInterceptor
     /// {
