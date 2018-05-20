@@ -61,7 +61,7 @@ Assembly | Description   | NuGet
 **Cauldron.Win32.WPF.Validation** | Validation Framework for Cauldron.Win32.WPF | [![NuGet](https://img.shields.io/nuget/v/Capgemini.Cauldron.Win32.WPF.Validation.svg)](https://www.nuget.org/packages/Capgemini.Cauldron.Win32.WPF.Validation/)
 
 ## Release Notes
-### __3.0.17__
+### __3.0.16__
 #### Added
 - __Cauldron.Cecilator:__ _Added some support to move generic coding style._
 - __Cauldron.BasicInterceptors:__ _InterceptorOptionAttribute added._
