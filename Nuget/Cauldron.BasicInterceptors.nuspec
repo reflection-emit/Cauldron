@@ -12,7 +12,7 @@
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Custom interceptors for Cauldron.Interception.Fody that provides method, property, field and constructor interception.</description>
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
-    <tags>Toolkit Capgemini Cauldron Interception interceptor interception AOP Fody Cecil CIL ILWeaving</tags>
+    <tags>Toolkit Capgemini Cauldron Interception interceptor interception AOP Fody Cecil CIL ILWeaving aspect decorator boundary invocation</tags>
     <releaseNotes>
       2018.05.18 - [A] InterceptorOptionAttribute added.
       2018.05.15 - [A] Interceptors in abstract class for methods and properties are now possible.

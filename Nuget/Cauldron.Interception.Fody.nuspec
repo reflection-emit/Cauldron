@@ -15,7 +15,7 @@
       Method, Property, Constructor and Field interceptors can be found in the package Cauldron.BasicInterceptors (https://www.nuget.org/packages/Cauldron.BasicInterceptors/)
     </description>
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
-    <tags>Toolkit Capgemini Cauldron Interception interceptor interception AOP Fody Cecil CIL ILWeaving</tags>
+    <tags>Toolkit Capgemini Cauldron Interception interceptor interception AOP Fody Cecil CIL ILWeaving aspect decorator boundary invocation</tags>
     <releaseNotes>
       2018.05.02 - [B] Fixed bugs in weaving methods with generic parameters
       2018.05.02 - [B] Fixed bugs in weaving async methods

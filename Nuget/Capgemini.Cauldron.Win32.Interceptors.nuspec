@@ -12,7 +12,7 @@
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>A collection of interceptor implementations.</description>
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
-    <tags>Toolkit Capgemini Cauldron Interceptors Fody Interception</tags>
+    <tags>Toolkit Capgemini Cauldron Interceptors Fody Interception Aspect aspect decorator boundary invocation</tags>
     <releaseNotes>
       2018.05.15 - [B] TimedCache weaver fixed for async methods part 2
       2018.05.11 - [B] TimedCache weaver fixed for async methods

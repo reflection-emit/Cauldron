@@ -17,6 +17,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Property_Interceptor_Code_Validation_Tests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SimpleMethod_Interceptor_Code_Validation_Tests.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TestClass.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TestClass_Class.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TestStruct.cs" />
   </ItemGroup>
 </Project>

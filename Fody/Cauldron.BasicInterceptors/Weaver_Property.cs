@@ -85,35 +85,13 @@ public static class Weaver_Property
             var propertyField = member.Property.CreateField(__PropertyInterceptionInfo.Type, $"<{member.Property.Name}>p__propertyInfo");
             propertyField.CustomAttributes.AddNonSerializedAttribute();
 
-            Method GetOrCreatePropertyValueComparerDelegate()
-            {
-                if (!member.HasComparer)
-                    return null;
-
-                var methodName = $"<{member.Property.ReturnType.Fullname.Replace('.', '_').Replace('`', '_')}>__comparerMethod";
-                var originType = member.Property.OriginType;
-
-                if (originType.GetMethod(methodName, 2, false) is Method result)
-                    return result;
-
-                return originType.CreateMethod(
-                    member.Property.Modifiers.GetPrivate(),
-                    builder.GetType(typeof(bool)),
-                    methodName,
-                    builder.GetType(typeof(object)), builder.GetType(typeof(object)));
-            }
-
             var actionObjectCtor = builder.Import(typeof(Action<object>).GetConstructor(new Type[] { typeof(object), typeof(IntPtr) }));
             var propertySetter = member.Property.Setter == null ?
                 null :
                 member.Property.OriginType.CreateMethod(member.Property.Modifiers.GetPrivate(), $"<{member.Property.Name}>m__setterMethod", builder.GetType(typeof(object)));
-            var propertyValueComparer = GetOrCreatePropertyValueComparerDelegate();
 
             if (propertySetter != null)
                 CreatePropertySetterDelegate(builder, member, propertySetter);
-
-            if (propertyValueComparer != null)
-                CreateEqualityComparerDelegate(builder, propertyValueComparer, member.Property.ReturnType);
 
             var indexer = 0;
             var interceptorFields = member.InterceptorInfos.ToDictionary(x => x.Attribute.Identification,
@@ -132,13 +110,13 @@ public static class Weaver_Property
                 });
 
             if (member.HasInitializer)
-                AddPropertyInitializeInterception(builder, propertyInterceptionInfo, member, propertyField, actionObjectCtor, propertySetter, propertyValueComparer, interceptorFields);
+                AddPropertyInitializeInterception(builder, propertyInterceptionInfo, member, propertyField, actionObjectCtor, propertySetter, interceptorFields);
 
             if (member.HasGetterInterception && member.Property.Getter != null)
-                AddPropertyGetterInterception(builder, propertyInterceptionInfo, member, propertyField, actionObjectCtor, propertySetter, propertyValueComparer, interceptorFields);
+                AddPropertyGetterInterception(builder, propertyInterceptionInfo, member, propertyField, actionObjectCtor, propertySetter, interceptorFields);
 
             if (member.HasSetterInterception && member.Property.Setter != null)
-                AddPropertySetterInterception(builder, propertyInterceptionInfo, member, propertyField, actionObjectCtor, propertySetter, propertyValueComparer, interceptorFields);
+                AddPropertySetterInterception(builder, propertyInterceptionInfo, member, propertyField, actionObjectCtor, propertySetter, interceptorFields);
 
             // Do this at the end to ensure that syncroot init is always on the top
             if (member.RequiresSyncRootField)
@@ -165,15 +143,10 @@ public static class Weaver_Property
         Field propertyField,
         Method actionObjectCtor,
         Method propertySetter,
-        Method propertyComparer,
         Dictionary<string, Field> interceptorFields)
     {
         var syncRoot = new __ISyncRoot();
-        var propertyInterceptorComparer = new __IPropertyInterceptorComparer();
         var legalGetterInterceptors = member.InterceptorInfos.Where(x => x.InterfaceGetter != null).ToArray();
-        var propertyInterceptorFunc = propertyInterceptorComparer.GetAreEqual.ReturnType.GetMethod(".ctor", true, new Type[] { typeof(object), typeof(IntPtr) })
-                    .MakeGeneric(propertyInterceptorComparer.GetAreEqual.ReturnType.GenericArguments().ToArray())
-                    .Import();
 
         member.Property.Getter
             .NewCoder()
@@ -195,12 +168,6 @@ public static class Weaver_Property
 
                             if (item.HasSyncRootInterface)
                                 coder.Load<ICasting>(fieldOrVariable).As(__ISyncRoot.Type.Import()).To<ICallMethod<CallCoder>>().Call(syncRoot.SyncRoot, member.SyncRoot);
-
-                            if (item.HasComparer)
-                                context.Load<ICasting>(fieldOrVariable).As(__IPropertyInterceptorComparer.Type.Import())
-                                    .To<ICallMethod<CallCoder>>()
-                                    .Call(propertyInterceptorComparer.SetAreEqual,
-                                        x => x.NewObj(propertyInterceptorFunc, propertyComparer));
 
                             ModuleWeaver.ImplementAssignMethodAttribute(builder, legalGetterInterceptors[i].AssignMethodAttributeInfos, fieldOrVariable, item.Attribute.Attribute.Type, coder);
                             return coder;
@@ -300,17 +267,12 @@ public static class Weaver_Property
         Field propertyField,
         Method actionObjectCtor,
         Method propertySetter,
-        Method propertyComparer,
         Dictionary<string, Field> interceptorFields)
     {
         var declaringType = member.Property.OriginType;
         var syncRoot = new __ISyncRoot();
-        var propertyInterceptorComparer = new __IPropertyInterceptorComparer();
         var legalInitInterceptors = member.InterceptorInfos.Where(x => x.InterfaceInitializer != null).ToArray();
         var relevantCtors = member.Property.IsStatic ? new Method[] { declaringType.StaticConstructor } : declaringType.GetRelevantConstructors().Where(x => x.Name != ".cctor");
-        var propertyInterceptorFunc = propertyInterceptorComparer.GetAreEqual.ReturnType.GetMethod(".ctor", true, new Type[] { typeof(object), typeof(IntPtr) })
-                    .MakeGeneric(propertyInterceptorComparer.GetAreEqual.ReturnType.GenericArguments().ToArray())
-                    .Import();
 
         foreach (var ctor in relevantCtors)
         {
@@ -326,10 +288,6 @@ public static class Weaver_Property
 
                         if (item.HasSyncRootInterface)
                             context.Load(field).As(__ISyncRoot.Type.Import()).Call(syncRoot.SyncRoot, member.SyncRoot);
-
-                        if (item.HasComparer)
-                            context.Load(field).As(__IPropertyInterceptorComparer.Type.Import())
-                                .Call(propertyInterceptorComparer.SetAreEqual, x => x.NewObj(propertyInterceptorFunc, propertyComparer));
 
                         ModuleWeaver.ImplementAssignMethodAttribute(builder, legalInitInterceptors[i].AssignMethodAttributeInfos, field, item.Attribute.Attribute.Type, context);
                     }
@@ -365,15 +323,10 @@ public static class Weaver_Property
         Field propertyField,
         Method actionObjectCtor,
         Method propertySetter,
-        Method propertyComparer,
         Dictionary<string, Field> interceptorFields)
     {
         var syncRoot = new __ISyncRoot();
-        var propertyInterceptorComparer = new __IPropertyInterceptorComparer();
         var legalSetterInterceptors = member.InterceptorInfos.Where(x => x.InterfaceSetter != null).ToArray();
-        var propertyInterceptorFunc = propertyInterceptorComparer.GetAreEqual.ReturnType.GetMethod(".ctor", true, new Type[] { typeof(object), typeof(IntPtr) })
-                .MakeGeneric(propertyInterceptorComparer.GetAreEqual.ReturnType.GenericArguments().ToArray())
-                .Import();
 
         member.Property.Setter
             .NewCoder()
@@ -395,12 +348,6 @@ public static class Weaver_Property
 
                             if (item.HasSyncRootInterface)
                                 coder.Load<ICasting>(fieldOrVariable).As(syncRoot.ToBuilderType.Import()).To<ICallMethod<CallCoder>>().Call(syncRoot.SyncRoot, member.SyncRoot);
-
-                            if (item.HasComparer)
-                                coder.Load<ICasting>(fieldOrVariable).As(__IPropertyInterceptorComparer.Type.Import())
-                                    .To<ICallMethod<CallCoder>>()
-                                    .Call(propertyInterceptorComparer.SetAreEqual,
-                                        x => x.NewObj(propertyInterceptorFunc, propertyComparer));
 
                             ModuleWeaver.ImplementAssignMethodAttribute(builder, legalSetterInterceptors[i].AssignMethodAttributeInfos, fieldOrVariable, item.Attribute.Attribute.Type, coder);
 
@@ -501,22 +448,6 @@ public static class Weaver_Property
                 .EndTry()
                 .Return()
             .Replace();
-    }
-
-    private static void CreateEqualityComparerDelegate(Builder builder, Method equalityComparerMethod, BuilderType propertyType)
-    {
-        var coder = equalityComparerMethod.NewCoder();
-
-        if (propertyType.IsValueType || propertyType.IsPrimitive)
-            coder.If(x => x.Load(CodeBlocks.GetParameter(0)).Is(CodeBlocks.GetParameter(1)), then => then.Return());
-        else
-        {
-            var methodReferenceEqual = builder.GetType("System.Object").GetMethod("ReferenceEquals", false, "System.Object", "System.Object").Import();
-            coder.If(x => x.Call(methodReferenceEqual, CodeBlocks.GetParameter(0), CodeBlocks.GetParameter(1)).Is(true), then => then.Load(true).Return());
-            coder.If(x => x.Load(CodeBlocks.GetParameter(0)).Is(CodeBlocks.GetParameter(1)), then => then.Return());
-        }
-
-        coder.Replace();
     }
 
     private static void CreatePropertySetterDelegate(Builder builder, PropertyBuilderInfo member, Method propertySetter)

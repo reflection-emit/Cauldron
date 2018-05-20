@@ -11,7 +11,7 @@
     <iconUrl>https://raw.githubusercontent.com/Capgemini/Cauldron/master/cauldron.png</iconUrl>
     <description>A collection of interceptor implementations.</description>
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
-    <tags>Toolkit Capgemini Cauldron Interceptors Fody Interception</tags>
+    <tags>Toolkit Capgemini Cauldron Interceptors Fody Interception aspect decorator boundary invocation</tags>
     <releaseNotes>
       2018.05.04 - [C] Assemblies for Net45, Net451, Net452, Net46, Net461 and Net462 added
       2018.04.11 - [C] Fody version 3.0.0 update and minor bug fixes.

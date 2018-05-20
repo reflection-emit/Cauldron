@@ -40,8 +40,6 @@ namespace Cauldron.Interception.Fody
                 return _syncRoot;
             }
         }
-
-        public bool HasComparer => this.InterceptorInfos.Any(x => x.HasComparer);
     }
 
     public sealed class PropertyBuilderInfoItem
@@ -61,7 +59,6 @@ namespace Cauldron.Interception.Fody
             this.HasSyncRootInterface = attribute.Attribute.Type.Implements(__ISyncRoot.Type.Fullname);
             this.AssignMethodAttributeInfos = AssignMethodAttributeInfo.GetAllAssignMethodAttributedFields(attribute);
             this.InterceptorInfo = new InterceptorInfo(this.Attribute.Attribute.Type);
-            this.HasComparer = attribute.Attribute.Type.Implements(__IPropertyInterceptorComparer.Type.Fullname);
         }
 
         public AssignMethodAttributeInfo[] AssignMethodAttributeInfos { get; private set; }
@@ -69,8 +66,6 @@ namespace Cauldron.Interception.Fody
         public AttributedProperty Attribute { get; private set; }
 
         public bool HasAssignMethodAttribute { get; private set; }
-
-        public bool HasComparer { get; private set; }
 
         public bool HasSyncRootInterface { get; private set; }
 

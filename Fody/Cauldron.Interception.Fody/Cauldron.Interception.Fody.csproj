@@ -89,7 +89,6 @@
     <Compile Include="HelperTypes\__InterceptionRuleAttribute.cs" />
     <Compile Include="HelperTypes\__InterceptorOptionsAttribute.cs" />
     <Compile Include="HelperTypes\__IPropertyGetterInterceptor.cs" />
-    <Compile Include="HelperTypes\__IPropertyInterceptorComparer.cs" />
     <Compile Include="HelperTypes\__IPropertyInterceptorInitialize.cs" />
     <Compile Include="HelperTypes\__IPropertySetterInterceptor.cs" />
     <Compile Include="HelperTypes\__ISimpleMethodInterceptor.cs" />
