@@ -75,7 +75,7 @@ namespace Cauldron.Interception.Fody
         {
             this.Log(LogTypes.Info, "       Compiling custom interceptor: " + Path.GetFileName(path));
 
-            var tempDirectory = Path.Combine(Path.GetTempPath(), Path.GetFileNameWithoutExtension(path));
+            var tempDirectory = Path.Combine(Path.GetTempPath(), Path.GetDirectoryName(this.ProjectDirectoryPath), Path.GetFileNameWithoutExtension(path));
             var output = Path.Combine(tempDirectory, Path.GetFileNameWithoutExtension(path) + ".dll");
             var pdb = Path.Combine(tempDirectory, Path.GetFileNameWithoutExtension(path) + ".pdb");
 

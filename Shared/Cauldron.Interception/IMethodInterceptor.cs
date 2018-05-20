@@ -4,7 +4,7 @@ using System.Reflection;
 namespace Cauldron.Interception
 {
     /// <summary>
-    /// Represents a method interceptor
+    /// Represents a method interceptor. This interceptor can also be applied to abstract methods and all overriding methods will implement this interceptor.
     /// </summary>
     /// <example>
     /// Sample implementation:
