@@ -82,8 +82,7 @@ namespace Cauldron.Interception
         void OnEnter(Type declaringType, object instance, MethodBase methodbase, object[] values);
 
         /// <summary>
-        /// Invoked if an intercepted method has raised an exception. The method will always rethrow
-        /// the exception.
+        /// Invoked if an intercepted method has raised an exception.
         /// </summary>
         /// <param name="e">The exception information.</param>
         /// <returns>Should return true if the exception should be rethrown; otherwise false</returns>
