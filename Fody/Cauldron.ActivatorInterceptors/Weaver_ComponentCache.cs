@@ -23,7 +23,7 @@ public static class Weaver_ComponentCache
         var factory = __Factory.Instance;
 
         // Before we start let us find all factoryextensions and add a component attribute to them
-        var factoryResolverInterface = __IFactoryResolver.Type;
+        var factoryResolverInterface = __IFactoryExtension.Type;
         AddComponentAttribute(builder, builder.FindTypesByInterface(factoryResolverInterface), x => factoryResolverInterface.Fullname);
         // Also the same to all types that inherits from Factory<>
         var factoryGeneric = __Factory_1.Type;

@@ -18,10 +18,9 @@ namespace Cauldron.Activator
     /// </summary>
     public sealed class Factory
     {
-        private static readonly string iFactoryExtensionName = typeof(IFactoryResolver).FullName;
+        private static readonly string iFactoryExtensionName = typeof(IFactoryExtension).FullName;
         private static Dictionary<string, IFactoryTypeInfo[]> components;
         private static IFactoryTypeInfo[] factoryInfoTypes;
-        private static IFactoryResolver[] factoryResolvers;
         private static ConcurrentDictionary<string, FactoryInstancedObject> instances = new ConcurrentDictionary<string, FactoryInstancedObject>();
 
         static Factory()
@@ -73,6 +72,12 @@ namespace Cauldron.Activator
         /// Gets a collection types that is known to the <see cref="Factory"/>
         /// </summary>
         public static IEnumerable<IFactoryTypeInfo> RegisteredTypes => components.Values.SelectMany(x => x);
+
+        /// <summary>
+        /// Gets a collection of resolvers.
+        /// The resolvers are only in effect if there are multiple implementations with the same contract name.
+        /// </summary>
+        public static FactoryResolver Resolvers { get; } = new FactoryResolver();
 
         /// <summary>
         /// Adds a new <see cref="Type"/> to list of known types. Should only be used for unit-tests
@@ -299,8 +304,7 @@ namespace Cauldron.Activator
         /// Creates an instance of the specified type using the constructor that best matches the
         /// specified parameters. This method is similar to <see
         /// cref="ExtensionsReflection.CreateInstance(Type, object[])"/>, but this takes the types
-        /// defined with <see cref="ComponentAttribute"/> into account. This also executes the
-        /// factory extensions ( <see cref="IFactoryResolver"/>).
+        /// defined with <see cref="ComponentAttribute"/> into account.
         /// </summary>
         /// <param name="type">The type of object to create.</param>
         /// <param name="args">
@@ -318,9 +322,7 @@ namespace Cauldron.Activator
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
 
-            IFactoryTypeInfo[] factoryTypes;
-
-            if (components.TryGetValue(type.FullName, out factoryTypes))
+            if (components.TryGetValue(type.FullName, out IFactoryTypeInfo[] factoryTypes))
             {
                 if (factoryTypes.Length == 1)
                     return factoryTypes[0].CreateInstance(args);
@@ -328,7 +330,7 @@ namespace Cauldron.Activator
                 if (factoryTypes.Length == 0)
                     return type.CreateInstance(args);
 
-                var resolved = ResolveAmbiguousMatch(factoryTypes, type.FullName);
+                var resolved = ResolveAmbiguousMatch(type.FullName);
                 return resolved.CreateInstance(args);
             }
 
@@ -520,6 +522,13 @@ namespace Cauldron.Activator
             return factoryType.CreateInstance(args);
         }
 
+        private static void GetAndInitializeAllExtensions(IEnumerable<IFactoryTypeInfo> factoryTypeInfos)
+        {
+            foreach (var item in factoryInfoTypes
+                  .Where(x => x.ContractName.GetHashCode() == iFactoryExtensionName.GetHashCode() && x.ContractName == iFactoryExtensionName).Select(x => x.CreateInstance() as IFactoryExtension))
+                item.Initialize(factoryTypeInfos);
+        }
+
         private static object GetInstance(IFactoryTypeInfo factoryTypeInfo, object[] parameters)
         {
             if (factoryTypeInfo.CreationPolicy == FactoryCreationPolicy.Instanced)
@@ -560,9 +569,7 @@ namespace Cauldron.Activator
 
         private static object GetInstance(string contractName, object[] parameters)
         {
-            IFactoryTypeInfo[] factoryInfos;
-
-            if (components.TryGetValue(contractName, out factoryInfos))
+            if (components.TryGetValue(contractName, out IFactoryTypeInfo[] factoryInfos))
             {
                 if (factoryInfos.Length == 1)
                     return GetInstance(factoryInfos[0], parameters);
@@ -575,7 +582,7 @@ namespace Cauldron.Activator
                         Debug.WriteLine($"ERROR: The contractName '{contractName}' was not found.");
                 }
 
-                return GetInstance(ResolveAmbiguousMatch(factoryInfos, contractName), parameters);
+                return GetInstance(ResolveAmbiguousMatch(contractName), parameters);
             }
             else
             {
@@ -638,30 +645,13 @@ namespace Cauldron.Activator
                 .ToDictionary(x => x.Key, x => x.ToArray());
 
             // Get all factory extensions
-            factoryResolvers = factoryInfoTypes
-                .Where(x => x.ContractName.GetHashCode() == iFactoryExtensionName.GetHashCode() && x.ContractName == iFactoryExtensionName).Select(x => x.CreateInstance() as IFactoryResolver)
-                .ToArray();
+            GetAndInitializeAllExtensions(factoryInfoTypes);
 
             if (components.Count == 0)
                 Debug.WriteLine($"ERROR: Unable to find any components. Please check if FodyWeavers.xml has an entry for Cauldron.Interception");
         }
 
-        private static IFactoryTypeInfo ResolveAmbiguousMatch(string contractName) => ResolveAmbiguousMatch(components[contractName], contractName);
-
-        private static IFactoryTypeInfo ResolveAmbiguousMatch(IFactoryTypeInfo[] factoryInfos, string contractName)
-        {
-            for (int i = 0; i < factoryResolvers.Length; i++)
-            {
-                var selectedType = factoryResolvers[i].SelectAmbiguousMatch(factoryInfos, contractName);
-
-                if (selectedType == null)
-                    continue;
-
-                return selectedType;
-            }
-
-            throw new AmbiguousMatchException("There is more than one implementation with contractname '" + contractName + "' found.");
-        }
+        private static IFactoryTypeInfo ResolveAmbiguousMatch(string contractName) => Resolvers.SelectAmbiguousMatch(contractName);
 
         private class FactoryInstancedObject : IDisposable
         {

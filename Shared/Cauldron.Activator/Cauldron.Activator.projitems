@@ -18,9 +18,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)FactoryCreationPolicy.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FactoryGeneric.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FactoryObjectCreatedEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FactoryResolver.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FactoryTypeInfoComparer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FactoryTypeInfoInternal.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IFactoryResolver.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IFactoryExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IFactoryTypeInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)InjectAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UnitTestAwareFactoryResolverBase.cs" />

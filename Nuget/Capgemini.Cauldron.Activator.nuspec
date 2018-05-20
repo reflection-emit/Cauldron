@@ -13,6 +13,8 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Activator Dependency Injection Factory Cauldron</tags>
     <releaseNotes>
+      2018.05.21 - [A] IFactoryExtension added.
+      2018.05.21 - [C] IFactoryResolver removed and replaced by Factory.Resolvers collection.
       2018.05.09 - [B] Factory object cache performance tweaks
       2018.05.04 - [C] Assemblies for Net45, Net451, Net452, Net46, Net461 and Net462 added
       2018.05.02 - [B] A bug in cecilator that causes arrays parameter to be not correctly weaved fixed

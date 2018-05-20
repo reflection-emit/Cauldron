@@ -1,4 +1,6 @@
 ﻿using Cauldron.Activator;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Cauldron.Core.Threading
@@ -10,22 +12,26 @@ namespace Cauldron.Core.Threading
     {
         private const string ContractName = "Cauldron.Core.Threading.IDispatcher";
 
-        /// <exclude />
-        protected override bool IsApplicable(string contractName)
+        private static IFactoryTypeInfo dispatcher;
+
+        /// <summary>
+        /// Called during the initialization of the Factory.
+        /// </summary>
+        /// <param name="factoryInfoTypes">A collection of known factory types.</param>
+        protected override void OnInitialize(IEnumerable<IFactoryTypeInfo> factoryInfoTypes)
         {
-            if (ContractName.GetHashCode() == contractName.GetHashCode() && ContractName == contractName)
-                return true;
+            Factory.Resolvers.Add(ContractName, new Func<IFactoryTypeInfo>(() =>
+            {
+                if (dispatcher != null)
+                    return dispatcher;
 
-            return false;
-        }
+                if (this.IsUnitTest)
+                    dispatcher = factoryInfoTypes.FirstOrDefault(x => x.Type == typeof(DispatcherDummy));
+                else
+                    dispatcher = factoryInfoTypes.Where(x => x.ContractName == ContractName).MaxBy(x => x.Priority);
 
-        /// <exclude />
-        protected override IFactoryTypeInfo OnSelectAmbiguousMatch(IFactoryTypeInfo[] ambiguousTypes, string contractName)
-        {
-            if (this.IsUnitTest)
-                return ambiguousTypes.FirstOrDefault(x => x.Type == typeof(DispatcherDummy));
-
-            return ambiguousTypes.MaxBy(x => x.Priority);
+                return dispatcher;
+            }));
         }
     }
 }

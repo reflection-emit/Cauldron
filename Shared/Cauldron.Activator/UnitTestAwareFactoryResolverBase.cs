@@ -1,5 +1,5 @@
 ﻿using Cauldron.Core.Reflection;
-using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Cauldron.Activator
@@ -7,7 +7,7 @@ namespace Cauldron.Activator
     /// <summary>
     /// Provides a base class that is unit test aware.
     /// </summary>
-    public abstract class UnitTestAwareFactoryResolverBase : IFactoryResolver
+    public abstract class UnitTestAwareFactoryResolverBase : IFactoryExtension
     {
         private static string[] unitTestFramework = new string[] {
             "Microsoft.VisualStudio.QualityTools.UnitTestFramework",
@@ -33,36 +33,15 @@ namespace Cauldron.Activator
         }
 
         /// <summary>
-        /// Occures if multiple Types with the same <paramref name="contractName"/> was found.
-        /// <para/>
-        /// Should return null if <paramref name="ambiguousTypes"/> collection does not contain the required <see cref="Type"/>
+        /// Called during the initialization of the Factory.
         /// </summary>
-        /// <param name="ambiguousTypes">A collection of Types that with the same <paramref name="contractName"/></param>
-        /// <param name="contractName">The contract name of the implementations</param>
-        /// <returns>The selected <see cref="Type"/></returns>
-        public IFactoryTypeInfo SelectAmbiguousMatch(IFactoryTypeInfo[] ambiguousTypes, string contractName)
-        {
-            if (!this.IsApplicable(contractName))
-                return null;
-
-            return this.OnSelectAmbiguousMatch(ambiguousTypes, contractName);
-        }
+        /// <param name="factoryInfoTypes">A collection of known factory types.</param>
+        public void Initialize(IEnumerable<IFactoryTypeInfo> factoryInfoTypes) => this.OnInitialize(factoryInfoTypes);
 
         /// <summary>
-        /// Checks if this resolver implementation is applicable to the contract
+        /// Called during the initialization of the Factory.
         /// </summary>
-        /// <param name="contractName">The contract name of the implementations</param>
-        /// <returns>Returns true if applicable; otherwise false.</returns>
-        protected abstract bool IsApplicable(string contractName);
-
-        /// <summary>
-        /// Occures if multiple Types with the same <paramref name="contractName"/> was found.
-        /// <para/>
-        /// Should return null if <paramref name="ambiguousTypes"/> collection does not contain the required <see cref="Type"/>
-        /// </summary>
-        /// <param name="ambiguousTypes">A collection of Types that with the same <paramref name="contractName"/></param>
-        /// <param name="contractName">The contract name of the implementations</param>
-        /// <returns>The selected <see cref="Type"/></returns>
-        protected abstract IFactoryTypeInfo OnSelectAmbiguousMatch(IFactoryTypeInfo[] ambiguousTypes, string contractName);
+        /// <param name="factoryInfoTypes">A collection of known factory types.</param>
+        protected abstract void OnInitialize(IEnumerable<IFactoryTypeInfo> factoryInfoTypes);
     }
 }

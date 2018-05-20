@@ -83,7 +83,7 @@
     <Compile Include="HelperTypes\__Extensions.cs" />
     <Compile Include="HelperTypes\__Factory.cs" />
     <Compile Include="HelperTypes\__IConstructorInterceptor.cs" />
-    <Compile Include="HelperTypes\__IFactoryResolver.cs" />
+    <Compile Include="HelperTypes\__IFactoryExtension.cs" />
     <Compile Include="HelperTypes\__IList.cs" />
     <Compile Include="HelperTypes\__IMethodInterceptor.cs" />
     <Compile Include="HelperTypes\__InterceptionRuleAttribute.cs" />
