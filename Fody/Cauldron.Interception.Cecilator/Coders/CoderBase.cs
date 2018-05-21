@@ -190,7 +190,7 @@ namespace Cauldron.Interception.Cecilator.Coders
                 result = this.instructions.associatedMethod.GetVariable("result");
 
             if (result == null && this.AssociatedMethod is AsyncStateMachineMoveNextMethod)
-                result = this.instructions.associatedMethod.GetVariable(1);
+                result = this.instructions.associatedMethod.Variables.FirstOrDefault(x => x.Type == this.AssociatedMethod.ReturnType.GetGenericArgument(0));
 
             if (result != null)
                 return result;
