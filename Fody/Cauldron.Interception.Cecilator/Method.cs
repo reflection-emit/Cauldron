@@ -80,10 +80,7 @@ namespace Cauldron.Interception.Cecilator
 
         public bool IsAbstract => this.methodDefinition.IsAbstract && this.methodDefinition.IsHideBySig && this.methodDefinition.IsNewSlot && this.methodDefinition.IsVirtual;
 
-        public bool IsAsync =>
-            (this.methodDefinition.ReturnType.FullName.EqualsEx("System.Threading.Tasks.Task") ||
-            (this.methodDefinition.ReturnType.Resolve()?.FullName.EqualsEx("System.Threading.Tasks.Task`1") ?? false)) &&
-            this.AsyncMethodHelper.HasAsyncStateMachineAttribute;
+        public bool IsAsync => this.AsyncMethodHelper.HasAsyncStateMachineAttribute;
 
         public bool IsCCtor => this.methodDefinition.Name == ".cctor";
 

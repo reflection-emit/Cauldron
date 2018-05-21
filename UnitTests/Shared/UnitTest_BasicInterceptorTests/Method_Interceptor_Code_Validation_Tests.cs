@@ -29,6 +29,18 @@ namespace UnitTest_BasicInterceptorTests
         }
 
         [InterceptorWithoutInstance]
+        public async void Async_Void_Method_With_Local_Interceptor()
+        {
+            await Task.Run(() => 55);
+        }
+
+        [TestMethodInterceptor]
+        public async void Async_Void_Method()
+        {
+            await Task.Run(() => 55);
+        }
+
+        [InterceptorWithoutInstance]
         public async Task<int> Async_Method_With_Local_Interceptor()
         {
             return await Task.Run(() => 55);

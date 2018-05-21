@@ -65,7 +65,6 @@
     <Compile Include="Weaver_Constructor.cs" />
     <Compile Include="Weaver_Field.cs" />
     <Compile Include="Weaver_ImplementAnonymousTypeInterface.cs" />
-    <Compile Include="Weaver_SimpleMethod.cs" />
     <Compile Include="Weaver_Method.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

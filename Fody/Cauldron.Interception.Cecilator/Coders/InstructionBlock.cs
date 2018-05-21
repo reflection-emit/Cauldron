@@ -1459,13 +1459,13 @@ namespace Cauldron.Interception.Cecilator.Coders
                 if (targetType.IsPrimitive)
                     return false;
 
+                if (targetType.IsValueType)
+                    return false;
+
                 if (targetType == BuilderType.String ||
                     instructionBlock.ResultingType.AreReferenceAssignable(targetType.typeReference) ||
                     targetType.IsInterface)
                     return true;
-
-                if (targetType.IsValueType)
-                    return false;
 
                 if (targetType.typeReference.AreEqual(BuilderType.Object))
                     return false;

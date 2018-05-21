@@ -28,8 +28,6 @@ public sealed class Weaver_Method
         if (!methodInterceptionAttributes.Any())
             return;
 
-        var asyncTaskMethodBuilder = new __AsyncTaskMethodBuilder();
-        var asyncTaskMethodBuilderGeneric = new __AsyncTaskMethodBuilder_1();
         var syncRoot = new __ISyncRoot();
         var task = new __Task();
         var exception = new __Exception();
