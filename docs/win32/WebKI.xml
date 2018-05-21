@@ -28,6 +28,7 @@
   <HelpKINode Title="Add method">
     <HelpKINode Title="BuilderCustomAttributeCollection.Add Method " Url="html/Overload_Cauldron_Interception_Cecilator_BuilderCustomAttributeCollection_Add.htm" />
     <HelpKINode Title="ConcurrentList(T).Add Method " Url="html/M_Cauldron_Core_Collections_ConcurrentList_1_Add.htm" />
+    <HelpKINode Title="FactoryResolver.Add Method " Url="html/Overload_Cauldron_Activator_FactoryResolver_Add.htm" />
     <HelpKINode Title="Formatter.Add Method " Url="html/M_Cauldron_Core_Formatters_Formatter_Add.htm" />
     <HelpKINode Title="KeyRawValueDictionary.Add Method " Url="html/Overload_Cauldron_Core_Collections_KeyRawValueDictionary_Add.htm" />
     <HelpKINode Title="MathEx.Add Method " Url="html/M_System_MathEx_Add.htm" />
@@ -168,7 +169,6 @@
   <HelpKINode Title="ApplicationUrlProtocols property" Url="html/P_Cauldron_XAML_ApplicationBase_ApplicationUrlProtocols.htm" />
   <HelpKINode Title="ApplicationVersion property" Url="html/P_Cauldron_Core_Reflection_ApplicationInfo_ApplicationVersion.htm" />
   <HelpKINode Title="AreEqual method" Url="html/Overload_Cauldron_Interception_Cecilator_Extension_AreEqual.htm" />
-  <HelpKINode Title="AreEqual property" Url="html/P_Cauldron_Interception_IPropertyInterceptorComparer_AreEqual.htm" />
   <HelpKINode Title="AreOtherInstanceActive property" Url="html/P_Cauldron_XAML_ParamPassing_AreOtherInstanceActive.htm" />
   <HelpKINode Title="AreReferenceAssignable method">
     <HelpKINode Title="Extension.AreReferenceAssignable Method " Url="html/Overload_Cauldron_Interception_Cecilator_Extension_AreReferenceAssignable.htm" />
@@ -984,7 +984,8 @@
   <HelpKINode Title="Cauldron.Activator.Factory&lt;T&gt; class" Url="html/T_Cauldron_Activator_Factory_1.htm" />
   <HelpKINode Title="Cauldron.Activator.FactoryCreationPolicy enumeration" Url="html/T_Cauldron_Activator_FactoryCreationPolicy.htm" />
   <HelpKINode Title="Cauldron.Activator.FactoryObjectCreatedEventArgs class" Url="html/T_Cauldron_Activator_FactoryObjectCreatedEventArgs.htm" />
-  <HelpKINode Title="Cauldron.Activator.IFactoryResolver interface" Url="html/T_Cauldron_Activator_IFactoryResolver.htm" />
+  <HelpKINode Title="Cauldron.Activator.FactoryResolver class" Url="html/T_Cauldron_Activator_FactoryResolver.htm" />
+  <HelpKINode Title="Cauldron.Activator.IFactoryExtension interface" Url="html/T_Cauldron_Activator_IFactoryExtension.htm" />
   <HelpKINode Title="Cauldron.Activator.IFactoryTypeInfo interface" Url="html/T_Cauldron_Activator_IFactoryTypeInfo.htm" />
   <HelpKINode Title="Cauldron.Activator.InjectAttribute class" Url="html/T_Cauldron_Activator_InjectAttribute.htm" />
   <HelpKINode Title="Cauldron.Activator.UnitTestAwareFactoryResolverBase class" Url="html/T_Cauldron_Activator_UnitTestAwareFactoryResolverBase.htm" />
@@ -1204,7 +1205,6 @@
   <HelpKINode Title="Cauldron.Interception.InterceptorOptionsAttribute class" Url="html/T_Cauldron_Interception_InterceptorOptionsAttribute.htm" />
   <HelpKINode Title="Cauldron.Interception.IPropertyGetterInterceptor interface" Url="html/T_Cauldron_Interception_IPropertyGetterInterceptor.htm" />
   <HelpKINode Title="Cauldron.Interception.IPropertyInterceptor interface" Url="html/T_Cauldron_Interception_IPropertyInterceptor.htm" />
-  <HelpKINode Title="Cauldron.Interception.IPropertyInterceptorComparer interface" Url="html/T_Cauldron_Interception_IPropertyInterceptorComparer.htm" />
   <HelpKINode Title="Cauldron.Interception.IPropertyInterceptorInitialize interface" Url="html/T_Cauldron_Interception_IPropertyInterceptorInitialize.htm" />
   <HelpKINode Title="Cauldron.Interception.IPropertySetterInterceptor interface" Url="html/T_Cauldron_Interception_IPropertySetterInterceptor.htm" />
   <HelpKINode Title="Cauldron.Interception.ISimpleMethodInterceptor interface" Url="html/T_Cauldron_Interception_ISimpleMethodInterceptor.htm" />
@@ -1943,6 +1943,7 @@
     <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_Core_Threading_DispatcherFactoryResolver.htm" />
   </HelpKINode>
   <HelpKINode Title="DispatcherFactoryResolver.DispatcherFactoryResolver constructor" Url="html/M_Cauldron_Core_Threading_DispatcherFactoryResolver__ctor.htm" />
+  <HelpKINode Title="DispatcherFactoryResolver.OnInitialize method" Url="html/M_Cauldron_Core_Threading_DispatcherFactoryResolver_OnInitialize.htm" />
   <HelpKINode Title="DispatcherPriority enumeration" Url="html/T_Cauldron_Core_Threading_DispatcherPriority.htm" />
   <HelpKINode Title="Display method" Url="html/M_Cauldron_Interception_Cecilator_Coders_InstructionBlock_Display.htm" />
   <HelpKINode Title="DisplayMethodNames method" Url="html/M_Cauldron_Interception_Cecilator_BuilderType_DisplayMethodNames.htm" />
@@ -2280,14 +2281,14 @@
   <HelpKINode Title="Extension.With(Of TType, TNew) method" Url="html/M_Cauldron_Interception_Cecilator_Extension_With__2.htm" />
   <HelpKINode Title="Extension.With&lt;TType, TNew&gt; method" Url="html/M_Cauldron_Interception_Cecilator_Extension_With__2.htm" />
   <HelpKINode Title="Extensions class">
-    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Core_Collections_Extensions.htm" />
-    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Interception_Extensions.htm" />
     <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_XAML_Extensions.htm" />
+    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Interception_Extensions.htm" />
     <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Extensions.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_XAML_Extensions.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Collections_Extensions.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Extensions.htm" />
+    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Core_Collections_Extensions.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Interception_Extensions.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Extensions.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Collections_Extensions.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_XAML_Extensions.htm" />
   </HelpKINode>
   <HelpKINode Title="Extensions.AddHookParameterPassing method" Url="html/M_Cauldron_Extensions_AddHookParameterPassing.htm" />
   <HelpKINode Title="Extensions.AsBitmapImage method" Url="html/M_Cauldron_XAML_Extensions_AsBitmapImage.htm" />
@@ -2529,6 +2530,7 @@
   <HelpKINode Title="Factory.ObjectCreated event" Url="html/E_Cauldron_Activator_Factory_ObjectCreated.htm" />
   <HelpKINode Title="Factory.RegisteredTypes property" Url="html/P_Cauldron_Activator_Factory_RegisteredTypes.htm" />
   <HelpKINode Title="Factory.RemoveType method" Url="html/M_Cauldron_Activator_Factory_RemoveType.htm" />
+  <HelpKINode Title="Factory.Resolvers property" Url="html/P_Cauldron_Activator_Factory_Resolvers.htm" />
   <HelpKINode Title="Factory&lt;T&gt; class">
     <HelpKINode Title="Factory(T) Class" Url="html/T_Cauldron_Activator_Factory_1.htm" />
     <HelpKINode Title="constructor" Url="html/M_Cauldron_Activator_Factory_1__ctor.htm" />
@@ -2546,6 +2548,13 @@
   </HelpKINode>
   <HelpKINode Title="FactoryObjectCreatedEventArgs.FactoryTypeInfo property" Url="html/P_Cauldron_Activator_FactoryObjectCreatedEventArgs_FactoryTypeInfo.htm" />
   <HelpKINode Title="FactoryObjectCreatedEventArgs.ObjectInstance property" Url="html/P_Cauldron_Activator_FactoryObjectCreatedEventArgs_ObjectInstance.htm" />
+  <HelpKINode Title="FactoryResolver class">
+    <HelpKINode Title="FactoryResolver Class" Url="html/T_Cauldron_Activator_FactoryResolver.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Cauldron_Activator_FactoryResolver__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Activator_FactoryResolver.htm" />
+  </HelpKINode>
+  <HelpKINode Title="FactoryResolver.Add method" Url="html/Overload_Cauldron_Activator_FactoryResolver_Add.htm" />
+  <HelpKINode Title="FactoryResolver.FactoryResolver constructor" Url="html/M_Cauldron_Activator_FactoryResolver__ctor.htm" />
   <HelpKINode Title="FactoryTypeInfo property" Url="html/P_Cauldron_Activator_FactoryObjectCreatedEventArgs_FactoryTypeInfo.htm" />
   <HelpKINode Title="FactoryTypes property" Url="html/P_Cauldron_Activator_Factory_FactoryTypes.htm" />
   <HelpKINode Title="FailIfExists enumeration member">
@@ -3294,11 +3303,11 @@
   </HelpKINode>
   <HelpKINode Title="IExitOperators.Return method" Url="html/M_Cauldron_Interception_Cecilator_Coders_IExitOperators_Return.htm" />
   <HelpKINode Title="If method" Url="html/Overload_Cauldron_Interception_Cecilator_Coders_Coder_If.htm" />
-  <HelpKINode Title="IFactoryResolver interface">
-    <HelpKINode Title="IFactoryResolver Interface" Url="html/T_Cauldron_Activator_IFactoryResolver.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Activator_IFactoryResolver.htm" />
+  <HelpKINode Title="IFactoryExtension interface">
+    <HelpKINode Title="IFactoryExtension Interface" Url="html/T_Cauldron_Activator_IFactoryExtension.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Activator_IFactoryExtension.htm" />
   </HelpKINode>
-  <HelpKINode Title="IFactoryResolver.SelectAmbiguousMatch method" Url="html/M_Cauldron_Activator_IFactoryResolver_SelectAmbiguousMatch.htm" />
+  <HelpKINode Title="IFactoryExtension.Initialize method" Url="html/M_Cauldron_Activator_IFactoryExtension_Initialize.htm" />
   <HelpKINode Title="IFactoryTypeInfo interface">
     <HelpKINode Title="IFactoryTypeInfo Interface" Url="html/T_Cauldron_Activator_IFactoryTypeInfo.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Activator_IFactoryTypeInfo.htm" />
@@ -3509,6 +3518,9 @@
   <HelpKINode Title="InitializationVector property" Url="html/P_Cauldron_Cryptography_KeyMaterial_InitializationVector.htm" />
   <HelpKINode Title="Initialize method">
     <HelpKINode Title="CecilatorObject.Initialize Method " Url="html/Overload_Cauldron_Interception_Cecilator_CecilatorObject_Initialize.htm" />
+    <HelpKINode Title="IFactoryExtension.Initialize Method " Url="html/M_Cauldron_Activator_IFactoryExtension_Initialize.htm" />
+    <HelpKINode Title="NavigatorSelectorFactoryResolver.Initialize Method " Url="html/M_Cauldron_XAML_NavigatorSelectorFactoryResolver_Initialize.htm" />
+    <HelpKINode Title="UnitTestAwareFactoryResolverBase.Initialize Method " Url="html/M_Cauldron_Activator_UnitTestAwareFactoryResolverBase_Initialize.htm" />
     <HelpKINode Title="WeaverBase.Initialize Method " Url="html/M_Cauldron_Interception_Cecilator_WeaverBase_Initialize.htm" />
   </HelpKINode>
   <HelpKINode Title="InitializeComponent method" Url="html/M_Cauldron_XAML_Resources_StylesAndTemplates_InitializeComponent.htm" />
@@ -3723,11 +3735,6 @@
     <HelpKINode Title="IPropertyInterceptor Interface" Url="html/T_Cauldron_Interception_IPropertyInterceptor.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Interception_IPropertyInterceptor.htm" />
   </HelpKINode>
-  <HelpKINode Title="IPropertyInterceptorComparer interface">
-    <HelpKINode Title="IPropertyInterceptorComparer Interface" Url="html/T_Cauldron_Interception_IPropertyInterceptorComparer.htm" />
-    <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_Interception_IPropertyInterceptorComparer.htm" />
-  </HelpKINode>
-  <HelpKINode Title="IPropertyInterceptorComparer.AreEqual property" Url="html/P_Cauldron_Interception_IPropertyInterceptorComparer_AreEqual.htm" />
   <HelpKINode Title="IPropertyInterceptorInitialize interface">
     <HelpKINode Title="IPropertyInterceptorInitialize Interface" Url="html/T_Cauldron_Interception_IPropertyInterceptorInitialize.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Interception_IPropertyInterceptorInitialize.htm" />
@@ -3763,7 +3770,6 @@
     <HelpKINode Title="Property.IsAbstract Property " Url="html/P_Cauldron_Interception_Cecilator_Property_IsAbstract.htm" />
   </HelpKINode>
   <HelpKINode Title="IsAllParameters property" Url="html/P_Cauldron_Interception_Cecilator_Coders_ParametersCodeBlock_IsAllParameters.htm" />
-  <HelpKINode Title="IsApplicable method" Url="html/M_Cauldron_Activator_UnitTestAwareFactoryResolverBase_IsApplicable.htm" />
   <HelpKINode Title="IsArray property" Url="html/P_Cauldron_Interception_Cecilator_BuilderType_IsArray.htm" />
   <HelpKINode Title="IsAssignedFromTemplate property">
     <HelpKINode Title="Behaviour(T).IsAssignedFromTemplate Property " Url="html/P_Cauldron_XAML_Interactivity_Behaviour_1_IsAssignedFromTemplate.htm" />
@@ -4565,8 +4571,8 @@
     <HelpKINode Title="constructor" Url="html/M_Cauldron_XAML_NavigatorSelectorFactoryResolver__ctor.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_XAML_NavigatorSelectorFactoryResolver.htm" />
   </HelpKINode>
+  <HelpKINode Title="NavigatorSelectorFactoryResolver.Initialize method" Url="html/M_Cauldron_XAML_NavigatorSelectorFactoryResolver_Initialize.htm" />
   <HelpKINode Title="NavigatorSelectorFactoryResolver.NavigatorSelectorFactoryResolver constructor" Url="html/M_Cauldron_XAML_NavigatorSelectorFactoryResolver__ctor.htm" />
-  <HelpKINode Title="NavigatorSelectorFactoryResolver.SelectAmbiguousMatch method" Url="html/M_Cauldron_XAML_NavigatorSelectorFactoryResolver_SelectAmbiguousMatch.htm" />
   <HelpKINode Title="NavigatorSinglePage class">
     <HelpKINode Title="NavigatorSinglePage Class" Url="html/T_Cauldron_XAML_Navigation_NavigatorSinglePage.htm" />
     <HelpKINode Title="events" Url="html/Events_T_Cauldron_XAML_Navigation_NavigatorSinglePage.htm" />
@@ -4775,8 +4781,10 @@
   </HelpKINode>
   <HelpKINode Title="OnGetValue method" Url="html/M_Cauldron_Localization_LocalizationKeyValue_OnGetValue.htm" />
   <HelpKINode Title="OnInitialize method">
+    <HelpKINode Title="DispatcherFactoryResolver.OnInitialize Method " Url="html/M_Cauldron_Core_Threading_DispatcherFactoryResolver_OnInitialize.htm" />
     <HelpKINode Title="IPropertyInterceptorInitialize.OnInitialize Method " Url="html/M_Cauldron_Interception_IPropertyInterceptorInitialize_OnInitialize.htm" />
     <HelpKINode Title="RegisterChildrenAttribute.OnInitialize Method " Url="html/M_Cauldron_XAML_ViewModels_RegisterChildrenAttribute_OnInitialize.htm" />
+    <HelpKINode Title="UnitTestAwareFactoryResolverBase.OnInitialize Method " Url="html/M_Cauldron_Activator_UnitTestAwareFactoryResolverBase_OnInitialize.htm" />
   </HelpKINode>
   <HelpKINode Title="OnIsLoadingChanged method" Url="html/M_Cauldron_XAML_ViewModels_ViewModelBase_OnIsLoadingChanged.htm" />
   <HelpKINode Title="OnIsValidatingChanged method" Url="html/M_Cauldron_XAML_ViewModels_ValidatableViewModelBase_OnIsValidatingChanged.htm" />
@@ -4785,7 +4793,6 @@
   <HelpKINode Title="OnNavigatingFrom method" Url="html/M_Cauldron_XAML_ViewModels_INavigable_OnNavigatingFrom.htm" />
   <HelpKINode Title="OnPreload method" Url="html/M_Cauldron_XAML_ApplicationBase_OnPreload.htm" />
   <HelpKINode Title="OnResourceLoad method" Url="html/M_Cauldron_XAML_ApplicationBase_OnResourceLoad.htm" />
-  <HelpKINode Title="OnSelectAmbiguousMatch method" Url="html/M_Cauldron_Activator_UnitTestAwareFactoryResolverBase_OnSelectAmbiguousMatch.htm" />
   <HelpKINode Title="OnSet method">
     <HelpKINode Title="IPropertySetterInterceptor.OnSet Method " Url="html/M_Cauldron_Interception_IPropertySetterInterceptor_OnSet.htm" />
     <HelpKINode Title="RegisterChildrenAttribute.OnSet Method " Url="html/M_Cauldron_XAML_ViewModels_RegisterChildrenAttribute_OnSet.htm" />
@@ -5353,6 +5360,7 @@
     <HelpKINode Title="WeaverBase.Resolve Method " Url="html/Overload_Cauldron_Interception_Cecilator_WeaverBase_Resolve.htm" />
   </HelpKINode>
   <HelpKINode Title="ResolveGenericArguments method" Url="html/M_Cauldron_Interception_Cecilator_Extension_ResolveGenericArguments.htm" />
+  <HelpKINode Title="Resolvers property" Url="html/P_Cauldron_Activator_Factory_Resolvers.htm" />
   <HelpKINode Title="ResourceKey attached property" Url="html/P_Cauldron_XAML_Interactivity_CustomCursor_ResourceKey.htm" />
   <HelpKINode Title="ResourceKeyProperty field" Url="html/F_Cauldron_XAML_Interactivity_CustomCursor_ResourceKeyProperty.htm" />
   <HelpKINode Title="ResponseData property" Url="html/P_Cauldron_Core_Net_WebAuthenticationBrokerCallbackEventArgs_ResponseData.htm" />
@@ -5409,11 +5417,6 @@
   <HelpKINode Title="SaveVisualAsPngAsync method" Url="html/M_Cauldron_XAML_Extensions_SaveVisualAsPngAsync.htm" />
   <HelpKINode Title="SByte property" Url="html/P_Cauldron_Interception_Cecilator_BuilderType_SByte.htm" />
   <HelpKINode Title="SearchContext enumeration" Url="html/T_Cauldron_Interception_Cecilator_SearchContext.htm" />
-  <HelpKINode Title="SelectAmbiguousMatch method">
-    <HelpKINode Title="IFactoryResolver.SelectAmbiguousMatch Method " Url="html/M_Cauldron_Activator_IFactoryResolver_SelectAmbiguousMatch.htm" />
-    <HelpKINode Title="NavigatorSelectorFactoryResolver.SelectAmbiguousMatch Method " Url="html/M_Cauldron_XAML_NavigatorSelectorFactoryResolver_SelectAmbiguousMatch.htm" />
-    <HelpKINode Title="UnitTestAwareFactoryResolverBase.SelectAmbiguousMatch Method " Url="html/M_Cauldron_Activator_UnitTestAwareFactoryResolverBase_SelectAmbiguousMatch.htm" />
-  </HelpKINode>
   <HelpKINode Title="SelectedItems attached property" Url="html/P_Cauldron_XAML_Theme_ListViewProperties_SelectedItems.htm" />
   <HelpKINode Title="SelectedItemsProperty field" Url="html/F_Cauldron_XAML_Theme_ListViewProperties_SelectedItemsProperty.htm" />
   <HelpKINode Title="SelectTemplate method" Url="html/M_Cauldron_XAML_CauldronTemplateSelector_SelectTemplate.htm" />
@@ -5904,10 +5907,9 @@
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Activator_UnitTestAwareFactoryResolverBase.htm" />
     <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_Activator_UnitTestAwareFactoryResolverBase.htm" />
   </HelpKINode>
-  <HelpKINode Title="UnitTestAwareFactoryResolverBase.IsApplicable method" Url="html/M_Cauldron_Activator_UnitTestAwareFactoryResolverBase_IsApplicable.htm" />
+  <HelpKINode Title="UnitTestAwareFactoryResolverBase.Initialize method" Url="html/M_Cauldron_Activator_UnitTestAwareFactoryResolverBase_Initialize.htm" />
   <HelpKINode Title="UnitTestAwareFactoryResolverBase.IsUnitTest property" Url="html/P_Cauldron_Activator_UnitTestAwareFactoryResolverBase_IsUnitTest.htm" />
-  <HelpKINode Title="UnitTestAwareFactoryResolverBase.OnSelectAmbiguousMatch method" Url="html/M_Cauldron_Activator_UnitTestAwareFactoryResolverBase_OnSelectAmbiguousMatch.htm" />
-  <HelpKINode Title="UnitTestAwareFactoryResolverBase.SelectAmbiguousMatch method" Url="html/M_Cauldron_Activator_UnitTestAwareFactoryResolverBase_SelectAmbiguousMatch.htm" />
+  <HelpKINode Title="UnitTestAwareFactoryResolverBase.OnInitialize method" Url="html/M_Cauldron_Activator_UnitTestAwareFactoryResolverBase_OnInitialize.htm" />
   <HelpKINode Title="UnitTestAwareFactoryResolverBase.UnitTestAwareFactoryResolverBase constructor" Url="html/M_Cauldron_Activator_UnitTestAwareFactoryResolverBase__ctor.htm" />
   <HelpKINode Title="Unknown enumeration member" Url="html/T_Cauldron_Core_Net_ConnectionGenerationTypes.htm" />
   <HelpKINode Title="UnknownParameterException class">
