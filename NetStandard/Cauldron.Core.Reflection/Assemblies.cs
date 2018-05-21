@@ -46,6 +46,7 @@ namespace Cauldron.Core.Reflection
         /// This parameter can contain a combination of valid literal path and wildcard (* and ?)
         /// characters, but doesn't support regular expressions.
         /// </param>
+        /// <exception cref="DirectoryNotFoundException">The path is invalid or does not exist.</exception>
         /// <exception cref="FileLoadException">A file that was found could not be loaded</exception>
         public static void LoadAssembly(DirectoryInfo directory, string filter = "*.dll")
         {
