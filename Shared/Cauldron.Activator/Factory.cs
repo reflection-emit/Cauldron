@@ -80,7 +80,7 @@ namespace Cauldron.Activator
         public static FactoryResolver Resolvers { get; } = new FactoryResolver();
 
         /// <summary>
-        /// Adds a new <see cref="Type"/> to list of known types. Should only be used for unit-tests
+        /// Adds a new <see cref="Type"/> to list of known types.
         /// </summary>
         /// <threadsafety static="false" instance="false"/>
         /// <param name="contractName">The name that identifies the type</param>
