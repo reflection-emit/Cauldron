@@ -139,7 +139,7 @@ namespace Cauldron.Interception.Cecilator.Coders
             if (this.instructions.associatedMethod.IsAsync)
             {
                 targetMethod = this.instructions.associatedMethod;
-                originMethod = this.instructions.associatedMethod;
+                originMethod = this.instructions.associatedMethod.AsyncMethodHelper.Method;
             }
             else if (this.instructions.associatedMethod.AsyncOriginType.IsAsyncStateMachine)
             {

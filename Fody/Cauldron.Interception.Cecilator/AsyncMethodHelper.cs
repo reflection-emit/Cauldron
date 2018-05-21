@@ -67,17 +67,22 @@ namespace Cauldron.Interception.Cecilator
                 if (originType == this.method.OriginType)
                     return this.method;
 
+                var methodOriginType = this.method.OriginType;
                 var asyncMachine = asyncStateMachineAttribute.typeDefinition;
                 return originType
                       .GetMethods()
-                      .Where(x => x.methodDefinition.HasCustomAttributes && x.methodDefinition.CustomAttributes.HasAttribute(asyncMachine))
-                      .Select(x => new
+                      .FirstOrDefault(x =>
                       {
-                          Attribute = x.CustomAttributes.FirstOrDefault(y => y.attribute.AttributeType.AreEqual(asyncMachine)),
-                          Method = x
-                      })
-                      .FirstOrDefault(x => (x.Attribute.ConstructorArguments[0].Value as TypeReference).AreEqual(this.method.OriginType))
-                      ?.Method;
+                          if (!x.methodDefinition.HasCustomAttributes)
+                              return false;
+
+                          for (int i = 0; i < x.methodDefinition.CustomAttributes.Count; i++)
+                              if (x.methodDefinition.CustomAttributes[i].AttributeType.AreEqual(asyncMachine) &&
+                                (x.methodDefinition.CustomAttributes[i].ConstructorArguments[0].Value as TypeReference).AreEqual(methodOriginType))
+                                  return true;
+
+                          return false;
+                      });
             }
         }
 
