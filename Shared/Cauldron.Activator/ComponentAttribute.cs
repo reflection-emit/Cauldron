@@ -3,7 +3,7 @@
 namespace Cauldron.Activator
 {
     /// <summary>
-    /// Specifies that <see cref="Type"/> provide a particular export
+    /// Specifies that the decorated <see cref="Type"/> is a dependency injection component.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true, Inherited = false)]
     public class ComponentAttribute : Attribute

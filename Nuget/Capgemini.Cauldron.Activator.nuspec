@@ -13,6 +13,7 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Activator Dependency Injection Factory Cauldron</tags>
     <releaseNotes>
+      2018.05.22 - [A] Closed generic support added.
       2018.05.21 - [A] IFactoryExtension added.
       2018.05.21 - [C] IFactoryResolver removed and replaced by Factory.Resolvers collection.
       2018.05.09 - [B] Factory object cache performance tweaks
