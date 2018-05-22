@@ -20,6 +20,7 @@ public static class Weaver_ComponentCache
 
         var cauldron = builder.GetType("CauldronInterceptionHelper", SearchContext.Module);
         var componentAttribute = __ComponentAttribute.Instance;
+        var genericComponentAttribute = __GenericComponentAttribute.Instance;
         var factory = __Factory.Instance;
 
         // Before we start let us find all factoryextensions and add a component attribute to them
@@ -50,7 +51,40 @@ public static class Weaver_ComponentCache
         var componentTypes = new List<BuilderType>();
         var components = builder
             .FindTypesByAttribute(componentAttribute.ToBuilderType)
-            .Concat(builder.CustomAttributes.Select(x => new AttributedType((x.ConstructorArguments[1].Value as TypeReference).ToBuilderType(), x)));
+            .Concat(builder
+                .CustomAttributes
+                .Where(x => x.Type == genericComponentAttribute.ToBuilderType)
+                .Select(x => new
+                {
+                    Attribute = BuilderCustomAttribute.Create(componentAttribute.ToBuilderType, x.ConstructorArguments.Skip(1)),
+                    Type = (x.ConstructorArguments[0].Value as TypeReference).ToBuilderType()
+                })
+                .Where(x =>
+                {
+                    if (x.Type.IsAbstract)
+                    {
+                        builder.Log(LogTypes.Error, $"The GenericComponentAttribute does not support abstract types.");
+                        return false;
+                    }
+
+                    if (x.Type.IsInterface)
+                    {
+                        builder.Log(LogTypes.Error, $"The GenericComponentAttribute does not support interfaces.");
+                        return false;
+                    }
+
+                    if (x.Type.IsValueType)
+                    {
+                        builder.Log(LogTypes.Error, $"The GenericComponentAttribute does not support value types.");
+                        return false;
+                    }
+
+                    return true;
+                })
+                .Select(x => new AttributedType(x.Type, x.Attribute)));
+
+        foreach (var item in builder.CustomAttributes)
+            builder.Log(LogTypes.Info, $"---------------> {item.Type}");
 
         foreach (var component in components)
         {

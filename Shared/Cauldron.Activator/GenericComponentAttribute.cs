@@ -2,35 +2,35 @@
 
 namespace Cauldron.Activator
 {
-    [AttributeUsage(AttributeTargets.Module, AllowMultiple = true, Inherited = false)]
-    public sealed class GenericComponentAttribute : Attribute
+    [AttributeUsage(AttributeTargets.Module | AttributeTargets.Assembly, AllowMultiple = true, Inherited = false)]
+    public sealed class GenericComponentAttribute : ComponentAttribute
     {
-        public GenericComponentAttribute(Type contractType, Type type, FactoryCreationPolicy policy, uint priority)
-            : this(contractType.FullName, type, policy, priority)
+        public GenericComponentAttribute(Type type, Type contractType, FactoryCreationPolicy policy, uint priority)
+            : this(type, contractType.FullName, policy, priority)
         {
         }
 
-        public GenericComponentAttribute(Type contractType, Type type)
-            : this(contractType.FullName, type, FactoryCreationPolicy.Instanced, 0)
+        public GenericComponentAttribute(Type type, Type contractType)
+            : this(type, contractType.FullName, FactoryCreationPolicy.Instanced, 0)
         {
         }
 
-        public GenericComponentAttribute(Type contractType, Type type, FactoryCreationPolicy policy)
-            : this(contractType.FullName, type, policy, 0)
+        public GenericComponentAttribute(Type type, Type contractType, FactoryCreationPolicy policy)
+            : this(type, contractType.FullName, policy, 0)
         {
         }
 
-        public GenericComponentAttribute(string contractName, Type type, FactoryCreationPolicy policy)
-            : this(contractName, type, policy, 0)
+        public GenericComponentAttribute(Type type, string contractName, FactoryCreationPolicy policy)
+            : this(type, contractName, policy, 0)
         {
         }
 
-        public GenericComponentAttribute(string contractName, Type type)
-            : this(contractName, type, FactoryCreationPolicy.Instanced, 0)
+        public GenericComponentAttribute(Type type, string contractName)
+            : this(type, contractName, FactoryCreationPolicy.Instanced, 0)
         {
         }
 
-        public GenericComponentAttribute(string contractName, Type type, FactoryCreationPolicy policy, uint priority)
+        public GenericComponentAttribute(Type type, string contractName, FactoryCreationPolicy policy, uint priority) : base(contractName, policy, priority)
         {
         }
     }

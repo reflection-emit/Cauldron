@@ -27,10 +27,26 @@ namespace Cauldron.Interception.Cecilator
             new CustomAttributeArgument[0];
 
         public IReadOnlyDictionary<string, CustomAttributeArgument> Fields => this.attribute.HasFields ? this.attribute.Fields.ToDictionary(x => x.Name, x => x.Argument) : new Dictionary<string, CustomAttributeArgument>();
+
         public string Fullname => this.attribute.AttributeType.FullName;
 
         public IReadOnlyDictionary<string, CustomAttributeArgument> Properties => this.attribute.HasProperties ? this.attribute.Properties.ToDictionary(x => x.Name, x => x.Argument) : new Dictionary<string, CustomAttributeArgument>();
+
         public BuilderType Type { get; private set; }
+
+        public static BuilderCustomAttribute Create(BuilderType type, IEnumerable<CustomAttributeArgument> attributeArguments)
+        {
+            var ctor = type.GetMethod(".ctor", true, attributeArguments.Select(x => x.Type).ToArray()).Import();
+            var attribute = new CustomAttribute(ctor.methodReference);
+            var ctorMethodReference = ctor.methodReference;
+            var parameters = attributeArguments.ToArray();
+
+            if (ctorMethodReference.Parameters.Count > 0)
+                for (int i = 0; i < ctorMethodReference.Parameters.Count; i++)
+                    attribute.ConstructorArguments.Add(new CustomAttributeArgument(ctorMethodReference.Parameters[i].ParameterType, parameters[i]));
+
+            return new BuilderCustomAttribute(type.Builder, null, attribute);
+        }
 
         public CustomAttributeArgument GetConstructorArgument(int parameterIndex) => this.attribute.ConstructorArguments[parameterIndex];
 

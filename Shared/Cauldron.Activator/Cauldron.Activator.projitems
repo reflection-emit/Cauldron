@@ -12,6 +12,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)CloneIgnoreAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ComponentAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ComponentConstructorAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GenericComponentAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExtensionsCloning.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Factory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FactoryCore.cs" />
@@ -21,7 +22,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)FactoryResolver.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FactoryTypeInfoComparer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FactoryTypeInfoInternal.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)GenericComponentAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IFactoryExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IFactoryTypeInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)InjectAttribute.cs" />
