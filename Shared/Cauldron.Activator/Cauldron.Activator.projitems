@@ -21,6 +21,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)FactoryResolver.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FactoryTypeInfoComparer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FactoryTypeInfoInternal.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GenericComponentAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IFactoryExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IFactoryTypeInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)InjectAttribute.cs" />

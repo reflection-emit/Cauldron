@@ -10,6 +10,13 @@ namespace Cauldron.Interception.Cecilator
         [EditorBrowsable(EditorBrowsableState.Never), DebuggerBrowsable(DebuggerBrowsableState.Never)]
         internal readonly CustomAttribute customAttribute;
 
+        public AttributedType(BuilderType type, BuilderCustomAttribute builderCustomAttribute) : base(type)
+        {
+            this.customAttribute = builderCustomAttribute.attribute;
+            this.Type = type;
+            this.Attribute = builderCustomAttribute;
+        }
+
         internal AttributedType(BuilderType type, CustomAttribute customAttribute) : base(type)
         {
             this.customAttribute = customAttribute;

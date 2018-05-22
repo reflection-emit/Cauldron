@@ -47,8 +47,10 @@ public static class Weaver_ComponentCache
         var createInstanceInterfaceMethod = factoryTypeInfoInterface.GetMethod("CreateInstance", 1);
 
         // Get all Components
-        var components = builder.FindTypesByAttribute(componentAttribute.ToBuilderType);
         var componentTypes = new List<BuilderType>();
+        var components = builder
+            .FindTypesByAttribute(componentAttribute.ToBuilderType)
+            .Concat(builder.CustomAttributes.Select(x => new AttributedType((x.ConstructorArguments[1].Value as TypeReference).ToBuilderType(), x)));
 
         foreach (var component in components)
         {
