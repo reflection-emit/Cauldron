@@ -149,6 +149,7 @@
   <HelpKINode Title="Cauldron.Activator.FactoryCreationPolicy enumeration" Url="html/T_Cauldron_Activator_FactoryCreationPolicy.htm" />
   <HelpKINode Title="Cauldron.Activator.FactoryObjectCreatedEventArgs class" Url="html/T_Cauldron_Activator_FactoryObjectCreatedEventArgs.htm" />
   <HelpKINode Title="Cauldron.Activator.FactoryResolver class" Url="html/T_Cauldron_Activator_FactoryResolver.htm" />
+  <HelpKINode Title="Cauldron.Activator.GenericComponentAttribute class" Url="html/T_Cauldron_Activator_GenericComponentAttribute.htm" />
   <HelpKINode Title="Cauldron.Activator.IFactoryExtension interface" Url="html/T_Cauldron_Activator_IFactoryExtension.htm" />
   <HelpKINode Title="Cauldron.Activator.IFactoryTypeInfo interface" Url="html/T_Cauldron_Activator_IFactoryTypeInfo.htm" />
   <HelpKINode Title="Cauldron.Activator.InjectAttribute class" Url="html/T_Cauldron_Activator_InjectAttribute.htm" />
@@ -659,11 +660,11 @@
   <HelpKINode Title="ExistsAsync method" Url="html/M_Cauldron_ExtensionsFileIO_ExistsAsync.htm" />
   <HelpKINode Title="ExportedTypes property" Url="html/P_Cauldron_Core_Reflection_Assemblies_ExportedTypes.htm" />
   <HelpKINode Title="Extensions class">
+    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Interception_Extensions.htm" />
     <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Extensions.htm" />
     <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Core_Collections_Extensions.htm" />
-    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Interception_Extensions.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Interception_Extensions.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Collections_Extensions.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Interception_Extensions.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Extensions.htm" />
   </HelpKINode>
   <HelpKINode Title="Extensions.Concat method" Url="html/Overload_Cauldron_Extensions_Concat.htm" />
@@ -943,6 +944,13 @@
     <HelpKINode Title="CreationCollisionOption Enumeration" Url="html/T_Cauldron_CreationCollisionOption.htm" />
     <HelpKINode Title="NameCollisionOption Enumeration" Url="html/T_Cauldron_NameCollisionOption.htm" />
   </HelpKINode>
+  <HelpKINode Title="GenericComponentAttribute class">
+    <HelpKINode Title="GenericComponentAttribute Class" Url="html/T_Cauldron_Activator_GenericComponentAttribute.htm" />
+    <HelpKINode Title="constructor" Url="html/Overload_Cauldron_Activator_GenericComponentAttribute__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Activator_GenericComponentAttribute.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_Activator_GenericComponentAttribute.htm" />
+  </HelpKINode>
+  <HelpKINode Title="GenericComponentAttribute.GenericComponentAttribute constructor" Url="html/Overload_Cauldron_Activator_GenericComponentAttribute__ctor.htm" />
   <HelpKINode Title="GetActiveParameters method" Url="html/M_Cauldron_Consoles_ParameterParser_GetActiveParameters.htm" />
   <HelpKINode Title="GetBytes method" Url="html/Overload_Cauldron_Extensions_GetBytes.htm" />
   <HelpKINode Title="GetChildrenType method" Url="html/M_Cauldron_ExtensionsReflection_GetChildrenType.htm" />

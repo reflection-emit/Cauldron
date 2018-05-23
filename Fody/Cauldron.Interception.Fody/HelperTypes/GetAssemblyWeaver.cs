@@ -27,6 +27,14 @@ namespace Cauldron.Interception.Fody.HelperTypes
             }
         }
 
+        public static CallCoder AddCode(Coder coder, ParametersCodeBlock parameter)
+        {
+            if (Builder.Current.IsUWP)
+                return coder.Call(getTypeInfo, parameter).Call(getAssembly);
+            else
+                return coder.Load(parameter).Call(getAssembly);
+        }
+
         public static CallCoder AddCode(Coder coder, BuilderType builderType)
         {
             if (Builder.Current.IsUWP)

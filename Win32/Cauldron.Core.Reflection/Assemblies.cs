@@ -65,9 +65,6 @@ namespace Cauldron.Core.Reflection
                     AddAssembly(AssembliesCore._referencedAssemblies[i], false);
             }
 
-            AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += ResolveAssembly;
-            AppDomain.CurrentDomain.AssemblyResolve += ResolveAssembly;
-
             AddAssembly(EntryAssembly, false);
 
             if (AssembliesCore._referencedAssemblies == null)
@@ -102,46 +99,6 @@ namespace Cauldron.Core.Reflection
             }
 
             addAssemblies();
-        }
-
-        private static Assembly ResolveAssembly(object sender, ResolveEventArgs e)
-        {
-            if (e.RequestingAssembly == null)
-                Debug.WriteLine($"Assembly requesting for '{e.Name}'");
-            else
-                Debug.WriteLine($"Assembly '{e.RequestingAssembly.FullName}' requesting for '{e.Name}'");
-
-            var assembly = _assemblies?.FirstOrDefault(x => x.FullName.GetHashCode() == e.Name.GetHashCode() && x.FullName == e.Name);
-
-            // The following resolve tries can only be successfull if the dll's name is the same as
-            // the simple Assembly name
-
-            try
-            {
-                // Try to load it from application directory
-                if (assembly == null)
-                {
-                    var file = Path.Combine(ApplicationInfo.ApplicationPath.FullName, $"{new AssemblyName(e.Name).Name}.dll");
-                    if (File.Exists(file))
-                        return AddAssembly(Assembly.LoadFile(file), false);
-                }
-
-                // Try to load it from current domain's base directory
-                var assemblyFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"{new AssemblyName(e.Name).Name}.dll");
-                if (File.Exists(assemblyFile))
-                    return AddAssembly(Assembly.LoadFile(assemblyFile), false);
-
-                // As last resort try to load it from this Assembly's directory
-                assemblyFile = Path.Combine(Path.GetDirectoryName(typeof(Assemblies).Assembly.Location), $"{new AssemblyName(e.Name).Name}.dll");
-                if (File.Exists(assemblyFile))
-                    return AddAssembly(Assembly.LoadFile(assemblyFile), false);
-
-                return assembly;
-            }
-            catch
-            {
-                return null;
-            }
         }
     }
 }

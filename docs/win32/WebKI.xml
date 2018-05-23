@@ -377,12 +377,14 @@
   <HelpKINode Title="AttributedProperty.ToString method" Url="html/M_Cauldron_Interception_Cecilator_AttributedProperty_ToString.htm" />
   <HelpKINode Title="AttributedType class">
     <HelpKINode Title="AttributedType Class" Url="html/T_Cauldron_Interception_Cecilator_AttributedType.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Cauldron_Interception_Cecilator_AttributedType__ctor.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Interception_Cecilator_AttributedType.htm" />
     <HelpKINode Title="operators and type conversions" Url="html/Operators_T_Cauldron_Interception_Cecilator_AttributedType.htm" />
     <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_Interception_Cecilator_AttributedType.htm" />
   </HelpKINode>
   <HelpKINode Title="AttributedType to String conversion" Url="html/M_Cauldron_Interception_Cecilator_AttributedType_op_Implicit.htm" />
   <HelpKINode Title="AttributedType.Attribute property" Url="html/P_Cauldron_Interception_Cecilator_AttributedType_Attribute.htm" />
+  <HelpKINode Title="AttributedType.AttributedType constructor" Url="html/M_Cauldron_Interception_Cecilator_AttributedType__ctor.htm" />
   <HelpKINode Title="AttributedType.Equality operator" Url="html/M_Cauldron_Interception_Cecilator_AttributedType_op_Equality.htm" />
   <HelpKINode Title="AttributedType.Equals method" Url="html/Overload_Cauldron_Interception_Cecilator_AttributedType_Equals.htm" />
   <HelpKINode Title="AttributedType.GetHashCode method" Url="html/M_Cauldron_Interception_Cecilator_AttributedType_GetHashCode.htm" />
@@ -406,8 +408,8 @@
     <HelpKINode Title="ViewModelBase.BeforeRaiseNotifyPropertyChanged Method " Url="html/M_Cauldron_XAML_ViewModels_ViewModelBase_BeforeRaiseNotifyPropertyChanged.htm" />
   </HelpKINode>
   <HelpKINode Title="Beginning enumeration member" Url="html/T_Cauldron_Interception_Cecilator_InsertionPosition.htm" />
-  <HelpKINode Title="beginning field" Url="html/F_Cauldron_Interception_Cecilator_Coders_InstructionPoints_beginning.htm" />
   <HelpKINode Title="Beginning field" Url="html/F_Cauldron_Interception_Cecilator_Positions_Beginning.htm" />
+  <HelpKINode Title="beginning field" Url="html/F_Cauldron_Interception_Cecilator_Coders_InstructionPoints_beginning.htm" />
   <HelpKINode Title="Behaviour(Of T) class">
     <HelpKINode Title="Behaviour(T) Class" Url="html/T_Cauldron_XAML_Interactivity_Behaviour_1.htm" />
     <HelpKINode Title="constructor" Url="html/M_Cauldron_XAML_Interactivity_Behaviour_1__ctor.htm" />
@@ -720,6 +722,7 @@
   </HelpKINode>
   <HelpKINode Title="BuilderCustomAttribute to String conversion" Url="html/M_Cauldron_Interception_Cecilator_BuilderCustomAttribute_op_Implicit.htm" />
   <HelpKINode Title="BuilderCustomAttribute.ConstructorArguments property" Url="html/P_Cauldron_Interception_Cecilator_BuilderCustomAttribute_ConstructorArguments.htm" />
+  <HelpKINode Title="BuilderCustomAttribute.Create method" Url="html/Overload_Cauldron_Interception_Cecilator_BuilderCustomAttribute_Create.htm" />
   <HelpKINode Title="BuilderCustomAttribute.Equality operator" Url="html/M_Cauldron_Interception_Cecilator_BuilderCustomAttribute_op_Equality.htm" />
   <HelpKINode Title="BuilderCustomAttribute.Equals method" Url="html/Overload_Cauldron_Interception_Cecilator_BuilderCustomAttribute_Equals.htm" />
   <HelpKINode Title="BuilderCustomAttribute.Fields property" Url="html/P_Cauldron_Interception_Cecilator_BuilderCustomAttribute_Fields.htm" />
@@ -985,6 +988,7 @@
   <HelpKINode Title="Cauldron.Activator.FactoryCreationPolicy enumeration" Url="html/T_Cauldron_Activator_FactoryCreationPolicy.htm" />
   <HelpKINode Title="Cauldron.Activator.FactoryObjectCreatedEventArgs class" Url="html/T_Cauldron_Activator_FactoryObjectCreatedEventArgs.htm" />
   <HelpKINode Title="Cauldron.Activator.FactoryResolver class" Url="html/T_Cauldron_Activator_FactoryResolver.htm" />
+  <HelpKINode Title="Cauldron.Activator.GenericComponentAttribute class" Url="html/T_Cauldron_Activator_GenericComponentAttribute.htm" />
   <HelpKINode Title="Cauldron.Activator.IFactoryExtension interface" Url="html/T_Cauldron_Activator_IFactoryExtension.htm" />
   <HelpKINode Title="Cauldron.Activator.IFactoryTypeInfo interface" Url="html/T_Cauldron_Activator_IFactoryTypeInfo.htm" />
   <HelpKINode Title="Cauldron.Activator.InjectAttribute class" Url="html/T_Cauldron_Activator_InjectAttribute.htm" />
@@ -1767,6 +1771,7 @@
     <HelpKINode Title="InstructionBlock.Count Property " Url="html/P_Cauldron_Interception_Cecilator_Coders_InstructionBlock_Count.htm" />
   </HelpKINode>
   <HelpKINode Title="Create method">
+    <HelpKINode Title="BuilderCustomAttribute.Create Method " Url="html/Overload_Cauldron_Interception_Cecilator_BuilderCustomAttribute_Create.htm" />
     <HelpKINode Title="CallOnce.Create Method " Url="html/Overload_Cauldron_Core_Threading_CallOnce_Create.htm" />
     <HelpKINode Title="Factory.Create Method " Url="html/Overload_Cauldron_Activator_Factory_Create.htm" />
   </HelpKINode>
@@ -2263,6 +2268,7 @@
   <HelpKINode Title="Extension.GetSequencePoint method" Url="html/M_Cauldron_Interception_Cecilator_Extension_GetSequencePoint.htm" />
   <HelpKINode Title="Extension.GetStackTrace method" Url="html/M_Cauldron_Interception_Cecilator_Extension_GetStackTrace.htm" />
   <HelpKINode Title="Extension.GetTypeDefinition method" Url="html/M_Cauldron_Interception_Cecilator_Extension_GetTypeDefinition.htm" />
+  <HelpKINode Title="Extension.GetValidName method" Url="html/M_Cauldron_Interception_Cecilator_Extension_GetValidName.htm" />
   <HelpKINode Title="Extension.HasAttribute method" Url="html/M_Cauldron_Interception_Cecilator_Extension_HasAttribute.htm" />
   <HelpKINode Title="Extension.Implements method" Url="html/M_Cauldron_Interception_Cecilator_Extension_Implements.htm" />
   <HelpKINode Title="Extension.IndexOf method" Url="html/M_Cauldron_Interception_Cecilator_Extension_IndexOf.htm" />
@@ -2281,14 +2287,14 @@
   <HelpKINode Title="Extension.With(Of TType, TNew) method" Url="html/M_Cauldron_Interception_Cecilator_Extension_With__2.htm" />
   <HelpKINode Title="Extension.With&lt;TType, TNew&gt; method" Url="html/M_Cauldron_Interception_Cecilator_Extension_With__2.htm" />
   <HelpKINode Title="Extensions class">
-    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_XAML_Extensions.htm" />
-    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Interception_Extensions.htm" />
     <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Extensions.htm" />
+    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Interception_Extensions.htm" />
+    <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_XAML_Extensions.htm" />
     <HelpKINode Title="Extensions Class" Url="html/T_Cauldron_Core_Collections_Extensions.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Interception_Extensions.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Extensions.htm" />
-    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Collections_Extensions.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_XAML_Extensions.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Core_Collections_Extensions.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Extensions.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Interception_Extensions.htm" />
   </HelpKINode>
   <HelpKINode Title="Extensions.AddHookParameterPassing method" Url="html/M_Cauldron_Extensions_AddHookParameterPassing.htm" />
   <HelpKINode Title="Extensions.AsBitmapImage method" Url="html/M_Cauldron_XAML_Extensions_AsBitmapImage.htm" />
@@ -2735,6 +2741,13 @@
     <HelpKINode Title="NameCollisionOption Enumeration" Url="html/T_Cauldron_NameCollisionOption.htm" />
   </HelpKINode>
   <HelpKINode Title="GenericArguments method" Url="html/M_Cauldron_Interception_Cecilator_BuilderType_GenericArguments.htm" />
+  <HelpKINode Title="GenericComponentAttribute class">
+    <HelpKINode Title="GenericComponentAttribute Class" Url="html/T_Cauldron_Activator_GenericComponentAttribute.htm" />
+    <HelpKINode Title="constructor" Url="html/Overload_Cauldron_Activator_GenericComponentAttribute__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Cauldron_Activator_GenericComponentAttribute.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Cauldron_Activator_GenericComponentAttribute.htm" />
+  </HelpKINode>
+  <HelpKINode Title="GenericComponentAttribute.GenericComponentAttribute constructor" Url="html/Overload_Cauldron_Activator_GenericComponentAttribute__ctor.htm" />
   <HelpKINode Title="Get method">
     <HelpKINode Title="Extension.Get Method " Url="html/Overload_Cauldron_Interception_Cecilator_Extension_Get.htm" />
     <HelpKINode Title="InstructionBlock.Get Method " Url="html/M_Cauldron_Interception_Cecilator_Coders_InstructionBlock_Get.htm" />
@@ -2952,6 +2965,7 @@
   <HelpKINode Title="GetUniqueDirectoryName method" Url="html/M_Cauldron_ExtensionsDirectoryInfo_GetUniqueDirectoryName.htm" />
   <HelpKINode Title="GetUniqueFilename method" Url="html/M_Cauldron_ExtensionsFileInfo_GetUniqueFilename.htm" />
   <HelpKINode Title="GetUserInformation method" Url="html/M_Cauldron_Core_UserInformation_GetUserInformation.htm" />
+  <HelpKINode Title="GetValidName method" Url="html/M_Cauldron_Interception_Cecilator_Extension_GetValidName.htm" />
   <HelpKINode Title="GetValue method">
     <HelpKINode Title="Extensions.GetValue Method " Url="html/Overload_Cauldron_XAML_Extensions_GetValue.htm" />
     <HelpKINode Title="ILocalizationKeyValue.GetValue Method " Url="html/M_Cauldron_Localization_ILocalizationKeyValue_GetValue.htm" />
