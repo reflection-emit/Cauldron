@@ -5,14 +5,8 @@ namespace Cauldron.Interception.Cecilator
 {
     internal class TypeDefinitionEqualityComparer : IEqualityComparer<TypeDefinition>
     {
-        public bool Equals(TypeDefinition x, TypeDefinition y) =>
-            x.Module.Assembly.FullName.GetHashCode() == y.Module.Assembly.FullName.GetHashCode() &&
-            x.GetHashCode() == y.GetHashCode() &&
-            x.FullName.GetHashCode() == y.FullName.GetHashCode() &&
-            x.FullName == y.FullName;
+        public bool Equals(TypeDefinition x, TypeDefinition y) => x.AreEqual(y);
 
-        public int GetHashCode(TypeDefinition obj) =>
-            obj.Module.Assembly.FullName.GetHashCode() ^
-            obj.GetHashCode();
+        public int GetHashCode(TypeDefinition obj) => obj.Module.GetHashCode() ^ obj.GetHashCode();
     }
 }

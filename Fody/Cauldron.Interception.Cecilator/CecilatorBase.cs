@@ -88,6 +88,7 @@ namespace Cauldron.Interception.Cecilator
                 .SelectMany(x => x.Types)
                 .Where(x => x != null)
                 .Concat(this.moduleDefinition.Types)
+                .Where(x => x.Module != null && x.Module.Assembly != null)
                 .Distinct(new TypeDefinitionEqualityComparer())
                 .ToList();
             this.Log("-----------------------------------------------------------------------------");
