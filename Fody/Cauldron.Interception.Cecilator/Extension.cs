@@ -532,6 +532,14 @@ namespace Cauldron.Interception.Cecilator
             return Builder.Current.Import(type).Resolve() ?? result;
         }
 
+        public static string GetValidName(this string name) => name?
+                .Replace('´', '_')
+                .Replace('`', '_')
+                .Replace('<', '_')
+                .Replace('>', '_')
+                .Replace('.', '_')
+                .Replace(',', '_');
+
         public static bool HasAttribute(this IEnumerable<CustomAttribute> collection, TypeDefinition typeDefinition)
         {
             foreach (var item in collection)

@@ -34,19 +34,11 @@ namespace Cauldron.Interception.Cecilator
 
         public BuilderType Type { get; private set; }
 
-        public static BuilderCustomAttribute Create(BuilderType type, IEnumerable<CustomAttributeArgument> attributeArguments)
-        {
-            var ctor = type.GetMethod(".ctor", true, attributeArguments.Select(x => x.Type).ToArray()).Import();
-            var attribute = new CustomAttribute(ctor.methodReference);
-            var ctorMethodReference = ctor.methodReference;
-            var parameters = attributeArguments.ToArray();
+        public static BuilderCustomAttribute Create(BuilderType attributeType, IEnumerable<CustomAttributeArgument> attributeArguments) =>
+            CreateInternal(attributeType, () => attributeArguments.Select(x => new Tuple<TypeReference, object>(x.Type, x.Value)).ToArray());
 
-            if (ctorMethodReference.Parameters.Count > 0)
-                for (int i = 0; i < ctorMethodReference.Parameters.Count; i++)
-                    attribute.ConstructorArguments.Add(new CustomAttributeArgument(ctorMethodReference.Parameters[i].ParameterType, parameters[i]));
-
-            return new BuilderCustomAttribute(type.Builder, null, attribute);
-        }
+        public static BuilderCustomAttribute Create(BuilderType attributeType, object[] parameters) =>
+            CreateInternal(attributeType, () => parameters.Select(x => new Tuple<TypeReference, object>(Builder.Current.Import(x?.GetType()), x)).ToArray());
 
         public CustomAttributeArgument GetConstructorArgument(int parameterIndex) => this.attribute.ConstructorArguments[parameterIndex];
 
@@ -86,6 +78,61 @@ namespace Cauldron.Interception.Cecilator
         }
 
         public void Remove() => this.customAttributeProvider?.CustomAttributes.Remove(this.attribute);
+
+        private static BuilderCustomAttribute CreateInternal(BuilderType attributeType, Func<Tuple<TypeReference, object>[]> paramFunc)
+        {
+            object ConvertToAttributeParameter(object value)
+            {
+                switch (value)
+                {
+                    case Type systemtype:
+                        return systemtype.ToBuilderType().typeReference;
+
+                    default: return value;
+                }
+            }
+
+            Method ctor = null;
+            var type = attributeType.Import();
+            var parameters = paramFunc();
+
+            if (parameters == null || parameters.Length == 0)
+                ctor = type.ParameterlessContructor?.Import();
+            else
+            {
+                ctor = type.Methods.FirstOrDefault(x =>
+                {
+                    if (x.Name != ".ctor")
+                        return false;
+
+                    var @param = x.Parameters;
+
+                    if (@param.Length != parameters.Length)
+                        return false;
+
+                    for (int i = 0; i < @param.Length; i++)
+                    {
+                        var parameterType = parameters[i] == null ? null : parameters[i].Item1;
+                        if (!@param[i].typeReference.AreReferenceAssignable(parameterType))
+                            return false;
+                    }
+
+                    return true;
+                })?.Import();
+            }
+
+            if (ctor == null)
+                throw new ArgumentException($"Unable to find matching ctor in '{attributeType.Name}' for parameters: '{ string.Join(", ", parameters.Select(x => x?.Item1?.FullName ?? "null"))}'.");
+
+            var attribute = new CustomAttribute(ctor.methodReference);
+            var ctorMethodReference = ctor.methodReference;
+
+            if (ctorMethodReference.Parameters.Count > 0)
+                for (int i = 0; i < ctorMethodReference.Parameters.Count; i++)
+                    attribute.ConstructorArguments.Add(new CustomAttributeArgument(ctorMethodReference.Parameters[i].ParameterType, ConvertToAttributeParameter(parameters[i].Item2)));
+
+            return new BuilderCustomAttribute(type.Builder, null, attribute);
+        }
 
         #region Equitable stuff
 

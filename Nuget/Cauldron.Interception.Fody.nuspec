@@ -17,6 +17,7 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Interception interceptor interception AOP Fody Cecil CIL ILWeaving aspect decorator boundary invocation</tags>
     <releaseNotes>
+      2018.05.23 - [B] Bug that causes an exception while weaving in Net47 fixed.
       2018.05.02 - [B] Fixed bugs in weaving methods with generic parameters
       2018.05.02 - [B] Fixed bugs in weaving async methods
       2018.04.26 - [B] Properties with getter and setter but without backing field caused an Exception during weaving.

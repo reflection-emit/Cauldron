@@ -47,59 +47,26 @@ namespace Cauldron.Interception.Cecilator
 
         public bool Add(Type customAttributeType, params object[] parameters) => this.Add(this.moduleDefinition.ImportReference(customAttributeType), parameters);
 
-        public bool Add(BuilderType customAttributeType, params object[] parameters) => this.Add(customAttributeType.typeReference, parameters);
+        public bool Add(TypeReference customAttributeType, params object[] parameters) => this.Add(customAttributeType.ToBuilderType(), parameters);
 
-        public bool Add(TypeReference customAttributeType, params object[] parameters)
+        public bool Add(BuilderType customAttributeType, params object[] parameters)
         {
             if (this.customAttributeProvider is FieldDefinition fieldDefinition &&
-                (customAttributeType.FullName == "System.NonSerializedAttribute" || customAttributeType.FullName == "System.Runtime.Serialization.IgnoreDataMemberAttribute"))
+                (customAttributeType.Fullname == "System.NonSerializedAttribute" || customAttributeType.Fullname == "System.Runtime.Serialization.IgnoreDataMemberAttribute"))
             {
                 fieldDefinition.Attributes |= FieldAttributes.NotSerialized;
                 return true;
             }
 
-            if (this.DonotApply(customAttributeType))
+            if (this.DonotApply(customAttributeType.typeReference))
                 return false;
 
-            MethodReference ctor = null;
-            var type = this.moduleDefinition.ImportReference(customAttributeType);
-
-            if (parameters == null || parameters.Length == 0)
-                ctor = (type.Resolve() ?? this.allTypes.Get(type.FullName)).Methods.FirstOrDefault(x => x.Name == ".ctor" && x.Parameters.Count == 0);
-            else
-            {
-                ctor = (type.Resolve() ?? this.allTypes.Get(type.FullName)).Methods.FirstOrDefault(x =>
-                {
-                    if (x.Name != ".ctor")
-                        return false;
-
-                    if (x.Parameters.Count != parameters.Length)
-                        return false;
-
-                    for (int i = 0; i < x.Parameters.Count; i++)
-                    {
-                        var parameterType = parameters[i] == null ? null : this.moduleDefinition.ImportReference(parameters[i].GetType());
-                        if (!x.Parameters[i].ParameterType.AreReferenceAssignable(parameterType))
-                            return false;
-                    }
-
-                    return true;
-                });
-            }
-
-            if (ctor == null)
-                throw new ArgumentException($"Unable to find matching ctor in '{customAttributeType.FullName}' for parameters: '{ string.Join(", ", parameters.Select(x => x?.GetType().FullName ?? "null"))}'.");
-
-            var attrib = new CustomAttribute(this.moduleDefinition.ImportReference(ctor));
-
-            if (ctor.Parameters.Count > 0)
-                for (int i = 0; i < ctor.Parameters.Count; i++)
-                    attrib.ConstructorArguments.Add(new CustomAttributeArgument(ctor.Parameters[i].ParameterType, ConvertToAttributeParameter(parameters[i])));
+            var attrib = BuilderCustomAttribute.Create(customAttributeType, parameters);
 
             if (this.customAttributeProvider != null)
             {
-                this.customAttributeProvider.CustomAttributes.Add(attrib);
-                this.innerCollection.Add(new BuilderCustomAttribute(this.builder, this.customAttributeProvider, attrib));
+                this.customAttributeProvider.CustomAttributes.Add(attrib.attribute);
+                this.innerCollection.Add(new BuilderCustomAttribute(this.builder, this.customAttributeProvider, attrib.attribute));
             }
 
             return true;
@@ -187,15 +154,6 @@ namespace Cauldron.Interception.Cecilator
                 .Where(x => x.Fullname.GetHashCode() == type.typeReference.FullName.GetHashCode() && x.Fullname == type.typeReference.FullName)
                 .ToArray();
             this.Remove(attributesToRemove);
-        }
-
-        private object ConvertToAttributeParameter(object value)
-        {
-            switch (value)
-            {
-                case Type type: return type.ToBuilderType().typeReference;
-                default: return value;
-            }
         }
 
         private bool DonotApply(TypeReference customAttributeType)

@@ -74,7 +74,7 @@ namespace Cauldron.Interception.Cecilator
             if (object.ReferenceEquals(other, this))
                 return true;
 
-            return this.customAttribute == other.customAttribute && this.Type.typeDefinition == other.Type.typeDefinition;
+            return this.customAttribute == other.customAttribute && this.Type == other.Type;
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]

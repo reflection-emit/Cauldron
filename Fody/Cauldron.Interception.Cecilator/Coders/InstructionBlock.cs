@@ -1562,7 +1562,7 @@ namespace Cauldron.Interception.Cecilator.Coders
                 instructionBlock.Emit(OpCodes.Ldstr, value.ToString());
             }
 
-            if (type == typeof(TypeReference) || type == typeof(TypeDefinition))
+            if (type.IsSubclassOf(typeof(TypeReference)))
             {
                 instructionBlock.Append(instructionBlock.ilprocessor.TypeOf(value as TypeReference));
                 return;

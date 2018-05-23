@@ -680,6 +680,12 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         #region Field Operations
 
+        public CallCoder Load(BuilderType builderType)
+        {
+            this.instructions.Append(InstructionBlock.CreateCode(this, null, builderType));
+            return new CallCoder(this, builderType);
+        }
+
         public FieldCoder Load(Field field)
         {
             InstructionBlock.CreateCodeForFieldReference(this, field.FieldType, field, true);
