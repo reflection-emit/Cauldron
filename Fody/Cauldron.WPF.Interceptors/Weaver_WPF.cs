@@ -246,15 +246,16 @@ public static class Weaver_WPF
 
                               then.If(z => z.Load(getIsChangeChangedEvent).IsNotNull(), thenInner =>
                                   thenInner.Load(getIsChangeChangedEvent).Call(eventHandler.Invoke, CodeBlocks.This, thenInner.NewCoder().NewObj(eventHandler.EventArgs.Ctor)))
-                                      .Call(viewModelInterface.RaisePropertyChanged, CodeBlocks.GetParameter(0))
+                                    .Call(viewModelInterface.RaisePropertyChanged, CodeBlocks.GetParameter(0))
                                       .Return()
                          )
                     .If(x => x.Load(getIsChangeEvent).IsNotNull(), then =>
 
                              then.Call(viewModelInterface.RaisePropertyChanged, CodeBlocks.GetParameter(0))
-                                 .Call(eventHandlerGeneric.Invoke.MakeGeneric(changeAwareInterface.PropertyIsChangedEventArgs.ToBuilderType),
-                                 x => x.Load(getIsChangeEvent),
-                                 x => x.NewObj(changeAwareInterface.PropertyIsChangedEventArgs.Ctor, CodeBlocks.This, CodeBlocks.GetParameter(0), CodeBlocks.GetParameter(1), CodeBlocks.GetParameter(2)))
+                                .End
+                                .Load(getIsChangeEvent).Call(eventHandlerGeneric.Invoke.MakeGeneric(changeAwareInterface.PropertyIsChangedEventArgs.ToBuilderType),
+                                     x => CodeBlocks.This,
+                                     x => x.NewObj(changeAwareInterface.PropertyIsChangedEventArgs.Ctor, CodeBlocks.GetParameter(0), CodeBlocks.GetParameter(1), CodeBlocks.GetParameter(2)))
 
                         )
                         .Return()
