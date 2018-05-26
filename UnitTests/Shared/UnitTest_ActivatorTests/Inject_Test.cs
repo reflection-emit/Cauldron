@@ -1,10 +1,13 @@
-﻿using Cauldron;
+﻿using Activator_Tests;
+using Cauldron;
 using Cauldron.Activator;
 using Cauldron.Interception;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+
+//[module: GenericComponent(typeof(KeyedTestList<string, int, ITestInterface>), typeof(KeyedTestList<string, int, ITestInterface>))]
 
 namespace Activator_Tests
 {
@@ -26,11 +29,23 @@ namespace Activator_Tests
         [Inject]
         private List<ITestInterface> injectToList = null;
 
+        [Inject(ContractType = typeof(ITestInterface))]
+        public object CustomName1 { get; }
+
+        [Inject(ContractName = "Muhahaha")]
+        public object CustomName2 { get; }
+
         [Inject]
         public Dictionary<string, float> InjectToDictionary { get; private set; }
 
         [Inject]
         public ITestInterface InterfaceInject { get; private set; }
+
+        [Inject("[property] InterfaceInject", "[this]", 90.9, "Hello", true, "[field] injectToList", 0x89, ContractName = "Blub")]
+        public ITestInterface InterfaceInjectWithParameters { get; private set; }
+
+        [Inject(MakeThreadSafe = true)]
+        public ITestInterface ThreadSafeInject { get; private set; }
 
         [TestMethod]
         public void Array_Injection()
@@ -40,8 +55,8 @@ namespace Activator_Tests
             var documentMock1Type = documentMock1.GetType();
             var documentMock2Type = documentMock2.GetType();
 
-            Factory.AddType(typeof(ITestInterface).FullName, FactoryCreationPolicy.Instanced, documentMock1Type, x => documentMock1Type.CreateInstance());
-            Factory.AddType(typeof(ITestInterface).FullName, FactoryCreationPolicy.Instanced, documentMock2Type, x => documentMock2Type.CreateInstance());
+            Factory.AddType(typeof(ITestInterface), FactoryCreationPolicy.Instanced, documentMock1Type, x => documentMock1Type.CreateInstance());
+            Factory.AddType(typeof(ITestInterface), FactoryCreationPolicy.Instanced, documentMock2Type, x => documentMock2Type.CreateInstance());
 
             Assert.AreEqual(3, this.injectToArray.Length);
 
@@ -49,8 +64,8 @@ namespace Activator_Tests
 
             Assert.AreEqual(66, this.injectToArray[0].Height);
 
-            Factory.RemoveType(typeof(ITestInterface).FullName, documentMock1Type);
-            Factory.RemoveType(typeof(ITestInterface).FullName, documentMock2Type);
+            Factory.RemoveType(typeof(ITestInterface), documentMock1Type);
+            Factory.RemoveType(typeof(ITestInterface), documentMock2Type);
         }
 
         [TestMethod]
@@ -61,8 +76,8 @@ namespace Activator_Tests
             var documentMock1Type = documentMock1.GetType();
             var documentMock2Type = documentMock2.GetType();
 
-            Factory.AddType(typeof(ITestInterface).FullName, FactoryCreationPolicy.Instanced, documentMock1Type, x => documentMock1Type.CreateInstance());
-            Factory.AddType(typeof(ITestInterface).FullName, FactoryCreationPolicy.Instanced, documentMock2Type, x => documentMock2Type.CreateInstance());
+            Factory.AddType(typeof(ITestInterface), FactoryCreationPolicy.Instanced, documentMock1Type, x => documentMock1Type.CreateInstance());
+            Factory.AddType(typeof(ITestInterface), FactoryCreationPolicy.Instanced, documentMock2Type, x => documentMock2Type.CreateInstance());
 
             Assert.AreEqual(3, this.injectToCollection.Count);
 
@@ -70,18 +85,19 @@ namespace Activator_Tests
 
             Assert.AreEqual(66, this.injectToCollection[0].Height);
 
-            Factory.RemoveType(typeof(ITestInterface).FullName, documentMock1Type);
-            Factory.RemoveType(typeof(ITestInterface).FullName, documentMock2Type);
+            Factory.RemoveType(typeof(ITestInterface), documentMock1Type);
+            Factory.RemoveType(typeof(ITestInterface), documentMock2Type);
         }
 
         [TestMethod]
         public void Dictionary_Injection()
         {
+            var ttt = typeof(Dictionary<string, float>);
             var dictionaryMock = new Dictionary<string, float>();
             var documentMockType = dictionaryMock.GetType();
 
-            Factory.AddType(typeof(Dictionary<string, float>).FullName, FactoryCreationPolicy.Singleton, dictionaryMock.GetType(), x => documentMockType.CreateInstance());
-            dictionaryMock = Factory.Create(typeof(Dictionary<string, float>).FullName) as Dictionary<string, float>;
+            Factory.AddType(typeof(Dictionary<string, float>), FactoryCreationPolicy.Singleton, dictionaryMock.GetType(), x => documentMockType.CreateInstance());
+            dictionaryMock = Factory.Create(typeof(Dictionary<string, float>)) as Dictionary<string, float>;
 
             dictionaryMock.Add("Hi", 33.6f);
             dictionaryMock.Add("Cool", 324f);
@@ -101,8 +117,8 @@ namespace Activator_Tests
             Assert.AreEqual(66f, this.InjectToDictionary["Generic"]);
             Assert.AreEqual(99.9f, this.InjectToDictionary["Hi"]);
 
-            Factory.Destroy(typeof(Dictionary<string, float>).FullName);
-            Factory.RemoveType(typeof(Dictionary<string, float>).FullName, documentMockType);
+            Factory.Destroy(typeof(Dictionary<string, float>));
+            Factory.RemoveType(typeof(Dictionary<string, float>), documentMockType);
         }
 
         [TestMethod]
@@ -113,8 +129,8 @@ namespace Activator_Tests
             var documentMock1Type = documentMock1.GetType();
             var documentMock2Type = documentMock2.GetType();
 
-            Factory.AddType(typeof(ITestInterface).FullName, FactoryCreationPolicy.Instanced, documentMock1Type, x => documentMock1Type.CreateInstance());
-            Factory.AddType(typeof(ITestInterface).FullName, FactoryCreationPolicy.Instanced, documentMock2Type, x => documentMock2Type.CreateInstance());
+            Factory.AddType(typeof(ITestInterface), FactoryCreationPolicy.Instanced, documentMock1Type, x => documentMock1Type.CreateInstance());
+            Factory.AddType(typeof(ITestInterface), FactoryCreationPolicy.Instanced, documentMock2Type, x => documentMock2Type.CreateInstance());
 
             Assert.AreEqual(3, this.injectToEnumerable.Count());
             var tt = this.injectToEnumerable.ElementAt(0);
@@ -124,8 +140,8 @@ namespace Activator_Tests
 
             Assert.AreEqual(66, this.injectToEnumerable.ElementAt(0).Height);
 
-            Factory.RemoveType(typeof(ITestInterface).FullName, documentMock1Type);
-            Factory.RemoveType(typeof(ITestInterface).FullName, documentMock2Type);
+            Factory.RemoveType(typeof(ITestInterface), documentMock1Type);
+            Factory.RemoveType(typeof(ITestInterface), documentMock2Type);
         }
 
         [TestMethod]
@@ -134,7 +150,7 @@ namespace Activator_Tests
             var dictionaryMock = new { }.CreateType<ITestInterface>();
             var documentMockType = dictionaryMock.GetType();
 
-            Factory.AddType(typeof(ITestInterface).FullName, FactoryCreationPolicy.Singleton, dictionaryMock.GetType(), x => documentMockType.CreateInstance());
+            Factory.AddType(typeof(ITestInterface), FactoryCreationPolicy.Singleton, dictionaryMock.GetType(), x => documentMockType.CreateInstance());
 
             Assert.AreEqual(2, this.injectToKeyedCollection.Count);
 
@@ -142,7 +158,7 @@ namespace Activator_Tests
 
             Assert.AreEqual(66, this.injectToKeyedCollection[0].Height);
 
-            Factory.RemoveType(typeof(ITestInterface).FullName, documentMockType);
+            Factory.RemoveType(typeof(ITestInterface), documentMockType);
         }
 
         [TestMethod]
@@ -153,8 +169,8 @@ namespace Activator_Tests
             var documentMock1Type = documentMock1.GetType();
             var documentMock2Type = documentMock2.GetType();
 
-            Factory.AddType(typeof(ITestInterface).FullName, FactoryCreationPolicy.Instanced, documentMock1Type, x => documentMock1Type.CreateInstance());
-            Factory.AddType(typeof(ITestInterface).FullName, FactoryCreationPolicy.Instanced, documentMock2Type, x => documentMock2Type.CreateInstance());
+            Factory.AddType(typeof(ITestInterface), FactoryCreationPolicy.Instanced, documentMock1Type, x => documentMock1Type.CreateInstance());
+            Factory.AddType(typeof(ITestInterface), FactoryCreationPolicy.Instanced, documentMock2Type, x => documentMock2Type.CreateInstance());
 
             Assert.AreEqual(3, this.injectToList.Count);
 
@@ -162,8 +178,8 @@ namespace Activator_Tests
 
             Assert.AreEqual(66, this.injectToList[0].Height);
 
-            Factory.RemoveType(typeof(ITestInterface).FullName, documentMock1Type);
-            Factory.RemoveType(typeof(ITestInterface).FullName, documentMock2Type);
+            Factory.RemoveType(typeof(ITestInterface), documentMock1Type);
+            Factory.RemoveType(typeof(ITestInterface), documentMock2Type);
         }
 
         [TestMethod]

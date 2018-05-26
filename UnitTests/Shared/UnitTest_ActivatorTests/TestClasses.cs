@@ -1,6 +1,5 @@
 ﻿using Cauldron.Activator;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
@@ -30,6 +29,12 @@ namespace Activator_Tests
         }
     }
 
+    [Component(typeof(object), FactoryCreationPolicy.Singleton, 34)]
+    [Component("Hello", FactoryCreationPolicy.Singleton, 34)]
+    public class AllParametersClass
+    {
+    }
+
     public class ComponentTestBase<T> where T : new()
     {
         [ComponentConstructor]
@@ -46,6 +51,16 @@ namespace Activator_Tests
 
     public class KeyedTestList<TKey, TItem2, TItem> : KeyedCollection<string, TItem>
     {
+        public KeyedTestList()
+        {
+        }
+
+        public KeyedTestList(IEnumerable<TItem> items)
+        {
+            foreach (var item in items)
+                this.Add(item);
+        }
+
         protected override string GetKeyForItem(TItem item)
         {
             return item.ToString();

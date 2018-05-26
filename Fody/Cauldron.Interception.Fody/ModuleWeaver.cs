@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Cauldron.Interception.Fody
 {
@@ -73,19 +74,6 @@ namespace Cauldron.Interception.Fody
 
         private void CreateAssemblyListingArray(Builder builder, Method method, BuilderType assemblyType, IEnumerable<AssemblyDefinition> assembliesToList)
         {
-            var loadAssemblyMethod = method.DeclaringType.CreateMethod(Modifiers.PrivateStatic, builder.GetType("System.Reflection.Assembly").Import(), "LoadAssembly", typeof(Type).ToBuilderType());
-            loadAssemblyMethod.NewCoder()
-                .Context(context =>
-                {
-                    var returnValue = context.GetOrCreateReturnVariable();
-                    var debugMethod = typeof(Debug).ToBuilderType().GetMethod("WriteLine", true, typeof(object)).Import();
-                    return context.Try(@try => GetAssemblyWeaver.AddCode(context.NewCoder(), CodeBlocks.GetParameter(0)).End)
-                             .Catch((x, f) => x.Load(value: null).Return())
-                             .EndTry();
-                })
-                .Return()
-                .Replace();
-
             method.NewCoder().Context(context =>
             {
                 var returnValue = context.GetOrCreateReturnVariable();
@@ -96,7 +84,7 @@ namespace Cauldron.Interception.Fody
                     context.SetValue(returnValue, x => x.Newarr(assemblyType, referencedTypes.Length));
 
                     for (int i = 0; i < referencedTypes.Length; i++)
-                        context.Load(returnValue).StoreElement(context.NewCoder().Call(loadAssemblyMethod, Builder.Current.Import(referencedTypes[i])), i);
+                        context.Load(returnValue).StoreElement(GetAssemblyWeaver.AddCode(context.NewCoder(), referencedTypes[i].ToBuilderType().Import()), i);
                 }
 
                 return context.Load(returnValue).Return();
@@ -129,7 +117,7 @@ namespace Cauldron.Interception.Fody
 
                 // First find a type without namespace and with a static method called ModuleLoad
                 var onLoadMethods = builder.FindMethodsByName(SearchContext.Module_NoGenerated, "ModuleLoad", 1)
-                    .Where(x => x.IsStatic && x.ReturnType == BuilderType.Void && x.Parameters[0] == arrayType)
+                    .Where(x => x.IsStatic && x.ReturnType == TypeSystemEx.Void && x.Parameters[0] == arrayType)
                     .Where(x => x != null);
 
                 if (!onLoadMethods.Any())
@@ -154,6 +142,9 @@ namespace Cauldron.Interception.Fody
 
         private IEnumerable<TypeDefinition> FilterAssemblyList(IEnumerable<AssemblyDefinition> assemblies)
         {
+            var excludeUs = this.GetAssemblyExclusionList().ToArray();
+            var onlyIncludeUs = this.GetAssemblyOnlyInclusionList().ToArray();
+
             foreach (var item in assemblies)
             {
                 if (item == null)
@@ -181,6 +172,12 @@ namespace Cauldron.Interception.Fody
                     continue;
 
                 if (item.Name.Name == "netstandard")
+                    continue;
+
+                if (onlyIncludeUs.Any(x => !item.Name.Name.StartsWith(x)))
+                    continue;
+
+                if (excludeUs.Any(x => item.Name.Name.StartsWith(x)))
                     continue;
 
                 foreach (var type in item.MainModule.Types)
@@ -219,6 +216,28 @@ namespace Cauldron.Interception.Fody
                     break;
                 }
             }
+        }
+
+        private IEnumerable<string> GetAssemblyExclusionList()
+        {
+            var element = this.Config.Element("ExcludeAssemblies");
+
+            if (element == null)
+                yield break;
+
+            foreach (var item in element.Value.Split(new[] { "\r\n", "\n", ", ", " " }, StringSplitOptions.RemoveEmptyEntries))
+                yield return item;
+        }
+
+        private IEnumerable<string> GetAssemblyOnlyInclusionList()
+        {
+            var element = this.Config.Element("OnlyIncludeAssemblies");
+
+            if (element == null)
+                yield break;
+
+            foreach (var item in element.Value.Split(new[] { "\r\n", "\n", ", ", " " }, StringSplitOptions.RemoveEmptyEntries))
+                yield return item;
         }
     }
 }

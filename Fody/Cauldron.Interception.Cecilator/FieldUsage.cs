@@ -76,12 +76,12 @@ namespace Cauldron.Interception.Cecilator
             if (this.Field.IsStatic != property.IsStatic)
                 throw new InvalidOperationException($"Replacement property must have the same modifier.");
 
-            if (this.instruction.OpCode == OpCodes.Ldfld || this.instruction.OpCode == OpCodes.Ldsfld)
+            if ((this.instruction.OpCode == OpCodes.Ldfld || this.instruction.OpCode == OpCodes.Ldsfld) && property.Getter != null)
             {
                 this.instruction.OpCode = property.Getter.IsAbstract ? OpCodes.Callvirt : OpCodes.Call;
                 this.instruction.Operand = property.Getter.methodReference.ResolveMethod(property.type.typeReference);
             }
-            else if (this.instruction.OpCode == OpCodes.Stfld || this.instruction.OpCode == OpCodes.Stsfld)
+            else if ((this.instruction.OpCode == OpCodes.Stfld || this.instruction.OpCode == OpCodes.Stsfld) && property.Setter != null)
             {
                 this.instruction.OpCode = property.Setter.IsAbstract ? OpCodes.Callvirt : OpCodes.Call;
                 this.instruction.Operand = property.Setter.methodReference.ResolveMethod(property.type.typeReference);

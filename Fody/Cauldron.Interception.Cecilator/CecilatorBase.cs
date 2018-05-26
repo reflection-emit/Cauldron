@@ -33,7 +33,13 @@ namespace Cauldron.Interception.Cecilator
                 .ToArray();
 
             var referencedAssemblies = weaver
-                .GetAllReferencedAssemblies(weaver.Resolve(this.moduleDefinition.AssemblyReferences))
+                .With(x =>
+                {
+                    if (weaver.Config.Attribute("ReferenceRecursive").With(y => y == null ? true : bool.Parse(y.Value)))
+                        return x.GetAllReferencedAssemblies(weaver.Resolve(this.moduleDefinition.AssemblyReferences));
+
+                    return weaver.Resolve(this.moduleDefinition.AssemblyReferences);
+                })
                 .Concat(weaver.References.Split(';').Select(x => LoadAssembly(x)))
                 .Where(x => x != null).ToArray() as IEnumerable<AssemblyDefinition>;
 

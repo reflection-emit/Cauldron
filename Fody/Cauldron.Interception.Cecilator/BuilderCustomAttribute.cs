@@ -38,7 +38,7 @@ namespace Cauldron.Interception.Cecilator
             CreateInternal(attributeType, () => attributeArguments.Select(x => new Tuple<TypeReference, object>(x.Type, x.Value)).ToArray());
 
         public static BuilderCustomAttribute Create(BuilderType attributeType, object[] parameters) =>
-            CreateInternal(attributeType, () => parameters.Select(x => new Tuple<TypeReference, object>(Builder.Current.Import(x?.GetType()), x)).ToArray());
+            CreateInternal(attributeType, () => parameters.Select(x => new Tuple<TypeReference, object>(GetTypeReference(x), x)).ToArray());
 
         public CustomAttributeArgument GetConstructorArgument(int parameterIndex) => this.attribute.ConstructorArguments[parameterIndex];
 
@@ -132,6 +132,18 @@ namespace Cauldron.Interception.Cecilator
                     attribute.ConstructorArguments.Add(new CustomAttributeArgument(ctorMethodReference.Parameters[i].ParameterType, ConvertToAttributeParameter(parameters[i].Item2)));
 
             return new BuilderCustomAttribute(type.Builder, null, attribute);
+        }
+
+        private static TypeReference GetTypeReference(object o)
+        {
+            switch (o)
+            {
+                case null: return null;
+                case BuilderType builderType:
+                case TypeReference typeReference:
+                case Type type: return TypeSystemEx.Type;
+                default: return Builder.Current.Import(o.GetType());
+            }
         }
 
         #region Equitable stuff

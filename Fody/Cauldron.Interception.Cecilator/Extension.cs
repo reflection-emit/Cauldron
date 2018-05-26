@@ -13,11 +13,11 @@ namespace Cauldron.Interception.Cecilator
 {
     public static class Extension
     {
-        public static bool AreEqual(this Type a, ModuleDefinition b) => a?.Assembly.FullName.AreEqual(b?.Assembly.Name.Name) ?? false;
+        public static bool AreEqual(this Type a, ModuleDefinition b) => a?.Assembly.GetName().Name.AreEqual(b?.Assembly.Name.Name) ?? false;
 
         public static bool AreEqual(this Type a, Type b) => a?.Assembly.FullName.AreEqual(b?.Assembly.FullName) ?? false;
 
-        public static bool AreEqual(this ModuleDefinition a, Type b) => a?.Assembly.Name.Name.AreEqual(b?.Assembly.FullName) ?? false;
+        public static bool AreEqual(this ModuleDefinition a, Type b) => a?.Assembly.Name.Name.AreEqual(b?.Assembly.GetName().Name) ?? false;
 
         public static bool AreEqual(this ModuleDefinition a, ModuleDefinition b) => a?.Assembly.Name.Name.AreEqual(b?.Assembly.Name.Name) ?? false;
 
@@ -92,7 +92,7 @@ namespace Cauldron.Interception.Cecilator
             if (type == null) throw new ArgumentNullException(nameof(type));
 
             // If the target type is an object... Everything goes into an object
-            if (type == BuilderType.Object)
+            if (type == TypeSystemEx.Object)
                 return true;
 
             // If the type or value to be assigned is null and we are sure that the target type
@@ -133,7 +133,7 @@ namespace Cauldron.Interception.Cecilator
             if (type == null) throw new ArgumentNullException(nameof(type));
 
             // If the target type is an object... Everything goes into an object
-            if (type.AreEqual(BuilderType.Object.typeReference))
+            if (type.AreEqual((TypeReference)TypeSystemEx.Object))
                 return true;
 
             // If the type or value to be assigned is null and we are sure that the target type
@@ -286,7 +286,7 @@ namespace Cauldron.Interception.Cecilator
                             ienumerableInterface = genericInstances.FirstOrDefault(x => x.FullName.StartsWith("System.Collections.Generic.IEnumerable`1<"));
 
                         // A Nullable special
-                        if (ienumerableInterface == null && genericType.AreEqual(BuilderType.Nullable))
+                        if (ienumerableInterface == null && genericType.AreEqual((TypeReference)TypeSystemEx.Nullable))
                             return genericType.GenericArguments[0];
 
                         // We just don't know :(
@@ -538,6 +538,7 @@ namespace Cauldron.Interception.Cecilator
                 .Replace('<', '_')
                 .Replace('>', '_')
                 .Replace('.', '_')
+                .Replace('/', '+')
                 .Replace(',', '_');
 
         public static bool HasAttribute(this IEnumerable<CustomAttribute> collection, TypeDefinition typeDefinition)
@@ -678,6 +679,17 @@ namespace Cauldron.Interception.Cecilator
                 var typeReference = typeDefinition.MakeGenericInstanceType(type.GetGenericArguments().Select(x => x.ToBuilderType().typeReference).ToArray());
 
                 return new BuilderType(Builder.Current, typeReference);
+            }
+
+            try
+            {
+                var result = Builder.Current.Import(type);
+
+                if (result != null)
+                    return result.ToBuilderType();
+            }
+            catch
+            {
             }
 
             return new BuilderType(Builder.Current, WeaverBase.AllTypes.Get(type.FullName));
@@ -938,7 +950,7 @@ namespace Cauldron.Interception.Cecilator
                 if (ins.IsCallOrNew())
                     return (ins.Operand as MethodReference).With(x =>
                     {
-                        return x.ReturnType.AreEqual(BuilderType.Void) ?
+                        return x.ReturnType.AreEqual(TypeSystemEx.Void) ?
                             null :
                             x.ReturnType.ResolveType(x.DeclaringType, x);
                     });
@@ -956,7 +968,7 @@ namespace Cauldron.Interception.Cecilator
                     });
 
                 if (ins.IsComparer())
-                    return BuilderType.Boolean.typeReference;
+                    return TypeSystemEx.Boolean;
 
                 if (ins.OpCode == OpCodes.Isinst)
                     return (ins.Operand as TypeReference).With(x => x.ResolveType(method.DeclaringType.typeReference, method.methodReference));
@@ -1223,6 +1235,7 @@ namespace Cauldron.Interception.Cecilator
                 opCode == OpCodes.Ldc_I8 ||
                 opCode == OpCodes.Ldc_R4 ||
                 opCode == OpCodes.Ldc_R8 ||
+                opCode == OpCodes.Ldstr ||
                 opCode == OpCodes.Unbox_Any ||
                 opCode == OpCodes.Unbox ||
                 opCode == OpCodes.Box;
@@ -1246,6 +1259,9 @@ namespace Cauldron.Interception.Cecilator
 
             return genericTypeRef;
         }
+
+        internal static MethodReference MakeHostInstanceGeneric(this MethodReference self, IEnumerable<TypeReference> arguments) =>
+            self.MakeHostInstanceGeneric(arguments.ToArray());
 
         internal static MethodReference MakeHostInstanceGeneric(this MethodReference self, params TypeReference[] arguments)
         {

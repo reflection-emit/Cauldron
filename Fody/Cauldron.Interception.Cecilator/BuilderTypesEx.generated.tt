@@ -1,0 +1,316 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Reflection" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Threading.Tasks" #>
+<#@ import namespace="System.Threading" #>
+<#@ output extension=".cs" #>
+
+<#
+
+	var types = new Type[]
+	{
+		typeof(decimal),
+		typeof(IEnumerable<>),
+		typeof(IEnumerable),
+		typeof(int),
+		typeof(uint),
+		typeof(string),
+		typeof(IList<>),
+		typeof(IDictionary),
+		typeof(IDictionary<,>),
+		typeof(Dictionary<,>),
+		typeof(ICollection<>),
+		typeof(IList),
+		typeof(List<>),
+		typeof(bool),
+		typeof(long),
+		typeof(ulong),
+		typeof(short),
+		typeof(ushort),
+		typeof(float),
+		typeof(double),
+		typeof(byte),
+		typeof(sbyte),
+		typeof(char),
+		typeof(Convert),
+		typeof(DateTime),
+		typeof(Enum),
+		typeof(Enumerable),
+		typeof(MethodBase),
+		typeof(Task),
+		typeof(Task<>),
+		typeof(Type),
+		typeof(Nullable),
+		typeof(object),
+		typeof(Nullable<>),
+		typeof(Exception),
+		typeof(IntPtr),
+		typeof(UIntPtr),
+		typeof(Array),
+		typeof(EventArgs),
+		typeof(EventHandler<>),
+		typeof(EventHandler),
+		typeof(Monitor),
+	};
+
+	string GenerateCommas(string count)
+	{
+		if(int.TryParse(count, out int value))
+		{
+			var data = new string[value];
+
+			if(data.Length == 0)
+				return "";
+
+			for(int i=0; i< data.Length; i++)
+				data[i] = "";
+
+			return string.Join(",", data);
+		}
+		
+		return "";
+	}
+
+	string StringRepresentationToCSharp(string typeName)
+	{
+		var pos = typeName.IndexOf('`');
+
+		if(pos >= 0)
+		{
+			var name = typeName.Substring(0, pos);
+			var generics = typeName.IndexOf('[') > pos ? typeName.Substring(pos + 1, typeName.IndexOf('[') - pos +1) : typeName.Substring(pos + 1);
+
+			return name + "<" + GenerateCommas(generics) + ">";
+		}
+
+		return typeName;
+	}
+	
+	string StringRepresentationToCSharpFull(string typeName)
+	{
+		var pos = typeName.IndexOf('`');
+
+		if(pos >= 0)
+		{
+			var name = typeName.Substring(0, pos);
+			var blaPos = typeName.IndexOf('[');
+			var generics = typeName.Substring(pos, blaPos - pos);
+
+			return typeName.Replace(generics, "").Replace("[", "{").Replace("]", "}");
+		}
+
+		return typeName;
+	}	
+
+	bool IsValidParameter(IEnumerable<ParameterInfo> info)
+	{
+		foreach(var item in info)
+		{
+			if(item.ParameterType.IsByRef)
+				return false;
+
+			if(item.IsIn)
+				return false;
+
+			if(item.IsOut)
+				return false;
+
+			if(item.IsRetval)
+				return false;
+
+			if(item.ParameterType.Name.IndexOf("*") >= 0)
+				return false;
+		}
+
+		return true;
+	}
+#>
+
+/*
+	Generated :)
+*/
+
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Reflection;
+using System.Threading;
+using Mono.Cecil;
+
+namespace Cauldron.Interception.Cecilator
+{    	
+    /// <summary>
+    /// Provides predifined types for Cecilator
+    /// </summary>
+	public static class TypeSystemEx
+    {
+	
+		#region Void
+        private static BuilderType _Void;
+		
+        /// <summary>
+        /// Gets <see cref="BuilderType"/> representing void. 
+        /// </summary>
+        public static BuilderType Void
+        {
+            get
+            {
+                if (_Void == null) _Void = Builder.Current.GetType("System.Void");
+                return _Void;
+            }
+        }
+
+		#endregion
+		
+		<#
+		foreach(var type in types.OrderBy(x => x.Name) )
+		{
+			var variableName = "_" + type.Name.Replace('`', '_').ToLower();
+		#>
+		
+		#region <#=type.Name#>
+        private static BuilderType<#=type.Name.Replace("`", "")#> <#=variableName#>;
+		
+        /// <summary>
+        /// Gets <see cref="BuilderType"/> representing <see cref="<#=StringRepresentationToCSharpFull(type.ToString())#>"/>. 
+        /// </summary>
+        public static BuilderType<#=type.Name.Replace("`", "")#> <#=type.Name.Replace("`", "")#>
+        {
+            get
+            {
+                if (<#=variableName#> == null) <#=variableName#> = new BuilderType<#=type.Name.Replace("`", "")#>(Builder.Current.GetType(typeof(<#=StringRepresentationToCSharp(type.Name)#>)).Import());
+                return <#=variableName#>;
+            }
+        }
+
+		#endregion
+		<#
+		}
+		#>
+
+	}
+
+	/// <exclude />
+	public class TypeSystemExBase 
+	{
+		/// <exclude />
+		internal BuilderType builderType;
+
+        internal TypeSystemExBase(BuilderType builderType)
+		{
+			this.builderType = builderType;
+		}
+	}		
+	<#
+	foreach(var type in types.OrderBy(x => x.Name) )
+	{
+		var variableName = "_" + type.Name.Replace('`', '_').ToLower();
+	#>
+		
+    /// <summary>
+    /// Provides a wrapper class for <see cref="<#=StringRepresentationToCSharpFull(type.ToString())#>"/>
+    /// </summary>
+    public partial class BuilderType<#=type.Name.Replace("`", "")#> : TypeSystemExBase
+	{
+        internal BuilderType<#=type.Name.Replace("`", "")#>(BuilderType builderType) : base(builderType)
+		{
+		}
+
+		/// <exclude />
+		public static implicit operator BuilderType(BuilderType<#=type.Name.Replace("`", "")#> value) => value.builderType;
+		
+		/// <exclude />
+		public static implicit operator TypeReference(BuilderType<#=type.Name.Replace("`", "")#> value) => value.builderType.typeReference;
+
+		/// <exclude />
+		public BuilderType BuilderType => this.builderType;
+		
+		<#
+		var methodGroups = type
+			.GetMethods()
+			.Where( x=> !x.IsGenericMethodDefinition && !x.ContainsGenericParameters && IsValidParameter(x.GetParameters()) )
+			.GroupBy(x => x.Name + x.GetParameters().Length)
+			.Select(x => x.Distinct(new MethodInfoEqualityComparer()).ToArray());
+
+		foreach(var group in methodGroups)
+		{
+			for(int i=0; i< group.Length; i++)
+			{
+				var itemParameters = group[i].GetParameters();
+		#>		
+		private Method var_<#= $"{group[i].Name.ToLower()}_{i}_{itemParameters.Length}"#>;
+		<# } #>
+
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		<#foreach(var item in group)
+		{#>/// <#=item#><para/>
+		<#}#>/// </summary>
+		public Method GetMethod_<#=group[0].Name#>(<#=string.Join(", ", group[0].GetParameters().Select(x => "TypeReference p" + x.Name).ToArray()) #>)
+		{
+			<# if(group.Length == 1 && group[0].GetParameters().Length == 0) { #>
+			
+			if(this.var_<#= $"{group[0].Name.ToLower()}_{0}_{group[0].GetParameters().Length}"#> == null)
+				this.var_<#= $"{group[0].Name.ToLower()}_{0}_{group[0].GetParameters().Length}"#> = this.builderType.GetMethod("<#=group[0].Name#>", true);
+
+			return this.var_<#= $"{group[0].Name.ToLower()}_{0}_{group[0].GetParameters().Length}"#>;
+			<#}#>			
+			<# if(group.Length == 1 && group[0].GetParameters().Length > 0) { #>
+			
+			if(this.var_<#= $"{group[0].Name.ToLower()}_{0}_{group[0].GetParameters().Length}"#> == null)
+				this.var_<#= $"{group[0].Name.ToLower()}_{0}_{group[0].GetParameters().Length}"#> = this.builderType.GetMethod("<#=group[0].Name#>", true, <#=string.Join(", ", group[0].GetParameters().Select(x => "p" + x.Name).ToArray()) #>).Import();
+			
+			return this.var_<#= $"{group[0].Name.ToLower()}_{0}_{group[0].GetParameters().Length}"#>;
+			<#}#>
+			<# 
+				if(group.Length > 1) 
+				{
+					for(int i=0; i < group.Length; i++)
+					{
+						var itemParameters = group[i].GetParameters();
+			#>
+
+			if(<#=string.Join(" && ", itemParameters.Select(x => $"typeof({StringRepresentationToCSharp(x.ParameterType.FullName)}).AreEqual(p{group[0].GetParameters()[x.Position].Name})")) #>)
+			{
+				if(this.var_<#= $"{group[i].Name.ToLower()}_{i}_{itemParameters.Length}"#> == null)
+					this.var_<#= $"{group[i].Name.ToLower()}_{i}_{itemParameters.Length}"#> = this.builderType.GetMethod("<#=group[i].Name#>", true, <#=string.Join(", ", group[0].GetParameters().Select(x => "p" + x.Name).ToArray()) #>).Import();
+			
+				return this.var_<#= $"{group[i].Name.ToLower()}_{i}_{itemParameters.Length}"#>;
+			}
+			<#
+				}
+			#>
+
+			return null;
+			<#
+			}
+			#>
+
+		}
+		<#
+		}
+		#>
+
+	}
+
+	<#
+	}
+	#>
+}
+
+<#+
+    public class MethodInfoEqualityComparer : IEqualityComparer<MethodInfo>
+    {
+        public bool Equals(MethodInfo x, MethodInfo y) => x.Name == y.Name && y.GetParameters().SequenceEqual(x.GetParameters());
+
+        public int GetHashCode(MethodInfo obj) => obj.Name.GetHashCode();
+    }
+#>

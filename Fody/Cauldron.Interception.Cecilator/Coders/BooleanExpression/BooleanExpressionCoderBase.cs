@@ -145,7 +145,7 @@ namespace Cauldron.Interception.Cecilator.Coders
                     }
                     else
                     {
-                        InstructionBlock.CastOrBoxValues(this.instructions, BuilderType.Boolean);
+                        InstructionBlock.CastOrBoxValues(this.instructions, TypeSystemEx.Boolean);
                         this.instructions.Emit(o ? OpCodes.Ldc_I4_1 : OpCodes.Ldc_I4_0);
                         this.instructions.Emit(OpCodes.Ceq);
                     }
@@ -160,10 +160,10 @@ namespace Cauldron.Interception.Cecilator.Coders
                 case LocalVariable var: InstructionBlock.AreEqualInternalWithoutJump(this.instructions, var.Type, value); break;
                 case VariableDefinition var: InstructionBlock.AreEqualInternalWithoutJump(this.instructions, var.VariableType.ToBuilderType(), value); break;
                 case VariableReference var: InstructionBlock.AreEqualInternalWithoutJump(this.instructions, var.VariableType.ToBuilderType(), value); break;
-                case BuilderType o: InstructionBlock.AreEqualInternalWithoutJump(this.instructions, BuilderType.Type, value); break;
-                case TypeDefinition o: InstructionBlock.AreEqualInternalWithoutJump(this.instructions, BuilderType.Type, value); break;
-                case TypeReference o: InstructionBlock.AreEqualInternalWithoutJump(this.instructions, BuilderType.Type, value); break;
-                case Method o: InstructionBlock.AreEqualInternalWithoutJump(this.instructions, BuilderType.MethodBase, value); break;
+                case BuilderType o: InstructionBlock.AreEqualInternalWithoutJump(this.instructions, TypeSystemEx.Type, value); break;
+                case TypeDefinition o: InstructionBlock.AreEqualInternalWithoutJump(this.instructions, TypeSystemEx.Type, value); break;
+                case TypeReference o: InstructionBlock.AreEqualInternalWithoutJump(this.instructions, TypeSystemEx.Type, value); break;
+                case Method o: InstructionBlock.AreEqualInternalWithoutJump(this.instructions, TypeSystemEx.MethodBase, value); break;
                 case CoderBase o: InstructionBlock.AreEqualInternalWithoutJump(this.instructions, null, value); break;
                 default: InstructionBlock.AreEqualInternalWithoutJump(this.instructions, value.GetType().ToBuilderType(), value); break;
             }

@@ -48,6 +48,7 @@ namespace Cauldron
 
             if (arrayA.Length > 0)
                 Array.Copy(arrayA, 0, result, 0, arrayA.Length);
+
             result.SetValue(item, result.Length - 1);
 
             return (T[])result;

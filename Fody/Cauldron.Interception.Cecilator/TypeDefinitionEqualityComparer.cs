@@ -7,6 +7,6 @@ namespace Cauldron.Interception.Cecilator
     {
         public bool Equals(TypeDefinition x, TypeDefinition y) => x.AreEqual(y);
 
-        public int GetHashCode(TypeDefinition obj) => obj.Module.GetHashCode() ^ obj.GetHashCode();
+        public int GetHashCode(TypeDefinition obj) => obj.GetHashCode();
     }
 }

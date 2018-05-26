@@ -11,6 +11,8 @@ namespace Cauldron.Interception.Cecilator.Coders
         public const string VariablePrefix = "<>var_";
         public static CodeBlock This => new ThisCodeBlock();
 
+        public static CodeBlock CreateCall(Method method) => new CallMethodCodeBlock(method);
+
         public static CodeBlock CreateException(TypeReference typeReference, string name) => new ExceptionCodeBlock { name = name, typeReference = typeReference };
 
         public static CodeBlock CreateException(BuilderType builderType, string name) => new ExceptionCodeBlock { name = name, typeReference = builderType.typeReference };
@@ -41,6 +43,13 @@ namespace Cauldron.Interception.Cecilator.Coders
         internal ArrayCodeBlock()
         {
         }
+    }
+
+    public class CallMethodCodeBlock : CodeBlock
+    {
+        internal Method method;
+
+        internal CallMethodCodeBlock(Method method) => this.method = method;
     }
 
     public class CodeBlock

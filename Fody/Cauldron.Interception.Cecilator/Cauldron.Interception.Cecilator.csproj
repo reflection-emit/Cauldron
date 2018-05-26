@@ -70,6 +70,12 @@
     <Compile Include="BuilderCustomAttribute.cs" />
     <Compile Include="BuilderCustomAttributeCollection.cs" />
     <Compile Include="BuilderTypeEqualityComparer.cs" />
+    <Compile Include="BuilderTypesEx.cs" />
+    <Compile Include="BuilderTypesEx.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BuilderTypesEx.generated.tt</DependentUpon>
+    </Compile>
     <Compile Include="CecilatorBase.cs" />
     <Compile Include="CecilatorObject.cs" />
     <Compile Include="Coders\BooleanExpression\BooleanExpressionCoderBase.cs" />
@@ -119,9 +125,9 @@
     <Compile Include="LogTypes.cs" />
     <Compile Include="MethodDefinitionAndReference.cs" />
     <Compile Include="Positions.cs" />
+    <Compile Include="PropertySetterCreationOption.cs" />
     <Compile Include="TypeDefinitionEqualityComparer.cs" />
     <Compile Include="TypeResolveException.cs" />
-    <Compile Include="CecilatorTypeSystem.cs" />
     <Compile Include="WeaverBase.cs" />
     <Compile Include="BuilderType.cs" />
     <Compile Include="LocalVariable.cs" />
@@ -141,7 +147,15 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="BuilderTypesEx.generated.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>BuilderTypesEx.generated.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

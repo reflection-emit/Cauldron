@@ -1,6 +1,4 @@
 ﻿using Mono.Cecil;
-using Mono.Cecil.Cil;
-using Mono.Cecil.Rocks;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -35,7 +33,7 @@ namespace Cauldron.Interception.Cecilator
         /// <returns>Retruns an instance of <see cref="Method"/> representing the static void Main of the program; otherwise null</returns>
         public Method GetMain() =>
             this.FindMethodsByName(SearchContext.Module_NoGenerated, "Main", 1)
-                    .FirstOrDefault(x => x.ReturnType == BuilderType.Void && x.Parameters[0].ChildType == BuilderType.String);
+                    .FirstOrDefault(x => x.ReturnType == TypeSystemEx.Void && x.Parameters[0].ChildType == TypeSystemEx.String);
 
         public Method Import(System.Reflection.MethodBase value)
         {
@@ -432,12 +430,12 @@ namespace Cauldron.Interception.Cecilator
 
         #region Getting types
 
-        public BuilderType GetType(Type type)
+        public BuilderType GetType(Type type, bool throwExceptionIfNotFound = true)
         {
             if (type.IsArray)
             {
                 var child = type.GetElementType();
-                var bt = this.GetType(child.FullName);
+                var bt = this.GetType(child.FullName, throwExceptionIfNotFound);
                 return new BuilderType(this, new ArrayType(this.moduleDefinition.ImportReference(bt.typeReference)));
             }
 
@@ -445,27 +443,30 @@ namespace Cauldron.Interception.Cecilator
             {
                 var builder = Builder.Current;
                 var definition = type.GetGenericTypeDefinition();
-                var typeDefinition = this.GetType(definition.FullName);
+                var typeDefinition = this.GetType(definition.FullName, throwExceptionIfNotFound);
 
                 return typeDefinition.MakeGeneric(type.GetGenericArguments().Select(x => x.ToBuilderType()).ToArray());
             }
 
-            return this.GetType(type.FullName);
+            return this.GetType(type.FullName, throwExceptionIfNotFound);
         }
 
         /// <summary>
         /// Gets a type from its name. Default search context is <see cref="SearchContext.AllReferencedModules"/>
         /// </summary>
         /// <param name="typeName"></param>
+        /// <param name="throwExceptionIfNotFound"></param>
         /// <returns></returns>
-        public BuilderType GetType(string typeName) => this.GetType(typeName, SearchContext.AllReferencedModules);
+        public BuilderType GetType(string typeName, bool throwExceptionIfNotFound = true) => this.GetType(typeName, SearchContext.AllReferencedModules, throwExceptionIfNotFound);
 
-        public BuilderType GetType(string typeName, SearchContext searchContext)
+        public BuilderType GetType(string typeName, SearchContext searchContext, bool throwExceptionIfNotFound = true)
         {
             var result = this.GetTypesInternal(searchContext).Get(typeName);
 
-            if (result == null)
+            if (result == null && !throwExceptionIfNotFound)
                 throw new TypeNotFoundException($"The type '{typeName}' does not exist in any of the referenced assemblies.");
+            else if (result == null)
+                return null;
 
             if (result.Module.FileName.GetHashCode() != this.moduleDefinition.FileName.GetHashCode() && result.Module.FileName != this.moduleDefinition.FileName)
                 this.moduleDefinition.ImportReference(result);

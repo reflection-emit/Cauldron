@@ -96,12 +96,14 @@
     <Compile Include="HelperTypes\__ISimpleMethodInterceptor.cs" />
     <Compile Include="HelperTypes\__ISyncRoot.cs" />
     <Compile Include="HelperTypes\__IViewModel.cs" />
+    <Compile Include="HelperTypes\__Monitor.cs" />
     <Compile Include="HelperTypes\__PropertyInterceptionInfo.cs" />
     <Compile Include="HelperTypes\__PropertyIsChangedEventArgs.cs" />
     <Compile Include="HelperTypes\__ResourceDictionary.cs" />
     <Compile Include="HelperTypes\__Task.cs" />
     <Compile Include="HelperTypes\__Task`1.cs" />
     <Compile Include="HelperTypes\__TimedCacheAttribute.cs" />
+    <Compile Include="HelperTypes\__Type.cs" />
     <Compile Include="HelperTypes\__Uri.cs" />
     <Compile Include="ModuleWeaver.cs" />
     <Compile Include="ModuleWeaver_AssemblyWideAttributeDecorationAgent.cs" />

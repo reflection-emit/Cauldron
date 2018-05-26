@@ -77,11 +77,13 @@ namespace Activator_Tests
         [TestMethod]
         public void Dictionary_Injection()
         {
+            var ttt = typeof(Dictionary<string, float>);
+
             var dictionaryMock = new Dictionary<string, float>();
             var documentMockType = dictionaryMock.GetType();
 
-            Factory.AddType(typeof(Dictionary<string, float>).FullName, FactoryCreationPolicy.Singleton, dictionaryMock.GetType(), x => documentMockType.CreateInstance());
-            dictionaryMock = Factory.Create(typeof(Dictionary<string, float>).FullName) as Dictionary<string, float>;
+            Factory.AddType(typeof(Dictionary<string, float>).Name, FactoryCreationPolicy.Singleton, dictionaryMock.GetType(), x => documentMockType.CreateInstance());
+            dictionaryMock = Factory.Create(typeof(Dictionary<string, float>).Name) as Dictionary<string, float>;
 
             dictionaryMock.Add("Hi", 33.6f);
             dictionaryMock.Add("Cool", 324f);

@@ -19,6 +19,11 @@ namespace Cauldron.Activator
         FactoryCreationPolicy CreationPolicy { get; }
 
         /// <summary>
+        /// Gets or sets the instance of a singleton
+        /// </summary>
+        object Instance { get; set; }
+
+        /// <summary>
         /// Gets the priority of the component
         /// </summary>
         uint Priority { get; }

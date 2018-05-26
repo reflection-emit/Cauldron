@@ -1,23 +1,14 @@
-﻿using Cauldron.Core;
-using Cauldron.Core.Diagnostics;
-using Cauldron.Interception;
-using System;
-using System.Reflection;
+﻿using System;
+using System.Collections;
 
 namespace Cauldron.Activator
 {
     /// <summary>
-    /// Specifies that the property or field contains a type that can be supplied by the <see cref="Factory"/>
+    /// Specifies that the property or field contains a type that can be supplied by the <see cref="Factory"/>.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false, Inherited = true)]
-    public sealed class InjectAttribute : Attribute, IPropertyGetterInterceptor, ISyncRoot
+    public sealed class InjectAttribute : Attribute
     {
-        private object[] arguments;
-
-        private string contractName;
-
-        private Type typeToCreate;
-
         /// <summary>
         /// Initializes a new instance of <see cref="InjectAttribute"/>
         /// </summary>
@@ -28,112 +19,61 @@ namespace Cauldron.Activator
         /// <summary>
         /// Initializes a new instance of <see cref="InjectAttribute"/>
         /// </summary>
-        /// <param name="arguments">The The arguments that can be used to initialize the instance</param>
-        public InjectAttribute(params object[] arguments) : this(contractName: null, arguments: arguments)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of <see cref="InjectAttribute"/>
-        /// </summary>
-        /// <param name="contractType">The type of the contract to inject</param>
-        /// <param name="arguments">The The arguments that can be used to initialize the instance</param>
-        public InjectAttribute(Type contractType, object[] arguments) : this(contractType.FullName, arguments)
-        {
-            this.typeToCreate = contractType;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of <see cref="InjectAttribute"/>
-        /// </summary>
-        /// <param name="contractName">The name of the contract to inject</param>
-        /// <param name="arguments">The The arguments that can be used to initialize the instance</param>
-        public InjectAttribute(string contractName, object[] arguments)
-        {
-            this.contractName = contractName;
-            this.arguments = arguments;
-        }
-
-        /// <summary>
-        /// Gets or sets the lock object of the interceptor. This is automatically set by Cauldron. Any value will be overriden.
-        /// </summary>
-        public object SyncRoot { get; set; }
-
-        /// <summary>
-        /// Invoked if an intercepted method has raised an exception. The method will always rethrow
-        /// the exception.
-        /// </summary>
-        /// <param name="e">The exception information.</param>
-        public bool OnException(Exception e) => true;
-
-        /// <summary>
-        /// Invoked if the intercepted method has finished executing.
-        /// </summary>
-        public void OnExit()
-        {
-        }
-
-        /// <summary>
-        /// Invoked if the intercepted property getter has been called
-        /// </summary>
-        /// <param name="propertyInterceptionInfo">
-        /// An object that containes information about the intercepted method
+        /// <param name="arguments">
+        /// The The arguments that can be used to initialize the instance.
+        /// <para/>
+        /// The arguments also supports referencing to a property or field. The property or field name has to be prefixed with [property] or [field]. Passing [this] will weave a "this" reference to the parameters.
+        /// <example>
+        /// An example on passing a property's value to an injection.
+        /// <code>
+        /// public string Name { get; set; }
+        ///
+        /// [Inject("[this]", "[property] Name")]
+        /// public IShop Shop { get; }
+        /// </code>
+        /// An example on passing a field's value to an injection.
+        /// <code>
+        /// private string name;
+        ///
+        /// [Inject("[this]", "[field] name")]
+        /// public IShop Shop { get; }
+        /// </code>
+        /// </example>
         /// </param>
-        /// <param name="value">The current value of the property</param>
-        public void OnGet(PropertyInterceptionInfo propertyInterceptionInfo, object value)
+        public InjectAttribute(params object[] arguments)
         {
-            if (value == null)
-            {
-                lock (this.SyncRoot)
-                {
-                    if (value == null)
-                    {
-                        // If the property or field implements IEnumerable then it could be an array
-                        // or list or anything else if it does not have a contract, then we look at
-                        // its child elements... maybe they have a contract
-                        if (string.IsNullOrEmpty(this.contractName))
-                            this.contractName = propertyInterceptionInfo.PropertyType.FullName;
-
-                        object injectionInstance;
-
-                        if (Factory.HasContract(this.contractName))
-                        {
-                            if (this.arguments == null || this.arguments.Length == 0)
-                                injectionInstance = Factory.Create(this.contractName);
-                            else
-                                injectionInstance = Factory.Create(this.contractName, this.arguments);
-                        }
-                        else if (propertyInterceptionInfo.ChildType != null && propertyInterceptionInfo.ChildType != typeof(object))
-                            injectionInstance = Factory.CreateMany(propertyInterceptionInfo.ChildType);
-                        else if (!propertyInterceptionInfo.PropertyType.GetTypeInfo().IsInterface)
-                        {
-                            // If the property type is not an interface, then we will try to create
-                            // the type with its default constructor
-                            if (this.arguments == null || this.arguments.Length == 0)
-                                injectionInstance = this.typeToCreate == null ? propertyInterceptionInfo.PropertyType.CreateInstance() : this.typeToCreate.CreateInstance();
-                            else
-                                injectionInstance = this.typeToCreate == null ? propertyInterceptionInfo.PropertyType.CreateInstance(this.arguments) : this.typeToCreate.CreateInstance(this.arguments);
-                        }
-                        else // If everything else fails... We will throw an exception
-                            throw new InvalidOperationException($"Unable to inject the contract '{this.contractName}' to the property or field '{propertyInterceptionInfo.PropertyName}' in '{propertyInterceptionInfo.DeclaringType.FullName}'. Please make sure that the implementing type has a Component attribute.");
-
-                        propertyInterceptionInfo.SetValue(injectionInstance);
-
-                        // Add these to auto dispose if possible
-                        var disposableInstance = injectionInstance as IDisposable;
-
-                        if (disposableInstance != null)
-                        {
-                            var disposableMe = propertyInterceptionInfo.Instance as IDisposableObject;
-                            // TODO - Maybe auto implement IDisposable???
-                            if (disposableMe != null)
-                                disposableMe.Disposed += (s, e) => disposableInstance?.Dispose();
-                            else
-                                Debug.WriteLine($"ERROR: '{propertyInterceptionInfo.DeclaringType.FullName}' must implement '{typeof(IDisposableObject).FullName}' because '{injectionInstance}' is disposable.");
-                        }
-                    }
-                }
-            }
         }
+
+        /// <summary>
+        /// Gets or sets the contract name of the component to inject.
+        /// </summary>
+        public string ContractName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the contract type of the component to inject.
+        /// </summary>
+        public Type ContractType { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value that tells the <see cref="Factory"/> not to inject many components even though the contract type is a subclass of <see cref="IEnumerable"/>.
+        /// </summary>
+        public bool ForceDontCreateMany { get; set; } = false;
+
+        /// <summary>
+        /// Gets or sets a value that indicates if the implementation with the highest priority is injected even though there are multiple implementations available.
+        /// Equivalent to <see cref="Factory.CreateFirst(string, object[])"/>.
+        /// </summary>
+        public bool InjectFirst { get; set; } = false;
+
+        /// <summary>
+        /// Gets or sets a value that indicates if the injected values should be ordered by its priority. This has only an effect if multiple components are injected.
+        /// Equivalent to <see cref="Factory.CreateManyOrdered(string, object[])"/>.
+        /// </summary>
+        public bool IsOrdered { get; set; } = false;
+
+        /// <summary>
+        /// Gets or sets a value that tells the weaver to implement a double check lock pattern.
+        /// </summary>
+        public bool MakeThreadSafe { get; set; } = false;
     }
 }

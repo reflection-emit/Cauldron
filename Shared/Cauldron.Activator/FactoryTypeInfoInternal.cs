@@ -29,6 +29,10 @@ namespace Cauldron.Activator
 
         /// <exclude/>
         [EditorBrowsable(EditorBrowsableState.Never)]
+        public object Instance { get; set; }
+
+        /// <exclude/>
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public uint Priority { get; private set; } = 0;
 
         /// <exclude/>

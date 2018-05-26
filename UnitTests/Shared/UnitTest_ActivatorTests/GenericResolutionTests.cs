@@ -30,10 +30,11 @@ namespace Activator_Tests
         public T2 Property2 { get; set; }
     }
 
-    public class GenericClassWithStaticCtor<T> : IGenericClassWithStaticCtor<T>
+    public class GenericClassWithStaticCtor<T> : IGenericClassWithStaticCtor<T> where T : new()
     {
         private GenericClassWithStaticCtor()
         {
+            this.Item = new T();
         }
 
         [ComponentConstructor]

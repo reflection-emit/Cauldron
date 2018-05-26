@@ -83,6 +83,7 @@ namespace Cauldron.Interception.Cecilator
         public bool IsArray => this.typeDefinition != null && (this.typeDefinition.IsArray || this.typeReference.FullName.EndsWith("[]") || this.typeDefinition.FullName.EndsWith("[]"));
         public bool IsAsyncStateMachine => this.Implements("System.Runtime.CompilerServices.IAsyncStateMachine", false);
 
+        public bool IsByReference { get; private set; }
         public bool IsDelegate => this.typeDefinition.IsDelegate();
         public bool IsEnum => this.typeDefinition.IsEnum;
         public bool IsForeign => this.moduleDefinition.Assembly == this.typeDefinition.Module.Assembly;
@@ -91,14 +92,13 @@ namespace Cauldron.Interception.Cecilator
         public bool IsGenericParameter => this.typeReference.IsGenericParameter;
 
         public bool IsGenericType => this.typeDefinition == null || this.typeReference.Resolve() == null;
-
         public bool IsInterface => this.typeDefinition == null ? false : this.typeDefinition.Attributes.HasFlag(TypeAttributes.Interface);
 
         public bool IsInternal => this.typeDefinition.Attributes.HasFlag(TypeAttributes.NotPublic);
 
         public bool IsNestedPrivate => this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedPrivate);
 
-        public bool IsNullable => this == BuilderType.Nullable;
+        public bool IsNullable => this == TypeSystemEx.Nullable;
 
         public bool IsPrimitive => this.typeDefinition?.IsPrimitive ?? this.typeReference?.IsPrimitive ?? false;
 
@@ -197,6 +197,7 @@ namespace Cauldron.Interception.Cecilator
 
         internal BuilderType(Builder builder, ArrayType arrayType) : base(builder)
         {
+            this.IsByReference = arrayType.IsByReference;
             this.typeReference = arrayType;
             this.typeDefinition = this.typeReference.BetterResolve();
             this.Builder = builder;
@@ -204,6 +205,7 @@ namespace Cauldron.Interception.Cecilator
 
         internal BuilderType(Builder builder, TypeDefinition typeDefinition) : base(builder)
         {
+            this.IsByReference = typeDefinition.IsByReference;
             this.typeDefinition = typeDefinition;
             this.typeReference = typeDefinition.ResolveType(typeDefinition);
             this.Builder = builder;
@@ -211,6 +213,7 @@ namespace Cauldron.Interception.Cecilator
 
         internal BuilderType(Builder builder, TypeReference typeReference) : base(builder)
         {
+            this.IsByReference = typeReference.IsByReference;
             this.typeDefinition = typeReference.BetterResolve();
             this.typeReference = typeReference;
             this.Builder = builder;
@@ -218,6 +221,7 @@ namespace Cauldron.Interception.Cecilator
 
         internal BuilderType(BuilderType builderType, TypeDefinition typeDefinition) : base(builderType)
         {
+            this.IsByReference = typeDefinition.IsByReference;
             this.typeDefinition = typeDefinition;
             this.typeReference = typeDefinition.ResolveType(typeDefinition);
             this.Builder = builderType.Builder;
@@ -225,6 +229,7 @@ namespace Cauldron.Interception.Cecilator
 
         internal BuilderType(BuilderType builderType, TypeReference typeReference) : base(builderType)
         {
+            this.IsByReference = typeReference.IsByReference;
             this.typeReference = typeReference;
             this.typeDefinition = typeReference.BetterResolve();
             this.Builder = builderType.Builder;
@@ -251,9 +256,6 @@ namespace Cauldron.Interception.Cecilator
         {
             get
             {
-                if (this.IsGenericType)
-                    return null;
-
                 if (!this.typeDefinition.HasMethods)
                     return null;
 
@@ -299,7 +301,7 @@ namespace Cauldron.Interception.Cecilator
             this.typeDefinition.Methods.Add(method);
 
             var result = new Method(this, method);
-            result.NewCoder().Call(BuilderType.Object.ParameterlessContructor.Import()).Return().Replace();
+            result.NewCoder().Call(TypeSystemEx.Object.BuilderType.ParameterlessContructor.Import()).Return().Replace();
             return result;
         }
 
@@ -429,33 +431,36 @@ namespace Cauldron.Interception.Cecilator
 
         public bool ContainsProperty(string name) => this.GetProperties().Any(x => x.Name == name);
 
-        public Property CreateProperty(Modifiers modifier, Type propertyType, string name, bool getterOnly = false) =>
-                    this.CreateProperty(modifier, this.Builder.GetType(propertyType), name, getterOnly);
+        public Property CreateProperty(Modifiers modifier, Type propertyType, string name, PropertySetterCreationOption setterCreationOption = PropertySetterCreationOption.AlwaysCreate) =>
+                    this.CreateProperty(modifier, this.Builder.GetType(propertyType), name, setterCreationOption);
 
-        public Property CreateProperty(Modifiers modifier, BuilderType propertyType, string name, bool getterOnly = false)
+        public Property CreateProperty(Modifiers modifier, BuilderType propertyType, string name, PropertySetterCreationOption setterCreationOption = PropertySetterCreationOption.AlwaysCreate)
         {
             var contain = this.GetProperties().Get(name);
 
             if (contain != null)
                 return new Property(this, contain);
 
+            var createSetter = setterCreationOption == PropertySetterCreationOption.AlwaysCreate;
             var attributes = MethodAttributes.HideBySig | MethodAttributes.SpecialName;
 
             if (modifier.HasFlag(Modifiers.Private)) attributes |= MethodAttributes.Private;
             if (modifier.HasFlag(Modifiers.Static)) attributes |= MethodAttributes.Static;
             if (modifier.HasFlag(Modifiers.Public)) attributes |= MethodAttributes.Public;
             if (modifier.HasFlag(Modifiers.Protected)) attributes |= MethodAttributes.Family;
-            if (modifier.HasFlag(Modifiers.Overrides)) attributes |= MethodAttributes.Final | MethodAttributes.Virtual | MethodAttributes.NewSlot;
 
             var returnType = this.moduleDefinition.ImportReference(propertyType.typeReference);
             var property = new PropertyDefinition(name, PropertyAttributes.None, returnType);
             var backingField = this.CreateField(modifier, returnType, $"<{name}>k__BackingField");
 
+            // This should be here to insure that the field does not have these attributes... Is that even possible?
+            if (modifier.HasFlag(Modifiers.Overrides)) attributes |= MethodAttributes.Final | MethodAttributes.Virtual | MethodAttributes.NewSlot;
+
             property.GetMethod = new MethodDefinition("get_" + name, attributes, returnType);
             this.typeDefinition.Properties.Add(property);
             this.typeDefinition.Methods.Add(property.GetMethod);
 
-            if (!getterOnly)
+            if (createSetter)
             {
                 property.SetMethod = new MethodDefinition("set_" + name, attributes, this.moduleDefinition.TypeSystem.Void);
                 property.SetMethod.Parameters.Add(new ParameterDefinition("value", ParameterAttributes.None, returnType));
@@ -466,14 +471,14 @@ namespace Cauldron.Interception.Cecilator
 
             result.Getter.NewCoder().Load(backingField).Return().Replace();
 
-            if (!getterOnly)
+            if (createSetter)
                 result.Setter.NewCoder().SetValue(backingField, CodeBlocks.GetParameter(0)).Return().Replace();
 
             result.RefreshBackingField();
             return result;
         }
 
-        public Property CreateProperty(Field field, bool getterOnly = false)
+        public Property CreateProperty(Field field, PropertySetterCreationOption setterCreationOption = PropertySetterCreationOption.AlwaysCreate)
         {
             var name = $"<{field.Name}>_fieldProperty";
 
@@ -482,6 +487,7 @@ namespace Cauldron.Interception.Cecilator
             if (contain != null)
                 return new Property(this, contain);
 
+            var createSetter = setterCreationOption == PropertySetterCreationOption.AlwaysCreate;
             var attributes = MethodAttributes.HideBySig | MethodAttributes.SpecialName | MethodAttributes.Private;
 
             if (field.Modifiers.HasFlag(Modifiers.Private)) attributes |= MethodAttributes.Private;
@@ -497,7 +503,7 @@ namespace Cauldron.Interception.Cecilator
             this.typeDefinition.Properties.Add(property);
             this.typeDefinition.Methods.Add(property.GetMethod);
 
-            if (!getterOnly)
+            if (createSetter)
             {
                 property.SetMethod = new MethodDefinition("set_" + name, attributes, this.moduleDefinition.TypeSystem.Void);
                 property.SetMethod.Parameters.Add(new ParameterDefinition("value", ParameterAttributes.None, field.FieldType.typeReference));
@@ -508,7 +514,7 @@ namespace Cauldron.Interception.Cecilator
 
             result.Getter.NewCoder().Load(field).Return().Replace();
 
-            if (!getterOnly)
+            if (createSetter)
                 result.Setter.NewCoder().SetValue(field, CodeBlocks.GetParameter(0)).Return().Replace();
 
             result.RefreshBackingField();

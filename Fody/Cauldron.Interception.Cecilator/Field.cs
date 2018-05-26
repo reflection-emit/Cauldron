@@ -66,6 +66,12 @@ namespace Cauldron.Interception.Cecilator
         /// </summary>
         public BuilderType OriginType => this.type;
 
+        public bool ReadOnly
+        {
+            get => this.fieldDef.IsInitOnly;
+            set => this.fieldDef.IsInitOnly = value;
+        }
+
         public IEnumerable<FieldUsage> FindUsages()
         {
             var result = this.fieldDef
