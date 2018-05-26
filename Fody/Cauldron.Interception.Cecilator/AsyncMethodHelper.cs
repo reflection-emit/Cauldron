@@ -170,7 +170,7 @@ namespace Cauldron.Interception.Cecilator
             if (asyncMethod == null)
                 return null;
 
-            var lastException = asyncMethod.methodDefinition.Body.Instructions.Last(x =>
+            var lastGetResult = asyncMethod.methodDefinition.Body.Instructions.Last(x =>
             {
                 if (x.OpCode == OpCodes.Call)
                 {
@@ -182,10 +182,39 @@ namespace Cauldron.Interception.Cecilator
                 return false;
             });
 
-            if (lastException == null)
+            if (lastGetResult == null)
                 return null;
 
-            return new Position(asyncMethod, lastException.Previous.Previous);
+            return new Position(asyncMethod, lastGetResult.Previous.Previous);
+        }
+
+        /// <summary>
+        /// The position of the last SetResult method call starting from the first parameter in the AsyncStateMachine MoveNext method.
+        /// </summary>
+        /// <returns></returns>
+        public Position GetAsyncStateMachineLastSetResult()
+        {
+            var asyncMethod = this.method.AsyncMethod ?? this.method;
+
+            if (asyncMethod == null)
+                return null;
+
+            var lastSetResult = asyncMethod.methodDefinition.Body.Instructions.Last(x =>
+            {
+                if (x.OpCode == OpCodes.Call)
+                {
+                    var method = x.Operand as MethodDefinition ?? x.Operand as MethodReference;
+                    if (method != null && method.Name == "SetResult")
+                        return true;
+                }
+
+                return false;
+            });
+
+            if (lastSetResult == null)
+                return null;
+
+            return new Position(asyncMethod, lastSetResult.Previous.Previous.Previous);
         }
 
         public Positions GetAsyncStateMachineTryBlock()

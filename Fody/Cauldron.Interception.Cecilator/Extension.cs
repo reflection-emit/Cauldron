@@ -1012,10 +1012,10 @@ namespace Cauldron.Interception.Cecilator
             return result;
         }
 
-        internal static VariableReference GetVariable(this Method method, Instruction instruction)
+        internal static VariableDefinition GetVariable(this Method method, Instruction instruction)
             => method.methodDefinition.GetVariable(instruction);
 
-        internal static VariableReference GetVariable(this MethodDefinition methodDefinition, Instruction instruction)
+        internal static VariableDefinition GetVariable(this MethodDefinition methodDefinition, Instruction instruction)
         {
             if (instruction.OpCode == OpCodes.Ldloc_0)
                 return methodDefinition.Body.Variables[0];
@@ -1026,7 +1026,7 @@ namespace Cauldron.Interception.Cecilator
             else if (instruction.OpCode == OpCodes.Ldloc_3)
                 return methodDefinition.Body.Variables[3];
             else
-                return instruction.Operand as VariableReference;
+                return instruction.Operand as VariableDefinition;
         }
 
         internal static void InsertAfter(this ILProcessor processor, Instruction target, Instruction[] instructions) => processor.InsertAfter(target, instructions as IEnumerable<Instruction>);
