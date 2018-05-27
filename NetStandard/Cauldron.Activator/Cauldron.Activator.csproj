@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Version>3.0.18</Version>
+    <Version>3.0.21</Version>
     <Authors>Alexander Schunk, Capgemini Deutschland GmbH</Authors>
     <Company>Capgemini Deutschland GmbH</Company>
     <Copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</Copyright>
@@ -14,8 +14,8 @@
     <PackageId>Capgemini.Cauldron.Activator</PackageId>
     <Description>The activator is a simple and very fast dependency injection framework. It is based on attributes and does not require any configuration files for configuration. It also supports using static methods as component constructor.</Description>
     <PackageTags>Toolkit Capgemini Activator Dependency Injection Factory Cauldron</PackageTags>
-    <AssemblyVersion>3.0.0.18</AssemblyVersion>
-    <FileVersion>3.0.0.18</FileVersion>
+    <AssemblyVersion>3.0.0.21</AssemblyVersion>
+    <FileVersion>3.0.0.21</FileVersion>
     <Configurations>Debug;Release;Release.Net45;Release.451</Configurations>
   </PropertyGroup>
 

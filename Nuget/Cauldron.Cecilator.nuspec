@@ -17,6 +17,9 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Cauldron Interception interceptor interception AOP Fody Cecil CIL ILWeaving</tags>
     <releaseNotes>
+      2018.05.26 - [C] JsonIgnoreAttribute is now not added to Cauldron generated fields.
+      2018.05.26 - [C] TypeSystem moved from BuilderType to the new class TypeSystemEx
+      2018.05.26 - [B] Multiple bugs regarding resolving of generics fixed.
       2018.05.21 - [B] Parameter array in async method not correctly weaved.
       2018.05.21 - [B] Return value for async methods is not correctly detected in some cases. fixed.
       2018.05.21 - [B] Bug fixed regarding weaving of async void methods.

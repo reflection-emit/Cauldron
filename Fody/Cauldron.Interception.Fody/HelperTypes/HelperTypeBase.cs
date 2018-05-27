@@ -48,7 +48,7 @@ namespace Cauldron.Interception.Fody.HelperTypes
                 var result = Name;
 
                 if (builder.TypeExists(result))
-                    return builder.GetType(result);
+                    return builder.GetType(result).Import();
 
                 throw new TypeNotFoundException($"The type '{result}' does not exist.");
             }

@@ -95,8 +95,8 @@ namespace Cauldron.Interception.Cecilator
                     this.Add(this.builder.GetType("System.NonSerializedAttribute"));
             }
 
-            if (this.builder.TypeExists("Newtonsoft.Json.JsonIgnoreAttribute"))
-                this.Add(this.builder.GetType("Newtonsoft.Json.JsonIgnoreAttribute"));
+            //if (this.builder.TypeExists("Newtonsoft.Json.JsonIgnoreAttribute"))
+            //    this.Add(this.builder.GetType("Newtonsoft.Json.JsonIgnoreAttribute"));
         }
 
         public void Copy(BuilderCustomAttribute attribute)

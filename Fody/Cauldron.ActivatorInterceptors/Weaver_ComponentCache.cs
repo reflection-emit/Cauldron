@@ -90,6 +90,7 @@ public static class Weaver_ComponentCache
             builder.Log(LogTypes.Info, "Hardcoding component factory .ctor: " + component.Type.Fullname);
 
             var componentAttributeValue = new ComponentAttributeValues(component);
+            var componentAttributeValues = new ComponentAttributeValues(component);
 
             var instanceFieldName = $"<{component.Type}>_componentInstance";
             var componentType = builder.CreateType("", TypeAttributes.NotPublic | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit, "<>f__IFactoryTypeInfo_" + component.Type.Name.GetValidName() + "_" + counter++);
@@ -106,7 +107,14 @@ public static class Weaver_ComponentCache
             componentType.CreateMethod(Modifiers.Public | Modifiers.Overrides, createInstanceInterfaceMethod.ReturnType, createInstanceInterfaceMethod.Name, createInstanceInterfaceMethod.Parameters)
                 .NewCoder()
                 .Context(x => AddContext(builder, x, factory, component))
-                .Context(x => x.Call(extensionAvatar.CreateInstance, component.Type, CodeBlocks.GetParameter(0)).Duplicate().Call(factory.OnObjectCreation, CodeBlocks.This).Return())
+                .Context(x =>
+                {
+                    x.Call(extensionAvatar.CreateInstance, component.Type, CodeBlocks.GetParameter(0));
+                    if (componentAttributeValues.InvokeOnObjectCreationEvent)
+                        x.Duplicate().Call(factory.OnObjectCreation, CodeBlocks.This);
+
+                    return x.Return();
+                })
                 .Replace();
 
             // Implement the properties
@@ -253,6 +261,7 @@ public static class Weaver_ComponentCache
     private static Coder AddContext(Builder builder, Coder context, __Factory factory, AttributedType component)
     {
         var componentConstructorAttribute = __ComponentConstructorAttribute.Type;
+        var componentAttributeValues = new ComponentAttributeValues(component);
 
         // Find any method with a componentcontructor attribute
         var ctors = component.Type.GetMethods(y =>
@@ -305,10 +314,29 @@ public static class Weaver_ComponentCache
                     // In this case we have to find a parameterless constructor first
                     if (component.Type.ParameterlessContructor != null && !parameterlessCtorAlreadyHandled && component.Type.ParameterlessContructor.IsPublicOrInternal)
                     {
-                        context.If(x => x.Load(CodeBlocks.GetParameter(0)).IsNull(), then => then.NewObj(component.Type.ParameterlessContructor).Duplicate().Call(factory.OnObjectCreation, CodeBlocks.This).Return());
-                        context.If(x => x.Load(CodeBlocks.GetParameter(0)).Call(arrayAvatar.Length).Is(0), then => then.NewObj(component.Type.ParameterlessContructor).Duplicate().Call(factory.OnObjectCreation, CodeBlocks.This).Return());
+                        context.If(x => x.Load(CodeBlocks.GetParameter(0)).IsNull(), then =>
+                        {
+                            then.NewObj(component.Type.ParameterlessContructor);
+
+                            if (componentAttributeValues.InvokeOnObjectCreationEvent)
+                                then.Duplicate().Call(factory.OnObjectCreation, CodeBlocks.This);
+
+                            return then.Return();
+                        });
+                        context.If(x => x.Load(CodeBlocks.GetParameter(0)).Call(arrayAvatar.Length).Is(0), then =>
+                        {
+                            then.NewObj(component.Type.ParameterlessContructor);
+
+                            if (componentAttributeValues.InvokeOnObjectCreationEvent)
+                                then.Duplicate().Call(factory.OnObjectCreation, CodeBlocks.This);
+
+                            return then.Return();
+                        });
                         parameterlessCtorAlreadyHandled = true;
                     }
+
+                    foreach (var ttt in ctorParameters)
+                        Builder.Current.Log(LogTypes.Info, $">>>>>> {ttt}");
 
                     context.If(@if =>
                     {
@@ -320,24 +348,62 @@ public static class Weaver_ComponentCache
                     }, @then =>
                     {
                         if (ctor.Name == ".ctor")
-                            then.NewObj(ctor, CodeBlocks.GetParameter(0).ArrayElements()).Duplicate().Call(factory.OnObjectCreation, CodeBlocks.This).Return();
-                        else
-                            then.Call(ctor, CodeBlocks.GetParameter(0).ArrayElements()).Duplicate().Call(factory.OnObjectCreation, CodeBlocks.This).Return();
+                        {
+                            then.NewObj(ctor, CodeBlocks.GetParameter(0).ArrayElements());
 
-                        return then;
+                            if (componentAttributeValues.InvokeOnObjectCreationEvent)
+                                then.Duplicate().Call(factory.OnObjectCreation, CodeBlocks.This);
+                        }
+                        else
+                        {
+                            then.Call(ctor, CodeBlocks.GetParameter(0).ArrayElements());
+
+                            if (componentAttributeValues.InvokeOnObjectCreationEvent)
+                                then.Duplicate().Call(factory.OnObjectCreation, CodeBlocks.This);
+                        }
+
+                        return then.Return();
                     });
                 }
                 else
                 {
                     if (ctor.Name == ".ctor")
                     {
-                        context.If(x => x.Load(CodeBlocks.GetParameter(0)).IsNull(), then => then.NewObj(ctor).Duplicate().Call(factory.OnObjectCreation, CodeBlocks.This).Return());
-                        context.If(x => x.Load(CodeBlocks.GetParameter(0)).Call(arrayAvatar.Length).Is(0), then => then.NewObj(ctor).Duplicate().Call(factory.OnObjectCreation, CodeBlocks.This).Return());
+                        context.If(x => x.Load(CodeBlocks.GetParameter(0)).IsNull(), then =>
+                        {
+                            then.NewObj(ctor);
+
+                            if (componentAttributeValues.InvokeOnObjectCreationEvent)
+                                then.Duplicate().Call(factory.OnObjectCreation, CodeBlocks.This);
+                            return then.Return();
+                        });
+                        context.If(x => x.Load(CodeBlocks.GetParameter(0)).Call(arrayAvatar.Length).Is(0), then =>
+                        {
+                            then.NewObj(ctor);
+
+                            if (componentAttributeValues.InvokeOnObjectCreationEvent)
+                                then.Duplicate().Call(factory.OnObjectCreation, CodeBlocks.This);
+                            return then.Return();
+                        });
                     }
                     else
                     {
-                        context.If(x => x.Load(CodeBlocks.GetParameter(0)).IsNull(), then => then.Call(ctor).Duplicate().Call(factory.OnObjectCreation, CodeBlocks.This).Return());
-                        context.If(x => x.Load(CodeBlocks.GetParameter(0)).Call(arrayAvatar.Length).Is(0), then => then.Call(ctor).Duplicate().Call(factory.OnObjectCreation, CodeBlocks.This).Return());
+                        context.If(x => x.Load(CodeBlocks.GetParameter(0)).IsNull(), then =>
+                        {
+                            then.Call(ctor);
+
+                            if (componentAttributeValues.InvokeOnObjectCreationEvent)
+                                then.Duplicate().Call(factory.OnObjectCreation, CodeBlocks.This);
+                            return then.Return();
+                        });
+                        context.If(x => x.Load(CodeBlocks.GetParameter(0)).Call(arrayAvatar.Length).Is(0), then =>
+                        {
+                            then.Call(ctor);
+
+                            if (componentAttributeValues.InvokeOnObjectCreationEvent)
+                                then.Duplicate().Call(factory.OnObjectCreation, CodeBlocks.This);
+                            return then.Return();
+                        });
                     }
 
                     parameterlessCtorAlreadyHandled = true;
@@ -352,8 +418,22 @@ public static class Weaver_ComponentCache
                 builder.Log(LogTypes.Error, component.Type, $"The component '{component.Type.Fullname}' has no ComponentConstructor attribute or the constructor is not public");
             else if (component.Type.ParameterlessContructor.IsPublicOrInternal)
             {
-                context.If(x => x.Load(CodeBlocks.GetParameter(0)).IsNull(), then => then.NewObj(component.Type.ParameterlessContructor).Duplicate().Call(factory.OnObjectCreation, CodeBlocks.This).Return());
-                context.If(x => x.Load(CodeBlocks.GetParameter(0)).Call(arrayAvatar.Length).Is(0), then => then.NewObj(component.Type.ParameterlessContructor).Duplicate().Call(factory.OnObjectCreation, CodeBlocks.This).Return());
+                context.If(x => x.Load(CodeBlocks.GetParameter(0)).IsNull(), then =>
+                {
+                    then.NewObj(component.Type.ParameterlessContructor);
+
+                    if (componentAttributeValues.InvokeOnObjectCreationEvent)
+                        then.Duplicate().Call(factory.OnObjectCreation, CodeBlocks.This);
+                    return then.Return();
+                });
+                context.If(x => x.Load(CodeBlocks.GetParameter(0)).Call(arrayAvatar.Length).Is(0), then =>
+                {
+                    then.NewObj(component.Type.ParameterlessContructor);
+
+                    if (componentAttributeValues.InvokeOnObjectCreationEvent)
+                        then.Duplicate().Call(factory.OnObjectCreation, CodeBlocks.This);
+                    return then.Return();
+                });
 
                 builder.Log(LogTypes.Info, $"The component '{component.Type.Fullname}' has no ComponentConstructor attribute. A parameterless ctor was found and will be used.");
             }
@@ -457,7 +537,7 @@ public static class Weaver_ComponentCache
                 continue;
             }
 
-            var injectAttributeData = new InjectAttributeValues(member.Attribute, member.Field.FieldType);
+            var injectAttributeData = new InjectAttributeValues(member.Attribute);
 
             var type = member.Field.OriginType;
             var usage = member.Field.FindUsages().ToArray();
@@ -504,7 +584,7 @@ public static class Weaver_ComponentCache
             if (member.Property.IsAbstract)
                 continue;
 
-            var injectAttributeData = new InjectAttributeValues(member.Attribute, member.Property.ReturnType);
+            var injectAttributeData = new InjectAttributeValues(member.Attribute);
             ImplementPropertyGetter(injectAttributeData, member.Property);
             member.Remove();
         }
@@ -558,6 +638,7 @@ public static class Weaver_ComponentCache
     {
         public ComponentAttributeValues(AttributedType attributedType)
         {
+            if (attributedType.Attribute.Properties.ContainsKey("InvokeOnObjectCreationEvent")) this.InvokeOnObjectCreationEvent = (bool)attributedType.Attribute.Properties["InvokeOnObjectCreationEvent"].Value;
             foreach (var item in attributedType.Attribute.ConstructorArguments)
             {
                 switch (item.Type.FullName)
@@ -583,13 +664,14 @@ public static class Weaver_ComponentCache
 
         public string ContractName { get; }
         public BuilderType ContractType { get; }
+        public bool InvokeOnObjectCreationEvent { get; }
         public int Policy { get; }
         public uint Priority { get; }
     }
 
     private class InjectAttributeValues
     {
-        public InjectAttributeValues(BuilderCustomAttribute builderCustomAttribute, BuilderType builderType)
+        public InjectAttributeValues(BuilderCustomAttribute builderCustomAttribute)
         {
             if (builderCustomAttribute.ConstructorArguments != null && builderCustomAttribute.ConstructorArguments.Length > 0)
                 this.Arguments = builderCustomAttribute.ConstructorArguments[0].Value as CustomAttributeArgument[];

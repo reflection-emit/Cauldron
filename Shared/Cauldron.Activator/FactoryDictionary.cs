@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Cauldron.Activator
 {
@@ -9,7 +8,7 @@ namespace Cauldron.Activator
          http://blog.teamleadnet.com/2012/07/ultra-fast-hashtable-dictionary-with.html
     */
 
-    internal sealed class FactoryDictionary
+    internal sealed class FactoryDictionary<TValue> where TValue : class
     {
         private const int initialsize = 89;
 
@@ -25,17 +24,7 @@ namespace Cauldron.Activator
 
         public int Count => nextfree;
 
-        public static FactoryDictionary Create(IEnumerable<IGrouping<string, IFactoryTypeInfo>> typeInfos)
-        {
-            var dictionary = new FactoryDictionary();
-
-            foreach (var item in typeInfos)
-                dictionary.Add(item.Key, new FactoryDictionaryValue { factoryTypeInfos = item.ToArray() });
-
-            return dictionary;
-        }
-
-        public void Add(string key, FactoryDictionaryValue value)
+        public void Add(string key, TValue value)
         {
             if (nextfree >= entries.Length)
                 Resize();
@@ -55,7 +44,7 @@ namespace Cauldron.Activator
 
                     // same key is in the dictionary
                     if (hash == entry.hashcode && key == entry.key)
-                        throw new ArgumentException($"The key '{key}' already exists.");
+                        return;
 
                     currEntryPos = entry.next;
                 }
@@ -75,6 +64,8 @@ namespace Cauldron.Activator
                 hashcode = hash
             };
         }
+
+        public void Clear() => Initialize();
 
         public bool ContainsKey(string key)
         {
@@ -100,7 +91,7 @@ namespace Cauldron.Activator
             return false;
         }
 
-        public IEnumerable<FactoryDictionaryValue> GetValues()
+        public IEnumerable<TValue> GetValues()
         {
             for (int i = 0; i < entries.Length; i++)
                 if (entries[i] != null)
@@ -136,7 +127,7 @@ namespace Cauldron.Activator
             return false;
         }
 
-        public bool TryGetValue(string key, out FactoryDictionaryValue value)
+        public bool TryGetValue(string key, out TValue value)
         {
             uint hash = (uint)key.GetHashCode();
             uint pos = hash % (uint)buckets.Length;
@@ -218,7 +209,7 @@ namespace Cauldron.Activator
             public uint hashcode;
             public string key;
             public int next;
-            public FactoryDictionaryValue value;
+            public TValue value;
         }
     }
 

@@ -1,6 +1,9 @@
 ﻿using Cauldron.Activator;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
+using System.Linq;
 
+[module: GenericComponent(typeof(Activator_Tests.ClassWithGeneric<int, string>), typeof(Activator_Tests.ClassWithGeneric<int, string>))]
 [module: GenericComponent(typeof(Activator_Tests.ClassWithGeneric<int, string>), "toast-me")]
 [module: GenericComponent(typeof(Activator_Tests.ClassWithGeneric<int, string>), "toast-me")]
 [module: GenericComponent(typeof(Activator_Tests.ClassWithGeneric<int, string>), "toast-me")]
@@ -19,12 +22,19 @@ namespace Activator_Tests
         {
         }
 
+        [ComponentConstructor]
+        public ClassWithGeneric(IEnumerable<T2> ts)
+        {
+            this.Items = ts.ToArray();
+        }
+
         public ClassWithGeneric(T1 a, T2 b)
         {
             this.Property1 = a;
             this.Property2 = b;
         }
 
+        public T2[] Items { get; }
         public T1 Property1 { get; set; }
 
         public T2 Property2 { get; set; }
@@ -62,6 +72,22 @@ namespace Activator_Tests
 
             Assert.AreEqual(3, o.Property1);
             Assert.AreEqual("Hello", o.Property2);
+        }
+
+        [TestMethod]
+        public void Insure_That_Generic_Casting_Is_Correctly_Weaved()
+        {
+            var stuff = new string[]
+            {
+                "Hello",
+                "Whats",
+                "Up"
+            };
+
+            var result = Factory.Create(typeof(ClassWithGeneric<int, string>), new object[] { stuff }) as ClassWithGeneric<int, string>;
+            Assert.AreEqual("Hello", result.Items[0]);
+            Assert.AreEqual("Whats", result.Items[1]);
+            Assert.AreEqual("Up", result.Items[2]);
         }
     }
 }

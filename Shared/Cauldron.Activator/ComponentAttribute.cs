@@ -92,6 +92,11 @@ namespace Cauldron.Activator
         public string ContractName { get; private set; }
 
         /// <summary>
+        /// Gets or sets a value that tells the weaver to implement the event invokation of <see cref="Factory.ObjectCreated"/>.
+        /// </summary>
+        public bool InvokeOnObjectCreationEvent { get; set; } = false;
+
+        /// <summary>
         /// Gets the creation policy
         /// </summary>
         public FactoryCreationPolicy Policy { get; private set; }

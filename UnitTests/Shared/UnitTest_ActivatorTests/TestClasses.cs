@@ -29,6 +29,11 @@ namespace Activator_Tests
         }
     }
 
+    [Component("test test", InvokeOnObjectCreationEvent = true)]
+    public class ClassWithInvokation
+    {
+    }
+
     [Component(typeof(object), FactoryCreationPolicy.Singleton, 34)]
     [Component("Hello", FactoryCreationPolicy.Singleton, 34)]
     public class AllParametersClass

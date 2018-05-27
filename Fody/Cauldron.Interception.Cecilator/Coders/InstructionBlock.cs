@@ -1326,7 +1326,8 @@ namespace Cauldron.Interception.Cecilator.Coders
                         result.Append(InstructionBlock.CreateCode(instructionBlock, null, i));
                         result.Emit(OpCodes.Ldelem_Ref);
 
-                        CastOrBoxValues(result, methodParameters[i].ParameterType.ToBuilderType());
+                        var parameterBuilderType = GetResolvedParameterType(method, methodParameters[i]);
+                        CastOrBoxValues(result, parameterBuilderType);
                     }
                 }
                 else if (parameters != null && parameters.Length > 0 && parameters[0] is ParametersCodeBlock parameterCodeSet && parameterCodeSet.IsAllParameters)
@@ -1336,11 +1337,7 @@ namespace Cauldron.Interception.Cecilator.Coders
 
                     for (int i = 0; i < method.methodReference.Parameters.Count; i++)
                     {
-                        var parameterType = method.methodDefinition.Parameters[i].ParameterType.IsGenericInstance || method.methodDefinition.Parameters[i].ParameterType.IsGenericParameter ?
-                            method.methodDefinition.Parameters[i].ParameterType.ResolveType(method.OriginType.typeReference, method.methodReference) :
-                            method.methodDefinition.Parameters[i].ParameterType;
-                        var parameterBuilderType = parameterType.ToBuilderType().Import();
-
+                        var parameterBuilderType = GetResolvedParameterType(method, method.methodReference.Parameters[i]);
                         result.Append(InstructionBlock.CreateCode(result, parameterBuilderType, CodeBlocks.GetParameter(i)));
                     }
                 }
@@ -1352,11 +1349,7 @@ namespace Cauldron.Interception.Cecilator.Coders
                     if (parameters != null)
                         for (int i = 0; i < parameters.Length; i++)
                         {
-                            var parameterType = method.methodDefinition.Parameters[i].ParameterType.IsGenericInstance || method.methodDefinition.Parameters[i].ParameterType.IsGenericParameter ?
-                                method.methodDefinition.Parameters[i].ParameterType.ResolveType(method.OriginType.typeReference, method.methodReference) :
-                                method.methodDefinition.Parameters[i].ParameterType;
-                            var parameterBuilderType = parameterType.ToBuilderType().Import();
-
+                            var parameterBuilderType = GetResolvedParameterType(method, method.methodReference.Parameters[i]);
                             result.Append(InstructionBlock.CreateCode(result, parameterBuilderType, parameters[i]));
                         }
                 }
@@ -1646,6 +1639,14 @@ namespace Cauldron.Interception.Cecilator.Coders
             if (type.IsValueType && !targetType.IsValueType)
                 instructionBlock.Emit(OpCodes.Box, type.IsEnum ?
                     Enum.GetUnderlyingType(type).ToBuilderType().Import() : type.ToBuilderType().Import());
+        }
+
+        private static BuilderType GetResolvedParameterType(Method method, ParameterDefinition parameterDefinition)
+        {
+            var parameterType = parameterDefinition.ParameterType.IsGenericInstance || parameterDefinition.ParameterType.IsGenericParameter ?
+                parameterDefinition.ParameterType.ResolveType(method.OriginType.typeReference, method.methodReference) :
+                parameterDefinition.ParameterType;
+            return parameterType.ToBuilderType().Import();
         }
 
         private static TypeReference GetTypeWithMoreCapacity(TypeReference a, TypeReference b)

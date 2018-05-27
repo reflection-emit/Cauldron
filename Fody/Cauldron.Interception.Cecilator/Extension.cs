@@ -1419,14 +1419,14 @@ namespace Cauldron.Interception.Cecilator
                 }
 
                 if (type.HasGenericParameters)
-                    return castedInheritingOrImplementingType.ResolveGenericArguments(castedInheritingOrImplementingType);
+                    return (type as GenericInstanceType ?? type.MakeGenericInstanceType(type.GenericParameters.ToArray())).ResolveGenericArguments(castedInheritingOrImplementingType);
 
                 if (type.ContainsGenericParameter)
                 {
                     if (!type.IsGenericInstance)
                         return type;
 
-                    return castedInheritingOrImplementingType.ResolveGenericArguments(castedInheritingOrImplementingType);
+                    return (type as GenericInstanceType ?? type.MakeGenericInstanceType(type.GenericParameters.ToArray())).ResolveGenericArguments(castedInheritingOrImplementingType);
                 }
             }
 
