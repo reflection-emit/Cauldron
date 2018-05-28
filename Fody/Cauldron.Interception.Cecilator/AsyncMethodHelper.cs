@@ -259,8 +259,15 @@ namespace Cauldron.Interception.Cecilator
             return new Position(this.method, result);
         }
 
-        public Field InsertFieldToAsyncStateMachine(string fieldName, BuilderType fieldType, Func<Coder, object> setCoder)
+        public Field InsertFieldToAsyncStateMachine(string fieldName, BuilderType fieldType, Func<Coder, object> setCoder) =>
+            InsertFieldToAsyncStateMachine(fieldName, fieldType.typeReference, setCoder);
+
+        public Field InsertFieldToAsyncStateMachine(string fieldName, TypeReference fieldType, Func<Coder, object> setCoder)
         {
+            var result = this.method.AsyncMethod.OriginType.GetField(fieldName, false);
+            if (result != null)
+                return result;
+
             var newField = this.method.AsyncMethod.OriginType.CreateField(Modifiers.Public, fieldType, fieldName);
             var resolvedField = newField.Resolve(this.method);
             var position = this.GetAsyncTaskMethodBuilderInitialization();

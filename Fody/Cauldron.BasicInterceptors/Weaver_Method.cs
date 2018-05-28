@@ -103,7 +103,7 @@ public sealed class Weaver_Method
                 coder.Context(x =>
                 {
                     for (int i = 0; i < simpleMethodInterceptors.Length; i++)
-                        x.Load<ICallMethod<CallCoder>>(simpleMethodInterceptors[i].FieldOrVariable).Call(simpleMethodInterceptors[i].InterfaceB.OnEnter, attributedMethod.OriginType, CodeBlocks.This, attributedMethod,
+                        x.Load<ICallMethod<CallCoder>>(simpleMethodInterceptors[i].FieldOrVariable).Call(simpleMethodInterceptors[i].InterfaceB.OnEnter, attributedMethod.OriginType, coder.AssociatedMethod.AsyncMethodHelper.Instance, attributedMethod,
                             method.Key.Method.Parameters.Length > 0 ? x.GetParametersArray() : null);
 
                     if (!hasFullMethodInterceptors)
@@ -119,7 +119,7 @@ public sealed class Weaver_Method
                 var tryCoder = coder.Try(x =>
                     {
                         for (int i = 0; i < fullMethodInterceptors.Length; i++)
-                            x.Load<ICallMethod<CallCoder>>(fullMethodInterceptors[i].FieldOrVariable).Call(fullMethodInterceptors[i].InterfaceA.OnEnter, attributedMethod.OriginType, CodeBlocks.This, attributedMethod,
+                            x.Load<ICallMethod<CallCoder>>(fullMethodInterceptors[i].FieldOrVariable).Call(fullMethodInterceptors[i].InterfaceA.OnEnter, attributedMethod.OriginType, coder.AssociatedMethod.AsyncMethodHelper.Instance, attributedMethod,
                                 method.Key.Method.Parameters.Length > 0 ? x.GetParametersArray() : null);
 
                         return x.OriginalBody();

@@ -136,15 +136,16 @@ namespace Cauldron.Interception.Cecilator.Coders
             Method targetMethod;
             Method originMethod;
 
-            if (this.instructions.associatedMethod.IsAsync)
+            if (this.instructions.associatedMethod.IsAsync || this.instructions.associatedMethod.AsyncOriginType.IsAsyncStateMachine)
             {
                 targetMethod = this.instructions.associatedMethod;
                 originMethod = this.instructions.associatedMethod.AsyncMethodHelper.Method;
-            }
-            else if (this.instructions.associatedMethod.AsyncOriginType.IsAsyncStateMachine)
-            {
-                targetMethod = this.instructions.associatedMethod;
-                originMethod = this.instructions.associatedMethod.AsyncMethodHelper.Method;
+
+                for (int i = 0; i < originMethod.methodReference.Parameters.Count; i++)
+                {
+                    var parameter = originMethod.methodReference.Parameters[i];
+                    originMethod.AsyncMethodHelper.InsertFieldToAsyncStateMachine(parameter.Name, parameter.ParameterType, x => CodeBlocks.GetParameter(i));
+                }
             }
             else
             {
