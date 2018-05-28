@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -87,6 +86,20 @@ namespace Cauldron.Core.Reflection
         /// Gets an array of <see cref="Assembly"/> that is loaded to the AppDomain
         /// </summary>
         public static Assembly[] Known => _assemblies.ToArray();
+
+        /// <summary>
+        /// Adds a collection of new Assembly to the assembly collection.
+        /// </summary>
+        /// <param name="assemblies">The collection of assemblies to be added.</param>
+        public static void AddAssemblies(IEnumerable<Assembly> assemblies)
+        {
+            var newLoadedAssembliesList = new List<Tuple<Assembly, MethodInfo>>();
+            foreach (var item in assemblies)
+                newLoadedAssembliesList.Add(AddAssembly(item, false));
+
+            LoadedAssemblyChanged?.Invoke(null,
+                new AssemblyAddedEventArgs(newLoadedAssembliesList.Select(x => x.Item1).ToArray(), newLoadedAssembliesList.Select(x => x.Item2).ToArray()));
+        }
 
         /// <summary>
         /// Adds a new Assembly to the assembly collection
@@ -317,7 +330,7 @@ namespace Cauldron.Core.Reflection
             return null;
         }
 
-        private static Assembly AddAssembly(Assembly assembly, bool triggerEvent)
+        private static Tuple<Assembly, MethodInfo> AddAssembly(Assembly assembly, bool triggerEvent)
         {
             try
             {
@@ -343,7 +356,7 @@ namespace Cauldron.Core.Reflection
                 if (triggerEvent && cauldronHelper != null)
                     LoadedAssemblyChanged?.Invoke(null, new AssemblyAddedEventArgs(assembly, cauldronHelper));
 
-                return assembly;
+                return new Tuple<Assembly, MethodInfo>(assembly, cauldronHelper);
             }
             catch (Exception e)
             {

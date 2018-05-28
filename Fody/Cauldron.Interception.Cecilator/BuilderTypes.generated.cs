@@ -19,7 +19,7 @@ namespace Cauldron.Interception.Cecilator
     /// <summary>
     /// Provides predifined types for Cecilator
     /// </summary>
-	public static class TypeSystemEx
+	public static class BuilderTypes
     {
 	
 		#region Void
@@ -346,6 +346,23 @@ namespace Cauldron.Interception.Cecilator
 
 		#endregion
 				
+		#region IDisposable
+        private static BuilderTypeIDisposable _idisposable;
+		
+        /// <summary>
+        /// Gets <see cref="BuilderType"/> representing <see cref="System.IDisposable"/>. 
+        /// </summary>
+        public static BuilderTypeIDisposable IDisposable
+        {
+            get
+            {
+                if (_idisposable == null) _idisposable = new BuilderTypeIDisposable(Builder.Current.GetType(typeof(IDisposable)).Import());
+                return _idisposable;
+            }
+        }
+
+		#endregion
+				
 		#region IEnumerable
         private static BuilderTypeIEnumerable _ienumerable;
 		
@@ -528,6 +545,23 @@ namespace Cauldron.Interception.Cecilator
             {
                 if (_monitor == null) _monitor = new BuilderTypeMonitor(Builder.Current.GetType(typeof(Monitor)).Import());
                 return _monitor;
+            }
+        }
+
+		#endregion
+				
+		#region NotSupportedException
+        private static BuilderTypeNotSupportedException _notsupportedexception;
+		
+        /// <summary>
+        /// Gets <see cref="BuilderType"/> representing <see cref="System.NotSupportedException"/>. 
+        /// </summary>
+        public static BuilderTypeNotSupportedException NotSupportedException
+        {
+            get
+            {
+                if (_notsupportedexception == null) _notsupportedexception = new BuilderTypeNotSupportedException(Builder.Current.GetType(typeof(NotSupportedException)).Import());
+                return _notsupportedexception;
             }
         }
 
@@ -829,8 +863,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_createinstance_0_3;
 				
@@ -863,8 +896,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_createinstance_0_4;
 		
@@ -881,8 +913,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_createinstance_0_4 = this.builderType.GetMethod("CreateInstance", true, pelementType, plength1, plength2, plength3).Import();
 			
 			return this.var_createinstance_0_4;
-						
-		}
+								}
 				
 		private Method var_copy_0_3;
 				
@@ -915,8 +946,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_copy_0_5;
 				
@@ -949,8 +979,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_constrainedcopy_0_5;
 		
@@ -967,8 +996,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_constrainedcopy_0_5 = this.builderType.GetMethod("ConstrainedCopy", true, psourceArray, psourceIndex, pdestinationArray, pdestinationIndex, plength).Import();
 			
 			return this.var_constrainedcopy_0_5;
-						
-		}
+								}
 				
 		private Method var_clear_0_3;
 		
@@ -985,8 +1013,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_clear_0_3 = this.builderType.GetMethod("Clear", true, parray, pindex, plength).Import();
 			
 			return this.var_clear_0_3;
-						
-		}
+								}
 				
 		private Method var_getvalue_0_1;
 				
@@ -1041,8 +1068,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_getvalue_0_2;
 				
@@ -1075,8 +1101,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_getvalue_0_3;
 				
@@ -1109,8 +1134,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_setvalue_0_2;
 				
@@ -1165,8 +1189,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_setvalue_0_3;
 				
@@ -1199,8 +1222,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_setvalue_0_4;
 				
@@ -1233,8 +1255,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_get_length_0_0;
 		
@@ -1251,8 +1272,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_length_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_longlength_0_0;
 		
@@ -1269,8 +1289,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_longlength_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_getlength_0_1;
 		
@@ -1287,8 +1306,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getlength_0_1 = this.builderType.GetMethod("GetLength", true, pdimension).Import();
 			
 			return this.var_getlength_0_1;
-						
-		}
+								}
 				
 		private Method var_getlonglength_0_1;
 		
@@ -1305,8 +1323,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getlonglength_0_1 = this.builderType.GetMethod("GetLongLength", true, pdimension).Import();
 			
 			return this.var_getlonglength_0_1;
-						
-		}
+								}
 				
 		private Method var_get_rank_0_0;
 		
@@ -1323,8 +1340,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_rank_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_getupperbound_0_1;
 		
@@ -1341,8 +1357,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getupperbound_0_1 = this.builderType.GetMethod("GetUpperBound", true, pdimension).Import();
 			
 			return this.var_getupperbound_0_1;
-						
-		}
+								}
 				
 		private Method var_getlowerbound_0_1;
 		
@@ -1359,8 +1374,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getlowerbound_0_1 = this.builderType.GetMethod("GetLowerBound", true, pdimension).Import();
 			
 			return this.var_getlowerbound_0_1;
-						
-		}
+								}
 				
 		private Method var_get_syncroot_0_0;
 		
@@ -1377,8 +1391,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_syncroot_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isreadonly_0_0;
 		
@@ -1395,8 +1408,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isreadonly_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isfixedsize_0_0;
 		
@@ -1413,8 +1425,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isfixedsize_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_issynchronized_0_0;
 		
@@ -1431,8 +1442,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_issynchronized_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_clone_0_0;
 		
@@ -1449,8 +1459,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_clone_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_binarysearch_0_2;
 		
@@ -1467,8 +1476,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_binarysearch_0_2 = this.builderType.GetMethod("BinarySearch", true, parray, pvalue).Import();
 			
 			return this.var_binarysearch_0_2;
-						
-		}
+								}
 				
 		private Method var_binarysearch_0_4;
 		
@@ -1485,8 +1493,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_binarysearch_0_4 = this.builderType.GetMethod("BinarySearch", true, parray, pindex, plength, pvalue).Import();
 			
 			return this.var_binarysearch_0_4;
-						
-		}
+								}
 				
 		private Method var_binarysearch_0_3;
 		
@@ -1503,8 +1510,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_binarysearch_0_3 = this.builderType.GetMethod("BinarySearch", true, parray, pvalue, pcomparer).Import();
 			
 			return this.var_binarysearch_0_3;
-						
-		}
+								}
 				
 		private Method var_binarysearch_0_5;
 		
@@ -1521,8 +1527,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_binarysearch_0_5 = this.builderType.GetMethod("BinarySearch", true, parray, pindex, plength, pvalue, pcomparer).Import();
 			
 			return this.var_binarysearch_0_5;
-						
-		}
+								}
 				
 		private Method var_copyto_0_2;
 				
@@ -1555,8 +1560,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_getenumerator_0_0;
 		
@@ -1573,8 +1577,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_getenumerator_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_indexof_0_2;
 		
@@ -1591,8 +1594,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_indexof_0_2 = this.builderType.GetMethod("IndexOf", true, parray, pvalue).Import();
 			
 			return this.var_indexof_0_2;
-						
-		}
+								}
 				
 		private Method var_indexof_0_3;
 		
@@ -1609,8 +1611,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_indexof_0_3 = this.builderType.GetMethod("IndexOf", true, parray, pvalue, pstartIndex).Import();
 			
 			return this.var_indexof_0_3;
-						
-		}
+								}
 				
 		private Method var_indexof_0_4;
 		
@@ -1627,8 +1628,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_indexof_0_4 = this.builderType.GetMethod("IndexOf", true, parray, pvalue, pstartIndex, pcount).Import();
 			
 			return this.var_indexof_0_4;
-						
-		}
+								}
 				
 		private Method var_lastindexof_0_2;
 		
@@ -1645,8 +1645,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_lastindexof_0_2 = this.builderType.GetMethod("LastIndexOf", true, parray, pvalue).Import();
 			
 			return this.var_lastindexof_0_2;
-						
-		}
+								}
 				
 		private Method var_lastindexof_0_3;
 		
@@ -1663,8 +1662,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_lastindexof_0_3 = this.builderType.GetMethod("LastIndexOf", true, parray, pvalue, pstartIndex).Import();
 			
 			return this.var_lastindexof_0_3;
-						
-		}
+								}
 				
 		private Method var_lastindexof_0_4;
 		
@@ -1681,8 +1679,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_lastindexof_0_4 = this.builderType.GetMethod("LastIndexOf", true, parray, pvalue, pstartIndex, pcount).Import();
 			
 			return this.var_lastindexof_0_4;
-						
-		}
+								}
 				
 		private Method var_reverse_0_1;
 		
@@ -1699,8 +1696,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_reverse_0_1 = this.builderType.GetMethod("Reverse", true, parray).Import();
 			
 			return this.var_reverse_0_1;
-						
-		}
+								}
 				
 		private Method var_reverse_0_3;
 		
@@ -1717,8 +1713,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_reverse_0_3 = this.builderType.GetMethod("Reverse", true, parray, pindex, plength).Import();
 			
 			return this.var_reverse_0_3;
-						
-		}
+								}
 				
 		private Method var_sort_0_1;
 		
@@ -1735,8 +1730,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_sort_0_1 = this.builderType.GetMethod("Sort", true, parray).Import();
 			
 			return this.var_sort_0_1;
-						
-		}
+								}
 				
 		private Method var_sort_0_2;
 				
@@ -1769,8 +1763,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_sort_0_3;
 				
@@ -1803,8 +1796,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_sort_0_4;
 				
@@ -1837,8 +1829,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_sort_0_5;
 		
@@ -1855,8 +1846,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_sort_0_5 = this.builderType.GetMethod("Sort", true, pkeys, pitems, pindex, plength, pcomparer).Import();
 			
 			return this.var_sort_0_5;
-						
-		}
+								}
 				
 		private Method var_initialize_0_0;
 		
@@ -1873,8 +1863,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_initialize_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_tostring_0_0;
 		
@@ -1891,8 +1880,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_tostring_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_equals_0_1;
 		
@@ -1909,8 +1897,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
 			
 			return this.var_equals_0_1;
-						
-		}
+								}
 				
 		private Method var_gethashcode_0_0;
 		
@@ -1927,8 +1914,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gethashcode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_gettype_0_0;
 		
@@ -1945,10 +1931,8 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettype_0_0;
 						
-						
-		}
-		
-	}
+								}
+			}
 
 			
     /// <summary>
@@ -1985,8 +1969,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gethashcode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_tostring_0_0;
 		
@@ -2003,8 +1986,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_tostring_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_tostring_0_1;
 		
@@ -2021,8 +2003,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_tostring_0_1 = this.builderType.GetMethod("ToString", true, pprovider).Import();
 			
 			return this.var_tostring_0_1;
-						
-		}
+								}
 				
 		private Method var_equals_0_1;
 				
@@ -2055,8 +2036,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_compareto_0_1;
 				
@@ -2089,8 +2069,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_parse_0_1;
 		
@@ -2107,8 +2086,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_parse_0_1 = this.builderType.GetMethod("Parse", true, pvalue).Import();
 			
 			return this.var_parse_0_1;
-						
-		}
+								}
 				
 		private Method var_gettypecode_0_0;
 		
@@ -2125,8 +2103,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettypecode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_gettype_0_0;
 		
@@ -2143,10 +2120,8 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettype_0_0;
 						
-						
-		}
-		
-	}
+								}
+			}
 
 			
     /// <summary>
@@ -2199,8 +2174,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_equals_0_1;
 				
@@ -2233,8 +2207,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_gethashcode_0_0;
 		
@@ -2251,8 +2224,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gethashcode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_parse_0_1;
 		
@@ -2269,8 +2241,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_parse_0_1 = this.builderType.GetMethod("Parse", true, ps).Import();
 			
 			return this.var_parse_0_1;
-						
-		}
+								}
 				
 		private Method var_parse_0_2;
 				
@@ -2303,8 +2274,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_parse_0_3;
 		
@@ -2321,8 +2291,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_parse_0_3 = this.builderType.GetMethod("Parse", true, ps, pstyle, pprovider).Import();
 			
 			return this.var_parse_0_3;
-						
-		}
+								}
 				
 		private Method var_tostring_0_0;
 		
@@ -2339,8 +2308,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_tostring_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_tostring_0_1;
 				
@@ -2373,8 +2341,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_tostring_0_2;
 		
@@ -2391,8 +2358,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_tostring_0_2 = this.builderType.GetMethod("ToString", true, pformat, pprovider).Import();
 			
 			return this.var_tostring_0_2;
-						
-		}
+								}
 				
 		private Method var_gettypecode_0_0;
 		
@@ -2409,8 +2375,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettypecode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_gettype_0_0;
 		
@@ -2427,10 +2392,8 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettype_0_0;
 						
-						
-		}
-		
-	}
+								}
+			}
 
 			
     /// <summary>
@@ -2467,8 +2430,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_tolower_0_2 = this.builderType.GetMethod("ToLower", true, pc, pculture).Import();
 			
 			return this.var_tolower_0_2;
-						
-		}
+								}
 				
 		private Method var_tolower_0_1;
 		
@@ -2485,8 +2447,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_tolower_0_1 = this.builderType.GetMethod("ToLower", true, pc).Import();
 			
 			return this.var_tolower_0_1;
-						
-		}
+								}
 				
 		private Method var_gethashcode_0_0;
 		
@@ -2503,8 +2464,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gethashcode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_equals_0_1;
 				
@@ -2537,8 +2497,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_compareto_0_1;
 				
@@ -2571,8 +2530,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_tostring_0_0;
 		
@@ -2589,8 +2547,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_tostring_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_tostring_0_1;
 				
@@ -2623,8 +2580,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_parse_0_1;
 		
@@ -2641,8 +2597,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_parse_0_1 = this.builderType.GetMethod("Parse", true, ps).Import();
 			
 			return this.var_parse_0_1;
-						
-		}
+								}
 				
 		private Method var_isdigit_0_1;
 		
@@ -2659,8 +2614,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_isdigit_0_1 = this.builderType.GetMethod("IsDigit", true, pc).Import();
 			
 			return this.var_isdigit_0_1;
-						
-		}
+								}
 				
 		private Method var_isletter_0_1;
 		
@@ -2677,8 +2631,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_isletter_0_1 = this.builderType.GetMethod("IsLetter", true, pc).Import();
 			
 			return this.var_isletter_0_1;
-						
-		}
+								}
 				
 		private Method var_iswhitespace_0_1;
 		
@@ -2695,8 +2648,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_iswhitespace_0_1 = this.builderType.GetMethod("IsWhiteSpace", true, pc).Import();
 			
 			return this.var_iswhitespace_0_1;
-						
-		}
+								}
 				
 		private Method var_isupper_0_1;
 		
@@ -2713,8 +2665,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_isupper_0_1 = this.builderType.GetMethod("IsUpper", true, pc).Import();
 			
 			return this.var_isupper_0_1;
-						
-		}
+								}
 				
 		private Method var_islower_0_1;
 		
@@ -2731,8 +2682,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_islower_0_1 = this.builderType.GetMethod("IsLower", true, pc).Import();
 			
 			return this.var_islower_0_1;
-						
-		}
+								}
 				
 		private Method var_ispunctuation_0_1;
 		
@@ -2749,8 +2699,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_ispunctuation_0_1 = this.builderType.GetMethod("IsPunctuation", true, pc).Import();
 			
 			return this.var_ispunctuation_0_1;
-						
-		}
+								}
 				
 		private Method var_isletterordigit_0_1;
 		
@@ -2767,8 +2716,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_isletterordigit_0_1 = this.builderType.GetMethod("IsLetterOrDigit", true, pc).Import();
 			
 			return this.var_isletterordigit_0_1;
-						
-		}
+								}
 				
 		private Method var_toupper_0_2;
 		
@@ -2785,8 +2733,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_toupper_0_2 = this.builderType.GetMethod("ToUpper", true, pc, pculture).Import();
 			
 			return this.var_toupper_0_2;
-						
-		}
+								}
 				
 		private Method var_toupper_0_1;
 		
@@ -2803,8 +2750,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_toupper_0_1 = this.builderType.GetMethod("ToUpper", true, pc).Import();
 			
 			return this.var_toupper_0_1;
-						
-		}
+								}
 				
 		private Method var_toupperinvariant_0_1;
 		
@@ -2821,8 +2767,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_toupperinvariant_0_1 = this.builderType.GetMethod("ToUpperInvariant", true, pc).Import();
 			
 			return this.var_toupperinvariant_0_1;
-						
-		}
+								}
 				
 		private Method var_tolowerinvariant_0_1;
 		
@@ -2839,8 +2784,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_tolowerinvariant_0_1 = this.builderType.GetMethod("ToLowerInvariant", true, pc).Import();
 			
 			return this.var_tolowerinvariant_0_1;
-						
-		}
+								}
 				
 		private Method var_gettypecode_0_0;
 		
@@ -2857,8 +2801,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettypecode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_iscontrol_0_1;
 		
@@ -2875,8 +2818,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_iscontrol_0_1 = this.builderType.GetMethod("IsControl", true, pc).Import();
 			
 			return this.var_iscontrol_0_1;
-						
-		}
+								}
 				
 		private Method var_iscontrol_0_2;
 		
@@ -2893,8 +2835,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_iscontrol_0_2 = this.builderType.GetMethod("IsControl", true, ps, pindex).Import();
 			
 			return this.var_iscontrol_0_2;
-						
-		}
+								}
 				
 		private Method var_isdigit_0_2;
 		
@@ -2911,8 +2852,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_isdigit_0_2 = this.builderType.GetMethod("IsDigit", true, ps, pindex).Import();
 			
 			return this.var_isdigit_0_2;
-						
-		}
+								}
 				
 		private Method var_isletter_0_2;
 		
@@ -2929,8 +2869,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_isletter_0_2 = this.builderType.GetMethod("IsLetter", true, ps, pindex).Import();
 			
 			return this.var_isletter_0_2;
-						
-		}
+								}
 				
 		private Method var_isletterordigit_0_2;
 		
@@ -2947,8 +2886,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_isletterordigit_0_2 = this.builderType.GetMethod("IsLetterOrDigit", true, ps, pindex).Import();
 			
 			return this.var_isletterordigit_0_2;
-						
-		}
+								}
 				
 		private Method var_islower_0_2;
 		
@@ -2965,8 +2903,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_islower_0_2 = this.builderType.GetMethod("IsLower", true, ps, pindex).Import();
 			
 			return this.var_islower_0_2;
-						
-		}
+								}
 				
 		private Method var_isnumber_0_1;
 		
@@ -2983,8 +2920,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_isnumber_0_1 = this.builderType.GetMethod("IsNumber", true, pc).Import();
 			
 			return this.var_isnumber_0_1;
-						
-		}
+								}
 				
 		private Method var_isnumber_0_2;
 		
@@ -3001,8 +2937,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_isnumber_0_2 = this.builderType.GetMethod("IsNumber", true, ps, pindex).Import();
 			
 			return this.var_isnumber_0_2;
-						
-		}
+								}
 				
 		private Method var_ispunctuation_0_2;
 		
@@ -3019,8 +2954,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_ispunctuation_0_2 = this.builderType.GetMethod("IsPunctuation", true, ps, pindex).Import();
 			
 			return this.var_ispunctuation_0_2;
-						
-		}
+								}
 				
 		private Method var_isseparator_0_1;
 		
@@ -3037,8 +2971,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_isseparator_0_1 = this.builderType.GetMethod("IsSeparator", true, pc).Import();
 			
 			return this.var_isseparator_0_1;
-						
-		}
+								}
 				
 		private Method var_isseparator_0_2;
 		
@@ -3055,8 +2988,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_isseparator_0_2 = this.builderType.GetMethod("IsSeparator", true, ps, pindex).Import();
 			
 			return this.var_isseparator_0_2;
-						
-		}
+								}
 				
 		private Method var_issurrogate_0_1;
 		
@@ -3073,8 +3005,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_issurrogate_0_1 = this.builderType.GetMethod("IsSurrogate", true, pc).Import();
 			
 			return this.var_issurrogate_0_1;
-						
-		}
+								}
 				
 		private Method var_issurrogate_0_2;
 		
@@ -3091,8 +3022,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_issurrogate_0_2 = this.builderType.GetMethod("IsSurrogate", true, ps, pindex).Import();
 			
 			return this.var_issurrogate_0_2;
-						
-		}
+								}
 				
 		private Method var_issymbol_0_1;
 		
@@ -3109,8 +3039,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_issymbol_0_1 = this.builderType.GetMethod("IsSymbol", true, pc).Import();
 			
 			return this.var_issymbol_0_1;
-						
-		}
+								}
 				
 		private Method var_issymbol_0_2;
 		
@@ -3127,8 +3056,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_issymbol_0_2 = this.builderType.GetMethod("IsSymbol", true, ps, pindex).Import();
 			
 			return this.var_issymbol_0_2;
-						
-		}
+								}
 				
 		private Method var_isupper_0_2;
 		
@@ -3145,8 +3073,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_isupper_0_2 = this.builderType.GetMethod("IsUpper", true, ps, pindex).Import();
 			
 			return this.var_isupper_0_2;
-						
-		}
+								}
 				
 		private Method var_iswhitespace_0_2;
 		
@@ -3163,8 +3090,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_iswhitespace_0_2 = this.builderType.GetMethod("IsWhiteSpace", true, ps, pindex).Import();
 			
 			return this.var_iswhitespace_0_2;
-						
-		}
+								}
 				
 		private Method var_getunicodecategory_0_1;
 		
@@ -3181,8 +3107,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getunicodecategory_0_1 = this.builderType.GetMethod("GetUnicodeCategory", true, pc).Import();
 			
 			return this.var_getunicodecategory_0_1;
-						
-		}
+								}
 				
 		private Method var_getunicodecategory_0_2;
 		
@@ -3199,8 +3124,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getunicodecategory_0_2 = this.builderType.GetMethod("GetUnicodeCategory", true, ps, pindex).Import();
 			
 			return this.var_getunicodecategory_0_2;
-						
-		}
+								}
 				
 		private Method var_getnumericvalue_0_1;
 		
@@ -3217,8 +3141,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getnumericvalue_0_1 = this.builderType.GetMethod("GetNumericValue", true, pc).Import();
 			
 			return this.var_getnumericvalue_0_1;
-						
-		}
+								}
 				
 		private Method var_getnumericvalue_0_2;
 		
@@ -3235,8 +3158,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getnumericvalue_0_2 = this.builderType.GetMethod("GetNumericValue", true, ps, pindex).Import();
 			
 			return this.var_getnumericvalue_0_2;
-						
-		}
+								}
 				
 		private Method var_ishighsurrogate_0_1;
 		
@@ -3253,8 +3175,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_ishighsurrogate_0_1 = this.builderType.GetMethod("IsHighSurrogate", true, pc).Import();
 			
 			return this.var_ishighsurrogate_0_1;
-						
-		}
+								}
 				
 		private Method var_ishighsurrogate_0_2;
 		
@@ -3271,8 +3192,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_ishighsurrogate_0_2 = this.builderType.GetMethod("IsHighSurrogate", true, ps, pindex).Import();
 			
 			return this.var_ishighsurrogate_0_2;
-						
-		}
+								}
 				
 		private Method var_islowsurrogate_0_1;
 		
@@ -3289,8 +3209,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_islowsurrogate_0_1 = this.builderType.GetMethod("IsLowSurrogate", true, pc).Import();
 			
 			return this.var_islowsurrogate_0_1;
-						
-		}
+								}
 				
 		private Method var_islowsurrogate_0_2;
 		
@@ -3307,8 +3226,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_islowsurrogate_0_2 = this.builderType.GetMethod("IsLowSurrogate", true, ps, pindex).Import();
 			
 			return this.var_islowsurrogate_0_2;
-						
-		}
+								}
 				
 		private Method var_issurrogatepair_0_2;
 				
@@ -3341,8 +3259,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_convertfromutf32_0_1;
 		
@@ -3359,8 +3276,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_convertfromutf32_0_1 = this.builderType.GetMethod("ConvertFromUtf32", true, putf32).Import();
 			
 			return this.var_convertfromutf32_0_1;
-						
-		}
+								}
 				
 		private Method var_converttoutf32_0_2;
 				
@@ -3393,8 +3309,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_gettype_0_0;
 		
@@ -3411,10 +3326,8 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettype_0_0;
 						
-						
-		}
-		
-	}
+								}
+			}
 
 			
     /// <summary>
@@ -3451,8 +3364,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_gettypecode_0_1 = this.builderType.GetMethod("GetTypeCode", true, pvalue).Import();
 			
 			return this.var_gettypecode_0_1;
-						
-		}
+								}
 				
 		private Method var_isdbnull_0_1;
 		
@@ -3469,8 +3381,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_isdbnull_0_1 = this.builderType.GetMethod("IsDBNull", true, pvalue).Import();
 			
 			return this.var_isdbnull_0_1;
-						
-		}
+								}
 				
 		private Method var_changetype_0_2;
 				
@@ -3503,8 +3414,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_changetype_0_3;
 				
@@ -3537,8 +3447,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_toboolean_0_1;
 				
@@ -3723,10 +3632,9 @@ namespace Cauldron.Interception.Cecilator
 			
 				return this.var_toboolean_15_1;
 			}
-            			
-			return null;
 			
-		}
+			return null;
+					}
 				
 		private Method var_toboolean_0_2;
 				
@@ -3759,8 +3667,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_tochar_0_1;
 				
@@ -3947,8 +3854,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_tochar_0_2;
 				
@@ -3981,8 +3887,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_tosbyte_0_1;
 				
@@ -4169,8 +4074,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_tosbyte_0_2;
 				
@@ -4214,8 +4118,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_tobyte_0_1;
 				
@@ -4402,8 +4305,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_tobyte_0_2;
 				
@@ -4447,8 +4349,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_toint16_0_1;
 				
@@ -4635,8 +4536,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_toint16_0_2;
 				
@@ -4680,8 +4580,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_touint16_0_1;
 				
@@ -4868,8 +4767,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_touint16_0_2;
 				
@@ -4913,8 +4811,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_toint32_0_1;
 				
@@ -5101,8 +4998,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_toint32_0_2;
 				
@@ -5146,8 +5042,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_touint32_0_1;
 				
@@ -5334,8 +5229,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_touint32_0_2;
 				
@@ -5379,8 +5273,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_toint64_0_1;
 				
@@ -5567,8 +5460,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_toint64_0_2;
 				
@@ -5612,8 +5504,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_touint64_0_1;
 				
@@ -5800,8 +5691,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_touint64_0_2;
 				
@@ -5845,8 +5735,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_tosingle_0_1;
 				
@@ -6033,8 +5922,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_tosingle_0_2;
 				
@@ -6067,8 +5955,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_todouble_0_1;
 				
@@ -6255,8 +6142,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_todouble_0_2;
 				
@@ -6289,8 +6175,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_todecimal_0_1;
 				
@@ -6477,8 +6362,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_todecimal_0_2;
 				
@@ -6511,8 +6395,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_todatetime_0_1;
 				
@@ -6699,8 +6582,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_todatetime_0_2;
 				
@@ -6733,8 +6615,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_tostring_0_1;
 				
@@ -6921,8 +6802,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_tostring_0_2;
 				
@@ -7153,8 +7033,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_tobase64string_0_1;
 		
@@ -7171,8 +7050,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_tobase64string_0_1 = this.builderType.GetMethod("ToBase64String", true, pinArray).Import();
 			
 			return this.var_tobase64string_0_1;
-						
-		}
+								}
 				
 		private Method var_tobase64string_0_2;
 		
@@ -7189,8 +7067,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_tobase64string_0_2 = this.builderType.GetMethod("ToBase64String", true, pinArray, poptions).Import();
 			
 			return this.var_tobase64string_0_2;
-						
-		}
+								}
 				
 		private Method var_tobase64string_0_3;
 		
@@ -7207,8 +7084,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_tobase64string_0_3 = this.builderType.GetMethod("ToBase64String", true, pinArray, poffset, plength).Import();
 			
 			return this.var_tobase64string_0_3;
-						
-		}
+								}
 				
 		private Method var_tobase64string_0_4;
 		
@@ -7225,8 +7101,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_tobase64string_0_4 = this.builderType.GetMethod("ToBase64String", true, pinArray, poffset, plength, poptions).Import();
 			
 			return this.var_tobase64string_0_4;
-						
-		}
+								}
 				
 		private Method var_tobase64chararray_0_5;
 		
@@ -7243,8 +7118,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_tobase64chararray_0_5 = this.builderType.GetMethod("ToBase64CharArray", true, pinArray, poffsetIn, plength, poutArray, poffsetOut).Import();
 			
 			return this.var_tobase64chararray_0_5;
-						
-		}
+								}
 				
 		private Method var_tobase64chararray_0_6;
 		
@@ -7261,8 +7135,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_tobase64chararray_0_6 = this.builderType.GetMethod("ToBase64CharArray", true, pinArray, poffsetIn, plength, poutArray, poffsetOut, poptions).Import();
 			
 			return this.var_tobase64chararray_0_6;
-						
-		}
+								}
 				
 		private Method var_frombase64string_0_1;
 		
@@ -7279,8 +7152,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_frombase64string_0_1 = this.builderType.GetMethod("FromBase64String", true, ps).Import();
 			
 			return this.var_frombase64string_0_1;
-						
-		}
+								}
 				
 		private Method var_frombase64chararray_0_3;
 		
@@ -7297,8 +7169,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_frombase64chararray_0_3 = this.builderType.GetMethod("FromBase64CharArray", true, pinArray, poffset, plength).Import();
 			
 			return this.var_frombase64chararray_0_3;
-						
-		}
+								}
 				
 		private Method var_tostring_0_0;
 		
@@ -7315,8 +7186,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_tostring_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_equals_0_1;
 		
@@ -7333,8 +7203,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
 			
 			return this.var_equals_0_1;
-						
-		}
+								}
 				
 		private Method var_gethashcode_0_0;
 		
@@ -7351,8 +7220,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gethashcode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_gettype_0_0;
 		
@@ -7369,10 +7237,8 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettype_0_0;
 						
-						
-		}
-		
-	}
+								}
+			}
 
 			
     /// <summary>
@@ -7409,8 +7275,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_add_0_1 = this.builderType.GetMethod("Add", true, pvalue).Import();
 			
 			return this.var_add_0_1;
-						
-		}
+								}
 				
 		private Method var_adddays_0_1;
 		
@@ -7427,8 +7292,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_adddays_0_1 = this.builderType.GetMethod("AddDays", true, pvalue).Import();
 			
 			return this.var_adddays_0_1;
-						
-		}
+								}
 				
 		private Method var_addhours_0_1;
 		
@@ -7445,8 +7309,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_addhours_0_1 = this.builderType.GetMethod("AddHours", true, pvalue).Import();
 			
 			return this.var_addhours_0_1;
-						
-		}
+								}
 				
 		private Method var_addmilliseconds_0_1;
 		
@@ -7463,8 +7326,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_addmilliseconds_0_1 = this.builderType.GetMethod("AddMilliseconds", true, pvalue).Import();
 			
 			return this.var_addmilliseconds_0_1;
-						
-		}
+								}
 				
 		private Method var_addminutes_0_1;
 		
@@ -7481,8 +7343,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_addminutes_0_1 = this.builderType.GetMethod("AddMinutes", true, pvalue).Import();
 			
 			return this.var_addminutes_0_1;
-						
-		}
+								}
 				
 		private Method var_addmonths_0_1;
 		
@@ -7499,8 +7360,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_addmonths_0_1 = this.builderType.GetMethod("AddMonths", true, pmonths).Import();
 			
 			return this.var_addmonths_0_1;
-						
-		}
+								}
 				
 		private Method var_addseconds_0_1;
 		
@@ -7517,8 +7377,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_addseconds_0_1 = this.builderType.GetMethod("AddSeconds", true, pvalue).Import();
 			
 			return this.var_addseconds_0_1;
-						
-		}
+								}
 				
 		private Method var_addticks_0_1;
 		
@@ -7535,8 +7394,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_addticks_0_1 = this.builderType.GetMethod("AddTicks", true, pvalue).Import();
 			
 			return this.var_addticks_0_1;
-						
-		}
+								}
 				
 		private Method var_addyears_0_1;
 		
@@ -7553,8 +7411,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_addyears_0_1 = this.builderType.GetMethod("AddYears", true, pvalue).Import();
 			
 			return this.var_addyears_0_1;
-						
-		}
+								}
 				
 		private Method var_compare_0_2;
 		
@@ -7571,8 +7428,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_compare_0_2 = this.builderType.GetMethod("Compare", true, pt1, pt2).Import();
 			
 			return this.var_compare_0_2;
-						
-		}
+								}
 				
 		private Method var_compareto_0_1;
 				
@@ -7605,8 +7461,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_daysinmonth_0_2;
 		
@@ -7623,8 +7478,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_daysinmonth_0_2 = this.builderType.GetMethod("DaysInMonth", true, pyear, pmonth).Import();
 			
 			return this.var_daysinmonth_0_2;
-						
-		}
+								}
 				
 		private Method var_equals_0_1;
 				
@@ -7657,8 +7511,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_equals_0_2;
 		
@@ -7675,8 +7528,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_equals_0_2 = this.builderType.GetMethod("Equals", true, pt1, pt2).Import();
 			
 			return this.var_equals_0_2;
-						
-		}
+								}
 				
 		private Method var_frombinary_0_1;
 		
@@ -7693,8 +7545,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_frombinary_0_1 = this.builderType.GetMethod("FromBinary", true, pdateData).Import();
 			
 			return this.var_frombinary_0_1;
-						
-		}
+								}
 				
 		private Method var_fromfiletime_0_1;
 		
@@ -7711,8 +7562,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_fromfiletime_0_1 = this.builderType.GetMethod("FromFileTime", true, pfileTime).Import();
 			
 			return this.var_fromfiletime_0_1;
-						
-		}
+								}
 				
 		private Method var_fromfiletimeutc_0_1;
 		
@@ -7729,8 +7579,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_fromfiletimeutc_0_1 = this.builderType.GetMethod("FromFileTimeUtc", true, pfileTime).Import();
 			
 			return this.var_fromfiletimeutc_0_1;
-						
-		}
+								}
 				
 		private Method var_fromoadate_0_1;
 		
@@ -7747,8 +7596,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_fromoadate_0_1 = this.builderType.GetMethod("FromOADate", true, pd).Import();
 			
 			return this.var_fromoadate_0_1;
-						
-		}
+								}
 				
 		private Method var_isdaylightsavingtime_0_0;
 		
@@ -7765,8 +7613,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_isdaylightsavingtime_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_specifykind_0_2;
 		
@@ -7783,8 +7630,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_specifykind_0_2 = this.builderType.GetMethod("SpecifyKind", true, pvalue, pkind).Import();
 			
 			return this.var_specifykind_0_2;
-						
-		}
+								}
 				
 		private Method var_tobinary_0_0;
 		
@@ -7801,8 +7647,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_tobinary_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_date_0_0;
 		
@@ -7819,8 +7664,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_date_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_day_0_0;
 		
@@ -7837,8 +7681,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_day_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_dayofweek_0_0;
 		
@@ -7855,8 +7698,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_dayofweek_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_dayofyear_0_0;
 		
@@ -7873,8 +7715,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_dayofyear_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_gethashcode_0_0;
 		
@@ -7891,8 +7732,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gethashcode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_hour_0_0;
 		
@@ -7909,8 +7749,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_hour_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_kind_0_0;
 		
@@ -7927,8 +7766,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_kind_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_millisecond_0_0;
 		
@@ -7945,8 +7783,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_millisecond_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_minute_0_0;
 		
@@ -7963,8 +7800,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_minute_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_month_0_0;
 		
@@ -7981,8 +7817,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_month_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_now_0_0;
 		
@@ -7999,8 +7834,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_now_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_utcnow_0_0;
 		
@@ -8017,8 +7851,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_utcnow_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_second_0_0;
 		
@@ -8035,8 +7868,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_second_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_ticks_0_0;
 		
@@ -8053,8 +7885,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_ticks_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_timeofday_0_0;
 		
@@ -8071,8 +7902,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_timeofday_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_today_0_0;
 		
@@ -8089,8 +7919,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_today_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_year_0_0;
 		
@@ -8107,8 +7936,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_year_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_isleapyear_0_1;
 		
@@ -8125,8 +7953,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_isleapyear_0_1 = this.builderType.GetMethod("IsLeapYear", true, pyear).Import();
 			
 			return this.var_isleapyear_0_1;
-						
-		}
+								}
 				
 		private Method var_parse_0_1;
 		
@@ -8143,8 +7970,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_parse_0_1 = this.builderType.GetMethod("Parse", true, ps).Import();
 			
 			return this.var_parse_0_1;
-						
-		}
+								}
 				
 		private Method var_parse_0_2;
 		
@@ -8161,8 +7987,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_parse_0_2 = this.builderType.GetMethod("Parse", true, ps, pprovider).Import();
 			
 			return this.var_parse_0_2;
-						
-		}
+								}
 				
 		private Method var_parse_0_3;
 		
@@ -8179,8 +8004,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_parse_0_3 = this.builderType.GetMethod("Parse", true, ps, pprovider, pstyles).Import();
 			
 			return this.var_parse_0_3;
-						
-		}
+								}
 				
 		private Method var_parseexact_0_3;
 		
@@ -8197,8 +8021,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_parseexact_0_3 = this.builderType.GetMethod("ParseExact", true, ps, pformat, pprovider).Import();
 			
 			return this.var_parseexact_0_3;
-						
-		}
+								}
 				
 		private Method var_parseexact_0_4;
 				
@@ -8231,8 +8054,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_subtract_0_1;
 				
@@ -8265,8 +8087,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_tooadate_0_0;
 		
@@ -8283,8 +8104,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_tooadate_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_tofiletime_0_0;
 		
@@ -8301,8 +8121,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_tofiletime_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_tofiletimeutc_0_0;
 		
@@ -8319,8 +8138,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_tofiletimeutc_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_tolocaltime_0_0;
 		
@@ -8337,8 +8155,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_tolocaltime_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_tolongdatestring_0_0;
 		
@@ -8355,8 +8172,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_tolongdatestring_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_tolongtimestring_0_0;
 		
@@ -8373,8 +8189,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_tolongtimestring_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_toshortdatestring_0_0;
 		
@@ -8391,8 +8206,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_toshortdatestring_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_toshorttimestring_0_0;
 		
@@ -8409,8 +8223,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_toshorttimestring_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_tostring_0_0;
 		
@@ -8427,8 +8240,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_tostring_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_tostring_0_1;
 				
@@ -8461,8 +8273,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_tostring_0_2;
 		
@@ -8479,8 +8290,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_tostring_0_2 = this.builderType.GetMethod("ToString", true, pformat, pprovider).Import();
 			
 			return this.var_tostring_0_2;
-						
-		}
+								}
 				
 		private Method var_touniversaltime_0_0;
 		
@@ -8497,8 +8307,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_touniversaltime_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_op_addition_0_2;
 		
@@ -8515,8 +8324,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_op_addition_0_2 = this.builderType.GetMethod("op_Addition", true, pd, pt).Import();
 			
 			return this.var_op_addition_0_2;
-						
-		}
+								}
 				
 		private Method var_op_subtraction_0_2;
 				
@@ -8549,8 +8357,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_op_equality_0_2;
 		
@@ -8567,8 +8374,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_op_equality_0_2 = this.builderType.GetMethod("op_Equality", true, pd1, pd2).Import();
 			
 			return this.var_op_equality_0_2;
-						
-		}
+								}
 				
 		private Method var_op_inequality_0_2;
 		
@@ -8585,8 +8391,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_op_inequality_0_2 = this.builderType.GetMethod("op_Inequality", true, pd1, pd2).Import();
 			
 			return this.var_op_inequality_0_2;
-						
-		}
+								}
 				
 		private Method var_op_lessthan_0_2;
 		
@@ -8603,8 +8408,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_op_lessthan_0_2 = this.builderType.GetMethod("op_LessThan", true, pt1, pt2).Import();
 			
 			return this.var_op_lessthan_0_2;
-						
-		}
+								}
 				
 		private Method var_op_lessthanorequal_0_2;
 		
@@ -8621,8 +8425,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_op_lessthanorequal_0_2 = this.builderType.GetMethod("op_LessThanOrEqual", true, pt1, pt2).Import();
 			
 			return this.var_op_lessthanorequal_0_2;
-						
-		}
+								}
 				
 		private Method var_op_greaterthan_0_2;
 		
@@ -8639,8 +8442,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_op_greaterthan_0_2 = this.builderType.GetMethod("op_GreaterThan", true, pt1, pt2).Import();
 			
 			return this.var_op_greaterthan_0_2;
-						
-		}
+								}
 				
 		private Method var_op_greaterthanorequal_0_2;
 		
@@ -8657,8 +8459,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_op_greaterthanorequal_0_2 = this.builderType.GetMethod("op_GreaterThanOrEqual", true, pt1, pt2).Import();
 			
 			return this.var_op_greaterthanorequal_0_2;
-						
-		}
+								}
 				
 		private Method var_getdatetimeformats_0_0;
 		
@@ -8675,8 +8476,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_getdatetimeformats_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_getdatetimeformats_0_1;
 				
@@ -8709,8 +8509,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_getdatetimeformats_0_2;
 		
@@ -8727,8 +8526,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getdatetimeformats_0_2 = this.builderType.GetMethod("GetDateTimeFormats", true, pformat, pprovider).Import();
 			
 			return this.var_getdatetimeformats_0_2;
-						
-		}
+								}
 				
 		private Method var_gettypecode_0_0;
 		
@@ -8745,8 +8543,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettypecode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_gettype_0_0;
 		
@@ -8763,10 +8560,8 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettype_0_0;
 						
-						
-		}
-		
-	}
+								}
+			}
 
 			
     /// <summary>
@@ -8803,8 +8598,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_tooacurrency_0_1 = this.builderType.GetMethod("ToOACurrency", true, pvalue).Import();
 			
 			return this.var_tooacurrency_0_1;
-						
-		}
+								}
 				
 		private Method var_fromoacurrency_0_1;
 		
@@ -8821,8 +8615,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_fromoacurrency_0_1 = this.builderType.GetMethod("FromOACurrency", true, pcy).Import();
 			
 			return this.var_fromoacurrency_0_1;
-						
-		}
+								}
 				
 		private Method var_add_0_2;
 		
@@ -8839,8 +8632,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_add_0_2 = this.builderType.GetMethod("Add", true, pd1, pd2).Import();
 			
 			return this.var_add_0_2;
-						
-		}
+								}
 				
 		private Method var_ceiling_0_1;
 		
@@ -8857,8 +8649,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_ceiling_0_1 = this.builderType.GetMethod("Ceiling", true, pd).Import();
 			
 			return this.var_ceiling_0_1;
-						
-		}
+								}
 				
 		private Method var_compare_0_2;
 		
@@ -8875,8 +8666,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_compare_0_2 = this.builderType.GetMethod("Compare", true, pd1, pd2).Import();
 			
 			return this.var_compare_0_2;
-						
-		}
+								}
 				
 		private Method var_compareto_0_1;
 				
@@ -8909,8 +8699,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_divide_0_2;
 		
@@ -8927,8 +8716,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_divide_0_2 = this.builderType.GetMethod("Divide", true, pd1, pd2).Import();
 			
 			return this.var_divide_0_2;
-						
-		}
+								}
 				
 		private Method var_equals_0_1;
 				
@@ -8961,8 +8749,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_gethashcode_0_0;
 		
@@ -8979,8 +8766,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gethashcode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_equals_0_2;
 		
@@ -8997,8 +8783,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_equals_0_2 = this.builderType.GetMethod("Equals", true, pd1, pd2).Import();
 			
 			return this.var_equals_0_2;
-						
-		}
+								}
 				
 		private Method var_floor_0_1;
 		
@@ -9015,8 +8800,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_floor_0_1 = this.builderType.GetMethod("Floor", true, pd).Import();
 			
 			return this.var_floor_0_1;
-						
-		}
+								}
 				
 		private Method var_tostring_0_0;
 		
@@ -9033,8 +8817,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_tostring_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_tostring_0_1;
 				
@@ -9067,8 +8850,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_tostring_0_2;
 		
@@ -9085,8 +8867,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_tostring_0_2 = this.builderType.GetMethod("ToString", true, pformat, pprovider).Import();
 			
 			return this.var_tostring_0_2;
-						
-		}
+								}
 				
 		private Method var_parse_0_1;
 		
@@ -9103,8 +8884,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_parse_0_1 = this.builderType.GetMethod("Parse", true, ps).Import();
 			
 			return this.var_parse_0_1;
-						
-		}
+								}
 				
 		private Method var_parse_0_2;
 				
@@ -9137,8 +8917,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_parse_0_3;
 		
@@ -9155,8 +8934,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_parse_0_3 = this.builderType.GetMethod("Parse", true, ps, pstyle, pprovider).Import();
 			
 			return this.var_parse_0_3;
-						
-		}
+								}
 				
 		private Method var_getbits_0_1;
 		
@@ -9173,8 +8951,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getbits_0_1 = this.builderType.GetMethod("GetBits", true, pd).Import();
 			
 			return this.var_getbits_0_1;
-						
-		}
+								}
 				
 		private Method var_remainder_0_2;
 		
@@ -9191,8 +8968,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_remainder_0_2 = this.builderType.GetMethod("Remainder", true, pd1, pd2).Import();
 			
 			return this.var_remainder_0_2;
-						
-		}
+								}
 				
 		private Method var_multiply_0_2;
 		
@@ -9209,8 +8985,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_multiply_0_2 = this.builderType.GetMethod("Multiply", true, pd1, pd2).Import();
 			
 			return this.var_multiply_0_2;
-						
-		}
+								}
 				
 		private Method var_negate_0_1;
 		
@@ -9227,8 +9002,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_negate_0_1 = this.builderType.GetMethod("Negate", true, pd).Import();
 			
 			return this.var_negate_0_1;
-						
-		}
+								}
 				
 		private Method var_round_0_1;
 		
@@ -9245,8 +9019,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_round_0_1 = this.builderType.GetMethod("Round", true, pd).Import();
 			
 			return this.var_round_0_1;
-						
-		}
+								}
 				
 		private Method var_round_0_2;
 				
@@ -9279,8 +9052,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_round_0_3;
 		
@@ -9297,8 +9069,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_round_0_3 = this.builderType.GetMethod("Round", true, pd, pdecimals, pmode).Import();
 			
 			return this.var_round_0_3;
-						
-		}
+								}
 				
 		private Method var_subtract_0_2;
 		
@@ -9315,8 +9086,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_subtract_0_2 = this.builderType.GetMethod("Subtract", true, pd1, pd2).Import();
 			
 			return this.var_subtract_0_2;
-						
-		}
+								}
 				
 		private Method var_tobyte_0_1;
 		
@@ -9333,8 +9103,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_tobyte_0_1 = this.builderType.GetMethod("ToByte", true, pvalue).Import();
 			
 			return this.var_tobyte_0_1;
-						
-		}
+								}
 				
 		private Method var_tosbyte_0_1;
 		
@@ -9351,8 +9120,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_tosbyte_0_1 = this.builderType.GetMethod("ToSByte", true, pvalue).Import();
 			
 			return this.var_tosbyte_0_1;
-						
-		}
+								}
 				
 		private Method var_toint16_0_1;
 		
@@ -9369,8 +9137,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_toint16_0_1 = this.builderType.GetMethod("ToInt16", true, pvalue).Import();
 			
 			return this.var_toint16_0_1;
-						
-		}
+								}
 				
 		private Method var_todouble_0_1;
 		
@@ -9387,8 +9154,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_todouble_0_1 = this.builderType.GetMethod("ToDouble", true, pd).Import();
 			
 			return this.var_todouble_0_1;
-						
-		}
+								}
 				
 		private Method var_toint32_0_1;
 		
@@ -9405,8 +9171,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_toint32_0_1 = this.builderType.GetMethod("ToInt32", true, pd).Import();
 			
 			return this.var_toint32_0_1;
-						
-		}
+								}
 				
 		private Method var_toint64_0_1;
 		
@@ -9423,8 +9188,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_toint64_0_1 = this.builderType.GetMethod("ToInt64", true, pd).Import();
 			
 			return this.var_toint64_0_1;
-						
-		}
+								}
 				
 		private Method var_touint16_0_1;
 		
@@ -9441,8 +9205,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_touint16_0_1 = this.builderType.GetMethod("ToUInt16", true, pvalue).Import();
 			
 			return this.var_touint16_0_1;
-						
-		}
+								}
 				
 		private Method var_touint32_0_1;
 		
@@ -9459,8 +9222,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_touint32_0_1 = this.builderType.GetMethod("ToUInt32", true, pd).Import();
 			
 			return this.var_touint32_0_1;
-						
-		}
+								}
 				
 		private Method var_touint64_0_1;
 		
@@ -9477,8 +9239,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_touint64_0_1 = this.builderType.GetMethod("ToUInt64", true, pd).Import();
 			
 			return this.var_touint64_0_1;
-						
-		}
+								}
 				
 		private Method var_tosingle_0_1;
 		
@@ -9495,8 +9256,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_tosingle_0_1 = this.builderType.GetMethod("ToSingle", true, pd).Import();
 			
 			return this.var_tosingle_0_1;
-						
-		}
+								}
 				
 		private Method var_truncate_0_1;
 		
@@ -9513,8 +9273,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_truncate_0_1 = this.builderType.GetMethod("Truncate", true, pd).Import();
 			
 			return this.var_truncate_0_1;
-						
-		}
+								}
 				
 		private Method var_op_implicit_0_1;
 				
@@ -9624,8 +9383,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_op_explicit_0_1;
 				
@@ -9779,8 +9537,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_op_unaryplus_0_1;
 		
@@ -9797,8 +9554,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_op_unaryplus_0_1 = this.builderType.GetMethod("op_UnaryPlus", true, pd).Import();
 			
 			return this.var_op_unaryplus_0_1;
-						
-		}
+								}
 				
 		private Method var_op_unarynegation_0_1;
 		
@@ -9815,8 +9571,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_op_unarynegation_0_1 = this.builderType.GetMethod("op_UnaryNegation", true, pd).Import();
 			
 			return this.var_op_unarynegation_0_1;
-						
-		}
+								}
 				
 		private Method var_op_increment_0_1;
 		
@@ -9833,8 +9588,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_op_increment_0_1 = this.builderType.GetMethod("op_Increment", true, pd).Import();
 			
 			return this.var_op_increment_0_1;
-						
-		}
+								}
 				
 		private Method var_op_decrement_0_1;
 		
@@ -9851,8 +9605,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_op_decrement_0_1 = this.builderType.GetMethod("op_Decrement", true, pd).Import();
 			
 			return this.var_op_decrement_0_1;
-						
-		}
+								}
 				
 		private Method var_op_addition_0_2;
 		
@@ -9869,8 +9622,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_op_addition_0_2 = this.builderType.GetMethod("op_Addition", true, pd1, pd2).Import();
 			
 			return this.var_op_addition_0_2;
-						
-		}
+								}
 				
 		private Method var_op_subtraction_0_2;
 		
@@ -9887,8 +9639,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_op_subtraction_0_2 = this.builderType.GetMethod("op_Subtraction", true, pd1, pd2).Import();
 			
 			return this.var_op_subtraction_0_2;
-						
-		}
+								}
 				
 		private Method var_op_multiply_0_2;
 		
@@ -9905,8 +9656,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_op_multiply_0_2 = this.builderType.GetMethod("op_Multiply", true, pd1, pd2).Import();
 			
 			return this.var_op_multiply_0_2;
-						
-		}
+								}
 				
 		private Method var_op_division_0_2;
 		
@@ -9923,8 +9673,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_op_division_0_2 = this.builderType.GetMethod("op_Division", true, pd1, pd2).Import();
 			
 			return this.var_op_division_0_2;
-						
-		}
+								}
 				
 		private Method var_op_modulus_0_2;
 		
@@ -9941,8 +9690,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_op_modulus_0_2 = this.builderType.GetMethod("op_Modulus", true, pd1, pd2).Import();
 			
 			return this.var_op_modulus_0_2;
-						
-		}
+								}
 				
 		private Method var_op_equality_0_2;
 		
@@ -9959,8 +9707,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_op_equality_0_2 = this.builderType.GetMethod("op_Equality", true, pd1, pd2).Import();
 			
 			return this.var_op_equality_0_2;
-						
-		}
+								}
 				
 		private Method var_op_inequality_0_2;
 		
@@ -9977,8 +9724,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_op_inequality_0_2 = this.builderType.GetMethod("op_Inequality", true, pd1, pd2).Import();
 			
 			return this.var_op_inequality_0_2;
-						
-		}
+								}
 				
 		private Method var_op_lessthan_0_2;
 		
@@ -9995,8 +9741,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_op_lessthan_0_2 = this.builderType.GetMethod("op_LessThan", true, pd1, pd2).Import();
 			
 			return this.var_op_lessthan_0_2;
-						
-		}
+								}
 				
 		private Method var_op_lessthanorequal_0_2;
 		
@@ -10013,8 +9758,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_op_lessthanorequal_0_2 = this.builderType.GetMethod("op_LessThanOrEqual", true, pd1, pd2).Import();
 			
 			return this.var_op_lessthanorequal_0_2;
-						
-		}
+								}
 				
 		private Method var_op_greaterthan_0_2;
 		
@@ -10031,8 +9775,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_op_greaterthan_0_2 = this.builderType.GetMethod("op_GreaterThan", true, pd1, pd2).Import();
 			
 			return this.var_op_greaterthan_0_2;
-						
-		}
+								}
 				
 		private Method var_op_greaterthanorequal_0_2;
 		
@@ -10049,8 +9792,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_op_greaterthanorequal_0_2 = this.builderType.GetMethod("op_GreaterThanOrEqual", true, pd1, pd2).Import();
 			
 			return this.var_op_greaterthanorequal_0_2;
-						
-		}
+								}
 				
 		private Method var_gettypecode_0_0;
 		
@@ -10067,8 +9809,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettypecode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_gettype_0_0;
 		
@@ -10085,10 +9826,8 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettype_0_0;
 						
-						
-		}
-		
-	}
+								}
+			}
 
 			
     /// <summary>
@@ -10125,8 +9864,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_tostring_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_equals_0_1;
 		
@@ -10143,8 +9881,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
 			
 			return this.var_equals_0_1;
-						
-		}
+								}
 				
 		private Method var_gethashcode_0_0;
 		
@@ -10161,8 +9898,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gethashcode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_gettype_0_0;
 		
@@ -10179,10 +9915,8 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettype_0_0;
 						
-						
-		}
-		
-	}
+								}
+			}
 
 			
     /// <summary>
@@ -10219,8 +9953,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_isinfinity_0_1 = this.builderType.GetMethod("IsInfinity", true, pd).Import();
 			
 			return this.var_isinfinity_0_1;
-						
-		}
+								}
 				
 		private Method var_ispositiveinfinity_0_1;
 		
@@ -10237,8 +9970,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_ispositiveinfinity_0_1 = this.builderType.GetMethod("IsPositiveInfinity", true, pd).Import();
 			
 			return this.var_ispositiveinfinity_0_1;
-						
-		}
+								}
 				
 		private Method var_isnegativeinfinity_0_1;
 		
@@ -10255,8 +9987,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_isnegativeinfinity_0_1 = this.builderType.GetMethod("IsNegativeInfinity", true, pd).Import();
 			
 			return this.var_isnegativeinfinity_0_1;
-						
-		}
+								}
 				
 		private Method var_isnan_0_1;
 		
@@ -10273,8 +10004,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_isnan_0_1 = this.builderType.GetMethod("IsNaN", true, pd).Import();
 			
 			return this.var_isnan_0_1;
-						
-		}
+								}
 				
 		private Method var_compareto_0_1;
 				
@@ -10307,8 +10037,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_equals_0_1;
 				
@@ -10341,8 +10070,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_op_equality_0_2;
 		
@@ -10359,8 +10087,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_op_equality_0_2 = this.builderType.GetMethod("op_Equality", true, pleft, pright).Import();
 			
 			return this.var_op_equality_0_2;
-						
-		}
+								}
 				
 		private Method var_op_inequality_0_2;
 		
@@ -10377,8 +10104,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_op_inequality_0_2 = this.builderType.GetMethod("op_Inequality", true, pleft, pright).Import();
 			
 			return this.var_op_inequality_0_2;
-						
-		}
+								}
 				
 		private Method var_op_lessthan_0_2;
 		
@@ -10395,8 +10121,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_op_lessthan_0_2 = this.builderType.GetMethod("op_LessThan", true, pleft, pright).Import();
 			
 			return this.var_op_lessthan_0_2;
-						
-		}
+								}
 				
 		private Method var_op_greaterthan_0_2;
 		
@@ -10413,8 +10138,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_op_greaterthan_0_2 = this.builderType.GetMethod("op_GreaterThan", true, pleft, pright).Import();
 			
 			return this.var_op_greaterthan_0_2;
-						
-		}
+								}
 				
 		private Method var_op_lessthanorequal_0_2;
 		
@@ -10431,8 +10155,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_op_lessthanorequal_0_2 = this.builderType.GetMethod("op_LessThanOrEqual", true, pleft, pright).Import();
 			
 			return this.var_op_lessthanorequal_0_2;
-						
-		}
+								}
 				
 		private Method var_op_greaterthanorequal_0_2;
 		
@@ -10449,8 +10172,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_op_greaterthanorequal_0_2 = this.builderType.GetMethod("op_GreaterThanOrEqual", true, pleft, pright).Import();
 			
 			return this.var_op_greaterthanorequal_0_2;
-						
-		}
+								}
 				
 		private Method var_gethashcode_0_0;
 		
@@ -10467,8 +10189,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gethashcode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_tostring_0_0;
 		
@@ -10485,8 +10206,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_tostring_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_tostring_0_1;
 				
@@ -10519,8 +10239,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_tostring_0_2;
 		
@@ -10537,8 +10256,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_tostring_0_2 = this.builderType.GetMethod("ToString", true, pformat, pprovider).Import();
 			
 			return this.var_tostring_0_2;
-						
-		}
+								}
 				
 		private Method var_parse_0_1;
 		
@@ -10555,8 +10273,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_parse_0_1 = this.builderType.GetMethod("Parse", true, ps).Import();
 			
 			return this.var_parse_0_1;
-						
-		}
+								}
 				
 		private Method var_parse_0_2;
 				
@@ -10589,8 +10306,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_parse_0_3;
 		
@@ -10607,8 +10323,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_parse_0_3 = this.builderType.GetMethod("Parse", true, ps, pstyle, pprovider).Import();
 			
 			return this.var_parse_0_3;
-						
-		}
+								}
 				
 		private Method var_gettypecode_0_0;
 		
@@ -10625,8 +10340,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettypecode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_gettype_0_0;
 		
@@ -10643,10 +10357,8 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettype_0_0;
 						
-						
-		}
-		
-	}
+								}
+			}
 
 			
     /// <summary>
@@ -10683,8 +10395,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_parse_0_2 = this.builderType.GetMethod("Parse", true, penumType, pvalue).Import();
 			
 			return this.var_parse_0_2;
-						
-		}
+								}
 				
 		private Method var_parse_0_3;
 		
@@ -10701,8 +10412,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_parse_0_3 = this.builderType.GetMethod("Parse", true, penumType, pvalue, pignoreCase).Import();
 			
 			return this.var_parse_0_3;
-						
-		}
+								}
 				
 		private Method var_getunderlyingtype_0_1;
 		
@@ -10719,8 +10429,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getunderlyingtype_0_1 = this.builderType.GetMethod("GetUnderlyingType", true, penumType).Import();
 			
 			return this.var_getunderlyingtype_0_1;
-						
-		}
+								}
 				
 		private Method var_getvalues_0_1;
 		
@@ -10737,8 +10446,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getvalues_0_1 = this.builderType.GetMethod("GetValues", true, penumType).Import();
 			
 			return this.var_getvalues_0_1;
-						
-		}
+								}
 				
 		private Method var_getname_0_2;
 		
@@ -10755,8 +10463,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getname_0_2 = this.builderType.GetMethod("GetName", true, penumType, pvalue).Import();
 			
 			return this.var_getname_0_2;
-						
-		}
+								}
 				
 		private Method var_getnames_0_1;
 		
@@ -10773,8 +10480,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getnames_0_1 = this.builderType.GetMethod("GetNames", true, penumType).Import();
 			
 			return this.var_getnames_0_1;
-						
-		}
+								}
 				
 		private Method var_toobject_0_2;
 				
@@ -10884,8 +10590,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_isdefined_0_2;
 		
@@ -10902,8 +10607,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_isdefined_0_2 = this.builderType.GetMethod("IsDefined", true, penumType, pvalue).Import();
 			
 			return this.var_isdefined_0_2;
-						
-		}
+								}
 				
 		private Method var_format_0_3;
 		
@@ -10920,8 +10624,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_format_0_3 = this.builderType.GetMethod("Format", true, penumType, pvalue, pformat).Import();
 			
 			return this.var_format_0_3;
-						
-		}
+								}
 				
 		private Method var_equals_0_1;
 		
@@ -10938,8 +10641,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
 			
 			return this.var_equals_0_1;
-						
-		}
+								}
 				
 		private Method var_gethashcode_0_0;
 		
@@ -10956,8 +10658,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gethashcode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_tostring_0_0;
 		
@@ -10974,8 +10675,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_tostring_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_tostring_0_2;
 		
@@ -10992,8 +10692,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_tostring_0_2 = this.builderType.GetMethod("ToString", true, pformat, pprovider).Import();
 			
 			return this.var_tostring_0_2;
-						
-		}
+								}
 				
 		private Method var_compareto_0_1;
 		
@@ -11010,8 +10709,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_compareto_0_1 = this.builderType.GetMethod("CompareTo", true, ptarget).Import();
 			
 			return this.var_compareto_0_1;
-						
-		}
+								}
 				
 		private Method var_tostring_0_1;
 				
@@ -11044,8 +10742,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_hasflag_0_1;
 		
@@ -11062,8 +10759,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_hasflag_0_1 = this.builderType.GetMethod("HasFlag", true, pflag).Import();
 			
 			return this.var_hasflag_0_1;
-						
-		}
+								}
 				
 		private Method var_gettypecode_0_0;
 		
@@ -11080,8 +10776,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettypecode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_gettype_0_0;
 		
@@ -11098,10 +10793,8 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettype_0_0;
 						
-						
-		}
-		
-	}
+								}
+			}
 
 			
     /// <summary>
@@ -11242,8 +10935,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_average_0_1;
 				
@@ -11364,8 +11056,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_range_0_2;
 		
@@ -11382,8 +11073,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_range_0_2 = this.builderType.GetMethod("Range", true, pstart, pcount).Import();
 			
 			return this.var_range_0_2;
-						
-		}
+								}
 				
 		private Method var_sum_0_1;
 				
@@ -11504,8 +11194,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_min_0_1;
 				
@@ -11626,8 +11315,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_tostring_0_0;
 		
@@ -11644,8 +11332,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_tostring_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_equals_0_1;
 		
@@ -11662,8 +11349,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
 			
 			return this.var_equals_0_1;
-						
-		}
+								}
 				
 		private Method var_gethashcode_0_0;
 		
@@ -11680,8 +11366,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gethashcode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_gettype_0_0;
 		
@@ -11698,10 +11383,8 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettype_0_0;
 						
-						
-		}
-		
-	}
+								}
+			}
 
 			
     /// <summary>
@@ -11738,8 +11421,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_tostring_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_equals_0_1;
 		
@@ -11756,8 +11438,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
 			
 			return this.var_equals_0_1;
-						
-		}
+								}
 				
 		private Method var_gethashcode_0_0;
 		
@@ -11774,8 +11455,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gethashcode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_gettype_0_0;
 		
@@ -11792,10 +11472,8 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettype_0_0;
 						
-						
-		}
-		
-	}
+								}
+			}
 
 			
     /// <summary>
@@ -11832,8 +11510,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_invoke_0_2 = this.builderType.GetMethod("Invoke", true, psender, pe).Import();
 			
 			return this.var_invoke_0_2;
-						
-		}
+								}
 				
 		private Method var_begininvoke_0_4;
 		
@@ -11850,8 +11527,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_begininvoke_0_4 = this.builderType.GetMethod("BeginInvoke", true, psender, pe, pcallback, pobject).Import();
 			
 			return this.var_begininvoke_0_4;
-						
-		}
+								}
 				
 		private Method var_endinvoke_0_1;
 		
@@ -11868,8 +11544,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_endinvoke_0_1 = this.builderType.GetMethod("EndInvoke", true, presult).Import();
 			
 			return this.var_endinvoke_0_1;
-						
-		}
+								}
 				
 		private Method var_getobjectdata_0_2;
 		
@@ -11886,8 +11561,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getobjectdata_0_2 = this.builderType.GetMethod("GetObjectData", true, pinfo, pcontext).Import();
 			
 			return this.var_getobjectdata_0_2;
-						
-		}
+								}
 				
 		private Method var_equals_0_1;
 		
@@ -11904,8 +11578,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
 			
 			return this.var_equals_0_1;
-						
-		}
+								}
 				
 		private Method var_getinvocationlist_0_0;
 		
@@ -11922,8 +11595,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_getinvocationlist_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_gethashcode_0_0;
 		
@@ -11940,8 +11612,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gethashcode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_dynamicinvoke_0_1;
 		
@@ -11958,8 +11629,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_dynamicinvoke_0_1 = this.builderType.GetMethod("DynamicInvoke", true, pargs).Import();
 			
 			return this.var_dynamicinvoke_0_1;
-						
-		}
+								}
 				
 		private Method var_get_method_0_0;
 		
@@ -11976,8 +11646,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_method_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_target_0_0;
 		
@@ -11994,8 +11663,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_target_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_clone_0_0;
 		
@@ -12012,8 +11680,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_clone_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_tostring_0_0;
 		
@@ -12030,8 +11697,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_tostring_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_gettype_0_0;
 		
@@ -12048,10 +11714,8 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettype_0_0;
 						
-						
-		}
-		
-	}
+								}
+			}
 
 			
     /// <summary>
@@ -12088,8 +11752,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getobjectdata_0_2 = this.builderType.GetMethod("GetObjectData", true, pinfo, pcontext).Import();
 			
 			return this.var_getobjectdata_0_2;
-						
-		}
+								}
 				
 		private Method var_equals_0_1;
 		
@@ -12106,8 +11769,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
 			
 			return this.var_equals_0_1;
-						
-		}
+								}
 				
 		private Method var_getinvocationlist_0_0;
 		
@@ -12124,8 +11786,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_getinvocationlist_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_gethashcode_0_0;
 		
@@ -12142,8 +11803,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gethashcode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_dynamicinvoke_0_1;
 		
@@ -12160,8 +11820,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_dynamicinvoke_0_1 = this.builderType.GetMethod("DynamicInvoke", true, pargs).Import();
 			
 			return this.var_dynamicinvoke_0_1;
-						
-		}
+								}
 				
 		private Method var_get_method_0_0;
 		
@@ -12178,8 +11837,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_method_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_target_0_0;
 		
@@ -12196,8 +11854,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_target_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_clone_0_0;
 		
@@ -12214,8 +11871,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_clone_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_tostring_0_0;
 		
@@ -12232,8 +11888,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_tostring_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_gettype_0_0;
 		
@@ -12250,10 +11905,8 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettype_0_0;
 						
-						
-		}
-		
-	}
+								}
+			}
 
 			
     /// <summary>
@@ -12290,8 +11943,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_data_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_message_0_0;
 		
@@ -12308,8 +11960,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_message_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_getbaseexception_0_0;
 		
@@ -12326,8 +11977,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_getbaseexception_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_innerexception_0_0;
 		
@@ -12344,8 +11994,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_innerexception_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_targetsite_0_0;
 		
@@ -12362,8 +12011,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_targetsite_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_stacktrace_0_0;
 		
@@ -12380,8 +12028,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_stacktrace_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_helplink_0_0;
 		
@@ -12398,8 +12045,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_helplink_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_set_helplink_0_1;
 		
@@ -12416,8 +12062,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_set_helplink_0_1 = this.builderType.GetMethod("set_HelpLink", true, pvalue).Import();
 			
 			return this.var_set_helplink_0_1;
-						
-		}
+								}
 				
 		private Method var_get_source_0_0;
 		
@@ -12434,8 +12079,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_source_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_set_source_0_1;
 		
@@ -12452,8 +12096,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_set_source_0_1 = this.builderType.GetMethod("set_Source", true, pvalue).Import();
 			
 			return this.var_set_source_0_1;
-						
-		}
+								}
 				
 		private Method var_tostring_0_0;
 		
@@ -12470,8 +12113,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_tostring_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_getobjectdata_0_2;
 		
@@ -12488,8 +12130,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getobjectdata_0_2 = this.builderType.GetMethod("GetObjectData", true, pinfo, pcontext).Import();
 			
 			return this.var_getobjectdata_0_2;
-						
-		}
+								}
 				
 		private Method var_get_hresult_0_0;
 		
@@ -12506,8 +12147,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_hresult_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_gettype_0_0;
 		
@@ -12524,8 +12164,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettype_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_equals_0_1;
 		
@@ -12542,8 +12181,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
 			
 			return this.var_equals_0_1;
-						
-		}
+								}
 				
 		private Method var_gethashcode_0_0;
 		
@@ -12560,10 +12198,8 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gethashcode_0_0;
 						
-						
-		}
-		
-	}
+								}
+			}
 
 			
     /// <summary>
@@ -12584,8 +12220,7 @@ namespace Cauldron.Interception.Cecilator
 		/// <exclude />
 		public BuilderType BuilderType => this.builderType;
 		
-		
-	}
+			}
 
 			
     /// <summary>
@@ -12607,6 +12242,23 @@ namespace Cauldron.Interception.Cecilator
 		public BuilderType BuilderType => this.builderType;
 		
 				
+		private Method var_add_0_2;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// Void Add(System.Object, System.Object)<para/>
+		/// </summary>
+		public Method GetMethod_Add(TypeReference pkey, TypeReference pvalue)
+		{
+						
+						
+			if(this.var_add_0_2 == null)
+				this.var_add_0_2 = this.builderType.GetMethod("Add", true, pkey, pvalue).Import();
+			
+			return this.var_add_0_2;
+								}
+				
 		private Method var_get_item_0_1;
 		
 		/// <summary>
@@ -12622,8 +12274,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_get_item_0_1 = this.builderType.GetMethod("get_Item", true, pkey).Import();
 			
 			return this.var_get_item_0_1;
-						
-		}
+								}
 				
 		private Method var_set_item_0_2;
 		
@@ -12640,8 +12291,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_set_item_0_2 = this.builderType.GetMethod("set_Item", true, pkey, pvalue).Import();
 			
 			return this.var_set_item_0_2;
-						
-		}
+								}
 				
 		private Method var_get_keys_0_0;
 		
@@ -12658,8 +12308,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_keys_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_values_0_0;
 		
@@ -12676,8 +12325,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_values_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_contains_0_1;
 		
@@ -12694,26 +12342,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_contains_0_1 = this.builderType.GetMethod("Contains", true, pkey).Import();
 			
 			return this.var_contains_0_1;
-						
-		}
-				
-		private Method var_add_0_2;
-		
-		/// <summary>
-		/// Represents the following method:
-		/// <para />
-		/// Void Add(System.Object, System.Object)<para/>
-		/// </summary>
-		public Method GetMethod_Add(TypeReference pkey, TypeReference pvalue)
-		{
-						
-						
-			if(this.var_add_0_2 == null)
-				this.var_add_0_2 = this.builderType.GetMethod("Add", true, pkey, pvalue).Import();
-			
-			return this.var_add_0_2;
-						
-		}
+								}
 				
 		private Method var_clear_0_0;
 		
@@ -12730,8 +12359,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_clear_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isreadonly_0_0;
 		
@@ -12748,8 +12376,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isreadonly_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isfixedsize_0_0;
 		
@@ -12766,8 +12393,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isfixedsize_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_getenumerator_0_0;
 		
@@ -12784,8 +12410,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_getenumerator_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_remove_0_1;
 		
@@ -12802,10 +12427,8 @@ namespace Cauldron.Interception.Cecilator
 				this.var_remove_0_1 = this.builderType.GetMethod("Remove", true, pkey).Import();
 			
 			return this.var_remove_0_1;
-						
-		}
-		
-	}
+								}
+			}
 
 			
     /// <summary>
@@ -12826,8 +12449,45 @@ namespace Cauldron.Interception.Cecilator
 		/// <exclude />
 		public BuilderType BuilderType => this.builderType;
 		
+			}
+
+			
+    /// <summary>
+    /// Provides a wrapper class for <see cref="System.IDisposable"/>
+    /// </summary>
+    public partial class BuilderTypeIDisposable : TypeSystemExBase
+	{
+        internal BuilderTypeIDisposable(BuilderType builderType) : base(builderType)
+		{
+		}
+
+		/// <exclude />
+		public static implicit operator BuilderType(BuilderTypeIDisposable value) => value.builderType;
 		
-	}
+		/// <exclude />
+		public static implicit operator TypeReference(BuilderTypeIDisposable value) => value.builderType.typeReference;
+
+		/// <exclude />
+		public BuilderType BuilderType => this.builderType;
+		
+				
+		private Method var_dispose_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// Void Dispose()<para/>
+		/// </summary>
+		public Method GetMethod_Dispose()
+		{
+						
+			if(this.var_dispose_0_0 == null)
+				this.var_dispose_0_0 = this.builderType.GetMethod("Dispose", true);
+
+			return this.var_dispose_0_0;
+						
+								}
+			}
 
 			
     /// <summary>
@@ -12864,10 +12524,8 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_getenumerator_0_0;
 						
-						
-		}
-		
-	}
+								}
+			}
 
 			
     /// <summary>
@@ -12888,8 +12546,7 @@ namespace Cauldron.Interception.Cecilator
 		/// <exclude />
 		public BuilderType BuilderType => this.builderType;
 		
-		
-	}
+			}
 
 			
     /// <summary>
@@ -12926,8 +12583,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_get_item_0_1 = this.builderType.GetMethod("get_Item", true, pindex).Import();
 			
 			return this.var_get_item_0_1;
-						
-		}
+								}
 				
 		private Method var_set_item_0_2;
 		
@@ -12944,8 +12600,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_set_item_0_2 = this.builderType.GetMethod("set_Item", true, pindex, pvalue).Import();
 			
 			return this.var_set_item_0_2;
-						
-		}
+								}
 				
 		private Method var_add_0_1;
 		
@@ -12962,8 +12617,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_add_0_1 = this.builderType.GetMethod("Add", true, pvalue).Import();
 			
 			return this.var_add_0_1;
-						
-		}
+								}
 				
 		private Method var_contains_0_1;
 		
@@ -12980,8 +12634,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_contains_0_1 = this.builderType.GetMethod("Contains", true, pvalue).Import();
 			
 			return this.var_contains_0_1;
-						
-		}
+								}
 				
 		private Method var_clear_0_0;
 		
@@ -12998,8 +12651,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_clear_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isreadonly_0_0;
 		
@@ -13016,8 +12668,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isreadonly_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isfixedsize_0_0;
 		
@@ -13034,8 +12685,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isfixedsize_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_indexof_0_1;
 		
@@ -13052,8 +12702,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_indexof_0_1 = this.builderType.GetMethod("IndexOf", true, pvalue).Import();
 			
 			return this.var_indexof_0_1;
-						
-		}
+								}
 				
 		private Method var_insert_0_2;
 		
@@ -13070,8 +12719,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_insert_0_2 = this.builderType.GetMethod("Insert", true, pindex, pvalue).Import();
 			
 			return this.var_insert_0_2;
-						
-		}
+								}
 				
 		private Method var_remove_0_1;
 		
@@ -13088,8 +12736,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_remove_0_1 = this.builderType.GetMethod("Remove", true, pvalue).Import();
 			
 			return this.var_remove_0_1;
-						
-		}
+								}
 				
 		private Method var_removeat_0_1;
 		
@@ -13106,10 +12753,8 @@ namespace Cauldron.Interception.Cecilator
 				this.var_removeat_0_1 = this.builderType.GetMethod("RemoveAt", true, pindex).Import();
 			
 			return this.var_removeat_0_1;
-						
-		}
-		
-	}
+								}
+			}
 
 			
     /// <summary>
@@ -13130,8 +12775,7 @@ namespace Cauldron.Interception.Cecilator
 		/// <exclude />
 		public BuilderType BuilderType => this.builderType;
 		
-		
-	}
+			}
 
 			
     /// <summary>
@@ -13184,8 +12828,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_equals_0_1;
 				
@@ -13218,8 +12861,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_gethashcode_0_0;
 		
@@ -13236,8 +12878,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gethashcode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_tostring_0_0;
 		
@@ -13254,8 +12895,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_tostring_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_tostring_0_1;
 				
@@ -13288,8 +12928,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_tostring_0_2;
 		
@@ -13306,8 +12945,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_tostring_0_2 = this.builderType.GetMethod("ToString", true, pformat, pprovider).Import();
 			
 			return this.var_tostring_0_2;
-						
-		}
+								}
 				
 		private Method var_parse_0_1;
 		
@@ -13324,8 +12962,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_parse_0_1 = this.builderType.GetMethod("Parse", true, ps).Import();
 			
 			return this.var_parse_0_1;
-						
-		}
+								}
 				
 		private Method var_parse_0_2;
 				
@@ -13358,8 +12995,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_parse_0_3;
 		
@@ -13376,8 +13012,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_parse_0_3 = this.builderType.GetMethod("Parse", true, ps, pstyle, pprovider).Import();
 			
 			return this.var_parse_0_3;
-						
-		}
+								}
 				
 		private Method var_gettypecode_0_0;
 		
@@ -13394,8 +13029,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettypecode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_gettype_0_0;
 		
@@ -13412,10 +13046,8 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettype_0_0;
 						
-						
-		}
-		
-	}
+								}
+			}
 
 			
     /// <summary>
@@ -13468,8 +13100,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_equals_0_1;
 				
@@ -13502,8 +13133,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_gethashcode_0_0;
 		
@@ -13520,8 +13150,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gethashcode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_tostring_0_0;
 		
@@ -13538,8 +13167,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_tostring_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_tostring_0_1;
 				
@@ -13572,8 +13200,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_tostring_0_2;
 		
@@ -13590,8 +13217,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_tostring_0_2 = this.builderType.GetMethod("ToString", true, pformat, pprovider).Import();
 			
 			return this.var_tostring_0_2;
-						
-		}
+								}
 				
 		private Method var_parse_0_1;
 		
@@ -13608,8 +13234,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_parse_0_1 = this.builderType.GetMethod("Parse", true, ps).Import();
 			
 			return this.var_parse_0_1;
-						
-		}
+								}
 				
 		private Method var_parse_0_2;
 				
@@ -13642,8 +13267,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_parse_0_3;
 		
@@ -13660,8 +13284,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_parse_0_3 = this.builderType.GetMethod("Parse", true, ps, pstyle, pprovider).Import();
 			
 			return this.var_parse_0_3;
-						
-		}
+								}
 				
 		private Method var_gettypecode_0_0;
 		
@@ -13678,8 +13301,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettypecode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_gettype_0_0;
 		
@@ -13696,10 +13318,8 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettype_0_0;
 						
-						
-		}
-		
-	}
+								}
+			}
 
 			
     /// <summary>
@@ -13752,8 +13372,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_equals_0_1;
 				
@@ -13786,8 +13405,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_gethashcode_0_0;
 		
@@ -13804,8 +13422,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gethashcode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_tostring_0_0;
 		
@@ -13822,8 +13439,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_tostring_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_tostring_0_1;
 				
@@ -13856,8 +13472,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_tostring_0_2;
 		
@@ -13874,8 +13489,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_tostring_0_2 = this.builderType.GetMethod("ToString", true, pformat, pprovider).Import();
 			
 			return this.var_tostring_0_2;
-						
-		}
+								}
 				
 		private Method var_parse_0_1;
 		
@@ -13892,8 +13506,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_parse_0_1 = this.builderType.GetMethod("Parse", true, ps).Import();
 			
 			return this.var_parse_0_1;
-						
-		}
+								}
 				
 		private Method var_parse_0_2;
 				
@@ -13926,8 +13539,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_parse_0_3;
 		
@@ -13944,8 +13556,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_parse_0_3 = this.builderType.GetMethod("Parse", true, ps, pstyle, pprovider).Import();
 			
 			return this.var_parse_0_3;
-						
-		}
+								}
 				
 		private Method var_gettypecode_0_0;
 		
@@ -13962,8 +13573,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettypecode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_gettype_0_0;
 		
@@ -13980,10 +13590,8 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettype_0_0;
 						
-						
-		}
-		
-	}
+								}
+			}
 
 			
     /// <summary>
@@ -14020,8 +13628,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
 			
 			return this.var_equals_0_1;
-						
-		}
+								}
 				
 		private Method var_gethashcode_0_0;
 		
@@ -14038,8 +13645,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gethashcode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_toint32_0_0;
 		
@@ -14056,8 +13662,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_toint32_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_toint64_0_0;
 		
@@ -14074,8 +13679,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_toint64_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_tostring_0_0;
 		
@@ -14092,8 +13696,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_tostring_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_tostring_0_1;
 		
@@ -14110,8 +13713,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_tostring_0_1 = this.builderType.GetMethod("ToString", true, pformat).Import();
 			
 			return this.var_tostring_0_1;
-						
-		}
+								}
 				
 		private Method var_op_explicit_0_1;
 				
@@ -14177,8 +13779,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_op_equality_0_2;
 		
@@ -14195,8 +13796,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_op_equality_0_2 = this.builderType.GetMethod("op_Equality", true, pvalue1, pvalue2).Import();
 			
 			return this.var_op_equality_0_2;
-						
-		}
+								}
 				
 		private Method var_op_inequality_0_2;
 		
@@ -14213,8 +13813,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_op_inequality_0_2 = this.builderType.GetMethod("op_Inequality", true, pvalue1, pvalue2).Import();
 			
 			return this.var_op_inequality_0_2;
-						
-		}
+								}
 				
 		private Method var_add_0_2;
 		
@@ -14231,8 +13830,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_add_0_2 = this.builderType.GetMethod("Add", true, ppointer, poffset).Import();
 			
 			return this.var_add_0_2;
-						
-		}
+								}
 				
 		private Method var_op_addition_0_2;
 		
@@ -14249,8 +13847,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_op_addition_0_2 = this.builderType.GetMethod("op_Addition", true, ppointer, poffset).Import();
 			
 			return this.var_op_addition_0_2;
-						
-		}
+								}
 				
 		private Method var_subtract_0_2;
 		
@@ -14267,8 +13864,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_subtract_0_2 = this.builderType.GetMethod("Subtract", true, ppointer, poffset).Import();
 			
 			return this.var_subtract_0_2;
-						
-		}
+								}
 				
 		private Method var_op_subtraction_0_2;
 		
@@ -14285,8 +13881,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_op_subtraction_0_2 = this.builderType.GetMethod("op_Subtraction", true, ppointer, poffset).Import();
 			
 			return this.var_op_subtraction_0_2;
-						
-		}
+								}
 				
 		private Method var_get_size_0_0;
 		
@@ -14303,8 +13898,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_size_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_topointer_0_0;
 		
@@ -14321,8 +13915,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_topointer_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_gettype_0_0;
 		
@@ -14339,10 +13932,8 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettype_0_0;
 						
-						
-		}
-		
-	}
+								}
+			}
 
 			
     /// <summary>
@@ -14379,8 +13970,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_tostring_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_equals_0_1;
 		
@@ -14397,8 +13987,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
 			
 			return this.var_equals_0_1;
-						
-		}
+								}
 				
 		private Method var_gethashcode_0_0;
 		
@@ -14415,8 +14004,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gethashcode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_gettype_0_0;
 		
@@ -14433,10 +14021,8 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettype_0_0;
 						
-						
-		}
-		
-	}
+								}
+			}
 
 			
     /// <summary>
@@ -14473,8 +14059,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getmethodfromhandle_0_1 = this.builderType.GetMethod("GetMethodFromHandle", true, phandle).Import();
 			
 			return this.var_getmethodfromhandle_0_1;
-						
-		}
+								}
 				
 		private Method var_getmethodfromhandle_0_2;
 		
@@ -14491,8 +14076,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getmethodfromhandle_0_2 = this.builderType.GetMethod("GetMethodFromHandle", true, phandle, pdeclaringType).Import();
 			
 			return this.var_getmethodfromhandle_0_2;
-						
-		}
+								}
 				
 		private Method var_getcurrentmethod_0_0;
 		
@@ -14509,8 +14093,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_getcurrentmethod_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_op_equality_0_2;
 		
@@ -14527,8 +14110,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_op_equality_0_2 = this.builderType.GetMethod("op_Equality", true, pleft, pright).Import();
 			
 			return this.var_op_equality_0_2;
-						
-		}
+								}
 				
 		private Method var_op_inequality_0_2;
 		
@@ -14545,8 +14127,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_op_inequality_0_2 = this.builderType.GetMethod("op_Inequality", true, pleft, pright).Import();
 			
 			return this.var_op_inequality_0_2;
-						
-		}
+								}
 				
 		private Method var_equals_0_1;
 		
@@ -14563,8 +14144,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
 			
 			return this.var_equals_0_1;
-						
-		}
+								}
 				
 		private Method var_gethashcode_0_0;
 		
@@ -14581,8 +14161,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gethashcode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_getparameters_0_0;
 		
@@ -14599,8 +14178,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_getparameters_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_methodimplementationflags_0_0;
 		
@@ -14617,8 +14195,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_methodimplementationflags_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_getmethodimplementationflags_0_0;
 		
@@ -14635,8 +14212,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_getmethodimplementationflags_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_methodhandle_0_0;
 		
@@ -14653,8 +14229,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_methodhandle_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_attributes_0_0;
 		
@@ -14671,8 +14246,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_attributes_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_invoke_0_5;
 		
@@ -14689,8 +14263,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_invoke_0_5 = this.builderType.GetMethod("Invoke", true, pobj, pinvokeAttr, pbinder, pparameters, pculture).Import();
 			
 			return this.var_invoke_0_5;
-						
-		}
+								}
 				
 		private Method var_get_callingconvention_0_0;
 		
@@ -14707,8 +14280,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_callingconvention_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_getgenericarguments_0_0;
 		
@@ -14725,8 +14297,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_getgenericarguments_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isgenericmethoddefinition_0_0;
 		
@@ -14743,8 +14314,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isgenericmethoddefinition_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_containsgenericparameters_0_0;
 		
@@ -14761,8 +14331,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_containsgenericparameters_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isgenericmethod_0_0;
 		
@@ -14779,8 +14348,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isgenericmethod_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_issecuritycritical_0_0;
 		
@@ -14797,8 +14365,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_issecuritycritical_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_issecuritysafecritical_0_0;
 		
@@ -14815,8 +14382,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_issecuritysafecritical_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_issecuritytransparent_0_0;
 		
@@ -14833,8 +14399,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_issecuritytransparent_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_invoke_0_2;
 		
@@ -14851,8 +14416,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_invoke_0_2 = this.builderType.GetMethod("Invoke", true, pobj, pparameters).Import();
 			
 			return this.var_invoke_0_2;
-						
-		}
+								}
 				
 		private Method var_get_ispublic_0_0;
 		
@@ -14869,8 +14433,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_ispublic_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isprivate_0_0;
 		
@@ -14887,8 +14450,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isprivate_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isfamily_0_0;
 		
@@ -14905,8 +14467,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isfamily_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isassembly_0_0;
 		
@@ -14923,8 +14484,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isassembly_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isfamilyandassembly_0_0;
 		
@@ -14941,8 +14501,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isfamilyandassembly_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isfamilyorassembly_0_0;
 		
@@ -14959,8 +14518,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isfamilyorassembly_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isstatic_0_0;
 		
@@ -14977,8 +14535,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isstatic_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isfinal_0_0;
 		
@@ -14995,8 +14552,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isfinal_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isvirtual_0_0;
 		
@@ -15013,8 +14569,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isvirtual_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_ishidebysig_0_0;
 		
@@ -15031,8 +14586,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_ishidebysig_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isabstract_0_0;
 		
@@ -15049,8 +14603,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isabstract_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isspecialname_0_0;
 		
@@ -15067,8 +14620,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isspecialname_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isconstructor_0_0;
 		
@@ -15085,8 +14637,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isconstructor_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_getmethodbody_0_0;
 		
@@ -15103,8 +14654,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_getmethodbody_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_membertype_0_0;
 		
@@ -15121,8 +14671,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_membertype_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_name_0_0;
 		
@@ -15139,8 +14688,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_name_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_declaringtype_0_0;
 		
@@ -15157,8 +14705,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_declaringtype_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_reflectedtype_0_0;
 		
@@ -15175,8 +14722,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_reflectedtype_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_customattributes_0_0;
 		
@@ -15193,8 +14739,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_customattributes_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_getcustomattributes_0_1;
 		
@@ -15211,8 +14756,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getcustomattributes_0_1 = this.builderType.GetMethod("GetCustomAttributes", true, pinherit).Import();
 			
 			return this.var_getcustomattributes_0_1;
-						
-		}
+								}
 				
 		private Method var_getcustomattributes_0_2;
 		
@@ -15229,8 +14773,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getcustomattributes_0_2 = this.builderType.GetMethod("GetCustomAttributes", true, pattributeType, pinherit).Import();
 			
 			return this.var_getcustomattributes_0_2;
-						
-		}
+								}
 				
 		private Method var_isdefined_0_2;
 		
@@ -15247,8 +14790,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_isdefined_0_2 = this.builderType.GetMethod("IsDefined", true, pattributeType, pinherit).Import();
 			
 			return this.var_isdefined_0_2;
-						
-		}
+								}
 				
 		private Method var_getcustomattributesdata_0_0;
 		
@@ -15265,8 +14807,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_getcustomattributesdata_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_metadatatoken_0_0;
 		
@@ -15283,8 +14824,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_metadatatoken_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_module_0_0;
 		
@@ -15301,8 +14841,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_module_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_tostring_0_0;
 		
@@ -15319,8 +14858,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_tostring_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_gettype_0_0;
 		
@@ -15337,10 +14875,8 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettype_0_0;
 						
-						
-		}
-		
-	}
+								}
+			}
 
 			
     /// <summary>
@@ -15377,8 +14913,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_enter_0_1 = this.builderType.GetMethod("Enter", true, pobj).Import();
 			
 			return this.var_enter_0_1;
-						
-		}
+								}
 				
 		private Method var_exit_0_1;
 		
@@ -15395,8 +14930,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_exit_0_1 = this.builderType.GetMethod("Exit", true, pobj).Import();
 			
 			return this.var_exit_0_1;
-						
-		}
+								}
 				
 		private Method var_tryenter_0_1;
 		
@@ -15413,8 +14947,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_tryenter_0_1 = this.builderType.GetMethod("TryEnter", true, pobj).Import();
 			
 			return this.var_tryenter_0_1;
-						
-		}
+								}
 				
 		private Method var_tryenter_0_2;
 				
@@ -15447,8 +14980,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_isentered_0_1;
 		
@@ -15465,8 +14997,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_isentered_0_1 = this.builderType.GetMethod("IsEntered", true, pobj).Import();
 			
 			return this.var_isentered_0_1;
-						
-		}
+								}
 				
 		private Method var_wait_0_3;
 				
@@ -15499,8 +15030,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_wait_0_2;
 				
@@ -15533,8 +15063,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_wait_0_1;
 		
@@ -15551,8 +15080,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_wait_0_1 = this.builderType.GetMethod("Wait", true, pobj).Import();
 			
 			return this.var_wait_0_1;
-						
-		}
+								}
 				
 		private Method var_pulse_0_1;
 		
@@ -15569,8 +15097,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_pulse_0_1 = this.builderType.GetMethod("Pulse", true, pobj).Import();
 			
 			return this.var_pulse_0_1;
-						
-		}
+								}
 				
 		private Method var_pulseall_0_1;
 		
@@ -15587,8 +15114,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_pulseall_0_1 = this.builderType.GetMethod("PulseAll", true, pobj).Import();
 			
 			return this.var_pulseall_0_1;
-						
-		}
+								}
 				
 		private Method var_tostring_0_0;
 		
@@ -15605,8 +15131,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_tostring_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_equals_0_1;
 		
@@ -15623,8 +15148,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
 			
 			return this.var_equals_0_1;
-						
-		}
+								}
 				
 		private Method var_gethashcode_0_0;
 		
@@ -15641,8 +15165,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gethashcode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_gettype_0_0;
 		
@@ -15659,10 +15182,301 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettype_0_0;
 						
-						
+								}
+			}
+
+			
+    /// <summary>
+    /// Provides a wrapper class for <see cref="System.NotSupportedException"/>
+    /// </summary>
+    public partial class BuilderTypeNotSupportedException : TypeSystemExBase
+	{
+        internal BuilderTypeNotSupportedException(BuilderType builderType) : base(builderType)
+		{
 		}
+
+		/// <exclude />
+		public static implicit operator BuilderType(BuilderTypeNotSupportedException value) => value.builderType;
 		
-	}
+		/// <exclude />
+		public static implicit operator TypeReference(BuilderTypeNotSupportedException value) => value.builderType.typeReference;
+
+		/// <exclude />
+		public BuilderType BuilderType => this.builderType;
+		
+				
+		private Method var_get_message_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.String get_Message()<para/>
+		/// </summary>
+		public Method GetMethod_get_Message()
+		{
+						
+			if(this.var_get_message_0_0 == null)
+				this.var_get_message_0_0 = this.builderType.GetMethod("get_Message", true);
+
+			return this.var_get_message_0_0;
+						
+								}
+				
+		private Method var_get_data_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.Collections.IDictionary get_Data()<para/>
+		/// </summary>
+		public Method GetMethod_get_Data()
+		{
+						
+			if(this.var_get_data_0_0 == null)
+				this.var_get_data_0_0 = this.builderType.GetMethod("get_Data", true);
+
+			return this.var_get_data_0_0;
+						
+								}
+				
+		private Method var_getbaseexception_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.Exception GetBaseException()<para/>
+		/// </summary>
+		public Method GetMethod_GetBaseException()
+		{
+						
+			if(this.var_getbaseexception_0_0 == null)
+				this.var_getbaseexception_0_0 = this.builderType.GetMethod("GetBaseException", true);
+
+			return this.var_getbaseexception_0_0;
+						
+								}
+				
+		private Method var_get_innerexception_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.Exception get_InnerException()<para/>
+		/// </summary>
+		public Method GetMethod_get_InnerException()
+		{
+						
+			if(this.var_get_innerexception_0_0 == null)
+				this.var_get_innerexception_0_0 = this.builderType.GetMethod("get_InnerException", true);
+
+			return this.var_get_innerexception_0_0;
+						
+								}
+				
+		private Method var_get_targetsite_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.Reflection.MethodBase get_TargetSite()<para/>
+		/// </summary>
+		public Method GetMethod_get_TargetSite()
+		{
+						
+			if(this.var_get_targetsite_0_0 == null)
+				this.var_get_targetsite_0_0 = this.builderType.GetMethod("get_TargetSite", true);
+
+			return this.var_get_targetsite_0_0;
+						
+								}
+				
+		private Method var_get_stacktrace_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.String get_StackTrace()<para/>
+		/// </summary>
+		public Method GetMethod_get_StackTrace()
+		{
+						
+			if(this.var_get_stacktrace_0_0 == null)
+				this.var_get_stacktrace_0_0 = this.builderType.GetMethod("get_StackTrace", true);
+
+			return this.var_get_stacktrace_0_0;
+						
+								}
+				
+		private Method var_get_helplink_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.String get_HelpLink()<para/>
+		/// </summary>
+		public Method GetMethod_get_HelpLink()
+		{
+						
+			if(this.var_get_helplink_0_0 == null)
+				this.var_get_helplink_0_0 = this.builderType.GetMethod("get_HelpLink", true);
+
+			return this.var_get_helplink_0_0;
+						
+								}
+				
+		private Method var_set_helplink_0_1;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// Void set_HelpLink(System.String)<para/>
+		/// </summary>
+		public Method GetMethod_set_HelpLink(TypeReference pvalue)
+		{
+						
+						
+			if(this.var_set_helplink_0_1 == null)
+				this.var_set_helplink_0_1 = this.builderType.GetMethod("set_HelpLink", true, pvalue).Import();
+			
+			return this.var_set_helplink_0_1;
+								}
+				
+		private Method var_get_source_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.String get_Source()<para/>
+		/// </summary>
+		public Method GetMethod_get_Source()
+		{
+						
+			if(this.var_get_source_0_0 == null)
+				this.var_get_source_0_0 = this.builderType.GetMethod("get_Source", true);
+
+			return this.var_get_source_0_0;
+						
+								}
+				
+		private Method var_set_source_0_1;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// Void set_Source(System.String)<para/>
+		/// </summary>
+		public Method GetMethod_set_Source(TypeReference pvalue)
+		{
+						
+						
+			if(this.var_set_source_0_1 == null)
+				this.var_set_source_0_1 = this.builderType.GetMethod("set_Source", true, pvalue).Import();
+			
+			return this.var_set_source_0_1;
+								}
+				
+		private Method var_tostring_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.String ToString()<para/>
+		/// </summary>
+		public Method GetMethod_ToString()
+		{
+						
+			if(this.var_tostring_0_0 == null)
+				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", true);
+
+			return this.var_tostring_0_0;
+						
+								}
+				
+		private Method var_getobjectdata_0_2;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// Void GetObjectData(System.Runtime.Serialization.SerializationInfo, System.Runtime.Serialization.StreamingContext)<para/>
+		/// </summary>
+		public Method GetMethod_GetObjectData(TypeReference pinfo, TypeReference pcontext)
+		{
+						
+						
+			if(this.var_getobjectdata_0_2 == null)
+				this.var_getobjectdata_0_2 = this.builderType.GetMethod("GetObjectData", true, pinfo, pcontext).Import();
+			
+			return this.var_getobjectdata_0_2;
+								}
+				
+		private Method var_get_hresult_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// Int32 get_HResult()<para/>
+		/// </summary>
+		public Method GetMethod_get_HResult()
+		{
+						
+			if(this.var_get_hresult_0_0 == null)
+				this.var_get_hresult_0_0 = this.builderType.GetMethod("get_HResult", true);
+
+			return this.var_get_hresult_0_0;
+						
+								}
+				
+		private Method var_gettype_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.Type GetType()<para/>
+		/// </summary>
+		public Method GetMethod_GetType()
+		{
+						
+			if(this.var_gettype_0_0 == null)
+				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", true);
+
+			return this.var_gettype_0_0;
+						
+								}
+				
+		private Method var_equals_0_1;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// Boolean Equals(System.Object)<para/>
+		/// </summary>
+		public Method GetMethod_Equals(TypeReference pobj)
+		{
+						
+						
+			if(this.var_equals_0_1 == null)
+				this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
+			
+			return this.var_equals_0_1;
+								}
+				
+		private Method var_gethashcode_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// Int32 GetHashCode()<para/>
+		/// </summary>
+		public Method GetMethod_GetHashCode()
+		{
+						
+			if(this.var_gethashcode_0_0 == null)
+				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", true);
+
+			return this.var_gethashcode_0_0;
+						
+								}
+			}
 
 			
     /// <summary>
@@ -15699,8 +15513,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getunderlyingtype_0_1 = this.builderType.GetMethod("GetUnderlyingType", true, pnullableType).Import();
 			
 			return this.var_getunderlyingtype_0_1;
-						
-		}
+								}
 				
 		private Method var_tostring_0_0;
 		
@@ -15717,8 +15530,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_tostring_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_equals_0_1;
 		
@@ -15735,8 +15547,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
 			
 			return this.var_equals_0_1;
-						
-		}
+								}
 				
 		private Method var_gethashcode_0_0;
 		
@@ -15753,8 +15564,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gethashcode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_gettype_0_0;
 		
@@ -15771,10 +15581,8 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettype_0_0;
 						
-						
-		}
-		
-	}
+								}
+			}
 
 			
     /// <summary>
@@ -15811,10 +15619,8 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettype_0_0;
 						
-						
-		}
-		
-	}
+								}
+			}
 
 			
     /// <summary>
@@ -15851,8 +15657,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_tostring_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_equals_0_1;
 		
@@ -15869,8 +15674,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
 			
 			return this.var_equals_0_1;
-						
-		}
+								}
 				
 		private Method var_equals_0_2;
 		
@@ -15887,8 +15691,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_equals_0_2 = this.builderType.GetMethod("Equals", true, pobjA, pobjB).Import();
 			
 			return this.var_equals_0_2;
-						
-		}
+								}
 				
 		private Method var_referenceequals_0_2;
 		
@@ -15905,8 +15708,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_referenceequals_0_2 = this.builderType.GetMethod("ReferenceEquals", true, pobjA, pobjB).Import();
 			
 			return this.var_referenceequals_0_2;
-						
-		}
+								}
 				
 		private Method var_gethashcode_0_0;
 		
@@ -15923,8 +15725,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gethashcode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_gettype_0_0;
 		
@@ -15941,10 +15742,8 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettype_0_0;
 						
-						
-		}
-		
-	}
+								}
+			}
 
 			
     /// <summary>
@@ -15981,8 +15780,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_tostring_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_compareto_0_1;
 				
@@ -16015,8 +15813,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_equals_0_1;
 				
@@ -16049,8 +15846,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_gethashcode_0_0;
 		
@@ -16067,8 +15863,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gethashcode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_tostring_0_1;
 				
@@ -16101,8 +15896,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_tostring_0_2;
 		
@@ -16119,8 +15913,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_tostring_0_2 = this.builderType.GetMethod("ToString", true, pformat, pprovider).Import();
 			
 			return this.var_tostring_0_2;
-						
-		}
+								}
 				
 		private Method var_parse_0_1;
 		
@@ -16137,8 +15930,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_parse_0_1 = this.builderType.GetMethod("Parse", true, ps).Import();
 			
 			return this.var_parse_0_1;
-						
-		}
+								}
 				
 		private Method var_parse_0_2;
 				
@@ -16171,8 +15963,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_parse_0_3;
 		
@@ -16189,8 +15980,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_parse_0_3 = this.builderType.GetMethod("Parse", true, ps, pstyle, pprovider).Import();
 			
 			return this.var_parse_0_3;
-						
-		}
+								}
 				
 		private Method var_gettypecode_0_0;
 		
@@ -16207,8 +15997,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettypecode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_gettype_0_0;
 		
@@ -16225,10 +16014,8 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettype_0_0;
 						
-						
-		}
-		
-	}
+								}
+			}
 
 			
     /// <summary>
@@ -16265,8 +16052,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_isinfinity_0_1 = this.builderType.GetMethod("IsInfinity", true, pf).Import();
 			
 			return this.var_isinfinity_0_1;
-						
-		}
+								}
 				
 		private Method var_ispositiveinfinity_0_1;
 		
@@ -16283,8 +16069,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_ispositiveinfinity_0_1 = this.builderType.GetMethod("IsPositiveInfinity", true, pf).Import();
 			
 			return this.var_ispositiveinfinity_0_1;
-						
-		}
+								}
 				
 		private Method var_isnegativeinfinity_0_1;
 		
@@ -16301,8 +16086,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_isnegativeinfinity_0_1 = this.builderType.GetMethod("IsNegativeInfinity", true, pf).Import();
 			
 			return this.var_isnegativeinfinity_0_1;
-						
-		}
+								}
 				
 		private Method var_isnan_0_1;
 		
@@ -16319,8 +16103,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_isnan_0_1 = this.builderType.GetMethod("IsNaN", true, pf).Import();
 			
 			return this.var_isnan_0_1;
-						
-		}
+								}
 				
 		private Method var_compareto_0_1;
 				
@@ -16353,8 +16136,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_op_equality_0_2;
 		
@@ -16371,8 +16153,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_op_equality_0_2 = this.builderType.GetMethod("op_Equality", true, pleft, pright).Import();
 			
 			return this.var_op_equality_0_2;
-						
-		}
+								}
 				
 		private Method var_op_inequality_0_2;
 		
@@ -16389,8 +16170,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_op_inequality_0_2 = this.builderType.GetMethod("op_Inequality", true, pleft, pright).Import();
 			
 			return this.var_op_inequality_0_2;
-						
-		}
+								}
 				
 		private Method var_op_lessthan_0_2;
 		
@@ -16407,8 +16187,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_op_lessthan_0_2 = this.builderType.GetMethod("op_LessThan", true, pleft, pright).Import();
 			
 			return this.var_op_lessthan_0_2;
-						
-		}
+								}
 				
 		private Method var_op_greaterthan_0_2;
 		
@@ -16425,8 +16204,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_op_greaterthan_0_2 = this.builderType.GetMethod("op_GreaterThan", true, pleft, pright).Import();
 			
 			return this.var_op_greaterthan_0_2;
-						
-		}
+								}
 				
 		private Method var_op_lessthanorequal_0_2;
 		
@@ -16443,8 +16221,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_op_lessthanorequal_0_2 = this.builderType.GetMethod("op_LessThanOrEqual", true, pleft, pright).Import();
 			
 			return this.var_op_lessthanorequal_0_2;
-						
-		}
+								}
 				
 		private Method var_op_greaterthanorequal_0_2;
 		
@@ -16461,8 +16238,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_op_greaterthanorequal_0_2 = this.builderType.GetMethod("op_GreaterThanOrEqual", true, pleft, pright).Import();
 			
 			return this.var_op_greaterthanorequal_0_2;
-						
-		}
+								}
 				
 		private Method var_equals_0_1;
 				
@@ -16495,8 +16271,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_gethashcode_0_0;
 		
@@ -16513,8 +16288,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gethashcode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_tostring_0_0;
 		
@@ -16531,8 +16305,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_tostring_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_tostring_0_1;
 				
@@ -16565,8 +16338,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_tostring_0_2;
 		
@@ -16583,8 +16355,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_tostring_0_2 = this.builderType.GetMethod("ToString", true, pformat, pprovider).Import();
 			
 			return this.var_tostring_0_2;
-						
-		}
+								}
 				
 		private Method var_parse_0_1;
 		
@@ -16601,8 +16372,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_parse_0_1 = this.builderType.GetMethod("Parse", true, ps).Import();
 			
 			return this.var_parse_0_1;
-						
-		}
+								}
 				
 		private Method var_parse_0_2;
 				
@@ -16635,8 +16405,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_parse_0_3;
 		
@@ -16653,8 +16422,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_parse_0_3 = this.builderType.GetMethod("Parse", true, ps, pstyle, pprovider).Import();
 			
 			return this.var_parse_0_3;
-						
-		}
+								}
 				
 		private Method var_gettypecode_0_0;
 		
@@ -16671,8 +16439,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettypecode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_gettype_0_0;
 		
@@ -16689,10 +16456,8 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettype_0_0;
 						
-						
-		}
-		
-	}
+								}
+			}
 
 			
     /// <summary>
@@ -16729,26 +16494,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_length_0_0;
 						
-						
-		}
-				
-		private Method var_get_chars_0_1;
-		
-		/// <summary>
-		/// Represents the following method:
-		/// <para />
-		/// Char get_Chars(Int32)<para/>
-		/// </summary>
-		public Method GetMethod_get_Chars(TypeReference pindex)
-		{
-						
-						
-			if(this.var_get_chars_0_1 == null)
-				this.var_get_chars_0_1 = this.builderType.GetMethod("get_Chars", true, pindex).Import();
-			
-			return this.var_get_chars_0_1;
-						
-		}
+								}
 				
 		private Method var_join_0_2;
 				
@@ -16792,8 +16538,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_join_0_4;
 		
@@ -16810,8 +16555,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_join_0_4 = this.builderType.GetMethod("Join", true, pseparator, pvalue, pstartIndex, pcount).Import();
 			
 			return this.var_join_0_4;
-						
-		}
+								}
 				
 		private Method var_equals_0_1;
 				
@@ -16844,8 +16588,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_equals_0_2;
 				
@@ -16878,8 +16621,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_equals_0_3;
 		
@@ -16896,8 +16638,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_equals_0_3 = this.builderType.GetMethod("Equals", true, pa, pb, pcomparisonType).Import();
 			
 			return this.var_equals_0_3;
-						
-		}
+								}
 				
 		private Method var_op_equality_0_2;
 		
@@ -16914,8 +16655,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_op_equality_0_2 = this.builderType.GetMethod("op_Equality", true, pa, pb).Import();
 			
 			return this.var_op_equality_0_2;
-						
-		}
+								}
 				
 		private Method var_op_inequality_0_2;
 		
@@ -16932,8 +16672,24 @@ namespace Cauldron.Interception.Cecilator
 				this.var_op_inequality_0_2 = this.builderType.GetMethod("op_Inequality", true, pa, pb).Import();
 			
 			return this.var_op_inequality_0_2;
+								}
+				
+		private Method var_get_chars_0_1;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// Char get_Chars(Int32)<para/>
+		/// </summary>
+		public Method GetMethod_get_Chars(TypeReference pindex)
+		{
 						
-		}
+						
+			if(this.var_get_chars_0_1 == null)
+				this.var_get_chars_0_1 = this.builderType.GetMethod("get_Chars", true, pindex).Import();
+			
+			return this.var_get_chars_0_1;
+								}
 				
 		private Method var_copyto_0_4;
 		
@@ -16950,8 +16706,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_copyto_0_4 = this.builderType.GetMethod("CopyTo", true, psourceIndex, pdestination, pdestinationIndex, pcount).Import();
 			
 			return this.var_copyto_0_4;
-						
-		}
+								}
 				
 		private Method var_tochararray_0_0;
 		
@@ -16968,8 +16723,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_tochararray_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_tochararray_0_2;
 		
@@ -16986,8 +16740,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_tochararray_0_2 = this.builderType.GetMethod("ToCharArray", true, pstartIndex, plength).Import();
 			
 			return this.var_tochararray_0_2;
-						
-		}
+								}
 				
 		private Method var_isnullorempty_0_1;
 		
@@ -17004,8 +16757,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_isnullorempty_0_1 = this.builderType.GetMethod("IsNullOrEmpty", true, pvalue).Import();
 			
 			return this.var_isnullorempty_0_1;
-						
-		}
+								}
 				
 		private Method var_isnullorwhitespace_0_1;
 		
@@ -17022,8 +16774,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_isnullorwhitespace_0_1 = this.builderType.GetMethod("IsNullOrWhiteSpace", true, pvalue).Import();
 			
 			return this.var_isnullorwhitespace_0_1;
-						
-		}
+								}
 				
 		private Method var_gethashcode_0_0;
 		
@@ -17040,8 +16791,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gethashcode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_split_0_1;
 		
@@ -17058,8 +16808,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_split_0_1 = this.builderType.GetMethod("Split", true, pseparator).Import();
 			
 			return this.var_split_0_1;
-						
-		}
+								}
 				
 		private Method var_split_0_2;
 				
@@ -17103,8 +16852,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_split_0_3;
 				
@@ -17137,8 +16885,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_substring_0_1;
 		
@@ -17155,8 +16902,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_substring_0_1 = this.builderType.GetMethod("Substring", true, pstartIndex).Import();
 			
 			return this.var_substring_0_1;
-						
-		}
+								}
 				
 		private Method var_substring_0_2;
 		
@@ -17173,8 +16919,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_substring_0_2 = this.builderType.GetMethod("Substring", true, pstartIndex, plength).Import();
 			
 			return this.var_substring_0_2;
-						
-		}
+								}
 				
 		private Method var_trim_0_1;
 		
@@ -17191,8 +16936,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_trim_0_1 = this.builderType.GetMethod("Trim", true, ptrimChars).Import();
 			
 			return this.var_trim_0_1;
-						
-		}
+								}
 				
 		private Method var_trimstart_0_1;
 		
@@ -17209,8 +16953,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_trimstart_0_1 = this.builderType.GetMethod("TrimStart", true, ptrimChars).Import();
 			
 			return this.var_trimstart_0_1;
-						
-		}
+								}
 				
 		private Method var_trimend_0_1;
 		
@@ -17227,8 +16970,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_trimend_0_1 = this.builderType.GetMethod("TrimEnd", true, ptrimChars).Import();
 			
 			return this.var_trimend_0_1;
-						
-		}
+								}
 				
 		private Method var_isnormalized_0_0;
 		
@@ -17245,8 +16987,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_isnormalized_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_isnormalized_0_1;
 		
@@ -17263,8 +17004,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_isnormalized_0_1 = this.builderType.GetMethod("IsNormalized", true, pnormalizationForm).Import();
 			
 			return this.var_isnormalized_0_1;
-						
-		}
+								}
 				
 		private Method var_normalize_0_0;
 		
@@ -17281,8 +17021,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_normalize_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_normalize_0_1;
 		
@@ -17299,8 +17038,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_normalize_0_1 = this.builderType.GetMethod("Normalize", true, pnormalizationForm).Import();
 			
 			return this.var_normalize_0_1;
-						
-		}
+								}
 				
 		private Method var_compare_0_2;
 		
@@ -17317,8 +17055,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_compare_0_2 = this.builderType.GetMethod("Compare", true, pstrA, pstrB).Import();
 			
 			return this.var_compare_0_2;
-						
-		}
+								}
 				
 		private Method var_compare_0_3;
 				
@@ -17351,8 +17088,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_compare_0_4;
 				
@@ -17385,8 +17121,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_compare_0_5;
 		
@@ -17403,8 +17138,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_compare_0_5 = this.builderType.GetMethod("Compare", true, pstrA, pindexA, pstrB, pindexB, plength).Import();
 			
 			return this.var_compare_0_5;
-						
-		}
+								}
 				
 		private Method var_compare_0_6;
 				
@@ -17437,8 +17171,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_compare_0_7;
 				
@@ -17471,8 +17204,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_compareto_0_1;
 				
@@ -17505,8 +17237,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_compareordinal_0_2;
 		
@@ -17523,8 +17254,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_compareordinal_0_2 = this.builderType.GetMethod("CompareOrdinal", true, pstrA, pstrB).Import();
 			
 			return this.var_compareordinal_0_2;
-						
-		}
+								}
 				
 		private Method var_compareordinal_0_5;
 		
@@ -17541,8 +17271,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_compareordinal_0_5 = this.builderType.GetMethod("CompareOrdinal", true, pstrA, pindexA, pstrB, pindexB, plength).Import();
 			
 			return this.var_compareordinal_0_5;
-						
-		}
+								}
 				
 		private Method var_contains_0_1;
 		
@@ -17559,8 +17288,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_contains_0_1 = this.builderType.GetMethod("Contains", true, pvalue).Import();
 			
 			return this.var_contains_0_1;
-						
-		}
+								}
 				
 		private Method var_endswith_0_1;
 		
@@ -17577,8 +17305,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_endswith_0_1 = this.builderType.GetMethod("EndsWith", true, pvalue).Import();
 			
 			return this.var_endswith_0_1;
-						
-		}
+								}
 				
 		private Method var_endswith_0_2;
 		
@@ -17595,8 +17322,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_endswith_0_2 = this.builderType.GetMethod("EndsWith", true, pvalue, pcomparisonType).Import();
 			
 			return this.var_endswith_0_2;
-						
-		}
+								}
 				
 		private Method var_endswith_0_3;
 		
@@ -17613,8 +17339,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_endswith_0_3 = this.builderType.GetMethod("EndsWith", true, pvalue, pignoreCase, pculture).Import();
 			
 			return this.var_endswith_0_3;
-						
-		}
+								}
 				
 		private Method var_indexof_0_1;
 				
@@ -17647,8 +17372,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_indexof_0_2;
 				
@@ -17692,8 +17416,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_indexof_0_3;
 				
@@ -17737,8 +17460,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_indexofany_0_1;
 		
@@ -17755,8 +17477,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_indexofany_0_1 = this.builderType.GetMethod("IndexOfAny", true, panyOf).Import();
 			
 			return this.var_indexofany_0_1;
-						
-		}
+								}
 				
 		private Method var_indexofany_0_2;
 		
@@ -17773,8 +17494,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_indexofany_0_2 = this.builderType.GetMethod("IndexOfAny", true, panyOf, pstartIndex).Import();
 			
 			return this.var_indexofany_0_2;
-						
-		}
+								}
 				
 		private Method var_indexofany_0_3;
 		
@@ -17791,8 +17511,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_indexofany_0_3 = this.builderType.GetMethod("IndexOfAny", true, panyOf, pstartIndex, pcount).Import();
 			
 			return this.var_indexofany_0_3;
-						
-		}
+								}
 				
 		private Method var_indexof_0_4;
 		
@@ -17809,8 +17528,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_indexof_0_4 = this.builderType.GetMethod("IndexOf", true, pvalue, pstartIndex, pcount, pcomparisonType).Import();
 			
 			return this.var_indexof_0_4;
-						
-		}
+								}
 				
 		private Method var_lastindexof_0_1;
 				
@@ -17843,8 +17561,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_lastindexof_0_2;
 				
@@ -17888,8 +17605,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_lastindexof_0_3;
 				
@@ -17933,8 +17649,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_lastindexofany_0_1;
 		
@@ -17951,8 +17666,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_lastindexofany_0_1 = this.builderType.GetMethod("LastIndexOfAny", true, panyOf).Import();
 			
 			return this.var_lastindexofany_0_1;
-						
-		}
+								}
 				
 		private Method var_lastindexofany_0_2;
 		
@@ -17969,8 +17683,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_lastindexofany_0_2 = this.builderType.GetMethod("LastIndexOfAny", true, panyOf, pstartIndex).Import();
 			
 			return this.var_lastindexofany_0_2;
-						
-		}
+								}
 				
 		private Method var_lastindexofany_0_3;
 		
@@ -17987,8 +17700,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_lastindexofany_0_3 = this.builderType.GetMethod("LastIndexOfAny", true, panyOf, pstartIndex, pcount).Import();
 			
 			return this.var_lastindexofany_0_3;
-						
-		}
+								}
 				
 		private Method var_lastindexof_0_4;
 		
@@ -18005,8 +17717,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_lastindexof_0_4 = this.builderType.GetMethod("LastIndexOf", true, pvalue, pstartIndex, pcount, pcomparisonType).Import();
 			
 			return this.var_lastindexof_0_4;
-						
-		}
+								}
 				
 		private Method var_padleft_0_1;
 		
@@ -18023,8 +17734,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_padleft_0_1 = this.builderType.GetMethod("PadLeft", true, ptotalWidth).Import();
 			
 			return this.var_padleft_0_1;
-						
-		}
+								}
 				
 		private Method var_padleft_0_2;
 		
@@ -18041,8 +17751,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_padleft_0_2 = this.builderType.GetMethod("PadLeft", true, ptotalWidth, ppaddingChar).Import();
 			
 			return this.var_padleft_0_2;
-						
-		}
+								}
 				
 		private Method var_padright_0_1;
 		
@@ -18059,8 +17768,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_padright_0_1 = this.builderType.GetMethod("PadRight", true, ptotalWidth).Import();
 			
 			return this.var_padright_0_1;
-						
-		}
+								}
 				
 		private Method var_padright_0_2;
 		
@@ -18077,8 +17785,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_padright_0_2 = this.builderType.GetMethod("PadRight", true, ptotalWidth, ppaddingChar).Import();
 			
 			return this.var_padright_0_2;
-						
-		}
+								}
 				
 		private Method var_startswith_0_1;
 		
@@ -18095,8 +17802,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_startswith_0_1 = this.builderType.GetMethod("StartsWith", true, pvalue).Import();
 			
 			return this.var_startswith_0_1;
-						
-		}
+								}
 				
 		private Method var_startswith_0_2;
 		
@@ -18113,8 +17819,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_startswith_0_2 = this.builderType.GetMethod("StartsWith", true, pvalue, pcomparisonType).Import();
 			
 			return this.var_startswith_0_2;
-						
-		}
+								}
 				
 		private Method var_startswith_0_3;
 		
@@ -18131,8 +17836,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_startswith_0_3 = this.builderType.GetMethod("StartsWith", true, pvalue, pignoreCase, pculture).Import();
 			
 			return this.var_startswith_0_3;
-						
-		}
+								}
 				
 		private Method var_tolower_0_0;
 		
@@ -18149,8 +17853,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_tolower_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_tolower_0_1;
 		
@@ -18167,8 +17870,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_tolower_0_1 = this.builderType.GetMethod("ToLower", true, pculture).Import();
 			
 			return this.var_tolower_0_1;
-						
-		}
+								}
 				
 		private Method var_tolowerinvariant_0_0;
 		
@@ -18185,8 +17887,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_tolowerinvariant_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_toupper_0_0;
 		
@@ -18203,8 +17904,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_toupper_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_toupper_0_1;
 		
@@ -18221,8 +17921,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_toupper_0_1 = this.builderType.GetMethod("ToUpper", true, pculture).Import();
 			
 			return this.var_toupper_0_1;
-						
-		}
+								}
 				
 		private Method var_toupperinvariant_0_0;
 		
@@ -18239,8 +17938,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_toupperinvariant_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_tostring_0_0;
 		
@@ -18257,8 +17955,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_tostring_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_tostring_0_1;
 		
@@ -18275,8 +17972,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_tostring_0_1 = this.builderType.GetMethod("ToString", true, pprovider).Import();
 			
 			return this.var_tostring_0_1;
-						
-		}
+								}
 				
 		private Method var_clone_0_0;
 		
@@ -18293,8 +17989,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_clone_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_trim_0_0;
 		
@@ -18311,8 +18006,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_trim_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_insert_0_2;
 		
@@ -18329,8 +18023,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_insert_0_2 = this.builderType.GetMethod("Insert", true, pstartIndex, pvalue).Import();
 			
 			return this.var_insert_0_2;
-						
-		}
+								}
 				
 		private Method var_replace_0_2;
 				
@@ -18363,8 +18056,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_remove_0_2;
 		
@@ -18381,8 +18073,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_remove_0_2 = this.builderType.GetMethod("Remove", true, pstartIndex, pcount).Import();
 			
 			return this.var_remove_0_2;
-						
-		}
+								}
 				
 		private Method var_remove_0_1;
 		
@@ -18399,8 +18090,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_remove_0_1 = this.builderType.GetMethod("Remove", true, pstartIndex).Import();
 			
 			return this.var_remove_0_1;
-						
-		}
+								}
 				
 		private Method var_format_0_2;
 				
@@ -18433,8 +18123,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_format_0_3;
 				
@@ -18478,8 +18167,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_format_0_4;
 				
@@ -18512,8 +18200,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_format_0_5;
 		
@@ -18530,8 +18217,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_format_0_5 = this.builderType.GetMethod("Format", true, pprovider, pformat, parg0, parg1, parg2).Import();
 			
 			return this.var_format_0_5;
-						
-		}
+								}
 				
 		private Method var_copy_0_1;
 		
@@ -18548,8 +18234,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_copy_0_1 = this.builderType.GetMethod("Copy", true, pstr).Import();
 			
 			return this.var_copy_0_1;
-						
-		}
+								}
 				
 		private Method var_concat_0_1;
 				
@@ -18604,8 +18289,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_concat_0_2;
 				
@@ -18638,8 +18322,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_concat_0_3;
 				
@@ -18672,8 +18355,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_concat_0_4;
 				
@@ -18706,8 +18388,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_intern_0_1;
 		
@@ -18724,8 +18405,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_intern_0_1 = this.builderType.GetMethod("Intern", true, pstr).Import();
 			
 			return this.var_intern_0_1;
-						
-		}
+								}
 				
 		private Method var_isinterned_0_1;
 		
@@ -18742,8 +18422,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_isinterned_0_1 = this.builderType.GetMethod("IsInterned", true, pstr).Import();
 			
 			return this.var_isinterned_0_1;
-						
-		}
+								}
 				
 		private Method var_gettypecode_0_0;
 		
@@ -18760,8 +18439,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettypecode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_getenumerator_0_0;
 		
@@ -18778,8 +18456,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_getenumerator_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_gettype_0_0;
 		
@@ -18796,10 +18473,8 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettype_0_0;
 						
-						
-		}
-		
-	}
+								}
+			}
 
 			
     /// <summary>
@@ -18836,8 +18511,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_start_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_start_0_1;
 		
@@ -18854,8 +18528,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_start_0_1 = this.builderType.GetMethod("Start", true, pscheduler).Import();
 			
 			return this.var_start_0_1;
-						
-		}
+								}
 				
 		private Method var_runsynchronously_0_0;
 		
@@ -18872,8 +18545,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_runsynchronously_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_runsynchronously_0_1;
 		
@@ -18890,8 +18562,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_runsynchronously_0_1 = this.builderType.GetMethod("RunSynchronously", true, pscheduler).Import();
 			
 			return this.var_runsynchronously_0_1;
-						
-		}
+								}
 				
 		private Method var_get_id_0_0;
 		
@@ -18908,8 +18579,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_id_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_currentid_0_0;
 		
@@ -18926,8 +18596,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_currentid_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_exception_0_0;
 		
@@ -18944,8 +18613,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_exception_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_status_0_0;
 		
@@ -18962,8 +18630,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_status_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_iscanceled_0_0;
 		
@@ -18980,8 +18647,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_iscanceled_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_iscompleted_0_0;
 		
@@ -18998,8 +18664,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_iscompleted_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_creationoptions_0_0;
 		
@@ -19016,8 +18681,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_creationoptions_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_asyncstate_0_0;
 		
@@ -19034,8 +18698,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_asyncstate_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_factory_0_0;
 		
@@ -19052,8 +18715,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_factory_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_completedtask_0_0;
 		
@@ -19070,8 +18732,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_completedtask_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isfaulted_0_0;
 		
@@ -19088,8 +18749,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isfaulted_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_dispose_0_0;
 		
@@ -19106,8 +18766,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_dispose_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_getawaiter_0_0;
 		
@@ -19124,8 +18783,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_getawaiter_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_configureawait_0_1;
 		
@@ -19142,8 +18800,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_configureawait_0_1 = this.builderType.GetMethod("ConfigureAwait", true, pcontinueOnCapturedContext).Import();
 			
 			return this.var_configureawait_0_1;
-						
-		}
+								}
 				
 		private Method var_yield_0_0;
 		
@@ -19160,8 +18817,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_yield_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_wait_0_0;
 		
@@ -19178,8 +18834,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_wait_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_wait_0_1;
 				
@@ -19223,8 +18878,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_wait_0_2;
 		
@@ -19241,8 +18895,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_wait_0_2 = this.builderType.GetMethod("Wait", true, pmillisecondsTimeout, pcancellationToken).Import();
 			
 			return this.var_wait_0_2;
-						
-		}
+								}
 				
 		private Method var_continuewith_0_1;
 		
@@ -19259,8 +18912,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_continuewith_0_1 = this.builderType.GetMethod("ContinueWith", true, pcontinuationAction).Import();
 			
 			return this.var_continuewith_0_1;
-						
-		}
+								}
 				
 		private Method var_continuewith_0_2;
 				
@@ -19315,8 +18967,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_continuewith_0_4;
 		
@@ -19333,8 +18984,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_continuewith_0_4 = this.builderType.GetMethod("ContinueWith", true, pcontinuationAction, pcancellationToken, pcontinuationOptions, pscheduler).Import();
 			
 			return this.var_continuewith_0_4;
-						
-		}
+								}
 				
 		private Method var_continuewith_0_3;
 				
@@ -19378,8 +19028,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_continuewith_0_5;
 		
@@ -19396,8 +19045,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_continuewith_0_5 = this.builderType.GetMethod("ContinueWith", true, pcontinuationAction, pstate, pcancellationToken, pcontinuationOptions, pscheduler).Import();
 			
 			return this.var_continuewith_0_5;
-						
-		}
+								}
 				
 		private Method var_waitall_0_1;
 		
@@ -19414,8 +19062,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_waitall_0_1 = this.builderType.GetMethod("WaitAll", true, ptasks).Import();
 			
 			return this.var_waitall_0_1;
-						
-		}
+								}
 				
 		private Method var_waitall_0_2;
 				
@@ -19459,8 +19106,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_waitall_0_3;
 		
@@ -19477,8 +19123,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_waitall_0_3 = this.builderType.GetMethod("WaitAll", true, ptasks, pmillisecondsTimeout, pcancellationToken).Import();
 			
 			return this.var_waitall_0_3;
-						
-		}
+								}
 				
 		private Method var_waitany_0_1;
 		
@@ -19495,8 +19140,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_waitany_0_1 = this.builderType.GetMethod("WaitAny", true, ptasks).Import();
 			
 			return this.var_waitany_0_1;
-						
-		}
+								}
 				
 		private Method var_waitany_0_2;
 				
@@ -19540,8 +19184,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_waitany_0_3;
 		
@@ -19558,8 +19201,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_waitany_0_3 = this.builderType.GetMethod("WaitAny", true, ptasks, pmillisecondsTimeout, pcancellationToken).Import();
 			
 			return this.var_waitany_0_3;
-						
-		}
+								}
 				
 		private Method var_fromexception_0_1;
 		
@@ -19576,8 +19218,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_fromexception_0_1 = this.builderType.GetMethod("FromException", true, pexception).Import();
 			
 			return this.var_fromexception_0_1;
-						
-		}
+								}
 				
 		private Method var_fromcanceled_0_1;
 		
@@ -19594,8 +19235,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_fromcanceled_0_1 = this.builderType.GetMethod("FromCanceled", true, pcancellationToken).Import();
 			
 			return this.var_fromcanceled_0_1;
-						
-		}
+								}
 				
 		private Method var_run_0_1;
 				
@@ -19628,8 +19268,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_run_0_2;
 				
@@ -19662,8 +19301,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_delay_0_1;
 				
@@ -19696,8 +19334,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_delay_0_2;
 				
@@ -19730,8 +19367,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_whenall_0_1;
 				
@@ -19764,8 +19400,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_whenany_0_1;
 				
@@ -19798,8 +19433,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_tostring_0_0;
 		
@@ -19816,8 +19450,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_tostring_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_equals_0_1;
 		
@@ -19834,8 +19467,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
 			
 			return this.var_equals_0_1;
-						
-		}
+								}
 				
 		private Method var_gethashcode_0_0;
 		
@@ -19852,8 +19484,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gethashcode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_gettype_0_0;
 		
@@ -19870,10 +19501,8 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettype_0_0;
 						
-						
-		}
-		
-	}
+								}
+			}
 
 			
     /// <summary>
@@ -19910,8 +19539,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_start_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_start_0_1;
 		
@@ -19928,8 +19556,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_start_0_1 = this.builderType.GetMethod("Start", true, pscheduler).Import();
 			
 			return this.var_start_0_1;
-						
-		}
+								}
 				
 		private Method var_runsynchronously_0_0;
 		
@@ -19946,8 +19573,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_runsynchronously_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_runsynchronously_0_1;
 		
@@ -19964,8 +19590,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_runsynchronously_0_1 = this.builderType.GetMethod("RunSynchronously", true, pscheduler).Import();
 			
 			return this.var_runsynchronously_0_1;
-						
-		}
+								}
 				
 		private Method var_get_id_0_0;
 		
@@ -19982,8 +19607,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_id_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_exception_0_0;
 		
@@ -20000,8 +19624,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_exception_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_status_0_0;
 		
@@ -20018,8 +19641,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_status_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_iscanceled_0_0;
 		
@@ -20036,8 +19658,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_iscanceled_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_iscompleted_0_0;
 		
@@ -20054,8 +19675,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_iscompleted_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_creationoptions_0_0;
 		
@@ -20072,8 +19692,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_creationoptions_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_asyncstate_0_0;
 		
@@ -20090,8 +19709,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_asyncstate_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isfaulted_0_0;
 		
@@ -20108,8 +19726,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isfaulted_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_dispose_0_0;
 		
@@ -20126,8 +19743,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_dispose_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_getawaiter_0_0;
 		
@@ -20144,8 +19760,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_getawaiter_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_configureawait_0_1;
 		
@@ -20162,8 +19777,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_configureawait_0_1 = this.builderType.GetMethod("ConfigureAwait", true, pcontinueOnCapturedContext).Import();
 			
 			return this.var_configureawait_0_1;
-						
-		}
+								}
 				
 		private Method var_wait_0_0;
 		
@@ -20180,8 +19794,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_wait_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_wait_0_1;
 				
@@ -20225,8 +19838,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_wait_0_2;
 		
@@ -20243,8 +19855,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_wait_0_2 = this.builderType.GetMethod("Wait", true, pmillisecondsTimeout, pcancellationToken).Import();
 			
 			return this.var_wait_0_2;
-						
-		}
+								}
 				
 		private Method var_continuewith_0_1;
 		
@@ -20261,8 +19872,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_continuewith_0_1 = this.builderType.GetMethod("ContinueWith", true, pcontinuationAction).Import();
 			
 			return this.var_continuewith_0_1;
-						
-		}
+								}
 				
 		private Method var_continuewith_0_2;
 				
@@ -20317,8 +19927,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_continuewith_0_4;
 		
@@ -20335,8 +19944,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_continuewith_0_4 = this.builderType.GetMethod("ContinueWith", true, pcontinuationAction, pcancellationToken, pcontinuationOptions, pscheduler).Import();
 			
 			return this.var_continuewith_0_4;
-						
-		}
+								}
 				
 		private Method var_continuewith_0_3;
 				
@@ -20380,8 +19988,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_continuewith_0_5;
 		
@@ -20398,8 +20005,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_continuewith_0_5 = this.builderType.GetMethod("ContinueWith", true, pcontinuationAction, pstate, pcancellationToken, pcontinuationOptions, pscheduler).Import();
 			
 			return this.var_continuewith_0_5;
-						
-		}
+								}
 				
 		private Method var_tostring_0_0;
 		
@@ -20416,8 +20022,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_tostring_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_equals_0_1;
 		
@@ -20434,8 +20039,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
 			
 			return this.var_equals_0_1;
-						
-		}
+								}
 				
 		private Method var_gethashcode_0_0;
 		
@@ -20452,8 +20056,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gethashcode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_gettype_0_0;
 		
@@ -20470,10 +20073,8 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettype_0_0;
 						
-						
-		}
-		
-	}
+								}
+			}
 
 			
     /// <summary>
@@ -20510,8 +20111,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_gettypefromhandle_0_1 = this.builderType.GetMethod("GetTypeFromHandle", true, phandle).Import();
 			
 			return this.var_gettypefromhandle_0_1;
-						
-		}
+								}
 				
 		private Method var_get_membertype_0_0;
 		
@@ -20528,8 +20128,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_membertype_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_declaringtype_0_0;
 		
@@ -20546,8 +20145,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_declaringtype_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_declaringmethod_0_0;
 		
@@ -20564,8 +20162,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_declaringmethod_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_reflectedtype_0_0;
 		
@@ -20582,8 +20179,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_reflectedtype_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_gettype_0_3;
 				
@@ -20616,8 +20212,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_gettype_0_2;
 		
@@ -20634,8 +20229,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_gettype_0_2 = this.builderType.GetMethod("GetType", true, ptypeName, pthrowOnError).Import();
 			
 			return this.var_gettype_0_2;
-						
-		}
+								}
 				
 		private Method var_gettype_0_1;
 		
@@ -20652,8 +20246,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_gettype_0_1 = this.builderType.GetMethod("GetType", true, ptypeName).Import();
 			
 			return this.var_gettype_0_1;
-						
-		}
+								}
 				
 		private Method var_gettype_0_4;
 		
@@ -20670,8 +20263,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_gettype_0_4 = this.builderType.GetMethod("GetType", true, ptypeName, passemblyResolver, ptypeResolver, pthrowOnError).Import();
 			
 			return this.var_gettype_0_4;
-						
-		}
+								}
 				
 		private Method var_gettype_0_5;
 		
@@ -20688,8 +20280,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_gettype_0_5 = this.builderType.GetMethod("GetType", true, ptypeName, passemblyResolver, ptypeResolver, pthrowOnError, pignoreCase).Import();
 			
 			return this.var_gettype_0_5;
-						
-		}
+								}
 				
 		private Method var_reflectiononlygettype_0_3;
 		
@@ -20706,8 +20297,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_reflectiononlygettype_0_3 = this.builderType.GetMethod("ReflectionOnlyGetType", true, ptypeName, pthrowIfNotFound, pignoreCase).Import();
 			
 			return this.var_reflectiononlygettype_0_3;
-						
-		}
+								}
 				
 		private Method var_makepointertype_0_0;
 		
@@ -20724,8 +20314,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_makepointertype_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_structlayoutattribute_0_0;
 		
@@ -20742,8 +20331,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_structlayoutattribute_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_makebyreftype_0_0;
 		
@@ -20760,8 +20348,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_makebyreftype_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_makearraytype_0_0;
 		
@@ -20778,8 +20365,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_makearraytype_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_makearraytype_0_1;
 		
@@ -20796,8 +20382,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_makearraytype_0_1 = this.builderType.GetMethod("MakeArrayType", true, prank).Import();
 			
 			return this.var_makearraytype_0_1;
-						
-		}
+								}
 				
 		private Method var_gettypefromprogid_0_1;
 		
@@ -20814,8 +20399,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_gettypefromprogid_0_1 = this.builderType.GetMethod("GetTypeFromProgID", true, pprogID).Import();
 			
 			return this.var_gettypefromprogid_0_1;
-						
-		}
+								}
 				
 		private Method var_gettypefromprogid_0_2;
 				
@@ -20848,8 +20432,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_gettypefromprogid_0_3;
 		
@@ -20866,8 +20449,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_gettypefromprogid_0_3 = this.builderType.GetMethod("GetTypeFromProgID", true, pprogID, pserver, pthrowOnError).Import();
 			
 			return this.var_gettypefromprogid_0_3;
-						
-		}
+								}
 				
 		private Method var_gettypefromclsid_0_1;
 		
@@ -20884,8 +20466,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_gettypefromclsid_0_1 = this.builderType.GetMethod("GetTypeFromCLSID", true, pclsid).Import();
 			
 			return this.var_gettypefromclsid_0_1;
-						
-		}
+								}
 				
 		private Method var_gettypefromclsid_0_2;
 				
@@ -20918,8 +20499,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_gettypefromclsid_0_3;
 		
@@ -20936,8 +20516,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_gettypefromclsid_0_3 = this.builderType.GetMethod("GetTypeFromCLSID", true, pclsid, pserver, pthrowOnError).Import();
 			
 			return this.var_gettypefromclsid_0_3;
-						
-		}
+								}
 				
 		private Method var_gettypecode_0_1;
 		
@@ -20954,8 +20533,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_gettypecode_0_1 = this.builderType.GetMethod("GetTypeCode", true, ptype).Import();
 			
 			return this.var_gettypecode_0_1;
-						
-		}
+								}
 				
 		private Method var_get_guid_0_0;
 		
@@ -20972,8 +20550,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_guid_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_defaultbinder_0_0;
 		
@@ -20990,8 +20567,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_defaultbinder_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_invokemember_0_8;
 		
@@ -21008,8 +20584,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_invokemember_0_8 = this.builderType.GetMethod("InvokeMember", true, pname, pinvokeAttr, pbinder, ptarget, pargs, pmodifiers, pculture, pnamedParameters).Import();
 			
 			return this.var_invokemember_0_8;
-						
-		}
+								}
 				
 		private Method var_invokemember_0_6;
 		
@@ -21026,8 +20601,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_invokemember_0_6 = this.builderType.GetMethod("InvokeMember", true, pname, pinvokeAttr, pbinder, ptarget, pargs, pculture).Import();
 			
 			return this.var_invokemember_0_6;
-						
-		}
+								}
 				
 		private Method var_invokemember_0_5;
 		
@@ -21044,8 +20618,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_invokemember_0_5 = this.builderType.GetMethod("InvokeMember", true, pname, pinvokeAttr, pbinder, ptarget, pargs).Import();
 			
 			return this.var_invokemember_0_5;
-						
-		}
+								}
 				
 		private Method var_get_module_0_0;
 		
@@ -21062,8 +20635,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_module_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_assembly_0_0;
 		
@@ -21080,8 +20652,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_assembly_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_typehandle_0_0;
 		
@@ -21098,8 +20669,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_typehandle_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_gettypehandle_0_1;
 		
@@ -21116,8 +20686,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_gettypehandle_0_1 = this.builderType.GetMethod("GetTypeHandle", true, po).Import();
 			
 			return this.var_gettypehandle_0_1;
-						
-		}
+								}
 				
 		private Method var_get_fullname_0_0;
 		
@@ -21134,8 +20703,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_fullname_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_namespace_0_0;
 		
@@ -21152,8 +20720,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_namespace_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_assemblyqualifiedname_0_0;
 		
@@ -21170,8 +20737,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_assemblyqualifiedname_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_getarrayrank_0_0;
 		
@@ -21188,8 +20754,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_getarrayrank_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_basetype_0_0;
 		
@@ -21206,8 +20771,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_basetype_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_getconstructor_0_5;
 		
@@ -21224,8 +20788,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getconstructor_0_5 = this.builderType.GetMethod("GetConstructor", true, pbindingAttr, pbinder, pcallConvention, ptypes, pmodifiers).Import();
 			
 			return this.var_getconstructor_0_5;
-						
-		}
+								}
 				
 		private Method var_getconstructor_0_4;
 		
@@ -21242,8 +20805,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getconstructor_0_4 = this.builderType.GetMethod("GetConstructor", true, pbindingAttr, pbinder, ptypes, pmodifiers).Import();
 			
 			return this.var_getconstructor_0_4;
-						
-		}
+								}
 				
 		private Method var_getconstructor_0_1;
 		
@@ -21260,8 +20822,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getconstructor_0_1 = this.builderType.GetMethod("GetConstructor", true, ptypes).Import();
 			
 			return this.var_getconstructor_0_1;
-						
-		}
+								}
 				
 		private Method var_getconstructors_0_0;
 		
@@ -21278,8 +20839,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_getconstructors_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_getconstructors_0_1;
 		
@@ -21296,8 +20856,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getconstructors_0_1 = this.builderType.GetMethod("GetConstructors", true, pbindingAttr).Import();
 			
 			return this.var_getconstructors_0_1;
-						
-		}
+								}
 				
 		private Method var_get_typeinitializer_0_0;
 		
@@ -21314,8 +20873,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_typeinitializer_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_getmethod_0_6;
 		
@@ -21332,8 +20890,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getmethod_0_6 = this.builderType.GetMethod("GetMethod", true, pname, pbindingAttr, pbinder, pcallConvention, ptypes, pmodifiers).Import();
 			
 			return this.var_getmethod_0_6;
-						
-		}
+								}
 				
 		private Method var_getmethod_0_5;
 		
@@ -21350,8 +20907,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getmethod_0_5 = this.builderType.GetMethod("GetMethod", true, pname, pbindingAttr, pbinder, ptypes, pmodifiers).Import();
 			
 			return this.var_getmethod_0_5;
-						
-		}
+								}
 				
 		private Method var_getmethod_0_3;
 		
@@ -21368,8 +20924,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getmethod_0_3 = this.builderType.GetMethod("GetMethod", true, pname, ptypes, pmodifiers).Import();
 			
 			return this.var_getmethod_0_3;
-						
-		}
+								}
 				
 		private Method var_getmethod_0_2;
 				
@@ -21402,8 +20957,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_getmethod_0_1;
 		
@@ -21420,8 +20974,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getmethod_0_1 = this.builderType.GetMethod("GetMethod", true, pname).Import();
 			
 			return this.var_getmethod_0_1;
-						
-		}
+								}
 				
 		private Method var_getmethods_0_0;
 		
@@ -21438,8 +20991,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_getmethods_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_getmethods_0_1;
 		
@@ -21456,8 +21008,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getmethods_0_1 = this.builderType.GetMethod("GetMethods", true, pbindingAttr).Import();
 			
 			return this.var_getmethods_0_1;
-						
-		}
+								}
 				
 		private Method var_getfield_0_2;
 		
@@ -21474,8 +21025,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getfield_0_2 = this.builderType.GetMethod("GetField", true, pname, pbindingAttr).Import();
 			
 			return this.var_getfield_0_2;
-						
-		}
+								}
 				
 		private Method var_getfield_0_1;
 		
@@ -21492,8 +21042,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getfield_0_1 = this.builderType.GetMethod("GetField", true, pname).Import();
 			
 			return this.var_getfield_0_1;
-						
-		}
+								}
 				
 		private Method var_getfields_0_0;
 		
@@ -21510,8 +21059,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_getfields_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_getfields_0_1;
 		
@@ -21528,8 +21076,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getfields_0_1 = this.builderType.GetMethod("GetFields", true, pbindingAttr).Import();
 			
 			return this.var_getfields_0_1;
-						
-		}
+								}
 				
 		private Method var_getinterface_0_1;
 		
@@ -21546,8 +21093,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getinterface_0_1 = this.builderType.GetMethod("GetInterface", true, pname).Import();
 			
 			return this.var_getinterface_0_1;
-						
-		}
+								}
 				
 		private Method var_getinterface_0_2;
 		
@@ -21564,8 +21110,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getinterface_0_2 = this.builderType.GetMethod("GetInterface", true, pname, pignoreCase).Import();
 			
 			return this.var_getinterface_0_2;
-						
-		}
+								}
 				
 		private Method var_getinterfaces_0_0;
 		
@@ -21582,8 +21127,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_getinterfaces_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_findinterfaces_0_2;
 		
@@ -21600,8 +21144,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_findinterfaces_0_2 = this.builderType.GetMethod("FindInterfaces", true, pfilter, pfilterCriteria).Import();
 			
 			return this.var_findinterfaces_0_2;
-						
-		}
+								}
 				
 		private Method var_getevent_0_1;
 		
@@ -21618,8 +21161,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getevent_0_1 = this.builderType.GetMethod("GetEvent", true, pname).Import();
 			
 			return this.var_getevent_0_1;
-						
-		}
+								}
 				
 		private Method var_getevent_0_2;
 		
@@ -21636,8 +21178,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getevent_0_2 = this.builderType.GetMethod("GetEvent", true, pname, pbindingAttr).Import();
 			
 			return this.var_getevent_0_2;
-						
-		}
+								}
 				
 		private Method var_getevents_0_0;
 		
@@ -21654,8 +21195,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_getevents_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_getevents_0_1;
 		
@@ -21672,8 +21212,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getevents_0_1 = this.builderType.GetMethod("GetEvents", true, pbindingAttr).Import();
 			
 			return this.var_getevents_0_1;
-						
-		}
+								}
 				
 		private Method var_getproperty_0_6;
 		
@@ -21690,8 +21229,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getproperty_0_6 = this.builderType.GetMethod("GetProperty", true, pname, pbindingAttr, pbinder, preturnType, ptypes, pmodifiers).Import();
 			
 			return this.var_getproperty_0_6;
-						
-		}
+								}
 				
 		private Method var_getproperty_0_4;
 		
@@ -21708,8 +21246,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getproperty_0_4 = this.builderType.GetMethod("GetProperty", true, pname, preturnType, ptypes, pmodifiers).Import();
 			
 			return this.var_getproperty_0_4;
-						
-		}
+								}
 				
 		private Method var_getproperty_0_2;
 				
@@ -21753,8 +21290,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_getproperty_0_3;
 		
@@ -21771,8 +21307,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getproperty_0_3 = this.builderType.GetMethod("GetProperty", true, pname, preturnType, ptypes).Import();
 			
 			return this.var_getproperty_0_3;
-						
-		}
+								}
 				
 		private Method var_getproperty_0_1;
 		
@@ -21789,8 +21324,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getproperty_0_1 = this.builderType.GetMethod("GetProperty", true, pname).Import();
 			
 			return this.var_getproperty_0_1;
-						
-		}
+								}
 				
 		private Method var_getproperties_0_1;
 		
@@ -21807,8 +21341,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getproperties_0_1 = this.builderType.GetMethod("GetProperties", true, pbindingAttr).Import();
 			
 			return this.var_getproperties_0_1;
-						
-		}
+								}
 				
 		private Method var_getproperties_0_0;
 		
@@ -21825,8 +21358,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_getproperties_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_getnestedtypes_0_0;
 		
@@ -21843,8 +21375,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_getnestedtypes_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_getnestedtypes_0_1;
 		
@@ -21861,8 +21392,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getnestedtypes_0_1 = this.builderType.GetMethod("GetNestedTypes", true, pbindingAttr).Import();
 			
 			return this.var_getnestedtypes_0_1;
-						
-		}
+								}
 				
 		private Method var_getnestedtype_0_1;
 		
@@ -21879,8 +21409,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getnestedtype_0_1 = this.builderType.GetMethod("GetNestedType", true, pname).Import();
 			
 			return this.var_getnestedtype_0_1;
-						
-		}
+								}
 				
 		private Method var_getnestedtype_0_2;
 		
@@ -21897,8 +21426,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getnestedtype_0_2 = this.builderType.GetMethod("GetNestedType", true, pname, pbindingAttr).Import();
 			
 			return this.var_getnestedtype_0_2;
-						
-		}
+								}
 				
 		private Method var_getmember_0_1;
 		
@@ -21915,8 +21443,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getmember_0_1 = this.builderType.GetMethod("GetMember", true, pname).Import();
 			
 			return this.var_getmember_0_1;
-						
-		}
+								}
 				
 		private Method var_getmember_0_2;
 		
@@ -21933,8 +21460,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getmember_0_2 = this.builderType.GetMethod("GetMember", true, pname, pbindingAttr).Import();
 			
 			return this.var_getmember_0_2;
-						
-		}
+								}
 				
 		private Method var_getmember_0_3;
 		
@@ -21951,8 +21477,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getmember_0_3 = this.builderType.GetMethod("GetMember", true, pname, ptype, pbindingAttr).Import();
 			
 			return this.var_getmember_0_3;
-						
-		}
+								}
 				
 		private Method var_getmembers_0_0;
 		
@@ -21969,8 +21494,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_getmembers_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_getmembers_0_1;
 		
@@ -21987,8 +21511,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getmembers_0_1 = this.builderType.GetMethod("GetMembers", true, pbindingAttr).Import();
 			
 			return this.var_getmembers_0_1;
-						
-		}
+								}
 				
 		private Method var_getdefaultmembers_0_0;
 		
@@ -22005,8 +21528,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_getdefaultmembers_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_findmembers_0_4;
 		
@@ -22023,8 +21545,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_findmembers_0_4 = this.builderType.GetMethod("FindMembers", true, pmemberType, pbindingAttr, pfilter, pfilterCriteria).Import();
 			
 			return this.var_findmembers_0_4;
-						
-		}
+								}
 				
 		private Method var_get_isnested_0_0;
 		
@@ -22041,8 +21562,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isnested_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_attributes_0_0;
 		
@@ -22059,8 +21579,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_attributes_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_genericparameterattributes_0_0;
 		
@@ -22077,8 +21596,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_genericparameterattributes_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isvisible_0_0;
 		
@@ -22095,8 +21613,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isvisible_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isnotpublic_0_0;
 		
@@ -22113,8 +21630,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isnotpublic_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_ispublic_0_0;
 		
@@ -22131,8 +21647,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_ispublic_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isnestedpublic_0_0;
 		
@@ -22149,8 +21664,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isnestedpublic_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isnestedprivate_0_0;
 		
@@ -22167,8 +21681,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isnestedprivate_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isnestedfamily_0_0;
 		
@@ -22185,8 +21698,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isnestedfamily_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isnestedassembly_0_0;
 		
@@ -22203,8 +21715,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isnestedassembly_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isnestedfamandassem_0_0;
 		
@@ -22221,8 +21732,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isnestedfamandassem_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isnestedfamorassem_0_0;
 		
@@ -22239,8 +21749,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isnestedfamorassem_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isautolayout_0_0;
 		
@@ -22257,8 +21766,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isautolayout_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_islayoutsequential_0_0;
 		
@@ -22275,8 +21783,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_islayoutsequential_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isexplicitlayout_0_0;
 		
@@ -22293,8 +21800,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isexplicitlayout_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isclass_0_0;
 		
@@ -22311,8 +21817,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isclass_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isinterface_0_0;
 		
@@ -22329,8 +21834,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isinterface_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isvaluetype_0_0;
 		
@@ -22347,8 +21851,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isvaluetype_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isabstract_0_0;
 		
@@ -22365,8 +21868,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isabstract_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_issealed_0_0;
 		
@@ -22383,8 +21885,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_issealed_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isenum_0_0;
 		
@@ -22401,8 +21902,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isenum_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isspecialname_0_0;
 		
@@ -22419,8 +21919,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isspecialname_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isimport_0_0;
 		
@@ -22437,8 +21936,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isimport_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isserializable_0_0;
 		
@@ -22455,8 +21953,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isserializable_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isansiclass_0_0;
 		
@@ -22473,8 +21970,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isansiclass_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isunicodeclass_0_0;
 		
@@ -22491,8 +21987,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isunicodeclass_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isautoclass_0_0;
 		
@@ -22509,8 +22004,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isautoclass_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isarray_0_0;
 		
@@ -22527,8 +22021,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isarray_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isgenerictype_0_0;
 		
@@ -22545,8 +22038,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isgenerictype_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isgenerictypedefinition_0_0;
 		
@@ -22563,8 +22055,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isgenerictypedefinition_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isconstructedgenerictype_0_0;
 		
@@ -22581,8 +22072,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isconstructedgenerictype_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isgenericparameter_0_0;
 		
@@ -22599,8 +22089,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isgenericparameter_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_genericparameterposition_0_0;
 		
@@ -22617,8 +22106,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_genericparameterposition_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_containsgenericparameters_0_0;
 		
@@ -22635,8 +22123,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_containsgenericparameters_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_getgenericparameterconstraints_0_0;
 		
@@ -22653,8 +22140,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_getgenericparameterconstraints_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isbyref_0_0;
 		
@@ -22671,8 +22157,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isbyref_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_ispointer_0_0;
 		
@@ -22689,8 +22174,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_ispointer_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_isprimitive_0_0;
 		
@@ -22707,8 +22191,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_isprimitive_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_iscomobject_0_0;
 		
@@ -22725,8 +22208,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_iscomobject_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_haselementtype_0_0;
 		
@@ -22743,8 +22225,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_haselementtype_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_iscontextful_0_0;
 		
@@ -22761,8 +22242,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_iscontextful_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_ismarshalbyref_0_0;
 		
@@ -22779,8 +22259,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_ismarshalbyref_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_makegenerictype_0_1;
 		
@@ -22797,8 +22276,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_makegenerictype_0_1 = this.builderType.GetMethod("MakeGenericType", true, ptypeArguments).Import();
 			
 			return this.var_makegenerictype_0_1;
-						
-		}
+								}
 				
 		private Method var_getelementtype_0_0;
 		
@@ -22815,8 +22293,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_getelementtype_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_getgenericarguments_0_0;
 		
@@ -22833,8 +22310,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_getgenericarguments_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_generictypearguments_0_0;
 		
@@ -22851,8 +22327,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_generictypearguments_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_getgenerictypedefinition_0_0;
 		
@@ -22869,8 +22344,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_getgenerictypedefinition_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_getenumnames_0_0;
 		
@@ -22887,8 +22361,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_getenumnames_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_getenumvalues_0_0;
 		
@@ -22905,8 +22378,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_getenumvalues_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_getenumunderlyingtype_0_0;
 		
@@ -22923,8 +22395,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_getenumunderlyingtype_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_isenumdefined_0_1;
 		
@@ -22941,8 +22412,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_isenumdefined_0_1 = this.builderType.GetMethod("IsEnumDefined", true, pvalue).Import();
 			
 			return this.var_isenumdefined_0_1;
-						
-		}
+								}
 				
 		private Method var_getenumname_0_1;
 		
@@ -22959,8 +22429,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getenumname_0_1 = this.builderType.GetMethod("GetEnumName", true, pvalue).Import();
 			
 			return this.var_getenumname_0_1;
-						
-		}
+								}
 				
 		private Method var_get_issecuritycritical_0_0;
 		
@@ -22977,8 +22446,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_issecuritycritical_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_issecuritysafecritical_0_0;
 		
@@ -22995,8 +22463,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_issecuritysafecritical_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_issecuritytransparent_0_0;
 		
@@ -23013,8 +22480,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_issecuritytransparent_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_underlyingsystemtype_0_0;
 		
@@ -23031,8 +22497,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_underlyingsystemtype_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_issubclassof_0_1;
 		
@@ -23049,8 +22514,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_issubclassof_0_1 = this.builderType.GetMethod("IsSubclassOf", true, pc).Import();
 			
 			return this.var_issubclassof_0_1;
-						
-		}
+								}
 				
 		private Method var_isinstanceoftype_0_1;
 		
@@ -23067,8 +22531,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_isinstanceoftype_0_1 = this.builderType.GetMethod("IsInstanceOfType", true, po).Import();
 			
 			return this.var_isinstanceoftype_0_1;
-						
-		}
+								}
 				
 		private Method var_isassignablefrom_0_1;
 		
@@ -23085,8 +22548,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_isassignablefrom_0_1 = this.builderType.GetMethod("IsAssignableFrom", true, pc).Import();
 			
 			return this.var_isassignablefrom_0_1;
-						
-		}
+								}
 				
 		private Method var_isequivalentto_0_1;
 		
@@ -23103,8 +22565,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_isequivalentto_0_1 = this.builderType.GetMethod("IsEquivalentTo", true, pother).Import();
 			
 			return this.var_isequivalentto_0_1;
-						
-		}
+								}
 				
 		private Method var_tostring_0_0;
 		
@@ -23121,8 +22582,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_tostring_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_gettypearray_0_1;
 		
@@ -23139,8 +22599,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_gettypearray_0_1 = this.builderType.GetMethod("GetTypeArray", true, pargs).Import();
 			
 			return this.var_gettypearray_0_1;
-						
-		}
+								}
 				
 		private Method var_equals_0_1;
 				
@@ -23173,8 +22632,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_op_equality_0_2;
 		
@@ -23191,8 +22649,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_op_equality_0_2 = this.builderType.GetMethod("op_Equality", true, pleft, pright).Import();
 			
 			return this.var_op_equality_0_2;
-						
-		}
+								}
 				
 		private Method var_op_inequality_0_2;
 		
@@ -23209,8 +22666,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_op_inequality_0_2 = this.builderType.GetMethod("op_Inequality", true, pleft, pright).Import();
 			
 			return this.var_op_inequality_0_2;
-						
-		}
+								}
 				
 		private Method var_gethashcode_0_0;
 		
@@ -23227,8 +22683,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gethashcode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_getinterfacemap_0_1;
 		
@@ -23245,8 +22700,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getinterfacemap_0_1 = this.builderType.GetMethod("GetInterfaceMap", true, pinterfaceType).Import();
 			
 			return this.var_getinterfacemap_0_1;
-						
-		}
+								}
 				
 		private Method var_gettype_0_0;
 		
@@ -23263,8 +22717,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettype_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_name_0_0;
 		
@@ -23281,8 +22734,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_name_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_customattributes_0_0;
 		
@@ -23299,8 +22751,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_customattributes_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_getcustomattributes_0_1;
 		
@@ -23317,8 +22768,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getcustomattributes_0_1 = this.builderType.GetMethod("GetCustomAttributes", true, pinherit).Import();
 			
 			return this.var_getcustomattributes_0_1;
-						
-		}
+								}
 				
 		private Method var_getcustomattributes_0_2;
 		
@@ -23335,8 +22785,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_getcustomattributes_0_2 = this.builderType.GetMethod("GetCustomAttributes", true, pattributeType, pinherit).Import();
 			
 			return this.var_getcustomattributes_0_2;
-						
-		}
+								}
 				
 		private Method var_isdefined_0_2;
 		
@@ -23353,8 +22802,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_isdefined_0_2 = this.builderType.GetMethod("IsDefined", true, pattributeType, pinherit).Import();
 			
 			return this.var_isdefined_0_2;
-						
-		}
+								}
 				
 		private Method var_getcustomattributesdata_0_0;
 		
@@ -23371,8 +22819,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_getcustomattributesdata_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_get_metadatatoken_0_0;
 		
@@ -23389,10 +22836,8 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_metadatatoken_0_0;
 						
-						
-		}
-		
-	}
+								}
+			}
 
 			
     /// <summary>
@@ -23445,8 +22890,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_equals_0_1;
 				
@@ -23479,8 +22923,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_gethashcode_0_0;
 		
@@ -23497,8 +22940,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gethashcode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_tostring_0_0;
 		
@@ -23515,8 +22957,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_tostring_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_tostring_0_1;
 				
@@ -23549,8 +22990,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_tostring_0_2;
 		
@@ -23567,8 +23007,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_tostring_0_2 = this.builderType.GetMethod("ToString", true, pformat, pprovider).Import();
 			
 			return this.var_tostring_0_2;
-						
-		}
+								}
 				
 		private Method var_parse_0_1;
 		
@@ -23585,8 +23024,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_parse_0_1 = this.builderType.GetMethod("Parse", true, ps).Import();
 			
 			return this.var_parse_0_1;
-						
-		}
+								}
 				
 		private Method var_parse_0_2;
 				
@@ -23619,8 +23057,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_parse_0_3;
 		
@@ -23637,8 +23074,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_parse_0_3 = this.builderType.GetMethod("Parse", true, ps, pstyle, pprovider).Import();
 			
 			return this.var_parse_0_3;
-						
-		}
+								}
 				
 		private Method var_gettypecode_0_0;
 		
@@ -23655,8 +23091,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettypecode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_gettype_0_0;
 		
@@ -23673,10 +23108,8 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettype_0_0;
 						
-						
-		}
-		
-	}
+								}
+			}
 
 			
     /// <summary>
@@ -23729,8 +23162,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_equals_0_1;
 				
@@ -23763,8 +23195,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_gethashcode_0_0;
 		
@@ -23781,8 +23212,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gethashcode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_tostring_0_0;
 		
@@ -23799,8 +23229,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_tostring_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_tostring_0_1;
 				
@@ -23833,8 +23262,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_tostring_0_2;
 		
@@ -23851,8 +23279,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_tostring_0_2 = this.builderType.GetMethod("ToString", true, pformat, pprovider).Import();
 			
 			return this.var_tostring_0_2;
-						
-		}
+								}
 				
 		private Method var_parse_0_1;
 		
@@ -23869,8 +23296,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_parse_0_1 = this.builderType.GetMethod("Parse", true, ps).Import();
 			
 			return this.var_parse_0_1;
-						
-		}
+								}
 				
 		private Method var_parse_0_2;
 				
@@ -23903,8 +23329,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_parse_0_3;
 		
@@ -23921,8 +23346,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_parse_0_3 = this.builderType.GetMethod("Parse", true, ps, pstyle, pprovider).Import();
 			
 			return this.var_parse_0_3;
-						
-		}
+								}
 				
 		private Method var_gettypecode_0_0;
 		
@@ -23939,8 +23363,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettypecode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_gettype_0_0;
 		
@@ -23957,10 +23380,8 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettype_0_0;
 						
-						
-		}
-		
-	}
+								}
+			}
 
 			
     /// <summary>
@@ -24013,8 +23434,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_equals_0_1;
 				
@@ -24047,8 +23467,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_gethashcode_0_0;
 		
@@ -24065,8 +23484,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gethashcode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_tostring_0_0;
 		
@@ -24083,8 +23501,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_tostring_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_tostring_0_1;
 				
@@ -24117,8 +23534,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_tostring_0_2;
 		
@@ -24135,8 +23551,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_tostring_0_2 = this.builderType.GetMethod("ToString", true, pformat, pprovider).Import();
 			
 			return this.var_tostring_0_2;
-						
-		}
+								}
 				
 		private Method var_parse_0_1;
 		
@@ -24153,8 +23568,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_parse_0_1 = this.builderType.GetMethod("Parse", true, ps).Import();
 			
 			return this.var_parse_0_1;
-						
-		}
+								}
 				
 		private Method var_parse_0_2;
 				
@@ -24187,8 +23601,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_parse_0_3;
 		
@@ -24205,8 +23618,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_parse_0_3 = this.builderType.GetMethod("Parse", true, ps, pstyle, pprovider).Import();
 			
 			return this.var_parse_0_3;
-						
-		}
+								}
 				
 		private Method var_gettypecode_0_0;
 		
@@ -24223,8 +23635,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettypecode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_gettype_0_0;
 		
@@ -24241,10 +23652,8 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettype_0_0;
 						
-						
-		}
-		
-	}
+								}
+			}
 
 			
     /// <summary>
@@ -24281,8 +23690,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
 			
 			return this.var_equals_0_1;
-						
-		}
+								}
 				
 		private Method var_gethashcode_0_0;
 		
@@ -24299,8 +23707,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gethashcode_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_touint32_0_0;
 		
@@ -24317,8 +23724,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_touint32_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_touint64_0_0;
 		
@@ -24335,8 +23741,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_touint64_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_tostring_0_0;
 		
@@ -24353,8 +23758,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_tostring_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_op_explicit_0_1;
 				
@@ -24420,8 +23824,7 @@ namespace Cauldron.Interception.Cecilator
 			}
 			
 			return null;
-			
-		}
+					}
 				
 		private Method var_op_equality_0_2;
 		
@@ -24438,8 +23841,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_op_equality_0_2 = this.builderType.GetMethod("op_Equality", true, pvalue1, pvalue2).Import();
 			
 			return this.var_op_equality_0_2;
-						
-		}
+								}
 				
 		private Method var_op_inequality_0_2;
 		
@@ -24456,8 +23858,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_op_inequality_0_2 = this.builderType.GetMethod("op_Inequality", true, pvalue1, pvalue2).Import();
 			
 			return this.var_op_inequality_0_2;
-						
-		}
+								}
 				
 		private Method var_add_0_2;
 		
@@ -24474,8 +23875,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_add_0_2 = this.builderType.GetMethod("Add", true, ppointer, poffset).Import();
 			
 			return this.var_add_0_2;
-						
-		}
+								}
 				
 		private Method var_op_addition_0_2;
 		
@@ -24492,8 +23892,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_op_addition_0_2 = this.builderType.GetMethod("op_Addition", true, ppointer, poffset).Import();
 			
 			return this.var_op_addition_0_2;
-						
-		}
+								}
 				
 		private Method var_subtract_0_2;
 		
@@ -24510,8 +23909,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_subtract_0_2 = this.builderType.GetMethod("Subtract", true, ppointer, poffset).Import();
 			
 			return this.var_subtract_0_2;
-						
-		}
+								}
 				
 		private Method var_op_subtraction_0_2;
 		
@@ -24528,8 +23926,7 @@ namespace Cauldron.Interception.Cecilator
 				this.var_op_subtraction_0_2 = this.builderType.GetMethod("op_Subtraction", true, ppointer, poffset).Import();
 			
 			return this.var_op_subtraction_0_2;
-						
-		}
+								}
 				
 		private Method var_get_size_0_0;
 		
@@ -24546,8 +23943,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_get_size_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_topointer_0_0;
 		
@@ -24564,8 +23960,7 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_topointer_0_0;
 						
-						
-		}
+								}
 				
 		private Method var_gettype_0_0;
 		
@@ -24582,10 +23977,8 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_gettype_0_0;
 						
-						
-		}
-		
-	}
+								}
+			}
 
 	}
 

@@ -13,6 +13,7 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Activator Dependency Injection Factory Cauldron</tags>
     <releaseNotes>
+      2018.05.27 - [A] Rebuilt event added
       2018.05.26 - [A] Injector properties added
       2018.05.26 - [A] Component attribute options added.
       2018.05.26 - [C] Inject attribute is now a custom interceptor

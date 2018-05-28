@@ -141,7 +141,7 @@ namespace Cauldron.Interception.Cecilator
                 case null: return null;
                 case BuilderType builderType:
                 case TypeReference typeReference:
-                case Type type: return TypeSystemEx.Type;
+                case Type type: return BuilderTypes.Type;
                 default: return Builder.Current.Import(o.GetType());
             }
         }

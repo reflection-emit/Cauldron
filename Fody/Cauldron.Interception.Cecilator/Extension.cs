@@ -92,7 +92,7 @@ namespace Cauldron.Interception.Cecilator
             if (type == null) throw new ArgumentNullException(nameof(type));
 
             // If the target type is an object... Everything goes into an object
-            if (type == TypeSystemEx.Object)
+            if (type == BuilderTypes.Object)
                 return true;
 
             // If the type or value to be assigned is null and we are sure that the target type
@@ -133,7 +133,7 @@ namespace Cauldron.Interception.Cecilator
             if (type == null) throw new ArgumentNullException(nameof(type));
 
             // If the target type is an object... Everything goes into an object
-            if (type.AreEqual((TypeReference)TypeSystemEx.Object))
+            if (type.AreEqual((TypeReference)BuilderTypes.Object))
                 return true;
 
             // If the type or value to be assigned is null and we are sure that the target type
@@ -286,7 +286,7 @@ namespace Cauldron.Interception.Cecilator
                             ienumerableInterface = genericInstances.FirstOrDefault(x => x.FullName.StartsWith("System.Collections.Generic.IEnumerable`1<"));
 
                         // A Nullable special
-                        if (ienumerableInterface == null && genericType.AreEqual((TypeReference)TypeSystemEx.Nullable))
+                        if (ienumerableInterface == null && genericType.AreEqual((TypeReference)BuilderTypes.Nullable))
                             return genericType.GenericArguments[0];
 
                         // We just don't know :(
@@ -950,7 +950,7 @@ namespace Cauldron.Interception.Cecilator
                 if (ins.IsCallOrNew())
                     return (ins.Operand as MethodReference).With(x =>
                     {
-                        return x.ReturnType.AreEqual(TypeSystemEx.Void) ?
+                        return x.ReturnType.AreEqual(BuilderTypes.Void) ?
                             null :
                             x.ReturnType.ResolveType(x.DeclaringType, x);
                     });
@@ -968,7 +968,7 @@ namespace Cauldron.Interception.Cecilator
                     });
 
                 if (ins.IsComparer())
-                    return TypeSystemEx.Boolean;
+                    return BuilderTypes.Boolean;
 
                 if (ins.OpCode == OpCodes.Isinst)
                     return (ins.Operand as TypeReference).With(x => x.ResolveType(method.DeclaringType.typeReference, method.methodReference));

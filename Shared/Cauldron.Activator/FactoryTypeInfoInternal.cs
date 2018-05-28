@@ -41,6 +41,15 @@ namespace Cauldron.Activator
 
         /// <exclude/>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public object CreateInstance(params object[] arguments) => this.createInstance(arguments);
+        public object CreateInstance(params object[] arguments)
+        {
+            if (this.CreationPolicy == FactoryCreationPolicy.Instanced)
+                return this.createInstance(arguments);
+
+            if (this.Instance == null)
+                this.Instance = this.createInstance(arguments);
+
+            return this.Instance;
+        }
     }
 }

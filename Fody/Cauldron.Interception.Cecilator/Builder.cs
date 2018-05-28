@@ -33,7 +33,7 @@ namespace Cauldron.Interception.Cecilator
         /// <returns>Retruns an instance of <see cref="Method"/> representing the static void Main of the program; otherwise null</returns>
         public Method GetMain() =>
             this.FindMethodsByName(SearchContext.Module_NoGenerated, "Main", 1)
-                    .FirstOrDefault(x => x.ReturnType == TypeSystemEx.Void && x.Parameters[0].ChildType == TypeSystemEx.String);
+                    .FirstOrDefault(x => x.ReturnType == BuilderTypes.Void && x.Parameters[0].ChildType == BuilderTypes.String);
 
         public Method Import(System.Reflection.MethodBase value)
         {

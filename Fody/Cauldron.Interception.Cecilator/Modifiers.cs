@@ -16,6 +16,7 @@ namespace Cauldron.Interception.Cecilator
         PrivateStatic = Private | Static,
         InternalStatic = Internal | Static,
         Explicit = 64,
+        Constant = 128,
         All = Public | Private | Internal | Static | Protected | Overrides | Explicit
     }
 }

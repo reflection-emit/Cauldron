@@ -15,7 +15,9 @@
 	{
 		typeof(decimal),
 		typeof(IEnumerable<>),
+		typeof(NotSupportedException),
 		typeof(IEnumerable),
+		typeof(IDisposable),
 		typeof(int),
 		typeof(uint),
 		typeof(string),
@@ -149,7 +151,7 @@ namespace Cauldron.Interception.Cecilator
     /// <summary>
     /// Provides predifined types for Cecilator
     /// </summary>
-	public static class TypeSystemEx
+	public static class BuilderTypes
     {
 	
 		#region Void
@@ -233,6 +235,7 @@ namespace Cauldron.Interception.Cecilator
 		public BuilderType BuilderType => this.builderType;
 		
 		<#
+		// Methods
 		var methodGroups = type
 			.GetMethods()
 			.Where( x=> !x.IsGenericMethodDefinition && !x.ContainsGenericParameters && IsValidParameter(x.GetParameters()) )
@@ -293,12 +296,10 @@ namespace Cauldron.Interception.Cecilator
 			<#
 			}
 			#>
-
 		}
 		<#
 		}
 		#>
-
 	}
 
 	<#

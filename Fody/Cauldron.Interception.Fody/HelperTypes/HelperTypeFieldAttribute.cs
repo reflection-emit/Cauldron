@@ -13,6 +13,6 @@ namespace Cauldron.Interception.Fody.HelperTypes
 
         public string Name { get; private set; }
 
-        public Field GetField(BuilderType builderType) => builderType.GetField(this.Name, true);
+        public Field GetField(BuilderType builderType) => builderType.GetField(this.Name, true).Import();
     }
 }

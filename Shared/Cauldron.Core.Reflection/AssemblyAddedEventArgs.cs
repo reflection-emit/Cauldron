@@ -10,6 +10,12 @@ namespace Cauldron.Core.Reflection
     {
         internal AssemblyAddedEventArgs(Assembly assembly, MethodInfo cauldronGetComponentsMethod)
         {
+            this.CauldronGetComponents = new MethodInfo[] { cauldronGetComponentsMethod };
+            this.Assembly = new Assembly[] { assembly };
+        }
+
+        internal AssemblyAddedEventArgs(Assembly[] assembly, MethodInfo[] cauldronGetComponentsMethod)
+        {
             this.CauldronGetComponents = cauldronGetComponentsMethod;
             this.Assembly = assembly;
         }
@@ -17,11 +23,11 @@ namespace Cauldron.Core.Reflection
         /// <summary>
         /// Gets the assembly that has been added to the known assembly collection
         /// </summary>
-        public Assembly Assembly { get; private set; }
+        public Assembly[] Assembly { get; private set; }
 
         /// <summary>
         /// Gets the auto-generated cauldron object.
         /// </summary>
-        public MethodInfo CauldronGetComponents { get; private set; }
+        public MethodInfo[] CauldronGetComponents { get; private set; }
     }
 }

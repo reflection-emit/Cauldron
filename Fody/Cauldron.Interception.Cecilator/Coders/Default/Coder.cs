@@ -181,7 +181,7 @@ namespace Cauldron.Interception.Cecilator.Coders
                     {
                         newBlock.Emit(OpCodes.Ldloc, variable.variable);
                         newBlock.Append(InstructionBlock.CreateCode(newBlock, null, counter++));
-                        newBlock.Append(InstructionBlock.CreateCode(newBlock, TypeSystemEx.Object, targetMethod.OriginType.GetField(parameter.Name)));
+                        newBlock.Append(InstructionBlock.CreateCode(newBlock, BuilderTypes.Object, targetMethod.OriginType.GetField(parameter.Name)));
                         newBlock.Emit(OpCodes.Stelem_Ref);
                     }
                 }
@@ -548,18 +548,18 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         private OpCode LoadElement(TypeReference typeReference)
         {
-            if (typeReference.AreEqual((TypeReference)TypeSystemEx.Byte)) return OpCodes.Ldelem_U1;
-            if (typeReference.AreEqual((TypeReference)TypeSystemEx.SByte)) return OpCodes.Ldelem_I1;
-            if (typeReference.AreEqual((TypeReference)TypeSystemEx.Int16)) return OpCodes.Ldelem_I2;
-            if (typeReference.AreEqual((TypeReference)TypeSystemEx.UInt16)) return OpCodes.Ldelem_U2;
-            if (typeReference.AreEqual((TypeReference)TypeSystemEx.Int32)) return OpCodes.Ldelem_I4;
-            if (typeReference.AreEqual((TypeReference)TypeSystemEx.UInt32)) return OpCodes.Ldelem_U4;
-            if (typeReference.AreEqual((TypeReference)TypeSystemEx.Int64)) return OpCodes.Ldelem_I8;
-            if (typeReference.AreEqual((TypeReference)TypeSystemEx.UInt64)) return OpCodes.Ldelem_I8;
-            if (typeReference.AreEqual((TypeReference)TypeSystemEx.Single)) return OpCodes.Ldelem_R4;
-            if (typeReference.AreEqual((TypeReference)TypeSystemEx.Double)) return OpCodes.Ldelem_R8;
-            if (typeReference.AreEqual((TypeReference)TypeSystemEx.IntPtr)) return OpCodes.Ldelem_I;
-            if (typeReference.AreEqual((TypeReference)TypeSystemEx.UIntPtr)) return OpCodes.Ldelem_I;
+            if (typeReference.AreEqual((TypeReference)BuilderTypes.Byte)) return OpCodes.Ldelem_U1;
+            if (typeReference.AreEqual((TypeReference)BuilderTypes.SByte)) return OpCodes.Ldelem_I1;
+            if (typeReference.AreEqual((TypeReference)BuilderTypes.Int16)) return OpCodes.Ldelem_I2;
+            if (typeReference.AreEqual((TypeReference)BuilderTypes.UInt16)) return OpCodes.Ldelem_U2;
+            if (typeReference.AreEqual((TypeReference)BuilderTypes.Int32)) return OpCodes.Ldelem_I4;
+            if (typeReference.AreEqual((TypeReference)BuilderTypes.UInt32)) return OpCodes.Ldelem_U4;
+            if (typeReference.AreEqual((TypeReference)BuilderTypes.Int64)) return OpCodes.Ldelem_I8;
+            if (typeReference.AreEqual((TypeReference)BuilderTypes.UInt64)) return OpCodes.Ldelem_I8;
+            if (typeReference.AreEqual((TypeReference)BuilderTypes.Single)) return OpCodes.Ldelem_R4;
+            if (typeReference.AreEqual((TypeReference)BuilderTypes.Double)) return OpCodes.Ldelem_R8;
+            if (typeReference.AreEqual((TypeReference)BuilderTypes.IntPtr)) return OpCodes.Ldelem_I;
+            if (typeReference.AreEqual((TypeReference)BuilderTypes.UIntPtr)) return OpCodes.Ldelem_I;
 
             if (typeReference.IsArray)
                 return LoadElement(typeReference.GetElementType());
@@ -889,7 +889,7 @@ namespace Cauldron.Interception.Cecilator.Coders
                     var last = this.instructions.ilprocessor.Body.Instructions.Last();
                     var jumpers = this.instructions.ilprocessor.Body.Instructions.GetJumpSources(last.Previous);
 
-                    if (!last.Previous.IsLoadLocal() && this.instructions.associatedMethod.methodDefinition.ReturnType.AreEqual(TypeSystemEx.Void))
+                    if (!last.Previous.IsLoadLocal() && this.instructions.associatedMethod.methodDefinition.ReturnType.AreEqual(BuilderTypes.Void))
                     {
                         var isInitialized = this.instructions.associatedMethod.methodDefinition.Body.InitLocals;
                         var localVariable = this.GetOrCreateReturnVariable();
@@ -1221,7 +1221,7 @@ namespace Cauldron.Interception.Cecilator.Coders
                         instruction.OpCode = OpCodes.Leave;
                         instruction.Operand = realReturn;
 
-                        if (coder.instructions.associatedMethod.ReturnType == TypeSystemEx.Void ||
+                        if (coder.instructions.associatedMethod.ReturnType == BuilderTypes.Void ||
                             coder.instructions.associatedMethod.methodDefinition.ReturnType.FullName == "System.Threading.Task" /* This should stay so that the Task type is not imported */)
                             continue;
 

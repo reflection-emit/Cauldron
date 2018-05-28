@@ -70,11 +70,11 @@
     <Compile Include="BuilderCustomAttribute.cs" />
     <Compile Include="BuilderCustomAttributeCollection.cs" />
     <Compile Include="BuilderTypeEqualityComparer.cs" />
-    <Compile Include="BuilderTypesEx.cs" />
-    <Compile Include="BuilderTypesEx.generated.cs">
+    <Compile Include="BuilderTypes.cs" />
+    <Compile Include="BuilderTypes.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>BuilderTypesEx.generated.tt</DependentUpon>
+      <DependentUpon>BuilderTypes.generated.tt</DependentUpon>
     </Compile>
     <Compile Include="CecilatorBase.cs" />
     <Compile Include="CecilatorObject.cs" />
@@ -148,9 +148,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="BuilderTypesEx.generated.tt">
+    <Content Include="BuilderTypes.generated.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>BuilderTypesEx.generated.cs</LastGenOutput>
+      <LastGenOutput>BuilderTypes.generated.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

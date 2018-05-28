@@ -33,6 +33,17 @@ namespace Cauldron.Interception.Cecilator
             this.type = type;
         }
 
+        public object ConstantValue
+        {
+            get => this.fieldDef.Constant;
+            set
+            {
+                this.fieldDef.Constant = value;
+                this.fieldDef.HasConstant = value != null;
+                this.fieldDef.HasDefault = value != null;
+            }
+        }
+
         public BuilderCustomAttributeCollection CustomAttributes => new BuilderCustomAttributeCollection(this.type.Builder, this.fieldDef);
 
         /// <summary>

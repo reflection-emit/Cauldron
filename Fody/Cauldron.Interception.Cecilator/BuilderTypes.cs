@@ -42,6 +42,19 @@ namespace Cauldron.Interception.Cecilator
         }
     }
 
+    public partial class BuilderTypeEventHandler : TypeSystemExBase
+    {
+        private Method constructor;
+
+        public Method GetConstructor()
+        {
+            if (constructor == null)
+                constructor = this.builderType.GetMethod(".ctor", 2, true).Import();
+
+            return constructor;
+        }
+    }
+
     public partial class BuilderTypeMethodBase
     {
         public Method GetMethod_GetMethodFromHandle()
@@ -50,6 +63,19 @@ namespace Cauldron.Interception.Cecilator
                 this.var_getmethodfromhandle_0_2 = this.builderType.GetMethod("GetMethodFromHandle", 2, true).Import();
 
             return this.var_getmethodfromhandle_0_2;
+        }
+    }
+
+    public partial class BuilderTypeNotSupportedException
+    {
+        private Method constructor_string;
+
+        public Method GetConstructor_String()
+        {
+            if (constructor_string == null)
+                constructor_string = this.builderType.GetMethod(".ctor", true, (BuilderType)BuilderTypes.String).Import();
+
+            return constructor_string;
         }
     }
 }

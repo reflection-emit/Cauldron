@@ -38,7 +38,7 @@ namespace Cauldron.Core.Reflection
         }
 
         /// <summary>
-        /// Loads the contents of all assemblies that matches the specified filter
+        /// Loads the contents of all assemblies that matches the specified filter.
         /// </summary>
         /// <param name="directory">The directory where the assemblies are located</param>
         /// <param name="filter">
@@ -48,14 +48,18 @@ namespace Cauldron.Core.Reflection
         /// </param>
         /// <exception cref="DirectoryNotFoundException">The path is invalid or does not exist.</exception>
         /// <exception cref="FileLoadException">A file that was found could not be loaded</exception>
-        public static void LoadAssembly(DirectoryInfo directory, string filter = "*.dll")
+        public static void LoadAssemblies(DirectoryInfo directory, string filter = "*.dll")
         {
             if (!directory.Exists)
                 throw new DirectoryNotFoundException("Unable to find directory: " + directory.FullName);
 
+            var newLoadedAssembliesList = new List<Tuple<Assembly, MethodInfo>>();
             var files = directory.GetFiles(filter);
             for (int i = 0; i < files.Length; i++)
-                AddAssembly(Assembly.LoadFile(files[i].FullName), true);
+                newLoadedAssembliesList.Add(AddAssembly(Assembly.LoadFile(files[i].FullName), false));
+
+            LoadedAssemblyChanged?.Invoke(null,
+                new AssemblyAddedEventArgs(newLoadedAssembliesList.Select(x => x.Item1).ToArray(), newLoadedAssembliesList.Select(x => x.Item2).ToArray()));
         }
 
         private static void GetAllAssemblies()
@@ -107,18 +111,18 @@ namespace Cauldron.Core.Reflection
                 {
                     var file = Path.Combine(ApplicationInfo.ApplicationPath.FullName, $"{new AssemblyName(e.Name).Name}.dll");
                     if (File.Exists(file))
-                        return AddAssembly(Assembly.LoadFile(file), false);
+                        return AddAssembly(Assembly.LoadFile(file), false)?.Item1;
                 }
 
                 // Try to load it from current domain's base directory
                 var assemblyFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"{new AssemblyName(e.Name).Name}.dll");
                 if (File.Exists(assemblyFile))
-                    return AddAssembly(Assembly.LoadFile(assemblyFile), false);
+                    return AddAssembly(Assembly.LoadFile(assemblyFile), false)?.Item1;
 
                 // As last resort try to load it from this Assembly's directory
                 assemblyFile = Path.Combine(Path.GetDirectoryName(typeof(Assemblies).Assembly.Location), $"{new AssemblyName(e.Name).Name}.dll");
                 if (File.Exists(assemblyFile))
-                    return AddAssembly(Assembly.LoadFile(assemblyFile), false);
+                    return AddAssembly(Assembly.LoadFile(assemblyFile), false)?.Item1;
 
                 return assembly;
             }

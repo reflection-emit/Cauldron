@@ -28,7 +28,7 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         public BooleanExpressionCallCoder Call(Method method)
         {
-            if (method.ReturnType == TypeSystemEx.Void)
+            if (method.ReturnType == BuilderTypes.Void)
                 throw new InvalidOperationException("Void method are not supported by this call.");
 
             this.InternalCall(CodeBlocks.This, method);
@@ -37,7 +37,7 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         public BooleanExpressionCallCoder Call(Method method, params Func<Coder, object>[] parameters)
         {
-            if (method.ReturnType == TypeSystemEx.Void)
+            if (method.ReturnType == BuilderTypes.Void)
                 throw new InvalidOperationException("Void method are not supported by this call.");
 
             this.InternalCall(CodeBlocks.This, method, this.CreateParameters(parameters));
@@ -52,7 +52,7 @@ namespace Cauldron.Interception.Cecilator.Coders
         /// <returns></returns>
         public BooleanExpressionCallCoder Call(Method method, params object[] parameters)
         {
-            if (method.ReturnType == TypeSystemEx.Void)
+            if (method.ReturnType == BuilderTypes.Void)
                 throw new InvalidOperationException("Void method are not supported by this call.");
 
             this.InternalCall(CodeBlocks.This, method, parameters);
@@ -138,12 +138,12 @@ namespace Cauldron.Interception.Cecilator.Coders
                 return this;
 
             code(this, collection[0], 0);
-            InstructionBlock.CastOrBoxValues(this.instructions, TypeSystemEx.Boolean);
+            InstructionBlock.CastOrBoxValues(this.instructions, BuilderTypes.Boolean);
 
             for (int i = 1; i < collection.Length; i++)
             {
                 code(this, collection[i], i);
-                InstructionBlock.CastOrBoxValues(this.instructions, TypeSystemEx.Boolean);
+                InstructionBlock.CastOrBoxValues(this.instructions, BuilderTypes.Boolean);
                 this.instructions.Emit(OpCodes.And);
             }
 
@@ -191,12 +191,12 @@ namespace Cauldron.Interception.Cecilator.Coders
                 return this;
 
             code(this, collection[0], 0);
-            InstructionBlock.CastOrBoxValues(this.instructions, TypeSystemEx.Boolean);
+            InstructionBlock.CastOrBoxValues(this.instructions, BuilderTypes.Boolean);
 
             for (int i = 1; i < collection.Length; i++)
             {
                 code(this, collection[i], i);
-                InstructionBlock.CastOrBoxValues(this.instructions, TypeSystemEx.Boolean);
+                InstructionBlock.CastOrBoxValues(this.instructions, BuilderTypes.Boolean);
                 this.instructions.Emit(OpCodes.Or);
             }
 

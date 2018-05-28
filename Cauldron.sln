@@ -367,7 +367,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicInterceptorTests", "Un
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterceptorsTests", "UnitTests\Win32\InterceptorsTests\InterceptorsTests.csproj", "{85587D7D-A682-4EF5-B489-EDF751BA0B1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest_InterceptorsForTest", "UnitTests\Shared\UnitTest_InterceptorsForTest\UnitTest_InterceptorsForTest.csproj", "{5D44F97A-60BB-42A7-A616-19772CE1FD3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTest_InterceptorsForTest", "UnitTests\Shared\UnitTest_InterceptorsForTest\UnitTest_InterceptorsForTest.csproj", "{5D44F97A-60BB-42A7-A616-19772CE1FD3C}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution

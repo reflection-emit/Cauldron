@@ -17,6 +17,9 @@ namespace Cauldron.Interception.Fody.HelperTypes
         [HelperTypeMethod("CreateManyOrdered", "System.String", "System.Object[]")]
         public Method CreateManyOrdered { get; private set; }
 
+        [HelperTypeMethod("GetFactoryTypeInfo", 1)]
+        public Method GetFactoryTypeInfo { get; private set; }
+
         [HelperTypeMethod("OnObjectCreation", 2)]
         public Method OnObjectCreation { get; private set; }
     }

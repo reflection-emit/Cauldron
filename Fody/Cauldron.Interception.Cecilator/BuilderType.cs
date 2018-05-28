@@ -98,7 +98,7 @@ namespace Cauldron.Interception.Cecilator
 
         public bool IsNestedPrivate => this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedPrivate);
 
-        public bool IsNullable => this == TypeSystemEx.Nullable;
+        public bool IsNullable => this == BuilderTypes.Nullable;
 
         public bool IsPrimitive => this.typeDefinition?.IsPrimitive ?? this.typeReference?.IsPrimitive ?? false;
 
@@ -264,8 +264,8 @@ namespace Cauldron.Interception.Cecilator
                 if (ctor == null)
                     return null;
 
-                if (this.typeReference.IsGenericInstance)
-                    return new Method(this, ctor.MakeHostInstanceGeneric((this.typeReference as GenericInstanceType).GenericArguments.ToArray()), ctor.Resolve());
+                if (this.typeReference is GenericInstanceType genericInstance)
+                    return new Method(this, ctor.MakeHostInstanceGeneric(genericInstance.GenericArguments.ToArray()), ctor.Resolve());
 
                 return new Method(this, ctor, ctor.Resolve());
             }
@@ -301,7 +301,7 @@ namespace Cauldron.Interception.Cecilator
             this.typeDefinition.Methods.Add(method);
 
             var result = new Method(this, method);
-            result.NewCoder().Call(TypeSystemEx.Object.BuilderType.ParameterlessContructor.Import()).Return().Replace();
+            result.NewCoder().Call(BuilderTypes.Object.BuilderType.ParameterlessContructor.Import()).Return().Replace();
             return result;
         }
 
@@ -387,6 +387,7 @@ namespace Cauldron.Interception.Cecilator
         {
             var attributes = FieldAttributes.CompilerControlled;
 
+            if (modifier.HasFlag(Modifiers.Constant)) attributes |= FieldAttributes.Literal | FieldAttributes.Static;
             if (modifier.HasFlag(Modifiers.Private)) attributes |= FieldAttributes.Private;
             if (modifier.HasFlag(Modifiers.Static)) attributes |= FieldAttributes.Static;
             if (modifier.HasFlag(Modifiers.Public)) attributes |= FieldAttributes.Public;
@@ -641,6 +642,15 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
+        public Method GetAddHandlerEvent(string eventName, bool throwException = true)
+        {
+            var @event = this.typeDefinition.Events.FirstOrDefault(x => x.Name == eventName);
+            if (@event == null)
+                throw new MethodNotFoundException($"Unable to proceed. The type '{this.typeDefinition.FullName}' does not contain an event '{eventName}'");
+
+            return new Method(this, @event.AddMethod);
+        }
+
         public Method GetMethod(string name, bool throwException = true)
             => this.GetMethodInternal(Modifiers.All, null, name, throwException, 0, null);
 
@@ -783,6 +793,8 @@ namespace Cauldron.Interception.Cecilator
         #endregion Methods
 
         #region Equitable stuff
+
+        public static explicit operator TypeReference(BuilderType value) => value?.typeReference;
 
         public static implicit operator string(BuilderType value) => value?.ToString();
 

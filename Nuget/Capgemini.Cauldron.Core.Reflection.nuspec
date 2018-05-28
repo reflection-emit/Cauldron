@@ -21,6 +21,8 @@
     <copyright>Copyright (c) 2016 Capgemini Deutschland GmbH</copyright>
     <tags>Toolkit Capgemini Cauldron Reflection</tags>
     <releaseNotes>
+      2018.05.27 - [A] New AddAssemblies method added.
+      2018.05.27 - [C] LoadAssembly renamed to LoadAssemblies
       2018.05.09 - [B] Assemblies recursive referenced assemblies performance fix.
       2018.05.09 - [B] Assemblies EntryAssembly hack for UWP pre 16299 and NetClassic Unit Test.
       2018.05.06 - [C] Assembly for UWP added

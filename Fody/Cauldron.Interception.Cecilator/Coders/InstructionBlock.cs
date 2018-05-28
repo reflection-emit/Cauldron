@@ -103,9 +103,9 @@ namespace Cauldron.Interception.Cecilator.Coders
                     return true;
                 }
 
-                if (!castToType.typeReference.IsValueType && castToType.typeReference.Resolve().With(x => x.IsInterface || x.IsClass) && !castToType.typeReference.IsArray)
+                if (!castToType.typeReference.IsValueType && castToType.typeReference.BetterResolve().With(x => x.IsInterface || x.IsClass) && !castToType.typeReference.IsArray)
                 {
-                    if (!castToType.typeReference.AreEqual((TypeReference)TypeSystemEx.Object))
+                    if (!castToType.typeReference.AreEqual((TypeReference)BuilderTypes.Object))
                         instructionBlock.Emit(OpCodes.Isinst, Builder.Current.Import(castToType.typeReference));
 
                     return true;
@@ -116,9 +116,9 @@ namespace Cauldron.Interception.Cecilator.Coders
             }
 
             if (!GetCodeBlockFromLastType(instructionBlock.ResultingType) &&
-                !GetCodeBlockFromLastType(TypeSystemEx.Object) &&
+                !GetCodeBlockFromLastType(BuilderTypes.Object) &&
                 instructionBlock.ResultingType != null &&
-                !instructionBlock.ResultingType.AreEqual((TypeReference)TypeSystemEx.Object))
+                !instructionBlock.ResultingType.AreEqual((TypeReference)BuilderTypes.Object))
                 // This can cause exceptions in some cases
                 instructionBlock.Emit(OpCodes.Isinst, Builder.Current.Import(castToType.typeReference));
         }
@@ -159,7 +159,7 @@ namespace Cauldron.Interception.Cecilator.Coders
             {
                 case string value:
                     result.Emit(OpCodes.Ldstr, value);
-                    result.ResultingType = TypeSystemEx.String;
+                    result.ResultingType = BuilderTypes.String;
                     break;
 
                 case FieldDefinition value:
@@ -176,72 +176,72 @@ namespace Cauldron.Interception.Cecilator.Coders
 
                 case int value:
                     result.Emit(OpCodes.Ldc_I4, value);
-                    result.ResultingType = TypeSystemEx.Int32;
+                    result.ResultingType = BuilderTypes.Int32;
                     break;
 
                 case uint value:
                     result.Emit(OpCodes.Ldc_I4, value);
-                    result.ResultingType = TypeSystemEx.UInt32;
+                    result.ResultingType = BuilderTypes.UInt32;
                     break;
 
                 case bool value:
                     result.Emit(OpCodes.Ldc_I4, value ? 1 : 0);
-                    result.ResultingType = TypeSystemEx.Boolean;
+                    result.ResultingType = BuilderTypes.Boolean;
                     break;
 
                 case char value:
                     result.Emit(OpCodes.Ldc_I4, value);
-                    result.ResultingType = TypeSystemEx.Char;
+                    result.ResultingType = BuilderTypes.Char;
                     break;
 
                 case short value:
                     result.Emit(OpCodes.Ldc_I4, value);
-                    result.ResultingType = TypeSystemEx.Int16;
+                    result.ResultingType = BuilderTypes.Int16;
                     break;
 
                 case ushort value:
                     result.Emit(OpCodes.Ldc_I4, value);
-                    result.ResultingType = TypeSystemEx.UInt16;
+                    result.ResultingType = BuilderTypes.UInt16;
                     break;
 
                 case byte value:
                     result.Emit(OpCodes.Ldc_I4, value);
-                    result.ResultingType = TypeSystemEx.Byte;
+                    result.ResultingType = BuilderTypes.Byte;
                     break;
 
                 case sbyte value:
                     result.Emit(OpCodes.Ldc_I4, value);
-                    result.ResultingType = TypeSystemEx.SByte;
+                    result.ResultingType = BuilderTypes.SByte;
                     break;
 
                 case long value:
                     result.Emit(OpCodes.Ldc_I8, value);
-                    result.ResultingType = TypeSystemEx.Int64;
+                    result.ResultingType = BuilderTypes.Int64;
                     break;
 
                 case ulong value:
                     result.Emit(OpCodes.Ldc_I8, value);
-                    result.ResultingType = TypeSystemEx.UInt64;
+                    result.ResultingType = BuilderTypes.UInt64;
                     break;
 
                 case double value:
                     result.Emit(OpCodes.Ldc_R8, value);
-                    result.ResultingType = TypeSystemEx.Double;
+                    result.ResultingType = BuilderTypes.Double;
                     break;
 
                 case float value:
                     result.Emit(OpCodes.Ldc_R4, value);
-                    result.ResultingType = TypeSystemEx.Single;
+                    result.ResultingType = BuilderTypes.Single;
                     break;
 
                 case IntPtr value:
                     result.Emit(OpCodes.Ldc_I4, (int)value);
-                    result.ResultingType = TypeSystemEx.IntPtr;
+                    result.ResultingType = BuilderTypes.IntPtr;
                     break;
 
                 case UIntPtr value:
                     result.Emit(OpCodes.Ldc_I4, (uint)value);
-                    result.ResultingType = TypeSystemEx.UIntPtr;
+                    result.ResultingType = BuilderTypes.UIntPtr;
                     break;
 
                 case LocalVariable value:
@@ -378,19 +378,19 @@ namespace Cauldron.Interception.Cecilator.Coders
                     break;
 
                 case Method method:
-                    if (targetType == TypeSystemEx.IntPtr)
+                    if (targetType == BuilderTypes.IntPtr)
                     {
                         result.Emit(OpCodes.Ldftn, method.methodReference);
-                        result.ResultingType = TypeSystemEx.IntPtr;
+                        result.ResultingType = BuilderTypes.IntPtr;
                     }
                     else
                     {
                         // methodof
                         result.Emit(OpCodes.Ldtoken, method.methodReference);
                         result.Emit(OpCodes.Ldtoken, method.OriginType.typeReference);
-                        result.Emit(OpCodes.Call, instructionBlock.builder.Import(TypeSystemEx.MethodBase.GetMethod_GetMethodFromHandle()));
+                        result.Emit(OpCodes.Call, instructionBlock.builder.Import(BuilderTypes.MethodBase.GetMethod_GetMethodFromHandle()));
 
-                        result.ResultingType = TypeSystemEx.MethodBase;
+                        result.ResultingType = BuilderTypes.MethodBase;
                     }
                     break;
 
@@ -1080,10 +1080,10 @@ namespace Cauldron.Interception.Cecilator.Coders
                 return;
             }
 
-            equalityOperator = TypeSystemEx.Object.GetMethod_Equals(TypeSystemEx.Object, TypeSystemEx.Object);
+            equalityOperator = BuilderTypes.Object.GetMethod_Equals(BuilderTypes.Object, BuilderTypes.Object);
 
-            InstructionBlock.CastOrBoxValues(instructionBlock, TypeSystemEx.Object);
-            instructionBlock.Append(InstructionBlock.CreateCode(instructionBlock, TypeSystemEx.Object, secondValue));
+            InstructionBlock.CastOrBoxValues(instructionBlock, BuilderTypes.Object);
+            instructionBlock.Append(InstructionBlock.CreateCode(instructionBlock, BuilderTypes.Object, secondValue));
             instructionBlock.Emit(OpCodes.Call, equalityOperator);
 
             NullableJumpTargetSpecial();
@@ -1429,10 +1429,10 @@ namespace Cauldron.Interception.Cecilator.Coders
                 if (targetType.IsEnum)
                     return false;
 
-                if (targetType == TypeSystemEx.IEnumerable1)
+                if (targetType == BuilderTypes.IEnumerable1)
                     return false;
 
-                if (targetType.Implements(TypeSystemEx.IList))
+                if (targetType.Implements(BuilderTypes.IList))
                     return false;
 
                 if (targetType.IsPrimitive)
@@ -1441,12 +1441,12 @@ namespace Cauldron.Interception.Cecilator.Coders
                 if (targetType.IsValueType)
                     return false;
 
-                if (targetType == TypeSystemEx.String ||
+                if (targetType == BuilderTypes.String ||
                     instructionBlock.ResultingType.AreReferenceAssignable(targetType.typeReference) ||
                     targetType.IsInterface)
                     return true;
 
-                if (targetType.typeReference.AreEqual((TypeReference)TypeSystemEx.Object))
+                if (targetType.typeReference.AreEqual((TypeReference)BuilderTypes.Object))
                     return false;
 
                 return false;
@@ -1466,72 +1466,72 @@ namespace Cauldron.Interception.Cecilator.Coders
             else if (IsInstRequired()) instructionBlock.Emit(OpCodes.Isinst, targetType.Import());
             else if (targetType.IsEnum)
             {
-                if (instructionBlock.ResultingType.AreEqual((TypeReference)TypeSystemEx.String))
+                if (instructionBlock.ResultingType.AreEqual((TypeReference)BuilderTypes.String))
                 {
                     // Bug #23
                     instructionBlock.Prepend(instructionBlock.ilprocessor.TypeOf(targetType));
 
                     instructionBlock.Append(instructionBlock.ilprocessor.TypeOf(targetType.Import()));
-                    instructionBlock.Emit(OpCodes.Call, TypeSystemEx.Enum.GetMethod_GetUnderlyingType(TypeSystemEx.Type));
-                    instructionBlock.Emit(OpCodes.Call, TypeSystemEx.Convert.GetMethod_ChangeType(TypeSystemEx.Object, TypeSystemEx.Type));
-                    instructionBlock.Emit(OpCodes.Call, TypeSystemEx.Enum.GetMethod_ToObject(TypeSystemEx.Type, TypeSystemEx.Object));
+                    instructionBlock.Emit(OpCodes.Call, BuilderTypes.Enum.GetMethod_GetUnderlyingType(BuilderTypes.Type));
+                    instructionBlock.Emit(OpCodes.Call, BuilderTypes.Convert.GetMethod_ChangeType(BuilderTypes.Object, BuilderTypes.Type));
+                    instructionBlock.Emit(OpCodes.Call, BuilderTypes.Enum.GetMethod_ToObject(BuilderTypes.Type, BuilderTypes.Object));
                     instructionBlock.Emit(OpCodes.Unbox_Any, targetType);
                 }
                 else
                     instructionBlock.Emit(OpCodes.Unbox_Any, targetType);
             }
-            else if ((instructionBlock.ResultingType.AreEqual((TypeReference)TypeSystemEx.Object) || instructionBlock.ResultingType.AreEqual((TypeReference)TypeSystemEx.IEnumerable)) && (targetType.IsArray || targetType == TypeSystemEx.IEnumerable1))
+            else if ((instructionBlock.ResultingType.AreEqual((TypeReference)BuilderTypes.Object) || instructionBlock.ResultingType.AreEqual((TypeReference)BuilderTypes.IEnumerable)) && (targetType.IsArray || targetType == BuilderTypes.IEnumerable1))
             {
                 var childType = Builder.Current.GetChildrenType(targetType.typeReference);
-                var castMethod = TypeSystemEx.Enumerable.GetMethod_Cast(childType);
-                var toArrayMethod = TypeSystemEx.Enumerable.GetMethod_ToArray(childType);
+                var castMethod = BuilderTypes.Enumerable.GetMethod_Cast(childType);
+                var toArrayMethod = BuilderTypes.Enumerable.GetMethod_ToArray(childType);
 
-                if (instructionBlock.ResultingType.AreEqual((TypeReference)TypeSystemEx.Object))
-                    instructionBlock.Emit(OpCodes.Isinst, (TypeReference)TypeSystemEx.IEnumerable);
+                if (instructionBlock.ResultingType.AreEqual((TypeReference)BuilderTypes.Object))
+                    instructionBlock.Emit(OpCodes.Isinst, (TypeReference)BuilderTypes.IEnumerable);
                 instructionBlock.Emit(OpCodes.Call, castMethod);
 
                 if (targetType.IsArray)
                     instructionBlock.Emit(OpCodes.Call, toArrayMethod);
             }
-            else if ((instructionBlock.ResultingType.AreEqual((TypeReference)TypeSystemEx.Object) || instructionBlock.ResultingType.AreEqual((TypeReference)TypeSystemEx.IEnumerable)) && targetType == TypeSystemEx.List1)
+            else if ((instructionBlock.ResultingType.AreEqual((TypeReference)BuilderTypes.Object) || instructionBlock.ResultingType.AreEqual((TypeReference)BuilderTypes.IEnumerable)) && targetType == BuilderTypes.List1)
             {
                 var childType = Builder.Current.GetChildrenType(targetType.typeReference);
-                var castMethod = TypeSystemEx.Enumerable.GetMethod_Cast(childType);
-                var toList = TypeSystemEx.Enumerable.GetMethod_ToList(childType);
+                var castMethod = BuilderTypes.Enumerable.GetMethod_Cast(childType);
+                var toList = BuilderTypes.Enumerable.GetMethod_ToList(childType);
 
-                if (instructionBlock.ResultingType.AreEqual((TypeReference)TypeSystemEx.Object))
-                    instructionBlock.Emit(OpCodes.Isinst, (TypeReference)TypeSystemEx.IEnumerable);
+                if (instructionBlock.ResultingType.AreEqual((TypeReference)BuilderTypes.Object))
+                    instructionBlock.Emit(OpCodes.Isinst, (TypeReference)BuilderTypes.IEnumerable);
 
                 instructionBlock.Emit(OpCodes.Call, castMethod);
                 instructionBlock.Emit(OpCodes.Call, toList);
             }
-            else if ((instructionBlock.ResultingType.AreEqual((TypeReference)TypeSystemEx.Object) || instructionBlock.ResultingType.AreEqual((TypeReference)TypeSystemEx.IEnumerable)) && targetType.Implements(TypeSystemEx.IList))
+            else if ((instructionBlock.ResultingType.AreEqual((TypeReference)BuilderTypes.Object) || instructionBlock.ResultingType.AreEqual((TypeReference)BuilderTypes.IEnumerable)) && targetType.Implements(BuilderTypes.IList))
                 CastToIList(instructionBlock, targetType);
             else if
                 (
-                    (instructionBlock.ResultingType.AreEqual((TypeReference)TypeSystemEx.Object) && targetType.IsValueType) ||
+                    (instructionBlock.ResultingType.AreEqual((TypeReference)BuilderTypes.Object) && targetType.IsValueType) ||
                     (!instructionBlock.ResultingType.AreEqual(targetType) && instructionBlock.ResultingType.IsPrimitive && targetType.IsPrimitive)
                 )
             {
-                if (targetType == TypeSystemEx.Int32)           /* */   instructionBlock.Emit(OpCodes.Call, TypeSystemEx.Convert.GetMethod_ToInt32(instructionBlock.ResultingType));
-                else if (targetType == TypeSystemEx.UInt32)     /* */   instructionBlock.Emit(OpCodes.Call, TypeSystemEx.Convert.GetMethod_ToUInt32(instructionBlock.ResultingType));
-                else if (targetType == TypeSystemEx.Boolean)    /* */   instructionBlock.Emit(OpCodes.Call, TypeSystemEx.Convert.GetMethod_ToBoolean(instructionBlock.ResultingType));
-                else if (targetType == TypeSystemEx.Byte)       /* */   instructionBlock.Emit(OpCodes.Call, TypeSystemEx.Convert.GetMethod_ToByte(instructionBlock.ResultingType));
-                else if (targetType == TypeSystemEx.Char)       /* */   instructionBlock.Emit(OpCodes.Call, TypeSystemEx.Convert.GetMethod_ToChar(instructionBlock.ResultingType));
-                else if (targetType == TypeSystemEx.DateTime)   /* */   instructionBlock.Emit(OpCodes.Call, TypeSystemEx.Convert.GetMethod_ToDateTime(instructionBlock.ResultingType));
-                else if (targetType == TypeSystemEx.Decimal)    /* */   instructionBlock.Emit(OpCodes.Call, TypeSystemEx.Convert.GetMethod_ToDecimal(instructionBlock.ResultingType));
-                else if (targetType == TypeSystemEx.Double)     /* */   instructionBlock.Emit(OpCodes.Call, TypeSystemEx.Convert.GetMethod_ToDouble(instructionBlock.ResultingType));
-                else if (targetType == TypeSystemEx.Int16)      /* */   instructionBlock.Emit(OpCodes.Call, TypeSystemEx.Convert.GetMethod_ToInt16(instructionBlock.ResultingType));
-                else if (targetType == TypeSystemEx.Int64)      /* */   instructionBlock.Emit(OpCodes.Call, TypeSystemEx.Convert.GetMethod_ToInt64(instructionBlock.ResultingType));
-                else if (targetType == TypeSystemEx.SByte)      /* */   instructionBlock.Emit(OpCodes.Call, TypeSystemEx.Convert.GetMethod_ToSByte(instructionBlock.ResultingType));
-                else if (targetType == TypeSystemEx.Single)     /* */   instructionBlock.Emit(OpCodes.Call, TypeSystemEx.Convert.GetMethod_ToSingle(instructionBlock.ResultingType));
-                else if (targetType == TypeSystemEx.UInt16)     /* */   instructionBlock.Emit(OpCodes.Call, TypeSystemEx.Convert.GetMethod_ToUInt16(instructionBlock.ResultingType));
-                else if (targetType == TypeSystemEx.UInt64)     /* */   instructionBlock.Emit(OpCodes.Call, TypeSystemEx.Convert.GetMethod_ToUInt64(instructionBlock.ResultingType));
+                if (targetType == BuilderTypes.Int32)           /* */   instructionBlock.Emit(OpCodes.Call, BuilderTypes.Convert.GetMethod_ToInt32(instructionBlock.ResultingType));
+                else if (targetType == BuilderTypes.UInt32)     /* */   instructionBlock.Emit(OpCodes.Call, BuilderTypes.Convert.GetMethod_ToUInt32(instructionBlock.ResultingType));
+                else if (targetType == BuilderTypes.Boolean)    /* */   instructionBlock.Emit(OpCodes.Call, BuilderTypes.Convert.GetMethod_ToBoolean(instructionBlock.ResultingType));
+                else if (targetType == BuilderTypes.Byte)       /* */   instructionBlock.Emit(OpCodes.Call, BuilderTypes.Convert.GetMethod_ToByte(instructionBlock.ResultingType));
+                else if (targetType == BuilderTypes.Char)       /* */   instructionBlock.Emit(OpCodes.Call, BuilderTypes.Convert.GetMethod_ToChar(instructionBlock.ResultingType));
+                else if (targetType == BuilderTypes.DateTime)   /* */   instructionBlock.Emit(OpCodes.Call, BuilderTypes.Convert.GetMethod_ToDateTime(instructionBlock.ResultingType));
+                else if (targetType == BuilderTypes.Decimal)    /* */   instructionBlock.Emit(OpCodes.Call, BuilderTypes.Convert.GetMethod_ToDecimal(instructionBlock.ResultingType));
+                else if (targetType == BuilderTypes.Double)     /* */   instructionBlock.Emit(OpCodes.Call, BuilderTypes.Convert.GetMethod_ToDouble(instructionBlock.ResultingType));
+                else if (targetType == BuilderTypes.Int16)      /* */   instructionBlock.Emit(OpCodes.Call, BuilderTypes.Convert.GetMethod_ToInt16(instructionBlock.ResultingType));
+                else if (targetType == BuilderTypes.Int64)      /* */   instructionBlock.Emit(OpCodes.Call, BuilderTypes.Convert.GetMethod_ToInt64(instructionBlock.ResultingType));
+                else if (targetType == BuilderTypes.SByte)      /* */   instructionBlock.Emit(OpCodes.Call, BuilderTypes.Convert.GetMethod_ToSByte(instructionBlock.ResultingType));
+                else if (targetType == BuilderTypes.Single)     /* */   instructionBlock.Emit(OpCodes.Call, BuilderTypes.Convert.GetMethod_ToSingle(instructionBlock.ResultingType));
+                else if (targetType == BuilderTypes.UInt16)     /* */   instructionBlock.Emit(OpCodes.Call, BuilderTypes.Convert.GetMethod_ToUInt16(instructionBlock.ResultingType));
+                else if (targetType == BuilderTypes.UInt64)     /* */   instructionBlock.Emit(OpCodes.Call, BuilderTypes.Convert.GetMethod_ToUInt64(instructionBlock.ResultingType));
                 else instructionBlock.Emit(OpCodes.Unbox_Any, targetType);
             }
             else if ((instructionBlock.ResultingType.Resolve() == null || instructionBlock.ResultingType.IsValueType) && !targetType.IsValueType)
                 instructionBlock.Emit(OpCodes.Box, instructionBlock.ResultingType);
-            else if (instructionBlock.instructions.Last().OpCode != OpCodes.Ldnull && targetType == TypeSystemEx.Object)
+            else if (instructionBlock.instructions.Last().OpCode != OpCodes.Ldnull && targetType == BuilderTypes.Object)
             {
                 // Nope nothing....
             }
@@ -1550,11 +1550,11 @@ namespace Cauldron.Interception.Cecilator.Coders
                     .FirstOrDefault(x => x.Name == ".ctor" && x.HasParameters && x.Parameters[0].ParameterType.FullName.StartsWith("System.Collections.Generic.IList`1<") && x.Parameters.Count == 1);
             if (ctorCollection != null)
             {
-                var castMethod = TypeSystemEx.Enumerable.GetMethod_Cast(childType);
-                var toList = TypeSystemEx.Enumerable.GetMethod_ToList(childType);
+                var castMethod = BuilderTypes.Enumerable.GetMethod_Cast(childType);
+                var toList = BuilderTypes.Enumerable.GetMethod_ToList(childType);
 
-                if (instructionBlock.ResultingType.AreEqual((TypeReference)TypeSystemEx.Object))
-                    instructionBlock.Emit(OpCodes.Isinst, (TypeReference)TypeSystemEx.IEnumerable);
+                if (instructionBlock.ResultingType.AreEqual((TypeReference)BuilderTypes.Object))
+                    instructionBlock.Emit(OpCodes.Isinst, (TypeReference)BuilderTypes.IEnumerable);
 
                 instructionBlock.Emit(OpCodes.Call, castMethod);
                 instructionBlock.Emit(OpCodes.Call, toList);
@@ -1568,10 +1568,10 @@ namespace Cauldron.Interception.Cecilator.Coders
                     .FirstOrDefault(x => x.Name == ".ctor" && x.HasParameters && x.Parameters[0].ParameterType.FullName.StartsWith("System.Collections.Generic.IEnumerable`1<") && x.Parameters.Count == 1);
             if (ctorCollection != null)
             {
-                var castMethod = TypeSystemEx.Enumerable.GetMethod_Cast(childType);
+                var castMethod = BuilderTypes.Enumerable.GetMethod_Cast(childType);
 
-                if (instructionBlock.ResultingType.AreEqual((TypeReference)TypeSystemEx.Object))
-                    instructionBlock.Emit(OpCodes.Isinst, (TypeReference)TypeSystemEx.IEnumerable);
+                if (instructionBlock.ResultingType.AreEqual((TypeReference)BuilderTypes.Object))
+                    instructionBlock.Emit(OpCodes.Isinst, (TypeReference)BuilderTypes.IEnumerable);
 
                 instructionBlock.Emit(OpCodes.Call, castMethod);
                 instructionBlock.Emit(OpCodes.Newobj, Builder.Current.Import(ctorCollection.MakeHostInstanceGeneric(targetType.GenericArguments().Select(x => x.typeReference))));

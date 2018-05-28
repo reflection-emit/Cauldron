@@ -117,7 +117,7 @@ namespace Cauldron.Interception.Fody
 
                 // First find a type without namespace and with a static method called ModuleLoad
                 var onLoadMethods = builder.FindMethodsByName(SearchContext.Module_NoGenerated, "ModuleLoad", 1)
-                    .Where(x => x.IsStatic && x.ReturnType == TypeSystemEx.Void && x.Parameters[0] == arrayType)
+                    .Where(x => x.IsStatic && x.ReturnType == BuilderTypes.Void && x.Parameters[0] == arrayType)
                     .Where(x => x != null);
 
                 if (!onLoadMethods.Any())

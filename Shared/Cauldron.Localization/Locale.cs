@@ -26,9 +26,12 @@ namespace Cauldron.Localization
         {
             Assemblies.LoadedAssemblyChanged += (s, e) =>
             {
-                var components = e.CauldronGetComponents.Invoke(null, null) as IFactoryTypeInfo[];
+                var componentInstances = new List<IFactoryTypeInfo>();
 
-                var newLocalizationSources = components
+                for (int i = 0; i < e.CauldronGetComponents.Length; i++)
+                    componentInstances.AddRange(e.CauldronGetComponents[i].Invoke(null, null) as IFactoryTypeInfo[]);
+
+                var newLocalizationSources = componentInstances
                       .Where(x => x.ContractName.GetHashCode() == LocalizationSource.GetHashCode() && x.ContractName == LocalizationSource).Select(x => x.CreateInstance() as ILocalizationSource)
                       .ToArray();
 

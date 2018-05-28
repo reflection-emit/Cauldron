@@ -60,6 +60,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyWideAttributeConfig.cs" />
+    <Compile Include="HelperTypes\__ExtensionsReflection.cs" />
+    <Compile Include="BuilderTypes2.generated.cs">
+      <DependentUpon>BuilderTypes2.generated.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="DisplayAttribute.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="HelperTypes\GetAssemblyWeaver.cs" />
@@ -119,10 +125,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <Compile Include="BuilderTypes2.partial.cs" />
     <None Include="csc\csc.exe.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="BuilderTypes2.generated.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>BuilderTypes2.generated.cs</LastGenOutput>
+    </Content>
     <Content Include="csc\csc.exe" />
     <Content Include="csc\Microsoft.CodeAnalysis.CSharp.dll" />
     <Content Include="csc\Microsoft.CodeAnalysis.dll" />
@@ -134,6 +145,9 @@
     <Content Include="csc\System.IO.FileSystem.dll" />
     <Content Include="csc\System.IO.FileSystem.Primitives.dll" />
     <Content Include="csc\System.Reflection.Metadata.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <!--<ItemGroup>
     <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />

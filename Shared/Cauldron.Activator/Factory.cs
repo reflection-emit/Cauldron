@@ -43,16 +43,25 @@ namespace Cauldron.Activator
 
             Assemblies.LoadedAssemblyChanged += (s, e) =>
             {
-                var components = e.CauldronGetComponents.Invoke(null, null) as IFactoryTypeInfo[];
-                factoryInfoTypes = factoryInfoTypes.Concat(components).Distinct(new FactoryTypeInfoComparer()).ToArray();
+                var factoryComponentsInstances = new List<IFactoryTypeInfo>();
+                for (int i = 0; i < e.CauldronGetComponents.Length; i++)
+                    factoryComponentsInstances.AddRange(e.CauldronGetComponents[i].Invoke(null, null) as IFactoryTypeInfo[]);
+
+                factoryInfoTypes = factoryInfoTypes.Concat(factoryComponentsInstances).Distinct(new FactoryTypeInfoComparer()).ToArray();
                 InitializeFactory(factoryInfoTypes);
             };
         }
 
         /// <summary>
-        /// Occures if an object was created
+        /// Occures if an object was created. This will only be invoked if the created object has set its <see cref="ComponentAttribute.InvokeOnObjectCreationEvent"/> to true.
         /// </summary>
         public static event EventHandler<FactoryObjectCreatedEventArgs> ObjectCreated;
+
+        /// <summary>
+        /// Occures after the <see cref="Factory"/> was initialized or reloaded.
+        /// A Factory reload always occures if <see cref="Assemblies.LoadedAssemblyChanged"/> is invoked.
+        /// </summary>
+        public static event EventHandler Rebuilt;
 
         /// <summary>
         /// Gets or sets a value that indicates if the <see cref="Factory"/> is allowed to raise an
@@ -260,10 +269,10 @@ namespace Cauldron.Activator
             if (components.TryGetValue(contractName, out FactoryDictionaryValue factoryInfos))
             {
                 if (factoryInfos.factoryTypeInfos.Length == 1)
-                    return GetInstance(factoryInfos.factoryTypeInfos[0], parameters);
+                    return factoryInfos.factoryTypeInfos[0].CreateInstance(parameters);
 
                 if (factoryInfos.factoryTypeInfos.Length != 0)
-                    return GetInstance(factoryInfos.factoryTypeInfos.MaxBy(x => x.Priority), parameters);
+                    return factoryInfos.factoryTypeInfos.MaxBy(x => x.Priority).CreateInstance(parameters);
             }
 
             if (CanRaiseExceptions)
@@ -296,7 +305,7 @@ namespace Cauldron.Activator
             if (components.TryGetValue(contractName, out FactoryDictionaryValue factoryInfos))
             {
                 if (factoryInfos.factoryTypeInfos.Length == 1)
-                    return GetInstance(factoryInfos.factoryTypeInfos[0], args);
+                    return factoryInfos.factoryTypeInfos[0].CreateInstance(args);
 
                 if (factoryInfos.factoryTypeInfos.Length == 0)
                 {
@@ -306,7 +315,7 @@ namespace Cauldron.Activator
                         Debug.WriteLine($"ERROR: The contractName '{contractName}' was not found.");
                 }
 
-                return GetInstance(ResolveAmbiguousMatch(contractName), args);
+                return ResolveAmbiguousMatch(contractName)?.CreateInstance(args);
             }
 
             return type.CreateInstance(args);
@@ -492,6 +501,29 @@ namespace Cauldron.Activator
                 }
         }
 
+        /// <exclude/>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static IFactoryTypeInfo GetFactoryTypeInfo(string contractName)
+        {
+            if (components.TryGetValue(contractName, out FactoryDictionaryValue factoryInfos))
+            {
+                if (factoryInfos.factoryTypeInfos.Length == 1)
+                    return factoryInfos.factoryTypeInfos[0];
+
+                if (factoryInfos.factoryTypeInfos.Length == 0)
+                {
+                    if (CanRaiseExceptions)
+                        throw new NotImplementedException("The contractName '" + contractName + "' was not found.");
+                    else
+                        Debug.WriteLine($"ERROR: The contractName '{contractName}' was not found.");
+                }
+
+                return ResolveAmbiguousMatch(contractName);
+            }
+
+            throw new NotImplementedException("The contractName '" + contractName + "' was not found.");
+        }
+
         /// <summary>
         /// Determines whether a contract exist
         /// </summary>
@@ -560,46 +592,12 @@ namespace Cauldron.Activator
                 item.Initialize(factoryTypeInfos);
         }
 
-        private static object GetInstance(IFactoryTypeInfo factoryTypeInfo, object[] parameters)
-        {
-            switch (factoryTypeInfo.CreationPolicy)
-            {
-                case FactoryCreationPolicy.Instanced: return factoryTypeInfo.CreateInstance(parameters);
-                case FactoryCreationPolicy.Singleton:
-                    if (factoryTypeInfo.Instance == null)
-                        factoryTypeInfo.Instance = factoryTypeInfo.CreateInstance(parameters);
-
-                    var instance = factoryTypeInfo.Instance;
-
-                    // every singleton that implements the idisposable interface has also to
-                    // implement the IDisposableObject interface this is because we want to know if
-                    // an instance was disposed (somehow)
-                    if (instance is IDisposable disposable)
-                    {
-                        var disposableObject = instance as IDisposableObject;
-                        if (disposableObject == null)
-                            throw new NotSupportedException("An object with creation policy 'Singleton' with an implemented 'IDisposable' must also implement the 'IDisposableObject' interface.");
-
-                        disposableObject.Disposed += (s, e) =>
-                        {
-                            disposable?.Dispose();
-                            factoryTypeInfo.Instance = null;
-                        };
-                    }
-
-                    return instance;
-
-                default:
-                    throw new Exception("Unknown creation policy");
-            }
-        }
-
         private static object GetInstance(string contractName, object[] parameters)
         {
             if (components.TryGetValue(contractName, out FactoryDictionaryValue factoryInfos))
             {
                 if (factoryInfos.factoryTypeInfos.Length == 1)
-                    return GetInstance(factoryInfos.factoryTypeInfos[0], parameters);
+                    return factoryInfos.factoryTypeInfos[0].CreateInstance(parameters);
 
                 if (factoryInfos.factoryTypeInfos.Length == 0)
                 {
@@ -609,7 +607,7 @@ namespace Cauldron.Activator
                         Debug.WriteLine($"ERROR: The contractName '{contractName}' was not found.");
                 }
 
-                return GetInstance(ResolveAmbiguousMatch(contractName), parameters);
+                return ResolveAmbiguousMatch(contractName)?.CreateInstance(parameters);
             }
 
             try
@@ -644,7 +642,7 @@ namespace Cauldron.Activator
         {
             if (components.TryGetValue(contractName, out FactoryDictionaryValue factoryInfos))
                 for (int i = 0; i < factoryInfos.factoryTypeInfos.Length; i++)
-                    yield return GetInstance(factoryInfos.factoryTypeInfos[i], parameters);
+                    yield return factoryInfos.factoryTypeInfos[i].CreateInstance(parameters);
             else if (CanRaiseExceptions)
                 throw new NotImplementedException("The contractName '" + contractName + "' was not found.");
             else
@@ -655,7 +653,7 @@ namespace Cauldron.Activator
         {
             if (components.TryGetValue(contractName, out FactoryDictionaryValue factoryInfos))
                 foreach (var item in factoryInfos.factoryTypeInfos.OrderBy(x => x.Priority))
-                    yield return GetInstance(item, parameters);
+                    yield return item.CreateInstance(parameters);
 
             if (CanRaiseExceptions)
                 throw new NotImplementedException("The contractName '" + contractName + "' was not found.");
@@ -674,6 +672,8 @@ namespace Cauldron.Activator
 
             if (components.Count == 0)
                 Debug.WriteLine($"ERROR: Unable to find any components. Please check if FodyWeavers.xml has an entry for Cauldron.Interception");
+
+            Rebuilt?.Invoke(null, EventArgs.Empty);
         }
 
         private static IFactoryTypeInfo ResolveAmbiguousMatch(string contractName) => Resolvers.SelectAmbiguousMatch(contractName);

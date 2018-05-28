@@ -29,9 +29,9 @@ namespace Cauldron.Interception.Fody.HelperTypes
         public Method GetMethod(BuilderType builderType)
         {
             if (this.ParameterTypes == null || this.ParameterTypes.Length == 0)
-                return builderType.GetMethod(this.Name, this.ParameterCount, true);
+                return builderType.GetMethod(this.Name, this.ParameterCount, true).Import();
 
-            return builderType.GetMethod(this.Name, true, this.ParameterTypes);
+            return builderType.GetMethod(this.Name, true, this.ParameterTypes).Import();
         }
     }
 }
