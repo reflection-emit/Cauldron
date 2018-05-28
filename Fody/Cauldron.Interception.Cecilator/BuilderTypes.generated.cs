@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Reflection;
 using System.Threading;
 using Mono.Cecil;
+using System.Runtime.CompilerServices;
 
 namespace Cauldron.Interception.Cecilator
 {    	
@@ -52,6 +53,40 @@ namespace Cauldron.Interception.Cecilator
             {
                 if (_array == null) _array = new BuilderTypeArray(Builder.Current.GetType(typeof(Array)).Import());
                 return _array;
+            }
+        }
+
+		#endregion
+				
+		#region AsyncTaskMethodBuilder
+        private static BuilderTypeAsyncTaskMethodBuilder _asynctaskmethodbuilder;
+		
+        /// <summary>
+        /// Gets <see cref="BuilderType"/> representing <see cref="System.Runtime.CompilerServices.AsyncTaskMethodBuilder"/>. 
+        /// </summary>
+        public static BuilderTypeAsyncTaskMethodBuilder AsyncTaskMethodBuilder
+        {
+            get
+            {
+                if (_asynctaskmethodbuilder == null) _asynctaskmethodbuilder = new BuilderTypeAsyncTaskMethodBuilder(Builder.Current.GetType(typeof(AsyncTaskMethodBuilder)).Import());
+                return _asynctaskmethodbuilder;
+            }
+        }
+
+		#endregion
+				
+		#region AsyncTaskMethodBuilder`1
+        private static BuilderTypeAsyncTaskMethodBuilder1 _asynctaskmethodbuilder_1;
+		
+        /// <summary>
+        /// Gets <see cref="BuilderType"/> representing <see cref="System.Runtime.CompilerServices.AsyncTaskMethodBuilder{TResult}"/>. 
+        /// </summary>
+        public static BuilderTypeAsyncTaskMethodBuilder1 AsyncTaskMethodBuilder1
+        {
+            get
+            {
+                if (_asynctaskmethodbuilder_1 == null) _asynctaskmethodbuilder_1 = new BuilderTypeAsyncTaskMethodBuilder1(Builder.Current.GetType(typeof(AsyncTaskMethodBuilder<>)).Import());
+                return _asynctaskmethodbuilder_1;
             }
         }
 
@@ -783,6 +818,23 @@ namespace Cauldron.Interception.Cecilator
             {
                 if (_uintptr == null) _uintptr = new BuilderTypeUIntPtr(Builder.Current.GetType(typeof(UIntPtr)).Import());
                 return _uintptr;
+            }
+        }
+
+		#endregion
+				
+		#region Uri
+        private static BuilderTypeUri _uri;
+		
+        /// <summary>
+        /// Gets <see cref="BuilderType"/> representing <see cref="System.Uri"/>. 
+        /// </summary>
+        public static BuilderTypeUri Uri
+        {
+            get
+            {
+                if (_uri == null) _uri = new BuilderTypeUri(Builder.Current.GetType(typeof(Uri)).Import());
+                return _uri;
             }
         }
 
@@ -1913,6 +1965,269 @@ namespace Cauldron.Interception.Cecilator
 				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", true);
 
 			return this.var_gethashcode_0_0;
+						
+								}
+				
+		private Method var_gettype_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.Type GetType()<para/>
+		/// </summary>
+		public Method GetMethod_GetType()
+		{
+						
+			if(this.var_gettype_0_0 == null)
+				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", true);
+
+			return this.var_gettype_0_0;
+						
+								}
+			}
+
+			
+    /// <summary>
+    /// Provides a wrapper class for <see cref="System.Runtime.CompilerServices.AsyncTaskMethodBuilder"/>
+    /// </summary>
+    public partial class BuilderTypeAsyncTaskMethodBuilder : TypeSystemExBase
+	{
+        internal BuilderTypeAsyncTaskMethodBuilder(BuilderType builderType) : base(builderType)
+		{
+		}
+
+		/// <exclude />
+		public static implicit operator BuilderType(BuilderTypeAsyncTaskMethodBuilder value) => value.builderType;
+		
+		/// <exclude />
+		public static implicit operator TypeReference(BuilderTypeAsyncTaskMethodBuilder value) => value.builderType.typeReference;
+
+		/// <exclude />
+		public BuilderType BuilderType => this.builderType;
+		
+				
+		private Method var_create_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.Runtime.CompilerServices.AsyncTaskMethodBuilder Create()<para/>
+		/// </summary>
+		public Method GetMethod_Create()
+		{
+						
+			if(this.var_create_0_0 == null)
+				this.var_create_0_0 = this.builderType.GetMethod("Create", true);
+
+			return this.var_create_0_0;
+						
+								}
+				
+		private Method var_setstatemachine_0_1;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// Void SetStateMachine(System.Runtime.CompilerServices.IAsyncStateMachine)<para/>
+		/// </summary>
+		public Method GetMethod_SetStateMachine(TypeReference pstateMachine)
+		{
+						
+						
+			if(this.var_setstatemachine_0_1 == null)
+				this.var_setstatemachine_0_1 = this.builderType.GetMethod("SetStateMachine", true, pstateMachine).Import();
+			
+			return this.var_setstatemachine_0_1;
+								}
+				
+		private Method var_get_task_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.Threading.Tasks.Task get_Task()<para/>
+		/// </summary>
+		public Method GetMethod_get_Task()
+		{
+						
+			if(this.var_get_task_0_0 == null)
+				this.var_get_task_0_0 = this.builderType.GetMethod("get_Task", true);
+
+			return this.var_get_task_0_0;
+						
+								}
+				
+		private Method var_setresult_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// Void SetResult()<para/>
+		/// </summary>
+		public Method GetMethod_SetResult()
+		{
+						
+			if(this.var_setresult_0_0 == null)
+				this.var_setresult_0_0 = this.builderType.GetMethod("SetResult", true);
+
+			return this.var_setresult_0_0;
+						
+								}
+				
+		private Method var_setexception_0_1;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// Void SetException(System.Exception)<para/>
+		/// </summary>
+		public Method GetMethod_SetException(TypeReference pexception)
+		{
+						
+						
+			if(this.var_setexception_0_1 == null)
+				this.var_setexception_0_1 = this.builderType.GetMethod("SetException", true, pexception).Import();
+			
+			return this.var_setexception_0_1;
+								}
+				
+		private Method var_equals_0_1;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// Boolean Equals(System.Object)<para/>
+		/// </summary>
+		public Method GetMethod_Equals(TypeReference pobj)
+		{
+						
+						
+			if(this.var_equals_0_1 == null)
+				this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
+			
+			return this.var_equals_0_1;
+								}
+				
+		private Method var_gethashcode_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// Int32 GetHashCode()<para/>
+		/// </summary>
+		public Method GetMethod_GetHashCode()
+		{
+						
+			if(this.var_gethashcode_0_0 == null)
+				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", true);
+
+			return this.var_gethashcode_0_0;
+						
+								}
+				
+		private Method var_tostring_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.String ToString()<para/>
+		/// </summary>
+		public Method GetMethod_ToString()
+		{
+						
+			if(this.var_tostring_0_0 == null)
+				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", true);
+
+			return this.var_tostring_0_0;
+						
+								}
+				
+		private Method var_gettype_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.Type GetType()<para/>
+		/// </summary>
+		public Method GetMethod_GetType()
+		{
+						
+			if(this.var_gettype_0_0 == null)
+				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", true);
+
+			return this.var_gettype_0_0;
+						
+								}
+			}
+
+			
+    /// <summary>
+    /// Provides a wrapper class for <see cref="System.Runtime.CompilerServices.AsyncTaskMethodBuilder{TResult}"/>
+    /// </summary>
+    public partial class BuilderTypeAsyncTaskMethodBuilder1 : TypeSystemExBase
+	{
+        internal BuilderTypeAsyncTaskMethodBuilder1(BuilderType builderType) : base(builderType)
+		{
+		}
+
+		/// <exclude />
+		public static implicit operator BuilderType(BuilderTypeAsyncTaskMethodBuilder1 value) => value.builderType;
+		
+		/// <exclude />
+		public static implicit operator TypeReference(BuilderTypeAsyncTaskMethodBuilder1 value) => value.builderType.typeReference;
+
+		/// <exclude />
+		public BuilderType BuilderType => this.builderType;
+		
+				
+		private Method var_equals_0_1;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// Boolean Equals(System.Object)<para/>
+		/// </summary>
+		public Method GetMethod_Equals(TypeReference pobj)
+		{
+						
+						
+			if(this.var_equals_0_1 == null)
+				this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pobj).Import();
+			
+			return this.var_equals_0_1;
+								}
+				
+		private Method var_gethashcode_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// Int32 GetHashCode()<para/>
+		/// </summary>
+		public Method GetMethod_GetHashCode()
+		{
+						
+			if(this.var_gethashcode_0_0 == null)
+				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", true);
+
+			return this.var_gethashcode_0_0;
+						
+								}
+				
+		private Method var_tostring_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.String ToString()<para/>
+		/// </summary>
+		public Method GetMethod_ToString()
+		{
+						
+			if(this.var_tostring_0_0 == null)
+				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", true);
+
+			return this.var_tostring_0_0;
 						
 								}
 				
@@ -23960,6 +24275,792 @@ namespace Cauldron.Interception.Cecilator
 
 			return this.var_topointer_0_0;
 						
+								}
+				
+		private Method var_gettype_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.Type GetType()<para/>
+		/// </summary>
+		public Method GetMethod_GetType()
+		{
+						
+			if(this.var_gettype_0_0 == null)
+				this.var_gettype_0_0 = this.builderType.GetMethod("GetType", true);
+
+			return this.var_gettype_0_0;
+						
+								}
+			}
+
+			
+    /// <summary>
+    /// Provides a wrapper class for <see cref="System.Uri"/>
+    /// </summary>
+    public partial class BuilderTypeUri : TypeSystemExBase
+	{
+        internal BuilderTypeUri(BuilderType builderType) : base(builderType)
+		{
+		}
+
+		/// <exclude />
+		public static implicit operator BuilderType(BuilderTypeUri value) => value.builderType;
+		
+		/// <exclude />
+		public static implicit operator TypeReference(BuilderTypeUri value) => value.builderType.typeReference;
+
+		/// <exclude />
+		public BuilderType BuilderType => this.builderType;
+		
+				
+		private Method var_makerelative_0_1;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.String MakeRelative(System.Uri)<para/>
+		/// </summary>
+		public Method GetMethod_MakeRelative(TypeReference ptoUri)
+		{
+						
+						
+			if(this.var_makerelative_0_1 == null)
+				this.var_makerelative_0_1 = this.builderType.GetMethod("MakeRelative", true, ptoUri).Import();
+			
+			return this.var_makerelative_0_1;
+								}
+				
+		private Method var_getcomponents_0_2;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.String GetComponents(System.UriComponents, System.UriFormat)<para/>
+		/// </summary>
+		public Method GetMethod_GetComponents(TypeReference pcomponents, TypeReference pformat)
+		{
+						
+						
+			if(this.var_getcomponents_0_2 == null)
+				this.var_getcomponents_0_2 = this.builderType.GetMethod("GetComponents", true, pcomponents, pformat).Import();
+			
+			return this.var_getcomponents_0_2;
+								}
+				
+		private Method var_compare_0_5;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// Int32 Compare(System.Uri, System.Uri, System.UriComponents, System.UriFormat, System.StringComparison)<para/>
+		/// </summary>
+		public Method GetMethod_Compare(TypeReference puri1, TypeReference puri2, TypeReference ppartsToCompare, TypeReference pcompareFormat, TypeReference pcomparisonType)
+		{
+						
+						
+			if(this.var_compare_0_5 == null)
+				this.var_compare_0_5 = this.builderType.GetMethod("Compare", true, puri1, puri2, ppartsToCompare, pcompareFormat, pcomparisonType).Import();
+			
+			return this.var_compare_0_5;
+								}
+				
+		private Method var_iswellformedoriginalstring_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// Boolean IsWellFormedOriginalString()<para/>
+		/// </summary>
+		public Method GetMethod_IsWellFormedOriginalString()
+		{
+						
+			if(this.var_iswellformedoriginalstring_0_0 == null)
+				this.var_iswellformedoriginalstring_0_0 = this.builderType.GetMethod("IsWellFormedOriginalString", true);
+
+			return this.var_iswellformedoriginalstring_0_0;
+						
+								}
+				
+		private Method var_iswellformeduristring_0_2;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// Boolean IsWellFormedUriString(System.String, System.UriKind)<para/>
+		/// </summary>
+		public Method GetMethod_IsWellFormedUriString(TypeReference puriString, TypeReference puriKind)
+		{
+						
+						
+			if(this.var_iswellformeduristring_0_2 == null)
+				this.var_iswellformeduristring_0_2 = this.builderType.GetMethod("IsWellFormedUriString", true, puriString, puriKind).Import();
+			
+			return this.var_iswellformeduristring_0_2;
+								}
+				
+		private Method var_unescapedatastring_0_1;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.String UnescapeDataString(System.String)<para/>
+		/// </summary>
+		public Method GetMethod_UnescapeDataString(TypeReference pstringToUnescape)
+		{
+						
+						
+			if(this.var_unescapedatastring_0_1 == null)
+				this.var_unescapedatastring_0_1 = this.builderType.GetMethod("UnescapeDataString", true, pstringToUnescape).Import();
+			
+			return this.var_unescapedatastring_0_1;
+								}
+				
+		private Method var_escapeuristring_0_1;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.String EscapeUriString(System.String)<para/>
+		/// </summary>
+		public Method GetMethod_EscapeUriString(TypeReference pstringToEscape)
+		{
+						
+						
+			if(this.var_escapeuristring_0_1 == null)
+				this.var_escapeuristring_0_1 = this.builderType.GetMethod("EscapeUriString", true, pstringToEscape).Import();
+			
+			return this.var_escapeuristring_0_1;
+								}
+				
+		private Method var_escapedatastring_0_1;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.String EscapeDataString(System.String)<para/>
+		/// </summary>
+		public Method GetMethod_EscapeDataString(TypeReference pstringToEscape)
+		{
+						
+						
+			if(this.var_escapedatastring_0_1 == null)
+				this.var_escapedatastring_0_1 = this.builderType.GetMethod("EscapeDataString", true, pstringToEscape).Import();
+			
+			return this.var_escapedatastring_0_1;
+								}
+				
+		private Method var_isbaseof_0_1;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// Boolean IsBaseOf(System.Uri)<para/>
+		/// </summary>
+		public Method GetMethod_IsBaseOf(TypeReference puri)
+		{
+						
+						
+			if(this.var_isbaseof_0_1 == null)
+				this.var_isbaseof_0_1 = this.builderType.GetMethod("IsBaseOf", true, puri).Import();
+			
+			return this.var_isbaseof_0_1;
+								}
+				
+		private Method var_get_absolutepath_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.String get_AbsolutePath()<para/>
+		/// </summary>
+		public Method GetMethod_get_AbsolutePath()
+		{
+						
+			if(this.var_get_absolutepath_0_0 == null)
+				this.var_get_absolutepath_0_0 = this.builderType.GetMethod("get_AbsolutePath", true);
+
+			return this.var_get_absolutepath_0_0;
+						
+								}
+				
+		private Method var_get_absoluteuri_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.String get_AbsoluteUri()<para/>
+		/// </summary>
+		public Method GetMethod_get_AbsoluteUri()
+		{
+						
+			if(this.var_get_absoluteuri_0_0 == null)
+				this.var_get_absoluteuri_0_0 = this.builderType.GetMethod("get_AbsoluteUri", true);
+
+			return this.var_get_absoluteuri_0_0;
+						
+								}
+				
+		private Method var_get_localpath_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.String get_LocalPath()<para/>
+		/// </summary>
+		public Method GetMethod_get_LocalPath()
+		{
+						
+			if(this.var_get_localpath_0_0 == null)
+				this.var_get_localpath_0_0 = this.builderType.GetMethod("get_LocalPath", true);
+
+			return this.var_get_localpath_0_0;
+						
+								}
+				
+		private Method var_get_authority_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.String get_Authority()<para/>
+		/// </summary>
+		public Method GetMethod_get_Authority()
+		{
+						
+			if(this.var_get_authority_0_0 == null)
+				this.var_get_authority_0_0 = this.builderType.GetMethod("get_Authority", true);
+
+			return this.var_get_authority_0_0;
+						
+								}
+				
+		private Method var_get_hostnametype_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.UriHostNameType get_HostNameType()<para/>
+		/// </summary>
+		public Method GetMethod_get_HostNameType()
+		{
+						
+			if(this.var_get_hostnametype_0_0 == null)
+				this.var_get_hostnametype_0_0 = this.builderType.GetMethod("get_HostNameType", true);
+
+			return this.var_get_hostnametype_0_0;
+						
+								}
+				
+		private Method var_get_isdefaultport_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// Boolean get_IsDefaultPort()<para/>
+		/// </summary>
+		public Method GetMethod_get_IsDefaultPort()
+		{
+						
+			if(this.var_get_isdefaultport_0_0 == null)
+				this.var_get_isdefaultport_0_0 = this.builderType.GetMethod("get_IsDefaultPort", true);
+
+			return this.var_get_isdefaultport_0_0;
+						
+								}
+				
+		private Method var_get_isfile_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// Boolean get_IsFile()<para/>
+		/// </summary>
+		public Method GetMethod_get_IsFile()
+		{
+						
+			if(this.var_get_isfile_0_0 == null)
+				this.var_get_isfile_0_0 = this.builderType.GetMethod("get_IsFile", true);
+
+			return this.var_get_isfile_0_0;
+						
+								}
+				
+		private Method var_get_isloopback_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// Boolean get_IsLoopback()<para/>
+		/// </summary>
+		public Method GetMethod_get_IsLoopback()
+		{
+						
+			if(this.var_get_isloopback_0_0 == null)
+				this.var_get_isloopback_0_0 = this.builderType.GetMethod("get_IsLoopback", true);
+
+			return this.var_get_isloopback_0_0;
+						
+								}
+				
+		private Method var_get_pathandquery_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.String get_PathAndQuery()<para/>
+		/// </summary>
+		public Method GetMethod_get_PathAndQuery()
+		{
+						
+			if(this.var_get_pathandquery_0_0 == null)
+				this.var_get_pathandquery_0_0 = this.builderType.GetMethod("get_PathAndQuery", true);
+
+			return this.var_get_pathandquery_0_0;
+						
+								}
+				
+		private Method var_get_segments_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.String[] get_Segments()<para/>
+		/// </summary>
+		public Method GetMethod_get_Segments()
+		{
+						
+			if(this.var_get_segments_0_0 == null)
+				this.var_get_segments_0_0 = this.builderType.GetMethod("get_Segments", true);
+
+			return this.var_get_segments_0_0;
+						
+								}
+				
+		private Method var_get_isunc_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// Boolean get_IsUnc()<para/>
+		/// </summary>
+		public Method GetMethod_get_IsUnc()
+		{
+						
+			if(this.var_get_isunc_0_0 == null)
+				this.var_get_isunc_0_0 = this.builderType.GetMethod("get_IsUnc", true);
+
+			return this.var_get_isunc_0_0;
+						
+								}
+				
+		private Method var_get_host_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.String get_Host()<para/>
+		/// </summary>
+		public Method GetMethod_get_Host()
+		{
+						
+			if(this.var_get_host_0_0 == null)
+				this.var_get_host_0_0 = this.builderType.GetMethod("get_Host", true);
+
+			return this.var_get_host_0_0;
+						
+								}
+				
+		private Method var_get_port_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// Int32 get_Port()<para/>
+		/// </summary>
+		public Method GetMethod_get_Port()
+		{
+						
+			if(this.var_get_port_0_0 == null)
+				this.var_get_port_0_0 = this.builderType.GetMethod("get_Port", true);
+
+			return this.var_get_port_0_0;
+						
+								}
+				
+		private Method var_get_query_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.String get_Query()<para/>
+		/// </summary>
+		public Method GetMethod_get_Query()
+		{
+						
+			if(this.var_get_query_0_0 == null)
+				this.var_get_query_0_0 = this.builderType.GetMethod("get_Query", true);
+
+			return this.var_get_query_0_0;
+						
+								}
+				
+		private Method var_get_fragment_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.String get_Fragment()<para/>
+		/// </summary>
+		public Method GetMethod_get_Fragment()
+		{
+						
+			if(this.var_get_fragment_0_0 == null)
+				this.var_get_fragment_0_0 = this.builderType.GetMethod("get_Fragment", true);
+
+			return this.var_get_fragment_0_0;
+						
+								}
+				
+		private Method var_get_scheme_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.String get_Scheme()<para/>
+		/// </summary>
+		public Method GetMethod_get_Scheme()
+		{
+						
+			if(this.var_get_scheme_0_0 == null)
+				this.var_get_scheme_0_0 = this.builderType.GetMethod("get_Scheme", true);
+
+			return this.var_get_scheme_0_0;
+						
+								}
+				
+		private Method var_get_originalstring_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.String get_OriginalString()<para/>
+		/// </summary>
+		public Method GetMethod_get_OriginalString()
+		{
+						
+			if(this.var_get_originalstring_0_0 == null)
+				this.var_get_originalstring_0_0 = this.builderType.GetMethod("get_OriginalString", true);
+
+			return this.var_get_originalstring_0_0;
+						
+								}
+				
+		private Method var_get_dnssafehost_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.String get_DnsSafeHost()<para/>
+		/// </summary>
+		public Method GetMethod_get_DnsSafeHost()
+		{
+						
+			if(this.var_get_dnssafehost_0_0 == null)
+				this.var_get_dnssafehost_0_0 = this.builderType.GetMethod("get_DnsSafeHost", true);
+
+			return this.var_get_dnssafehost_0_0;
+						
+								}
+				
+		private Method var_get_idnhost_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.String get_IdnHost()<para/>
+		/// </summary>
+		public Method GetMethod_get_IdnHost()
+		{
+						
+			if(this.var_get_idnhost_0_0 == null)
+				this.var_get_idnhost_0_0 = this.builderType.GetMethod("get_IdnHost", true);
+
+			return this.var_get_idnhost_0_0;
+						
+								}
+				
+		private Method var_get_isabsoluteuri_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// Boolean get_IsAbsoluteUri()<para/>
+		/// </summary>
+		public Method GetMethod_get_IsAbsoluteUri()
+		{
+						
+			if(this.var_get_isabsoluteuri_0_0 == null)
+				this.var_get_isabsoluteuri_0_0 = this.builderType.GetMethod("get_IsAbsoluteUri", true);
+
+			return this.var_get_isabsoluteuri_0_0;
+						
+								}
+				
+		private Method var_get_userescaped_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// Boolean get_UserEscaped()<para/>
+		/// </summary>
+		public Method GetMethod_get_UserEscaped()
+		{
+						
+			if(this.var_get_userescaped_0_0 == null)
+				this.var_get_userescaped_0_0 = this.builderType.GetMethod("get_UserEscaped", true);
+
+			return this.var_get_userescaped_0_0;
+						
+								}
+				
+		private Method var_get_userinfo_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.String get_UserInfo()<para/>
+		/// </summary>
+		public Method GetMethod_get_UserInfo()
+		{
+						
+			if(this.var_get_userinfo_0_0 == null)
+				this.var_get_userinfo_0_0 = this.builderType.GetMethod("get_UserInfo", true);
+
+			return this.var_get_userinfo_0_0;
+						
+								}
+				
+		private Method var_checkhostname_0_1;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.UriHostNameType CheckHostName(System.String)<para/>
+		/// </summary>
+		public Method GetMethod_CheckHostName(TypeReference pname)
+		{
+						
+						
+			if(this.var_checkhostname_0_1 == null)
+				this.var_checkhostname_0_1 = this.builderType.GetMethod("CheckHostName", true, pname).Import();
+			
+			return this.var_checkhostname_0_1;
+								}
+				
+		private Method var_getleftpart_0_1;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.String GetLeftPart(System.UriPartial)<para/>
+		/// </summary>
+		public Method GetMethod_GetLeftPart(TypeReference ppart)
+		{
+						
+						
+			if(this.var_getleftpart_0_1 == null)
+				this.var_getleftpart_0_1 = this.builderType.GetMethod("GetLeftPart", true, ppart).Import();
+			
+			return this.var_getleftpart_0_1;
+								}
+				
+		private Method var_hexescape_0_1;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.String HexEscape(Char)<para/>
+		/// </summary>
+		public Method GetMethod_HexEscape(TypeReference pcharacter)
+		{
+						
+						
+			if(this.var_hexescape_0_1 == null)
+				this.var_hexescape_0_1 = this.builderType.GetMethod("HexEscape", true, pcharacter).Import();
+			
+			return this.var_hexescape_0_1;
+								}
+				
+		private Method var_ishexencoding_0_2;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// Boolean IsHexEncoding(System.String, Int32)<para/>
+		/// </summary>
+		public Method GetMethod_IsHexEncoding(TypeReference ppattern, TypeReference pindex)
+		{
+						
+						
+			if(this.var_ishexencoding_0_2 == null)
+				this.var_ishexencoding_0_2 = this.builderType.GetMethod("IsHexEncoding", true, ppattern, pindex).Import();
+			
+			return this.var_ishexencoding_0_2;
+								}
+				
+		private Method var_checkschemename_0_1;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// Boolean CheckSchemeName(System.String)<para/>
+		/// </summary>
+		public Method GetMethod_CheckSchemeName(TypeReference pschemeName)
+		{
+						
+						
+			if(this.var_checkschemename_0_1 == null)
+				this.var_checkschemename_0_1 = this.builderType.GetMethod("CheckSchemeName", true, pschemeName).Import();
+			
+			return this.var_checkschemename_0_1;
+								}
+				
+		private Method var_ishexdigit_0_1;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// Boolean IsHexDigit(Char)<para/>
+		/// </summary>
+		public Method GetMethod_IsHexDigit(TypeReference pcharacter)
+		{
+						
+						
+			if(this.var_ishexdigit_0_1 == null)
+				this.var_ishexdigit_0_1 = this.builderType.GetMethod("IsHexDigit", true, pcharacter).Import();
+			
+			return this.var_ishexdigit_0_1;
+								}
+				
+		private Method var_fromhex_0_1;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// Int32 FromHex(Char)<para/>
+		/// </summary>
+		public Method GetMethod_FromHex(TypeReference pdigit)
+		{
+						
+						
+			if(this.var_fromhex_0_1 == null)
+				this.var_fromhex_0_1 = this.builderType.GetMethod("FromHex", true, pdigit).Import();
+			
+			return this.var_fromhex_0_1;
+								}
+				
+		private Method var_gethashcode_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// Int32 GetHashCode()<para/>
+		/// </summary>
+		public Method GetMethod_GetHashCode()
+		{
+						
+			if(this.var_gethashcode_0_0 == null)
+				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", true);
+
+			return this.var_gethashcode_0_0;
+						
+								}
+				
+		private Method var_tostring_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.String ToString()<para/>
+		/// </summary>
+		public Method GetMethod_ToString()
+		{
+						
+			if(this.var_tostring_0_0 == null)
+				this.var_tostring_0_0 = this.builderType.GetMethod("ToString", true);
+
+			return this.var_tostring_0_0;
+						
+								}
+				
+		private Method var_op_equality_0_2;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// Boolean op_Equality(System.Uri, System.Uri)<para/>
+		/// </summary>
+		public Method GetMethod_op_Equality(TypeReference puri1, TypeReference puri2)
+		{
+						
+						
+			if(this.var_op_equality_0_2 == null)
+				this.var_op_equality_0_2 = this.builderType.GetMethod("op_Equality", true, puri1, puri2).Import();
+			
+			return this.var_op_equality_0_2;
+								}
+				
+		private Method var_op_inequality_0_2;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// Boolean op_Inequality(System.Uri, System.Uri)<para/>
+		/// </summary>
+		public Method GetMethod_op_Inequality(TypeReference puri1, TypeReference puri2)
+		{
+						
+						
+			if(this.var_op_inequality_0_2 == null)
+				this.var_op_inequality_0_2 = this.builderType.GetMethod("op_Inequality", true, puri1, puri2).Import();
+			
+			return this.var_op_inequality_0_2;
+								}
+				
+		private Method var_equals_0_1;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// Boolean Equals(System.Object)<para/>
+		/// </summary>
+		public Method GetMethod_Equals(TypeReference pcomparand)
+		{
+						
+						
+			if(this.var_equals_0_1 == null)
+				this.var_equals_0_1 = this.builderType.GetMethod("Equals", true, pcomparand).Import();
+			
+			return this.var_equals_0_1;
+								}
+				
+		private Method var_makerelativeuri_0_1;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// System.Uri MakeRelativeUri(System.Uri)<para/>
+		/// </summary>
+		public Method GetMethod_MakeRelativeUri(TypeReference puri)
+		{
+						
+						
+			if(this.var_makerelativeuri_0_1 == null)
+				this.var_makerelativeuri_0_1 = this.builderType.GetMethod("MakeRelativeUri", true, puri).Import();
+			
+			return this.var_makerelativeuri_0_1;
 								}
 				
 		private Method var_gettype_0_0;

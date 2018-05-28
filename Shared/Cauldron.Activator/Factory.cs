@@ -524,6 +524,29 @@ namespace Cauldron.Activator
             throw new NotImplementedException("The contractName '" + contractName + "' was not found.");
         }
 
+        /// <exclude/>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static IFactoryTypeInfo GetFactoryTypeInfoFirst(string contractName)
+        {
+            if (components.TryGetValue(contractName, out FactoryDictionaryValue factoryInfos))
+            {
+                if (factoryInfos.factoryTypeInfos.Length == 1)
+                    return factoryInfos.factoryTypeInfos[0];
+
+                if (factoryInfos.factoryTypeInfos.Length == 0)
+                {
+                    if (CanRaiseExceptions)
+                        throw new NotImplementedException("The contractName '" + contractName + "' was not found.");
+                    else
+                        Debug.WriteLine($"ERROR: The contractName '{contractName}' was not found.");
+                }
+
+                return factoryInfos.factoryTypeInfos.MaxBy(x => x.Priority);
+            }
+
+            throw new NotImplementedException("The contractName '" + contractName + "' was not found.");
+        }
+
         /// <summary>
         /// Determines whether a contract exist
         /// </summary>
@@ -643,7 +666,8 @@ namespace Cauldron.Activator
             if (components.TryGetValue(contractName, out FactoryDictionaryValue factoryInfos))
                 for (int i = 0; i < factoryInfos.factoryTypeInfos.Length; i++)
                     yield return factoryInfos.factoryTypeInfos[i].CreateInstance(parameters);
-            else if (CanRaiseExceptions)
+
+            if (CanRaiseExceptions)
                 throw new NotImplementedException("The contractName '" + contractName + "' was not found.");
             else
                 Debug.WriteLine($"ERROR: The contractName '" + contractName + "' was not found.");

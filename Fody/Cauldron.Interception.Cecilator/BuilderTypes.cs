@@ -66,6 +66,24 @@ namespace Cauldron.Interception.Cecilator
         }
     }
 
+    public partial class BuilderTypeMonitor : TypeSystemExBase
+    {
+        private Method var_enter_0_2;
+
+        /// <summary>
+        /// Represents the following method:
+        /// <para />
+        /// public static void Enter(object obj, ref bool lockTaken);<para/>
+        /// </summary>
+        public Method GetMethod_Enter()
+        {
+            if (this.var_enter_0_2 == null)
+                this.var_enter_0_2 = this.builderType.GetMethod("Enter", 2, true).Import();
+
+            return this.var_enter_0_2;
+        }
+    }
+
     public partial class BuilderTypeNotSupportedException
     {
         private Method constructor_string;

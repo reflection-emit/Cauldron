@@ -1,7 +1,11 @@
 ﻿<#@ template debug="false" hostspecific="false" language="C#" #>
 <#@ assembly name="System.Core" #>
+<#@ assembly name="WindowsBase" #>
+<#@ assembly name="PresentationFramework" #>
 <#@ assembly name="$(SolutionDir)Win32\\Cauldron.Activator\\bin\\Release\\Cauldron.Activator.dll" #>
 <#@ assembly name="$(SolutionDir)Win32\\Cauldron.Core.Disposable\\bin\\Release\\Cauldron.Core.Disposable.dll" #>
+<#@ assembly name="$(SolutionDir)Win32\\Cauldron.Interception\\bin\\Release\\Cauldron.Interception.dll" #>
+<#@ assembly name="$(SolutionDir)Win32\\Cauldron.Core.Reflection\\bin\\Release\\Cauldron.Core.Reflection.dll" #>
 <#@ import namespace="Cauldron" #>
 <#@ import namespace="System" #>
 <#@ import namespace="System.Collections" #>
@@ -15,8 +19,27 @@
 
 	var types = new Type[]
 	{
-		//typeof(Cauldron.ComponentAttribute)
-		typeof(Cauldron.Core.IDisposableObject)
+		typeof(Cauldron.Activator.ComponentConstructorAttribute),
+		typeof(Cauldron.Activator.ComponentAttribute),
+		typeof(Cauldron.Core.IDisposableObject),
+		typeof(Cauldron.Activator.IFactoryTypeInfo),
+		typeof(Cauldron.Activator.IFactoryExtension),
+		typeof(Cauldron.Activator.GenericComponentAttribute),
+		typeof(System.Windows.Application),
+		typeof(Cauldron.Interception.Extensions),
+		typeof(Cauldron.ExtensionsReflection),
+		typeof(Cauldron.Activator.Factory),
+		typeof(Cauldron.Activator.Factory<>),
+		typeof(Cauldron.Interception.IConstructorInterceptor),
+		typeof(Cauldron.Interception.IMethodInterceptor),
+		typeof(Cauldron.Interception.InterceptionRuleAttribute),
+		typeof(Cauldron.Interception.InterceptorOptionsAttribute),
+		typeof(Cauldron.Interception.IPropertyGetterInterceptor),
+		typeof(Cauldron.Interception.IPropertyInterceptorInitialize),
+		typeof(Cauldron.Interception.IPropertySetterInterceptor),
+		typeof(Cauldron.Interception.ISimpleMethodInterceptor),
+		typeof(Cauldron.Interception.ISyncRoot),
+		typeof(Cauldron.Interception.PropertyInterceptionInfo),
 	};
 
 	string GenerateCommas(string count)
@@ -68,6 +91,12 @@
 		return typeName;
 	}	
 
+	string StringRepresentation(string typeName)
+	{
+		var blaPos = typeName.IndexOf('[');
+		return typeName.Substring(0, blaPos < 0 ? typeName.Length : blaPos);
+	}
+
 	bool IsValidParameter(IEnumerable<ParameterInfo> info)
 	{
 		foreach(var item in info)
@@ -85,6 +114,9 @@
 				return false;
 
 			if(item.ParameterType.Name.IndexOf("*") >= 0)
+				return false;
+
+			if(item.ParameterType.FullName.StartsWith("Cauldron."))
 				return false;
 		}
 
@@ -114,24 +146,7 @@ namespace Cauldron.Interception.Fody
     /// </summary>
 	public static class BuilderTypes2
     {
-	
-		#region Void
-        private static BuilderType _Void;
-		
-        /// <summary>
-        /// Gets <see cref="BuilderType"/> representing void. 
-        /// </summary>
-        public static BuilderType Void
-        {
-            get
-            {
-                if (_Void == null) _Void = Builder.Current.GetType("System.Void");
-                return _Void;
-            }
-        }
-
-		#endregion
-		
+			
 		<#
 		foreach(var type in types.OrderBy(x => x.Name) )
 		{
@@ -148,7 +163,7 @@ namespace Cauldron.Interception.Fody
         {
             get
             {
-                if (<#=variableName#> == null) <#=variableName#> = new BuilderType<#=type.Name.Replace("`", "")#>(Builder.Current.GetType("<#=StringRepresentationToCSharp(type.FullName)#>").Import());
+                if (<#=variableName#> == null) <#=variableName#> = new BuilderType<#=type.Name.Replace("`", "")#>(Builder.Current.GetType("<#=StringRepresentation(type.FullName)#>").Import());
                 return <#=variableName#>;
             }
         }
@@ -252,7 +267,7 @@ namespace Cauldron.Interception.Fody
 				}
 			#>
 
-			return null;
+			throw new Exception("Method with defined parameters not found.");
 			<#
 			}
 			#>

@@ -3,7 +3,6 @@
   <Cauldron.Interception Verbose="true">
     <CustomInterceptors>
       $(ProjectDir)..\..\..\Fody\Interceptors\Cauldron.ActivatorInterceptors*.dll
-      $(ProjectDir)..\..\..\Fody\Interceptors\Cauldron.BasicInterceptors*.dll
     </CustomInterceptors>
   </Cauldron.Interception>
 </Weavers>
