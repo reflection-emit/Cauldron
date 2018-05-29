@@ -167,4 +167,36 @@ namespace Cauldron.Interception.Fody
             return this.constructor;
         }
     }
+
+    public partial class BuilderTypeIPropertySetterInterceptor : TypeSystemExBase
+    {
+        /// <summary>
+        /// Represents the following method:
+        /// <para />
+        /// bool OnSet(PropertyInterceptionInfo propertyInterceptionInfo, object oldValue, object newValue);
+        /// </summary>
+        public Method GetMethod_OnSet()
+        {
+            if (this.var_onexception_0_1 == null)
+                this.var_onexception_0_1 = this.builderType.GetMethod("OnSet", 3, true).Import();
+
+            return this.var_onexception_0_1;
+        }
+    }
+
+    public partial class BuilderTypeISyncRoot : TypeSystemExBase
+    {
+        /// <summary>
+        /// Represents the following method:
+        /// <para />
+        /// Void set_SyncRoot(System.Object)<para/>
+        /// </summary>
+        public Method GetMethod_set_SyncRoot()
+        {
+            if (this.var_set_syncroot_0_1 == null)
+                this.var_set_syncroot_0_1 = this.builderType.GetMethod("set_SyncRoot", 1, true).Import();
+
+            return this.var_set_syncroot_0_1;
+        }
+    }
 }

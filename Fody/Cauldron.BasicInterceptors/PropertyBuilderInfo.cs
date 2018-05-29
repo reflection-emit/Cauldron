@@ -47,16 +47,16 @@ namespace Cauldron.Interception.Fody
         public PropertyBuilderInfoItem(
             AttributedProperty attribute,
             Property property,
-            __IPropertyGetterInterceptor interfaceGetter,
-            __IPropertySetterInterceptor interfaceSetter,
-            __IPropertyInterceptorInitialize interfaceInitializer)
+            BuilderTypeIPropertyGetterInterceptor interfaceGetter,
+            BuilderTypeIPropertySetterInterceptor interfaceSetter,
+            BuilderTypeIPropertyInterceptorInitialize interfaceInitializer)
         {
             this.Attribute = attribute;
             this.InterfaceGetter = interfaceGetter;
             this.InterfaceSetter = interfaceSetter;
             this.InterfaceInitializer = interfaceInitializer;
             this.Property = property;
-            this.HasSyncRootInterface = attribute.Attribute.Type.Implements(__ISyncRoot.Type.Fullname);
+            this.HasSyncRootInterface = attribute.Attribute.Type.Implements(BuilderTypes2.ISyncRoot);
             this.AssignMethodAttributeInfos = AssignMethodAttributeInfo.GetAllAssignMethodAttributedFields(attribute);
             this.InterceptorInfo = new InterceptorInfo(this.Attribute.Attribute.Type);
         }
@@ -71,11 +71,11 @@ namespace Cauldron.Interception.Fody
 
         public InterceptorInfo InterceptorInfo { get; private set; }
 
-        public __IPropertyGetterInterceptor InterfaceGetter { get; private set; }
+        public BuilderTypeIPropertyGetterInterceptor InterfaceGetter { get; private set; }
 
-        public __IPropertyInterceptorInitialize InterfaceInitializer { get; private set; }
+        public BuilderTypeIPropertyInterceptorInitialize InterfaceInitializer { get; private set; }
 
-        public __IPropertySetterInterceptor InterfaceSetter { get; private set; }
+        public BuilderTypeIPropertySetterInterceptor InterfaceSetter { get; private set; }
 
         public bool IsSuppressed => InterceptorInfo.GetIsSupressed(this.InterceptorInfo, this.Attribute.Property.DeclaringType, this.Attribute.Property.CustomAttributes, this.Attribute.Attribute, this.Attribute.Property.Name, false);
 

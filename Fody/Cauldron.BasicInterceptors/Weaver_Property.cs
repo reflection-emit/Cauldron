@@ -325,7 +325,7 @@ public static class Weaver_Property
         Method propertySetter,
         Dictionary<string, Field> interceptorFields)
     {
-        var syncRoot = new __ISyncRoot();
+        var syncRoot = BuilderTypes2.ISyncRoot;
         var legalSetterInterceptors = member.InterceptorInfos.Where(x => x.InterfaceSetter != null).ToArray();
 
         member.Property.Setter
@@ -347,7 +347,7 @@ public static class Weaver_Property
                             coder.SetValue(fieldOrVariable, x => x.NewObj(item.Attribute));
 
                             if (item.HasSyncRootInterface)
-                                coder.Load<ICasting>(fieldOrVariable).As(syncRoot.ToBuilderType.Import()).To<ICallMethod<CallCoder>>().Call(syncRoot.SyncRoot, member.SyncRoot);
+                                coder.Load<ICasting>(fieldOrVariable).As(syncRoot.BuilderType.Import()).To<ICallMethod<CallCoder>>().Call(syncRoot.GetMethod_set_SyncRoot(), member.SyncRoot);
 
                             ModuleWeaver.ImplementAssignMethodAttribute(builder, legalSetterInterceptors[i].AssignMethodAttributeInfos, fieldOrVariable, item.Attribute.Attribute.Type, coder);
 
@@ -395,7 +395,7 @@ public static class Weaver_Property
                             var fieldOrVariable = interceptorFields[item.Attribute.Identification] as CecilatorBase ?? @try.AssociatedMethod.GetVariable(item.Attribute.Identification);
                             @try.If(x =>
                                x.Load<ICasting>(fieldOrVariable)
-                                   .As(legalSetterInterceptors[i].InterfaceSetter.ToBuilderType)
+                                   .As(legalSetterInterceptors[i].InterfaceSetter)
                                    .To<ICallMethod<BooleanExpressionCallCoder>>()
                                    .Call(item.InterfaceSetter.OnSet, propertyField, oldvalue, CodeBlocks.GetParameter(0))
                                    .To<IRelationalOperators>()
