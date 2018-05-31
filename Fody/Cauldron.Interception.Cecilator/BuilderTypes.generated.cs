@@ -8791,7 +8791,7 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_ctor_0_1 == null)
-				this.var_ctor_0_1 = this.builderType.GetMethod("ctor", true, pticks).Import();
+				this.var_ctor_0_1 = this.builderType.GetMethod(".ctor", true, pticks).Import();
 			
 			return this.var_ctor_0_1;
 						
@@ -8809,7 +8809,7 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_ctor_0_2 == null)
-				this.var_ctor_0_2 = this.builderType.GetMethod("ctor", true, pticks, pkind).Import();
+				this.var_ctor_0_2 = this.builderType.GetMethod(".ctor", true, pticks, pkind).Import();
 			
 			return this.var_ctor_0_2;
 						
@@ -8827,7 +8827,7 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_ctor_0_3 == null)
-				this.var_ctor_0_3 = this.builderType.GetMethod("ctor", true, pyear, pmonth, pday).Import();
+				this.var_ctor_0_3 = this.builderType.GetMethod(".ctor", true, pyear, pmonth, pday).Import();
 			
 			return this.var_ctor_0_3;
 						
@@ -8845,7 +8845,7 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_ctor_0_4 == null)
-				this.var_ctor_0_4 = this.builderType.GetMethod("ctor", true, pyear, pmonth, pday, pcalendar).Import();
+				this.var_ctor_0_4 = this.builderType.GetMethod(".ctor", true, pyear, pmonth, pday, pcalendar).Import();
 			
 			return this.var_ctor_0_4;
 						
@@ -8863,7 +8863,7 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_ctor_0_6 == null)
-				this.var_ctor_0_6 = this.builderType.GetMethod("ctor", true, pyear, pmonth, pday, phour, pminute, psecond).Import();
+				this.var_ctor_0_6 = this.builderType.GetMethod(".ctor", true, pyear, pmonth, pday, phour, pminute, psecond).Import();
 			
 			return this.var_ctor_0_6;
 						
@@ -8889,7 +8889,7 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Int32).AreEqual(pyear) && typeof(System.Int32).AreEqual(pmonth) && typeof(System.Int32).AreEqual(pday) && typeof(System.Int32).AreEqual(phour) && typeof(System.Int32).AreEqual(pminute) && typeof(System.Int32).AreEqual(psecond) && typeof(System.DateTimeKind).AreEqual(pkind))
 			{
 				if(this.var_ctor_0_7 == null)
-					this.var_ctor_0_7 = this.builderType.GetMethod("ctor", true, pyear, pmonth, pday, phour, pminute, psecond, pkind).Import();
+					this.var_ctor_0_7 = this.builderType.GetMethod(".ctor", true, pyear, pmonth, pday, phour, pminute, psecond, pkind).Import();
 			
 				return this.var_ctor_0_7;
 			}
@@ -8897,7 +8897,7 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Int32).AreEqual(pyear) && typeof(System.Int32).AreEqual(pmonth) && typeof(System.Int32).AreEqual(pday) && typeof(System.Int32).AreEqual(phour) && typeof(System.Int32).AreEqual(pminute) && typeof(System.Int32).AreEqual(psecond) && typeof(System.Globalization.Calendar).AreEqual(pkind))
 			{
 				if(this.var_ctor_1_7 == null)
-					this.var_ctor_1_7 = this.builderType.GetMethod("ctor", true, pyear, pmonth, pday, phour, pminute, psecond, pkind).Import();
+					this.var_ctor_1_7 = this.builderType.GetMethod(".ctor", true, pyear, pmonth, pday, phour, pminute, psecond, pkind).Import();
 			
 				return this.var_ctor_1_7;
 			}
@@ -8905,7 +8905,7 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Int32).AreEqual(pyear) && typeof(System.Int32).AreEqual(pmonth) && typeof(System.Int32).AreEqual(pday) && typeof(System.Int32).AreEqual(phour) && typeof(System.Int32).AreEqual(pminute) && typeof(System.Int32).AreEqual(psecond) && typeof(System.Int32).AreEqual(pkind))
 			{
 				if(this.var_ctor_2_7 == null)
-					this.var_ctor_2_7 = this.builderType.GetMethod("ctor", true, pyear, pmonth, pday, phour, pminute, psecond, pkind).Import();
+					this.var_ctor_2_7 = this.builderType.GetMethod(".ctor", true, pyear, pmonth, pday, phour, pminute, psecond, pkind).Import();
 			
 				return this.var_ctor_2_7;
 			}
@@ -8931,7 +8931,7 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Int32).AreEqual(pyear) && typeof(System.Int32).AreEqual(pmonth) && typeof(System.Int32).AreEqual(pday) && typeof(System.Int32).AreEqual(phour) && typeof(System.Int32).AreEqual(pminute) && typeof(System.Int32).AreEqual(psecond) && typeof(System.Int32).AreEqual(pmillisecond) && typeof(System.DateTimeKind).AreEqual(pkind))
 			{
 				if(this.var_ctor_0_8 == null)
-					this.var_ctor_0_8 = this.builderType.GetMethod("ctor", true, pyear, pmonth, pday, phour, pminute, psecond, pmillisecond, pkind).Import();
+					this.var_ctor_0_8 = this.builderType.GetMethod(".ctor", true, pyear, pmonth, pday, phour, pminute, psecond, pmillisecond, pkind).Import();
 			
 				return this.var_ctor_0_8;
 			}
@@ -8939,7 +8939,7 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Int32).AreEqual(pyear) && typeof(System.Int32).AreEqual(pmonth) && typeof(System.Int32).AreEqual(pday) && typeof(System.Int32).AreEqual(phour) && typeof(System.Int32).AreEqual(pminute) && typeof(System.Int32).AreEqual(psecond) && typeof(System.Int32).AreEqual(pmillisecond) && typeof(System.Globalization.Calendar).AreEqual(pkind))
 			{
 				if(this.var_ctor_1_8 == null)
-					this.var_ctor_1_8 = this.builderType.GetMethod("ctor", true, pyear, pmonth, pday, phour, pminute, psecond, pmillisecond, pkind).Import();
+					this.var_ctor_1_8 = this.builderType.GetMethod(".ctor", true, pyear, pmonth, pday, phour, pminute, psecond, pmillisecond, pkind).Import();
 			
 				return this.var_ctor_1_8;
 			}
@@ -8960,7 +8960,7 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_ctor_0_9 == null)
-				this.var_ctor_0_9 = this.builderType.GetMethod("ctor", true, pyear, pmonth, pday, phour, pminute, psecond, pmillisecond, pcalendar, pkind).Import();
+				this.var_ctor_0_9 = this.builderType.GetMethod(".ctor", true, pyear, pmonth, pday, phour, pminute, psecond, pmillisecond, pcalendar, pkind).Import();
 			
 			return this.var_ctor_0_9;
 						
@@ -10193,7 +10193,7 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Int32).AreEqual(pvalue))
 			{
 				if(this.var_ctor_0_1 == null)
-					this.var_ctor_0_1 = this.builderType.GetMethod("ctor", true, pvalue).Import();
+					this.var_ctor_0_1 = this.builderType.GetMethod(".ctor", true, pvalue).Import();
 			
 				return this.var_ctor_0_1;
 			}
@@ -10201,7 +10201,7 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.UInt32).AreEqual(pvalue))
 			{
 				if(this.var_ctor_1_1 == null)
-					this.var_ctor_1_1 = this.builderType.GetMethod("ctor", true, pvalue).Import();
+					this.var_ctor_1_1 = this.builderType.GetMethod(".ctor", true, pvalue).Import();
 			
 				return this.var_ctor_1_1;
 			}
@@ -10209,7 +10209,7 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Int64).AreEqual(pvalue))
 			{
 				if(this.var_ctor_2_1 == null)
-					this.var_ctor_2_1 = this.builderType.GetMethod("ctor", true, pvalue).Import();
+					this.var_ctor_2_1 = this.builderType.GetMethod(".ctor", true, pvalue).Import();
 			
 				return this.var_ctor_2_1;
 			}
@@ -10217,7 +10217,7 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.UInt64).AreEqual(pvalue))
 			{
 				if(this.var_ctor_3_1 == null)
-					this.var_ctor_3_1 = this.builderType.GetMethod("ctor", true, pvalue).Import();
+					this.var_ctor_3_1 = this.builderType.GetMethod(".ctor", true, pvalue).Import();
 			
 				return this.var_ctor_3_1;
 			}
@@ -10225,7 +10225,7 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Single).AreEqual(pvalue))
 			{
 				if(this.var_ctor_4_1 == null)
-					this.var_ctor_4_1 = this.builderType.GetMethod("ctor", true, pvalue).Import();
+					this.var_ctor_4_1 = this.builderType.GetMethod(".ctor", true, pvalue).Import();
 			
 				return this.var_ctor_4_1;
 			}
@@ -10233,7 +10233,7 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Double).AreEqual(pvalue))
 			{
 				if(this.var_ctor_5_1 == null)
-					this.var_ctor_5_1 = this.builderType.GetMethod("ctor", true, pvalue).Import();
+					this.var_ctor_5_1 = this.builderType.GetMethod(".ctor", true, pvalue).Import();
 			
 				return this.var_ctor_5_1;
 			}
@@ -10241,7 +10241,7 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Int32[]).AreEqual(pvalue))
 			{
 				if(this.var_ctor_6_1 == null)
-					this.var_ctor_6_1 = this.builderType.GetMethod("ctor", true, pvalue).Import();
+					this.var_ctor_6_1 = this.builderType.GetMethod(".ctor", true, pvalue).Import();
 			
 				return this.var_ctor_6_1;
 			}
@@ -10262,7 +10262,7 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_ctor_0_5 == null)
-				this.var_ctor_0_5 = this.builderType.GetMethod("ctor", true, plo, pmid, phi, pisNegative, pscale).Import();
+				this.var_ctor_0_5 = this.builderType.GetMethod(".ctor", true, plo, pmid, phi, pisNegative, pscale).Import();
 			
 			return this.var_ctor_0_5;
 						
@@ -11851,7 +11851,7 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ctor()
 		{
 			if(this.var_ctor_0_0 == null)
-				this.var_ctor_0_0 = this.builderType.GetMethod("ctor", 0, true).Import();
+				this.var_ctor_0_0 = this.builderType.GetMethod(".ctor", 0, true).Import();
 
 			return this.var_ctor_0_0;
 		}
@@ -12079,7 +12079,7 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ctor()
 		{
 			if(this.var_ctor_0_2 == null)
-				this.var_ctor_0_2 = this.builderType.GetMethod("ctor", 2, true).Import();
+				this.var_ctor_0_2 = this.builderType.GetMethod(".ctor", 2, true).Import();
 
 			return this.var_ctor_0_2;
 		}
@@ -12524,7 +12524,7 @@ namespace Cauldron.Interception.Cecilator
 		{
 						
 			if(this.var_ctor_0_0 == null)
-				this.var_ctor_0_0 = this.builderType.GetMethod("ctor", true).Import();
+				this.var_ctor_0_0 = this.builderType.GetMethod(".ctor", true).Import();
 
 			return this.var_ctor_0_0;
 						
@@ -12543,7 +12543,7 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_ctor_0_1 == null)
-				this.var_ctor_0_1 = this.builderType.GetMethod("ctor", true, pmessage).Import();
+				this.var_ctor_0_1 = this.builderType.GetMethod(".ctor", true, pmessage).Import();
 			
 			return this.var_ctor_0_1;
 						
@@ -12561,7 +12561,7 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_ctor_0_2 == null)
-				this.var_ctor_0_2 = this.builderType.GetMethod("ctor", true, pmessage, pinnerException).Import();
+				this.var_ctor_0_2 = this.builderType.GetMethod(".ctor", true, pmessage, pinnerException).Import();
 			
 			return this.var_ctor_0_2;
 						
@@ -14217,7 +14217,7 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Int32).AreEqual(pvalue))
 			{
 				if(this.var_ctor_0_1 == null)
-					this.var_ctor_0_1 = this.builderType.GetMethod("ctor", true, pvalue).Import();
+					this.var_ctor_0_1 = this.builderType.GetMethod(".ctor", true, pvalue).Import();
 			
 				return this.var_ctor_0_1;
 			}
@@ -14225,7 +14225,7 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Int64).AreEqual(pvalue))
 			{
 				if(this.var_ctor_1_1 == null)
-					this.var_ctor_1_1 = this.builderType.GetMethod("ctor", true, pvalue).Import();
+					this.var_ctor_1_1 = this.builderType.GetMethod(".ctor", true, pvalue).Import();
 			
 				return this.var_ctor_1_1;
 			}
@@ -15649,7 +15649,7 @@ namespace Cauldron.Interception.Cecilator
 		{
 						
 			if(this.var_ctor_0_0 == null)
-				this.var_ctor_0_0 = this.builderType.GetMethod("ctor", true).Import();
+				this.var_ctor_0_0 = this.builderType.GetMethod(".ctor", true).Import();
 
 			return this.var_ctor_0_0;
 						
@@ -15668,7 +15668,7 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_ctor_0_1 == null)
-				this.var_ctor_0_1 = this.builderType.GetMethod("ctor", true, pmessage).Import();
+				this.var_ctor_0_1 = this.builderType.GetMethod(".ctor", true, pmessage).Import();
 			
 			return this.var_ctor_0_1;
 						
@@ -15686,7 +15686,7 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_ctor_0_2 == null)
-				this.var_ctor_0_2 = this.builderType.GetMethod("ctor", true, pmessage, pinnerException).Import();
+				this.var_ctor_0_2 = this.builderType.GetMethod(".ctor", true, pmessage, pinnerException).Import();
 			
 			return this.var_ctor_0_2;
 						
@@ -15945,7 +15945,7 @@ namespace Cauldron.Interception.Cecilator
 		public Method GetMethod_ctor()
 		{
 			if(this.var_ctor_0_0 == null)
-				this.var_ctor_0_0 = this.builderType.GetMethod("ctor", 0, true).Import();
+				this.var_ctor_0_0 = this.builderType.GetMethod(".ctor", 0, true).Import();
 
 			return this.var_ctor_0_0;
 		}
@@ -16660,6 +16660,21 @@ namespace Cauldron.Interception.Cecilator
 		public static implicit operator TypeReference(BuilderTypeString value) => value.builderType.typeReference;
 			
 				
+		private Method var_get_length_0_0;
+		
+		/// <summary>
+		/// Represents the following method:
+		/// <para />
+		/// Int32 get_Length()<para/>
+		/// </summary>
+		public Method GetMethod_get_Length()
+		{
+			if(this.var_get_length_0_0 == null)
+				this.var_get_length_0_0 = this.builderType.GetMethod("get_Length", 0, true).Import();
+
+			return this.var_get_length_0_0;
+		}
+						
 		private Method var_join_0_2;
 				
 		private Method var_join_1_2;
@@ -16948,21 +16963,6 @@ namespace Cauldron.Interception.Cecilator
 				this.var_gethashcode_0_0 = this.builderType.GetMethod("GetHashCode", 0, true).Import();
 
 			return this.var_gethashcode_0_0;
-		}
-						
-		private Method var_get_length_0_0;
-		
-		/// <summary>
-		/// Represents the following method:
-		/// <para />
-		/// Int32 get_Length()<para/>
-		/// </summary>
-		public Method GetMethod_get_Length()
-		{
-			if(this.var_get_length_0_0 == null)
-				this.var_get_length_0_0 = this.builderType.GetMethod("get_Length", 0, true).Import();
-
-			return this.var_get_length_0_0;
 		}
 						
 		private Method var_split_0_1;
@@ -18694,7 +18694,7 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_ctor_0_3 == null)
-				this.var_ctor_0_3 = this.builderType.GetMethod("ctor", true, pvalue, pstartIndex, plength).Import();
+				this.var_ctor_0_3 = this.builderType.GetMethod(".ctor", true, pvalue, pstartIndex, plength).Import();
 			
 			return this.var_ctor_0_3;
 						
@@ -18712,7 +18712,7 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_ctor_0_1 == null)
-				this.var_ctor_0_1 = this.builderType.GetMethod("ctor", true, pvalue).Import();
+				this.var_ctor_0_1 = this.builderType.GetMethod(".ctor", true, pvalue).Import();
 			
 			return this.var_ctor_0_1;
 						
@@ -18730,7 +18730,7 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_ctor_0_2 == null)
-				this.var_ctor_0_2 = this.builderType.GetMethod("ctor", true, pc, pcount).Import();
+				this.var_ctor_0_2 = this.builderType.GetMethod(".ctor", true, pc, pcount).Import();
 			
 			return this.var_ctor_0_2;
 						
@@ -19761,7 +19761,7 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_ctor_0_1 == null)
-				this.var_ctor_0_1 = this.builderType.GetMethod("ctor", true, paction).Import();
+				this.var_ctor_0_1 = this.builderType.GetMethod(".ctor", true, paction).Import();
 			
 			return this.var_ctor_0_1;
 						
@@ -19787,7 +19787,7 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Action).AreEqual(paction) && typeof(System.Threading.CancellationToken).AreEqual(pcancellationToken))
 			{
 				if(this.var_ctor_0_2 == null)
-					this.var_ctor_0_2 = this.builderType.GetMethod("ctor", true, paction, pcancellationToken).Import();
+					this.var_ctor_0_2 = this.builderType.GetMethod(".ctor", true, paction, pcancellationToken).Import();
 			
 				return this.var_ctor_0_2;
 			}
@@ -19795,7 +19795,7 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Action).AreEqual(paction) && typeof(System.Threading.Tasks.TaskCreationOptions).AreEqual(pcancellationToken))
 			{
 				if(this.var_ctor_1_2 == null)
-					this.var_ctor_1_2 = this.builderType.GetMethod("ctor", true, paction, pcancellationToken).Import();
+					this.var_ctor_1_2 = this.builderType.GetMethod(".ctor", true, paction, pcancellationToken).Import();
 			
 				return this.var_ctor_1_2;
 			}
@@ -19803,7 +19803,7 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Action<>).AreEqual(paction) && typeof(System.Object).AreEqual(pcancellationToken))
 			{
 				if(this.var_ctor_2_2 == null)
-					this.var_ctor_2_2 = this.builderType.GetMethod("ctor", true, paction, pcancellationToken).Import();
+					this.var_ctor_2_2 = this.builderType.GetMethod(".ctor", true, paction, pcancellationToken).Import();
 			
 				return this.var_ctor_2_2;
 			}
@@ -19832,7 +19832,7 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Action).AreEqual(paction) && typeof(System.Threading.CancellationToken).AreEqual(pcancellationToken) && typeof(System.Threading.Tasks.TaskCreationOptions).AreEqual(pcreationOptions))
 			{
 				if(this.var_ctor_0_3 == null)
-					this.var_ctor_0_3 = this.builderType.GetMethod("ctor", true, paction, pcancellationToken, pcreationOptions).Import();
+					this.var_ctor_0_3 = this.builderType.GetMethod(".ctor", true, paction, pcancellationToken, pcreationOptions).Import();
 			
 				return this.var_ctor_0_3;
 			}
@@ -19840,7 +19840,7 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Action<>).AreEqual(paction) && typeof(System.Object).AreEqual(pcancellationToken) && typeof(System.Threading.CancellationToken).AreEqual(pcreationOptions))
 			{
 				if(this.var_ctor_1_3 == null)
-					this.var_ctor_1_3 = this.builderType.GetMethod("ctor", true, paction, pcancellationToken, pcreationOptions).Import();
+					this.var_ctor_1_3 = this.builderType.GetMethod(".ctor", true, paction, pcancellationToken, pcreationOptions).Import();
 			
 				return this.var_ctor_1_3;
 			}
@@ -19848,7 +19848,7 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Action<>).AreEqual(paction) && typeof(System.Object).AreEqual(pcancellationToken) && typeof(System.Threading.Tasks.TaskCreationOptions).AreEqual(pcreationOptions))
 			{
 				if(this.var_ctor_2_3 == null)
-					this.var_ctor_2_3 = this.builderType.GetMethod("ctor", true, paction, pcancellationToken, pcreationOptions).Import();
+					this.var_ctor_2_3 = this.builderType.GetMethod(".ctor", true, paction, pcancellationToken, pcreationOptions).Import();
 			
 				return this.var_ctor_2_3;
 			}
@@ -19869,7 +19869,7 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_ctor_0_4 == null)
-				this.var_ctor_0_4 = this.builderType.GetMethod("ctor", true, paction, pstate, pcancellationToken, pcreationOptions).Import();
+				this.var_ctor_0_4 = this.builderType.GetMethod(".ctor", true, paction, pstate, pcancellationToken, pcreationOptions).Import();
 			
 			return this.var_ctor_0_4;
 						
@@ -24184,7 +24184,7 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.UInt32).AreEqual(pvalue))
 			{
 				if(this.var_ctor_0_1 == null)
-					this.var_ctor_0_1 = this.builderType.GetMethod("ctor", true, pvalue).Import();
+					this.var_ctor_0_1 = this.builderType.GetMethod(".ctor", true, pvalue).Import();
 			
 				return this.var_ctor_0_1;
 			}
@@ -24192,7 +24192,7 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.UInt64).AreEqual(pvalue))
 			{
 				if(this.var_ctor_1_1 == null)
-					this.var_ctor_1_1 = this.builderType.GetMethod("ctor", true, pvalue).Import();
+					this.var_ctor_1_1 = this.builderType.GetMethod(".ctor", true, pvalue).Import();
 			
 				return this.var_ctor_1_1;
 			}
@@ -24906,7 +24906,7 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_ctor_0_1 == null)
-				this.var_ctor_0_1 = this.builderType.GetMethod("ctor", true, puriString).Import();
+				this.var_ctor_0_1 = this.builderType.GetMethod(".ctor", true, puriString).Import();
 			
 			return this.var_ctor_0_1;
 						
@@ -24935,7 +24935,7 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.String).AreEqual(puriString) && typeof(System.Boolean).AreEqual(pdontEscape))
 			{
 				if(this.var_ctor_0_2 == null)
-					this.var_ctor_0_2 = this.builderType.GetMethod("ctor", true, puriString, pdontEscape).Import();
+					this.var_ctor_0_2 = this.builderType.GetMethod(".ctor", true, puriString, pdontEscape).Import();
 			
 				return this.var_ctor_0_2;
 			}
@@ -24943,7 +24943,7 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.String).AreEqual(puriString) && typeof(System.UriKind).AreEqual(pdontEscape))
 			{
 				if(this.var_ctor_1_2 == null)
-					this.var_ctor_1_2 = this.builderType.GetMethod("ctor", true, puriString, pdontEscape).Import();
+					this.var_ctor_1_2 = this.builderType.GetMethod(".ctor", true, puriString, pdontEscape).Import();
 			
 				return this.var_ctor_1_2;
 			}
@@ -24951,7 +24951,7 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Uri).AreEqual(puriString) && typeof(System.String).AreEqual(pdontEscape))
 			{
 				if(this.var_ctor_2_2 == null)
-					this.var_ctor_2_2 = this.builderType.GetMethod("ctor", true, puriString, pdontEscape).Import();
+					this.var_ctor_2_2 = this.builderType.GetMethod(".ctor", true, puriString, pdontEscape).Import();
 			
 				return this.var_ctor_2_2;
 			}
@@ -24959,7 +24959,7 @@ namespace Cauldron.Interception.Cecilator
 			if(typeof(System.Uri).AreEqual(puriString) && typeof(System.Uri).AreEqual(pdontEscape))
 			{
 				if(this.var_ctor_3_2 == null)
-					this.var_ctor_3_2 = this.builderType.GetMethod("ctor", true, puriString, pdontEscape).Import();
+					this.var_ctor_3_2 = this.builderType.GetMethod(".ctor", true, puriString, pdontEscape).Import();
 			
 				return this.var_ctor_3_2;
 			}
@@ -24980,7 +24980,7 @@ namespace Cauldron.Interception.Cecilator
 						
 						
 			if(this.var_ctor_0_3 == null)
-				this.var_ctor_0_3 = this.builderType.GetMethod("ctor", true, pbaseUri, prelativeUri, pdontEscape).Import();
+				this.var_ctor_0_3 = this.builderType.GetMethod(".ctor", true, pbaseUri, prelativeUri, pdontEscape).Import();
 			
 			return this.var_ctor_0_3;
 						

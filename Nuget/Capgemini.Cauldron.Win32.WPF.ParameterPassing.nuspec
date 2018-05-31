@@ -21,7 +21,7 @@
       2017.12.21 - [C] Now uses the NET461 assembly version of the randomizer.
     </releaseNotes>
     <dependencies>
-      <dependency id="Capgemini.Cauldron.Core.Randomizer" version="3.0.21" />
+      <dependency id="Capgemini.Cauldron.Core.Randomizer" version="3.0.22" />
     </dependencies>
     <frameworkAssemblies>
       <frameworkAssembly assemblyName="PresentationCore" />

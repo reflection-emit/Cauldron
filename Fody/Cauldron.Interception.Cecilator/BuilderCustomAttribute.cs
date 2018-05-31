@@ -86,7 +86,7 @@ namespace Cauldron.Interception.Cecilator
                 switch (value)
                 {
                     case Type systemtype:
-                        return systemtype.ToBuilderType().typeReference;
+                        return Builder.Current.Import(systemtype.ToBuilderType().typeReference);
 
                     default: return value;
                 }
@@ -97,7 +97,7 @@ namespace Cauldron.Interception.Cecilator
             var parameters = paramFunc();
 
             if (parameters == null || parameters.Length == 0)
-                ctor = type.ParameterlessContructor?.Import();
+                ctor = type.ParameterlessContructor;
             else
             {
                 ctor = type.Methods.FirstOrDefault(x =>
@@ -118,18 +118,18 @@ namespace Cauldron.Interception.Cecilator
                     }
 
                     return true;
-                })?.Import();
+                });
             }
 
             if (ctor == null)
                 throw new ArgumentException($"Unable to find matching ctor in '{attributeType.Name}' for parameters: '{ string.Join(", ", parameters.Select(x => x?.Item1?.FullName ?? "null"))}'.");
 
-            var attribute = new CustomAttribute(ctor.methodReference);
+            var attribute = new CustomAttribute(Builder.Current.Import(ctor.methodReference));
             var ctorMethodReference = ctor.methodReference;
 
             if (ctorMethodReference.Parameters.Count > 0)
                 for (int i = 0; i < ctorMethodReference.Parameters.Count; i++)
-                    attribute.ConstructorArguments.Add(new CustomAttributeArgument(ctorMethodReference.Parameters[i].ParameterType, ConvertToAttributeParameter(parameters[i].Item2)));
+                    attribute.ConstructorArguments.Add(new CustomAttributeArgument(Builder.Current.Import(ctorMethodReference.Parameters[i].ParameterType), ConvertToAttributeParameter(parameters[i].Item2)));
 
             return new BuilderCustomAttribute(type.Builder, null, attribute);
         }

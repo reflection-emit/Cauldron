@@ -224,7 +224,7 @@ namespace Cauldron.Interception.Cecilator.Coders
         public Coder Newarr(BuilderType type, int size)
         {
             this.instructions.Append(InstructionBlock.CreateCode(this.instructions, null, size));
-            this.instructions.Emit(OpCodes.Newarr, type.Import().typeReference);
+            this.instructions.Emit(OpCodes.Newarr, Builder.Current.Import(type.typeReference));
 
             return this;
         }

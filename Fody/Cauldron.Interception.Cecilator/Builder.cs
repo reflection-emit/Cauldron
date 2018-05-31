@@ -469,7 +469,7 @@ namespace Cauldron.Interception.Cecilator
                 return null;
 
             if (result.Module.FileName.GetHashCode() != this.moduleDefinition.FileName.GetHashCode() && result.Module.FileName != this.moduleDefinition.FileName)
-                this.moduleDefinition.ImportReference(result);
+                result = this.moduleDefinition.ImportReference(result);
 
             return new BuilderType(this, result);
         }

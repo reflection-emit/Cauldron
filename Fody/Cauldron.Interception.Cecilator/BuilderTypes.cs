@@ -122,4 +122,20 @@ namespace Cauldron.Interception.Cecilator
             return constructor_string;
         }
     }
+
+    public partial class BuilderTypeUri : TypeSystemExBase
+    {
+        /// <summary>
+        /// Represents the following method:
+        /// <para />
+        /// Void .ctor(System.String)<para/>
+        /// </summary>
+        public Method GetMethod_ctor()
+        {
+            if (this.var_ctor_0_1 == null)
+                this.var_ctor_0_1 = this.builderType.GetMethod(".ctor", 1, true).Import();
+
+            return this.var_ctor_0_1;
+        }
+    }
 }

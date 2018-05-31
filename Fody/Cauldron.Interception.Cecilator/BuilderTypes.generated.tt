@@ -280,7 +280,7 @@ namespace Cauldron.Interception.Cecilator
 public Method GetMethod_<#=group[0].Name#>()
 		{
 			if(this.var_<#= $"{group[0].Name.ToLower()}_{0}_{group[0].Parameters.Length}"#> == null)
-				this.var_<#= $"{group[0].Name.ToLower()}_{0}_{group[0].Parameters.Length}"#> = this.builderType.GetMethod("<#=group[0].Name#>", <#=group[0].Parameters.Length#>, true).Import();
+				this.var_<#= $"{group[0].Name.ToLower()}_{0}_{group[0].Parameters.Length}"#> = this.builderType.GetMethod("<#=group[0].RealName#>", <#=group[0].Parameters.Length#>, true).Import();
 
 			return this.var_<#= $"{group[0].Name.ToLower()}_{0}_{group[0].Parameters.Length}"#>;
 		}
@@ -290,14 +290,14 @@ public Method GetMethod_<#=group[0].Name#>(<#=string.Join(", ", group[0].Paramet
 			<# if(group.Length == 1 && group[0].Parameters.Length == 0) { #>
 			
 			if(this.var_<#= $"{group[0].Name.ToLower()}_{0}_{group[0].Parameters.Length}"#> == null)
-				this.var_<#= $"{group[0].Name.ToLower()}_{0}_{group[0].Parameters.Length}"#> = this.builderType.GetMethod("<#=group[0].Name#>", true).Import();
+				this.var_<#= $"{group[0].Name.ToLower()}_{0}_{group[0].Parameters.Length}"#> = this.builderType.GetMethod("<#=group[0].RealName#>", true).Import();
 
 			return this.var_<#= $"{group[0].Name.ToLower()}_{0}_{group[0].Parameters.Length}"#>;
 			<#}#>			
 			<# if(group.Length == 1 && group[0].Parameters.Length > 0) { #>
 			
 			if(this.var_<#= $"{group[0].Name.ToLower()}_{0}_{group[0].Parameters.Length}"#> == null)
-				this.var_<#= $"{group[0].Name.ToLower()}_{0}_{group[0].Parameters.Length}"#> = this.builderType.GetMethod("<#=group[0].Name#>", true, <#=string.Join(", ", group[0].Parameters.Select(x => "p" + x.Name).ToArray()) #>).Import();
+				this.var_<#= $"{group[0].Name.ToLower()}_{0}_{group[0].Parameters.Length}"#> = this.builderType.GetMethod("<#=group[0].RealName#>", true, <#=string.Join(", ", group[0].Parameters.Select(x => "p" + x.Name).ToArray()) #>).Import();
 			
 			return this.var_<#= $"{group[0].Name.ToLower()}_{0}_{group[0].Parameters.Length}"#>;
 			<#}#>
@@ -312,7 +312,7 @@ public Method GetMethod_<#=group[0].Name#>(<#=string.Join(", ", group[0].Paramet
 			if(<#=string.Join(" && ", itemParameters.Select(x => $"typeof({StringRepresentationToCSharp(x.ParameterType.FullName)}).AreEqual(p{group[0].Parameters[x.Position].Name})")) #>)
 			{
 				if(this.var_<#= $"{group[i].Name.ToLower()}_{i}_{itemParameters.Length}"#> == null)
-					this.var_<#= $"{group[i].Name.ToLower()}_{i}_{itemParameters.Length}"#> = this.builderType.GetMethod("<#=group[i].Name#>", true, <#=string.Join(", ", group[0].Parameters.Select(x => "p" + x.Name).ToArray()) #>).Import();
+					this.var_<#= $"{group[i].Name.ToLower()}_{i}_{itemParameters.Length}"#> = this.builderType.GetMethod("<#=group[i].RealName#>", true, <#=string.Join(", ", group[0].Parameters.Select(x => "p" + x.Name).ToArray()) #>).Import();
 			
 				return this.var_<#= $"{group[i].Name.ToLower()}_{i}_{itemParameters.Length}"#>;
 			}
@@ -351,17 +351,20 @@ public Method GetMethod_<#=group[0].Name#>(<#=string.Join(", ", group[0].Paramet
     {
         public MethodInfos(MethodInfo methodInfo, bool isSingle)
         {
+            this.RealName = methodInfo.Name;
             this.Name = methodInfo.Name.Replace(".", "");
-            this.VariableName = "_" + methodInfo.Name.ToLower();
+            this.VariableName = "_" + methodInfo.Name.Replace(".", "").ToLower();
             this.Parameters = methodInfo.GetParameters();
             this.IsSingle = isSingle;
             this.IsGenericMethodDefinition = methodInfo.IsGenericMethodDefinition;
             this.ContainsGenericParameters = methodInfo.ContainsGenericParameters;
             this.Fullname = methodInfo.ToString();
+			this.IsConstructor = false;
         }
 
         public MethodInfos(ConstructorInfo constructorInfo, bool isSingle)
         {
+            this.RealName = constructorInfo.Name;
             this.Name = constructorInfo.Name.Replace(".", "");
             this.VariableName = "_" + constructorInfo.Name.ToLower();
             this.Parameters = constructorInfo.GetParameters();
@@ -369,6 +372,7 @@ public Method GetMethod_<#=group[0].Name#>(<#=string.Join(", ", group[0].Paramet
             this.IsGenericMethodDefinition = constructorInfo.IsGenericMethodDefinition;
             this.ContainsGenericParameters = constructorInfo.ContainsGenericParameters;
             this.Fullname = constructorInfo.ToString();
+			this.IsConstructor = true;
         }
 
         public bool ContainsGenericParameters { get; }
@@ -405,7 +409,9 @@ public Method GetMethod_<#=group[0].Name#>(<#=string.Join(", ", group[0].Paramet
             }
         }
 
+		public bool IsConstructor { get; }
         public string Name { get; }
+        public string RealName { get; }
         public ParameterInfo[] Parameters { get; }
         public string VariableName { get; }
 

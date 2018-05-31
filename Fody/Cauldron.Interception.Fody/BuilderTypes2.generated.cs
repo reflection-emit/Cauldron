@@ -1332,7 +1332,7 @@ namespace Cauldron.Interception.Fody
 		public Method GetMethod_ctor()
 		{
 			if(this.var_ctor_0_0 == null)
-				this.var_ctor_0_0 = this.builderType.GetMethod("ctor", 0, true).Import();
+				this.var_ctor_0_0 = this.builderType.GetMethod(".ctor", 0, true).Import();
 
 			return this.var_ctor_0_0;
 		}
@@ -1555,7 +1555,7 @@ namespace Cauldron.Interception.Fody
 			if(typeof(System.String).AreEqual(pcontractName) && typeof(System.UInt32).AreEqual(ppriority))
 			{
 				if(this.var_ctor_0_2 == null)
-					this.var_ctor_0_2 = this.builderType.GetMethod("ctor", true, pcontractName, ppriority).Import();
+					this.var_ctor_0_2 = this.builderType.GetMethod(".ctor", true, pcontractName, ppriority).Import();
 			
 				return this.var_ctor_0_2;
 			}
@@ -1563,7 +1563,7 @@ namespace Cauldron.Interception.Fody
 			if(typeof(System.Type).AreEqual(pcontractName) && typeof(System.UInt32).AreEqual(ppriority))
 			{
 				if(this.var_ctor_1_2 == null)
-					this.var_ctor_1_2 = this.builderType.GetMethod("ctor", true, pcontractName, ppriority).Import();
+					this.var_ctor_1_2 = this.builderType.GetMethod(".ctor", true, pcontractName, ppriority).Import();
 			
 				return this.var_ctor_1_2;
 			}
@@ -1589,7 +1589,7 @@ namespace Cauldron.Interception.Fody
 			if(typeof(System.String).AreEqual(pcontractName))
 			{
 				if(this.var_ctor_0_1 == null)
-					this.var_ctor_0_1 = this.builderType.GetMethod("ctor", true, pcontractName).Import();
+					this.var_ctor_0_1 = this.builderType.GetMethod(".ctor", true, pcontractName).Import();
 			
 				return this.var_ctor_0_1;
 			}
@@ -1597,7 +1597,7 @@ namespace Cauldron.Interception.Fody
 			if(typeof(System.Type).AreEqual(pcontractName))
 			{
 				if(this.var_ctor_1_1 == null)
-					this.var_ctor_1_1 = this.builderType.GetMethod("ctor", true, pcontractName).Import();
+					this.var_ctor_1_1 = this.builderType.GetMethod(".ctor", true, pcontractName).Import();
 			
 				return this.var_ctor_1_1;
 			}
@@ -1742,7 +1742,7 @@ namespace Cauldron.Interception.Fody
 		public Method GetMethod_ctor()
 		{
 			if(this.var_ctor_0_0 == null)
-				this.var_ctor_0_0 = this.builderType.GetMethod("ctor", 0, true).Import();
+				this.var_ctor_0_0 = this.builderType.GetMethod(".ctor", 0, true).Import();
 
 			return this.var_ctor_0_0;
 		}
@@ -2796,7 +2796,7 @@ namespace Cauldron.Interception.Fody
 		public Method GetMethod_ctor()
 		{
 			if(this.var_ctor_0_0 == null)
-				this.var_ctor_0_0 = this.builderType.GetMethod("ctor", 0, true).Import();
+				this.var_ctor_0_0 = this.builderType.GetMethod(".ctor", 0, true).Import();
 
 			return this.var_ctor_0_0;
 		}
@@ -3100,7 +3100,7 @@ namespace Cauldron.Interception.Fody
 			if(typeof(System.Type).AreEqual(ptype) && typeof(System.Type).AreEqual(pcontractType))
 			{
 				if(this.var_ctor_0_2 == null)
-					this.var_ctor_0_2 = this.builderType.GetMethod("ctor", true, ptype, pcontractType).Import();
+					this.var_ctor_0_2 = this.builderType.GetMethod(".ctor", true, ptype, pcontractType).Import();
 			
 				return this.var_ctor_0_2;
 			}
@@ -3108,7 +3108,7 @@ namespace Cauldron.Interception.Fody
 			if(typeof(System.Type).AreEqual(ptype) && typeof(System.String).AreEqual(pcontractType))
 			{
 				if(this.var_ctor_1_2 == null)
-					this.var_ctor_1_2 = this.builderType.GetMethod("ctor", true, ptype, pcontractType).Import();
+					this.var_ctor_1_2 = this.builderType.GetMethod(".ctor", true, ptype, pcontractType).Import();
 			
 				return this.var_ctor_1_2;
 			}
@@ -3784,7 +3784,7 @@ namespace Cauldron.Interception.Fody
 		public Method GetMethod_ctor()
 		{
 			if(this.var_ctor_0_0 == null)
-				this.var_ctor_0_0 = this.builderType.GetMethod("ctor", 0, true).Import();
+				this.var_ctor_0_0 = this.builderType.GetMethod(".ctor", 0, true).Import();
 
 			return this.var_ctor_0_0;
 		}
@@ -4270,7 +4270,7 @@ namespace Cauldron.Interception.Fody
 		public Method GetMethod_ctor()
 		{
 			if(this.var_ctor_0_7 == null)
-				this.var_ctor_0_7 = this.builderType.GetMethod("ctor", 7, true).Import();
+				this.var_ctor_0_7 = this.builderType.GetMethod(".ctor", 7, true).Import();
 
 			return this.var_ctor_0_7;
 		}
@@ -4741,7 +4741,7 @@ namespace Cauldron.Interception.Fody
 		public Method GetMethod_ctor()
 		{
 			if(this.var_ctor_0_0 == null)
-				this.var_ctor_0_0 = this.builderType.GetMethod("ctor", 0, true).Import();
+				this.var_ctor_0_0 = this.builderType.GetMethod(".ctor", 0, true).Import();
 
 			return this.var_ctor_0_0;
 		}

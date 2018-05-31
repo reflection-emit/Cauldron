@@ -189,12 +189,6 @@ namespace Cauldron.Interception.Cecilator
 
         #region Constructors
 
-        //internal BuilderType(IWeaver weaver, TypeReference typeReference, TypeDefinition typeDefinition) : base(weaver)
-        //{
-        //    this.typeDefinition = typeDefinition;
-        //    this.typeReference = typeReference;
-        //}
-
         internal BuilderType(Builder builder, ArrayType arrayType) : base(builder)
         {
             this.IsByReference = arrayType.IsByReference;
@@ -361,7 +355,7 @@ namespace Cauldron.Interception.Cecilator
             }
         }
 
-        public BuilderType MakeArray() => new BuilderType(this.Builder, new ArrayType(this.typeReference));
+        public BuilderType MakeArray() => new BuilderType(this.Builder, new ArrayType(this.moduleDefinition.ImportReference(this.typeReference)));
 
         public BuilderType MakeGeneric(params BuilderType[] typeReference) => new BuilderType(this.Builder, this.typeDefinition.MakeGenericInstanceType(typeReference.Select(x => x.typeReference).ToArray()));
 

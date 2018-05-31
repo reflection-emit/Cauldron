@@ -16,11 +16,11 @@ public static class Weaver_WPF
     [Display("WPF/XAML Interceptor")]
     public static void Implement(Builder builder)
     {
-        var multiBindingValueConverterInterface = builder.TypeExists("System.Windows.Data.IMultiValueConverter") ? builder.GetType("System.Windows.Data.IMultiValueConverter") : null;
-        var valueConverterInterface = builder.TypeExists("Windows.UI.Xaml.Data.IValueConverter") ? builder.GetType("Windows.UI.Xaml.Data.IValueConverter") : builder.GetType("System.Windows.Data.IValueConverter");
-        var notifyPropertyChangedInterface = builder.GetType("System.ComponentModel.INotifyPropertyChanged");
-        var componentAttribute = builder.GetType("Cauldron.Activator.ComponentAttribute");
-        var componentConstructorAttribute = builder.GetType("Cauldron.Activator.ComponentConstructorAttribute");
+        var multiBindingValueConverterInterface = builder.TypeExists("System.Windows.Data.IMultiValueConverter") ? builder.GetType("System.Windows.Data.IMultiValueConverter").Import() : null;
+        var valueConverterInterface = builder.TypeExists("Windows.UI.Xaml.Data.IValueConverter") ? builder.GetType("Windows.UI.Xaml.Data.IValueConverter").Import() : builder.GetType("System.Windows.Data.IValueConverter").Import();
+        var notifyPropertyChangedInterface = builder.GetType("System.ComponentModel.INotifyPropertyChanged").Import();
+        var componentAttribute = builder.GetType("Cauldron.Activator.ComponentAttribute").Import();
+        var componentConstructorAttribute = builder.GetType("Cauldron.Activator.ComponentConstructorAttribute").Import();
         var windowType = builder.TypeExists("System.Windows.Window") ? builder.GetType("System.Windows.Window") : null;
 
         var views = builder.FindTypesByBaseClass("FrameworkElement").Where(x => x.IsPublic);
@@ -189,7 +189,7 @@ public static class Weaver_WPF
                 context.SetValue(resourceDictionaryInstance, x => x.NewObj(resourceDictionary.Ctor));
                 context.Load(resourceDictionaryInstance)
                     .Call(resourceDictionary.SetSource,
-                        x => x.NewObj(BuilderTypes.Uri.GetMethod_ctor(BuilderTypes.String), $"pack://application:,,,/{Path.GetFileNameWithoutExtension(builder.Name)};component/{item.Item}"));
+                        x => x.NewObj(BuilderTypes.Uri.GetMethod_ctor(), $"pack://application:,,,/{Path.GetFileNameWithoutExtension(builder.Name)};component/{item.Item}"));
                 context.Load(resourceDick)
                     .Call(BuilderTypes.ICollection1.GetMethod_Add().MakeGeneric(__ResourceDictionary.Type), resourceDictionaryInstance);
             }

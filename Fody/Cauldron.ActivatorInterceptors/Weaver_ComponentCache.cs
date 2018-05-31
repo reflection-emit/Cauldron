@@ -50,13 +50,7 @@ public static class Weaver_ComponentCache
 
         int counter = 0;
 
-        var extensionAvatar = builder.GetType("Cauldron.ExtensionsReflection").With(x => new
-        {
-            CreateInstance = x.GetMethod("CreateInstance", 2)
-        });
-
-        var factoryTypeInfoInterface = BuilderTypes2.IFactoryTypeInfo;
-        var createInstanceInterfaceMethod = factoryTypeInfoInterface.GetMethod_CreateInstance();
+        var createInstanceInterfaceMethod = BuilderTypes2.IFactoryTypeInfo.GetMethod_CreateInstance();
 
         // Get all Components
         var componentTypes = new List<BuilderType>();
@@ -108,7 +102,7 @@ public static class Weaver_ComponentCache
 
             var instanceFieldName = $"<{component.Type}>_componentInstance";
             var componentType = builder.CreateType("", TypeAttributes.NotPublic | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit, "<>f__IFactoryTypeInfo_" + component.Type.Name.GetValidName() + "_" + counter++);
-            componentType.AddInterface(factoryTypeInfoInterface);
+            componentType.AddInterface(BuilderTypes2.IFactoryTypeInfo);
             componentType.CustomAttributes.AddDebuggerDisplayAttribute(component.Type.Name + " ({ContractName})");
             componentTypes.Add(componentType);
 
@@ -140,6 +134,7 @@ public static class Weaver_ComponentCache
                             .EndTry()
                             .Return()
                             .Replace();
+                        cauldron.CreateStaticConstructor().NewCoder().SetValue(instanceFieldSyncObject, BuilderTypes.Object.GetMethod_ctor()).Insert(InsertionPosition.Beginning);
 
                         x.If(@if => @if.Load(instanceField).IsNotNull(), then => then.Load(instanceField).Return());
                         x.SetValue(instanceField, m => m.Call(instancedCreator, CodeBlocks.GetParameters()));
@@ -175,7 +170,7 @@ public static class Weaver_ComponentCache
                 .Replace();
 
             // Implement the properties
-            foreach (var property in factoryTypeInfoInterface.BuilderType.Properties)
+            foreach (var property in BuilderTypes2.IFactoryTypeInfo.BuilderType.Properties)
             {
                 var propertyResult = componentType.CreateProperty(Modifiers.Public | Modifiers.Overrides, property.ReturnType, property.Name,
                     property.Setter == null ? PropertySetterCreationOption.DontCreateSetter : PropertySetterCreationOption.AlwaysCreate);
@@ -185,7 +180,8 @@ public static class Weaver_ComponentCache
                     case "ContractName":
 
                         if (string.IsNullOrEmpty(componentAttributeValue.ContractName))
-                            componentTypeCtor.SetValue(propertyResult.BackingField, x => x.Load(componentAttributeValue.ContractType).Call(BuilderTypes.Type.GetMethod_get_FullName()));
+                            componentTypeCtor.SetValue(propertyResult.BackingField, x =>
+                                x.Load(builder.Import((TypeReference)componentAttributeValue.ContractType).ToBuilderType()).Call(BuilderTypes.Type.GetMethod_get_FullName()));
                         else
                         {
                             propertyResult.BackingField.Remove();
@@ -233,7 +229,7 @@ public static class Weaver_ComponentCache
         builder.Log(LogTypes.Info, "Adding component IFactoryCache Interface");
 
         var linqEnumerable = builder.GetType("System.Linq.Enumerable", SearchContext.AllReferencedModules);
-        var ifactoryTypeInfo = factoryTypeInfoInterface.BuilderType.MakeArray();
+        var ifactoryTypeInfo = BuilderTypes2.IFactoryTypeInfo.BuilderType.Import().MakeArray();
         var getComponentsFromOtherAssemblies = builder.ReferencedAssemblies
             .Select(x => x.MainModule.GetType("CauldronInterceptionHelper"))
             .Where(x => x != null)
@@ -252,7 +248,7 @@ public static class Weaver_ComponentCache
                     context.If(x => x.Load(componentsField).IsNotNull(), then => then.Load(componentsField).Return());
 
                     var resultValue = context.GetOrCreateReturnVariable();
-                    context.SetValue(resultValue, x => x.Newarr(factoryTypeInfoInterface, componentTypes.Count));
+                    context.SetValue(resultValue, x => x.Newarr(BuilderTypes2.IFactoryTypeInfo, componentTypes.Count));
 
                     for (int i = 0; i < componentTypes.Count; i++)
                     {
