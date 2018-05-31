@@ -328,6 +328,15 @@ namespace Cauldron.Interception.Cecilator.Coders
             return this;
         }
 
+        public Coder ThrowNew(Type exception, Func<Coder, Coder> coder)
+        {
+            var newCoder = coder(this.NewCoder());
+            var ctor = Builder.Current.Import(exception).ToBuilderType().GetMethod(".ctor", true, newCoder.instructions.ResultingType);
+            this.instructions.Append(InstructionBlock.NewObj(this.instructions, ctor, newCoder));
+            this.instructions.Emit(OpCodes.Throw);
+            return this;
+        }
+
         public Coder ThrowNew(Type exception, string message)
         {
             this.instructions.Emit(OpCodes.Ldstr, message);

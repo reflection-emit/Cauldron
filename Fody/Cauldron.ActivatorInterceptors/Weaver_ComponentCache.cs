@@ -11,8 +11,11 @@ using System.Linq;
 public static class Weaver_ComponentCache
 {
     public const string NoIDisposableObjectExceptionText = "An object with creation policy 'Singleton' with an implemented 'IDisposable' must also implement the 'IDisposableObject' interface.";
+    public const string UnknownConstructor = "There is no defined constructor that matches the passed parameters for component ";
     public static string Name = "Activator Component Cache (Dependency Injection)";
+    public static Field noIDisposableObjectExceptionText;
     public static int Priority = int.MaxValue;
+    public static Field unknownConstructorText;
 
     [Display("Creating Component Cache and Inject Attribute")]
     public static void Implement(Builder builder)
@@ -23,12 +26,16 @@ public static class Weaver_ComponentCache
         var componentAttribute = BuilderTypes2.ComponentAttribute;
         var genericComponentAttribute = BuilderTypes2.GenericComponentAttribute;
         var factory = BuilderTypes2.Factory;
-        var noIDisposableObjectExceptionText = cauldron.CreateField(Modifiers.PublicStatic, (BuilderType)BuilderTypes.String, "NoIDisposableObjectExceptionText");
+        noIDisposableObjectExceptionText = cauldron.CreateField(Modifiers.PublicStatic, (BuilderType)BuilderTypes.String, "NoIDisposableObjectExceptionText");
+        unknownConstructorText = cauldron.CreateField(Modifiers.PublicStatic, (BuilderType)BuilderTypes.String, "UnknownConstructorText");
         noIDisposableObjectExceptionText.CustomAttributes.AddCompilerGeneratedAttribute();
         noIDisposableObjectExceptionText.CustomAttributes.AddEditorBrowsableAttribute(EditorBrowsableState.Never);
+        unknownConstructorText.CustomAttributes.AddCompilerGeneratedAttribute();
+        unknownConstructorText.CustomAttributes.AddEditorBrowsableAttribute(EditorBrowsableState.Never);
 
         cauldron.CreateStaticConstructor().NewCoder()
             .SetValue(noIDisposableObjectExceptionText, NoIDisposableObjectExceptionText)
+            .SetValue(unknownConstructorText, UnknownConstructor)
             .Insert(InsertionPosition.Beginning);
 
         // Before we start let us find all factoryextensions and add a component attribute to them
@@ -144,7 +151,7 @@ public static class Weaver_ComponentCache
                                 .Return()
                                 .Replace();
 
-                            then.Load(instanceField).As(BuilderTypes2.IDisposableObject).Call(BuilderTypes2.IDisposableObject.GetMethod_add_Disposed(BuilderTypes.EventHandler), o => o.NewObj(BuilderTypes.EventHandler.GetConstructor(), CodeBlocks.This, eventHandlerMethod));
+                            then.Load(instanceField).As(BuilderTypes2.IDisposableObject).Call(BuilderTypes2.IDisposableObject.GetMethod_add_Disposed(), o => o.NewObj(BuilderTypes.EventHandler.GetConstructor(), CodeBlocks.This, eventHandlerMethod));
 
                             return then;
                         });
@@ -476,9 +483,14 @@ public static class Weaver_ComponentCache
             }
         }
 
+        context.ThrowNew(typeof(NotImplementedException), x =>
+            x.Call(BuilderTypes.String.GetMethod_Concat(BuilderTypes.String, BuilderTypes.String), unknownConstructorText, component.Type.Fullname).End);
+
+        /*
         context.Call(BuilderTypes2.ExtensionsReflection.GetMethod_CreateInstance(), component.Type, CodeBlocks.GetParameter(0));
         if (componentAttributeValues.InvokeOnObjectCreationEvent)
             context.Duplicate().Call(factory.GetMethod_OnObjectCreation(), CodeBlocks.This);
+            */
 
         return context.Return();
     }
@@ -493,7 +505,7 @@ public static class Weaver_ComponentCache
             handler.CustomAttributes.AddCompilerGeneratedAttribute();
             handler.NewCoder().Return().Replace();
             declaringType.CreateStaticConstructor().NewCoder().Call(handler, new object[] { null, null }).End.Insert(InsertionPosition.Beginning);
-            declaringType.CreateStaticConstructor().NewCoder().Call(BuilderTypes2.Factory.GetMethod_add_Rebuilt(BuilderTypes.EventHandler), x => x.NewObj(BuilderTypes.EventHandler.GetConstructor(), CodeBlocks.This, handler)).End.Insert(InsertionPosition.End);
+            declaringType.CreateStaticConstructor().NewCoder().Call(BuilderTypes2.Factory.GetMethod_add_Rebuilt(), x => x.NewObj(BuilderTypes.EventHandler.GetConstructor(), CodeBlocks.This, handler)).End.Insert(InsertionPosition.End);
         }
         AssignFactoryGetFactoryInfo(handler.NewCoder(), injectAttributeValues, property, injectorField, factoryTypeInfoGet);
         return handler;
@@ -581,7 +593,7 @@ public static class Weaver_ComponentCache
                                                                     factory.GetMethod_CreateManyOrdered(BuilderTypes.String) :
                                                                     factory.GetMethod_CreateMany(BuilderTypes.String), injectAttributeValues.ContractName, variable ?? null));
         }
-        else if (injectAttributeValues.InjectFirst && (injectAttributeValues.Arguments == null || injectAttributeValues.Arguments.Length == 0))
+        else if (injectAttributeValues.InjectFirst && (injectAttributeValues.Arguments == null || injectAttributeValues.Arguments.Length == 0) && !injectAttributeValues.NoPreloading)
         {
             // Special case for parameterless injections - preloading stuff in .cctor
             var injectorField = CreateInjectorField(property);
@@ -597,7 +609,7 @@ public static class Weaver_ComponentCache
             else
                 then.SetValue(property.BackingField, x => x.Call(factory.GetMethod_CreateFirst(BuilderTypes.String), injectAttributeValues.ContractName, variable ?? null));
         }
-        else if (injectAttributeValues.Arguments == null || injectAttributeValues.Arguments.Length == 0)
+        else if ((injectAttributeValues.Arguments == null || injectAttributeValues.Arguments.Length == 0) && !injectAttributeValues.NoPreloading)
         {
             // Special case for parameterless injections - preloading stuff in .cctor
             var injectorField = CreateInjectorField(property);
@@ -715,7 +727,7 @@ public static class Weaver_ComponentCache
                         }))
                     .Finally(@finally =>
                     {
-                        return @finally.If(x => x.Load(lockTaken).Is(true), x => x.Call(monitor.GetMethod_Exit(BuilderTypes.Object), syncObject));
+                        return @finally.If(x => x.Load(lockTaken).Is(true), x => x.Call(monitor.GetMethod_Exit(), syncObject));
                     })
                     .EndTry()
                     .Return()
@@ -778,6 +790,7 @@ public static class Weaver_ComponentCache
             if (builderCustomAttribute.Properties.ContainsKey("IsOrdered")) this.IsOrdered = (bool)builderCustomAttribute.Properties["IsOrdered"].Value;
             if (builderCustomAttribute.Properties.ContainsKey("MakeThreadSafe")) this.MakeThreadSafe = (bool)builderCustomAttribute.Properties["MakeThreadSafe"].Value;
             if (builderCustomAttribute.Properties.ContainsKey("ForceDontCreateMany")) this.ForceDontCreateMany = (bool)builderCustomAttribute.Properties["ForceDontCreateMany"].Value;
+            if (builderCustomAttribute.Properties.ContainsKey("NoPreloading")) this.NoPreloading = (bool)builderCustomAttribute.Properties["NoPreloading"].Value;
         }
 
         public CustomAttributeArgument[] Arguments { get; }
@@ -787,5 +800,6 @@ public static class Weaver_ComponentCache
         public bool InjectFirst { get; }
         public bool IsOrdered { get; }
         public bool MakeThreadSafe { get; }
+        public bool NoPreloading { get; }
     }
 }

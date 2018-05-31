@@ -131,12 +131,7 @@ public static class Weaver_WPF
 
         builder.Log(LogTypes.Info, "Checking for xaml/baml resources without initializers.");
 
-        var application = new __Application();
-        var extensions = new __Extensions();
         var resourceDictionary = new __ResourceDictionary();
-        var collection = new __ICollection_1();
-        var uri = new __Uri();
-
         builder.Log(LogTypes.Info, "Implementing XAML initializer for baml resources.");
 
         // First we have to find every InitializeComponent method so that we can remove bamls that are already initialized.
@@ -172,18 +167,18 @@ public static class Weaver_WPF
             .ToArray();
 
         var resourceDictionaryMergerClass = builder.CreateType("XamlGeneratedNamespace", TypeAttributes.Public | TypeAttributes.Class | TypeAttributes.Sealed, "<>_generated_resourceDictionary_Loader");
-        resourceDictionaryMergerClass.CustomAttributes.Add(__ComponentAttribute.Type, __ResourceDictionary.Type.Fullname);
+        resourceDictionaryMergerClass.CustomAttributes.Add(BuilderTypes2.ComponentAttribute.BuilderType, __ResourceDictionary.Type.Fullname);
         resourceDictionaryMergerClass.CustomAttributes.AddEditorBrowsableAttribute(EditorBrowsableState.Never);
         resourceDictionaryMergerClass.CustomAttributes.AddCompilerGeneratedAttribute();
 
         //var method = resourceDictionaryMergerClass.CreateMethod(Modifiers.Private, "AddToDictionary", typeof(string));
         resourceDictionaryMergerClass.CreateConstructor().NewCoder().Context(context =>
         {
-            var resourceDick = context.AssociatedMethod.GetOrCreateVariable(__ICollection_1.Type.MakeGeneric(__ResourceDictionary.Type));
+            var resourceDick = context.AssociatedMethod.GetOrCreateVariable(BuilderTypes.ICollection1.BuilderType.MakeGeneric(__ResourceDictionary.Type));
             context
                 .SetValue(resourceDick, x =>
-                    x.Call(application.Current)
-                    .Call(application.Resources)
+                    x.Call(BuilderTypes2.Application.GetMethod_get_Current())
+                    .Call(BuilderTypes2.Application.GetMethod_get_Resources())
                     .Call(resourceDictionary.MergedDictionaries));
 
             var resourceDictionaryInstance = context.AssociatedMethod.GetOrCreateVariable(__ResourceDictionary.Type);
@@ -194,9 +189,9 @@ public static class Weaver_WPF
                 context.SetValue(resourceDictionaryInstance, x => x.NewObj(resourceDictionary.Ctor));
                 context.Load(resourceDictionaryInstance)
                     .Call(resourceDictionary.SetSource,
-                        x => x.NewObj(uri.Ctor, $"pack://application:,,,/{Path.GetFileNameWithoutExtension(builder.Name)};component/{item.Item}"));
+                        x => x.NewObj(BuilderTypes.Uri.GetMethod_ctor(BuilderTypes.String), $"pack://application:,,,/{Path.GetFileNameWithoutExtension(builder.Name)};component/{item.Item}"));
                 context.Load(resourceDick)
-                    .Call(collection.Add.MakeGeneric(__ResourceDictionary.Type), resourceDictionaryInstance);
+                    .Call(BuilderTypes.ICollection1.GetMethod_Add().MakeGeneric(__ResourceDictionary.Type), resourceDictionaryInstance);
             }
 
             return context;
@@ -208,15 +203,13 @@ public static class Weaver_WPF
         // TODO
 
         resourceDictionaryMergerClass.ParameterlessContructor.CustomAttributes.AddEditorBrowsableAttribute(EditorBrowsableState.Never);
-        resourceDictionaryMergerClass.ParameterlessContructor.CustomAttributes.Add(__ComponentConstructorAttribute.Type);
+        resourceDictionaryMergerClass.ParameterlessContructor.CustomAttributes.Add(BuilderTypes2.ComponentConstructorAttribute.BuilderType);
     }
 
     [Display("IChangeAwareViewModel implementer")]
     public static void ImplementPropertyChangedEvent(Builder builder)
     {
         var changeAwareInterface = new __IChangeAwareViewModel();
-        var eventHandlerGeneric = new __EventHandler_1();
-        var eventHandler = new __EventHandler();
         var viewModelInterface = new __IViewModel();
 
         // Get all viewmodels with implemented change aware interface
@@ -245,7 +238,7 @@ public static class Weaver_WPF
                     .If(x => x.Load(CodeBlocks.GetParameter(0)).Is("IsChanged"), then =>
 
                               then.If(z => z.Load(getIsChangeChangedEvent).IsNotNull(), thenInner =>
-                                  thenInner.Load(getIsChangeChangedEvent).Call(eventHandler.Invoke, CodeBlocks.This, thenInner.NewCoder().NewObj(eventHandler.EventArgs.Ctor)))
+                                  thenInner.Load(getIsChangeChangedEvent).Call(BuilderTypes.EventHandler.GetMethod_Invoke(), CodeBlocks.This, thenInner.NewCoder().NewObj(BuilderTypes.EventArgs.GetMethod_ctor())))
                                     .Call(viewModelInterface.RaisePropertyChanged, CodeBlocks.GetParameter(0))
                                       .Return()
                          )
@@ -253,7 +246,7 @@ public static class Weaver_WPF
 
                              then.Call(viewModelInterface.RaisePropertyChanged, CodeBlocks.GetParameter(0))
                                 .End
-                                .Load(getIsChangeEvent).Call(eventHandlerGeneric.Invoke.MakeGeneric(changeAwareInterface.PropertyIsChangedEventArgs.ToBuilderType),
+                                .Load(getIsChangeEvent).Call(BuilderTypes.EventHandler1.GetMethod_Invoke().MakeGeneric(changeAwareInterface.PropertyIsChangedEventArgs.ToBuilderType),
                                      x => CodeBlocks.This,
                                      x => x.NewObj(changeAwareInterface.PropertyIsChangedEventArgs.Ctor, CodeBlocks.GetParameter(0), CodeBlocks.GetParameter(1), CodeBlocks.GetParameter(2)))
 

@@ -108,51 +108,10 @@ namespace Cauldron.Interception.Fody
 
             throw new Exception("Method with defined parameters not found.");
         }
-
-        /// <summary>
-        /// Represents the following method:
-        /// <para />
-        /// Cauldron.Activator.IFactoryTypeInfo GetFactoryTypeInfo(System.String)<para/>
-        /// </summary>
-        public Method GetMethod_GetFactoryTypeInfo()
-        {
-            if (this.var_getfactorytypeinfo_0_1 == null)
-                this.var_getfactorytypeinfo_0_1 = this.builderType.GetMethod("GetFactoryTypeInfo", 1, true).Import();
-
-            return this.var_getfactorytypeinfo_0_1;
-        }
-
-        /// <summary>
-        /// Represents the following method:
-        /// <para />
-        /// Cauldron.Activator.IFactoryTypeInfo GetFactoryTypeInfoFirst(System.String)<para/>
-        /// </summary>
-        public Method GetMethod_GetFactoryTypeInfoFirst()
-        {
-            if (this.var_getfactorytypeinfofirst_0_1 == null)
-                this.var_getfactorytypeinfofirst_0_1 = this.builderType.GetMethod("GetFactoryTypeInfoFirst", 1, true).Import();
-
-            return this.var_getfactorytypeinfofirst_0_1;
-        }
-
-        public Method GetMethod_OnObjectCreation()
-        {
-            if (this._OnObjectCreation == null)
-                this._OnObjectCreation = this.builderType.GetMethod("OnObjectCreation", 2, true).Import();
-
-            return this._OnObjectCreation;
-        }
     }
 
     public partial class BuilderTypeIFactoryTypeInfo : TypeSystemExBase
     {
-        public Method GetMethod_CreateInstance()
-        {
-            if (this.var_createinstance_0_1 == null)
-                this.var_createinstance_0_1 = this.builderType.GetMethod("CreateInstance", 1, true).Import();
-
-            return this.var_createinstance_0_1;
-        }
     }
 
     public partial class BuilderTypeInterceptionRuleAttribute : TypeSystemExBase
@@ -170,33 +129,9 @@ namespace Cauldron.Interception.Fody
 
     public partial class BuilderTypeIPropertySetterInterceptor : TypeSystemExBase
     {
-        /// <summary>
-        /// Represents the following method:
-        /// <para />
-        /// bool OnSet(PropertyInterceptionInfo propertyInterceptionInfo, object oldValue, object newValue);
-        /// </summary>
-        public Method GetMethod_OnSet()
-        {
-            if (this.var_onexception_0_1 == null)
-                this.var_onexception_0_1 = this.builderType.GetMethod("OnSet", 3, true).Import();
-
-            return this.var_onexception_0_1;
-        }
     }
 
     public partial class BuilderTypeISyncRoot : TypeSystemExBase
     {
-        /// <summary>
-        /// Represents the following method:
-        /// <para />
-        /// Void set_SyncRoot(System.Object)<para/>
-        /// </summary>
-        public Method GetMethod_set_SyncRoot()
-        {
-            if (this.var_set_syncroot_0_1 == null)
-                this.var_set_syncroot_0_1 = this.builderType.GetMethod("set_SyncRoot", 1, true).Import();
-
-            return this.var_set_syncroot_0_1;
-        }
     }
 }

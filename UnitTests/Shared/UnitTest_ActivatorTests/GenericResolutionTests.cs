@@ -28,6 +28,7 @@ namespace Activator_Tests
             this.Items = ts.ToArray();
         }
 
+        [ComponentConstructor]
         public ClassWithGeneric(T1 a, T2 b)
         {
             this.Property1 = a;

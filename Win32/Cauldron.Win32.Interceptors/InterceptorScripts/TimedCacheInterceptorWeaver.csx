@@ -26,9 +26,6 @@ public static class TimedCacheInterceptorWeaver
         if (!methods.Any())
             return;
 
-        var task = __Task.Instance;
-        var task_1 = __Task_1.Instance;
-
         foreach (var method in methods)
         {
             var targetMethod = method.AsyncMethod ?? method.Method;
@@ -41,7 +38,7 @@ public static class TimedCacheInterceptorWeaver
                 continue;
             }
 
-            if (method.AsyncMethod == null && method.Method.ReturnType.Inherits(__Task.Type.Fullname))
+            if (method.AsyncMethod == null && method.Method.ReturnType.Inherits(BuilderTypes.Task.BuilderType.Fullname))
             {
                 builder.Log(LogTypes.Error, method.Method, $"- TimedCacheAttribute for method {method.Method.Name} will not be implemented. Methods that returns 'Task' without async are not supported.");
                 continue;

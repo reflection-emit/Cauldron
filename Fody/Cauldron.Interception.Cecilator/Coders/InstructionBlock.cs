@@ -339,9 +339,10 @@ namespace Cauldron.Interception.Cecilator.Coders
                         break;
                     }
                 case DefaultValueCodeBlock value:
+
                     var defaultValue = value.builderType.DefaultValue;
 
-                    if (targetType.IsGenericParameter)
+                    if (targetType != null && targetType.IsGenericParameter)
                     {
                         var variable = instructionBlock.associatedMethod.GetOrCreateVariable(targetType);
                         result.Emit(OpCodes.Ldloca, variable.variable);
@@ -1472,7 +1473,7 @@ namespace Cauldron.Interception.Cecilator.Coders
                     instructionBlock.Prepend(instructionBlock.ilprocessor.TypeOf(targetType));
 
                     instructionBlock.Append(instructionBlock.ilprocessor.TypeOf(targetType.Import()));
-                    instructionBlock.Emit(OpCodes.Call, BuilderTypes.Enum.GetMethod_GetUnderlyingType(BuilderTypes.Type));
+                    instructionBlock.Emit(OpCodes.Call, BuilderTypes.Enum.GetMethod_GetUnderlyingType());
                     instructionBlock.Emit(OpCodes.Call, BuilderTypes.Convert.GetMethod_ChangeType(BuilderTypes.Object, BuilderTypes.Type));
                     instructionBlock.Emit(OpCodes.Call, BuilderTypes.Enum.GetMethod_ToObject(BuilderTypes.Type, BuilderTypes.Object));
                     instructionBlock.Emit(OpCodes.Unbox_Any, targetType);

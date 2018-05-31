@@ -21,7 +21,7 @@ namespace Cauldron.Interception.Cecilator
         public AssemblyDefinition Assembly => this.typeDefinition.Module.Assembly;
         public Builder Builder { get; private set; }
 
-        public BuilderType ChildType => new BuilderType(this.Builder, this.moduleDefinition.GetChildrenType(this.typeReference));
+        public BuilderType ChildType => (new BuilderType(this.Builder, this.moduleDefinition.GetChildrenType(this.typeReference))).Import();
 
         public BuilderCustomAttributeCollection CustomAttributes => new BuilderCustomAttributeCollection(this.Builder, this.typeDefinition);
 
@@ -98,7 +98,7 @@ namespace Cauldron.Interception.Cecilator
 
         public bool IsNestedPrivate => this.typeDefinition.Attributes.HasFlag(TypeAttributes.NestedPrivate);
 
-        public bool IsNullable => this == BuilderTypes.Nullable;
+        public bool IsNullable => this.typeDefinition == BuilderTypes.Nullable1.BuilderType.typeDefinition;
 
         public bool IsPrimitive => this.typeDefinition?.IsPrimitive ?? this.typeReference?.IsPrimitive ?? false;
 
@@ -171,7 +171,7 @@ namespace Cauldron.Interception.Cecilator
         {
             try
             {
-                return new BuilderType(this.Builder, this.moduleDefinition.ImportReference(this.typeReference ?? this.typeDefinition));
+                return new BuilderType(this.Builder, this.moduleDefinition.ImportReference(this.typeReference ?? this.typeDefinition) ?? throw new ArgumentNullException("Unable to resolve."));
             }
             catch (Exception e)
             {

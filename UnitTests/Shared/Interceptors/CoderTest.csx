@@ -90,7 +90,7 @@ public class CoderTest
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
 
         var method2 = testType.CreateMethod(Modifiers.Internal, name + "_Test_Method", typeof(int?));
-        var nullableField = testType.CreateField(Modifiers.Internal, BuilderType.Nullable.MakeGeneric(BuilderType.Int32), "nullable_field");
+        var nullableField = testType.CreateField(Modifiers.Internal, BuilderTypes.Nullable1.BuilderType.MakeGeneric(BuilderTypes.Int32.BuilderType), "nullable_field");
 
         method2.NewCoder()
             .SetValue(CodeBlocks.GetParameter(0), x => 88)
@@ -110,8 +110,8 @@ public class CoderTest
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
 
         method.NewCoder()
-            .Call(assertAreEqual.MakeGeneric(typeof(int)), x => 0, x => x.Load(CodeBlocks.DefaultValueOf(BuilderType.Int32)))
-            .Call(assertAreEqual.MakeGeneric(typeof(bool)), x => false, x => x.Load(CodeBlocks.DefaultValueOf(BuilderType.Boolean)))
+            .Call(assertAreEqual.MakeGeneric(typeof(int)), x => 0, x => x.Load(CodeBlocks.DefaultValueOf(BuilderTypes.Int32.BuilderType)))
+            .Call(assertAreEqual.MakeGeneric(typeof(bool)), x => false, x => x.Load(CodeBlocks.DefaultValueOf(BuilderTypes.Boolean.BuilderType)))
             .Call(assertAreEqual.MakeGeneric(testType), x => null, x => x.Load(CodeBlocks.DefaultValueOf(testType)))
                 .Return()
                 .Replace();
@@ -190,6 +190,18 @@ public class CoderTest
                 .Replace();
     }
 
+    public static void GetChildrenType_Nullable_Tests(Builder builder)
+    {
+        var method = testType.CreateMethod(Modifiers.Public, nameof(GetChildrenType_Nullable_Tests), Type.EmptyTypes);
+        var type = BuilderTypes.Nullable1.BuilderType.MakeGeneric(typeof(int));
+        method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
+
+        method.NewCoder()
+            .Call(assertAreEqual.MakeGeneric(BuilderTypes.Type.BuilderType), typeof(int).ToBuilderType(), type.ChildType)
+                .Return()
+                .Replace();
+    }
+
     public static void Field_NewObj_Load_Delegate(Builder builder)
     {
         var field1Name = "field_1" + nameof(Field_NewObj_Load_Delegate);
@@ -198,7 +210,7 @@ public class CoderTest
         var method = testType.CreateMethod(Modifiers.Public, nameof(Field_NewObj_Load_Delegate), Type.EmptyTypes);
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
         method.CreateField(testType, field1Name);
-        method.CreateField(BuilderType.Object, field2Name);
+        method.CreateField(BuilderTypes.Object.BuilderType, field2Name);
 
         method.NewCoder()
             .SetValue(x => x.GetField(field1Name), x => x.NewObj(testType.ParameterlessContructor))
@@ -213,7 +225,7 @@ public class CoderTest
         var method = testType.CreateMethod(Modifiers.Public, nameof(Field_Nullable), Type.EmptyTypes);
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
 
-        var nullableField = testType.CreateField(Modifiers.Internal, BuilderType.Nullable.MakeGeneric(BuilderType.Int32), "nullable_field");
+        var nullableField = testType.CreateField(Modifiers.Internal, BuilderTypes.Nullable1.BuilderType.MakeGeneric(BuilderTypes.Int32.BuilderType), "nullable_field");
 
         method.NewCoder()
             .SetValue(nullableField, x => 88)
@@ -324,7 +336,7 @@ public class CoderTest
 
         var testClassType = builder.GetType("CecilatorTestClasses.TestClass");
         var var1 = method.GetOrCreateVariable(testClassType);
-        var var2 = method.GetOrCreateVariable(BuilderType.Int32);
+        var var2 = method.GetOrCreateVariable(BuilderTypes.Int32.BuilderType);
 
         method.NewCoder()
             .SetValue(var1, 14)
@@ -352,7 +364,7 @@ public class CoderTest
         var method = testType.CreateMethod(Modifiers.Public, nameof(LocalVariable_Nullable), Type.EmptyTypes);
         method.CustomAttributes.Add(builder.GetType(TestMethodAttribute));
 
-        var var1 = method.GetOrCreateVariable(BuilderType.Nullable.MakeGeneric(BuilderType.Int32));
+        var var1 = method.GetOrCreateVariable(BuilderTypes.Nullable1.BuilderType.MakeGeneric(BuilderTypes.Int32.BuilderType));
 
         method.NewCoder()
             .SetValue(var1, x => 88)

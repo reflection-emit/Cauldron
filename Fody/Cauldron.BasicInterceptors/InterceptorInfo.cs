@@ -1,5 +1,5 @@
 ﻿using Cauldron.Interception.Cecilator;
-using Cauldron.Interception.Fody.HelperTypes;
+using Cauldron.Interception.Fody;
 using Mono.Cecil;
 using System;
 using System.Linq;
@@ -8,12 +8,12 @@ public class InterceptorInfo
 {
     public InterceptorInfo(BuilderType attributedType)
     {
-        var interceptorRule = __InterceptionRuleAttribute.Type;
-        var interceptorOption = __InterceptorOptionsAttribute.Type;
+        var interceptorRule = BuilderTypes2.InterceptionRuleAttribute;
+        var interceptorOption = BuilderTypes2.InterceptorOptionsAttribute;
 
         this.CustomAttributes = attributedType.CustomAttributes.ToArray();
-        var interceptorRules = this.CustomAttributes.Where(x => x.Fullname == interceptorRule.Fullname);
-        var interceptorOptions = this.CustomAttributes.Where(x => x.Fullname == interceptorOption.Fullname);
+        var interceptorRules = this.CustomAttributes.Where(x => x.Fullname == interceptorRule.BuilderType.Fullname);
+        var interceptorOptions = this.CustomAttributes.Where(x => x.Fullname == interceptorOption.BuilderType.Fullname);
 
         this.AlwaysCreateNewInstance = interceptorOptions.Any(x => (bool)x.Properties["AlwaysCreateNewInstance"].Value);
 

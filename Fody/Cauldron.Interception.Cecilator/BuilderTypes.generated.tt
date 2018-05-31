@@ -207,12 +207,16 @@ namespace Cauldron.Interception.Cecilator
 	public class TypeSystemExBase 
 	{
 		/// <exclude />
-		internal BuilderType builderType;
+		protected readonly BuilderType builderType;
 
-        internal TypeSystemExBase(BuilderType builderType)
+		/// <exclude />
+        protected TypeSystemExBase(BuilderType builderType)
 		{
 			this.builderType = builderType;
 		}
+
+		/// <exclude />
+		public BuilderType BuilderType => this.builderType;
 	}		
 	<#
 	foreach(var type in types.OrderBy(x => x.Name) )
@@ -234,23 +238,34 @@ namespace Cauldron.Interception.Cecilator
 		
 		/// <exclude />
 		public static implicit operator TypeReference(BuilderType<#=type.Name.Replace("`", "")#> value) => value.builderType.typeReference;
-
-		/// <exclude />
-		public BuilderType BuilderType => this.builderType;
-		
+			
 		<#
 		// Methods
-		var methodGroups = type
-			.GetMethods()
-			.Where( x=> !x.IsGenericMethodDefinition && !x.ContainsGenericParameters && IsValidParameter(x.GetParameters()) )
-			.GroupBy(x => x.Name + x.GetParameters().Length)
-			.Select(x => x.Distinct(new MethodInfoEqualityComparer()).ToArray());
+		var constructors = type
+				.GetConstructors()
+                .GroupBy(x => x.Name)
+                .Select(x => new { Name = x.Key, Items = x.ToArray() })
+                .Select(x => x.Items.Select(y => new MethodInfos(y, x.Items.Length == 1)))
+                .SelectMany(x => x)
+                .Where(x => !x.IsGenericMethodDefinition && !x.ContainsGenericParameters && x.IsValidParameter)
+                .GroupBy(x => x.IsSingle ? x.Name : x.Name + x.Parameters.Length)
+                .Select(x => x.Distinct(new MethodInfosEqualityComparer()).ToArray());
 
+		var methodGroups = type
+            .GetMethods()
+                .GroupBy(x => x.Name)
+                .Select(x => new { Name = x.Key, Items = x.ToArray() })
+                .Select(x => x.Items.Select(y => new MethodInfos(y, x.Items.Length == 1)))
+                .SelectMany(x => x)
+                .Where(x => !x.IsGenericMethodDefinition && !x.ContainsGenericParameters && x.IsValidParameter)
+                .GroupBy(x => x.IsSingle ? x.Name : x.Name + x.Parameters.Length)
+                .Select(x => x.Distinct(new MethodInfosEqualityComparer()).ToArray()).Concat(constructors);
+			
 		foreach(var group in methodGroups)
 		{
 			for(int i=0; i< group.Length; i++)
 			{
-				var itemParameters = group[i].GetParameters();
+				var itemParameters = group[i].Parameters;
 		#>		
 		private Method var_<#= $"{group[i].Name.ToLower()}_{i}_{itemParameters.Length}"#>;
 		<# } #>
@@ -259,36 +274,45 @@ namespace Cauldron.Interception.Cecilator
 		/// Represents the following method:
 		/// <para />
 		<#foreach(var item in group)
-		{#>/// <#=item#><para/>
+		{#>/// <#=item.Fullname#><para/>
 		<#}#>/// </summary>
-		public Method GetMethod_<#=group[0].Name#>(<#=string.Join(", ", group[0].GetParameters().Select(x => "TypeReference p" + x.Name).ToArray()) #>)
+		<#if(group[0].IsSingle){#>
+public Method GetMethod_<#=group[0].Name#>()
 		{
-			<# if(group.Length == 1 && group[0].GetParameters().Length == 0) { #>
-			
-			if(this.var_<#= $"{group[0].Name.ToLower()}_{0}_{group[0].GetParameters().Length}"#> == null)
-				this.var_<#= $"{group[0].Name.ToLower()}_{0}_{group[0].GetParameters().Length}"#> = this.builderType.GetMethod("<#=group[0].Name#>", true);
+			if(this.var_<#= $"{group[0].Name.ToLower()}_{0}_{group[0].Parameters.Length}"#> == null)
+				this.var_<#= $"{group[0].Name.ToLower()}_{0}_{group[0].Parameters.Length}"#> = this.builderType.GetMethod("<#=group[0].Name#>", <#=group[0].Parameters.Length#>, true).Import();
 
-			return this.var_<#= $"{group[0].Name.ToLower()}_{0}_{group[0].GetParameters().Length}"#>;
+			return this.var_<#= $"{group[0].Name.ToLower()}_{0}_{group[0].Parameters.Length}"#>;
+		}
+		<#}else{#>
+public Method GetMethod_<#=group[0].Name#>(<#=string.Join(", ", group[0].Parameters.Select(x => "TypeReference p" + x.Name).ToArray()) #>)
+		{
+			<# if(group.Length == 1 && group[0].Parameters.Length == 0) { #>
+			
+			if(this.var_<#= $"{group[0].Name.ToLower()}_{0}_{group[0].Parameters.Length}"#> == null)
+				this.var_<#= $"{group[0].Name.ToLower()}_{0}_{group[0].Parameters.Length}"#> = this.builderType.GetMethod("<#=group[0].Name#>", true).Import();
+
+			return this.var_<#= $"{group[0].Name.ToLower()}_{0}_{group[0].Parameters.Length}"#>;
 			<#}#>			
-			<# if(group.Length == 1 && group[0].GetParameters().Length > 0) { #>
+			<# if(group.Length == 1 && group[0].Parameters.Length > 0) { #>
 			
-			if(this.var_<#= $"{group[0].Name.ToLower()}_{0}_{group[0].GetParameters().Length}"#> == null)
-				this.var_<#= $"{group[0].Name.ToLower()}_{0}_{group[0].GetParameters().Length}"#> = this.builderType.GetMethod("<#=group[0].Name#>", true, <#=string.Join(", ", group[0].GetParameters().Select(x => "p" + x.Name).ToArray()) #>).Import();
+			if(this.var_<#= $"{group[0].Name.ToLower()}_{0}_{group[0].Parameters.Length}"#> == null)
+				this.var_<#= $"{group[0].Name.ToLower()}_{0}_{group[0].Parameters.Length}"#> = this.builderType.GetMethod("<#=group[0].Name#>", true, <#=string.Join(", ", group[0].Parameters.Select(x => "p" + x.Name).ToArray()) #>).Import();
 			
-			return this.var_<#= $"{group[0].Name.ToLower()}_{0}_{group[0].GetParameters().Length}"#>;
+			return this.var_<#= $"{group[0].Name.ToLower()}_{0}_{group[0].Parameters.Length}"#>;
 			<#}#>
 			<# 
 				if(group.Length > 1) 
 				{
 					for(int i=0; i < group.Length; i++)
 					{
-						var itemParameters = group[i].GetParameters();
+						var itemParameters = group[i].Parameters;
 			#>
 
-			if(<#=string.Join(" && ", itemParameters.Select(x => $"typeof({StringRepresentationToCSharp(x.ParameterType.FullName)}).AreEqual(p{group[0].GetParameters()[x.Position].Name})")) #>)
+			if(<#=string.Join(" && ", itemParameters.Select(x => $"typeof({StringRepresentationToCSharp(x.ParameterType.FullName)}).AreEqual(p{group[0].Parameters[x.Position].Name})")) #>)
 			{
 				if(this.var_<#= $"{group[i].Name.ToLower()}_{i}_{itemParameters.Length}"#> == null)
-					this.var_<#= $"{group[i].Name.ToLower()}_{i}_{itemParameters.Length}"#> = this.builderType.GetMethod("<#=group[i].Name#>", true, <#=string.Join(", ", group[0].GetParameters().Select(x => "p" + x.Name).ToArray()) #>).Import();
+					this.var_<#= $"{group[i].Name.ToLower()}_{i}_{itemParameters.Length}"#> = this.builderType.GetMethod("<#=group[i].Name#>", true, <#=string.Join(", ", group[0].Parameters.Select(x => "p" + x.Name).ToArray()) #>).Import();
 			
 				return this.var_<#= $"{group[i].Name.ToLower()}_{i}_{itemParameters.Length}"#>;
 			}
@@ -296,11 +320,13 @@ namespace Cauldron.Interception.Cecilator
 				}
 			#>
 
-			return null;
+			throw new Exception("Method with defined parameters not found.");
 			<#
 			}
 			#>
+
 		}
+		<#}#>
 		<#
 		}
 		#>
@@ -312,10 +338,77 @@ namespace Cauldron.Interception.Cecilator
 }
 
 <#+
-    public class MethodInfoEqualityComparer : IEqualityComparer<MethodInfo>
-    {
-        public bool Equals(MethodInfo x, MethodInfo y) => x.Name == y.Name && y.GetParameters().SequenceEqual(x.GetParameters());
 
-        public int GetHashCode(MethodInfo obj) => obj.Name.GetHashCode();
+
+    internal class MethodInfosEqualityComparer : IEqualityComparer<MethodInfos>
+    {
+        public bool Equals(MethodInfos x, MethodInfos y) => x.Name == y.Name && y.Parameters.SequenceEqual(x.Parameters);
+
+        public int GetHashCode(MethodInfos obj) => obj.Name.GetHashCode();
     }
-#>
+
+    internal class MethodInfos
+    {
+        public MethodInfos(MethodInfo methodInfo, bool isSingle)
+        {
+            this.Name = methodInfo.Name.Replace(".", "");
+            this.VariableName = "_" + methodInfo.Name.ToLower();
+            this.Parameters = methodInfo.GetParameters();
+            this.IsSingle = isSingle;
+            this.IsGenericMethodDefinition = methodInfo.IsGenericMethodDefinition;
+            this.ContainsGenericParameters = methodInfo.ContainsGenericParameters;
+            this.Fullname = methodInfo.ToString();
+        }
+
+        public MethodInfos(ConstructorInfo constructorInfo, bool isSingle)
+        {
+            this.Name = constructorInfo.Name.Replace(".", "");
+            this.VariableName = "_" + constructorInfo.Name.ToLower();
+            this.Parameters = constructorInfo.GetParameters();
+            this.IsSingle = isSingle;
+            this.IsGenericMethodDefinition = constructorInfo.IsGenericMethodDefinition;
+            this.ContainsGenericParameters = constructorInfo.ContainsGenericParameters;
+            this.Fullname = constructorInfo.ToString();
+        }
+
+        public bool ContainsGenericParameters { get; }
+        public bool IsGenericMethodDefinition { get; }
+        public bool IsSingle { get; }
+        public string Fullname { get; }
+
+        public bool IsValidParameter
+        {
+            get
+            {
+                foreach (var item in this.Parameters)
+                {
+                    if (item.ParameterType.IsByRef)
+                        return false;
+
+                    if (item.IsIn)
+                        return false;
+
+                    if (item.IsOut)
+                        return false;
+
+                    if (item.IsRetval)
+                        return false;
+
+                    if (item.ParameterType.Name.IndexOf("*") >= 0)
+                        return false;
+						
+                    if (item.ParameterType.FullName.StartsWith("Cauldron.") && !this.IsSingle)
+                        return false;
+                }
+
+                return true;
+            }
+        }
+
+        public string Name { get; }
+        public ParameterInfo[] Parameters { get; }
+        public string VariableName { get; }
+
+    }	
+	
+	#>

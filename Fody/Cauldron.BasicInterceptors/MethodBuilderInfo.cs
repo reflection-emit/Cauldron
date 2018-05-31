@@ -53,8 +53,8 @@ public sealed class MethodBuilderInfo<T> where T : IMethodBuilderInfoItem
 }
 
 public sealed class MethodBuilderInfoItem<T1, T2> : IMethodBuilderInfoItem
-    where T1 : HelperTypeBase<T1>, new()
-    where T2 : HelperTypeBase<T2>, new()
+    where T1 : TypeSystemExBase
+    where T2 : TypeSystemExBase
 {
     public MethodBuilderInfoItem(AttributedMethod attribute, T1 interfaceA, T2 interfaceB)
     {
@@ -63,9 +63,9 @@ public sealed class MethodBuilderInfoItem<T1, T2> : IMethodBuilderInfoItem
         this.InterfaceB = interfaceB;
         this.AssignMethodAttributeInfos = AssignMethodAttributeInfo.GetAllAssignMethodAttributedFields(attribute);
         this.InterceptorInfo = new InterceptorInfo(this.Attribute.Attribute.Type);
-        this.HasSyncRootInterface = attribute.Attribute.Type.Implements(__ISyncRoot.Type.Fullname);
-        this.HasInterfaceA = this.Attribute.Attribute.Type.Implements(this.InterfaceA.ToBuilderType);
-        this.HasInterfaceB = this.Attribute.Attribute.Type.Implements(this.InterfaceB.ToBuilderType);
+        this.HasSyncRootInterface = attribute.Attribute.Type.Implements(BuilderTypes2.ISyncRoot);
+        this.HasInterfaceA = this.Attribute.Attribute.Type.Implements(this.InterfaceA.BuilderType);
+        this.HasInterfaceB = this.Attribute.Attribute.Type.Implements(this.InterfaceB.BuilderType);
 
         var name = $"<{attribute.Method.Name}>_{attribute.Identification}";
         var newInterceptor = this.InterceptorInfo.AlwaysCreateNewInstance ?
@@ -90,7 +90,7 @@ public sealed class MethodBuilderInfoItem<T1, T2> : IMethodBuilderInfoItem
 
     public T1 InterfaceA { get; }
     public T2 InterfaceB { get; }
-    public BuilderType InterfaceType => this.HasInterfaceB ? this.InterfaceB.ToBuilderType : this.InterfaceA.ToBuilderType;
+    public BuilderType InterfaceType => this.HasInterfaceB ? this.InterfaceB.BuilderType : this.InterfaceA.BuilderType;
 
     public bool IsSuppressed => InterceptorInfo.GetIsSupressed(this.InterceptorInfo, this.Attribute.Method.DeclaringType, this.Attribute.Method.CustomAttributes, this.Attribute.Attribute, this.Attribute.Method.Name, true);
 }
@@ -103,7 +103,7 @@ public sealed class MethodBuilderInfoItem<T> : IMethodBuilderInfoItem
         this.Interface = @interface;
         this.AssignMethodAttributeInfos = AssignMethodAttributeInfo.GetAllAssignMethodAttributedFields(attribute);
         this.InterceptorInfo = new InterceptorInfo(this.Attribute.Attribute.Type);
-        this.HasSyncRootInterface = attribute.Attribute.Type.Implements(__ISyncRoot.Type.Fullname);
+        this.HasSyncRootInterface = attribute.Attribute.Type.Implements(BuilderTypes2.ISyncRoot);
     }
 
     public AssignMethodAttributeInfo[] AssignMethodAttributeInfos { get; private set; }

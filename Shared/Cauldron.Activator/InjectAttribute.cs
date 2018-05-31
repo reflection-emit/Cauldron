@@ -75,5 +75,10 @@ namespace Cauldron.Activator
         /// Gets or sets a value that tells the weaver to implement a double check lock pattern.
         /// </summary>
         public bool MakeThreadSafe { get; set; } = false;
+
+        /// <summary>
+        /// Gets or sets a value that indicates if the injection should be preloaded. If true the weaver will weave preloading in the static constructor of the class.
+        /// </summary>
+        public bool NoPreloading { get; set; }
     }
 }

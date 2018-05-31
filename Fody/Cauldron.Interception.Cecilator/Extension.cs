@@ -46,9 +46,8 @@ namespace Cauldron.Interception.Cecilator
             a.AreEqual(b.typeDefinition ?? b.typeReference);
 
         public static bool AreEqual(this Type a, TypeReference b) =>
-            AreEqual(a, b.Resolve()?.Module) &&
-               a.FullName.GetHashCode() == b.FullName.GetHashCode() &&
-               a.FullName == b.FullName;
+            a.FullName.GetHashCode() == b.FullName.GetHashCode() &&
+            a.FullName == b.FullName;
 
         public static bool AreEqual(this TypeReference a, BuilderType b) =>
             a.AreEqual(b.typeReference) ||
@@ -286,7 +285,7 @@ namespace Cauldron.Interception.Cecilator
                             ienumerableInterface = genericInstances.FirstOrDefault(x => x.FullName.StartsWith("System.Collections.Generic.IEnumerable`1<"));
 
                         // A Nullable special
-                        if (ienumerableInterface == null && genericType.AreEqual((TypeReference)BuilderTypes.Nullable))
+                        if (ienumerableInterface == null && genericType.Resolve().AreEqual((TypeReference)BuilderTypes.Nullable1.BuilderType.typeDefinition))
                             return genericType.GenericArguments[0];
 
                         // We just don't know :(

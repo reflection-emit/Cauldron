@@ -23,22 +23,22 @@ namespace Activator_Tests
         [Inject]
         private IEnumerable<ITestInterface> injectToEnumerable = null;
 
-        [Inject]
+        [Inject(NoPreloading = true)]
         private KeyedTestList<string, int, ITestInterface> injectToKeyedCollection = null;
 
         [Inject]
         private List<ITestInterface> injectToList = null;
 
-        [Inject(ContractType = typeof(ITestInterface))]
+        [Inject(ContractType = typeof(ITestInterface), NoPreloading = true)]
         public object CustomName1 { get; }
 
-        [Inject(ContractName = "Muhahaha")]
+        [Inject(ContractName = "Muhahaha", NoPreloading = true)]
         public object CustomName2 { get; }
 
-        [Inject]
+        [Inject(NoPreloading = true)]
         public Dictionary<string, float> InjectToDictionary { get; private set; }
 
-        [Inject]
+        [Inject(NoPreloading = true)]
         public ITestInterface InterfaceInject { get; private set; }
 
         [Inject("[property] InterfaceInject", "[this]", 90.9, "Hello", true, "[field] injectToList", 0x89, ContractName = "Blub")]

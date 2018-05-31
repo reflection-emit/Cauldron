@@ -19,11 +19,11 @@ namespace Cauldron.Interception.Cecilator.Coders
 
         public static CodeBlock DefaultOfStruct(TypeReference typeReference) => new InitObjCodeBlock { typeReference = typeReference };
 
-        public static CodeBlock DefaultOfTask(TypeReference typeReference) => new DefaultTaskCodeBlock { typeReference = typeReference };
+        public static CodeBlock DefaultOfTask(TypeReference typeReference) => new DefaultTaskCodeBlock(typeReference);
 
-        public static CodeBlock DefaultTaskOfT(TypeReference typeReference) => new DefaultTaskOfTCodeBlock { typeReference = typeReference };
+        public static CodeBlock DefaultTaskOfT(TypeReference typeReference) => new DefaultTaskOfTCodeBlock(typeReference);
 
-        public static CodeBlock DefaultValueOf(BuilderType builderType) => new DefaultValueCodeBlock { builderType = builderType };
+        public static CodeBlock DefaultValueOf(BuilderType builderType) => new DefaultValueCodeBlock(builderType);
 
         /// <summary>
         /// Generates a random name that can be used to name variables and methods.
@@ -58,29 +58,23 @@ namespace Cauldron.Interception.Cecilator.Coders
 
     public class DefaultTaskCodeBlock : CodeBlock
     {
-        internal TypeReference typeReference;
+        internal readonly TypeReference typeReference;
 
-        internal DefaultTaskCodeBlock()
-        {
-        }
+        internal DefaultTaskCodeBlock(TypeReference typeReference) => this.typeReference = typeReference;
     }
 
     public class DefaultTaskOfTCodeBlock : CodeBlock
     {
-        internal TypeReference typeReference;
+        internal readonly TypeReference typeReference;
 
-        internal DefaultTaskOfTCodeBlock()
-        {
-        }
+        internal DefaultTaskOfTCodeBlock(TypeReference typeReference) => this.typeReference = typeReference;
     }
 
     public class DefaultValueCodeBlock : CodeBlock
     {
-        internal BuilderType builderType;
+        internal readonly BuilderType builderType;
 
-        internal DefaultValueCodeBlock()
-        {
-        }
+        internal DefaultValueCodeBlock(BuilderType builderType) => this.builderType = builderType;
     }
 
     public class ExceptionCodeBlock : CodeBlock

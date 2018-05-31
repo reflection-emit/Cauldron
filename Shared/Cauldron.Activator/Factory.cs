@@ -661,28 +661,43 @@ namespace Cauldron.Activator
             }
         }
 
-        private static IEnumerable<object> GetInstances(string contractName, object[] parameters)
+        private static object[] GetInstances(string contractName, object[] parameters)
         {
             if (components.TryGetValue(contractName, out FactoryDictionaryValue factoryInfos))
+            {
+                var result = new object[factoryInfos.factoryTypeInfos.Length];
                 for (int i = 0; i < factoryInfos.factoryTypeInfos.Length; i++)
-                    yield return factoryInfos.factoryTypeInfos[i].CreateInstance(parameters);
+                    result[i] = factoryInfos.factoryTypeInfos[i].CreateInstance(parameters);
+
+                return result;
+            }
 
             if (CanRaiseExceptions)
                 throw new NotImplementedException("The contractName '" + contractName + "' was not found.");
             else
                 Debug.WriteLine($"ERROR: The contractName '" + contractName + "' was not found.");
+
+            return null;
         }
 
-        private static IEnumerable<object> GetInstancesOrdered(string contractName, object[] parameters)
+        private static object[] GetInstancesOrdered(string contractName, object[] parameters)
         {
             if (components.TryGetValue(contractName, out FactoryDictionaryValue factoryInfos))
+            {
+                var result = new object[factoryInfos.factoryTypeInfos.Length];
+                int i = 0;
                 foreach (var item in factoryInfos.factoryTypeInfos.OrderBy(x => x.Priority))
-                    yield return item.CreateInstance(parameters);
+                    result[i++] = factoryInfos.factoryTypeInfos[i].CreateInstance(parameters);
+
+                return result;
+            }
 
             if (CanRaiseExceptions)
                 throw new NotImplementedException("The contractName '" + contractName + "' was not found.");
 
             Debug.WriteLine($"ERROR: The contractName '" + contractName + "' was not found.");
+
+            return null;
         }
 
         private static void InitializeFactory(IEnumerable<IFactoryTypeInfo> factoryInfoTypes)

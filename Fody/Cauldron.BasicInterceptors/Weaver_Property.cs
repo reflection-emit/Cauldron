@@ -61,15 +61,15 @@ public static class Weaver_Property
         if (!PropertyInterceptingAttributes.Any())
             return;
 
-        var propertyInterceptionInfo = __PropertyInterceptionInfo.Instance;
+        var propertyInterceptionInfo = BuilderTypes2.PropertyInterceptionInfo;
 
         var properties = builder
             .FindPropertiesByAttributes(PropertyInterceptingAttributes)
             .GroupBy(x => x.Property)
             .Select(x => new PropertyBuilderInfo(x.Key, x.Select(y => new PropertyBuilderInfoItem(y, y.Property,
-                     y.Attribute.Type.Implements(__IPropertyGetterInterceptor.Type.Fullname) ? __IPropertyGetterInterceptor.Instance : null,
-                     y.Attribute.Type.Implements(__IPropertySetterInterceptor.Type.Fullname) ? __IPropertySetterInterceptor.Instance : null,
-                     y.Attribute.Type.Implements(__IPropertyInterceptorInitialize.Type.Fullname) ? __IPropertyInterceptorInitialize.Instance : null))))
+                     y.Attribute.Type.Implements(BuilderTypes2.IPropertyGetterInterceptor) ? BuilderTypes2.IPropertyGetterInterceptor : null,
+                     y.Attribute.Type.Implements(BuilderTypes2.IPropertySetterInterceptor) ? BuilderTypes2.IPropertySetterInterceptor : null,
+                     y.Attribute.Type.Implements(BuilderTypes2.IPropertyInterceptorInitialize) ? BuilderTypes2.IPropertyInterceptorInitialize : null))))
             .ToArray();
 
         foreach (var member in properties)
@@ -82,7 +82,7 @@ public static class Weaver_Property
             if (!member.HasGetterInterception && !member.HasSetterInterception && !member.HasInitializer)
                 continue;
 
-            var propertyField = member.Property.CreateField(__PropertyInterceptionInfo.Type, $"<{member.Property.Name}>p__propertyInfo");
+            var propertyField = member.Property.CreateField(BuilderTypes2.PropertyInterceptionInfo.BuilderType, $"<{member.Property.Name}>p__propertyInfo");
             propertyField.CustomAttributes.AddNonSerializedAttribute();
 
             var actionObjectCtor = builder.Import(typeof(Action<object>).GetConstructor(new Type[] { typeof(object), typeof(IntPtr) }));
@@ -110,7 +110,7 @@ public static class Weaver_Property
                 });
 
             if (member.HasInitializer)
-                AddPropertyInitializeInterception(builder, propertyInterceptionInfo, member, propertyField, actionObjectCtor, propertySetter, interceptorFields);
+                AddPropertyInitializeInterception(builder, BuilderTypes2.PropertyInterceptionInfo, member, propertyField, actionObjectCtor, propertySetter, interceptorFields);
 
             if (member.HasGetterInterception && member.Property.Getter != null)
                 AddPropertyGetterInterception(builder, propertyInterceptionInfo, member, propertyField, actionObjectCtor, propertySetter, interceptorFields);
@@ -138,14 +138,14 @@ public static class Weaver_Property
 
     private static void AddPropertyGetterInterception(
         Builder builder,
-        __PropertyInterceptionInfo propertyInterceptionInfo,
+        BuilderTypePropertyInterceptionInfo propertyInterceptionInfo,
         PropertyBuilderInfo member,
         Field propertyField,
         Method actionObjectCtor,
         Method propertySetter,
         Dictionary<string, Field> interceptorFields)
     {
-        var syncRoot = new __ISyncRoot();
+        var syncRoot = BuilderTypes2.ISyncRoot;
         var legalGetterInterceptors = member.InterceptorInfos.Where(x => x.InterfaceGetter != null).ToArray();
 
         member.Property.Getter
@@ -167,7 +167,7 @@ public static class Weaver_Property
                             coder.SetValue(fieldOrVariable, x => x.NewObj(item.Attribute));
 
                             if (item.HasSyncRootInterface)
-                                coder.Load<ICasting>(fieldOrVariable).As(__ISyncRoot.Type.Import()).To<ICallMethod<CallCoder>>().Call(syncRoot.SyncRoot, member.SyncRoot);
+                                coder.Load<ICasting>(fieldOrVariable).As(syncRoot.BuilderType.Import()).To<ICallMethod<CallCoder>>().Call(syncRoot.GetMethod_set_SyncRoot(), member.SyncRoot);
 
                             ModuleWeaver.ImplementAssignMethodAttribute(builder, legalGetterInterceptors[i].AssignMethodAttributeInfos, fieldOrVariable, item.Attribute.Attribute.Type, coder);
                             return coder;
@@ -183,7 +183,7 @@ public static class Weaver_Property
 
                     return context.If(x => x.Load(propertyField).IsNull(), then =>
                           then.SetValue(propertyField, x =>
-                              x.NewObj(propertyInterceptionInfo.Ctor,
+                              x.NewObj(propertyInterceptionInfo.GetMethod_ctor(),
                                   member.Property.Getter,
                                   member.Property.Setter,
                                   member.Property.Name,
@@ -203,9 +203,9 @@ public static class Weaver_Property
                         {
                             var item = legalGetterInterceptors[i];
                             var fieldOrVariable = interceptorFields[item.Attribute.Identification] as CecilatorBase ?? @try.AssociatedMethod.GetVariable(item.Attribute.Identification);
-                            @try.Load<ICasting>(fieldOrVariable).As(item.InterfaceGetter.ToBuilderType)
+                            @try.Load<ICasting>(fieldOrVariable).As(item.InterfaceGetter)
                                     .To<ICallMethod<CallCoder>>()
-                                    .Call(item.InterfaceGetter.OnGet, propertyField, returnValue);
+                                    .Call(item.InterfaceGetter.GetMethod_OnGet(), propertyField, returnValue);
                         }
 
                         @try.Load(returnValue).Return();
@@ -217,9 +217,9 @@ public static class Weaver_Property
                             var item = legalGetterInterceptors[i];
                             var alwaysCreateNewInstance = item.InterceptorInfo.AlwaysCreateNewInstance && item.InterfaceInitializer == null;
                             var fieldOrVariable = interceptorFields[item.Attribute.Identification] as CecilatorBase ?? @try.AssociatedMethod.GetVariable(item.Attribute.Identification);
-                            @try.Load<ICasting>(fieldOrVariable).As(item.InterfaceGetter.ToBuilderType)
+                            @try.Load<ICasting>(fieldOrVariable).As(item.InterfaceGetter)
                                     .To<ICallMethod<CallCoder>>()
-                                    .Call(item.InterfaceGetter.OnGet, propertyField, member.Property.BackingField);
+                                    .Call(item.InterfaceGetter.GetMethod_OnGet(), propertyField, member.Property.BackingField);
                         }
 
                         @try.OriginalBody();
@@ -233,9 +233,9 @@ public static class Weaver_Property
                     {
                         var fieldOrVariable = interceptorFields[y.Attribute.Identification] as CecilatorBase ?? ex.AssociatedMethod.GetVariable(y.Attribute.Identification);
                         return coder.Load<ICasting>(fieldOrVariable)
-                             .As(y.InterfaceGetter.ToBuilderType)
+                             .As(y.InterfaceGetter)
                              .To<ICallMethod<BooleanExpressionCallCoder>>()
-                             .Call(y.InterfaceGetter.OnException, e());
+                             .Call(y.InterfaceGetter.GetMethod_OnException(), e());
                     }).Is(true), then => ex.NewCoder().Rethrow())
                       .DefaultValue()
                       .Return();
@@ -248,9 +248,9 @@ public static class Weaver_Property
                         var alwaysCreateNewInstance = item.InterceptorInfo.AlwaysCreateNewInstance && item.InterfaceInitializer == null;
                         var fieldOrVariable = interceptorFields[item.Attribute.Identification] as CecilatorBase ?? x.AssociatedMethod.GetVariable(item.Attribute.Identification);
                         x.Load<ICasting>(fieldOrVariable)
-                            .As(legalGetterInterceptors[i].InterfaceGetter.ToBuilderType)
+                            .As(legalGetterInterceptors[i].InterfaceGetter)
                             .To<ICallMethod<CallCoder>>()
-                            .Call(legalGetterInterceptors[i].InterfaceGetter.OnExit);
+                            .Call(legalGetterInterceptors[i].InterfaceGetter.GetMethod_OnExit());
                     }
 
                     return x;
@@ -262,7 +262,7 @@ public static class Weaver_Property
 
     private static void AddPropertyInitializeInterception(
         Builder builder,
-        __PropertyInterceptionInfo propertyInterceptionInfo,
+        BuilderTypePropertyInterceptionInfo propertyInterceptionInfo,
         PropertyBuilderInfo member,
         Field propertyField,
         Method actionObjectCtor,
@@ -270,7 +270,7 @@ public static class Weaver_Property
         Dictionary<string, Field> interceptorFields)
     {
         var declaringType = member.Property.OriginType;
-        var syncRoot = new __ISyncRoot();
+        var syncRoot = BuilderTypes2.ISyncRoot;
         var legalInitInterceptors = member.InterceptorInfos.Where(x => x.InterfaceInitializer != null).ToArray();
         var relevantCtors = member.Property.IsStatic ? new Method[] { declaringType.StaticConstructor } : declaringType.GetRelevantConstructors().Where(x => x.Name != ".cctor");
 
@@ -287,13 +287,13 @@ public static class Weaver_Property
                         context.SetValue(field, x => x.NewObj(item.Attribute));
 
                         if (item.HasSyncRootInterface)
-                            context.Load(field).As(__ISyncRoot.Type.Import()).Call(syncRoot.SyncRoot, member.SyncRoot);
+                            context.Load(field).As(BuilderTypes2.ISyncRoot).Call(syncRoot.GetMethod_set_SyncRoot(), member.SyncRoot);
 
                         ModuleWeaver.ImplementAssignMethodAttribute(builder, legalInitInterceptors[i].AssignMethodAttributeInfos, field, item.Attribute.Attribute.Type, context);
                     }
 
                     context.SetValue(propertyField, x =>
-                            x.NewObj(propertyInterceptionInfo.Ctor,
+                            x.NewObj(propertyInterceptionInfo.GetMethod_ctor(),
                                 member.Property.Getter,
                                 member.Property.Setter,
                                 member.Property.Name,
@@ -306,8 +306,8 @@ public static class Weaver_Property
                     {
                         var item = legalInitInterceptors[i];
                         var field = interceptorFields[item.Attribute.Identification];
-                        context.Load(field).As(item.InterfaceInitializer.ToBuilderType)
-                            .Call(item.InterfaceInitializer.OnInitialize, propertyField, member.Property.BackingField);
+                        context.Load(field).As(item.InterfaceInitializer)
+                            .Call(item.InterfaceInitializer.GetMethod_OnInitialize(), propertyField, member.Property.BackingField);
                     }
 
                     return context;
@@ -318,7 +318,7 @@ public static class Weaver_Property
 
     private static void AddPropertySetterInterception(
         Builder builder,
-        __PropertyInterceptionInfo propertyInterceptionInfo,
+        BuilderTypePropertyInterceptionInfo propertyInterceptionInfo,
         PropertyBuilderInfo member,
         Field propertyField,
         Method actionObjectCtor,
@@ -364,7 +364,7 @@ public static class Weaver_Property
 
                     return context.If(x => x.Load(propertyField).IsNull(), then =>
                          then.SetValue(propertyField, x =>
-                             x.NewObj(propertyInterceptionInfo.Ctor,
+                             x.NewObj(propertyInterceptionInfo.GetMethod_ctor(),
                                  member.Property.Getter,
                                  member.Property.Setter,
                                  member.Property.Name,
@@ -397,7 +397,7 @@ public static class Weaver_Property
                                x.Load<ICasting>(fieldOrVariable)
                                    .As(legalSetterInterceptors[i].InterfaceSetter)
                                    .To<ICallMethod<BooleanExpressionCallCoder>>()
-                                   .Call(item.InterfaceSetter.OnSet, propertyField, oldvalue, CodeBlocks.GetParameter(0))
+                                   .Call(item.InterfaceSetter.GetMethod_OnSet(), propertyField, oldvalue, CodeBlocks.GetParameter(0))
                                    .To<IRelationalOperators>()
                                    .Is(false), then => then.OriginalBody(true));
                         }
@@ -409,9 +409,9 @@ public static class Weaver_Property
                             {
                                 var fieldOrVariable = interceptorFields[item.Attribute.Identification] as CecilatorBase ?? @try.AssociatedMethod.GetVariable(item.Attribute.Identification);
                                 return coder.Load<ICasting>(fieldOrVariable)
-                                      .As(legalSetterInterceptors[i].InterfaceSetter.ToBuilderType)
+                                      .As(legalSetterInterceptors[i].InterfaceSetter)
                                       .To<ICallMethod<BooleanExpressionCallCoder>>()
-                                      .Call(item.InterfaceSetter.OnSet, propertyField, member.Property.BackingField, CodeBlocks.GetParameter(0));
+                                      .Call(item.InterfaceSetter.GetMethod_OnSet(), propertyField, member.Property.BackingField, CodeBlocks.GetParameter(0));
                             }).Is(false), then => then.OriginalBody());
                     }
 
@@ -424,9 +424,9 @@ public static class Weaver_Property
                         {
                             var fieldOrVariable = interceptorFields[y.Attribute.Identification] as CecilatorBase ?? ex.AssociatedMethod.GetVariable(y.Attribute.Identification);
                             return coder.Load<ICasting>(fieldOrVariable)
-                                .As(legalSetterInterceptors[i].InterfaceSetter.ToBuilderType)
+                                .As(legalSetterInterceptors[i].InterfaceSetter)
                                 .To<ICallMethod<BooleanExpressionCallCoder>>()
-                                .Call(legalSetterInterceptors[i].InterfaceSetter.OnException, e());
+                                .Call(legalSetterInterceptors[i].InterfaceSetter.GetMethod_OnException(), e());
                         }).Is(true), then => ex.NewCoder().Rethrow())
                     .DefaultValue()
                     .Return();
@@ -438,9 +438,9 @@ public static class Weaver_Property
                         var item = legalSetterInterceptors[i];
                         var fieldOrVariable = interceptorFields[item.Attribute.Identification] as CecilatorBase ?? x.AssociatedMethod.GetVariable(item.Attribute.Identification);
                         x.Load<ICasting>(fieldOrVariable)
-                            .As(legalSetterInterceptors[i].InterfaceSetter.ToBuilderType)
+                            .As(legalSetterInterceptors[i].InterfaceSetter)
                             .To<ICallMethod<CallCoder>>()
-                            .Call(legalSetterInterceptors[i].InterfaceSetter.OnExit);
+                            .Call(legalSetterInterceptors[i].InterfaceSetter.GetMethod_OnExit());
                     }
 
                     return x;
@@ -485,8 +485,6 @@ public static class Weaver_Property
 
     private static void CreateSetterDelegate(Builder builder, Method setterDelegateMethod, BuilderType propertyType, object value)
     {
-        var extensions = new __Extensions();
-        var iList = new __IList();
         var setterCode = setterDelegateMethod.NewCoder();
 
         T CodeMe<T>(Func<Field, T> fieldCode, Func<Property, T> propertyCode) where T : class
@@ -507,16 +505,16 @@ public static class Weaver_Property
         // Only this if the property implements idisposable
         if (propertyType.Implements(typeof(IDisposable)))
             CodeMe(
-                field => setterCode.Call(extensions.TryDisposeInternal, x => x.Load(field)),
-                property => setterCode.Call(extensions.TryDisposeInternal, x => x.Call(property.Getter)));
+                field => setterCode.Call(BuilderTypes2.Extensions.GetMethod_TryDisposeInternal(), x => x.Load(field)),
+                property => setterCode.Call(BuilderTypes2.Extensions.GetMethod_TryDisposeInternal(), x => x.Call(property.Getter)));
 
         setterCode.If(x => x.Load(CodeBlocks.GetParameter(0)).IsNull(), then =>
         {
             // Just clear if its clearable
-            if (propertyType.Implements(__IList.Type.Fullname))
+            if (propertyType.Implements(BuilderTypes.IList))
                 CodeMe(
-                    field => setterCode.Load(field).Call(iList.Clear).Return(),
-                    property => setterCode.Call(property.Getter).Call(iList.Clear).Return());
+                    field => setterCode.Load(field).Call(BuilderTypes.IList.GetMethod_Clear()).Return(),
+                    property => setterCode.Call(property.Getter).Call(BuilderTypes.IList.GetMethod_Clear()).Return());
             // Otherwise if the property is not a value type and nullable
             else if (!propertyType.IsValueType || propertyType.IsNullable || propertyType.IsArray)
                 CodeMe<CoderBase>(
@@ -535,7 +533,7 @@ public static class Weaver_Property
                    field => then.SetValue(field, CodeBlocks.GetParameter(0)).Return(),
                    property => then.Call(property.Setter, CodeBlocks.GetParameter(0)).Return()));
 
-        if (propertyType.Implements(__IList.Type.Fullname))
+        if (propertyType.Implements(BuilderTypes.IList))
         {
             var add = propertyType.GetMethod("Add", 1);
             var array = setterDelegateMethod.GetOrCreateVariable(propertyType.ChildType.MakeArray());

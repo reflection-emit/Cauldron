@@ -55,6 +55,32 @@ namespace Cauldron.Interception.Cecilator
         }
     }
 
+    public partial class BuilderTypeEventHandler1
+    {
+        private Method var_invoke_0_2;
+
+        public Method GetMethod_Invoke()
+        {
+            if (this.var_invoke_0_2 == null)
+                this.var_invoke_0_2 = this.builderType.GetMethod("Invoke", 2, true).Import();
+
+            return this.var_invoke_0_2;
+        }
+    }
+
+    public partial class BuilderTypeICollection1
+    {
+        private Method _add;
+
+        public Method GetMethod_Add()
+        {
+            if (this._add == null)
+                this._add = this.builderType.GetMethod("Add", 1, true).Import();
+
+            return this._add;
+        }
+    }
+
     public partial class BuilderTypeMethodBase
     {
         public Method GetMethod_GetMethodFromHandle()

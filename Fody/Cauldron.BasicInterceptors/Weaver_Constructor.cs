@@ -1,7 +1,6 @@
 ﻿using Cauldron.Interception.Cecilator;
 using Cauldron.Interception.Cecilator.Coders;
 using Cauldron.Interception.Fody;
-using Cauldron.Interception.Fody.HelperTypes;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,7 +12,7 @@ public static class Weaver_Constructor
 
     static Weaver_Constructor()
     {
-        constructorInterceptionAttributes = Builder.Current.FindAttributesByInterfaces(__IConstructorInterceptor.Type.Fullname);
+        constructorInterceptionAttributes = Builder.Current.FindAttributesByInterfaces(BuilderTypes2.IConstructorInterceptor.BuilderType.Fullname);
     }
 
     [Display("Constructor Interception")]
@@ -22,15 +21,11 @@ public static class Weaver_Constructor
         if (!constructorInterceptionAttributes.Any())
             return;
 
-        var iConstructorInterceptor = new __IConstructorInterceptor();
-        var syncRoot = new __ISyncRoot();
-        var exception = new __Exception();
-
         var constructors = builder
             .FindMethodsByAttributes(constructorInterceptionAttributes)
             .Where(x => !x.Method.OriginType.IsInterface)
             .GroupBy(x => new MethodKey(x.Method, null))
-            .Select(x => new MethodBuilderInfo<MethodBuilderInfoItem<__IConstructorInterceptor>>(x.Key, x.Select(y => new MethodBuilderInfoItem<__IConstructorInterceptor>(y, iConstructorInterceptor))))
+            .Select(x => new MethodBuilderInfo<MethodBuilderInfoItem<BuilderTypeIConstructorInterceptor>>(x.Key, x.Select(y => new MethodBuilderInfoItem<BuilderTypeIConstructorInterceptor>(y, BuilderTypes2.IConstructorInterceptor))))
             .ToArray();
 
         foreach (var constructor in constructors)
@@ -57,10 +52,10 @@ public static class Weaver_Constructor
                 for (int i = 0; i < constructor.Items.Length; i++)
                 {
                     var item = constructor.Items[i];
-                    localVariables[i] = contextCoder.AssociatedMethod.GetOrCreateVariable(item.Interface.ToBuilderType);
+                    localVariables[i] = contextCoder.AssociatedMethod.GetOrCreateVariable(item.Interface.BuilderType);
 
                     contextCoder.SetValue(localVariables[i], x => x.NewObj(item.Attribute));
-                    contextCoder.Load(localVariables[i]).Call(item.Interface.OnBeforeInitialization, targetedConstrutor.OriginType, targetedConstrutor, parametersArray);
+                    contextCoder.Load(localVariables[i]).Call(item.Interface.GetMethod_OnBeforeInitialization(), targetedConstrutor.OriginType, targetedConstrutor, parametersArray);
 
                     item.Attribute.Remove();
                 }
@@ -94,14 +89,14 @@ public static class Weaver_Constructor
                     for (int i = 0; i < constructor.Items.Length; i++)
                     {
                         var item = constructor.Items[i];
-                        x.Load(localVariables[i]).Call(item.Interface.OnEnter, targetedConstrutor.OriginType, CodeBlocks.This, targetedConstrutor, parametersArray);
+                        x.Load(localVariables[i]).Call(item.Interface.GetMethod_OnEnter(), targetedConstrutor.OriginType, CodeBlocks.This, targetedConstrutor, parametersArray);
                     }
 
                     return x;
                 })
-                .Catch(exception.ToBuilderType, (ex, e) =>
+                .Catch(BuilderTypes.Exception.BuilderType, (ex, e) =>
                 {
-                    return ex.If(x => x.Or(constructor.Items, (coder, y, i) => coder.Load(localVariables[i]).Call(y.Interface.OnException, e())).Is(true),
+                    return ex.If(x => x.Or(constructor.Items, (coder, y, i) => coder.Load(localVariables[i]).Call(y.Interface.GetMethod_OnException(), e())).Is(true),
                             then => ex.NewCoder().Rethrow())
                         .DefaultValue()
                         .Return();
@@ -109,7 +104,7 @@ public static class Weaver_Constructor
                 .Finally(x =>
                 {
                     for (int i = 0; i < constructor.Items.Length; i++)
-                        x.Load(localVariables[i]).Call(constructor.Items[i].Interface.OnExit);
+                        x.Load(localVariables[i]).Call(constructor.Items[i].Interface.GetMethod_OnException());
                     return x;
                 })
                 .EndTry()
